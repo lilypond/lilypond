@@ -1542,7 +1542,7 @@ take some time before your request or contribution is handled.
 @node Getting started with documentation translation
 @subsection Getting started with documentation translation
 
-First, get the sources of branch @code{lilypond/translation} from the
+First, get the sources of branch @code{translation} from the
 Git repository, see @ref{Starting with Git}.
 
 @menu
@@ -2235,19 +2235,19 @@ translations to Git.
 
 @itemize
 @item Translation changes matching master branch are preferably made on
-@code{lilypond/translation} branch; they may be pushed directly to
+@code{translation} branch; they may be pushed directly to
 @code{master} only if they do not break compilation of LilyPond and
 its documentation, and in this case they should be pushed to
-@code{lilypond/translation} too.  Similarly, changes matching
+@code{translation} too.  Similarly, changes matching
 @code{stable/X.Y} are preferably made on
 @code{lilypond/X.Ytranslation}.
 
-@item @code{lilypond/translation} Git branch may be merged into
+@item @code{translation} Git branch may be merged into
 master only if LilyPond (@command{make all}) and documentation
 (@command{make doc}) compile successfully.
 
 @item @code{master} Git branch may be merged into
-@code{lilypond/translation} whenever @command{make} and @command{make
+@code{translation} whenever @command{make} and @command{make
 doc} are successful (in order to ease documentation compilation by
 translators), or when significant changes had been made in
 documentation in English in master branch.

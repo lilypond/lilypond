@@ -673,7 +673,7 @@ make info
 @end example
 
 @noindent
-An issue when switching branches between master and lilypond/translation
+An issue when switching branches between master and translation
 is the appearance/disappearance of translated versions of some manuals.
 If you see such a warning from make:
 

@@ -619,13 +619,13 @@ development releases), the documentation (and its translations),
 and the website.  Generally, the @code{master} branch is expected
 to compile successfully.
 
-The @code{lilypond/translation} branch is a side branch that
+The @code{translation} branch is a side branch that
 allows translators to work without needing to worry about
 compilation problems.  Periodically, the Translation Meister
 (after verifying that it doesn't break compilation), will
 @emph{merge} this branch back into @code{master} to incorporate
 recent translations.  Similarly, the @code{master} branch is
-usually merged into the @code{lilypond/translation} branch after
+usually merged into the @code{translation} branch after
 significant changes to the English documentation.  See
 @ref{Translating the documentation} for details.
 
@@ -673,11 +673,11 @@ git remote add -ft master -m master \
   origin git://git.sv.gnu.org/lilypond.git/
 @end example
 
-To download the @code{lilypond/translation} branch, enter:
+To download the @code{translation} branch, enter:
 
 @example
-git remote add -ft lilypond/translation -m \
-  lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
+git remote add -ft translation -m \
+  translation origin git://git.sv.gnu.org/lilypond.git/
 @end example
 
 The @command{git@tie{}remote@tie{}add} process could take up to
@@ -715,7 +715,7 @@ git checkout -b @var{branch} origin/@var{branch}
 
 @noindent
 where @code{@var{branch}} is the name of your tracking branch,
-either @code{master} or @code{lilypond/translation}.
+either @code{master} or @code{translation}.
 
 Git will issue some warnings; this is normal:
 
@@ -899,7 +899,7 @@ changed committishes in the head of translated files using commits
 you have not yet pushed to @code{git.sv.gnu.org}, please do not
 rebase.  If you want to avoid wondering whether you should rebase
 each time you pull, please always use committishes from master
-and/or lilypond/translation branch on @code{git.sv.gnu.org}, which
+and/or translation branch on @code{git.sv.gnu.org}, which
 in particular implies that you must push your changes to
 documentation except committishes updates (possibly after having
 rebased), then update the committishes and push them.}
@@ -1021,10 +1021,10 @@ If any conflict happens, see @ref{Resolving conflicts}.
 
 There are common usage cases for merging: as a translator, you
 will often want to merge @code{master} into
-@code{lilypond/translation}; on the other hand, the Translations
-meister wants to merge @code{lilypond/translation} into
+@code{translation}; on the other hand, the Translations
+meister wants to merge @code{translation} into
 @code{master} whenever he has checked that
-@code{lilypond/translation} builds successfully.
+@code{translation} builds successfully.
 
 
 @node Commits and patches
@@ -1436,7 +1436,7 @@ in learning more about git.}
 
 It is possible to work with several branches on the same local Git
 repository; this is especially useful for translators who may have
-to deal with both @code{lilypond/translation} and a stable branch,
+to deal with both @code{translation} and a stable branch,
 e.g. @code{stable/2.12}.
 
 Some Git commands are introduced first, then a workflow with
@@ -1482,7 +1482,7 @@ git pull git://git.sv.gnu.org/lilypond.git/ @var{branch}:origin/@var{branch}
 
 @noindent
 where @code{@var{branch}} is typically @code{master} or
-@code{lilypond/translation}; if you do not know or remember, see
+@code{translation}; if you do not know or remember, see
 @ref{Downloading remote branches} to remember which commands you
 issued or which source code you wanted to get.
 
@@ -1612,7 +1612,7 @@ current branch.  For example, if your current branch is
 @subsubheading Local clones, or having several working trees
 
 If you play with several Git branches, e.g. @code{master},
-@code{lilypond/translation}, @code{stable/2.12}), you may want to
+@code{translation}, @code{stable/2.12}), you may want to
 have one source and build tree for each branch; this is possible
 with subdirectories of your local Git repository, used as local
 cloned subrepositories.  To create a local clone for the branch
