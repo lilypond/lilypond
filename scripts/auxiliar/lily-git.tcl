@@ -30,7 +30,7 @@ if {$translator == 1} {
         "LilyPond Translator's Git Interface version $version"
     set updateButtonText "1. Update translation"
     set initializeButtonText "1. Get translation"
-    set originHead "lilypond/translation"
+    set originHead "translation"
     set pushHead $originHead
     set rebase 0
 } else {

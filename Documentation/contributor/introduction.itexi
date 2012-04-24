@@ -124,7 +124,7 @@ base your work from this, but do @strong{not push} to it.
 @item @code{staging}:
 after a successful review (see below), push here.
 
-@item @code{lilypond/translation}:
+@item @code{translation}:
 translators should base their work from this, and also push to it.
 
 @item @code{dev/foo}:
