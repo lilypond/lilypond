@@ -69,6 +69,9 @@ del Código de Google).
 @item
 @ref{Noticias antiguas}: el archivo.
 
+@item
+@ref{Desván}: anuncios y registros de cambios en versiones antiguas.
+
 @end itemize
 @divEnd
 
@@ -86,6 +89,7 @@ del Código de Google).
 * Autores::
 * Publicaciones::
 * Noticias antiguas::
+* Desván::
 @end menu
 @divEnd
 
@@ -886,8 +890,9 @@ están en @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading ¿Qué es el Google Summer of Code (Verano del Código de Google)?
 
-Citando a
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, GSoC website},
+Citando la
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+página web del GSoC},
 @qq{El Verano del Código de Google es un programa global que ofrece a
 estudiantes una ayuda para que escriban código con destino a proyectos
 de fuentes abiertas.  Google ha trabajado con la comunidad de Fuentes
@@ -959,7 +964,7 @@ desde el evento musical a la etiqueta XML
 Hacer que todos los grabadores de LilyPond hagan su trabajo
 
 @item
-añadir la posibilidad de enlazar cada objeto de presentación
+Añadir la posibilidad de enlazar cada objeto de presentación
 (básicamente cada sello o grupo de sellos) a la causa musical (así
 como a la etiqueta XML dentro del árbol XML)
 
@@ -981,7 +986,7 @@ exportada de nuevo sin ninguna pérdida de datos no intencionada.
 
 @strong{Mentor(es):} Reinhold Kainhofer, Mike Solomon
 
-sería un buen tanto a su favor la familiaridad con otros editores de
+Sería un buen tanto a su favor la familiaridad con otros editores de
 partituras para poder hacer pruebas cruzadas.
 
 @subheading Mejora de las ligaduras de unión y de expresión
@@ -1022,8 +1027,9 @@ variantes, con el orificio pequeño y grande.
 Debería mejorarse el posicionamiento predeterminado de las barras de
 corchea (y figuras menores) normales, de pentagrama cruzado,
 interrumpidas y en ángulo.  El barrado debería depender del contexto y
-de las notas vecinas (véase
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, la sección 2.2}).
+de las notas vecinas (véase la
+@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
+sección 2.2}).
 Si es posible, reducir el tiempo de cálculo del barrado.
 
 @strong{Dificultad:} media
@@ -1040,20 +1046,20 @@ Si es posible, reducir el tiempo de cálculo del barrado.
 @itemize
 
 @item
-afinación no monótona de las cuerdas, como en el ukelele
+Afinación no monótona de las cuerdas, como en el ukelele
 
 @item
-crear un modo de entrada de tablatura (actualmente la información
+Crear un modo de entrada de tablatura (actualmente la información
 musical se introduce en términos de notación occidental convencional,
 es decir @qq{un Fa sostenido negra} y después se convierte a
 tablatura) para la transcripción de tablatura medieval para laúd
 
 @item
-implementación de funcionalidades de la tablatura moderna, como
+Implementación de funcionalidades de la tablatura moderna, como
 curvaturas de tono, pull-offs y hammer-on
 
 @item
-si está definida la forma de un diagrama de posición para un acorde
+Si está definida la forma de un diagrama de posición para un acorde
 dado, usar esta información cuando se imprime el acorde sobre la pauta
 (y no sólo imprimir la forma predeterminada del acorde)
 
@@ -1191,9 +1197,7 @@ actualmente.
 @divEnd
 
 @divClass{column-center-bottom}
-
 @subheading Lo que otros han hecho con LilyPond
-
 
 @divClass{keep-bullets}
 
@@ -1209,6 +1213,67 @@ actualmente.
 @unnumberedsec Noticias antiguas
 @translationof Old news
 
+@divClass{heading-center}
+@warning{Hay muchos anuncios y registros de cambio antiguos en el
+@ref{Desván}}
+@divEnd
+
 @include web/news-front.itexi
 
 @include web/news.itexi
+
+
+@node Desván
+@unnumberedsec Desván
+@translationof Attic
+
+@divClass{column-center-top}
+@subheading Anuncios
+
+Anuncios y noticias por versión:
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
+@miscLink{announce-v2.12,v2.12},
+@miscLink{announce-v2.10,v2.10},
+@miscLink{announce-v2.8,v2.8},
+@miscLink{announce-v2.6,v2.6},
+@miscLink{announce-v2.4,v2.4},
+@miscLink{announce-v2.2,v2.2},
+@miscLink{announce-v2.0,v2.0},
+@miscLink{ANNOUNCE-1.2,v1.2},
+@miscLink{ANNOUNCE-1.0,v1.0},
+@miscLink{ANNOUNCE-0.1,v0.1}
+
+Lista descriptiva de los cambios por versión:
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@miscLink{NEWS-1.4,v1.4},
+@miscLink{NEWS-1.2,v1.2}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Registros de cambios
+
+Registros de cambios de los desarrolladores, por versión:
+@miscLink{ChangeLog-2.10,v2.10},
+@miscLink{ChangeLog-2.3,v2.3},
+@miscLink{ChangeLog-2.1,v2.1},
+@miscLink{ChangeLog-1.5,v1.5 (1)},
+@miscLink{CHANGES-1.5,v1.5 (2)},
+@miscLink{CHANGES-1.4,v1.4},
+@miscLink{CHANGES-1.3,v1.3},
+@miscLink{CHANGES-1.2,v1.2},
+@miscLink{CHANGES-1.1,v1.1},
+@miscLink{CHANGES-1.0,v1.0},
+@miscLink{CHANGES-0.1,v0.1},
+@miscLink{CHANGES-0.0,v0.0}
+
+@divEnd
