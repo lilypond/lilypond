@@ -857,7 +857,7 @@ siehe @ref{LilyPond Scheme-Syntax}.
 
 Auf jeden Fall findet die Auswertung des Scheme-Codes spätestens im Parser
 statt.  Wenn man es noch später ausgeführt haben möchte, muss man 
-@ref{Leere Funktionen} benutzen oder es in einem Makro speichern:
+@ref{Leere Scheme-Funktionen} benutzen oder es in einem Makro speichern:
 
 @example
 #(define (nopc)
