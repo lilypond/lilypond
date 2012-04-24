@@ -10,6 +10,20 @@
 
 
 @newsItem
+@subsubheading LilyPond takes part in Google Summer of Code 2012!  @emph{April 25, 2012}
+
+Being a part of @uref{http://www.gnu.org/, GNU project}, we are participating in
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+Google Summer of Code program}, which offers students stipends for
+working on open source software.
+
+Our contributor Janek Warchoł was accepted for 2012 edition of GSoC.
+He will be working on advanced lyrics positioning in LilyPond.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 5 of 2.16 - LilyPond 2.15.37 released!  @emph{April 19, 2012}
 
 LilyPond 2.15.37 is out; this is the fifth release candidate of
