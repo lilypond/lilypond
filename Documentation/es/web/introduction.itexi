@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b6731e900a2037112364ad328b8e3b2f7bcd1eb0
+    Translation of GIT committish: e7e1055a07be871d376c74e58c276357148a112b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -519,20 +519,48 @@ de texto}.
 @divClass{column-left-top}
 @subheading Conciertos
 
-La música grabada con LilyPond se ha utilizado en interpretaciones y
+La música tipografiada con LilyPond se ha utilizado en interpretaciones y
 actuaciones por todo el mundo.  Algunos titulares:
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-@emph{Affaire Étrangère}, ópera de
-@uref{http://valentin.villenave.net/,Valentin Villenave}, con
-libreto en francés de
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
-estrenada el 1 de febrero de 2009 en
-@uref{http://www.opera-montpellier.com/, L'Opéra National de
-Montpellier}, en Francia.
+Los @emph{Cuadros de una exposición} de Mussorgsky, reorquestados y
+dirigidos por @uref{http://www.aurelienbello.com/,Aurélien Bello} con
+la orquesta @uref{http://www.junge-philharmonie-brandenburg.de/, Junge
+Philharmonie Brandenburg} el 10 de octubre de 2011 y otra vez los días
+15 y 16 de abril de 2012.
+
+@item
+@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositor
+y director musical.  Entre sus numerosas obras recientes están
+@emph{Go Thy Way}, interpretada por el coro
+@uref{http://www.saltlakechoralartists.org/, Salt Lake Choral Artists}
+en marzo de 2012; La @emph{Just Out of Reach Suite} interpretada por el
+@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Dúo Chrysalis} ; @emph{thrafsmata} interpretada en julio de 2011 por
+el @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html,
+Pittsburgh New Music Ensemble}.
+
+
+@item
+@emph{Anonymous Student Compliment or Complaint}, de
+@uref{http://www.mikesolomon.org, Mike Solomon}, ganador de entre 172
+participantes procedentes de 22 países del
+@uref{http://leftcoastensemble.org/contest, concurso de composición
+Left Coast de 2011}.  Entre otras obras están: Norman (age 1) para
+clarinete solo, interpretada en el festival de música electroacústica
+(FEMF) de la @uref{emu.music.ufl.edu/fems_concerts.html, Universidad
+de Florida} en octubre de 2010.
+
+@item
+Una edición moderna de la @emph{Serenata Erminia} de Alessandro
+Scarlatti, editada por el musicólogo Thomas Griffin, (Roma, Italia).
+Interpretada el 22 de octubre de 2010 en la Galleria del Palazzo
+Zevallos Stigliano de Nápoles.  @uref{http://www.ascarlatti2010.net,
+Alessandro Scarlatti 2010}, durante las conmemoraciones de los 350
+años del nacimiento del compositor.
 
 @item
 La interpretación de
@@ -547,10 +575,12 @@ Renz y su conjunto @uref{http://www.earlymusicny.org/, Early Music New
 York} (realización tipográfica de Nicolas Sceaux).
 
 @item
-Los @emph{Cuadros de una exposición} de Mussorgsky, reorquestados y
-dirigidos por @uref{http://www.aurelienbello.com/,Aurélien Bello} con
-la orquesta @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
-el 10 de octubre de 2011 y otra vez los días 15 y 16 de abril de 2012.
+@emph{Affaire Étrangère}, ópera de
+@uref{http://valentin.villenave.net/,Valentin Villenave}, con libreto
+en francés de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim,
+Lewis Trondheim}, estrenada el 1 de febrero de 2009 en
+@uref{http://www.opera-montpellier.com/, L'Opéra National de
+Montpellier}, en Francia.
 
 @end itemize
 @divEnd

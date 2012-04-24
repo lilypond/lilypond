@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: c9eaefea18957fe2b148fc990509065832dccdd0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1495,11 +1495,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1575,11 +1575,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1648,11 +1648,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1713,11 +1713,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1775,11 +1775,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1840,11 +1840,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1901,11 +1901,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1965,11 +1965,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2025,11 +2025,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2083,11 +2083,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2140,11 +2140,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2200,11 +2200,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2257,11 +2257,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2316,11 +2316,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2377,11 +2377,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2436,11 +2436,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2495,11 +2495,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
