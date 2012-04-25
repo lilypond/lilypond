@@ -129,14 +129,6 @@
 	(cons root (map expand-event-tree (cdr children)))
 	root)))
 
-;; All leaf event classes that no translator listens to
-;; directly.  Avoids printing a warning.
-(define unlistened-music-event-classes
-  '(harmonic-event line-break-event page-break-event page-turn-event label-event
-		   solo-one-event solo-two-event skip-event unisono-event
-		   part-combine-force-event break-dynamic-span-event
-		   stroke-finger-event))
-
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?
 (define music-event-tree (expand-event-tree 'music-event))
@@ -156,22 +148,6 @@
 
 ;;(use-modules (ice-9 pretty-print))
 ;;(pretty-print (cons (car music-event-tree) (sort-tree (cdr music-event-tree))))
-
-;; check that the music event tree corresponds well with the set of
-;; available translators; print warnings otherwise.
-(map-tree (lambda (sym)
-	    (if (and (symbol? sym)
-		     (not (ly:is-listened-event-class sym))
-		     (not (assq sym event-classes))
-		     (not (memq sym unlistened-music-event-classes)))
-		(ly:programming-error (_ "event class ~A seems to be unused") sym)))
-	  music-event-tree)
-
-(map (lambda (sym)
-       (if (not (pair? (ly:make-event-class sym)))
-	   ;; should be programming-error
-	   (ly:error (_ "translator listens to nonexisting event class ~A") sym)))
-     (ly:get-listened-event-classes))
 
 (defmacro-public make-stream-event (expr)
   (Stream_event::undump (primitive-eval (list 'quasiquote expr))))

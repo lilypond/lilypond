@@ -168,9 +168,9 @@ Dispatcher::dispatch (SCM sev)
 }
 
 bool
-Dispatcher::is_listened (Stream_event *ev)
+Dispatcher::is_listened_class (SCM cl)
 {
-  for (SCM cl = ev->get_property ("class"); scm_is_pair (cl); cl = scm_cdr (cl))
+  for (; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       SCM list = scm_hashq_ref (listeners_, scm_car (cl), SCM_EOL);
       if (scm_is_pair (list))
@@ -179,6 +179,23 @@ Dispatcher::is_listened (Stream_event *ev)
   return false;
 }
 
+static SCM
+accumulate_types (void * /* closure */,
+		  SCM key,
+		  SCM val,
+		  SCM result)
+{
+  if (scm_is_pair (val))
+    return scm_cons (key, result);
+  return result;
+}
+
+SCM
+Dispatcher::listened_types ()
+{
+  return scm_internal_hash_fold ((scm_t_hash_fold_fn) &accumulate_types,
+                                 NULL, SCM_EOL, listeners_);
+}
 
 void
 Dispatcher::broadcast (Stream_event *ev)
