@@ -13,9 +13,9 @@
 
   texidoces = "
 Los deslizamientos para acordes se pueden indicar tanto en el contexto
-Staff como en TabStaff.  Los números de cuerda son necesarios para
-TabStaff porque los cálculos de cuerda automáticos son diferentes para
-los acordes y para notas sueltas.
+@code{Staff} como en @code{TabStaff}.  Los números de cuerda son
+necesarios para TabStaff porque los cálculos de cuerda automáticos son
+diferentes para los acordes y para notas sueltas.
 
 "
 

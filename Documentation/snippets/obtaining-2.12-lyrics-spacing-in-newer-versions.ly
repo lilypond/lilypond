@@ -7,6 +7,32 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
+  texidoces = "
+El motor de espaciado vertical cambió en la versión 2.14.  Esto puede
+hacer que se altere el espaciado de la letra de las canciones.  Es
+posible fijar propiedades para los contextos @code{Lyric} y
+@code{Staff} de forma que el motor de espaciado se comporte como lo
+hacía en la versión 2.12.
+
+"
+
+  doctitlees = "Conseguir el espaciado de la letra de la versión 2.12
+  en versiones más recientes"
+
+
+%% Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+  texidocfr = "
+La version 2.14 a donné naissance à un nouveau moteur pour l'espacement
+vertical des paroles.  Celles-ci peuvent donc se retrouver positionnées
+différemment.  Le moteur adoptera les usages de la version 2.12 une fois
+que vous aurez réglé certaines propriétés des contextes @code{Lyric} et
+@code{Staff}.
+
+"
+  doctitlefr = "Espacement des paroles selon les pratiques de la version 2.12"
+
+
   lsrtags = "vocal-music"
 
   texidoc = "
