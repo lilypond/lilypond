@@ -11,11 +11,12 @@
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
-No está especificada ninguna agrupación predeterminada automática
-de las barras para el compás de 7/8, de forma que si se requieren
-barras automáticas se debe especificar la forma de agrupamiento.
-Por ejemplo, para agrupar todas las barras en la forma 2-3-2 en el
-compás de 7/8, especificamos los finales de barra en 2/8 y 5/8:
+No está especificada ninguna agrupación predeterminada automática de
+las barras para el compás de 7/8, de forma que si se requieren barras
+automáticas se debe especificar el agrupamiento mediante
+<code>beatStructure</code>.  Por ejemplo, para agrupar todas las
+barras en la forma 2-3-2 en el compás de 7/8, especificamos los
+finales de barra en 2/8 y 5/8:
 
 "
   doctitlees = "Agrupamiento de las barras en el compás de 7/8"
