@@ -138,33 +138,32 @@ the Scheme function @code{event-chord-wrap!}  converts to the old
 representation; using one of those might be easiest for keeping legacy
 code operative.
 
-The advantages of making input and music match more closely are
-numerous: music functions previously worked differently when used inside
-or outside of chords.  Now they are the same, including all the
-possibilities of argument parsing.  You can now use music variables
-inside of chords: a construct like
+The following three items are consequences of this change.
+
+@item
+Music functions now work the same when used inside or outside of chords,
+including all the possibilities of argument parsing.  Music variables
+can be used inside of chords: a construct like
 @lilypond[verbatim,quote,ragged-right]
 tonic=fis'
 { <\tonic \transpose c g \tonic> }
 @end lilypond
 @noindent
-would have been unthinkable previously.  You can use
-@code{#@{@dots{}#@}} for constructing chord constituents.  Music
-functions inside of chords are no longer specially treated and thus
-accept the same arguments as outside of chords.  @code{\tweak} now works
-on single notes without needing to wrap them in a chord.  In theory, it
-can also work on command events and lyrics now.  Since that was not
-possible before, it depends on luck on a case-by-case basis whether the
-tweak internals are already receiving the necessary information.  Users
-are asked to report those cases where they find @code{\tweak} not
-working according to reasonable expectations.
+now works as expected.  One can use @code{#@{@dots{}#@}} for
+constructing chord constituents.  @code{\tweak} now works on single
+notes without needing to wrap them in a chord.  Using it on command
+events and lyrics is now possible, but not likely to give results yet.
 
 @item
-As one consequence, it was possible to reimplement the repetitive chord
-entry aid @code{q}.  Repeated chords are now replaced right before
-interpreting a music expression.  In case the user wants to retain
-some events of the original chord, he can run the repeat chord
-replacement function @code{\chordRepeats} manually.
+The repetitive chord entry aid @code{q} has been reimplemented.
+Repeated chords are now replaced right before interpreting a music
+expression.  In case the user wants to retain some events of the
+original chord, he can run the repeat chord replacement function
+@code{\chordRepeats} manually.
+
+@item
+String numbers and right hand fingerings on single notes now appear
+without having to be written inside of chord brackets.
 
 @item
 Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})

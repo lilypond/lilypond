@@ -173,6 +173,27 @@ Dispatcher::dispatch (SCM sev)
 #endif
 }
 
+bool
+Dispatcher::is_listened (Stream_event *ev)
+{
+  SCM class_symbol = ev->get_property ("class");
+  if (!scm_is_symbol (class_symbol))
+    {
+      warning (_ ("Event class should be a symbol"));
+      return false;
+    }
+
+  for (SCM cl = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
+       scm_is_pair (cl); cl = scm_cdr (cl))
+    {
+      SCM list = scm_hashq_ref (listeners_, scm_car (cl), SCM_EOL);
+      if (scm_is_pair (list))
+        return true;
+    }
+  return false;
+}
+
+
 void
 Dispatcher::broadcast (Stream_event *ev)
 {

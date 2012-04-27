@@ -578,10 +578,10 @@ In fact, a Voice layer or context is the only one which can contain
 music.  If a Voice context is not explicitly declared one is created
 automatically, as we saw at the beginning of this chapter.  Some
 instruments such as an Oboe can play only one note at a time.  Music
-written for such instruments is monophonic and requires just a single
-voice.  Instruments which can play more than one note at a time like
-the piano will often require multiple voices to encode the different
-concurrent notes and rhythms they are capable of playing.
+written for such instruments requires just a single voice.  Instruments
+which can play more than one note at a time like the piano will often
+require multiple voices to encode the different concurrent notes and
+rhythms they are capable of playing.
 
 A single voice can contain many notes in a chord, of course,
 so when exactly are multiple voices needed?  Look first at
@@ -616,7 +616,7 @@ The fragments must also be separated with double backward slashes,
 @code{\\}, to place them in separate voices.  Without these, the
 notes would be entered into a single voice, which would usually
 cause errors.  This technique is particularly suited to pieces of
-music which are largely monophonic with occasional short sections
+music which are largely homophonic with occasional short sections
 of polyphony.
 
 Here's how we split the chords above into two voices and add both
@@ -1027,22 +1027,21 @@ markup, ties, slurs, and dynamics:
 }
 @end lilypond
 
-Now let's look at three different ways to notate the same passage
-of polyphonic music, each of which is advantageous in different
+Now let's look at three different ways to notate the same passage of
+polyphonic music, each of which is advantageous in different
 circumstances, using the example from the previous section.
 
-An expression that appears directly inside a @code{<< >>} belongs
-to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
-construct).  This is useful when extra voices appear while the
-main voice is playing.  Here is a more correct rendition of our
-example.  The red diamond-shaped notes
-demonstrate that the main melody is now in a single voice context,
+An expression that appears directly inside a @code{<< >>} belongs to the
+main voice (but, note, @strong{not} in a @code{<< \\ >>} construct).
+This is useful when extra voices appear while the main voice is playing.
+Here is a more correct rendition of our example.  The red diamond-shaped
+notes demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<
