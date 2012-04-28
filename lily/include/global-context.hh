@@ -23,7 +23,7 @@
 #include "context.hh"
 #include "pqueue.hh"
 
-class Global_context : public virtual Context
+class Global_context : public Context
 {
   PQueue<Moment> extra_mom_pq_;
   Output_def *output_def_;
