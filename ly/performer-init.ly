@@ -35,6 +35,7 @@
   \name Global
   \accepts Score
   \description "Hard coded entry point for LilyPond.  Cannot be tuned."
+  EventClasses = #all-event-classes
 }
 
 \context {

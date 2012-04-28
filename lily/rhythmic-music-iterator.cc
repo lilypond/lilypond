@@ -47,7 +47,7 @@ Rhythmic_music_iterator::process (Moment m)
       descend_to_bottom_context ();
 
       Context *c = get_outlet ();
-      Stream_event *ev = get_music ()->to_event ();
+      Stream_event *ev = get_music ()->to_event (c);
       SCM arts = ev->get_property ("articulations");
 
       if (scm_is_pair (arts))

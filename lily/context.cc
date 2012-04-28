@@ -91,6 +91,7 @@ Context::Context ()
   definition_mods_ = SCM_EOL;
   event_source_ = 0;
   events_below_ = 0;
+  ancestor_lookup_ = SCM_UNDEFINED;
 
   smobify_self ();
 
@@ -452,9 +453,7 @@ be called from any other place than the send_stream_event macro.
 void
 Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
 {
-  Stream_event *e = new Stream_event
-    (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), type),
-     origin);
+  Stream_event *e = new Stream_event (make_event_class (type), origin);
   for (int i = 0; props[i]; i += 2)
     {
       e->set_property (props[i], props[i + 1]);
@@ -595,6 +594,14 @@ Context::get_score_context () const
     return 0;
 }
 
+SCM
+Context::make_event_class (SCM event_type)
+{
+  if (SCM_UNBNDP (ancestor_lookup_))
+    ancestor_lookup_ = get_global_context ()->ancestor_lookup_;
+  return scm_hashq_ref (ancestor_lookup_, event_type, SCM_EOL);
+}
+
 Output_def *
 Context::get_output_def () const
 {
@@ -662,6 +669,8 @@ Context::mark_smob (SCM sm)
 
   if (me->events_below_)
     scm_gc_mark (me->events_below_->self_scm ());
+
+  scm_gc_mark (me->ancestor_lookup_);
 
   return me->properties_scm_;
 }

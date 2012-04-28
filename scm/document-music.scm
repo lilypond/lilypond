@@ -16,6 +16,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(define doc-context (ly:make-global-context $defaultlayout))
+
 (define (music-props-doc)
   (make <texi-node>
     #:name "Music properties"
@@ -31,7 +33,7 @@
 (define music-types->names (make-hash-table 61))
 (filter-map (lambda (entry)
 	      (let* ((class (ly:camel-case->lisp-identifier (car entry)))
-		     (classes (ly:make-event-class class)))
+		     (classes (ly:make-event-class doc-context class)))
 		(if classes
 		    (map
 		     (lambda (cl)
@@ -88,7 +90,7 @@
   (let* ((namesym  (car obj))
 	 (props (cdr obj))
 	 (class (ly:camel-case->lisp-identifier namesym))
-	 (classes (ly:make-event-class class))
+	 (classes (ly:make-event-class doc-context class))
 	 (accept-list (if classes
 			  (human-listify
 			   (map ref-ify

@@ -72,46 +72,18 @@
 		(acons elt lineage alist))
 	      classlist class))))
 
-(define all-event-classes
-  (fold (lambda (elt classlist)
-	  (event-class-cons (cdr elt) (car elt) classlist))
-	'() event-classes))
-
-;; Maps event-class to a list of ancestors (inclusive)
-(define-public ancestor-lookup
-  (let ((h (make-hash-table (length all-event-classes))))
-    (for-each (lambda (ent) (hashq-set! h (car ent) ent))
-	      all-event-classes)
-    h))
-
-
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
 
-(define-public (define-event-class leaf heritage)
-  (cond
-   ((not (eq? leaf (car heritage)))
-    (ly:warning (_ "All classes must be the last in their matrilineal line.")))
-   ((not (equal? (cdr heritage)
-                 (list-head (hashq-ref ancestor-lookup (cadr heritage) '())
-                            (length (cdr heritage)))))
-    (ly:warning (_ "All classes must have a well-defined pedigree in the existing class hierarchy.")))
-   (else (hashq-set! ancestor-lookup
-                     leaf
-                     (cons leaf
-                           (hashq-ref ancestor-lookup
-                                      (cadr heritage)
-                                      '())))))
-  *unspecified*)
-
-;; TODO: Allow entering more complex classes, by taking unions.
-(define-public (ly:make-event-class leaf)
- (hashq-ref ancestor-lookup leaf))
-
 (define-public (ly:in-event-class? ev cl)
   "Does event @var{ev} belong to event class @var{cl}?"
   (memq cl (ly:event-property ev 'class)))
+
+(define-public all-event-classes
+  (fold (lambda (elt classlist)
+	  (event-class-cons (cdr elt) (car elt) classlist))
+	'() event-classes))
 
 ;; does this exist in guile already?
 (define (map-tree f t)
