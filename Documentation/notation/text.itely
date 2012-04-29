@@ -520,6 +520,7 @@ f1 d2 r
 @cindex font size
 @cindex text size
 
+@funindex \abs-fontsize
 @funindex \fontsize
 @funindex fontsize
 @funindex \smaller
@@ -529,38 +530,41 @@ f1 d2 r
 @funindex \magnify
 @funindex magnify
 
-The size of the characters can also be altered in different ways:
-@itemize
-@item
-the font size can be set to predefined standard sizes,
+The font size can be altered, relative to the global staff size, in a
+number of different ways
 
-@item
-the font size can be set to an absolute value,
+It can be set to predefined size,
 
-@item
-the font size can also be changed relatively to its previous value.
-@end itemize
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \huge Sinfonia }
+b1^\markup { \teeny da }
+b1-\markup { \normalsize camera }
+@end lilypond
 
-@noindent
-The following example demonstrates these three methods:
+It can be set relative to its previous value,
 
-@lilypond[quote,verbatim,relative=1]
-f1_\markup {
-  \tiny espressivo
-  \large e
-  \normalsize intenso
-}
-a^\markup {
-  \fontsize #5 Sinfonia
-  \fontsize #2 da
-  \fontsize #3 camera
-}
-bes^\markup { (con
-  \larger grande
-  \smaller emozione
-  \magnify #0.6 { e sentimento } )
-}
-d c2 r8 c bes a g1
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \larger Sinfonia }
+b1^\markup { \smaller da }
+b1-\markup { \magnify #0.6  camera }
+@end lilypond
+
+It can be increased or decreased relative to the value set by the
+global staff size,
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \fontsize #-2 Sinfonia }
+b1^\markup { \fontsize #1 da }
+b1-\markup { \fontsize #3 camera }
+@end lilypond
+
+It can also be set to a fixed point-size, regardless of the global staff
+size,
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \abs-fontsize #20 Sinfonia }
+b1^\markup { \abs-fontsize #8 da }
+b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
 @cindex subscript
@@ -570,6 +574,8 @@ d c2 r8 c bes a g1
 @funindex super
 @funindex \sub
 @funindex sub
+@funindex \normal-size-super
+@funindex normal-size-super
 
 Text may be printed as subscript or superscript.  By default these are
 printed in a smaller size, but a normal size can be used as well:

@@ -83,12 +83,6 @@ not!
 {piano-template-with-centered-lyrics.ly}
 
 
-@appendixsubsec Klavír s vystředěným označením hlasitosti
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
-
 @node Smyčcový kvartet
 @appendixsec Smyčcový kvartet
 @translationof String quartet

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0cc0c4fb20b70e717db7e8f43cbb0c1878cd8395
+    Translation of GIT committish: f71ede90de06fdc16dad9ed75f38558efe819080
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -105,9 +105,9 @@ Las opciones se escriben entre corchetes.
 Los ejemplos grandes se pueden grabar en archivos separados e
 introducirse con \verb+\lilypondfile+.
 
-\lilypondfile[quote,noindent]{screech-boink.ly}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(Si es necesario, sustituya @file{screech-boink.ly}
+(Si es necesario, sustituya @file{screech-and-boink.ly}
 por cualquier archivo @file{.ly}
 situado en el mismo directorio que este archivo.)
 
@@ -167,7 +167,7 @@ c'4 f16
 Los ejemplos grandes se pueden grabar en archivos separados e
 introducirse con @code{\lilypondfile}.
 
-@lilypondfile[quote,noindent]{screech-boink.ly}
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
 
 Si se requiere un campo @code{tagline}, ya sea predeterminado o
 personalizado, entonces el fragmento completo se debe incluir dentro
@@ -934,7 +934,7 @@ sencilla y es la que se recomienda@footnote{Observe que PDF@LaTeX{} y
 @LaTeX{}, y es por lo que explicamos las dos formas.}, y cualquiera
 que sea el método que utilice, podrá convertir fácilmente entre
 PostScript y PDF con herramientas como @command{ps2pdf} y
-@command{pdf2ps} que vienen incluidas con GhostScript.
+@command{pdf2ps} que vienen incluidas con Ghostscript.
 
 Para producir un archivo PDF por medio de PDF@LaTeX{}, utilice
 

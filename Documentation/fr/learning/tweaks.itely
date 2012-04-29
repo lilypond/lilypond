@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 60c131ebfe64fbc58d77e5ca66f70c60b1f0b8b2
+    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -235,9 +235,10 @@ très souvent omis.  Nous verrons plus tard dans quelles
 circonstances il doit impérativement être indiqué.
 
 Les sections ci-dessous traitent largement des propriétés et de leurs
-valeurs mais, pour illustrer la mise en forme et l'utilisation de ces
-commandes, nous nous limiterons à n'employer que quelques propriétés et
-valeurs simples, facilement compréhensibles.
+valeurs -- voir @ref{Types de propriétés} -- mais, pour illustrer la
+mise en forme et l'utilisation de ces commandes, nous nous limiterons à
+n'employer que quelques propriétés et valeurs simples, facilement
+compréhensibles.
 
 Nous ne parlerons dans l'immédiat ni du @code{#'}, qui précède
 toujours la propriété, ni du @code{#}, qui précède toujours la

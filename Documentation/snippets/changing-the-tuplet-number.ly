@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -54,6 +54,7 @@ be printed, or the tuplet number may be suppressed altogether.
 "
   doctitle = "Changing the tuplet number"
 } % begin verbatim
+
 
 \relative c'' {
   \times 2/3 { c8 c c }

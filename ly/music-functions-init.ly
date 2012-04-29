@@ -178,7 +178,7 @@ barNumberCheck =
 					 cbn n))))))
 
 bendAfter =
-#(define-music-function (parser location delta) (real?)
+#(define-event-function (parser location delta) (real?)
    (_i "Create a fall or doit of pitch interval @var{delta}.")
    (make-music 'BendAfterEvent
 	       'delta-step delta))
@@ -952,7 +952,7 @@ for time signatures of @var{time-signature}.")
    (revert-time-signature-setting time-signature))
 
 rightHandFinger =
-#(define-music-function (parser location finger) (number-or-string?)
+#(define-event-function (parser location finger) (number-or-string?)
    (_i "Apply @var{finger} as a fingering indication.")
 
    (make-music

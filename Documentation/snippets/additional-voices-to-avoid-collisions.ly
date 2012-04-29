@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "simultaneous-notes"
@@ -50,6 +50,7 @@ a variable using the Scheme function @code{context-spec-music}.
 "
   doctitle = "Additional voices to avoid collisions"
 } % begin verbatim
+
 
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 

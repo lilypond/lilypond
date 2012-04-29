@@ -1105,15 +1105,15 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{lyrics-old-spacing-settings.ly}
+{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @seealso
 学習マニュアル:
 @rlearning{合唱}
 
 記譜法リファレンス:
-@ref{コンテキスト レイアウトの順序},
-@ref{コンテキストを作成する}
+@ref{Context layout order},
+@ref{Creating contexts}
 
 @node 歌詞の水平方向の配置
 @unnumberedsubsubsec 歌詞の水平方向の配置
@@ -2205,10 +2205,10 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @rlearning{合唱}
 
 記譜法リファレンス:
-@ref{コンテキスト レイアウトの順序},
-@ref{譜をグループ化する},
-@ref{シェイプ符頭},
-@ref{単一譜の多声}
+@ref{Context layout order},
+@ref{Grouping staves},
+@ref{Shape note heads},
+@ref{Single-staff polyphony}
 
 コード断片集:
 @rlsr{Vocal music}

@@ -35,8 +35,11 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
   DECLARE_GROB_INTERFACE ();
+
+  static SCM internal_calc_y_offset (SCM smob, bool pure);
 };
 
 MAKE_SCHEME_CALLBACK (Flag, width, 1);
@@ -136,9 +139,24 @@ Flag::print (SCM smob)
   return flag.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, 3);
+SCM
+Flag::pure_calc_y_offset (SCM smob,
+                          SCM /* beg */,
+                          SCM /* end */)
+{
+  return internal_calc_y_offset (smob, true);
+}
+
 MAKE_SCHEME_CALLBACK (Flag, calc_y_offset, 1);
 SCM
 Flag::calc_y_offset (SCM smob)
+{
+  return internal_calc_y_offset (smob, false);
+}
+
+SCM
+Flag::internal_calc_y_offset (SCM smob, bool pure)
 {
   Grob *me = unsmob_grob (smob);
   Grob *stem = me->get_parent (X_AXIS);
@@ -147,7 +165,9 @@ Flag::calc_y_offset (SCM smob)
   Real blot
     = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-  Real y2 = stem->extent (stem, Y_AXIS)[d];
+  Real y2 = pure
+            ? stem->pure_height (stem, 0, INT_MAX)[d]
+            : stem->extent (stem, Y_AXIS)[d];
 
   return scm_from_double (y2 - d * blot / 2);
 }

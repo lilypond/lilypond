@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "repeats"
@@ -55,6 +55,7 @@ should appear; see also the @qq{Volta multi staff} snippet.
 "
   doctitle = "Adding volta brackets to additional staves"
 } % begin verbatim
+
 
 <<
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }

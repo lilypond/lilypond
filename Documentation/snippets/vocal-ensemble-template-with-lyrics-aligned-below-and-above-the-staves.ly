@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "text, vocal-music, contexts-and-engravers, template"
+  lsrtags = "template, vocal-music, text, contexts-and-engravers"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -62,6 +62,7 @@ using @code{alignAboveContext} and @code{alignBelowContext}.
 "
   doctitle = "Vocal ensemble template with lyrics aligned below and above the staves"
 } % begin verbatim
+
 
 global = {
   \key c \major

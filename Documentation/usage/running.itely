@@ -123,7 +123,7 @@ commands and have nothing to do with lilypond.
 
 
 @node Basic command line options for LilyPond
-@unnumberedsubsec Basic command line options for @command{lilypond}
+@unnumberedsubsec Basic command line options for LilyPond
 
 @cindex Invoking @command{lilypond}
 @cindex command line options for @command{lilypond}

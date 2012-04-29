@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, percussion"
+  lsrtags = "really-cool, real-music, percussion, contemporary-notation, rhythms"
 
   texidoc = "
 In the following snippet, two parts have a completely different time

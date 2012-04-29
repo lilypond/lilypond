@@ -876,7 +876,8 @@ manuals can be found at @url{http://lilypond.org}}
 @subheading What is Google Summer of Code?
 
 Quoting
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, GSoC website},
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+GSoC website},
 @qq{Google Summer of Code is a global program that offers students
 stipends to write code for open source projects.  Google has worked
 with the open source community to identify and fund exciting projects
@@ -884,12 +885,12 @@ for the upcoming summer.}
 
 The LilyPond Team decided that this is an excellent opportunity to find
 new contributors, encourage students already participating in LilyPond
-development to become more involved, and - last but not least - write some
-great code for the benefit of all!
+development to become more involved, and - last but not least - write
+some great code for the benefit of all!
 
 We are participating in GSoC as a part of GNU Project.  See
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html, GNU GSoC webpage}
-for information on how to participate.
+@uref{http://www.gnu.org/software/soc-projects/guidelines.html,
+GNU GSoC webpage} for information on how to participate.
 
 @divEnd
 
@@ -908,10 +909,11 @@ have basic music notation knowledge.
 
 Fix problems with synchronization of grace notes,
 together with all underlying architecture (see
-@uref{http://code.google.com/p/lilypond/issues/detail?id=34, issue 34 in our tracker}).
-Grace notes are confusing to LilyPond's timing because they're like
-going back in time.  This causes weird effects, especially when one staff
-has a grace note and the other doesn't.
+@uref{http://code.google.com/p/lilypond/issues/detail?id=34,
+issue 34 in our tracker}).  Grace notes are confusing to LilyPond's
+timing because they're like going back in time.  This causes weird
+effects, especially when one staff has a grace note and the other
+doesn't.
 
 @strong{Difficulty:} medium
 
@@ -942,7 +944,7 @@ add a connection from music event to XML tag
 Let all LilyPond engravers do their job
 
 @item
-add ability to link each output object
+Add ability to link each output object
 (basically each stencil / group of stencils) to the music cause
 (and thus to the XML tag in the XML tree)
 
@@ -953,8 +955,9 @@ for each output object to the XML tags
 @end itemize
 @divEnd
 
-The goal will be considered achieved when a (previously chosen) score could be
-imported from MusicXML and exported back with no unintentional loss of data.
+The goal will be considered achieved when a (previously chosen) score
+could be imported from MusicXML and exported back with no unintentional
+loss of data.
 
 @strong{Difficulty:} medium
 
@@ -962,7 +965,8 @@ imported from MusicXML and exported back with no unintentional loss of data.
 
 @strong{Mentor(s):} Reinhold Kainhofer, Mike Solomon
 
-familiarity with other scorewriters (for cross-testing) would be a nice bonus.
+Familiarity with other scorewriters (for cross-testing) would be a nice
+bonus.
 
 @subheading Improve slurs and ties
 
@@ -983,8 +987,8 @@ deciding on the intended output and writing the actual code.
 @subheading Adding special variant of font glyphs
 Adding on-staff-line, between-staff-line, shorter and narrower variants
 of some glyphs, for example accidentals, together with a generic
-infrasctucture to support them.  An example is ancient notation breve notehead
-coming in two variants, with smaller and bigger hole.
+infrastructure to support them.  An example is ancient notation breve
+notehead coming in two variants, with smaller and bigger hole.
 
 @strong{Difficulty:} easy
 
@@ -997,9 +1001,9 @@ coming in two variants, with smaller and bigger hole.
 @subheading Improve beaming
 
 Default positioning of regular, cross-staff, broken and kneed beams
-should be improved.  Beaming should depend on context and neighbor notes (see
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, section 2.2 here}).
-If possible, reduce beaming computation time.
+should be improved.  Beaming should depend on context and neighbor notes
+(see @uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
+section 2.2 here}).  If possible, reduce beaming computation time.
 
 @strong{Difficulty:} medium
 
@@ -1015,19 +1019,21 @@ If possible, reduce beaming computation time.
 @itemize
 
 @item
-non-monotonic string tunings, like Ukulele
+Non-monotonic string tunings, like Ukulele
 
 @item
-create tablature input mode (currently musical information is entered
+Create tablature input mode (currently musical information is entered
 in western-common-music-notation-terms, i.e. @qq{a quarter f sharp note}
-and then converted to tablature) for transcribing medieval lute tablature
+and then converted to tablature) for transcribing medieval lute
+tablature
 
 @item
-implement modern tablature features, such as bends, pull-off, hammer-on
+Implement modern tablature features, such as bends, pull-off, hammer-on
 
 @item
-if a fretboard shape is defined for a given chord, use this information when
-displaying the chord on the staff (and not just display a default chord shape)
+If a fretboard shape is defined for a given chord, use this information
+when displaying the chord on the staff (and not just display a default
+chord shape)
 
 @end itemize
 @divEnd
@@ -1044,10 +1050,10 @@ displaying the chord on the staff (and not just display a default chord shape)
 
 Clean up compiler warnings, static code analysis, and valgrind warnings.
 Automatic code analysis tools (warnings in @code{g++} and @code{clang})
-and analysis tools like valgrind memory leak detection and callgrind code
-profilers provide valuable information about possible flaws in C++ code.
-Cleaning these warnings would allow us to automatically reject any patch
-which introduced extra warnings.
+and analysis tools like valgrind memory leak detection and callgrind
+code profilers provide valuable information about possible flaws in C++
+code.  Cleaning these warnings would allow us to automatically reject
+any patch which introduced extra warnings.
 
 @strong{Difficulty:} medium
 
@@ -1192,28 +1198,38 @@ the @ref{Attic}}
 @subheading Announcements
 
 Announcements and news by version:
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
-@miscLink{announce-v2.12.de,v2.12 (German)},
-@miscLink{announce-v2.12.es,v2.12 (Spanish)},
-@miscLink{announce-v2.12.fr,v2.12 (French)},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
 @miscLink{announce-v2.6,v2.6},
 @miscLink{announce-v2.4,v2.4},
 @miscLink{announce-v2.2,v2.2},
 @miscLink{announce-v2.0,v2.0},
-@miscLink{NEWS-1.4,v1.4},
-@miscLink{NEWS-1.2,v1.2 (1)},
-@miscLink{ANNOUNCE-1.2,v1.2 (2)},
+@miscLink{ANNOUNCE-1.2,v1.2},
 @miscLink{ANNOUNCE-1.0,v1.0},
 @miscLink{ANNOUNCE-0.1,v0.1}
+
+Descriptive list of changes by version:
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@miscLink{NEWS-1.4,v1.4},
+@miscLink{NEWS-1.2,v1.2}
 
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading Changelogs
 
-Changelogs by version:
+Developpers' changelogs by version:
 @miscLink{ChangeLog-2.10,v2.10},
 @miscLink{ChangeLog-2.3,v2.3},
 @miscLink{ChangeLog-2.1,v2.1},

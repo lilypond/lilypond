@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1115,7 +1115,7 @@ d'initiation.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{lyrics-old-spacing-settings.ly}
+{obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
 
 @seealso
 Manuel d'initiation :

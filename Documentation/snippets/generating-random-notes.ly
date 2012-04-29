@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "pitches"
+  lsrtags = "really-cool, pitches, scheme-language"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -30,6 +30,7 @@ get different random note patterns, just change this number.
 "
   doctitle = "Generating random notes"
 } % begin verbatim
+
 
 \score {
   {

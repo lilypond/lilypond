@@ -28,7 +28,7 @@ c d e
 % TODO: These do not yet work, as \verb is explicitly disabled in lilypond-book for now!
 % \verb|\begin{lilypond}[fragment]c d e\end{lilypond}|
 
-% \verb+\lilypondfile[quote,noindent]{screech-boink.ly}+
+% \verb+\lilypondfile[quote,noindent]{screech-and-boink.ly}+
 
 Neither does a verbatim inside verb:
 

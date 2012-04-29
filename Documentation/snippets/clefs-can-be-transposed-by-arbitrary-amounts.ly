@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches"
@@ -15,6 +15,7 @@ Clefs can be transposed by arbitrary amounts, not just by octaves.
 "
   doctitle = "Clefs can be transposed by arbitrary amounts"
 } % begin verbatim
+
 
 \relative c' {
   \clef treble

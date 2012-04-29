@@ -19,7 +19,6 @@ letter-tablature-formatting.ly
 making-some-staff-lines-thicker-than-the-others.ly
 measure-counter.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
-modern-tab-text-clef.ly
 nesting-staves.ly
 non-traditional-key-signatures.ly
 orchestra,-choir-and-piano-template.ly
@@ -29,6 +28,7 @@ quoting-another-voice.ly
 removing-the-first-empty-line.ly
 setting-system-separators.ly
 tick-bar-lines.ly
+time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly
 tweaking-clef-properties.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly

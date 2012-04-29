@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -552,6 +552,7 @@ f1 d2 r
 @cindex caractères, taille
 @cindex texte, taille
 
+@funindex \abs-fontsize
 @funindex \fontsize
 @funindex fontsize
 @funindex \smaller
@@ -561,38 +562,41 @@ f1 d2 r
 @funindex \magnify
 @funindex magnify
 
-La taille des caractères se modifie de différentes manières@tie{}:
-@itemize
-@item
-à partir de l'une des tailles standard prédéfinies,
+La taille des caractères se modifie, relativement à la taille globale
+des portées, de différentes manières.
 
-@item
-en étant définie en valeur absolue,
+Vous pouvez adopter l'une des tailles prédéfinies, comme ici@tie{}:
 
-@item
-en adoptant une valeur relative à celle précédemment définie.
-@end itemize
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \huge Sinfonia }
+b1^\markup { \teeny da }
+b1-\markup { \normalsize camera }
+@end lilypond
 
-@noindent
-Voici une illustration de ces trois différentes méthodes@tie{}:
+Vous pouvez la modifier relativement à sa valeur précédente@tie{}:
 
-@lilypond[quote,verbatim,relative=1]
-f1_\markup {
-  \tiny espressivo
-  \large e
-  \normalsize intenso
-}
-a^\markup {
-  \fontsize #5 Sinfonia
-  \fontsize #2 da
-  \fontsize #3 camera
-}
-bes^\markup { (con
-  \larger grande
-  \smaller emozione
-  \magnify #0.6 { e sentimento } )
-}
-d c2 r8 c bes a g1
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \larger Sinfonia }
+b1^\markup { \smaller da }
+b1-\markup { \magnify #0.6  camera }
+@end lilypond
+
+Vous pouvez l'augementer ou la diminuer par rapport à la taille globale
+de portée@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \fontsize #-2 Sinfonia }
+b1^\markup { \fontsize #1 da }
+b1-\markup { \fontsize #3 camera }
+@end lilypond
+
+Vous pouvez lui attribuer une valeur arbitraire quelle que soit la
+taille de portée globale@tie{}:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \abs-fontsize #20 Sinfonia }
+b1^\markup { \abs-fontsize #8 da }
+b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
 @cindex indice
@@ -602,6 +606,8 @@ d c2 r8 c bes a g1
 @funindex super
 @funindex \sub
 @funindex sub
+@funindex \normal-size-super
+@funindex normal-size-super
 
 Vous pouvez imprimer du texte en indice ou en exposant.  Celui-ci sera
 dans un taille plus petite, mais rien ne s'oppose à ce que vous lui

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -47,6 +47,7 @@ context:
 "
   doctitle = "Creating arpeggios across notes in different voices"
 } % begin verbatim
+
 
 \new Staff \with {
   \consists "Span_arpeggio_engraver"

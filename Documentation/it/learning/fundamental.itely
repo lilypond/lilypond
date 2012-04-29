@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: fb04880077ab1b4107815ab50b171a97e2fd3772
+    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -673,8 +673,11 @@ Questo esempio ha solo due voci, ma si potrebbe usare lo stesso
 costrutto per scrivere tre o più voci aggiungendo più backslash.
 
 I contesti della voce hanno i nomi @code{"1"}, @code{"2"}, etc.
-In ogni contesto, la direzione verticale di legature di portamento,
-gambi, legature di valore, dinamica, etc., è impostata correttamente.
+I primi contesti impostano le voci @emph{più esterne}, la voce
+più alta nel contesto @code{"1"} e la più bassa nel @code{"2"}.  Le voci
+più interne vanno nei contesti @code{"3"} e @code{"4"}.  In ogni
+contesto, la direzione verticale di legature di portamento, gambi,
+legature di valore, dinamica, etc., è impostata correttamente.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -796,15 +799,18 @@ più complesse saranno spiegate tutte in sezioni successive.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -842,16 +848,17 @@ ignora quel che non capisci.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -868,9 +875,9 @@ della prima battuta in tre voci:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
-  >>
-  <c ees aes c>1
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -889,34 +896,32 @@ paio di @code{\\}:
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  << % Voice one
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\ % Voice two
-    { aes2 f4 fes   }
-  \\ % Omit Voice three
-  \\ % Voice four
-    { <ees c>2 des2 }
+  \\  % Voice two
+    { <ees, c>2 des }
+  \\  % Omit Voice three
+  \\  % Voice four
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Possiamo vedere che questo corregge la direzione del gambo, ma espone
-a un problema talvolta presente con le voci multiple: i gambi delle note
-in una voce possono collidere con le teste delle note di un'altra voce.  Nel
-disporre le note, LilyPond permette alle note o agli accordi di due diverse
-voci di occupare la stessa colonna verticale della nota purché i gambi siano
-in direzioni opposte, ma le note della terza e quarta voce vengono
-spostate, se necessario, per evitare la collisione tra le teste.  Questo
-di solito funziona bene, ma in questo esempio le note della voce più bassa,
-con le impostazioni predefinite, appaiono chiaramente disposte in una posizione
-non ottimale. LilyPond fornisce molti modi per aggiustare la collocazione
+Possiamo vedere che questo corregge la direzione del gambo, ma il posizionamento
+orizzontale delle note non è quello che desideriamo.  LilyPond sposta le note
+più interne quando queste o i loro gambi collidono con le voci più
+esterne, ma questo non è appropriato nella musica per pianoforte.  In altre
+situazioni, gli spostamenti applicati da LilyPond potrebbero non riuscire
+a evitare le collisioni.  LilyPond fornisce molti modi per aggiustare la collocazione
 orizzontale delle note.  Per ora, non siamo ancora pronti a cercare di
 correggere questo problema, dunque dovremo aspettare fino a una
 prossima sezione -- si veda la proprietà @code{force-hshift} in @ref{Fixing
 overlapping notation}.
 
+@warning{Il testo e gli @emph{spanner} (come le legature di portamento e di valore, le
+forcelle, etc.) non possono essere create @q{attraverso} le voci.}
 
 @seealso
 Guida alla notazione: @ruser{Multiple voices}.

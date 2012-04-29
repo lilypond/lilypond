@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.14.2"
 
 \header {
-  lsrtags = "chords"
+  lsrtags = "specific-notation, chords"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -42,6 +42,7 @@ To add bar line indications in the @code{ChordNames} context, add the
 "
   doctitle = "Adding bar lines to ChordNames context"
 } % begin verbatim
+
 
 \new ChordNames \with {
   \override BarLine #'bar-extent = #'(-2 . 2)

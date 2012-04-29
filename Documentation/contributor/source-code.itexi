@@ -5,7 +5,7 @@
 @chapter Working with source code
 
 @warning{New contributors should read @ref{Quick start}, and in
-particular @ref{Using lily-git}, instead of this chapter.}
+particular @ref{lily-git}, instead of this chapter.}
 
 Advanced contributors will find this material quite useful,
 particularly if they are working on major new features.
@@ -29,7 +29,7 @@ contributors.  If you are comfortable with the command-line, then
 skip ahead to @ref{Starting with Git}.
 
 @warning{These instructions are only for people who are @emph{not}
-using @ref{Lilydev}.}
+using @ref{LilyDev}.}
 
 @c there's some duplication in this section with stuff covered in
 @c Quick Start, but moving it into a macro inside included/ would
@@ -96,7 +96,7 @@ files.
 input should be entered from @file{~/lilypond-git/}.  This is
 referred to as the @emph{top source directory}.}
 
-Further instructions are in @ref{Daily use of lily-git.tcl}.
+Further instructions are in @ref{How to use lily-git}.
 
 
 @node Starting with Git
@@ -209,14 +209,14 @@ git config --global core.editor @var{nano}
 @end example
 
 Finally, and in some ways most importantly, let's make sure that
-we know what branch we're on.  If you're not using lilydev, add
+we know what branch we're on.  If you're not using LilyDev, add
 this to your @file{~/.bashrc}:
 
 @verbatim
 export PS1="\u@\h \w\$(__git_ps1)$ "
 @end verbatim
 
-If you are not using lilydev, you may need to install the
+If you are not using LilyDev, you may need to install the
 additional @code{git-completion} package, but it is definitely
 worth it.
 
@@ -312,7 +312,7 @@ git checkout dev/cg
 Your prompt now shows you that you're on the other branch:
 
 @example
-gperciva@@lilydev:~/lilypond-git (dev/cg)$ 
+gperciva@@LilyDev:~/lilypond-git (dev/cg)$
 @end example
 
 To be able to manage multiple lilypond issues at once, you'll need to switch
@@ -619,13 +619,13 @@ development releases), the documentation (and its translations),
 and the website.  Generally, the @code{master} branch is expected
 to compile successfully.
 
-The @code{lilypond/translation} branch is a side branch that
+The @code{translation} branch is a side branch that
 allows translators to work without needing to worry about
 compilation problems.  Periodically, the Translation Meister
 (after verifying that it doesn't break compilation), will
 @emph{merge} this branch back into @code{master} to incorporate
 recent translations.  Similarly, the @code{master} branch is
-usually merged into the @code{lilypond/translation} branch after
+usually merged into the @code{translation} branch after
 significant changes to the English documentation.  See
 @ref{Translating the documentation} for details.
 
@@ -673,11 +673,11 @@ git remote add -ft master -m master \
   origin git://git.sv.gnu.org/lilypond.git/
 @end example
 
-To download the @code{lilypond/translation} branch, enter:
+To download the @code{translation} branch, enter:
 
 @example
-git remote add -ft lilypond/translation -m \
-  lilypond/translation origin git://git.sv.gnu.org/lilypond.git/
+git remote add -ft translation -m \
+  translation origin git://git.sv.gnu.org/lilypond.git/
 @end example
 
 The @command{git@tie{}remote@tie{}add} process could take up to
@@ -715,7 +715,7 @@ git checkout -b @var{branch} origin/@var{branch}
 
 @noindent
 where @code{@var{branch}} is the name of your tracking branch,
-either @code{master} or @code{lilypond/translation}.
+either @code{master} or @code{translation}.
 
 Git will issue some warnings; this is normal:
 
@@ -899,7 +899,7 @@ changed committishes in the head of translated files using commits
 you have not yet pushed to @code{git.sv.gnu.org}, please do not
 rebase.  If you want to avoid wondering whether you should rebase
 each time you pull, please always use committishes from master
-and/or lilypond/translation branch on @code{git.sv.gnu.org}, which
+and/or translation branch on @code{git.sv.gnu.org}, which
 in particular implies that you must push your changes to
 documentation except committishes updates (possibly after having
 rebased), then update the committishes and push them.}
@@ -1021,10 +1021,10 @@ If any conflict happens, see @ref{Resolving conflicts}.
 
 There are common usage cases for merging: as a translator, you
 will often want to merge @code{master} into
-@code{lilypond/translation}; on the other hand, the Translations
-meister wants to merge @code{lilypond/translation} into
+@code{translation}; on the other hand, the Translations
+meister wants to merge @code{translation} into
 @code{master} whenever he has checked that
-@code{lilypond/translation} builds successfully.
+@code{translation} builds successfully.
 
 
 @node Commits and patches
@@ -1263,7 +1263,7 @@ or create a symbolic link to the @command{git-cl}
 and @command{upload.py} scripts in one of your PATH
 directories (such as @file{$HOME/bin}).
 
-In Ubuntu (and Lilydev), you can add directories to PATH
+In Ubuntu (and LilyDev), you can add directories to PATH
 by adding this line to a hidden file @file{.bashrc},
 located in your home directory:
 
@@ -1436,7 +1436,7 @@ in learning more about git.}
 
 It is possible to work with several branches on the same local Git
 repository; this is especially useful for translators who may have
-to deal with both @code{lilypond/translation} and a stable branch,
+to deal with both @code{translation} and a stable branch,
 e.g. @code{stable/2.12}.
 
 Some Git commands are introduced first, then a workflow with
@@ -1482,7 +1482,7 @@ git pull git://git.sv.gnu.org/lilypond.git/ @var{branch}:origin/@var{branch}
 
 @noindent
 where @code{@var{branch}} is typically @code{master} or
-@code{lilypond/translation}; if you do not know or remember, see
+@code{translation}; if you do not know or remember, see
 @ref{Downloading remote branches} to remember which commands you
 issued or which source code you wanted to get.
 
@@ -1612,7 +1612,7 @@ current branch.  For example, if your current branch is
 @subsubheading Local clones, or having several working trees
 
 If you play with several Git branches, e.g. @code{master},
-@code{lilypond/translation}, @code{stable/2.12}), you may want to
+@code{translation}, @code{stable/2.12}), you may want to
 have one source and build tree for each branch; this is possible
 with subdirectories of your local Git repository, used as local
 cloned subrepositories.  To create a local clone for the branch
@@ -1683,10 +1683,10 @@ git am @var{patch}
 
 Patches created without @code{git@tie{}format-patch} can be
 applied in two steps.  The first step is to apply the patch to the
-working tree:
+working tree and the index:
 
 @example
-git apply @var{patch}
+git apply --index @var{patch}
 @end example
 
 @noindent
@@ -1694,9 +1694,16 @@ The second step is to commit the changes and give credit to the
 author of the patch.  This can be done with the following command:
 
 @example
-git commit -a --author="@var{John Smith} <@var{john@@example.com}>"
+git commit --author="@var{John Smith} <@var{john@@example.com}>"
 @end example
 
+Please note that using the @code{--index} option for patching is quite
+important here and @emph{cannot} reliably be replaced by using the
+@code{-a} option when committing: that would only commit files from the
+working tree that are already registered with git, so every file that
+the patch actually @emph{adds}, like a regtest for a fixed bug, would
+get lost.  For the same reason, you should not use the git-independent
+@samp{patch} program for applying patches.
 
 @node Sending and receiving patches via email
 @subsection Sending and receiving patches via email
@@ -2076,7 +2083,7 @@ later on.  You should see that @code{staging} is only ahead of
 @section Git on Windows
 
 @warning{We heavily recommend that development be done with our
-virtual machine @ref{Lilydev}.}
+virtual machine @ref{LilyDev}.}
 
 @c Some of this may duplicate stuff in other sections
 @c But it is probably best for windows users to have it all together

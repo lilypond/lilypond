@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, contexts-and-engravers"
+  lsrtags = "contexts-and-engravers, staff-notation, really-simple"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -24,6 +24,7 @@ piece.
 "
   doctitle = "Adding an extra staff"
 } % begin verbatim
+
 
 \score {
   <<

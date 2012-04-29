@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: feb460d0ba95db4081619c8490496d09d4fb118d
+    Translation of GIT committish: 0cc0c4fb20b70e717db7e8f43cbb0c1878cd8395
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,23 +27,23 @@ dei caratteri vengono regolate per adeguarsi alla formattazione del documento.
 
 Si tratta di un programma separato da @command{lilypond} e viene lanciato
 dalla linea di comando; per maggiori informazioni, si veda @ref{Command-line
-usage}.  Chi usa MacOS 10.3 o 10.4 e non riesce ad eseguire
-@code{lilypond-book} veda @rweb{MacOS X}.
+usage}.  In caso di problemi nell'eseguire @code{lilypond-book} da linea di
+comando su Windows o Mac OS X, si veda @rweb{Windows} o @rweb{MacOS X}.
 
 Questo procedimento può essere applicato ai documenti @LaTeX{}, HTML, Texinfo
 o DocBook.
 
 @cindex texinfo
-@cindex latex
+@cindex LaTex
 @cindex texinfo
 @cindex texi
-@cindex html
+@cindex HTML
 @cindex docbook
-@cindex documenti, aggiungere musica ai
-@cindex HTML, musica in
-@cindex Texinfo, musica in
-@cindex DocBook, musica in
-@cindex @LaTeX{}, musica in
+@cindex documenti, aggiungere musica
+@cindex HTML, aggiungere musica
+@cindex Texinfo, aggiungere musica
+@cindex DocBook, aggiungere musica
+@cindex LaTeX, aggiungere musica
 
 @menu
 * Un esempio di documento musicologico::
@@ -100,9 +100,9 @@ Le opzioni vengono specificate tra parentesi quadre.
 Se l'esempio è più grande, è possibile metterlo in un file separato e inserirlo
 con \verb+\lilypondfile+.
 
-\lilypondfile[quote,noindent]{screech-boink.ly}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(Se vuoi provare, sostituisci @file{screech-boink.ly} con qualsiasi file @file{.ly}
+(Se vuoi provare, sostituisci @file{screech-and-boink.ly} con qualsiasi file @file{.ly}
 che si trovi nella stessa directory di questo file.)
 
 \end{document}
@@ -160,7 +160,7 @@ c'4 f16
 Se l'esempio è più grande, è possibile riportarlo in un file a parte e inserirlo
 con \verb+\lilypondfile+.
 
-@lilypondfile[quote,noindent]{screech-boink.ly}
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
 
 Perché sia visibile la @code{tagline}, predefinita o personalizzata, l'intero
 frammento deve essere compreso in un costrutto @code{\book @{ @}}.
@@ -929,6 +929,19 @@ L'esecuzione di @command{dvips} potrebbe generare dei messaggi di avviso
 relativi ai caratteri; questi messaggi sono innocui e possono
 essere ignorati.  Se esegui @command{latex} in modalità due colonne, ricorda
 di aggiungere @option{-t landscape} alle opzioni di @command{dvips}.
+
+@knownissues
+Il comando @code{\pageBreak} non funziona all'interno dell'ambiente
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+
+Molte variabili del blocco @code{\paper} non funzionano all'interno dell'ambiente
+@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.  Usa
+@code{\newcommand} con @code{\betweenLilyPondSystem} nel preambolo;
+
+@example
+\newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
+@end example
+
 
 @subsubheading Texinfo
 

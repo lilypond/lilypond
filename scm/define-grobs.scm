@@ -2703,6 +2703,7 @@
     (,ly:axis-group-interface::calc-staff-staff-spacing . ,ly:axis-group-interface::calc-pure-staff-staff-spacing)
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:beam::rest-collision-callback . ,ly:beam::pure-rest-collision-callback)
+    (,ly:flag::calc-y-offset . ,ly:flag::pure-calc-y-offset)
     (,ly:grob::stencil-height . ,pure-stencil-height)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
     (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)
@@ -2722,7 +2723,6 @@
   (list
    parenthesize-elements
    laissez-vibrer::print
-   ly:flag::calc-y-offset
    ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -29,6 +29,7 @@ of the @code{DynamicLineSpanner} object.
 "
   doctitle = "Vertically aligning dynamics across multiple notes"
 } % begin verbatim
+
 
 \relative c' {
   \override DynamicLineSpanner #'staff-padding = #4

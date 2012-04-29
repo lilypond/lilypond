@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "fretted-strings"
@@ -42,6 +42,7 @@ staff.
 "
   doctitle = "Polyphony in tablature"
 } % begin verbatim
+
 
 upper = \relative c' {
   \time 12/8

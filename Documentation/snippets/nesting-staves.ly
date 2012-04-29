@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, contexts-and-engravers, tweaks-and-overrides"
+  lsrtags = "preparing-parts, contexts-and-engravers, staff-notation, tweaks-and-overrides"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -76,6 +76,7 @@ staves. The possibilities are @code{SystemStartBar},
 "
   doctitle = "Nesting staves"
 } % begin verbatim
+
 
 \new StaffGroup
 \relative c'' <<

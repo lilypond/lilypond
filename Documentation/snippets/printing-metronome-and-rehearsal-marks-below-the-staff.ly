@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, expressive-marks, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, rhythms, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -51,6 +51,7 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 "
   doctitle = "Printing metronome and rehearsal marks below the staff"
 } % begin verbatim
+
 
 \layout { ragged-right = ##f }
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "ancient-notation"
@@ -24,6 +24,7 @@ Time signatures may also be engraved in an old style.
 "
   doctitle = "Ancient time signatures"
 } % begin verbatim
+
 
 {
   \override Staff.TimeSignature #'style = #'neomensural

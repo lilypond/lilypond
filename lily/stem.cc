@@ -127,10 +127,13 @@ Stem::set_stem_positions (Grob *me, Real se)
   if (d && d * head_positions (me)[get_grob_direction (me)] >= se * d)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
-  Interval height = me->pure_height (me, 0, INT_MAX);
+  // trigger note collision mechanisms
+  Real stem_beg = internal_calc_stem_begin_position (me, false);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space * 0.5;
 
+  Interval height;
+  height[-d] = stem_beg * half_space;
   height[d] = se * half_space + beam_end_corrective (me);
 
   Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),

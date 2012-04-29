@@ -1,0 +1,12 @@
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
+  texidoces = "
+El motor de espaciado vertical cambió en la versión 2.14.  Esto puede
+hacer que se altere el espaciado de la letra de las canciones.  Es
+posible fijar propiedades para los contextos @code{Lyric} y
+@code{Staff} de forma que el motor de espaciado se comporte como lo
+hacía en la versión 2.12.
+
+"
+
+  doctitlees = "Conseguir el espaciado de la letra de la versión 2.12
+  en versiones más recientes"

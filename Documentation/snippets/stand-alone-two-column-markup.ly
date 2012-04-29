@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "text"
@@ -42,6 +42,7 @@ Stand-alone text may be arranged in several columns using
 "
   doctitle = "Stand-alone two-column markup"
 } % begin verbatim
+
 
 \markup {
   \fill-line {

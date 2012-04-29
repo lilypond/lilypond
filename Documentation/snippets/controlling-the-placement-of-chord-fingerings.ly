@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, chords, keyboards, fretted-strings"
+  lsrtags = "specific-notation, editorial-annotations, keyboards, fretted-strings, chords"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -48,6 +48,7 @@ if it is a single note.
 "
   doctitle = "Controlling the placement of chord fingerings"
 } % begin verbatim
+
 
 \relative c' {
   \set fingeringOrientations = #'(left)

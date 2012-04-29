@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks"
+  lsrtags = "symbols-and-glyphs, expressive-marks"
 
   texidoc = "
 Breathing signs are available in different tastes: commas (default),
@@ -16,6 +16,7 @@ ticks, vees and @qq{railroad tracks} (caesura).
 "
   doctitle = "Breathing signs"
 } % begin verbatim
+
 
 \new Staff \relative c'' {
   \key es \major

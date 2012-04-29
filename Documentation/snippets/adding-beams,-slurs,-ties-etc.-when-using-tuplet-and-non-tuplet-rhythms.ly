@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms, expressive-marks"
@@ -40,6 +40,7 @@ sections (enclosed within curly braces).
 "
   doctitle = "Adding beams slurs ties etc. when using tuplet and non-tuplet rhythms"
 } % begin verbatim
+
 
 {
   r16[ g16 \times 2/3 { r16 e'8] }

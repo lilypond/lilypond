@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms"
+  lsrtags = "version-specific, really-simple, rhythms"
 
   texidoc = "
 When using multi-measure rests in a polyphonic staff, the rests will be
@@ -17,6 +17,7 @@ can be printed on the same staff line, using the following setting.
 "
   doctitle = "Merging multi-measure rests in a polyphonic part"
 } % begin verbatim
+
 
 normalPos = \revert MultiMeasureRest #'staff-position
 

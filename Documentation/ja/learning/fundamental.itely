@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c028761d49ac4820206806dbc58e9704a87b4a8
+    Translation of GIT committish: 16ac0db39d8cca1de68ce79154386764172aca10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -692,7 +692,6 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 
 今度はもう 1 つ簡単な例を挙げてみます:
 
-
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
 %    Voice "1"             Voice "2"
@@ -733,8 +732,12 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 付け加えることによって、3 つかそれ以上のボイスを持たせることが可能です。
 
 ボイス コンテキストは @code{"1"}, @code{"2"} などの名前を持ちます。@c
-各コンテキストの中では、スラー、符幹、タイ、強弱記号などの@c
-垂直方向の向きは適切にセットされます。
+最初の 2 つのコンテキストは @emph{外側} のボイスをセットして、@c
+上のボイスはコンテキスト @code{"1"}、下のボイスはコンテキスト @code{"2"}
+になります。@c
+内側のボイスはコンテキスト @code{"3"} と @code{"4"} になります。@c
+これらの各コンテキストでは、スラー、符幹、タイ、強弱記号などの垂直方向の@c
+向きは適切にセットされます。
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
@@ -856,15 +859,18 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -903,16 +909,17 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -930,7 +937,7 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >>
   <c ees aes c>1
 }
@@ -954,10 +961,10 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
   << % Voice one
     { c2 aes4. bes8 }
   \\ % Voice two
-    { aes2 f4 fes   }
+    { <ees, c>2 des }
   \\ % Omit Voice three
   \\ % Voice four
-    { <ees c>2 des2 }
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -965,22 +972,19 @@ A フラットは付点 4 分音符であり、F は 4 分音符、D フラッ�
 
 @noindent
 これにより符幹の向きが修正されました。@c
-しかしながら、@c
-複数のボイスを持つ場合にしばしば発生する問題に遭遇してしまいました
--- あるボイスの中にある音符の符幹が他のボイスの中にある符頭と衝突しています。@c
-音符をレイアウトするときに、LilyPond は 2 つのボイスの符幹の向きを@c
-反対にすることによって 2 つのボイスの音符や和音が@c
-同じ垂直方向の音符列に位置することを可能にします。@c
-しかしながら、3 番目や 4 番目のボイスは符頭の衝突を避けるために@c
-必要があれば移動させられます。@c
-これは普通はうまくいきますが、この例では一番下のボイスの音符は@c
-デフォルトの状態では明らかにうまくいっていません。@c
-LilyPond は音符の水平方向位置を調節するためにいくつかの手段を提供します。@c
-我々はまだこの問題を修正するための方法を見ていく準備が整っていないので、@c
-この問題は後に残しておくことにします
--- @ref{表記の重なりを修正する} の @code{force-hshift} プロパティを@c
-参照してください。
+しかしながら、音符の水平方向の配置が望んだとおりになっていません。@c
+内側の音符の符頭や符幹が外側のボイスと衝突する場合 LilyPond は内側の@c
+音符の位置をずらしますが、これはピアノ譜では不適切です。@c
+他の状況でも、LilyPond が音符の位置をずらしても衝突が解決されない場合が@c
+あります。@c
+LilyPond は音符の水平方向の位置を調節するための手段をいくつか提供します。@c
+しかしながら、我々はまだこの問題を修正するための方法を見ていく準備が@c
+整っていないので、この問題は後に残しておくことにします
+-- @ref{Fixing overlapping notation} の @code{force-hshift} プロパティ@c
+を参照してください。
 
+@warning{歌詞、スパナ (スラー、タイ、強弱のヘアピン記号など) をボイスを@c
+@q{またいで} 作成することはできません。}
 
 @seealso
 記譜法リファレンス:
@@ -1007,7 +1011,7 @@ LilyPond は音符の水平方向位置を調節するためにいくつかの�
 多声部音楽を作成するためにボイス コンテキストを手動で
 @code{<< >>} ブロックの中に作成することもできます。@c
 符幹、スラーなどの向きを示すために
-@code{\voiceOne} ... @code{\voiceFour} を使用します。@c
+@code{\voiceOne} @dots{} @code{\voiceFour} を使用します。@c
 この手法は各ボイスを別々にして、より記述的な名前を与えることを可能にするため、@c
 長い楽譜ではわかりやすいものになります。
 
@@ -1846,11 +1850,11 @@ LilyPond 入力ファイルに対する特別なサポートを持つ@c
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1861,11 +1865,11 @@ LilyPond 入力ファイルに対する特別なサポートを持つ@c
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1939,12 +1943,12 @@ like this:
 <<
   \new Staff {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1990,7 +1994,7 @@ like this:
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -2009,12 +2013,12 @@ like this:
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: fcec8015634fd7665b8df57b630994ba4919b12c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,18 +79,12 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec 強弱記号が中央に配置されたピアノ譜
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node 弦楽四重奏
 @appendixsec 弦楽四重奏
 @translationof String quartet
 
 @appendixsubsec 弦楽四重奏
-@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}

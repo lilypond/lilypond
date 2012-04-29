@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 24f9636ac779b4c0de197f60bf4f922c16be5ec4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -478,9 +478,9 @@ programmation avancée d’ajustements et retouches dans LilyPond.
 
 @docLinks{Extension, extending,
   @rextendnamed{Top,Extension},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingSplit-fr,
+  @manualStableExtendingBig-fr, 200 KB,
+  @manualStableExtendingPdf-fr, 400 KB}
 
 @divEnd
 

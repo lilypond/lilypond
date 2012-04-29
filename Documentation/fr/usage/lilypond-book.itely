@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -113,9 +113,9 @@ Les options sont indiquées entre crochets.
 Des extraits plus conséquents peuvent faire l'objet d'un fichier
 indépendant, alors inclus avec \verb+\lilypondfile+.
 
-\lilypondfile[quote,noindent]{screech-boink.ly}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(Si besoin, remplacez @file{screech-boink.ly} par
+(Si besoin, remplacez @file{screech-and-boink.ly} par
 n'importe quel fichier @file{.ly} qui se trouve dans
 le même répertoire que le présent fichier.)
 
@@ -178,7 +178,7 @@ c'4 f16
 Des extraits plus conséquents peuvent faire l'objet d'un fichier
 indépendant, alors inclus avec @code{\lilypondfile}.
 
-@lilypondfile[quote,noindent]{screech-boink.ly}
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
 
 Lorsque vous désirez y inclure un @code{tagline}, personnalisé ou non,
 l'intégralité de l'extrait devra apparaître dans une construction de

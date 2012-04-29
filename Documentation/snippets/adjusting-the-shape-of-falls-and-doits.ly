@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -43,6 +43,7 @@ adjust the shape of falls and doits.
 "
   doctitle = "Adjusting the shape of falls and doits"
 } % begin verbatim
+
 
 \relative c'' {
   \override Score.SpacingSpanner #'shortest-duration-space = #4.0

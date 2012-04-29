@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches, staff-notation"
@@ -58,6 +58,7 @@ quoted ones) are transposed.
 "
   doctitle = "Quoting another voice with transposition"
 } % begin verbatim
+
 
 \addQuote clarinet {
   \transposition bes

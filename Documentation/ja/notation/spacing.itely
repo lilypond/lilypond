@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 0af52987f3694217fa81c29bd4fdc0443d2fac49
+    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -214,72 +214,85 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 
 @node 紙面サイズを設定する
 @unnumberedsubsubsec 紙面サイズを設定する
-@translationof Setting paper size
+@translationof Setting the paper size
 
 紙面サイズを変更するために 2 つの関数が利用可能です:
 @code{set-default-paper-size} と @code{set-paper-size} です。
 @code{set-default-paper-size} は最上位スコープに配置する必要があり、@c
 and @code{set-paper-size} は @code{\paper} ブロックの中に@c
 配置する必要があります:
+@q{A4} が紙面サイズを明示的に設定しなかった場合のデフォルト値です。@c
+しかしながら、デフォルト値を変更するために使うことができる関数が 2 つあります。@c
+1 つは @code{set-default-paper-size} です:
 
 @example
-#(set-default-paper-size "a4")
+#(set-default-paper-size "quarto")
 @end example
+
+この関数は常に最上位スコープに配置する必要があります。@c
+もう 1 つは @code{set-paper-size} です:
 
 @example
 \paper @{
-  #(set-paper-size "a4")
+  #(set-paper-size "tabloid")
 @}
 @end example
 
-@noindent
-最上位スコープにおいて、@c
-@code{set-default-paper-size} 関数はどこにあっても@c
-最初の @code{\paper} ブロックより先に安全に呼び出されます。@c
-@code{\paper} ブロック内において、@c
-最も安全に @code{set-paper-size} を呼び出せる場所はブロックの先頭、@c
-変数宣言の上です。@c
-この理由は、@ref{紙面サイズに応じた自動拡縮} で説明しています。
+この間数は常に @code{\paper} ブロックの中に配置する必要があります。
 
-@code{set-default-paper-size} はすべてのページのサイズをセットします。@c
-一方、@code{set-paper-size} は、@c
-その @code{\paper} ブロックが適用されたページのサイズのみをセットします。@c
-例えば、@code{\paper} ブロックがファイルの先頭にある場合、@c
-その紙面サイズはすべてのページに適用されます。@c
-@code{\paper} ブロックが @code{\book} の中にある場合、@c
-紙面サイズはその book にのみ適用されます。
+@code{set-default-paper-size} 関数を最上位スコープで用いる場合、@c
+どの @code{\paper} ブロックよりも前に配置する必要があります。@c
+@code{set-default-paper-size} はすべてのページの紙面サイズを設定しますが、@c
+@code{set-paper-size} が設定する紙面サイズは @code{\paper} ブロックが適用@c
+されるページだけです。@c
+例えば、@code{\paper} ブロックがファイルの最上位に配置されている場合、すべての@c
+ページの紙面サイズに摘要されます。@c
+@code{\paper} ブロックが @code{\book} の中に配置されている場合、そのブックの@c
+ページだけに適用されます。
 
-@code{a4}, @code{letter}, @code{legal}, それに @code{11x17}
-(タブロイド サイズとも呼ばれます)
-などの一般的な紙面サイズを利用することができます。@c
-さらに多くの紙面サイズがデフォルトでサポートされています。@c
-詳細は @file{scm/paper.scm} を参照して、@c
-@code{paper-alist} の定義を探してください。
+@code{set-paper-size} 関数を用いる場合、同じ @code{\paper} ブロック内で@c
+用いられる他のすべての関数よりも @emph{前に} 配置する必要があります。@c
+@ref{Automatic scaling to paper size} を参照してください。
 
-@c TODO add a new appendix for paper sizes (auto-generated) -pm
+紙面サイズは @file{scm/paper.scm} で定義されていて、カスタム サイズを追加する@c
+ことも可能ですが、追加後のソフトウェア アップデートにより上書きされます。@c
+利用可能な紙面サイズは @ref{Predefined paper sizes} でリスト アップされています。
 
-@warning{デフォルトの紙面サイズは @code{a4} です。}
+@c An appendix entry exists for paper sizes but is not auto-generated
 
-初期ファイル @file{scm/paper.scm} の中にある
-@code{paper-alist} の定義を編集することにより、@c
-紙面サイズを追加することができます。@c
-しかしながら、追加した紙面サイズは、@c
-その後のインストールにより上書きされてしまいます。
+以下のコマンドを用いてカスタム紙面サイズを追加することができ、追加した紙面サイズは
+@code{set-default-paper-size} または @code{set-paper-size} で使用することが@c
+でいます。
 
-@cindex orientation (縦長の紙面)
-@cindex landscape (横長の紙面)
 
-@code{set-default-paper-size} への引数として@c
-シンボル @code{'landscape} を渡すと、@c
-ページは 90°回転し、それに応じてより長い行幅となります。
+@example
+#(set! paper-alist (cons '("my size" . (cons (* 15 in) (* 3 in))) paper-list))
+
+\paper @{
+  #(set-paper-size "my size")
+@}
+@end example
+
+単位 @code{in} (インチ)、@code{cm} (センチメートル)、それに @code{mm}
+(ミリメートル) のすべてを使うことができます。
+
+@cindex paper size, orientation (紙面サイズの向き)
+@cindex page, orientation (紙面の向き)
+@cindex paper size, landscape (横向きの紙面サイズ)
+
+紙面サイズ関数にシンボル @code{'landscape} を渡すとページは 90°回転し、@c
+それに応じてより長い行幅となります。
 
 @example
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
+紙面が回転するだけで、楽譜は回転 @emph{しません}。
+
 @seealso
 記譜法リファレンス:
-@ref{紙面サイズに応じた自動拡縮}
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}
 
 インストールされているファイル:
 @file{scm/paper.scm}
@@ -299,8 +312,8 @@ Scheme 関数
 自動拡縮は起こらないということに注意してください。@c
 しかしながら @code{paper-width} 変数の変更は他の値に影響を与えます
 (これは拡縮とは別のことで、後で説明します)。
-@code{set-default-paper-size} 関数と @code{set-paper-size} 関数は@c
-@ref{紙面サイズを設定する} で説明します。
+@code{set-default-paper-size} 関数と @code{set-paper-size} 関数については
+@ref{Setting the paper size} で説明します。
 
 自動拡縮によって影響を受ける垂直方向の長さは
 @code{top-margin} と @code{bottom-margin} です
@@ -370,7 +383,7 @@ Scheme 関数
 @funindex ragged-last-bottom
 
 偽に設定されている場合、最後のページでシステムはページ下端まで広がります。@c
-2 ページ以上ある楽曲では、この変数を真に設定すべきです。@c
+2 ページ以上ある楽曲では、この変数を偽に設定すべきです。@c
 これは book パート
 -- すなわち @code{\bookpart} ブロックによって作成された部分 --
 の最後のページにも影響を与えます。
@@ -388,11 +401,12 @@ Scheme 関数
 @rlsr{Spacing}
 
 @knownissues
-
 (@code{\header} ブロックによって作成された)
 タイトルはシステムとして扱われます。@c
 このため、@code{ragged-bottom} と @code{ragged-last-bottom} は@c
 タイトルと score の最初のシステムとの間にスペースを追加します。
+
+明示的に定義された紙面サイズは、ユーザ定義の上または下のマージン設定を上書きします。
 
 
 @node 可変な垂直方向の \paper スペース変数
@@ -483,6 +497,9 @@ largest of:
 @code{padding} + 衝突を回避するのに必要な最小の距離
 
 @end itemize
+
+複数ページの楽譜で、最後のページの楽譜がページ下端まで広がらない場合、最後の@c
+ページのスペースは前のページと同じです。
 
 配列リストを変更する方法は、@ref{Modifying alists} で説明します。@c
 以下の例は、連想配列を変更する 2 つの方法を提示しています。@c
@@ -694,6 +711,9 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
+
+@knownissues
+明示的に定義された紙面サイズは、ユーザ定義の左または右のマージン設定を上書きします。
 
 
 @node 両面モードのための \paper 変数
@@ -982,7 +1002,7 @@ increased by one.  Default: @code{#f}.
 
 (垂直方向の) ページ スペースと (水平方向の) 行スペースの重要度の関係です。@c
 大きな値だと、ページ スペースがより重要になります。@c
-デフォルトでは、@code{#10} です。
+デフォルトでは、@code{10} です。
 
 @item print-all-headers
 @funindex print-all-headers
@@ -1020,7 +1040,6 @@ increased by one.  Default: @code{#f}.
 
 @end table
 
-
 @seealso
 インストールされているファイル:
 @file{ly/titling-init.ly}
@@ -1028,10 +1047,7 @@ increased by one.  Default: @code{#f}.
 コード断片集:
 @rlsr{Spacing}
 
-
 @knownissues
-
-
 デフォルトのページ ヘッダは、@c
 ページ番号と @code{\header} ブロックの @code{instrument} フィールドを@c
 同一の行に配置します。
@@ -1110,7 +1126,6 @@ increased by one.  Default: @code{#f}.
   @}
 @}
 @end example
-
 
 @seealso
 記譜法リファレンス:
@@ -1222,7 +1237,6 @@ Feta フォントは 8 つのサイズの音楽シンボルを提供します。
 個々の譜に対してサイズを調整することができます。@c
 個々の譜のサイズはグローバル サイズとの相対値です。
 
-
 @seealso
 記譜法リファレンス:
 @ref{記譜フォント サイズを選択する}
@@ -1230,9 +1244,7 @@ Feta フォントは 8 つのサイズの音楽シンボルを提供します。
 コード断片集:
 @rlsr{Spacing}
 
-
 @knownissues
-
 @code{layout-set-staff-size} は譜線の間隔を変更しません。
 
 
@@ -1407,7 +1419,7 @@ score や最上位レベルのマークアップの間に挿入することが�
 @code{ragged-right} や @code{ragged-last} と類似で、@c
 垂直方向のスペースに対して同じ効果を持つ設定があります:
 @code{ragged-bottom} と @code{ragged-last-bottom} です。@c
-これらの設定が @code{##t} にセットされている場合、@c
+これらの設定が @code{#t} にセットされている場合、@c
 すべてのページあるいは最後のページのシステムは@c
 ページの垂直方向全体には広がりません。@c
 @ref{固定された垂直方向の \paper スペース変数} を参照してください。
@@ -1467,7 +1479,6 @@ LilyPond は改ページを算出するために 3 つのアルゴリズムを�
 @funindex \noPageBreak
 @code{\noPageBreak}
 @endpredefined
-
 
 @seealso
 記譜法リファレンス:
@@ -1539,7 +1550,7 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 コンテキスト プロパティ @code{minimumPageTurnLength} を読み込んで、@c
 どれくらい音符が無いセクションが続いたらページめくりを考慮するかを決定します。@c
 @code{minimumPageTurnLength} のデフォルト値は
-@code{#(ly:make-moment 1 1)} です。@c
+@code{(ly:make-moment 1 1)} です。@c
 ページめくりを不可にしたいのならば、@c
 @code{minimumPageTurnLength} に非常に大きな値をセットします。
 
@@ -1573,7 +1584,6 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 それに @code{\allowPageTurn} は、@c
 最上位レベル、score や最上位のマークアップの間で使用される可能性もあります。
 
-
 @predefined
 @funindex \pageTurn
 @code{\pageTurn},
@@ -1583,14 +1593,11 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @code{\allowPageTurn}
 @endpredefined
 
-
 @seealso
 コード断片集:
 @rlsr{Spacing}
 
-
 @knownissues
-
 score の中に配置する @code{Page_turn_engraver} は 1 つだけにするべきです。@c
 複数の @code{Page_turn_engraver} がある場合、@c
 互いに干渉し合います。
@@ -1615,7 +1622,6 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
   page-breaking = #ly:minimal-breaking
 @}
 @end example
-
 
 @seealso
 コード断片集:
@@ -1672,7 +1678,6 @@ music = \relative c'' { c8 c c c }
   }
 }
 @end lilypond
-
 
 @seealso
 コード断片集:
@@ -1766,7 +1771,6 @@ music = \relative c'' { c4 c c c }
   >>
 }
 @end lilypond
-
 
 @seealso
 記譜法リファレンス:
@@ -1876,7 +1880,7 @@ music = \relative c'' { c4 c c c }
 要素です。@c
 @code{@var{item2}} は必ずしも @code{@var{item1}} の下にある要素ではないという@c
 ことに注意してください。@c
-例えば、@code{staff-affinity} が @code{#UP} である場合、@c
+例えば、@code{staff-affinity} が @code{UP} である場合、@c
 @code{nonstaff-relatedstaff-spacing} は譜ではない行から@c
 上向きにスペースをとります。
 
@@ -2140,14 +2144,14 @@ labelContext =
 @ref{可変な垂直方向の \paper スペース変数},
 @ref{Modifying alists}
 
+インストールされているファイル:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}
+
 内部リファレンス:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}
-
-Installed Files:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}
 
 
 @node グループ化されていない譜のスペース
@@ -2606,7 +2610,6 @@ Installed Files:
 これらの設定に適切な値を渡すことで、そのようなことは避けられます。
 @end itemize
 
-
 @seealso
 コード断片集:
 @rlsr{Spacing}
@@ -2698,7 +2701,6 @@ c4
 c''2
 @end lilypond
 
-
 @seealso
 コード断片集:
 @rlsr{Spacing}
@@ -2768,7 +2770,7 @@ c8 c4 c4 c4
 各小節において、最短の演奏時間が決定されます。@c
 スペースの基本として、最も共通する最短演奏時間が選択されます。@c
 条件として、この最短演奏時間は常に 8 分音符以上の長さになります。@c
-@code{lilypond} を @code{--verbose} オプションを付けて実行すると、@c
+@code{lilypond} を @option{--verbose} オプションを付けて実行すると、@c
 最短演奏時間が表示されます。
 
 この演奏時間はカスタマイズすることもできます。@c
@@ -2822,8 +2824,10 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 プロポーショナル ノーテーション (proportional notation) がサポートされます。@c
 @ref{プロポーショナル ノーテーション} を参照してください。
 
-
 @seealso
+Essay on automated music engraving:
+@ressay{Optical spacing}
+
 コード断片集:
 @rlsr{Spacing}
 
@@ -2833,12 +2837,11 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}
 
-
 @knownissues
-
 スペースを手動で上書きするための、手軽な仕組みはありません。@c
 余分なスペースを楽譜に挿入するために、以下の手段があります
 -- 必要に応じて、パディングの値を調整しています。
+
 @example
  \override Score.NonMusicalPaperColumn #'padding = #10
 @end example
@@ -2870,7 +2873,6 @@ c16[ c c8]
 @code{\newSpacingSection} コマンドは新たに
 @code{SpacingSpanner} オブジェクトを作成します。@c
 そのため、その場所で新たに @code{\override} が使用される可能性があります。
-
 
 @seealso
 コード断片集:
@@ -2967,7 +2969,6 @@ c16[ c c8]
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-
 @seealso
 コード断片集:
 @rlsr{Spacing}
@@ -3025,7 +3026,6 @@ c16[ c c8]
   ragged-last = ##t
 @}
 @end example
-
 
 @seealso
 コード断片集:
@@ -3132,10 +3132,10 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 これはすべての音楽要素へのスペースに関係する参照演奏時間です。@c
 LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 -- 全音符の分数を表す分子と分母です。@c
-それゆえ、@code{#(ly:make-moment 1 20)} という呼び出しは、@c
+それゆえ、@code{(ly:make-moment 1 20)} という呼び出しは、@c
 20 分音符の参照演奏時間となります。@c
-@code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, それに
-@code{#(ly:make-moment 3 97)} という値はすべてとり得る値です。
+@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)}, それに
+@code{(ly:make-moment 3 97)} という値はすべてとり得る値です。
 
 では、どのように @code{proportionalNotationDuration} に渡す@c
 適切な参照演奏時間を決めるのでしょうか？@c
@@ -3434,7 +3434,6 @@ OFF であるかのどちらかであるということです。@c
 システムやページが改まるときに中断されることを許可します。@c
 これらの設定について、本書の関連パートを参照してください。
 
-
 @seealso
 記譜法リファレンス:
 @ref{新しいスペース領域}
@@ -3447,7 +3446,7 @@ OFF であるかのどちらかであるということです。@c
 @section 音楽を少ないページに収める
 @translationof Fitting music onto fewer pages
 
-ときどき、譜の 1 つ、2 つが 2 番目 (あるいは、3 番目、4 番目 ...)
+ときどき、譜の 1 つ、2 つが 2 番目 (あるいは、3 番目、4 番目@dots{})
 のページに配置されてしまうことがあります。@c
 これは腹立たしいことです
 -- 特に、前のページに十分なスペースがあるように見える場合は。
@@ -3511,7 +3510,6 @@ OFF であるかのどちらかであるということです。@c
 ペア (@var{a},@var{b}) は間隔を表します。@c
 @var{a} は間隔の下端を、@var{b} は上端を表します。
 
-
 @seealso
 記譜法リファレンス:
 @ref{譜サイズを設定する}
@@ -3520,7 +3518,6 @@ OFF であるかのどちらかであるということです。@c
 @rlsr{Spacing}
 
 
-@c ここから L3349
 @node スペースを変更する
 @subsection スペースを変更する
 @translationof Changing spacing
@@ -3560,6 +3557,16 @@ OFF であるかのどちらかであるということです。@c
 @example
 \paper @{
   system-count = #10
+@}
+@end example
+
+@item
+強制的にページ数を設定する。@c
+例えば、以下の設定は強制的に 2 ページにレイアウトさせます。
+
+@example
+\paper @{
+  page-count = #2
 @}
 @end example
 
@@ -3629,7 +3636,6 @@ e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
 楽譜全体に適用されるようにする必要があります。
 
 @end itemize
-
 
 @seealso
 記譜法リファレンス:

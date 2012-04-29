@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, keyboards, fretted-strings"
+  lsrtags = "specific-notation, keyboards, fretted-strings, contemporary-notation, connecting-notes, expressive-marks"
 
   texidoc = "
 Laissez vibrer ties have a fixed size. Their formatting can be tuned
@@ -16,6 +16,7 @@ using @code{'tie-configuration}.
 "
   doctitle = "Laissez vibrer ties"
 } % begin verbatim
+
 
 \relative c' {
   <c e g>4\laissezVibrer r <c f g>\laissezVibrer r

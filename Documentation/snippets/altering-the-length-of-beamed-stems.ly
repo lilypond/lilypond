@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
@@ -39,6 +39,7 @@ of the final argument.  Non-integer arguments may also be used.
 "
   doctitle = "Altering the length of beamed stems"
 } % begin verbatim
+
 
 \relative c'' {
   \override Stem #'(details beamed-lengths) = #'(2)

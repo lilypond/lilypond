@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
@@ -23,6 +23,7 @@ used with care.
 "
   doctitle = "Suppressing warnings for clashing note columns"
 } % begin verbatim
+
 
 ignore = \override NoteColumn #'ignore-collision = ##t
 

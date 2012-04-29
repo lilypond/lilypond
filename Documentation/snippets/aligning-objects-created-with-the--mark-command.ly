@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "text"
@@ -16,6 +16,7 @@ This behavior can be modified to align at right or left.
 "
   doctitle = "Aligning objects created with the \\mark command"
 } % begin verbatim
+
 
 \relative c' {
   c1 \mark "(Center)"

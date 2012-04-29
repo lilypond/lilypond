@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -18,6 +18,7 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
   doctitle = "Preventing final mark from removing final tuplet"
 } % begin verbatim
 
+
 \new Staff {
    \set tupletFullLength = ##t
    \time 1/8
@@ -27,7 +28,10 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
    \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
    \override Score.RehearsalMark #'direction = #DOWN
    \override Score.RehearsalMark #'self-alignment-X = #RIGHT
-   \mark "Composed Feb 2007 - Feb 2008"
+% due to issue 2362 the following line is commented
+%   \mark "Composed Feb 2007 - Feb 2008"
+% and a shorter mark is used.
+   \mark "1234"
 }
 
 \new Staff {
@@ -42,6 +46,9 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
   \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
   \override Score.RehearsalMark #'direction = #DOWN
   \override Score.RehearsalMark #'self-alignment-X = #RIGHT
-  \mark "Composed Feb 2007 - Feb 2008"
+% due to issue 2362 the following line is commented
+%   \mark "Composed Feb 2007 - Feb 2008"
+% and a shorter mark is used.
+   \mark "1234"
 }
 

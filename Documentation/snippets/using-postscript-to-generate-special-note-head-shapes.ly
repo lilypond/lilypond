@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, really-cool, tweaks-and-overrides, scheme-language"
 
 %% Translation of GIT committish: 5a898cf43a2a78be6c3a58e4359dccd82196fbe7
   texidocfr = "
@@ -27,6 +27,7 @@ This example shows how a parallelogram-shaped note head is generated.
 "
   doctitle = "Using PostScript to generate special note head shapes"
 } % begin verbatim
+
 
 parallelogram =
   #(ly:make-stencil (list 'embedded-ps

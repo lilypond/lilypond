@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -17,6 +17,7 @@ of two, and the number of dots to be added as a positive integer.
 "
   doctitle = "Automatically change durations"
 } % begin verbatim
+
 
 \paper { indent = 0 }
 

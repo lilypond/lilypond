@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -32,6 +32,7 @@ beaming for grace notes.
 "
   doctitle = "Positioning grace note beams at the height of normal note beams"
 } % begin verbatim
+
 
 \relative c {
   f8[ e]

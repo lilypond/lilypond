@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 2613eed0a13ce118cb11f83057d9d79fc6973a4e
+    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,7 +27,8 @@
 @ref{コンタクト}: 援助を求める、議論する、そして交流する！
 
 @item
-@ref{最小化例}: LilyPond について議論する際に、@emph{強く} 推奨することがあります。
+@ref{最小化例}: LilyPond について議論する際に、@c
+@emph{強く} 推奨することがあります。
 
 @item
 @ref{バグ報告}: 何かうまくいかない。
@@ -44,7 +45,13 @@
 @ref{援助が必要です}: あなたの手助けが必要です。
 
 @item
-@ref{開発}: 貢献者とテスタ向けです。
+@ref{Sponsoring}: financial contributions.
+
+@item
+@ref{開発}: 貢献者とテスター向けです。
+
+@item
+@ref{GSoC}: Google Summer of Code のプロジェクト リスト。
 
 @item
 @ref{著者}: 現在の LilyPond を作った人々。
@@ -63,13 +70,13 @@
 @item
 @ref{古いニュース}: アーカイブ。
 
+@item
+@ref{物置}: アナウンスと過去のバージョンからの変更ログ。
+
 @end itemize
 @divEnd
 
 @divEnd
-
-
-
 
 @divClass{hide}
 @menu
@@ -77,10 +84,13 @@
 * 最小化例::
 * バグ報告::
 * 援助が必要です::
+* スポンサー::
 * 開発::
+* GSoC::
 * 著者::
 * 出版物::
 * 古いニュース::
+* 物置::
 @end menu
 @divEnd
 
@@ -268,6 +278,14 @@ bug-lilypond への登録と情報}
 
 @divEnd
 
+@divClass{column-right-bottom}
+@subheading デリケートな内容の email
+
+プライベートな問題は Graham Percival (プロジェクト マネージャ) に@c
+送るべきです。彼はそのことについて関係者と議論します。
+
+@divEnd
+
 
 @node 最小化例
 @unnumberedsec 最小化例
@@ -276,7 +294,7 @@ bug-lilypond への登録と情報}
 @divClass{column-center-top}
 @subheading @qq{最小化例} とは？
 
-最小化例は、削除可能なものをすべて削除した例です。
+最小化例は、@strong{削除可能なものをすべて} 削除した例です。
 @divEnd
 
 @divClass{column-left-bottom}
@@ -289,12 +307,12 @@ bug-lilypond への登録と情報}
 例が簡単なほど、援助者は素早くそれを理解して手助けすることができます。
 
 @item
-簡単な例は、あなたが自分自身で問題を解決する努力した証明になります。@c
+最小化例は、あなたが自分自身で問題を解決する努力した証明になります。@c
 入力ファイルの大部分を送った場合、援助を期待していないかのように@c
 見られてしまいます。
 
 @item
-最小化例を作ることで、あなたは何が起きているかを理解することになります。@c
+最小化例を作ることは、あなたは何が起きているかを理解する手助けにになります。@c
 多くの問題報告は最小化例を作る努力をすることで回避できるものです。@c
 最小化例の中で @qq{バグ} を再現できないのであれば、それはバグではなく、@c
 LilyPond への理解不足である可能性が高いです！
@@ -312,12 +330,12 @@ LilyPond への理解不足である可能性が高いです！
 @itemize
 
 @item
-\version 番号を含めてください。
+@code{\version} 番号を含めてください。
 
 @item
 小さくしてください！@c
 スペースやページ レイアウトについての例は多くの小節を必要とするかも@c
-しれませんが、多くの問題は 1 つの小節に作り直すことができます。
+しれませんが、多くの問題は 1 小節以下に作り直すことができます。
 
 @item
 例を作ろうとする時、ファイルの部分々々をコメント アウト
@@ -332,8 +350,50 @@ LilyPond への理解不足である可能性が高いです！
 バグと関係がないのであれば、@code{\override} や @code{\set} コマンド@c
 を使わないでください。
 
+@item
+強制ではありませんが、得ようとしている出力を示す画像を添付してください。
+
 @end itemize
 @divEnd
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 最小化例はどのようなもの？
+
+以下のコードは最小化例でしょうか？
+
+@example
+\version "2.14.1"
+\include "english.ly"
+
+\score @{
+  \new Staff @{
+    \key d \major
+    \numericTimeSignature
+    \time 2/4
+    <cs' d'' b''>16 <cs' d'' b''>8.
+    %% Here: the tie on the D's looks funny
+    %% Too tall? Left-hand endpoint is not aligned with the B tie?
+    ~
+    <cs' d'' b''>8 [ <b d'' a''> ]
+  @}
+@}
+@end example
+
+これで大きすぎるわけではありませんが、本当の最小化例は以下のように@c
+なります:
+
+@example
+\version "2.14.1"
+@{
+  % middle tie looks funny here:
+  <c' d'' b''>8. ~ <c' d'' b''>8
+@}
+@end example
+
+最小化例のコードが 10 行を越えることはほとんどありません
+-- ほとんどの場合、問題を示すのに 4 行で十分です！
 
 @divEnd
 
@@ -342,12 +402,16 @@ LilyPond への理解不足である可能性が高いです！
 @unnumberedsec バグ報告
 @translationof Bug reports
 
+
+@divClass{heading-center}
+クラッシュや記述どおりの出力を得られない入力があるのなら、@c
+それはバグです。
+@divEnd
+
 @divClass{column-center-top}
 @subheading ステップ 1: 既知のバグ
 
-クラッシュやエラーを引き起こす入力が入力があるのなら、@c
-それはバグです。@c
-Google バグ トラッカーに現在知られているバグがリスト アップされています。
+すでに把握しているバグがあります。以下をチェックしてください:
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
@@ -365,8 +429,7 @@ Google バグ トラッカーに現在知られているバグがリスト ア�
 リスト アップされていないバグを発見した場合、@c
 我々がバグを無くすることができるよう、バグ報告を作ってください。
 
-@warning{我々が受け付けられるバグ報告は、@c
-@ref{最小化例} になっているものだけです。@c
+@warning{我々が受け付ける報告は、@ref{最小化例} になっているものだけです。@c
 我々がバグ報告を扱うために使える資源は非常に限られています。@c
 そのため、最小化されていない例は受け付けられません。@c
 ほとんどのバグは 4 つ以下の音符で表すことができます！}
@@ -427,16 +490,17 @@ gmane lilypond.bugs web インタフェイス} でバグ報告を送ることが
 
 バグ報告がメーリング リストに送られると、@c
 バグ チームがその報告を検証します。@c
+彼らはバグについての更なる情報を得るために質問をする場合があります。@c
+報告がバグ トラッカーに追加された場合、通知が来ます。@c
 この仕事に割り当てられるボランティアの数は限られているため、
-24 時間は待ってください。@c
-バグ チームは情報を求めてあなたに何か尋ねるかもしれませんし、@c
-バグ トラッカーに報告を追加してあなたにそのバグの問題番号を@c
-通知するかもしれません。
+4 日間は待ってください。@c
 
+バグがトラッカーに追加されると、@c
+そのバグについての情報を追加するためにコメントすることができます。@c
 バグにマークを付けて、@c
-そのバグに対して何かアクションがあったときに
-email を受け取るようにできます。@c
-こうするには Google アカウントが必要です。
+そのバグに対して何かアクションがあったときに自動的に
+email を受け取ることができます。@c
+これには Google アカウントが必要です。
 @divEnd
 
 @divClass{column-center-bottom}
@@ -462,14 +526,94 @@ email を受け取るようにできます。@c
 
 @divClass{column-left-top}
 @divClass{keep-bullets}
-@helpusTasks
+@helpusSimple
 
 @divEnd
 @divEnd
 
 @divClass{column-right-top}
-@helpusProjects
+@helpusAdvanced
 
+@divEnd
+
+
+@node スポンサー
+@unnumberedsec スポンサー
+@translationof Sponsoring
+
+@divClass{keep-bullets}
+@divClass{column-left-top}
+@subheading 報酬
+
+過去には以下のようなことがありました:
+
+@itemize
+@item お金を支払って新しい機能を作ってもらったユーザがいました。
+@item お金を受け取って新しい機能を追加した開発者がいました。
+@end itemize
+
+LilyPond プロジェクトはそのような活動はしません。@c
+そのような契約を推奨も妨げもしません。@c
+個々の個人的な契約はそこで完結するものであり、我々は関与しません。
+
+@divEnd
+
+@divClass{column-right-top}
+@subheading ガイドライン
+
+作業への報酬としてお金を提供しようとするユーザは以下のポイントを@c
+心に留めておく必要があります:
+
+@itemize
+@item
+LilyPond 開発者は時々、彼らが行ったサービスを lilypond email リストで@c
+宣伝することがあります。
+
+@item
+プライベートで個人的な合意であっても、ビジネスを行う際の通常の決め事
+-- 支払者、支払額、支払方法、支払条件 -- を取り交わすべきです。@c
+それらの事柄について曖昧なことや不明なことは作業を開始する前に解決して@c
+おくべきです。
+
+@end itemize
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 興味のある開発者
+
+報酬への興味を表明した人々のリストを挙げます。@c
+それぞれの行った作業量はここ数年でかなり変化していることに注意して@c
+ください。@c
+このリストが最新であることを保証しませんし、このリストに挙がっている@c
+人々の能力を保証することもしません。@c
+このリストの基準は「このページのリストに掲載されることを依頼した者」で@c
+あるということだけです。
+
+git 履歴を調べることで、活発に活動していて、経験豊富な開発者を探すことが@c
+できます。@c
+バージョン @versionDevel{} までの統計情報があります:
+
+@multitable @columnfractions .3 .3 .3
+@item @uref{http://lilypond.org/~graham/gitstats-all/, 全体の履歴}
+@tab @uref{http://lilypond.org/~graham/gitstats-1year/, 過去 1 年の履歴}
+@tab @uref{http://lilypond.org/~graham/gitstats-3months/, 過去 3 ヶ月の履歴}
+@end multitable
+
+興味のある開発者:
+@table @asis
+@item @email{dak@@gnu.org, David Kastrup}
+私が現在のようにフルタイムで LilyPond に取り組み続けるには寄付が必要です。@c
+私が注力している分野は、ユーザ インタフェイスとプログラマ インタフェイス@c
+の設計、統一、平易化、ドキュメント化、それにデバッグです。
+
+@c Format
+@c @item @email{name@@adress.domain, Name}
+@c area of interest (256 chars max)
+
+@end table
+
+@divEnd
 @divEnd
 
 
@@ -732,6 +876,205 @@ LilyPond の開発手法はかなり複雑です。@c
 @divEnd
 
 
+@node GSoC
+@unnumberedsec GSoC
+@translationof GSoC
+
+@divClass{column-center-top}
+@subheading Google Summer of Code とは？
+
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+GSoC website} からの引用です: (LilyPond ドキュメント訳者による訳)
+@qq{Google Summer of Code はオープン ソース プロジェクトのために@c
+プログラム コードを書いた学生に報酬を提供する世界規模のプログラムです。@c
+Google は、次の夏に学生が取り組むべきエキサイティングなプロジェクトを@c
+見つけて資金提供するために、オープン ソース コミュニティと活動してきました。}
+
+LilyPond チームは、新しい貢献者を見つけ、すでに LilyPond の開発に@c
+参加している学生がより熱心に取り組む動機付けを与え、それに -- 最後に重要な@c
+こととして -- すべての人々の利益となる素晴らしいコードを得るため、@c
+GSoC を絶好の機会だと捉えました。
+
+LilyPond チームは GNU プロジェクトの一部として GSoC に参加しています。@c
+参加方法は @uref{http://www.gnu.org/software/soc-projects/guidelines.html,
+GNU GSoC webpage} を参照してください。
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading LilyPond チームからのアイディア リスト
+
+以下のリストは GSoC に参加する学生に提案されているプロジェクトです。@c
+あなたに相応しいプロジェクトが見つからないのであれば、あなた自身で提案@c
+してください！@c
+リストアップされたプロジェクトが大きすぎると感じるのであれば、プロジェクト@c
+をスケール ダウンすることもできます。
+
+参加する学生には @code{git} についての基本的な知識を持っていることを求めて@c
+いますが、それ以外に楽譜記譜についての基本的な知識を持っていることを重視@c
+します。
+
+@subheading 装飾小音符
+
+装飾小音符の同期についての問題を、すべての基本的なアーキテクチャも含めて@c
+修正してください (@uref{http://code.google.com/p/lilypond/issues/detail?id=34,
+バグ トラッカーの問題 34} を参照してください)。@c
+装飾小音符は時間を巻き戻すかのように振舞い、LilyPond のタイミングを@c
+混乱させています。@c
+これにより予期しない効果 -- 特に、ある譜が装飾小音符を持っていて、他の譜が@c
+持っていない場合に -- が引き起こされています。
+
+@strong{難易度:} 中
+
+@strong{必須スキル:} C++, MIDI
+
+@strong{推奨スキル:} LilyPond の内部を熟知していること
+
+@strong{メンター:} Mike Solomon, Carl Sorensen
+
+@subheading MusicXML
+
+広範囲にわたる MusicXML エクスポート機能の追加と、インポート機能の改良、@c
+それらが機能することのチェックを行ってください。@c
+参加時間に応じて以下のいくつか、または全てを実現してください:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+MIDI エクスポートのような基本的な音楽コンテンツ エクスポート機能@c
+(つまり、翻訳クラスから派生したエクスポート専用のクラス) を扱います。
+
+@item
+基本的な音楽コンテンツの XML ツリーを構築し、音楽イベントと XML タグを@c
+結び付けます。
+
+@item
+すべての LilyPond エングラーバにエクスポート処理を実行させます。
+
+@item
+各出力オブジェクト (基本的には各ステンシル / ステンシルのグループ)
+を音楽イベントにリンクさせる機能を追加します
+(そして、それにより、XML ツリーの XML タグにリンクさせます)。
+
+@item
+XML 出力のバックエンドを追加します。@c
+その後、バックエンドには各出力オブジェクトのレイアウト情報を XML タグに@c
+追加する機能を持たせます。
+
+@end itemize
+@divEnd
+
+ゴールは、MusicXML から楽譜をインポートして、データのロス無しにエクスポート@c
+することです。
+
+@strong{難易度:} 中
+
+@strong{必須スキル:} MusicXML, Python, 基本的な LilyPond の知識
+
+@strong{メンター:} Reinhold Kainhofer, Mike Solomon
+
+他の楽譜ライターの経験 (クロス テストのために) があると尚良しです。
+
+@subheading スラーとタイの改良
+
+スラーとタイのデフォルトのカーブ形状はしばしば満足いかないものです。@c
+同音異名の音符間のタイ (@code{@{ cis'~ des' @}}) はサポートされておらず、@c
+音部記号や譜の変更によって「中断」されるタイのサポートも十分ではありません。@c
+このプロジェクトでは、不満足な出力例を収集、ソートして、どのような出力に@c
+するかを決定して実際にコードを記述します。
+
+@strong{難易度:} 高
+
+@strong{必須スキル:} C++, 試行錯誤によるコード記述の経験
+
+@strong{推奨スキル:} LilyPond の知識, 美的感覚
+
+@strong{メンター:} Mike Solomon
+
+@subheading フォント図柄の特殊な変体を追加する
+
+譜上の線、譜間の線、いくつかの図柄 (例えば臨時記号) を短く幅を縮めたものを@c
+追加して、それらをサポートするための一般的なインフラを整備します。@c
+使用例には古代記譜法の breve (全音符の 2 倍の長さ) の符頭があり、@c
+これには符頭の穴が小さいものと大きいものの 2 つの変体があります。
+
+@strong{難易度:} 低
+
+@strong{必須スキル:} MetaFont, C++, 細部を確認できる眼力
+
+@strong{推奨スキル:} 基本的な LilyPond の知識
+
+@strong{メンター:} Werner Lemberg
+
+@subheading 連桁の改良
+
+連桁 (通常、譜をまたぐ、中断する、符幹が上下に突き出る連桁) のデフォルトの@c
+配置を改良する必要があります。@c
+連桁はコンテキストと付近の音符に依存します
+(@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
+この PDF のセクション 2.2} を参照してください)。@c
+可能であれば、連桁の算出時間を削減してください。
+
+@strong{難易度:} 中
+
+@strong{必須スキル:} C++, 試行錯誤によるコード記述の経験
+
+@strong{推奨スキル:} 美的感覚
+
+@strong{メンター:} Mike Solomon, Carl Sorensen
+
+@subheading タブ譜サポートの改良
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+ウクレレのようなモノトーンではない弦楽器のチューニング。
+
+@item
+中世のリュートのタブ譜を記述するためのタブ譜入力モードを作成します
+(現在、音楽情報を西洋の一般的な音楽記譜用語
+-- つまり、@qq{四分音符の f シャープの音符} のように --
+で入力して、それからタブ譜に変換しています)。
+
+@item
+ベンド、プル オフ、ハンマー オンのような現代のタブ譜機能を実装します。
+
+@item
+与えられた和音に対するフレットボードの形が定義されている場合に、@c
+譜上にその和音を表示する時にそのフレットボードの情報を使います
+(デフォルトの和音の形だけを表示するのではありません)。
+
+@end itemize
+@divEnd
+
+@strong{難易度:} 低
+
+@strong{必須スキル:} C++
+
+@strong{推奨スキル:} タブ譜の記譜に馴染みがあること
+
+@strong{メンター:} Carl Sorensen
+
+@subheading 様々なコンパイル警告のクリーン アップ
+
+コンパイラ、静的コード分析、それに valgrind の警告をクリーン アップして@c
+ください。@c
+自動コード分析ツール (@code{g++} と @code{clang} の警告)、valgrind メモリ
+リーク検出、それに callgrind コード プロファイラは C++ コードの欠陥に@c
+ついての有用な情報を提供してくれます。@c
+これらの警告をクリーン アップすることで、警告を発生させるパッチを自動的に@c
+拒絶することが可能になります。
+
+@strong{難易度:} 中
+
+@strong{必須スキル:} C++
+
+@strong{メンター:} Joe Neeman, Reinhold Kainhofer
+
+@divEnd
+
 
 @node 著者
 @unnumberedsec 著者
@@ -834,9 +1177,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @divEnd
 
 @divClass{column-center-bottom}
-
 @subheading LilyPond についての活動
-
 
 @divClass{keep-bullets}
 
@@ -852,6 +1193,66 @@ LilyPond の開発手法はかなり複雑です。@c
 @unnumberedsec 古いニュース
 @translationof Old news
 
+@divClass{heading-center}
+@warning{多くの古いアナウンスと変更履歴が @ref{Attic} で見つかります。}
+@divEnd
+
 @include web/news-front.itexi
 
 @include web/news.itexi
+
+
+@node 物置
+@unnumberedsec 物置
+@translationof Attic
+
+@divClass{column-center-top}
+@subheading アナウンス
+
+バージョン毎のアナウンスとニュース:
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_0-released_0021-June-6_002c-2011,v2.14},
+@miscLink{announce-v2.12,v2.12},
+@miscLink{announce-v2.10,v2.10},
+@miscLink{announce-v2.8,v2.8},
+@miscLink{announce-v2.6,v2.6},
+@miscLink{announce-v2.4,v2.4},
+@miscLink{announce-v2.2,v2.2},
+@miscLink{announce-v2.0,v2.0},
+@miscLink{ANNOUNCE-1.2,v1.2},
+@miscLink{ANNOUNCE-1.0,v1.0},
+@miscLink{ANNOUNCE-0.1,v0.1}
+
+バージョン毎の変更についての説明リスト:
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@miscLink{NEWS-1.4,v1.4},
+@miscLink{NEWS-1.2,v1.2}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 変更履歴
+
+バージョン毎の開発者による変更履歴:
+@miscLink{ChangeLog-2.10,v2.10},
+@miscLink{ChangeLog-2.3,v2.3},
+@miscLink{ChangeLog-2.1,v2.1},
+@miscLink{ChangeLog-1.5,v1.5 (1)},
+@miscLink{CHANGES-1.5,v1.5 (2)},
+@miscLink{CHANGES-1.4,v1.4},
+@miscLink{CHANGES-1.3,v1.3},
+@miscLink{CHANGES-1.2,v1.2},
+@miscLink{CHANGES-1.1,v1.1},
+@miscLink{CHANGES-1.0,v1.0},
+@miscLink{CHANGES-0.1,v0.1},
+@miscLink{CHANGES-0.0,v0.0}
+
+@divEnd

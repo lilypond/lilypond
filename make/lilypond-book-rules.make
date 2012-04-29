@@ -15,7 +15,7 @@ $(outdir)/%.html:  %.xml
 ############## LaTeX ########################
 
 $(outdir)/%.tex:  %.lytex
-	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<
+	$(buildscript-dir)/run-and-check "$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<"  "$*.lytex.log"
 
 $(outdir)/%.tex:  %.tex
 	$(LILYPOND_BOOK_COMMAND) --pdf -o $(outdir) $<

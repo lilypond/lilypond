@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "staff-notation"
@@ -75,6 +75,7 @@ the Internals Reference.
 "
   doctitle = "Quoting another voice"
 } % begin verbatim
+
 
 quoteMe = \relative c' {
   fis4 r16 a8.-> b4\ff c

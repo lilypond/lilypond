@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms"
+  lsrtags = "preparing-parts, automatic-notation, really-simple, rhythms"
 
   texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal
@@ -16,6 +16,7 @@ marks, but from the letter or number desired.
 "
   doctitle = "Forcing rehearsal marks to start from a given letter or number"
 } % begin verbatim
+
 
 \relative c'' {
   c1 \mark \default

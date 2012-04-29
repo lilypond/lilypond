@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -53,6 +53,7 @@ measures except at the end of the line.
 "
   doctitle = "Printing bar numbers at regular intervals"
 } % begin verbatim
+
 
 \relative c' {
   \override Score.BarNumber #'break-visibility = #end-of-line-invisible

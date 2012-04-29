@@ -158,19 +158,14 @@ Part_combine_iterator::derived_mark () const
     scm_gc_mark (first_iter_->self_scm ());
   if (second_iter_)
     scm_gc_mark (second_iter_->self_scm ());
-
-  Stream_event *ptrs[]
-  =
-  {
-    unisono_event_,
-    mmrest_event_,
-    solo_two_event_,
-    solo_one_event_,
-    0
-  };
-  for (int i = 0; ptrs[i]; i++)
-    if (ptrs[i])
-      scm_gc_mark (ptrs[i]->self_scm ());
+  if (unisono_event_)
+    scm_gc_mark (unisono_event_->self_scm ());
+  if (mmrest_event_)
+    scm_gc_mark (mmrest_event_->self_scm ());
+  if (solo_one_event_)
+    scm_gc_mark (solo_one_event_->self_scm ());
+  if (solo_two_event_)
+    scm_gc_mark (solo_two_event_->self_scm ());
 }
 
 void

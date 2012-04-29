@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "rhythms, percussion"
+  lsrtags = "real-music, percussion, contemporary-notation, rhythms"
 
   texidoc = "
 Though the polymetric time signature shown was not the most essential
@@ -17,6 +17,7 @@ is the template of a real Balkan song!).
 "
   doctitle = "Heavily customized polymetric time signatures"
 } % begin verbatim
+
 
 #(define plus (markup #:vcenter "+"))
 #(define ((custom-time-signature one two three four five six

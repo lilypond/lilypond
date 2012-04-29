@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 2aeac5e3815effa47427dad86d6be811c7b0d8a2
+    Translation of GIT committish: c46be1b7c0e190478a16035db5aad453f31e9d02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,6 +29,18 @@ LilyPond può interagire con altri programmi in vari modi.
 @section Punta e clicca
 @translationof Point and click
 
+Il "punta e clicca" aggiunge dei collegamenti ai documenti pdf per certi
+elementi musicali.
+
+@menu
+* Abilitare il punta e clicca::
+* Punta e clicca selettivo::
+@end menu
+
+@node Abilitare il punta e clicca
+@unnumberedsubsec Abilitare il punta e clicca
+@translationof Enabling point and click
+
 @cindex punta e clicca
 
 Il "punta e clicca" (@emph{point and click}) permette di individuare gli elementi
@@ -44,8 +56,8 @@ in modo che segua i collegamenti ipertestuali usando lo script @file{lilypond-in
 fornito insieme a LilyPond.
 
 Per Xpdf su UNIX, occorre inserire la seguente linea nel file
-@file{xpdfrc}@footnote{Su UNIX, questo file si trova in
-@file{/etc/xpdfrc} o come @file{.xpdfrc} nella propria directory home.}
+@file{xpdfrc}.  Su UNIX, questo file si trova in
+@file{/etc/xpdfrc} o @file{$HOME/.xpdfrc}.
 
 @example
 urlCommand     "lilypond-invoke-editor %s"
@@ -115,6 +127,84 @@ lilypond -dno-point-and-click file.ly
 che si vogliano diffondere, per evitare di includere nel file .pdf delle informazioni
 sui percorsi del proprio computer: questo infatti può costituire un rischio di
 sicurezza.}
+
+@node Punta e clicca selettivo
+@unnumberedsubsec Punta e clicca selettivo
+@translationof Selective point-and-click
+
+Per alcune applicazioni interattive, si potrebbe voler includere
+soltanto alcuni elementi punta e clicca.  Ad esempio, se qualcuno
+volesse creare un'applicazione che riproduca audio o video a partire
+da una nota in particolare, sarebbe inopportuno che il clic sulla
+nota portasse alla posizione di un'alterazione o di una legatura
+che si trovi sopra quella nota.
+
+Questo può essere controllato indicando quali eventi includere:
+
+@itemize
+@item
+Codice interno al file @file{.ly}:
+
+@example
+\pointAndClickTypes #'note-event
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+oppure
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Linea di comando:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+Si può includere più di un evento:
+
+@itemize
+@item
+Codice interno al file @file{.ly}:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+oppure
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative c' @{
+  c2\f( f)
+@}
+@end example
+
+@item
+Linea di comando:
+
+@smallexample
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end smallexample
+
+
+@end itemize
+
+
 @node LilyPond e gli editor di testo
 @section LilyPond e gli editor di testo
 @translationof Text editor support

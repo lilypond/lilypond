@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, tweaks-and-overrides, expressive-marks"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
   texidoces = "
@@ -44,6 +44,7 @@ set to false in order to be printed inside slurs.
 "
   doctitle = "Positioning text markups inside slurs"
 } % begin verbatim
+
 
 \relative c'' {
   \override TextScript #'avoid-slur = #'inside

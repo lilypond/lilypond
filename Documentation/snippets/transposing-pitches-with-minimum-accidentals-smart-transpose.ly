@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches"
+  lsrtags = "workaround, pitches, scheme-language"
 
 %% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
 doctitlees = "Transportar música con el menor número de alteraciones"
@@ -151,6 +151,7 @@ In this manner, the most natural enharmonic notes are chosen.
 "
   doctitle = "Transposing pitches with minimum accidentals (\"Smart\" transpose)"
 } % begin verbatim
+
 
 #(define (naturalize-pitch p)
    (let ((o (ly:pitch-octave p))

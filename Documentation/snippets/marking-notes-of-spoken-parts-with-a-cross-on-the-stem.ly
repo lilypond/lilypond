@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.25"
+\version "2.15.32"
 
 \header {
-  lsrtags = "editorial-annotations, vocal-music"
+  lsrtags = "vocal-music, editorial-annotations, workaround, contemporary-notation"
 
   texidoc = "
 This example shows how to put crosses on stems.  Mark the beginning of
@@ -17,6 +17,7 @@ a spoken section with the @code{\\speakOn} keyword, and end it with the
 "
   doctitle = "Marking notes of spoken parts with a cross on the stem"
 } % begin verbatim
+
 
 speakOn = {
   \override Stem #'stencil =

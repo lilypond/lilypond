@@ -119,7 +119,8 @@
 (define unlistened-music-event-classes
   '(harmonic-event line-break-event page-break-event page-turn-event label-event
 		   solo-one-event solo-two-event skip-event unisono-event
-		   part-combine-force-event break-dynamic-span-event))
+		   part-combine-force-event break-dynamic-span-event
+		   stroke-finger-event))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?

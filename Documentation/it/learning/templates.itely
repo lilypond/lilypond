@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 4ca01b6da8d60b0d8575be05ae974429c91becd5
+    Translation of GIT committish: d6b6b53d09a0fb8e137e7cfcec39fe22dc7b6872
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -75,11 +75,6 @@ LilyPond e goderti dei belli spartiti!
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
-@appendixsubsec Pianoforte con dinamiche al centro
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
-{piano-template-with-centered-dynamics.ly}
-
 
 @node Quartetto d'archi
 @appendixsec Quartetto d'archi
@@ -152,7 +147,8 @@ LilyPond e goderti dei belli spartiti!
 
 @appendixsubsec Transcrizione di musica mensurale
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 @appendixsubsec Trascrizione di musica Gregoriana
@@ -167,7 +163,8 @@ LilyPond e goderti dei belli spartiti!
 
 @appendixsubsec Combo jazz
 
-@lilypondfile[verbatim,quote,ragged-right,texidoc]
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {jazz-combo-template.ly}
 
 

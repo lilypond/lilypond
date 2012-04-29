@@ -341,8 +341,18 @@
 ;     (ac:accel trillMusic factor))
  )))
 
-
-
+%
+% Generate a tempoChangeEvent and its associated property setting.
+%
+#(define (ac:tempoChange tempo)
+  (make-sequential-music
+   (list (make-music 'TempoChangeEvent
+	  'metronome-count
+	  tempo
+	  'tempo-unit
+	  (ly:make-duration 0 0 1 1))
+    (context-spec-music
+    (make-property-set 'tempoWholesPerMinute  tempo) 'Score))))
 
 % If there's an articulation, use it.
 % If in a slur, use (1 . 1) instead.
@@ -414,6 +424,14 @@
 	     (string= t "rall."))
 	    (loop factor (cons e newelements) tail (cons 'rall actions)))
 	   ((or
+	     (string= t "accelerando")
+	     (string= t "accel")
+	     (string= t "accel."))
+	    (loop factor (cons e newelements) tail (cons 'accel actions)))
+	   ((or
+	     (string= t "poco accel."))
+	    (loop factor (cons e newelements) tail (cons 'pocoAccel actions)))
+	   ((or
 	     (string= t "poco rall.")
 	     (string= t "poco rit."))
 	    (loop factor (cons e newelements) tail (cons 'pocoRall actions)))
@@ -477,25 +495,37 @@
 	     (make-music 'RestEvent 'duration (ly:make-duration len dots newnum newdenom))))))
 	  music)))
 
+       ((accel)
+	(set! ac:lastTempo ac:currentTempo)
+	(set! ac:currentTempo (ly:moment-div ac:currentTempo ac:rallFactor))
+	(let ((pset (ac:tempoChange ac:currentTempo)))
+	 (if (null? (cdr actions))
+	  (make-sequential-music (list pset music))
+	  (make-sequential-music
+	   (list pset (loop (cdr actions)))))))
+
+       ((pocoAccel)
+	(set! ac:lastTempo ac:currentTempo)
+	(set! ac:currentTempo (ly:moment-div ac:currentTempo ac:pocoRallFactor))
+	(let ((pset (ac:tempoChange ac:currentTempo)))
+	 (if (null? (cdr actions))
+	  (make-sequential-music (list pset music))
+	  (make-sequential-music
+	   (list pset (loop (cdr actions)))))))
+
        ((rall)
+	(set! ac:lastTempo ac:currentTempo)
 	(set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:rallFactor))
-	(let ((pset (make-music 'PropertySet
-	   'value
-	   ac:currentTempo
-	   'symbol
-	   'tempoWholesPerMinute)))
+	(let ((pset (ac:tempoChange ac:currentTempo)))
 	 (if (null? (cdr actions))
 	  (make-sequential-music (list pset music))
 	  (make-sequential-music
 	   (list pset (loop (cdr actions)))))))
 
        ((pocoRall)
+	(set! ac:lastTempo ac:currentTempo)
 	(set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:pocoRallFactor))
-	(let ((pset (make-music 'PropertySet
-	   'value
-	   ac:currentTempo
-	   'symbol
-	   'tempoWholesPerMinute)))
+	(let ((pset (ac:tempoChange ac:currentTempo)))
 	 (if (null? (cdr actions))
 	  (make-sequential-music (list pset music))
 	  (make-sequential-music
@@ -503,11 +533,8 @@
 
        ((aTempo)
 	(set! ac:currentTempo ac:lastTempo)
-	(let ((pset (make-music 'PropertySet
-	   'value
-	   ac:currentTempo
-	   'symbol
-	   'tempoWholesPerMinute)))
+
+	(let ((pset (ac:tempoChange ac:currentTempo)))
 	 (if (null? (cdr actions))
 	  (make-sequential-music (list pset music))
 	  (make-sequential-music
@@ -621,12 +648,12 @@
      (ac:adjust-props (ly:music-property music 'symbol) music)
      music)
 
-    (else  music))
+    (else music))
  ))
 
 
 
-% At last ... here's the music function that aplies all the above to a
+% At last ... here's the music function that applies all the above to a
 % score.
 articulate = #(define-music-function (parser location music)
 	       (ly:music?)

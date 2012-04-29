@@ -108,9 +108,9 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 大きな楽譜例は別のファイルに配置して、\verb+\lilypondfile+ で
 インポートすることができます。
 
-\lilypondfile[quote,noindent]{screech-boink.ly}
+\lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(必要があれば、@file{screech-boink.ly} をこのファイルと同じディレクトリ
+(必要があれば、@file{screech-and-boink.ly} をこのファイルと同じディレクトリ
 にある任意の @file{.ly} に置き換えてください。)
 
 \end{document}
@@ -170,7 +170,7 @@ c'4 f16
 大きな楽譜例は別のファイルに配置して、@code{\lilypondfile} で
 インポートすることができます。
 
-@lilypondfile[quote,noindent]{screech-boink.ly}
+@lilypondfile[quote,noindent]{screech-and-boink.ly}
 
 デフォルトあるいはカスタムの @code{tagline} が必要であれば、
 楽譜コード断片全体を @code{\book @{ @}} 構造で囲んでください。

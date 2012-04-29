@@ -1,6 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
+
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -115,7 +116,6 @@ a4_"scherzando" f
 学習マニュアル:
 @rlearning{オブジェクトの配置}
 
-
 記譜法リファレンス:
 @ref{テキストをフォーマットする},
 @ref{Direction and placement},
@@ -127,12 +127,10 @@ a4_"scherzando" f
 内部リファレンス:
 @rinternals{TextScript}
 
-
 @cindex text outside margin (マージンからはみ出すテキスト)
 @cindex margin, text running over (マージンからはみ出すテキスト)
 @cindex text, keeping inside margin (テキストをマージン内に収める)
 @cindex lyrics, keeping inside margin (歌詞をマージン内に収める)
-
 
 @knownissues
 テキスト スクリプトと歌詞がマージンに収まることを保証するためのチェックは@c
@@ -205,7 +203,6 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {dynamics-custom-text-spanner-postfix.ly}
-
 
 @seealso
 記譜法リファレンス:
@@ -301,7 +298,6 @@ c  c
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
-
 @seealso
 記譜法リファレンス:
 @ref{リハーサル記号},
@@ -377,7 +373,6 @@ c  c
 @code{\markup},
 @code{\markuplist}
 @endpredefined
-
 
 @snippets
 
@@ -507,22 +502,19 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-
 @noindent
 @ref{Text markup commands} に
 @code{\markup} 特有のコマンドの徹底したリストがあります。
-
 
 @seealso
 記譜法リファレンス:
 @ref{Text markup commands}
 
-コード断片集:
-@rlsr{Text}
-
 インストールされているファイル:
 @file{scm/markup.scm}
 
+コード断片集:
+@rlsr{Text}
 
 @knownissues
 マークアップ モードの構文エラーは混乱しやすいです。
@@ -558,6 +550,7 @@ f1 d2 r
 @cindex font size (フォント サイズ)
 @cindex text size (テキスト サイズ)
 
+@funindex \abs-fontsize
 @funindex \fontsize
 @funindex fontsize
 @funindex \smaller
@@ -567,38 +560,40 @@ f1 d2 r
 @funindex \magnify
 @funindex magnify
 
-文字のサイズもいくつかの方法で変更することができます:
-@itemize
-@item
-フォント サイズをあらかじめ定義されている標準サイズに設定することができます。
+フォント サイズをいくつかの方法でグローバル譜サイズとの相対値で変更することができます。
 
-@item
-フォント サイズを絶対値で設定することができます。
+フォント サイズをあらかじめ定義されているサイズに設定することができます:
 
-@item
-さらに、フォント サイズを現在の値からの相対値で設定することができます。
-@end itemize
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \huge Sinfonia }
+b1^\markup { \teeny da }
+b1-\markup { \normalsize camera }
+@end lilypond
 
-@noindent
-以下の例は、これら 3 つの方法の使用例です:
+フォント サイズを前の値との相対関係で設定することができます:
 
-@lilypond[quote,verbatim,relative=1]
-f1_\markup {
-  \tiny espressivo
-  \large e
-  \normalsize intenso
-}
-a^\markup {
-  \fontsize #5 Sinfonia
-  \fontsize #2 da
-  \fontsize #3 camera
-}
-bes^\markup { (con
-  \larger grande
-  \smaller emozione
-  \magnify #0.6 { e sentimento } )
-}
-d c2 r8 c bes a g1
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \larger Sinfonia }
+b1^\markup { \smaller da }
+b1-\markup { \magnify #0.6  camera }
+@end lilypond
+
+フォント サイズをグローバル譜サイズによって設定されている値で拡大あるいは縮小させる@c
+ことができます:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \fontsize #-2 Sinfonia }
+b1^\markup { \fontsize #1 da }
+b1-\markup { \fontsize #3 camera }
+@end lilypond
+
+さらに、フォント サイズをグローバル譜サイズとは無関係に、固定ポイント サイズに設定する@c
+ことができます:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \abs-fontsize #20 Sinfonia }
+b1^\markup { \abs-fontsize #8 da }
+b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
 @cindex subscript (下付き文字)
@@ -608,6 +603,8 @@ d c2 r8 c bes a g1
 @funindex super
 @funindex \sub
 @funindex sub
+@funindex \normal-size-super
+@funindex normal-size-super
 
 テキストを下付き文字あるいは上付き文字として譜刻することができます。@c
 デフォルトでは、それらは小さなサイズで譜刻されますが、@c
@@ -693,7 +690,6 @@ d c2 r8 c bes a g1
 @funindex \larger
 @funindex larger
 
-
 @predefined
 @code{\teeny},
 @code{\tiny},
@@ -705,7 +701,6 @@ d c2 r8 c bes a g1
 @code{\larger}
 @endpredefined
 
-
 @seealso
 記譜法リファレンス:
 @ref{フォント},
@@ -713,14 +708,14 @@ d c2 r8 c bes a g1
 @ref{手動の繰り返し記号},
 @ref{フォント}
 
+インストールされているファイル:
+@file{scm/define-markup-commands.scm}
+
 コード断片集:
 @rlsr{Text}
 
 内部リファレンス:
 @rinternals{TextScript}
-
-インストールされているファイル:
-@file{scm/define-markup-commands.scm}
 
 @knownissues
 フォントのサイズ コマンド @code{\teeny}, @code{\tiny}, @code{\small},
@@ -971,7 +966,6 @@ a'4 a g2 a
 
 @ref{Align} にテキスト揃えコマンドの徹底したリストがあります。
 
-
 @seealso
 学習マニュアル:
 @rlearning{オブジェクトを移動させる}
@@ -980,14 +974,14 @@ a'4 a g2 a
 @ref{Align},
 @ref{テキスト マーク}
 
+インストールされているファイル:
+@file{scm/define-markup-commands.scm}.
+
 コード断片集:
 @rlsr{Text}
 
 内部リファレンス:
 @rinternals{TextScript}
-
-インストールされているファイル:
-@file{scm/define-markup-commands.scm}.
 
 
 @node マークアップ内部でのグラフィック記譜法
@@ -1160,22 +1154,21 @@ c
 
 @ref{Graphic} にグラフィック特有のコマンドの徹底したリストがあります。
 
-
 @seealso
 記譜法リファレンス:
 @ref{Graphic},
 @ref{編集者の注釈},
 @ref{Align}
 
+インストールされているファイル:
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}
+
 コード断片集:
 @rlsr{Text}
 
 内部リファレンス:
 @rinternals{TextScript}
-
-インストールされているファイル:
-@file{scm/define-markup-commands.scm},
-@file{scm/stencil.scm}
 
 
 @node マークアップ内部での音楽記譜法
@@ -1295,23 +1288,22 @@ c d e f
 
 @ref{Music} に、音楽記譜法関連のコマンドの徹底したリストがあります。
 
-
 @seealso
 記譜法リファレンス:
 @ref{Music},
 @ref{The Feta font},
 @ref{フォントの説明}
 
+インストールされているファイル:
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}
+
 コード断片集:
 @rlsr{Text}
 
 内部リファレンス:
 @rinternals{TextScript}
-
-インストールされているファイル:
-@file{scm/define-markup-commands.scm},
-@file{scm/fret-diagrams.scm},
-@file{scm/harp-pedals.scm}.
 
 
 @node 複数ページにわたるマークアップ
@@ -1363,22 +1355,21 @@ c d e f
 @ref{Text markup list commands} に、@c
 マークアップ リスト コマンドの徹底したリストがあります。
 
-
 @seealso
 記譜法リファレンス:
-@ref{Text markup list commands},
-
-コード断片集:
-@rlsr{Text}
+@ref{Text markup list commands}
 
 拡張:
 @rextend{New markup list command definition}
 
+インストールされているファイル:
+@file{scm/define-markup-commands.scm}
+
+コード断片集:
+@rlsr{Text}
+
 内部リファレンス:
 @rinternals{TextScript}
-
-インストールされているファイル:
-@file{scm/define-markup-commands.scm}.
 
 @funindex \markuplist
 @funindex markuplist
@@ -1386,7 +1377,6 @@ c d e f
 @predefined
 @code{\markuplist}
 @endpredefined
-
 
 @node フォント
 @subsection フォント
@@ -1506,7 +1496,6 @@ c4^smaller
 他のフォントを使用する方法は以下のセクションで説明されています:
 @ref{個々に登録するフォント} と @ref{ドキュメント全体のフォント}。
 
-
 @seealso
 記譜法リファレンス:
 @ref{The Feta font},
@@ -1549,7 +1538,6 @@ a1_\markup {
 @example
 lilypond -dshow-available-fonts x
 @end example
-
 
 @seealso
 記譜法リファレンス:
@@ -1598,7 +1586,6 @@ lilypond -dshow-available-fonts x
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
-
 
 @seealso
 記譜法リファレンス:

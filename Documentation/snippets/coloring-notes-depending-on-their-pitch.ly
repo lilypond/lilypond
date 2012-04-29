@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "pitches, editorial-annotations"
+  lsrtags = "editorial-annotations, really-cool, pitches"
 
   texidoc = "
 It is possible to color note heads depending on their pitch and/or

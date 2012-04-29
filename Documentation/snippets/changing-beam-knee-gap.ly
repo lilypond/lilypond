@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -63,6 +63,7 @@ spaces.
 "
   doctitle = "Changing beam knee gap"
 } % begin verbatim
+
 
 {
   f8 f''8 f8 f''8

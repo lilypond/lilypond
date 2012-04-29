@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, tweaks-and-overrides"
+  lsrtags = "specific-notation, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 The time signature can be enclosed within parentheses.
@@ -15,6 +15,7 @@ The time signature can be enclosed within parentheses.
 "
   doctitle = "Time signature in parentheses"
 } % begin verbatim
+
 
 \relative c'' {
   \override Staff.TimeSignature #'stencil = #(lambda (grob)

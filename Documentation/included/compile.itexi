@@ -672,53 +672,10 @@ done separately by issuing:
 make info
 @end example
 
-@knownissues
-
-If source files have changed since the last documentation build,
-output files that need to be rebuilt are normally rebuilt, even if
-you do not run @code{make@tie{}doc-clean} first.  However, build
-dependencies in the documentation are so complex that some
-newly-edited files may not be rebuilt as they should be; a
-workaround is to @command{touch} the top source file for any
-manual you've edited.  For example, if you make changes to a file
-in @file{notation/}, do:
-
-@example
-touch Documentation/notation.tely
-@end example
-
 @noindent
-The top sources possibly affected by this are:
-
-@example
-Documentation/extend.texi
-Documentation/changes.tely
-Documentation/contributor.texi
-Documentation/essay.tely
-Documentation/extending.tely
-Documentation/learning.tely
-Documentation/notation.tely
-Documentation/snippets.tely
-Documentation/usage.tely
-Documentation/web.texi
-@end example
-
-@noindent
-You can @command{touch} all of them at once with:
-
-@example
-touch Documentation/*te??
-@end example
-
-@noindent
-However, this will rebuild all of the manuals
-indiscriminately---it is more efficient to @command{touch} only
-the affected files.
-
-@noindent
-Another typical issue when switching branches between master and
-lilypond/translation is the appearance/disappearance of translated
-versions of some manuals.  If you see such a warning from make:
+An issue when switching branches between master and translation
+is the appearance/disappearance of translated versions of some manuals.
+If you see such a warning from make:
 
 @example
 No rule to make target `X', needed by `Y'

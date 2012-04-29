@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, tweaks-and-overrides, scheme-language"
 
   texidoc = "
 The @code{\\circle} markup command draws circles around various

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "rhythms"
@@ -62,6 +62,7 @@ must be inserted before the first note for this to work.
 "
   doctitle = "Printing the bar number for the first measure"
 } % begin verbatim
+
 
 \relative c' {
   \set Score.barNumberVisibility = #all-bar-numbers-visible

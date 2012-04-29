@@ -4,10 +4,10 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, rhythms"
 
   texidoc = "
 In @qq{simple} lead-sheets, sometimes no actual notes are written,
@@ -25,6 +25,7 @@ the appropriate duration).
 "
   doctitle = "Rhythmic slashes"
 } % begin verbatim
+
 
 % Macro to print single slash
 rs = {

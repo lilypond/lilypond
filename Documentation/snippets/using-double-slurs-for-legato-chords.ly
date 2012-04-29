@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "expressive-marks"
@@ -43,6 +43,7 @@ be achieved by setting @code{doubleSlurs}.
 "
   doctitle = "Using double slurs for legato chords"
 } % begin verbatim
+
 
 \relative c' {
   \set doubleSlurs = ##t

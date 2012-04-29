@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.0"
+\version "2.14.2"
 
 \header {
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
@@ -46,6 +46,7 @@ positioning of lyrics and ossias.
 "
   doctitle = "Vertically aligning ossias and lyrics"
 } % begin verbatim
+
 
 \paper {
   ragged-right = ##t

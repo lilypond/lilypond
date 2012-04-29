@@ -177,6 +177,7 @@ Values of 7 and -7 are common.")
 symbol go, measured in half staff spaces from the center of the
 staff.")
      (completionBusy ,boolean? "Whether a completion-note head is playing.")
+     (completionUnit ,ly:moment? "Sub-bar unit of completion.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
      (countPercentRepeats ,boolean? "If set, produce counters for

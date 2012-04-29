@@ -6,7 +6,7 @@ changing-midi-output-to-one-channel-per-voice.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
 chant-or-psalms-notation.ly
 creating-blank-staves.ly
-defining-an-engraver-in-scheme-ambitus-engraver.ly
+defining-an-engraver-in-scheme--ambitus-engraver.ly
 engravers-one-by-one.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 nesting-staves.ly
