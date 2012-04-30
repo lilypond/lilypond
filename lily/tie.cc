@@ -92,14 +92,12 @@ Tie::get_column_rank (Grob *me, Direction d)
 int
 Tie::get_position (Grob *me)
 {
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Grob *h = head (me, d);
       if (h)
         return (int) rint (Staff_symbol_referencer::get_position (h));
     }
-  while (flip (&d) != LEFT);
 
   /*
     TODO: this is theoretically possible for ties across more than 2
@@ -125,8 +123,7 @@ Direction
 Tie::get_default_dir (Grob *me)
 {
   Drul_array<Grob *> stems;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Grob *one_head = head (me, d);
       if (!one_head && dynamic_cast<Spanner *> (me))
@@ -138,7 +135,6 @@ Tie::get_default_dir (Grob *me)
 
       stems[d] = stem;
     }
-  while (flip (&d) != LEFT);
 
   if (stems[LEFT] && stems[RIGHT])
     {

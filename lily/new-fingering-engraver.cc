@@ -291,9 +291,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_property ("direction", scm_from_int (hordir));
     }
 
-  Direction d = DOWN;
   Drul_array< vector<Finger_tuple> > vertical (down, up);
-  do
+  for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i < vertical[d].size (); i++)
         {
@@ -311,7 +310,6 @@ New_fingering_engraver::position_scripts (SCM orientations,
           f->set_property ("direction", scm_from_int (d));
         }
     }
-  while (flip (&d) != DOWN);
 }
 
 void

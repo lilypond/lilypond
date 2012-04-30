@@ -51,8 +51,7 @@ Piano_pedal_bracket::print (SCM smob)
     common = common->common_refpoint (textbit, X_AXIS);
 
   Interval span_points (0, 0);
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *b = me->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
@@ -71,7 +70,6 @@ Piano_pedal_bracket::print (SCM smob)
       else
         span_points[d] = b->relative_coordinate (common, X_AXIS);
     }
-  while (flip (&d) != LEFT);
 
   /* For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
      need to shorten by the extent of the text grob

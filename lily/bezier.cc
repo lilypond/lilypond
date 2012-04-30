@@ -245,14 +245,12 @@ Bezier::minmax (Axis ax, Real l, Real r, Direction d) const
 
   //  or intersections of the curve with the bounding lines at L and R.
   Interval lr (l, r);
-  Direction dir = LEFT;
-  do
+  for (LEFT_and_RIGHT (dir))
     {
       vector<Real> v = get_other_coordinates (ax, lr[dir]);
       for (vsize i = v.size (); i--;)
         iv.add_point (v[i]);
     }
-  while (flip (&dir) != LEFT);
 
   if (iv.is_empty ())
     {

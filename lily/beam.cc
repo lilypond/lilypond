@@ -284,9 +284,8 @@ Beam::calc_beaming (SCM smob)
                              last_dir ? last_dir : this_dir,
                              this_dir);
 
-          Direction d = LEFT;
           Slice new_slice;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               new_slice.set_empty ();
               SCM s = index_get_cell (this_beaming, d);
@@ -299,7 +298,6 @@ Beam::calc_beaming (SCM smob)
                   scm_set_car_x (s, scm_from_int (new_beam_pos));
                 }
             }
-          while (flip (&d) != LEFT);
 
           if (!new_slice.is_empty ())
             last_int = new_slice;
@@ -351,10 +349,8 @@ Beam::calc_beam_segments (SCM smob)
   extract_grob_set (me, "stems", stems);
 
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
-  while (flip (&d) != LEFT);
 
   int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
@@ -376,7 +372,7 @@ Beam::calc_beam_segments (SCM smob)
       Real stem_x = stem->relative_coordinate (commonx, X_AXIS);
       SCM beaming = stem->get_property ("beaming");
 
-      do
+      for (LEFT_and_RIGHT (d))
         {
           // Find the maximum and minimum beam ranks.
           // Given that RANKS is never reset to empty, the interval will always be
@@ -415,7 +411,6 @@ Beam::calc_beam_segments (SCM smob)
               stem_segments[beam_rank].push_back (seg);
             }
         }
-      while (flip (&d) != LEFT);
     }
 
   Drul_array<Real> break_overshoot
@@ -444,9 +439,8 @@ Beam::calc_beam_segments (SCM smob)
           // we are currently looking at (ie. if segs[j].dir_ == event_dir then we
           // are looking at that edge of the beam segment that is furthest from its
           // stem).
-          Direction event_dir = LEFT;
           Beam_stem_segment const &seg = segs[j];
-          do
+          for (LEFT_and_RIGHT (event_dir))
             {
               Beam_stem_segment const &neighbor_seg = segs[j + event_dir];
               // TODO: make names clearer? --jneem
@@ -542,7 +536,6 @@ Beam::calc_beam_segments (SCM smob)
                   current = Beam_segment ();
                 }
             }
-          while (flip (&event_dir) != LEFT);
         }
 
     }
@@ -583,10 +576,8 @@ Beam::calc_x_positions (SCM smob)
     {
       extract_grob_set (me, "stems", stems);
       Grob *common_x = common_refpoint_of_array (stems, me, X_AXIS);
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         x_positions[d] = me->relative_coordinate (common_x, X_AXIS);
-      while (flip (&d) != LEFT);
     }
   return ly_interval2scm (x_positions);
 }
@@ -621,10 +612,8 @@ Beam::print (SCM grob)
   */
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
-  while (flip (&d) != LEFT);
 
   vector<Beam_segment> segments = get_beam_segments (me);
 
@@ -764,13 +753,11 @@ Beam::get_default_dir (Grob *me)
   for (iterof (s, stems); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         {
           if (sign (positions[d]) == d)
             extremes[d] = d * max (d * positions[d], d * extremes[d]);
         }
-      while (flip (&d) != DOWN);
     }
 
   Drul_array<int> total (0, 0);
@@ -1133,13 +1120,12 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 {
   extract_grob_set (me, "stems", stems);
 
-  Direction d = LEFT;
   for (vsize i = 0; i < stems.size (); i++)
     {
       /*
         Don't overwrite user settings.
       */
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Grob *stem = stems[i];
           SCM beaming_prop = stem->get_property ("beaming");
@@ -1161,7 +1147,6 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
               Stem::set_beaming (stem, count, d);
             }
         }
-      while (flip (&d) != LEFT);
     }
 }
 
@@ -1243,10 +1228,8 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Drul_array<Real> pos (robust_scm2drul (beam->get_property ("positions"),
                                          Drul_array<Real> (0, 0)));
 
-  Direction dir = LEFT;
-  do
+  for (LEFT_and_RIGHT (dir))
     pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);
-  while (flip (&dir) != LEFT);
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 

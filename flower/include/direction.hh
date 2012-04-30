@@ -60,7 +60,7 @@ operator - (Direction const d)
   return other_dir (d);
 }
 
-// huh?
+// to be deleted soon (after coping with issues 2491 and 2493
 inline Direction
 flip (Direction *i)
 {
@@ -70,6 +70,16 @@ flip (Direction *i)
     *i = (Direction)1;
   return *i;
 }
+
+#define UP_and_DOWN(d) \
+  Direction d = UP; d != CENTER; d = (d == UP ? DOWN : CENTER)
+
+#define DOWN_and_UP(d) \
+  Direction d = DOWN; d != CENTER; d = (d == DOWN ? UP : CENTER)
+
+#define LEFT_and_RIGHT(d) \
+  Direction d = LEFT; d != CENTER; d = (d == LEFT ? RIGHT : CENTER)
+
 
 /**
    if d > 0: the max operator

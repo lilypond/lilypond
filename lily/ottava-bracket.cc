@@ -56,8 +56,7 @@ Ottava_bracket::print (SCM smob)
   Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *b = me->get_bound (d);
       broken[d] = (b->break_status_dir () != CENTER);
@@ -75,7 +74,6 @@ Ottava_bracket::print (SCM smob)
             }
         }
     }
-  while (flip (&d) != LEFT);
 
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM markup = me->get_property ("text");
@@ -91,7 +89,7 @@ Ottava_bracket::print (SCM smob)
     TODO: we should check if there are ledgers, and modify length of
     the spanner to that.
   */
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *b = me->get_bound (d);
 
@@ -122,7 +120,6 @@ Ottava_bracket::print (SCM smob)
       else
         span_points[d] = ext[d];
     }
-  while (flip (&d) != LEFT);
 
   /*
     0.3 is ~ italic correction.
@@ -144,13 +141,12 @@ Ottava_bracket::print (SCM smob)
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
                                                 Interval (0, 0));
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       edge_height[d] *= -get_grob_direction (me);
       if (broken[d])
         edge_height[d] = 0.0;
     }
-  while (flip (&d) != LEFT);
 
   Stencil b;
   Interval empty;

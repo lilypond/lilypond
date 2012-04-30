@@ -193,10 +193,8 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
     the stems.  Otherwise, we want to do initial slope calculations.
   */
   do_initial_slope_calculations_ = false;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     do_initial_slope_calculations_ |= isinf (unquanted_y_[d]) || isnan (unquanted_y_[d]);
-  while (flip (&d) != LEFT);
 
   /*
     Calculations are relative to a unit-scaled staff, i.e. the quants are
@@ -245,10 +243,8 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
       for (int a = 2; a--;)
         common[a] = common_refpoint_of_array (stems, beams[i], Axis (a));
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         common[X_AXIS] = beams[i]->get_bound (d)->common_refpoint (common[X_AXIS], X_AXIS);
-      while (flip (&d) != LEFT);
 
       // positions of the endpoints of this beam segment, including any overhangs
       const Interval x_pos = robust_scm2interval (beams[i]->get_property ("X-positions"),
@@ -309,8 +305,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
       // TODO - why are we dividing by staff_space_?
       beam_translation_ = Beam::get_beam_translation (beams[i]) / staff_space_;
 
-      d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           quant_range_[d].set_full ();
           if (!edge_stems[d])
@@ -325,7 +320,6 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
                        + (edge_beam_counts_[d] - 1) * beam_translation_ + beam_thickness_ * .5);
           quant_range_[d][-ed] = heads[ed] + stem_offset;
         }
-      while (flip (&d) != LEFT);
 
       segments_ = Beam::get_beam_segments (beams[i]);
       vector_sort (segments_, beam_segment_less);
@@ -355,10 +349,8 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           Real width = b[X_AXIS].length ();
           Real width_factor = sqrt (width / staff_space_);
 
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             add_collision (b[X_AXIS][d], b[Y_AXIS], width_factor);
-          while (flip (&d) != LEFT);
 
           Grob *stem = unsmob_grob (collisions[j]->get_object ("stem"));
           if (stem && Stem::has_interface (stem) && Stem::is_normal_stem (stem))
@@ -794,23 +786,19 @@ Beam_scoring_problem::shift_region_to_valid ()
       if (collisions_[i].y_.length () < min_y_size)
         continue;
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Real dy = slope * collisions_[i].x_;
 
-          Direction yd = DOWN;
           Interval disallowed;
-          do
+          for (DOWN_and_UP (yd))
             {
               Real left_y = collisions_[i].y_[yd] - dy;
               disallowed[yd] = left_y;
             }
-          while (flip (&yd) != DOWN);
 
           forbidden_intervals.push_back (disallowed);
         }
-      while (flip (&d) != LEFT);
     }
 
   vector_sort (forbidden_intervals, Interval::left_less);
@@ -825,13 +813,11 @@ Beam_scoring_problem::shift_region_to_valid ()
 
   // if the beam placement falls out of the feasible region, we push it
   // to infinity so that it can never be a feasible candidate below
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     {
       if (!feasible_left_point.contains (feasible_beam_placements[d]))
         feasible_beam_placements[d] = d * infinity_f;
     }
-  while (flip (&d) != DOWN);
 
   if ((feasible_beam_placements[UP] == infinity_f && feasible_beam_placements[DOWN] == -infinity_f) && !feasible_left_point.is_empty ())
     {
@@ -892,8 +878,7 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration *> *scores) con
                                             Interval (unshifted_quants[i],
                                                       unshifted_quants[j]));
 
-        Direction d = LEFT;
-        do
+        for (LEFT_and_RIGHT (d))
           {
             if (!quant_range_[d].contains (c->y[d]))
               {
@@ -902,7 +887,6 @@ Beam_scoring_problem::generate_quants (vector<Beam_configuration *> *scores) con
                 break;
               }
           }
-        while (flip (&d) != LEFT);
         if (c)
           scores->push_back (c);
       }
@@ -1098,10 +1082,8 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
     }
 
   /* Divide by number of stems, to make the measure scale-free. */
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     score[d] /= max (count[d], 1);
-  while (flip (&d) != DOWN);
 
   /*
     sometimes, two perfectly symmetric kneed beams will have the same score
@@ -1211,11 +1193,10 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
   Real extra_demerit = parameters_.SECONDARY_BEAM_DEMERIT
                        / max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
 
-  Direction d = LEFT;
   Real dem = 0.0;
   Real eps = parameters_.BEAM_EPS;
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       for (int j = 1; j <= edge_beam_counts_[d]; j++)
         {
@@ -1258,7 +1239,6 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
               }
         }
     }
-  while ((flip (&d)) != LEFT);
 
   if (max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]) >= 2)
     {
@@ -1267,8 +1247,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
       Real inter = 0.5;
       Real hang = 1.0 - (beam_thickness_ - line_thickness_) / 2;
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           if (edge_beam_counts_[d] >= 2
               && fabs (config->y[d] - edge_dirs_[d] * beam_translation_) < staff_radius_ + inter)
@@ -1296,7 +1275,6 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
                 dem += extra_demerit;
             }
         }
-      while (flip (&d) != LEFT);
     }
 
   config->add (dem, "F");

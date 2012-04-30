@@ -156,10 +156,9 @@ Slur_score_state::get_bound_info () const
 {
   Drul_array<Bound_info> extremes;
 
-  Direction d = LEFT;
   Direction dir = dir_;
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       extremes[d].bound_ = slur_->get_bound (d);
       if (Note_column::has_interface (extremes[d].bound_))
@@ -203,7 +202,6 @@ Slur_score_state::get_bound_info () const
 
         }
     }
-  while (flip (&d) != LEFT);
 
   return extremes;
 }
@@ -240,8 +238,7 @@ Slur_score_state::fill (Grob *me)
       common_[a] = common_refpoint_of_array (columns, me, a);
       common_[a] = common_refpoint_of_array (extra_objects, common_[a], a);
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           /*
             If bound is not in note-columns, we don't want to know about
@@ -250,7 +247,6 @@ Slur_score_state::fill (Grob *me)
           if (a != Y_AXIS)
             common_[a] = common_[a]->common_refpoint (sp->get_bound (d), a);
         }
-      while (flip (&d) != LEFT);
     }
 
   extremes_ = get_bound_info ();
@@ -287,8 +283,7 @@ Slur_score_state::fill (Grob *me)
               && !Clef::has_interface (extra_encompass_infos_[i].grob_)
               && !Time_signature::has_interface (extra_encompass_infos_[i].grob_)))
         {
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             additional_ys[d] = minmax (dir_,
                                        additional_ys[d],
                                        (dir_
@@ -298,14 +293,11 @@ Slur_score_state::fill (Grob *me)
                                                          base_attachments_[RIGHT][X_AXIS],
                                                          base_attachments_[LEFT][X_AXIS])
                                               + (dir_ == LEFT ? 0 : -1)))));
-          while (flip (&d) != LEFT);
         }
     }
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     end_ys[d] += additional_ys[d];
-  while (flip (&d) != LEFT);
 
   configurations_ = enumerate_attachments (end_ys);
   for (vsize i = 0; i < columns_.size (); i++)
@@ -314,14 +306,13 @@ Slur_score_state::fill (Grob *me)
   valid_ = true;
 
   musical_dy_ = 0.0;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (!is_broken_
           && extremes_[d].slur_head_)
         musical_dy_ += d
                        * extremes_[d].slur_head_->relative_coordinate (common_[Y_AXIS], Y_AXIS);
     }
-  while (flip (&d) != LEFT);
 
   edge_has_beams_
     = (extremes_[LEFT].stem_ && Stem::get_beam (extremes_[LEFT].stem_))
@@ -457,8 +448,7 @@ Drul_array<Real>
 Slur_score_state::get_y_attachment_range () const
 {
   Drul_array<Real> end_ys;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (extremes_[d].note_column_)
         {
@@ -471,7 +461,6 @@ Slur_score_state::get_y_attachment_range () const
       else
         end_ys[d] = base_attachments_[d][Y_AXIS] + parameters_.region_size_ * dir_;
     }
-  while (flip (&d) != LEFT);
 
   return end_ys;
 }
@@ -480,13 +469,11 @@ bool
 spanner_less (Spanner *s1, Spanner *s2)
 {
   Slice b1, b2;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       b1[d] = s1->get_bound (d)->get_column ()->get_rank ();
       b2[d] = s2->get_bound (d)->get_column ()->get_rank ();
     }
-  while (flip (&d) != LEFT);
 
   return b2[LEFT] <= b1[LEFT] && b2[RIGHT] >= b1[RIGHT]
          && (b2[LEFT] != b1[LEFT] || b2[RIGHT] != b1[RIGHT]);
@@ -496,8 +483,7 @@ Drul_array<Offset>
 Slur_score_state::get_base_attachments () const
 {
   Drul_array<Offset> base_attachment;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Grob *stem = extremes_[d].stem_;
       Grob *head = extremes_[d].slur_head_;
@@ -532,9 +518,8 @@ Slur_score_state::get_base_attachments () const
         }
       base_attachment[d] = Offset (x, y);
     }
-  while (flip (&d) != LEFT);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (!extremes_[d].note_column_)
         {
@@ -570,9 +555,8 @@ Slur_score_state::get_base_attachments () const
           base_attachment[d] = Offset (x, y);
         }
     }
-  while (flip (&d) != LEFT);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       for (int a = X_AXIS; a < NO_AXES; a++)
         {
@@ -585,7 +569,6 @@ Slur_score_state::get_base_attachments () const
             }
         }
     }
-  while (flip (&d) != LEFT);
 
   return base_attachment;
 }
@@ -687,9 +670,9 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
       os[RIGHT] = base_attachments_[RIGHT];
       for (int j = 0; dir_ * os[RIGHT][Y_AXIS] <= dir_ * end_ys[RIGHT]; j++)
         {
-          Direction d = LEFT;
+
           Drul_array<bool> attach_to_stem (false, false);
-          do
+          for (LEFT_and_RIGHT (d))
             {
               os[d][X_AXIS] = base_attachments_[d][X_AXIS];
               if (extremes_[d].stem_
@@ -711,14 +694,13 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                     os[d][X_AXIS] = extremes_[d].stem_extent_[X_AXIS].center ();
                 }
             }
-          while (flip (&d) != LEFT);
 
           Offset dz;
           dz = os[RIGHT] - os[LEFT];
           if (dz[X_AXIS] < minimum_length
               || fabs (dz[Y_AXIS] / dz[X_AXIS]) > parameters_.max_slope_)
             {
-              do
+              for (LEFT_and_RIGHT (d))
                 {
                   if (extremes_[d].slur_head_
                       && !extremes_[d].slur_head_x_extent_.is_empty ())
@@ -727,11 +709,10 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                       attach_to_stem[d] = false;
                     }
                 }
-              while (flip (&d) != LEFT);
             }
 
           dz = os[RIGHT] - os[LEFT];
-          do
+          for (LEFT_and_RIGHT (d))
             {
               if (extremes_[d].slur_head_
                   && !attach_to_stem[d])
@@ -745,7 +726,6 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                      * sin (dz.arg ()) / 3;
                 }
             }
-          while (flip (&d) != LEFT);
 
           scores.push_back (Slur_configuration::new_config (os, scores.size ()));
 
