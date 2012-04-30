@@ -155,6 +155,7 @@ post-files = $(OUT)/website/index.html
 root-files = $(OUT)/.htaccess \
              $(OUT)/website/.htaccess \
              $(OUT)/website/favicon.ico \
+             $(OUT)/website/tweets.xml \
              $(OUT)/website/robots.txt
 
 texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
@@ -287,6 +288,9 @@ $(OUT)/website/favicon.ico: $(SERVER_FILES)/favicon.ico
 	cp $< $@
 
 $(OUT)/website/robots.txt: $(SERVER_FILES)/robots.txt
+	cp $< $@
+
+$(OUT)/website/tweets.xml: $(SERVER_FILES)/tweets.xml
 	cp $< $@
 
 $(OUT)/.htaccess: $(top-htaccess)
