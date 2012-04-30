@@ -464,12 +464,15 @@ def do_process_cmd (chunks, input_name, options):
     else:
         progress (_ ("All snippets are up to date..."))
 
-    if options.lily_output_dir != options.output_dir:
-        output_files = split_output_files (options.lily_output_dir)
+    progress (_ ("Linking files..."))
+    abs_lily_output_dir = os.path.join (options.original_dir, options.lily_output_dir)
+    abs_output_dir = os.path.join (options.original_dir, options.output_dir)
+    if abs_lily_output_dir != abs_output_dir:
+        output_files = split_output_files (abs_lily_output_dir)
         for snippet in snippets:
-            snippet.link_all_output_files (options.lily_output_dir,
+            snippet.link_all_output_files (abs_lily_output_dir,
                                            output_files,
-                                           options.output_dir)
+                                           abs_output_dir)
 
 
 ###
@@ -640,6 +643,8 @@ def do_options ():
     if global_options.output_dir:
         global_options.output_dir = os.path.expanduser (global_options.output_dir)
         global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.output_dir))
+
+    global_options.include_path.insert (0, ".%s" % os.path.sep)
 
     # Load the python packages (containing e.g. custom formatter classes)
     # passed on the command line

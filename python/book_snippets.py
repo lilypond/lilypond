@@ -621,7 +621,7 @@ printing diff against existing file." % filename)
     def link_all_output_files (self, output_dir, output_dir_files, destination):
         existing, missing = self.all_output_files (output_dir, output_dir_files)
         if missing:
-            print '\nMissing', missing
+            error (_ ('Missing files: %s') % ', '.join (missing))
             raise CompileError(self.basename())
         for name in existing:
             if (self.global_options.use_source_file_names
@@ -651,7 +651,7 @@ printing diff against existing file." % filename)
             except AttributeError:
                 shutil.copyfile (src, dst)
             except OSError:
-                print '\nCould not overwrite file', dst
+                error (_ ('Could not overwrite file %s') % dst)
                 raise CompileError(self.basename())
 
     def additional_files_to_consider (self, base, full):
