@@ -141,7 +141,7 @@ css-files = $(css-src-files:%=$(OUT)/website/css/%)
 example-src-files := $(notdir $(wildcard $(EXAMPLES)/*))
 example-files = $(example-src-files:%=$(OUT)/website/ly-examples/%)
 
-misc-src-files := $(filter-out GNUmakefile,$(notdir $(wildcard $(top-src-dir)/Documentation/misc/*)))
+misc-src-files := $(notdir $(wildcard $(top-src-dir)/Documentation/misc/*.*))
 misc-files += $(misc-src-files:%=$(OUT)/website/misc/%)
 
 picture-src-files := $(notdir $(wildcard $(PICTURES)/*))
