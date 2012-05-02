@@ -56,6 +56,9 @@ check_meshing_chords (Grob *me,
   Grob *head_up = Note_column::first_head (clash_up);
   Grob *head_down = Note_column::first_head (clash_down);
 
+  Interval extent_up = head_up->extent (head_up, X_AXIS);
+  Interval extent_down = head_down->extent (head_down, X_AXIS);
+
   /* Staff-positions of all noteheads on each stem */
   vector<int> ups = Stem::note_head_positions (stems[UP]);
   vector<int> dps = Stem::note_head_positions (stems[DOWN]);
@@ -173,7 +176,9 @@ check_meshing_chords (Grob *me,
     }
 
   full_collide = full_collide || (close_half_collide
-                                  && distant_half_collide);
+                                  && distant_half_collide)
+                 || ( distant_half_collide // like full_ for wholes and longer
+                     && (up_ball_type <= 0 || down_ball_type <= 0));
 
   /* Determine which chord goes on the left, and which goes right.
      Up-stem usually goes on the right, but if chords just 'touch' we can put
@@ -261,8 +266,7 @@ check_meshing_chords (Grob *me,
           */
           if (Stem::duration_log (stems[DOWN]) == 1
               && Stem::duration_log (stems[UP]) >= 3)
-            shift_amount = (1 - head_up->extent (head_up, X_AXIS).length ()
-                            / head_down->extent (head_down, X_AXIS).length ()) * 0.5;
+            shift_amount = (1 - extent_up[RIGHT] / extent_down[RIGHT]) * 0.5;
         }
 
       if (dot_wipe_head)
@@ -293,20 +297,14 @@ check_meshing_chords (Grob *me,
   else
     shift_amount *= 0.17;
 
-  /*
-  */
-  if (full_collide
-      && down_ball_type *up_ball_type == 0)
-    {
-      if (up_ball_type == 0 && down_ball_type == 1)
-        shift_amount *= 1.25;
-      else if (up_ball_type == 0 && down_ball_type == 2)
-        shift_amount *= 1.35;
-      else if (down_ball_type == 0 && up_ball_type == 1)
-        shift_amount *= 0.7;
-      else if (down_ball_type == 0 && up_ball_type == 2)
-        shift_amount *= 0.75;
-    }
+  /* The offsets computed in this routine are multiplied,
+     in calc_positioning_done(), by the width of the downstem note.
+     The shift required to clear collisions, however, depends on the extents
+     of the note heads on the sides that interfere. */
+  if (shift_amount < 0.0) // Down-stem shifts right.
+    shift_amount *= (extent_up[RIGHT] - extent_down[LEFT]) / extent_down.length ();
+  else // Up-stem shifts right.
+    shift_amount *= (extent_down[RIGHT] - extent_up[LEFT]) / extent_down.length ();
 
   /* If any dotted notes ended up on the left,
      tell the Dot_Columnn to avoid the note heads on the right.
