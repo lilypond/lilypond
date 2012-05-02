@@ -183,7 +183,7 @@ who will push it for you.
 @end enumerate
 
 @advanced{Yes, this process means that most patches wait between
-60-120 hours before reaching master.  This is unfortunate, but
+60-120 hours before reaching @code{master}.  This is unfortunate, but
 given our limited resources for reviewing patches and a history of
 unintended breakage in @code{master}, this is the best compromise
 we have found.}

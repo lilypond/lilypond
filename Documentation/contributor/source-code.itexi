@@ -372,7 +372,7 @@ At this stage, don't worry about how many commits you have.
 
 Branches are nerve-wracking until you get used to them.  You can
 save your hard work as individual @file{.patch} files.  Be sure to
-commit your chages first.
+commit your changes first.
 
 @example
 git commit -a
@@ -623,7 +623,7 @@ The @code{translation} branch is a side branch that
 allows translators to work without needing to worry about
 compilation problems.  Periodically, the Translation Meister
 (after verifying that it doesn't break compilation), will
-@emph{merge} this branch back into @code{master} to incorporate
+@emph{merge} this branch into @code{staging} to incorporate
 recent translations.  Similarly, the @code{master} branch is
 usually merged into the @code{translation} branch after
 significant changes to the English documentation.  See
@@ -1019,12 +1019,11 @@ git merge @var{foo}
 
 If any conflict happens, see @ref{Resolving conflicts}.
 
-There are common usage cases for merging: as a translator, you
-will often want to merge @code{master} into
-@code{translation}; on the other hand, the Translations
-meister wants to merge @code{translation} into
-@code{master} whenever he has checked that
-@code{translation} builds successfully.
+There are common usage cases for merging: as a translator, you will
+often want the Translations meister to merge @code{master} into
+@code{translation}; on the other hand, the Translations meister wants
+to merge @code{translation} into @code{staging} whenever he has
+checked that @code{translation} builds successfully.
 
 
 @node Commits and patches
@@ -1321,6 +1320,7 @@ git pull -r
 git cl upload origin/master
 @end example
 
+@c Mention staging here?
 If you have git push ability, make sure that you @emph{remove}
 your patch (with @command{git rebase} or @command{git reset})
 before pushing other stuff.
