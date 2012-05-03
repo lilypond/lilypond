@@ -10,7 +10,7 @@
 
 
 @newsItem
-@subsubheading Release candidate 6 of 2.16 - LilyPond 2.15.38 released!  @emph{May 2, 2012}
+@subsubheading Release candidate 6 of 2.16 - LilyPond 2.15.38 released!  @emph{May 3, 2012}
 
 LilyPond 2.15.38 is out; this is the sixth release candidate of
 the upcoming 2.16 stable release.  All users are invited to
@@ -20,7 +20,7 @@ listed in the @qq{Changes} manual on the website section about
 
 There are no known Critical issues with this release.  If no
 Critical bugs are found, then the official 2.16.0 release will be
-on 16 May 2012.  If you discover any problems, please send us
+on 17 May 2012.  If you discover any problems, please send us
 @ref{Bug reports}.
 
 @newsEnd
