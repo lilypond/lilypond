@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d251be5cf511690e874a0ed01bdde6b7f559423b
+    Translation of GIT committish: bf2c7f09ff00e6c59877eff5ba5f880299ed95bf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,22 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading ¡LilyPond participa en Google Summer of Code 2012!  @emph{25 de abril de 2012}
+
+Como parte del @uref{http://www.gnu.org/, proyecto GNU}, participamos
+en el programa
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, El
+verano del código} de Google, que ofrece a estudiantes una paga por
+trabajar en software de fuentes abiertas.
+
+Nuestro colaborador Janek Warchoł ha sido aceptado para la edición de
+2012 del GSoC.  Va a trabajar en el posicionamiento avanzado de las
+letras de canción en LilyPond.
+
+@newsEnd
 
 
 @newsItem

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c6d372ef4230aa1195fb4bdc353abcb50c8ab54e
+    Translation of GIT committish: 9830313f5f1f76df8b46bdeffe716fd5b2d6f331
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -107,26 +107,26 @@ Referencia de la notación:
 @cindex digitación frente a números de cuerda
 
 Se puede indicar la cuerda en que se debe tocar una nota añadiendo
-@code{\}@tie{}@var{número} a una nota dentro de una construcción de
-acorde (@code{<>}).
-
-@warning{Los números de cuerda @strong{se deben} definir dentro de una
-construcción de acorde con ángulos simples, incluso si se trata de una
-sola nota.}
+@code{\}@tie{}@var{número} a una nota.
 
 @lilypond[verbatim,quote,relative=0]
 \clef "treble_8"
-<c\5>4 <e\4> <g\3>2
+c4\5 e\4 g2\3
 <c,\5 e\4 g\3>1
 @end lilypond
 
 Cuando se usan al mismo tiempo digitaciones e indicaciones del número
-de cuerda, su colocación se controla por el orden en que aparecen
-estos elementos en el código:
+de cuerda, su colocación se puede controlar por el orden en que
+aparecen estos elementos en el código @emph{solamente} si aparecen
+dentro de un acorde explícito: aplicado a acordes completos o notas
+individuales @emph{fuera} de acordes, las digitaciones se colocan
+usando un mecanismo distinto.
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
-<g\3-0>2
+g4\3-0
+g-0\3
+<g\3-0>
 <g-0\3>
 @end lilypond
 
@@ -241,15 +241,14 @@ De forma predeterminada, las notas se asignan a la posición más baja
 del mástil (primera posición).  Las cuerdas al aire se toman como
 preferencia, automáticamente.  Si queremos que una nota determinada se
 toque sobre una cuerda concreta, podemos añadir una indicación de
-número de cuerda al nombre de la nota.  Si definimos los nombres de
-nota y los números de cuerda sin una construcción de acorde
-(@code{<>}), las indicaciones de número de cuerda no aparecerán en la
-notación tradicional.  Es mucho más cómodo definir la posición
-utilizando el valor de @code{minimumFret}.  El valor predeterminado de
-es 0.
-
+número de cuerda al nombre de la nota.  Si no queremos que las
+indicaciones de número de cuerda aparezcan en la notación tradicional,
+podemos sobreescribir el sello correspondiente.  Generalmente es mucho
+más cómodo definir la posición utilizando el valor de
+@code{minimumFret}.  El valor predeterminado de es 0.
 
 @lilypond[quote,ragged-right,verbatim]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -285,7 +284,7 @@ es tan común que está disponible como @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
 guitar = \relative c' {
-  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
@@ -391,6 +390,7 @@ Se pueden añadir indicaciones de armónicos a la notación de tablatura
 como sus alturas de sonido:
 
 @lilypond[verbatim,quote]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -537,14 +537,17 @@ para bajo, que suena una octava por debajo de lo escrito.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff {
+  \new Voice \with {
+    \override StringNumber #'stencil = ##f
+  } {
     \clef "bass_8"
     \relative c, {
       c4 d e f
     }
   }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #bass-tuning
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
     \relative c, {
       c4 d e f
     }
@@ -1626,28 +1629,27 @@ instrumentos con afinaciones no monótonas.
 @funindex \rightHandFinger
 
 Las digitaciones de la mano derecha @var{p-i-m-a} se deben introducir
-dentro de una construcción de acorde @code{<>} para que se impriman en
-la partitura, incluso si se aplican a una nota suelta.
+usando @code{\rightHandFinger} seguido de un número.
 
-@warning{@strong{Debe} haber un guión antes de
-@code{@bs{}rightHandFinger} y un espacio antes del ángulo de cierre
-@code{>}.}
+@warning{Si el número se introduce en notación de Scheme, recuerde
+escribir al final un espacio seguido de un ángulo de cierre @code{>} o
+similar.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
-<c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2
- g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+c4\rightHandFinger #1
+e\rightHandFinger #2
+g\rightHandFinger #3
+c\rightHandFinger #4
+<c,\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c\rightHandFinger #4 >1
 @end lilypond
 
 Por brevedad, se puede escribir @code{\rightHandFinger} como algo más
 corto, como por ejemplo @code{RH}:
 
 @example
-#(define RH rightHandFinger)
+RH=#rightHandFinger
 @end example
 
 
