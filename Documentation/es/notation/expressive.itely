@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: 9830313f5f1f76df8b46bdeffe716fd5b2d6f331
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1032,16 +1032,13 @@ de alturas sobre el que se extiende la caída o elevación
 @emph{partiendo de} la nota principal.
 
 @lilypond[verbatim,quote,relative=2]
-c2-\bendAfter #+4
-c2-\bendAfter #-4
-c2-\bendAfter #+6.5
-c2-\bendAfter #-6.5
-c2-\bendAfter #+8
-c2-\bendAfter #-8
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
 @end lilypond
-
-El guión @code{-} que sigue al nombre de la nota es @emph{necesario}
-al escribir caídas y elevaciones.
 
 @snippets
 
