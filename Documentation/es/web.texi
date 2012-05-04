@@ -157,7 +157,7 @@ LilyPond es software libre y forma parte del
 @ifset web_version
   @c make the box:
 @divId{wildCardBox}
-@subheading Pondings
+@subheading Novedades
 @divId{wildCardText}
 
 @divEnd
