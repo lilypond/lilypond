@@ -24,6 +24,7 @@
 #include "moment.hh"
 #include "pitch.hh"
 #include "prob.hh"
+#include "context.hh"
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
@@ -39,7 +40,7 @@ public:
 
   bool internal_is_music_type (SCM) const;
 
-  Stream_event *to_event () const;
+  Stream_event *to_event (Context *) const;
 
   DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);

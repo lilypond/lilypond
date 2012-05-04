@@ -183,7 +183,8 @@ than building the source code, as described in
 @node Regtest comparison
 @section Regtest comparison
 
-Before modified code is committed to master, a regression test
+Before modified code is committed to @code{master} (via @code{staging}),
+a regression test
 comparison must be completed to ensure that the changes have
 not caused problems with previously working code.  The comparison
 is made automatically upon compiling the regression test suite

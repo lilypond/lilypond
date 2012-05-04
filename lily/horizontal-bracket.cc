@@ -53,8 +53,7 @@ Horizontal_bracket::make_bracket (Grob *me,
     = robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
                            Drul_array<bool> (false, false));
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (connect_to_other[d])
         {
@@ -63,7 +62,6 @@ Horizontal_bracket::make_bracket (Grob *me,
           shorten[d] = 0.0;
         }
     }
-  while (flip (&d) != LEFT);
 
   /*
     ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around.
@@ -113,14 +111,12 @@ Horizontal_bracket::print (SCM smob)
       return SCM_EOL;
     }
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *b = me->get_bound (d);
       if (b->break_status_dir ())
         enclosed.push_back (b);
     }
-  while (flip (&d) != LEFT);
 
   Stencil b = make_enclosing_bracket (me, me, enclosed, X_AXIS, get_grob_direction (me));
   return b.smobbed_copy ();

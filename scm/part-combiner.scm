@@ -41,7 +41,7 @@
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
-    (equal? (ly:event-property	x 'class) 'note-event))
+    (ly:in-event-class? x 'note-event))
   (filter f? (events vs)))
 
 (define-method (previous-voice-state (vs <Voice-state>))
@@ -130,19 +130,19 @@ Voice-state objects
     "Analyse EVS at INDEX, given state ACTIVE."
 
     (define (analyse-tie-start active ev)
-      (if (equal? (ly:event-property ev 'class) 'tie-event)
+      (if (ly:in-event-class? ev 'tie-event)
 	  (acons 'tie (split-index (vector-ref voice-state-vec index))
 		 active)
 	  active))
 
     (define (analyse-tie-end active ev)
-      (if (equal? (ly:event-property ev 'class) 'note-event)
+      (if (ly:in-event-class? ev 'note-event)
 	  (assoc-remove! active 'tie)
 	  active))
 
     (define (analyse-absdyn-end active ev)
-      (if (or (equal? (ly:event-property ev 'class) 'absolute-dynamic-event)
-	      (and (equal? (ly:event-property ev 'class) 'crescendo-event)
+      (if (or (ly:in-event-class? ev 'absolute-dynamic-event)
+	      (and (ly:in-event-class? ev 'span-dynamic-event)
 		   (equal? STOP (ly:event-property ev 'span-direction))))
 	  (assoc-remove! (assoc-remove! active 'cresc) 'decr)
 	  active))
@@ -153,7 +153,7 @@ Voice-state objects
 	    (else (< (cdr a) (cdr b)))))
 
     (define (analyse-span-event active ev)
-      (let* ((name (ly:event-property ev 'class))
+      (let* ((name (car (ly:event-property ev 'class)))
 	     (key (cond ((equal? name 'slur-event) 'slur)
 			((equal? name 'phrasing-slur-event) 'tie)
 			((equal? name 'beam-event) 'beam)

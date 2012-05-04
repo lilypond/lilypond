@@ -476,14 +476,12 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, string grob_s
 
       if (Item *it = dynamic_cast<Item *> (elts[i]))
         {
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               Item *piece = it->find_prebroken_piece (d);
               if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
                 relevant_grobs.push_back (piece);
             }
-          while (flip (&d) != LEFT);
         }
     }
 

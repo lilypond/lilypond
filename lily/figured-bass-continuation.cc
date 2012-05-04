@@ -64,10 +64,10 @@ Figured_bass_continuation::print (SCM grob)
       * robust_scm2double (me->get_property ("thickness"), 1);
 
   Interval spanned;
-  Direction d = LEFT;
+
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
                                                         X_AXIS);
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *bound = me->get_bound (d);
       Direction extdir
@@ -78,7 +78,6 @@ Figured_bass_continuation::print (SCM grob)
         = robust_relative_extent (bound, common, X_AXIS)[extdir]
           - me->relative_coordinate (common, X_AXIS);
     }
-  while (flip (&d) != LEFT);
   spanned.widen (- robust_scm2double (me->get_property ("padding"), 0.2));
 
   Stencil extender;

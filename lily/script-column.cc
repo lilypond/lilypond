@@ -132,8 +132,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
       scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);
     }
 
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     {
       SCM ss = scm_reverse_x (scripts_drul[d], SCM_EOL);
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
@@ -172,7 +171,6 @@ Script_column::order_grobs (vector<Grob *> grobs)
             }
         }
     }
-  while (flip (&d) != DOWN);
 }
 
 ADD_INTERFACE (Script_column,

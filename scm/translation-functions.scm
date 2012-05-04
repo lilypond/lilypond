@@ -300,7 +300,7 @@ if no fingering is present."
 	(map (lambda (art)
 	       (let* ((num (ly:event-property art 'digit)))
 
-		 (if (and (eq? 'fingering-event (ly:event-property art 'class))
+		 (if (and (ly:in-event-class? art 'fingering-event)
 			  (number? num)
 			  (> num 0))
 		   (set! finger-found num))))

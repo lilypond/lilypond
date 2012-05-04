@@ -225,8 +225,7 @@ Stem::extremal_heads (Grob *me)
       Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           if (d * p > d * extpos[d])
             {
@@ -234,7 +233,6 @@ Stem::extremal_heads (Grob *me)
               extpos[d] = p;
             }
         }
-      while (flip (&d) != DOWN);
     }
   return exthead;
 }
@@ -319,10 +317,8 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
     {
       Interval overshoot;
       Direction dir = get_grob_direction (me);
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         overshoot[d] = d == dir ? dir * infinity_f : iv[d];
-      while (flip (&d) != DOWN);
 
       vector<Interval> heights;
       vector<Grob *> my_stems;
@@ -370,10 +366,8 @@ Stem::cache_pure_height (Grob *me, Interval iv, Interval my_iv)
 {
   Interval overshoot;
   Direction dir = get_grob_direction (me);
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     overshoot[d] = d == dir ? dir * infinity_f : my_iv[d];
-  while (flip (&d) != DOWN);
 
   iv.intersect (overshoot);
   dynamic_cast<Item *> (me)->cache_pure_height (iv);

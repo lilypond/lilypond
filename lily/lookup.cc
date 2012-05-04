@@ -333,11 +333,10 @@ Stencil
 Lookup::frame (Box b, Real thick, Real blot)
 {
   Stencil m;
-  Direction d = LEFT;
   for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
     {
       Axis o = Axis ((a + 1) % NO_AXES);
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Box edges;
           edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);
@@ -346,7 +345,6 @@ Lookup::frame (Box b, Real thick, Real blot)
 
           m.add_stencil (round_filled_box (edges, blot));
         }
-      while (flip (&d) != LEFT);
     }
   return m;
 }

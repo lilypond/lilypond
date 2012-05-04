@@ -77,15 +77,13 @@ void
 Item::copy_breakable_items ()
 {
   Drul_array<Item *> new_copies;
-  Direction i = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Grob *dolly = clone ();
       Item *item = dynamic_cast<Item *> (dolly);
       get_root_system (this)->typeset_grob (item);
-      new_copies[i] = item;
+      new_copies[d] = item;
     }
-  while (flip (&i) != LEFT);
 
   broken_to_drul_ = new_copies;
 }
@@ -115,14 +113,12 @@ Item::find_broken_piece (System *l) const
   if (get_system () == l)
     return (Item *) (this);
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Grob *s = broken_to_drul_[d];
       if (s && s->get_system () == l)
         return s;
     }
-  while (flip (&d) != LEFT);
 
   return 0;
 }
@@ -202,21 +198,18 @@ spanned_time_interval (Item *l, Item *r)
   Drul_array<Item *> bounds (l, r);
   Interval_t<Moment> iv;
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (bounds[d] && bounds[d]->get_column ())
         iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
                                    iv[d]);
     }
-  while (flip (&d) != LEFT);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (!bounds[d] || !bounds[d]->get_column ())
         iv[d] = iv[-d];
     }
-  while (flip (&d) != LEFT);
 
   return iv;
 }

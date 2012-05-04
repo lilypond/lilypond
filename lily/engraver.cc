@@ -53,7 +53,7 @@ Engraver::make_grob_info (Grob *e, SCM cause)
   /* TODO: Remove Music code when it's no longer needed */
   if (Music *m = unsmob_music (cause))
     {
-      cause = m->to_event ()->unprotect ();
+      cause = m->to_event (context ())->unprotect ();
     }
   if (e->get_property ("cause") == SCM_EOL
       && (unsmob_stream_event (cause) || unsmob_grob (cause)))

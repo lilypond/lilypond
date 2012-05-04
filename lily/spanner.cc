@@ -50,8 +50,7 @@ Spanner::do_break_processing ()
       /*
         If we have a spanner spanning one column, we must break it
         anyway because it might provide a parent for another item.  */
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Item *bound = left->find_prebroken_piece (d);
           if (!bound)
@@ -67,7 +66,6 @@ Spanner::do_break_processing ()
               broken_intos_.push_back (span);
             }
         }
-      while ((flip (&d)) != LEFT);
     }
   else
     {
@@ -95,13 +93,11 @@ Spanner::do_break_processing ()
           Drul_array<Item *> bounds;
           bounds[LEFT] = break_points[i - 1];
           bounds[RIGHT] = break_points[i];
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               if (!bounds[d]->get_system ())
                 bounds[d] = bounds[d]->find_prebroken_piece (- d);
             }
-          while ((flip (&d)) != LEFT);
 
           if (!bounds[LEFT] || ! bounds[RIGHT])
             {
@@ -151,13 +147,11 @@ Spanner::get_break_index () const
 void
 Spanner::set_my_columns ()
 {
-  Direction i = (Direction) LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
-      if (!spanned_drul_[i]->get_system ())
-        set_bound (i, spanned_drul_[i]->find_prebroken_piece ((Direction) - i));
+      if (!spanned_drul_[d]->get_system ())
+        set_bound (d, spanned_drul_[d]->find_prebroken_piece ((Direction) - d));
     }
-  while (flip (&i) != LEFT);
 }
 
 Interval_t<int>
@@ -256,19 +250,15 @@ Spanner::spanner_length () const
       Drul_array<SCM> bounds (get_property ("left-bound-info"),
                               get_property ("right-bound-info"));
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         lr[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
                                                  bounds[d], SCM_BOOL_F), -d);
-      while (flip (&d) != LEFT);
     }
 
   if (lr.is_empty ())
     {
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         lr[d] = spanned_drul_[d]->relative_coordinate (0, X_AXIS);
-      while (flip (&d) != LEFT);
     }
 
   if (lr.is_empty ())
@@ -360,11 +350,9 @@ Spanner::derived_mark () const
 {
   scm_gc_mark (pure_property_cache_);
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm ());
-  while (flip (&d) != LEFT)
     ;
 
   for (vsize i = broken_intos_.size (); i--;)

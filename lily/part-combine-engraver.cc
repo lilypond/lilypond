@@ -79,7 +79,7 @@ Part_combine_engraver::Part_combine_engraver ()
 void
 Part_combine_engraver::create_item (Stream_event *ev)
 {
-  SCM what = ev->get_property ("class");
+  SCM what = scm_car (ev->get_property ("class"));
   SCM text = SCM_EOL;
   if (what == ly_symbol2scm ("solo-one-event"))
     text = get_property ("soloText");

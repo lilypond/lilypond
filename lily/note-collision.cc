@@ -360,13 +360,11 @@ check_meshing_chords (Grob *me,
         }
     }
 
-  Direction d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         (*offsets)[d][i] += d * shift_amount;
     }
-  while ((flip (&d)) != UP);
 }
 
 MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
@@ -378,8 +376,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
 
   Drul_array<vector<Grob *> > clash_groups = get_clash_groups (me);
 
-  Direction d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       for (vsize i = clash_groups[d].size (); i--;)
         {
@@ -389,13 +386,12 @@ Note_collision_interface::calc_positioning_done (SCM smob)
           clash_groups[d][i]->extent (me, X_AXIS);
         }
     }
-  while (flip (&d) != UP);
 
   SCM autos (automatic_shift (me, clash_groups));
   SCM hand (forced_shift (me));
 
   Real wid = 0.0;
-  do
+  for (UP_and_DOWN (d))
     {
       if (clash_groups[d].size ())
         {
@@ -405,7 +401,6 @@ Note_collision_interface::calc_positioning_done (SCM smob)
             wid = fh->extent (h, X_AXIS).length ();
         }
     }
-  while (flip (&d) != UP);
 
   vector<Grob *> done;
   Real left_most = 1e6;
@@ -460,13 +455,11 @@ Note_collision_interface::get_clash_groups (Grob *me)
         }
     }
 
-  Direction d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       vector<Grob *> &clashes (clash_groups[d]);
       vector_sort (clashes, Note_column::shift_less);
     }
-  while ((flip (&d)) != UP);
 
   return clash_groups;
 }
@@ -482,8 +475,7 @@ Note_collision_interface::automatic_shift (Grob *me,
   Drul_array < vector<int> > shifts;
   SCM tups = SCM_EOL;
 
-  Direction d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       vector<int> &shift (shifts[d]);
       vector<Grob *> &clashes (clash_groups[d]);
@@ -508,12 +500,10 @@ Note_collision_interface::automatic_shift (Grob *me,
             }
         }
     }
-  while ((flip (&d)) != UP);
 
   Drul_array<vector<Slice> > extents;
   Drul_array<vector<Real> > offsets;
-  d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         {
@@ -524,7 +514,6 @@ Note_collision_interface::automatic_shift (Grob *me,
           offsets[d].push_back (d * 0.5 * i);
         }
     }
-  while ((flip (&d)) != UP);
 
   /*
    * do horizontal shifts of each direction
@@ -535,7 +524,7 @@ Note_collision_interface::automatic_shift (Grob *me,
    *   x|
   */
 
-  do
+  for (UP_and_DOWN (d))
     {
       for (vsize i = 1; i < clash_groups[d].size (); i++)
         {
@@ -547,7 +536,6 @@ Note_collision_interface::automatic_shift (Grob *me,
               offsets[d][j] += d * 0.5;
         }
     }
-  while ((flip (&d)) != UP);
 
   /*
     see input/regression/dot-up-voice-collision.ly
@@ -571,14 +559,13 @@ Note_collision_interface::automatic_shift (Grob *me,
 
   check_meshing_chords (me, &offsets, extents, clash_groups);
 
-  do
+  for (UP_and_DOWN (d))
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
                                    scm_from_double (offsets[d][i])),
                          tups);
     }
-  while (flip (&d) != UP);
 
   return tups;
 }

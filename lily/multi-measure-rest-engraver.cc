@@ -127,8 +127,7 @@ Multi_measure_rest_engraver::process_music ()
           /*
             Stack different scripts.
           */
-          Direction d = DOWN;
-          do
+          for (DOWN_and_UP (d))
             {
               Grob *last = 0;
               for (vsize i = 0; i < numbers_.size (); i++)
@@ -141,7 +140,6 @@ Multi_measure_rest_engraver::process_music ()
                     }
                 }
             }
-          while (flip (&d) != DOWN);
         }
 
       for (vsize i = 0; i < numbers_.size (); i++)

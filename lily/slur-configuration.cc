@@ -93,10 +93,8 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
                 d * dot_product (z, dz_perp));
 
       bool close_to_edge = false;
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         close_to_edge = close_to_edge || -d * (p[X_AXIS] - curve_xext[d]) < close_to_edge_length;
-      while (flip (&d) != LEFT);
 
       if (close_to_edge)
         continue;
@@ -333,11 +331,11 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
         to prevent numerical inaccuracies in
         Bezier::get_other_coordinate ().
       */
-      Direction d = LEFT;
+
       bool found = false;
       Real y = 0.0;
 
-      do
+      for (LEFT_and_RIGHT (d))
         {
           /*
             We need to check for the bound explicitly, since the
@@ -358,7 +356,6 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
             }
 
         }
-      while (flip (&d) != LEFT);
 
       if (!found)
         {
@@ -396,11 +393,11 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 void
 Slur_configuration::score_edges (Slur_score_state const &state)
 {
-  Direction d = LEFT;
+
   Offset dz = attachment_[RIGHT]
               - attachment_[LEFT];
   Real slope = dz[Y_AXIS] / dz[X_AXIS];
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Real y = attachment_[d][Y_AXIS];
       Real dy = fabs (y - state.base_attachments_[d][Y_AXIS]);
@@ -419,7 +416,6 @@ Slur_configuration::score_edges (Slur_score_state const &state)
       string dir_str = d == LEFT ? "L" : "R";
       add_score (demerit, dir_str + " edge");
     }
-  while (flip (&d) != LEFT);
 }
 
 void

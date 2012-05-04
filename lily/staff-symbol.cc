@@ -50,8 +50,7 @@ Staff_symbol::print (SCM smob)
   Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       SCM width_scm = me->get_property ("width");
       if (d == RIGHT && scm_is_number (width_scm))
@@ -75,7 +74,6 @@ Staff_symbol::print (SCM smob)
 
       span_points[d] -= d * t / 2;
     }
-  while (flip (&d) != LEFT);
 
   Stencil m;
 

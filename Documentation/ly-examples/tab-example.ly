@@ -14,17 +14,6 @@
          (- (ly:pitch-alteration right-pitch) (ly:pitch-alteration left-pitch))
          0 )))
 
-% Hide fret number: useful to draw slide into/from a casual point of
-% the fretboard.
-hideFretNumber = {
-  \once \override TabNoteHead #'transparent = ##t
-  \once \override TabNoteHead #'whiteout = ##f
-  \once \override NoteHead #'transparent = ##t
-  \once \override Stem #'transparent = ##t
-  \once \override Flag #'transparent = ##t
-  \once \override NoteHead #'no-ledgers = ##t
-}
-
 \paper {
   indent= #0
   line-width= #180
@@ -36,7 +25,7 @@ upper= \relative c' {
   \set Staff.midiInstrument = #"acoustic guitar (steel)"
   \set fingeringOrientations = #'(left)
 
-  \partial 4. \acciaccatura c16 \glissando cis8 e4
+  \partial 4. cis8 e4
   < cis-1 g'-3 >2 s8 \grace a16 ( \glissando < b-2 >8\3 ) < d-1 > ( b )
   < e-3 >\2 ( <d-1> b ) \grace < ais-2 >16 ( \glissando a8 g ) s4.
   s4. < d'\3 g\2 >8 < gis,\4  d'\3 fis\2 >2\arpeggio ~
@@ -49,7 +38,7 @@ lower= \relative c {
   \partial 4. s4.
   s4 e,4 s2
   s2 s8 < e'-3 >4. ~
-  e4 \hideFretNumber \grace { b8 \glissando s4 } < e-2 >4\5 e,2 ~
+  e4 \hideNotes \grace { b8 \glissando s4 } \unHideNotes < e-2 >4\5 e,2 ~
   e2 < e'\6\harmonic >
 }
 

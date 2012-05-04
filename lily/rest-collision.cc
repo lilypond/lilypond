@@ -146,13 +146,11 @@ Rest_collision::calc_positioning_done (SCM smob)
             rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
         }
 
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         vector_sort (ordered_rests[d], rest_shift_less);
-      while (flip (&d) != LEFT)
-        ;
 
-      do
+
+      for (LEFT_and_RIGHT (d))
         {
           if (ordered_rests[d].size () < 1)
             {
@@ -162,7 +160,6 @@ Rest_collision::calc_positioning_done (SCM smob)
               return SCM_BOOL_T;
             }
         }
-      while (flip (&d) != LEFT);
 
       Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
       common = common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
@@ -182,7 +179,7 @@ Rest_collision::calc_positioning_done (SCM smob)
                              2 * int (ceil (diff)));
         }
 
-      do
+      for (LEFT_and_RIGHT (d))
         {
           for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
             {
@@ -194,7 +191,6 @@ Rest_collision::calc_positioning_done (SCM smob)
                 Rest::translate (ordered_rests[d][i], d * (int) ceil (diff) * 2);
             }
         }
-      while (flip (&d) != LEFT);
     }
   else
     {

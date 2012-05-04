@@ -227,8 +227,7 @@ Ledger_line_spanner::print (SCM smob)
       if (last == reqs.end ())
         continue;
 
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         {
           if (!staff_extent.contains (last->second[d].position_)
               && !staff_extent.contains (i->second[d].position_))
@@ -237,8 +236,7 @@ Ledger_line_spanner::print (SCM smob)
                 = (last->second[d].head_extent_[RIGHT]
                    + i->second[d].head_extent_[LEFT]) / 2;
 
-              Direction which = LEFT;
-              do
+              for (LEFT_and_RIGHT (which))
                 {
                   Ledger_request &lr = ((which == LEFT) ? * last : *i).second[d];
 
@@ -253,10 +251,8 @@ Ledger_line_spanner::print (SCM smob)
                   lr.ledger_extent_.at (-which)
                     = which * max (which * lr.ledger_extent_[-which], which * limit);
                 }
-              while (flip (&which) != LEFT);
             }
         }
-      while (flip (&d) != DOWN);
     }
 
   // create ledgers for note heads

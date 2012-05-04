@@ -583,6 +583,7 @@ are described in @rinternals{bar-line-interface}.")
      (apply translator-property-description x))
 
    `(
+     (EventClasses ,cheap-list? "The initial list of event classes.")
 
      (associatedVoiceContext ,ly:context? "The context object of the
 @code{Voice} that has the melody for this @code{Lyrics}.")

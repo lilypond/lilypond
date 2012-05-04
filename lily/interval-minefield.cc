@@ -58,8 +58,7 @@ Interval_minefield::solve ()
       dirty = false;
       for (vsize i = 0; i < forbidden_intervals_.size (); i++)
         {
-          Direction d = DOWN;
-          do
+          for (DOWN_and_UP (d))
             {
               Interval feasible_widened = Interval (feasible_placements_[d], feasible_placements_[d]);
               feasible_widened.widen (bulk_ / 2.);
@@ -75,7 +74,6 @@ Interval_minefield::solve ()
                   dirty = true;
                 }
             }
-          while (flip (&d) != DOWN);
         }
     }
   while (dirty);

@@ -117,6 +117,13 @@ public:
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter (string context_id = "");
 
+  // It would make some sense to have the following just available in
+  // a global context.  It would be decidedly tricky, however, to have
+  // it initialized before the constructor of its Context base class
+  // was able to trigger garbage collection.
+  SCM ancestor_lookup_;
+  SCM make_event_class (SCM);
+
   bool is_alias (SCM) const;
   void add_alias (SCM);
   void add_context (Context *trans);

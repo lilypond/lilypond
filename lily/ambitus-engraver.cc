@@ -71,8 +71,7 @@ Ambitus_engraver::create_ambitus ()
 {
   ambitus_ = make_item ("AmbitusLine", SCM_EOL);
   group_ = make_item ("Ambitus", SCM_EOL);
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     {
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
@@ -82,7 +81,6 @@ Ambitus_engraver::create_ambitus ()
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
     }
-  while (flip (&d) != DOWN);
 
   ambitus_->set_parent (heads_[DOWN], X_AXIS);
   Axis_group_interface::add_element (group_, ambitus_);
@@ -164,8 +162,7 @@ Ambitus_engraver::finalize ()
       Grob *accidental_placement
         = make_item ("AccidentalPlacement", accidentals_[DOWN]->self_scm ());
 
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         {
           Pitch p = pitch_interval_[d];
           heads_[d]->set_property ("cause", causes_[d]->self_scm ());
@@ -205,19 +202,16 @@ Ambitus_engraver::finalize ()
                                              ly_symbol2scm ("note-heads"),
                                              heads_[d]);
         }
-      while (flip (&d) != DOWN);
 
       Axis_group_interface::add_element (group_, accidental_placement);
     }
   else
     {
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         {
           accidentals_[d]->suicide ();
           heads_[d]->suicide ();
         }
-      while (flip (&d) != DOWN);
 
       ambitus_->suicide ();
     }

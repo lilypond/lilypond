@@ -215,7 +215,7 @@ Dynamic_engraver::process_music ()
             TODO: Use symbols.
           */
 
-          SCM start_sym = current_cresc_ev_->get_property ("class");
+          SCM start_sym = scm_car (current_cresc_ev_->get_property ("class"));
           string start_type;
 
           if (start_sym == ly_symbol2scm ("decrescendo-event"))

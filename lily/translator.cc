@@ -133,38 +133,6 @@ Translator::disconnect_from_context (Context *c)
                                          r->event_class_);
 }
 
-static SCM listened_event_class_table;
-void
-ensure_listened_hash ()
-{
-  if (!listened_event_class_table)
-    listened_event_class_table = scm_permanent_object (scm_c_make_hash_table (61));
-}
-
-LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
-           0, 0, 0, (),
-           "Return a list of all event classes that some translator listens"
-           " to.")
-{
-  ensure_listened_hash ();
-  return ly_hash_table_keys (listened_event_class_table);
-}
-
-LY_DEFINE (ly_is_listened_event_class, "ly:is-listened-event-class",
-           1, 0, 0, (SCM sym),
-           "Is @var{sym} a listened event class?")
-{
-  ensure_listened_hash ();
-  return scm_hashq_ref (listened_event_class_table, sym, SCM_BOOL_F);
-}
-
-void
-add_listened_event_class (SCM sym)
-{
-  ensure_listened_hash ();
-  scm_hashq_set_x (listened_event_class_table, sym, SCM_BOOL_T);
-}
-
 /*
   internally called once, statically, for each translator
   listener. Connects the name of an event class with a procedure that
@@ -184,9 +152,11 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   name = replace_all (&name, '_', '-');
   name += "-event";
 
-  SCM class_sym = scm_from_locale_symbol (name.c_str ());
+  // we make the symbol permanent in order not to have to bother about
+  // the static translator_listener_record chains while garbage
+  // collecting.
 
-  add_listened_event_class (class_sym);
+  SCM class_sym = scm_permanent_object (scm_from_locale_symbol (name.c_str ()));
 
   r->event_class_ = class_sym;
   r->get_listener_ = get_listener;

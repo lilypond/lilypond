@@ -2234,31 +2234,44 @@ This policy explains how to manage Git branches and commit
 translations to Git.
 
 @itemize
-@item Translation changes matching master branch are preferably made on
-@code{translation} branch; they may be pushed directly to
-@code{master} only if they do not break compilation of LilyPond and
-its documentation, and in this case they should be pushed to
-@code{translation} too.  Similarly, changes matching
+@item Translation work is made on
+@code{translation} branch.  This branch is merged on
+@code{staging} once a week, approximately.  Then,
+@code{master} branch is merged on
+@code{translation}, where the check-translation script (see
+@ref{Check state of translation}) shows changes in English docs which
+should be translated, and the cycle starts again.
+
+@item Translations may be pushed directly to
+@code{staging} only if they do not break compilation of LilyPond and
+its documentation.  Those changes could be pushed to
+@code{translation} too, or alternatively translators could wait until
+they come from
+@code{master} the next time it is merged on
+@code{translation}.  Similarly, changes matching
 @code{stable/X.Y} are preferably made on
-@code{lilypond/X.Ytranslation}.
+@code{X.Ytranslation}.
 
 @item @code{translation} Git branch may be merged into
-master only if LilyPond (@command{make all}) and documentation
-(@command{make doc}) compile successfully.
+@code{staging} branch only if LilyPond (@command{make all}) and
+documentation (@command{make doc}) compile successfully.
 
-@item @code{master} Git branch may be merged into
-@code{translation} whenever @command{make} and @command{make
-doc} are successful (in order to ease documentation compilation by
-translators), or when significant changes had been made in
-documentation in English in master branch.
+@item @command{make} and @command{make doc} are usually successful in
+@code{master} Git branch because those tests should have already
+succeeded in
+@code{staging} branch before merging.
+@code{master} branch may be merged into
+@code{translation} when significant changes had been made in
+documentation in English in
+@code{master} branch.
 
 @item General maintenance may be done by anybody who knows what he does
 in documentation in all languages, without informing translators
 first.  General maintenance include simple text substitutions
 (e.g. automated by sed), compilation fixes, updating Texinfo or
 lilypond-book commands, updating macros, updating ly code, fixing
-cross-references, and operations described in @ref{Maintaining
-without updating translations}.
+cross-references, and operations described in
+@ref{Maintaining without updating translations}.
 @end itemize
 
 

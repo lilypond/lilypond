@@ -161,8 +161,7 @@ Optimal_page_breaking::solve ()
     }
 
   /* try a larger number of systems than the ideal line breaking number. This
-     is more or less C&P, but the loop bounds make it difficult to try something
-     like do {...} while (flip(&d) != UP). */
+     is more or less C&P. */
   bound = ideal_line_division;
   for (vsize sys_count = ideal_sys_count + 1; sys_count <= max_sys_count; sys_count++)
     {
