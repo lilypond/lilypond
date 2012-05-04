@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
+    Translation of GIT committish: 6b9b2c2e3e701852485c24bc71f404effc6d83ec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -621,8 +621,8 @@ De hecho, una capa o contexto de voz es la única que puede contener
 música.  Si un contexto de voz no se declara explícitamente, se crea
 uno de forma automática, como vimos al comienzo de este capítulo.
 Ciertos instrumentos como el oboe solamente pueden tocar una nota cada
-vez.  La música escrita para estos instrumentos es monofónica y
-solamente requiere una voz única.  Los instrumentos que pueden tocar
+vez.  La música escrita para estos instrumentos
+solamente requiere una voz.  Los instrumentos que pueden tocar
 más de una nota a la vez, como el piano, con frecuencia necesitarán
 varias voces para codificar las distintas notas y ritmos concurrentes
 que son capaces de tocar.
@@ -659,7 +659,7 @@ solo pentagrama es escribir cada voz como una secuencia (con
 doble barra invertida, @code{\\}, para situarlos en voces separadas.
 Sin esto, las notas irían a una sola voz, lo que normalmente produce
 errores.  Esta técnica se adapta especialmente bien a piezas de música
-que son mayormente monofónicas pero ocasionalmente tienen cortas
+que son mayormente homofónicas pero ocasionalmente tienen cortas
 secciones de polifonía.
 
 He aquí cómo dividimos los acordes anteriores en dos voces y añadimos
@@ -1088,7 +1088,7 @@ pueda trazar una ligadura por encima de ellas.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<

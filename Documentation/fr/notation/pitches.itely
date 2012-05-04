@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -111,8 +111,6 @@ Morceaux choisis :
 
 @funindex \relative
 @funindex relative
-@funindex \transpose
-@funindex transpose
 
 On spécifie les octaves en ajoutant@tie{}@code{'} ou@tie{}@code{,} aux
 noms de hauteur.  En recopiant de la musique, on a vite fait de mettre
@@ -195,9 +193,6 @@ dernière clause @code{\relative} qui est prise en compte.
 }
 @end lilypond
 
-@funindex \chordmode
-@funindex chordmode
-
 @code{\relative} est sans effet sur un bloc @code{\chordmode}.
 
 @lilypond[verbatim,quote]
@@ -210,12 +205,6 @@ dernière clause @code{\relative} qui est prise en compte.
 @end lilypond
 
 @code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
-
-@cindex octave relative et transposition
-@cindex transposition et mode octave relative
-
-@funindex \transpose
-@funindex transpose
 
 Pour utiliser le mode d'octave relative dans de la musique transposée,
 une clause @code{\relative} additionnelle doit être placée au sein du
@@ -235,9 +224,6 @@ bloc @code{\transpose}.
 
 @cindex accords et octave relative
 @cindex octave relative et accords
-
-@funindex \chordmode
-@funindex chordmode
 
 Si l'expression précédente est un accord, c'est la première note de
 l'accord qui détermine l'emplacement de la première note du prochain
@@ -310,6 +296,7 @@ en question. Pour plus d'information, reportez-vous au chapitre
 
 @cindex noms de note, hollandais
 @cindex noms de note, par défaut
+@cindex hauteur, nom par défaut
 @cindex dièse
 @cindex bémol
 @cindex double dièse
@@ -695,7 +682,7 @@ autres notes seront changées selon le même intervalle.  Les deux
 hauteurs s'expriment en octave absolue.
 
 @warning{La musique contenue dans un bloc @code{@bs{}transpose} est en
-octaves absolus, sauf à inclure dans ce même bloc une clause
+octaves absolues, sauf à inclure dans ce même bloc une clause
 @code{@bs{}relative}.}
 
 Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
@@ -865,7 +852,7 @@ music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @end lilypond
 
 @knownissues
-Une liaison de prolongation à l'intérieur d'un bloc @code{\transpose}
+Une liaison de prolongation à l'intérieur d'un bloc @code{\retrograde}
 sera de fait rompue, ce qui générera un message d'avertissement.
 Des liaisons de prolongation seront toutefois générées automatiquement 
 dès lors qu'est activé le @ref{Découpage automatique des notes}.
@@ -1043,6 +1030,7 @@ hauteurs.
 @cindex clé de sol
 @cindex clé de fa
 @cindex clé d'ut
+@cindex clés anciennes
 
 @funindex \clef
 @funindex clef
@@ -1178,7 +1166,7 @@ morceau.
 On définit ou modifie l'armure avec la commande @code{\key}
 
 @example
-@code{\key} @var{hauteur} @var{mode}
+\key @var{hauteur} @var{mode}
 @end example
 
 @funindex \major
@@ -1458,11 +1446,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1539,11 +1527,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1611,11 +1599,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1675,11 +1663,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1737,11 +1725,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1804,11 +1792,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1864,11 +1852,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1898,7 +1886,7 @@ musicB = {
 @cindex altérations style @emph{piano}
 @cindex piano et altérations
 
-@funindex piano accidentals
+@funindex piano
 
 Cette règle est communément employée pour les partitions de piano au
 XXe siècle.  Très similaire à @code{modern} de par son comportement,
@@ -1927,11 +1915,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1984,11 +1972,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2042,11 +2030,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2099,11 +2087,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2162,11 +2150,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2217,11 +2205,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2276,11 +2264,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2337,11 +2325,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2396,11 +2384,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2455,11 +2443,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2512,7 +2500,7 @@ après l'autre, en fonction de l'ordre dans lequel elles ont été saisies
 -- ce qui peut poser problème lorsqu'au sein d'un accord certaines
 altérations dépendent les unes des autres.
 Ce problème est à résoudre manuellement, en insérant des@tie{}@code{!}
-et des@tie{}@code{?} après les notes concernées.
+et des@tie{}@code{?} après les notes concernées, tel @samp{<f! fis!>}.
 
 L'absence d'altération de précaution est déterminée par l'examen de la
 mesure précédente.  Néanmoins, lorsqu'un bloc @code{\alternative} suit

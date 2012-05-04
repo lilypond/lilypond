@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 60c131ebfe64fbc58d77e5ca66f70c60b1f0b8b2
+    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -608,11 +608,11 @@ En réalité, le contexte de voix est le seul à pouvoir contenir de la
 musique.  S'il n'est pas déclaré explicitement, il sera créé
 automatiquement comme nous l'avons vu au début de ce chapitre.  Certains
 instruments, le hautbois par exemple, ne peuvent jouer qu'une seule note
-à la fois.  On dit en pareil cas qu'il s'agit de musique monophonique,
-et nous n'aurons alors besoin que d'une seule voix.  Les instruments qui,
-comme le piano, peuvent émettre plusieurs sons en même temps, nécessitent
-de recourir à plusieurs voix pour gérer efficacement l'alignement des
-notes et rythmes différents.
+à la fois.  Nous n'aurons besoin, pour ces instruments monodiques, que
+d'une seule voix.  Les instruments qui, comme le piano, peuvent émettre
+plusieurs sons en même temps sont polyphoniques et nécessitent de
+recourir à plusieurs voix pour gérer efficacement l'alignement des notes
+et rythmes différents.
 
 Si une voix unique peut tout à fait contenir plusieurs notes dans un
 accord, à partir de quand aurons-nous vraiment besoin de plusieurs
@@ -648,7 +648,8 @@ devront être séparés par une double oblique inversée, @code{\\}, pour
 les affecter à des voix séparées.  Dans le cas contraire, les notes
 seraient toutes affectées à une même voix, ce qui pourrait générer des
 erreurs.  Cette manière de procéder est tout à fait indiquée dans le cas
-d'une pièce ne comportant que quelques courts passages de polyphonie.
+d'une pièce homophonique ne comportant que quelques courts passages de
+polyphonie.
 
 Voici comment éclater les accords en deux voix, avec la note de passage
 et la liaison@tie{}:
@@ -1078,7 +1079,7 @@ permet d'ajouter une liaison de phrasé à l'ensemble.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % The following notes are homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f174bb0d28a5f8b6ca28e2e38930cba6e2e0d0ae
+    Translation of GIT committish: 15ca7b18a32b243c7bcacfba773b3da843a6dd36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -154,40 +154,38 @@ convierten a la representación anterior; la utilización de una
 cualquiera de ellas puede ser la vía más sencilla para mantener
 operativo el código tradicional.
 
-Las ventajas de hacer que la entrada y la música tengan una más
-estrecha correspondencia son numerosas: las funciones musicales
-fundionaban anteriormente de forma distinta si se utilizaban dentro o
-fuera de los acordes.  Ahora son lo mismo, incluidas todas las
-posibilidades del análisis sintáctico de los argumentos.  Ahora
-podemos usar variables musicales dentro de los acordes: una
-construcción como
+Los tres siguientes elementos de la lista son consecuencia de este
+cambio.
+
+@item
+Ahora las funciones musicales funcionan igual cuando se usan dentro o
+fuera de los acordes, incluidas todas las posibilidades de la
+exploración de argumentos.  Las variables musicales se pueden usar
+dentro de acordes: una construcción como
 @lilypond[verbatim,quote,ragged-right]
 tonic=fis'
 { <\tonic \transpose c g \tonic> }
 @end lilypond
 @noindent
-
-habría sido impensable con anterioridad.  Podemos usar
-@code{#@{@dots{}#@}} para construir los componentes de un acorde.  Las
-funciones musicales dentro de los acordes ya no se manejan de ninguna
-forma especial y por tanto aceptan los mismos argumentos que fuera de
-los acordes.  La instrucción @code{\tweak} funciona ahora sobre notas
-individuales sin necesidad de envolverlas entre ángulos de acorde.  En
-teoría, también puede funcionar sobre eventos y sobre la letra de las
-canciones.  Dado que antes no era posible, depende de la suerte caso
-por caso si las interioridades del código de los trucos están
-recibiendo ya la información necesaria.  Se solicita a los usuarios
-que informen de aquellos casos en que se observe que la instrucción
-@code{\tweak} no funciona según lo que razonablemente se espera de
-ella.
+ahora funciona como se espera.  Puede utilizarse @code{#@{@dots{}#@}}
+para la construcción de componentes de acordes.  Ahora @code{\tweak}
+funciona sobre notas individuales sin necesidad de incluirlas dentro
+de un acorde.  Ahora es posible usarla dentro de eventos de
+instrucciones y letra de canciones, pero aún no es probable que
+ofrezca resultados.
 
 @item
-Como consecuencia, era posible reimplementar la abreviatura de
-repetición de acordes @code{q}.  Los acordes repetidos ahora se
-sustituyen justo antes de interpretar la expresión musical.  En caso
-de que el usuario quiera retener ciertos eventos del acorde original,
-puede ejecutar manualmente la función de sustitución de repetición de
-acordes @code{\chordRepeats}.
+Se ha reimplementado la abreviatura de ayuda para intruducción
+repetitiva de acordes, @code{q}.  Ahora los acordes repetidos se
+sustituyen justo antes de la interpretación de la expresión musical.
+En caso de que el usuario quiera retener ciertos eventos del acorde
+original, puede ejecutar manualmente la función @code{\chordRepeats}
+de sustitución de acordes de repetición.
+
+@item
+Los números de cuerdas y digitaciones de la mano derecha sobre notas
+individuales aparecen ahora sin tener que escribirlas dentro de
+corchetes de acorde.
 
 @item
 Las expresiones de Scheme dentro de fragmentos de código de LilyPond
