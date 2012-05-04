@@ -156,8 +156,45 @@ LilyPond es software libre y forma parte del
 @end ifclear
 @ifset web_version
   @c make the box:
-@divId{latestVersion}
+@divId{wildCardBox}
+@subheading Pondings
+@divId{wildCardText}
 
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
+@ifset web_version
+  @c make the box:
+@divId{latestVersion}
 @subheading Enlaces rápidos
 
 @c TODO: javascript to detect OS and suggest download?
