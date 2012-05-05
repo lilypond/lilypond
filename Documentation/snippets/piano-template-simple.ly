@@ -7,9 +7,18 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 0b690b572795050d01c53e07b2fd2a5f445029ef
+  texidocja = "
+いくつかの音符を持つシンプルなピアノ譜を示します。
+
+"
+  doctitleja = "ピアノ テンプレート (シンプル)"
+
+
   lsrtags = "template, keyboards, really-simple"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
 notas.

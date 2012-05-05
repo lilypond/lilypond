@@ -270,8 +270,7 @@ Line_spanner::print (SCM smob)
 
   Drul_array<Offset> span_points;
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Offset z (robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
                                                  bounds[d], SCM_BOOL_F), 0.0),
@@ -280,7 +279,6 @@ Line_spanner::print (SCM smob)
 
       span_points[d] = z;
     }
-  while (flip (&d) != LEFT);
 
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
@@ -291,7 +289,7 @@ Line_spanner::print (SCM smob)
   Real magstep
     = pow (2, robust_scm2double (me->get_property ("font-size"), 0.0) / 6);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
                                                  bounds[d], SCM_BOOL_F), 0.0);
@@ -304,15 +302,13 @@ Line_spanner::print (SCM smob)
       if (!common_y[d])
         common_y[d] = me;
     }
-  while (flip (&d) != LEFT);
 
   Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
 
   if (!simple_y)
     {
-      do
+      for (LEFT_and_RIGHT (d))
         span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
-      while (flip (&d) != LEFT);
     }
 
   Interval normalized_endpoints = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0, 1));
@@ -329,7 +325,7 @@ Line_spanner::print (SCM smob)
     }
 
   Stencil line;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       span_points[d] += -d * gaps[d] * magstep * dz.direction ();
 
@@ -350,15 +346,13 @@ Line_spanner::print (SCM smob)
           line.add_stencil (s);
         }
     }
-  while (flip (&d) != LEFT);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (stencils[d])
         span_points[d] += dz_dir *
                           (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
     }
-  while (flip (&d) != LEFT);
 
   Offset adjust = dz.direction () * Staff_symbol_referencer::staff_space (me);
 

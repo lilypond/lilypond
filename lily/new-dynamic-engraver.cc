@@ -242,7 +242,7 @@ string
 New_dynamic_engraver::get_spanner_type (Stream_event *ev)
 {
   string type;
-  SCM start_sym = ev->get_property ("class");
+  SCM start_sym = scm_car (ev->get_property ("class"));
 
   if (start_sym == ly_symbol2scm ("decrescendo-event"))
     type = "decrescendo";

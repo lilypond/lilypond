@@ -134,10 +134,9 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
                                               Drul_array<Item *> next_door,
                                               Spacing_options const *options)
 {
-  Direction d = LEFT;
   Drul_array<Real> dists (0, 0);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
       Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
@@ -171,7 +170,6 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
             programming_error ("Subversive spacing wish");
         }
     }
-  while (flip (&d) != LEFT);
 
   Rod r;
   r.distance_ = dists[LEFT] + dists[RIGHT];

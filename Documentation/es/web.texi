@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+    Translation of GIT committish: a8841c7b9212700f2ebac56e0713afa78a8f0ca0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -156,8 +156,45 @@ LilyPond es software libre y forma parte del
 @end ifclear
 @ifset web_version
   @c make the box:
-@divId{latestVersion}
+@divId{wildCardBox}
+@subheading Novedades
+@divId{wildCardText}
 
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets-es.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
+@ifset web_version
+  @c make the box:
+@divId{latestVersion}
 @subheading Enlaces rápidos
 
 @c TODO: javascript to detect OS and suggest download?

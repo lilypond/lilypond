@@ -222,8 +222,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Interval bar_xextent;
   Interval bar_yextent;
 
-  Direction d = LEFT;
-
   bool acc_right = false;
 
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
@@ -232,7 +230,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   if (bar && dynamic_cast<Item *> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       vector<Grob *> const &items (ly_scm2link_array (props [d]));
       for (vsize i = 0; i < items.size (); i++)
@@ -280,7 +278,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
             }
         }
     }
-  while (flip (&d) != LEFT);
 
   Real correction = 0.0;
 

@@ -261,8 +261,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
           Real left_stickout = skys ? (*skys)[RIGHT].max_height () : 0.0;
           bool done = true;
 
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               if (j < i - 1)
                 cur_dist[d] += distances[j];
@@ -287,8 +286,10 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
 
               cur_dist[d] = max (cur_dist[d], dist);
               done = done && !touches;
+
+              if (!rb)
+                break;
             }
-          while (flip (&d) != LEFT && rb);
 
           /* we need the empty check for gregorian notation, where there are a lot of
              extraneous paper-columns that we need to skip over */

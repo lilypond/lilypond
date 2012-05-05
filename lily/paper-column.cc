@@ -168,14 +168,12 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
   Drul_array<Grob *> cols (left, right);
   Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Skyline_pair *sp = Skyline_pair::unsmob (cols[d]->get_property ("horizontal-skylines"));
       if (sp)
         skys[d] = (*sp)[-d];
     }
-  while (flip (&d) != LEFT);
 
   skys[RIGHT].merge (Separation_item::conditional_skyline (right, left));
 

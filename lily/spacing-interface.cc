@@ -55,8 +55,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 
   Drul_array<Grob *> columns (left_col, right_col);
 
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       for (vsize i = 0; i < items[d].size (); i++)
         {
@@ -88,7 +87,6 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
             }
         }
     }
-  while (flip (&d) != LEFT);
 
   return skylines;
 }

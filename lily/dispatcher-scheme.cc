@@ -63,6 +63,36 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
   return SCM_UNDEFINED;
 }
 
+LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
+           1, 0, 0, (SCM disp),
+           "Return a list of all event types that @var{disp} listens"
+           " to.")
+{
+  LY_ASSERT_SMOB (Dispatcher, disp, 1);
+
+  SCM result = unsmob_dispatcher (disp)->listened_types ();
+
+  scm_remember_upto_here_1 (disp);
+
+  return result;
+}
+
+LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
+           2, 0, 0, (SCM disp, SCM cl),
+           "Does @var{disp} listen to any event type in the list"
+           " @var{cl}?")
+{
+  LY_ASSERT_SMOB (Dispatcher, disp, 1);
+  LY_ASSERT_TYPE (scm_is_pair, cl, 2);
+
+  bool result = unsmob_dispatcher (disp)->is_listened_class (cl);
+
+  scm_remember_upto_here_1 (disp);
+
+  return scm_from_bool (result);
+}
+
+
 LY_DEFINE (ly_broadcast, "ly:broadcast",
            2, 0, 0, (SCM disp, SCM ev),
            "Send the stream event @var{ev} to the dispatcher @var{disp}.")

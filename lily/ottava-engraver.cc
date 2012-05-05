@@ -99,8 +99,7 @@ Ottava_spanner_engraver::typeset_all ()
 {
   if (finished_)
     {
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           if (!finished_->get_bound (RIGHT))
             {
@@ -108,7 +107,6 @@ Ottava_spanner_engraver::typeset_all ()
               finished_->set_bound (d, e);
             }
         }
-      while (flip (&d) != LEFT);
 
       finished_ = 0;
     }

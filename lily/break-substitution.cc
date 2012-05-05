@@ -248,14 +248,12 @@ item_system_range (Item *it)
     return Slice (st->get_rank (), st->get_rank ());
 
   Slice sr;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *bi = it->find_prebroken_piece (d);
       if (bi && bi->get_system ())
         sr.add_point (bi->get_system ()->get_rank ());
     }
-  while (flip (&d) != LEFT);
 
   return sr;
 }

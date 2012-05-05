@@ -59,44 +59,31 @@
     (Announcement . (AnnounceNewContext))
     ))
 
-;; Maps event-class to a list of ancestors (inclusive)
-(define ancestor-lookup (make-hash-table 11))
+(define-public (event-class-cons class parent classlist)
+  (let ((lineage (assq parent classlist)))
+    (if (not lineage)
+	(begin
+	  (if (not (null? parent))
+	      (ly:warning (_ "unknown parent class `~a'") parent))
+	  (set! lineage '())))
+    (if (symbol? class)
+	(acons class lineage classlist)
+	(fold (lambda (elt alist)
+		(acons elt lineage alist))
+	      classlist class))))
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
-(for-each
- (lambda (rel)
-   (for-each
-    (lambda (type)
-      (hashq-set! ancestor-lookup type
-		  (cons type (hashq-ref ancestor-lookup (car rel) '()))))
-    (cdr rel)))
- event-classes)
-
-(define-public (define-event-class leaf heritage)
-  (cond
-   ((not (eq? leaf (car heritage)))
-    (ly:warning (_ "All classes must be the last in their matrilineal line.")))
-   ((not (equal? (cdr heritage)
-                 (list-head (hashq-ref ancestor-lookup (cadr heritage) '())
-                            (length (cdr heritage)))))
-    (ly:warning (_ "All classes must have a well-defined pedigree in the existing class hierarchy.")))
-   (else (hashq-set! ancestor-lookup
-                     leaf
-                     (cons leaf
-                           (hashq-ref ancestor-lookup
-                                      (cadr heritage)
-                                      '())))))
-  *unspecified*)
-
-;; TODO: Allow entering more complex classes, by taking unions.
-(define-public (ly:make-event-class leaf)
- (hashq-ref ancestor-lookup leaf))
 
 (define-public (ly:in-event-class? ev cl)
   "Does event @var{ev} belong to event class @var{cl}?"
-  (memq cl (ly:make-event-class (ly:event-property ev 'class))))
+  (memq cl (ly:event-property ev 'class)))
+
+(define-public all-event-classes
+  (fold (lambda (elt classlist)
+	  (event-class-cons (cdr elt) (car elt) classlist))
+	'() event-classes))
 
 ;; does this exist in guile already?
 (define (map-tree f t)
@@ -113,14 +100,6 @@
     (if children
 	(cons root (map expand-event-tree (cdr children)))
 	root)))
-
-;; All leaf event classes that no translator listens to
-;; directly.  Avoids printing a warning.
-(define unlistened-music-event-classes
-  '(harmonic-event line-break-event page-break-event page-turn-event label-event
-		   solo-one-event solo-two-event skip-event unisono-event
-		   part-combine-force-event break-dynamic-span-event
-		   stroke-finger-event))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?
@@ -141,22 +120,6 @@
 
 ;;(use-modules (ice-9 pretty-print))
 ;;(pretty-print (cons (car music-event-tree) (sort-tree (cdr music-event-tree))))
-
-;; check that the music event tree corresponds well with the set of
-;; available translators; print warnings otherwise.
-(map-tree (lambda (sym)
-	    (if (and (symbol? sym)
-		     (not (ly:is-listened-event-class sym))
-		     (not (assq sym event-classes))
-		     (not (memq sym unlistened-music-event-classes)))
-		(ly:programming-error (_ "event class ~A seems to be unused") sym)))
-	  music-event-tree)
-
-(map (lambda (sym)
-       (if (not (pair? (ly:make-event-class sym)))
-	   ;; should be programming-error
-	   (ly:error (_ "translator listens to nonexisting event class ~A") sym)))
-     (ly:get-listened-event-classes))
 
 (defmacro-public make-stream-event (expr)
   (Stream_event::undump (primitive-eval (list 'quasiquote expr))))

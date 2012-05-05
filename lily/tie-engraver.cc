@@ -347,16 +347,14 @@ Tie_engraver::typeset_tie (Grob *her)
   if (! (Tie::head (her, LEFT) && Tie::head (her, RIGHT)))
     warning (_ ("lonely tie"));
 
-  Direction d = LEFT;
   Drul_array<Grob *> new_head_drul;
   new_head_drul[LEFT] = Tie::head (her, LEFT);
   new_head_drul[RIGHT] = Tie::head (her, RIGHT);
-  do
+  for (LEFT_and_RIGHT (d))
     {
       if (!Tie::head (her, d))
         new_head_drul[d] = Tie::head (her, (Direction) - d);
     }
-  while (flip (&d) != LEFT);
 
   Spanner *sp = dynamic_cast<Spanner *> (her);
   sp->set_bound (LEFT, new_head_drul[LEFT]);

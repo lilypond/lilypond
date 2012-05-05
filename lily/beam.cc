@@ -284,9 +284,8 @@ Beam::calc_beaming (SCM smob)
                              last_dir ? last_dir : this_dir,
                              this_dir);
 
-          Direction d = LEFT;
           Slice new_slice;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               new_slice.set_empty ();
               SCM s = index_get_cell (this_beaming, d);
@@ -299,7 +298,6 @@ Beam::calc_beaming (SCM smob)
                   scm_set_car_x (s, scm_from_int (new_beam_pos));
                 }
             }
-          while (flip (&d) != LEFT);
 
           if (!new_slice.is_empty ())
             last_int = new_slice;
@@ -351,10 +349,8 @@ Beam::calc_beam_segments (SCM smob)
   extract_grob_set (me, "stems", stems);
 
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
-  while (flip (&d) != LEFT);
 
   int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
@@ -376,7 +372,7 @@ Beam::calc_beam_segments (SCM smob)
       Real stem_x = stem->relative_coordinate (commonx, X_AXIS);
       SCM beaming = stem->get_property ("beaming");
 
-      do
+      for (LEFT_and_RIGHT (d))
         {
           // Find the maximum and minimum beam ranks.
           // Given that RANKS is never reset to empty, the interval will always be
@@ -415,7 +411,6 @@ Beam::calc_beam_segments (SCM smob)
               stem_segments[beam_rank].push_back (seg);
             }
         }
-      while (flip (&d) != LEFT);
     }
 
   Drul_array<Real> break_overshoot
@@ -444,9 +439,8 @@ Beam::calc_beam_segments (SCM smob)
           // we are currently looking at (ie. if segs[j].dir_ == event_dir then we
           // are looking at that edge of the beam segment that is furthest from its
           // stem).
-          Direction event_dir = LEFT;
           Beam_stem_segment const &seg = segs[j];
-          do
+          for (LEFT_and_RIGHT (event_dir))
             {
               Beam_stem_segment const &neighbor_seg = segs[j + event_dir];
               // TODO: make names clearer? --jneem
@@ -542,7 +536,6 @@ Beam::calc_beam_segments (SCM smob)
                   current = Beam_segment ();
                 }
             }
-          while (flip (&event_dir) != LEFT);
         }
 
     }
@@ -583,10 +576,8 @@ Beam::calc_x_positions (SCM smob)
     {
       extract_grob_set (me, "stems", stems);
       Grob *common_x = common_refpoint_of_array (stems, me, X_AXIS);
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         x_positions[d] = me->relative_coordinate (common_x, X_AXIS);
-      while (flip (&d) != LEFT);
     }
   return ly_interval2scm (x_positions);
 }
@@ -621,10 +612,8 @@ Beam::print (SCM grob)
   */
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
-  while (flip (&d) != LEFT);
 
   vector<Beam_segment> segments = get_beam_segments (me);
 
@@ -764,13 +753,11 @@ Beam::get_default_dir (Grob *me)
   for (iterof (s, stems); s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
-      Direction d = DOWN;
-      do
+      for (DOWN_and_UP (d))
         {
           if (sign (positions[d]) == d)
             extremes[d] = d * max (d * positions[d], d * extremes[d]);
         }
-      while (flip (&d) != DOWN);
     }
 
   Drul_array<int> total (0, 0);
@@ -1133,13 +1120,12 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 {
   extract_grob_set (me, "stems", stems);
 
-  Direction d = LEFT;
   for (vsize i = 0; i < stems.size (); i++)
     {
       /*
         Don't overwrite user settings.
       */
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Grob *stem = stems[i];
           SCM beaming_prop = stem->get_property ("beaming");
@@ -1161,7 +1147,6 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
               Stem::set_beaming (stem, count, d);
             }
         }
-      while (flip (&d) != LEFT);
     }
 }
 
@@ -1243,10 +1228,8 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Drul_array<Real> pos (robust_scm2drul (beam->get_property ("positions"),
                                          Drul_array<Real> (0, 0)));
 
-  Direction dir = LEFT;
-  do
+  for (LEFT_and_RIGHT (dir))
     pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);
-  while (flip (&dir) != LEFT);
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1306,36 +1289,39 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   return scm_from_double (offset + staff_space * shift);
 }
 
+/*
+  Estimate the position of a rest under a beam,
+  as the average position of its neighboring heads.
+*/
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback, 4, 1, "");
 SCM
 Beam::pure_rest_collision_callback (SCM smob,
-                                    SCM, /* prev_offset */
                                     SCM, /* start */
-                                    SCM /* end */)
+                                    SCM, /* end */
+                                    SCM prev_offset)
 {
-  Real amount = 0.0;
+  Real previous = robust_scm2double (prev_offset, 0.0);
 
   Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (!stem)
-    return scm_from_double (amount);
+    return scm_from_double (previous);
   Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
       || !Beam::normal_stem_count (beam)
       || !is_direction (beam->get_property_data ("direction")))
-    return scm_from_double (amount);
+    return scm_from_double (previous);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   /*
     This gives the extrema of rest positions.
-    In general, beams are never typeset more than one staff space away
-    from the staff in either direction.
+    Even with noteheads on ledgers, beams typically remain within the staff,
+    and push rests at most one staff-space (2 positions) from the staff.
   */
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   Interval rest_max_pos = staff ? Staff_symbol::line_span (staff) : Interval (0.0, 0.0);
-  rest_max_pos.widen (1);
-  rest_max_pos *= ss / 2;
+  rest_max_pos.widen (2);
 
   extract_grob_set (beam, "stems", stems);
   vector<Grob *> my_stems;
@@ -1356,7 +1342,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Grob *right;
 
   if (idx == (vsize) - 1 || my_stems.size () == 1)
-    return scm_from_double (amount);
+    return scm_from_double (previous);
   else if (idx == 0)
     left = right = my_stems[1];
   else if (idx == my_stems.size () - 1)
@@ -1366,15 +1352,19 @@ Beam::pure_rest_collision_callback (SCM smob,
       left = my_stems[idx - 1];
       right = my_stems[idx + 1];
     }
-  Direction beamdir = get_grob_direction (beam);
-  /*
-    Take the position between the two bounding head_positions,
-    then bound it by the minimum and maximum positions outside the staff.
-    4.0 = 2.0 to get out of staff space * 2.0 for the average
-  */
-  amount = min (max ((Stem::head_positions (left)[beamdir] + Stem::head_positions (right)[beamdir]) / 4.0, rest_max_pos[DOWN]), rest_max_pos[UP]);
 
-  return scm_from_double (amount);
+  /* In stems with several heads, use the one closest to the beam. */
+  Direction beamdir = get_grob_direction (beam);
+  Real shift = min (max ( (Stem::head_positions (left)[beamdir]
+                           + Stem::head_positions (right)[beamdir]) / 2.0,
+                          rest_max_pos[DOWN]),
+                    rest_max_pos[UP]
+                   ) * ss / 2.0
+               - previous;
+  /* Always move by a whole number of staff spaces */
+  shift = ceil (fabs (shift / ss)) * ss * sign (shift);
+
+  return scm_from_double (previous + shift);
 }
 
 bool

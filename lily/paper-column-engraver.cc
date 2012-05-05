@@ -162,7 +162,7 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
   for (vsize i = 0; i < break_events_.size (); i++)
     {
       string prefix;
-      SCM name_sym = break_events_[i]->get_property ("class");
+      SCM name_sym = scm_car (break_events_[i]->get_property ("class"));
       string name = ly_symbol2string (name_sym);
       size_t end = name.rfind ("-event");
       if (end)

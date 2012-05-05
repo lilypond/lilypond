@@ -67,14 +67,12 @@ Tie_column::before_line_breaking (SCM smob)
   for (SCM s = me->get_property ("ties"); scm_is_pair (s); s = scm_cdr (s))
     {
       Spanner *tie = dynamic_cast<Spanner *> (unsmob_grob (scm_car (s)));
-      Direction dir = LEFT;
-      do
+      for (LEFT_and_RIGHT (dir))
         {
           if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
               > dir * me->get_bound (dir)->get_column ()->get_rank ())
             me->set_bound (dir, Tie::head (tie, dir));
         }
-      while (flip (&dir) != LEFT);
     }
 
   return SCM_UNSPECIFIED;

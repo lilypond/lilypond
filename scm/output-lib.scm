@@ -900,7 +900,7 @@ and duration-log @var{log}."
 ;; dynamics
 
 (define-public (hairpin::calc-grow-direction grob)
-  (if (eq? (ly:event-property (event-cause grob) 'class) 'decrescendo-event)
+  (if (ly:in-event-class? (event-cause grob) 'decrescendo-event)
       START
       STOP))
 

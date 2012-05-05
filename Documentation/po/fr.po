@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-27 13:12+0100\n"
-"PO-Revision-Date: 2012-03-10 15:17+0100\n"
+"PO-Revision-Date: 2012-04-29 15:56+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lilyfan-AT-orange-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
-"Language: \n"
+"Language: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,8 +38,8 @@ msgstr "Autres langues&nbsp;: %s."
 
 #: postprocess_html.py:70
 #, python-format
-msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
+msgid "About <A href=\"%s\">automatic language selection</A>."
+msgstr "À propos de la <A href=\"%s\">sélection automatique de la langue</A>."
 
 #: postprocess_html.py:330
 msgid "stable-branch"

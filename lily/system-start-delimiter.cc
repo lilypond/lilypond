@@ -47,10 +47,8 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
            * (height / 2 + overlap));
 
   Stencil bracket = Lookup::filled_box (box);
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap);
-  while (flip (&d) != DOWN);
   bracket = Stencil (box, bracket.expr ());
 
   bracket.translate_axis (-0.8, X_AXIS);

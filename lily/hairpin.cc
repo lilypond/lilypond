@@ -69,19 +69,16 @@ Hairpin::broken_bound_padding (SCM smob)
 
   Grob *my_vertical_axis_group = Grob::get_vertical_axis_group (me);
   Drul_array<Grob *> vertical_axis_groups;
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     vertical_axis_groups[d] = d == dir
                               ? sys->get_neighboring_staff (d, my_vertical_axis_group, Interval_t<int> (me->spanned_rank_interval ()))
                               : my_vertical_axis_group;
-  while (flip (&d) != DOWN);
 
   if (!vertical_axis_groups[dir])
     return scm_from_double (0.0);
 
   Drul_array<Grob *> span_bars (0, 0);
-  d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
@@ -98,7 +95,6 @@ Hairpin::broken_bound_padding (SCM smob)
       if (!span_bars[d])
         return scm_from_double (0.0);
     }
-  while (flip (&d) != DOWN);
 
   if (span_bars[DOWN] != span_bars[UP])
     return scm_from_double (0.0);
@@ -125,13 +121,11 @@ Hairpin::print (SCM smob)
 
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     {
       bounds[d] = me->get_bound (d);
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
-  while (flip (&d) != LEFT);
 
   broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT);
   broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT)->is_live ();
@@ -162,7 +156,7 @@ Hairpin::print (SCM smob)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
 
-  do
+  for (LEFT_and_RIGHT (d))
     {
       Item *b = bounds[d];
       Interval e = (Paper_column::has_interface (b) && b->break_status_dir ())
@@ -254,7 +248,6 @@ Hairpin::print (SCM smob)
             }
         }
     }
-  while (flip (&d) != LEFT);
 
   Real width = x_points[RIGHT] - x_points[LEFT];
 

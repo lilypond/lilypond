@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
+    Translation of GIT committish: b20d9a44487a684b127ff0ba14398feda357e503
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -541,11 +541,41 @@ mentionnons que quelques-uns.
 @itemize
 
 @item
-@emph{Affaire Étrangère}, un opéra de
-@uref{http://valentin.villenave.net/,Valentin Villenave}, livret
-de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
-dont la première a eu lieu le 1er@tie{}février@tie{}2009 en France à
-@uref{http://www.orchestre-montpellier.com/, l'Opéra de Montpellier}.
+Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
+Aurélien Bello} a donné plusieurs représentations, entre
+octobre@tie{}2011 et avril@tie{}2012, des @emph{Tableaux d'une
+exposition} de Mussorgsky à la tête de
+@uref{http://www.junge-philharmonie-brandenburg.de/,l'orchestre
+philharmonique des jeunes de Brandenbourg}.
+
+@item
+@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositeur et
+directeur musical.  Ses travaux les plus récents incluent @emph{Go Thy Way},
+donné par les @uref{http://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} en mars 2012, la @emph{Just Out of Reach
+Suite}, donnée par le
+@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Duo Chrysalis} ainsi que @emph{thrafsmata} en juillet 2011 par le
+@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
+New Music Ensemble}.
+
+@item
+@emph{Anonymous Student Compliment or Complaint} a permis à
+@uref{http://www.mikesolomon.org, Mike Solomon} de gagner le 
+@uref{http://leftcoastensemble.org/contest, Concours de composition de
+la côte Est 2011}, regroupant 172 participants de 22 nationalités.
+Parmi ses autres œuvres, nous citerons Norman (un an) pour clarinette
+solo, donnée en octobre 2010 à l'occasion du Festival de musique
+électro-acoustique (FEMF) de
+@uref{http://emu.music.ufl.edu/fems_concerts.html, l'Université de Floride}.
+
+@item
+Une édition moderne de la @emph{Serenata Erminia} d'Alessandro
+Scarlatti, réalisée par le musicologue italien Thomas Griffin.  Celle-ci
+a servi le 22@tie{}octobre 2010 dans la gallerie du palais Zevallos
+Stigliano à Naples lors des célébrations organisées pour le
+350e@tie{}anniversaire de la naissance du compositeur -- voir
+@uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010}.
 
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16@tie{}mai@tie{}2009, à
@@ -562,12 +592,11 @@ par Frederick Renz et son ensemble
 partitions gravées par Nicolas Sceaux.
 
 @item
-Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
-Aurélien Bello} a donné plusieurs représentations, entre
-octobre@tie{}2011 et avril@tie{}2012, des @emph{Tableaux d'une
-exposition} de Mussorgsky à la tête de
-@uref{http://www.junge-philharmonie-brandenburg.de/,l'orchestre
-philharmonique des jeunes de Brandenbourg}.
+@emph{Affaire Étrangère}, un opéra de
+@uref{http://valentin.villenave.net/,Valentin Villenave}, livret
+de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
+dont la première a eu lieu le 1er@tie{}février@tie{}2009 en France à
+@uref{http://www.orchestre-montpellier.com/, l'Opéra de Montpellier}.
 
 @end itemize
 @divEnd

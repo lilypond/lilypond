@@ -101,10 +101,8 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
       Interval d = encompasses[i]->pure_height (parent, start, end);
       if (!d.is_empty ())
         {
-          Direction downup = DOWN;
-          do
+          for (DOWN_and_UP (downup))
             ret.add_point (d[dir]);
-          while (flip (&downup) != DOWN);
 
           if (extremal_heights[LEFT] == infinity_f)
             extremal_heights[LEFT] = d[dir];
@@ -117,10 +115,8 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   Interval extremal_span;
   extremal_span.set_empty ();
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     extremal_span.add_point (extremal_heights[d]);
-  while (flip (&d) != LEFT);
   ret[-dir] = minmax (dir, extremal_span[-dir], ret[-dir]);
 
   /*
@@ -314,10 +310,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     return offset_scm;
 
   bool contains = false;
-  Direction d = LEFT;
-  do
+  for (LEFT_and_RIGHT (d))
     contains |= slur_wid.contains (xext[d]);
-  while (flip (&d) != LEFT);
 
   if (!contains)
     return offset_scm;
@@ -335,8 +329,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Real EPS = 1.0e-5;
   if (avoid == ly_symbol2scm ("outside"))
     {
-      Direction d = LEFT;
-      do
+      for (LEFT_and_RIGHT (d))
         {
           Real x = minmax (-d, xext[d], curve.control_[d == LEFT ? 0 : 3][X_AXIS] + -d * EPS);
           Real y = curve.get_other_coordinate (X_AXIS, x);
@@ -344,14 +337,12 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
           if (do_shift)
             break;
         }
-      while (flip (&d) != LEFT);
     }
   else
     {
       for (int a = X_AXIS; a < NO_AXES; a++)
         {
-          Direction d = LEFT;
-          do
+          for (LEFT_and_RIGHT (d))
             {
               vector<Real> coords = curve.get_other_coordinates (Axis (a), exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)
@@ -363,7 +354,6 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
               if (do_shift)
                 break;
             }
-          while (flip (&d) != LEFT);
           if (do_shift)
             break;
         }

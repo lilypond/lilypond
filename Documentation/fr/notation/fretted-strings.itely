@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -115,16 +115,22 @@ construction de type accord même s'il n'y a qu'une seule note.}
 
 @lilypond[verbatim,quote,relative=0]
 \clef "treble_8"
-<c\5>4 <e\4> <g\3>2
+c4\5 e\4 g2\3
 <c,\5 e\4 g\3>1
 @end lilypond
 
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement se fera en fonction de l'ordre dans
-lequel ils apparaissent dans le code@tie{}:
+lequel elles apparaissent dans le code et @strong{uniquement} si elles
+interviennent au sein d'une construction d'accord@tie{}: le
+positionnement des doigtés est géré différemment selon qu'ils
+s'appliquent à l'accord entier ou à des notes isolées indépendantes d'un
+accord.
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
+g4\3-0
+g-0\3
 <g\3-0>2
 <g-0\3>
 @end lilypond
@@ -231,15 +237,18 @@ symbols = {
 
 @funindex minimumFret
 
-Quand aucune corde n'est précisée -- à l'aide d'une barre oblique
-inverse (ou @qq{antislash}) précédant son  numéro dans une construction
-d'accord @code{<>} --, LilyPond choisit automatiquement la corde pour
-laquelle la position est la moins élevée et qui donne un numéro de case
-supérieur ou égal à la valeur de la propriété @code{minimumFret}.  La
-valeur par défaut de cette propriété est fixée à@tie{}0, ce qui
-correspond aux cordes à vide.
+Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
+corde pour laquelle la position est la moins élevée, avec une préférence
+pour une corde à vide.  Vous pouvez préférer qu'une note donnée soit
+jouée sur une corde particulière, auquel cas il vous suffit de lui
+affecter directement son numéro.  L'absence d'indication des numéros de
+corde en notation traditionnelle se gère au niveau des stencils.  Il est
+cependant plus facile de jouer sur la propriété @code{minimumFret}, dont
+la valeur par défaut est fixée à@tie{}0, ce qui correspond aux cordes à
+vide.
 
 @lilypond[quote,ragged-right,verbatim]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -276,7 +285,7 @@ instruction est abrégée en @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
 guitar = \relative c' {
-  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
@@ -382,6 +391,7 @@ Les indications de sons harmoniques ainsi que les glissandi
 peuvent être ajoutés aux tablatures.
 
 @lilypond[verbatim,quote]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -523,14 +533,17 @@ basse, il sonnera donc une octave en dessous de ce qui est écrit.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff {
+  \new Voice \with {
+    \override StringNumber #'stencil = ##f
+  } {
     \clef "bass_8"
     \relative c, {
       c4 d e f
     }
   }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #bass-tuning
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
     \relative c, {
       c4 d e f
     }
@@ -1574,21 +1587,21 @@ hauteurs.
 @funindex rightHandFinger
 @funindex \rightHandFinger
 
-Les doigtés de main droite @var{p-i-m-a} doivent être entrés dans une
-construction de type accord @code{<>} même s'il n'y a qu'une seule note.
+Les doigtés de main droite @var{p-i-m-a} doivent être entrés à l'aide de
+l'instruction @code{\rightHandFinger} suivie d'un nombre.
 
-@warning{Un trait d'union @strong{doit} s'insérer entre la note et
-l'instruction @code{@bs{}rightHandFinger}, et une espace
-@strong{doit} précéder la fermeture de la construction par un @code{>}.}
+@warning{Lorsque vous utilisez l'instruction @code{@bs{}rightHandFinger}
+dans un accord, une espace @strong{doit} précéder la fermeture de la
+construction par un @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
-<c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2
- g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+c4\rightHandFinger #1
+e\rightHandFinger #2
+g\rightHandFinger #3
+c\rightHandFinger #4
+<c,\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c\rightHandFinger #4 >1
 @end lilypond
 
 Pour plus de clarté, vous pouvez traduire ou abréger la commande
@@ -1596,7 +1609,7 @@ Pour plus de clarté, vous pouvez traduire ou abréger la commande
 même @code{MD}@tie{}:
 
 @example
-#(define MD rightHandFinger)
+MD=#rightHandFinger
 @end example
 
 @snippets

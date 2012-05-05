@@ -158,8 +158,8 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
 {
   if (!line)
     return;
-  Direction d = LEFT;
-  do
+
+  for (LEFT_and_RIGHT (d))
     {
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))
@@ -181,7 +181,6 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
           line->set_bound (d, bound);
         }
     }
-  while (flip (&d) != LEFT);
 }
 
 void

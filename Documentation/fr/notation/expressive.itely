@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1014,16 +1014,13 @@ signes plus (vers le haut) ou moins (vers le bas).  Le chiffre indique
 l'intervalle avec la note de départ.
 
 @lilypond[verbatim,quote,relative=2]
-c2-\bendAfter #+4
-c2-\bendAfter #-4
-c2-\bendAfter #+6.5
-c2-\bendAfter #-6.5
-c2-\bendAfter #+8
-c2-\bendAfter #-8
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
 @end lilypond
-
-Lorsque vous saisissez des chutes ou des sauts, @strong{n'oubliez pas}
-le tiret (@code{-}) qui précède la commande @code{\bendAfter}.
 
 @snippets
 

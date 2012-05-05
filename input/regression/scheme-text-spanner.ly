@@ -6,11 +6,27 @@ and grob creation methods to create a fully functional text spanner
 in scheme."
 }
 
-#(define-event-class 'scheme-text-span-event
-   '(scheme-text-span-event
-     span-event
-     music-event
-     StreamEvent))
+#(define my-grob-descriptions '())
+
+#(define my-event-classes (ly:make-context-mod))
+
+defineEventClass =
+#(define-void-function (parser location class parent)
+   (symbol? symbol?)
+   (ly:add-context-mod
+    my-event-classes
+    `(apply
+      ,(lambda (context class parent)
+	 (ly:context-set-property!
+	  context
+	  'EventClasses
+	  (event-class-cons
+	   class
+	   parent
+	   (ly:context-property context 'EventClasses '()))))
+      ,class ,parent)))
+
+\defineEventClass #'scheme-text-span-event #'span-event
 
 #(define (add-grob-definition grob-name grob-entry)
    (let* ((meta-entry   (assoc-get 'meta grob-entry))
@@ -33,9 +49,9 @@ in scheme."
      (set! meta-entry (assoc-set! meta-entry 'interfaces
                                   ifaces-entry))
      (set! grob-entry (assoc-set! grob-entry 'meta meta-entry))
-     (set! all-grob-descriptions
+     (set! my-grob-descriptions
            (cons (cons grob-name grob-entry)
-                 all-grob-descriptions))))
+                 my-grob-descriptions))))
 
 #(add-grob-definition
   'SchemeTextSpanner
@@ -181,7 +197,8 @@ schemeTextSpannerEnd =
 \layout {
   \context {
     \Global
-    \grobdescriptions #all-grob-descriptions
+    \grobdescriptions #my-grob-descriptions
+    #my-event-classes
   }
   \context {
     \Voice

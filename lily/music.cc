@@ -271,7 +271,7 @@ Music::origin () const
   ES TODO: This method should probably be reworked or junked.
 */
 Stream_event *
-Music::to_event () const
+Music::to_event (Context *c) const
 {
   SCM class_name = ly_camel_case_2_lisp_identifier (get_property ("name"));
 
@@ -279,7 +279,8 @@ Music::to_event () const
   if (!internal_is_music_type (class_name))
     programming_error ("Not a music type");
 
-  Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
+  Stream_event *e = new Stream_event (c->make_event_class (class_name),
+				      mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());
@@ -292,7 +293,7 @@ Music::to_event () const
       for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
         {
           Music *m = unsmob_music (scm_car (art_mus));
-          art_ev = scm_cons (m->to_event ()->unprotect (), art_ev);
+          art_ev = scm_cons (m->to_event (c)->unprotect (), art_ev);
         }
       e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
     }
@@ -309,7 +310,7 @@ Music::to_event () const
 void
 Music::send_to_context (Context *c)
 {
-  Stream_event *ev = to_event ();
+  Stream_event *ev = to_event (c);
   c->event_source ()->broadcast (ev);
   ev->unprotect ();
 }
