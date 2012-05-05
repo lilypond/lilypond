@@ -289,7 +289,7 @@ AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
 AC_DEFUN(STEPMAKE_GXXCODEGENBUG, [
     AC_MSG_CHECKING([options for known g++ bugs])
     case "$GXX:$CXX_VERSION" in
-	yes:400600?)
+	yes:400600[[0-2]])
 	    AC_MSG_RESULT([-fno-optimize-sibling-calls (tail call bug)])
 	    CXXFLAGS="$CXXFLAGS -fno-optimize-sibling-calls"
 	    ;;
