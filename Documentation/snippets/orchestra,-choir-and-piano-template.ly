@@ -9,7 +9,7 @@
 \header {
   lsrtags = "template, vocal-music, pitches, staff-notation"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Esta plantilla muestra el uso de contextos @code{StaffGroup} y
 @code{GrandStaff} anidados para sub-agrupar instrumentos del mismo

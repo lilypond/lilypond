@@ -9,7 +9,7 @@
 \header {
   lsrtags = "keyboards, tweaks-and-overrides"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Se puede usar @code{Staff.pedalSustainStrings} para fijar el texto de
 las indicaciones de pisar pedal y levantar pedal.  Observe que las

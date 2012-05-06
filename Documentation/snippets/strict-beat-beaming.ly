@@ -8,7 +8,7 @@
 \version "2.15.28"
 
 \header {
-%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Se puede hacer que las barras secundarias apunten en la dirección del
 pulso o fracción a que pertenecen.  La primera barra evita los

@@ -9,7 +9,7 @@
 \header {
   lsrtags = "tweaks-and-overrides, rhythms, expressive-marks"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 De forma predeterminada, las indicaciones metronómicas y las
 letras de ensayo se imprimen encima del pentagrama.  Para

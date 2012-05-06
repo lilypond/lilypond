@@ -9,7 +9,7 @@
 \version "2.15.9"
 
 \header {
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Aquí se muestran muchos de (¿o quizá todos?) los símbolos que
 están contemplados por la capacidad de LilyPond para la música

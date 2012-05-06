@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 El motor de espaciado vertical cambió en la versión 2.14.  Esto puede
 hacer que se altere el espaciado de la letra de las canciones.  Es
@@ -19,7 +19,6 @@ hacía en la versión 2.12.
 
   doctitlees = "Conseguir el espaciado de la letra de la versión 2.12
   en versiones más recientes"
-
 
 %% Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
   texidocfr = "

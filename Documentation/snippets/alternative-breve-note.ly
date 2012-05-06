@@ -9,7 +9,7 @@
 \header {
   lsrtags = "rhythms, expressive-marks"
 
-%% Translation of GIT committish: ea0b270e14781707ab52683acddf9302bbe337f3
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Este código muestra cómo usar la forma alternativa de la breve o
 cuadrada con dos líneas verticales a los lados de la cabeza, en lugar
