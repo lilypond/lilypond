@@ -342,7 +342,7 @@ featherDurations=
      argument))
 
 footnote =
-#(define-music-function (parser location text offset grob-name footnote)
+#(define-event-function (parser location text offset grob-name footnote)
    ((markup?) number-pair? (symbol? '()) markup?)
    (_i "Attach @var{text} at @var{offset} with @var{text} referring to
 @var{footnote}.  If @var{text} is given as @code{\\default}, use
