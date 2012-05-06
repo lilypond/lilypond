@@ -1,8 +1,0 @@
-%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
-  texidocit = "
-Molti spartiti per pianoforte hanno le dinamiche poste al centro dei due righi.
-Il contesto @code{Dynamics}, se collocato tra i righi, posiziona automaticamente
-le dinamiche in modo corretto.
-
-"
-  doctitleit = "Modello per pianoforte con dinamiche al centro"
