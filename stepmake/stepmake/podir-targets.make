@@ -29,4 +29,3 @@ po-changes:
 
 po-replace: po-update
 	mv $(outdir)/$(package).po $(package).pot
-	mv $(outdir)/*.po .
