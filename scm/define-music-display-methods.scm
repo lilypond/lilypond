@@ -526,9 +526,12 @@ Otherwise, return #f."
   (cond ((not (null? (ly:music-property note 'pitch))) ;; note
 	 (simple-note->lily-string note parser))
 	((not (null? (ly:music-property note 'drum-type))) ;; drum
-	 (format #f "~a~a" (ly:music-property note 'drum-type)
+	 (format #f "~a~a~{~a~}" (ly:music-property note 'drum-type)
 		 (duration->lily-string (ly:music-property note 'duration)
-					#:remember #t)))
+					#:remember #t)
+		 (map-in-order (lambda (event)
+				 (music->lily-string event parser))
+			       (ly:music-property note 'articulations))))
 	(else ;; unknown?
 	 "")))
 
@@ -538,16 +541,24 @@ Otherwise, return #f."
 (define-display-method RestEvent (rest parser)
   (if (not (null? (ly:music-property rest 'pitch)))
       (simple-note->lily-string rest parser)
-      (string-append "r" (duration->lily-string (ly:music-property rest 'duration)
-						#:remember #t))))
+      (format #f "r~a~{~a~}"
+	      (duration->lily-string (ly:music-property rest 'duration)
+				     #:remember #t)
+	      (map-in-order (lambda (event)
+			      (music->lily-string event parser))
+			    (ly:music-property rest 'articulations)))))
 
 (define-display-method MultiMeasureRestEvent (rest parser)
   (string-append "R" (duration->lily-string (ly:music-property rest 'duration)
 					    #:remember #t)))
 
 (define-display-method SkipEvent (rest parser)
-  (string-append "s" (duration->lily-string (ly:music-property rest 'duration)
-					    #:remember #t)))
+  (format #f "s~a~{~a~}"
+	  (duration->lily-string (ly:music-property rest 'duration)
+				 #:remember #t)
+	  (map-in-order (lambda (event)
+			  (music->lily-string event parser))
+			(ly:music-property rest 'articulations))))
 
 (define-display-method RepeatedChord (chord parser)
   (music->lily-string (ly:music-property chord 'element) parser))
