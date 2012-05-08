@@ -27,16 +27,16 @@
    (make-column-markup (string-split str #\NewLine)))
 
 test =
-#(let ((test-number 0))
-  (define-void-function (parser location result-info strings)
-   ((string? "BUG") pair?)
-   (let ((input (car strings))
-	 (output (cdr strings)))
-    (set! test-number (1+ test-number))
-    (if (not (equal? input output))
-     (ly:progress "Test ~a unequal: ~a. \nin  = ~a\nout = ~a\n"
-      test-number
-      result-info
+#(define-void-function (parser location harmless strings)
+  ((string?) pair?)
+  (let ((input (car strings))
+	(output (cdr strings))
+	(result-info (or harmless "BUG")))
+   (if (not (equal? input output))
+    (if harmless
+     (ly:progress "Test unequal: ~a.\nin  = ~a\nout = ~a\n"
+      harmless input output)
+     (ly:input-warning location "Test unequal: BUG.\nin  = ~a\nout = ~a\n"
       input output)))))
 
 %%%
