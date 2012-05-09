@@ -1401,21 +1401,35 @@ r8 e,8 | a4 c8 b[ c b] |
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
 
-@cindex bar lines, turning off
-@cindex bar numbering, turning off
 @cindex cadenza
+@cindex cadenza, beams
+@cindex cadenza, accidentals
+@cindex cadenza, bar lines
+@cindex cadenza, bar numbers
 @cindex unmetered music
+@cindex unmetered music, beams
+@cindex unmetered music, accidentals
+@cindex unmetered music, bar lines
+@cindex unmetered music, bar numbers
+@cindex accidentals, cadenzas
+@cindex accidentals, unmetered music
+@cindex bar lines, cadenzas
+@cindex bar lines, unmetered music
+@cindex bar numbers, cadenzas
+@cindex bar numbers, unmetered music
+@cindex beams, cadenzas
+@cindex beams, unmetered music
 
 @funindex \cadenzaOn
 @funindex cadenzaOn
 @funindex \cadenzaOff
 @funindex cadenzaOff
 
-Bar lines and bar numbers are calculated automatically.  For
-unmetered music (some cadenzas, for example), this is not desirable.
-To turn off automatic calculation of bar lines and bar numbers,
-use the command @code{\cadenzaOn}, and use @code{\cadenzaOff}
-to turn them on again.
+In metered music bar lines are inserted and bar numbers are calculated
+automatically. In unmetered music (i.e. cadenzas), this is not
+desirable and can be @q{switched off} using the command
+@code{\cadenzaOn}, then @q{switched back on} at the appropriate place
+using @code{\cadenzaOff}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1426,8 +1440,7 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-Bar numbering is resumed at the end of the cadenza as if the
-cadenza were not there:
+Bar numbering is resumed at the end of the cadenza.
 
 @lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
@@ -1440,29 +1453,37 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex beams, in cadenzas
-@cindex beams, in unmetered music
-@cindex cadenza, with beams
-@cindex unmetered music, with beams
+A new bar is never started within a cadenza, even if one or more
+@code{\bar} commands are inserted within it.  Therefore, reminder
+accidentals will need to be added manually.  See @ref{Accidentals}.
 
-Automatic beaming is disabled by @code{\cadenzaOn} and enabled
-by @code{\cadenzaOff}.  Therefore, all beaming in cadenzas
-must be entered manually (@ref{Manual beams}).
+@lilypond[verbatim,relative=2,quote]
+c4 d e d
+\cadenzaOn
+cis4 d cis d
+\bar "|"
+cis4 d cis! d
+\cadenzaOff
+\bar "|"
+@end lilypond
+
+Automatic beaming is disabled by @code{\cadenzaOn}. Therefore, all
+beaming in cadenzas must be entered manually. See @ref{Manual beams}.
 
 @lilypond[verbatim,relative=2,quote]
 \repeat unfold 8 { c8 }
 \cadenzaOn
-\repeat unfold 5 { c8 }
+cis8 c c c c
 \bar"|"
+c8 c c
 \cadenzaOff
 \repeat unfold 8 { c8 }
 @end lilypond
 
-Note that these predefined commands affect all staves in the
-score, even when they are placed in just one @code{Voice}
-context.  To change this, move the @code{Timing_translator}
-from the @code{Score} context to the @code{Staff} context, as
-shown in @ref{Polymetric notation}.
+These predefined commands affect all staves in the score, even when
+placed in just one @code{Voice} context.  To change this, move the
+@code{Timing_translator} from the @code{Score} context to the
+@code{Staff} context.  See @ref{Polymetric notation}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1476,35 +1497,33 @@ Music Glossary:
 Notation Reference:
 @ref{Visibility of objects},
 @ref{Polymetric notation},
-@ref{Manual beams}.
+@ref{Manual beams},
+@ref{Accidentals}.
 
 Snippets:
 @rlsr{Rhythms}.
 
-@cindex cadenza line breaks
-@cindex cadenza page breaks
+@cindex cadenza, line breaks
+@cindex cadenza, page breaks
 @cindex unmetered music, line breaks
 @cindex unmetered music, page breaks
 @cindex breaks in unmetered music
-@cindex line breaks in cadenzas
-@cindex page breaks in cadenzas
-@cindex line breaks in unmetered music
-@cindex page breaks in unmetered music
+@cindex line breaks, cadenzas
+@cindex page breaks, cadenzas
+@cindex line breaks, unmetered music
+@cindex page breaks, unmetered music
 
 @knownissues
-LilyPond will insert line breaks and page breaks only at a
-bar line.  Unless the unmetered music ends before the end of the
-staff line, you will need to insert invisible bar lines with
+Automatic line and page breaks are inserted only at bar lines, so
+@q{invisible} bar lines will need to be inserted manually in long
+stretches of unmetered music to permit breaking:
 
 @example
 \bar ""
 @end example
 
-@noindent
-to indicate where breaks can occur.
-
-You should explicitly create a @code{Voice} context when starting a
-piece with @code{\cadenzaOn}, otherwise strange errors may occur.
+Explicitly create a @code{Voice} context when starting a piece with
+@code{\cadenzaOn}, else unexpected errors may occur.
 
 @example
 \new Voice @{

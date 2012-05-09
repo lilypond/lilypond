@@ -23,7 +23,7 @@
 #include "engraver.hh"
 #include "translator-group.hh"
 
-class Engraver_group : public virtual Translator_group
+class Engraver_group : public Translator_group
 {
 protected:
   vector<Grob_info> announce_infos_;
