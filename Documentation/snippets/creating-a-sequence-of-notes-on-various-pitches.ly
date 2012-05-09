@@ -8,7 +8,7 @@
 \version "2.15.27"
 
 \header {
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 En una música que tenga muchas apariciones de la
 misma secuencia de notas a distintas alturas, podría ser de

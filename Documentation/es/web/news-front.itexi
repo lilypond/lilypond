@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bf2c7f09ff00e6c59877eff5ba5f880299ed95bf
+    Translation of GIT committish: dd8a184cfb8065d987bc658f33647cc47ad2feaa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,23 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading Sexta candidata al lanzamiento de 2.16: ¡Lanzado LilyPond 2.15.38!  @emph{3 de mayo de 2012}
+
+Ha salido LilyPond 2.15.38; ésta es la sexta versión candidata al
+lanzamiento de la inminente versión estable 2.16.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.14.2 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existen problemas críticos conocidos en esta edición. Si no se
+encuentra ningún bug crítico, la edición oficial 2.16.0 se producirá
+el 17 de mayo de 2012.  Si descubre algún problema, le rogamos que nos
+envíe @ref{Informes de fallos}.
+
+@newsEnd
 
 
 @newsItem

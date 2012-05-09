@@ -9,7 +9,7 @@
 \header {
   lsrtags = "template, vocal-music, really-simple"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
 y péguela, escriba las notas y luego la letra. Este ejemplo desactiva

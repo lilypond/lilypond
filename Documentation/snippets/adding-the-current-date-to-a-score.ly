@@ -9,7 +9,7 @@
 \header {
   lsrtags = "text, really-cool, titles, scheme-language"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Con algo de código de Scheme, se puede añadir fácilmente la fecha
 actual a una partitura.

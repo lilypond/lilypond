@@ -9,7 +9,7 @@
 \header {
   lsrtags = "winds, specific-notation"
 
-%%%    Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%%%    Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 El fragmento de música que aparece a continuación presenta todos los
 diagramas de viento madera que se encuentran definidos en LilyPond por
@@ -17,6 +17,14 @@ el momento.
 
 "
   doctitlees = "Listado de los diagramas para viento madera"
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
+definiert sind.
+
+"
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 
