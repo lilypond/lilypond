@@ -115,13 +115,13 @@ stderr of this run."
 \test ##[ { c-> c^> c_> } #]
 \test ##[ { c-. c^. c_. } #]
 \test ##[ { c-_ c^_ c__ } #]
-\test ##[ { c-\trill c^\trill c_\trill } #]
+\test ##[ { c\trill c^\trill c_\trill } #]
 \test ##[ { c-1 c^2 c_3 } #]				% FingerEvent
 \test ##[ { c-"foo" c^"foo" c_"foo" } #]		% TextScriptEvent
 \test ##[ { R1*4-"foo" R^"foo" R_"foo" } #]		% MultiMeasureTextEvent
 \test ##[ { < c\harmonic >4 < c e\harmonic > } #] 	% HarmonicEvent
-\test ##[ { c-\glissando c^\glissando c_\glissando } #]	% GlissandoEvent
-\test ##[ { c-\arpeggio c^\arpeggio c_\arpeggio } #] 	% ArpeggioEvent
+\test ##[ { c\glissando c^\glissando c_\glissando } #]	% GlissandoEvent
+\test ##[ { c\arpeggio c^\arpeggio c_\arpeggio } #] 	% ArpeggioEvent
 \test ##[ { c\p c^\ff c_\sfz } #] 			% AbsoluteDynamicEvent
 \test ##[ { c[ c] c^[ c^] c_[ c_] } #] 			% BeamEvent
 \test ##[ { c( c) c^( c^) c_( c_) } #] 			% SlurEvent
@@ -141,8 +141,8 @@ stderr of this run."
 \test ##[ \breathe #]
 \test ##[ { c \[ c \] } #]			% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
-\test ##[ { c-\bendAfter #3 } #]    % BendAfterEvent
-\test ##[ < c-\rightHandFinger #1 > #]    % StrokeFingerEvent
+\test ##[ c\bendAfter #3 #]    % BendAfterEvent
+\test ##[ c\rightHandFinger #1 #]    % StrokeFingerEvent
 
 \test ##[ \break #]
 \test ##[ \noBreak #]
