@@ -48,7 +48,7 @@ discussing LilyPond.
 @ref{Development}: for contributors and testers.
 
 @item
-@ref{GSoC}: list of projects for Google Summer of Code.
+@ref{GSoC 2012}: our ideas for 2012 edition of Google Summer of Code.
 
 @item
 @ref{Authors}: the people who made LilyPond what it is today.
@@ -83,7 +83,7 @@ discussing LilyPond.
 * Help us::
 * Sponsoring::
 * Development::
-* GSoC::
+* GSoC 2012::
 * Authors::
 * Publications::
 * Old news::
@@ -869,41 +869,36 @@ manuals can be found at @url{http://lilypond.org}}
 
 
 
-@node GSoC
-@unnumberedsec GSoC
+@node GSoC 2012
+@unnumberedsec GSoC 2012
 
 @divClass{column-center-top}
 @subheading What is Google Summer of Code?
 
-Quoting
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
-GSoC website},
-@qq{Google Summer of Code is a global program that offers students
-stipends to write code for open source projects.  Google has worked
-with the open source community to identify and fund exciting projects
-for the upcoming summer.}
+It is a global program run by Google that offers students stipends
+for working on open source software projects during summer vacations.
 
 The LilyPond Team decided that this is an excellent opportunity to find
-new contributors, encourage students already participating in LilyPond
-development to become more involved, and - last but not least - write
-some great code for the benefit of all!
-
-We are participating in GSoC as a part of GNU Project.  See
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html,
-GNU GSoC webpage} for information on how to participate.
+new contributors and encourage students already participating in LilyPond
+development to become more involved.  One of our contributors was accepted
+for 2012 edition of the program as part of the
+@uref{http://www.gnu.org/, GNU project};
+we hope to participate in future editions as well.
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Our Ideas List
+@subheading Our 2012 Ideas List
 
-Below is a list of projects suggested for GSoC students.  If you don't
-see a project that suits you, feel free to suggest your own!
-It's also possible to scale down a project if you feel it's too big.
+Below is a list of projects that we suggested for GSoC 2012 students.
+Although the application period is over, we decided to keep this webpage
+online as an inpiration for anyone who is interested in developing LilyPond.
+Some members of the development team are willing to help people who would like
+to tackle these projects.
 
-We require that every student has basic @code{git} knowledge, and
-recommend that everyone applying for projects other than the last one
-have basic music notation knowledge.
+Of course, there are many more things to improve in LilyPond, including
+very small ones.  A full list of all known issues can be found
+@uref{http://code.google.com/p/lilypond/issues/list, here}.
 
 @subheading Grace notes
 
@@ -1012,39 +1007,6 @@ section 2.2 here}).  If possible, reduce beaming computation time.
 @strong{Recommended knowledge:} aesthetic sense
 
 @strong{Mentor(s):} Mike Solomon, Carl Sorensen
-
-@subheading Better tablature support
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Non-monotonic string tunings, like Ukulele
-
-@item
-Create tablature input mode (currently musical information is entered
-in western-common-music-notation-terms, i.e. @qq{a quarter f sharp note}
-and then converted to tablature) for transcribing medieval lute
-tablature
-
-@item
-Implement modern tablature features, such as bends, pull-off, hammer-on
-
-@item
-If a fretboard shape is defined for a given chord, use this information
-when displaying the chord on the staff (and not just display a default
-chord shape)
-
-@end itemize
-@divEnd
-
-@strong{Difficulty:} easy
-
-@strong{Requirements:} C++
-
-@strong{Recommended knowledge:} tablature notation familiarity
-
-@strong{Mentor(s):} Carl Sorensen
 
 @subheading Clean up various compilation warnings
 
