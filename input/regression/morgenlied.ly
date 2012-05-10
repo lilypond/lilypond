@@ -52,8 +52,9 @@ modernAccidentals = {
 melody =    \relative c'' \repeat volta 2 \new Voice = "singer" {
     \time 6/8
     \autoBeamOff
-    s1*0^\markup { \bold \large\larger\larger { \hspace #-3.0 Lieblich, etwas geschwind } }
-  R2.
+    << s2.^\markup { \bold \large\larger\larger { \hspace #-3.0 Lieblich, etwas geschwind } }
+       R2.
+    >>
   r4 r8 c4 g8 |
   e4 c8
     <<

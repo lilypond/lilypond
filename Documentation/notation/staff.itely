@@ -1298,7 +1298,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1341,10 +1341,13 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-Markup can be used to show the name of the quoted instrument.  Also,
-if the cue notes require a change in clef, this can be done manually but
-the original clef should also be restored manually at the end of the cue
-notes.
+The name of the instrument playing the cue can be printed by setting
+the @code{instrumentCueName} property in a temporary @code{CueVoice}
+context.  The placement and style of the @code{instrumentCueName} is
+controlled by the @code{\instrumentSwitch} object, see
+@ref{Instrument names}.  If the cue notes require a change in clef,
+this can be done manually but the original clef should also be
+restored manually at the end of the cue notes.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1355,7 +1358,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1381,7 +1384,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1457,7 +1460,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    s1*0^\markup { \tiny "flute" }
+    \new CueVoice { \set "instrumentCueName" = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

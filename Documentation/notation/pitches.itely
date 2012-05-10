@@ -1397,7 +1397,7 @@ clarinet.
 \transposition a
 c d e f
 \textLengthOn
-s1*0^\markup { Switch to B\flat clarinet }
+<>^\markup { Switch to B\flat clarinet }
 R1
 
 \key bes \major

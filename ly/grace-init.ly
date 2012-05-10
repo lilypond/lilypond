@@ -7,26 +7,26 @@ stopGraceSlur = #(make-music 'SlurEvent 'span-direction STOP 'spanner-id "grace"
 startGraceMusic =  {
 }
 
-stopGraceMusic =  { 
+stopGraceMusic =  {
 }
 
 startAppoggiaturaMusic =
- {
-    s1*0\startGraceSlur
+{
+    <>\startGraceSlur
 }
 
-stopAppoggiaturaMusic =  { 
-    s1*0\stopGraceSlur
+stopAppoggiaturaMusic =  {
+    <>\stopGraceSlur
 }
 
 startAcciaccaturaMusic =  {
-    s1*0\startGraceSlur
+    <>\startGraceSlur
     \override Flag  #'stroke-style = #"grace"
 }
 
 stopAcciaccaturaMusic =  {
     \revert Flag #'stroke-style
-    s1*0\stopGraceSlur
+    <>\stopGraceSlur
 }
 
 startSlashedGraceMusic =  {

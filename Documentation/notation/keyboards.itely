@@ -207,16 +207,19 @@ Overlapping notation can result when voices cross staves:
     \voiceOne
     % Make space for fingering in the cross-staff voice
     \once\override DynamicLineSpanner #'staff-padding = #3.4
-    e''2\p\< d''\> s1*0\!
+    e''2\p\< d''\>
+    c''1\!
   }
   \new Staff = "down" <<
     {
       \clef bass
       s4. e,8\rest g,2\rest
+      c1
     } \\ {
       c8\( g c'
       \change Staff = "up"
       e' g' b'-3 a' g'\)
+      f'1
     }
   >>
 >>

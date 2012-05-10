@@ -1283,10 +1283,10 @@ know that
 
 @noindent
 will not work in LilyPond.  We could avoid this problem by attaching
-the articulation to a fake note,
+the articulation to an empty chord,
 
 @example
-@{ << \music s1*0-.-> @}
+@{ << \music <> -. -> >> @}
 @end example
 
 @noindent

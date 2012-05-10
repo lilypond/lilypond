@@ -2517,7 +2517,10 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \set instrumentCueName = "Flute"
+  }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2556,7 +2559,11 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch #'direction = #DOWN
+    \set instrumentCueName = "Clar."
+  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

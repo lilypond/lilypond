@@ -746,11 +746,11 @@ melody = \relative c'' {
   <<
     \new Staff <<
       \melody
-      s1*0^"Small, thicker stems, no time signature"
+      s4^"Small, thicker stems, no time signature"
     >>
     \new Staff \bla <<
       \melody
-      s1*0^"Different"
+      s4^"Different"
     >>
   >>
   \layout {
