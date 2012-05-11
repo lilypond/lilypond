@@ -681,21 +681,20 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   /*
     horizontal brackets should not collide with staff lines.
 
-    Kind of pointless since we put them outside the staff anyway, but
-    let's leave code for the future when possibly allow them to move
-    into the staff once again.
-
     This doesn't seem to support cross-staff tuplets atm.
   */
-  if (*dy == 0
-      && fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
+  if (*dy == 0)
     {
       // quantize, then do collision check.
-      *offset *= 2 / ss;
+      *offset /= 0.5 * ss;
 
-      *offset = rint (*offset);
-      if (Staff_symbol_referencer::on_line (me, (int) rint (*offset)))
-        *offset += dir;
+      Interval staff_span = Staff_symbol_referencer::staff_span (me);
+      if (staff_span.contains (*offset))
+        {
+          *offset = rint (*offset);
+          if (Staff_symbol_referencer::on_line (me, int (*offset)))
+            *offset += dir;
+        }
 
       *offset *= 0.5 * ss;
     }
