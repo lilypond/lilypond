@@ -1077,11 +1077,9 @@ viewer with advanced point-and-click support.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi is a dedicated LilyPond music and text editor with a
-built-in PDF previewer, a powerful score wizard and many editing
-features.  It is built on top of the KDE4 libraries and runs
-currently on all flavours of Linux and other UNIX-like operating
-systems.
+Frescobaldi is lightweight, yet powerful LilyPond music and text editor
+with a built-in PDF viewer.  It is easy to use and will run on all major
+operating systems (Linux, Mac OS X and Windows).
 
 @divEnd
 
