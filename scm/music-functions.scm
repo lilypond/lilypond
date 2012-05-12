@@ -653,7 +653,11 @@ respective predecessor chord."
 	(let ((chord-repeat (ly:music-property music 'duration)))
 	  (cond
 	   ((not (ly:duration? chord-repeat))
-	    music)
+	    (if (any (lambda (m) (ly:duration?
+				  (ly:music-property m 'duration)))
+		     (ly:music-property music 'elements))
+		music
+		last-chord))
 	   (last-chord
 	    (set! (ly:music-property music 'duration) '())
 	    (copy-repeat-chord last-chord music chord-repeat event-types)

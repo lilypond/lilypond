@@ -9,7 +9,7 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 
   texidoces = "
 Se pueden crear tablas alternativas de diagramas de posiciones.  Se
@@ -21,7 +21,7 @@ crear la tabla primero.  Después se añaden los diagramas a la tabla.
 La tabla de diagramas de posiciones que se crea puede estar vacía o se
 puede copiar a partir de una tabla existente.
 
-La tabla a usar en la impresión de de los diagramas predefinidos se
+La tabla a usar en la impresión de los diagramas predefinidos se
 selecciona por medio de la propiedad @code{\\predefinedDiagramTable}.
 
 "

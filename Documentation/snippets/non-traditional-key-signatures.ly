@@ -9,7 +9,7 @@
 \header {
   lsrtags = "version-specific, really-cool, pitches, contemporary-notation, staff-notation"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 
@@ -38,7 +38,7 @@ exátona:
 "
 
 
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+%% Translation of GIT committish: d76b338302374164acc9b62a0d628d4d230bfa95
   texidocit = "
 Il comando @code{\\key} comunemente usato imposta la proprietà
 @code{keySignature}, che fa parte del contesto @code{Staff}.
@@ -49,14 +49,19 @@ una lista:
 
 @code{\\set Staff.keySignature = #`(((ottava . grado) . alterazione) ((ottava
 . grado) . alterazione) ...)} dove, per ogni elemento della lista,
-@code{ottava} indica l'ottava (0@tie{}è l'ottava dal Do@tie{}centrale
+@code{ottava} indica l'ottava (0 è l'ottava dal Do centrale
 al Si precedente), @code{grado} indica la nota all'interno
-dell'ottava (0@tie{}significa@tie{}Do e 6@tie{}significa@tie{}Si) e @code{alterazione}
+dell'ottava (0 significa Do e 6 significa Si) e @code{alterazione}
 può essere @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.  (Si noti la virgola iniziale.)
+Le alterazioni nell'armatura di chiave appariranno nell'ordine inverso
+a quello in cui sono sono specificate.
 
 Altrimenti, usando, per ogni elemento della lista, il formato breve
 @code{(grado . alterazione)}, ciò indica che la stessa alterazione deve
 essere presente in tutte le ottave.
+
+Per le scale microtonali in cui un @qq{diesis} non equivale a cento centesimi, @code{alter}
+si riferisce all'alterazione come a una proporzione di un duecentesimo di tono intero.
 
 Ecco un esempio di una possibile armatura per generare una scala
 a tono intero:

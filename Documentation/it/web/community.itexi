@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: af50298395325eb7c1c4adfa667555d26af9299e
+    Translation of GIT committish: 18cc52e04834f7eaec4d41cf2783767b0e764d03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -936,7 +936,7 @@ aggiungere un collegamento dall'evento musicale al tag XML
 Far sì che tutti gli incisori di LilyPond facciano il loro lavoro
 
 @item
-aggiungere la capacità di collegare ogni oggetto dell'output
+Aggiungere la capacità di collegare ogni oggetto dell'output
 (in pratica ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
 (e quindi al tag XML nell'albero XML)
 
@@ -1013,20 +1013,20 @@ Se possibile, ridurre il tempo di elaborazione della disposizione delle travatur
 @itemize
 
 @item
-accordature non monotoniche, come l'Ukulele
+Accordature non monotoniche, come l'Ukulele
 
 @item
-creare una modalità di input per l'intavolatura (attualmente l'informazione
+Creare una modalità di input per l'intavolatura (attualmente l'informazione
 musicale viene inserita secondo i termini della notazione musicale occidentale,
 ovvero @qq{una nota Fa# di un quarto} e poi convertita in intavolatura) per
 trascrivere l'intavolatura del liuto medievale
 
 @item
-implementare funzionalità dell'intavolatura moderna, come la piegatura (bending),
+Implementare funzionalità dell'intavolatura moderna, come la piegatura (bending),
 lo strappato e il martellato (hammer-on e pull-off)
 
 @item
-se si definisce una forma sulla tastiera per un certo accordo, questa informazione
+Se si definisce una forma sulla tastiera per un certo accordo, questa informazione
 deve essere usata quando si mostra l'accordo sul rigo (invece di mostrare soltanto
 la forma predefinita dell'accordo)
 
@@ -1196,28 +1196,38 @@ in @ref{Soffitta}}
 @subheading Annunci
 
 Annunci e notizie ordinati per versione:
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14}
 @miscLink{announce-v2.12,v2.12},
-@miscLink{announce-v2.12.de,v2.12 (German)},
-@miscLink{announce-v2.12.es,v2.12 (Spanish)},
-@miscLink{announce-v2.12.fr,v2.12 (French)},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
 @miscLink{announce-v2.6,v2.6},
 @miscLink{announce-v2.4,v2.4},
 @miscLink{announce-v2.2,v2.2},
 @miscLink{announce-v2.0,v2.0},
-@miscLink{NEWS-1.4,v1.4},
-@miscLink{NEWS-1.2,v1.2 (1)},
-@miscLink{ANNOUNCE-1.2,v1.2 (2)},
+@miscLink{ANNOUNCE-1.2,v1.2},
 @miscLink{ANNOUNCE-1.0,v1.0},
 @miscLink{ANNOUNCE-0.1,v0.1}
+
+Elenco descrittivo dei cambiamenti per ogni versione:
++@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
++@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
++@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
++@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
++@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
++@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
++@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
++@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
++@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
++@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
++@miscLink{NEWS-1.4,v1.4},
++@miscLink{NEWS-1.2,v1.2}
 
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading Changelog
 
-Changelog ordinati per versione:
+Changelog degli sviluppatori per ogni versione:
 @miscLink{ChangeLog-2.10,v2.10},
 @miscLink{ChangeLog-2.3,v2.3},
 @miscLink{ChangeLog-2.1,v2.1},

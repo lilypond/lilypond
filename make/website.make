@@ -156,7 +156,6 @@ root-files = $(OUT)/.htaccess \
              $(OUT)/website/.htaccess \
              $(OUT)/website/favicon.ico \
              $(OUT)/website/tweets.xml \
-             $(OUT)/website/tweets-es.xml \
              $(OUT)/website/robots.txt
 
 texinfo-files = $(OUT)/index.html $(WEB_LANGS:%=$(OUT)/%/index.html)
@@ -292,9 +291,6 @@ $(OUT)/website/robots.txt: $(SERVER_FILES)/robots.txt
 	cp $< $@
 
 $(OUT)/website/tweets.xml: $(SERVER_FILES)/tweets.xml
-	cp $< $@
-
-$(OUT)/website/tweets-es.xml: $(SERVER_FILES)/tweets-es.xml
 	cp $< $@
 
 $(OUT)/.htaccess: $(top-htaccess)

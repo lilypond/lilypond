@@ -312,7 +312,7 @@ contextos de voz.  Para ver más detalles, consulte @ref{Versos}.
 
 @item
 El texto se puede alinear independientemente de la duración de
-cualquier nota si las duraciones de de las sílabas se especifican
+cualquier nota si las duraciones de las sílabas se especifican
 explícitamente, y se escriben con @code{\lyricmode}.
 
 @lilypond[quote,ragged-right,verbatim]

@@ -26,7 +26,7 @@
 
 typedef void (Performer:: *Performer_method) (void);
 
-class Performer_group : public virtual Translator_group
+class Performer_group : public Translator_group
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Performer_group);

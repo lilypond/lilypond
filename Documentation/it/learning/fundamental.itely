@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: f1d318170db686e9215c391a448975d5e88fad91
+    Translation of GIT committish: 6b9b2c2e3e701852485c24bc71f404effc6d83ec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -583,10 +583,10 @@ Il livello o contesto della voce è l'unico che può contenere la
 musica.  Se un contesto della voce non è dichiarato esplicitamente, ne
 viene creato uno automaticamente, come abbiamo visto all'inizio di questo
 capitolo.  Alcuni strumenti, come ad esempio un oboe, possono produrre una
-sola nota per volta.  La musica scritta per tali strumenti è monofonica e
-necessita di una sola voce.  Invece gli strumenti che possono produrre più
-di una nota contemporaneamente, come ad esempio il pianoforte, richiederanno
-spesso voci multiple per codificare le diverse note e ritmi simultanei che
+sola nota per volta.  La musica scritta per tali strumenti necessita di
+una sola voce.  Invece gli strumenti che possono produrre più di una nota
+contemporaneamente, come ad esempio il pianoforte, richiederanno spesso
+voci multiple per codificare le diverse note e ritmi simultanei che
 sono capaci di riprodurre.
 
 Ovviamente, una singola voce può contenere molte note in un accordo,
@@ -620,7 +620,7 @@ e poi combinarle in simultanea tramite le doppie parentesi angolari, @code{<<...
 Per collocarli in voci distinte, i frammenti devono essere separati da un doppio
 backslash, @code{\\}.  Senza di esso, le note sarebbero inserite in un'unica
 voce, e questo normalmente causerebbe degli errori.  Questa tecnica è
-particolarmente adatta ai brani che sono in gran parte monofonici ma
+particolarmente adatta ai brani che sono in gran parte omofonici ma
 con brevi e occasionali sezioni polifoniche.
 
 Ecco come suddividere gli accordi precedenti in due voci e aggiungere sia
@@ -1038,7 +1038,7 @@ sì che sia possibile disegnare una legatura di frase sopra di esse.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<

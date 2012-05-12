@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: 6cc24e4a3246f1daaf79db3bec97a4a4541b5149
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1439,20 +1439,34 @@ r8 e,8 | a4 c8 b[ c b] |
 @translationof Unmetered music
 
 @cindex cadencia
-@cindex líneas divisorias, quitar
-@cindex numeración de compases, quitar
+@cindex cadencia, barras
+@cindex cadencia, alteraciones
+@cindex cadencia, barras de compás
+@cindex cadencia, números de compás
 @cindex música sin metro
+@cindex música sin metro, barras
+@cindex música sin metro, alteraciones
+@cindex música sin metro, barras de compás
+@cindex música sin metro, números de compás
+@cindex alteraciones, cadencias
+@cindex alteraciones, música sin metro
+@cindex barras de compás, música sin metro
+@cindex números de compás, cadencias
+@cindex números de compás, música sin metro
+@cindex barras, cadencias
+@cindex barras, música sin metro
 
 @funindex \cadenzaOn
 @funindex cadenzaOn
 @funindex \cadenzaOff
 @funindex cadenzaOff
 
-Las líneas divisorias y los números de compás se calculan
-automáticamente.  Para música sin compasear (por ejemplo cadencias),
-esto no es deseable.  Para desactivar las barras y los números de
-compás automáticos, utilice la instrucción @code{\cadenzaOn}, y para
-activarlos de nuevo use @code{\cadenzaOff}.
+En la música medida se insertan líneas divisorias
+y se calculan los números de compás automáticamente.
+En música sin metro (es decir, cadencias), esto no es deseable
+y se puede @q{desactivar} usando la instrucción
+@code{\cadenzaOn}, para despúes @q{reactivarlo} en el lugar
+adecuado usando @code{\cadenzaOff}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1463,8 +1477,7 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-La numeración de compases se continúa al final de la cadencia como si
-la cadencia no existiera:
+La numeración de compases se continúa al final de la cadencia.
 
 @lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
@@ -1477,29 +1490,41 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex barras en las cadencias
-@cindex barras en música sin compasear
-@cindex cadencia con barras
-@cindex música sin compasear con barras
+Nunca se inicia un compás nuevo dentro de una cadencia,
+incluso aunque se inserten una o más instrucciones @code{\bar}
+dentro de ella. Por tanto, se deben añadir manualmente las alteraciones
+accidentales de cortesía.  Véase @ref{Alteraciones accidentales}.
 
-El barrado automático se desactiva mediante @code{\cadenzaOn} y se
-activa con @code{\cadenzaOff}.  Por tanto, todo el barrado en las
-cadencias se debe introducir manualmente (@ref{Barras manuales}).
+@lilypond[verbatim,relative=2,quote]
+c4 d e d
+\cadenzaOn
+cis4 d cis d
+\bar "|"
+cis4 d cis! d
+\cadenzaOff
+\bar "|"
+@end lilypond
+
+El barrado automático se desactiva mediante @code{\cadenzaOn}.
+Por tanto, todo el barrado en las
+cadencias se debe introducir manualmente.
+Véase @ref{Barras manuales}.
 
 @lilypond[verbatim,relative=2,quote]
 \repeat unfold 8 { c8 }
 \cadenzaOn
-\repeat unfold 5 { c8 }
+cis8 c c c c
 \bar"|"
+c8 c c
 \cadenzaOff
 \repeat unfold 8 { c8 }
 @end lilypond
 
-Observe que estas instrucciones predefinidas afectan a todas las
+Estas instrucciones predefinidas afectan a todas las
 pautas de la partitura, aunque aparezcan en un solo contexto
 @code{Voice}.  Para cambiar esto, traslade el
 @code{Timing_translator} del contexto @code{Score} al contexto
-@code{Staff}, como se muestra en @ref{Notación polimétrica}.
+@code{Staff}, véase @ref{Notación polimétrica}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1513,7 +1538,8 @@ Glosario musical:
 Referencia de la notación:
 @ref{Visibilidad de los objetos},
 @ref{Notación polimétrica},
-@ref{Barras manuales}.
+@ref{Barras manuales},
+@ref{Alteraciones accidentales}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1523,25 +1549,23 @@ Fragmentos de código:
 @cindex sin medida, música, saltos de línea en
 @cindex sin medida, música, saltos de página en
 @cindex saltos, en música sin medida
-@cindex línea, saltos de, en cadencias
-@cindex página, saltos de, en cadencias
-@cindex línea, saltos de, en música sin medida
-@cindex página, saltos de, en música sin medida
+@cindex saltos de línea, cadencias
+@cindex saltos de página, cadencias
+@cindex saltos de línea, música sin medida
+@cindex saltos de página, música sin medida
 
 @knownissues
-LilyPond inserta saltos de línea y de página solamente en las barras
-de compás.  A menos que la música sin compasear acabe antes del final
-de la línea del pentagrama, tendrá que insertar barras de compás
-invisibles
+Sólo se insertan saltos de línea y de página automáticamente
+en las líneas divisorias,
+por lo que es necesario insertar manualmente líneas divisorias
+@q{invisibles} en fragmentos largos de música sin medir para permitir
+los saltos:
 
 @example
 \bar ""
 @end example
 
-@noindent
-para indicar dónde se pueden producir los saltos.
-
-Deberíamos crear un contexto de voz explícitamente al empezar una
+Se debe crear explícitamente un contexto de voz al empezar una
 pieza con @code{\cadenzaOn}, pues en caso contrario pueden
 ocurrir algunos errores extraños.
 

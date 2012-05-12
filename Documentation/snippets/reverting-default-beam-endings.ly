@@ -9,7 +9,7 @@
 \header {
   lsrtags = "version-specific, rhythms"
 
-%% Translation of GIT committish: 6977ddc9a3b63ea810eaecb864269c7d847ccf98
+%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2} sólo
 es necesario modificar la estructura de pulsos:

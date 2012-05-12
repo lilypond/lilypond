@@ -10,7 +10,7 @@ crear la tabla primero.  Después se añaden los diagramas a la tabla.
 La tabla de diagramas de posiciones que se crea puede estar vacía o se
 puede copiar a partir de una tabla existente.
 
-La tabla a usar en la impresión de de los diagramas predefinidos se
+La tabla a usar en la impresión de los diagramas predefinidos se
 selecciona por medio de la propiedad @code{\\predefinedDiagramTable}.
 
 "
