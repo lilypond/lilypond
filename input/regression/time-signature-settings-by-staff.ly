@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.17"
 
 \header {
   texidoc = "
@@ -13,8 +13,8 @@ should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(3 1)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -22,8 +22,8 @@ should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(1 3)    % beatStructure
           #'()       % beamExceptions
         \time 4/4

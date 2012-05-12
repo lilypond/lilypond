@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.14.0"
+\version "2.15.39"
 
 %%
 %% setup for Request->Element conversion.
@@ -225,7 +225,7 @@
   %% Timing variables in layout definitions before any
   %% Timing_translator has been run.
 
-  timeSignatureFraction = #'(4 . 4)
+  timeSignatureFraction = 4/4
 
 %% These defaults should be the same as the rules established in
 %%   scm/time-signature-settings.scm for 4/4 time

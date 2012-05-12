@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.15.39"
 
 @node Rhythms
 @section Rhythms
@@ -317,8 +317,10 @@ fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if @code{M}
 is 1) to the duration.  This will not affect the appearance of the
 notes or rests produced, but the altered duration will be used in
 calculating the position within the measure and setting the duration
-in the MIDI output.  Multiplying factors may be combined such as
-@code{*L*M/N}.
+in the MIDI output.  Multiplying factors may be combined like
+@code{*L*M/N}.  Factors are part of the duration: if
+you don't specify a duration for subsequent notes, the default
+duration taken from the preceding note includes any scaling factor.
 
 In the following example, the first three notes take up exactly
 two beats, but no triplet bracket is printed.
@@ -326,16 +328,16 @@ two beats, but no triplet bracket is printed.
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
 % Alter durations to triplets
-a4*2/3 gis4*2/3 a4*2/3
+a4*2/3 gis a
 % Normal durations
-a4 a4
+a4 a
 % Double the duration of chord
 <a d>4*2
 % Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
-The duration of spacing notes may also be modified by
+The duration of spacer rests may also be modified by
 a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
@@ -349,20 +351,19 @@ Longer stretches of music may be compressed by a fraction in the
 same way, as if every note, chord or rest had the fraction as a
 multiplier.  This leaves the appearance of the music unchanged but
 the internal duration of the notes will be multiplied by the
-fraction @emph{num}/@emph{den}.  The spaces around the dot are
-required.  Here is an example showing how music can be compressed
-and expanded:
+fraction @emph{num}/@emph{den}.  Here is an example showing how music
+can be compressed and expanded:
 
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\scaleDurations #'(2 . 3) {
+\scaleDurations 2/3 {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\scaleDurations #'(2 . 1) {
+\scaleDurations 2/1 {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -1061,8 +1062,8 @@ be changed, or new default values can be added:
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        #'(4 . 4)  % timeSignatureFraction
-        #'(1 . 4)  % baseMomentFraction
+        4/4        % timeSignatureFraction
+        1/4        % baseMomentFraction
         #'(3 1)    % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1077,11 +1078,11 @@ be changed, or new default values can be added:
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, a Scheme pair describing the
+@code{@var{timeSignatureFraction}}, a fraction describing the
 time signature.
 
 @item
-@code{@var{baseMomentFraction}}, a Scheme pair containing the numerator
+@code{@var{baseMomentFraction}}, a fraction containing the numerator
 and denominator of the basic timing unit for the time signature.
 
 @item
@@ -1105,8 +1106,8 @@ instantiated or there must be music in the context before the
   \relative c' {
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1114,8 +1115,8 @@ instantiated or there must be music in the context before the
     \repeat unfold 7 { c8 } |
     % This call will succeed
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1138,13 +1139,13 @@ to the original values:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'(4 . 4)
+    \revertTimeSignatureSettings 4/4
     \time 4/4
     \repeat unfold 8 { c8 } |
   }
@@ -1161,8 +1162,8 @@ for different staves by moving the @code{Timing_translator} and the
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(3 1)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1170,8 +1171,8 @@ for different staves by moving the @code{Timing_translator} and the
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(1 3)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1585,14 +1586,14 @@ affect the autobeaming rules.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(9 . 8)
-    \scaleDurations #'(2 . 3)
+    \set Staff.timeSignatureFraction = 9/8
+    \scaleDurations 2/3
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(10 . 8)
-    \scaleDurations #'(3 . 5) {
+    \set Staff.timeSignatureFraction = 10/8
+    \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
       c4. c \times 2/3 { c8[ c c] } c4
@@ -2291,8 +2292,8 @@ beaming settings for a time signature are described in
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      #'(3 . 4)         % timeSignatureFraction
-      #'(1 . 8)         % baseMomentFraction
+      3/4               % timeSignatureFraction
+      1/8               % baseMomentFraction
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
@@ -3321,7 +3322,7 @@ becomes:
 Or explicitly change the musical duration:
 
 @example
-\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 See @ref{Scaling durations}.

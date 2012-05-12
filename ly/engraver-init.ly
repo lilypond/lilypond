@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.20"
+\version "2.15.39"
 
 \context {
   \name "Global"
@@ -614,7 +614,7 @@ automatically when an output definition (a @code{\score} or
   repeatCountVisibility = #all-repeat-counts-visible
 
   timeSignatureSettings = #default-time-signature-settings
-  timeSignatureFraction = #'(4 . 4)
+  timeSignatureFraction = 4/4
 
 %% These defaults should be the same as the rules established in
 %%   scm/time-signature-settings.scm for 4/4 time
