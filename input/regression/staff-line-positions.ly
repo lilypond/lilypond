@@ -11,7 +11,5 @@
 
 \new Staff \relative c'  {
   \override Staff.StaffSymbol #'line-positions = #'(-7 -2 0 3 9)
-  g c f b e a
+  g c f b \bar ":|" e a
 }
-  
-  

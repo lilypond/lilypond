@@ -25,7 +25,11 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
+#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
+
+#include <set>
+
 
 MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_extent, 1)
 SCM
@@ -112,15 +116,62 @@ Bar_line::compound_barline (Grob *me, string str, Interval const &extent,
   Stencil thick = simple_barline (me, fatline, extent, rounded);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
 
-  int lines = Staff_symbol_referencer::line_count (me);
-  Real dist
-    = ((lines & 1 || lines == 0)
-       ? 1
-       : (staff_space < 2 ? 2 : .5)) * staff_space;
+  /*
+    the two dots of the repeat sign should be centred at the middle of
+    the staff and both should avoid staff lines
+  */
+  Real centre = 0.0, dist = 1.0;
+  if (staff_space)
+    {
+      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
+        {
+          std::vector<Real> linepos = Staff_symbol::line_positions (staff);
+          if (!linepos.empty ())
+            {
+              centre = Staff_symbol::line_span (staff).center ();
+
+              /*
+                fold the staff into two at centre and find the first gap
+                big enough to hold a dot and some space below and above
+              */
+              std::set<Real> half_staff;
+              half_staff.insert (0.0);
+              for (std::vector<Real>::const_iterator
+                     i = linepos.begin (), e = linepos.end ();
+                   i != e;
+                   ++i)
+                half_staff.insert (fabs (*i - centre));
+
+              /*
+                gap is measured like line-positions;
+                1.0 for dot diameter, twice the staffline width for the
+                gap above and below and one more staffline width for the
+                two half stafflines
+              */
+              Real const gap_to_find = (1.0 + 3 * staffline) / staff_space;
+              dist = *half_staff.rbegin () * 2 + gap_to_find;
+              for (std::set<Real>::const_iterator
+                     i0 = half_staff.begin (), i1 = i0, e = half_staff.end ();
+                   ++i1 != e;
+                   i0 = i1)
+                if (*i1 - *i0 > gap_to_find)
+                  {
+                    dist = *i0 + *i1;
+                    break;
+                  }
+            }
+        }
+    }
+  else
+    dist += 3 * staffline;
+
+  if (staff_space == 0.0)
+    staff_space = 1.0;
+
   Stencil colon (dot);
-  colon.translate_axis (dist, Y_AXIS);
+  colon.translate_axis (dist * staff_space / 2, Y_AXIS);
   colon.add_stencil (dot);
-  colon.translate_axis (-dist / 2, Y_AXIS);
+  colon.translate_axis ((centre - dist / 2) * staff_space / 2, Y_AXIS);
 
   Real const h = extent.length ();
   Stencil m;
