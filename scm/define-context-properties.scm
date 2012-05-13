@@ -230,7 +230,8 @@ the symbol @samp{hihat}) as keys, and a list
 @code{(@var{notehead-style} @var{script} @var{vertical-position})} as
 values.")
 
-
+     (endRepeatType ,string? "Set the default bar line for the ending
+of repeats.")
      (explicitClefVisibility ,vector? "@samp{break-visibility}
 function for clef changes.")
      (explicitCueClefVisibility ,vector? "@samp{break-visibility}
@@ -479,6 +480,8 @@ part-combining.")
 @code{traditional}, or @code{semitone}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
 verse.  Use in @code{Lyrics} context.")
+     (startRepeatType ,string? "Set the default bar line for the beginning
+of repeats.")
      (stemLeftBeamCount ,integer? "Specify the number of beams to draw
 on the left side of the next note.  Overrides automatic beaming.  The
 value is only used once, and then it is erased.")

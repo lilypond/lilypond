@@ -602,6 +602,8 @@ automatically when an output definition (a @code{\score} or
 
   defaultBarType = #"|"
   doubleRepeatType = #":|:"
+  startRepeatType = #"|:"
+  endRepeatType = #":|"
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
   automaticBars = ##t
