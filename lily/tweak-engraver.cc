@@ -39,12 +39,23 @@ Tweak_engraver::Tweak_engraver ()
 void
 Tweak_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Stream_event *ev = info.event_cause ())
+  Stream_event *ev = info.event_cause ();
+  bool direct = ev;
+  SCM grobname = SCM_UNDEFINED;
+  if (!direct)
+    ev = info.ultimate_event_cause ();
+  if (ev)
     {
       for (SCM s = ev->get_property ("tweaks");
            scm_is_pair (s); s = scm_cdr (s))
         {
-          info.grob ()->set_property (scm_caar (s), scm_cdar (s));
+	  if (scm_is_pair (scm_caar (s))) {
+	    if (SCM_UNBNDP (grobname))
+	      grobname = scm_from_locale_symbol (info.grob ()->name ().c_str ());
+	    if (scm_is_eq (scm_caaar (s), grobname))
+	      info.grob ()->set_property (scm_cdaar (s), scm_cdar (s));
+	  } else if (direct)
+	    info.grob ()->set_property (scm_caar (s), scm_cdar (s));
         }
     }
 }

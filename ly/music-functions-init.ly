@@ -1119,21 +1119,27 @@ transposition =
     'Staff))
 
 tweak =
-#(define-music-function (parser location sym val arg)
-   (symbol? scheme? ly:music?)
-   (_i "Add @code{sym . val} to the @code{tweaks} property of @var{arg}.")
-
-   (if (equal? (object-property sym 'backend-type?) #f)
+#(define-music-function (parser location grob prop value music)
+   ((string?) symbol? scheme? ly:music?)
+   (_i "Add a tweak to the following @var{music}.
+Layout objects created by @var{music} get their property @var{prop}
+set to @var{value}.  If @var{grob} is specified, like with
+@example
+\\tweak Accidental #'color #red cis'
+@end example
+an indirectly created grob (@samp{Accidental} is caused by
+@samp{NoteHead}) can be tweaked; otherwise only directly created grobs
+are affected.")
+   (if (not (object-property prop 'backend-type?))
        (begin
-	 (ly:input-warning location (_ "cannot find property type-check for ~a") sym)
+	 (ly:input-warning location (_ "cannot find property type-check for ~a") prop)
 	 (ly:warning (_ "doing assignment anyway"))))
    (set!
-    (ly:music-property arg 'tweaks)
-    (acons sym val
-	   (ly:music-property arg 'tweaks)))
-   arg)
-
-
+    (ly:music-property music 'tweaks)
+    (acons (if grob (cons (string->symbol grob) prop) prop)
+	   value
+	   (ly:music-property music 'tweaks)))
+   music)
 
 unfoldRepeats =
 #(define-music-function (parser location music) (ly:music?)
