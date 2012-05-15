@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.15.25"
 
 \header {
   texidoc = "LilyPond does in-notes.
@@ -10,10 +10,10 @@
   \relative c' {
     \repeat unfold 5 {
       \once \override FootnoteItem #'footnote = ##f
-      <>\footnote
+      \footnote
                     "" #'(0 . 0) #'NoteHead \markup { \box \fill-line { "this is a test" } }
       \repeat unfold 5 { a\< b c d\! }
-      <>\footnote #'(-1 . 1) #'NoteHead "foobar"
+      \footnote #'(-1 . 1) #'NoteHead "foobar"
       \repeat unfold 5 { a\< b c d\! }
     }
   }

@@ -3346,25 +3346,6 @@ def conv (str):
                   sub_tempo, str)
     return str
 
-@rule((2, 15, 39), r"\footnote -> <>\footnote, -\footnote -> \footnote")
-def conv (str):
-    def not_first (s):
-        def match_fun (m):
-            if m.group (1):
-                return m.group (0)
-            return m.expand (s)
-        return match_fun
-    str = re.sub ("(" + matchmarkup + ")|"
-                  + r"(?<![-_^])((?:[-_^][-_^])*)(\\footnote(?:\s*"
-                  + matchmarkup + ")?" + matcharg + "(?:" + matcharg
-                  + ")?\s+" + matchmarkup + ")",
-                  not_first (r"\2<>\3"), str)
-    str = re.sub ("(" + matchmarkup + ")|"
-                  + r"(?<![-_^])((?:[-_^][-_^])*)-(\\footnote(?:\s*"
-                  + matchmarkup + ")?" + matcharg + "(?:" + matcharg
-                  + ")?\s+" + matchmarkup + ")",
-                  not_first (r"\2\3"), str)
-    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

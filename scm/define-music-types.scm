@@ -228,7 +228,7 @@ duration stored in @code{duration}.")
 
     (FootnoteEvent
      . ((description . "Footnote a grob.")
-	(types . (general-music event post-event footnote-event))
+	(types . (general-music event footnote-event))
 	))
 
     (GlissandoEvent
