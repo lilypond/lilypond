@@ -221,6 +221,7 @@ symbols = {
 @cindex fret
 
 @funindex minimumFret
+@funindex restrainOpenStrings
 
 By default pitches are assigned to the lowest playing position on the
 fret-board (first position).  Open strings are automatically preferred.
@@ -231,6 +232,9 @@ can override the respective stencil.  Usually it will be more
 comfortable to define the playing position by using the value of
 @code{minimumFret}.  The default value for minimumFret is 0.
 
+Even when @code{minimumFret} is set, open strings are used whenever
+possible.  This behaviour can be changed by setting @code{restrainOpenStrings}
+to @code{#t}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout { \override Voice.StringNumber #'stencil = ##f }
@@ -246,6 +250,7 @@ comfortable to define the playing position by using the value of
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
 >>
