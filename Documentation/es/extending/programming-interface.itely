@@ -40,7 +40,7 @@ Los bloques de código de LilyPond tienen el siguiente aspecto:
 @end example
 Se pueden usar en cualquier lugar en el que se pueda escribir código
 de Scheme: el lector de Scheme en efecto se modifica para que pueda
-incorporar bloques de código de LilyPond y pueda ocuparse de de las
+incorporar bloques de código de LilyPond y pueda ocuparse de las
 expresiones de Scheme incrustadas que comienzan por @code{$} y@w{ }@code{#}.
 
 Extrae el bloque de código de LilyPond y genera una llamada al
