@@ -481,6 +481,8 @@ If we give names, Bison complains.
 %type <scm> function_arglist_optional
 %type <scm> function_arglist_backup
 %type <scm> function_arglist_nonbackup
+%type <scm> function_arglist_nonbackup_common
+%type <scm> function_arglist_closed_nonbackup
 %type <scm> function_arglist_skip
 %type <scm> function_arglist_bare
 %type <scm> function_arglist_closed
@@ -1309,20 +1311,12 @@ function_arglist_skip:
 	;
 
 
-function_arglist_nonbackup:
+function_arglist_nonbackup_common:
 	EXPECT_OPTIONAL EXPECT_PITCH function_arglist pitch_also_in_chords {
 		$$ = scm_cons ($4, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length {
 		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg_closed
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed FRACTION
 	{
@@ -1362,6 +1356,29 @@ function_arglist_nonbackup:
 	}
 	;
 
+function_arglist_closed_nonbackup:
+	function_arglist_nonbackup_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg_closed
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	;
+
+function_arglist_nonbackup:
+	function_arglist_nonbackup_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	;
 
 function_arglist_keep:
 	function_arglist_common
@@ -1630,7 +1647,7 @@ function_arglist_common_minus:
 
 function_arglist_closed:
 	function_arglist_closed_common
-	| function_arglist_nonbackup
+	| function_arglist_closed_nonbackup
 	;
 
 function_arglist_closed_common:
