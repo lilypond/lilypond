@@ -75,8 +75,8 @@ for documentation purposes.")
 %% ukulele tunings
 \makeDefaultStringTuning #'ukulele-tuning \stringTuning <g' c' e' a'>
 \makeDefaultStringTuning #'ukulele-d-tuning \stringTuning <a' d' fis' b'>
-\makeDefaultStringTuning #'tenor-ukulele-tuning \stringTuning <a' e' c' g>
-\makeDefaultStringTuning #'baritone-ukulele-tuning \stringTuning <e' b g d>
+\makeDefaultStringTuning #'tenor-ukulele-tuning \stringTuning <g c' e' a'>
+\makeDefaultStringTuning #'baritone-ukulele-tuning \stringTuning <d g b e'>
 
 %% orchestral strings
 \makeDefaultStringTuning #'violin-tuning \stringTuning <g d' a' e''>

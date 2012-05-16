@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.32"
+@c \version "2.15.39"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1154,10 +1154,10 @@ l'objet auquel la note est attachée.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2) #'NoteHead
+    <>\footnote #'(0.5 . -2) #'NoteHead
       \markup { La première note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'NoteHead
+    <>\footnote #'(0.5 . 1) #'NoteHead
       \markup { La troisième note }
     e c4 d4
   }
@@ -1174,9 +1174,9 @@ le @code{TextScript} fait référence.
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "Voici un do"
-    es-\footnote #'(2 . -0.25) \markup { \italic "Un mi bémol" }
-    g-\footnote #'(2 . 3) \markup { \bold "Ceci est un sol" }
+    c\footnote #'(1 . -1.25) "Voici un do"
+    es\footnote #'(2 . -0.25) \markup { \italic "Un mi bémol" }
+    g\footnote #'(2 . 3) \markup { \bold "Ceci est un sol" }
     >1
   }
 }
@@ -1195,25 +1195,25 @@ et le pied de page.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \footnote #'(-3 . 0) #'DynamicText
+    <>\footnote #'(-3 . 0) #'DynamicText
       \markup { \bold Forte }
 
-    \footnote #'(0 . 1.5) #'Slur
+    <>\footnote #'(0 . 1.5) #'Slur
       \markup { A slur }
     a'4\f(
 
-    \footnote #'(0 . -2) #'Beam
+    <>\footnote #'(0 . -2) #'Beam
       \markup { Beam }
     b8)[ e]
 
-    \footnote #'(1 . -1) #'Stem
+    <>\footnote #'(1 . -1) #'Stem
       \markup  { \teeny { This is a stem } }
     c4
 
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
+    <>\footnote #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { A cautionary accidental }
 
-    \footnote #'(0.5 . -0.5) #'TextScript
+    <>\footnote #'(0.5 . -0.5) #'TextScript
       \markup \italic { Slow Down }
     dis?4_"rit."
   }
@@ -1261,13 +1261,13 @@ référence.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
+    a'4\footnote
           "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" }
     b8
-    e-\footnote
+    e\footnote
           \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note"
     c4
-    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
+    d\p\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
   }
 }
 @end lilypond
@@ -1281,10 +1281,10 @@ l'annotation fait référence, comme s'il s'agissait d'une articulation.
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote "1" #'(1 . -1.25) "1. C"
-    es-\footnote
+    c\footnote "1" #'(1 . -1.25) "1. C"
+    es\footnote
        \markup { \bold "b" } #'(2 . -0.25) "b. E-flat"
-    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
+    g\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
     >1
   }
 }
@@ -1303,37 +1303,37 @@ et le pied de page.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote
+    <>\footnote
       \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
       \markup { 1. \bold Forte }
 
-    \footnote
+    <>\footnote
       \markup { \teeny b } #'(0 . 1.5) #'Slur
       \markup { b. A slur }
     a'4\f(
 
-    \footnote
+    <>\footnote
       \markup { \teeny 3 } #'(0 . -2) #'Beam
       \markup { 3. Beam }
     b8)[ e]
 
-    \footnote
+    <>\footnote
       \markup { 4 } #'(1 . -1) #'Stem
       \markup  { \bold 4. { This is a stem } }
     c4
 
-    \footnote
+    <>\footnote
       \markup \concat \teeny { "sharp (v)" }
           #'(0 . 0.5) #'AccidentalCautionary
       \markup \italic { v. A cautionary accidental }
 
-    \footnote
+    <>\footnote
       \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
       \markup \italic { a. Slow Down }
     dis?4_"rit."
 
     \breathe
-    \footnote
+    <>\footnote
       \markup { \teeny \musicglyph #"rests.4" }
           #'(1.5 . -0.25) #'BreathingSign
       \markup { \null }
