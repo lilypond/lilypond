@@ -1880,11 +1880,6 @@ slice of the spanner than considering it on the whole.  This is useful
 during line breaking, for example, when we want to estimate the Y-extent
 of a spanner broken at given starting and ending columns.
 
-If the pure function you're writing takes more than three arguments
-(say, for example, a chained offset callback), this is not a problem:
-just make sure that the grob is the first argument and that start and
-end are the last two arguments.
-
 
 @node How purity is defined and stored
 @subsection How purity is defined and stored
