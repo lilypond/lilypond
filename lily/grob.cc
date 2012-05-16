@@ -799,6 +799,7 @@ ADD_INTERFACE (Grob,
                "extra-X-extent "
                "extra-Y-extent "
                "extra-offset "
+               "footnote-music "
                "forced-spacing "
                "interfaces "
                "layer "

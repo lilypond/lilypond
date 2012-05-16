@@ -307,6 +307,7 @@ include @code{upright}, @code{italic}, @code{caps}.")
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  Fractional values are allowed.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
+     (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice

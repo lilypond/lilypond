@@ -342,23 +342,46 @@ featherDurations=
      argument))
 
 footnote =
-#(define-music-function (parser location text offset grob-name footnote)
-   ((markup?) number-pair? (symbol? '()) markup?)
-   (_i "Attach @var{text} at @var{offset} with @var{text} referring to
-@var{footnote}.  If @var{text} is given as @code{\\default}, use
-autonumbering instead.  Note that, for this to take effect,
-auto-numbering must be turned on in the paper block.  Otherwise, no
-number will appear.  Footnotes are applied like articulations.  If a
-symbol @var{grob-name} is specified, all grobs of that kind at the
-current time step are affected.")
-   (make-music
-    'FootnoteEvent
-    'X-offset (car offset)
-    'Y-offset (cdr offset)
-    'automatically-numbered (not text)
-    'text (or text (make-null-markup))
-    'footnote-text footnote
-    'symbol grob-name))
+#(define-music-function (parser location mark offset grob-name footnote music)
+   ((markup?) number-pair? (symbol?) markup? (ly:music?))
+   (_i "Make the markup @var{footnote} a footnote on @var{music}.  The
+footnote is marked with a markup @var{mark} moved by @var{offset} with
+respect to the marked music.
+
+If @var{mark} is not given or specified as @var{\\default}, it is
+replaced by an automatically generated sequence number.  If a symbol
+@var{grob-name} is specified, then grobs of that type will be marked
+if they have @var{music} as their ultimate cause; by default all grobs
+having @var{music} as their @emph{direct} cause will be marked,
+similar to the way @code{\\tweak} works.
+
+If @var{music} is given as @code{\\default}, a footnote event
+affecting @emph{all} grobs matching @var{grob-name} at a given time
+step is generated.  This may be required for creating footnotes on
+time signatures, clefs, and other items not cooperating with
+@code{\\tweak}.
+
+Like with @code{\\tweak}, if you use a footnote on a following
+post-event, the @code{\\footnote} command itself needs to be attached
+to the preceding note or rest as a post-event with @code{-}.")
+   (let ((mus (make-music
+	       'FootnoteEvent
+	       'X-offset (car offset)
+	       'Y-offset (cdr offset)
+	       'automatically-numbered (not mark)
+	       'text (or mark (make-null-markup))
+	       'footnote-text footnote
+	       'symbol (or grob-name '()))))
+     (if music
+	 (begin
+	   (set! (ly:music-property music 'tweaks)
+		 (acons (if grob-name
+			    (cons grob-name 'footnote-music)
+			    'footnote-music)
+			mus
+			(ly:music-property music 'tweaks)))
+	   music)
+	 mus)))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic

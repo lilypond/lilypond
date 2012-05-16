@@ -19,7 +19,9 @@
 
 #include "engraver.hh"
 
+#include "music.hh"
 #include "stream-event.hh"
+#include "international.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
@@ -39,6 +41,7 @@ class Footnote_engraver : public Engraver
 
   void stop_translation_timestep ();
   void finalize ();
+  virtual void derived_mark () const;
 
   void footnotify (Grob *, Stream_event *);
 };
@@ -59,7 +62,14 @@ Footnote_engraver::stop_translation_timestep ()
 void
 Footnote_engraver::finalize ()
 {
-  annotated_spanners_.resize (0);
+  annotated_spanners_.clear ();
+}
+
+void
+Footnote_engraver::derived_mark () const
+{
+  for (vsize i = 0; i < events_.size (); ++i)
+    scm_gc_mark (events_[i]->self_scm ());
 }
 
 Footnote_engraver::Footnote_engraver ()
@@ -91,6 +101,26 @@ Footnote_engraver::footnotify (Grob *g, Stream_event *event)
 void
 Footnote_engraver::acknowledge_grob (Grob_info info)
 {
+  Music *mus = unsmob_music (info.grob ()->get_property ("footnote-music"));
+
+  if (mus)
+    {
+      if (!mus->is_mus_type ("footnote-event")) {
+	mus->origin ()->programming_error (_ ("Must be footnote-event."));
+	return;
+      }
+      Stream_event *ev = mus->to_event (context ());
+      footnotify (info.grob (), ev);
+      ev->unprotect ();
+      return;
+    }
+
+  // The following performance hog should eventually be removed:
+  // instead of adding a -\footnote ... \default articulation at the
+  // end of a note, you can perfectly well use \footnote ... before
+  // the note.  This is just for the sake of automatic convert-ly
+  // rules.
+
   Stream_event *cause = info.event_cause ();
 
   SCM arts = cause ? cause->get_property ("articulations") : SCM_EOL;
@@ -100,6 +130,10 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
       if (e->in_event_class ("footnote-event"))
         footnotify (info.grob (), e);
     }
+
+  // In contrast, the following code is only called when actual
+  // footnote events have been listened to.  It should not affect
+  // performance.
 
   for (vsize i = 0; i < events_.size (); i++)
     {
