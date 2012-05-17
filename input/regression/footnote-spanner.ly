@@ -1,4 +1,4 @@
-\version "2.15.25"
+\version "2.15.39"
 \header {
   texidoc = "Footnotes are annotated at the correct place, and the
 annotation goes to the correct page."
@@ -16,7 +16,7 @@ annotation goes to the correct page."
 \footnote
               \markup { \tiny "1." }
               #'(0.5 . 0.5) #'Hairpin
-              \markup { 1. \justify { Goes to the first broken spanner. } }
+              \markup { 1. \justify { Goes to the first broken spanner. } } \default
 b4\< c d a
 b c d a
 b c d a
@@ -40,7 +40,7 @@ b c d a\!
 \footnote
               \markup { \tiny "2." }
               #'(0.5 . 0.5) #'Hairpin
-              \markup { 2. \justify { Goes to the last broken spanner. } }
+              \markup { 2. \justify { Goes to the last broken spanner. } } \default
 b4\< c d a
 b c d a
 b c d a

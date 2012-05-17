@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.32"
+@c \version "2.15.39"
 
 
 @c Translators: Yoshiki Sawada
@@ -1107,10 +1107,10 @@ scoreTitleMarkup = \markup @{ \column @{
   \header { tagline = ##f }
   \relative c' {
     \footnote #'(0.5 . -2) #'NoteHead
-      \markup { The first note }
+      \markup { The first note } \default
     a'4 b8
     \footnote #'(0.5 . 1) #'NoteHead
-      \markup { The third note }
+      \markup { The third note } \default
     e c4 d4
   }
 }
@@ -1125,9 +1125,9 @@ scoreTitleMarkup = \markup @{ \column @{
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "Here is a C"
-    es-\footnote #'(2 . -0.25) \markup { \italic "An E-flat" }
-    g-\footnote #'(2 . 3) \markup { \bold "This is a G" }
+    c-\footnote #'(1 . -1.25) "Here is a C" \default
+    es-\footnote #'(2 . -0.25) \markup { \italic "An E-flat" } \default
+    g-\footnote #'(2 . 3) \markup { \bold "This is a G" } \default
     >1
   }
 }
@@ -1146,25 +1146,25 @@ scoreTitleMarkup = \markup @{ \column @{
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
     \footnote #'(-3 . 0) #'DynamicText
-      \markup { \bold Forte }
+      \markup { \bold Forte } \default
 
     \footnote #'(0 . 1.5) #'Slur
-      \markup { A slur }
+      \markup { A slur } \default
     a'4\f(
 
     \footnote #'(0 . -2) #'Beam
-      \markup { Beam }
+      \markup { Beam } \default
     b8)[ e]
 
     \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } }
+      \markup  { \teeny { This is a stem } } \default
     c4
 
     \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental }
+      \markup \italic { A cautionary accidental } \default
 
     \footnote #'(0.5 . -0.5) #'TextScript
-      \markup \italic { Slow Down }
+      \markup \italic { Slow Down } \default
     dis?4_"rit."
   }
 }
@@ -1205,12 +1205,12 @@ scoreTitleMarkup = \markup @{ \column @{
   \header { tagline = ##f }
   \relative c' {
     a'4-\footnote
-          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" }
+          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" } \default
     b8
     e-\footnote
-          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note"
+          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note" \default
     c4
-    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano"
+    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano" \default
   }
 }
 @end lilypond
@@ -1222,10 +1222,10 @@ scoreTitleMarkup = \markup @{ \column @{
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote "1" #'(1 . -1.25) "1. C"
+    c-\footnote "1" #'(1 . -1.25) "1. C" \default
     es-\footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat"
-    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" }
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" \default
+    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" } \default
     >1
   }
 }
@@ -1245,38 +1245,38 @@ scoreTitleMarkup = \markup @{ \column @{
   \relative c' {
     \footnote
       \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
-      \markup { 1. \bold Forte }
+      \markup { 1. \bold Forte } \default
 
     \footnote
       \markup { \teeny b } #'(0 . 1.5) #'Slur
-      \markup { b. A slur }
+      \markup { b. A slur } \default
     a'4\f(
 
     \footnote
       \markup { \teeny 3 } #'(0 . -2) #'Beam
-      \markup { 3. Beam }
+      \markup { 3. Beam } \default
     b8)[ e]
 
     \footnote
       \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } }
+      \markup  { \bold 4. { This is a stem } } \default
     c4
 
     \footnote
       \markup \concat \teeny { "sharp (v)" }
           #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental }
+      \markup \italic { v. A cautionary accidental } \default
 
     \footnote
       \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
-      \markup \italic { a. Slow Down }
+      \markup \italic { a. Slow Down } \default
     dis?4_"rit."
 
     \breathe
     \footnote
       \markup { \teeny \musicglyph #"rests.4" }
           #'(1.5 . -0.25) #'BreathingSign
-      \markup { \null }
+      \markup { \null } \default
   }
 }
 @end lilypond
