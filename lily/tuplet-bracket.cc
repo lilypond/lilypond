@@ -199,9 +199,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   Interval x_span;
   for (LEFT_and_RIGHT (d))
     {
-      x_span[d] = bounds[d]->break_status_dir ()
-                  ? Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d]
-                  : robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
+      x_span[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[d];
+
       if (connect_to_other[d])
         {
           Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),

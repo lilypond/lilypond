@@ -49,9 +49,7 @@ Lyric_hyphen::print (SCM smob)
   Interval span_points;
   for (LEFT_and_RIGHT (d))
     {
-      Interval iv = bounds[d]->break_status_dir ()
-                    ? Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS)
-                    : robust_relative_extent (bounds[d], common, X_AXIS);
+      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d], common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
                        ? bounds[d]->relative_coordinate (common, X_AXIS)
