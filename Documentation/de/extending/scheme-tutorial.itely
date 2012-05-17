@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
+    Translation of GIT committish: 233fb6a8b3b6e31de1841641dbbd4c4f43423151
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,7 @@ man in einer Scheme-sandbox experimentieren, indem man ein
 Kommandozeilen-Fenster öffnet und @code{guile} aufruft.  Unter
 einigen Systemen, insbesondere unter Windows, muss man evtl.
 die Umgebungsvariable @code{GUILE_LOAD_PATH} auf das Verzeichnis
-@code{../usr/shr/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
+@code{../usr/share/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
 setzen (der vollständige Pfad ist erklärt in @rlearning{Mehr Information}).
 Alternativ können Windows-Benutzer auch einfach @qq{Ausführen} im
 Startmenü wählen und @code{guile} schreiben.
@@ -92,6 +92,11 @@ guile>
 @end lisp
 
 Man kann Scheme-Ausdrucke hier eingeben und mit Scheme experimentieren.
+Siehe die Datei @file{ly/scheme-sandbox.ly} zu Information, wie man
+die GNU readline-Bibliothek benutzen kann, um bessere Scheme-Formatierung
+der Kommandozeile zu erhalten.  Wenn die readline-Bibliothek für interaktive
+Guile-Sitzungen außerhalb von LilyPond schon aktiviert ist, sollte es auch
+in der Sandbox funktionieren.
 
 
 @node Scheme-Variablen
