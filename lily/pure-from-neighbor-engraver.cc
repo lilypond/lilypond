@@ -52,6 +52,17 @@ Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
     pure_relevants_.push_back (i.item ());
 }
 
+bool
+in_same_column (Grob *g1, Grob *g2)
+{
+  return (g1->spanned_rank_interval ()[LEFT]
+          == g2->spanned_rank_interval ()[LEFT])
+         && (g1->spanned_rank_interval ()[RIGHT]
+             == g2->spanned_rank_interval ()[RIGHT])
+         && (g1->spanned_rank_interval ()[LEFT]
+             == g1->spanned_rank_interval ()[RIGHT]);
+}
+
 void
 Pure_from_neighbor_engraver::acknowledge_pure_from_neighbor (Grob_info i)
 {
@@ -80,8 +91,10 @@ Pure_from_neighbor_engraver::finalize ()
       temp.push_back (need_pure_heights_from_neighbors_[l]);
       for (;
            (l < need_pure_heights_from_neighbors_.size () - 1
-            && (need_pure_heights_from_neighbors_[l]->spanned_rank_interval ()[LEFT]
-                == need_pure_heights_from_neighbors_[l + 1]->spanned_rank_interval ()[LEFT]));
+            && ((need_pure_heights_from_neighbors_[l]
+                 ->spanned_rank_interval ()[LEFT])
+                == (need_pure_heights_from_neighbors_[l + 1]
+                    ->spanned_rank_interval ()[LEFT])));
            l++)
         temp.push_back (need_pure_heights_from_neighbors_[l + 1]);
       need_pure_heights_from_neighbors.push_back (temp);
@@ -99,15 +112,24 @@ Pure_from_neighbor_engraver::finalize ()
     {
       while (pos[1] < (int) need_pure_heights_from_neighbors.size ()
              && (pure_relevants_[i]->spanned_rank_interval ()[LEFT]
-                 > need_pure_heights_from_neighbors[pos[1]][0]->spanned_rank_interval ()[LEFT]))
+                 > (need_pure_heights_from_neighbors[pos[1]][0]
+                    ->spanned_rank_interval ()[LEFT])))
         {
           pos[0] = pos[1];
           pos[1]++;
         }
       for (int j = 0; j < 2; j++)
-        if (pos[j] >= 0 && pos[j] < (int) need_pure_heights_from_neighbors.size ())
-          for (vsize k = 0; k < need_pure_heights_from_neighbors[pos[j]].size (); k++)
-            Pointer_group_interface::add_grob (need_pure_heights_from_neighbors[pos[j]][k], ly_symbol2scm ("neighbors"), pure_relevants_[i]);
+        if (pos[j] >= 0 && pos[j]
+            < (int) need_pure_heights_from_neighbors.size ())
+          for (vsize k = 0;
+               k < need_pure_heights_from_neighbors[pos[j]].size ();
+               k++)
+            if (!in_same_column(need_pure_heights_from_neighbors[pos[j]][k],
+                                pure_relevants_[i]))
+              Pointer_group_interface::add_grob
+                (need_pure_heights_from_neighbors[pos[j]][k],
+                 ly_symbol2scm ("neighbors"),
+                 pure_relevants_[i]);
     }
 
   need_pure_heights_from_neighbors_.clear ();
