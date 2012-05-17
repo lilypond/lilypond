@@ -349,7 +349,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Real rounded = directed_round (position, dir);
           Grob *head = me->get_parent (X_AXIS);
 
-          if (fabs (position) <= 2 * Staff_symbol_referencer::staff_radius (me) + 1
+          Interval staff_span = Staff_symbol::line_span (staff);
+          staff_span.widen (1);
+          if (staff_span.contains (position)
               /* In case of a ledger lines, quantize even if we're outside the staff. */
               || (Note_head::has_interface (head)
 

@@ -1,0 +1,70 @@
+% $Id: txi-nl.tex,v 1.7 2008/10/16 17:13:10 karl Exp $
+% txi-nl.tex -- Dutch translations for texinfo.tex.  
+%
+% Copyright 1999, 2007, 2008 Free Software Foundation.
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\txisetlanguage{dutch}{2}{2}
+
+\plainfrenchspacing
+
+\gdef\putwordAppendix{Appendix}
+\gdef\putwordChapter{Hoofdstuk}
+\gdef\putwordfile{bestand}
+\gdef\putwordin{in}
+\gdef\putwordIndexIsEmpty{(Index is leeg)}
+\gdef\putwordIndexNonexistent{(Index bestaat niet)}
+\gdef\putwordInfo{Info}
+\gdef\putwordInstanceVariableof{Instantie Variabele van}
+\gdef\putwordMethodon{Methode van}
+\gdef\putwordNoTitle{Geen titel}
+\gdef\putwordof{van}
+\gdef\putwordon{op}
+\gdef\putwordpage{pagina}
+\gdef\putwordsection{sectie}
+\gdef\putwordSection{Sectie}
+\gdef\putwordsee{zie}
+\gdef\putwordSee{Zie}
+\gdef\putwordShortTOC{Korte inhoudsopgave}
+\gdef\putwordTOC{Inhoudsopgave}
+%
+\gdef\putwordMJan{Januari}
+\gdef\putwordMFeb{Februari}
+\gdef\putwordMMar{Maart}
+\gdef\putwordMApr{April}
+\gdef\putwordMMay{Mei}
+\gdef\putwordMJun{Juni}
+\gdef\putwordMJul{Juli}
+\gdef\putwordMAug{Augustus}
+\gdef\putwordMSep{September}
+\gdef\putwordMOct{Oktober}
+\gdef\putwordMNov{November}
+\gdef\putwordMDec{December}
+%
+\gdef\putwordDefmac{Macro}
+\gdef\putwordDefspec{Speciale Vorm}
+\gdef\putwordDefvar{Variabele}
+\gdef\putwordDefopt{Gebruikers optie}
+\gdef\putwordDeffunc{Functie}
+
+% Produces Day Month Year style of output.
+\def\today{%
+  \number\day\space
+  \ifcase\month
+  \or\putwordMJan\or\putwordMFeb\or\putwordMMar\or\putwordMApr
+  \or\putwordMMay\or\putwordMJun\or\putwordMJul\or\putwordMAug
+  \or\putwordMSep\or\putwordMOct\or\putwordMNov\or\putwordMDec
+  \fi
+  \space\number\year}

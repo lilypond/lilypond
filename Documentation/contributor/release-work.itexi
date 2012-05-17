@@ -83,6 +83,7 @@ checkout displays modified files, you might want to run @code{git reset
 git fetch
 git checkout origin/release/unstable
 git merge origin
+make po-replace
 vi Documentation/web/news-front.itexi Documentation/web/news.itexi
 @end example
 
@@ -90,6 +91,7 @@ vi Documentation/web/news-front.itexi Documentation/web/news.itexi
 Commit, push, switch back to master (or wherever else):
 
 @example
+git commit -m "PO: update template." po/lilypond.pot
 git commit -m "Release: update news." Documentation/web/
 git push origin HEAD:release/unstable
 git checkout master
@@ -298,6 +300,13 @@ various websites, so be brief.
 Run convert-ly on all files, bump parser minimum version.
 
 @item
+Update lilypond.pot:
+
+@example
+make po-replace
+@end example
+
+@item
 Make directories on lilypond.org:
 
 @example
@@ -360,8 +369,8 @@ Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 
 @itemize
 @item
-submit pots for translation: send url of tarball to
-translation@@iro.umontreal.ca, mentioning lilypond-VERSION.pot
+submit po template for translation: send url of tarball to
+coordinator@@translationproject.org, mentioning lilypond-VERSION.pot
 
 @item
 update links to distros providing lilypond packages?  link in:

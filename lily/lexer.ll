@@ -711,6 +711,11 @@ BOM_UTF8	\357\273\277
 	}
 }
 
+{FRACTION}	{
+	yylval.scm =  scan_fraction (YYText ());
+	return FRACTION;
+}
+
 -{UNSIGNED}	| // backup rule
 {REAL}		{
 	yylval.scm = scm_c_read_string (YYText ());
@@ -721,6 +726,7 @@ BOM_UTF8	\357\273\277
 	return REAL;
 }
 
+{UNSIGNED}/\/	| // backup rule
 {UNSIGNED}	{
 	yylval.scm = scm_c_read_string (YYText ());
 	return UNSIGNED;

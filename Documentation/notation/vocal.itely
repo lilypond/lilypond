@@ -1954,7 +1954,7 @@ output in LilyPond.
 
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c' {
-  c c c c | d d d d
+  c4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -1973,7 +1973,7 @@ text = \lyricmode {
 \markup {
   \fill-line {
     \hspace #0.1 % moves the column off the left margin;
-        % can be removed if space on the page is tight
+     % can be removed if space on the page is tight
      \column {
       \line { \bold "2."
         \column {
@@ -1981,7 +1981,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \hspace #0.1 % adds vertical spacing between verses
+      \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "3."
         \column {
           "This is verse three."
@@ -1989,17 +1989,15 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % adds horizontal spacing between columns;
-        % if they are still too close, add more " " pairs
-        % until the result looks good
-     \column {
+    \hspace #0.1 % adds horizontal spacing between columns;
+    \column {
       \line { \bold "4."
         \column {
           "This is verse four."
           "It has two lines."
         }
       }
-      \hspace #0.1 % adds vertical spacing between verses
+      \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "5."
         \column {
           "This is verse five."
@@ -2008,7 +2006,7 @@ text = \lyricmode {
       }
     }
   \hspace #0.1 % gives some extra space on the right margin;
-      % can be removed if page space is tight
+  % can be removed if page space is tight
   }
 }
 @end lilypond

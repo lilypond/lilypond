@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.39"
 \include "example-header.ily"
 
 \paper {
@@ -187,9 +187,9 @@ triplumNotes = \relative c' {
   f8 f4 e8 d c f f f | % 1
 	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter
-	e8 c4 \scaleDurations #'(3 . 2) {	\times 4/5{e16[ d e d e]} } e8 f4 | % 2
+	e8 c4 \scaleDurations 3/2 {	\times 4/5{e16[ d e d e]} } e8 f4 | % 2
   g2. ~ g4. | % 3
-	f8 d4 f4. \scaleDurations #'(3 . 2) { \times 4/6{ g16[ f e f e f]}} % 4
+	f8 d4 f4. \scaleDurations 3/2 { \times 4/6{ g16[ f e f e f]}} % 4
 	g8 g4 g4. e4. | % 5
 	fis8 d4 e8\startGroup g4\stopGroup f8[ e d] | % 6
 	c2. r4. | % 7
@@ -222,10 +222,10 @@ tenorNotes = \relative c {
 		  %\set Staff.instrumentName = "Triplum"
 		  \set Staff.instrumentName = \incipitTriplum
 			\set Staff.shortInstrumentName = "Tr."
-      \set Staff.timeSignatureFraction = #'(9 . 8)
-      \scaleDurations #'(2 . 3)
+      \set Staff.timeSignatureFraction = 9/8
+      \scaleDurations 2/3
 		  \context Voice = "triplum" { \global \triplumNotes }
-%      \scaleDurations #'(2 . 3)
+%      \scaleDurations 2/3
 %			\context Voice = "slashes" { \triplumSkips }
 	    \new Lyrics { \lyricsto "triplum" { \triplumWords }}
 		>>
@@ -233,8 +233,8 @@ tenorNotes = \relative c {
 		  %\set Staff.instrumentName = "Motetus"
 		  \set Staff.instrumentName = \incipitMotetus
 			\set Staff.shortInstrumentName = "M."
-      \set Staff.timeSignatureFraction = #'(9 . 8)
-      \scaleDurations #'(2 . 3)
+      \set Staff.timeSignatureFraction = 9/8
+      \scaleDurations 2/3
 			\context Voice = "motetus" { \global \motetusNotes }
 	    \new Lyrics { \lyricsto "motetus" { \motetusWords }}
 	  >>

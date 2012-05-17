@@ -28,12 +28,13 @@ automatically notified to lilypond-devel@gnu.org list by the FTP
 robot; you can also see LilyPond page on FTP.
 
 
-2) updating lilypond.pot: run 'make po-replace' at toplevel, clean up
-lilypond.pot header to make it look like its previous state, commit
-only lilypond.pot to Git and reset all .po files, roll a tarball with
-'make dist', upload it somewhere on the web (or wait for the release),
-and send a notification to FTP coordinator with a link to the tarball.
-
+2) updating lilypond.pot: run 'make po-replace' at toplevel, commit
+lilypond.pot to Git, roll a tarball with 'make dist', upload it
+somewhere on the web (or wait for the release), and send a notification
+to FTP coordinator with a link to the tarball.
+Running 'po-update' at top-level and opening either po/out/fr.po or
+po/out/es.po gives you an idea of the changes that have affected
+the sources (number of fuzzy and untranslated stings).
 
 Rationale
 =========

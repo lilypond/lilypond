@@ -181,17 +181,22 @@ expression."
 			 ""
 			 tremolo-type))))
 
-(define-post-event-display-method ArticulationEvent (event parser) #t
-  (let ((articulation  (ly:music-property event 'articulation-type)))
-    (case (string->symbol articulation)
-      ((marcato) "^")
-      ((stopped) "+")
-      ((tenuto)	 "-")
-      ((staccatissimo) "|")
-      ((accent) ">")
-      ((staccato) ".")
-      ((portato) "_")
-      (else (format #f "\\~a" articulation)))))
+(define-display-method ArticulationEvent (event parser) #t
+  (let* ((articulation  (ly:music-property event 'articulation-type))
+	 (shorthand
+	  (case (string->symbol articulation)
+	    ((marcato) "^")
+	    ((stopped) "+")
+	    ((tenuto)	 "-")
+	    ((staccatissimo) "|")
+	    ((accent) ">")
+	    ((staccato) ".")
+	    ((portato) "_")
+	    (else #f))))
+    (format #f "~a~:[\\~;~]~a"
+	    (event-direction->lily-string event shorthand)
+	    shorthand
+	    (or shorthand articulation))))
 
 (define-post-event-display-method FingeringEvent (event parser) #t
   (ly:music-property event 'digit))
@@ -202,16 +207,16 @@ expression."
 (define-post-event-display-method MultiMeasureTextEvent (event parser) #t
   (markup->lily-string (ly:music-property event 'text)))
 
-(define-post-event-display-method BendAfterEvent (event parser) #t
+(define-post-event-display-method BendAfterEvent (event parser) #f
   (format #f "\\bendAfter #~a" (ly:music-property event 'delta-step)))
 
 (define-post-event-display-method HarmonicEvent (event parser) #f "\\harmonic")
-(define-post-event-display-method GlissandoEvent (event parser) #t "\\glissando")
-(define-post-event-display-method ArpeggioEvent (event parser) #t "\\arpeggio")
+(define-post-event-display-method GlissandoEvent (event parser) #f "\\glissando")
+(define-post-event-display-method ArpeggioEvent (event parser) #f "\\arpeggio")
 (define-post-event-display-method AbsoluteDynamicEvent (event parser) #f
   (format #f "\\~a" (ly:music-property event 'text)))
 
-(define-post-event-display-method StrokeFingerEvent (event parser) #t
+(define-post-event-display-method StrokeFingerEvent (event parser) #f
   (format #f "\\rightHandFinger #~a" (ly:music-property event 'digit)))
 
 (define-span-event-display-method BeamEvent (event parser) #f "[" "]")
@@ -494,7 +499,7 @@ Otherwise, return #f."
 ;;;
 
 (define (simple-note->lily-string event parser)
-  (format #f "~a~a~a~a~a~a~{~a~}" ; pitchname octave !? octave-check duration optional_rest articulations
+  (format #f "~a~a~a~a~a~a~:{~:[-~;~]~a~}" ; pitchname octave !? octave-check duration optional_rest articulations
 	  (note-name->lily-string (ly:music-property event 'pitch) parser)
 	  (octave->lily-string (ly:music-property event 'pitch))
 	  (let ((forced (ly:music-property event 'force-accidental))
@@ -519,16 +524,21 @@ Otherwise, return #f."
 	  (if ((make-music-type-predicate 'RestEvent) event)
 	      "\\rest" "")
 	  (map-in-order (lambda (event)
-			  (music->lily-string event parser))
+			  (list
+			   (post-event? event)
+			   (music->lily-string event parser)))
 			(ly:music-property event 'articulations))))
 
 (define-display-method NoteEvent (note parser)
   (cond ((not (null? (ly:music-property note 'pitch))) ;; note
 	 (simple-note->lily-string note parser))
 	((not (null? (ly:music-property note 'drum-type))) ;; drum
-	 (format #f "~a~a" (ly:music-property note 'drum-type)
+	 (format #f "~a~a~{~a~}" (ly:music-property note 'drum-type)
 		 (duration->lily-string (ly:music-property note 'duration)
-					#:remember #t)))
+					#:remember #t)
+		 (map-in-order (lambda (event)
+				 (music->lily-string event parser))
+			       (ly:music-property note 'articulations))))
 	(else ;; unknown?
 	 "")))
 
@@ -538,16 +548,24 @@ Otherwise, return #f."
 (define-display-method RestEvent (rest parser)
   (if (not (null? (ly:music-property rest 'pitch)))
       (simple-note->lily-string rest parser)
-      (string-append "r" (duration->lily-string (ly:music-property rest 'duration)
-						#:remember #t))))
+      (format #f "r~a~{~a~}"
+	      (duration->lily-string (ly:music-property rest 'duration)
+				     #:remember #t)
+	      (map-in-order (lambda (event)
+			      (music->lily-string event parser))
+			    (ly:music-property rest 'articulations)))))
 
 (define-display-method MultiMeasureRestEvent (rest parser)
   (string-append "R" (duration->lily-string (ly:music-property rest 'duration)
 					    #:remember #t)))
 
 (define-display-method SkipEvent (rest parser)
-  (string-append "s" (duration->lily-string (ly:music-property rest 'duration)
-					    #:remember #t)))
+  (format #f "s~a~{~a~}"
+	  (duration->lily-string (ly:music-property rest 'duration)
+				 #:remember #t)
+	  (map-in-order (lambda (event)
+			  (music->lily-string event parser))
+			(ly:music-property rest 'articulations))))
 
 (define-display-method RepeatedChord (chord parser)
   (music->lily-string (ly:music-property chord 'element) parser))

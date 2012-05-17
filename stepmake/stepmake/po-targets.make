@@ -1,5 +1,14 @@
+XGETTEXT_OPTIONS = \
+	--default-domain=$(package) \
+	--from-code=UTF-8 \
+	--join \
+	--add-comments \
+	--msgid-bugs-address="http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs" \
+	--package-name=$(package) \
+	--package-version=$(VERSION)
 
-
+sed-header = \# Translation of LilyPond\n\# Copyright \(C\) 1998--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen.\n\# This file is distributed under the same license as the LilyPond package.
+sed-content = "Content-Type: text\/plain; charset=UTF-8\\n"
 
 ####
 #### UGH!
@@ -21,12 +30,14 @@ ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MO
 local-po:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
-	xgettext --default-domain=$(package) --join \
-	 --output-dir=$(po-dir)/$(outdir) --add-comments \
+	xgettext $(XGETTEXT_OPTIONS) --output-dir=$(po-dir)/$(outdir) \
 	 --keyword=_ --keyword=_f --keyword=_i \
 	 $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
 endif
 endif
+	sed -i '1,2d' $(po-dir)/$(outdir)/$(package).po
+	sed -i -e 's/^\# This file is distributed.*/$(sed-header)/' $(po-dir)/$(outdir)/$(package).po
+	sed -i -e 's/^\"Content-Type: text\/plain.*/$(sed-content)/' $(po-dir)/$(outdir)/$(package).po
 
 
 po-update: po

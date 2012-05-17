@@ -48,7 +48,17 @@ public:
   static int line_count (Grob *);
   static Real get_position (Grob *);
   static Real pure_get_position (Grob *);
+
+  /**
+     Interval of staff lines.
+  */
+  static Interval staff_span (Grob *);
+
+  /**
+     Half of the height, in staff space, i.e. 2.0 for a normal staff.
+  */
   static Real staff_radius (Grob *);
+
   static int get_rounded_position (Grob *);
   static int pure_get_rounded_position (Grob *);
   static Interval extent_in_staff (Grob *);

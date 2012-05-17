@@ -228,7 +228,7 @@ duration stored in @code{duration}.")
 
     (FootnoteEvent
      . ((description . "Footnote a grob.")
-	(types . (general-music event footnote-event))
+	(types . (general-music event post-event footnote-event))
 	))
 
     (GlissandoEvent
@@ -545,7 +545,7 @@ print anything, and also does not create staves or voices implicitly.
 Syntax: @code{\\skip} @var{duration}")
 	(length-callback . ,ly:music-duration-length)
 	(iterator-ctor . ,ly:simple-music-iterator::constructor)
-	(types . (general-music event rhythmic-event skip-event))
+	(types . (general-music event skip-event))
 	))
 
     (SlurEvent

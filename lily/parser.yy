@@ -786,6 +786,9 @@ identifier_init:
 	| number_expression {
  		$$ = $1;
 	}
+	| FRACTION {
+		$$ = $1;
+	}
 	| string {
 		$$ = $1;
 	}
@@ -2060,12 +2063,14 @@ simple_string: STRING {
 scalar:
 	embedded_scm_arg
 	| bare_number
+	| FRACTION
 	| lyric_element
 	;
 
 scalar_closed:
 	embedded_scm_arg_closed
 	| bare_number
+	| FRACTION
 	| lyric_element
 	;
 

@@ -497,21 +497,24 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
         size.
 
        */
+      Interval staff_span =
+        Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
+      staff_span.widen (-1);
+      bool const within_staff = staff_span.contains(pos);
       if (head_positions_slice (columns[LEFT]).contains (pos)
           || head_positions_slice (columns[RIGHT]).contains (pos)
-          || abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+          || within_staff)
         {
           if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
             {
-              if (!Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos)
-                  && abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
-                {
-                  conf->center_tie_vertically (details_);
-                }
-              else if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
+              if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
                 {
                   conf->delta_y_ += dir *
                                     details_.tip_staff_line_clearance_ * 0.5 * details_.staff_space_;
+                }
+              else if (within_staff)
+                {
+                  conf->center_tie_vertically (details_);
                 }
             }
           else
@@ -718,9 +721,11 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
   Real top_y = tip_y + conf->dir_ * height;
   Real top_pos = 2 * top_y / details_.staff_space_;
   Real round_top_pos = rint (top_pos);
+  Interval staff_span =
+    Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
   if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_,
                                         int (round_top_pos))
-      && Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_) > top_y)
+      && staff_span[UP] * 0.5 > top_y)
     {
       conf->add_score (details_.staff_line_collision_penalty_
                        * peak_around (0.1 * details_.center_staff_line_clearance_,
@@ -730,10 +735,11 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
     }
 
   int rounded_tip_pos = int (rint (tip_pos));
+  staff_span.widen (-1);
   if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, rounded_tip_pos)
       && (head_positions_slice (conf->column_ranks_[LEFT]).contains (rounded_tip_pos)
           || head_positions_slice (conf->column_ranks_[RIGHT]).contains (rounded_tip_pos)
-          || abs (rounded_tip_pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+          || staff_span.contains (rounded_tip_pos))
      )
     {
       conf->add_score (details_.staff_line_collision_penalty_

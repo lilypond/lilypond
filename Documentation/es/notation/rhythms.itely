@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6cc24e4a3246f1daaf79db3bec97a4a4541b5149
+    Translation of GIT committish: 0757febe2084fd8507334987b6f6b524888247c7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -328,7 +328,10 @@ un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si @code{M} es
 silencios que se producen, pero la duración alterada se usará para
 calcular la posición dentro del compás y para establecer la duración
 en la salida MIDI.  Los factores de multiplicación se pueden combinar
-en la forma @code{*L*M/N}.
+en la forma @code{*L*M/N}.  Los factores son parte de la duración: si
+no especificamos una duración para las notas siguientes, la duración
+por omisión que se toma de la nota anterior incluye cualquier factor
+de escala que se haya aplicado.
 
 En el siguiente ejemplo las tres primeras notas duran exactamente dos
 partes, pero no se imprime ningún corchete de tresillo.
@@ -336,16 +339,16 @@ partes, pero no se imprime ningún corchete de tresillo.
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
 % Alter durations to triplets
-a4*2/3 gis4*2/3 a4*2/3
+a4*2/3 gis a
 % Normal durations
-a4 a4
+a4 a
 % Double the duration of chord
 <a d>4*2
 % Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
-La duración de las notas espaciadoras también se puede modificar
+La duración de los silencios espaciadores también se puede modificar
 mediante un multiplicador.  Esto es útil para saltar muchos compases,
 como por ejemplo @code{s1*23}.
 
@@ -359,8 +362,8 @@ De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
 fracción como multiplicador.  Esto dejará intacta la apariencia de la
 @emph{música}, pero la duración interna de las notas se multiplicará
-por la fracción @emph{numerador}/@emph{denominador}.  Los espacios que
-rodean el punto son necesarios.  He aquí un ejemplo que muestra cómo
+por la fracción @emph{numerador}/@emph{denominador}.
+He aquí un ejemplo que muestra cómo
 se puede comprimir y expandir la música:
 
 @lilypond[quote,relative=2,verbatim]
@@ -368,11 +371,11 @@ se puede comprimir y expandir la música:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\scaleDurations #'(2 . 3) {
+\scaleDurations 2/3 {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\scaleDurations #'(2 . 1) {
+\scaleDurations 2/1 {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -1090,8 +1093,8 @@ existentes se pueden cambiar, o pueden añadirse valores nuevos:
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        #'(4 . 4)  % timeSignatureFraction
-        #'(1 . 4)  % baseMomentFraction
+        4/4        % timeSignatureFraction
+        1/4        % baseMomentFraction
         #'(3 1)    % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1106,11 +1109,11 @@ existentes se pueden cambiar, o pueden añadirse valores nuevos:
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, una pareja de Scheme que describe
+@code{@var{timeSignatureFraction}}, una fracción que describe
 el tipo de compás.
 
 @item
-@code{@var{baseMomentFraction}}, una pareja de Scheme que contiene el
+@code{@var{baseMomentFraction}}, una fracción que contiene el
 numerador y denominador de la unidad de medida básica de ese tipo de
 compás.
 
@@ -1136,8 +1139,8 @@ antes de la llamada a @code{\overrideTimeSignatureSettings}:
   \relative c' {
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1145,8 +1148,8 @@ antes de la llamada a @code{\overrideTimeSignatureSettings}:
     \repeat unfold 7 { c8 } |
     % This call will succeed
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1168,13 +1171,13 @@ compás se pueden restaurar a los valores originales:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'(4 . 4)
+    \revertTimeSignatureSettings 4/4
     \time 4/4
     \repeat unfold 8 { c8 } |
   }
@@ -1192,8 +1195,8 @@ moviendo el @code{Timing_translator} y el
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(3 1)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1201,8 +1204,8 @@ moviendo el @code{Timing_translator} y el
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(1 3)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1630,14 +1633,14 @@ de barrado automático.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(9 . 8)
-    \scaleDurations #'(2 . 3)
+    \set Staff.timeSignatureFraction = 9/8
+    \scaleDurations 2/3
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(10 . 8)
-    \scaleDurations #'(3 . 5) {
+    \set Staff.timeSignatureFraction = 10/8
+    \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
       c4. c \times 2/3 { c8[ c c] } c4
@@ -2351,8 +2354,8 @@ automático para una indicación de compás se describe en
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      #'(3 . 4)         % timeSignatureFraction
-      #'(1 . 8)         % baseMomentFraction
+      3/4               % timeSignatureFraction
+      1/8               % baseMomentFraction
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
@@ -3410,7 +3413,7 @@ se convierte en:
 Otra opción es cambiar explícitamente la duración musical:
 
 @example
-\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Véase @ref{Escalar las duraciones}.

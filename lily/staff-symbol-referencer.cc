@@ -189,11 +189,23 @@ Staff_symbol_referencer::internal_set_position (Grob *me, Real p, bool pure)
   me->translate_axis ((p - oldpos) * ss * 0.5, Y_AXIS);
 }
 
-/* Half of the height, in staff space, i.e. 2.0 for a normal staff. */
+Interval
+Staff_symbol_referencer::staff_span (Grob *me)
+{
+  Interval result;
+  if (me)
+    if (Grob *symb = get_staff_symbol (me))
+      result = Staff_symbol::line_span (symb);
+  return result;
+}
+
 Real
 Staff_symbol_referencer::staff_radius (Grob *me)
 {
-  return (line_count (me) - 1) / 2.0;
+  /*
+    line_span is measured in pitch steps, not in staff spaces
+  */
+  return staff_span (me).length () / 4.0;
 }
 
 int
