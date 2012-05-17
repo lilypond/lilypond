@@ -54,12 +54,11 @@ footnotes.
   d4 e
   \once \override FootnoteItem #'numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 5))
-  < f  a-\footnote #'(1 . -1) \markup { n } \default c >
+  < f \footnote #'(1 . -1) \markup { n } a c >
   \once \override FootnoteSpanner #'numbering-assertion-function =
     #(simultaneous-footnote-numbering-assertion-function 6 7)
-  \footnote #'(1 . 1) #'Beam \markup { o } \default
-  \footnote #'(1 . 1) #'Hairpin \markup { p } \default
-  a8\< [ b c d ] a4 b c |
+  a8-\footnote #'(1 . 1) \markup { p } \<
+  -\footnote #'(1 . 1) \markup { o } [ b c d ] a4 b c |
   d a b c |
   d a b c |
   d a b c\f |

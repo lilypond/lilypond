@@ -11,7 +11,8 @@
     \repeat unfold 5 {
       \once \override FootnoteItem #'footnote = ##f
       \footnote
-                    "" #'(0 . 0) #'NoteHead \markup { \box \fill-line { "this is a test" } } \default
+         "" #'(0 . 0) #'NoteHead
+         \markup { \box \fill-line { "this is a test" } } \default
       \repeat unfold 5 { a\< b c d\! }
       \footnote #'(-1 . 1) #'NoteHead "foobar" \default
       \repeat unfold 5 { a\< b c d\! }

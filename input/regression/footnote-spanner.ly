@@ -13,11 +13,12 @@ annotation goes to the correct page."
 \book {
 
 \relative c'' {
-\footnote
+b4-\footnote
               \markup { \tiny "1." }
               #'(0.5 . 0.5) #'Hairpin
-              \markup { 1. \justify { Goes to the first broken spanner. } } \default
-b4\< c d a
+              \markup { 1. \justify { Goes to the first broken spanner. } }
+   \<
+c d a
 b c d a
 b c d a
 b c d a
@@ -37,11 +38,12 @@ b c d a
 b c d a\!
 
 \once \override FootnoteSpanner #'spanner-placement = #RIGHT
-\footnote
+b4-\footnote
               \markup { \tiny "2." }
               #'(0.5 . 0.5) #'Hairpin
-              \markup { 2. \justify { Goes to the last broken spanner. } } \default
-b4\< c d a
+              \markup { 2. \justify { Goes to the last broken spanner. } }
+   \<
+c d a
 b c d a
 b c d a
 b c d a

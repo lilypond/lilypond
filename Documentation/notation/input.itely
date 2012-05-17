@@ -1030,50 +1030,89 @@ footnotes and manual footnotes.
 @node Footnotes overview
 @unnumberedsubsubsec Footnotes overview
 
-Automatic footnotes create incrementing, numerical indicators and
-manual footnotes allow a custom indicator to be created instead.  All
-grobs, top-level @code{\markup} and chorded notes can be annotated.
+Automatic footnotes create incrementing numerical indicators and manual
+footnotes allow a custom indicator to be created instead.  Footnotes are
+normally applied like @code{\tweak} and consequently can be placed
+directly on grobs (graphical objects) created by most music elements and
+post-events.  In cases where this does not work (like with bar lines and
+meter changes, where the grobs are produced as a consequence of property
+changes), footnotes can also be specified as a standalone music event
+affecting all grobs of a given type at a particular time step.
 
-The order in which each grob is drawn determines the order in which each
-indicator and so footnotes are created during compilation.
+The full form of a footnote command is
 
+@example
+\footnote @var{mark} @var{offset} @var{grob-name} @var{footnote}
+@var{music}
+@end example
+
+The elements are as follows:
+
+@table @var
+@item mark
+is a markup or string specifying the footnote mark which is used for
+both marking the reference point as well as the footnote itself at the
+bottom of the page.  It can be omitted (or equivalently replaced with
+@code{\default}) in which case a number in sequence will be generated.
+@item offset
+is a number pair such as @samp{#(2 . 1)} specifying the X and Y offset
+from the reference point where the mark will be placed.
+@item grob-name
+specifies a type of grob to mark (like @samp{#'Flag}).  If it is given,
+the respective grob will be used as a reference point even in case that
+its @q{cause} is not the referenced @var{music} itself but a grob
+created from it.  It can be omitted (or replaced with @code{\default}),
+and then only a directly created grob will be annotated.
+@item footnote
+This markup or string specifies the footnote text to use at the bottom
+of the page.
+@item music
+This is the item, a music event or chord constituent or post-event, that
+is being annotated.  While it cannot be omitted, it @emph{can} be
+replaced by @code{\default} in which case the footnote is not attached
+to a music expression in particular, but rather to a moment of time.  It
+is mandatory in this case to use the @var{grob-name} argument for
+selecting an affected grob type, like @samp{#'TimeSignature}.
+@end table
+
+Like with @code{\tweak}, if your @code{\footnote} is applied to a
+post-event or articulation, it will itself have to be preceded with
+@code{-} to make the parser attach the result to the preceding note or
+rest.
 
 @node Automatic footnotes
 @unnumberedsubsubsec Automatic footnotes
 
-Automatic footnotes take three arguments; the @var{Layout Object} to be
-annotated, the @samp{(x . y)} position of the indicator and a
-@code{\markup} that will appear in the footnote at the bottom of the
-page.
-
-The command @code{\footnote} must come @emph{before} the grob that the
-footnote is being attached to:
+Automatic footnotes take four arguments: the @samp{(x . y)} position of
+the indicator, the optional @var{grob-name} specifying the layout object
+to be annotated, the @var{footnote} markup itself that will appear at
+the bottom of the page, and of course the @var{music} to attach the
+footnote to.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2) #'NoteHead
-      \markup { The first note } \default
+    \footnote #'(0.5 . -2)
+      \markup { The first note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'NoteHead
-      \markup { The third note } \default
-    e c4 d4
+    \footnote #'(0.5 . 1) #'Flag
+      \markup { The third note }
+    e\noBeam c4 d4
   }
 }
 @end lilypond
 
-To annotate chorded notes, the @code{\footnote} must come @emph{after}
-the note to which the footnote is being attached as a @code{TextScript}:
+Chorded notes pose no particular difficulty:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "Here is a C" \default
-    es-\footnote #'(2 . -0.25) \markup { \italic "An E-flat" } \default
-    g-\footnote #'(2 . 3) \markup { \bold "This is a G" } \default
+    \footnote #'(1 . -1.25) "Here is a C" c
+    \footnote #'(2 . -0.25) \markup { \italic "An E-flat" } es
+    \footnote #'(2 . 3) \markup { \bold "This is a G" } g
     >1
   }
 }
@@ -1090,27 +1129,17 @@ relative position of the footnotes to the tagline and copyright.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \footnote #'(-3 . 0) #'DynamicText
-      \markup { \bold Forte } \default
-
-    \footnote #'(0 . 1.5) #'Slur
-      \markup { A slur } \default
-    a'4\f(
-
-    \footnote #'(0 . -2) #'Beam
-      \markup { Beam } \default
-    b8)[ e]
-
+    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
+    -\footnote #'(0 . 1.5) \markup { A slur } (
+    b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
     \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } } \default
+      \markup  { \teeny { This is a stem } }
     c4
-
     \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental } \default
-
-    \footnote #'(0.5 . -0.5) #'TextScript
-      \markup \italic { Slow Down } \default
-    dis?4_"rit."
+      \markup \italic { A cautionary accidental }
+    \footnote #'(1 . 1) "The note itself"
+    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
+         _"rit."
   }
 }
 @end lilypond
@@ -1134,26 +1163,31 @@ required:
 
 @cindex footnotes, manual
 
-Manual footnotes takes four arguments; the @var{Layout Object} to be
-annotated, the @samp{(x . y)} position of the indicator and two
-@code{\markup} commands; the first is the indicator attached to the note
-or grob and the second is the footnote at the bottom of the page.
+Manually marked footnotes take an additional first markup argument
+@var{mark} for making the reference mark.  In contrast to automatically
+generated footnote marks, they will not appear before the @var{footnote}
+markup at the bottom of the page: establishing the visual connection is
+left to the user.  LilyPond will only make sure that the corresponding
+markup appears on the bottom of the same page.
 
-Like automatic footnotes, manual @code{\footnote} commands must come
-@emph{before} the grob that the footnote is annotating and attached as a
-@code{TextScript}:
+Other than that, the use is identical to that of automatically numbered
+footnotes.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" } \default
+    \footnote
+          "1" #'(0.5 . -2)
+          \markup { \italic "1. The first note" }
+    a'4
     b8
-    e-\footnote
-          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note" \default
+    \footnote
+          \markup { \bold "2" } #'(0.5 . 1)
+          "2. The second note"
+    e
     c4
-    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano" \default
+    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
   }
 }
 @end lilypond
@@ -1165,10 +1199,10 @@ To annotate chorded notes with manual footnotes:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote "1" #'(1 . -1.25) "1. C" \default
-    es-\footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" \default
-    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" } \default
+    \footnote "1" #'(1 . -1.25) "1. C" c
+    \footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
+    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
     >1
   }
 }
@@ -1185,40 +1219,31 @@ the relative position of the footnotes to the tagline and copyright
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote
-      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
-      \markup { 1. \bold Forte } \default
-
-    \footnote
-      \markup { \teeny b } #'(0 . 1.5) #'Slur
-      \markup { b. A slur } \default
-    a'4\f(
-
-    \footnote
-      \markup { \teeny 3 } #'(0 . -2) #'Beam
-      \markup { 3. Beam } \default
-    b8)[ e]
-
+    a'4-\footnote
+      \markup { \teeny 1 } #'(-3 . 0)
+      \markup { 1. \bold Forte } \f
+    -\footnote
+      \markup { \teeny b } #'(0 . 1.5)
+      \markup { b. A slur } (
+    b8)-\footnote
+      \markup { \teeny 3 } #'(0 . -2)
+      \markup { 3. Beam } [
+    e]
     \footnote
       \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } } \default
+      \markup  { \bold 4. { This is a stem } }
     c4
-
     \footnote
       \markup \concat \teeny { "sharp (v)" }
           #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental } \default
-
-    \footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
-      \markup \italic { a. Slow Down } \default
-    dis?4_"rit."
-
-    \breathe
+      \markup \italic { v. A cautionary accidental }
+    dis?4-\footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
+      \markup \italic { a. Slow Down } _"rit."
     \footnote
       \markup { \teeny \musicglyph #"rests.4" }
-          #'(1.5 . -0.25) #'BreathingSign
-      \markup { \null } \default
+          #'(1.5 . -0.25)
+      \markup { \null } \breathe
   }
 }
 @end lilypond

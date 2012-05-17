@@ -15,7 +15,7 @@
 \markup { h i }
 
 \relative c' {
-\footnote \markup { \tiny 4 } #'(1 . -1) #'NoteHead \markup { 4. j } \default
+\footnote \markup { \tiny 4 } #'(1 . -1) \markup { 4. j }
 a b c d }
 
 \pageBreak
@@ -26,8 +26,8 @@ a b c d }
 
 \relative c' {
   d4 e
-  < f  a-\footnote \markup { \tiny 6 } #'(1 . -1) \markup { 6. n } \default c >
-  \footnote \markup { \tiny 7 } #'(1 . 1) #'Beam \markup { 7. o } \default
-  \footnote \markup { \tiny 8 } #'(1 . 1) #'Hairpin \markup { 8. p } \default
-  a8\< [ b c d\f ] r2. |
+  < f \footnote \markup { \tiny 6 } #'(1 . -1) \markup { 6. n } a c >
+  a8-\footnote \markup { \tiny 8 } #'(1 . 1) \markup { 8. p } \<
+  -\footnote \markup { \tiny 7 } #'(1 . 1) \markup { 7. o }
+  [ b c d\f ] r2. |
 }}

@@ -35,10 +35,9 @@ a b c d }
 
 \relative c' {
   d4 e
-  < f  a-\footnote #'(1 . -1) \markup { n } \default c >
-  \footnote #'(1 . 1) #'Beam \markup { o } \default
-  \footnote #'(1 . 1) #'Hairpin \markup { p } \default
-  a8\< [ b c d ] a4 b c |
+  < f  \footnote #'(1 . -1) \markup { n } a c >
+  a8-\footnote #'(1 . 1) \markup { p } \<
+  -\footnote #'(1 . 1) \markup { o } [ b c d ] a4 b c |
   d a b c |
   d a b c |
   d a b c\f |
