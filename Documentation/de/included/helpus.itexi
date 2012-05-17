@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish:  32b9cd030a1917570346e9b9ea267fe409156b2f
+    Translation of GIT committish:  233fb6a8b3b6e31de1841641dbbd4c4f43423151
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,10 +27,10 @@ Aufgaben widmen anstatt diese einfachen Probleme zu lösen.
 @end macro
 
 
-@macro helpusTasks
+@macro helpusSimple
 @subheading Einfache Aufgaben
 
-Keine Kompilation des Quellcodes nötig!
+@strong{Keine Kentnisse im Programmieren} benötigt!
 
 @itemize
 @item
@@ -41,6 +41,11 @@ anderen Benutzern.
 Fehlerberichte: helfen Sie anderen Benutzern, richtige
 @ref{Fehlerberichte} zu erstellen und/oder schließen Sie sich dem
 Fehlerteam an, um die @rcontribnamed{Issues,Probleme} zu verwalten.
+
+@item
+@rcontrib{Grand Regression Test Checking}: Verfizieren Sie, dass LilyPond
+richtig arbeitet, indem Sie die Ausgabe der Testschnipsel überprüfen.  Ein
+Schnipsel zu überprüfen dauert weniger als eine Minute!
 
 @item
 Dokumentation: kleine Änderungen (immer zuerst auf Englisch)
@@ -61,7 +66,10 @@ diesen Diskussionen teil!
 
 @end itemize
 
+@end macro
 
+
+@makro helpusAdvanced
 @subheading Fortgeschrittene Aufgaben
 
 Diese Aufgaben setzen voraus, dass Sie die Quellen
@@ -109,6 +117,7 @@ anzuschließen. Siehe auch
 @end macro
 
 
+@ignore
 @macro helpusProjects
 @subheading Projekte
 
@@ -167,5 +176,7 @@ Basis zu geben, sodass große Änderungen in der Zukunft einfacher
 bewerkstelligt werden können.
 
 @end macro
+
+@end ignore
 
 

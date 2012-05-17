@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 233fb6a8b3b6e31de1841641dbbd4c4f43423151
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -148,6 +148,44 @@ Lesen Sie mehr in der @ref{Einleitung}!
 @ifclear web_version
   @c do nothing
 @end ifclear
+@ifset web_version
+  @c make the box:
+@divId{wildCardBox}
+@subheading Neuigkeiten
+@divId{wildCardText}
+
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
 @ifset web_version
   @c make the box:
 @divId{latestVersion}

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish:  233fb6a8b3b6e31de1841641dbbd4c4f43423151
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -534,12 +534,39 @@ Welt eingesetzt.  Einige Highlights:
 @itemize
 
 @item
-@emph{Affaire étrangère}, eine Oper von
-@uref{http://valentin.villenave.net/,Valentin Villenave} mit
-einem französischen Libretto von
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}, wurde am 1. Februar 2009 in der
-@uref{http://www.orchestre-montpellier.com/, L'Opéra de Montpellier}
-uraufgeführt.
+Mussorgskijs @emph{Bilder einer Ausstellung}, neu orchestriert und
+dirigiert von @uref{http://www.aurelienbello.com/,Aurélien Bello}
+mit der @uref{http://www.junge-philharmonie-brandenburg.de/,Jungen Philharmonie Brandenburg}
+am 10. Oktober 2011 und als Wiederholung am 15.--16. April 2012.
+
+@item
+@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist und
+Dirigent.  Zu seinen vielen neueren Werken gehören: @emph{Go Thy Way},
+aufgeführt von den @uref{http://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} im März 2012, die
+@emph{Just Out of Reach Suite} aufgeführt vom
+@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Chrysalis Duo}, @emph{thrafsmata}aufgeführt im Juli 2011 vom
+@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
+New Music Ensemble}.
+
+
+@item
+@emph{Anonymous Student Compliment or Complaint}, von
+@uref{http://www.mikesolomon.org, Mike Solomon}, Gewinner des
+@uref{http://leftcoastensemble.org/contest, 2011 Left Coast Composition Contest},
+an dem 172 Kompositionen aus 22 Ländern teilgenommen haben.
+Andere Werke bspw.: Norman (age 1) für Soloklarinette, aufgeührt an auf dem
+Electroacoustic Music Festival (FEMF) der
+@uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida} im
+Oktober 2010.
+
+@item
+Eine moderne Edition der @emph{Serenata Erminia} von Alessandro Scarlatti,
+herausgegeben von Thomas Griffin, Musikwissenschaftler (Rom, Italien).  Aufgeführt
+am 22. Oktober 2010 in der Gallerie des Palazzo Zevallos Stigliano in Neapel.
+Siehe @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
+zur Feier des 350. Geburtstages des Komponisten.
 
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}s
@@ -554,10 +581,12 @@ Renz und seinem Ensemble @uref{http://www.earlymusicny.org/,
 Early Music New York} (Notensatz von Nicolas Sceaux).
 
 @item
-Mussorgskijs @emph{Bilder einer Ausstellung}, neu orchestriert und
-dirigiert von @uref{http://www.aurelienbello.com/,Aurélien Bello}
-mit der @uref{http://www.junge-philharmonie-brandenburg.de/,Jungen Philharmonie Brandenburg}
-am 10. Oktober 2011 und als Wiederholung am 15.--16. April 2012.
+@emph{Affaire étrangère}, eine Oper von
+@uref{http://valentin.villenave.net/,Valentin Villenave} mit
+einem französischen Libretto von
+@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim}, wurde am 1. Februar 2009 in der
+@uref{http://www.orchestre-montpellier.com/, L'Opéra de Montpellier}
+uraufgeführt.
 
 @end itemize
 @divEnd
