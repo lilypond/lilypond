@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+La propriété @code{spacing-increment} de @code{Score.GraceSpacing}
+permet d'ajuster l'espacement d'un groupe de notes d'ornement.
+
+"
+
+  doctitlefr = "Ajustement de l'espacement des notes d'ornement"

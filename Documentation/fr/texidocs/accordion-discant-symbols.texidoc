@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Les symboles spécifiques au clavier main droite d'un accordéon
+s'indiquent à l'aide de @code{\\markup}.  Le positionnement de tels
+symboles s'ajuste grâce à des arguments @code{\\raise}.
+
+"
+  doctitlefr = "Symboles de chant pour accordéon"

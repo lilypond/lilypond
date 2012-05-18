@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+La fonction @code{\\parenthesize}, qui permet de mettre un objet entre
+parenthèses, a ceci de particulier qu'elle est associée à un objet
+graphique @code{ParenthesesItem}.
+
+"
+  doctitlefr = "Mise entre parenthèses d'un signe d'interprétation ou d'une note d'un accord"
