@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: b20d9a44487a684b127ff0ba14398feda357e503
+    Translation of GIT committish: a2b43b4313b687bd94c281d40212ddced9b5c3cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1133,9 +1133,8 @@ visonneuse de PDF intégrée avec un excellent pointer-cliquer.
 
 Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
 PDF intégrée, un assistant de création de partition et beaucoup de
-fonctionnalités d'édition.  Il repose sur les bibliothèques KDE@tie{}4
-et fonctionne actuellement sur toutes les variantes d'Unix dont
-GNU/Linux.
+fonctionnalités d'édition.  Il fonctionne actuellement sur la plupart
+des systèmes d'exploitation (Linux, MacOS@tie{}X et Windows).
 
 @divEnd
 
