@@ -69,7 +69,7 @@ diesen Diskussionen teil!
 @end macro
 
 
-@makro helpusAdvanced
+@macro helpusAdvanced
 @subheading Fortgeschrittene Aufgaben
 
 Diese Aufgaben setzen voraus, dass Sie die Quellen
