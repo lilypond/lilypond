@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+    Translation of GIT committish: c3cd1737b2a12a4f51b4090caf12429cb34290d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2033,15 +2033,15 @@ text = \lyricmode {
 \markup {
   \fill-line {
     \hspace #0.1 % décalage par rapport à la marge de gauche
-        % peut être supprimé si l'espace sur la page est réduit
-     \column {
+     % peut être supprimé si l'espace sur la page est réduit
+    \column {
       \line { \bold "2."
         \column {
           "Sous les feuilles d'un chêne"
           "Je me suis fait sécher..."
         }
       }
-      \hspace #0.1 % ajout d'espace vertical entre les couplets
+      \vspace #0.1 % ajout d'espace vertical entre les couplets
       \line { \bold "3."
         \column {
           "Chante, rossignol, chante,"
@@ -2050,16 +2050,14 @@ text = \lyricmode {
       }
     }
     \hspace #0.1  % ajout d'espace horizontal entre les colonnes
-        % si elles sont toujours trop proches, ajouter d'autres paires de " "
-        % jusqu'à ce que le résultat soit acceptable.
-     \column {
+    \column {
       \line { \bold "4."
         \column {
           "J'ai perdu mon ami"
           "Sans l'avoir mérité..."
         }
       }
-      \hspace #0.1 % ajout d'espace vertical entre les couplets
+      \vspace #0.1 % ajout d'espace vertical entre les couplets
       \line { \bold "5."
         \column {
           "Je voudrais que la rose"
@@ -2067,8 +2065,8 @@ text = \lyricmode {
         }
       }
     }
-  \hspace #0.1 % décalage par rapport à la marge de droite
-      % peut être supprimé si l'espace sur la page est réduit
+    \hspace #0.1 % décalage par rapport à la marge de droite
+     % peut être supprimé si l'espace sur la page est réduit
   }
 }
 @end lilypond

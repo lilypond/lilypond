@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: c3cd1737b2a12a4f51b4090caf12429cb34290d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.15.39"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -332,7 +332,10 @@ joignant une fraction @var{N/D}, donnant @qq{@code{*}@var{N/D}} -- ou
 @qq{@code{*}@var{N}} si @var{D=1}.  Ceci ne modifiera en rien
 l'apparence des notes ou silences produits, mais affectera le
 positionnement de l'objet dans la mesure, ainsi que le rendu MIDI. Cette
-fraction peut elle-même être multipliée du style @code{*M*N/D}.
+fraction peut elle-même être multipliée, ce qui donne quelque chose du
+style @code{*M*N/D}.  Ce facteur d'échelonnement est partie intégrante
+de la durée@tie{}: en l'absence de durée explicite à la note suivante,
+cette durée modifiée est considérée comme valeur par défaut.
 
 Dans l'exemple suivant, les trois premières notes prennent exactement
 deux temps, mais aucun triolet n'est imprimé.
@@ -340,9 +343,9 @@ deux temps, mais aucun triolet n'est imprimé.
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
 % Alter durations to triplets
-a4*2/3 gis4*2/3 a4*2/3
+a4*2/3 gis a
 % Normal durations
-a4 a4
+a4 a
 % Double the duration of chord
 <a d>4*2
 % Duration of quarter, appears like sixteenth
@@ -365,8 +368,7 @@ moins longs à l'aide d'une simple fraction, comme si chaque note, accord
 ou silence était affecté de ce même quotient.  L'apparence de cette
 musique ne sera en rien modifiée@tie{}; seule la durée des notes est
 multipliée en interne par la fraction
-@emph{numérateur}/@emph{dénominateur}.  N'oubliez pas de préserver les
-espaces de part et d'autre du point.  Voici un exemple illustrant la
+@emph{numérateur}/@emph{dénominateur}.  Voici un exemple illustrant la
 manière de comprimer ou étirer de la musique@tie{}:
 
 @lilypond[quote,relative=2,verbatim]
@@ -374,11 +376,11 @@ manière de comprimer ou étirer de la musique@tie{}:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\scaleDurations #'(2 . 3) {
+\scaleDurations 2/3 {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\scaleDurations #'(2 . 1) {
+\scaleDurations 2/1 {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -1098,8 +1100,8 @@ pouvez les modifier de la manière suivante@tie{}:
 \score {
   \relative c' {
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1113,13 +1115,12 @@ pouvez les modifier de la manière suivante@tie{}:
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, un doublet Scheme indiquant la
+@code{@var{timeSignatureFraction}}, une fraction indiquant la
 métrique,
 
 @item
-@code{@var{baseMomentFraction}}, un doublet Scheme comprenant les
-numérateur et dénominateur de la fraction indiquant la base de la
-pulsation,
+@code{@var{baseMomentFraction}}, une fraction comprenant les numérateur
+et dénominateur de la fraction indiquant la base de la pulsation,
 
 @item
 @code{@var{beatStructure}}, une liste Scheme indiquant la structure de
@@ -1144,8 +1145,8 @@ musical.
   \relative c' {
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1153,8 +1154,8 @@ musical.
     \repeat unfold 7 { c8 } |
     % This call will succeed
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1176,13 +1177,13 @@ métrique@tie{}:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'(4 . 4)
+    \revertTimeSignatureSettings 4/4
     \time 4/4
     \repeat unfold 8 { c8 } |
   }
@@ -1199,8 +1200,8 @@ particuliers pour les différentes portées d'un regroupement@tie{}:
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(3 1)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1208,8 +1209,8 @@ particuliers pour les différentes portées d'un regroupement@tie{}:
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(1 3)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1445,7 +1446,14 @@ r8 e,8 | a4 c8 b[ c b] |
 
 @cindex barres de mesure, suppression
 @cindex numérotation des mesures, suppression
-@cindex cadence
+@cindex cadence et ligatures
+@cindex ligature et cadence
+@cindex cadence et altérations
+@cindex altérations et cadence
+@cindex cadence et barres de mesure
+@cindex barres de mesure et cadence
+@cindex cadence et numéros de mesure
+@cindex numéro de mesure et cadence
 @cindex musique non mesurée
 
 @funindex \cadenzaOn
@@ -1453,11 +1461,11 @@ r8 e,8 | a4 c8 b[ c b] |
 @funindex \cadenzaOff
 @funindex cadenzaOff
 
-Les barres de mesure et les numéros de mesure sont calculés
-automatiquement, ce qui n'est pas souhaitable dans le cas d'une musique
-non mesurée -- les cadences par exemple.  Les commandes
-@code{\cadenzaOn} et @code{\cadenzaOff} permettent de désactiver et de
-rétablir ce comportement automatique.
+En matière de musique mesurée, le positionnement des barres et la
+numérotation sont calculés automatiquement.  Ceci n'est pas souhaitable
+dans le cas d'une musique non mesurée -- les cadences par exemple -- et
+peut être désactivé à l'aide de la commande @code{\cadenzaOn}, puis
+réactivé par un @code{\cadenzaOff} à l'endroit approprié.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1468,8 +1476,7 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-La numérotation reprend dès la fin d'une cadence, comme si celle-ci
-n'avait pas existé@tie{}:
+La numérotation reprend dès la fin d'une cadence.
 
 @lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
@@ -1482,10 +1489,20 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex ligature et cadence
-@cindex ligature et musique non mesurée
-@cindex cadence et ligature
-@cindex musique non mesurée et ligature
+Une cadence représente un fragment détaché de la notion de mesure, en
+dépit des différentes commandes @code{\bar} qu'il pourra comporter.
+Ceci a pour conséquence que toute altération supplémentaire prarapport à
+l'armure devra être rappelée manuellement -- voir @ref{Altérations}.
+
+@lilypond[verbatim,relative=2,quote]
+c4 d e d
+\cadenzaOn
+cis4 d cis d
+\bar "|"
+cis4 d cis! d
+\cadenzaOff
+\bar "|"
+@end lilypond
 
 L'instruction @code{\cadenzaOn} désactive les ligatures
 automatiques@tie{}; elles seront réactivées après un @code{\cadenzaOff}.
@@ -1495,14 +1512,15 @@ tout au long de la cadence -- voir @ref{Barres de ligature manuelles}).
 @lilypond[verbatim,relative=2,quote]
 \repeat unfold 8 { c8 }
 \cadenzaOn
-\repeat unfold 5 { c8 }
+cis8 c c c c
 \bar"|"
+c8 c c
 \cadenzaOff
 \repeat unfold 8 { c8 }
 @end lilypond
 
-Notez bien que ces commandes prédéfinies affecteront toutes les portées
-de la partition, même si vous ne les placez que dans un simple contexte
+Ces commandes prédéfinies affecteront toutes les portées de la
+partition, même si vous ne les placez que dans un simple contexte
 @code{Voice}.  Pour éviter ce désagrément, transférez le
 @code{Timing_translator} du contexte @code{Score} au contexte
 @code{Staff}, comme indiqué au chapitre @ref{Notation polymétrique}.
@@ -1518,7 +1536,9 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Visibilité des objets},
-@ref{Notation polymétrique}.
+@ref{Notation polymétrique},
+@ref{Barres de ligature manuelles},
+@ref{Altérations}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -1533,16 +1553,14 @@ Morceaux choisis :
 @cindex sauts de page et musique non mesurée
 
 @knownissues
-LilyPond ne change de ligne ou de page qu'au niveau des barres de
-mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
-vous faudra insérer des barres de mesure invisibles,
+Sauts de ligne ou de page ne peuvent intervenir qu'au niveau d'une barre
+de mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
+vous faudra insérer des barres de mesure @qq{invisibles} pour indiquer
+où des sauts de ligne peuvent prendre place@tie{}:
 
 @example
 \bar ""
 @end example
-
-@noindent
-pour indiquer où des sauts de ligne peuvent prendre place.
 
 Au risque d'obtenir des messages d'erreur inhabituels, il est fortement
 recommandé de créer explicitement un contexte @code{Voice} lorsqu'un
@@ -1614,14 +1632,14 @@ ligature automatique.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(9 . 8)
-    \scaleDurations #'(2 . 3)
+    \set Staff.timeSignatureFraction = 9/8
+    \scaleDurations 2/3
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(10 . 8)
-    \scaleDurations #'(3 . 5) {
+    \set Staff.timeSignatureFraction = 10/8
+    \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
       c4. c \times 2/3 { c8[ c c] } c4
@@ -2350,8 +2368,8 @@ ligature automatiques sont abordées au chapitre @ref{Métrique}.
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      #'(3 . 4)         % timeSignatureFraction
-      #'(1 . 8)         % baseMomentFraction
+      3/4               % timeSignatureFraction
+      1/8               % baseMomentFraction
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
@@ -3373,7 +3391,7 @@ deviendrait :
 ou bien modifier explicitement l'échelle des durées :
 
 @example
-\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Voir @ref{Changement d'échelle des durées}.
