@@ -141,6 +141,17 @@ code operative.
 The following three items are consequences of this change.
 
 @item
+The repetitive chord entry aid @code{q} has been reimplemented.
+Repeated chords are now replaced right before interpreting a music
+expression.  In case the user wants to retain some events of the
+original chord, he can run the repeat chord replacement function
+@code{\chordRepeats} manually.
+
+@item
+String numbers and right hand fingerings on single notes now appear
+without having to be written inside of chord brackets.
+
+@item
 Music functions now work the same when used inside or outside of chords,
 including all the possibilities of argument parsing.  Music variables
 can be used inside of chords: a construct like
@@ -155,15 +166,15 @@ notes without needing to wrap them in a chord.  Using it on command
 events and lyrics is now possible, but not likely to give results yet.
 
 @item
-The repetitive chord entry aid @code{q} has been reimplemented.
-Repeated chords are now replaced right before interpreting a music
-expression.  In case the user wants to retain some events of the
-original chord, he can run the repeat chord replacement function
-@code{\chordRepeats} manually.
+@code{\tweak} now takes an optional layout object specification.  It can
+be used for tweaking layout objects that are only indirectly caused by
+the tweaked event, like accidentals, stems, and flags:
 
-@item
-String numbers and right hand fingerings on single notes now appear
-without having to be written inside of chord brackets.
+@lilypond[verbatim,quote,ragged-right,relative=2]
+<\tweak Accidental #'color #red   cis4
+ \tweak Accidental #'color #green es
+                                  g>
+@end lilypond
 
 @item
 Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})

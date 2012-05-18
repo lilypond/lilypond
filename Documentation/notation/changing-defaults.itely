@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.15.39"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1801,11 +1801,12 @@ accomplished with the @code{\tweak} command, which has the following
 syntax:
 
 @example
-\tweak #'@code{grob-property} #@code{value}
+\tweak @var{layout-object} #'@var{grob-property} @var{value}
 @end example
 
-The @code{\tweak} command applies to the object that immediately
-follows @code{value} in the music stream.
+Specifying @var{layout-object} is optional.
+The @code{\tweak} command applies to the music object that immediately
+follows @var{value} in the music stream.
 
 @ignore
 In some cases, it is possible to take a short-cut for tuning
@@ -1905,23 +1906,33 @@ c-\tweak #'thickness #5 ( d e f)
 For the @code{\tweak} command to work, it must
 remain immediately adjacent to the object to which it is
 to apply after the input file has been converted to a music stream.
-At times, LilyPond may insert additional items into the music stream
-during the parsing process.  For example, when a note that is not
-explicitly part of a chord will be placed in a chord by LilyPond,
-so notes to be modified with @code{\tweak} must be placed inside
-a chord construct:
+Tweaking a whole chord does not do anything since its music event
+only acts as a container, and all layout objects are created from events
+inside of the @code{EventChord}:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak #'color #red c4
-<\tweak #'color #red c>4
+\tweak #'color #red <c e>4
+<\tweak #'color #red c e>4
 @end lilypond
 
-The @code{\tweak} command cannot be used to modify any item
-that does not appear explicitly in the input file.  In particular
-it cannot be used to modify stems,
-beams or accidentals directly, since these are generated later by
-note heads, rather than by music elements in the input stream.
-Nor can @code{\tweak} be used to modify clefs or time
+The simple @code{\tweak} command cannot be used to modify any object
+that is not directly created from the input.  In particular
+it will not affect stems, automatic
+beams or accidentals, since these are generated later by
+\@code{NoteHead} layout objects rather than by music elements in the
+input stream.
+
+Such indirectly created layout objects can be tweaked using the explicit
+form of the @code{\tweak} command:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak Stem #'color #red
+\tweak Beam #'color #green c8 e
+<c e \tweak Accidental #'font-size #-3 ges>4
+@end lilypond
+
+@code{\tweak} cannot be used to modify clefs or time
 signatures, since these become separated from any preceding
 @code{\tweak} command in the input stream by the automatic
 insertion of extra elements required to specify the context.
@@ -1954,12 +1965,6 @@ Extending LilyPond:
 @rextend{Displaying music expressions}.
 
 @knownissues
-@cindex tweaks in a variable
-
-The @code{\tweak} command cannot be used inside a variable.
-
-@cindex tweaks in lyrics
-The @code{\tweak} commands cannot be used in @code{\lyricmode}.
 
 @cindex tweaking control points
 @cindex control points, tweaking
@@ -3914,19 +3919,16 @@ padText =
 In addition to numbers, we can use music expressions such
 as notes for arguments to music functions:
 
-@c TODO: use a better example (the music argument is redundant).
-
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
      (parser location note)
      (ly:music?)
    #{
-     \once \override Voice.NoteHead #'stencil =
-       #ly:text-interface::print
-     \once \override Voice.NoteHead #'text =
-       \markup \musicglyph #"custodes.mensural.u0"
-     \once \override Voice.Stem #'stencil = ##f
+     \tweak NoteHead #'stencil #ly:text-interface::print
+     \tweak NoteHead #'text
+        \markup \musicglyph #"custodes.mensural.u0"
+     \tweak Stem #'stencil ##f
      $note
    #})
 
@@ -3939,7 +3941,7 @@ Substitution functions with multiple arguments can be defined:
 tempoPadded =
 #(define-music-function
      (parser location padding tempotext)
-     (number? string?)
+     (number? markup?)
    #{
      \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold #tempotext }
@@ -3948,7 +3950,7 @@ tempoPadded =
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond

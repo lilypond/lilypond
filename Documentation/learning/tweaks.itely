@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.15.39"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -348,12 +348,10 @@ apply the override to all layout objects of the type specified
 which occur at the same musical moment as the @code{\override}
 command itself.
 
-The @code{\tweak} command operates in a different way.  It acts
-on the immediately following item in the input stream.  However,
-it is effective only on objects which are created directly from
-the input stream, essentially note heads and articulations;
-objects such as stems and accidentals are created later and
-cannot be tweaked in this way.
+The @code{\tweak} command operates in a different way.  It acts on
+the immediately following item in the input stream.  In its simplest
+form, it is effective only on objects which are created directly
+from the following item, essentially note heads and articulations.
 
 So to return to our example, the size of the middle note of
 a chord would be changed in this way:
@@ -366,13 +364,12 @@ a chord would be changed in this way:
 <c \tweak #'font-size #-3 e g>4
 @end lilypond
 
-Note that the syntax of @code{\tweak} is different from that
-of the @code{\override} command.  Neither the context nor the
-layout object should be specified; in fact, it would generate
-an error to do so.  These are both implied by the following
-item in the input stream.  Note also that an equals sign should
-not be present.  So the general syntax of the
-@code{\tweak} command is simply
+Note that the syntax of @code{\tweak} is different from that of the
+@code{\override} command.  The context should not be specified; in
+fact, it would generate an error to do so.  Both context and layout
+object are implied by the following item in the input stream.  Note
+also that an equals sign should not be present.  So the simple form
+of the @code{\tweak} command is
 
 @example
 \tweak #'@var{layout-property} #@var{value}
@@ -395,6 +392,26 @@ Note that the @code{\tweak} command must be preceded by an articulation
 mark since the tweaked expression needs to be applied as an articulation
 itself.  In case of multiple direction overrides (@code{^} or @code{_}),
 the leftmost override wins since it is applied last.
+
+@cindex @code{\tweak}, Accidental
+@cindex @code{\tweak}, specific layout object
+
+Objects such as stems and accidentals are created later, and not
+directly from the following event.  It is still possible to use
+@code{\tweak} on such indirectly created objects by explicitly naming
+the layout object, provided that LilyPond can trace its origin back to
+the original event:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<\tweak Accidental #'color #red   cis4
+ \tweak Accidental #'color #green es
+                                  g>
+@end lilypond
+
+This long form of the @code{\tweak} command can be described as
+@example
+\tweak @var{layout-object} #'@var{layout-property} @var{value}
+@end example
 
 @cindex tuplets, nested
 @cindex triplets, nested
@@ -2956,8 +2973,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3391,8 +3408,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3474,8 +3491,8 @@ cross voices:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3490,9 +3507,9 @@ too much, we can lengthen the stem by setting the
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
-    \once \override Stem #'length = #8
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
+    \tweak Stem #'length #8
     b8~ b\noBeam
   }
 \\
