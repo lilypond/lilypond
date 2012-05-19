@@ -312,15 +312,15 @@ block, as discussed in @rlearning{Voices contain music}.
 @cindex scaling durations
 @cindex durations, scaling
 
-You can alter the duration of single notes, rests or chords by a
+The duration of single notes, rests or chords may be multiplied by a
 fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if @code{M}
 is 1) to the duration.  This will not affect the appearance of the
 notes or rests produced, but the altered duration will be used in
 calculating the position within the measure and setting the duration
 in the MIDI output.  Multiplying factors may be combined like
-@code{*L*M/N}.  Factors are part of the duration: if
-you don't specify a duration for subsequent notes, the default
-duration taken from the preceding note includes any scaling factor.
+@code{*L*M/N}.  Factors are part of the duration: if a duration is
+not specified for subsequent notes, the default duration taken from
+the preceding note will include any scaling factor.
 
 In the following example, the first three notes take up exactly
 two beats, but no triplet bracket is printed.
