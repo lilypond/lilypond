@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.15.39"
 
 @c Translators: Till Paala
 
@@ -342,7 +342,9 @@ dadurch nicht beeinflusst, die neue Dauer wird aber dazu
 benutzt, ihre Position im Takt zu errechnen und die neue
 Dauer in der MIDI-Ausgabe einzusetzen. Die Faktoren, mit
 denen multipliziert wird, können auch kombiniert werden, etwa
-@qq{*L*M*/N}.
+@qq{*L*M*/N}.  Die Faktoren sind Teil der Dauer: wenn man keine Dauer
+für die nächste Note angibt, wird die Dauer der vorigen Note mit allen
+Skalierungsfaktoren übernommen.
 
 Im nächsten Beispiel nehmen die drei ersten Noten genau zwei Schläge ein,
 aber es wird keine Triolenklammer über ihnen ausgegeben.
@@ -350,16 +352,16 @@ aber es wird keine Triolenklammer über ihnen ausgegeben.
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
 % Alter durations to triplets
-a4*2/3 gis4*2/3 a4*2/3
+a4*2/3 gis a
 % Normal durations
-a4 a4
+a4 a
 % Double the duration of chord
 <a d>4*2
 % Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
-Die Dauer von unsichtbaren Noten kann auch mit einem Faktor
+Die Dauer von unsichtbaren Pausen kann auch mit einem Faktor
 beeinflusst werden.  Das ist sinnvoll, wenn man viele Takte
 überspringen muss, etwa @code{s1*23}.
 
@@ -378,7 +380,6 @@ mit einem Bruch komprimiert werden, als ob jede Note, jeder
 Akkord oder jede Pause mit dem Bruch multipliziert würde.
 Damit bleibt das Aussehen der Musik unverändert, aber die
 interne Dauer der Noten wird mit dem Bruch multipliziert.
-Die Leerzeichen um den Punkt im Beispiel sind notwendig.
 Hier ein Beispiel, das zeigt, wie Noten komprimiert und
 ausgedehnt werden kann:
 
@@ -387,11 +388,11 @@ ausgedehnt werden kann:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\scaleDurations #'(2 . 3) {
+\scaleDurations 2/3 {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\scaleDurations #'(2 . 1) {
+\scaleDurations 1/2 {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -1125,8 +1126,8 @@ werden.
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        #'(4 . 4)  % timeSignatureFraction
-        #'(1 . 4)  % baseMomentFraction
+        4/4        % timeSignatureFraction
+        1/4        % baseMomentFraction
         #'(3 1)    % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1141,11 +1142,11 @@ werden.
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}} (Taktart-Bruch), ein Scheme-Paar,
-das den Takt beschreibt.
+@code{@var{timeSignatureFraction}} (Taktart-Bruch), ein Bruch,
+der den Takt beschreibt.
 
 @item
-@code{@var{baseMomentFraction}} (Grundmoment-Bruch), ein Scheme-Paar, das
+@code{@var{baseMomentFraction}} (Grundmoment-Bruch), ein Bruch, der
 den Zähler und Nenner der Grundschlageinheit der Taktart enhält.
 
 @item
@@ -1169,8 +1170,8 @@ Noten in dem Kontext befinen müssen, bevor
   \relative c' {
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1178,8 +1179,8 @@ Noten in dem Kontext befinen müssen, bevor
     \repeat unfold 7 { c8 } |
     % This call will succeed
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1188,10 +1189,6 @@ Noten in dem Kontext befinen müssen, bevor
   }
 }
 @end lilypond
-
-
-
-
 
 @cindex Taktart, Standardeigenschaften wiederherstellen
 @cindex Wiederherstellen von Taktart-Standardeigenschaften
@@ -1208,13 +1205,13 @@ Standard zurückgesetzt werden:
   \relative c' {
     \repeat unfold 8 { c8 } |
     \overrideTimeSignatureSettings
-      #'(4 . 4)  % timeSignatureFraction
-      #'(1 . 4)  % baseMomentFraction
+      4/4        % timeSignatureFraction
+      1/4        % baseMomentFraction
       #'(3 1)    % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
-    \revertTimeSignatureSettings #'(4 . 4)
+    \revertTimeSignatureSettings 4/4
     \time 4/4
     \repeat unfold 8 { c8 } |
   }
@@ -1231,8 +1228,8 @@ Notensysteme können eingerichtet werden, indem man den
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(3 1)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1240,8 +1237,8 @@ Notensysteme können eingerichtet werden, indem man den
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          #'(4 . 4)  % timeSignatureFraction
-          #'(1 . 4)  % baseMomentFraction
+          4/4        % timeSignatureFraction
+          1/4        % baseMomentFraction
           #'(1 3)    % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1366,7 +1363,6 @@ d4 g e c
 
 Zu Einzelheiten siehe @ref{Text formatieren}.
 
-
 @seealso
 Glossar:
 @rglos{metronome},
@@ -1383,8 +1379,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{MetronomeMark}.
-
-
 
 
 @node Auftakte
@@ -1492,8 +1486,11 @@ r8 e,8 | a4 c8 b[ c b] |
 @translationof Unmetered music
 
 @cindex Kadenz
-@cindex Taktlinien, ausschalten
-@cindex Taktnummern, ausschalten
+@cindex Bebalkung in Kadenzen
+@cindex Bebalken in taktloser Musik
+@cindex Kadenzen, Bebalkung
+@cindex Balken in Kadenzen
+@cindex Taktlose Musik, Bebalkung
 @cindex Noten ohne Takt
 @cindex Taktart, Noten ohne
 @cindex Metrum, Noten ohne
@@ -1503,11 +1500,11 @@ r8 e,8 | a4 c8 b[ c b] |
 @funindex cadenzaOn
 @funindex cadenzaOff
 
-Taktlinien und Taktzahlen werden automatisch erzeugt. Für Musik
-ohne Metrum hingegen (etwa Kadenzen) ist das jedoch nicht
-erwünscht. Mit den Befehlen @code{\cadenzaOn} und
-@code{\cadenzaOff} kann dieses Verhalten ausgeschaltet und
-wieder angeschaltet werden.
+In Musik mit Metrum werden Taktstriche automatisch eingefügt und Taktzahlen
+automatisch berechnet.  In Musik ohne Metrum hingegen (etwa Kadenzen) ist
+das nicht gewollt und kann @qq{ausgeschaltet} werden mit dem Befehl
+@code{\cadenzaOn}, um dann wieder zum normalen Verhalten mit
+@code{\cadenzaOff} zurückzukehren.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1518,8 +1515,7 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-Taktnummerierung wird am Ende der Kadenz wieder aufgenommen, als
-ob es die Kadenz nicht gegeben hätte:
+Taktnummerierung wird am Ende der Kadenz wieder aufgenommen:
 
 @lilypond[verbatim,relative=2,fragment]
 % Show all bar numbers
@@ -1532,24 +1528,33 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@cindex Bebalkung in Kadenzen
-@cindex Bebalken in taktloser Musik
-@cindex Kadenzen, Bebalkung
-@cindex Balken in Kadenzen
-@cindex Taktlose Musik, Bebalkung
+Ein neuer Takt wird nie innerhalb der Kadenz begonnen, auch wenn einer
+oder mehrere @code{\bar}-Befehle eingefügt ewrden.  Darum müssen auch
+Erinnerungsversetzungszeichen manuell eingefügt werden.  Siehe
+@ref{Versetzungszeichen}.
+
+@lilypond[verbatim,relative=2,quote]
+c4 d e d
+\cadenzaOn
+cis4 d cis d
+\bar "|"
+cis4 d cis! d
+\cadenzaOff
+\bar "|"
+@end lilypond
+
+Automatische Bebalkung wird durch @code{\cadenzeOn} ausgestellt.  Darum müssen
+alle Balken in Kadenzen manuell eingegeben werden (siehe @ref{Manuelle Balken}).
 
 @lilypond[verbatim,relative=2,quote]
 \repeat unfold 8 { c8 }
 \cadenzaOn
-\repeat unfold 5 { c8 }
+cis8 c c c c
 \bar"|"
+c8 c c
 \cadenzaOff
 \repeat unfold 8 { c8 }
 @end lilypond
-
-Automatische Bebalkung wird durch @code{\cadenzeOn} ausgestellt und durch
-@code{\cadenzaOff} wieder angestellt.  Darum müssen alle Balken in Kadenzen
-manuell eingegeben werden (siehe @ref{Manuelle Balken}).
 
 Diese vordefinierten Befehle wirken sich auf alle Systeme in der
 Partitur aus, auch wenn sie nur in einer einzigen Stimme notiert werden.
@@ -1568,27 +1573,34 @@ Glossar:
 
 Notationsreferenz:
 @ref{Sichtbarkeit von Objekten},
-@ref{Polymetrische Notation}
-@ref{Manuelle Balken}.
+@ref{Polymetrische Notation},
+@ref{Manuelle Balken},
+@ref{Versetzungszeichen}.
 
 Schnipsel:
 @rlsr{Rhythms}.
 
+@cindex Kadenz und Zeilenumbrüche
+@cindex Musik ohne Metrum, Zeilenumbrüche
+@cindex Zeilenumbrüche in Musik ohne Metrum
+@cindex Zeilenumbrüche in Kadenzen
+@cindex Seitenumbrüche in Musik ohne Metrum
+@cindex Seitenumbrüche in Kadenzen
+@cindex Kadenz und Seitenumbrüche
+@cindex Musik ohne Metrum, Seitenumbrüche
+
 @knownissues
 
-LilyPond fügt Zeilen- und Seitenumbrüche nur an einer Taktlinie
-ein. Wenn die Kadenz nicht vor einem Umbruch endet, müssen Sie
-selber unsichtbare Taktlinien mit
+Automatische Zeilen- und Seitenumbrüche werden nur an Taktstrichen
+vorgenommen, sodass @qq{unsichtbare} Taktstriche manuell eingefügt
+werden müssen, damit Umbrüche erlaubt werden:
 
 @example
 \bar ""
 @end example
 
-@noindent
-einfügen, um anzuzeigen, wo umgebrochen werden darf.
-
-Sie müssen explizit einen @code{Voice}-Kontext erstellen, wenn
-Sie ein Stück mit @code{cadenzaOn} beginnen wollen, weil sonst
+Man muss explizit einen @code{Voice}-Kontext erstellen, wenn
+man ein Stück mit @code{cadenzaOn} beginnen will, weil sonst
 ein seltsamer Fehler auftreten kann.
 
 @example
@@ -1654,14 +1666,14 @@ auswirkt.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(9 . 8)
-    \scaleDurations #'(2 . 3)
+    \set Staff.timeSignatureFraction = 9/8
+    \scaleDurations 2/3
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = #'(10 . 8)
-    \scaleDurations #'(3 . 5) {
+    \set Staff.timeSignatureFraction = 10/8
+    \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
       c4. c4. \times 2/3 { c8[ c c] } c4
@@ -2013,10 +2025,7 @@ können erstellt werden, siehe @ref{Einstellung von automatischen Balken}.
 @code{\autoBeamOn}.
 @endpredefined
 
-
-
 @funindex breakable
-
 @cindex Zeilenumbruch, Balken
 @cindex Balken, Zeilenumbrüche
 @cindex Balken mit Knie
@@ -2253,17 +2262,31 @@ Die @code{beamExceptions}-Regel kann die @code{beatStructure}-Einstellung
 \repeat unfold 8 {c8}
 @end lilypond
 
-Auf die gleiche Art werden im 3/4-Takt Achtelnoten als ganzer Takt bebalkt.
-Um Achtelnoten im 3/4-Takt auf jeder Taktzeit zu bebalken, muss
-@code{beamExceptions} zurückgesetzt werden:
+Im traditionellen Notensatz haben Achtelnoten besondere Bebalkungsregeln.
+Ein Takt, der nur aus Achteln besteht, kann als Ganzer bebalkt werden.  Diese
+Regel wird durch die Eigenschaft @code{beamWholeMeasure} bestimmt.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% by default we beam in (3) due to beamExceptions
-\repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
-\set Timing.beamExceptions = #'()
-\repeat unfold 6 {a8}
+% By default we beam in one
+\repeat unfold 6 { a8 }
+% We can avoid beaming in one
+\set Timing.beamWholeMeasure = ##f
+\repeat unfold 6 { a8 }
+@end lilypond
+
+In einigen Notenstichen der romantischen und klassischen Periode kann auch
+ein halber Takt Achtelnoten durchgehend bebalkt werden, auch wenn das die
+generelle Regel verletzt (siehe Gould, S. 153).  Dieses Verhalten wird durch
+die Eigenschaft @code{beamHalfMeasure} bestimmt:
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+% By default we avoid half-measure beams
+r4. a8 a a |
+% We can allow half-measure beams
+\set Timing.beamHalfMeasure = ##t
+r4. a8 a a |
 @end lilypond
 
 @i{@strong{Wie die automatische Bebalkung funktioniert}}
@@ -2303,11 +2326,8 @@ kürzesten Note der bebalkten Gruppe.
 Die Standardbebalkungsregeln finden sich in der Datei
 @file{scm/time-signature-settings.scm}.
 
-
 @snippets
-
 @cindex Balken, Unterteilung
-
 @funindex subdivideBeams
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2323,7 +2343,6 @@ Die Standardbebalkungsregeln finden sich in der Datei
 @cindex Taktschläge gruppieren
 @cindex Takt unterteilen
 @cindex Unterteilen von Takten
-
 @funindex autoBeamSettings
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2390,8 +2409,8 @@ der automatischen Bebalkungsregeln für eine Taktart sind in
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      #'(3 . 4)         % timeSignatureFraction
-      #'(1 . 8)         % baseMomentFraction
+      3/4               % timeSignatureFraction
+      1/8               % baseMomentFraction
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
@@ -3178,6 +3197,10 @@ mit dem Befehl @code{\musicglyph} ausgegeben werden können.
 sich in @ref{Text formatieren}.  Zu noch präzieserer Kontrolle
 siehe @code{break-alignable-interface} in @ref{Objekte ausrichten}.
 
+Die Datei @file{scm/translation-functions.scm} enthält die Definitionen
+von @code{format-mark-numbers} und @code{format-mark-letters}.  Sie
+können als Anregung für andere Formatierungsfunktionen genommen werden.
+
 @seealso
 Notationsreferenz:
 @ref{Die Feta-Schriftart},
@@ -3185,10 +3208,7 @@ Notationsreferenz:
 @ref{Objekte ausrichten}.
 
 Installierte Dateien:
-@file{scm/translation-functions.scm} beinhaltet die Definition
-von @code{format-mark-numbers} und
-@code{format-mark-letters}.  Sie können als Anleitung für eigene
-Funktionen benutzt werden.
+@file{scm/translation-functions.scm}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -3338,7 +3358,6 @@ Standard eingestellt:
 @cindex durchgestrichener Hals
 @cindex Notenhals, durchgestrichen
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -3353,8 +3372,6 @@ Standard eingestellt:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {positioning-grace-notes-with-floating-space.ly}
 
-
-
 @seealso
 Glossar:
 @rglos{grace notes},
@@ -3362,6 +3379,7 @@ Glossar:
 @rglos{appoggiatura}.
 
 Notationsreferenz:
+@ref{Tondauern skalieren},
 @ref{Manuelle Balken}.
 
 Installierte Dateien:
@@ -3376,9 +3394,7 @@ Referenz der Interna:
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
 
-
 @knownissues
-
 @cindex Vorschlag, mehrere Noten
 @cindex mehrnotiger Vorschlag
 @cindex Synchronisation von Verzierungen
@@ -3470,7 +3486,7 @@ wird zu:
 oder die Dauern explizit ändern:
 
 @example
-\acciaccatura @{ \scaleDurations #' (1 . 2) @{ c'8[ d' e' f' g'] @} @}
+\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Siehe @ref{Tondauern skalieren}.

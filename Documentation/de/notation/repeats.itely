@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -571,7 +571,7 @@ zusätzliche (ungewollte) Systeme.  Sie auch @rprogram{Ein zusätzliches System 
 Notationsreferenz:
 @ref{Akkord-Wiederholungen}.
 
-Benutzerhandbuch:
+Handbuch zur Benutzung:
 @rprogram{Ein zusätzliches System erscheint}.
 
 Schnipsel:

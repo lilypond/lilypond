@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -622,12 +622,11 @@ Notationsreferenz:
 @ref{Was geht in die MIDI-Ausgabe},
 @ref{MIDI-Lautstärke kontrollieren}.
 
-Schnipsel:
-@rlsr{Expressive marks}.
-
-Erweitert:
+Erweitern:
 @rextend{Beschriftungskonstruktionen in Scheme}.
 
+Schnipsel:
+@rlsr{Expressive marks}.
 
 
 @node Ausdrucksbezeichnungen als Bögen
@@ -1016,22 +1015,18 @@ Zahl zeigt die Intervallgröße an, über die sich das Glissando @emph{nach}
 der Note erstreckt.
 
 @lilypond[verbatim,quote,relative=2]
-c2-\bendAfter #+4
-c2-\bendAfter #-4
-c2-\bendAfter #+6.5
-c2-\bendAfter #-6.5
-c2-\bendAfter #+8
-c2-\bendAfter #-8
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
 @end lilypond
-
-Das Minuszeichen (@code{-}) direkt vor dem @code{\bendAfter}-Befehl
-ist @emph{notwendig} um unbestimmte Glissandos zu notieren.
 
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
-
 
 @seealso
 Glossar:
@@ -1083,7 +1078,6 @@ Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-
 @seealso
 Glossar:
 @rglos{glissando}.
@@ -1097,9 +1091,7 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{Glissando}.
 
-
 @knownissues
-
 Printing text over the line (such as @notation{gliss.}) is not
 supported.
 
@@ -1181,7 +1173,6 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 Überbindungsbögen benutzt werden.  Für mehr Information siehe
 @ref{Bindebögen}.
 
-
 @predefined
 @code{\arpeggio},
 @code{\arpeggioArrowUp},
@@ -1203,7 +1194,6 @@ Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-
 @seealso
 Glossar:
 @rglos{arpeggio}.
@@ -1220,9 +1210,7 @@ Referenz der Interna:
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 
-
 @knownissues
-
 @cindex Arpeggio über Systeme im Klammernstil
 @cindex Klammer-Arpeggio über Systeme
 @cindex Zwischensysteme-Klammer-Arpeggio
@@ -1266,7 +1254,6 @@ r2
 Ein Triller-Strekcer, der über einen Zeilenumbruch geht,
 beginnt genau über der ersten Note auf der neue Zeile erneut.
 
-
 @lilypond[ragged-right,verbatim,quote,relative=2]
 d1\startTrillSpan
 \break
@@ -1276,7 +1263,7 @@ r2
 @end lilypond
 
 Aufeinanderfolgende Trillerstrecker funktieren ohne einen
-+@code{\stopTrillSpan}-Befehl, weil ein folgender Strecker
+@code{\stopTrillSpan}-Befehl, weil ein folgender Strecker
 automatisch die rechte Begrenzung des vorhergehenden beendet.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1301,7 +1288,6 @@ c2 r2
 
 @funindex \pitchedTrill
 @funindex pitchedTrill
-
 
 Triller, die auf einer bestimmten Note ausgeführt werden sollen, können
 mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste

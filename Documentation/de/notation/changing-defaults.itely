@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -570,7 +570,7 @@ nicht nur Eigenschaften, sie enthalten auch Plugins (@qq{engraver}
 genannt), die die einzelnen Notationselemente erstellen.  Ein
 @code{Voice}-Kontext enthält beispielsweise einen
 @code{Note_heads_engraver}, der die Notenköpfe erstellt, und ein
-@code{Staff}-Kontext einen @code{Key_signature_engraver}, der die
+@code{Staff}-Kontext einen @code{Key_engraver}, der die
 Vorzeichen erstellt.
 
 Eine vollständige Erklärung jedes Plugins findet sich in
@@ -2420,6 +2420,17 @@ c2( c)
 c2( c)
 @end lilypond
 
+In polyphoner Musik ist es normalerweise besser, eine explizite
+Stimme (@code{voice} zu erstellen, als die Richtung eines Objektes zu
+ändern.  Zu mehr Information siehe @ref{Mehrere Stimmen}.
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{within-staff (Objekte innerhalb des Notensystems)}.
+
+Notationsreferenz:
+@ref{Mehrere Stimmen}.
+
 
 @node Abstände und Maße
 @subsection Abstände und Maße
@@ -3217,7 +3228,7 @@ Schlüsselsymbol als auch das damit verknüpfte Oktavierungssymbol.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Sichtbarkeit und Farbe von Objekten}
+@rlearning{Sichtbarkeit und Farbe von Objekten}.
 
 
 @node Linienstile
@@ -3372,16 +3383,16 @@ Handbuch zum Lernen:
 
 Notationsreferenz:
 @ref{Die Referenz der Programminterna erklärt},
-@ref{Eigenschaften verändern},
+@ref{Eigenschaften verändern}.
+
+Erweitern:
+@rextend{Schnittstellen für Programmierer}.
 
 Installierte Dateien:
 @file{scm/define-grobs.scm}.
 
 Schnipsel:
 @rlsr{Tweaks and overrides}.
-
-Erweitern:
-@rextend{Schnittstellen für Programmierer}.
 
 Referenz der Interna:
 @rinternals{All layout objects}.
