@@ -913,7 +913,7 @@ Der @uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
 GSoC-Webseite} zufolge ist Google Summer of Code ein globales Programm,
 das Studenten Stipendien offeriert, um Code für Open-Source-Projekte zu schreiben.
 Google arbeitet mit der Open-Source-Gemeinschaft zusammen und hat unterstützenswerte
-Projekt für den nächsten Sommer gefunden.}
+Projekt für den nächsten Sommer gefunden.
 
 Das LilyPond-Team hat beschlossen, dass sich hier eine ausgezeichnete Möglichkeit
 bietet neue Mitarbeiter zu finden, Studenten, die sich schon an LilyPond beteiligen,
@@ -1233,7 +1233,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 
 @node Abstellkammer
 @unnumberedsec Abstellkammer
-@tranlsationof Attic
+@translationof Attic
 
 @divClass{column-center-top}
 @subheading Ankündigungen
