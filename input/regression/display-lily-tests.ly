@@ -242,6 +242,7 @@ stderr of this run."
 \test ##[ < c \tweak #'transparent ##t e > #]
 \test ##[ < \tweak #'color #'(1.0 0.0 0.0) \tweak #'duration-log #2 c > #]
 \test ##[ c-\tweak #'font-size #3 -> #]
+\test ##[ < \tweak Accidental #'color #'(1.0 0.0 0.0) cis eis g > #]
 
 %% end test.
 
