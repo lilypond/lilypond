@@ -10,7 +10,7 @@
   lsrtags = "rhythms"
 
   texidoc = "
-<code>shiftDurations</code> can be used to change the note lengths of a
+@code{shiftDurations} can be used to change the note lengths of a
 piece of music.  It takes two arguments - the scaling factor as a power
 of two, and the number of dots to be added as a positive integer.
 
