@@ -58,6 +58,7 @@ Accidental_entry::Accidental_entry ()
   melodic_ = 0;
   accidental_ = 0;
   origin_ = 0;
+  origin_engraver_ = 0;
   head_ = 0;
 }
 

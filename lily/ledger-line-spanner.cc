@@ -144,7 +144,6 @@ struct Ledger_request
   Interval ledger_extent_;
   Interval head_extent_;
   int position_;
-  bool excentric_;
   Ledger_request ()
   {
     ledger_extent_.set_empty ();
