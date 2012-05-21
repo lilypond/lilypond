@@ -27,6 +27,24 @@ on 05 June 2012.  If you discover any problems, please send us
 
 
 @newsItem
+@subsubheading The LilyPond Report #26. @emph{May 22, 2012}
+
+The @emph{LilyPond Report} is back, with a new editor on board -
+Pavel Roskin, who tells us about his adventures in strange lands
+of compiler bugs!  There is also a detailed report about current
+development status, and an analysis of example LilyPond output -
+see for yourself how close (or how far?) are we from matching
+the quality of hand-engraved scores.
+
+Come
+@uref{http://news.lilynet.net/?The-LilyPond-Report-26, read
+LilyPond Report 26} now; comments and contributions are
+warmly encouraged!
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 6 of 2.16 - LilyPond 2.15.38 released!  @emph{May 3, 2012}
 
 LilyPond 2.15.38 is out; this is the sixth release candidate of
