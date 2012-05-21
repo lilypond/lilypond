@@ -1,11 +1,10 @@
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 Lorsqu'une nouvelle portée vient s'ajouter après un saut de ligne,
 LilyPond préserve un espace juste avant le saut de ligne -- pour un
 éventuel changement d'armure qui, quoi qu'il en soit, ne sera pas
 imprimé.  L'astuce consiste alors, comme indiqué dans l'exemple suivant,
 à ajuster @code{Staff.explicitKeySignatureVisibility}.
-
 
 "
   doctitlefr = "Ajout d'une portée supplémentaire après un saut de ligne"

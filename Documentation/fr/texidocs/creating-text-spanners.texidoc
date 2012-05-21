@@ -1,0 +1,9 @@
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Les commandes @code{\\startTextSpan} et @code{\\stopTextSpan} permettent
+d'ajouter une ligne de prolongation aux indications textuelles, à
+l'instar des indications de pédale ou d'octaviation.  Jouer sur les
+propriétés de l'objet @code{TextSpanner} permet d'en modifier le rendu.
+
+"
+  doctitlefr = "Création d'extensions de texte"
