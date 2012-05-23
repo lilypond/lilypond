@@ -137,7 +137,9 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 
   for (vsize i = 0; i < events_.size (); i++)
     {
-      if (info.grob ()->name () == ly_symbol2string (events_[i]->get_property ("symbol")))
+      SCM name = events_[i]->get_property ("symbol");
+      if (!scm_is_symbol (name)
+	  || info.grob ()->name () == ly_symbol2string (name))
         footnotify (info.grob (), events_[i]);
     }
 }
