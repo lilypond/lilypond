@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -168,62 +168,75 @@ Installierte Dateien:
 
 @node Das Papierformat einstellen
 @unnumberedsubsubsec Das Papierformat einstellen
-@translationof Setting paper size
+@translationof Setting the paper size
 
-Zwei Funktionen ermöglichen es, die Papiergröße zu ändern:
-@code{set-default-paper-size} und @code{set-paper-size}.
-@code{set-default-paper-size} muss auf der obersten Ebene in
-der Quelldatei gesetzt werden, @code{set-paper-size} hingegen
-muss sich in einer @code{\paper}-Umgebung befinden:
+@q{A4} ist der Standardwert, wenn keine ausdrückliches Papierformat
+eingestellt ist.  Es gibt jedoch zwei Funktionen, mit denen man
+das Papierformat ändern kann: @code{set-default-paper-size}
 
 @example
-#(set-default-paper-size "a4")
+#(set-default-paper-size "quarto")
 @end example
+
+@noindent
+welcher immer auf oberster Ebene der Datei geschrieben werden muss, und
+@code{set-paper-size}
 
 @example
 \paper @{
-  #(set-paper-size "a4")
+  #(set-paper-size "tabliod")
 @}
 @end example
 
 @noindent
-Auf oberster Ebene kann @code{set-default-paper-size} überall vor der ersten
-@code{\paper}-Umgebung aufgerufen werden.  Innerhalb einer @code{\paper}-Umgebung
-ist der beste Platz für @code{set-paper-size} gleich am Anfang, über der Liste
-der Variablen-Definitionen.  Der Grund dafür wird behandelt in
-@ref{Automatische Skalierung auf ein Papierformat}
+welcher in eine @code{\paper}-Umgebung geschrieben werden muss.
 
-@code{set-default-paper-size} bestimmt die Größe aller Seiten, während
-@code{set-paper-size} nur die Seitengröße für die Seiten definiert,
-auf die sich die aktuelle @code{\paper}-Umgebung bezieht.  Wenn die
-@code{\paper}-Umgebung gleich am Anfang der Datei steht, bezieht sich die
-Papiergröße auf alle Seiten, wenn sie aber innerhalb einer
-@code{\book}-Umgebung definiert wird, nur auf die Seiten innerhalb
-dieses Buches.
 
-Die normalen Papierformate sind definiert, u.A. @code{a4},
-@code{letter}, @code{legal} und @code{11x17} (auch als
-Tabloit bekannt).  Sehr viel mehr Formate sind unterstützt.
-Einzelheiten finden sich in der Datei
-@file{scm/paper.scm} in der Definition von
-@code{paper-alist}.
+Wenn die @code{set-default-paper-size}-Funktion auf oberster Ebene der
+Datei eingesetzt wird, muss sie vor allen @code{\paper}-Umgebungen kommen.
+@code{set-default-paper-size} definiert das Papierformat für alle Seiten,
+während @code{set-paper-size} nur das Format der Seiten bestimmt, auf die
+sich die @code{\paper}-Umgebung bezieht.  Wenn beispielsweise die
+@code{\paper}-Umgebung oben in der Datei steht, dann bezieht sie sich
+auf alle Seiten in der Datei.  Wenn die @code{\paper}-Umgebung innherhalb
+einer @code{\book}-Umgebung steht, dann bezieht sie sich nur auf das eine
+Buch.
 
-@warning{Das Standardformat ist @code{a4}.}
+Wenn die @code{set-paper-size}-Funktion eingesetzt wird, muss sie @emph{vor}
+allen anderen Funktionen stehen, die in derselben @code{\paper}-Umgebung
+benützt werden. Siehe @ref{Automatische Skalierung auf ein Papierformat}.
 
-Weitere Papierformate können hinzugefügt werden, indem die
-Definition von @code{paper-alist} in der Datei
-@file{scm/paper.scm} verändert wird.  Derartige
-Änderungen werden jedoch bei einer Aktualisierung des
-Programmes überschrieben.
+Die Papierformate finden sich in der Datei @file{scm/paper.scm} definiert.
+Hierhin kann man eigene Formate definieren, sie werden jedoch bei einer
+Aktualisierung von LilyPond überschrieben.  Die vorhandenen Papierformate
+finden sich in @ref{Vordefinierte Papierformate}.
+
+@c An appendix entry exists for paper sizes but is not auto-generated
+ 
+Der folgende Befehl kann benützt werden, um ein eigenes Papierformat
+hinzuzufügen, welches dann mit @code{set-default-paper-size} oder
+@code{set-paper-size} benützt werden kann:
+
+@example
+#(set! paper-alist (cons '("mein Format" . (cons (* 15 in) (* 3 in))) paper-alist))
+
+\paper @{
+  #(set-paper-size "mein Format")
+@}
+@end example
+
+Die Einheiten @code{in} (Fuß), @code{cm} (Centimeter) and @code{mm} (Millimeter)
+können benützt werden.
 
 @cindex Ausrichtung, Papier
 @cindex Papier, Ausrichtung
 @cindex hochkant, Papier
 @cindex quer, Papier
+@cindex Papier, quer
 
 @funindex landscape
 
-Wenn das Symbol @code{'landscape} als Argument an die Funktion
+Wenn das Symbol @code{'landscape} an die Funktion
 @code{set-default-paper-size} gehängt wird, werden die Seiten um
 90° gedreht und die Notensysteme entsprechend breiter gesetzt.
 
@@ -231,13 +244,15 @@ Wenn das Symbol @code{'landscape} als Argument an die Funktion
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
+Die Notenausgabe wird @emph{nicht} gedreht, nur das Papierformat.
+
 @seealso
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat}.
+@ref{Automatische Skalierung auf ein Papierformat},
+@ref{Vordefinierte Papierformate}.
 
 Installierte Dateien:
 @file{scm/paper.scm}.
-
 
 
 @node Automatische Skalierung auf ein Papierformat
@@ -2064,7 +2079,6 @@ Notensystem behandelt. Wird @code{staff-affinity} auf @code{UP},
 @code{CENTER} oder @code{DOWN} gesetzt, wird das Notensystem als
 Nicht-Notensystemzeile plaziert.
 
-
 @item nonstaff-relatedstaff-spacing
 Nicht-Notensystem-verwandtesSystem-Platzierung
 
@@ -2136,14 +2150,14 @@ Notationsreferenz:
 @ref{Vertikale \paper-Variablen mit flexiblen Abständen},
 @ref{Alisten verändern}.
 
+Installierte Dateien:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
 Referenz der Interna:
 @rinternals{Contexts},
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
-
-Installierte Dateien:
-@file{ly/engraver-init.ly},
-@file{scm/define-grobs.scm}.
 
 
 @node Abstände von nicht gruppierten Notensystemen
@@ -2828,6 +2842,9 @@ besser sieht:
 Proportionale Notation ist unterstützt, siehe @ref{Proportionale Notation}.
 
 @seealso
+Aufsatz über den automatischen Notensatz:
+@ressay{Optischer Ausgleich}.
+
 Schnipsel:
 @rlsr{Spacing}.
 
@@ -2836,9 +2853,6 @@ Referenz der Interna:
 @rinternals{NoteSpacing},
 @rinternals{StaffSpacing},
 @rinternals{NonMusicalPaperColumn}.
-
-Aufsatz über den automatischen Notensatz:
-@ressay{Optischer Ausgleich}.
 
 @knownissues
 
@@ -3571,6 +3585,16 @@ nur 10 Systemen erzwingen.
 @example
 \paper @{
   system-count = #10
+@}
+@end example
+
+@item
+Die Anzahl der Seiten kann erzwungen werden.  Beispielsweise erzwingt
+folgender Code ein Layout mit zwei Seiten:
+
+@example
+\paper @{
+  page-count = #2
 @}
 @end example
 

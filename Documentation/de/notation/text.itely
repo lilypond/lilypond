@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -521,11 +521,9 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-
 @noindent
 Eine ausführliche Liste der @code{\markup}-Befehle findet sich in
 @ref{Textbeschriftungsbefehle}.
-
 
 @seealso
 Notationsreferenz:
@@ -573,6 +571,7 @@ f1 d2 r
 @cindex Textgröße
 @cindex Größe der Schriftart
 
+@funindex \abs-fontsize
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
@@ -582,38 +581,41 @@ f1 d2 r
 @funindex larger
 @funindex magnify
 
-Die Größe von Buchstaben kann auf verschiedene Arten verändert werden:
-@itemize
-@item
-die Schriftgröße kann auf bestimmte definierte Standardgrößen gesetzt werden,
+Die Schriftgröße kann auf verschiedene Arten verändert werden, relativ
+zur globalen Notensystemgröße:
 
-@item
-die Schriftgröße kann mit einem absoluten Wert gesetzt werden,
+Sie kann auf eine vordefinierte Größe gesetzt werden:
 
-@item
-die Schriftgröße kann relativ zur vorhergehenden Größe geändert werden.
-@end itemize
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \huge Sinfonia }
+b1^\markup { \teeny da }
+b1-\markup { \normalsize camera }
+@end lilypond
 
-@noindent
-Das Beispiel unten zeigt alle drei Möglichkeiten:
+Sie kann relativ zum vorherigen Wert gesetzt werden:
 
-@lilypond[quote,verbatim,relative=1]
-f1_\markup {
-  \tiny espressivo
-  \large e
-  \normalsize intenso
-}
-a^\markup {
-  \fontsize #5 Sinfonia
-  \fontsize #2 da
-  \fontsize #3 camera
-}
-bes^\markup { (con
-  \larger grande
-  \smaller emozione
-  \magnify #0.6 { e sentimento } )
-}
-d c2 r8 c bes a g1
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \larger Sinfonia }
+b1^\markup { \smaller da }
+b1-\markup { \magnify #0.6  camera }
+@end lilypond
+
+Sie kann vergrößert oder verkleinert werden relativ zum Wert, der
+von der globalen Notensystemgröße vorgegeben wird:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \fontsize #-2 Sinfonia }
+b1^\markup { \fontsize #1 da }
+b1-\markup { \fontsize #3 camera }
+@end lilypond
+
+Sie kann auch auf eine bestimmte Punktegröße festgelegt werden, unabhängig von
+der globalen Notensystemgröße:
+
+@lilypond[quote,verbatim,relative=2]
+b1_\markup { \abs-fontsize #20 Sinfonia }
+b1^\markup { \abs-fontsize #8 da }
+b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
 @cindex hochgestellt
@@ -623,6 +625,8 @@ d c2 r8 c bes a g1
 @funindex super
 @funindex \sub
 @funindex sub
+@funindex \normal-size-super
+@funindex normal-size-super
 
 Text kann auch hoch- bzw. tiefgestellt gesetzt werden.  Die so markierten
 Buchstaben werden automatisch in einer kleineren Schriftgröße gesetzt,
@@ -729,14 +733,14 @@ Notationsreferenz:
 @ref{Manuelle Wiederholungszeichen},
 @ref{Schriftarten}.
 
+Installierte Dateien:
+@file{scm/define-markup-commands.scm}.
+
 Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
-Installierte Dateien:
-@file{scm/define-markup-commands.scm}.
 
 @knownissues
 Wenn die Befehle @code{\teeny}, @code{\tiny},
@@ -744,7 +748,6 @@ Wenn die Befehle @code{\teeny}, @code{\tiny},
 @code{\huge} eingesetzt werden, erhält man schlechte Zeilenabstände
 verglichen mit @code{\fontsize}.
  
-
 
 @node Textausrichtung
 @unnumberedsubsubsec Textausrichtung
@@ -994,15 +997,14 @@ Notationsreferenz:
 @ref{Align},
 @ref{Textartige Zeichen}.
 
+Installierte Dateien:
+@file{scm/define-markup-commands.scm}.
+
 Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
-Installierte Dateien:
-@file{scm/define-markup-commands.scm}.
-
 
 
 @node Graphische Notation innerhalb einer Textbeschriftung
@@ -1181,15 +1183,15 @@ Notationsreferenz:
 @ref{Anmerkungen},
 @ref{Align}.
 
+Installierte Dateien:
+@file{scm/define-markup-commands.scm},
+@file{scm/stencil.scm}.
+
 Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
-Installierte Dateien:
-@file{scm/define-markup-commands.scm},
-@file{scm/stencil.scm}.
 
 
 @node Musikalische Notation innerhalb einer Textbeschriftung
@@ -1318,16 +1320,16 @@ Notationsreferenz:
 @ref{Die Feta-Schriftart},
 @ref{Was sind Schriftarten}.
 
+Installierte Dateien:
+@file{scm/define-markup-commands.scm},
+@file{scm/fret-diagrams.scm},
+@file{scm/harp-pedals.scm}.
+
 Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
 @rinternals{TextScript}.
-
-Installierte Dateien:
-@file{scm/define-markup-commands.scm},
-@file{scm/fret-diagrams.scm},
-@file{scm/harp-pedals.scm}.
 
 
 
@@ -1383,17 +1385,17 @@ Eine vollständige Liste der Beschriftungslistenbefehle findet sich in
 Notationsreferenz:
 @ref{Textbeschriftungslistenbefehle}.
 
-Schnipsel:
-@rlsr{Text}.
-
 Erweitern:
 @rextend{Neue Definitionen von Beschriftungslistenbefehlen}.
 
-Referenz der Interna:
-@rinternals{TextScript}.
-
 Installierte Dateien:
 @file{scm/define-markup-commands.scm}.
+
+Schnipsel:
+@rlsr{Text}.
+
+Referenz der Interna:
+@rinternals{TextScript}.
 
 @funindex \markuplist
 @funindex markuplist

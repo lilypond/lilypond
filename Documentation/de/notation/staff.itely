@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1197,7 +1197,6 @@ oboeNotes = \relative c'' {
 
 \addQuote "clarinet" { \clarinetNotes }
 
-
 \score {
   <<
     \new Staff \with { instrumentName = "Clarinet" } \clarinetNotes
@@ -1253,6 +1252,9 @@ Notationsreferenz:
 @ref{Transposition von Instrumenten},
 @ref{Marken benutzen}.
 
+Installierte Dateien:
+@file{scm/define-event-classes.scm}.
+
 Schnipsel:
 @rlsr{Staff notation}.
 
@@ -1261,11 +1263,7 @@ Referenz der Interna:
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
 
-Installed Files:
-@file{scm/define-event-classes.scm}.
-
 @knownissues
-
 Nur der Inhalt der ersten Stimme innerhalb eines
 @code{\addQuote}-Befehls wird für das Zitat herangezogen.  Wenn
 der zitierte Ausdruck also @code{\new} oder @code{\context Voice}-Befehle

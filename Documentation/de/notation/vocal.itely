@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -229,7 +229,7 @@ Referenz der Interna:
 @rinternals{LyricText}.
 
 Schnipsel:
-@rlsr{Text}
+@rlsr{Text}.
 
 
 @node Text an einer Melodie ausrichten
@@ -348,7 +348,7 @@ Handbuch zum Lernen:
 
 Notation Reference:
 @ref{Was sind Kontexte?},
-@ref{Automatische Silbendauern}.
+@ref{Automatische Silbendauern},
 @ref{Strophen},
 @ref{Manuelle Silbendauern},
 @ref{Dialog zur Musik}.
@@ -2000,7 +2000,7 @@ Art von Notensatz zu produzieren.
 
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c' {
-  c c c c | d d d d
+  c4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -2018,7 +2018,7 @@ text = \lyricmode {
 \markup {
   \fill-line {
     \hspace #0.1 % moves the column off the left margin;
-        % can be removed if space on the page is tight
+     % can be removed if space on the page is tight
      \column {
       \line { \bold "2."
         \column {
@@ -2026,7 +2026,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \hspace #0.1 % adds vertical spacing between verses
+      \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "3."
         \column {
           "This is verse three."
@@ -2034,17 +2034,15 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % adds horizontal spacing between columns;
-        % if they are still too close, add more " " pairs
-        % until the result looks good
-     \column {
+    \hspace #0.1 % adds horizontal spacing between columns;
+    \column {
       \line { \bold "4."
         \column {
           "This is verse four."
           "It has two lines."
         }
       }
-      \hspace #0.1 % adds vertical spacing between verses
+      \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "5."
         \column {
           "This is verse five."
@@ -2053,7 +2051,7 @@ text = \lyricmode {
       }
     }
   \hspace #0.1 % gives some extra space on the right margin;
-      % can be removed if page space is tight
+  % can be removed if page space is tight
   }
 }
 @end lilypond

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
 de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste
 de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
-@code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
+@code{cross} ou @code{xcircle}) ou basés sur la tradition des graveurs
 américains (avec quelques noms de note latins).
 
 LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et

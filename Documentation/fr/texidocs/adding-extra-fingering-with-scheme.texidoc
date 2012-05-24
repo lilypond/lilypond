@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
+  texidocfr = "
+Il est possible, à l'aide de la fonction @code{make-music}, d'ajouter
+divers éléments à des notes.  Voici comment attacher un doigté
+supplémentaire à une note.
+
+En règle générale, réaliser préalablement un @code{display} (affichage)
+de la musique que vous souhaitez créer vous aidera à écrire la fonction
+chargée de structurer votre musique.
+
+"
+  doctitlefr = "Ajout d'un doigté supplémentaire avec scheme"

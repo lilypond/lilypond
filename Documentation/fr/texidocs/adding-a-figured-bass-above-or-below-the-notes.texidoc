@@ -1,2 +1,16 @@
-%% Translation of GIT committish: 05624d5147843d2fcbd6e4e126f1fd43142ac6e5
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Une ligne de basse chiffrée peut se positionner au-dessus ou en dessous
+d'une partie de basse, grâce à la propriété 
+@code{BassFigureAlignmentPositioning #'direction} attachée à un contexte
+@code{Staff}.  Les possibilités sont  @code{#UP} (ou @code{#1}) pour
+au-dessus, @code{#CENTER} (ou @code{#0}) pour centrée, et @code{#DOWN}
+(ou @code{#-1}) pour en dessous.
+
+Cette propriété peut être sujette à modification au cours de la
+partition.  Il vous faudra insérer un @code{\\once \\override} si ce
+changement devait être temporaire.
+
+"
   doctitlefr = "Ajout d'une basse chiffrée au-dessus ou au-dessous des notes"
+

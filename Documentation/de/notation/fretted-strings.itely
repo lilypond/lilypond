@@ -81,7 +81,6 @@ Bögen zwischen Arpeggios und Tremolos sind beschrieben in
 
 @end itemize
 
-
 @seealso
 Notationsreferenz:
 @ref{Fingersatzanweisungen},
@@ -106,21 +105,26 @@ Notationsreferenz:
 
 Die Nummer der Saite, auf der gespielt werden soll, kann
 angezeigt werden, indem @code{\@var{Zahl}} an eine Note
-innerhalb eines Akkord-Konstrukts gesetzt wird:
+gehängt wird:
 
 @lilypond[verbatim,quote,relative=0]
 \clef "treble_8"
-<c\5>4 <e\4> <g\3>2
+c4\5 e\4 g2\3
 <c,\5 e\4 g\3>1
 @end lilypond
 
 Wenn Fingersatz und Saitennummer zusammen benutzt werden, wird
-ihre Position anhand der Reihenfolge entschieden, mit der sie im
-Code auftauchen:
+ihre Position anhand der Reihenfolge, mit der sie im
+Code auftauchen, @emph{nur} entschieden, wenn sie in einem expliziten
+Akkord auftreten:  Fingersatz, der außen an einen Akkord oder an
+einzelne Noten @emph{außerhalb} eines Akkords gehängt wird, wird
+nach anderen Regeln positioniert.
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
-<g\3-0>2
+g4\3-0
+g-0\3
+<g\3-0>
 <g-0\3>
 @end lilypond
 
@@ -232,16 +236,16 @@ symbols = {
 
 Normalerweise werden Tonhöhen der tiefstmöglichen Spielposition auf
 dem Bundbrett zugewiesen (erste Lage).  Offene Saiten werden automatisch
-bevorzugt.  Wenn Sie eine bestimmte Tonhöhe auf einer bestimmten Saite
-gespielt haben wollen, können Sie eine Saitennummeranweisung zur
-Tonhöhe hinzufügen.  Wenn Sie Tonhöhe und Saitenzahlanweisung nicht
-innerhalb einer Akkord-Konstruktion (@code{<>}) notieren, erscheint
-die Saitenzahlanweisung nicht in der traditionellen Notation.  Es ist
-jedoch sehr viel bequemer, die Spielposition unter Benutzung von
-@code{minimumFret} zu definieren.  Der Standardwert von @code{minimumFret}
-beträgt 0.
+bevorzugt.  Wenn man eine bestimmte Tonhöhe auf einer bestimmten Saite
+gespielt haben will, kann man eine Saitennummeranweisung zur
+Tonhöhe hinzufügen.  Wenn man die Saitenzahlanweisung nicht in der traditionellen
+Notation sehen will, kann man den entsprechenden Stencil mit @code{\override}
+verändernt.  Es ist jedoch sehr viel bequemer, die Spielposition unter
+Benutzung von @code{minimumFret} zu definieren.  Der Standardwert von
+@code{minimumFret} beträgt 0.
 
 @lilypond[quote,ragged-right,verbatim]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -279,7 +283,7 @@ dass er durch @code{\tabChordRepeats} zur Verfügung gestellt wird.
 
 @lilypond[quote,verbatim]
 guitar = \relative c' {
-  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
@@ -387,6 +391,7 @@ Flageolett (engl. @emph{harmonic}) kann zur Tabulaturnotation als klingende Tonh
 werden:
 
 @lilypond[verbatim,quote]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -439,7 +444,6 @@ ratioHarmonics = {
 }
 @end lilypond
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -459,7 +463,6 @@ ratioHarmonics = {
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
-
 
 @seealso
 Notationsreferenz:
@@ -539,14 +542,17 @@ geschrieben ist:
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff {
+  \new Voice \with {
+    \override StringNumber #'stencil = ##f
+  } {
     \clef "bass_8"
     \relative c, {
       c4 d e f
     }
   }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #bass-tuning
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
     \relative c, {
       c4 d e f
     }
@@ -1619,31 +1625,27 @@ cindex Fingersatz der rechten Hand, Bundinstrumente
 @funindex rightHandFinger
 @funindex \rightHandFinger
 
+Fingersatz für die rechte Hand in Akkorden @var{p-i-m-a}
+muss mit @code{\rightHandFinger}, gefolgt von einer Zahl, notiert werden.
 
-Fingersatz für die rechte Hand in Akkorden kann mit den
-Bezeichnungen @var{p-i-m-a} notiert werden.  Er muss innerhalb
-eines Akkord-Konstruktes notiert werden.
-
-
-@warning{Vor dem @code{@bs{}rightHandFinger} @strong{muss} ein
-Minuszeichen gesetzt
-werden und ein Leerzeichen nach dem schließenden @code{>}.}
+@warning{Wenn die Zahl in Scheme-Notation eingegeben wird, muss darauf
+geachtet werden, ein Leerzeichen anzuhängen vor dem schließenden @code{>} o. Ä.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
-<c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2
- g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+c4\rightHandFinger #1
+e\rightHandFinger #2
+g\rightHandFinger #3
+c\rightHandFinger #4
+<c,\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c\rightHandFinger #4 >1
 @end lilypond
 
 Zur Erleichterung kann der Befehl @code{\rightHandFinger} zu ein paar
 Buchstaben abgekürzt werden, etwa @code{RH}.
 
 @example
-#(define RH rightHandFinger)
+RH=#rightHandFinger
 @end example
 
 @snippets
@@ -1941,10 +1943,9 @@ indem die @code{four-string-banjo}-Funktion eingesetzt wird:
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-
 @seealso
-Schnipsel:
-@rlsr{Fretted strings}.
-
 Installierte Dateien:
 @file{ly/string-tunings-init.ly}.
+
+Schnipsel:
+@rlsr{Fretted strings}.

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Rien n'est plus simple, pour obtenir une feuille blanche avec des
+portées, que de générer des mesures vides, de supprimer le
+@code{Bar_number_engraver} du contexte @code{Score}, et les
+@code{Time_signature_engraver}, @code{Clef_engraver} et
+@code{Bar_engraver} du contexte @code{Staff}.
+
+"
+  doctitlefr = "Impression de papier à musique"

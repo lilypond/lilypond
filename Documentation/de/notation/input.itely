@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1220,7 +1220,7 @@ Indikator, der an die Note oder den Grob gehängt wird, die zweite
 der Inhalt der Fußnote unten auf der Seite.
 
 Wie auch bei automatischen Fußnoten muss der Befehl @code{\footnote}
-@emph{nach} dem Grob kommen, an den die Fußnote gehängt wird und als
+@emph{vor} dem Grob kommen, an den die Fußnote gehängt wird und als
 @code{TextScript} geschrieben werden:
 
 @c KEEP LY
@@ -1246,10 +1246,10 @@ Fußnoten für Akkordnoten werden wie folgt notiert:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote "1" #'(1 . -1.25) "1. C" \default
-    es-\footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" \default
-    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" } \default
+    \footnote "1" #'(1 . -1.25) "1. C" c
+    \footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
+    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
     >1
   }
 }
@@ -1535,7 +1535,7 @@ Linie gefüllt werden:
 
 @seealso
 Installierte Dateien:
-@file{../ly/toc-init.ly}.
+@file{ly/toc-init.ly}.
 
 @funindex \table-of-contents
 @funindex \tocItem
@@ -2344,7 +2344,8 @@ Benennen Sie das existierende @code{fonts}-Verzeichnis in
 zurückbenennen, um wieder nach Feta zu wechseln.
 
 @seealso
-Handbuch zum Lernen: @rlearning{Mehr Information}.
+Handbuch zum Lernen:
+@rlearning{Mehr Information}.
 
 @knownissues
 
@@ -2526,16 +2527,11 @@ gesetzt wird:
 @}
 @end example
 
-Hier wird das Tempo auf 72 Viertelnoten pro Minute definiert.  Wenn
-das Tempo auf diese Weise definiert wird, kann keine punktierte
-Note als Einheit angegeben werden.  Wenn sie benötigt wird, muss
-man sie in kleinere Einheiten auflösen.  Ein Tempo von 90 punktierten
-Viertelnoten pro Minute kann beispielsweise dargestellt werden
-als 270 Achtelnoten pro Minute:
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
-@end example
+Hier wird das Tempo auf 72 Viertelnoten pro Minute definiert.  @code{\tempo}
+ist eigentlich ein Musikbefehl, der die Eigenschaften während der Interpretation
+der Musik einstellt: im Kontext von Ausgabedefinitionen wie etwa einem
+@code{\midi}-Kontext werden sie neu interpretiert, als ob es sich um
+Kontextmodifikatoren handelte.
 
 @cindex MIDI-Kontextdefinitionen
 
@@ -2793,9 +2789,9 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }

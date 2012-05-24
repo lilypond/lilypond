@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+
+  texidocde = "
+Die Maschine für die vertikale Platzverteilung hat sich in Version 2.14 verändert.
+Dadurch wurde Gesangstext auf andere Art verteilt.  Es ist möglich, Eigenschaften
+von @code{Lyric}- und @code{Staff}-Kontexten einzustellen, um die Platzverteilung
+so aussehen zu lassen wie für Version 2.12.
+
+"
+  doctitlede = "Platzverteilung von Gesangstext wie in 2.12 für neuere Versionen"
+

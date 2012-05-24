@@ -1,0 +1,13 @@
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La propriété @code{measureLength}, conjointement avec
+@code{measurePosition}, détermine l'endroit où une barre de mesure est
+requise.  L'utilisation d'un @code{\\scaleDurations} a ceci
+d'inconvénient que l'échelonnement des durées rend compliqués les
+changements de métrique.  Il est nécessaire en pareil cas de définir
+manuellement @code{measureLength}, avec un appel à
+@code{ly:make-moment}.  Le second argument devra être identique au
+deuxième argument de @code{\\scaleDurations}.
+
+"
+  doctitlefr = "Modification de la métrique au sein d'un fragment polymétrique à l'aide de @code{\\scaleDurations}"

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Une liaison d'articulation peut se présenter sous la forme d'un trait
+continu ou discontinu, voire en pointillé.
+
+"
+  doctitlefr = "Modification de l'aspect des liaisons d'articulation"
