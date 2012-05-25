@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.15.40"
 \header {
   texidoc = "With grobs that have break visibility, footnotes will
 automatically take the break visibility of the grob being footnoted.
@@ -10,7 +10,7 @@ This behavior can be overridden.
 
 \book {
 
-\new Staff \with { \consists "Footnote_engraver" }
+\new Staff
 {
   \relative c' {
     c1
