@@ -178,10 +178,11 @@ protected:
   SCM breakpoint_property (vsize breakpoint, char const *str);
 
   vsize last_break_position () const;
+
+  vector<System_spec> system_specs_;
 private:
   vector<Break_position> breaks_;
   vector<Break_position> chunks_;
-  vector<System_spec> system_specs_;
   vector<Constrained_breaking> line_breaking_;
   bool ragged_;
   bool ragged_last_;

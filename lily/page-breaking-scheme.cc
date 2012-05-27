@@ -19,6 +19,7 @@
 
 #include "paper-book.hh"
 #include "page-turn-page-breaking.hh"
+#include "one-line-page-breaking.hh"
 #include "optimal-page-breaking.hh"
 #include "minimal-page-breaking.hh"
 
@@ -49,5 +50,13 @@ LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
            " a page before moving to the next one.")
 {
   Minimal_page_breaking b (unsmob_paper_book (pb));
+  return b.solve ();
+}
+
+LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
+           1, 0, 0, (SCM pb),
+           "Put each score on a single line, and put each line on its own page.")
+{
+  One_line_page_breaking b (unsmob_paper_book (pb));
   return b.solve ();
 }
