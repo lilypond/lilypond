@@ -626,8 +626,7 @@ automatically when an output definition (a @code{\score} or
   beatStructure = #'(1 1 1 1)
   beamExceptions = #'((end . (((1 . 8) . (4 4))
                               ((1 . 12) . (3 3 3 3)))))
-  beamWholeMeasure = ##t
-  beamHalfMeasure = ##f
+  beamHalfMeasure = ##t
 
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
