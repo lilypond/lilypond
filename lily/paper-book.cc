@@ -652,6 +652,15 @@ Paper_book::pages ()
     {
       SCM page_breaking = paper_->c_variable ("page-breaking");
       pages_ = scm_apply_0 (page_breaking, scm_list_1 (self_scm ()));
+
+      // Create all the page stencils.
+      SCM page_module = scm_c_resolve_module ("scm page");
+      SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
+      page_stencil = scm_variable_ref (page_stencil);
+      for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
+        scm_apply_1 (page_stencil, scm_car (pages), SCM_EOL);
+
+      // Perform any user-supplied post-processing.
       SCM post_process = paper_->c_variable ("page-post-process");
       if (ly_is_procedure (post_process))
         scm_apply_2 (post_process, paper_->self_scm (), pages_, SCM_EOL);

@@ -567,9 +567,6 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
 
   // Create the page and draw it.
   SCM page = make_page (page_num, last);
-  SCM page_module = scm_c_resolve_module ("scm page");
-  SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
-  page_stencil = scm_variable_ref (page_stencil);
 
   Prob *p = unsmob_prob (page);
   p->set_property ("lines", paper_systems);
@@ -583,7 +580,6 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   foot = Page_layout_problem::add_footnotes_to_footer (footnotes, foot, book_);
 
   p->set_property ("foot-stencil", foot.smobbed_copy ());
-  scm_apply_1 (page_stencil, page, SCM_EOL);
 
   return page;
 }
@@ -603,10 +599,11 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
     label_page_table = SCM_EOL;
 
   // Build a list of (systems configuration . footnote-count) triples.
-  // Note that we lay out
-  // the staves and find the configurations before drawing anything. Some
+  // Note that we lay out the staves and find the configurations,
+  // but we do not draw anything in this function.  It is important
+  // that all staves are laid out vertically before any are drawn; some
   // grobs (like tuplet brackets) look at their neighbours while drawing
-  // themselves. If this happens before the neighbouring staves have
+  // themselves.  If this happens before the neighbouring staves have
   // been laid out, bad side-effects could happen (in particular,
   // Align_interface::align_to_ideal_distances might be called).
   SCM systems_configs_fncounts = SCM_EOL;
@@ -642,7 +639,9 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       systems = scm_list_tail (systems, line_count);
     }
 
-  // Now it's safe to make the pages.
+  // TODO: previously, the following loop caused the systems to be
+  // drawn.  Now that we no longer draw anything in Page_breaking,
+  // it is safe to merge these two loops.
   int page_num = first_page_number + lines_per_page.size () - 1;
   for (SCM s = systems_configs_fncounts; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -681,14 +680,6 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   return ret;
 }
 
-/* The page-turn-page-breaker needs to have a line-breaker between any two
-   columns with non-NULL page-turn-permission.
-
-   The optimal-breaker needs to have a line-breaker between any two columns
-   with page-break-permission = 'force.
-
-   By using a grob predicate, we can accommodate both of these uses.
-*/
 void
 Page_breaking::create_system_list ()
 {
@@ -712,6 +703,14 @@ Page_breaking::create_system_list ()
     system_specs_.push_back (System_spec ());
 }
 
+/* The page-turn-page-breaker needs to have a line-breaker between any two
+   columns with non-NULL page-turn-permission.
+
+   The optimal-breaker needs to have a line-breaker between any two columns
+   with page-break-permission = 'force.
+
+   By using a grob predicate, we can accommodate both of these uses.
+*/
 void
 Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_predicate prob_is_break)
 {
