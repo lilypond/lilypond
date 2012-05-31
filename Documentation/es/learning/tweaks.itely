@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: faf3ecd73ed2b708b4a1bc8c1150767359a73bdf
+    Translation of GIT committish: ce1c0fabb3d5ac18e61fb8fcc91a3990714553c2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.15.39"
 
 @node Trucar la salida
 @chapter Trucar la salida
@@ -363,11 +363,11 @@ presentación del tipo especificado que ocurren en el mismo momento
 musical que la propia instrucción de sobreescritura @code{\override}.
 
 La instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
-el elemento inmediatamente siguiente dentro del flujo de entrada.  Sin
-embargo, es efectivo solamente sobre objetos que se crean directamente
-a partir del flujo de entrada, en esencia las cabezas y las
-articulaciones; los objetos como las plicas y las alteraciones se
-crean con posterioridad y no se pueden trucar de esta forma.
+el elemento inmediatamente siguiente dentro del flujo de entrada.
+En su forma más sencilla es efectivo solamente sobre objetos
+que se crean directamente
+a partir del elemento siguiente, en esencia las cabezas y las
+articulaciones.
 
 Así pues, volviendo a nuestro ejemplo, el tamaño de la nota intermedia
 se cambiaría de la siguiente forma:
@@ -381,11 +381,12 @@ se cambiaría de la siguiente forma:
 @end lilypond
 
 Observe que la sintaxis de @code{\tweak} no es igual que la de
-@code{\override}.  Ni el contexto ni el objeto de presentación se
-deben especificar; de hecho, generaría un error hacerlo.  Los dos
+@code{\override}.  El contexto no se
+debe especificar; de hecho, generaría un error hacerlo.
+Tanto el contexto como el objeto de presentación
 están implícitos por el siguiente elemento del flujo de entrada.
 Observe también que no debe haber un signo igual. Así que la sintaxis
-genérica de la instrucción @code{\tweak} es, simplemente,
+de la instrucción @code{\tweak} en su forma sencilla es:
 
 @example
 \tweak #'@var{propiedad-de-presentación} #@var{valor}
@@ -409,6 +410,28 @@ marca de articulación porque la propia expresión trucada debe aplicarse
 como una articulación.  En el caso de más de una sobreescritura de dirección
 (@code{^} o @code{_}), gana la sobreescritura situada más a la izquierda
 porque se aplica en último lugar.
+
+@cindex @code{\tweak}, Accidental
+@cindex @code{\tweak}, specific layout object
+
+Los objetos tales como plicas y alteraciones accidentales se crean más
+tarde, y no directamente a partir del evento que viene a continuación.
+Aún es posible utilizar @code{\tweak} sobre tales objetos creados
+indirectamente mediante el nombrado explícito del objeto de
+presentación, siempre y cuando LilyPond pueda rastrear su origen hasta
+el evento original:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<\tweak Accidental #'color #red   cis4
+ \tweak Accidental #'color #green es
+                                  g>
+@end lilypond
+
+Esta forma extensa de la instrucción @code{\tweak} se puede describir
+como
+@example
+\tweak @var{layout-object} #'@var{layout-property} @var{value}
+@end example
 
 @cindex grupos especiales anidados
 @cindex tresillos anidados
@@ -3096,8 +3119,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3540,8 +3563,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3625,8 +3648,8 @@ de que la ligadura se cruza entre las voces:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3641,9 +3664,9 @@ valor de longitud @code{length} a @code{8},
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
-    \once \override Stem #'length = #8
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
+    \tweak Stem #'length #8
     b8~ b\noBeam
   }
 \\

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: b63f205feabebfd5ed39fdaa57308c4b08eb70b3
+Translation of GIT committish: ce1c0fabb3d5ac18e61fb8fcc91a3990714553c2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.15.39"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -1799,11 +1799,12 @@ a todos los grobs del contexto afectado.  Esto se consigue con la
 instrucción @code{\tweak}, que tiene la sintaxis siguiente:
 
 @example
-\tweak #'@code{propiedad-del-grob} #@code{valor}
+\tweak @var{objeto-de-presentación} #'@var{propiedad-del-grob} @var{valor}
 @end example
 
-La instrucción @code{\tweak} se aplica al objeto que viene
-inmediatamente después de @code{valor} dentro del flujo musical.
+Es opcional especificar el @var{objeto-de-presentación}.  La
+instrucción @code{\tweak} se aplica al objeto musical que viene
+inmediatamente después de @var{valor} dentro del flujo musical.
 
 @ignore
 En ocasiones es posible tomar un atajo para realizar el ajuste fino de
@@ -1903,32 +1904,46 @@ c-\tweak #'thickness #5 ( d e f)
 
 Para que funcione la instrucción @code{\tweak}, debe permanecer
 adyacente al objeto al que se ha de aplicar después de que el código
-de entrada se ha convertido a un flujo musical.  A veces, LilyPond
-puede insertar elementos adicionales dentro del flujo de música
-durante el proceso de análisis sintáctico.  Por ejemplo, cuando una
-nota que no es parte explícita de un acorde se coloca dentro de un
-acorde por parte de LilyPond de manera que las notas que se pretenden
-modificar con @code{\tweak} se deben poner dentro de una construcción
-de acorde:
+de entrada se ha convertido a un flujo musical.  El trucaje de un
+acorde completo no hace nada porque su evento musical actúa solamente
+como un contenedor, y todos los objetos de presentación se crean a
+partir de eventos dentro del @code{EventChord}:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak #'color #red c4
-<\tweak #'color #red c>4
+\tweak #'color #red <c e>4
+<\tweak #'color #red c e>4
 @end lilypond
 
-La instrucción @code{\tweak} no se puede usar para modificar ningún
-elemento que no aparezca explícitamente en el código de entrada.
-Concretamente, no se puede usar para modificar plicas, barras o
-alteraciones directamente, porque éstos se generan posteriormente por
-parte de las cabezas de las notas, más que por elementos musicales del
+La instrucción @code{\tweak} sencilla no se puede usar para modificar
+ningún objeto que no se haya creado directamente a partir de la entrada.
+Concretamente, no afecta a las plicas, barras automáticas ni
+alteraciones, porque éstos se generan posteriormente por
+parte de objetos de presentación @code{NoteHead}
+más que por elementos musicales del
 flujo de entrada.  Tampoco se puede usar @code{\tweak} para modificar
 las claves ni las indicaciones de compás, porque se separarán de
 cualquier instrucción @code{\tweak} que aparezca en el flujo de
 entrada debido a la inserción automática de los elementos adicionales
 que se requieren para especificar el contexto.
 
-También se pueden escribir varias instrucciones @code{\tweak} antes de
-un elemento notacional, y todas ellas le afectan:
+Tales objetos de presencaión creados indirectamente se pueden trucar
+usando la forma explícita de la instrucción @code{\tweak}:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak Stem #'color #red
+\tweak Beam #'color #green c8 e
+<c e \tweak Accidental #'font-size #-3 ges>4
+@end lilypond
+
+No se puede usar @code{\tweak} para modificar las claves o las
+indicaciones de compás, porque éstos se separan de cualquier
+instrucción @code{\tweak} precedente dentro del flujo de entrada
+merced a la inserción automática de elementos adicionales que se
+requieren para especificar el contexto.
+
+Se pueden colocar varias instrucciones @code{\tweak} antes de un
+elemento de notación; todos le afectan:
 
 @lilypond[verbatim,quote,relative=1]
 c
@@ -1954,12 +1969,6 @@ Manual de extensión:
 @rextend{Presentación de las expresiones musicales}.
 
 @knownissues
-@cindex trucos en una variable
-La instrucción @code{\tweak} no se puede usar dentro de una variable.
-
-@cindex trucos en la letra
-Las instrucciones @code{\tweak} no se pueden usar dentro del modo
-@code{\lyricmode}.
 
 @cindex trucar puntos de control
 @cindex control, trucar puntos de
@@ -4021,19 +4030,16 @@ padText =
 Además de números, podemos usar expresiones musicales, como notas,
 para los argumentos de las funciones musicales:
 
-@c TODO: use a better example (the music argument is redundant).
-
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
      (parser location note)
      (ly:music?)
    #{
-     \once \override Voice.NoteHead #'stencil =
-       #ly:text-interface::print
-     \once \override Voice.NoteHead #'text =
-       \markup \musicglyph #"custodes.mensural.u0"
-     \once \override Voice.Stem #'stencil = ##f
+     \tweak NoteHead #'stencil #ly:text-interface::print
+     \tweak NoteHead #'text
+        \markup \musicglyph #"custodes.mensural.u0"
+     \tweak Stem #'stencil ##f
      $note
    #})
 
@@ -4046,7 +4052,7 @@ Se pueden definir funciones de sustitución con más de un argumento:
 tempoPadded =
 #(define-music-function
      (parser location padding tempotext)
-     (number? string?)
+     (number? markup?)
    #{
      \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold #tempotext }
@@ -4055,7 +4061,7 @@ tempoPadded =
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
