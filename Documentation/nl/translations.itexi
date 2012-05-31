@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Tue Mar 27 16:52:08 UTC 2012
+@emph{Meest recente update Thu May 31 09:12:39 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ ja
 @item
 3 Fundamentele concepten
 @*
-11133
+11130
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">gedeeltelijk</span>
+<span style="background-color: #47ff24">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -177,7 +177,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-555
+616
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -194,7 +194,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">gedeeltelijk</span>
+<span style="background-color: #5bff27">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ ja
 @item
 Inleiding
 @*
-4618
+4753
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,7 +248,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">gedeeltelijk</span>
+<span style="background-color: #47ff24">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

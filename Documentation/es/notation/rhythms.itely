@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0757febe2084fd8507334987b6f6b524888247c7
+    Translation of GIT committish: 3702fd8c9cd613e0c104a9d386a7185b2cabe4de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -322,15 +322,15 @@ explica en @rlearning{Las voces contienen música}.
 @cindex escalar las duraciones
 @cindex duraciones, escalado de
 
-Es posible alterar la duración de las figuras, silencios o acordes en
-un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si @code{M} es
+La duración de las figuras, silencios o acordes se puede multiplicar
+por un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si @code{M} es
 1) a la duración.  Esto no afectará a la apariencia de las notas o
 silencios que se producen, pero la duración alterada se usará para
 calcular la posición dentro del compás y para establecer la duración
 en la salida MIDI.  Los factores de multiplicación se pueden combinar
 en la forma @code{*L*M/N}.  Los factores son parte de la duración: si
 no especificamos una duración para las notas siguientes, la duración
-por omisión que se toma de la nota anterior incluye cualquier factor
+por omisión que se toma de la nota anterior incluirá cualquier factor
 de escala que se haya aplicado.
 
 En el siguiente ejemplo las tres primeras notas duran exactamente dos

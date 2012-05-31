@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
+    Translation of GIT committish: e79582f3ec94019a9f849b2855abab4eabae3172
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -455,8 +455,8 @@ podemos alcanzar nuestra meta con tan sólo una fracción del esfuerzo
 individual.
 
 @item
-La @qq{cultura del regalo}: el movimiento del Software Libre (o de
-@qq{fuente abierta}) ha creado muchos proyectos geniales de software,
+La @qq{cultura del regalo}: el movimiento del Software Libre
+ha creado muchos proyectos geniales de software,
 como @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} y el juego
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Después de
@@ -464,7 +464,7 @@ haberse visto beneficiados por estos proyectos, algunos
 desarrolladores desean @qq{devolver} algo a la comunidad.
 
 @item
-Experiencia laboral: las contribuciones a proyectos de código abierto
+Experiencia laboral: las contribuciones a proyectos de software libre
 son una magnífica forma de practicar la programación, la escritura de
 documentación, la traducción de documentación o el diseño.  Esta
 experiencia ha ayudado a muchos programadores a encontrar trabajo en
@@ -1125,11 +1125,9 @@ una imagen más grande),frescobaldi-lilypond-editor,png,right}
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi es un editor dedicado de texto y música para LilyPond con
-un visor de PDF incorporado, un potente asistente de partituras y
-muchas funcionalidades de edición.  Está construido alrededor de las
-bibliotecas de KDE4 y se ejecuta actualmente en todos los sabores de
-Linux y otros sistemas operativos del tipo UNIX.
+Frescobaldi es un editor ligero y potente de texto y música para LilyPond con
+un visor de PDF incorporado.  Es muy fácil de utilizar y funciona en todos
+los principales sistemas operativos (Linux, Mac OS X y Windows).
 
 @divEnd
 

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Mar 27 16:52:08 UTC 2012
+@emph{Last updated Thu May 31 09:12:39 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11133
+11130
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -155,7 +155,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-15402
+15468
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,7 +192,7 @@ partially
 @item
 A Sablonok
 @*
-225
+219
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -285,24 +285,24 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-3889
+4615
 @tab Team-hu
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (96 %)</span>
+<span style="background-color: #dfef77">partially (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (96 %)
+partially (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffe740">partially</span>
+<span style="background-color: #ffbf47">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -378,7 +378,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-555
+616
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -395,7 +395,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #5bff27">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -432,7 +432,7 @@ partially
 @item
 Bevezetés
 @*
-4618
+4753
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -449,7 +449,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #4efe25">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -513,24 +513,24 @@ partially
 @item
 Közösség
 @*
-3018
+3006
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (98 %)</span>
+<span style="background-color: #dfef77">partially (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (98 %)
+partially (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">partially</span>
+<span style="background-color: #d4ff37">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

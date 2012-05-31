@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Tue Mar 27 16:52:08 UTC 2012
+@emph{Zuletzt aktualisiert am Thu May 31 09:12:39 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -221,11 +221,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -238,21 +238,21 @@ teilweise
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (78 %)</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (78 %)
+ja
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @end multitable
@@ -380,10 +380,64 @@ ja
 @item
 3 Grundbegriffe
 @*
-11133
+11130
 @tab Till Paala
 @*
 Reinhold Kainhofer
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+4 Die Ausgabe verändern
+@*
+15468
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">teilweise</span>
+@end html
+@end ifhtml
+@ifnothtml
+teilweise
+@end ifnothtml
+@tab vor-GDP
+@item
+A Vorlagen
+@*
+219
+@tab Till Paala
 @tab 
 @tab 
 @ifhtml
@@ -404,60 +458,6 @@ ja
 @end ifhtml
 @ifnothtml
 teilweise
-@end ifnothtml
-@tab vor-GDP
-@item
-4 Die Ausgabe verändern
-@*
-15402
-@tab Till Paala
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab vor-GDP
-@item
-A Vorlagen
-@*
-225
-@tab Till Paala
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
 @end ifnothtml
 @tab vor-GDP
 @end multitable
@@ -583,7 +583,7 @@ ja
 @item
 1.2 Rhythmus
 @*
-6330
+6352
 @tab Till Paala
 @tab 
 @tab 
@@ -610,7 +610,7 @@ ja
 @item
 1.3 Ausdrucksbezeichnungen
 @*
-1727
+1712
 @tab Till Paala
 @tab 
 @tab 
@@ -745,7 +745,7 @@ ja
 @item
 1.8 Text
 @*
-2716
+2729
 @tab Till Paala
 @tab 
 @tab 
@@ -762,11 +762,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -880,7 +880,7 @@ ja
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2636
+2675
 @tab Till Paala
 @tab 
 @tab 
@@ -897,11 +897,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #33ff21">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1069,7 +1069,7 @@ ja
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-8385
+8701
 @tab Till Paala
 @tab 
 @tab 
@@ -1086,34 +1086,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab vor-GDP
-@item
-4 Abstände
-@*
-11221
-@tab Till Paala
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #2cff20">teilweise</span>
+<span style="background-color: #39ff22">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1121,9 +1094,36 @@ teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
+4 Abstände
+@*
+11234
+@tab Till Paala
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab vor-GDP
+@item
 5 Standardeinstellungen verändern
 @*
-12706
+12679
 @tab Till Paala
 @tab 
 @tab 
@@ -1167,11 +1167,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">teilweise</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise
+ja
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1270,7 +1270,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-3889
+4615
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1279,17 +1279,17 @@ Till Paala
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">teilweise (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">teilweise</span>
+<span style="background-color: #dbff38">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1421,7 +1421,7 @@ LilyPond -- Notation für Jedermann
 @item
 Überschriften
 @*
-555
+616
 @tab Till Paala
 @tab 
 @tab 
@@ -1475,7 +1475,7 @@ ja
 @item
 Einleitung
 @*
-4618
+4753
 @tab Till Paala
 @tab 
 @tab 
@@ -1556,24 +1556,24 @@ ja
 @item
 Gemeinschaft
 @*
-3018
+3006
 @tab  Till Paala
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">teilweise (99 %)</span>
+<span style="background-color: #1fff1f">ja</span>
 @end html
 @end ifhtml
 @ifnothtml
-teilweise (99 %)
+ja
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">teilweise</span>
+<span style="background-color: #40fe23">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

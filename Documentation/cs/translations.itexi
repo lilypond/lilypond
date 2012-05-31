@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Tue Mar 27 16:52:08 UTC 2012
+@emph{Naposledy obnoveno Thu May 31 09:12:39 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -138,7 +138,7 @@ ano
 @item
 3 Základní pojmy
 @*
-11133
+11130
 @tab Pavel Fric
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">částečně</span>
+<span style="background-color: #2cff20">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-15402
+15468
 @tab Pavel Fric
 @tab 
 @tab 
@@ -182,7 +182,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">částečně</span>
+<span style="background-color: #47ff24">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,7 +192,7 @@ ano
 @item
 A Předlohy
 @*
-225
+219
 @tab Pavel Fric
 @tab 
 @tab 
@@ -209,7 +209,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #acff31">částečně</span>
+<span style="background-color: #b2fe32">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ LilyPond -- Zápis not pro každého
 @item
 Nadpisy
 @*
-555
+616
 @tab Pavel Fric
 @tab 
 @tab 
@@ -248,7 +248,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">částečně</span>
+<span style="background-color: #8aff2d">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-4618
+4753
 @tab Pavel Fric
 @tab 
 @tab 
@@ -302,7 +302,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">částečně</span>
+<span style="background-color: #6fff29">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -366,24 +366,24 @@ ano
 @item
 Společenství
 @*
-3018
+3006
 @tab  Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (98 %)</span>
+<span style="background-color: #dfef77">částečně (96 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (98 %)
+částečně (96 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">částečně</span>
+<span style="background-color: #e1ff39">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
