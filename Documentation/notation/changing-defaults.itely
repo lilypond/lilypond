@@ -1920,7 +1920,7 @@ The simple @code{\tweak} command cannot be used to modify any object
 that is not directly created from the input.  In particular
 it will not affect stems, automatic
 beams or accidentals, since these are generated later by
-\@code{NoteHead} layout objects rather than by music elements in the
+@code{\NoteHead} layout objects rather than by music elements in the
 input stream.
 
 Such indirectly created layout objects can be tweaked using the explicit
