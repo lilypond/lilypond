@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9ec7c79078944a94e2e9abbf8e1b3299c9706389
+    Translation of GIT committish: c20bed72fb602fabf67087649df283f1978a9d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1076,59 +1076,104 @@ Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 * Notas al pie manuales::
 @end menu
 
-
 @node Panorámica de las notas al pie
 @unnumberedsubsubsec Panorámica de las notas al pie
 @translationof Footnotes overview
 
-Las notas al pie automáticas crean indicadores numéricos
-incrementales; las notas al pie manuales, en cambio, permiten crear un
-indicador personalizado. Se pueden anotar todos los grobs (objetos
-gráficos), elementos @code{\markup} del nivel superior y las notas de
-los acordes.
+Las notas al pie automáticas crean indicadores numéricos crecientes;
+en cambio las notas al pie manuales permiten crear un indicador
+personalizado.  Normalmente, las notas al pie se aplican como
+@code{\tweak}s y por ello se pueden colocar directamente sobre los
+grobs (objetos gráficos) creados por la mayor parte de los elementos y
+post-eventos musicales.  En los casos en que esto no funciona así
+(como con las líneas divisorias y los cambios de compás, donde los
+grobs se producen como consecuencia de cambios en propiedades), las
+notas al pie se pueden también especificar como un evento musical
+independiente que afecta a todos los grobs de un tipo dado en un punto
+temporal concreto.
 
-El orden en que se dibuja cada grob determina el orden en que se crean
-los indicadores (y por tanto las notas al pie) durante la compilación.
+La forma completa de una instrucción de nota al pie es
+
+@example
+\footnote @var{marca} @var{desplazamiento} @var{grob} @var{nota}
+@var{música}
+@end example
+
+Los elementos son como sigue:
+
+@table @var
+@item marca
+es un elemento de marcado o cadena que especifica la nmarca de nota al
+pie que se usa tanto para señalar el punto de referencia como la nota
+en sí en la parte inferior de la página.  Se puede omitir (o, de forma
+equivalente, sustituirse con @code{\default}) en cuyo caso se genera
+un número en secuencia.
+@item desplazamiento
+es una pareja de números como @samp{#(2 . 1)} que especifica los
+desplazamientos X e Y a partir del punto de referencia en que se
+situará la marca.
+@item grob
+especifica, por su nombre, un tipo de objeto gráfico o grob que marcar
+(como @samp{#'Flag} para el corchete de una nota).  Si se da, el grob
+respectivo se usa como punto de referencia incluso en el caso de que
+su @q{causa} no sea la propia @var{música} referenciada sino un grob
+creado a partir de ella. Se puede omitit (o sustituirse por
+@code{\default}), y entonces sólo se anotará un grob creado
+directamente.
+@item nota
+Esta cadena o elemento de marcado especifica el texto de la nota que
+utilizar en la parte inferior de la página.
+@item música
+Éste es el elemento, evento musical o componente de un acorde o
+post-evento, que se está anotando.  Aunque no puede omitirse, @emph{sí
+puede} sustituirse por @code{\default} en cuyo caso la nota al pie no
+se adjunta a una expresión musical dada, sino a un momento de tiempo.
+Es obligatorio en este caso utilizar el argumento @var{grob} para
+seleccionar un tipo de grob afectado, como @samp{#'TimeSignature}
+(indicación de compás).
+@end table
+
+Como ocurre con @code{\tweak}, si nuestra @code{\footnote} se aplica a
+un post-evento o articulación, tendrá que ser ella misma precedida de
+@code{-} para que el analizador sintáctico adjunte el resultado a la
+nota o silencio precedente.
 
 
 @node Notas al pie automáticas
 @unnumberedsubsubsec Notas al pie automáticas
 @translationof Automatic footnotes
 
-Las notas al pie automáticas aceptan tres argumentos; el @var{Objeto de
-presentación} que anotar, la posición @samp{(x . y)} del indicador y un
-elemento de @code{\markup} que aparecerá en la nota, en la parte
-inferior de la página.
-
-La instrucción @code{\footnote} debe ir @emph{antes} del grob
-al que se adjunta la nota al pie:
+Las notas al pie automáticas toman cuatro argumentos: la posición
+@samp{(x . y)} del indicador, el nombre opcional del @var{grob} que
+especifica el objeto de presentación que se anota, el elemento de
+marcado de la porpia @var{nota} que aparecerá en la parte inferior de
+la página, y por supuesto la @var{música} a que adjuntar la nota al
+pie.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2) #'NoteHead
-      \markup { The first note } \default
+    \footnote #'(0.5 . -2)
+      \markup { The first note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'NoteHead
-      \markup { The third note } \default
-    e c4 d4
+    \footnote #'(0.5 . 1) #'Flag
+      \markup { The third note }
+    e\noBeam c4 d4
   }
 }
 @end lilypond
 
-Para anotar las notas de un acorde, la instrucción
-@code{\footnote} debe ir @emph{después} de la nota a la que se
-quiere adjuntar la nota al pie como un @code{TextScript}:
+Las notas en acorde no ofrecen ninguna dificultad especial:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "Here is a C" \default
-    es-\footnote #'(2 . -0.25) \markup { \italic "An E-flat" } \default
-    g-\footnote #'(2 . 3) \markup { \bold "This is a G" } \default
+    \footnote #'(1 . -1.25) "Here is a C" c
+    \footnote #'(2 . -0.25) \markup { \italic "An E-flat" } es
+    \footnote #'(2 . 3) \markup { \bold "This is a G" } g
     >1
   }
 }
@@ -1146,27 +1191,17 @@ línea informativa y la línea de copyright.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \footnote #'(-3 . 0) #'DynamicText
-      \markup { \bold Forte } \default
-
-    \footnote #'(0 . 1.5) #'Slur
-      \markup { A slur } \default
-    a'4\f(
-
-    \footnote #'(0 . -2) #'Beam
-      \markup { Beam } \default
-    b8)[ e]
-
+    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
+    -\footnote #'(0 . 1.5) \markup { A slur } (
+    b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
     \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } } \default
+      \markup  { \teeny { This is a stem } }
     c4
-
     \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental } \default
-
-    \footnote #'(0.5 . -0.5) #'TextScript
-      \markup \italic { Slow Down } \default
-    dis?4_"rit."
+      \markup \italic { A cautionary accidental }
+    \footnote #'(1 . 1) "The note itself"
+    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
+         _"rit."
   }
 }
 @end lilypond
@@ -1191,28 +1226,32 @@ uso de la instrucción @code{\auto-footnote}:
 
 @cindex notas al pie manuales
 
-Las notas al pie manuales toman cuatro argumentos;
-el @var{objeto de presentación} que se va a anotar,
-la posición @samp{(x . y)} del indicador, y dos instrucciones
-@code{\markup}; la primera es el indicador adjunto a la nota o grob, y
-la segunda es la nota al pie, en la parte inferior de la página.
+Las notas al pie marcadas manualmente toman un primer argumento
+adicional de marcado, @var{marca} para construir la marca de
+referencia.  A diferencia de las marcas de notas al pie generadas
+automáticamente, no aparecen antes del elemento de marcado @var{nota}
+en la parte inferior de la página: el establecimiento de la conexión
+visual se deja para el usuario.  LilyPond sólo asegura que el marcado
+correspondiente aparece en la parte inferior de la misma página.
 
-Como las notas al pie automáticas, las instrucciones
-@code{\footnote} manuales deben ir @emph{antes} del grob
-que la nota al pie está anotando y adjuntada como un
-@code{TextScript}:
+Aparte de esto, su uso es idéntico al de las notas al pie numeradas
+automáticamente.
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. The first note" } \default
+    \footnote
+          "1" #'(0.5 . -2)
+          \markup { \italic "1. The first note" }
+    a'4
     b8
-    e-\footnote
-          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. The second note" \default
+    \footnote
+          \markup { \bold "2" } #'(0.5 . 1)
+          "2. The second note"
+    e
     c4
-    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano" \default
+    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
   }
 }
 @end lilypond
@@ -1224,10 +1263,10 @@ Para anotar notas de acordes con notas al pie manuales:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote "1" #'(1 . -1.25) "1. C" \default
-    es-\footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" \default
-    g-\footnote "3" #'(2 . 3) \markup { \italic "iii. G" } \default
+    \footnote "1" #'(1 . -1.25) "1. C" c
+    \footnote
+       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
+    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
     >1
   }
 }
@@ -1245,40 +1284,31 @@ informativa a la de copyright:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote
-      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
-      \markup { 1. \bold Forte } \default
-
-    \footnote
-      \markup { \teeny b } #'(0 . 1.5) #'Slur
-      \markup { b. A slur } \default
-    a'4\f(
-
-    \footnote
-      \markup { \teeny 3 } #'(0 . -2) #'Beam
-      \markup { 3. Beam } \default
-    b8)[ e]
-
+    a'4-\footnote
+      \markup { \teeny 1 } #'(-3 . 0)
+      \markup { 1. \bold Forte } \f
+    -\footnote
+      \markup { \teeny b } #'(0 . 1.5)
+      \markup { b. A slur } (
+    b8)-\footnote
+      \markup { \teeny 3 } #'(0 . -2)
+      \markup { 3. Beam } [
+    e]
     \footnote
       \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } } \default
+      \markup  { \bold 4. { This is a stem } }
     c4
-
     \footnote
       \markup \concat \teeny { "sharp (v)" }
           #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental } \default
-
-    \footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
-      \markup \italic { a. Slow Down } \default
-    dis?4_"rit."
-
-    \breathe
+      \markup \italic { v. A cautionary accidental }
+    dis?4-\footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
+      \markup \italic { a. Slow Down } _"rit."
     \footnote
       \markup { \teeny \musicglyph #"rests.4" }
-          #'(1.5 . -0.25) #'BreathingSign
-      \markup { \null } \default
+          #'(1.5 . -0.25)
+      \markup { \null } \breathe
   }
 }
 @end lilypond

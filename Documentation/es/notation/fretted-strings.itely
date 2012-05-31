@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9830313f5f1f76df8b46bdeffe716fd5b2d6f331
+    Translation of GIT committish: 9b95b5452f689f330178ff142fc3847193ef19a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -236,6 +236,7 @@ symbols = {
 @cindex traste
 
 @funindex minimumFret
+@funindex restrainOpenStrings
 
 De forma predeterminada, las notas se asignan a la posición más baja
 del mástil (primera posición).  Las cuerdas al aire se toman como
@@ -246,6 +247,10 @@ indicaciones de número de cuerda aparezcan en la notación tradicional,
 podemos sobreescribir el sello correspondiente.  Generalmente es mucho
 más cómodo definir la posición utilizando el valor de
 @code{minimumFret}.  El valor predeterminado de es 0.
+
+Incluso si @code{minimumFret} está establecido, se usan las cuerdas al
+aire siempre que sea posible.  Este comportamiento se puede cambiar
+fijando @code{restrainOpenStrings} al valor @code{#t}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout { \override Voice.StringNumber #'stencil = ##f }
@@ -261,6 +266,7 @@ más cómodo definir la posición utilizando el valor de
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
 >>
