@@ -17,6 +17,38 @@
 
 @c used for news about the upcoming release; see CG 10.2
 
+@newsItem
+@subsubheading Séptima candidata al lanzamiento de 2.16: ¡Lanzado LilyPond 2.15.39!  @emph{22 de mayo de 2012}
+
+Ha salido LilyPond 2.15.38; ésta es la séptima versión candidata al
+lanzamiento de la inminente versión estable 2.16.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.14.2 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existen problemas críticos conocidos en esta edición. Si no se
+encuentra ningún bug crítico, la edición oficial 2.16.0 se producirá
+el 5 de junio de 2012.  Si descubre algún problema, le rogamos que nos
+envíe @ref{Informes de fallos}.
+
+@newsEnd
+
+@newsItem
+@subsubheading El Informe LilyPond, número #26. @emph{22 de mayo de 2012}
+
+Vuelve el @emph{Informe LilyPond}, con un nuevo editor a bordo: Pavel
+Roskin, que nos cuenta algo de sus aventuras en las extrañas tierras
+de los fallos de los compiladores.  También hay un informe detallado
+sobre el estado de desarrollo actual, y un análisis de muestras de
+salida de LilyPond; vea por sí mismo cuán cerca (¿o cuán lejos?)
+estamos de igualar la calidad de las partituras grabadas a mano.
+
+Acérquese y @uref{http://news.lilynet.net/?The-LilyPond-Report-26,
+lea ya el Informe LilyPond número 26}; ¡todos los comentarios y
+aportaciones serán calurosamente bien recibidos!
+
+@newsEnd
+
 
 @newsItem
 @subsubheading Sexta candidata al lanzamiento de 2.16: ¡Lanzado LilyPond 2.15.38!  @emph{3 de mayo de 2012}
