@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Mar 27 16:52:08 UTC 2012
+@emph{Last updated Thu May 31 09:12:39 UTC 2012
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,11 +47,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -138,7 +138,7 @@ yes
 @item
 3 Concetti fondamentali
 @*
-11133
+11130
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -155,17 +155,17 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 A Modelli
 @*
-225
+219
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -182,11 +182,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -221,11 +221,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -341,11 +341,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -378,7 +378,7 @@ yes
 @item
 1 Eseguire @command{lilypond}
 @*
-3889
+4615
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -395,11 +395,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -449,11 +449,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -466,21 +466,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (92 %)</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (92 %)
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -525,7 +525,7 @@ LilyPond -- Notazione musicale per tutti
 @item
 Section titles
 @*
-555
+616
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -542,11 +542,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -579,7 +579,7 @@ yes
 @item
 Introduzione
 @*
-4618
+4753
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -596,11 +596,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -660,24 +660,24 @@ yes
 @item
 Comunità
 @*
-3018
+3006
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (99 %)</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (99 %)
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #40fe23">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
