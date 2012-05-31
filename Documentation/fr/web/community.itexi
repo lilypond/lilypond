@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+    Translation of GIT committish: 43b53582a5b7400d15f7dd6adf55b27dd874067d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,7 +54,7 @@ concernées.
 @ref{Développement} : pour ceux qui veulent contribuer et tester.
 
 @item
-@ref{GSoC}: liste des projets pour le Google Summer of Code.
+@ref{GSoC 2012}: liste des projets pour le Google Summer of Code 2012.
 
 @item
 @ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
@@ -92,7 +92,7 @@ aux cours des versions précédentes.
 * Participation::
 * Mécénat::
 * Développement::
-* GSoC::
+* GSoC 2012::
 * Auteurs::
 * Publications::
 * Archives::
@@ -130,7 +130,7 @@ poster sur lilypond-user à l'aide de gmane}
 @end quotation
 
 @warning{Lorsque vous posez une question, merci de fournir des
-@ref{Exemples minimaux}@tie{}!}
+@ref{Exemples minimaux} !}
 
 
 @subsubheading LilyPond Snippet Repository
@@ -138,7 +138,7 @@ poster sur lilypond-user à l'aide de gmane}
 Le LilyPond Snippet Repository regroupe des exemples de situations
 particulières auxquelles ont été confrontés les utilisateurs de LilyPond.
 Ils sont librement réutilisables dans vos propres travaux.  N'hésitez
-pas à apporter votre concours à cette banque de trucs et astuces@tie{}!
+pas à apporter votre concours à cette banque de trucs et astuces !
 
 @example
 @uref{http://lsr.dsi.unimi.it}
@@ -151,7 +151,7 @@ sont directement inclus dans la documentation, volume
 
 @subsubheading IRC
 
-Vous pouvez obtenir quelque support au travers de notre canal IRC@tie{}:
+Vous pouvez obtenir quelque support au travers de notre canal IRC :
 
 @example
 @uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
@@ -330,10 +330,10 @@ arrive.
 @item
 La génération d'un exemple minimaliste permet de comprendre ce qui se
 passe et évite la plupart du temps de signaler un problème qui, en
-réalité, n'existe pas@tie{}: lorsqu'un @qq{bogue} ne peut être
-reproduit dans le cadre d'un exemple minimal, il y a de fortes
-présomptions qu'il s'agisse d'une inadéquation entre l'utilisateur et
-LilyPond plutôt que réellement d'un @qq{bogue}.
+réalité, n'existe pas : lorsqu'un @qq{bogue} ne peut être reproduit dans
+le cadre d'un exemple minimal, il y a de fortes présomptions qu'il
+s'agisse d'une inadéquation entre l'utilisateur et LilyPond plutôt que
+réellement d'un @qq{bogue}.
 
 @end itemize
 @divEnd
@@ -360,9 +360,8 @@ mesure.
 @item
 Lorsque vous créez un exemple minimal à partir de votre code, commencez
 par commenter des portions de votre fichier -- à l'aide de @w{@code{%}
-ou @code{%@{ @dots{} %@}}}.  Tout ce que vous mettez en commentaire et
-qui ne nuit pas à la démonstration est superflu@tie{};
-suprimez-le@tie{}!
+ou @code{%@{ @dots{} %@}}}.  Tout ce que vous mettez en commentaire et
+qui ne nuit pas à la démonstration est superflu ; suprimez-le !
 
 @item
 Évitez autant que faire se peut toute notation, tonalité ou métrique
@@ -384,7 +383,7 @@ Le cas échéant, joignez une image de ce à quoi vous voulez arriver.
 @divClass{column-center-bottom}
 @subheading Jusqu'où pousser le minimalisme@tie{}?
 
-En voici un exemple@tie{}:
+En voici un exemple :
 
 @example
 \version "2.14.1"
@@ -404,8 +403,7 @@ En voici un exemple@tie{}:
 @}
 @end example
 
-C'est vrai, ce n'est pas très long.  Mais on peut encore le
-réduire@tie{}:
+C'est vrai, ce n'est pas très long.  Mais on peut encore le réduire :
 
 @example
 \version "2.14.1"
@@ -434,7 +432,7 @@ Si votre saisie entraîne un crash ou une sortie erronée, c'est un bogue.
 @subheading Étape 1 : Le bogue est-il déjà recensé ?
 
 Un recensement des bogues non encore résolus est disponible sur notre
-@emph{google bug tracker}@tie{}; suivez le lien
+@emph{google bug tracker} ; suivez le lien
 
 @example
 @uref{http://code.google.com/p/lilypond/issues/list}
@@ -460,7 +458,7 @@ pas de suffisamment de ressources pour traiter les rapports de bogue,
 aussi tout exemple non minimaliste sera rejeté.  Dans la plupart des
 cas, seules quelques notes suffisent à démontrer le dysfonctionnement.}
 
-Voici ce à quoi devrait ressembler tout signalement de bogue@tie{}:
+Voici ce à quoi devrait ressembler tout signalement de bogue :
 
 @example
 % Dans une liaison de prolongation
@@ -507,14 +505,14 @@ ligne
 @end example
 
 @noindent
-sans oublier le @code{>} au tout début de votre message@tie{}; c'est
+sans oublier le @code{>} au tout début de votre message ; c'est
 @strong{impératif}.
 
 Si vous ne voulez ou ne pouvez pas envoyer un rapport de bogue selon les
 instructions et en anglais, envoyez votre rapport ou posez votre
 question sur la
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-liste francophone}@tie{}; nous nous chargerons de transmettre un rapport
+liste francophone} ; nous nous chargerons de transmettre un rapport
 à la liste anglophone et assurerons le suivi.
 
 @end itemize
@@ -585,7 +583,7 @@ Il fut un temps où
 @end itemize
 
 Le projet LilyPond ne dispose d'aucune organisation quant à ces
-@qq{efforts}@tie{}; il n'est en aucun cas partie prenante dans ces
+@qq{efforts} ; il n'est en aucun cas partie prenante dans ces
 transactions ni ne saurait les interdire.  Tout contrat qui pourrait
 intervenir entre personnes privées ne saurait nous impliquer.
 
@@ -595,7 +593,7 @@ intervenir entre personnes privées ne saurait nous impliquer.
 @subheading Principes généraux
 
 Tout utilisateur désireux de rétribuer un travail doit avoir à l'esprit
-les points suivants@tie{}:
+les points suivants :
 
 @itemize
 @item
@@ -604,10 +602,9 @@ sur les différentes listes de diffusion.
 
 @item
 Tout entendement entre personnes privées requiert les mêmes précautions
-de base que n'importe quelle transaction@tie{}: qui paye, combien, par
-quel moyen et dans quelles conditions.  Nous vous invitons à lever tout
-doute ou ambiguïté à ce sujet, avant même que les travaux soient
-entamés.
+de base que n'importe quelle transaction : qui paye, combien, par quel
+moyen et dans quelles conditions.  Nous vous invitons à lever tout doute
+ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 
 @end itemize
 
@@ -632,7 +629,7 @@ statistiques s'arrêtent à la version @versionDevel{}.
 @tab @uref{http://lilypond.org/~graham/gitstats-3months/, sur un trimestre}
 @end multitable
 
-Développeurs intéressés@tie{}:
+Développeurs intéressés :
 @table @asis
 @item @email{dak@@gnu.org, David Kastrup (le contacter en anglais)}
 Vos contributions me permettront de continuer mon activité à temps plein
@@ -676,11 +673,11 @@ lecture des @ref{Manuels, manuels pour la version stable}.}
 @divClass{column-center-top}
 @subheading Numérotation des versions
 
-Il existe deux jeux de version pour LilyPond@tie{}: des versions stables
+Il existe deux jeux de version pour LilyPond : des versions stables
 et des versions instables de développement.  Les versions stables
 comportent, en versionnage @qq{mineur}, un numéro pair (par ex. 2.8,
-2.10 ou 2.12).  Les versions de développement, quant à elles,
-comportent un versionnage @qq{mineur} impair (par ex. 2.7, 2.9 ou 2.11).
+2.10 ou 2.12).  Les versions de développement, quant à elles,
+comportent un versionnage @qq{mineur} impair (par ex. 2.7, 2.9 ou 2.11).
 
 @divEnd
 
@@ -696,7 +693,7 @@ dans le Guide du contributeur.
 @end quotation
 
 Les rédacteurs de la documentation ainsi que les testeurs préféreront
-travailler à partir des binaires les plus à jour@tie{}:
+travailler à partir des binaires les plus à jour :
 
 @quotation
 
@@ -821,7 +818,7 @@ Archive de tous les tests de régression}
 @subheading Manuels
 
 @ifclear web_version
-@warning{Il s'agit des manuels pour LilyPond @version{}@tie{}; la
+@warning{Il s'agit des manuels pour LilyPond @version{} ; la
 dernière mouture est consultable sur @url{http://lilypond.org}}
 @end ifclear
 
@@ -915,50 +912,44 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @divEnd
 
 
-@node GSoC
-@unnumberedsec GSoC
-@translationof GSoC
+@node GSoC 2012
+@unnumberedsec GSoC 2012
+@translationof GSoC 2012
 
 
 @divClass{column-center-top}
 @subheading Le Google Summer of Code
 
-Pour reprendre les termes même du 
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
-site du GSoC}, 
-@qq{Le Google Summer of Code est un programme global qui rémunère des
-étudiants pour écrire du code au bénéfice de projets @emph{open source}.
-Google a travaillé de concert avec la communauté @emph{open source} afin
-d'identifier et subventionner des projets passionnants au cours de l'été
-prochain.}
+Le Google Summer of Code est un programme global qui rémunère des
+étudiants durant la période estivale, pour teavailler au profit de
+projets @emph{open source}.
 
 L'équipe LilyPond considère qu'il s'agit là d'une excellente opportunité
-pour recruter de nouveaux contributeurs, encourager et motiver les
-étudiants qui participent déjà au développement de LilyPond et,
-pourquoi pas, écrire du code qui bénéficiera à tout le monde.
-
-Nous participons au GSoC sous l'égide du projet GNU.  Vous trouverez
-plus d'informations sur les conditions de participations sur la
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html,
-page GNU GSoC}.
+pour recruter de nouveaux contributeurs, encourager et motiver des
+étudiants qui participent déjà au développement de LilyPond.  L'un de
+nos contributeurs a été reçu pour participer à l'édition 2012 du
+programme, sous l'égide du @uref{http://www.gnu.org/, projet GNU}, et
+nous comptons bien participer aux éditions futures.
 
 @divEnd
 
 
 @divClass{column-center-bottom}
-@subheading Recensement de nos idées
+@subheading Recensement de nos idées pour 2012
 
-Voici les projets que nous proposons aux étudiants du GSoC.  N'hésitez
-pas à émettre vos propres suggestions si aucun d'entre eux ne vous
-convient.  Par ailleurs, si l'un de ces projets vous semble trop
-volumineux, il est toujours possible d'en réduire l'ampleur.
+Voici les projets que nous avons proposés aux étudiants du GSoC 2012.
+Bien que la période de candidature soit close, nous avons décidé de
+maintenir en ligne cette page du site, comme source d'inspiration pour
+ceux qui seraient intéressés au développement de LilyPond.  Des membres
+de l'équipe de développement aideront volontiers ceux qui aimeraient
+s'attaquer à l'un de ces projets.
 
-Nous exigeons des étudiants intéressés un minimum de connaissances de
-@code{git}.  En dehors du dernier projet, il serait souhaitable que les
-candidats connaissent un peu la musique.
+Il y a naturellement bien d'autres choses à améliorer dans LilyPond, y
+compris dans les détails.  Une liste exhaustive des problèmes est
+disponible @uref{http://code.google.com/p/lilypond/issues/list, ici}.
 
 
-@subheading Notes d'ornement (grace notes)
+@subheading Notes d'ornement @emph{(grace notes)}
 
 Résolution des problèmes de synchronisation des notes d'ornement, tout
 en tenant compte de l'architecture sous-jacente (voir
@@ -982,7 +973,7 @@ portée seulement.
 
 Ajout d'une fonctionnalité d'export au format MusiXML et amélioration de
 l'import, tout en fournissant des tests de performance.  Selon le temps
-imparti, ceci pourrait se restreindre à@tie{}:
+imparti, ceci pourrait se restreindre à :
 
 @divClass{keep-bullets}
 @itemize
@@ -990,21 +981,21 @@ imparti, ceci pourrait se restreindre à@tie{}:
 @item
 L'exportation d'un minimum d'informations musicales tel que cela se
 pratique déjà au niveau du MIDI, autrement dit à l'aide de classes
-d'exportateurs dérivées de la classe @emph{translator}@tie{};
+d'exportateurs dérivées de la classe @emph{translator} ;
 
 @item
 Construction de l'arborescence XML d'après le contenu musical de base, et
-connexion des éléments musicaux à des balises XML@tie{};
+connexion des éléments musicaux à des balises XML ;
 
 @item
 Faire en sorte que tous les graveurs LilyPond restent pleinement
-opérationnels@tie{};
+opérationnels ;
 
 @item
 Ajout d'une capacité de lier tout objet de rendu -- autrement dit chaque
 stencil ou groupe de stencils -- à l'élément musical qui en est la
 cause et, par voie de conséquence, à la balise correspondante dans
-l'arborescence XML@tie{};
+l'arborescence XML ;
 
 @item
 Ajout d'un moteur de rendu XML qui pourrait alors inclure l'information
@@ -1031,7 +1022,7 @@ comparatifs, constituerait un plus.
 
 Le galbe par défaut des liaisons n'est souvent pas pleinement
 satisfaisant.  Il est par ailleurs impossible de marquer une liaison de
-prolongation entre des enharmoniques (@code{@{ cis'~ des' @}}), et la
+prolongation entre des enharmoniques (@code{@{ cis'~ des' @}}), et la
 @qq{coupure} d'une liaison par un changement de clef ou de ligne n'est
 pas totalement fonctionnelle.  Ce projet comporte entre autres un
 recensement d'exemples de résultats défectueux, l'appréciation du
@@ -1082,41 +1073,6 @@ le temps de calcul nécessaire à la génération des ligatures.
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
 
-@subheading Amélioration du support des tablatures
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Accordages non monotoniques, tel le Ukulele ;
-
-@item
-Création d'un mode de saisie spécifique -- pour l'instant, l'information
-musicale est saisie en notation occidentale moderne, comme @qq{un fa
-dièse noire}, puis convertie en tablature -- pour faciliter la
-transcription de tablatures médiévales pour luth@tie{};
-
-@item
-Implémentation de fonctionnalités de tablatures modernes, tels les
-désinences, pichenettes et tapotements@tie{};
-
-@item
-Un diagramme de fret correspondant à un accord particulier devrait
-pouvoir permettre de reproduire cet accord sur la portée, sans être
-limité à l'accord par défaut.
-
-@end itemize
-@divEnd
-
-@strong{Difficulté :} facile
-
-@strong{Préalable :} C++
-
-@strong{Connaissance appréciée :} notation en tablature
-
-@strong{Mentor :} Carl Sorensen
-
-
 @subheading Nettoyage des messages en cours de compilation
 
 Il s'agit d'assainir les messages du compilateur, l'analyse du code
@@ -1125,7 +1081,7 @@ d'analyse automatique du code (messages en @code{g++} ou @code{clang})
 ainsi que les outils d'analyse comme @emph{valgrind} pour les
 éventuelles fuites de mémoire ou @emph{callgrind} pour le profilage du
 code, fournissent des informations précieuses quant à d'éventuelles
-faiblesses du code C++.  Faire le ménage dans tous ces messages nous
+faiblesses du code C++.  Faire le ménage dans tous ces messages nous
 permettrait de rejeter tout patch qui introduirait des messages
 superflus.
 
