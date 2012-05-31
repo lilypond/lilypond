@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: ce1c0fabb3d5ac18e61fb8fcc91a3990714553c2
+Translation of GIT committish: 1d2e41cbaad491f61b3aba0fc67391cf88a89df8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1921,11 +1921,7 @@ Concretamente, no afecta a las plicas, barras automáticas ni
 alteraciones, porque éstos se generan posteriormente por
 parte de objetos de presentación @code{NoteHead}
 más que por elementos musicales del
-flujo de entrada.  Tampoco se puede usar @code{\tweak} para modificar
-las claves ni las indicaciones de compás, porque se separarán de
-cualquier instrucción @code{\tweak} que aparezca en el flujo de
-entrada debido a la inserción automática de los elementos adicionales
-que se requieren para especificar el contexto.
+flujo de entrada.
 
 Tales objetos de presencaión creados indirectamente se pueden trucar
 usando la forma explícita de la instrucción @code{\tweak}:
