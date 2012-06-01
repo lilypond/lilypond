@@ -78,6 +78,22 @@ they will not print.
 <a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
 @end lilypond
 
+@cindex chords, empty
+@cindex placeholder events
+
+A chord acts merely as a container for its notes, its articulations and
+other attached elements.  Consequently, a chord without notes inside
+does not actually have a duration.  Any attached articulations will
+happen at the same musical time as the next following note or chord and
+be combined with them (for more complex possibilities of combining such
+elements, see @ref{Simultaneous expressions}):
+
+@lilypond[verbatim,quote,relative=2]
+\grace { g8[( a b] }
+<> ) \p \< -. -\markup \italic "sempre staccato"
+\repeat unfold 4 { c4 e }  c1\f
+@end lilypond
+
 @cindex relative pitch, chords
 @cindex chords, relative pitch
 
@@ -244,8 +260,17 @@ a << { a4 b g } { d4 g c, } >>
 @end lilypond
 
 This can be useful if the simultaneous sections have identical
-rhythms, but attempts to attach notes with different durations
-to the same stem will cause errors.
+rhythms, but attempts to attach notes with different durations to
+the same stem will cause errors.  Notes, articulations, and property
+changes in a @emph{single} @samp{Voice} are collected and engraved in
+musical order:
+
+@lilypond[quote,verbatim,relative=2]
+<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@end lilypond
+
+Multiple stems or beams or different note durations or properties at
+the same musical time require the use of multiple voices.
 
 The following example shows how simultaneous expressions can
 generate multiple staves implicitly:
@@ -255,7 +280,8 @@ generate multiple staves implicitly:
 << { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
-Here different rhythms cause no problems.
+Here different rhythms cause no problems because they are
+interpreted in different voices.
 
 @cindex collisions, clashing note columns
 @cindex collisions, ignoring
