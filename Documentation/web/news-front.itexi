@@ -10,7 +10,7 @@
 
 
 @newsItem
-@subsubheading Release candidate withdrawn  @emph{Jan 01, 2012}
+@subsubheading Release candidate withdrawn  @emph{June 01, 2012}
 
 We have discovered a regression since 2.14.2, so lilypond 2.15.39
 is no longer a candidate for the 2.16.0 release.  However, please
