@@ -83,15 +83,14 @@
              ((beamExceptions . ((end .  (((1 . 32) . (8 8 8 8 8 8))))))))
 
     ;; in 3 4 time:
-    ;;   use defaults -- no entries necessary
+    ;;   use defaults, but combine all beats into a unit if possible
     ;;
-    ;;   Whole measure beaming is controlled by context property
-    ;;   beamWholeMeasure
-    ;;   Half measure beaming is controlled by context property
-    ;;   beamHalfMeasure
-
+    ;;   set all beams to end on beats, but 1 8 to beam entire measure
+    ;;   in order to avoid beaming every beam type for the entire measure, we set
+    ;;   triplets back to every beat.
     ((3 . 4) .
-             ((beamExceptions . ())))
+             ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
+                                         ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 3 8  time:
     ;;   beam entire measure together

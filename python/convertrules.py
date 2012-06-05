@@ -3361,6 +3361,13 @@ def conv (str):
                   not_first (r"\2 \\default"), str)
     return str
 
+@rule ((2, 15, 40), r"Remove beamWholeMeasure")
+def conv (str):
+    if re.search (r"\bbeamWholeMeasure\b", str):
+        stderr_write (NOT_SMART % "beamWholeMeasure")
+        stderr_write (_ ("beamExceptions controls whole-measure beaming.") + "\n")
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

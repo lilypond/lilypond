@@ -558,6 +558,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
                 "autoBeaming "
                 "baseMoment "
                 "beamExceptions "
+                "beamHalfMeasure "
                 "beatStructure "
                 "subdivideBeams ",
 

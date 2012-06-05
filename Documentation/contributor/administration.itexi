@@ -188,15 +188,22 @@ export LILYPOND_GIT=~/lilypond-git
 then logging out and in.
 
 @item
-Run patchy once to set up config files.  Cancel this build
-(ctrl-c).
+Run patchy once to set up config files, answer @q{@code{n}} when it
+asks for going on, unless the default config file happens to suit your
+setup:
+@example
+cd PATH/TO/lilypond-extra.git/patches
+lilypond-patchy-staging.py
+@end example
+Following calls of @code{lilypond-patchy-staging.py} need not be made
+from the directory where it stands.
 
 @item
-Edit @file{$HOME/.lilypond-patchy-config} to provide working
-directories for your build directory, your results directory,
-compiler options and notification method.  If you don't want to
-use email notification, then delete everything after
-@code{smtp_command:}.
+Edit @file{$HOME/.lilypond-patchy-config} to provide the location of
+your local lilypond Git repository, working directories for your build
+directory, your results directory, compiler options and notification
+method.  If you don't want to use email notification, then delete
+everything after @code{smtp_command:}.
 
 @item
 Ensure that your new user has git push access.  Follow the
@@ -208,7 +215,7 @@ to run patchy unattended.
 
 @subheading lilypond-patchy-staging.py
 
-lilypond-patchy-staging.py is run with
+@code{lilypond-patchy-staging.py} is run with
 @example
 python lilypond-patchy-staging.py
 @end example

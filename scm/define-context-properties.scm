@@ -141,10 +141,8 @@ apply for the down staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
 that normally end on beats.")
-     (beamHalfMeasure ,boolean? "Allow a half measure of eighth notes to
-be beamed together in 3/4 time?")
-     (beamWholeMeasure ,boolean? "Allow a whole measure of eighth notes
-to be beamed together in 3/4 time?")
+     (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
+halfway through the measure in triple time, which could look like 6/8.")
      (beatStructure ,list? "List of @code{baseMoment}s that are combined
 to make beats.")
 

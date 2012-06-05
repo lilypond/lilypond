@@ -13,5 +13,5 @@ later by setting the @code{ledger-extra} property."
   \override Staff.StaffSymbol #'line-positions = #'(-5 -2 -1 2 5 6)
   \override Staff.StaffSymbol #'ledger-positions = #'(-5 (-2 -1) 2)
   \override Staff.StaffSymbol #'ledger-extra = #1
-  g,4 c e b' c'' e g
+  g,4 c e b' \bar ":|" c'' e g
 }

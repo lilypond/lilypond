@@ -230,7 +230,6 @@ multiple voices on the same staff."
   \consists "Dots_engraver"
   \consists "Rest_engraver"
   \consists "Tweak_engraver"
-  \consists "Footnote_engraver"
 
   %% switch on to make stem directions interpolate for the
   %% center line.
@@ -556,6 +555,7 @@ automatically when an output definition (a @code{\score} or
   \consists "Parenthesis_engraver"
   \consists "Concurrent_hairpin_engraver"
   \consists "Beam_collision_engraver"
+  \consists "Footnote_engraver"
 
   \defaultchild "Staff"
 
@@ -626,8 +626,7 @@ automatically when an output definition (a @code{\score} or
   beatStructure = #'(1 1 1 1)
   beamExceptions = #'((end . (((1 . 8) . (4 4))
                               ((1 . 12) . (3 3 3 3)))))
-  beamWholeMeasure = ##t
-  beamHalfMeasure = ##f
+  beamHalfMeasure = ##t
 
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
