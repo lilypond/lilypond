@@ -184,9 +184,10 @@ make lilypond-upload \
 
 @enumerate
 
-@item Switch back to master and get the updated news:
+@item Update the current staging branch with the current news:
 
 @example
+git fetch
 git checkout origin/staging
 git merge origin/release/unstable
 @end example
@@ -214,6 +215,16 @@ git commit -m "Release: bump version." VERSION
 git push origin HEAD:staging
 @end example
 
+If the push fails with a message like
+
+@example
+ ! [rejected]        HEAD -> staging (non-fast-forward)
+@end example
+
+@noindent
+it means that somebody else updated the staging branch while you were
+preparing your change.  In that case, you need to restart the Post
+Release process.  Otherwise, proceed:
 
 @item (for now) do a @code{make doc} and manually upload:
 
