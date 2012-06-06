@@ -650,10 +650,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
           // assume that if a script is avoiding slurs, it should not get placed
           // under a tuplet bracket
-          SCM avoid = scripts[i]->get_property ("avoid-slur");
-          if (unsmob_grob (scripts[i]->get_object ("slur"))
-              && (avoid == ly_symbol2scm ("outside")
-                  || avoid == ly_symbol2scm ("around")))
+          if (unsmob_grob (scripts[i]->get_object ("slur")))
             continue;
 
           Interval script_x (scripts[i]->extent (commonx, X_AXIS));

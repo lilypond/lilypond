@@ -400,6 +400,12 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
 
   Grob *e = info.grob ();
   SCM avoid = e->get_property ("avoid-slur");
+  Grob *slur;
+  if (end_slurs.size () && !slurs.size ())
+    slur = end_slurs[0];
+  else
+    slur = slurs[0];
+
   if (Tie::has_interface (e)
       || avoid == ly_symbol2scm ("inside"))
     {
@@ -407,16 +413,12 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
         add_extra_encompass (slurs[i], e);
       for (vsize i = end_slurs.size (); i--;)
         add_extra_encompass (end_slurs[i], e);
+      if (slur)
+        e->set_object ("slur", slur->self_scm ());
     }
   else if (avoid == ly_symbol2scm ("outside")
            || avoid == ly_symbol2scm ("around"))
     {
-      Grob *slur;
-      if (end_slurs.size () && !slurs.size ())
-        slur = end_slurs[0];
-      else
-        slur = slurs[0];
-
       if (slur)
         {
           chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
