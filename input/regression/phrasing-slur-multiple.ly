@@ -1,8 +1,9 @@
-\version "2.15.4"
+\version "2.15.40"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "already have phrasing slur"))
 #(ly:expect-warning (_ "cannot end phrasing slur"))
+#(ly:expect-warning (_ "unterminated phrasing slur"))
 
 \header {
   texidoc = "LilyPond does not support multiple concurrent phrasing slurs with the 
@@ -11,13 +12,14 @@ slur will not be generated.  However, one can can create a second slur with
 a different spanner-id."
 }
 
-altPhSlur = #(make-music 'PhrasingSlurEvent 'span-direction START 'spanner-id "alt")
-altPhSlurEnd = #(make-music 'PhrasingSlurEvent 'span-direction STOP 'spanner-id "alt")
+sp=#(define-event-function (parser location n e) (index? ly:event?)
+     (set! (ly:music-property e 'spanner-id) (format "sp~a" n))
+     e)
 
 \relative c'' { 
   % This will give warnings ("Already have phrasing slur" and "Cannot end phrasing slur")
-  c4\(\( d4\)\( e4\) f\) |
-  % This will give two overlapping slurs:
-  d\(  d\altPhSlur e\) f\altPhSlurEnd |
+  c4\(\(\sp1\( d4\)\(\sp1\( e4\) f\) |
+  % This will give two overlapping slurs and "unterminated phrasing slur" from above
+  d\(  d\sp2\( e\) f\sp2\) |
   
 }

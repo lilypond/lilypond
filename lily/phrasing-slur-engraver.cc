@@ -175,7 +175,7 @@ Phrasing_slur_engraver::process_music ()
       Stream_event *ev = stop_events_[i];
       string id = robust_scm2string (ev->get_property ("spanner-id"), "");
 
-      // Find the slur that is ended with this event (by checking the spanner-id)
+      // Find the slurs that are ended with this event (by checking the spanner-id)
       bool ended = false;
       for (vsize j = slurs_.size (); j--;)
         {
@@ -186,26 +186,80 @@ Phrasing_slur_engraver::process_music ()
               slurs_.erase (slurs_.begin () + j);
             }
         }
-      if (!ended)
+      if (ended)
+        {
+          // Ignore redundant stop events for this id
+          for (vsize j = stop_events_.size (); --j > i;)
+            {
+              if (id == robust_scm2string (stop_events_[j]->get_property ("spanner-id"), ""))
+                stop_events_.erase (stop_events_.begin() + j);
+            }
+        }
+      else
         ev->origin ()->warning (_ ("cannot end phrasing slur"));
     }
 
-  for (vsize i = 0; i < start_events_.size (); i++)
+  vsize old_slurs = slurs_.size ();
+  for (vsize i = start_events_.size (); i--;)
     {
       Stream_event *ev = start_events_[i];
       string id = robust_scm2string (ev->get_property ("spanner-id"), "");
-      bool have_slur = false;
-      // Check if we already have a slur with the same spanner-id.
-      // In that case, don't create a new slur, but print a warning
-      for (vsize i = 0; i < slurs_.size (); i++)
-        have_slur = have_slur || (id == robust_scm2string (slurs_[i]->get_property ("spanner-id"), ""));
+      Direction updown = to_dir (ev->get_property ("direction"));
 
-      if (have_slur)
-        ev->origin ()->warning (_ ("already have phrasing slur"));
-      else
+      bool completed;
+      for (vsize j = 0; !(completed = (j == slurs_.size ())); j++)
+        {
+          // Check if we already have a slur with the same spanner-id.
+          if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
+            {
+              if (j < old_slurs)
+                {
+                  // We already have an old slur, so give a warning
+                  // and completely ignore the new slur.
+                  ev->origin ()->warning (_ ("already have phrasing slur"));
+                  start_events_.erase (start_events_.begin () + i);
+                  break;
+                }
+
+              // If this slur event has no direction, it will not
+              // contribute anything new to the existing slur(s), so
+              // we can ignore it.  This is not entirely accurate:
+              // tweaks or context properties like those set with
+              // \slurUp can still override a neutral direction, so
+              // when encountering a slur event with "opposite"
+              // direction first, then one with neutral direction, we
+              // only let the "opposite" direction remain, while if
+              // the order is the other way round, a double slur
+              // results since the direction of the first slur is no
+              // longer attributable to a "neutral" slur event.  A
+              // mixture of neutral and directed events is nothing
+              // that the partcombiner should crank out, and it would
+              // be decidedly strange for manual input.
+
+              if (!updown)
+                break;
+
+              // If the existing slur does not have a direction yet,
+              // give it ours
+
+              Direction slur_dir = to_dir (slurs_[j]->get_property ("direction"));
+
+              if (!slur_dir)
+                {
+                  set_grob_direction (slurs_[j], updown);
+                  break;
+                }
+
+              // If the existing slur has the same direction as ours, drop ours
+
+              if (slur_dir == updown)
+                break;
+            }
+        }
+      // If the loop completed, our slur is new
+      if (completed)
         {
           Grob *slur = make_spanner ("PhrasingSlur", ev->self_scm ());
-          Direction updown = to_dir (ev->get_property ("direction"));
           slur->set_property ("spanner-id", ly_string2scm (id));
           if (updown)
             set_grob_direction (slur, updown);
