@@ -286,12 +286,18 @@ Všechna loga a vyobrazení výrobků ctí autorské právo a obchodní značku.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Pro procesory značky Intel (máte-li pochybnosti, používejte tuto verzi).
+Pro MacOS X 10.4 nebo vyšší, běží na Intel CPU
+(pokud si nejste jisti, použijte tento).
+
+MacOS X 10.7 Lion zatím není podporováno.
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Pro procesory G3 a G4 (staré počítače Apple).
+Pro MacOS X 10.4 nebo vyšší, běží na G3 a G4 CPU
+(staré počítače Apple).
+
+MacOS X 10.7 Lion zatím není podporováno.
 
 @end itemize
 
