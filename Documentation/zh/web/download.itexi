@@ -299,14 +299,16 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-For MacOS X 10.4 or higher, running on Intel CPUs (if in doubt,
-use this).
+对于MacOS X 10.4或更高版本，Intel CPU的运行（如果你不能确定，请选择这个）。
+
+MacOS X 10.7狮子尚不支持。
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-For MacOS X 10.4 or higher, running on G3 and G4 CPUs (old Apple
-computers).
+对于MacOS X10.4或更高版本，运行 G3和G4的CPU（老苹果电脑）。
+
+MacOS X 10.7狮子尚不支持。
 
 @end itemize
 
