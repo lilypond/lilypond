@@ -116,7 +116,7 @@ $LY_LANGUAGES->{'fr'} = {
 
 $LY_LANGUAGES->{'hu'} = {
     'Back to Documentation Index' => 'Vissza a dokumentációk jegyzékéhez',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => 'Köszönet a ${webdev_link} részére a ${lily_site} tárhelyért.',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>Köszönet a ${webdev_link} részére a ${lily_site} tárhelyért.',
 };
 
 $LY_LANGUAGES->{'it'} = {
@@ -126,7 +126,7 @@ $LY_LANGUAGES->{'it'} = {
 
 $LY_LANGUAGES->{'ja'} = {
     'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '${lily_site} をホスティングしてくれている ${webdev_link} に感謝します。',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>${lily_site} をホスティングしてくれている ${webdev_link} に感謝します。',
 };
 
 
@@ -137,7 +137,7 @@ $LY_LANGUAGES->{'nl'} = {
 
 $LY_LANGUAGES->{'zh'} = {
     'Back to Documentation Index' => '回到文档索引',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '非常感谢 ${webdev_link} 提供 ${lily_site} 的主机空间。',
+    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '<p>非常感谢 ${webdev_link} 提供 ${lily_site} 的主机空间。',
 };
 
 # FIXME: request the translations below then send them to texi2html/texinfo devs
