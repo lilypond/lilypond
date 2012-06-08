@@ -559,16 +559,21 @@ export LILYPOND_WEB_MEDIA_GIT=$HOME/dir/of/lilypond-extra/
 @unnumberedsubsubsec Grand Unified Builder (GUB)
 
 Another item of interest might be the Grand Unified Builder, our
-cross-platform building tool.  Since it is used by projects as
+cross-platform building tool.  Since it is used by other projects as
 well, it is not stored in our gub repository.  For more info, see
 @uref{http://lilypond.org/gub}.
 
-There are two locations for this repository, which will hopefully
-be kept up-to-date with each other:
+There are two locations for this repository: the version being used to
+build lilypond, which is at
+
+@example
+@uref{http://github.com/gperciva/gub}
+@end example
+
+and the original version by Jan Nieuwenhuizen, kept at
 
 @example
 @uref{http://github.com/janneke/gub}
-@uref{http://github.com/gperciva/gub}
 @end example
 
 
