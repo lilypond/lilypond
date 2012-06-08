@@ -1,17 +1,18 @@
-# translation of LilyPond documentation
+# translation of LilyPond documentation to Chinese (simplified)
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Ben Luo <benluo@gmail.com>, 2011
+# Anthony Fok <foka@debian.org>, 2012
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: zh\n"
+"Project-Id-Version: lilypond-doc 2.15.40\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-27 13:12+0100\n"
+"POT-Creation-Date: 2012-06-08 12:00+0800\n"
 "PO-Revision-Date: 2011-01-23 20:47+0800\n"
-"Last-Translator: Ben Luo <benluo@gmail.com>\n"
-"Language-Team: 汉语 <LL@li.org>\n"
-"Language: 汉语\n"
+"Last-Translator: Anthony Fok <foka@debian.org>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,12 +32,12 @@ msgstr ""
 #: postprocess_html.py:69
 #, python-format
 msgid "Other languages: %s."
-msgstr "其它语言：%s。"
+msgstr "其他语言：%s。"
 
 #: postprocess_html.py:70
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr ""
+msgstr "关于 <A HREF=\"%s\">自动语言选择</A>"
 
 #: postprocess_html.py:330
 msgid "stable-branch"
@@ -48,7 +49,7 @@ msgstr "开发分支"
 
 #: translations-status.py:72
 msgid "Section titles"
-msgstr "段标题"
+msgstr "章节标题"
 
 #: translations-status.py:73
 #, python-format
@@ -61,7 +62,7 @@ msgstr "翻译者"
 
 #: translations-status.py:74
 msgid "Translation checkers"
-msgstr "校对"
+msgstr "翻译校对"
 
 #: translations-status.py:75
 msgid "Translated"
@@ -73,15 +74,15 @@ msgstr "最新"
 
 #: translations-status.py:76
 msgid "Other info"
-msgstr "其它信息"
+msgstr "其他信息"
 
 #: translations-status.py:78
 msgid "no"
-msgstr "无"
+msgstr "否"
 
 #: translations-status.py:79
 msgid "not translated"
-msgstr "没有翻译"
+msgstr "尚未翻译"
 
 #: translations-status.py:81
 #, python-format
@@ -91,7 +92,7 @@ msgstr "部分 (%(p)d %%)"
 #: translations-status.py:83
 #, python-format
 msgid "partially translated (%(p)d %%)"
-msgstr "部分翻译 (%(p)d %%)"
+msgstr "已翻译了一部分 (%(p)d %%)"
 
 #: translations-status.py:84 translations-status.py:86
 msgid "yes"
@@ -107,7 +108,7 @@ msgstr "最新的"
 
 #: translations-status.py:88
 msgid "partially"
-msgstr "部分地"
+msgstr "部分"
 
 #: translations-status.py:89
 msgid "partially up to date"
@@ -119,11 +120,11 @@ msgstr "不适用"
 
 #: translations-status.py:91
 msgid "pre-GDP"
-msgstr ""
+msgstr "GDP 前"
 
 #: translations-status.py:92
 msgid "post-GDP"
-msgstr ""
+msgstr "GDP 后"
 
 #. -*- coding: utf-8 -*-
 #. Documentation/changes.tely:158 (variable)
@@ -138,13 +139,12 @@ msgid "Top"
 msgstr "首页"
 
 #. @top in Documentation/changes.tely
-#, fuzzy
 msgid "New features in 2.16 since 2.14"
-msgstr "从2.12到2.13出现的新特性"
+msgstr "从 2.14 到 2.16 出现的新功能"
 
 #. @top in Documentation/macros.itexi
 msgid "LilyPond --- \\\\TITLE\\\\"
-msgstr ""
+msgstr "LilyPond --- \\\\TITLE\\\\"
 
 #. @subsubheading in Documentation/macros.itexi
 msgid "Predefined commands"
@@ -160,7 +160,7 @@ msgstr "参见"
 
 #. @subsubheading in Documentation/macros.itexi
 msgid "Known issues and warnings"
-msgstr "知道的问题和警告"
+msgstr "已知问题和警告"
 
 #. @node in Documentation/essay.tely
 #. @appendix in Documentation/essay.tely
@@ -178,17 +178,17 @@ msgstr "LilyPond 索引"
 #. @node in Documentation/essay/engraving.itely
 #. @chapter in Documentation/essay/engraving.itely
 msgid "Music engraving"
-msgstr ""
+msgstr "音乐雕版"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "The LilyPond story"
-msgstr ""
+msgstr "LilyPond 的故事"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Engraving details"
-msgstr ""
+msgstr "雕版细节"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
@@ -198,32 +198,32 @@ msgstr "音乐字体"
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Optical spacing"
-msgstr ""
+msgstr "视觉空间"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Ledger lines"
-msgstr ""
+msgstr "附加线"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Optical sizing"
-msgstr "可选的尺寸"
+msgstr "视觉大小调整"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Why work so hard?"
-msgstr "为什么工作地如此辛苦？"
+msgstr "为什么工作得这么辛苦？"
 
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Automated engraving"
-msgstr ""
+msgstr "自动雕版"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
 msgid "Beauty contests"
-msgstr ""
+msgstr "选美大赛"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
@@ -238,7 +238,7 @@ msgstr "把事情做对"
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Building software"
-msgstr "生产软件"
+msgstr "构建软件"
 
 #. @node in Documentation/essay/engraving.itely
 #. @unnumberedsubsec in Documentation/essay/engraving.itely
@@ -263,7 +263,7 @@ msgstr "让 LilyPond 工作"
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Engraved examples (BWV 861)"
-msgstr ""
+msgstr "雕版例子 (BWV 861)"
 
 #. @node in Documentation/essay/literature.itely
 #. @chapter in Documentation/essay/literature.itely
@@ -285,13 +285,12 @@ msgid "University of Colorado Engraving music bibliography"
 msgstr ""
 
 #. @subheading in Documentation/essay/literature.itely
-#, fuzzy
 msgid "Computer notation bibliography"
-msgstr "计算机五线谱"
+msgstr "计算机记谱法参考文献"
 
 #. @subheading in Documentation/essay/literature.itely
 msgid "Engraving bibliography"
-msgstr ""
+msgstr "雕版印刷术参考文献"
 
 #. @node in Documentation/fdl.itexi
 #. @appendix in Documentation/fdl.itexi
@@ -306,7 +305,7 @@ msgstr ""
 #. @node in Documentation/fdl.itexi
 #. @appendix in Documentation/fdl.itexi
 msgid "GNU Free Documentation License"
-msgstr "GNU 自由文档协议"
+msgstr "GNU 自由文档许可证"
 
 #. @heading in Documentation/fdl.itexi
 msgid "ADDENDUM: How to use this License for your documents"
@@ -337,12 +336,12 @@ msgstr ""
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @chapter in Documentation/extending/scheme-tutorial.itely
 msgid "Scheme tutorial"
-msgstr ""
+msgstr "Scheme 教程"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @section in Documentation/extending/scheme-tutorial.itely
 msgid "Introduction to Scheme"
-msgstr ""
+msgstr "Scheme 简介"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -352,7 +351,7 @@ msgstr ""
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Scheme variables"
-msgstr ""
+msgstr "Scheme 变量"
 
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
@@ -516,27 +515,25 @@ msgstr "面向程序员的界面"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Lilypond code blocks"
-msgstr "LilyPond 组件的变量"
+msgstr "LilyPond 代码块"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
 #. @node in Documentation/notation/notation-appendices.itely
 #. @appendixsec in Documentation/notation/notation-appendices.itely
 msgid "Scheme functions"
-msgstr ""
+msgstr "Scheme 函数"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "Scheme function definitions"
-msgstr ""
+msgstr "Scheme 函数定义"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Scheme function usage"
-msgstr "音乐函数语法"
+msgstr "Scheme 函数用法"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -551,15 +548,13 @@ msgstr "音乐函数"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Music function definitions"
-msgstr "音乐函数"
+msgstr "音乐函数定义"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Music function usage"
-msgstr "音乐函数"
+msgstr "音乐函数用法"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -589,9 +584,8 @@ msgstr "空函数"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
-#, fuzzy
 msgid "Event functions"
-msgstr "空函数"
+msgstr "事件函数"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @section in Documentation/extending/programming-interface.itely
@@ -718,7 +712,7 @@ msgstr "编译一个文件"
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 msgid "Entering input"
-msgstr "进入输入"
+msgstr "录入输入"
 
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "Producing output"
@@ -729,14 +723,14 @@ msgstr "产生输出"
 #. @node in Documentation/cs/learning/tutorial.itely
 #. @subsection in Documentation/cs/learning/tutorial.itely
 msgid "MacOS X"
-msgstr ""
+msgstr "Mac OS X"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 #. @node in Documentation/cs/learning/tutorial.itely
 #. @subsection in Documentation/cs/learning/tutorial.itely
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -755,7 +749,7 @@ msgstr "简单的乐谱"
 
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "Pitches"
-msgstr ""
+msgstr "音高"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @rglos in Documentation/learning/common-notation.itely
@@ -764,14 +758,14 @@ msgstr ""
 #. @rglos in Documentation/cs/learning/tutorial.itely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "pitch"
-msgstr ""
+msgstr "音高"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/tutorial.itely
 msgid "interval"
-msgstr ""
+msgstr "音程"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
@@ -780,7 +774,7 @@ msgstr ""
 #. Documentation/snippets/changing-the-interval-of-lines-on-the-stave.ly:22 (variable)
 #. Documentation/snippets/printing-note-names-with-and-without-an-octave-marker.ly:32 (variable)
 msgid "scale"
-msgstr ""
+msgstr "音阶"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
@@ -815,7 +809,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/tutorial.itely
 msgid "beam"
-msgstr ""
+msgstr "符杠"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
@@ -871,7 +865,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/tutorial.itely
 msgid "time signature"
-msgstr ""
+msgstr "拍号"
 
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "Tempo marks"
@@ -893,14 +887,14 @@ msgstr ""
 
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "Clef"
-msgstr ""
+msgstr "谱号"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/tutorial.itely
 msgid "clef"
-msgstr ""
+msgstr "谱号"
 
 #. @subheading in Documentation/learning/tutorial.itely
 msgid "All together"
@@ -929,7 +923,7 @@ msgstr "一些常见错误"
 #. @node in Documentation/learning/tutorial.itely
 #. @section in Documentation/learning/tutorial.itely
 msgid "How to read the manuals"
-msgstr "如何看手册"
+msgstr "如何阅读手册"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -939,7 +933,7 @@ msgstr ""
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 msgid "Clickable examples"
-msgstr ""
+msgstr "可点击的例子"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -990,16 +984,16 @@ msgstr ""
 #. @node in Documentation/learning/common-notation.itely
 #. @subsection in Documentation/learning/common-notation.itely
 msgid "Bar checks"
-msgstr ""
+msgstr "小节检查"
 
 #. @node in Documentation/learning/common-notation.itely
 #. @subsection in Documentation/learning/common-notation.itely
 msgid "Accidentals and key signatures"
-msgstr ""
+msgstr "变音记号和调号"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Accidentals"
-msgstr ""
+msgstr "变音记号"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1038,7 +1032,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "key signature"
-msgstr ""
+msgstr "调号"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1070,7 +1064,7 @@ msgstr "自然"
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "transposition"
-msgstr ""
+msgstr "移调"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1146,7 +1140,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "fingering"
-msgstr ""
+msgstr "指法 (fingering)"
 
 #. @subheading in Documentation/learning/common-notation.itely
 #. @subheading in Documentation/learning/tweaks.itely
@@ -1165,14 +1159,14 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "crescendo"
-msgstr ""
+msgstr "渐强"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "decrescendo"
-msgstr ""
+msgstr "渐弱"
 
 #. @node in Documentation/learning/common-notation.itely
 #. @subsection in Documentation/learning/common-notation.itely
@@ -1216,7 +1210,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "triplet"
-msgstr ""
+msgstr "三连音"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Grace notes"
@@ -2290,7 +2284,7 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/fundamental.itely
 msgid "ambitus"
-msgstr ""
+msgstr "音域"
 
 #. @subsubheading in Documentation/learning/fundamental.itely
 msgid "Changing all contexts of the same type"
@@ -3190,7 +3184,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "bass clef"
-msgstr ""
+msgstr "低音谱号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3215,17 +3209,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "brass"
-msgstr ""
+msgstr "铜管乐器"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "breath mark"
-msgstr ""
+msgstr "换气记号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "breve"
-msgstr ""
+msgstr "倍全音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3235,17 +3229,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "C clef"
-msgstr ""
+msgstr "C 谱号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "cadence"
-msgstr ""
+msgstr "终止式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "cadenza"
-msgstr ""
+msgstr "华彩乐段"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3266,12 +3260,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "central C"
-msgstr ""
+msgstr "中央 C"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "chromatic scale"
-msgstr ""
+msgstr "半音音阶"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3281,7 +3275,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "church mode"
-msgstr ""
+msgstr "教会调式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3316,7 +3310,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "compound interval"
-msgstr ""
+msgstr "复音程"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3326,12 +3320,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "compound time"
-msgstr ""
+msgstr "复拍子"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "concert pitch"
-msgstr ""
+msgstr "实际演出音高"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3341,12 +3335,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "consonance"
-msgstr ""
+msgstr "协和音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "contralto"
-msgstr ""
+msgstr "女低音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3356,12 +3350,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "counterpoint"
-msgstr ""
+msgstr "对位法"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "countertenor"
-msgstr ""
+msgstr "仿女声的男高音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3406,7 +3400,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diatonic scale"
-msgstr ""
+msgstr "自然音阶"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3416,17 +3410,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diminished interval"
-msgstr ""
+msgstr "减音程"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diminuendo"
-msgstr ""
+msgstr "渐弱"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "diminution"
-msgstr ""
+msgstr "减值"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3441,7 +3435,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dissonance"
-msgstr ""
+msgstr "不协和音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3461,22 +3455,22 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dominant"
-msgstr ""
+msgstr "属音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dominant ninth chord"
-msgstr ""
+msgstr "属九和弦"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dominant seventh chord"
-msgstr ""
+msgstr "属七和弦"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "dorian mode"
-msgstr ""
+msgstr "多里安调式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3516,7 +3510,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "duplet"
-msgstr ""
+msgstr "二连音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3526,12 +3520,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ecclesiastical mode"
-msgstr ""
+msgstr "教会调式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "eighth note"
-msgstr ""
+msgstr "八分音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3546,27 +3540,27 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "embellishment"
-msgstr ""
+msgstr "装饰音；加花"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "engraving"
-msgstr ""
+msgstr "雕版印刷术"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "enharmonic"
-msgstr ""
+msgstr "同音异名"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "equal temperament"
-msgstr ""
+msgstr "平均律"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "expression mark"
-msgstr ""
+msgstr "表情记号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3576,7 +3570,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "F clef"
-msgstr ""
+msgstr "F 谱号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3591,7 +3585,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "fermata"
-msgstr ""
+msgstr "延长记号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3601,12 +3595,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "figured bass"
-msgstr ""
+msgstr "数字低音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "flag"
-msgstr ""
+msgstr "符尾"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3621,7 +3615,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "forte"
-msgstr ""
+msgstr "强(音)"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3646,7 +3640,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "fugue"
-msgstr ""
+msgstr "赋格曲"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3661,12 +3655,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "G clef"
-msgstr ""
+msgstr "G 谱号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "glissando"
-msgstr ""
+msgstr "滑奏法；滑音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3676,7 +3670,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "grave"
-msgstr ""
+msgstr "严肃沉重地"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3696,7 +3690,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "half rest"
-msgstr ""
+msgstr "二分休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3707,12 +3701,12 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:53 (variable)
 msgid "harmonics"
-msgstr ""
+msgstr "泛音；谐振"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "harmony"
-msgstr ""
+msgstr "和声"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3737,7 +3731,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "inversion"
-msgstr ""
+msgstr "转位"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3752,7 +3746,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "key"
-msgstr ""
+msgstr "调"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3762,22 +3756,22 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "largo"
-msgstr ""
+msgstr "慢板；广板"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "leading note"
-msgstr ""
+msgstr "导音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ledger line"
-msgstr ""
+msgstr "附加线"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "legato"
-msgstr ""
+msgstr "连奏；连唱"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3787,12 +3781,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "leger line"
-msgstr ""
+msgstr "附加线"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ligature"
-msgstr ""
+msgstr "组合记谱法"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3837,12 +3831,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "meantone temperament"
-msgstr ""
+msgstr "纯三度律"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "measure"
-msgstr ""
+msgstr "小节"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3852,7 +3846,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mediant"
-msgstr ""
+msgstr "中音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3877,7 +3871,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "meter"
-msgstr ""
+msgstr "拍子"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3892,12 +3886,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mezzo"
-msgstr ""
+msgstr "半；中"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mezzo-soprano"
-msgstr ""
+msgstr "女中音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3907,37 +3901,37 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mixolydian mode"
-msgstr ""
+msgstr "米索利地安调式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mode"
-msgstr ""
+msgstr "调式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "modulation"
-msgstr ""
+msgstr "转调"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "mordent"
-msgstr ""
+msgstr "波音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "motif"
-msgstr ""
+msgstr "动机；乐想"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "motive"
-msgstr ""
+msgstr "动机；乐想"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "movement"
-msgstr ""
+msgstr "乐章；律动"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3952,7 +3946,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ninth"
-msgstr ""
+msgstr "九度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3962,12 +3956,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "note"
-msgstr ""
+msgstr "音符；音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "note head"
-msgstr ""
+msgstr "符头"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3997,7 +3991,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ornament"
-msgstr ""
+msgstr "装饰音；加花"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4009,7 +4003,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "pause"
-msgstr ""
+msgstr "停顿"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4049,7 +4043,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "polymeter"
-msgstr ""
+msgstr "复合拍子"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4074,7 +4068,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "presto"
-msgstr ""
+msgstr "急板"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4089,7 +4083,7 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "quadruplet"
-msgstr ""
+msgstr "四连音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4099,22 +4093,22 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "quarter rest"
-msgstr ""
+msgstr "四分休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "quarter tone"
-msgstr ""
+msgstr "四分之一全音(音程)"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "quintuplet"
-msgstr ""
+msgstr "五连音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "rallentando"
-msgstr ""
+msgstr "渐慢"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4124,39 +4118,39 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "repeat"
-msgstr ""
+msgstr "重复"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. Documentation/snippets/creating-a-sequence-of-notes-on-various-pitches.ly:39 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:307 (context id)
 msgid "rhythm"
-msgstr ""
+msgstr "节奏"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ritardando"
-msgstr ""
+msgstr "渐慢"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ritenuto"
-msgstr ""
+msgstr "减低速度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "scale degree"
-msgstr ""
+msgstr "音级"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "scordatura"
-msgstr ""
+msgstr "异常调弦法"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "score"
-msgstr ""
+msgstr "乐谱"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4166,22 +4160,22 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "semibreve"
-msgstr ""
+msgstr "全音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "semitone"
-msgstr ""
+msgstr "半音(音程)；半级音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "seventh"
-msgstr ""
+msgstr "七度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sextolet"
-msgstr ""
+msgstr "六连音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4206,12 +4200,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixteenth note"
-msgstr ""
+msgstr "十六分音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixteenth rest"
-msgstr ""
+msgstr "十六分休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4221,12 +4215,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixty-fourth note"
-msgstr ""
+msgstr "六十四分音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sixty-fourth rest"
-msgstr ""
+msgstr "六十四分休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4241,12 +4235,12 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sonata"
-msgstr ""
+msgstr "奏鸣曲"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "sonata form"
-msgstr ""
+msgstr "奏鸣曲式"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4257,27 +4251,27 @@ msgstr ""
 #. @section in Documentation/music-glossary.tely
 #. Documentation/snippets/satb-choir-template---four-staves.ly:79 (context id)
 msgid "soprano"
-msgstr ""
+msgstr "女高音；高音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "staccato"
-msgstr ""
+msgstr "断音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "staves"
-msgstr ""
+msgstr "谱表"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "stem"
-msgstr ""
+msgstr "符杠"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "stringendo"
-msgstr ""
+msgstr "增加紧张度，通常同时加快速度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4287,17 +4281,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "strong beat"
-msgstr ""
+msgstr "强拍"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "subdominant"
-msgstr ""
+msgstr "下属音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "submediant"
-msgstr ""
+msgstr "下中音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4317,17 +4311,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "supertonic"
-msgstr ""
+msgstr "上主音；上音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "symphony"
-msgstr ""
+msgstr "交响曲；交响乐"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "syncopation"
-msgstr ""
+msgstr "切分法；切分音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4337,48 +4331,48 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "temperament"
-msgstr ""
+msgstr "乐律"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. Documentation/snippets/satb-choir-template---four-staves.ly:93 (context id)
 msgid "tenor"
-msgstr ""
+msgstr "男高音[声乐用]；中音[器乐用]"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tenth"
-msgstr ""
+msgstr "十度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tenuto"
-msgstr ""
+msgstr "持续 [奏足时值]"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "third"
-msgstr ""
+msgstr "三度"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "thirty-second note"
-msgstr ""
+msgstr "三十二分音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "thirty-second rest"
-msgstr ""
+msgstr "三十二分休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "thorough bass"
-msgstr ""
+msgstr "通奏低音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "time"
-msgstr ""
+msgstr "(1)拍子；(2)时间"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4393,42 +4387,42 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "transposing instrument"
-msgstr ""
+msgstr "移调乐器"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "treble clef"
-msgstr ""
+msgstr "高音谱号"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tremolo"
-msgstr ""
+msgstr "颤音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "triad"
-msgstr ""
+msgstr "三和弦"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "trill"
-msgstr ""
+msgstr "震音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "triple meter"
-msgstr ""
+msgstr "三拍子"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tritone"
-msgstr ""
+msgstr "三全音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tuning fork"
-msgstr ""
+msgstr "音叉"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4438,17 +4432,17 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "turn"
-msgstr ""
+msgstr "回音"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "unison"
-msgstr ""
+msgstr "(1)同声齐奏；同声齐唱，(2)同度(音程)"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "upbeat"
-msgstr ""
+msgstr "弱拍"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4463,22 +4457,22 @@ msgstr ""
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "weak beat"
-msgstr ""
+msgstr "弱拍"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "whole rest"
-msgstr ""
+msgstr "全休止符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "whole tone"
-msgstr ""
+msgstr "全音符"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "woodwind"
-msgstr ""
+msgstr "木管乐器"
 
 #. @node in Documentation/music-glossary.tely
 #. @chapter in Documentation/music-glossary.tely
@@ -4735,7 +4729,7 @@ msgstr ""
 #. @node in Documentation/notation/input.itely
 #. @subsection in Documentation/notation/input.itely
 msgid "Table of contents"
-msgstr ""
+msgstr "目录"
 
 #. @node in Documentation/notation/input.itely
 #. @section in Documentation/notation/input.itely
@@ -4819,7 +4813,7 @@ msgstr ""
 #. @node in Documentation/notation/input.itely
 #. @section in Documentation/notation/input.itely
 msgid "MIDI output"
-msgstr ""
+msgstr "MIDI 输出"
 
 #. @node in Documentation/notation/input.itely
 #. @subsection in Documentation/notation/input.itely
@@ -6263,7 +6257,7 @@ msgstr ""
 #. @node in Documentation/usage/lilypond-book.itely
 #. @subsection in Documentation/usage/lilypond-book.itely
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #. @node in Documentation/usage/lilypond-book.itely
 #. @subsection in Documentation/usage/lilypond-book.itely
@@ -6374,12 +6368,12 @@ msgstr ""
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
 msgid "Emacs mode"
-msgstr ""
+msgstr "Emacs 模式"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
 msgid "Vim mode"
-msgstr ""
+msgstr "Vim 模式"
 
 #. @node in Documentation/usage/external.itely
 #. @unnumberedsubsec in Documentation/usage/external.itely
@@ -11329,7 +11323,7 @@ msgstr ""
 
 #. Documentation/snippets/utf-8.ly:52 (variable)
 msgid "japanese"
-msgstr "日本"
+msgstr ""
 
 #. Documentation/snippets/utf-8.ly:59 (comment)
 msgid "\\\"a legal song to you\\\""

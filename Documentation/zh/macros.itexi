@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 676dd9eed5f81540f71c3e3e55666c60f7af36ac
+    Translation of GIT committish: 8052856914abafa960a0518ca8032b681c9d0588
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -43,7 +43,7 @@ translations should be in macros.itexi.
 @html
 <div class="warning">
 @end html
-@strong{Note:} \TEXT\
+@strong{注意：}\TEXT\
 @c keep the space for proper nesting of </p>
 
 @html
@@ -59,7 +59,7 @@ translations should be in macros.itexi.
 @quotation
 @quotation
 @cartouche
-@b{Note:} \TEXT\
+@b{注意：}\TEXT\
 @end cartouche
 @end quotation
 @end quotation
@@ -120,8 +120,8 @@ documentation, or to read this manual in other formats, see
 @copyrightDeclare
 
 @quotation
-在由自由软件协会发布的 GNU 自由文档协议，1.1版及以后版本的条款内，允许复制，分发和/或修改本文档和没有不变的部分。
-这个协议的复本在标题为《GNU 自由文档协议》的段。
+在由自由软件基金会发布的 GNU 自由文档许可证，1.1
+版及以后版本的条款内，允许复制，分发和/或修改本文档和没有不变的部分。这个许可证的复本在标题为《GNU 自由文档许可证》的章节里。
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1

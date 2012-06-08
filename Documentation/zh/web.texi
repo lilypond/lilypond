@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
 @ignore
-    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
+    Translation of GIT committish: a8841c7b9212700f2ebac56e0713afa78a8f0ca0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -8,7 +8,7 @@
 @end ignore
 
 @setfilename web.info
-@settitle LilyPond -- 每一个人的五线谱
+@settitle LilyPond -- 人人的乐谱软件
 @documentencoding UTF-8
 @documentlanguage zh
 @afourpaper
@@ -18,14 +18,13 @@
 @c Copyright @copyright{} 2009--2012 by the authors.
 @c @end macro
 
-@c Translators: Ben Luo
+@c Translators: Ben Luo, Anthony Fok
 
 @set FDL
 @set web
 @include macros.itexi
 @include weblinks.itexi
 
-@afourpaper
 
 @c don't remove this comment.
 @ignore
@@ -61,25 +60,25 @@ License''.
 @direntry
 * LilyPond 学习手册: (lilypond-learning).  从这开始。
 * Music 术语表: (music-glossary).               为非英语用户。
-* LilyPond: (lilypond-notation).                           LilyPond 音符参考。
+* LilyPond: (lilypond-notation).                           LilyPond 记谱法参考手册。
 * LilyPond 片断: (lilypond-snippets).         短的特征，窍门和例子。
-* LilyPond 内部参考: (lilypond-internals).  定义各调节项。
+* LilyPond 内部机制参考手册: (lilypond-internals).  定义各调节项。
 * LilyPond 应用程序的用法: (lilypond-usage). 安装和运行应用程序。
 * LilyPond 网站: (lilypond-web).    新网站预览。
-* lilypond: (lilypond-usage)运行 lilypond.       借助 LilyPond 程序。
-* abc2ly: (lilypond-usage)借助 abc2ly.      导入 ABC.
+* lilypond: (lilypond-usage)运行 lilypond.       调用 LilyPond 程序。
+* abc2ly: (lilypond-usage)调用 abc2ly.      导入 ABC。
 * convert-ly: (lilypond-usage)用convert-ly更新文件。 旧的 LilyPond 版本。
-* etf2ly: (lilypond-usage)借用 etf2ly.      导入 Finale.
+* etf2ly: (lilypond-usage)调用 etf2ly.      导入 Finale。
 * lilypond-book: (lilypond-usage)lilypond-book. 文本和音乐合并。
-* midi2ly: (lilypond-usage)借用 midi2ly.    导入 MIDI.
-* musicxml2ly: (lilypond-usage)借用 musicxml2ly.  导入 MusicXML.
+* midi2ly: (lilypond-usage)调用 midi2ly.    导入 MIDI。
+* musicxml2ly: (lilypond-usage)调用 musicxml2ly.  导入 MusicXML。
 @end direntry
 
 
 @c TITLE PAGE
 @ifnottex
 @node Top
-@top LilyPond... 每一个人的五线谱
+@top LilyPond... 人人的乐谱软件
 @end ifnottex
 
 
@@ -90,7 +89,7 @@ License''.
 
 @titlepage
 @title LilyPond
-@subtitle 音乐出版系统
+@subtitle 音乐制谱系统
 @titlefont{通用信息}
 @author LilyPond 开发团队
 
@@ -111,7 +110,7 @@ LilyPond 版本号 @version{}
 @divId{pageHeader}
 @heading LilyPond
 
-... 每一个人的五线谱
+... 人人的乐谱软件
 @divEnd
 
 @c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
@@ -119,13 +118,13 @@ LilyPond 版本号 @version{}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading 什么是 LilyPond?
+@subheading LilyPond 是什么？
 
-LilyPond 是一个音乐雕版印刷程序，专用来生产高质量五线谱音乐。它把传统音乐雕版印刷的美学带到计算机打印输出系统。Lilypond是自由软件也是 @uref{http://gnu.org,GNU Project} 的一部分.
+LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的乐谱。它把传统音乐雕版印刷的美学，呈现在计算机打印的乐谱上。LilyPond 是自由软件，也是 @uref{http://gnu.org,GNU Project} 的一部分。
 
 
 @divClass{align-right}
-更多内容见 @ref{简介}!
+更多内容，请见@ref{简介}！
 
 @divEnd
 @divEnd
@@ -150,6 +149,44 @@ LilyPond 是一个音乐雕版印刷程序，专用来生产高质量五线谱�
 @end ifclear
 @ifset web_version
   @c make the box:
+@divId{wildCardBox}
+@subheading Pondings
+@divId{wildCardText}
+
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
+@ifset web_version
+  @c make the box:
 @divId{latestVersion}
 @subheading 快捷链接
 
@@ -161,7 +198,7 @@ LilyPond 是一个音乐雕版印刷程序，专用来生产高质量五线谱�
 
 @ref{Manuals, Manuals @versionStable}
 
-@subsubheading 不稳定版
+@subsubheading 开发版
 
 @ref{Development, Download @versionDevel}
 
@@ -175,10 +212,10 @@ LilyPond 是一个音乐雕版印刷程序，专用来生产高质量五线谱�
 
 @divClass{hide}
 @menu
-* 简介::        从这开始创建五线谱音乐。
-* 下载::        获得 Lilypond。
+* 简介::        从这开始创建乐谱。
+* 下载::        获得 LilyPond。
 * 手册::        阅读完整的手册（RTFM）。
-* 社区::        和其它用户联络。
+* 社区::        和其他用户联络。
 @end menu
 @divEnd
 
@@ -207,7 +244,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c        html; we'll need a bunch of @iftext and stuff in here. -gp
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
-@subheading Read it
+@subheading 开始阅读
 
 @docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
@@ -237,11 +274,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
   @*@ @ @emph{(每个页面有一小的下载)}
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
-  以单一大HTML页面的方式阅读本手册。
+  以单一大 HTML 页面的方式阅读本手册。
   @*@ @ @emph{(大的单一下载, \bigsize\)}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
-  以PDF文件的方式下载。
+  以 PDF 文件的方式下载。
   @*@ @ @emph{(大的单一下载, \pdfsize\)}
 
 @end itemize
@@ -267,8 +304,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-如果你觉得有其它 \topic\ 需要列在这里，请按照下面的简介让我们知道
-@ref{缺陷报告}.
+如果您知道有其他可以在这里列出的\topic\，请按照@ref{错误报告}页面上的指示，让我们知道。谢谢！
 
 @divEnd
 @divEnd
@@ -279,8 +315,8 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-如果你觉得有其它 \topic\ 需要列在这里，请按照下面的简介让我们知道
-@ref{缺陷报告}.
+如果您知道有其他可以在这里列出的\topic\，
+请按照@ref{错误报告}页面上的指示，让我们知道。谢谢！
 
 @end cartouche
 
