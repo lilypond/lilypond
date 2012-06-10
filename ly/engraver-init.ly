@@ -1146,8 +1146,6 @@ accommodated for typesetting a piece in Kievan style."
 
  %% There are beams in Kievan notation, but they are invoked manually
  autoBeaming = ##f
- \override Beam #'beam-thickness = #0.32
- \override Beam #'length-fraction = #0.62
 }
 
 \context {

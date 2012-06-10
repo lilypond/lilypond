@@ -80,6 +80,15 @@ internal_print (Grob *me, string *font_char)
         }
     }
 
+  if (style == "kievan"
+      && 3 == robust_scm2int (me->get_property ("duration-log"), 2))
+    {
+      Grob *stem = unsmob_grob (me->get_object ("stem"));
+      Grob *beam = unsmob_grob (stem->get_object ("beam"));
+      if (beam)
+        out = fm->find_by_name (idx_either + "2kievan");
+    }
+
   idx_either += suffix;
   if (out.is_empty ())
     {
