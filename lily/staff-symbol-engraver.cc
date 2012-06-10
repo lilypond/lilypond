@@ -46,7 +46,17 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (staff_span);
   virtual void finalize ();
   void process_music ();
+  virtual void derived_mark () const;
 };
+
+void
+Staff_symbol_engraver::derived_mark () const
+{
+  for (LEFT_and_RIGHT (d)) {
+    if (span_events_[d])
+      scm_gc_mark (span_events_[d]->self_scm ());
+  }
+}
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {

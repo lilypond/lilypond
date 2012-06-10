@@ -70,6 +70,7 @@ protected:
   void process_music ();
 
   virtual void finalize ();
+  virtual void derived_mark () const;
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
@@ -77,6 +78,15 @@ public:
 
 Phrasing_slur_engraver::Phrasing_slur_engraver ()
 {
+}
+
+void
+Phrasing_slur_engraver::derived_mark () const
+{
+  for (vsize i=start_events_.size(); i--;)
+    scm_gc_mark (start_events_[i]->self_scm ());
+  for (vsize i=stop_events_.size(); i--;)
+    scm_gc_mark (stop_events_[i]->self_scm ());
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
@@ -165,6 +175,7 @@ Phrasing_slur_engraver::finalize ()
       slurs_[i]->warning (_ ("unterminated phrasing slur"));
       slurs_[i]->suicide ();
     }
+  slurs_.clear ();
 }
 
 void
