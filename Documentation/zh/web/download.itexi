@@ -1,23 +1,20 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
-@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
+    Translation of GIT committish: 9402161bd6fe04e40ab205054864ebe85c5a4724
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Ben Luo
+@c Translators: Ben Luo, Anthony Fok
 
 @include included/generating-output.itexi
 
 @macro warningTextBased
-@warning{LilyPond is a @strong{text-based} music engraver; it is
-more similar to a programming language than a graphical score
-editing program.  Before downloading LilyPond, please read about
-our @ref{Text input}.}
+@warning{LilyPond 是一个 @strong{基于文本} 的音乐雕版印刷软件；和一般图形界面的打谱软件相比，LilyPond
+倒有点像一门编程语言。在您下载 LilyPond 之前，请先进一步了解我们的@ref{Text input}。}
 @end macro
-
 
 @node 下载
 @unnumbered 下载
@@ -27,13 +24,13 @@ our @ref{Text input}.}
 @ifclear web_version
   @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
-  @heading Downloads for LilyPond @versionDevel
+  @heading 下载 LilyPond @versionDevel
 
 @warning{Links for the stable version of LilyPond can be found at
 @uref{http://lilypond.org, lilypond.org}}
 @end ifclear
 @ifset web_version
-  @heading Downloads for LilyPond @versionStable
+  @heading 下载 LilyPond @versionStable
 @end ifset
 
 @warningTextBased
@@ -43,8 +40,7 @@ our @ref{Text input}.}
 @divClass{link-headings}
 
 @divClass{column-left-top}
-
-@subheading 使用者
+@subheading 用户下载
 
 @itemize
 
@@ -52,35 +48,32 @@ our @ref{Text input}.}
 @c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux and FreeBSD)}
+@ref{Unix, Unix (Linux 和 FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
-@ref{MacOS X, MacOS X}
+@ref{MacOS X, Mac OS X}
 
 @item
 @ref{Windows, @sourceimage{logo-windows,,,}}
-@ref{Windows, Microsoft Windows}
+@ref{Windows, 微软 Windows}
 
 @end itemize
 
 @divEnd
 
 @divClass{column-right-top}
-@subheading 开发人员
+@subheading 开发人员下载
 
 @itemize
 
 @item
-@ref{Source}:
-for packagers
+@ref{Source}：打包人员适用
 
 @item
-@ref{Old downloads}:
-old versions
+@ref{Old downloads}：以往版本
 
-@item @ref{Development}:
-latest unstable version
+@item @ref{Development}：最新开发版
 
 @end itemize
 @divEnd
@@ -89,20 +82,19 @@ latest unstable version
 
 @divClass{column-center-bottom}
 
-@subheading 软件协议
+@subheading 软件许可证
 
-LilyPond is published under the
-@ref{GPL, GNU General Public License}.
+LilyPond 是以
+@ref{GPL, GNU 通用公共许可证 (GPL)} 发布的。
 @divEnd
 
 
 @divClass{color1}
 
-@subheading 捐赠人
+@subheading 赞助商
 
-Many thanks to @uref{http://www.vt.edu/, Virginia Tech} and
-@uref{http://www.linuxaudio.org/, linuxaudio.org} for sponsoring
-our bandwidth.
+非常感谢 @uref{http://www.vt.edu/, Virginia Tech} 和
+@uref{http://www.linuxaudio.org/, linuxaudio.org} 赞助我们的网络带宽。
 
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
@@ -126,16 +118,16 @@ acknowledged.
 
 
 @divClass{hide}
-
 @menu
 * Unix::
-* MacOS X::
+* Mac OS X::
 * Windows::
 * 源代码::
 * 旧的下载::
 * GPL::
 @end menu
 @divEnd
+
 
 @node Unix
 @unnumberedsec Unix
@@ -146,7 +138,6 @@ acknowledged.
 @divEnd
 
 @divClass{column-center-top}
-
 @subheading Generic Packages or Distribution-Specific Packages?
 
 Many distributions include LilyPond in their normal package
@@ -161,7 +152,6 @@ package manager.
 
 
 @divClass{column-left-top}
-
 @subheading Generic Packages
 
 @subsubheading 下载
@@ -197,6 +187,7 @@ package manager.
 
 @end itemize
 
+
 @subsubheading 安装
 
 In the shell, type:
@@ -214,12 +205,19 @@ In the shell, type:
 uninstall-lilypond
 @end example
 
+@subsubheading Help
+
+In the shell, type:
+
+@example
+sh lilypond-@versionStable{}-OS-TYPE.sh --help
+@end example
+
 @divEnd
 
 
 
 @divClass{column-right-top}
-
 @subheading Compiling a file
 
 @lilypadCommandLine
@@ -228,33 +226,31 @@ uninstall-lilypond
 
 
 @divClass{column-left-top}
+@subheading 各大发行版专用的软件包
 
-@subheading Distribution-specific Packages
-
-Please use your distribution's package manager to install or
-upgrade to these versions.
+请使用您的发行版的软件包管理器，来安装或者升级到以下这些版本。
 
 @itemize
 
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.12.3}
+Fedora: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.2}
+Ubuntu: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.12.3}
+Slackware: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-debian,,,}
 @uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.2}
+Debian: LilyPond 2.12.3}
 
 @item
 @sourceimage{logo-suse,,,}
@@ -267,7 +263,6 @@ openSUSE: LilyPond 2.12.3}
 
 
 @divClass{column-center-bottom}
-
 @subheading Legalese
 
 @divClass{legal}
@@ -281,8 +276,9 @@ acknowledged.
 @divEnd
 @divEnd
 
-@node MacOS X
-@unnumberedsec MacOS X
+
+@node Mac OS X
+@unnumberedsec Mac OS X
 @translationof MacOS X
 
 @divClass{heading-center}
@@ -290,8 +286,8 @@ acknowledged.
 @divEnd
 
 @divClass{column-left-top}
+@subheading 软件包
 
-@subheading 包
 @subsubheading 下载
 
 @itemize
@@ -299,14 +295,16 @@ acknowledged.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-For MacOS X 10.4 or higher, running on Intel CPUs (if in doubt,
-use this).
+适用于 Mac OS X 10.4 或更高版本，在英特尔处理器 (Intel CPU) 上运行。（如果你不确定，请选择这个。）
+
+抱歉，目前尚未支持 Mac OS X 10.7 Lion。
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-For MacOS X 10.4 or higher, running on G3 and G4 CPUs (old Apple
-computers).
+适用于 Mac OS X 10.4 或更高版本，在 G3 和 G4 处理器（上一代的苹果电脑）上运行。
+
+抱歉，目前尚未支持 Mac OS X 10.7 Lion。
 
 @end itemize
 
@@ -322,7 +320,6 @@ Delete the LilyPond.app folder.
 @divEnd
 
 @divClass{column-right-top}
-
 @subheading 编译文件
 
 @lilypadOSX
@@ -331,13 +328,11 @@ Delete the LilyPond.app folder.
 
 
 @divClass{column-left-top}
+@subheading 在命令行下运行
 
-@subheading 在命令行内运行
+@warning{如果您使用图形界面已经很满意了，那么请忽略以下说明。}
 
-@warning{If you are happy with the GUI, then please ignore these
-instructions.}
-
-@subsubheading MacOS X 里的命令行
+@subsubheading Mac OS X 的命令行
 
 The most convenient way to run lilypond scripts is by setting up
 @qq{helper} scripts of your own.
@@ -393,11 +388,12 @@ This file should end with a blank line.
 
 @end enumerate
 
+
 @subsubheading 调用单独的脚本
 
 The scripts --- such as @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly}, and even @command{lilypond} itself --- are included
-inside the @code{.app} file for MacOS@tie{}X.
+inside the @code{.app} file for Mac@tie{}OS@tie{}X.
 
 Scripts can also be run from the command line by invoking them
 directly:
@@ -415,7 +411,6 @@ The same is true for all other scripts in that directory, such as
 
 
 @divClass{column-center-bottom}
-
 @subheading 法律条文
 
 @divClass{legal}
@@ -427,6 +422,8 @@ acknowledged.
 @divEnd
 @divEnd
 
+
+
 @node Windows
 @unnumberedsec Windows
 @translationof Windows
@@ -436,8 +433,7 @@ acknowledged.
 @divEnd
 
 @divClass{column-left-top}
-
-@subheading 包
+@subheading 软件包
 
 @subsubheading 下载
 
@@ -485,7 +481,6 @@ button when the uninstaller has completed.
 
 
 @divClass{column-right-top}
-
 @subheading 编译文件
 
 @lilypadWindows
@@ -494,7 +489,6 @@ button when the uninstaller has completed.
 
 
 @divClass{column-left-top}
-
 @subheading 在命令行中运行
 
 @warning{If you are happy with the GUI, then please ignore these
@@ -528,7 +522,7 @@ which contains LilyPond executable files like this:
 [@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} will generally be @code{C:\Program Files}.}
+@warning{@var{DIR} will generally be @code{C:@bs{}Program Files}.}
 
 @noindent
 and click @qq{OK} button to close the window.
@@ -549,7 +543,6 @@ lilypond test.ly
 
 
 @divClass{column-center-bottom}
-
 @subheading 法律条文
 
 @divClass{legal}
@@ -560,6 +553,8 @@ acknowledged.
 
 @divEnd
 @divEnd
+
+
 
 @node 源代码
 @unnumberedsec 源代码
@@ -574,7 +569,6 @@ LilyPond yourself; almost all user needs are better met with the
 pre-built version.}
 
 @divClass{column-left-bottom}
-
 @subheading 源代码包
 
 @downloadStableSource{}
@@ -586,12 +580,12 @@ download site}.
 @divEnd
 
 @divClass{column-right-bottom}
-
 @subheading 编译指导
 
 Instructions are listed in @rcontrib{Compiling}.
 
 @divEnd
+
 
 @node 旧的下载
 @unnumberedsec 旧的下载
@@ -602,7 +596,6 @@ Instructions are listed in @rcontrib{Compiling}.
 @divEnd
 
 @divClass{column-center-top}
-
 @subheading 所有版本
 
 包含所有版本（旧和新）的列表见我们的
@@ -611,6 +604,7 @@ site}.
 
 @divEnd
 
+
 @node GPL
 @unnumberedsec GPL
 @translationof GPL
@@ -618,13 +612,12 @@ site}.
 @divClass{column-center-top}
 @subheading 软件许可证
 
-GNU LilyPond 在 GNU 通用公共许可证下发布。
-在 @ref{Freedom} 里我们介绍了这个许可证以及我们选择它的原因。
+GNU LilyPond 在 GNU 通用公共许可证 (GPL) 下发布。在
+@ref{Freedom} 里我们介绍了这个许可证以及我们选择它的原因。
 
 @divEnd
 
 @divClass{column-center-bottom}
-
 @subheading GNU 通用公共许可证
 
 @include gpl.itexi

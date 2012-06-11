@@ -307,11 +307,15 @@ acknowledged.
 Voor MacOS 10.4 of nieuwer, met Intel-processors (als je
 twijfelt, gebruik deze).
 
+MacOS X 10.7 Lion wordt nog niet ondersteund.
+
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
 Voor MacOS 10.4 of nieuwer, met G3- en G4-processors (oudere
 Apple computers).
+
+MacOS X 10.7 Lion wordt nog niet ondersteund.
 
 @end itemize
 

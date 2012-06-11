@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 18cc52e04834f7eaec4d41cf2783767b0e764d03
+    Translation of GIT committish: ba4a7e62dfb6fd1973a0974e84b019f43d58ea49
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,8 +49,8 @@ de LilyPond.
 @ref{Desarrollo}: para colaboradores y pilotos de prueba.
 
 @item
-@ref{GSoC}: lista de proyectos para el Google Summer of Code (Verano
-del Código de Google).
+@ref{GSoC 2012}: nuestras ideas para la edición 2012 del «Google
+Summer of Code» (Verano del Código de Google).
 
 @item
 @ref{Autores}: las personas que han hecho a LilyPond lo que hoy es.
@@ -85,7 +85,7 @@ del Código de Google).
 * Preste su ayuda::
 * Patrocinio::
 * Desarrollo::
-* GSoC::
+* GSoC 2012::
 * Autores::
 * Publicaciones::
 * Noticias antiguas::
@@ -883,46 +883,41 @@ están en @url{http://lilypond.org}}
 
 
 
-@node GSoC
-@unnumberedsec GSoC
-@translationof GSoC
+@node GSoC 2012
+@unnumberedsec GSoC 2012
+@translationof GSoC 2012
 
 @divClass{column-center-top}
 @subheading ¿Qué es el Google Summer of Code (Verano del Código de Google)?
 
-Citando la
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
-página web del GSoC},
-@qq{El Verano del Código de Google es un programa global que ofrece a
-estudiantes una ayuda para que escriban código con destino a proyectos
-de fuentes abiertas.  Google ha trabajado con la comunidad de Fuentes
-Abiertas para identificar proyectos interesantes y financiarlos para
-el verano próximo.}
+Es un programa global llevado a cabo por Google que ofrece a
+estudiantes una ayuda para que trabajen en proyectos de software de
+fuentes abiertas durante las vacaciones de verano.
 
-El equipo de LilyPond decidión que ésta era una excelente oportunidad
-para encontrar colaboradores nuevos, animar a los estudiantes que ya
-participan en el desarrollo de LilyPond a que se impliquen aún más, y
-por último (pero no por ello menos importante): ¡escribir buen código
-para beneficio de todos!
-
-Participamos en el GSoC como parte del proyecto GNU.  Consulte
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html, GNU GSoC webpage}
-para ver más información acerca de la amnera de participar.
+El equipo de LilyPond decidió que ésta era una excelente oportunidad
+para encontrar colaboradores nuevos y animar a los estudiantes que ya
+participan en el desarrollo de LilyPond a que se impliquen aún más.
+Uno de nuestros colaboradores ha sido seleccionado para la edición
+2012 del programa como parte del
+@uref{http://www.gnu.org/, proyecto GNU}; esperamos poder participar
+también en futuras ediciones.
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Nuestra lista de ideas
+@subheading Nuestra lista de ideas para el 2012
 
-Más abajo aparece una lista de lo proyectos que se han sugerido para
-los estudiantes del GSoC.  Si no encuentra un proyecto que le venga
-bien, ¡con toda libertad sugiera el suyo!  También es posible reducir
-el tamaño de un proyecto que le parezca demasiado grande.
+Más abajo aparece una lista de los proyectos que hemos sugerido para
+los estudiantes del GSoC 2012.  Aunque ha finalizado el plazo de
+solicitudes, hemos decidido mantener visible esta página como
+inspiración para cualquier persona interesada en el desarrollo de
+LilyPond.  Algunos miembros del equipo de desarrollo están dispuestos
+a prestar su ayuda a aquellos que quieran implicarse en estos
+proyectos.
 
-Requerimos que todos los estudiantes tengan un conocimiento básico de
-@code{git}, y recomendamos que todos los que soliciten participar en
-algún proyecto, excepto el último de la lista, tengan conocimientos
-básicos de notación musical.
+Por supuesto, hay muchas más cosas que mejorar en LilyPond, entre
+ellas algunas muy pequeñas.  Hay una lista completa
+@uref{http://code.google.com/p/lilypond/issues/list, aquí}.
 
 @subheading Notas de adorno
 
@@ -1039,40 +1034,6 @@ Si es posible, reducir el tiempo de cálculo del barrado.
 @strong{Conocimientos recomendados:} sentido estético
 
 @strong{Mentor(es):} Mike Solomon, Carl Sorensen
-
-@subheading Mejor soporte para la tablatura
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Afinación no monótona de las cuerdas, como en el ukelele
-
-@item
-Crear un modo de entrada de tablatura (actualmente la información
-musical se introduce en términos de notación occidental convencional,
-es decir @qq{un Fa sostenido negra} y después se convierte a
-tablatura) para la transcripción de tablatura medieval para laúd
-
-@item
-Implementación de funcionalidades de la tablatura moderna, como
-curvaturas de tono, pull-offs y hammer-on
-
-@item
-Si está definida la forma de un diagrama de posición para un acorde
-dado, usar esta información cuando se imprime el acorde sobre la pauta
-(y no sólo imprimir la forma predeterminada del acorde)
-
-@end itemize
-@divEnd
-
-@strong{Dificultad:} fácil
-
-@strong{Requisitos:} C++
-
-@strong{Conocimientos recomendados:} familiaridad con la notación de tablatura
-
-@strong{Mentor(es):} Carl Sorensen
 
 @subheading Limpieza de diversas advertencias de compliación
 

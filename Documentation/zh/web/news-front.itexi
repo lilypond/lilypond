@@ -1,16 +1,119 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
-@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 46ec3bd9ded640faef62938929a0af97345cf955
+    Translation of GIT committish: 06eda15f45434056ed7f3ea80df551d251f2ab82
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c Translators: Ben Luo
+@c This file is part of lilypond-web.texi and community.itexi
 
-@subsubheading 第一个预发行版收回  @emph{Jan 13, 2011}
-@subsubheading 2.14 的第一个预发行版 - LilyPond 2.13.46 发布了！  @emph{Jan 12, 2011}
-@subsubheading LilyPond 2.13.45 发布了！  @emph{Jan 3, 2011}
+@c when you add a new item, consider moving the lowest item(s)
+@c into news.itexi.
 
-@c -- SKELETON FILE --
+@c Translators: Ben Luo, Anthony Fok
+
+@c keep two blank lines between news entries
+
+@c used for news about the upcoming release; see CG 10.2
+
+
+@newsItem
+@subsubheading LilyPond 2.15.40 发布了！  @emph{June 05, 2012}
+
+我们很高兴宣布 LilyPond 2.15.40 的发布。这个版本如常解决了一些错误。
+
+强烈建议普通用户 @strong{不要} 使用这个版本，而使用稳定的 2.14
+版。请注意，由于几个关键错误 (Critical bugs)，这并不是下一个候选版本。
+
+@newsEnd
+
+
+@newsItem
+@subsubheading 候选版 (Release candidate) 被撤回  @emph{June 01, 2012}
+
+我们发现了一个跟 2.14.2 版相比的一个“回归”
+(regression) 退步问题，因此 LilyPond 2.15.39 不再是
+2.16.0 正式版的候选版本了。不过，请您继续测试它——我们想尽快发现（并修复！）任何剩余的“回归”。如果您发现任何问题，请向我们发送@ref{错误报告}。
+
+@newsEnd
+
+
+@newsItem
+@subsubheading 2.16 的候选版 7 - LilyPond 2.15.39 发布了！ @emph{May 22, 2012}
+
+LilyPond 2.15.39 发布了；这是即将推出的 2.16
+稳定版的第七个候选版本
+(release candidate)。欢迎各位用户试验这个版本。自 2.14.2
+以来的新功能，在网站上关于 @ref{开发} 页面的@qq{变更}手册有所描述。
+
+目前尚未发现此版本有严重 (Critical)
+问题。如果找不到严重问题，那么 2.16.0
+官方版将于2012年6月5日正式发布。如果您发现任何问题，请向我们发送@ref{错误报告}。
+
+@newsEnd
+
+
+@newsItem
+@subsubheading The LilyPond Report #26. @emph{May 22, 2012}
+
+The @emph{LilyPond Report} is back, with a new editor on board -
+Pavel Roskin, who tells us about his adventures in strange lands
+of compiler bugs!  There is also a detailed report about current
+development status, and an analysis of example LilyPond output -
+see for yourself how close (or how far?) are we from matching
+the quality of hand-engraved scores.
+
+Come
+@uref{http://news.lilynet.net/?The-LilyPond-Report-26, read
+LilyPond Report 26} now; comments and contributions are
+warmly encouraged!
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Release candidate 6 of 2.16 - LilyPond 2.15.38 released!  @emph{May 3, 2012}
+
+LilyPond 2.15.38 is out; this is the sixth release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+@strong{Update:} Due to a few Critical bugs, another release
+candidate will be required.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond takes part in Google Summer of Code 2012!  @emph{April 25, 2012}
+
+Being a part of @uref{http://www.gnu.org/, GNU project}, we are participating in
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+Google Summer of Code program}, which offers students stipends for
+working on open source software.
+
+Our contributor Janek Warchoł was accepted for 2012 edition of GSoC.
+He will be working on advanced lyrics positioning in LilyPond.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Release candidate 5 of 2.16 - LilyPond 2.15.37 released!  @emph{April 19, 2012}
+
+LilyPond 2.15.37 is out; this is the fifth release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.16.0 release will be
+on 03 May 2012.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+

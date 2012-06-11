@@ -45,11 +45,11 @@ translations = {
         },
     'zh': {
         'English': '中文',
-        'Other languages': '其它语言',
+        'Other languages': '其他语言',
         },
     }
 
-# needs at least: make -C po or make- C Documentation/po
+# needs at least: make -C po or make -C Documentation/po
 HAVE_GETTEXT = False
 
 ####  this breaks on lilypond.org

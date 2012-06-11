@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
+    Translation of GIT committish: 2a87f1e1f98b76751482cae4474d41aa5e38e37b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -64,10 +64,10 @@ d'utiliser des diagrammes d'accord au-dessus de la portée
 traditionnelle.  La guitare et le banjo sont des instruments
 transpositeurs, sonnant une octave au-dessous de ce qui est écrit.  Les
 partitions pour ces instruments utilisent donc la clé de sol ottava
-bassa @code{"treble_8"} -- ou une instruction @code{\transposition c}
+bassa @code{"treble_8"} -- ou une instruction @code{\transposition c}
 pour un rendu MIDI correct.  Vous pourrez trouver ailleurs dans la
 documentation d'autres éléments aussi utilisés par les instruments à
-cordes frettées@tie{}:
+cordes frettées :
 
 @itemize
 @item Les doigtés s'obtiennent comme indiqué au chapitre
@@ -122,10 +122,9 @@ c4\5 e\4 g2\3
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement se fera en fonction de l'ordre dans
 lequel elles apparaissent dans le code et @strong{uniquement} si elles
-interviennent au sein d'une construction d'accord@tie{}: le
-positionnement des doigtés est géré différemment selon qu'ils
-s'appliquent à l'accord entier ou à des notes isolées indépendantes d'un
-accord.
+interviennent au sein d'une construction d'accord : le positionnement
+des doigtés est géré différemment selon qu'ils s'appliquent à l'accord
+entier ou à des notes isolées indépendantes d'un accord.
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
@@ -236,16 +235,20 @@ symbols = {
 @cindex frets
 
 @funindex minimumFret
+@funindex restrainOpenStrings
 
 Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
 corde pour laquelle la position est la moins élevée, avec une préférence
 pour une corde à vide.  Vous pouvez préférer qu'une note donnée soit
-jouée sur une corde particulière, auquel cas il vous suffit de lui
-affecter directement son numéro.  L'absence d'indication des numéros de
+jouée sur une corde particulière, auquel cas l'affectation directe du
+numéro de corde suffit.  L'absence d'indication des numéros de
 corde en notation traditionnelle se gère au niveau des stencils.  Il est
 cependant plus facile de jouer sur la propriété @code{minimumFret}, dont
-la valeur par défaut est fixée à@tie{}0, ce qui correspond aux cordes à
-vide.
+la valeur par défaut est fixée à 0, ce qui correspond aux cordes à vide.
+
+Cependant, et en dépit d'une affectation de @code{minimumFret}, une
+corde à vide aura toujours préséance.  Ce comportement se modifie par
+l'activation de @code{restrainOpenStrings}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout { \override Voice.StringNumber #'stencil = ##f }
@@ -261,6 +264,7 @@ vide.
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
 >>
@@ -481,12 +485,12 @@ Référence des propriétés internes :
 @rinternals{Beam}.
 
 @knownissues
-Les accords ne subissent aucun traitement particulier@tie{}; de ce fait,
+Les accords ne subissent aucun traitement particulier ; de ce fait,
 la sélection automatique des cordes peut attribuer une même corde pour
 deux notes différentes de l'accord.
 
 Afin que @code{\partcombine} fonctionne avec des tablatures, on doit
-ajouter au contexte @code{TabStaff} des voix fantômes@tie{}:
+ajouter au contexte @code{TabStaff} des voix fantômes :
 
 @lilypond[quote,ragged-right,verbatim]
 melodia = \partcombine { e4 g g g }{ e4 e e e }
@@ -551,9 +555,9 @@ basse, il sonnera donc une octave en dessous de ce qui est écrit.
 >>
 @end lilypond
 
-L'accordage par défaut est @code{guitar-tuning}@tie{}; il correspond à
+L'accordage par défaut est @code{guitar-tuning}_; il correspond à
 l'accordage standard d'une guitare@tie{}: mi la ré sol si mi (EADGBE).
-D'autres accordages prédéfinis sont disponibles@tie{}:
+D'autres accordages prédéfinis sont disponibles :
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 @code{banjo-open-g-tuning}.  Les accordages prédéfinis sont répertoriés
 dans le fichier @file{ly/string-tunings-init.ly}.
@@ -565,7 +569,7 @@ dans le fichier @file{ly/string-tunings-init.ly}.
 
 LilyPond vous permet de créer n'importe quel accordage.  L'accordage du
 contexte en cours se détermine à l'aide de la fonction
-@code{\stringTuning}.  Celle-ci prend deux arguments@tie{}: une
+@code{\stringTuning}.  Celle-ci prend deux arguments : une
 représentation symbolique qui gardera l'accordage en mémoire, et une
 construction d'accord définissant la hauteur des différentes cordes.
 Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
@@ -573,8 +577,8 @@ Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
 élevé (généralement la note la plus basse) est mentionnée en premier.
 
 Nous pouvons ainsi définir par exemple l'accordage d'un instrument à
-quatre cordes accordées do sol ré la, et en anglais@tie{}:
-@code{a''}, @code{d''}, @code{g'}, et @code{c'}@tie{}:
+quatre cordes accordées do sol ré la, et en anglais :
+@code{a''}, @code{d''}, @code{g'}, et @code{c'} :
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -601,7 +605,7 @@ calculer automatiquement les diagrammes de frets.
 L'accordage fait partie de la clé permettant d'identifier les 
 diagrammes prédéfinis -- voir @ref{Tablatures prédéfinies}.
 
-Nous pourrions donc écrire l'exemple précédent ainsi@tie{}:
+Nous pourrions donc écrire l'exemple précédent ainsi :
 
 @lilypond[quote,verbatim]
 "custom-tuning" = \stringTuning <c' g' d'' a''>
@@ -709,7 +713,7 @@ On peut ajouter des diagrammes d'accord au-dessus de n'importe quelle
 note, en tant qu'objets @code{\markup}.  Ces objets contiennent toutes
 les informations du diagramme d'accord.  Il y a pour les définir trois
 interfaces @qq{diagramme d'accord} (@emph{fret-diagram} en
-anglais)@tie{}: @var{standard}, @var{terse} et @var{verbose}.
+anglais) : @var{standard}, @var{terse} et @var{verbose}.
 Ces trois interfaces produiront des diagrammes similaires mais
 permettent des niveaux de personnalisation différents.  Des détails à
 propos des interfaces de type @code{\markup}
@@ -742,7 +746,7 @@ Les cordes à vide et étouffées peuvent aussi être indiquées.
 @cindex indication du barré
 
 Les indications de barré peuvent aussi être ajoutées au diagramme
-d'accord dans l'interface standard@tie{}:
+d'accord dans l'interface standard :
 
 @lilypond[quote, verbatim]
 <<
@@ -862,7 +866,7 @@ l'interface standard.
 @funindex \fret-diagram-terse
 
 Dans l'interface @code{fret-diagram-terse}, les numéros de corde sont
-omis@tie{}; les numéros de corde sont induits par la présence de
+omis ; les numéros de corde sont induits par la présence de
 points-virgules.  Il y a un point-virgule pour chaque corde du
 diagramme.  Le premier point-virgule correspondant au plus haut numéro
 de corde, le dernier à la première corde.  Les cordes étouffées, les
@@ -983,10 +987,10 @@ dans le diagramme d'accord.
 
 Les indications de doigté et de barré peuvent être décrits dans
 l'interface @code{fret-diagram-verbose}.  Particularité propre à
-l'interface @code{fret-diagram-verbose}@tie{}: l'indication
-de capodastre dans le diagramme d'accord.  L'indication de capodastre
-est une petite ligne transversale aux cordes.  La case avec le
-capodastre est la case la plus basse du diagramme d'accord.
+l'interface @code{fret-diagram-verbose} : l'indication de capodastre
+dans le diagramme d'accord.  L'indication de capodastre est une petite
+ligne transversale aux cordes.  La case avec le capodastre est la case
+la plus basse du diagramme d'accord.
 
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
@@ -1117,7 +1121,7 @@ Référence des propriétés internes :
 
 Les diagrammes d'accord peuvent être affichés en utilisant le contexte
 @code{FretBoards}.  Par défaut le contexte @code{FretBoards} affichera
-des diagrammes d'accord stockés dans une table de correspondance@tie{}:
+des diagrammes d'accord stockés dans une table de correspondance :
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1425,7 +1429,7 @@ Référence des propriétés internes :
 @cindex automatique, diagramme de fret
 @cindex automatique, diagramme d'accord
 
-Les diagrammes d'accord peuvent être créés automatiquement@tie{}; il
+Les diagrammes d'accord peuvent être créés automatiquement ; il
 suffit d'affecter les notes à un contexte @code{FretBoards}.  Si aucun
 diagramme prédéfini n'est disponible pour les notes entrées avec
 l'accordage actuel (@code{stringTunings}), les cordes et cases
@@ -1459,7 +1463,7 @@ Dans la mesure où aucun diagramme prédéfini n'est chargé par défaut, le
 calcul automatique des diagrammes d'accord est le comportement par
 défaut.  Dès que les diagrammes par défaut sont chargés, le calcul
 automatique peut être activé ou désactivé par des commandes
-prédéfinies@tie{}:
+prédéfinies :
 
 @lilypond[quote,ragged-right,verbatim]
 
@@ -1592,7 +1596,7 @@ l'instruction @code{\rightHandFinger} suivie d'un nombre.
 
 @warning{Lorsque vous utilisez l'instruction @code{@bs{}rightHandFinger}
 dans un accord, une espace @strong{doit} précéder la fermeture de la
-construction par un @code{>}.}
+construction par un @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
@@ -1606,7 +1610,7 @@ c\rightHandFinger #4
 
 Pour plus de clarté, vous pouvez traduire ou abréger la commande
 @code{\rightHandFinger}, par exemple en @code{doigtMainDroite} ou
-même @code{MD}@tie{}:
+même @code{MD} :
 
 @example
 MD=#rightHandFinger
@@ -1657,7 +1661,7 @@ GuitarTex.
 @cindex barré, indication de la position
 @cindex cordes frettées, indication de la position et du barré
 
-Cet exemple montre comment indiquer les positions et les barrés@tie{}:
+Cet exemple montre comment indiquer les positions et les barrés :
 
 @lilypond[quote,ragged-right,verbatim,relative=0]
 \clef "treble_8"
@@ -1700,7 +1704,7 @@ détaillés grâce à des indications textuelles.
 @end lilypond
 
 Les notes étouffées, ou @notation{notes fantômes}, se rencontrent aussi
-bien sur une portée normale que dans une tablature@tie{}:
+bien sur une portée normale que dans une tablature :
 
 @lilypond[quote,ragged-right,verbatim]
 music = \relative c' {
@@ -1724,7 +1728,7 @@ music = \relative c' {
 @end lilypond
 
 Le @emph{palm mute}, appelé aussi parfois @emph{chop}, est une technique
-de jeu pour la guitare électrique@tie{}; elle est connue sous le nom de
+de jeu pour la guitare électrique ; elle est connue sous le nom de
 pizzicato par les joueurs de guitare classique.  Elle consiste à poser
 la main droite sur les cordes juste au-dessus du chevalet, de façon à
 étouffer plus ou moins légèrement les notes.  LilyPond permet d'indiquer
@@ -1769,7 +1773,7 @@ Morceaux choisis :
 
 Les @emph{power chords} -- terme anglais signifiant littéralement
 @qq{accords de puissance} -- s'indiquent aussi bien en mode accord que
-dans une construction en accord@tie{}:
+dans une construction en accord :
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
@@ -1802,7 +1806,7 @@ ChordsAndSymbols = {
 @end lilypond
 
 Le symbole de @emph{power chord} est désactivé dès lors que survient un
-accord traditionnel@tie{}:
+accord traditionnel :
 
 @lilypond[quote,ragged-right,verbatim]
 mixedChords = \chordmode {
@@ -1858,7 +1862,7 @@ Morceaux choisis :
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
 cordes.  Pour ce faire, pensez à utiliser le format de tablature pour
-banjo, afin d'avoir le bon nombre de cordes et le bon accordage@tie{}:
+banjo, afin d'avoir le bon nombre de cordes et le bon accordage :
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
@@ -1891,7 +1895,7 @@ banjo@tie{}: @code{banjo-c-tuning} sol,do,sol,si,ré (gCGBD),
 @code{banjo-open-dm-tuning} la,ré,fa,la,ré (aDFAD).
 
 Ces accordages peuvent être convertis pour banjo à quatre cordes au
-moyen de la fonction @code{four-string-banjo}@tie{}:
+moyen de la fonction @code{four-string-banjo} :
 
 @example
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)

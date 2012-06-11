@@ -204,27 +204,27 @@ translations = {
         'Learning': '学习',
         'Music glossary': '音乐术语表',
         'Essay': '文章',
-        'Notation': '五线谱',
+        'Notation': '记谱法',
         'Usage': '使用',
         'Snippets': '片断',
         'Web': 'Web',
         'Changes': '变化',
 
         'Extending': '扩展',
-        'Internals': '内部',
+        'Internals': '内部机制',
         'Contributor': '贡献者',
 
 # keep the spaces!
-        ' (split HTML)': ' (分开的HTML',
-        ' (big HTML)': ' (大的HTML)',
+        ' (split HTML)': ' (分开的 HTML)',
+        ' (big HTML)': ' (大的 HTML)',
 
-        'Regression tests for ': '回归测试',
-        'PDF of regtests for ': '回归的PDF',
-        'MusicXML Regression tests for ': 'MusicXML回归测试',
-        'PDF of MusicXML regtests for ': 'MusicXML的PDF回归',
+        'Regression tests for ': '回归测试 ',
+        'PDF of regtests for ': '回归测试的 PDF ',
+        'MusicXML Regression tests for ': 'MusicXML 回归测试 ',
+        'PDF of MusicXML regtests for ': 'MusicXML 的 PDF 回归测试 ',
 
         'Doc tarball for ': '为文档压缩包',
-        ' (did not exist in 2.12)': ' (在2.12中不存在)',
+        ' (did not exist in 2.12)': ' (在 2.12 中不存在)',
         },
     }
 
