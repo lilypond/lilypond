@@ -46,6 +46,7 @@ public:
   DECLARE_GROB_INTERFACE ();
 
   static Item *get_stem (Grob *);
+  static Item *get_flag (Grob *);
 };
 
 #endif // NOTE_COLUMN_HH

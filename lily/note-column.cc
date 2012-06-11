@@ -64,6 +64,18 @@ Note_column::get_stem (Grob *me)
   return unsmob_item (s);
 }
 
+Item *
+Note_column::get_flag (Grob *me)
+{
+  Item *stem = get_stem (me);
+  if (stem)
+    {
+      SCM s = stem->get_object ("flag");
+      return unsmob_item (s);
+    }
+  return 0;
+}
+
 Slice
 Note_column::head_positions_interval (Grob *me)
 {

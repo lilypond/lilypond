@@ -165,6 +165,8 @@ Slur_score_state::get_bound_info () const
         {
           extremes[d].note_column_ = extremes[d].bound_;
           extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
+          extremes[d].flag_ = Note_column::get_flag (extremes[d].note_column_);
+
           if (extremes[d].stem_)
             {
               extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
@@ -173,6 +175,8 @@ Slur_score_state::get_bound_info () const
                 {
                   Axis ax = Axis (a);
                   Interval s = extremes[d].stem_->extent (common_[ax], ax);
+                  if (extremes[d].flag_)
+                    s.unite (extremes[d].flag_->extent (common_[ax], ax));
                   if (s.is_empty ())
                     {
                       /*
