@@ -37,7 +37,8 @@ endif
 distname = $(package)-$(TOPLEVEL_VERSION)
 
 doc-dir = $(src-depth)/Documentation
-po-dir = $(src-depth)/po
+po-srcdir = $(src-depth)/po
+po-outdir = $(depth)/po/$(outdir)
 step-bindir = $(stepmake)/bin
 
 # stepmake package support.
