@@ -736,9 +736,6 @@ are bracketed between @code{\melisma} and @code{\melismaEnd}.
 >>
 @end lilypond
 
-Note that this method cannot be used to indicate two melismata if
-the first one is immediately followed by another.
-
 @item
 A melisma can be defined entirely in the lyrics by entering a
 single underscore character, @code{_}, for every extra note that has
@@ -1173,18 +1170,6 @@ To make lyrics avoid bar lines as well, use
   @}
 @}
 @end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
-
 
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
