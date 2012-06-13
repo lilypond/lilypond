@@ -1,5 +1,6 @@
 .PHONY : all clean bin-clean config default dist exe help html lib TAGS\
-	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2
+	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
+	 log-clean
 
 all:	 default
 	$(LOOP)
@@ -13,6 +14,9 @@ man:
 clean: local-clean
 	-rm -rf $(outdir)
 	$(LOOP)
+
+log-clean:
+	find . -name "*.log" -delete
 
 ifeq (,$(findstring metafont,$(STEPMAKE_TEMPLATES)))
 bin-clean: local-bin-clean
