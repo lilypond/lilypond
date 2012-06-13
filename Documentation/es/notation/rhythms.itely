@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3702fd8c9cd613e0c104a9d386a7185b2cabe4de
+    Translation of GIT committish: f6b1f6ebcd527e6262add9c9cf3e4df5b3e5d63f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2209,31 +2209,32 @@ ajuste @code{beatStructure} si no se reinicia @code{beamExceptions}.
 \repeat unfold 8 {c8}
 @end lilypond
 
-En el grabado de partituras tradicional, las corcheas pueden tener
-reglas de barrado especiales.  Un compás que contiene solamente
-corcheas puede llevar una sola barra.  Esta regla está controlada por
-la propiedad de contexto @code{beamWholeMeasure}:
+De forma similar, las corcheas en compás de 3/4 se unen mediante una
+sola barra para todo el compás, de forma predeterminada.  Para unir
+las corcheas en 3/4 mediante una barra en cada parte, reinicie
+@code{beamExceptions}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we beam in one
-\repeat unfold 6 { a8 }
-% We can avoid beaming in one
-\set Timing.beamWholeMeasure = ##f
-\repeat unfold 6 { a8 }
+% by default we beam in (3) due to beamExceptions
+\repeat unfold 6 {a8} |
+% This will beam (1 1 1) due to beatLength
+\set Timing.beamExceptions = #'()
+\repeat unfold 6 {a8}
 @end lilypond
 
-En algunas ediciones de los períodos clásico y romántico, medio compás
-de corcheas se pueden unid mediante una barra incluso aunque ello
-viole la regla general (véase Gould, pág. 153).  Este comportamiento
-está controlado por la propiedad de contexto @code{beamHalfMeasure}:
+En la música tipografiada de los períodos clásico y romántico, con
+frecuencia las barras comienzan a mitad de un compás en 3/4, pero la
+práctica moderna es evitar la falsa impresión de 6/8 (véase Gould,
+pág. 153).  Se producen situaciones similares en el compás de 3/8.
+Este comportamiento viene controlado mediante la propiedad de contexto
+@code{beamHalfMeasure}, que tiene efecto solamente sobre indicaciones
+de compás que tienen la cifra 3 en el numerador:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we avoid half-measure beams
 r4. a8 a a |
-% We can allow half-measure beams
-\set Timing.beamHalfMeasure = ##t
+\set Timing.beamHalfMeasure = ##f
 r4. a8 a a |
 @end lilypond
 

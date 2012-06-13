@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: e765ccfb78a8fd117c55773b4cfb8606484bcab9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,6 +79,24 @@ el mismo, pues en caso contrario no se imprimirán.
 
 @lilypond[verbatim,quote,relative=2]
 <a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex acordes vacíos
+@cindex eventos contenedores
+
+Un acorde funciona como un mero contenedor para las notas que lo
+componen y sus articulaciones y otros elementos adjuntos.  Como
+consecuencia, un acorde sin ninguna nota en su interior no tiene
+realmente ninguna duración.  Cualqier articulación adjunta se
+producirá en el mismo momento musical que la nota o acorde siguiente y
+se puede combinar con ellos (para ver posibilidades más complejas de
+combinaciones de estos elementos, consulte
+@ref{Expresiones simultáneas}):
+
+@lilypond[verbatim,quote,relative=2]
+\grace { g8[( a b] }
+<> ) \p \< -. -\markup \italic "sempre staccato"
+\repeat unfold 4 { c4 e }  c1\f
 @end lilypond
 
 @cindex relativo, acordes en altura
@@ -254,7 +272,18 @@ a << { a4 b g } { d4 g c, } >>
 
 Esto puede ser de utilidad si las secciones simultáneas tienen
 idénticas duraciones, pero se producirán errores si se intentan poner
-notas de distinta duración sobre la misma plica.
+notas de distinta duración sobre la misma plica.  Las notas,
+articulaciones y cambios de propiedades que están dentro de @emph{un
+solo} contexto @samp{Voice} se recolectan y se representan en el orden
+musical:
+
+@lilypond[quote,verbatim,relative=2]
+<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@end lilypond
+
+Tratar de poner más de una plica o barra de corchea, o distintas
+duraciones o propiedades en el mismo momento musical, requiere el uso
+de más de una voz.
 
 El ejemplo siguiente muestra cómo las expresiones simultáneas pueden
 generar varios pentagramas de forma implícita:
@@ -264,7 +293,8 @@ generar varios pentagramas de forma implícita:
 << { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
-Aquí no hay problema en tener distintas duraciones.
+Aquí no hay problema en tener distintas duraciones porque se
+interpretan en voces distintas.
 
 @cindex colisiones, columnas que chocan
 @cindex colisiones, ignorar
