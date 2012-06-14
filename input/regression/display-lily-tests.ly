@@ -190,6 +190,8 @@ stderr of this run."
 \test ##[ \repeat unfold 2 { c d } #]			% UnfoldedRepeatedMusic
 \test ##[ \repeat percent 2 { c d } #]			% PercentRepeatedMusic
 \test ##[ \repeat tremolo 4 { c16 d } #]		% TremoloRepeatedMusic
+\test ##[ \repeat tremolo 7 { c''32 b' } #]
+\test ##[ \repeat tremolo 15 { c''16 b' } #]
 \test ##[ \repeat volta 2 { c4 d } \alternative { { c d } { e f } } #]    % 
 
 %% Context creation

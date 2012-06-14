@@ -696,17 +696,18 @@ Otherwise, return #f."
 (define-display-method AlternativeEvent (alternative parser) "")
 
 (define (repeat->lily-string expr repeat-type parser)
-  (format #f "\\repeat ~a ~a ~a ~a"
-	  repeat-type
-	  (ly:music-property expr 'repeat-count)
-	  (music->lily-string (ly:music-property expr 'element) parser)
-	  (let ((alternatives (ly:music-property expr 'elements)))
-	    (if (null? alternatives)
-		""
-		(format #f "\\alternative { ~{~a ~}}"
-			(map-in-order (lambda (music)
-					(music->lily-string music parser))
-				      alternatives))))))
+  (let* ((main (music->lily-string (ly:music-property expr 'element) parser)))
+    (format #f "\\repeat ~a ~a ~a ~a"
+	    repeat-type
+	    (ly:music-property expr 'repeat-count)
+	    main
+	    (let ((alternatives (ly:music-property expr 'elements)))
+	      (if (null? alternatives)
+		  ""
+		  (format #f "\\alternative { ~{~a ~}}"
+			  (map-in-order (lambda (music)
+					  (music->lily-string music parser))
+					alternatives)))))))
 
 (define-display-method VoltaRepeatedMusic (expr parser)
   (repeat->lily-string expr "volta" parser))
@@ -718,35 +719,29 @@ Otherwise, return #f."
   (repeat->lily-string expr "percent" parser))
 
 (define-display-method TremoloRepeatedMusic (expr parser)
-  (let* ((count (ly:music-property expr 'repeat-count))
-	 (dots (if (= 0 (modulo count 3)) 0 1))
-	 (shift (- (log2 (if (= 0 dots)
-			     (/ (* count 2) 3)
-			     count))))
-	 (element (ly:music-property expr 'element))
-	 (den-mult 1))
-    (if (eqv? (ly:music-property element 'name) 'SequentialMusic)
-	(begin
-	  (set! shift (1- shift))
-	  (set! den-mult (length (ly:music-property element 'elements)))))
-    (music-map (lambda (m)
-		 (let ((duration (ly:music-property m 'duration)))
-		   (if (ly:duration? duration)
-		       (let* ((dlog (ly:duration-log duration))
-			      (ddots (ly:duration-dot-count duration))
-			      (dfactor (ly:duration-factor duration))
-			      (dnum (car dfactor))
-			      (dden (cdr dfactor)))
-			 (set! (ly:music-property m 'duration)
-			       (ly:make-duration (- dlog shift)
-						 ddots ;;(- ddots dots) ; ????
-						 dnum
-						 (/ dden den-mult))))))
-		 m)
-	       element)
+  (let* ((main (ly:music-property expr 'element))
+	 (children (if (music-is-of-type? main 'sequential-music)
+		       ;; \repeat tremolo n { ... }
+		       (length (extract-named-music main '(EventChord
+							   NoteEvent)))
+		       ;; \repeat tremolo n c4
+		       1))
+	 (times (ly:music-property expr 'repeat-count))
+
+	 ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
+	 (dots (1- (logcount (* times children))))
+	 ;; The remaining missing multiplicator to scale the notes by
+	 ;; times * children
+	 (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
+	 (shift (- (ly:intlog2 (floor mult)))))
+    (set! main (ly:music-deep-copy main))
+    ;; Adjust the time of the notes
+    (ly:music-compress main (ly:make-moment children 1))
+    ;; Adjust the displayed note durations
+    (shift-duration-log main (- shift) (- dots))
     (format #f "\\repeat tremolo ~a ~a"
-	    count
-	    (music->lily-string element parser))))
+	    times
+	    (music->lily-string main parser))))
 
 ;;;
 ;;; Contexts
