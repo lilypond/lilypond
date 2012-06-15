@@ -254,6 +254,12 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
 
       if (Item *item = dynamic_cast<Item *>(at_bat))
         {
+          /*
+            We use this to weed out grobs that fall at the end
+            of the line when we want grobs at the beginning.
+          */
+          end_of_line_visible = item->break_status_dir () == LEFT;
+
           if (!Item::break_visible (item))
             continue;
           // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
@@ -274,6 +280,14 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
       if (pos == int (end) && !end_of_line_visible)
         continue;
       if (!at_bat->is_live ())
+        continue;
+      /*
+        TODO
+        Sometimes, there are duplicate entries in the all_elements_
+        list. In a separate patch, this practice should be squashed
+        so that the check below can be eliminated.
+      */
+      if (find (out.begin (), out.end (), at_bat) != out.end ())
         continue;
 
       out.push_back (at_bat);

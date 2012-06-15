@@ -18,7 +18,7 @@ This behavior can be overridden.
     \time 3/4
     \break \pageBreak
     c2.
-    \once \override Staff . FootnoteItem #'break-visibility = ##(#f #f #t)
+    \once \override Score . FootnoteItem #'break-visibility = ##(#f #f #t)
     \footnote "foo" #'(0 . 2) #'TimeSignature "bar" \default
     \time 4/4
     \break \pageBreak
