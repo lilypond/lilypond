@@ -46,6 +46,8 @@ struct Slur_score_parameters
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
   Real encompass_object_range_overshoot_;
+  Real slur_tie_extrema_min_distance_;
+  Real slur_tie_extrema_min_distance_penalty_;
 
   void fill (Grob *him);
 };

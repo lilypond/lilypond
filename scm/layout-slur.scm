@@ -38,4 +38,6 @@
     (edge-slope-exponent . 1.7)
     (close-to-edge-length . 2.5)
     (encompass-object-range-overshoot . 0.5)
+    (slur-tie-extrema-min-distance . 0.2)
+    (slur-tie-extrema-min-distance-penalty . 2)
     ))

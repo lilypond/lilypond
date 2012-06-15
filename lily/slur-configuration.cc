@@ -28,6 +28,7 @@
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
+#include "tie.hh"
 #include "warn.hh"
 
 Bezier
@@ -316,6 +317,39 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 void
 Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 {
+  // we find forbidden attachments
+  vector<Offset> forbidden_attachments;
+  for (vsize i = 0; i < state.extra_encompass_infos_.size (); i++)
+    if (Tie::has_interface (state.extra_encompass_infos_[i].grob_))
+      {
+        Grob *t = state.extra_encompass_infos_[i].grob_;
+        Grob *common_x = Grob::get_vertical_axis_group (t);
+        Real rp = t->relative_coordinate (common_x, X_AXIS);
+        SCM cp = t->get_property ("control-points");
+
+        Bezier b;
+        int j = 0;
+        for (SCM s = cp; scm_is_pair (s); s = scm_cdr (s))
+          {
+            b.control_[j] = ly_scm2offset (scm_car (s));
+            j++;
+          }
+        forbidden_attachments.push_back (Offset (b.control_[0]) + Offset (rp, 0));
+        forbidden_attachments.push_back (Offset (b.control_[3]) + Offset (rp, 0));
+      }
+
+  bool too_close = false;
+  for (vsize k = 0; k < forbidden_attachments.size (); k++)
+    for (LEFT_and_RIGHT (side))
+      if ((forbidden_attachments[k] - attachment_[side]).length () < state.parameters_.slur_tie_extrema_min_distance_)
+        {
+          too_close = true;
+          break;
+        }
+
+  if (too_close)
+    add_score (state.parameters_.slur_tie_extrema_min_distance_penalty_, "extra");
+
   for (vsize j = 0; j < state.extra_encompass_infos_.size (); j++)
     {
       Drul_array<Offset> attachment = attachment_;

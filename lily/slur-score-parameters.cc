@@ -78,4 +78,8 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("close-to-edge-length"));
   encompass_object_range_overshoot_
     = get_detail (details, ly_symbol2scm ("encompass-object-range-overshoot"));
+  slur_tie_extrema_min_distance_
+    = get_detail (details, ly_symbol2scm ("slur-tie-extrema-min-distance"));
+  slur_tie_extrema_min_distance_penalty_
+    = get_detail (details, ly_symbol2scm ("slur-tie-extrema-min-distance-penalty"));
 }
