@@ -466,7 +466,10 @@ Grob::extent (Grob *refp, Axis a) const
       ((Grob *)this)->dim_cache_[a].extent_ = new Interval (real_ext);
     }
 
-  real_ext.translate (offset);
+  // We never want nan, so we avoid shifting infinite values.
+  for (LEFT_and_RIGHT (d))
+    if (!isinf (real_ext[d]))
+      real_ext[d] += offset;
 
   return real_ext;
 }

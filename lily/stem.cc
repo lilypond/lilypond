@@ -689,7 +689,7 @@ Interval
 Stem::internal_height (Grob *me, bool calc_beam)
 {
   Grob *beam = get_beam (me);
-  if (!is_valid_stem (me) && ! beam)
+  if (!is_valid_stem (me) && !beam)
     return Interval ();
 
   Direction dir = get_grob_direction (me);
@@ -699,6 +699,13 @@ Stem::internal_height (Grob *me, bool calc_beam)
       /* trigger set-stem-lengths. */
       (void) beam->get_property ("quantized-positions");
     }
+
+  /*
+    If there is a beam but no stem, slope calculations depend on this
+    routine to return where the stem end /would/ be.
+  */
+  if (!beam && !unsmob_stencil (me->get_property ("stencil")))
+    return Interval ();
 
   Real y1 = robust_scm2double ((calc_beam
                                 ? me->get_property ("stem-begin-position")
