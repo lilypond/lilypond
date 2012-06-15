@@ -62,10 +62,41 @@ which scares away people.
 @end ignore
 
 @item
+Augmentation dots now avoid the other voice in two-voice polyphony
+so that users can move the @code{Dot_column_engraver} to set dots
+independently for each @code{Voice}.
+@lilypond[quote]
+\layout {
+  \context {
+    \Staff
+    \remove Dot_column_engraver
+  } \context {
+    \Voice
+    \consists Dot_column_engraver
+  }
+}
+\relative c'' <<
+  { \time 6/8
+    <d f g>4. <d f g> <f, g> b
+  } \\ {
+    <f g b>4. <g b d> <b d> <e, g>
+  } >>
+@end lilypond
+
+@item
+A Scheme function to adjust the control points of curves such as slurs
+and ties, developed by several users, is now included in LilyPond.
+@lilypond[quote,verbatim,relative=2]
+g8->( bes,-.) d4
+\shape Slur #'((-0.5 . 1.5) (-3 . 0) (0 . 0) (0 . 0))
+g8->( bes,!-.) d4
+@end lilypond
+
+@item
 Use of @code{\tempo} specifications in @code{\midi} blocks (removed in
 2.9.16 in favor of explicit @code{tempoWholesPerMinute} settings) has
 seen a revival: now any kind of property-setting music is turned into
-context definitions within of output specifications, allowing for
+context definitions within output specifications, allowing for
 declarations like
 @example
 \layout @{ \accidentalStyle modern @}
