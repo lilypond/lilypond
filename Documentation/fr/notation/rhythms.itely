@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 2a87f1e1f98b76751482cae4474d41aa5e38e37b
+    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2219,33 +2219,32 @@ de cette dérogation.
 \repeat unfold 8 {c8}
 @end lilypond
 
-Dans les traditions de la gravure, les croches obéissent à des règles
-particulières de ligature.  Lorsqu'une mesure ne comporte que des
-croches, elle peuvent faire l'objet d'une ligature unique.  Ce
-comportement se contrôle à l'aide de la propriété de contexte
-@code{beamWholeMeasure}.
+De la même manière, les croches d'une mesure à 3/4 sont ligaturées sur
+la mesure par défaut.  Ligaturer sur le temps requiert un appel à
+@code{beamExceptions}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we beam in one
-\repeat unfold 6 { a8 }
-% We can avoid beaming in one
-\set Timing.beamWholeMeasure = ##f
-\repeat unfold 6 { a8 }
+% by default we beam in (3) due to beamExceptions
+\repeat unfold 6 {a8} |
+% This will beam (1 1 1) due to beatLength
+\set Timing.beamExceptions = #'()
+\repeat unfold 6 {a8}
 @end lilypond
 
 Certaines partitions de la période romantique ou classique font
-apparaître des ligatures sur la moitié de la mesure, ce qui va à
-l'encontre de la règle établie -- comme le fait remarquer Gould à la
-page 153 de son ouvrage.  La reproduction d'un tel comportement se
-contrôle à l'aide de la propriété de contexte @code{beamHalfMeasure}.
+apparaître des ligatures sur la moitié d'une mesure à 3/4 (ou à 3/8),
+ce qui va à l'encontre de la règle établie -- comme le fait remarquer
+Gould à la page 153 de son ouvrage -- puisque donne l'impression d'une
+mesure à 6/8.  Il en va de même pour une mesure à 3/8.  La reproduction
+d'un tel comportement se contrôle à l'aide de la propriété de contexte
+@code{beamHalfMeasure}, qui d'ailleurs ne sera effective que lorsque le
+numérateur de la métrique est un 3.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we avoid half-measure beams
 r4. a8 a a |
-% We can allow half-measure beams
-\set Timing.beamHalfMeasure = ##t
+\set Timing.beamHalfMeasure = ##f
 r4. a8 a a |
 @end lilypond
 
