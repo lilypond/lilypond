@@ -971,40 +971,42 @@ set to the @code{location} parameter."
 
   (if (vector? (ly:music-property quote-music 'quoted-events))
       (let* ((dir (ly:music-property quote-music 'quoted-voice-direction))
-	     (clef (ly:music-property quote-music 'quoted-music-clef))
-	     (main-voice (if (eq? 1 dir) 1 0))
-	     (cue-voice (if (eq? 1 dir) 0 1))
+	     (clef (ly:music-property quote-music 'quoted-music-clef #f))
+	     (main-voice (case dir ((1) 1) ((-1) 0) (else #f)))
+	     (cue-voice (and main-voice (- 1 main-voice)))
 	     (main-music (ly:music-property quote-music 'element))
 	     (return-value quote-music))
 
-	(if (or (eq? 1 dir) (eq? -1 dir))
+	(if main-voice
+	    (set! (ly:music-property quote-music 'element)
+		  (make-sequential-music
+		   (list
+		    (make-voice-props-override main-voice)
+		    main-music
+		    (make-voice-props-revert)))))
 
-	    ;; if we have stem dirs, change both quoted and main music
-	    ;; to have opposite stems.
-	    (begin
-	      (set! return-value
-		    ;; cannot context-spec Quote-music, since context
-		    ;; for the quotes is determined in the iterator.
-		    (make-sequential-music
-		     (list
-		      (if (null? clef)
-		          (make-music 'Music)
-		          (make-cue-clef-set clef))
-		      (context-spec-music (make-voice-props-override cue-voice) 'CueVoice "cue")
-		      quote-music
-		      (context-spec-music (make-voice-props-revert) 'CueVoice "cue")
-		      (if (null? clef)
-		          (make-music 'Music)
-		          (make-cue-clef-unset)))))
-	      (set! main-music
-		    (make-sequential-music
-		     (list
-		      (make-voice-props-override main-voice)
-		      main-music
-		      (make-voice-props-revert))))
-	      (set! (ly:music-property quote-music 'element) main-music)))
+	;; if we have stem dirs, change both quoted and main music
+	;; to have opposite stems.
 
-	return-value)
+	;; cannot context-spec Quote-music, since context
+	;; for the quotes is determined in the iterator.
+
+	(make-sequential-music
+	 (delq! #f
+		(list
+		 (and clef (make-cue-clef-set clef))
+
+		 ;; Need to establish CueVoice context even in #CENTER case
+		 (context-spec-music
+		  (if cue-voice
+		      (make-voice-props-override cue-voice)
+		      (make-music 'Music))
+		  'CueVoice "cue")
+		 quote-music
+		 (and cue-voice
+		      (context-spec-music
+		       (make-voice-props-revert) 'CueVoice "cue"))
+		 (and clef (make-cue-clef-unset))))))
       quote-music))
 
 (define-public ((quote-substitute quote-tab) music)
