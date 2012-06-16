@@ -299,8 +299,10 @@ through MUSIC."
 				 1))
 	       (tremolo-type (ash 1 duration-log)))
 	  (set! (ly:music-property r 'tremolo-type) tremolo-type)
-	  (if (not (integer?  mult))
-              (ly:warning (_ "invalid tremolo repeat count: ~a") times))
+	  (if (not (and (integer? mult) (= (logcount mult) 1)))
+	      (ly:music-warning
+	       main
+	       (ly:format (_ "invalid tremolo repeat count: ~a") times)))
 	  ;; Adjust the time of the notes
 	  (ly:music-compress r (ly:make-moment 1 children))
 	  ;; Adjust the displayed note durations
