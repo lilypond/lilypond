@@ -21,6 +21,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "tuplet-bracket.hh"
+#include "axis-group-interface.hh"
 
 struct Piano_pedal_bracket
 {
@@ -65,7 +66,8 @@ Piano_pedal_bracket::print (SCM smob)
           else
             flare[d] = 0.0;
 
-          span_points[d] = robust_relative_extent (b, common, X_AXIS)[RIGHT];
+          span_points[d]
+            = Axis_group_interface::generic_bound_extent (b, common, X_AXIS)[RIGHT];
         }
       else
         span_points[d] = b->relative_coordinate (common, X_AXIS);
