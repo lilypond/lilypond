@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
-  texidocfr = "
-La manière de gérer les ligatures est influencée par la propriété
-@code{beatGrouping} :
-
-"
-  doctitlefr = "Regroupement selon la pulsation"

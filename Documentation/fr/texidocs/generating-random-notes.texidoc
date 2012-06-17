@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Le fragment de code Scheme ci-dessous génère aléatoirement 24 notes
+(ou autant que nécessaire), à partir de l'heure courante (ou un nombre
+quelconque donné en argument, afin d'obtenir toujours les mêmes notes
+aléatoires).  Pour obtenir une autre série de notes, il suffit de
+changer ce nombre.
+
+"
+  doctitlefr = "Génération de notes aléatoires"
