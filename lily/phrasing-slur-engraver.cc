@@ -282,13 +282,31 @@ Phrasing_slur_engraver::process_music ()
 void
 Phrasing_slur_engraver::stop_translation_timestep ()
 {
+  if (Grob *g = unsmob_grob (get_property ("currentCommandColumn")))
+    {
+      for (vsize i = 0; i < end_slurs_.size (); i++)
+        Slur::add_extra_encompass (end_slurs_[i], g);
+
+      if (!start_events_.size ())
+        for (vsize i = 0; i < slurs_.size (); i++)
+          Slur::add_extra_encompass (slurs_[i], g);
+    }
+
+  for (vsize i = 0; i < end_slurs_.size (); i++)
+    {
+      Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
+      if (!s->get_bound (RIGHT))
+        s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+      announce_end_grob (s, SCM_EOL);
+    }
+
   for (vsize i = 0; i < objects_to_acknowledge_.size (); i++)
     Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slurs_, end_slurs_);
 
+  objects_to_acknowledge_.clear ();
   end_slurs_.clear ();
   start_events_.clear ();
   stop_events_.clear ();
-  objects_to_acknowledge_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
