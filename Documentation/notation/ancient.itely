@@ -28,15 +28,16 @@
 * Ancient notation---common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
+* Typesetting Kievan square notation::
 * Working with ancient music---scenarios and solutions::
 @end menu
 
 
 Support for ancient notation includes features for mensural
-notation and Gregorian chant notation.  These features can be
-accessed either by modifying style properties of graphical objects
-such as note heads and rests, or by using one of the pre-defined
-contexts for mensural or Gregorian notation.
+notation, Gregorian chant notation, and Kievan square notation.
+These features can be accessed either by modifying style
+properties of graphical objects such as note heads and rests,
+or by using one of the pre-defined contexts for these styles.
 
 Many graphical objects, such as note heads and flags, accidentals,
 time signatures, and rests, provide a @code{style} property, which
@@ -2404,6 +2405,162 @@ of the staff.
 unary music function, such that @code{\augmentum} can be intermixed
 with head prefixes in arbitrary order.
 
+@node Typesetting Kievan square notation
+@subsection Typesetting Kievan square notation
+
+@menu
+* Kievan contexts::
+* Kievan clefs::
+* Kievan note heads::
+* Kievan accidentals::
+* Kievan bar line::
+@end menu
+
+@node Kievan contexts
+@unnumberedsubsubsec Kievan contexts
+
+@cindex KievanVoiceContext
+@cindex KievanStaffContext
+
+As with Mensural and Gregorian notation, the predefined
+@code{KievanVoice} and @code{KievanStaff} contexts can be used
+to engrave a piece in square notation.  These contexts initialize
+all relevant context properties and grob properties to proper
+values, so you can immediately go ahead entering the chant:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	c4 c c c c2 b,\longa
+	\bar "kievan"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Го -- спо -- ди по -- ми -- луй.
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{kievan notation}.
+
+@knownissues
+LilyPond supports Kievan notation of the Synodal style, as used in
+the corpus of chantbooks printed by the Russian Holy Synod in the
+1910's and recently reprinted by the Moscow Patriarchate Publishing
+House.  LilyPond does not support the older (less common) forms of
+Kievan notation that were used in Galicia to notate Rusyn plainchant.
+
+@node Kievan clefs
+@unnumberedsubsubsec Kievan clefs
+
+@cindex clefs
+
+There is only one clef used in Kievan notation (the Tse-fa-ut Clef).
+It is used to indicate the position of @code{c}:
+
+@lilypond[quote,fragment,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{kievan notation},
+@rglos{clef}.
+
+Notation Reference:
+@ref{Clef}.
+
+@node Kievan note heads
+@unnumberedsubsubsec Kievan note heads
+
+@cindex note heads, ancient
+
+For Kievan square notation, the appropriate note head style needs
+to be chosen.  This is accomplished by setting the @code{style}
+property of the @code{NoteHead} object to @code{kievan}.
+
+The Kievan final note, which usually comes at the end of a piece
+of music, may be selected by setting the duration to
+@code{\longa}.  The Kievan recitative mark, used to indicate
+the chanting of several syllables on one note, may be selected by
+setting the duration to @code{\breve}.  The following example
+demonstrates the various Kievan note heads:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\autoBeamOff
+\cadenzaOn
+\override NoteHead #'style = #'kievan
+b'1 b'2 b'4 b'8 b'\breve b'\longa
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{kievan notation},
+@rglos{note head}.
+
+Notation Reference:
+@ref{Note head styles}.
+
+@knownissues
+LilyPond automatically determines if the stem up or stem down
+form of a note is drawn.  When setting chant in square notation,
+however, it is customary to have the stems point in the same
+direction within a single melisma.  This can be done manually by
+setting the @code{direction} property of the @code{Stem} object.
+
+@node Kievan accidentals
+@unnumberedsubsubsec Kievan accidentals
+
+@cindex accidentals
+
+The @code{kievan} style for accidentals is selected with the
+@code{glyph-name-alist} property of the grob @code{Accidental}.
+The @code{kievan} style provides a sharp and a flat sign
+different from the default style.  There is no natural sign
+in Kievan notation.  The sharp sign is not used in Synodal music
+but may occur in earlier manuscripts.  It has been included
+primarily for the sake of compatibility.
+
+@lilypond[quote,fragment,relative=1,notime,verbatim]
+\clef "kievan-do"
+\override NoteHead #'style = #'kievan
+\override Accidental #'glyph-name-alist =
+ #alteration-kievan-glyph-name-alist
+bes' dis,
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{kievan notation},
+@rglos{accidental}.
+
+Notation Reference:
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{The Feta font}
+
+@node Kievan bar line
+@unnumberedsubsubsec Kievan bar line
+
+A decorative figure is commonly placed at the end of a piece of
+Kievan notation, which may be called the Kievan final bar line.
+It can be invoked as @code{\bar "kievan"}.
+
+@lilypond[quote,fragment,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c \bar "kievan"
+@end lilypond
+
+@seealso
+@ref{Bars},
+@ref{The Feta font}
 
 @node Working with ancient music---scenarios and solutions
 @subsection Working with ancient music---scenarios and solutions
