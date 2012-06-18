@@ -49,6 +49,8 @@ from @var{port} and return the corresponding Scheme music expression.
 							   (port-line port))
 					   (set-port-column! copycat
 							     (port-column port))
+					   (if (char=? (peek-char port) #\@)
+					       (read-char copycat))
 					   (read copycat))))
 				   ;; kill unused lookahead, it has been
 				   ;; written out already

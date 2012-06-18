@@ -276,7 +276,7 @@ BOM_UTF8	\357\273\277
 
 
 }
-<sourcefilename>\"[^"]*\"     {
+<sourcefilename>\"[^""]*\"     {
 	string s (YYText_utf8 () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
@@ -438,11 +438,11 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	sval = eval_scm (sval);
-		
+	sval = eval_scm (sval, '$');
+
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))
-	  return token;
+		return token;
 }
 
 <INITIAL,notes,lyrics>{ 
@@ -1005,8 +1005,15 @@ Lily_lexer::is_figure_state () const
 	return get_state () == figures;
 }
 
+// The extra_token parameter specifies how to convert multiple values
+// into additional tokens.  For '#', additional values get pushed as
+// SCM_IDENTIFIER.  For '$', they get checked for their type and get
+// pushed as a corresponding *_IDENTIFIER token.  Since the latter
+// tampers with yylval, it can only be done from the lexer itself, so
+// this function is private.
+
 SCM
-Lily_lexer::eval_scm (SCM readerdata)
+Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 {
 	SCM sval = SCM_UNDEFINED;
 
@@ -1023,6 +1030,33 @@ Lily_lexer::eval_scm (SCM readerdata)
 		error_level_ = 1;
 		return SCM_UNSPECIFIED;
 	}
+
+	if (extra_token && SCM_VALUESP (sval))
+	{
+		sval = scm_struct_ref (sval, SCM_INUM0);
+
+		if (scm_is_pair (sval)) {
+			for (SCM v = scm_reverse (scm_cdr (sval));
+			     scm_is_pair (v);
+			     v = scm_cdr (v))
+			{
+				int token;
+				switch (extra_token) {
+				case '$':
+					token = scan_scm_id (scm_car (v));
+					if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))
+						push_extra_token (token, yylval.scm);
+					break;
+				case '#':
+					push_extra_token (SCM_IDENTIFIER, scm_car (v));
+					break;
+				}
+			}
+			sval = scm_car (sval);
+		} else
+			sval = SCM_UNSPECIFIED;
+	}
+
 	return sval;
 }
 

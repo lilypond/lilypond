@@ -611,6 +611,7 @@ guile> (cond ((< a b) "a is less than b")
 * LilyPond Scheme syntax::
 * LilyPond variables::
 * Input variables and Scheme::
+* Importing Scheme in LilyPond::
 * Object properties::
 * LilyPond compound variables::
 * Internal music representation::
@@ -661,13 +662,18 @@ at all is passed to the parser.
 
 This is, in fact, exactly the same mechanism that Lilypond employs when
 you call any variable or music function by name, as @code{\name}, with
-the only difference that its end is determined by the Lilypond lexer
+the only difference that the name is determined by the Lilypond lexer
 without consulting the Scheme reader, and thus only variable names
 consistent with the current Lilypond mode are accepted.
 
 The immediate action of @code{$} can lead to surprises, @ref{Input
 variables and Scheme}.  Using @code{#} where the parser supports it is
 usually preferable.
+
+@funindex $@@
+@funindex #@@
+There are also @q{list splicing} operators @code{$@@} and @code{#@@}
+that insert all elements of a list in the surrounding context.
 
 Now let's take a look at some actual Scheme code.  Scheme procedures can
 be defined in LilyPond input files:
@@ -800,7 +806,7 @@ traLaLa = { c'4 d'4 }
 #(define twice
   (make-sequential-music newLa))
 
-{ \twice }
+\twice
 @end lilypond
 
 @c Due to parser lookahead
@@ -812,6 +818,11 @@ reads @code{#} and the following Scheme expression @emph{without}
 evaluating it, so it can go ahead with the assignment, and
 @emph{afterwards} execute the Scheme code without problem.
 
+@node Importing Scheme in LilyPond
+@subsection Importing Scheme in LilyPond
+@funindex $
+@funindex #
+
 The above example shows how to @q{export} music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
 placing it after @code{$}, a Scheme
@@ -821,7 +832,7 @@ been written as
 
 @example
 ...
-@{ $(make-sequential-music (list newLa)) @}
+$(make-sequential-music newLa)
 @end example
 
 You can use @code{$} with a Scheme expression anywhere you could use
@@ -835,9 +846,29 @@ following Scheme definition would have failed because @code{traLaLa}
 would not yet have been defined.  For an explanation of this timing
 problem, @ref{LilyPond Scheme syntax}.
 
-In any case, evaluation of Scheme code happens in the parser at latest.
-If you need it to be executed at a later point of time, @ref{Void scheme
-functions}, or store it in a macro:
+@funindex $@@
+@funindex #@@
+A further convenience can be the @q{list splicing} operators @code{$@@}
+and @code{#@@} for inserting the elements of a list in the surrounding
+context.  Using those, the last part of the example could have been
+written as
+
+@example
+...
+@{ $@@newLa @}
+@end example
+
+Here, every element of the list stored in @code{newLa} is taken in
+sequence and inserted into the list, as if we had written
+
+@example
+@{ $(first newLa) $(second newLa) @}
+@end example
+
+Now in all of these forms, the Scheme code is evaluated while the
+input is still being consumed, either in the lexer or in the parser.
+If you need it to be executed at a later point of time, check out
+@ref{Void scheme functions}, or store it in a procedure:
 
 @example
 #(define (nopc)

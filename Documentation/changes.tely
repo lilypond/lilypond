@@ -211,12 +211,13 @@ the tweaked event, like accidentals, stems, and flags:
 Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})
 are now executed in lexical closure of the surrounding Scheme code.
 @code{$} is no longer special in embedded Lilypond.  It can be used
-unconditionally in Lilypond code for immediate evaluation, similar to
-how @code{ly:export} could previously be used.  @code{ly:export} has
-been removed.  As a consequence, @code{#} is now free to delay
-evaluation of its argument until the parser actually reduces the
-containing expression, greatly reducing the potential for premature
-evaluation.
+unconditionally in Lilypond code for immediate evaluation of Scheme
+expressions, similar to how @code{ly:export} could previously be used.
+@code{ly:export} has been removed.  As a consequence, @code{#} is now
+free to delay evaluation of its argument until the parser actually
+reduces the containing expression, greatly reducing the potential for
+premature evaluation.  There are also @q{splicing} operators @code{$@@}
+and @code{#@@} for interpreting the members of a list individually.
 
 @item
 Support for jazz-like chords has been improved: Lydian and altered

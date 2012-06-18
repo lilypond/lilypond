@@ -47,9 +47,14 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_set_port_line_x (port, scm_from_int (ps->start_location_.line_number () - 1));
   scm_set_port_column_x (port, scm_from_int (ps->start_location_.column_number () - 1));
 
-  SCM form = scm_read (port);
+  bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
 
+  if (multiple)
+    (void) scm_read_char (port);
+
+  SCM form = scm_read (port);
   SCM to = scm_ftell (port);
+
   ps->nchars = scm_to_int (to) - scm_to_int (from);
 
   if (!SCM_EOF_OBJECT_P (form))
@@ -62,6 +67,10 @@ internal_ly_parse_scm (Parse_start *ps)
             // Replace form with a call to previously compiled closure
             form = scm_list_1 (c);
         }
+      if (multiple)
+	form = scm_list_3 (ly_symbol2scm ("apply"),
+			   ly_symbol2scm ("values"),
+			   form);
       return scm_cons (form, make_input (ps->start_location_));
     }
 
@@ -171,4 +180,3 @@ ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
   scm_remember_upto_here_1 (form);
   return ans;
 }
-

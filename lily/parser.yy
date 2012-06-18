@@ -641,7 +641,7 @@ toplevel_expression:
 embedded_scm_bare:
 	SCM_TOKEN
 	{
-		$$ = parser->lexer_->eval_scm ($1);
+		$$ = parser->lexer_->eval_scm_token ($1);
 	}
 	| SCM_IDENTIFIER
 	;
