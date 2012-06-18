@@ -120,7 +120,7 @@ struct Slur_score_state
   vector<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
 
-  Grob *breakable_bound_item (Direction) const;
+  Interval breakable_bound_extent (Direction) const;
 };
 
 void set_slur_control_points (Grob *me);

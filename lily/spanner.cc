@@ -319,32 +319,6 @@ Spanner::is_broken () const
   return broken_intos_.size ();
 }
 
-/*
-  If this is a broken spanner, return the amount the left end is to be
-  shifted horizontally so that the spanner starts after the initial
-  clef and key on the staves. This is necessary for ties, slurs,
-  crescendo and decrescendo signs, for example.
-*/
-Real
-Spanner::get_broken_left_end_align () const
-{
-  Paper_column *sc = dynamic_cast<Paper_column *> (spanned_drul_[LEFT]->get_column ());
-
-  // Relevant only if left span point is first column in line
-  if (sc != NULL
-      && sc->break_status_dir () == RIGHT)
-    {
-      /*
-        We used to do a full search for the Break_align_item.
-        But that doesn't make a difference, since the Paper_column
-        is likely to contain only a Break_align_item.
-      */
-      return sc->extent (sc, X_AXIS)[RIGHT];
-    }
-
-  return 0.0;
-}
-
 void
 Spanner::derived_mark () const
 {

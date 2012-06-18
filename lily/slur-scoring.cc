@@ -22,6 +22,7 @@
 
 #include <queue>
 
+#include "axis-group-interface.hh"
 #include "accidental-interface.hh"
 #include "beam.hh"
 #include "clef.hh"
@@ -426,10 +427,12 @@ Slur_score_state::get_best_curve () const
   return best;
 }
 
-Grob *
-Slur_score_state::breakable_bound_item (Direction d) const
+Interval
+Slur_score_state::breakable_bound_extent (Direction d) const
 {
   Grob *col = slur_->get_bound (d)->get_column ();
+  Interval ret;
+  ret.set_empty ();
 
   extract_grob_set (slur_, "encompass-objects", extra_encompasses);
 
@@ -437,10 +440,10 @@ Slur_score_state::breakable_bound_item (Direction d) const
     {
       Item *item = dynamic_cast<Item *> (extra_encompasses[i]);
       if (item && col == item->get_column ())
-        return item;
+        ret.unite (robust_relative_extent (item, common_[X_AXIS], X_AXIS));
     }
 
-  return 0;
+  return ret;
 }
 
 /*
@@ -530,14 +533,12 @@ Slur_score_state::get_base_attachments () const
           Real x = 0;
           Real y = 0;
 
-          if (Grob *g = breakable_bound_item (d))
-            {
-              x = robust_relative_extent (g, common_[X_AXIS], X_AXIS)[RIGHT];
-            }
-          else if (d == RIGHT)
-            x = robust_relative_extent (extremes_[d].bound_, common_[X_AXIS], X_AXIS)[d];
-          else
-            x = slur_->get_broken_left_end_align ();
+          Interval ext = breakable_bound_extent (d);
+          if (ext.is_empty ())
+            ext = Axis_group_interface::
+                  generic_bound_extent (extremes_[d].bound_,
+                                        common_[X_AXIS], X_AXIS);
+          x = ext[-d];
 
           Grob *col = (d == LEFT) ? columns_[0] : columns_.back ();
 
