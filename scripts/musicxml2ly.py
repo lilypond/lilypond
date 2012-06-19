@@ -1784,8 +1784,12 @@ def musicxml_note_to_lily_main_event (n):
 
         acc = n.get_maybe_exist_named_child ('accidental')
         if acc:
-            # let's not force accs everywhere.
-            event.cautionary = acc.cautionary
+            # AccidentalCautionary in lily has parentheses
+            # so treat accidental explicitly in parentheses as cautionary
+            if hasattr(acc, 'parentheses') and acc.parentheses == "yes":
+                event.cautionary = True
+            else:
+                event.cautionary = acc.cautionary
             # TODO: Handle editorial accidentals
             # TODO: Handle the level-display setting for displaying brackets/parentheses
 
