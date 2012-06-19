@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -83,6 +83,22 @@ sous peine de ne les voir s'imprimer.
 
 @lilypond[verbatim,quote,relative=2]
 <a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@cindex accord vide
+@cindex placeholder events
+
+Un accord peut se voir comme un conteneur de notes, articulations et
+autres éléments rattachés.  Par voie de conséquence, un accord dépourvu
+de note n'a pas de durée ; toute articulation qui lui serait attachée
+interviendra au même moment que la note ou l'accord qui le suit et lui
+sera donc combiné -- pour des combinaisons plus complexes, voir
+@ref{Expressions simultanées}.
+
+@lilypond[verbatim,quote,relative=2]
+\grace { g8[( a b] }
+<> ) \p \< -. -\markup \italic "sempre staccato"
+\repeat unfold 4 { c4 e }  c1\f
 @end lilypond
 
 @cindex accord et mode relatif
@@ -263,16 +279,27 @@ a << { a4 b g } { d4 g c, } >>
 Cette manière de procéder est utile lorsque les éléments de l'expression
 ont des rythmes identiques.  Dès que vous tenterez d'attacher sur une
 même hampe des notes de durée différente, vous générerez des erreurs.
+Notes, articulations et modifications de propriétés au sein d'un même
+@code{Voice} sont enregistrés et gravés selon l'ordre musical :
+
+@lilypond[quote,verbatim,relative=2]
+<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@end lilypond
+
+La présence de plusieursdifférentes hampes, ligatures, durées ou
+propriétés au même instant musical nécessite l'utilisation de plusieurs
+voix.
 
 Dans l'exemple suivant, l'expression simultanée génère implicitement
-plusieurs portées@tie{}:
+plusieurs portées :
 
 @lilypond[quote,verbatim,relative=2]
 % no single first note
 << { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
-En pareil cas, des rythmes différents ne sont source d'aucun problème.
+En pareil cas, des rythmes différents ne sont source d'aucun problème
+puisqu'ils sont interprétés dans des voix différentes.
 
 @cindex collision sur empilement de notes
 @cindex collisions, ignorer

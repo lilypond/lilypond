@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Des mots monosyllabiques peuvent s'attacher par une liaison à l'aide
+d'un tilde.
+
+"
+  doctitlefr = "Séparation de syllables par une liaison"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Les lignes d'un soufflet peuvent adopter tous les styles permis par la
+@code{line-interface} : discontinu, pointillé, continu, ondulé ou en
+zigzag.
+
+"
+  doctitlefr = "Stylisation des lignes de soufflet"

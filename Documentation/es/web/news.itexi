@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c26c0e17719c5c0bc00c79f7c5ca5b644c196b60
+    Translation of GIT committish: c038b41688cbfba042deb80f790b560a69813705
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,66 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+
+@newsItem
+@subsubheading Cuarta versión candidata al lanzamiento de 2.16: ¡Lanzado LilyPond 2.15.36!  @emph{6 de abril de 2012}
+
+Ha salido LilyPond 2.15.36; ésta es la cuarta versión candidata al
+lanzamiento de la inminente versión estable 2.16.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.14.2 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
+
+No existen problemas críticos conocidos en esta edición. Si no se
+encuentra ningún bug crítico, la edición oficial 2.16.0 se producirá
+el 20 de abril de 2012.  Si descubre algún problema, le rogamos que
+nos envíe @ref{Informes de fallos}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading El Informe LilyPond, número 25. @emph{1 de abril de 2012}
+
+¡Vuelve @emph{El Informe LilyPond}, con una edición bastante poco
+habitual de la que destacamos a nuestro joven colaborador polaco Janek
+Warchoł!  También incluimos en esta edición algunos elementos
+inesperados, entre ellos (y no solamente)… ¡una receta de cocina!
+
+Acérquese al @uref{http://news.lilynet.net/?The-LilyPond-Report-25,
+Informe LilyPond 25} y léalo ahora mismo; ¡animamos calurosamente a
+todos a que hagan sus comentarios y contribuciones!
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.35!  @emph{28 de marzo de 2012}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.35.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente a los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.  Tenga en
+cuenta que a causa de algunos bugs críticos, esta versión no es
+candidata al lanzamiento de la próxima versión estable.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.34!  @emph{19 de marzo de 2012}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.34.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente a los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.  Tenga en
+cuenta que a causa de algunos bugs críticos, esta versión no es
+candidata al lanzamiento de la próxima versión estable.
+
+@newsEnd
 
 
 @newsItem
