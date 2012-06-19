@@ -7,7 +7,22 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Dans certaines situations, il peut être nécessaire de lier des notes
+appartenant à des voix différentes.
+
+La solution consiste à ajouter une note invisible dans l'une des voix, à
+l'aide de la commande @code{\\hideNotes}.
+
+Voici par exemple la mesure 235 de la chaconne de la seconde partita
+pour violon solo, BWV 1004, de Bach.
+
+"
+  doctitlefr = "Création d'une liaison entre plusieurs voix"
+
   lsrtags = "keyboards, real-music, unfretted-strings, connecting-notes, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

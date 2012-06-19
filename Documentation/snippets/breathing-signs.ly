@@ -7,6 +7,15 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
+  texidocfr = "
+Les indications de respiration sont disponibles sous différentes
+formes : virgule (par défaut), trait, en V et @qq{voie de chemin de fer}
+(césure).
+
+"
+  doctitlefr = "Signes de respiration"
+
   lsrtags = "symbols-and-glyphs, expressive-marks"
 
   texidoc = "

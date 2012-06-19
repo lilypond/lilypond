@@ -39,13 +39,13 @@ Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
 
 
 
-%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
-LilyPond insère automatiquement des ligatures coudées --- certaines
-hampes vers le haut, d'autres vers le bas --- lorsqu'il détecte un
-intervalle important entre des têtes de notes. Ce comportement peut être
-changé par l'intermédiaire de l'objet @code{auto-knee-gap} --- défini
-par défaut à @samp{5,5} espace, plus la largeur et la pente de la
+LilyPond insère automatiquement des ligatures coudées -- certaines
+hampes vers le haut, d'autres vers le bas -- lorsqu'il détecte un
+intervalle important entre des têtes de notes.  Ce comportement peut
+être changé par l'intermédiaire de l'objet @code{auto-knee-gap} --
+défini par défaut à @samp{5,5} espace, plus la largeur et la pente de la
 ligature en question.
 
 "

@@ -7,7 +7,19 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Rien n'est plus simple, pour obtenir une feuille blanche avec des
+portées, que de générer des mesures vides, de supprimer le
+@code{Bar_number_engraver} du contexte @code{Score}, et les
+@code{Time_signature_engraver}, @code{Clef_engraver} et
+@code{Bar_engraver} du contexte @code{Staff}.
+
+"
+  doctitlefr = "Impression de papier à musique"
+
   lsrtags = "specific-notation, editorial-annotations, paper-and-layout, contexts-and-engravers, staff-notation"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

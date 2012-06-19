@@ -7,7 +7,33 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Le code ci-dessous permet de réaliser des découpes à l'emporte pièce,
+autrement dit d'extraire des fragments, au sein d'une partition.
+
+Dans la mesure où le rendu inclus dans ce manuel pourrait ne pas être
+des plus évidents, nous vous conseillons de traiter ce fichier
+individuellement, avec l'option @code{-dclip-systems}.
+
+Les fichiers résultants sont de la forme
+@samp{base-from-début-to-fin[-compteur].eps}.
+
+
+Lorsque sont inclus le début ou la fin d'un système, l'extraction
+comportera les objets rattachés au système, comme le nom d'instrument.
+
+Les notes d'ornement qui se trouveraient en fin de fragment ne sont pas
+incluses.
+
+La découpe peut couvrir plusieurs systèmes, auquel cas seront générés
+plusieurs fichiers EPS.
+
+"
+  doctitlefr = "Découpe de systèmes"
+
   lsrtags = "paper-and-layout"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

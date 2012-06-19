@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Une césure peut parfois s'indiquer par une double respiration surmontée
+d'un point d'orgue.  Le code ci-dessous permet d'obtenir la combinaison
+répondant à cette esthétique.
+
+"
+  doctitlefr = "Césure en forme de \"voie de chemin de fer\" avec point d'orgue"
+
   lsrtags = "symbols-and-glyphs, tweaks-and-overrides, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

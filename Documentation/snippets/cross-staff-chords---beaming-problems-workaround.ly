@@ -7,6 +7,19 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
+  texidocfr = "
+Il est parfois préférable d'utiliser les hampes de la portée supérieure
+pour créer des accords distribués, afin d'éviter tout risque de
+collision au niveau des ligatures automatiques.  Dans l'exemple suivant,
+le fait de partir des hampes de la portée inférieure aurait rendu
+nécessaire l'adaptation du détecteur de collision des ligatures, par une
+clause @code{\\override Staff.Beam #'collision-voice-only = ##t}, afin
+qu'il ne tienne pas compte des collisions entre portées.
+
+"
+  doctitlefr = "Accord distribué et problème de hampe - solution"
+
   lsrtags = "keyboards, workaround, chords, tweaks-and-overrides"
 
   texidoc = "

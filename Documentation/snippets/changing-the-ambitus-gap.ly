@@ -18,7 +18,7 @@ Es posible ajustar la separación en las indicaciones de tesitura.
 
   doctitlees = "Modificación de la separación en las indicaciones de tesitura"
 
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
   texidocit = "
 È possibile cambiare le impostazioni predefinite dell'intervallo
 dell'ambitus.

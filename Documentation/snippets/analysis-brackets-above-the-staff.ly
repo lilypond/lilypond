@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Les crochets d'analyse viennent par défaut se positionner au-dessous de
+la portée.  L'exemple suivant vous indique comment les faire apparaître
+en surplomb de la portée.
+
+"
+  doctitlefr = "Crochets d'analyse au-dessus de la portée"
+
   lsrtags = "editorial-annotations, tweaks-and-overrides, really-simple"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

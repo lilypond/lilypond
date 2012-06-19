@@ -7,7 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Une liaison peut adopter une courbe asymétrique afin de s'adapter au
+mieux à la ligne mélodique.
+
+"
+  doctitlefr = "Liaison asymétrique"
+
   lsrtags = "tweaks-and-overrides, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

@@ -45,6 +45,15 @@ Löcher dargestellt werden, indem man die Lochbezeichnung oder
 graphische Zeichen benutzt.
 
 "
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+In vielen Fällen können die nicht in der mittleren Reihe befindlichen
+Löcher dargestellt werden, indem man die Lochbezeichnung oder
+graphische Zeichen benutzt.
+
+"
 
   doctitlede = "Graphische und Text-Holzbläserdiagramme"
 

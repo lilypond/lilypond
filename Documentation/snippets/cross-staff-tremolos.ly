@@ -22,11 +22,11 @@ dentro de llaves curvas junto a su instrucción @code{\\change Staff}.
 
   doctitlees = "Trémolos de pentagrama cruzado"
 
-%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 Dans la mesure où @code{\\repeat tremolo} requiert deux arguments
 musicaux pour un trémolo d'accords, la note ou l'accord de la
-portée opposée doît être encadré par des accolades et se voir adjoindre
+portée opposée doit être encadré par des accolades et se voir adjoindre
 la commande @code{\\change Staff}.
 
 "

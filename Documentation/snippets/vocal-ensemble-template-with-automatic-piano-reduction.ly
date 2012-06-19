@@ -31,7 +31,7 @@ entonces los cambios se aplicarán también a la reducción de piano.
 の音符) に変更が加えられた場合、その変更はピアノ譜にも適用されます。
 "
 
-%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
+%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
   texidocit = "
 Questo modello aggiunge una riduzione automatica per pianoforte alla tipica
 partitura vocale SATB illustrata in @qq{Modello per complesso vocale}. Si

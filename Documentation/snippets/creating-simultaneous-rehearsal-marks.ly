@@ -7,7 +7,22 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Les indications de repère, à la différence des scripts textuels, ne
+peuvent s'empiler en un même endroit de la partition@tie{}: il n'est
+possible de créer qu'un seul objet @code{RehearsalMark} à la fois.  Le
+recours à une mesure invisible et à une barre de mesure permet cependant
+d'ajouter une autre indication de repère, donnant ainsi l'impression
+d'un double repère sur la même colonne.  cette méthode permet aussi
+de positionner un repère en fin de ligne et un autre au début de la
+ligne suivante.
+
+"
+  doctitlefr = "Création de repères simultanés"
+
   lsrtags = "text, tweaks-and-overrides, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

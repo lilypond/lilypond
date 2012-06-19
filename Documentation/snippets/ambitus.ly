@@ -7,6 +7,18 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
+  texidocfr = "
+Un @emph{ambitus} indique la tessiture, autrement dit les hauteurs
+extrêmes d'une voix.
+
+Seules seront affichées les altérations non comprises dans l'armure.
+Les objets @code{AmbitusNoteHead} peuvent avoir des lignes
+supplémentaires.
+
+"
+  doctitlefr = "Ambitus"
+
   lsrtags = "vocal-music, pitches"
 
   texidoc = "

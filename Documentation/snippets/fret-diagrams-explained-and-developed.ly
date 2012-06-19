@@ -7,6 +7,14 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+Voici différentes manières d'obtenir et de personnaliser des diagrammes
+de fret :
+
+"
+  doctitlefr = "Construction et développement de diagrammes de fret"
+
   lsrtags = "fretted-strings, tweaks-and-overrides"
 
   texidoc = "

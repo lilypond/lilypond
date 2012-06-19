@@ -7,7 +7,28 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Une portion d'un soufflet de crescendo peut être rendue invisible.
+Il suffit pour cela de dessiner un rectangle par dessus cette partie, ce
+qui aura pour effet de la rendre invisible.  Le rectangle est défini par
+un @emph{markup} contenant du code PostScript.
+
+La taille et le positionnement de ce @emph{markup} sont ajustables grâce
+à certaiins composants du code PostScript@tie{}: le nombre précédant
+@code{setgray} donnera du gris s'il est inérieur à@tie{}1@tie{}; les
+deux nombres précédant @code{scale} définissent la largeur et la hauteur
+du rectangle@tie{}; les deux nombres précédant @code{translate}
+modifient le point d'ancrage (en abscisse et en ordonnée) du rectangle.
+
+Le soufflet doit se trouver à un niveau inférieur à celui du @emph{markup}
+afin que le dessin du rectangle puisse effectivement le recouvrir.
+
+"
+  doctitlefr = "Soufflet de crescendo partiellement interrompu"
+
   lsrtags = "contemporary-notation, symbols-and-glyphs, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

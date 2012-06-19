@@ -41,6 +41,14 @@ Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
 definiert sind.
 
 "
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
+
+
+  texidocde="
+Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
+definiert sind.
+
+"
   doctitlede = "Liste der Holzbläserdiagramme"
 
 %% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d

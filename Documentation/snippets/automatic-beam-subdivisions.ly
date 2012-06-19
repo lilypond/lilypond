@@ -7,7 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Dès lors que la propriété @code{subdivideBeams} aura été activée, une
+ligature sera subdivisée selon les préceptes de @code{beatLength}.
+
+"
+  doctitlefr = "Subdivision de ligatures automatiques"
+
   lsrtags = "automatic-notation, connecting-notes, rhythms"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

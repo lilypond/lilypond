@@ -7,7 +7,18 @@
 \version "2.15.32"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La fonction comprise dans l'extrait suivant permet d'ajouter du texte
+-- comme @qq{molto} o @qq{poco} -- en dessous d'un soufflet de
+(de)crescendo.  Cet exemple présente aussi comment, à l'aide de code
+Scheme, influencer la manière dont un objet est normalement imprimé.
+
+"
+  doctitlefr = "Texte centré sous un soufflet"
+
   lsrtags = "text, really-cool, expressive-marks, scheme-language"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

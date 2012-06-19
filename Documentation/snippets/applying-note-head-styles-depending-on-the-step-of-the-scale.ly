@@ -34,7 +34,7 @@ nota.
 "
 
 
-%% Translation of GIT committish: bbf8fd2b5a3ebf20a1fdc91613dc49045a53a270
+%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
   texidocit = "
 La proprietà @code{shapeNoteStyles} può essere usata per definire vari
 stili di teste di nota per ogni grado della scala (definita dall'armatura
@@ -78,13 +78,13 @@ harmonischen Funktionen und dem Notenstil verloren geht.
 
 "
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 La propriété @code{shapeNoteStyles} permet d'affecter un profil
 particulier à chaque degré de la gamme -- à partir de l'armure ou
 de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste
 de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
-@code{cross}, ou @code{xcircle}) ou basés sur la tradition des graveurs
+@code{cross} ou @code{xcircle}) ou basés sur la tradition des graveurs
 américains (avec quelques noms de note latins).
 
 LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et

@@ -7,6 +7,14 @@
 \version "2.15.32"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+La fonction @code{print} peut se modifier pour obtenir l'encadrement de
+n'importe quel objet.
+
+"
+  doctitlefr = "Encadrement d'objets"
+
   lsrtags = "editorial-annotations, tweaks-and-overrides, scheme-language"
 
   texidoc = "

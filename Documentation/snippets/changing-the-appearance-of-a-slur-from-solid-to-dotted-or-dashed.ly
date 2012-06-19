@@ -7,7 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Une liaison d'articulation peut se présenter sous la forme d'un trait
+continu ou discontinu, voire en pointillé.
+
+"
+  doctitlefr = "Modification de l'aspect des liaisons d'articulation"
+
   lsrtags = "editorial-annotations, really-simple, connecting-notes, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

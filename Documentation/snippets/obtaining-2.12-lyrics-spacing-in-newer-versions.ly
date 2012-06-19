@@ -7,6 +7,19 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+
+  texidocde = "
+Die Maschine für die vertikale Platzverteilung hat sich in Version 2.14 verändert.
+Dadurch wurde Gesangstext auf andere Art verteilt.  Es ist möglich, Eigenschaften
+von @code{Lyric}- und @code{Staff}-Kontexten einzustellen, um die Platzverteilung
+so aussehen zu lassen wie für Version 2.12.
+
+"
+  doctitlede = "Platzverteilung von Gesangstext wie in 2.12 für neuere Versionen"
+
+
+
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 El motor de espaciado vertical cambió en la versión 2.14.  Esto puede

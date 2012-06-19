@@ -7,7 +7,35 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+Pour appréhender la notation, nous l'avons disséquée en éléments
+simples : chaque type de symbole est géré par un module différent.
+Chaque module est appelé @qq{graveur}.  Dans cet exemple, chaque graveur
+est appelé à son tour, dans l'ordre suivant :
+
+-- têtes de note,
+
+-- symboles de la portée,
+
+-- clef,
+
+-- hampes,
+
+-- ligatures, liaisons, accents,
+
+-- altérations, barres de mesure, métrique et armure.
+
+Les graveurs se regroupent.  Par exemple, têtes de note, liaisons,
+ligature etc. forment un contexte de voix (@code{Voice}).  Les graveurs
+chargés de la métrique, des altérations, des barres de mesure etc.
+forment un contexte de portée (@code{Staff}).
+
+"
+  doctitlefr = "Les graveurs un par un"
+
   lsrtags = "specific-notation, contexts-and-engravers"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

@@ -31,12 +31,12 @@ Stimmen definiert werden, indem eine Variable mit der Funktion
 "
   doctitlede = "Zusätzliche Stimmen um Zusammenstöße zu vermeiden"
 
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 Dans certains cas de musique polyphonique complexe, une voix
 supplémentaire peut permettre d'éviter les risques de collision.
 Lorsque quatre voix parallèles ne suffisent pas, la fonction Scheme
-@code{context-spec-music} permet d'ajouter des d'autres voix.
+@code{context-spec-music} permet d'ajouter encore d'autres voix.
 
 "
   doctitlefr = "Ajout de voix pour éviter les collisions"

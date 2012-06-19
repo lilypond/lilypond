@@ -7,7 +7,25 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La visibilité des extensions qui se terminent sur la première note après
+un saut de ligne est contrôlé par un appel de @code{after-line-breaking}
+à la fonction @code{ly:spanner::kill-zero-spanned-time}.
+
+Pour des objets tels qu'un glissando ou un soufflet, le comportement
+par défaut est de ne pas être reportés après un saut de ligne.
+L'extension sera donc reprise dès lors que l'appel aura été désactivé.
+
+Il en va inversement pour les extensions qui, par défaut pour les textes
+notamment, sont reportées après un saut de ligne@tie{}; il faudra alors
+activer l'appel pour empêcher leur report.
+
+"
+  doctitlefr = "Contrôle de la visibilité des extensions d'objet après saut de ligne"
+
   lsrtags = "tweaks-and-overrides, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 

@@ -7,7 +7,19 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Lorsqu'une nouvelle portée vient s'ajouter après un saut de ligne,
+LilyPond préserve un espace juste avant le saut de ligne -- pour un
+éventuel changement d'armure qui, quoi qu'il en soit, ne sera pas
+imprimé.  L'astuce consiste alors, comme indiqué dans l'exemple suivant,
+à ajuster @code{Staff.explicitKeySignatureVisibility}.
+
+"
+  doctitlefr = "Ajout d'une portée supplémentaire après un saut de ligne"
+
   lsrtags = "workaround, breaks, contexts-and-engravers, staff-notation"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

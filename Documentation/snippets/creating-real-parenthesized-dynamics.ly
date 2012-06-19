@@ -7,7 +7,25 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Bien que le moyen le plus simple pour ajouter des parenthèses à une
+indication de nuance consiste à utiliser un bloc @code{\\markup}, cette
+pratique a un inconvénient@tie{}: les objets ainsi créés seront
+considérés comme des annotations textuelles, non comme des nuances.
+
+Il est néanmoins possible de créer des objets particuliers en partant de
+code Scheme -- comme expliqué dans le manuel de notation -- avec la
+fonction @code{make-dynamic-script}.  Les @emph{markups} ainsi créés
+seront alors considérés comme étant des indications de nuance, et de ce
+fait pourront se voir appliquer les effets des commandes
+@code{\\dynamicUp} et @code{\\dynamicDown}.
+
+"
+  doctitlefr = "Indications de nuance vraiment entre parenthèses"
+
   lsrtags = "workaround, text, expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

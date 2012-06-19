@@ -26,11 +26,11 @@ eine Kadenz eingesetzt wird und die Endnote unsichtbar gemacht wird.
 "
   doctitlede = "Moderne Glissandi"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
 absente de la partition.  Pour ce faire, il vous faudra utiliser une
-cadence et « masquer » la note d'arrivée.
+cadence et @qq{masquer} la note d'arrivée.
 
 "
   doctitlefr = "Glissando contemporain"

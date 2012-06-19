@@ -7,6 +7,14 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
+  texidocfr = "
+Les familles de fontes par défaut pour le texte peuvent être changées à
+l'aide de la fonction @code{make-pango-font-tree}.
+
+"
+  doctitlefr = "Changement des fontes textuelles par défaut"
+
   lsrtags = "text, tweaks-and-overrides"
 
   texidoc = "

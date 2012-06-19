@@ -18,6 +18,7 @@
 
 
 
+
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
 Presentamos a continuación una plantilla de piano sencilla con algunas
@@ -27,7 +28,7 @@ notas.
   doctitlees = "Plantilla de piano (sencilla)"
 
 
-%% Translation of GIT committish: c3b519f0dd5ff0f8ccfc9a39ed1fe8df8b43741c
+%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
   texidocit = "
 Ecco un comune doppio pentagramma per pianoforte con un po' di note.
 

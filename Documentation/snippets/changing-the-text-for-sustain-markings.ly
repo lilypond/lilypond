@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+@code{Staff.pedalSustainStrings} permet de définir le texte affiché pour
+les instructions de pédale.  Les seuls caractères autorisés sont les
+glyphes particuliers de pédale, comme vous pouvez le constater ici.
+
+"
+  doctitlefr = "Modification du texte des indications de pédale"
+
   lsrtags = "keyboards, tweaks-and-overrides"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

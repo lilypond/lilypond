@@ -67,7 +67,7 @@ other effects may be obtained.
 
 
 startAcciaccaturaMusic = {
-  s1*0(
+  <>(
   \override Flag #'stroke-style = #"grace"
   \slurDashed
 }
@@ -75,7 +75,7 @@ startAcciaccaturaMusic = {
 stopAcciaccaturaMusic = {
   \revert Flag #'stroke-style
   \slurSolid
-  s1*0)
+  <>)
 }
 
 \relative c'' {

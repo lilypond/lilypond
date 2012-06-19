@@ -7,6 +7,14 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+Partant du problème que l'on ignore quel @code{midiInstrument} serait le
+plus adapté à sa composition, voici un fichier LilyPond de démonstration.
+
+"
+  doctitlefr = "Démonstration de MidiInstrument"
+
   lsrtags = "specific-notation, real-music, midi"
 
   texidoc = "

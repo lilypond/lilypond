@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+La direction des hampes des notes placées sur la ligne médiane de la
+portée est gérée par la propriété @code{neutral-direction} de l'objet
+@code{Stem}.
+
+"
+  doctitlefr = "Direction par défaut des hampes de la ligne médiane"
+
   lsrtags = "editorial-annotations"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

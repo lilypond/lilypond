@@ -7,7 +7,21 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La commande @code{\\tweak} permet de modifier la propriété
+@code{font-size} d'une note particulière d'un accord.
+
+Il s'agit de placer, à l'intérieur même de l'accord (dans la
+construction @code{<@tie{}>}) et avant la note considérée,
+l'instruction @code{\\tweak} suivie de @code{#'font-size} et de définir
+la taille voulue -- comme @code{#-2} pour une petite tête.
+
+"
+  doctitlefr = "Modification de la taille d'une note particulière d'un accord"
+
   lsrtags = "specific-notation, editorial-annotations, simultaneous-notes, tweaks-and-overrides, really-simple"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

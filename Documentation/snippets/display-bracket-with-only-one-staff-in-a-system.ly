@@ -40,9 +40,9 @@ wie das zweite Beispiel zeigt.
 "
   doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
 
-%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
-Lorsque, dans des regoupements de type @code{ChoirStaff} ou
+Lorsque, dans des regroupements de type @code{ChoirStaff} ou
 @code{StaffGroup}, une seule portée est active, aucune indication n'est
 donnée en début de ligne.  Surcharger la propriété adéquate permet de
 modifier ce comportement par défaut.
@@ -50,7 +50,7 @@ modifier ce comportement par défaut.
 Notez bien que dans le cas des @code{PianoStaff} et @code{GrandStaff},
 pour lesquels le délimiteur de système est une accolade et non un
 crochet, il ne s'agit pas de la même propriété -- voir le deuxième
-@emph{système} de l'exemple.
+système de l'exemple.
 
 "
   doctitlefr = "Indicateur de regroupement et portée unique"

@@ -37,14 +37,14 @@ wird benutzt, um den Doppelschlag horizontal zu positionieren.
 
   doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
   texidocfr = "
 Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
 est altérée requiert quelques surcharges.  La propriété
-@w{@code{outside-staff-priority}} doît être désactivée (@code{#f}) pour
+@w{@code{outside-staff-priority}} doit être désactivée (@code{#f}) pour
 éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
-valeur assignée à @code{halign} permet de gérer horizonalement le
-@w{« retard »}.
+valeur assignée à @code{halign} permet de gérer horizontalement le
+@qq{retard}.
 
 "
 

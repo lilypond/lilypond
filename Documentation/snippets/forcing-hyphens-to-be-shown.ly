@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+LilyPond n'imprimera de tiret entre deux syllabes que s'il juge qu'il y
+a suffisamment d'espace.  Ce comportement peut être modifié grâce à la
+propriété @code{minimum-distance} de @code{LyricHyphen}.
+
+"
+  doctitlefr = "Impression forcée de tirets entre syllabes"
+
   lsrtags = "vocal-music"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
