@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -217,16 +217,19 @@ cruzan de un pentagrama a otro:
     \voiceOne
     % Make space for fingering in the cross-staff voice
     \once\override DynamicLineSpanner #'staff-padding = #3.4
-    e''2\p\< d''\> s1*0\!
+    e''2\p\< d''\>
+    c''1\!
   }
   \new Staff = "down" <<
     {
       \clef bass
       s4. e,8\rest g,2\rest
+      c1
     } \\ {
       c8\( g c'
       \change Staff = "up"
       e' g' b'-3 a' g'\)
+      f'1
     }
   >>
 >>
