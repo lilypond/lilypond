@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bar-line.hh"
 #include "beaming-pattern.hh"
 #include "beam.hh"
 #include "context.hh"

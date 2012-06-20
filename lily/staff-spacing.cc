@@ -26,7 +26,6 @@ using namespace std;
 #include "paper-column.hh"
 #include "separation-item.hh"
 #include "warn.hh"
-#include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "note-column.hh"
 #include "stem.hh"
@@ -75,7 +74,8 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 {
   Interval bar_size;
   bar_size.set_empty ();
-  if (Bar_line::has_interface (bar_grob))
+
+  if (bar_grob->internal_has_interface (ly_symbol2scm ("bar-line-interface")))
     {
       SCM glyph = bar_grob->get_property ("glyph-name");
       Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);

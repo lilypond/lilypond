@@ -20,7 +20,6 @@
 #include "hairpin.hh"
 
 #include "axis-group-interface.hh"
-#include "bar-line.hh"
 #include "dimensions.hh"
 #include "directional-element-interface.hh"
 #include "international.hh"
@@ -82,7 +81,7 @@ Hairpin::broken_bound_padding (SCM smob)
     {
       extract_grob_set (vertical_axis_groups[d], "elements", elts);
       for (vsize i = elts.size (); i--;)
-        if (Bar_line::has_interface (elts[i])
+        if (elts[i]->internal_has_interface (ly_symbol2scm ("bar-line-interface"))
             && dynamic_cast<Item *> (elts[i])->break_status_dir () == -1)
           {
             SCM hsb = elts[i]->get_property ("has-span-bar");
@@ -92,6 +91,7 @@ Hairpin::broken_bound_padding (SCM smob)
             span_bars[d] = unsmob_grob ((d == UP ? scm_car : scm_cdr) (hsb));
             break;
           }
+
       if (!span_bars[d])
         return scm_from_double (0.0);
     }

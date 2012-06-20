@@ -20,7 +20,6 @@
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
-#include "bar-line.hh"
 #include "context.hh"
 #include "grob-array.hh"
 #include "international.hh"

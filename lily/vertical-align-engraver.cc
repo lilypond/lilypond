@@ -20,7 +20,6 @@
 #include "context.hh"
 #include "paper-column.hh"
 #include "align-interface.hh"
-#include "span-bar.hh"
 #include "axis-group-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"

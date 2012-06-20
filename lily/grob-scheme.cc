@@ -453,3 +453,16 @@ LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
   chain_callback (gr, proc, sym);
   return SCM_UNSPECIFIED;
 }
+
+LY_DEFINE (ly_grob_vertical_less_p, "ly:grob-vertical<?",
+           2, 0, 0, (SCM a, SCM b),
+           "Does @var{a} lie above @var{b} on the page?")
+{
+  LY_ASSERT_SMOB (Grob, a, 1);
+  LY_ASSERT_SMOB (Grob, b, 2);
+
+  Grob *ga = unsmob_grob (a);
+  Grob *gb = unsmob_grob (b);
+
+  return ly_bool2scm (Grob::vertical_less (ga, gb));
+}

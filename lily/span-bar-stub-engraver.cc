@@ -20,12 +20,10 @@
 #include <algorithm>
 
 #include "align-interface.hh"
-#include "bar-line.hh"
 #include "context.hh"
 #include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
-#include "span-bar.hh"
 #include "engraver.hh"
 
 /*

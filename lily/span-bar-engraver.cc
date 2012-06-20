@@ -17,10 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bar-line.hh"
 #include "item.hh"
-#include "span-bar.hh"
 #include "engraver.hh"
+#include "pointer-group-interface.hh"
 
 /**
 
@@ -54,7 +53,7 @@ void
 Span_bar_engraver::acknowledge_bar_line (Grob_info i)
 {
   int depth = i.origin_contexts (this).size ();
-  if (depth && !Span_bar::has_interface (i.grob ()))
+  if (depth && !i.grob ()->internal_has_interface (ly_symbol2scm ("span-bar-interface")))
     {
       Item *it = dynamic_cast<Item *> (i.grob ());
       bars_.push_back (it);
@@ -73,7 +72,7 @@ Span_bar_engraver::process_acknowledged ()
 
       spanbar_->set_parent (bars_[0], X_AXIS);
       for (vsize i = 0; i < bars_.size (); i++)
-        Span_bar::add_bar (spanbar_, bars_[i]);
+        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"), bars_[i]);
       make_spanbar_ = false;
     }
 }
@@ -87,7 +86,7 @@ Span_bar_engraver::stop_translation_timestep ()
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
         spanbar_->set_property (vissym, vis);
-      Span_bar::notify_grobs_of_my_existence (spanbar_);
+      scm_call_1 (ly_lily_module_constant ("span-bar::notify-grobs-of-my-existence"), spanbar_->self_scm ());
       spanbar_ = 0;
     }
   bars_.resize (0);

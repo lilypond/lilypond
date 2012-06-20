@@ -408,6 +408,7 @@ messages into errors.")
     "font.scm"
     "encoding.scm"
 
+    "bar-line.scm"
     "flag-styles.scm"
     "fret-diagrams.scm"
     "tablature.scm"

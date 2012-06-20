@@ -17,7 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bar-line.hh"
 #include "clef.hh"
 #include "context.hh"
 #include "engraver.hh"

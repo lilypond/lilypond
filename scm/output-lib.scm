@@ -358,68 +358,8 @@ and duration-log @var{log}."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Bar lines.
+;; neighbor-interface routines
 
-;;
-;; How should a  bar line behave at a break?
-(define bar-glyph-alist
-  '((":|:" . (":|" . "|:"))
-    (":|.|:" . (":|" . "|:"))
-    (":|.:" . (":|" . "|:"))
-    ("||:" . ("||" . "|:"))
-    ("dashed" . ("dashed" . '()))
-    ("|" . ("|" . ()))
-    ("|s" . (() . "|"))
-    ("|:" . ("|" . "|:"))
-    ("|." . ("|." . ()))
-
-    ;; hmm... should we end with a bar line here?
-    (".|" . ("|" . ".|"))
-    (":|" . (":|" . ()))
-    ("||" . ("||" . ()))
-    (".|." . (".|." . ()))
-    ("|.|" . ("|.|" . ()))
-    ("" . ("" . ""))
-    (":" . (":" . ""))
-    ("." . ("." . ()))
-    ("'" . ("'" . ()))
-    ("empty" . (() . ()))
-    ("brace" . (() . "brace"))
-    ("bracket" . (() . "bracket"))
-
-    ;; segno bar lines
-    ("S" . ("||" . "S"))
-    ("|S" . ("|" . "S"))
-    ("S|" . ("S" . ()))
-    (":|S" . (":|" . "S"))
-    (":|S." . (":|S" . ()))
-    ("S|:" . ("S" . "|:"))
-    (".S|:" . ("|" . "S|:"))
-    (":|S|:" . (":|" . "S|:"))
-    (":|S.|:" . (":|S" . "|:"))
-
-    ;; ancient bar lines
-    ("kievan" . ("kievan" . ""))))
-
-(define-public (bar-line::calc-glyph-name grob)
-  (let* ((glyph (ly:grob-property grob 'glyph))
-	 (dir (ly:item-break-dir grob))
-	 (result (assoc-get glyph bar-glyph-alist))
-	 (glyph-name (if (= dir CENTER)
-			 glyph
-		         (if (and result
-				  (string? (index-cell result dir)))
-			     (index-cell result dir)
-			     #f))))
-    glyph-name))
-
-(define-public (bar-line::calc-break-visibility grob)
-  (let* ((glyph (ly:grob-property grob 'glyph))
-	 (result (assoc-get glyph bar-glyph-alist)))
-
-    (if result
-	(vector (string? (car result)) #t (string? (cdr result)))
-	all-invisible)))
 
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."

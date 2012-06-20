@@ -18,7 +18,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bar-line.hh"
 #include "context.hh"
 #include "score-engraver.hh"
 #include "warn.hh"

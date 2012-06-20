@@ -652,6 +652,10 @@ right (@var{dir}=+1)."
 (define (other-axis a)
   (remainder (+ a 1) 2))
 
+(define-public (interval-scale iv factor)
+  (cons (* (car iv) factor)
+    (* (cdr iv) factor)))
+
 (define-public (interval-widen iv amount)
   (cons (- (car iv) amount)
     (+ (cdr iv) amount)))

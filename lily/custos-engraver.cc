@@ -19,7 +19,6 @@
 */
 
 #include "engraver.hh"
-#include "bar-line.hh"
 #include "item.hh"
 #include "note-head.hh"
 #include "pitch.hh"
