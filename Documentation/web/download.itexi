@@ -358,6 +358,7 @@ Create a file called @command{lilypond} which contains
 
 @divClass{h-scroll-auto}
 @example
+#!/bin/bash
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd
