@@ -265,7 +265,7 @@ def staff_attributes_to_string_tunings (mxl_attr):
     if staff_lines:
         lines = string.atoi (staff_lines.get_text ())
 
-    tunings = [musicexp.Pitch()]*lines
+    tunings = [musicexp.Pitch()] * lines
     staff_tunings = details.get_named_children ('staff-tuning')
     for i in staff_tunings:
         p = musicexp.Pitch()
@@ -617,15 +617,15 @@ def group_repeats (music_list):
                 r.repeat_count = repeat_times
                 # don't erase the first element for "implicit" repeats (i.e. no
                 # starting repeat bars at the very beginning)
-                start = repeat_start+1
+                start = repeat_start + 1
                 if repeat_start == music_start:
                     start = music_start
                 r.set_music (music_list[start:repeat_end])
                 for (start, end) in endings:
                     s = musicexp.SequentialMusic ()
-                    s.elements = music_list[start+1:end]
+                    s.elements = music_list[start + 1:end]
                     r.add_ending (s)
-                del music_list[repeat_start:final_marker+1]
+                del music_list[repeat_start:final_marker + 1]
                 music_list.insert (repeat_start, r)
                 repeat_replaced = True
             pos += 1
@@ -637,11 +637,11 @@ def group_repeats (music_list):
 # <time-modification> elements of the note:
 def musicxml_tuplet_to_lily (tuplet_elt, time_modification):
     tsm = musicexp.TimeScaledMusic ()
-    fraction = (1,1)
+    fraction = (1, 1)
     if time_modification:
         fraction = time_modification.get_fraction ()
     tsm.numerator = fraction[0]
-    tsm.denominator  = fraction[1]
+    tsm.denominator = fraction[1]
 
 
     normal_type = tuplet_elt.get_normal_type ()
@@ -776,19 +776,19 @@ def musicxml_key_to_lily (attributes):
         (fifths, mode) = key_sig
         change.mode = mode
 
-        start_pitch  = musicexp.Pitch ()
+        start_pitch = musicexp.Pitch ()
         start_pitch.octave = 0
         try:
-            (n,a) = {
-                'major'     : (0,0),
-                'minor'     : (5,0),
-                'ionian'    : (0,0),
-                'dorian'    : (1,0),
-                'phrygian'  : (2,0),
-                'lydian'    : (3,0),
-                'mixolydian': (4,0),
-                'aeolian'   : (5,0),
-                'locrian'   : (6,0),
+            (n, a) = {
+                'major'     : (0, 0),
+                'minor'     : (5, 0),
+                'ionian'    : (0, 0),
+                'dorian'    : (1, 0),
+                'phrygian'  : (2, 0),
+                'lydian'    : (3, 0),
+                'mixolydian': (4, 0),
+                'aeolian'   : (5, 0),
+                'locrian'   : (6, 0),
                 }[mode]
             start_pitch.step = n
             start_pitch.alteration = a
@@ -828,9 +828,9 @@ def musicxml_transpose_to_lily (attributes):
     chromatic_shift = string.atoi (transpose.get_named_child ('chromatic').get_text ())
     chromatic_shift_normalized = chromatic_shift % 12;
     (shift.step, shift.alteration) = [
-        (0,0), (0,1), (1,0), (2,-1), (2,0),
-        (3,0), (3,1), (4,0), (5,-1), (5,0),
-        (6,-1), (6,0)][chromatic_shift_normalized];
+        (0, 0), (0, 1), (1, 0), (2, -1), (2, 0),
+        (3, 0), (3, 1), (4, 0), (5, -1), (5, 0),
+        (6, -1), (6, 0)][chromatic_shift_normalized];
 
     shift.octave += (chromatic_shift - chromatic_shift_normalized) / 12
 
@@ -867,7 +867,7 @@ def musicxml_staff_details_to_lily (attributes):
 
 def musicxml_attributes_to_lily (attrs):
     elts = []
-    attr_dispatch =  {
+    attr_dispatch = {
         'clef': musicxml_clef_to_lily,
         'time': musicxml_time_to_lily,
         'key': musicxml_key_to_lily,
@@ -1226,7 +1226,7 @@ def musicxml_dynamics_to_lily_event (dynentry):
     dynamicsname = dynentry.get_name ()
     if dynamicsname == "other-dynamics":
         dynamicsname = dynentry.get_text ()
-    if not dynamicsname or dynamicsname=="#text":
+    if not dynamicsname or dynamicsname == "#text":
         return
 
     if not dynamicsname in dynamics_available:
@@ -1253,7 +1253,7 @@ def hexcolorval_to_nr (hex_val):
 def hex_to_color (hex_val):
     res = re.match (r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$', hex_val, re.IGNORECASE)
     if res:
-        return map (lambda x: hexcolorval_to_nr (x), res.group (2,3,4))
+        return map (lambda x: hexcolorval_to_nr (x), res.group (2, 3, 4))
     else:
         return None
 
@@ -1753,7 +1753,7 @@ def musicxml_figured_bass_to_lily (n):
     dur = n.get_maybe_exist_named_child ('duration')
     if dur:
         # apply the duration to res
-        length = Rational(int(dur.get_text()), n._divisions)*Rational(1,4)
+        length = Rational(int(dur.get_text()), n._divisions) * Rational(1, 4)
         res.set_real_duration (length)
         duration = rational_to_lily_duration (length)
         if duration:
@@ -1772,7 +1772,7 @@ instrument_drumtype_dict = {
 }
 
 def musicxml_note_to_lily_main_event (n):
-    pitch  = None
+    pitch = None
     duration = None
     event = None
 
@@ -1908,7 +1908,7 @@ class LilyPondVoiceBuilder:
     def current_duration (self):
         return self.end_moment - self.begin_moment
 
-    def add_music (self, music, duration, relevant = True):
+    def add_music (self, music, duration, relevant=True):
         assert isinstance (music, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
@@ -1925,13 +1925,13 @@ class LilyPondVoiceBuilder:
             self.pending_dynamics = []
 
     # Insert some music command that does not affect the position in the measure
-    def add_command (self, command, relevant = True):
+    def add_command (self, command, relevant=True):
         assert isinstance (command, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append (command)
-    def add_barline (self, barline, relevant = False):
+    def add_barline (self, barline, relevant=False):
         # Insert only if we don't have a barline already
         # TODO: Implement proper merging of default barline and custom bar line
         has_relevant = self.has_relevant_elements
@@ -1963,8 +1963,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
 
         if diff < Rational (0):
-            ly.warning (_ ('Negative skip %s (from position %s to %s)') %
-                           (diff, current_end, moment))
+            ly.warning (_ ('Negative skip %s (from position %s to %s)')
+                % (diff, current_end, moment))
             diff = Rational (0)
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
@@ -2000,7 +2000,7 @@ class LilyPondVoiceBuilder:
         value = None
 
         # if the position matches, find the last ChordEvent, do not cross a bar line!
-        at = len( self.elements ) - 1
+        at = len(self.elements) - 1
         while (at >= 0 and
                not isinstance (self.elements[at], musicexp.ChordEvent) and
                not isinstance (self.elements[at], musicexp.BarLine)):
@@ -2717,7 +2717,7 @@ def print_voice_definitions (printer, part_list, voices):
 
 
 def uniq_list (l):
-    return dict ([(elt,1) for elt in l]).keys ()
+    return dict ([(elt, 1) for elt in l]).keys ()
 
 # format the information about the staff in the form
 #     [staffid,

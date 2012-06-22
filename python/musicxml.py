@@ -51,10 +51,10 @@ class Xml_node:
         self._name = 'xml_node'
         self._parent = None
         self._attribute_dict = {}
-        
+
     def get_parent (self):
         return self._parent
-    
+
     def is_first (self):
         return self._parent.get_typed_children (self.__class__)[0] == self
 
@@ -79,7 +79,7 @@ class Xml_node:
         while p:
             ly.progress ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
-        
+
     def dump (self, indent = ''):
         ly.debug_output ('%s<%s%s>' % (indent, self._name, ''.join ([' %s=%s' % item for item in self._attribute_dict.items ()])))
         non_text_children = [c for c in self._children if not isinstance (c, Hash_text)]
@@ -91,7 +91,7 @@ class Xml_node:
             ly.debug_output (indent)
         ly.debug_output ('</%s>\n' % self._name)
 
-        
+
     def get_typed_children (self, klass):
         if not klass:
             return []
@@ -151,7 +151,7 @@ class Work (Xml_node):
             return wt.get_text ()
         else:
             return ''
-      
+
     def get_work_title (self):
         return self.get_work_information ('work-title')
     def get_work_number (self):
@@ -203,7 +203,7 @@ class Identification (Xml_node):
             return v
         v = self.get_creator ('poet')
         return v
-    
+
     def get_encoding_information (self, type):
         enc = self.get_named_children ('encoding')
         if enc:
@@ -212,7 +212,7 @@ class Identification (Xml_node):
                 return children[0].get_text ()
         else:
             return None
-      
+
     def get_encoding_software (self):
         return self.get_encoding_information ('software')
     def get_encoding_date (self):
@@ -221,7 +221,7 @@ class Identification (Xml_node):
         return self.get_encoding_information ('encoder')
     def get_encoding_description (self):
         return self.get_encoding_information ('encoding-description')
-    
+
     def get_encoding_software_list (self):
         enc = self.get_named_children ('encoding')
         software = []
@@ -237,7 +237,7 @@ class Identification (Xml_node):
             misc_fields = m.get_named_children ('miscellaneous-field')
             for mf in misc_fields:
                 if hasattr (mf, 'name') and mf.name == 'description':
-                    return mf.get_text () 
+                    return mf.get_text ()
         return None
 
 class Duration (Music_xml_node):
@@ -310,17 +310,17 @@ class Attributes (Measure_element):
             return cn[0] == self._original_tag
         else:
             return cn[0] == self
-    
+
     def set_attributes_from_previous (self, dict):
         self._dict.update (dict)
-        
+
     def read_self (self):
         for c in self.get_all_children ():
             self._dict[c.get_name()] = c
 
     def get_named_attribute (self, name):
         return self._dict.get (name)
-        
+
     def single_time_sig_to_fraction (self, sig):
         if len (sig) < 2:
             return 0
@@ -343,7 +343,7 @@ class Attributes (Measure_element):
            # Simple (maybe compound) time signature of the form (beat, ..., type)
             return self.single_time_sig_to_fraction (sig)
         return 0
-        
+
     def get_time_signature (self):
         "Return time sig as a (beat, beat-type) tuple. For compound signatures,"
         "return either (beat, beat,..., beat-type) or ((beat,..., type), "
@@ -480,7 +480,7 @@ class Note (Measure_element):
             return 3
         else:
             return None
-    
+
     def get_duration_info (self):
         log = self.get_duration_log ()
         if log != None:
@@ -499,7 +499,7 @@ class Part_list (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
         self._id_instrument_name_dict = {}
-        
+
     def generate_id_instrument_dict (self):
 
         ## not empty to make sure this happens only once.
@@ -527,7 +527,7 @@ class Part_group (Music_xml_node):
     pass
 class Score_part (Music_xml_node):
     pass
-        
+
 class Measure (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
@@ -612,13 +612,13 @@ class Part (Music_xml_node):
             n = n._parent
 
         return n.get_named_child ('part-list')
-       
+
     def interpret (self):
         """Set durations and starting points."""
         """The starting point of the very first note is 0!"""
-        
+
         part_list = self.get_part_list ()
-        
+
         now = Rational (0)
         factor = Rational (1)
         attributes_dict = {}
@@ -675,15 +675,15 @@ class Part (Music_xml_node):
                     n.read_self ()
                     attributes_dict = n._dict.copy ()
                     attributes_object = n
-                    
+
                     factor = Rational (1,
                                        int (attributes_dict.get ('divisions').get_text ()))
 
-                
+
                 if (n.get_maybe_exist_typed_child (Duration)):
                     mxl_dur = n.get_maybe_exist_typed_child (Duration)
                     dur = mxl_dur.get_length () * factor
-                    
+
                     if n.get_name() == 'backup':
                         dur = - dur
                         # reset all graces before the backup to after-graces:
@@ -714,7 +714,7 @@ class Part (Music_xml_node):
                     n._prev_measure_position = last_measure_position
                 # After-graces are placed at the same position as the previous note
                 if isinstance(n, Note) and  n.is_after_grace ():
-                    # TODO: We should do the same for grace notes at the end of 
+                    # TODO: We should do the same for grace notes at the end of
                     # a measure with no following note!!!
                     n._when = last_moment
                     n._measure_position = last_measure_position
@@ -834,8 +834,8 @@ class Part (Music_xml_node):
             else:
                 id = "None"
 
-            # We don't need backup/forward any more, since we have already 
-            # assigned the correct onset times. 
+            # We don't need backup/forward any more, since we have already
+            # assigned the correct onset times.
             # TODO: Let Grouping through. Also: link, print, bokmark sound
             if not (isinstance (n, Note) or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
@@ -874,13 +874,13 @@ class Part (Music_xml_node):
                 continue
 
             if isinstance (n, Harmony) or isinstance (n, FiguredBass):
-                # store the harmony or figured bass element until we encounter 
+                # store the harmony or figured bass element until we encounter
                 # the next note and assign it only to that one voice.
                 assign_to_next_note.append (n)
                 continue
 
             if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
-                #Skip this note. 
+                #Skip this note.
                 pass
             else:
                 for i in assign_to_next_note:
@@ -987,7 +987,7 @@ class Tuplet (Music_xml_spanner):
     def get_tuplet_note_count (self, tuplet_note):
         if tuplet_note:
             tuplet_nr = tuplet_note.get_maybe_exist_named_child ('tuplet-number')
-            if tuplet_nr: 
+            if tuplet_nr:
                 return int (tuplet_nr.get_text ())
         return None
     def get_normal_nr (self):
@@ -1016,7 +1016,7 @@ class Beam (Music_xml_spanner):
 
 class Wavy_line (Music_xml_spanner):
     pass
-    
+
 class Pedal (Music_xml_spanner):
     pass
 
@@ -1249,7 +1249,7 @@ def get_class (name):
         klass = new.classobj (class_name, (Music_xml_node,) , {})
         class_dict[name] = klass
         return klass
-        
+
 def lxml_demarshal_node (node):
     name = node.tag
 
@@ -1258,13 +1258,13 @@ def lxml_demarshal_node (node):
         return None
     klass = get_class (name)
     py_node = klass()
-    
+
     py_node._original = node
     py_node._name = name
     py_node._data = node.text
     py_node._children = [lxml_demarshal_node (cn) for cn in node.getchildren()]
     py_node._children = filter (lambda x: x, py_node._children)
-    
+
     for c in py_node._children:
         c._parent = py_node
 
@@ -1288,7 +1288,7 @@ def minidom_demarshal_node (node):
         for (nm, value) in node.attributes.items ():
             py_node.__dict__[nm] = value
             py_node._attribute_dict[nm] = value
-            
+
     py_node._data = None
     if node.nodeType == node.TEXT_NODE and node.data:
         py_node._data = node.data
@@ -1299,7 +1299,7 @@ def minidom_demarshal_node (node):
 
 if __name__  == '__main__':
     import lxml.etree
-        
+
     tree = lxml.etree.parse ('beethoven.xml')
     mxl_tree = lxml_demarshal_node (tree.getroot ())
     ks = class_dict.keys ()
