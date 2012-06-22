@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1334,7 +1334,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1375,10 +1375,14 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-Le nom de l'instrument qui est répliqué sera imprimé à l'aide d'une
-annotation (un @emph{markup}).  Par ailleurs, si la citation nécessite
-l'apparition d'une clef différente, l'originale devra être rappelée en
-fin de citation.
+Le nom de l'instrument qui est répliqué sera imprimé dès lors qu'aura
+été définie la propriété @code{instrumentCueName} d'un contexte
+@code{CueVoice} temporaire.  Le positionnement et le style adopté par
+@code{instrumentCueName} dépendent de l'objet @code{\instrumentSwitch}
+-- voir @ref{Noms d'instrument}.  Par ailleurs, si la citation nécessite
+l'apparition d'une clef différente, celle-ci devra être introduite
+manuellement, tout comme l'originale qui devra être rappelée en fin de
+citation.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1389,7 +1393,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1414,7 +1418,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1493,7 +1497,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    s1*0^\markup { \tiny "flute" }
+    \new CueVoice { \set "instrumentCueName" = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

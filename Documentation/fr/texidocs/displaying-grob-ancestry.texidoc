@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+%% Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
   texidocfr = "
 Lorsque l'on manipule des rappels d'objet (@emph{grob callbacks}), il
-peut être intéressant d'en maîtriser la @qq{ascendants}.  La plupart des
+peut être intéressant d'en maîtriser les « ascendants ».  La plupart des
 objets graphiques ont des parents, lesquels auront une influence sur le
-positionnement de l'objet en question.  Ainsi, les X- et Y-parents
-influenceront respectivement la position horizontale et verticale de
-l'objet.  De plus, chacun des parents peut avoir ses propres parents.
+positionnement de l'objet en question.  Ainsi, les parents des côtés X
+et Y influenceront respectivement les positions horizontale et verticale
+de l'objet.  De plus, chacun des parents peut avoir ses propres parents.
 
 Certains aspects de la lignée d'un objet peuvent toutefois porter à
 confusion :
@@ -15,14 +15,14 @@ confusion :
 -- Dans le cas de certains @emph{grobs}, les parents X et Y peuvent être
    le même.
 
--- Un @qq{ascendant} particulier peut dépendre d'un @emph{grob} de
+-- Un « ascendant » particulier peut dépendre d'un @emph{grob} de
    différentes manières.
 
--- Le concept de @qq{génération} est trompeur.
+-- Le concept de « génération » est trompeur.
 
 Par exemple, l'objet @code{System} peut, vis à vis d'un objet
 @code{VerticalAlignment},  être à la fois parent (par son
-côté Y) et grand parent (par deux fois du côté X).
+côté Y) et grand parent (par deux fois du côté X).
 
 La macro ci-dessous affiche à l'écran une représentation textuelle de
 l'ascendance d'un @emph{grob}.
