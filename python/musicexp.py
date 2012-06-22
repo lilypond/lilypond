@@ -1807,7 +1807,18 @@ class StaffGroup:
                 printer.dump (m)
             printer.dump ("}")
 
+    def print_ly_chords (self,printer):
+        try:
+            for [staff_id, voices] in self.part_information:
+                for [v, lyrics, figuredbass, chordnames] in voices:
+                    if chordnames:
+                        printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
+                        printer.newline ()
+        except TypeError:
+            return
+
     def print_ly (self, printer):
+        self.print_ly_chords (printer)
         if self.stafftype:
             printer.dump ("\\new %s" % self.stafftype)
         self.print_ly_overrides (printer)
@@ -1848,12 +1859,6 @@ class Staff (StaffGroup):
             sub_staff_type = self.stafftype
 
         for [staff_id, voices] in self.part_information:
-            # Chord names need to come before the staff itself!
-            for [v, lyrics, figuredbass, chordnames] in voices:
-                if chordnames:
-                    printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
-
-            # now comes the real staff definition:
             if staff_id:
                 printer ('\\context %s = "%s" << ' % (sub_staff_type, staff_id))
             else:

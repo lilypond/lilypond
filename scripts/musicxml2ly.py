@@ -22,7 +22,7 @@ import musicexp
 
 from rational import Rational
 
-# Store command-line options in a global variable, so we can access them everythwere
+# Store command-line options in a global variable, so we can access them everywhere
 options = None
 
 class Conversion_Settings:
@@ -474,8 +474,6 @@ def extract_score_structure (part_list, staffinfo):
                 group_starts.append (pos)
         pos += 1
 
-    if len (staves) == 1:
-        return staves[0]
     for i in staves:
         structure.append_staff (i)
     return score
@@ -533,7 +531,7 @@ def musicxml_partial_to_lily (partial_len):
         p.partial = rational_to_lily_duration (partial_len)
         return p
     else:
-        return Null
+        return None
 
 # Detect repeats and alternative endings in the chord event list (music_list)
 # and convert them to the corresponding musicexp objects, containing nested
@@ -2669,7 +2667,7 @@ information.""") % 'lilypond')
                   action = "store_true",
                   default = False,
                   dest = "midi",
-                  help = _("add midi-block to .ly file"))
+                  help = _("activate midi-block"))
 
     p.add_option_group ('',
                         description = (

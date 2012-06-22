@@ -436,7 +436,10 @@ Set the output verbosity to @var{loglevel}. Possible values are @code{NONE},
 @item --lxml
 use the lxml.etree Python package for XML-parsing; uses less memory and cpu time.
 
-@item --nd --no-articulation-directions
+@item -m, --midi
+activate midi-block.
+
+@item -nd --no-articulation-directions
 do not convert directions (@code{^}, @code{_} or @code{-}) for
 articulations, dynamics, etc.
 
@@ -679,7 +682,7 @@ explicit tempo markings, and the notes and durations themselves
 are produced in the output.
 
 The @emph{articulate} project is one attempt to get more of the
-information in the score into he MIDI.  It works by shortening
+information in the score into MIDI.  It works by shortening
 notes not under slurs, to @q{articulate} the notes.  The amount of
 shortening depends on any articulation markings attached to a
 note: staccato halves the note value, tenuto gives a note its full
