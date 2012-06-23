@@ -57,7 +57,7 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
   if (n)
     return n;
   if (a)
-    return a > (Rational)0;
+    return a > (Rational)0 ? 1 : -1;
 
   return 0;
 }
