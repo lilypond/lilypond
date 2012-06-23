@@ -32,18 +32,20 @@ LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
   return t->transposed (*d).smobbed_copy ();
 }
 
-/* Should add optional args.  */
 LY_DEFINE (ly_make_pitch, "ly:make-pitch",
            2, 1, 0, (SCM octave, SCM note, SCM alter),
            "@var{octave} is specified by an integer, zero for the octave"
            " containing middle@tie{}C. @var{note} is a number indexing the"
            " global default scale, with 0 corresponding to pitch@tie{}C"
-           " and 6 usually corresponding to pitch@tie{}B. @var{alter} is"
+           " and 6 usually corresponding to pitch@tie{}B. "
+           " Optional @var{alter} is"
            " a rational number of 200-cent whole tones for alteration.")
 
 {
   LY_ASSERT_TYPE (scm_is_integer, octave, 1);
   LY_ASSERT_TYPE (scm_is_integer, note, 2);
+  if (SCM_UNBNDP (alter))
+    alter = SCM_INUM0;
   LY_ASSERT_TYPE (scm_is_rational, alter, 3);
 
   Pitch p (scm_to_int (octave), scm_to_int (note),
