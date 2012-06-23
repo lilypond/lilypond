@@ -174,5 +174,5 @@ LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
     clef_pos = robust_scm2int (cue_pos, 0);
 
   c->set_property (ly_symbol2scm ("middleCPosition"), scm_from_int (clef_pos + offset));
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }

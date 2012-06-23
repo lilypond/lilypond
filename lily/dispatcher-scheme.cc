@@ -38,7 +38,7 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 
   t->register_as_listener (f);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_add_listener, "ly:add-listener",
@@ -60,7 +60,7 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
       d->add_listener (*l, sym);
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
@@ -104,5 +104,5 @@ LY_DEFINE (ly_broadcast, "ly:broadcast",
 
   LY_ASSERT_SMOB (Stream_event, ev, 2);
   d->broadcast (e);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
