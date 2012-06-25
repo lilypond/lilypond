@@ -5,13 +5,19 @@
 @macro helpusNeed
 @subheading We need you!
 
-The LilyPond development team is quite small; we really want to
-get more people involved.  Please consider helping your fellow
-LilyPond users by contributing!
+Thank you for your interest in helping us --- we would love to see you get
+involved!  Your help will a large group of users make beautifully typeset
+music.
 
 Even working on small tasks can have a big impact: taking care of
 them allows experienced developers work on advanced tasks, instead
 of spending time on those simple tasks.
+
+For a multi-faceted project like LilyPond, sometimes it's tough to know
+where to begin.  In addition to the avenues proposed below, you can send
+an e-mail to the @email{mike@@mikesolomon.org, Frog meister}
+letting him know your skill set and asking how you can help or proposing a
+project.  He'll be able to give you guidance on how to get started.
 
 @end macro
 
