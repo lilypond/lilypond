@@ -616,7 +616,7 @@ def inverse_relpath (path, relpath):
     return the first path relative to the second."""
     if os.path.isabs (relpath):
         return os.path.abspath (path)
-    relparts = ['']
+    relparts = []
     parts = os.path.normpath (path).split (os.path.sep)
     for part in os.path.normpath (relpath).split (os.path.sep):
         if part == '..':
@@ -644,7 +644,7 @@ def do_options ():
         global_options.output_dir = os.path.expanduser (global_options.output_dir)
         global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.output_dir))
 
-    global_options.include_path.insert (0, ".%s" % os.path.sep)
+    global_options.include_path.insert (0, ".")
 
     # Load the python packages (containing e.g. custom formatter classes)
     # passed on the command line
