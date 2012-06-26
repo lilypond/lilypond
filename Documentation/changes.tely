@@ -60,6 +60,15 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+Support for Kievan square notation:
+@lilypond[quote,relative=1,verbatim]
+\new KievanVoice {
+  \cadenzaOn
+  c d e f g a bes
+  \bar "kievan"
+}
+@end lilypond
 
 @item
 Augmentation dots now avoid the other voice in two-voice polyphony
