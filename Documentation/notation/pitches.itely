@@ -820,15 +820,16 @@ rather than e-triple-flat).
 @cindex operation, inversion
 @funindex \inversion
 
-A music expression can be inverted with:
+A music expression can be inverted and transposed in a single
+operation with:
 
 @example
-\inversion @var{from-pitch} @var{to-pitch} @var{musicexpr}
+\inversion @var{around-pitch} @var{to-pitch} @var{musicexpr}
 @end example
 
-The @code{@var{musicexpr}} is inverted interval-by-interval,
-and then transposed so that @code{@var{from-pitch}} is mapped
-to @code{@var{to-pitch}}.
+The @code{@var{musicexpr}} is inverted interval-by-interval around
+@code{@var{around-pitch}}, and then transposed so that
+@code{@var{around-pitch}} is mapped to @code{@var{to-pitch}}.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -838,6 +839,10 @@ music = \relative c' { c d e f }
   \inversion d' ees' \music
 }
 @end lilypond
+
+@warning{Motifs to be inverted should be expressed in absolute form
+or be first converted to absolute form by enclosing them in a 
+@code{\relative} block.}
 
 @seealso
 Notation Reference:
