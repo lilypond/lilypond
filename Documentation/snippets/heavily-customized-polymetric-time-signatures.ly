@@ -4,10 +4,20 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.32"
+\version "2.15.40"
 
 \header {
-  lsrtags = "real-music, percussion, contemporary-notation, rhythms"
+  lsrtags = "contemporary-notation, rhythms, real-music, percussion"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Bien que la métrique complexe ne soit pas l'élément primordial de cet
+exemple, elle permet d'indiquer la pulsation de cette pièce qui, par
+ailleurs, constitue le canevas d'une chanson traditionnelle des
+Balkans.
+
+"
+  doctitlefr = "Indication personnalisée d'une polymétrie complexe"
 
   texidoc = "
 Though the polymetric time signature shown was not the most essential

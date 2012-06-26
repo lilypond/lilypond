@@ -16,6 +16,15 @@ nombre del instrumento y del incipit."
 
  doctitlees = "Incipit"
 
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Les « incipits » peuvent faire partie de l'objet @code{InstrumentName},
+tout en définissant de manière indépendante le nom de l'instrument et
+l'incipit.
+
+"
+  doctitlefr = "Incipit"
+
   lsrtags = "staff-notation, ancient-notation"
   texidoc = "
 Incipits can be added using the instrument name grob, but keeping

@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, scheme-language, editorial-annotations"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 La commande de @emph{markup} @code{\\circle} permet de dessiner un
@@ -17,8 +19,6 @@ pour les numéros de mesure.
 
 "
   doctitlefr = "Encercler divers objets"
-
-  lsrtags = "editorial-annotations, tweaks-and-overrides, scheme-language"
 
   texidoc = "
 The @code{\\circle} markup command draws circles around various

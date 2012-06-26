@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "syntax-and-expressions, text, simultaneous-notes"
+  lsrtags = "text, simultaneous-notes, syntax-and-expressions"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

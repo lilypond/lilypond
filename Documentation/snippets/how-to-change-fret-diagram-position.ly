@@ -7,7 +7,26 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, fretted-strings, tweaks-and-overrides"
+  lsrtags = "specific-notation, tweaks-and-overrides, fretted-strings"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Différents moyens permettent de repositionner un diagramme de fret pour
+éviter des collisions ou le placer entre deux notes :
+
+-- La modification des valeurs de @code{#'padding} ou de
+   @code{#'extra-offset}comme pour le second diagramme;
+
+-- L'adjonction d'une voix invisible dans laquelle les diagrammes sont
+   attachés à des notes invisibles comme pour le troisième diagramme.
+
+Lorsque le diagramme doit correspondre à une position rythmique dans la
+mesure,  comme au troisième temps de la deuxième mesure, la seconde
+méthode est plus appropriée, puisque le diagramme sera aligné sur le
+temps.
+
+"
+  doctitlefr = "Repositionnement d'un diagramme de fret"
 
   texidoc = "
 If you want to move the position of a fret diagram, for example, to

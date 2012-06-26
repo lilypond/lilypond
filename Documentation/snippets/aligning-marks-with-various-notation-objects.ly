@@ -81,7 +81,6 @@ be done for all the staves).
   doctitle = "Aligning marks with various notation objects"
 } % begin verbatim
 
-
 \relative c' {
   e1
 
@@ -89,7 +88,7 @@ be done for all the staves).
   \override Score.RehearsalMark #'break-align-symbols = #'(clef)
   \key a \major
   \clef treble
-  \mark "↓"
+  \mark \markup { \char ##x2193 }
   e1
 
   % the RehearsalMark will be centered above the TimeSignature

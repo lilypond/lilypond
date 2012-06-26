@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "really-simple, automatic-notation, rhythms, preparing-parts"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Voici comment initialiser arbitrairement une indication automatique de
@@ -14,8 +16,6 @@ repère, qu'elle soit alphabétique ou numérique :
 
 "
   doctitlefr = "Fixation arbitraire du numéro de repère de départ"
-
-  lsrtags = "preparing-parts, automatic-notation, really-simple, rhythms"
 
   texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal

@@ -8,6 +8,24 @@
 \version "2.15.15"
 
 \header {
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Une modification de la propriété @code{transparent} permet d'imprimer un
+objet à « l'encre sympathique » : l'objet n'est pas affiché bien que tous
+ses attributs soient préservés.  L'objet en question occupe donc sa
+place, est pris en compte lors de collisions, et peut se voir attaché
+liaisons ou ligatures.
+
+Cet exemple illustre la manière de connecter deux voix par une liaison
+de prolongation.  Les liaisons de prolongation ne peuvent normalement
+intervenir que dans la même voix.  Dès lors que la liaison est entamée
+dans une autre voix et que la première  hampe ascendante est rendue
+transparente dans cette même voix, la liaison semble passer d'une voix à
+l'autre.
+
+"
+  doctitlefr = "Recours à la propriété 'transparent pour rendre des objets invisibles"
+
   lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
 
   texidoc = "

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, rhythms, scheme-language"
+  lsrtags = "rhythms, text, scheme-language"
 
   texidoc = "
 This example shows how to add a markup command to get a three sided box

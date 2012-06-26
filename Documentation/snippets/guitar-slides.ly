@@ -21,6 +21,16 @@ nota real, como se muestra en el ejemplo siguiente.
 
   doctitlees = "Ligaduras de guitarra"
 
+%% Translation of GIT committish: 0
+  texidocfr = "
+Contrairement au glissando, un @qq{slide} peut aller d'un point non
+précisé du manche jusqu'à un fret spécifique.  Ceci peut s'indiquer à
+l'aide d'une note d'ornement masquée précédant la note effectivement
+jouée, comme dans l'exemple suivant.
+
+"
+  doctitlefr = "Indication d'un glissé de guitare"
+
   lsrtags = "fretted-strings"
 
   texidoc = "

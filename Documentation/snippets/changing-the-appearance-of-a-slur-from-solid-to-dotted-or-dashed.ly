@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Une liaison d'articulation peut se présenter sous la forme d'un trait
-continu ou discontinu, voire en pointillé.
-
-"
-  doctitlefr = "Modification de l'aspect des liaisons d'articulation"
-
-  lsrtags = "editorial-annotations, really-simple, connecting-notes, expressive-marks"
-
+  lsrtags = "expressive-marks, really-simple, editorial-annotations, connecting-notes"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -25,6 +16,14 @@ continuas a punteadas o intermitentes.
 
 "
   doctitlees = "Modificar el aspecto continuo de una ligadura de expresión a punteado o intermitente"
+
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Une liaison d'articulation peut se présenter sous la forme d'un trait
+continu ou discontinu, voire en pointillé.
+
+"
+  doctitlefr = "Modification de l'aspect des liaisons d'articulation"
 
   texidoc = "
 The appearance of slurs may be changed from solid to dotted or dashed.

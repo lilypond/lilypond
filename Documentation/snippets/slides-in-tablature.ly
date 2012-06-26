@@ -28,7 +28,7 @@ Gleiten kann sowohl in normalem Notensystem als auch in Tabulaturen notiert werd
 %% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "
 Un glissando s'indique dans un @code{TabStaff} tout comme dans un
-@code{Staff}. 
+@code{Staff}.
 
 "
   doctitlefr = "Glissando et tablature"

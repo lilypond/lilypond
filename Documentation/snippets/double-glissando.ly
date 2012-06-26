@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "expressive-marks, workaround, contemporary-notation, simultaneous-notes"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 La connection d'accords par des glissandos s'obtient par l'ajout d'un
@@ -14,8 +16,6 @@ deuxième glissando dans une voix masquée.
 
 "
   doctitlefr = "Double glissando"
-
-  lsrtags = "workaround, simultaneous-notes, contemporary-notation, expressive-marks"
 
   texidoc = "
 To connect chords with glissando lines, attach a second glissando to a

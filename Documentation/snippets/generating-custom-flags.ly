@@ -8,6 +8,15 @@
 \version "2.15.15"
 
 \header {
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Une fonction Scheme personnalisée permet de redéfinir la propriété
+@code{stencil} de l'objet @code{Flag}, de sorte à modifier le glyphe
+utilisé pour les crochets de croche.
+
+"
+  doctitlefr = "Génération de crochets personnalisés"
+
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "

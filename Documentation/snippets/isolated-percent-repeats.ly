@@ -26,10 +26,10 @@ erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
 "
   doctitlede = "Isolierte Prozentwiederholungen"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
   texidocfr = "
 Des symboles de pourcentage isolés peuvent aussi être obtenus, au
-moyen d'un silence multi-mesures dont on modifie l'aspect@tie{}:
+moyen d'un silence multimesure dont on modifie l'aspect :
 
 "
   doctitlefr = "Répétition en pourcent isolée"

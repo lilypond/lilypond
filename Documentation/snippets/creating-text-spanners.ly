@@ -7,18 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Les commandes @code{\\startTextSpan} et @code{\\stopTextSpan} permettent
-d'ajouter une ligne de prolongation aux indications textuelles, à
-l'instar des indications de pédale ou d'octaviation.  Jouer sur les
-propriétés de l'objet @code{TextSpanner} permet d'en modifier le rendu.
-
-"
-  doctitlefr = "Création d'extensions de texte"
-
-  lsrtags = "text, tweaks-and-overrides, expressive-marks"
-
+  lsrtags = "expressive-marks, tweaks-and-overrides, text"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -30,6 +19,16 @@ octavaciones. Sobreescribimos ciertas propiedades del objeto
 
 "
   doctitlees = "Crear elementos de extensión textuales"
+
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+Les commandes @code{\\startTextSpan} et @code{\\stopTextSpan} permettent
+d'ajouter une ligne de prolongation aux indications textuelles, à
+l'instar des indications de pédale ou d'octaviation.  Jouer sur les
+propriétés de l'objet @code{TextSpanner} permet d'en modifier le rendu.
+
+"
+  doctitlefr = "Création d'extensions de texte"
 
   texidoc = "
 The @code{\\startTextSpan} and @code{\\stopTextSpan} commands allow the

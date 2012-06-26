@@ -36,6 +36,19 @@ muss auf eine Klammer eingestellt werden.
 "
   doctitlede = "Akkorde auf zwei Systemen mit Arpeggioklammern anzeigen"
 
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Un crochet d'arpège peut indiquer que des notes réparties sur deux
+portées différentes doivent être jouées par la même main.  Le contexte
+@code{PianoStaff} doit accepter des arpèges « distribués », et les
+indications d'arpège du contexte @code{PianoStaff} adopter une allure de
+crochet.
+
+(Debussy, Les collines d’Anacapri, mesure 65)
+
+"
+  doctitlefr = "Indication d'un accord à cheval sur deux portées par un crochet d'arpège"
+
   texidoc = "
 An arpeggio bracket can indicate that notes on two different staves are
 to be played with the same hand. In order to do this, the

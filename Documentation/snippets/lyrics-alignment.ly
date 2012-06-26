@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, text, really-simple"
+  lsrtags = "really-simple, text, vocal-music"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -45,7 +45,7 @@ les valeurs @code{1} ou @code{RIGHT} un alignement par la droite.
   doctitlefr = "Alignement des syllabes"
 
   texidoc = "
-Horizontal alignment for lyrics cam be set by overriding the
+Horizontal alignment for lyrics can be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object.
 @code{#-1} is left, @code{#0} is center and @code{#1} is right;
 however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
@@ -54,7 +54,6 @@ well.
 "
   doctitle = "Lyrics alignment"
 } % begin verbatim
-
 
 \layout { ragged-right = ##f }
 \relative c'' {

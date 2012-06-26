@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, expressive-marks"
+  lsrtags = "expressive-marks, tweaks-and-overrides"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -18,6 +18,15 @@ Los reguladores pueden imprimirse en uno cualquiera de los estilos de
   doctitlees = "Reguladores con distintos estilos de línea"
 
 
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Les lignes d'un soufflet peuvent adopter tous les styles permis par la
+@code{line-interface} : discontinu, pointillé, continu, ondulé ou en
+zigzag.
+
+"
+  doctitlefr = "Stylisation des lignes de soufflet"
 
   texidoc = "
 Hairpins can take any style from @code{line-interface} - dashed-line,

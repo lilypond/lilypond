@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, really-simple"
+  lsrtags = "really-simple, tweaks-and-overrides"
 
   texidoc = "
 With the @code{\\tweak} command, every grob can be tuned directly.

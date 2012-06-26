@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "template, vocal-music"
+  lsrtags = "vocal-music, template"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -27,6 +27,7 @@ strofe come testo separato sotto la musica.
 
 "
   doctitleit = "Modello per inno"
+
 %%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
   texidocde = "

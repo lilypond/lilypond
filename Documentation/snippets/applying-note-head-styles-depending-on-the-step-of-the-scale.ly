@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, pitches"
+  lsrtags = "pitches, editorial-annotations"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"

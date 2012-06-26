@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "scheme-language"
+
 %% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
   texidocfr = "
 Il est possible, à l'aide de la fonction @code{make-music}, d'ajouter
@@ -19,8 +21,6 @@ chargée de structurer votre musique.
 
 "
   doctitlefr = "Ajout d'un doigté supplémentaire avec scheme"
-
-  lsrtags = "scheme-language"
 
   texidoc = "
 You can add various stuff to notes using @code{make-music}. In this

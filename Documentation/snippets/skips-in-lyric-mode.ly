@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, really-simple, rhythms"
+  lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
 The @code{s} syntax for skips is only available in note mode and chord

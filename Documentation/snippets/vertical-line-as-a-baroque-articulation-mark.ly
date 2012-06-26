@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "ancient-notation, expressive-marks"
+  lsrtags = "expressive-marks, ancient-notation"
 
   texidoc = "
 This short vertical line placed above the note is commonly used in

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, text, staff-notation"
+  lsrtags = "staff-notation, text, vocal-music"
 
   texidoc = "
 Lyrics can be moved vertically to place them inside the staff.  The

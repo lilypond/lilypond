@@ -7,22 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-La syntaxe de LilyPond demande parfois un positionnement inhabituel des
-parenthèses, crochets etc. qui peuvent s'entrelacer.  Par exemple, le
-crochet ouvrant une ligature manuelle se place à la suite de la note
-de départ et sa durée, non pas avant.  De même, le crochet fermant se
-place à la fin de la ligature, y compris lorsque la dernière note se
-trouve incluse dans un nolet.  Cet extrait illustre la manière de
-combiner ligatures manuelles, liaisons d'articulation, de prolongation
-ou de phrasé, avec des nolets bornés par des parenthèses.
-
-"
-  doctitlefr = "Coexistence de ligatures et liaisons avec des rythmes comprenant des nolets"
-
-  lsrtags = "rhythms, expressive-marks"
-
+  lsrtags = "expressive-marks, rhythms"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -40,6 +25,20 @@ valoración especial (encerradas entre llaves).
 
 "
   doctitlees = "Añadir barras ligaduras de expresión y de unión etc. cuando se usan ritmos con y sin grupos de valoración especial."
+
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La syntaxe de LilyPond demande parfois un positionnement inhabituel des
+parenthèses, crochets etc. qui peuvent s'entrelacer.  Par exemple, le
+crochet ouvrant une ligature manuelle se place à la suite de la note
+de départ et sa durée, non pas avant.  De même, le crochet fermant se
+place à la fin de la ligature, y compris lorsque la dernière note se
+trouve incluse dans un nolet.  Cet extrait illustre la manière de
+combiner ligatures manuelles, liaisons d'articulation, de prolongation
+ou de phrasé, avec des nolets bornés par des parenthèses.
+
+"
+  doctitlefr = "Coexistence de ligatures et liaisons avec des rythmes comprenant des nolets"
 
   texidoc = "
 LilyPond syntax can involve many unusual placements for parentheses,

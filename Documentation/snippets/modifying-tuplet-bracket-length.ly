@@ -9,6 +9,20 @@
 \header {
   lsrtags = "really-simple, rhythms"
 
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Les crochets indiquant un nolet peuvent être prolongés jusqu'à un
+élément de rupture ou jusqu'à la note suivante.  LilyPond termine un
+crochet de nolet sur la droite de sa dernière tête de note par défaut ;
+un crochet de pleine longueur s'étendra plus avant, soit jusqu'à le note
+suivante et en traversant tous les éléments non rythmiques, soit sur
+tout l'espace précédant le prochain élément de notation, que ce soit une
+clef, une métrique, une armure ou une autre note.  L'exemple suivant
+illustre la manière d'activer ces deux fonctionnalités.
+
+"
+  doctitlefr = "Modification de la longueur d'un crochet de nolet"
+
   texidoc = "
 Tuplet brackets can be made to run to prefatory matter or the next
 note. Default tuplet brackets end at the right edge of the final note

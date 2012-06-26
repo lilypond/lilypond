@@ -4,9 +4,11 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.32"
+\version "2.15.40"
 
 \header {
+  lsrtags = "tweaks-and-overrides, scheme-language, editorial-annotations"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 La fonction @code{print} peut se modifier pour obtenir l'encadrement de
@@ -14,8 +16,6 @@ n'importe quel objet.
 
 "
   doctitlefr = "Encadrement d'objets"
-
-  lsrtags = "editorial-annotations, tweaks-and-overrides, scheme-language"
 
   texidoc = "
 The @code{print-function} can be overridden to draw a box around an

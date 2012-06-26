@@ -7,7 +7,16 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, connecting-notes, rhythms"
+  lsrtags = "tweaks-and-overrides, rhythms, connecting-notes"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Le positionnement et la pente des ligatures peuvent être contrôlés
+manuellement à l'aide d'une adaptation de la propriété
+@code{positions} de l'objet @code{Beam}.
+
+"
+  doctitlefr = "Contrôle manuel du positionnement des ligatures"
 
   texidoc = "
 Beam positions may be controlled manually, by overriding the

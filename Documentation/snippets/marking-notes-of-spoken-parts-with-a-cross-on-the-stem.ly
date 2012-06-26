@@ -4,10 +4,19 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.32"
+\version "2.15.40"
 
 \header {
-  lsrtags = "vocal-music, editorial-annotations, workaround, contemporary-notation"
+  lsrtags = "workaround, contemporary-notation, vocal-music, editorial-annotations"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Voici comment ajouter une croix aux hampes.  Le début du fragment parlé
+est stipulé par une commande @code{\\speakOn}, et la fin par une
+commande @code{\\speakOff}.
+
+"
+  doctitlefr = "Adjonction d'une croix sur la hampe des notes d'un fragment parlé"
 
   texidoc = "
 This example shows how to put crosses on stems.  Mark the beginning of

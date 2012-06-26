@@ -19,6 +19,16 @@ las líneas sean más cortas, como en este fragmento de código.
 "
   doctitlees = "Líneas de rejilla: destacar ritmos y la relación temporal entre notas"
 
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Des lignes verticales entre les portées peuvent s'ajouter dans le but
+d'indiquer la synchronisation entre des notes.  Dans le cas de musique
+monophonique, on peut toutefois créer une deuxième portée, invisible, et
+raccourcir les lignes comme ici.
+
+"
+  doctitlefr = "Quadrillage temporel : mise en évidence du rythme et synchronisation des notes"
+
   texidoc = "
 Regular vertical lines can be drawn between staves to show note
 synchronization; however, in case of monophonic music, you may want to

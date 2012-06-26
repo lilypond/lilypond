@@ -68,6 +68,7 @@ separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
 setting-system-separators.ly
 showing-the-same-articulation-above-and-below-a-note-or-chord.ly
+stem-cross-staff-engraver.ly
 string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
 time-signature-in-parentheses---method-3.ly

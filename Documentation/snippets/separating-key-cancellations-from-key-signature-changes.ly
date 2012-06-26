@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "pitches, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, pitches"
 
   texidoc = "
 By default, the accidentals used for key cancellations are placed

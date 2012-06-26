@@ -7,14 +7,14 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "really-simple, vocal-music"
+
 %% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
   texidocfr = "
 Chaque couplet peut disposer de sa propre fonte, y compris son numéro.
 
 "
   doctitlefr = "Changement de fontes des couplets"
-
-  lsrtags = "vocal-music, really-simple"
 
   texidoc = "
 Fonts can be changed independently for each stanza, including the font

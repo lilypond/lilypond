@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, spacing"
+  lsrtags = "spacing, tweaks-and-overrides"
 
   texidoc = "
 If @code{strict-note-spacing} is set spacing of notes is not influenced

@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "contemporary-notation, winds"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 L'indication d'une technique particulière d'articulation, telle le
@@ -15,8 +17,6 @@ glyphe approprié.
 
 "
   doctitlefr = "Coup de langue à la flûte"
-
-  lsrtags = "winds, contemporary-notation"
 
   texidoc = "
 It is possible to indicate special articulation techniques such as a

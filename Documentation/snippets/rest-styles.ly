@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "ancient-notation, symbols-and-glyphs, tweaks-and-overrides, rhythms"
+  lsrtags = "tweaks-and-overrides, rhythms, ancient-notation, symbols-and-glyphs"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   doctitlees = "Estilos de silencios"

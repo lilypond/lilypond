@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "pitches"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
@@ -16,8 +18,6 @@ la commande @code{\\set Staff.forceClef = ##t}.
 
 "
   doctitlefr = "Réimpression forcée de la clef"
-
-  lsrtags = "pitches"
 
   texidoc = "
 When a clef sign has already been displayed and it has not been changed

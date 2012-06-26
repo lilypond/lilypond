@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, rhythms"
+  lsrtags = "rhythms, text"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 texidoces = "
@@ -47,13 +47,13 @@ ist."
 
 
 
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
   texidocfr = "
-Lorsque du texte est attaché à un silence multi-mesures, il sera centré
+Lorsque du texte est attaché à un silence multimesure, il sera centré
 dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
 mesure dans le cas ou ce texte est relativement long, il suffit
 d'insérer un silence invisible auquel on attache le texte en question,
-avant le silence multi-mesures.
+avant le silence multimesure.
 
 Rappelez-vous qu'un silence invisible génère une barre de mesure.  Le
 texte attaché à ce silence invisible sera alors aligné sur la gauche de
@@ -61,7 +61,7 @@ là où serait positionnée la note.  Cependant, si la taille de la mesure
 est déterminée par la longueur du texte, il apparaîtra comme centré.
 
 "
-  doctitlefr = "Ajout de texte à un silence multi-mesures"
+  doctitlefr = "Ajout de texte à un silence multimesure"
 
   texidoc = "
 Markups attached to a multi-measure rest will be centered above or

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, pitches"
+  lsrtags = "pitches, text"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -45,13 +45,13 @@ und @code{middleCPosition}.  Um den Text der Oktavierungsklammer zu
 
 doctitlede = "Ottava-Text"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
   texidocfr = "
 En interne, la fonction @code{\\ottava} détermine les
-propriétés @code{ottavation} (p.ex. en @code{\"8va\"} ou @code{\"8vb\"})
+propriétés @code{ottavation} (par ex. en @code{\"8va\"} ou @code{\"8vb\"})
 et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
 d'octaviation en définissant @code{ottavation} après avoir fait appel
-à @code{ottava}@tie{}:
+à @code{ottava} :
 
 "
   doctitlefr = "Texte des marques d'octaviation"

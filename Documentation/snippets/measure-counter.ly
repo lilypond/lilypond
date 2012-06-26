@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "repeats, editorial-annotations, workaround, staff-notation"
+  lsrtags = "workaround, staff-notation, repeats, editorial-annotations"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -17,6 +17,14 @@ transparentes de tipo porcentaje.
 
 "
   doctitlees = "Contador de compases"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Le code ci-dessous permet, de façon détournée, d'afficher un compteur de
+mesures à l'aide d'une répétition en pourcent rendue transparente.
+
+"
+  doctitlefr = "Compteur de mesures"
 
   texidoc = "
 This snippet provides a workaround for emitting measure counters using

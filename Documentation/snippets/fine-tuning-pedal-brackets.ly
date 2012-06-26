@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, keyboards"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Les crochets d'indication de pédale peuvent se modifier de différentes
@@ -14,8 +16,6 @@ manières.
 
 "
   doctitlefr = "Affinage des indications de pédale"
-
-  lsrtags = "keyboards, tweaks-and-overrides"
 
   texidoc = "
 The appearance of pedal brackets may be altered in different ways.

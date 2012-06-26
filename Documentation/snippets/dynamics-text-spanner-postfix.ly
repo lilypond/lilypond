@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, expressive-marks"
+  lsrtags = "expressive-marks, tweaks-and-overrides"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 
@@ -23,6 +23,7 @@ extensores de texto de forma predeterminada.
 "
 
   doctitlees = "Objetos extensores de texto postfijos para dinámica"
+
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "winds, specific-notation"
+  lsrtags = "specific-notation, winds"
 
 %%%    Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -17,30 +17,7 @@ el momento.
 
 "
   doctitlees = "Listado de los diagramas para viento madera"
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
-
-  texidocde="
-Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
-definiert sind.
-
-"
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde="
-Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
-definiert sind.
-
-"
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde="
-Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
-definiert sind.
-
-"
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 
@@ -50,6 +27,7 @@ definiert sind.
 
 "
   doctitlede = "Liste der Holzbläserdiagramme"
+
 
 %% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
   texidocfr = "

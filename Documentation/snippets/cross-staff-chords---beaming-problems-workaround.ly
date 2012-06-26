@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, workaround, chords, keyboards"
+
 %% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
   texidocfr = "
 Il est parfois préférable d'utiliser les hampes de la portée supérieure
@@ -19,8 +21,6 @@ qu'il ne tienne pas compte des collisions entre portées.
 
 "
   doctitlefr = "Accord distribué et problème de hampe - solution"
-
-  lsrtags = "keyboards, workaround, chords, tweaks-and-overrides"
 
   texidoc = "
 Sometimes it is better to use stems from the upper staff for creating

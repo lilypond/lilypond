@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "rhythms, repeats"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Lorsque la durée totale d'un trémolo est inférieur à la noire, égale une
@@ -20,8 +22,6 @@ la propriété @code{'gap}.
 
 "
   doctitlefr = "Impression de trémolo avec ligature flottante"
-
-  lsrtags = "repeats, rhythms"
 
   texidoc = "
 If a tremolo's total duration is less than a quarter-note, or exactly a

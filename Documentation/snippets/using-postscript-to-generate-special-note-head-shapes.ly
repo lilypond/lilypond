@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, really-cool, tweaks-and-overrides, scheme-language"
+  lsrtags = "tweaks-and-overrides, scheme-language, really-cool, editorial-annotations"
 
 %% Translation of GIT committish: 5a898cf43a2a78be6c3a58e4359dccd82196fbe7
   texidocfr = "

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "simultaneous-notes, tweaks-and-overrides, rhythms"
+  lsrtags = "tweaks-and-overrides, rhythms, simultaneous-notes"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -20,6 +20,17 @@ propiedad @code{prefer-dotted-right} de @code{NoteCollision}.
   doctitlees = "Desplazar las notas con puntillo en polifonía"
 
 
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Une note pointée appartenant à la voix supérieure d'une portée
+polyphonie sera par défaut décalée vers la droite afin d'éviter les
+collisions avec les autres voix.  Ce comportement peut être outrepassé à
+l'aide de la propriété @code{prefer-dotted-right} de
+@code{NoteCollision}.
+
+"
+  doctitlefr = "Déplacement des notes pointées dans une polyphonie"
 
   texidoc = "
 When a dotted note in the upper voice is moved to avoid a collision

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, expressive-marks"
+  lsrtags = "expressive-marks, tweaks-and-overrides"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -27,6 +27,20 @@ más hacia abajo.
   doctitlees = "Desplazar ligaduras de expresión verticalmente"
 
 
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Le positionnement vertical d'une liaison se contrôle par la propriété
+@code{positions} de l'objet @code{Slur}.  Cette propriété dispose de
+deux paramètres : le premier affecte l'extrémité gauche de liaison, le
+second son extrémité droite.  La valeur des paramètres n'aura aucune
+influence sur le galbe de la liaison.  LilyPond ne s'en servira que pour
+adapter le positionnement de la courbe.  Des valeurs positives décalent
+la liaison vers le haut et s'utilisent pour des hampes descendantes.
+Des valeurs négatives entraînent un décalage vers le bas.
+
+"
+  doctitlefr = "Déplacement vertical des liaisons d'articulation"
 
   texidoc = "
 The vertical position of a slur can be adjusted using the

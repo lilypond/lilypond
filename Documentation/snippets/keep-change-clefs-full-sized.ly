@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "pitches, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, pitches"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -19,6 +19,15 @@ un tamaño menor que la clave inicial.  Esto se puede ajustar con
   doctitlees = "Mantener el tamaño del símbolo en los cambios de clave"
 
 
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+Le symbole imprimé lors d'un changement de clef est plus petit que la
+clef initiale.  La taille s'ajuste à l'aide de la propriété
+@code{full-size-change}.
+
+"
+  doctitlefr = "Maintien de la taille de clef lors d'un changement"
 
   texidoc = "
 When a clef is changed, the clef sign displayed is smaller than the

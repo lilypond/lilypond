@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, staff-notation, tweaks-and-overrides"
+  lsrtags = "specific-notation, tweaks-and-overrides, staff-notation"
 
   texidoc = "
 Another way to put the time signature in parenthesis

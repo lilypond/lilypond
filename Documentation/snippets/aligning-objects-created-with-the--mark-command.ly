@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "text"
+
 %% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
   texidocfr = "
 Par défaut, la commande @code{\\mark} centre les objets sur la barre de
@@ -15,8 +17,6 @@ gauche ou par la droite.
 
 "
   doctitlefr = "Alignement des objets créés par la commande @code{\\mark}"
-
-  lsrtags = "text"
 
   texidoc = "
 By default the @code{\\mark} command centers objects over a bar line.

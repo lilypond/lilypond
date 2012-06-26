@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Du code PostScript peut directement être intégré dans un bloc
-@code{\\markup}.
-
-"
-  doctitlefr = "Intégration de PostScript dans un markup"
-
-  lsrtags = "specific-notation, editorial-annotations, text, really-cool"
-
+  lsrtags = "specific-notation, text, really-cool, editorial-annotations"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -25,6 +16,14 @@ bloque @code{\\markup}.
 
 "
   doctitlees = "Empotrar PostScript nativo dentro de un bloque \\markup"
+
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+Du code PostScript peut directement être intégré dans un bloc
+@code{\\markup}.
+
+"
+  doctitlefr = "Intégration de PostScript dans un markup"
 
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}

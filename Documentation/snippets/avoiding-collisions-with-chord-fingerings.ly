@@ -7,18 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Doigtés et numéros de corde, lorsque affectés à des notes individuelles,
-évitent les hampes et ligatures.  Cette fonctionnalité n'est pas activée
-par défaut en ce qui concernes les notes appartenant à un accord.  Voici
-comment mettre en place la dérogation appropriée en pareil cas.
-
-"
-  doctitlefr = "Évitement de collision des doigtés d'un accord"
-
-  lsrtags = "editorial-annotations, chords, tweaks-and-overrides, rhythms"
-
+  lsrtags = "tweaks-and-overrides, chords, rhythms, editorial-annotations"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 
@@ -34,6 +23,16 @@ sobreescribir este comportamiento predeterminado.
 "
   doctitlees = "Evitar colisiones con digitaciones de acordes"
 
+
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Doigtés et numéros de corde, lorsque affectés à des notes individuelles,
+évitent les hampes et ligatures.  Cette fonctionnalité n'est pas activée
+par défaut en ce qui concernes les notes appartenant à un accord.  Voici
+comment mettre en place la dérogation appropriée en pareil cas.
+
+"
+  doctitlefr = "Évitement de collision des doigtés d'un accord"
 
   texidoc = "
 Fingerings and string numbers applied to individual notes will

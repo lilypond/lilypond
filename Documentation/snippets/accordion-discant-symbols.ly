@@ -7,17 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Les symboles spécifiques au clavier main droite d'un accordéon
-s'indiquent à l'aide de @code{\\markup}.  Le positionnement de tels
-symboles s'ajuste grâce à des arguments @code{\\raise}.
-
-"
-  doctitlefr = "Symboles de chant pour accordéon"
-
-  lsrtags = "specific-notation, keyboards, workaround, symbols-and-glyphs"
-
+  lsrtags = "specific-notation, workaround, keyboards, symbols-and-glyphs"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -36,6 +26,15 @@ Diskantregister für Akkordeon können mit @code{\\markup} dargestellt werden.
 Die vertikale Position der einzelnen Elemente werden mit @code{\\raise}
 angepasst.
 "
+
+%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
+  texidocfr = "
+Les symboles spécifiques au clavier main droite d'un accordéon
+s'indiquent à l'aide de @code{\\markup}.  Le positionnement de tels
+symboles s'ajuste grâce à des arguments @code{\\raise}.
+
+"
+  doctitlefr = "Symboles de chant pour accordéon"
 
   texidoc = "
 Accordion discant-specific symbols are added using @code{\\markup}. The

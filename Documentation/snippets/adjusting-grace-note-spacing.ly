@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-La propriété @code{spacing-increment} de @code{Score.GraceSpacing}
-permet d'ajuster l'espacement d'un groupe de notes d'ornement.
-
-"
-  doctitlefr = "Ajustement de l'espacement des notes d'ornement"
-
   lsrtags = "tweaks-and-overrides, rhythms"
-
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -26,6 +17,14 @@ propiedad @code{spacing-increment} de @code{Score.GraceSpacing}.
 "
 
   doctitlees = "Ajuste del espaciado de las notas de adorno"
+
+%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+  texidocfr = "
+La propriété @code{spacing-increment} de @code{Score.GraceSpacing}
+permet d'ajuster l'espacement d'un groupe de notes d'ornement.
+
+"
+  doctitlefr = "Ajustement de l'espacement des notes d'ornement"
 
   texidoc = "
 The space given to grace notes can be adjusted using the

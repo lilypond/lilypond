@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "paper-and-layout"
+
 %% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
   texidocfr = "
 @code{\\bookpart} permet de découper un ouvrage en plusieurs parties.
@@ -17,8 +19,6 @@ qu'ils se rattachent à une partie ou bien à l'ouvrage entier.
 
 "
   doctitlefr = "Partitionnement d'un ouvrage"
-
-  lsrtags = "paper-and-layout"
 
   texidoc = "
 @code{\\bookpart} can be used to split a book into several parts. Each

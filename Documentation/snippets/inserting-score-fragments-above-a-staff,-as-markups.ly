@@ -7,7 +7,15 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "real-music, staff-notation"
+  lsrtags = "staff-notation, real-music"
+
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+La commande @code{\\markup} est polyvalente.  Dans cet exemple, elle
+contient un bloc @code{\\score} plutôt que du texte ou une marque.
+
+"
+  doctitlefr = "Insertion d'un fragment au-dessus de la portée"
 
   texidoc = "
 The @code{\\markup} command is quite versatile.  In this snippet, it

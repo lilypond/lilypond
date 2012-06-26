@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "workaround, staff-notation"
+
 %% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Par défaut, les indications métronomiques n'influencent en rien
@@ -18,8 +20,6 @@ dérogation comme dans la deuxième partie.
 
 "
   doctitlefr = "Adaptation de la largeur de mesure selon le MetronomeMark"
-
-  lsrtags = "workaround, staff-notation"
 
   texidoc = "
 By default, metronome marks do not influence horizontal spacing.  This

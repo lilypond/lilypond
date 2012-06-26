@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, really-simple, rhythms"
+  lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
 Although @code{s} skips cannot be used in @code{\\lyricmode} (it is

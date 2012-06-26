@@ -7,41 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-La guitare flamenco fait appel à des éléments de notation particuliers :
-
--- le @emph{golpe} : coup frappé sur la caisse de résonance avec
-   l'ongle de l'annulaire,
-
--- une flèche pour indiquer le sens des butés (@emph{strokes}),
-
--- les doigtés : @qq{p} pouce, @qq{i} index, @qq{m}  majeur, @qq{a}
-   annulaire et @qq{x} auriculaire,
-
--- les @emph{rasgueados} sur trois ou quatre doigts : grattage des
-   cordes en étendant les doigts rapidement les uns après les autres
-   dans un mouvement continu, se terminant sur l'index,
-
--- les @emph{abanicos} : séries de butés du pouce, index et auriculaire.
-   Il existe aussi un @emph{abanico 2} pour lequel l'index et
-   l'annulaire remplacent l'auriculaire.
-
--- @emph{alza púa} : jeu rapide du pouce.
-
-La plupart de ces symboles utilisent une flèche en plus des doigtés.
-Dans le cas d'un @emph{abanico}, les têtes de note ne sont imprimées que
-pour le premier accord.
-
-Le début du code ci-dessous répertorie le paramétrage de ces différents
-symboles, que vous pouvez copier dans un fichier @file{flamenco.ly}
-pour inclusion dans vos propres compositions.
-
-"
-  doctitlefr = "Notation de flamenco"
-
-  lsrtags = "specific-notation, version-specific, fretted-strings, stylesheet"
-
+  lsrtags = "specific-notation, version-specific, stylesheet, fretted-strings"
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
 
@@ -82,6 +48,39 @@ copiar como @file{flamenco.ly} e incluirse en los documentos fuente.
 
 "
   doctitlees = "Notación del flamenco"
+
+%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+  texidocfr = "
+La guitare flamenco fait appel à des éléments de notation particuliers :
+
+-- le @emph{golpe} : coup frappé sur la caisse de résonance avec
+   l'ongle de l'annulaire,
+
+-- une flèche pour indiquer le sens des butés (@emph{strokes}),
+
+-- les doigtés : @qq{p} pouce, @qq{i} index, @qq{m}  majeur, @qq{a}
+   annulaire et @qq{x} auriculaire,
+
+-- les @emph{rasgueados} sur trois ou quatre doigts : grattage des
+   cordes en étendant les doigts rapidement les uns après les autres
+   dans un mouvement continu, se terminant sur l'index,
+
+-- les @emph{abanicos} : séries de butés du pouce, index et auriculaire.
+   Il existe aussi un @emph{abanico 2} pour lequel l'index et
+   l'annulaire remplacent l'auriculaire.
+
+-- @emph{alza púa} : jeu rapide du pouce.
+
+La plupart de ces symboles utilisent une flèche en plus des doigtés.
+Dans le cas d'un @emph{abanico}, les têtes de note ne sont imprimées que
+pour le premier accord.
+
+Le début du code ci-dessous répertorie le paramétrage de ces différents
+symboles, que vous pouvez copier dans un fichier @file{flamenco.ly}
+pour inclusion dans vos propres compositions.
+
+"
+  doctitlefr = "Notation de flamenco"
 
   texidoc = "
 For flamenco guitar, special notation is used:

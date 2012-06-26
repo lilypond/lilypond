@@ -9,6 +9,18 @@
 \header {
   lsrtags = "chords"
 
+%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
+  texidocfr = "
+La basse chiffrée utilise fréquemment des lignes pour indiquer la
+prolongation jusqu'à un certain point.  LilyPond est alors dispendieux
+en ce sens qu'il place le plus de prolongateurs possible.
+L'interruption d'un prolongateur particulier s'obtient en affectant
+d'un @code{\\!} le chiffre qui doit être réimprimé ; ceci interrompra de
+fait la ligne de prolongation juste avant ce chiffre.
+
+"
+  doctitlefr = "Interruption manuelle des prolongations de certains chiffrages"
+
   texidoc = "
 Figured bass often uses extenders to indicate continuation of the
 corresponding step. However, in this case lilypond is in greedy-mode

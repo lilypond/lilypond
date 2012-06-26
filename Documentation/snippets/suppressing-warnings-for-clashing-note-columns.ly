@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "simultaneous-notes, tweaks-and-overrides"
+  lsrtags = "tweaks-and-overrides, simultaneous-notes"
 
   texidoc = "
 If notes from two voices with stems in the same direction are placed at
