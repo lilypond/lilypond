@@ -7,6 +7,7 @@ don't fit anywhere else.
 
 @menu
 * Meta-policy for this document::
+* Environment variables::
 * Meisters::
 * Patchy::
 * Administrative mailing list::
@@ -77,6 +78,32 @@ Totally disorganized; do whatever the mao you want:
 
 @end itemize
 
+
+@node Environment variables
+@section Environment variables
+
+Some maintenance scripts and instructions in this guide rely on
+the following environment variables.  They should be predefined in
+LilyDev distribution (see @ref{LilyDev}); if you set up your own
+development environment, you can set them by appending these settings to
+your @file{~/.bashrc} (or whatever defines your default environment
+variables for the user account for LilyPond development), then logging
+out and in (adapt directories to your setup):
+
+@example
+LILYPOND_GIT=~/lilypond-git
+export LILYPOND_GIT
+LILYPOND_BUILD_DIR=~/lilypond-git/build
+export LILYPOND_BUILD_DIR
+@end example
+
+The standard build and install procedure (with @code{autogen.sh},
+@code{configure}, @code{make}, @code{make install}, @code{make doc}
+@dots{}) does not rely on them.
+
+In addition, for working on the website, @code{LILYPOND_WEB_MEDIA_GIT}
+should be set to the repository lilypond-extra, see
+@ref{lilypond-extra}.
 
 
 @node Meisters
@@ -179,13 +206,8 @@ Make sure it's where you want it and name it lilypond-git
 (assuming you want to follow the standard naming conventions).
 
 @item
-Create an environment variable called LILYPOND_GIT and make it
-equal to the location of your new git repo.  You can do this by
-editing @file{$HOME/.profile} and adding the line:
-@example
-export LILYPOND_GIT=~/lilypond-git
-@end example
-then logging out and in.
+Create environment variables @var{LILYPOND_GIT} and
+@var{LILYPOND_BUILD_DIR}, see @ref{Environment variables}.
 
 @item
 Run patchy once to set up config files, answer @q{@code{n}} when it
@@ -1070,9 +1092,10 @@ all output will still be written to log files; the console output
 is strictly additional to the log files.
 
 @item
-Logfiles from calling lilypond (as part of lilypond-book) will go
-in the relevant @file{build/out/lybook-db/12/lily-123456.log}
-file.  All other logfiles will go in the @file{build/logfiles/}
+Logfiles from calling lilypond (as part of lilypond-book) will go in
+the relevant
+@file{$LILYPOND_BUILD_DIR/out/lybook-db/12/lily-123456.log} file.  All
+other logfiles will go in the @file{$LILYPOND_BUILD_DIR/logfiles/}
 directory.
 
 A single @code{make doc} will therefore result in hundreds of log

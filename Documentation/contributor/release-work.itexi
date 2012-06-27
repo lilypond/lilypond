@@ -83,8 +83,8 @@ checkout displays modified files, you might want to run @code{git reset
 git fetch
 git checkout origin/release/unstable
 git merge origin
-make -C /path/to/top-build-dir po-replace
-mv /path/to/top-build-dir/po/lilypond.pot po/
+make -C $LILYPOND_BUILD_DIR po-replace
+mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
 vi Documentation/web/news-front.itexi Documentation/web/news.itexi
 @end example
 
@@ -315,10 +315,9 @@ Run convert-ly on all files, bump parser minimum version.
 Update lilypond.pot:
 
 @example
-make po-replace
+make -C $LILYPOND_BUILD_DIR po-replace
+mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
 @end example
-If you run this outside the source tree, move @file{po/lilypond.pot}
-to the source tree.
 
 @item
 Make directories on lilypond.org:

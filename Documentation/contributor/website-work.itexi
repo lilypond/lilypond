@@ -76,13 +76,14 @@ before they are used on the server.
 @subheading Building the website (quick local)
 
 Initial setup: make sure that you have the environment variables
-@code{$LILYPOND_GIT} and @code{$LILYPOND_WEB_MEDIA_GIT} set up
-correctly.  For more information, see @ref{Other repositories}.
+@code{$LILYPOND_GIT}, @code{$LILYPOND_BUILD_DIR} and
+@code{$LILYPOND_WEB_MEDIA_GIT} set up correctly.  For more
+information, see @ref{Environment variables}.
 
 Once that is done,
 
 @example
-cd $LILYPOND_GIT/build/
+cd $LILYPOND_BUILD_DIR
 make website
 @end example
 
@@ -360,7 +361,7 @@ scripts/build/website_post.py
 Translations are not included by default in @code{make website}.
 To test your translation, edit the @code{WEB_LANGUAGES =} line in
 @file{python/langdefs.py}.  You will need to copy this updated
-script to @code{build/python/out}.
+script to @code{$LILYPOND_BUILD_DIR/python/out}.
 
 Do not submit a patch to add your language to this file unless
 @code{make website} completes with fewer than 5 warnings.

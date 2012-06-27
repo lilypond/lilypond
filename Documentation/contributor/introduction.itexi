@@ -112,6 +112,10 @@ hosted by GNU savannah.
 @uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
 
+@item @strong{environment variables}:
+many maintenance scripts, and many instructions in this guide rely on
+predefined @ref{Environment variables}.
+
 @item @strong{mailing lists}:
 given on @rweb{Contacts}.
 
