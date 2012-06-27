@@ -167,7 +167,7 @@ merging @code{staging} into @code{master}.
 (completely automatic)
 
 @item
-@code{test-patches.py}: checks that patches apply to git master,
+@code{test-patches.py}: checks that patches apply to Git @code{master},
 compile, and lets a human check that there are no big unintended
 changes to the regtests.
 
@@ -175,26 +175,29 @@ changes to the regtests.
 
 @end itemize
 
-@subheading Installing patchy
+@subheading Installing Patchy
 
-To install patchy, you should do the following:
+To install Patchy, you should do the following:
 
 @enumerate
 @item
-Create a new user on your box to run patchy; this is a security
+Create a new user on your box to run Patchy; this is a security
 step for your own protection.  It is recommended that this should
 not be an administrator.  New users are created from System;
 Administration; Users and Groups.
 
 @item
-Get the patchy scripts from
+Get the Patchy scripts from
 @example
 @uref{https://github.com/gperciva/lilypond-extra/}
 @end example
 Patchy is in the @file{patches/} directory.
 
 @item
-Put the scripts in a sensible place on your system
+Put the scripts and Python libraries contained in @file{patches} in a
+sensible place on your system; this can be done by appending
+@file{patches/} full path to the @var{PATH} of the user that runs
+Patchy.
 
 @item
 Create a new git repository with
@@ -210,15 +213,12 @@ Create environment variables @var{LILYPOND_GIT} and
 @var{LILYPOND_BUILD_DIR}, see @ref{Environment variables}.
 
 @item
-Run patchy once to set up config files, answer @q{@code{n}} when it
+Run Patchy once to set up config files, answer @q{@code{n}} when it
 asks for going on, unless the default config file happens to suit your
 setup:
 @example
-cd PATH/TO/lilypond-extra.git/patches
 lilypond-patchy-staging.py
 @end example
-Following calls of @code{lilypond-patchy-staging.py} need not be made
-from the directory where it stands.
 
 @item
 Edit @file{$HOME/.lilypond-patchy-config} to provide the location of
@@ -230,7 +230,7 @@ everything after @code{smtp_command:}.
 @item
 Ensure that your new user has git push access.  Follow the
 instructions in the CG at @ref{Commit access}.  Do not set
-password protection for the key - if you do you will not be able
+password protection for the key --- if you do you will not be able
 to run patchy unattended.
 
 @end enumerate
@@ -241,24 +241,53 @@ to run patchy unattended.
 @example
 python lilypond-patchy-staging.py
 @end example
-Not much appears to happen except you can see a lot of CPU gets
-used if you open System Monitor. There's not much point running
+Not much appears to happen except you can see a lot of CPU gets used
+if you open System Monitor. There's not much point running
 @code{lilypond-patchy-staging.py} unless there is something in
-staging to be merged to master, however, if there's nothing in
-staging then the script won't waste resources by compiling
-anything.
+@code{staging} to be merged to @code{master}, however, if there's
+nothing new in @code{staging} then the script won't waste resources by
+compiling anything.
 
 The script fetches the current patches in staging and runs
 @code{make}, @code{make test} and @code{make doc} to ensure that all of
-these complete error-free. If you have set patchy up to use email,
+these complete error-free. If you have set Patchy up to use email,
 it emails its results to you.  If you haven't, then you can view
-them in a logfile.  It also merges staging into master.
+them in a logfile.  It also merges @code{staging} into @code{master}.
+
+When you have run Patchy a few successful times with email sending,
+you are ready for running it as a cron job. First, make sure you have
+the following in @file{$HOME/.lilypond-patchy-config} to avoid
+email flood:
+
+@example
+[notification]
+notify_non_action = no
+@end example
+
+Then, assuming Patchy run with user account @code{patchy}, write the
+following to @file{$HOME/lilypond-patchy.cron}, adapting it as
+necessary (the @code{/2} means @qq{run this every 2 hours}):
+@example
+02 0-23/2 * * * /home/patchy/git/lilypond-extra/patches/lilypond-patchy-staging.py
+@end example
+
+@warning{@code{cron} will not inherit environment variables from
+your main setup, so you must re-define any variables inside
+@file{$HOME/lilypond-patchy.cron}. For instance, @var{LILYPOND_GIT}
+may need to be defined if @var{git_repository_dir} is not correctly
+set in @file{$HOME/.lilypond-patchy-config}.}
+
+Finally, install the cron job (you may need superuser privileges for
+this):
+@example
+crontab -u patchy /home/patchy/lilypond-patchy.cron
+@end example
 
 @subheading test-patches.py
-test-patches prepares a regtest comparison for a human to quickly
-glance at, to determine if the patch is ready for a review.  After
-looking at the comparison (or the lack of a comparison in the case
-of problems), run @code{accept-patch.py} or
+@code{test-patches.py} prepares a regtest comparison for a human to
+quickly glance at, to determine if the patch is ready for a review.
+After looking at the comparison (or the lack of a comparison in the
+case of problems), run @code{accept-patch.py} or
 @code{reject-patch.py}.
 
 Once a patch has gotten a "LGTM" from Patchy, it should be
