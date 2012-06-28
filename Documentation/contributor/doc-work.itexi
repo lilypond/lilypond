@@ -2003,11 +2003,6 @@ the changes it made with @command{git diff} before committing; if you
 don't do so, some @code{@@lilypond} snippets might be broken or make
 no sense in their context.
 
-When you have updated texidocs in
-@file{Documentation/@var{MY-LANGUAGE}/texidocs}, you can get these
-changes into compiled snippets in @file{Documentation/snippets}, see
-@q{General guidelines} in @ref{Adding and editing snippets}.
-
 Finally, a command runs the three update processes above for all
 enabled languages (from @file{Documentation/}):
 
@@ -2041,23 +2036,6 @@ by doing
 @example
 git rev-list HEAD |head -1
 @end example
-
-A special case is updating Snippet documentation strings in
-@file{Documentation/@var{MY-LANGUAGE}/texidocs}.  For these to be
-correctly marked as up-to-date, first run @code{makelsr.py} as
-explained in @ref{Adding and editing snippets}, and commit the
-resulting compiled snippets left in @file{Documentation/snippets/}.
-Say the SHA1 ID code of this commit is <C>.  Now edit again your
-translated files in @file{Documentation/@var{MY-LANGUAGE}/texidocs}
-adjusting the 40-digit committish that appears in the text to be <C>;
-finally, commit these updated files.  Not doing so would result in
-changes made both to your updates and original snippets to
-persistently appear in the check-translation output as if they were
-out of sync.
-
-This two-phase mechanism avoids the (practically) unsolvable problem
-of guessing what committish will have our update, and pretending to
-put this very committish on the files in the same commit.
 
 @c http://lists.gnu.org/archive/html/lilypond-devel/2009-01/msg00245.html
 @c contains a helper script which could be used to perform massive
