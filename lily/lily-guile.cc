@@ -580,6 +580,12 @@ robust_scm2vsize (SCM k, vsize o)
 SCM
 ly_rational2scm (Rational r)
 {
+  if (r.is_infinity ())
+    if (r > Rational(0))
+      return scm_inf ();
+    else
+      return scm_difference (scm_inf (), SCM_UNDEFINED);
+
   return scm_divide (scm_from_int64 (r.numerator ()),
                      scm_from_int64 (r.denominator ()));
 }
@@ -587,6 +593,22 @@ ly_rational2scm (Rational r)
 Rational
 ly_scm2rational (SCM r)
 {
+  if (scm_is_true (scm_inf_p (r)))
+    {
+      if (scm_is_true (scm_positive_p (r)))
+	{
+	  Rational r;
+	  r.set_infinite (1);
+	  return r;
+	}
+      else
+	{
+	  Rational r;
+	  r.set_infinite (-1);
+	  return r;
+	}
+    }
+
   return Rational (scm_to_int64 (scm_numerator (r)),
                    scm_to_int64 (scm_denominator (r)));
 }
@@ -594,7 +616,9 @@ ly_scm2rational (SCM r)
 Rational
 robust_scm2rational (SCM n, Rational rat)
 {
-  if (ly_is_fraction (n))
+  if (scm_is_real (n)
+      && (scm_is_true (scm_exact_p (n))
+	  || scm_is_true (scm_inf_p (n))))
     return ly_scm2rational (n);
   else
     return rat;
