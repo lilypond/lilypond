@@ -18,8 +18,8 @@ $(outdir)/%.tfm $(outdir)/%.log: %.mf
 #
 # the soft link for mf2pt1.mp is for recent mpost versions
 # which no longer dump a .mem file
-$(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
-	TMP=`mktemp -d $(outdir)/pfbtemp.XXXXXXXXX` \
+$(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem $(outdir)/%.log
+	TMP=`mktemp -d $(outdir)/pfbtemp.$*.XXXXXXXXX` \
 	&& ( cd $$TMP \
 		&& ln -s ../mf2pt1.mem . \
 		&& ln -s ../../mf2pt1.mp . \

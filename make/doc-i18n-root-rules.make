@@ -40,7 +40,7 @@ $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)
 	find $(outdir) \( -name '*.??.idx' \) | sed 's!$(outdir)/!!g' | xargs $(buildscript-dir)/mass-link hard $(outdir) $(top-build-dir)/Documentation/$(outdir)
 	touch $@
 
-$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/lilypond-%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<" "$*.makeinfo.log"
 
 $(outdir)/index.$(ISOLANG).html: TEXI2HTML_INIT = $(WEB_TEXI2HTML_INIT)

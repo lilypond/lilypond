@@ -36,10 +36,10 @@ $(outdir)/%.html.omf: %.tely
 $(outdir)/%.pdf.omf: %.tely
 	$(call GENERATE_OMF,pdf)
 
-$(outdir)/%.html.omf: $(outdir)/%.texi
+$(outdir)/%.html.omf: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
 	$(call GENERATE_OMF,html)
 
-$(outdir)/%.pdf.omf: $(outdir)/%.texi
+$(outdir)/%.pdf.omf: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-src-dir)/Documentation/web/%.bib $(top-src-dir)/Documentation/lily-bib.bst

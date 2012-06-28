@@ -1,3 +1,4 @@
+.PHONY: tfm dvi pfb
 
 tfm: $(TFM_FILES)
 

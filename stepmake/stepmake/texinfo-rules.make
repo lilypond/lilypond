@@ -32,25 +32,25 @@ $(outdir)/%.itexi: %.itexi
 	mkdir -p $(dir $@)
 	$(DO_TEXI_DEP) cp -f $< $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) -D web_version --output=$@ $<" "$*.makeinfoweb.log"
 else
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<" "$*.makeinfo.log"
 endif
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$*.bigtexi.log"
 else
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage --output=$@ $<"  "$*.bigtexi.log"
 endif
 
-$(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth) AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$*.texilog.log"
 
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.html.omf
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi $(outdir)/weblinks.itexi $(outdir)/%.html.omf | $(OUT_TEXINFO_MANUALS)
 	mkdir -p $(dir $@)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "DEPTH=$(depth)/../ AJAX_SEARCH=$(AJAX_SEARCH) $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) -D web_version --output=$(dir $@) $<"  "$*.splittexi.log"
@@ -59,24 +59,21 @@ else
 endif
 
 ifneq ($(ISOLANG),)
-$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map
+$(XREF_MAPS_DIR)/%.$(ISOLANG).xref-map: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) --master-map-file=$(XREF_MAPS_DIR)/$*.xref-map $<
 else
-$(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
+$(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/extract_texi_filenames $(XREF_MAP_FLAGS) -q -o $(XREF_MAPS_DIR) $<
 endif
 
-$(outdir)/%.info: %.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi $(outdir)/weblinks.itexi
-	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ $<"  "$*.makeinfo.log"
-
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/%.pdf.omf $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 ifeq ($(WEB_VERSION),yes)
 	$(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -D web_version -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
 else
 	$(buildscript-dir)/run-and-check "cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) -I $(abs-src-dir) $(TEXINFO_PAPERSIZE_OPTION) $(<F) < /dev/null" "$*.texi2pdf.log"
 endif
 
-$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.itexi | $(OUT_TEXINFO_MANUALS)
 	$(buildscript-dir)/run-and-check "$(MAKEINFO) -I$(src-dir) -I$(outdir) --no-split --no-headers --output $@ $<"  "$*.makeinfotxt.log"
 
 $(outdir)/%.html.omf: %.texi

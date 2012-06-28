@@ -9,6 +9,7 @@ MASTER_TEXI_FILES := $(TEXI_FILES) $(TELY_FILES:%.tely=$(outdir)/%.texi)
 TEXINFO_MANUALS =\
  $(TELY_FILES:%.tely=%)\
  $(TEXI_FILES:%.texi=%)
+OUT_TEXINFO_MANUALS = $(TEXINFO_MANUALS:%=$(outdir)/%.texi)
 
 TOPDIR_HTML_MANUALS = 
 SPLIT_HTML_MANUALS = $(foreach manual, $(TEXINFO_MANUALS),\
