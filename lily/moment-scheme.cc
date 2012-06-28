@@ -114,6 +114,15 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
   return (*ma % * mb).smobbed_copy ();
 }
 
+LY_DEFINE (ly_moment_grace, "ly:moment-grace",
+           1, 0, 0, (SCM mom),
+           "Extract grace timing as a rational number from @var{mom}.")
+{
+  LY_ASSERT_SMOB (Moment, mom, 1);
+
+  return ly_rational2scm (unsmob_moment (mom)->grace_part_);
+}
+
 LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
            1, 0, 0, (SCM mom),
            "Extract numerator from grace timing.")
@@ -134,6 +143,17 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
 
   return scm_from_int64 (ma->grace_part_.denominator ());
 }
+
+LY_DEFINE (ly_moment_main, "ly:moment-main",
+           1, 0, 0, (SCM mom),
+           "Extract main timing as a rational number from @var{mom}.")
+{
+  LY_ASSERT_SMOB (Moment, mom, 1);
+
+  return ly_rational2scm (unsmob_moment (mom)->main_part_);
+}
+
+
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
            1, 0, 0, (SCM mom),
            "Extract numerator from main timing.")
