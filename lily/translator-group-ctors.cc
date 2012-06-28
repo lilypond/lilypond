@@ -37,7 +37,7 @@ get_translator_group (SCM sym)
   else if (sym == ly_symbol2scm ("Score_performer"))
     return new Score_performer ();
 
-  error (_f ("fatal error. Couldn't find type: %s",
+  error (_f ("fatal error.  Couldn't find type: %s",
              ly_symbol2string (sym).c_str ()));
   scm_flush (scm_current_error_port ());
   scm_display (sym, scm_current_error_port ());

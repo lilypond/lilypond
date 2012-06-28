@@ -165,7 +165,7 @@ Piano_pedal_align_engraver::get_grob_pedal_type (Grob_info g)
   if (g.event_cause ()->in_event_class ("una-corda-event"))
     return UNA_CORDA;
 
-  programming_error ("Unknown piano pedal type. Defaulting to sustain");
+  programming_error ("Unknown piano pedal type.  Defaulting to sustain");
   return SUSTAIN;
 }
 

@@ -101,7 +101,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 
   Cpu_timer timer;
 
-  message (_ ("Interpreting music... "));
+  message (_ ("Interpreting music..."));
 
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator *iter = unsmob_iterator (protected_iter);

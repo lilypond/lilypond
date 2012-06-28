@@ -400,7 +400,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
           foot_stencil = add_footnotes_to_footer (footnotes, foot_stencil, pb);
         }
       else
-        warning ("A page layout problem has been initiated that cannot accommodate footnotes.");
+        warning (_ ("A page layout problem has been initiated that cannot accommodate footnotes."));
 
       header_height_ = head ? head->extent (Y_AXIS).length () : 0;
       footer_height_ = foot_stencil.extent (Y_AXIS).length ();

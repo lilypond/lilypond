@@ -75,9 +75,9 @@ Scale *default_global_scale = 0;
 
 LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
            1, 0, 0, (SCM scale),
-           "Set the global default scale. This determines the tuning of"
+           "Set the global default scale.  This determines the tuning of"
            " pitches with no accidentals or key signatures.  The first"
-           " pitch is C. Alterations are calculated relative to this"
+           " pitch is C.  Alterations are calculated relative to this"
            " scale.  The number of pitches in this scale determines the"
            " number of scale steps that make up an octave.  Usually the"
            " 7-note major scale.")

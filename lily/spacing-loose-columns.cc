@@ -83,7 +83,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
       if (!right)
         {
-          programming_error ("Can't attach loose column sensibly. Attaching to end of system.");
+          programming_error ("Can't attach loose column sensibly."
+                             "  Attaching to end of system.");
           right = which->get_bound (RIGHT);
         }
 

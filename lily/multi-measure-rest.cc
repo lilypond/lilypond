@@ -135,7 +135,8 @@ calc_closest_duration_log (Grob *me, double duration, bool force_round_up, bool 
       && (to_boolean (scm_null_p (duration_logs_list))
           || !to_boolean (scm_list_p (duration_logs_list))))
     {
-      warning (_ ("usable-duration-logs must be a non-empty list.  Falling back to whole rests."));
+      warning (_ ("usable-duration-logs must be a non-empty list."
+                  "  Falling back to whole rests."));
       closest_usable_duration_log = 0;
     }
   else
@@ -324,7 +325,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   if (!spacing)
     spacing = unsmob_grob (ri->get_object ("spacing"));
   if (!spacing)
-    me->warning ("Using naive multi measure rest spacing.");
+    me->warning (_ ("Using naive multi measure rest spacing."));
   else
     {
       Spacing_options options;

@@ -104,7 +104,7 @@ Tie::get_position (Grob *me)
     systems.. We should look at the first broken copy.
 
   */
-  programming_error ("Tie without heads. Suicide");
+  programming_error ("Tie without heads.  Suicide");
   me->suicide ();
   return 0;
 }

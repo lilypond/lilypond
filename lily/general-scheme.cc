@@ -466,7 +466,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
 
       if (isnan (val) || isinf (val))
         {
-          warning (_ ("Found infinity or nan in output. Substituting 0.0"));
+          warning (_ ("Found infinity or nan in output.  Substituting 0.0"));
           return ("0.0");
           if (strict_infinity_checking)
             abort ();

@@ -28,7 +28,7 @@ get_grob_direction (Grob *me)
   if (d == ly_symbol2scm ("calculation-in-progress"))
     {
       programming_error ("Grob direction requested while calculation in"
-                         " progress. ");
+                         " progress.");
       return UP;
     }
   if (!is_direction (d))

@@ -259,7 +259,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
   scm_hashq_set_x (listeners_, ev_class, list);
 
   if (first)
-    warning ("Attempting to remove nonexisting listener.");
+    warning (_ ("Attempting to remove nonexisting listener."));
   else if (!scm_is_pair (list))
     {
       /* Unregister with all dispatchers. */
@@ -281,7 +281,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
   // Don't register twice to the same dispatcher.
   if (scm_assq (disp->self_scm (), dispatchers_) != SCM_BOOL_F)
     {
-      warning ("Already listening to dispatcher, ignoring request");
+      warning (_ ("Already listening to dispatcher, ignoring request"));
       return;
     }
 

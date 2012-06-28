@@ -22,6 +22,7 @@
 #include "bezier.hh"
 #include "font-interface.hh"
 #include "grob.hh"
+#include "international.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -111,7 +112,7 @@ Arpeggio::print (SCM smob)
         }
       else
         {
-          me->warning ("no heads for arpeggio found?");
+          me->warning (_ ("no heads for arpeggio found?"));
           me->suicide ();
           return SCM_EOL;
         }

@@ -183,7 +183,8 @@ Lyric_engraver::stop_translation_timestep ()
             }
           else
             {
-              text_->warning (_ ("Lyric syllable does not have note. Use \\lyricsto or associatedVoice."));
+              text_->warning (_ ("Lyric syllable does not have note."
+                                 "  Use \\lyricsto or associatedVoice."));
               text_->set_property ("X-offset", scm_from_int (0));
             }
         }

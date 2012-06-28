@@ -53,7 +53,7 @@ LY_DEFINE (ly_unpure_pure_container_p, "ly:unpure-pure-container?",
 LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container",
            1, 1, 0, (SCM unpure, SCM pure),
            "Make an unpure-pure container.  @var{unpure} should be an unpure"
-           " expression, and @var{pure} should be a pure expression. If @var{pure}"
+           " expression, and @var{pure} should be a pure expression.  If @var{pure}"
            " is ommitted, the value of @var{unpure} will be used twice.")
 {
   SCM z;

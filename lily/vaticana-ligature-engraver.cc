@@ -463,9 +463,9 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
       if (pitch == new_pitch)
         {
           primitive.grob ()->
-          warning ("Ambiguous use of dots in ligature: there are"
-                   " multiple dotted notes with the same pitch."
-                   "  The ligature should be split.");
+          warning (_ ("Ambiguous use of dots in ligature: there are"
+                      " multiple dotted notes with the same pitch."
+                      "  The ligature should be split."));
           return; // supress multiple identical warnings
         }
     }
@@ -521,10 +521,10 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
         }
       else if (augmented_primitives_.size () > 0)
         {
-          primitive->warning ("This ligature has a dotted head followed by"
-                              " a non-dotted head.  The ligature should be"
-                              " split after the last dotted head before"
-                              " this head.");
+          primitive->warning (_ ("This ligature has a dotted head followed by"
+                                 " a non-dotted head.  The ligature should be"
+                                 " split after the last dotted head before"
+                                 " this head."));
         }
 
       if (is_stacked_head (prefix_set, context_info))

@@ -101,7 +101,7 @@ Spanner::do_break_processing ()
 
           if (!bounds[LEFT] || ! bounds[RIGHT])
             {
-              programming_error ("bounds of this piece aren't breakable. ");
+              programming_error ("bounds of this piece aren't breakable.");
               continue;
             }
 
@@ -110,7 +110,8 @@ Spanner::do_break_processing ()
 
           if (!ok)
             {
-              programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner. Ignoring orphaned part",
+              programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner."
+                                            "  Ignoring orphaned part",
                                             name ().c_str ()));
               continue;
             }

@@ -51,7 +51,7 @@ Semi_tie::calc_control_points (SCM smob)
     }
   else
     {
-      programming_error ("lv tie without Semi_tie_column. Killing lv tie.");
+      programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
       me->suicide ();
     }
 

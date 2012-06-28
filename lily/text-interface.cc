@@ -151,7 +151,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
     }
   else
     {
-      programming_error ("Object is not a markup. ");
+      programming_error ("Object is not a markup.");
       scm_puts ("This object should be a markup: ", scm_current_error_port ());
       scm_display (markup, scm_current_error_port ());
       scm_puts ("\n", scm_current_error_port ());

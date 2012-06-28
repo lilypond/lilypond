@@ -427,7 +427,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
         }
     }
   else if (avoid != ly_symbol2scm ("ignore"))
-    e->warning (_f ("Ignoring grob for slur: %s. avoid-slur not set?",
+    e->warning (_f ("Ignoring grob for slur: %s.  avoid-slur not set?",
                     e->name ().c_str ()));
 }
 

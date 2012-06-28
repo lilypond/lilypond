@@ -154,7 +154,8 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
 
       if (w == prev_mom_)
         {
-          programming_error ("Moment is not increasing. Aborting interpretation.");
+          programming_error ("Moment is not increasing."
+                             "  Aborting interpretation.");
           break;
         }
 

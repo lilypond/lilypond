@@ -21,6 +21,7 @@
 #include "clef.hh"
 #include "context.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "item.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
@@ -195,7 +196,7 @@ Key_engraver::read_event (Stream_event const *r)
           }
 
       if (warn)
-        r->origin ()->warning ("Incomplete keyAlterationOrder for key signature");
+        r->origin ()->warning (_ ("Incomplete keyAlterationOrder for key signature"));
     }
 
   context ()->set_property ("keySignature", scm_reverse_x (accs, SCM_EOL));

@@ -58,7 +58,7 @@ Hairpin::broken_bound_padding (SCM smob)
   Item *r_bound = me->get_bound (RIGHT);
   if (r_bound->break_status_dir () != -1)
     {
-      me->warning ("Asking for broken bound padding at a non-broken bound.");
+      me->warning (_ ("Asking for broken bound padding at a non-broken bound."));
       return scm_from_double (0.0);
     }
 

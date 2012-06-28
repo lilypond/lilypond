@@ -288,7 +288,7 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
            4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
            "Return a stencil @var{stil} rotated @var{angle} degrees around"
-           " the relative offset (@var{x}, @var{y}). E.g. an offset of"
+           " the relative offset (@var{x}, @var{y}).  E.g., an offset of"
            " (-1, 1) will rotate the stencil around the left upper corner.")
 {
   Stencil *s = unsmob_stencil (stil);

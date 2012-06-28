@@ -228,7 +228,7 @@ Spacing_spanner::prune_loose_columns (Grob *me,
           */
           if (!right_neighbor || !left_neighbor)
             {
-              c->programming_error ("Cannot determine neighbors for floating column. ");
+              c->programming_error ("Cannot determine neighbors for floating column.");
               c->set_object ("between-cols", scm_cons (cols->at (i - 1)->self_scm (),
                                                        cols->at (i + 1)->self_scm ()));
             }
