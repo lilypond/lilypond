@@ -101,6 +101,11 @@ book last one."
       (interpret-markup layout props arg)
       empty-stencil))
 
+#(define ((on-page nmbr) layout props arg)
+ (if (= (chain-assoc-get 'page:page-number props -1) nmbr)
+   (interpret-markup layout props arg)
+   empty-stencil))
+
 %% Bookpart first page and last page predicates
 #(define (part-first-page layout props arg)
   (if (= (chain-assoc-get 'page:page-number props -1)
