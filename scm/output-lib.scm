@@ -316,7 +316,7 @@ and duration-log @var{log}."
 (define-public (rhythmic-location<=? a b)
   (not (rhythmic-location<? b a)))
 (define-public (rhythmic-location>=? a b)
-  (rhythmic-location<? a b))
+  (not (rhythmic-location<? a b)))
 (define-public (rhythmic-location>? a b)
   (rhythmic-location<? b a))
 
