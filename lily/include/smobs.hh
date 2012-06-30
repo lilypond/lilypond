@@ -46,7 +46,7 @@
 
   The constructor for a complex smob should have 3 steps:
 
-  * initialize all SCM members to a non-immediate value (like SCM_EOL)
+  * initialize all SCM members to an immediate value (like SCM_EOL)
 
   * call smobify_self ()
 
@@ -67,7 +67,13 @@
 
   Complex_smob *p = new Complex_smob;
   list = scm_cons (p->self_scm (), list);
-  scm_gc_unprotect_object (p->self_scm ());
+  p->unprotect ();
+
+  Since unprotect returns the SCM object itself, this particular case
+  can be written as
+
+  Complex_smob *p = new Complex_smob;
+  list = scm_cons (p->unprotect (), list);
 
   Complex smobs are made with DECLARE_SMOBS (Classname) in the class
   declaration.
