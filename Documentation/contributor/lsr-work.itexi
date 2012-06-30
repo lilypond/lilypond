@@ -64,6 +64,17 @@ source tree
 scripts/auxiliar/makelsr.py
 @end example
 
+@noindent
+@command{makelsr} also copies translated texidoc fields and snippet titles into
+snippets in @file{Documentation/snippets}.  Note: this, in turn, could
+make the translated texidoc fields to appear as out of sync when you
+run @code{make check-translation}, if the originals changed from the
+last translation update, even if the translations are also updated;
+see @ref{Documentation translation maintenance} for details about
+updating the docs; in particular, see @ref{Updating translation
+committishes} to learn how to mark these translated fields as fully
+updated.
+
 Be sure that @command{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation.
 
@@ -200,20 +211,11 @@ From the top source directory, run:
 @smallexample
 wget http://lsr.dsi.unimi.it/download/lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
 tar -xzf lsr-snippets-docs-@var{YYYY-MM-DD}.tar.gz
-make
 scripts/auxiliar/makelsr.py lsr-snippets-docs-@var{YYYY-MM-DD}
 @end smallexample
 
 @noindent
-where @var{YYYY-MM-DD} is the current date,
-e.g. 2011-12-25. @command{make} is included in this sequence so that
-@command{makelsr} can run @command{lilypond} and @command{convert-ly}
-versions that match current source tree; you can select different
-binaries if desired or needed, to see options for this do
-
-@smallexample
-scripts/auxiliar/makelsr.py --help
-@end smallexample
+where @var{YYYY-MM-DD} is the current date, e.g. 2011-12-25.
 
 @item
 Follow the instructions printed on the console to manually check for
@@ -230,13 +232,13 @@ the files git is tracking.  Run @code{git status} and look
 carefully to see if files have been added.  If so, add them with
 @code{git add}.
 
-As the console says, @command{makelsr} creates a list of possibly
-unsafe files in @file{lsr-unsafe.txt} by running @code{lilypond}
-against each snippet using the @code{-dsafe} switch.  This list can be
-quite long.  However, by using the command @code{xargs git diff HEAD <
-lsr-unsafe.txt} git will take that list and check whether any of the
-snippets are different from the snippet already in master.  If any is
-different it must be checked manually VERY CAREFULLY.
+As the console says, makelsr creates a list of possibly unsafe
+files in @file{lsr-unsafe.txt} by running @code{lilypond} against each
+snippet using the @code{-dsafe} switch.  This list can be quite
+long.  However, by using the command @code{xargs git diff HEAD < lsr-unsafe.txt}
+git will take that list and check whether any of the snippets are
+different from the snippet already in master.  If any is different
+it must be checked manually VERY CAREFULLY.
 
 @warning{Somebody could sneak a @code{#'(system "rm -rf /")}
 command into our source tree if you do not do this!  Take this
