@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Si l'on peut positionner verticalement un silence simple en le
 rattachant à une note, il n'en va pas de même pour un silence
-multi-mesures.  Néanmoins, et uniquement dans le cadre de musique
-polyphonique, les silences multi-mesures sont positionnés différemment
+multimesure.  Néanmoins, et uniquement dans le cadre de musique
+polyphonique, les silences multimesures sont positionnés différemment
 selon qu'ils appartiennent à une voix au numéro pair ou impair.  Le
-positionnement des silences multi-mesures peut se contrôler ainsi@tie{}:
+positionnement des silences multimesures peut se contrôler ainsi :
 
 "
-  doctitlefr = "Positionnement des silences multi-mesures"
+  doctitlefr = "Positionnement des silences multimesures"

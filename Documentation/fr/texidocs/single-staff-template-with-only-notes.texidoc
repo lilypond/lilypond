@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Cet exemple simpliste se compose d'une portée agrémentée de quelques
 notes.  Il convient tout à fait pour un instrument seul ou un
 fragment mélodique.  Recopiez-le dans un nouveau fichier, ajoutez-y
-d'autres notes et c'est pret@tie{}!
+d'autres notes et c'est prêt !
 
 "
   doctitlefr = "Portée unique avec quelques notes"

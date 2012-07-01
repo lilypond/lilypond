@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 La fonction @code{\\autoBeamOff} dans le cadre d'un
-@code{\\partcombine} agit de façon bien particulière@tie{}; c'est
-pourquoi il vaut mieux tout d'abord recourir à
+@code{\\partcombine} agit de façon bien particulière ; c'est pourquoi il
+vaut mieux tout d'abord recourir à
 
 @example
 \set Staff.autobeaming = ##f
@@ -12,9 +12,9 @@ pourquoi il vaut mieux tout d'abord recourir à
 pour désactiver les ligatures automatiques pour l'ensemble de la portée
 concernée.
 
-L'instruction @code{\\partcombine} fonctionne apparament sur la base de
-trois voix@tie{}: solo hampes montantes, solo hampes descendantes et
-ensemble hampes montantes.
+L'instruction @code{\\partcombine} fonctionne apparemment sur la base de
+trois voix : solo hampes montantes, solo hampes descendantes et ensemble
+hampes montantes.
 
 Lorsque @code{\\autoBeamOff} apparaît dans le premier argument de la
 combinaison, il s'applique à la voix active à ce moment précis, qu'il
