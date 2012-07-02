@@ -115,31 +115,10 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
       return;
     }
 
-  // The following performance hog should eventually be removed:
-  // instead of adding a -\footnote ... \default articulation at the
-  // end of a note, you can perfectly well use \footnote ... before
-  // the note.  This is just for the sake of automatic convert-ly
-  // rules.
-
-  Stream_event *cause = info.event_cause ();
-
-  SCM arts = cause ? cause->get_property ("articulations") : SCM_EOL;
-  for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Stream_event *e = unsmob_stream_event (scm_car (s));
-      if (e->in_event_class ("footnote-event"))
-        footnotify (info.grob (), e);
-    }
-
-  // In contrast, the following code is only called when actual
-  // footnote events have been listened to.  It should not affect
-  // performance.
-
   for (vsize i = 0; i < events_.size (); i++)
     {
       SCM name = events_[i]->get_property ("symbol");
-      if (!scm_is_symbol (name)
-	  || info.grob ()->name () == ly_symbol2string (name))
+      if (info.grob ()->name () == ly_symbol2string (name))
         footnotify (info.grob (), events_[i]);
     }
 }

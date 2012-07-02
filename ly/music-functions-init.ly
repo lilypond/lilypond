@@ -372,16 +372,19 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'text (or mark (make-null-markup))
 	       'footnote-text footnote
 	       'symbol (or grob-name '()))))
-     (if music
-	 (begin
-	   (set! (ly:music-property music 'tweaks)
-		 (acons (if grob-name
-			    (cons grob-name 'footnote-music)
-			    'footnote-music)
-			mus
-			(ly:music-property music 'tweaks)))
-	   music)
-	 mus)))
+     (cond (music
+	    (set! (ly:music-property music 'tweaks)
+		  (acons (if grob-name
+			     (cons grob-name 'footnote-music)
+			     'footnote-music)
+			 mus
+			 (ly:music-property music 'tweaks)))
+	    music)
+	   (grob-name mus)
+	   (else
+	    (ly:input-warning location
+			      (_ "\\footnote requires music or grob-name"))
+	    (make-music 'Music)))))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
