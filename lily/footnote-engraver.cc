@@ -43,7 +43,7 @@ class Footnote_engraver : public Engraver
   void finalize ();
   virtual void derived_mark () const;
 
-  void footnotify (Grob *, Stream_event *);
+  void footnotify (Grob *, SCM);
 };
 
 IMPLEMENT_TRANSLATOR_LISTENER (Footnote_engraver, footnote);
@@ -77,13 +77,13 @@ Footnote_engraver::Footnote_engraver ()
 }
 
 void
-Footnote_engraver::footnotify (Grob *g, Stream_event *event)
+Footnote_engraver::footnotify (Grob *g, SCM cause)
 {
   Spanner *s = dynamic_cast<Spanner *>(g);
 
   if (s)
     {
-      Spanner *b = make_spanner ("FootnoteSpanner", event->self_scm ());
+      Spanner *b = make_spanner ("FootnoteSpanner", cause);
       b->set_parent (s, Y_AXIS);
       b->set_parent (s, X_AXIS);
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
@@ -92,7 +92,7 @@ Footnote_engraver::footnotify (Grob *g, Stream_event *event)
     }
   else
     {
-      Grob *b = make_item ("FootnoteItem", event->self_scm ());
+      Grob *b = make_item ("FootnoteItem", cause);
       b->set_parent (g, Y_AXIS);
       b->set_parent (g, X_AXIS);
     }
@@ -105,21 +105,34 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 
   if (mus)
     {
-      if (!mus->is_mus_type ("footnote-event")) {
-	mus->origin ()->programming_error (_ ("Must be footnote-event."));
-	return;
-      }
-      Stream_event *ev = mus->to_event (context ());
-      footnotify (info.grob (), ev);
-      ev->unprotect ();
+      if (!mus->is_mus_type ("footnote-event"))
+	{
+	  mus->origin ()->programming_error (_ ("Must be footnote-event."));
+	  return;
+	}
+
+      footnotify (info.grob (), mus->to_event (context ())->unprotect ());
+
+      // This grob has exhausted its footnote
+      info.grob ()->set_property ("footnote-music", SCM_EOL);
       return;
     }
 
-  for (vsize i = 0; i < events_.size (); i++)
+  if (!events_.empty ())
     {
-      SCM name = events_[i]->get_property ("symbol");
-      if (info.grob ()->name () == ly_symbol2string (name))
-        footnotify (info.grob (), events_[i]);
+      string grobname = info.grob ()->name ();
+
+      for (vsize i = 0; i < events_.size (); i++)
+	{
+	  SCM name = events_[i]->get_property ("symbol");
+	  if (scm_is_symbol (name)
+	      && grobname == ly_symbol2string (name))
+	    {
+	      footnotify (info.grob (), events_[i]->self_scm ());
+	      // Event has exhausted its footnote
+	      events_[i]->set_property ("symbol", SCM_EOL);
+	    }
+	}
     }
 }
 
