@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a65e32f0ecbd7b9794a03894162cbe2d2501b934
+    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -765,9 +765,6 @@ si están comprendidas entre @code{\melisma} y @code{\melismaEnd}.
 >>
 @end lilypond
 
-Observe que este método no se puede usar para indicar dos melismas si
-el primero va seguido inmediatamente por el otro.
-
 @item
 Se puede definir un melisma enteramente dentro de la letra escribiendo
 un carácter de barra baja suelto, @code{_}, por cada nota adicional
@@ -1208,18 +1205,6 @@ Para hacer que el texto evite también las líneas divisorias, use
   @}
 @}
 @end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
-
 
 @node Letra y repeticiones
 @unnumberedsubsubsec Letra y repeticiones
@@ -2621,7 +2606,10 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \set instrumentCueName = "Flute"
+  }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2662,7 +2650,11 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch #'direction = #DOWN
+    \set instrumentCueName = "Clar."
+  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

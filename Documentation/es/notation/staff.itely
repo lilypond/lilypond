@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1341,7 +1341,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1386,10 +1386,13 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-Se pueden usar elementos de marcado para imprimir el nombre del
-instrumento citado.  También, si las notas guía requieren un cambio de
-clave, puede hacerse manualmente pero la clave original se debe
-restaurar al final de las notas guía.
+El nombre del instrumento que está tocando se puede imprimir si se
+ajusta la propiedad @code{instrumentCueName} dentro de un contexto
+@code{CueVoice} provisional.  La colocación y estilo del
+@code{instrumentCueName} viene controlado a través del objeto
+@code{\instrumentSwitch}, véase @ref{Nombres de instrumentos}. Si las
+notas guía requieren un cambio de clave, puede hacerse manualmente
+pero la clave original se debe restaurar al final de las notas guía.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1400,7 +1403,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1428,7 +1431,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set "instrumentCueName" = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1507,7 +1510,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    s1*0^\markup { \tiny "flute" }
+    \new CueVoice { \set "instrumentCueName" = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

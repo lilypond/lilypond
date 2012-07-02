@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c3cd1737b2a12a4f51b4090caf12429cb34290d1
+    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -747,14 +747,11 @@ mélisme@tie{}:
   }
 >>
 @end lilypond
-@ignore I don't see why -jcm
-Note that this method cannot be used to indicate two melismata if
-the first one is immediately followed by another.
-@end ignore
+
 @item
 Vous pouvez indiquer un mélisme directement dans les paroles, à l'aide
 d'un caractère souligné simple @code{_}, pour chaque note faisant partie
-de la vocalise@tie{}:
+de la vocalise :
 
 @lilypond[verbatim, quote, relative=2]
 <<
@@ -1199,17 +1196,6 @@ de mesure, il faut ajouter
   @}
 @}
 @end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
 
 
 @node Paroles et reprises
@@ -2627,7 +2613,10 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \set instrumentCueName = "Flute"
+  }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2668,7 +2657,11 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch #'direction = #DOWN
+    \set instrumentCueName = "Clar."
+  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

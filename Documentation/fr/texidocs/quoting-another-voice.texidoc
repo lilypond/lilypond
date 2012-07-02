@@ -1,16 +1,15 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Les types d'événement pris en charge pour la citation peuvent se régler
-avec la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est
-fixée à @code{(note-event rest-event tie-event beam-event
-tuplet-span-event)}, ce qui signifie que seuls les notes, silences,
-liaisons, ligatures et nolets seront mentionnés par @code{\\quoteDuring}.
-Dans l'exemple suivant, le quart de soupir n'est pas reproduit puisqu'il
-n'est pas mentionné parmi les @code{quotedEventTypes}.
+Les types d'événement pris en charge pour la citation sont déterminés par
+la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est fixée à
+@code{(note-event rest-event tie-event beam-event tuplet-span-event)},
+ce qui signifie que seuls les notes, silences, liaisons, ligatures et
+nolets seront mentionnés par @code{\\quoteDuring}.  Dans l'exemple
+suivant, le quart de soupir n'est pas reproduit puisqu'il n'est pas
+mentionné parmi les @code{quotedEventTypes}.
 
-Pour connaître la liste des types d'événements, reportez-vous au
-chapitre @emph{Music classes} de la référence des propriétés internes.
+Pour connaître la liste des types d'événements, reportez-vous à la
+rubrique @emph{Music classes} de la référence des propriétés internes.
 
 "
   doctitlefr = "Citation d'une autre voix"
-

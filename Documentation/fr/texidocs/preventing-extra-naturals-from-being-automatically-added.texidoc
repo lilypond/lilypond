@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 58a29969da425eaf424946f4119e601545fb7a7e
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 En accord avec les règles standards de l'écriture musicale, on grave
 un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
-altération précédente.  Pour modifier ce comportement, assignez la propriété
-@code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
-"
+altération précédente.  Pour modifier ce comportement, la propriété
+@code{extraNatural} du contexte @code{Staff} doit se voir attribuer la
+valeur @code{##f} (faux).
 
+"
   doctitlefr = "Suppression des bécarres superflus"

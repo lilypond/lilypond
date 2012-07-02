@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Par défaut, le premier système comportera absolument toutes les portées.
-Si vous voulez masquer les portées vides y compris pour le premier
+Si vous préférez masquer les portées vides y compris pour le premier
 système, vous devrez activer la propriété @code{remove-first} du
 @code{VerticalAxisGroup}.  Mentionnée dans un bloc @code{\\layout},
 cette commande agira de manière globale.  Pour qu'elle ne soit effective
-que pour une portée individuelle, vous devrez également spécifier le
+que pour une portée particulière, vous devrez également spécifier le
 contexte (@code{Staff} pour qu'il ne concerne que la portée en cours) en
 préfixe de la propriété.
 
@@ -15,4 +15,3 @@ qu'à la portée dans laquelle il a été inscrit.
 
 "
   doctitlefr = "Masquage de la première ligne si elle est vide"
-

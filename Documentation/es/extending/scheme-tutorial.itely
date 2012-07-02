@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1551dd6bf65c0236b9620ee966599f5d811d77d8
+    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1366,10 +1366,10 @@ Sabemos que
 
 @noindent
 no funciona en LilyPond.  Podríamos evitar este problema adjuntando la
-articulación a una nota falsa,
+articulación a un acorde vacío,
 
 @example
-@{ << \music s1*0-.-> @}
+@{ << \music <> -. -> >> @}
 @end example
 
 @noindent

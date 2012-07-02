@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 2a87f1e1f98b76751482cae4474d41aa5e38e37b
+    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -794,11 +794,11 @@ melody = \relative c'' {
   <<
     \new Staff <<
       \melody
-      s1*0^"Small, thicker stems, no time signature"
+      s4^"Small, thicker stems, no time signature"
     >>
     \new Staff \bla <<
       \melody
-      s1*0^"Different"
+      s4^"Different"
     >>
   >>
   \layout {

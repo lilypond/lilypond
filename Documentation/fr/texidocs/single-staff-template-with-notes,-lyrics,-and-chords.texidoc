@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Ce cannevas comporte tous les éléments d'une chanson@tie{}: la mélodie,
+Ce canevas comporte tous les éléments d'une chanson : la mélodie,
 les paroles, les accords.
 
 "

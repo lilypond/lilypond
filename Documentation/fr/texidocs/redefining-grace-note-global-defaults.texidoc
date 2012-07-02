@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Vous pouvez modifier les valeurs des variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic}, et
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} et
 @code{stopAppoggiaturaMusic} afin d'en personnaliser les effets.  Pour
 plus de détails, voir le fichier @file{ly/grace-init.ly}.
 
