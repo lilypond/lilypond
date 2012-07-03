@@ -10,7 +10,7 @@
 
 %%%% ==================================================================== %%%%
 %%%% mf2pt1                                                               %%%%
-%%%% Copyright (C) 2008 Scott Pakin                                       %%%%
+%%%% Copyright (C) 2012 Scott Pakin                                       %%%%
 %%%%                                                                      %%%%
 %%%% This program may be distributed and/or modified under the conditions %%%%
 %%%% of the LaTeX Project Public License, either version 1.3c of this     %%%%
@@ -58,7 +58,7 @@ def beginchar(expr c,w_sharp,h_sharp,d_sharp) =
     w:=charwd*pt; h:=charht*pt; d:=chardp*pt;
     charic:=0; clearxy; clearit; clearpen; scantokens extra_beginchar;
 
-    def to_bp (expr num) = decimal (ceiling (num*bp_per_pixel)) enddef;
+    def to_bp (expr num) = decimal (round (num*bp_per_pixel)) enddef;
     special "% MF2PT1: glyph_dimensions 0 " & to_bp (-d) & " " & to_bp(w) & " " & to_bp(h);
     special "% MF2PT1: font_size " & decimal designsize;
     special "% MF2PT1: font_slant " & decimal font_slant_;
