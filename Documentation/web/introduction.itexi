@@ -1043,6 +1043,15 @@ convinced?  Read about @ref{Easier editing}.
 @node Easier editing
 @unnumberedsec Easier editing
 
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
 
 @divClass{column-center-top}
 @subheading LilyPondTool
@@ -1149,17 +1158,6 @@ using the extensions available at:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
-There is a LilyPond bundle for TextMate, a commercial editor for MacOS.
-It may be installed by running:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1188,8 +1186,8 @@ incomplete LilyPond export but is being actively developed.
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} is a C# program which converts a
-@uref{http://www.noteworthysoftware.com/,NoteWorthy} song into
-LilyPond.
+@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
+NoteWorthy composer song into LilyPond.
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
@@ -1202,8 +1200,8 @@ part.
 sequencer, which also has a score editor for single-staff editing.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, a
-realtime monophonic MIDI to LilyPond converter.
+@uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic
+MIDI to LilyPond converter.
 
 @item
 @uref{http://www.tuxguitar.com.ar/,TuxGuitar}, a multitrack tablature
