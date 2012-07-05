@@ -405,6 +405,7 @@ If we give names, Bison complains.
 %type <scm> music_bare
 %type <scm> music_arg
 %type <scm> music_assign
+%type <scm> music_embedded
 %type <scm> complex_music
 %type <scm> complex_music_prefix
 %type <scm> mode_changed_music
@@ -702,9 +703,13 @@ embedded_lilypond:
 		$$ = MAKE_SYNTAX ("void-music", @$);
 	}
 	| identifier_init
-	| music music music_list {
-		$$ = MAKE_SYNTAX ("sequential-music", @$,	
-				  scm_cons2 ($1, $2, scm_reverse_x ($3, SCM_EOL)));
+	| music_embedded music_embedded music_list {
+		$3 = scm_reverse_x ($3, SCM_EOL);
+		if (unsmob_music ($2))
+			$3 = scm_cons ($2, $3);
+		if (unsmob_music ($1))
+			$3 = scm_cons ($1, $3);
+		$$ = MAKE_SYNTAX ("sequential-music", @$, $3);
 	}
 	| error {
 		parser->error_level_ = 1;
@@ -1131,11 +1136,9 @@ music_list:
 	/* empty */ {
 		$$ = SCM_EOL;
 	}
-	| music_list music {
-		$$ = scm_cons ($2, $1);
-	}
-	| music_list embedded_scm {
-
+	| music_list music_embedded {
+		if (unsmob_music ($2))
+			$$ = scm_cons ($2, $1);
 	}
 	| music_list error {
 		Music *m = MY_MAKE_MUSIC("Music", @$);
@@ -1155,6 +1158,21 @@ braced_music_list:
 
 music:	music_arg
 	| lyric_element_music
+	;
+
+music_embedded:
+	music
+	| embedded_scm
+	{
+		if (unsmob_music ($1)
+		    || scm_is_eq ($1, SCM_UNSPECIFIED))
+			$$ = $1;
+		else
+		{
+			@$.warning (_ ("Ignoring non-music expression"));
+			$$ = SCM_UNSPECIFIED;
+		}
+	}
 	;
 
 music_arg:
