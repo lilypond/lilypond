@@ -694,6 +694,8 @@ entering lyrics:
 >>
 @end lilypond
 
+Note that phrasing slurs do not affect the creation of melismata.
+
 @item
 Notes are considered a melisma if they are manually beamed,
 providing automatic beaming is switched off.  See
