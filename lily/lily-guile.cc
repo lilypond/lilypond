@@ -581,10 +581,12 @@ SCM
 ly_rational2scm (Rational r)
 {
   if (r.is_infinity ())
-    if (r > Rational(0))
-      return scm_inf ();
-    else
+    {
+      if (r > Rational(0))
+	return scm_inf ();
+
       return scm_difference (scm_inf (), SCM_UNDEFINED);
+    }
 
   return scm_divide (scm_from_int64 (r.numerator ()),
                      scm_from_int64 (r.denominator ()));
