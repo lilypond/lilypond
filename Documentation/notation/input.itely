@@ -981,6 +981,49 @@ variables:
 @item @code{evenFooterMarkup}
 @end itemize
 
+@cindex markup, conditional
+@cindex on-the-fly
+@funindex \on-the-fly
+
+The @code{\markup} command @code{\on-the-fly} can be used to add
+markup conditionally to header and footer text defined within the
+@code{\paper} block, using the following syntax:
+
+@example
+@code{variable} = @code{\markup} @{
+  ...
+  @code{\on-the-fly}  #@var{procedure}  @var{markup}
+  ...
+@}
+@end example
+
+The @var{procedure} is called each time the @code{\markup} command
+in which it appears is evaluated.  The @var{procedure} should test
+for a particular condition and interpret (i.e. print) the
+@var{markup} argument if and only if the condition is true.
+
+A number of ready-made procedures for testing various conditions are
+provided:
+
+@quotation
+@multitable {print-page-number-check-first-----} {should this page be printed-----}
+
+@headitem  Procedure name           @tab  Condition tested
+
+@item print-page-number-check-first @tab  should this page number be printed?
+@item create-page-number-stencil    @tab  'print-page-numbers true?
+@item print-all-headers             @tab  'print-all-headers true?
+@item first-page                    @tab  first page in the book?
+@item (on-page nmbr)                @tab  page number = nmbr?
+@item last-page                     @tab  last page in the book?
+@item not-first-page                @tab  not first page in the book?
+@item part-first-page               @tab  first page in the book part?
+@item part-last-page                @tab  last page in the book part?
+@item not-single-page               @tab  pages in book part > 1?
+
+@end multitable
+@end quotation
+
 The following example centers page numbers at the bottom of every
 page.  First, the default settings for @code{oddHeaderMarkup} and
 @code{evenHeaderMarkup} are removed by defining each as a @emph{null}
@@ -1009,10 +1052,24 @@ same layout by defining it as @code{\oddFooterMarkup}:
 }
 @end lilypond
 
+Several @code{\on-the-fly} conditions can be combined with an
+@q{and} operation, for example,
+
+@example
+  @code{\on-the-fly #first-page}
+  @code{\on-the-fly #last-page}
+  @code{@{ \markup ... \fromproperty #'header: ... @}}
+@end example
+
+determines if the output is a single page.
+
 @seealso
 Notation Reference:
 @ref{Title blocks explained},
 @ref{Default layout of book and score title blocks}.
+
+Installed Files:
+@file{../ly/titling-init.ly}.
 
 
 @node Creating footnotes
