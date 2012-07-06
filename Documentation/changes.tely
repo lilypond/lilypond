@@ -229,6 +229,11 @@ premature evaluation.  There are also @q{splicing} operators @code{$@@}
 and @code{#@@} for interpreting the members of a list individually.
 
 @item
+To reduce the necessity for using @code{$}, Scheme expressions written
+with @code{#} are interpreted as music inside of music lists, and as
+markups or markup lists inside of markups.
+
+@item
 Support for jazz-like chords has been improved: Lydian and altered
 chords are recognised; separators between chord modifiers are now
 treated independently of separators between ``slash'' chords and their

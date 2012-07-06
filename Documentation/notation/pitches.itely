@@ -2577,7 +2577,7 @@ the accidental style to @code{forget}:
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
   \accidentalStyle "forget"
-  $music
+  #music
   \accidentalStyle "modern"
 #})
 {

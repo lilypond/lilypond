@@ -3069,7 +3069,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {

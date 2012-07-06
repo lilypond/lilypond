@@ -427,7 +427,7 @@ withAlt =
      \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
-     $music
+     #music
      \revert Stem #'length
      \revert NoteHead #'font-size
    #})
@@ -756,7 +756,7 @@ padding.
   "Draw a double box around text."
   (interpret-markup layout props
     #@{\markup \override #'(box-padding . 0.4) \box
-            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+            \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
 or, equivalently 
@@ -800,7 +800,7 @@ now as follows:
   (interpret-markup layout props
     #@{\markup \override #`(box-padding . ,inter-box-padding) \box
                \override #`(box-padding . ,box-padding) \box
-               @{ $text @} #@}))
+               @{ #text @} #@}))
 @end lisp
 
 Again, the equivalent version using the markup macro would be:
@@ -836,7 +836,7 @@ customized:
   (interpret-markup layout props
     #{\markup \override #`(box-padding . ,inter-box-padding) \box
               \override #`(box-padding . ,box-padding) \box
-              { $text } #}))
+              { #text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -942,7 +942,7 @@ indented.  The indent width is taken from the @code{props} argument.
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent #args @} #@}))
 @end example
 
 

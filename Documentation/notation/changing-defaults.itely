@@ -4104,7 +4104,8 @@ must return @code{#t}.
 @item @code{@var{@dots{}music@dots{}}}
 @tab normal LilyPond input, using @code{$} (in places where only
 Lilypond constructs are allowed) or @code{#} (to use it as a Scheme
-value or music function argument) to reference arguments
+value or music function argument or music inside of music lists) to
+reference arguments
 (eg. @samp{#arg1}).
 @end multitable
 
@@ -4188,7 +4189,7 @@ custosNote =
      \tweak NoteHead #'text
         \markup \musicglyph #"custodes.mensural.u0"
      \tweak Stem #'stencil ##f
-     $note
+     #note
    #})
 
 \relative c' { c4 d e f \custosNote g }

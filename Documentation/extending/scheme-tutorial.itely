@@ -667,8 +667,12 @@ without consulting the Scheme reader, and thus only variable names
 consistent with the current Lilypond mode are accepted.
 
 The immediate action of @code{$} can lead to surprises, @ref{Input
-variables and Scheme}.  Using @code{#} where the parser supports it is
-usually preferable.
+variables and Scheme}.  Using @code{#} where the parser supports it
+is usually preferable.  Inside of music expressions, expressions
+created using @code{#} @emph{are} interpreted as music.  However,
+they are @emph{not} copied before use.  If they are part of some
+structure that might still get used, you may need to use
+@code{ly:music-deep-copy} explicitly.
 
 @funindex $@@
 @funindex #@@
@@ -855,14 +859,14 @@ written as
 
 @example
 ...
-@{ $@@newLa @}
+@{ #@@newLa @}
 @end example
 
 Here, every element of the list stored in @code{newLa} is taken in
 sequence and inserted into the list, as if we had written
 
 @example
-@{ $(first newLa) $(second newLa) @}
+@{ #(first newLa) #(second newLa) @}
 @end example
 
 Now in all of these forms, the Scheme code is evaluated while the
@@ -1102,7 +1106,7 @@ let Lilypond direct just this output to a file of its own:
 
 @example
 @{
-  $(with-output-to-file "display.txt"
+  #(with-output-to-file "display.txt"
       (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
 @}
 @end example
@@ -1524,16 +1528,16 @@ We can use it to create new commands:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
+  (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = $padding
+  \once \override Score.MetronomeMark #'padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
@@ -1544,7 +1548,7 @@ Even music expressions can be passed in:
 @lilypond[quote,verbatim,ragged-right]
 pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 #{
-  $x e8 a b $y b a e
+  #x e8 a b #y b a e
 #})
 
 \relative c''{

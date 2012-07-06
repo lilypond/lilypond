@@ -3361,9 +3361,9 @@ MyCadenza = \relative c' {
     \MyCadenza c'1
   }
   \new Staff {
-    $(mmrest-of-length MyCadenza)
+    #(mmrest-of-length MyCadenza)
     c'1
-    $(skip-of-length MyCadenza)
+    #(skip-of-length MyCadenza)
     c'1
   }
 >>
