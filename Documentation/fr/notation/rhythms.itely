@@ -2048,8 +2048,8 @@ et @code{beatStructure} qui détermineront là où prend fin la pulsation.
 La propriété @code{beatStructure} est constituée d'une liste d'éléments
 Scheme qui définit la longueur de chaque pulsation, prenant
 @code{baseMoment} comme unité.  L'unité de base (le @code{baseMoment})
-correspond par défaut au dénominateur de la métrique.  D'autre part,
-chaque unité de @code{baseMoment} constitue une seule pulsation.
+correspond par défaut à l'inverse du dénominateur de la métrique.
+D'autre part, chaque unité de @code{baseMoment} constitue une seule pulsation.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16

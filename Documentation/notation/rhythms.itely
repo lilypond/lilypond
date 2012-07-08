@@ -1989,7 +1989,7 @@ The ending points for beats are determined by the context properties
 @code{baseMoment} and @code{beatStructure}.  @code{beatStructure}
 is a scheme list that defines the length of each beat in the measure
 in units of @code{baseMoment}.  By default, @code{baseMoment} is
-the one over numerator of the time signature.  By default,
+one over the denominator of the time signature.  By default,
 each unit of length @code{baseMoment} is a single beat.
 
 @lilypond[quote,relative=2,verbatim]
