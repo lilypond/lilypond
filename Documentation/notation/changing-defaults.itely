@@ -1007,7 +1007,43 @@ Note that a context will be silently created implicitly if a command
 is encountered when there is no suitable context available to
 contain it.  This can give rise to unexpected new staves or scores.
 
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+Sometimes a context is required to exist for just a brief period, a
+good example being the staff context for an ossia.  This is usually
+achieved by introducing the context definition at the appropriate
+place in parallel with corresponding section of the main music.
+By default, the temporary context will be placed below all the
+existing contexts.  To reposition it above the context called
+@qq{main}, it should be defined like this:
+
+@example
+@code{\new Staff \with @{ alignAboveContext = #"main" @} }
+@end example
+
+A similar situation arises when positioning a temporary lyrics
+context within a multi-staved layout such as a @code{ChoirStaff},
+for example, when adding a second verse to a repeated section.
+By default the temporary lyrics context will be placed beneath the
+lower staves.  By defining the temporary lyrics context with
+@code{alignBelowContext} it can be positioned correctly beneath
+the (named) lyrics context containing the first verse.
+
+Examples showing this repositioning of temporary contexts can be
+found elsewhere --- see @rlearning{Nesting music expressions},
+@ref{Modifying single staves} and @ref{Techniques specific to lyrics}.
+
 @seealso
+Learning Manual:
+@rlearning{Nesting music expressions}.
+
+Notation Reference:
+@ref{Modifying single staves},
+@ref{Techniques specific to lyrics}.
+
 Application Usage:
 @rprogram{An extra staff appears}.
 

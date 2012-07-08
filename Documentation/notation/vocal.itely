@@ -1323,6 +1323,54 @@ More verses may be added in a similar way:
 }
 @end lilypond
 
+@cindex alignBelowContext
+@funindex alignBelowContext
+
+However, if this construct is embedded within a multi-staved
+context such as a @code{ChoirStaff} the lyrics of the second and
+third verses will appear beneath the bottom staff.
+
+To position them correctly use @code{alignBelowContext}:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics = "firstVerse" \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics = "secondVerse"
+        \with { alignBelowContext = #"firstVerse" } {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+	\new Lyrics = "thirdVerse"
+        \with { alignBelowContext = #"secondVerse" } {
+	  \set associatedVoice = "melody"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+    \new Voice = "harmony" {
+      \relative c' {
+        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      }
+    }
+  >>
+}
+@end lilypond
+
+
 
 @c TODO positioning a common line of lyrics
 
