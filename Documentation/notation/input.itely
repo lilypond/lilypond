@@ -353,9 +353,11 @@ toplevel expression is one of the following:
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
-book-wide settings.  If more than one such definition of
-the same type is entered at the top level any definitions in the later
-expressions have precedence.
+book-wide settings.  If more than one such definition of the same type
+is entered at the top level the definitions are combined, but in
+conflicting situations the later definitions take precedence.  For
+details of how this affects the @code{\layout} block see
+@ref{The \layout block}.
 
 @item
 A direct scheme expression, such as
@@ -507,6 +509,9 @@ after the entire command.
 @seealso
 Learning Manual:
 @rlearning{How LilyPond input files work}.
+
+Notation Reference:
+@ref{The \layout block}.
 
 
 @node Titles and headers
