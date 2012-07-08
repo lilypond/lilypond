@@ -903,7 +903,8 @@ Notation Reference:
 @ref{Page breaking},
 @ref{Optimal page breaking},
 @ref{Optimal page turning},
-@ref{Minimal page breaking}.
+@ref{Minimal page breaking},
+@ref{One-line page breaking}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
@@ -1304,6 +1305,7 @@ staff lines.
 * Optimal page breaking::
 * Optimal page turning::
 * Minimal page breaking::
+* One-line page breaking::
 * Explicit breaks::
 * Using an extra voice for breaks::
 @end menu
@@ -1640,6 +1642,23 @@ too slow or memory demanding, or a lot of texts.  It is enabled using:
 Snippets:
 @rlsr{Spacing}.
 
+@node One-line page breaking
+@subsection One-line page breaking
+
+@funindex ly:one-line-breaking
+
+The @code{ly:one-line-breaking} function is a special-purpose
+page breaking algorithm that puts each score on its own page,
+and on a single line.  This page breaking function does not
+typeset titles or margins; only the score will be displayed.
+
+The page width will be adjusted so that
+the longest score fits on one line.  In particular,
+@code{paper-width}, @code{line-width} and @code{indent}
+variables in the @code{\paper} block will be ignored, although
+@code{left-margin} and @code{right-margin} will
+still be honored.  The height of the page will
+be left unmodified.
 
 @node Explicit breaks
 @subsection Explicit breaks
