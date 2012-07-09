@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
+    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -327,7 +327,7 @@ Double-cliquez sur le fichier téléchargé, puis déplacez-le où vous voulez.
 
 @subsubheading Désinstallation
 
-Supprimez le répertoire LilyPond.app.
+Supprimez le répertoire @code{LilyPond.app}.
 
 @divEnd
 
@@ -348,13 +348,13 @@ ce qui suit.}
 
 @subsubheading MacOS X et la ligne de commande
 
-Le moyen le plus pratique d'utiliser les scripts lilypond est de vous
-créer des @qq{lanceurs}.
+Le moyen le plus pratique d'utiliser les scripts LilyPond est de vous
+créer des « lanceurs ».
 
 @enumerate
 
 @item
-Créez un répertoire pour stocker ces différents scripts :
+Créez un répertoire pour stocker ces différents scripts :
 
 @example
 mkdir -p ~/bin
@@ -367,6 +367,7 @@ Créez un fichier @command{lilypond} qui contiendra
 
 @divClass{h-scroll-auto}
 @example
+#!/bin/bash
 exec @var{RÉP}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd
@@ -390,9 +391,9 @@ chmod u+x lilypond
 
 
 @item
-Ajoutez ce répertoire à votre chemin de recherche (@i{path}).  Modifiez,
-ou bien créez un fichier @code{.profile} à la racine de votre répertoire
-personnel de telle sorte qu'il contienne
+Ajoutez ce répertoire à votre chemin de recherche (@emph{path}).
+Modifiez, ou bien créez un fichier @code{.profile} à la racine de votre
+répertoire personnel de telle sorte qu'il contienne
 
 @example
 export PATH=$PATH:~/bin
@@ -407,9 +408,9 @@ Ce fichier doit se terminer par une ligne vide.
 
 Les scripts -- aussi bien @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly}, que @command{lilypond} lui-même -- sont inclus dans un
-fichier @code{.app} pour MacOS@tie{}X.
+fichier @code{.app} pour MacOS X.
 
-Ces scripts peuvent se lancer directement en ligne de commande :
+Ces scripts peuvent se lancer directement en ligne de commande :
 
 @divClass{h-scroll-auto}
 @example
@@ -466,7 +467,7 @@ Pour Windows ME, NT, 2000, XP, Vista, et Windows 7.
 Faites un double clic sur le fichier téléchargé, puis suivez les
 instructions de l'installateur.  Nous vous conseillons de conserver les
 paramètres proposés par défaut -- options et répertoire d'installation.
-À la fin de la procédure, cliquez sur @qq{Terminé}. LilyPond est installé.
+À la fin de la procédure, cliquez sur « Terminé ». LilyPond est installé.
 
 @end enumerate
 
@@ -477,14 +478,14 @@ Pour désinstaller LilyPond, vous pouvez au choix :
 @enumerate
 
 @item
-À partir du répertoire LilyPond présent dans le menu @qq{Démarrer},
-cliquer sur l'icone @qq{Supprimer}.  Cliquez ensuite sur le bouton
-@qq{Terminé} une fois la désinstallation effectuée.
+À partir du répertoire LilyPond présent dans le menu « Démarrer »,
+cliquer sur l'icone « Supprimer ».  Cliquez ensuite sur le bouton
+« Terminé » une fois la désinstallation effectuée.
 
 @item
 À partir du gestionnaire de programmes accessible depuis le Panneau de
-configuration, choisissez LilyPond, puis prenez l'option @qq{Supprimer}.
-Cliquez ensuite sur le bouton @qq{Terminé} une fois la désinstallation
+configuration, choisissez LilyPond, puis prenez l'option « Supprimer ».
+Cliquez ensuite sur le bouton « Terminé » une fois la désinstallation
 effectuée.
 
 @end enumerate
@@ -514,21 +515,21 @@ I don't have English version of Windows.
 @end ignore
 
 Le moyen le plus pratique d'utiliser les programmes de LilyPond est
-d'ajouter à la variable d'environnement @qq{path} le chemin vers le
-répertoire contenant les exécutebles de LilyPond.
+d'ajouter à la variable d'environnement « path » le chemin vers le
+répertoire contenant les exécutables de LilyPond.
 
 
 @enumerate
 @item
-Ouvrez le panneau de configuration et accédez aux @qq{Propriétés
-système}.  Dans l'onglet @qq{Avancé}, actionnez le bouton
-@qq{Variables@tie{}d'environnement}.
+Ouvrez le panneau de configuration et accédez aux « Propriétés
+système ».  Dans l'onglet « Avancé », actionnez le bouton
+« Variables d'environnement ».
 
 @item
-Dans la liste des variables système, sélectionnez @qq{Path} et cliquez
-sur le bouton @qq{Modifier}.  Dans la fenêtre qui s'est ouverte, ajoutez
-aux @qq{Valeurs de la variable} le chemin au répertoire contenant les
-fichiers exécutables de LilyPond, comme suit :
+Dans la liste des variables système, sélectionnez « Path » et cliquez
+sur le bouton « Modifier ».  Dans la fenêtre qui s'est ouverte, ajoutez
+aux « Valeurs de la variable » le chemin au répertoire contenant les
+fichiers exécutables de LilyPond, comme suit :
 
 @example
 [@var{chemins déjà définis}];@var{RÉP}\LilyPond\usr\bin
@@ -537,14 +538,15 @@ fichiers exécutables de LilyPond, comme suit :
 @warning{@var{RÉP} sera en règle générale @code{C:@bs{}Program Files}.}
 
 @noindent
-puis cliquez le bouton @qq{OK} pour fermer la fenêtre.
+puis cliquez le bouton « OK » pour fermer la fenêtre.
 
 @end enumerate
 
 @subsubheading Lancement des exécutables
 
-Les exécutables de LilyPond -- tels que lilypond, lilypond-book et
-convert-ly entre autres -- peuvent se lancer en ligne de commande :
+Les exécutables de LilyPond -- tels que @command{lilypond},
+@command{lilypond-book} et @command{convert-ly} entre autres -- peuvent
+se lancer en ligne de commande :
 
 @example
 lilypond test.ly
@@ -576,7 +578,7 @@ protégés par le droit d’auteur.
 @divEnd
 
 @warning{Nous vous @strong{déconseillons} de compiler LilyPond par
-vous-même ; les versions pré-compilées contiennent tout ce dont un
+vous-même ; les versions précompilées contiennent tout ce dont un
 utilisateur a besoin.}
 
 @divClass{column-left-bottom}

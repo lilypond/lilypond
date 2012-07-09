@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
+    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,7 +19,7 @@
 @lilypondfile[quote]{pitches-headword.ly}
 
 Cette section détaille la façon d'indiquer la hauteur des notes, sous
-trois aspects@tie{}: la saisie des hauteurs, la modification des
+trois aspects : la saisie des hauteurs, la modification des
 hauteurs et les options de gravure.
 
 @menu
@@ -35,7 +35,7 @@ hauteurs et les options de gravure.
 @translationof Writing pitches
 
 Cette section explique la manière d'indiquer les hauteurs de note.  Deux
-modes permettent d'indiquer l'octave des notes@tie{}: le mode absolu, et le
+modes permettent d'indiquer l'octave des notes : le mode absolu, et le
 mode relatif.  Ce dernier est le plus pratique lors de la saisie d'un
 fichier source au clavier de l'ordinateur.
 
@@ -78,9 +78,9 @@ do central.
 @funindex ,
 
 L'octave peut être précisée sous forme d'une série
-d'apostrophes@tie{}@code{'} ou d'une série de virgules@tie{}@code{,}.
-Chaque@tie{}@code{'} hausse la note d'une octave@tie{};
-chaque@tie{}@code{,} baisse la note d'une octave.
+d'apostrophes @code{'} ou d'une série de virgules @code{,}.
+Chaque @code{'} hausse la note d'une octave ;
+chaque @code{,} baisse la note d'une octave.
 
 @lilypond[verbatim,quote]
 {
@@ -112,11 +112,11 @@ Morceaux choisis :
 @funindex \relative
 @funindex relative
 
-On spécifie les octaves en ajoutant@tie{}@code{'} ou@tie{}@code{,} aux
+On spécifie les octaves en ajoutant @code{'} ou @code{,} aux
 noms de hauteur.  En recopiant de la musique, on a vite fait de mettre
-une note à la mauvaise octave@tie{}; ce genre d'erreur est difficile à
+une note à la mauvaise octave ; ce genre d'erreur est difficile à
 retrouver.  Le mode d'écriture en octave relative prévient ces erreurs
-dans la mesure où elles deviennent beaucoup plus évidentes@tie{}: une
+dans la mesure où elles deviennent beaucoup plus évidentes : une
 seule erreur décale le reste de la pièce à une mauvaise octave.
 
 @example
@@ -125,7 +125,7 @@ seule erreur décale le reste de la pièce à une mauvaise octave.
 
 En mode relatif, chaque note est considérée comme étant le plus proche
 possible de celle qui la précède.  L'octave des notes mentionnées dans
-@var{expression_musicale} va être calculée de la manière suivante@tie{}:
+@var{expression_musicale} va être calculée de la manière suivante :
 
 @itemize
 @item
@@ -134,13 +134,13 @@ base entre la note actuelle et la précédente sera toujours au plus d'une
 quarte.  Cet intervalle est déterminé sans tenir compte des altérations.
 
 @item
-Un signe de changement d'octave@tie{}@code{'} ou@tie{}@code{,} peut être
+Un signe de changement d'octave @code{'} ou @code{,} peut être
 ajouté pour hausser ou baisser la note d'une octave par rapport à la
 hauteur calculée sans spécification.
 
 @item
 Ces signes de changement d'octave peuvent être multipliés.  Par exemple,
-@code{''}@tie{}ou@tie{}@code{,,} ajouteront une octave supplémentaire.
+@code{''} ou @code{,,} ajouteront une octave supplémentaire.
 
 @item
 Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
@@ -288,9 +288,9 @@ Référence des propriétés internes :
 @c duplicated in Key signature and in Accidentals
 @warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
 des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
-matériau brut@tie{}; l'armure et la clef ne feront que déterminer
-comment ce matériau sera retranscrit.  Un simple@tie{}@code{c} signifie
-tout bonnement @w{@qq{do naturel}} quelles que soient l'armure et la clef
+matériau brut ; l'armure et la clef ne feront que déterminer
+comment ce matériau sera retranscrit.  Un simple @code{c} signifie
+tout bonnement « do naturel » quelles que soient l'armure et la clef
 en question. Pour plus d'information, reportez-vous au chapitre
 @rlearning{Altérations et armure}.}
 
@@ -301,7 +301,6 @@ en question. Pour plus d'information, reportez-vous au chapitre
 @cindex bémol
 @cindex double dièse
 @cindex double bémol
-@cindex flat, double
 @cindex naturel
 @cindex bécarre
 
@@ -318,7 +317,7 @@ ais1 aes aisis aeses
 
 Un bécarre annule l'effet d'une altération, qu'elle soit accidentelle
 ou à l'armure.  Cependant, dans la syntaxe des noms de note, les
-bécarres ne s'écrivent pas avec un suffixe@tie{}; un simple nom de note
+bécarres ne s'écrivent pas avec un suffixe ; un simple nom de note
 donnera une note bécarre.
 
 @lilypond[verbatim,quote,relative=2]
@@ -331,7 +330,7 @@ a4 aes a2
 
 Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
 @code{eh} et @code{ih}. Voici une série de dos altérés en hauteurs
-croissantes@tie{}:
+croissantes :
 
 @lilypond[verbatim,quote,relative=2]
 ceseh1 ces ceh c cih cis cisih
@@ -349,10 +348,10 @@ Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
 Normalement, les altérations sont imprimées automatiquement, mais il se
 peut que vous vouliez les imprimer manuellement.  On peut forcer
-l'impression d'une altération, dite @qq{de précaution}, en ajoutant un
-point d'exclamation@tie{}@code{!} après la hauteur de note.  Une
+l'impression d'une altération, dite « de précaution », en ajoutant un
+point d'exclamation @code{!} après la hauteur de note.  Une
 altération entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation@tie{}@code{?} après la hauteur de note.  Ces signes
+d'interrogation @code{?} après la hauteur de note.  Ces signes
 peuvent aussi être utilisés pour imprimer des bécarres.
 
 @lilypond[verbatim,quote,relative=2]
@@ -424,7 +423,7 @@ LilyPond n'est donc conforme à aucun standard.
 Vous disposez de jeux prédéfinis de noms de note et altérations pour
 plusieurs autres langues.  Pour les utiliser, il suffit de déclarer, en
 début de fichier, la langue que vous utilisez.  Voici comment, par
-exemple, utiliser l'italien pour votre saisie@tie{}:
+exemple, utiliser l'italien pour votre saisie :
 
 @lilypond[quote,verbatim]
 \language "italiano"
@@ -435,7 +434,7 @@ exemple, utiliser l'italien pour votre saisie@tie{}:
 @end lilypond
 
 Les langues disponibles ainsi que les noms de note utilisés
-sont les suivants@tie{}:
+sont les suivants :
 
 @quotation
 @multitable {@code{nederlands}} {do re mi fa sol la sib si}
@@ -467,7 +466,7 @@ sont les suivants@tie{}:
 @end quotation
 
 @noindent
-et les suffixes d'altération correspondants@tie{}:
+et les suffixes d'altération correspondants :
 
 @quotation
 @multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
@@ -519,7 +518,7 @@ a2 as e es a ases e eses
 
 @noindent
 Certaines musiques utilisent des microtonalités, pour lesquelles les
-altérations sont des fractions de dièse ou bémol @qq{normaux}.  Le
+altérations sont des fractions de dièse ou bémol « normaux ».  Le
 tableau suivant répertorie les noms de note en quart de ton, tels que
 définis dans plusieurs fichiers linguistiques.  Les préfixes @emph{semi-}
 et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
@@ -595,8 +594,8 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 @funindex controlpitch
 
 Les tests d'octave rendent la correction d'erreurs d'octave plus facile
-dans le mode d'octave @code{relative} -- un@tie{}@code{,} ou
-un@tie{}@code{'} oublié, ça n'arrive pas qu'aux autres@tie{}!
+dans le mode d'octave @code{relative} -- un @code{,} ou
+un @code{'} oublié, ça n'arrive pas qu'aux autres !
 
 Une note peut être suivie de @w{@code{=}@var{apostrophes/virgules}}
 pour indiquer à quelle @strong{octave absolue} elle devrait être.  Dans
@@ -615,7 +614,7 @@ fonction de ce @code{d'} et non de @code{d''}.
 
 Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe
-@code{\octaveCheck@tie{}@var{hauteur_référence}} --
+@code{\octaveCheck @var{hauteur_référence}} --
 @code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
 commande vérifie que l'intervalle entre la note qui précède et
 @code{@var{hauteur_référence}} est inférieur à la quinte comme il se
@@ -667,7 +666,7 @@ Référence des propriétés internes :
 @funindex transpose
 
 Une expression musicale peut être transposée avec @code{\transpose}.
-En voici la syntaxe@tie{}:
+En voici la syntaxe :
 
 @example
 \transpose @var{note_de_départ} @var{note_d_arrivée} @var{expression_musicale}
@@ -676,8 +675,8 @@ En voici la syntaxe@tie{}:
 @noindent
 Cela signifie que @code{@var{expression_musicale}} est transposé de
 l'intervalle séparant @code{@var{note_de_départ}} et
-@code{@var{note_d_arrivée}}@tie{}: toute note dont la hauteur était
-@code{note_de_départ} est changée en @code{note_d_arrivée}@tie{}; les
+@code{@var{note_d_arrivée}} : toute note dont la hauteur était
+@code{note_de_départ} est changée en @code{note_d_arrivée} ; les
 autres notes seront changées selon le même intervalle.  Les deux
 hauteurs s'expriment en octave absolue.
 
@@ -720,7 +719,7 @@ La présence de @w{@code{\key c \major}} s'explique par le fait que, bien
 que les notes soient effectivement transposées, l'armure ne sera
 imprimée que dans la mesure où elle est explicitement mentionnée.
 
-@code{\transpose} fait la distinction entre les notes enharmoniques@tie{}:
+@code{\transpose} fait la distinction entre les notes enharmoniques :
 @w{@code{\transpose c cis}} et @w{@code{\transpose c des}} transposeront
 la pièce un demi-ton plus haut, au détail près que la première version
 écrira des dièses et la deuxième des bémols.
@@ -737,7 +736,7 @@ On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
 pour un instrument transpositeur.  Normalement, les hauteurs dans
 LilyPond sont écrites en ut, c'est à dire en sons réels, mais elles
 peuvent être écrites dans un autre ton.  Prenons l'exemple d'un morceau
-pour trompette en si bémol commençant sur un ré à l'oreille@tie{}; on
+pour trompette en si bémol commençant sur un ré à l'oreille ; on
 pourrait écrire
 
 @example
@@ -748,7 +747,7 @@ musiqueEnSiBemol = @{ e4 @dots{} @}
 @noindent
 Pour imprimer cette musique en fa -- et de ce fait produire une partie
 de cor au lieu d'un conducteur en notes réelles -- on utilisera un
-deuxième @code{\transpose}@tie{}:
+deuxième @code{\transpose} :
 
 @example
 musiqueEnSiBemol = @{ e4 @dots{} @}
@@ -791,7 +790,7 @@ Si vous voulez utiliser en même temps @code{\transpose} et
 musique apparaissant dans un @code{\transpose}.
 
 La fonction @code{\transpose} ne permet pas d'imprimer des altérations
-triples@tie{}; elle les remplacera par un @qq{équivalent enharmonique}
+triples ; elle les remplacera par un « équivalent enharmonique »
 -- par exemple ré bémol au lieu de mi triple bémol.
 
 
@@ -803,15 +802,16 @@ triples@tie{}; elle les remplacera par un @qq{équivalent enharmonique}
 
 @funindex \inversion
 
-Une expression musicale peut s'inverser à l'aide de l'instruction
+Une expression musicale peut s'inverser et être transposée à l'aide de
+l'instruction
 
 @example
-\inversion @var{hauteur-départ} @var{hauteur-arrivée} @var{expression_musicale}
+\inversion @var{hauteur-pivot} @var{hauteur-arrivée} @var{expression_musicale}
 @end example
 
 L'@code{@var{expression_musicale}} sera alors inversée, intervalle par
-intervalle, puis transposée de @code{@var{hauteur-départ}} à
-@code{@var{hauteur-arrivée}}.
+intervalle, puis transposée de telle sorte que
+@code{@var{hauteur-pivot}} devienne @code{@var{hauteur-arrivée}}.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -821,6 +821,10 @@ music = \relative c' { c d e f }
   \inversion d' ees' \music
 }
 @end lilypond
+
+@warning{Le motif à inverser doit être exprimé en hauteur absolue, à
+moins d'avoir été préalablement inclus explicitement dans un bloc
+@code{@bs{}relative}.}
 
 @seealso
 Manuel de notation :
@@ -840,7 +844,7 @@ Manuel de notation :
 @funindex retrograde
 
 Une expression musicale peut se renverser et se présenter sous forme
-rétrograde@tie{}:
+rétrograde :
 
 @lilypond[verbatim,quote]
 music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
@@ -888,7 +892,7 @@ sera pas transformée.}
 @funindex \modalTranspose
 @funindex modalTranspose
 
-Un motif peut se transposer selon une gamme donnée@tie{}:
+Un motif peut se transposer selon une gamme donnée :
 
 @example
 \modalTranspose @var{hauteur-départ} @var{hauteur-arrivée} @var{gamme} @var{motif}
@@ -896,7 +900,7 @@ Un motif peut se transposer selon une gamme donnée@tie{}:
 
 Les notes de @var{motif} seront décalées à l'intérieur de la @var{gamme}
 selon leur degré, déterminé par l'intervalle entre @var{hauteur-départ}
-et @var{hauteur-arrivée}@tie{}:
+et @var{hauteur-arrivée} :
 
 @lilypond[verbatim,quote]
 diatonicScale = \relative c' { c d e f g a b }
@@ -910,7 +914,7 @@ motif = \relative c' { c8 d e f g a b c }
 @end lilypond
 
 Il est ainsi possible de déterminer une gamme ascendante, quels qu'en soient
-l'amplitude et les différents intervalles@tie{}:
+l'amplitude et les différents intervalles :
 
 @lilypond[verbatim,quote]
 pentatonicScale = \relative c' { ges aes bes des ees }
@@ -924,7 +928,7 @@ motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
 
 L'utilisation de @code{\modalTranspose} avec une gamme chromatique
 produit les mêmes effets qu'un @code{\transpose}, à ceci près que les
-notes seront alors prédéterminées@tie{}:
+notes seront alors prédéterminées :
 
 @lilypond[verbatim,quote]
 chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
@@ -947,7 +951,7 @@ motif = \relative c' { c8 d e f g a b c }
 @funindex modalInversion
 
 Un motif peut s'inverser selon une certaine gamme et à partir d'un pivot
-déterminé, puis transposé, le tout en une seule opération@tie{}:
+déterminé, puis transposé, le tout en une seule opération :
 
 @example
 \modalInversion @var{hauteur-pivot} @var{hauteur-arrivée} @var{gamme} @var{motif}
@@ -960,7 +964,7 @@ puis décalées dans cette même @var{gamme} de l'intervalle séparant
 
 Il est donc possible de simplement inverser à partir d'une des notes de
 la gamme en donnant la même valeur à @var{hauteur-départ} et
-@var{hauteur-arrivée}@tie{}:
+@var{hauteur-arrivée} :
 
 @lilypond[verbatim,quote]
 octatonicScale = \relative c' { ees f fis gis a b c d }
@@ -987,7 +991,7 @@ motive = \relative c' { c c g' c, }
 @end lilypond
 
 L'opération conjointe d'une inversion et d'une rétrogradation produit
-une rétrogradation inversée@tie{}:
+une rétrogradation inversée :
 
 @lilypond[verbatim,quote]
 octatonicScale = \relative c' { ees f fis gis a b c d }
@@ -1037,7 +1041,7 @@ hauteurs.
 
 La clef indique quelles lignes de la portée correspondent à quelles
 hauteurs.  Elle peut changer au fil du morceau, comme dans l'exemple
-suivant qui indique le do médium dans différentes clefs@tie{}:
+suivant qui indique le do médium dans différentes clefs :
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -1050,7 +1054,7 @@ c2 c
 c2 c
 @end lilypond
 
-LilyPond met à votre disposition d'autres clefs@tie{}:
+LilyPond met à votre disposition d'autres clefs :
 
 @lilypond[verbatim,quote,relative=1]
 \clef french
@@ -1152,9 +1156,9 @@ Référence des propriétés internes :
 @c duplicated in Key signature and in Accidentals
 @warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
 des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
-matériau brut@tie{}; l'armure et la clef ne feront que déterminer
-comment ce matériau sera retranscrit.  Un simple@tie{}@code{c} signifie
-tout bonnement @w{@qq{do naturel}} quelles que soient l'armure et la
+matériau brut ; l'armure et la clef ne feront que déterminer
+comment ce matériau sera retranscrit.  Un simple @code{c} signifie
+tout bonnement « do naturel » quelles que soient l'armure et la
 clef en question.  Pour plus d'information, reportez-vous au chapitre
 @rlearning{Altérations et armure}.}
 
@@ -1319,7 +1323,7 @@ correspondre à la note entendue lorsqu'un @code{do} écrit sur la
 portée est joué par l'instrument transpositeur.  Cette hauteur doit être
 mentionnée en @notation{mode absolu}.  Par exemple, lorsque
 vous saisissez une partition en notes réelles, toutes les voix
-devraient être en ut@tie{}; si un instrument joue un ton au dessus, il
+devraient être en ut ; si un instrument joue un ton au dessus, il
 faudra lui ajouter un @w{@code{\transposition d'}}.  La commande
 @code{\transposition} s'utilise @strong{si et seulement si} les notes à
 saisir @strong{ne sont pas} dans la tonalité de concert.
@@ -1402,7 +1406,7 @@ Morceaux choisis :
 
 LilyPond dispose d'une fonction chargée de regrouper les règles suivant
 lesquelles s'impriment les altérations.  Elle s'invoque de la manière
-suivante@tie{}:
+suivante :
 
 @example
 \new Staff <<
@@ -1417,7 +1421,7 @@ La règle de gestion des altérations s'applique par défaut au contexte
 accepte un éventuel argument supplémentaire chargé de spécifier
 le champ d'action de la règle à suivre.  À titre d'exemple, il faudra
 utiliser, pour que toutes les portées d'un même système -- contexte
-@code{StaffGroup} -- soient soumises à la même règle@tie{}:
+@code{StaffGroup} -- soient soumises à la même règle :
 
 @example
 \accidentalStyle #'StaffGroup "voice"
@@ -1425,7 +1429,7 @@ utiliser, pour que toutes les portées d'un même système -- contexte
 
 Nous vous présentons ci-après les différentes règles d'altération prises
 en charge.  Pour les besoins de la démonstration, nous partirons de
-l'exemple suivant@tie{}:
+l'exemple suivant :
 
 @lilypond[verbatim,quote]
 musicA = {
@@ -1503,7 +1507,7 @@ dernières lignes de cet exemple nous intéressent.
 @funindex default
 
 C'est la règle d'impression par défaut, qui se rapporte à l'usage
-en vigueur au XVIIIe siècle@tie{}: les altérations accidentelles sont
+en vigueur au XVIIIe siècle : les altérations accidentelles sont
 valables tout une mesure, et uniquement à leur propre octave.  C'est la
 raison pour laquelle il n'y a pas de bécarre avant le @notation{si} de
 la deuxième mesure, ni avant le dernier @notation{do}.
@@ -1576,7 +1580,7 @@ voix, ce qui peut donner lieu à un résultat malencontreux.  Dans
 l'exemple suivant, il est difficile de dire si le deuxième @notation{la}
 est dièse ou naturel.  La règle @code{voice} n'est donc à envisager que
 dans le cas de voix devant être lues par des musiciens différents.  S'il
-s'agit d'un @qq{conducteur}, ou d'une portée destinée à un seul
+s'agit d'un « conducteur », ou d'une portée destinée à un seul
 musicien, il vaut mieux utiliser @code{modern} ou
 @code{modern-cautionary}.
 
@@ -1638,7 +1642,7 @@ Cette règle est la plus courante au XXe siècle.  Certains bécarres ne
 sont pas imprimés, comme il était d'usage lorsqu'une note diésée suit
 cette même note flanquée d'un double dièse, ou bien un bémol un double
 bémol.  Le style @code{modern} suit la même règle que le style
-@code{default}, avec deux additions afin de lever les ambiguités@tie{}:
+@code{default}, avec deux additions afin de lever les ambiguïtés :
 lorsqu'une note non altérée apparaît à une octave différente, ou bien
 dans la mesure suivante, des bécarres de précaution sont ajoutés.  Dans
 l'exemple suivant, notez ainsi les deux bécarres dans la deuxième mesure
@@ -1702,7 +1706,7 @@ musicB = {
 
 Cette règle est équivalente à @code{modern}, mais les bécarres de
 précaution (absents dans la règle @code{default}) sont imprimés de façon
-particulière@tie{}: soit plus petit, soit (par défaut) entre parenthèses
+particulière : soit plus petit, soit (par défaut) entre parenthèses
 -- il est possible de le définir au moyen de la propriété
 @code{cautionary-style} de l'objet @code{AccidentalSuggestion}.
 
@@ -1831,7 +1835,7 @@ Cette règle est similaire à la précédente, mais les altérations de
 précaution (celles que n'aurait pas ajoutées @code{voice}), sont
 imprimées de façon particulière.  On retrouve donc toutes les
 altérations qu'imprimerait @code{default}, mais certaines sont
-considérées comme étant @qq{de précaution}.
+considérées comme étant « de précaution ».
 
 @lilypond[quote]
 musicA = {
@@ -2006,7 +2010,7 @@ musicB = {
 
 @funindex neo-modern
 
-Cette règle suit les pratiques de la musique contemporaine@tie{}: les
+Cette règle suit les pratiques de la musique contemporaine : les
 altérations accidentelles apparaissent comme dans le style
 @code{modern}, à ceci près qu'elles sont répétées dans la même mesure --
 sauf si elles concernent deux notes consécutives.
@@ -2182,7 +2186,7 @@ musicB = {
 
 @funindex neo-modern-voice-cautionary
 
-Cette règle est indentique à @code{neo-modern-voice},
+Cette règle est identique à @code{neo-modern-voice},
 mais les altérations de précaution sont imprimées
 soit entre parenthèses (par défaut), soit en plus petit.
 
@@ -2300,7 +2304,7 @@ musicB = {
 
 @funindex teaching
 
-Cette règle est à usage pédagogique@tie{}: l'impression d'une simple
+Cette règle est à usage pédagogique : l'impression d'une simple
 gamme fera apparaître une altération de précaution pour toute note
 altérée.  Les altérations accidentelles sont imprimées selon le style
 @code{modern}, et une altération de précaution est ajoutée pour chaque
@@ -2419,8 +2423,8 @@ musicB = {
 
 @funindex forget
 
-Tout le contraire de @code{no-reset}@tie{}: l'effet des altérations
-cesse aussitôt@tie{}; toutes les altérations, quelque soit leur place
+Tout le contraire de @code{no-reset} : l'effet des altérations
+cesse aussitôt ; toutes les altérations, quelque soit leur place
 dans la mesure, sont de ce fait imprimées en fonction de l'éventuelle
 armure.
 
@@ -2499,12 +2503,12 @@ seront imprimées comme si les notes de l'accord apparaissaient l'une
 après l'autre, en fonction de l'ordre dans lequel elles ont été saisies
 -- ce qui peut poser problème lorsqu'au sein d'un accord certaines
 altérations dépendent les unes des autres.
-Ce problème est à résoudre manuellement, en insérant des@tie{}@code{!}
-et des@tie{}@code{?} après les notes concernées, tel @samp{<f! fis!>}.
+Ce problème est à résoudre manuellement, en insérant des @code{!}
+et des @code{?} après les notes concernées, tel @samp{<f! fis!>}.
 
 L'absence d'altération de précaution est déterminée par l'examen de la
 mesure précédente.  Néanmoins, lorsqu'un bloc @code{\alternative} suit
-une section @code{\repeat@tie{}volta@tie{}N}, la logique voudrait que
+une section @code{\repeat volta N}, la logique voudrait que
 l'on regarde la dernière mesure @emph{jouée} plutôt que la dernière
 @emph{imprimée}.  Dans l'exemple qui suit, vous conviendrez que le do de
 la seconde alternative ne nécessite pas son bécarre.
@@ -2640,7 +2644,7 @@ note.
 
 @funindex cross
 
-L'apparence des têtes de note peut évoluer au cours de la partition@tie{}:
+L'apparence des têtes de note peut évoluer au cours de la partition :
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
@@ -2659,7 +2663,7 @@ Pour une liste exhaustive des styles de tête de note, consultez
 
 Certains instruments utilisent des têtes de note différentes à des
 fins spécifiques -- des croix (style @code{cross}) pour le
-@emph{parlato} des chanteurs ou les notes étouffées des guitares@tie{}:
+@emph{parlato} des chanteurs ou les notes étouffées des guitares :
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
@@ -2671,7 +2675,7 @@ c4 d
 
 Cette commande opère aussi bien sur des notes isolées qu'au sein d'un
 accord, dans une portée traditionnelle ou dans un contexte de
-tablature@tie{}:
+tablature :
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
@@ -2684,7 +2688,7 @@ Vous pouvez utiliser, en lieu et place de @code{\xNote},
 @code{\deadNote}, @code{\deadNotesOn} et @code{\deadNotesOff}.
 
 Il existe un raccourci pour les notes en losange qui indiquent les
-harmoniques des cordes@tie{}:
+harmoniques des cordes :
 
 @lilypond[verbatim,quote,relative=2]
 <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
@@ -2730,7 +2734,7 @@ Référence des propriétés internes :
 @funindex \easyHeadsOff
 @funindex easyHeadsOff
 
-Les notes @qq{easy play} comportent le nom de la note à l'intérieur de
+Les notes « easy play » comportent le nom de la note à l'intérieur de
 la tête.  On l'utilise dans des partitions pour débutants.  L'impression
 doit être de plus grande taille, afin que les lettres soient lisibles.
 Voir à ce propos @ref{Définition de la taille de portée}.
@@ -2814,7 +2818,7 @@ Référence des propriétés internes :
 En notation profilée, le profil d'une tête de note correspond à la
 fonction harmonique de cette note dans la gamme.  Ce style de notation
 était très en vogue dans les recueils de chansons américains du XIXe
-siècle.  Voici comment procéder@tie{}:
+siècle.  Voici comment procéder :
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
@@ -2831,7 +2835,7 @@ c,4 d e f g2 a b1 c \break
 
 Les profils sont déterminés par la hauteur dans la gamme, le premier
 degré étant défini par la commande @code{\key}.  Pour une tonalité
-mineure, les degrés sont déterminés par rapport au relatif majeur@tie{}:
+mineure, les degrés sont déterminés par rapport au relatif majeur :
 
 @lilypond[verbatim,quote,relative=2]
 \key a \minor
@@ -2900,7 +2904,7 @@ Référence des propriétés internes :
 L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
 allongée (@emph{slash}).  L'interprète jouera alors les notes qu'il
 veut, en respectant toutefois le rythme affiché. Ces têtes de notes sont
-créées ainsi@tie{}:
+créées ainsi :
 
 @lilypond[verbatim,quote,relative=2]
 \new Voice \with {
@@ -2930,3 +2934,10 @@ Référence des propriétés internes :
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
 
+
+@c  LocalWords:  lilypondfile subsection translationof seealso funindex
+@c  LocalWords:  unnumberedsubsubsec rglosnamed rlsrnamed itemize quote
+@c  LocalWords:  rinternals rlearning snippets texidoc doctitle
+@c  LocalWords:  ragged-right knownissues quotation multitable headitem
+@c  LocalWords:  noindent Staff.instrumentName Staff.midiInstrument
+@c  LocalWords:  accidentalStyle PianoStaff GrandStaff predefined
