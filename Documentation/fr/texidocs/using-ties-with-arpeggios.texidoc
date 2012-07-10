@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
-Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans
+Les liaisons de tenue servent parfois à rendre un accord arpégé.  Dans
 ce cas, les notes liées ne sont pas toutes consécutives. Il faut alors
 assigner à la propriété @code{tieWaitForNote} la valeur @code{#t}
-(@emph{true} pour @qq{vrai}).  Cette même méthode peut servir, par
+(@emph{true} pour « vrai »).  Cette même méthode peut servir, par
 exemple, à lier un trémolo à un accord.
+
 "
   doctitlefr = "Liaison de tenue et arpège"

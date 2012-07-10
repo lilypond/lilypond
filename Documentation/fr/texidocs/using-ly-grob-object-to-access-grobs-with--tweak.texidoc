@@ -1,0 +1,28 @@
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+Certains objets graphiques ne sont accessibles que par le biais d'un
+@emph{callback} à partir d'un autre @code{grob}.  Ils sont normalement
+listés dans les « @emph{layout objects} » au sein de la section
+« Propriétés internes » d'une @emph{grob-interface}.  La fonction
+@code{ly:grob-object} permet d'accéder à ces objets.
+
+Voici plusieurs moyens d'accéder aux objets par un @emph{callback} sur
+@code{NoteHead}.  D'autres biais sont naturellement possible ;
+@code{NoteHead} a cependant l'avantage incontestable d'être utilisé
+implicitement par la commande @code{\\tweak}.
+
+La fonction @code{display-grobs} définie ci-dessous n'est probablement
+pas très utile.  Elle indique toutefois qu'il est tout à fait possible
+d'accéder aux objets.
+
+Voici par exemple ce qui sera émis dans la console :
+
+@example
+--------------------
+#<Grob Accidental >
+#<Grob Arpeggio >
+#<Grob Stem >
+@end example
+
+"
+  doctitlefr = "Utilisation de ly:grob-object pour accéder aux grobs avec \\tweak"
