@@ -1035,7 +1035,11 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
         # Clean out junk: http://bugs.python.org/issue3290
 	# Python headers may need some -f* flags, leave them in.
 	# We want the sed commands to look like 's/-[WDOm][[:alnum:][:punct:]][[:alnum:][:punct:]]*//g' and 's/-arch [^[:space:]]*//g', but automake eats brackets.
-	PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/-[[WDOm]][[[:alnum:][:punct:]]][[[:alnum:][:punct:]]]*//g' | sed -e 's/-arch @<:@^@<:@:space:@:>@@:>@*//g'`
+	 #PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/-[[WDOm]][[[:alnum:][:punct:]]][[[:alnum:][:punct:]]]*//g' | sed -e 's/-arch @<:@^@<:@:space:@:>@@:>@*//g'`
+	 # The above sed BRE matches parts of legal options, stipping down part of that option, resulting in invalid gcc arguments. Gentoo Bug #415793
+	 # For instance, '-floop-stip-mime' becomes '-floop-strip', and '-fvect-cost-model' becomes '-fvect-cost'.
+	 # Tentative fix to require a non alphanumeric character before the initial hyphen of the BRE or the hyphen being the first character in the string.
+	 PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/\(^\|[[^[:alnum:]]]\)-[[WDOm]][[[:alnum:][:punct:]]][[[:alnum:][:punct:]]]*//g' | sed -e 's/-arch @<:@^@<:@:space:@:>@@:>@*//g'`
 	PYTHON_LDFLAGS=`$PYTHON_CONFIG --ldflags`
     fi
     
