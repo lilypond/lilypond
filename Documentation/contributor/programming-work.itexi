@@ -1311,6 +1311,10 @@ Regression tests should generally cover one issue per test.  Several
 short, single-issue regression tests are preferred to a single, long,
 multiple-issue regression test.
 
+If the change in the output is small or easy to overlook, use bigger
+staff size -- 40 or more (up to 100 in extreme cases).  Size 30 means
+"pay extra attention to details in general".
+
 Use existing regression tests as templates to demonstrate the type of
 header information that should be included in a regression test.
 

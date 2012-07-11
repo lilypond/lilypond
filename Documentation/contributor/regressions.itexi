@@ -99,8 +99,20 @@ verify that the regression tests have, in fact, run.}
 
 The test comparison shows all of the changes that occurred between
 the current release and the prior release.  Each test that has a
-significant difference in output is displayed, with the old
-version on the left and the new version on the right.
+significant (noticeable) difference in output is displayed, with
+the old version on the left and the new version on the right.
+
+Some of the small changes can be ignored (slightly different slur
+shapes, small variations in note spacing), but this is not always
+the case: sometimes even the smallest change means that something
+is wrong.  To help in distinguishing these cases, we use bigger
+staff size when small differences matter.
+
+Staff size 30 generally means "pay extra attention to details".
+Staff size 40 (two times bigger than default size) or more means
+that the regtest @strong{is} about the details.
+
+Staff size smaller than default doesn't mean anything.
 
 Regression tests whose output is the same for both versions are
 not shown in the test comparison.
