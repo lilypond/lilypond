@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,13 +31,14 @@ manières.
 @section Pointer-cliquer
 @translationof Point and click
 
-Le pointer-cliquer ajoute des liens au sein des documents pdf, pour
+Le pointer-cliquer ajoute des liens au sein des documents PDF, pour
 certains événements musicaux.
 
 @menu
 * Activation du pointer-cliquer::
 * Pointer-cliquer sélectif::
 @end menu
+
 
 @node Activation du pointer-cliquer
 @unnumberedsubsec Activation du pointer-cliquer
@@ -74,7 +74,7 @@ urlCommand     "lilypond-invoke-editor %s"
 se charge d'appeler un éditeur pour les identifants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
 Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
-suivant@tie{}:
+suivant :
 
 @table @code
 @item emacs
@@ -99,7 +99,7 @@ gvim --remote +:@var{line}:norm@var{column} @var{file}
 La variable d'environnement @code{LYEDITOR} permet d'anticiper cette
 affectation, puisqu'elle contient la commande qui permet de lancer
 l'éditeur en tenant compte des valeurs respectives de @code{%(file)s},
-@code{%(column)s} et@code{%(line)s}. Par exemple,
+@code{%(column)s} et@code{%(line)s}.  Par exemple,
 
 @example
 emacsclient --no-wait +%(line)s:%(column)s %(file)s
@@ -111,7 +111,6 @@ client emacs standard.
 
 
 @cindex ficher de sortie, taille
-
 @cindex taille du ficher de sortie
 
 L'option pointer-cliquer accroît la taille des fichiers de manière
@@ -131,7 +130,7 @@ explicite grâce à
 @end example
 
 Le pointer-cliquer peut aussi être désactivé au moment de la compilation
-en ligne de commande@tie{}:
+en ligne de commande :
 
 @example
 lilypond -dno-point-and-click file.ly
@@ -154,7 +153,7 @@ application lançant l'audio et la vidéo à partir d'une note en
 particulier, il serait mal venu qu'un clic sur la note vous amène à
 l'altération ou une liaison qui l'affecterait.
 
-Les événements générateurs de lien peuvent se gérer@tie{}:
+Les événements générateurs de lien peuvent se gérer :
 
 @itemize
 @item
@@ -185,7 +184,7 @@ lilypond -dpoint-and-click=note-event   example.ly
 
 @end itemize
 
-Plusieurs types d'événement peuvent être mentionnés@tie{}:
+Plusieurs types d'événement peuvent être mentionnés :
 
 @itemize
 @item
@@ -252,16 +251,16 @@ consulter les manuels de LilyPond en mode info.  Si le
 comme ci-dessous.
 
 Le répertoire @file{elisp} inclus dans les sources contient aussi un
-mode pour saisir la musique et lancer LilyPond.  Faites @command{make
-install} pour l'installer dans votre @var{elispdir}.  Le fichier
-@file{lilypond-init.el} devrait trouver sa place dans
+mode pour saisir la musique et lancer LilyPond.  Faites
+@command{make install} pour l'installer dans votre @var{elispdir}.  Le
+fichier @file{lilypond-init.el} devrait trouver sa place dans
 @var{load-path}@file{/site-start.d/} ou bien ajouté à votre
 @file{~/.emacs} ou @file{~/.emacs.el}.
 
 En tant que simple utilisateur, vous pouvez toujours ajouter votre
 propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @var{load-path} en ajoutant la ligne suivante -- modifiée en conséquence
--- à votre @file{~/.emacs}@tie{}:
+-- à votre @file{~/.emacs} :
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
@@ -275,9 +274,9 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 
 En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
 tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
-Le mode spécifique à Vim doît être indiqué dans le fichier
+Le mode spécifique à Vim doit être indiqué dans le fichier
 @file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et
-ajoutez-y les trois lignes suivantes@tie{}:
+ajoutez-y les trois lignes suivantes :
 
 @example
 filetype off
@@ -316,12 +315,12 @@ de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
 chapitre @ref{Utilisation en ligne de commande}.  Si vous utilisez MacOS
-10.3 ou 10.4 et recontrez quelque problème avec l'un de ces scripts,
+10.3 ou 10.4 et rencontrez quelque problème avec l'un de ces scripts,
 comme @code{convert-ly}, reportez-vous à la page @rweb{MacOS X}.
 
 
 @knownissues
-Les développeurs ne sont malheureusement pas suffisament nombreux et
+Les développeurs ne sont malheureusement pas suffisamment nombreux et
 disponibles pour maintenir à jour ces programmes, considérez-les donc
 @emph{en l'état}.  Nous acceptons les patches avec plaisir, mais il y a
 peu de chance pour que nous soyons en mesure de résoudre les bogues de
@@ -336,14 +335,13 @@ ces programmes.
 @end menu
 
 
-
 @node Utilisation de midi2ly
 @subsection Utilisation de @code{midi2ly}
 @translationof Invoking midi2ly
 
 @cindex MIDI
 
-@command{midi2ly} traduit un fichier MIDI de Type@tie{}1 en un fichier
+@command{midi2ly} traduit un fichier MIDI de Type 1 en un fichier
 source LilyPond.
 
 MIDI (Music Instrument Digital Interface) constitue un standard pour
@@ -368,17 +366,17 @@ temporisation.  C'est la raison pour laquelle le recours à
 @command{midi2ly} n'est pas recommandé pour des fichiers midi générés
 manuellement.
 
-Pour le lancer en ligne de commande, procédez ainsi@tie{}:
+Pour le lancer en ligne de commande, procédez ainsi :
 
 @example
 midi2ly [@var{option}]@dots{} @var{fichier-midi}
 @end example
 
-Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Conversion à partir d'autres formats}.
 
-@command{midi2ly} accepte les options suivantes@tie{}:
+@command{midi2ly} accepte les options suivantes :
 
 @table @code
 @item -a, --absolute-pitches
@@ -396,7 +394,7 @@ Afficher un résumé des utilisations.
 @item -k, --key=@var{acc}[:@var{minor}]
 Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
 nombre de dièses, @math{@var{acc} < 0} le nombre de bémols.  Une
-tonalité mineure est spécifiée par l'emploi de @code{:1}.
+tonalité mineure est spécifiée par l'emploi de @code{:1}.
 
 @item -o, --output=@var{file}
 Générer le résultat dans le fichier @var{file}.
@@ -420,9 +418,7 @@ Afficher les mentions de garantie et de copyright.
 Interpréter le texte comme des paroles.
 @end table
 
-
 @knownissues
-
 Le tuilage en arpège ne sera pas rendu correctement.  La première note
 sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
 ajoutez une indication de phrasé ou de pédale.
@@ -447,14 +443,14 @@ Pour le lancer en ligne de commande, procédez ainsi :
 musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 @end example
 
-Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Conversion à partir d'autres formats}.
 
 Si le nom du fichier est @file{-}, @command{musicxml2ly} lira
 directement à partir de la ligne de commande.
 
-@command{musicxml2ly} accepte les options suivantes@tie{}:
+@command{musicxml2ly} accepte les options suivantes :
 
 @table @code
 @item -a, --absolute
@@ -464,17 +460,20 @@ Rendu en hauteurs absolues.
 Afficher un résumé des utilisations.
 
 @item -l, --language=LANG
-Utiliser une autre définition liguistique (LANG), comme par exemple
+Utiliser une autre définition linguistique (LANG), comme par exemple
 @var{deutsch} pour des noms de notes en allemand.
 
 @item --loglevel=@var{loglevel}
 Détermine le degré de verbosité à @var{loglevel}.  Les valeurs
 autorisées sont @code{NONE}, @code{ERROR}, @code{WARNING},
-@code{PROGRESS} (par defaut) et @code{DEBUG}.
+@code{PROGRESS} (par défaut) et @code{DEBUG}.
 
 @item --lxml
 Utiliser le paquetage Python @code{lxml.etree}, moins gourmand en
-mémoire et temps de calcul, pour effectuer l'annalyse XML.
+mémoire et temps de calcul, pour effectuer l'analyse XML.
+
+@item -m, --midi
+Ajouter un bloc @code{\midi}.
 
 @item --nd --no-articulation-directions
 Ne pas convertir la direction (@code{^}, @code{_} ou @code{-}) des
@@ -486,7 +485,7 @@ gérer les ligatures automatiquement.
 
 @item -o,--output=@var{file}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichier-xml}@file{.ly}@tie{}; @file{-}
+déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-}
 produira le résultat sur la sortie standard (@var{stdout}).
 
 @item -r,--relative
@@ -508,7 +507,7 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 @translationof Invoking abc2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
-susceptible d'être suprimé des versions futures de LilyPond.}
+susceptible d'être supprimé des versions futures de LilyPond.}
 
 @cindex ABC
 
@@ -519,7 +518,7 @@ d'ABC}.
 
 @command{abc2ly} traduit du format ABC au format LilyPond.
 
-Pour le lancer en ligne de commande, procédez ainsi@tie{}:
+Pour le lancer en ligne de commande, procédez ainsi :
 
 @example
 abc2ly [@var{option}]@dots{} @var{fichier-abc}
@@ -551,7 +550,7 @@ source ABC.  Ainsi, l'assertion
 %%LY voices \set autoBeaming = ##f
 @end example
 
-aura pour conséquence d'insérer le texte qui suit le mot-clé @qq{voices}
+aura pour conséquence d'insérer le texte qui suit le mot-clé « voices »
 dans la voix correspondante du fichier LilyPond.
 
 De la même manière,
@@ -560,20 +559,20 @@ De la même manière,
 %%LY slyrics more words
 @end example
 
-placera le texte suivant le mot-clé @qq{slyrics} dans une ligne de
+placera le texte suivant le mot-clé « slyrics » dans une ligne de
 paroles.
 
 
 @knownissues
 
-Le standard ABC n'est pas si @qq{standard} que cela.  Pour des
+Le standard ABC n'est pas si « standard » que cela.  Pour des
 fonctionnalités étendues, comme la polyphonie, existent différentes
 conventions.
 
 Un fichier comportant plusieurs morceaux ne peut être converti.
 
-ABC synchronise paroles et musique en début de ligne@tie{};
-@command{abc2ly} ne le fait pas.
+ABC synchronise paroles et musique en début de ligne ; @command{abc2ly}
+ne le fait pas.
 
 @command{abc2ly} ignore les ligatures ABC.
 
@@ -583,7 +582,7 @@ ABC synchronise paroles et musique en début de ligne@tie{};
 @translationof Invoking etf2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
-susceptible d'être suprimé des versions futures de LilyPond.}
+susceptible d'être supprimé des versions futures de LilyPond.}
 
 @cindex ETF
 @cindex enigma
@@ -594,18 +593,17 @@ ETF (Enigma Transport Format) est l'un des formats utilisés par le
 logiciel Finale, édité par Coda Music Technology.  @command{etf2ly}
 convertit partiellement les fichiers ETF en fichiers source LilyPond.
 
-
-Pour le lancer en ligne de commande, procédez ainsi@tie{}:
+Pour le lancer en ligne de commande, procédez ainsi :
 
 @example
 etf2ly [@var{option}]@dots{} @var{fichier-etf}
 @end example
 
-Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Conversion à partir d'autres formats}.
 
-@command{etf2ly} accepte les options suivantes@tie{}:
+@command{etf2ly} accepte les options suivantes :
 
 @table @code
 @item -h,--help
@@ -617,7 +615,6 @@ Générer le résultat dans le fichier @var{file}.
 @item --version
 Afficher le numéro de version.
 @end table
-
 
 @knownissues
 
@@ -677,14 +674,14 @@ d'insérer directement des partitions LilyPond dans OpenOffice.org.
 @translationof Inserting LilyPond output into other programs
 
 Dans le cas où vous cherchez à insérer le résultat de LilyPond dans
-d'autres programmes, utilisez @code{lilypond} plutôt que
-@code{lilypond-book}.  Chaque extrait devra être généré séparément avant
-d'être inséré dans votre document.  De très nombreux programmes sont
-capables de contenir le résultat de LilyPond, que ce soit au format
+d'autres programmes, utilisez @command{lilypond} plutôt que
+@command{lilypond-book}.  Chaque extrait devra être généré séparément
+avant d'être inséré dans votre document.  De très nombreux programmes
+sont capables de contenir le résultat de LilyPond, que ce soit au format
 @file{PNG}, @file{EPS} ou @file{PDF}.
 
 Les options suivantes vous permettront de réduire notablement les
-contours de l'image LilyPond@tie{}:
+contours de l'image LilyPond :
 
 @example
 \paper@{
@@ -699,7 +696,7 @@ contours de l'image LilyPond@tie{}:
 @{ c1 @}
 @end example
 
-En procédant comme ci-après, vous obtiendrez des fichiers images@tie{}:
+En procédant comme ci-après, vous obtiendrez des fichiers images :
 
 @example
 EPS
@@ -727,7 +724,6 @@ où elles pourraient faire partie intégrante de LilyPond, vous pouvez
 toujours les télécharger et les utiliser avec la commande
 @code{\include}.
 
-
 @menu
 * MIDI et articulations::
 @end menu
@@ -738,14 +734,14 @@ toujours les télécharger et les utiliser avec la commande
 @translationof MIDI articulation
 
 LilyPond sait produire des fichiers MIDI, principalement dans le but de
-@qq{contrôle-qualité} -- heureux détenteurs d'une oreille absolue -- de
+« contrôle qualité » -- heureux détenteurs d'une oreille absolue -- de
 ce qui a été saisi.  Ne seront toutefois reproduits, en plus des notes
 et durées, que les nuances et tempi explicites.
 
 Le projet @emph{articulate} (site en anglais) s'est donné pour objectif
 de reproduire plus d'informations dans le MIDI.  Les notes qui ne sont
-pas liées sont ainsi raccourcies dans le but @qq{d'articuler}.  Ce
-raccourcissement dépend de l'articulation appliquée à la note@tie{}: un
+pas liées sont ainsi raccourcies dans le but « d'articuler ».  Ce
+raccourcissement dépend de l'articulation appliquée à la note : un
 @emph{staccato} raccourcira la note de moitié, un @emph{tenuto} lui
 gardera sa durée entière@dots{}  Ce script réalise aussi les trilles et
 @emph{grupettos} et compte bien traiter d'autres ornements tels que les
@@ -758,8 +754,8 @@ mordants.
 
 @knownissues
 
-Ce projet ne peut traiter que ce qu'il connaît@tie{}: tout ce qui peut
+Ce projet ne peut traiter que ce qu'il connaît : tout ce qui peut
 ressembler à un @emph{markup} -- et donc pas à la propriété d'une note
 -- sera ignoré.
 
-
+@c  LocalWords:  noindent unnumberedsubsec knownissues

@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
-Voici la liste des différents instruments à vent de la section des bois
-dont les doigtés sont disponibles à ce jour.
+Voici les différents instruments à vent de la section des bois pour
+lesquels LilyPond peut, à ce jour, afficher des doigtés.
+
 "
   doctitlefr = "Liste des diagrammes de doigtés pour bois"
-

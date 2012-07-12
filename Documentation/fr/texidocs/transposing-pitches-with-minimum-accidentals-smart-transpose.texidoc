@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Cet exemple, grâce à un peu de code Scheme, donne la priorité aux
 enharmoniques afin de limiter le nombre d'altérations supplémentaires.
-La règle appliquable est@tie{}:
+La règle applicable est :
 
 @itemize
 @item

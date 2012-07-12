@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
+    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,7 +18,7 @@
 
 @lilypondfile[quote]{vocal-headword.ly}
 
-Ce chapitre traite de la musique vocale@tie{}: comment la saisir et comment
+Ce chapitre traite de la musique vocale : comment la saisir et comment
 s'assurer que les paroles s'alignent avec les notes de la mélodie
 correspondante.
 
@@ -57,7 +57,7 @@ particuliers en terme de musique vocale.
 @unnumberedsubsubsec Références en matière de musique vocale
 @translationof References for vocal music and lyrics
 
-Graver de la musique vocale soulève plusieurs problèmes@tie{}; ils
+Graver de la musique vocale soulève plusieurs problèmes ; ils
 sont abordés soit dans ce chapitre, soit dans d'autres parties de la
 documentation de LilyPond.
 
@@ -120,17 +120,17 @@ Il existe un mode de saisie spécialement adapté aux paroles.  On
 l'introduit avec le mot-clé @code{\lyricmode}, ou en utilisant
 @code{\addlyrics} ou @code{\lyricsto}.  Ce mode vous permet de saisir
 des paroles ainsi que leur ponctuation, de telle sorte que le
-caractère@tie{}@code{a} ne sera plus interprété comme une note, un
+caractère @code{a} ne sera plus interprété comme une note, un
 @notation{la} pour les non latinistes, mais comme une syllabe.  Les
 syllabes sont saisies comme des notes, mais les hauteurs sont alors
-remplacées par du texte.  Exemple avec une comptine anglaise@tie{}:
+remplacées par du texte.  Exemple avec une comptine anglaise :
 
 @example
 \lyricmode @{ Three4 blind mice,2 three4 blind mice2 @}
 @end example
 
 Il y a deux manières principales de préciser la place exacte des
-syllabes@tie{}: soit en spécifiant explicitement la durée de chaque
+syllabes : soit en spécifiant explicitement la durée de chaque
 syllabe -- comme dans l'exemple ci-dessus -- soit en alignant
 automatiquement les paroles sur les notes d'une mélodie ou d'une voix en
 utilisant @code{\addlyrics} ou @code{\lyricsto}.  La première méthode
@@ -142,17 +142,17 @@ Dans les paroles, un mot ou une syllabe commence par une lettre de
 l'alphabet, et se termine par une espace.  Toute syllabe doit donc être
 séparée d'une autre par une espace, tout autre caractère -- chiffre ou
 ponctuation -- étant considéré comme partie intégrante de cette même
-syllabe.  L'exemple suivant comporte une faute de frappe évidente@tie{}:
+syllabe.  L'exemple suivant comporte une faute de frappe évidente :
 
 @example
 \lyricmode @{ lah lah lah@}
 @end example
 
 @noindent
-la dernière syllabe contient une @code{@}}@tie{}; il y a de fait un
+la dernière syllabe contient une @code{@}} ; il y a de fait un
 défaut de parité avec l'accolade ouvrante, et la compilation échouera
 fort probablement.  Prenez dès à présent l'habitude de toujours encadrer
-d'espaces une accolade@tie{}:
+d'espaces une accolade :
 
 @example
 \lyricmode @{ lah lah lah @}
@@ -189,7 +189,7 @@ Voir à ce sujet @ref{Caractères spéciaux} pour plus de détails.
 
 Pour utiliser des guillemets informatiques standard, faites-les
 précéder d'une barre oblique inverse et encadrez d'une paire de
-guillemets la syllabe ainsi composée@tie{}:
+guillemets la syllabe ainsi composée :
 
 @lilypond[quote,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
@@ -198,11 +198,11 @@ guillemets la syllabe ainsi composée@tie{}:
 
 Expliquer exactement comment LilyPond repère le début d'un mot en mode
 paroles (@emph{Lyrics}) est quelque peu compliqué.  En mode
-@emph{Lyrics}, un mot peut commencer par@tie{}: tout caractère
+@emph{Lyrics}, un mot peut commencer par : tout caractère
 alphabétique, @code{_}, @code{?}, @code{!}, @code{:}, @code{'}, un des
 codes de contrôle @code{^A} à @code{^F} et @code{^Q} à @code{^W},
 @code{^Y}, @code{^^}, tout caractère ASCII de code strictement supérieur
-à@tie{}127, ou enfin l'un des symboles @code{`}, @code{'}, @code{"}, ou
+à 127, ou enfin l'un des symboles @code{`}, @code{'}, @code{"}, ou
 @code{^}, s'il est précédé d'une barre oblique inverse.
 
 @c " to balance double quotes for not-so-bright context-sensitive editors
@@ -250,7 +250,7 @@ contexte @code{Lyrics} -- voir @ref{Tout savoir sur les contextes}.
 @end example
 
 Vous disposez de deux méthodes pour aligner des paroles sur une
-mélodie@tie{}:
+mélodie :
 
 @itemize
 
@@ -326,18 +326,18 @@ explicitement leur durée à chaque syllabe.
 
 La première ligne de paroles ne s'aligne pas vraiment sur les notes
 parce qu'aucune durée n'a été spécifiée.  En fait, LilyPond adopte la
-dernière durée mentionnée, un@tie{}2, et l'applique à chaque mot.
+dernière durée mentionnée, un 2, et l'applique à chaque mot.
 
 La deuxième ligne illustre la manière d'aligner des paroles sans tenir
 compte de la durée des notes.  Cette façon de procéder permet de traiter
 un alignement différent selon les couplets lorsqu'il n'y a pas moyen de
-déduire les durées à partir d'un contexte musical@tie{}; la rubrique
+déduire les durées à partir d'un contexte musical ; la rubrique
 @ref{Durée explicite des syllabes} aborde ceci plus en détails.  Cette
 technique permet aussi d'ajouter des dialogues, comme indiqué à la rubrique
 @ref{Dialogue et musique}.
 
 Des paroles saisies de cette manière s'aligneront par défaut sur la
-gauche des notes@tie{}; elles seront centrées sur les notes de la
+gauche des notes ; elles seront centrées sur les notes de la
 mélodie dès lors que vous pourrez les associer à une voix.  Tout ceci
 est abordé plus en détails à la rubrique
 @ref{Durée explicite des syllabes}.
@@ -364,7 +364,7 @@ Référence des propriétés internes :
 @funindex \lyricsto
 
 Les paroles peuvent être automatiquement alignées sous
-une mélodie, de trois manières différentes@tie{}:
+une mélodie, de trois manières différentes :
 
 @itemize
 
@@ -402,7 +402,7 @@ comment maintenir un contexte actif.
 
 Vous pouvez aligner automatiquement des paroles sous une mélodie en
 spécifiant à l'aide de la commande @code{\lyricsto} le contexte de voix
-qui contient cette mélodie@tie{}:
+qui contient cette mélodie :
 
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
@@ -421,9 +421,9 @@ Cette commande adapte les paroles aux notes de la voix (contexte
 @code{Voice} dans le jargon LilyPond) @var{melodie}.  Ce contexte
 @code{Voice} doit exister avant l'affectation des paroles par
 @code{\lyricsto}.  La commande @code{\lyricsto} introduit
-automatiquement le mode @code{\lyricmode}@tie{}; il n'est alors pas
+automatiquement le mode @code{\lyricmode} ; il n'est alors pas
 nécessaire de rajouter @code{\lyricmode}.  Les paroles viendront par
-défaut se placer en dessous des notes@tie{}; la rubrique
+défaut se placer en dessous des notes ; la rubrique
 @ref{Positionnement vertical des paroles} vous donnera des indications
 pour d'autres options.
 
@@ -450,7 +450,7 @@ revient au même que
 \new Lyrics \lyricsto "blah" @{ PAROLES @}
 @end example
 
-En voici un exemple@tie{}:
+En voici un exemple :
 
 @lilypond[verbatim,quote]
 {
@@ -483,7 +483,7 @@ constructions polyphoniques.  Dans ce cas, mieux vaut employer
 
 La propriété @code{associatedVoice} permet de basculer de mélodie pour
 la synchronisation des paroles.  Elle s'emploie de la manière
-suivante@tie{}:
+suivante :
 
 @example
 \set associatedVoice = #"lala"
@@ -494,7 +494,7 @@ La valeur que vous attribuez à cette propriété (ici @code{"lala"})
 doit désigner un contexte @code{Voice} nommé, sans quoi les mélismes
 ne seront pas imprimés correctement.
 
-Voici un exemple de cette manière de procéder@tie{}:
+Voici un exemple de cette manière de procéder :
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -539,7 +539,7 @@ Par défaut, les syllabes seront alignées par la gauche sur l'instant
 musical.  Les traits d'union seront imprimés entre les syllabes, à
 l'inverse des mélismes puisqu'il n'y a pas de voix associée.
 
-Voici deux illustrations de cette technique@tie{}:
+Voici deux illustrations de cette technique :
 
 @lilypond[relative=1,verbatim,quote]
 <<
@@ -665,12 +665,12 @@ dernière note de la vocalise.  Ceci s'obtient en ajoutant un double
 caractère souligné @code{__} après cette syllabe.
 
 Vous disposez de cinq méthodes pour indiquer la présence d'un
-mélisme@tie{}:
+mélisme :
 
 @itemize
 
 @item
-Une liaison de prolongation constitue de fait un mélisme@tie{}:
+Une liaison de prolongation constitue de fait un mélisme :
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -690,7 +690,7 @@ Une liaison de prolongation constitue de fait un mélisme@tie{}:
 LilyPond considère une liaison d'articulation comme un mélisme -- il
 s'étendra de la première à la dernière note couvertes par cette
 liaison.  Il s'agit là de la façon traditionnelle de saisir des
-paroles@tie{}:
+paroles :
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -704,6 +704,9 @@ paroles@tie{}:
   }
 >>
 @end lilypond
+
+Notez bien qu'une liaison de phrasé -- indiquée par @code{\(@dots{}\)}
+-- n'a aucune incidence sur la gestion des mélismes.
 
 @item
 LilyPond considère des notes regroupées par une ligature manuelle comme
@@ -730,7 +733,7 @@ plus longues que la croche.
 @item
 LilyPond considère un groupe de notes non liées, mais encadrées par
 @code{\melisma} et @code{\melismaEnd}, comme constituant un
-mélisme@tie{}:
+mélisme :
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -771,7 +774,7 @@ de la vocalise :
 Vous pouvez totalement désactiver l'interprétation des liaisons de
 prolongation ou d'articulation et des ligatures apparaissant dans une
 mélodie comme fait générateur d'un mélisme.  Il suffit en ce cas de
-définir @code{melismaBusyProperties}@tie{}:
+définir @code{melismaBusyProperties} :
 
 @lilypond[relative=1,verbatim,quote]
 <<
@@ -800,7 +803,7 @@ ignorées, il vous faudra alors activer @code{ignoreMelismata} -- voir
 
 Lorsque, dans un passage où la propriété @code{melismaBusyProperties}
 est active, survient un mélisme, vous pouvez l'indiquer dans les paroles
-par un simple caractère souligné pour chaque note à inclure@tie{}:
+par un simple caractère souligné pour chaque note à inclure :
 
 @lilypond[relative=1,verbatim,quote]
 <<
@@ -841,7 +844,7 @@ Référence des propriétés internes :
 @rinternals{Tunable context properties}.
 
 @knownissues
-Certains mélismes ne sont pas détectés automatiquement@tie{}; vous devrez
+Certains mélismes ne sont pas détectés automatiquement ; vous devrez
 alors prolonger vous-même les syllabes concernées à l'aide d'un double
 caractère souligné.
 
@@ -910,7 +913,7 @@ Référence des propriétés internes :
 @cindex paroles, identificateurs
 
 Vous pouvez créer des variables pour contenir les paroles, dès lors que
-vous faites appel au mode approprié@tie{}:
+vous faites appel au mode approprié :
 
 @lilypond[quote,verbatim]
 musicOne = \relative c'' {
@@ -943,7 +946,7 @@ paroles, puis définir la hiérarchie des portées et des lignes de
 paroles, et enfin combiner correctement mélodies et paroles à l'aide de
 la commande @code{\context}.  Vous serez ainsi assuré que la voix à
 laquelle il est fait référence par @code{\lyricsto} aura bien été
-préalablement définie, comme dans l'exemple suivant@tie{}:
+préalablement définie, comme dans l'exemple suivant :
 
 @lilypond[quote,verbatim]
 sopranoMusic = \relative c'' { c4 c c c }
@@ -998,8 +1001,8 @@ Référence des propriétés internes :
 Selon le type de musique, les paroles apparaîtront au-dessus ou
 au-dessous d'une portée ou bien entre deux portées.  Positionner des
 paroles en dessous de la portée à laquelle elles se rattachent est de
-loin la chose la plus simple@tie{}: il suffit de mentionner le contexte
-de paroles après le contexte de portée@tie{}:
+loin la chose la plus simple : il suffit de mentionner le contexte
+de paroles après le contexte de portée :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1021,7 +1024,7 @@ de paroles après le contexte de portée@tie{}:
 Positionner les paroles au-dessus de la portée se fait de deux manières
 différentes, le plus simple étant d'utiliser la même syntaxe que
 ci-dessus, à ceci près que la ligne de paroles sera positionnée de
-manière explicite@tie{}:
+manière explicite :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1045,7 +1048,7 @@ par déclarer un contexte @code{Lyrics} que nous laissons vide, puis
 les contextes @code{Staff} et @code{Voice}.  Dans un deuxième temps,
 nous ajoutons l'instruction @code{\context} et la commande
 @code{\lyricsto} pour affecter les paroles au contexte de voix en
-question.  Voici comment cela se présente@tie{}:
+question.  Voici comment cela se présente :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1071,7 +1074,7 @@ question.  Voici comment cela se présente@tie{}:
 Lorsque deux voix sont isolées chacune sur une portée, vous pouvez
 placer les paroles entre les deux portées en utilisant l'une des
 méthodes que nous venons de voir.  En voici un exemple, basé sur la
-deuxième méthode@tie{}:
+deuxième méthode :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1264,7 +1267,7 @@ Les mots seront alors correctement répétés si la reprise est développée.
 @end lilypond
 
 Lorsque la reprise est développée et que les paroles diffèrent,
-saisissez le texte normalement@tie{}:
+saisissez le texte normalement :
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -1291,7 +1294,7 @@ saisissez le texte normalement@tie{}:
 Lorsque les paroles diffèrent pour une reprise non développée --
 utilisation de @code{volta} au lieu de @code{unfold} -- les paroles en
 question doivent être saisies dans des contextes @code{Lyrics}
-séparés@tie{}; ils seront combinés dans une section parallèle@tie{}:
+séparés ; ils seront combinés dans une section parallèle :
 
 @lilypond[verbatim,quote]
 \score {
@@ -1318,7 +1321,7 @@ séparés@tie{}; ils seront combinés dans une section parallèle@tie{}:
 }
 @end lilypond
 
-Et ce quel que soit le nombre de @qq{couplets}@tie{}:
+Et ce quel que soit le nombre de @qq{couplets} :
 
 @lilypond[verbatim,quote]
 \score {
@@ -1363,7 +1366,7 @@ Et ce quel que soit le nombre de @qq{couplets}@tie{}:
 @cindex alternative et paroles
 
 Les paroles d'un fragment répété, lorsqu'elles sont identiques, peuvent
-adopter la même construction que la musique@tie{}:
+adopter la même construction que la musique :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1395,7 +1398,7 @@ s'insérer dans les paroles pour @qq{sauter} les notes des alternatives
 qui ne les concernent pas.
 
 N'utilisez pas de simple caractère souligné pour sauter une note.
-N'oubliez pas qu'un caractère souligné indique un mélisme@tie{}; la
+N'oubliez pas qu'un caractère souligné indique un mélisme ; la
 syllabe précédente sera donc alignée à gauche.
 
 @warning{La commande @code{@bs{}skip} doit comporter une durée quelle
@@ -1484,8 +1487,8 @@ Notez bien que l'utilisation conjointe de @code{\unfoldRepeats} et de
 supprimer les @code{\repeatTie}.
 
 Lorsque les paroles sont différentes sur le fragment répété, la
-construction avec @code{\repeat} est inefficace@tie{}; vous devrez alors
-insérer des blancs@tie{}:
+construction avec @code{\repeat} est inefficace ; vous devrez alors
+insérer des blancs :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1518,7 +1521,7 @@ insérer des blancs@tie{}:
 @end lilypond
 
 Les indications de mélisme et traits d'union en début d'alternative
-doivent être insérées manuellement@tie{}:
+doivent être insérées manuellement :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1567,7 +1570,7 @@ Manuel de notation :
 Il arrive parfois, dans un fragment répété, qu'une note soit divisée
 pour répondre au texte.  Vous pouvez indiquer cette adaptation rythmique
 en désactivant temporairement la détection automatique des mélismes tout
-en spécifiant ces mélismes au niveau des paroles@tie{}:
+en spécifiant ces mélismes au niveau des paroles :
 
 @lilypond[quote,verbatim]
 \score {
@@ -1594,7 +1597,7 @@ en spécifiant ces mélismes au niveau des paroles@tie{}:
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
 des paroles, vous pourrez traiter le cas où notes et rythme diffèrent
-d'une fois sur l'autre@tie{}:
+d'une fois sur l'autre :
 
 @lilypond[verbatim,ragged-right,quote]
 \score {
@@ -1648,7 +1651,7 @@ d'une fois sur l'autre@tie{}:
 @cindex numéro de couplet
 
 On peut ajouter un numéro aux couplets en définissant la variable
-@code{stanza}@tie{}:
+@code{stanza} :
 
 @lilypond[quote,ragged-right,verbatim,relative=2]
 \new Voice {
@@ -1734,7 +1737,7 @@ text = {
 @cindex nom du chanteur
 @cindex rôle
 
-On peut également ajouter le nom de chaque rôle@tie{}; ils s'imprimeront
+On peut également ajouter le nom de chaque rôle ; ils s'imprimeront
 au début de chaque ligne comme les noms d'instrument.  Il faut pour cela
 définir @code{vocalName}, et @code{shortVocalName} pour une version
 abrégée.
@@ -1771,9 +1774,9 @@ couplets, mais plusieurs syllabes pour d'autres.  Une solution consiste
 syllabes.  Il suffit pour cela de définir la propriété
 @code{ignoreMelismata} à l'intérieur du contexte @code{Lyrics}.
 
-Petit détail qui a son importance@tie{}: l'activation de
+Petit détail qui a son importance : l'activation de
 @code{ignoreMelismata} doit @strong{précéder} la syllabe à partir de
-laquelle elle s'appliquera@tie{}:
+laquelle elle s'appliquera :
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1800,7 +1803,7 @@ laquelle elle s'appliquera@tie{}:
 @knownissues
 Contrairement aux autres utilisations de l'instruction @code{\set}, il
 n'est pas possible de la faire précéder d'un @code{\once} dans le cas de
-@code{\set@tie{}ignoreMelismata}.  Les paroles affectées par la
+@code{\set ignoreMelismata}.  Les paroles affectées par la
 propriété @code{ignoreMelismata} @strong{doivent} être encadrées
 respectivement d'un @code{\set} et d'un @code{\unset}.
 
@@ -1814,7 +1817,7 @@ respectivement d'un @code{\set} et d'un @code{\unset}.
 L'utilisation de la commande @code{\lyricsto} ne permet pas, par
 défaut, d'assigner une syllabe à des notes d'ornement -- introduites par
 la commande @code{\grace}.  Vous pouvez cependant y parvenir grâce à la
-propriété @code{includeGraceNotes}@tie{}:
+propriété @code{includeGraceNotes} :
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1844,7 +1847,7 @@ Tout comme pour la propriété @code{associatedVoice}, la propriété
 @code{includeGraceNotes} doit être activée au moins une syllabe avant
 celle qui viendra s'attacher à la note d'ornement.  Dans le cas où cette
 note se trouve être la première de la pièce, vous devrez recourir à une
-clause @code{\with} ou @code{\context}@tie{}:
+clause @code{\with} ou @code{\context} :
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1947,7 +1950,7 @@ Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie, et de présenter tous les autres en bloc à la fin du morceau.
 Ces couplets additionnels peuvent être inclus dans une section
 @code{\markup} en dehors du bloc @code{\score} principal.
-Vous en trouverez un exemple ci-dessous@tie{}; notez également les deux
+Vous en trouverez un exemple ci-dessous ; notez également les deux
 méthodes différentes employées pour indiquer les sauts de ligne,
 entre les couplets (@emph{verses} en anglais) 2 et 3.
 
@@ -2078,8 +2081,8 @@ Référence des propriétés internes :
 @translationof References for songs
 
 Une chanson se présente la plupart du temps sous la forme de trois
-portées@tie{}: une pour la mélodie surmontant un système pianistique
-pour l'accompagnement@tie{}; les paroles du premier couplet s'accolent
+portées : une pour la mélodie surmontant un système pianistique
+pour l'accompagnement ; les paroles du premier couplet s'accolent
 sous la mélodie.  S'il n'y a que deux ou trois couplets, et que cela
 n'est pas gênant au niveau de l'aspect général, tous peuvent prendre
 place entre la mélodie et l'accompagnement.  Dans le cas contraire, le
@@ -2087,7 +2090,7 @@ premier couplet sera imprimé sous la mélodie et les suivants après la
 partition, sous forme de blocs de texte indépendants.
 
 Tous les éléments qui permettent d'imprimer des chansons sont examinés à
-différents endroits de la documentation de LilyPond@tie{}:
+différents endroits de la documentation de LilyPond :
 
 @itemize
 
@@ -2184,7 +2187,7 @@ partie de chœur.
 Une partition pour chœur comporte habituellement de deux à quatre
 portées regroupées dans un @code{ChoirStaff}.  L'accompagnement, s'il y
 en a un, se présente sous la forme d'un système pianistique -- un
-@code{PianoStaff} -- en dessous du chœur@tie{}; il s'agira d'une simple
+@code{PianoStaff} -- en dessous du chœur ; il s'agira d'une simple
 réduction dans le cas d'une œuvre @emph{a capella}.  Les notes de chaque
 pupitre font l'objet d'un contexte @code{Voice} distinct.  Ces contextes
 @code{Voice} peuvent se voir groupés ou non sur une même portée.
@@ -2194,7 +2197,7 @@ se placer tantôt sous la portée, tantôt au-dessus et au-dessous de la
 portée si elle contient deux voix.
 
 Certaines composantes d'une partition pour chœur sont examinées à
-différents endroits de la documentation de LilyPond@tie{}:
+différents endroits de la documentation de LilyPond :
 
 @itemize
 
@@ -2259,7 +2262,7 @@ Une partition pour chœur sur quatre portées, avec ou sans
 accompagnement, présente traditionnellement deux systèmes par page.
 Selon la taille du papier, vous pourrez être amené à effectuer quelques
 ajustements aux réglages par défaut, notamment en raison des points
-suivants@tie{}:
+suivants :
 
 @itemize
 
@@ -2365,7 +2368,7 @@ Manuel de notation :
 
 Tout ce qui permet d'exécuter un opéra ou une œuvre scénique accompagnée
 de musique se présente généralement sous l'une ou plusieurs des formes
-suivantes@tie{}:
+suivantes :
 
 @itemize
 
@@ -2436,7 +2439,7 @@ La génération d'un matériel d'orchestre fait l'objet de la rubrique
 @ref{Écriture de parties séparées}.  D'autres parties du chapitre
 consacré à la notation spécialisée vous seront utiles selon
 l'orchestration de la pièce.  Tous les instruments ne sont pas accordés
-pareil@tie{}; vous trouverez des informations à ce sujet à la rubrique
+pareil ; vous trouverez des informations à ce sujet à la rubrique
 @ref{Instruments transpositeurs}.
 
 @item
@@ -2488,7 +2491,7 @@ Morceaux choisis :
 @cindex personnage, indication
 
 Lorsqu'un rôle est distribué sur une portée spécifique, vous pouvez
-l'indiquer en regard de cette portée@tie{}:
+l'indiquer en regard de cette portée :
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2519,7 +2522,7 @@ l'indiquer en regard de cette portée@tie{}:
 Lorsque la même portée sert à plusieurs personnages, leur nom est
 généralement imprimé en surplomb de la portée, à chaque changement de
 rôle.  L'utilisation d'un @emph{markup} -- dans une fonte réservée à cet
-effet -- vous permettra de générer ces indications@tie{}:
+effet -- vous permettra de générer ces indications :
 
 @lilypond[quote,verbatim,relative=1]
 \clef "G_8"
@@ -2536,8 +2539,8 @@ c c c
 Dans le cas où les changements de personnage se multiplient, il peut
 s'avérer pratique de détourner l'utilisation de la fonction
 @code{\instrumentSwitch} pour gérer les différentes interventions de
-l'un ou de l'autre@tie{}; vous devrez auparavant avoir établi la
-définition d'un @qq{instrument} pour chacun des rôles en question@tie{}:
+l'un ou de l'autre ; vous devrez auparavant avoir établi la
+définition d'un @qq{instrument} pour chacun des rôles en question :
 
 @lilypond[quote,verbatim]
 \addInstrumentDefinition #"kaspar"
@@ -2600,8 +2603,8 @@ Les mécanismes de base permettant d'insérer des citations sont expliqués
 en détail aux rubriques @ref{Citation d'autres voix} et
 @ref{Mise en forme d'une citation}.  Dans le cas où les citations
 concernent différents instruments, faire mention de celui qui intervient
-devient une nécessité@tie{}; voici une illustration de la manière de
-procéder en pareil cas@tie{}:
+devient une nécessité ; voici une illustration de la manière de
+procéder en pareil cas :
 
 @lilypond[quote,verbatim]
 flute = \relative c'' {
@@ -2643,7 +2646,7 @@ de la portée, nous affectons un @code{DOWN} à la commande
 @code{\cueDuring}, de telle sorte que les hampes aillent vers le bas et
 que le nom de l'instrument cité soit en dessous de la portée.  Vous
 noterez que la voix contenant la main droite du piano est explicitement
-déclarée@tie{}; ceci tient au fait que la citation se produit dès le
+déclarée ; ceci tient au fait que la citation se produit dès le
 début de la première mesure -- si nous ne le faisions pas, l'intégralité
 de la main droite se verrait placée dans un contexte @code{CueVoice}.
 
@@ -2731,7 +2734,7 @@ explicitement déclarés, ainsi que l'utilisation de la commande
 @cindex Sprechgesang
 
 Le @emph{parlato} -- ou @emph{Sprechgesang} pour les germanistes -- est
-du texte scandé en rythme, mais sans hauteurs définies@tie{}; il est
+du texte scandé en rythme, mais sans hauteurs définies ; il est
 indiqué par des notes en croix, à l'instar des percussions -- voir
 @ref{Têtes de note spécifiques}.
 
@@ -2751,7 +2754,7 @@ imprimés en italique au-dessus des portées, au moment même où ils
 surviennent.
 
 Une courte intervention peut se formuler à l'aide d'un simple
-@emph{markup}@tie{}:
+@emph{markup} :
 
 @lilypond[quote,verbatim,relative=2]
 a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
@@ -2767,7 +2770,7 @@ devrez probablement ajuster vous même la mise en forme.
 Dans le cas d'une phrase entière ou de passages relativement denses, le
 recours à un contexte @code{Lyrics} peut donner de meilleurs résultats.
 Le contexte @code{Lyrics} en question ne doit être rattaché à aucune
-voix musicale@tie{}; chaque fragment de dialogue devra donc comporter
+voix musicale ; chaque fragment de dialogue devra donc comporter
 des durées explicites.  Lorsque les dialogues comportent des pauses, le
 dernier mot devra être séparé du reste et les durées individualisées
 pour obtenir un espacement harmonieux de la musique.
@@ -2777,7 +2780,7 @@ insérer des @code{\break} et ajuster leur placement pour éviter qu'ils
 ne débordent dans la marge droite.  Le dernier mot de la dernière mesure
 d'une ligne doit être saisi sur une ligne à part.
 
-Voici une illustration de tout ce que nous venons de voir@tie{}:
+Voici une illustration de tout ce que nous venons de voir :
 
 @c This should be a snippet, but it can't be as it needs to be
 @c manually adjusted to suit the imposed line length.  -td
@@ -2872,7 +2875,7 @@ anciennes.  Nous allons examiner quelques uns de ces éléments et la
 méthode consacrée pour les mettre en œuvre.
 
 Les cantiques utilisent souvent des noires dépourvues de hampe pour
-indiquer les hauteurs@tie{}; le rythme de la mélodie est donné par le
+indiquer les hauteurs ; le rythme de la mélodie est donné par le
 rythme et l'accentuation des paroles elles-mêmes.
 
 @lilypond[verbatim,quote]
@@ -2884,10 +2887,10 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
 }
 @end lilypond
 
-Les barres de mesure sont absentes dans la plupart des cas@tie{}; celles
+Les barres de mesure sont absentes dans la plupart des cas ; celles
 que vous rencontrerez seront raccourcies ou en pointillé, dans le but
 d'indiquer une @qq{respiration}.  Le fait de supprimer le graveur de
-barres de mesure produira des portées sans barre@tie{}:
+barres de mesure produira des portées sans barre :
 
 @lilypond[verbatim,quote]
 \score {
@@ -2917,7 +2920,7 @@ barres de mesure produira des portées sans barre@tie{}:
 @end lilypond
 
 L'absence de barre de mesure peut ne concerner que certaines
-portées@tie{}:
+portées :
 
 @lilypond[verbatim, quote]
 \score {
@@ -2943,7 +2946,7 @@ portées@tie{}:
 
 L'absence de barre de mesure sur un fragment seulement s'obtient en
 traitant ce fragment comme une cadence.  S'il est relativement long,
-pensez à y insérer des barres fantômes -- un simple @code{\bar@tie{}""}
+pensez à y insérer des barres fantômes -- un simple @code{\bar ""}
 -- pour indiquer à LilyPond où serait susceptible de se produire un saut
 de ligne.
 
@@ -2961,7 +2964,7 @@ a4 b c2 |
 @end lilypond
 
 Dans la mélodie d'un cantique, les silences ou pauses s'indiquent à
-l'aide de barres de mesure spécifiques@tie{}:
+l'aide de barres de mesure spécifiques :
 
 @lilypond[verbatim, quote,relative=2]
 a4
@@ -2981,7 +2984,7 @@ a4 b c2
 Vous pouvez accessoirement, bien qu'il s'agisse de notation moderne,
 emprunter au grégorien des indications de pause et silence.  Il vous
 suffit pour cela d'adapter la commande @code{\breathe} selon vos
-besoins@tie{}:
+besoins :
 
 @lilypond[verbatim,quote]
 divisioMinima = {
@@ -3223,7 +3226,7 @@ tick = \markup {
 Lorsqu'une mesure ne comporte qu'une ronde, le texte correspondant à
 cette mesure est chanté sur cette même note, selon le rythme naturel de
 la phrase.  Lorsque la mesure comporte deux notes, celles-ci
-correspondent en général à une ou deux syllabes@tie{}; dans le cas
+correspondent en général à une ou deux syllabes ; dans le cas
 contraire, le changement de note est indiqué par un point.
 
 @lilypond[verbatim,quote]
@@ -3331,7 +3334,7 @@ Il arrive fréquemment que les chants liturgiques comportent des mesures
 incomplètes aussi bien en début qu'en fin de ligne, de telle sorte qu'à
 une portée corresponde une ligne de texte.  Ceci requiert donc
 l'utilisation de la commande @code{\partial} en début de partition et
-d'une commande @code{\bar@tie{}"|"} ou @code{\bar@tie{}"||"} à la fin de
+d'une commande @code{\bar "|"} ou @code{\bar "||"} à la fin de
 chaque ligne.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

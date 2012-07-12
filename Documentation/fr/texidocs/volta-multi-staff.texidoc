@@ -1,0 +1,8 @@
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+L'ajout du @code{Volta_engraver} à la portée appropriée permet de
+répéter les indications de reprise qui normalement n'apparaissent que
+sur la portée supérieure de la partition.
+
+"
+  doctitlefr = "Volta multiportée"

@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: c8d018351dac201da482291ad1f14f3771a1a679
+    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,14 +13,22 @@
 @macro helpusNeed
 @subheading Nous avons besoin de vous !
 
-L'équipe de développement de LilyPond est fort réduite@tie{}; nous
-souhaitons vraiment y accueillir davantage de contributeurs.
-Pourquoi pas vous@tie{}? Apportez votre contribution au développement
-de LilyPond@tie{}!
+Nous vous remercions dès à présent pour l'intérêt que vous éprouvez à
+nous aider et apprécions grandement votre implication.  Votre
+contribution viendra en aide à beaucoup d'utilisateurs dans leur quête
+de partitions de qualité.
 
 Prendre en charge même des tâches simples peut avoir un impact
-conséquent@tie{}: cela permet aux développeurs plus expérimentés de
+conséquent : cela permet aux développeurs plus expérimentés de
 consacrer leur temps à des travaux plus ardus.
+
+Pour un projet aux multiples facettes tel que LilyPond, il n'est parfois
+pas évident de savoir sous quel angle l'aborder.  En plus des pistes
+ci-dessous proposées, n'hésitez pas à adresser un courriel à notre
+@email{mike@@mikesolomon.org, Frog meister}, lui faisant part des
+compétences que vous désirez mettre à disposition de la communauté ou
+bien pour lui proposer un projet.  Il est à même de vous guider dans vos
+premiers pas.
 
 @end macro
 
@@ -32,36 +40,36 @@ Aucun besoin de fouiller dans le code ni de compiler.
 
 @itemize
 @item
-La liste de diffusion@tie{}: répondre aux questions des autres
-utilisateurs.
+La liste de diffusion : répondre aux questions des autres utilisateurs.
 
 @item
-Les rapports de bogue@tie{}: aider les utilisateurs à rédiger
-correctement et traduire leurs @rwebnamed{Signalement de bogue,
-signalements de bogue}, puis aider l'équipe des correcteurs à traiter
-ces @rcontribnamed{Issues,problèmes}.
+Les rapports de bogue : aider les utilisateurs à rédiger correctement et
+traduire leurs @rwebnamed{Signalement de bogue, signalements de bogue},
+puis aider l'équipe des correcteurs à traiter ces
+@rcontribnamed{Issues, problèmes}.
 
 @item
 @rcontribnamed{Grand Regression Test Checking, Vérification des test de
-régression}@tie{}: vérifier que LilyPond fournit un travail toujours
+régression} : vérifier que LilyPond fournit un travail toujours
 exemplaire au fil des versions. Contrôler un échantillon spécifique
-prend moins d'une minute@tie{}!
+prend moins d'une minute !
 
 @item
-Documentation@tie{}: il est possible de proposer des modifications,
-en suivant les recommandations s'appliquant aux
-@rcontribnamed{Documentation suggestions,suggestions en matière de
+Documentation : il est possible de proposer des modifications, en
+suivant les recommandations s'appliquant aux
+@rcontribnamed{Documentation suggestions, suggestions en matière de
 documentation}.
 
 @item
-LilyPond Snippet Repository (LSR): ajouter ou corriger des extraits. Voir
-@rcontribnamed{Adding and editing snippets,Ajout et édition d'extraits}.
+LilyPond Snippet Repository (LSR) : ajouter ou corriger des extraits.
+Voir @rcontribnamed{Adding and editing snippets, Ajout et édition
+d'extraits}.
 
 @item
-Discussions, relectures et tests@tie{}: les développeurs demandent
+Discussions, relectures et tests : les développeurs demandent
 régulièrement des retours sur des ajouts à la documentation, d'éventuels
 changements de syntaxe ou de nouvelles fonctionnalités à tester.
-Vous aussi, prenez part à ces discussions@tie{}!
+Vous aussi, prenez part à ces discussions !
 
 @end itemize
 
@@ -73,43 +81,39 @@ Vous aussi, prenez part à ces discussions@tie{}!
 Ces travaux demandent en général de disposer du code source et d'être en
 mesure de compiler LilyPond. 
 
- Voir 
-@rcontribnamed{Starting with Git,Débuter avec Git} et
-@rcontribnamed{Compiling LilyPond,Compiler LilyPond}.
-@*@*
 @warning{Nous engageons les contributeurs utilisant Windows ou
-MacOS@tie{}X à utiliser une machine virtuelle pour faire tourner
-@emph{Lilydev} -- voir @rcontribnamed{Quick start,Démarrage rapide} --
+MacOS X à utiliser une machine virtuelle pour faire tourner
+@emph{Lilydev} -- voir @rcontribnamed{Quick start, Démarrage rapide} --
 plutôt que leur propre environnement de développement.}
 
 Les contributeurs utilisant Linux ou FreeBSD peuvent eux aussi utiliser
 Lilydev.  Nous leur conseillons cependant, s'ils préfèrent leur propre
 environnement de développement, la lecture des rubriques
-@rcontribnamed{Working with source code,Travailler sur le code source}
-et @rcontribnamed{Compiling,Compiler}.
+@rcontribnamed{Working with source code, Travailler sur le code source}
+et @rcontribnamed{Compiling, Compiler}.
 
 Nous vous recommandons de lire tout d'abord la rubrique
 @rcontrib{Summary for experienced developers}.
 
 @itemize
 @item
-Documentation@tie{}: voir
+Documentation : voir
 @rcontribnamed{Documentation work,Travailler sur la documentation}.
 
 @item
-Site web@tie{}: le site web est compilé à partir du même code source
+Site web : le site web est compilé à partir du même code source
 que le reste de la documentation.  Reportez-vous aux informations sur la
 documentation, ainsi qu'au chapitre
 @rcontribnamed{Website work,Travailler sur le site internet}.
 
 @item
-Traductions@tie{}: voir
+Traductions : voir
 @rcontribnamed{Translating the documentation,Traduire la documentation}
 et @rcontribnamed{Translating the website,Traduire le site internet}.
 
 @item
-Correction de bogue et ajout de nouvelles fonctionnalités@tie{}:
-la voie recommandée est de se joindre aux @qq{Frogs}, et de lire
+Correction de bogue et ajout de nouvelles fonctionnalités :
+la voie recommandée est de se joindre aux « Frogs », et de lire
 @rcontrib{Programming work}.
 
 @end itemize
@@ -122,28 +126,28 @@ la voie recommandée est de se joindre aux @qq{Frogs}, et de lire
 
 @subsubheading Frogs
 
-Site et liste de diffusion@tie{}:
+Site et liste de diffusion :
 
 @example
 @uref{http://frogs.lilynet.net}
 @end example
 
-Les @qq{Frogs} sont de simples utilisateurs de LilyPond qui ont
+Les « Frogs » sont de simples utilisateurs de LilyPond qui ont
 décidé de s'impliquer dans le développement de leur logiciel préféré.
 Ils corrigent des bogues, implémentent de nouvelles fonctionnalités ou
 documentent le code source.  Il y a beaucoup à faire, mais le plus
 important est que chacun peut ainsi en apprendre beaucoup
 sur LilyPond, les logiciels libres, la programmation@dots{} et y prendre
-plaisir@tie{}! L'aventure vous tente@tie{}? Alors une seule chose à
-faire@tie{}: @emph{Rejoignez les Frogs@tie{}!}
+plaisir ! L'aventure vous tente ? Alors une seule chose à
+faire : @emph{Rejoignez les Frogs !}
 
 
 @subsubheading Projet GLISS de stabilisation de la syntaxe
 
-Page web@tie{}:
+Page web :
 @rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}
 
-Le @qq{GLISS} (@emph{Grand LilyPond Input Syntax Standardization})
+Le « GLISS » (@emph{Grand LilyPond Input Syntax Standardization})
 est destiné à stabiliser la syntaxe (en dehors des ajustements)
 en vue de la version 3.0 de LilyPond.  Les utilisateurs adoptant
 cette version bénéficieront, pour les partitions dépourvues
@@ -152,19 +156,18 @@ d'ajustements, d'une syntaxe stable à long terme.
 Nous prendrons le temps de discuter la spécification de ce
 format de saisie définitif.
 
-
 @warning{Le GLISS commencera peu après la sortie de la version 2.16.}
 
 
 @subsubheading Projet GOP d'organisation de LilyPond
 
-Page web@tie{}: @rcontrib{Grand Organization Project (GOP)}
+Page web : @rcontrib{Grand Organization Project (GOP)}
 
-Le @qq{GOP} (@emph{Grand Organization Project}) est destiné à
+Le « GOP » (@emph{Grand Organization Project}) est destiné à
 recruter de nouveaux contributeurs.  Nous avons désespérément
 besoin de mieux répartir les tâches de développement, y compris
 les plus simples, qui ne demandent ni de programmer ni de se
-plonger dans le code source@tie{}!  Nous devons aussi documenter
+plonger dans le code source !  Nous devons aussi documenter
 le savoir des développeurs actuels afin qu'il ne se perde pas.
 
 Comme son nom ne l'indique pas, le GOP n'a pas pour propos
@@ -176,3 +179,5 @@ de grands travaux à l'avenir.
 @end macro
 
 @end ignore
+
+@c  LocalWords:  itemize rcontribnamed subheading rcontrib
