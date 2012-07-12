@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c46be1b7c0e190478a16035db5aad453f31e9d02
+    Translation of GIT committish: da632500cfc55fcd3660f72b39c7dbcd7542f9bc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -471,6 +471,9 @@ fijar el grado en que la salida es prolija al valor dado en
 @item --lxml
 usar el paquete de Python lxml.etree para el análisis de XML; usa
 menos memoria y tiempo de CPU.
+
+@item -m, --midi
+activar el bloque midi.
 
 @item --nd --no-articulation-directions
 no convertir las direcciones (@code{^}, @code{_} o @code{-}) para las
