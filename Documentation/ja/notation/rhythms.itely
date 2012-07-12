@@ -2211,7 +2211,7 @@ c16 c c |
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% デフォルトでは beamExceptions のため、(3) の連桁になります
+% デフォルトでは beamExceptions のため、(6) の連桁になります
 \repeat unfold 6 {a8} |
 % 以下は beatLength のため、(1 1 1) の連桁になります
 \set Timing.beamExceptions = #'()

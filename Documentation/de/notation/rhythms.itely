@@ -2268,11 +2268,11 @@ Regel wird durch die Eigenschaft @code{beamWholeMeasure} bestimmt.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we beam in one
-\repeat unfold 6 { a8 }
-% We can avoid beaming in one
-\set Timing.beamWholeMeasure = ##f
-\repeat unfold 6 { a8 }
+% by default we beam in (6) due to beamExceptions
+\repeat unfold 6 {a8} |
+% This will beam (1 1 1) due to beatLength
+\set Timing.beamExceptions = #'()
+\repeat unfold 6 {a8}
 @end lilypond
 
 In einigen Notenstichen der romantischen und klassischen Periode kann auch
@@ -2282,10 +2282,8 @@ die Eigenschaft @code{beamHalfMeasure} bestimmt:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% By default we avoid half-measure beams
 r4. a8 a a |
-% We can allow half-measure beams
-\set Timing.beamHalfMeasure = ##t
+\set Timing.beamHalfMeasure = ##f
 r4. a8 a a |
 @end lilypond
 

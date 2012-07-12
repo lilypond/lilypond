@@ -2225,7 +2225,7 @@ la mesure par défaut.  Ligaturer sur le temps requiert un appel à
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
-% by default we beam in (3) due to beamExceptions
+% by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a8} |
 % This will beam (1 1 1) due to beatLength
 \set Timing.beamExceptions = #'()
