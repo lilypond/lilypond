@@ -28,6 +28,52 @@ NOTE:
 
 
 @newsItem
+@subsubheading Release candidate 6 of 2.16 - LilyPond 2.15.38 released!  @emph{May 3, 2012}
+
+LilyPond 2.15.38 is out; this is the sixth release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+@strong{Update:} Due to a few Critical bugs, another release
+candidate will be required.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond takes part in Google Summer of Code 2012!  @emph{April 25, 2012}
+
+Being a part of @uref{http://www.gnu.org/, GNU project}, we are participating in
+@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
+Google Summer of Code program}, which offers students stipends for
+working on open source software.
+
+Our contributor Janek Warchoł was accepted for 2012 edition of GSoC.
+He will be working on advanced lyrics positioning in LilyPond.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Release candidate 5 of 2.16 - LilyPond 2.15.37 released!  @emph{April 19, 2012}
+
+LilyPond 2.15.37 is out; this is the fifth release candidate of
+the upcoming 2.16 stable release.  All users are invited to
+experiment with this version.  New features since 2.14.2 are
+listed in the @qq{Changes} manual on the website section about
+@ref{Development}.
+
+There are no known Critical issues with this release.  If no
+Critical bugs are found, then the official 2.16.0 release will be
+on 03 May 2012.  If you discover any problems, please send us
+@ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 4 of 2.16 - LilyPond 2.15.36 released!  @emph{April 6, 2012}
 
 LilyPond 2.15.36 is out; this is the fourth release candidate of
