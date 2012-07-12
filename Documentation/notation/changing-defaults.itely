@@ -689,81 +689,304 @@ with ordering dependencies.
 @node Changing context default settings
 @subsection Changing context default settings
 
-The context settings which are to be used by default in
-@code{Score}, @code{Staff} and @code{Voice} contexts may be specified
-in a @code{\layout} block, as illustrated in the following example.
-The @code{\layout} block should be placed within the @code{\score}
-block to which it is to apply, but outside any music.
+@cindex default context properties, changing
+@cindex context properties, changing defaults
 
-Note that the @code{\set} command itself and the context must be
-omitted when the context default values are specified in this way:
+Context and grob properties can be changed with @code{\set}
+and @code{\override} commands, as described in
+@ref{Modifying properties}.  These commands create music events,
+making the changes take effect at the point in time the music
+is being processed.
+
+In contrast, this section explains how to change the @emph{default}
+values of context and grob properties at the time the context is
+created.  There are two ways of doing this.  One modifies the default
+values in all contexts of a particular type, the other modifies the
+default values in just one particular instance of a context.
+
+@menu
+* Changing all contexts of the same type::
+* Changing just one specific context::
+* Order of precedence::
+@end menu
+
+@node Changing all contexts of the same type
+@unnumberedsubsubsec Changing all contexts of the same type
+
+@cindex \context in \layout block
+@funindex \context
+@funindex \layout
+
+The context settings which are to be used by default in
+@code{Score}, @code{Staff}, @code{Voice} and other contexts may be
+specified in a @code{\context} block within any @code{\layout} block.
+The @code{\layout} block should be placed within the @code{\score}
+block to which it is to apply, after the music.
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    [context settings for all Voice contexts]
+  @}
+  \context @{
+    \Staff
+    [context settings for all Staff contexts]
+  @}
+@}
+@end example
+
+The following types of settings may be specified:
+
+@itemize
+@item
+An @code{\override} command, but with the context name omitted
 
 @lilypond[quote,verbatim]
 \score {
   \relative c'' {
-    a4^"Really small, thicker stems, no time signature" a a a
-    a a a a
+    a4^"Thicker stems" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem #'thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+Directly setting a context property
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Smaller font" a a a
+    a4 a a\ff a
   }
   \layout {
     \context {
       \Staff
       fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
     }
   }
 }
 @end lilypond
 
-In this example, the @code{\Staff} command specifies that the
-subsequent specifications are to be applied to all staves within
-this score block.
+@item
+A predefined command such as @code{\dynamicUp} or a music
+expression like @code{\accidentalStyle "dodecaphonic"}
 
-Modifications can be made to the @code{Score} context or all
-@code{Voice} contexts in a similar way.
-
-Context changes can be placed in a variable and applied to a
-@code{\context} definition by prepending the modification with
-@code{\with}:
 @lilypond[quote,verbatim]
-blubb = \with {
+\score {
+  \relative c'' {
+    a4^"Dynamics above" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle "dodecaphonic"
+    }
+  }
+}
+@end lilypond
+
+@item
+A user-defined variable containing a @code{\with} block; for details
+of the @code{\with} block see
+@ref{Changing just one specific context}.
+
+@lilypond[quote,verbatim]
+StaffDefaults = \with {
   fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
-
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
-
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
 }
 
 \score {
-  <<
-    \new Staff <<
-      \melody
-      s4^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s4^"Different"
-    >>
-  >>
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
   \layout {
     \context {
       \Staff
-      \blubb
+      \StaffDefaults
     }
   }
 }
 @end lilypond
 
-@c TODO: add \with in here.
+@end itemize
 
+Property-setting commands can be placed in a @code{\layout} block
+without being enclosed in a @code{\context} block.  Such settings
+are equivalent to including the same property-setting commands at
+the start of every context of the type specified.  If no context
+is specified @emph{every} bottom-level context is affected, see
+@ref{Bottom-level contexts - voices}.  The syntax of a
+property-setting command in a @code{\layout} block is the same as
+the same command written in the music stream.
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle "dodecaphonic"
+    \set fontSize = #-4
+    \override Voice.Stem #'thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node Changing just one specific context
+@unnumberedsubsubsec Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+The context properties of just one specific context instance can be
+changed in a @code{\with} block.  All other context instances of the
+same type retain the default settings built into LilyPond and modified
+by any @code{\layout} block within scope.  The @code{\with} block
+must be placed immediately after the @code{\new} @var{context-type}
+command:
+
+@example
+\new Staff
+\with @{
+  [context settings for this context instance only]
+@} @{
+...
+@}
+@end example
+
+The following types of settings may be specified:
+
+@itemize
+@item
+An @code{\override} command, but with the context name omitted
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice
+    \with {
+      \override Stem #'thickness = #4.0
+    }
+    {
+      \relative c'' {
+        a4^"Thick stems" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+Directly setting a context property
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        a4^"Default font" a a a
+        a4 a a a
+      }
+    }
+    \new Staff
+    \with {
+      fontSize = #-4
+    } {
+      \relative c'' {
+        a4^"Smaller font" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+A predefined command such as @code{\dynamicUp}
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative c'' {
+          a4^"Dynamics below" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff
+    \with { \accidentalStyle "dodecaphonic" }
+    {
+      \new Voice
+      \with { \dynamicUp }
+      {
+        \relative c'' {
+          a4^"Dynamics above" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+@node Order of precedence
+@unnumberedsubsubsec Order of precedence
+
+The value of a property which applies at a particular time is
+determined as follows:
+
+@itemize
+@item
+if an @code{\override} or @code{\set} command in the input stream is
+in effect that value is used,
+
+@item
+otherwise the default value taken from a @code{\with} statement
+on the context initiation statement is used,
+
+@item
+otherwise the default value taken from the most recent appropriate
+@code{\context} block in the @code{\layout} blocks is used,
+
+@item
+otherwise the LilyPond built-in default is used.
+@end itemize
+
+@seealso
+Learning Manual:
+@rlearning{Modifying context properties}.
+
+Notation Reference:
+@ref{Contexts explained},
+@ref{Bottom-level contexts - voices},
+@ref{The set command},
+@ref{The override command},
+@ref{The \layout block}.
 
 
 @node Defining new contexts
