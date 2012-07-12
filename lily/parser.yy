@@ -321,7 +321,6 @@ If we give names, Bison complains.
 %token FIGURE_SPACE "_"
 %token HYPHEN "--"
 
-%token CHORDMODIFIERS
 %token MULTI_MEASURE_REST
 
 
@@ -344,7 +343,6 @@ If we give names, Bison complains.
 %token EMBEDDED_LILY "#{"
 
 %token BOOK_IDENTIFIER
-%token CHORDMODIFIER_PITCH
 %token CHORD_MODIFIER
 %token CHORD_REPETITION
 %token CONTEXT_DEF_IDENTIFIER
