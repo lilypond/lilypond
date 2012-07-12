@@ -10,6 +10,18 @@
 
 
 @newsItem
+@subsubheading Release candidate withdrawn  @emph{July 11, 2012}
+
+We have discovered a regression since 2.14.2, so lilypond 2.15.41
+is no longer a candidate for the 2.16.0 release.  However, please
+continue testing it -- we would like to discover (and fix!) any
+more regressions as soon as possible.  If you discover any
+problems, please send us @ref{Bug reports}.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Release candidate 8 of 2.16 - LilyPond 2.15.41 released!  @emph{July 4, 2012}
 
 LilyPond 2.15.41 is out; this is the eighth release candidate of
