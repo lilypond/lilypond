@@ -135,7 +135,7 @@ METAFONT tutorial page}.
 PostScript is used to generate graphical output.  A brief PostScript tutorial
 is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
 available online}.  The
-@uref{http://www.adobe.com/devnet/postscript/pdfs/PLRM.pdf, PostScript Language
+@uref{http://www.adobe.com/products/postscript/pdfs/PLRM.pdf, PostScript Language
 Reference} is available online in PDF format.
 
 @subsection Python
