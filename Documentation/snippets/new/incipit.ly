@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.15.42"
 
 \header {
   lsrtags = "staff-notation, ancient-notation"
@@ -20,35 +20,31 @@ incipit =
     \once \override Staff.InstrumentName #'padding = #0.3
     \once \override Staff.InstrumentName #'stencil =
       #(lambda (grob)
-         (let* ((instrument-name (ly:grob-property grob 'long-text))
-                (layout (ly:output-def-clone (ly:grob-layout grob)))
-                (music (make-sequential-music
-                        (list (context-spec-music
-                               (make-sequential-music
-                                (list (make-property-set
-                                       'instrumentName instrument-name)
-                                      (make-grob-property-set
-                                       'VerticalAxisGroup
-                                       'Y-extent '(-4 . 4))))
-                               'MensuralStaff)
-                              incipit-music)))
-                (score (ly:make-score music))
-                (mm (ly:output-def-lookup layout 'mm))
-                (indent (ly:output-def-lookup layout 'indent))
-                (width (ly:output-def-lookup layout 'incipit-width))
-                (incipit-width (if (number? width)
-                                   (* width mm)
-                                   (* indent 0.5))))
-
-           (ly:output-def-set-variable! layout 'indent (- indent
-                                                          incipit-width))
-           (ly:output-def-set-variable! layout 'line-width indent)
-           (ly:output-def-set-variable! layout 'ragged-right #f)
-           (ly:output-def-set-variable! layout 'ragged-last #f)
-           (ly:output-def-set-variable! layout 'system-count 1)
-           (ly:score-add-output-def! score layout)
-           (ly:grob-set-property! grob 'long-text
-                                  (markup #:score score))
+	 (let* ((instrument-name (ly:grob-property grob 'long-text)))
+	   (set! (ly:grob-property grob 'long-text)
+		 #{ \markup
+		      \score
+		         {
+			   { \context MensuralStaff \with {
+	                        instrumentName = #instrument-name
+			        \override VerticalAxisGroup
+			         #'Y-extent = #'(-4 . 4)
+	                     } #incipit-music
+			   }
+	                   \layout { $(ly:grob-layout grob)
+			             line-width = \indent
+		                     indent =
+				% primitive-eval is probably easiest for
+				% escaping lexical closure and evaluating
+				% everything respective to (current-module).
+	                             #(primitive-eval
+                                       '(or (false-if-exception (- indent (* mm incipit-width)))
+					    (* 0.5 indent)))
+			             ragged-right = ##f
+			             ragged-last = ##f
+			             system-count = #1 }
+			 }
+		  #})
            (system-start-text::print grob)))
   #})
 
