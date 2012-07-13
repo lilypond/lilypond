@@ -3,11 +3,13 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2012-07-03.16}
+\def\texinfoversion{2012-07-03.16@LP}
 %
 % Copyright 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
 % 2007, 2008, 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
+%
+% Modified version used in LilyPond, changed in 2012.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -7286,9 +7288,14 @@ end
   \usembodybackslash
 }
 
+% LilyPond CHANGE: The following definition has been reverted to the
+% original definition since it was problematic in the context of
+% indexing.
+
 \def\macroargctxt{% used when scanning invocations
   \scanctxt
-  \catcode`\\=0
+%  \catcode`\\=0
+  \catcode`\\=\other
 }
 % why catcode 0 for \ in the above?  To recognize \\ \{ \} as "escapes"
 % for the single characters \ { }.  Thus, we end up with the "commands"
@@ -10028,15 +10035,7 @@ directory should work if nowhere else does.}
 @markupsetuprqdefault
 
 @c Local variables:
-@c eval: (add-hook 'write-file-hooks 'time-stamp)
 @c page-delimiter: "^\\\\message"
-@c time-stamp-start: "def\\\\texinfoversion{"
-@c time-stamp-format: "%:y-%02m-%02d.%02H"
-@c time-stamp-end: "}"
 @c End:
 
 @c vim:sw=2:
-
-@ignore
-   arch-tag: e1b36e32-c96e-4135-a41a-0b2efa2ea115
-@end ignore
