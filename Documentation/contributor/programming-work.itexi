@@ -2322,7 +2322,7 @@ classes because they play a special role in the linebreaking process.
 A C(++) object that is encapsulated so it can be used as a Scheme
 object.  See GUILE info, "19.3 Defining New Types (Smobs)"
 
-@@subheading When is each C++ class constructed and used
+@subheading When is each C++ class constructed and used?
 
 @itemize
 
