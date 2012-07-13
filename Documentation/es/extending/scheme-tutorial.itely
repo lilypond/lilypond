@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+    Translation of GIT committish: 6e765bb786fddd2e655315f9bde94968952b99ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -643,6 +643,7 @@ guile> (cond ((< a b) "a es menor que b")
 * Sintaxis del Scheme de LilyPond::
 * Variables de LilyPond::
 * Variables de entrada y Scheme::
+* Importing Scheme in LilyPond::
 * Propiedades de los objetos::
 * Variables de LilyPond compuestas::
 * Representación interna de la música::
@@ -701,7 +702,7 @@ no se pasa nada en absoluto al analizador sintáctico.
 
 Éste es, de hecho, el mismo mecanismo exactamente que LilyPond emplea
 cuando llamamos a cualquier variable o función musical por su nombre,
-como @code{\nombre}, con la única diferencia de que su final viene
+como @code{\nombre}, con la única diferencia de que el nombre viene
 determinado por el analizador léxico de LilyPond sin consultar al
 lector de Scheme, y así solamente se aceptan los nombres de variable
 consistentes con el modo actual de LilyPond.
@@ -710,6 +711,12 @@ La acción inmediata de @code{$} puede llevar a alguna que otra
 sorpresa, véase @ref{Variables de entrada y Scheme}.  La utilización
 de @code{#} donde el analizador sintáctico lo contempla es normalmente
 preferible.
+
+@funindex $@@
+@funindex #@@
+También existen los operadores de @q{división de listas} @code{$@@} y
+@code{#@@} que insertan todos los elementos de una lista dentro del
+contexto circundante.
 
 Ahora echemos un vistazo a algo de código de Scheme real.  Los
 procedimientos de Scheme se pueden definir dentro de los archivos de
@@ -849,7 +856,7 @@ traLaLa = { c'4 d'4 }
 #(define twice
   (make-sequential-music newLa))
 
-{ \twice }
+\twice
 @end lilypond
 
 @c Due to parser lookahead
@@ -862,6 +869,12 @@ que necesita comprobar lo que viene a continuación.  Lee el símbolo
 forma que puede proceder a la asignación, y @emph{posteriormente}
 ejecutar el código de Scheme sin problema.
 
+@node Importación de Scheme dentro de LilyPond
+@subsection Importación de Scheme dentro de LilyPond
+@translationof Importing Scheme in LilyPond
+@funindex $
+@funindex #
+
 El ejemplo anterior muestra cómo @q{exportar} expresiones musicales
 desde la entrada al intérprete de Scheme.  Lo contrario también es
 posible.  Colocándolo después de @code{$}, un valor de Scheme se
@@ -871,7 +884,7 @@ podría también haberse escrito como
 
 @example
 ...
-@{ $(make-sequential-music (list newLa)) @}
+$(make-sequential-music newLa)
 @end example
 
 Podemos utilizar @code{$} con una expresión de Scheme en cualquier
@@ -887,11 +900,32 @@ habría fracasado porque @code{traLaLa} no habría sido definida aún.
 Para ver una explicación de este problema de momento temporal, véase
 @ref{Sintaxis del Scheme de LilyPond}.
 
-En cualquier caso, la evaluación del código de Scheme se produce
-dentro del analizador sintáctico como muy tarde.  Si necesitamos que
-se ejecute en un punto temporal más tardío,
-usaríamos @ref{Funciones de Scheme vacías}, o lo almacenaríamos en un
-macro:
+@funindex $@@
+@funindex #@@
+Un conveniente aspecto posterior pueden ser los operadores de
+@q{división de listas} @code{$@@} y @code{#@@} para la inserción de
+los elementos de una lista dentro del contexto circundante.
+Utilizándolos, la última parte del ejemplo se podría haber escrito
+como
+
+@example
+...
+@{ $@@newLa @}
+@end example
+
+Aquí, cada elemento de la lista que está almacenado en @code{newLa} se
+toma en secuencia y se inserta en la lista, como si hubiésemos escrito
+
+@example
+@{ $(first newLa) $(second newLa) @}
+@end example
+
+Ahora bien, en todas esas formas, el código de Scheme se evalúa en el
+momento en que el código de entrada aún se está procesando, ya sea en
+el analizador léxico o en el analizador sintáctico.  Si necesitamos
+que se ejecute en un momento posterior, debemos consultar
+@ref{Funciones de Scheme vacías}, o almacenarlo dentro de un
+procedimiento:
 
 @example
 #(define (nopc)
