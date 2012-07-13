@@ -374,7 +374,10 @@ Una definición de salida, como @code{\paper}, @code{\midi} y
 @code{\layout}.  Tal definición en el nivel más alto cambia los
 ajustes predeterminados para todo el libro.  Si se introduce más de
 una de estas definiciones del mismo tipo en el nivel más alto,
-cualquier definición en una expresión posterior tiene prioridad.
+the definitions are combined, but in
+conflicting situations the later definitions take precedence.  For
+details of how this affects the @code{\layout} block see
+@ref{The \layout block}.
 
 @item
 Una expresión directa de Scheme, como
@@ -531,6 +534,8 @@ de la instrucción completa.
 Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
 
+Notation Reference:
+@ref{The \layout block}.
 
 @node Títulos y cabeceras
 @section Títulos y cabeceras
@@ -1029,6 +1034,49 @@ texto, use una o más de las siguientes variables de @code{\paper}:
 @item @code{evenFooterMarkup} (marcado de pie de página par)
 @end itemize
 
+@cindex markup, conditional
+@cindex on-the-fly
+@funindex \on-the-fly
+
+The @code{\markup} command @code{\on-the-fly} can be used to add
+markup conditionally to header and footer text defined within the
+@code{\paper} block, using the following syntax:
+
+@example
+@code{variable} = @code{\markup} @{
+  ...
+  @code{\on-the-fly}  #@var{procedure}  @var{markup}
+  ...
+@}
+@end example
+
+The @var{procedure} is called each time the @code{\markup} command
+in which it appears is evaluated.  The @var{procedure} should test
+for a particular condition and interpret (i.e. print) the
+@var{markup} argument if and only if the condition is true.
+
+A number of ready-made procedures for testing various conditions are
+provided:
+
+@quotation
+@multitable {print-page-number-check-first-----} {should this page be printed-----}
+
+@headitem  Procedure name           @tab  Condition tested
+
+@item print-page-number-check-first @tab  should this page number be printed?
+@item create-page-number-stencil    @tab  'print-page-numbers true?
+@item print-all-headers             @tab  'print-all-headers true?
+@item first-page                    @tab  first page in the book?
+@item (on-page nmbr)                @tab  page number = nmbr?
+@item last-page                     @tab  last page in the book?
+@item not-first-page                @tab  not first page in the book?
+@item part-first-page               @tab  first page in the book part?
+@item part-last-page                @tab  last page in the book part?
+@item not-single-page               @tab  pages in book part > 1?
+
+@end multitable
+@end quotation
+
 El ejemplo siguiente centra los números de página en la parte baja de
 las páginas.  En primer lugar, los ajustes predeterminados para
 @code{oddHeaderMarkup} y @code{evenHeaderMarkup} se eliminan
@@ -1058,10 +1106,24 @@ definiéndola como @code{\oddFooterMarkup}:
 }
 @end lilypond
 
+Several @code{\on-the-fly} conditions can be combined with an
+@q{and} operation, for example,
+
+@example
+  @code{\on-the-fly #first-page}
+  @code{\on-the-fly #last-page}
+  @code{@{ \markup ... \fromproperty #'header: ... @}}
+@end example
+
+determines if the output is a single page.
+
 @seealso
 Referencia de la notación:
 @ref{Explicación de los bloques de títulos},
 @ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+
+Installed Files:
+@file{../ly/titling-init.ly}.
 
 
 @node Crear notas al pie

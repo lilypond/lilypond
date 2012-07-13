@@ -1167,6 +1167,103 @@ He aquí un ejemplo de un bloque @code{\layout}:
 @}
 @end example
 
+Multiple @code{\layout} blocks can be entered as toplevel expressions.
+This can, for example, be useful if different settings are stored in
+separate files and included optionally.  Internally, when
+a @code{\layout} block is evaluated, a copy of the current
+@code{\layout} configuration is made, then any changes defined within
+the block are applied and the result is saved as the new current
+configuration.  From the user's perspective the @code{\layout} blocks
+are combined, but in conflicting situations (when the same property
+is changed in different blocks) the later definitions take precedence.
+
+For example, if this block:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript #'color = #magenta
+    \override Glissando #'thickness = #1.5
+  @}
+@}
+@end example
+
+is placed after the one from the preceding example the @code{'padding}
+and @code{'color} overrides for @code{TextScript} are combined, but
+the later @code{'thickness} override for @code{Glissando} replaces
+(or hides) the earlier one.
+
+@code{\layout} blocks may be assigned to variables for reuse later,
+but the way this works is slightly but significantly different from
+writing them literally.
+
+If a variable is defined like this:
+
+@example
+layoutVariable = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead #'font-size = #4
+  @}
+@}
+@end example
+
+it will hold the current @code{\layout} configuration with the
+@code{NoteHead #'font-size} override added, but this combination
+is @emph{not} saved as the new current configuration.  Be aware
+that the @q{current configuration} is read when the variable is
+defined and not when it is used, so the content of the variable
+is dependent on its position in the source.
+
+The variable can then be used inside another @code{\layout} block,
+for example:
+
+@example
+\layout @{
+  \layoutVariable
+  \context @{
+    \Voice
+    \override NoteHead #'color = #red
+  @}
+@}
+@end example
+
+A @code{\layout} block containing a variable, as in the example above,
+does @emph{not} copy the current configuration but instead uses the
+content of @code{\layoutVariable} as the base configuration for the
+further additions.  This means that any changes defined between the
+definition and the use of the variable are lost.
+
+If @code{layoutVariable} is defined (or @code{\include}d) immediately
+before being used, its content is just the current configuration plus
+the overrides defined within it.  So in the example above showing the
+use of @code{\layoutVariable} the final @code{\layout} block would
+consist of:
+
+@example
+  TextScript #'padding = #1
+  TextScript #'color = #magenta
+  Glissando #'thickness = #1.5
+  NoteHead #' font-size = #4
+  NoteHead #' color = #red
+@end example
+
+plus the @code{indent} and the @code{StaffGrouper} overrides.
+
+But if the variable had already been defined before the first
+@code{\layout} block the current configuration would now contain
+only
+
+@example
+  NoteHead #' font-size= #4 % (written in the variable definition)
+  NoteHead #' color = #red % (added after the use of the variable)
+@end example
+
+If carefully planned, @code{\layout} variables can be a valuable tool
+to structure the layout design of sources, and also to reset the
+@code{\layout} configuration to a known state.
+
 @seealso
 Referencia de la notación:
 @ref{Cambiar los valores por omisión de los contextos}.

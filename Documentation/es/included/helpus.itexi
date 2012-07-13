@@ -13,15 +13,20 @@
 @macro helpusNeed
 @subheading ¡Le necesitamos!
 
-El equipo de desarrollo de LilyPond es muy pequeño; verdaderamente nos
-gustaría tener a más gente implicada.  ¡Considere la posibilidad de
-ayudar a sus colegas usuarios de LilyPond mediante contribuciones
-al programa!
+Thank you for your interest in helping us --- we would love to see
+you get involved!  Your contribution will help a large group of users
+make beautifully typeset music.
 
 Incluso el trabajo sobre pequeñas tareas puede tener un gran impacto:
 ocuparse de ellas permite a los desarrolladores con experiencia
 trabajar sobre las tareas avanzadas, en lugar de emplear su tiempo en
 esos trabajos sencillos.
+
+For a multi-faceted project like LilyPond, sometimes it's tough to know
+where to begin.  In addition to the avenues proposed below, you can send
+an e-mail to the @email{mike@@mikesolomon.org, Frog meister}
+letting him know your skill set and asking how you can help or proposing a
+project.  He'll be able to give you guidance on how to get started.
 
 @end macro
 
