@@ -643,7 +643,7 @@ guile> (cond ((< a b) "a es menor que b")
 * Sintaxis del Scheme de LilyPond::
 * Variables de LilyPond::
 * Variables de entrada y Scheme::
-* Importing Scheme in LilyPond::
+* Importación de Scheme dentro de LilyPond::
 * Propiedades de los objetos::
 * Variables de LilyPond compuestas::
 * Representación interna de la música::
