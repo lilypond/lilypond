@@ -475,7 +475,6 @@ If we give names, Bison complains.
 %type <scm> event_function_event
 %type <scm> figure_list
 %type <scm> figure_spec
-%type <scm> fraction
 %type <scm> full_markup
 %type <scm> full_markup_list
 %type <scm> function_arglist
@@ -1550,11 +1549,6 @@ function_arglist_backup:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE fraction
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $1, $2);
-	}
 	;
 
 function_arglist:
@@ -1574,7 +1568,7 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional fraction
+	| EXPECT_SCM function_arglist_closed_optional FRACTION
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1713,7 +1707,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional fraction
+	| EXPECT_SCM function_arglist_closed_optional FRACTION
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -2633,13 +2627,6 @@ multiplied_duration:
 		Rational  m (scm_to_int (scm_car ($3)), scm_to_int (scm_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
-	}
-	;
-
-fraction:
-	FRACTION { $$ = $1; }
-	| UNSIGNED '/' UNSIGNED {
-		$$ = scm_cons ($1, $3);
 	}
 	;
 
