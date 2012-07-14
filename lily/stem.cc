@@ -704,7 +704,7 @@ Stem::internal_height (Grob *me, bool calc_beam)
     If there is a beam but no stem, slope calculations depend on this
     routine to return where the stem end /would/ be.
   */
-  if (!beam && !unsmob_stencil (me->get_property ("stencil")))
+  if (calc_beam && !beam && !unsmob_stencil (me->get_property ("stencil")))
     return Interval ();
 
   Real y1 = robust_scm2double ((calc_beam
