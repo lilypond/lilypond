@@ -2231,7 +2231,7 @@
 				   (padding . 0.25)
 				   (attach-dir . ,LEFT)
 				   ))
-			  (left-broken . ((end-on-note . #t)))
+			  (left-broken . ((attach-dir . ,RIGHT)))
 			  (right . ((Y . 0)
 				    (padding . 0.25)
 				    ))
