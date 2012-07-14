@@ -23,7 +23,6 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "output-def.hh"
-#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
 #include "warn.hh"
@@ -58,35 +57,8 @@ Time_signature::print (SCM smob)
   else
     m = numbered_time_signature (me, n, d);
 
-  /*
-    position the signature centred on the staff line
-    nearest to the middle of the staff
-  */
-  if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
-    {
-      std::vector<Real> const linepos = Staff_symbol::line_positions (staff);
-      if (!linepos.empty ())
-        {
-          Interval const span = Staff_symbol::line_span (staff);
-          Real const mid = span.center ();
-          Real pos = linepos.front ();
-          Real dist = fabs (pos - mid);
-          for (std::vector<Real>::const_iterator
-                 i = linepos.begin (), e = linepos.end ();
-               ++i != e;)
-            {
-              double const d = fabs (*i - mid);
-              if (d < dist)
-                {
-                  pos = *i;
-                  dist = d;
-                }
-            }
-
-          m.translate_axis
-            (pos * Staff_symbol_referencer::staff_space (me) / 2, Y_AXIS);
-        }
-    }
+  if (Staff_symbol_referencer::line_count (me) % 2 == 0)
+    m.translate_axis (Staff_symbol_referencer::staff_space (me) / 2, Y_AXIS);
 
   return m.smobbed_copy ();
 }

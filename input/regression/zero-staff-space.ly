@@ -10,6 +10,6 @@ Setting staff-space to 0 does not cause a segmentation fault.
   \override StaffSymbol #'staff-space = #0
   } {
   \relative c' {
-    c1 \bar ":|"
+    c1
   }
 }

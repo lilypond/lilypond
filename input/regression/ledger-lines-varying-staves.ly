@@ -7,9 +7,9 @@ for a variety of staves using both @code{line-count} and
 
 notes = \relative c' {
   \time 3/4
-  c2. | d | e | f \bar ":|"
-  g2. | a | b | c \bar "|:"
-  d2. | e | f | g \bar ":|:"
+  c2. | d | e | f
+  g2. | a | b | c
+  d2. | e | f | g
   a2.
 }
 

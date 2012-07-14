@@ -81,19 +81,13 @@ Breathing_sign::divisio_maior (SCM smob)
    * more than half the size of the staff, such that the endings of
    * the line are in the middle of a staff space.
    */
-  Interval ydim = Staff_symbol_referencer::staff_span (me);
-  ydim.widen (-0.25 * ydim.delta ());
-  for (UP_and_DOWN (i))
-    {
-      int const int_dim = (int) ydim[i];
-      if (int_dim == ydim[i]
-          && Staff_symbol_referencer::on_staff_line (me, int_dim))
-        ydim[i] += i;
-    }
-
-  ydim *= 1.0 / Staff_symbol_referencer::staff_space (me);
+  int lines = Staff_symbol_referencer::line_count (me);
+  int height = lines / 2; // little more than half of staff size
+  if ((lines & 1) != (height & 1))
+    height++; // ensure endings are centered in staff space
 
   Interval xdim (0, thickness);
+  Interval ydim (-0.5 * height, +0.5 * height);
   Box b (xdim, ydim);
   Stencil out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
@@ -108,15 +102,20 @@ Breathing_sign::divisio_maxima (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real staff_size;
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+
+  if (Staff_symbol_referencer::get_staff_symbol (me))
+    staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
+  else
+    staff_size = 0.0;
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   // like a "|" type bar
   Interval xdim (0, thickness);
-  Interval ydim = Staff_symbol_referencer::staff_span (me);
-  ydim *= staff_space / 2;
+  Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
   Stencil out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
@@ -131,15 +130,20 @@ Breathing_sign::finalis (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real staff_size;
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
+
+  if (Staff_symbol_referencer::get_staff_symbol (me))
+    staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
+  else
+    staff_size = 0.0;
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   // like a "||" type bar
   Interval xdim (0, thickness);
-  Interval ydim = Staff_symbol_referencer::staff_span (me);
-  ydim *= staff_space / 2;
+  Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
   Stencil line1 = Lookup::round_filled_box (b, blotdiameter);
   Stencil line2 (line1);

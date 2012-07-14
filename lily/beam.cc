@@ -675,7 +675,7 @@ Beam::print (SCM grob)
 
       // we need two translations: the normal one and
       // the one of the lowest segment
-      size_t idx[] = {i, extreme};
+      int idx[] = {i, extreme};
       Real translations[2];
 
       for (int j = 0; j < 2; j++)
@@ -1274,16 +1274,16 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Real shift = d * min (d * (beam_y - d * minimum_distance - rest_dim), 0.0);
 
   shift /= staff_space;
+  Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
 
   /* Always move discretely by half spaces */
   shift = ceil (fabs (shift * 2.0)) / 2.0 * sign (shift);
 
-  Interval staff_span = Staff_symbol_referencer::staff_span (rest);
-  staff_span *= staff_space / 2;
-
   /* Inside staff, move by whole spaces*/
-  if (staff_span.contains (rest_extent[d] + staff_space * shift)
-      || staff_span.contains (rest_extent[-d] + staff_space * shift))
+  if ((rest_extent[d] + staff_space * shift) * d
+      < rad
+      || (rest_extent[-d] + staff_space * shift) * -d
+      < rad)
     shift = ceil (fabs (shift)) * sign (shift);
 
   return scm_from_double (offset + staff_space * shift);

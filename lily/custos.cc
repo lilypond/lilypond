@@ -62,6 +62,7 @@ Custos::print (SCM smob)
     = to_dir (me->get_property ("neutral-direction"));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
+  int sz = Staff_symbol_referencer::line_count (me) - 1;
 
   string font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
@@ -76,7 +77,7 @@ Custos::print (SCM smob)
     font_char += "d";
 
   if (adjust)
-    font_char += Staff_symbol_referencer::on_line (me, pos) ? "1" : "0";
+    font_char += (((pos ^ sz) & 0x1) == 0) ? "1" : "0";
   else
     font_char += "2";
 

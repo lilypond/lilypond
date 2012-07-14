@@ -37,7 +37,8 @@ vaticana_brew_cauda (Grob *me,
                      Real blotdiameter)
 {
   bool on_staffline = Staff_symbol_referencer::on_line (me, pos);
-  bool above_staff = pos > Staff_symbol_referencer::staff_span (me)[UP];
+  int interspaces = Staff_symbol_referencer::line_count (me) - 1;
+  bool above_staff = pos > interspaces;
 
   if (delta_pitch > -1)
     {
