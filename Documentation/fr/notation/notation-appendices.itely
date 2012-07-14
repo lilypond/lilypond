@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+    Translation of GIT committish: 740df0d2a26f7ae9e362706a45f9257cb4be2607
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,7 +59,7 @@ Le tableau suivant indique les différents modificateurs utilisables en
 mode accords (@code{\chordmode}) qui permettent d'obtenir les structures
 habituelles d'un certain nombre d'accords.
 
-@multitable @columnfractions .2 .3 .2 .2
+@multitable {Treizieme de dominante} {Treizieme de dominante} {Modificateur(s)} {ExempleExemple}
 
 @item
 @b{Type d'accord}
@@ -78,7 +78,7 @@ Tierce majeure et quinte juste
 @tab
 @code{5} ou rien
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:5
 }
@@ -91,7 +91,7 @@ Tierce mineure et quinte juste
 @tab
 @code{m} ou @code{m5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m
 }
@@ -104,7 +104,7 @@ Tierce majeure et quinte augmentée
 @tab
 @code{aug}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug
 }
@@ -117,7 +117,7 @@ Tierce mineure et quinte diminuée
 @tab
 @code{dim}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim
 }
@@ -130,7 +130,7 @@ Triton majeur et septième mineure
 @tab
 @code{7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:7
 }
@@ -143,7 +143,7 @@ Triton majeur et septième majeure
 @tab
 @code{maj7} ou @code{maj}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj7
 }
@@ -156,7 +156,7 @@ Triton mineur et septième mineure
 @tab
 @code{m7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7
 }
@@ -169,7 +169,7 @@ Triton diminué et septième diminuée
 @tab
 @code{dim7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim7
 }
@@ -182,7 +182,7 @@ Triton augmenté et septième mineure
 @tab
 @code{aug7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug7
 }
@@ -195,7 +195,7 @@ Triton diminué et septième mineure
 @tab
 @code{m7.5-}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7.5-
 }
@@ -206,11 +206,11 @@ Accord mineur avec septième majeure
 @tab
 Triton mineur et septième majeure
 @tab
-@code{maj7.3-}
+@code{m7+}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
-  c1:maj7.3-
+  c1:m7+
 }
 @end lilypond
 
@@ -221,7 +221,7 @@ Triton majeur et sixte
 @tab
 @code{6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:6
 }
@@ -234,7 +234,7 @@ Triton mineur et sixte
 @tab
 @code{m6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m6
 }
@@ -247,7 +247,7 @@ Septième de dominante et neuvième majeure
 @tab
 @code{9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:9
 }
@@ -260,7 +260,7 @@ Septième majeure et neuvième majeure
 @tab
 @code{maj9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj9
 }
@@ -273,7 +273,7 @@ Septième mineure et neuvième majeure
 @tab
 @code{m9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m9
 }
@@ -286,7 +286,7 @@ Neuvième de dominante et onzième juste
 @tab
 @code{11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:11
 }
@@ -299,7 +299,7 @@ Neuvième majeure et onzième juste
 @tab
 @code{maj11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj11
 }
@@ -312,7 +312,7 @@ Neuvième mineure et onzième juste
 @tab
 @code{m11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m11
 }
@@ -325,7 +325,7 @@ Neuvième de dominante et treizième majeure
 @tab
 @code{13}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13
 }
@@ -338,7 +338,7 @@ Onzième de dominante et treizième majeure
 @tab
 @code{13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13.11
 }
@@ -351,7 +351,7 @@ Onzième majeure et treizième majeure
 @tab
 @code{maj13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj13.11
 }
@@ -364,7 +364,7 @@ Onzième mineure et treizième majeure
 @tab
 @code{m13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m13.11
 }
@@ -377,7 +377,7 @@ Seconde majeure et quinte juste
 @tab
 @code{sus2}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus2
 }
@@ -390,7 +390,7 @@ Quarte juste et quinte juste
 @tab
 @code{sus4}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus4
 }
@@ -403,7 +403,7 @@ Quinte juste
 @tab
 @code{1.5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5
@@ -417,7 +417,7 @@ Quinte juste et octave
 @tab
 @code{1.5.8}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5.8
@@ -443,269 +443,270 @@ dispose.
 
 La liste suivante répertorie les tablatures prédéfinies pour la guitare.
 
-@lilypondfile{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
 La liste suivante répertorie les tablatures prédéfinies pour le ukulele.
 
-@lilypondfile{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
 La liste suivante répertorie les tablatures prédéfinies pour la
 mandoline.
 
-@lilypondfile{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 
 
 @node Formats de papier prédéfinis
 @appendixsec Formats de papier prédéfinis
 @translationof Predefined paper sizes
 
-Les formats de page sont définis dans le fichier@file{scm/paper.scm}.
+Les formats de page sont définis dans le fichier @file{scm/paper.scm}.
 
 @noindent
 @strong{La série A @qq{ISO 216}}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "a10"
-(26 x 37 mm)
+@tab (26 x 37 mm)
 @item "a9"
-(37 x 52 mm)
+@tab (37 x 52 mm)
 @item "a8"
-(52 x 74 mm)
+@tab (52 x 74 mm)
 @item "a7"
-(74 x 105 mm)
+@tab (74 x 105 mm)
 @item "a6"
-(105 x 148 mm)
+@tab (105 x 148 mm)
 @item "a5"
-(148 x 210 mm)
+@tab (148 x 210 mm)
 @item "a4"
-(210 x 297 mm)
+@tab (210 x 297 mm)
 @item "a3"
-(297 x 420 mm)
+@tab (297 x 420 mm)
 @item "a2"
-(420 x 594 mm)
+@tab (420 x 594 mm)
 @item "a1"
-(594 x 841 mm)
+@tab (594 x 841 mm)
 @item "a0"
-(841 x 1189 mm)
-@end table
+@tab (841 x 1189 mm)
+@end multitable
 
 @noindent
 @strong{La série B @qq{ISO 216}}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "b10"
-(31 x 44 mm)
+@tab (31 x 44 mm)
 @item "b9"
-(44 x 62 mm)
+@tab (44 x 62 mm)
 @item "b8"
-(62 x 88 mm)
+@tab (62 x 88 mm)
 @item "b7"
-(88 x 125 mm)
+@tab (88 x 125 mm)
 @item "b6"
-(125 x 176 mm)
+@tab (125 x 176 mm)
 @item "b5"
-(176 x 250 mm)
+@tab (176 x 250 mm)
 @item "b4"
-(250 x 353 mm)
+@tab (250 x 353 mm)
 @item "b3"
-(353 x 500 mm)
+@tab (353 x 500 mm)
 @item "b2"
-(500 x 707 mm)
+@tab (500 x 707 mm)
 @item "b1"
-(707 x 1000 mm)
+@tab (707 x 1000 mm)
 @item "b0"
-(1000 x 1414 mm)
-@end table
+@tab (1000 x 1414 mm)
+@end multitable
 
 @noindent
 @strong{Deux tailles étendues, définies par la @qq{DIN 476}}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "4a0"
-(1682 x 2378 mm)
+@tab (1682 x 2378 mm)
 @item "2a0"
-(1189 x 1682 mm)
-@end table
+@tab (1189 x 1682 mm)
+@end multitable
 
 @noindent
 @strong{La série C standard @qq{ISO 269}}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "c10"
-(28 x 40 mm)
+@tab (28 x 40 mm)
 @item "c9"
-(40 x 57 mm)
+@tab (40 x 57 mm)
 @item "c8"
-(57 x 81 mm)
+@tab (57 x 81 mm)
 @item "c7"
-(81 x 114 mm)
+@tab (81 x 114 mm)
 @item "c6"
-(114 x 162 mm)
+@tab (114 x 162 mm)
 @item "c5"
-(162 x 229 mm)
+@tab (162 x 229 mm)
 @item "c4"
-(229 x 324 mm)
+@tab (229 x 324 mm)
 @item "c3"
-(324 x 458 mm)
+@tab (324 x 458 mm)
 @item "c2"
-(458 x 648 mm)
+@tab (458 x 648 mm)
 @item "c1"
-(648 x 917 mm)
+@tab (648 x 917 mm)
 @item "c0"
-(917 x 1297 mm)
-@end table
+@tab (917 x 1297 mm)
+@end multitable
 
 @noindent
 @strong{Formats nord américains}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "junior-legal"
-(8.0 x 5.0 in)
+@tab (8.0 x 5.0 in)
 @item "legal"
-(8.5 x 14.0 in)
+@tab (8.5 x 14.0 in)
 @item "ledger"
-(17.0 x 11.0 in)
+@tab (17.0 x 11.0 in)
 @item "letter"
-(8.5 x 11.0 in)
+@tab (8.5 x 11.0 in)
 @item "tabloid"
-(11.0 x 17.0 in)
+@tab (11.0 x 17.0 in)
 @item "11x17"
-(11.0 x 17.0 in)
+@tab (11.0 x 17.0 in)
 @item "17x11"
-(17.0 x 11.0 in)
-@end table
+@tab (17.0 x 11.0 in)
+@end multitable
 
 @noindent
 @strong{Government-letter, défini par le @emph{IEEE Printer Working
 Group}, à l'usage des enfants}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "government-letter"
-(8 x 10.5 in)
+@tab (8 x 10.5 in)
 @item "government-legal"
-(8.5 x 13.0 in)
+@tab (8.5 x 13.0 in)
 @item "philippine-legal"
-(8.5 x 13.0 in)
-@end table
+@tab (8.5 x 13.0 in)
+@end multitable
 
 @noindent
 @strong{Formats ANSI}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "ansi a"
-(8.5 x 11.0 in)
+@tab (8.5 x 11.0 in)
 @item "ansi b"
-(17.0 x 11.0 in)
+@tab (17.0 x 11.0 in)
 @item "ansi c"
-(17.0 x 22.0 in)
+@tab (17.0 x 22.0 in)
 @item "ansi d"
-(22.0 x 34.0 in)
+@tab (22.0 x 34.0 in)
 @item "ansi e"
-(34.0 x 44.0 in)
+@tab (34.0 x 44.0 in)
 @item "engineering f"
-(28.0 x 40.0 in)
-@end table
+@tab (28.0 x 40.0 in)
+@end multitable
 
 @noindent
 @strong{Formats nord américains pour l'architecture}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "arch a"
-(9.0 x 12.0 in)
+@tab (9.0 x 12.0 in)
 @item "arch b"
-(12.0 x 18.0 in)
+@tab (12.0 x 18.0 in)
 @item "arch c"
-(18.0 x 24.0 in)
+@tab (18.0 x 24.0 in)
 @item "arch d"
-(24.0 x 36.0 in)
+@tab (24.0 x 36.0 in)
 @item "arch e"
-(36.0 x 48.0 in)
+@tab (36.0 x 48.0 in)
 @item "arch e1"
-(30.0 x 42.0 in)
-@end table
+@tab (30.0 x 42.0 in)
+@end multitable
 
 @noindent
-@strong{Formats anciens, toujours en viguer dans le Royaume Uni}
-@table @code
+@strong{Formats anciens, toujours en vigueur dans le Royaume Uni}
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "statement"
-(5.5 x 8.5 in)
+@tab (5.5 x 8.5 in)
 @item "half letter"
-(5.5 x 8.5 in)
+@tab (5.5 x 8.5 in)
 @item "quarto"
-(8.0 x 10.0 in)
+@tab (8.0 x 10.0 in)
 @item "octavo"
-(6.75 x 10.5 in)
+@tab (6.75 x 10.5 in)
 @item "executive"
-(7.25 x 10.5 in)
+@tab (7.25 x 10.5 in)
 @item "monarch"
-(7.25 x 10.5 in)
+@tab (7.25 x 10.5 in)
 @item "foolscap"
-(8.27 x 13.0 in)
+@tab (8.27 x 13.0 in)
 @item "folio"
-(8.27 x 13.0 in)
+@tab (8.27 x 13.0 in)
 @item "super-b"
-(13.0 x 19.0 in)
+@tab (13.0 x 19.0 in)
 @item "post"
-(15.5 x 19.5 in)
+@tab (15.5 x 19.5 in)
 @item "crown"
-(15.0 x 20.0 in)
+@tab (15.0 x 20.0 in)
 @item "large post"
-(16.5 x 21.0 in)
+@tab (16.5 x 21.0 in)
 @item "demy"
-(17.5 x 22.5 in)
+@tab (17.5 x 22.5 in)
 @item "medium"
-(18.0 x 23.0 in)
+@tab (18.0 x 23.0 in)
 @item "broadsheet"
-(18.0 x 24.0 in)
+@tab (18.0 x 24.0 in)
 @item "royal"
-(20.0 x 25.0 in)
+@tab (20.0 x 25.0 in)
 @item "elephant"
-(23.0 x 28.0 in)
+@tab (23.0 x 28.0 in)
 @item "double demy"
-(22.5 x 35.0 in)
+@tab (22.5 x 35.0 in)
 @item "quad demy"
-(35.0 x 45.0 in)
+@tab (35.0 x 45.0 in)
 @item "atlas"
-(26.0 x 34.0 in)
+@tab (26.0 x 34.0 in)
 @item "imperial"
-(22.0 x 30.0 in)
+@tab (22.0 x 30.0 in)
 @item "antiquarian"
-(31.0 x 53.0 in)
-@end table
+@tab (31.0 x 53.0 in)
+@end multitable
 
 @noindent
 @strong{Formats de base PA4}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "pa0"
-(840 x 1120 mm)
+@tab (840 x 1120 mm)
 @item "pa1"
-(560 x 840 mm)
+@tab (560 x 840 mm)
 @item "pa2"
-(420 x 560 mm)
+@tab (420 x 560 mm)
 @item "pa3"
-(280 x 420 mm)
+@tab (280 x 420 mm)
 @item "pa4"
-(210 x 280 mm)
+@tab (210 x 280 mm)
 @item "pa5"
-(140 x 210 mm)
+@tab (140 x 210 mm)
 @item "pa6"
-(105 x 140 mm)
+@tab (105 x 140 mm)
 @item "pa7"
-(70 x 105 mm)
+@tab (70 x 105 mm)
 @item "pa8"
-(52 x 70 mm)
+@tab (52 x 70 mm)
 @item "pa9"
-(35 x 52 mm)
+@tab (35 x 52 mm)
 @item "pa10"
-(26 x 35 mm)
-@end table
+@tab (26 x 35 mm)
+@end multitable
 
 @noindent
 @strong{Format utilisé en Asie du Sudest et en Australie}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "f4"
-(210 x 330 mm)
-@end table
+@tab (210 x 330 mm)
+@end multitable
 
 @noindent
 @strong{Format spécifique aux courts exemples @code{@@lilypond} de la
 documentation, basé sur un A8 à l'italienne.}
-@table @code
+@multitable {@code{"government-letter "}} { (abcd x abcd mm)}
 @item "a8landscape"
-(74 x 52 mm)
-@end table
+@tab (74 x 52 mm)
+@end multitable
+
 
 @node Instruments MIDI
 @appendixsec Instruments MIDI
@@ -767,13 +768,14 @@ cello                     lead 6 (voice)
 @appendixsec Liste des couleurs
 @translationof List of colors
 
+
 @subsubheading Couleurs de base
 
 La syntaxe appropriée à la gestion des couleurs est traitée au chapitre
 @ref{Coloration d'objets}.
 
-@cindex Liste des couleurs
-@cindex Couleurs, liste
+@cindex liste des couleurs
+@cindex couleurs, liste
 
 @verbatim
 black       white          red         green
@@ -788,13 +790,13 @@ darkcyan    darkmagenta    darkyellow
 Les noms de couleur X peuvent s'employer de différentes manières.
 
 Un nom de couleur peut s'écrire sous la forme d'un mot composé et sans
-espace auquel chaque élément prend un initiale capitalisée (p.ex.
+espace auquel chaque élément prend un initiale capitalisée (p. ex.
 @code{LightSlateBlue}).  Il peut aussi s'exprimer sous la forme d'une
 suite de mots, auquel cas les initiales ne sont pas capitalisées
-(p.ex. @code{light@tie{}slate@tie{}blue}).
+(p. ex. @code{light slate blue}).
 
 Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que
-@qq{gray} (p.ex. @code{DarkSlateGray}).
+@qq{gray} (p. ex. @code{DarkSlateGray}).
 
 Certains noms peuvent prendre un suffixe numérique, comme
 @code{LightSalmon4}.
@@ -837,7 +839,7 @@ LightGreen
 @subsubheading Noms de couleur avec suffixe numérique
 
 Les couleurs suivantes acceptent un suffixe numérique @var{N} compris
-entre 1 et 4.
+entre 1 et 4.
 
 @verbatim
 snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
@@ -875,14 +877,14 @@ où @var{N} est compris entre 0 et 100.
 @appendixsec La fonte Feta
 @translationof The Feta font
 
-@cindex Feta font
-@cindex Font, Feta
+@cindex Feta, fonte
+@cindex fonte Feta
 
 Voici, regroupés par type, les différents symboles de la fonte
 Emmentaler qui peuvent s'inclure directement dans un objet
 @emph{markup}.  Pour ce faire, il suffit d'employer le nom du glyphe,
-comme dans @w{@code{g^\markup @{\musicglyph #"scripts.segno" @}}} ou
-@w{@code{\markup @{\musicglyph #"five"@}}}.  Pour de plus amples
+comme dans @code{g^\markup @{\musicglyph #"scripts.segno" @}} ou
+@code{\markup @{\musicglyph #"five"@}}.  Pour de plus amples
 informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 
 @menu
@@ -910,7 +912,7 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 * Glyphes de style néomensural::
 * Glyphes de style Petrucci::
 * Glyphes de style Solesmes::
-* Glyphes de style Kievan::
+* Glyphes de style kiévien::
 @end menu
 
 
@@ -1178,8 +1180,8 @@ informations, reportez-vous au chapitre @ref{Mise en forme du texte}.
 @end lilypond
 
 
-@node Glyphes de style Kievan
-@unnumberedsubsec Glyphes de style Kievan
+@node Glyphes de style kiévien
+@unnumberedsubsec Glyphes de style kiévien
 @translationof Kievan Notation glyphs
 
 @lilypond[quote]
@@ -1203,7 +1205,7 @@ Voici les différents styles de tête de note disponibles.
 @translationof Text markup commands
 
 Les commandes suivantes peuvent être utilisées dans un bloc
-@code{\markup @{ @}}.
+@code{\markup @{ @}}.
 
 @include markup-commands.tely
 
@@ -1213,7 +1215,7 @@ Les commandes suivantes peuvent être utilisées dans un bloc
 @translationof Text markup list commands
 
 Les commandes suivantes peuvent être utilisées dans un
-bloc @code{\markuplist @{ @}}.
+bloc @code{\markuplist @{ @}}.
 
 @include markup-list-commands.tely
 
@@ -1222,16 +1224,16 @@ bloc @code{\markuplist @{ @}}.
 @appendixsec Liste des caractères spéciaux
 @translationof List of special characters
 
-Voici un table des caractères spéciaux disponibles.  Pour plus de
+Voici une table des caractères spéciaux disponibles.  Pour plus de
 précisions, voir @ref{Équivalents ASCII}.
 
 Cette liste utilise la syntaxe HTML, à l'instar de la plupart des
-caractères qui la composent@tie{}; les autres sont inspirés du langage
+caractères qui la composent ; les autres sont inspirés du langage
 @LaTeX{}.
 
-Les caractères sont ici inclus dans une boîte, de telle sorte que leur
-taille soit mise en évidence, et un léger décalage a été appliqué pour
-les décoller de l'encadrement.
+Les caractères sont ici inclus dans une boîte, de façon à mettre leur
+taille en évidence, et un léger décalage a été appliqué pour les
+décoller de l'encadrement.
 
 @lilypond[quote]
 \include "special-characters.ly"
@@ -1243,11 +1245,13 @@ les décoller de l'encadrement.
 @translationof List of articulations
 
 @cindex accent
+@cindex circulus
 @cindex marcato
 @cindex staccatissimo
 @cindex espressivo
 @cindex point d'orgue
 @cindex point d'arrêt
+@cindex flageolet
 @cindex staccato
 @cindex portato
 @cindex tenuto
@@ -1255,7 +1259,7 @@ les décoller de l'encadrement.
 @cindex pousser l'archet
 @cindex bouché
 @cindex sourdine
-@cindex orgue, marque de pédale d'
+@cindex orgue, marque de pédale
 @cindex grupetto
 @cindex ouvert
 @cindex flageolet
@@ -1266,12 +1270,13 @@ les décoller de l'encadrement.
 @cindex pouce
 @cindex segno
 @cindex coda
+@cindex snappizzicato
 @cindex varcoda
 @cindex pointe
 @cindex talon
 
 Voici la liste exhaustive des symboles prédéfinis et que vous pouvez
-attacher à une note (p.ex. @code{c\accent})@tie{}:
+attacher à une note (p. ex. @code{c\accent}) :
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -1365,20 +1370,385 @@ attacher à une note (p.ex. @code{c\accent})@tie{}:
 @appendixsec Glossaire technique
 @translationof Technical glossary
 
-@untranslated
+Ce glossaire regroupe les termes techniques et concepts utilisés en
+interne par LilyPond.  Ils apparaissent aussi bien dans les manuels, que
+sur les listes de diffusion et dans le code source.
 
-@unnumberedsubsec callback
-@unnumberedsubsec glyph
-@unnumberedsubsec grob
+@menu
+* alist (liste associative)::
+* callback (rappel)::
+* closure (clôture)::
+* glyphe::
+* grob (objet graphique)::
+* inaltérable::
+* interface::
+* lexer (analyseur lexical)::
+* altérable::
+* output-def (définition de sortie)::
+* parser (analyseur syntaxique)::
+* variable de l'analyseur grammatical::
+* prob (objet de propriété)::
+* clôture simple::
+* smob (objet Scheme)::
+* stencil::
+@end menu
+
+
+@node alist (liste associative)
+@unnumberedsubsec alist (liste associative)
+@translationof alist
+
+@cindex alist
+@cindex liste associative
+
+Une liste associative -- @strong{alist} pour @emph{association list} --
+est une paire Scheme qui associe une valeur à une clé :
+@code{(clé . valeur)}.  Le fichier @file{scm/lily.scm} contient par
+exemple une @emph{alist} @w{@qq{type-p-name-alist}} qui associe certains
+types de prédicat (p. ex. @code{ly:music?}) à des noms (p. ex.
+@qq{music}) de telle sorte qu'une erreur lors d'un contrôle de typage
+puisse être rapportée en console avec mention du type de prédicat
+attendu.
+
+
+@node callback (rappel)
+@unnumberedsubsec callback (rappel)
+@translationof callback
+
+@cindex callback
+@cindex rappel
+
+Un @strong{rappel}, @emph{callback} en anglais, est une routine,
+fonction ou méthode qui est passée en argument à une autre fonction.
+Cette dernière peut alors faire usage de cette fonction de rappel comme
+de n'importe quelle autre fonction, alors qu'elle ne la connaît pas par
+avance.  Cette façon de procéder permet à des couches logicielles de bas
+niveau d'appeler des fonctions définies à des niveaux plus élevés.
+LilyPond utilise abondamment les @emph{callbacks} afin que le code
+Scheme saisi par l'utilisateur puisse définir les actions de bas niveau
+à opérer.
+
+
+@node closure (clôture)
+@unnumberedsubsec closure (clôture)
+@translationof closure
+
+@cindex clôture
+@cindex simple closure
+
+En Scheme, une @strong{clôture} (en anglais, @emph{closure}) est créée
+lorsqu'une fonction, généralement une expression lambda, est passée en
+tant que variable.  La clôture comporte, en plus du code de la fonction,
+des références à des variables libres dans l'environnement lexical --
+variables utilisées dans l'expression mais définies ailleurs.  Lorsque
+la fonction est par la suite appliquée aux différents arguments, les
+références aux variables libres, capturées par la clôture, permettent
+d'obtenir la valeur de ces variables libres qui sera utilisée lors des
+calculs.  L'une des propriétés intéressantes des clôtures est la
+rétention de la valeur de variables internes tout au long des
+différentes invocations, leur état étant alors persistant.
+
+Une @strong{clôture simple} -- @emph{simple closure} en anglais -- est
+une clôture ne comportant pas de variable libre, et donc pas de
+référence à des variables libres.
+
+Une clôture simple est représentée dans LilyPond par un objet Scheme
+(un @emph{smob}) contenant l'expression et la méthode pour appliquer
+cette expression à la liste d'arguments qui lui est passée.
+
+
+@node glyphe
+@unnumberedsubsec glyphe
+@translationof glyph
+
+@cindex glyphe
+@cindex fonte
+@cindex type de caractère
+
+Un @strong{glyphe} est une représentation graphique particulière d'un
+caractère typographique ou d'une combinaison de deux caractères formant
+une ligature.  Un jeu de glyphes aux mêmes style et allure constitue une
+fonte ; un jeu de fontes comprenant plusieurs styles et tailles constitue
+un type de caractère.
+
+@seealso
+Manuel de notation :
+@ref{Fontes},
+@ref{Caractères spéciaux}.
+
+
+@node grob (objet graphique)
+@unnumberedsubsec grob (objet graphique)
+@translationof grob
+
+@cindex grob
+@cindex graphique, objet
+@cindex rendu, objets de
+@cindex objets de rendu
+
+Dans LilyPond, les objets représentants les différents éléments de
+notation, comme les têtes de note, hampes, liaisons, doigtés, clefs etc.
+sont appelés « objets de rendu » ou objet graphique -- en anglais
+@emph{GRaphical OBjects} couramment abrégé en @strong{grob}.  Ils sont
+représentés par des instances de la classe @code{grob}.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Objets et interfaces},
+@rlearning{Conventions de nommage des objets et propriétés},
+@rlearning{Propriétés des objets de rendu}.
+
+Référence des propriétés internes :
+@rinternals{grob-interface},
+@rinternals{All layout objects}.
+
+
+@node inaltérable
+@unnumberedsubsec inaltérable
+@translationof immutable
+
+@cindex inaltérables, objets
+@cindex inaltérables, propriétés
+@cindex propriétés communes
+
+Un objet est dit @strong{inaltérable} -- @emph{immutable} en anglais --
+dès lors que son état ne peut être modifié après sa création ; les
+objets altérables, à l'inverse, peuvent être modifiés après création.
+
+Pour LilyPond, une propriété est inaltérable ou commune lorsqu'elle
+définit les style ou le comportement par défaut d'objets graphiques ;
+une telle propriété est partagée par un certain nombre de @emph{grobs}.
+En apparente contradiction avec ce que leur nom laisse accroire, de
+telles propriétés peuvent être adaptées par @code{\override} et
+@code{\revert}.
+
+@seealso
+Manuel de notation :
+@ref{altérable}.
+
+
+@node interface
 @unnumberedsubsec interface
-@unnumberedsubsec lexer
-@unnumberedsubsec output-def
-@unnumberedsubsec parser
-@unnumberedsubsec parser variable
-@unnumberedsubsec prob
-@unnumberedsubsec simple-closure
-@unnumberedsubsec smob
+@translationof interface
+
+@cindex interface
+@cindex grob-interface
+@cindex objet graphique, interface
+
+Les actions et propriétés communes à plusieurs objets graphiques sont
+regroupées dans un objet appelé @code{grob-interface}, ou « interface »
+pour faire court.
+
+@seealso
+Manuel d'initiation :
+@rlearning{Objets et interfaces},
+@rlearning{Conventions de nommage des objets et propriétés},
+@rlearning{Propriétés listées par interface}.
+
+Manuel de notation :
+@ref{Interfaces de rendu}.
+
+Référence des propriétés internes :
+@rinternals{Graphical Object Interfaces}.
+
+
+@node lexer (analyseur lexical)
+@unnumberedsubsec lexer (analyseur lexical)
+@translationof lexer
+
+@cindex lexer
+@cindex analyse lexicale
+@cindex Flex
+
+Un @strong{lexer} est un programme chargé de convertir une séquence de
+caractères en une séquence de jetons.  Cette opération s'appelle
+l'analyse lexicale.  L'analyseur lexical de LilyPond convertit le flot
+d'information contenu dans un fichier @file{.ly} en flot de jetons qui
+pourront être traités lors de l'étape suivant, l'analyse
+grammaticale abordée à la rubrique @ref{parser (analyseur syntaxique)}.
+L'analyseur lexical de LilyPond repose sur @code{Flex} ; les règles
+lexicales sont regroupées dans le fichier @file{lily/lexer.ll}.  Ce
+fichier, partie intégrante des sources, n'est pas distribué avec les
+programmes binaires de LilyPond.
+
+
+@node altérable
+@unnumberedsubsec altérable
+@translationof mutable
+
+@cindex altérables, objets et propriétés
+@cindex propriétés altérables
+@cindex objets altérables
+
+Un objet est dit @strong{altérable} -- @emph{mutable} en anglais --
+lorsque son état est sujet à modification après sa création, à l'inverse
+des objets inaltérables dont l'état est figé dès leur création.
+
+Les propriétés altérables contiennent, pour LilyPond, des valeurs
+spécifiques à un objet graphique.  En particulier, les listes d'autres
+objets ou résultats de calculs sont enregistrés sous dorme de propriétés
+altérables.
+
+@seealso
+Manuel de notation :
+@ref{inaltérable}.
+
+
+@node output-def (définition de sortie)
+@unnumberedsubsec output-def (définition de sortie)
+@translationof output-def
+
+@cindex output-def
+@cindex sortie, définition
+@cindex définition de sortie
+
+Une instance de la classe @code{Output-def} contient les méthodes et
+structures des données associées à un bloc de sortie.  Ces instances
+sont créées par les blocs @code{\midi}, @code{\layout} et @code{\paper}.
+
+
+@node parser (analyseur syntaxique)
+@unnumberedsubsec parser (analyseur syntaxique)
+@translationof parser
+
+@cindex parser
+@cindex analyseur syntaxique
+@cindex Bison
+@cindex grammaire de LilyPond
+@cindex BNF
+
+Un analyseur syntaxique -- @strong{parser} en anglais -- est un
+programme qui analyse la séquence de jetons produite par l'analyseur
+lexical pour en déterminer la structure grammaticale.  Les jetons sont,
+pour ce faire, regroupés progressivement en tronçons plus importants,
+selon des règles grammaticales.  Lorsque la séquence de jetons est
+valide, les produit final est une arborescence de jetons ayant à sa base
+le symbole grammatical de début.  Dès lors que cette étape n'est pas
+concluante, le fichier est déclaré invalide ; un message approprié est
+alors émis.  Les différents regroupements syntaxiques ainsi que les
+règles de construction des regroupements relatifs à la grammaire de
+LilyPond sont définis dans le fichier @file{lily/parser.yy} et présentés
+selon la forme de Backus-Naur (BNF) à l'annexe
+@ref{Grammaire de LilyPond}.  Ce fichier est utilisé par le 
+générateur de @emph{parser} Bison lors de la construction du programme.
+Partie intégrante des sources, il n'est pas distribué avec les
+programmes binaires de LilyPond.
+
+
+@node variable de l'analyseur grammatical
+@unnumberedsubsec variable de l'analyseur grammatical
+@translationof parser variable
+
+@cindex parser, variable
+@cindex Scheme, variable
+@cindex globale, variable
+@cindex afterGraceFraction
+@cindex musicQuotes
+@cindex mode
+@cindex output-count
+@cindex output-suffix
+@cindex parseStringResult
+@cindex partCombineListener
+@cindex pitchnames
+@cindex toplevel-bookparts
+@cindex toplevel-scores
+@cindex showLastLength
+@cindex showFirstLength
+
+Il s'agit de variables définies directement en Scheme.  Dans la mesure
+où leur champ sémantique peut porter à confusion, il est fortement
+déconseillé de les utiliser tels quels.
+
+La modification des valeurs de l'une de ces variables dans un fichier
+@file{.ly} sera effective de manière globale.  Les valeurs modifiées,
+sauf à être explicitement remises à leur état d'origine, affecteront
+tous les blocs @code{\score} rencontrés, y compris s'ils proviennent
+d'autres fichiers ajoutés par une commande @code{\include}.  Ceci peut
+avoir des conséquences inattendues et les erreurs qui pourraient en
+découler difficiles à localiser dans le cadre d'un projet d'envergure.
+
+LilyPond utilise les variables suivantes :
+
+@itemize
+@item afterGraceFraction
+@item musicQuotes
+@item mode
+@item output-count
+@item output-suffix
+@item parseStringResult
+@item partCombineListener
+@item pitchnames
+@item toplevel-bookparts
+@item toplevel-scores
+@item showLastLength
+@item showFirstLength
+@end itemize
+
+
+@node prob (objet de propriété)
+@unnumberedsubsec prob (objet de propriété)
+@translationof prob
+
+@cindex prob
+@cindex propriété objet
+@cindex objet de propriété
+
+Les objets de propriété -- @strong{probs} pour @emph{PRoperty OBjects}
+-- sont des instances de la classe @code{Prob}, une classe de base
+simple pour les objets qui disposent de de listes associatives de
+propriétés altérables et inaltérables ainsi que les méthodes pour les
+manipuler.  Les classes @code{Music} et @code{Stream_event} dérivent
+d'un @code{prob}.  Les instances de la classe @code{prob} se créent
+aussi pour garder trace du contenu des systèmes une fois formatés et
+des blocs de titrage lors de la phase de mise en forme des pages.
+
+
+@node clôture simple
+@unnumberedsubsec clôture simple
+@translationof simple closure
+
+Voir @ref{closure (clôture)}.
+
+
+@node smob (objet Scheme)
+@unnumberedsubsec smob (objet Scheme)
+@translationof smob
+
+@cindex smob
+@cindex Scheme, objet
+@cindex objet Scheme
+
+Les objets Scheme -- @strong{Smobs} pour @emph{ScheMe OBjects} -- font
+partie du mécanisme utilisé par l'interpréteur Guile pour exporter en
+code Scheme les objets C ou C++.  Dans LilyPond, les @emph{smobs} sont
+créés, grâce à des macros, à partir d'objets C++.    On peut distinguer
+deux types d'objets @emph{smob} : des @emph{smobs} simples destinés aux
+objets inaltérables comme les nombres par exemples, et des @emph{smobs}
+complexes utilisés pour des objets possédant une identité.  De plus
+amples informations sont disponibles dans les sources de LilyPond, au
+sein du fichier @file{lily/includes/smob.hh}.
+
+
+@node stencil
 @unnumberedsubsec stencil
+@translationof stencil
+
+@cindex stencil
+
+Une instance de la classe @strong{stencil} comporte l'information
+nécessaire à l'impression d'un objet typographique.  Il s'agit d'un
+@emph{smob} simple qui contient un espace de confinement qui définit
+l'envergure verticale et horizontale de l'objet ainsi qu'une expression
+Scheme qui imprimera l'objet après évaluation.  Les stencils peuvent se
+combiner et adopter une forme plus complexe définie par une arborescence
+d'expressions Scheme des stencils qui la composent.
+
+La propriété @code{stencil}, qui permet de connecter un @emph{grob} à
+son stencil, est définie par l'interface @code{grob-interface}.
+
+@seealso
+Référence des propriétés internes :
+@rinternals{grob-interface}.
 
 
 @node Liste des propriétés de contexte
