@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 241220d246ae1e85968cbabcf4923b5940340c44
+    Translation of GIT committish: f42142c17b68d84721597f8abf400fa18364b118
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,30 +19,30 @@
 
 
 @newsItem
-@subsubheading Release candidate withdrawn  @emph{July 11, 2012}
+@subsubheading Retirada de la versión candidata al lanzamiento @emph{11 de julio de 2012}
 
-We have discovered a regression since 2.14.2, so lilypond 2.15.41
-is no longer a candidate for the 2.16.0 release.  However, please
-continue testing it -- we would like to discover (and fix!) any
-more regressions as soon as possible.  If you discover any
-problems, please send us @ref{Bug reports}.
+Hemos descubierto una regresión desde la versión 2.14.2, de manera que
+lilypond 2.15.41 ya no es candidata al lanzamiento de 2.16.0.  Sin
+embargo, les rogamos que continúen probándola: nos gustaría descubrir
+(¡y corregir!) cualquier otra regresión lo antes posible.  Si descubre
+cualquier problema, envíenos @ref{Informes de fallos}.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading Release candidate 8 of 2.16 - LilyPond 2.15.41 released!  @emph{July 4, 2012}
+@subsubheading Octava candidata al lanzamiento de 2.16: ¡Lanzado LilyPond 2.15.41!  @emph{4 de julio de 2012}
 
-LilyPond 2.15.41 is out; this is the eighth release candidate of
-the upcoming 2.16 stable release.  All users are invited to
-experiment with this version.  New features since 2.14.2 are
-listed in the @qq{Changes} manual on the website section about
-@ref{Development}.
+Ha salido LilyPond 2.15.41; ésta es la octava versión candidata al
+lanzamiento de la inminente versión estable 2.16.  Se invita a los
+usuarios a que hagan experimentos con esta versión.  Las
+funcionalidades nuevas desde 2.14.2 están relacionadas en el manual de
+@qq{Cambios} dentro de la sección @ref{Desarrollo} de estas páginas.
 
-There are no known Critical issues with this release.  If no
-Critical bugs are found, then the official 2.16.0 release will be
-on 18 July 2012.  If you discover any problems, please send us
-@ref{Bug reports}.
+No existen problemas críticos conocidos en esta edición. Si no se
+encuentra ningún bug crítico, la edición oficial 2.16.0 se producirá
+el 18 de julio de 2012.  Si descubre algún problema, le rogamos que
+nos envíe @ref{Informes de fallos}.
 
 @newsEnd
 
