@@ -26,15 +26,14 @@ werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
 "
   doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
-Certains auteurs utilisent deux liaisons lorsqu'ils veulent
-lier des accords.  Dans LilyPond, il faut pour cela activer
-la propriété @code{doubleSlurs}.
+Certains auteurs utilisent deux liaisons lorsqu'ils veulent lier des
+accords.  Dans LilyPond, il faut pour cela activer la propriété
+@code{doubleSlurs}.
 
 "
   doctitlefr = "Accords et double liaison d'articulation"
-
 
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can

@@ -7,6 +7,14 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Des références de page peuvent prendre place aussi bien dans la
+musique qu'en tête de  partition, puis reprises dans un @emph{markup}.
+
+"
+  doctitlefr = "Référencement de page"
+
   lsrtags = "spacing"
 
   texidoc = "

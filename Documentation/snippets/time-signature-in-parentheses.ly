@@ -7,6 +7,13 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+Une métrique peut être mise entre parenthèses.
+
+"
+  doctitlefr = "Métrique entre parenthèses"
+
   lsrtags = "specific-notation, tweaks-and-overrides, staff-notation"
 
   texidoc = "

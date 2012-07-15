@@ -7,7 +7,18 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+Des nuances qui commencent, finissent ou se produisent sur une même note
+auront le même alignement vertical.  L'augmentation de la propriété
+@code{staff-padding} de l'objet @code{DynamicLineSpanner} permet
+d'aligner différentes nuances affectées à différentes notes.
+
+"
+  doctitlefr = "Alignement vertical des nuances sur plusieurs notes"
+
   lsrtags = "expressive-marks"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

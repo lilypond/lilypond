@@ -7,7 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Le contexte @code{NoteNames} permet d'imprimer le nom des notes.  La
+propriété @code{printOctaveNames}, une fois activée, leur adjoindra une
+indication d'octave.
+
+"
+  doctitlefr = "Impression des noms de notes avec ou sans indication d'octave"
+
   lsrtags = "tweaks-and-overrides"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

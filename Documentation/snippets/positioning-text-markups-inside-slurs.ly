@@ -28,14 +28,13 @@ Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
 "
   doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Lorsqu'il vous faut inscrire une annotation à l'intérieur d'une liaison,
-la propriété @code{outside-staff-priority} doît être désactivée.
+Lorsqu'une annotation doit s'incrire à l'intérieur d'une liaison, la
+propriété @code{outside-staff-priority} doit être désactivée.
 
 "
   doctitlefr = "Positionnement d'une annotation à l'intérieur d'une liaison"
-
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property

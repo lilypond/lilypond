@@ -29,18 +29,17 @@ beendet.  Dieses Verhalten kann auch mit der Eigenschaft
 "
   doctitlede = "Das Verhalten von Crescendo-Klammern an Taktlinien beeinflussen"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 En principe, un soufflet -- (de)crescendo imprimé sous forme graphique --
 commence au bord gauche de la note de départ, et se termine au
 bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
 est sur un premier temps, le soufflet s'arrêtera au niveau de la
 barre de mesure qui la précède.  Ce comportement peut être annulé
-en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline}.
+en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline}.
 
 "
   doctitlefr = "Soufflets et barres de mesure"
-
 
   texidoc = "
 If the note which ends a hairpin falls on a downbeat, the hairpin stops

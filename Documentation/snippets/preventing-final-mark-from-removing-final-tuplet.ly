@@ -7,6 +7,15 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+L'ajout d'une marque-repère en fin de pièce peut entraîner la perte de
+la dernière indication de nolet.  La désactivation de @code{TupletBracket
+#'full-length-to-extent} pallie ce problème.
+
+"
+  doctitlefr = "Préservation de l'indication de nolet lors d'un repère final"
+
   lsrtags = "rhythms"
 
   texidoc = "

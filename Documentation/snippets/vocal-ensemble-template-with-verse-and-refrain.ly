@@ -44,13 +44,13 @@ Stück zu definieren.
 "
   doctitlede = "Sologesang und zweistimmiger Refrain"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
 est chanté en solo et le refrain à deux voix.  Vous noterez le recours
-aux silences invisibles dans la variable @code{\\global}@tie{}; ils
+aux silences invisibles dans la variable @code{\\global} ; ils
 permettent de positionner les changements de métrique et autres éléments
-communs à toutes les parties et pour l'intégralité du morceau.
+communs à toutes les parties, ce pour l'intégralité du morceau.
 
 "
   doctitlefr = "Ensemble vocal avec couplet et refrain"

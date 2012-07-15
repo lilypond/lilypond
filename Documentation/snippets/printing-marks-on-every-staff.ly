@@ -27,15 +27,14 @@ können aber auch über jedem System ausgegeben werden.
 "
   doctitlede = "Zeichen über jedem System ausgeben"
 
-%% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Bien que ces indications textuelles ne soient habituellement imprimées
-qu'au niveau de la portée supérieure, vous pouvez forcer leur
-affectation à chacune des portées.
+qu'au niveau de la portée supérieure d'un système, leur affectation peut
+être répecutée à chacune des portées.
 
 "
   doctitlefr = "Impression des indications sur toutes les portées d'un système"
-
 
   texidoc = "
 Although text marks are normally only printed above the topmost staff,

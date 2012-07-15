@@ -27,15 +27,14 @@ Zähler, wenn man die entsprechende Eigenschaft einsetzt:
 "
   doctitlede = "Prozent-Wiederholungen zählen"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
+Les répétitions de plus de deux mesures sont surmontées d'un compteur,
 si l'on active la propriété @code{countPercentRepeats} comme le montre
-l'exemple suivant@tie{}:
+l'exemple suivant :
 
 "
   doctitlefr = "Compteur de répétition en pourcent"
-
 
   texidoc = "
 Measure repeats of more than two repeats can get a counter when the

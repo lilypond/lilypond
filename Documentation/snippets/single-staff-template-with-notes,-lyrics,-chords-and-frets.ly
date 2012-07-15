@@ -7,7 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Ce canevas comporte, en plus de la mélodie, des paroles et des accords,
+les diagrammes de fret.
+
+"
+  doctitlefr = "Paroles musique accords et diagrammes de fret"
+
   lsrtags = "chords, vocal-music, template"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

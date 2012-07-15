@@ -7,6 +7,15 @@
 \version "2.15.40"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+L'instruction @code{\\markuplist \\table-of-contents} permet d'inclure
+une table des matières.  Ses éléments sont ajoutés à l'aide de la
+commande @code{\\tocItem}.
+
+"
+  doctitlefr = "Table des matières"
+
   lsrtags = "paper-and-layout"
 
   texidoc = "

@@ -26,14 +26,13 @@ werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.
 "
   doctitlede = "Sichtbarkeit von Prozent-Wiederholungen"
 
-%% Translation of GIT committish: a5bde6d51a5c88e952d95ae36c61a5efc22ba441
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Le numéro de mesure répétée sera imprimé à intervalle régulier si vous
 déterminez la propriété de contexte @code{repeatCountVisibility}.
 
 "
   doctitlefr = "Affichage du numéro de répétition en pourcent"
-
 
   texidoc = "
 Percent repeat counters can be shown at regular intervals by setting

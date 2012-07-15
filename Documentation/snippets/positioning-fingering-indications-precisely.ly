@@ -7,6 +7,17 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Les options par défaut en matière de positionnement des doigtés d'un
+accord donnent généralement de bons résultats.  Il se peut néanmoins
+qu'un ajustement soit nécessaire dans certains cas particuliers,
+notamment en présence d'un intervalle de seconde.  L'astuce ici
+présentée permet d'obtenir un meilleur rendu.
+
+"
+  doctitlefr = "Positionnement précis des indications de doigté"
+
   lsrtags = "editorial-annotations"
 
   texidoc = "

@@ -114,33 +114,30 @@ Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
 Noten, auf der zweiten Zeile nicht.
 "
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
-@code{clefPosition} -- qui contrôle la position verticale de la clé --
-@code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
+@code{clefPosition} -- qui contrôle la position verticale de la clef --
+@code{middleCPosition} et @code{clefOctavation}.  Une clef est imprimée
 lorsque l'une de ces propriétés, hormis @code{middleCPosition}, est
 modifiée.  Les exemples suivant font apparaître des possibilités de
 réglage manuel de ces propriétés.
 
-
 Modifier le glyphe, la position de la clef ou son octaviation ne
-changera pas la position des notes@tie{}; il faut pour y parvenir
+changera pas la position des notes ; il faut pour y parvenir
 modifier aussi la position du do médium.  Le positionnement est relatif
 à la ligne médiane, un nombre positif faisant monter, chaque ligne ou
-interligne comptant pour@tie{}1.  La valeur de @code{clefOctavation}
-devrait être de 7, -7, 15 ou -15, bien que rien ne vous empêche de lui
+interligne comptant pour 1.  La valeur de @code{clefOctavation}
+devrait être de 7, -7, 15 ou -15, bien que rien n'empêche de lui
 affecter une autre valeur.
-
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
 ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
-début de la suivante.  Vous pouvez toujours supprimer cette @qq{clef de
-précaution} en affectant la valeur @code{end-of-line-invisible} à la
+début de la suivante.  Vous pouvez toujours supprimer cette « clef de
+précaution » en affectant la valeur @code{end-of-line-invisible} à la
 propriété @code{explicitClefVisibility} du contexte @code{Staff}.  Le
 comportement par défaut sera réactivé par
-@w{@code{\\unset@tie{}Staff.explicitClefVisibility}}.
-
+@code{\\unset Staff.explicitClefVisibility}.
 
 Les exemples qui suivent illustrent les différentes possibilités de
 définir ces propriétés manuellement.  Sur la première ligne, la

@@ -42,12 +42,11 @@ verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
 im @code{Staff}-Kontext auf \"false\" gesetzt wird.
 "
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Après un changement de tonalité, un bécarre est imprimé pour annuler
-toute altération précédente.  Ceci peut être supprimé en réglant à
-@code{\"false\"} la propriété @code{printKeyCancellation} du contexte
-@code{Staff}.
+toute altération précédente.  Ce comportement s'annule en désactivant la
+propriété @code{printKeyCancellation} du contexte @code{Staff}.
 
 "
   doctitlefr = "Suppression des bécarres superflus après un changement de tonalité"

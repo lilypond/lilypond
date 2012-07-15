@@ -7,6 +7,15 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+Voici comment construire une commande de @emph{markup} chargée
+d'agrémenter du texte ou autre annotation, d'une bordure sur trois
+côtés.
+
+"
+  doctitlefr = "Encadrement sur trois côtés"
+
   lsrtags = "rhythms, text, scheme-language"
 
   texidoc = "

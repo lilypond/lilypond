@@ -8,6 +8,15 @@
 \version "2.15.20"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Voici comment ajouter une ligne de prolongation à une indication de
+numéro de corde, afin de stipuler que les notes qui suivent doivent être
+jouées sur la corde en question.
+
+"
+  doctitlefr = "Ligne de prolongation pour numéro de corde"
+
   lsrtags = "editorial-annotations, text, fretted-strings, tweaks-and-overrides"
 
   texidoc = "

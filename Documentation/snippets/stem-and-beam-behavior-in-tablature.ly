@@ -28,7 +28,7 @@ zeigt.
 "
   doctitlede = "Hals- und Balkenverhalten in einer Tabulatur"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 La direction des hampes se gère dans les tablatures tout comme en
 notation traditionnelle.  Les ligatures peuvent être mises à l'horizontale
@@ -36,7 +36,6 @@ comme le montre cet exemple.
 
 "
   doctitlefr = "Hampes et ligatures en mode tablature"
-
 
   texidoc = "
 The direction of stems is controlled the same way in tablature as in

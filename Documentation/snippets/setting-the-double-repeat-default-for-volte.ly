@@ -21,15 +21,14 @@ y segunda vez, que se pueden ajustar utilizando
 
   doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-LilyPond dispose de trois styles de barre différents pour indiquer une
+LilyPond dispose de trois différents styles de barre pour indiquer une
 succession de reprises.  Vous devez opter pour un style par défaut, à
 l'aide de la propriété @code{doubleRepeatType}.
 
 "
   doctitlefr = "Succession de reprise et style de barre par défaut"
-
 
   texidoc = "
 There are three different styles of double repeats for volte, that can

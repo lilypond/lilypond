@@ -7,7 +7,18 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Les barres de mesure des regroupements @code{StaffGroup},
+@code{PianoStaff} et @code{GrandStaff} sont par défaut d'un seul tenant.
+La portion entre les portées peut néanmoins être supprimée, portée par
+portée.
+
+"
+  doctitlefr = "Suppression de la partie inter-portée des barres de mesure d'un regroupement autre que ChoirStaff"
+
   lsrtags = "tweaks-and-overrides, rhythms"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

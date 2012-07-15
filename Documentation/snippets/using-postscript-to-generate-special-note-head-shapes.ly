@@ -9,15 +9,15 @@
 \header {
   lsrtags = "tweaks-and-overrides, scheme-language, really-cool, editorial-annotations"
 
-%% Translation of GIT committish: 5a898cf43a2a78be6c3a58e4359dccd82196fbe7
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Lorsqu'il est impossible d'obtenir facilement une allure particulière
 pour les têtes de note en recourant à la technique du @code{\\markup}, un
-code Postscript peut vous tirer d'embarras.  Voici comment générer des
+code PostScript peut vous tirer d'embarras.  Voici comment générer des
 têtes ressemblant à des parallélogrammes.
 
 "
-  doctitlefr = "Utilisation de Postscript pour générer des têtes de note à l'allure particulière"
+  doctitlefr = "Utilisation de PostScript pour générer des têtes de note à l'allure particulière"
 
   texidoc = "
 When a note head with a special shape cannot easily be generated with

@@ -40,10 +40,10 @@ Grundlinie auszurichten.
 "
   doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les
-différents objets @code{DynamicLineSpanner} (souflets ou textuels)
+différents objets @code{DynamicLineSpanner} (soufflets ou textuels)
 quelle que soit leur étendue, par rapport à un même point de référence.
 Tous les éléments seront alors centrés sur une même ligne, ce qui sera
 visuellement plus agréable.
@@ -53,7 +53,6 @@ une ligne de référence.
 
 "
   doctitlefr = "Alignement vertical des nuances indications textuelles"
-
 
   texidoc = "
 By setting the @code{'Y-extent} property to a suitable value, all

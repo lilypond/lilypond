@@ -26,11 +26,11 @@ man die entsprechende Eigenschaft verändert:
 "
   doctitlede = "Ein Wiederholungszeichen zu Beginn eines Stückes ausgeben"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Bien qu'allant à l'encontre des usages en matière de gravure, vous
-imprimerez une barre de reprise (@code{|:}) en début de partition si
-vous surchargez la propriété adéquate@tie{}:
+Bien qu'allant à l'encontre des usages en matière de gravure, une barre
+de reprise (@code{|:}) s'imprimera en début de partition après surcharge
+de la propriété adéquate :
 
 "
   doctitlefr = "Impression d'une barre de reprise en début de morceau"

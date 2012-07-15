@@ -29,15 +29,14 @@ das folgende Beispiel zeigt:
 "
   doctitlede = "Positionierung von Fingersatz der rechten Hand"
 
-%% Translation of GIT committish: af01b3b78afa2e7c3c60e7280ee0b6382135bd35
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Vous disposez d'une propriété spécifique qui permet de contrôler plus
-finement le positionnement des doigtés main droite, comme l'indique
-l'exemple suivant.  N'oubliez pas le construction de type accord.
+Le positionnement des doigtés main droite, grâce à une propriété
+spécifique, peut se contrôler finement, comme l'indique
+l'exemple suivant.  N'oubliez pas la construction de type accord.
 
 "
   doctitlefr = "Positionnement des doigtés main droite"
-
 
   texidoc = "
 It is possible to exercise greater control over the placement of

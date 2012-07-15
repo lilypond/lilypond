@@ -30,7 +30,7 @@ der zweite Sechszehntelbalken zeigt den Taktschlag an.
 
 
 
-%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Une sous-ligature tronquée peut pointer en direction de la pulsation à
 laquelle elle se rattache.  Dans l'exemple suivant, la première ligature
@@ -38,7 +38,6 @@ laquelle elle se rattache.  Dans l'exemple suivant, la première ligature
 respecte rigoureusement la pulsation.
 
 "
-
   doctitlefr = "Ligature à la pulsation"
 
   texidoc = "

@@ -7,7 +7,20 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+Voici une méthode alternative pour ajouter un @emph{incipit}
+indépendamment de la partition principale.  Pour ce faire, il est inclus
+sous forme de @emph{markup} dans le champ dévolu au nom d'instrument.
+Les paroles ne peuvent, à ce jour, être ajoutées que sous forme
+d'annotation directe, ce qui donne un espacement des paroles loin
+d'égaler celui de la partition réelle.
+
+"
+  doctitlefr = "Transcription de musique ancienne avec incipit"
+
   lsrtags = "specific-notation, tweaks-and-overrides, workaround, ancient-notation"
+
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "

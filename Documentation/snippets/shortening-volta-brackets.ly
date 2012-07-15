@@ -31,16 +31,15 @@ es ist möglich sie zu verkürzen.  Hierzu muss
 "
   doctitlede = "Volta-Klammern verkürzen"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Les crochets indiquant les fins alternatives s'étalent tout au long de
-celle-ci.  On peut les raccourcir en définissant la propriété
+celles-ci.  On peut les raccourcir en jouant sur la propriété
 @code{voltaSpannerDuration}.  Dans l'exemple suivant, le crochet ne se
-prolonge que sur une mesure à 3/4.
+prolonge que sur une mesure à 3/4.
 
 "
   doctitlefr = "Diminution de la taille du crochet d'alternative"
-
 
   texidoc = "
 By default, the volta brackets will be drawn over all of the

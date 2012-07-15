@@ -49,11 +49,11 @@ sind fast immer gleich in allen Stimmen.
   doctitlede = "Vorlage für Vokalensemble"
 
 
-%% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Ce fichier constitue un canevas standard de partition pour chœur à
 quatre voix mixtes.  Lorsque les ensembles s'étoffent, il est judicieux
-de recourrir à une section spécifique incluse dans chacune des parties,
+de recourir à une section spécifique incluse dans chacune des parties,
 tout particulièrement pour gérer la métrique et la tonalité qui,
 la plupart du temps, sont communes à tous les pupitres.  Comme il est
 d'usage pour les hymnes, les quatre voix sont réparties sur deux

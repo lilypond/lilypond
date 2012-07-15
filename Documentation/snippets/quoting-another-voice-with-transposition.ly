@@ -34,19 +34,18 @@ in diesem Fall werden alle Noten (auch die zitierten) transponiert.
 "
   doctitlede = "Eine Stimme mit Transposition zitieren"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Les citations tiennent compte de la transposition, aussi bien celle de
-l'instrument d'origine que celle de la partie où elle intervient.  Dans
-l'exemple suivant, tous les instruments sont en tonalité de concert et
-seront repris par un instrument en fa.  Le destinataire de la citation
+l'instrument d'origine que celle de la partie où elles interviennent.
+Dans l'exemple suivant, tous les instruments sont en tonalité de concert
+et seront repris par un instrument en fa.  Le destinataire de la citation
 peut à son tour transposer à l'aide de la commande @code{\\transpose}.
 En pareil cas, toutes les hauteurs, y compris celles de la citation,
 seront transposées.
 
 "
   doctitlefr = "Citation d'une autre voix et transposition"
-
 
   texidoc = "
 Quotations take into account the transposition of both source and

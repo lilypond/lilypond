@@ -26,14 +26,13 @@ angeordnet werden:
 "
   doctitlede = "Isolierter Text in zwei Spalten"
 
-%% Translation of GIT committish: 548ef200973bd3d46ea75c5498461d9e5f168334
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 L'utilisation de la commande @code{\\markup} permet de distribuer un bloc
 de texte indépendant sur plusieurs colonnes.
 
 "
   doctitlefr = "Bloc de texte indépendant sur deux colonnes"
-
 
   texidoc = "
 Stand-alone text may be arranged in several columns using

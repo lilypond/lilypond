@@ -7,6 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+On trouve régulièrement, en musique baroque, cette courte ligne
+verticale. Sa signification peut varier, mais elle indique le plus
+souvent une note plus « appuyée ».  Voici comment générer ce signe
+particulier.
+
+"
+  doctitlefr = "Articulation baroque en forme de coche"
+
   lsrtags = "expressive-marks, ancient-notation"
 
   texidoc = "

@@ -28,16 +28,15 @@ im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
 "
   doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"
 
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Un regroupement de portées sera indiqué par un simple rectangle
 -- @code{SystemStartSquare} -- en début de ligne dès lors que vous le
 mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
-@code{ChoirStaffGroup}.
+@code{ChoirStaff}.
 
 "
   doctitlefr = "Indication de regroupement de portées par un rectangle"
-
 
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by

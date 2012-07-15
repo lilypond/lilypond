@@ -17,7 +17,14 @@ el momento.
 
 "
   doctitlees = "Listado de los diagramas para viento madera"
+%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
+
+  texidocde="
+Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
+definiert sind.
+
+"
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 
@@ -28,14 +35,13 @@ definiert sind.
 "
   doctitlede = "Liste der Holzbläserdiagramme"
 
-
-%% Translation of GIT committish: 496c48f1f2e4d345ae3637b2c38ec748a55cda1d
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
-Voici la liste des différents instruments à vent de la section des bois
-dont les doigtés sont disponibles à ce jour.
+Voici les différents instruments à vent de la section des bois pour
+lesquels LilyPond peut, à ce jour, afficher des doigtés.
+
 "
   doctitlefr = "Liste des diagrammes de doigtés pour bois"
-
 
   texidoc = "
 The following music shows all of the woodwind diagrams currently

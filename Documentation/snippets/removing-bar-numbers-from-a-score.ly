@@ -32,15 +32,14 @@ entfernt.
 
 
 
-%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
-donnera une partition  --- contexte @code{Score} --- sans numéros de
+Désactiver le graveur concerné -- @code{Bar_number_engraver} --
+donnera une partition -- contexte @code{Score} -- sans numéros de
 mesure.
 
 "
-  doctitlefr = "Supprimer les numéros de mesure d'une partition"
-
+  doctitlefr = "Suppression des numéros de mesure d'une partition"
 
   texidoc = "
 Bar numbers can be removed entirely by removing the

@@ -7,6 +7,23 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Bien qu'ayant des métriques bien différentes, les deux parties
+ci-dessous présentées restent synchrones.  Les barres de mesure ne
+peuvent plus être gérées au niveau du contexte @code{Score} ; les
+@code{Default_barline_engraver} et @code{Timing_translator} doivent être
+déplacés du contexte @code{Score} au contexte @code{Staff} afin de
+permettre des barres de mesure individualisées.
+
+Le @code{Bar_number_engraver} devra lui aussi être déplacé, puisqu'il
+dépend de propriétés attachées au @code{Timing_translator}, afin de
+numéroter les mesures.  L'utilisation d'un bloc @code{\\with} dans la
+portée concernée permettra un affichage des numéros de mesure.
+
+"
+  doctitlefr = "Impression de musique aux métriques différentes"
+
   lsrtags = "contemporary-notation, rhythms, real-music, percussion, really-cool"
 
   texidoc = "

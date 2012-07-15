@@ -8,6 +8,16 @@
 \version "2.15.35"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+Le code ci-dessous illustre la manière de concevoir un graveur en
+Scheme, ici chargé de connecter des hampes entre les portées.  Nul n'est
+besoin de spécifier la taille des hampes ; la fonction tient compte de
+la distance relative des têtes de note avec les portées.
+
+"
+  doctitlefr = "Graveur de hampes inter-portées"
+
   lsrtags = "staff-notation, tweaks-and-overrides, contexts-and-engravers"
   texidoc = "This file defines and demonstrates a scheme engraver that
 connects stems across staves.  The stem length need not be specified, as

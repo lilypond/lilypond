@@ -29,15 +29,14 @@ Se pueden imprimir reguladores con un círculo en la punta (notación
 "
   doctitlede = "Crescendo Klammern al niente schreiben"
 
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
-manière graphique, en assignant @emph{vrai} (@code{#t}) à la
+manière graphique, en assignant @emph{vrai} (@code{#t}) à la
 propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
 
 "
   doctitlefr = "Impression de soufflets « al niente »"
-
 
   texidoc = "
 Hairpin dynamics may be printed with a circled tip (@qq{al niente}

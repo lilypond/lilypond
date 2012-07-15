@@ -26,14 +26,13 @@ normalen Notensystem erstellt werden.
 "
   doctitlede = "Polyphonie in einer Tabulatur"
 
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
-Une section polyphonique s'obtient dans un @code{TabStaff} de la
-même manière que dans une portée normale.
+Une section polyphonique s'obtient dans un @code{TabStaff} de la même
+ manière que dans une portée normale.
 
 "
   doctitlefr = "Polyphonie en mode tablature"
-
 
   texidoc = "
 Polyphony is created the same way in a @code{TabStaff} as in a regular

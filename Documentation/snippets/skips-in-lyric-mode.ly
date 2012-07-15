@@ -7,6 +7,16 @@
 \version "2.14.2"
 
 \header {
+%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
+  texidocfr = "
+La syntaxe @code{s} qui permet de « faire un saut dans le temps » n'est
+disponible qu'en mode notes et en mode accords.  Dans les autres
+situations, comme en mode paroles par exemple, la commande @code{\\skip}
+produit les mêmes effets.
+
+"
+  doctitlefr = "Sauts de notes en mode paroles"
+
   lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
