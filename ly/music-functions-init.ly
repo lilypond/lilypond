@@ -227,7 +227,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
                         (ly:moment-main-denominator mlen))))
   #{
     \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
-		(grob-interpret-markup grob (format-compound-time args)))
+      (grob-interpret-markup grob (format-compound-time args)))
     \set Timing.timeSignatureFraction = $timesig
     \set Timing.baseMoment = $beat
     \set Timing.beatStructure = $beatGrouping
@@ -235,11 +235,22 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
     \set Timing.measureLength = $mlen
   #} ))
 
+crossStaff =
+#(define-music-function (parser location notes) (ly:music?)
+  (_i "Create cross-staff stems")
+  #{
+  \override Stem #'cross-staff = #cross-staff-connect
+  \override Flag #'style = #'no-flag
+  $notes
+  \revert Stem #'cross-staff
+  \revert Flag #'style
+#})
 
 cueClef =
 #(define-music-function (parser location type) (string?)
   (_i "Set the current cue clef to @var{type}.")
   (make-cue-clef-set type))
+
 cueClefUnset =
 #(define-music-function (parser location) ()
   (_i "Unset the current cue clef.")
