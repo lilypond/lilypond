@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+Translation of GIT committish: bcd9d85bfc1dd6cc2dd3e98901b4df33fd6d0989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1016,37 +1016,42 @@ esperados.
 @funindex alignAboveContext
 @funindex alignBelowContext
 
-Sometimes a context is required to exist for just a brief period, a
-good example being the staff context for an ossia.  This is usually
-achieved by introducing the context definition at the appropriate
-place in parallel with corresponding section of the main music.
-By default, the temporary context will be placed below all the
-existing contexts.  To reposition it above the context called
-@qq{main}, it should be defined like this:
+En ocasiones se necesita que un contexto exista durante un breve
+intervalo de tiempo, siendo un buen ejemplo el contexto de pentagrama
+de un ossia.  Esto se consigue normalmente mediante la introducción de
+la definición del contexto en el lugar apropiado en paralelo con la
+sección correspondiente de la música principal.  De forma
+predeterminada, el contexto tempral se coloca debajo de todos los
+contextos existentes.  Para reposicionallo por encima del contexto que
+tenga el nombre @qq{principal}, debería definirse de esta forma:
 
 @example
-@code{\new Staff \with @{ alignAboveContext = #"main" @} }
+@code{\new Staff \with @{ alignAboveContext = #"principal" @} }
 @end example
 
-A similar situation arises when positioning a temporary lyrics
-context within a multi-staved layout such as a @code{ChoirStaff},
-for example, when adding a second verse to a repeated section.
-By default the temporary lyrics context will be placed beneath the
-lower staves.  By defining the temporary lyrics context with
-@code{alignBelowContext} it can be positioned correctly beneath
-the (named) lyrics context containing the first verse.
+Se presenta una situación similar cuando se posiciona un contexto
+temporal de letra de una canción dentro de una disposición de varios
+pentagramas tal como @code{ChoirStaff}, por ejemplo, cuando se añade
+una segunda estrofa a una sección que se repite.  De forma
+predeterminada, el contexto temporal de letra se coloca debajo de los
+pentagramas inferiores.  Mediante la definición del contexto temporal
+de letra con @code{alignBelowContext} se puede posicionar
+correctamente debajo del contexto de letra con nombre que contiene el
+texto de la primera estrofa.
 
-Examples showing this repositioning of temporary contexts can be
-found elsewhere --- see @rlearning{Nesting music expressions},
-@ref{Modifying single staves} and @ref{Techniques specific to lyrics}.
+En diversos lugares pueden verse ejemplos que muestran esta
+recolocación de contextos temporales: véase
+@rlearning{Anidado de expresiones musicales},
+@ref{Modificación de pentagramas sueltos} y
+@ref{Técnicas específicas para la letra}.
 
 @seealso
-Learning Manual:
-@rlearning{Nesting music expressions}.
+Manual de aprendizaje:
+@rlearning{Anidado de expresiones musicales}.
 
-Notation Reference:
-@ref{Modifying single staves},
-@ref{Techniques specific to lyrics}.
+Referencia de la notación:
+@ref{Modificación de pentagramas sueltos},
+@ref{Técnicas específicas para la letra}.
 
 Manual de utilización del programa:
 @rprogram{Aparece un pentagrama de más}.

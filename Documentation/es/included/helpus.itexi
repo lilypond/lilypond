@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 0942948dca35950b6e9cd3529ada31c38360e184
+    Translation of GIT committish: 4c7bdf42ee240fdbb3c3dab2b1c201eae04253fa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,20 +13,22 @@
 @macro helpusNeed
 @subheading ¡Le necesitamos!
 
-Thank you for your interest in helping us --- we would love to see
-you get involved!  Your contribution will help a large group of users
-make beautifully typeset music.
+Gracias por su interés en ayudarnos. ¡Nos encantaría ver que se apunta
+a ello! Su contribución ayudará a un gran grupo de usuarios a componer
+tipográficamente música de una manera bella y hermosa.
 
 Incluso el trabajo sobre pequeñas tareas puede tener un gran impacto:
 ocuparse de ellas permite a los desarrolladores con experiencia
 trabajar sobre las tareas avanzadas, en lugar de emplear su tiempo en
 esos trabajos sencillos.
 
-For a multi-faceted project like LilyPond, sometimes it's tough to know
-where to begin.  In addition to the avenues proposed below, you can send
-an e-mail to the @email{mike@@mikesolomon.org, Frog meister}
-letting him know your skill set and asking how you can help or proposing a
-project.  He'll be able to give you guidance on how to get started.
+Para un proyecto polifacético como LilyPond, a veces es difícil saber
+por dónde empezar.  Además de las vías que se proponen más abajo,
+puede enviar un correo electrónico al
+@email{mike@@mikesolomon.org,Frog meister} (maestro del equipo de
+cazadores de bugs) haciéndole conocer su conjunto de habilidades y
+preguntándole cómo puede ayudar, o proponiendo un proyecto.  Él le
+dará unas indicaciones sobre cómo iniciarse.
 
 @end macro
 

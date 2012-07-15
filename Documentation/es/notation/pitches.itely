@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+    Translation of GIT committish: e061d65d89f0b0e48edbfc4e9674703cc05eeea1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -828,16 +828,17 @@ enarmónicamente} (p.ej., Re bemol en lugar de Mi triple bemol).
 @cindex operación de inversión
 @funindex \inversion
 
-Una expresión musical se puede invertir and transposed in a single
-operation con:
+Una expresión musical se puede invertir y transportar en una sola
+operación con:
 
 @example
 \inversion @var{nota-pivote} @var{nota-destino} @var{expresión_musical}
 @end example
 
-The @code{@var{musicexpr}} is inverted interval-by-interval around
-@code{@var{around-pitch}}, and then transposed so that
-@code{@var{around-pitch}} is mapped to @code{@var{to-pitch}}.
+La @code{@var{expresión_musical}} se invierte intervalo a intervalo
+alrededor de @code{@var{nota-pivote}}, y después se transporta de
+manera que @code{@var{nota-pivote}} se hace corresponder con
+@code{@var{nota-destino}}.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -848,9 +849,9 @@ music = \relative c' { c d e f }
 }
 @end lilypond
 
-@warning{Motifs to be inverted should be expressed in absolute form
-or be first converted to absolute form by enclosing them in a 
-@code{\relative} block.}
+@warning{Los motivos a invertir deberían venir expresados en modo
+absoluto o convertirse previamente a la forma absoluta encerrándolos
+en un bloque @code{\relative}.}
 
 @seealso
 Referencia de la notación:
