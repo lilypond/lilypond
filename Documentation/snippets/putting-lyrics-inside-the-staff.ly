@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "staff-notation, text, vocal-music"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Des paroles peuvent venir s'inscrire dans la portée même.  Ces paroles
@@ -17,8 +19,6 @@ s'obtenir qu'en procédant à tâtons.
 
 "
   doctitlefr = "Impression des paroles dans la portée"
-
-  lsrtags = "staff-notation, text, vocal-music"
 
   texidoc = "
 Lyrics can be moved vertically to place them inside the staff.  The

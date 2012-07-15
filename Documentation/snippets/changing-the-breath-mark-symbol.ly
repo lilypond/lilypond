@@ -39,7 +39,7 @@ n'importe quelle indication textuelle.
 
 
   texidoc = "
-The glyph of the breath mark can be tuned by overriding the text
+The glyph of the breath mark can be tuned by overriding the @code{text}
 property of the @code{BreathingSign} layout object with any markup
 text.
 
@@ -47,10 +47,10 @@ text.
   doctitle = "Changing the breath mark symbol"
 } % begin verbatim
 
-
 \relative c'' {
   c2
-  \override BreathingSign #'text = \markup { \musicglyph #"scripts.rvarcomma" }
+  \override BreathingSign #'text =
+    \markup { \musicglyph #"scripts.rvarcomma" }
   \breathe
   d2
 }

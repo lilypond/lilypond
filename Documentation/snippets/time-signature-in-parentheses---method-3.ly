@@ -7,14 +7,14 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "specific-notation, tweaks-and-overrides, staff-notation"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Autre manière de mettre la métrique entre parenthèses.
 
 "
   doctitlefr = "Métrique entre parenthèses - méthode 3"
-
-  lsrtags = "specific-notation, tweaks-and-overrides, staff-notation"
 
   texidoc = "
 Another way to put the time signature in parenthesis

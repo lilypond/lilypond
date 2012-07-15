@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "text, repeats, symbols-and-glyphs"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 La commande @code{\\repeat volta} permet d'indiquer facilement des
@@ -23,8 +25,6 @@ début et de fin de reprise peuvent s'ajouter séparément à la liste des
 
 "
   doctitlefr = "Indication de reprise avec texte grâce à repeatCommands"
-
-  lsrtags = "text, repeats, symbols-and-glyphs"
 
   texidoc = "
 Though volte are best specified using @code{\\repeat volta}, the

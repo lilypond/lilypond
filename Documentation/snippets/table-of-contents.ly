@@ -7,6 +7,8 @@
 \version "2.15.40"
 
 \header {
+  lsrtags = "paper-and-layout"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 L'instruction @code{\\markuplist \\table-of-contents} permet d'inclure
@@ -15,8 +17,6 @@ commande @code{\\tocItem}.
 
 "
   doctitlefr = "Table des matières"
-
-  lsrtags = "paper-and-layout"
 
   texidoc = "
 A table of contents is included using @code{\\markuplist

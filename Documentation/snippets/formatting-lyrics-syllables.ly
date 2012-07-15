@@ -16,6 +16,7 @@ individuales dentro de la letra.
 
 "
   doctitlees = "Dar formato a sílabas de la letra"
+
 %%%    Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
   texidocde = "
 Textbeschriftungsmodus kann eingesetzt werden, um individuelle Silben im Gesangstext
@@ -23,6 +24,7 @@ zu formatieren.
 
 "
   doctitlede = "Silben im Gesangstext formatieren"
+
 %%  Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
   texidocfr = "
 Le mode @emph{markup} permet d'individualiser la mise en forme de

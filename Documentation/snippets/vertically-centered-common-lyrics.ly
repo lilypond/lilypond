@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "vocal-music"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Il arrive, dans certaines partitions vocales, que quelques paroles
@@ -15,8 +17,6 @@ présenter verticalement centrée, comme dans l'exemple suivant.
 
 "
   doctitlefr = "Centrage vertical de paroles communes"
-
-  lsrtags = "vocal-music"
 
   texidoc = "
 In a vocal piece where there are several (two,four or more) lines of

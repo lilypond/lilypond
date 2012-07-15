@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "rhythms, text, scheme-language"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 Voici comment construire une commande de @emph{markup} chargée
@@ -15,8 +17,6 @@ côtés.
 
 "
   doctitlefr = "Encadrement sur trois côtés"
-
-  lsrtags = "rhythms, text, scheme-language"
 
   texidoc = "
 This example shows how to add a markup command to get a three sided box

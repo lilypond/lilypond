@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "breaks, workaround, repeats, symbols-and-glyphs"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Le code ci-dessous permet d'adjoindre à un signe @emph{segno} un texte
@@ -16,8 +18,6 @@ même, permet de laisser la @emph{coda} sur la même ligne.
 
 "
   doctitlefr = "Positionnement des segno et coda (avec saut de ligne)"
-
-  lsrtags = "breaks, workaround, repeats, symbols-and-glyphs"
 
   texidoc = "
 If you want to place an exiting segno sign and add text like @qq{D.S.

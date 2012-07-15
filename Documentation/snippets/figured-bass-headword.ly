@@ -16,13 +16,6 @@ Figured bass headword
   doctitle = "Figured bass headword"
 } % begin verbatim
 
-#(set-global-staff-size 15)
-\paper {
-  ragged-right = ##f
-  line-width = 16\cm
-  indent = 1.5\cm
-}
-
 % NR 2.7.3 Figured bass
 
 % Arcangelo Corelli, 12 Sonate da Camera, Op. 2
@@ -34,11 +27,8 @@ extendOn = \bassFigureExtendersOn
 extendOff = \bassFigureExtendersOff
 
 \score {
-
   \new StaffGroup <<
-
     \new GrandStaff <<
-
       \new Staff = "violinoI" {
         \set Staff.instrumentName = \markup {
           \line { Violino I. }

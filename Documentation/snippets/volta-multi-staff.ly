@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "really-simple, staff-notation, repeats"
+
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "
 L'ajout du @code{Volta_engraver} à la portée appropriée permet de
@@ -15,8 +17,6 @@ sur la portée supérieure de la partition.
 
 "
   doctitlefr = "Volta multiportée"
-
-  lsrtags = "really-simple, staff-notation, repeats"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be

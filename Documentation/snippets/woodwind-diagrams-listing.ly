@@ -17,14 +17,7 @@ el momento.
 
 "
   doctitlees = "Listado de los diagramas para viento madera"
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
-
-  texidocde="
-Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
-definiert sind.
-
-"
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 
@@ -34,6 +27,7 @@ definiert sind.
 
 "
   doctitlede = "Liste der Holzbläserdiagramme"
+
 
 %% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
   texidocfr = "

@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "contemporary-notation, rhythms, real-music, percussion, really-cool"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Bien qu'ayant des métriques bien différentes, les deux parties
@@ -23,8 +25,6 @@ portée concernée permettra un affichage des numéros de mesure.
 
 "
   doctitlefr = "Impression de musique aux métriques différentes"
-
-  lsrtags = "contemporary-notation, rhythms, real-music, percussion, really-cool"
 
   texidoc = "
 In the following snippet, two parts have a completely different time

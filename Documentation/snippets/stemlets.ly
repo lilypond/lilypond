@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "contemporary-notation, rhythms"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Certaines conventions en matière de notation autorisent les ligatures à
@@ -25,8 +27,6 @@ différentes notations.
 
 "
   doctitlefr = "Moignons de hampe"
-
-  lsrtags = "contemporary-notation, rhythms"
 
   texidoc = "
 In some notational conventions beams are allowed to extend over rests.

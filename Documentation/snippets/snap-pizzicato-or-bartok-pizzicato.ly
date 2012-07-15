@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "expressive-marks, unfretted-strings"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Un @emph{slap}, aussi appelé @emph{pizzicato à la Bartók}, est un
@@ -18,8 +20,6 @@ flanqué d'un trait vertical.
 
 "
   doctitlefr = "Slap ou pizzicato Bartok"
-
-  lsrtags = "expressive-marks, unfretted-strings"
 
   texidoc = "
 A snap-pizzicato (also known as @qq{Bartok pizzicato}) is a @qq{strong

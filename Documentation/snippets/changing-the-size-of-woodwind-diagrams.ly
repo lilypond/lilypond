@@ -19,12 +19,7 @@ posiciones para instrumentos de viento madera.
 "
 
   doctitlees = "Modificar el tamaño de los diagramas de viento madera"
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
-
-  texidocde="
-Die Größe und Dicke der Holzbläserdiagramme kann geändert werden.
-"
 %%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 
@@ -33,6 +28,7 @@ Die Größe und Dicke der Holzbläserdiagramme kann geändert werden.
 "
 
   doctitlede = "Größe von Holzbläserdiagrammen ändern"
+
 
 %% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
   texidocfr = "

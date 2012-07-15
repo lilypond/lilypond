@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "editorial-annotations"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Les options par défaut en matière de positionnement des doigtés d'un
@@ -17,8 +19,6 @@ présentée permet d'obtenir un meilleur rendu.
 
 "
   doctitlefr = "Positionnement précis des indications de doigté"
-
-  lsrtags = "editorial-annotations"
 
   texidoc = "
 Generally the options available for positioning the fingering of chords

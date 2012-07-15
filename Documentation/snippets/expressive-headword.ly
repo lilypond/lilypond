@@ -17,11 +17,6 @@ Expressive headword
 } % begin verbatim
 
 \include "english.ly"
-#(set-global-staff-size 15)
-\paper {
-  line-width = 16\cm
-  indent = 0\cm
-}
 
 % NR 1.3 Expressive marks
 

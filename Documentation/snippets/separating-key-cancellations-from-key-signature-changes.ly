@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, pitches"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Les altérations supprimées lors d'un changement de tonalité sont par
@@ -24,8 +26,6 @@ et non en début ou fin de ligne.
 
 "
   doctitlefr = "Séparation entre altérations annulées et nouvelle armure"
-
-  lsrtags = "tweaks-and-overrides, pitches"
 
   texidoc = "
 By default, the accidentals used for key cancellations are placed

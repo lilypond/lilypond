@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "rhythms"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 L'ajout d'une marque-repère en fin de pièce peut entraîner la perte de
@@ -15,8 +17,6 @@ la dernière indication de nolet.  La désactivation de @code{TupletBracket
 
 "
   doctitlefr = "Préservation de l'indication de nolet lors d'un repère final"
-
-  lsrtags = "rhythms"
 
   texidoc = "
 The addition of a final @code{mark} can result in the loss of a final

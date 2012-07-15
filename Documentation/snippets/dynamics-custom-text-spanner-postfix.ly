@@ -20,6 +20,7 @@ comienzo del eobjeto de extensión se asignará a la nota siguiente.
 "
 
   doctitlees = "Objeto personalizado de extensión de texto de matices dinámicos postfijo"
+
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 

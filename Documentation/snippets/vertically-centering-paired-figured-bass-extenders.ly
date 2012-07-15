@@ -7,20 +7,7 @@
 \version "2.14.2"
 
 \header {
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-L'activation de la propriété @code{useBassFigureExtenders} permet
-d'afficher des lignes de prolongation pour les chiffres qui se répètent.
-Deux chiffres prolongés sur la même durée se verront affublés d'un
-unique prolongateur, verticalement centré entre eux, dès lors que la
-propriété @code{figuredBassCenterContinuations} aura elle aussi été
-activée.
-
-"
-  doctitlefr = "Prolongateur commun de basse figurée"
-
   lsrtags = "tweaks-and-overrides, chords"
-
 
 %% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
   texidoces = "
@@ -34,6 +21,18 @@ tiene el valor verdadero.
   doctitlees = "Centrado vertical de las líneas de bajo cifrado emparejadas"
 
 
+
+%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+  texidocfr = "
+L'activation de la propriété @code{useBassFigureExtenders} permet
+d'afficher des lignes de prolongation pour les chiffres qui se répètent.
+Deux chiffres prolongés sur la même durée se verront affublés d'un
+unique prolongateur, verticalement centré entre eux, dès lors que la
+propriété @code{figuredBassCenterContinuations} aura elle aussi été
+activée.
+
+"
+  doctitlefr = "Prolongateur commun de basse figurée"
 
   texidoc = "
 Where figured bass extender lines are being used by setting

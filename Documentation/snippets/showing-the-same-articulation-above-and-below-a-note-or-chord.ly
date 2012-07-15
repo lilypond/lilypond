@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "expressive-marks, tweaks-and-overrides, version-specific"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 LilyPond ne permet pas, par défaut, qu'une même articulation (accent,
@@ -27,8 +29,6 @@ le positionnement habituel en surplomb :
 
 "
   doctitlefr = "Impression d'une même articulation des deux côtés d'une note ou d'un accord"
-
-  lsrtags = "expressive-marks, tweaks-and-overrides, version-specific"
 
   texidoc = "
 By default, LilyPond does not allow the same articulation (e.g., an

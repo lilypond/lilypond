@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, rhythms"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Il arrive, dans une feuille de chant « simple », que les notes soient
@@ -23,8 +25,6 @@ correspond pas à la noire, le @code{r4} inclus dans la définition devra
 
 "
   doctitlefr = "Barres rythmiques"
-
-  lsrtags = "tweaks-and-overrides, rhythms"
 
   texidoc = "
 In @qq{simple} lead-sheets, sometimes no actual notes are written,

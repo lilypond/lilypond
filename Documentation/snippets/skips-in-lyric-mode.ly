@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "really-simple, rhythms, vocal-music"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 La syntaxe @code{s} qui permet de « faire un saut dans le temps » n'est
@@ -16,8 +18,6 @@ produit les mêmes effets.
 
 "
   doctitlefr = "Sauts de notes en mode paroles"
-
-  lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
 The @code{s} syntax for skips is only available in note mode and chord

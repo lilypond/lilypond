@@ -19,21 +19,7 @@ Beethoven, Op. 31, No. 3 Piano sonata 18, Movt II, Scherzo Measures 9 -
   doctitle = "Editorial headword"
 } % begin verbatim
 
-
 \include "english.ly"
-#(set-global-staff-size 15)
-\paper {
-  ragged-right = ##t
-  line-width = 17\cm
-  indent = 0\cm
-}
-
-
-\header {
-  lsrtags = "headwords"
-  texidoc = ""
-  doctitle = "headword"
-}
 
 % NR 1.7 Editorial annotations
 
@@ -116,5 +102,4 @@ Beethoven, Op. 31, No. 3 Piano sonata 18, Movt II, Scherzo Measures 9 -
     c4
     r4
   }
-
 >>

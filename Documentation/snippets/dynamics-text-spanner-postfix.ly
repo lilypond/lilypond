@@ -23,6 +23,7 @@ extensores de texto de forma predeterminada.
 "
 
   doctitlees = "Objetos extensores de texto postfijos para dinámica"
+
 %%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
 
 

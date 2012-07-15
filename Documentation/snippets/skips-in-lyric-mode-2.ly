@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "really-simple, rhythms, vocal-music"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Sachant qu'un @code{s} au sein d'un bloc @code{\\lyricmode} est
@@ -16,8 +18,6 @@ souligné simple (@code{_}) permet de « sauter » une note.
 
 "
   doctitlefr = "Sauts de notes en mode paroles (2)"
-
-  lsrtags = "really-simple, rhythms, vocal-music"
 
   texidoc = "
 Although @code{s} skips cannot be used in @code{\\lyricmode} (it is

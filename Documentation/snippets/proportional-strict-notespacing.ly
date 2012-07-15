@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "spacing, tweaks-and-overrides"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidocfr = "
 Lorsque la propriété @code{strict-note-spacing} est activée,
@@ -16,8 +18,6 @@ tombe au même moment.  Ceci peut entraîner certaines collisions.
 
 "
   doctitlefr = "Espacement strictement proportionnel des notes"
-
-  lsrtags = "spacing, tweaks-and-overrides"
 
   texidoc = "
 If @code{strict-note-spacing} is set spacing of notes is not influenced

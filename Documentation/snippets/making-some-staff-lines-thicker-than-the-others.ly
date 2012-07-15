@@ -46,7 +46,7 @@ l'objet @code{StaffSymbol}.
 
 
   texidoc = "
-For pedagogical purposes, a staff line can be thickened (e.g., the
+For educational purposes, a staff line can be thickened (e.g., the
 middle line, or to emphasize the line of the G clef).  This can be
 achieved by adding extra lines very close to the line that should be
 emphasized, using the @code{line-positions} property of the
@@ -56,9 +56,9 @@ emphasized, using the @code{line-positions} property of the
   doctitle = "Making some staff lines thicker than the others"
 } % begin verbatim
 
-
 {
-  \override Staff.StaffSymbol #'line-positions = #'(-4 -2 -0.2 0 0.2 2 4)
+  \override Staff.StaffSymbol #'line-positions =
+    #'(-4 -2 -0.2 0 0.2 2 4)
   d'4 e' f' g'
 }
 

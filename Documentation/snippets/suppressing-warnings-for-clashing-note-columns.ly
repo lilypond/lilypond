@@ -7,6 +7,8 @@
 \version "2.14.2"
 
 \header {
+  lsrtags = "tweaks-and-overrides, simultaneous-notes"
+
 %% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
   texidoc = "
 Lorsque des notes simultanées appartenant à des voix différentes ont la
@@ -22,8 +24,6 @@ désagréments si vous en abusez.
 
 "
   doctitlefr = "Suppression des avertissements de chevauchement"
-
-  lsrtags = "tweaks-and-overrides, simultaneous-notes"
 
   texidoc = "
 If notes from two voices with stems in the same direction are placed at

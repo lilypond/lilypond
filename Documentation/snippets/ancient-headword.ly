@@ -16,21 +16,6 @@
   doctitle = "Ancient headword"
 } % begin verbatim
 
-
-#(set-global-staff-size 15)
-\paper {
-  ragged-right = ##t
-  line-width = 17\cm
-  indent = 0\cm
-}
-
-
-\header {
-  lsrtags = "headwords"
-  texidoc = ""
-  doctitle = "headword"
-}
-
 \include "gregorian.ly"
 
 \score {
