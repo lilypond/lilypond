@@ -623,31 +623,51 @@ duration is replaced with the specified @var{duration}."
   ;; found in the repeated chord.  We don't need to look for
   ;; articulations on individual events since they can't actually get
   ;; into a repeat chord given its input syntax.
-  (for-each (lambda (e)
-	      (for-each (lambda (x)
-			  (set! event-types (delq x event-types)))
-			(ly:music-property e 'types)))
-	    (ly:music-property repeat-chord 'elements))
+
+  (define (keep-element? m)
+    (any (lambda (t) (music-is-of-type? m t))
+	 event-types))
+  (define origin (ly:music-property repeat-chord 'origin #f))
+  (define (set-origin! l)
+    (if origin
+	(for-each (lambda (m) (set! (ly:music-property m 'origin) origin)) l))
+    l)
+
+  (for-each
+   (lambda (field)
+     (for-each (lambda (e)
+		 (for-each (lambda (x)
+			     (set! event-types (delq x event-types)))
+			   (ly:music-property e 'types)))
+	       (ly:music-property repeat-chord field)))
+   '(elements articulations))
+
   ;; now treat the elements
   (set! (ly:music-property repeat-chord 'elements)
-	(append!
-	 (filter-map
-	  (lambda (m)
-	    (and (any (lambda (t) (music-is-of-type? m t)) event-types)
-		 (begin
-		   (set! m (ly:music-deep-copy m))
-		   (if (pair? (ly:music-property m 'articulations))
-		       (set! (ly:music-property m 'articulations)
-			     (filter
-			      (lambda (a)
-				(any (lambda (t) (music-is-of-type? a t))
-				     event-types))
-			      (ly:music-property m 'articulations))))
-		   (if (ly:duration? (ly:music-property m 'duration))
-		       (set! (ly:music-property m 'duration) duration))
-		   m)))
-	  (ly:music-property original-chord 'elements))
-	 (ly:music-property repeat-chord 'elements))))
+	(let ((elts
+	       (set-origin! (ly:music-deep-copy
+			     (filter keep-element?
+				     (ly:music-property original-chord
+							'elements))))))
+	  (for-each
+	   (lambda (m)
+	     (let ((arts (ly:music-property m 'articulations)))
+	       (if (pair? arts)
+		   (set! (ly:music-property m 'articulations)
+			 (set-origin! (filter! keep-element? arts))))
+	       (if (ly:duration? (ly:music-property m 'duration))
+		   (set! (ly:music-property m 'duration) duration))))
+	   elts)
+	  (append! elts (ly:music-property repeat-chord 'elements))))
+  (let ((arts (filter keep-element?
+		      (ly:music-property original-chord
+					 'articulations))))
+    (if (pair? arts)
+	(set! (ly:music-property repeat-chord 'articulations)
+	      (append!
+	       (set-origin! (ly:music-deep-copy arts))
+	       (ly:music-property repeat-chord 'articulations))))))
+
 
 (define-public (expand-repeat-chords! event-types music)
   "Walks through @var{music} and fills repeated chords (notable by
