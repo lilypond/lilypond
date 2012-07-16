@@ -799,9 +799,13 @@ Lily_lexer::push_extra_token (int token_type, SCM scm)
 }
 
 void
-Lily_lexer::push_chord_state (SCM tab)
+Lily_lexer::push_chord_state (SCM alist)
 {
-	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
+	SCM p = scm_assq (alist, pitchname_tab_stack_);
+
+	if (scm_is_false (p))
+		p = scm_cons (alist, alist_to_hashq (alist));
+	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 	yy_push_state (chords);
 }
 
@@ -830,9 +834,13 @@ Lily_lexer::push_markup_state ()
 }
 
 void
-Lily_lexer::push_note_state (SCM tab)
+Lily_lexer::push_note_state (SCM alist)
 {
-	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
+	SCM p = scm_assq (alist, pitchname_tab_stack_);
+
+	if (scm_is_false (p))
+		p = scm_cons (alist, alist_to_hashq (alist));
+	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 	yy_push_state (notes);
 }
 
@@ -952,7 +960,7 @@ Lily_lexer::scan_bare_word (string str)
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
 		if (scm_is_pair (pitchname_tab_stack_))
-			handle = scm_hashq_get_handle (scm_car (pitchname_tab_stack_), sym);
+			handle = scm_hashq_get_handle (scm_cdar (pitchname_tab_stack_), sym);
 		
 		if (scm_is_pair (handle)) {
 			yylval.scm = scm_cdr (handle);

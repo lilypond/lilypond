@@ -101,7 +101,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   smobify_self ();
 
   add_scope (ly_make_module (false));
-  push_note_state (scm_c_make_hash_table (0));
+  push_note_state (SCM_EOL);
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
 }
 
@@ -134,7 +134,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
     }
 
   scopes_ = scopes;
-  push_note_state (scm_c_make_hash_table (0));
+  push_note_state (SCM_EOL);
 }
 
 Lily_lexer::~Lily_lexer ()

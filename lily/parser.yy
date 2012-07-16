@@ -565,7 +565,7 @@ start_symbol:
 	lilypond
 	| EMBEDDED_LILY {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
-		parser->lexer_->push_note_state (alist_to_hashq (nn));
+		parser->lexer_->push_note_state (nn);
 	} embedded_lilypond {
 		parser->lexer_->pop_state ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("parseStringResult"), $3);
@@ -1855,14 +1855,14 @@ mode_changed_music:
 mode_changing_head:
 	NOTEMODE {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
-		parser->lexer_->push_note_state (alist_to_hashq (nn));
+		parser->lexer_->push_note_state (nn);
 
 		$$ = ly_symbol2scm ("notes");
 	}
 	| DRUMMODE
 		{
 		SCM nn = parser->lexer_->lookup_identifier ("drumPitchNames");
-		parser->lexer_->push_note_state (alist_to_hashq (nn));
+		parser->lexer_->push_note_state (nn);
 
 		$$ = ly_symbol2scm ("drums");
 	}
@@ -1875,7 +1875,7 @@ mode_changing_head:
 		SCM nn = parser->lexer_->lookup_identifier ("chordmodifiers");
 		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
 		nn = parser->lexer_->lookup_identifier ("pitchnames");
-		parser->lexer_->push_chord_state (alist_to_hashq (nn));
+		parser->lexer_->push_chord_state (nn);
 		$$ = ly_symbol2scm ("chords");
 
 	}
@@ -1888,7 +1888,7 @@ mode_changing_head:
 mode_changing_head_with_context:
 	DRUMS {
 		SCM nn = parser->lexer_->lookup_identifier ("drumPitchNames");
-		parser->lexer_->push_note_state (alist_to_hashq (nn));
+		parser->lexer_->push_note_state (nn);
 
 		$$ = ly_symbol2scm ("DrumStaff");
 	}
@@ -1901,7 +1901,7 @@ mode_changing_head_with_context:
 		SCM nn = parser->lexer_->lookup_identifier ("chordmodifiers");
 		parser->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
 		nn = parser->lexer_->lookup_identifier ("pitchnames");
-		parser->lexer_->push_chord_state (alist_to_hashq (nn));
+		parser->lexer_->push_chord_state (nn);
 		$$ = ly_symbol2scm ("ChordNames");
 	}
 	| LYRICS
@@ -3183,7 +3183,7 @@ simple_markup:
 	}
 	| SCORE {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
-		parser->lexer_->push_note_state (alist_to_hashq (nn));
+		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
 		Score * sc = $4;
 		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), sc->self_scm ());
