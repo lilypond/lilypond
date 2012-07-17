@@ -1856,3 +1856,23 @@ other stems just because of that."
       ((process-acknowledged trans)
         (make-stem-spans! ctx stems trans)
         (set! stems '())))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The following is used by the alterBroken function.
+
+(define-public ((value-for-spanner-piece arg) grob)
+  "Associate a piece of broken spanner @var{grob} with an element
+of list @var{arg}."
+  (let* ((orig (ly:grob-original grob))
+         (siblings (ly:spanner-broken-into orig)))
+
+   (define (helper sibs arg)
+     (if (null? arg)
+         arg
+         (if (eq? (car sibs) grob)
+             (car arg)
+             (helper (cdr sibs) (cdr arg)))))
+
+   (if (>= (length siblings) 2)
+       (helper siblings arg)
+       (car arg))))

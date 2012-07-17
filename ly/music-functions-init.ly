@@ -85,6 +85,37 @@ markups), or inside a score.")
 	       'elements (list (make-music 'PageTurnEvent
 					   'break-permission 'allow))))
 
+alterBroken =
+#(define-music-function (parser location name property arg)
+  (string? scheme? list?)
+  (_i "Override @var{property} for pieces of broken spanner @var{name} with
+values @var{arg}.")
+  (let* ((name (string-delete name char-set:blank)) ; remove any spaces
+         (name-components (string-split name #\.))
+         (context-name "Bottom")
+         (grob-name #f))
+
+    (if (> 2 (length name-components))
+        (set! grob-name (car name-components))
+        (begin
+          (set! grob-name (cadr name-components))
+          (set! context-name (car name-components))))
+
+    ;; only apply override if grob is a spanner
+    (let ((description
+            (assoc-get (string->symbol grob-name) all-grob-descriptions)))
+      (if (and description
+               (member 'spanner-interface
+                       (assoc-get 'interfaces
+                                  (assoc-get 'meta description))))
+          #{
+            \override $context-name . $grob-name $property =
+              #(value-for-spanner-piece arg)
+          #}
+          (begin
+            (ly:input-warning location (_ "not a spanner name, `~a'") grob-name)
+            (make-music 'SequentialMusic 'void #t))))))
+
 appendToTag =
 #(define-music-function (parser location tag more music)
    (symbol? ly:music? ly:music?)
