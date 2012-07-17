@@ -10,21 +10,23 @@ anywhere in the vertical alignment. "
 }
 
 \relative <<
-  \new Staff = "1" { c4 c s2 }
-  \new Staff = "2" { c4  c s2 }
-  \new Staff = "3" { c4  c s2 }
-  { \skip 2
+  \new Staff = "1" { c2 c s1 }
+  \new Staff = "2" { c2  c s1 }
+  \new StaffGroup <<
+    \new Staff = "3" { c2  c s1 }
+    { \skip 1
     <<
       \lyrics {
-	\set alignBelowContext = #"1"
-	below8 first staff
+        \set alignBelowContext = #"1"
+        below4 first staff
       }
       \new Staff {
-	\set Staff.alignAboveContext = #"3"
-	\times 4/6 {
-	  \override TextScript #'padding = #3
-	  c8^"this" d_"staff" e^"above" d_"last" e^"staff" f
-	}
+        \set Staff.alignAboveContext = #"3"
+        \times 4/6 {
+          \override TextScript #'padding = #3
+          c4^"this" d_"staff" e^"above" d_"last" e^"staff" f
+        }
       }
     >> }
+  >>
 >>

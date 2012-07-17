@@ -88,6 +88,9 @@ Span_bar::print (SCM smobbed_me)
   if (!model_bar)
     model_bar = me;
 
+  // Fixes problem with disappearing span bars when alignAboveContext is active
+  vector_sort (extents, Interval::left_less);
+
   Stencil span_bar;
   for (vsize i = 1; i < extents.size (); i++)
     {
