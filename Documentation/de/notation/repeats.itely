@@ -242,6 +242,25 @@ g1 |
 Die @code{measureLength}-Eigenschaft ist beschrieben in
 @ref{Verwaltung der Zeiteinheiten}.
 
+@cindex \inStaffSegno
+
+Der @code{\inStaffSegno}-Befehl kann angewandt werden, um das
+Segno-Zeichen in die Notenzeile einzubinden, auch in Kooperation
+mit dem @code{\repeat volta}-Befehl. Die benutzten
+Taktstrichsymbole können durch Überschreiben der Eigenschaften
+@code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} bzw. @code{doubleRepeatSegnoType}
+geändert werden.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
 @cindex Wiederholungen mit Überbindung
 @cindex Alternative Schlüsse mit Bindebogen
 @cindex Überbindung in Wiederholung

@@ -2673,6 +2673,10 @@ c4 c c c \break
 c1
 @end lilypond
 
+Additionally there is an @code{\inStaffSegno} command which
+creates a segno bar, placed in cooperation
+with the @code{\repeat volta} command.
+
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are

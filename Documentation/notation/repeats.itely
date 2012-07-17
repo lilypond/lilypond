@@ -239,6 +239,24 @@ g1 |
 The @code{measureLength} property is described in @ref{Time
 administration}.
 
+@funindex \inStaffSegno
+
+The @code{\inStaffSegno} command can be used to place the segno
+symbol in cooperation with the @code{\repeat volta} command.
+Alternative bar line symbols can be set in a Score context by
+overriding the properties @code{segnoType},
+@code{startRepeatSegnoType}, @code{endRepeatSegnoType} or
+@code{doubleRepeatSegnoType} as required.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
 @cindex repeats, with ties
 @cindex alternative endings, with ties
 @cindex ties, in repeats

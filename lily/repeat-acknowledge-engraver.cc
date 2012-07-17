@@ -80,6 +80,7 @@ Repeat_acknowledge_engraver::process_music ()
   string s = "";
   bool start = false;
   bool end = false;
+  bool segno = false;
   bool volta_found = false;
   while (scm_is_pair (cs))
     {
@@ -88,17 +89,36 @@ Repeat_acknowledge_engraver::process_music ()
         start = true;
       else if (command == ly_symbol2scm ("end-repeat"))
         end = true;
+      else if (command == ly_symbol2scm ("segno-display"))
+        segno = true;
       else if (scm_is_pair (command) && scm_car (command) == ly_symbol2scm ("volta"))
         volta_found = true;
       cs = scm_cdr (cs);
     }
 
-  if (start && end)
-    s = robust_scm2string (get_property ("doubleRepeatType"), ":|:");
-  else if (start)
-    s = robust_scm2string (get_property ("startRepeatType"), "|:");
-  else if (end)
-    s =  robust_scm2string (get_property ("endRepeatType"), ":|");
+  /*
+    Select which bar type to set
+  */
+  if (segno)
+    if (start)
+      if (end) // { segno, start, end }
+        s = robust_scm2string (get_property ("doubleRepeatSegnoType"), ":|S|:");
+      else // { segno, start }
+        s = robust_scm2string (get_property ("startRepeatSegnoType"), ".S|:");
+    else
+      if (end) // { segno, end }
+        s = robust_scm2string (get_property ("endRepeatSegnoType"), ":|S");
+      else // { segno }
+        s = robust_scm2string (get_property ("segnoType"), "S");
+  else
+    if (start)
+      if (end) // { start, end }
+        s = robust_scm2string (get_property ("doubleRepeatType"), ":|:");
+      else // { start }
+        s = robust_scm2string (get_property ("startRepeatType"), "|:");
+    else
+      if (end) // { end }
+        s = robust_scm2string (get_property ("endRepeatType"), ":|");
 
   /*
     TODO: line breaks might be allowed if we set whichBar to "".
@@ -128,6 +148,12 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 
                 /* read */
                 "doubleRepeatType "
+                "startRepeatType "
+                "endRepeatType "
+                "doubleRepeatSegnoType "
+                "startRepeatSegnoType "
+                "endRepeatSegnoType "
+                "segnoType "
                 "repeatCommands "
                 "whichBar ",
 

@@ -2811,6 +2811,10 @@ c4 c c c \break
 c1
 @end lilypond
 
+Darüber hinaus wählt der @code{\inStaffSegno}-Befehl eines dieser
+Segno-Taktstriche aus, in Zusammenarbeit mit dem
+@code{\repeat volta}-Befehl.
+
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden
 Taktstriche sind miteinander verbunden innerhalb einer Gruppe
