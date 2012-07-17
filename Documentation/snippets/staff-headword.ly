@@ -128,4 +128,3 @@ lower = \relative do {
     \tempo 4 = 72
   }
 }
-

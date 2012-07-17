@@ -9,58 +9,6 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Si están especificadas, las marcas de texto se pueden alinear con
-objetos de notación distintos a las líneas divisorias.  Entre estos
-objetos se encuentran @code{ambitus}, @code{breathing-sign},
-@code{clef}, @code{custos}, @code{staff-bar}, @code{left-edge},
-@code{key-cancellation}, @code{key-signature} y @code{time-signature}.
-
-En estos casos, las marcas de texto se centran horizontalmente sobre
-el objeto, aunque esto se puede cambiar, como se muestra en la segunda
-línea de este ejemplo (en una partitura con varios pentagramas, se
-debe hacer este ajuste para todos los pentagramas).
-
-"
-  doctitlees = "Alinear marcas con varios objetos de notación"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wenn angegeben, können Textzeichen auch an anderen Objekten als Taktstrichen
-ausgerichtet werden.  Zu diesen Objekten gehören @code{ambitus},
-@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
-@code{left-edge}, @code{key-cancellation}, @code{key-signature} und
-@code{time-signature}.
-
-In diesem Fall werden die Zeichen horizontal über dem Objekt zentriert.
-Diese Ausrichtung kann auch geändert werden, wie die zweite Zeile
-des Beispiels zeigt.  In einer Partitur mit vielen Systemen sollte
-diese Einstellung für alle Systeme gemacht werden.
-
-"
-
-  doctitlede = "Zeichen an verschiedenen Notationsobjekten ausrichten"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Les indications textuelles peuvent s'aligner par rapport à d'autres
-objets que des barres de mesure, tels que @code{ambitus},
-@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
-@code{left-edge}, @code{key-cancellation}, @code{key-signature} ou
-@code{time-signature}.
-
-Par défaut, les indications textuelles sont alignées sur le milieu
-des objets de notation.  Bien entendu, vous pouvez modifier les
-propriétés des objets en question pour obtenir un autre résultat comme
-l'illustre la deuxième ligne de l'exemple.  Dans le cas de portées
-multiples, ces réglages doivent être faits pour chacune d'entre elles.
-
-"
-  doctitlefr = "Alignement des indications par rapport à divers objets de notation"
-
-
   texidoc = "
 If specified, text marks may be aligned with notation objects other
 than bar lines.  These objects include @code{ambitus},

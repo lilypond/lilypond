@@ -7,18 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, text, titles, scheme-language"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-L'insertion du résultat de @code{lilypond-version} dans des paroles
-permet d'ajouter à la partition ou au document généré par
-@code{lilypond-book} le numéro de la version de LilyPond utilisée.  Une
-autre possibilité consiste à l'ajouter à une chaîne textuelle comme
-ci-dessous.
-
-"
-  doctitlefr = "Impression du numéro de version"
+  lsrtags = "scheme-language, really-simple, text, titles"
 
   texidoc = "
 By putting the output of
@@ -39,6 +28,3 @@ By putting the output of
     s2
   }
 }
-
-
-

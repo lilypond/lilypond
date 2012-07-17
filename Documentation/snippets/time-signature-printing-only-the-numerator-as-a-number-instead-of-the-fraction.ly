@@ -7,36 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-A veces, la indicación de compás no debe imprimir la fracción completa
-(p.ej.  7/4), sino sólo el numerador (7 en este caso).  Esto se puede
-hacer fácilmente utilizando @code{\\override Staff.TimeSignature
-#'style = #'single-digit} para cambiar el estilo
-permanentemente. Usando @code{\\revert Staff.TimeSignature #'style},
-se puede revertir el cambio.  Para aplicar el estilo de un dígito
-único a una sola indicación de compás, utilice la instrucción
-@code{\\override} y anteponga la instrucción @code{\\once}.
-
-"
-  doctitlees = "Indicación de compás imprimiendo sólo el numerador (en lugar de la fracción)"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-La métrique est parfois indiquée non pas par une fraction (par ex. 7/4)
-mais simplement par son numérateur (7 dans ce cas).  L'instruction
-@code{\\override Staff.TimeSignature #'style = #'single-digit} permet de
-déroger au style par défaut de manière permanente -- un @code{\\revert
-Staff.TimeSignature #'style} annulera ces modifications.  Lorsque cette
-métrique sous la forme d'un seul chiffre ne se présente qu'une seule
-fois, il suffit de faire précéder l'instruction @code{\\override} d'un
-simple @code{\\once}.
-
-"
-  doctitlefr = "Affichage seulement du numérateur d'une métrique (au lieu d'une fraction)"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 Sometimes, a time signature should not print the whole fraction (e.g.
@@ -72,4 +43,3 @@ the single-digit style to only one time signature, use the
   \time 2/4
   c4 c
 }
-

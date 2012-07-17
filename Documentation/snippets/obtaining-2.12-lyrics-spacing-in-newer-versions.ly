@@ -9,43 +9,6 @@
 \header {
   lsrtags = "vocal-music"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-El motor de espaciado vertical cambió en la versión 2.14.  Esto puede
-hacer que se altere el espaciado de la letra de las canciones.  Es
-posible fijar propiedades para los contextos @code{Lyric} y
-@code{Staff} de forma que el motor de espaciado se comporte como lo
-hacía en la versión 2.12.
-
-"
-
-  doctitlees = "Conseguir el espaciado de la letra de la versión 2.12
-  en versiones más recientes"
-
-%% Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
-
-  texidocde = "
-Die Maschine für die vertikale Platzverteilung hat sich in Version 2.14 verändert.
-Dadurch wurde Gesangstext auf andere Art verteilt.  Es ist möglich, Eigenschaften
-von @code{Lyric}- und @code{Staff}-Kontexten einzustellen, um die Platzverteilung
-so aussehen zu lassen wie für Version 2.12.
-
-"
-  doctitlede = "Platzverteilung von Gesangstext wie in 2.12 für neuere Versionen"
-
-
-%% Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
-  texidocfr = "
-La version 2.14 a donné naissance à un nouveau moteur pour l'espacement
-vertical des paroles.  Celles-ci peuvent donc se retrouver positionnées
-différemment.  Le moteur adoptera les usages de la version 2.12 une fois
-que vous aurez réglé certaines propriétés des contextes @code{Lyric} et
-@code{Staff}.
-
-"
-  doctitlefr = "Espacement des paroles selon les pratiques de la version 2.12"
-
-
   texidoc = "
 The vertical spacing engine changed for version 2.14.  This can cause
 lyrics to be spaced differently.  It is possible to set properties for

@@ -9,22 +9,6 @@
 \header {
   lsrtags = "tweaks-and-overrides, simultaneous-notes"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidoc = "
-Lorsque des notes simultanées appartenant à des voix différentes ont la
-même orientation de hampe et qu'aucun décalage n'a été appliqué ou qu'il
-est identique, LilyPond émettra l'avertissement « @emph{ignoring too
-many clashing note columns} » (trop d'empilements de notes se
-chevauchent. On fera au mieux).  On peut s'exonérer de cet avertissement
-en activant la propriété @code{'ignore-collision} de l'objet
-@code{NoteColumn}.  Notez bien que ceci n'aura pas pour seul effet de
-supprimer les avertissement ; les routines de résolution de collisions
-sont par la même occasion déactivées, ce qui peut engendrer certains
-désagréments si vous en abusez.
-
-"
-  doctitlefr = "Suppression des avertissements de chevauchement"
-
   texidoc = "
 If notes from two voices with stems in the same direction are placed at
 the same position, and both voices have no shift or the same shift

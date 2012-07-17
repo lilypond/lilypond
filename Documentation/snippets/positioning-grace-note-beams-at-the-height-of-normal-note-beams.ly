@@ -9,31 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Cuando se colocan figuras sobre líneas adicionales, sus barras se
-sitúan generalmente en medio del pentagrama.  La barra de las notas de
-adorno es más corta y las notas de adorno sobre líneas adicionales
-podrían tener la barra fuera del pentagrama.  Podemos corregir este
-barrado para las notas de adorno.
-
-"
-  doctitlees = "Colocar las barras de las notas de adorno a la misma altura que las barras de notas normales"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-La ligature de notes se trouvant sur des lignes supplémentaires est
-généralement centrée sur la portée.  Les notes d'ornement ayant une
-hampe raccourcie, leur ligature peut se retrouver en dehors de la portée
-lorsqu'elles sont sur des lignes supplémentaires.  LilyPond permet de
-rallonger les hampes en pareil cas.
-
-"
-  doctitlefr = "Positionnement des ligatures de notes d'ornement à la hauteur de celles des notes normales"
-
   texidoc = "
 When notes are placed on ledger lines, their beams are usually centred
 on the stave.  Grace notes beams are shorter and grace notes on ledger
@@ -55,4 +30,3 @@ beaming for grace notes.
   }
   f8[ e]
 }
-

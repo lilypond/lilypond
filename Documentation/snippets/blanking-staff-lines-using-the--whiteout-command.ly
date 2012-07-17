@@ -7,28 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, really-cool, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La instrucción @code{\\whiteout} intercala un rectángulo blanco
-debajo de un elemento de marcado.  Este rectángulo blanco no tapa
-a ningún otro objeto gráfico, puesto que las líneas del pentagrama
-están en una capa inferior a la de la mayor parte de los otros
-objetos.
-
-"
-  doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción \\whiteout"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-L'instruction @code{\\whiteout} intercale un rectangle blanc contenant
-un @emph{markup}.  Dans la mesure où les lignes de la portée sont à un
-niveau inférieur à la plupart des autres objets graphiques, ce cache ne
-devrait pas masquer d'autres éléments.
-
-"
-  doctitlefr = "Blanchiment de lignes de portée avec la commande \\whiteout"
+  lsrtags = "really-cool, text, editorial-annotations"
 
   texidoc = "
 The @code{\\whiteout} command underlays a markup with a white box.
@@ -45,4 +24,3 @@ white box will not overlap any other grob.
   \override TextScript #'extra-offset = #'(2 . 4)
   c2-\markup { \whiteout \pad-markup #0.5 "middle C" } c
 }
-

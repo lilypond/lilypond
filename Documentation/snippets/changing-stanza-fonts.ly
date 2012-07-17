@@ -9,13 +9,6 @@
 \header {
   lsrtags = "really-simple, vocal-music"
 
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-Chaque couplet peut disposer de sa propre fonte, y compris son numéro.
-
-"
-  doctitlefr = "Changement de fontes des couplets"
-
   texidoc = "
 Fonts can be changed independently for each stanza, including the font
 used for printing the stanza number.
@@ -40,4 +33,3 @@ used for printing the stanza number.
   \override LyricText #'font-family = #'typewriter
   Oh, ché -- ri, je t'aime
 }
-

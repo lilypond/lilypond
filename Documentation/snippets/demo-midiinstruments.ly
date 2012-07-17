@@ -7,15 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, midi, real-music"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Partant du problème que l'on ignore quel @code{midiInstrument} serait le
-plus adapté à sa composition, voici un fichier LilyPond de démonstration.
-
-"
-  doctitlefr = "Démonstration de MidiInstrument"
+  lsrtags = "real-music, specific-notation, midi"
 
   texidoc = "
 Problem: How to know which @code{midiInstrument} would be best for your
@@ -185,4 +177,3 @@ melody = {
   >>
   \midi { }
 }
-

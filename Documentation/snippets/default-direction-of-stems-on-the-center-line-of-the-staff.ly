@@ -9,33 +9,6 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La dirección predeterminada de las plicas sobre la tercera línea
-del pentagrama está determinada por la propiedad
-@code{neutral-direction} del objeto @code{Stem}.
-
-"
-  doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Richtung von Hälsen auf der mittleren Linie kann mit der @code{Stem}-Eigenschaft
-@code{neutral-direction} gesetzt werden.
-
-"
-  doctitlede = "Standardrichtung für Hälse auf der Mittellinie"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-La direction des hampes des notes placées sur la ligne médiane de la
-portée est gérée par la propriété @code{neutral-direction} de l'objet
-@code{Stem}.
-
-"
-  doctitlefr = "Direction par défaut des hampes de la ligne médiane"
-
   texidoc = "
 The default direction of stems on the center line of the staff is set
 by the @code{Stem} property @code{neutral-direction}.
@@ -52,4 +25,3 @@ by the @code{Stem} property @code{neutral-direction}.
   \override Stem #'neutral-direction = #down
   a4 b c b
 }
-

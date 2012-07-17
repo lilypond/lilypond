@@ -7,52 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "contexts-and-engravers, text, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Esta plantilla es, básicamente, la misma que la sencilla plantilla
-@qq{Conjunto vocal}, excepto que aquí todas las líneas de letra se
-colocan utilizando @code{alignAboveContext} y
-@code{alignBelowContext}.
-
-"
-  doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
-
-
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
-  texidocja = "
-このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
-@code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
-"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Questo modello è fondamentalmente analogo al semplice modello @qq{Complesso vocale},
-con l'unica differenza che qui tutti i versi del testo sono posizionati
-usando @code{alignAboveContext} e @code{alignBelowContext}.
-
-"
-  doctitleit = "Modello per gruppo vocale con testo allineato sotto e sopra i righi"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-In diesem Beispiel werden die Texte mit den Befehlen
-@code{alignAboveContext} und @code{alignBelowContext}
-über und unter dem System angeordnet.
-"
-
-  doctitlede = "Vorlage für Vokalensemble mit dem Gesangstext über und unter dem System"
-
-
-%% Translation of GIT committish: bdfe3dc8175a2d7e9ea0800b5b04cfb68fe58a7a
-  texidocfr = "
-Ce canevas ressemble beaucoup à celui pour chœur à quatre voix mixtes.
-La différence réside dans le fait que les paroles sont positionnées en
-ayant recours à @code{alignAboveContext} et @code{alignBelowContext}.
-
-"
-  doctitlefr = "Ensemble vocal avec alignement des paroles selon le contexte"
+  lsrtags = "text, contexts-and-engravers, template, vocal-music"
 
   texidoc = "
 This template is basically the same as the simple @qq{Vocal ensemble}
@@ -124,4 +79,3 @@ bassWords = \lyricmode {
     % \new Lyrics \lyricsto "basses" \bassWords
   >>
 }
-

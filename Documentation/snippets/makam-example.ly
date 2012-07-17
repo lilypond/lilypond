@@ -7,43 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "world-music, version-specific, pitches"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-El «Makam» es un tipo de melodía de Turquía que
-utiliza alteraciones microtonales de 1/9 de tono.  Consulte el
-archivo de inicio @file{makam.ly} (véase el 'Manual de
-aprendizaje @version{}, 4.6.3 Otras fuentes de información' para
-averiguar la situación de este archivo) para ver detalles de los
-nombres de las notas y las alteraciones.
-
-"
-  doctitlees = "Ejemplo de «Makam»"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Makam ist eine türkische Melodie, in der 1/9-Tonabstände
-eingesetzt werden.  Sehen Sie sich die Initialisierungsdatei
-@file{makam.ly} für weiter Information zu Tonhöhenbezeichnungen
-und Alterationen an (siehe
-Handbuch zum Lernen @version{}, 4.6.3 Weitere Information zu
-Hinweisen, wo diese Datei gespeichert ist)."
-
-  doctitlede = "Makam-Beispiel"
-
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
-  texidocfr = "
-Le « makam » est une forme de mélodie turque qui utilise des altérations
-d'un neuvième de ton.  Consultez le fichier d'initialisation
-@file{makam.ly} pour plus de détails sur les hauteurs et altérations
-utilisées (voir le chapitre 4.6.3 - Autres sources d'information du
-manuel d'initiation pour le localiser).
-
-"
-  doctitlefr = "Exemple de musique « Makam »"
+  lsrtags = "pitches, version-specific, world-music"
 
   texidoc = "
 Makam is a type of melody from Turkey using 1/9th-tone microtonal

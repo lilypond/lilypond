@@ -7,41 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, contexts-and-engravers, staff-notation, ancient-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La disposición «mensurstriche» en que las líneas divisorias no
-están dibujadas sobre los pentagramas, sino entre ellos, se puede
-conseguir con un @code{StaffGroup} en vez de un @code{ChoirStaff}.
-La línea divisoria sobre los pentagramas se borra estableciendo la
-propiedad @code{transparent}.
-
-"
-
-  doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Das Mensurstiche-Layout, in welchem die Taktlinien nicht auf den Systemen,
-sondern zwischen den Systemen gesetzt werden, kann mit einer @code{StaffGroup}
-anstelle von @code{ChoirStaff} erreicht werden.  Die Taktlinien auf den
-Systemen werden mit der @code{transparent}-Eigenschaft ausgelöscht.
-
-"
-  doctitlede = "Mensurstriche-Layout (Taktstriche zwischen den Systemen"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-En musique mensurale, les barres de mesure ne traversent pas les
-portées.  Pour obtenir ce résultat avec un @code{StaffGroup} plutôt
-qu'en utilisant un @code{ChoirStaff}, il faudra rendre
-@qq{transparentes} les portions de barre qui recouvrent les portées.
-
-"
-  doctitlefr = "Présentation à l'ancienne (barres de mesure entre les portées)"
-
+  lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
   texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves
@@ -67,4 +33,3 @@ global = {
     \new Staff { << \global { c c } >> }
   >>
 }
-

@@ -7,36 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-El comportamiento predeterminado de la visibilidad de los corchetes de
-grupo de valoración especial es imprimir el corchete a no ser que haya
-una barra de la misma longitud que el grupo especial.  Para controlar
-la visibilidad de los corchetes de grupo, establezca la propiedad
-@code{'bracket-visibility} a @code{#t} (imprimir el corchete siempre),
-@code{#f} (no imprimirlo nunca) o @code{#'if-no-beam} (imprimir el
-corchete solamente si no hay barra).
-
-"
-
-  doctitlees = "Controlar la visibilidad de los corchetes de grupo especial"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Selon la tradition, les crochets indicateurs de nolet sont toujours
-imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
-ligature.  LilyPond permet, au travers de la propriété
-@code{'bracket-visibility}, de contôler précisément leur
-affichage@tie{}: déterminée à @code{#t}, ils seront toujours
-imprimés@tie{}; @code{#f} permet de ne jamais les imprimer, et
-@code{#'if-no-beam} les imprimera en l'absence de ligature.
-
-"
-  doctitlefr = "Contrôle de l'impression des crochets de nolet"
-
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 The default behavior of tuplet-bracket visibility is to print a bracket
@@ -68,5 +39,3 @@ music = \relative c'' {
     << \music s4^"#f" >>
   }
 }
-
-

@@ -9,30 +9,6 @@
 \header {
   lsrtags = "expressive-marks, rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este código muestra cómo usar la forma alternativa de la breve o
-cuadrada con dos líneas verticales a los lados de la cabeza, en lugar
-de una sola línea.
-
-"
-  doctitlees = "Cabeza de breve (cuadrada) alternativa"
-%% Translation of GIT committish: 8cbb38db1591ab95a178643e7bf41db018aa22c0
-
-
-  texidocde = "Dieses Schnipsel zeigt, wie man die alternative Brevis mit zwei
-vertikalen Linien an jeder Seite des Notenkopfes benutzt."
-  doctitlede = "Alternative Brevis mit zwei vertiaklen Linien"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Voici comment obtenir une brève -- aussi appelée note carée --
-flanquée de deux barres verticales, au lieu d'une comme habituellement.
-
-"
-  doctitlefr = "Brève alternative avec deux barres verticales"
-
   texidoc = "
 This code demonstrates how to use the alternative breve note with two
 vertical lines on each side of the notehead instead of one line.

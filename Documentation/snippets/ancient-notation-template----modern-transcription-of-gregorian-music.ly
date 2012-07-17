@@ -8,48 +8,6 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este ejemplo muestra cómo hacer una transcripción moderna de canto
-gregoriano. El canto gregoriano no tiene compás ni plicas; utiliza
-solamente cabezas de nota de blanca y de negra, y unas marcas
-especiales que indican silencios de distintas longitudes.
-
-"
-
-  doctitlees = "Plantilla para notación de música antigua (transcripción moderna de canto gregoriano)"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Questo esempio mostra come realizzare una trascrizione moderna di musica
-gregoriana. La musica gregoriana non presenta suddivisione in misure né gambi;
-utilizza soltanto le teste della minima e della semiminima, e dei segni
-appositi che indicano pause di diversa lunghezza.
-
-"
-  doctitleit = "Modello per notazione antica -- trascrizione moderna di musica gregoriana"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-
-  texidocde = "
-Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen
-Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur
-halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die
-Länge von Pausen an.
-"
-
- doctitlede = "Vorlage für Alte Notation -- moderne Transkription des gregorianischen Chorals"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Voici comment vous pourriez transcrire du grégorien.  Pour mémoire, il
-n'y a en grégorien ni de découpage en mesure, ni de hampe@tie{}; seules
-sont utilisées des têtes de note blanches ou noires, ainsi que des
-signes spécifiques permettant d'indiquer des silences de différentes durées.
-
-"
-  doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique grégorienne"
-
   lsrtags = "vocal-music, ancient-notation, template"
 
   texidoc = "
@@ -99,4 +57,3 @@ verba = \lyricmode {
     }
   }
 }
-

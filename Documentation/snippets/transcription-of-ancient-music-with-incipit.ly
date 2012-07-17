@@ -7,31 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, tweaks-and-overrides, workaround, ancient-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-A modo de alternativa para obtener auténticos «incipit»
-independientes de la partitura principal, se incluyen como
-elemento de marcado en el campo que se usa normalmente para el
-nombre del instrumento. Por el momento, la letra sólo se puede
-añadir como marcado directo. Por desgracia, su espaciado no es
-análogo al de la letra principal.
-
-"
-  doctitlees = "Transcripción de música antigua con incipit"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Voici une méthode alternative pour ajouter un @emph{incipit}
-indépendamment de la partition principale.  Pour ce faire, il est inclus
-sous forme de @emph{markup} dans le champ dévolu au nom d'instrument.
-Les paroles ne peuvent, à ce jour, être ajoutées que sous forme
-d'annotation directe, ce qui donne un espacement des paroles loin
-d'égaler celui de la partition réelle.
-
-"
-  doctitlefr = "Transcription de musique ancienne avec incipit"
+  lsrtags = "specific-notation, ancient-notation, workaround, tweaks-and-overrides"
 
   texidoc = "
 As a workaround to get real incipits which are independent from the
@@ -310,4 +286,3 @@ incipitBassus = \markup {
     indent = 5\cm
   }
 }
-

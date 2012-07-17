@@ -7,24 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, fretted-strings"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Para añadir digitaciones a las tablaturas, utilice una combinación de
-@code{\\markup} y @code{\\finger}.
-"
-
-  doctitlees = "Añadir digitaciones a las tablaturas"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'ajout de doigtés à des tablatures s'obtient en conjuguant des
-@code{\\markup} et des @code{\\finger}.
-
-"
-  doctitlefr = "Ajout de doigtés à des tablatures"
+  lsrtags = "fretted-strings, specific-notation"
 
   texidoc = "
 To add fingerings to tablatures, use a combination of @code{\\markup}
@@ -61,4 +44,3 @@ threeFour = \markup {
     <a\3 fis'\1>^>^\threeTwo[ b\2 e\4]
   }
 }
-

@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, specific-notation, contemporary-notation, keyboards, fretted-strings, connecting-notes"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Les indication de « laisser vibrer » ont une taille fixe.  Leur
-formatage est accessible au travers de la propriété
-@code{'tie-configuration}.
-
-"
-  doctitlefr = "Liaison « Laissez vibrer »"
+  lsrtags = "expressive-marks, fretted-strings, specific-notation, keyboards, connecting-notes, contemporary-notation"
 
   texidoc = "
 Laissez vibrer ties have a fixed size. Their formatting can be tuned
@@ -39,4 +30,3 @@ using @code{'tie-configuration}.
           (-1 . ,UP))
   <c d e f>4\laissezVibrer r
 }
-

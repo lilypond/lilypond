@@ -9,34 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Normalmente están prohibidos los saltos de línea si las barras
-atraviesan las líneas divisorias.  Se puede cambiar este
-comportamiento como se muestra aquí:
-
-"
-  doctitlees = "Barras que atraviesan saltos de línea"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Zeilenumbrüche sind normalerweise während Balken verboten.  Das kann geändert
-werden.
-
-"
-  doctitlede = "Balken über Zeilenumbrüche"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Il est normalement impensable qu'un saut de ligne tombe au milieu d'une
-ligature.  LilyPond permet néanmoins de l'obtenir.
-
-"
-  doctitlefr = "Ligature au moment d'un saut de ligne"
-
   texidoc = "
 Line breaks are normally forbidden when beams cross bar lines. This
 behavior can be changed as shown:
@@ -51,5 +23,3 @@ behavior can be changed as shown:
   c8 c[ c] c[ c] c[ c] c[ \break
   c8] c[ c] c[ c] c[ c] c
 }
-
-

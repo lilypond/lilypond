@@ -7,24 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Il arrive, dans une feuille de chant « simple », que les notes soient
-remplacées par une « pulsation » et que la structure de la chanson soit
-indiquées par les accords au-dessus des mesures.  Ceci peut être utile
-lorsque l'on crée ou retranscrit la structure d'une chanson, ainsi que
-pour donner au guitariste et musiciens de jazz une pseudo partition.  Le
-fonctionnement standard d'un @code{\\repeat percent} n'est pas ici
-applicable puisque le premier temps doit être une note ou un silence.
-Le code ci-dessous propose deux alternatives à ce problème en
-redéfinissant l'aspect d'un silence.  Si la durée d'un temps ne
-correspond pas à la noire, le @code{r4} inclus dans la définition devra
-être remplacé par un silence de durée appropriée.
-
-"
-  doctitlefr = "Barres rythmiques"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 In @qq{simple} lead-sheets, sometimes no actual notes are written,
@@ -70,4 +53,3 @@ comp = #(define-music-function (parser location count) (integer?)
     \comp #4 |
   }
 }
-

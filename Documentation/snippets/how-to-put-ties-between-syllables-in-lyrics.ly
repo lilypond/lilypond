@@ -7,15 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, text, vocal-music, symbols-and-glyphs"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Des mots monosyllabiques peuvent s'attacher par une liaison à l'aide
-d'un tilde.
-
-"
-  doctitlefr = "Séparation de syllables par une liaison"
+  lsrtags = "text, specific-notation, symbols-and-glyphs, vocal-music"
 
   texidoc = "
 This can be achieved by separating those syllables by tildes.
@@ -28,4 +20,3 @@ This can be achieved by separating those syllables by tildes.
 \lyrics {
   wa~o~a
 }
-

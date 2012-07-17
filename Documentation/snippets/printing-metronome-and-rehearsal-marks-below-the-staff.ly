@@ -7,40 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-De forma predeterminada, las indicaciones metronómicas y las
-letras de ensayo se imprimen encima del pentagrama.  Para
-colocarlas debajo del pentagrama, simplemente ajustamos
-adecuadamente la propiedad @code{direction} de
-@code{MetronomeMark} o de @code{RehearsalMark}.
-
-"
-
-  doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Normalerweise werden Metronom- und Übungszeichen über dem Notensystem ausgegeben.
-Um sie unter das System zu setzen, muss die @code{direction}-Eigenschaft
-von @code{MetronomeMark} oder @code{RehearsalMark} entsprechend verändert werden.
-
-"
-  doctitlede = "Metronom- und Übungszeichen unter das System setzen"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Les indications de tempo et les marques de repère s'impriment par défaut
-au-dessus de la portée.  Le fait de régler en conséquence la propriété
-@code{direction} des objets @code{MetronomeMark} ou @code{RehearsalMark}
-les placera au-dessous de la portée.
-
-"
-  doctitlefr = "Impression du métronome et des repères sous la portée"
+  lsrtags = "expressive-marks, rhythms, tweaks-and-overrides"
 
   texidoc = "
 By default, metronome and rehearsal marks are printed above the staff.
@@ -65,4 +32,3 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
   \mark \default
   c''1
 }
-

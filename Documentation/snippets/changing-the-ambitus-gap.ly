@@ -9,31 +9,6 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Es posible ajustar la separación en las indicaciones de tesitura.
-
-"
-
-  doctitlees = "Modificación de la separación en las indicaciones de tesitura"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-È possibile cambiare le impostazioni predefinite dell'intervallo
-dell'ambitus.
-
-"
-  doctitleit = "Modifica dell'intervallo dell'ambitus"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'affichage d'un @emph{ambitus} peut s'affiner pour répondre à vos
-préférences en matière d'esthétique.
-"
-  doctitlefr = "Réglage de l'affichage d'un ambitus"
-
-
   texidoc = "
 It is possible to change the default gap setting for ambitus.
 

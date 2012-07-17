@@ -7,35 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "chords, staff-notation, repeats"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Mediante la adición del grabador @code{Volta_engraver} al
-pentagrama pertinente, se pueden poner los corchetes de primera y
-segunda vez debajo de los acordes.
-
-"
-  doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Indem man den @code{Volta_engraver} zu dem entsprechenden Notensystem
-hinzufügt, können Wiederholungsklammern unterhalb der Akkorde gesetzt
-werden.
-
-"
-  doctitlede = "Wiederholungs-(Volta-)Klammern unterhalb der Akkordsymbole"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'ajout du @code{Volta_engraver} à la bonne portée permet d'imprimer les
-crochets de reprise entre les chiffrages et la portée.
-
-"
-  doctitlefr = "Crochet de reprise sous les chiffrages d'accord"
+  lsrtags = "staff-notation, repeats, chords"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be

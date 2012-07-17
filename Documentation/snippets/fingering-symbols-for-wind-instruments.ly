@@ -9,23 +9,6 @@
 \header {
   lsrtags = "symbols-and-glyphs, winds"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden conseguir símbolos especiales combinando glifos existentes,
-lo que es de utilidad para la notación de instrumentos de viento.
-
-"
-  doctitlees = "Símbolos de digitación para instrumentos de viento"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Des symboles spécifiques peuvent être obtenus en combinant les glyphes
-disponibles, ce qui est tout à fait indiqué en matière d'instrument à vent.
-
-"
-  doctitlefr = "Symboles de doigtés pour instruments à vent"
-
-
   texidoc = "
 Special symbols can be achieved by combining existing glyphs, which is
 useful for wind instruments.
@@ -55,4 +38,3 @@ centermarkup = {
     g\stopped
   }
 }
-

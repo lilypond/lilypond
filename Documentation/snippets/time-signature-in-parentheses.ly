@@ -7,14 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, tweaks-and-overrides, staff-notation"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Une métrique peut être mise entre parenthèses.
-
-"
-  doctitlefr = "Métrique entre parenthèses"
+  lsrtags = "staff-notation, specific-notation, tweaks-and-overrides"
 
   texidoc = "
 The time signature can be enclosed within parentheses.
@@ -30,4 +23,3 @@ The time signature can be enclosed within parentheses.
   \time 2/4
   a4 b8 c
 }
-

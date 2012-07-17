@@ -7,54 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "automatic-notation, pitches"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
-
-texidoces = "
-Según las reglas estándar de composición
-tipográfica, se imprime un becuadro antes de un sostenido o un
-bemol cuando se tiene que cancelar una alteración anterior en la
-misma nota.  Para modificar este comportamiento, establezca el
-valor de la propiedad @code{extraNatural} a @code{##f} (falso)
-dentro del contexto de @code{Staff}.
-
-"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Secondo le norme tipografiche standard, un segno di bequadro viene
-inserito prima di un diesis o di un bemolle se un'alterazione
-precedente sulla stessa nota deve essere cancellata.  Per cambiare
-questo comportamento si imposta la proprietà @code{extraNatural} su
-@code{f} (falso) nel contesto @code{Staff}.
-
-"
-  doctitleit = "Impedire l'inserimento automatico dei bequadri supplementari"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  doctitlede = "Verhindern, dass zusätzliche Auflösungszeichen automatisch
-hinzugefügt werden"
-
-texidocde = "Den traditionellen Notensatzregeln zufolge wird ein
-Auflösungszeichen immer dann vor einem Kreuz oder B gesetzt, wenn
-ein vorheriges Versetzungszeichen der gleichen Note aufgehoben werden
-soll.  Um dieses Verhalten zu ändern, muss die Eigenschaft
-@code{extraNatural} im @code{Staff}-Kontext auf \"false\" gesetzt werden.
-"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-En accord avec les règles standards de l'écriture musicale, on grave
-un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
-altération précédente.  Pour modifier ce comportement, la propriété
-@code{extraNatural} du contexte @code{Staff} doit se voir attribuer la
-valeur @code{##f} (faux).
-
-"
-  doctitlefr = "Suppression des bécarres superflus"
+  lsrtags = "pitches, automatic-notation"
 
   texidoc = "
 In accordance with standard typesetting rules, a natural sign is
@@ -74,4 +27,3 @@ note needs to be canceled.  To change this behavior, set the
   \set Staff.extraNatural = ##f
   aeses4 aes ais a
 }
-

@@ -8,29 +8,6 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Se pueden imprimir estilos alternativos del corchete o gancho de las
-corcheas y figuras menores, mediante la sobreescritura de la propiedad
-@code{stencil} del objeto @code{Flag}.  Son valores válidos
-@code{modern-straight-flag} y @code{old-straight-flag}.
-
-"
-  doctitlees = "Uso de estilos alternativos para los corchetes"
-
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Une dérogation à la propriété  @code{stencil} de l'objet @code{Flag}
-permet aux croches et notes de durée inférieure d'adopter une autre
-forme de crochet.  Sont disponibles les variantes
-@code{modern-straight-flag} et @code{old-straight-flag}.
-
-"
-  doctitlefr = "Crochets de style alternatif"
-
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
@@ -61,4 +38,3 @@ testnotes = {
   \revert Flag #'stencil
   \testnotes
 }
-

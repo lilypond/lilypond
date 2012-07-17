@@ -9,27 +9,6 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Las expresiones dinámicas que se comienzan, terminan o se producen
-en la misma nota se alinean verticalmente.  Para asegurar que las
-expresiones dinámicas se alinean cuando no se producen sobre la
-misma nota, incremente la propiedad @code{staff-padding} del
-objeto @code{DynamicLineSpanner}.
-
-"
-  doctitlees = "Alinear verticalmente expresiones dinámicas que abarcan varias notas"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Des nuances qui commencent, finissent ou se produisent sur une même note
-auront le même alignement vertical.  L'augmentation de la propriété
-@code{staff-padding} de l'objet @code{DynamicLineSpanner} permet
-d'aligner différentes nuances affectées à différentes notes.
-
-"
-  doctitlefr = "Alignement vertical des nuances sur plusieurs notes"
-
   texidoc = "
 Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  To ensure that dynamics are aligned when they do
@@ -46,4 +25,3 @@ of the @code{DynamicLineSpanner} object.
   c2\p f\mf
   g2\< b4\> c\!
 }
-

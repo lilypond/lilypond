@@ -7,30 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "pitches, scheme-language, really-cool"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este fragmento de código basado en Scheme genera
-24 notas aleatorias (o tantas como se necesiten), basándose en la
-hora actual (o en cualquier número pseudo-aleatorio que se
-especifique en su lugar, para obtener las mismas notas aleatorias
-cada vez): es decir, para obtener distintos patrones de notas,
-sólo tiene que modificar este número.
-
-"
-  doctitlees = "Generación de notas aleatorias"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Le fragment de code Scheme ci-dessous génère aléatoirement 24 notes
-(ou autant que nécessaire), à partir de l'heure courante (ou un nombre
-quelconque donné en argument, afin d'obtenir toujours les mêmes notes
-aléatoires).  Pour obtenir une autre série de notes, il suffit de
-changer ce nombre.
-
-"
-  doctitlefr = "Génération de notes aléatoires"
+  lsrtags = "really-cool, pitches, scheme-language"
 
   texidoc = "
 This Scheme-based snippet generates 24 random notes (or as many as

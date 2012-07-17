@@ -9,16 +9,6 @@
 \header {
   lsrtags = "really-simple, rhythms, vocal-music"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Sachant qu'un @code{s} au sein d'un bloc @code{\\lyricmode} est
-interprété non comme de l'espace mais comme un mot, l'utilisation de
-paires de guillemets informatiques (@code{\"\"}) ou un caractère
-souligné simple (@code{_}) permet de « sauter » une note.
-
-"
-  doctitlefr = "Sauts de notes en mode paroles (2)"
-
   texidoc = "
 Although @code{s} skips cannot be used in @code{\\lyricmode} (it is
 taken to be a literal @qq{s}, not a space), double quotes (@code{\"\"})
@@ -33,4 +23,3 @@ or underscores (@code{_}) are available.So for example:
   \relative c'' { a4 b c d }
   \new Lyrics \lyricmode { a4 "" _ gap }
 >>
-

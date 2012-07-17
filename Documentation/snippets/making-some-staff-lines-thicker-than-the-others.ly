@@ -7,43 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "workaround, staff-notation, really-cool, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede engrosar una línea del pentagrama con fines pedagógicos
-(p.ej. la tercera línea o la de la clave de Sol).  Esto se puede
-conseguir añadiendo más líneas muy cerca de la línea que se quiere
-destacar, utilizando la propiedad @code{line-positions} del objeto
-@code{StaffSymbol}.
-
-"
-  doctitlees = "Hacer unas líneas del pentagrama más gruesas que las otras"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Für den pädagogischen Einsatz kann eine Linie des Notensystems dicker
-gezeichnet werden (z. B. die Mittellinie, oder um den Schlüssel hervorzuheben).
-Das ist möglich, indem man zusätzliche Linien sehr nahe an der Linie, die
-dicker erscheinen soll, einfügt.  Dazu wird die @code{line-positions}-Eigenschaft
-herangezogen.
-
-"
-  doctitlede = "Eine Linie des Notensystems dicker als die anderen machen"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
-lignes d'une portée plus épaisses que les autres, comme la ligne médiane,
-ou bien pour mettre en exergue la ligne portant la clef de sol.  Il
-suffit pour cela d'ajouter une ligne qui sera accolée à celle qui doit
-être mise en évidence, grâce à la propriété @code{line-positions} de
-l'objet @code{StaffSymbol}.
-
-"
-  doctitlefr = "Empâtement de certaines lignes d'une portée"
-
+  lsrtags = "really-cool, staff-notation, workaround, editorial-annotations"
 
   texidoc = "
 For educational purposes, a staff line can be thickened (e.g., the
@@ -61,4 +25,3 @@ emphasized, using the @code{line-positions} property of the
     #'(-4 -2 -0.2 0 0.2 2 4)
   d'4 e' f' g'
 }
-

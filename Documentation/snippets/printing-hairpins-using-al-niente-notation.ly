@@ -9,35 +9,6 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden imprimir reguladores con un círculo en la punta (notación
-«al niente») estableciendo la propiedad @code{circled-tip} del objeto
-@code{Hairpin} al valor @code{#t}.
-
-"
-  doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
- texidocde = "
- Crescendo-Klammern können mit einem kleinen Kreis vor der Spitze
- notiert werden (al niente = bis zum Nichts), indem die
-@code{circled-tip}-Eigenschaft des @code{Hairpin}-Objekts auf
-@code{#t} gesetzt wird.
-
-"
-  doctitlede = "Crescendo Klammern al niente schreiben"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
-manière graphique, en assignant @emph{vrai} (@code{#t}) à la
-propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
-
-"
-  doctitlefr = "Impression de soufflets « al niente »"
-
   texidoc = "
 Hairpin dynamics may be printed with a circled tip (@qq{al niente}
 notation) by setting the @code{circled-tip} property of the
@@ -53,4 +24,3 @@ notation) by setting the @code{circled-tip} property of the
   c2\< c\!
   c4\> c\< c2\!
 }
-

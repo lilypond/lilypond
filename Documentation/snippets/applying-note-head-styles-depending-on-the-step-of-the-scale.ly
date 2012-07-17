@@ -9,95 +9,6 @@
 \header {
   lsrtags = "pitches, editorial-annotations"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
-  texidoces = "
-La propiedad @code{shapeNoteStyles} se puede usar para definir varios
-estilos de cabezas de nota para cada grado de la escala (según esté
-establecido por la armadura o por la propiedad @code{tonic}).  Esta
-propiedad requiere un conjunto de símbolos, que pueden ser puramente
-arbitrarios (se permiten expresiones geométricas como @code{triangle},
-triángulo, @code{cross}, aspas, y @code{xcircle}, círculo con aspas) o
-basados en una antigua tradición americana de grabado (ciertos nombres
-de nota latinos trambién se permiten).
-
-Dicho esto, para imitar antiguos cancioneros americanos, existen varios
-estilos predefinidos de cabezas de nota disponibles a través de
-instrucciones de abreviatura como @code{\\aikenHeads} o
-@code{\\sacredHarpHeads}.
-
-Este ejemplo muestra distintas formas de obtener cabezas de notas con forma,
-y muestra la capacidad de transportar una melodía sin perder la
-correspondencia entre las funciones armónicas y los estilos de cabezas de
-nota.
-
-"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-La proprietà @code{shapeNoteStyles} può essere usata per definire vari
-stili di teste di nota per ogni grado della scala (definita dall'armatura
-di chiave o dalla proprietà @code{tonic}). Questa proprietà richiede un
-insieme di simboli, che può essere puramente arbitrario (sono permesse
-espressioni geometriche come @code{triangle}, @code{cross} e @code{xcircle})
-o basato sull'antica tradizione tipografica americana (sono consentiti
-anche alcuni nomi di nota latini).
-
-Detto questo, per imitare gli antichi canzionieri americani, ci sono vari
-stili predefiniti disponibili attraverso dei comodi comandi come
-@code{\\aikenHeads} o @code{\\sacredHarpHeads}.
-
-Questo esempio mostra modi diversi di ottenere teste di nota di varie
-forme e illustra la possibilità di trasporre una melodia senza
-perdere la corrispondenza tra le funzioni armoniche e gli stili delle
-teste.
-
-"
-  doctitleit = "Applicazione degli stili delle teste di nota in base al grado della scala"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  doctitlede = "Notenkopfstile basierend auf der Tonleiterstufe erstellen"
-  texidocde = "
-Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
-werden, um verschiedene Notenstile für jeden Schritt der Tonleiter
-zu definieren (vorgegeben von der Tonart oder der @qq{tonic}
-(Tonika)-Eigenschaft.  Diese Eigenschaft braucht eine Anzahl von Symbolen,
-welche beliebig sein können (geometrische Ausdrücke wie @code{triangle}
-(Dreieck), @code{cross} (Kreuz) und @code{xcircle} (X-Kreis) sind erlaubt)
-oder basierend auf einer alten amerikanischen Notensatztradition (einige
-lateinische Notenbezeichnungen sind auch erlaubt).
-
-Um alte amerikanische Liederbücher zu imitieren, gibt es einige
-vordefinierte Notenstile wie etwa @code{\\aikenHeads} (im Stil von Aiken)
-oder @code{\\sacredHarpHeads} (im Stil der Sacred Harp-Tradition).
-
-Dieses Beispiel zeigt, wie man unterschiedlich geformte Noten erhält und
-eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
-harmonischen Funktionen und dem Notenstil verloren geht.
-
-"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-La propriété @code{shapeNoteStyles} permet d'affecter un profil
-particulier à chaque degré de la gamme -- à partir de l'armure ou
-de la propriété @code{tonic}.  Ses valeurs sont constituées d'une liste
-de symboles, qu'il s'agisse de formes géométriques (@code{triangle},
-@code{cross} ou @code{xcircle}) ou basés sur la tradition des graveurs
-américains (avec quelques noms de note latins).
-
-LilyPond dispose de deux raccourcis, @code{\\aikenHeads} et
-@code{\\sacredHarpHeads}, permettant de reproduire d'anciens recueils de
-chansons américaines.
-
-L'exemple suivant montre plusieurs manières de profiler les têtes de
-note, ainsi que la capacité de transposer tout en respectant la fonction
-harmonique de chaque note dans la gamme.
-
-"
-  doctitlefr = "Profilage des notes selon leur degré dans la gamme"
-
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note
 head styles for each step of the scale (as set by the key signature or
@@ -144,4 +55,3 @@ fragment = {
     \fragment
   }
 }
-

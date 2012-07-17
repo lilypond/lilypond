@@ -7,46 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, keyboards, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-He aquí el típico formato dde una canción: un pentagrama con la
-melodía y la letra, y el acompañamiento de piano por debajo.
-
-"
-  doctitlees = "Plantilla de piano con melodía y letra"
-
-
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
-  texidocja = "
-これは一般的な歌曲のフォーマットです: 旋律と歌詞を持つ譜表と、その下にピアノ伴奏譜があります。
-"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Ecco un tipico formato per canzoni: un rigo con linea melodica e testo,
-e sotto l'accompagnamento per pianoforte.
-
-"
-  doctitleit = "Modello per pianoforte con melodia e testo"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Das nächste Beispiel ist typisch für ein Lied: Im oberen System die
-Melodie mit Text, darunter Klavierbegleitung.
-"
-
-  doctitlede = "Vorlage für Klavier und Gesangsstimme"
-
-
-%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
-  texidocfr = "
-Il s'agit du format classique pour le chant : une portée pour la mélodie
-et les paroles au-dessus de l'accompagnement au piano.
-
-"
-  doctitlefr = "Piano mélodie et paroles"
+  lsrtags = "really-simple, keyboards, template, vocal-music"
 
   texidoc = "
 Here is a typical song format: one staff with the melody and lyrics,
@@ -99,4 +60,3 @@ lower = \relative c {
   }
   \midi { }
 }
-

@@ -8,67 +8,6 @@
 \version "2.15.20"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-   Este ejemplo muestra una forma de simplificar la adición de muchas
-notas guía orquestales a la reducción de piano en una partitura vocal.
-La función musical @code{\\cueWhile} toma cuatro argumentos: la música
-de la que se toma la cita, como viene definida por @code{\\addQuote},
-el nombre que insertar antes de las notas guía, y después @code{#UP} o
-@code{#DOWN} para especificar @code{\\voiceOne} con el nombre encima
-del pentagrama o bien @code{\\voiceTwo} con el nombre debajo del
-pentagrama, y finalmente la música de piano con la que las notas guía
-deben aparecer en paralelo.  El nombre del instrumento citado se
-posiciona a la izquierda de las notas guía.  Se pueden citar muchos
-pasajes como guía, pero no se pueden superponer en el tiempo entre
-ellos.
-
-"
-
- doctitlees = "Añadir notas guía orquestales a una partitura vocal"
-
-
-
-
-%% Translation of GIT committish: 27b1197f3bae8512c14d946752cd3e40e7c76016
-
-
-  texidocde = "
-Hier wird gezeigt, wie man das Hinzufügen von vielen Orchsterstichnoten
-zu einem Klavierauszug hinzufügen kann.  Die musikalische Funktion
-@code{\\cueWhile} braucht vier Argumente:  Die Noten, von denen die
-Stichnoten formatiert werden sollen, definiert durch @code{\\addQuote},
-die Bezeichnung, die mit den Noten angegeben werden soll, dann entweder
-@code{#UP} (hoch) oder @code{#DOWN} (runter) zur Angabe von entweder
-@code{\\voiceOne} mit der Bezeichnung über dem System oder @code{\\voiceTwo}
-mit der Bezeichnung unter dem System, und schließlich die Klaviermusik,
-die parallel zu den Stichnoten gespielt werden soll.  Die Bezeichnung des
-Stichnoteninstruments wird links der Stichnoten positioniert.  Viele
-Abschnitte können zitiert werden, aber sie dürfen sich nicht überlappen.
-
-"
-  doctitlede = "Orchesterstichnoten zu einem Klavierauszug hinzufügen"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Lorsque le nombre d'instruments cités dans la réduction pour piano se
-multiplie, vous pourriez avoir intérêt à créer votre propre fonction
-pour gérer ces repères.  La fonction musicale @code{\\cueWhile} prend
-quatre arguments@tie{}: la musique d'où provient la citation, telle que
-définie par @code{\\addQuote}, le nom qui sera mentionné en regard de
-cette citation, son positionnement -- @code{UP} ou @code{DOWN} selon
-qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou
-@code{\\voiceTwo} et placé en dessous -- et enfin la musique du piano
-qui interviendra en parallèle.  Le nom de l'instrument en question
-viendra s'aligner sur la gauche de la citation.  Bien que vous puissiez
-effectuer plusieurs citations, elle ne peuvent être simultanées.
-
-"
- doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une partition pour chœur"
-
-
   lsrtags = "staff-notation, vocal-music"
 
   texidoc = "

@@ -9,32 +9,6 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-También se pueden imprimir símbolos de porcentaje sueltos.
-
-"
-  doctitlees = "Símbolos de porcentaje sueltos"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Isolierte Prozentwiederholungen können auch ausgegeben werden.  Das wird
-erreicht, indem man eine Ganztaktpause notiert und ihre Ausgabeform
-ändert:
-
-"
-  doctitlede = "Isolierte Prozentwiederholungen"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Des symboles de pourcentage isolés peuvent aussi être obtenus, au
-moyen d'un silence multimesure dont on modifie l'aspect :
-
-"
-  doctitlefr = "Répétition en pourcent isolée"
-
-
   texidoc = "
 Isolated percents can also be printed.
 
@@ -52,4 +26,3 @@ makePercent =
 \relative c'' {
   \makePercent s1
 }
-

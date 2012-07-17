@@ -7,47 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, chords, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-¿Quiere preparar una hoja guía de acordes (o «lead sheet») con
-melodía y acordes?  ¡No busque más!
-
-"
-
-doctitlees = "Plantilla de pentagrama único con música y acordes"
-
-
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
-  texidocja = "
-旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
-"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Vuoi preparare uno spartito semplificato (lead sheet) con melodia e
-accordi?  La tua ricerca è finita!
-
-"
-  doctitleit = "Modello di rigo singolo con note e accordi"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist
-das richtige Beispiel für Sie!
-"
-
-  doctitlede = "Vorlage für eine Notenzeile mit Akkorden"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Vous avez besoin de la partition d'une mélodie avec les accords@tie{}?
-N'allez pas plus loin@tie{}!
-
-"
-  doctitlefr = "Mélodie simple et accords"
+  lsrtags = "really-simple, template, chords"
 
   texidoc = "
 Want to prepare a lead sheet with a melody and chords? Look no further!
@@ -83,4 +43,3 @@ harmonies = \chordmode {
   \layout{ }
   \midi { }
 }
-

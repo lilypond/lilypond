@@ -9,30 +9,6 @@
 \header {
   lsrtags = "chords"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Al juntar nombres de acorde en cifrado americano, melodía y letra,
-obtenemos una hoja guía de acordes o «lead sheet»:
-
-"
-  doctitlees = "Hoja guía de acordes o «lead sheet» sencilla"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
- texidocde = "
-Ein Liedblatt besteht aus Akkordbezeichnungen, einer Melodie und dem Liedtext:
-
-"
-  doctitlede = "Ein einfaches Liedblatt"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Assembler des noms d'accords, une mélodie et des paroles permet
-d'obtenir la  partition d'un chanson@tie{}:
-
-"
-  doctitlefr = "Chanson simple"
-
   texidoc = "
 When put together, chord names, a melody, and lyrics form a lead sheet:
 
@@ -49,4 +25,3 @@ When put together, chord names, a melody, and lyrics form a lead sheet:
   }
   \addlyrics { One day this shall be free __ }
 >>
-

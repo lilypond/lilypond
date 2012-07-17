@@ -7,26 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, symbols-and-glyphs"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-A veces se denota una «cesura» mediante una doble marca de respiración
-parecida a las vías del tren, con un calderón encima. Este fragmento
-de código presenta una combinación visualmente satisfactoria de estas
-dos marcas.
-
-"
-  doctitlees = "Cesura tipo \"vías del tren\" con calderón"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Une césure peut parfois s'indiquer par une double respiration surmontée
-d'un point d'orgue.  Le code ci-dessous permet d'obtenir la combinaison
-répondant à cette esthétique.
-
-"
-  doctitlefr = "Césure en forme de \"voie de chemin de fer\" avec point d'orgue"
+  lsrtags = "expressive-marks, symbols-and-glyphs, tweaks-and-overrides"
 
   texidoc = "
 A caesura is sometimes denoted by a double @qq{railtracks} breath mark

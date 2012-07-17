@@ -7,29 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, paper-and-layout, contexts-and-engravers, staff-notation, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Para crear pentagramas en blanco, genere compases vacíos y después
-elimine el grabador de números de compás @code{Bar_number_engraver}
-del contexto @code{Score}, y los grabadores de la indicación de compás
-@code{Time_signature_engraver}, de la clave @code{Clef_engraver} y de
-los compases @code{Bar_engraver} del contexto de @code{Staff}.
-
-"
-  doctitlees = "Crear pentagramas en blanco"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Rien n'est plus simple, pour obtenir une feuille blanche avec des
-portées, que de générer des mesures vides, de supprimer le
-@code{Bar_number_engraver} du contexte @code{Score}, et les
-@code{Time_signature_engraver}, @code{Clef_engraver} et
-@code{Bar_engraver} du contexte @code{Staff}.
-
-"
-  doctitlefr = "Impression de papier à musique"
+  lsrtags = "staff-notation, specific-notation, paper-and-layout, contexts-and-engravers, editorial-annotations"
 
   texidoc = "
 To create blank staves, generate empty measures then remove the
@@ -71,4 +49,3 @@ To create blank staves, generate empty measures then remove the
   bottom-margin = 0.25\in
   top-margin = 0.25\in
 }
-

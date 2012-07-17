@@ -9,56 +9,6 @@
 \header {
   lsrtags = "staff-notation"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-La propiedad @code{quotedEventTypes} determina los tipos de eventos
-musicales que resultan citados.  El valor predeterminado es
-@code{(note-event rest-event tie-event beam-event tuplet-span-event)},
-que significa que sólo aparecen en la expresión @code{\\quoteDuring}
-las notas, silencios, ligaduras, barras y grupos especiales.  En el
-ejemplo siguiente, el silencio de semicorchea no aparece en el
-fragmento citado porque @code{rest-event} no está dentro de los
-@code{quotedEventTypes}.
-
-Para ver una lista de los tipos de evento, consulte la sección
-@qq{Music classes} de la Referencia de funcionamiento interno.
-
-
-"
-  doctitlees = "Citar otra voz"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die @code{quotedEventTypes}-Eigenschaft bestimmt die
-Typen an Musikereignissen, die zitiert werden.  Die
-Standardeinstellung ist @code{(note-event rest-event)}, womit
-nur Noten und Pausen der zitierten Stimme für den
-@code{\\quoteDuring}-Ausdruck übernommen werden.  Im
-Beispiel hier wird die 16-Pause nicht übernommen, weil
-sich @code{rest-event} nicht in @code{quotedEventTypes} befindet.
-
-"
-
-  doctitlede = "Eine andere Stimme zitieren"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Les types d'événement pris en charge pour la citation sont déterminés par
-la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est fixée à
-@code{(note-event rest-event tie-event beam-event tuplet-span-event)},
-ce qui signifie que seuls les notes, silences, liaisons, ligatures et
-nolets seront mentionnés par @code{\\quoteDuring}.  Dans l'exemple
-suivant, le quart de soupir n'est pas reproduit puisqu'il n'est pas
-mentionné parmi les @code{quotedEventTypes}.
-
-Pour connaître la liste des types d'événements, reportez-vous à la
-rubrique @emph{Music classes} de la référence des propriétés internes.
-
-"
-  doctitlefr = "Citation d'une autre voix"
-
   texidoc = "
 The @code{quotedEventTypes} property determines the music event types
 which should be quoted.  The default value is @code{(note-event

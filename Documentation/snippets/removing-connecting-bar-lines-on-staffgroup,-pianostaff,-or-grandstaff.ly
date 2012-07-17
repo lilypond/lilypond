@@ -7,28 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-De forma predeterminada, las líneas divisorias en los grupos
-StaffGroup, PianoStaff o GrandStaff se conectan entre los pentagramas.
-Se puede alterar este comportamiento pentagrama a pentagrama.
-
-"
-  doctitlees = "Quitar las barras de compás entre los pentagramas de un StaffGroup PianoStaff o GrandStaff"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Les barres de mesure des regroupements @code{StaffGroup},
-@code{PianoStaff} et @code{GrandStaff} sont par défaut d'un seul tenant.
-La portion entre les portées peut néanmoins être supprimée, portée par
-portée.
-
-"
-  doctitlefr = "Suppression de la partie inter-portée des barres de mesure d'un regroupement autre que ChoirStaff"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 By default, bar lines in StaffGroup, PianoStaff, or GrandStaff groups
@@ -57,4 +36,3 @@ a staff-by-staff basis.
     }
   >>
 }
-

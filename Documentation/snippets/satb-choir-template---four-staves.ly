@@ -7,39 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Plantilla de coro SATB (en cuatro pentagramas)
-
-"
-  doctitlees = "Plantilla de coro SATB a cuatro pentagramas"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Modello per coro SATB (quattro righi)
-
-"
-  doctitleit = "Modello per coro SATB - quattro righi"
-
-%% Translation of GIT committish:  144cd434d02e6d90b2fb738eeee99119a7c5e1d2
-
-  texidocde = "
-SATB-Chorvorlage auf vier Systemen
-
-"
-  doctitlede = "SATB-Chorvorlage auf vier Systemen"
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Modèle pour chœur à quatre voix mixtes, chaque pupitre ayant sa propre
-portée.
-
-"
-  doctitlefr = "Modèle pour chœur SATB sur quatre portées"
+  lsrtags = "template, vocal-music"
 
   texidoc = "
 SATB choir template (four staves)
@@ -105,4 +73,3 @@ basswords = \lyricmode { mi mi mi mi }
     >>
   >>
 }
-

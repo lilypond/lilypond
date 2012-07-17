@@ -8,48 +8,6 @@
 \version "2.14.0"
 
 \header {
-%%%    Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-El fragmento de código que aparece a continuación produce una lista de
-todas las llaves y disposiciones de llave posibles para los diagramas
-de posiciones de instrumentos de viento madera, tal y como están
-definidos en @file{scm/define-woodwind-diagrams.scm}.  La lista se
-muestra en el archivo de registro, pero no en la música.  Si desea una
-salida por la consola, omita el @code{(current-error-port)} de las
-instrucciones.
-
-"
-
-  doctitlees = "Listas de llaves para los diagramas de viento madera"
-
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-  texidocde="
-Dieses Schnipsel erzeugt eine Liste aller möglichen Löcher und Locheinstellungen
-für Holzbläserdiagramme, wie sie in der Datei
-@file{scm/define-woodwind-diagrams.scm} definiert sind.  Die Liste wird
-in der Log-Datei angezeigt, nicht in den Noten.  Wenn Ausgabe auf der Kommandozeile
-gewünscht ist, muss  @code{(current-error-port)} von den Befehlen weggelassen
-werden.
-
-"
-  doctitlede = "Liste der Löcher für Holzbläserdiagramme"
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Le code suivant permet d'obtenir une liste de toutes les possibilités en
-matière de doigtés pour bois, tels qu'ils sont définis dans le fichier
-@file{scm/define-woodwind-diagrams.scm}.  Cette liste sera produite en
-dans le fichier de journalisation, mais pas sous forme de musique.  Pour
-un affichage en console, supprimez la partie @code{(current-error-port)}
-des commandes.
-
-"
-  doctitlefr = "Liste des différents diagrammes de doigtés pour bois"
-
   lsrtags = "winds"
 
   texidoc="

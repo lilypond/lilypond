@@ -7,26 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "contemporary-notation, rhythms"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Certaines conventions en matière de notation autorisent les ligatures à
-enjamber des silences.  Dans certains cas, des moignons de hampe
-accrochés à la ligature offrent une meilleure visibilité du rythme, et
-certaines éditions modernes vont même alors jusqu'à omettre le silence.
-
-Cet exemple illustre la progression : notation traditionnelle, ligature
-enjambant le silence, silence surplombé d'un moignon et enfin seule une
-hampe tronquée.  Les moignons s'obtiennent par amendement de la
-propriété @code{'stemlet-length} de l'objet @code{Stem}, alors que les
-silences sont masqués par activation de la propriété de transparence.
-
-Les @emph{markups} ajoutés au code ci-dessous mettent en exergue les
-différentes notations.
-
-"
-  doctitlefr = "Moignons de hampe"
+  lsrtags = "rhythms, contemporary-notation"
 
   texidoc = "
 In some notational conventions beams are allowed to extend over rests.
@@ -64,4 +45,3 @@ the different notations.
   \once \override Rest #'transparent = ##t
   r16 d']
 }
-

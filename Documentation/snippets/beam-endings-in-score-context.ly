@@ -9,37 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Las reglas de final de barra especificadas en el contexto
-@code{Score} se aplican a todos los pentagramas, pero se pueden
-modificar tanto en los niveles de @code{Staff} como de
-@code{Voice}:
-
-"
-  doctitlees = "Finales de barra en el contexto Score"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Balkenenderegeln, die im @code{Score}-Kontext definiert werden, wirken
-sich auf alle Systeme aus, können aber auf @code{Staff}- und
-@code{Voice}-Ebene neu verändert werden:
-
-"
-  doctitlede = "Balkenenden auf Score-Ebene"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Les règles de ligature définies au niveau du contexte @code{Score}
-s'appliqueront à toutes les portées.  Il est toutefois possible de
-moduler au niveau @code{Staff} ou @code{Voice}@tie{}:
-
-"
-  doctitlefr = "Définition de règles de ligature pour la partition"
-
   texidoc = "
 Beam-ending rules specified in the @code{Score} context apply to all
 staves, but can be modified at both @code{Staff} and @code{Voice}

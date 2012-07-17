@@ -9,34 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden crear indicaciones metronómicas nuevas en modo de
-marcado, pero no cambian el tempo en la salida MIDI.
-
-"
-  doctitlees = "Crear indicaciones metronómicas en modo de marcado"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Neue Metronombezeichnungen können als Textbeschriftung erstellt werden,
-aber sie ändern nicht das Tempo für die MIDI-Ausgabe.
-
-"
-
-  doctitlede = "Eine Metronombezeichnung als Textbeschriftung erstellen"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Vous pouvez créer des indications de tempo sous la forme d'étiquettes
-textuelles -- des objets @emph{markup} -- notamment des équivalences.
-Cependant, elles n'apparaîtront pas dans le fichier MIDI.
-
-"
-  doctitlefr = "Création d'une indication métronomique sous forme d'étiquette"
-
-
   texidoc = "
 New metronome marks can be created in markup mode, but they will not
 change the tempo in MIDI output.

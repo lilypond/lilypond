@@ -9,63 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Se pueden añadir diagramas de posiciones predefinidas para
-instrumentos nuevos además de los estándar que se usan para la
-guitarra.  Este archivo muestra cómo se hace, definiendo una afinación
-nueva y unas cuantas posiciones para el cuatro venezolano.
-
-Este archivo también muestra cómo se pueden incluir las digitaciones
-en los acordes que se usan como puntos de referencia para la búsqueda
-de acordes en la tabla, y mostrarse en el diagrama de posiciones y la
-tablatura @code{TabStaff}, pero no en la música.
-
-Estas posiciones no se pueden transportar porque contienen información
-de las cuerdas.  Hay planes para corregir esto en un futuro.
-
-"
-  doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
-
-
-%% Translation of GIT committish: f23429bc5cfa9d141ef7b4509afc46c140308a1e
-  texidocde = "
-Vordefinierte Bunddiagramme können für neue Instrumente hinzugefügt werden
-neben denen, die schon für die Gitarre definiert sind.  Dieses Schnipsel
-zeigt, wie man eine neue Saitenstimmung definiert und dann eigene vordefinierte
-Bunddiagramme bestimmt.  Das Beispiel ist für das venezualische Cuatro.
-
-Dieses Schnipsel zeigt auch, wie Fingersatz in die Akkorde eingebunden
-werden kann, um als Referenzpunkt für die Akkordauswahl benutzt werden
-kann.  Dieser Fingersatz wird im Bunddiagramm und in der Tabulatur,
-aber nicht in den Noten angezeigt.
-
-Diese Bunddiagramme sind nicht transponierbar, weil sie Saiteninformationen
-enthalten.  Das soll in der Zukunft verbessert werden.
-
-"
-  doctitlede = "Eigene vordefinierte Bunddiagramme für andere Instrumente erstellen"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-La liste des diagrammes standards prédéfinis pour la guitare peut être
-augmentée d'autres définitions spécifiques à d'autres instruments.
-Voici comment définir un nouvel accordage ainsi que quelques diagrammes
-prédéfinis pour le @qq{cuatro vénézuélien}.
-
-Cet exemple illustre aussi la manière d'ajouter des doigtés aux
-accords@tie{}; ils serviront de référence pour la boucle d'accord et
-seront indiqués dans les diagrammes et le @code{TabStaff}, mais pas dans
-la musique.
-
-Ces diagrammes ne peuvent pas être transposés, dans la mesure où ils
-contiennent des informations sur les cordes.  Ceci est amené à évoluer.
-
-"
-  doctitlefr = "Création de diagrammes de fret prédéfinis pour d'autres instruments"
-
-
   texidoc = "
 Predefined fret diagrams can be added for new instruments in addition
 to the standards used for guitar.  This file shows how this is done by

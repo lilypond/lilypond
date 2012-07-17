@@ -7,24 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, contexts-and-engravers, staff-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede añadir (posiblemente de forma temporal) un pentagrama
-nuevo una vez que la pieza ha comenzado.
-
-"
-  doctitlees = "Añadir un pentagrama nuevo"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Vous pouvez ajouter une nouvelle portée, éventuellement de manière
-temporaire, après le début d'un morceau.
-
-"
-  doctitlefr = "Ajout d'une portée supplémentaire"
-
+  lsrtags = "staff-notation, really-simple, contexts-and-engravers"
 
   texidoc = "
 An extra staff can be added (possibly temporarily) after the start of a
@@ -57,4 +40,3 @@ piece.
     }
   >>
 }
-

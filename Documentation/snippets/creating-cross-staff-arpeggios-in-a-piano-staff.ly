@@ -9,35 +9,6 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Dentro de un @code{PianoStaff}, es posible hacer que un arpegio
-cruce entre los pentagramas ajustando la propiedad
-@code{PianoStaff.connectArpeggios}.
-
-"
-  doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Arpeggio über mehrere Systeme können in anderen Kontexten als dem
-@code{PianoStaff} erstellt werden, wenn der @code{Span_arpeggio_engraver}
-in den @code{Score}-Kontext eingefügt wird.
-
-"
-  doctitlede = "Arpeggio über mehrere Systeme in anderen Kontexten"
-
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
-  texidocfr = "
-Dans une double portée pour piano (@code{PianoStaff}), un arpège peut
-s'étendre sur les deux portées grâce à la propriété
-@code{PianoStaff.connectArpeggios}.
-
-"
-  doctitlefr = "Arpège distribué sur une partition pour piano"
-
-
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an arpeggio cross between
 the staves by setting the property @code{PianoStaff.connectArpeggios}.
@@ -63,4 +34,3 @@ the staves by setting the property @code{PianoStaff.connectArpeggios}.
     }
   }
 >>
-

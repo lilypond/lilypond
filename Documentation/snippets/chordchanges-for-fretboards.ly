@@ -9,34 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede hacer que los diagramas de posiciones se muestren sólo
-cuando el acorde cambia o al comienzo de una nueva línea.
-
-"
-
-  doctitlees = "Cambios de acorde de posiciones de trastes"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Bunddiagramme können definiert werden, sodass sie nur angezeigt werden,
-wenn der Akkord sich ändert oder eine neue Zeile anfängt.
-
-"
-
-  doctitlede = "Akkordänderungen für Bunddiagramme"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Vous pouvez opter pour n'imprimer les diagrammes de fret qu'à l'occasion
-d'un changement d'accord ou de saut de ligne.
-
-"
-  doctitlefr = "Changement d'accord et diagramme de fret"
-
-
   texidoc = "
 FretBoards can be set to display only when the chord changes or at the
 beginning of a new line.

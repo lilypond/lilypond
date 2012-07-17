@@ -7,32 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, repeats"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden mostrar los contadores de las repeticiones del tipo
-porcentaje a intervalos regulares mediante el establecimiento de
-la propiedad de contexto @code{repeatCountVisibility}.
-
-"
-  doctitlees = "Visibilidad del contador de repeticiones de tipo porcentaje"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Prozentwiederholungszähler können in regelmäßigen Intervallen angezeigt
-werden, indem man die Eigenschaft @code{repeatCountVisibility} beeinflusst.
-"
-  doctitlede = "Sichtbarkeit von Prozent-Wiederholungen"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Le numéro de mesure répétée sera imprimé à intervalle régulier si vous
-déterminez la propriété de contexte @code{repeatCountVisibility}.
-
-"
-  doctitlefr = "Affichage du numéro de répétition en pourcent"
+  lsrtags = "repeats, tweaks-and-overrides"
 
   texidoc = "
 Percent repeat counters can be shown at regular intervals by setting

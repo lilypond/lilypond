@@ -8,31 +8,6 @@
 \version "2.15.24"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Se pueden seleccionar dos métodos alternativos para la numeración de
-compases, especiales para cuando hay repeticiones.
-
-"
-  doctitlees = "Numeración de compases alternativa"
-
-
-%% Translation of GIT committish: fc1ca638e0b5f66858b9b7a073ceefc1eccb3ed2
-
-  texidocde = "Zwei alternative Methoden können eingestellt werden,
-  die die Taktnummerierung beeinflussen, insbesondere bei Wiederholungen."
-
-  doctitlede = "Alternative Taktnummerierung"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Deux méthodes alternatives vous permettent de gérer la numérotation des
-mesures en cas de reprises.
-
-"
-  doctitlefr = "Numérotation des mesures et alternatives"
-
   lsrtags = "editorial-annotations, staff-notation, tweaks-and-overrides"
   texidoc = "Two alternative methods for bar numbering can be set,
   especially for when using repeated music."

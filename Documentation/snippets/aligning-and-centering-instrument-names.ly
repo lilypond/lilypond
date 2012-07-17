@@ -7,30 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "paper-and-layout, text, titles"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La alineación horizontal de los nombres de instrumento se puede
-trucar modificando la propiedad @code{Staff.InstrumentName
-#'self-alignment-X}.  Las variables de @code{\\layout}
-@code{indent} y @code{short-indent} definen el espacio en que se
-alinean los nombres de instrumento antes del primer sistema y de
-los siguientes, respectivamente.
-
-"
-  doctitlees = "Alinear y centrar los nombres de instrumento"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-L'alignement horizontal des noms d'instrument se gère à l'aide de la
-propriété @code{Staff.InstrumentName #'self-alignment-X}.  Les variables
-@code{indent} et @code{short-indent}, attachées au bloc @code{\\layout},
-déterminent l'espace alloué à l'alignement des noms d'instrument,
-respectivement dans leurs formes développée et abrégée.
-
-"
-  doctitlefr = "Alignement des noms d'instrument"
+  lsrtags = "text, paper-and-layout, titles"
 
   texidoc = "
 The horizontal alignment of instrument names is tweaked by changing the

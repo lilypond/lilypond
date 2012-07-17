@@ -9,32 +9,6 @@
 \header {
   lsrtags = "expressive-marks"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Algunos compositores escriben dos ligaduras cuando quieren acordes
-legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
-
-"
-  doctitlees = "Utilizar ligaduras dobles para acordes legato"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Einige Komponisten schreiben doppelte Bögen, wenn Legato-Akkorde notiert
-werden.  Das kann mit der Eigenschaft @code{doubleSlurs} erreicht werden.
-
-"
-  doctitlede = "Doppelte Bögen für Legato-Akkorde benutzen"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Certains auteurs utilisent deux liaisons lorsqu'ils veulent lier des
-accords.  Dans LilyPond, il faut pour cela activer la propriété
-@code{doubleSlurs}.
-
-"
-  doctitlefr = "Accords et double liaison d'articulation"
-
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can
 be achieved by setting @code{doubleSlurs}.
@@ -48,4 +22,3 @@ be achieved by setting @code{doubleSlurs}.
   \set doubleSlurs = ##t
   <c e>4( <d f> <c e> <d f>)
 }
-

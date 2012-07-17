@@ -7,64 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "ancient-notation, real-music, template, really-cool"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Al transcribir música mensural, es útil un «incipit» al compienzo
-de la pieza para indicar la tonalidad y el tempo
-originales. Aunque los músicos actuales están acostumbrados a las
-barras de compás para reconocer con más facilidad los patrones
-rítmicos, durante el período de la música mensural aún no se
-habíen inventado las líneas divisorias; de hecho, la medida solía
-cambiar a cada pocas notas. Como compromiso, a menudo las líneas
-divisorias se imprimen entre los pentagramas en vez de hacerlo
-encima de ellos.
-
-"
-  doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Quando si trascrive musica mensurale, può essere utile inserire all'inizio del
-pezzo un incipit che indichi l'intonazione e il tempo originali. Le stanghette
-di battuta, a cui i musicisti di oggi sono abituati e che aiutano a riconoscere
-più velocemente gli schemi ritmici, durante l'epoca della musica mensurale non
-erano ancora state introdotte; infatti il metro cambiava spesso ogni poche
-note.  Come compromesso, le stanghette vengono spesso inserite tra i righi
-invece che al loro interno.
-
-"
-  doctitleit = "Modello per notazione antica -- trascrizione moderna di musica mensurale"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein
-Incipit an den Anfang des Stückes zu stellen, damit klar ist, wie
-Tempo und Schlüssel in der Originalnotation gesetzt waren. Während
-heutzutage Musiker an Taktlinien gewöhnt sind, um Rhythmen schneller
-zu erkennen, wurden diese in der Mensuralmusik nicht verwendet.
-Tatsächlich ändern sich die Rhythmen auch oft alle paar Noten. Als
-ein Kompromiss werden die Notenlinien nicht auf dem System, sondern
-zwischen den Systemen geschrieben.
-"
-
-doctitlede = "Vorlage für Alte Notation -- moderne Transkription von Mensuralmusik"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
-d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de
-nos jours habitués aux barres de mesure qui présentent la structure
-rythmique d'une œuvre, elles n'étaient pas en vigueur à l'époque où ces
-pièces ont été composées, d'autant plus que la @qq{métrique} pouvait
-changer au fil des notes.  Un compromis consiste à imprimer des barres
-entre les portées plutôt que sur chacune d'elles.
-
-"
-  doctitlefr = "Exemples de notation ancienne -- transcription moderne de musique mensurale"
+  lsrtags = "really-cool, real-music, ancient-notation, template"
 
   texidoc = "
 When transcribing mensural music, an incipit at the beginning of the

@@ -9,18 +9,6 @@
 \header {
   lsrtags = "expressive-marks, unfretted-strings"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Un @emph{slap}, aussi appelé @emph{pizzicato à la Bartók}, est un
-pizzicato où, au lieu de tirer la corde de côté comme à l'accoutumée,
-« on la pince en la soulevant plus fortement, et à la verticale, en la
-lâchant violemment. Celle-ci frappe alors la touche, et produit à la fois la
-note et le son percussif » (Wikipedia).  Il s'indique par un cercle
-flanqué d'un trait vertical.
-
-"
-  doctitlefr = "Slap ou pizzicato Bartok"
-
   texidoc = "
 A snap-pizzicato (also known as @qq{Bartok pizzicato}) is a @qq{strong
 pizzicato where the string is plucked vertically by snapping and

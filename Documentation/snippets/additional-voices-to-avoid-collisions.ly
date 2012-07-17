@@ -9,38 +9,6 @@
 \header {
   lsrtags = "simultaneous-notes"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
- doctitlees = "Voces adicionales para evitar colisiones"
- texidoces = "
-En ciertos casos de polifonía compleja, se necesitan voces adicionales
-para evitar colisiones entre las notas.  Si se necesitan más de cuatro
-voces paralelas, las voces adicionales se añaden definiendo una
-variable que utiliza la función de Scheme @code{context-spec-music}.
-
-"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Ein einigen Fällen von sehr komplexer polyphoner Musik sind zusätzliche
-Stimmen notwendig, um Zusammenstöße zwischen den Noten zu vermeiden.
-Wenn mehr als vier parallele Stimmen benötigt werden, können zusätzliche
-Stimmen definiert werden, indem eine Variable mit der Funktion
-@code{context-spec-music} definiert wird.
-
-"
-  doctitlede = "Zusätzliche Stimmen um Zusammenstöße zu vermeiden"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Dans certains cas de musique polyphonique complexe, une voix
-supplémentaire peut permettre d'éviter les risques de collision.
-Lorsque quatre voix parallèles ne suffisent pas, la fonction Scheme
-@code{context-spec-music} permet d'ajouter encore d'autres voix.
-
-"
-  doctitlefr = "Ajout de voix pour éviter les collisions"
-
   texidoc = "
 In some instances of complex polyphonic music, additional voices are
 necessary to prevent collisions between notes.  If more than four
@@ -88,4 +56,3 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
     }
   >>
 }
-

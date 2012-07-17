@@ -9,13 +9,6 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-Les clefs peuvent être transposées d'un intervalle différent de l'octave.
-
-"
-  doctitlefr = "Transposition arbitraire d'une clef"
-
   texidoc = "
 Clefs can be transposed by arbitrary amounts, not just by octaves.
 
@@ -34,4 +27,3 @@ Clefs can be transposed by arbitrary amounts, not just by octaves.
   \clef "treble^3"
   c4 c c c
 }
-

@@ -9,31 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La polifonía se crea de la misma forma en un @code{TabStaff} que
-en una pauta normal.
-
-"
-  doctitlees = "Polifonía en tablaturas"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Polyphonie kann in einer Tabulatur (@code{TabStaff}) genauso wie in einem
-normalen Notensystem erstellt werden.
-
-"
-  doctitlede = "Polyphonie in einer Tabulatur"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Une section polyphonique s'obtient dans un @code{TabStaff} de la même
- manière que dans une portée normale.
-
-"
-  doctitlefr = "Polyphonie en mode tablature"
-
   texidoc = "
 Polyphony is created the same way in a @code{TabStaff} as in a regular
 staff.
@@ -71,4 +46,3 @@ lower = \relative c {
     >>
   >>
 }
-

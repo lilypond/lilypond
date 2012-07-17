@@ -9,45 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Los números de compás se alinean de forma predeterminada por la
-derecha con su objeto padre. Éste es por lo general el borde
-izquierdo de una línea o, si los números se imprimen dentro de la
-línea, el lado izquierdo de una línea divisoria.  Los números
-también se pueden situar directamente sobre la barra de compás o
-alineados por la izquierda con ella.
-
-"
-
-  doctitlees = "Alineación de los números de compás"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Taktnummern sind standardmäßig links an ihrem Ursprungsobjekt
-ausgerichtet.  Das ist normalerweise die linke Ecke einer Linie oder,
-wenn die Nummern innerhalb einer Zeile gesetzt werden, auf der
-linken Seite eines Taktstrichs.  Die Nummern können auch
-direkt über dem Taktstrich positioniert werden oder rechts vom
-Taktstrich gesetzt werden.
-
-"
-  doctitlede = "Taktnummern ausrichten"
-
-
-
-%% Translation of GIT committish: 374d57cf9b68ddf32a95409ce08ba75816900f6b
-  texidocfr = "
-Les numéros de mesure s'alignent en principe sur la droite de l'objet
-dont ils dépendent.  C'est normalement le coin gauche de la portée ou,
-en cours de ligne, à gauche de la barre.  Vous pouvez toutefois les
-centrer par rapport à la barre ou les afficher à droite de la barre.
-
-"
-  doctitlefr = "Alignement des numéros de mesure"
-
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This
 is usually the left edge of a line or, if numbers are printed within a
@@ -74,4 +35,3 @@ positioned directly over the bar line or left-aligned to the bar line.
   \override Score.BarNumber #'self-alignment-X = #LEFT
   c1 | c1
 }
-

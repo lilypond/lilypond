@@ -9,16 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-@code{shiftDurations} permet de modifier la longueur des notes d'un
-morceau.  Cette instruction prend deux arguments@tie{}: un coefficient
-d'échelonnement (une puissance de deux) et un nombre de points
-d'augmentation (entier positif).
-
-"
-  doctitlefr = "Changement automatique des durées"
-
   texidoc = "
 <code>shiftDurations</code> can be used to change the note lengths of a
 piece of music.  It takes two arguments - the scaling factor as a power

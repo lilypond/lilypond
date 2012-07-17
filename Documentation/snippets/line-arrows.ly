@@ -9,22 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden aplicar puntas de flecha a los elementos de extensión de
-texto y de línea (como el Glissando).
-
-"
-  doctitlees = "Puntas de flecha para las líneas"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Les extensions de texte, tout comme les indications sous forme de ligne
-tel un glissando, peuvent se voir pourvues d'une extrémité en flèche.
-
-"
-  doctitlefr = "Terminaison de ligne en flèche"
-
   texidoc = "
 Arrows can be applied to text-spanners and line-spanners (such as the
 Glissando).

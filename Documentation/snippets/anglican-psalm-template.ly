@@ -7,49 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Esta plantilla muestra una forma de preparar un cántico salmódico
-anglicano.  También muestra cómo se pueden añadir estrofas adicionales
-como texto independiente por debajo de la música.  Las dos estrofas se
-codifican en estilos diferentes para ilustrar más posibilidades.
-
-"
-  doctitlees = "Plantilla de salmo del canto anglicano"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Questo modello presenta un modo di impostare un salmo anglicano.  Mostra
-anche come le strofe possono essere aggiunte come testo separato al di sotto
-della musica.  Le due strofe sono scritte con stili diversi per illustrare
-le varie possibilità.
-
-"
-  doctitleit = "Modello per salmo anglicano"
-
-%% Translation of GIT committish: 144cd434d02e6d90b2fb738eeee99119a7c5e1d2
-
-  texidocde = "
-Diese Vorlage zeigt eine Art, anglikanische Psalmengesänge zu setzen.  Hier
-wird auch gezeigt, wie Strophen als einfacher Text unter den Noten hinzugefügt
-werden können.  Zwei Strophen sind in unterschiedlicher Weise notiert um mehr
-Möglichkeiten darzustellen.
-"
-  doctitlede = "Vorlage für anglikanischen Psalm"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Cet exemple illustre la manière de présenter un cantique tel qu'on le
-trouve dans l'église anglicane.  Vous noterez comment sont ajoutés les
-couplets indépendamment de la musique.  Dans le but de vous montrer
-plusieurs styles, comparez le code des deux couplets.
-
-"
-  doctitlefr = "Psalmodie anglicane"
-
+  lsrtags = "template, vocal-music"
 
   texidoc = "
 This template shows one way of setting out an Anglican psalm chant. It

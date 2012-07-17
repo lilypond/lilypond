@@ -9,23 +9,6 @@
 \header {
   lsrtags = "expressive-marks, workaround"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La función @code{\\parenthesize} es un truco especial que encierra
-objetos entre paréntesis.  El grob asociado es @code{ParenthesesItem}.
-
-"
-  doctitlees = "Encerrar entre paréntesis una marca expresiva o una nota de un acorde"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-La fonction @code{\\parenthesize}, qui permet de mettre un objet entre
-parenthèses, a ceci de particulier qu'elle est associée à un objet
-graphique @code{ParenthesesItem}.
-
-"
-  doctitlefr = "Mise entre parenthèses d'un signe d'interprétation ou d'une note d'un accord"
-
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
 objects in parentheses.  The associated grob is @code{ParenthesesItem}.
@@ -42,4 +25,3 @@ objects in parentheses.  The associated grob is @code{ParenthesesItem}.
   \override ParenthesesItem #'font-size = #-4
   <d \parenthesize f a>2
 }
-

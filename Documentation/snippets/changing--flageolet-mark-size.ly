@@ -7,33 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, specific-notation, unfretted-strings, symbols-and-glyphs, scheme-language"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Para hacer más pequeño el círculo de @code{\\flageolet} (armónico)
-utilice la siguiente función de Scheme.
-
-"
-  doctitlees = "Cambiar el tamaño de la marca de \\flageolet"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Um den @code{\\flageolet}-Kreis kleiner zu machen, kann diese
-Scheme-Funktion eingesetzt werden.
-
-"
-  doctitlede = "\\flageolet-Zeichen verkleinern"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Il est possible de rapetisser le cercle d'un @code{\\flageolet} grâce
-à une fonction Scheme.
-
-"
-  doctitlefr = "Modifier la taille d'un \\flageolet"
-
+  lsrtags = "expressive-marks, scheme-language, specific-notation, unfretted-strings, symbols-and-glyphs"
 
   texidoc = "
 To make the @code{\\flageolet} circle smaller use the following Scheme
@@ -57,4 +31,3 @@ smallFlageolet =
   d4^\flageolet_\markup { default size } d_\flageolet
   c4^\smallFlageolet_\markup { smaller } c_\smallFlageolet
 }
-

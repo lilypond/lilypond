@@ -7,71 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, simultaneous-notes, syntax-and-expressions"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-La herramienta de combinación de partes (instrucción
-@code{\\partcombine}) permite la combinación de varias partes
-diferentes sobre el mismo pentagrama.  Las indicaciones textuales
-tales como @qq{solo} o @qq{a2} se añaden de forma predeterminada; para
-quitarlas, sencillamente establezca la propiedad
-@code{printPartCombineTexts} al valor @qq{falso}.  Para partituras
-vocales (como himnos), no hay necesidad de añadir los textos @qq{solo}
-o @qq{a2}, por lo que se deben desactivar.  Sin embargo, podría ser
-mejor no usarlo si hay solos, porque éstos no se indicarán.  En tales
-casos podría ser preferible la notación polifónica estándar.
-
-Este fragmento de código presenta las tres formas en que se pueden
-imprimir dos partes sobre un solo pentagrama: polifonía estándar,
-@code{\\partcombine} sin textos, y @code{\\partcombine} con
-textos.
-
-"
-  doctitlees = "Combinar dos partes sobre el mismo pentagrama"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Funktion, die Stimmen kombiniert (also der @code{\\partcombine}-Befehl)
-ermöglicht die Kombination unterschiedlicher Stimmen auf einem
-System.  Textanweisungen wie \"solo\" oder \"a2\" werden automatisch
-hinzugefügt.  Wenn man sie entfernen will, muss man die Eigenschaft
-@code{printPartCombineTexts} auf falsch setzen.  Für Klavierauszüge
-muss natürlich kein \"solo\"/\"a2\" usw. hinzugefügt werden, man
-sollte sie also ausschalten.  Wenn aber Solo-Stellen in einem
-Klavierauszug oder einer Chorpartitur angezeigt werden, ist es besser,
-normale Polyphonie zu verwenden, weil so die Solostellen angezeigt
-werden, auch wenn der Text des Stimmenkombinierers ausgeschaltet ist.
-
-Der Schnipsel zeigt drei Möglichkeiten, Stimmen auf einem System zu
-kombinieren: Standardpolyphonie, @code{\\partcombine} ohne Text und
-@code{\\partcombine} mit Text.
-
-"
-  doctitlede = "Zwei Stimmen auf einem System kombinieren"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'outil de combinaison de parties (la commande @code{\\partcombine})
-permet d'avoir deux parties différentes sur une même portée.  LilyPond
-ajoute automatiquement des indications textuelles, telles que @qq{solo}
-ou @qq{a2}.  Si votre intention n'est que de fusionner les parties, sans
-ajouter de texte, assignez faux à la propriété
-@code{printPartCombineTexts}.  Dans le cas de partitions vocales, et
-plus particulièrement d'hymnes, ces @qq{solo/a2} ne sont d'aucune
-utilité, aussi vaut-il mieux les désactiver.  Dans le cas où il y aurait
-alternance entre @emph{solo} et @emph{tutti}, il vaut mieux faire appel
-à de la musique polyphonique standard.
-
-Voici trois moyens d'imprimer deux parties sur une même portée@tie{}: en
-polyphonie normale, avec @code{\\partcombine} sans indication
-supplémentaire, et avec @code{\\partcombine} commentée.
-
-"
-  doctitlefr = "Combinaison de deux parties sur une même portée"
-
+  lsrtags = "text, syntax-and-expressions, simultaneous-notes"
 
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the
@@ -133,4 +69,3 @@ musicDown = \relative c'' {
     }
   }
 }
-

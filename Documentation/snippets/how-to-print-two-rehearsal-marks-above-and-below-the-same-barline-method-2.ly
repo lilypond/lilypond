@@ -7,21 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, staff-notation, editorial-annotations"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Cette méthode permet d'imprimer deux marques-repères -- l'un au-dessus de
-la portée et l'autre en dessous -- à l'aide de deux voix séparées.  Le
-graveur de repères est ensuite déplacé dans chacune des voix, sans quoi
-aucun repère ne sera imprimé.  Enfin, chaque voix se voit attribuer un
-positionnement pour les repères.
-
-Cette méthode, bien que plus complexe que la première, apporte plus de
-flexibilité dans l'ajustement individuel des deux composants du repère.
-
-"
-  doctitlefr = "Impression d'un double repère sur une même barre (méthode 2)"
+  lsrtags = "expressive-marks, staff-notation, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 This method prints two 'rehearsal marks' - one above the stave and one

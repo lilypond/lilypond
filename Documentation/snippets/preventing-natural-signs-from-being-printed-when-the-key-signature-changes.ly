@@ -7,49 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "automatic-notation, pitches"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
-
-texidoces = "
-
-Cuando cambia la armadura de la tonalidad, se imprimen becuadros
-automáticamente para cancelar las alteraciones de las armaduras
-anteriores.  Esto se puede evitar estableciendo al valor @qq{falso} la
-propiedad @code{printKeyCancellation} del contexto @code{Staff}.
-
-"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Quando l'armatura di chiave cambia, vengono inseriti automaticamente i
-segni di bequadro per annulare le alterazioni di precedenti armature.  Si
-può evitare questo comportamento impostando su @code{f} (falso) la proprietà
-@code{printKeyCancellation} nel contesto @code{Staff}.
-
-"
-  doctitleit = "Impedire l'inserimento dei segni di bequadro quando cambia l'armatura di chiave"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-doctitlede = "Auflösungzeichen nicht setzen wenn die Tonart wechselt"
-
-texidocde = "
-Wenn die Tonart wechselt, werden automatisch Auflösungszeichen ausgegeben,
-um Versetzungszeichen der vorherigen Tonart aufzulösen.  Das kann
-verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
-im @code{Staff}-Kontext auf \"false\" gesetzt wird.
-"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Après un changement de tonalité, un bécarre est imprimé pour annuler
-toute altération précédente.  Ce comportement s'annule en désactivant la
-propriété @code{printKeyCancellation} du contexte @code{Staff}.
-
-"
-  doctitlefr = "Suppression des bécarres superflus après un changement de tonalité"
+  lsrtags = "pitches, automatic-notation"
 
   texidoc = "
 When the key signature changes, natural signs are automatically printed
@@ -73,4 +31,3 @@ property in the @code{Staff} context.
   \key g \minor
   a4 bes c d
 }
-

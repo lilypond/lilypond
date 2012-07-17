@@ -9,24 +9,6 @@
 \header {
   lsrtags = "winds"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-El ejemplo siguiente muestra cómo se pueden realizar diagramas de
-digitación para instrumentos de viento.
-
-"
-
-  doctitlees = "Diagramas de digitación para la flauta dulce"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Cet exemple illustre la manière de créer et afficher des indications de
-doigté pour instrument à vent.
-
-"
-  doctitlefr = "Doigtés pour flûte à bec"
-
   texidoc = "
 The following example demonstrates how fingering charts for wind
 instruments can be realized.
@@ -81,5 +63,3 @@ centermarkup = {
     f''1*1/4^\markup{2)}\stopGroup
   }
 }
-
-

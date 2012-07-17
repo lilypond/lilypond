@@ -9,45 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-La visibilidad de los objetos de extensión que acaban en la primera
-nota después de un salto de línea está controlada por la función de
-callback de @code{after-line-breaking}
-@code{ly:spanner::kill-zero-spanned-time}.
-
-Para los objetos como los glissandos y los reguladores, el
-comportamiento predeterminado es ocultar el objeto de extensión
-después del salto; la inhabilitación de la función de callback hace
-que el objeto de extensión roto por la izquierda pueda mostrarse.
-
-De forma inversa, los objetos de extensión que son visibles
-normalmente, como los objetos de extensión de texto, se pueden
-ocultar habilitando la función de callback.
-"
-
-  doctitlees = "Controlar la visibilidad de los objetos de
-  extensión después de un salto de línea"
-
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-La visibilité des extensions qui se terminent sur la première note après
-un saut de ligne est contrôlé par un appel de @code{after-line-breaking}
-à la fonction @code{ly:spanner::kill-zero-spanned-time}.
-
-Pour des objets tels qu'un glissando ou un soufflet, le comportement
-par défaut est de ne pas être reportés après un saut de ligne.
-L'extension sera donc reprise dès lors que l'appel aura été désactivé.
-
-Il en va inversement pour les extensions qui, par défaut pour les textes
-notamment, sont reportées après un saut de ligne@tie{}; il faudra alors
-activer l'appel pour empêcher leur report.
-
-"
-  doctitlefr = "Contrôle de la visibilité des extensions d'objet après saut de ligne"
-
   texidoc = "
 The visibility of spanners which end on the first note following a line
 break is controlled by the @code{after-line-breaking} callback

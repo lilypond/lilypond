@@ -9,39 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Los deslizamientos para acordes se pueden indicar tanto en el contexto
-@code{Staff} como en @code{TabStaff}.  Los números de cuerda son
-necesarios para TabStaff porque los cálculos de cuerda automáticos son
-diferentes para los acordes y para notas sueltas.
-
-"
-
-  doctitlees = "Glissando de acordes en tablatura"
-
-%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
-  texidocde = "
-Gleiten von Akkorden kann sowohl im normalen Notensystem als auch in einer
-Tabulatur notiert werden.  Saitennummern werden für Tabulaturen
-benötigt, weil die automatische Saitenberechnung unterschiedlich für
-Akkorde und einzelne Noten funktioniert.
-"
-  doctitlede = "Akkordglissando in Tabulaturen"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Un glissando sur des accords s'indique dans un @code{TabStaff} de la
-même manière que dans un @code{Staff}, à ceci près que nous aurons
-besoin des numéros de corde afin de déterminer correctement les frets
-d'arrivée.
-
-"
-  doctitlefr = "Glissando d'accords et tablature"
-
-
   texidoc = "
 Slides for chords can be indicated in both @code{Staff} and
 @code{TabStaff}. String numbers are necessary for @code{TabStaff}

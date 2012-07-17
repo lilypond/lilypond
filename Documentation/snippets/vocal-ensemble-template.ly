@@ -7,60 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-He aquí una partitura vocal estándar para cuatro voces SATB. Con
-grupos mayores, suele ser útil incluir una sección que aparezca en
-todas las partes.  Por ejemplo, el compás y la armadura casi siempre
-son los mismos para todas. Como en la plantilla @qq{Himno}, las cuatro
-voces se reagrupan en sólo dos pentagramas.
-
-"
-  doctitlees = "Plantilla de conjunto vocal"
-
-
-%% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
-  texidocja = "
-これは標準の 4 パート SATB (ソプラノ、アルト、テナー、バス) ボーカル譜です。@c
-もっと大きな合唱では、すべてのパートで使用されるセクションをインクルードすると@c
-便利です。例えば、拍子記号と調号はほとんど常にすべてのパートで同じです。\"賛美@c
-歌\" テンプレートのように、4 つのボイスは 2 つの譜にグループ分けされています。"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Ecco una tipica partitura corale a quattro parti, SATB. Se il complesso è più
-ampio, è spesso comodo scrivere gli elementi comuni in un'unica sezione, che
-verrà poi inclusa in tutte le parti. Ad esempio, l'indicazione di tempo e
-l'armatura di chiave sono quasi sempre le stesse per tutte le parti. Come nel
-modello dell'@qq{Inno}, le quattro voci sono ripartite in due soli righi.
-"
-  doctitleit = "Modello per complesso vocale"
-
-%% Translation of GIT committish: bfc88203ac2572737480e78ef2635ed35b458441
-  texidocde = "
-Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren
-Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen,
-die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa
-sind fast immer gleich in allen Stimmen.
-"
-
-  doctitlede = "Vorlage für Vokalensemble"
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Ce fichier constitue un canevas standard de partition pour chœur à
-quatre voix mixtes.  Lorsque les ensembles s'étoffent, il est judicieux
-de recourir à une section spécifique incluse dans chacune des parties,
-tout particulièrement pour gérer la métrique et la tonalité qui,
-la plupart du temps, sont communes à tous les pupitres.  Comme il est
-d'usage pour les hymnes, les quatre voix sont réparties sur deux
-portées.
-
-"
-  doctitlefr = "Ensemble vocal (simple)"
+  lsrtags = "really-simple, template, vocal-music"
 
   texidoc = "
 Here is a standard four-part SATB vocal score. With larger ensembles,
@@ -152,4 +99,3 @@ bassWords = \lyricmode {
     \context Lyrics = "basses" \lyricsto "basses" \bassWords
   >>
 }
-

@@ -9,36 +9,6 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Aquí se muestra la manera de ocultar las alteraciones de las notas
-ligadas al comienzo de un sistema nuevo.
-
-"
-
-  doctitlees = "Ocultar las alteraciones sobre notas ligadas al principio de un sistema nuevo"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Questo frammento mostra come nascondere le alterazioni delle note con
-legatura di valore all'inizio di un nuovo sistema
-
-"
-  doctitleit = "Nascondere le alterazioni delle note con legatura di valore
-  all'inizio di un nuovo sistema"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Cet exemple illustre comment, lorsqu'une note affublée d'une altération
-accidentelle est prolongée, ne pas répéter cette altération après un
-saut de ligne.
-
-"
-  doctitlefr = "Non répétition de l'altération après saut de ligne sur liaison de prolongation"
-
-
   texidoc = "
 This shows how to hide accidentals on tied notes at the start of a new
 system.

@@ -9,15 +9,6 @@
 \header {
   lsrtags = "paper-and-layout"
 
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-L'instruction @code{\\markuplist \\table-of-contents} permet d'inclure
-une table des matières.  Ses éléments sont ajoutés à l'aide de la
-commande @code{\\tocItem}.
-
-"
-  doctitlefr = "Table des matières"
-
   texidoc = "
 A table of contents is included using @code{\\markuplist
 \\table-of-contents}.  The TOC items are added with the

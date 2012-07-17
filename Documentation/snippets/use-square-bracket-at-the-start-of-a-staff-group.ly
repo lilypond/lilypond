@@ -7,36 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "contexts-and-engravers, staff-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede usar el delimitador de comienzo de un sistema
-@code{SystemStartSquare} estableciéndolo explícitamente dentro de
-un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
-
-"
-  doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Klammer zu Beginn von Systemgruppen kann auch in eine eckige Klammer
-(@code{SystemStartSquare}) umgewandelt werden, wenn man sie explizit
-im @code{StaffGroup}- oder @code{ChoirStaffGroup}-Kontext setzt.
-
-"
-  doctitlede = "Eine eckige Klammer zu Beginn von Systemgruppen benutzen"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Un regroupement de portées sera indiqué par un simple rectangle
--- @code{SystemStartSquare} -- en début de ligne dès lors que vous le
-mentionnerez explicitement au sein d'un contexte @code{StaffGroup} ou
-@code{ChoirStaff}.
-
-"
-  doctitlefr = "Indication de regroupement de portées par un rectangle"
+  lsrtags = "staff-notation, contexts-and-engravers"
 
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
@@ -55,4 +26,3 @@ context.
     \new Staff { c'4 d' e' f' }
   >> }
 }
-

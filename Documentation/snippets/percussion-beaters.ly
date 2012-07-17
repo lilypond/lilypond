@@ -9,17 +9,6 @@
 \header {
   lsrtags = "percussion"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-La représentation graphique des instruments à percussion n'est pas prise
-en charge nativement.  De tels symboles peuvent cependant être inclus,
-soit à l'aide de fichiers EPS indépendants, soit à l'aide d'un
-@emph{markup} contenant le code PostScript correspondant comme dans cet
-exemple.
-
-"
-  doctitlefr = "Baguettes pour percussion"
-
   texidoc = "
 Graphic symbols for percussion instruments are not natively supported;
 however it is possible to include such symbols, either as an external
@@ -171,4 +160,3 @@ stick = \markup {
 \score {
   b1^\stick
 }
-

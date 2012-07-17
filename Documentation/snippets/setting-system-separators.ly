@@ -7,28 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, paper-and-layout, staff-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden insertar separadores sistema entre los sistemas de una
-página.  Se puede usar cualquier elemento de marcado, pero
-@code{\\slashSeparator} está disponible como una elección
-predeterminada adecuada.
-
-"
-  doctitlees = "Fijar un separador entre los sistemas"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-La séparation entre deux systèmes consécutifs peut être mise en
-évidence par n'importe quel @emph{markup}.  LilyPond dispose à cet effet
-d'une double oblique inversée : @code{\\slashSeparator}.
-
-"
-  doctitlefr = "Séparation visuelle entre les systèmes"
+  lsrtags = "staff-notation, paper-and-layout, tweaks-and-overrides"
 
   texidoc = "
 System separators can be inserted between systems.  Any markup can be
@@ -58,4 +37,3 @@ notes = \relative c' {
     >>
   }
 }
-

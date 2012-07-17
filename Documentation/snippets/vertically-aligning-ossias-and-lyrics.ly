@@ -9,34 +9,6 @@
 \header {
   lsrtags = "spacing, tweaks-and-overrides, vocal-music"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este fragmento de código muestra el uso de las propiedades de
-contexto @code{alignBelowContext} y @code{alignAboveContext} para
-controlar la posición de la letra y los compases de ossia.
-
-"
-  doctitlees = "Alineación vertical de la letra y los compases de ossia"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Dieser Schnipsel zeigt, wie man die Kontexteigenschaften
-@code{alignBelowContext} und @code{alignAboveContext} benutzen kann, um
-die Positionierung von Gesangstext und Ossia-Abschnitten zu kontrollieren.
-
-"
-  doctitlede = "Gesangstext und Ossia vertikal ausrichten"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Cet exemple illustre la manière de positionner une portée d'ossia et
-des paroles à l'aide des propriétés de contexte @code{alignBelowContext}
-et @code{alignAboveContext}.
-
-"
-  doctitlefr = "Positionnement d'une ossia et des paroles"
-
   texidoc = "
 This snippet demonstrates the use of the context properties
 @code{alignBelowContext} and @code{alignAboveContext} to control the
@@ -75,4 +47,3 @@ positioning of lyrics and ossias.
     >>
   }
 >>
-

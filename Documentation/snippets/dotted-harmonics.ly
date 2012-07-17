@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, real-music, unfretted-strings"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Les notes harmoniques artificielles, obtenues grâce à @code{\\harmonic},
-ne sont pas pointées.  Ce comportement peut être modifié en activant la
-propriété de contexte @code{harmonicDots}.
-
-"
-  doctitlefr = "Harmoniques pointées"
+  lsrtags = "real-music, unfretted-strings, tweaks-and-overrides"
 
   texidoc = "
 Artificial harmonics using @code{\\harmonic} do not show dots.  To

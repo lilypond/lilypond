@@ -7,47 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "keyboards, real-music"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Un corchete de arpegio puede indicar que se tienen que tocar con la
-misma mano notas que están en dos pentagramas distintos. Para hacerlo,
-el @code{PianoStaff} se debe configurar para que acepte símbolos de
-arpegio de pentagrama cruzado y los símbolos de arpegio se deben
-configurar a la forma de corchete en el contexto de @code{PianoStaff}.
-
-(Debussy, Les collines d’Anacapri, m. 65)
-
-"
-  doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Eine Arpeggioklammer kann anzeigen, dass Noten auf zwei unterschiedlichen
-Systemen mit der selben Hand gespielt werden sollen.  Damit das notiert
-werden kann, muss der @code{PianoStaff}-Kontext so eingestellt werden,
-dass er Arpeggios über Systeme hinweg akzeptiert und die Form der Arpeggios
-muss auf eine Klammer eingestellt werden.
-
-(Debussy, Les collines d’Anacapri, T. 65)
-
-"
-  doctitlede = "Akkorde auf zwei Systemen mit Arpeggioklammern anzeigen"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Un crochet d'arpège peut indiquer que des notes réparties sur deux
-portées différentes doivent être jouées par la même main.  Le contexte
-@code{PianoStaff} doit accepter des arpèges « distribués », et les
-indications d'arpège du contexte @code{PianoStaff} adopter une allure de
-crochet.
-
-(Debussy, Les collines d’Anacapri, mesure 65)
-
-"
-  doctitlefr = "Indication d'un accord à cheval sur deux portées par un crochet d'arpège"
+  lsrtags = "real-music, keyboards"
 
   texidoc = "
 An arpeggio bracket can indicate that notes on two different staves are
@@ -91,4 +51,3 @@ context.
     }
   }
 >>
-

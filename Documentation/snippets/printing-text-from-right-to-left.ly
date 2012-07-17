@@ -7,15 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "world-music, workaround, text, editorial-annotations"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Du texte, inclus dans un objet @emph{markup}, peut s'imprimer de droite à
-gauche, comme illustré ci-dessous.
-
-"
-  doctitlefr = "Impression de texte de droite à gauche"
+  lsrtags = "text, world-music, workaround, editorial-annotations"
 
   texidoc = "
 It is possible to print text from right to left in a markup object, as
@@ -35,4 +27,3 @@ demonstrated here.
     \line { i n g i r u m i m u s n o c t e }
   }
 }
-

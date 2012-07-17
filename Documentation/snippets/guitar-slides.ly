@@ -8,29 +8,6 @@
 \version "2.15.10"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-
-  texidoces = "
-A diferencia de los glissandos, los @q{slides} o ligaduras pueden
-partir de un punto impreciso del mástil hasta un traste específico.
-Una buena forma de hacerlo es añadir una nota de mordente antes de la
-nota real, como se muestra en el ejemplo siguiente.
-
-"
-
-  doctitlees = "Ligaduras de guitarra"
-
-%% Translation of GIT committish: 0
-  texidocfr = "
-Contrairement au glissando, un @qq{slide} peut aller d'un point non
-précisé du manche jusqu'à un fret spécifique.  Ceci peut s'indiquer à
-l'aide d'une note d'ornement masquée précédant la note effectivement
-jouée, comme dans l'exemple suivant.
-
-"
-  doctitlefr = "Indication d'un glissé de guitare"
-
   lsrtags = "fretted-strings"
 
   texidoc = "

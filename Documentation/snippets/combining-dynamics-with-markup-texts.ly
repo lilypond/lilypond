@@ -9,24 +9,6 @@
 \header {
   lsrtags = "expressive-marks, really-simple, text"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Ciertas indicaciones dinámicas pueden llevar textos (como @qq{più
-forte} o @qq{piano subito}). Se pueden producir usando un bloque
-@code{\\markup}.
-
-"
-  doctitlees = "Combinar indicaciones dinámicas con marcados textuales"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Certaines indications de nuance peuvent requérir un complément textuel,
-comme @qq{più forte} ou @qq{piano subito}.  Elles se réalisent aisément
-à l'aide d'un bloc @code{\\markup}.
-
-"
-  doctitlefr = "Combinaison de nuance et de texte"
-
   texidoc = "
 Some dynamics may involve text indications (such as @qq{più forte} or
 @qq{piano subito}). These can be produced using a @code{\\markup}
@@ -42,5 +24,3 @@ piuF = \markup { \italic più \dynamic f }
 \relative c'' {
   c2\f c-\piuF
 }
-
-

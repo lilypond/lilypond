@@ -7,54 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, staff-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Si hay un solo pentagrama en un de los tipos de sistema
-@code{ChoirStaff} o @code{StaffGroup}, el comportamiento
-predeterminado es que no se imprima el corchete en la barra inicial.
-Esto se puede cambiar sobreescribiendo las propiedades adecuadas.
-
-Observe que en contextos como @code{PianoStaff} y
-@code{GrandStaff} en que los sistemas empiezan con una llave en
-lugar de un corchete, se debe establecer el valor de una propiedad
-distinta, como se ve en el segundo sistema del ejemplo.
-
-"
-  doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wenn nur ein System einer Systemgruppe vom Typ @code{ChoirStaff} oder
-@code{StaffGroup} angezeigt wird, wird die Klammer zu Beginn normalerweise
-nicht gesetzt.  Das kann verändert werden, indem man die entsprechende
-Eigenschaft verändert.
-
-Bei Systemen wie @code{PianoStaff} und @code{GrandStaff}, die mit einer
-geschweiften Klammer beginne, muss eine andere Eigenschaft verändert werden,
-wie das zweite Beispiel zeigt.
-
-"
-  doctitlede = "Klammer anzeigen wenn nur ein System gesetzt wird"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Lorsque, dans des regroupements de type @code{ChoirStaff} ou
-@code{StaffGroup}, une seule portée est active, aucune indication n'est
-donnée en début de ligne.  Surcharger la propriété adéquate permet de
-modifier ce comportement par défaut.
-
-Notez bien que dans le cas des @code{PianoStaff} et @code{GrandStaff},
-pour lesquels le délimiteur de système est une accolade et non un
-crochet, il ne s'agit pas de la même propriété -- voir le deuxième
-système de l'exemple.
-
-"
-  doctitlefr = "Indicateur de regroupement et portée unique"
-
+  lsrtags = "staff-notation, tweaks-and-overrides"
 
   texidoc = "
 If there is only one staff in one of the staff types @code{ChoirStaff}

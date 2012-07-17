@@ -9,62 +9,6 @@
 \header {
   lsrtags = "specific-notation, contexts-and-engravers"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Del problema central de la notación, esto es, crear un determinado
-símbolo, se encargan los «plugins» o complementos añadidos.  Cada
-uno de los complementos se conoce como un grabador. En este
-ejemplo, los grabadores se van activando uno por uno, en el orden
-siguiente:
-
-- cabeza de las notas,
-
-- el símbolo del pentagrama,
-
-- clave,
-
-- plicas,
-
-- barras, ligaduras de expresión, acentos,
-
-- alteraciones, líneas divisorias, indicación del compás, y armadura.
-
-Los grabadores se encuentran agrupados. Por ejemplo, las cabezas de
-nota, ligaduras de expresión, barras de corchea, etc. forman un
-contexto de voz, @code{Voice}. Los grabadores de la armadura,
-alteraciones, líneas de compás, etc. forman un contexto de pentagrama,
-@code{Staff}.
-
-"
-  doctitlees = "Los grabadores uno por uno"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Pour appréhender la notation, nous l'avons disséquée en éléments
-simples : chaque type de symbole est géré par un module différent.
-Chaque module est appelé @qq{graveur}.  Dans cet exemple, chaque graveur
-est appelé à son tour, dans l'ordre suivant :
-
--- têtes de note,
-
--- symboles de la portée,
-
--- clef,
-
--- hampes,
-
--- ligatures, liaisons, accents,
-
--- altérations, barres de mesure, métrique et armure.
-
-Les graveurs se regroupent.  Par exemple, têtes de note, liaisons,
-ligature etc. forment un contexte de voix (@code{Voice}).  Les graveurs
-chargés de la métrique, des altérations, des barres de mesure etc.
-forment un contexte de portée (@code{Staff}).
-
-"
-  doctitlefr = "Les graveurs un par un"
-
   texidoc = "
 The notation problem, creating a certain symbol, is handled by plugins.
  Each plugin is called an Engraver. In this example, engravers are
@@ -332,4 +276,3 @@ MyStaff = \context {
     \context { \MyVoice }
   }
 }
-
