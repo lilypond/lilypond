@@ -7,16 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "workaround, contemporary-notation, vocal-music, editorial-annotations"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Voici comment ajouter une croix aux hampes.  Le début du fragment parlé
-est stipulé par une commande @code{\\speakOn}, et la fin par une
-commande @code{\\speakOff}.
-
-"
-  doctitlefr = "Adjonction d'une croix sur la hampe des notes d'un fragment parlé"
+  lsrtags = "workaround, editorial-annotations, contemporary-notation, vocal-music"
 
   texidoc = "
 This example shows how to put crosses on stems.  Mark the beginning of
@@ -62,4 +53,3 @@ speakOff = {
     }
   }
 }
-

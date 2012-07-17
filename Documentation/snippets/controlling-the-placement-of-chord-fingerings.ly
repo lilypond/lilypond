@@ -7,38 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, chords, keyboards, fretted-strings, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede controlar con precisión la colocación de los números de
-digitación.  Para que se tenga en cuenta la orientación de las
-digitaciones, se debe utilizar una construcción de acorde <> aunque
-sea una sola nota.
-
-
-"
-  doctitlees = "Controlar la colocación de las digitaciones de acordes"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Position von Fingersatzzahlen kann exakt kontrolliert werden.
-
-"
-  doctitlede = "Position von Fingersatz in Akkorden kontrollieren"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Le positionnement des doigtés peut être contrôlé de manière très précise.
-Afin que l'orientation soit prise en compte, il est nécessaire d'utiliser
-une syntaxe d'accord @code{<@tie{}>}, même s'il ne s'agit que d'une
-seule note.
-
-"
-  doctitlefr = "Contrôler la position des doigtés dans un accord"
-
+  lsrtags = "fretted-strings, specific-notation, keyboards, editorial-annotations, chords"
 
   texidoc = "
 The placement of fingering numbers can be controlled precisely. For
@@ -64,5 +33,3 @@ if it is a single note.
   \set fingeringOrientations = #'(down)
   <e-3>2
 }
-
-

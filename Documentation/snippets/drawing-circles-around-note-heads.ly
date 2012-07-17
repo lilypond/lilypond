@@ -9,13 +9,6 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Voici comment entourer d'un cercle une note :
-
-"
-  doctitlefr = "Encerclement de notes"
-
   texidoc = "
 Here is how to circle a note.
 

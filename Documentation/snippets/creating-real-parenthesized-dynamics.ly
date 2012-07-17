@@ -7,43 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, workaround, text"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Aunque la manera más fácil de añadir paréntesis a una indicación
-de dinámica es utilizar un bloque @code{\\markup}, este método
-tiene un inconveniente: los objetos que se crean se comportarán
-como elementos de marcado de texto y no como indicaciones
-dinámicas.
-
-Sin embargo, es posible crear un objeto similar utilizando el código
-de Scheme equivalente (como se explica en la Referencia de la
-notación), en combinación con la función
-@code{make-dynamic-script}. De esta forma, el elemento de marcado se
-tratará como una indicación dinámica, y por tanto seguirá siendo
-compatible con instrucciones como @code{\\dynamicUp} o
-@code{\\dynamicDown}.
-
-"
-  doctitlees = "Crear indicaciones dinámicas \"verdaderas\" entre paréntesis"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Bien que le moyen le plus simple pour ajouter des parenthèses à une
-indication de nuance consiste à utiliser un bloc @code{\\markup}, cette
-pratique a un inconvénient@tie{}: les objets ainsi créés seront
-considérés comme des annotations textuelles, non comme des nuances.
-
-Il est néanmoins possible de créer des objets particuliers en partant de
-code Scheme -- comme expliqué dans le manuel de notation -- avec la
-fonction @code{make-dynamic-script}.  Les @emph{markups} ainsi créés
-seront alors considérés comme étant des indications de nuance, et de ce
-fait pourront se voir appliquer les effets des commandes
-@code{\\dynamicUp} et @code{\\dynamicDown}.
-
-"
-  doctitlefr = "Indications de nuance vraiment entre parenthèses"
+  lsrtags = "expressive-marks, text, workaround"
 
   texidoc = "
 Although the easiest way to add parentheses to a dynamic mark is to use
@@ -70,4 +34,3 @@ parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic
 \relative c'' {
   c4\parenF c c \dynamicUp c\parenF
 }
-

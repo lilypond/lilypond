@@ -9,16 +9,6 @@
 \header {
   lsrtags = "breaks, workaround, repeats, symbols-and-glyphs"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Le code ci-dessous permet d'adjoindre à un signe @emph{segno} un texte
-@emph{D.S. al Coda}, là où se trouverait normalement un bout de portée.
-La @emph{coda} entamera une nouvelle ligne.  Une variante, indiquée ici
-même, permet de laisser la @emph{coda} sur la même ligne.
-
-"
-  doctitlefr = "Positionnement des segno et coda (avec saut de ligne)"
-
   texidoc = "
 If you want to place an exiting segno sign and add text like @qq{D.S.
 al Coda} next to it where usually the staff lines are you can use this
@@ -29,7 +19,6 @@ line.
 "
   doctitle = "Positioning segno and coda (with line break)"
 } % begin verbatim
-
 
 {
   \clef treble
@@ -131,4 +120,3 @@ line.
     \bar"|."
   }
 }
-

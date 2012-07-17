@@ -8,35 +8,6 @@
 \version "2.15.17"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La propiedad @code{measureLength}, junto con
-@code{measurePosition}, determina cuándo es necesario dibujar una
-línea divisoria.  Sin embargo, al utilizar
-@code{\\scaleDurations}, el escalado proporcional de las
-duraciones hace difícil introducir cambios de compás.  En este
-caso se debe establecer manualmente el valor de
-@code{measureLength} utilizando la función @code{ly:make-moment}.
-El segundo argumento debe ser el mismo que el segundo argumento de
-@code{\\scaleDurations}.
-
-"
-  doctitlees = "Modificar el compás dentro de una sección polimétrica utilizando @code{\\scaleDurations}"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-La propriété @code{measureLength}, conjointement avec
-@code{measurePosition}, détermine l'endroit où une barre de mesure est
-requise.  L'utilisation d'un @code{\\scaleDurations} a ceci
-d'inconvénient que l'échelonnement des durées rend compliqués les
-changements de métrique.  Il est nécessaire en pareil cas de définir
-manuellement @code{measureLength}, avec un appel à
-@code{ly:make-moment}.  Le second argument devra être identique au
-deuxième argument de @code{\\scaleDurations}.
-
-"
-  doctitlefr = "Modification de la métrique au sein d'un fragment polymétrique à l'aide de @code{\\scaleDurations}"
-
   lsrtags = "workaround, contexts-and-engravers, contemporary-notation, rhythms"
 
   doctitle = "Changing time signatures inside a polymetric section using \\scaleDurations"

@@ -8,49 +8,6 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Los valores predeterminados para las notas de adorno están
-almacenados en los identificadores @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
-@code{stopAppoggiaturaMusic}, que están definidos en el archivo
-@file{ly/grace-init.ly}.  Redefiniéndolos se pueden obtener otros
-efectos.
-
-"
-
-  doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die globalen Standardeinstellungen für Verzierungsnoten werden in
-den Variablen@code{startGraceMusic}, @code{stopGraceMusic},
-@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
-@code{startAppoggiaturaMusic} und @code{stopAppoggiaturaMusic}
-gespeichert, die in der Datei @file{ly/grace-init.ly} definiert
-sind.  Wenn man sie umdefiniert, können andere Effekte erreicht
-werden.
-
-"
-  doctitlede = "Globale Umdefinition von Verzierungsnoten"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Vous pouvez modifier les valeurs des variables @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} et
-@code{stopAppoggiaturaMusic} afin d'en personnaliser les effets.  Pour
-plus de détails, voir le fichier @file{ly/grace-init.ly}.
-
-"
-  doctitlefr = "Redéfinition des réglages de mise en forme par défaut des notes d'ornement"
-
   lsrtags = "rhythms"
 
   texidoc = "
@@ -81,4 +38,3 @@ stopAcciaccaturaMusic = {
 \relative c'' {
   \acciaccatura d8 c1
 }
-

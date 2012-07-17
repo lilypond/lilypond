@@ -9,38 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Si la nota que da fin a un regulador cae sobre la primera parte de
-un compás, el regulador se detiene en la línea divisoria
-inmediatamente precedente.  Se puede controlar este comportamiento
-sobreescribiendo la propiedad @code{'to-barline}.
-
-"
-  doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Wenn die Note, an welcher eine Crescendo-Klammer endet, die erste Note
-eines Taktes ist, wird die Klammer an der vorhergehenden Taktlinie
-beendet.  Dieses Verhalten kann auch mit der Eigenschaft
-@code{'to-barline} geändert werden:
-"
-  doctitlede = "Das Verhalten von Crescendo-Klammern an Taktlinien beeinflussen"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-En principe, un soufflet -- (de)crescendo imprimé sous forme graphique --
-commence au bord gauche de la note de départ, et se termine au
-bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
-est sur un premier temps, le soufflet s'arrêtera au niveau de la
-barre de mesure qui la précède.  Ce comportement peut être annulé
-en assignant @emph{faux} (@code{#f}) à la propriété @code{'to-barline}.
-
-"
-  doctitlefr = "Soufflets et barres de mesure"
-
   texidoc = "
 If the note which ends a hairpin falls on a downbeat, the hairpin stops
 at the bar line immediately preceding.  This behavior can be controlled

@@ -9,52 +9,6 @@
 \header {
   lsrtags = "expressive-marks, editorial-annotations"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Se puede imprimir cualquier objeto gráfico sobre un fondo blanco para
-enmascarar parte de los objetos que están por debajo.  Esto puede ser
-útil para mejorar el aspecto de las colisiones en situaciones
-complejas cuando no es práctico reposicionar los objetos.  Es
-necesario establecer explícitamente la propiedad de capa
-(@code{layer}) para controlar qué objetos resultan enmascarados por el
-fondo blanco.
-
-En este ejemplo, la colisión de la ligadura de unión con la indicación
-de compás resulta mejorada enmascarando la parte de la ligadura que
-cruza a la indicación de compás mediante el establecimiento de la
-propiedad @code{whiteout} de @code{TimeSignature}.  Para hacer esto,
-se mueve @code{TimeSignature} a una capa por encima de @code{Tie}, que
-se deja en la capa predeterminada de 1, y @code{StaffSymbol} se mueve
-a una capa por encima de @code{TimeSignature} de manera que no resulte
-enmascarada.
-
-"
-
-  doctitlees = "Uso de la propiedad whiteout"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Tout objet graphique peut s'imprimer sur un fond blanc afin de masquer
-une partie des objets qu'il recouvre.  Ceci trouve toute son utilité
-pour améliorer certaines collisions, notamment dans des situations où un
-repositionnement d'objets est irréaliste.  Il faut alors explicitement
-définir la propriété @code{layer} afin de contrôler quels objets seront
-masqués par le fond blanc.
-
-Dans l'exemple ci-dessous, la liaison est en collision avec la
-métrique ; la situation est améliorée dès lors que la portion de liaison
-qui traverse la métrique est masquée par l'affectation de la propriété
-@code{whiteout} à l'objet @code{TimeSignature}.  Pour ce faire,
-@code{TimeSignature} est déplacé sur un calque au-dessus de celui de
-@code{Tie} -- il reste sur le calque par défaut (1) --, puis le
-@code{StaffSymbol} est placé sur un calque supérieur à celui de
-@code{TimeSignature} pour ne pas être masqué.
-
-"
-  doctitlefr = "Utilisation de la propriété whiteout"
-
   texidoc = "
 Any graphical object can be printed over a white background to mask
 parts of objects that lie beneath.  This can be useful to improve the

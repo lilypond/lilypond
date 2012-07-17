@@ -8,45 +8,6 @@
 \version "2.15.14"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
- doctitlees = "Posicionar los silencios multicompás"
- texidoces = "
-A diferencia de los silencios normales, no existe una instrucción
-predefinida para modificar la posición predeterminada de un
-símbolo de silencio multicompás sobre el pentagrama, adjuntándolo
-a una nota, independientemente de cuál sea su forma.  Sin embargo,
-en la música polifónica los silencios multicompás de las voces de
-numeración par e impar están separados verticalmente.  La
-colocación de los silencios multicompás se puede controlar como se
-ve a continuación:
-
-"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Anders als bei normalen Pausen gibt es keinen direkten Befehl, um die
-vertikale Position von Ganztaktpausen zu beeinflussen, indem man sie an
-eine Tonhöhe anhängt.  In polyphoner Notation wird aber dennoch die
-Position der Pausen von geraden und ungeraden Stimmen voneinander
-unterschieden.  Die Position von Ganztaktpausen kann wie folgt verändert
-werden:
- "
-  doctitlede = "Positionierung von Ganztaktpausen"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Si l'on peut positionner verticalement un silence simple en le
-rattachant à une note, il n'en va pas de même pour un silence
-multimesure.  Néanmoins, et uniquement dans le cadre de musique
-polyphonique, les silences multimesures sont positionnés différemment
-selon qu'ils appartiennent à une voix au numéro pair ou impair.  Le
-positionnement des silences multimesures peut se contrôler ainsi :
-
-"
-  doctitlefr = "Positionnement des silences multimesures"
-
   lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "

@@ -7,38 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, pitches"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede variar la longitud de las plicas de las figuras unidas por
-una barra mediante la sobreescritura de la propiedad
-@code{beamed-lengths} de los detalles (@code{details}) del objeto
-@code{Stem}.  Si se utiliza un solo valor como argumento, la longitud
-se aplica a todas las plicas.  Si se usan varios argumentos, el
-primero se aplica a las corcheas, el sgundo a las semicorcheas y así
-sucesivamente.  El último argumento también se aplica a todas las
-figuras que son mmás cortas que la longitud de la figura del último
-argumento.  También se pueden usar argumentos no enteros.
-
-"
-
-doctitlees = "Alterar la longitud de las plicas unidas por una barra"
-
-
-
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-La hauteur de hampe des notes ligaturées est gérée par la sous-propriété
-@code{beamed-lengths} des @code{details} de l'objet @code{Stem}.
-Lorsqu'elle ne comporte qu'une seule valeur, cette hauteur s'appliquera
-à toutes les hampes.  En présence de plusieurs arguments, le premier
-affectera les crochet, le second les doubles croches, et ainsi de suite.
-Le dernier argument s'appliquera aussi aux notes de plus courte durée.
-Les arguments peuvent être des valeurs décimales.
-
-"
-  doctitlefr = "Modification de la hauteur de hampes ligaturées"
+  lsrtags = "pitches, tweaks-and-overrides"
 
   texidoc = "
 Stem lengths on beamed notes can be varied by overriding the
@@ -66,4 +35,3 @@ of the final argument.  Non-integer arguments may also be used.
   \revert Stem #'details
   a8[ a] a16[ a] a32[ a] r16
 }
-

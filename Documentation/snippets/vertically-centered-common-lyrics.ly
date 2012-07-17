@@ -9,15 +9,6 @@
 \header {
   lsrtags = "vocal-music"
 
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Il arrive, dans certaines partitions vocales, que quelques paroles
-soient communes à tous les couplets.  Cette partie commune peut peut se
-présenter verticalement centrée, comme dans l'exemple suivant.
-
-"
-  doctitlefr = "Centrage vertical de paroles communes"
-
   texidoc = "
 In a vocal piece where there are several (two,four or more) lines of
 lyrics, and common lyrics for all voices at some point, these common
@@ -66,4 +57,3 @@ melody = \relative c' { c4 d e f g f e8( e f) d4 c e d c }
                 \new Lyrics \lyricsto m \lyricsD
         >>
 }
-

@@ -7,46 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, fretted-strings"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden establecer las propiedades de los diagramas de
-posiciones de acordes por medio de @code{'fret-diagram-details}.
-Para los diagramas de posiciones de FretBoard, se aplican los
-overrides (sobreescrituras) al objeto @code{FretBoards.FretBoard}.
-Como @code{Voice}, @code{FretBoards} es un contexto del nivel
-inferior, y por tanto se puede omitir su nombre en la
-sobreescritura de propiedades.
-
-"
-  doctitlees = "Personalizar los diagramas de posiciones"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Eigenschaften von Bunddiagrammen können in
-@code{'fret-diagram-details} verändert werden.  Einstellungen mit
-dem @code{\\override}-Befehl werden dem @code{FretBoards.FretBoard}-Objekt
-zugewiesen.  Genauso wie @code{Voice} ist auch @code{FretBoards} ein
-Kontext der niedrigsten Ebene, weshalb der Kontext auch in dem Befehl
-weggelassen werden kann.
-
-"
-  doctitlede = "Bunddiagramme anpassen"
-
-%% Translation of GIT committish: af01b3b78afa2e7c3c60e7280ee0b6382135bd35
-  texidocfr = "
-Les propriétés d'un diagramme de fret sont définies par les
-@code{'fret-diagram-details}.  En matière de diagramme de fret, les
-adaptations s'appliquent à l'objet @code{FretBoards.FretBoard}.  Un
-@code{FretBoards} est comparable à un @code{Voice}@tie{}: il s'agit
-d'un contexte du plus bas niveau, et il n'est donc pas primordial de
-l'instancier de manière explicite pour adapter ses propriétés.
-
-"
-  doctitlefr = "Personnalisation de diagrammes de fret"
-
+  lsrtags = "fretted-strings, tweaks-and-overrides"
 
   texidoc = "
 Fret diagram properties can be set through

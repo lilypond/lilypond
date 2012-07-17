@@ -9,28 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Referencia para armónicos sobre cuerdas al aire (armónicos naturales):
-
-"
-  doctitlees = "Referencia para armónicos sobre cuerdas al aire"
-
-%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
-  texidocde = "
-Referenz für Flageolett von offenen Saiten:
-"
-  doctitlede = "Referenz für Flageolett von offenen Saiten"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Table des harmoniques sur corde à vide (harmoniques naturelles) :
-
-"
-  doctitlefr = "Table des harmoniques sur corde à vide"
-
-
-
   texidoc = "
 This snippet demonstrates open-string harmonics
 

@@ -7,61 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, text"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-texidoces = "
-Los elementos de marcado aplicados a un silencio multicompás se
-centran encima o debajo de éste.  Los elementos de marcado extensos
-que se adjuntan a silencios multicompás no producen la expansión del
-compás.  Para expandir un silencio multicompás de forma que quepa todo
-el marcado, utilice un silencio de separación con un marcado aplicado
-antes del silencio multicompás.
-
-Observe que el silencio separador produce la inserción de un compás.
-El texto aplicado a un siencio sparador de esta forma se alinea por la
-izquierda a la posición en que la nota estaría situada dentro del
-compás, pero si la longitud del compás está determinada por la
-longitud del texto, éste aparecerá centrado.
-
-"
-
-doctitlees = "Marcado de silencios multicompás"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "Textbeschriftungen, die an Mehrtaktpausen gehängt wird,
-wird über oder unter der Pause zentriert.  Lange Beschriftungen
-lassen den Takt nicht breiter werden.  Um eine Mehrtaktpause einer
-Beschriftung anzupassen, muss eine unsichtbare Pause mit der
-Beschriftung direkt vor der Mehrtaktpause eingesetzt werden.
-
-Man sollte beachten, dass unsichtbare Pausen automatische Taktstriche
-nach sich ziehen.  Text, der an eine unsichtbare Pause gehängt wird,
-ist links ausgerichtet an der Position, wo die Pause erscheinen
-würde.  Wenn aber die Länge des Taktes durch die Länge des Textes
-bestimmt wird, sieht es so aus, als ob der Text zentriert gesetzt
-ist."
-
-  doctitlede = "Textbeschriftung und Mehrtaktpausen"
-
-
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Lorsque du texte est attaché à un silence multimesure, il sera centré
-dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
-mesure dans le cas ou ce texte est relativement long, il suffit
-d'insérer un silence invisible auquel on attache le texte en question,
-avant le silence multimesure.
-
-Rappelez-vous qu'un silence invisible génère une barre de mesure.  Le
-texte attaché à ce silence invisible sera alors aligné sur la gauche de
-là où serait positionnée la note.  Cependant, si la taille de la mesure
-est déterminée par la longueur du texte, il apparaîtra comme centré.
-
-"
-  doctitlefr = "Ajout de texte à un silence multimesure"
+  lsrtags = "text, rhythms"
 
   texidoc = "
 Markups attached to a multi-measure rest will be centered above or

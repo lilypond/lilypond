@@ -9,16 +9,6 @@
 \header {
   lsrtags = "spacing, tweaks-and-overrides"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Lorsque la propriété @code{strict-note-spacing} est activée,
-l'espacement des notes dans un système ne tient compte ni des barres de
-mesure ni des clefs, qui se retrouvent placées juste avant la note qui
-tombe au même moment.  Ceci peut entraîner certaines collisions.
-
-"
-  doctitlefr = "Espacement strictement proportionnel des notes"
-
   texidoc = "
 If @code{strict-note-spacing} is set spacing of notes is not influenced
 by bars or clefs within a system. Rather, they are placed just before
@@ -41,4 +31,3 @@ the note that occurs at the same time. This may cause collisions.
     c1
   }
 >>
-

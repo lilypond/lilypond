@@ -9,28 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Los diagramas de posiciones de acordes se pueden orientar de tres
-formas.  De manera predeterminada se alinena la cuerda o traste
-superior en las distintas alineaciones.
-
-
-"
-
-  doctitlees = "Modificar la orientación de los trastes"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Les diagrammes de fret peuvent s'orienter de trois manières différentes.
-Ils s'aligneront par défaut sur la corde du haut ou le sommet du fret.
-
-"
-  doctitlefr = "Orientation des diagrammes de fret"
-
-
   texidoc = "
 Fret diagrams can be oriented in three ways.  By default the top string
 or fret in the different orientations will be aligned.
@@ -65,4 +43,3 @@ or fret in the different orientations will be aligned.
     c'
   }
 >>
-

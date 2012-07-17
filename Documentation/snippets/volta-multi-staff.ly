@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, staff-notation, repeats"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-L'ajout du @code{Volta_engraver} à la portée appropriée permet de
-répéter les indications de reprise qui normalement n'apparaissent que
-sur la portée supérieure de la partition.
-
-"
-  doctitlefr = "Volta multiportée"
+  lsrtags = "staff-notation, really-simple, repeats"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be
@@ -48,4 +39,3 @@ voltaMusic = \relative c'' {
     \new Staff \voltaMusic
   >>
 >>
-

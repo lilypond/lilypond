@@ -7,47 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, chords, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Esta plantilla facilita la preparación de una canción con melodía,
-letra y acordes.
-
-"
-  doctitlees = "Plantilla de pentagrama único con música letra y acordes"
-
-
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
-  texidocja = "
-これは旋律、単語、コードを持つ歌曲の楽譜のためのテンプレートです。
-"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Ecco il modello di un comune spartito semplificato (lead sheet): include
-linea melodica, testo vocale, sigle degli accordi e relativi diagrammi
-per chitarra.
-
-"
-  doctitleit = "Modello di rigo singolo con note testo accordi e tasti"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Mit diesem Beispiel können Sie einen Song mit Melodie,
-Text und Akkorden schreiben.
-"
-
-  doctitlede = "Vorlage für eine Notenzeile mit Noten Text und Akkorden"
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Ce canevas comporte tous les éléments d'une chanson : la mélodie,
-les paroles, les accords.
-
-"
-  doctitlefr = "Paroles musique et accords"
+  lsrtags = "really-simple, template, chords, vocal-music"
 
   texidoc = "
 This template allows the preparation of a song with melody, words, and
@@ -86,4 +46,3 @@ harmonies = \chordmode {
   \layout { }
   \midi { }
 }
-

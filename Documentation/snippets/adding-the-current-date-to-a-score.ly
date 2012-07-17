@@ -7,22 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, titles, scheme-language, really-cool"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Con algo de código de Scheme, se puede añadir fácilmente la fecha
-actual a una partitura.
-"
-  doctitlees = "Añadir la fecha actual a una partitura"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Avec un peu de code Scheme, voici comment ajouter facilement
-la date du jour à votre partition.
-"
-  doctitlefr = "Ajout de la date du jour à une partition"
+  lsrtags = "really-cool, scheme-language, text, titles"
 
   texidoc = "
 With a little Scheme code, the current date can easily be added to a
@@ -51,4 +36,3 @@ date = #(strftime "%d-%m-%Y" (localtime (current-time)))
 \markup {
   \date
 }
-

@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, version-specific, rhythms"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Dans le cadre d'un portée polyphonique, les silences multimesures sont
-positionnés différemment selon la voix à laquelle ils appartiennent.
-Le réglage suivant permet néanmoins de les imprimer sur une même ligne.
-
-"
-  doctitlefr = "Fusion de silences multimesures dans une partie polyphonique"
+  lsrtags = "version-specific, really-simple, rhythms"
 
   texidoc = "
 When using multi-measure rests in a polyphonic staff, the rests will be
@@ -49,4 +40,3 @@ normalPos = \revert MultiMeasureRest #'staff-position
     }
   >>
 }
-

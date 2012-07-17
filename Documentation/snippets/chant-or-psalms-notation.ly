@@ -8,33 +8,6 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este tipo de notación se utiliza para el canto de los Salmos, en
-que las estrofas no siempre tienen la misma longitud.
-
-"
-  doctitlees = "Notación de responsos o salmos"
-
-%% Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-  texidocde = "
-Diese Form der Notation wird benutzt für die Notation von Psalmen, in denen
-die Strophen nicht die gleiche Länge haben.
-
-"
-  doctitlede = "Psalmennotation"
-
-
-%% Translation of GIT committish: c1d5bb448321d688185e0c6b798575d4c325ae80
-  texidocfr = "
-Ce style de notation permet d'indiquer la mélodie d'une psalmodie
-lorsque les strophes sont de longueur inégale.
-
-"
-  doctitlefr = "Notation pour psalmodie"
-
-
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
 
   texidoc = "
@@ -62,4 +35,3 @@ stemOff = { \override Staff.Stem #'transparent = ##t \override Staff.Flag #'tran
     \stemOn g'2 \bar "||"
   }
 }
-

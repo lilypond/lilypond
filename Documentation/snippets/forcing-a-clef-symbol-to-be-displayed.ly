@@ -9,16 +9,6 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
-été imprimée, LilyPond ignorera toute réitération de la commande
-@code{\\clef}.  Forcer la réimpression de la clef s'obtient à l'aide de
-la commande @code{\\set Staff.forceClef = ##t}.
-
-"
-  doctitlefr = "Réimpression forcée de la clef"
-
   texidoc = "
 When a clef sign has already been displayed and it has not been changed
 to a different clef, then repeating the @code{\\clef} command will be

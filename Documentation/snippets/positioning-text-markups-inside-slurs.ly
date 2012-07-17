@@ -7,34 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Los elementos de marcado de texto deben tener la propiedad
-@code{outside-staff-priority} establecida al valor falso para que se
-impriman por dentro de las ligaduras de expresión.
-
-"
-  doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Textbeschriftung kann innerhalb von Bögen gesetzt werden, wenn die
-@code{outside-staff-priority}-Eigenschaft auf falsch gesetzt wird.
-
-"
-  doctitlede = "Textbeschriftung innerhalb von Bögen positionieren"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Lorsqu'une annotation doit s'incrire à l'intérieur d'une liaison, la
-propriété @code{outside-staff-priority} doit être désactivée.
-
-"
-  doctitlefr = "Positionnement d'une annotation à l'intérieur d'une liaison"
+  lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property
@@ -50,5 +23,3 @@ set to false in order to be printed inside slurs.
   \override TextScript #'outside-staff-priority = ##f
   c2(^\markup { \halign #-10 \natural } d4.) c8
 }
-
-

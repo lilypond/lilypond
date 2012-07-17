@@ -9,48 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Los objetos de extensión \cresc, \dim y \decresc ahora se pueden
-redefinir como operadores postfijos y producir un solo objeto de
-extensión de texto.  La definición de extensores personalizados
-también es fácil.  Se pueden mezclar con facilidad los crescendi
-textuales y en forma de reguladores. \< y \> producen reguladores
-gráficos de forma predeterminada, \cresc etc. producen elementos
-extensores de texto de forma predeterminada.
-
-"
-
-  doctitlees = "Objetos extensores de texto postfijos para dinámica"
-
-%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde = "Die \cresc, \dim und \decresc Strecker können umdefiniert werden,
-um nachgestellt zu funktionieren und einen Textstrecker zu produzieren.  Eigene
-Strecker können auch einfach definiert werden.  Klammer- und Textcrescendi können
-einfach vermischt werden.  \< und \> erstellen normalerweise Klammern, \cresc
-usw. dagegen normalerweise Textspanner.
-
-"
-  doctitlede = "Dynamiktextstrecker nachgestellt"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Les lignes d'extension des commandes @code{\\cresc}, @code{\\dim} et
-@code{\\decresc} peuvent désormais être personnalisées facilement sous
-forme d'opérateurs postfix.  Soufflets et (de)crescendos peuvent
-cohabiter.  @code{\\<} et @code{\\>} produiront par défaut des
-soufflets, alors que @code{\\cresc} etc. produiront une indication
-textuelle avec extension.
-
-"
-  doctitlefr = "Extensions de nuance postfix"
-
-
   texidoc = "
 Custom text spanners can be defined and used with hairpin and text
 crescendos.  @code{\\<} and @code{\\>} produce hairpins by default,

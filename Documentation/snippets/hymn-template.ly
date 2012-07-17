@@ -7,48 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-  Este fragmento de código muestra una forma de preparar un himno cuando
-cada línea comienza con un compás parcial.  También muestra cómo
-añadir los versos como texto independiente debajo de la música.
-
-"
-
-  doctitlees = "Plantilla para himnos"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Il codice seguente presenta un modo di impostare un inno in cui ogni verso
-inizia e finisce con una misura parziale.  Mostra anche come aggiungere delle
-strofe come testo separato sotto la musica.
-
-"
-  doctitleit = "Modello per inno"
-
-%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-  texidocde = "
-Dieses Beispiel zeigt eine Möglichkeit, eine Hymnusmelodie zu setzen, in
-der jede Zeiel mit einem Auftakt beginnt und einem unvollständigen
-Takt abschließt.  Es zeigt auch, wie man die Strophen als allein stehenden
-Text unter die Noten hinzufügt.
-
-"
-  doctitlede = "Hymnus-Vorlage"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Le code ci-dessous illustre la manière d'agencer un cantique liturgique
-dans lequel chaque ligne débute et se termine par une mesure incomplète.
-Vous noterez par ailleurs l'affichage des paroles indépendamment de la
-musique.
-
-"
-  doctitlefr = "Modèle pour cantique"
+  lsrtags = "template, vocal-music"
 
   texidoc = "
 This code shows one way of setting out a hymn tune when each line
@@ -148,4 +107,3 @@ global = {
   indent = 0     % don't indent first system
   line-width = 130   % shorten line length to suit music
 }  % End paper block
-

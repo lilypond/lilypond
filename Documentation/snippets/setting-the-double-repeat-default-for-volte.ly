@@ -9,27 +9,6 @@
 \header {
   lsrtags = "repeats"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Existen tres estilos distintos de repeticiones dobles para la primera
-y segunda vez, que se pueden ajustar utilizando
-@code{doubleRepeatType}.
-
-"
-
-  doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-LilyPond dispose de trois différents styles de barre pour indiquer une
-succession de reprises.  Vous devez opter pour un style par défaut, à
-l'aide de la propriété @code{doubleRepeatType}.
-
-"
-  doctitlefr = "Succession de reprise et style de barre par défaut"
-
   texidoc = "
 There are three different styles of double repeats for volte, that can
 be set using @code{doubleRepeatType}.

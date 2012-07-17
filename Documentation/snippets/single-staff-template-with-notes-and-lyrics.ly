@@ -7,64 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Esta pequeña plantilla muestra una melodía sencilla con letra. Córtela
-y péguela, escriba las notas y luego la letra. Este ejemplo desactiva
-el barrado automático, que es lo más frecuente en las partes vocales
-antiguas. Para usar el barrado automático modifique o marque como un
-comentario la línea correspondiente.
-
-"
-  doctitlees = "Plantilla de pentagrama único don notas y letra"
-
-
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
-  texidocja = "
-この小さなテンプレートは歌詞を持つ簡単な旋律を表しています。カット＆ペーストして、音符@c
-を付け加えて、それから歌詞の単語を付け加えてください。この例は自動ビームを off にして@c
-います。これはボーカル パートでは一般的なことです。自動ビームを使用するには、対応する@c
-行を変更するか、コメント アウトしてください。
-"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Questo piccolo modello presenta una semplice linea melodica con un testo. Copialo
-e incollalo, aggiungi le note e le parole. Questo esempio disabilita la
-disposizione automatica delle travature, come è consuetudine per le parti
-vocali. Per usare la disposizione automatica delle travature, cambia o
-commenta la relativa linea di codice.
-
-"
-  doctitleit = "Modello di rigo singolo con note e testo"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren
-Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen
-Sie es mit LilyPond. In dem Beispiel wird die automatische
-Balkenverbindung ausgeschaltet (mit dem Befehl @code{\\autoBeamOff}),
-wie es für Vokalmusik üblich ist.
-Wenn Sie die Balken wieder einschalten wollen, müssen Sie die
-entsprechende Zeile entweder ändern oder auskommentieren.
-"
-
-  doctitlede = "Vorlage für ein Notensystem mit Noten und Gesangstext"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Ce canevas comporte une simple ligne mélodique agrémentée de paroles.
-Recopiez-le, ajoutez-y d'autres notes et paroles.  Les ligatures
-automatiques sont ici désactivées, comme il est d'usage en matière de
-musique vocale.  Pour activer la fonction de ligature automatique,
-modifiez ou commentez la ligne en question.
-
-"
-  doctitlefr = "Portée unique et paroles"
+  lsrtags = "really-simple, template, vocal-music"
 
   texidoc = "
 This small template demonstrates a simple melody with lyrics. Cut and
@@ -100,4 +43,3 @@ text = \lyricmode {
   \layout { }
   \midi { }
 }
-

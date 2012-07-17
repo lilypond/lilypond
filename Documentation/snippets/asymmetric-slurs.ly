@@ -9,24 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede hacer que una ligadura de expresión sea asimétrica para
-adaptarse mejor a un patrón asimétrico de notas.
-
-"
-  doctitlees = "Ligaduras asimétricas"
-
-
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Une liaison peut adopter une courbe asymétrique afin de s'adapter au
-mieux à la ligne mélodique.
-
-"
-  doctitlefr = "Liaison asymétrique"
-
   texidoc = "
 Slurs can be made asymmetric to match an asymmetric pattern of notes
 better.
@@ -45,4 +27,3 @@ slurNotes = { d,8( a' d f a f' d, a) }
   \once \override Slur #'eccentricity = #3.0
   \slurNotes
 }
-

@@ -9,27 +9,6 @@
 \header {
   lsrtags = "really-simple, chords"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La nomenclatura inglesa (predeterminada) para los acordes del cifrado
-americano se puede cambiar por la alemana (@code{\\germanChords}
-sustituye B y Bes por H y B) o por la semi-alemana
-(@code{\\semiGermanChords} sustituye B y Bes por H y Bb).
-
-"
-  doctitlees = "Cambiar la nomenclatura de los acordes del cifrado americano por la notación alemana o semi-alemana"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-LilyPond adpote par défaut la dénomination anglaise pour le nom et
-chiffrage des accords.  L'instruction @code{\\germanChords} permet
-d'afficher @code{H} et @code{B} en lieu et place de @code{B} et
-@code{Bes}.  L'instruction @code{\\semiGermanChords} leur substituera
-@code{H} et @code{Bb}.
-
-"
-  doctitlefr = "Adoption de la dénomination germanique ou semi-germanique des accords"
-
   texidoc = "
 The english naming of chords (default) can be changed to german
 (@code{\\germanChords} replaces B and Bes with H and B) or semi-german
@@ -72,4 +51,3 @@ music = \chordmode {
     \semiGermanChords \music }
   \context Voice { \music }
 >>
-

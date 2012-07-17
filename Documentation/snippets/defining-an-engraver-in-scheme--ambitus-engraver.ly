@@ -8,17 +8,6 @@
 \version "2.15.31"
 
 \header {
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Cet exemple démontre comment définir son propre graveur de tessiture à
-base de code Scheme.
-
-Il s'agit d'une réécriture en Scheme du code contenu dans le fichier
-@file{lily/ambitus-engraver.cc}.
-
-"
-  doctitlefr = "Définition d'un graveur en Scheme : graveur d'ambitus"
-
 
   lsrtags = "contexts-and-engravers"
 

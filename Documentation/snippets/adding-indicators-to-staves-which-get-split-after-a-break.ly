@@ -7,17 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, vocal-music, symbols-and-glyphs"
-
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-Dans cet extrait est définie la commande @code{\\splitStaffBarLine} qui
-ajoute une double flèche après la dernière barre de mesure d'une portée,
-indiquant par là que ses différentes voix disposeront de leur propre
-portée à la ligne suivante.
-
-"
-  doctitlefr = "Ajout d'indicateurs à une portée dédoublée après un saut de ligne"
+  lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
 
   texidoc = "
 This snippet defines the @code{\\splitStaffBarLine} command, which adds
@@ -112,4 +102,3 @@ splitStaffBarLine = {
     }
   }
 }
-

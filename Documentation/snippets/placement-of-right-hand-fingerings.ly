@@ -9,35 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Es posible ejercer un mayor control sobre la colocación de las
-digitaciones de la mano derecha estableciendo el valor de una
-propiedad específica, como se muestra en el ejemplo siguiente.  Nota:
-se debe usar una construcción de acorde.
-
-"
-  doctitlees = "Posicionamiento de digitaciones de mano derecha"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Man kann die Positionierung von Fingersatz der rechten Hand besser
-kontrollieren, wenn eine bestimmte Eigenschaft gesetzt wird, wie
-das folgende Beispiel zeigt:
-
-"
-  doctitlede = "Positionierung von Fingersatz der rechten Hand"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Le positionnement des doigtés main droite, grâce à une propriété
-spécifique, peut se contrôler finement, comme l'indique
-l'exemple suivant.  N'oubliez pas la construction de type accord.
-
-"
-  doctitlefr = "Positionnement des doigtés main droite"
-
   texidoc = "
 It is possible to exercise greater control over the placement of
 right-hand fingerings by setting a specific property, as demonstrated
@@ -62,4 +33,3 @@ in the following example. Note: you must use a chord construct
   \set strokeFingerOrientations = #'(left)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 >2
 }
-

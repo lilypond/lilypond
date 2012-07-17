@@ -9,43 +9,6 @@
 \header {
   lsrtags = "pitches, vocal-music"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  doctitlees = "Ámbitos con varias voces"
-  texidoces = "
-La adición del grabador @code{Ambitus_engraver} al contexto de
-@code{Staff} crea un solo ámbito por pentagrama, incluso en el caso de
-pentagramas con varias voces.
-
-"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Se si aggiunge l'incisore @code{Ambitus_engraver} al contesto @code{Staff} viene
-creato un solo ambitus per il rigo, anche nel caso di righi che hanno più
-voci.
-
-"
-  doctitleit = "Ambitus su più voci"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Indem man den @code{Ambitus_engraver} im @code{Staff}-Kontext
-hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem
-Fall, dass mehrere Stimmen sich im gleichen System befinden.
-"
-  doctitlede = "Ambitus mit vielen Stimmen"
-
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
-  texidocfr = "
-Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
-graveur @code{Ambitus_engraver} au contexte @code{Staff} afin d'obtenir
-l'ambitus de toutes les voix cumulées, non d'une seule des voix actives.
-
-"
-  doctitlefr = "Ambitus sur plusieurs voix"
-
-
   texidoc = "
 Adding the @code{Ambitus_engraver} to the @code{Staff} context creates
 a single ambitus per staff, even in the case of staves with multiple
@@ -71,5 +34,3 @@ voices.
     b1
   }
 >>
-
-

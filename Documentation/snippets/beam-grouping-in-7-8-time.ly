@@ -9,40 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-No está especificada ninguna agrupación predeterminada automática de
-las barras para el compás de 7/8, de forma que si se requieren barras
-automáticas se debe especificar el agrupamiento mediante
-<code>beatStructure</code>.  Por ejemplo, para agrupar todas las
-barras en la forma 2-3-2 en el compás de 7/8, especificamos los
-finales de barra en 2/8 y 5/8:
-
-"
-  doctitlees = "Agrupamiento de las barras en el compás de 7/8"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Es gibt keine automatischen Balkengruppen für 7/8-Takte.  Wenn diese
-Taktart benötigt wird, müssen die Gruppierungen definiert werden.  Um
-beispielsweise alle Noten in 2/8-3/8-2/8 aufzuteilen, müssen Balkenenden
-für 2/8 und 5/8 definiert werden:
-
-"
-  doctitlede = "Balkengruppen für 7/8-Takte"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Aucune règle de ligature automatique n'est disponible pour une mesure à
-7/8.  Il faudra donc, en pareil cas, définir vous-même les règles de
-regroupement.  Pour, par exemple, ligaturer sur la base de 2/8-3/8-2/8,
-il faudra donc définir les terminaisons de 2/8 et 5/8 :
-
-"
-  doctitlefr = "Règle de ligature dans une mesure à 7/8"
-
   texidoc = "
 There are no default automatic beam groupings specified for 7/8 time,
 so if automatic beams are required the grouping must be specified using

@@ -7,19 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "workaround, staff-notation"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Par défaut, les indications métronomiques n'influencent en rien
-l'espacement horizontal.  Dans le cas où elles se suivent sur des silences
-multimesures, elle peuvent se retrouver trop proche l'une de l'autre, et
-donc paraître quelque peu imbriquées comme dans la première partie de
-l'exemple ci-dessous.  La solution consiste alors à appliquer une simple
-dérogation comme dans la deuxième partie.
-
-"
-  doctitlefr = "Adaptation de la largeur de mesure selon le MetronomeMark"
+  lsrtags = "staff-notation, workaround"
 
   texidoc = "
 By default, metronome marks do not influence horizontal spacing.  This
@@ -53,4 +41,3 @@ example = {
   \override Score.MetronomeMark #'extra-spacing-width = #'(0 . 0)
   \example
 }
-

@@ -7,24 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "chords, vocal-music, template"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Presentamos a continuación un ejemplo de plantilla para una hoja
-guía de acordes con melodía, letra, acordes y diagramas de
-trastes.
-"
-
-  doctitlees = "Plantilla para un pentagrama único con música letra acordes y trastes"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Ce canevas comporte, en plus de la mélodie, des paroles et des accords,
-les diagrammes de fret.
-
-"
-  doctitlefr = "Paroles musique accords et diagrammes de fret"
+  lsrtags = "template, chords, vocal-music"
 
   texidoc = "
 Here is a simple lead sheet template with melody, lyrics, chords and
@@ -75,4 +58,3 @@ staffMelody = \relative c' {
   \layout { }
   \midi { }
 }
-

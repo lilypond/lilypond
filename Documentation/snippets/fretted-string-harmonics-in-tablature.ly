@@ -9,28 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Armónicos sobre cuerdas pisadas (armónicos artificiales):
-"
-  doctitlees = "Armónicos sobre cuerdas pisadas en tablatura"
-
-
-
-%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
-  texidocde = "
-Flageolett für Bundinstrumente:
-"
-  doctitlede = "Flageolett von Bundinstrumenten in einer Tabulatur"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Harmoniques et tablature (harmoniques artificielles).
-
-"
-  doctitlefr = "Harmoniques et tablature"
-
-
   texidoc = "
 Demonstrates fretted-string harmonics in tablature
 

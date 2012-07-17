@@ -7,76 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "devel, tweaks-and-overrides, scheme-language"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de la
-función de callback de otro grob.  Éstos se encuentran relacionados
-normalmente como @qq{layout objects} (objetos de presentación) en la
-sección @qq{Internal properties} (propiedades internas) de un
-interface de grob.  Se usa la función @code{ly:grob-object} para
-acceder a estos grobs.
-
-
-Se presentan más abajo como ejemplo algunas formas de addecer a grobs
-desde dentro de una función de callback de NoteHead, pero la técnica
-no se limita a las cabezas de nota.  Sin embargo, la función de
-callback de NoteHead es especialmente importante, porque es la función
-de callback implícita que utiliza la instrucción @code{\\tweak}.
-
-
-La función de ejemplo que se define abajo (\"display-grobs\") no es
-probablemente tan útil, pero muestra que se está accediendo
-efectivamente a los grobs.
-
-
-Salida de ejemplo de la consola:
-
-
-@example
---------------------
-#-Grob Accidental -
-#-Grob Arpeggio -
-#-Grob Stem -
-@end example
-
-
-"
-
-  doctitlees = "Utilizar ly:grob-object para acceder a los grobs con \\tweak"
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Certains objets graphiques ne sont accessibles que par le biais d'un
-@emph{callback} à partir d'un autre @code{grob}.  Ils sont normalement
-listés dans les « @emph{layout objects} » au sein de la section
-« Propriétés internes » d'une @emph{grob-interface}.  La fonction
-@code{ly:grob-object} permet d'accéder à ces objets.
-
-Voici plusieurs moyens d'accéder aux objets par un @emph{callback} sur
-@code{NoteHead}.  D'autres biais sont naturellement possible ;
-@code{NoteHead} a cependant l'avantage incontestable d'être utilisé
-implicitement par la commande @code{\\tweak}.
-
-La fonction @code{display-grobs} définie ci-dessous n'est probablement
-pas très utile.  Elle indique toutefois qu'il est tout à fait possible
-d'accéder aux objets.
-
-Voici par exemple ce qui sera émis dans la console :
-
-@example
---------------------
-#<Grob Accidental >
-#<Grob Arpeggio >
-#<Grob Stem >
-@end example
-
-"
-  doctitlefr = "Utilisation de ly:grob-object pour accéder aux grobs avec \\tweak"
+  lsrtags = "scheme-language, tweaks-and-overrides, devel"
 
   texidoc = "
 Some grobs can be accessed @qq{laterally} from within another grob's

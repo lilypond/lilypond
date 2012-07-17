@@ -7,31 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "keyboards, repeats, real-music"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Dado que @code{\\repeat tremolo} espera exactamente dos argumentos
-musicales para los trémolos de acorde, la nota o acorde que cambia de
-pentagrama en un trémolo que cruza el pentagrama se debe colocar
-dentro de llaves curvas junto a su instrucción @code{\\change Staff}.
-
-"
-
-  doctitlees = "Trémolos de pentagrama cruzado"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Dans la mesure où @code{\\repeat tremolo} requiert deux arguments
-musicaux pour un trémolo d'accords, la note ou l'accord de la
-portée opposée doit être encadré par des accolades et se voir adjoindre
-la commande @code{\\change Staff}.
-
-"
-  doctitlefr = "Trémolo et changement de portée"
-
+  lsrtags = "real-music, keyboards, repeats"
 
   texidoc = "
 Since @code{\\repeat tremolo} expects exactly two musical arguments for
@@ -64,4 +40,3 @@ its @code{\\change Staff} command.
     }
   }
 >>
-

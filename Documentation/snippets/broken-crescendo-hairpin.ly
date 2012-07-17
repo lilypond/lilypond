@@ -7,50 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, contemporary-notation, symbols-and-glyphs"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Para hacer invisibles partes de un regulador de crescendo, se usa
-el método de dibujar un rectángulo blanco encima de la parte
-respectiva del regulador, tapándola.  El rectángulo se define como
-código PostScript dentro de un elemento de marcado de texto.
-
-Para realizar un ajuste fino de la posición y el tamaño del
-elemento de marcado, se puede establecer el número que precede a
-@code{setgray} en la definición de PostScript a un valor menor que
-la unidad, haciendo que sea de color gris.  Los dos números que
-están antes de @code{scale} en el código PostScript son los
-responsables del ancho y la altura del rectángulo, y los dos
-números que están antes de @code{translate} cambian las
-coordenadas X e Y de origen del rectángulo.
-
-Asegúrse de poner el regulador en una capa más baja que el
-elemento de marcado de texto para trazar el rectángulo encima del
-regulador.
-
-"
-  doctitlees = "Regulador interrumpido"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Une portion d'un soufflet de crescendo peut être rendue invisible.
-Il suffit pour cela de dessiner un rectangle par dessus cette partie, ce
-qui aura pour effet de la rendre invisible.  Le rectangle est défini par
-un @emph{markup} contenant du code PostScript.
-
-La taille et le positionnement de ce @emph{markup} sont ajustables grâce
-à certaiins composants du code PostScript@tie{}: le nombre précédant
-@code{setgray} donnera du gris s'il est inérieur à@tie{}1@tie{}; les
-deux nombres précédant @code{scale} définissent la largeur et la hauteur
-du rectangle@tie{}; les deux nombres précédant @code{translate}
-modifient le point d'ancrage (en abscisse et en ordonnée) du rectangle.
-
-Le soufflet doit se trouver à un niveau inférieur à celui du @emph{markup}
-afin que le dessin du rectangle puisse effectivement le recouvrir.
-
-"
-  doctitlefr = "Soufflet de crescendo partiellement interrompu"
+  lsrtags = "expressive-marks, symbols-and-glyphs, contemporary-notation"
 
   texidoc = "
 In order to make parts of a crescendo hairpin invisible, the following
@@ -102,4 +59,3 @@ draw the rectangle over the hairpin.
     }
   >>
 }
-

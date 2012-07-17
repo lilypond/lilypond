@@ -9,65 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Se pueden crear tablas alternativas de diagramas de posiciones.  Se
-utilizarían para tener diagramas altenativos para un acorde dado.
-
-Para usar una tabla alternativa de diagramas de posiciones, se debe
-crear la tabla primero.  Después se añaden los diagramas a la tabla.
-
-La tabla de diagramas de posiciones que se crea puede estar vacía o se
-puede copiar a partir de una tabla existente.
-
-La tabla a usar en la impresión de los diagramas predefinidos se
-selecciona por medio de la propiedad @code{\\predefinedDiagramTable}.
-
-"
-
-  doctitlees = "Tablas alternativas de diagramas de posiciones"
-
-%% Translation of GIT committish:  a463d80d4be008ce05b12de86fc21f2b7c1c120f
-
-  texidocde = "
-Alternative Bunddiagrammtabellen können erstellt werden.  Sie können benutzt
-werden, um alternative Bunddiagramme für einen bestimmten Akkord zu haben.
-
-Damit eine alternative Bunddiagrammentabelle benutzt werden kann, muss die
-Tabelle zuerst erstellt werden.  Dann werden die Bunddiagramme zur Tabelle
-hinzugefügt.
-
-Die erstellte Bunddiagrammtabelle kann auch leer sein, oder sie kann aus
-einer existierenden Tabelle kopiert werden.
-
-Die Tabelle, die eingesetzt wird, um vordefinierte Bunddiagramme anzuzeigen,
-wird mit der Eigenschaft @code{\\predefinedDiagramTable} ausgewählt.
-"
-
-  doctitlede = "Alternative Bunddiagrammtabellen"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Vous pouvez tout à fait créer des tables de diagrammes de fret
-supplémentaires, notamment dans l'optique d'un fret alternatif pour un
-accord donné.
-
-Avant de pouvoir utiliser un diagramme alternatif, vous devrez alimenter
-une table à cet effet.  Les différents diagrammes seront ajoutés à cette
-table.
-
-Il peut aussi bien s'agir d'une table vide, que de la recopie d'une
-table existante.
-
-La table servant de base pour les diagrammes prédéfinis est sélectionnée
-par la propriété @code{\\predefinedDiagramTable}.
-
-"
-  doctitlefr = "Diagrammes de fret alternatifs"
-
-
   texidoc = "
 Alternate fretboard tables can be created.  These would be used in
 order to have alternate fretboards for a given chord.
@@ -137,4 +78,3 @@ the property @code{\\predefinedDiagramTable}.
     >>
   }
 >>
-

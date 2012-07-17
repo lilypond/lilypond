@@ -7,29 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms, ancient-notation, symbols-and-glyphs"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  doctitlees = "Estilos de silencios"
-  texidoces = "
-Los silencios se pueden imprimir en distintos estilos.
-"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-
-  doctitlede = "Pausenstile"
-  texidocde = "
-Pausen können in verschiedenen Stilen dargestellt werden.
-"
-
-
-
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
-  texidocfr = "
-Les silences peuvent être gravés selon différents styles.
-
-"
-  doctitlefr = "Styles de silences"
+  lsrtags = "ancient-notation, symbols-and-glyphs, rhythms, tweaks-and-overrides"
 
   texidoc = "
 Rests may be used in various styles.
@@ -71,4 +49,3 @@ Rests may be used in various styles.
   r\maxima^\markup \typewriter { default }
   r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 s128
 }
-

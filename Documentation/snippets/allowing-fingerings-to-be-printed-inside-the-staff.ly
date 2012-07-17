@@ -7,37 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, spacing, fretted-strings, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Las cifras de digitación orientadas verticalmente se colocan de forma
-predeterminada fuera del pentagrama.  Sin embargo, este comportamiento
-se puede cancelar.  Nota: se debe usar una construcción de acorde <>,
-aunque sea una sola nota.
-
-
-"
-  doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Normalerweise werden vertikal orientierte Fingersatzzahlen außerhalb des Systems
-gesetzt.  Das kann aber verändert werden.
-
-"
-  doctitlede = "Fingersatz auch innerhalb des Systems setzen"
-
-%% Translation of GIT committish: 4ab2514496ac3d88a9f3121a76f890c97cedcf4e
-  texidocfr = "
-L'empilement des indications de doigté se fait par défaut à l'extérieur
-de la portée.  Néanmoins, il est possible d'annuler ce comportement.
-
-"
-  doctitlefr = "Impression des doigtés à l'intérieur de la portée"
-
+  lsrtags = "spacing, fretted-strings, specific-notation, editorial-annotations"
 
   texidoc = "
 By default, vertically oriented fingerings are positioned outside the
@@ -54,4 +24,3 @@ chord construct <>, even if it is only a single note.
   \override Fingering #'staff-padding = #'()
   <c-1 e-2 g-3 b-5>4 <g'-0>
 }
-

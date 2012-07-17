@@ -8,50 +8,6 @@
 \version "2.15.15"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Ésta es una plantilla bastante avanzada, para un conjunto de
-jazz. Observe que la notación de todos los instrumentos está en
-@code{\\key c \\major} (Do mayor). Esto se refiere al tono de
-concierto; la armadura se transporta automáticamente si la música está
-dentro de una sección @code{\\transpose}.
-
-"
-  doctitlees = "Plantilla para combo de jazz"
-
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Ecco un modello piuttosto complesso, per un gruppo jazz. Si noti che tutti
-gli strumenti sono in @code{\\key c \\major}. Si tratta della tonalità
-reale; sarà trasposta automaticamente includendo la
-musica all'interno di una sezione @code{\\transpose}.
-
-"
-  doctitleit = "Modello per combo jazz"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung:
-Alle Instrumente sind in @code{\\key c \major} (C-Dur) notiert. Das bezieht sich
-auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn
-sich die Noten innerhalb eines @code{\\transpose}-Abschnitts befinden.
-
-"
-
-  doctitlede = "Vorlage für Jazz-Combo"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
-pour les ensembles de jazz.  Vous noterez que tous les instruments sont
-notés en ut (@code{\\key c \major}), la tonalité de concert.  Les notes
-seront automatiquement transposée dès lors qu'elles seront inscrites
-dans une section @code{\\transpose}.
-
-"
-  doctitlefr = "Symboles de jazz"
-
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
   texidoc = "
@@ -323,4 +279,3 @@ drumContents = {
   }
   \midi { }
 }
-

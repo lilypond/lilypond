@@ -7,24 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "workaround, chords, simultaneous-notes"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-He aquí una forma de imprimir un acorde en el que suena la misma nota
-dos veces con distintas alteraciones.
-
-"
-  doctitlees = "Impresión de acordes complejos"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Voici comment obtenir l'impression d'un accord au sein duquel une même
-note est jouée deux fois avec des altérations différentes.
-
-"
-  doctitlefr = "Impression d'accords complexes"
+  lsrtags = "workaround, simultaneous-notes, chords"
 
   texidoc = "
 Here is a way to display a chord where the same note is played twice

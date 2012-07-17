@@ -51,4 +51,3 @@ Wind headword
     }
   >>
 }
-

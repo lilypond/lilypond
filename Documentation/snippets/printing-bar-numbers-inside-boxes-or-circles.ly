@@ -7,33 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Los números de compás también se pueden imprimir dentro de rectángulos o de circunferencias.
-
-"
-  doctitlees = "Imprimir números de compás dentro de rectángulos o circunferencias"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Taktnummern können auch in Boxen oder Kreisen gesetzt werden.
-
-"
-  doctitlede = "Setzen von Taktnummern in Kästen oder Kreisen"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Les numéros de mesure peuvent être encadrés ou entourés d'un cercle.
-
-"
-  doctitlefr = "Inscrire le numéro de mesure dans un cadre ou un cercle"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 Bar numbers can also be printed inside boxes or circles.
@@ -61,4 +35,3 @@ Bar numbers can also be printed inside boxes or circles.
     = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
   \repeat unfold 4 { c1 } \bar "|."
 }
-

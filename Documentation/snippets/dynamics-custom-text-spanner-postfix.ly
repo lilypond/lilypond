@@ -9,43 +9,6 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Funciones postfijas para la creación de objetos de extensión de texto
-personalizados.  Los objetos de extensión deben comenzar en la primera
-nota del compás.  Hay que utilizar -\mycresc, en caso contrario el
-comienzo del eobjeto de extensión se asignará a la nota siguiente.
-
-"
-
-  doctitlees = "Objeto personalizado de extensión de texto de matices dinámicos postfijo"
-
-%%   Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde = "Die Nachstellung funktioniert für eigene Crescendo-Textstrecker.
-Die Strecker sollten an der ersten Note eines Taktes beginnen.  Man muss
--\mycresc benutzen, sonst wird der Beginn des Streckers der nächsten Note
-zugewiesen.
-
-"
-  doctitlede = "Eigene Dynamiktextspanner nachgestellt"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Il s'agit de fonctions postfix pour personnaliser l'extension des
-crescendos textuels.  L'extension devrait débuter sur la première note
-de la mesure.  Il faut utiliser @w{@code{-\mycresc}} -- comme une
-articulation -- sous peine que le départ de l'extension n'apparaisse
-qu'à la note suivante.
-
-"
-
-  doctitlefr = "Personnalisation des extenseurs de nuance postfix"
-
-
   texidoc = "
 Postfix functions for custom crescendo text spanners.  The spanners
 should start on the first note of the measure.  One has to use

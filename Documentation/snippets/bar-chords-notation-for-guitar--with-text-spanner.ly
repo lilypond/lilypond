@@ -8,27 +8,6 @@
 \version "2.15.30"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-He aquí cómo imprimir acordes con cejilla o con media cejilla (quite
-la marca de comentario de la línea adecuada para seleccionar uno de
-ellos).
-
-La sintaxis es @code{\\bbarre #\"@var{número de traste}\" @{ notas @} }.
-
-"
-  doctitlees = "Notación de acordes de cejilla para guitarra (con elemento de extensión de texto)"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Voici comment imprimer un accord développé sur une mesure ou une demie
-mesure (décommenter la ligne appropriée).
-
-La syntaxe est @code{\\bbarre #\"@var{numéro de fret}\" @{ notes @} }.
-
-"
-  doctitlefr = "Notation d'accords barré développé (avec extension de texte)"
-
   lsrtags = "chords, fretted-strings"
 
   texidoc = "

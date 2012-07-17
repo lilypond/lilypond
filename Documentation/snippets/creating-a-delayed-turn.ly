@@ -7,48 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-texidoces = "
-La creación de un grupeto circular de anticipación entre dos notas,
-donde la nota inferior del grupeto utiliza una alteración, requiere
-varias sobreescriturasw de propiedades.  La propiedad
-@code{outside-staff-priority} se debe establecer al valor @code{#f}, pues en
-caso contrario tendría prioridad sobre la propiedad @code{avoid-slur
-property}.  El valor de @code{halign} se utiliza para colocar el
-grupeto horizontalmente.
-
-"
-
-doctitlees = "Crear un grupeto de anticipación"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Einen Doppelschlag mit Vorhalt zu erstellen, wobei die untere Note das
-Vorzeichen benutzt, erfordert einige Einstellungsänderungen.  Die
-@code{outside-staff-priority}-Eigenschaft muss auf falsch (@code{#f})
-gesetzt werden, weil sie sonst über die Eigenschaft
-@code{avoid-slur property} dominieren würde.  Der Wert von @code{halign}
-wird benutzt, um den Doppelschlag horizontal zu positionieren.
-"
-
-  doctitlede = "Einen  Doppelschlag mit Vorhalt erstellen"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Obtenir un @emph{grupetto} retardé et dans lequel la note la plus basse
-est altérée requiert quelques surcharges.  La propriété
-@w{@code{outside-staff-priority}} doit être désactivée (@code{#f}) pour
-éviter qu'elle prenne le pas sur la propriété @w{@code{avoid-slur}}.  La
-valeur assignée à @code{halign} permet de gérer horizontalement le
-@qq{retard}.
-
-"
-
-  doctitlefr = "Création d'un grupetto retardé"
+  lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 Creating a delayed turn, where the lower note of the turn uses the

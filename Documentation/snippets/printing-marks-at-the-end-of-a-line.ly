@@ -9,26 +9,6 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Se pueden imprimir marcas al final de la línea actual, en vez de al
-principio de la línea siguiente.  En estos casos, puede ser preferible
-alinear el borde derecho de la marca con la línea divisoria.
-
-"
-  doctitlees = "Imprimir marcas al final de una línea"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Les indications textuelles peuvent être imprimées à la fin d'une ligne
-plutôt qu'en tête de la suivante.  L'alignement sur la barre de mesure
-devra alors s'effectuer par l'extrémité droite de l'indication.
-
-"
-  doctitlefr = "Indication textuelle en fin de ligne"
-
   texidoc = "
 Marks can be printed at the end of the current line, instead of the
 beginning of the following line.  In such cases, it might be preferable
@@ -49,4 +29,3 @@ to align the right end of the mark with the bar line.
   g2 b,
   c1 \bar "||"
 }
-

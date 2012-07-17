@@ -7,41 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
- doctitlees = "Cambiar la forma de los silencios multicompás"
- texidoces = "
-Si hay diez compases de silencio o menos, se imprime en el pentagrama
-una serie de silencios de breve y longa (conocidos en alemán como
-@qq{Kirchenpausen}, «silencios eclesiásticos»); en caso contrario se
-muestra una barra normal.  Este número predeterminado de diez se
-puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
-
-"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wenn zehn oder weniger Pausentakte vorkommen, wird eine Reihe von Longa-
-und Brevispausen (auch Kirchenpausen genannt) gesetzt, bei mehr Takten
-wird eine Line mit der Taktanzahl ausgegeben.  Der vorgegebene Wert von
-zehn kann geändert werden, indem man die @code{expand-limit}-Eigenschaft
-setzt:
-"
-  doctitlede = "Die Erscheinung von Pausentakten ändern"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Dans le cas où ce silence dure moins de dix mesures, LilyPond imprime sur
-la portée des @qq{silences d'église} -- @emph{Kirchenpause} en
-allemand -- et qui sont une simple suite de rectangles.  La propriété
-@code{expand-limit} permet d'obtenir un silence unique@tie{}:
-
-"
-  doctitlefr = "Modifier l'apparence d'un silence multi-mesures"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 If there are ten or fewer measures of rests, a series of longa and

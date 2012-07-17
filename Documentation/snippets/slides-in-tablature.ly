@@ -9,30 +9,6 @@
 \header {
   lsrtags = "fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Los deslizamientos se pueden componer tipográficamente tanto en los
-contextos de @code{Staff} como en los de @code{TabStaff}:
-
-"
-
-  doctitlees = "Deslizamientos en tablatura"
-
-%% Translation of GIT committish: f86f00c1a8de0f034ba48506de2801c074bd5422
-  texidocde = "
-Gleiten kann sowohl in normalem Notensystem als auch in Tabulaturen notiert werden:
-"
-  doctitlede = "Gleiten (Glissando) in Tabulatur"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Un glissando s'indique dans un @code{TabStaff} tout comme dans un
-@code{Staff}.
-
-"
-  doctitlefr = "Glissando et tablature"
-
   texidoc = "
 Slides can be typeset in both @code{Staff} and @code{TabStaff}
 contexts:

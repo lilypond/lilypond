@@ -9,23 +9,6 @@
 \header {
   lsrtags = "automatic-notation, rhythms, connecting-notes"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden subdividir las barras automáticamente.  Estableciendo la
-propiedad @code{subdivideBeams}, las barras se subdividen en
-posiciones de pulso (tal y como se especifica en @code{beatLength}).
-
-"
-  doctitlees = "Subdivisiones de barra automáticas"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Dès lors que la propriété @code{subdivideBeams} aura été activée, une
-ligature sera subdivisée selon les préceptes de @code{beatLength}.
-
-"
-  doctitlefr = "Subdivision de ligatures automatiques"
-
   texidoc = "
 Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided at beat positions (as
@@ -59,4 +42,3 @@ specified in @code{baseMoment}).
     b32^"baseMoment 1 16"[ a g f c' b a g]
   }
 }
-

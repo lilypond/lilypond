@@ -7,25 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, tweaks-and-overrides, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-De forma predeterminada se añaden corchetes de análisis sencillos
-debajo del pentagrama.  El ejemplo siguiente muestra una manera de
-colocarlos por encima.
-
-"
-  doctitlees = "Corchetes de análisis encima del pentagrama"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Les crochets d'analyse viennent par défaut se positionner au-dessous de
-la portée.  L'exemple suivant vous indique comment les faire apparaître
-en surplomb de la portée.
-
-"
-  doctitlefr = "Crochets d'analyse au-dessus de la portée"
+  lsrtags = "really-simple, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 Simple horizontal analysis brackets are added below the staff by
@@ -48,4 +30,3 @@ staff instead.
   c2\startGroup
   d2\stopGroup
 }
-

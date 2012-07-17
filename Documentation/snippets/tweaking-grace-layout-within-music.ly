@@ -7,49 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "tweaks-and-overrides, rhythms"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-La disposición de las expresiones de adorno se puede cambiar a lo
-largo de toda la música usando las funciones
-@code{add-grace-property} y @code{remove-grace-property}.  El
-ejemplo siguiente borra la definición de la dirección de la plica
-para esta nota de adorno, de manera que las plicas no siemmpre
-apuntan hacia arriba, y cambia la forma predeterminada de las
-cabezas a aspas.
-
-"
-
-  doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Das Layout von Verzierungsausdrücken kann in der Musik verändert
-werden mit den Funktionen @code{add-grace-property} und
-@code{remove-grace-property}.  Das folgende Beispiel definiert
-die Richtung von Hälsen (Stem) für diese Verzierung, sodass die
-Hälse nicht immer nach unten zeigen, und ändert den Standardnotenkopf
-in ein Kreuz.
-"
-  doctitlede = "Veränderung des Layouts von Verzierungen innerhalb der Noten"
-
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Il est possible de changer globalement la mise en forme des notes d'ornement
-dans un morceau, au moyen des fonctions @code{add-grace-property} et
-@code{remove-grace-property}.  Ici, par exemple, on ôte la définition de
-l'orientation des objets @code{Stem} pour toutes les petites notes, afin
-que les hampes ne soient pas toujours orientées vers le haut, et on leur
-préfère des têtes en forme de croix.
-
-"
-  doctitlefr = "Mise en forme des notes d'ornement"
+  lsrtags = "rhythms, tweaks-and-overrides"
 
   texidoc = "
 The layout of grace expressions can be changed throughout the music

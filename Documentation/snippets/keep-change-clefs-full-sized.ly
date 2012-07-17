@@ -7,27 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, pitches"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Cuando se produce un cambio de clave, el símbolo de clave se imprime a
-un tamaño menor que la clave inicial.  Esto se puede ajustar con
-@code{full-size-change}.
-
-"
-  doctitlees = "Mantener el tamaño del símbolo en los cambios de clave"
-
-
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Le symbole imprimé lors d'un changement de clef est plus petit que la
-clef initiale.  La taille s'ajuste à l'aide de la propriété
-@code{full-size-change}.
-
-"
-  doctitlefr = "Maintien de la taille de clef lors d'un changement"
+  lsrtags = "pitches, tweaks-and-overrides"
 
   texidoc = "
 When a clef is changed, the clef sign displayed is smaller than the
@@ -56,4 +36,3 @@ initial clef.  This can be overridden with @code{full-size-change}.
   \clef "treble"
   c1
 }
-

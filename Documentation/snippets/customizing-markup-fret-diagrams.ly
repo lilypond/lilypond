@@ -7,40 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, fretted-strings"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se pueden establecer las propiedades de los diagramas de
-posiciones a través de @code{'fret-diagram-details}.  Para los
-diagramas de posiciones de marcado, se pueden aplicar overrides
-(sobreescrituras) al objeto @code{Voice.TextScript} o directamente al elemento de marcado.
-
-"
- doctitlees = "Personalizar diagramas de posiciones de marcado"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Bunddiagramme können mit der Eigenschaft @code{'fret-diagram-details}
-angepasst werden.  Bunddiagramme, die als Textbeschriftung eingefügt werden,
-können Veränderungen im @code{Voice.TextScript}-Objekt oder direkt in der
-Beschriftung vorgenommen werden.
-
-"
-  doctitlede = "Anpassung von Beschriftungs-Bunddiagrammen"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Les propriétés d'un diagramme de fret sont modifiables grâce au
-@code{'fret-diagram-details}.  Lorsqu'ils sont générés sous forme
-de @code{\\markup}, rien n'empêche de modifier les diagrammes en jouant
-sur les réglages de l'objet @code{Voice.TextScript} ou bien directement
-sur le @emph{markup}.
-
-"
-  doctitlefr = "Personnalisation des diagrammes de fret"
-
+  lsrtags = "fretted-strings, tweaks-and-overrides"
 
   texidoc = "
 Fret diagram properties can be set through

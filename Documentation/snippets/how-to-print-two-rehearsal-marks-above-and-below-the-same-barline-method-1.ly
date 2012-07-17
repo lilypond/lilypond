@@ -7,34 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, staff-notation, editorial-annotations"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Cette méthode permet d'imprimer deux marques-repères l'un au dessus de
-l'autre.  Le repère inférieur est décalé sous la portée, puis s'insère
-au-dessus de lui un espace pour positionner le repère supérieur
-au-dessus de la portée.
-
-L'ajustement des valeurs de @code{extra-offset} et @code{baseline-skip}
-permet d'accroître ou réduire globalement l'espace entre le repère et la
-portée.
-
-La capacité de pratiquement tout type de glyphe ou chaîne de caractère à
-faire l'objet d'un repère les rend capable de venir se centrer au-dessus
-ou en dessous d'une barre de mesure.
-
-L'adjonction de la propriété @code{break-visibility}, comme dans le
-troisième cas, permet de placer un double repère en fin de ligne.
-
-Cette première méthode, bien que moins compliquée que la seconde, ne
-permet pas d'ajuster le positionnement d'un repère indépendamment de
-l'autre.  Elle peut aussi générer quelques problèmes quant à
-l'espacement vertical, puisque le recours à @code{extra-offset} ne
-modifie en rien la valeur originelle de la boîte englobant le repère.
-
-"
-  doctitlefr = "Impression d'un double repère sur une même barre (méthode 1)"
+  lsrtags = "expressive-marks, staff-notation, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 This method prints two 'rehearsal marks', one on top of the other. It

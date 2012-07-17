@@ -7,23 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, chords, contemporary-notation, keyboards, simultaneous-notes, really-cool"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Los «clusters» o racimos son un mecanismo para indicar la
-interpretación de un ámbito de notas al mismo tiempo.
-
-"
-  doctitlees = "Clusters («racimos»)"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Un cluster indique à l'instrumentiste qu'il doit jouer tout une suite de
-sons.
-
-"
-  doctitlefr = "Clusters"
+  lsrtags = "really-cool, specific-notation, keyboards, simultaneous-notes, contemporary-notation, chords"
 
   texidoc = "
 Clusters are a device to denote that a complete range of notes is to be
@@ -44,4 +28,3 @@ fragment = \relative c' {
   \new Staff \fragment
   \new Staff \makeClusters \fragment
 >>
-

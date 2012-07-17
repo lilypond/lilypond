@@ -7,52 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "spacing, tweaks-and-overrides, workaround"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Mediante el establecimiento de la propiedad @code{'Y-extent} a un valor
-adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
-indicaciones dinámicas textuales) se pueden alinear con un punto de
-referencia común, independientemente de sus dimensiones.  De esta
-manera, todos los elementos estarán alineados verticalmente,
-produciendo así un resultado más satisfactorio.
-
-Se usa una idea similar para alinear las inscripciones de texto a lo
-largo de su línea de base.
-
-"
-  doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Indem man die @code{'Y-extent}-Eigenschaft auf einen passenden Wert setzt,
-können alle @code{DynamicLineSpanner}-Objekte (Crescendo-Klammern und
-Dynamik-Texte)  (hairpins and dynamic texts) unabhängig von ihrer
-wirklichen Ausdehnung an einem gemeinsamen Referenzpunkt ausgerichtet werden.
-Auf diese Weise ist jedes Element vertikal ausgerichtet und der Notensatz
-sieht ansprechender aus.
-
-Die gleiche Idee wird benutzt, um Textbeschriftungen an ihrer
-Grundlinie auszurichten.
-
-"
-  doctitlede = "Vertikale Ausrichtung von Dynamik und Textbeschriftung beeinflussen"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Vous pourrez, en jouant sur la propriété @code{'Y-extent}, aligner les
-différents objets @code{DynamicLineSpanner} (soufflets ou textuels)
-quelle que soit leur étendue, par rapport à un même point de référence.
-Tous les éléments seront alors centrés sur une même ligne, ce qui sera
-visuellement plus agréable.
-
-C'est le même principe qui sert à aligner les indications textuelles sur
-une ligne de référence.
-
-"
-  doctitlefr = "Alignement vertical des nuances indications textuelles"
+  lsrtags = "spacing, workaround, tweaks-and-overrides"
 
   texidoc = "
 By setting the @code{'Y-extent} property to a suitable value, all
@@ -82,5 +37,3 @@ music = \relative c' {
   \override TextScript #'Y-extent = #'(-1.5 . 1.5)
   \music
 }
-
-

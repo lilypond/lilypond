@@ -9,14 +9,6 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Un bloc de texte conséquent peut se répartir sur plusieurs pages à
-l'aide de la commande @code{\\markuplist}.
-
-"
-  doctitlefr = "Répartition de lignes de texte (markup)"
-
   texidoc = "
 Text that can spread over pages is entered with the
 @code{\\markuplist} command.

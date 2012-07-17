@@ -9,46 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-
-Al establecer la propiedad @code{'strict-grace-spacing} hacemos que
-las columnas musicales para las notas de adorno sean @q{flotantes}, es
-decir, desacopladas de las notas que no son de adorno: primero se
-aplica el espaciado de las notas normales, y luego se ponen las
-columnas musicales de las notas de adorno a la izquierda de las
-columnas musicales de las notas principales.
-
-"
-
-  doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"
-
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wenn man die Eigenschaft @code{'strict-grace-spacing} aktiviert,
-werden die Verzierungsnoten \"fließend\" gemacht, d.h. sie sind
-von den normalen Noten los gekoppelt: Zuerst werden die normalen
-Noten platziert, dann erst die Verzierungen links von der
-Hauptnote gesetzt.
-
-"
-  doctitlede = "Positionierung von Verzierungen mit verschiebbarem Platz"
-
-
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Lorsqu'est activée la propriété @code{'strict-grace-spacing},
-l'espacement des notes d'ornement se fera de manière « élastique ».
-Autrement dit, elles seront décollées de leur note de rattachement :
-LilyPond commence par espacer les notes normales, puis les ornements
-sont placés à la gauche de leur note de rattachement.
-
-"
-  doctitlefr = "Positionnement des notes d'ornement avec espace flottant"
-
   texidoc = "
 Setting the property @code{'strict-grace-spacing} makes the musical
 columns for grace notes 'floating', i.e., decoupled from the non-grace
@@ -73,4 +33,3 @@ the) graces are put left of the musical columns for the main notes.
     }
   >>
 }
-

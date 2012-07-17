@@ -9,32 +9,6 @@
 \header {
   lsrtags = "editorial-annotations"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede cambiar el aspecto de las líneas de rejilla
-sobreescribiendo algunas de sus propiedades.
-
-"
-  doctitlees = "Líneas de rejilla: modificar su aspecto"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Erscheinung der Gitternetzlinien kann durch einige Eigenschaften
-geändert werden.
-
-"
-  doctitlede = "Gitternetzlinien: Aussehen verändern"
-
-%% Translation of GIT committish: 9ccf7f0f5e52e074f3b7852416ad5b78718395c8
-  texidocfr = "
-Modifier certaines des propriétés du quadrillage temporel aura pour effet
-d'en changer l'apparence.
-
-"
-  doctitlefr = "Apparence du quadrillage temporel"
-
-
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their
 properties.
@@ -85,4 +59,3 @@ properties.
     }
   }
 }
-

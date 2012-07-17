@@ -9,36 +9,6 @@
 \header {
   lsrtags = "winds"
 
-%%%    Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Se puede cambiar el tamaño y grosor de las líneas de los diagramas de
-posiciones para instrumentos de viento madera.
-
-"
-
-  doctitlees = "Modificar el tamaño de los diagramas de viento madera"
-
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde="
-Die Größe und Dicke der Holzbläserdiagramme kann geändert werden.
-"
-
-  doctitlede = "Größe von Holzbläserdiagrammen ändern"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-La taille et l'épaisseur des diagrammes de doigté pour bois est modifiable
-à souhait.
-
-"
-  doctitlefr = "Modification de la taille d'un diagramme pour bois"
-
-
   texidoc = "
 The size and thickness of woodwind diagrams can be changed.
 

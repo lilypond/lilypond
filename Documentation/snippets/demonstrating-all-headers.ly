@@ -7,14 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "paper-and-layout, text, titles"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-Voici la liste de tous les champs d'entête :
-
-"
-  doctitlefr = "Champs d'entête"
+  lsrtags = "text, paper-and-layout, titles"
 
   texidoc = "
 A demonstration of all headers.
@@ -64,4 +57,3 @@ A demonstration of all headers.
      copyright = "localcopyright"
    }
 }
-

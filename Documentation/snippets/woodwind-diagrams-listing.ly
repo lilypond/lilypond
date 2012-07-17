@@ -9,34 +9,6 @@
 \header {
   lsrtags = "specific-notation, winds"
 
-%%%    Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-El fragmento de música que aparece a continuación presenta todos los
-diagramas de viento madera que se encuentran definidos en LilyPond por
-el momento.
-
-"
-  doctitlees = "Listado de los diagramas para viento madera"
-
-%%%    Translation of GIT committish: ab9e3136d78bfaf15cc6d77ed1975d252c3fe506
-
-
-  texidocde="
-Folgende Noten zeige alle Holzbläserdiagramme, die für LilyPond
-definiert sind.
-
-"
-  doctitlede = "Liste der Holzbläserdiagramme"
-
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Voici les différents instruments à vent de la section des bois pour
-lesquels LilyPond peut, à ce jour, afficher des doigtés.
-
-"
-  doctitlefr = "Liste des diagrammes de doigtés pour bois"
-
   texidoc = "
 The following music shows all of the woodwind diagrams currently
 defined in LilyPond.

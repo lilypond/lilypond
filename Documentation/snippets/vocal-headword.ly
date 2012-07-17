@@ -73,4 +73,3 @@ Vocal headword
     % Freu -- de, Freu -- de,__
   }
 }
-

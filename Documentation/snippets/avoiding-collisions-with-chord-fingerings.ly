@@ -7,32 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, chords, rhythms, editorial-annotations"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Las digitaciones y números de cuerda que se aplican a las notas
-individuales evitan automáticamente las barras y las plicas de las
-figuras, pero esto no es cierto de forma predeterminada para las
-digitaciones y números de cuerda que se aplican sobre notas
-individuales de acordes.  El ejemplo siguiente muestra cómo se puede
-sobreescribir este comportamiento predeterminado.
-
-"
-  doctitlees = "Evitar colisiones con digitaciones de acordes"
-
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Doigtés et numéros de corde, lorsque affectés à des notes individuelles,
-évitent les hampes et ligatures.  Cette fonctionnalité n'est pas activée
-par défaut en ce qui concernes les notes appartenant à un accord.  Voici
-comment mettre en place la dérogation appropriée en pareil cas.
-
-"
-  doctitlefr = "Évitement de collision des doigtés d'un accord"
+  lsrtags = "editorial-annotations, rhythms, tweaks-and-overrides, chords"
 
   texidoc = "
 Fingerings and string numbers applied to individual notes will
@@ -66,4 +41,3 @@ overridden.
   \override StrokeFinger #'add-stem-support = ##t
   <f c'-\rightHandFinger #2 >8
 }
-

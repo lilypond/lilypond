@@ -9,31 +9,6 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Los textos independientes se pueden disponer en varias columnas
-utilizando instrucciones @code{\\markup}:
-
-"
-  doctitlees = "Elemento de marcado de texto independiente en dos columnas"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Isolierter Text kann in mehreren Spalten mit @code{\\markup}-Befehlen
-angeordnet werden:
-
-"
-  doctitlede = "Isolierter Text in zwei Spalten"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-L'utilisation de la commande @code{\\markup} permet de distribuer un bloc
-de texte indépendant sur plusieurs colonnes.
-
-"
-  doctitlefr = "Bloc de texte indépendant sur deux colonnes"
-
   texidoc = "
 Stand-alone text may be arranged in several columns using
 @code{\\markup} commands:

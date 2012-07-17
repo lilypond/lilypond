@@ -7,35 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "really-simple, specific-notation, rhythms, preparing-parts, percussion"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Mediante la utilización de las potentes herramientas preconfiguradas
-como la función @code{\\drummode} y el contexto @code{DrumStaff}, la
-introducción de partes para percusión es muy fácil: las percusiones se
-sitúan en sus propias posiciones de pentagrama (con una clave
-especial) y tienen las cabezas correspondientes al instrumento.  Es
-posible añadir un símbolo adicional a la percusión o reducir el número
-de líneas.
-
-"
-  doctitlees = "Escritura de partes de percusión"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Grâce à la puissance des outils préconfigurés tels que la fonction
-@code{\\drummode} et le contexte @code{DrumStaff}, la saisie de
-parties pour percussions est extrêmement simplifiée@tie{}: chaque
-composant d'une batterie trouve sa place sur une portée dédiée (avec une
-clef spécifique) et les têtes de note sont spécifiques à chaque élément.
-Il est également possible d'affecter un symbole particulier à chaque
-élément, tout comme de restreindre le nombre de lignes de la portée.
-
-"
-  doctitlefr = "Ajout de parties de batterie"
-
+  lsrtags = "really-simple, preparing-parts, specific-notation, percussion, rhythms"
 
   texidoc = "
 Using the powerful pre-configured tools such as the @code{\\drummode}
@@ -75,4 +47,3 @@ timb = \drummode { timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb }
     \tempo 4 = 120
   }
 }
-

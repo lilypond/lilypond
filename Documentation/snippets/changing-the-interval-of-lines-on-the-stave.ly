@@ -9,16 +9,6 @@
 \header {
   lsrtags = "pitches"
 
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-@code{staffLineLayoutFunction} permet de changer le positionnement des
-notes.  Dans cet exemple, la valeur qui lui est attribuée --
-@code{ly:pitch-semitones} -- génère une gamme chromatique où l'écart
-entre chaque ligne et interligne de la portée est ramené au demi ton.
-
-"
-  doctitlefr = "Modification de l'intervalle des lignes de la portée"
-
   texidoc = "
 @code{staffLineLayoutFunction} is used to change the position of notes.
 This snippet shows setting its value to @code{ly:pitch-semitones} in
@@ -50,4 +40,3 @@ scale = \relative c' {
     }
   >>
 }
-

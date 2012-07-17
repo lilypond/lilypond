@@ -9,32 +9,6 @@
 \header {
   lsrtags = "specific-notation, chords"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Se puede usar la propiedad @code{chordNameExceptions} para
-almacenar una lista de notaciones espaciales para acordes
-específicos.
-
-"
-  doctitlees = "Excepciones para los nombres de acorde"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Die Eigenschaft @code{chordNameExceptions} kann benutzt werden, um eine
-Liste an besonderen Notationen für bestimmte Akkorde zu speichern.
-
-"
-  doctitlede = "Akkordsymbolausnahmen"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Il est possible de créer votre propre modèle de chiffrages en
-réglant la propriété @code{chordNameExceptions}.
-
-"
-  doctitlefr = "Modèles de chiffrage d'accords"
-
   texidoc = "
 The property @code{chordNameExceptions} can be used to store a list of
 special notations for specific chords.
@@ -69,4 +43,3 @@ theMusic = \chordmode {
 << \context ChordNames \theMusic
    \context Voice \theMusic
 >>
-

@@ -9,45 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
- doctitlees = "Indicaciones de compases compuestos"
- texidoces = "
-Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
-ejecutar como compases compuestos (p.ej. @qq{3/8 + 2/8}), que combinan
-dos o más metros diferentes. LilyPond puede hacer la música de este
-tipo fácil de leer e interpretar, imprimiendo explícitamente las
-indicaciones de compás compuesto y adaptando el comportamiento
-automático de las barras (también se pueden añadir indicaciones
-gráficas de la agrupación de compases; véase el fragmento de código
-apropiado en la base de datos).
-
-"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-Ungerade Taktarten werden (wie etwa \"5/8\") werden oft als zusammengesetzte
-Taktarten interpretiert (bspw. \"3/8 + 2/8\"), in welchen zwei oder mehr
-Teiltakte unterschieden werden.  LilyPond kann derartige Noten produzieren,
-indem entsprechende Taktarten gesetzt werden und die automatische
-Bebalkung angepasst wird.
-
-"
-  doctitlede = "Zusammengesetzte Taktarten"
-
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Des métriques telles que @qq{5/8} peuvent s'interpréter sous une forme
-décomposée --- @qq{3/8 + 2/8} par exemple --- qui combine plusieurs
-métriques.  LilyPond est capable de rendre ce type de notation, plus
-facile à lire et à interpréter, en imprimant cette métrique composite
-et en adaptant les règles de ligature automatique en conséquence.
-
-"
-  doctitlefr = "Métrique décomposée"
-
   texidoc = "
 Odd 20th century time signatures (such as \\\"5/8\\\") can often be
 played as compound time signatures (e.g. \\\"3/8 + 2/8\\\"), which

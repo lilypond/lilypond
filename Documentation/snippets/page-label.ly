@@ -9,14 +9,6 @@
 \header {
   lsrtags = "spacing"
 
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Des références de page peuvent prendre place aussi bien dans la
-musique qu'en tête de  partition, puis reprises dans un @emph{markup}.
-
-"
-  doctitlefr = "Référencement de page"
-
   texidoc = "
 Page labels may be placed inside music or at top-level, and referred to
 in markups.

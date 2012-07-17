@@ -9,32 +9,6 @@
 \header {
   lsrtags = "specific-notation, chords"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Para añadir indicaciones de línea divisoria dentro del contexto de
-los nombres de acorde @code{ChordNames}, incluya el grabador
-@code{Bar_engraver}.
-
-"
-  doctitlees = "Añadir barras de compás al contexto de nombres de acorde (ChordNames)"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Um Taktstriche in einem @code{ChordNames}-Kontext anzeigen zu lassen, muss der
-@code{Bar_engraver} hinzugefügt werden.
-
-"
-  doctitlede = "Tatkstriche in einen ChordNames-Kontext hinzufügen"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-L'ajout du graveur @code{Bar_engraver} à un contexte @code{ChordNames}
-permet d'imprimer les barres de mesure entre les chiffrages.
-
-"
-  doctitlefr = "Chiffrages et barres de mesure"
-
   texidoc = "
 To add bar line indications in the @code{ChordNames} context, add the
 @code{Bar_engraver}.
@@ -51,5 +25,3 @@ To add bar line indications in the @code{ChordNames} context, add the
 \chordmode {
   f1:maj7 f:7 bes:7
 }
-
-

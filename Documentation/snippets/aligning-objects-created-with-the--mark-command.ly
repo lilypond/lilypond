@@ -9,15 +9,6 @@
 \header {
   lsrtags = "text"
 
-%% Translation of GIT committish: 1cda7b7b8219cb97399b8e7b56c1115aaf82c002
-  texidocfr = "
-Par défaut, la commande @code{\\mark} centre les objets sur la barre de
-mesure.  Ce comportement peut se modifier pour un alignement par la
-gauche ou par la droite.
-
-"
-  doctitlefr = "Alignement des objets créés par la commande @code{\\mark}"
-
   texidoc = "
 By default the @code{\\mark} command centers objects over a bar line.
 This behavior can be modified to align at right or left.
@@ -38,5 +29,3 @@ This behavior can be modified to align at right or left.
   \mark "(Right)"
   c1
 }
-
-

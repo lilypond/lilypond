@@ -7,34 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, workaround, keyboards, symbols-and-glyphs"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Los símbolos específicos de acordeón discanto se escriben mediante
-@code{\\markup}.  Se puede trucar la colocación vertical de los
-símbolos modificando los argumentos de @code{\\raise}.
-
-"
-  doctitlees = "Símbolos de acordeón discanto"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  doctitlede = "Symbole für Akkordeon-Diskantregister"
-  texidocde = "
-Diskantregister für Akkordeon können mit @code{\\markup} dargestellt werden.
-Die vertikale Position der einzelnen Elemente werden mit @code{\\raise}
-angepasst.
-"
-
-%% Translation of GIT committish: 85394d425536d267ed0cb71d17023849f1611180
-  texidocfr = "
-Les symboles spécifiques au clavier main droite d'un accordéon
-s'indiquent à l'aide de @code{\\markup}.  Le positionnement de tels
-symboles s'ajuste grâce à des arguments @code{\\raise}.
-
-"
-  doctitlefr = "Symboles de chant pour accordéon"
+  lsrtags = "specific-notation, keyboards, workaround, symbols-and-glyphs"
 
   texidoc = "
 Accordion discant-specific symbols are added using @code{\\markup}. The
@@ -207,4 +180,3 @@ accViolin = ^\markup {
   c4 d\accPiccolo e f
   c4 d\accViolin e f
 }
-

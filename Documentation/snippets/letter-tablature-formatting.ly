@@ -9,21 +9,6 @@
 \header {
   lsrtags = "staff-notation, fretted-strings"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-La tablatura se puede formatear utilizando letras en lugar de números.
-
-"
-
-  doctitlees = "Formateado de tablaturas con letras"
-
-%% Translation of GIT committish: 57f9346bb030f49336a858fcbf1519366fe56454
-  texidocfr = "
-Une tablature peut comporter des lettres en lieu et place des chiffres.
-
-"
-  doctitlefr = "Tablature en lettres"
-
   texidoc = "
 Tablature can be formatted using letters instead of numbers.
 

@@ -9,43 +9,6 @@
 \header {
   lsrtags = "really-simple, keyboards, template"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Presentamos a continuación una plantilla de piano sencilla con algunas
-notas.
-
-"
-  doctitlees = "Plantilla de piano (sencilla)"
-
-
-%% Translation of GIT committish: d76b338302374164acc9b62a0d628d4d230bfa95
-  texidocja = "
-いくつかの音符を持つシンプルなピアノ譜を示します。
-
-"
-  doctitleja = "ピアノ テンプレート (シンプル)"
-
-%% Translation of GIT committish: 6ae36b6f8a7cf2df5f4e46c3c06820fccd9f35e1
-  texidocit = "
-Ecco un comune doppio pentagramma per pianoforte con un po' di note.
-
-"
-  doctitleit = "Modello per pianoforte (semplice)"
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Hier ein einfaches Klaviersystem.
-
-"
-  doctitlede = "Vorlage für einfache Klaviernotation"
-
-%% Translation of GIT committish: ceb0afe7d4d0bdb3d17b9d0bff7936bb2a424d16
-  texidocfr = "
-Voici une simple partition pour piano avec quelques notes.
-
-"
-  doctitlefr = "Piano -- cannevas simple"
-
   texidoc = "
 Here is a simple piano staff with some notes.
 
@@ -79,4 +42,3 @@ lower = \relative c {
   \layout { }
   \midi { }
 }
-

@@ -8,31 +8,6 @@
 \version "2.15.27"
 
 \header {
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-En una música que tenga muchas apariciones de la
-misma secuencia de notas a distintas alturas, podría ser de
-utilidad la siguiente función musical.  Admite una nota, de la que
-sólo se utiliza su altura.  Las funciones de apoyo en Scheme se
-han tomado prestadas del documento de \"Consejos y trucos\" de la
-versión 2.10 del manual.  Este ejemplo crea las duraciones
-rítmicas que se usan a todo lo largo de «Marte», de «Los Planetas»
-de Gustav Holst.
-
-"
-  doctitlees = "Crear una secuencia de notas a distintas alturas"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Lorsque la musique comporte à de nombreuses reprises une même séquence
-sur des hauteurs différentes, la fonction musicale ci-dessous peut
-s'avérer fort utile.  Elle considère une note dont seule la hauteur est
-utilisée.  Cet exemple reproduit le rythme utilisé tout au long de
-@qq{Mars}, l'une des pièces de l'œuvre de Gustav Holst @qq{Les planètes}.
-
-"
-  doctitlefr = "Création d'une séquence de notes de même hauteur"
-
   lsrtags = "pitches"
 
   texidoc = "

@@ -9,25 +9,6 @@
 \header {
   lsrtags = "expressive-marks, rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-Este código muestra cómo cambiar la cantidad de puntillos de una nota.
-
-"
-
-  doctitlees = "Modificar el número de puntillos de una nota"
-
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Voici comment modifier le nombre de points d'augmentation
-affectés à une note en particulier.
-
-"
-  doctitlefr = "Spécification du nombre de points d'augmentation d'une note"
-
-
   texidoc = "
 This code demonstrates how to change the number of augmentation dots on
 a single note.

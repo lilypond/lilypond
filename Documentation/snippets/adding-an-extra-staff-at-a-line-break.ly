@@ -7,30 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "breaks, workaround, contexts-and-engravers, staff-notation"
-
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Al añadir un pentagrama nuevo en un salto de línea, por desgracia
-se añade un espacio adicional al final de la línea antes del salto
-(reservado para hacer sitio a un cambio de armadura que de todas
-formas no se va a imprimir). La solución alternativa es añadir un
-ajuste para @code{Staff.explicitKeySignatureVisibility} como se
-muestra en el ejemplo.
-
-"
-  doctitlees = "Añadir un pentagrama adicional en un salto de línea"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Lorsqu'une nouvelle portée vient s'ajouter après un saut de ligne,
-LilyPond préserve un espace juste avant le saut de ligne -- pour un
-éventuel changement d'armure qui, quoi qu'il en soit, ne sera pas
-imprimé.  L'astuce consiste alors, comme indiqué dans l'exemple suivant,
-à ajuster @code{Staff.explicitKeySignatureVisibility}.
-
-"
-  doctitlefr = "Ajout d'une portée supplémentaire après un saut de ligne"
+  lsrtags = "breaks, staff-notation, workaround, contexts-and-engravers"
 
   texidoc = "
 When adding a new staff at a line break, some extra space is
@@ -68,4 +45,3 @@ workaround is to add a setting of
     >>
   }
 }
-

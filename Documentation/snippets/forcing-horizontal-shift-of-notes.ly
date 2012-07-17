@@ -9,38 +9,6 @@
 \header {
   lsrtags = "tweaks-and-overrides, simultaneous-notes"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
- doctitlees = "Forzar el desplazamiento horizontal de las notas"
-
-texidoces = "
- Cuando el motor de tipografiado no es capaz de todo, se puede usar la
- sintaxis siguiente para sobreescribir las decisiones de tipografía.
- Las unidades de medida que se usan aquí son espacios de pentagrama.
-
-"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-  texidocde = "
-Wenn es zu Zusammenstößen kommt, kann mit folgender Lösung eine andere
-Position manuell eingestellt werden.  Die Einheiten hier sind
-Notenlinienzwischenräume.
-
-"
-  doctitlede = "Horizontale Verschiebung von Noten erzwingen"
-
-%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
-  texidocfr = "
-Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
-@code{NoteColumn}, et des silences à hauteur déterminée, peuvent
-s'avérer utiles pour dicter au programme les choix de placement.  On
-travaille ici en espace de portée.
-
-"
-  doctitlefr = "Décalage horizontal forcé"
-
-
   texidoc = "
 When the typesetting engine cannot cope, the following syntax can be
 used to override typesetting decisions. The units of measure used here
@@ -62,4 +30,3 @@ are staff spaces.
     <b f'>2
   }
 >>
-

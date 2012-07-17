@@ -7,16 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, text, scheme-language"
-
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
-  texidocfr = "
-Voici comment construire une commande de @emph{markup} chargée
-d'agrémenter du texte ou autre annotation, d'une bordure sur trois
-côtés.
-
-"
-  doctitlefr = "Encadrement sur trois côtés"
+  lsrtags = "scheme-language, text, rhythms"
 
   texidoc = "
 This example shows how to add a markup command to get a three sided box
@@ -62,4 +53,3 @@ thickness and padding around the markup."
   c1^\markup { \NWS-box ABCD }
   c1^\markup { \NWS-box \note #"4" #1.0 }
 }
-

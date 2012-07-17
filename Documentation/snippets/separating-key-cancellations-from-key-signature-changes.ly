@@ -7,25 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, pitches"
-
-%% Translation of GIT committish: 28097cf54698db364afeb75658e4c8e0e0ccd716
-  texidocfr = "
-Les altérations supprimées lors d'un changement de tonalité sont par
-défaut accolés à la nouvelle armure.  Ce comportement peut s'adapter
-grâce à la propriété @code{'break-align-orders} de l'objet
-@code{BreakAlignment}.
-
-La valeur de @code{'break-align-orders} est constituée d'un vecteur à
-trois composantes listant l'ordre des éléments à l'occasion d'une
-rupture.  Seule la deuxième liste est ici modifiée,
-@code{key-cancellation} étant déplacé avant @code{staff-bar}.  En ne
-modifiant que la deuxième liste, cette modification dans l'ordre
-d'apparition des éléments sera effective seulement en cours de système,
-et non en début ou fin de ligne.
-
-"
-  doctitlefr = "Séparation entre altérations annulées et nouvelle armure"
+  lsrtags = "pitches, tweaks-and-overrides"
 
   texidoc = "
 By default, the accidentals used for key cancellations are placed

@@ -7,18 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, scheme-language, editorial-annotations"
-
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
-  texidocfr = "
-La commande de @emph{markup} @code{\\circle} permet de dessiner un
-cercle autour de différents objets comme des indications de doigté.
-D'autres objets nécessitent de faire appel à des techniques spécifiques.
-Cet exemple illustre deux manières de procéder, pour les repères, et
-pour les numéros de mesure.
-
-"
-  doctitlefr = "Encercler divers objets"
+  lsrtags = "scheme-language, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 The @code{\\circle} markup command draws circles around various

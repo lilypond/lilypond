@@ -9,49 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-
-  texidoces = "
-
-Las barras de semicorchea, o de figuras más breves, no se subdividen
-de forma predeterminada.  Esto es, las tres (o más) barras se amplían
-sin romperse sobre grupos completos de notas.  Este comportamiento se
-puede modificar para subdividir las barras en subgrupos mediante el
-establecimiento de la propiedad @code{subdivideBeams}.  Cuando está
-activada, las barras se subdividen a intervalos definidos por el valor
-actual de @code{baseMoment} mediante la reducción de las barras
-repetidas a una sola entre los subgrupos.  Observe que el valor
-predeterminado de @code{baseMoment} es uno más que el denominador del
-tipo de compás actual, si no se fija explícitamente.  Se debe ajustar
-a una fracción que da la duración del subgrupo de barras utilizando la
-función @code{ly:make-moment}, como se ve en este fragmento de código.
-Asimismo, cuando se modifica @code{baseMoment}, se debería cambiar
-también @code{beatStructure} para que corresponda al @code{baseMoment}
-nuevo:
-
-"
-  doctitlees = "Subdivisión de barras"
-
-%% Translation of GIT committish: 3b125956b08d27ef39cd48bfa3a2f1e1bb2ae8b4
-  texidocfr = "
-Les ligatures d'une succession de notes de durée inférieure à la croche
-ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
-ligature (deux ou plus) seront continus.  Ce comportement peut être
-modifié afin de diviser la ligature en sous-groupes grâce à la propriété
-@code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
-subdivisées selon un intervalle défini par @code{baseMoment}@tie{}; il n'y
-aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.
-Par défaut, @code{baseMoment} fixe la valeur de référence par rapport à
-la métrique en vigueur.  Il faudra donc lui fournir, à l'aide de la
-fonction @code{ly:make-moment}, une fraction correspondant à la durée du
-sous-groupe désiré comme dans l'exemple ci-dessous.  Gardez à l'esprit
-que, si vous venez à modifier @code{baseMoment}, vous devrez
-probablement adapter @code{beatStrusture} afin qu'il reste en adéquation
-avec les nouvelles valeurs de @code{baseMoment}.
-
-"
-  doctitlefr = "Subdivision des ligatures"
-
   texidoc = "
 The beams of consecutive 16th (or shorter) notes are, by default, not
 subdivided.  That is, the three (or more) beams stretch unbroken over
@@ -86,4 +43,3 @@ in this snippet. Also, when @code{baseMoment} is changed,
   \set beatStructure = #'(4 4 4 4)
   c32[ c c c c c c c]
 }
-

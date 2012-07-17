@@ -9,58 +9,6 @@
 \header {
   lsrtags = "paper-and-layout"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-Este código muestra cómo recortar (extraer) fragmentos a partir de una
-partitura completa.
-
-Este archivo tiene que procesarse de forma separada con la opción
-@option{-dclip-systems}; la página de fragmentos de código podría no
-mostrar el resultado adecuadamente.
-
-La salida consiste en archivos con los nombres
-@samp{base-from-inicio-to-final[-número].eps}.
-
-
-Si se incluyen los comienzos y finales de los sistemas, incluyen las
-dimensiones del grob del sistema, por ejemplo los nombres de
-instrumento.
-
-
-Las notas de adorno en el punto final de la región no se incluyen.
-
-
-Las regiones pueden abarcar varios sistemas.  En este caso, se generan
-varios archivos EPS.
-
-"
-  doctitlees = "Recorte de sistemas"
-
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
-  texidocfr = "
-Le code ci-dessous permet de réaliser des découpes à l'emporte pièce,
-autrement dit d'extraire des fragments, au sein d'une partition.
-
-Dans la mesure où le rendu inclus dans ce manuel pourrait ne pas être
-des plus évidents, nous vous conseillons de traiter ce fichier
-individuellement, avec l'option @code{-dclip-systems}.
-
-Les fichiers résultants sont de la forme
-@samp{base-from-début-to-fin[-compteur].eps}.
-
-
-Lorsque sont inclus le début ou la fin d'un système, l'extraction
-comportera les objets rattachés au système, comme le nom d'instrument.
-
-Les notes d'ornement qui se trouveraient en fin de fragment ne sont pas
-incluses.
-
-La découpe peut couvrir plusieurs systèmes, auquel cas seront générés
-plusieurs fichiers EPS.
-
-"
-  doctitlefr = "Découpe de systèmes"
-
   texidoc = "
 This code shows how to clip (extract) snippets from a full score.
 

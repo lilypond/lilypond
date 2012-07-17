@@ -9,37 +9,6 @@
 \header {
   lsrtags = "rhythms"
 
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
-  texidoces = "
-LilyPond también proporciona funciones de formato para imprimir
-números de grupo especial diferentes a la propia fracción, así
-como para añadir una figura al número o a la fracción de la
-agrupación.
-
-"
-
-  doctitlees = "Números de agrupación especial distintos a los predeterminados"
-
-
-%% Translation of GIT committish: 0a868be38a775ecb1ef935b079000cebbc64de40
-texidocde = "
-LilyPond stellt auch Formatierungsfunktionen zur Verfügung, mit denen
-N-tolennummern gesetzt werden können, die sich von dem eigentlichen Bruch
-unterscheiden.  Auch ein Notenwert kann zu Nenner oder Zähler des Bruchs
-hinzugefügt werden.
-"
-  doctitlede = "Nicht-standard-N-tolennummern"
-
-
-%% Translation of GIT committish: 015b8e65e5e9a74cea1618b597402b5b74f89b89
-  texidocfr = "
-LilyPond sait aussi gérer des nolets dont le chiffrage imprimé ne
-correspond pas exactement à la fraction de mesure à laquelle ils se
-réfèrent, tout comme ceux auxquels une valeur de note vient en complément
-au chiffre.
-"
-  doctitlefr = "Nolets au chiffrage inhabituel"
-
   texidoc = "
 LilyPond also provides formatting functions to print tuplet numbers
 different than the actual fraction, as well as to append a note value
