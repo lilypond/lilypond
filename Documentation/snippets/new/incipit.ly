@@ -29,7 +29,7 @@ incipit =
 	                        instrumentName = #instrument-name
 			        \override VerticalAxisGroup
 			         #'Y-extent = #'(-4 . 4)
-	                     } #incipit-music
+	                     } { #incipit-music }
 			   }
 	                   \layout { $(ly:grob-layout grob)
 			             line-width = \indent
