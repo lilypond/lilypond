@@ -1,10 +1,4 @@
 \version "2.15.20"
-#(set-global-staff-size 15)
-\paper {
-  ragged-right = ##f
-  line-width = 15\cm
-  indent = 0\cm
-}
 
 \header {
   lsrtags = "headwords"

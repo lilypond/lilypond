@@ -785,7 +785,8 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Figured bass
 
-@lilypondfile[quote]{figured-bass-headword.ly}
+@c Line width hack because of instrument names
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
 
 Figured bass notation can be displayed.
 

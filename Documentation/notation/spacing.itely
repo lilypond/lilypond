@@ -2658,7 +2658,7 @@ The vertical padding between an outside-staff object and the
 previously-positioned grobs can be controlled with
 @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3

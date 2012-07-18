@@ -1,12 +1,5 @@
 \version "2.15.32"
 \include "catalan.ly"
-#(set-global-staff-size 15)
-\paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
-}
-
 
 \header {
   lsrtags = "headwords"

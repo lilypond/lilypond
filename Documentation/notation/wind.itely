@@ -397,10 +397,11 @@ can be displayed on the console using
 @code{#(print-keys-verbose 'flute (current-error-port))}, although
 they will not show up in the music output.
 
-New diagrams can be created by following the patterns in
+Creating new diagrams is possible, although this will require
+Scheme ability and may not be accessible to all users.  The
+patterns for the diagrams are in
 @file{scm/define-woodwind-diagrams.scm} and
-@file{scm/display-woodwind-diagrams.scm}.  However, this will
-require Scheme ability and may not be accessible to all users.
+@file{scm/display-woodwind-diagrams.scm}.
 
 @predefined
 @endpredefined
@@ -420,7 +421,7 @@ require Scheme ability and may not be accessible to all users.
 
 @seealso
 Installed Files:
-@file{scm/define-woodwind-diagrams.scm},
+@file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.
 
 Snippets:

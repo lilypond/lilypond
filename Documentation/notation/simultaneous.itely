@@ -13,7 +13,7 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
-@lilypondfile[quote]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
 Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
@@ -67,7 +67,8 @@ The notes within the chord themselves can also be followed by articulation
 and ornamentation.
 
 @lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+<a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
 However some notation, such as dynamics, hairpins and slurs must be
@@ -75,7 +76,8 @@ attached to the chord, rather than notes within the chord, otherwise
 they will not print.
 
 @lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+<a c e>\< <a c e> <a c e>\!
 @end lilypond
 
 @cindex chords, empty

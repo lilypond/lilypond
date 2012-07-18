@@ -5,12 +5,6 @@
 
 \version "2.15.18"
 
-#(set-global-staff-size 15)
-\paper {
-  line-width = 17\cm
-  indent = 0\cm
-}
-
 \header {
   lsrtags = "headwords"
   texidoc = ""

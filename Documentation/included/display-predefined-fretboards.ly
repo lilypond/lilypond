@@ -57,18 +57,15 @@ chordsline = {
 }
 
 \score {
-<<
-  \context ChordNames {
-    \chordsline
-  }
-  \context FretBoards {
-    \chordsline
-  }
-  \context Staff {
-    \chordsline
-  }
->>
-  \layout {
-    indent = 0
-  }
+  <<
+    \context ChordNames {
+      \chordsline
+    }
+    \context FretBoards {
+      \chordsline
+    }
+    \context Staff {
+      \chordsline
+    }
+  >>
 }

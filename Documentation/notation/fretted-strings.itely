@@ -1131,7 +1131,7 @@ diagrams can be added for other instruments or other tunings
 by following the examples found in
 @file{predefined-guitar-fretboards.ly}.
 
-Fret diagrams for the ukulele are contained in the file
+Fret diagrams for the ukulele are contained in the file @*
 @file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1149,7 +1149,7 @@ myChords = \chordmode { a1 a:m a:aug }
 }
 @end lilypond
 
-Fret diagrams for the mandolin are contained in the file
+Fret diagrams for the mandolin are contained in the file @*
 @file{predefined-mandolin-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1401,9 +1401,9 @@ Notation Reference:
 @ref{Predefined fretboard diagrams}.
 
 Installed Files:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-guitar-fretboards.ly}, @*
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
+@file{ly/predefined-ukulele-fretboards.ly}, @*
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Snippets:

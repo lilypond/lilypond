@@ -3123,7 +3123,7 @@ by pre-defined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {Before} {At no} {After}
 @headitem Function                   @tab Vector                  @tab Before @tab At no    @tab After
 @headitem form                       @tab form                    @tab break  @tab break    @tab break
 

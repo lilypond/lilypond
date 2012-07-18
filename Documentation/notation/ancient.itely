@@ -834,8 +834,10 @@ The style for accidentals and key signatures is controlled by the
 @code{glyph-name-alist} property of the grobs @code{Accidental} and
 @code{KeySignature}, respectively; e.g.:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 @seealso
 Music Glossary:
@@ -1261,8 +1263,10 @@ The style for accidentals and key signatures is controlled by the
 @code{glyph-name-alist} property of the grobs @code{Accidental} and
 @code{KeySignature}, respectively; e.g.:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 @seealso
 Music Glossary:

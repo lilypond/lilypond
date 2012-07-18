@@ -1356,7 +1356,7 @@ command, either at top-level or inside music.  This label can then be
 referred to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
-@lilypond[verbatim]
+@lilypond[verbatim,papersize=a8landscape]
 \header { tagline = ##f }
 \book {
   \label #'firstScore
@@ -1474,7 +1474,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
-@lilypond[line-width=11.0\cm]
+@lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocActMarkup = \markup \large \column {
@@ -1502,7 +1502,7 @@ tocAct =
 
 Dots can be added to fill the line between an item and its page number:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocItemMarkup = \tocItemWithDotsMarkup

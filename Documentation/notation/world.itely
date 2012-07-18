@@ -280,7 +280,7 @@ maqam.
 Here is one suggested grouping that maps the more common maqams to
 key signatures:
 
-@multitable @columnfractions 0.1 0.1 0.1 0.6
+@multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem maqam group
   @tab key
   @tab finalis

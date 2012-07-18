@@ -2356,7 +2356,7 @@ Accidentals are printed like with @code{modern}, but cautionary
 accidentals are added for all sharp or flat tones specified by the
 key signature, except if the note is immediately repeated.
 
-@lilypond[quote]
+@lilypond[quote,staffsize=18]
 musicA = {
   <<
     \relative c' {

@@ -146,7 +146,6 @@ banterProperties = \sequential {
         \new Staff  \transpose c c' { \chs }
     >>
     \layout {
-        indent = 3.\cm
         \context {
             \ChordNames
             \consists Instrument_name_engraver

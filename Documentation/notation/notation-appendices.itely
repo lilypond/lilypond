@@ -45,7 +45,8 @@
 The following chart shows two standard systems for printing chord
 names, along with the pitches they represent.
 
-@lilypondfile{chord-names-jazz.ly}
+@c The line width is a hack to allow space for instrument names
+@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
 
 @node Common chord modifiers
 @appendixsec Common chord modifiers
@@ -72,7 +73,7 @@ Major third, perfect fifth
 @tab
 @code{5} or nothing
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:5
 }
@@ -85,7 +86,7 @@ Minor third, perfect fifth
 @tab
 @code{m} or @code{m5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m
 }
@@ -98,7 +99,7 @@ Major third, augmented fifth
 @tab
 @code{aug}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug
 }
@@ -111,7 +112,7 @@ Minor third, diminished fifth
 @tab
 @code{dim}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim
 }
@@ -124,7 +125,7 @@ Major triad, minor seventh
 @tab
 @code{7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:7
 }
@@ -137,7 +138,7 @@ Major triad, major seventh
 @tab
 @code{maj7} or @code{maj}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj7
 }
@@ -150,7 +151,7 @@ Minor triad, minor seventh
 @tab
 @code{m7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7
 }
@@ -163,7 +164,7 @@ Diminished triad, diminished seventh
 @tab
 @code{dim7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim7
 }
@@ -176,7 +177,7 @@ Augmented triad, minor seventh
 @tab
 @code{aug7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug7
 }
@@ -189,7 +190,7 @@ Diminished triad, minor seventh
 @tab
 @code{m7.5-}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7.5-
 }
@@ -202,7 +203,7 @@ Minor triad, major seventh
 @tab
 @code{m7+}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7+
 }
@@ -215,7 +216,7 @@ Major triad, sixth
 @tab
 @code{6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:6
 }
@@ -228,7 +229,7 @@ Minor triad, sixth
 @tab
 @code{m6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m6
 }
@@ -241,7 +242,7 @@ Dominant seventh, major ninth
 @tab
 @code{9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:9
 }
@@ -254,7 +255,7 @@ Major seventh, major ninth
 @tab
 @code{maj9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj9
 }
@@ -267,7 +268,7 @@ Minor seventh, major ninth
 @tab
 @code{m9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m9
 }
@@ -280,7 +281,7 @@ Dominant ninth, perfect eleventh
 @tab
 @code{11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:11
 }
@@ -293,7 +294,7 @@ Major ninth, perfect eleventh
 @tab
 @code{maj11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj11
 }
@@ -306,7 +307,7 @@ Minor ninth, perfect eleventh
 @tab
 @code{m11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m11
 }
@@ -319,7 +320,7 @@ Dominant ninth, major thirteenth
 @tab
 @code{13}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13
 }
@@ -332,7 +333,7 @@ Dominant eleventh, major thirteenth
 @tab
 @code{13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13.11
 }
@@ -345,7 +346,7 @@ Major eleventh, major thirteenth
 @tab
 @code{maj13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj13.11
 }
@@ -358,7 +359,7 @@ Minor eleventh, major thirteenth
 @tab
 @code{m13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m13.11
 }
@@ -371,7 +372,7 @@ Major second, perfect fifth
 @tab
 @code{sus2}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus2
 }
@@ -384,7 +385,7 @@ Perfect fourth, perfect fifth
 @tab
 @code{sus4}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus4
 }
@@ -397,7 +398,7 @@ Perfect fifth
 @tab
 @code{1.5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5
@@ -411,7 +412,7 @@ Perfect fifth, octave
 @tab
 @code{1.5.8}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5.8
@@ -432,15 +433,15 @@ The chart below shows the predefined string tunings.
 
 The chart below shows the predefined fretboard diagrams for guitar.
 
-@lilypondfile{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
 The chart below shows the predefined fretboard diagrams for ukulele.
 
-@lilypondfile{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
 The chart below shows the predefined fretboard diagrams for mandolin.
 
-@lilypondfile{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 
 
 @node Predefined paper sizes
