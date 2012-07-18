@@ -2044,6 +2044,15 @@ patch has been lost.  Note that you can check the commits on
 @code{origin/staging} by looking at the git web interface on
 savannah.
 
+It may happen occasionally that the staging branch breaks automated
+testing.  In this case the automatic move of staging material to
+master gets halted in order to avoid broken material entering master.
+This is a safety net.  Please do not try breaking out from it by
+adding fixes on top of staging: in that case the whole sequence will
+end up in master after all, defeating the purpose of the system.  The
+proper fix usually involves rewriting the staging branch and is best
+left to core developers after discussion on the developer list.
+
 @subsubheading If your work is in a patch file
 
 Assuming that your patch is in a file called

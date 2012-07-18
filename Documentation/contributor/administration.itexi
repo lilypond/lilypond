@@ -254,6 +254,9 @@ these complete error-free. If you have set Patchy up to use email,
 it emails its results to you.  If you haven't, then you can view
 them in a logfile.  It also merges @code{staging} into @code{master}.
 
+@warning{in case the build fails, do not try to push fixes on top of
+staging branch, for details see @ref{Pushing to staging}.}
+
 When you have run Patchy a few successful times with email sending,
 you are ready for running it as a cron job. First, make sure you have
 the following in @file{$HOME/.lilypond-patchy-config} to avoid
