@@ -149,6 +149,7 @@ def exit_with_usage (n=0):
     options_parser.print_help (sys.stderr)
     sys.exit (n)
 
+tags=[]
 if len (args):
     in_dir = args[0]
     if not (os.path.isdir (in_dir)):
@@ -156,6 +157,9 @@ if len (args):
         sys.exit (4)
     if len (args) > 1:
         exit_with_usage (2)
+    tags = os.listdir (in_dir)
+    ## Make sure all users get the same ordering of tags
+    tags.sort()
 else:
     in_dir = '.'
 
@@ -174,8 +178,6 @@ if not os.path.exists (lilypond_bin):
     sys.stderr.write ("Warning: %s: no such file\n" % lilypond_bin)
     lilypond_bin = "lilypond"
 sys.stderr.write ("Using %s, %s\n" % (convert_ly, lilypond_bin))
-
-tags = os.listdir (in_dir)
 
 unsafe = []
 unconverted = []
@@ -305,9 +307,13 @@ def dump_file_list (file, file_list, update=False):
     f = open (file, 'w')
     f.write ('\n'.join (sorted (new_list)) + '\n')
 
-## clean out existing lys and generated files
-map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.ly')) +
-     glob.glob (os.path.join (lys_from_lsr, '*.snippet-list')))
+## clean out existing lys and generated files - but only when we're
+## completely recreating them from the tarball.  Otherwise
+## tags will be empty and so we can use this to skip this step
+
+if len(tags) > 0:
+    map (os.remove, glob.glob (os.path.join (lys_from_lsr, '*.ly')) +
+        glob.glob (os.path.join (lys_from_lsr, '*.snippet-list')))
 
 # read LSR source where tags are defined by subdirs
 snippets, tag_lists = read_source_with_dirs (in_dir)
@@ -318,8 +324,8 @@ snippets.update (s)
 for t in tags:
     tag_lists[t].update (l[t])
 
-for (name, (srcdir, tags)) in snippets.items ():
-    copy_ly (srcdir, name, tags)
+for (name, (srcdir, file_tags)) in snippets.items ():
+    copy_ly (srcdir, name, file_tags)
 for (tag, file_set) in tag_lists.items ():
     dump_file_list (os.path.join (lys_from_lsr, tag + '.snippet-list'),
                     file_set, update=not(in_dir))
