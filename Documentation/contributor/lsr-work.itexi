@@ -175,10 +175,11 @@ the source code from
 @enumerate
 
 @item
-Make sure that @command{convert-ly} script and the
-@command{lilypond} binary are a
-bleeding edge version -- the latest release or even better, a fresh
-snapshot from Git master.
+Make sure that @command{convert-ly} script and the @command{lilypond}
+binary are a bleeding edge version -- the latest release or even
+better, a fresh snapshot from Git master, with the environment
+variable @code{LILYPOND_BUILD_DIR} correctly set up, see
+@ref{Environment variables}.
 
 @item
 Start by creating a list of updated snippets from your local
@@ -189,13 +190,12 @@ scripts/auxiliar/makelsr.py
 @end example
 
 Commit the changes and make a patch.  Check the patch has nothing
-other than minor changes - in particular changes to the commitish
-for translations.  If all is good and you're confident in what
+other than minor changes.  If all is good and you're confident in what
 you've done, this can be pushed directly to staging.
 
 @item
-Next, download the updated snippets and run makelsr against them.
-From the top source directory, run:
+Next, download the updated snippets and run @command{makelsr.py}
+against them.  From the top source directory, run:
 
 @smallexample
 wget http://lsr.dsi.unimi.it/download/lsr-snippets-docs-`date +%F`.tar.gz
@@ -250,7 +250,8 @@ If there is any doubt about any of the files, you are strongly
 advised to run a review on Rietveld.
 
 @item
-If a Review is not needed, commit the changes and push to staging.
+If a Review is not needed, commit the changes and push to
+@code{staging}.
 
 @end enumerate
 
@@ -275,10 +276,11 @@ or log, then fix the file @file{Documentation/snippets/@var{foo}.ly} to make the
 documentation build successfully.
 
 @item
-Determine where it comes from by looking at its first line, e.g. run
+Determine where it comes from by looking at its first two lines,
+e.g. run
 
 @example
-head -1 Documentation/snippets/@var{foo}.ly
+head -2 Documentation/snippets/@var{foo}.ly
 @end example
 
 @item
@@ -295,12 +297,21 @@ is simpler and recommended to write a new version of the snippet in
 @file{Documentation/snippets/new}, then run @command{makelsr.py}.
 
 @item
-@strong{If the snippet comes from}
-@file{Documentation/snippets/new}, apply the same fix in
-@file{Documentation/snippets/new/@var{foo}.ly} that you did in
-@file{Documentation/snippets/@var{foo}.ly}.  If the build failure
-was caused by a translation string, you may have to fix
-@file{input/texidocs/@var{foo}.texidoc} instead.
+@strong{If the snippet comes from} @file{Documentation/snippets/new},
+apply the fix in @file{Documentation/snippets/new/@var{foo}.ly}, then
+run @command{makelsr.py} without argument from top of the source tree:
+
+@example
+scripts/auxiliar/makelsr.py
+@end example
+
+Then, inspect @file{Documentation/snippets/@var{foo}.ly} to check that
+the fix has been well propagated.
+
+If the build failure was caused by a translation string, you may have
+to fix some @file{Documentation/@var{lang}/texidocs/@var{foo}.texidoc}
+instead; in case the build failure comes only from translation
+strings, it is not needed to run @command{makelsr.py}.
 
 @item
 When you've done, commit your changes to Git and ensure they're
