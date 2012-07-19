@@ -218,7 +218,7 @@ Phrasing_slur_engraver::process_music ()
       Direction updown = to_dir (ev->get_property ("direction"));
 
       bool completed;
-      for (vsize j = 0; !(completed = (j == slurs_.size ())); j++)
+      for (vsize j = slurs_.size (); !(completed = (j-- == 0));)
         {
           // Check if we already have a slur with the same spanner-id.
           if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
@@ -234,31 +234,28 @@ Phrasing_slur_engraver::process_music ()
 
               // If this slur event has no direction, it will not
               // contribute anything new to the existing slur(s), so
-              // we can ignore it.  This is not entirely accurate:
-              // tweaks or context properties like those set with
-              // \slurUp can still override a neutral direction, so
-              // when encountering a slur event with "opposite"
-              // direction first, then one with neutral direction, we
-              // only let the "opposite" direction remain, while if
-              // the order is the other way round, a double slur
-              // results since the direction of the first slur is no
-              // longer attributable to a "neutral" slur event.  A
-              // mixture of neutral and directed events is nothing
-              // that the partcombiner should crank out, and it would
-              // be decidedly strange for manual input.
+              // we can ignore it.
 
               if (!updown)
                 break;
 
-              // If the existing slur does not have a direction yet,
-              // give it ours
+              Stream_event *c = unsmob_stream_event (slurs_[j]->get_property ("cause"));
 
-              Direction slur_dir = to_dir (slurs_[j]->get_property ("direction"));
+              if (!c) {
+                slurs_[j]->programming_error ("phrasing slur without a cause");
+                continue;
+              }
+
+              Direction slur_dir = to_dir (c->get_property ("direction"));
+
+              // If the existing slur does not have a direction yet,
+              // we'd rather take the new one.
 
               if (!slur_dir)
                 {
-                  set_grob_direction (slurs_[j], updown);
-                  break;
+                  slurs_[j]->suicide ();
+                  slurs_.erase (slurs_.begin () + j);
+                  continue;
                 }
 
               // If the existing slur has the same direction as ours, drop ours
