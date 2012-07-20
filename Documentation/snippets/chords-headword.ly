@@ -6,15 +6,9 @@
 % This file is in the public domain.
 %% Note: this file works from version 2.15.20
 \version "2.15.20"
-#(set-global-staff-size 15)
-\paper {
-  ragged-right = ##f
-  line-width = 15\cm
-  indent = 0\cm
-}
 
 \header {
-  lsrtags = "headwords"
+  lsrtags = "headword"
   texidoc = ""
   doctitle = "headword"
 } % begin verbatim

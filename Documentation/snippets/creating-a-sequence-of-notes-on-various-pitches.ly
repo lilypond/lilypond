@@ -8,7 +8,7 @@
 \version "2.15.27"
 
 \header {
-  lsrtags = "pitches"
+  lsrtags = "pitches, real-music, really-cool, scheme-language"
 
   texidoc = "
 In music that contains many occurrences of the same sequence of notes

@@ -8,7 +8,7 @@
 \version "2.15.42"
 
 \header {
-  lsrtags = "staff-notation, ancient-notation"
+  lsrtags = "staff-notation, ancient-notation, really-cool"
   texidoc = "
 Incipits can be added using the instrument name grob, but keeping
 separate the instrument name definition and the incipit definition.
@@ -37,7 +37,7 @@ incipit =
 	                        instrumentName = #instrument-name
 			        \override VerticalAxisGroup
 			         #'Y-extent = #'(-4 . 4)
-	                     } { #incipit-music }
+	                     } $incipit-music
 			   }
 	                   \layout { $(ly:grob-layout grob)
 			             line-width = \indent

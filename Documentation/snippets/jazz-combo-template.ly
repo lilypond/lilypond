@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-  lsrtags = "keyboards, percussion, fretted-strings, template"
+  lsrtags = "keyboards, percussion, fretted-strings, template, real-music"
 
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all

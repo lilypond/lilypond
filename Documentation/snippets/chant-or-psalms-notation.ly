@@ -8,7 +8,7 @@
 \version "2.15.15"
 
 \header {
-  lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
+  lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers, specific-notation"
 
   texidoc = "
 This form of notation is used for the chant of the Psalms, where verses
@@ -19,8 +19,15 @@ aren't always the same length.
 } % begin verbatim
 
 
-stemOn = { \revert Staff.Stem #'transparent \revert Staff.Flag #'transparent }
-stemOff = { \override Staff.Stem #'transparent = ##t \override Staff.Flag #'transparent = ##t }
+stemOn = {
+  \revert Staff.Stem #'transparent
+  \revert Staff.Flag #'transparent
+}
+
+stemOff = {
+  \override Staff.Stem #'transparent = ##t
+  \override Staff.Flag #'transparent = ##t
+}
 
 \score {
   \new Staff \with { \remove "Time_signature_engraver" }
