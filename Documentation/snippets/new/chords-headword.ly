@@ -1,7 +1,7 @@
 \version "2.15.20"
 
 \header {
-  lsrtags = "headwords"
+  lsrtags = "headword"
   texidoc = ""
   doctitle = "headword"
 }

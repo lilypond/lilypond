@@ -1,7 +1,7 @@
 \version "2.15.12"
 
 \header {
-  lsrtags = "expressive marks, staff-notation, tweaks-and-overrides"
+  lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
   doctitle = "Glissandi can skip grobs"
   texidoc = "@code{NoteColumn} grobs can be skipped over by glissandi."
 }

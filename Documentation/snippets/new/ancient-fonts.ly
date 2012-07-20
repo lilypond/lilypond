@@ -2,7 +2,7 @@
 \version "2.15.9"
 
 \header {
-  lsrtags = "ancient-notation"
+  lsrtags = "ancient-notation, symbols-and-glyphs"
 
   texidoc = "
 Shown here are many (all?) of the symbols that are included in

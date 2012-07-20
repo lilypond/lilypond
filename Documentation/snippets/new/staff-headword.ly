@@ -2,7 +2,7 @@
 \include "catalan.ly"
 
 \header {
-  lsrtags = "headwords"
+  lsrtags = "headword"
   texidoc = ""
   doctitle = "headword"
 }
