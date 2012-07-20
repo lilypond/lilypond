@@ -268,39 +268,39 @@ def copy_ly (srcdir, name, tags):
             unsafe.append (dest)
 
 def read_source_with_dirs (src):
-    s = {}
-    l = {}
+    snippet_list = {}
+    tag_list = {}
     for tag in tags:
         srcdir = os.path.join (src, tag)
-        l[tag] = set (map (os.path.basename,
+        tag_list[tag] = set (map (os.path.basename,
                            glob.glob (os.path.join (srcdir, '*.ly'))))
-        for f in l[tag]:
-            if f in s:
-                s[f][1].append (tag)
+        for f in tag_list[tag]:
+            if f in snippet_list:
+                snippet_list[f][1].append (tag)
             else:
-                s[f] = (srcdir, [tag])
-    return s, l
+                snippet_list[f] = (srcdir, [tag])
+    return snippet_list
 
 
 tags_re = re.compile ('lsrtags\\s*=\\s*"(.+?)"')
 
 def read_source (src):
-    s = {}
-    l = dict ([(tag, set()) for tag in tags])
+    snippet_list = {}
+    tag_list = dict ([(tag, set()) for tag in tags])
     for f in glob.glob (os.path.join (src, '*.ly')):
         basename = os.path.basename (f)
         m = tags_re.search (open (f, 'r').read ())
         if m:
             file_tags = [tag.strip() for tag in m.group (1). split(',')]
-            s[basename] = (src, file_tags)
+            snippet_list[basename] = (src, file_tags)
             for tag in file_tags:
                 if tag in tags:
-                    l[tag].add (basename)
+                    tag_list[tag].add (basename)
                 else:
-                    l[tag] = set ((basename,))
+                    tag_list[tag] = set ((basename,))
         else:
             notags_files.append (f)
-    return s, l
+    return snippet_list, tag_list
 
 
 def dump_file_list (file, file_list):
@@ -319,23 +319,20 @@ else:
     for f in glob.glob (os.path.join (lys_from_lsr, '*.ly')):
         if new_lys_marker in open (f).read ():
             os.remove (f)
-
+snippets = {}
 if in_dir:
     # read LSR source where tags are defined by subdirs
-    snippets, tag_lists = read_source_with_dirs (in_dir)
-else:
-    snippets, tag_lists = read_source (lys_from_lsr)
-    # in local update we're only interested in retrieving tags
-    snippets = {}
+    snippets = read_source_with_dirs (in_dir)
 
 # read Documentation/snippets/new where tags are directly defined
-s, l = read_source (new_lys)
-snippets.update (s)
-for t in tags:
-    tag_lists[t].update (l[t])
+snippets_new, not_used_list = read_source (new_lys)
+snippets.update (snippets_new)
 
 for (name, (srcdir, file_tags)) in snippets.items ():
     copy_ly (srcdir, name, file_tags)
+
+not_used_snippets, tag_lists = read_source (lys_from_lsr)
+
 for (tag, file_set) in tag_lists.items ():
     dump_file_list (os.path.join (lys_from_lsr, tag + '.snippet-list'),
                     file_set)
