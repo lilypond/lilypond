@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
+    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,7 +52,7 @@ convention une extension @code{.ly}.
 @funindex \score
 
 Un bloc @code{\score} contient obligatoirement une seule expression
-musicale délimitée par des accolades@tie{}:
+musicale délimitée par des accolades :
 
 @example
 \score @{
@@ -66,7 +66,7 @@ bornée par une paire d'accolades.}
 
 Cette unique expression musicale peut être de n'importe quelle taille et
 contenir d'autres expressions musicales aussi complexes soient elles.
-Voici quelques exemples d'expression musicale@tie{}:
+Voici quelques exemples d'expression musicale :
 
 @example
 @{ c'4 c' c' c' @}
@@ -112,7 +112,7 @@ contenue dans un bloc @code{\score}.
 Lorsqu'un fichier ne comprend qu'un bloc @code{\score}, celui-ci est
 implicitement inclus dans un bloc @code{\book}.  Le bloc @code{\book}
 d'un fichier source permet la production d'au moins un fichier dont le
-nom sera, par défaut, déduit du fichier source@tie{}: le traitement de
+nom sera, par défaut, déduit du fichier source : le traitement de
 @file{fandangopourelephants.ly} produira donc
 @file{fandangopourelephants.pdf}.
 
@@ -174,15 +174,15 @@ résultant.
 @}
 @end example
 
-Attention cependant si vous travaillez avec lilypond-book@tie{}: il vous
+Attention cependant si vous travaillez avec lilypond-book : il vous
 faudra explicitement mentionner le bloc @code{\book}, en l'absence de
 quoi seul le premier @code{\score} ou @code{\markup} apparaîtra après
 traitement.
 
-L'entête de chaque pièce peut se placer au sein du bloc
-@code{\score}@tie{}; le contenu du champ @code{piece} viendra s'imprimer
-avant chaque mouvement.  De même, le titre de l'ouvrage peut se placer
-au sein du bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
+L'entête de chaque pièce peut se placer au sein du bloc @code{\score} ;
+le contenu du champ @code{piece} viendra s'imprimer avant chaque
+mouvement.  De même, le titre de l'ouvrage peut se placer au sein du
+bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
 @code{\header} placé en début de fichier sera utilisé.
 
 @example
@@ -318,7 +318,7 @@ de chaque bloc @code{\book}.
 @end example
 
 La déclaration @code{\bookOutputName} vous permet de définir vous-même
-le nom du fichier généré pour un bloc @code{\book}@tie{}:
+le nom du fichier généré pour un bloc @code{\book} :
 
 @example
 \book @{
@@ -338,7 +338,7 @@ le nom du fichier généré pour un bloc @code{\book}@tie{}:
 @}
 @end example
 
-Le traitement de ce fichier produira@tie{}:
+Le traitement de ce fichier produira :
 
 @itemize
 @item
@@ -362,20 +362,24 @@ Le traitement de ce fichier produira@tie{}:
 @funindex \book
 @funindex \bookpart
 
-Un fichier @code{.ly} peut contenir un certain nombre d'expression de
-haut niveau.  Les expressions de haut niveau sont les suivantes@tie{}:
+Un fichier @code{.ly} peut contenir un certain nombre d'expressions de
+haut niveau.  Les expressions de haut niveau sont les suivantes :
 
 @itemize
 @item
 Une définition de sortie, comme @code{\paper}, @code{\midi} et
 @code{\layout}.  Ces définitions, lorsqu'elles se trouvent à un niveau
 supérieur, s'appliqueront à l'intégralité de l'ouvrage.  Si l'une de ces
-expression apparaît à plusieurs reprises, la dernière aura préséance.
+expression apparaît à plusieurs reprises à un niveau supérieur, les
+différents contenus seront combinés, à ceci près qu'en cas de
+déclarations conflictuelles, la dernière aura préséance.  Des
+informations complémentaires sont disponibles à la rubrique
+@ref{Le bloc \layout}.
 
 @item
 Une expression Scheme pure, telle que
-@w{@code{#(set-default-paper-size@tie{}"a7"@tie{}'landscape)}} ou
-@w{@code{#(ly:set-option@tie{}'point-and-click@tie{}#f)}}.
+@w{@code{#(set-default-paper-size "a7" 'landscape)}} ou
+@w{@code{#(ly:set-option 'point-and-click #f)}}.
 
 @item
 Un bloc @code{\header}, dont le contenu sera de portée globale -- ce qui
@@ -394,15 +398,15 @@ The default handler is defined in the init file @file{../scm/lily.scm}.
 @item
 Un bloc @code{\book} permet de regrouper naturellement plusieurs
 mouvements -- autrement dit plusieurs blocs @code{\score} -- dans un
-même document.  Lorsqu'il y a plusieurs @code{\score}s, LilyPond génère
+même document.  Lorsqu'il y a plusieurs @code{\score}, LilyPond génère
 un seul fichier dans lequel les mouvements sont mis les uns à la suite
 des autres, ce pour chacun des blocs @code{\book} rencontrés.  La seule
 raison qui peut vous demander d'expliciter plusieurs blocs @code{\book}
 dans un fichier @file{.ly} est lorsque vous avez besoin de générer
 différents documents à partir d'une même source.  La présence explicite
 d'un bloc @code{\book} est aussi nécessaire lorsque vous travaillez sur
-un document lilypond-book qui reprendrait plusieurs @code{\score}s ou
-@code{\markup}s dans un même extrait.  Vous pouvez modifier ce
+un document lilypond-book qui reprendrait plusieurs @code{\score} ou
+@code{\markup} dans un même extrait.  Vous pouvez modifier ce
 comportement à l'aide de la variable @code{toplevel-book-handler}
 placée en tête.
 @ignore
@@ -423,7 +427,7 @@ Une expression musicale telle que
 @end example
 
 Ce bout de code sera placé dans un @code{\score} et intégré à l'ouvrage
-en même temps que tous les autres @code{\score}s ou expressions
+en même temps que tous les autres @code{\score} ou expressions
 musicales.  En d'autres termes, un fichier qui ne contiendrait que cette
 simple expression musicale sera traduit en
 
@@ -476,7 +480,7 @@ souligné ou tiret.
 
 @end itemize
 
-Voici trois éléments que vous pouvez placer à un niveau supérieur@tie{}:
+Voici trois éléments que vous pouvez placer à un niveau supérieur :
 
 @example
 \layout @{
@@ -492,7 +496,7 @@ Voici trois éléments que vous pouvez placer à un niveau supérieur@tie{}:
 @end example
 
 Vous pouvez placer, n'importe où dans votre fichier, les instructions
-suivantes@tie{}:
+suivantes :
 
 @itemize
 @item @code{\version}
@@ -513,22 +517,22 @@ Un bloc de commentaire, délimité par @code{%@{ .. %@}}.
 Vous pouvez insérer des espaces dans votre fichier source afin de lui
 apporter une meilleure lisibilité.  Les espaces superflus sont
 normalement ignorés.  Notez cependant qu'il est des cas où l'espace est
-requis pour éviter tout risque d'erreur@tie{}:
+requis pour éviter tout risque d'erreur :
 
 @itemize
 @item
-Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
+Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
 
 @item
 Après chaque commande ou variable, autrement dit tout élément qui
-commence par un@tie{}@code{\}@tie{};
+commence par un @code{\} ;
 
 @item
 Après tout élément qui sera interprété comme une expression Scheme,
-autrement dit tout élément qui commence par un @code{#}@tie{};
+autrement dit tout élément qui commence par un @code{#} ;
 
 @item
-Pour séparer les éléments d'une expression Scheme ;
+Pour séparer les éléments d'une expression Scheme ;
 
 @item
 En mode parole -- @code{lyricmode} -- pour séparer les termes des
@@ -536,7 +540,7 @@ commandes @code{\override} et @code{\set}.  Précisons à ce sujet qu'en
 plus d'ajouter une espace avant et après l'intégralité de la commande,
 vous devrez encadrer d'espaces le point et le signe égal qu'elle peut
 contenir, comme dans
-@w{@code{\override Score . LyricText #'font-size = #5}}.
+@w{@code{\override Score . LyricText #'font-size = #5}}.
 
 @end itemize
 
@@ -544,13 +548,16 @@ contenir, comme dans
 Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
+Manuel de notation :
+@ref{Le bloc \layout}.
+
 
 @node Titres et entêtes
 @section Titres et entêtes
 @translationof Titles and headers
 
 La plupart de la musique qui est éditée comporte un titre et le nom de
-son compositeur@tie{}; certains ouvrages divulguent beaucoup plus
+son compositeur ; certains ouvrages divulguent beaucoup plus
 d'information.
 
 @menu
@@ -579,7 +586,7 @@ d'information.
 
 @c TODO: figure out how \bookpart titles work
 
-Il existe en fait deux types de blocs de titrage@tie{}: un bloc pour
+Il existe en fait deux types de blocs de titrage : un bloc pour
 contenir le titre principal qui doit apparaître avant le tout premier
 @code{\score} d'un ouvrage, et un autre attaché à chacun des blocs
 @code{\score} qui le composent.  Dans les deux cas, les champs qui
@@ -651,8 +658,7 @@ trouver @strong{à la suite} de l'expression musicale.}
 @end lilypond
 
 Tous les champs appartenant au titrage principal d'un ouvrage peuvent se
-reporter dans chaque bloc @code{\score} ou être supprimés
-manuellement@tie{}:
+reporter dans chaque bloc @code{\score} ou être supprimés manuellement :
 
 @c KEEP LY
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
@@ -706,8 +712,8 @@ Manuel de notation :
 @translationof Default layout of book and score title blocks
 
 La mise en forme des blocs de titrage est contrôlée par deux variables
-attachées au bloc @code{\paper}@tie{}: @code{bookTitleMarkup} pour le
-bloc @code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
+attachées au bloc @code{\paper} : @code{bookTitleMarkup} pour le bloc
+@code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
 @code{\header} relevant des blocs @code{\score}.
 
 @c KEEP LY
@@ -790,7 +796,7 @@ Fichiers d'initialisation :
 Les entête et pied -- @emph{headers} et @emph{footers} -- sont des
 lignes de textes qui apparaissent en haut et en bas de chaque page,
 indépendamment du texte de l'ouvrage.  Ils sont contrôlés par les
-variables suivantes, attachées au bloc @code{\paper}@tie{}:
+variables suivantes, attachées au bloc @code{\paper} :
 
 @itemize
 @item @code{oddHeaderMarkup} -- entête de page impaire
@@ -802,21 +808,20 @@ variables suivantes, attachées au bloc @code{\paper}@tie{}:
 Ces variables @emph{markup} n'accèdent qu'au contenu des champs du bloc
 @code{\header} principal, celui qui s'appliquera à tous les blocs
 @code{\score} du document.  Ces variables sont définies dans le fichier
-@file{ly/titling-init.ly}, et sont par défaut@tie{}:
+@file{ly/titling-init.ly}, et sont par défaut :
 
 @itemize
 
 @item
 les numéros sont placés en haut à gauche (si pair) ou à droite (si
-impair) de chaque page à compter de la deuxième@tie{};
+impair) de chaque page à compter de la deuxième ;
 
 @item
 le contenu du champ @code{instrument} est centré en haut de chaque page
-à compter de la deuxième@tie{};
+à compter de la deuxième ;
 
 @item
-le texte du @code{copyright} est centré au bas de la première
-page@tie{};
+le texte du @code{copyright} est centré au bas de la première page ;
 
 @item
 le @code{tagline} -- mention spéciale -- se place au bas de la dernière
@@ -899,7 +904,7 @@ L'utilisation de commandes @code{\markup} au sein d'un bloc
 @code{\header} permet de modifier aisément l'apparence du texte,
 mais n'influence en rien le positionnement précis des éléments de
 titrage.  L'accès au positionnement des champs de titrage est géré par
-les deux variables suivantes, attachées au bloc @code{\paper}@tie{}:
+les deux variables suivantes, attachées au bloc @code{\paper} :
 
 @itemize
 @item @code{bookTitleMarkup}
@@ -910,7 +915,7 @@ Ces variables sont abordées à la rubrique
 @ref{Mise en forme par défaut des titrages}.
 
 Voici les réglages par défaut de @code{scoreTitleMarkup}, tels que
-définis dans le fichier @file{ly/titling-init.ly}@tie{}:
+définis dans le fichier @file{ly/titling-init.ly} :
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
@@ -924,7 +929,7 @@ scoreTitleMarkup = \markup @{ \column @{
 @end example
 
 Ceci aura donc pour effet de positionner les champs @code{piece} et
-@code{opus} sur la même ligne, en opposition@tie{}:
+@code{opus} sur la même ligne, en opposition :
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
@@ -937,7 +942,7 @@ Ceci aura donc pour effet de positionner les champs @code{piece} et
 @end lilypond
 
 Voici comment positionner le champ @code{piece}, dont nous modifions
-la taille et la graisse, au centre de cette ligne@tie{}:
+la taille et la graisse, au centre de cette ligne :
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -963,7 +968,7 @@ la taille et la graisse, au centre de cette ligne@tie{}:
 @end lilypond
 
 Les champs normalement réservés au bloc de titrage principal seront
-reportés au niveau au niveau inférieur dès lors que vous aurez activé
+reportés au niveau inférieur dès lors que vous aurez activé
 l'instruction @code{print-all-headers} au sein du bloc @code{\paper}.
 Le principal inconvénient de cette fonction réside dans le fait que les
 champs réservés au bloc @code{\header} principal devront être supprimés
@@ -973,7 +978,7 @@ dans chacun des blocs @code{\score} de votre fichier source -- voir
 Afin d'éviter ce désagrément, ajoutez le champ que vous désirez voir
 apparaître à la définition de @code{scoreTitleMarkup}.  Nous allons,
 dans l'exemple suivant, ajouter au @code{scoreTitleMarkup} le champ
-@code{composer}, normalement associé au @code{bookTitleMarkup}@tie{};
+@code{composer}, normalement associé au @code{bookTitleMarkup} ;
 chaque @code{\score} pourra mentionner un compositeur différent.
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
@@ -1056,7 +1061,7 @@ L'utilisation de commandes @code{\markup} au sein d'un bloc
 @code{\header} permet de modifier aisément l'apparence du texte,
 mais n'influence en rien le positionnement précis des entête et pied
 de page.  L'accès au positionnement des champs concernés est géré par
-les quatre variables suivantes, attachées au bloc @code{\paper}@tie{}:
+les quatre variables suivantes, attachées au bloc @code{\paper} :
 
 @itemize
 @item @code{oddHeaderMarkup}
@@ -1064,6 +1069,51 @@ les quatre variables suivantes, attachées au bloc @code{\paper}@tie{}:
 @item @code{oddFooterMarkup}
 @item @code{evenFooterMarkup}
 @end itemize
+
+@cindex markup conditionnel
+@cindex condition et markup
+@cindex on-the-fly
+@funindex \on-the-fly
+
+L'instruction @code{\on-the-fly} au sein d'un @code{\markup} permet
+d'ajouter, lorsque certaines conditions sont respectées, des éléments
+au texte des entête et pied de page définis dans le bloc @code{\paper}.
+En voici la syntaxe :
+
+@example
+@code{variable} = @code{\markup} @{
+  ...
+  @code{\on-the-fly} #@var{procédure} @var{markup}
+  ...
+@}
+@end example
+
+La @var{procédure} est appelée à chaque fois que la commande
+@code{\markup} où elle apparaît est évaluée.  La @var{procédure}
+effectuera un test de conformité particulière et interprètera, autrement
+dit imprimera l'argument @var{markup} si et seulement si cette
+condition est remplie.
+
+LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
+
+@quotation
+@multitable {print-page-number-check-first-----} {ce n'est la première page du book--}
+
+@headitem  Nom de la procédure      @tab  Condition testée
+
+@item print-page-number-check-first @tab  il faut imprimer ce numéro de page.
+@item create-page-number-stencil    @tab  'print-page-numbers est vrai.
+@item print-all-headers             @tab  'print-all-headers est vrai.
+@item first-page                    @tab  c'est la première page du @emph{book}.
+@item (on-page nombre)              @tab  page number = nombre
+@item last-page                     @tab  c'est la dernière page du @emph{book}.
+@item not-first-page                @tab  ce n'est la première page du @emph{book}.
+@item part-first-page               @tab  c'est la première page de la partie.
+@item part-last-page                @tab  c'est la dernière page de la partie.
+@item not-single-page               @tab  cette partie fait plus d'une page.
+
+@end multitable
+@end quotation
 
 L'exemple suivant illustre  la manière de centrer son numéro au bas de
 chaque page.  Il nous faut tout d'abord annuler la définition de
@@ -1093,10 +1143,24 @@ Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
 }
 @end lilypond
 
+Plusieurs conditions @code{\on-the-fly} mentionnées l'une à la suite de
+l'autre se cumulent.  Ainsi, par exemple,
+
+@example
+  @code{\on-the-fly #first-page}
+  @code{\on-the-fly #last-page}
+  @code{@{ \markup ... \fromproperty #'header: ... @}}
+@end example
+
+teste si la sortie tient sur une page unique.
+
 @seealso
 Manuel de notation :
 @ref{Contenu des blocs de titrage},
 @ref{Mise en forme par défaut des titrages}.
+
+fichiers d'initialisation :
+@file{../ly/titling-init.ly}.
 
 
 @node Notes de bas de page
@@ -1404,7 +1468,7 @@ Un silence multimesures ne peut se voir affecter une note de bas de
 page.
 
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
-l'autre@tie{}; elles ne seront jamais présentées à la queue leu leu.
+l'autre ; elles ne seront jamais présentées à la queue leu leu.
 Les notes de bas de page peuvent générer des chevauchements quand elles
 sont trop nombreuses sur une même page.
 
@@ -1420,7 +1484,7 @@ le bloc @code{\paper} doit contenir la mention
 LilyPond vous permet, à l'aide de la commande @code{\label}, d'insérer
 des points de référence dans un ouvrage, aussi bien en dehors qu'au fil
 de la musique.  Ce point de référence pourra être ensuite repris à
-l'intérieur d'un @emph{markup}@tie{}; vous pourrez même y ajouter le
+l'intérieur d'un @emph{markup} ; vous pourrez même y ajouter le
 numéro de page grâce à la commande de @emph{markup} @code{\page-ref}.
 
 @c KEEP LY
@@ -1441,7 +1505,7 @@ numéro de page grâce à la commande de @emph{markup} @code{\page-ref}.
 }
 @end lilypond
 
-L'instruction @code{\page-ref} prend trois arguments@tie{}:
+L'instruction @code{\page-ref} prend trois arguments :
 @enumerate
 @item
 le point de référence, sous la forme d'un symbole Scheme, comme par
@@ -1449,7 +1513,7 @@ exemple @code{#'firstScore},
 
 @item
 un @qq{emporte-pièce} afin d'estimer la longueur totale du
-@emph{markup},
+@emph{markup}, et
 
 @item
 un texte de remplacement au cas où la référence ne serait pas retrouvée.
@@ -1504,8 +1568,7 @@ Les @emph{markups} dévolus à la mise en forme de la table des matières
 se définissent dans le bloc @code{\paper}.  Il s'agit par défaut de
 @code{tocTitleMarkup} pour le titre de la table, et de
 @code{tocItemMarkup} pour ses éléments -- composés de leur libellé et
-numéro de page.  Vous pouvez bien entendu personnaliser ces
-variables@tie{}:
+numéro de page.  Vous pouvez bien entendu personnaliser ces variables :
 
 @verbatim
 \paper {
@@ -1525,7 +1588,7 @@ Notez bien la manière de référencer le libellé et le numéro de page dans
 la définition de @code{tocItemMarkup}.
 
 N'hésitez pas à définir vous-même d'autres commandes et @emph{markups}
-afin de construire une table plus élaborée@tie{}:
+afin de construire une table plus élaborée :
 @itemize
 @item 
 commencez par définir une nouvelle variable de type @code{markup} au
@@ -1537,8 +1600,7 @@ table à partir de cette variable.
 @end itemize
 
 Dans l'exemple qui suit, nous avons créé un nouveau style d'élément dans
-le but de mentionner les actes dans la table des matières d'un
-opéra@tie{}:
+le but de mentionner les actes dans la table des matières d'un opéra :
 
 @verbatim
 \paper {
@@ -1581,7 +1643,7 @@ tocAct =
 @end lilypond
 
 L'élément et son numéro de page peuvent se rejoindre par une ligne
-pointillée@tie{}:
+pointillée :
 
 @lilypond[verbatim,quote]
 \header { tagline = ##f }
@@ -1643,7 +1705,7 @@ pour former le fichier @qq{conducteur}.  Les différentes variables
 définies dans les fichiers séparés seront normalement reprises et
 utilisables dans le fichier formant le conducteur.  Les sections
 balisées dans les fichiers individuels peuvent être réutilisées en
-différents endroit de la partition , comme expliqué à la rubrique
+différents endroit de la partition, comme expliqué à la rubrique
 @ref{Différentes éditions à partir d'une même source}.
 
 Lorsque le fichier auquel il est fait référence se trouve dans le même
@@ -1673,19 +1735,19 @@ répertoire courant, vous devrez mentionner
 Les fichiers à inclure peuvent eux-mêmes contenir des instructions
 @code{\include}.  Ces instructions @code{\include} de second niveau ne
 pourront, par défaut, être interprétées qu'une fois intégrées dans le
-fichier principal@tie{}; leur argument doit donc comporter le chemin
+fichier principal ; leur argument doit donc comporter le chemin
 relativement au fichier principal et non par rapport au fichier dans
 lequel cette inclusion est mentionnée.  Vous pouvez toutefois influer
 sur ce comportement à l'aide de l'option @w{@code{-drelative-includes}}
 en ligne de commande ou en ajoutant une clause
-@code{@w{#(ly:set-option 'relative-includes #t)}} en tête du fichier
+@code{#(ly:set-option 'relative-includes #t)} en tête du fichier
 principal.  Une fois @code{relative-include} activé, le chemin à suivre
 pour chacune des commandes @code{\include} sera pris relativement au
 fichier qui la contient.  Cette option est vouée à être activée par
 défaut dans une future version de LilyPond.
 
 Vous pouvez inclure des fichiers dont vous spécifierez le chemin d'accès
-sur la ligne de commande au moment de lancer la compilation. L'appel à
+sur la ligne de commande au moment de lancer la compilation.  L'appel à
 ces fichiers ne mentionnera alors que leur nom.  Par exemple, si vous
 voulez compiler avec cette méthode le fichier @file{principal.ly} qui
 inclut des fichiers situés dans le sous-répertoire @file{parties},
@@ -1705,14 +1767,14 @@ tout en ayant bien dans @file{principal.ly}
 
 Lorsqu'un fichier est voué à être inclus dans nombre de partitions, vous
 pouvez le placer dans le répertoire de LilyPond @file{../ly}.
-Attention@tie{}: ce répertoire varie selon votre installation, comme
+Attention : ce répertoire varie selon votre installation, comme
 indiqué au chapitre @rlearning{Autres sources de documentation}.  Ce
 fichier sera inclus dès lors que vous fournirez uniquement son nom en
 argument à la fonction @code{\include}.  C'est par exemple le cas du
 fichier de définition particulier @file{gregorian.ly}.
 
 Au moment où vous lancez LilyPond, un certain nombre de fichiers se
-retrouvent inclus par défaut@tie{}; il suffit d'activer le mode verbeux
+retrouvent inclus par défaut ; il suffit d'activer le mode verbeux
 en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
 verrez ainsi défiler, en plus de nombreuses informations, le nom d'un
 certain nombre de fichiers et de chemins d'accès.  Les fichiers les plus
@@ -1768,12 +1830,11 @@ Un fragment musical identifié par une variable est réutilisable à divers
 endroits de la partition, comme nous l'avons vu à la rubrique
 @rlearning{Organisation du code source avec des variables}.  Par
 exemple, une partition pour chœur @notation{a cappella} comporte souvent
-une réduction pour piano reprenant toutes les voix@tie{}; il s'agit de
+une réduction pour piano reprenant toutes les voix ; il s'agit de
 la même musique, et vous ne devrez donc la saisir qu'une seule fois.
 D'autre part, la musique issue de deux variables peut se combiner sur
 une seule portée, comme nous l'avons vu à la rubrique
-@ref{Regroupement automatique de parties}.  Prenons l'exemple
-suivant@tie{}:
+@ref{Regroupement automatique de parties}.  Prenons l'exemple suivant :
 
 @lilypond[verbatim,quote]
 sopranoMusic = \relative c'' { a4 b c b8( a) }
@@ -1838,10 +1899,9 @@ rappellerez ensuite, comme indiqué à la rubrique
 
 La commande @code{\tag #'@var{partieA}} affecte à une expression
 musicale le nom @var{partieA}.  Les expressions ainsi balisées pourront
-être filtrées par la suite, à l'aide de
-@code{\keepWithTag@tie{}#'@var{nom}} ou
-@code{\removeWithTag@tie{}#'@var{nom}}.  Ces filtres fonctionnent de la
-manière suivante@tie{}:
+être filtrées par la suite, à l'aide de @code{\keepWithTag #'@var{nom}}
+ou @code{\removeWithTag #'@var{nom}}.  Ces filtres fonctionnent de la
+manière suivante :
 
 @multitable @columnfractions .5 .5
 @headitem Filtre
@@ -1850,12 +1910,12 @@ manière suivante@tie{}:
 @item
 Musique balisée précédée de @code{\keepWithTag #'@var{nom}}
  @tab Musique non balisée et musique balisée par @var{nom} seront
- incluses@tie{}; la musique balisée autrement est exclue.
+ incluses ; la musique balisée autrement est exclue.
 
 @item
 Musique balisée précédée de @code{\removeWithTag #'@var{nom}}
  @tab Musique non balisée et fragments appelés autrement que @var{nom}
- seront inclus@tie{}; la musique balisée par @var{nom} est exclue.
+ seront inclus ; la musique balisée par @var{nom} est exclue.
 
 @item
 Musique balisée non précédée de @code{\keepWithTag} ou
@@ -1870,7 +1930,7 @@ Les arguments des commandes @code{\tag}, @code{\keepWithTag} et
 musicale.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
-l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
+l'une pour le conducteur, l'autre pour l'instrumentiste qui, elle,
 comportera les ornements développés.
 
 @lilypond[verbatim,quote]
@@ -1890,7 +1950,7 @@ music = \relative g' {
 @end lilypond
 
 @noindent
-Il est parfois plus aisé d'exclure des fragments@tie{}:
+Il est parfois plus aisé d'exclure des fragments :
 
 @lilypond[verbatim,quote]
 music = \relative g' {
@@ -1910,7 +1970,7 @@ music = \relative g' {
 }
 @end lilypond
 
-Ce principe de filtrage peut s'appliquer aux articulations, textes, etc.
+Ce principe de filtrage peut s'appliquer aux articulations, textes etc.
 Il suffit de positionner
 
 @example
@@ -1918,7 +1978,7 @@ Il suffit de positionner
 @end example
 
 @noindent
-avant l'articulation ou le texte, comme ici@tie{}:
+avant l'articulation ou le texte, comme ici :
 
 @example
 c1-\tag #'doigt ^4
@@ -1930,7 +1990,7 @@ Ceci définira une note avec une indication conditionnelle de doigté ou
 un texte.
 
 Vous pouvez baliser différemment la même expression musicale en
-saisissant plusieurs @code{\tag}@tie{}:
+saisissant plusieurs @code{\tag} :
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
@@ -1945,7 +2005,7 @@ music = \relative c'' {
 @end lilypond
 
 L'application concomitante de plusieurs filtres @code{\removeWithTag} à
-la même expression musicale permet d'exclure plusieurs balisages@tie{}:
+la même expression musicale permet d'exclure plusieurs balisages :
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -1969,9 +2029,9 @@ l'application du second exclura les effets du premier.
 Il peut arriver que vous ayez besoin de raccorder quelque chose en un
 point particulier d'une expression musicale.  Les commandes
 @code{\pushToTag} et @code{\appendToTag} permettent d'insérer du
-matériau, qu'il soit antérieur ou postérieur à des @code{éléments}
+matériau, qu'il soit antérieur ou postérieur, à des @code{éléments}
 d'une construction musicale existante.  La musique séquentielle ou
-simultanée comporte assurément des @code{éléments}@tie{}:
+simultanée comporte assurément des @code{éléments} :
 
 @lilypond[verbatim,quote]
 test = { \tag #'here { \tag #'here <<c''>> } }
@@ -2020,7 +2080,7 @@ si vous imprimez une partition avec les deux sections balisées.
 @cindex include-settings
 
 Vous pouvez regrouper dans un fichier indépendant vos réglages
-personnels que vous inclurez au besoin@tie{}:
+personnels que vous inclurez au besoin :
 
 @example
 lilypond -dinclude-settings=MES_REGLAGES.ly MA_PARTITION.ly
@@ -2065,7 +2125,7 @@ Manuel de notation :
 @cindex UTF-8
 
 LilyPond utilise le jeu de caractères défini par le consortium Unicode
-et la norme ISO/CEI@tie{}10646.  Chaque caractère est identifié par un
+et la norme ISO/CEI 10646.  Chaque caractère est identifié par un
 nom unique et associé à un point de code, ce qui permet dans l'absolu de
 couvrir tous les langages.  Unicode permet de coder tous les caractères
 utilisés par toutes les langues écrites du monde.  LilyPond utilise le
@@ -2080,13 +2140,13 @@ sous-ensemble de points de code unicode en glyphes.  LilyPond recourt à
 la bibliothèque Pango pour assurer le rendu des textes multilingues.
 
 LilyPond n'effectue aucune conversion d'encodage que ce soit.  Ceci
-implique donc que tout texte, qu'il s'agisse d'un titre, de paroles ou
-même d'instruction musicale, comportant des caractères non ASCII, soit
+implique donc que tout texte -- un titre, des paroles ou même une
+instruction musicale -- comportant des caractères non ASCII soit 
 codé en UTF-8.  Le plus sûr moyen de saisir du texte de la sorte
 consiste à utiliser un éditeur supportant l'unicode et à enregistrer vos
 fichier en UTF-8.  C'est le cas pour la plupart des éditeurs actuels,
 que ce soit vim, Emacs, jEdit et GEdit.  Tous les systèmes Windows
-postérieurs à NT utilisent Unicode en natif@tie{}; même Notepad est
+postérieurs à NT utilisent Unicode en natif ; même Notepad est
 capable d'éditer et sauvegarder un fichier en UTF-8 -- sans parler de
 l'excellente alternative qu'est BabelPad.
 
@@ -2135,13 +2195,13 @@ portuguese = \lyricmode {
 
 Lorsque vous avez besoin d'un caractère dont vous connaissez le point de
 code mais que votre éditeur ne permet pas de saisir directement, vous
-pouvez utiliser les instructions @code{\char@tie{}##xhhhh} ou
-@code{\char@tie{}#dddd} au sein d'un bloc @code{\markup} -- @code{hhhh}
+pouvez utiliser les instructions @code{\char ##xhhhh} ou
+@code{\char #dddd} au sein d'un bloc @code{\markup} -- @code{hhhh}
 et @code{dddd} correspondant respectivement à la valeur hexadécimale ou
 décimale.  Même s'il est inutile de saisir les zéros superflus, il est
 de bon ton de stipuler les quatre caractères formant la représentation
 hexadécimale.  Évitez cependant l'encodage UTF-8 d'un point de code
-après un @code{\char}@tie{}; les encodages UTF-8 comprennent un bit
+après un @code{\char} ; les encodages UTF-8 comprennent un bit
 supplémentaire indiquant le nombre d'octets.  Une table de
 correspondance entre les codes Unicode et le nom des caractères ainsi
 que leur code hexadécimal est disponible sur le site du consortium
@@ -2174,7 +2234,7 @@ dans des paroles et dans du texte indépendant.
 @cindex copyright
 
 Le signe @emph{copyright} dans le champ de titrage consacré s'inscrit de
-la manière suivante@tie{}:
+la manière suivante :
 
 @example
 \header @{
@@ -2188,7 +2248,7 @@ la manière suivante@tie{}:
 @translationof ASCII aliases
 
 Dès lors que vous aurez inclus la liste de leur équivalent ASCII,
-LilyPond reconnaîtra un certain nombre de caractères spéciaux@tie{}:
+LilyPond reconnaîtra un certain nombre de caractères spéciaux :
 
 @lilypond[quote,verbatim]
 \paper {
@@ -2211,7 +2271,7 @@ LilyPond reconnaîtra un certain nombre de caractères spéciaux@tie{}:
 }
 @end lilypond
 
-L'extension de cette liste est possible aussi bien de manière globale :
+L'extension de cette liste est possible aussi bien de manière globale :
 
 @lilypond[quote,verbatim]
 \paper {
@@ -2222,7 +2282,7 @@ L'extension de cette liste est possible aussi bien de manière globale :
 \markup "A 100 dpi."
 @end lilypond
 
-qu'en un point particulier de votre source :
+qu'en un point particulier de votre source :
 
 @lilypond[quote,verbatim]
 \markup \replace #'(("100" . "hundred")
@@ -2253,9 +2313,8 @@ Fichiers d'initialisation :
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-LilyPond vous permet d'extraire des fragments d'une partition à l'instar
-du choriste amateur qui alimente son album avec des coupures de
-journaux.
+LilyPond permet d'extraire des fragments d'une partition à l'instar du
+choriste amateur qui alimente son album avec des coupures de journaux.
 
 Vous devrez pour cela définir les mesures à découper.  La définition
 suivante, incluse dans votre fichier source,
@@ -2273,9 +2332,9 @@ suivante, incluse dans votre fichier source,
 @noindent
 vous permettra d'extraire un fragment compris entre le milieu de la
 cinquième mesure et quelque part dans la septième.  Le triplet
-@code{5@tie{}1@tie{}2} signifie@tie{}: après la durée d'une blanche dans
-la mesure 5@tie{}; le @code{7@tie{}3@tie{}4} signifie quant à lui que
-l'on s'arrête à la mesure 7, après la durée de trois noires.
+@code{5 1 2} signifie : après la durée d'une blanche dans la mesure 5 ;
+le @code{7 3 4} signifie quant à lui que l'on s'arrête à la mesure 7,
+après la durée de trois noires.
 
 Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
 définissez dans la liste d'autres paires d'emplacements rythmiques.
@@ -2318,12 +2377,12 @@ générer.  Vous pourriez aussi être amené à retravailler le début d'une
 propriété @code{showFirstLength} que vous utiliserez.
 
 Vous pouvez contrôler très finement les parties à escamoter, grâce au
-commutateur @code{Score.skipTypesetting}@tie{}: lorsqu'il est activé,
+commutateur @code{Score.skipTypesetting} : lorsqu'il est activé,
 aucune gravure n'est réalisée.
 
 Ce commutateur agit aussi sur la sortie MIDI.  Notez bien que tous les
 événements seront escamotés, y compris les changements de tempo ou
-d'instrument -- vous voilà prévenu@tie{}!
+d'instrument -- vous voilà prévenu !
 
 @lilypond[quote,relative=2,ragged-right,verbatim]
 c8 d
@@ -2366,13 +2425,13 @@ défaut.  Vous pouvez la télécharger à partir de
 @uref{http://www.chiark.greenend.org.uk/~sgtatham/gonville/ ,http://www.chiark.greenend.org.uk/~sgtatham/gonville/}
 @end example
 
-Voici quelques mesures utilisant la police Gonville@tie{}:
+Voici quelques mesures utilisant la police Gonville :
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
 @sourceimage{Gonville_after,,,}
 
-Et ces même mesures avec la police de LilyPond, Feta@tie{}:
+Et ces même mesures avec la police de LilyPond, Feta :
 
 @sourceimage{Gonville_before,,,}
 
@@ -2408,19 +2467,19 @@ qu'à propos des conditions d'utilisation.
 MIDI (Musical Instrument Digital Interface) constitue un standard en
 matière de connexion et de contrôle des instruments électroniques.  Un
 fichier MIDI contient une série de notes réparties dans différentes
-pistes.  Il ne s'agit en rien d'un fichier sonore@tie{}; il vous faudra
+pistes.  Il ne s'agit en rien d'un fichier sonore ; il vous faudra
 un logiciel capable de traduire ces séries de notes en sons réels.
 
 Vous pouvez convertir vos partition en fichier MIDI de manière à
 entendre ce que vous avez saisi.  Ceci vous permet de contrôler aisément
-ce que vous avez saisi@tie{}: octaves et altérations erronées heurteront
+ce que vous avez saisi : octaves et altérations erronées heurteront
 votre oreille avertie grâce au MIDI.
 
 Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
 cependant obtenir un meilleur rendu avec @ref{Le script Articulate}.
 
 Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, tout en
-réservant le canal@tie{}10 aux percussions. Dans la mesure ou un
+réservant le canal 10 aux percussions. Dans la mesure ou un
 périphérique MIDI ne comprend que 16 canaux, un fichier MIDI qui
 comportera plus de quinze portées verra le même canal réutilisé.
 
@@ -2440,7 +2499,7 @@ comportera plus de quinze portées verra le même canal réutilisé.
 @translationof Creating MIDI files
 
 LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
-@code{\midi} à la structure de votre partition, comme ici@tie{}:
+@code{\midi} à la structure de votre partition, comme ici :
 
 @example
 \score @{
@@ -2465,17 +2524,17 @@ un bloc @code{\layout}.
 Hauteurs, durées, liaisons de prolongation, nuances et changements de
 tempo seront interprétés et traduits en événements MIDI.  Les
 indications de nuances, crescendos et decrescendos sont traduits en
-niveau de volume@tie{}; les indications sous la forme d'une fraction
+niveau de volume ; les indications sous la forme d'une fraction
 déterminée du volume disponible, et crescendos et decrescendos sous la
 forme d'une progression linéaire entre les deux extrêmes.  Le rendu des
 indications de nuance peut être désactivé pour le MIDI -- voir
 @ref{Le bloc MIDI}.
 
 Le tempo initial ainsi que ses changements sont normalement indiqués au
-fil de la notation à l'aide de la commande @code{\tempo}@tie{}; ils
-seront retranscrits dans le fichier MIDI.  La commande @code{\tempo}
-donne lieu à l'impression d'une indication métronomique que vous pouvez
-toutefois rendre invisible, comme indiqué à la rubrique
+fil de la notation à l'aide de la commande @code{\tempo} ; ils seront
+retranscrits dans le fichier MIDI.  La commande @code{\tempo} donne lieu
+à l'impression d'une indication métronomique que vous pouvez toutefois
+rendre invisible, comme indiqué à la rubrique
 @ref{Indication métronomique}.  Une autre manière de spécifier le tempo
 initial pour un fichier MIDI est indiquée plus avant -- voir
 @ref{Le bloc MIDI}.
@@ -2484,7 +2543,7 @@ En raison de certaines limitations de Windows, les fichiers MIDI doivent
 y porter l'extension @code{.mid}.  D'autres systèmes utilisent
 l'extension @code{.midi}.  Si besoin est, placez la ligne suivante au
 début de votre fichier source, avant l'ouverture de tout bloc
-@code{\book}, @code{\bookpart} ou @code{\score}@tie{}:
+@code{\book}, @code{\bookpart} ou @code{\score} :
 
 @example
 #(ly:set-option 'midi-extension "midi")
@@ -2493,7 +2552,7 @@ début de votre fichier source, avant l'ouverture de tout bloc
 Cette ligne déterminera @code{.midi} comme extension par défaut pour les
 fichiers MIDI.
 
-Vous pouvez aussi le faire en ligne de commande@tie{}:
+Vous pouvez aussi le faire en ligne de commande :
 
 @example
 lilypond … -dmidi-extension=midi fichierLily.ly
@@ -2587,7 +2646,7 @@ Ici, le tempo est fixé à 72 noires à la minute.  Spécifier un tempo de
 la sorte ne permet pas de donner une valeur pour une note pointée.  Vous
 devrez, en pareil cas, subdiviser la note pointée en durée plus courte.
 Par exemple, indiquer 90 à la noire pointée est équivalent à spécifier
-270 croches à la minute@tie{}:
+270 croches à la minute :
 
 @example
 tempoWholesPerMinute = #(ly:make-moment 270 8)
@@ -2656,7 +2715,7 @@ commande @code{\score}.
 @c TODO etc
 
 Un fichier MIDI généré par LilyPond comprendra les éléments de notation
-suivants@tie{}:
+suivants :
 
 @itemize
 @item
@@ -2664,7 +2723,7 @@ les hauteurs ;
 
 @item
 les microtonalités -- voir @ref{Altérations}.  Leur rendu nécessite
-cependant un lecteur qui prenne en charge la modulation@tie{};
+cependant un lecteur qui prenne en charge la modulation ;
 
 @item
 les accords nommés ;
@@ -2674,7 +2733,7 @@ le rythme en tant que durée de note, y compris les nolets ;
 
 @item
 les trémolos, exceptés ceux utilisant la syntaxe
-@qq{@code{:}[@var{nombre}]}@tie{};
+@qq{@code{:}[@var{nombre}]} ;
 
 @item
 les liaisons de prolongation ;
@@ -2683,17 +2742,17 @@ les liaisons de prolongation ;
 les indications de nuance ;
 
 @item
-les crescendos et decrescendos s'étalant sur plusieurs notes@tie{};
+les crescendos et decrescendos s'étalant sur plusieurs notes ;
 
 @item
-les changements de tempo indiqués par un @code{\tempo}@tie{};
+les changements de tempo indiqués par un @code{\tempo} ;
 
 @item
 les paroles.
 @end itemize
 
 Si vous utilisez @ref{Le script Articulate}, d'autres éléments seront
-alors inclus@tie{}:
+alors inclus :
 
 @itemize
 @item articulations (lié, staccato, etc.),
@@ -2708,30 +2767,30 @@ alors inclus@tie{}:
 @c TODO index as above
 
 LilyPond ne peut générer d'événement MIDI pour les éléments
-suivant, sauf à utiliser @ref{Le script Articulate}@tie{}:
+suivant, sauf à utiliser @ref{Le script Articulate} :
 
 @itemize
 @item
-le rythme indiqué sous forme d'annotation (par ex. @emph{swing})@tie{};
+le rythme indiqué sous forme d'annotation (par ex. @emph{swing}) ;
 
 @item
 les changements de tempo indiqués sous forme d'annotation (sans
-@code{\tempo})@tie{};
+@code{\tempo}) ;
 
 @item
-les staccatos et autres articulations ou ornementations@tie{};
+les staccatos et autres articulations ou ornementations ;
 
 @item
-les liaisons d'articulation et de prhasé@tie{};
+les liaisons d'articulation et de phrasé ;
 
 @item
-les crescendos ou decrescendos sur une seule note@tie{};
+les crescendos ou decrescendos sur une seule note ;
 
 @item
-les trémolos indiqués par la syntaxe @qq{@code{:}[@var{nombre}]}@tie{};
+les trémolos indiqués par la syntaxe @qq{@code{:}[@var{nombre}]} ;
 
 @item
-la basse chiffrée
+la basse chiffrée ;
 
 @item
 les accords en microtonalité.
@@ -2771,7 +2830,7 @@ reprises ne sera effectif en MIDI qu'à la condition que ces reprises
 soient mentionnée correctement dans @strong{toutes} les voix.
 
 Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
-MIDI, il faut établir deux blocs @code{\score}@tie{}: un pour le MIDI,
+MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI,
 avec des reprises explicites, et l'autre pour la partition, avec des
 reprises notées sous forme de barres de reprise, de trémolo ou de
 symboles de pourcentage.  Par exemple
@@ -2855,7 +2914,7 @@ Le dernier exemple de cette partie illustre la manière de procéder.
 Les valeurs extrêmes du volume MIDI des nuances se contrôlent à l'aide
 des propriétés @code{midiMinimumVolume} et @code{midiMaximumVolume} qui
 agissent au niveau @code{Score}.  Ces propriétés sont effectives dès
-lors qu'une nuance est indiquée@tie{}; une nuance de départ est donc
+lors qu'une nuance est indiquée ; une nuance de départ est donc
 requise pour que le volume soit ajusté dès le début de la partition.
 Vous pouvez alors modifier la fraction correspondant à chaque nuance à
 l'aide de la formule
@@ -2865,7 +2924,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @end example
 
 Voici comment ajuster les nuances tout en limitant l'amplitude du volume
-entre 0,2 et 0,5@tie{}:
+entre 0,2 et 0,5 :
 
 @lilypond[verbatim,quote]
 \score {
@@ -2968,7 +3027,7 @@ minimum et maximum de volume alloué à cet instrument.  Cette
 substitution fonctionne selon le même principe que celui que nous avons
 vu en début de chapitre avec @code{dynamicAbsoluteVolumeFunction}.
 L'égaliseur par défaut, @notation{default-instrument-equalizer}, est
-défini dans le fichier @file{../scm/midi.scm}@tie{}; son analyse vous
+défini dans le fichier @file{../scm/midi.scm} ; son analyse vous
 aidera à construire votre propre procédure.
 
 Nous allons, dans l'exemple suivant, régler le volume relatif de la
@@ -3056,18 +3115,18 @@ copied out and compiled to test microtones in your MIDI player.
 
 La notation pour percussions recourt généralement à un contexte
 particulier -- le @code{DrumStaff} -- qui permet d'affecter directement
-les instruments concernés au canal@tie{}10 qui leur est réservé.
+les instruments concernés au canal 10 qui leur est réservé.
 
 Certains instruments, tels le xylophone, le marimba, le vibraphone ou
 les timbales, se traitent cependant comme des instruments
 @qq{classiques} puisqu'ils sont capables d'émettre des hauteurs
-différentes@tie{}; leurs notation relève donc d'un contexte @code{Staff}
+différentes ; leurs notation relève donc d'un contexte @code{Staff}
 standard, et non d'un @code{DrumStaff} pour pouvoir être rendus
 correctement en MIDI.
 
 D'autres percussions, bien que n'émettant qu'un seul son et inclus dans
 le standard @emph{general MIDI}, comme le tom mélodique ou le tambour
-taiko, ne sont pas attachés au canal@tie{}10.  Ces instruments doivent
+taiko, ne sont pas attachés au canal 10.  Ces instruments doivent
 donc être saisi dans un contexte @code{Staff}, en utilisant la hauteur
 appropriée.
 
@@ -3079,7 +3138,7 @@ son le plus proche dans la banque standard.
 @c TODO Expand with examples, and any other issues
 
 @knownissues
-Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot}@tie{};
+Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot} ;
 LilyPond lui substitue un @emph{sidestick}.
 
 
@@ -3089,7 +3148,7 @@ LilyPond lui substitue un @emph{sidestick}.
 
 Vous obtiendrez un rendu MIDI plus @qq{réaliste} grâce au script
 @code{articulate}.  Celui-ci va tout faire pour d'une part prendre en
-compte les articulations (liaisons, staccato, etc.) -- en ajoutant un
+compte les articulations (liaisons, staccato etc.) -- en ajoutant un
 blanc aux notes raccourcies -- et, d'autre part, développer les trilles
 ou groupettos ainsi que tenir compte des éventuels rallentando et
 accelerando.
@@ -3103,7 +3162,7 @@ ajoutant en tête de votre fichier la ligne
 @end example
 
 puis, dans le bloc @code{\score}, indiquer que toutes les répétitions
-seront développées et appliquer la commande à votre musique@tie{}:
+seront développées et appliquer la commande à votre musique :
 
 @example
 \unfoldRepeats \articulate <<
@@ -3122,7 +3181,7 @@ illustré ci-dessus permettra le rendu d'un certain nombre
 d'articulations tels les trilles.
 
 @knownissues
-Dans la mesure où la script @code{articulate} tend à raccourcir les
+Dans la mesure où le script @code{articulate} tend à raccourcir les
 accords, certaines musiques, notamment pour l'orgue, paraîtront de moins
 bonne qualité.
 
@@ -3170,7 +3229,7 @@ messages et enregistrer le résultat de la fonction
 fichier.
 
 @example
-lilypond fichier.ly >affichage.txt
+lilypond fichier.ly > affichage.txt
 @end example
 
 @funindex \void
@@ -3181,7 +3240,7 @@ fait que @code{\displayLilyMusic} renvoie l'expression tout en
 l'affichant.  S'il est bien pratique d'insérer un
 @code{\displayLilyMusic} dans une expression musicale pour en obtenir
 des informations, l'interprétation de cette expression peut toutefois
-être évitée en ajoutant un @code{\void} avant l'instruction@tie{}:
+être évitée en ajoutant un @code{\void} avant l'instruction :
 
 @example
 @{
@@ -3204,7 +3263,7 @@ Voir @rextend{Affichage d'expressions musicales}.
 LilyPond vous permet de sauvegarder dans un fichier séparé, sur la base
 de la portée, les événements musicaux.  Vous devrez pour ce faire
 inclure dans votre fichier maître un fichier d'initialisation
-spécifique@tie{}:
+spécifique :
 
 @example
 \include "event-listener.ly"
@@ -3215,7 +3274,7 @@ fichier @file{NOMFICHIER-PORTÉENOMMÉE.notes} ou
 @file{NOMFICHIER-unnamed-staff.notes}.  Notez bien que si plusieurs
 portées ne sont pas explicitement nommées, tous leurs événements seront
 regroupés et mélangés dans le même fichier.  Le résultat ressemblera à
-ceci@tie{}:
+ceci :
 
 @example
 0.000   note     57       4   p-c 2 12
