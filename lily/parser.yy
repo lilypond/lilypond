@@ -225,6 +225,7 @@ SCM get_next_unique_lyrics_context_id ();
 static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
 		      SCM arg, SCM args, SCM pred);
+SCM make_music_from_simple (Lily_parser *parser, Input loc, SCM pitch);
 SCM loc_on_music (Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
@@ -961,13 +962,9 @@ music_embedded:
 music_arg:
 	simple_music
 	{
-		if (unsmob_pitch ($1)) {
-			Music *n = MY_MAKE_MUSIC ("NoteEvent", @1);
-			n->set_property ("pitch", $1);
-			n->set_property ("duration",
-					 parser->default_duration_.smobbed_copy ());
-			$$ = n->unprotect ();
-		}
+	        $$ = make_music_from_simple (parser, @1, $1);
+                if (!unsmob_music ($$))
+                        parser->parser_error (@1, _ ("music expected"));
 	}
 	| composite_music %prec COMPOSITE
 	;
@@ -1914,15 +1911,12 @@ event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
 		if (scm_is_pair ($2)) {
-			if (unsmob_pitch ($1)) {
-				Music *n = MY_MAKE_MUSIC ("NoteEvent", @1);
-				n->set_property ("pitch", $1);
-				n->set_property ("duration",
-						 parser->default_duration_.smobbed_copy ());
-				$$ = n->unprotect ();
-			}
-			unsmob_music ($$)->set_property ("articulations",
-							 scm_reverse_x ($2, SCM_EOL));
+		        $$ = make_music_from_simple (parser, @1, $1);
+			if (unsmob_music ($$))
+                                unsmob_music ($$)->set_property ("articulations",
+                                                                 scm_reverse_x ($2, SCM_EOL));
+                        else
+                                parser->parser_error (@1, _("music expected"));
 		}
 	}
 	| simple_chord_elements post_events	{
@@ -3169,6 +3163,36 @@ is_regular_identifier (SCM id)
         s++;
    }
   return v;
+}
+
+SCM
+make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
+{
+	if (unsmob_music (simple))
+		return simple;
+	if (parser->lexer_->is_note_state ()) {
+		Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
+		n->set_property ("duration", parser->default_duration_.smobbed_copy ());
+		if (scm_is_symbol (simple))
+			n->set_property ("drum-type", simple);
+		else if (unsmob_pitch (simple))
+			n->set_property ("pitch", simple);
+		else {
+			n->unprotect ();
+			return simple;
+		}
+		return n->unprotect ();
+	} else if (parser->lexer_->is_lyric_state ()) {
+		if (Text_interface::is_markup (simple))
+			return MAKE_SYNTAX ("lyric-event", loc, simple,
+					    parser->default_duration_.smobbed_copy ());
+	} else if (parser->lexer_->is_chord_state ()) {
+		if (unsmob_pitch (simple))
+			return make_chord_elements (loc, simple,
+						    parser->default_duration_.smobbed_copy (),
+						    SCM_EOL);
+	}
+	return simple;
 }
 
 Music *
