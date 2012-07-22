@@ -2228,9 +2228,9 @@ Extending LilyPond:
 @cindex tweaking control points
 @cindex control points, tweaking
 
-The @code{\tweak} command will apply to only the first of several
-generated ties in a chord.
-
+The @code{\tweak} command cannot be used to modify the control
+points of just one of several ties in a chord, other than the first
+one encountered in the input file.
 
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
