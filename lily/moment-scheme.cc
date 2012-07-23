@@ -21,33 +21,53 @@
 
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
-           2, 2, 0, (SCM n, SCM d, SCM gn, SCM gd),
-           "Create the rational number with main timing @var{n}/@var{d},"
-           " and optional grace timing @var{gn}/@var{gd}.\n"
+           1, 3, 0, (SCM m, SCM g, SCM gn, SCM gd),
+           "Create the moment with rational main timing @var{m},"
+           " and optional grace timing @var{g}.\n"
            "\n"
            "A @dfn{moment} is a point in musical time.  It consists of"
            " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
            " the timing for the main notes, and @var{g} the timing for"
-           " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.")
+           " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.\n"
+	   "\n"
+	   "For compatibility reasons, it is possible to write two"
+	   " numbers specifying numerator and denominator instead of"
+           " the rationals.  These forms cannot be mixed, and the two-"
+	   "argument form is disambiguated by the sign of the second"
+	   " argument: if it is positive, it can only be a denominator"
+	   " and not a grace timing."
+)
 {
-  LY_ASSERT_TYPE (scm_is_integer, n, 1);
-  LY_ASSERT_TYPE (scm_is_integer, d, 2);
+  LY_ASSERT_TYPE (ly_is_rational, m, 1);
+  if (SCM_UNBNDP (g))
+    return Moment (ly_scm2rational (m)).smobbed_copy ();
 
-  int grace_num = 0;
-  if (gn != SCM_UNDEFINED)
+  if (SCM_UNBNDP (gn))
     {
-      LY_ASSERT_TYPE (scm_is_integer, gn, 3);
-      grace_num = scm_to_int (gn);
+      LY_ASSERT_TYPE (ly_is_rational, g, 2);
+      if (scm_is_true (scm_positive_p (g)))
+	{
+	  LY_ASSERT_TYPE (scm_is_integer, m, 1);
+	  LY_ASSERT_TYPE (scm_is_integer, g, 2);
+	  return Moment (Rational (scm_to_int64 (m),
+				   scm_to_int64 (g))).smobbed_copy ();
+	}
+      return Moment (ly_scm2rational (m),
+		     ly_scm2rational (g)).smobbed_copy ();
     }
 
-  int grace_den = 1;
-  if (gd != SCM_UNDEFINED)
+  LY_ASSERT_TYPE (scm_is_integer, m, 1);
+  LY_ASSERT_TYPE (scm_is_integer, g, 2);
+  LY_ASSERT_TYPE (scm_is_integer, gn, 3);
+  I64 grace_num = scm_to_int64 (gn);
+  I64 grace_den = 1;
+  if (!SCM_UNBNDP (gd))
     {
       LY_ASSERT_TYPE (scm_is_integer, gd, 4);
-      grace_den = scm_to_int (gd);
+      grace_den = scm_to_int64 (gd);
     }
 
-  return Moment (Rational (scm_to_int (n), scm_to_int (d)),
+  return Moment (Rational (scm_to_int64 (m), scm_to_int64 (g)),
                  Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
