@@ -618,12 +618,18 @@ ly_scm2rational (SCM r)
 Rational
 robust_scm2rational (SCM n, Rational rat)
 {
-  if (scm_is_real (n)
-      && (scm_is_true (scm_exact_p (n))
-	  || scm_is_true (scm_inf_p (n))))
+  if (ly_is_rational (n))
     return ly_scm2rational (n);
   else
     return rat;
+}
+
+bool
+ly_is_rational (SCM n)
+{
+  return (scm_is_real (n)
+	  && (scm_is_true (scm_exact_p (n))
+	      || scm_is_true (scm_inf_p (n))));
 }
 
 SCM

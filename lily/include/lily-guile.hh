@@ -103,6 +103,7 @@ inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || x == SCM_EOL; }
 inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
 
+bool ly_is_rational (SCM);
 /*
   want to take the address of this function; scm_is_symbol() is a
   macro.
