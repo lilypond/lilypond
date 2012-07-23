@@ -21,6 +21,7 @@
 #include "axis-group-interface.hh"
 #include "font-interface.hh"
 #include "grob-interface.hh"
+#include "international.hh"
 #include "item.hh"
 #include "lily-proto.hh"
 #include "line-interface.hh"
@@ -368,6 +369,8 @@ Line_spanner::print (SCM smob)
                                                 arrows[LEFT],
                                                 arrows[RIGHT]));
     }
+  else
+    me->warning (_ ("Line spanner's left point is to the right of its right point."));
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
                           simple_y ? 0.0 : -me->relative_coordinate (my_common_y, Y_AXIS)));
