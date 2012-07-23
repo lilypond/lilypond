@@ -8,6 +8,7 @@ changing-the-number-of-lines-in-a-staff.ly
 changing-the-staff-size.ly
 creating-blank-staves.ly
 creating-double-digit-fingerings.ly
+cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 glissandi-can-skip-grobs.ly
@@ -27,7 +28,6 @@ quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly
 removing-the-first-empty-line.ly
 setting-system-separators.ly
-stem-cross-staff-engraver.ly
 tick-bar-lines.ly
 time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly
