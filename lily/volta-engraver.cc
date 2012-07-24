@@ -152,7 +152,43 @@ Volta_engraver::acknowledge_bar_line (Grob_info i)
   if (volta_bracket_)
     Volta_bracket_interface::add_bar (volta_bracket_, i.item ());
   if (end_volta_bracket_)
-    Volta_bracket_interface::add_bar (end_volta_bracket_, i.item ());
+    {
+      Volta_bracket_interface::add_bar (end_volta_bracket_, i.item ());
+      Grob *endbar = i.grob();
+      SCM glyph = endbar ? endbar->get_property ("glyph-name") : SCM_EOL;
+
+      string str;
+      bool no_vertical_end = false;
+      if (scm_is_string (glyph))
+        str = ly_scm2string (glyph);
+      else
+        str = "|";
+
+      SCM vertical_end_allow_list = get_property ("voltaAllowEndLineOnGlyphs");
+      if (ly_cheap_is_list (vertical_end_allow_list))
+        { // checks based on user settable property
+          bool match_not_found = true;
+          while (scm_is_pair (vertical_end_allow_list) && match_not_found)
+            {
+              if (str == robust_scm2string (scm_car (vertical_end_allow_list), "* invalid *"))
+                match_not_found = false;
+              vertical_end_allow_list = scm_cdr (vertical_end_allow_list);
+            }
+         no_vertical_end |= match_not_found;
+      }
+
+      if (no_vertical_end)
+        {
+          Drul_array<Real> edge_height = robust_scm2interval (end_volta_bracket_->get_property ("edge-height"),
+                                                          Interval (1.0, 1.0));
+
+          if (no_vertical_end)
+            edge_height[RIGHT] = 0.0;
+
+          end_volta_bracket_->set_property ("edge-height", ly_interval2scm (edge_height));
+
+        }
+    }
 
   if (volta_spanner_)
     Side_position_interface::add_support (volta_spanner_, i.grob ());
@@ -199,6 +235,7 @@ ADD_TRANSLATOR (Volta_engraver,
                 "VoltaBracketSpanner ",
 
                 /* read */
+                "voltaAllowEndLineOnGlyphs "
                 "repeatCommands "
                 "voltaSpannerDuration "
                 "stavesFound ",

@@ -618,6 +618,10 @@ automatically when an output definition (a @code{\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
+  voltaAllowEndLineOnGlyphs = #'(
+    ":|" "|:" "||:" "|." ":|:" ":|.|:" ":|.:" ".|" 
+    "S|:" ":|S" ":|S." ".S|:" ":|S|:" ":|S.|:" )
+
   timeSignatureSettings = #default-time-signature-settings
   timeSignatureFraction = 4/4
 

@@ -564,6 +564,8 @@ setting this property, you can make brackets last shorter.
 for repeated bass figures.")
 
      (vocalName ,markup? "Name of a vocal line.")
+     (voltaAllowEndLineOnGlyphs ,list? "A list of glyphs where the
+volta end hook will be drawn.")
      (voltaSpannerDuration ,ly:moment? "This specifies the maximum
 duration to use for the brackets printed for @code{\\alternative}.
 This can be used to shrink the length of brackets in the situation
