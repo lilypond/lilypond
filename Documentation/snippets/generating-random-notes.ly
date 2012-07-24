@@ -7,7 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "really-cool, pitches, scheme-language"
+  lsrtags = "pitches, really-cool, scheme-language"
 
   texidoc = "
 This Scheme-based snippet generates 24 random notes (or as many as

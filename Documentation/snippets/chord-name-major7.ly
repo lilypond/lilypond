@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, chords"
+  lsrtags = "chords, specific-notation"
 
   texidoc = "
 The layout of the major 7 can be tuned with @code{majorSevenSymbol}.

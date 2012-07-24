@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, really-simple, contexts-and-engravers"
+  lsrtags = "contexts-and-engravers, really-simple, staff-notation"
 
   texidoc = "
 An extra staff can be added (possibly temporarily) after the start of a

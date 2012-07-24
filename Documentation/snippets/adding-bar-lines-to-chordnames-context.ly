@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, chords"
+  lsrtags = "chords, specific-notation"
 
   texidoc = "
 To add bar line indications in the @code{ChordNames} context, add the

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, chords"
+  lsrtags = "chords, tweaks-and-overrides"
 
   texidoc = "
 Where figured bass extender lines are being used by setting

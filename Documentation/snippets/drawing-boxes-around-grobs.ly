@@ -7,7 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "scheme-language, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 The @code{print-function} can be overridden to draw a box around an

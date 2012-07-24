@@ -7,7 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "workaround, editorial-annotations, contemporary-notation, vocal-music"
+  lsrtags = "contemporary-notation, editorial-annotations, vocal-music, workaround"
 
   texidoc = "
 This example shows how to put crosses on stems.  Mark the beginning of

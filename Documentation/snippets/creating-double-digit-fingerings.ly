@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, scheme-language, staff-notation, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, expressive-marks, scheme-language, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 By default you cannot make double-digit fingering notation (i.e.

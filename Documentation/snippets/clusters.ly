@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, specific-notation, keyboards, simultaneous-notes, contemporary-notation, chords"
+  lsrtags = "chords, contemporary-notation, keyboards, really-cool, simultaneous-notes, specific-notation"
 
   texidoc = "
 Clusters are a device to denote that a complete range of notes is to be

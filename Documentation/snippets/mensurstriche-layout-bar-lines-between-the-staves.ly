@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
+  lsrtags = "ancient-notation, contexts-and-engravers, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves

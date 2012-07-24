@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, text, specific-notation, editorial-annotations"
+  lsrtags = "editorial-annotations, really-cool, specific-notation, text"
 
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}

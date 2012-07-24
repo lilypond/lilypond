@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, contemporary-notation"
+  lsrtags = "contemporary-notation, rhythms"
 
   texidoc = "
 In some notational conventions beams are allowed to extend over rests.

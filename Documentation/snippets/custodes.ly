@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, ancient-notation, symbols-and-glyphs, tweaks-and-overrides"
+  lsrtags = "ancient-notation, specific-notation, symbols-and-glyphs, tweaks-and-overrides"
 
   texidoc = "
 Custodes may be engraved in various styles.

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "tweaks-and-overrides, simultaneous-notes"
+  lsrtags = "simultaneous-notes, tweaks-and-overrides"
 
   texidoc = "
 When the typesetting engine cannot cope, the following syntax can be

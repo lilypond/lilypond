@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "pitches, editorial-annotations"
+  lsrtags = "editorial-annotations, pitches"
 
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note

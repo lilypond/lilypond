@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, keyboards, template, vocal-music"
+  lsrtags = "keyboards, really-simple, template, vocal-music"
 
   texidoc = "
 Here is a typical song format: one staff with the melody and lyrics,

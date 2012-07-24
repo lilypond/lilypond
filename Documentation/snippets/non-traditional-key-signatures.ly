@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, pitches, staff-notation, version-specific, contemporary-notation"
+  lsrtags = "contemporary-notation, pitches, really-cool, staff-notation, version-specific"
 
   texidoc = "
 The commonly used @code{\\key} command sets the @code{keySignature}

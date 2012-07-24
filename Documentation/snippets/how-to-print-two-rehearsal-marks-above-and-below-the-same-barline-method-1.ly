@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, staff-notation, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, expressive-marks, staff-notation, tweaks-and-overrides"
 
   texidoc = "
 This method prints two 'rehearsal marks', one on top of the other. It

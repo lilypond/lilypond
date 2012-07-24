@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "keyboards, workaround, tweaks-and-overrides, chords"
+  lsrtags = "chords, keyboards, tweaks-and-overrides, workaround"
 
   texidoc = "
 Sometimes it is better to use stems from the upper staff for creating

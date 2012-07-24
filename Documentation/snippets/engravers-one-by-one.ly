@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, contexts-and-engravers"
+  lsrtags = "contexts-and-engravers, specific-notation"
 
   texidoc = "
 The notation problem, creating a certain symbol, is handled by plugins.

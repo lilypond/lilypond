@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "real-music, keyboards, repeats"
+  lsrtags = "keyboards, real-music, repeats"
 
   texidoc = "
 Since @code{\\repeat tremolo} expects exactly two musical arguments for

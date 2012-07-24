@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, workaround, repeats, editorial-annotations"
+  lsrtags = "editorial-annotations, repeats, staff-notation, workaround"
 
   texidoc = "
 This snippet provides a workaround for emitting measure counters using

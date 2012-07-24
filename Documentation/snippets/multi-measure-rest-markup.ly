@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, rhythms"
+  lsrtags = "rhythms, text"
 
   texidoc = "
 Markups attached to a multi-measure rest will be centered above or

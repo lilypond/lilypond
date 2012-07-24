@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, text, keyboards, template"
+  lsrtags = "keyboards, really-simple, template, text"
 
   texidoc = "
 Instead of having a full staff for the melody and lyrics, lyrics can be

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, template, chords, vocal-music"
+  lsrtags = "chords, really-simple, template, vocal-music"
 
   texidoc = "
 This template allows the preparation of a song with melody, words, and

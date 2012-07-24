@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, scheme-language, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, really-cool, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 When a note head with a special shape cannot easily be generated with

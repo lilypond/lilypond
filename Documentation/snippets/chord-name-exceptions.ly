@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, chords"
+  lsrtags = "chords, specific-notation"
 
   texidoc = "
 The property @code{chordNameExceptions} can be used to store a list of

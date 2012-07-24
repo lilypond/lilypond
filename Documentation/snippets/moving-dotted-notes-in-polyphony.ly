@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides, simultaneous-notes"
+  lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
 
   texidoc = "
 When a dotted note in the upper voice is moved to avoid a collision

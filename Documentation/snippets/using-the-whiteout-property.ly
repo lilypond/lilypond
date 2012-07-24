@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, editorial-annotations"
+  lsrtags = "editorial-annotations, expressive-marks"
 
   texidoc = "
 Any graphical object can be printed over a white background to mask

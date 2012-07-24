@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, staff-notation, workaround, editorial-annotations"
+  lsrtags = "editorial-annotations, really-cool, staff-notation, workaround"
 
   texidoc = "
 For educational purposes, a staff line can be thickened (e.g., the

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, specific-notation, contemporary-notation"
+  lsrtags = "contemporary-notation, expressive-marks, specific-notation"
 
   texidoc = "
 A contemporary glissando without a final note can be typeset using a

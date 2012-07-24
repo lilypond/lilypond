@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "spacing, text, workaround, correction-wanted, vocal-music"
+  lsrtags = "correction-wanted, spacing, text, vocal-music, workaround"
 
   texidoc = "
 This snippet shows how to bring the lyrics line closer to the staff.

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "ancient-notation, contexts-and-engravers, chords"
+  lsrtags = "ancient-notation, chords, contexts-and-engravers"
 
   texidoc = "
 When writing a figured bass, you can place the figures above or below

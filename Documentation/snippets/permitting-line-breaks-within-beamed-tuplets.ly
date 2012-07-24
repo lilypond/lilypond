@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "version-specific, rhythms"
+  lsrtags = "rhythms, version-specific"
 
   texidoc = "
 This artificial example shows how both manual and automatic line breaks

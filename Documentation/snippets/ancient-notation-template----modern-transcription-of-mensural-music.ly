@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-cool, real-music, ancient-notation, template"
+  lsrtags = "ancient-notation, real-music, really-cool, template"
 
   texidoc = "
 When transcribing mensural music, an incipit at the beginning of the

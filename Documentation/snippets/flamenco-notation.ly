@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "version-specific, fretted-strings, specific-notation, stylesheet"
+  lsrtags = "fretted-strings, specific-notation, stylesheet, version-specific"
 
   texidoc = "
 For flamenco guitar, special notation is used:

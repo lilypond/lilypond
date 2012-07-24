@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "editorial-annotations, rhythms, tweaks-and-overrides, chords"
+  lsrtags = "chords, editorial-annotations, rhythms, tweaks-and-overrides"
 
   texidoc = "
 Fingerings and string numbers applied to individual notes will

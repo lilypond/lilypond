@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, expressive-marks, tweaks-and-overrides"
 
   texidoc = "
 Creating a delayed turn, where the lower note of the turn uses the

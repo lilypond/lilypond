@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "breaks, workaround, repeats, symbols-and-glyphs"
+  lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
 
   texidoc = "
 If you want to place an exiting segno sign and add text like @qq{D.S.
@@ -25,22 +25,22 @@ line.
   \key g \major
   \time 4/4
   \relative c'' {
-    \repeat unfold 2 {
-      | c4 c c c
+    \repeat unfold 4 {
+      c4 c c c
     }
 
     % Set segno sign as rehearsal mark and adjust size if needed
     % \once \override Score.RehearsalMark #'font-size = #3
     \mark \markup { \musicglyph #"scripts.segno" }
     \repeat unfold 2 {
-      | c4 c c c
+      c4 c c c
     }
 
     % Set coda sign as rehearsal mark and adjust size if needed
     \once \override Score.RehearsalMark #'font-size = #4
     \mark \markup { \musicglyph #"scripts.coda" }
     \repeat unfold 2 {
-      | c4 c c c
+      c4 c c c
     }
 
     % Should Coda be on anew line?
@@ -76,15 +76,17 @@ line.
         % text and symbols center-aligned
         % ===============================
         % Move text to the desired position and tweak spacing for optimum text alignment
-        %\once \override TextScript #'extra-offset = #'( 8 . -5.5 )
+        \repeat unfold 1 {
+          s1
+          \bar ""
+        }
+        \once \override TextScript #'extra-offset = #'( 0 . -3.0 )
         \once \override TextScript #'word-space = #1.5
-        \once \override TextScript #'X-offset = #8
-        \once \override TextScript #'Y-offset = #1.5
-        | s1*0^\markup { \center-column { "D.S. al Coda" \line { \musicglyph #"scripts.coda" \musicglyph #"scripts.tenuto" \musicglyph #"scripts.coda"} } }
+        <>^\markup { \center-column { "D.S. al Coda" \line { \musicglyph #"scripts.coda" \musicglyph #"scripts.tenuto" \musicglyph #"scripts.coda"} } }
 
         % Increasing the unfold counter will expand the staff-free space
-        \repeat unfold 4 {
-          s4 s4 s4 s4
+        \repeat unfold 3 {
+          s1
           \bar ""
         }
         % Resume bar count and show staff lines again
@@ -104,18 +106,18 @@ line.
 
    % Put the coda sign ontop of the (treble-)clef dependend on coda's line-position
 
-     % Coda NOT on new line, use this:
-     % \once \override Score.RehearsalMark #'extra-offset = #'( -2 . 1.75 )
+   % Coda NOT on new line, use this:
+   % \once \override Score.RehearsalMark #'extra-offset = #'( -2 . 1.75 )
 
-     % Coda on new line, use this:
-     \once \override Score.RehearsalMark #'extra-offset = #'( -8.42 . 1.75 )
+   % Coda on new line, use this:
+   \once \override Score.RehearsalMark #'extra-offset = #'( -4.5 . 0 )
 
    \once \override Score.RehearsalMark #'font-size = #5
    \mark \markup { \musicglyph #"scripts.coda" }
 
    % The coda
    \repeat unfold 5 {
-      | c4 c c c
+      c4 c c c
     }
     \bar"|."
   }

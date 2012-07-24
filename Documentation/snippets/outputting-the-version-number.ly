@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "scheme-language, really-simple, text, titles"
+  lsrtags = "really-simple, scheme-language, text, titles"
 
   texidoc = "
 By putting the output of

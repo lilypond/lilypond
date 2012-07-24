@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, really-simple, editorial-annotations, connecting-notes"
+  lsrtags = "connecting-notes, editorial-annotations, expressive-marks, really-simple"
 
   texidoc = "
 The appearance of slurs may be changed from solid to dotted or dashed.

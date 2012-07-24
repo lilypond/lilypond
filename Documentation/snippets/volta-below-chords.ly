@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, repeats, chords"
+  lsrtags = "chords, repeats, staff-notation"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be

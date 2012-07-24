@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "spacing, workaround, tweaks-and-overrides"
+  lsrtags = "spacing, tweaks-and-overrides, workaround"
 
   texidoc = "
 By setting the @code{'Y-extent} property to a suitable value, all

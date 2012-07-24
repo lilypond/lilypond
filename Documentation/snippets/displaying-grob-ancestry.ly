@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "scheme-language, tweaks-and-overrides, devel"
+  lsrtags = "devel, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 When working with grob callbacks, it can be helpful to understand a

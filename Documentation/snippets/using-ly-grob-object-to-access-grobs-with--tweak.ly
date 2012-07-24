@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "scheme-language, tweaks-and-overrides, devel"
+  lsrtags = "devel, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 Some grobs can be accessed @qq{laterally} from within another grob's

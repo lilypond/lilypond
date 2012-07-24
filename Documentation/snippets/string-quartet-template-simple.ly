@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, unfretted-strings, template"
+  lsrtags = "really-simple, template, unfretted-strings"
 
   texidoc = "
 This template demonstrates a simple string quartet. It also uses a

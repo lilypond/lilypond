@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "really-simple, specific-notation, editorial-annotations, tweaks-and-overrides, simultaneous-notes"
+  lsrtags = "editorial-annotations, really-simple, simultaneous-notes, specific-notation, tweaks-and-overrides"
 
   texidoc = "
 Individual note heads in a chord can be modified with the

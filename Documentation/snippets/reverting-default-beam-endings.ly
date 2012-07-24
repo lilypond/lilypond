@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "version-specific, rhythms"
+  lsrtags = "rhythms, version-specific"
 
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first

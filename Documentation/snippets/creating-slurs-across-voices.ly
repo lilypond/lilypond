@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, real-music, keyboards, unfretted-strings, connecting-notes"
+  lsrtags = "connecting-notes, expressive-marks, keyboards, real-music, unfretted-strings"
 
   texidoc = "
 In some situations, it may be necessary to create slurs between notes

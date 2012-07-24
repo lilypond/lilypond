@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "rhythms, contemporary-notation"
+  lsrtags = "contemporary-notation, rhythms"
 
   texidoc = "
  Flat flags on lone notes and beam nibs at the ends of beamed figures

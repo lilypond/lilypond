@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "ancient-notation, symbols-and-glyphs, rhythms, tweaks-and-overrides"
+  lsrtags = "ancient-notation, rhythms, symbols-and-glyphs, tweaks-and-overrides"
 
   texidoc = "
 Rests may be used in various styles.

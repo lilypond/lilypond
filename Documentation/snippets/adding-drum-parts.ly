@@ -7,7 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "really-simple, preparing-parts, specific-notation, percussion, rhythms"
+  lsrtags = "percussion, preparing-parts, really-simple, rhythms, specific-notation"
 
   texidoc = "
 Using the powerful pre-configured tools such as the @code{\\drummode}

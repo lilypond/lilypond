@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, version-specific, correction-wanted, tweaks-and-overrides"
+  lsrtags = "correction-wanted, expressive-marks, tweaks-and-overrides, version-specific"
 
   texidoc = "
 Some dynamic expressions involve additional text, like @qq{sempre pp}.

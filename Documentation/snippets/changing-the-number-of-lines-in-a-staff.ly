@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "staff-notation, specific-notation"
+  lsrtags = "specific-notation, staff-notation"
 
   texidoc = "
 The number of lines in a staff may changed by overriding the

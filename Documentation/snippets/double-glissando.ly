@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, workaround, simultaneous-notes, contemporary-notation"
+  lsrtags = "contemporary-notation, expressive-marks, simultaneous-notes, workaround"
 
   texidoc = "
 To connect chords with glissando lines, attach a second glissando to a

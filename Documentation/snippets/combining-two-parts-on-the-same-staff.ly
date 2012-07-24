@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, syntax-and-expressions, simultaneous-notes"
+  lsrtags = "simultaneous-notes, syntax-and-expressions, text"
 
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the

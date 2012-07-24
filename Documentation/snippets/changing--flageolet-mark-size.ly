@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "expressive-marks, scheme-language, specific-notation, unfretted-strings, symbols-and-glyphs"
+  lsrtags = "expressive-marks, scheme-language, specific-notation, symbols-and-glyphs, unfretted-strings"
 
   texidoc = "
 To make the @code{\\flageolet} circle smaller use the following Scheme

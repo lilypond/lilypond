@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, contexts-and-engravers, template, vocal-music"
+  lsrtags = "contexts-and-engravers, template, text, vocal-music"
 
   texidoc = "
 This template is basically the same as the simple @qq{Vocal ensemble}

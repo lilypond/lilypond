@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "automatic-notation, rhythms, connecting-notes"
+  lsrtags = "automatic-notation, connecting-notes, rhythms"
 
   texidoc = "
 Beams can be subdivided automatically.  By setting the property

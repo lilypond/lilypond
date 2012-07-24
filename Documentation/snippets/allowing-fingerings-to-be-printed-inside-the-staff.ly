@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "spacing, fretted-strings, specific-notation, editorial-annotations"
+  lsrtags = "editorial-annotations, fretted-strings, spacing, specific-notation"
 
   texidoc = "
 By default, vertically oriented fingerings are positioned outside the

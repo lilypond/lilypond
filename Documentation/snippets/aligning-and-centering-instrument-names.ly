@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "text, paper-and-layout, titles"
+  lsrtags = "paper-and-layout, text, titles"
 
   texidoc = "
 The horizontal alignment of instrument names is tweaked by changing the

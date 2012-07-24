@@ -7,7 +7,7 @@
 \version "2.15.40"
 
 \header {
-  lsrtags = "workaround, simultaneous-notes, chords"
+  lsrtags = "chords, simultaneous-notes, workaround"
 
   texidoc = "
 Here is a way to display a chord where the same note is played twice

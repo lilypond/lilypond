@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, ancient-notation, workaround, tweaks-and-overrides"
+  lsrtags = "ancient-notation, specific-notation, tweaks-and-overrides, workaround"
 
   texidoc = "
 As a workaround to get real incipits which are independent from the

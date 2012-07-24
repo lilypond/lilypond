@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "scheme-language, editorial-annotations, tweaks-and-overrides"
+  lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
 
   texidoc = "
 The @code{\\circle} markup command draws circles around various

@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "breaks, staff-notation, workaround, contexts-and-engravers"
+  lsrtags = "breaks, contexts-and-engravers, staff-notation, workaround"
 
   texidoc = "
 When adding a new staff at a line break, some extra space is

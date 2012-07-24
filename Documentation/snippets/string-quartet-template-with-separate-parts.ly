@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "preparing-parts, unfretted-strings, template"
+  lsrtags = "preparing-parts, template, unfretted-strings"
 
   texidoc = "
 The @qq{String quartet template} snippet produces a nice string

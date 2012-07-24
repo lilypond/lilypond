@@ -7,7 +7,7 @@
 \version "2.14.2"
 
 \header {
-  lsrtags = "specific-notation, keyboards, workaround, symbols-and-glyphs"
+  lsrtags = "keyboards, specific-notation, symbols-and-glyphs, workaround"
 
   texidoc = "
 Accordion discant-specific symbols are added using @code{\\markup}. The
