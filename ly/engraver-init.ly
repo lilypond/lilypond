@@ -32,6 +32,7 @@
 \context {
   \type "Engraver_group"
   \name "FretBoards"
+  \alias "Staff"
   \description "A context for displaying fret diagrams."
 
   \consists "Fretboard_engraver"

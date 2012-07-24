@@ -3368,6 +3368,11 @@ def conv (str):
         stderr_write (_ ("beamExceptions controls whole-measure beaming.") + "\n")
     return str
 
+@rule ((2, 15, 42), r"\set stringTuning -> \set Staff.stringTuning")
+def conv (str):
+    str = re.sub (r"(\\set\s+)stringTuning", r"\1Staff.stringTuning", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
