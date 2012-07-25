@@ -57,8 +57,8 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
            " eighth note, etc.  The number of dots after the note is given by"
            " the optional argument @var{dotcount}.\n"
            "\n"
-           "The duration factor is optionally given by @var{num} and"
-           " @var{den}.\n"
+           "The duration factor is optionally given by integers @var{num} and"
+           " @var{den}, alternatively by a single rational number.\n"
            "\n"
            "A duration is a musical duration, i.e., a length of time"
            " described by a power of two (whole, half, quarter, etc.) and a"
@@ -74,17 +74,17 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
     }
 
   bool compress = false;
-  if (num != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (num))
     {
-      LY_ASSERT_TYPE (scm_is_number, num, 3);
+      LY_ASSERT_TYPE (ly_is_rational, num, 3);
       compress = true;
     }
   else
     num = scm_from_int (1);
 
-  if (den != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (den))
     {
-      LY_ASSERT_TYPE (scm_is_number, den, 4);
+      LY_ASSERT_TYPE (scm_is_integer, den, 4);
       compress = true;
     }
   else
@@ -92,7 +92,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 
   Duration p (scm_to_int (length), dots);
   if (compress)
-    p = p.compressed (Rational (scm_to_int (num), scm_to_int (den)));
+    p = p.compressed (ly_scm2rational (scm_divide (num, den)));
 
   return p.smobbed_copy ();
 }
@@ -146,4 +146,17 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
   LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob_duration (dur)->factor ();
   return scm_cons (scm_from_int64 (r.num ()), scm_from_int64 (r.den ()));
+}
+
+// This is likely what ly:duration-factor should have been in the
+// first place.
+LY_DEFINE (ly_duration_scale, "ly:duration-scale",
+           1, 0, 0, (SCM dur),
+           "Extract the compression factor from @var{dur}."
+           "  Return it as a rational.")
+{
+  LY_ASSERT_SMOB (Duration, dur, 1);
+  Rational r = unsmob_duration (dur)->factor ();
+
+  return ly_rational2scm (r);
 }
