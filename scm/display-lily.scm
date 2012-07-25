@@ -285,8 +285,7 @@ inside body."
 (define *max-element-number-before-break* (make-parameter 6))
 
 ;; \times factor (used in durations)
-(define *time-factor-denominator* (make-parameter #f))
-(define *time-factor-numerator* (make-parameter #f))
+(define *time-scale* (make-parameter 1))
 
 (define *current-context* (make-parameter 'Bottom))
 

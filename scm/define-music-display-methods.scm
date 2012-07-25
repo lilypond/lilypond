@@ -107,13 +107,12 @@ expression."
 ;;;
 (define*-public (duration->lily-string ly-duration #:key (prev-duration (*previous-duration*))
 			(force-duration (*force-duration*))
-			(time-factor-numerator (*time-factor-numerator*))
-			(time-factor-denominator (*time-factor-denominator*))
+			(time-scale (*time-scale*))
 			remember)
   (if remember (*previous-duration* ly-duration))
   (let ((log2	 (ly:duration-log ly-duration))
 	(dots	 (ly:duration-dot-count ly-duration))
-	(num+den (ly:duration-factor ly-duration)))
+	(scale (ly:duration-scale ly-duration)))
     (if (or force-duration (not prev-duration) (not (equal? ly-duration prev-duration)))
 	(string-append (case log2
 			 ((-1) "\\breve")
@@ -121,17 +120,9 @@ expression."
 			 ((-3) "\\maxima")
 			 (else (number->string (expt 2 log2))))
 		       (make-string dots #\.)
-		       (let ((num? (not (or (= 1 (car num+den))
-					    (and time-factor-numerator
-						 (= (car num+den) time-factor-numerator)))))
-			     (den? (not (or (= 1 (cdr num+den))
-					    (and time-factor-denominator
-						 (= (cdr num+den) time-factor-denominator))))))
-			 (cond (den?
-				(format #f "*~a/~a" (car num+den) (cdr num+den)))
-			       (num?
-				(format #f "*~a" (car num+den)))
-			       (else ""))))
+		       (let ((end-scale (/ scale time-scale)))
+			 (if (= end-scale 1) ""
+			     (format #f "*~a" end-scale))))
 	"")))
 
 ;;;
@@ -670,10 +661,17 @@ Otherwise, return #f."
 (define-display-method TimeScaledMusic (times parser)
   (let* ((num (ly:music-property times 'numerator))
 	 (den (ly:music-property times 'denominator))
-	 (nd-gcd (gcd num den)))
+	 (scale (/ num den))
+	 (dur (*previous-duration*))
+	 (time-scale (*time-scale*)))
+
     (parameterize ((*force-line-break* #f)
-		   (*time-factor-numerator* (/ num nd-gcd))
-		   (*time-factor-denominator* (/ den nd-gcd)))
+		   (*previous-duration*
+		    (ly:make-duration (ly:duration-log dur)
+				      (ly:duration-dot-count dur)
+				      (* (ly:duration-scale dur)
+					 scale)))
+		   (*time-scale* (* time-scale scale)))
       (format #f "\\times ~a/~a ~a"
 	      num
 	      den
