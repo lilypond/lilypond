@@ -259,9 +259,8 @@ expression."
     (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
-					       'SkipEvent
-					       duration (ly:make-duration 0 0 0 1)
-					       articulations
+					       'EventChord
+					       elements
 					       ((music
 						 'SlurEvent
 						 span-direction START))))))
@@ -269,9 +268,8 @@ expression."
 	 (with-music-match (?stop (music
 				   'SequentialMusic
 				   elements ((music
-					      'SkipEvent
-					      duration (ly:make-duration 0 0 0 1)
-					      articulations
+					      'EventChord
+					      elements
 					      ((music
 						'SlurEvent
 						span-direction STOP))))))
@@ -292,9 +290,8 @@ expression."
     (and (with-music-match (?start (music
 				    'SequentialMusic
 				    elements ((music
-					       'SkipEvent
-					       duration (ly:make-duration 0 0 0 1)
-					       articulations
+					       'EventChord
+					       elements
 					       ((music
 						 'SlurEvent
 						 span-direction START)))
@@ -316,9 +313,8 @@ expression."
 						       symbol 'Flag))
 
 					     (music
-					      'SkipEvent
-					      duration (ly:make-duration 0 0 0 1)
-					      articulations
+					      'EventChord
+					      elements
 					      ((music
 						'SlurEvent
 						span-direction STOP))))))
