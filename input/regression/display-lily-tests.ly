@@ -180,6 +180,7 @@ stderr of this run."
 %% Tuplets
 \test ##[ \times 2/3 { c8 d e } #]				% TimeScaledMusic
 \test ##[ \times 4/6 { c16 d e f g a } #]
+\test ##[ \times 2/3 { c d e \times 2/5 { f e d2 d4 } c } #]
 %}
 %% \relative and \tranpose
 \test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic
