@@ -180,8 +180,7 @@ equivalent to @var{obj}, that is, for a music expression, a
 	 (ly:duration? obj)
 	 `(ly:make-duration ,(ly:duration-log obj)
 			    ,(ly:duration-dot-count obj)
-			    ,(car (ly:duration-factor obj))
-			    ,(cdr (ly:duration-factor obj))))
+			    ,(ly:duration-scale obj)))
 	(;; note pitch
 	 (ly:pitch? obj)
 	 `(ly:make-pitch ,(ly:pitch-octave obj)
@@ -237,12 +236,11 @@ which often can be read back in order to generate an equivalent expression."
 The number of dots in the shifted music may not be less than zero."
   (let ((d (ly:music-property music 'duration)))
     (if (ly:duration? d)
-	(let* ((cp (ly:duration-factor d))
+	(let* ((cp (ly:duration-scale d))
 	       (nd (ly:make-duration
                     (+ shift (ly:duration-log d))
                     (max 0 (+ dot (ly:duration-dot-count d)))
-		    (car cp)
-		    (cdr cp))))
+		    cp)))
 	  (set! (ly:music-property music 'duration) nd)))
     music))
 

@@ -146,8 +146,7 @@
     (list 'unquote `(ly:make-duration
 		     ,(ly:duration-log e)
 		     ,(ly:duration-dot-count e)
-		     ,(car (ly:duration-factor e))
-		     ,(cdr (ly:duration-factor e)))))
+		     ,(ly:duration-scale))))
    ((ly:pitch? e)
     (list 'unquote `(ly:make-pitch
 		     ,(ly:pitch-octave e)

@@ -41,6 +41,7 @@
    ly:duration-dot-count
    ly:duration-factor
    ly:duration-log
+   ly:duration-scale
    ly:duration<?
    ly:duration?
    ly:error
