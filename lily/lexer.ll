@@ -528,10 +528,6 @@ BOM_UTF8	\357\273\277
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
 	}
-	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.scm = scm_c_read_string (YYText ());
-		return UNSIGNED;
-	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
 		yylval.scm = scm_c_read_string (YYText ());
@@ -572,10 +568,6 @@ BOM_UTF8	\357\273\277
 	{FRACTION}	{
 		yylval.scm =  scan_fraction (YYText ());
 		return FRACTION;
-	}
-	{UNSIGNED}/\/[^0-9] { // backup rule
-		yylval.scm = scm_c_read_string (YYText ());
-		return UNSIGNED;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
@@ -720,10 +712,6 @@ BOM_UTF8	\357\273\277
 	yylval.scm = scm_c_read_string (YYText ());
 	return REAL;
 }
--\.	{ // backup rule
-	yylval.scm = scm_from_double (0.0);
-	return REAL;
-}
 
 {UNSIGNED}/\/	| // backup rule
 {UNSIGNED}	{
@@ -736,6 +724,8 @@ BOM_UTF8	\357\273\277
 
 	return YYText ()[0];
 }
+
+-/\.	| // backup rule
 [*:=]		{
 	char c = YYText ()[0];
 
