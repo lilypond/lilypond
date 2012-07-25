@@ -134,10 +134,7 @@
 (define *tempo-compression* #f)
 
 (define (duration->number duration)
-  (let* ((log (ly:duration-log duration))
-         (dots (ly:duration-dot-count duration))
-         (factor (ly:duration-factor duration)))
-    (exact->inexact (* (expt 2 (- log)) (+ 1 (/ dots 2)) (/ (car factor) (cdr factor))))))
+  (exact->inexact (ly:moment-main (ly:duration-length duration))))
 
 (define (tempo->beats music)
   (let* ((tempo-spec (find-child-named music 'SequentialMusic))
