@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
+    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1065,7 +1065,44 @@ aucun contexte déjà existant, LilyPond créera un nouveau contexte
 implicite.  Ceci peut engendrer une nouvelle portée ou une autre
 partition.
 
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+Il arrive qu'un contexte ne doive exister que pendant un court instant,
+ce qui est le cas par exemple pour une @emph{ossia}.  Le plus simple
+consiste alors à initialiser la définition d'un contexte à l'endroit
+approprié, en parallèle avec le fragment correspondant dans la musique
+principale.  Ce contexte temporaire sera par défaut positionné sous les
+autres contextes existants.  Le repositionner au-dessus du contexte
+« principal » demande de le définir ainsi :
+
+@example
+@code{\new Staff \with @{ alignAboveContext = #"principal" @} }
+@end example
+
+Il en va de même pour les contextes temporaires de paroles au sein d'un
+système à plusieurs portées comme un @code{ChoirStaff} lorsque, par
+exemple, un couplet supplémentaire apparaît à l'occasion d'une
+reprise.  Ce contexte de paroles temporaire se place par défaut sous les
+portées inférieures.  Lui adjoindre une instruction
+@code{alignBelowContext} dès son initialisation permet de l'accoler au
+contexte de paroles (nommé) qui contient le premier couplet.
+
+Des exemples de repositionnement de contexte temporaire sont disponibles
+aux rubriques @rlearning{Expressions musicales imbriquées},
+@ref{Modification de portées individuelles} et
+@ref{Situations particulières en matière de paroles}.
+
 @seealso
+Manuel d'initiation :
+@rlearning{Expressions musicales imbriquées}.
+
+Manuel de notation :
+@ref{Modification de portées individuelles},
+@ref{Situations particulières en matière de paroles}.
+
 Manuel d'utilisation :
 @rprogram{Apparition d'une portée supplémentaire}.
 

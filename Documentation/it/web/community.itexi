@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 18cc52e04834f7eaec4d41cf2783767b0e764d03
+    Translation of GIT committish: 7f8a93a6c044fcbb3c7aeb3aa5cba0c921dc7691
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,7 +49,7 @@ quando si discute di LilyPond.
 @ref{Sviluppo}: per i collaboratori e i tester.
 
 @item
-@ref{GSoC}: lista di progetti per il Google Summer of Code.
+@ref{GSoC 2012}: le nostre idee per l'edizione 2012 del Google Summer of Code.
 
 @item
 @ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
@@ -84,7 +84,7 @@ quando si discute di LilyPond.
 * Aiutaci::
 * Sponsor::
 * Sviluppo::
-* GSoC::
+* GSoC 2012::
 * Autori::
 * Pubblicazioni::
 * Notizie vecchie::
@@ -861,41 +861,38 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divEnd
 
 
-@node GSoC
-@unnumberedsec GSoC
-@translationof GSoC
+@node GSoC 2012
+@unnumberedsec GSoC 2012
+@translationof GSoC 2012
 
 @divClass{column-center-top}
 @subheading Che cos'è il Google Summer of Code?
 
-Citando il
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012, sito del GSoC},
-@qq{Google Summer of Code è un programma globale che offre stipendi agli
-studenti per scrivere codice per progetti open source.  Google ha collaborato
-con la comunità open source per identificare e finanziare dei progetti
-interessanti per la prossima estate.}
+È un programma internazionale organizzato da Google che offre agli studenti
+degli stipendi per lavorare a progetti di software libero durante le
+vacanze estive.
 
 Il team di LilyPond ha deciso che si tratta di un'ottima opportunità per trovare
-nuovi collaboratori, stimolare gli studenti che già partecipano allo sviluppo di
-LilyPond ad essere più coinvolti, e infine - per ultimo ma non meno importante -
-scrivere del buon codice per il bene di tutti!
-
-Partecipiamo al GSoC come membri del Progetto GNU.  Si veda
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html, la pagina GNU su GSoC}
-per informazioni su come partecipare.
+nuovi collaboratori e stimolare gli studenti che già partecipano allo sviluppo di
+LilyPond ad essere più coinvolti.  Uno dei nostri sviluppatori è stato accettato
+per l'edizione 2012 sotto l'egida del @uref{http://www.gnu.org/, progetto GNU};
+speriamo di partecipare anche a future edizioni.
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading La nostra lista delle idee
+@subheading La nostra lista delle idee per il 2012
 
-Ecco una lista di progetti che suggeriamo per gli studenti del GSoC.  Se nessuno
-dei progetti che vedi è adatto a te, puoi suggerirne uno tuo!
-È anche possibile ridimensionare un progetto se pensi che sia troppo impegnativo.
+Ecco una lista di progetti che suggeriamo per gli studenti del GSoC 2012.
+Sebbene il periodo delle domande sia finito, abbiamo deciso di tenere questa
+pagina online come fonte di ispirazione per chiunque sia interessato a
+contribuire allo sviluppo di LilyPond.
+Alcuni membri del team di sviluppo sono disponibili a aiutare chi volesse
+affrontare questi progetti.
 
-È necessario che ogni studente abbia una conoscenza di base di @code{git} e
-consigliamo che chiunque faccia domanda per uno qualsiasi di questi progetti,
-eccetto l'ultimo, abbia una conoscenza di base della notazione musicale.
+Ci sono certamente molte altre cose da migliorare in LilyPond, inclusi
+progetti molto piccoli.  Una lista completa di tutti i problemi si trova
+@uref{http://code.google.com/p/lilypond/issues/list, qui}.
 
 @subheading Abbellimenti
 
@@ -1006,40 +1003,6 @@ Se possibile, ridurre il tempo di elaborazione della disposizione delle travatur
 @strong{Conoscenze consigliate:} senso estetico
 
 @strong{Mentore/i:} Mike Solomon, Carl Sorensen
-
-@subheading Miglior supporto all'intavolatura
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Accordature non monotoniche, come l'Ukulele
-
-@item
-Creare una modalità di input per l'intavolatura (attualmente l'informazione
-musicale viene inserita secondo i termini della notazione musicale occidentale,
-ovvero @qq{una nota Fa# di un quarto} e poi convertita in intavolatura) per
-trascrivere l'intavolatura del liuto medievale
-
-@item
-Implementare funzionalità dell'intavolatura moderna, come la piegatura (bending),
-lo strappato e il martellato (hammer-on e pull-off)
-
-@item
-Se si definisce una forma sulla tastiera per un certo accordo, questa informazione
-deve essere usata quando si mostra l'accordo sul rigo (invece di mostrare soltanto
-la forma predefinita dell'accordo)
-
-@end itemize
-@divEnd
-
-@strong{Difficoltà:} facile
-
-@strong{Requisiti:} C++
-
-@strong{Conoscenze consigliate:} familiarità con l'intavolatura
-
-@strong{Mentore/i:} Carl Sorensen
 
 @subheading Semplificare vari avvisi durante la compilazione
 

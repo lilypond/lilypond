@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
+    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1354,6 +1354,52 @@ Et ce quel que soit le nombre de @qq{couplets} :
 }
 @end lilypond
 
+
+@cindex alignBelowContext
+@funindex alignBelowContext
+
+Cependant, lorsque la partition comporte plusieurs portées, cas typique
+d'un @code{ChoirStaff}, les paroles des deuxième et troisième couplets
+seront repoussées sous la dernière portée.  L'instruction
+@code{alignBelowContext} permet alors de les repositionner correctement :
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics = "firstVerse" \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics = "secondVerse"
+        \with { alignBelowContext = #"firstVerse" } {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+	\new Lyrics = "thirdVerse"
+        \with { alignBelowContext = #"secondVerse" } {
+	  \set associatedVoice = "melody"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+    \new Voice = "harmony" {
+      \relative c' {
+        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      }
+    }
+  >>
+}
+@end lilypond
 
 @c TODO positioning a common line of lyrics
 

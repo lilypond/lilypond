@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 0942948dca35950b6e9cd3529ada31c38360e184
+    Translation of GIT committish: 4c7bdf42ee240fdbb3c3dab2b1c201eae04253fa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,13 +13,19 @@
 @macro helpusNeed
 @subheading Abbiamo bisogno di te!
 
-Il team di sviluppo di LilyPond è piuttosto piccolo; desideriamo davvero
-coinvolgere nuove persone.  Prendi in considerazione l'idea di aiutare i
-tuoi compagni utenti di LilyPond diventando un collaboratore!
+Ti ringraziamo per l'interesse nel darci una mano --- ci farebbe molto
+piacere vederti partecipare!  Il tuo contributo aiuterà tanti utenti a
+scrivere belle partiture.
 
-Anche lavorare su piccoli compiti può avre un grande impatto: occuparsi di
+Anche lavorare su piccoli compiti può avere un grande impatto: occuparsi di
 questi compiti permette agli sviluppatori esperti di lavorare sui compiti
 complessi, invece di impiegare il tempo in quelli semplici.
+
+In un progetto complesso come LilyPond, talvolta è difficile sapere da dove
+iniziare.  Oltre alle possibilità proposte sotto, puoi inviare un
+email al @email{mike@@mikesolomon.org, Frog meister}
+per informarlo sulle tue competenze e chiedergli come aiutare oppure per
+proporre un progetto.  Ti farà da guida nel tuo percorso iniziale.
 
 @end macro
 
@@ -59,7 +65,7 @@ e il test di nuove funzionalità.  Contribuisci a queste discussioni!
 @end itemize
 @end macro
 
-@macro HelpusAdvanced
+@macro helpusAdvanced
 @subheading Compiti avanzati
 
 Questi compiti di solito richiedono il codice sorgente e la capacità di

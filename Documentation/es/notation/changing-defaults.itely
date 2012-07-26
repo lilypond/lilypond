@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+Translation of GIT committish: bcd9d85bfc1dd6cc2dd3e98901b4df33fd6d0989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1011,7 +1011,48 @@ encuentra una instrucción donde no hay un contexto apropiado para
 contenerlo.  Esto puede dar lugar a pentagramas o partituras nuevos no
 esperados.
 
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+En ocasiones se necesita que un contexto exista durante un breve
+intervalo de tiempo, siendo un buen ejemplo el contexto de pentagrama
+de un ossia.  Esto se consigue normalmente mediante la introducción de
+la definición del contexto en el lugar apropiado en paralelo con la
+sección correspondiente de la música principal.  De forma
+predeterminada, el contexto tempral se coloca debajo de todos los
+contextos existentes.  Para reposicionallo por encima del contexto que
+tenga el nombre @qq{principal}, debería definirse de esta forma:
+
+@example
+@code{\new Staff \with @{ alignAboveContext = #"principal" @} }
+@end example
+
+Se presenta una situación similar cuando se posiciona un contexto
+temporal de letra de una canción dentro de una disposición de varios
+pentagramas tal como @code{ChoirStaff}, por ejemplo, cuando se añade
+una segunda estrofa a una sección que se repite.  De forma
+predeterminada, el contexto temporal de letra se coloca debajo de los
+pentagramas inferiores.  Mediante la definición del contexto temporal
+de letra con @code{alignBelowContext} se puede posicionar
+correctamente debajo del contexto de letra con nombre que contiene el
+texto de la primera estrofa.
+
+En diversos lugares pueden verse ejemplos que muestran esta
+recolocación de contextos temporales: véase
+@rlearning{Anidado de expresiones musicales},
+@ref{Modificación de pentagramas sueltos} y
+@ref{Técnicas específicas para la letra}.
+
 @seealso
+Manual de aprendizaje:
+@rlearning{Anidado de expresiones musicales}.
+
+Referencia de la notación:
+@ref{Modificación de pentagramas sueltos},
+@ref{Técnicas específicas para la letra}.
+
 Manual de utilización del programa:
 @rprogram{Aparece un pentagrama de más}.
 

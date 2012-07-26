@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
+    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -470,8 +470,8 @@ LilyPond にはこういったこととは無縁です。@c
 -- 個人々々ができる努力からゴールを達成することができます。
 
 @item
-@qq{与える文化}: フリー ソフトウェア (あるいは @qq{オープン ソース})
-運動は多くの偉大なソフトウェア プロジェクトを生み出してきました
+@qq{与える文化}: フリー ソフトウェア運動は多くの偉大なソフトウェア
+プロジェクトを生み出してきました
 -- @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, それに
 @uref{http://www.wesnoth.org/, Battle for Wesnoth} など。
@@ -479,7 +479,7 @@ LilyPond にはこういったこととは無縁です。@c
 そのコミュニティに @qq{恩返し} をしたいと考えている開発者もいます。
 
 @item
-経験: オープン ソース プロジェクトに貢献することは、@c
+経験: フリー ソフトウェア プロジェクトに貢献することは、@c
 プログラミング、ドキュメントの記述、デザインを訓練するための@c
 素晴らしい方法です。@c
 この経験により、仕事の依頼を受けたり、奨学金を得た開発者もいます。
@@ -545,13 +545,40 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 @itemize
 
 @item
-@emph{Affaire étrangère}, an opera by
-@uref{http://valentin.villenave.net/,Valentin Villenave}
-to a French libretto by
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
-Trondheim}, premiered February 1, 2009 at
-@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
-Montpellier}, France.
+Mussorgsky's @emph{Pictures at an exhibition}, re-orchestrated and
+conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
+the @uref{http://www.junge-philharmonie-brandenburg.de/,
+Junge Philharmonie Brandenburg}
+on Oct 10 2011 and again on Apr 15-16 2012.
+
+@item
+@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, composer and
+musical director.  His many, recent works include; @emph{Go Thy Way},
+performed by the @uref{http://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} in March 2012; The
+@emph{Just Out of Reach Suite} performed
+by the
+@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Chrysalis Duo} ; @emph{thrafsmata} performed in July 2011 by the
+@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
+New Music Ensemble}.
+
+
+@item
+@emph{Anonymous Student Compliment or Complaint}, by
+@uref{http://www.mikesolomon.org, Mike Solomon}, winner chosen from among
+172 entries from 22 countries of the
+@uref{http://leftcoastensemble.org/contest, 2011 Left Coast Composition Contest}.
+Other works include, Norman (age 1) for clarinet solo, performed at the
+@uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida}'s
+Electroacoustic Music Festival (FEMF), October 2010.
+
+@item
+A modern edition of the @emph{Serenata Erminia} by Alessandro Scarlatti,
+edited by Thomas Griffin, Musicologist (Rome, Italy).  Performed on 22
+October 2010 in the Galleria of the Palazzo Zevallos Stigliano, Naples,
+Italy.  @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
+in celebration of the composer's 350th birthday.
 
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}'s
@@ -566,10 +593,13 @@ and his ensemble @uref{http://www.earlymusicny.org/, Early Music
 New York} (engraving by Nicolas Sceaux).
 
 @item
-Mussorgsky's @emph{Pictures at an exhibition}, re-orchestrated and
-conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
-the @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
-on Oct 10 2011 and again on Apr 15-16 2012.
+@emph{Affaire étrangère}, an opera by
+@uref{http://valentin.villenave.net/,Valentin Villenave}
+to a French libretto by
+@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+Trondheim}, premiered February 1, 2009 at
+@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
+Montpellier}, France.
 
 @end itemize
 @divEnd
@@ -1094,11 +1124,10 @@ LilyPondTool は、LilyPond 楽譜を編集するための最も機能豊富な@
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi は LilyPond 専用の楽譜・テキスト エディタです。@c
-ビルドイン PDF プレビューア、強力な楽譜ウイザード、@c
-それに多くの編集機能を持ちます。@c
-KDE4 ライブラリの最上位階層に組み込まれていて、@c
-Linux や UNIX ライクな OS のすべてで実行できます。
+Frescobaldi はビルドイン PDF ビューアを持つ、軽量でパワフルな
+LilyPond 用の楽譜・テキストエディタです。@c
+簡単に使うことができ、すべての OS (Linux、Mac OS X、それに Windows)
+で実行できます。
 
 @divEnd
 

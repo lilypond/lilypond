@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 312f7ebc83ec9fb8cbbddfcf78b65a8502c16ab2
+    Translation of GIT committish: 73255e50558a62841500aa947ff7cad28636d144
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1166,6 +1166,106 @@ He aquí un ejemplo de un bloque @code{\layout}:
   @}
 @}
 @end example
+
+Se pueden escribir varios bloques @code{\layout} como expresiones del
+nivel superior.  Esto puede ser útil, por ejemplo, si hay distintos
+ajustes almacenados en diversos archivos y se incluyen opcionalmente.
+Internamente, cuando se evalúa un bloque @code{\layout}, se hace una
+copia de la configuración de @code{\layout} actual, y después se
+aplican los cambios definidos en el bloque; el resultado se guarda
+como la nueva configuración actual.  Desde el punto de vista del
+usuario, los bloques @code{\layout} se combinan, pero en situaciones
+de conflicto (cuando se cambia la misma propiedad en diferentes
+bloques) las definiciones más tarías toman precedencia.
+
+Por ejemplo: si este bloque:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript #'color = #magenta
+    \override Glissando #'thickness = #1.5
+  @}
+@}
+@end example
+
+se coloca después del del ejemplo anterior, las sobreescrituras de
+@code{'padding} y de @code{'color} para @code{TextScript} se combinan,
+pero la última sobreescritura @code{'thickness} para @code{Glissando}
+sustituye (u oculta) a la anterior.
+
+Los bloques @code{\layout} se pueden asignar a variables para una
+reutilización posterior, pero la forma en que esto funciona es ligera
+y significativamente diferente del hecho de escribirlas literalmente.
+
+Si se define una variable de la siguiente manera:
+
+@example
+variable_de_Layout = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead #'font-size = #4
+  @}
+@}
+@end example
+
+guardará la configuración actual de @code{\layout} con la
+sobreescritura añadida de @code{NoteHead #'font-size}, pero esta
+combinación @emph{no} se guarda como la nueva configuración actual.
+Tenga en cuenta que la @q{configuración actual} se lee cuando la
+variable se define y no cuando se usa, de manera que el contenido de
+la variable depende de su posición dentro del código fuente.
+
+La variable se puede entonces usar dentro de otro bloque
+@code{\layout}, por ejemplo:
+
+@example
+\layout @{
+  \variable_de_layout
+  \context @{
+    \Voice
+    \override NoteHead #'color = #red
+  @}
+@}
+@end example
+
+Un bloque @code{\layout} que contiene una variable, como en el ejemplo
+anterior, @emph{no} copia la configuración actual, sino que en lugar
+de ello usa el contenido de @code{\variable_de_layout} como la
+configuración base para las adiciones posteriores.  Esto significa que
+cualquier cambio definido entre la definición y el uso de la variable,
+se pierde.
+
+Si la @code{variable_de_layout} se define (o se incluye con
+@code{\include}) inmediatamente antes de que se utilice, su contenido
+es sencillamente la configuración en curso más las sobreescrituras que
+se hayan definido dentro de él.  Así pues, en el ejemplo anterior que
+muestra el uso de @code{\variable_de_layout} el último bloque
+@code{\layout} consistiría en:
+
+@example
+  TextScript #'padding = #1
+  TextScript #'color = #magenta
+  Glissando #'thickness = #1.5
+  NoteHead #' font-size = #4
+  NoteHead #' color = #red
+@end example
+
+más las sobreescrituras de @code{indent} y de @code{StaffGrouper}.
+
+Pero si la variable ya hubiera sido definida antes del primer bloque
+@code{\layout} la configuración actual contendría ahora solamente
+
+@example
+  NoteHead #' font-size= #4 % (escrita en la definición de la variable)
+  NoteHead #' color = #red % (añadida después del uso de la variable)
+@end example
+
+Si se planifica cuidadosamente, las variables de @code{\layout} pueden
+ser una herramienta valiosa para estructurar el diseño de la
+disposición de las fuentes, y tambiién para reiniciar la configuración
+de @code{\layout} a un estado conocido.
 
 @seealso
 Referencia de la notación:

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
+    Translation of GIT committish: e79582f3ec94019a9f849b2855abab4eabae3172
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -430,7 +430,7 @@ spiegando come usare queste funzionalità -- possiamo raggiungere
 il nostro obiettivo usando solo una frazione dello sforzo individuale.
 
 @item
-@qq{Cultura del dono}: il movimento del Software Libero (o @qq{Open Source})
+@qq{Cultura del dono}: il movimento del Software Libero
 ha creato vari grandi progetti software, come
 @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, e
@@ -439,7 +439,7 @@ tratto vantaggio da questi progetti, alcuni sviluppatori vogliono @qq{dare
 in cambio} qualcosa alla comunità.
 
 @item
-Esperienza di lavoro: contribuire a progetti open source è un ottimo modo
+Esperienza di lavoro: contribuire a progetti di software libero è un ottimo modo
 per esercitarsi nel programmare, scrivere la documentazione, o progettare.
 Questa esperienza ha aiutato alcuni sviluppatori ad ottenere offerte di
 lavoro o borse di studio.
@@ -708,7 +708,7 @@ Gli editor di Computer!Totaal, una rivista olandese di computer,
 nel numero di Ottobre 2004
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
 descrivono LilyPond} come: @qq{Meraviglioso software
-libero (open source) [..] Gli spartiti prodotti da
+libero [..] Gli spartiti prodotti da
 LilyPond sono incredibilmente belli [..] un sistema molto potente che
 può fare praticamente qualsiasi cosa.}
 
@@ -1072,10 +1072,9 @@ facilmente, e un lettore di PDF incorporato con supporto avanzato al punta-e-cli
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi è un editor di testo e musica progettato per LilyPond. Ha un
-lettore PDF incorporato, una potente procedura guidata per la creazione di
-partiture e molte funzionalità di scrittura.  È basato sulle librerie KDE4
-e attualmente gira su tutte le distro Linux e altri sistemi operativi UNIX.
+Frescobaldi è un editor di testo e musica leggero ma potente; è progettato
+specificamente per LilyPond e ha un lettore PDF incluso.  È facile da usare
+e funziona su tutti i principali sistemi operativi (Linux, Mac OS X e Windows).
 
 @divEnd
 

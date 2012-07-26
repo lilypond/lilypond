@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c20bed72fb602fabf67087649df283f1978a9d94
+    Translation of GIT committish: 73255e50558a62841500aa947ff7cad28636d144
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -373,8 +373,11 @@ las siguientes posibilidades:
 Una definición de salida, como @code{\paper}, @code{\midi} y
 @code{\layout}.  Tal definición en el nivel más alto cambia los
 ajustes predeterminados para todo el libro.  Si se introduce más de
-una de estas definiciones del mismo tipo en el nivel más alto,
-cualquier definición en una expresión posterior tiene prioridad.
+una de estas definiciones del mismo tipo en el nivel más alto, las
+definiciones se combinan, pero en situaciones de conflicto las
+definiciones más tardías tienen preferencia.  Para ver los detalles
+sobre cómo afecta al bloque @code{\layout}, consulte
+@ref{El bloque \layout}.
 
 @item
 Una expresión directa de Scheme, como
@@ -531,6 +534,8 @@ de la instrucción completa.
 Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
 
+Referencia de la notación:
+@ref{El bloque \layout}.
 
 @node Títulos y cabeceras
 @section Títulos y cabeceras
@@ -1029,6 +1034,51 @@ texto, use una o más de las siguientes variables de @code{\paper}:
 @item @code{evenFooterMarkup} (marcado de pie de página par)
 @end itemize
 
+@cindex marcado condicional
+@cindex on-the-fly
+@funindex \on-the-fly
+
+La instrucción de marcado @code{\on-the-fly} se puede utilizar para
+añadir elementos de forma condicional al texto de encabezamiento y pie
+de página definido dentro del bloque @code{\paper}, usando la sintaxis
+siguiente:
+
+@example
+@code{variable} = @code{\markup} @{
+  ...
+  @code{\on-the-fly}  #@var{procedimiento}  @var{marcado}
+  ...
+@}
+@end example
+
+El @var{procedimiento} se llama cada vez que se evalúa la instrucción
+@code{\markup} en que ésta aparece.  El @var{procedimiento} debería
+comprobar si se cumple una condición determinada e interpretar (es
+decir: imprimir) el argumento @var{marcado} si, y sólo si, la
+condición es verdadera.
+
+Se proveen un cierto número de procedimientos ya hechos para la
+comprobación de diversas condiciones:
+
+@quotation
+@multitable {print-page-number-check-first-----} {¿es el núm. de páginas en la parte de libro > 1?-----}
+
+@headitem  Nombre del procedimiento @tab  Condición que se comprueba
+
+@item print-page-number-check-first @tab  ¿debería imprimirse esta página?
+@item create-page-number-stencil    @tab  ¿es 'print-page-numbers verdadero?
+@item print-all-headers             @tab  ¿es 'print-all-headers verdadero?
+@item first-page                    @tab  ¿es la primera página del libro?
+@item (on-page nmbr)                @tab  ¿es el número de página = nmbr?
+@item last-page                     @tab  ¿es la última página del libro?
+@item not-first-page                @tab  ¿no es la primera página del libro?
+@item part-first-page               @tab  ¿es la primera página de la parte de libro?
+@item part-last-page                @tab  ¿es la última página de la parte de libro?
+@item not-single-page               @tab  ¿es el núm. de páginas en la parte de libro > 1?
+
+@end multitable
+@end quotation
+
 El ejemplo siguiente centra los números de página en la parte baja de
 las páginas.  En primer lugar, los ajustes predeterminados para
 @code{oddHeaderMarkup} y @code{evenHeaderMarkup} se eliminan
@@ -1058,10 +1108,24 @@ definiéndola como @code{\oddFooterMarkup}:
 }
 @end lilypond
 
+Se pueden combinar varias condiciones de @code{\on-the-fly} con un
+operador @q{and}, por ejemplo:
+
+@example
+  @code{\on-the-fly #first-page}
+  @code{\on-the-fly #last-page}
+  @code{@{ \markup ... \fromproperty #'header: ... @}}
+@end example
+
+determina si la salida es una sola página.
+
 @seealso
 Referencia de la notación:
 @ref{Explicación de los bloques de títulos},
 @ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+
+Archivos instalados:
+@file{../ly/titling-init.ly}.
 
 
 @node Crear notas al pie

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: bbd26f33a3141a7e7399cf669bb3eb68d445356c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,16 +27,17 @@
 * Notación antigua - funcionalidades comunes::
 * Tipografiar música mensural::
 * Tipografiado del canto gregoriano::
+* Tipografiado del canto kievano en notación cuadrada::
 * Trabajar con música antigua - escenarios y soluciones::
 @end menu
 
 Entre las formas en que está contemplada la notación antigua se
-encuentra la posibilidad de tipografiar notación mensural y canto
-gregoriano.  Se puede acceder a estas funcionalidades mediante la
-modificación de propiedades de estilo de objetos gráficos como la
-cabeza de las notas o los silencios, o bien mediante la utilización de
-uno de los contextos predefinidos para la notación mensural o
-gregoriana.
+encuentra la posibilidad de tipografiar notación mensural, canto
+gregoriano y canto kievano en notación cuadrada.  Se puede acceder a
+estas funcionalidades mediante la modificación de propiedades de
+estilo de objetos gráficos como la cabeza de las notas o los
+silencios, o bien mediante la utilización de uno de los contextos
+predefinidos para estos estilos.
 
 Muchos objetos gráficos, como la cabeza y el corchete de las figuras,
 las alteraciones, la indicación de compás y los silencios ofrecen una
@@ -457,7 +458,7 @@ clave de Do, mensural
 @code{mensural-c1}, @code{mensural-c2},@*
 @code{mensural-c3}, @code{mensural-c4}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-c2"
   \override NoteHead #'style = #'mensural
   c
@@ -468,7 +469,7 @@ clave de Fa, mensural
 @tab
 @code{mensural-f}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-f"
   \override NoteHead #'style = #'mensural
   c
@@ -479,7 +480,7 @@ clave de Sol, mensural
 @tab
 @code{mensural-g}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-g"
   \override NoteHead #'style = #'mensural
   c
@@ -491,7 +492,7 @@ clave de Do, neomensural
 @code{neomensural-c1}, @code{neomensural-c2},@*
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "neomensural-c2" c
 @end lilypond
 
@@ -503,7 +504,7 @@ de la pauta (el ejemplo muestra la clave de Do en segunda)
 @code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead #'style = #'mensural
   c
@@ -517,7 +518,7 @@ distintas líneas de la pauta
 @code{petrucci-f3}, @code{petrucci-f4},@*
 @code{petrucci-f5}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-f3"
   \override NoteHead #'style = #'mensural
   c
@@ -528,7 +529,7 @@ clave de Sol en el estilo de Petrucci
 @tab
 @code{petrucci-g}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-g"
   \override NoteHead #'style = #'mensural
   c
@@ -614,7 +615,7 @@ y @code{mensural}.  La tabla anterior utiliza el estilo
 @code{neomensural}.  Los ejemplos siguientes muestran las diferencias
 que existen entre los estilos:
 
-@lilypond[ragged-right,fragment,relative=1,quote]
+@lilypond[ragged-right,relative=1,quote]
 {
   \textLengthOn
 
@@ -907,7 +908,7 @@ estableciendo @code{suggestAccidentals} al valor verdadero.
 
 @funindex suggestAccidentals
 
-@lilypond[verbatim,fragment,relative=1]
+@lilypond[verbatim,relative=1]
 fis gis
 \set suggestAccidentals = ##t
 ais bis
@@ -1154,7 +1155,7 @@ Clave de Do, estilo Editio Vaticana
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1170,7 +1171,7 @@ Clave de Fa, estilo Editio Vaticana
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1187,7 +1188,7 @@ Clave de Do, estilo Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1203,7 +1204,7 @@ Clave de Fa, estilo Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1220,7 +1221,7 @@ Clave de Do, estilo hufnagel
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1236,7 +1237,7 @@ Clave de Fa, estilo hufnagel
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1252,7 +1253,7 @@ Clave combinada de Do y Fa, estilo hufnagel
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
@@ -2449,6 +2450,172 @@ en vez de una función musical unaria, de forma que @code{\augmentum}
 se pudiera entremezclar con los prefijos de cabeza en un orden
 arbitrario.
 
+@node Tipografiado del canto kievano en notación cuadrada
+@subsection Tipografiado del canto kievano en notación cuadrada
+@translationof Typesetting Kievan square notation
+
+@menu
+* Contextos del canto kievano::
+* Claves del canto kievano::
+* Cabeza de las notas kievanas::
+* Alteraciones accidentales del canto kievano::
+* Líneas divisorias del canto kievano::
+@end menu
+
+@node Contextos del canto kievano
+@unnumberedsubsubsec Contextos del canto kievano
+@translationof Kievan contexts
+
+@cindex KievanVoiceContext
+@cindex KievanStaffContext
+
+De la misma manera que con las notaciones mensural y gregoriana,
+pueden usarse los contextos predefinidos @code{KievanVoice} y
+@code{KievanStaff} para tipografiar una pieza en notación cuadrada.
+Estos contextos inician todas las propiedades de contexto necesarias a
+sus valores adecuados, de manera que pueda ponerse manos a la obra
+inmediatamente con la introducción del propio canto:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	c4 c c c c2 b,\longa
+	\bar "kievan"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Го -- спо -- ди по -- ми -- луй.
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{kievan notation}.
+
+@knownissues
+LilyPond contempla la notación del canto kievano en el estilo sinodal,
+tal y como se usa en los cantorales impresos por el Sacro Sínodo Ruso
+en la década de 1910 y recientemenre reimpreso por la Casa de
+Publicaciones del Patriarcado de Moscú.  LilyPond no contempla las
+formas anteriores (menos corrientes) de notación kievana que se usaban
+en Galicia para la notación del canto llano ruso.
+
+@node Claves del canto kievano
+@unnumberedsubsubsec Claves del canto kievano
+@translationof Kievan clefs
+@cindex clefs
+
+En la notación kievana solamente se utiliza una clave (la clave
+Tse-fa-ut).  Se utiliza para indicar la posición del Do:
+
+@lilypond[quote,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{kievan notation},
+@rglos{clef}.
+
+Referencia de la notación:
+@ref{Clave}.
+
+@node Cabeza de las notas kievanas
+@unnumberedsubsubsec Cabeza de las notas kievanas
+@translationof Kievan note heads
+
+@cindex cabezas de nota antiguas
+
+Para la notación cuadrada del canto kievano, debe escogerse el estilo
+apropiado para la forma de la cabeza de las notas.  Se consigue
+mediante el establecimiento de la propiedad @code{style} del objeto
+@code{NoteHead} al valor @code{kievan}.
+
+La nota final del canto kievano, que suele ir al final de una pieza
+musical, puede seleccionarse estableciendo la duración al valor
+@code{\longa}.  La marca kievana de recitativo, utilizada para indicar
+la entonación de varias sílabas sobre una sola nota, se puede
+seleccionar estableciendo la duración al valor @code{\breve}.  El
+siguiente ejemplo muestra las diversas formas de la cabeza de las
+notas del canto kievano:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\autoBeamOff
+\cadenzaOn
+\override NoteHead #'style = #'kievan
+b'1 b'2 b'4 b'8 b'\breve b'\longa
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{kievan notation},
+@rglos{note head}.
+
+Referencia de la notación:
+@ref{Estilos de cabezas de nota}.
+
+@knownissues
+LilyPond determina de forma automática si debe trazarse la forma de
+una nota con la plica hacia arriba o hacia abajo.  Sin embargo, cuando
+se está tipografiando un canto en notación cuadrada, es preceptivo que
+las plicas estén orientadas en la misma dirección dentro de un
+melisma.  Esto puede hacerse manualmente fijando la propiedad
+@code{direction} del objeto @code{Stem}.
+
+@node Alteraciones accidentales del canto kievano
+@unnumberedsubsubsec Alteraciones accidentales del canto kievano
+@translationof Kievan accidentals
+
+@cindex alteraciones accidentales
+
+El estilo @code{kievan} para las alteraciones accidentales se
+selecciona con la propiedad @code{glyph-name-alist} del grob
+@code{Accidental}.  El estilo @code{kievan} provee unos signos de
+sostenido y de bemol diferentes del estilo predeterminado.  No esiste
+el becuadro en la notación kievana.  El símbolo del sostenido no se
+utiliza en la música sinodal pero puede aparecer en manuscritos más
+antiguos.  Se ha incluido principalmente a efectos de compatibilidad.
+
+@lilypond[quote,relative=1,notime,verbatim]
+\clef "kievan-do"
+\override NoteHead #'style = #'kievan
+\override Accidental #'glyph-name-alist =
+ #alteration-kievan-glyph-name-alist
+bes' dis,
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{kievan notation},
+@rglos{accidental}.
+
+Referencia de la notación:
+@ref{Alteraciones accidentales},
+@ref{Alteraciones accidentales automáticas},
+@ref{La tipografía Feta}.
+
+@node Líneas divisorias del canto kievano
+@unnumberedsubsubsec Líneas divisorias del canto kievano
+@translationof Kievan bar line
+
+Normalmente se coloca una figura decorativa al final de una pieza de
+notación kievana, que puede denominarse como «doble barra final del
+canto kievano».  Se puede invocar como @code{\bar "kievan"}.
+
+@lilypond[quote,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c \bar "kievan"
+@end lilypond
+
+@seealso
+@ref{Barras de compás},
+@ref{La tipografía Feta}.
 
 @node Trabajar con música antigua - escenarios y soluciones
 @subsection Trabajar con música antigua - escenarios y soluciones

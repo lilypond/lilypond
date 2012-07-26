@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,7 +51,7 @@
 @ref{開発}: 貢献者とテスター向けです。
 
 @item
-@ref{GSoC}: Google Summer of Code のプロジェクト リスト。
+@ref{GSoC 2012}: Google Summer of Code 2012 に対する我々のアイデア。
 
 @item
 @ref{著者}: 現在の LilyPond を作った人々。
@@ -86,7 +86,7 @@
 * 援助が必要です::
 * スポンサー::
 * 開発::
-* GSoC::
+* GSoC 2012::
 * 著者::
 * 出版物::
 * 古いニュース::
@@ -876,43 +876,38 @@ LilyPond の開発手法はかなり複雑です。@c
 @divEnd
 
 
-@node GSoC
-@unnumberedsec GSoC
-@translationof GSoC
+@node GSoC 2012
+@unnumberedsec GSoC 2012
+@translationof GSoC 2012
 
 @divClass{column-center-top}
 @subheading Google Summer of Code とは？
 
-@uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
-GSoC website} からの引用です: (LilyPond ドキュメント訳者による訳)
-@qq{Google Summer of Code はオープン ソース プロジェクトのために@c
-プログラム コードを書いた学生に報酬を提供する世界規模のプログラムです。@c
-Google は、次の夏に学生が取り組むべきエキサイティングなプロジェクトを@c
-見つけて資金提供するために、オープン ソース コミュニティと活動してきました。}
+これは Google が運営する世界規模のプログラムで、@c
+夏休みにオープン ソース プロジェクトのために働く学生に報酬を提供します。
 
-LilyPond チームは、新しい貢献者を見つけ、すでに LilyPond の開発に@c
-参加している学生がより熱心に取り組む動機付けを与え、それに -- 最後に重要な@c
-こととして -- すべての人々の利益となる素晴らしいコードを得るため、@c
-GSoC を絶好の機会だと捉えました。
-
-LilyPond チームは GNU プロジェクトの一部として GSoC に参加しています。@c
-参加方法は @uref{http://www.gnu.org/software/soc-projects/guidelines.html,
-GNU GSoC webpage} を参照してください。
+LilyPond チーム GSoC を新しい貢献者を見つけ、@c
+すでに LilyPond の開発に参加している学生がより熱心に取り組む動機付けを@c
+与える絶好の機会だと捉えました。@c
+GSoC 2012 では我々の貢献者の一人が @uref{http://www.gnu.org/,
+GNU プロジェクト} の一部として認められました。@c
+我々は継続的にこのプログラムに参加したいと思っています。
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading LilyPond チームからのアイディア リスト
+@subheading LilyPond チームからの 2012 年のアイディア リスト
 
-以下のリストは GSoC に参加する学生に提案されているプロジェクトです。@c
-あなたに相応しいプロジェクトが見つからないのであれば、あなた自身で提案@c
-してください！@c
-リストアップされたプロジェクトが大きすぎると感じるのであれば、プロジェクト@c
-をスケール ダウンすることもできます。
+以下のリストは GSoC 2012 に参加する学生に我々が提案したプロジェクトです。@c
+応募期間は終了しましたが、LilyPond の開発に興味を持つ人の激励として@c
+この Web ページをオンラインのままにしておくことにしました。@c
 
-参加する学生には @code{git} についての基本的な知識を持っていることを求めて@c
-いますが、それ以外に楽譜記譜についての基本的な知識を持っていることを重視@c
-します。
+開発チームにはこれらのプロジェクトに挑戦しようとする人々を積極的に@c
+支援するメンバーがいます。
+
+もちろん、LilyPond には、些細な事も含めてさらに多くに改善すべき事柄があります。@c
+既知のすべての問題のリストが
+@uref{http://code.google.com/p/lilypond/issues/list, ここ} にあります。
 
 @subheading 装飾小音符
 
@@ -1023,39 +1018,6 @@ XML 出力のバックエンドを追加します。@c
 @strong{推奨スキル:} 美的感覚
 
 @strong{メンター:} Mike Solomon, Carl Sorensen
-
-@subheading タブ譜サポートの改良
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-ウクレレのようなモノトーンではない弦楽器のチューニング。
-
-@item
-中世のリュートのタブ譜を記述するためのタブ譜入力モードを作成します
-(現在、音楽情報を西洋の一般的な音楽記譜用語
--- つまり、@qq{四分音符の f シャープの音符} のように --
-で入力して、それからタブ譜に変換しています)。
-
-@item
-ベンド、プル オフ、ハンマー オンのような現代のタブ譜機能を実装します。
-
-@item
-与えられた和音に対するフレットボードの形が定義されている場合に、@c
-譜上にその和音を表示する時にそのフレットボードの情報を使います
-(デフォルトの和音の形だけを表示するのではありません)。
-
-@end itemize
-@divEnd
-
-@strong{難易度:} 低
-
-@strong{必須スキル:} C++
-
-@strong{推奨スキル:} タブ譜の記譜に馴染みがあること
-
-@strong{メンター:} Carl Sorensen
 
 @subheading 様々なコンパイル警告のクリーン アップ
 

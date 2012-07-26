@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a88d6f3450f85fc5da8614f4cd5f0a8a4eae4b6b
+    Translation of GIT committish: 9d3a999b3ae3502633858c50185c0180949d405c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -359,6 +359,7 @@ Cree un archivo llamado @command{lilypond} que contenga
 
 @divClass{h-scroll-auto}
 @example
+#!/bin/bash
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1f13348d4fd4696d361c92e8575de6df74e818b1
+    Translation of GIT committish: 17270930d34bbbc9a837585fcc84d6eabda67010
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,15 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+Se contempla el canto kievano en notación cuadrada:
+@lilypond[quote,relative=1,verbatim]
+\new KievanVoice {
+  \cadenzaOn
+  c d e f g a bes
+  \bar "kievan"
+}
+@end lilypond
 
 @item
 Los puntillos ahora evitan a las otras voces en la polifonía a dos
@@ -239,12 +248,15 @@ incrustados (@code{#@{@dots{}#@}}) se ejecutan ahora dentro de la
 cerradura léxica del código de Scheme circundante.  El símbolo
 @code{$} ya no es especial dentro del código de LilyPond incrustado.
 Se puede utilizar de forma incondicional dentro de código de LilyPond
-para su evaluación inmediata, de forma parecida a la forma en que se
-utilizaba anteriormente @code{ly:export}.  Se ha suprimido
-@code{ly:export}.  Como consecuencia, ahora @code{#} está libre para
-diferir la evaluación de su argumento hasta que el analizador
-sintáctico reduzca efectivamente la expresión contenida, reduciendo
-significativamente el potencial de la evaluación prematura.
+para la evaluación inmediata de expresiones de Scheme, de forma
+parecida a la forma en que se utilizaba anteriormente
+@code{ly:export}.  Se ha suprimido @code{ly:export}.  Como
+consecuencia, ahora @code{#} está libre para diferir la evaluación de
+su argumento hasta que el analizador sintáctico reduzca efectivamente
+la expresión contenida, reduciendo significativamente el potencial de
+la evaluación prematura.  También están los operadores de @q{división
+de cadenas} @code{$@@} y @code{#@@} para la interpretación de los
+miembros de una lista de forma individual.
 
 @item
 Se ha mejorado el soporte de acordes de tipo jazz: se reconocen los
