@@ -90,6 +90,7 @@ vimdir = $(lilypond_datadir)/vim
 
 
 NCSB_SOURCE_FILES = @NCSB_SOURCE_FILES@
+NCSB_DIR = @NCSB_DIR@
 
 ################################################################
 ## PROGRAMS

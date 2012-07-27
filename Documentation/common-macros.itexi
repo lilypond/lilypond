@@ -10,6 +10,14 @@
 @set txicodequoteundirected
 @set txicodequotebacktick
 
+@c Trick to use with proper font mappings the same NCSB fonts as
+@c LilyPond instead of those provided by TeX distribution
+@tex
+\ifpdf
+  \pdfmapfile{=lilypond.map}
+\fi
+@end tex
+
 
 @c   ***** Displaying text *****
 

@@ -63,6 +63,14 @@ template = '''\input texinfo
 
 @finalout @c we do not want black boxes.
 
+@c Trick to use with proper font mappings the same NCSB fonts as
+@c LilyPond instead of those provided by TeX distribution
+@tex
+\\ifpdf
+  \\pdfmapfile{=lilypond.map}
+\\fi
+@end tex
+
 @c fool ls-latex
 @ignore
 @author %%(author)s

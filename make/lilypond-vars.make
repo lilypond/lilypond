@@ -75,6 +75,8 @@ endif
 
 TEXINPUTS=$(top-src-dir)/tex/::
 export TEXINPUTS
+TEXFONTMAPS=$(top-build-dir)/tex/$(outdir)::
+export TEXFONTMAPS
 
 export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
 
