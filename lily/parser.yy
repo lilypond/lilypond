@@ -496,7 +496,6 @@ If we give names, Bison complains.
 %type <scm> identifier_init
 %type <scm> lilypond
 %type <scm> lilypond_header
-%type <scm> lilypond_header_body
 %type <scm> lyric_element
 %type <scm> lyric_element_arg
 %type <scm> lyric_element_music
@@ -587,8 +586,10 @@ lilypond:	/* empty */ { }
 
 
 toplevel_expression:
-	lilypond_header {
-		parser->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
+	{
+		parser->lexer_->add_scope (get_header (parser));
+	} lilypond_header {
+		parser->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $2);
 	}
 	| book_block {
 		Book *book = $1;
@@ -720,10 +721,7 @@ embedded_lilypond:
 
 
 lilypond_header_body:
-	{
-		$$ = get_header (parser);
-		parser->lexer_->add_scope ($$);
-	}
+	/* empty */
 	| lilypond_header_body assignment  {
 
 	}
@@ -889,7 +887,7 @@ book_body:
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
 		push_paper (parser, $$->paper_);
-		$$->header_ = parser->lexer_->lookup_identifier ("$defaultheader");
+		$$->header_ = get_header (parser);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$->self_scm ());
 	}
 	| BOOK_IDENTIFIER {
@@ -928,9 +926,10 @@ book_body:
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 		scm_call_2 (proc, $$->self_scm (), $2);
 	}
-	| book_body lilypond_header {
-		$$->header_ = $2;
-	}
+	| book_body
+	{
+		parser->lexer_->add_scope ($1->header_);
+	} lilypond_header
 	| book_body embedded_scm { }
 	| book_body error {
 		$$->paper_ = 0;
@@ -981,9 +980,12 @@ bookpart_body:
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 		scm_call_2 (proc, $$->self_scm (), $2);
 	}
-	| bookpart_body lilypond_header {
-		$$->header_ = $2;
-	}
+	| bookpart_body
+	{
+		if (!ly_is_module ($1->header_))
+			$1->header_ = ly_make_module (false);
+		parser->lexer_->add_scope ($1->header_);
+	} lilypond_header
 	| bookpart_body embedded_scm { }
 	| bookpart_body error {
 		$$->paper_ = 0;
@@ -1013,9 +1015,12 @@ score_body:
 		$$->protect ();
 		$$->origin ()->set_spot (@$);
 	}
-	| score_body lilypond_header 	{
-		$$->set_header ($2);
-	}
+	| score_body
+	{
+		if (!ly_is_module ($1->get_header ()))
+			$1->set_header (ly_make_module (false));
+		parser->lexer_->add_scope ($1->get_header ());
+	} lilypond_header
 	| score_body output_def {
 		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 		{
