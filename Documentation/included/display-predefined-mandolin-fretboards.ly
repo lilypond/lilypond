@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.42"
 \include "./predefined-mandolin-fretboards.ly"
 
 
@@ -65,7 +65,7 @@ chordsline = {
     \chordsline
   }
   \context FretBoards {
-    \set stringTunings = #mandolin-tuning
+    \set Staff.stringTunings = #mandolin-tuning
     \chordsline
   }
   \context Staff {

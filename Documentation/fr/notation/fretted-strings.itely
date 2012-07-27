@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.16"
+@c \version "2.15.42"
 
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
@@ -593,7 +593,7 @@ mynotes = {
   }
   \new TabStaff {
     #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
-    \set stringTunings = #custom-tuning
+    \set Staff.stringTunings = #custom-tuning
     \mynotes
   }
 >>
@@ -1155,7 +1155,7 @@ myChords = \chordmode { a1 a:m a:aug }
 }
 
 \new FretBoards {
-  \set stringTunings = #ukulele-tuning
+  \set Staff.stringTunings = #ukulele-tuning
   \myChords
 }
 @end lilypond
@@ -1173,7 +1173,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 }
 
 \new FretBoards {
-  \set stringTunings = #mandolin-tuning
+  \set Staff.stringTunings = #mandolin-tuning
   \myChords
 }
 @end lilypond

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.14.2"
+\version "2.15.42"
 
 \header {
   lsrtags = "fretted-strings"
@@ -91,7 +91,7 @@ primeros = {
     }
 
     \new FretBoards {
-      \set stringTunings = #cuatroTuning
+      \set Staff.stringTunings = #cuatroTuning
 %      \override FretBoard
 %        #'(fret-diagram-details string-count) = #'4
       \override FretBoard

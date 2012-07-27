@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.15.42"
 \include "predefined-ukulele-fretboards.ly"
 
 
@@ -65,7 +65,7 @@ chordsline = {
     \chordsline
   }
   \context FretBoards {
-    \set stringTunings = #ukulele-tuning
+    \set Staff.stringTunings = #ukulele-tuning
     \chordsline
   }
   \context Staff {

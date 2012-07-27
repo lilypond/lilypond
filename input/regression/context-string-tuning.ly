@@ -1,4 +1,4 @@
-\version "2.15.16"
+\version "2.15.42"
 
 \header {
   texidoc="
@@ -18,7 +18,7 @@ mynotes = {
   }
   \new TabStaff {
     #(define custom-tuning #{ \stringTuning <c' g' d'' a''> #})
-    \set stringTunings = #custom-tuning
+    \set Staff.stringTunings = #custom-tuning
     \mynotes
   }
 >>
