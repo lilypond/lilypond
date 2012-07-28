@@ -583,8 +583,19 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
   spring_copy.ensure_min_distance (minimum_distance);
   springs_.push_back (spring_copy);
 
+  if (elts.size () && !is_spaceable (elts[0]))
+    {
+      // store the minimum distance, considering relative indents,
+      // for a loose line
+      Skyline first_skyline (UP);
+      Skyline_pair *sky = Skyline_pair::unsmob (elts[0]->get_property ("vertical-skylines"));
+      if (sky)
+        first_skyline.merge ((*sky)[UP]);
+      first_skyline.shift (indent);
+      minimum_distance = first_skyline.distance (bottom_skyline_) - bottom_loose_baseline_ ;
+    }
   bottom_skyline_ = down_skyline;
-  elements_.push_back (Element (elts, minimum_offsets, padding));
+  elements_.push_back (Element (elts, minimum_offsets, minimum_distance, padding));
 
   // Add the springs for the VerticalAxisGroups in this system.
 
@@ -840,7 +851,7 @@ Page_layout_problem::find_system_offsets ()
                   found_spaceable_staff = true;
                   spring_idx++;
                 }
-              else
+              else // ! is_spaceable
                 {
                   if (loose_lines.empty ())
                     loose_lines.push_back (last_spaceable_line);
@@ -859,16 +870,14 @@ Page_layout_problem::find_system_offsets ()
                         {
                           // distance to the final line in the preceding system,
                           // including 'system-system-spacing 'padding
-                          min_dist = (Axis_group_interface::minimum_distance (loose_lines.back (),
-                                                                              staff, Y_AXIS)
-                                      + elements_[i].padding);
+                          min_dist = elements_[i].min_distance + elements_[i].padding;
                           // A null line to break any staff-affinity for the previous system
                           loose_line_min_distances.push_back (0.0);
                           loose_lines.push_back (0);
                         }
                       else if (!last_title_extent.is_empty ())
                         // distance to the preceding title,
-                        //  including 'markup-system-spacing 'padding
+                        //  including 'markup-system-wg 'padding
                         min_dist = (staff->extent (staff, Y_AXIS)[UP] - last_title_extent[DOWN]
                                     + elements_[i].padding);
                       else // distance to the top margin
