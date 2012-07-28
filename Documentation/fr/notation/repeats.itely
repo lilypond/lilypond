@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,7 +23,7 @@
 
 La répétition est une notion essentielle en musique, et il existe de
 nombreuses façons de mettre en œuvre et noter ce concept.  LilyPond
-prend en charge les types de répétition suivants@tie{}:
+prend en charge les types de répétition suivants :
 
 @table @code
 @item volta
@@ -60,8 +60,8 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 
 Cette section présente la syntaxe des répétitions longues --
 c'est-à-dire plusieurs mesures.  Ces répétitions peuvent prendre deux
-formes@tie{}: encadrées par des barres de reprises, ou bien développées
-dans la partition.  Les barres et autres signes de reprise peuvent être
+formes : encadrées par des barres de reprises, ou bien développées dans
+la partition.  Les barres et autres signes de reprise peuvent être
 contrôlés manuellement.
 
 @menu
@@ -88,7 +88,7 @@ contrôlés manuellement.
 @unnumberedsubsubsec Répétitions courantes
 @translationof Normal repeats
 
-On peut indiquer une répétition de la façon suivante@tie{}:
+On peut indiquer une répétition de la façon suivante :
 
 @example
 \repeat volta @var{nombre_de_fois} @var{expression_musicale}
@@ -97,7 +97,7 @@ On peut indiquer une répétition de la façon suivante@tie{}:
 @noindent
 où @code{@var{expression_musicale}} représente ce qui doît être répété.
 
-Les reprises courantes, sans alternative, s'indiquent comme ceci@tie{}:
+Les reprises courantes, sans alternative, s'indiquent comme ceci :
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
@@ -107,8 +107,7 @@ c2 d
 
 On peut ajouter une fin alternative à l'aide de la commande
 @code{\alternative}.  Chaque @code{@var{alternative}} est une expression
-musicale en elle-même@tie{}; il faudra donc les regrouper par des
-accolades.
+musicale en elle-même ; il faudra donc les regrouper par des accolades.
 
 @example
 \repeat volta @var{nombre_de_fois} @var{expression_musicale}
@@ -149,8 +148,8 @@ qu'aucun caractère n'apparaisse entre l'accolade fermant une alternative
 et l'accolade ouvrant la suivante, au risque de ne pas obtenir le nombre
 voulu d'alternatives.}
 
-@warning{Une clause @code{@bs{}relative} ne doît jamais se trouver à
-l'intérieur d'une section @code{@bs{}repeat}@tie{}: vous aurez
+@warning{Une clause @code{@bs{}relative} ne doit jamais se trouver à
+l'intérieur d'une section @code{@bs{}repeat} : vous aurez
 immanquablement des portées parasites.  Voir
 @rprogram{Apparition d'une portée supplémentaire}.}
 
@@ -164,9 +163,9 @@ immanquablement des portées parasites.  Voir
 Lorsqu'une reprise sans fins alternatives débute au milieu d'une mesure,
 elle devrait se terminer aussi au milieu d'une mesure, de telle sorte
 que les mesures soient complètes.  En pareil cas, les indications de
-reprise ne constituent pas des barres de mesure à proprement
-parler@tie{}; il n'est donc pas nécessaire de faire appel à la commande
-@code{\partial} ou à des contrôles d'intégrité de mesure.
+reprise ne constituent pas des barres de mesure à proprement parler ; il
+n'est donc pas nécessaire de faire appel à la commande @code{\partial}
+ou à des contrôles d'intégrité de mesure.
 
 @lilypond[verbatim,quote,relative=1]
 % no \partial here
@@ -187,7 +186,7 @@ g1 |
 Il est possible de créer des reprises en début de morceau avec une
 levée.  Le cas est similaire à ce que nous venons de voir.  Toutefois,
 l'utilisation d'un @code{\partial} est ici nécessaire pour respecter
-cette entâme.
+cette entame.
 
 @lilypond[verbatim,quote,relative=1]
 \partial 4  % required
@@ -205,7 +204,7 @@ g1 |
 
 Lorsqu'une reprise débute par une mesure incomplète et a des fins
 alternatives, il est indispensable d'ajuster manuellement la propriété
-@code{Timing.measureLength} selon les préceptes suivants@tie{}:
+@code{Timing.measureLength} selon les préceptes suivants :
 
 @itemize
 @item
@@ -237,14 +236,32 @@ g1 |
 La propriété @code{measureLength} est abordée plus en détail au chapitre
 @ref{Gestion du temps}.
 
+@funindex \inStaffSegno
+
+La commande @code{\inStaffSegno} permet d'adjoindre un symbole de
+@emph{segno} à une commande @code{\repeat volta}.  Des symboles
+alternatifs de barre de mesure peuvent sont accessibles, dans un
+contexte @code{Score}, à l'aide des propriétés @code{segnoType},
+@code{startRepeatSegnoType}, @code{endRepeatSegnoType} ou
+@code{doubleRepeatSegnoType} selon les besoins.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
 @cindex reprise et liaison de prolongation
 @cindex alternative et liaison de prolongation
-@cindex liaison de prolongationt et reprise
+@cindex liaison de prolongation et reprise
 @cindex liaison de prolongation et alternative
 
 @funindex \repeatTie
 
-Des liaisons de tenue peuvent être ajoutées à toute alternative@tie{}:
+Des liaisons de tenue peuvent être ajoutées à toute alternative :
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -338,7 +355,7 @@ de clarté.
 
 @warning{Les méthodes présentées dans les lignes qui suivent ne
 devraient servir à indiquer que des constructions de répétition
-inhabituelles.  En règle générale, il vaut mieux recourrir à la fonction
+inhabituelles.  En règle générale, il vaut mieux recourir à la fonction
 @code{@bs{}repeat} pour créer une reprise ou bien insérer la barre de
 mesure adéquate.   Pour plus d'information, voir le chapitre
 @ref{Barres de mesure}.}
@@ -373,7 +390,7 @@ c1
 @item (volta @var{nombre}) @dots{} (volta #f)
 Pour obtenir un crochet indiquant le numéro de l'alternative.  Pour que
 le crochet s'imprime effectivement, il faut spécifier explicitement
-l'endroit où il doît se terminer.
+l'endroit où il doit se terminer.
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
@@ -385,7 +402,7 @@ c1
 
 @end table
 
-Plusieurs commande de reprise peuvent intervenir au même moment@tie{}:
+Plusieurs commandes de reprise peuvent intervenir au même moment :
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
@@ -404,13 +421,14 @@ Le crochet indiquant une alternative peut contenir aussi du texte.  Il
 peut s'agir d'un ou plusieurs nombres ou bien d'une indication textuelle
 (@emph{markup}) -- voir @ref{Mise en forme du texte}.  Le plus simple,
 dans le cas d'une indication textuelle, est de tout d'abord définir ce
-@code{markup}, puis de l'inclure dans une liste Scheme.
+@emph{markup}, puis de l'inclure dans une liste Scheme.
 
 @lilypond[verbatim,quote]
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands =
+    #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1
@@ -449,7 +467,7 @@ Référence des propriétés internes :
 
 Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
 s'affranchir de ressaisir de la musique répétitive.  En voici la
-syntaxe@tie{}:
+syntaxe :
 
 @example
 \repeat unfold @var{nombre_de_fois} @var{expression_musicale}
@@ -467,7 +485,7 @@ c1
 Dans certains cas, et tout particulièrement dans un contexte
 @code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
 écrire littéralement la même expression musicale plusieurs fois.
-Ainsi@tie{}:
+Ainsi :
 
 @example
 \repeat unfold 2 @{ a'4 b c @}
@@ -479,7 +497,7 @@ n'est pas équivalent à
 a'4 b c | a'4 b c
 @end example
 
-Une répétition expansée peut aussi avoir une fin alternative@tie{}:
+Une répétition expansée peut aussi avoir une fin alternative :
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 { g4 f e d }
@@ -519,7 +537,7 @@ c1
 @end lilypond
 
 Vous pouvez imbriquer plusieurs fonctions @code{unfold}, qu'elles
-comportent ou non des fins alternatives@tie{}:
+comportent ou non des fins alternatives :
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 2 {
@@ -580,11 +598,11 @@ trémolos.
 @funindex \repeat percent
 @funindex percent
 
-Le style de @qq{reprise en pourcent} sert à répéter une séquence de
+Le style de « reprise en pourcent » sert à répéter une séquence de
 notes.  Elle sera imprimée une fois, puis remplacée par un symbole
 spécial.
 
-En voici la syntaxe@tie{}:
+En voici la syntaxe :
 
 @example
 \repeat percent @var{nombre} @var{expression_musicale}
@@ -669,7 +687,7 @@ Référence des propriétés internes :
 @funindex \repeat tremolo
 @funindex tremolo
 
-Il y a deux formes de trémolo@tie{}: la répétition alernative de deux
+Il y a deux formes de trémolo : la répétition alernative de deux
 notes ou accords, et la répétition rapide d'une seule note ou d'un
 accord.  Lorsqu'il est constitué d'une alternance répétitive, le trémolo
 s'indique en ajoutant des barres de ligature entre les deux notes ou
@@ -677,7 +695,7 @@ accords concernés.  Lorsqu'il s'agit d'une répétition rapide, des barres
 de ligature penchées sont ajoutées à la note en question.
 
 On peut placer une notation de trémolo entre deux notes, avec la
-commande @code{\repeat} suivie du style trémolo@tie{}:
+commande @code{\repeat} suivie du style trémolo :
 
 @lilypond[quote,verbatim,relative=2]
 \repeat tremolo 8 { c16 d }
@@ -685,20 +703,20 @@ commande @code{\repeat} suivie du style trémolo@tie{}:
 \repeat tremolo 2 { c16 d }
 @end lilypond
 
-La syntaxe de @code{\repeat tremolo} requiert espressément deux notes
+La syntaxe de @code{\repeat tremolo} requiert expressément deux notes
 encadrées par des accolades, et le nombre de répétitions exprimé en
 durée d'une note (pointée ou non).  Ainsi, dans l'exemple ci-dessus,
-@code{\repeat@tie{}tremolo@tie{}7} est valide car correspond à une note
-doublement pointée, à l'inverse de @code{\repeat@tie{}tremolo@tie{}9}.
+@code{\repeat tremolo 7} est valide car correspond à une note
+doublement pointée, à l'inverse de @code{\repeat tremolo 9}.
 
 La durée d'un trémolo est égale à la durée de l'expression entre
-accolades multipliée par le nombre de fois à répéter@tie{}:
-@code{\repeat@tie{}tremolo@tie{}8@tie{}@{@tie{}c16@tie{}d16@tie{}@}}
-correspond donc à la valeur d'une ronde, et sera représenté par deux
-rondes séparées par des barres de trémolo.
+accolades multipliée par le nombre de fois à répéter :
+@code{\repeat tremolo 8 @{ c16 d16 @}} correspond donc à la valeur d'une
+ronde, et sera représenté par deux rondes séparées par des barres de
+trémolo.
 
 On peut indiquer de la même manière un trémolo sur une seule note, qu'il
-faudra alors laisser sans accolades@tie{}:
+faudra alors laisser sans accolades :
 
 @lilypond[quote,verbatim,ragged-right]
 \repeat tremolo 4 c'16
@@ -711,8 +729,8 @@ faudra alors laisser sans accolades@tie{}:
 
 Le même résultat s'obtient en faisant suivre la note considérée
 de deux points et d'un nombre (@w{@code{note:@var{nombre}}}).
-Le nombre en question correspond à la valeur de la subdivision@tie{};
-il doit être au moins de 8, auquel cas la hampe sera barrée par un
+Le nombre en question correspond à la valeur de la subdivision ;
+il doit être au moins de 8, auquel cas la hampe sera barrée par un
 seul trait de ligature.  Si ce nombre est omis, la dernière valeur --
 telle que mémorisée dans @code{tremoloFlags} -- sera utilisée.
 

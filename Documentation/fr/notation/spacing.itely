@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -973,7 +973,8 @@ Manuel de notation :
 @ref{Sauts de page},
 @ref{Optimisation des sauts de page},
 @ref{Optimisation des tournes},
-@ref{Minimisation des sauts de page}.
+@ref{Minimisation des sauts de page},
+@ref{Présentation en rouleau}.
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
@@ -1405,6 +1406,7 @@ lignes d'une portée.
 * Optimisation des sauts de page::
 * Optimisation des tournes::
 * Minimisation des sauts de page::
+* Présentation en rouleau::
 * Sauts explicites::
 * Recours à une voix supplémentaire pour gérer les sauts::
 @end menu
@@ -1769,6 +1771,26 @@ beaucoup de texte.  Il suffit de la mentionner au sein du bloc
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
+
+@node Présentation en rouleau
+@subsection Présentation en rouleau
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La fonction @code{ly:one-line-breaking} constitue un algorithme de
+calcul des sauts de pages particulier en ceci que chaque partition fait
+l'objet d'une page unique, d'une seule ligne.  Cette fonctionnalité
+s'affranchit de l'impression des titres et marges ; seule la partition
+est affichée.
+
+La largeur de page est ajustée de telle sorte que la pièce la plus
+longue tienne sur une seule ligne.  En particulier, les variables
+@code{paper-width}, @code{line-width} et @code{indent} du bloc
+@code{\paper} seront ignorées ; les @code{left-margin} et
+@code{right-margin} seront honorées.  La hauteur de page ne sera pas
+modifiée.
+ 
 
 @node Sauts explicites
 @subsection Sauts explicites
@@ -2787,7 +2809,7 @@ Le décalage vertical entre un objet extérieur à la portée et celui qui
 le précède se contrôle par la propriété @code{outside-staff-padding}.
 
 @c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"Ce texte est placé au plus près de la note"
 \once \override TextScript #'outside-staff-padding = #3

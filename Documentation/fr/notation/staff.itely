@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 904ea9fed4c66f5b86f3ac6ffb9fa273f082f371
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,7 +16,9 @@
 @section Notation sur la portée
 @translationof Staff notation
 
-@lilypondfile[quote]{staff-headword.ly}
+@c The line width is a bit of a hack to allow space for the
+@c  instrument names.
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
 
 Cette section aborde les détails de gravure de la portée, la
 réalisation de partitions comprenant plusieurs portées et l'ajout

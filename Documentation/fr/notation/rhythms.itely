@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2743,6 +2743,10 @@ c4 c c c \break
 \bar ":|S.|:"
 c1
 @end lilypond
+
+Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
+surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
+@code{\repeat volta}.
 
 Dans une partition comprenant plusieurs portées, la commande @code{\bar}
 placée sur une portée s'applique automatiquement à toutes les portées.

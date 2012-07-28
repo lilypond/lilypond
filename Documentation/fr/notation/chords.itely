@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -800,7 +799,8 @@ myChords = \relative c' {
 @subsection Basse chiffrée
 @translationof Figured bass
 
-@lilypondfile[quote]{figured-bass-headword.ly}
+@c Line width hack because of instrument names
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.
 

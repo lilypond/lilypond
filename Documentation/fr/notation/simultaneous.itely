@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 254e2df1ab4e0fb8d1b517e7e11ffb545363ee48
+    Translation of GIT committish: 0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,7 +16,7 @@
 @section Notes simultanées
 @translationof Simultaneous notes
 
-@lilypondfile[quote]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
@@ -74,7 +74,8 @@ Certaines notes, au sein même d'un accord, peuvent être affectées d'une
 articulation ou d'un ornement@tie{}:
 
 @lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+<a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
 Certains éléments de notation, tels que nuances, soufflets et liaisons,
@@ -82,7 +83,8 @@ ne peuvent se rattacher qu'à l'accord et non aux notes qui le composent,
 sous peine de ne les voir s'imprimer.
 
 @lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+<a c e>\< <a c e> <a c e>\!
 @end lilypond
 
 @cindex accord vide

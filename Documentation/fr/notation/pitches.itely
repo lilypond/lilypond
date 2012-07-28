@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2310,7 +2310,7 @@ altérée.  Les altérations accidentelles sont imprimées selon le style
 @code{modern}, et une altération de précaution est ajoutée pour chaque
 dièse ou bémol à la clef -- sauf dans le cas de notes consécutives.
 
-@lilypond[quote]
+@lilypond[quote,staffsize=18]
 musicA = {
   <<
     \relative c' {

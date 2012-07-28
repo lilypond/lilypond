@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a42aaa559b71ce5776795fa11a7e1df9110d85b7
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -291,7 +291,7 @@ de base.
 Voici une suggestion de groupement qui relie les maqams les plus
 courants à leur armure@tie{}:
 
-@multitable @columnfractions 0.1 0.1 0.1 0.6
+@multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem groupe maqam
   @tab Armure
   @tab Tonique
