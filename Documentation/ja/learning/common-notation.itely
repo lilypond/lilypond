@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c028761d49ac4820206806dbc58e9704a87b4a8
+    Translation of GIT committish: f7630a9232be374298d88e1b8bdb85ead17a7572
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -215,8 +215,8 @@ aes4 c b c
 混乱してしまいましたか？@c
 以下のように考えてみてください:
 あなたがピアノを弾いているとします。@c
-黒鍵を押したいのであれば、音符名に @code{-is} や @code{-es} を付ける@c
-必要があるのです！
+黒鍵を押したいのであれば、音符名に @w{@code{-is}} や @w{@code{-es}}
+を付ける必要があるのです！
 
 すべての変化を明示的に付け加えることは入力時にちょっとした努力を@c
 要するかもしれません。@c
@@ -890,7 +890,8 @@ r4 <c e g> <c f a>2
 
 @lilypond[verbatim,quote,relative=2]
 r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
@@ -1420,7 +1421,7 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 ファイルが処理されると、タイトルと作曲者は楽譜の上に譜刻されます。@c
-タイトルについての更なる情報は、@ruser{タイトル、ヘッダ、フッタを作成する}
+タイトルについての更なる情報は、@ruser{Creating titles headers and footers}
 を参照してください。
 
 

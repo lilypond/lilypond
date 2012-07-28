@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cf90af135bc70b57f69fd3e09a9b29814c6358e4
+    Translation of GIT committish: 8e9d9bb49f057ab81be830a5ac16714490130393
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -242,17 +242,17 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.1}
+Fedora: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.3}
+Ubuntu: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.1}
+Slackware: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-debian,,,}
@@ -359,6 +359,7 @@ cd ~/bin
 
 @divClass{h-scroll-auto}
 @example
+#!/bin/bash
 exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd

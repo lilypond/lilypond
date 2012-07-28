@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 16ac0db39d8cca1de68ce79154386764172aca10
+    Translation of GIT committish: 8e9d9bb49f057ab81be830a5ac16714490130393
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -153,6 +153,44 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 @ifclear web_version
   @c do nothing
 @end ifclear
+@ifset web_version
+  @c make the box:
+@divId{wildCardBox}
+@subheading Pondings
+@divId{wildCardText}
+
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
 @ifset web_version
   @c make the box:
 @divId{latestVersion}
