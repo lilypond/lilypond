@@ -150,18 +150,14 @@ SCM (* scm_parse_error_handler) (void *);
 A		[a-zA-Z\200-\377]
 AA		{A}|_
 N		[0-9]
-AN		{AA}|{N}
 ANY_CHAR	(.|\n)
 PUNCT		[][()?!:'`]
 SPECIAL_CHAR		[&@]
 NATIONAL	[\001-\006\021-\027\031\036]
 TEX		{AA}|-|{PUNCT}|{NATIONAL}|{SPECIAL_CHAR}
-DASHED_WORD		{A}({AN}|-)*
-DASHED_KEY_WORD		\\{DASHED_WORD}
+WORD		{A}([-_]{A}|{A})*
+COMMAND		\\{WORD}
 
-
-
-ALPHAWORD	{A}+
 UNSIGNED	{N}+
 E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
@@ -171,8 +167,6 @@ WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
-NOTECOMMAND	\\{A}+
-MARKUPCOMMAND	\\({A}|[-_])+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\r\f]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
@@ -393,15 +387,25 @@ BOM_UTF8	\357\273\277
 	error (_ ("end quote missing"));
 	exit (1);
 }
+
+    /* Flex picks the longest matching pattern including trailing
+     * contexts.  Without the backup pattern, r-. does not trigger the
+     * {RESTNAME} rule but rather the {WORD}/[-_] rule coming later,
+     * needed for avoiding backup states.
+     */
+
+<chords,notes,figures>{RESTNAME}/[-_]	|  // pseudo backup rule
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
 	yylval.scm = scm_from_locale_string (s);
 	return RESTNAME;
 }
+<chords,notes,figures>q/[-_]	| // pseudo backup rule
 <chords,notes,figures>q	{
 	return CHORD_REPETITION;
 }
 
+<chords,notes,figures>R/[-_]	| // pseudo backup rule
 <chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
@@ -476,11 +480,13 @@ BOM_UTF8	\357\273\277
 }
 
 <notes,figures>{
-	{ALPHAWORD}	{
+	{WORD}/[-_]	| // backup rule
+	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
 
-	{NOTECOMMAND}	{
+	{COMMAND}/[-_]	| // backup rule
+	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1); 
 	}
 	{FRACTION}	{
@@ -533,7 +539,8 @@ BOM_UTF8	\357\273\277
 		yylval.scm = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
-	{NOTECOMMAND}	{
+	{COMMAND}/[-_]	| // backup rule
+	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{LYRICS} {
@@ -559,10 +566,12 @@ BOM_UTF8	\357\273\277
 	}
 }
 <chords>{
-	{ALPHAWORD}	{
+	{WORD}/[-_]	| // backup rule
+	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
-	{NOTECOMMAND}	{
+	{COMMAND}/[-_]	| // backup rule
+	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{FRACTION}	{
@@ -590,7 +599,7 @@ BOM_UTF8	\357\273\277
 		return CHORD_CARET;
 	}
 	. {
-		return YYText ()[0]; // ALPHAWORD catches all multibyte.
+		return YYText ()[0]; // WORD catches all multibyte.
 	}
 }
 
@@ -599,7 +608,8 @@ BOM_UTF8	\357\273\277
 	\\score {
 		return SCORE;
 	}
-	{MARKUPCOMMAND} {
+	{COMMAND}/[-_]	| // backup rule
+	{COMMAND} {
 		string str (YYText_utf8 () + 1);
 
                 int token_type = MARKUP_FUNCTION;
@@ -694,10 +704,12 @@ BOM_UTF8	\357\273\277
 }
 
 <INITIAL>{
-	{DASHED_WORD}	{
+	{WORD}/[-_]	| // backup rule
+	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
-	{DASHED_KEY_WORD}	{
+	{COMMAND}/[-_]	| // backup rule
+	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 }
