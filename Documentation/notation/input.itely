@@ -640,46 +640,79 @@ Notation Reference:
 @node Default layout of book and score title blocks
 @unnumberedsubsubsec Default layout of book and score title blocks
 
-The layout and formatting of title blocks are controlled by two
-@code{\paper} variables; @code{bookTitleMarkup} for the main
-@code{\header} title block and @code{scoreTitleMarkup} for individual
-@code{\header} blocks within a @code{\score}.
+This example demonstrates all @code{\header} variables:
 
-@lilypond[papersize=a6,quote,verbatim,noragged-right]
-\header {
-  % The following fields are centered
-  dedication = "Dedication"
-  title = "Title"
-  subtitle = "Subtitle"
-  subsubtitle = "Subsubtitle"
-  instrument = "Instrument"
-
-  % The following fields are left-aligned on the left side
-  poet = "Poet"
-  meter = "Meter"
-
-  % The following fields are right-aligned on the right side
-  composer = "Composer"
-  arranger = "Arranger"
-}
-
-\score {
-  { s1 }
+@lilypond[papersize=a7landscape,quote,verbatim,noragged-right]
+\book {
   \header {
-    % The following fields are placed at opposite ends of the same line
-    piece = "Piece"
-    opus = "Opus"
+      % The following fields are centered
+    dedication = "Dedication"
+    title = "Title"
+    subtitle = "Subtitle"
+    subsubtitle = "Subsubtitle"
+      % The following fields are evenly spread on one line
+      % the field "instrument" also appears on following pages
+    instrument = \markup \with-color #green "Instrument"
+    poet = "Poet"
+    composer = "Composer"
+      % The following fields are placed at opposite ends of the same line
+    meter = "Meter"
+    arranger = "Arranger"
+      % The following fields are centered at the bottom
+    tagline = "tagline goes at the bottom of the last page"
+    copyright = "copyright goes at the bottom of the first page"
+  }
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 1"
+      opus = "Opus 1"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 2 on the same page"
+      opus = "Opus 2"
+    }
+  }
+  \pageBreak
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 3 on a new page"
+      opus = "Opus 3"
+    }
   }
 }
 @end lilypond
 
-@c Is the bit about \null markups true? -mp
+Note that
 
+@itemize
+@item
+The instrument name will be repeated on every page.
+
+@item
+Only @code{piece} and @code{opus} are printed in a @code{\score}
+when the paper variable @code{print-all-headers} is set to
+@code{##f} (the default).
+
+@item
+@c Is the bit about \null markups true? -mp
 Text fields left unset in a @code{\header} block are replaced with
 @code{\null} markups so that the space is not wasted.
 
+@item
 The default settings for @code{scoreTitleMarkup} place the @code{piece}
 and @code{opus} text fields at opposite ends of the same line.
+
+@end itemize
+
+To change the default layout see @ref{Custom layout for title blocks}.
 
 @cindex breakbefore
 
@@ -710,6 +743,7 @@ Learning Manual:
 @rlearning{How LilyPond input files work},
 
 Notation Reference:
+@ref{Custom layout for title blocks},
 @ref{File structure}.
 
 Installed Files:
@@ -819,17 +853,23 @@ Notation Reference:
 @node Custom layout for title blocks
 @unnumberedsubsubsec Custom layout for title blocks
 
+@cindex bookTitleMarkup
+@cindex scoreTitleMarkup
+@funindex bookTitleMarkup
+@funindex scoreTitleMarkup
+
 @code{\markup} commands in the @code{\header} block are useful for
 simple text formatting, but they do not allow precise control over the
 placement of titles.  To customize the placement of the text fields,
-use either or both of the following @code{\paper} variables:
+change either or both of the following @code{\paper} variables:
 
 @itemize
 @item @code{bookTitleMarkup}
 @item @code{scoreTitleMarkup}
 @end itemize
 
-These markup variables are discussed in
+The placement of titles when using the default values of these
+@code{\markup} variables is shown in the examples in
 @ref{Default layout of book and score title blocks}.
 
 The default settings for @code{scoreTitleMarkup} as defined in
