@@ -826,12 +826,22 @@ Lily_lexer::push_markup_state ()
 void
 Lily_lexer::push_note_state (SCM alist)
 {
+	bool extra = (YYSTATE == extratoken);
+
 	SCM p = scm_assq (alist, pitchname_tab_stack_);
+
+	if (extra)
+		yy_pop_state ();
 
 	if (scm_is_false (p))
 		p = scm_cons (alist, alist_to_hashq (alist));
 	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 	yy_push_state (notes);
+
+	if (extra) {
+		hidden_state_ = YYSTATE;
+		yy_push_state (extratoken);
+	}
 }
 
 void
