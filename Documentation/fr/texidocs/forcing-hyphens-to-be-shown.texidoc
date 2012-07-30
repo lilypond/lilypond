@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 30339cb3706f6399c84607426988b25f79b4998c
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 LilyPond n'imprimera de tiret entre deux syllabes que s'il juge qu'il y
 a suffisamment d'espace.  Ce comportement peut être modifié grâce à la

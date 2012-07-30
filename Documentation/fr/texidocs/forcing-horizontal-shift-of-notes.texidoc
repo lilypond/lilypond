@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 1baa2adf57c84e8d50e6907416eadb93e2e2eb5c
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
 @code{NoteColumn}, et des silences à hauteur déterminée, peuvent

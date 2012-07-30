@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d9d1da30361a0bcaea1ae058eb1bc8dd3a5b2e4c
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 L'alignement horizontal des paroles peut se gérer à l'aide de la
 propriété @code{self-alignment-X} de l'objet @code{LyricText}.

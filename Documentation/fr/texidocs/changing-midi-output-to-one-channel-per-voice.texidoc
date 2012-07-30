@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d7cf09411ee80eaf0092af0aa532de64c0c6248e
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 Lorsque LilyPond génère un fichier MIDI, chaque portée sera par défaut
 affectée à un canal, quel que soit le nombre de voix qu'elle contient.

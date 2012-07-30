@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d5307870fe0ad47904daba73792c7e17b813737f
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 Il est possible de changer globalement la mise en forme des notes d'ornement
 dans un morceau, au moyen des fonctions @code{add-grace-property} et

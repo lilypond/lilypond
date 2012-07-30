@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 217cd2b9de6e783f2a5c8a42be9c70a82195ad20
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 Il est possible de distribuer un arpège sur plusieurs portées d'un
 système autre que le @code{PianoStaff} dès lors que vous incluez le

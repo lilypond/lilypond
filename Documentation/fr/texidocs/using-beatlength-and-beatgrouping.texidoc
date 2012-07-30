@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 708e0d9c660856b19929736ca18a6f9d68539c60
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 La propriété @code{measureLength} détermine la pulsation et, combinée à
 @code{beatLength} et @code{beatGrouping}, comment générer les ligatures
