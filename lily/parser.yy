@@ -406,6 +406,7 @@ If we give names, Bison complains.
 %type <scm> music_arg
 %type <scm> music_assign
 %type <scm> music_embedded
+%type <scm> music_or_context_def
 %type <scm> complex_music
 %type <scm> complex_music_prefix
 %type <scm> mode_changed_music
@@ -1091,6 +1092,25 @@ output_def_head_with_mode_switch:
 	}
 	;
 
+// We need this weird nonterminal because both music as well as a
+// context definition can start with \context and the difference is
+// only apparent after looking at the next token.  If it is '{', there
+// is still time to escape from notes mode.
+
+music_or_context_def:
+	music_arg
+	{
+		parser->lexer_->pop_state ();
+	}
+	| CONTEXT
+	{
+		parser->lexer_->pop_state ();
+	} '{' context_def_spec_body '}'
+	{
+		$$ = $4;
+	}
+	;
+
 output_def_body:
 	output_def_head_with_mode_switch '{' {
 		$$ = $1;
@@ -1109,12 +1129,21 @@ output_def_body:
 	| output_def_body assignment  {
 
 	}
-	| output_def_body context_def_spec_block	{
-		assign_context_def ($$, $2);
-	}
-	| output_def_body music_arg {
-		SCM proc = parser->lexer_->lookup_identifier ("output-def-music-handler");
-		scm_call_3 (proc, parser->self_scm (), $1->self_scm (), $2);
+	| output_def_body
+	{
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (nn);
+	} music_or_context_def
+	{
+		if (unsmob_context_def ($3))
+			assign_context_def ($$, $3);
+		else {
+
+			SCM proc = parser->lexer_->lookup_identifier
+				     ("output-def-music-handler");
+			scm_call_3 (proc, parser->self_scm (),
+				    $1->self_scm (), $3);
+		}
 	}
 	| output_def_body error {
 
