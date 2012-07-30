@@ -74,7 +74,48 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
   assert (delta_ticks >= 0);
 
   Midi_event *e = new Midi_event (delta_ticks, midi);
-  events_.push_back (e);
+
+  // Insertion position for the new event in the track.
+  vector<Midi_event *>::iterator position (events_.end ());
+  if (delta_ticks == 0
+      && (! dynamic_cast<Midi_note *> (midi)
+          || dynamic_cast<Midi_note_off *> (midi)))
+    {
+      // If the new event occurs at the same time as the most recently added
+      // one, and the event does not represent the start of a note, insert the
+      // new event before all notes (if any) already starting at this time.
+      // This is to force notes to be started only after all other events
+      // (such as changes in instruments) which occur at the same time have
+      // taken effect.
+      while (position != events_.begin ())
+        {
+          vector<Midi_event *>::iterator previous (position - 1);
+          if (! dynamic_cast<Midi_note *> ((*previous)->midi_)
+              || dynamic_cast<Midi_note_off *> ((*previous)->midi_))
+            {
+              // Found an event that does not represent the start of a note.
+              // Exit the loop to insert the new event in the track after this
+              // event.
+              break;
+            }
+          else if ((*previous)->delta_ticks_ != 0)
+            {
+              // Found the start of a new note with delta_ticks_ != 0.  Prepare
+              // to insert the new event before this event, swapping the
+              // delta_ticks_ fields of the events to keep the sequence of
+              // deltas consistent.
+              e->delta_ticks_ = (*previous)->delta_ticks_;
+              (*previous)->delta_ticks_ = 0;
+              position = previous;
+              break;
+            }
+          // Otherwise, the event in the track is the start of a note occurring
+          // at the same time as the new event: continue searching for the
+          // insertion position.
+          position = previous;
+        }
+    }
+  events_.insert (position, e);
 }
 
 string
