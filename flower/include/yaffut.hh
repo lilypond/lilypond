@@ -395,6 +395,9 @@ void assert_throw (void (*pf) (), const char *at = "")
 #ifdef YAFFUT_MAIN
 
 #include <iostream>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 int main (int argc, const char *argv[])
 {

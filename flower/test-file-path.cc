@@ -1,6 +1,7 @@
 #include "file-path.hh"
 
 #include <limits.h>
+#include <unistd.h>
 
 #include "yaffut.hh"
 #include "config.hh"
