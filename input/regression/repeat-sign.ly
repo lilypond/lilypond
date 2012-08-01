@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.17.5"
 \header {
   texidoc = "The two dots of a repeat sign should be symmetric
 to the staff centre and avoid staff lines even for exotic staves."
 }
 
 
-mus = \context Voice { \relative f' { d e f g \bar ":|" } }
+mus = \context Voice { \relative f' { d e f g \bar ":|." } }
 
 \new Staff {
   <<

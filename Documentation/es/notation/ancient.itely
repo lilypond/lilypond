@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @node Notación antigua
 @section Notación antigua
@@ -984,7 +984,7 @@ Por ejemplo:
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.defaultBarType = "empty"
+@c \set Score.defaultBarType = "-"
 @c \override NoteHead #'style = #'neomensural
 @c \override Staff.TimeSignature #'style = #'neomensural
 @c \clef "petrucci-g"
@@ -997,7 +997,7 @@ Por ejemplo:
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "empty"
+    \set Score.defaultBarType = "-"
     \override NoteHead #'style = #'petrucci
     \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
@@ -1026,7 +1026,7 @@ transcribe de la siguiente manera:
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "empty"
+  \set Score.defaultBarType = "-"
   \override NoteHead #'style = #'petrucci
   \override Staff.TimeSignature #'style = #'mensural
   \clef "petrucci-g"
@@ -2486,7 +2486,7 @@ inmediatamente con la introducción del propio canto:
     \new KievanVoice = "melody" \transpose c c' {
       \cadenzaOn
 	c4 c c c c2 b,\longa
-	\bar "kievan"
+	\bar "k"
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2609,12 +2609,12 @@ Referencia de la notación:
 
 Normalmente se coloca una figura decorativa al final de una pieza de
 notación kievana, que puede denominarse como «doble barra final del
-canto kievano».  Se puede invocar como @code{\bar "kievan"}.
+canto kievano».  Se puede invocar como @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
   \override NoteHead #'style = #'kievan
-  c \bar "kievan"
+  c \bar "k"
 @end lilypond
 
 @seealso

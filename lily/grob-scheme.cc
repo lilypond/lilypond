@@ -466,3 +466,15 @@ LY_DEFINE (ly_grob_vertical_less_p, "ly:grob-vertical<?",
 
   return ly_bool2scm (Grob::vertical_less (ga, gb));
 }
+
+LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-group-index",
+           1, 0, 0, (SCM grob),
+           "Get the index of the vertical axis group the grob @var{grob} belongs to;"
+           " return @code{-1} if none is found.")
+{
+  Grob *gr = unsmob_grob (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+
+  return scm_from_int (Grob::get_vertical_axis_group_index (gr));
+}

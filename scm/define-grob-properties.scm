@@ -429,8 +429,15 @@ read from the NonMusicalPaperColumn that begins the measure.")
 by glissandi?")
      (glyph ,string? "A string determining what @q{style} of glyph is
 typeset.  Valid choices depend on the function that is reading this
-property.")
-     (glyph-name ,string? "The glyph name within the font.")
+property.
+
+In combination with (span) bar lines, it is a string resembling the
+bar line appearance in ASCII form.")
+     (glyph-name ,string? "The glyph name within the font.
+
+In the context of (span) bar lines, @var{glyph-name} represents
+a processed form of @code{glyph}, where decisions about line breaking
+etc. are already taken.")
      (glyph-name-alist ,list? "An alist of key-string pairs.")
      (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
@@ -745,6 +752,7 @@ of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
 what point to rotate around.  For example, @code{'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
+     (rounded ,boolean? "Decide whether lines should be drawn rounded or not.")
      (round-up-to-longer-rest ,boolean? "Displays the longer multi-measure
 rest when the length of a measure is between two values of
 @code{usable-duration-logs}.  For example, displays a breve instead of a whole

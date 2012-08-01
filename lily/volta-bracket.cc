@@ -52,7 +52,6 @@ Volta_bracket_interface::print (SCM smob)
                                             == (Spanner *)me);
 
   Output_def *layout = me->layout ();
-  Real half_space = 0.5;
 
   Item *bound = dynamic_cast<Spanner *> (me)->get_bound (LEFT);
 
@@ -92,7 +91,7 @@ Volta_bracket_interface::print (SCM smob)
 
   Interval empty;
   Offset start;
-  start[X_AXIS] = me->spanner_length () - left - half_space;
+  start[X_AXIS] = me->spanner_length () - left;
 
   /*
     ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around.
@@ -138,14 +137,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   else
     str = "|";
 
-  no_vertical_end
-  |= (str != ":|"
-      && str != "|:"
-      && str != "|."
-      && str != ":|:"
-      && str != ":|.|:"
-      && str != ":|.:"
-      && str != ".|");
+  no_vertical_end |= ly_scm2bool (scm_call_1 (ly_lily_module_constant ("volta-bracket::calc-hook-visibility"),
+                                             ly_string2scm (str)));
 
   if (no_vertical_end || no_vertical_start)
     {
@@ -179,5 +172,6 @@ ADD_INTERFACE (Volta_bracket_interface,
                "bars "
                "thickness "
                "height "
+               "shorten-pair "
               );
 

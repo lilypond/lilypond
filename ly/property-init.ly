@@ -84,6 +84,23 @@ balloonLengthOff = {
 }
 
 
+%% bar lines
+
+defineBarLine =
+#(define-void-function
+   (parser location bar glyph-list) (string? list?)
+   (_i "Define bar line settings for bar line @var{bar}.
+     The list @var{glyph-list} must have three entries which define
+     the appearance at the end of line, at the beginning of the next line,
+     and the span bar, respectively." )
+  (if (not (= (length glyph-list) 3))
+      (ly:error (_ "Argument list for bar '~a' must have three components.") bar)
+      (define-bar-line bar
+                       (car glyph-list)
+                       (cadr glyph-list)
+                       (caddr glyph-list))))
+
+
 %% bass figures
 
 bassFigureExtendersOn = {
@@ -603,6 +620,12 @@ voiceNeutralStyle = {
   \revert Beam #'color
 }
 
+
+%% volta brackets
+
+allowVoltaHook =
+#(define-void-function (parser location bar) (string?)
+                       (allow-volta-hook bar))
 
 %% x notes
 

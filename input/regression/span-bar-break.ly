@@ -1,9 +1,9 @@
-\version "2.16.0"
+\version "2.17.5"
 
 \header {
 
-  texidoc = "At the beginning of a system, the @code{|:} repeat
-barline is drawn between the staves, but the @code{:|} is not."
+  texidoc = "At the beginning of a system, the @code{.|:} repeat
+barline is drawn between the staves, but the @code{:|.} is not."
 
 }
 
@@ -12,8 +12,8 @@ barline is drawn between the staves, but the @code{:|} is not."
 
 \new PianoStaff <<
   \new Staff = "up" {
-    \bar "|:" r1
-    \bar ":|" \break r1
+    \bar ".|:" r1
+    \bar ":|." \break r1
   }
   \new Staff = "down" { r r }
 >>

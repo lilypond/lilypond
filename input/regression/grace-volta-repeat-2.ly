@@ -1,9 +1,9 @@
-\version "2.16.0"
+\version "2.17.5"
 
 \header {
 
   texidoc = "A volta repeat may begin with a grace. Consecutive
-    ending and starting repeat bars are merged into one @code{:||:}."
+    ending and starting repeat bars are merged into one @code{:..:}."
 
 }
 
@@ -11,7 +11,7 @@
 
 \relative c' {
   \repeat volta 2 {
-    c1 
+    c1
   }
   \repeat volta 2 {
     \grace {c8 } c4

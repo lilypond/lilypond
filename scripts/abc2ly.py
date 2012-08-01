@@ -233,7 +233,7 @@ def dump_default_bar (outf):
     Nowadays abc2ly outputs explicits barlines (?)
     """
     ## < 2.2
-    outf.write ("\n\\set Score.defaultBarType = \"empty\"\n")
+    outf.write ("\n\\set Score.defaultBarType = \"\"\n")
 
 
 def dump_slyrics (outf):
@@ -1124,12 +1124,12 @@ old_bar_dict = {
 '|]' : '|.',
 '||' : '||',
 '[|' : '||',
-':|' : ':|',
+':|' : ':|.',
 '|:' : '|:',
-'::' : ':|:',
+'::' : ':|.|:',
 '|1' : '|',
 '|2' : '|',
-':|2' : ':|',
+':|2' : ':|.',
 '|' :  '|'
 }
 bar_dict = {

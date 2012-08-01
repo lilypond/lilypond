@@ -8,7 +8,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.5"
 
 \paper {
   ragged-right = ##t  
@@ -25,10 +25,10 @@
 					  (markup #:arrow-head X RIGHT #f))
   \times 11/19 {
     c4 c4 c4 c4
-    \bar "empty" \break
+    \bar "-" \break
     c4 c4 c4 c4
     c4 c4 c4 c4
-    \bar "empty" \break
+    \bar "-" \break
     c4 c4 c4 c4
     c4 c4 c4 
   }

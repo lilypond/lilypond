@@ -8,7 +8,7 @@
 @end ignore
 
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -993,7 +993,7 @@ Par exemple,
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.defaultBarType = "empty"
+@c \set Score.defaultBarType = "-"
 @c \override NoteHead #'style = #'neomensural
 @c \override Staff.TimeSignature #'style = #'neomensural
 @c \clef "petrucci-g"
@@ -1006,7 +1006,7 @@ Par exemple,
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "empty"
+    \set Score.defaultBarType = "-"
     \override NoteHead #'style = #'petrucci
     \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
@@ -1034,7 +1034,7 @@ par le @code{Mensural_ligature_engraver}, on obtient
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "empty"
+  \set Score.defaultBarType = "-"
   \override NoteHead #'style = #'petrucci
   \override Staff.TimeSignature #'style = #'mensural
   \clef "petrucci-g"
@@ -2489,7 +2489,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
     \new KievanVoice = "melody" \transpose c c' {
       \cadenzaOn
 	c4 c c c c2 b,\longa
-	\bar "kievan"
+	\bar "k"
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2612,12 +2612,12 @@ Manuel de notation :
 
 Les pièces en notation kiévienne sont habituellement terminées par une
 décoration qui fait office de barre finale.  Elle s'obtient à l'aide
-d'un @code{\bar "kievan"}.
+d'un @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
   \override NoteHead #'style = #'kievan
-  c \bar "kievan"
+  c \bar "k"
 @end lilypond
 
 @seealso

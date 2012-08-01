@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.5"
 
 \header {
   lsrtags = "repeats"
@@ -19,7 +19,7 @@ be set using @code{doubleRepeatType}.
 
 \relative c'' {
   \repeat volta 1 { c1 }
-  \set Score.doubleRepeatType = #":|:"
+  \set Score.doubleRepeatType = #":..:"
   \repeat volta 1 { c1 }
   \set Score.doubleRepeatType = #":|.|:"
   \repeat volta 1 { c1 }

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -2632,7 +2632,7 @@ f1 \bar "|"
 f1 \bar "."
 g1 \bar "||"
 a1 \bar ".|"
-b1 \bar ".|."
+b1 \bar ".."
 c1 \bar "|.|"
 d1 \bar "|."
 e1
@@ -2642,8 +2642,8 @@ e1
 ainsi que d'une barre en pointillé et d'une discontinue :
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":"
-g1 \bar "dashed"
+f1 \bar ";"
+g1 \bar "!"
 a1
 @end lilypond
 
@@ -2651,11 +2651,11 @@ a1
 et de cinq types de barre de reprise :
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:"
-g1 \bar ":|:"
+f1 \bar ".|:"
+g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|"
+c1 \bar ":|."
 e1
 @end lilypond
 
@@ -2681,13 +2681,13 @@ c4 c c c
 c4 c c c \break
 \bar "S"
 c4 c c c
-\bar "|S"
+\bar "S-|"
 c4 c c c \break
-\bar "|S"
+\bar "S-|"
 c4 c c c
-\bar "S|"
+\bar "S-S"
 c4 c c c \break
-\bar "S|"
+\bar "S-S"
 c1
 @end lilypond
 
@@ -2707,9 +2707,9 @@ nouvelle.
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar "||:"
+\bar ".|:-||"
 c4 c c c \break
-\bar "||:"
+\bar ".|:-||"
 c4 c c c
 @end lilypond
 
@@ -2718,29 +2718,29 @@ reprise avec un signe @emph{segno} :
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar ":|S"
+\bar ":|.S"
 c4 c c c \break
-\bar ":|S"
+\bar ":|.S"
 c4 c c c
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c \break
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c \break
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c \break
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c \break
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c4 c c c \break
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c1
 @end lilypond
 
@@ -3318,8 +3318,8 @@ mêlez des portées comprenant des petites notes et d'autres sans :
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3330,8 +3330,8 @@ correspondant à la durée des petites notes :
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" \grace s16 d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 
 @node Ancient notation
@@ -943,7 +943,7 @@ For example,
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.defaultBarType = "empty"
+@c \set Score.defaultBarType = "-"
 @c \override NoteHead #'style = #'neomensural
 @c \override Staff.TimeSignature #'style = #'neomensural
 @c \clef "petrucci-g"
@@ -956,7 +956,7 @@ For example,
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "empty"
+    \set Score.defaultBarType = "-"
     \override NoteHead #'style = #'petrucci
     \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
@@ -985,7 +985,7 @@ to the following
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "empty"
+  \set Score.defaultBarType = "-"
   \override NoteHead #'style = #'petrucci
   \override Staff.TimeSignature #'style = #'mensural
   \clef "petrucci-g"
@@ -2438,7 +2438,7 @@ values, so you can immediately go ahead entering the chant:
     \new KievanVoice = "melody" \transpose c c' {
       \cadenzaOn
 	c4 c c c c2 b,\longa
-	\bar "kievan"
+	\bar "k"
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2554,12 +2554,12 @@ Notation Reference:
 
 A decorative figure is commonly placed at the end of a piece of
 Kievan notation, which may be called the Kievan final bar line.
-It can be invoked as @code{\bar "kievan"}.
+It can be invoked as @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
   \override NoteHead #'style = #'kievan
-  c \bar "kievan"
+  c \bar "k"
 @end lilypond
 
 @seealso

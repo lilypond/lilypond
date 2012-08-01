@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.0"
+\version "2.17.5"
 
 \header {
   lsrtags = "headword"
@@ -221,7 +221,7 @@ ViolinSolo = \relative c' {
     >>
 
     \override Score.Rest #'transparent = ##t
-    \set Score.defaultBarType          = "empty"
+    \set Score.defaultBarType          = "-"
   >>
 
   \layout  {

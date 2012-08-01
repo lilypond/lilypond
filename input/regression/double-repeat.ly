@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.5"
 
 \header {
   texidoc = "Three types of double repeat bar line are supported."
@@ -7,7 +7,7 @@
   \new Staff \relative c' {
     c1
     \mark "\":|:\""
-    \bar ":|:"
+    \bar ":..:"
     c1
     \mark "\":|.|:\""
     \bar ":|.|:"

@@ -62,6 +62,12 @@ which scares away people.
 @end ignore
 
 @item
+The bar line user interface has changed. Bar glyphs now resemble the
+appearance of the bar line, so a left repeat sign has to be coded
+as @code{.|:}. The command @code{\defineBarLine} provides an easy way
+to define additional bar line styles.
+
+@item
 Accidentals in the key signature may be printed in octaves other
 than their traditional positions, or in multiple octaves.
 @lilypond[quote,relative=0]

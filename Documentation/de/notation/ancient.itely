@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @c Translators: Till Paala
 
@@ -988,7 +988,7 @@ Eine Datei kann zum Beispiel so aussehen:
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.defaultBarType = "empty"
+@c \set Score.defaultBarType = "-"
 @c \override NoteHead #'style = #'neomensural
 @c \override Staff.TimeSignature #'style = #'neomensural
 @c \clef "petrucci-g"
@@ -1001,7 +1001,7 @@ Eine Datei kann zum Beispiel so aussehen:
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "empty"
+    \set Score.defaultBarType = "-"
     \override NoteHead #'style = #'petrucci
     \override Staff.TimeSignature #'style = #'mensural
     \clef "petrucci-g"
@@ -1030,7 +1030,7 @@ wie folgt ausgegeben:
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "empty"
+  \set Score.defaultBarType = "-"
   \override NoteHead #'style = #'neomensural
   \override Staff.TimeSignature #'style = #'neomensural
   \clef "petrucci-g"

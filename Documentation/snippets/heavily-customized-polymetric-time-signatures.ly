@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.0"
+\version "2.17.5"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, rhythms"
@@ -50,8 +50,8 @@ melody = \relative c'' {
 }
 
 drum = \new DrumStaff \drummode {
-  \bar "|:" bd4.^\markup { Drums } sn4 bd \bar ":" sn4.
-  bd4 sn \bar ":" bd sn bd4. sn4 bd \bar ":|"
+  \bar ".|:" bd4.^\markup { Drums } sn4 bd \bar ";" sn4.
+  bd4 sn \bar ";" bd sn bd4. sn4 bd \bar ":|."
 }
 
 {

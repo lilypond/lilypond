@@ -3392,10 +3392,35 @@ def conv (str):
     str = re.sub ('blank-after-score-page-force', 'blank-after-score-page-penalty', str)
     return str
 
+
 @rule ((2, 17, 4), r"\shape Grob #offsets -> \shape #offsets Grob")
 def conv (str):
     str = re.sub (r"\\shape(\s+(?:[a-zA-Z]+|" + matchstring + "))(" +
                   matcharg + ")", r"\\shape\2\1", str)
+    return str
+
+barstring=r"(\\bar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
+
+@rule ((2, 17, 5), r"New bar line interface")
+def conv(str):
+    str = re.sub (barstring + r'"\|:"', '\\1\\2".|:"', str)
+    str = re.sub (barstring + r'":\|"', '\\1\\2":|."', str)
+    str = re.sub (barstring + r'"\|\|:"', '\\1\\2".|:-||"', str)
+    str = re.sub (barstring + r'":\|:"', '\\1\\2":..:"', str)
+    str = re.sub (barstring + r'"\.\|\."', '\\1\\2".."', str)
+    str = re.sub (barstring + r'"\|S"', '\\1\\2"S-|"', str)
+    str = re.sub (barstring + r'"S\|"', '\\1\\2"S-S"', str)
+    str = re.sub (barstring + r'":\|S"', '\\1\\2":|.S"', str)
+    str = re.sub (barstring + r'":\|S\."', '\\1\\2":|.S-S"', str)
+    str = re.sub (barstring + r'"S\|:"', '\\1\\2"S.|:-S"', str)
+    str = re.sub (barstring + r'"\.S\|:"', '\\1\\2"S.|:"', str)
+    str = re.sub (barstring + r'":\|S\|:"', '\\1\\2":|.S.|:"', str)
+    str = re.sub (barstring + r'":\|S\.\|:"', '\\1\\2":|.S.|:-S"', str)
+    str = re.sub (barstring + r'":"', '\\1\\2";"', str)
+    str = re.sub (barstring + r'"\|s"', '\\1\\2"|-s"', str)
+    str = re.sub (barstring + r'"dashed"', '\\1\\2"!"', str)
+    str = re.sub (barstring + r'"kievan"', '\\1\\2"k"', str)
+    str = re.sub (barstring + r'"empty"', '\\1\\2"-"', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

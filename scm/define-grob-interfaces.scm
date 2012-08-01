@@ -41,44 +41,13 @@ note)."
  "Print a special bar symbol.  It replaces the regular bar
 symbol with a special symbol.  The argument @var{bartype}
 is a string which specifies the kind of bar line to print.
-Options are @code{|}, @code{:|}, @code{|:}, @code{:|:}, @code{:|.|:},
-@code{:|.:}, @code{.}, @code{||}, @code{|.}, @code{.|}, @code{.|.},
-@code{|.|}, @code{:}, @code{dashed}, @code{'} and @code{S}.
 
-These produce, respectively, a normal bar line, a right repeat, a left repeat,
-a thick double repeat, a thin-thick-thin double repeat,
-a thin-thick double repeat, a thick bar, a double bar, a start bar,
-an end bar, a thick double bar, a thin-thick-thin bar,
-a dotted bar, a dashed bar, a tick as bar line and a segno bar.
-
-In addition, there is an option
-@code{||:} which is equivalent to @code{|:} except at line
-breaks, where it produces a double bar (@code{||}) at the
-end of the line and a repeat sign (@code{|:}) at the
-beginning of the new line.
-
-For segno, @code{S} produces a segno sign except at line breaks,
-where it produces a double bar (@code{||}) at the
-end of the line and a segno sign at the beginning of the new line.
-@code{|S} is equivalent to @code{S} but produces a simple bar line
-(@code{|}) instead of a double bar line (@code{||}) at line breaks.
-@code{S|} produces the segno sign at line breaks and starts the following
-line without special bar lines.
-
-@code{S|:} and @code{:|S} are used for repeat/segno combinations that are
-separated at line breaks.  Alternatively, @code{.S|:} and @code{:|S.}
-may be used which combine repeat signs and segno at the same line in
-case of a line break.  @code{:|S|:} is a combination of a left repeat
-(@code{:|}), a segno (@code{S}) and a right repeat @code{|:} which
-splits before the segno at line breaks; @code{:|S.|:} splits after
-the segno sign.
-
-If @var{bartype} is set to @code{empty} then nothing is
-printed, but a line break is allowed at that spot.
+The list of allowed glyphs and predefined bar lines can be
+found in @file{scm/bar-line.scm}.
 
 @code{gap} is used for the gaps in dashed bar lines."
  '(allow-span-bar bar-extent gap glyph glyph-name has-span-bar
-   hair-thickness kern thin-kern thick-thickness))
+   hair-thickness kern rounded thin-kern thick-thickness))
 
 (ly:add-interface
  'bass-figure-interface

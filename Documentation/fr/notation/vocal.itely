@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -3020,9 +3020,9 @@ a4 b c2
 \bar "'"
 a4 b c2
 a4 b c2
-\bar ":"
+\bar ";"
 a4 b c2
-\bar "dashed"
+\bar "!"
 a4 b c2
 \bar "||"
 @end lilypond

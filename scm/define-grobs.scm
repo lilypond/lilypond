@@ -218,6 +218,7 @@
 
 	(layer . 0)
 	(non-musical . #t)
+	(rounded . #f)
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
 			(custos . (minimum-space . 2.0))
@@ -1901,16 +1902,6 @@
 	(break-align-symbol . staff-bar)
 	(cross-staff . #t)
 	(glyph-name . ,ly:span-bar::calc-glyph-name)
-
-	;; ugh duplication! (these 4 properties were copied from Barline)
-	;;
-	;; Ross. page 151 lists other values, we opt for a leaner look
-	;;
-	(kern . 3.0)
-	(thin-kern . 3.0)
-	(hair-thickness . 1.6)
-	(thick-thickness . 6.0)
-
 	(layer . 0)
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
@@ -2609,6 +2600,7 @@
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-encoding . fetaText)
 	(font-size . -4)
+	(shorten-pair . ,ly:volta-bracket::calc-shorten-pair)
 	(stencil . ,ly:volta-bracket-interface::print)
 	(thickness . 1.6) ;; line-thickness
 	(word-space . 0.6)

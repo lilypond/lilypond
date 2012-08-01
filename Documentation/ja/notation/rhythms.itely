@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.5"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -2634,7 +2634,7 @@ f1 \bar "|"
 f1 \bar "."
 g1 \bar "||"
 a1 \bar ".|"
-b1 \bar ".|."
+b1 \bar ".."
 c1 \bar "|.|"
 d1 \bar "|."
 e1
@@ -2644,8 +2644,8 @@ e1
 さらに、点線と破線の小節線があります:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":"
-g1 \bar "dashed"
+f1 \bar ";"
+g1 \bar "!"
 a1
 @end lilypond
 
@@ -2653,11 +2653,11 @@ a1
 さらに、繰り返しの小節線が 5 種類あります:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:"
-g1 \bar ":|:"
+f1 \bar ".|:"
+g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|"
+c1 \bar ":|."
 e1
 @end lilypond
 
@@ -2681,13 +2681,13 @@ c4 c c c
 c4 c c c \break
 \bar "S"
 c4 c c c
-\bar "|S"
+\bar "S-|"
 c4 c c c \break
-\bar "|S"
+\bar "S-|"
 c4 c c c
-\bar "S|"
+\bar "S-S"
 c4 c c c \break
-\bar "S|"
+\bar "S-S"
 c1
 @end lilypond
 
@@ -2708,9 +2708,9 @@ c1
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar "||:"
+\bar ".|:-||"
 c4 c c c \break
-\bar "||:"
+\bar ".|:-||"
 c4 c c c
 @end lilypond
 
@@ -2718,29 +2718,29 @@ c4 c c c
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar ":|S"
+\bar ":|.S"
 c4 c c c \break
-\bar ":|S"
+\bar ":|.S"
 c4 c c c
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c \break
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c \break
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c \break
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c \break
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c4 c c c \break
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c1
 @end lilypond
 
@@ -3347,8 +3347,8 @@ c1 \afterGrace d1 { c16[ d] } c1
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3359,8 +3359,8 @@ c1 \afterGrace d1 { c16[ d] } c1
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" \grace s16 d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 
