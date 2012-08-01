@@ -979,7 +979,7 @@ for all errors and defines functions for displaying scheme objects
 (ps), grobs (pgrob), and parsed music expressions (pmusic).
 
 @example
-file lily/out/lilypond
+file ~/lilypond-git/build/out/bin/lilypond
 b programming_error
 b Grob::programming_error
 
