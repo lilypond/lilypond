@@ -18,6 +18,7 @@
 */
 
 #include <map>
+#include <deque>
 
 #include "audio-column.hh"
 #include "audio-item.hh"
@@ -58,6 +59,7 @@ private:
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
+  map<string, deque<Audio_note *> > note_map_;
   map<string, Audio_staff *> staff_map_;
   map<string, int> channel_map_;
   map<string, Audio_dynamic *> dynamic_map_;
@@ -192,6 +194,22 @@ Staff_performer::stop_translation_timestep ()
   tempo_ = 0;
   instrument_name_ = 0;
   instrument_ = 0;
+  // For each voice with a note played in the current translation time step,
+  // check if the voice has an Audio_dynamic registered: if yes, apply this
+  // dynamic to every note played in the voice in the current translation time
+  // step.
+  for (map<string, deque<Audio_note *> >::iterator vi = note_map_.begin ();
+       vi != note_map_.end (); ++vi)
+    {
+      Audio_dynamic *d = get_dynamic (vi->first);
+      if (d)
+        {
+          for (deque<Audio_note *>::iterator ni = vi->second.begin ();
+               ni != vi->second.end (); ++ni)
+            (*ni)->dynamic_ = d;
+        }
+    }
+  note_map_.clear ();
 }
 
 void
@@ -290,15 +308,19 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
       bool encode_dynamics_as_velocity_ = true;
       if (encode_dynamics_as_velocity_)
         {
-          if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
+          if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
+            {
+              // Keep track of the notes played in the current voice in this
+              // translation time step (for adjusting their dynamics later in
+              // stop_translation_timestep).
+              note_map_[voice].push_back (n);
+            }
+          else if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
             {
               dynamic_map_[voice] = d;
               // Output volume as velocity: must disable Midi_dynamic output
               d->silent_ = true;
             }
-          if (Audio_dynamic *d = get_dynamic (voice))
-            if (Audio_note *n = dynamic_cast<Audio_note *> (inf.elem_))
-              n->dynamic_ = d;
         }
       Audio_staff *audio_staff = get_audio_staff (voice);
       audio_staff->add_audio_item (ai);
