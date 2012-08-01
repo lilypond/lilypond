@@ -60,6 +60,7 @@ refresh-release-files:
 	$(MAKE) $(RELEASE_OUT_FILES)
 
 python-modules:
+	$(MAKE) -C scripts/build
 	$(MAKE) -C python
 
 top-doc: python-modules
