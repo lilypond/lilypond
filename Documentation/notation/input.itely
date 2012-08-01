@@ -642,7 +642,7 @@ Notation Reference:
 
 This example demonstrates all @code{\header} variables:
 
-@lilypond[papersize=a7landscape,quote,verbatim,noragged-right]
+@lilypond[papersize=a7,quote,verbatim,noragged-right]
 \book {
   \header {
       % The following fields are centered
