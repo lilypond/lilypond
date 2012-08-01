@@ -9,10 +9,8 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = usage contributor essay \
-  web learning notation extending
-SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs \
-  included ly-examples $(LANGS)
+SUBDIRS = logo pictures misc po css topdocs \
+  ly-examples $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -32,8 +30,6 @@ README_TOP_FILES= DEDICATION THANKS
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=out/%.ly)
-
-EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(call src-wildcard,*.bst)
 
 ### Out files
 
@@ -99,7 +95,6 @@ $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 ### AJAX scripts
 JS_FILES = $(call src-wildcard,*.js)
 PHP_FILES = $(call src-wildcard,*.php)
-EXTRA_DIST_FILES += $(JS_FILES) $(PHP_FILES)
 
 OUT_JS_FILES = $(JS_FILES:%.js=$(outdir)/%.js)
 OUT_PHP_FILES = $(PHP_FILES:%.php=$(outdir)/%.php)
@@ -307,9 +302,6 @@ endif
 ifneq ($(ISOLANG),)
 new-lang-dir:
 	mkdir -p $(ISOLANG)/$(DIR)
-	cp fr/GNUmakefile $(ISOLANG)
-	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
 	rm -f $(outdir)/*.*tely $(outdir)/*.*texi
 	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
 	for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do\
@@ -325,6 +317,8 @@ new-lang-dir:
 new-lang:
 # Also for updating/adding missing files
 	mkdir -p $(ISOLANG)
+	cp fr/GNUmakefile $(ISOLANG)
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po

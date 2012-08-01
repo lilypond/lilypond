@@ -2,8 +2,6 @@
 install-doc:
 uninstall-doc:
 
-local-dist: configure
-
 local-distclean:
 	rm -f config.hh config.make Makefile GNUmakefile \
 		config.cache config.status config.log index.html \
@@ -43,16 +41,6 @@ install:
 ifeq ($(strip $(SRCMAKE)),)
 	$(MAKE) final-install
 endif
-
-local-dist: top-doc
-
-dist:
-	rm -rf $(distdir)
-	$(MAKE) local-dist $(distdir)
-	chmod -R a+r $(distdir)
-	chmod  a+x `find $(distdir) -type d -print`
-	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
-	rm -rf $(distdir)
 
 local-help:
 	@echo "  config          rerun configure"

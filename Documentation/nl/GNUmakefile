@@ -1,6 +1,5 @@
 ISOLANG = nl
 depth = ../..
-SUBDIRS = included web learning texidocs
 STEPMAKE_TEMPLATES = documentation texinfo
 LOCALSTEPMAKE_TEMPLATES = lilypond ly doc-i18n-root
 # NO_PDF_FILES = 1

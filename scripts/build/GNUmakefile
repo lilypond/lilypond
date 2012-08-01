@@ -2,8 +2,6 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=script install po
 
-EXTRA_DIST_FILES = website-known-missing-files.txt
-
 include $(depth)/make/stepmake.make
 
 # Should we install these? This should be handled by sysadmin or

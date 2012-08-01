@@ -81,20 +81,14 @@ help: generic-help local-help
 	@echo "  lib          update all libraries"
 	@echo "  TAGS         generate tagfiles"
 	@echo
-	@echo "\`make' may be invoked from any subdirectory."
+	@echo "\`make' may be invoked from any subdirectory that contains a GNUmakefile."
 
 local-help:
 
-local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
-	mkdir -p $(distdir)/$(localdir)
-	$(LN) $(DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir)
-
-	case "$(NON_ESSENTIAL_DIST_FILES)x" in x) ;; *) \
-		$(LN) $(NON_ESSENTIAL_DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir);; \
-	esac
-	case "$(OUT_DIST_FILES)x" in x) ;; *) \
-		mkdir -p $(distdir)/$(localdir)/$(outdir); \
-		$(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/$(outdir);; \
+local-dist: $(OUT_DIST_FILES)
+	case "$(OUT_DIST_FILES)x" in x) ;; \
+	     *) mkdir -p $(distdir)/$(localdir)/$(outdir) && \
+	        $(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/$(outdir);; \
 	esac
 	$(foreach i, $(SUBDIRS), $(MAKE) top-src-dir=$(top-src-dir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
 

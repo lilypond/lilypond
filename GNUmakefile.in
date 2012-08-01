@@ -6,7 +6,7 @@ SUBDIRS = python scripts \
 	flower lily \
 	mf ly \
 	tex ps scm \
-	po make \
+	po \
 	elisp vim \
 	input \
 	stepmake $(documentation-dir)
@@ -26,11 +26,9 @@ IN_FILES := $(call src-wildcard,*.in)
 RELEASE_FILES = ChangeLog RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 OUT_DIST_FILES += $(RELEASE_OUT_FILES)
-EXTRA_DIST_FILES = VERSION .gitignore .mailmap \
-  $(README_FILES) $(SCRIPTS) $(IN_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
-
+GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
 # bootstrap stepmake:
 #
 STEPMAKE_TEMPLATES=toplevel po install
@@ -40,7 +38,35 @@ include $(depth)/make/stepmake.make
 
 .PHONY: test info website
 
-local-dist: refresh-release-files dist-toplevel-txt-files
+dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
+	@cd $(top-src-dir) && \
+	  if [[ `find . -name .git` && (`git diff HEAD` || `git status | grep -i "untracked"`) ]]; \
+	  then echo "***   dist must been rolled on a clean git tree;"; \
+	  echo "uncommitted changes or untracked files detected, aborting."; \
+	  exit 1; fi
+	rm -rf $(distdir)
+	$(MAKE) local-dist $(distdir)
+	chmod -R a+r $(distdir)
+	chmod  a+x `find $(distdir) -type d -print`
+	$(LN) $(TOPDOC_TXT_FILES) $(distdir)
+	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
+	cd $(top-src-dir) && xargs $(buildscript-dir)/mass-link hard . $(distdir) <$(top-build-dir)/.gitfilelist
+	if [[ `find $(top-src-dir) -name .git` ]]; then \
+	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
+	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
+	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+	rm -rf $(distdir)
+
+ifneq ($(shell find $(top-src-dir) -name .git),)
+.gitfilelist: $(top-src-dir)/.git/index
+	cd $(top-src-dir) && git ls-files >$(top-build-dir)/$@
+local-clean-filelist:
+	rm -f .gitfilelist
+else
+.gitfilelist: $(src-dir)/.gitfilelist
+	cp $< $@
+local-clean-filelist:
+endif
 
 all: $(outdir)/VERSION
 
@@ -65,15 +91,10 @@ python-modules:
 
 top-doc: python-modules
 
-local-clean: local-clean-ChangeLog
+local-clean: local-clean-ChangeLog local-clean-filelist
 
 local-clean-ChangeLog:
 	rm -f ChangeLog
-
-dist-toplevel-txt-files: top-doc
-	-mkdir -p $(distdir)
-	ln $(TOPDOC_TXT_FILES) $(distdir)
-	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)
 
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true

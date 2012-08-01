@@ -83,7 +83,6 @@ INCLUDES = $(src-dir)/include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES
 
 M4 = m4
 
-DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES) $(call src-wildcard,SConscript)
 DOCDIR=$(depth)/$(outdir)
 
 #?

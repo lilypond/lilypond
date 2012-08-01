@@ -2,8 +2,6 @@ depth = ../..
 
 CSS_FILES = $(call src-wildcard,*.css)
 
-EXTRA_DIST_FILES = $(CSS_FILES)
-
 OUT_CSS_FILES = $(CSS_FILES:%=$(outdir)/%)
 
 STEPMAKE_TEMPLATES = documentation
