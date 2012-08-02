@@ -7,17 +7,6 @@ case $1 in
     --noconf*) NOCONFIGURE=true;;
 esac
 
-if [ ! -f aclocal.m4 -o stepmake/aclocal.m4 -nt aclocal.m4 ]; then
-    echo "stepmake/aclocal.m4 is newer.  Copying file." 
-    cp -f stepmake/aclocal.m4 aclocal.m4
-fi
-
-if [ ! -f autogen.sh -o stepmake/autogen.sh -nt autogen.sh ]; then
-    echo "stepmake/autogen.sh is newer.  Copying file." 
-    cp -f stepmake/autogen.sh autogen.sh
-    exec ./autogen.sh "$@"
-fi
-
 for i in $srcdir/configure.in #`find $srcdir -name configure.in -print`
 do 
   dir=`dirname $i`

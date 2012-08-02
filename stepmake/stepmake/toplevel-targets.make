@@ -14,16 +14,6 @@ local-maintainerclean:
 GNUmakefile: GNUmakefile.in
 	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
 
-ifneq ($(PACKAGE),STEPMAKE)
-aclocal.m4: $(stepmake)/aclocal.m4
-	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=dnl -f $(stepdir)/automatically-generated.sub.make
-
-autogen.sh: $(stepmake)/autogen.sh
-	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=\# -f $(stepdir)/automatically-generated.sub.make
-	chmod +x autogen.sh
-endif
-
-
 $(package-icon):
 	$(MAKE) -C Documentation/logo icon
 

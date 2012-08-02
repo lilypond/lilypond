@@ -1,4 +1,4 @@
-
+#!@PYTHON@
 import re
 import sys
 

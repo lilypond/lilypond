@@ -7,12 +7,7 @@ AC_PREREQ(2.60)
 AC_INIT
 
 # Bootstrap StepMake configure
-# For user package:
-AC_CONFIG_AUX_DIR([stepmake/bin])
-
-# For stepmake package:
-# AC_CONFIG_AUX_DIR(bin)
-
+AC_CONFIG_AUX_DIR([config])
 
 STEPMAKE_INIT
 

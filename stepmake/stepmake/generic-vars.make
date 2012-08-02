@@ -39,12 +39,11 @@ distname = $(package)-$(TOPLEVEL_VERSION)
 doc-dir = $(src-depth)/Documentation
 po-srcdir = $(src-depth)/po
 po-outdir = $(depth)/po/$(outdir)
-step-bindir = $(stepmake)/bin
 
 # stepmake package support.
 DEPTH = $(depth)/$(package-depth)
 
-INSTALLPY=$(PYTHON) $(step-bindir)/install.py -c
+INSTALLPY=$(buildscript-dir)/install -c
 INSTALL=$(INSTALLPY)
 
 group-dir = $(shell cd $(DEPTH);pwd)/..

@@ -1,4 +1,4 @@
-.PHONY : all clean bin-clean config default dist exe help html lib TAGS\
+.PHONY : all clean bin-clean default dist exe help html lib TAGS\
 	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
 	 log-clean
 
@@ -40,18 +40,12 @@ cvs-clean:
 	$(MAKE) local-distclean
 	rm -rf out
 	rm -rf out-www
-	rm -f aclocal.m4 configure
+	rm -f configure
 
 maintainerclean:
 	$(LOOP)
 	$(MAKE)	local-maintainerclean
 	$(MAKE) local-distclean
-
-
-# This doesn't allow command-line options, is it really useful? -jm
-config:
-	./$(src-depth)/configure
-
 
 generic-help:
 	@echo "Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)"
@@ -109,8 +103,10 @@ local-tags:
 			$(ERROR_LOG) ; \
 	fi
 
-$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(step-bindir)/make-version.py
-	$(PYTHON) $(step-bindir)/make-version.py $< > $@
+# Don't use $(buildscript-dir)/make-version, because it is not known whether
+# build process has visited scripts/build
+$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(top-src-dir)/scripts/build/make-version.py
+	$(PYTHON) $(top-src-dir)/scripts/build/make-version.py $< > $@
 
 $(outdir)/config.hh: $(config_h)
 	cp -p $< $@

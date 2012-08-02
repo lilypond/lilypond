@@ -199,7 +199,7 @@ $(OUT_TXT_FILES): $(outdir)/%.txt: $(top-src-dir)/%
 	cp -f $< $@
 
 $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
-	$(PYTHON) $(step-bindir)/text2html.py $<
+	$(buildscript-dir)/text2html $<
 
 # Explicitly list the dependencies on generated content
 $(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi

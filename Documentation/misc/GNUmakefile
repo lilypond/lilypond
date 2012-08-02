@@ -22,5 +22,5 @@ $(outdir)/%.txt: %
 	cp $< $@
 
 txt-to-html:
-	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+	$(buildscript-dir)/text2html $(OUT_TXT_FILES)
 	$(footify) $(addprefix $(outdir)/, $(addsuffix .html, $(TEXTS)))

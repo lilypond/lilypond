@@ -53,7 +53,6 @@ TAGS
 \#*
 \#.*
 a.out
-aclocal.m4
 autom4te.cache
 config-*.hh
 config-*.make

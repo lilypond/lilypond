@@ -9,7 +9,7 @@ SUBDIRS = python scripts \
 	po \
 	elisp vim \
 	input \
-	stepmake $(documentation-dir)
+	$(documentation-dir)
 
 
 ## this convoluted construction is necessary, since we don't know the

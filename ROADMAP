@@ -78,6 +78,7 @@ LilyPond's source files.
 |
 |   SCRIPTS:
 |
+|-- config/              Autoconf helpers for configure script
 |-- python/              Python modules, MIDI module
 |   `-- auxiliar/        Python modules for build/maintenance
 |-- scripts/             End-user scripts (--> lilypond/usr/bin/)
