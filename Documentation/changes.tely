@@ -61,6 +61,27 @@ which scares away people.
 
 @end ignore
 @item
+The syntax of words (character sequences recognized without enclosing
+quotes) and commands (now always a backslash @samp{\} followed by a
+word) has been unified across all modes: it now consists of alphabetic
+characters, possibly enclosing isolated dashes @samp{-} and underlines
+@samp{_}.
+
+As one consequence, using unquoted text scripts like (literally!)
+@example
+@{ c-script c\f_script @}
+@end example
+will now tend to result in invalid music.  Omitting quote marks
+for arbitrary text rather than keywords has never been good practice or
+even documented, and it is unlikely to have seen significant use.
+
+Staying with established conventions (like not using dashes or
+underlines for command names intended to be used inside of music)
+remains advisable.  The reason for this change is more robust
+recognition of LilyPond's lexical units for LilyPond itself as well as
+external tools interpreting its syntax.
+
+@item
 Support for Kievan square notation:
 @lilypond[quote,relative=1,verbatim]
 \new KievanVoice {
