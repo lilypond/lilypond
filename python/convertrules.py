@@ -3373,6 +3373,13 @@ def conv (str):
     str = re.sub (r"(\\set\s+)stringTuning", r"\1Staff.stringTuning", str)
     return str
 
+wordsyntax = r"[a-zA-Z\200-\377](?:[-_]?[a-zA-Z\200-\377])*"
+
+@rule ((2, 15, 43), r'"custom-tuning" = -> custom-tuning =')
+def conv (str):
+    str = re.sub ('\n"(' + wordsyntax + r')"(\s*=\s*\\stringTuning)', "\n\\1\\2", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
