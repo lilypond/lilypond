@@ -29,9 +29,6 @@
 
 %{
 
-#define YYDEBUG 1
-#define YYERROR_VERBOSE 1
-
 #define yyerror Lily_parser::parser_error
 
 /* We use custom location type: Input objects */
@@ -44,6 +41,8 @@
 
 %parse-param {Lily_parser *parser}
 %lex-param {Lily_parser *parser}
+%error-verbose
+%debug
 
 /* We use SCMs to do strings, because it saves us the trouble of
 deleting them.  Let's hope that a stack overflow doesn't trigger a move
