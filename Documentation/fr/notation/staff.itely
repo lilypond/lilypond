@@ -1393,7 +1393,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  \new CueVoice { \set "instrumentCueName" = "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1418,7 +1418,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  \new CueVoice { \set "instrumentCueName" = "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1497,7 +1497,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    \new CueVoice { \set "instrumentCueName" = "flute" }
+    \new CueVoice { \set instrumentCueName = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass
