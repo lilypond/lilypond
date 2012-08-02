@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.18"
+\version "2.15.42"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,7 +36,7 @@ acciaccatura =
    (_i "Create an acciaccatura from the following music expression"))
 
 %% keep these two together
-"instrument-definitions" = #'()
+instrument-definitions = #'()
 addInstrumentDefinition =
 #(define-void-function
    (parser location name lst) (string? list?)

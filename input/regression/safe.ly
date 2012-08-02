@@ -1,12 +1,12 @@
-\version "2.14.0"
+\version "2.15.42"
 
-"expect-error" = ##t
+expect-error = ##t
 
 % Ugh - this affects other files too.
 #(ly:set-option 'protected-scheme-parsing #t)
 #(ly:set-option 'safe #t)
 
-"force-finish" = ##t  
+force-finish = ##t
 
 \header{
     texidoc = "This should not survive lilypond --safe-mode"
@@ -18,4 +18,3 @@
 #(open-file "/tmp/safe-guile.scm")
 
 \include "this-should-fail.ly"
-

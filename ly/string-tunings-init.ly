@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.16"
+\version "2.15.42"
 
 %%  A stringTuning is a list of pitches ordered by string number
 %%  from 1 to N.
@@ -87,5 +87,5 @@ for documentation purposes.")
 defaultStringTunings = #(reverse! defaultStringTunings)
 
 %% convert 5-string banjo tuning to 4-string by removing the 5th string
-"four-string-banjo" = #(lambda (tuning)
+four-string-banjo = #(lambda (tuning)
 			 (take tuning 4))
