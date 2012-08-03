@@ -5,9 +5,6 @@
 all:	 default
 	$(LOOP)
 
-bin:
-	$(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C lily
-
 man:
 	$(LOOP)
 
@@ -33,20 +30,6 @@ dist:
 	$(MAKE) -C $(depth) dist
 endif
 
-distclean: clean
-	$(MAKE) local-distclean
-
-cvs-clean:
-	$(MAKE) local-distclean
-	rm -rf out
-	rm -rf out-www
-	rm -f configure
-
-maintainerclean:
-	$(LOOP)
-	$(MAKE)	local-maintainerclean
-	$(MAKE) local-distclean
-
 generic-help:
 	@echo "Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)"
 	@echo "Usage: make ["VARIABLE=value"]... [TARGET]"
@@ -63,16 +46,17 @@ help: generic-help local-help
 	@echo "  doc-clean    clean \`out-www' directory"
 	@echo "  install      install programs and data (prefix=$(prefix))"
 	@echo "  uninstall    uninstall programs and data"
+	@echo "  test         build regression tests for the program and scripts"
 	@echo
 	@echo "  *Note: Prepend \`local-' (eg. \`local-clean') to restrict"
 	@echo "         any of the above commands to the current directory."
 	@echo
 	@echo "Other generic targets:"
 	@echo "  default      same as the empty target"
-	@echo "  bin          check the lily directory and rebuild lilypond.exe if needed"
 	@echo "  exe          update all executables"
 	@echo "  help         this help"
 	@echo "  lib          update all libraries"
+	@echo "  log-clean    remove .log files"
 	@echo "  TAGS         generate tagfiles"
 	@echo
 	@echo "\`make' may be invoked from any subdirectory that contains a GNUmakefile."
@@ -118,8 +102,6 @@ configure: configure.in aclocal.m4
 local-clean:
 
 local-distclean:
-
-local-maintainerclean:
 
 install-strip:
 	$(MAKE) INSTALLPY="$(INSTALLPY) -s" install
