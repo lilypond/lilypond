@@ -1984,6 +1984,28 @@ new beam starts.
 @funindex \set
 @funindex set
 
+When automatic beaming is enabled, the placement of automatic beams
+is determined by three context properties:
+@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+If a @code{beamExceptions} rule is defined for the time signature in
+force, that rule is used to determine the beam placement.  If no
+@code{beamExceptions} rule is defined for the time signature in force,
+the beam placement is determined by the settings of @code{baseMoment}
+and @code{beatStructure}.
+
+By default, @code{beamExceptions} rules are defined for most common
+time signatures, so the @code{beamException} rules must be disabled
+if automatic beaming is to be based on @code{baseMoment} and
+@code{beatStructure}.  The @code{beamExceptions} rules are disabled
+by
+
+@example
+\set Timing.beamExceptions = #'()
+@end example
+
+
+@unnumberedsubsubsec @i{@strong{Beaming based on @code{baseMoment} and @code{beatStructure}}}
+
 In most instances, automatic beams will end at the end of a beat.
 The ending points for beats are determined by the context properties
 @code{baseMoment} and @code{beatStructure}.  @code{beatStructure}
@@ -1999,6 +2021,25 @@ c16^"default" c c c c |
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
+@end lilypond
+
+If a common time signature is being used, @code{beamExceptions}
+@emph{must} be disabled to enable @code{beatStructure} to work.
+The @code{\set Timing.beamExceptions = #'()} command can always
+be included if beaming is being determined by @code{beatStructure}.
+
+@lilypond[quote,relative=2,verbatim]
+\time 4/4
+a8^"default" a a a a a a a
+
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"no change" a a a a a a a
+
+\set Timing.beamExceptions = #'()
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"changed" a a a a a a a
 @end lilypond
 
 Beam setting changes can be limited to specific contexts.  If no
@@ -2064,6 +2105,8 @@ see @ref{Time administration}.
 By default @code{baseMoment} is set to one over the denominator of
 the time signature. Any exceptions to this default can be found in
 @file{scm/time-signature-settings.scm}.
+
+@unnumberedsubsubsec @i{@strong{Beaming based on @code{beamExceptions}}}
 
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -2176,7 +2219,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@i{@strong{How automatic beaming works}}
+@unnumberedsubsubsec @i{@strong{How automatic beaming works}}
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by the context properties
