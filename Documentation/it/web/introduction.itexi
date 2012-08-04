@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: e79582f3ec94019a9f849b2855abab4eabae3172
+    Translation of GIT committish: d8d7985d6027b374744a7c88250b856c4ef7e619
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1038,6 +1038,15 @@ ancora convinto?  Leggi a proposito dell' @ref{Editing facilitato}.
 @unnumberedsec Editing facilitato
 @translationof Easier editing
 
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
 @divClass{column-center-top}
 @subheading LilyPondTool
 
@@ -1147,16 +1156,6 @@ usando le estensioni disponibili presso:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
-Esiste un bundle LilyPond per TextMate, un editor commerciale per MacOS.
-Può essere installato eseguendo questi comandi:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
 
 @divEnd
 
@@ -1185,9 +1184,9 @@ in formato LilyPond incompleta ma è in attivo sviluppo.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY} è un programma scritto in C# che converte una canzone di
-@uref{http://www.noteworthysoftware.com/,NoteWorthy} in formato
-LilyPond.
+NW2LY} è un programma scritto in C# che converte una canzone di NoteWorthy
+@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
+in formato LilyPond.
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
@@ -1200,7 +1199,7 @@ o parte.
 e MIDI, che ha anche un editor per le partiture con un solo rigo.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un convertitore
+@uref{https://launchpad.net/rumor/,Rumor}, un convertitore
 realtime monofonico da MIDI a LilyPond.
 
 @item

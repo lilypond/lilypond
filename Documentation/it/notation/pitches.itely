@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: c9eaefea18957fe2b148fc990509065832dccdd0
+   Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -827,15 +827,17 @@ Re bemolle al posto di Mi triplo bemolle).
 @cindex operazione, inversione
 @funindex \inversion
 
-Un'espressione musicale può essere invertita con:
+Un'espressione musicale può essere invertita e trasposta in una singola
+operazione con:
 
 @example
-\inversion @var{altezza-di-partenza} @var{altezza-di-arrivo} @var{espressione_musicale}
+\inversion @var{altezza-di-riferimento} @var{altezza-di-arrivo} @var{espressione_musicale}
 @end example
 
 L'@code{@var{espressione_musicale}} viene invertita intervallo per intervallo
-e poi trasposta dall'@code{@var{altezza-di-partenza}}
-all'@code{@var{altezza-di-arrivo}}.
+intorno all'@code{@var{altezza-di-riferimento}} e poi trasposta in modo che
+ci sia una corrispondenza tra @code{@var{altezza-di-riferimento}} e
+@code{@var{altezza-di-arrivo}}.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -845,6 +847,10 @@ music = \relative c' { c d e f }
   \inversion d' ees' \music
 }
 @end lilypond
+
+@warning{I motivi da invertire devono essere scritti in forma assoluta
+oppure devono essere prima convertiti in forma assoluta racchiudendoli
+in un blocco @code{\relative}.}
 
 @seealso
 Guida alla notazione:
@@ -1408,7 +1414,7 @@ in Si bemolle.
 \transposition a
 c d e f
 \textLengthOn
-s1*0^\markup { Switch to B\flat clarinet }
+<>^\markup { Switch to B\flat clarinet }
 R1
 
 \key bes \major
@@ -2350,7 +2356,7 @@ aggiunte ulteriori segni di precauzione per tutti i diesis e bemolle
 specificati dall'armatura di chiave, fuorché nel caso di ripetizioni
 immediatamente successive di una stessa nota.
 
-@lilypond[quote]
+@lilypond[quote,staffsize=18]
 musicA = {
   <<
     \relative c' {
