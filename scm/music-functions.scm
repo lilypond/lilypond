@@ -865,7 +865,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 (defmacro-public define-syntax-function (type args signature . body)
   "Helper macro for `ly:make-music-function'.
 Syntax:
-  (define-syntax-function (result-type? parser location arg1 arg2 ...) (result-type? arg1-type arg2-type ...)
+  (define-syntax-function result-type? (parser location arg1 arg2 ...) (arg1-type arg2-type ...)
     ...function body...)
 
 argX-type can take one of the forms @code{predicate?} for mandatory
