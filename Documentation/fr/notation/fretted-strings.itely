@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.42"
+@c \version "2.15.43"
 
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
@@ -608,7 +608,7 @@ diagrammes prédéfinis -- voir @ref{Tablatures prédéfinies}.
 Nous pourrions donc écrire l'exemple précédent ainsi :
 
 @lilypond[quote,verbatim]
-"custom-tuning" = \stringTuning <c' g' d'' a''>
+custom-tuning = \stringTuning <c' g' d'' a''>
 
 mynotes = {
   c'4 e' g' c'' |
