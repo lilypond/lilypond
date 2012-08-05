@@ -398,6 +398,7 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex notes, ghost
 @cindex notes, parenthesized
 @cindex parentheses
+@cindex brackets
 
 @funindex \parenthesize
 @funindex parenthesize
