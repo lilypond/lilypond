@@ -417,40 +417,17 @@ Internals Reference:
 @cindex cross staff chords
 
 @funindex Stem
-@funindex cross-staff
-@funindex length
-@funindex flag-style
+@funindex \crossStaff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
 
-Chords that cross staves may be produced:
+Chords that cross staves may be produced using the
+@code{Span_stem_engraver}. Care must be taken to ensure that
+automatic beams do not beam the notes on one staff when it’s not
+required on the other.
 
-@lilypond[verbatim,quote]
-\new PianoStaff <<
-  \new Staff {
-    \relative c' {
-      f8 e4 d8 d f e4
-    }
-  }
-  \new Staff {
-    \relative c' {
-      << {
-        \clef bass
-        % stems may overlap the other staff
-        \override Stem #'cross-staff = ##t
-        % extend the stems to reach the other staff
-        \override Stem #'length = #12
-        % do not print extra flags
-        \override Flag #'style = #'no-flag
-        % prevent beaming as needed
-        a8 g4 f8 f bes\noBeam g4
-      }
-      \\
-      {
-        f,2 bes4 c
-      } >>
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]

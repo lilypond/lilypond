@@ -61,6 +61,13 @@ which scares away people.
 
 @end ignore
 @item
+Support for cross-staff stems on chords, using @code{crossStaff}
+and the @code{Span_stem_engraver}.  This calculates the length of
+cross-staff stems automatically.
+@lilypondfile[quote]
+{cross-staff-stems.ly}
+
+@item
 The syntax of words (character sequences recognized without enclosing
 quotes) and commands (now always a backslash @samp{\} followed by a
 word) has been unified across all modes: it now consists of alphabetic
