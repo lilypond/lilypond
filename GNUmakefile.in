@@ -103,7 +103,7 @@ ifeq ($(out),www)
 # installed in non-recursing target from TOP-SRC-DIR
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl --exclude='*.signature' $(outdir)/offline-root $(DESTDIR)$(webdir)
+	rsync -rl --exclude='*.signature' $(outdir)/offline-root/ $(DESTDIR)$(webdir)
 	$(MAKE) -C Documentation omf-local-install
 
 install-info-WWW:
