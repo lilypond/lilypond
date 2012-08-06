@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4da4307e396243a5a3bc33a0c2753acac92cb685
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 L'apparence du chiffre est déterminée par la propriété @code{text} dans
 @code{TupletNumber}.  La valeur par défaut imprime seulement le

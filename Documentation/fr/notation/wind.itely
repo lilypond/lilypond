@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,7 +49,7 @@ instruments à vent.
 @cindex vents
 
 Ce qui caractérise les partitions pour instruments à vent a trait
-principalement à la respiration et à l'attaque@tie{}:
+principalement à la respiration et à l'attaque :
 
 @itemize
 @item Les respirations s'indiquent par des silences ou des
@@ -72,15 +71,15 @@ attachée à la note concernée.  Voir à ce sujet
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
-vent@tie{}:
+vent :
 
 @itemize
-@item De nombreux instruments à vent sont transpositeurs@tie{}; voir
+@item De nombreux instruments à vent sont transpositeurs ; voir
 @ref{Instruments transpositeurs}.
 
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puissent y parvenir en jouant
-sur les pistons ou des clés@tie{}; consulter @ref{Glissando}.
+sur les pistons ou des clés ; consulter @ref{Glissando}.
 
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
 sont traditionnellement indiqués par des @ref{Notes d'ornement}.
@@ -181,7 +180,7 @@ Voici quelques informations spécifiques à la cornemuse.
 @funindex showKeySignature
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
-cornemuse écossaise@tie{}; pour les utiliser, il suffit d'ajouter
+cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
 
 @example
 \include "bagpipe.ly"
@@ -189,7 +188,7 @@ cornemuse écossaise@tie{}; pour les utiliser, il suffit d'ajouter
 
 @noindent
 en début de fichier.  Ainsi, vous bénéficierez de commandes courtes pour
-les appogiatures spéciales et idiomatiques de la cornemuse.  Par
+les appoggiatures spéciales et idiomatiques de la cornemuse.  Par
 exemple, @code{\taor} est un raccourci pour
 
 @example
@@ -197,7 +196,7 @@ exemple, @code{\taor} est un raccourci pour
 @end example
 
 @file{bagpipe.ly} prend également en charge les définitions de hauteurs
-pour la cornemuse@tie{}; vous n'avez donc pas à vous soucier d'employer
+pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
 @code{\relative} ou @code{\transpose}.
 
 @lilypond[ragged-right,verbatim,quote,notime]
@@ -214,7 +213,7 @@ tenez à afficher l'armure.
 
 Des compositions actuelles peuvent ne pas respecter cette tonalité
 traditionnelle, auquel cas les do et fa devraient être abaissés en
-utilisant @code{cflat} ou @code{fflat}@tie{}; ils seront représentés par
+utilisant @code{cflat} ou @code{fflat} ; ils seront représentés par
 une note en forme de croix.
 
 Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
@@ -295,7 +294,7 @@ Nous allons ici nous intéresser aux spécificités de la section des bois.
 
 Les doigtés pour obtenir une note particulière peuvent s'afficher sous
 forme graphique.  LilyPond dispose de diagrammes pour la plupart des
-bois, et tout particulièrement les instruments suivants@tie{}:
+bois, et tout particulièrement les instruments suivants :
 
 @itemize
 @item piccolo
@@ -310,7 +309,7 @@ bois, et tout particulièrement les instruments suivants@tie{}:
 
 @noindent
 Les diagrammes sont générés en tant qu'objet de type
-@emph{markup}@tie{}:
+@emph{markup} :
 
 @lilypond[verbatim,quote,relative=2]
 c1^\markup
@@ -319,7 +318,7 @@ c1^\markup
                                  (rh . (ees)))
 @end lilypond
 
-Les clés ou trous peuvent être partiellement enfoncés ou bouchés@tie{}:
+Les clés ou trous peuvent être partiellement enfoncés ou bouchés :
 
 @c KEEP LY
 @lilypond[verbatim, quote, relative=2]
@@ -371,7 +370,7 @@ c1^\markup {
 @end lilypond
 
 L'indication du doigté permettant de triller s'obtient en grisant une
-position@tie{}:
+position :
 
 @lilypond[verbatim,quote,relative=2]
 c1^\markup {
@@ -383,7 +382,7 @@ c1^\markup {
 @end lilypond
 
 Certaines combinaisons particulières en matière de trille sont
-possibles@tie{}:
+possibles :
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
@@ -441,10 +440,11 @@ un fichier les instructions
 @code{#(print-keys-verbose@tie{}'@var{vent}@tie{}(current-error-port))}
 -- génération d'un fichier de journalisation.
 
-De nouveaux diagrammes sont réalisables, en suivant les directives
-contenues dans les fichiers @file{scm/define-woodwind-diagrams.scm} et
-@file{scm/display-woodwind-diagrams.scm}.  Ceci requiert toutefois la
-maîtrise du langage Scheme.
+De nouveaux diagrammes sont réalisables, bien que ceci requiert de
+maîtriser le langage Scheme et n'est pas à la portée de tous les
+utilisateurs.  Des gabarits sont contenus dans les fichiers
+@file{scm/define-woodwind-diagrams.scm} et
+@file{scm/display-woodwind-diagrams.scm}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -461,7 +461,7 @@ maîtrise du langage Scheme.
 
 @seealso
 Fichiers d'initialisation :
-@file{scm/define-woodwind-diagrams.scm},
+@file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.
 
 Morceaux choisis :

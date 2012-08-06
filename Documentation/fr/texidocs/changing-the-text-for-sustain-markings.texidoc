@@ -1,4 +1,4 @@
-%% Translation of GIT committish: f5cfaf8ef4ac347702f554af0944ef0d8396e73a
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 @code{Staff.pedalSustainStrings} permet de définir le texte affiché pour
 les instructions de pédale.  Les seuls caractères autorisés sont les

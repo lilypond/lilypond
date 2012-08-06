@@ -1,4 +1,4 @@
-%% Translation of GIT committish: af3df3b7c6e062635bdccb739be41962969806a0
+%% Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des
 regroupements imbriqués complexes.  La commande

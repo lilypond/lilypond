@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1488,7 +1488,7 @@ l'intérieur d'un @emph{markup} ; vous pourrez même y ajouter le
 numéro de page grâce à la commande de @emph{markup} @code{\page-ref}.
 
 @c KEEP LY
-@lilypond[verbatim]
+@lilypond[verbatim,papersize=a8landscape]
 \header { tagline = ##f }
 \book {
   \label #'firstScore
@@ -1616,7 +1616,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
-@lilypond[line-width=11.0\cm]
+@lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocActMarkup = \markup \large \column {
@@ -1645,7 +1645,7 @@ tocAct =
 L'élément et son numéro de page peuvent se rejoindre par une ligne
 pointillée :
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocItemMarkup = \tocItemWithDotsMarkup

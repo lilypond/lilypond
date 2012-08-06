@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: c95106f1c57562c3f863edb0221cb7892438f6db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.15.39"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -227,9 +227,10 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 この後の例の多くでも省略します。@c
 後ほど、コンテキストを指定しなければならない場合について見ていきます。
 
-これから後のセクションでは広範囲に亘るプロパティとそれらの値を扱います。@c
-しかしながら、そのフォーマットとそれらのコマンドの使用方法を示すためには、@c
-容易に理解できる簡単なプロパティと値を 2, 3 使用してみるだけです。
+これから後のセクションでは広範囲に亘るプロパティとそれらの値を扱います
+-- @ref{Types of properties} を参照してください。@c
+しかしながら、このセクションではそれらのフォーマットとコマンドの使い方を示す@c
+ために、容易に理解できる簡単なプロパティと値をいくつか使用してみるだけです。
 
 今や、レイアウト プロパティの前に置かれなければならない @code{#'} や@c
 プロパティ値の前に置かれなければならない @code{#} について心配する必要は@c
@@ -364,10 +365,9 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 
 @code{\tweak} コマンドはこれとは異なるやり方で処理されます。@c
 これは入力ストリームの中ですぐ後に続く要素にだけ作用します。@c
-しかしながら、これは入力ストリームから直接作成されるオブジェクト
+最もシンプルな形式の @code{\tweak} コマンドは、@c
+コマンドの直後にある要素から直接作成されるオブジェクト
 -- 本質的に符頭とアーティキュレーション -- にだけ効果を持ちます。@c
-符幹や臨時記号などのオブジェクトは後で作成されるため、@c
-この方法では調整できません。@c
 
 それでは例に戻り、この方法で和音の真ん中の音符のサイズを変更します:
 
@@ -381,11 +381,11 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 
 @code{\tweak} の構文は @code{\override} コマンドの構文とは@c
 異なるということに注意してください。@c
-コンテキストもレイアウト オブジェクトも指定されません。@c
-実際、それらを指定するとエラーになります。@c
-これらは両方とも入力ストリームの中で後に続く要素によって示されます。@c
+コンテキストを指定しません -- 実際、指定するとエラーになります。@c
+コンテキストとレイアウト オブジェクトはどちらも入力ストリームの中で@c
+後に続く要素によって示されます。@c
 さらに、イコール記号を使うべきではないということに注意してください。@c
-そのため、@code{\tweak} コマンドの一般的な構文は単純に以下のようになります:
+そのため、簡単な形式の @code{\tweak} コマンドは以下のようになります:
 
 @example
 \tweak #'@var{layout-property} #@var{value}
@@ -411,6 +411,26 @@ a4^"Black"
 ためです。@c
 複数の向き記号 (@code{^} または @code{_}) で上書きした場合、@c
 最後に適用される左端の記号が勝ち残ります。
+
++@cindex @code{\tweak}, Accidental
++@cindex @code{\tweak}, specific layout object
+
+符幹や臨時記号などのオブジェクトは後になってから作成されるもので、@c
+@code{\tweak} コマンドの後に続くイベントから直接作成されません。@c
+そのような直接作成されないオブジェクトの場合、明示的にレイアウト
+オブジェクト名を指定して LilyPond がそれらのオブジェクトの起源を@c
+追跡できるようにすることで、@code{\tweak} で調整することができます:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<\tweak Accidental #'color #red   cis4
+ \tweak Accidental #'color #green es
+                                  g>
+@end lilypond
+
+この長い形式の @code{\tweak} コマンドは以下のように記述することができます:
+@example
+\tweak @var{layout-object} #'@var{layout-property} @var{value}
+@end example
 
 @cindex tuplets, nested (ネストされた連符)
 @cindex triplets, nested (ネストされた 3 連符)
@@ -2990,22 +3010,25 @@ r4
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
+    { <ees, c>2 des }
     \\
-    {
-      \voiceFour
-      <ees c>2 des
-    }
+    \\
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-最初の和音の下の方にある 2 つの音符 (つまり、3 番目のボイス (ボイス 4) の音符)
-を上の方にある 2 つの音符の音符列からずらすべきではありません。@c
+最初の和音の内声の音 (つまり、4 番目のボイスにある A-フラット) を上の音符の@c
+音符列からずらす必要はありません。@c
 これを修正するには、下の音符の @code{force-hshift} --
 これは @code{NoteColumn} のプロパティです -- を 0 にセットします。@c
+
+2 番目の和音では、F を A に揃えて、符幹の衝突を避けるために最下段の音符を@c
+少し右に移動させるべきでしょう。@c
+そうするには、D-フラットの @code{NoteColumn} の @code{force-hshift}
+を設定して譜スペースの半分だけ右にずらします。
 2 番目の和音の下の方の音符は、上の方の音符のすぐ右に置くのが最良です。@c
 そうするには、この音符の @code{force-hshift} を 0.5 にセットします --
 つまり、上の方の音符の音符列から符頭の幅の半分だけ右にずらします。
@@ -3021,14 +3044,16 @@ r4
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
-    \\
     {
-      \voiceFour
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+    \\
+    \\
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -3087,8 +3112,8 @@ rhMusic = \relative c'' {
         % マージさせるために d2 の符幹を下向きにする必要があります
         \stemDown
         % d2 の符幹を不可視にします
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3544,8 +3569,8 @@ rhMusic = \relative c'' {
         % マージさせるために d2 の符幹を下向きにする必要があります
         \stemDown
         % d2 の符幹を不可視にします
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3628,8 +3653,8 @@ lhMusic = \relative c' {
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3643,9 +3668,9 @@ lhMusic = \relative c' {
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
-    \once \override Stem #'length = #8
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
+    \tweak Stem #'length #8
     b8~ b\noBeam
   }
 \\
@@ -3874,12 +3899,8 @@ inst =
 }
 @end lilypond
 
-この例には出力が重なり合うという問題がいくつかあり、@c
-@ref{オブジェクトを移動させる} のテクニックを使ってそれらを修正しています。@c
-そこで、さらに @code{mpdolce} 定義と @code{tempoMark} 定義に関して@c
-何かしてみましょう。@c
-それらは望みの出力を作り出していますが、@c
-それらを別の楽曲で使いたいとします。@c
+@code{mpdolce} と @code{tempoMark} の定義に手を加えてみることにします。@c
+それらは望みの出力を作り出していますが、それらを別の楽曲で使いたいとします。@c
 単純にそれらを各ファイルの先頭部分にカット＆ペーストすることもできますが、@c
 わずらわしいです。@c
 その方法では定義は依然として入力ファイルの中にあり、@c

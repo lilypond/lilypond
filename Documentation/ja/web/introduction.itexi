@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: 3573a92d92728dc8d6452e5cd3cfba73e49e6990
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1088,6 +1088,15 @@ GUI を提供しているものもあります。@c
 @unnumberedsec より簡単な編集手段
 @translationof Easier editing
 
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
 
 @divClass{column-center-top}
 @subheading LilyPondTool
@@ -1202,17 +1211,6 @@ MacOS@tie{}X 用のエディタ TexShop を拡張して、
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
-MacOS 用の商用エディタ TextMate にバンドルされる LilyPond があります。@c
-以下を実行することでインストールされます:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1243,8 +1241,8 @@ NtEd}:
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY}:
-@uref{http://www.noteworthysoftware.com/,NoteWorthy} の曲を
-LilyPond に変換する C# プログラムです。
+@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
+NoteWorthy で記譜した曲を LilyPond に変換する C# プログラムです。
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
@@ -1257,7 +1255,7 @@ Ripple}:
 オーディオ・MIDI シーケンサであり、単一譜を扱える楽譜エディタでもあります。
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}:
+@uref{https://launchpad.net/rumor/,Rumor}:
 リアルタイムに単声の MIDI を LilyPond に変換します。
 
 @item

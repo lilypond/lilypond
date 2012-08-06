@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -729,88 +729,327 @@ le @code{Bar_engraver} devrait toujours être le premier ; le
 de vérifier les éventuelles dépendances.
 
 
-
 @node Modification des réglages par défaut d'un contexte
 @subsection Modification des réglages par défaut d'un contexte
 @translationof Changing context default settings
+
+@cindex réglages par défaut, modification
+@cindex contexte, modification des propriétés par défaut
+
+Les propriétés des contextes et objets graphiques se modifient à l'aide
+des commandes @code{\set} et @code{\override}, comme indiqué à la
+rubrique @ref{Modification de propriétés}.  Ces commandes créent des
+événements musicaux qui feront que la modification produira ses effets
+dès l'instant où la musique est traitée.
+
+Le propos est ici de voir comment modifier les valeurs @emph{par défaut}
+des propriétés de contexte ou d'objet graphique dès la création de ces
+contextes.  Deux manières de procéder sont envisageables : l'une
+consiste à modifier les valeurs pour tous les contextes d'un même type,
+l'autre s'attache à adapter les valeurs par défaut d'une instance
+particulière d'un contexte.
+
+@menu
+* Modification de tous les contextes d'un même type::
+* Modification d'un contexte particulier::
+* Ordre de préséance::
+@end menu
+
+
+@node Modification de tous les contextes d'un même type
+@unnumberedsubsubsec Modification de tous les contextes d'un même type
+@translationof Changing all contexts of the same type
+
+@cindex \context dans un bloc \layout
+
+@funindex \context
+@funindex \layout
 
 La personnalisation des réglages par défaut d'un contexte, qu'il
 s'agisse de @code{Score}, @code{Staff} ou @code{Voice}, peut se réaliser
 indépendamment de la musique dans un bloc @code{\layout} -- placé dans
 le bloc @code{\score} auquel ces modifications doivent s'appliquer -- au
-moyen de la commande @code{\context}.
+moyen d'un bloc @code{\context}.
 
-Point n'est besoin d'utiliser la commande @code{\set @var{contexte}}
-lorsque les réglages par défaut d'un contexte sont ainsi modifiés :
+@example
+\layout @{
+  \context @{
+    \Voice
+    [réglage de contexte pour tous les contextes @emph{Voice}]
+  @}
+  \context @{
+    \Staff
+    [réglage de contexte pour tous les contextes @emph{Staff}]
+  @}
+@}
+@end example
+
+La spécification des adaptations peut se faire de différentes manières :
+
+@itemize
+@item
+à l'aide d'une commande @code{\override}, sans lui adjoindre le nom du
+contexte :
 
 @c KEEP LY
 @lilypond[quote,verbatim]
 \score {
   \relative c'' {
-    a4^"Petite police, hampes épaisses, sans métrique" a a a
-    a a a a
+    a4^"Hampes épaisses" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem #'thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+en définissant directement une propriété de contexte :
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Fontes plus petites" a a a
+    a4 a a\ff a
   }
   \layout {
     \context {
       \Staff
       fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
     }
   }
 }
 @end lilypond
 
-Le raccourci @code{\Staff} invoque les définitions inhérentes au
-contexte @code{Staff}, de façon à ce qu'elles puissent être modifiées.
-Ces nouvelles spécifications affecteront toutes les portées (tous les
-contextes @code{Staff}) de ce bloc @code{\score}.
 
-Les adaptations peuvent aussi bien se faire au niveau du contexte
-@code{Score} qu'au niveau de tous les contextes @code{Voice}.
+@item
+à l'aide d'une commande prédéfinie comme @code{\dynamicUp}, ou bien une
+expression musicale telle que @code{\accidentalStyle "dodecaphonic"} :
 
-Il est possible de stocker des modifications de contexte dans un
-identificateur. Sa définition devra être précédée de l'instruction
-@code{\with}.
-
+@c KEEP LY
 @lilypond[quote,verbatim]
-blubb = \with {
+\score {
+  \relative c'' {
+    a4^"Nuance en surplomb" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle "dodecaphonic"
+    }
+  }
+}
+@end lilypond
+
+@item
+à l'aide d'une variable personnalisée contenant un bloc @code{\with} :
+pour de plus amples iformations sur le bloc @code{\with}, voir
+@ref{Modification d'un contexte particulier}.
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+StaffDefauts = \with {
   fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
-
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
-
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
 }
 
 \score {
-  <<
-    \new Staff <<
-      \melody
-      s4^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s4^"Different"
-    >>
-  >>
+  \new Staff {
+    \relative c'' {
+      a4^"Petite police" a a a
+      a4 a a a
+    }
+  }
   \layout {
     \context {
       \Staff
-      \blubb
+      \StaffDefauts
     }
   }
 }
 @end lilypond
 
-@c TODO: add \with in here.
+@end itemize
+
+Les instructions destinées à modifier les propriétés peuvent se placer
+dans un bloc @code{\layout} sans pour autant être incluses dans un bloc
+@code{\context}.  Expliciter des réglages de la sorte équivaut à inclure
+les commandes de modification des propriétés au début de chacun des
+contextes du type en question.  Lorsque le contexte n'est pas spécifié,
+@emph{tous} les contextes de bas niveau seront affectés -- voir
+@ref{Contextes de bas niveau -- les voix}.  La syntaxe appropriée répond
+aux mêmes critères que si la commande était écrite dans le flot
+musical.
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4^"Petite police" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle "dodecaphonic"
+    \set fontSize = #-4
+    \override Voice.Stem #'thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node Modification d'un contexte particulier
+@unnumberedsubsubsec Modification d'un contexte particulier
+@translationof Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+Dans le cas d'un contexte pris individuellement, ses propriétés se
+modifient à l'aide d'un bloc @code{\with}.  Toutes les autres instances
+de contexte appartenant au même type seront affectés des réglages
+prédéfinis par LilyPond, modifiés le cas échéant par un bloc
+@code{\layout}.  Le bloc @code{\with} se place directement à la suite de
+la commande @code{\new} @var{type-de-contexte}.
+
+@example
+\new Staff
+\with @{
+  [réglages pour ce contexte pris individuellement]
+@} @{
+...
+@}
+@end example
+
+La spécification des adaptations peut se faire de différentes manières :
+
+@itemize
+@item
+à l'aide d'une commande @code{\override}, sans lui adjoindre le nom du
+contexte :
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice
+    \with {
+      \override Stem #'thickness = #4.0
+    }
+    {
+      \relative c'' {
+        a4^"Hampes épaisses" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+en définissant directement une propriété de contexte :
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        a4^"Default font" a a a
+        a4 a a a
+      }
+    }
+    \new Staff
+    \with {
+      fontSize = #-4
+    } {
+      \relative c'' {
+        a4^"Smaller font" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+à l'aide d'une commande prédéfinie comme @code{\dynamicUp} :
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative c'' {
+          a4^"Nuances en dessous" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff
+    \with { \accidentalStyle "dodecaphonic" }
+    {
+      \new Voice
+      \with { \dynamicUp }
+      {
+        \relative c'' {
+          a4^"Nuances en surplomb" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+
+@node Ordre de préséance
+@unnumberedsubsubsec Ordre de préséance
+@translationof Order of precedence
+
+La valeur d'une propriété qui doit s'appliquer à un instant particulier
+est déterminée comme suit :
+
+@itemize
+@item
+s'il y a une instruction @code{\override} ou @code{\set} active dans le
+flot d'information, sa valeur s'applique,
+
+@item
+en l'absence de quoi sera utilisée la valeur par défaut telle que
+définie dans une clause @code{\with} stipulée à l'initialisation du
+contexte,
+
+@item
+en l'absence de quoi sera retenue la valeur par défaut issue du bloc
+@code{\context} approprié le plus récent dans le bloc @code{\layout},
+
+@item
+en l'absence de quoi s'appliqueront les réglages prédéfinis de LilyPond.
+@end itemize
+
+@seealso
+Manuel d'initiation :
+@rlearning{Modification des propriétés d'un contexte}.
+
+Manuel de notation :
+@ref{Tout savoir sur les contextes},
+@ref{Contextes de bas niveau -- les voix},
+@ref{La commande de fixation (set)},
+@ref{La commande de dérogation (override)},
+@ref{Le bloc \layout}.
 
 
 @node Définition de nouveaux contextes
@@ -2163,7 +2402,8 @@ Manuel d'extension :
 @cindex points de contrôle et tweak
 
 Lorsqu'il y a plusieurs liaisons de prolongation dans un accord, la
-commande @code{\tweak} ne s'applique qu'à la première.
+commande @code{\tweak} ne permet de modifier les points de contrôle que
+pour la première rencontrée dans le fichier source.
 
 
 @node set ou override
@@ -3108,7 +3348,7 @@ fonctions prédéfinies, regroupées dans le fichier
 @file{scm/output-lib.scm}.  Le tableau suivant vous les présente ;
 les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t. )}} {apres} {apres} {apres}
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {apres} {apres} {apres}
 @headitem Forme                      @tab Forme                  @tab Avant @tab Hors    @tab Après
 @headitem fonctionnelle              @tab vectorielle            @tab saut  @tab saut    @tab saut
 

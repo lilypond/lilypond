@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 063071aea23c225d488485c4b34722df18880638
+    Translation of GIT committish: f7630a9232be374298d88e1b8bdb85ead17a7572
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -182,7 +182,7 @@ PDF ファイルを PDF ビュー他で閲覧している場合、
 
 @c double \\ required because this is inside a macro!
 @example
-\\version "@w{@version{}}"
+\\version "@w{@versionStable{}}"
 @{
   c' e' g' e'
 @}
@@ -201,7 +201,7 @@ lilypond test.ly
 以下のようなものが表示されます:
 
 @example
-GNU LilyPond @w{@version{}}
+GNU LilyPond @w{@versionStable{}}
 Processing `test.ly'
 Parsing...
 Interpreting music...
@@ -210,6 +210,7 @@ Solving 1 page-breaking chunks...[1: 1 pages]
 Drawing systems...
 Layout output to `test.ps'...
 Converting to `./test.pdf'...
+Success: compilation successfully completed
 @end example
 
 @subsubheading ステップ 3. 出力を閲覧する

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 16ac0db39d8cca1de68ce79154386764172aca10
+    Translation of GIT committish: 3c543629d5c9773e45e3ba83ba735da850f5665c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -636,8 +636,7 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 ボイス コンテキストが明示的に宣言されていない場合、この章の始めで@c
 見てきたようにボイス コンテキストが 1 つ自動的に生成されます。@c
 オーボエなどといった楽器は同時に 1 つの音符だけを演奏できます。@c
-そのような楽器のために書かれた音楽は単声であり、ボイスを 1 つだけを@c
-必要とします。@c
+そのような楽器のために書かれた楽譜はボイスを 1 つだけを必要とします。@c
 ピアノのように同時に複数の音符を演奏することができる楽器はしばしば、@c
 それらが演奏することのできる同時進行の異なる音符やリズムを@c
 エンコードするために、複数のボイスを必要とします。
@@ -677,8 +676,8 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 ダブル バックスラッシュ @code{\\} で区切られなければなりません。@c
 ダブル バックスラッシュが無ければ、すべての音符は単一のボイスの中に挿入され、@c
 通常はエラーとなります。@c
-このテクニックは、大部分が単声であり、@c
-時々短い部分で多声になる楽曲に特に適しています。
+このテクニックは、大部分が同じ音で、時々短い部分で多声になる楽曲に特に@c
+適しています。
 
 以下では、上記の例の和音を 2 つのボイスに分け、経過音とスラーを付け加えています:
 
@@ -1099,7 +1098,7 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<

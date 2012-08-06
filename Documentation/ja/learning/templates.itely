@@ -124,13 +124,13 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
-@appendixsubsec Hymn tunes
+@appendixsubsec 賛美歌
 @c Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
-@appendixsubsec 賛美歌
+@appendixsubsec 聖歌
 @c Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
@@ -166,7 +166,7 @@
 @appendixsec その他のテンプレート
 @translationof Other templates
 
-@appendixsubsec Jazz コンボ
+@appendixsubsec ジャズ バンド
 
 @c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
