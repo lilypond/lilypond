@@ -821,6 +821,8 @@ a fret-indication list with the appropriate values"
            (case (car (string->list (substring test-string 0 1)))
              ((#\s) (let ((size (get-numeric-from-key test-string)))
                       (set! props (prepend-alist-chain 'size size props))))
+             ((#\t) (let ((th (get-numeric-from-key test-string)))
+                      (set! props (prepend-alist-chain 'thickness th props))))
              ((#\f) (let* ((finger-code (get-numeric-from-key test-string))
                            (finger-id (case finger-code
                                         ((0) 'none)
@@ -1029,8 +1031,9 @@ spaces).
 Default:@tie{}1.
 
 @item
-@code{t:}@var{number} -- Set the line thickness (in staff spaces).
-Default:@tie{}0.05.
+@code{t:}@var{number} -- Set the line thickness (relative to normal
+line thickness).
+Default:@tie{}0.5.
 
 @item
 @code{h:}@var{number} -- Set the height of the diagram in frets.
