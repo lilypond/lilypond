@@ -1453,7 +1453,7 @@ When these commands complete without error, the patch is
 considered to function successfully.
 
 Developers on Windows who are unable to build LilyPond should
-get help from a Linux or OSX developer to do the make tests.
+get help from a GNU/Linux or OSX developer to do the make tests.
 
 
 @node Verify regression tests

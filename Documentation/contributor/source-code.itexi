@@ -549,7 +549,7 @@ environment variable to point to that repository.
 @end example
 
 To configure an environment variable in bash (the default for most
-Linux distributions),
+GNU/Linux distributions),
 
 @example
 export LILYPOND_WEB_MEDIA_GIT=$HOME/dir/of/lilypond-extra/
