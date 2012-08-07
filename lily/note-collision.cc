@@ -353,8 +353,8 @@ check_meshing_chords (Grob *me,
           Grob *stem = unsmob_grob (head_down->get_object ("stem"));
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
-            unsmob_grob (heads[i]->get_object ("dot"))
-            ->set_property ("direction", scm_from_int (dir));
+            if (Grob *dot = unsmob_grob (heads[i]->get_object ("dot")))
+              dot->set_property ("direction", scm_from_int (dir));
         }
     }
 
