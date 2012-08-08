@@ -1,13 +1,9 @@
-
 \header {
   texidoc = "Users may define non-standard markup commands using
 the @code{define-markup-command} scheme macro."
 }
 
-
 \layout { ragged-right = ##t }
-  
-
 
 \version "2.14.0"
 
@@ -17,8 +13,7 @@ the @code{define-markup-command} scheme macro."
 
 \score{
   {
-    c''-\markup \upcase #"hello world"
-				% produces a "HELLO WORLD" markup
+    c''-\markup \upcase #"hello world in upper case"
   }
 
   \layout {
@@ -27,5 +22,4 @@ the @code{define-markup-command} scheme macro."
       \override PaperColumn #'keep-inside-line = ##f
     }
   }
-
 }
