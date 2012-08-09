@@ -2004,7 +2004,7 @@ by
 @end example
 
 
-@unnumberedsubsubsec @i{@strong{Beaming based on @code{baseMoment} and @code{beatStructure}}}
+@subsubheading @i{Beaming based on @code{baseMoment} and @code{beatStructure}}
 
 In most instances, automatic beams will end at the end of a beat.
 The ending points for beats are determined by the context properties
@@ -2106,7 +2106,7 @@ By default @code{baseMoment} is set to one over the denominator of
 the time signature. Any exceptions to this default can be found in
 @file{scm/time-signature-settings.scm}.
 
-@unnumberedsubsubsec @i{@strong{Beaming based on @code{beamExceptions}}}
+@subsubheading @i{Beaming based on @code{beamExceptions}}
 
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -2219,7 +2219,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@unnumberedsubsubsec @i{@strong{How automatic beaming works}}
+@subsubheading @i{How automatic beaming works}
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by the context properties
