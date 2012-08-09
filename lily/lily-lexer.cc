@@ -113,27 +113,16 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
+  scopes_ = src.scopes_;
   start_module_ = SCM_EOL;
 
   error_level_ = 0;
   is_main_input_ = src.is_main_input_;
 
-  scopes_ = SCM_EOL;
   extra_tokens_ = SCM_EOL;
 
   smobify_self ();
 
-  SCM scopes = SCM_EOL;
-  SCM *tail = &scopes;
-  for (SCM s = src.scopes_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM newmod = ly_make_module (false);
-      ly_module_copy (newmod, scm_car (s));
-      *tail = scm_cons (newmod, SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-
-  scopes_ = scopes;
   push_note_state (SCM_EOL);
 }
 
