@@ -149,7 +149,6 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (LEFT_and_RIGHT (d))
         vector_sort (ordered_rests[d], rest_shift_less);
 
-
       for (LEFT_and_RIGHT (d))
         {
           if (ordered_rests[d].size () < 1)

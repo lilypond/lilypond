@@ -80,7 +80,6 @@ flip (Direction *i)
 #define LEFT_and_RIGHT(d) \
   Direction d = LEFT; d != CENTER; d = (d == LEFT ? RIGHT : CENTER)
 
-
 /**
    if d > 0: the max operator
    if d < 0: the min operator

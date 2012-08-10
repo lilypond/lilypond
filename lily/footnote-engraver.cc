@@ -106,10 +106,10 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
   if (mus)
     {
       if (!mus->is_mus_type ("footnote-event"))
-	{
-	  mus->origin ()->programming_error (_ ("Must be footnote-event."));
-	  return;
-	}
+        {
+          mus->origin ()->programming_error (_ ("Must be footnote-event."));
+          return;
+        }
 
       footnotify (info.grob (), mus->to_event (context ())->unprotect ());
 
@@ -123,16 +123,16 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
       string grobname = info.grob ()->name ();
 
       for (vsize i = 0; i < events_.size (); i++)
-	{
-	  SCM name = events_[i]->get_property ("symbol");
-	  if (scm_is_symbol (name)
-	      && grobname == ly_symbol2string (name))
-	    {
-	      footnotify (info.grob (), events_[i]->self_scm ());
-	      // Event has exhausted its footnote
-	      events_[i]->set_property ("symbol", SCM_EOL);
-	    }
-	}
+        {
+          SCM name = events_[i]->get_property ("symbol");
+          if (scm_is_symbol (name)
+              && grobname == ly_symbol2string (name))
+            {
+              footnotify (info.grob (), events_[i]->self_scm ());
+              // Event has exhausted its footnote
+              events_[i]->set_property ("symbol", SCM_EOL);
+            }
+        }
     }
 }
 

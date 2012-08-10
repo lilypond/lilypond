@@ -72,7 +72,7 @@ Time_signature::print (SCM smob)
           Real pos = linepos.front ();
           Real dist = fabs (pos - mid);
           for (std::vector<Real>::const_iterator
-                 i = linepos.begin (), e = linepos.end ();
+               i = linepos.begin (), e = linepos.end ();
                ++i != e;)
             {
               double const d = fabs (*i - mid);
@@ -84,7 +84,7 @@ Time_signature::print (SCM smob)
             }
 
           m.translate_axis
-            (pos * Staff_symbol_referencer::staff_space (me) / 2, Y_AXIS);
+          (pos * Staff_symbol_referencer::staff_space (me) / 2, Y_AXIS);
         }
     }
 

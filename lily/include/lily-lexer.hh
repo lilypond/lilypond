@@ -52,7 +52,7 @@ private:
   int hidden_state_;
   SCM eval_scm (SCM, char extra_token = 0);
 public:
-  SCM eval_scm_token (SCM sval)  { return eval_scm (sval, '#'); }
+  SCM eval_scm_token (SCM sval) { return eval_scm (sval, '#'); }
   SCM extra_tokens_;
   YYSTYPE *lexval_;
   Input *lexloc_;

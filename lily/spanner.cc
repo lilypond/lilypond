@@ -328,7 +328,7 @@ Spanner::derived_mark () const
   for (LEFT_and_RIGHT (d))
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm ());
-    ;
+  ;
 
   for (vsize i = broken_intos_.size (); i--;)
     scm_gc_mark (broken_intos_[i]->self_scm ());

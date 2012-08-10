@@ -55,7 +55,7 @@ One_line_page_breaking::solve ()
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
         {
-          vector<Grob*> cols = ps->root_system ()->used_columns ();
+          vector<Grob *> cols = ps->root_system ()->used_columns ();
 
           // No indent, "infinite" line width, ragged.
           Column_x_positions pos = get_line_configuration (cols, numeric_limits<Real>::max (), 0, true);

@@ -234,7 +234,7 @@ transpose_mutable (SCM alist, Pitch delta)
             m->transpose (delta);
         }
       else if (prop == ly_symbol2scm ("elements")
-	       || prop == ly_symbol2scm ("articulations"))
+               || prop == ly_symbol2scm ("articulations"))
         transpose_music_list (val, delta);
       else if (prop == ly_symbol2scm ("pitch-alist")
                && scm_is_pair (val))
@@ -280,7 +280,7 @@ Music::to_event (Context *c) const
     programming_error ("Not a music type");
 
   Stream_event *e = new Stream_event (c->make_event_class (class_name),
-				      mutable_property_alist_);
+                                      mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());
