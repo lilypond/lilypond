@@ -240,6 +240,7 @@ void set_music_properties (Music *p, SCM a);
 */
 
 /* Keyword tokens with plain escaped name.  */
+%token END_OF_FILE 0 "end of input"
 %token ACCEPTS "\\accepts"
 %token ADDLYRICS "\\addlyrics"
 %token ALIAS "\\alias"
