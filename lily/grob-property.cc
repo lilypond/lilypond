@@ -251,7 +251,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
       value = get_property_data (sym);
       assert (value == SCM_EOL || value == marker);
       if (value == marker)
-        *alist = scm_assq_remove_x (*alist, marker);
+        *alist = scm_assq_remove_x (*alist, sym);
     }
   else
     {

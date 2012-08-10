@@ -127,14 +127,16 @@ Hairpin::print (SCM smob)
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
 
-  broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT);
-  broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT)->is_live ();
-
   if (broken[RIGHT])
     {
       Spanner *next = me->broken_neighbor (RIGHT);
-      Stencil *s = next->get_stencil ();
-      if (!s || s->is_empty ())
+      // Hairpin-parts suicide in after-line-breaking if they need not be drawn
+      if (next)
+        {
+          (void) next->get_property ("after-line-breaking");
+          broken[RIGHT] = next->is_live ();
+        }
+      else
         broken[RIGHT] = false;
     }
 
