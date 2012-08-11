@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 65264f1ec906b40c1b281e360d4860f7a6eb8138
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,7 +96,7 @@ de définir la propriété @code{font-size} pour tous les objets de
 rendu.  La valeur de @code{font-size} est un entier représentant la
 taille proportionnellement à la hauteur standard de la portée en
 cours.  Chaque incrément correspond à une augmentation d'environ
-12@tie{}% de la taille de la police. Un pas de six aboutit exactement
+12 % de la taille de la police. Un pas de six aboutit exactement
 au doublement de la taille.  La fonction Scheme @code{magstep}
 convertit le nombre affecté à @code{font-size} en facteur d'échelle.
 Vous pouvez aussi définir directement la propriété @code{font-size} de
@@ -122,8 +122,8 @@ c4.-> d8---3
 Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
 dont la taille est la plus proche de la taille voulue.  La taille
 standard (pour laquelle @w{@code{font-size = #0}}) dépend de la hauteur
-de la portée.  À une portée de 20@tie{}points correspond une police de
-10@tie{}points.
+de la portée.  À une portée de 20 points correspond une police de
+10 points.
 
 La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
@@ -156,7 +156,7 @@ Référence des propriétés internes :
 @funindex \finger
 @funindex finger
 
-Les doigtés peuvent être indiqués comme suit@tie{}:
+Les doigtés peuvent être indiqués comme suit :
 @var{note}-@var{chiffre_du_doigt}
 
 @lilypond[verbatim,quote,relative=2]
@@ -415,6 +415,7 @@ détails, consultez @ref{La commande d'affinage (tweak)}.
 @cindex fantômes, notes
 @cindex notes fantômes
 @cindex parenthèses, notes entre
+@cindex crochets, notes entre
 
 @funindex \parenthesize
 @funindex parenthesize
@@ -559,13 +560,13 @@ En voici un exemple :
 Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
 @code{balloonText}.  @code{balloonGrobText} prend en argument
 l'objet graphique à agrémenter et s'utilise comme
-@code{\once@tie{}\override}.  @code{balloonText}, quant à lui, s'utilise
+@code{\once \override}.  @code{balloonText}, quant à lui, s'utilise
 comme une simple articulation et fonctionne comme @code{\tweak} pour
 attacher du texte à l'une des notes d'un accord.  Les autres arguments
 sont le décalage et le texte de la bulle.
 
 Les info-bulles ont une influence sur les espacements, que l'on peut
-gérer ainsi@tie{}:
+gérer ainsi :
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
@@ -611,7 +612,7 @@ Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
 LilyPond a recours à deux graveurs distincts afin d'afficher le
-quadrillage@tie{}:  le @code{Grid_point_engraver} se charge de
+quadrillage :  le @code{Grid_point_engraver} se charge de
 déterminer l'envergure du crochet, alors que le
 @code{Grid_line_span_engraver} se consacrera au tracé des lignes.
 Les lignes sont par défaut centrées horizontalement sous les notes et
@@ -698,7 +699,7 @@ structure d'une pièce.
 }
 @end lilypond
 
-Les crochets d'analyses sont susceptibles d'être imbriqués@tie{}:
+Les crochets d'analyses sont susceptibles d'être imbriqués :
 
 @lilypond[verbatim,quote]
 \layout {

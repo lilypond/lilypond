@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -78,7 +78,7 @@ au pluriel) -- sont créées à l'aide des commandes @code{\new} ou
 @code{\context}.  Pour de plus amples détails, consultez
 @ref{Création d'un contexte}.
 
-Le contexte de portée standard s'appelle @code{Staff}@tie{}:
+Le contexte de portée standard s'appelle @code{Staff} :
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff { c4 d e f }
@@ -115,7 +115,7 @@ cordes d'une guitare standard.  Pour de plus amples détails, consultez
 @end lilypond
 
 LilyPond dispose aussi de deux contextes dédiés à la musique
-ancienne@tie{}: @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
+ancienne : @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
 abordés plus en détails au chapitre @ref{Contextes prédéfinis}.
 
 Le contexte @code{GregorianTranscriptionStaff} permet d'obtenir des
@@ -184,7 +184,7 @@ particulier en début de portée et ses règles de gestion des barres de
 mesure.
 
 Lorsqu'aucun contexte particulier n'est spécifié, les propriétés
-suivantes s'appliqueront par défaut@tie{}: les portées du groupe ne sont
+suivantes s'appliqueront par défaut : les portées du groupe ne sont
 pas reliées, hormis par une simple ligne verticale en début de ligne, et
 les barres de mesure sont indépendantes.
 
@@ -350,7 +350,7 @@ Référence des propriétés internes :
 
 @cindex système, indicateur de séparation
 
-Le nombre de systèmes peut varier d'une page à l'autre@tie{}; vous
+Le nombre de systèmes peut varier d'une page à l'autre ; vous
 pouvez, en pareil cas, rendre plus évidente la séparation entre les
 systèmes en l'indiquant visuellement.  Ce @qq{séparateur} est absent par
 défaut, mais vous pouvez l'activer par une option au sein du bloc
@@ -401,7 +401,7 @@ Morceaux choisis :
 @translationof Modifying single staves
 
 Cette section explique le réglage de la gravure de chaque portée,
-comme la taille de portée ou le nombre de lignes@tie{}; sont aussi
+comme la taille de portée ou le nombre de lignes ; sont aussi
 décrits la suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
 
@@ -469,7 +469,7 @@ f'4 d \stopStaff
 Le positionnement de chacune des lignes de la portée est modifiable.
 Les valeurs s'expriment en @emph{demi} espace de portée, et la nouvelle
 position est déterminée par rapport à la ligne médiane.  Une ligne sera
-donc imprimée pour chaque valeur exprimée@tie{}; le nombre de lignes,
+donc imprimée pour chaque valeur exprimée ; le nombre de lignes,
 ainsi que leur position dans la portée, peut donc se modifier à l'aide
 d'une seule commande.
 
@@ -510,7 +510,7 @@ déterminer l'épaisseur des lignes supplémentaires.
 { f'4 a, a,, f }
 @end lilypond
 
-L'emplacement des lignes supplémentaires est réglable@tie{}:
+L'emplacement des lignes supplémentaires est réglable :
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
@@ -595,7 +595,7 @@ Référence des propriétés internes :
 @funindex stopStaff
 
 Une portée d'@notation{ossia} -- ou de variante -- s'obtient en créant,
-à l'endroit approprié, une nouvelle portée simultanée@tie{}:
+à l'endroit approprié, une nouvelle portée simultanée :
 
 @lilypond[verbatim,quote]
 \new Staff \relative c'' {
@@ -857,7 +857,7 @@ Référence des propriétés internes :
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
 barres de mesure.  Forcer leur visibilité peut entraîner des problèmes
 de formatage.  En pareil cas il vaut mieux, au lieu de supprimer le
-graveur, recourir aux dérogations suivantes@tie{}:
+graveur, recourir aux dérogations suivantes :
 
 @example
 \override StaffSymbol #'stencil = ##f
@@ -928,7 +928,7 @@ Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
 par défaut centrés.  Si l'un d'entre eux est libellé sur plusieurs
 lignes, il faudra reccourrir à l'instruction
-@code{\center-column}@tie{}:
+@code{\center-column} :
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
@@ -996,7 +996,7 @@ informations sur la manière d'activer ou désactiver un graveur, voir
 
 Vous pouvez changer le nom d'un instrument en cours de morceau.  Notez
 cependant que la valeur de @code{instrumentName} ne s'affichera que sur
-la première portée@tie{}:
+la première portée :
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \new Staff \with {
@@ -1025,12 +1025,12 @@ Lorsqu'un musicien doit changer d'instrument -- piccolo et flûte, basson
 et contrebasson --, la commande @code{\addInstrumentDefinition},
 couplée à l'instruction @code{\instrumentSwitch} permet de spécifier en
 détail les modifications intervenant lors du changement.  La commande
-@code{\addInstrumentDefinition} prend deux arguments@tie{}: une chaîne
+@code{\addInstrumentDefinition} prend deux arguments : une chaîne
 de caractères qui servira d'identifiant, et une liste d'association
 de valeurs aux propriétés de ce nouvel instrument.  Ces définitions
 devront être déclarées avant tout autre élément musical.  L'instruction
 @code{\instrumentSwitch} se placera dans la musique au moment de la
-subtitution@tie{}:
+subtitution :
 
 @lilypond[verbatim,quote,ragged-right]
 \addInstrumentDefinition #"contrabassoon"
@@ -1097,7 +1097,7 @@ sera possible de répliquer des fragments.
 
 Au cours d'une partie, des extraits de répliques peuvent être cités en
 utilisant la commande @code{\quoteDuring}.  Cette commande prend deux
-arguments@tie{}: le nom de la voix reproduite, tel que défini par
+arguments : le nom de la voix reproduite, tel que défini par
 @code{\addQuote}, et une expression musicale qui indique la durée de
 cette citation.
 
@@ -1122,7 +1122,7 @@ oboeNotes = \relative c'' {
 
 Si l'expression musicale utilisée pour @code{\quoteDuring} contenait
 autre chose que du silence, il en résulterait une situation
-polyphonique, ce qui n'est pas le but recherché@tie{}:
+polyphonique, ce qui n'est pas le but recherché :
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1230,7 +1230,7 @@ Référence des propriétés internes :
 Seul le contenu de la première @code{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu.  Par
 voie de conséquence, @code{@var{musique}} ne saurait comprendre de
-@code{\new} ou une instance @code{\context@tie{}Voice} qui la ferait
+@code{\new} ou une instance @code{\context Voice} qui la ferait
 passer à une autre voix.
 
 Citer des notes d'ornement ne fonctionne pas, et peut même entraîner

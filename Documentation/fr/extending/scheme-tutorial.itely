@@ -1,7 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -732,6 +731,11 @@ L'immédiateté de l'opérateur @code{$} peut entraîner des effets
 indésirables dont nous reparlerons à la rubrique
 @ref{Saisie de variables et Scheme} ; aussi est-il préférable
 d'utiliser un @code{#} dès que l'analyseur grammatical le supporte.
+Dans le cadre d'une expression musicale, une expression qui aura été
+créée à l'aide d'un @code{#} sera interprétée comme étant de la musique.
+Elle ne sera cependant pas recopiée avant utilisation.  Si la structure
+qui l'abrite devait être réutilisée, un appel expicite à
+@code{ly:music-deep-copy} pourrait être requis.
 
 @funindex $@@
 @funindex #@@
@@ -933,20 +937,17 @@ dernière partie de notre fonction pourrait s'écrire ainsi :
 
 @example
 ...
-@{ $@@newLa @}
+@{ #@@newLa @}
 @end example
 
 Ici, chaque élément de la liste stockée dans @code{newLa} est pris à
 son tour et inséré dans la liste, tout comme si nous avions écrit
 
 @example
-@{ $(premier newLa) $(deuxième newLa) @}
+@{ #(premier newLa) #(deuxième newLa) @}
 @end example
 
-Now in all of these forms, the Scheme code is evaluated while the
-input is still being consumed, either in the lexer or in the parser.
-
-Dans ces deux dernières forme, le code Scheme est évalué alors même que
+Dans ces deux dernières formes, le code Scheme est évalué alors même que
 le code initial est en cours de traitement, que ce soit par le
 @emph{lexer} ou par le @emph{parser}.  Si le code Scheme ne doit être
 exécuté que plus tard, consultez la rubrique
@@ -1218,7 +1219,7 @@ fichier indépendant :
 
 @example
 @{
-  $(with-output-to-file "display.txt"
+  #(with-output-to-file "display.txt"
       (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
 @}
 @end example
@@ -1654,16 +1655,16 @@ We can use it to create new commands:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
+  (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = $padding
+  \once \override Score.MetronomeMark #'padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
@@ -1674,7 +1675,7 @@ Even music expressions can be passed in:
 @lilypond[quote,verbatim,ragged-right]
 pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 #{
-  $x e8 a b $y b a e
+  #x e8 a b $y b a e
 #})
 
 \relative c''{

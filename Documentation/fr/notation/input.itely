@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -711,48 +711,82 @@ Manuel de notation :
 @unnumberedsubsubsec Mise en forme par défaut des titrages
 @translationof Default layout of book and score title blocks
 
-La mise en forme des blocs de titrage est contrôlée par deux variables
-attachées au bloc @code{\paper} : @code{bookTitleMarkup} pour le bloc
-@code{\header} principal, et @code{scoreTitleMarkup} pour les blocs
-@code{\header} relevant des blocs @code{\score}.
+Voici les différentes variables attachées au bloc @code{\header} :
 
 @c KEEP LY
-@lilypond[papersize=a6,quote,verbatim,noragged-right]
-\header {
-  % Les champs suivants sont centrés
-  dedication = "Dédicace"
-  title = "Titre"
-  subtitle = "Sous-titre"
-  subsubtitle = "Sous-sous-titre"
-  instrument = "Instrument"
-
-  % Les champs suivants sont alignés par la gauche
-  poet = "Librettiste"
-  meter = "Tempo"
-
-  % Les champs suivants sont alignés par la droite
-  composer = "Compositeur"
-  arranger = "Arrangeur"
-}
-
-\score {
-  { s1 }
+@lilypond[papersize=a7,quote,verbatim,noragged-right]
+\book {
   \header {
-    % Les champs suivants sont en opposition sur la même ligne
-    piece = "Pièce"
-    opus = "Opus"
+      % Les champs suivants sont centrés
+    dedication = "Dédicace"
+    title = "Titre"
+    subtitle = "Sous-titre"
+    subsubtitle = "Sous-sous-titre"
+      % Les champs suivants sont répartis sur une même ligne, et
+      % le champ "instrument" apparaîtra sue les pages suivantes
+    instrument = \markup \with-color #green "Instrument"
+    poet = "Librettiste"
+    composer = "Compositeur"
+      % Les champs suivants sont en opposition sur la même ligne
+    meter = "Tempo"
+    arranger = "Arrangeur"
+      % Les champs suivants sont centrés en bas de page
+    tagline = "« tagline » ou mention spéciale en pied de dernière page"
+    copyright = "copyright en pied de première page"
+  }
+  \score {
+    { s1 }
+    \header {
+       % Les champs suivants sont en opposition sur la même ligne
+      piece = "Pièce 1"
+      opus = "Opus 1"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+        % Les champs suivants sont en opposition sur la même ligne
+      piece = "Pièce 2 sur la même page"
+      opus = "Opus 2"
+    }
+  }
+  \pageBreak
+  \score {
+    { s1 }
+    \header {
+        % Les champs suivants sont en opposition sur la même ligne
+      piece = "Pièce 3 sue une nouvelle page"
+      opus = "Opus 3"
+    }
   }
 }
 @end lilypond
 
-@c Is the bit about \null markups true? -mp
+Quelques précisions :
 
+@itemize
+@item
+Le nom de l'instrument sera répété en tête de chaque page.
+
+@item
+Seuls seront imprimés les champs @code{piece} et @code{opus} inclus dans
+un bloc @code{\score} dès lors que la variable @code{print-all-headers}
+reste désactivée (valeur à @code{##f}).
+
+@item
+@c Is the bit about \null markups true? -mp
 Les champs d'un bloc @code{\header} qui n'auront pas été alimentés
 seront remplacés par un @emph{markup} @code{\null} de façon à ne pas
 gaspiller d'espace.
 
+@item
 Par défaut, @code{scoreTitleMarkup} place les champs @code{piece} et
 @code{opus} de part et d'autre sur une même ligne.
+
+@end itemize
+
+Les possibilités de modifier la mise en forme par défaut sont abordées à
+la rubrique @ref{Mise en forme personnalisée des blocs de titrage}.
 
 @cindex breakbefore
 
@@ -783,6 +817,7 @@ Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
 Manuel de notation :
+@ref{Mise en forme personnalisée des blocs de titrage},
 @ref{Structure de fichier}.
 
 Fichiers d'initialisation :
@@ -900,6 +935,11 @@ Manuel de notation :
 @unnumberedsubsubsec Mise en forme personnalisée des blocs de titrage
 @translationof Custom layout for title blocks
 
+@cindex bookTitleMarkup
+@cindex scoreTitleMarkup
+@funindex bookTitleMarkup
+@funindex scoreTitleMarkup
+
 L'utilisation de commandes @code{\markup} au sein d'un bloc
 @code{\header} permet de modifier aisément l'apparence du texte,
 mais n'influence en rien le positionnement précis des éléments de
@@ -911,7 +951,8 @@ les deux variables suivantes, attachées au bloc @code{\paper} :
 @item @code{scoreTitleMarkup}
 @end itemize
 
-Ces variables sont abordées à la rubrique
+Le positionnement des titres, avec les valeurs par défaut de ces
+variables @code{\markup}, est illustré à la rubrique
 @ref{Mise en forme par défaut des titrages}.
 
 Voici les réglages par défaut de @code{scoreTitleMarkup}, tels que
