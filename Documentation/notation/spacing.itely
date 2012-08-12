@@ -265,7 +265,18 @@ accordingly.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-The music output will @emph{not} be rotated, just the paper size.
+Swapping the paper dimensions @emph{without} having the print rotated
+(like when printing to postcard size, or creating graphics for inclusion
+rather than a standalone document) can be achieved by appending
+@samp{landscape} to the name of the paper size itself:
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+When the paper size ends with an explicit @samp{landscape} or
+@samp{portrait}, the presence of a @code{'landscape} symbol @emph{only}
+affects print orientation, not the paper dimensions used for layout.
 
 @seealso
 Notation Reference:
