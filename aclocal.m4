@@ -377,7 +377,7 @@ AC_DEFUN(STEPMAKE_END, [
     
     if test -n "$OPTIONAL"; then
 	echo
-        echo "WARNING: Please consider installing optional programs: $OPTIONAL"
+        echo "WARNING: Please consider installing optional programs or files: $OPTIONAL"
     fi
 
     if test -n "$REQUIRED"; then
