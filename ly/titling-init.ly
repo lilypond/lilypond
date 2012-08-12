@@ -107,14 +107,25 @@ book last one."
    empty-stencil))
 
 %% Bookpart first page and last page predicates
+#(define (part-first-page? layout props)
+  (= (chain-assoc-get 'page:page-number props -1)
+     (ly:output-def-lookup layout 'first-page-number)))
+
+#(define (part-last-page? layout props)
+  (chain-assoc-get 'page:is-bookpart-last-page props #f))
+
 #(define (part-first-page layout props arg)
-  (if (= (chain-assoc-get 'page:page-number props -1)
-         (ly:output-def-lookup layout 'first-page-number))
+  (if (part-first-page? layout props)
+      (interpret-markup layout props arg)
+      empty-stencil))
+
+#(define (not-part-first-page layout props arg)
+  (if (not (part-first-page? layout props))
       (interpret-markup layout props arg)
       empty-stencil))
 
 #(define (part-last-page layout props arg)
-  (if (chain-assoc-get 'page:is-bookpart-last-page props #f)
+  (if (part-last-page? layout props)
       (interpret-markup layout props arg)
       empty-stencil))
 
@@ -132,7 +143,7 @@ book last one."
    empty-stencil))
 
 #(define (print-page-number-check-first layout props arg)
-  (if (or (not (book-first-page? layout props))
+  (if (or (not (part-first-page? layout props))
           (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
    (create-page-number-stencil layout props arg)
    empty-stencil))
@@ -142,7 +153,7 @@ oddHeaderMarkup = \markup
   %% force the header to take some space, otherwise the
   %% page layout becomes a complete mess.
   " "
-  \on-the-fly #not-first-page \fromproperty #'header:instrument
+  \on-the-fly #not-part-first-page \fromproperty #'header:instrument
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
 }
 
@@ -151,7 +162,7 @@ oddHeaderMarkup = \markup
 evenHeaderMarkup = \markup
 \fill-line {
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
-  \on-the-fly #not-first-page \fromproperty #'header:instrument
+  \on-the-fly #not-part-first-page \fromproperty #'header:instrument
   " "
 }
 
@@ -159,11 +170,11 @@ oddFooterMarkup = \markup {
   \column {
     \fill-line {
       %% Copyright header field only on first page.
-      \on-the-fly #first-page \fromproperty #'header:copyright
+      \on-the-fly #part-first-page \fromproperty #'header:copyright
     }
     \fill-line {
       %% Tagline header field only on last page.
-      \on-the-fly #last-page \fromproperty #'header:tagline
+      \on-the-fly #part-last-page \fromproperty #'header:tagline
     }
   }
 }
