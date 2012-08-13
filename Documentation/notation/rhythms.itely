@@ -1560,7 +1560,7 @@ Explicitly create a @code{Voice} context when starting a piece with
 Polymetric notation is supported explicitly or by manually modifying the
 visible time signature symbol and/or scaling note durations.
 
-@subsubheading Different time signatures with equal-length measures
+@subsubsubheading Different time signatures with equal-length measures
 
 Set a common time signature for each staff, and set the
 @code{timeSignatureFraction} to the desired fraction.  Then use the
@@ -1602,7 +1602,7 @@ affect the autobeaming rules.
 >>
 @end lilypond
 
-@subsubheading Different time signatures with unequal-length measures
+@subsubsubheading Different time signatures with unequal-length measures
 
 Each staff can be given its own independent time signature by
 moving the @code{Timing_translator} and the
@@ -1650,7 +1650,7 @@ moving the @code{Timing_translator} and the
 @cindex compound time signatures
 @cindex time signature, compound
 
-@subsubheading Compound time signatures
+@subsubsubheading Compound time signatures
 
 These are created using the @code{\compoundMeter} function.  The syntax
 for this is:
@@ -2004,7 +2004,7 @@ by
 @end example
 
 
-@subsubheading @i{Beaming based on @code{baseMoment} and @code{beatStructure}}
+@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
 
 In most instances, automatic beams will end at the end of a beat.
 The ending points for beats are determined by the context properties
@@ -2106,7 +2106,7 @@ By default @code{baseMoment} is set to one over the denominator of
 the time signature. Any exceptions to this default can be found in
 @file{scm/time-signature-settings.scm}.
 
-@subsubheading @i{Beaming based on @code{beamExceptions}}
+@subsubsubheading Beaming based on @code{beamExceptions}
 
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -2219,7 +2219,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@subsubheading @i{How automatic beaming works}
+@subsubsubheading How automatic beaming works
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by the context properties
