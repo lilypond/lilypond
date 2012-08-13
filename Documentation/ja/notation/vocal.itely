@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -88,15 +88,16 @@
 @rglos{ambitus}
 
 学習マニュアル:
-@rlearning{簡単な歌曲を作成する}
+@rlearning{Setting simple songs}
 
 記譜法リファレンス:
-@ref{テキスト マークアップの導入部},
-@ref{音域},
-@ref{合唱のための楽譜レイアウト}
+@ref{Text markup introduction},
+@ref{Ambitus},
+@ref{Score layouts for choral}
 
 コード断片集:
 @rlsr{Vocal music}
+
 
 @node 歌詞を入力する
 @unnumberedsubsubsec 歌詞を入力する
@@ -220,7 +221,6 @@
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
-
 @seealso
 学習マニュアル:
 @rlearning{歌曲}
@@ -238,6 +238,7 @@
 
 コード断片集:
 @rlsr{Text}
+
 
 @node 歌詞を旋律に揃える
 @unnumberedsubsubsec 歌詞を旋律に揃える
@@ -345,17 +346,19 @@
 
 @seealso
 学習マニュアル:
-@rlearning{歌詞を旋律に揃える}
+@rlearning{Aligning lyrics to a melody}
 
 記譜法リファレンス:
-@ref{コンテキストの説明},
-@ref{歌詞音節の自動演奏時間}.
-@ref{歌詞の節},
-@ref{歌詞音節の手動演奏時間},
-@ref{音楽の中での会話}
+@ref{Contexts explained},
+@ref{Automatic syllable durations},
+@ref{Stanzas},
+@ref{Manual syllable durations},
+@ref{Dialogue over music},
+@ref{Manual syllable durations}
 
 内部リファレンス:
 @rinternals{Lyrics}
+
 
 @node 歌詞音節の自動演奏時間
 @unnumberedsubsubsec 歌詞音節の自動演奏時間
@@ -517,9 +520,10 @@
 
 @seealso
 記譜法リファレンス:
-@ref{延長線とハイフン},
-@ref{コンテキストを残しておく},
-@ref{歌詞の垂直方向の配置}
+@ref{Extenders and hyphens},
+@ref{Keeping contexts alive},
+@ref{Placing lyrics vertically}
+
 
 @node 歌詞音節の手動演奏時間
 @unnumberedsubsubsec 歌詞音節の手動演奏時間
@@ -600,7 +604,7 @@
 
 @seealso
 記譜法リファレンス:
-@ref{音楽の中での会話}
+@ref{Dialogue over music}
 
 内部リファレンス:
 @rinternals{Lyrics},
@@ -697,6 +701,9 @@
 >>
 @end lilypond
 
+フレージング スラーはメリスマの作成には影響を与えないことに注意して@c
+ください。
+
 @item
 自動連桁を off にして、手動で連桁を付けられた音符はメリスマと見なされます。@c
 @ref{自動連桁の振る舞いを設定する} を参照してください。
@@ -737,9 +744,6 @@
   }
 >>
 @end lilypond
-
-この方法では連続する 2 つのメリスマを示すことができない@c
-ということに注意してください。
 
 @item
 メリスマに含まれる余分な各音符に対して@c
@@ -819,19 +823,18 @@
 @rglos{melisma}
 
 学習マニュアル:
-@rlearning{歌詞を旋律に揃える}
+@rlearning{Aligning lyrics to a melody}
 
 記譜法リファレンス:
-@ref{歌詞を旋律に揃える},
-@ref{歌詞音節の自動演奏時間},
-@ref{自動連桁の振る舞いを設定する},
-@ref{リズムが異なる歌詞の節}
+@ref{Aligning lyrics to a melody},
+@ref{Automatic syllable durations},
+@ref{Setting automatic beam behavior},
+@ref{Stanzas with different rhythms}
 
 内部リファレンス:
 @rinternals{Tunable context properties}
 
 @knownissues
-
 メリスマの延長線は自動的には作成されません。@c
 手動で 2 重アンダースコアを記述する必要があります。
 
@@ -874,7 +877,6 @@
 @code{minimum-distance} (2 つの音節の間の最小間隔) と
 @code{minimum-length} (ハイフンを削除するかどうかの閾値) で@c
 制御することができます。
-
 
 @seealso
 内部リファレンス:
@@ -972,10 +974,9 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-
 @seealso
 記譜法リファレンス:
-@ref{歌詞の垂直方向の配置}
+@ref{Placing lyrics vertically}
 
 内部リファレンス:
 @rinternals{LyricCombineMusic},
@@ -1109,11 +1110,12 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @seealso
 学習マニュアル:
-@rlearning{合唱}
+@rlearning{Vocal ensembles}
 
 記譜法リファレンス:
 @ref{Context layout order},
 @ref{Creating contexts}
+
 
 @node 歌詞の水平方向の配置
 @unnumberedsubsubsec 歌詞の水平方向の配置
@@ -1186,17 +1188,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   @}
 @}
 @end example
-
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
 
 
 @node 歌詞と繰り返し
@@ -1348,6 +1339,53 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   >>
 }
 @end lilypond
+
+@cindex alignBelowContext
+@funindex alignBelowContext
+
+しかしながら、この構造が @code{ChoirStaff} のような複数の譜を持つ@c
+コンテキストに埋め込まれた場合、歌詞の 2 番と 3 番は譜の下に表示されます。
+
+歌詞を正しく配置するには @code{alignBelowContext} を用います:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics = "firstVerse" \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics = "secondVerse"
+        \with { alignBelowContext = #"firstVerse" } {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+	\new Lyrics = "thirdVerse"
+        \with { alignBelowContext = #"secondVerse" } {
+	  \set associatedVoice = "melody"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+    \new Voice = "harmony" {
+      \relative c' {
+        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      }
+    }
+  >>
+}
+@end lilypond
+
 
 
 @c TODO positioning a common line of lyrics
@@ -1556,8 +1594,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @seealso
 記譜法リファレンス:
-@ref{コンテキストを残しておく},
-@ref{繰り返し}
+@ref{Keeping contexts alive},
+@ref{Repeats}
 
 
 @node 歌詞のディヴィージ
@@ -1979,7 +2017,7 @@ its fleece was white as snow.
 @c KEEP LY
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c' {
-  c c c c | d d d d
+  c4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -1998,7 +2036,7 @@ text = \lyricmode {
 \markup {
   \fill-line {
     \hspace #0.1 % この列を左マージンから離します
-        % ページが過密な場合はこの設定を削除します
+    % ページが過密な場合はこの設定を削除します
     \column {
       \line { \bold "2."
         \column {
@@ -2006,7 +2044,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \hspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
+      \vspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
       \line { \bold "3."
         \column {
           "This is verse three."
@@ -2014,9 +2052,7 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % 列の間に水平方向のスペースを入れます
-        % 列が近すぎる場合は、適切な間隔になるまで
-        % 空白 (" ") を追加します
+    \hspace #0.1 % 列の間に水平方向のスペースを入れます
     \column {
       \line { \bold "4."
         \column {
@@ -2024,7 +2060,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \hspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
+      \vspace #0.1 % 次の歌詞との間に垂直方向のスペースを入れます
       \line { \bold "5."
         \column {
           "This is verse five."
@@ -2033,11 +2069,10 @@ text = \lyricmode {
       }
     }
   \hspace #0.1 % 右マージンに追加のスペースを加えます
-      % ページが過密な場合はこの設定を削除します
+  % ページが過密な場合はこの設定を削除します
   }
 }
 @end lilypond
-
 
 @seealso
 内部リファレンス:
@@ -2097,15 +2132,15 @@ text = \lyricmode {
 
 @seealso
 学習マニュアル:
-@rlearning{歌曲}
+@rlearning{Songs}
 
 記譜法リファレンス:
-@ref{声楽で共通の記譜法},
-@ref{和音を表示する},
-@ref{譜を表示する},
-@ref{キーボードと他の複数譜の楽器},
-@ref{歌詞の垂直方向の配置},
-@ref{歌詞の節}
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{Displaying staves},
+@ref{Keyboard and other multi-staff instruments},
+@ref{Placing lyrics vertically},
+@ref{Stanzas}
 
 コード断片集:
 @rlsr{Vocal music}
@@ -2125,7 +2160,7 @@ text = \lyricmode {
 
 @seealso
 記譜法リファレンス:
-@ref{和音記譜法}
+@ref{Chord notation}
 
 
 @node 合唱
@@ -2201,8 +2236,8 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 
 @seealso
 学習マニュアル:
-@rlearning{4 パート SATB ボーカル譜},
-@rlearning{合唱}
+@rlearning{Four-part SATB vocal score},
+@rlearning{Vocal ensembles}
 
 記譜法リファレンス:
 @ref{Context layout order},
@@ -2217,6 +2252,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}
+
 
 @node 合唱のための楽譜レイアウト
 @unnumberedsubsubsec 合唱のための楽譜レイアウト
@@ -2301,15 +2337,15 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 
 @seealso
 記譜法リファレンス:
-@ref{スペースを変更する},
-@ref{スペースを表示する},
-@ref{音楽を少ないページに収める},
-@ref{ページ レイアウト},
-@ref{楽譜レイアウト},
+@ref{Changing spacing},
+@ref{Displaying spacing},
+@ref{Fitting music onto fewer pages},
+@ref{Page layout},
+@ref{Score layout},
 @ref{Separating systems},
-@ref{譜サイズを設定する},
-@ref{改行/改ページのために追加のボイスを使用する},
-@ref{垂直方向のスペース}
+@ref{Setting the staff size},
+@ref{Using an extra voice for breaks},
+@ref{Vertical spacing}
 
 内部リファレンス:
 @rinternals{VerticalAxisGroup},
@@ -2327,7 +2363,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 
 @seealso
 記譜法リファレンス:
-@ref{直線の発想記号}
+@ref{Expressive marks as lines}
 
 
 @node オペラと舞台ミュージカル
@@ -2428,15 +2464,15 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 
 記譜法リファレンス:
 @ref{Creating footnotes},
-@ref{譜をグループ化する},
-@ref{譜を隠す},
-@ref{楽器の移調},
-@ref{ネストされた譜グループ},
-@ref{ページ レイアウト},
+@ref{Grouping staves},
+@ref{Hiding staves},
+@ref{Instrument transpositions},
+@ref{Nested staff groups},
+@ref{Page layout},
 @ref{Separating systems},
-@ref{移調},
-@ref{パートを記述する},
-@ref{テキストを記述する}
+@ref{Transpose},
+@ref{Writing parts},
+@ref{Writing text}
 
 コード断片集:
 @rlsr{Vocal music}
@@ -2531,13 +2567,14 @@ c c c
 
 @seealso
 記譜法リファレンス:
-@ref{楽器名},
+@ref{Instrument names},
 @ref{Scheme functions},
-@ref{テキスト},
+@ref{Text},
 @ref{Text markup commands}
 
 LilyPond の拡張:
 @rextend{Markup construction in Scheme}
+
 
 @node 合図
 @unnumberedsubsubsec 合図
@@ -2571,7 +2608,10 @@ flute = \relative c'' {
 pianoRH = \relative c'' {
   c4. g8
   % 合図音符の楽器名を、合図音符の直前、かつ譜の上に配置します
-  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \set instrumentCueName = "Flute"
+  }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2613,7 +2653,11 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % 合図音符の楽器名を譜の下に配置します
-  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch #'direction = #DOWN
+    \set instrumentCueName = "Clar."
+  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

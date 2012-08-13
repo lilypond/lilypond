@@ -1,4 +1,5 @@
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
+%% Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
   texidocja = "
 旋律とコードを持つリード譜を欲しくはありませんか？他を見る必要はありません！
 "
+  doctitleja = "音符とコードを持つ単一譜のテンプレート"

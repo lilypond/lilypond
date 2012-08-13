@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -46,20 +46,19 @@
 @itemize
 
 @item 打楽器の音楽はリズム譜で記譜されることがあります。@c
-リズム譜は @ref{旋律のリズムを示す} と @ref{新たに譜をインスタンス化する} で@c
+リズム譜は @ref{Showing melody rhythms} と @ref{Instantiating new staves} で@c
 説明しています。
 
 @item MIDI 出力については、別のセクションで説明します。@c
-@ref{MIDI での打楽器} を参照してください。
+@ref{Percussion in MIDI} を参照してください。
 
 @end itemize
 
-
 @seealso
 記譜法リファレンス:
-@ref{旋律のリズムを示す},
-@ref{新たに譜をインスタンス化する},
-@ref{MIDI での打楽器}
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves},
+@ref{Percussion in MIDI}
 
 コード断片集:
 @rlsr{Percussion}
@@ -118,13 +117,12 @@
 
 
 打楽器のための MIDI サポートにはいくつか考慮すべき問題があります。@c
-@ref{MIDI での打楽器} を参照してください。
-
+@ref{Percussion in MIDI} を参照してください。
 
 @seealso
 記譜法リファレンス:
-@ref{MIDI での打楽器},
-@ref{Percussion notes}
+@ref{Percussion in MIDI},
+@ref{Percussion notes}.
 
 インストールされているファイル:
 @file{ly/drumpitch-init.ly}
@@ -157,7 +155,8 @@
 
 スティックは音符の上または下にマークアップ @code{"R"} または @code{"L"} を@c
 配置することによって示すことができます。@c
-マークアップの配置については @ref{向きと配置} を参照してください。@c
+マークアップの配置については @ref{Direction and placement}
+を参照してください。@c
 @code{staff-padding} プロパティを上書きして、@c
 ベースラインを好みに合わせることができます。
 
@@ -171,11 +170,9 @@
 }
 @end lilypond
 
-
 @seealso
-
 記譜法リファレンス:
-@ref{トレモロの繰り返し}
+@ref{Tremolo repeats}
 
 コード断片集:
 @rlsr{Percussion}
@@ -189,13 +186,12 @@
 は通常の譜を用いて記述します。@c
 通常の譜については、このマニュアルの他のセクションでカバーしています。
 
-
 @seealso
 @c TODO: possibly link to an alternate section of NR 3.5, if
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
 記譜法リファレンス:
-@ref{MIDI での打楽器}
+@ref{Percussion in MIDI}
 
 コード断片集:
 @rlsr{Percussion}
@@ -598,7 +594,6 @@ drumsB = {
 }
 @end lilypond
 
-
 @seealso
 コード断片集:
 @rlsr{Percussion}
@@ -644,7 +639,6 @@ drumsB = {
 @noindent
 また、各 @code{\parenthesize} 表現を和音構造 (@code{< >}) で@c
 囲む必要があるということに注意してください。
-
 
 @seealso
 コード断片集:

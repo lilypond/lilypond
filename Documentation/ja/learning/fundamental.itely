@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 3c543629d5c9773e45e3ba83ba735da850f5665c
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3176,7 +3176,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {

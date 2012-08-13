@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 7465f4b1291f38bed8ee81e3922eb685f7e909ad
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -132,7 +132,7 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 
 
 @node LilyPond の基本的なコマンド ライン オプション
-@unnumberedsubsec @command{lilypond} の基本的なコマンド ライン オプション
+@unnumberedsubsec Lilypond の基本的なコマンド ライン オプション
 @translationof Basic command line options for LilyPond
 
 @cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)

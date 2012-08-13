@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -247,7 +247,26 @@ g1 |
 g1 |
 @end lilypond
 
-@code{measureLength} プロパティについての説明は @ref{時間管理} にあります。
+@code{measureLength} プロパティについての説明は @ref{Time administration}
+にあります。
+
+@funindex \inStaffSegno
+
+@code{\inStaffSegno} コマンドを用いて、セーニョ記号を配置して
+@code{\repeat volta} コマンドと連携させることができます。@c
+差し替えの小節線記号は Score コンテキストの中でプロパティ @code{segnoType},
+@code{startRepeatSegnoType}, @code{endRepeatSegnoType} あるいは
+@code{doubleRepeatSegnoType} を必要に応じてオーバライドすることにより@c
+設定することができます。
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
 
 @cindex repeats, with ties (タイを持つ繰り返し)
 @cindex alternative endings, with ties (タイを持つ繰り返しの入れ替え部分)
@@ -289,9 +308,9 @@ c1
 @rglos{volta}
 
 記譜法リファレンス:
-@ref{小節線},
+@ref{Bar lines},
 @ref{Modifying context plug-ins},
-@ref{時間管理}
+@ref{Time administration}
 
 コード断片集:
 @rlsr{Repeats}
@@ -303,7 +322,6 @@ c1
 @rinternals{UnfoldedRepeatedMusic}
 
 @knownissues
-
 @cindex repeat, ambiguous (あいまいな繰り返し)
 @cindex nested repeat (ネストされた繰り返し)
 @cindex repeat, nested (ネストされた繰り返し)
@@ -362,7 +380,7 @@ c1
 予期しない振る舞いをする可能性があります。@c
 たいていのケースでは、繰り返しは標準の @code{@bs{}repeat} コマンドを用いるか、@c
 適切な小節線を譜刻することによって作成すべきです。@c
-更なる情報は、@ref{小節線} を参照してください。}
+更なる情報は、@ref{Bar lines} を参照してください。}
 
 プロパティ @code{repeatCommands} を用いて繰り返しのレイアウトを@c
 制御することができます。@c
@@ -431,7 +449,8 @@ b1
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands =
+    #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1
@@ -445,10 +464,9 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{小節線},
+@ref{Bar lines},
 @ref{Formatting text}
 
 コード断片集:
@@ -556,7 +574,7 @@ c1
 @end lilypond
 
 和音構造は和音の繰り返し記号 @code{q} で繰り返すことができます。@c
-@ref{和音の繰り返し} を参照してください。
+@ref{Chord repetition} を参照してください。
 
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
 @code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
@@ -566,7 +584,7 @@ c1
 
 @seealso
 記譜法リファレンス:
-@ref{和音の繰り返し}
+@ref{Chord repetition}
 
 コード断片集:
 @rlsr{Repeats}
@@ -747,7 +765,6 @@ c: c:
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {cross-staff-tremolos.ly}
-
 
 @seealso
 コード断片集:

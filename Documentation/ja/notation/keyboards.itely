@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 3ef893f1fe182e9f6cf5841cbff0706789bd3361
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -120,26 +120,27 @@
 
 @seealso
 学習マニュアル:
-@rlearning{実際の音楽からの例},
-@rlearning{調整のその他の使用方法}
+@rlearning{Real music example},
+@rlearning{Other uses for tweaks}
 
 記譜法リファレンス:
-@ref{譜をグループ化する},
-@ref{楽器名},
-@ref{衝突の解決},
-@ref{音楽を並列に記述する},
-@ref{運指の指示},
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
 @ref{List of articulations},
-@ref{グリッド ライン},
-@ref{タイ},
-@ref{アルペジオ},
-@ref{トレモロの繰り返し}
+@ref{Grid lines},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{Tremolo repeats}
 
 内部リファレンス:
 @rinternals{PianoStaff}
 
 コード断片集:
 @rlsr{Keyboards}
+
 
 @node 譜を手動で変更する
 @unnumberedsubsubsec 譜を手動で変更する
@@ -211,16 +212,19 @@
     \voiceOne
     % 譜を跨ぐボイスの中にある運指記号のためのスペースを作ります
     \once\override DynamicLineSpanner #'staff-padding = #3.4
-    e''2\p\< d''\> s1*0\!
+    e''2\p\< d''\>
+    c''1\!
   }
   \new Staff = "down" <<
     {
       \clef bass
       s4. e,8\rest g,2\rest
+      c1
     } \\ {
       c8\( g c'
       \change Staff = "up"
       e' g' b'-3 a' g'\)
+      f'1
     }
   >>
 >>
@@ -238,11 +242,11 @@
 
 @seealso
 学習マニュアル:
-@rlearning{表記の重なりを修正する}
+@rlearning{Fixing overlapping notation}
 
 記譜法リファレンス:
-@ref{符幹},
-@ref{自動連桁},
+@ref{Stems},
+@ref{Automatic beams},
 @ref{Keeping contexts alive}
 
 コード断片集:
@@ -333,10 +337,9 @@
 >>
 @end lilypond
 
-
 @seealso
 記譜法リファレンス:
-@ref{譜を手動で変更する}
+@ref{Changing staff manually}
 
 コード断片集:
 @rlsr{Keyboards}
@@ -346,7 +349,6 @@
 
 
 @knownissues
-
 @cindex chords, splitting across staves with \autochange
 
 譜の切り換えが最適な場所で行われない場合もあります。@c
@@ -401,14 +403,13 @@
 @code{\hideStaffSwitch}
 @endpredefined
 
-
 @seealso
 コード断片集:
-@rlsr{Keyboards}.
+@rlsr{Keyboards}
 
 内部リファレンス:
 @rinternals{Note_head_line_engraver},
-@rinternals{VoiceFollower}.
+@rinternals{VoiceFollower}
 
 
 @node 譜を跨ぐ符幹
@@ -425,47 +426,20 @@
 @cindex cross-staff chords (譜を跨ぐ和音)
 @cindex cross staff chords (譜を跨ぐ和音)
 
-@funindex Stem
-@funindex cross-staff
-@funindex length
-@funindex flag-style
+@funindex \crossStaff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
 
-譜を跨ぐ和音を作ることができます:
+@code{Span_stem_engraver} を用いて譜を跨ぐ和音を作ることができます。@c
+片方の譜の音符に自動連桁機能が連桁を付けないことを間違いなく確認する@c
+よう注意してください。
 
-@c KEEP LY
-@lilypond[verbatim,quote]
-\new PianoStaff <<
-  \new Staff {
-    \relative c' {
-      f8 e4 d8 d f e4
-    }
-  }
-  \new Staff {
-    \relative c' {
-      << {
-        \clef bass
-        % 符幹が他の譜に重なることを許可します
-        \override Stem #'cross-staff = ##t
-        % 符幹を他の符まで延長します
-        \override Stem #'length = #12
-        % 余計な旗を譜刻させません
-        \override Flag #'style = #'no-flag
-        % 必要に応じて連桁を抑制します
-        a8 g4 f8 f bes\noBeam g4
-      }
-      \\
-      {
-        f,2 bes4 c
-      } >>
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
-
 
 @seealso
 コード断片集:
@@ -565,7 +539,7 @@ d\sustainOff\sustainOn g, c2
 
 @seealso
 記譜法リファレンス:
-@ref{タイ}
+@ref{Ties}
 
 コード断片集:
 @rlsr{Keyboards}
@@ -619,7 +593,6 @@ d\sustainOff\sustainOn g, c2
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
-
 @seealso
 コード断片集:
 @rlsr{Keyboards}
@@ -663,10 +636,11 @@ d\sustainOff\sustainOn g, c2
 
 @seealso
 記譜法リファレンス:
-@ref{トレモロの繰り返し},
-@ref{グリッサンド},
-@ref{アルペジオ},
-@ref{ハーモニクス}
+@ref{Tremolo repeats},
+@ref{Glissando},
+@ref{Arpeggio},
+@ref{Harmonics}
+
 
 @node ハープ ペダル
 @unnumberedsubsubsec ハープ ペダル

@@ -1,5 +1,7 @@
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
+%% Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
   texidocja = "
-このテンプレートは基本的に単純な \"合唱\" テンプレートと同じですが、歌詞が
-@code{alignAboveContext} と @code{alignBelowContext} を用いて配置されています。
+このテンプレートは基本的に単純な @qq{合唱} テンプレートと同じですが、歌詞が
+@code{alignAboveContext} と @code{alignBelowContext} を用いて配置@c
+されています。
 "
+  doctitleja = "上下に歌詞を配置した合唱譜テンプレート"

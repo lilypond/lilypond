@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -494,7 +494,6 @@ c4\< d\! e\> d\! |
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-text-and-spanner-styles-for-text-dynamics.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{al niente},
@@ -624,13 +623,15 @@ moltoF = #(make-dynamic-script
 マークアップ モードでのフォント設定は
 @ref{Selecting font and font size} で記述されています。
 
-
 @seealso
 記譜法リファレンス:
 @ref{Formatting text},
 @ref{Selecting font and font size},
 @ref{What goes into the MIDI output?},
 @ref{Controlling MIDI dynamics}
+
+LilyPond の拡張:
+@rextend{Markup construction in Scheme}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}
@@ -926,7 +927,6 @@ g4\( e c2\)
 @code{\phrasingSlurSolid}
 @endpredefined
 
-
 @seealso
 学習マニュアル:
 @rlearning{ネストされない括弧とタイ}
@@ -983,7 +983,6 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{caesura}
@@ -1015,20 +1014,18 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 指示の数は Fall あるいは Doit の主音符を展開させるピッチの幅を示します。
 
 @lilypond[verbatim,quote,relative=2]
-c2-\bendAfter #+4
-c2-\bendAfter #-4
-c2-\bendAfter #+8
-c2-\bendAfter #-8
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
 @end lilypond
-
-Fall と Doit を記述する際、@c
-@code{\bendAfter} コマンドの直前にダッシュ @code{-} を置く必要があります。
 
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adjusting-the-shape-of-falls-and-doits.ly}
-
 
 @seealso
 音楽用語集:
@@ -1076,7 +1073,6 @@ c2\glissando c,
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{glissando}
@@ -1090,10 +1086,7 @@ c2\glissando c,
 内部リファレンス:
 @rinternals{Glissando}
 
-
 @knownissues
-
-@c 未訳
 線の上にテキストを譜刻する (@notation{グリッサンド} など) ことは@c
 サポートされていません。
 
@@ -1196,7 +1189,6 @@ c2\glissando c,
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {creating-arpeggios-across-notes-in-different-voices.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{arpeggio}
@@ -1213,9 +1205,7 @@ c2\glissando c,
 @rinternals{Slur},
 @rinternals{PianoStaff}
 
-
 @knownissues
-
 @cindex cross-staff parenthesis-style arpeggio (譜を跨ぐ括弧スタイルのアルペジオ)
 @cindex arpeggio, parenthesis-style, cross-staff (譜を跨ぐ括弧スタイルのアルペジオ)
 @cindex arpeggio, cross-staff parenthesis-style (譜を跨ぐ括弧スタイルのアルペジオ)
@@ -1327,7 +1317,6 @@ eis4\stopTrillSpan
 eis4\startTrillSpan fis!
 eis4\stopTrillSpan
 @end lilypond
-
 
 @predefined
 @code{\startTrillSpan},

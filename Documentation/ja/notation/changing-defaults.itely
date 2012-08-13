@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.15.39"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -704,102 +704,341 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 
 @knownissues
 
+エングラーバを指定する順序は、エングラーバが処理を行う順序です。@c
 通常、エングラーバが指定される順序は問題にはなりません。@c
 しかしながら、いくつかの特殊なケースでは、この順序が重要になります。@c
 例えば、あるエングラーバがプロパティを記述して、@c
 それを他のエングラーバが読む場合、あるいは、@c
 あるエングラーバがグラフィカル オブジェクトを作成し、@c
 それを他のエングラーバが処理しなければならない場合です。@c
-エングラーバは指定された順序に従って呼び出され、処理を実行します。
 
 以下の順序は重要です:
-通常、@code{Bar_engraver} を最初に指定し、@c
-@code{New_fingering_engraver} を @code{Script_column_engraver} の前で@c
-指定する必要があります。@c
-他にも指定順序が問題になるケースがあるかもしれません。
+
+@itemize
+@item
+通常、@code{Bar_engraver} を最初にする必要があります。
+
+@item
+@code{New_fingering_engraver} を @code{Script_column_engraver} の前に@c
+配置する必要があります。
+
+@item
+@code{Timing_translator} を @code{Bar_number_engraver} の前に配置する@c
+必要があります。
+
+@end itemize
+
+@seealso
+インストールされているファイル:
+@file{ly/engraver-init.ly}
 
 
 @node コンテキストのデフォルト設定を変更する
 @subsection コンテキストのデフォルト設定を変更する
 @translationof Changing context default settings
 
-@code{Score}, @code{Staff} それに @code{Voice} コンテキストにおいて@c
-デフォルトで使用されるコンテキスト設定は、以下の例で示すように、@c
-@code{\layout} ブロックの中で指定することができます。@c
-@code{\layout} ブロックは、それを適用する @code{\score} ブロックの中で、@c
-かつ、音楽表記の外側に配置する必要があります。
+@cindex default context properties, changing (デフォルトのコンテキスト プロパティを変更する)
+@cindex context properties, changing defaults (デフォルトのコンテキスト プロパティを変更する)
 
-以下のような方法でコンテキストのデフォルト値を指定する場合、@c
-@code{\set} コマンドとコンテキストを@c
-省略する必要があるということに注意してください:
+@ref{Modifying properties} で説明したように、コンテキストとグラフィカル
+オブジェクトのプロパティを @code{\set} コマンドや @code{\override}
+コマンドで変更することができます。@c
+これらのコマンドは音楽イベントを生成して、楽譜処理中にコマンドが出現する@c
+ポイントで変更に効果を発揮させます。
+
+対照的に、このセクションではコンテキストが作成された時点でコンテキストと@c
+グラフィカル オブジェクトのプロパティの @emph{デフォルト} 値を変更する@c
+方法を説明します。@c
+これを行う方法は 2 つあります。@c
+1 つはある特定のタイプの全コンテキストのデフォルト値を変更する方法で、@c
+もう 1 つはただ 1 つのコンテキストのインスタンスのデフォルト値を変更する@c
+方法です。
+
+@menu
+* 同じタイプの全コンテキストを変更する::
+* 指定したコンテキストだけを変更する::
+* 適用順序::
+@end menu
+
+@node 同じタイプの全コンテキストを変更する
+@unnumberedsubsubsec 同じタイプの全コンテキストを変更する
+@translationof Changing all contexts of the same type
+
+@cindex \context in \layout block (\layout ブロックの中の \context)
+@funindex \context
+@funindex \layout
+
+@code{Score}, @code{Staff}, @code{Voice}, その他のコンテキストにおいて@c
+デフォルトで使用されるコンテキスト設定は、@code{\layout} ブロックの中の@c
+@code{\context} ブロックでで指定することができます。@c
+@code{\layout} ブロックは、それを適用する @code{\score} ブロックの中で、@c
+かつ、音楽表記の後に配置する必要があります。
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    [すべての Voice コンテキストのコンテキスト設定]
+  @}
+  \context @{
+    \Staff
+    [context settings for all Staff contexts]
+  @}
+@}
+@end example
+
+以下のタイプの設定を指定することができます:
+
+@itemize
+@item
+@code{\override} コマンド -- コンテキスト名を省略します
 
 @lilypond[quote,verbatim]
 \score {
   \relative c'' {
-    a4^"Really small, thicker stems, no time signature" a a a
-    a a a a
+    a4^"Thicker stems" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem #'thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+コンテキスト プロパティを直接設定します
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Smaller font" a a a
+    a4 a a\ff a
   }
   \layout {
     \context {
       \Staff
       fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
     }
   }
 }
 @end lilypond
 
-上記の例の中で、@code{\Staff} コマンドは、@c
-後に続く記述をその score ブロックの中にあるすべての譜に適用するということを@c
-指定しています。
+@item
+@code{\dynamicUp} や @code{\accidentalStyle "dodecaphonic"} のような音楽@c
+表記等、あらかじめ定義されているコマンド
 
-同様の方法で、@c
-@code{Score} コンテキストや @code{Voice} コンテキストに@c
-変更を適用することができます。
-
-コンテキストの変更を変数に格納することができます。@c
-コンテキストの変更に @code{\with} を付けて変数に格納して、その変数を@c
-コンテキスト定義の前に置くことにより、変更をコンテキストに適用することが@c
-できます:
 @lilypond[quote,verbatim]
-blubb = \with {
+\score {
+  \relative c'' {
+    a4^"Dynamics above" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle "dodecaphonic"
+    }
+  }
+}
+@end lilypond
+
+@item
+@code{\with} ブロックを有するユーザ定義変数 -- @code{\with} ブロックの@c
+詳細は @ref{Changing just one specific context} を参照してください。
+
+@lilypond[quote,verbatim]
+StaffDefaults = \with {
   fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
-
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
-
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
 }
 
 \score {
-  <<
-    \new Staff <<
-      \melody
-      s1*0^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s1*0^"Different"
-    >>
-  >>
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
   \layout {
     \context {
       \Staff
-      \blubb
+      \StaffDefaults
     }
   }
 }
 @end lilypond
 
-@c TODO: add \with in here.
+@end itemize
+
+プロパティ設定コマンドは、@code{\context} ブロックで囲まずに、@c
+@code{\layout} ブロックの中に配置することができます。@c
+そのような設定は、指定されたタイプの任意のコンテキストの開始時に@c
+プロパティ設定コマンドをインクルードするのと等価です。@c
+コンテキストを指定しない場合、@emph{すべての} 下位コンテキストに影響を@c
+与えます -- @ref{Bottom-level contexts - voices} を参照してください。@c
+@code{\layout} ブロックの中でのプロパティ設定コマンドの構文は、@c
+音楽ストリームの中で同じコマンドを記述するのと同じです。
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle "dodecaphonic"
+    \set fontSize = #-4
+    \override Voice.Stem #'thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node 指定したコンテキストだけを変更する
+@unnumberedsubsubsec 指定したコンテキストだけを変更する
+@translationof Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+@code{\with} ブロックで指定したコンテキスト インスタンスのコンテキスト
+プロパティだけを変更することができます。@c
+他の全ての同じタイプのコンテキスト インスタンスは、LilyPond に組み込まれて@c
+スコープ内の @code{\layout} ブロックによって変更されたデフォルト設定の@c
+ままです。@c
+@code{\with} ブロックは @code{\new} @var{context-type} コマンドの直後に@c
+配置する必要があります:
+
+@example
+\new Staff
+\with @{
+  [このコンテキスト インスタンスだけに適用されるコンテキスト設定]
+@} @{
+...
+@}
+@end example
+
+以下のタイプの設定を指定することができます:
+
+@itemize
+@item
+@code{\override} コマンド -- コンテキスト名を省略します
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice
+    \with {
+      \override Stem #'thickness = #4.0
+    }
+    {
+      \relative c'' {
+        a4^"Thick stems" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+コンテキスト プロパティを直接設定します
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        a4^"Default font" a a a
+        a4 a a a
+      }
+    }
+    \new Staff
+    \with {
+      fontSize = #-4
+    } {
+      \relative c'' {
+        a4^"Smaller font" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+@code{\dynamicUp} 等のあらかじめ定義されているコマンド
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative c'' {
+          a4^"Dynamics below" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff
+    \with { \accidentalStyle "dodecaphonic" }
+    {
+      \new Voice
+      \with { \dynamicUp }
+      {
+        \relative c'' {
+          a4^"Dynamics above" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+@node 適用順序
+@unnumberedsubsubsec 適用順序
+@translationof Order of precedence
+
+ある特定のタイミングで適用されるプロパティの値は以下のように決定されます:
+
+@itemize
+@item
+入力ストリームの中の @code{\override} コマンドや @code{\set} コマンドが
+ある場合、その値が用いられます。
+
+@item
+さもなければ、コンテキスト初期宣言の @code{\with} から取得したデフォルト値@c
+が用いられます。
+
+@item
+さもなければ、@code{\layout} ブロックの中にある直近で適切な @code{\context}
+ブロックから取得したデフォルト値が用いられます。
+
+@item
+さもなければ、LilyPond の組み込みデフォルト値が用いられます。
+@end itemize
+
+@seealso
+学習マニュアル:
+@rlearning{Modifying context properties}
+
+記譜法リファレンス:
+@ref{Contexts explained},
+@ref{Bottom-level contexts - voices},
+@ref{The set command},
+@ref{The override command},
+@ref{The \layout block}
 
 
 @node 新しいコンテキストを定義する
@@ -988,7 +1227,7 @@ squashedPosition = #0
 
 
 @node コンテキストの配置順序
-@subsection Context layout order
+@subsection コンテキストの配置順序
 @translationof Context layout order
 
 @cindex contexts, layout order (コンテキストの配置順序)
@@ -1048,7 +1287,43 @@ squashedPosition = #0
 ということに注意してください。@c
 これは予期しない譜や楽譜を生み出す可能性があります。
 
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+短い期間、あるコンテキストを存在させる必要がある場合があります。@c
+オッシアの譜コンテキストが良い例です。@c
+通常、これは主音楽の対応するセクションと並列に、適切な場所でコンテキスト@c
+定義を行うことで実現します。@c
+デフォルトでは、一時コンテキストは既存のすべてのコンテキストの下に配置@c
+されます。@c
+@qq{main} というコンテキストの上に配置し直すには以下のようにします:
+
+@example
+@code{\new Staff \with @{ alignAboveContext = #"main" @} }
+@end example
+
+@code{ChoirStaff} のような複数の譜のレイアウトで一時的な歌詞を配置する場合
+-- 例えば、繰り返しセクションに 2 番目の歌詞を追加する場合 --
+にも同様な状況が発生します。@c
+デフォルトでは、一時的な歌詞は下段の譜の下に配置されます。@c
+一時的な歌詞コンテキストを @code{alignBelowContext} で定義することにより、@c
+1 番目の歌詞を保持する (名前付きの) 歌詞コンテキストの下に配置することが@c
+できます。
+
+一時コンテキストを再配置する例は他にもあります
+-- @rlearning{Nesting music expressions}、+@ref{Modifying single staves}、@c
+それに @ref{Techniques specific to lyrics} を参照してください。
+
 @seealso
+学習マニュアル:
+@rlearning{Nesting music expressions}
+
+記譜法リファレンス:
+@ref{Modifying single staves},
+@ref{Techniques specific to lyrics}
+
 アプリケーション使用方法:
 @rprogram{An extra staff appears}
 
@@ -1926,11 +2201,12 @@ and the program reference.
 @code{\tweak} コマンドは以下のような構文を持ちます:
 
 @example
-\tweak #'@code{grob-property} #@code{value}
+\tweak @var{layout-object} #'@var{grob-property} @var{value}
 @end example
 
+@code{layout-object} の指定はオプションです。@c
 @code{\tweak} コマンドは、音楽の流れの中で
-@code{value} のすぐ後に現れるオブジェクトに変更を適用します。
+@code{value} のすぐ後に現れる音楽オブジェクトに変更を適用します。
 
 @ignore
 In some cases, it is possible to take a short-cut for tuning
@@ -2031,27 +2307,37 @@ c-\tweak #'thickness #5 ( d e f)
 入力ファイルが音楽の流れに変換されたときに、@c
 @code{\tweak} コマンドのすぐ後に@c
 変更が適用されるオブジェクトが配置されている必要があります。
-LilyPond は、構文解釈処理時に、@c
-追加のオブジェクトを音楽の流れの中に挿入する場合があります。@c
-例えば、明示的には和音の一部になっていない音符を、@c
-LilyPond が音符の中に配置する場合があります。@c
-そのため、@code{\tweak} で変更される音符は、@c
-和音構造の中に配置されている必要があります:
+和音全体に対する調整は何の効果もありません。@c
+なぜなら、和音の音楽イベントはコンテナと機能するだけで、すべてのレイアウト
+オブジェクトは @code{EventChord} の内部にあるイベントによって作成される@c
+からです:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak #'color #red c4
-<\tweak #'color #red c>4
+\tweak #'color #red <c e>4
+<\tweak #'color #red c e>4
 @end lilypond
 
-@code{\tweak} コマンドは、@c
-入力ファイルの中で明示的に記述されていないオブジェクトを@c
-変更するために用いることはできません。@c
-特に、符幹、連桁、あるいは臨時記号を直接変更することはできません。@c
-なぜなら、それらは入力の中にある音楽要素の後ではなく、@c
-符頭の後に生成されるからです。@c
-さらに、音部記号や拍子記号を変更することもできません。@c
-なぜなら、コンテキストを指定するために必要とされる追加要素の自動挿入により、@c
-それらは前に配置された @code{\tweak} コマンドとは分離されるからです。@c
+単純な @code{\tweak} コマンドでは入力から直接作成されないオブジェクトを@c
+変更することはできません。@c
+特に、符幹、自動連桁、それに臨時記号には効果を持ちません。@c
+なぜなら、それらは入力ストリームの中の音楽要素によって生成される@c
+のではなく、後になって @code{NoteHead} レイアウト オブジェクトによって@c
+生成されるからです。
+
+そのような直接作成されないレイアウト オブジェクトは、明示的な形式の
+@code{\tweak} コマンドを用いることで調整することができます:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak Stem #'color #red
+\tweak Beam #'color #green c8 e
+<c e \tweak Accidental #'font-size #-3 ges>4
+@end lilypond
+
+@code{\tweak} コマンドで音部記号や拍子記号を変更することはできません。@c
+なぜなら、コンテキストを指定するために必要とされる追加要素の自動挿入に@c
+より、それらは前に配置された @code{\tweak} コマンドとは分離されるから@c
+です。
 
 記譜要素の前に複数の @code{\tweak} コマンドを配置することができます
 -- それらはすべて効果を持ちます:
@@ -2082,19 +2368,9 @@ f'
 @rextend{Displaying music expressions}
 
 @knownissues
-@cindex tweaks in a variable (変数の中での調整)
-
-@code{\tweak} コマンドを変数の中で用いることはできません。
-
-@cindex tweaks in lyrics (歌詞の中での調整)
-@code{\tweak} コマンドを @code{\lyricmode} の中で用いることはできません。
-
-@cindex tweaking control points (制御ポイントを調整する)
-@cindex control points, tweaking (制御ポイントを調整する)
-
-@code{\tweak} コマンドは、和音の中で生成される複数のタイのうち、@c
-最初のタイだけに適用されます。
-
+@code{\tweak} コマンドで和音の中にある複数のタイのうち 1 つだけの位置を@c
+変更することはできません。@c
+入力ファイルの中で最初に遭遇したタイの位置を変更してしまいます。
 
 @node set 対 override
 @subsection @code{\set} 対 @code{\override}
@@ -3048,8 +3324,8 @@ a1
 このファイルの中で、最後の 3 列がその列のヘッダで示される場所での@c
 可視性を表しています:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
-@headitem 関数                       @tab ベクトル                @tab 改行前 @tab 改行なし @tab 改行後
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {改行前} {改行なし} {改行後}
+@headitem 関数形式                   @tab ベクトル形式            @tab 改行前 @tab 改行なし @tab 改行後
 
 @item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab yes    @tab yes      @tab yes
 @item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab yes
@@ -4065,8 +4341,10 @@ function =
 @tab @code{@var{argN}} が @code{#t} を返す Scheme の @emph{型述語} (type predicate)。
 
 @item @code{@var{@dots{}music@dots{}}}
-@tab 通常の LilyPond 入力。@code{$} を用いて引数を参照します
-(例: @samp{$arg1})。
+@tab 通常の LilyPond 入力。引数を参照するには @code{$} (LilyPond 構造が@c
+許可されている場合のみ) や @code{#} (引数を Scheme 値、音楽関数の引数、@c
+あるいは音楽リスト内部の音楽として使う場合) を用います
+(例: @samp{#arg1})。
 @end multitable
 
 です。
@@ -4138,20 +4416,17 @@ padText =
 
 数値のほかに、音符などの音楽表記を音楽関数への引数にすることができます:
 
-@c TODO: use a better example (the music argument is redundant).
-
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
      (parser location note)
      (ly:music?)
    #{
-     \once \override Voice.NoteHead #'stencil =
-       #ly:text-interface::print
-     \once \override Voice.NoteHead #'text =
-       \markup \musicglyph #"custodes.mensural.u0"
-     \once \override Voice.Stem #'stencil = ##f
-     $note
+     \tweak NoteHead #'stencil #ly:text-interface::print
+     \tweak NoteHead #'text
+        \markup \musicglyph #"custodes.mensural.u0"
+     \tweak Stem #'stencil ##f
+     #note
    #})
 
 \relative c' { c4 d e f \custosNote g }
@@ -4163,7 +4438,7 @@ custosNote =
 tempoPadded =
 #(define-music-function
      (parser location padding tempotext)
-     (number? string?)
+     (number? markup?)
    #{
      \once \override Score.MetronomeMark #'padding = $padding
      \tempo \markup { \bold #tempotext }
@@ -4172,7 +4447,7 @@ tempoPadded =
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond

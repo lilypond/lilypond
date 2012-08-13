@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,7 +141,6 @@ c4.-> d8---3
 @code{\huge}
 @endpredefined
 
-
 @seealso
 コード断片集:
 @rlsr{Editorial annotations}
@@ -268,12 +267,14 @@ b
 c
 @end lilypond
 
-不可視の音符に取り付けられた記譜オブジェクトは可視のままです。
+符頭、符幹、旗、それに休符は不可視です。@c
+連桁は、隠された音符から始まる場合は、不可視です。
+不可視の音符に取り付けられたオブジェクトは可視のままです。
 
 @lilypond[verbatim,quote,relative=2]
-c4( d)
+e8(\p f g a)--
 \hideNotes
-e4(\p f)--
+e8(\p f g a)--
 @end lilypond
 
 
@@ -281,7 +282,6 @@ e4(\p f)--
 @code{\hideNotes},
 @code{\unHideNotes}
 @endpredefined
-
 
 @seealso
 学習マニュアル:
@@ -387,7 +387,6 @@ gis8 a
 gis4 a
 @end lilypond
 
-
 @seealso
 記譜法リファレンス:
 @ref{List of colors},
@@ -395,7 +394,6 @@ gis4 a
 
 コード断片集:
 @rlsr{Editorial annotations}
-
 
 @cindex x11 color (X11 カラー)
 @cindex colored notes in chords (和音の中にある色付きの音符)
@@ -428,6 +426,7 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @cindex notes, ghost (ゴースト音符)
 @cindex notes, parenthesized (括弧で囲まれた音符)
 @cindex parentheses (括弧)
+@cindex brackets (囲み)
 
 @funindex \parenthesize
 @funindex parenthesize
@@ -453,7 +452,6 @@ c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
 
-
 @seealso
 コード断片集:
 @rlsr{Editorial annotations}
@@ -463,9 +461,7 @@ c2 \parenthesize r
 @rinternals{ParenthesesItem},
 @rinternals{parentheses-interface}
 
-
 @knownissues
-
 和音に括弧を付けると、和音全体に単一の大きな括弧が付くのではなく、@c
 それぞれの音符に個別に括弧が付きます。
 
@@ -509,7 +505,6 @@ c2 \parenthesize r
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
-
 
 @seealso
 記譜法リファレンス:
@@ -597,12 +592,10 @@ altered:
 }
 @end lilypond
 
-
 @predefined
 @code{\balloonLengthOn},
 @code{\balloonLengthOff}
 @endpredefined
-
 
 @seealso
 コード断片集:
@@ -669,7 +662,6 @@ altered:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
-
 @seealso
 コード断片集:
 @rlsr{Editorial annotations}
@@ -734,7 +726,6 @@ Analysis brackets may be nested.
   d4\stopGroup\stopGroup
 }
 @end lilypond
-
 
 @seealso
 コード断片集:
