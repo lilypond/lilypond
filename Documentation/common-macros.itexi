@@ -77,6 +77,11 @@
 
 @c   ***** Headers *****
 
+@c For use as the Level 5 header
+@macro subsubsubheading {TEXT}
+@subsubheading @i{\TEXT\}
+@end macro
+
 @ifclear snippets-sections
 @macro lydoctitle {TEXT}
 @need 600

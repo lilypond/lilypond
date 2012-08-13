@@ -384,7 +384,7 @@ multiple staves.
 @funindex \oneVoice
 @funindex oneVoice
 
-@strong{@i{Explicitly instantiating voices}}
+@subsubsubheading Explicitly instantiating voices
 
 The basic structure needed to achieve multiple independent
 voices in a single staff is illustrated in the following example:
@@ -408,7 +408,7 @@ automatically moved to avoid collisions.  The @code{\oneVoice}
 command returns all the voice settings to the neutral default
 directions.
 
-@strong{@i{Temporary polyphonic passages}}
+@subsubsubheading Temporary polyphonic passages
 
 A temporary polyphonic passage can be created with the following
 construct:
@@ -455,7 +455,7 @@ during and after a polyphonic section:
 Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
 required to define the settings of each voice.
 
-@strong{@i{The double backslash construct}}
+@subsubsubheading The double backslash construct
 
 The @code{<< @{...@} \\ @{...@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
@@ -500,7 +500,7 @@ In all but the simplest works it is advisable to create explicit
 @code{Voice} contexts as explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
 
-@strong{@i{Voice order}}
+@subsubsubheading Voice order
 
 When entering multiple voices in the input file, use the following
 order:
@@ -539,7 +539,7 @@ upstems, and the even-numbered voices are given downstems:
 @warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
 created @q{across} voices.}
 
-@strong{@i{Identical rhythms}}
+@subsubsubheading Identical rhythms
 
 In the special case that we want to typeset parallel pieces of music
 that have the same rhythm, we can combine them into a single

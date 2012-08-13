@@ -900,7 +900,7 @@ It may also be reversed to produce its @notation{retrograde}, see
 @warning{Any note that does not lie within the given scale will be
 left untransformed.}
 
-@subsubheading Modal transposition
+@subsubsubheading Modal transposition
 
 @cindex modal transposition
 @cindex transposition, modal
@@ -957,7 +957,7 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-@subsubheading Modal inversion
+@subsubsubheading Modal inversion
 
 @cindex modal inversion
 @cindex inversion, modal
