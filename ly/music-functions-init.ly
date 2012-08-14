@@ -335,27 +335,22 @@ endSpanners =
 #(define-music-function (parser location music) (ly:music?)
    (_i "Terminate the next spanner prematurely after exactly one note
 without the need of a specific end spanner.")
-   (if (memq (ly:music-property music 'name) '(EventChord NoteEvent))
-       (let* ((start-span-evs (filter (lambda (ev)
-					(equal? (ly:music-property ev 'span-direction)
-						START))
-				      (extract-typed-music music 'span-event)))
-	      (stop-span-evs
-	       (map (lambda (m)
-		      (let ((c (music-clone m)))
-			(set! (ly:music-property c 'span-direction) STOP)
-			c))
-		    start-span-evs))
-	      (end-ev-chord (make-music 'EventChord
-					'elements stop-span-evs))
-	      (total (make-music 'SequentialMusic
-				 'elements (list music
-						 end-ev-chord))))
-	 total)
-
-       (begin
-	 (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a") music)
-	 music)))
+   (let* ((start-span-evs (filter (lambda (ev)
+				    (equal? (ly:music-property ev 'span-direction)
+					    START))
+				  (extract-typed-music music 'span-event)))
+	  (stop-span-evs
+	   (map (lambda (m)
+		  (let ((c (music-clone m)))
+		    (set! (ly:music-property c 'span-direction) STOP)
+		    c))
+		start-span-evs))
+	  (end-ev-chord (make-music 'EventChord
+				    'elements stop-span-evs))
+	  (total (make-music 'SequentialMusic
+			     'elements (list music
+					     end-ev-chord))))
+     total))
 
 eventChords =
 #(define-music-function (parser location music) (ly:music?)
