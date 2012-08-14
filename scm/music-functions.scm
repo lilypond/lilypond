@@ -1321,33 +1321,43 @@ immediately', that is, only look at key signature.  @code{#t} is `forever'."
   (check-pitch-against-signature context pitch barnum laziness octaveness))
 
 (define (key-entry-notename entry)
-  "Return the pitch of an entry in localKeySignature.  The entry is either of the form
-  '(notename . alter) or '((octave . notename) . (alter barnum . measurepos))."
-  (if (number? (car entry))
-      (car entry)
-      (cdar entry)))
+  "Return the pitch of an @var{entry} in @code{localKeySignature}.
+The @samp{car} of the entry is either of the form @code{notename} or
+of the form @code{(octave . notename)}.  The latter form is used for special
+key signatures or to indicate an explicit accidental.
+
+The @samp{cdr} of the entry is either a rational @code{alter} indicating
+a key signature alteration, or of the form
+@code{(alter . (barnum . measurepos))} indicating an alteration caused by
+an accidental in music."
+  (if (pair? (car entry))
+      (cdar entry)
+      (car entry)))
 
 (define (key-entry-octave entry)
-  "Return the octave of an entry in localKeySignature (or #f if the entry does not have
-  an octave)."
+  "Return the octave of an entry in @code{localKeySignature}
+or @code{#f} if the entry does not have an octave.
+See @code{key-entry-notename} for details."
   (and (pair? (car entry)) (caar entry)))
 
 (define (key-entry-bar-number entry)
-  "Return the bar number of an entry in localKeySignature (or #f if the entry does not
-  have a bar number)."
-  (and (pair? (car entry)) (caddr entry)))
+  "Return the bar number of an entry in @code{localKeySignature}
+or @code {#f} if the entry does not have a bar number.
+See @code{key-entry-notename} for details."
+  (and (pair? (cdr entry)) (caddr entry)))
 
 (define (key-entry-measure-position entry)
-  "Return the measure position of an entry in localKeySignature (or #f if the entry does
-  not have a measure position)."
-  (and (pair? (car entry)) (cdddr entry)))
+  "Return the measure position of an entry in @code{localKeySignature}
+or @code {#f} if the entry does not have a measure position.
+See @code{key-entry-notename} for details."
+  (and (pair? (cdr entry)) (cdddr entry)))
 
 (define (key-entry-alteration entry)
   "Return the alteration of an entry in localKeySignature.
 
 For convenience, returns @code{0} if entry is @code{#f}."
   (if entry
-      (if (number? (car entry))
+      (if (number? (cdr entry))
 	  (cdr entry)
 	  (cadr entry))
       0))
@@ -1592,15 +1602,14 @@ Entries that conform with the current key signature are not invalidated."
     (set! (ly:context-property context 'localKeySignature)
 	  (map-in-order
 	   (lambda (entry)
-	     (let* ((localalt (key-entry-alteration entry))
-		    (localoct (key-entry-octave entry)))
+	     (let* ((localalt (key-entry-alteration entry)))
 	       (if (or (accidental-invalid? localalt)
-		       (not localoct)
+		       (not (key-entry-bar-number entry))
 		       (= localalt
 			  (key-entry-alteration
 			   (find-pitch-entry
 			    keysig
-			    (ly:make-pitch localoct
+			    (ly:make-pitch (key-entry-octave entry)
 					   (key-entry-notename entry)
 					   0)
 			    #t #t))))
