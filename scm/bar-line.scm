@@ -164,28 +164,79 @@
 
 (define (make-colon-bar-line grob)
   (let* ((staff-space (ly:staff-symbol-staff-space grob))
+         (line-thickness (ly:staff-symbol-line-thickness grob))
          (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot"))
-         (staff-symbol (get-staff-symbol grob))
-         (lines (staff-symbol-line-count staff-symbol))
+         (dot-y-length (interval-length (ly:stencil-extent dot Y)))
          (stencil empty-stencil)
-         (dist (* (if (or (odd? lines)
-                          (zero? lines))
-                      1
-                      (if (< staff-space 2)
-                          2
-                          0.5))
-                  staff-space)))
+         ;; the two dots of the repeat sign should be centred at the middle of
+         ;; the staff and neither should collide with staff lines
+         ;;
+         ;; the default distance between centre of dots is composed of
+         ;; - a staffline (with width line-thickness)
+         ;; - some space below and above dot
+         ;; - two half-dots
+         ;; and we need to measure it as line positions,
+         ;; i.e. in half staff spaces.
+         ;;
+         ;; space between dot and staffline should be comparable to staffline
+         ;; width so that a relatively common idiom
+         ;; (0.5 staff-size combined with set-layout-staff-size 10) works ok -
+         ;; that makes the choice of 1 staffline too big.
+         ;; 0.1 will be used if to be positioned between staff lines,
+         ;; dot diameter if outside staff.
+         (center 0.0)
+         (dist (* 4 dot-y-length)))
 
-        (if (zero? staff-space)
-            (set! staff-space 1.0))
+    (if (> staff-space 0)
+        (begin
+          (set! dist (/ dist staff-space))
+          (let ((staff-symbol (get-staff-symbol grob)))
 
-        (let* ((stencil (ly:stencil-add stencil dot))
-               (stencil (ly:stencil-translate-axis
-                          stencil dist Y))
-               (stencil (ly:stencil-add stencil dot))
-               (stencil (ly:stencil-translate-axis
-                          stencil (/ dist -2) Y)))
-              stencil)))
+            (if (ly:grob? staff-symbol)
+                (let ((line-pos (staff-symbol-line-positions staff-symbol)))
+
+                  (if (pair? line-pos)
+                      (begin
+                        (set! center
+                              (interval-center (staff-symbol-line-span
+                                                staff-symbol)))
+                        ;; fold the staff into two at center and find the
+                        ;; first gap big enough to hold a dot and some space
+                        ;; below and above
+                        (let* ((half-staff
+                                (sort (append (map (lambda (lp)
+                                                     (abs (- lp center)))
+                                                   line-pos)
+                                              '(0.0)) <))
+                               (gap-to-find (/ (+ dot-y-length
+                                                  (* 1.2 line-thickness))
+                                               (/ staff-space 2)))
+                               (found #f))
+
+                          ;; initialize dist for the case when both dots should
+                          ;; be outside the staff
+                          (set! dist (+ (* 2 (car (reverse half-staff)))
+                                        (/ (* 4 dot-y-length) staff-space)))
+
+                          (reduce (lambda (x y) (if (and (> (- x y) gap-to-find)
+                                                         (not found))
+                                                    (begin
+                                                      (set! found #t)
+                                                      (set! dist (+ x y))))
+                                          x)
+                                  ""
+                                  half-staff))))))))
+        (set! staff-space 1.0))
+
+    (let* ((stencil empty-stencil)
+           (stencil (ly:stencil-add stencil dot))
+           (stencil (ly:stencil-translate-axis
+                     stencil (* dist (/ staff-space 2)) Y))
+           (stencil (ly:stencil-add stencil dot))
+           (stencil (ly:stencil-translate-axis
+                     stencil (* (- center (/ dist 2))
+                                (/ staff-space 2)) Y)))
+      stencil)))
 
 (define (make-dotted-bar-line grob extent)
   (let* ((position (round (* (interval-end extent) 2)))
