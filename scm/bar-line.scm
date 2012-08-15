@@ -397,21 +397,32 @@
        (if (ly:grob? staff-symbol)
            (let* ((bar-line-color (ly:grob-property grob 'color))
                   (staff-color (ly:grob-property staff-symbol 'color))
-                  (radius (ly:staff-symbol-staff-radius grob))
-                  (staff-line-thickness (ly:staff-symbol-line-thickness grob)))
+                  (staff-line-thickness (ly:staff-symbol-line-thickness grob))
+                  (staff-space (ly:staff-symbol-staff-space grob)))
 
-                 ;; Due to rounding problems, bar lines extending to the outermost edges
-                 ;; of the staff lines appear wrongly in on-screen display
-                 ;; (and, to a lesser extent, in print) - they stick out a pixel.
-                 ;; The solution is to extend bar lines only to the middle
-                 ;; of the staff line - unless they have different colors,
-                 ;;when it would be undesirable.
                  (set! staff-extent (ly:staff-symbol::height staff-symbol))
-                 (if (and (eq? bar-line-color staff-color)
-                          radius)
+
+                 (if (zero? staff-space)
+                     (set! staff-space 1.0))
+
+                 (if (< (interval-length staff-extent) staff-space)
+                     ;; staff is too small (perhaps consists of a single line);
+                     ;; extend the bar line to make it visible
                      (set! staff-extent
-                       (interval-scale staff-extent
-                                       (- 1 (* 1/2 (/ staff-line-thickness radius))))))))
+                           (interval-widen staff-extent staff-space))
+                     ;; Due to rounding problems, bar lines extending to the outermost edges
+                     ;; of the staff lines appear wrongly in on-screen display
+                     ;; (and, to a lesser extent, in print) - they stick out a pixel.
+                     ;; The solution is to extend bar lines only to the middle
+                     ;; of the staff line - unless they have different colors,
+                     ;; when it would be undesirable.
+                     ;;
+                     ;; This reduction should not influence whether bar is to be
+                     ;; expanded later, so length is not updated on purpose.
+                     (if (eq? bar-line-color staff-color)
+                         (set! staff-extent
+                               (interval-widen staff-extent
+                                               (* -1/2 staff-line-thickness)))))))
        staff-extent))
 
 (define (bar-line::bar-y-extent grob refpoint)
