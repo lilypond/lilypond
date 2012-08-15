@@ -51,10 +51,13 @@
         (iv (cons 0.0 0.0)))
 
        (if (pair? line-pos)
-           (map (lambda (x)
-                        (set! iv (cons (min (car iv) x)
-                                       (max (cdr iv) x))))
-                line-pos)
+           (begin
+             (set! iv (cons (car line-pos) (car line-pos)))
+             (map (lambda (x)
+                    (set! iv (cons (min (car iv) x)
+                                   (max (cdr iv) x))))
+                  (cdr line-pos)))
+
            (let ((line-count (ly:grob-property grob 'line-count 0)))
 
                 (set! iv (cons (- 1 line-count)
