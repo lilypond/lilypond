@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.15.41\n"
+"Project-Id-Version: lilypond 2.15.95\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2012-07-05 20:10+0200\n"
-"PO-Revision-Date: 2012-07-08 21:01-0300\n"
+"POT-Creation-Date: 2012-08-11 14:29+0200\n"
+"PO-Revision-Date: 2012-08-14 08:38-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -16,20 +16,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: fontextract.py:25
+#: book_base.py:26
 #, python-format
-msgid "Scanning %s"
-msgstr "Skanado de %s"
+msgid "file not found: %s"
+msgstr "ne trovita dosiero: %s"
 
-#: fontextract.py:70
-#, python-format
-msgid "Extracted %s"
-msgstr "Eltirite %s"
+#: book_base.py:164
+msgid "Output function not implemented"
+msgstr "Eliga funkcio ne estas realigita"
 
-#: fontextract.py:85
+#: book_latex.py:170
+msgid "cannot find \\begin{document} in LaTeX document"
+msgstr "ne eblas trovi \\begin{document} en dokumento LaTeX"
+
+#: book_latex.py:188
 #, python-format
-msgid "Writing fonts to %s"
-msgstr "Skribado de tiparoj al %s"
+msgid "Running `%s' on file `%s' to detect default page settings.\n"
+msgstr "Aplikado de '%s' al la dosiero '%s' por detekti originalajn paĝ-agordojn.\n"
+
+#: book_latex.py:209 book_texinfo.py:228
+msgid "Unable to auto-detect default settings:\n"
+msgstr "Ne eblas mem detekti originalajn agordojn:\n"
+
+#: book_latex.py:221 book_texinfo.py:240
+#, python-format
+msgid ""
+"Unable to auto-detect default settings:\n"
+"%s"
+msgstr ""
+"Ne eblas mem detekti originalajn agordojn:\n"
+"%s"
 
 #: book_snippets.py:409
 #, python-format
@@ -102,6 +118,14 @@ msgid ""
 msgstr ""
 "%s: duobligita dosiernomo tamen kun malsama enhavo ol la konvertita dosiero\n"
 "lilypond, do ni printas 'diff' kontraŭ la ekzistanta dosiero."
+
+#. Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
+#. used to detect relative/absolute paths, so the absolute path is not
+#. detected as such and this command fails:
+#: book_texinfo.py:206
+#, python-format
+msgid "Running texi2pdf on file %s to detect default page settings.\n"
+msgstr "Aplikado de texi2pdf al la dosiero %s por detekti originalajn paĝ-agordojn.\n"
 
 #: convertrules.py:12
 #, python-format
@@ -804,14 +828,20 @@ msgstr "input/regression/beam-broken-classic.ly montras kiel rompitaj vostligoj 
 msgid "beamExceptions controls whole-measure beaming."
 msgstr "beamExceptions regas tut-mezuran vostligadon."
 
-#: book_base.py:26
+#: fontextract.py:25
 #, python-format
-msgid "file not found: %s"
-msgstr "ne trovita dosiero: %s"
+msgid "Scanning %s"
+msgstr "Skanado de %s"
 
-#: book_base.py:164
-msgid "Output function not implemented"
-msgstr "Eliga funkcio ne estas realigita"
+#: fontextract.py:70
+#, python-format
+msgid "Extracted %s"
+msgstr "Eltirite %s"
+
+#: fontextract.py:85
+#, python-format
+msgid "Writing fonts to %s"
+msgstr "Skribado de tiparoj al %s"
 
 #: lilylib.py:96
 #, python-format
@@ -900,35 +930,472 @@ msgstr "Antaŭsigna aliiga okto aperas por neekzistanta aliigo n-ro %s, disponeb
 msgid "Unable to find instrument for ID=%s\n"
 msgstr "Ne eblas trovi instrumenton por ID=%s\n"
 
-#. Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
-#. used to detect relative/absolute paths, so the absolute path is not
-#. detected as such and this command fails:
-#: book_texinfo.py:206
+#: abc2ly.py:1376 convert-ly.py:81 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
-msgid "Running texi2pdf on file %s to detect default page settings.\n"
-msgstr "Aplikado de texi2pdf al la dosiero %s por detekti originalajn paĝ-agordojn.\n"
+msgid "%s [OPTION]... FILE"
+msgstr "%s [ELEKTILO]... DOSIERO"
 
-#: book_texinfo.py:228 book_latex.py:209
-msgid "Unable to auto-detect default settings:\n"
-msgstr "Ne eblas mem detekti originalajn agordojn:\n"
-
-#: book_texinfo.py:240 book_latex.py:221
+#: abc2ly.py:1377
 #, python-format
 msgid ""
-"Unable to auto-detect default settings:\n"
-"%s"
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input.\n"
 msgstr ""
-"Ne eblas mem detekti originalajn agordojn:\n"
-"%s"
+"abc2ly konvertas muzikajn dosierojn ABC (vidu\n"
+"%s) al LilyPond-kodumaro.\n"
 
-#: book_latex.py:170
-msgid "cannot find \\begin{document} in LaTeX document"
-msgstr "ne eblas trovi \\begin{document} en dokumento LaTeX"
+#: abc2ly.py:1385 convert-ly.py:88 etf2ly.py:1208 lilypond-book.py:231
+#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:174
+msgid "show version number and exit"
+msgstr "montri versi-numeron kaj eliri"
 
-#: book_latex.py:188
+#: abc2ly.py:1388 convert-ly.py:92 etf2ly.py:1204 lilypond-book.py:140
+#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:153
+msgid "show this help and exit"
+msgstr "montri tiun ĉi helpon kaj eliri"
+
+#: abc2ly.py:1391 etf2ly.py:1209 midi2ly.py:1071
+msgid "write output to FILE"
+msgstr "skribi eligon al DOSIERO"
+
+#: abc2ly.py:1394
+msgid "be strict about success"
+msgstr "esti severa pri sukceso"
+
+#: abc2ly.py:1397
+msgid "preserve ABC's notion of beams"
+msgstr "konservi la nocion de vostligoj de ABC"
+
+#: abc2ly.py:1400
+msgid "suppress progress messages"
+msgstr "forigi mesaĝojn pri progreso"
+
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: abc2ly.py:1403 convert-ly.py:146 etf2ly.py:1218 lilypond-book.py:258
+#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:285
+#, c-format, python-format
+msgid "Report bugs via %s"
+msgstr "Raportu misojn per %s (angle)"
+
+#: convert-ly.py:46
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr ""
+"Ĝisdatigi la enigon de LilyPond al nova versio.  Apriore, ĝisdatigi de la\n"
+"versio prenita el la komando \\version, al la nuna versio de LilyPond."
+
+#: convert-ly.py:48 lilypond-book.py:82
+msgid "Examples:"
+msgstr "Ekzemploj:"
+
+#: convert-ly.py:75 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
 #, python-format
-msgid "Running `%s' on file `%s' to detect default page settings.\n"
-msgstr "Aplikado de '%s' al la dosiero '%s' por detekti originalajn paĝ-agordojn.\n"
+msgid "Copyright (c) %s by"
+msgstr "Kopirajto (c) %s de"
+
+#: convert-ly.py:77 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "Disdonata sub la kondiĉoj de la Ĝenerala Publika Permesilo de GNU."
+
+#: convert-ly.py:78 etf2ly.py:1194 lilypond-book.py:118 midi2ly.py:84
+msgid "It comes with NO WARRANTY."
+msgstr "Ĝi venas SEN iu ajn GARANTIO."
+
+#: convert-ly.py:96 convert-ly.py:137
+msgid "VERSION"
+msgstr "VERSIO"
+
+#: convert-ly.py:98
+msgid "start from VERSION [default: \\version found in file]"
+msgstr "komenci el VERSIO [apriore: \\version estis trovata en dosiero]"
+
+#: convert-ly.py:101
+msgid "edit in place"
+msgstr "redakti surloke"
+
+#: convert-ly.py:105 lilypond-book.py:179 musicxml2ly.py:2627
+msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
+msgstr "Printi protokolajn mesaĝojn laŭ PROTOKOLNIVELO (NONE, ERROR, WARNING, PROGRESS (apriore), DEBUG)"
+
+#: convert-ly.py:107 lilypond-book.py:163 lilypond-book.py:181
+#: musicxml2ly.py:2629 main.cc:167
+msgid "LOGLEVEL"
+msgstr "PROTOKOLNIVELO"
+
+#: convert-ly.py:113
+msgid "do not add \\version command if missing"
+msgstr "ne aldoni la komandon \\version se ĝi mankas"
+
+#: convert-ly.py:119
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr "perforte ĝisdatigi la numeron de \\version al %s"
+
+#: convert-ly.py:125
+msgid "only update \\version number if file is modified"
+msgstr "nur ĝisdatigi la numeron de \version se la dosiero estas modifita"
+
+#: convert-ly.py:131
+#, python-format
+msgid "show rules [default: -f 0, -t %s]"
+msgstr "montri regulojn [apriore: -f 0, -t %s]"
+
+#: convert-ly.py:136
+#, python-format
+msgid "convert to VERSION [default: %s]"
+msgstr "konverti al VERSIO [apriore: %s]"
+
+#: convert-ly.py:141 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
+#: main.cc:176
+msgid "show warranty and copyright"
+msgstr "montri garantion kaj kopirajton"
+
+#: convert-ly.py:186
+msgid "Applying conversion: "
+msgstr "Aplikado de konverto: "
+
+#: convert-ly.py:202
+msgid "Error while converting"
+msgstr "Eraro dum la konvertado"
+
+#: convert-ly.py:204
+msgid "Stopping at last successful rule"
+msgstr "Ĉeso ĉe lasta sukcesa regulo"
+
+#: convert-ly.py:231
+#, python-format
+msgid "Processing `%s'... "
+msgstr "Procezado de '%s'... "
+
+#: convert-ly.py:338
+#, python-format
+msgid "%s: Unable to open file"
+msgstr "%s: Ne eblas malfermi dosieron"
+
+#: convert-ly.py:345
+#, python-format
+msgid "%s: Unable to determine version.  Skipping"
+msgstr "%s: ne eblas determini version.  Preterpase"
+
+#: convert-ly.py:350
+#, python-format
+msgid ""
+"%s: Invalid version string `%s' \n"
+"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
+msgstr ""
+"%s: Malvalida versi-ĉeno '%s' \n"
+"Validaj versi-ĉenoj konsistas el tri numeroj, apartitaj per punktoj, t.e. '2.8.12'"
+
+#: etf2ly.py:1197
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "%s [ELEKTILO]... ETF-DOSIERO"
+
+#: etf2ly.py:1198
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
+msgstr ""
+"Enigma Transport-Formo estas formo uzata de la produkto Finale, de\n"
+"Coda Music Technology.  etf2ly konvertas subaron de ETF al tujuzebla dosiero LilyPond.\n"
+
+#: etf2ly.py:1210 midi2ly.py:1067 midi2ly.py:1072 musicxml2ly.py:2659
+#: main.cc:159 main.cc:171
+msgid "FILE"
+msgstr "DOSIERO"
+
+#: lilypond-book.py:80
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "Procezi kodaĵoj de LilyPond en miksa dokumento kun HTML, LaTeX, texinfo aŭ DocBook."
+
+#: lilypond-book.py:87
+msgid "BOOK"
+msgstr "LIBRO"
+
+#: lilypond-book.py:95
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "Elirado (%d)..."
+
+#: lilypond-book.py:127
+msgid "FILTER"
+msgstr "FILTRO"
+
+#: lilypond-book.py:130
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
+msgstr "dukti kodaĵojn tra FILTRO [apriore: convert-ly -n -]"
+
+#: lilypond-book.py:134
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr "uzi eligan formon FORMO (texi [apriore], texi-html, latex, html, docbook)"
+
+#: lilypond-book.py:135
+msgid "FORMAT"
+msgstr "FORMO"
+
+#: lilypond-book.py:142
+msgid "add DIR to include path"
+msgstr "aldoni UJO al la inkluziva vojo"
+
+#: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
+#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:158
+msgid "DIR"
+msgstr "UJO"
+
+#: lilypond-book.py:148
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr "strukturigi eligon Texinfo tiel ke Info serĉos bildojn de muziko en UJO"
+
+#: lilypond-book.py:155
+msgid "PAD"
+msgstr "SHOV"
+
+#: lilypond-book.py:157
+msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
+msgstr "ŝovi maldekstran flankon de muziko por rektigi ĝin malgraŭ la ne egalaj mezur-numeroj (en mm)"
+
+#: lilypond-book.py:162
+msgid "Print lilypond log messages according to LOGLEVEL"
+msgstr "Printi protokol-mesaĝojn de lilypond laŭ PROTOKOLNIVELO"
+
+#: lilypond-book.py:168
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr "skribi dosierojn lily-XXX al UJO, ligi al la dosierujo de --output"
+
+#: lilypond-book.py:173
+msgid "Load the additional python PACKAGE (containing e.g. a custom output format)"
+msgstr "Ŝargi je la kroma PAKO de python (enhavanta ekz. propran elig-formon)"
+
+#: lilypond-book.py:174
+msgid "PACKAGE"
+msgstr "PAKO"
+
+#: lilypond-book.py:186
+msgid "write output to DIR"
+msgstr "skribi eligon al UJO"
+
+#: lilypond-book.py:191
+msgid "COMMAND"
+msgstr "KOMANDO"
+
+#: lilypond-book.py:192
+msgid "process ly_files using COMMAND FILE..."
+msgstr "procezi ly_files uzante: KOMANDO DOSIERO..."
+
+#: lilypond-book.py:197
+msgid "Redirect the lilypond output"
+msgstr "Rekonduki la eligon de lilypond"
+
+#: lilypond-book.py:201
+msgid "Compile snippets in safe mode"
+msgstr "Kompili kodaĵojn per sekura reĝimo"
+
+#: lilypond-book.py:207
+msgid "do not fail if no lilypond output is found"
+msgstr "ne fiaski se neniu eligo de lilypond estos trovata"
+
+#: lilypond-book.py:213
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr "ne fiaski se neniu bildo PNG estos trovata por dosieroj EPS"
+
+#: lilypond-book.py:219
+msgid "write snippet output files with the same base name as their source file"
+msgstr "skribi kodaĵajn eligajn dosierojn per la sama baznomo kiel ilia fonta dosiero"
+
+#: lilypond-book.py:223 midi2ly.py:1090 musicxml2ly.py:2596
+msgid "be verbose"
+msgstr "esti detalema"
+
+#: lilypond-book.py:239
+msgid ""
+"run executable PROG instead of latex, or in\n"
+"case --pdf option is set instead of pdflatex"
+msgstr ""
+"lanĉi la programon PROG anstataŭ latex, aŭ okaze\n"
+"de elektilo --pdf estos uzata, anstataŭ pdflatex"
+
+#: lilypond-book.py:241 lilypond-book.py:246
+msgid "PROG"
+msgstr "PROG"
+
+#: lilypond-book.py:245
+msgid "run executable PROG instead of texi2pdf"
+msgstr "lanĉi la programon PROG anstataŭ texi2pdf"
+
+#: lilypond-book.py:252
+msgid "create PDF files for use with PDFTeX"
+msgstr "krei dosierojn PDF por uzi kun PDFTeX"
+
+#: lilypond-book.py:455
+msgid "Writing snippets..."
+msgstr "Skribado de kodaĵojn..."
+
+#: lilypond-book.py:460
+msgid "Processing..."
+msgstr "Procezado..."
+
+#: lilypond-book.py:465
+msgid "All snippets are up to date..."
+msgstr "Ĉiuj kodaĵoj estas ĝisdataj..."
+
+#: lilypond-book.py:467
+msgid "Linking files..."
+msgstr "Kunligado de dosieroj..."
+
+#: lilypond-book.py:487
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr "ne eblas determini la formon por: %s"
+
+#: lilypond-book.py:496
+#, python-format
+msgid "%s is up to date."
+msgstr "%s estas ĝisdata."
+
+#: lilypond-book.py:509
+#, python-format
+msgid "Writing `%s'..."
+msgstr "Skribado de '%s'..."
+
+#: lilypond-book.py:570
+msgid "Output would overwrite input file; use --output."
+msgstr "Eligo povos anstataŭigi enig-dosieron; uzu --output."
+
+#: lilypond-book.py:574
+#, python-format
+msgid "Reading %s..."
+msgstr "Legado de %s..."
+
+#: lilypond-book.py:581
+msgid "Dissecting..."
+msgstr "Analizado..."
+
+#: lilypond-book.py:592
+#, python-format
+msgid "Compiling %s..."
+msgstr "Kompilado %s..."
+
+#: lilypond-book.py:600
+#, python-format
+msgid "Processing include: %s"
+msgstr "Procezado de inkluzivigo: %s"
+
+#: lilypond-book.py:611
+#, python-format
+msgid "Removing `%s'"
+msgstr "Forigado de '%s'"
+
+#: lilypond-book.py:704
+#, python-format
+msgid "Setting LilyPond's loglevel to %s"
+msgstr "Difinado de protokolnivelo de LilyPond al %s"
+
+#: lilypond-book.py:708
+#, python-format
+msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
+msgstr "Difinado de protokolnivelo de LilyPond al %s (el medi-variablo LILYPOND_LOGLEVEL)"
+
+#: lilypond-book.py:711
+msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
+msgstr "Difinado de eligo de LilyPond al --verbose, implicite de la agordoj de lilypond-book"
+
+#: midi2ly.py:90
+msgid "warning: "
+msgstr "averto: "
+
+#: midi2ly.py:93 midi2ly.py:1124
+msgid "error: "
+msgstr "eraro: "
+
+#: midi2ly.py:94
+msgid "Exiting... "
+msgstr "Elirado... "
+
+#: midi2ly.py:835
+msgid "found more than 5 voices on a staff, expect bad output"
+msgstr "estis trovataj pli ol 5 vocôj en liniaro, atendu malbonan eligon"
+
+#: midi2ly.py:1032
+#, python-format
+msgid "%s output to `%s'..."
+msgstr "eligo %s al '%s'..."
+
+#: midi2ly.py:1045
+#, python-format
+msgid "Convert %s to LilyPond input.\n"
+msgstr "Konverti %s al LilyPond-kodumaro.\n"
+
+#: midi2ly.py:1050
+msgid "print absolute pitches"
+msgstr "printi absolutajn tonaltojn"
+
+#: midi2ly.py:1052 midi2ly.py:1080
+msgid "DUR"
+msgstr "DUR"
+
+#: midi2ly.py:1053
+msgid "quantise note durations on DUR"
+msgstr "proksimigi noto-daŭroj per DUR"
+
+#: midi2ly.py:1056
+msgid "debug printing"
+msgstr "rafiniga printado"
+
+#: midi2ly.py:1059
+msgid "print explicit durations"
+msgstr "printi malimplicajn daŭrojn"
+
+#: midi2ly.py:1064
+msgid "prepend FILE to output"
+msgstr "antaŭmeti DOSIEROn al la eligo"
+
+#: midi2ly.py:1068
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "difini klavon: ALT=+diesoj|-bemoloj; MINOR=1"
+
+#: midi2ly.py:1069
+msgid "ALT[:MINOR]"
+msgstr "ALT[:MINOR]"
+
+#: midi2ly.py:1074
+msgid "preview of first 4 bars"
+msgstr "antaŭvido de la unuaj 4 mezuroj"
+
+#: midi2ly.py:1078
+msgid "suppress progress messages and warnings about excess voices"
+msgstr "forigi mesaĝojn pri progreso kaj avertojn pri troaj voĉoj"
+
+#: midi2ly.py:1079
+msgid "quantise note starts on DUR"
+msgstr "proksimigi noto-komencojn je DUR"
+
+#: midi2ly.py:1083
+msgid "use s instead of r for rests"
+msgstr "uzi s anstataŭ r por paŭzoj"
+
+#: midi2ly.py:1085
+msgid "DUR*NUM/DEN"
+msgstr "DUR*NUM/DEN"
+
+#: midi2ly.py:1088
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "ebligi opigajn daŭrojn DUR*NUM/DEN"
+
+#: midi2ly.py:1098
+msgid "treat every text as a lyric"
+msgstr "trakti ĉiun tekston kiel muzikan"
+
+#: midi2ly.py:1101
+msgid "Examples"
+msgstr "Ekzemploj"
+
+#: midi2ly.py:1125
+msgid "no files specified on command line."
+msgstr "neniu dosiero estis indikata per la komandlinio."
 
 #: musicxml2ly.py:228
 #, python-format
@@ -1049,11 +1516,6 @@ msgstr ""
 "Konverti MusicXML de DOSIERO.xml al LilyPond-kodumaro.\n"
 "Se la indikata dosiernomo estos -, musicxml2ly legos el la komandlinio.\n"
 
-#: musicxml2ly.py:2572 midi2ly.py:1062 abc2ly.py:1388 lilypond-book.py:140
-#: convert-ly.py:92 etf2ly.py:1204 main.cc:153
-msgid "show this help and exit"
-msgstr "montri tiun ĉi helpon kaj eliri"
-
 #: musicxml2ly.py:2576
 msgid ""
 "Copyright (c) 2005--2012 by\n"
@@ -1065,15 +1527,6 @@ msgstr ""
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> kaj\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
-
-#: musicxml2ly.py:2590 midi2ly.py:1095 abc2ly.py:1385 lilypond-book.py:231
-#: convert-ly.py:88 etf2ly.py:1208 main.cc:174
-msgid "show version number and exit"
-msgstr "montri versi-numeron kaj eliri"
-
-#: musicxml2ly.py:2596 midi2ly.py:1090 lilypond-book.py:223
-msgid "be verbose"
-msgstr "esti detalema"
 
 #: musicxml2ly.py:2602
 msgid "use lxml.etree; uses less memory and cpu time"
@@ -1099,15 +1552,6 @@ msgstr "LINGVO"
 msgid "use LANG for pitch names, e.g. 'deutsch' for note names in German"
 msgstr "uzi LANG por tonalt-nomoj, ekz. 'deutsch' por not-nomoj en la germana"
 
-#: musicxml2ly.py:2627 lilypond-book.py:179 convert-ly.py:105
-msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
-msgstr "Printi protokolajn mesaĝojn laŭ PROTOKOLNIVELO (NONE, ERROR, WARNING, PROGRESS (apriore), DEBUG)"
-
-#: musicxml2ly.py:2629 lilypond-book.py:163 lilypond-book.py:181
-#: convert-ly.py:107 main.cc:167
-msgid "LOGLEVEL"
-msgstr "PROTOKOLNIVELO"
-
 #: musicxml2ly.py:2638
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
 msgstr "ne konverti direktojn (^, _ aŭ -) por artikulacioj, dinamikoj , ktp."
@@ -1124,11 +1568,6 @@ msgstr "ne konverti la ĝustajn paĝajn aranĝon kaj saltojn"
 msgid "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr "ne konverti vostligan informon, uzi aŭtomatan vostligadon de lilypond anstataŭe"
 
-#: musicxml2ly.py:2659 midi2ly.py:1067 midi2ly.py:1072 etf2ly.py:1210
-#: main.cc:159 main.cc:171
-msgid "FILE"
-msgstr "DOSIERO"
-
 #: musicxml2ly.py:2664
 msgid "set output filename to FILE, stdout if -"
 msgstr "difini eligan dosiernomon kiel DOSIEROn, kaj norman eligon se -"
@@ -1136,16 +1575,6 @@ msgstr "difini eligan dosiernomon kiel DOSIEROn, kaj norman eligon se -"
 #: musicxml2ly.py:2670
 msgid "activate midi-block"
 msgstr "aktivigi midi-blokon"
-
-#. Translators, please translate this string as
-#. "Report bugs in English via %s",
-#. or if there is a LilyPond users list or forum in your language
-#. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: musicxml2ly.py:2674 midi2ly.py:1107 abc2ly.py:1403 lilypond-book.py:258
-#: convert-ly.py:146 etf2ly.py:1218 main.cc:285
-#, c-format, python-format
-msgid "Report bugs via %s"
-msgstr "Raportu misojn per %s (angle)"
 
 #: musicxml2ly.py:2754
 #, python-format
@@ -1180,435 +1609,6 @@ msgstr "Eligo al '%s'"
 msgid "Unable to find input file %s"
 msgstr "Ne eblas trovi la enig-dosieron %s"
 
-#: midi2ly.py:81 lilypond-book.py:115 convert-ly.py:75 etf2ly.py:1191
-#, python-format
-msgid "Copyright (c) %s by"
-msgstr "Kopirajto (c) %s de"
-
-#: midi2ly.py:83 lilypond-book.py:117 convert-ly.py:77 etf2ly.py:1193
-msgid "Distributed under terms of the GNU General Public License."
-msgstr "Disdonata sub la kondiĉoj de la Ĝenerala Publika Permesilo de GNU."
-
-#: midi2ly.py:84 lilypond-book.py:118 convert-ly.py:78 etf2ly.py:1194
-msgid "It comes with NO WARRANTY."
-msgstr "Ĝi venas SEN iu ajn GARANTIO."
-
-#: midi2ly.py:90
-msgid "warning: "
-msgstr "averto: "
-
-#: midi2ly.py:93 midi2ly.py:1124
-msgid "error: "
-msgstr "eraro: "
-
-#: midi2ly.py:94
-msgid "Exiting... "
-msgstr "Elirado... "
-
-#: midi2ly.py:835
-msgid "found more than 5 voices on a staff, expect bad output"
-msgstr "estis trovataj pli ol 5 vocôj en liniaro, atendu malbonan eligon"
-
-#: midi2ly.py:1032
-#, python-format
-msgid "%s output to `%s'..."
-msgstr "eligo %s al '%s'..."
-
-#: midi2ly.py:1044 abc2ly.py:1376 lilypond-book.py:122 convert-ly.py:81
-#, python-format
-msgid "%s [OPTION]... FILE"
-msgstr "%s [ELEKTILO]... DOSIERO"
-
-#: midi2ly.py:1045
-#, python-format
-msgid "Convert %s to LilyPond input.\n"
-msgstr "Konverti %s al LilyPond-kodumaro.\n"
-
-#: midi2ly.py:1050
-msgid "print absolute pitches"
-msgstr "printi absolutajn tonaltojn"
-
-#: midi2ly.py:1052 midi2ly.py:1080
-msgid "DUR"
-msgstr "DUR"
-
-#: midi2ly.py:1053
-msgid "quantise note durations on DUR"
-msgstr "proksimigi noto-daŭroj per DUR"
-
-#: midi2ly.py:1056
-msgid "debug printing"
-msgstr "rafiniga printado"
-
-#: midi2ly.py:1059
-msgid "print explicit durations"
-msgstr "printi malimplicajn daŭrojn"
-
-#: midi2ly.py:1064
-msgid "prepend FILE to output"
-msgstr "antaŭmeti DOSIEROn al la eligo"
-
-#: midi2ly.py:1068
-msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "difini klavon: ALT=+diesoj|-bemoloj; MINOR=1"
-
-#: midi2ly.py:1069
-msgid "ALT[:MINOR]"
-msgstr "ALT[:MINOR]"
-
-#: midi2ly.py:1071 abc2ly.py:1391 etf2ly.py:1209
-msgid "write output to FILE"
-msgstr "skribi eligon al DOSIERO"
-
-#: midi2ly.py:1074
-msgid "preview of first 4 bars"
-msgstr "antaŭvido de la unuaj 4 mezuroj"
-
-#: midi2ly.py:1078
-msgid "suppress progress messages and warnings about excess voices"
-msgstr "forigi mesaĝojn pri progreso kaj avertojn pri troaj voĉoj"
-
-#: midi2ly.py:1079
-msgid "quantise note starts on DUR"
-msgstr "proksimigi noto-komencojn je DUR"
-
-#: midi2ly.py:1083
-msgid "use s instead of r for rests"
-msgstr "uzi s anstataŭ r por paŭzoj"
-
-#: midi2ly.py:1085
-msgid "DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN"
-
-#: midi2ly.py:1088
-msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "ebligi opigajn daŭrojn DUR*NUM/DEN"
-
-#: midi2ly.py:1096 lilypond-book.py:234 convert-ly.py:141 etf2ly.py:1212
-#: main.cc:176
-msgid "show warranty and copyright"
-msgstr "montri garantion kaj kopirajton"
-
-#: midi2ly.py:1098
-msgid "treat every text as a lyric"
-msgstr "trakti ĉiun tekston kiel muzikan"
-
-#: midi2ly.py:1101
-msgid "Examples"
-msgstr "Ekzemploj"
-
-#: midi2ly.py:1125
-msgid "no files specified on command line."
-msgstr "neniu dosiero estis indikata per la komandlinio."
-
-#: abc2ly.py:1377
-#, python-format
-msgid ""
-"abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input.\n"
-msgstr ""
-"abc2ly konvertas muzikajn dosierojn ABC (vidu\n"
-"%s) al LilyPond-kodumaro.\n"
-
-#: abc2ly.py:1394
-msgid "be strict about success"
-msgstr "esti severa pri sukceso"
-
-#: abc2ly.py:1397
-msgid "preserve ABC's notion of beams"
-msgstr "konservi la nocion de vostligoj de ABC"
-
-#: abc2ly.py:1400
-msgid "suppress progress messages"
-msgstr "forigi mesaĝojn pri progreso"
-
-#: lilypond-book.py:80
-msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
-msgstr "Procezi kodaĵoj de LilyPond en miksa dokumento kun HTML, LaTeX, texinfo aŭ DocBook."
-
-#: lilypond-book.py:82 convert-ly.py:48
-msgid "Examples:"
-msgstr "Ekzemploj:"
-
-#: lilypond-book.py:87
-msgid "BOOK"
-msgstr "LIBRO"
-
-#: lilypond-book.py:95
-#, python-format
-msgid "Exiting (%d)..."
-msgstr "Elirado (%d)..."
-
-#: lilypond-book.py:127
-msgid "FILTER"
-msgstr "FILTRO"
-
-#: lilypond-book.py:130
-msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
-msgstr "dukti kodaĵojn tra FILTRO [apriore: convert-ly -n -]"
-
-#: lilypond-book.py:134
-msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
-msgstr "uzi eligan formon FORMO (texi [apriore], texi-html, latex, html, docbook)"
-
-#: lilypond-book.py:135
-msgid "FORMAT"
-msgstr "FORMO"
-
-#: lilypond-book.py:142
-msgid "add DIR to include path"
-msgstr "aldoni UJO al la inkluziva vojo"
-
-#: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
-#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:158
-msgid "DIR"
-msgstr "UJO"
-
-#: lilypond-book.py:148
-msgid "format Texinfo output so that Info will look for images of music in DIR"
-msgstr "strukturigi eligon Texinfo tiel ke Info serĉos bildojn de muziko en UJO"
-
-#: lilypond-book.py:155
-msgid "PAD"
-msgstr "SHOV"
-
-#: lilypond-book.py:157
-msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
-msgstr "ŝovi maldekstran flankon de muziko por rektigi ĝin malgraŭ la ne egalaj mezur-numeroj (en mm)"
-
-#: lilypond-book.py:162
-msgid "Print lilypond log messages according to LOGLEVEL"
-msgstr "Printi protokol-mesaĝojn de lilypond laŭ PROTOKOLNIVELO"
-
-#: lilypond-book.py:168
-msgid "write lily-XXX files to DIR, link into --output dir"
-msgstr "skribi dosierojn lily-XXX al UJO, ligi al la dosierujo de --output"
-
-#: lilypond-book.py:173
-msgid "Load the additional python PACKAGE (containing e.g. a custom output format)"
-msgstr "Ŝargi je la kroma PAKO de python (enhavanta ekz. propran elig-formon)"
-
-#: lilypond-book.py:174
-msgid "PACKAGE"
-msgstr "PAKO"
-
-#: lilypond-book.py:186
-msgid "write output to DIR"
-msgstr "skribi eligon al UJO"
-
-#: lilypond-book.py:191
-msgid "COMMAND"
-msgstr "KOMANDO"
-
-#: lilypond-book.py:192
-msgid "process ly_files using COMMAND FILE..."
-msgstr "procezi ly_files uzante: KOMANDO DOSIERO..."
-
-#: lilypond-book.py:197
-msgid "Redirect the lilypond output"
-msgstr "Rekonduki la eligon de lilypond"
-
-#: lilypond-book.py:201
-msgid "Compile snippets in safe mode"
-msgstr "Kompili kodaĵojn per sekura reĝimo"
-
-#: lilypond-book.py:207
-msgid "do not fail if no lilypond output is found"
-msgstr "ne fiaski se neniu eligo de lilypond estos trovata"
-
-#: lilypond-book.py:213
-msgid "do not fail if no PNG images are found for EPS files"
-msgstr "ne fiaski se neniu bildo PNG estos trovata por dosieroj EPS"
-
-#: lilypond-book.py:219
-msgid "write snippet output files with the same base name as their source file"
-msgstr "skribi kodaĵajn eligajn dosierojn per la sama baznomo kiel ilia fonta dosiero"
-
-#: lilypond-book.py:239
-msgid ""
-"run executable PROG instead of latex, or in\n"
-"case --pdf option is set instead of pdflatex"
-msgstr ""
-"lanĉi la programon PROG anstataŭ latex, aŭ okaze\n"
-"de elektilo --pdf estos uzata, anstataŭ pdflatex"
-
-#: lilypond-book.py:241 lilypond-book.py:246
-msgid "PROG"
-msgstr "PROG"
-
-#: lilypond-book.py:245
-msgid "run executable PROG instead of texi2pdf"
-msgstr "lanĉi la programon PROG anstataŭ texi2pdf"
-
-#: lilypond-book.py:252
-msgid "create PDF files for use with PDFTeX"
-msgstr "krei dosierojn PDF por uzi kun PDFTeX"
-
-#: lilypond-book.py:455
-msgid "Writing snippets..."
-msgstr "Skribado de kodaĵojn..."
-
-#: lilypond-book.py:460
-msgid "Processing..."
-msgstr "Procezado..."
-
-#: lilypond-book.py:465
-msgid "All snippets are up to date..."
-msgstr "Ĉiuj kodaĵoj estas ĝisdataj..."
-
-#: lilypond-book.py:467
-msgid "Linking files..."
-msgstr "Kunligado de dosieroj..."
-
-#: lilypond-book.py:487
-#, python-format
-msgid "cannot determine format for: %s"
-msgstr "ne eblas determini la formon por: %s"
-
-#: lilypond-book.py:496
-#, python-format
-msgid "%s is up to date."
-msgstr "%s estas ĝisdata."
-
-#: lilypond-book.py:509
-#, python-format
-msgid "Writing `%s'..."
-msgstr "Skribado de '%s'..."
-
-#: lilypond-book.py:570
-msgid "Output would overwrite input file; use --output."
-msgstr "Eligo povos anstataŭigi enig-dosieron; uzu --output."
-
-#: lilypond-book.py:574
-#, python-format
-msgid "Reading %s..."
-msgstr "Legado de %s..."
-
-#: lilypond-book.py:581
-msgid "Dissecting..."
-msgstr "Analizado..."
-
-#: lilypond-book.py:592
-#, python-format
-msgid "Compiling %s..."
-msgstr "Kompilado %s..."
-
-#: lilypond-book.py:600
-#, python-format
-msgid "Processing include: %s"
-msgstr "Procezado de inkluzivigo: %s"
-
-#: lilypond-book.py:611
-#, python-format
-msgid "Removing `%s'"
-msgstr "Forigado de '%s'"
-
-#: lilypond-book.py:704
-#, python-format
-msgid "Setting LilyPond's loglevel to %s"
-msgstr "Difinado de protokolnivelo de LilyPond al %s"
-
-#: lilypond-book.py:708
-#, python-format
-msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
-msgstr "Difinado de protokolnivelo de LilyPond al %s (el medi-variablo LILYPOND_LOGLEVEL)"
-
-#: lilypond-book.py:711
-msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
-msgstr "Difinado de eligo de LilyPond al --verbose, implicite de la agordoj de lilypond-book"
-
-#: convert-ly.py:46
-msgid ""
-"Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version."
-msgstr ""
-"Ĝisdatigi la enigon de LilyPond al nova versio.  Apriore, ĝisdatigi de la\n"
-"versio prenita el la komando \\version, al la nuna versio de LilyPond."
-
-#: convert-ly.py:96 convert-ly.py:137
-msgid "VERSION"
-msgstr "VERSIO"
-
-#: convert-ly.py:98
-msgid "start from VERSION [default: \\version found in file]"
-msgstr "komenci el VERSIO [apriore: \\version estis trovata en dosiero]"
-
-#: convert-ly.py:101
-msgid "edit in place"
-msgstr "redakti surloke"
-
-#: convert-ly.py:113
-msgid "do not add \\version command if missing"
-msgstr "ne aldoni la komandon \\version se ĝi mankas"
-
-#: convert-ly.py:119
-#, python-format
-msgid "force updating \\version number to %s"
-msgstr "perforte ĝisdatigi la numeron de \\version al %s"
-
-#: convert-ly.py:125
-msgid "only update \\version number if file is modified"
-msgstr "nur ĝisdatigi la numeron de \version se la dosiero estas modifita"
-
-#: convert-ly.py:131
-#, python-format
-msgid "show rules [default: -f 0, -t %s]"
-msgstr "montri regulojn [apriore: -f 0, -t %s]"
-
-#: convert-ly.py:136
-#, python-format
-msgid "convert to VERSION [default: %s]"
-msgstr "konverti al VERSIO [apriore: %s]"
-
-#: convert-ly.py:186
-msgid "Applying conversion: "
-msgstr "Aplikado de konverto: "
-
-#: convert-ly.py:202
-msgid "Error while converting"
-msgstr "Eraro dum la konvertado"
-
-#: convert-ly.py:204
-msgid "Stopping at last successful rule"
-msgstr "Ĉeso ĉe lasta sukcesa regulo"
-
-#: convert-ly.py:231
-#, python-format
-msgid "Processing `%s'... "
-msgstr "Procezado de '%s'... "
-
-#: convert-ly.py:338
-#, python-format
-msgid "%s: Unable to open file"
-msgstr "%s: Ne eblas malfermi dosieron"
-
-#: convert-ly.py:345
-#, python-format
-msgid "%s: Unable to determine version.  Skipping"
-msgstr "%s: ne eblas determini version.  Preterpase"
-
-#: convert-ly.py:350
-#, python-format
-msgid ""
-"%s: Invalid version string `%s' \n"
-"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
-msgstr ""
-"%s: Malvalida versi-ĉeno '%s' \n"
-"Validaj versi-ĉenoj konsistas el tri numeroj, apartitaj per punktoj, t.e. '2.8.12'"
-
-#: etf2ly.py:1197
-#, python-format
-msgid "%s [OPTION]... ETF-FILE"
-msgstr "%s [ELEKTILO]... ETF-DOSIERO"
-
-#: etf2ly.py:1198
-msgid ""
-"Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
-msgstr ""
-"Enigma Transport-Formo estas formo uzata de la produkto Finale, de\n"
-"Coda Music Technology.  etf2ly konvertas subaron de ETF al tujuzebla dosiero LilyPond.\n"
-
 #: website_post.py:123
 msgid "English"
 msgstr "Angla"
@@ -1621,6 +1621,26 @@ msgstr "Aliaj lingvoj"
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr "Pri <a href=\"%s\">aŭtomata elekto de lingvo</a>."
+
+#: getopt-long.cc:153
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "la elektilo '%s' postulas argumenton"
+
+#: getopt-long.cc:157
+#, c-format
+msgid "option `%s' does not allow an argument"
+msgstr "la elektilo '%s' ne permesas argumenton"
+
+#: getopt-long.cc:161
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "nerekonata elektilo: '%s'"
+
+#: getopt-long.cc:167
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "malvalida argumento '%s' por la elektilo '%s'"
 
 #: warn.cc:56
 #, c-format
@@ -1667,29 +1687,117 @@ msgstr "formetita eraro: %s"
 msgid "suppressed warning: %s"
 msgstr "formetita averto: %s"
 
-#: getopt-long.cc:153
+#: accidental-engraver.cc:180
 #, c-format
-msgid "option `%s' requires an argument"
-msgstr "la elektilo '%s' postulas argumenton"
+msgid "accidental typesetting list must begin with context-name: %s"
+msgstr "kromsigna kompostada listo devas komenci per kuntekst-nomo': %s"
 
-#: getopt-long.cc:157
+#: accidental-engraver.cc:210
 #, c-format
-msgid "option `%s' does not allow an argument"
-msgstr "la elektilo '%s' ne permesas argumenton"
+msgid "procedure or context-name expected for accidental rule, found %s"
+msgstr "proceduro aŭ kuntekst-nomo estis atendata por kromsigna regulo, trovite %s"
 
-#: getopt-long.cc:161
+#: accidental.cc:200
 #, c-format
-msgid "unrecognized option: `%s'"
-msgstr "nerekonata elektilo: '%s'"
+msgid "Could not find glyph-name for alteration %s"
+msgstr "Ne eblis trovi 'glyph-name' por aliigo %s"
 
-#: getopt-long.cc:167
+#: accidental.cc:215
+msgid "natural alteration glyph not found"
+msgstr "signobildo de natura aliigo ne estis trovata"
+
+#: all-font-metrics.cc:149
 #, c-format
-msgid "invalid argument `%s' to option `%s'"
-msgstr "malvalida argumento '%s' por la elektilo '%s'"
+msgid "cannot find font: `%s'"
+msgstr "ne eblas trovi tiparon: '%s'"
 
-#: input.cc:138 source-file.cc:178 source-file.cc:193
-msgid "position unknown"
-msgstr "nekonata pozicio"
+#: apply-context-iterator.cc:42
+msgid "\\applycontext argument is not a procedure"
+msgstr "argumento de \\applycontext ne estas proceduro"
+
+#: arpeggio.cc:115
+msgid "no heads for arpeggio found?"
+msgstr "ĉu neniu kapo por arpeĝo trovite?"
+
+#: auto-change-iterator.cc:74 change-iterator.cc:72
+#, c-format
+msgid "cannot change, already in translator: %s"
+msgstr "ne eblas ŝanĝi, jam estas en tradukilo: %s"
+
+#: axis-group-engraver.cc:94
+msgid "Axis_group_engraver: vertical group already has a parent"
+msgstr "Axis_group_engraver: vertikala grupo jam havas praulon"
+
+#: axis-group-engraver.cc:95
+msgid "are there two Axis_group_engravers?"
+msgstr "ĉu estas du 'Axis_group_engraver'?"
+
+#: axis-group-engraver.cc:96
+msgid "removing this vertical group"
+msgstr "forigado de tiu ĉi vertikala grupo"
+
+#: axis-group-interface.cc:668
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr "objekto 'outside-staff' devas havi direkton, ni aprioras supren"
+
+#: bar-check-iterator.cc:84
+#, c-format
+msgid "barcheck failed at: %s"
+msgstr "mezur-kontrolo fiaskis ĉe: %s"
+
+#: beam-engraver.cc:147
+msgid "already have a beam"
+msgstr "jam ekzistas vostligo"
+
+#: beam-engraver.cc:230
+msgid "unterminated beam"
+msgstr "nefinigita vostligo"
+
+#: beam-engraver.cc:266 chord-tremolo-engraver.cc:149
+msgid "stem must have Rhythmic structure"
+msgstr "stango devas havi strukturon 'Rhythmic'"
+
+#: beam-engraver.cc:277
+msgid "stem does not fit in beam"
+msgstr "stango ne adaptiĝas en vostligo"
+
+#: beam-engraver.cc:278
+msgid "beam was started here"
+msgstr "vostligo estis ekigata ĉi tie"
+
+#. We are completely screwed.
+#: beam-quanting.cc:839
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "neniu realigebla ek-agordado estis trovata: eble ne estos trovata bona vostliga inklino"
+
+#: beam.cc:181
+msgid "removing beam with no stems"
+msgstr "ni forigas vostligon sen stangoj"
+
+#: change-iterator.cc:34
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr "ne eblas ŝanĝi '%s' al '%s'"
+
+#. FIXME: constant error message.
+#: change-iterator.cc:93
+msgid "cannot find context to switch to"
+msgstr "ne eblas trovi kuntekston por alternative uzi"
+
+#. We could change the current translator's id, but that would make
+#. errors hard to catch.
+#.
+#. last->translator_id_string () = get_change
+#. ()->change_to_id_string ();
+#: change-iterator.cc:102
+#, c-format
+msgid "not changing to same context type: %s"
+msgstr "ni ne ŝanĝas al sama kunteksta tipo: %s"
+
+#. FIXME: uncomprehensable message
+#: change-iterator.cc:106
+msgid "none of these in my family"
+msgstr "neniu el tiuj ĉi en mia familio"
 
 #: chord-tremolo-engraver.cc:88
 msgid "No tremolo to end"
@@ -1699,84 +1807,33 @@ msgstr "Neniu tremsono por finigi"
 msgid "unterminated chord tremolo"
 msgstr "nefinita akorda tremsono"
 
-#: chord-tremolo-engraver.cc:149 beam-engraver.cc:266
-msgid "stem must have Rhythmic structure"
-msgstr "stango devas havi strukturon 'Rhythmic'"
-
-#: flag.cc:113
+#: clef.cc:65
 #, c-format
-msgid "flag `%s' not found"
-msgstr "flago '%s' ne estis trovata"
+msgid "clef `%s' not found"
+msgstr "klefo '%s' ne estis trovata"
 
-#: flag.cc:133
+#: cluster.cc:120
 #, c-format
-msgid "flag stroke `%s' not found"
-msgstr "flag-streko '%s' ne estis trovata"
+msgid "unknown cluster style `%s'"
+msgstr "nekonata faska stilo '%s'"
 
-#: vaticana-ligature.cc:94
-msgid "flexa-height undefined; assuming 0"
-msgstr "'flexa-height' ne difinita; ni uzas 0"
+#: cluster.cc:157
+msgid "junking empty cluster"
+msgstr "forĵetado de malplena fasko"
 
-#: vaticana-ligature.cc:99
-msgid "ascending vaticana style flexa"
-msgstr "kreskanta vatikana stilo 'flexa'"
-
-#: slur.cc:430
+#: coherent-ligature-engraver.cc:110
 #, c-format
-msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
-msgstr "Preteratento de 'grob' por ligarko: %s. Ĉu 'avoid-slur' ne estas difinita?"
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgstr "Coherent_ligature_engraver: difinado de 'spacing-increment=0.01': ptr=%ul"
 
-#: translator-group.cc:188
-#, c-format
-msgid "cannot find: `%s'"
-msgstr "ne eblas trovi: '%s'"
+#. if we get to here, just put everything on one line
+#: constrained-breaking.cc:187 constrained-breaking.cc:205
+msgid "cannot find line breaking that satisfies constraints"
+msgstr "ne eblas trovi lini-salton kiu kontentigas limigojn"
 
-#: hyphen-engraver.cc:104
-msgid "removing unterminated hyphen"
-msgstr "forigo de nefinigita streketo"
-
-#: hyphen-engraver.cc:118
-msgid "unterminated hyphen; removing"
-msgstr "nefinigita streketo; ni forigas"
-
-#: page-layout-problem.cc:403
-msgid "A page layout problem has been initiated that cannot accommodate footnotes."
-msgstr "Paĝ-aranĝa problemo estis ekigata, kaj ĝi ne povas enteni piednotojn."
-
-#: page-layout-problem.cc:721
-msgid "cannot fit music on page: ragged-spacing was requested, but page was compressed"
-msgstr "ne eblas akomodi muzikon sur paĝo: 'ragged-spacing' estis petata, sed la paĝo estis densigata"
-
-#: page-layout-problem.cc:724
-#, c-format
-msgid "cannot fit music on page: overflow is %f"
-msgstr "ne eblas akomodi muzikon sur paĝo: troo estas %f"
-
-#: page-layout-problem.cc:726
-msgid "compressing music to fit"
-msgstr "densigado de muziko por akomodi"
-
-#: page-layout-problem.cc:1188
-msgid "staff-affinities should only decrease"
-msgstr "'staff-affinities' devus nur malpliigi"
-
-#: arpeggio.cc:115
-msgid "no heads for arpeggio found?"
-msgstr "ĉu neniu kapo por arpeĝo trovite?"
-
-#: lyric-combine-music-iterator.cc:199
-msgid "argument of \\lyricsto should contain Lyrics context"
-msgstr "argumento de \\lyricsto devas enhavi kuntekston Lyrics"
-
-#: lyric-combine-music-iterator.cc:337
-#, c-format
-msgid "cannot find Voice `%s'"
-msgstr "ne eblas trovi Voĉon '%s'"
-
-#: custos.cc:87
-#, c-format
-msgid "custos `%s' not found"
-msgstr "custos '%s' ne estis trovata"
+#: context-property.cc:43
+msgid "need symbol arguments for \\override and \\revert"
+msgstr "necesas simbol-argumentoj por \\override kaj \\revert"
 
 #: context.cc:149
 #, c-format
@@ -1792,6 +1849,11 @@ msgstr "ne eblas trovi aŭ krei '%s' nomata '%s'"
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr "ne eblas trovi aŭ krei: '%s'"
+
+#: custos.cc:87
+#, c-format
+msgid "custos `%s' not found"
+msgstr "custos '%s' ne estis trovata"
 
 #: dispatcher.cc:83
 msgid "Event class should be a list"
@@ -1810,298 +1872,10 @@ msgstr "Provo forigi neekzistantan aŭdanton."
 msgid "Already listening to dispatcher, ignoring request"
 msgstr "Jam aŭdadas la disdonilon, ni preteratentas la peton"
 
-#: grob-property.cc:35
+#: dots.cc:48
 #, c-format
-msgid "%d: %s"
-msgstr "%d: %s"
-
-#: auto-change-iterator.cc:74 change-iterator.cc:72
-#, c-format
-msgid "cannot change, already in translator: %s"
-msgstr "ne eblas ŝanĝi, jam estas en tradukilo: %s"
-
-#: tie-engraver.cc:117
-msgid "unterminated tie"
-msgstr "nefinigita ligaturo"
-
-#: tie-engraver.cc:348
-msgid "lonely tie"
-msgstr "sola ligaturo"
-
-#: note-column.cc:147
-msgid "cannot have note heads and rests together on a stem"
-msgstr "ne eblas ekzisti kune notkapoj kaj paŭzoj en stango"
-
-#: parse-scm.cc:121
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE signalis eraron por la esprimo komenciĝanta ĉi tie"
-
-#: footnote-engraver.cc:109
-msgid "Must be footnote-event."
-msgstr "Devas esti piednota-evento."
-
-#: paper-score.cc:122 minimal-page-breaking.cc:40
-msgid "Calculating line breaks..."
-msgstr "Kalkulado de lini-saltoj..."
-
-#: paper-score.cc:134
-#, c-format
-msgid "Element count %d (spanners %d) "
-msgstr "Nombro da elementoj: %d (disigiloj %d) "
-
-#: paper-score.cc:138
-msgid "Preprocessing graphical objects..."
-msgstr "Antaŭprocezado de grafikaj objektoj..."
-
-#: paper-score.cc:162 optimal-page-breaking.cc:207
-#: page-turn-page-breaking.cc:248
-msgid "Drawing systems..."
-msgstr "Desegnado de sistemoj..."
-
-#: program-option-scheme.cc:235
-#, c-format
-msgid "no such internal option: %s"
-msgstr "neniu tia interna elektilo: %s"
-
-#: mensural-ligature-engraver.cc:96
-msgid "ligature with less than 2 heads -> skipping"
-msgstr "kantligaturo kun malpli ol 2 kapoj -> ni preterpasas"
-
-#: mensural-ligature-engraver.cc:123
-msgid "cannot determine pitch of ligature primitive -> skipping"
-msgstr "ne eblas determini tonalton de kantligatura originalaĵo -> ni preterpasas"
-
-#: mensural-ligature-engraver.cc:137
-msgid "single note ligature - skipping"
-msgstr "unuopa noto en kantligaturo - ni preterpasas"
-
-#: mensural-ligature-engraver.cc:148
-msgid "prime interval within ligature -> skipping"
-msgstr "unuta intervalo ene de kantligaturo -> ni preterpasas"
-
-#: mensural-ligature-engraver.cc:159
-msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "mezurnotacia kantligaturo: daŭro ne estas unu el Mx, L, B, S -> ni preterpasas"
-
-#: mensural-ligature-engraver.cc:202
-msgid "semibrevis must be followed by another one -> skipping"
-msgstr "pleno devas esti sekvata de alia plena -> ni preterpasas"
-
-#: mensural-ligature-engraver.cc:212
-msgid ""
-"semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
-msgstr ""
-"plenoj nur povas aperi ĉe komenco de kantligaturo,\n"
-"kaj devas esti nur \"neniu\" aŭ du el ili"
-
-#: mensural-ligature-engraver.cc:232
-msgid ""
-"invalid ligatura ending:\n"
-"when the last note is a descending brevis,\n"
-"the penultimate note must be another one,\n"
-"or the ligatura must be LB or SSB"
-msgstr ""
-"malvalida kantligatura finiĝo:\n"
-"kiam la lasta noto estas malkreskanta duoblo,\n"
-"la antaŭlasta noto devas esti alia noto,\n"
-"aŭ la kantligaturo devas esti LB aŭ SSB"
-
-#: mensural-ligature-engraver.cc:387
-msgid "unexpected case fall-through"
-msgstr "fiasko pro neatendita okazo"
-
-#: piano-pedal-engraver.cc:279
-#, c-format
-msgid "expect 3 strings for piano pedals, found: %ld"
-msgstr "atendate 3 ĉenoj por piano-pedaloj, trovite: %ld"
-
-#: piano-pedal-engraver.cc:294 piano-pedal-engraver.cc:305
-#: piano-pedal-performer.cc:104
-#, c-format
-msgid "cannot find start of piano pedal: `%s'"
-msgstr "ne eblas trovi komencon de piano-pedalo: '%s'"
-
-#: piano-pedal-engraver.cc:340
-#, c-format
-msgid "cannot find start of piano pedal bracket: `%s'"
-msgstr "ne eblas trovi la komencon de piano-pedala krampo: '%s'"
-
-#: new-dynamic-engraver.cc:168
-#, c-format
-msgid ""
-"unknown crescendo style: %s\n"
-"defaulting to hairpin."
-msgstr ""
-"nekonata tipo de 'crescendo': %s\n"
-"ni uzas apriore pinĉil-forman."
-
-#: new-dynamic-engraver.cc:233
-#, c-format
-msgid "unterminated %s"
-msgstr "nefinita %s"
-
-#: general-scheme.cc:390
-#, c-format
-msgid "failed redirecting stderr to `%s'"
-msgstr "malsukceso dum redirektigo de stderr al '%s'"
-
-#: general-scheme.cc:469 output-ps.scm:48
-msgid "Found infinity or nan in output.  Substituting 0.0"
-msgstr "Infinito aŭ NaN estis trovata en eligo.  Anstataŭigo per 0.0"
-
-#: music.cc:150
-#, c-format
-msgid "octave check failed; expected \"%s\", found: \"%s\""
-msgstr "kontrolo de okto fiaskis; atendite \"%s\", trovite: \"%s\""
-
-#: music.cc:219
-msgid "(normalized pitch)"
-msgstr "(normigita tonalto)"
-
-#: music.cc:223
-#, c-format
-msgid "Transposing %s by %s makes alteration larger than double"
-msgstr "Transpono de %s per %s igas aliigon pli granda ol duobla"
-
-#: stem.cc:128
-msgid "weird stem size, check for narrow beams"
-msgstr "stranga grando de stango, kontrolu mallarĝajn vostligojn"
-
-#: relative-octave-check.cc:49
-msgid "Failed octave check, got: "
-msgstr "Malsukcesis kontrolo de okto, oni havis: "
-
-#: translator-ctors.cc:65
-#, c-format
-msgid "unknown translator: `%s'"
-msgstr "nekonata tradukilo: '%s'"
-
-#: partial-iterator.cc:45
-msgid "trying to use \\partial after the start of a piece"
-msgstr "ni provas uzi \\partial post la komenco de muziko"
-
-#: relocate.cc:52
-#, c-format
-msgid "Setting %s to %s"
-msgstr "Akomodado de %s al %s"
-
-#. this warning should only be printed in debug mode!
-#: relocate.cc:73
-#, c-format
-msgid "no such file: %s for %s"
-msgstr "ne tia dosiero: %s por %s"
-
-#. this warning should only be printed in debug mode!
-#. this warning should only be printed in debug mode
-#: relocate.cc:84 relocate.cc:102
-#, c-format
-msgid "no such directory: %s for %s"
-msgstr "ne tia dosierujo: %s por %s"
-
-#: relocate.cc:93
-#, c-format
-msgid "%s=%s (prepend)\n"
-msgstr "%s=%s (antaŭmeti)\n"
-
-#: relocate.cc:124
-#, c-format
-msgid "not relocating, no %s/ or current/ found under %s"
-msgstr "ni ne relokigas, neniu %s/ aŭ kuranta/ estis trovata sub %s"
-
-#: relocate.cc:134
-#, c-format
-msgid "Relocation: compile datadir=%s, new datadir=%s"
-msgstr "Relokigo: kompila datadir=%s, nova datadir=%s"
-
-#: relocate.cc:146
-#, c-format
-msgid "Relocation: framework_prefix=%s"
-msgstr "Relokigo: framework_prefix=%s"
-
-#: relocate.cc:186
-#, c-format
-msgid "Relocation: is absolute: argv0=%s\n"
-msgstr "Relokigo: estas absoluta: argv0=%s\n"
-
-#: relocate.cc:192
-#, c-format
-msgid "Relocation: from cwd: argv0=%s\n"
-msgstr "Relokigo: de cwd: argv0=%s\n"
-
-#: relocate.cc:208
-#, c-format
-msgid ""
-"Relocation: from PATH=%s\n"
-"argv0=%s"
-msgstr ""
-"Relokigo: de VOJO=%s\n"
-"argv0=%s"
-
-#: relocate.cc:235
-msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
-msgstr "LILYPONDPREFIX estas malaktuala, uzu LILYPOND_DATADIR"
-
-#: relocate.cc:360
-#, c-format
-msgid "Relocation file: %s"
-msgstr "Relokiga dosiero: %s"
-
-#: relocate.cc:364 source-file.cc:65
-#, c-format
-msgid "cannot open file: `%s'"
-msgstr "ne eblas malfermi dosieron: '%s'"
-
-#: relocate.cc:394
-#, c-format
-msgid "Unknown relocation command %s"
-msgstr "Nekonata relokiga komando %s"
-
-#: extender-engraver.cc:169 extender-engraver.cc:178
-msgid "unterminated extender"
-msgstr "nefinigita etendigilo"
-
-#: lily-lexer.cc:255
-msgid "include files are not allowed in safe mode"
-msgstr "inkluziv-dosieroj ne estas permesataj en sekura reĝimo"
-
-#: lily-lexer.cc:282
-#, c-format
-msgid "identifier name is a keyword: `%s'"
-msgstr "identigila nomo estas ŝlosilvorto: '%s'"
-
-#: lily-lexer.cc:303 lily-lexer.cc:316
-#, c-format
-msgid "%s:EOF"
-msgstr "%s:EOF"
-
-#: ligature-engraver.cc:104 ligature-bracket-engraver.cc:72
-msgid "cannot find start of ligature"
-msgstr "ne eblas trovi komencon de kantligaturo"
-
-#: ligature-engraver.cc:109
-msgid "no right bound"
-msgstr "neniu dekstra limo"
-
-#: ligature-engraver.cc:131 ligature-bracket-engraver.cc:85
-msgid "already have a ligature"
-msgstr "jam estas kantligaturo"
-
-#: ligature-engraver.cc:140
-msgid "no left bound"
-msgstr "neniu maldekstra limo"
-
-#: ligature-engraver.cc:184
-msgid "unterminated ligature"
-msgstr "nefinigita kantligaturo"
-
-#: ligature-engraver.cc:211
-msgid "ignoring rest: ligature may not contain rest"
-msgstr "ni preteratentas paŭzon: kantligaturo ne povas enhavi paŭzon"
-
-#: ligature-engraver.cc:212
-msgid "ligature was started here"
-msgstr "kantligaturo estis komencata ĉi tie"
+msgid "dot `%s' not found"
+msgstr "punkto '%s' ne estis trovata"
 
 #: dynamic-engraver.cc:193
 msgid "cannot find start of (de)crescendo"
@@ -2123,237 +1897,38 @@ msgstr "'cresc' komenciĝas ĉi tie"
 msgid "unterminated (de)crescendo"
 msgstr "nefinigita '(de)crescendo'"
 
-#. fixme: be more verbose.
-#: volta-engraver.cc:111
-msgid "cannot end volta spanner"
-msgstr "ne eblas finigi ripet-disigilon"
+#. No explicit dynamic script events have occurred yet, but there is
+#. nevertheless a dynamic spanner.  Initialize last_volume_ to a
+#. value within the available range.
+#: dynamic-performer.cc:129
+msgid "(De)crescendo with unspecified starting volume in MIDI."
+msgstr "'(De)crescendo' kun ne-indikita komenca laŭteco en MIDI."
 
-#: volta-engraver.cc:121
-msgid "already have a volta spanner, ending that one prematurely"
-msgstr "jam ekzistas ripet-disigilo, tiun alian ni finas tro frue"
+#: episema-engraver.cc:75
+msgid "already have an episema"
+msgstr "jam ekzistas episemo"
 
-#: volta-engraver.cc:125
-msgid "also already have an ended spanner"
-msgstr "ankaŭ jam ekzistas finigita disigilo"
+#: episema-engraver.cc:88
+msgid "cannot find start of episema"
+msgstr "ne eblas trovi la komencon de episemo"
 
-#: volta-engraver.cc:126
-msgid "giving up"
-msgstr "ni rezignas"
+#: episema-engraver.cc:137
+msgid "unterminated episema"
+msgstr "nefinigita episemo"
 
-#: minimal-page-breaking.cc:44
-msgid "Calculating page breaks..."
-msgstr "Kalkulado de paĝsaltoj..."
+#: extender-engraver.cc:169 extender-engraver.cc:178
+msgid "unterminated extender"
+msgstr "nefinigita etendigilo"
 
-#: accidental-engraver.cc:180
+#: flag.cc:113
 #, c-format
-msgid "accidental typesetting list must begin with context-name: %s"
-msgstr "kromsigna kompostada listo devas komenci per kuntekst-nomo': %s"
+msgid "flag `%s' not found"
+msgstr "flago '%s' ne estis trovata"
 
-#: accidental-engraver.cc:210
+#: flag.cc:133
 #, c-format
-msgid "procedure or context-name expected for accidental rule, found %s"
-msgstr "proceduro aŭ kuntekst-nomo estis atendata por kromsigna regulo, trovite %s"
-
-#: ttf.cc:480 ttf.cc:528
-#, c-format
-msgid "font index %d too large for font `%s', using index 0"
-msgstr "tipar-indico %d estas tro larĝa por la tiparo '%s', ni uzas indicon 0"
-
-#: ttf.cc:512 ttf.cc:562
-msgid "font index must be non-negative, using index 0"
-msgstr "tipar-indico devas esti ne-negativa, ni uzas indicon 0"
-
-#: score.cc:172
-msgid "already have music in score"
-msgstr "jam estas muziko en la partituro"
-
-#: score.cc:173
-msgid "this is the previous music"
-msgstr "tio ĉi estas la antaŭa muziko"
-
-#: score.cc:178
-msgid "errors found, ignoring music expression"
-msgstr "eraroj trovitaj, ni preterpasas la muzikan esprimon"
-
-#: multi-measure-rest.cc:138
-msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
-msgstr "'usable-duration-logs' devas esti ne-malplena listo.  Ni revenas al plenaj paŭzoj."
-
-#: multi-measure-rest.cc:328
-msgid "Using naive multi measure rest spacing."
-msgstr "Uzanta naivan plur-mezuran paŭzo-spacadon."
-
-#: vaticana-ligature-engraver.cc:400
-#, c-format
-msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
-msgstr "preteratentita(j) prefikso(j) '%s' de tiu ĉi kapo akorde al la limigoj de la elektita kantligatura stilo"
-
-#: vaticana-ligature-engraver.cc:466
-msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
-msgstr "Dusenca uzo de punktoj en kantligaturo: estas multoblaj punktitaj notoj kun sama tonalto.  La kantligaturo devos esti apartata."
-
-#: vaticana-ligature-engraver.cc:524
-msgid "This ligature has a dotted head followed by a non-dotted head.  The ligature should be split after the last dotted head before this head."
-msgstr "La kantligaturo havas punktitan kapon sekvatan de ne-punktita kapo.  La kantligaturo devos estis apartata post la lasta punktita kapo antaŭ tiu ĉi kapo."
-
-#: vaticana-ligature-engraver.cc:736
-#, c-format
-msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr "Vaticana_ligature_engraver: difinado de 'spacing-increment = %f': ptr =%ul"
-
-#: paper-book.cc:214
-#, c-format
-msgid "program option -dprint-pages not supported by backend `%s'"
-msgstr "programa elektilo -dprint-pages ne estas subtenata de la intern-interfaco '%s'"
-
-#: paper-book.cc:233
-#, c-format
-msgid "program option -dpreview not supported by backend `%s'"
-msgstr "programa elektilo -dpreview ne estas subtenata de la intern-interfaco '%s'"
-
-#: note-collision.cc:496
-msgid "ignoring too many clashing note columns"
-msgstr "ni preterpasas tro multajn kolumnojn kun koliziantaj notoj"
-
-#: system.cc:200
-#, c-format
-msgid "Element count %d"
-msgstr "Nombro da elementoj: %d"
-
-#: system.cc:480
-#, c-format
-msgid "Grob count %d"
-msgstr "Nombro da 'grob': %d"
-
-#: paper-column-engraver.cc:261
-msgid "forced break was overridden by some other event, should you be using bar checks?"
-msgstr "perfortita salto estis preterpasata de iu evento, ĉu vi ne devus uzi kontrolajn mezur-stangojn?"
-
-#: score-engraver.cc:78
-#, c-format
-msgid "cannot find `%s'"
-msgstr "ne eblas trovi '%s'"
-
-#: score-engraver.cc:80
-msgid "Music font has not been installed properly."
-msgstr "Muzika tiparo ne estas instalita ĝuste."
-
-#: score-engraver.cc:82
-#, c-format
-msgid "Search path `%s'"
-msgstr "Serĉvojo '%s'"
-
-#: score-engraver.cc:84
-msgid "Aborting"
-msgstr "Ni ĉesas"
-
-#: apply-context-iterator.cc:42
-msgid "\\applycontext argument is not a procedure"
-msgstr "argumento de \\applycontext ne estas proceduro"
-
-#: includable-lexer.cc:71 lily-parser-scheme.cc:108 lily-guile.cc:91
-#, c-format
-msgid "cannot find file: `%s'"
-msgstr "ne eblas trovi la dosieron: '%s'"
-
-#: includable-lexer.cc:73 lily-parser-scheme.cc:100
-#, c-format
-msgid "(search path: `%s')"
-msgstr "(serĉvojo: '%s')"
-
-#: horizontal-bracket-engraver.cc:62
-msgid "do not have that many brackets"
-msgstr "ne estas tiom da krampoj"
-
-#: horizontal-bracket-engraver.cc:71
-msgid "conflicting note group events"
-msgstr "konfliktantaj eventoj de noto-grupo"
-
-#: note-heads-engraver.cc:76
-msgid "NoteEvent without pitch"
-msgstr "NoteEvent sen tonalto"
-
-#: beam.cc:181
-msgid "removing beam with no stems"
-msgstr "ni forigas vostligon sen stangoj"
-
-#: staff-performer.cc:257
-msgid "MIDI channel wrapped around"
-msgstr "MIDI-kanalo estis ĉirkaŭfluigata"
-
-#: staff-performer.cc:258
-msgid "remapping modulo 16"
-msgstr "remapado de modulo 16"
-
-#: slur-engraver.cc:102 phrasing-slur-engraver.cc:101
-#, c-format
-msgid "direction of %s invalid: %d"
-msgstr "direkto de %s malvalidas: %d"
-
-#: slur-engraver.cc:176
-msgid "unterminated slur"
-msgstr "nefinigita ligarko"
-
-#: slur-engraver.cc:211
-msgid "cannot end slur"
-msgstr "ne eblas finigi ligarkon"
-
-#. We already have an old slur, so give a warning
-#. and completely ignore the new slur.
-#: slur-engraver.cc:231
-msgid "already have slur"
-msgstr "jam ekzistas ligarkon"
-
-#: dots.cc:48
-#, c-format
-msgid "dot `%s' not found"
-msgstr "punkto '%s' ne estis trovata"
-
-#. find out the ideal number of pages
-#: optimal-page-breaking.cc:62
-msgid "Finding the ideal number of pages..."
-msgstr "Esplorado pri la plej bona nombro da paĝoj..."
-
-#: optimal-page-breaking.cc:85
-msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
-msgstr "ne eblis kontentigi kaj 'systems-per-page' kaj 'page-count' samtempe, ni preteratentas 'systems-per-page'"
-
-#: optimal-page-breaking.cc:105
-msgid "Fitting music on 1 page..."
-msgstr "Akomodado de muziko en 1 paĝo..."
-
-#: optimal-page-breaking.cc:107
-#, c-format
-msgid "Fitting music on %d pages..."
-msgstr "Akomodado de muziko en %d paĝoj..."
-
-#: optimal-page-breaking.cc:109
-#, c-format
-msgid "Fitting music on %d or %d pages..."
-msgstr "Akomodado de muziko en %d aŭ %d paĝoj..."
-
-#: optimal-page-breaking.cc:119 optimal-page-breaking.cc:172
-#, c-format
-msgid "trying %d systems"
-msgstr "provado de %d sistemoj"
-
-#: optimal-page-breaking.cc:138 optimal-page-breaking.cc:200
-#, c-format
-msgid "best score for this sys-count: %f"
-msgstr "plej bona poento por tiu ĉi 'sys-count': %f"
-
-#: accidental.cc:200
-#, c-format
-msgid "Could not find glyph-name for alteration %s"
-msgstr "Ne eblis trovi 'glyph-name' por aliigo %s"
-
-#: accidental.cc:215
-msgid "natural alteration glyph not found"
-msgstr "signobildo de natura aliigo ne estis trovata"
-
-#: context-property.cc:43
-msgid "need symbol arguments for \\override and \\revert"
-msgstr "necesas simbol-argumentoj por \\override kaj \\revert"
+msgid "flag stroke `%s' not found"
+msgstr "flag-streko '%s' ne estis trovata"
 
 #: font-config-scheme.cc:151 font-config.cc:53
 #, c-format
@@ -2375,7 +1950,80 @@ msgstr "malsukceso dum aldonado de tipar-dosiero: %s"
 msgid "Adding font file: %s"
 msgstr "Aldonado de tipar-dosiero: %s"
 
-#: hairpin.cc:61
+#: font-config.cc:38
+msgid "Initializing FontConfig..."
+msgstr "Ekigo de FontConfig..."
+
+#: font-config.cc:58
+msgid "Building font database..."
+msgstr "Konstruado de tipara datumbazo..."
+
+#: footnote-engraver.cc:110
+msgid "Must be footnote-event."
+msgstr "Devas esti piednota-evento."
+
+#: general-scheme.cc:390
+#, c-format
+msgid "failed redirecting stderr to `%s'"
+msgstr "malsukceso dum redirektigo de stderr al '%s'"
+
+#: general-scheme.cc:469 output-ps.scm:48
+msgid "Found infinity or nan in output.  Substituting 0.0"
+msgstr "Infinito aŭ NaN estis trovata en eligo.  Anstataŭigo per 0.0"
+
+#: glissando-engraver.cc:158
+msgid "unterminated glissando"
+msgstr "nefinigita glito"
+
+#: global-context-scheme.cc:96 global-context-scheme.cc:114
+msgid "no music found in score"
+msgstr "neniu muziko estis trovata en la partituro"
+
+#: global-context-scheme.cc:104
+msgid "Interpreting music..."
+msgstr "Interpretado de muziko..."
+
+#: global-context-scheme.cc:126
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "pasita tempo: %.2f sekundoj"
+
+#: gregorian-ligature-engraver.cc:70
+#, c-format
+msgid "\\%s ignored"
+msgstr "\\%s estis preteratentata"
+
+#: gregorian-ligature-engraver.cc:75
+#, c-format
+msgid "implied \\%s added"
+msgstr "implicita \\%s estis aldonata"
+
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:224
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr "ne eblas apliki '\\~' en la unua kapo de kantligaturo"
+
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:236
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr "ne eblas apliki '\\~' en kapoj kun egalaj tonaltoj"
+
+#: grob-interface.cc:68
+#, c-format
+msgid "Unknown interface `%s'"
+msgstr "Nekonata interfaco '%s'"
+
+#: grob-interface.cc:79
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
+msgstr "La grob '%s' havas neniun interfacon por la atributo '%s'"
+
+#: grob-property.cc:35
+#, c-format
+msgid "%d: %s"
+msgstr "%d: %s"
+
+#: hairpin.cc:60
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr "Peto de rompita limig-ŝtopado ĉe ne-rompita limigo."
 
@@ -2383,40 +2031,162 @@ msgstr "Peto de rompita limig-ŝtopado ĉe ne-rompita limigo."
 msgid "decrescendo too small"
 msgstr "tro malgranda 'decrescendo'"
 
-#: open-type-font.cc:44
-#, c-format
-msgid "cannot allocate %lu bytes"
-msgstr "ne eblas rezervi %lu bajtojn"
+#: horizontal-bracket-engraver.cc:62
+msgid "do not have that many brackets"
+msgstr "ne estas tiom da krampoj"
 
-#: open-type-font.cc:48
-#, c-format
-msgid "cannot load font table: %s"
-msgstr "ne eblas ŝargi je tipara tabelo: %s"
+#: horizontal-bracket-engraver.cc:71
+msgid "conflicting note group events"
+msgstr "konfliktantaj eventoj de noto-grupo"
 
-#: open-type-font.cc:53
-#, c-format
-msgid "FreeType error: %s"
-msgstr "Eraro de FreeType: %s"
+#: hyphen-engraver.cc:104
+msgid "removing unterminated hyphen"
+msgstr "forigo de nefinigita streketo"
 
-#: open-type-font.cc:110
-#, c-format
-msgid "unsupported font format: %s"
-msgstr "ne subtenata formo de tiparo: %s"
+#: hyphen-engraver.cc:118
+msgid "unterminated hyphen; removing"
+msgstr "nefinigita streketo; ni forigas"
 
-#: open-type-font.cc:112
+#: includable-lexer.cc:71 lily-guile.cc:91 lily-parser-scheme.cc:108
 #, c-format
-msgid "error reading font file %s: %s"
-msgstr "eraro dum legado de tipara dosiero %s: %s"
+msgid "cannot find file: `%s'"
+msgstr "ne eblas trovi la dosieron: '%s'"
 
-#: open-type-font.cc:187
+#: includable-lexer.cc:73 lily-parser-scheme.cc:100
 #, c-format
-msgid "FT_Get_Glyph_Name () Freetype error: %s"
-msgstr "Eraro de FT_Get_Glyph_Name () en Freetype: %s"
+msgid "(search path: `%s')"
+msgstr "(serĉvojo: '%s')"
 
-#: open-type-font.cc:318 pango-font.cc:189
+#: input.cc:138 source-file.cc:178 source-file.cc:193
+msgid "position unknown"
+msgstr "nekonata pozicio"
+
+#: key-engraver.cc:198
+msgid "Incomplete keyAlterationOrder for key signature"
+msgstr "Nekompleta keyAlterationOrder por antaŭsigno"
+
+#: key-signature-interface.cc:77
 #, c-format
-msgid "FT_Get_Glyph_Name () error: %s"
-msgstr "Eraro de FT_Get_Glyph_Name (): %s"
+msgid "No glyph found for alteration: %s"
+msgstr "Neniu signobildo estis trovata por aliigo: %s"
+
+#: key-signature-interface.cc:87
+msgid "alteration not found"
+msgstr "aliigo ne estis trovata"
+
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:104
+msgid "cannot find start of ligature"
+msgstr "ne eblas trovi komencon de kantligaturo"
+
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:131
+msgid "already have a ligature"
+msgstr "jam estas kantligaturo"
+
+#: ligature-engraver.cc:109
+msgid "no right bound"
+msgstr "neniu dekstra limo"
+
+#: ligature-engraver.cc:140
+msgid "no left bound"
+msgstr "neniu maldekstra limo"
+
+#: ligature-engraver.cc:184
+msgid "unterminated ligature"
+msgstr "nefinigita kantligaturo"
+
+#: ligature-engraver.cc:211
+msgid "ignoring rest: ligature may not contain rest"
+msgstr "ni preteratentas paŭzon: kantligaturo ne povas enhavi paŭzon"
+
+#: ligature-engraver.cc:212
+msgid "ligature was started here"
+msgstr "kantligaturo estis komencata ĉi tie"
+
+#: lily-guile.cc:93
+#, c-format
+msgid "(load path: `%s')"
+msgstr "(ŝarg-vojo: '%s')"
+
+#: lily-guile.cc:416
+#, c-format
+msgid "cannot find property type-check for `%s' (%s)."
+msgstr "ne eblas trovi la econ 'type-check' por '%s' (%s)."
+
+#: lily-guile.cc:419
+msgid "perhaps a typing error?"
+msgstr "eble tajperaro?"
+
+#: lily-guile.cc:426
+msgid "doing assignment anyway"
+msgstr "ni atribuas tamen"
+
+#: lily-guile.cc:438
+#, c-format
+msgid "type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "kontrolo pri tipo por '%s' fiaskis; valoro '%s' devas esti el tipo '%s'"
+
+#: lily-lexer.cc:255
+msgid "include files are not allowed in safe mode"
+msgstr "inkluziv-dosieroj ne estas permesataj en sekura reĝimo"
+
+#: lily-lexer.cc:282
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr "identigila nomo estas ŝlosilvorto: '%s'"
+
+#: lily-lexer.cc:303 lily-lexer.cc:316
+#, c-format
+msgid "%s:EOF"
+msgstr "%s:EOF"
+
+#: lily-parser-scheme.cc:80
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "Ŝanĝado de aktuala dosierujo al: '%s'"
+
+#: lily-parser-scheme.cc:84
+#, c-format
+msgid "unable to change directory to: `%s'"
+msgstr "ne eblas ŝanĝi dosierujon al: '%s'"
+
+#: lily-parser-scheme.cc:99
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr "ne eblas trovi dosieron init: '%s'"
+
+#: lily-parser-scheme.cc:117
+#, c-format
+msgid "Processing `%s'"
+msgstr "Procezado de '%s'"
+
+#: lily-parser-scheme.cc:208
+msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parser-parse-string nur estas valida kun nova analizilo.  Uzu ly:parser-include-string anstataŭe."
+
+#: lily-parser-scheme.cc:239
+msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parser-string-expression nur estas valida kun nova analizilo.  Uzu ly:parser-include-string anstataŭe."
+
+#: lily-parser.cc:109
+msgid "Parsing..."
+msgstr "Analizado..."
+
+#: line-spanner.cc:373
+msgid "Line spanner's left point is to the right of its right point."
+msgstr "Maldekstra punkto de lini-disigilo estas dekstre de ties dekstra punkto."
+
+#: lyric-combine-music-iterator.cc:199
+msgid "argument of \\lyricsto should contain Lyrics context"
+msgstr "argumento de \\lyricsto devas enhavi kuntekston Lyrics"
+
+#: lyric-combine-music-iterator.cc:337
+#, c-format
+msgid "cannot find Voice `%s'"
+msgstr "ne eblas trovi Voĉon '%s'"
+
+#: lyric-engraver.cc:186
+msgid "Lyric syllable does not have note.  Use \\lyricsto or associatedVoice."
+msgstr "Teksta silabo ne havas noton. Uzu \\lyricsto aŭ 'associatedVoice'."
 
 #: main.cc:101
 #, c-format
@@ -2643,6 +2413,265 @@ msgstr "ne eblas ŝanĝi aktualan dosierujon al: %s: %s"
 msgid "exception caught: %s"
 msgstr "kaptita krom-okazo: %s"
 
+#. FIXME: constant error message.
+#: mark-engraver.cc:156
+msgid "rehearsalMark must have integer value"
+msgstr "'rehearsalMark' devas havis entjeran valoron"
+
+#: mark-engraver.cc:162
+msgid "mark label must be a markup object"
+msgstr "mark-etikedo devas estis markada objekto"
+
+#: mensural-ligature-engraver.cc:96
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "kantligaturo kun malpli ol 2 kapoj -> ni preterpasas"
+
+#: mensural-ligature-engraver.cc:123
+msgid "cannot determine pitch of ligature primitive -> skipping"
+msgstr "ne eblas determini tonalton de kantligatura originalaĵo -> ni preterpasas"
+
+#: mensural-ligature-engraver.cc:137
+msgid "single note ligature - skipping"
+msgstr "unuopa noto en kantligaturo - ni preterpasas"
+
+#: mensural-ligature-engraver.cc:148
+msgid "prime interval within ligature -> skipping"
+msgstr "unuta intervalo ene de kantligaturo -> ni preterpasas"
+
+#: mensural-ligature-engraver.cc:159
+msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
+msgstr "mezurnotacia kantligaturo: daŭro ne estas unu el Mx, L, B, S -> ni preterpasas"
+
+#: mensural-ligature-engraver.cc:202
+msgid "semibrevis must be followed by another one -> skipping"
+msgstr "pleno devas esti sekvata de alia plena -> ni preterpasas"
+
+#: mensural-ligature-engraver.cc:212
+msgid ""
+"semibreves can only appear at the beginning of a ligature,\n"
+"and there may be only zero or two of them"
+msgstr ""
+"plenoj nur povas aperi ĉe komenco de kantligaturo,\n"
+"kaj devas esti nur \"neniu\" aŭ du el ili"
+
+#: mensural-ligature-engraver.cc:232
+msgid ""
+"invalid ligatura ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligatura must be LB or SSB"
+msgstr ""
+"malvalida kantligatura finiĝo:\n"
+"kiam la lasta noto estas malkreskanta duoblo,\n"
+"la antaŭlasta noto devas esti alia noto,\n"
+"aŭ la kantligaturo devas esti LB aŭ SSB"
+
+#: mensural-ligature-engraver.cc:387
+msgid "unexpected case fall-through"
+msgstr "fiasko pro neatendita okazo"
+
+#: midi-item.cc:89
+#, c-format
+msgid "no such MIDI instrument: `%s'"
+msgstr "neniu tia instrumento MIDI: '%s'"
+
+#: midi-item.cc:161
+msgid "Time signature with more than 255 beats.  Truncating"
+msgstr "Takt-indiko kun pli ol 255 frapoj. Ni distranĉas"
+
+#: midi-stream.cc:39
+#, c-format
+msgid "cannot open for write: %s: %s"
+msgstr "ne eblas malfermi por skribi: %s: %s"
+
+#: midi-stream.cc:55
+#, c-format
+msgid "cannot write to file: `%s'"
+msgstr "ne eblas skribi en dosiero: '%s'"
+
+#: minimal-page-breaking.cc:40 paper-score.cc:122
+msgid "Calculating line breaks..."
+msgstr "Kalkulado de lini-saltoj..."
+
+#: minimal-page-breaking.cc:44
+msgid "Calculating page breaks..."
+msgstr "Kalkulado de paĝsaltoj..."
+
+#: multi-measure-rest.cc:138
+msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
+msgstr "'usable-duration-logs' devas esti ne-malplena listo.  Ni revenas al plenaj paŭzoj."
+
+#: multi-measure-rest.cc:328
+msgid "Using naive multi measure rest spacing."
+msgstr "Uzanta naivan plur-mezuran paŭzo-spacadon."
+
+#: music.cc:150
+#, c-format
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr "kontrolo de okto fiaskis; atendite \"%s\", trovite: \"%s\""
+
+#: music.cc:219
+msgid "(normalized pitch)"
+msgstr "(normigita tonalto)"
+
+#: music.cc:223
+#, c-format
+msgid "Transposing %s by %s makes alteration larger than double"
+msgstr "Transpono de %s per %s igas aliigon pli granda ol duobla"
+
+#: new-dynamic-engraver.cc:168
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+"nekonata tipo de 'crescendo': %s\n"
+"ni uzas apriore pinĉil-forman."
+
+#: new-dynamic-engraver.cc:233
+#, c-format
+msgid "unterminated %s"
+msgstr "nefinita %s"
+
+#: new-fingering-engraver.cc:113
+msgid "cannot add text scripts to individual note heads"
+msgstr "ne eblas aldoni tekstajn skriptojn al individuaj noto-kapoj"
+
+#: new-fingering-engraver.cc:269
+msgid "no placement found for fingerings"
+msgstr "neniu loko estis trovata por fingradoj"
+
+#: new-fingering-engraver.cc:270
+msgid "placing below"
+msgstr "ni metas sube"
+
+#: note-collision.cc:496
+msgid "ignoring too many clashing note columns"
+msgstr "ni preterpasas tro multajn kolumnojn kun koliziantaj notoj"
+
+#: note-column.cc:147
+msgid "cannot have note heads and rests together on a stem"
+msgstr "ne eblas ekzisti kune notkapoj kaj paŭzoj en stango"
+
+#: note-head.cc:95
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr "neniu el notkapoj '%s' aŭ '%s' estis trovataj"
+
+#: note-heads-engraver.cc:76
+msgid "NoteEvent without pitch"
+msgstr "NoteEvent sen tonalto"
+
+#: open-type-font.cc:44
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr "ne eblas rezervi %lu bajtojn"
+
+#: open-type-font.cc:48
+#, c-format
+msgid "cannot load font table: %s"
+msgstr "ne eblas ŝargi je tipara tabelo: %s"
+
+#: open-type-font.cc:53
+#, c-format
+msgid "FreeType error: %s"
+msgstr "Eraro de FreeType: %s"
+
+#: open-type-font.cc:110
+#, c-format
+msgid "unsupported font format: %s"
+msgstr "ne subtenata formo de tiparo: %s"
+
+#: open-type-font.cc:112
+#, c-format
+msgid "error reading font file %s: %s"
+msgstr "eraro dum legado de tipara dosiero %s: %s"
+
+#: open-type-font.cc:187
+#, c-format
+msgid "FT_Get_Glyph_Name () Freetype error: %s"
+msgstr "Eraro de FT_Get_Glyph_Name () en Freetype: %s"
+
+#: open-type-font.cc:318 pango-font.cc:189
+#, c-format
+msgid "FT_Get_Glyph_Name () error: %s"
+msgstr "Eraro de FT_Get_Glyph_Name (): %s"
+
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:62
+msgid "Finding the ideal number of pages..."
+msgstr "Esplorado pri la plej bona nombro da paĝoj..."
+
+#: optimal-page-breaking.cc:85
+msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
+msgstr "ne eblis kontentigi kaj 'systems-per-page' kaj 'page-count' samtempe, ni preteratentas 'systems-per-page'"
+
+#: optimal-page-breaking.cc:105
+msgid "Fitting music on 1 page..."
+msgstr "Akomodado de muziko en 1 paĝo..."
+
+#: optimal-page-breaking.cc:107
+#, c-format
+msgid "Fitting music on %d pages..."
+msgstr "Akomodado de muziko en %d paĝoj..."
+
+#: optimal-page-breaking.cc:109
+#, c-format
+msgid "Fitting music on %d or %d pages..."
+msgstr "Akomodado de muziko en %d aŭ %d paĝoj..."
+
+#: optimal-page-breaking.cc:119 optimal-page-breaking.cc:172
+#, c-format
+msgid "trying %d systems"
+msgstr "provado de %d sistemoj"
+
+#: optimal-page-breaking.cc:138 optimal-page-breaking.cc:200
+#, c-format
+msgid "best score for this sys-count: %f"
+msgstr "plej bona poento por tiu ĉi 'sys-count': %f"
+
+#: optimal-page-breaking.cc:207 page-turn-page-breaking.cc:248
+#: paper-score.cc:162
+msgid "Drawing systems..."
+msgstr "Desegnado de sistemoj..."
+
+#: output-def.cc:235
+msgid "margins do not fit with line-width, setting default values"
+msgstr "marĝenoj ne akordas kun lini-larĝo, ni uzas apriorajn valorojn"
+
+#: output-def.cc:242
+msgid "systems run off the page due to improper paper settings, setting default values"
+msgstr "sistemoj iras preter la paĝo pro malĝustaj paperaj agordoj, ni uzas apriorajn valorojn"
+
+#: page-breaking.cc:277
+msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
+msgstr "ni preteratentas 'min-systems-per-page' kaj 'max-systems-per-page' ĉar 'systems-per-page' ne estis difinata"
+
+#: page-breaking.cc:282
+msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
+msgstr "'min-systems-per-page' estas pli granda ol 'max-systems-per-page', ni preteratentas ambaŭ"
+
+#: page-layout-problem.cc:403
+msgid "A page layout problem has been initiated that cannot accommodate footnotes."
+msgstr "Paĝ-aranĝa problemo estis ekigata, kaj ĝi ne povas enteni piednotojn."
+
+#: page-layout-problem.cc:732
+msgid "cannot fit music on page: ragged-spacing was requested, but page was compressed"
+msgstr "ne eblas akomodi muzikon sur paĝo: 'ragged-spacing' estis petata, sed la paĝo estis densigata"
+
+#: page-layout-problem.cc:735
+#, c-format
+msgid "cannot fit music on page: overflow is %f"
+msgstr "ne eblas akomodi muzikon sur paĝo: troo estas %f"
+
+#: page-layout-problem.cc:737
+msgid "compressing music to fit"
+msgstr "densigado de muziko por akomodi"
+
+#: page-layout-problem.cc:1197
+msgid "staff-affinities should only decrease"
+msgstr "'staff-affinities' devus nur malpliigi"
+
 #: page-turn-page-breaking.cc:168
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
@@ -2682,157 +2711,6 @@ msgstr "\tnombro da paĝoj: %d"
 msgid "\tprevious break: %d"
 msgstr "\tantaŭa salto: %d"
 
-#: midi-item.cc:89
-#, c-format
-msgid "no such MIDI instrument: `%s'"
-msgstr "neniu tia instrumento MIDI: '%s'"
-
-#: midi-item.cc:161
-msgid "Time signature with more than 255 beats.  Truncating"
-msgstr "Takt-indiko kun pli ol 255 frapoj. Ni distranĉas"
-
-#: stem-engraver.cc:110
-msgid "tremolo duration is too long"
-msgstr "daŭro de tremsono estas tro longa"
-
-#: stem-engraver.cc:162
-#, c-format
-msgid "adding note head to incompatible stem (type = %d/%d)"
-msgstr "aldonado de notkapo al malakorda stango (tipo = %d/%d)"
-
-#: stem-engraver.cc:165
-msgid "maybe input should specify polyphonic voices"
-msgstr "eble la enigo devus indiki polifoniajn voĉojn"
-
-#: translator.cc:326
-#, c-format
-msgid "Two simultaneous %s events, junking this one"
-msgstr "Du samtempaj eventoj %s, ni forĵetas tiun ĉi"
-
-#: translator.cc:327
-#, c-format
-msgid "Previous %s event here"
-msgstr "Antaŭa evento %s ĉi tie"
-
-#: glissando-engraver.cc:158
-msgid "unterminated glissando"
-msgstr "nefinigita glito"
-
-#: skyline-pair.cc:131
-msgid "direction must not be CENTER in ly:skyline-pair::skyline"
-msgstr "direkto ne povas esti CENTER en ly:skyline-pair::skyline"
-
-#: beam-engraver.cc:147
-msgid "already have a beam"
-msgstr "jam ekzistas vostligo"
-
-#: beam-engraver.cc:230
-msgid "unterminated beam"
-msgstr "nefinigita vostligo"
-
-#: beam-engraver.cc:277
-msgid "stem does not fit in beam"
-msgstr "stango ne adaptiĝas en vostligo"
-
-#: beam-engraver.cc:278
-msgid "beam was started here"
-msgstr "vostligo estis ekigata ĉi tie"
-
-#: key-engraver.cc:199
-msgid "Incomplete keyAlterationOrder for key signature"
-msgstr "Nekompleta keyAlterationOrder por antaŭsigno"
-
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#: time-signature-engraver.cc:75
-#, c-format
-msgid "strange time signature found: %d/%d"
-msgstr "stranga takt-indiko estis trovata: %d/%d"
-
-#: lily-parser-scheme.cc:80
-#, c-format
-msgid "Changing working directory to: `%s'"
-msgstr "Ŝanĝado de aktuala dosierujo al: '%s'"
-
-#: lily-parser-scheme.cc:84
-#, c-format
-msgid "unable to change directory to: `%s'"
-msgstr "ne eblas ŝanĝi dosierujon al: '%s'"
-
-#: lily-parser-scheme.cc:99
-#, c-format
-msgid "cannot find init file: `%s'"
-msgstr "ne eblas trovi dosieron init: '%s'"
-
-#: lily-parser-scheme.cc:117
-#, c-format
-msgid "Processing `%s'"
-msgstr "Procezado de '%s'"
-
-#: lily-parser-scheme.cc:208
-msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
-msgstr "ly:parser-parse-string nur estas valida kun nova analizilo.  Uzu ly:parser-include-string anstataŭe."
-
-#: lily-parser-scheme.cc:239
-msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
-msgstr "ly:parser-string-expression nur estas valida kun nova analizilo.  Uzu ly:parser-include-string anstataŭe."
-
-#. We are completely screwed.
-#: beam-quanting.cc:839
-msgid "no viable initial configuration found: may not find good beam slope"
-msgstr "neniu realigebla ek-agordado estis trovata: eble ne estos trovata bona vostliga inklino"
-
-#: lily-guile.cc:93
-#, c-format
-msgid "(load path: `%s')"
-msgstr "(ŝarg-vojo: '%s')"
-
-#: lily-guile.cc:416
-#, c-format
-msgid "cannot find property type-check for `%s' (%s)."
-msgstr "ne eblas trovi la econ 'type-check' por '%s' (%s)."
-
-#: lily-guile.cc:419
-msgid "perhaps a typing error?"
-msgstr "eble tajperaro?"
-
-#: lily-guile.cc:426
-msgid "doing assignment anyway"
-msgstr "ni atribuas tamen"
-
-#: lily-guile.cc:438
-#, c-format
-msgid "type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr "kontrolo pri tipo por '%s' fiaskis; valoro '%s' devas esti el tipo '%s'"
-
-#: rest-collision.cc:146
-msgid "cannot resolve rest collision: rest direction not set"
-msgstr "ne eblas solvi paŭzan kolizion: la paŭz-direkto ne estis difinata"
-
-#: rest-collision.cc:158 rest-collision.cc:267
-msgid "too many colliding rests"
-msgstr "tro multe da koliziantaj paŭzoj"
-
-#: episema-engraver.cc:75
-msgid "already have an episema"
-msgstr "jam ekzistas episemo"
-
-#: episema-engraver.cc:88
-msgid "cannot find start of episema"
-msgstr "ne eblas trovi la komencon de episemo"
-
-#: episema-engraver.cc:137
-msgid "unterminated episema"
-msgstr "nefinigita episemo"
-
-#: rest.cc:192
-#, c-format
-msgid "rest `%s' not found"
-msgstr "paŭzo '%s' ne estis trovata"
-
 #: pango-font.cc:205
 #, c-format
 msgid ""
@@ -2851,6 +2729,65 @@ msgstr "neniu tiparnomo PostScript por la tiparo '%s'"
 msgid "FreeType face has no PostScript font name"
 msgstr "Tiparo FreeType ne havas tiparnomon PostScript"
 
+#: paper-book.cc:214
+#, c-format
+msgid "program option -dprint-pages not supported by backend `%s'"
+msgstr "programa elektilo -dprint-pages ne estas subtenata de la intern-interfaco '%s'"
+
+#: paper-book.cc:233
+#, c-format
+msgid "program option -dpreview not supported by backend `%s'"
+msgstr "programa elektilo -dpreview ne estas subtenata de la intern-interfaco '%s'"
+
+#: paper-column-engraver.cc:261
+msgid "forced break was overridden by some other event, should you be using bar checks?"
+msgstr "perfortita salto estis preterpasata de iu evento, ĉu vi ne devus uzi kontrolajn mezur-stangojn?"
+
+#: paper-outputter-scheme.cc:41
+#, c-format
+msgid "Layout output to `%s'..."
+msgstr "Aranĝa eligo al '%s'..."
+
+#: paper-score.cc:134
+#, c-format
+msgid "Element count %d (spanners %d) "
+msgstr "Nombro da elementoj: %d (disigiloj %d) "
+
+#: paper-score.cc:138
+msgid "Preprocessing graphical objects..."
+msgstr "Antaŭprocezado de grafikaj objektoj..."
+
+#: parse-scm.cc:121
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr "GUILE signalis eraron por la esprimo komenciĝanta ĉi tie"
+
+#: partial-iterator.cc:45
+msgid "trying to use \\partial after the start of a piece"
+msgstr "ni provas uzi \\partial post la komenco de muziko"
+
+#: pdf-scheme.cc:50
+#, c-format
+msgid "Conversion of string `%s' to UTF-16be failed: %s"
+msgstr "Konvertado de ĉeno '%s' al UTF-16be fiaskis: %s"
+
+#: percent-repeat-engraver.cc:147
+msgid "unterminated percent repeat"
+msgstr "nefinigita elcenta ripeto"
+
+#: performance.cc:54
+msgid "Track..."
+msgstr "Sekvado..."
+
+#: performance.cc:82
+#, c-format
+msgid "MIDI output to `%s'..."
+msgstr "MIDI-eligo al '%s'..."
+
+#: phrasing-slur-engraver.cc:101 slur-engraver.cc:102
+#, c-format
+msgid "direction of %s invalid: %d"
+msgstr "direkto de %s malvalidas: %d"
+
 #: phrasing-slur-engraver.cc:175
 msgid "unterminated phrasing slur"
 msgstr "nefinigita fraza ligarko"
@@ -2865,137 +2802,158 @@ msgstr "ne eblas finigi frazan ligarkon"
 msgid "already have phrasing slur"
 msgstr "jam estas fraza ligarko"
 
-#: lyric-engraver.cc:186
-msgid "Lyric syllable does not have note.  Use \\lyricsto or associatedVoice."
-msgstr "Teksta silabo ne havas noton. Uzu \\lyricsto aŭ 'associatedVoice'."
-
-#: page-breaking.cc:277
-msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
-msgstr "ni preteratentas 'min-systems-per-page' kaj 'max-systems-per-page' ĉar 'systems-per-page' ne estis difinata"
-
-#: page-breaking.cc:282
-msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
-msgstr "'min-systems-per-page' estas pli granda ol 'max-systems-per-page', ni preteratentas ambaŭ"
-
-#: paper-outputter-scheme.cc:41
+#: piano-pedal-engraver.cc:279
 #, c-format
-msgid "Layout output to `%s'..."
-msgstr "Aranĝa eligo al '%s'..."
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr "atendate 3 ĉenoj por piano-pedaloj, trovite: %ld"
 
-#: performance.cc:54
-msgid "Track..."
-msgstr "Sekvado..."
-
-#: performance.cc:82
+#: piano-pedal-engraver.cc:294 piano-pedal-engraver.cc:305
+#: piano-pedal-performer.cc:104
 #, c-format
-msgid "MIDI output to `%s'..."
-msgstr "MIDI-eligo al '%s'..."
+msgid "cannot find start of piano pedal: `%s'"
+msgstr "ne eblas trovi komencon de piano-pedalo: '%s'"
 
-#: tuplet-engraver.cc:110
-msgid "No tuplet to end"
-msgstr "Neniu opigo por finigi"
-
-#: gregorian-ligature-engraver.cc:70
+#: piano-pedal-engraver.cc:340
 #, c-format
-msgid "\\%s ignored"
-msgstr "\\%s estis preteratentata"
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr "ne eblas trovi la komencon de piano-pedala krampo: '%s'"
 
-#: gregorian-ligature-engraver.cc:75
+#: program-option-scheme.cc:235
 #, c-format
-msgid "implied \\%s added"
-msgstr "implicita \\%s estis aldonata"
+msgid "no such internal option: %s"
+msgstr "neniu tia interna elektilo: %s"
 
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:224
-msgid "cannot apply `\\~' on first head of ligature"
-msgstr "ne eblas apliki '\\~' en la unua kapo de kantligaturo"
-
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:236
-msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr "ne eblas apliki '\\~' en kapoj kun egalaj tonaltoj"
-
-#: key-signature-interface.cc:77
+#: property-iterator.cc:93
 #, c-format
-msgid "No glyph found for alteration: %s"
-msgstr "Neniu signobildo estis trovata por aliigo: %s"
+msgid "not a grob name, `%s'"
+msgstr "ne estas 'grob'-nomo, '%s'"
 
-#: key-signature-interface.cc:87
-msgid "alteration not found"
-msgstr "aliigo ne estis trovata"
+#: relative-octave-check.cc:49
+msgid "Failed octave check, got: "
+msgstr "Malsukcesis kontrolo de okto, oni havis: "
 
-#: source-file.cc:85
+#: relocate.cc:52
 #, c-format
-msgid "expected to read %d characters, got %d"
-msgstr "atendante legi %d signojn, ni ricevis %d"
+msgid "Setting %s to %s"
+msgstr "Akomodado de %s al %s"
 
-#: axis-group-engraver.cc:94
-msgid "Axis_group_engraver: vertical group already has a parent"
-msgstr "Axis_group_engraver: vertikala grupo jam havas praulon"
-
-#: axis-group-engraver.cc:95
-msgid "are there two Axis_group_engravers?"
-msgstr "ĉu estas du 'Axis_group_engraver'?"
-
-#: axis-group-engraver.cc:96
-msgid "removing this vertical group"
-msgstr "forigado de tiu ĉi vertikala grupo"
-
-#: cluster.cc:120
+#. this warning should only be printed in debug mode!
+#: relocate.cc:73
 #, c-format
-msgid "unknown cluster style `%s'"
-msgstr "nekonata faska stilo '%s'"
+msgid "no such file: %s for %s"
+msgstr "ne tia dosiero: %s por %s"
 
-#: cluster.cc:157
-msgid "junking empty cluster"
-msgstr "forĵetado de malplena fasko"
-
-#: global-context-scheme.cc:96 global-context-scheme.cc:114
-msgid "no music found in score"
-msgstr "neniu muziko estis trovata en la partituro"
-
-#: global-context-scheme.cc:104
-msgid "Interpreting music..."
-msgstr "Interpretado de muziko..."
-
-#: global-context-scheme.cc:126
+#. this warning should only be printed in debug mode!
+#. this warning should only be printed in debug mode
+#: relocate.cc:84 relocate.cc:102
 #, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr "pasita tempo: %.2f sekundoj"
+msgid "no such directory: %s for %s"
+msgstr "ne tia dosierujo: %s por %s"
 
-#: output-def.cc:235
-msgid "margins do not fit with line-width, setting default values"
-msgstr "marĝenoj ne akordas kun lini-larĝo, ni uzas apriorajn valorojn"
-
-#: output-def.cc:242
-msgid "systems run off the page due to improper paper settings, setting default values"
-msgstr "sistemoj iras preter la paĝo pro malĝustaj paperaj agordoj, ni uzas apriorajn valorojn"
-
-#: axis-group-interface.cc:668
-msgid "an outside-staff object should have a direction, defaulting to up"
-msgstr "objekto 'outside-staff' devas havi direkton, ni aprioras supren"
-
-#: coherent-ligature-engraver.cc:110
+#: relocate.cc:93
 #, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr "Coherent_ligature_engraver: difinado de 'spacing-increment=0.01': ptr=%ul"
+msgid "%s=%s (prepend)\n"
+msgstr "%s=%s (antaŭmeti)\n"
 
-#: percent-repeat-engraver.cc:147
-msgid "unterminated percent repeat"
-msgstr "nefinigita elcenta ripeto"
-
-#: note-head.cc:95
+#: relocate.cc:124
 #, c-format
-msgid "none of note heads `%s' or `%s' found"
-msgstr "neniu el notkapoj '%s' aŭ '%s' estis trovataj"
+msgid "not relocating, no %s/ or current/ found under %s"
+msgstr "ni ne relokigas, neniu %s/ aŭ kuranta/ estis trovata sub %s"
 
-#: font-config.cc:38
-msgid "Initializing FontConfig..."
-msgstr "Ekigo de FontConfig..."
+#: relocate.cc:134
+#, c-format
+msgid "Relocation: compile datadir=%s, new datadir=%s"
+msgstr "Relokigo: kompila datadir=%s, nova datadir=%s"
 
-#: font-config.cc:58
-msgid "Building font database..."
-msgstr "Konstruado de tipara datumbazo..."
+#: relocate.cc:146
+#, c-format
+msgid "Relocation: framework_prefix=%s"
+msgstr "Relokigo: framework_prefix=%s"
+
+#: relocate.cc:186
+#, c-format
+msgid "Relocation: is absolute: argv0=%s\n"
+msgstr "Relokigo: estas absoluta: argv0=%s\n"
+
+#: relocate.cc:192
+#, c-format
+msgid "Relocation: from cwd: argv0=%s\n"
+msgstr "Relokigo: de cwd: argv0=%s\n"
+
+#: relocate.cc:208
+#, c-format
+msgid ""
+"Relocation: from PATH=%s\n"
+"argv0=%s"
+msgstr ""
+"Relokigo: de VOJO=%s\n"
+"argv0=%s"
+
+#: relocate.cc:235
+msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
+msgstr "LILYPONDPREFIX estas malaktuala, uzu LILYPOND_DATADIR"
+
+#: relocate.cc:360
+#, c-format
+msgid "Relocation file: %s"
+msgstr "Relokiga dosiero: %s"
+
+#: relocate.cc:364 source-file.cc:65
+#, c-format
+msgid "cannot open file: `%s'"
+msgstr "ne eblas malfermi dosieron: '%s'"
+
+#: relocate.cc:394
+#, c-format
+msgid "Unknown relocation command %s"
+msgstr "Nekonata relokiga komando %s"
+
+#: rest-collision-engraver.cc:70
+msgid "rhythmic head is not part of a rhythmic column"
+msgstr "ritma kapo ne estas parto de ritma kolumno"
+
+#: rest-collision.cc:146
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr "ne eblas solvi paŭzan kolizion: la paŭz-direkto ne estis difinata"
+
+#: rest-collision.cc:157 rest-collision.cc:266
+msgid "too many colliding rests"
+msgstr "tro multe da koliziantaj paŭzoj"
+
+#: rest.cc:192
+#, c-format
+msgid "rest `%s' not found"
+msgstr "paŭzo '%s' ne estis trovata"
+
+#: score-engraver.cc:78
+#, c-format
+msgid "cannot find `%s'"
+msgstr "ne eblas trovi '%s'"
+
+#: score-engraver.cc:80
+msgid "Music font has not been installed properly."
+msgstr "Muzika tiparo ne estas instalita ĝuste."
+
+#: score-engraver.cc:82
+#, c-format
+msgid "Search path `%s'"
+msgstr "Serĉvojo '%s'"
+
+#: score-engraver.cc:84
+msgid "Aborting"
+msgstr "Ni ĉesas"
+
+#: score.cc:172
+msgid "already have music in score"
+msgstr "jam estas muziko en la partituro"
+
+#: score.cc:173
+msgid "this is the previous music"
+msgstr "tio ĉi estas la antaŭa muziko"
+
+#: score.cc:178
+msgid "errors found, ignoring music expression"
+msgstr "eraroj trovitaj, ni preterpasas la muzikan esprimon"
 
 #. FIXME:
 #: script-engraver.cc:113
@@ -3006,133 +2964,68 @@ msgstr "ni ne scias kiel interpreti artikulacion:"
 msgid " scheme encoding: "
 msgstr " enkodado de 'scheme': "
 
-#: all-font-metrics.cc:149
+#: skyline-pair.cc:131
+msgid "direction must not be CENTER in ly:skyline-pair::skyline"
+msgstr "direkto ne povas esti CENTER en ly:skyline-pair::skyline"
+
+#: slur-engraver.cc:176
+msgid "unterminated slur"
+msgstr "nefinigita ligarko"
+
+#: slur-engraver.cc:211
+msgid "cannot end slur"
+msgstr "ne eblas finigi ligarkon"
+
+#. We already have an old slur, so give a warning
+#. and completely ignore the new slur.
+#: slur-engraver.cc:231
+msgid "already have slur"
+msgstr "jam ekzistas ligarkon"
+
+#: slur.cc:430
 #, c-format
-msgid "cannot find font: `%s'"
-msgstr "ne eblas trovi tiparon: '%s'"
+msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
+msgstr "Preteratento de 'grob' por ligarko: %s. Ĉu 'avoid-slur' ne estas difinita?"
 
-#: clef.cc:65
+#: source-file.cc:85
 #, c-format
-msgid "clef `%s' not found"
-msgstr "klefo '%s' ne estis trovata"
+msgid "expected to read %d characters, got %d"
+msgstr "atendante legi %d signojn, ni ricevis %d"
 
-#: property-iterator.cc:93
+#: staff-performer.cc:275
+msgid "MIDI channel wrapped around"
+msgstr "MIDI-kanalo estis ĉirkaŭfluigata"
+
+#: staff-performer.cc:276
+msgid "remapping modulo 16"
+msgstr "remapado de modulo 16"
+
+#: stem-engraver.cc:110
+msgid "tremolo duration is too long"
+msgstr "daŭro de tremsono estas tro longa"
+
+#: stem-engraver.cc:162
 #, c-format
-msgid "not a grob name, `%s'"
-msgstr "ne estas 'grob'-nomo, '%s'"
+msgid "adding note head to incompatible stem (type = %d/%d)"
+msgstr "aldonado de notkapo al malakorda stango (tipo = %d/%d)"
 
-#: pdf-scheme.cc:50
+#: stem-engraver.cc:165
+msgid "maybe input should specify polyphonic voices"
+msgstr "eble la enigo devus indiki polifoniajn voĉojn"
+
+#: stem.cc:128
+msgid "weird stem size, check for narrow beams"
+msgstr "stranga grando de stango, kontrolu mallarĝajn vostligojn"
+
+#: system.cc:200
 #, c-format
-msgid "Conversion of string `%s' to UTF-16be failed: %s"
-msgstr "Konvertado de ĉeno '%s' al UTF-16be fiaskis: %s"
+msgid "Element count %d"
+msgstr "Nombro da elementoj: %d"
 
-#: new-fingering-engraver.cc:113
-msgid "cannot add text scripts to individual note heads"
-msgstr "ne eblas aldoni tekstajn skriptojn al individuaj noto-kapoj"
-
-#: new-fingering-engraver.cc:269
-msgid "no placement found for fingerings"
-msgstr "neniu loko estis trovata por fingradoj"
-
-#: new-fingering-engraver.cc:270
-msgid "placing below"
-msgstr "ni metas sube"
-
-#: bar-check-iterator.cc:84
+#: system.cc:480
 #, c-format
-msgid "barcheck failed at: %s"
-msgstr "mezur-kontrolo fiaskis ĉe: %s"
-
-#: change-iterator.cc:34
-#, c-format
-msgid "cannot change `%s' to `%s'"
-msgstr "ne eblas ŝanĝi '%s' al '%s'"
-
-#. FIXME: constant error message.
-#: change-iterator.cc:93
-msgid "cannot find context to switch to"
-msgstr "ne eblas trovi kuntekston por alternative uzi"
-
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#: change-iterator.cc:102
-#, c-format
-msgid "not changing to same context type: %s"
-msgstr "ni ne ŝanĝas al sama kunteksta tipo: %s"
-
-#. FIXME: uncomprehensable message
-#: change-iterator.cc:106
-msgid "none of these in my family"
-msgstr "neniu el tiuj ĉi en mia familio"
-
-#: translator-group-ctors.cc:40
-#, c-format
-msgid "fatal error.  Couldn't find type: %s"
-msgstr "fatala eraro. Ne eblis trovi tipon: %s"
-
-#: text-spanner-engraver.cc:72
-msgid "cannot find start of text spanner"
-msgstr "ne eblas trovi komencon de tekst-disigilo"
-
-#: text-spanner-engraver.cc:85
-msgid "already have a text spanner"
-msgstr "jam ekzistas tekst-disigilo"
-
-#: text-spanner-engraver.cc:130
-msgid "unterminated text spanner"
-msgstr "nefinigita tekst-disigilo"
-
-#: lily-parser.cc:109
-msgid "Parsing..."
-msgstr "Analizado..."
-
-#. if we get to here, just put everything on one line
-#: constrained-breaking.cc:187 constrained-breaking.cc:205
-msgid "cannot find line breaking that satisfies constraints"
-msgstr "ne eblas trovi lini-salton kiu kontentigas limigojn"
-
-#. FIXME: constant error message.
-#: mark-engraver.cc:157
-msgid "rehearsalMark must have integer value"
-msgstr "'rehearsalMark' devas havis entjeran valoron"
-
-#: mark-engraver.cc:163
-msgid "mark label must be a markup object"
-msgstr "mark-etikedo devas estis markada objekto"
-
-#: rest-collision-engraver.cc:70
-msgid "rhythmic head is not part of a rhythmic column"
-msgstr "ritma kapo ne estas parto de ritma kolumno"
-
-#. If there is no such symbol, we default to the numbered style.
-#. (Here really with a warning!)
-#: time-signature.cc:122
-#, c-format
-msgid "time signature symbol `%s' not found; reverting to numbered style"
-msgstr "tempindika simbolo '%s' ne estis trovata; ni revenas al numera stilo"
-
-#: grob-interface.cc:68
-#, c-format
-msgid "Unknown interface `%s'"
-msgstr "Nekonata interfaco '%s'"
-
-#: grob-interface.cc:79
-#, c-format
-msgid "Grob `%s' has no interface for property `%s'"
-msgstr "La grob '%s' havas neniun interfacon por la atributo '%s'"
-
-#: midi-stream.cc:39
-#, c-format
-msgid "cannot open for write: %s: %s"
-msgstr "ne eblas malfermi por skribi: %s: %s"
-
-#: midi-stream.cc:55
-#, c-format
-msgid "cannot write to file: `%s'"
-msgstr "ne eblas skribi en dosiero: '%s'"
+msgid "Grob count %d"
+msgstr "Nombro da 'grob': %d"
 
 #. TODO: Also print the arguments of the markup!
 #: text-interface.cc:129
@@ -3146,327 +3039,263 @@ msgstr "Cikla markado estis detektata: %s"
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr "Markada profundo superas maksimuman valoron %d; Markado: %s"
 
-#: parser.yy:162 parser.yy:176
+#: text-spanner-engraver.cc:72
+msgid "cannot find start of text spanner"
+msgstr "ne eblas trovi komencon de tekst-disigilo"
+
+#: text-spanner-engraver.cc:85
+msgid "already have a text spanner"
+msgstr "jam ekzistas tekst-disigilo"
+
+#: text-spanner-engraver.cc:130
+msgid "unterminated text spanner"
+msgstr "nefinigita tekst-disigilo"
+
+#: tie-engraver.cc:117
+msgid "unterminated tie"
+msgstr "nefinigita ligaturo"
+
+#: tie-engraver.cc:348
+msgid "lonely tie"
+msgstr "sola ligaturo"
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:75
+#, c-format
+msgid "strange time signature found: %d/%d"
+msgstr "stranga takt-indiko estis trovata: %d/%d"
+
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:122
+#, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr "tempindika simbolo '%s' ne estis trovata; ni revenas al numera stilo"
+
+#: translator-ctors.cc:65
+#, c-format
+msgid "unknown translator: `%s'"
+msgstr "nekonata tradukilo: '%s'"
+
+#: translator-group-ctors.cc:40
+#, c-format
+msgid "fatal error.  Couldn't find type: %s"
+msgstr "fatala eraro. Ne eblis trovi tipon: %s"
+
+#: translator-group.cc:188
+#, c-format
+msgid "cannot find: `%s'"
+msgstr "ne eblas trovi: '%s'"
+
+#: translator.cc:326
+#, c-format
+msgid "Two simultaneous %s events, junking this one"
+msgstr "Du samtempaj eventoj %s, ni forĵetas tiun ĉi"
+
+#: translator.cc:327
+#, c-format
+msgid "Previous %s event here"
+msgstr "Antaŭa evento %s ĉi tie"
+
+#: ttf.cc:480 ttf.cc:528
+#, c-format
+msgid "font index %d too large for font `%s', using index 0"
+msgstr "tipar-indico %d estas tro larĝa por la tiparo '%s', ni uzas indicon 0"
+
+#: ttf.cc:512 ttf.cc:562
+msgid "font index must be non-negative, using index 0"
+msgstr "tipar-indico devas esti ne-negativa, ni uzas indicon 0"
+
+#: tuplet-engraver.cc:110
+msgid "No tuplet to end"
+msgstr "Neniu opigo por finigi"
+
+#: vaticana-ligature-engraver.cc:400
+#, c-format
+msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "preteratentita(j) prefikso(j) '%s' de tiu ĉi kapo akorde al la limigoj de la elektita kantligatura stilo"
+
+#: vaticana-ligature-engraver.cc:466
+msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
+msgstr "Dusenca uzo de punktoj en kantligaturo: estas multoblaj punktitaj notoj kun sama tonalto.  La kantligaturo devos esti apartata."
+
+#: vaticana-ligature-engraver.cc:524
+msgid "This ligature has a dotted head followed by a non-dotted head.  The ligature should be split after the last dotted head before this head."
+msgstr "La kantligaturo havas punktitan kapon sekvatan de ne-punktita kapo.  La kantligaturo devos estis apartata post la lasta punktita kapo antaŭ tiu ĉi kapo."
+
+#: vaticana-ligature-engraver.cc:736
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
+msgstr "Vaticana_ligature_engraver: difinado de 'spacing-increment = %f': ptr =%ul"
+
+#: vaticana-ligature.cc:94
+msgid "flexa-height undefined; assuming 0"
+msgstr "'flexa-height' ne difinita; ni uzas 0"
+
+#: vaticana-ligature.cc:99
+msgid "ascending vaticana style flexa"
+msgstr "kreskanta vatikana stilo 'flexa'"
+
+#. fixme: be more verbose.
+#: volta-engraver.cc:110
+msgid "cannot end volta spanner"
+msgstr "ne eblas finigi ripet-disigilon"
+
+#: volta-engraver.cc:120
+msgid "already have a volta spanner, ending that one prematurely"
+msgstr "jam ekzistas ripet-disigilo, tiun alian ni finas tro frue"
+
+#: volta-engraver.cc:124
+msgid "also already have an ended spanner"
+msgstr "ankaŭ jam ekzistas finigita disigilo"
+
+#: volta-engraver.cc:125
+msgid "giving up"
+msgstr "ni rezignas"
+
+#: parser.yy:161 parser.yy:175
 msgid "Too much lookahead"
 msgstr "Tro da antaŭrigardo"
 
-#: parser.yy:833 parser.yy:1234
+#: parser.yy:835 parser.yy:1284
 msgid "not a context mod"
 msgstr "ne estas kunteksta 'mod'"
 
-#: parser.yy:1018
+#: parser.yy:1027
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper ne povas esti uzata en \\score, uzu \\layout anstataŭe"
 
-#: parser.yy:1042
+#: parser.yy:1051
 msgid "need \\paper for paper block"
 msgstr "necesas \\paper por papera bloko"
 
-#: parser.yy:1999
+#: parser.yy:1204
+msgid "Ignoring non-music expression"
+msgstr "Ni preterpasas ne-muzikan esprimon"
+
+#: parser.yy:2044
 msgid "only \\consists and \\remove take non-string argument."
 msgstr "nur \\consists kaj \\remove prenas ne-ĉenan argumenton."
 
-#: parser.yy:2012
+#: parser.yy:2057
 msgid "Grob name should be alphanumeric"
 msgstr "Grob-nomo devas esti alfanumera"
 
-#: parser.yy:2216
+#: parser.yy:2261
 msgid "not a rhythmic event"
 msgstr "ne estas ritma evento"
 
-#: parser.yy:2312 parser.yy:2317
+#: parser.yy:2357 parser.yy:2362
 msgid "have to be in Lyric mode for lyrics"
 msgstr "devas esti en reĝimo Lyric por tekstoj"
 
-#: parser.yy:2432
+#: parser.yy:2477
 msgid "expecting string as script definition"
 msgstr "ni atendas ĉeno kiel difino de skripto"
 
-#: parser.yy:2592 parser.yy:2643
+#: parser.yy:2637 parser.yy:2681
 #, c-format
 msgid "not a duration: %d"
 msgstr "ne estas daŭro: %d"
 
-#: parser.yy:2762
+#: parser.yy:2800
 msgid "have to be in Note mode for notes"
 msgstr "devas esti en reĝimo Note por notoj"
 
-#: parser.yy:2817
+#: parser.yy:2855
 msgid "have to be in Chord mode for chords"
 msgstr "devas esti en reĝimo Chord por akordoj"
 
-#: parser.yy:3077
+#: parser.yy:3115
 msgid "not a markup"
 msgstr "ne estas markado"
 
-#: lexer.ll:224
+#: lexer.ll:218
 msgid "stray UTF-8 BOM encountered"
 msgstr "perdita UTF-8 BOM aperis"
 
-#: lexer.ll:227
+#: lexer.ll:221
 msgid "Skipping UTF-8 BOM"
 msgstr "Preterpasado de UTF-8 BOM"
 
-#: lexer.ll:285
+#: lexer.ll:279
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Renomigo de la enigo al: '%s'"
 
-#: lexer.ll:302
+#: lexer.ll:296
 msgid "quoted string expected after \\version"
 msgstr "citita ĉeno estas atendata post \\version"
 
-#: lexer.ll:306
+#: lexer.ll:300
 msgid "quoted string expected after \\sourcefilename"
 msgstr "citita ĉeno estas atendata post \\sourcefilename"
 
-#: lexer.ll:310
+#: lexer.ll:304
 msgid "integer expected after \\sourcefileline"
 msgstr "entjero estas atendata post \\sourcefileline"
 
-#: lexer.ll:333
+#: lexer.ll:327
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput ne estas permesata ekstere de dosieroj 'init'"
 
-#: lexer.ll:357
+#: lexer.ll:351
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "malĝusta aŭ nedifinita identigilo: '%s'"
 
-#: lexer.ll:383
+#: lexer.ll:377
 msgid "string expected after \\include"
 msgstr "ĉeno estas atendata post \\include"
 
 #. backup rule
-#: lexer.ll:393
+#: lexer.ll:387
 msgid "end quote missing"
 msgstr "fina citilo mankas"
 
-#: lexer.ll:555
+#: lexer.ll:558
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Kurbkrampo estis trovata ĉe fino de muzikteksto.  Ĉu vi forgesis spacon?"
 
-#: lexer.ll:670
+#: lexer.ll:672
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Kurbkrampo estis trovata ĉe fino de markado.  Ĉu vi forgesis spacon?"
 
-#: lexer.ll:682
+#: lexer.ll:684
 msgid "EOF found inside a comment"
 msgstr "EOF estis trovata interne de komento"
 
-#: lexer.ll:780
+#: lexer.ll:782
 #, c-format
 msgid "invalid character: `%s'"
 msgstr "malvalida signo: '%s'"
 
-#: lexer.ll:883 lexer.ll:884
+#: lexer.ll:903 lexer.ll:904
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "nekonata eskapita ĉeno: '\\%s'"
 
-#: lexer.ll:1166 lexer.ll:1167
+#: lexer.ll:1186 lexer.ll:1187
 msgid "non-UTF-8 input"
 msgstr "ne-unikoda enigo"
 
-#: lexer.ll:1210 lexer.ll:1211
+#: lexer.ll:1230 lexer.ll:1231
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "dosiero tro malnova: %s (pli malnova subtenata: %s)"
 
-#: lexer.ll:1211 lexer.ll:1212
+#: lexer.ll:1231 lexer.ll:1232
 msgid "consider updating the input with the convert-ly script"
 msgstr "konsideru ĝisdatigi la enigon per la skripto 'convert-ly'"
 
-#: lexer.ll:1217 lexer.ll:1218
+#: lexer.ll:1237 lexer.ll:1238
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "programo tro malnova: %s (la dosiero postulas: %s)"
-
-#: parser-clef.scm:143 parser-clef.scm:183
-#, scheme-format
-msgid "unknown clef type `~a'"
-msgstr "nekonata kleftipo '~a'"
-
-#: parser-clef.scm:144 parser-clef.scm:184
-#, scheme-format
-msgid "supported clefs: ~a"
-msgstr "subtenataj klefoj: ~a"
-
-#: parser-ly-from-scheme.scm:73
-msgid "error in #{ ... #}"
-msgstr "eraro en #{ ... #}"
-
-#: framework-eps.scm:108
-#, scheme-format
-msgid "Writing ~a..."
-msgstr "Skribado de ~a..."
-
-#: flag-styles.scm:151
-#, scheme-format
-msgid "flag stroke `~a' or `~a' not found"
-msgstr "flag-streko '~a' aŭ '~a' ne estis trovata"
-
-#: graphviz.scm:64
-#, scheme-format
-msgid "Writing graph `~a'..."
-msgstr "Skribado de grafikaĵo '~a'..."
-
-#: define-music-properties.scm:21 define-grob-properties.scm:21
-#: define-context-properties.scm:31
-#, scheme-format
-msgid "symbol ~S redefined"
-msgstr "simbolo ~S estis redifinata"
-
-#: lily.scm:234
-msgid "Using (ice-9 curried-definitions) module\n"
-msgstr "Ni uzas la modulon (ice-9 curried-definitions)\n"
-
-#: lily.scm:237
-msgid "Guile 1.8\n"
-msgstr "Guile 1.8\n"
-
-#: lily.scm:297
-#, scheme-format
-msgid "cannot find: ~A"
-msgstr "ne eblas trovi: ~A"
-
-#: lily.scm:707
-msgid "Success: compilation successfully completed"
-msgstr "Sukceso: la kompilado sukcese plenumiĝis"
-
-#: lily.scm:708
-msgid "Compilation completed with warnings or errors"
-msgstr "La kompilado plenumiĝis kun avertoj aŭ eraroj"
-
-#: lily.scm:770
-#, scheme-format
-msgid "job ~a terminated with signal: ~a"
-msgstr "la laboro ~a finis kun signalo: ~a"
-
-#: lily.scm:773
-#, scheme-format
-msgid ""
-"logfile ~a (exit ~a):\n"
-"~a"
-msgstr ""
-"protokol-dosiero ~a (eliro ~a):\n"
-"~a"
-
-#: lily.scm:795 lily.scm:881
-#, scheme-format
-msgid "failed files: ~S"
-msgstr "fiaskintajn dosieroj: ~S"
-
-#: lily.scm:872
-#, scheme-format
-msgid "Redirecting output to ~a..."
-msgstr "Redirektigo de eligo al ~a..."
-
-#: lily.scm:891 ps-to-png.scm:66
-#, scheme-format
-msgid "Invoking `~a'...\n"
-msgstr "Alvokado de '~a'...\n"
-
-#: layout-beam.scm:40
-#, scheme-format
-msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
-msgstr "Eraro en kalkulado de vostligo.  Atendante (~S,~S), trovis ~S."
-
-#: layout-beam.scm:54
-#, scheme-format
-msgid "Error in beam quanting.  Expected ~S 0, found ~S."
-msgstr "Eraro en kalkulado de vostligo.  Atendante ~S 0, trovis ~S."
-
-#: output-svg.scm:47
-#, scheme-format
-msgid "undefined: ~S"
-msgstr "nedifinita: ~S"
-
-#: output-svg.scm:157
-#, scheme-format
-msgid "cannot decypher Pango description: ~a"
-msgstr "ne eblas deĉifri priskribon Pango: ~a"
-
-#: output-svg.scm:237
-msgid "Glyph must have a unicode value"
-msgstr "Signobildo devas havi unikodan valoron"
-
-#: output-svg.scm:289 output-svg.scm:299
-#, scheme-format
-msgid "cannot find SVG font ~S"
-msgstr "ne eblas trovi SVG-tiparon ~S"
-
-#: output-svg.scm:524 output-ps.scm:277
-#, scheme-format
-msgid "unknown line-cap-style: ~S"
-msgstr "nekonata 'line-cap-style': ~S"
-
-#: output-svg.scm:530 output-ps.scm:282
-#, scheme-format
-msgid "unknown line-join-style: ~S"
-msgstr "nekonata 'line-join-style': ~S"
-
-#: to-xml.scm:191
-#, scheme-format
-msgid "assertion failed: ~S"
-msgstr "aserto fiaskis: ~S"
-
-#: paper.scm:120
-msgid "set-global-staff-size: not in toplevel scope"
-msgstr "set-global-staff-size: ne en supernivela rango"
-
-#: paper.scm:314
-#, scheme-format
-msgid "This is not a \\layout {} object, ~S"
-msgstr "Tio ĉi ne estas objekto \\layout {}, ~S"
-
-#: paper.scm:326
-#, scheme-format
-msgid "Unknown paper size: ~a"
-msgstr "Nekonata paper-grando: ~a"
-
-#. TODO: should raise (generic) exception with throw, and catch
-#. that in parse-scm.cc
-#: paper.scm:341
-msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
-msgstr "Uzendas #(set-paper-size .. ) interne de \\paper { ... }"
-
-#: lily-library.scm:299
-msgid "Music unsuitable for context-mod"
-msgstr "La muziko ne taŭgas por 'context-mod'"
-
-#: lily-library.scm:349
-#, scheme-format
-msgid "Cannot find context-def \\~a"
-msgstr "Ne eblas trovi context-def \\~a"
-
-#: lily-library.scm:365
-msgid "Music unsuitable for output-def"
-msgstr "La muziko ne taŭgas por output-def"
-
-#: lily-library.scm:888
-msgid ""
-"Find the index between @var{start} and @var{end} (an integer)\n"
-"which produces the closest match to @var{target-val} if\n"
-"applied to function @var{getter}."
-msgstr ""
-"Trovi la indicon inter @var{start} kaj @var{end} (entjero)\n"
-"kiu produktas plej bonan kongruon al @var{target-val} se\n"
-"aplikata al la funkcio @var{getter}."
-
-#: lily-library.scm:962
-#, scheme-format
-msgid "unknown unit: ~S"
-msgstr "nekonata unuo: ~S"
-
-#: lily-library.scm:987
-#, scheme-format
-msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "neniu komando \\version estis trovata, bonvolu aldoni ~a por estonta kongrueco"
-
-#: lily-library.scm:993
-msgid "old relative compatibility not used"
-msgstr "malnova relativa kongruo ne estis uzata"
 
 #: backend-library.scm:27
 #, scheme-format
@@ -3500,25 +3329,21 @@ msgstr "Skribado de kapa kampo '~a' al '~a'..."
 msgid "missing stencil expression `~S'"
 msgstr "mankas esprimo de 'stencil' '~S'"
 
-#: documentation-lib.scm:59
+#: chord-entry.scm:52
 #, scheme-format
-msgid "Processing ~S..."
-msgstr "Procezado de ~S..."
+msgid "Spurious garbage following chord: ~A"
+msgstr "Eventuala rubaĵo sekvanta akordon: ~A"
 
-#: documentation-lib.scm:176
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21
 #, scheme-format
-msgid "Writing ~S..."
-msgstr "Skribado de ~S..."
+msgid "symbol ~S redefined"
+msgstr "simbolo ~S estis redifinata"
 
-#: documentation-lib.scm:188
+#: define-event-classes.scm:67
 #, scheme-format
-msgid "cannot find description for property `~S' (~S)"
-msgstr "ne eblas trovi priskribon por la atributo '~S' (~S)"
-
-#: documentation-lib.scm:209
-#, scheme-format
-msgid "cannot find description for property ~S (~S)"
-msgstr "ne eblas trovi priskribon por la atributo ~S (~S)"
+msgid "unknown parent class `~a'"
+msgstr "nekonata event-klaso '~a'"
 
 #: define-markup-commands.scm:887
 msgid "no systems found in \\score markup, does it have a \\layout block?"
@@ -3544,25 +3369,38 @@ msgstr "apriore al ~S pt"
 msgid "not a valid duration string: ~a"
 msgstr "ne estas valida daŭro-ĉeno: ~a"
 
-#: define-event-classes.scm:67
+#: define-music-types.scm:765
 #, scheme-format
-msgid "unknown parent class `~a'"
-msgstr "nekonata event-klaso '~a'"
+msgid "symbol expected: ~S"
+msgstr "atendata simbolo: ~S"
 
-#: markup-macros.scm:331
+#: define-music-types.scm:768
 #, scheme-format
-msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-msgstr "Malĝusta nombro da argumentoj.  Atendate: ~A, trovite ~A: ~S"
+msgid "cannot find music object: ~S"
+msgstr "ne eblas trovi muzik-objekton: ~S"
 
-#: markup-macros.scm:337
+#: define-music-types.scm:787
 #, scheme-format
-msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
-msgstr "Malvalida argumento en pozicio ~A.  Atendite: ~A, trovite: ~S."
+msgid "unknown repeat type `~S'"
+msgstr "nekonata ripeto-tipo '~S'"
 
-#: markup-macros.scm:373
+#: define-music-types.scm:788
+msgid "See define-music-types.scm for supported repeats"
+msgstr "Vidu 'define-music-types.scm' por subtenataj ripetoj"
+
+#: define-note-names.scm:962
+msgid "Select note names language."
+msgstr "Elekti lingvon de not-nomoj."
+
+#: define-note-names.scm:968
 #, scheme-format
-msgid "Not a markup command: ~A"
-msgstr "Ne estas markada komando: ~A"
+msgid "Using `~a' note names..."
+msgstr "Aplikado de not-nomoj '~a'..."
+
+#: define-note-names.scm:971
+#, scheme-format
+msgid "Could not find language `~a'.  Ignoring."
+msgstr "Ne eblis trovi la lingvon '~a'.  Preterpaso."
 
 #: document-backend.scm:132
 #, scheme-format
@@ -3579,43 +3417,35 @@ msgstr "ne eblas trovi interfacon por la atributo: ~S"
 msgid "unknown Grob interface: ~S"
 msgstr "nekonata interfaco Grob: ~S"
 
-#: define-note-names.scm:962
-msgid "Select note names language."
-msgstr "Elekti lingvon de not-nomoj."
-
-#: define-note-names.scm:968
+#: documentation-lib.scm:59
 #, scheme-format
-msgid "Using `~a' note names..."
-msgstr "Aplikado de not-nomoj '~a'..."
+msgid "Processing ~S..."
+msgstr "Procezado de ~S..."
 
-#: define-note-names.scm:971
+#: documentation-lib.scm:176
 #, scheme-format
-msgid "Could not find language `~a'.  Ignoring."
-msgstr "Ne eblis trovi la lingvon '~a'.  Preterpaso."
+msgid "Writing ~S..."
+msgstr "Skribado de ~S..."
 
-#: modal-transforms.scm:38
-msgid "'from' pitch not in scale; ignoring"
-msgstr "la tonalto devena (from) ne estas en skalo; preterpaso"
+#: documentation-lib.scm:188
+#, scheme-format
+msgid "cannot find description for property `~S' (~S)"
+msgstr "ne eblas trovi priskribon por la atributo '~S' (~S)"
 
-#: modal-transforms.scm:42 modal-transforms.scm:75
-msgid "'to' pitch not in scale; ignoring"
-msgstr "la tonalto alvena (to) ne estas en skalo; preterpaso"
+#: documentation-lib.scm:209
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "ne eblas trovi priskribon por la atributo ~S (~S)"
 
-#: modal-transforms.scm:46
-msgid "pitch to be transposed not in scale; ignoring"
-msgstr "la transponota tonalto ne estas en skalo; preterpaso"
+#: flag-styles.scm:151
+#, scheme-format
+msgid "flag stroke `~a' or `~a' not found"
+msgstr "flag-streko '~a' aŭ '~a' ne estis trovata"
 
-#: modal-transforms.scm:71
-msgid "'around' pitch not in scale; ignoring"
-msgstr "la tonalto ĉirkaŭa (around) ne estas en skalo; preterpaso"
-
-#: modal-transforms.scm:79
-msgid "pitch to be inverted not in scale; ignoring"
-msgstr "la inversigota tonalto ne estas en skalo; preterpaso"
-
-#: modal-transforms.scm:95
-msgid "negative replication count; ignoring"
-msgstr "negativa nombro da rekopiado; preterpaso"
+#: framework-eps.scm:108
+#, scheme-format
+msgid "Writing ~a..."
+msgstr "Skribado de ~a..."
 
 #: framework-ps.scm:250
 #, scheme-format
@@ -3665,70 +3495,285 @@ msgstr ""
 "  %% Ekigi cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
 
-#: music-functions.scm:274
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr "Pli da alternativoj ol ripetoj.  Forĵeto de kromaj alternativoj"
-
-#: music-functions.scm:305
-#, scheme-format
-msgid "invalid tremolo repeat count: ~a"
-msgstr "malvalida tremson-ripeta nombro: ~a"
-
-#: music-functions.scm:671
-msgid "Bad chord repetition"
-msgstr "Malĝusta ripeto de akordo"
-
-#: music-functions.scm:706
-#, scheme-format
-msgid "music expected: ~S"
-msgstr "atendita muziko: ~S"
-
-#: music-functions.scm:1024
-#, scheme-format
-msgid "cannot find quoted music: `~S'"
-msgstr "ne eblas trovi la cititan muzikon: '~S'"
-
-#: music-functions.scm:1162
-msgid "Add @var{octave-shift} to the octave of @var{pitch}."
-msgstr "Aldoni @var{octave-shift} al la okto de @var{pitch}."
-
-#: music-functions.scm:1222
-#, scheme-format
-msgid "Unknown octaveness type: ~S "
-msgstr "Nekonata okteca tipo: ~S "
-
-#: music-functions.scm:1223
-msgid "Defaulting to 'any-octave."
-msgstr "Apriore al 'any-octave."
-
-#: music-functions.scm:1560
-#, scheme-format
-msgid "unknown accidental style: ~S"
-msgstr "nekonata stilo de aliigo: ~S"
-
-#: define-music-types.scm:765
-#, scheme-format
-msgid "symbol expected: ~S"
-msgstr "atendata simbolo: ~S"
-
-#: define-music-types.scm:768
-#, scheme-format
-msgid "cannot find music object: ~S"
-msgstr "ne eblas trovi muzik-objekton: ~S"
-
-#: define-music-types.scm:787
-#, scheme-format
-msgid "unknown repeat type `~S'"
-msgstr "nekonata ripeto-tipo '~S'"
-
-#: define-music-types.scm:788
-msgid "See define-music-types.scm for supported repeats"
-msgstr "Vidu 'define-music-types.scm' por subtenataj ripetoj"
-
 #: framework-svg.scm:84
 #, scheme-format
 msgid "Updating font into: ~a"
 msgstr "Ĝisdatigo de tiparo al: ~a"
+
+#: graphviz.scm:64
+#, scheme-format
+msgid "Writing graph `~a'..."
+msgstr "Skribado de grafikaĵo '~a'..."
+
+#: layout-beam.scm:40
+#, scheme-format
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
+msgstr "Eraro en kalkulado de vostligo.  Atendante (~S,~S), trovis ~S."
+
+#: layout-beam.scm:54
+#, scheme-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr "Eraro en kalkulado de vostligo.  Atendante ~S 0, trovis ~S."
+
+#: lily-library.scm:299
+msgid "Music unsuitable for context-mod"
+msgstr "La muziko ne taŭgas por 'context-mod'"
+
+#: lily-library.scm:349
+#, scheme-format
+msgid "Cannot find context-def \\~a"
+msgstr "Ne eblas trovi context-def \\~a"
+
+#: lily-library.scm:365
+msgid "Music unsuitable for output-def"
+msgstr "La muziko ne taŭgas por output-def"
+
+#: lily-library.scm:892
+msgid ""
+"Find the index between @var{start} and @var{end} (an integer)\n"
+"which produces the closest match to @var{target-val} if\n"
+"applied to function @var{getter}."
+msgstr ""
+"Trovi la indicon inter @var{start} kaj @var{end} (entjero)\n"
+"kiu produktas plej bonan kongruon al @var{target-val} se\n"
+"aplikata al la funkcio @var{getter}."
+
+#: lily-library.scm:966
+#, scheme-format
+msgid "unknown unit: ~S"
+msgstr "nekonata unuo: ~S"
+
+#: lily-library.scm:991
+#, scheme-format
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr "neniu komando \\version estis trovata, bonvolu aldoni ~a por estonta kongrueco"
+
+#: lily-library.scm:997
+msgid "old relative compatibility not used"
+msgstr "malnova relativa kongruo ne estis uzata"
+
+#: lily.scm:234
+msgid "Using (ice-9 curried-definitions) module\n"
+msgstr "Ni uzas la modulon (ice-9 curried-definitions)\n"
+
+#: lily.scm:237
+msgid "Guile 1.8\n"
+msgstr "Guile 1.8\n"
+
+#: lily.scm:297
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr "ne eblas trovi: ~A"
+
+#: lily.scm:708
+msgid "Success: compilation successfully completed"
+msgstr "Sukceso: la kompilado sukcese plenumiĝis"
+
+#: lily.scm:709
+msgid "Compilation completed with warnings or errors"
+msgstr "La kompilado plenumiĝis kun avertoj aŭ eraroj"
+
+#: lily.scm:771
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr "la laboro ~a finis kun signalo: ~a"
+
+#: lily.scm:774
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+"protokol-dosiero ~a (eliro ~a):\n"
+"~a"
+
+#: lily.scm:796 lily.scm:882
+#, scheme-format
+msgid "failed files: ~S"
+msgstr "fiaskintajn dosieroj: ~S"
+
+#: lily.scm:873
+#, scheme-format
+msgid "Redirecting output to ~a..."
+msgstr "Redirektigo de eligo al ~a..."
+
+#: lily.scm:892 ps-to-png.scm:66
+#, scheme-format
+msgid "Invoking `~a'...\n"
+msgstr "Alvokado de '~a'...\n"
+
+#: ly-syntax-constructors.scm:66
+#, scheme-format
+msgid "~a function cannot return ~a"
+msgstr "funkcio ~a ne povas liveri ~a"
+
+#: ly-syntax-constructors.scm:75
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr "malĝusta tipo por argumento ~a.  Atendate ~a, trovite ~s"
+
+#: ly-syntax-constructors.scm:188
+#, scheme-format
+msgid "Invalid property operation ~a"
+msgstr "Malvalida atribut-operacio ~a"
+
+#: markup-macros.scm:331
+#, scheme-format
+msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr "Malĝusta nombro da argumentoj.  Atendate: ~A, trovite ~A: ~S"
+
+#: markup-macros.scm:337
+#, scheme-format
+msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr "Malvalida argumento en pozicio ~A.  Atendite: ~A, trovite: ~S."
+
+#: markup-macros.scm:373
+#, scheme-format
+msgid "Not a markup command: ~A"
+msgstr "Ne estas markada komando: ~A"
+
+#: modal-transforms.scm:38
+msgid "'from' pitch not in scale; ignoring"
+msgstr "la tonalto devena (from) ne estas en skalo; preterpaso"
+
+#: modal-transforms.scm:42 modal-transforms.scm:75
+msgid "'to' pitch not in scale; ignoring"
+msgstr "la tonalto alvena (to) ne estas en skalo; preterpaso"
+
+#: modal-transforms.scm:46
+msgid "pitch to be transposed not in scale; ignoring"
+msgstr "la transponota tonalto ne estas en skalo; preterpaso"
+
+#: modal-transforms.scm:71
+msgid "'around' pitch not in scale; ignoring"
+msgstr "la tonalto ĉirkaŭa (around) ne estas en skalo; preterpaso"
+
+#: modal-transforms.scm:79
+msgid "pitch to be inverted not in scale; ignoring"
+msgstr "la inversigota tonalto ne estas en skalo; preterpaso"
+
+#: modal-transforms.scm:95
+msgid "negative replication count; ignoring"
+msgstr "negativa nombro da rekopiado; preterpaso"
+
+#: music-functions.scm:272
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr "Pli da alternativoj ol ripetoj.  Forĵeto de kromaj alternativoj"
+
+#: music-functions.scm:303
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "malvalida tremson-ripeta nombro: ~a"
+
+#: music-functions.scm:689
+msgid "Bad chord repetition"
+msgstr "Malĝusta ripeto de akordo"
+
+#: music-functions.scm:724
+#, scheme-format
+msgid "music expected: ~S"
+msgstr "atendita muziko: ~S"
+
+#: music-functions.scm:1042
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "ne eblas trovi la cititan muzikon: '~S'"
+
+#: music-functions.scm:1180
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr "Aldoni @var{octave-shift} al la okto de @var{pitch}."
+
+#: music-functions.scm:1240
+#, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr "Nekonata okteca tipo: ~S "
+
+#: music-functions.scm:1241
+msgid "Defaulting to 'any-octave."
+msgstr "Apriore al 'any-octave."
+
+#: music-functions.scm:1578
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "nekonata stilo de aliigo: ~S"
+
+#: output-ps.scm:277 output-svg.scm:524
+#, scheme-format
+msgid "unknown line-cap-style: ~S"
+msgstr "nekonata 'line-cap-style': ~S"
+
+#: output-ps.scm:282 output-svg.scm:530
+#, scheme-format
+msgid "unknown line-join-style: ~S"
+msgstr "nekonata 'line-join-style': ~S"
+
+#: output-svg.scm:47
+#, scheme-format
+msgid "undefined: ~S"
+msgstr "nedifinita: ~S"
+
+#: output-svg.scm:157
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr "ne eblas deĉifri priskribon Pango: ~a"
+
+#: output-svg.scm:237
+msgid "Glyph must have a unicode value"
+msgstr "Signobildo devas havi unikodan valoron"
+
+#: output-svg.scm:289 output-svg.scm:299
+#, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr "ne eblas trovi SVG-tiparon ~S"
+
+#: paper.scm:120
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr "set-global-staff-size: ne en supernivela rango"
+
+#: paper.scm:315
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr "Tio ĉi ne estas objekto \\layout {}, ~S"
+
+#: paper.scm:327
+#, scheme-format
+msgid "Unknown paper size: ~a"
+msgstr "Nekonata paper-grando: ~a"
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:342
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr "Uzendas #(set-paper-size .. ) interne de \\paper { ... }"
+
+#: parser-clef.scm:143 parser-clef.scm:183
+#, scheme-format
+msgid "unknown clef type `~a'"
+msgstr "nekonata kleftipo '~a'"
+
+#: parser-clef.scm:144 parser-clef.scm:184
+#, scheme-format
+msgid "supported clefs: ~a"
+msgstr "subtenataj klefoj: ~a"
+
+#: parser-ly-from-scheme.scm:73
+msgid "error in #{ ... #}"
+msgstr "eraro en #{ ... #}"
+
+#: part-combiner.scm:598
+#, scheme-format
+msgid "quoted music `~a' is empty"
+msgstr "la citita muziko '~a' estas malplena"
+
+#: ps-to-png.scm:70
+#, scheme-format
+msgid "~a exited with status: ~S"
+msgstr "~a finis kun stato: ~S"
+
+#: to-xml.scm:191
+#, scheme-format
+msgid "assertion failed: ~S"
+msgstr "aserto fiaskis: ~S"
 
 #: translation-functions.scm:359
 #, scheme-format
@@ -3771,36 +3816,6 @@ msgid ""
 msgstr ""
 "Neniu etikedo por freto ~a (sur kordo ~a);\n"
 "nur ~a fret-etikedoj estis provizataj"
-
-#: ps-to-png.scm:70
-#, scheme-format
-msgid "~a exited with status: ~S"
-msgstr "~a finis kun stato: ~S"
-
-#: chord-entry.scm:52
-#, scheme-format
-msgid "Spurious garbage following chord: ~A"
-msgstr "Eventuala rubaĵo sekvanta akordon: ~A"
-
-#: part-combiner.scm:598
-#, scheme-format
-msgid "quoted music `~a' is empty"
-msgstr "la citita muziko '~a' estas malplena"
-
-#: ly-syntax-constructors.scm:66
-#, scheme-format
-msgid "~a function cannot return ~a"
-msgstr "funkcio ~a ne povas liveri ~a"
-
-#: ly-syntax-constructors.scm:75
-#, scheme-format
-msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr "malĝusta tipo por argumento ~a.  Atendate ~a, trovite ~s"
-
-#: ly-syntax-constructors.scm:188
-#, scheme-format
-msgid "Invalid property operation ~a"
-msgstr "Malvalida atribut-operacio ~a"
 
 #~ msgid "add midi-block to .ly file"
 #~ msgstr "aldoni midi-blokon al dosiero .ly"
