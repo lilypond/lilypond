@@ -105,6 +105,7 @@
   \consists "Tie_performer"
   \consists "Note_performer"
   \consists "Beam_performer"
+  autoBeaming = ##f  % needed for consistent melismata with engravers
   \consists "Slur_performer"
 }
 
@@ -116,6 +117,7 @@
   \consists "Tie_performer"
   \consists "Note_performer"
   \consists "Beam_performer"
+  autoBeaming = ##f  % needed for consistent melismata with engravers
   \consists "Slur_performer"
 }
 
@@ -127,6 +129,7 @@
   \consists "Tie_performer"
   \consists "Note_performer"
   \consists "Beam_performer"
+  autoBeaming = ##f  % needed for consistent melismata with engravers
   \consists "Slur_performer"
 }
 
@@ -167,6 +170,7 @@
 \context {
   \Voice
   \name TabVoice
+  autoBeaming = ##f  % needed for consistent melismata with engravers
 }
 
 \context {
@@ -189,6 +193,7 @@
   \name Score
 
   melismaBusyProperties = #default-melisma-properties
+  autoBeaming = ##t  % needed for consistent melismata with engravers
   instrumentName = #"bright acoustic"
   midiChannelMapping = #'staff
 

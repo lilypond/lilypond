@@ -424,7 +424,7 @@
 	   (fallbackval (ly:modules-lookup (list header) fallbackvar))
 	   (val (if overrideval overrideval fallbackval)))
       (if val
-	  (format port "/~a (~a)\n" field (metadata-encode (markup->string val))))))
+	  (format port "/~a (~a)\n" field (metadata-encode (markup->string val (list header)))))))
   (display "[ " port)
   (metadata-lookup-output 'pdfcomposer 'composer "Author")
   (format port "/Creator (LilyPond ~a)\n" (lilypond-version))

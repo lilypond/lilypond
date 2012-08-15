@@ -37,7 +37,6 @@ Rest::y_offset_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   int duration_log = scm_to_int (me->get_property ("duration-log"));
-  int line_count = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   bool position_override = scm_is_number (me->get_property ("staff-position"));
@@ -69,7 +68,7 @@ Rest::y_offset_callback (SCM smob)
         make a semibreve rest hang from the next line,
         except for a single line staff
       */
-      if (duration_log == 0 && line_count > 1)
+      if (duration_log == 0 && Staff_symbol_referencer::line_count (me) > 1)
         pos += 2;
 
       /*

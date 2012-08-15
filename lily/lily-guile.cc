@@ -582,8 +582,8 @@ ly_rational2scm (Rational r)
 {
   if (r.is_infinity ())
     {
-      if (r > Rational(0))
-	return scm_inf ();
+      if (r > Rational (0))
+        return scm_inf ();
 
       return scm_difference (scm_inf (), SCM_UNDEFINED);
     }
@@ -598,17 +598,17 @@ ly_scm2rational (SCM r)
   if (scm_is_true (scm_inf_p (r)))
     {
       if (scm_is_true (scm_positive_p (r)))
-	{
-	  Rational r;
-	  r.set_infinite (1);
-	  return r;
-	}
+        {
+          Rational r;
+          r.set_infinite (1);
+          return r;
+        }
       else
-	{
-	  Rational r;
-	  r.set_infinite (-1);
-	  return r;
-	}
+        {
+          Rational r;
+          r.set_infinite (-1);
+          return r;
+        }
     }
 
   return Rational (scm_to_int64 (scm_numerator (r)),
@@ -628,8 +628,8 @@ bool
 ly_is_rational (SCM n)
 {
   return (scm_is_real (n)
-	  && (scm_is_true (scm_exact_p (n))
-	      || scm_is_true (scm_inf_p (n))));
+          && (scm_is_true (scm_exact_p (n))
+              || scm_is_true (scm_inf_p (n))));
 }
 
 SCM

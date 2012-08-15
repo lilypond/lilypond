@@ -17,7 +17,7 @@ for you and will help you do this as quickly and easily as possible.
 @node LilyDev
 @section LilyDev
 
-There is a disk image of a @q{remix} of Ubuntu Linux available for
+There is a disk image of a @q{remix} of Ubuntu GNU/Linux available for
 download which includes all the necessary software and tools to compile
 both LilyPond and the documentation.  Called the
 @qq{Ubuntu LilyPond Developer Remix}, but known simply as @qq{LilyDev}
@@ -25,14 +25,14 @@ for short.  Although it is not possible to compile LilyPond on Windows
 and extremely difficult on MacOS, LilyDev can be installed and run
 inside a @q{virtual machine} on any of these operating systems without
 disturbing your main operating system.  The LilyDev disk image can also
-be burnt to a DVD and installed like any other Ubuntu Linux
+be burnt to a DVD and installed like any other Ubuntu GNU/Linux
 distribution.
 
 Most virtualization software can be used but we recommend VirtualBox as
 it is available for all major operating systems and is easy to install
 & configure.
 
-If you are not familiar with Linux, it may be beneficial to read a
+If you are not familiar with GNU/Linux, it may be beneficial to read a
 couple of @qq{introduction to Ubuntu} web pages.
 
 Some contributors have recommended a free PDF:

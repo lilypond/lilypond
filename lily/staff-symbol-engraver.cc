@@ -52,10 +52,11 @@ protected:
 void
 Staff_symbol_engraver::derived_mark () const
 {
-  for (LEFT_and_RIGHT (d)) {
-    if (span_events_[d])
-      scm_gc_mark (span_events_[d]->self_scm ());
-  }
+  for (LEFT_and_RIGHT (d))
+    {
+      if (span_events_[d])
+        scm_gc_mark (span_events_[d]->self_scm ());
+    }
 }
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()

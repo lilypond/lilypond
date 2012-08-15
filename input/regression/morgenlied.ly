@@ -112,7 +112,7 @@ pianoRH =  \relative c''' \repeat volta 2 {
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
     \once \override DynamicLineSpanner   #'padding =#3
-    r8 << { s8 s8 }  << { fis(\> g)\!
+    r8 << { s8\> s8\! }  << { fis( g)
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
     e,16_" "_\markup { \bold\italic cresc. } g c g e g d gis b gis d gis |

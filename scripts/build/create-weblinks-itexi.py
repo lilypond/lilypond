@@ -320,11 +320,11 @@ def make_download_source(name, vstring, version, lang):
 
 def make_all_downloads(macroName, version):
     make_download("download"+macroName+"LinuxNormal", "linux-x86/",
-        "linux-x86.sh",    version, "1", "Linux x86")
+        "linux-x86.sh",    version, "1", "GNU/Linux x86")
     make_download("download"+macroName+"LinuxBig", "linux-64/",
-        "linux-64.sh", version, "1", "Linux 64")
+        "linux-64.sh", version, "1", "GNU/Linux 64")
     make_download("download"+macroName+"LinuxPPC", "linux-ppc/",
-        "linux-ppc.sh", version, "1", "Linux PPC")
+        "linux-ppc.sh", version, "1", "GNU/Linux PPC")
 
     make_download("download"+macroName+"FreeBSDNormal", "freebsd-x86/",
         "freebsd-x86.sh", version, "1", "FreeBSD i386")

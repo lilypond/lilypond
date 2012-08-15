@@ -124,13 +124,13 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
   if (unit)
     {
       Rational const now_unit = e->main_part_ / unit->main_part_;
-      if (now_unit.den() > 1)
+      if (now_unit.den () > 1)
         {
           /*
             within a unit - go to the end of that
           */
           result = unit->main_part_
-            * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+                   * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
         }
       else
         {

@@ -105,20 +105,17 @@ Repeat_acknowledge_engraver::process_music ()
         s = robust_scm2string (get_property ("doubleRepeatSegnoType"), ":|S|:");
       else // { segno, start }
         s = robust_scm2string (get_property ("startRepeatSegnoType"), ".S|:");
-    else
-      if (end) // { segno, end }
-        s = robust_scm2string (get_property ("endRepeatSegnoType"), ":|S");
-      else // { segno }
-        s = robust_scm2string (get_property ("segnoType"), "S");
-  else
-    if (start)
-      if (end) // { start, end }
-        s = robust_scm2string (get_property ("doubleRepeatType"), ":|:");
-      else // { start }
-        s = robust_scm2string (get_property ("startRepeatType"), "|:");
-    else
-      if (end) // { end }
-        s = robust_scm2string (get_property ("endRepeatType"), ":|");
+    else if (end) // { segno, end }
+      s = robust_scm2string (get_property ("endRepeatSegnoType"), ":|S");
+    else // { segno }
+      s = robust_scm2string (get_property ("segnoType"), "S");
+  else if (start)
+    if (end) // { start, end }
+      s = robust_scm2string (get_property ("doubleRepeatType"), ":|:");
+    else // { start }
+      s = robust_scm2string (get_property ("startRepeatType"), "|:");
+  else if (end) // { end }
+    s = robust_scm2string (get_property ("endRepeatType"), ":|");
 
   /*
     TODO: line breaks might be allowed if we set whichBar to "".

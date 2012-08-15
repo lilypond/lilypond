@@ -133,13 +133,16 @@ Audio_span_dynamic::render ()
       return;
     }
 
-  Real delta_v = grow_dir_ * 0.1;
-
   Real start_v = dynamics_[0]->volume_;
   if (dynamics_.back ()->volume_ < 0)
-    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, max_volume_), min_volume_);
+    {
+      // The dynamic spanner does not end with an explicit dynamic script
+      // event.  Adjust the end volume by at most 1/4 of the available
+      // volume range in this case.
+      dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * (max_volume_ - min_volume_) * 0.25, max_volume_), min_volume_);
+    }
 
-  delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
+  Real delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
 
   Moment start = dynamics_[0]->get_column ()->when ();
 

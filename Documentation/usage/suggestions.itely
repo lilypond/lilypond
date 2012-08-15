@@ -281,11 +281,11 @@ See the @strong{GNU Make Manual} for full details on using
 can do.
 
 The commands to define rules in a makefile differ
-according to platform; for instance the various forms of Linux and
+according to platform; for instance the various forms of GNU/Linux and
 MacOS use @code{bash}, while Windows uses @code{cmd}.  Note that on
 MacOS X, you need to configure the system to use the command-line
 interpreter.  Here are some example makefiles, with versions for both
-Linux/MacOS and Windows.
+GNU/Linux/MacOS and Windows.
 
 The first example is for an orchestral work in four
 movements with a directory structure as follows:
