@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,7 +47,8 @@
 Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
 ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
 
-@lilypondfile{chord-names-jazz.ly}
+@c The line width is a hack to allow space for instrument names
+@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
 
 
 @node Übliche Akkord-Variablen
@@ -440,15 +441,15 @@ Die folgende Tabelle zeigt die vordefinierten Saitenstimmungen:
 
 Die Tabelle zeigt alle vordefinierten Bunddiagramme für Gitarre.
 
-@lilypondfile{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
 Die folgende Tabelle zeigt vordefinierte Bunddiagramme für Ukulele.
 
-@lilypondfile{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
 Die folgende Tabelle zeigt die vordefinierten Bunddiagramme für Mandoline.
 
-@lilypondfile{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 
 
 @node Vordefinierte Papierformate

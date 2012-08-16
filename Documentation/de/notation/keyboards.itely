@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -230,16 +230,19 @@ Notation kommen:
     \voiceOne
     % Make space for fingering in the cross-staff voice
     \once\override DynamicLineSpanner #'staff-padding = #3.4
-    e''2\p\< d''\> s1*0\!
+    e''2\p\< d''\>
+    c''1\!
   }
   \new Staff = "down" <<
     {
       \clef bass
       s4. e,8\rest g,2\rest
+      c1
     } \\ {
       c8\( g c'
       \change Staff = "up"
       e' g' b'-3 a' g'\)
+      f'1
     }
   >>
 >>
@@ -442,43 +445,17 @@ Referenz der Interna:
 @cindex Akkorde über zwei Systeme
 
 @funindex Stem
-@funindex cross-staff
-@funindex length
-@funindex flag-style
+@funindex \cross-staff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
 
-Akkorde, die über zwei Systeme reichen, können erstellt werden,
-indem die Länge der Hälse im unteren System vergrößert wird,
-bis sie zum oberen System hinauf reichen bzw. umgekehrt bei
-Hälsen, die nach unten zeigen.
+Akkorde, die über zwei Systeme reichen, können mit dem
+@code{Span_stem_engraver} erstellt werden.  Man muss dabei sicherstellen,
+dass die automatische Bebalkung die Noten nicht auf dem einen System
+mit Balken versieht, wenn es auf dem anderen nicht nötig wäre.
 
-@lilypond[verbatim,quote]
-\new PianoStaff <<
-  \new Staff {
-    \relative c' {
-      f8 e4 d8 d f e4
-    }
-  }
-  \new Staff {
-    \relative c' {
-      << {
-        \clef bass
-        % stems may overlap the other staff
-        \override Stem #'cross-staff = ##t
-        % extend the stems to reach the other staff
-        \override Stem #'length = #12
-        % do not print extra flags
-        \override Flag #'style = #'no-flag
-        % prevent beaming as needed
-        a8 g4 f8 f bes\noBeam g4
-      }
-      \\
-      {
-        f,2 bes4 c
-      } >>
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
