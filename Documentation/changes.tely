@@ -62,7 +62,16 @@ which scares away people.
 @end ignore
 
 @item
-[no changes yet]
+Accidentals in the key signature may be printed in octaves other
+than their traditional positions, or in multiple octaves.
+@lilypond[quote,relative=0]
+\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+\override Staff.KeySignature #'sharp-positions = #'(2)
+\bar "||" \key d\major b fis b2
+@end lilypond
 
 @end itemize
 

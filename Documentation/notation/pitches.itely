@@ -1250,6 +1250,37 @@ f
 fis
 @end lilypond
 
+Additional modes can be defined, by listing the alterations
+for each scale step when the mode starts on C.
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative c' {
+  \key c\freygish c4 des e f
+  \bar "||" \key d\freygish d es fis g
+}
+@end lilypond
+
+Accidentals in the key signature may be printed in octaves other
+than their traditional positions, or in multiple octaves, by
+using the @code{flat-positions} and @code{sharp-positions}
+properties of @code{KeySignature}.  Entries in these properties
+specify the range of staff-positions where accidentals will be
+printed.  If a single position is specified in an entry, the
+accidentals are placed within the octave ending at that staff
+position.
+
+@lilypond[verbatim, quote,relative=0]
+\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+
+\override Staff.KeySignature #'sharp-positions = #'(2)
+\bar "||" \key b\major b fis b2
+@end lilypond
 
 @snippets
 
@@ -1276,7 +1307,6 @@ Internals Reference:
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
-@rinternals{key-cancellation-interface},
 @rinternals{key-signature-interface}.
 
 

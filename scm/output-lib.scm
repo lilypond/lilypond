@@ -507,47 +507,31 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; key signature
 
-(define-public (key-signature-interface::alteration-position step alter
-							     c0-position)
-  ;; TODO: memoize - this is mostly constant.
-
-  ;; fes, ges, as and bes typeset in lower octave
-  (define FLAT_TOP_PITCH 2)
-
-  ;; ais and bis typeset in lower octave
-  (define SHARP_TOP_PITCH 4)
-
-  (if (pair? step)
-      (+ (cdr step) (* (car step) 7) c0-position)
-      (let* ((from-bottom-pos (modulo (+ 4 49 c0-position) 7))
-	     (p step)
-	     (c0 (- from-bottom-pos 4)))
-
-	(if
-	 (or (and (< alter 0)
-		  (or (> p FLAT_TOP_PITCH) (> (+ p c0) 4)) (> (+ p c0) 1))
-	     (and (> alter 0)
-		  (or (> p SHARP_TOP_PITCH) (> (+ p c0) 5)) (> (+ p c0) 2)))
-
-	 ;; Typeset below c_position
-	 (set! p (- p 7)))
-
-	;; Provide for the four cases in which there's a glitch
-	;; it's a hack, but probably not worth
-	;; the effort of finding a nicer solution.
-	;; --dl.
-	(cond
-	 ((and (= c0 2) (= p 3) (> alter 0))
-	  (set! p (- p 7)))
-	 ((and (= c0 -3) (= p -1) (> alter 0))
-	  (set! p (+ p 7)))
-	 ((and (= c0 -4) (= p -1) (< alter 0))
-	  (set! p (+ p 7)))
-	 ((and (= c0 -2) (= p -3) (< alter 0))
-	  (set! p (+ p 7))))
-
-	(+ c0 p))))
-
+(define-public (key-signature-interface::alteration-positions
+		entry c0-position grob)
+  (let ((step (car entry))
+	(alter (cdr entry)))
+    (if (pair? step)
+	(list (+ (cdr step) (* (car step) 7) c0-position))
+	(let* ((c-position (modulo c0-position 7))
+	       (positions
+		(if (< alter 0)
+		    ;; See (flat|sharp)-positions in define-grob-properties.scm
+		    (ly:grob-property grob 'flat-positions '(3))
+		    (ly:grob-property grob 'sharp-positions '(3))))
+	       (p (list-ref positions
+			    (if (< c-position (length positions))
+				c-position 0)))
+	       (max-position (if (pair? p) (cdr p) p))
+	       (min-position (if (pair? p) (car p) (- max-position 6)))
+	       (first-position (+ (modulo (- (+ c-position step)
+					     min-position)
+					  7)
+				  min-position)))
+	  (define (prepend x l) (if (> x max-position)
+				    l
+				    (prepend (+ x 7) (cons x l))))
+	  (prepend first-position '())))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; annotations

@@ -1112,6 +1112,8 @@
 	(break-visibility . ,begin-of-line-invisible)
 	(glyph-name-alist . ,cancellation-glyph-name-alist)
 	(non-musical . #t)
+	(flat-positions . (2 3 4 2 1 2 1))
+	(sharp-positions . (4 5 4 2 3 2 3))
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
@@ -1142,6 +1144,8 @@
 	(break-visibility . ,begin-of-line-visible)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(non-musical . #t)
+	(flat-positions . (2 3 4 2 1 2 1))
+	(sharp-positions . (4 5 4 2 3 2 3))
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))

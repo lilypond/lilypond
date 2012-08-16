@@ -286,6 +286,14 @@ Y@tie{}dimension by this much.")
 ;; f
 ;;
      (flag-count ,number? "The number of tremolo beams.")
+     (flat-positions ,list? "Flats in key signatures are placed
+within the specified ranges of staff-positions.  The general form
+is a list of pairs, with one pair for each type of clef, in order
+of the staff-position at which each clef places C:
+@code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+If the list contains a single element it applies for all clefs.
+A single number in place of a pair sets accidentals within the octave
+ending at that staff-position.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -761,6 +769,14 @@ value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
+     (sharp-positions ,list? "Sharps in key signatures are placed
+within the specified ranges of staff-positions.  The general form
+is a list of pairs, with one pair for each type of clef, in order
+of the staff-position at which each clef places C:
+@code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+If the list contains a single element it applies for all clefs.
+A single number in place of a pair sets accidentals within the octave
+ending at that staff-position.")
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive
 values shorten the text-spanner, while negative values lengthen it.")
