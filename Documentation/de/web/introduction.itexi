@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  233fb6a8b3b6e31de1841641dbbd4c4f43423151
+    Translation of GIT committish:  a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -470,7 +470,7 @@ wollen manche Entwickler der Gemeinschaft @qq{etwas zurück
 geben}.
 
 @item
-Arbeitserfahrung: zu einem Open Source Projekt beizutragen ist
+Arbeitserfahrung: zu einem freien Softwareprojekt beizutragen ist
 eine gute Weise, sich im Programmieren, Schreiben und Übersetzen
 von Dokumentation oder Design zu üben.  Diese Übung hat einigen
 Entwicklern geholfen, Arbeitsangebote oder Stipendien zu erhalten.
@@ -1103,6 +1103,15 @@ Editieren}.
 @unnumberedsec Leichteres Editieren
 @translationof Easier editing
 
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
 
 @divClass{column-center-top}
 @subheading LilyPondTool
@@ -1139,12 +1148,9 @@ point-and-click.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi ist ein eigener Musik- und Texteditor für LilyPond
-mit eingebauter PDF-Vorschau, einer vielseitigen Hilfe zum
-Erstellen neuer Partituren und vielen Editionseigenschaften.
-Er ist auf Grundlage der KDE4-Bibliotheken programmiert und läuft
-zur Zeit auf allen Arten von Linux-Systemen und anderen
-UNIX-artigen Betriebssystemen.
+Frescobaldi ist ein leichter, aber sehr mächtiger LilyPond-Musik- und -Texteditor
+mit eingebauter PDF-Vorschau.  Er ist einfach zu benutzen und läuft auf allen
+gängigen Betriebssystemen (Linux, Mac OS X und Windows).
 
 @divEnd
 
@@ -1216,19 +1222,6 @@ eingesetzt, die man hier erhält:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}.
 @end example
 
-
-@sourceimage{logo-macosx,,,}
-Es gibt ein LilyPond-Paket für TeXMate, ein kommerzieller Editor für
-MacOS.  Es kann installiert
-werden, indem man folgendes auf der Kommandozeile ausführt:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
-
 @divEnd
 
 
@@ -1258,7 +1251,8 @@ wird aber aktiv entwickelt.
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} ist ein C#-Programm, das
-@uref{http://www.noteworthysoftware.com/,NoteWorthy}-Lieder nach LilyPond
+@c @uref{http://www.noteworthysoftware.com/}
+NoteWorthy-Lieder nach LilyPond
 konvertieren kann.
 
 @item
@@ -1273,7 +1267,7 @@ einer Stimme zusammenfügen kann.
 der auch einen Noteneditor für einzelne Systeme unterstützt.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
+@uref{https://launchpad.net/rumor/,Rumor},
 ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
 
 @item

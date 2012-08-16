@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish:  233fb6a8b3b6e31de1841641dbbd4c4f43423151
+    Translation of GIT committish:  a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,7 +52,7 @@ wenn man über LilyPond diskutieren will.
 @ref{Entwicklung}: für Mitarbeiter und Tester.
 
 @item
-@ref{GSoC}: Liste der Projekte für den Google Summer of Code.
+@ref{GSoC 2012}: Liste der Projekte für den Google Summer of Code.
 
 @item
 @ref{Autoren}: die Menschen, die LilyPond zu dem gemacht haben,
@@ -90,7 +90,7 @@ uns geschrieben wurde.
 * Helfen Sie uns::
 * Sponsoren::
 * Entwicklung::
-* GSoC::
+* GSoC 2012::
 * Autoren::
 * Veröffentlichungen::
 * Ältere Neuigkeiten::
@@ -902,42 +902,36 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @divEnd
 
 
-@node GSoC
-@unnumberedsec GSoC (Google Summer of Code)
-@translationof GSoC
+@node GSoC 2012
+@unnumberedsec GSoC (Google Summer of Code) 2012
+@translationof GSoC 2012
 
 @divClass{column-center-top}
 @subheading Was ist Google Summer of Code?
 
-Der @uref{http://www.google-melange.com/gsoc/homepage/google/gsoc2012,
-GSoC-Webseite} zufolge ist Google Summer of Code ein globales Programm,
-das Studenten Stipendien offeriert, um Code für Open-Source-Projekte zu schreiben.
-Google arbeitet mit der Open-Source-Gemeinschaft zusammen und hat unterstützenswerte
-Projekt für den nächsten Sommer gefunden.
+Google Summer of Code ist ein globales Programm,
+das Studenten Stipendien offeriert, um an Open-Source-Projekten während
+der Sommerferien zu arbeiten.
 
 Das LilyPond-Team hat beschlossen, dass sich hier eine ausgezeichnete Möglichkeit
-bietet neue Mitarbeiter zu finden, Studenten, die sich schon an LilyPond beteiligen,
-weiter einzubinden und -- das Wichtigste -- aufregenden Code zur freien Benutzung
-für alle zu schreiben.
-
-Wir nehmen an GSoC als Teil des GNU-Projekts teil.  Siehe auch
-@uref{http://www.gnu.org/software/soc-projects/guidelines.html,
-GNU GSoC-Webseite} zu Informationen über die Teilnahme.
+bietet neue Mitarbeiter zu finden und Studenten, die sich schon an LilyPond beteiligen, weiter einzubinden. Einer unserer Mitarbeiter wurde für den
+Sommer 2012 als Teil des @uref{http://www.gnu.org/, GNU-Projekts} angenommen;
+wir hoffen, dass wir auch in kommenden Jahren an dem Programm teilnehmen können.
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Unsere Ideenliste
+@subheading Unsere Ideenliste 2012
 
-Unten befindet sich eine Liste mit empfohlenen Projekten für GSoC-Stundenten.
-Wenn Sie kein Projekt finden, das Ihnen passt, schlagen Sie einfach ein eigenes
-vor!  Es ist auch möglich, ein Projekt einzuschränken, wenn Sie das Gefühl haben,
-es ist zu umfangreich.
+Unten befindet sich eine Liste mit empfohlenen Projekten für GSoC-Stundenten für
+den Sommer 2012.  Wenn auch die Anmeldefrist vorbei ist, lassen wir die Informationen
+trotzdem online, weil sie als Anregung für alle LilyPond-Entwickler dienen
+können.   Einige Mitglieder des Entwicklungsteams helfen gerne Freiwilligen,
+die sich an diese Projekte wagen wollen.
 
-Wir erfordern, dass jeder Student grundlegende Kenntnis von @code{git} hat und
-empfehlen, dass alle, die sich für die Projekte (außer dem letzten) interessieren,
-grundlegende Kenntnisse in Musiknotation haben.  Zusätzlich sollten Sie
-Englisch sprechen können.
+Es gibt natürlich viel mehr, was an LilyPond verbessert werden kann, darunter
+auch sehr kleine Projekte.  Eine vollständige Liste aller bekannten Probleme
+findet sich @uref{http://code.google.com/p/lilypond/issues/list, hier}.
 
 @subheading Stichnoten
 
@@ -1051,36 +1045,6 @@ verkürzt werden.
 
 @strong{Mentoren:} Mike Solomon, Carl Sorensen
 
-
-@subheading Bessere Unterstützung für Tabulaturen
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Nicht-monotonische Saitenstimmungen, wie Ukulele
-
-@item
-Ein Eingabemodus für Tabulaturen (im Moment wird die Information notiert
-wie die übliche westliche Notation, beispielsweise eine Viertelnote Fis,
-und dann in eine Tabulatur konvertiert), um mittelalterliche Lautentabulaturen
-transkribieren zu können.
-
-@item
-Wenn ein Bunddiagramm für einen Akkord definiert ist, sollte diese Information
-benützt werden, um den Akkord auf dem System darzustellen (und nicht nur eine
-Standarddarstellung benützt werden).
-
-@end itemize
-@divEnd
-
-@strong{Schwierigkeit:} leicht
-
-@strong{Erfordernisse:} C++
-
-@strong{Empfohlene Kenntnisse:} Kenntnis von Tabulaturnotation familiarity
-
-@strong{Mentor:} Carl Sorensen
 
 @subheading Kompilationswarnungen aufräumen
 
