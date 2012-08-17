@@ -3380,6 +3380,13 @@ def conv (str):
     str = re.sub ('\n"(' + wordsyntax + r')"(\s*=\s*\\stringTuning)', "\n\\1\\2", str)
     return str
 
+@rule ((2, 17, 0), r"blank-*-force -> blank-*-penalty")
+def conv (str):
+    str = re.sub ('blank-page-force', 'blank-page-penalty', str)
+    str = re.sub ('blank-last-page-force', 'blank-last-page-penalty', str)
+    str = re.sub ('blank-after-score-page-force', 'blank-after-score-page-penalty', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

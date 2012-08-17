@@ -97,9 +97,9 @@
   %%
   %% Page breaking
   %%
-  blank-after-score-page-force = 2
-  blank-last-page-force = 0
-  blank-page-force = 5
+  blank-after-score-page-penalty = 2
+  blank-last-page-penalty = 0
+  blank-page-penalty = 5
   page-breaking = #ly:optimal-breaking
 
 
