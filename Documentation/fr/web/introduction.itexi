@@ -1238,36 +1238,49 @@ exporter vers LilyPond, mais est encore au stade de développement beta.
 Les testeurs sont les bienvenus.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,
-NtEd}, basé sur la bibliothèque @uref{http://cairographics.org, Cairo},
-dispose d'une fonction expérimentale d'export pour LilyPond.
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} est un programme GNU/Linux
+qui convertit des partitions du format @uref{http://www.gvox.com/,Encore} au
+format LilyPond.
 
 @item
-@uref{http://musescore.org, MuseScore} est un éditeur de partition. Il
-exporte dans une certaine mesure au format LilyPond.
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} est un programme Go qui
+convertit des fichiers @uref{http://www.gvox.com/,Encore} au format LilyPond.
+Il a été conçu à partir du travail d'ingénierie inverse de Felipe Castro en
+modifiant des fichiers .enc existant et en les chargeant avec la version de
+démonstration 4.55.
 
-@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY}, programme en C#, permet de convertir une chanson écrite avec
-@c @uref{http://www.noteworthysoftware.com/, NoteWorthy}
+@item
+@uref{http://musescore.org,MuseScore} est un éditeur de partition. Il exporte
+dans une certaine mesure au format LilyPond.
+
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+basé sur la bibliothèque @uref{http://cairographics.org, Cairo}, dispose d'une
+fonction expérimentale d'export pour LilyPond.
+
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY},
+programme en C#, permet de convertir une chanson écrite avec
+@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
 NoteWorthy au format LilyPond.
 
 @item
-@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
-Ripple} est un assistant à la création de conducteur et parties.  Il
-permet de mixer plusieurs parties en un conducteur.
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple} est
+un assistant à la création de conducteur et parties. Il permet de mixer
+plusieurs parties en un conducteur.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et
-MIDI, comporte aussi un éditeur pour portée unique.
+@uref{http://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et MIDI,
+comporte aussi un éditeur pour portée unique.
 
 @item
 @uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
 temps-réel MIDI vers LilyPond.
 
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de
-tablatures multi-pistes.  Il permet d'afficher tablatures et partitions,
-et il peut exporter du code LilyPond.
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de tablatures
+multi-pistes. Il permet d'afficher tablatures et partitions, et il peut
+exporter du code LilyPond.
 
 @end itemize
 
