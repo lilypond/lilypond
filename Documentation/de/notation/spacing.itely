@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -911,7 +911,8 @@ Notationsreferenz:
 @ref{Seitenumbrüche},
 @ref{Optimale Seitenumbrüche},
 @ref{Optimale Umbrüche zum Blättern},
-@ref{Minimale Seitenumbrüche}.
+@ref{Minimale Seitenumbrüche},
+@ref{Eine-Seite-Seitenumbrüche}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -1105,7 +1106,106 @@ Hier ist ein Beispiel für eine @code{\layout}-Umgebung:
 @}
 @end example
 
+Mehrfache @code{\layout}-Umbgebungen können als Ausdrücke auf höchster
+Ebene eingegeben werden.  Das kann beispielsweise nützlich sein, wenn
+unterschiedliche Einstellungen in extra Dateien gespeichert werden und
+optional eingefügt werden.  Intern wird eine Kopie der aktuellen
+@code{\layout}-Konfiguration gemacht, wenn eine @code{\layout}-Umgebung
+ausgewertet wird, dann erst werden Änderungen aus der Umgebung angewendet
+und das Ergebnis als die neue aktuelle Konfiguration gespeichert.
+Aus der Sicht des Benutzers werden die @code{\layout}-Umgebungen
+kombiniert, aber in Konfliktsituationen (wenn die gleiche Eigenschaft
+in unterschiedlichen Umgebungen geändert wird), erhält die spätere
+Definition den Vorrang.
 
+Wenn also diese Umgebung:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript #'color = #magenta
+    \override Glissando #'thickness = #1.5
+  @}
+@}
+@end example
+
+nach der Umgebung aus dem vorherigen Beispiel geschrieben wird, werden
+die @code{'padding}- und @code{'color}-Einstellungen für @code{TextScript}
+kombiniert, aber die spätere @code{'thickness}-Einstellung für
+@code{Glissando} ersetzt (oder versteckt) die vorherige.
+
+@code{\layout}-Umgebungen können einer Variable zur späteren Benutzung
+zugewiesen werden, aber die Funktionsweise dieser Zuweisung ist geringfügig
+aber deutlich unterschiedlich von der Variante, sie auszuschreiben.
+
+Wenn eine Variable etwa so definiert wird:
+
+@example
+layoutVariable = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead #'font-size = #4
+  @}
+@}
+@end example
+
+@noindent
+dann enthält sie die aktuelle @code{\layout}-Konfiguration mit zusätzlicher
+Veränderung von @code{NoteHead #'font-size} (der Schriftgröße der Notenköpfe),
+aber diese Kombination wird @emph{nicht} als nächste aktuelle
+Konfiguration gespeichert.  Man muss sich im klaren sein, dass die
+@qq{aktuelle Konfiguration} gelesen wird, wenn die Variable erstellt
+wird, nicht wenn sie benutzt wird.  Darum ist der Inhalt der Variable
+abhängig von ihrer Position in der Partitur.
+
+Die Variable kann dann auch innerhalb einer anderen @code{\layout}-Umgebung
+eingesetzt werden, etwa:
+
+@example
+\layout @{
+  \layoutVariable
+  \context @{
+    \Voice
+    \override NoteHead #'color = #red
+  @}
+@}
+@end example
+
+Eine @code{\layout}-Umgebung, die eine Variable enthält wie im Beispiel oben,
+kopiert die aktuelle Konfiguration @emph{nicht}, sondern benützt den
+Inhalt von @code{\layoutVariable} als Basiskonfiguration für die weiteren
+Veränderungen.  Das heißt, dass Änderungen, die zwischen der Definition
+der Variable und ihrer Benutzung definiert wurden, verloren gehen.
+
+Wenn @code{layoutVariable} kurz vor ihrer Benutzung definiert wird (oder
+mit @code{\include} eingefügt wird), entspricht ihr Inhalt der
+aktuellen Konfiguration plus die Änderungen, die die Variable definiert.
+Das obige Beispiel, das den Einsatz von  @code{\layoutVariable} zeigt,
+würde in seiner finalen Version folgende @code{\layout}-Umgebung haben:
+
+@example
+  TextScript #'padding = #1
+  TextScript #'color = #magenta
+  Glissando #'thickness = #1.5
+  NoteHead #' font-size = #4
+  NoteHead #' color = #red
+@end example
+
+plus die Veränderungen an Einrückung (@code{indent}) und @code{StaffGrouper}.
+
+Aber wenn die Variable vor der ersten @code{\layout}-Umgebung definiert
+wird, würde die aktuelle Konfiguration nur enthalten:
+
+@example
+  NoteHead #' font-size= #4 % (written in the variable definition)
+  NoteHead #' color = #red % (added after the use of the variable)
+@end example
+
+Wenn man sorgfältig plant, können @code{\layout}-Variablen ein wertvolles
+Instrument sein, um das Layout-Design von Quellen zu strukturieren und
+auch dazu dienen, die Layout-Einstellungen an einer bestimmten Stelle
+wieder zurückzusetzen.
 
 @seealso
 Notationsreferenz:
@@ -1249,6 +1349,7 @@ Notenlinien.
 * Optimale Seitenumbrüche::
 * Optimale Umbrüche zum Blättern::
 * Minimale Seitenumbrüche::
+* Eine-Seite-Seitenumbrüche::
 * Ausdrückliche Umbrüche::
 * Eine zusätzliche Stimme für Umbrüche benutzen::
 @end menu
@@ -1611,10 +1712,28 @@ ist die Funktion geeignet.  Sie wird folgendermaßen aktiviert:
 @}
 @end example
 
-
 @seealso
 Schnipsel:
 @rlsr{Spacing}.
+
+
+@node Eine-Seite-Seitenumbrüche
+@subsection Eine-Seite-Seitenumbrüche
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+Die Funktion @code{ly:one-line-breaking} ist ein besonderer
+Seitenumbruchalgorithmus, der jede Partitur (@code{score}) auf
+eine eigene Seite ausgibt, und in einer einzlenen Zeile.  Diese
+Seitenumbruchfunktion gibt keine Titel oder Ränder aus, nur die
+Partitur wird dargestellt.
+
+Die Seitenbreite wird angepasst, sodass die längeste Partitur auf
+eine Zeile passt.  Die Variablen @code{paper-width}, @code{line-width}
+und @code{indent} in der @code{\paper}-Umgebung werden ignoriert,
+wenn auch @code{left-margin} und @code{right-margin} noch beachtet
+werden.  Die Höhe der Seite wird nicht verändert.
 
 
 @node Ausdrückliche Umbrüche
@@ -2384,12 +2503,6 @@ Referenz der Interna:
 
 
 
-
-
-
-
-
-
 @node Explizite Positionierung von Systemen
 @subsection Explizite Positionierung von Systemen
 @translationof Explicit staff and system positioning
@@ -2693,7 +2806,7 @@ dem vorhergehenden Objekt eingefügt werden kann (auch als
 padding bezeichnet), kann durch @code{outside-staff-padding}
 kontrolliert werden.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3

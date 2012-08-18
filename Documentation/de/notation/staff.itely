@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,9 @@
 @section Notation auf Systemen
 @translationof Staff notation
 
-@lilypondfile[quote]{staff-headword.ly}
+@c The line width is a bit of a hack to allow space for the
+@c  instrument names.
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
 
 Dieser Abschnitt zeigt, wie die Erscheinung von Systemen beeinflusst
 wird, wie Partituren mit mehr als einem System gesetzt werden und wie
@@ -1374,7 +1376,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1415,10 +1417,14 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-Beschriftung kann auch benutzt werden, um die Bezeichnung des zitierten
-Instruments anzuzeigen.  Wenn die Stichnoten einen Schlüsselwechsel
-erfordern, kann er manuell erzeugt werden -- dann muss aber der
-ursprüngliche Schlüssel am Ende der Stichnoten wieder hergestellt werden:
+Die Bezeichnung des gerade spielenden Instruments in den Stichnoten
+kann gesetzt werden, indem man die @code{instrumentCueName}-Eigenschaft
+in einen temporären @code{CueVoice}-Kontext setzt.  Die Platzierung und
+der Stil von @code{instrumentCueName} wird durch das @code{\instrumentSwitch}-Objekt
+kontrolliert, siehe @ref{Instrumentenbezeichnungen}.  Wenn die Stichnoten
+einen Schlüsselwechsel erfordern, kann dieser manuell hervorgerufen werden,
+aber der originale Schlüssel muss auch manuell am Ende der Stichnoten
+wieder hergestellt werden.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1429,7 +1435,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1458,7 +1464,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1537,7 +1543,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    s1*0^\markup { \tiny "flute" }
+    \new CueVoice { \set instrumentCueName = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

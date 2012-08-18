@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -704,6 +704,9 @@ Melismen können automatisch aus den Noten erstellt werden, indem man Legatobög
 >>
 @end lilypond
 
+Dabei ist zu beachten, dass Phrasierungsbogen die Erstellung eines
+Melsima nicht beeinflussen.
+
 @item
 Noten werden als ein Melisma betrachtet, wenn sie manuell mit einem Balken
 versehen werden, vorausgesetzt, dass die automatische Bebalkung ausgeschaltet
@@ -746,9 +749,6 @@ sind:
   }
 >>
 @end lilypond
-
-Mit dieser Methode können allerdings nicht zwei Melismen notiert werden,
-wenn sie direkt aufeinander folgen.
 
 @item
 Ein Melisma kann auch ausschließlich im Gesangstext notiert werden, indem man
@@ -1196,17 +1196,6 @@ zusammenstößt, kann folgende Einstellung gesetzt werden:
 @}
 @end example
 
-@c TODO Create and add lsr example of lyricMelismaAlignment
-@c It's used like this to center-align all lyric syllables,
-@c even when notes are tied. -td
-
-@ignore
-\layout
-{
-     \context { \Score lyricMelismaAlignment = #0 }
-}
-@end ignore
-
 
 
 @node Gesangstext und Wiederholungen
@@ -1356,6 +1345,55 @@ Neue Strophen können auf die gleiche Art hinzugefügt werden:
 	}
       >>
       The end sec -- tion.
+    }
+  >>
+}
+@end lilypond
+
+@cindex alignBelowContext
+@funindex alignBelowContext
+
+Wenn diese Konstruktion jedoch innerhalb eines Mehrsystemkontexts
+eingebettet ist, wie etwa ein @code{ChoirStaff}, werden die Texte
+der zweiten und dritten Strophe unter dem untersten System ausgegeben
+werden.
+
+Um sie richtig zu positionieren, kann @code{alignBelowContext}
+eingesetzt werden:
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \new Voice = "melody" {
+        \relative c'' {
+	  a4 a a a
+	  \repeat volta 3 { b4 b b b }
+          c4 c c c
+	}
+      }
+    }
+    \new Lyrics = "firstVerse" \lyricsto "melody" {
+      Not re -- peat -- ed.
+      <<
+        { The first time words.	}
+	\new Lyrics = "secondVerse"
+        \with { alignBelowContext = #"firstVerse" } {
+	  \set associatedVoice = "melody"
+	  Sec -- ond time words.
+	}
+	\new Lyrics = "thirdVerse"
+        \with { alignBelowContext = #"secondVerse" } {
+	  \set associatedVoice = "melody"
+	  The third time words.
+	}
+      >>
+      The end sec -- tion.
+    }
+    \new Voice = "harmony" {
+      \relative c' {
+        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      }
     }
   >>
 }
@@ -2588,7 +2626,10 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  s1*0^\markup { \right-align { \tiny "Flute" } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \set instrumentCueName = "Flute"
+  }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2629,7 +2670,11 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  s1*0_\markup { \right-align { \tiny "Clar." } }
+  \new CueVoice {
+    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch #'direction = #DOWN
+    \set instrumentCueName = "Clar."
+  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

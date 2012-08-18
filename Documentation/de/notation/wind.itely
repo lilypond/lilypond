@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -439,10 +439,10 @@ mit @code{#(print-keys-verbose 'flute (current-error-port))}
 angezeigt werden; durch diese Befehle wird der Notensatz nicht
 verändert.
 
-Neue Diagramme können erstellt werden, indem man die Muster in den Datei
+Neue Diagramme können erstellt werden, hierzu benötigt man jedoch
+Scheme-Kenntnisse. Die Muster für die Diagramme befinden sich in den Dateien
 @file{scm/define-woodwind-diagrams.scm} und
-@file{scm/display-woodwind-diagrams.scm} befolgt.  Das benötigt jedoch
-Scheme-Fähigkeit und ist nicht für alle Benutzer verständlich.
+@file{scm/display-woodwind-diagrams.scm}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -460,7 +460,7 @@ Scheme-Fähigkeit und ist nicht für alle Benutzer verständlich.
 @seealso
 
 Installierte Dateien:
-@file{scm/define-woodwind-diagrams.scm},
+@file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.
 
 Schnipsel:
