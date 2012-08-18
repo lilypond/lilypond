@@ -597,6 +597,10 @@ messages into errors.")
 (define gc-protect-stat-count
   0)
 
+;; Undead objects that should be ignored after the first time round
+(define gc-zombies
+  (make-weak-key-hash-table 0))
+
 (define-public (dump-live-object-stats outfile)
   (for-each (lambda (x)
               (format outfile "~a: ~a\n" (car x) (cdr x)))
@@ -645,7 +649,10 @@ messages into errors.")
           (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	  (for-each
 	   (lambda (x)
-	     (ly:programming-error "Parsed object should be dead: ~a" x))
+	     (if (not (hashq-ref gc-zombies x))
+		 (begin
+		   (ly:programming-error "Parsed object should be dead: ~a" x)
+		   (hashq-set! gc-zombies x #t))))
 	   (ly:parsed-undead-list!))
           (set! stats (gc-live-object-stats))
           (ly:progress "Dumping live object statistics.\n")
