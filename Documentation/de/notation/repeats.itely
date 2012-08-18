@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -242,7 +242,7 @@ g1 |
 Die @code{measureLength}-Eigenschaft ist beschrieben in
 @ref{Verwaltung der Zeiteinheiten}.
 
-@cindex \inStaffSegno
+@funindex \inStaffSegno
 
 Der @code{\inStaffSegno}-Befehl kann angewandt werden, um das
 Segno-Zeichen in die Notenzeile einzubinden, auch in Kooperation
@@ -449,7 +449,8 @@ in einer Scheme-Liste einzufügen.
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands =
+    #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1

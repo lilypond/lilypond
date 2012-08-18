@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2262,9 +2262,11 @@ Die @code{beamExceptions}-Regel kann die @code{beatStructure}-Einstellung
 \repeat unfold 8 {c8}
 @end lilypond
 
-Im traditionellen Notensatz haben Achtelnoten besondere Bebalkungsregeln.
-Ein Takt, der nur aus Achteln besteht, kann als Ganzer bebalkt werden.  Diese
-Regel wird durch die Eigenschaft @code{beamWholeMeasure} bestimmt.
+Auf gleiche Art werden Achtelnoten im 3/4-Takt über den ganzen Takt hin
+mit Balken versehen.  Damit Achtelnoten im 3/4-Takt auf jedem Schlag
+einen neuen Balken erhalten, muss @code{beamExceptions} verändert werden:
+
+
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
@@ -2275,10 +2277,13 @@ Regel wird durch die Eigenschaft @code{beamWholeMeasure} bestimmt.
 \repeat unfold 6 {a8}
 @end lilypond
 
-In einigen Notenstichen der romantischen und klassischen Periode kann auch
-ein halber Takt Achtelnoten durchgehend bebalkt werden, auch wenn das die
-generelle Regel verletzt (siehe Gould, S. 153).  Dieses Verhalten wird durch
-die Eigenschaft @code{beamHalfMeasure} bestimmt:
+In Notenstichen der romantischen und klassischen Periode wird teilweise auch
+ein halber Takt Achtelnoten im 3/4-Takt mit einem Balken versehen, moderner
+Notenstich vermeidet dies jedoch, um nicht den falschen Eindruck eines
+6/8-Taktes entstehen zu lassen (siehe Gould, S. 153).  Eine ähnliche Situation
+entsteht im 3/8-Takt.  Dieses Verhalten wird durch
+die Eigenschaft @code{beamHalfMeasure} bestimmt, welche sich nur auf
+Takte mit einer 3 im Zähler auswirkt:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
@@ -3524,9 +3529,9 @@ MyCadenza = \relative c' {
     \MyCadenza c'1
   }
   \new Staff {
-    $(mmrest-of-length MyCadenza)
+    #(mmrest-of-length MyCadenza)
     c'1
-    $(skip-of-length MyCadenza)
+    #(skip-of-length MyCadenza)
     c'1
   }
 >>

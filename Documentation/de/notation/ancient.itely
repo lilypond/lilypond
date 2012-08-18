@@ -2533,8 +2533,8 @@ Präfixen in arbiträrer Reihenfolge notiert werden kann.
 @unnumberedsubsubsec Kiever Kontexte
 @translationof Kievan contexts
 
-@fuindex KievanVoiceContext
-@fuindex KievanStaffContext
+@funindex KievanVoiceContext
+@funindex KievanStaffContext
 
 Wie auch für die Mensural- und Gregorianische Notation können die Kontexte
 @code{KievanVoice} and @code{KievanStaff} eingesetzt werdne, um
