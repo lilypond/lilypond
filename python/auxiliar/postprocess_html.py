@@ -26,7 +26,6 @@ non_copied_pages = ['Documentation/out-www/notation-big-page',
                     'out-www/examples',
                     'Documentation/topdocs',
                     'Documentation/bibliography',
-                    'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
                     'input/']
 

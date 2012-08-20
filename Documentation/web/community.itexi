@@ -1189,6 +1189,14 @@ Descriptive list of changes by version:
 @divEnd
 
 @divClass{column-center-bottom}
+@subheading Thanks
+
+Thanks to developers, contributors, bug hunters and suggestions for
+@miscLink{THANKS-2.14,releases up to 2.14}.
+
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading Changelogs
 
 Developers' changelogs by version:

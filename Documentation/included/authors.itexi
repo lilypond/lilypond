@@ -7,9 +7,11 @@
   list is sorted alphabetically by surname.  This file lists people
   that have contributed more than a few hours of work.
 
-  Developers are people who are (or have been) listed under the
-  "Development Team" in the THANKS, and can choose their own
-  titles.  Contributors are everybody else, and simply list their
+  Developers are people who have been listed under the "Development
+  Team" in Documentation/misc/THANKS*, or who are added when they
+  reach a significant amount of contributions with respect to the
+  existing Developers list, and can choose their own titles.
+  Contributors are everybody else, and simply list their
   contributions.  All lists are sorted alphabetically.
 
   Anybody who has finished doing a "main devel team" task should

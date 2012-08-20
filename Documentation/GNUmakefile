@@ -25,7 +25,7 @@ $(outdir)/snippets/index.html: TEXI2HTML_FLAGS += -D short_toc
 
 ### Extra source files
 
-README_TOP_FILES= DEDICATION THANKS
+README_TOP_FILES= DEDICATION
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
