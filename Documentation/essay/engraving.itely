@@ -1557,7 +1557,7 @@ following example combines some more exotic constructs.
   \layout {
     \context {
       \Staff
-      \consists Horizontal_bracket_engraver
+      \consists "Horizontal_bracket_engraver"
     }
   }
 }

@@ -6,7 +6,7 @@
 \paper { ragged-right  = ##t }
 
 \new Voice \with {
-  \consists Horizontal_bracket_engraver }
+  \consists "Horizontal_bracket_engraver" }
 {
   c1\startGroup \break c1 \stopGroup
 }

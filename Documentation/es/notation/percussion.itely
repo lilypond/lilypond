@@ -263,8 +263,8 @@ mus = \drummode {
   cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
   << \new DrumStaff \with {
-       \remove Bar_engraver
-       \remove Time_signature_engraver
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
        \override Stem #'transparent = ##t
        \override Flag #'transparent = ##t
        \override Stem #'Y-extent = ##f
@@ -296,8 +296,8 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 
 <<
   \new DrumStaff \with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
     \override Stem #'transparent = ##t
     \override Flag #'transparent = ##t
     \override Stem #'Y-extent = ##f
@@ -322,8 +322,8 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 
 <<
   \new DrumStaff \with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
     drumStyleTable = #congas-style
     \override StaffSymbol #'line-count = #2
 
@@ -349,8 +349,8 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 
 <<
   \new DrumStaff \with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
+    \remove "Bar_engraver"
+    \remove "Time_signature_engraver"
     \override StaffSymbol #'line-count = #2
     drumStyleTable = #bongos-style
 
@@ -377,10 +377,10 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 <<
   \new DrumStaff \with{
-    \remove Bar_engraver
+    \remove "Bar_engraver"
     drumStyleTable = #percussion-style
     \override StaffSymbol #'line-count = #1
-    \remove Time_signature_engraver
+    \remove "Time_signature_engraver"
     \override Stem #'transparent = ##t
     \override Flag #'transparent = ##t
     \override Stem #'Y-extent = ##f

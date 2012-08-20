@@ -19,7 +19,7 @@ For maintenance reasons, we don't exercise the entire markup command set.
   indent = #0
   \context {
     \Staff
-    \remove Time_signature_engraver 
+    \remove "Time_signature_engraver"
   }
 }
 

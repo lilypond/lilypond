@@ -38,8 +38,8 @@ incipitTriplum = \markup{
 	  \layout {
 		%indent = 1\cm
 		  \context {\Voice
-			  \remove Ligature_bracket_engraver
-			  \consists Mensural_ligature_engraver
+			  \remove "Ligature_bracket_engraver"
+			  \consists "Mensural_ligature_engraver"
 		  }
 		  \context {\Staff
 		    \remove "Time_signature_engraver"
@@ -59,8 +59,8 @@ incipitMotetus = \markup{
 	  \layout {
 		%	indent = 1\cm
 		  \context {\Voice
-			  \remove Ligature_bracket_engraver
-			  \consists Mensural_ligature_engraver
+			  \remove "Ligature_bracket_engraver"
+			  \consists "Mensural_ligature_engraver"
 		  }
 		  \context {\Staff
 		    \remove "Time_signature_engraver"
@@ -80,8 +80,8 @@ incipitTenor = \markup{
     \layout {
 		%indent = 1\cm
 		\context {\Voice
-			\remove Ligature_bracket_engraver
-			\consists Mensural_ligature_engraver
+			\remove "Ligature_bracket_engraver"
+			\consists "Mensural_ligature_engraver"
 		}
 		\context {\Staff
 		  \remove "Time_signature_engraver"
@@ -108,8 +108,8 @@ incipitBassus = \markup{
     }
     \layout {
 		  \context { \Voice
-			  \remove Ligature_bracket_engraver
-			  \consists Mensural_ligature_engraver
+			  \remove "Ligature_bracket_engraver"
+			  \consists "Mensural_ligature_engraver"
 		  }
 		 line-width=5\mm
     }
