@@ -2872,7 +2872,7 @@ auszulassen, kann der @code{Bar_engraver} entfert werden.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -2884,7 +2884,7 @@ Taktstriche können auf nur für ein System entfernt werden:
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove Bar_engraver } {
+    \with { \remove "Bar_engraver" } {
       \relative c'' {
         a4 b c2 |
         a4 b c2 |
@@ -2977,7 +2977,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -2998,9 +2998,9 @@ weggelassen.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
-      \remove Time_signature_engraver
-      \remove Clef_engraver
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
     }
   }
 }

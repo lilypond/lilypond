@@ -313,7 +313,7 @@ L'impression de guidons s'obtient en affectant, dans un bloc
   \layout {
     \context {
       \Staff
-      \consists Custos_engraver
+      \consists "Custos_engraver"
       \override Custos #'style = #'mensural
     }
   }
@@ -579,9 +579,9 @@ suivantes :
   indent = 0.0
   \context {
     \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+    \remove "Staff_symbol_engraver"
+    \remove "Clef_engraver"
+    \remove "Time_signature_engraver"
   }
 }
 {
@@ -968,8 +968,8 @@ remplacé, dans le contexte @code{Voice}, le
 \layout @{
   \context @{
     \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
   @}
 @}
 @end example
@@ -1021,8 +1021,8 @@ Par exemple,
   \layout {
     \context {
       \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
+      \remove "Ligature_bracket_engraver"
+      \consists "Mensural_ligature_engraver"
     }
   }
 }

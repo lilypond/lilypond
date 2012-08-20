@@ -1879,7 +1879,7 @@ grille d'accords :
     }
   }
   \new Voice \with {
-    \consists Pitch_squash_engraver
+    \consists "Pitch_squash_engraver"
   } \relative c'' {
     \improvisationOn
     c4 c8 c c4 c8 c

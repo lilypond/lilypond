@@ -1045,7 +1045,7 @@ de jazz,
   \consists "Note_heads_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
@@ -1097,14 +1097,14 @@ El contexto imprimirá notas y textos explicativos, por ello tenemos
 que añadir los grabadores que aportan esta funcionalidad:
 
 @example
-\consists Note_heads_engraver
-\consists Text_engraver
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
 @end example
 
 pero sólo necesitamos esto en la línea central:
 
 @example
-\consists Pitch_squash_engraver
+\consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
@@ -1137,7 +1137,7 @@ Al juntarlo todo, obtenemos
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t

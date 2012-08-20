@@ -308,7 +308,7 @@ muestra en el ejemplo siguiente:
   \layout {
     \context {
       \Staff
-      \consists Custos_engraver
+      \consists "Custos_engraver"
       \override Custos #'style = #'mensural
     }
   }
@@ -568,9 +568,9 @@ siguiente tabla
   indent = 0.0
   \context {
     \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+    \remove "Staff_symbol_engraver"
+    \remove "Clef_engraver"
+    \remove "Time_signature_engraver"
   }
 }
 {
@@ -957,8 +957,8 @@ diseño de página reemplace el grabador
 \layout @{
   \context @{
     \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
   @}
 @}
 @end example
@@ -1012,8 +1012,8 @@ Por ejemplo:
   \layout {
     \context {
       \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
+      \remove "Ligature_bracket_engraver"
+      \consists "Mensural_ligature_engraver"
     }
   }
 }

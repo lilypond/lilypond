@@ -148,7 +148,7 @@ banterProperties = \sequential {
     \layout {
         \context {
             \ChordNames
-            \consists Instrument_name_engraver
+            \consists "Instrument_name_engraver"
         }
     }
 }

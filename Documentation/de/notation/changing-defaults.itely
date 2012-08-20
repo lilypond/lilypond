@@ -819,7 +819,7 @@ in Jazzmusik anzuzeigen.
   \consists "Note_heads_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
@@ -871,15 +871,15 @@ Der Kontext gibt Noten und Text aus, darum müssen wir die Engraver
 hinzufügen, die für diese Aktionen zuständig sind:
 
 @example
-\consists Note_heads_engraver
-\consists Text_engraver
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
 @end example
 
 @noindent
 aber die Noten sollen nur auf der mittleren Linie ausgegeben werden:
 
 @example
-\consists Pitch_squash_engraver
+\consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
@@ -912,7 +912,7 @@ Alles zusammen haben wir folgende Einstellungen:
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t

@@ -1107,7 +1107,7 @@ jazz.
   \consists "Note_heads_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
@@ -1157,15 +1157,15 @@ Ce contexte doit pouvoir imprimer des notes et des indications
 textuelles ; on ajoute donc les graveurs appropriés :
 
 @example
-\consists Note_heads_engraver
-\consists Text_engraver
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
 @end example
 
 Cependant, on veut que les notes s'affichent toutes au centre de
 la portée :
 
 @example
-\consists Pitch_squash_engraver
+\consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
@@ -1200,7 +1200,7 @@ Récapitulons ; on se retrouve avec le bloc suivant :
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t

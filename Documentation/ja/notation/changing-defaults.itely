@@ -1079,7 +1079,7 @@ StaffDefaults = \with {
   \consists "Note_heads_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
@@ -1129,14 +1129,14 @@ StaffDefaults = \with {
 それらの機能を提供するエングラーバを付け加える必要があります:
 
 @example
-\consists Note_heads_engraver
-\consists Text_engraver
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
 @end example
 
 しかしながら、音符の代わりにスラッシュを譜の中央線上に配置します:
 
 @example
-\consists Pitch_squash_engraver
+\consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
@@ -1170,7 +1170,7 @@ squashedPosition = #0
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t

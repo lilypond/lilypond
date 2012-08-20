@@ -14,7 +14,7 @@ This means that the 3/8 setting does not affect the whole rest spacing."
 
 \score {
   \new Staff \with {
-    \remove Separating_line_group_engraver
+    \remove "Separating_line_group_engraver"
   } {
     \relative c' {
       \override Score.SpacingSpanner #'uniform-stretching = ##t

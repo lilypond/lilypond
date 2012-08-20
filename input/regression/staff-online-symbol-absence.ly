@@ -7,7 +7,7 @@
 }
 
 \new Staff \with {
-  \remove Staff_symbol_engraver
+  \remove "Staff_symbol_engraver"
 }
 \relative c' {
   \time 5/8

@@ -2959,7 +2959,7 @@ barres de mesure produira des portées sans barre :
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -2972,7 +2972,7 @@ portées :
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove Bar_engraver } {
+    \with { \remove "Bar_engraver" } {
       \relative c'' {
         a4 b c2 |
         a4 b c2 |
@@ -3068,7 +3068,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -3088,9 +3088,9 @@ De nombreux cantiques sont dépourvus de métrique, voire même de clef.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
-      \remove Time_signature_engraver
-      \remove Clef_engraver
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
     }
   }
 }

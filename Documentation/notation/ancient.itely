@@ -303,7 +303,7 @@ desired, as shown in the following example:
   \layout {
     \context {
       \Staff
-      \consists Custos_engraver
+      \consists "Custos_engraver"
       \override Custos #'style = #'mensural
     }
   }
@@ -550,9 +550,9 @@ to particular time fractions.  In other words, to get a particular mensuration s
   indent = 0.0
   \context {
     \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+    \remove "Staff_symbol_engraver"
+    \remove "Clef_engraver"
+    \remove "Time_signature_engraver"
   }
 }
 {
@@ -918,8 +918,8 @@ context:
 \layout @{
   \context @{
     \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
   @}
 @}
 @end example
@@ -971,8 +971,8 @@ For example,
   \layout {
     \context {
       \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
+      \remove "Ligature_bracket_engraver"
+      \consists "Mensural_ligature_engraver"
     }
   }
 }

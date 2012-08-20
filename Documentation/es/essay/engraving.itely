@@ -1657,7 +1657,7 @@ ejemplo siguiente combina unas pocas construcciones algo más exóticas.
   \layout {
     \context {
       \Staff
-      \consists Horizontal_bracket_engraver
+      \consists "Horizontal_bracket_engraver"
     }
   }
 }

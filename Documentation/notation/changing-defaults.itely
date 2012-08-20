@@ -1038,7 +1038,7 @@ to indicate improvisation in jazz pieces,
   \consists "Note_heads_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t
@@ -1089,14 +1089,14 @@ The context will print notes and instructive texts, so we need to add
 the engravers which provide this functionality,
 
 @example
-\consists Note_heads_engraver
-\consists Text_engraver
+\consists "Note_heads_engraver"
+\consists "Text_engraver"
 @end example
 
 but we only need this on the center line,
 
 @example
-\consists Pitch_squash_engraver
+\consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
@@ -1129,7 +1129,7 @@ Put together, we get
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead #'style = #'slash
   \override Stem #'transparent = ##t

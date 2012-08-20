@@ -6,7 +6,7 @@ slur engravers.
 }
 
 \score {
-  \new Voice \with { \consists Ambitus_engraver } {
+  \new Voice \with { \consists "Ambitus_engraver" } {
     c'4( es')
   }
 }

@@ -2949,7 +2949,7 @@ pentagramas, suprima completamente el grabador de barras:
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -2962,7 +2962,7 @@ pentagrama:
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove Bar_engraver } {
+    \with { \remove "Bar_engraver" } {
       \relative c'' {
         a4 b c2 |
         a4 b c2 |
@@ -3056,7 +3056,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -3077,9 +3077,9 @@ omiten la clave también.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
-      \remove Time_signature_engraver
-      \remove Clef_engraver
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
     }
   }
 }

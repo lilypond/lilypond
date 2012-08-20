@@ -30,7 +30,7 @@ independently of the other.
     \new Staff {
       <<
         \new Voice \with {
-          \consists Mark_engraver
+          \consists "Mark_engraver"
           \consists "Staff_collecting_engraver"
         }
         { c4 d e f
@@ -38,7 +38,7 @@ independently of the other.
           c4 d e f
         }
         \new Voice \with {
-          \consists Mark_engraver
+          \consists "Mark_engraver"
           \consists "Staff_collecting_engraver"
           \override RehearsalMark #'direction = #DOWN
         }

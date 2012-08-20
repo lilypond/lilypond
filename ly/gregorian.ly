@@ -287,8 +287,8 @@ neumeDemoLayout = \layout {
     }
     \context {
 	\Voice
-	\remove Ligature_bracket_engraver
-	\consists Vaticana_ligature_engraver
+	\remove "Ligature_bracket_engraver"
+	\consists "Vaticana_ligature_engraver"
 	\override NoteHead #'style = #'vaticana.punctum
 	\override Stem #'transparent = ##t
 	\override Flag #'transparent = ##t

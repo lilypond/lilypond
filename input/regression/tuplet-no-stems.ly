@@ -12,8 +12,8 @@
  }
  \context{
    \TabVoice
-   \remove Beam_engraver
-   \remove Stem_engraver
+   \remove "Beam_engraver"
+   \remove "Stem_engraver"
    \override TupletBracket #'number-visibility = ##f
  }
 }
