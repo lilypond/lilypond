@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ce1c0fabb3d5ac18e61fb8fcc91a3990714553c2
+    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -4181,7 +4181,7 @@ echarles un vistazo, en primer lugar debe buscar la carpeta
 correspondiente a su sistema.  La ubicación de esta carpeta depende
 (a) de si consiguió el programa LilyPond descargando un binario
 precompilado desde el sitio web lilypond.org o si lo instaló mediante
-un gestor de paquetes (es decir, distribuido con Linux, o instalado
+un gestor de paquetes (es decir, distribuido con GNU/Linux, o instalado
 bajo fink o cygwin) o fue compilado a partir de la fuente, y (b) de
 qué sistema operativo está utilizando:
 
@@ -4189,7 +4189,7 @@ qué sistema operativo está utilizando:
 @strong{Descargado de lilypond.org}
 
 @itemize @bullet
-@item Linux
+@item GNU/Linux
 
 Diríjase a
 @example

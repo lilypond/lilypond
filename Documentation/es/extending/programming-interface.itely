@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 1f0a00b69403290b7fc7527b9ab100f95533f954
+    Translation of GIT committish: 3c169262c8f580c0f42c09f3a61b9ae9f0d6261c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -476,7 +476,7 @@ withAlt =
      \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
-     $music
+     #music
      \revert Stem #'length
      \revert NoteHead #'font-size
    #})
@@ -834,7 +834,7 @@ rectángulos y añade una separación.
   "Trazar un rectángulo doble rodeando el texto."
   (interpret-markup layout props
     #@{\markup \override #'(box-padding . 0.4) \box
-            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+            \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
 or, equivalently
@@ -880,7 +880,7 @@ Ahora el código nuevo es como se ve a continuación:
   (interpret-markup layout props
     #@{\markup \override #`(box-padding . ,inter-box-padding) \box
                \override #`(box-padding . ,box-padding) \box
-               @{ $text @} #@}))
+               @{ #text @} #@}))
 @end lisp
 
 De nuevo, la versión equivalente que utiliza la macro de marcado sería:
@@ -917,7 +917,7 @@ y el relleno de los rectángulos se puede personalizar:
   (interpret-markup layout props
     #{\markup \override #`(box-padding . ,inter-box-padding) \box
               \override #`(box-padding . ,box-padding) \box
-              { $text } #}))
+              { #text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -1033,7 +1033,7 @@ del argumento @code{props}.
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent #args @} #@}))
 @end example
 
 

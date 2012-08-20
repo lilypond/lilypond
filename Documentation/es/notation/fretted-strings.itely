@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9b95b5452f689f330178ff142fc3847193ef19a5
+    Translation of GIT committish: 9f1c61a1ea1f5c01e7beb5da14b947a6ae0fb3db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1166,7 +1166,7 @@ predefinidos se pueden añadir para otros instrumentos u otras
 afinaciones siguiendo los ejemplos que aparecen en
 @file{predefined-guitar-fretboards.ly}.
 
-Los diagramas de posiciones para el ukelele están en el archivo
+Los diagramas de posiciones para el ukelele están en el archivo @*
 @file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1185,7 +1185,7 @@ myChords = \chordmode { a1 a:m a:aug }
 @end lilypond
 
 Los diagramas de posiciones para la mandolina
-están contenidos en el archivo
+están contenidos en el archivo @*
 @file{predefined-mandolin-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1445,9 +1445,9 @@ Referencia de la notación:
 @ref{Diagramas predefinidos de trastes}.
 
 Archivos de inicio:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-guitar-fretboards.ly}, @*
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
+@file{ly/predefined-ukulele-fretboards.ly}, @*
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Fragmentos de código:

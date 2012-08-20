@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 73255e50558a62841500aa947ff7cad28636d144
+    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -972,7 +972,8 @@ Referencia de la notación:
 @ref{Saltos de página},
 @ref{Saltos de página óptimos},
 @ref{Paso de página óptimo},
-@ref{Saltos de página mínimos}.
+@ref{Saltos de página mínimos},
+@ref{Saltos de página de una línea}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -1396,6 +1397,7 @@ del pentagrama.
 * Saltos de página óptimos::
 * Paso de página óptimo::
 * Saltos de página mínimos::
+* Saltos de página de una línea::
 * Saltos de línea explícitos::
 * Utilizar una voz adicional para los saltos de línea::
 @end menu
@@ -1757,6 +1759,22 @@ de memoria, o con una gran cantidad de textos.  Se habilita utilizando:
 Fragmentos de código:
 @rlsr{Spacing}.
 
+@node Saltos de página de una línea
+@subsection Saltos de página de una línea
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La función @code{ly:one-line-breaking} es un algoritmo de saltos de
+página para uso especial que pone cada partitura en una página y en
+una sola línea.  Esta función de salto de página no compone los
+títulos ni los márgenes; solamente se imprime la partitura.
+
+El ancho de la página se ajusta de forma que la partitura más larga
+quepa en una línea.  Concretamente, las variables @code{paper-width},
+@code{line-width} y @code{indent} del bloque @code{\paper} se ignoran,
+aunque @code{left-margin} y @code{right-margin} aún se respetan.  La
+altura de la página se deja sin cambios.
 
 @node Saltos de línea explícitos
 @subsection Saltos de línea explícitos
@@ -2804,7 +2822,7 @@ El relleno vertical entre un objeto fuera del pentagrama y los grobs
 posicionados previamente se puede controlar con
 @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"This text is placed very close to the note"
 \once \override TextScript #'outside-staff-padding = #3
