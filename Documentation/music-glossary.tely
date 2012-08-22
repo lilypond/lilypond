@@ -1606,7 +1606,7 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European music
+Two or more tones sounding simultaneously.  In traditional European music
 the base chord is a @emph{triad} consisting of two thirds.  @emph{Major}
 (major + minor third) as well as @emph{minor} (minor + major third) chords
 may be extended with more thirds.  Four-tone @emph{seventh chords} and
@@ -1616,7 +1616,7 @@ define their mood are a special case called @q{open chords}.  The lack of
 the middle third means their quality is ambivalent -- neither major nor
 minor.
 
-@lilypond[quote,notime,line-width=13.0\cm]
+@lilypond[quote,notime]
 <<
   \new Staff {
     \relative c'' {
@@ -1634,8 +1634,8 @@ minor.
     "minor  "
     "diminished  "
     "augmented  "
-    "seventh-chord  "
-    "ninth-chord"
+    "seventh  "
+    "ninth"
   }
 >>
 @end lilypond
@@ -4393,7 +4393,7 @@ are identical (or @emph{enharmonic}) on an equal-tempered twelve-tone scale
 and are called @emph{tritonus} because they consist of three whole tones.
 The addition of such two intervals forms an octave.
 
-@lilypond[quote,notime,line-width=13.0\cm]
+@lilypond[quote]
 <<
 \context Voice \relative c'' {
 % Prime or unison
