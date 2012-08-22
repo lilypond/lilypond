@@ -732,7 +732,7 @@ PIDs or the number of the process."
                       (> (string-length s) 0))
                     (apply append
                            (map (lambda (f)
-                                  (string-split (ly:gulp-file f) #\nl))
+                                  (string-split (string-delete (ly:gulp-file f) #\cr) #\nl))
                                 files)))))
   (if (and (number? (ly:get-option 'job-count))
            (>= (length files) (ly:get-option 'job-count)))
