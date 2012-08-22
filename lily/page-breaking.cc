@@ -1224,11 +1224,11 @@ Page_breaking::blank_page_penalty () const
   SCM penalty_sym;
 
   if (is_last ())
-    penalty_sym = ly_symbol2scm ("blank-last-page-force");
+    penalty_sym = ly_symbol2scm ("blank-last-page-penalty");
   else if (ends_score ())
-    penalty_sym = ly_symbol2scm ("blank-after-score-page-force");
+    penalty_sym = ly_symbol2scm ("blank-after-score-page-penalty");
   else
-    penalty_sym = ly_symbol2scm ("blank-page-force");
+    penalty_sym = ly_symbol2scm ("blank-page-penalty");
 
   Break_position const &pos = breaks_[current_end_breakpoint_];
   if (Paper_score *ps = system_specs_[pos.system_spec_index_].pscore_)

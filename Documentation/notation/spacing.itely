@@ -818,8 +818,6 @@ Snippets:
 @node \paper variables for line breaking
 @unnumberedsubsubsec @code{\paper} variables for line breaking
 
-@c TODO: Mention that ly:optimal-breaking is on by default? -mp
-
 @table @code
 
 @item max-systems-per-page
@@ -865,32 +863,13 @@ Default values not listed here are defined in
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-The penalty for having a blank page after the end of one score and
-before the next.  By default, this is smaller than
-@code{blank-page-force}, so that we prefer blank pages after
-scores to blank pages within a score.
-
-@item blank-last-page-force
-@funindex blank-last-page-force
-
-The penalty for ending the score on an odd-numbered page.
-
-@item blank-page-force
-@funindex blank-page-force
-
-The penalty for having a blank page in the middle of a
-score.  This is not used by @code{ly:optimal-breaking} since it will
-never consider blank pages in the middle of a score.
-
 @item page-breaking
 @funindex page-breaking
 
 The page-breaking algorithm to use.  Choices are
-@code{ly:minimal-breaking}, @code{ly:page-turn-breaking}, and
-@code{ly:optimal-breaking}.
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
+@code{ly:one-line-breaking} and @code{ly:optimal-breaking}
+(the default).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -908,6 +887,56 @@ page-breaker will put fewer systems on each page.  Default: unset.
 The number of pages to be used for a score, unset by default.
 
 @end table
+
+The following variables are effective only when @code{page-breaking}
+is set to @code{ly:page-turn-breaking}.  Page breaks are then chosen
+to minimize the number of page turns.  Since page turns are required
+on moving from an odd-numbered page to an even-numbered one, a
+layout in which the last page is odd-numbered will usually be
+favoured.  Places where page turns are preferred can be indicated
+manually by inserting @code{\allowPageTurn} or automatically by
+including the @code{Page_turn_engraver} (see @ref{Optimal page turning}).
+
+If there are insufficient choices available for making suitable page
+turns, LilyPond may insert a blank page either within a score, between
+scores (if there are two or more scores), or by ending a score on an
+even-numbered page.  The values of the following three variables may
+be increased to make these actions less likely.
+
+The values are penalties, i.e. the higher the value the less likely
+will be the associated action relative to other choices.
+
+@table @code
+
+@item blank-page-penalty
+@funindex blank-page-penalty
+
+The penalty for having a blank page in the middle of a score.  If
+@code{blank-page-penalty} is large and @code{ly:page-turn-breaking} is
+selected, then LilyPond will be less likely to insert a page in the
+middle of a score.  Instead, it will space out the music further to
+fill the blank page and the following one.  Default: 5.
+
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
+
+The penalty for ending the score on an even-numbered page.  If
+@code{blank-last-page-penalty} is large and
+@code{ly:page-turn-breaking} is selected, then LilyPond will be less
+likely to produce a score in which the last page is even-numbered.
+Instead, it will adjust the spacing in order to use one page more or
+one page less.  Default: 0.
+
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
+
+The penalty for having a blank page after the end of one score and
+before the next.  By default, this is smaller than
+@code{blank-page-penalty}, so that blank pages after scores are
+inserted in preference to blank pages within a score.  Default: 2.
+
+@end table
+
 
 @seealso
 Notation Reference:
@@ -1624,6 +1653,9 @@ top-level markups.
 @endpredefined
 
 @seealso
+Notation Reference:
+@ref{\paper variables for line breaking}.
+
 Snippets:
 @rlsr{Spacing}.
 
