@@ -1371,11 +1371,13 @@ If no matching entry is found, @var{#f} is returned."
        (let* ((entry (car keysig))
 	      (entryoct (key-entry-octave entry))
 	      (entrynn (key-entry-notename entry))
-	      (oct (ly:pitch-octave pitch))
 	      (nn (ly:pitch-notename pitch)))
 	 (if (and (equal? nn entrynn)
-		  (or (and accept-global (not entryoct))
-		      (and accept-local (equal? oct entryoct))))
+		  (or (not entryoct)
+		      (= entryoct (ly:pitch-octave pitch)))
+		  (if (key-entry-bar-number entry)
+		      accept-local
+		      accept-global))
 	     entry
 	     (find-pitch-entry (cdr keysig) pitch accept-global accept-local)))))
 
@@ -1404,13 +1406,9 @@ on the same staff line."
 	 (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
 	(cons #f #f)
-	(let* ((global-entry (find-pitch-entry keysig pitch #f #f))
-	       (key-acc (key-entry-alteration global-entry))
-	       (acc (ly:pitch-alteration pitch))
-	       (entrymp (key-entry-measure-position entry))
+	(let* ((entrymp (key-entry-measure-position entry))
 	       (entrybn (key-entry-bar-number entry)))
-	  (cons #f (not (or (equal? acc key-acc)
-			    (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
+	  (cons #f (not (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
 
 (define-public (set-accidentals-properties extra-natural
 					   auto-accs auto-cauts
