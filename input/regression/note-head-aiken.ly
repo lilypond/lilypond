@@ -3,7 +3,7 @@
   texidoc = "Notes can be set in the Aiken (Christian Harmony) style."
 
 }
-\version "2.14.0"
+\version "2.16.0"
 
 \relative c' {
   \key c \major

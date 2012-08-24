@@ -7,7 +7,7 @@ either all or none are shown.  Ledger lines can be set to appear sooner or
 later by setting the @code{ledger-extra} property."
 }
 
-\version "2.15.12"
+\version "2.16.0"
 
 \new Staff \relative c' {
   \override Staff.StaffSymbol #'line-positions = #'(-5 -2 -1 2 5 6)

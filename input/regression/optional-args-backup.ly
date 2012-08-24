@@ -1,4 +1,4 @@
-\version "2.15.17"
+\version "2.16.0"
 
 \header{
   texidoc= "Test backup of predicate-based optional music function arguments.

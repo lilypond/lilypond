@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header {
   texidoc = "The dots on a dotted rest are correctly accounted for

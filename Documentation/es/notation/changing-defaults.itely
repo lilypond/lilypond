@@ -8,7 +8,7 @@ Translation of GIT committish: 47abfd11dbf3902963836c42db1c38a7137af16e
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión

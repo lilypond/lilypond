@@ -10,7 +10,7 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c \version "2.14.0"
+@c \version "2.16.0"
 @node Sablonok
 @appendix Sablonok
 @translationof Templates

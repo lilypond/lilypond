@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 startGraceSlur = #(make-music 'SlurEvent 'span-direction START 'spanner-id "grace")
 stopGraceSlur = #(make-music 'SlurEvent 'span-direction STOP 'spanner-id "grace")

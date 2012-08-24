@@ -4,7 +4,7 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-\version "2.15.35"
+\version "2.16.0"
 
 #(if (not (ly:undead? lilypond-declarations))
      (ly:parser-include-string parser

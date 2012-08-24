@@ -25,7 +25,7 @@ For maintenance reasons, we don't exercise the entire markup command set.
 
 
 
-\version "2.15.18"
+\version "2.16.0"
 
 {
   \textLengthOn

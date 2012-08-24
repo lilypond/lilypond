@@ -1,5 +1,5 @@
 
-\version "2.15.9"
+\version "2.16.0"
 
 \header {
   texidoc = "Stem length and stem-begin-position can be set manually.

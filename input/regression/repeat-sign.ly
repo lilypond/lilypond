@@ -1,4 +1,4 @@
-\version "2.15.42"
+\version "2.16.0"
 \header {
   texidoc = "The two dots of a repeat sign should be symmetric
 to the staff centre and avoid staff lines even for exotic staves."

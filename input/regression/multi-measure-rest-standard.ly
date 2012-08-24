@@ -2,7 +2,7 @@
   texidoc = "Only whole, breve, longa and maxima rests are used by default for multi-measure rests."
 }
 
-\version "2.15.2"
+\version "2.16.0"
 
 \paper {
   ragged-right = ##t

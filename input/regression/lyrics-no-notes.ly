@@ -6,7 +6,7 @@ paper column is very wide."
  
 \layout{ ragged-right = ##t }
 
-\version "2.14.0"
+\version "2.16.0"
 <<
   \override Score.PaperColumn #'keep-inside-line = ##f
   \new Staff \relative c' {

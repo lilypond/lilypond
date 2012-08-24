@@ -1,4 +1,4 @@
-\version "2.15.37"
+\version "2.16.0"
 
 \header {
   texidoc = "Lyrics should still slide under @code{TimeSignature} when an

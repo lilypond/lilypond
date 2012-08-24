@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header {
   texidoc = "StaffGroups can be nested, in which case the inner StaffGroup wins."

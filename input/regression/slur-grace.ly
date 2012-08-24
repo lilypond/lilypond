@@ -1,4 +1,4 @@
-\version "2.15.4"
+\version "2.16.0"
 
 \header {
   texidoc = "Appoggiatura and acciaccaturas use a different slur than the

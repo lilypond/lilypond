@@ -1,4 +1,4 @@
-\version "2.15.24"
+\version "2.16.0"
 
 \header {
   texidoc = "Beams do not collide with flags.

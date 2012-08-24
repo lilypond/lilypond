@@ -1,4 +1,4 @@
-\version "2.15.24"
+\version "2.16.0"
 
 \header {
   texidoc = "Slurs do not force grobs with outside-staff-priority

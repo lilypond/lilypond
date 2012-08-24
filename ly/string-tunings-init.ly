@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.42"
+\version "2.16.0"
 
 %%  A stringTuning is a list of pitches ordered by string number
 %%  from 1 to N.

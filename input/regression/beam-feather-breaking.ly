@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 \header  {
   texidoc = "Feathered beams should have the same progress of their feathering
 at the end of a line break as they do at the beginning of the next line."

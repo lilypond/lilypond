@@ -1,5 +1,5 @@
 %%% -*- Mode: Scheme -*-
-\version "2.15.28"
+\version "2.16.0"
 %{
   Chord repetition behavior is not customizable in the parser.  That
   is due to it usually being done by the toplevel music handler

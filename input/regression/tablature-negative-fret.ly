@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
 #(ly:expect-warning (_ "Ignoring string request and recalculating."))

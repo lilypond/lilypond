@@ -3,7 +3,7 @@
   texidoc = "Shape notes can be set to work properly in minor keys."
 
 }
-\version "2.14.0"
+\version "2.16.0"
 
 \relative c' {
   \key c \major

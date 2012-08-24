@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.16.0"
 
 \header {
   texidoc = "Setting the style of a @code{DynamicTextSpanner} to @code{'none}

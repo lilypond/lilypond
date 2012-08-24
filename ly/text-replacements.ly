@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.13"
+\version "2.16.0"
 
 #(define (add-text-replacements! alist)
    (set! text-font-defaults

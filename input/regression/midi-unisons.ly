@@ -7,7 +7,7 @@ either the first note is truncated, or the notes are merged if
 
 }
 
-\version "2.15.0"
+\version "2.16.0"
 
 \score {
   {

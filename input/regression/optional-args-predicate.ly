@@ -1,4 +1,4 @@
-\version "2.15.15"
+\version "2.16.0"
 
 \header{
   texidoc= "Test predicate-based optional music function argument skipping."

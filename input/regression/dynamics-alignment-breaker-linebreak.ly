@@ -1,4 +1,4 @@
-\version "2.15.7"
+\version "2.16.0"
 
 \header {
   texidoc = "@code{\\breakDynamicSpan} shall also work if a 

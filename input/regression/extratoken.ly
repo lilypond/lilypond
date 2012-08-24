@@ -9,7 +9,7 @@ extra token parsing state for the music function to disappear."
   ragged-right = ##t
 }
 
-\version "2.15.31"
+\version "2.16.0"
 
 x=\lyrics { oh }
 

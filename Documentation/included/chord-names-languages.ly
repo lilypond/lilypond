@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 \header  {
     texidoc = "@cindex Chord Names German
 The English naming of chords (default) can be changed to German 

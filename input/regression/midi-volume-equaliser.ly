@@ -1,4 +1,4 @@
-\version "2.15.32"
+\version "2.16.0"
 \header {
   texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a note, where groups stop one after

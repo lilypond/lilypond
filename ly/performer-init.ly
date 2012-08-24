@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.15.39"
+\version "2.16.0"
 
 %%
 %% setup for Request->Element conversion.

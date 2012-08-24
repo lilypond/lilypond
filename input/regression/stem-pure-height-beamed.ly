@@ -1,4 +1,4 @@
-\version "2.15.9"
+\version "2.16.0"
 
 \header {
   texidoc = "Lilypond gets beamed stem pure heights correct

@@ -1,4 +1,4 @@
-\version "2.15.21"
+\version "2.16.0"
 
 \header {
   texidoc = "Bar numbers can automatically reset at volta repeats.

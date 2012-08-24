@@ -1,4 +1,4 @@
-\version "2.15.34"
+\version "2.16.0"
 
 \header {
   texidoc = "Dot Columns are engraved in the Staff by default,

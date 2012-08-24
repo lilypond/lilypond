@@ -1,4 +1,4 @@
-\version "2.15.11"
+\version "2.16.0"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Recursive definition of property ~a detected!") 'header:title)
 #(ly:expect-warning (_ "Recursive definition of property ~a detected!") 'header:composer)

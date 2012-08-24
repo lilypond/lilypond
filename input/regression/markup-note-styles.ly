@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header {
   texidoc = "@code{\\note-by-number} and @code{\\note} support

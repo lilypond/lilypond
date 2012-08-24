@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.15.32"
+\version "2.16.0"
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 

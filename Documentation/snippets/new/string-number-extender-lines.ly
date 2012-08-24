@@ -1,4 +1,4 @@
-\version "2.15.20"
+\version "2.16.0"
 
 \header {
   lsrtags = "editorial-annotations, text, fretted-strings, tweaks-and-overrides, scheme-language"

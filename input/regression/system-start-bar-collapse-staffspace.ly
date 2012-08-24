@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.16.0"
 
 \header {
   texidoc = "When the staff-space is increased, the system-start delimiter

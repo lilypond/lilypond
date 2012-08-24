@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header{ texidoc = "Sans serif style tab clefs are supported by @code{\\clef moderntab}.
                     This alternative clef supports four- to seven-stringed instruments

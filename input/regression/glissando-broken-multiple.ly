@@ -2,7 +2,7 @@
   texidoc = "When broken, glissandi can span multiple lines."
 
 }
-\version "2.15.0"
+\version "2.16.0"
 \paper {
   ragged-right = ##t
 }

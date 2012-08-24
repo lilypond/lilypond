@@ -1,4 +1,4 @@
-\version "2.15.2"
+\version "2.16.0"
 
 \header {
   texidoc = "Text spanners ending on, or broken across, full-measure
