@@ -3380,6 +3380,12 @@ def conv (str):
     str = re.sub ('\n"(' + wordsyntax + r')"(\s*=\s*\\stringTuning)', "\n\\1\\2", str)
     return str
 
+@rule ((2, 16, 0),
+       _ ("bump version for release"))
+def conv (str):
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
