@@ -203,9 +203,9 @@ urchinTracker();
         #### add google tracker goals
         if (line.find("href=\"http://download.linuxaudio.org") >= 0):
             # TODO: more ugly hardcoding to make releases hard. :(
-            if (line.find('2.14') >= 0):
+            if (line.find('2.16') >= 0):
                 line = line.replace('a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.14\');\" href=')
-            elif (line.find('2.15') >= 0):
+            elif (line.find('2.17') >= 0):
                 line = line.replace('a href=', 'a onClick=\"javascript:urchinTracker(\'/download/v2.15\');\" href=')
         ### add language selection footer
         if (line.find("<div id=\"verifier_texinfo\">") >= 0):
