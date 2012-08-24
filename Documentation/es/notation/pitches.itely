@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e061d65d89f0b0e48edbfc4e9674703cc05eeea1
+    Translation of GIT committish: 3c169262c8f580c0f42c09f3a61b9ae9f0d6261c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2365,7 +2365,7 @@ automáticamente.  Las alteraciones se imprimen como en el estilo
 las notas sostenidas o bemoles especificadas por la armadura, excepto
 si la nota se repite inmediatamente.
 
-@lilypond[quote]
+@lilypond[quote,staffsize=18]
 musicA = {
   <<
     \relative c' {
@@ -2587,7 +2587,7 @@ cambie localmente el estilo de alteraciones a @code{forget}:
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
   \accidentalStyle "forget"
-  $music
+  #music
   \accidentalStyle "modern"
 #})
 {

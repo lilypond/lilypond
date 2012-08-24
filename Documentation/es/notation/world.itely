@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7ae1e99ff67432c96faf743bc28ac7b90a47a852
+    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -293,7 +293,7 @@ más importante del grupo, y podemos verlo como el maqam básico.
 A continuación presentamos una posibilidad de agrupación que asigna
 los maqams más comunes a armaduras de tonalidad:
 
-@multitable @columnfractions 0.1 0.1 0.1 0.6
+@multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem grupo de maqam
   @tab tono
   @tab final

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f6b1f6ebcd527e6262add9c9cf3e4df5b3e5d63f
+    Translation of GIT committish: bc573af397a1b54f35fb1f95b3ee2e5360d4152f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2039,13 +2039,36 @@ barra nueva.
 @funindex \set
 @funindex set
 
+Cuando está habilitado el barrado automático, la colocación de las
+barras automñaticas viene determinada por tres propiedades de
+contexto: @code{baseMoment}, @code{beatStructure} y
+@code{beamExceptions}.  Si hay definida una regla de
+@code{beamExceptions} para el compás en curso, se usa dicha regla para
+determinar la colocación de las barras.  Si no está definida ninguna
+regla de @code{beamExceptions} para el tipo de compás en curso, la
+colocación de las barras está determinada por los ajustes de
+@code{baseMoment} y @code{beatStructure}.
+
+De forma predeterminada, las reglas de @code{beamExceptions} están
+definidas para los compases más comunes, y así las reglas de
+@code{beamException} se deben desactivar si pretendemos que el barrado
+automático esté basado en @code{baseMoment} y @code{beatStructure}.
+Las reglas de @code{beamExceptions} se desactivan mediante
+
+@example
+\set Timing.beamExceptions = #'()
+@end example
+
+
+@subsubheading @i{Barrado basado en @code{baseMoment} y @code{beatStructure}}
+
 En la mayor parte de los casos, las barras automáticas terminan al
 final de un pulso.  Los puntos finales de las barras vienen
 determinados por las propiedades de contexto @code{baseMoment} y
 @code{beatStructure}.  @code{beatStructure} es una lista de Scheme que
 define la longitud de cada pulso dentro del compás en unidades de
 @code{baseMoment}.  De forma predeterminada, @code{baseMoment} es una
-unidad más que el numerador del compás.  De forma predeterminada
+unidad más que el denominador del compás.  De forma predeterminada
 también, cada unidad de longitud @code{baseMoment} es un único pulso.
 
 @lilypond[quote,relative=2,verbatim]
@@ -2055,6 +2078,26 @@ c16^"default" c c c c |
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
+@end lilypond
+
+Si es está utilizando una indicación de compás común, @emph{se debe}
+desactivar @code{beamExceptions} para habilitar el funcionamiento de
+@code{beatStructure}.  Siempre se puede incluir la instrucción
+@code{\set Timing.beamExceptions = #'()} si el barrado está
+determinado por @code{beatStructure}.
+
+@lilypond[quote,relative=2,verbatim]
+\time 4/4
+a8^"default" a a a a a a a
+
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"no change" a a a a a a a
+
+\set Timing.beamExceptions = #'()
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"changed" a a a a a a a
 @end lilypond
 
 Los cambios en los ajustes de barrado se pueden limitar a contextos
@@ -2121,6 +2164,8 @@ De forma predeterminada @code{baseMoment} está fijado a una unidad más
 que el denominador del compás.  Todas las excepciones a este valor
 predeterminado están en
 @file{scm/time-signature-settings.scm}.
+
+@subsubheading @i{Barrado basado en @code{beamExceptions}}
 
 Las reglas de autobarrado especiales (distintas de terminar una barra
 sobre un pulso) están definidas en la propiedad @code{beamExceptions}.
@@ -2238,7 +2283,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@i{@strong{Cómo funciona el barrado automático}}
+@subsubheading @i{Cómo funciona el barrado automático}
 
 Cuando se habilita el barrado automático, la colocación de las barras
 de corchea automáticas viene determinada por las propiedades de
@@ -2748,6 +2793,11 @@ c4 c c c \break
 \bar ":|S.|:"
 c1
 @end lilypond
+
+Además, existe una instrucción @code{\inStaffSegno} que crea un
+símbolo de segno, situado en colaboración con la instrucción
+@code{\repeat volta}.
+
 
 En las partituras con muchos pentagramas, una instrucción @code{\bar}
 en uno de ellos se aplica automáticamente a todos los demás.  Las
@@ -3431,7 +3481,7 @@ Véase @ref{Escalar las duraciones}.
 En un contexto orquestal, las cadenzas presentan un problema especial:
 al construir una partitura que tiene una cadenza, todos los demás
 instrumentos deben saltar tantas notas como la longitud de la cadenza,
-pues en caso contrario empezarán demasiado pronto o tarde.
+pues en caso contrario empezarán demasiado pronto o demasiado tarde.
 
 Una solución a este problema son las funciones @code{mmrest-of-length}
 y @code{skip-of-length}.  Estas funciones de Scheme toman un fragmento
@@ -3450,9 +3500,9 @@ MyCadenza = \relative c' {
     \MyCadenza c'1
   }
   \new Staff {
-    $(mmrest-of-length MyCadenza)
+    #(mmrest-of-length MyCadenza)
     c'1
-    $(skip-of-length MyCadenza)
+    #(skip-of-length MyCadenza)
     c'1
   }
 >>
