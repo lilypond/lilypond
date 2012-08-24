@@ -3380,6 +3380,11 @@ def conv (str):
     str = re.sub ('\n"(' + wordsyntax + r')"(\s*=\s*\\stringTuning)', "\n\\1\\2", str)
     return str
 
+@rule ((2, 16, 0),
+       _ ("bump version for release"))
+def conv (str):
+    return str
+
 @rule ((2, 17, 0), r"blank-*-force -> blank-*-penalty")
 def conv (str):
     str = re.sub ('blank-page-force', 'blank-page-penalty', str)

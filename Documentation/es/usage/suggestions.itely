@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: de9ddc8183a93f28d167af8f195be95e5fbc91b9
+    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Sugerencias para escribir archivos de entrada
 @chapter Sugerencias para escribir archivos de entrada
@@ -296,10 +296,10 @@ solamente una pincelada de todo lo que es capaz de hacer.
 
 Las instrucciones que definen las reglas en un archivo de make
 difieren en función de la plataforma; por ejemplo, las distintas
-formas de Linux y MacOS usan @code{bash}, mientras que Windows usa
+formas de GNU/Linux y MacOS usan @code{bash}, mientras que Windows usa
 @code{cmd}.  Observeque en MacOS X, tenemos que configurar el sistema
 para que utilice el intérprete de órdenes. A continuación presentamos
-algunos makefiles de ejemplo, con versiones tanto para Linux/MacOS
+algunos makefiles de ejemplo, con versiones tanto para GNU/Linux/MacOS
 como para Windows.
 
 El primer ejemplo es para una obra orquestal en cuatro movimientos con

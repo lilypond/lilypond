@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.16.0"
 
 
 @c Translators: Yoshiki Sawada
@@ -883,44 +883,38 @@ score で使用すべきシステム数です。@c
 @item blank-after-score-page-force
 @funindex blank-after-score-page-force
 
-@c 未訳
-The penalty for having a blank page after the end of one score and
-before the next.  By default, this is smaller than
-@code{blank-page-force}, so that we prefer blank pages after
-scores to blank pages within a score.
+楽譜の後ろ (と次の楽譜の前) に強制的に白紙を挿入します。@c
+デフォルトでは、この値は @code{blank-page-force} よりも小さいため、@c
+楽譜の途中ではなく後ろに白紙が挿入されます。
 
 @item blank-last-page-force
 @funindex blank-last-page-force
 
-@c 未訳
-The penalty for ending the score on an odd-numbered page.
+楽譜の最後が奇数ページの場合、楽譜の後ろに白紙を挿入します。
 
 @item blank-page-force
 @funindex blank-page-force
 
-@c 未訳
-The penalty for having a blank page in the middle of a
-score.  This is not used by @code{ly:optimal-breaking} since it will
-never consider blank pages in the middle of a score.
+楽譜の途中に強制的に白紙を挿入します。@c
+この値は @code{ly:optimal-breaking} では用いられません。@c
+なぜなら、楽譜の途中の白紙を考慮しないからです。
 
 @item page-breaking
 @funindex page-breaking
 
-@c 未訳
-The page-breaking algorithm to use.  Choices are
-@code{ly:minimal-breaking}, @code{ly:page-turn-breaking}, and
-@code{ly:optimal-breaking}.
+改ページのアルゴリズムを指定します。@c
+選択肢は @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
+それに @code{ly:optimal-breaking} です。
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
 
-@c 未訳
-Tricks the page breaker into thinking that
-@code{system-system-spacing} is set to something different than
-it really is.  For example, if
-@code{page-breaking-system-system-spacing #'padding} is set to something
-substantially larger than @code{system-system-spacing #'padding}, then the
-page-breaker will put fewer systems on each page.  Default: unset.
+改ページ アルゴリズムに @code{system-system-spacing} を実際の値とは異なる@c
+値だと思わせるトリックです。@c
+例えば、@code{page-breaking-system-system-spacing #'padding} を
+@code{system-system-spacing #'padding} よりも十分に大きくすると、@c
+改ページ アルゴリズムは各ページに数個のシステムしか配置しません。@c
+デフォルトではセットされていません。
 
 @item page-count
 @funindex page-count
@@ -935,7 +929,8 @@ score で使用すべきページ数です。@c
 @ref{改ページ},
 @ref{最適改ページ},
 @ref{最適ページめくり},
-@ref{最小改ページ}
+@ref{最小改ページ},
+@ref{1 行の改ページ}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -1127,6 +1122,101 @@ increased by one.  Default: @code{#f}.
 @}
 @end example
 
+最上位の表記として複数の @code{\layout} ブロックを配置することができます。@c
+これは、例えば、異なる設定が別個のファイルに保存されていて、任意の方法で@c
+インクルードする場合に有用です。@c
+内部的には、@code{\layout} ブロックが評価される時、カレントの
+@code{\layout} 構成のコピーが作成され、評価する @code{\layout} ブロックの@c
+内部で定義されている変更が適用され、その結果が新しいカレントの構成として@c
+保存されます。@c
+ユーザからは @code{\layout} ブロックが組み合わされたように見えますが、@c
+衝突が発生した場合 (複数のブロックで同じプロパティが変更された場合)、@c
+最後の定義が有効になります。
+
+例えば、下記のブロック:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript #'color = #magenta
+    \override Glissando #'thickness = #1.5
+  @}
+@}
+@end example
+
+これが一つ前の例の後に配置された場合、@code{TextScript} の @code{'padding}
+設定と @code{'color} 設定は組み合わせれますが、@code{Glissando} の
+@code{'thickness} 設定は前の設定と置き換わります (前の設定を上書きします)。
+
+@code{\layout} ブロックを後で再利用するために変数に代入することができます。@c
+しかしながら、この方法は @code{\layout} ブロックを直接記述した場合とは@c
+少しですが重大な違いがあります。
+
+変数を以下のように定義した場合:
+
+@example
+layoutVariable = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead #'font-size = #4
+  @}
+@}
+@end example
+
+カレントの @code{\layout} 構成に @code{NoteHead #'font-size} 設定を追加@c
+しますが、この組み合わせは新しいカレントの構成として保存され @emph{ません}。@c
+@q{カレントの構成} は変数が定義された時に評価されるのであり、変数が使われる@c
+時に評価されるのではありません。@c
+そのため、変数の効果は変数がソースに配置された位置によって異なります。
+
+変数を他の @code{\layout} ブロックの中で使うことができます。@c
+例えば、以下のように:
+
+@example
+\layout @{
+  \layoutVariable
+  \context @{
+    \Voice
+    \override NoteHead #'color = #red
+  @}
+@}
+@end example
+
+上記のような変数を含む @code{\layout} ブロックは、カレントの構成をコピー@c
+せず、設定を追加するためのベースとなる構成として @code{\layoutVariable} の@c
+内容を用います。@c
+このことは、変数が定義されてから使われるまでの間に定義された変更は失われる@c
+ということを意味します。
+
+@code{layoutVariable} が使われる (あるいは @code{\include} される) 直前に@c
+定義されている場合、@code{layoutVariable} の内容はカレントの構成に変数内部@c
+で定義した設定を加えたものになります。@c
+そのため、上で示した @code{\layoutVariable} の使用例の場合、最終的な
+@code{\layout} ブロックの構成は以下のようになります:
+
+@example
+  TextScript #'padding = #1
+  TextScript #'color = #magenta
+  Glissando #'thickness = #1.5
+  NoteHead #' font-size = #4
+  NoteHead #' color = #red
+@end example
+
+これに @code{indent} と @code{StaffGrouper} の設定がプラスしたものです。
+
+しかしながら、変数が最初の @code{\layout} ブロックより前に定義されていた@c
+場合、カレントの構成は以下だけになってしまいます:
+
+@example
+  NoteHead #' font-size= #4 % (変数定義で記述されたものです)
+  NoteHead #' color = #red % (変数が使用された後に追加されたものです)
+@end example
+
+注意深く計画を立てれば、@code{\layout} 変数はソースのレイアウト設計を構築@c
+して、@code{\layout} 構成を既知の状態にリセットするための有用なツールに@c
+なります。
+
 @seealso
 記譜法リファレンス:
 @ref{Changing context default settings}
@@ -1258,6 +1348,7 @@ Feta フォントは 8 つのサイズの音楽シンボルを提供します。
 * 最適改ページ::
 * 最適ページめくり::
 * 最小改ページ::
+* 1 行の改ページ::
 * 明示的な改行/改ページ::
 * 改行/改ページのために追加のボイスを使用する::
 @end menu
@@ -1627,6 +1718,21 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 コード断片集:
 @rlsr{Spacing}
 
+@node 1 行の改ページ
+@subsection 1 行の改ページ
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+@code{ly:one-line-breaking} 関数は特殊な目的のための改ページアルゴリズム@c
+で、楽譜をそれぞれ 1 ページに 1 行で配置します。@c
+この改ページ関数はタイトルやマージンを譜刻しません。楽譜だけを譜刻します。
+
+ページ幅は最も長い楽譜が 1 行に納まるように調節されます。@c
+@code{\paper} ブロックの中にある変数 @code{paper-width}, @code{line-width}
+それに @code{indent} は無視されますが、@code{left-margin} と
+@code{right-margin} は有効です。@c
+ページの高さは変更されません。
 
 @node 明示的な改行/改ページ
 @subsection 明示的な改行/改ページ
@@ -2668,7 +2774,7 @@ c4_"Text"\pp % ここでは、2 つのオブジェクトが衝突します
 @code{outside-staff-padding} で制御することができます。
 
 @c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript #'outside-staff-padding = #0
 a'^"このテキストは音符のすぐ近くに配置されます。"
 \once \override TextScript #'outside-staff-padding = #3

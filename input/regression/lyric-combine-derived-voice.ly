@@ -1,4 +1,4 @@
-\version "2.15.4"
+\version "2.16.0"
 \header {
   texidoc = "For Voice-derived contexts like CueVoice, the lyrics should
 still start with the first note."

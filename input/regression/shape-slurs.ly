@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.16.0"
 
 \header {
   texidoc = "The control points of a broken or unbroken slur may be offset by

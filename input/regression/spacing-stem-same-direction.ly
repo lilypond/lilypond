@@ -1,5 +1,5 @@
 
-\version "2.14.0"
+\version "2.16.0"
 \header {
   texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and works only if

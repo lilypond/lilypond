@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "margins do not fit with line-width, setting default values"))

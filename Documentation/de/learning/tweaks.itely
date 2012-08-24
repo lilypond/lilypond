@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.16.0"
 
 @node Die Ausgabe verändern
 @chapter Die Ausgabe verändern

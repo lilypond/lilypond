@@ -2,7 +2,7 @@
   texidoc = "Staves stay alive long enough to complete an automatic beam."
 }
 
-\version "2.15.9"
+\version "2.16.0"
 
 <<
   {

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 73255e50558a62841500aa947ff7cad28636d144
+    Translation of GIT committish: 4c2851d28c0a94a30cc7652b9b0052ce7f0ade7e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -669,49 +669,83 @@ Referencia de la notación:
 @unnumberedsubsubsec Presentación predeterminada de los bloques de título del libro y la partitura
 @translationof Default layout of book and score title blocks
 
-La disposición y formato de los bloques de título están controlados
-por medio de dos variables de @code{\paper}: @code{bookTitleMarkup}
-para el bloque de título @code{\header} principal y
-@code{scoreTitleMarkup} para los bloques @code{\header} individuales
-dentro de un bloque @code{\score}.
+Este ejemplo muestra todas las variables de @code{\header}:
 
-@lilypond[papersize=a6,quote,verbatim,noragged-right]
-\header {
-  % The following fields are centered
-  dedication = "Dedication"
-  title = "Title"
-  subtitle = "Subtitle"
-  subsubtitle = "Subsubtitle"
-  instrument = "Instrument"
-
-  % The following fields are left-aligned on the left side
-  poet = "Poet"
-  meter = "Meter"
-
-  % The following fields are right-aligned on the right side
-  composer = "Composer"
-  arranger = "Arranger"
-}
-
-\score {
-  { s1 }
+@c KEEP LY
+@lilypond[papersize=a7,quote,verbatim,noragged-right]
+\book {
   \header {
-    % The following fields are placed at opposite ends of the same line
-    piece = "Piece"
-    opus = "Opus"
+      % Los siguientes campos están centrados
+    dedication = "Dedication (dedicatoria)"
+    title = "Title (título)"
+    subtitle = "Subtitle (subtítulo)"
+    subsubtitle = "Subsubtitle (sub-subtítulo)"
+      % Los siguientes campos se distribuyen regularmente sobre una línea
+      % el campo "instrument" también aparece en las siguientes páginas
+    instrument = \markup \with-color #green "Instrument (instrumento)"
+    poet = "Poet (poeta)"
+    composer = "Composer (autor)"
+      % Los siguientes campos se sitúan en los extremos opuestos de la misma línea
+    meter = "Meter (metro)"
+    arranger = "Arranger (arreglista)"
+      % Los siguientes campos están centrados en la parte inferior
+    tagline = "la tagline o línea de etiqueta va al final de la úitlma página"
+    copyright = "el copyright va al final de la primera página"
+  }
+  \score {
+    { s1 }
+    \header {
+        % Los siguientes campos se colocan en los extremos de una línea
+      piece = "Piece (pieza) 1"
+      opus = "Opus 1"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+        % Los siguientes campos se sitúan en los extremos de una línea
+      piece = "Piece (pieza) 2 en la misma página"
+      opus = "Opus 2"
+    }
+  }
+  \pageBreak
+  \score {
+    { s1 }
+    \header {
+        % Los siguientes campos se sitúan en los extremos de una línea
+      piece = "Piece (pieza) 3 en una página nueva"
+      opus = "Opus 3"
+    }
   }
 }
 @end lilypond
 
-@c Is the bit about \null markups true? -mp
+Observe que
 
+@itemize
+@item
+El nombre de instrumento se repite en todas las páginas.
+
+@item
+Solamente @code{piece} (la pieza) y @code{opus} se imprimen en una
+@code{\score} cuando la variable de papel @code{print-all-headers} se
+establece a @code{##f} (el valor predeterminado).
+
+@item
+@c Is the bit about \null markups true? -mp
 Los campos de texto que se dejan sin establecer dentro de un bloque
 @code{\header} se sustituyen por elementos de marcado nulos
 @code{\null} de manera que no ocupen espacio innecesariamente.
 
+@item
 Los ajustes predeterminados para @code{scoreTitleMarkup} sitúan los
 campos de texto @code{piece} y @code{opus} en extremos opuestos de la
 misma línea.
+
+@end itemize
+
+Para cambiar la disposición predeterminada, véase
+@ref{Personalización de los bloques de título}.
 
 @cindex breakbefore
 
@@ -721,17 +755,18 @@ para hacer que los títulos del bloque @code{\header} del nivel
 superior aparezcan ocupando toda la primera página, empezando la
 música (definida en el bloque @code{\score}) en la página siguiente.
 
+@c KEEP LY
 @lilypond[papersize=a8landscape,verbatim,noragged-right]
 \book {
   \header {
-    title = "This is my Title"
-    subtitle = "This is my Subtitle"
-    copyright = "This is the bottom of the first page"
+    title = "Este es mi Title (título)"
+    subtitle = "Este es mi Subtitle (subtítulo)"
+    copyright = "Este es el final de la primera página"
   }
   \score {
     \repeat unfold 4 { e'' e'' e'' e'' }
     \header {
-      piece = "This is the Music"
+      piece = "Esto es la música"
       breakbefore = ##t
     }
   }
@@ -743,6 +778,7 @@ Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}
 
 Referencia de la notación:
+@ref{Personalización de los bloques de título},
 @ref{Estructura del archivo}.
 
 Archivos de inicio:
@@ -862,10 +898,15 @@ Referencia de la notación:
 @unnumberedsubsubsec Personalización de los bloques de título
 @translationof Custom layout for title blocks
 
+@cindex bookTitleMarkup
+@cindex scoreTitleMarkup
+@funindex bookTitleMarkup
+@funindex scoreTitleMarkup
+
 Las instrucciones @code{\markup} dentro del bloque @code{\header} son
 útiles para dar un formato simple al texto, pero no permiten un
 control preciso sobre la colocación de los títulos.  Para personalizar
-la colocación de los campos de texto, use una o las dos variables de
+la colocación de los campos de texto, cambie una o las dos variables de
 @code{\paper} siguientes:
 
 @itemize
@@ -873,7 +914,9 @@ la colocación de los campos de texto, use una o las dos variables de
 @item @code{scoreTitleMarkup} (marcado de título de la partitura)
 @end itemize
 
-Estas variables de marcado se estudian en
+La colocación de los títulos cuando se utilizan los valores
+predeterminados de estas variables de @code{\markup} se muestra en los
+ejemplos de
 @ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
 
 Los ajustes predeterminados para @code{scoreTitleMarkup} tal y como
@@ -1428,7 +1471,7 @@ dentro de un elemento de marcado, para obtener el número de la página
 en la que se sitúa el punto señalizado, usando la instrucción de
 marcado @code{\page-ref}.
 
-@lilypond[verbatim]
+@lilypond[verbatim,papersize=a8landscape]
 \header { tagline = ##f }
 \book {
   \label #'firstScore
@@ -1550,7 +1593,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
-@lilypond[line-width=11.0\cm]
+@lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocActMarkup = \markup \large \column {
@@ -1578,7 +1621,7 @@ tocAct =
 
 Se pueden añadir puntos de relleno entre un elemento y su número de página:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocItemMarkup = \tocItemWithDotsMarkup

@@ -2,7 +2,7 @@
   texidoc = "Multi-measure rests standard values can be tweaked."
 }
 
-\version "2.15.6"
+\version "2.16.0"
 
 \markup "Use non-standard multi-measure rests:"
 \new Staff {

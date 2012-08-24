@@ -6,7 +6,7 @@ the next note, by setting @code{tupletFullLengthNote}."
 
   }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \new RhythmicStaff {
   \set tupletFullLength = ##t

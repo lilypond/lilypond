@@ -7,7 +7,7 @@ is suppressed if the rest has a pitch."
 
 }
 
-\version "2.15.0"
+\version "2.16.0"
 
 \new Staff <<
   \relative c''' { g8 g g r r2 } \\

@@ -1,4 +1,4 @@
-\version "2.15.16"
+\version "2.16.0"
 \header {
     texidoc = "The layout of the minor chord can be tuned with
 @code{minorChordModifier}."

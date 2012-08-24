@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6e765bb786fddd2e655315f9bde94968952b99ca
+    Translation of GIT committish: 3c169262c8f580c0f42c09f3a61b9ae9f0d6261c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.16.0"
 
 @node Tutorial de Scheme
 @appendix Tutorial de Scheme
@@ -710,7 +710,11 @@ consistentes con el modo actual de LilyPond.
 La acción inmediata de @code{$} puede llevar a alguna que otra
 sorpresa, véase @ref{Variables de entrada y Scheme}.  La utilización
 de @code{#} donde el analizador sintáctico lo contempla es normalmente
-preferible.
+preferible.  Dentro de las expresiones musicales, aquellas que se
+crean utilizando @code{#} @emph{se interprentan} como música.  Sin
+embargo, @emph{no se copian} antes de ser utilizadas.  Si forman parte
+de alguna estructura que aún podría tener algún uso, quizá tenga que
+utilizar explícitamente @code{ly:music-deep-copy}.
 
 @funindex $@@
 @funindex #@@
@@ -910,14 +914,14 @@ como
 
 @example
 ...
-@{ $@@newLa @}
+@{ #@@newLa @}
 @end example
 
 Aquí, cada elemento de la lista que está almacenado en @code{newLa} se
 toma en secuencia y se inserta en la lista, como si hubiésemos escrito
 
 @example
-@{ $(first newLa) $(second newLa) @}
+@{ #(first newLa) #(second newLa) @}
 @end example
 
 Ahora bien, en todas esas formas, el código de Scheme se evalúa en el
@@ -1177,7 +1181,7 @@ hacer que LilyPond dirija solamente esta salida a su propio archivo:
 
 @example
 @{
-  $(with-output-to-file "display.txt"
+  #(with-output-to-file "display.txt"
       (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
 @}
 @end example
@@ -1615,16 +1619,16 @@ Lo podemos usar para crear instrucciones nuevas:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
+  (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = $padding
+  \once \override Score.MetronomeMark #'padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
@@ -1635,7 +1639,7 @@ Incluso se le pueden pasar expresiones musicales:
 @lilypond[quote,verbatim,ragged-right]
 pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 #{
-  $x e8 a b $y b a e
+  #x e8 a b #y b a e
 #})
 
 \relative c''{

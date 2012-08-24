@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a001627a9609221f05631aaf0366795ce28f8437
+    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.16.0"
 
 @node Tablas del manual sobre notación
 @appendix Tablas del manual sobre notación
@@ -39,6 +39,7 @@
 @end menu
 
 
+
 @node Cuadro de nombres de acordes
 @appendixsec Cuadro de nombres de acordes
 @translationof Chord name chart
@@ -46,8 +47,8 @@
 La siguiente tabla muestra dos sistemas estándar para imprimir los
 nombres de los acordes, junto a las notas que representan.
 
-@lilypondfile{chord-names-jazz.ly}
-
+@c The line width is a hack to allow space for instrument names
+@lilypondfile[quote,line-width=15\cm]{chord-names-jazz.ly}
 
 @node Modificadores de acorde más usuales
 @appendixsec Modificadores de acorde más usuales
@@ -76,7 +77,7 @@ Tercera mayor y quinta justa
 @tab
 @code{5} o nada
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:5
 }
@@ -89,7 +90,7 @@ Tercera menor y quinta justa
 @tab
 @code{m} o @code{m5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m
 }
@@ -102,7 +103,7 @@ Tercera mayor y quinta aumentada
 @tab
 @code{aug}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug
 }
@@ -115,7 +116,7 @@ Tercera menor y quinta disminuida
 @tab
 @code{dim}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim
 }
@@ -128,7 +129,7 @@ Tríada mayor con séptima menor
 @tab
 @code{7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:7
 }
@@ -141,7 +142,7 @@ Tríada mayor y séptima mayor
 @tab
 @code{maj7} ó @code{maj}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj7
 }
@@ -154,7 +155,7 @@ Tríada menor y séptima menor
 @tab
 @code{m7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7
 }
@@ -167,7 +168,7 @@ Tríada disminuida y séptima disminuida
 @tab
 @code{dim7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:dim7
 }
@@ -180,7 +181,7 @@ Tríada aumentada y séptima menor
 @tab
 @code{aug7}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:aug7
 }
@@ -193,7 +194,7 @@ Tríada disminuida y séptima menor
 @tab
 @code{m7.5-}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7.5-
 }
@@ -206,7 +207,7 @@ Tríada menor con séptima mayor
 @tab
 @code{m7+}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m7+
 }
@@ -219,7 +220,7 @@ Tríada mayor y sexta
 @tab
 @code{6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:6
 }
@@ -232,7 +233,7 @@ Tríada menor y sexta
 @tab
 @code{m6}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m6
 }
@@ -245,7 +246,7 @@ Séptima dominante con novena mayor
 @tab
 @code{9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:9
 }
@@ -258,7 +259,7 @@ Séptima mayor y novena mayor
 @tab
 @code{maj9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj9
 }
@@ -271,7 +272,7 @@ Séptima menor y novena mayor
 @tab
 @code{m9}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m9
 }
@@ -284,7 +285,7 @@ Novena dominante con oncena justa
 @tab
 @code{11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:11
 }
@@ -297,7 +298,7 @@ Novena mayor y oncena justa
 @tab
 @code{maj11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj11
 }
@@ -310,7 +311,7 @@ Novena menor y oncena justa
 @tab
 @code{m11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m11
 }
@@ -323,7 +324,7 @@ Novena dominante y trecena mayor
 @tab
 @code{13}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13
 }
@@ -336,7 +337,7 @@ Oncena dominante y trecena mayor
 @tab
 @code{13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:13.11
 }
@@ -349,7 +350,7 @@ Oncena mayor y trecena mayor
 @tab
 @code{maj13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:maj13.11
 }
@@ -362,7 +363,7 @@ Oncena menor y trecena mayor
 @tab
 @code{m13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:m13.11
 }
@@ -375,7 +376,7 @@ Segunda mayor y quinta justa
 @tab
 @code{sus2}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus2
 }
@@ -388,7 +389,7 @@ Cuarta justa y quinta justa
 @tab
 @code{sus4}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   c1:sus4
 }
@@ -401,7 +402,7 @@ Perfect fifth
 @tab
 @code{1.5}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5
@@ -415,7 +416,7 @@ Perfect fifth, octave
 @tab
 @code{1.5.8}
 @tab
-@lilypond[line-width=3\cm,noragged-right, notime]
+@lilypond[line-width=2.8\cm,noragged-right, notime]
 \chordmode {
   \powerChords
   c1:1.5.8
@@ -441,16 +442,16 @@ El cuadro de abajo muestra las afinaciones predefinidas de cuerdas.
 El cuadro siguiente presenta los diagramas de posiciones de acordes
 predefinidos para guitarra.
 
-@lilypondfile{display-predefined-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
 El cuadro siguiente presenta los diagramas de traste predefinidos para ukelele.
 
-@lilypondfile{display-predefined-ukulele-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
 El siguiente cuadro presenta los diagramas de posiciones predefinidas
 para la mandolina.
 
-@lilypondfile{display-predefined-mandolin-fretboards.ly}
+@lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 
 
 @node Tamaños de página predefinidos

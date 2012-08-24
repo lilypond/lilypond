@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: c610645cc9a77cba1a2798280965db142d649ac5
+    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.16.0"
 
 
 @node Ejecutar LilyPond
@@ -772,7 +772,7 @@ predeterminado es @code{70}.
 La preparación del servidor para que ejecute LilyPond en una jaula de
 chroot es una tarea muy complicada.  Los pasos están relacionados más
 abajo.  Los ejemplos que aparecen en cada uno de los pasos son válidos
-para Ubuntu Linux, y pueden requerir el uso de @code{sudo} según
+para Ubuntu GNU/Linux, y pueden requerir el uso de @code{sudo} según
 corresponda.
 
 @itemize

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.15.43"
+\version "2.16.0"
 
 \header {
   lsrtags = "winds"

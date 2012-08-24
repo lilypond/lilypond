@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: bcd9d85bfc1dd6cc2dd3e98901b4df33fd6d0989
+Translation of GIT committish: 47abfd11dbf3902963836c42db1c38a7137af16e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -662,102 +662,349 @@ compás independiente.
 @end lilypond
 
 @knownissues
-Normalmente, el orden en que se especifican los grabadores no tiene
-importancia, pero en algunos casos especiales sí la tiene, por ejemplo
-donde un grabador escribe una propiedad y otro la lee, o donde un
-grabador crea un groby otro debe procesarlo.  El orden en que los
-grabadores se especifican es el orden en que se llaman para realizar
-su tarea de procesamiento.
 
-Las siguientes ordenaciones son importantes: el grabador de compases
-@code{Bar_engraver} debe ir normalmente en primer lugar, y el grabador
-de digitaciones @code{New_fingering_engraver} debe ir antes del
-grabador @code{Script_column_engraver} de columnas de inscripciones.
-Podría haber otros que tengan dependencias de ordenación.
+El orden en que los grabadores se especifican es el orden en que se
+llaman para realizar su tarea de procesamiento.  Normalmente, el orden
+en que se especifican los grabadores no tiene importancia, pero en
+algunos casos especiales sí la tiene, por ejemplo donde un grabador
+escribe una propiedad y otro la lee, o donde un grabador crea un groby
+otro debe procesarlo.
+
+Las siguientes ordenaciones son importantes:
+
+@itemize
+@item
+el grabador de compases @code{Bar_engraver} debe ir normalmente en
+primer lugar,
+
+@item
+el grabador de digitaciones @code{New_fingering_engraver} debe ir
+antes del grabador @code{Script_column_engraver} de columnas de
+inscripciones,
+
+@item
+el @code{Timing_translator} debe ir antes del grabador de números de
+compás @code{Bar_number_engraver}.
+
+@end itemize
+
+@seealso
+Archivos instalados:
+@file{ly/engraver-init.ly}.
 
 
 @node Cambiar los valores por omisión de los contextos
 @subsection Cambiar los valores por omisión de los contextos
 @translationof Changing context default settings
 
-Los ajustes de contexto que están preparados para usarse de forma
-predeterminada en los contextos @code{Score}, @code{Staff} y
-@code{Voice}, se pueden especificar dentro de un bloque
-@code{\layout}, como se ilustra en el ejemplo siguiente.  El bloque
-@code{\layout} se debe colocar dentro del bloque @code{\score} en que
-se quiere que haga efecto, pero fuera de la música.
+@cindex predeterminadas, cambio de propiedades de contexto
+@cindex contexto, cambiar propiedades predeterminadas de
 
-Observe que la propia instrucción @code{\set} y el contexto se deben
-omitir cuando se especifican de esta manera los valores de contexto
-predeterminados:
+Se pueden cambiar las propiedades de contexto y de grob con las
+instrucciones @code{\set} y @code{\override}, tal y como se describe
+en @ref{Modificar las propiedades}.  Estas instrucciones crean eventos
+musicales, haciendo que los cambios tengan efecto en el punto temporal
+en que la música se está procesando.
+
+Por contra, esta sección explica la forma de cambiarlos valores
+@emph{predeterminados} de las propiedades de contexto y de grob en el
+momento en que se crea el contexto.  Existen dos formas de hacerlo.
+Una modifica los valores predeterminados en todos los contextos de un
+tipo dado, y el otro modifica los valores predeterminados solamente en
+una instancia concreta de un contexto.
+
+@menu
+* Cambiar todos los contextos del mismo tipo::
+* Cambiar solamente un contexto determinado::
+* Orden de precedencia::
+@end menu
+
+@node Cambiar todos los contextos del mismo tipo
+@unnumberedsubsubsec Cambiar todos los contextos del mismo tipo
+@translationof Changing all contexts of the same type
+
+@cindex \context dentro de un bloque \layout
+@funindex \context
+@funindex \layout
+
+Los ajustes de contexto que se han de usar de forma predeterminada
+dentro de @code{Score}, @code{Staff}, @code{Voice} y otros contextos
+se pueden especificar en un bloque @code{\context} dentro de cualquier
+bloque @code{\layout}.  El bloque @code{\layout} se debe colocar
+dentro del bloque @code{\score} al que se aplica, después de la
+música.
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    [ajustes de contexto para todos los contextos Voice]
+  @}
+  \context @{
+    \Staff
+    [ajustes de contexto para todos los contextos Staff]
+  @}
+@}
+@end example
+
+Se pueden especificar los siguientes tipos de ajustes:
+
+@itemize
+@item
+Una instrucción @code{\override}, pero omitiendo el nombre del contexto
 
 @lilypond[quote,verbatim]
 \score {
   \relative c'' {
-    a4^"Really small, thicker stems, no time signature" a a a
-    a a a a
+    a4^"Thicker stems" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem #'thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+Estableciendo una propiedad de contexto directamente
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Smaller font" a a a
+    a4 a a\ff a
   }
   \layout {
     \context {
       \Staff
       fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
     }
   }
 }
 @end lilypond
 
-En este ejemplo, la instrucción @code{\Staff} especifica que los
-ajustes siguientes se apliquen a todos los pentagramas dentro del
-bloque de partitura.
-
-Se pueden realizar de forma similar modificaciones al contexto
-@code{Score} o a todos los contextos @code{Voice}.
-
-Los cambios de contexto se pueden poner dentro de una variable y
-aplicarse a una definición de contexto @code{\context} anteponiendo la
-modificación mediante @code{\with}:
+@item
+Una instrucción predefinida tal como @code{\dynamicUp} o una expresión
+musical como @code{\accidentalStyle "dodecaphonic"}
 
 @lilypond[quote,verbatim]
-blubb = \with {
+\score {
+  \relative c'' {
+    a4^"Dynamics above" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle "dodecaphonic"
+    }
+  }
+}
+@end lilypond
+
+@item
+Una variable definida por el usuario que contenga un bloque
+@code{\with}; para ver detalles acerca del bloque @code{\with},
+consulte @ref{Cambiar solamente un contexto determinado}.
+
+@lilypond[quote,verbatim]
+StaffDefaults = \with {
   fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
-
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
-
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
 }
 
 \score {
-  <<
-    \new Staff <<
-      \melody
-      s4^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s4^"Different"
-    >>
-  >>
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
   \layout {
     \context {
       \Staff
-      \blubb
+      \StaffDefaults
     }
   }
 }
 @end lilypond
 
-@c TODO: add \with in here.
+@end itemize
 
+Las instrucciones de ajuste de propiedades se pueden disponer dentro
+de un bloque @code{\layout} sin que estén encerradas en un bloque
+@code{\context}.  Tales ajustes son equivalentes a incluir las mismas
+instrucciones de ajuste de propiedades al comienzo de cada uno de los
+contextos del tipo especificado.  Si no se especifica ningún contexto,
+@emph{todos y cada uno} de los contextos del nivel inferior quedan
+afectados, véase @ref{Contextos del nivel más bajo. Voces}.  La
+sintaxis de una instrucción de ajuste de propiedades dentro de un
+bloque @code{\layout} es la misma que si la misma instrucción
+estuviera escrita en el propio flujo musical.
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle "dodecaphonic"
+    \set fontSize = #-4
+    \override Voice.Stem #'thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node Cambiar solamente un contexto determinado
+@unnumberedsubsubsec Cambiar solamente un contexto determinado
+@translationof Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+Las propiedades de contexto de una única instancia de contexto pueden
+cambiarse dentro de un bloque @code{\with}.  Todas las demás
+instancias de contexto del mismo tipo retienen los ajustes
+predeterminados que LilyPond tiene programados y que se modifican por
+parte de cualquier bloque @code{\layout} que se encuentre dentro del
+ámbito.  El bloque @code{\with} se debe situar inmediatamente después
+de las instrucciones @code{\new} @var{context-type}:
+
+@example
+\new Staff
+\with @{
+  [ajustes de contexto para esta única instancia de contexto]
+@} @{
+...
+@}
+@end example
+
+Se pueden especificar los siguientes tipos de ajustes:
+
+@itemize
+@item
+Una instrucción @code{\override}, pero omitiendo el nombre del
+contexto
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice
+    \with {
+      \override Stem #'thickness = #4.0
+    }
+    {
+      \relative c'' {
+        a4^"Thick stems" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+Estableciendo una propiedad de contexto directamente
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        a4^"Default font" a a a
+        a4 a a a
+      }
+    }
+    \new Staff
+    \with {
+      fontSize = #-4
+    } {
+      \relative c'' {
+        a4^"Smaller font" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+Una instrucción predefinida tal como @code{\dynamicUp}
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative c'' {
+          a4^"Dynamics below" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff
+    \with { \accidentalStyle "dodecaphonic" }
+    {
+      \new Voice
+      \with { \dynamicUp }
+      {
+        \relative c'' {
+          a4^"Dynamics above" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+@node Orden de precedencia
+@unnumberedsubsubsec Orden de precedencia
+@translationof Order of precedence
+
+El valor de una propiedad que se aplica en un momento determinado se
+determina de la siguiente forma:
+
+@itemize
+@item
+si está en efecto una instrucción @code{\override} o @code{\set}
+dentro del flujo musical, se usa dicho valor,
+
+@item
+de lo contrario, se usa el valor predeterminado tomado de un enunciado
+@code{\with} en las instrucciones de inicio del contexto,
+
+@item
+de lo contrario, se usa el valor tomado del bloque @code{\context} más
+reciente que corresponda dentro de los bloques @code{\layout},
+
+@item
+de lo contrario se usa el valor predeterminado que LilyPond lleva
+preprogramado.
+@end itemize
+
+@seealso
+Manual de aprendizaje:
+@rlearning{Modificar las propiedades de los contextos}.
+
+Referencia de la notación:
+@ref{Explicación de los contextos},
+@ref{Contextos del nivel más bajo. Voces},
+@ref{La instrucción set},
+@ref{La instrucción override},
+@ref{El bloque \layout}.
 
 
 @node Definir contextos nuevos
@@ -2010,8 +2257,10 @@ Manual de extensión:
 @cindex trucar puntos de control
 @cindex control, trucar puntos de
 
-La instrucción @code{\tweak} solamente se aplica a la primera de
-varias ligaduras generadas dentro de un acorde.
+No se puede usar la instrucción @code{\tweak} para modificar los
+puntos de control de una sola de varias ligaduras de unión dentro de
+un acorde, aparte de la primera que se encuentre en el código de
+entrada.
 
 
 @node set frente a override
@@ -2950,7 +3199,7 @@ combinaciones mediante funciones predefinidas cuya definición está en
 los objetos de presentación serán visibles en las posiciones que se
 muestran en el encabezamiento de cada columna:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {Antes del} {Si no hay} {Después del}
 @headitem Forma                   @tab Forma                  @tab Antes del @tab Si no hay    @tab Después del
 @headitem de función              @tab de vector              @tab salto     @tab salto        @tab salto
 
@@ -3991,8 +4240,9 @@ debe devolver @code{#t}.
 @item @code{@var{@dots{}música@dots{}}}
 @tab código de entrada normal de LilyPond, que utiliza @code{$} (en los
 lugares en que sólo se permiten construcciones de Lilypond) o @code{#}
-(para usarlo como un valor de Scheme o un argumento de función
-musical) para referenciar argumentos (p.ej. @samp{#arg1}).
+(para usarlo como un valor de Scheme o un argumento de función musical
+o música dentro de listas de música) para referenciar argumentos
+(p.ej. @samp{#arg1}).
 @end multitable
 
 Los argumentos @code{parser} y @code{location} son necesarios, y se
@@ -4077,7 +4327,7 @@ custosNote =
      \tweak NoteHead #'text
         \markup \musicglyph #"custodes.mensural.u0"
      \tweak Stem #'stencil ##f
-     $note
+     #note
    #})
 
 \relative c' { c4 d e f \custosNote g }

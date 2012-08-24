@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -716,6 +716,8 @@ peut désormais avoir sa propre métrique.
 
 @knownissues
 
+L'ordre dans lequel les graveurs sont spécifiés correspond à leur ordre
+d'apparition dans le processus d'élaboration de la partition.
 En règle générale, l'ordre dans lequel les graveurs sont mentionnés
 importe peu.  Il se peut toutefois qu'un graveur écrive une propriété
 qui sera interprétée par un autre, ou qu'un graveur crée un objet
@@ -723,10 +725,25 @@ graphique qui sera traité par un autre ; l'ordre d'apparition de
 ces graveurs prendra alors tout son importance.
 
 Pour information, les ordonnancements suivants sont importants :
-le @code{Bar_engraver} devrait toujours être le premier ; le
-@code{New_fingering_engraver} doit toujours précéder le
-@code{Script_column_engraver}.  Nous vous conseillons, pour les autres,
-de vérifier les éventuelles dépendances.
+
+@itemize
+@item
+le @code{Bar_engraver} devrait toujours être le premier ;
+
+@item
+le @code{New_fingering_engraver} doit toujours précéder le
+@code{Script_column_engraver},
+
+@item
+le @code{Timing_translator} doit toujours précéder le
+@code{Bar_number_engraver}.
+
+@end itemize
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/engraver-init.ly}.
+
 
 
 @node Modification des réglages par défaut d'un contexte
@@ -4382,8 +4399,9 @@ doit renvoyer @code{#t}.
 @item @code{@var{@dots{}musique@dots{}}}
 @tab du code LilyPond tout ce qu'il y a de plus ordinaire, avec des
 @code{$} (là où seule une construction LilyPond est autorisée) et des
-@code{#} (lorsqu'il s'agit d'une valeur en Scheme ou d'un argument de
-fonction musicale) pour référencer les arguments (par ex. @samp{#arg1}).
+@code{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
+fonction musicale ou de musique faisant partie d'une liste) pour
+référencer les arguments (par ex. @samp{#arg1}).
 @end multitable
 
 Les arguments @code{parser} et @code{location} sont obligatoires ;
@@ -4470,7 +4488,7 @@ custosNote =
      \tweak NoteHead #'text
         \markup \musicglyph #"custodes.mensural.u0"
      \tweak Stem #'stencil ##f
-     $note
+     #note
    #})
 
 \relative c' { c4 d e f \custosNote g }

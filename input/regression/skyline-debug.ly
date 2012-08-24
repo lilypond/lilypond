@@ -1,7 +1,7 @@
 \header {
   texidoc = "@option{-ddebug-skyline} draws the outline of the skyline used."
   }
-\version "2.14.0"
+\version "2.16.0"
 
 #(set-default-paper-size "a6" )
 

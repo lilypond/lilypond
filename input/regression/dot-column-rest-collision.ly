@@ -4,7 +4,7 @@ This input should compile with no programming error message,
 and the dots should be correctly placed on their rests."
 }
 
-\version "2.14.0"
+\version "2.16.0"
 \paper{ ragged-right=##t }
 <<
   { e''8 e'' g'' g'' g''16[ r8. r8. g''16] } \\

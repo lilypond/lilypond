@@ -1,4 +1,4 @@
-\version "2.15.8"
+\version "2.16.0"
 
 \header {
   texidoc = "Spanners align to musical grobs in paper columns,

@@ -9,6 +9,70 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
+
+We are proud to announce the release of GNU LilyPond 2.16.0.
+LilyPond is a music engraving program, devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+Many improvements have been made in the past year since the previous
+main stable version. A few major improvements are: 
+
+@itemize
+@item
+Support for kievan square notation
+@item
+User and programming interfaces have greatly improved
+@item
+Music functions have become quite more versatile 
+@end itemize
+
+A full list of new features is given in:
+
+@example
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html}
+@end example
+
+Happy music typesetting!  LilyPond 2.16 was brought to you by...
+
+Main development team:
+
+Bertrand Bordage, Trevor Daniels, Phil Holmes, Ian Hulin,
+Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner Lemberg,
+John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen Nienhuys,
+Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil Puttock,
+Mike Solomon, Carl Sorensen, Francisco Vila, Valentin Villenave,
+Jan Warchoł
+
+Programming contributors:
+
+Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
+Mark Hohl, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
+Jan-Peter Voigt, Janek Warchol
+
+Documentation contributors:
+
+James Lowe, Pavel Roskin, Alberto Simoes, Stefan Weil
+
+Bug squad:
+
+Colin Campbell, Eluze, Phil Holmes, Marek Klein, Ralph Palmer,
+James Lowe
+
+Support:
+
+Colin Campbell, Christian Hitz, Phil Holmes
+
+Translation contributors:
+
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada 
+
+@newsEnd
+
+
+@newsItem
 @subsubheading Lilypond 2.15.95 released!  @emph{August 11, 2012}
 
 We are excited to announce the release of LilyPond 2.15.95.

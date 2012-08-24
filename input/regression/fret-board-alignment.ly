@@ -5,7 +5,7 @@ at the fret-zero, string 1 intersection."
 
 }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \include "predefined-guitar-fretboards.ly"
 

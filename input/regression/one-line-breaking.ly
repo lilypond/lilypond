@@ -1,4 +1,4 @@
-\version "2.15.40"
+\version "2.16.0"
 
 \header {
   texidoc = "The @var{ly:one-line-breaking} algorithm puts everything on one line."

@@ -1,5 +1,5 @@
 \include "predefined-guitar-fretboards.ly"
-\version "2.14.0"
+\version "2.16.0"
 
 
 mychords = \chordmode {c1 c:m c:aug c:dim c:dim7 c:7 c:maj7 c:m7 c:9 \break }

@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header {
   texidoc = "Clefs for cue notes: Print a cue clef at the begin of the cue

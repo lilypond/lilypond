@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.15.31
-\version "2.15.31"
+\version "2.16.0"
 
 \header {
   lsrtags = "text, tweaks-and-overrides, contexts-and-engravers"

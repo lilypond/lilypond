@@ -8,7 +8,7 @@
 %% FIXME: This file should actually NOT produce any warnings!
 #(ly:set-option 'warning-as-error #f)
 
-\version "2.14.0"
+\version "2.16.0"
 
 \layout  {
   ragged-right = ##t

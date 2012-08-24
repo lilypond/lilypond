@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -91,7 +91,6 @@
   d,,4 d, d c
 }
 @end lilypond
-
 
 @seealso
 音楽用語集:
@@ -271,7 +270,7 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @rglos{Pitch names}
 
 記譜法リファレンス:
-@ref{オクターブ チェック}
+@ref{Octave checks}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -289,7 +288,6 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @funindex chordmode
 @funindex \relative
 @funindex relative
-
 
 @c DEPRECATED
 @code{\relative} に対して @code{@var{startpitch}} が指定されていない場合、@c
@@ -314,7 +312,7 @@ LilyPond では、音符名は未加工の入力です
 -- 調号と音部記号がこの未加工の入力をどのように表示するかを決定します。@c
 @code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
 @q{C ナチュラル} を意味します。@c
-更なる情報は、@rlearning{臨時記号と調号} を参照してください。}
+更なる情報は、@rlearning{Accidentals and key signatures} を参照してください。}
 
 @cindex note names, Dutch (オランダ語での音符名)
 @cindex note names, default (デフォルトの音符名)
@@ -336,7 +334,7 @@ LilyPond では、音符名は未加工の入力です
 付け加えることによって作られます。@c
 この構文はオランダ語の音符命名規約から派生しました。@c
 臨時記号に他の名前を使うには、@c
-@ref{他の言語での音符名} を参照してください。
+@ref{Note names in other languages} を参照してください。
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -416,12 +414,12 @@ cis
 @rglos{quarter tone}
 
 学習マニュアル:
-@rlearning{臨時記号と調号}
+@rlearning{Accidentals and key signatures}
 
 記譜法リファレンス:
-@ref{自動臨時記号},
+@ref{Automatic accidentals},
 @ref{Annotational accidentals (musica ficta)},
-@ref{他の言語での音符名}
+@ref{Note names in other languages}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}.
@@ -432,12 +430,10 @@ cis
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}
 
-
 @cindex accidental, quarter-tone (4 分音臨時記号)
 @cindex quarter-tone accidental (4 分音臨時記号)
 
 @knownissues
-
 4 分音臨時記号の表記の仕方で広く認められた標準はないため、@c
 LilyPond の記号はいかなる標準にも準拠しません。
 
@@ -605,9 +601,9 @@ a2 as e es a ases e eses
 @menu
 * オクターブ チェック::
 * 移調::
-* 転回::
+* 反転::
 * 逆行::
-* 様式的な移調::
+* 様式的な変形::
 @end menu
 
 
@@ -678,7 +674,6 @@ a2 as e es a ases e eses
   f
 }
 @end lilypond
-
 
 @seealso
 コード断片集:
@@ -797,7 +792,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @noindent
 移調楽器についての更なる情報は、@c
-@ref{楽器の移調} を参照してください。
+@ref{Instrument transpositions} を参照してください。
 
 
 @snippets
@@ -805,21 +800,19 @@ musicInBflat = @{ e4 @dots{} @}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{楽器の移調},
-@ref{転回},
-@ref{様式的な移調},
-@ref{相対オクターブ入力},
-@ref{逆行}
+@ref{Instrument transpositions},
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Relative octave entry},
+@ref{Retrograde}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
 
 内部リファレンス:
 @rinternals{TransposedMusic}
-
 
 @funindex \transpose
 @funindex transpose
@@ -829,7 +822,6 @@ musicInBflat = @{ e4 @dots{} @}
 @funindex relative
 
 @knownissues
-
 相対変換コマンドはその引数の中にある @code{\transpose}, @code{\chordmode},
 あるいは @code{\relative} セクションには影響を及ぼしません。@c
 移調された音楽の中で相対モードを使用するには、@c
@@ -839,23 +831,24 @@ musicInBflat = @{ e4 @dots{} @}
 代わりに @q{異名等価の} ピッチが表示されます
 (例えば e の 3 重フラットの代わりに d フラットが表示されます)。
 
-@node 転回
-@unnumberedsubsubsec 転回
+
+@node 反転
+@unnumberedsubsubsec 反転
 @translationof Inversion
 
-@cindex inversion (転回)
-@cindex operation, inversion (転回操作)
+@cindex inversion (反転)
+@cindex operation, inversion (反転操作)
 @funindex \inversion
 
-以下で音楽表記を転回することができます:
+単一の操作で音楽表記を反転して、移調することができます:
 
 @example
-\inversion @var{from-pitch} @var{to-pitch} @var{musicexpr}
+\inversion @var{around-pitch} @var{to-pitch} @var{musicexpr}
 @end example
 
-@code{@var{musicexpr}} の音程は倒置され、@c
-それから @code{@var{from-pitch}} が @code{@var{to-pitch}} になるよう@c
-移調されます。
+The @code{@var{musicexpr}} の音程は @code{@var{around-pitch}} を中心に@c
+反転され、さらに @code{@var{around-pitch}} が @code{@var{to-pitch}} に@c
+マッピングされるように移調されます。
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -866,11 +859,15 @@ music = \relative c' { c d e f }
 }
 @end lilypond
 
+@warning{反転されるモチーフは絶対オクターブ形式で記述するか、@c
+最初に絶対オクターブ形式に変換されるよう @code{\relative} ブロックで囲む@c
+必要があります。}
+
 @seealso
 記譜法リファレンス:
-@ref{様式的な移調},
-@ref{逆行},
-@ref{移調}
+@ref{Modal transformations},
+@ref{Retrograde},
+@ref{Transpose}
 
 
 @node 逆行
@@ -901,29 +898,26 @@ music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 
 @seealso
 記譜法リファレンス:
-@ref{転回},
-@ref{様式的な移調},
-@ref{移調}
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Transpose}
 
 
-@node 様式的な移調
-@unnumberedsubsubsec 様式的な移調
+@node 様式的な変形
+@unnumberedsubsubsec 様式的な変形
 @translationof Modal transformations
 
-@c untranslated
-@ignore
-
-@cindex modal transformations (様式的な移調)
-@cindex transformations, modal (様式的な移調)
-@cindex operations, modal (様式的な移調の操作)
+@cindex modal transformations (様式的な変形)
+@cindex transformations, modal (様式的な変形)
+@cindex operations, modal (様式的な操作)
 
 音階に基づく作曲では、モチーフはさまざまなやり方で頻繁に移調されます。@c
-これは、異なる音程に @notation{移調} する場合や、@c
-旋回点で @notation{転回} する場合があります。
+これは、モチーフの開始の音程を変えるために @notation{移調} する場合や、@c
+旋回点で @notation{反転} する場合があります。
 @notation{逆行} するために後戻りする場合もあります@c
--- @ref{逆行} を参照してください。
+-- @ref{Retrograde} を参照してください。
 
-@warning{与えられた音階の中には無い音符は、移調されずに取り残されます。}
+@warning{与えられた音階の中に無い音符は、移調されません。}
 
 @subsubheading 様式的な移調
 
@@ -939,45 +933,8 @@ music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 \modalTranspose @var{from-pitch} @var{to-pitch} @var{scale} @var{motif}
 @end example
 
-@var{motif} の音符は、@var{scale} @var{to-pitch} と @var{from-pitch} 間の音程によって@c
-与えられる度数
-The notes of @var{motif} are shifted within the @var{scale} by the
-number of scale degrees given by the interval between @var{to-pitch}
-and @var{from-pitch}:
-@end ignore
-
-
-@cindex modal transformations
-@cindex transformations, modal
-@cindex operations, modal
-
-In a musical composition that is based on a scale, a motif is
-frequently transformed in various ways.  It may be
-@notation{transposed} to start at different places in the scale or
-it may be @notation{inverted} around a pivot point in the scale.
-It may also be reversed to produce its @notation{retrograde}, see
-@ref{Retrograde}.
-
-@warning{Any note that does not lie within the given scale will be
-left untransformed.}
-
-@subsubheading Modal transposition
-
-@cindex modal transposition
-@cindex transposition, modal
-@cindex operation, transposition
-@funindex \modalTranspose
-@funindex modalTranspose
-
-A motif can be transposed within a given scale with:
-
-@example
-\modalTranspose @var{from-pitch} @var{to-pitch} @var{scale} @var{motif}
-@end example
-
-The notes of @var{motif} are shifted within the @var{scale} by the
-number of scale degrees given by the interval between @var{to-pitch}
-and @var{from-pitch}:
+@var{motif} の音符は @var{scale} 内を @var{to-pitch} と @var{from-pitch}
+間の音程の度数の分だけシフトされます:
 
 @lilypond[verbatim,quote]
 diatonicScale = \relative c' { c d e f g a b }
@@ -990,8 +947,7 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-An ascending scale of any length and with any intervals may be
-specified:
+上昇する音階の長さは任意であり、指定する音程も任意です:
 
 @lilypond[verbatim,quote]
 pentatonicScale = \relative c' { ges aes bes des ees }
@@ -1003,9 +959,9 @@ motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
 }
 @end lilypond
 
-When used with a chromatic scale @code{\modalTranspose} has a
-similar effect to @code{\transpose}, but with the ability to
-specify the names of the notes to be used:
+半音階の音階を持つ @code{\modalTranspose} を使った時の効果は
+@code{\transpose} と同じですが、使われる音符の名前を特定することが
+できます:
 
 @lilypond[verbatim,quote]
 chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
@@ -1018,29 +974,31 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-@subsubheading Modal inversion
+@subsubheading 様式的な反転
 
-@cindex modal inversion
-@cindex inversion, modal
-@cindex operation, modal inversion
+@cindex modal inversion (様式的な反転)
+@cindex inversion, modal (様式的な反転)
+@cindex operation, modal inversion (様式的な反転操作)
 @funindex \modalInversion
 @funindex modalInversion
 
-A motif can be inverted within a given scale around a given pivot
-note and transposed in a single operation with:
+モチーフを与えられた音階に従って与えられた旋回点 (音符) で反転させて、
+移調させることを 1 つの操作でできます:
 
 @example
 \modalInversion @var{around-pitch} @var{to-pitch} @var{scale} @var{motif}
 @end example
 
-The notes of @var{motif} are placed the same number of scale degrees
-from the @var{around-pitch} note within the @var{scale}, but in the
-opposite direction, and the result is then shifted within the
-@var{scale} by the number of scale degrees given by the interval between
-@var{to-pitch} and @var{around-pitch}.
+@var{motif} の音符は @var{scale} 内を @var{to-pitch} と @var{from-pitch}
+間の音程の度数の分だけシフトされます:
 
-So to simply invert around a note in the scale use the same value for
-@var{around-pitch} and @var{to-pitch}:
+@var{motif} の音符は @var{scale} 内を @var{around-pitch} から元の音符までと@c
+同じ度数の分だけ逆向きに進んだ位置に配置され、それからその結果は
+@var{scale} 内を @var{to-pitch} と @var{around-pitch} 間の音程の度数分だけ@c
+シフトされます。
+
+そのため、単純に音階をある音符で反転させる場合は、@var{around-pitch} と
+@var{to-pitch} で同じ値を使用します:
 
 @lilypond[verbatim,quote]
 octatonicScale = \relative c' { ees f fis gis a b c d }
@@ -1052,9 +1010,9 @@ motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
 }
 @end lilypond
 
-To invert around a pivot between two notes in the scale, invert around
-one of the notes and then transpose by one scale degree.  The two notes
-specified can be interpreted as bracketing the pivot point:
+音階の中にある 2 つの音符の中間にある旋回点で反転させるには、@c
+2 つの音符の 1 つを旋回点として反転させて、音階の 1 度数分だけ移調させます。@c
+指定された 2 つの音符が旋回点を囲んでいると解釈することができます:
 
 @lilypond[verbatim,quote]
 scale = \relative c' { c g' }
@@ -1066,8 +1024,7 @@ motive = \relative c' { c c g' c, }
 }
 @end lilypond
 
-The combined operation of inversion and retrograde produce the
-retrograde-inversion:
+反転と逆行の操作を組み合わせると逆行-反転になります:
 
 @lilypond[verbatim,quote]
 octatonicScale = \relative c' { ees f fis gis a b c d }
@@ -1080,10 +1037,10 @@ motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
 @end lilypond
 
 @seealso
-Notation Reference:
+記譜法リファレンス:
 @ref{Inversion},
 @ref{Retrograde},
-@ref{Transpose}.
+@ref{Transpose}
 
 
 @node ピッチを表示する
@@ -1217,10 +1174,10 @@ c2 c
 @end lilypond
 
 特殊な音部記号については @ref{Mensural clefs},
-@ref{Gregorian clefs}, @ref{デフォルトのタブ譜}, それに @ref{カスタム タブ譜}
-で説明します。@c
+@ref{Gregorian clefs}, @ref{Default tablatures}, それに
+@ref{Custom tablatures} で説明します。@c
 楽譜の中で合図音符を使用するときに音部記号を変更する場合は、@c
-@ref{合図音符をフォーマットする} の @code{\cueClef} 関数と
+@ref{Formatting cue notes} の @code{\cueClef} 関数と
 @code{\cueDuringWithClef} 関数を参照してください。
 
 @snippets
@@ -1228,14 +1185,13 @@ c2 c
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
-
 @seealso
 記譜法リファレンス:
 @ref{Mensural clefs},
 @ref{Gregorian clefs},
-@ref{デフォルトのタブ譜},
-@ref{カスタム タブ譜},
-@ref{合図音符をフォーマットする}
+@ref{Default tablatures},
+@ref{Custom tablatures},
+@ref{Formatting cue notes}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -1263,7 +1219,7 @@ LilyPond では、音符名は未加工の入力です。@c
 調号と音部記号がこの未加工の入力をどのように表示するかを決定します。@c
 @code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
 @q{C ナチュラル} を意味します。@c
-更なる情報は、@rlearning{臨時記号と調号} を参照してください。}
+更なる情報は、@rlearning{Accidentals and key signatures} を参照してください。}
 
 調号は楽曲を演奏すべき調性を示します。@c
 調号は譜の先頭で変更記号 (フラットやシャープ) のセットによって示されます。@c
@@ -1330,14 +1286,13 @@ fis
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{church mode},
 @rglos{scordatura}
 
 学習マニュアル:
-@rlearning{臨時記号と調号}
+@rlearning{Accidentals and key signatures}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -1349,7 +1304,7 @@ fis
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
 @rinternals{key-cancellation-interface},
-@rinternals{key-signature-interface}.
+@rinternals{key-signature-interface}
 
 
 @node オッターバ囲み
@@ -1386,12 +1341,6 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{ottava-text.ly}
-
 
 @seealso
 音楽用語集:
@@ -1479,7 +1428,7 @@ a2 b
 \transposition a
 c d e f
 \textLengthOn
-s1*0^\markup { Switch to B\flat clarinet }
+<>^\markup { Switch to B\flat clarinet }
 R1
 
 \key bes \major
@@ -1487,14 +1436,14 @@ R1
 c2 g
 @end lilypond
 
-
 @seealso
 音楽用語集:
 @rglos{concert pitch},
 @rglos{transposing instrument}
 
 記譜法リファレンス:
-@ref{Quoting other voices}, @ref{移調}
+@ref{Quoting other voices},
+@ref{Transpose}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -1562,11 +1511,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1644,11 +1593,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1716,11 +1665,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1786,11 +1735,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1850,11 +1799,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1918,11 +1867,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -1980,11 +1929,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2046,11 +1995,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2105,11 +2054,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2131,7 +2080,6 @@ musicB = {
   >>
 }
 @end lilypond
-
 
 @item neo-modern
 
@@ -2169,11 +2117,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2226,11 +2174,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2253,7 +2201,6 @@ musicB = {
   >>
 }
 @end lilypond
-
 
 @item neo-modern-voice
 
@@ -2286,11 +2233,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2343,11 +2290,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2405,11 +2352,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2433,7 +2380,6 @@ musicB = {
 }
 @end lilypond
 
-
 @item teaching
 
 @cindex teaching accidental style (teaching 臨時記号スタイル)
@@ -2449,7 +2395,7 @@ musicB = {
 フラット音に対して忠告の臨時記号が譜刻されます
  -- ただし、前の音符の直後にある同じピッチの音符は例外です。
 
-@lilypond[quote]
+@lilypond[quote,staffsize=18]
 musicA = {
   <<
     \relative c' {
@@ -2468,11 +2414,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2529,11 +2475,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2588,11 +2534,11 @@ musicB = {
   \clef bass
   \new Voice {
     \voiceTwo \relative c' {
-      <fis, a cis>8 <fis a cis>
+      <fis, a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
-      <fis, a> <fis a>
+      <fis, a> <fis a>]
       \showStaffSwitch
       \change Staff = up
       dis'4 |
@@ -2631,14 +2577,12 @@ musicB = {
 @rinternals{AccidentalPlacement},
 @rinternals{accidental-suggestion-interface}
 
-
 @cindex accidentals and simultaneous notes (臨時記号と同時発生する音符)
 @cindex simultaneous notes and accidentals (同時発生する音符と臨時記号)
 @cindex accidentals in chords (和音の中の臨時記号)
 @cindex chords, accidentals in (和音の中の臨時記号)
 
 @knownissues
-
 同時発生する音符はシーケンシャル モードで入力されたものと見なされます。@c
 このことが意味するのは、和音の各音符は入力ファイルの中で記述された順に
 1 つずつ発生するものとして、和音の臨時記号は譜刻されるということです。@c
@@ -2675,7 +2619,7 @@ musicB = {
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
   \accidentalStyle "forget"
-  $music
+  #music
   \accidentalStyle "modern"
 #})
 {
@@ -2690,6 +2634,7 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
   }
 }
 @end lilypond
+
 
 @node 音域
 @unnumberedsubsubsec 音域
@@ -2738,7 +2683,6 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-ambitus-gap.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{ambitus}
@@ -2756,9 +2700,7 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 @rinternals{AmbitusNoteHead},
 @rinternals{ambitus-interface}
 
-
 @knownissues
-
 複数のボイスがある場合にボイスごとに音域をとることによって生じる@c
 音域の衝突を処理するシステムはありません。
 
@@ -2919,7 +2861,6 @@ c b < g \xNote c f > b
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {numbers-as-easy-note-heads.ly}
 
-
 @seealso
 記譜法リファレンス:
 @ref{Setting the staff size}
@@ -3021,7 +2962,6 @@ a2 b c d \break
 
 @end lilypond
 
-
 @predefined
 @code{\aikenHeads},
 @code{\aikenHeadsMinor},
@@ -3035,14 +2975,12 @@ a2 b c d \break
 @code{\walkerHeadsMinor}
 @endpredefined
 
-
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
-
 
 @seealso
 コード断片集:
@@ -3091,12 +3029,10 @@ a2 b c d \break
 }
 @end lilypond
 
-
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}
 @endpredefined
-
 
 @seealso
 コード断片集:

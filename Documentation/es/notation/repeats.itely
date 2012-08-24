@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: f3cacac4bafd2bace7dd23033618895cf11ef695
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Repeticiones
 @section Repeticiones
@@ -251,6 +251,26 @@ g1 |
 La propiedad @code{measureLength} se describe en @ref{Gestión del
 tiempo}.
 
+@funindex \inStaffSegno
+
+La instrucción @code{\inStaffSegno} se puede utilizar para colocar el
+símbolo del segno en colaboración con la instrucción @code{\repeat
+volta}.  Se pueden establecer símbolos alternativos de línea divisoria
+en el contexto de Score mediante la sobreescritura de las propiedades
+@code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} según sea
+necesario.
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+
 @cindex repeticiones, con ligaduras
 @cindex primera y segunda vez, con ligaduras
 @cindex ligaduras, en repeticiones
@@ -436,7 +456,8 @@ una lista de Scheme.
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands =
+    #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1

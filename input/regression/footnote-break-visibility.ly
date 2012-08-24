@@ -1,4 +1,4 @@
-\version "2.15.40"
+\version "2.16.0"
 \header {
   texidoc = "With grobs that have break visibility, footnotes will
 automatically take the break visibility of the grob being footnoted.

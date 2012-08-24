@@ -1,4 +1,4 @@
-\version "2.15.10"
+\version "2.16.0"
 
 \header {
   texidoc="Some classic examples of broken beams, all taken from

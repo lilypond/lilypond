@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 3ef893f1fe182e9f6cf5841cbff0706789bd3361
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -61,30 +61,29 @@ orchestral strings.
 
 @item @qq{pizz.} や @qq{arco} などのテキスト指示は、@c
 単なるテキストとして付け加えます
--- @ref{テキスト スクリプト} を参照してください。
+-- @ref{Text scripts} を参照してください。
 
-@item 親指の指示も含めた運指は、@ref{運指の指示} で説明しています。
+@item 親指の指示も含めた運指は、@ref{Fingering instructions} で説明しています。
 
 @item ダブル ストップは通常、和音として記述します
--- @ref{和音の音符} を参照してください。@c
+-- @ref{Chorded notes} を参照してください。@c
 和音を弾く方向を付け加えることもできます
--- @ref{アルペジオ} を参照してください。
+-- @ref{Arpeggio} を参照してください。
 
-@item @rlearning{弦楽四重奏} に弦楽四重奏のテンプレートがあります。@c
+@item @rlearning{String quartet} に弦楽四重奏のテンプレートがあります。@c
 他の例はコード断片集で示されています。
 
 @end itemize
 
-
 @seealso
 学習マニュアル:
-@rlearning{弦楽四重奏}
+@rlearning{String quartet}
 
 記譜法リファレンス:
-@ref{テキスト スクリプト},
-@ref{運指の指示},
-@ref{和音の音符},
-@ref{アルペジオ}
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}
 
 コード断片集:
 @rlsr{Unfretted strings}
@@ -106,7 +105,7 @@ orchestral strings.
 
 ボーイング指示はアーティキュレーションとして作成します。@c
 アーティキュレーションについては、@c
-@ref{アーティキュレーションと装飾} で説明しています。
+@ref{Articulations and ornamentations} で説明しています。
 
 ボーイングのコマンド
 -- @code{\upbow} と @code{\downbow} --
@@ -132,11 +131,10 @@ a2^\markup { \small "sul A" }
 @code{\open}
 @endpredefined
 
-
 @seealso
 記譜法リファレンス:
-@ref{アーティキュレーションと装飾},
-@ref{スラー}
+@ref{Articulations and ornamentations},
+@ref{Slurs}
 
 
 @node ハーモニクス
@@ -175,7 +173,7 @@ d2^\flageolet d_\flageolet
 @end lilypond
 
 より小さな丸を描くこともできます。@c
-@ref{フレットの無い弦楽器のためのリファレンス} にある@c
+@ref{References for unfretted strings} にある@c
 コード断片集を参照してください。
 
 @strong{@i{アーティフィシャル ハーモニクス}}
@@ -202,14 +200,13 @@ d2^\flageolet d_\flageolet
 和音構造の中に配置する @strong{必要があります}。@c
 通常、単一の音符のハーモニクスには @code{@bs{}harmonicsOn} を使います。}
 
-
 @seealso
-Music Glossary:
+音楽用語集:
 @rglos{harmonics}
 
 記譜法リファレンス:
-@ref{特殊な符頭},
-@ref{フレットの無い弦楽器のためのリファレンス}
+@ref{Special note heads},
+@ref{References for unfretted strings}
 
 
 @node スナップ (バルトーク) ピッツィカート

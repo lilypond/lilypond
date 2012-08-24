@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 80340bdefc128536c79733d8c6f3467d91b01f72
+    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Instrumentos de viento
 @section Instrumentos de viento
@@ -398,11 +398,10 @@ instrumento dado se puede imprimir en la consola usando
 usando @code{#(print-keys-verbose 'flute (current-error-port))},
 aunque no se pueden mostrar en la salida de música impresa.
 
-Se pueden crear diagramas nuevos siguiendo los patrones que están en
-@file{scm/define-woodwind-diagrams.scm} y en
-@file{scm/display-woodwind-diagrams.scm}.  Sin embargo, esto requiere
-conocimientos de Scheme y quizá no esté al alcance de todos los
-usuarios.
+Es posible crear diagramas nuevos, aunque requiere conocimientos de
+Scheme y quizá no esté al alcance de todos los usuarios.  Los patrones
+de los diagramas están en @file{scm/define-woodwind-diagrams.scm} y en
+@file{scm/display-woodwind-diagrams.scm}.
 
 @predefined
 @endpredefined
@@ -422,7 +421,7 @@ usuarios.
 
 @seealso
 Archivos de inicio:
-@file{scm/define-woodwind-diagrams.scm},
+@file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}.
 
 Fragmentos de código:

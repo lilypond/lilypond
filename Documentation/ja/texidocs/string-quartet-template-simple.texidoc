@@ -1,5 +1,6 @@
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
+%% Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
   texidocja = "
-これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号のために
-@code{@bs{}global} セクションを使っています。
+これは簡単な弦楽四重奏のためのテンプレートです。これは拍子記号と調号の@c
+ために @code{\\global} セクションを使っています。
 "
+  doctitleja = "弦楽四重奏テンプレート (シンプル)"

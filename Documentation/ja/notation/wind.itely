@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -90,7 +90,6 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing--flageolet-mark-size.ly}
 
-
 @seealso
 記譜法リファレンス:
 @ref{Breath marks},
@@ -128,9 +127,8 @@
 {recorder-fingering-chart.ly}
 
 @seealso
-
 記譜法リファレンス:
-@ref{木管楽器のダイアグラム}
+@ref{Woodwind diagrams}
 
 コード断片集:
 @rlsr{Winds}
@@ -202,8 +200,8 @@ C と F をフラットにするためクロス フィンガリングを使う�
 同様に、軽音楽のピブロホ ハイ G (piobaireachd high g) は、@c
 @code{gflat} で示すことができます。
 
-
 @seealso
+コード断片集:
 @rlsr{Winds}
 
 
@@ -253,8 +251,8 @@ C と F をフラットにするためクロス フィンガリングを使う�
 }
 @end lilypond
 
-
 @seealso
+コード断片集:
 @rlsr{Winds}
 
 @node 木管楽器
@@ -417,11 +415,10 @@ c1^\markup {
 @code{#(print-keys-verbose 'flute (current-error-port))} を用います。@c
 楽譜出力に表示させることはできません。
 
-@file{scm/define-woodwind-diagrams.scm} と
-@file{scm/display-woodwind-diagrams.scm} のパターンに従って、@c
-新しいダイアグラムを作成することができます。@c
-しかしながら、これには Scheme を使える必要があり、@c
-すべてのユーザができることではありません。
+新しいダイアグラムを作成することができますが、これには Scheme を使える@c
+必要があり、すべてのユーザができるわけではありません。@c
+ダイアグラムのパターンは @file{scm/define-woodwind-diagrams.scm} と
+@file{scm/display-woodwind-diagrams.scm} にあります。
 
 @predefined
 @endpredefined
@@ -440,12 +437,12 @@ c1^\markup {
 {woodwind-diagrams-key-lists.ly}
 
 @seealso
-
 インストールされているファイル:
-@file{scm/define-woodwind-diagrams.scm},
+@file{scm/define-woodwind-diagrams.scm}, @*
 @file{scm/display-woodwind-diagrams.scm}
 
-コード断片集: @rlsr{Winds}
+コード断片集:
+@rlsr{Winds}
 
 内部リファレンス:
 @rinternals{TextScript},

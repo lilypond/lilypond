@@ -1,4 +1,4 @@
-\version "2.15.6"
+\version "2.16.0"
 \header{
   texidoc="Stem tremolos count in a note column's horizontal skyline.
 "

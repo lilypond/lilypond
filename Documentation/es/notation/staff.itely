@@ -1,19 +1,21 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+    Translation of GIT committish: bc918b0b39c7e432a6be7ecb4c5b9b2b0ed9dabc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
 @translationof Staff notation
 
-@lilypondfile[quote]{staff-headword.ly}
+@c The line width is a bit of a hack to allow space for the
+@c  instrument names.
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
 
 Esta sección explica cómo influir sobre la apariencia de los
 pentagramas, cómo imprimir partituras con más de un pentagrama y cómo

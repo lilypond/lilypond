@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e79582f3ec94019a9f849b2855abab4eabae3172
+    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1088,6 +1088,15 @@ está convencido?  Lea algo sobre los entornos de edición en
 @unnumberedsec Entornos mejorados
 @translationof Easier editing
 
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
 
 @divClass{column-center-top}
 @subheading LilyPondTool
@@ -1127,7 +1136,7 @@ una imagen más grande),frescobaldi-lilypond-editor,png,right}
 
 Frescobaldi es un editor ligero y potente de texto y música para LilyPond con
 un visor de PDF incorporado.  Es muy fácil de utilizar y funciona en todos
-los principales sistemas operativos (Linux, Mac OS X y Windows).
+los principales sistemas operativos (GNU/Linux, Mac OS X y Windows).
 
 @divEnd
 
@@ -1199,17 +1208,6 @@ del editor, utilizando las extensiones que están disponibles en:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
-Existe un paquete de LilyPond para TextMate, un editor
-comercial para MacOS.  Se puede instalar ejecutando:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
-
 @divEnd
 
 @divClass{column-center-top}
@@ -1240,8 +1238,8 @@ pero se está desarrollando de forma activa.
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} es un programa en C# que convierte una canción de
-@uref{http://www.noteworthysoftware.com/, NoteWorthy} en
-LilyPond.
+@c @uref{http://www.noteworthysoftware.com/, NoteWorthy}
+NoteWorthy composer en LilyPond.
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
@@ -1255,7 +1253,7 @@ y de audio, que tiene también un editor de partitura para edición de
 un solo pentagrama.
 
 @item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor}, un
+@uref{https://launchpad.net/rumor/,Rumor}, un
 convertidor monofónico de MIDI a LilyPond en tiempo real.
 
 @item

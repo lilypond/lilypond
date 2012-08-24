@@ -1,14 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: 44f8873e8cb9533ddb6713c5e79fe2edb59524c7
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -44,8 +43,8 @@ Les blocs de code LilyPond ressemblent à
 @end example
 Ils peuvent s'utiliser partout où vous pouvez écrire du code Scheme.
 Le lecteur Scheme est en fait quelque peu adapté pour accepter des blocs
-de code LilyPond@tie{}; il est capable de traiter des expressions Scheme
-intégrées débutant par @code{$} ou@tie{}@code{#}.
+de code LilyPond ; il est capable de traiter des expressions Scheme
+intégrées débutant par @code{$} ou @code{#}.
 
 Le lecteur Scheme extrait le bloc de code LilyPond et déclenche un appel
 à l'analyseur grammatical de LilyPond (le @code{parser}) qui réalise en
@@ -89,7 +88,7 @@ syntaxe de LilyPond.
 
 @funindex define-scheme-function
 
-D'une manière générale, une fonction Scheme se définit ainsi@tie{}:
+D'une manière générale, une fonction Scheme se définit ainsi :
 
 @example
 fonction =
@@ -120,13 +119,13 @@ verrons plus loin, bénéficient d'un traitement particulier de la part du
 argument optionnels.  En l'absence d'argument réel au moment de l'appel
 de la fonction, c'est la valeur par défaut qui lui sera substituée.  Les
 valeurs par défaut sont évaluées dès l'apparition de la définition, y
-compris dans le cas de blocs de code LilyPond@tie{}; vous devrez donc,
+compris dans le cas de blocs de code LilyPond ; vous devrez donc,
 si ces valeurs par défaut ne peuvent être déterminées que plus tard,
 mentionner une valeur spéciale que vous reconnaîtrez facilement.
 Lorsque vous mentionnez un prédicat entre parenthèses sans toutefois
 fournir sa valeur par défaut, celle-ci sera considérée comme étant
 @code{#f}.  Les valeurs par défaut d'un @code{prédicat?} ne sont
-vérifiées ni au moment de la définition, ni à l'exécution@tie{}; il est
+vérifiées ni au moment de la définition, ni à l'exécution ; il est
 de votre ressort de gérer les valeurs que vous spécifiez.  Une valeur
 par défaut constituée d'une expression musicale est recopiée dès la
 définition de @code{origin} vers le paramètre @code{location}.
@@ -135,7 +134,7 @@ définition de @code{origin} vers le paramètre @code{location}.
 @tab une séquence de formules Scheme évaluées dans l'ordre, la dernière
 servant de valeur de retour de la fonction. Il peut contenir des blocs
 de code LilyPond, enchâssés dans des accolades et @emph{hashes} --
-@w{@code{#@{@dots{}#@}}}@tie{} -- comme indiqué à la rubrique
+@w{@code{#@{@dots{}#@}}}  -- comme indiqué à la rubrique
 @ref{Blocs de code LilyPond}.  Au sein d'un bloc de code LilyPond, un
 @code{#} permet de référencer des arguments de la fonction -- tel
 @samp{#arg1} -- ou d'ouvrir une expression Scheme contenant les
@@ -178,10 +177,10 @@ paramètre, de @qq{revenir en arrière}.  C'est la raison pour laquelle
 certaines formes musicales devraient être bornées par des accolades pour
 que LilyPond puisse les reconnaître efficacement.  Il existe d'autres
 situations pour lesquelles LilyPond lèvera toute ambiguïté grâce aux
-fonctions de prédicat@tie{}: un @samp{-3} est-il un @emph{postévénement}
-de type doigté ou un nombre négatif@tie{}?  Un @code{"a"@tie{}4} en mode
+fonctions de prédicat : un @samp{-3} est-il un @emph{postévénement}
+de type doigté ou un nombre négatif@tie{}?  Un @code{"a" 4} en mode
 paroles est-il une chaîne suivie d'un nombre ou bien un événement
-syllabe de durée @code{4}@tie{}?  LilyPond répondra à ces questions
+syllabe de durée @code{4} ?  LilyPond répondra à ces questions
 après consultation du prédicat.  Pour toutes ces raisons, nous vous
 enjoignons à éviter d'utiliser des prédicats permissifs tel que
 @code{scheme?}, dès que vous voulez les utiliser dans un but particulier
@@ -216,7 +215,7 @@ l'argument sauvegardé doit servir, les argument optionnels ne sont en
 fait pas considérés comme optionnels, sauf à être suivis d'un argument
 obligatoire.
 
-Une exception cependant à cette règle@tie{}: le fait de donner un
+Une exception cependant à cette règle : le fait de donner un
 @code{\default} en tant qu'argument optionnel aura pour résultat que cet
 argument et tous les autres arguments optionnels qui suivent seront
 ignorés et remplacés par leur valeur par défaut.  Il en va de même
@@ -251,9 +250,9 @@ renvoyez toujours une valeur utile, et une fonction fantôme -- voir
 Il arrive qu'une procédure soit exécutée pour réaliser une action, non
 pour renvoyer une valeur.  Certains langages de programmation, tels
 le C et Scheme, utilisent des fonctions dans les deux cas et se
-débarrassent tout bonnement de la valeur renvoyée@tie{}; en règle
+débarrassent tout bonnement de la valeur renvoyée ; en règle
 générale, il suffit que l'expression fasse office de déclaration, et
-d'ignorer le résultat.  C'est futé, mais pas sans risque d'erreur@tie{}:
+d'ignorer le résultat.  C'est futé, mais pas sans risque d'erreur :
 la plupart des compilateurs C actuels déclenchent un avertissement si
 l'on se débarrasse de certaines expressions non @emph{void}.  Pour de
 nombreuses fonctions réalisant une action, les standards Scheme
@@ -280,7 +279,7 @@ noPointAndClick =
 
 L'utilisation d'un préfixe @code{\void} permet ainsi d'évaluer une
 expression pour ses effets annexes sans interprétation d'une quelconque
-valeur de retour@tie{}:
+valeur de retour :
 
 @example
 \void #(hashq-set! une-table une-clé une-valeur)
@@ -299,7 +298,7 @@ opérationnel dans le cadre de fonctions musicales telles que
 @cindex musicale, fonction
 
 Les @emph{fonctions musicales} sont des procédures Scheme capables de
-créer automatiquement des expressions musicales@tie{}; elles permettent
+créer automatiquement des expressions musicales ; elles permettent
 de grandement simplifier un fichier source.
 
 @menu
@@ -321,7 +320,7 @@ de grandement simplifier un fichier source.
 
 @funindex define-music-function
 
-Une fonction musicale se définit ainsi@tie{}:
+Une fonction musicale se définit ainsi :
 
 @example
 fonction =
@@ -365,9 +364,9 @@ Dans une expression musicale de haut niveau@tie{}: aucune restriction.
 
 @item
 En tant que post-événement, explicitement introduit par un indicateur de
-positionnement -- à savoir @code{-}, @code{^}, @w{ou @code{_}}.  Notez
+positionnement -- à savoir @code{-}, @code{^}, ou@tie{}@code{_}.  Notez
 bien que le renvoi d'un post-événement est valide lorsque la fonction
-musicale est appelée comme de la musique normale@tie{}; ceci amène à un
+musicale est appelée comme de la musique normale ; ceci amène à un
 résultat ressemblant à
 @example
 s 1*0-\fonction
@@ -414,7 +413,7 @@ cell} en Scheme -- que l'on pourrait traduire par @qq{construction de
 cellule}.
 
 Cette paire peut se mentionner directement dans la fonction musicale à
-l'aide d'une variable @code{pair?}@tie{}:
+l'aide d'une variable @code{pair?} :
 
 @example
 manualBeam =
@@ -431,8 +430,8 @@ manualBeam =
 @end example
 
 Autre manière de procéder, les nombres formant la paire sont transmis
-comme arguments séparés@tie{}; le code Scheme chargé de créer la paire
-pourra alors être inclus dans l'expression musicale@tie{}:
+comme arguments séparés ; le code Scheme chargé de créer la paire
+pourra alors être inclus dans l'expression musicale :
 
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
@@ -480,7 +479,7 @@ AltOff = {
 
 @noindent
 Cette fonction pourrait tout à fait être réécrite de telle sorte qu'elle
-s'applique à une expression musicale@tie{}:
+s'applique à une expression musicale :
 
 @lilypond[quote,verbatim,ragged-right]
 withAlt =
@@ -491,7 +490,7 @@ withAlt =
      \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
-     $music
+     #music
      \revert Stem #'length
      \revert NoteHead #'font-size
    #})
@@ -508,7 +507,7 @@ withAlt =
 @translationof Functions without arguments
 
 Dans la plupart des cas, une fonction dépourvue d'argument devrait
-être créée à l'aide d'une variable@tie{}:
+être créée à l'aide d'une variable :
 
 @example
 dolce = \markup@{ \italic \bold dolce @}
@@ -543,11 +542,11 @@ lilypond -d display-bar-numbers MONFICHIER.ly
 
 Une fonction musicale doit renvoyer une expression musicale.  Toutefois,
 une fonction musicale peut n'être exécutée que dans le but d'en retenir
-les effets annexes@tie{}; vous devrez alors utiliser une procédure
+les effets annexes ; vous devrez alors utiliser une procédure
 @code{define-void-function}.  Il peut cependant arriver que vous ayez
 besoin d'une fonction qui, selon le cas, produise ou non (comme dans
 l'exemple de la rubrique précédente) une expression musicale.
-L'utilisation d'un @code{#@{@tie{}#@}} vous permettra de renvoyer une
+L'utilisation d'un @code{#@{ #@}} vous permettra de renvoyer une
 expression musicale @code{void}.
 
 
@@ -564,7 +563,7 @@ l'insertion d'un indicateur de position, ce qui peut ne pas correspondre
 lorsque vous voulez écrire une commande de nuance, instruction qui
 ne comporte habituellement pas d'indicateur de positionnement, comme
 dans @code{c'\pp}.  Voici de quoi vous permettre de mentionner n'importe
-quelle nuance@tie{}:
+quelle nuance :
 
 @lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
@@ -574,7 +573,7 @@ dyn=#(define-event-function (parser location arg) (markup?)
 
 Vous pourriez obtenir le même résultat avec une fonction musicale, à
 ceci près que chaque appel à la fonction devra être précédé d'un
-indicateur de positionnement, comme @code{c-\dyn@tie{}pfsss}.
+indicateur de positionnement, comme @code{c-\dyn pfsss}.
 
 
 @node Fonctions pour markups
@@ -653,7 +652,7 @@ résultat de l'appel à une fonction.
 @noindent
 n'est pas valide.  Il vaut mieux, en pareil cas, utiliser les fonctions
 @code{make-line-markup}, @code{make-center-markup} ou
-@code{make-column-markup}@tie{}:
+@code{make-column-markup} :
 
 @lisp
 (markup (make-line-markup (fonction-qui-retourne-des-markups)))
@@ -679,7 +678,7 @@ L'expression @emph{markup} est enregistrée sous la forme
 @end example
 
 Lorsque ce @emph{markup} est converti en objets imprimables (stencils),
-la fonction @code{raise-markup} est appelée ainsi@tie{}:
+la fonction @code{raise-markup} est appelée ainsi :
 
 @example
 (apply raise-markup
@@ -692,7 +691,7 @@ la fonction @code{raise-markup} est appelée ainsi@tie{}:
 La fonction @code{raise-markup} commence par créer le stencil pour la
 chaîne @code{text example}, puis remonte ce stencil d'un demi espace de
 portée.  Il s'agit là d'un exemple relativement simple, et nous en
-aborderons de plus complexes au fil des paragraphes suivants@tie{};
+aborderons de plus complexes au fil des paragraphes suivants ;
 d'autres exemples se trouvent directement dans le fichier
 @file{scm/define-markup-commands.scm}.
 
@@ -727,7 +726,7 @@ macro Scheme @code{define-markup-command}, placée en tête de fichier.
   ..corps de la commande..)
 @end lisp
 
-Quelques commentaires sur les arguments@tie{}:
+Quelques commentaires sur les arguments :
 
 @table @code
 @item @var{nom-commande}
@@ -746,7 +745,7 @@ Si la commande utilise des propriétés à partir des arguments
 @code{props}, le mot-clé @code{#:properties} permet de spécifier ces
 différentes propriétés ainsi que leur valeur par défaut.
 
-Les arguments se distinguent selon leur type@tie{}:
+Les arguments se distinguent selon leur type :
 @itemize
 @item un @emph{markup}, correspondant au type de prédicat
 @code{markup?}@tie{};
@@ -760,7 +759,7 @@ Il n'existe aucune restriction quant à l'ordre des arguments fournis à
 la suite des arguments @code{layout} et @code{props}.  Néanmoins, les
 fonctions @emph{markup} qui ont en dernier argument un @emph{markup} ont
 ceci de particulier qu'elles peuvent s'appliquer à des listes de
-@emph{markups}@tie{}; ceci résultera en une liste de @emph{markups} où
+@emph{markups} ; ceci résultera en une liste de @emph{markups} où
 tous les éléments de la liste originelle se verront appliquer cette
 fonction @emph{markup} avec ses arguments de tête.
 
@@ -778,7 +777,7 @@ le dernier argument est un @emph{markup}.
 
 Les arguments @code{layout} et @code{props} d'une commande de
 @emph{markup} fournissent un contexte à l'interprétation du
-@emph{markup}@tie{}: taille de fonte, longueur de ligne etc.
+@emph{markup} : taille de fonte, longueur de ligne etc.
 
 L'argument @code{layout} permet d'accéder aux propriétés définies dans
 les blocs @code{\paper}, grâce à la fonction
@@ -791,12 +790,12 @@ identique à celle de la partition, est lue au travers de
 
 L'argument @code{props} rend certaines propriétés accessibles aux
 commandes de @emph{markup}.  Il en va ainsi lors de l'interprétation
-d'un @emph{markup} de titre d'ouvrage@tie{}: toutes les variables
+d'un @emph{markup} de titre d'ouvrage : toutes les variables
 définies dans le bloc @code{\header} sont automatiquement ajoutées aux
 @code{props}, de telle sorte que le @emph{markup} de titrage de
 l'ouvrage pourra accéder aux différents champs titre, compositeur etc.
 Ceci permet aussi de configurer le comportement d'une commande de
-@emph{markup}@tie{}: la taille des fontes, par exemple, est lue à
+@emph{markup} : la taille des fontes, par exemple, est lue à
 partir de @code{props} plutôt que grâce à un argument @code{font-size}.
 La fonction appelant une commande de @emph{markup} peut altérer la
 valeur de la propriété taille des fontes et donc en modifier le
@@ -827,15 +826,15 @@ indique la commande @code{\box}, qui semble ici appropriée.
 Dans un souci d'esthétique, nous aimerions que le texte et les
 encadrements ne soient pas autant accolés.  Selon la documentation de
 @code{\box}, cette commande utilise la propriété @code{box-padding},
-fixée par défaut à@tie{}0,2.  Cette même documentation nous indique
-aussi comment la modifier@tie{}:
+fixée par défaut à 0,2.  Cette même documentation nous indique
+aussi comment la modifier :
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \box \override #'(box-padding . 0.6) \box A
 @end lilypond
 
-L'espacement des deux liserés est cependant toujours trop réduit@tie{};
-modifions le à son tour@tie{}:
+L'espacement des deux liserés est cependant toujours trop réduit ;
+modifions le à son tour :
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \override #'(box-padding . 0.4) \box
@@ -853,7 +852,7 @@ tenant compte des espacements.
   "Dessine un double encadrement autour du texte."
   (interpret-markup layout props
     #@{\markup \override #'(box-padding . 0.4) \box
-            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+            \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
 ou bien son équivalent
@@ -876,7 +875,7 @@ variante, ce @emph{markup} sera construit à l'aide de la macro Scheme
 transformation d'une expression @code{\markup} en expression Scheme est
 des plus triviales.
 
-Notre commande personnalisée s'utilise ainsi@tie{}:
+Notre commande personnalisée s'utilise ainsi :
 
 @example
 \markup \double-box A
@@ -888,9 +887,9 @@ peuvent être modifiées à l'envie.  Pareillement, il serait bien de
 distinguer l'espacement entre les encadrements de l'espacement entre le
 texte et ses encadrements.  Nous allons donc introduire une propriété
 supplémentaire, que nous appellerons @code{inter-box-padding}, chargée
-de gérer l'espacement des encadrements@tie{}; @code{box-padding} ne
+de gérer l'espacement des encadrements ; @code{box-padding} ne
 servira alors que pour l'espacement intérieur.  Voici le code adapté à
-ces évolutions@tie{}:
+ces évolutions :
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -900,10 +899,10 @@ ces évolutions@tie{}:
   (interpret-markup layout props
     #@{\markup \override #`(box-padding . ,inter-box-padding) \box
                \override #`(box-padding . ,box-padding) \box
-               @{ $text @} #@}))
+               @{ #text @} #@}))
 @end lisp
 
-Ainsi que son équivalent à partir de la macro @emph{markup}@tie{}:
+Ainsi que son équivalent à partir de la macro @emph{markup} :
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -923,7 +922,7 @@ par défaut au cas où elles ne seraient pas définies.
 Ces valeurs permettront alors d'adapter les propriétés de
 @code{box-padding} utilisées par les deux commandes @code{\box}.  Vous
 aurez remarqué, dans l'argument @code{\override}, la présence de
-l'apostrophe inversée (@code{`}) et de la virgule@tie{}; elles vous
+l'apostrophe inversée (@code{`}) et de la virgule ; elles vous
 permettent d'insérer une valeur variable au sein d'une expression
 littérale.
 
@@ -938,7 +937,7 @@ les encadrements sont repositionnables.
   (interpret-markup layout props
     #{\markup \override #`(box-padding . ,inter-box-padding) \box
               \override #`(box-padding . ,box-padding) \box
-              { $text } #}))
+              { #text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -958,7 +957,7 @@ répertoriées dans le fichier @file{scm/define-markup-commands.scm}.
 Nous pourrions, par exemple, envisager d'adapter la commande
 @code{\draw-line} pour dessiner plutôt une ligne double.  Voici comment
 est définie la commande @code{\draw-line}, expurgée de sa
-documentation@tie{}:
+documentation :
 
 @lisp
 (define-markup-command (draw-line layout props dest)
@@ -976,7 +975,7 @@ documentation@tie{}:
 Avant de définir notre propre commande basée sur l'une de celles
 fournies par LilyPond, commençons par en recopier la définition, puis
 attribuons lui un autre nom.  Le mot-clé @code{#:category} peut être
-supprimé sans risque@tie{}; il ne sert que lors de la génération de la
+supprimé sans risque ; il ne sert que lors de la génération de la
 documentation et n'est d'aucune utilité pour une commande personnalisée.
 
 @lisp
@@ -993,7 +992,7 @@ documentation et n'est d'aucune utilité pour une commande personnalisée.
 
 Nous ajoutons ensuite une propriété pour gérer l'écart entre les deux
 lignes, que nous appelons @code{line-gap}, et lui attribuons une valeur
-par défaut de 6 dixièmes@tie{}:
+par défaut de 6 dixièmes :
 
 @lisp
 (define-markup-command (draw-double-line layout props dest)
@@ -1006,7 +1005,7 @@ par défaut de 6 dixièmes@tie{}:
 
 Nous ajoutons enfin le code qui dessinera nos deux lignes.  Deux appels
 à @code{make-line-stencil} permettrons de dessiner les lignes dont nous
-regrouperons les stencils à l'aide de @code{ly:stencil-add}@tie{}:
+regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (my-draw-line layout props dest)
@@ -1053,10 +1052,10 @@ par l'argument @code{props}.
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent #args @} #@}))
 @end example
 
-La version purement Scheme est un peu plus complexe@tie{}:
+La version purement Scheme est un peu plus complexe :
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
@@ -1073,7 +1072,7 @@ de @emph{markups} est @code{markup-list?}.
 Pour commencer, la fonction récupère la taille de l'alinéa, propriété
 ici dénommée @code{par-indent}, à partir de la liste de propriétés
 @code{props}.  En cas d'absence, la valeur par défaut sera
-de@tie{}@code{2}.  Ensuite est créée une liste de lignes justifiées
+de @code{2}.  Ensuite est créée une liste de lignes justifiées
 grâce à la commande prédéfinie @code{\justified-lines}, liée à la
 fonction @code{make-justified-lines-markup-list}.  Un espace horizontal
 est ajouté en tête, grâce à @code{\hspace} ou à la fonction
@@ -1124,7 +1123,7 @@ du code Scheme.  La syntaxe consacrée en pareil cas est
 @end example
 
 @code{@var{fonction}} est constitué d'une fonction Scheme comportant un
-unique argument@tie{}: le contexte au sein duquel la commande
+unique argument : le contexte au sein duquel la commande
 @code{\applyContext} est appelée.  Les lignes de code qui suivent auront
 pour effet d'afficher à l'écran, en cours de compilation, le numéro de
 mesure en cours.
@@ -1158,7 +1157,7 @@ où @code{@var{procédure}} est une fonction Scheme à trois arguments.
 Lors de l'interprétation de cette commande, la fonction
 @code{@var{procédure}} est appelée pout tout objet de rendu appartenant
 au contexte @code{@var{contexte}} à cet instant précis, avec les
-arguments suivants@tie{}:
+arguments suivants :
 @itemize
 @item l'objet de rendu en lui-même,
 @item le contexte au sein duquel cet objet est créé,
@@ -1171,7 +1170,7 @@ d'objet @code{cause}.  Il s'agit, pour une tête de note, d'un événement
 @rinternals{NoteHead}, et d'un objet @rinternals{Stem} pour une hampe.
 
 Voici une fonction utilisable avec la commande
-@code{\applyOutput}@tie{}: elle @qq{blanchit} la tête des notes se
+@code{\applyOutput} : elle @qq{blanchit} la tête des notes se
 trouvant sur la ligne médiane ou bien directement à son contact.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1232,7 +1231,7 @@ La procédure prend un unique argument, en l'occurrence l'objet graphique
 Dans le cas où la routine doit faire appel à plusieurs arguments, le
 @emph{grob} en cours peut s'insérer à l'aide d'un @emph{grob} enchâssé.
 Voici, à titre d'illustration, un réglage pour
-@code{AccidentalSuggestion}@tie{}:
+@code{AccidentalSuggestion} :
 
 @example
 `(X-offset .
@@ -1266,7 +1265,7 @@ de la fonction sera bien renvoyé, non pas l'objet @code{simple-closure}.
 
 Au sein d'un @emph{callback}, le meilleur moyen d'évaluer un
 @emph{markup} consiste à utiliser la fonction
-@code{grob-interpret-markup}, comme ici@tie{}:
+@code{grob-interpret-markup}, comme ici :
 
 @example
 my-callback = #(lambda (grob)
@@ -1299,7 +1298,7 @@ F = \tweak #'font-size #-3 -\flageolet
 
 @noindent
 En d'autres termes, @code{\tweak} ne se comporte pas comme une
-articulation@tie{}: il ne peut notamment pas être accolé avec les
+articulation : il ne peut notamment pas être accolé avec les
 symboles @samp{^} ou @samp{_}.
 
 C'est en se servant du langage Scheme que l'on peut résoudre ce
@@ -1413,7 +1412,7 @@ Pour des raisons d'ordre technique, certains objets ne peuvent être
 modifiés par @code{\override}.  Parmi ceux-là, les objets
 @code{NonMusicalPaperColumn} et @code{PaperColumn}.  La commande
 @code{\overrideProperty} sert à les modifier, de façon similaire à
-@code{\once \override} mais avec une syntaxe différente@tie{}:
+@code{\once \override} mais avec une syntaxe différente :
 
 @example
 \overrideProperty
@@ -1438,4 +1437,3 @@ l'intention des programmeurs en Scheme désireux d'obtenir des
 informations à partir et autour des fluxs de musique.
 
 TODO -- figure out what goes in here and how to organize it
-

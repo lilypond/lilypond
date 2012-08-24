@@ -1,4 +1,4 @@
-\version "2.15.5"
+\version "2.16.0"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find Voice `%s'") "not-existing-notes")

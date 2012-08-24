@@ -1,4 +1,4 @@
-\version "2.15.13"
+\version "2.16.0"
 
 \header {
   texidoc = "Loose columns (here, the treble clef) are spaced

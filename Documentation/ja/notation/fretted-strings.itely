@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.43"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -66,29 +66,29 @@
 フレットのある弦楽器に関係する他のいくつかの要素は他の場所でカバーされています:
 
 @itemize
-@item 運指は @ref{運指の指示} で説明しています。
+@item 運指は @ref{Fingering instructions} で説明しています。
 
 @item @notation{レセ ヴィブレ} (@notation{Laissez vibrer}) タイは、@c
-アルペジオとトレモロで使われるタイと同様に、@ref{タイ} で説明しています。
+アルペジオとトレモロで使われるタイと同様に、@ref{Ties} で説明しています。
 
-@item 複数のボイスを処理するための説明は、@ref{衝突の解決} にあります。
+@item 複数のボイスを処理するための説明は、@ref{Collision resolution}
+にあります。
 
-@item ハーモニクス指示についての説明は、@ref{ハーモニクス} にあります。
+@item ハーモニクス指示についての説明は、@ref{Harmonics} にあります。
 
 @end itemize
 
-
 @seealso
 記譜法リファレンス:
-@ref{運指の指示},
-@ref{タイ},
-@ref{衝突の解決},
-@ref{楽器名},
-@ref{音楽を並列に記述する},
-@ref{アルペジオ},
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
+@ref{Arpeggio},
 @ref{List of articulations},
-@ref{音部記号},
-@ref{楽器の移調}
+@ref{Clef},
+@ref{Instrument transpositions}
 
 
 @node 弦番号の指示
@@ -99,25 +99,26 @@
 @cindex string vs. fingering numbers (弦 vs. 指番号)
 @cindex fingering vs. string numbers (運指 vs. 弦番号)
 
-演奏する音符の弦を、和音構造 @code{<>} の中にある音符の後に
-@code{\@var{number}} を付けることによって、@c
+音符の後に @code{\@var{number}} を付けることによって、演奏する音符の弦を@c
 指示することができます。
-
-@warning{単一の音符しかない場合であっても、弦番号は和音構造の中で定義する@c
-@strong{必要があります}。}
 
 @lilypond[verbatim,quote,relative=0]
 \clef "treble_8"
-<c\5>4 <e\4> <g\3>2
+c4\5 e\4 g2\3
 <c,\5 e\4 g\3>1
 @end lilypond
 
 運指と弦の指示を一緒に使う場合、@c
+明示的に作成された和音の中にある場合に @emph{のみ}、
 それら 2 要素を記述する順序で配置を制御することができます:
+和音全体や和音の @emph{中にない} 単独の音符に適用される場合、@c
+運指記号は異なるメカニズムで配置されます。
 
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_8"
-<g\3-0>2
+g4\3-0
+g-0\3
+<g\3-0>
 <g-0\3>
 @end lilypond
 
@@ -129,10 +130,9 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{運指の指示}
+@ref{Fingering instructions}
 
 コード断片集:
 @rlsr{Fretted strings}
@@ -225,17 +225,25 @@ symbols = {
 @cindex fret
 
 @funindex minimumFret
+@funindex restrainOpenStrings
 
 デフォルトでは、ピッチはフレット ボードの最も低い演奏ポジション
 (ファースト ポジション) に割り当てられます。@c
 自動的に開放弦が優先されます。@c
 ピッチを弾く弦を指定したい場合は、ピッチ名に弦番号指示を付け加えます。@c
-和音構造 (@code{<>}) を用いずにピッチ名と弦番号を指定した場合、@c
-伝統的な記譜法の楽譜に弦番号指示は譜刻されません。@c
-@code{minimumFret} の値を使って演奏ポジションを指定する方が入力しやすいです。@c
+弦番号指示を伝統的な記譜法の譜に譜刻したくないのであれば、@c
+弦番号指示のステンシルを上書きすることでそうできます。@c
+通常、@code{minimumFret} の値を使って演奏ポジションを定義する方が@c
+入力しやすいです。@c
 @code{minimumFret} のデフォルト値は 0 です。
 
+@code{minimumFret} がセットされている場合であっても、可能であれば開放弦が@c
+用いられます。@c
+この振る舞いは、@code{restrainOpenStrings} に @code{#t} をセットすることで@c
+変更することができます。
+
 @lilypond[quote,ragged-right,verbatim]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -248,6 +256,7 @@ symbols = {
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
 >>
@@ -260,7 +269,7 @@ symbols = {
 
 和音繰り返し記号 @code{q} を使って和音構造を繰り返すことができます。@c
 この機能をタブ譜で用いる場合、弦の削除や運指番号等のイベントがやっかいです。@c
-そのため、@ref{和音の繰り返し} を用いたタブ譜の音楽表記で@c
+そのため、@ref{Chord repetition} を用いたタブ譜の音楽表記で@c
 以下を明示的に実行したいと思うでしょう:
 @example
 \chordRepeats #'(string-number-event fingering-event)
@@ -269,10 +278,8 @@ symbols = {
 @code{\tabChordRepeats} でも用いることができます。
 
 @lilypond[quote,verbatim]
-\tabChordRepetition
-
 guitar = \relative c' {
-  r8 <gis-6 cis-6 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
 }
 
 \new StaffGroup <<
@@ -376,6 +383,7 @@ ties = \relative c' {
 ハーモニック指示を演奏するピッチとしてタブ譜に付け加えることができます:
 
 @lilypond[verbatim,quote]
+\layout { \override Voice.StringNumber #'stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -452,12 +460,11 @@ ratioHarmonics = {
 
 @seealso
 記譜法リファレンス:
-@ref{和音の繰り返し},
-@ref{グリッサンド}
-@ref{ハーモニクス},
-@ref{符幹},
-@ref{繰り返しを描き出す}
-
+@ref{Chord repetition},
+@ref{Glissando},
+@ref{Harmonics},
+@ref{Stems},
+@ref{Written-out repeats}
 
 コード断片集:
 @rlsr{Fretted strings}
@@ -469,7 +476,6 @@ ratioHarmonics = {
 @rinternals{Beam}
 
 @knownissues
-
 和音は特殊な方法では処理できません。@c
 そのため、自動弦セレクタは和音の中にある 2 つの音符に対して@c
 同じ弦を選択することが容易に起こり得ます。
@@ -491,6 +497,7 @@ melodia = \partcombine { e4 g g g } { e4 e e e }
 @end lilypond
 
 ギターの特殊効果はハーモニクスとスライドに制限されています。
+
 
 @node カスタム タブ譜
 @unnumberedsubsubsec カスタム タブ譜
@@ -528,14 +535,17 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff {
+  \new Voice \with {
+    \override StringNumber #'stencil = ##f
+  } {
     \clef "bass_8"
     \relative c, {
       c4 d e f
     }
   }
-  \new TabStaff {
-    \set TabStaff.stringTunings = #bass-tuning
+  \new TabStaff \with {
+    stringTunings = #bass-tuning
+  } {
     \relative c, {
       c4 d e f
     }
@@ -563,7 +573,7 @@ LilyPond は、あらかじめ定義されたチューニングに対して、@c
 @code{\stringTuning} の引数は、@c
 チューニングにおける各弦のピッチを定義する和音構造です。@c
 和音構造は絶対オクターブ モードにする必要があります
--- @ref{絶対オクターブ入力} を参照してください。@c
+-- @ref{Absolute octave entry} を参照してください。@c
 和音の中で、@c
 一番大きな番号を持つ弦 (一般的に低い音の弦) が最初に来る必要があります。@c
 例えば、@code{a''}, @code{d''}, @code{g'}, それに @code{c'} のピッチを持つ
@@ -669,8 +679,8 @@ LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{Fre
 
 @seealso
 記譜法リファレンス:
-@ref{絶対オクターブ入力},
-@ref{あらかじめ定義されたフレット ダイアグラム},
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams},
 @ref{Scheme functions}
 
 インストールされているファイル:
@@ -1138,8 +1148,8 @@ and color of dots.
 他の楽器あるいは他のチューニング用の@c
 あらかじめ定義されたフレット ダイアグラムを追加することができます。
 
-ウクレレ用のフレット ダイアグラムは@c
-ファイル @file{predefined-ukulele-fretboards.ly} の中にあります。
+ウクレレ用のフレット ダイアグラムはファイル
+@file{predefined-ukulele-fretboards.ly} の中にあります。
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-ukulele-fretboards.ly"
@@ -1156,8 +1166,8 @@ myChords = \chordmode { a1 a:m a:aug }
 }
 @end lilypond
 
-マンドリン用のフレット ダイアグラムは@c
-ファイル @file{predefined-mandolin-fretboards.ly} の中にあります。
+マンドリン用のフレット ダイアグラムはファイル
+@file{predefined-mandolin-fretboards.ly} の中にあります。
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-mandolin-fretboards.ly"
@@ -1257,7 +1267,7 @@ minor seventh, dominant ninth)
 あらかじめ定義されたフレット ダイアグラムの完全なリストは
 @ref{Predefined fretboard diagrams} で示されています。@c
 テーブルにエントリされていないコードがある場合、@c
-FretBoards エングラーバは @ref{自動フレット ダイアグラム} で説明する@c
+FretBoards エングラーバは @ref{Automatic fret diagrams} で説明する@c
 自動フレット ダイアグラム機能を用いて fret-diagram を算出します。
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1418,18 +1428,17 @@ mychords = \chordmode{
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretboards-alternate-tables.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{カスタム タブ譜},
-@ref{自動フレット ダイアグラム},
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
 @ref{Chord mode overview},
 @ref{Predefined fretboard diagrams}
 
 インストールされているファイル:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-guitar-fretboards.ly}, @*
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
+@file{ly/predefined-ukulele-fretboards.ly}, @*
 @file{ly/predefined-mandolin-fretboards.ly}
 
 コード断片集:
@@ -1572,7 +1581,7 @@ property.
 @code{FretBoards} コンテキストの弦とフレットは
 @code{stringTunings} プロパティに依存します。@c
 @code{stringTunings} プロパティについての情報は、@c
-@ref{カスタム タブ譜} を参照してください。
+@ref{Custom tablatures} を参照してください。
 
 @code{fret-diagram-interface} のプロパティを通じて、@c
 フレット ダイアグラムのグラフィカル レイアウトをユーザの好みに応じて@c
@@ -1581,16 +1590,14 @@ property.
 @code{FretBoards} フレット ダイアグラムののインターフェイス プロパティは@c
 @code{FretBoards.FretBoard} に属します。
 
-
 @predefined
 @code{\predefinedFretboardsOff},
 @code{\predefinedFretboardsOn}
 @endpredefined
 
-
 @seealso
 記譜法リファレンス:
-@ref{カスタム タブ譜}
+@ref{Custom tablatures}
 
 コード断片集:
 @rlsr{Fretted strings}
@@ -1614,28 +1621,27 @@ property.
 @funindex rightHandFinger
 @funindex \rightHandFinger
 
-右手の運指 @var{p-i-m-a} は、@c
-運指を楽譜の中に譜刻するために単一の音符に適用する場合であっても、@c
-和音構造 @code{<>} 内部で入力する必要があります。
+右手の運指 @var{p-i-m-a} は後に数字が続く @code{\rightHandFinger} を用いて@c
+入力する必要があります。
 
-@warning{@code{@bs{}rightHandFinger} の前にハイフンを、@c
-和音構造を閉じる @code{>} の前にスペースを挿入する @strong{必要があります}。}
+@warning{Scheme 表記で数字を入力する場合、数字の後にくるもの (閉じ括弧 @code{>}
+等であっても) の前にスペースを置くことを忘れないで下さい。}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
-<c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2
- g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+c4\rightHandFinger #1
+e\rightHandFinger #2
+g\rightHandFinger #3
+c\rightHandFinger #4
+<c,\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c\rightHandFinger #4 >1
 @end lilypond
 
 入力しやすくするために、@code{\rightHandFinger} を短縮することができます。
 例えば、@code{RH} に短縮します:
 
 @example
-#(define RH rightHandFinger)
+RH=#rightHandFinger
 @end example
 
 
@@ -1646,7 +1652,6 @@ property.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fingerings,-string-indications,-and-right-hand-fingerings.ly}
-
 
 @seealso
 コード断片集:
@@ -1695,10 +1700,9 @@ b16 e g e b g\stopTextSpan
 e16 b g d
 @end lilypond
 
-
 @seealso
 記譜法リファレンス:
-@ref{テキスト スパナ}
+@ref{Text spanners}
 
 コード断片集:
 @rlsr{Fretted strings},
@@ -1778,7 +1782,7 @@ LilyPond は、符頭を三角形に変更することで、@c
 @rlsr{Fretted strings}
 
 記譜法リファレンス:
-@ref{特殊な符頭},
+@ref{Special note heads},
 @ref{Note head styles}
 
 
@@ -1920,10 +1924,9 @@ LilyPond は 5 弦バンジョーの基本的なサポートを提供します�
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
 @end example
 
-
 @seealso
-コード断片集:
-@rlsr{Fretted strings}
-
 インストールされているファイル:
 @file{ly/string-tunings-init.ly}
+
+コード断片集:
+@rlsr{Fretted strings}

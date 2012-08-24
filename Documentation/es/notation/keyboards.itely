@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ab6e4df934e57c51dbbdbf2c209273c6cb5b888
+    Translation of GIT committish: 2e3c5412eacdbfd976d2cd6c5cc90f272ddfc263
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Teclados y otros instrumentos de varios pentagramas
 @section Teclados y otros instrumentos de varios pentagramas
@@ -439,40 +439,17 @@ Referencia de funcionamiento interno:
 @cindex acordes de pentagrama cruzado
 
 @funindex Stem
-@funindex cross-staff
-@funindex length
-@funindex flag-style
+@funindex \crossStaff
+@funindex \autoBeamOff
+@funindex Span_stem_engraver
 
-Se pueden hacer acordes que cruzan los pentagramas:
+Se pueden hacer acordes que cruzan los pentagramas usando el grabador
+@code{Span_stem_engraver}.  Debe tenerse cuidado para estar seguro de
+que las barras automáticas no unen las notas de una pauta cuando no es
+necesario que estén unidas en la otra pauta.
 
-@lilypond[verbatim,quote]
-\new PianoStaff <<
-  \new Staff {
-    \relative c' {
-      f8 e4 d8 d f e4
-    }
-  }
-  \new Staff {
-    \relative c' {
-      << {
-        \clef bass
-        % stems may overlap the other staff
-        \override Stem #'cross-staff = ##t
-        % extend the stems to reach the other staff
-        \override Stem #'length = #12
-        % do not print extra flags
-        \override Flag #'style = #'no-flag
-        % prevent beaming as needed
-        a8 g4 f8 f bes\noBeam g4
-      }
-      \\
-      {
-        f,2 bes4 c
-      } >>
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,quote]
+{cross-staff-stems.ly}
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]

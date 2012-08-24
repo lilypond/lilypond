@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.16.0"
 \header {
   texidoc = "This regtest makes sure that footnote numbers are laid out
 in the correct vertical order.

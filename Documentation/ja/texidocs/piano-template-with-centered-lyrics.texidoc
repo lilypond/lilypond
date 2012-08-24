@@ -1,4 +1,5 @@
-%% Translation of GIT committish: fa1aa6efe68346f465cfdb9565ffe35083797b86
+%% Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
   texidocja = "
-旋律と歌詞のための譜表を持つ代わりに、歌詞をピアノ譜の 2 つの譜の間に置くことができます。
+旋律と歌詞のための総譜ではなく、歌詞をピアノ譜の 2 つの譜の間に配置することができます。
 "
+  doctitleja = "中央に歌詞を配置したピアノ テンプレート"

@@ -1,4 +1,4 @@
-\version "2.15.22"
+\version "2.16.0"
 
 \header {
   texidoc = "Long lyrics should be allowed to pass under

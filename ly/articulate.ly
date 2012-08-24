@@ -89,7 +89,7 @@
 %  * Add Mordents (reported by Patrick Karl)
 %
 
-\version "2.15.30"
+\version "2.16.0"
 
 #(use-modules (ice-9 debug))
 #(use-modules (scm display-lily))

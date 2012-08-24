@@ -1,14 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-
 @ignore
-    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
+    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -3156,7 +3155,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {

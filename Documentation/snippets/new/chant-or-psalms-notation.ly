@@ -1,4 +1,4 @@
-\version "2.15.15"
+\version "2.16.0"
 
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers, specific-notation"

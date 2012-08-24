@@ -2,7 +2,7 @@
   texidoc = "Augmentum dots are accounted for in horizontal spacing."
 }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \include "gregorian.ly"
 \score {

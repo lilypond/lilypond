@@ -1,4 +1,4 @@
-\version "2.15.18"
+\version "2.16.0"
 
 \header {
   texidoc = "half rests should lie on a staff line, whole rests should hang

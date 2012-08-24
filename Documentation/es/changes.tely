@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 17270930d34bbbc9a837585fcc84d6eabda67010
+    Translation of GIT committish: 2e3c5412eacdbfd976d2cd6c5cc90f272ddfc263
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,39 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+Se contemplan las plicas de pentagrama cruzado en acordes, utilizando
+@code{crossStaff} y el grabador @code{Span_stem_engraver}.  Éste
+efectúa el cálculo de la longitud de las plicas de pentagrama cruzado
+de forma automática.
+@lilypondfile[quote]
+{cross-staff-stems.ly}
+
+@item
+La sintaxis de las palabras (secuencias de caracteres que se reconocen
+sin encerrarlas entre comillas) y las instrucciones (que ahora son
+siempre una barra invertida @samp{\} seguida de una palabra) se ha
+unificado para todos los modos: ahora consiste en caracteres
+alfabéticos, posiblemente comprendiendo guiones aislados @samp{-} y
+guiones bajos @samp{_}.
+
+Una consecuencia es que la utilización de guiones de texto sin
+entrecomillar como (literalmente)
+@example
+@{ c-script c\f_script @}
+@end example
+ahora tienden a producir una música no válida.  La omisión de las
+comillas para texto arbitrario en lugar de palabras clave nunca ha
+sido una buena práctica o se ha documentado, y es poco probable que se
+haya utilizado mucho.
+
+Quedarse con las convenciones establecidas (como no utilizar guiones o
+guiones bajos para los nombres de instrucción orientados a ser
+utilizados dentro de la música) sigue siendo recomendable.  El motivo
+de este cambio es el reconocimiento más robusto de las unidades
+léxicas de LilyPond para sí mismo así como para las herramientas
+externas que interpretan su sintaxis.
+
 @item
 Se contempla el canto kievano en notación cuadrada:
 @lilypond[quote,relative=1,verbatim]
@@ -257,6 +290,12 @@ la expresión contenida, reduciendo significativamente el potencial de
 la evaluación prematura.  También están los operadores de @q{división
 de cadenas} @code{$@@} y @code{#@@} para la interpretación de los
 miembros de una lista de forma individual.
+
+@item
+Para reducir la necesidad de utilizar @code{$}, las expresiones de
+Scheme escritas con @code{#} se interpretan como música dentro de las
+listas de música, y como elementos de marcado o de listas de marcado
+dentro de los elementos de marcado.
 
 @item
 Se ha mejorado el soporte de acordes de tipo jazz: se reconocen los

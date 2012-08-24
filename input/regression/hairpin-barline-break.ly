@@ -5,7 +5,7 @@ do not print that ending.  But on the previous line, this hairpin
 should not be left open, and should end at the bar line. "
 }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \layout {
   line-width = 4.\cm

@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 
 @c Translators: Yoshiki Sawada
@@ -17,7 +17,7 @@
 @section 同時進行する音符
 @translationof Simultaneous notes
 
-@lilypondfile[quote]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
 楽譜の中で多声部は楽曲の 1 節の中にある複数のボイスを参照します。@c
 LilyPond の中で多声部は同じ譜にある複数のボイスを参照します。
@@ -70,7 +70,8 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 和音の中にある音符自体にもアーティキュレーションや装飾を付けることができます。
 
 @lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+<a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
 しかしながら、いくつかの記譜要素
@@ -79,7 +80,25 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 そうしなければ、譜刻されません。
 
 @lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+<a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+@c ここから L2100
+@cindex chords, empty (空の和音)
+@cindex placeholder events ()
+
+和音は和音に含まれる音符、アーティキュレーション、それに他の付属要素の@c
+コンテナにすぎません。@c
+従って、音符を持たない和音は演奏時間を持ちません。@c
+そのような和音に付属するアーティキュレーションは、後に続く音符や和音の@c
+タイミングで発生して、組み合わされます (そのような要素の複雑な組み合わせ@c
+については @ref{Simultaneous expressions} を参照してください):
+
+@lilypond[verbatim,quote,relative=2]
+\grace { g8[( a b] }
+<> ) \p \< -. -\markup \italic "sempre staccato"
+\repeat unfold 4 { c4 e }  c1\f
 @end lilypond
 
 @cindex relative pitch, chords (和音と相対ピッチ)
@@ -97,19 +116,18 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 
 和音についての更なる情報は、@ref{Chord notation} を参照してください。
 
-
 @seealso
 音楽用語集:
 @rglos{chord}
 
 学習マニュアル:
-@rlearning{音符を組み合わせて和音にする}
+@rlearning{Combining notes into chords}
 
 記譜法リファレンス:
 @ref{Chord notation},
-@ref{アーティキュレーションと装飾},
-@ref{相対オクターブ入力},
-@ref{複数のボイス}
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry},
+@ref{Multiple voices}
 
 コード断片集:
 @rlsr{Simultaneous notes}
@@ -132,6 +150,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @ref{Clusters}
 
 @end itemize
+
 
 @node 和音の繰り返し
 @unnumberedsubsubsec 和音の繰り返し
@@ -219,7 +238,7 @@ q2 c, |
 @seealso
 記譜法リファレンス:
 @ref{Chord notation},
-@ref{アーティキュレーションと装飾}
+@ref{Articulations and ornamentations}
 
 インストールされているファイル:
 @file{ly/chord-repetition-init.ly}
@@ -251,7 +270,17 @@ a << {a4 b g}  {d4 g c,} >>
 
 これは同時進行するセクションが同一のリズムを持つ場合に役に立ちます。@c
 しかしながら、異なる演奏時間を持つ音符を同じ符幹に取り付けようとすると@c
-エラーとなります。
+エラーとなります。@c
+@emph{単一の} @samp{Voice} の中にある音符、アーティキュレーション、@c
+それにプロパティの変更は収集され、音楽的な順序で譜刻されます:
+
+@lilypond[quote,verbatim,relative=2]
+<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@end lilypond
+
+同時に複数の符幹や連桁、あるいは異なる音符の演奏時間やプロパティが必要な@c
+場合、複数のボイスを使う必要があります。
+
 
 以下の例は、同時進行する表記が暗黙的に複数の譜を生成する様子を示しています:
 
@@ -261,7 +290,8 @@ a << {a4 b g}  {d4 g c,} >>
 << {a4 b g2}  {d4 g2 c,4} >>
 @end lilypond
 
-ここでは、リズムが異なっていても問題ありません。
+ここでは、リズムが異なっていても問題ありません。@c
+異なるボイスだと解釈されるからです。
 
 @cindex collisions, clashing note columns (音符列の衝突)
 @cindex collisions, ignoring (衝突を無視する)
@@ -313,7 +343,6 @@ warning: ignoring too many clashing note columns
 そのようなケースでは、通常の音符とクラスタの衝突を@c
 自動的に回避しようとする試みは行われません。
 
-
 @seealso
 音楽用語集:
 @rglos{cluster}
@@ -326,9 +355,7 @@ warning: ignoring too many clashing note columns
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}
 
-
 @knownissues
-
 クラスタは少なくとも 2 つの和音を持つ場合にのみうまく譜刻されます。@c
 さもなければ、あまりにも狭く譜刻されます。
 
@@ -338,6 +365,7 @@ warning: ignoring too many clashing note columns
 分割するための休符が必要です。
 
 クラスタは MIDI 出力を作り出しません。
+
 
 @node 複数のボイス
 @subsection 複数のボイス
@@ -553,18 +581,18 @@ etc.
 @code{\oneVoice}
 @endpredefined
 
-コード断片集:
-@rlsr{Simultaneous notes}
-
 @seealso
 学習マニュアル:
-@rlearning{音楽を保持するボイス},
-@rlearning{ボイスを明示的にインスタンス化する}
+@rlearning{Voices contain music},
+@rlearning{Explicitly instantiating voices}
 
 記譜法リファレンス:
-@ref{打楽器の譜},
-@ref{不可視の休符},
-@ref{符幹}
+@ref{Percussion staves},
+@ref{Invisible rests},
+@ref{Stems}
+
+コード断片集:
+@rlsr{Simultaneous notes}
 
 
 @node ボイス スタイル
@@ -605,11 +633,10 @@ etc.
 @code{\voiceNeutralStyle}
 @endpredefined
 
-
 @seealso
 学習マニュアル:
-@rlearning{私はボイスを聴いている},
-@rlearning{その他の情報源}
+@rlearning{I'm hearing Voices},
+@rlearning{Other sources of information}.
 
 コード断片集:
 @rlsr{Simultaneous notes}
@@ -816,9 +843,9 @@ etc.
 @rglos{polyphony}
 
 学習マニュアル:
-@rlearning{同時に演奏する複数の音符},
-@rlearning{音楽を保持するボイス},
-@rlearning{オブジェクトの衝突}
+@rlearning{Multiple notes at once},
+@rlearning{Voices contain music},
+@rlearning{Real music example}
 
 コード断片集:
 @rlsr{Simultaneous notes}
@@ -1028,7 +1055,6 @@ instrumentTwo = \relative c' {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-partcombine-texts.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{a due},
@@ -1045,7 +1071,6 @@ instrumentTwo = \relative c' {
 @rinternals{Voice}
 
 @knownissues
-
 すべての @code{\partcombine...} はボイスを 2 つだけ受け取ることができ、@c
 歌詞を処理するようには設計されていません。@c
 ボイスに歌詞が付けられている場合、パート結合は処理を停止します。
@@ -1076,8 +1101,8 @@ instrumentTwo = \relative c' {
 があった場合、@c
 その @code{Voice} のイベントは無視されることを意味します。
 
-@ref{デフォルトのタブ譜} のタブ譜や @ref{自動連桁} の @emph{音符} に対して@c
-@code{\partcombine} を使う場合は、@c
+@ref{Default tablatures} のタブ譜や @ref{Automatic beams} の @emph{音符}
+に対して @code{\partcombine} を使う場合は、@c
 それぞれの @emph{既知の問題と警告} も参照してください。
 
 
@@ -1191,10 +1216,9 @@ global = {
 }
 @end lilypond
 
-
 @seealso
 学習マニュアル:
-@rlearning{変数を用いて楽曲を編成する}
+@rlearning{Organizing pieces with variables}
 
 コード断片集:
 @rlsr{Simultaneous notes}

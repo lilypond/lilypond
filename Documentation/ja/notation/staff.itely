@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 
 @c Translators: Yoshiki Sawada
@@ -17,7 +17,9 @@
 @section 譜の記譜法
 @translationof Staff notation
 
-@lilypondfile[quote]{staff-headword.ly}
+@c The line width is a bit of a hack to allow space for the
+@c  instrument names.
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
 
 このセクションでは、譜の見た目を変える方法、複数の譜を持つ楽譜を譜刻する方法、@c
 それに、テンポ指示と演奏指示楽節の音符を譜に付け加える方法について説明します。
@@ -96,7 +98,7 @@
 
 @code{RhythmicStaff} は、入力のリズム価だけを表示する単線譜を作成します。@c
 (ピッチは無視されますが) 演奏時間が保持されます。@c
-詳細は @ref{旋律のリズムを示す} を参照してください。
+詳細は @ref{Showing melody rhythms} を参照してください。
 
 @lilypond[verbatim,quote,relative=2]
 \new RhythmicStaff { c4 d e f }
@@ -124,7 +126,6 @@
 新たに単一譜コンテキストを定義する場合があります。@c
 詳細は @ref{Defining new contexts} を参照してください。
 
-
 @seealso
 音楽用語集:
 @rglos{staff},
@@ -133,10 +134,10 @@
 記譜法リファレンス:
 @ref{Creating contexts},
 @ref{Percussion staves},
-@ref{旋律のリズムを示す},
+@ref{Showing melody rhythms},
 @ref{Default tablatures},
 @ref{Pre-defined contexts},
-@ref{譜シンボル},
+@ref{Staff symbol},
 @ref{Gregorian chant contexts},
 @ref{Mensural contexts},
 @ref{Defining new contexts}
@@ -219,7 +220,7 @@
 
 @code{PianoStaff} は @code{GrandStaff} と同一ですが、@c
 例外として楽器名を刻譜することができます。@c
-詳細は @ref{楽器名} を参照してください。
+詳細は @ref{Instrument names} を参照してください。
 
 @lilypond[verbatim,quote,relative=2]
 \new PianoStaff <<
@@ -257,7 +258,6 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{brace},
@@ -265,7 +265,7 @@
 @rglos{grand staff}
 
 記譜法リファレンス:
-@ref{楽器名},
+@ref{Instrument names},
 @ref{Defining new contexts}
 
 コード断片集:
@@ -327,11 +327,10 @@
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {nesting-staves.ly}
 
-
 @seealso
 記譜法リファレンス:
-@ref{譜をグループ化する},
-@ref{楽器名},
+@ref{Grouping staves},
+@ref{Instrument names},
 @ref{Defining new contexts}
 
 コード断片集:
@@ -344,6 +343,7 @@
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}
+
 
 @c 未訳
 @node Separating systems
@@ -554,7 +554,7 @@ d4 e f g
 @rglos{staff}
 
 記譜法リファレンス:
-@ref{音部記号}
+@ref{Clef}
 
 コード断片集:
 @rlsr{Staff notation}
@@ -599,7 +599,7 @@ d4 e f g
 しかしながら、上の例は通常は望ましいものではありません。@c
 オリジナルの譜の上にあり、拍子記号や音部記号を持たず、@c
 小さなサイズのフォントを使用するオッシア譜を作成するには調整が必要です。@c
-学習マニュアルの @rlearning{音楽表記をネストする} に望ましいオッシア譜を@c
+学習マニュアルの @rlearning{Nesting music expressions} に望ましいオッシア譜を@c
 作成するための方法が記述されています。
 
 以下の例は、オッシア譜をオリジナルの譜の上に配置するために
@@ -711,7 +711,6 @@ d4 e f g
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{ossia},
@@ -719,12 +718,12 @@ d4 e f g
 @rglos{Frenched staff}
 
 学習マニュアル:
-@rlearning{音楽表記をネストする},
-@rlearning{オブジェクトのサイズ},
-@rlearning{オブジェクトの長さと太さ}
+@rlearning{Nesting music expressions},
+@rlearning{Size of objects},
+@rlearning{Length and thickness of objects}
 
 記譜法リファレンス:
-@ref{譜を隠す}
+@ref{Hiding staves}
 
 コード断片集:
 @rlsr{Staff notation}
@@ -826,20 +825,19 @@ d4 e f g
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {removing-the-first-empty-line.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{Frenched staff}
 
 学習マニュアル:
-@rlearning{オブジェクトの可視性と色}
+@rlearning{Visibility and color of objects}
 
 記譜法リファレンス:
 @ref{Changing context default settings},
-@ref{譜シンボル},
-@ref{オッシア譜}
+@ref{Staff symbol},
+@ref{Ossia staves},
 @ref{Hidden notes},
-@ref{不可視の休符},
+@ref{Invisible rests},
 @ref{Visibility of objects}
 
 コード断片集:
@@ -853,9 +851,7 @@ d4 e f g
 @rinternals{VerticalAxisGroup},
 @rinternals{Staff_symbol_engraver}
 
-
 @knownissues
-
 @code{Staff_symbol_engraver} を削除すると、小節線も隠されます。@c
 小節線が強制的に可視になるよう設定されている場合、@c
 フォーマット エラーが発生するかもしれません。@c
@@ -879,100 +875,11 @@ d4 e f g
 他のボイスを引用する方法と、演奏指示音符を譜刻する方法についても記述します。
 
 @menu
-@c * メトロノーム記号::
 * 楽器名::
 * 他のボイスを引用する::
 * 合図音符をフォーマットする::
 @end menu
 
-
-@ignore
-@node メトロノーム記号
-@unnumberedsubsubsec メトロノーム記号
-@translationof Metronome marks
-
-@cindex tempo (テンポ)
-@cindex beats per minute (1 分間あたりの拍数)
-@cindex metronome marking (メトロノーム記号)
-@cindex metronome marking with text (テキストのメトロノーム記号)
-
-@funindex \tempo
-@funindex tempo
-
-基本的なメトロノーム記号は単純に以下のように記述します:
-
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
-@end lilypond
-
-上記の代わりに、テキストのテンポ指示を用いることもできます:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
-@end lilypond
-
-メトロノーム記号とテキストを組み合わせると、メトロノーム記号は自動的に括弧で@c
-囲まれます:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
-@end lilypond
-
-一般的に、テキストは任意のマークアップ オブジェクトになり得ます:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
-@end lilypond
-
-テキストの指示無しにメトロノーム記号を括弧で囲むには、入力に空の文字列を@c
-含めます:
-
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
-@end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-metronome-and-rehearsal-marks-below-the-staff.ly}
-
-@c perhaps also an example of how to move it horizontally?
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{changing-the-tempo-without-a-metronome-mark.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{creating-metronome-marks-in-markup-mode.ly}
-
-更なる詳細は、@ref{テキストをフォーマットする} を参照してください。
-
-
-@seealso
-音楽用語集:
-@rglos{metronome},
-@rglos{metronomic indication},
-@rglos{tempo indication},
-@rglos{metronome mark}
-
-記譜法リファレンス:
-@ref{テキストをフォーマットする},
-@ref{MIDI 出力}
-
-コード断片集:
-@rlsr{Staff notation}
-
-内部リファレンス:
-@rinternals{MetronomeMark}
-@end ignore
 
 @node 楽器名
 @unnumberedsubsubsec 楽器名
@@ -1295,7 +1202,7 @@ oboeNotes = \relative c'' {
 
 @seealso
 記譜法リファレンス:
-@ref{楽器の移調},
+@ref{Instrument transpositions},
 @ref{Using tags}
 
 コード断片集:
@@ -1306,11 +1213,7 @@ oboeNotes = \relative c'' {
 @rinternals{QuoteMusic},
 @rinternals{Voice}
 
-インストールされているファイル:
-@file{scm/define-event-classes.scm}
-
 @knownissues
-
 @code{\addQuote} 中にある最初の @code{Voice} の内容だけが引用されます。@c
 そのため、音楽表記が @code{\new} や @code{\context Voice} を含んでいても、@c
 それらの内容は引用されません。@c
@@ -1430,7 +1333,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1471,9 +1374,15 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-マークアップを使用して引用される楽器の名前を表示することができます。@c
-また、合図音符が音部変更を必要とする場合、手動で変更することができますが、@c
-合図音符の終わりで手動で元の音部に戻す必要があります。
+@c ここから L2334
+一時的な @code{CueVoice} コンテキストの中の @code{instrumentCueName}
+プロパティを設定することで、合図を演奏する楽器の名前を表示させることが@c
+できます。@c
+@code{instrumentCueName} の位置とスタイルは @code{\instrumentSwitch}
+オブジェクトによって制御されます -- @ref{Instrument names} を参照して@c
+ください。@c
+合図音符が音符記号の変更を必要とする場合、手動で変更することができますが、@c
+合図音符が終わったところで手動で元の音部記号に戻す必要がありｍす。
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {
@@ -1484,7 +1393,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1510,7 +1419,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1586,7 +1495,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    s1*0^\markup { \tiny "flute" }
+  \new CueVoice { \set instrumentCueName = "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass
@@ -1612,16 +1521,16 @@ bassoonNotes = \relative c {
 あるいはまた、音部変更や楽器ラベルを再利用するために、@c
 @code{\addInstrumentDefinition} を用いて楽器の定義に含めることができます。@c
 @code{\addInstrumentDefinition} についての説明は
-@ref{楽器名} を参照してください。
+@ref{Instrument names} を参照してください。
 
 @seealso
 記譜法リファレンス:
-@ref{他のボイスを引用する},
-@ref{楽器の移調},
-@ref{楽器名},
-@ref{音部記号},
-@ref{合図},
-@ref{タグを使用する}
+@ref{Quoting other voices},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Clef},
+@ref{Musical cues},
+@ref{Using tags}
 
 コード断片集:
 @rlsr{Staff notation}
@@ -1631,7 +1540,6 @@ bassoonNotes = \relative c {
 @rinternals{Voice}
 
 @knownissues
-
 @code{\cueDuring} を使用した場合、@code{Voice} コンテキストと @code{CueVoice}
 コンテキストの間で休符の衝突が発生する可能性があります。@c
 @code{\cueDuringWithClef} や @code{\transposedCueDuring} を使用する場合、@c

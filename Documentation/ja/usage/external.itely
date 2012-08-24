@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -467,7 +467,10 @@ musicxml2ly [@var{option}]@dots{} @var{xml-file}
 XML 解析に lxml.etree Python パッケージを使用します。@c
 これはより少ないメモリと CPU 時間で実行されます。
 
-@item --nd --no-articulation-directions
+@item -m, --midi
+MIDI ブロックを有効にします。
+
+@item -nd --no-articulation-directions
 アーティキュレーションや強弱等の指示 (@code{^}, @code{_} あるいは @code{-})
 を変換しません。
 

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: bbd26f33a3141a7e7399cf669bb3eb68d445356c
+    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.16.0"
 
 @node Notación antigua
 @section Notación antigua
@@ -867,8 +867,10 @@ controlan a través de la propiedad @code{glyph-name-alist} de los
 elementos gráficos @code{Accidental} y
 @code{KeySignature}, respectivamente; p.ej.:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 @seealso
 Glosario musical:
@@ -1311,8 +1313,10 @@ a través de la propiedad @code{glyph-name-alist} de los grobs (objetos
 gráficos) @rinternals{Accidental} y @rinternals{KeySignature},
 respectivamente; p.ej.:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 @seealso
 Glosario musical:

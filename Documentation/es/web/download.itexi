@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9d3a999b3ae3502633858c50185c0180949d405c
+    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,7 +48,7 @@ infórmese sobre nuestra @ref{Entrada de texto}.}
 @c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux y FreeBSD)}
+@ref{Unix, Unix (GNU/Linux y FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}

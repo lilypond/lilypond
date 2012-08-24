@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: bb8aa1aed52c49e6e3de8c6c70a876598b11b4a8
+    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 
 @c Translators: Yoshiki Sawada
@@ -279,7 +279,7 @@ nawa は以下のように示すことができます:
 
 ここで、一般的なマカームの調号をマッピングしたグループを示します:
 
-@multitable @columnfractions 0.1 0.1 0.1 0.6
+@multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem マカーム グループ
   @tab 調
   @tab 終止音

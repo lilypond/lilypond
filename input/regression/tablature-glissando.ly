@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header{ texidoc = "Glissando lines in tablature have the right slope."
        }

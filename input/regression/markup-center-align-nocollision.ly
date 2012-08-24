@@ -1,4 +1,4 @@
-\version "2.15.7"
+\version "2.16.0"
 
 \header {
   texidoc = "Text markup using @code{center-align} or @code{center-column} shall

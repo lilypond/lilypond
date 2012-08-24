@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 \header{ texidoc = "As default, tablature staves show only the fret numbers, because
                     in most situations, they are combined with normal staves.

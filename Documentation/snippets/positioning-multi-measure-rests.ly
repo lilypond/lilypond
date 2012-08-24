@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.15.14
-\version "2.15.14"
+\version "2.16.0"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"

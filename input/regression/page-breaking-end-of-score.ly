@@ -1,4 +1,4 @@
-\version "2.14.1"
+\version "2.16.0"
 
 \header {
   texidoc = "Page breaks are allowed by default at the end of the score,

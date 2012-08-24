@@ -1,4 +1,4 @@
-\version "2.15.19"
+\version "2.16.0"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 

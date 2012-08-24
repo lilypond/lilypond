@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: c1df40da9f8b2794e173583c363f9e736e5531bd
+    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -81,7 +81,6 @@
 \chordmode { f2 g }
 @end lilypond
 
-
 @seealso
 音楽用語集:
 @rglos{chord}
@@ -92,7 +91,6 @@
 
 コード断片集:
 @rlsr{Chords}
-
 
 @knownissues
 
@@ -239,7 +237,6 @@ maj, maj7
 
 @end multitable
 
-
 @seealso
 記譜法リファレンス:
 @ref{Common chord modifiers},
@@ -247,7 +244,6 @@ maj, maj7
 
 コード断片集:
 @rlsr{Chords}
-
 
 @knownissues
 和音に付けるクオリティー修飾子は 1 つだけ
@@ -398,7 +394,6 @@ C の長三和音を作り出すということに注意してください。
 様々な標準和音を作り出すために使用される和音修飾子を
 @ref{Common chord modifiers} で示しています。
 
-
 @seealso
 記譜法リファレンス:
 @ref{Common chord modifiers}
@@ -406,9 +401,7 @@ C の長三和音を作り出すということに注意してください。
 コード断片集:
 @rlsr{Chords}
 
-
 @knownissues
-
 和音で各音を 1 度だけ使うことができます。@c
 以下の例では、最後の @code{5+} が解釈されるため、@c
 増和音が作り出されます。
@@ -539,7 +532,6 @@ C の長三和音を作り出すということに注意してください。
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 音楽用語集:
 @rglos{chord}
@@ -557,9 +549,7 @@ C の長三和音を作り出すということに注意してください。
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}
 
-
 @knownissues
-
 同時進行する音として和音を入力している場合、@c
 転回や低音の追加を含む和音のコード ネームは正しく表示されません。
 
@@ -777,7 +767,6 @@ Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の�
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-chord-separator.ly}
 
-
 @seealso
 記譜法リファレンス:
 @ref{Chord name chart},
@@ -794,12 +783,7 @@ Ignatzek のジャズ コードと変形コードを @ref{Chord name chart} の�
 コード断片集:
 @rlsr{Chords}
 
-@c 内部リファレンス:
-@c @r internals{}.
-
-
 @knownissues
-
 コード ネームは、和音に含まれるピッチと
 @code{\chordmode} で入力される和音構造についての情報の両方から決定されます。@c
 和音の入力手段として同時進行するピッチを用いた場合、@c
@@ -821,7 +805,8 @@ myChords = \relative c' {
 @subsection 通奏低音
 @translationof Figured bass
 
-@lilypondfile[quote]{figured-bass-headword.ly}
+@c Line width hack because of instrument names
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
 
 通奏低音を譜刻することができます。
 
@@ -884,7 +869,6 @@ properties can be used to modify the display of figures.  For
 example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 @end ignore
-
 
 @seealso
 音楽用語集:
@@ -1069,23 +1053,7 @@ example, the vertical spacing of the figures may be set with
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
-
 @seealso
-@c Music Glossary:
-@c @rglos{}.
-@c
-@c Learning Manual:
-@c @rlearning{}.
-@c
-@c Notation Reference:
-@c @ref{}.
-@c
-@c Application Usage:
-@c @rprogram{}.
-@c
-@c Installed Files:
-@c @file{}.
-@c
 コード断片集:
 @rlsr{Chords}
 
@@ -1096,9 +1064,6 @@ example, the vertical spacing of the figures may be set with
 @rinternals{BassFigureBracket},
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}
-
-
-@c @knownissues
 
 
 @node 通奏低音を表示する
@@ -1170,7 +1135,6 @@ example, the vertical spacing of the figures may be set with
 >>
 @end lilypond
 
-
 @predefined
 @cindex figured bass alignment (通奏低音の垂直揃えのベース)
 @code{\bassFigureStaffAlignmentDown},
@@ -1178,26 +1142,7 @@ example, the vertical spacing of the figures may be set with
 @code{\bassFigureStaffAlignmentNeutral}
 @endpredefined
 
-
-@c @snippets
-
-
 @seealso
-@c Music Glossary:
-@c @rglos{}.
-@c
-@c Learning Manual:
-@c @rlearning{}.
-@c
-@c Notation Reference:
-@c @ref{}.
-@c
-@c Application Usage:
-@c @rprogram{}.
-@c
-@c Installed Files:
-@c @file{}.
-@c
 コード断片集:
 @rlsr{Chords}
 
@@ -1209,9 +1154,7 @@ example, the vertical spacing of the figures may be set with
 @rinternals{BassFigureContinuation},
 @rinternals{FiguredBass}
 
-
 @knownissues
-
 継続線が正しく機能することを保証するために、@c
 通奏低音のリズムをバス パートに合わせた方が安全です。
 
