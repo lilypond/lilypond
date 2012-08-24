@@ -115,7 +115,7 @@ Translation Meister
 @item Valentin Villenave:
 LSR editor and Bug squad member
 
-@item Jan Warchoł:
+@item Janek Warchoł:
 happy nitpicker
 
 @end itemize
@@ -166,21 +166,6 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
-Aleksandr Andreev,
-Sven Axelsson,
-Peter Chubb,
-Karin Hoethker,
-Mark Hohl,
-Justin Ohmie,
-Benkő Pál,
-Julien Rioux,
-Patrick Schmidt,
-Adam Spiers,
-Heikki Taurainen,
-Piers Titus van der Torren,
-Jan-Peter Voigt,
-Janek Warchol
-
 @c no comma for last entry
 
 @end macro
@@ -201,24 +186,12 @@ Janek Warchol
 
 @c use commas not colons
 
-James Lowe,
-Pavel Roskin,
-Alberto Simoes,
-Stefan Weil
-
 @c no comma for last entry
 
 @end macro
 
 
 @macro bugsquadCurrent
-
-Colin Campbell,
-Eluze,
-Phil Holmes,
-Marek Klein,
-Ralph Palmer,
-James Lowe
 
 @c no comma for last entry
 
@@ -229,10 +202,6 @@ James Lowe
 
 @c use commas not colons
 
-Colin Campbell,
-Christian Hitz,
-Phil Holmes
-
 @c no comma for last entry
 
 @end macro
@@ -242,10 +211,6 @@ Phil Holmes
 @macro translationsCurrent
 
 @c use commas not colons
-
-Jean-Charles Malahieude,
-Till Paala,
-Yoshiki Sawada
 
 @c no comma for last entry
 
@@ -260,6 +225,7 @@ Yoshiki Sawada
 
 Erlend Aasland,
 Maximilian Albert,
+Aleksandr Andreev,
 Guido Amoruso,
 Sven Axelsson,
 Kristof Bastiaensen,
@@ -280,6 +246,7 @@ Lisa Opus Goldstein,
 Yuval Harel,
 Andrew Hawryluk,
 Christian Hitz,
+Karin Hoethker,
 Marc Hohl,
 Ian Hulin,
 Bernard Hurley,
@@ -299,7 +266,9 @@ Thomas Morgan,
 Joe Neeman,
 Matthias Neeracher,
 Keith OHara,
+Justin Ohmie,
 Tatsuya Ono,
+Benkő Pál,
 Benjamin Peterson,
 Guy Gascoigne-Piggford,
 Henning Hraban Ramm,
@@ -312,10 +281,14 @@ Patrick Schmidt,
 Boris Shingarov,
 Kim Shrier,
 Edward Sanford Sutton,
+Adam Spiers,
 David Svoboda,
+Heikki Taurainen,
+Piers Titus van der Torren,
 Owen Tuz,
 Sebastiano Vigna,
-Jan Warchoł,
+Jan-Peter Voigt,
+Janek Warchoł,
 Arno Waschk,
 John Williams,
 Andrew Wilson,
@@ -375,10 +348,13 @@ François Pinard,
 David Pounder,
 Michael Rasmussen,
 Till Rettig,
+Pavel Roskin,
 Patrick Schmidt,
+Alberto Simoes,
 Carl D. Sorensen,
 Anh Hai Trinh,
 Eduardo Vieira,
+Stefan Weil,
 Rune Zedeler
 
 @c no comma for last entry
@@ -389,9 +365,15 @@ Rune Zedeler
 @macro bugsquadPrevious
 
 @c use commas not colons
+
+Colin Campbell,
 James E. Bailey,
+Eluze,
+Phil Holmes,
 Derek Klinge,
+Marek Klein,
 Urs Liska,
+James Lowe,
 Kieren MacMillan,
 Ralph Palmer,
 Dmytro O. Redchuk
@@ -403,8 +385,10 @@ Dmytro O. Redchuk
 
 @c use commas not colons
 
+Colin Campbell,
 Anthony Fok,
 Christian Hitz,
+Phil Holmes
 Chris Jackson,
 Heikki Junes,
 David Svoboda
