@@ -1173,6 +1173,7 @@ Announcements and news by version:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Descriptive list of changes by version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
