@@ -3,7 +3,7 @@
 srcdir=${srcdir:-.}
 set -ux
 
-AUTOGEN_INPUT_CHECKSUM=`cat $srcdir/configure.in $srcdir/stepmake/aclocal.m4 | md5sum | cut -b 1-32`
+AUTOGEN_INPUT_CHECKSUM=`cat $srcdir/configure.in $srcdir/aclocal.m4 | md5sum | cut -b 1-32`
 
 CHECKSUM_FILE=autogen.checksum
 
