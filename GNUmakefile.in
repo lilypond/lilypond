@@ -40,7 +40,8 @@ include $(depth)/make/stepmake.make
 
 dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
 	@cd $(top-src-dir) && \
-	  if [[ `find . -name .git` && (`git diff HEAD` || `git status | grep -i "untracked"`) ]]; \
+	  if test -n "`find . -name .git`" -a '(' -n "`git diff HEAD | head -1`" \
+	    -o -n "`git status | grep -i untracked`" ')'; \
 	  then echo "***   dist must been rolled on a clean git tree;"; \
 	  echo "uncommitted changes or untracked files detected, aborting."; \
 	  exit 1; fi
@@ -51,7 +52,7 @@ dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfile
 	$(LN) $(TOPDOC_TXT_FILES) $(distdir)
 	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
 	cd $(top-src-dir) && xargs $(buildscript-dir)/mass-link hard . $(distdir) <$(top-build-dir)/.gitfilelist
-	if [[ `find $(top-src-dir) -name .git` ]]; then \
+	if test -n "`find $(top-src-dir) -name .git`"; then \
 	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
 	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
 	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
