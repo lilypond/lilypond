@@ -81,7 +81,7 @@ def force_link (src,dest):
         os.remove (dest)
     try:
         link (src, dest)
-    except OSError as e:
+    except OSError, e: # can't use "as" because GUB has python 2.4.5.
         if e.errno == 18:
             shutil.copy (src, dest)
         else:
