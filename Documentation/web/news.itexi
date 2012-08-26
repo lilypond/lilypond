@@ -26,7 +26,53 @@ NOTE:
   * don't duplicate entries from news-front.itexi
 @end ignore
 
+@newsItem
+@subsubheading Lilypond 2.15.95 released!  @emph{August 11, 2012}
 
+We are excited to announce the release of LilyPond 2.15.95.
+With this release, development on version 2.15 is frozen for the
+upcoming 2.16 stable release and only open to bug fixes.
+
+All users are urged to try this version to ensure the best
+quality of the upcoming stable release.  If you discover any
+problems, please send us @ref{Bug reports}.
+
+New features since 2.14.2 are listed in the @qq{Changes} manual
+on the website section about @ref{Development}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.15.42 released!  @emph{August 02, 2012}
+
+We are happy to announce the release of LilyPond 2.15.42.  This
+release contains the usual number of bugfixes.
+
+It is strongly recommended that normal users do @strong{not} use
+this release, and instead use the stable 2.14 version.  Please
+note that due to a few Critical bugs, this is not the next release
+candidate.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading The LilyPond Report #27. @emph{August 2, 2012}
+
+The @emph{LilyPond Report} is back, with some interesting insights on
+new Scheme-related features recently added by our community’s only paid
+developer David Kastrup (thanks to your
+@uref{http://lilypond.org/sponsoring.html, continuing donations}).  Also
+to be found in this issue are an overview of some lesser-known LilyPond
+companion projects, and a handful of more shallow factoids.
+
+Come
+@uref{http://news.lilynet.net/?The-LilyPond-Report-27, read
+LilyPond Report 27} now; comments and contributions are
+warmly encouraged!
+
+@newsEnd
 @newsItem
 @subsubheading Release candidate withdrawn  @emph{July 11, 2012}
 
