@@ -6,14 +6,13 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.16.0\n"
+"Project-Id-Version: lilypond 2.17.0\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-08-24 11:03+0200\n"
+"POT-Creation-Date: 2012-08-26 13:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,68 +46,68 @@ msgid ""
 "%s"
 msgstr ""
 
-#: book_snippets.py:409
+#: book_snippets.py:406
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: book_snippets.py:411
+#: book_snippets.py:408
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: book_snippets.py:414
+#: book_snippets.py:411
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: book_snippets.py:416
+#: book_snippets.py:413
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: book_snippets.py:533
+#: book_snippets.py:530
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: book_snippets.py:624
+#: book_snippets.py:621
 #, python-format
 msgid "Missing files: %s"
 msgstr ""
 
-#: book_snippets.py:654
+#: book_snippets.py:651
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:741
+#: book_snippets.py:738
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:761
+#: book_snippets.py:759
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:762
+#: book_snippets.py:760
 msgid "The error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:882
+#: book_snippets.py:880
 #, python-format
 msgid "Converting MusicXML file `%s'...\n"
 msgstr ""
 
-#: book_snippets.py:909
+#: book_snippets.py:907
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:922
+#: book_snippets.py:920
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -1974,7 +1973,7 @@ msgstr ""
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:254
+#: hairpin.cc:256
 msgid "decrescendo too small"
 msgstr ""
 
@@ -2072,16 +2071,16 @@ msgstr ""
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:255
+#: lily-lexer.cc:244
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:282
+#: lily-lexer.cc:271
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:303 lily-lexer.cc:316
+#: lily-lexer.cc:292 lily-lexer.cc:305
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2118,7 +2117,7 @@ msgid ""
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:109
+#: lily-parser.cc:108
 msgid "Parsing..."
 msgstr ""
 
@@ -2800,38 +2799,38 @@ msgstr ""
 msgid "Relocation: framework_prefix=%s"
 msgstr ""
 
-#: relocate.cc:186
+#: relocate.cc:172
 #, c-format
 msgid "Relocation: is absolute: argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:192
+#: relocate.cc:178
 #, c-format
-msgid "Relocation: from cwd: argv0=%s\n"
+msgid "Relocation : from cwd: argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:208
+#: relocate.cc:194
 #, c-format
 msgid ""
 "Relocation: from PATH=%s\n"
-"argv0=%s"
+"argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:235
+#: relocate.cc:221
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr ""
 
-#: relocate.cc:360
+#: relocate.cc:346
 #, c-format
 msgid "Relocation file: %s"
 msgstr ""
 
-#: relocate.cc:364 source-file.cc:65
+#: relocate.cc:350 source-file.cc:65
 #, c-format
 msgid "cannot open file: `%s'"
 msgstr ""
 
-#: relocate.cc:394
+#: relocate.cc:380
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr ""
@@ -3091,142 +3090,148 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:161 parser.yy:175
+#: parser.yy:161 parser.yy:175 /home/gperciva/src/lilypond/lily/parser.yy:161
+#: /home/gperciva/src/lilypond/lily/parser.yy:175
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:835 parser.yy:1284
+#: parser.yy:836 parser.yy:1285 /home/gperciva/src/lilypond/lily/parser.yy:836
+#: /home/gperciva/src/lilypond/lily/parser.yy:1285
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1027
+#: parser.yy:1028 /home/gperciva/src/lilypond/lily/parser.yy:1028
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1051
+#: parser.yy:1052 /home/gperciva/src/lilypond/lily/parser.yy:1052
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1204
+#: parser.yy:1205 /home/gperciva/src/lilypond/lily/parser.yy:1205
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:2044
+#: parser.yy:2045 /home/gperciva/src/lilypond/lily/parser.yy:2045
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2057
+#: parser.yy:2058 /home/gperciva/src/lilypond/lily/parser.yy:2058
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:2261
+#: parser.yy:2262 /home/gperciva/src/lilypond/lily/parser.yy:2262
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2357 parser.yy:2362
+#: parser.yy:2358 parser.yy:2363
+#: /home/gperciva/src/lilypond/lily/parser.yy:2358
+#: /home/gperciva/src/lilypond/lily/parser.yy:2363
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2477
+#: parser.yy:2478 /home/gperciva/src/lilypond/lily/parser.yy:2478
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2637 parser.yy:2681
+#: parser.yy:2638 parser.yy:2682
+#: /home/gperciva/src/lilypond/lily/parser.yy:2638
+#: /home/gperciva/src/lilypond/lily/parser.yy:2682
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2800
+#: parser.yy:2801 /home/gperciva/src/lilypond/lily/parser.yy:2801
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2855
+#: parser.yy:2856 /home/gperciva/src/lilypond/lily/parser.yy:2856
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3115
+#: parser.yy:3116 /home/gperciva/src/lilypond/lily/parser.yy:3116
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:218
+#: lexer.ll:218 /home/gperciva/src/lilypond/lily/lexer.ll:218
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:221
+#: lexer.ll:221 /home/gperciva/src/lilypond/lily/lexer.ll:221
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:279
+#: lexer.ll:279 /home/gperciva/src/lilypond/lily/lexer.ll:279
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:296
+#: lexer.ll:296 /home/gperciva/src/lilypond/lily/lexer.ll:296
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:300
+#: lexer.ll:300 /home/gperciva/src/lilypond/lily/lexer.ll:300
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:304
+#: lexer.ll:304 /home/gperciva/src/lilypond/lily/lexer.ll:304
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:327
+#: lexer.ll:327 /home/gperciva/src/lilypond/lily/lexer.ll:327
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:351
+#: lexer.ll:351 /home/gperciva/src/lilypond/lily/lexer.ll:351
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:377
+#: lexer.ll:377 /home/gperciva/src/lilypond/lily/lexer.ll:377
 msgid "string expected after \\include"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:387
+#: lexer.ll:387 /home/gperciva/src/lilypond/lily/lexer.ll:387
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:558
+#: lexer.ll:558 /home/gperciva/src/lilypond/lily/lexer.ll:558
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:672
+#: lexer.ll:672 /home/gperciva/src/lilypond/lily/lexer.ll:672
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:684
+#: lexer.ll:684 /home/gperciva/src/lilypond/lily/lexer.ll:684
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:782
+#: lexer.ll:782 /home/gperciva/src/lilypond/lily/lexer.ll:782
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:903 lexer.ll:904
+#: lexer.ll:903 /home/gperciva/src/lilypond/lily/lexer.ll:904
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1186 lexer.ll:1187
+#: lexer.ll:1186 /home/gperciva/src/lilypond/lily/lexer.ll:1187
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1230 lexer.ll:1231
+#: lexer.ll:1230 /home/gperciva/src/lilypond/lily/lexer.ll:1231
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1231 lexer.ll:1232
+#: lexer.ll:1231 /home/gperciva/src/lilypond/lily/lexer.ll:1232
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1237 lexer.ll:1238
+#: lexer.ll:1237 /home/gperciva/src/lilypond/lily/lexer.ll:1238
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3484,37 +3489,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:708
+#: lily.scm:715
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:709
+#: lily.scm:716
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:771
+#: lily.scm:778
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:774
+#: lily.scm:781
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:796 lily.scm:882
+#: lily.scm:803 lily.scm:889
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:873
+#: lily.scm:880
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:892 ps-to-png.scm:66
+#: lily.scm:899 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3609,7 +3614,7 @@ msgstr ""
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1578
+#: music-functions.scm:1588
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
@@ -3647,19 +3652,19 @@ msgstr ""
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr ""
 
-#: paper.scm:315
+#: paper.scm:321
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:327
+#: paper.scm:332
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:342
+#: paper.scm:347
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
