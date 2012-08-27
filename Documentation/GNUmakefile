@@ -319,7 +319,8 @@ new-lang-dir:
 
 new-lang:
 # Also for updating/adding missing files
-	mkdir -p $(ISOLANG)
+	mkdir -p $(ISOLANG)/included
+	if test -z "`ls $(ISOLANG)/included`"; then touch $(ISOLANG)/included/.gitignore; fi
 	cp fr/GNUmakefile $(ISOLANG)
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
