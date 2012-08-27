@@ -30,8 +30,10 @@
      . (
 	(alteration . ,accidental-interface::calc-alteration)
 	(avoid-slur . inside)
+	(glyph-name . ,accidental-interface::glyph-name)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(stencil . ,ly:accidental-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-extent . ,ly:accidental-interface::width)
 	(Y-extent . ,ly:accidental-interface::height)
 	(meta . ((class . Item)
@@ -396,6 +398,7 @@
 	(quantized-positions . ,ly:beam::set-stem-lengths)
 
 	(shorten . ,ly:beam::calc-stem-shorten)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(stencil . ,ly:beam::print)
 
 	(meta . ((class . Spanner)
@@ -533,6 +536,7 @@
 			(next-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -751,6 +755,8 @@
 	(side-axis . ,Y)
 	(slur-padding . 0.3)
 	(staff-padding . 0.1)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
+	(use-skylines . #t)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -774,12 +780,12 @@
 	(font-encoding . fetaText)
 	(font-series . bold)
 	(font-shape . italic)
-	(outside-staff-priority . 250)
 	(positioning-done . ,ly:script-interface::calc-positioning-done)
 	(right-padding . 0.5)
 	(self-alignment-X . ,CENTER)
 	(self-alignment-Y . ,CENTER)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Item)
@@ -830,6 +836,7 @@
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:line-spanner::print)
 	(style . dashed-line)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Spanner)
 		 (interfaces . (dynamic-interface
 				dynamic-text-spanner-interface
@@ -896,10 +903,12 @@
 
     (Flag
      . (
+	(glyph-name . ,ly:flag::glyph-name)
 	(stencil . ,ly:flag::print)
 	(X-extent . ,ly:flag::width)
 	(X-offset . ,ly:flag::calc-x-offset)
 	(Y-offset . ,ly:flag::calc-y-offset)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (flag-interface
                                 font-interface))))))
@@ -978,6 +987,7 @@
 	(simple-Y . #t)
 	(stencil . ,ly:line-spanner::print)
 	(style . line)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-extent . #f)
 	(Y-extent . #f)
 	(zigzag-width . 0.75)
@@ -1035,6 +1045,7 @@
 	(stencil . ,ly:hairpin::print)
 	(thickness . 1.0)
 	(to-barline . #t)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Spanner)
 		 (interfaces . (dynamic-interface
@@ -1109,6 +1120,7 @@
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
 	(stencil . ,ly:key-signature-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(extra-spacing-width . (0.0 . 1.0))
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -1139,6 +1151,7 @@
 	(stencil . ,ly:key-signature-interface::print)
 	(extra-spacing-width . (0.0 . 1.0))
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -1160,6 +1173,7 @@
 	(stencil  . ,laissez-vibrer::print)
 	(thickness . 1.0)
 	(extra-spacing-height . (-0.5 . 0.5))
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))))))
 
@@ -1249,6 +1263,7 @@
 	(padding . 0.07)
 	(springs-and-rods . ,ly:lyric-hyphen::set-spacing-rods)
 	(stencil . ,ly:lyric-hyphen::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(thickness . 1.3)
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
@@ -1280,6 +1295,8 @@
 	(stencil . ,lyric-text::print)
 	(text . ,(grob::calc-property-by-copy 'text))
 	(word-space . 0.6)
+	(skyline-horizontal-padding . 0.1)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1287,7 +1304,6 @@
 				rhythmic-grob-interface
 				self-alignment-interface
 				text-interface))))))
-
 
     (MeasureGrouping
      . (
@@ -1323,10 +1339,12 @@
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))
+	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 1000)
 	(padding . 0.8)
 	(side-axis . ,Y)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
@@ -1547,6 +1565,7 @@
 	(staff-padding . 1.0)
 	(stencil . ,ly:ottava-bracket::print)
 	(style . dashed-line)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
@@ -1565,6 +1584,9 @@
 	(bound-alignment-interfaces . (note-column-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(keep-inside-line . #t)
+	; 0.08 comes from spacing-horizontal-skyline.ly
+	; allows double flat of F to be nestled over dots of C
+	(skyline-vertical-padding . 0.08)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
 
@@ -1655,6 +1677,7 @@
 	(stencil . ,ly:piano-pedal-bracket::print)
 	(style . line)
 	(thickness .  1.0)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				piano-pedal-bracket-interface
@@ -1671,10 +1694,12 @@
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-size . 2)
 	(non-musical . #t)
+	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 1500)
 	(padding . 0.8)
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -1711,6 +1736,7 @@
 	(stencil  . ,ly:tie::print)
 	(thickness . 1.0)
 	(extra-spacing-height . (-0.5 . 0.5))
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))))))
 
@@ -1763,6 +1789,7 @@
 
 	(stencil . ,ly:script-interface::print)
 	(use-skylines . #t)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,script-interface::calc-x-offset)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Item)
@@ -1810,6 +1837,7 @@
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1826,6 +1854,7 @@
 	(padding . 1.2)
 	(side-axis . ,Y)
 	(staff-padding . 1.0)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -2059,6 +2088,7 @@
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:sustain-pedal::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -2076,6 +2106,7 @@
 	(padding . 1.2)
 	(side-axis . ,Y)
 	(staff-padding . 1.2)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -2090,6 +2121,7 @@
      . (
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,X ,Y))
+	(outside-staff-placement-directive . left-to-right-polite)
 	(skyline-horizontal-padding . 0.5)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2098,7 +2130,9 @@
 		 (object-callbacks . ((footnotes-before-line-breaking . ,ly:system::footnotes-before-line-breaking)
 				      (footnotes-after-line-breaking . ,ly:system::footnotes-after-line-breaking)
 				      (pure-relevant-grobs . ,ly:system::calc-pure-relevant-grobs)
-				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
+				      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
+				      (vertical-skyline-elements . ,ly:system::vertical-skyline-elements)
+                                      (vertical-alignment . ,ly:system::get-vertical-alignment)))
 		 (interfaces . (axis-group-interface
 				system-interface))))))
 
@@ -2204,6 +2238,7 @@
 	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,DOWN)
 	(extra-spacing-width . (+inf.0 . -inf.0))
+	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 450)
 
 	;; sync with Fingering ?
@@ -2214,6 +2249,7 @@
 	(slur-padding . 0.5)
 	(staff-padding . 0.5)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	;; todo: add X self alignment?
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -2287,6 +2323,7 @@
 	(neutral-direction . ,UP)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:tie::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(thickness . 1.2)
 	(meta . ((class . Spanner)
 		 (interfaces . (tie-interface))))))
@@ -2416,6 +2453,7 @@
 	(staff-padding . 0.25)
 	(stencil . ,ly:tuplet-bracket::print)
 	(thickness . 1.6)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-positions . ,ly:tuplet-bracket::calc-x-positions)
 
 	(meta . ((class . Spanner)
@@ -2447,6 +2485,7 @@
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:text-interface::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -2463,6 +2502,7 @@
 	(padding . 1.2)
 	(side-axis . ,Y)
 	(staff-padding . 1.2)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -2507,8 +2547,10 @@
 					(minimum-distance . 8)
 					(padding . 1)))
 	(nonstaff-unrelatedstaff-spacing . ((padding . 0.5)))
+	(outside-staff-placement-directive . left-to-right-polite)
 	(staff-staff-spacing . ,ly:axis-group-interface::calc-staff-staff-spacing)
 	(stencil . ,ly:axis-group-interface::print)
+	(skyline-horizontal-padding . 0.1)
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
@@ -2532,6 +2574,7 @@
 				   (padding . 1.5)
 				      ))
 			  ))
+	(cross-staff . #t)
 	(gap . 0.5)
 	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
 	(non-musical . #t)
@@ -2553,6 +2596,7 @@
 	(stencil . ,ly:volta-bracket-interface::print)
 	(thickness . 1.6) ;; line-thickness
 	(word-space . 0.6)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				horizontal-bracket-interface
@@ -2571,9 +2615,10 @@
 	(outside-staff-priority . 600)
 	(padding . 1)
 	(side-axis . ,Y)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
-	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+        (Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
 				      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))

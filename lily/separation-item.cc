@@ -80,8 +80,7 @@ Skyline
 Separation_item::conditional_skyline (Grob *me, Grob *left)
 {
   vector<Box> bs = boxes (me, left);
-  Real horizon_padding = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
-  return Skyline (bs, horizon_padding, Y_AXIS, LEFT);
+  return Skyline (bs, Y_AXIS, LEFT);
 }
 
 MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines, 1);
@@ -90,8 +89,19 @@ Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob_item (smob);
   vector<Box> bs = boxes (me, 0);
-  Real horizon_padding = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
-  return Skyline_pair (bs, horizon_padding, Y_AXIS).smobbed_copy ();
+  Skyline_pair sp (bs, Y_AXIS);
+  /*
+    TODO: We need to decide if padding is 'intrinsic'
+    to a skyline or if it is something that is only added on in
+    distance calculations.  Here, we make it intrinsic, which copies
+    the behavior from the old code but no longer corresponds to how
+    vertical skylines are handled (where padding is not built into
+    the skyline).
+  */
+  Real vp = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
+  sp[LEFT] = sp[LEFT].padded (vp);
+  sp[RIGHT] = sp[RIGHT].padded (vp);
+  return sp.smobbed_copy ();
 }
 
 /* if left is non-NULL, get the boxes corresponding to the

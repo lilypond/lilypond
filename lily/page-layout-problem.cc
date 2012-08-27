@@ -539,7 +539,7 @@ Page_layout_problem::set_footer_height (Real height)
 void
 Page_layout_problem::append_system (System *sys, Spring const &spring, Real indent, Real padding)
 {
-  Grob *align = sys->get_vertical_alignment ();
+  Grob *align = unsmob_grob (sys->get_object ("vertical-alignment"));
   if (!align)
     return;
 

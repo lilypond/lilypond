@@ -30,14 +30,25 @@ private:
   DECLARE_SIMPLE_SMOBS (Skyline_pair);
 public:
   Skyline_pair ();
-  Skyline_pair (vector<Box> const &boxes, Real horizon_padding, Axis a);
-  Skyline_pair (Box const &, Real horizon_padding, Axis a);
+  Skyline_pair (vector<Box> const &boxes, Axis a);
+  Skyline_pair (vector<Drul_array<Offset> > const &buildings, Axis a);
+  Skyline_pair (vector<Skyline_pair> const &skypairs);
+  Skyline_pair (Box const &, Axis a);
+
   void raise (Real);
+  void grow (Real);
   void shift (Real);
-  void insert (Box const &, Real horizon_padding, Axis);
+  void deholify ();
+  Real smallest_shift (Skyline_pair const &other, Direction d,
+                       Real h_padding = 0, Real v_padding = 0);
+  Real left () const;
+  Real right () const;
+  bool intersects (Skyline_pair const &other) const;
+  void insert (Box const &, Axis);
   void merge (Skyline_pair const &other);
   Skyline &operator [] (Direction d);
   Skyline const &operator [] (Direction d) const;
+  bool is_singleton () const;
   bool is_empty () const;
   void print () const;
   void print_points () const;

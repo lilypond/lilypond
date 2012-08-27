@@ -45,7 +45,7 @@ Dot_formatting_problem::best () const
 
 Dot_formatting_problem::Dot_formatting_problem (vector<Box> const &boxes,
                                                 Interval base_x)
-  : head_skyline_ (boxes, 0.2, Y_AXIS, RIGHT)
+  : head_skyline_ (boxes, Y_AXIS, RIGHT)
 {
   best_ = 0;
   head_skyline_.set_minimum_height (base_x[RIGHT]);

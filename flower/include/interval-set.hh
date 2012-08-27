@@ -23,20 +23,20 @@
 #include "std-vector.hh"
 #include "interval.hh"
 
-/*
-  A union of intervals in the real line.
-
-  Abysmal performance (quadratic) for large N, hopefully we don't have
-  that large N. In any case, this should probably be rewritten to use
-  a balanced tree.
-*/
-struct Interval_set
+class Interval_set
 {
-  vector<Interval> allowed_regions_;
-
+public:
   Interval_set ();
-  void set_full ();
-  void remove_interval (Interval rm);
+
+  static Interval_set interval_union (vector<Interval>);
+
+  vector<Interval> const &intervals () const { return intervals_; }
+  vector<Interval>::const_iterator upper_bound (Real x) const;
+  Real nearest_point (Real x, Direction dir = CENTER) const;
+  Interval_set complement () const;
+
+private:
+  vector<Interval> intervals_;
 };
 
 #endif /* INTERVAL_SET_HH */

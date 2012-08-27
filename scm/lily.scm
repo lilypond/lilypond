@@ -289,7 +289,6 @@ messages into errors.")
 (if (memq (ly:get-option 'backend) music-string-to-path-backends)
     (ly:set-option 'music-strings-to-paths #t))
 
-
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
     (ly:debug "[~A" file-name)

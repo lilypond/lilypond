@@ -231,6 +231,7 @@ ADD_INTERFACE (Accidental_interface,
                "avoid-slur "
                "forced "
                "glyph-name-alist "
+               "glyph-name "
                "hide-tied-accidental-after-break "
                "parenthesized "
                "restore-first "

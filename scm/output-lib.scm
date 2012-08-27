@@ -574,6 +574,10 @@ and duration-log @var{log}."
 (define-public (accidental-interface::calc-alteration grob)
   (ly:pitch-alteration (ly:event-property (event-cause grob) 'pitch)))
 
+(define-public (accidental-interface::glyph-name grob)
+  (assoc-get (ly:grob-property grob 'alteration)
+             standard-alteration-glyph-name-alist))
+
 (define-public cancellation-glyph-name-alist
   '((0 . "accidentals.natural")))
 

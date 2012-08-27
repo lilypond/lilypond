@@ -270,8 +270,8 @@ set_ape_skylines (Accidental_placement_entry *ape,
       last_octave = p->get_octave ();
       last_alteration = p->get_alteration ();
     }
-  ape->left_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, LEFT);
-  ape->right_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, RIGHT);
+  ape->left_skyline_ = Skyline (ape->extents_, Y_AXIS, LEFT);
+  ape->right_skyline_ = Skyline (ape->extents_, Y_AXIS, RIGHT);
 }
 
 static vector<Grob *>
@@ -350,7 +350,7 @@ build_heads_skyline (vector<Grob *> const &heads_and_stems,
     head_extents.push_back (Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
                                  heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
 
-  return Skyline (head_extents, 0, Y_AXIS, LEFT);
+  return Skyline (head_extents, Y_AXIS, LEFT);
 }
 
 /*

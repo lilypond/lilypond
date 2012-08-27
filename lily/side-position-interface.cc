@@ -21,6 +21,7 @@
 
 #include <cmath>                // ceil.
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -32,7 +33,9 @@ using namespace std;
 #include "main.hh"
 #include "misc.hh"
 #include "note-head.hh"
+#include "note-column.hh"
 #include "pointer-group-interface.hh"
+#include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
@@ -172,23 +175,32 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
   Direction dir = get_grob_direction (me);
 
-  Box off;
-  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+  Skyline my_dim;
+  Skyline_pair *sp = Skyline_pair::unsmob (me->get_property ("vertical-skylines"));
+  if (sp && a == Y_AXIS && !pure)
     {
-      if (ax == a)
-        off[ax] = me->get_parent (ax)->maybe_pure_coordinate (common[ax], ax, pure, start, end)
-                  + me->maybe_pure_extent (me, ax, pure, start, end);
-      else
-        off[ax] = me->maybe_pure_extent (common[ax], ax, pure, start, end);
+      Skyline_pair copy = Skyline_pair (*sp);
+      copy.shift (me->relative_coordinate (common[X_AXIS], X_AXIS));
+      copy.raise (me->get_parent (Y_AXIS)->relative_coordinate (common[Y_AXIS], Y_AXIS));
+      my_dim = copy[-dir];
     }
+  else
+    {
+      Box off;
+      for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+        {
+          if (ax == a)
+            off[ax] = me->get_parent (ax)->maybe_pure_coordinate (common[ax], ax, pure, start, end)
+                      + me->maybe_pure_extent (me, ax, pure, start, end);
+          else
+            off[ax] = me->maybe_pure_extent (common[ax], ax, pure, start, end);
+        }
 
-  if (off[X_AXIS].is_empty () || off[Y_AXIS].is_empty ())
-    return scm_from_double (0.0);
+      if (off[X_AXIS].is_empty () || off[Y_AXIS].is_empty ())
+        return scm_from_double (0.0);
 
-  Real skyline_padding = 0.1;
-
-  Skyline my_dim (off, skyline_padding, other_axis (a), -dir);
-
+      my_dim = Skyline (off, other_axis (a), -dir);
+    }
   bool include_staff
     = staff_symbol
       && a == Y_AXIS
@@ -196,7 +208,9 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
       && !to_boolean (me->get_property ("quantize-position"));
 
   vector<Box> boxes;
+  vector<Skyline_pair> skyps;
   Real min_h = dir == LEFT ? infinity_f : -infinity_f;
+  map<Grob *, vector<Grob *> > note_column_map; // for parts of a note column
   for (vsize i = 0; i < support.size (); i++)
     {
       Grob *e = support[i];
@@ -218,6 +232,22 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
             }
           else
             {
+              if (Note_column::has_interface (e->get_parent (X_AXIS))
+                  && to_boolean (me->get_property ("add-stem-support")))
+                {
+                  note_column_map[e->get_parent (X_AXIS)].push_back (e);
+                  continue;
+                }
+
+              Skyline_pair *sp = Skyline_pair::unsmob (e->get_property ("vertical-skylines"));
+              if (sp && a == Y_AXIS && !pure)
+                {
+                  Skyline_pair copy = Skyline_pair (*sp);
+                  copy.shift (e->relative_coordinate (common[X_AXIS], X_AXIS));
+                  copy.raise (e->relative_coordinate (common[Y_AXIS], Y_AXIS));
+                  skyps.push_back (copy);
+                  continue;
+                }
               Box b;
               for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
                 b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
@@ -231,7 +261,33 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
         }
     }
 
-  Skyline dim (boxes, skyline_padding, other_axis (a), dir);
+  // this loop ensures that parts of a note column will be in the same box
+  // pushes scripts and such over stems instead of just over heads
+  for (map<Grob *, vector<Grob *> >::iterator i = note_column_map.begin (); i != note_column_map.end (); i++)
+    {
+      Box big;
+      for (vsize j = 0; j < (*i).second.size (); j++)
+        {
+          Grob *e = (*i).second[j];
+          Box b;
+          for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+            b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
+
+          if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+            continue;
+
+          big.unite (b);
+        }
+      if (!big[X_AXIS].is_empty () && !big[Y_AXIS].is_empty ())
+        boxes.push_back (big);
+    }
+
+  Skyline dim (boxes, other_axis (a), dir);
+  if (skyps.size ())
+    {
+      Skyline_pair merged (skyps);
+      dim.merge (merged[dir]);
+    }
   if (!boxes.size ())
     dim.set_minimum_height (0.0);
   else
@@ -245,7 +301,9 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
       dim.set_minimum_height (minmax (dir, min_h, staff_extents[dir]));
     }
 
-  Real total_off = dir * dim.distance (my_dim);
+  Real dist = dim.distance (my_dim, 0.1); // 0.1 m4g1c value...fix...
+  Real total_off = !isinf (dist) ? dir * dist : 0.0;
+
   return finish_offset (me, dir, total_off, current_offset);
 }
 
@@ -327,7 +385,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   Direction dir = get_grob_direction (me);
   bool skyline = to_boolean (me->get_property ("use-skylines"));
 
-  Real o = scm_to_double (skyline
+  Real o = scm_to_double (skyline && !pure
                           ? skyline_side_position (me, a, pure, start, end, current_off)
                           : general_side_position (me, a, true, true, pure, start, end, current_off));
 
@@ -465,6 +523,7 @@ ADD_INTERFACE (Side_position_interface,
                " is ignored.",
 
                /* properties */
+               "add-stem-support "
                "direction "
                "minimum-space "
                "padding "

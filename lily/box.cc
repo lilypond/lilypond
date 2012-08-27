@@ -33,6 +33,13 @@ Box::unite (Box b)
     interval_a_[i].unite (b[i]);
 }
 
+Real
+Box::area () const
+{
+  return interval_a_[X_AXIS].length ()
+         * interval_a_[Y_AXIS].length ();
+}
+
 Box::Box ()
 {
 }

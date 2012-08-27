@@ -11,7 +11,7 @@
 }
 \relative
 {
-  b(^"dyn outside" b f'\p b,)
+  b( b f'\p b,)
 
   g( d'\< d \! g,)
 }

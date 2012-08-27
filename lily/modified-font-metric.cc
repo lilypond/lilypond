@@ -61,6 +61,12 @@ Modified_font_metric::get_indexed_char_dimensions (vsize i) const
   return b;
 }
 
+Real
+Modified_font_metric::get_magnification () const
+{
+  return magnification_;
+}
+
 vsize
 Modified_font_metric::count () const
 {

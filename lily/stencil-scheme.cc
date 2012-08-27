@@ -34,6 +34,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, amount, 2);
+
   LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Real real_amount = scm_to_double (amount);

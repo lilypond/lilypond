@@ -41,11 +41,13 @@ class Open_type_font : public Font_metric
 
   DECLARE_CLASSNAME (Open_type_font);
 public:
+  Real get_units_per_EM () const;
   SCM get_subfonts () const;
   SCM get_global_table () const;
   SCM get_char_table () const;
   SCM glyph_list () const;
-
+  SCM get_glyph_outline (size_t signed_idx) const;
+  Box get_glyph_outline_bbox (size_t signed_idx) const;
   string get_otf_table (string tag) const;
   static SCM make_otf (string);
   string font_name () const;
@@ -53,6 +55,7 @@ public:
   Offset attachment_point (string) const;
   size_t count () const;
   Box get_indexed_char_dimensions (size_t) const;
+  Box get_unscaled_indexed_char_dimensions (size_t) const;
   size_t name_to_index (string) const;
   //size_t glyph_name_to_charcode (string) const;
   size_t index_to_charcode (size_t) const;

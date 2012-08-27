@@ -22,55 +22,106 @@
 /*
   A union of intervals in the real line.
 
-  Abysmal performance (quadratic) for large N, hopefully we don't have
-  that large N. In any case, this should probably be rewritten to use
-  a balanced tree.
+  This class gives good performance for finding the union of
+  a collection of intervals (n log n) and for testing if a point
+  belongs to the union (log n).  It does not give an efficient way to
+  update the set (ie. by adding more intervals); to do this
+  efficiently would require a self-balancing tree, and it would not
+  be currently useful in lilypond anyway.
 */
 
 Interval_set::Interval_set ()
 {
-  set_full ();
 }
 
-void
-Interval_set::set_full ()
+Interval_set
+Interval_set::interval_union (vector<Interval> ivs)
 {
-  allowed_regions_.clear ();
-  Interval s;
-  s.set_full ();
-  allowed_regions_.push_back (s);
-}
+  vector_sort (ivs, Interval::left_less);
 
-void
-Interval_set::remove_interval (Interval rm)
-{
-  for (vsize i = 0; i < allowed_regions_.size ();)
+  Interval_set ret;
+
+  if (ivs.empty ())
+    return ret;
+
+  ret.intervals_.push_back (ivs.front ());
+
+  // Go over the intervals from left to right.  If the current interval
+  // overlaps with the last one, merge them.  Otherwise, append the
+  // current interval to the list.
+  for (vsize i = 1; i < ivs.size (); ++i)
     {
-      Interval s = rm;
+      Interval iv = ivs[i];
+      Interval &last = ret.intervals_.back ();
 
-      s.intersect (allowed_regions_[i]);
-
-      if (!s.is_empty ())
-        {
-          Interval before = allowed_regions_[i];
-          Interval after = allowed_regions_[i];
-
-          before[RIGHT] = s[LEFT];
-          after[LEFT] = s[RIGHT];
-
-          if (!before.is_empty () && before.length () > 0.0)
-            {
-              allowed_regions_.insert (allowed_regions_.begin () + (long)i, before);
-              i++;
-            }
-          allowed_regions_.erase (allowed_regions_.begin () + (long)i);
-          if (!after.is_empty () && after.length () > 0.0)
-            {
-              allowed_regions_.insert (allowed_regions_.begin () + (long)i, after);
-              i++;
-            }
-        }
-      else
-        i++;
+      if (last[RIGHT] >= iv[LEFT])
+        // overlapping intervals: merge them
+        last[RIGHT] = max (last[RIGHT], iv[RIGHT]);
+      else if (!iv.is_empty ())
+        ret.intervals_.push_back (iv);
     }
+
+  return ret;
+}
+
+// Returns an iterator pointing to the first interval whose left
+// endpoint is at least x.  That interval may or may not contain x.
+vector<Interval>::const_iterator
+Interval_set::upper_bound (Real x) const
+{
+  Interval xx (x, x);
+  return std::upper_bound (intervals_.begin (), intervals_.end (), xx, Interval::left_less);
+}
+
+Real
+Interval_set::nearest_point (Real x, Direction d) const
+{
+  Real left = -infinity_f; // The closest point to the left of x.
+  Real right = infinity_f; // The closest point to the right of x.
+
+  vector<Interval>::const_iterator i = upper_bound (x);
+  if (i != intervals_.end ())
+    right = (*i)[LEFT];
+
+  if (i != intervals_.begin ())
+    {
+      Interval left_iv = *(i - 1);
+      // left_iv[LEFT] is guaranteed to be less than x. So if
+      // left_iv[RIGHT] >= x then left_iv contains x, which must then
+      // be the nearest point to x.
+      if (left_iv[RIGHT] >= x)
+        return x;
+
+      left = left_iv[RIGHT];
+    }
+
+  if (d == RIGHT)
+    return right;
+  if (d == LEFT)
+    return left;
+  else
+    return (right - x) < (x - left) ? right : left;
+}
+
+Interval_set
+Interval_set::complement () const
+{
+  Interval_set ret;
+
+  if (intervals_.empty ())
+    {
+      ret.intervals_.push_back (Interval (-infinity_f, infinity_f));
+      return ret;
+    }
+
+  if (intervals_[0][LEFT] > -infinity_f)
+    ret.intervals_.push_back (Interval (-infinity_f, intervals_[0][LEFT]));
+
+  for (vsize i = 1; i < intervals_.size (); ++i)
+    ret.intervals_.push_back (Interval (intervals_[i - 1][RIGHT], intervals_[i][LEFT]));
+
+  if (intervals_.back ()[RIGHT] < infinity_f)
+    ret.intervals_.push_back (Interval (intervals_.back ()[RIGHT], infinity_f));
+
+  return ret;
 }

@@ -660,6 +660,24 @@ is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
 this grob and the staff when spacing according to
 @code{outside-staff-priority}.")
+     (outside-staff-placement-directive ,symbol? "One of four directives
+telling how outside staff objects should be placed.
+@itemize @bullet
+@item
+@code{left-to-right-greedy} -- Place each successive grob from left to
+right.
+@item
+@code{left-to-right-polite} -- Place a grob from left to right only if
+it does not potentially overlap with another grob that has been placed
+on a pass through a grob array. If there is overlap, do another pass to
+determine placement.
+@item
+@code{right-to-left-greedy} -- Same as @code{left-to-right-greedy}, but
+from right to left.
+@item
+@code{right-to-left-polite} -- Same as @code{left-to-right-polite}, but
+from right to left.
+@end itemize")
      (outside-staff-priority ,number? "If set, the grob is positioned
 outside the staff in such a way as to avoid all collisions.  In case
 of a potential collision, the grob with the smaller
@@ -943,7 +961,6 @@ positioning?")
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
 
-
 ;;
 ;; w
 ;;
@@ -1108,8 +1125,6 @@ relevant for finding the @code{pure-Y-extent}.")
 
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
-     (skyline-quantizing ,index? "The number of boxes to break a
-slur into when calculating its skyline.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
@@ -1134,6 +1149,11 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplet-start ,boolean? "Is stem at the start of a tuplet?")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
+
+     (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
+     (vertical-skyline-elements ,ly:grob-array? "An array of grobs
+used to create vertical skylines.")
+
      (X-colliding-grobs ,ly:grob-array? "Grobs that can collide
 with a self-aligned grob on the X-axis.")
      (Y-colliding-grobs ,ly:grob-array? "Grobs that can collide

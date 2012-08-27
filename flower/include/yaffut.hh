@@ -21,6 +21,7 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <unistd.h>
 
 #define YAFFUT_STRINGIZE(x) YAFFUT_STRINGIZE_(x)
 #define YAFFUT_STRINGIZE_(x) #x

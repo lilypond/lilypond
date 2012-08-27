@@ -19,7 +19,9 @@
 */
 
 #include "text-interface.hh"
+#include "skyline-pair.hh"
 
+#include "lookup.hh"
 #include "config.hh"
 #include "font-interface.hh"
 #include "grob.hh"

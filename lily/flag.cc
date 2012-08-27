@@ -33,6 +33,7 @@ class Flag
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
@@ -61,9 +62,10 @@ Flag::width (SCM smob)
 
   return ly_interval2scm (sten->extent (X_AXIS) - stem->extent (stem, X_AXIS)[RIGHT]);
 }
-MAKE_SCHEME_CALLBACK (Flag, print, 1);
+
+MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
 SCM
-Flag::print (SCM smob)
+Flag::glyph_name (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *stem = me->get_parent (X_AXIS);
@@ -75,9 +77,6 @@ Flag::print (SCM smob)
   SCM flag_style_scm = me->get_property ("style");
   if (scm_is_symbol (flag_style_scm))
     flag_style = ly_symbol2string (flag_style_scm);
-
-  if (flag_style == "no-flag")
-    return Stencil ().smobbed_copy ();
 
   bool adjust = true;
 
@@ -107,8 +106,30 @@ Flag::print (SCM smob)
   char dir = (d == UP) ? 'u' : 'd';
   string font_char = flag_style
                      + to_string (dir) + staffline_offs + to_string (log);
+  return ly_string2scm ("flags." + font_char);
+}
+
+MAKE_SCHEME_CALLBACK (Flag, print, 1);
+SCM
+Flag::print (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = me->get_parent (X_AXIS);
+
+  Direction d = get_grob_direction (stem);
+  string flag_style;
+
+  SCM flag_style_scm = me->get_property ("style");
+  if (scm_is_symbol (flag_style_scm))
+    flag_style = ly_symbol2string (flag_style_scm);
+
+  if (flag_style == "no-flag")
+    return Stencil ().smobbed_copy ();
+
+  char dir = (d == UP) ? 'u' : 'd';
   Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil flag = fm->find_by_name ("flags." + font_char);
+  string font_char = robust_scm2string (me->get_property ("glyph-name"), "");
+  Stencil flag = fm->find_by_name (font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));
 
@@ -190,6 +211,7 @@ ADD_INTERFACE (Flag,
                " @code{'no-flag}, which switches off the flag.",
 
                /* properties */
+               "glyph-name "
                "style "
                "stroke-style "
               );

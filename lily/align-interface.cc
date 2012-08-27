@@ -121,7 +121,7 @@ get_skylines (Grob *me,
                   Box b;
                   b[a] = begin_of_line_extent;
                   b[other_axis (a)] = Interval (-infinity_f, -1);
-                  skylines.insert (b, 0, other_axis (a));
+                  skylines.insert (b, other_axis (a));
                 }
             }
 
@@ -130,7 +130,7 @@ get_skylines (Grob *me,
               Box b;
               b[a] = extent;
               b[other_axis (a)] = Interval (0, infinity_f);
-              skylines.insert (b, 0, other_axis (a));
+              skylines.insert (b, other_axis (a));
             }
         }
 

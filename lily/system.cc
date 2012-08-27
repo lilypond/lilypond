@@ -36,6 +36,7 @@
 #include "pointer-group-interface.hh"
 #include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
+#include "system-start-delimiter.hh"
 #include "text-interface.hh"
 #include "warn.hh"
 #include "unpure-pure-container.hh"
@@ -404,6 +405,37 @@ System::footnotes_after_line_breaking (SCM smob)
   return grobs_scm;
 }
 
+MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements, 1);
+SCM
+System::vertical_skyline_elements (SCM smob)
+{
+  Grob *me_grob = unsmob_grob (smob);
+  vector<Grob *> vertical_skyline_grobs;
+  extract_grob_set (me_grob, "elements", my_elts);
+  for (vsize i = 0; i < my_elts.size (); i++)
+    if (System_start_delimiter::has_interface (my_elts[i]))
+      vertical_skyline_grobs.push_back (my_elts[i]);
+
+  System *me = dynamic_cast<System *> (me_grob);
+  Grob *align = unsmob_grob (me->get_object ("vertical-alignment"));
+  if (!align)
+    {
+      SCM grobs_scm = Grob_array::make_array ();
+      unsmob_grob_array (grobs_scm)->set_array (vertical_skyline_grobs);
+      return grobs_scm;
+    }
+
+  extract_grob_set (align, "elements", elts);
+
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Hara_kiri_group_spanner::has_interface (elts[i]))
+      vertical_skyline_grobs.push_back (elts[i]);
+
+  SCM grobs_scm = Grob_array::make_array ();
+  unsmob_grob_array (grobs_scm)->set_array (vertical_skyline_grobs);
+  return grobs_scm;
+}
+
 void
 System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
@@ -622,7 +654,7 @@ System::get_paper_system ()
     pl->set_property ("last-in-score", SCM_BOOL_T);
 
   Interval staff_refpoints;
-  if (Grob *align = get_vertical_alignment ())
+  if (Grob *align = unsmob_grob (get_object ("vertical-alignment")))
     {
       extract_grob_set (align, "elements", staves);
       for (vsize i = 0; i < staves.size (); i++)
@@ -723,22 +755,27 @@ get_root_system (Grob *me)
   return dynamic_cast<System *> (system_grob);
 }
 
-Grob *
-System::get_vertical_alignment ()
+MAKE_SCHEME_CALLBACK (System, get_vertical_alignment, 1);
+SCM
+System::get_vertical_alignment (SCM smob)
 {
-  extract_grob_set (this, "elements", elts);
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", elts);
   Grob *ret = 0;
   for (vsize i = 0; i < elts.size (); i++)
     if (Align_interface::has_interface (elts[i]))
       {
         if (ret)
-          programming_error ("found multiple vertical alignments in this system");
+          me->programming_error ("found multiple vertical alignments in this system");
         ret = elts[i];
       }
 
   if (!ret)
-    programming_error ("didn't find a vertical alignment in this system");
-  return ret;
+    {
+      me->programming_error ("didn't find a vertical alignment in this system");
+      return SCM_EOL;
+    }
+  return ret->self_scm ();
 }
 
 // Finds the furthest staff in the given direction whose x-extent
@@ -746,7 +783,7 @@ System::get_vertical_alignment ()
 Grob *
 System::get_extremal_staff (Direction dir, Interval const &iv)
 {
-  Grob *align = get_vertical_alignment ();
+  Grob *align = unsmob_grob (get_object ("vertical-alignment"));
   if (!align)
     return 0;
 
@@ -770,7 +807,7 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
 Grob *
 System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)
 {
-  Grob *align = get_vertical_alignment ();
+  Grob *align = unsmob_grob (get_object ("vertical-alignment"));
   if (!align)
     return 0;
 
@@ -800,7 +837,7 @@ Interval
 System::pure_refpoint_extent (vsize start, vsize end)
 {
   Interval ret;
-  Grob *alignment = get_vertical_alignment ();
+  Grob *alignment = unsmob_grob (get_object ("vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -827,7 +864,7 @@ System::pure_refpoint_extent (vsize start, vsize end)
 Interval
 System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
-  Grob *alignment = get_vertical_alignment ();
+  Grob *alignment = unsmob_grob (get_object ("vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -960,7 +997,7 @@ static SCM
 get_maybe_spaceable_staves (SCM smob, int filter)
 {
   System *me = dynamic_cast<System *> (unsmob_grob (smob));
-  Grob *align = me->get_vertical_alignment ();
+  Grob *align = unsmob_grob (me->get_object ("vertical_alignment"));
   SCM ret = SCM_EOL;
 
   if (align)
@@ -1022,5 +1059,5 @@ ADD_INTERFACE (System,
                "in-note-stencil "
                "labels "
                "pure-Y-extent "
-               "skyline-horizontal-padding "
+               "vertical-alignment "
               );
