@@ -111,18 +111,21 @@ $(outdir)/colorado.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/colorado.itexi \
+		-q \
 		$(src-dir)/essay/colorado.bib
 
 $(outdir)/computer-notation.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/computer-notation.itexi \
+		-q \
 		$(src-dir)/essay/computer-notation.bib
 
 $(outdir)/engravingbib.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/engravingbib.itexi \
+		-q \
 		$(src-dir)/essay/engravingbib.bib
 
 $(outdir)/essay.texi: \

@@ -46,4 +46,5 @@ $(outdir)/others-did.itexi $(outdir)/we-wrote.itexi: $(outdir)/%.itexi: $(top-sr
 	BSTINPUTS=$(top-src-dir)/Documentation/web/ $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/$*.itexi \
+		-q \
 		$(top-src-dir)/Documentation/web/$*.bib
