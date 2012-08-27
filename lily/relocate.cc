@@ -212,9 +212,8 @@ setup_paths (char const *argv0_ptr)
           prefix_directory = bindir + "/" + FRAMEWORKDIR;
         }
 
-
       lilypond_datadir = prefix_directory
-                     + "/share/lilypond/" TOPLEVEL_VERSION;
+                         + "/share/lilypond/" TOPLEVEL_VERSION;
     }
 
   if (getenv ("LILYPONDPREFIX"))

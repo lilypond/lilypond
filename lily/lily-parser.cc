@@ -120,9 +120,11 @@ Lily_parser::parse_file (string init, string name, string out_name)
      OUT_FILE (unless IN_FILE redefines output file name).  */
 
   SCM mod = lexer_->set_current_scope ();
-  do {
-    do_yyparse ();
-  } while (!lexer_->is_clean ());
+  do
+    {
+      do_yyparse ();
+    }
+  while (!lexer_->is_clean ());
 
   /*
     Don't mix cyclic pointers with weak tables.
