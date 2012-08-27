@@ -77,6 +77,11 @@ endif
 $(outdir)/lexer.cc: $(config_h)
 $(outdir)/parser.cc: $(config_h)
 
+ifneq ($(LILYPOND_EXTERNAL_BINARY),)
+$(outdir)/lilypond.1: $(LILYPOND_EXTERNAL_BINARY) $(buildscript-dir)/help2man
+	$(buildscript-dir)/help2man $(LILYPOND_EXTERNAL_BINARY) > $@
+endif
+
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
