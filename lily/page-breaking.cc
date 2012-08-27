@@ -504,7 +504,7 @@ Page_breaking::page_height (int page_num, bool last) const
   // This means that we won't cache properly if page_num is negative or
   // if calc_height returns a negative number.  But that's likely to
   // be rare, so it shouldn't affect performance.
-  vector<Real>& cache = last ? last_page_height_cache_ : page_height_cache_;
+  vector<Real> &cache = last ? last_page_height_cache_ : page_height_cache_;
   if (page_num >= 0 && (int) cache.size () > page_num && cache[page_num] >= 0)
     return cache[page_num];
   else

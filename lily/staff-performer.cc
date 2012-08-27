@@ -245,7 +245,7 @@ int
 Staff_performer::get_channel (string instrument)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
-  map<string, int>& channel_map
+  map<string, int> &channel_map
     = (channel_mapping != ly_symbol2scm ("instrument"))
       ? channel_map_
       : static_channel_map_;

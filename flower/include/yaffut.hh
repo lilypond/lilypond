@@ -277,7 +277,7 @@ struct Test: public ITest, public virtual Suite
   static Registrator<Suite, Case> s_Registrator;
   Test (): Suite ()
   {
-    Registrator<Suite, Case>* r = &s_Registrator;
+    Registrator<Suite, Case> *r = &s_Registrator;
     (void)r;
   }
   template <typename E, typename T>
@@ -301,7 +301,7 @@ struct Test<Case, void>: public ITest
   static Registrator<Case, void> s_Registrator;
   Test ()
   {
-    Registrator<Case, void>* r = &s_Registrator;
+    Registrator<Case, void> *r = &s_Registrator;
     (void)r;
   }
   template <typename E, typename T>

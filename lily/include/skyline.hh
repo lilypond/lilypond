@@ -54,9 +54,9 @@ private:
   list<Building> buildings_;
   Direction sky_;
 
-  void internal_merge_skyline (list<Building>*, list<Building>*,
+  void internal_merge_skyline (list<Building> *, list<Building> *,
                                list<Building> *const result);
-  list<Building> internal_build_skyline (list<Box>*, Real, Axis, Direction);
+  list<Building> internal_build_skyline (list<Box> *, Real, Axis, Direction);
 
   DECLARE_SIMPLE_SMOBS (Skyline);
 
