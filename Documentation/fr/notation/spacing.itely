@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.0"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -921,22 +921,22 @@ Les valeurs par défaut sont définies dans le fichier
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
 
 Pénalité pour apparition d'une page blanche entre deux partitions.  Sa
 valeur est par défaut inférieure à celle de
-@code{blank-page-force} ; nous préférons qu'une page blanche
+@code{blank-page-penalty} ; nous préférons qu'une page blanche
 s'insère après la fin de la partition plutôt qu'au milieu.
 
-@item blank-last-page-force
-@funindex blank-last-page-force
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
 
 Pénalité pour fin de partition intervenant sur une page impaire.  La
 valeur par défaut est de @code{0}.
 
-@item blank-page-force
-@funindex blank-page-force
+@item blank-page-penalty
+@funindex blank-page-penalty
 
 Pénalité pour apparition d'une page blanche en cours de partition.
 L'algorithme @code{ly:optimal-breaking} n'en tiendra pas compte

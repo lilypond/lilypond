@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.0"
 
 @ignore
 GDP TODO list
@@ -921,21 +921,21 @@ en el archivo @file{ly/paper-defaults-init.ly}
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
 
 Penalización por tener una página vacía después del final de una
 partitura y antes de la siguiente.  De forma predeterminada, es menor
-que @code{blank-page-force}, de manera que preferimos páginas vacías
+que @code{blank-page-penalty}, de manera que preferimos páginas vacías
 después de las partituras que páginas vacías dentro de una partitura.
 
-@item blank-last-page-force
-@funindex blank-last-page-force
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
 
 Penalización por terminar la partitura sobre una página impar.
 
-@item blank-page-force
-@funindex blank-page-force
+@item blank-page-penalty
+@funindex blank-page-penalty
 
 Penalización por tener una página vacía en medio de una partitura.  No
 se utiliza por parte de @code{ly:optimal-breaking} porque nunca

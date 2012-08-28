@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.0"
 
 
 @c Translators: Yoshiki Sawada
@@ -880,20 +880,20 @@ score で使用すべきシステム数です。@c
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
 
 楽譜の後ろ (と次の楽譜の前) に強制的に白紙を挿入します。@c
-デフォルトでは、この値は @code{blank-page-force} よりも小さいため、@c
+デフォルトでは、この値は @code{blank-page-penalty} よりも小さいため、@c
 楽譜の途中ではなく後ろに白紙が挿入されます。
 
-@item blank-last-page-force
-@funindex blank-last-page-force
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
 
 楽譜の最後が奇数ページの場合、楽譜の後ろに白紙を挿入します。
 
-@item blank-page-force
-@funindex blank-page-force
+@item blank-page-penalty
+@funindex blank-page-penalty
 
 楽譜の途中に強制的に白紙を挿入します。@c
 この値は @code{ly:optimal-breaking} では用いられません。@c

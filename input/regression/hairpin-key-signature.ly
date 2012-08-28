@@ -1,4 +1,4 @@
-\version "2.15.28"
+\version "2.16.0"
 
 \header {
   texidoc = "Broken hairpins are not printed too high after key signatures.

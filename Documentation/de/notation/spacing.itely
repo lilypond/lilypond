@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.0"
 
 @c Translators: Till Paala
 
@@ -857,22 +857,22 @@ Standardwerte, die hier nicht aufgelistet sind, finden sich in
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
 
 Die Strafpunke, die erteilt werden, wenn eine leere Seite nach einer
 Partitur und vor der nächsten vorkommt.  Der Standardwert hiervon ist
-kleiner als @code{blank-page-force}, sodass leere Seiten nach einer Partitur
+kleiner als @code{blank-page-penalty}, sodass leere Seiten nach einer Partitur
 leeren Seiten innerhalb einer Partitur vorgezogen werden.
 
-@item blank-last-page-force
-@funindex blank-last-page-force
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
 
 Die Strafpunkte, wenn eine Partitur auf einer ungeraden Seite
 beendet wird. Standard: @code{0}.
 
-@item blank-page-force
-@funindex blank-page-force
+@item blank-page-penalty
+@funindex blank-page-penalty
 
 Die Strafpunkte, wenn eine leere Seite mitten in einer Partitur
 auftritt.  Das wird nicht benutzt von @code{ly:optimal-breaking},
