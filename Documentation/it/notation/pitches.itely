@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
+   Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2577,7 +2577,7 @@ imposti localmente lo stile delle alterazioni su @code{forget}:
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
   \accidentalStyle "forget"
-  $music
+  #music
   \accidentalStyle "modern"
 #})
 {

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5f0c17184930f3fbeb94ee5f59658d22c85de80f
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidocit = "
 Se si aggiunge l'incisore @code{Ambitus_engraver} al contesto @code{Staff} viene
 creato un solo ambitus per il rigo, anche nel caso di righi che hanno più
