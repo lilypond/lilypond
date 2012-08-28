@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 488508ff926c03b14d030ffc255ae19fc3ce1f50
+    Translation of GIT committish: 43cc33a86fdb744d8b60abf2999cf3393548c227
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,6 +16,72 @@
 @c keep two blank lines between news entries
 
 @c used for news about the upcoming release; see CG 10.2
+
+@newsItem
+@subsubheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
+
+Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.16.0.
+LilyPond es un programa de tipografía musical para editar partituras,
+consagrado a la producción de música impresa de la mayor calidad
+posible.  Lleva al ordenador la estética de la música grabada de la
+forma tradicional.
+
+Durante el último año y a partir de la principal versión estable
+anterior, se han realizado multitud de mejoras.  Algunas de las
+mejoras fundamentales son:
+
+@itemize
+@item
+Soporte para la notación cuadrada del canto kievano
+@item
+Se han mejorado espectacularmente las interfaces de programación y del usuario
+@item
+Las funciones musicales son ahora mucho más versátiles
+@end itemize
+
+Hay una lista completa de todas las funcionalidades nuevas en
+
+@example
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/}
+@end example
+
+¡Que tenga una feliz tipografía musical!  LilyPond 2.16 ha sido hecho para usted por...
+
+El equipo principal de desarrollo:
+
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian Hulin,
+Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner Lemberg,
+John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen Nienhuys,
+Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil Puttock,
+Mike Solomon, Carl Sorensen, Francisco Vila, Valentin Villenave,
+Jan Warchoł
+
+Colaboradores de programación:
+
+Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
+Marc Hohl, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
+Jan-Peter Voigt, Janek Warchol
+
+Colaboradores de documentación:
+
+James Lowe, Pavel Roskin, Alberto Simoes, Stefan Weil
+
+Escuadrón de caza de fallos:
+
+Colin Campbell, Eluze, Phil Holmes, Marek Klein, Ralph Palmer,
+James Lowe
+
+Apoyo:
+
+Colin Campbell, Christian Hitz, Phil Holmes
+
+Colaboradores de traducciones:
+
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
+
+@newsEnd
+
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.15.95!  @emph{11 de agosto de 2012}
