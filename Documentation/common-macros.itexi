@@ -18,6 +18,7 @@
 \fi
 @end tex
 
+@include cyrillic.itexi
 
 @c   ***** Displaying text *****
 

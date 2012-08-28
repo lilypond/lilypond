@@ -235,6 +235,15 @@ if test "$TEX_EPSF" = ""; then
 else
     AC_MSG_RESULT($TEX_EPSF)
 fi
+AC_MSG_CHECKING(for Cyrillic characters support in TeX)
+TEX_FIKPARM=`kpsewhich -format=mf fikparm`
+if test "$TEX_FIKPARM" = ""; then
+    AC_MSG_RESULT(not found)
+    STEPMAKE_ADD_ENTRY($DOCUMENTATION_REQUIRED,
+['lh CTAN package (texlive-lang-cyrillic or texlive-texmf-fonts)'])
+else
+    AC_MSG_RESULT(yes)
+fi
 STEPMAKE_PROGS(NETPBM, pngtopnm, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(IMAGEMAGICK, convert, $DOCUMENTATION_REQUIRED)
 # this name avoids a conflict with ZIP in stepmake/aclocal.m4
