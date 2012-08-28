@@ -27,6 +27,8 @@ tabstuff = {
   \bar "|."
 }
 
+#(set-global-staff-size 18)
+
 \score {
   <<
     \new Staff { \clef "G_8" \tabstuff }

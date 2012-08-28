@@ -16,6 +16,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
 
 
 \relative c' {
+  \override Staff.TimeSignature #'break-visibility = #'#(#f #t #t)
   \compoundMeter #'(1 2 3 4 8)
   \repeat unfold 10 c8 \repeat unfold 20 c16 \break
 
