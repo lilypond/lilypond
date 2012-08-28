@@ -36,19 +36,12 @@ public:
   Skyline_pair (Box const &, Axis a);
 
   void raise (Real);
-  void grow (Real);
   void shift (Real);
   void deholify ();
-  Real smallest_shift (Skyline_pair const &other, Direction d,
-                       Real h_padding = 0, Real v_padding = 0);
-  Real left () const;
-  Real right () const;
-  bool intersects (Skyline_pair const &other) const;
   void insert (Box const &, Axis);
   void merge (Skyline_pair const &other);
   Skyline &operator [] (Direction d);
   Skyline const &operator [] (Direction d) const;
-  bool is_singleton () const;
   bool is_empty () const;
   void print () const;
   void print_points () const;

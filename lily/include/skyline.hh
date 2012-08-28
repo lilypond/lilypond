@@ -82,11 +82,7 @@ public:
   void print_points () const;
   void raise (Real);
   void shift (Real);
-  void invert ();
   Real distance (Skyline const &, Real horizon_padding = 0) const;
-  Real smallest_shift (Skyline const &, Direction d,
-                       Real horizon_padding = 0,
-                       Real vertical_padding = 0) const;
   Real touching_point (Skyline const &, Real horizon_padding = 0) const;
   Real shift_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
   Real raise_to_avoid (Skyline const &other, Real, Direction d, Real horizon_padding = 0);
@@ -98,9 +94,6 @@ public:
   void set_minimum_height (Real height);
   void clear ();
   bool is_empty () const;
-  bool is_singleton () const;
-  Real left () const;
-  Real right () const;
   Skyline padded (Real horizon_padding) const;
 
   DECLARE_SCHEME_CALLBACK (get_touching_point, (SCM, SCM, SCM));

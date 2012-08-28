@@ -789,21 +789,6 @@ Skyline::internal_distance (Skyline const &other, Real *touch_point) const
   return dist;
 }
 
-// changes the direction that the skyline is pointing
-void
-Skyline::invert ()
-{
-  list<Building>::iterator i;
-  for (i = buildings_.begin (); i != buildings_.end (); i++)
-    if (!isinf (i->y_intercept_))
-      {
-        i->y_intercept_ *= -1;
-        i->slope_ *= -1;
-      }
-
-  sky_ = -sky_;
-}
-
 Real
 Skyline::height (Real airplane) const
 {
@@ -872,90 +857,6 @@ Skyline::to_points (Axis horizon_axis) const
   return out;
 }
 
-// Returns the smallest (non-negative) shift in the given
-// direction which will result in THIS and OTHER not overlapping.
-// Warning: this function is O(n^2 log n). Use sparingly.
-Real
-Skyline::smallest_shift (Skyline const &other,
-                         Direction d,
-                         Real horizon_padding,
-                         Real vertical_padding) const
-{
-  // If one or both of the paddings is zero, this can
-  // be optimized...
-  Skyline padded_me = padded (horizon_padding);
-  padded_me.raise (vertical_padding);
-
-  list<Building>::const_iterator i = padded_me.buildings_.begin ();
-  list<Building>::const_iterator j = other.buildings_.begin ();
-  list<Building>::const_iterator i_end = padded_me.buildings_.end ();
-  list<Building>::const_iterator j_end = other.buildings_.end ();
-
-  // Find all shifts that are not allowed.
-  vector<Interval> forbidden_shifts;
-  for (; i != i_end; ++i)
-    if (i->y_intercept_ != -infinity_f)
-      for (j = other.buildings_.begin (); j != j_end; ++j)
-        {
-          Interval iv = i->overlapping_shift_interval (*j);
-          if (!iv.is_empty ())
-            forbidden_shifts.push_back (iv);
-        }
-
-  // Now comes the trick: we want to find the smallest point
-  // that is not in the union of forbidden_shifts. We can represent
-  // the union of forbidden_shifts as a skyline, where a point is
-  // allowed if it has height -infinity_f and forbidden otherwise.
-  vector<Box> boxes;
-  for (vector<Interval>::iterator k = forbidden_shifts.begin ();
-       k != forbidden_shifts.end (); ++k)
-    boxes.push_back (Box (*k, Interval (-1, 0)));
-  Skyline s (boxes, X_AXIS, UP);
-
-  // Find the smallest (ie. closest to zero, in the appropriate direction)
-  // coordinate where the height of s is -infinity_f.
-  Real last_good_point = -infinity_f;
-  for (i = s.buildings_.begin (); i != s.buildings_.end (); ++i)
-    {
-      if (d == LEFT && i->start_ > 0)
-        return last_good_point;
-
-      if (i->y_intercept_ == -infinity_f)
-        {
-          if (i->start_ <= 0 && i->end_ >= 0)
-            return 0;
-          if (d == RIGHT && i->start_ >= 0)
-            return i->start_;
-
-          last_good_point = i->end_;
-        }
-    }
-
-  return infinity_f * d;
-}
-
-Real
-Skyline::left () const
-{
-  for (list<Building>::const_iterator i (buildings_.begin ());
-       i != buildings_.end (); i++)
-    if (i->y_intercept_ > -infinity_f)
-      return i->start_;
-
-  return infinity_f;
-}
-
-Real
-Skyline::right () const
-{
-  for (list<Building>::const_reverse_iterator i (buildings_.rbegin ());
-       i != buildings_.rend (); ++i)
-    if (i->y_intercept_ > -infinity_f)
-      return i->end_;
-
-  return -infinity_f;
-}
-
 bool
 Skyline::is_empty () const
 {
@@ -963,12 +864,6 @@ Skyline::is_empty () const
     return true;
   Building b = buildings_.front ();
   return b.end_ == infinity_f && b.y_intercept_ == -infinity_f;
-}
-
-bool
-Skyline::is_singleton () const
-{
-  return buildings_.size () == 3;
 }
 
 void
