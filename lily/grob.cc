@@ -804,8 +804,6 @@ ADD_INTERFACE (Grob,
                "color "
                "cross-staff "
                "id "
-               "extra-X-extent "
-               "extra-Y-extent "
                "extra-offset "
                "footnote-music "
                "forced-spacing "

@@ -83,7 +83,8 @@ virgula = {
   \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -92,7 +93,8 @@ caesura = {
   \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -100,7 +102,8 @@ divisioMinima = {
   \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -109,7 +112,8 @@ divisioMaior = {
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -118,7 +122,8 @@ divisioMaxima = {
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -127,8 +132,8 @@ finalis = {
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
-  \once \override BreathingSign  #'extra-spacing-height = #'(-0.5 . 0.5)
+  \once \override BreathingSign  #'minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign  #'minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }

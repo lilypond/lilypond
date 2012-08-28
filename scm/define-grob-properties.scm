@@ -276,10 +276,6 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
-     (extra-X-extent ,number-pair? "A grob is enlarged in
-X@tie{}dimension by this much.")
-     (extra-Y-extent ,number-pair? "A grob is enlarged in
-Y@tie{}dimension by this much.")
 
 
 ;;
