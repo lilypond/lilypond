@@ -20,6 +20,7 @@
 #include "grob.hh"
 
 #include <cstring>
+#include <set>
 
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
@@ -906,6 +907,20 @@ common_refpoint_of_array (vector<Grob *> const &arr, Grob *common, Axis a)
       common = common->common_refpoint (arr[i], a);
     else
       common = arr[i];
+
+  return common;
+}
+
+Grob *
+common_refpoint_of_array (set<Grob *> const &arr, Grob *common, Axis a)
+{
+  set<Grob *>::iterator it;
+
+  for (it = arr.begin (); it != arr.end (); it++)
+    if (common)
+      common = common->common_refpoint (*it, a);
+    else
+      common = *it;
 
   return common;
 }

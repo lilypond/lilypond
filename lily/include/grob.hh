@@ -25,6 +25,8 @@
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
 
+#include <set>
+
 class Grob
 {
 private:
@@ -171,6 +173,7 @@ Item *unsmob_item (SCM);
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
 Grob *common_refpoint_of_array (vector<Grob *> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (set<Grob *> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */

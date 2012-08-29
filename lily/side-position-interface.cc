@@ -21,11 +21,13 @@
 
 #include <cmath>                // ceil.
 #include <algorithm>
+#include <set>
 #include <map>
 
 using namespace std;
 
 #include "accidental-interface.hh"
+#include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
@@ -80,6 +82,34 @@ finish_offset (Grob *me, Direction dir, Real total_off, Real *current_offset)
   return scm_from_double (total_off);
 }
 
+set<Grob *>
+get_support_set (Grob *me)
+{
+  // Only slightly kludgy heuristic...
+  // We want to make sure that all AccidentalPlacements'
+  // accidentals make it into the side support
+  extract_grob_set (me, "side-support-elements", proto_support);
+  set<Grob *> support;
+
+  for (vsize i = 0; i < proto_support.size (); i++)
+    {
+      if (Accidental_placement::has_interface (proto_support[i]))
+        {
+          Grob *accs = proto_support[i];
+          for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
+               acs = scm_cdr (acs))
+            for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
+              {
+                Grob *a = unsmob_grob (scm_car (s));
+                support.insert (a);
+              }
+        }
+      else
+        support.insert (proto_support[i]);
+    }
+  return support;
+}
+
 /* Put the element next to the support, optionally taking in
    account the extent of the support.
 
@@ -91,7 +121,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
                                                 bool pure, int start, int end,
                                                 Real *current_offset)
 {
-  extract_grob_set (me, "side-support-elements", support);
+  set<Grob *> support = get_support_set (me);
 
   Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
@@ -114,9 +144,11 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   Direction dir = get_grob_direction (me);
 
-  for (vsize i = 0; i < support.size (); i++)
+  set<Grob *>::iterator it;
+
+  for (it = support.begin (); it != support.end (); it++)
     {
-      Grob *e = support[i];
+      Grob *e = *it;
 
       // In the case of a stem, we will find a note head as well
       // ignoring the stem solves cyclic dependencies if the stem is
@@ -166,7 +198,7 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
                                                 bool pure, int start, int end,
                                                 Real *current_offset)
 {
-  extract_grob_set (me, "side-support-elements", support);
+  set<Grob *> support = get_support_set (me);
 
   Grob *common[2];
   for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
@@ -210,10 +242,12 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
   vector<Box> boxes;
   vector<Skyline_pair> skyps;
   Real min_h = dir == LEFT ? infinity_f : -infinity_f;
+  set<Grob *>::iterator it;
+
   map<Grob *, vector<Grob *> > note_column_map; // for parts of a note column
-  for (vsize i = 0; i < support.size (); i++)
+  for (it = support.begin (); it != support.end (); it++)
     {
-      Grob *e = support[i];
+      Grob *e = *it;
 
       // In the case of a stem, we will find a note head as well
       // ignoring the stem solves cyclic dependencies if the stem is
