@@ -902,6 +902,13 @@
 				text-interface
 				text-script-interface))))))
 
+    (FingeringColumn
+     . (
+	(padding . 0.2)
+	(positioning-done . ,ly:fingering-column::calc-positioning-done)
+	(meta . ((class . Item)
+		 (interfaces . (fingering-column-interface))))))
+
     (Flag
      . (
 	(glyph-name . ,ly:flag::glyph-name)
