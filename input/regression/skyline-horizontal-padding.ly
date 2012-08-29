@@ -20,7 +20,7 @@ interleaved with the high notes from the next system.
       ragged-right = ##t
       \context {
         \Score
-	\override System #'skyline-horizontal-padding = #1.5
+	\override System #'skyline-horizontal-padding = #3.0
       }
     }
   }

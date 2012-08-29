@@ -2138,7 +2138,7 @@
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,X ,Y))
 	(outside-staff-placement-directive . left-to-right-polite)
-	(skyline-horizontal-padding . 0.5)
+	(skyline-horizontal-padding . 1.0)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:system::height)
