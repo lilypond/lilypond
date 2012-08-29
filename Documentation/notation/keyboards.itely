@@ -429,6 +429,10 @@ required on the other.
 @lilypondfile[verbatim,quote]
 {cross-staff-stems.ly}
 
+For the time being, this engraver can not be specified by its name in
+double quotes, but rather prefixing its name with a hash symbol
+@code{#}, due to the way it is implemented.
+
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
