@@ -130,7 +130,7 @@ section, @ref{Paper size and automatic scaling}.  The
 @code{\paper} variables that deal with page layout are discussed
 in later sections.  The markup definitions that deal with headers,
 footers, and titles are discussed in
-@ref{Custom headers footers and titles}.
+@ref{Custom titles headers and footers}.
 
 Most @code{\paper} variables will only work in a @code{\paper}
 block.  The few that will also work in a @code{\layout} block are
@@ -175,7 +175,7 @@ The Scheme equivalent of the above example is:
 @seealso
 Notation Reference:
 @ref{Paper size and automatic scaling},
-@ref{Custom headers footers and titles},
+@ref{Custom titles headers and footers},
 @ref{The \layout block}.
 
 Installed Files:

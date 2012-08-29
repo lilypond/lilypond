@@ -365,9 +365,10 @@ A direct scheme expression, such as
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
-A @code{\header} block.  This sets the global header block.  This
-is the block containing the definitions for book-wide settings, like
-composer, title, etc.
+A @code{\header} block.  This sets the global (i.e. the top of
+file) header block.  This is the block containing the default
+settings of titling fields like composer, title, etc. for all
+books within the file (see @ref{Titles explained}).
 
 @item
 A @code{\score} block.  This score will be collected with other
@@ -511,6 +512,7 @@ Learning Manual:
 @rlearning{How LilyPond input files work}.
 
 Notation Reference:
+@ref{Titles explained},
 @ref{The \layout block}.
 
 
@@ -522,7 +524,7 @@ some pieces include a lot more information.
 
 @menu
 * Creating titles headers and footers::
-* Custom headers footers and titles::
+* Custom titles headers and footers::
 * Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
@@ -533,28 +535,96 @@ some pieces include a lot more information.
 @subsection Creating titles headers and footers
 
 @menu
-* Title blocks explained::
-* Default layout of book and score title blocks::
+* Titles explained::
+* Default layout of bookpart and score titles::
 * Default layout of headers and footers::
 @end menu
 
 
-@node Title blocks explained
-@unnumberedsubsubsec Title blocks explained
+@node Titles explained
+@unnumberedsubsubsec Titles explained
 
-@c TODO: figure out how \bookpart titles work
+Each @code{\book} block in a single input file produces a separate
+output file, see @ref{File structure}.  Within each output file
+two types of titling areas are provided: @emph{Bookpart Titles} at
+the beginning of each bookpart and @emph{Score Titles} at the
+beginning of each score.
 
-There are two types of title blocks: the main title block that appears
-above of the first @code{\score} of a book, and individual title
-blocks that appear within each @code{\score} block.  Text fields for
-both types are entered using a @code{\header} block.
+Values of titling fields such as @code{title} and @code{composer}
+are set in @code{\header} blocks.  (For the syntax of @code{\header}
+blocks and a complete list of the fields available by default see
+@ref{Default layout of bookpart and score titles}).  Both Bookpart
+Titles and Score Titles can contain the same fields, although by
+default the fields in Score Titles are limited to @code{piece} and
+@code{opus}.
 
-If the book only has a single score, the @code{\header} block may be
-placed inside or outside of the @code{\score} block.
+@code{\header} blocks may be placed in four different places to form
+a descending hierarchy of @code{\header} blocks:
 
-@warning{Remember when adding a @bs{}@code{header} block inside a
+@itemize
+
+@item
+At the top of the input file, before all @code{\book},
+@code{\bookpart}, and @code{\score} blocks.
+
+@item
+Within a @code{\book} block but outside all the @code{\bookpart} and
+@code{\score} blocks within that book.
+
+@item
+Within a @code{\bookpart} block but outside all @code{\score} blocks
+within that bookpart.
+
+@item
+After the music expression in a @code{\score} block.
+
+@end itemize
+
+The values of the fields filter down this hierarchy, with the values
+set higher in the hierarchy persisting unless they are over-ridden
+by a value set lower in the hierarchy, so:
+
+@itemize
+
+@item
+ A Bookpart Title is derived from fields set at the top of the input
+file, modified by fields set in the @code{\book} block, and further
+modified by fields set in the @code{\bookpart} block.  The resulting
+values are used to print the Bookpart Title for that bookpart.
+
+@item
+A Score Title is derived from fields set at the top of the input
+file, modified by fields set in the @code{\book} block, further
+modified by fields set in the @code{\bookpart} block and finally
+modified by fields set in the @code{\score} block.  The resulting
+values are used to print the Score Title for that score.  Note,
+though, that only @code{piece} and @code{opus} fields are printed
+by default in Score Titles unless the @code{\paper} variable,
+@code{print-all-headers}, is set to @code{#t}.
+
+@end itemize
+
+@warning{Remember when placing a @bs{}@code{header} block inside a
 @bs{}@code{score} block, that the music expression must come before the
 @bs{}@code{header} block.}
+
+It is not necessary to provide @code{\header} blocks in all four
+places: any or even all of them may be omitted.  Similarly, simple
+input files may omit the @code{\book} and @code{\bookpart} blocks,
+leaving them to be created implicitly.
+
+If the book has only a single score, the @code{\header} block should
+normally be placed at the top of the file so that just a Bookpart
+Title is produced, making all the titling fields available for use.
+
+If the book has multiple scores a number of different arrangements
+of @code{\header} blocks are possible, corresponding to the various
+types of musical publications.  For example, if the publication
+contains several pieces by the same composer a @code{\header} block
+placed at the top of the file specifying the book title and the
+composer with @code{\header} blocks in each @code{\score} block
+specifying the @code{piece} and/or @code{opus} would be most
+suitable, as here:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -588,8 +658,10 @@ placed inside or outside of the @code{\score} block.
 }
 @end lilypond
 
-Text fields from the main title block of a book can be displayed in all
-@code{\score} blocks, or manually suppressed:
+More complicated arrangements are possible.  For example, text
+fields from the @code{\header} block in a book can be displayed in
+all Score Titles, with some fields over-ridden and some manually
+suppressed:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -634,11 +706,12 @@ Text fields from the main title block of a book can be displayed in all
 @seealso
 Notation Reference:
 @ref{File structure},
-@ref{Custom layout for title blocks}.
+@ref{Default layout of bookpart and score titles},
+@ref{Custom layout for titles}.
 
 
-@node Default layout of book and score title blocks
-@unnumberedsubsubsec Default layout of book and score title blocks
+@node Default layout of bookpart and score titles
+@unnumberedsubsubsec Default layout of bookpart and score titles
 
 This example demonstrates all @code{\header} variables:
 
@@ -712,7 +785,7 @@ and @code{opus} text fields at opposite ends of the same line.
 
 @end itemize
 
-To change the default layout see @ref{Custom layout for title blocks}.
+To change the default layout see @ref{Custom layout for titles}.
 
 @cindex breakbefore
 
@@ -743,7 +816,7 @@ Learning Manual:
 @rlearning{How LilyPond input files work},
 
 Notation Reference:
-@ref{Custom layout for title blocks},
+@ref{Custom layout for titles},
 @ref{File structure}.
 
 Installed Files:
@@ -816,21 +889,21 @@ top-level @code{\header} block.
 To remove the @code{tagline} set the value to @code{##f}.
 
 
-@node Custom headers footers and titles
-@subsection Custom headers footers and titles
+@node Custom titles headers and footers
+@subsection Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* Custom text formatting for title blocks::
-* Custom layout for title blocks::
+* Custom text formatting for titles::
+* Custom layout for titles::
 * Custom layout for headers and footers::
 @end menu
 
 
-@node Custom text formatting for title blocks
-@unnumberedsubsubsec Custom text formatting for title blocks
+@node Custom text formatting for titles
+@unnumberedsubsubsec Custom text formatting for titles
 
 Standard @code{\markup} commands can be used to customize any header,
 footer and title text within the @code{\header} block.
@@ -850,8 +923,8 @@ Notation Reference:
 @ref{Formatting text}.
 
 
-@node Custom layout for title blocks
-@unnumberedsubsubsec Custom layout for title blocks
+@node Custom layout for titles
+@unnumberedsubsubsec Custom layout for titles
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -870,7 +943,7 @@ change either or both of the following @code{\paper} variables:
 
 The placement of titles when using the default values of these
 @code{\markup} variables is shown in the examples in
-@ref{Default layout of book and score title blocks}.
+@ref{Default layout of bookpart and score titles}.
 
 The default settings for @code{scoreTitleMarkup} as defined in
 @file{ly/titling-init.ly} are:
@@ -925,12 +998,12 @@ text field is centered and in a large, bold font.
 }
 @end lilypond
 
-Text fields normally reserved for the main title block can be included
-in individual score title blocks with the @code{print-all-headers}
+Text fields not normally effective in score @code{\header} blocks
+can be printed in the Score Title area if @code{print-all-headers} is
 placed inside the @code{\paper} block.  A disadvantage of using this
-method is that the text fields that are intended specifically for the
-top-level @code{\header} block need to be manually suppressed in every
-@code{\score} block.  See @ref{Title blocks explained}.
+method is that text fields that are intended specifically for the
+Bookpart Title area need to be manually suppressed in every
+@code{\score} block.  See @ref{Titles explained}.
 
 To avoid this, add the desired text field to the @code{scoreTitleMarkup}
 definition.  In the following example, the @code{composer} text field
@@ -1004,7 +1077,7 @@ them in the markup definition.
 
 @seealso
 Notation Reference:
-@ref{Title blocks explained}.
+@ref{Titles explained}.
 
 
 @node Custom layout for headers and footers
@@ -1110,8 +1183,8 @@ determines if the output is a single page.
 
 @seealso
 Notation Reference:
-@ref{Title blocks explained},
-@ref{Default layout of book and score title blocks}.
+@ref{Titles explained},
+@ref{Default layout of bookpart and score titles}.
 
 Installed Files:
 @file{../ly/titling-init.ly}.
