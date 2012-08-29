@@ -216,6 +216,14 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'octavate-eight-interface
+  "Interface that permits the nominal identification of the octavian
+annotation that multiplies by two the freqency of the pitches present
+in a given staff were they played on a clef that lacked said octavian
+annotation."
+  '())
+
+(ly:add-interface
  'only-prebreak-interface
  "Kill this grob after the line breaking process."
  '())

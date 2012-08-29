@@ -365,6 +365,7 @@
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
+				 octavate-eight-interface
 				 stem-interface
 				 time-signature-interface))
 	(cross-staff . ,ly:beam::calc-cross-staff)
@@ -1552,6 +1553,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
+				octavate-eight-interface
 				self-alignment-interface
 				side-position-interface
 				text-interface))))))
