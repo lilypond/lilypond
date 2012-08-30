@@ -228,7 +228,7 @@ Dvěma dosud neviděnými příkazy jsou
 @code{\layout @{ @}} a @code{\midi @{@}}.  Když se objeví v nějakém
 souboru, vede to k tomu, že Lilypond vytvoří tisknutelný soubor PDF
 popřípadě soubor MIDI.  Přesněji jsou popsány v uživatelské příručce -
-doporučení k notovému zápisu -- @ruser{Rozvržení notového zápisu} a
+notace -- @ruser{Rozvržení notového zápisu} a
 @ruser{Vytváření souborů MIDI}.
 
 @cindex Notové zápisy, více
@@ -465,7 +465,7 @@ samém místě.
 
 
 @seealso
-Doporučení k notovému zápisu: @ruser{Stavba notového zápisu}.
+Notace: @ruser{Stavba notového zápisu}.
 
 
 @node Naskládání hudebních výrazů do sebe
@@ -528,7 +528,7 @@ osnovu:
 @end lilypond
 
 Tento příklad používá příkaz @code{\with}, který bude později
-gvysvětlen ještě přesněji.  Jím lze měnit výchozí chování jedné
+vysvětlen ještě přesněji.  Jím lze měnit výchozí chování jedné
 notové osnovy: Zde se jednoduše říká, že nová notová osnova
 se má umístit nad již jsoucí osnovu s názvem
 @qq{main} namísto výchozího umístění, které je
@@ -566,7 +566,7 @@ krátce projít znovu:
 @item @code{@{ .. @}}
   @tab Uzavírá postupnou část hudby
 @item @code{< .. >}
-  @tab Uzavírá noty jednoho akkordu
+  @tab Uzavírá noty jednoho akordu
 @item @code{<< .. >>}
   @tab Uzavírá souběžné hudební výrazy
 @item @code{( .. )}
@@ -849,7 +849,7 @@ akordu.  Tak například zde je spočítáno
 @noindent
 @code{NoteB} se zřetelem na @code{NoteA}                      @*
 @code{NoteC} se zřetelem na @code{NoteB}, ne @code{noteA};   @*
-@code{NoteD} se zřetelem na @code{NoteB}, ne @code{NoteA} oder
+@code{NoteD} se zřetelem na @code{NoteB}, ne @code{NoteA} nebo
 @code{NoteC};                                                 @*
 @code{NoteE} se zřetelem na @code{NoteD}, ne @code{NoteA}.
 
@@ -898,26 +898,26 @@ a hlasy.  Složitější věci budou vysvětleny v pozdějších částech.
 }
 @end lilypond
 
-Die Richtung der Hälse wird  oft benutzt, um anzuzeigen, dass zwei
-gleichzeitige Melodien sich fortsetzen.  Hier zeigen die Hälse aller
-oberen Noten nach oben und die Hälse aller unteren Noten nach unten.
-Das ist der erste Anhaltspunkt, dass mehr als eine Stimme benötigt
-wird.
+Směr nožičky se často používá k tomu, aby se ukázala souvislost
+dvou souběžných melodií.  Zde ukazují nožičky všech horních
+not nahoru a nožičky všech dolních not dolů.
+To je první známkou toho, že je potřeba více než jeden
+hlas.
 
-Aber die wirkliche Notwendigkeit für mehrere Stimmen tritt erst
-dann auf, wenn unterschiedliche Noten gleichzeitig erklingen, aber
-unterschiedliche Dauern besitzen.  Schauen Sie sich die Noten
-auf dem dritten Schlag im ersten Takt an.  Das As ist eine punktierte
-Viertel, das F ist eine Viertel und das Des eine Halbe.  Sie können
-nicht als Akkord geschrieben werden, denn alle Noten in einem Akkord
-besitzen die gleiche Dauer.  Sie können aber auch nicht nacheinander
-geschrieben werden, denn sie beginnen auf der gleichen Taktzeit.  Dieser
-Taktabschnitt benötigt drei Stimmen, und normalerweise schreibt man
-drei Stimmen für den ganzen Takt, wie im Beispiel unten zu sehen ist;
-hier sind unterschiedliche Köpfe und Farben für die verschiedenen Stimmen
-eingesetzt.  Noch einmal: der Quellcode für dieses Beispiel wird später
-erklärt werden, deshalb ignorieren Sie alles, was Sie hier nicht
-verstehen können.
+Ale skutečná nezbytnost více hlasů nadejde teprve tehdy,
+když současně zaznívají různé noty, které začínají ve stejnou dobu,
+mají rozdílné doby trvání.  Podívejte se na noty, jež začínají na
+třetí době prvního taktu.  As je tečkovaná čtvrťová nota,
+F je čtvrťová nota a Des je půlová nota.  Nemohou být
+zapsány jako akord, protože všechny noty jednoho akordu
+mají stejnou dobu trvání.  Nemohou být ale zapsány ani jako jdoucí po sobě,
+protože musí začínat v tutéž dobu.  Tato část taktu
+potřebuje tři hlasy, a běžně se zapisují tři hlasy
+pro celý takt, jak je to vidět na příkladu níže;
+kde jsou použity různé hlavičky not a barvy pro různé
+hlasy.  Ještě jednou: Zdrojový kód pro tento příklad bude později
+vysvětlen znovu, proto si nevšímejte ničeho, čemu zde nemůžete
+porozumět.
 
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
@@ -947,10 +947,10 @@ verstehen können.
 }
 @end lilypond
 
-Versuchen wir also, diese Musik selber zu notieren.  Wie wir sehen
-werden, beinhaltet das einige Schwierigkeiten.  Fangen wir an, wie
-wir es gelernt haben, indem wir mit der @code{<< \\  >>}-Konstruktion
-die drei Stimmen des ersten Taktes notieren:
+Pokusme se tedy tyto noty zapsat od začátku.  Jak je zde
+vidět, je tu obsaženo několik potíží.  Začneme, jak jsme
+se to naučili, pomocí konstrukcí @code{<< \\  >>},
+kterou zapíšeme tři hlasy prvního taktu:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
@@ -962,21 +962,20 @@ die drei Stimmen des ersten Taktes notieren:
 }
 @end lilypond
 
-@cindex Hals nach unten
-@cindex Hals nach oben
-@cindex Notenhals, Richtung
-@cindex Richtung des Notenhalses
-@cindex Notenhalsrichtung
-@cindex Stimmen und Notenhalsrichtung
-@cindex Notenhalsrichtung in Stimmen
+@cindex Nožička dolů
+@cindex Nožička nahoru
+@cindex Notová nožička, Směr
+@cindex Směr notové nožičky
+@cindex Hlasy a směr notové nožičky
+@cindex Směr notové nožičky ve hlasech
 
-Die Richtung des Notenhalses wird automatisch zugewiesen; die ungeraden
-Stimmen tragen Hälse nach oben, die gerade Hälse nach unten.  Die Hälse
-für die Stimmen 1 und 2 stimmen, aber die Hälse in der dritten Stimme
-sollen in diesem Beispiel eigentlich nach unten zeigen.  Wir können das
-korrigieren, indem wir die dritte Stimme einfach auslassen und die
-Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
-indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
+Směr notové nožičky je přiřazen automaticky; hlasy s lichým
+číslem nesou nožičky nahoru, sudé mají nožičky dolů.  Nožičky
+pro hlasy 1 a 2 jsou správně, ale nožičky třetího hlasu
+by v tomto příkladu měly vlastně ukazovat dolů.  Můžeme to opravit
+jednoduše tak, že vypustíme třetí hlas, přeskočíme jej a noty
+umístíme do čtvrtého hlasu.  To se udělá jednoduše přidáním
+páru @code{\\}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
@@ -994,23 +993,23 @@ indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 @end lilypond
 
 @noindent
-Wie zu sehen ist, ändert das die Richtung der Hälse, aber zeigt ein
-anderes Problem auf, auf das man manchmal bei mehreren Stimmen stößt:
-Die Hälse einer Stimme können mit den Hälsen anderer Stimmen kollidieren.
-LilyPond erlaubt Noten in verschiedenen Stimmen sich auf der gleichen
-vertikalen Position zu befinden, wenn die Hälse in entgegengesetzte
-Richtungen zeigen, und positioniert die dritte und vierte Stimme dann
-so, dass Zusammenstöße möglichst vermieden werden.  Das funktioniert
-gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
-Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
-verschiedene Möglichkeiten, die horizontale Position von Noten
-anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
-anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in
+Vidíme, že se tím mění směr nožiček, ale ukazuje se jiný
+problém, na který se někdy při více hlasech narazí:
+Nožičky not jednoho hlasu se mohou střetávat s nožičkami jiného hlasu.
+LilyPond dovoluje notám různých hlasů, aby se nacházely ve
+stejné svislé poloze, za předpokladu že nožičky ukazují v opačných
+směrech, a třetí a čtvrtý hlas pak umísťuje tak, aby pokud možno
+k vzájemnému střetu nedocházelo.  Obvykle to pracuje
+dobře, ale v tomto případě jsou noty nejnižšího hlasu
+zřetelně nedobře umístěny.  LilyPond nabízí několik různých způsobů,
+jak vodorovnou polohu not přizpůsobit.  Nejsme však ještě tak daleko,
+abychom tyto funkce mohli použít. Proto
+tento problém odložíme na později; viz vlastnost @code{force-hshift} v
 @ref{Oprava překrývajících se not}.
 
 
 @seealso
-Notationsreferenz: @ruser{Mehrere Stimmen}.
+Notace: @ruser{Více hlasů}.
 
 
 @node Přímo vyjádřené začátky hlasů
