@@ -2173,7 +2173,7 @@ msgstr "Analizado..."
 
 #: line-spanner.cc:373
 msgid "Line spanner's left point is to the right of its right point."
-msgstr "Maldekstra punkto de lini-disigilo estas dekstre de ties dekstra punkto."
+msgstr "Maldekstra punkto de lini-etendigilo estas dekstre de ties dekstra punkto."
 
 #: lyric-combine-music-iterator.cc:199
 msgid "argument of \\lyricsto should contain Lyrics context"
@@ -2751,7 +2751,7 @@ msgstr "Aranĝa eligo al '%s'..."
 #: paper-score.cc:134
 #, c-format
 msgid "Element count %d (spanners %d) "
-msgstr "Nombro da elementoj: %d (disigiloj %d) "
+msgstr "Nombro da elementoj: %d (etendigiloj %d) "
 
 #: paper-score.cc:138
 msgid "Preprocessing graphical objects..."
@@ -3041,15 +3041,15 @@ msgstr "Markada profundo superas maksimuman valoron %d; Markado: %s"
 
 #: text-spanner-engraver.cc:72
 msgid "cannot find start of text spanner"
-msgstr "ne eblas trovi komencon de tekst-disigilo"
+msgstr "ne eblas trovi komencon de tekst-etendigilo"
 
 #: text-spanner-engraver.cc:85
 msgid "already have a text spanner"
-msgstr "jam ekzistas tekst-disigilo"
+msgstr "jam ekzistas tekst-etendigilo"
 
 #: text-spanner-engraver.cc:130
 msgid "unterminated text spanner"
-msgstr "nefinigita tekst-disigilo"
+msgstr "nefinigita tekst-etendigilo"
 
 #: tie-engraver.cc:117
 msgid "unterminated tie"
@@ -3143,15 +3143,15 @@ msgstr "kreskanta vatikana stilo 'flexa'"
 #. fixme: be more verbose.
 #: volta-engraver.cc:110
 msgid "cannot end volta spanner"
-msgstr "ne eblas finigi ripet-disigilon"
+msgstr "ne eblas finigi ripet-etendigilon"
 
 #: volta-engraver.cc:120
 msgid "already have a volta spanner, ending that one prematurely"
-msgstr "jam ekzistas ripet-disigilo, tiun alian ni finas tro frue"
+msgstr "jam ekzistas ripet-etendigilo, tiun alian ni finas tro frue"
 
 #: volta-engraver.cc:124
 msgid "also already have an ended spanner"
-msgstr "ankaŭ jam ekzistas finigita disigilo"
+msgstr "ankaŭ jam ekzistas finigita etendigilo"
 
 #: volta-engraver.cc:125
 msgid "giving up"
