@@ -174,6 +174,9 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
   if (b.y ().length () < blotdiameter)
     blotdiameter = b.y ().length ();
 
+  if (isinf (b.x ().delta ()) || isinf (b.y ().delta ()))
+    return Stencil (b, SCM_EOL);
+
   SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
                         scm_from_double (-b[X_AXIS][LEFT]),
                         scm_from_double (b[X_AXIS][RIGHT]),
