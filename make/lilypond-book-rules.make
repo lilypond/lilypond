@@ -52,5 +52,5 @@ $(outdir)/%.xml:  %.lyxml
 # Add the xml => pdf rule only if we have dblatex
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf:  $(outdir)/%.xml
-	cd $(outdir) && $(DBLATEX) $(notdir $<)
+	cd $(outdir) && $(buildscript-dir)/run-and-check "$(DBLATEX) $(notdir $<)" "$*.dblatex.log"
 endif

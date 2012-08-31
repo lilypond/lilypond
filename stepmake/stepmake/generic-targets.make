@@ -176,6 +176,7 @@ local-doc:
 	$(MAKE) out=www WWW-post
 
 doc-stage-1:
+	$(MAKE) -C $(top-build-dir)/Documentation/po out=www messages
 	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
 
