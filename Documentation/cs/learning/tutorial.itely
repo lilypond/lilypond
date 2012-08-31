@@ -28,7 +28,7 @@ Tato kapitola čtenáři představuje základní práci s LilyPondem.
 
 
 @node Přeložení zdrojového souboru
-@subsection Přeložení zdrojového souboru
+@section Přeložení zdrojového souboru
 @translationof Compiling a file
 
 Tento úryvek uvádí do @qq{sestavování} -- do procesu zpracování
