@@ -433,6 +433,8 @@ key_lookup = {         # abc to lilypond key mode names
 }
 
 def lily_key (k):
+    if k == 'none':
+        return
     orig = "" + k
     # UGR
     k = k.lower ()
