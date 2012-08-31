@@ -2038,6 +2038,7 @@
      . (
 	(beam-thickness . 0.48) ; staff-space
 	(beam-width . ,ly:stem-tremolo::calc-width) ; staff-space
+	(direction . ,ly:stem-tremolo::calc-direction)
 	(slope . ,ly:stem-tremolo::calc-slope)
 	(stencil . ,ly:stem-tremolo::print)
 	(style . ,ly:stem-tremolo::calc-style)

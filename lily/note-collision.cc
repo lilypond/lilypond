@@ -593,6 +593,22 @@ Note_collision_interface::add_column (Grob *me, Grob *ncol)
   Axis_group_interface::add_element (me, ncol);
 }
 
+vector<int>
+Note_collision_interface::note_head_positions (Grob *me)
+{
+  vector<int> out;
+  extract_grob_set (me, "elements", elts);
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Grob *stem = unsmob_grob (elts[i]->get_object ("stem")))
+      {
+        vector<int> nhp = Stem::note_head_positions (stem);
+        out.insert (out.end (), nhp.begin (), nhp.end ());
+      }
+
+  vector_sort (out, less<int> ());
+  return out;
+}
+
 ADD_INTERFACE (Note_collision_interface,
                "An object that handles collisions between notes with"
                " different stem directions and horizontal shifts.  Most of"
