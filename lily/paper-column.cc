@@ -27,6 +27,7 @@
 #include "lookup.hh"
 #include "lookup.hh"
 #include "moment.hh"
+#include "note-head.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
@@ -217,6 +218,7 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
 
   return align->extent (p, X_AXIS);
 }
+
 
 /*
   Print a vertical line and  the rank number, to aid debugging.

@@ -390,9 +390,11 @@
 	;; only for debugging.
 	(font-family . roman)
 
-	(gap . 0.8)
+	(beam-gap . ,ly:beam::calc-beam-gap)
+	(minimum-length . ,ly:beam::calc-minimum-length)
 	(neutral-direction . ,DOWN)
 	(positions . ,beam::place-broken-parts-individually)
+	(springs-and-rods . ,ly:beam::calc-springs-and-rods)
 	(X-positions . ,ly:beam::calc-x-positions)
 
 	;; this is a hack to set stem lengths, if positions is set.
