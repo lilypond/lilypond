@@ -47,7 +47,6 @@ struct Building
   void leading_part (Real chop);
   bool conceals (Building const &other, Real x) const;
   Real shift_to_intersect (Real x, Real y) const;
-  Interval overlapping_shift_interval (Building const &other) const;
 };
 
 class Skyline

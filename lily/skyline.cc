@@ -161,60 +161,6 @@ Building::shift_to_intersect (Real x, Real y) const
   return infinity_f;
 }
 
-// Returns the interval of horizontal shifts for which this
-// building (pointing up) overlaps the other building (pointing down).
-Interval
-Building::overlapping_shift_interval (Building const &other) const
-{
-  Interval iv;
-
-  // If one building is empty, there will never be an overlap.
-  if (y_intercept_ == -infinity_f || other.y_intercept_ == -infinity_f)
-    return iv;
-
-  // There are two kinds of interesting positions:
-  // - when the horizontal extents of the buildings just touch
-  // - when an endpoint of one building intersects the roof of the other.
-  // The interval we are looking for is the smallest one that
-  // contains all of the interesting points.
-
-
-  Real my_y1 = height (start_);
-  Real my_y2 = height (end_);
-  Real his_y1 = -other.height (other.start_); // "-" because OTHER points down
-  Real his_y2 = -other.height (other.end_);
-
-  // If both buildings are infinite in the same direction,
-  // the return value is either empty or full.
-  if ((isinf (start_) && isinf (other.start_))
-      || (isinf (end_) && isinf (other.end_)))
-    return (y_intercept_ > other.y_intercept_)
-           ? Interval (-infinity_f, infinity_f) : Interval ();
-
-  // ...when the horizontal extents of the buildings just touch...
-  if (my_y1 >= his_y2)
-    iv.add_point (other.end_ - start_);
-  if (my_y2 >= his_y1)
-    iv.add_point (other.start_ - end_);
-
-  // ...when an endpoint of one building intersects the roof of the other.
-  Real p1 = shift_to_intersect (other.start_, his_y1);
-  Real p2 = shift_to_intersect (other.end_, his_y2);
-  // "-my_y1" because OTHER points down:
-  Real p3 = other.shift_to_intersect (start_, -my_y1);
-  Real p4 = other.shift_to_intersect (end_, -my_y2);
-  if (!isinf (p1))
-    iv.add_point (p1);
-  if (!isinf (p2))
-    iv.add_point (p2);
-  if (!isinf (p3))
-    iv.add_point (p3);
-  if (!isinf (p4))
-    iv.add_point (p4);
-
-  return iv;
-}
-
 static Real
 first_intersection (Building const &b, list<Building> *const s, Real start_x)
 {
