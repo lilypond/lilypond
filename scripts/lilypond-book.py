@@ -651,7 +651,7 @@ def do_options ():
     nr = 0
     for i in global_options.custom_packages:
         nr += 1
-        print imp.load_source ("book_custom_package%s" % nr, i)
+        progress (str(imp.load_source ("book_custom_package%s" % nr, i)))
 
 
     if global_options.warranty:
