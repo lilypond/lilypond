@@ -56,7 +56,7 @@ private:
   Direction sky_;
 
   void internal_merge_skyline (list<Building> *, list<Building> *,
-                               list<Building> *const result) const;
+                               list<Building> *result) const;
   list<Building> internal_build_skyline (list<Building> *) const;
   Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
