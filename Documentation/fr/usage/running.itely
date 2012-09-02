@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: c610645cc9a77cba1a2798280965db142d649ac5
+    Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,7 +50,7 @@ commande.
 Par @qq{ligne de commande}, nous entendons l'interface de commande du
 système.  Les utilisateurs de Windows seront certainement plus familiers
 des termes @qq{fenêtre DOS} ou @qq{invite de commande}.  Quant aux
-utilisateurs de MacOS@tie{}X, ils connaissent assurément les termes
+utilisateurs de MacOS X, ils connaissent assurément les termes
 @qq{console} et @qq{terminal}.  Les paramétrages spécifiques au système
 MacOS font l'objet d'un @rwebnamed{MacOS X,chapitre particulier}.
 
@@ -57,7 +58,6 @@ Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
 commande pour un système informatique ni comment elle fonctionne.
 Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
-
 
 @menu
 * Lancement de lilypond::
@@ -67,12 +67,12 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 * Exécution de LilyPond en mode protégé::
 @end menu
 
+
 @node Lancement de lilypond
 @unnumberedsubsec Lancement de @command{lilypond}
 @translationof Invoking lilypond
 
-L'exécutable @command{lilypond} en ligne de commande se lance
-ainsi@tie{}:
+L'exécutable @command{lilypond} en ligne de commande se lance ainsi :
 
 @example
 lilypond [@var{option}]@dots{} @var{fichier}@dots{}
@@ -85,7 +85,7 @@ s'agit de @file{.ly}.  Pour interpréter directement l'entrée standard
 
 Le traitement de @file{monfichier.ly} produira @file{monfichier.ps} et
 @file{monfichier.pdf}.  Vous pouvez spécifier plusieurs fichiers à la
-fois@tie{}; ils seront traités indépendamment les uns des
+fois ; ils seront traités indépendamment les uns des
 autres.@footnote{Le statut de GUILE n'étant pas réinitialisé après
 traitement d'un fichier @file{.ly}, veillez à ne pas modifier les
 réglages par défaut du système à partir d'assertions en Scheme.}
@@ -111,10 +111,10 @@ fournira grâce à LilyPond @file{@var{racine}-violon.pdf} et
 @unnumberedsubsubsec Commandes standard de l'interpréteur
 @translationof Standard shell commands
 
-Si votre interpréteur -- terminal, console, etc. -- prend en charge les
+Si votre interpréteur -- terminal, console, etc. -- prend en charge les
 redirections, les commandes qui suivent vous permettront de
 judicieusement rediriger les affichages de la console dans un
-fichier@tie{}:
+fichier :
 
 @itemize
 
@@ -146,7 +146,7 @@ qui n'ont rien à voir avec LilyPond.
 @cindex switches
 @cindex commutateurs
 
-Différentes options sont disponibles en ligne de commande@tie{}:
+Différentes options sont disponibles en ligne de commande :
 
 @table @code
 
@@ -232,7 +232,7 @@ La création d'un environnement sécurisé requiert quelques précautions
 dans la mesure où LilyPond doit disposer de tout ce dont il a besoin
 pour compiler le fichier source @strong{à l'intérieur de la cellule}.
 L'ermitage, avant d'être viable, requiert donc les étapes
-suivantes@tie{}:
+suivantes :
 
 @table @asis
 
@@ -272,38 +272,39 @@ dans cette situation.  Comme nous l'avons vu plus haut, LilyPond sera
 lancé avec les privilèges de l'administrateur -- privilèges qu'il perdra
 aussitôt --, ce qui peut nécessiter le recours à la commande
 @code{sudo}.  Il est par ailleurs judicieux de limiter le temps
-processeur alloué à LilyPond -- grâce à @command{ulimit@tie{}-t} par
+processeur alloué à LilyPond -- grâce à @command{ulimit -t} par
 exemple -- ainsi que, si votre système le permet, la taille de la
-mémoire. Voir aussi @ref{Exécution de LilyPond en mode protégé}.
+mémoire.  Voir aussi @ref{Exécution de LilyPond en mode protégé}.
 @end table
 
 @cindex loglevel
 @cindex verbosité, définir le degré de
 @item -l,--loglevel=@var{DEGRÉ}
 Règle le niveau de verbosité des messages console à @var{DEGRÉ}.  Les
-différentes valeurs sont@tie{}:
+différentes valeurs sont :
 
 @table @code
 @item NONE
 Aucun verbiage, même pas les messages d'erreur.
 
 @item ERROR
-Uniquement les messages d'erreur@tie{}; pas de message d'avertissement
+Uniquement les messages d'erreur ; pas de message d'avertissement
 ni de progression.
 
 @item WARN
-Messages d'avertissement ou d'erreur@tie{}; pas d'information de
+Messages d'avertissement ou d'erreur ; pas d'information de
 progression.
 
 @item BASIC_PROGRESS
-Information de progression basique (réussite) et avertissements ou erreurs.
+Information de progression basique (réussite) et avertissements ou
+erreurs.
 
 @item PROGRESS
 Toutes les informations de progression, avertissements et erreurs.
 
 @item INFO (par défaut)
 Informations de progression, avertissements et erreurs, ainsi que
-d'autres informations quant à l'exécution.
+d'autres informations relatives à l'exécution.
 
 @item DEBUG
 Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
@@ -314,7 +315,7 @@ Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
 @cindex répertoire de destination
 @cindex fichier de destination
 @item -o,--output=@var{FICHIER} ou @var{RÉPERTOIRE}
-Détermine le nom par défaut du fichier résultant à @var{FICHIER}@tie{};
+Détermine le nom par défaut du fichier résultant à @var{FICHIER} ;
 lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
 existant, c'est là que les fichiers résultants seront déposés.  Le
 suffixe adéquat sera ajouté (par ex. @code{.pdf} pour du pdf) dans tous
@@ -328,7 +329,7 @@ Génère du PostScript.
 @cindex Portable Network Graphics (PNG), output
 @cindex PNG (Portable Network Graphics), output
 @item --png
-Génère une image par page, au format PNG@tie{}; ceci sous-entend
+Génère une image par page, au format PNG ; ceci sous-entend
 l'utilisation de @option{--ps}.  La résolution de l'image, en DPI, peut
 se régler en ajoutant par exemple
 @example
@@ -344,12 +345,12 @@ Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
 Affiche le numéro de version.
 
 @item -V,--verbose
-Active le mode verbeux@tie{}: affichage de l'intégralité du chemin
+Active le mode verbeux : affichage de l'intégralité du chemin
 d'accès de chaque fichier, et information des temps de traitement.
 
 @item -w,--warranty
 Affiche les informations de garantie applicables à GNU LilyPond -- il
-est livré @strong{SANS GARANTIE}@tie{}!
+est livré @strong{SANS GARANTIE} !
 
 @end table
 
@@ -361,10 +362,10 @@ est livré @strong{SANS GARANTIE}@tie{}!
 @table @code
 
 @item -d@var{[nom-option]}=@var{[valeur]},--define-default=@var{[nom-option]}=@var{[valeur]}
-Affecte la valeur Scheme @var{valeur} à l'option interne @var{nom-option} du
-programme.  En l'absence de @var{valeur}, le programme utilisera @var{#t}.
-Préfixer @var{nom-option} d'un @code{no-} vous permet de désactiver une option.
-Ainsi,
+Affecte la valeur Scheme @var{valeur} à l'option interne
+@var{nom-option} du programme.  En l'absence de @var{valeur}, le
+programme utilisera @var{#t}. Préfixer @var{nom-option} d'un @code{no-}
+vous permet de désactiver une option.  Ainsi,
 
 @cindex point and click, ligne de commande
 @cindex pointer-cliquer, ligne de commande
@@ -427,7 +428,7 @@ utilise par défaut.
 créer un fichier @code{SVG} par page, sans incorporation des fontes.
 Nous vous recommandons d'installer les fontes Century Schoolbook
 comprises dans le paquetage LilyPond afin d'obtenir le meilleur rendu
-possible. Sous UNIX, il suffit de les recopier, à partir du répertoire
+possible.  Sous UNIX, il suffit de les recopier, à partir du répertoire
 @file{/usr/share/lilypond/VERSION/fonts/otf/}, dans @file{~/.fonts/}.
 Les fichiers @code{SVG} alors générés devraient être lisibles par votre
 éditeur SVG habituel.  L'option @code{svg-woff} -- voir ci-après --
@@ -455,7 +456,7 @@ permet d'utiliser les fontes @code{woff} avec le moteur @code{SVG}.
 
 @item @code{debug-gc-assert-parsed-dead}
 @tab @code{#f}
-@tab Pour débogage de la mémoire@tie{}: s'assure que toute référence à
+@tab Pour débogage de la mémoire : s'assure que toute référence à
 des objets analysés est effacée.  Il s'agit d'une option interne qui
 est automatiquement activée par l'option @code{`-ddebug-gc'}.
 
@@ -510,7 +511,7 @@ millimètres.
 
 @item @code{gs-load-lily-fonts}
 @tab @code{#f}
-@tab Limites les fontes chargées par Ghostscript aux seules fontes
+@tab Limite les fontes chargées par Ghostscript aux seules fontes
 LilyPond.
 
 @item @code{gui}
@@ -520,7 +521,7 @@ fichier journal.
 @end multitable
 
 @noindent
-@strong{Note à l'attention des utilisateurs de Windows@tie{}:}  toutes
+@strong{Note à l'attention des utilisateurs de Windows :} toutes
 les informations concernant le traitement apparaissent au fur et à
 mesure dans l'interpréteur de commandes lorsque vous lancez le programme
 @code{lilypond.exe}, à l'inverse de @w{@code{lilypond-windows.exe}} qui
@@ -633,7 +634,7 @@ stoppe le traitement s'il y a erreur et affiche une trace de la pile.
 
 @item @code{read-file-list}
 @tab @code{#f [fichier]}
-@tab Spécifie un fichier listant les différents fichier sources à
+@tab Spécifie un fichier listant les différents fichiers sources à
 traiter.
 
 @item @code{relative-includes}
@@ -677,7 +678,7 @@ ajoute un certain nombre de fonctions -- listées dans
 De plus, le mode @emph{safe} ne permet ni l'utilisation de directives
 @code{\include} ni le recours aux obliques inversées (@emph{backslash})
 dans les chaînes @TeX{}.  L'import de variables LilyPond dans du code
-Scheme n'est pas possible en mode sécuritaire.
+Scheme n'est pas possible en mode sécurisé.
 
 L'option @code{-dsafe} @strong{ne détecte pas} l'utilisation abusive des
 ressources.  Il est donc possible que le programme finisse par rester
@@ -695,7 +696,7 @@ sécurité, même si elle requiert plus de temps à mettre en place -- voir
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
 @tab @code{#f}
-@tab Pour les fichiers @code{FICHIER1.ly}, @code{FICHIER2.ly} etc.
+@tab Pour les fichiers @code{FICHIER1.ly}, @code{FICHIER2.ly}, etc.
 enregistre le déroulement dans les journaux @code{FICHIER1.log},
 @code{FICHIER2.log}@dots{}
 
@@ -747,14 +748,14 @@ programmation} comme étant de véritables erreurs.
 @cindex LILYPOND_DATADIR
 
 @command{lilypond} reconnaît les variables d'environnement
-suivantes@tie{}:
+suivantes :
 
 @table @code
 @item LILYPOND_DATADIR
 Cette variable spécifie le répertoire où seront recherchés par défaut
 les différentes versions des messages ainsi qu'un certain nombre de
 fichiers nécessaires au traitement.  Il devrait contenir les
-sous-répertoires @file{ly/}, @file{ps/}, @file{tex/}, etc.
+sous-répertoires @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
 Cette variable détermine la langue dans laquelle seront émis les
@@ -769,9 +770,9 @@ utilisée.
 @item LILYPOND_GC_YIELD
 Cette variable permet d'ajuster l'empreinte mémoire et le rendement de
 la machine.  Il s'agit en fait d'un pourcentage d'allocation de
-mémoire@tie{}: lorsqu'il est élevé, le programme favorisera
-l'utilisation de la mémoire@tie{}; une faible valeur consommera plus de
-temps processeur.  Par défaut, cette valeur est fixée à@tie{}@code{70}.
+mémoire : lorsqu'il est élevé, le programme favorisera
+l'utilisation de la mémoire ; une faible valeur consommera plus de
+temps processeur.  Par défaut, cette valeur est fixée à @code{70}.
 
 @end table
 
@@ -783,12 +784,12 @@ temps processeur.  Par défaut, cette valeur est fixée à@tie{}@code{70}.
 Paramétrer un serveur afin qu'il puisse faire fonctionner LilyPond en
 mode protégé sur un pseudo-périphérique est une tâche sensible.  Les
 différentes étapes à suivre sont répertoriées ci-dessous.  Les exemples
-qu'elle comportent proviennent d'une distribution Linux Ubuntu et
+qu'elle comportent proviennent d'une distribution GNU/Linux Ubuntu et
 nécessiteront l'utilisation de @code{sudo} autant que de besoin.
 
 @itemize
 
-@item Installation des paquetages nécessaires@tie{}: LilyPond, Ghostscript et
+@item Installation des paquetages nécessaires : LilyPond, Ghostscript et
 ImageMagick.
 
 @item Création de l'utilisateur @code{lily} :
@@ -803,19 +804,19 @@ l'utilisateur @code{lily} ainsi que son répertoire personnel
 @code{/home/lily}.
 
 @item Création, dans le répertoire personnel de l'utilisateur
-@code{lily}, d'un espace agissant en tant que système de fichiers@tie{}:
+@code{lily}, d'un espace agissant en tant que système de fichiers :
 
 @example
 dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
 @end example
 
 @noindent
-Cette commande a créé un fichier de 200@tie{}MB utilisable par le
+Cette commande a créé un fichier de 200 MB utilisable par le
 @qq{système protégé}.
 
 @item Création d'un pseudo-périphérique, génération d'un système de
 fichiers et chargement de celui-ci, puis création d'un répertoire
-accessible en écriture pour l'utilisateur @code{lily}@tie{}:
+accessible en écriture pour l'utilisateur @code{lily} :
 
 @example
 mkdir /mnt/lilyloop
@@ -834,7 +835,7 @@ DIR.
 tous les fichiers nécessaires -- voir le script plus loin.
 
 Le recours à l'utilitaire @code{sed} permet de créer les commandes de
-copie de tout ce qui est nécessaire à un exécutable@tie{}:
+copie de tout ce qui est nécessaire à un exécutable :
 
 @example
 for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
@@ -907,7 +908,7 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 @cindex erreur, messages
 
 Différents messages d'erreur sont susceptibles d'apparaître au cours de
-la compilation d'un fichier@tie{}:
+la compilation d'un fichier :
 
 @table @emph
 
@@ -967,7 +968,7 @@ source, le message est libellé sous la forme
 @end example
 
 Un saut de ligne est placé dans la ligne de code, indiquant l'endroit
-précis du problème, comme ici@tie{}:
+précis du problème, comme ici :
 
 @example
 test.ly:2:19: erreur: n'est pas une durée: 5
@@ -1011,9 +1012,9 @@ facilement.
 
 Lorsque la musique s'épanche au delà de la marge droite ou bien semble
 anormalement comprimée, la raison en est le plus souvent une note à la
-durée erronée@tie{}; cela finit par provoquer le débordement de la
+durée erronée ; cela finit par provoquer le débordement de la
 dernière note d'une mesure.  Rien ne s'oppose à ce que la dernière note
-d'une mesure ne s'arrête avant la barre de mesure@tie{}; on considère
+d'une mesure ne s'arrête avant la barre de mesure ; on considère
 simplement qu'elle se prolonge sur la mesure suivante.  Des débordements
 à répétition finissent par générer une musique comprimée ou qui sort de
 la page, pour la simple et bonne raison que les sauts de ligne
@@ -1057,9 +1058,9 @@ les notes, placées sur la portée inférieure, restent en noir.
 Étant donné qu'aucun contexte @code{Staff} n'existe lorsque la
 dérogation est introduite, LilyPond le crée implicitement pour lui
 appliquer la directive considérée.  Survient alors la commande
-@w{@code{\new Staff}} qui, à son tour, crée une nouvelle portée pour
+@code{\new Staff} qui, à son tour, crée une nouvelle portée pour
 contenir les notes qui suivent.  Voici la syntaxe correcte pour obtenir
-ces notes en rouge@tie{}:
+ces notes en rouge :
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
@@ -1068,7 +1069,7 @@ ces notes en rouge@tie{}:
 }
 @end lilypond
 
-Autre exemple : la présence d'une commande @code{\relative} à
+Autre exemple : la présence d'une commande @code{\relative} à
 l'intérieur d'une section @code{\repeat} générera obligatoirement une
 portée intempestive.  Cela tient au fait que la commande @code{\repeat}
 va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
@@ -1081,7 +1082,7 @@ implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
 @end lilypond
 
 La manière adéquate de procéder consiste à inverser les commandes
-@code{\repeat} et @code{\relative}, comme ceci@tie{}:
+@code{\repeat} et @code{\relative}, comme ceci :
 
 @lilypond[quote,verbatim]
 \new Voice {
@@ -1103,10 +1104,10 @@ bornages ou de guillemets.
 
 L'erreur la plus courante est la simple omission d'une accolade
 fermante (@code{@}}) à la fin du bloc @code{Score}.  La solution est
-évidente en pareil cas@tie{}: il suffit de vérifier que le bloc
+évidente en pareil cas : il suffit de vérifier que le bloc
 @code{Score} est bien clôturé.  La structure des fichiers LilyPond est
 abordée plus en détails au chapitre
-@rlearning{Organisation des fichiers LilyPond}. C'est la raison pour
+@rlearning{Organisation des fichiers LilyPond}.  C'est la raison pour
 laquelle nous vous invitons à utiliser un éditeur de texte qui prenne en
 charge le contrôle de parité des parenthèses, crochets et accolades afin
 de vous éviter de telles erreurs.
@@ -1157,8 +1158,8 @@ UTF-8.  Pour plus de détails, reportez-vous au chapitre
 Cet avertissement est émis lorsque la partition ne comporte pas de
 portée, comme par exemple une feuille de chant avec un contexte
 @code{ChordName} et un contexte @code{Lyrics}.  Ce message disparaîtra
-dès lors que autoriserez l'un de ces contextes à se comporter comme une
-portée, à l'aide de l'instruction
+dès lors que vous autoriserez l'un de ces contextes à se comporter comme
+une portée, à l'aide de l'instruction
 
 @example
 \override VerticalAxisGroup #'staff-affinity = ##f

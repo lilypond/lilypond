@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
+    Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -71,7 +72,7 @@ urlCommand     "lilypond-invoke-editor %s"
 @end example
 
 @file{lilypond-invoke-editor} est un petit programme assistant.  Il
-se charge d'appeler un éditeur pour les identifants de ressource
+se charge d'appeler un éditeur pour les identifiants de ressource
 (@emph{URI}) de type @code{textedit}, et un navigateur pour les autres.
 Il teste en outre la variable d'environnement @code{EDITOR} pour les cas
 suivant :
@@ -179,7 +180,7 @@ ou
 En ligne de commande :
 
 @example
-lilypond -dpoint-and-click=note-event   example.ly
+lilypond -dpoint-and-click=note-event exemple.ly
 @end example
 
 @end itemize
@@ -212,7 +213,7 @@ En ligne de commande :
 @smallexample
 lilypond \
   -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
-  example.ly
+  exemple.ly
 @end smallexample
 
 
@@ -345,7 +346,7 @@ ces programmes.
 source LilyPond.
 
 MIDI (Music Instrument Digital Interface) constitue un standard pour
-les instruments. Il spécifie le cablage, un protocole série et un
+les instruments. Il spécifie le câblage, un protocole série et un
 format de fichier.  Le format de fichier MIDI est de ce fait un format
 standard pour exporter de la musique à partir d'autres programmes, et
 cette faculté prend tout son intérêt lorsqu'un programme dispose d'un
@@ -434,11 +435,11 @@ ajoutez une indication de phrasé ou de pédale.
 dialecte XML pour représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
-notes, articulations, structure de la partition, paroles, etc.
+notes, articulations, structure de la partition, paroles, etc.
 et les écrit dans un fichier @file{.ly}.  Il se lance en ligne de
 commande.
 
-Pour le lancer en ligne de commande, procédez ainsi :
+Pour le lancer en ligne de commande, procédez ainsi :
 @example
 musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 @end example
@@ -477,10 +478,10 @@ Ajouter un bloc @code{\midi}.
 
 @item --nd --no-articulation-directions
 Ne pas convertir la direction (@code{^}, @code{_} ou @code{-}) des
-articulations, nuances, etc.
+articulations, nuances, etc.
 
 @item --no-beaming
-Ne pas convertir les informations de ligature@tie{}; laisser LilyPond
+Ne pas convertir les informations de ligature ; laisser LilyPond
 gérer les ligatures automatiquement.
 
 @item -o,--output=@var{file}
@@ -524,7 +525,7 @@ Pour le lancer en ligne de commande, procédez ainsi :
 abc2ly [@var{option}]@dots{} @var{fichier-abc}
 @end example
 
-@command{abc2ly} accepte les options suivantes@tie{}:
+@command{abc2ly} accepte les options suivantes :
 
 @table @code
 @item -b,--beams=None
@@ -736,7 +737,7 @@ toujours les télécharger et les utiliser avec la commande
 LilyPond sait produire des fichiers MIDI, principalement dans le but de
 « contrôle qualité » -- heureux détenteurs d'une oreille absolue -- de
 ce qui a été saisi.  Ne seront toutefois reproduits, en plus des notes
-et durées, que les nuances et tempi explicites.
+et durées, que les nuances et tempos explicites.
 
 Le projet @emph{articulate} (site en anglais) s'est donné pour objectif
 de reproduire plus d'informations dans le MIDI.  Les notes qui ne sont
