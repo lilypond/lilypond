@@ -167,8 +167,6 @@ extra-local-help:
 	@echo
 
 info: $(INFO_FILES)
-	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
-	@echo export PYTHONPATH=$(PYTHONPATH)
 
 xml: $(outdir)/notation/notation.xml $(outdir)/internals/internals.xml
 
