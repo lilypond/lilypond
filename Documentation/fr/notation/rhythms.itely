@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -202,7 +203,7 @@ soupir à la maxime (valant huit pauses).
 @funindex \times
 @funindex times
 
-Les nolets -- triolets, quintolets etc. -- sont obtenus en
+Les nolets -- triolets, quintolets, etc. -- sont obtenus en
 multipliant toutes les durées d'une expression musicale par une
 fraction.
 
@@ -214,8 +215,8 @@ fraction.
 La durée de l'@code{@var{expression_musicale}} sera multipliée par la
 fraction.  Le dénominateur de cette fraction sera imprimé au-dessus ou
 au-dessous des notes, parfois avec un crochet.  Le nolet le plus courant
-est le triolet, dans lequel 3 notes ont la durée de 2, et où les notes
-durent donc 2/3 de leur valeur écrite.
+est le triolet, dans lequel trois notes ont la durée de deux, et où les
+notes durent donc 2/3 de leur valeur écrite.
 
 @lilypond[quote,verbatim,relative=2]
 a2 \times 2/3 { b4 b b }
@@ -415,7 +416,7 @@ liaison d'@strong{articulation} ou de @strong{phrasé}.  Une liaison de
 tenue est un moyen parmi d'autres pour prolonger la durée d'une note,
 tout comme les points.}
 
-Une liaison de tenue s'indique au moyen d'un tilde @code{~}.
+Une liaison de tenue s'indique au moyen d'un tilde @code{~}.
 
 @lilypond[quote,verbatim,relative=2]
 a2 ~ a
@@ -547,7 +548,7 @@ plus amples détails à ce sujet, reportez vous au chapitre
 
 Dans le cas où une liaison est recouverte par d'autres éléments de la
 portée, une adaptation des propriétés @var{whiteout} et @var{layer}
-permet d'obtenir une meilleur lisibilité.
+permet d'obtenir une meilleure lisibilité.
 
 @lilypond[verbatim,quote,ragged-right,relative=2]
 \override Tie #'layer = #-2
@@ -667,7 +668,7 @@ s'indiquent à l'aide de commandes prédéfinies :
 Les pauses d'une mesure complète, qui sont placées au centre de la
 mesure, doivent être entrées comme des mesures de silence.  Elles
 peuvent être utilisées pour une seule mesure comme pour plusieurs, et
-leur utilisation est expliquée dans la section
+leur utilisation est expliquée à la rubrique
 @ref{Silences valant une mesure}.
 
 @cindex silence, spécification du positionnement vertical
@@ -984,9 +985,9 @@ Référence des propriétés internes :
 @cindex silences multimesure et doigtés
 
 @knownissues
-Vous ne pouvez pas utiliser de doigtés (p. ex. @code{R1*10-4}) pour
+Vous ne pouvez pas utiliser de doigtés (par  ex. @code{R1*10-4}) pour
 positionner des nombres au dessus d'un silence multimesure, le numéro
-de doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
+de doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
 
 @cindex condenser les silences
 @cindex silences, condenser les
@@ -1371,7 +1372,7 @@ commande est
 @end example
 
 @noindent
-où @var{durée} correspond à la valeur rythmique @strong{restante}
+où @var{durée} correspond à la valeur rythmique @strong{restant}
 dans la mesure et @strong{avant} la première mesure complète :
 
 @lilypond[quote,verbatim,relative=1]
@@ -1489,8 +1490,8 @@ d4 e d c
 
 Une cadence représente un fragment détaché de la notion de mesure, en
 dépit des différentes commandes @code{\bar} qu'il pourra comporter.
-Ceci a pour conséquence que toute altération supplémentaire prarapport à
-l'armure devra être rappelée manuellement -- voir @ref{Altérations}.
+Ceci a pour conséquence que toute altération supplémentaire par rapport
+à l'armure devra être rappelée manuellement -- voir @ref{Altérations}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1779,8 +1780,8 @@ suffit pour cela de remplacer le graveur @code{Note_heads_engraver}
 par le graveur @code{Completion_heads_engraver}.  Il en va de la même
 manière pour des silences ; le @code{Completion_rest_engraver} devra
 alors remplacer le @code{Rest_engraver}.  Dans l'exemple suivant, les
-notes ou silences qui dépassent de la mesure sont divisées et au besoin
-liées.
+notes ou silences qui dépassent de la mesure sont divisés et au besoin
+liés.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
@@ -3313,7 +3314,7 @@ apparaîtra comme une @emph{appoggiatura}, c'est-à-dire sans trait.
 
 La synchronisation des petites notes se fait de façon parfois
 surprenante, car les autres objets de la portée -- barre de mesure,
-armure, etc. -- sont eux aussi synchrones.  Pensez-y lorsque vous
+armure, etc. -- sont eux aussi synchrones.  Pensez-y lorsque vous
 mêlez des portées comprenant des petites notes et d'autres sans :
 
 @lilypond[quote,relative=2,verbatim]
@@ -3525,4 +3526,3 @@ Morceaux choisis :
 Références des propriétés internes :
 @rinternals{Timing_translator},
 @rinternals{Score}
-
