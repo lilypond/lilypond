@@ -185,6 +185,16 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me) && !me->get_system ())
     me->programming_error ("vertical alignment called before line-breaking");
 
+  // check the cache
+  if (pure)
+    {
+      SCM fv = ly_assoc_get (scm_cons (scm_from_int (start), scm_from_int (end)),
+                             me->get_property ("minimum-translations-alist"),
+                             SCM_EOL);
+      if (fv != SCM_EOL)
+        return ly_scm2floatvector (fv);
+    }
+
   // If include_fixed_spacing is true, we look at things like system-system-spacing
   // and alignment-distances, which only make sense for the toplevel VerticalAlignment.
   // If we aren't toplevel, we're working on something like BassFigureAlignment
@@ -285,6 +295,15 @@ Align_interface::internal_get_minimum_translations (Grob *me,
           all_translates.push_back (w);
         }
     }
+
+  if (pure)
+    {
+      SCM mta = me->get_property ("minimum-translations-alist");
+      mta = scm_cons (scm_cons (scm_cons (scm_from_int (start), scm_from_int (end)),
+                                ly_floatvector2scm (all_translates)),
+                      mta);
+      me->set_property ("minimum-translations-alist", mta);
+    }
   return all_translates;
 }
 
@@ -312,24 +331,11 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
       all_grobs[j]->translate_axis (translates[j], a);
 }
 
-MAKE_SCHEME_CALLBACK (Align_interface, full_score_pure_minimum_translations, 1);
-SCM
-Align_interface::full_score_pure_minimum_translations (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "elements", all_grobs);
-
-  vector<Real> pure_minimum_translations = Align_interface::get_pure_minimum_translations (me, all_grobs, Y_AXIS, 0, INT_MAX);
-  return ly_floatvector2scm (pure_minimum_translations);
-}
-
 Real
 Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  vector<Real> translates = start == 0 && end == INT_MAX
-                            ? ly_scm2floatvector (me->get_object ("full-score-pure-minimum-translations"))
-                            : get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
+  vector<Real> translates = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
 
   if (translates.size ())
     {
@@ -386,8 +392,8 @@ ADD_INTERFACE (Align_interface,
                /* properties */
                "align-dir "
                "axes "
-               "full-score-pure-minimum-translations "
                "elements "
+               "minimum-translations-alist "
                "padding "
                "positioning-done "
                "stacking-dir "

@@ -1083,8 +1083,6 @@ in addition to notes and stems.")
 a whole system.")
      (footnotes-after-line-breaking ,ly:grob-array? "Footnote grobs of
 a broken system.")
-     (full-score-pure-minimum-translations ,list? "A list of translations
-for a full score's worth of grobs.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")
@@ -1109,6 +1107,8 @@ empty in a particular staff, then that staff is erased.")
 for this column.")
 
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
+     (minimum-translations-alist ,list? "An list of translations for a given
+start and end point.")
 
      (neighbors ,ly:grob-array? "The X-axis neighbors of a grob. Used by the
 pure-from-neighbor-interface to determine various grob heights.")
