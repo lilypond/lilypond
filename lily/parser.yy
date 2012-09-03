@@ -2379,7 +2379,6 @@ post_event_nofinger:
 		}
 		$$ = $2;
 	}
-	| string_number_event
 	| '^' fingering
 	{
 		$$ = $2;
@@ -2455,6 +2454,7 @@ direction_less_event:
 		}
 		$$ = m->unprotect ();
 	}
+	| string_number_event
 	| EVENT_IDENTIFIER	{
 		$$ = $1;
 	}
