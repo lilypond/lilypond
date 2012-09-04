@@ -199,7 +199,24 @@ Self_alignment_interface::avoid_colliding_grobs (Grob *me, Axis a, Real offset)
 
   Interval iv = me->extent (me, a) + offset;
   for (vsize i = 0; i < colls.size (); i++)
-    ivs.push_back (colls[i]->extent (refp, a));
+    {
+      int my_vai = Grob::get_vertical_axis_group_index (colls[i]);
+      Direction dir = get_grob_direction (colls[i]);
+      // if coll is cross staff but extremal and pointing in the
+      // direction of the extrema, we don't take it into consideration
+      if (Grob *beam = unsmob_grob (colls[i]->get_object ("beam")))
+        {
+          Interval_t<int> vais;
+          extract_grob_set (beam, "normal-stems", stems);
+          for (vsize j = 0; j < stems.size (); j++)
+            vais.add_point (Grob::get_vertical_axis_group_index (stems[j]));
+          // ugh...up and down are different for VerticalAxisGroup order...
+          if ((my_vai == vais[DOWN] && dir == UP)
+              || (my_vai == vais[UP] && dir == DOWN))
+            continue;
+        }
+      ivs.push_back (colls[i]->extent (refp, a));
+    }
 
   Interval_minefield minefield (Interval (iv.center (), iv.center ()), iv.length ());
   for (vsize i = 0; i < ivs.size (); i++)
