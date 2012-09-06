@@ -91,7 +91,7 @@ public:
   SCM keyword_list () const;
   SCM lookup_identifier (string s);
   SCM lookup_identifier_symbol (SCM s);
-  void push_extra_token (int token_type, SCM scm = SCM_UNDEFINED);
+  void push_extra_token (int token_type, SCM scm = SCM_UNSPECIFIED);
   void push_chord_state (SCM alist);
   void push_figuredbass_state ();
   void push_lyric_state ();
