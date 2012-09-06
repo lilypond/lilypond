@@ -4000,9 +4000,9 @@ smartSquareLineCircleSpace = {
 \new Voice \with { \remove "Stem_engraver" }
 \relative c'' {
   \squareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
   \smartSquareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
 }
 @end lilypond
 
