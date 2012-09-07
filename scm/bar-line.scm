@@ -171,22 +171,17 @@
          (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot"))
          (dot-y-length (interval-length (ly:stencil-extent dot Y)))
          (stencil empty-stencil)
-         ;; the two dots of the repeat sign should be centred at the middle of
-         ;; the staff and neither should collide with staff lines
-         ;;
-         ;; the default distance between centre of dots is composed of
-         ;; - a staffline (with width line-thickness)
-         ;; - some space below and above dot
-         ;; - two half-dots
-         ;; and we need to measure it as line positions,
+         ;; the two dots of the repeat sign should be centred at the
+         ;; middle of the staff and neither should collide with staff
+         ;; lines.
+         ;; the required space is measured in line positions,
          ;; i.e. in half staff spaces.
-         ;;
-         ;; space between dot and staffline should be comparable to staffline
-         ;; width so that a relatively common idiom
-         ;; (0.5 staff-size combined with set-layout-staff-size 10) works ok -
-         ;; that makes the choice of 1 staffline too big.
-         ;; 0.1 will be used if to be positioned between staff lines,
-         ;; dot diameter if outside staff.
+
+         ;; dots are to fall into distict spaces, except when there's
+         ;; only one space (and it's big enough to hold two dots and
+         ;; some space between them)
+
+         ;; choose defaults working without any staff
          (center 0.0)
          (dist (* 4 dot-y-length)))
 
@@ -203,24 +198,20 @@
                         (set! center
                               (interval-center (staff-symbol-line-span
                                                 staff-symbol)))
-                        ;; fold the staff into two at center and find the
-                        ;; first gap big enough to hold a dot and some space
-                        ;; below and above
-                        (let* ((half-staff
-                                (sort (append (map (lambda (lp)
-                                                     (abs (- lp center)))
-                                                   line-pos)
-                                              '(0.0)) <))
-                               (gap-to-find (/ (+ dot-y-length
-                                                  (* 1.2 line-thickness))
+                        ;; fold the staff into two at center
+                        (let* ((folded-staff
+                                (sort (map (lambda (lp) (abs (- lp center)))
+                                           line-pos) <))
+                               (gap-to-find (/ (+ dot-y-length line-thickness)
                                                (/ staff-space 2)))
+                               (first (car folded-staff))
                                (found #f))
 
-                          ;; initialize dist for the case when both dots should
-                          ;; be outside the staff
-                          (set! dist (+ (* 2 (car (reverse half-staff)))
-                                        (/ (* 4 dot-y-length) staff-space)))
-
+                          ;; find the first space big enough
+                          ;; to hold a dot and a staff line
+                          ;; (a space in the folded staff may be
+                          ;; narrower but can't be wider than the
+                          ;; corresponding original spaces)
                           (reduce (lambda (x y) (if (and (> (- x y) gap-to-find)
                                                          (not found))
                                                     (begin
@@ -228,7 +219,19 @@
                                                       (set! dist (+ x y))))
                                           x)
                                   ""
-                                  half-staff))))))))
+                                  folded-staff)
+
+                          (if (not found)
+                              (set! dist (if (< gap-to-find first)
+                                             ;; there's a central space big
+                                             ;; enough to hold both dots
+                                             first
+
+                                             ;; dots should go outside
+                                             (+ (* 2 (car
+                                                      (reverse folded-staff)))
+                                                (/ (* 4 dot-y-length)
+                                                   staff-space))))))))))))
         (set! staff-space 1.0))
 
     (let* ((stencil empty-stencil)
