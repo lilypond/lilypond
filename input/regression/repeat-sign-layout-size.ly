@@ -18,6 +18,10 @@ Test layout-set-staff-size."
     } {
       s1 \bar ":|"
     }
+
+    \context Staff = "s3" {
+      s1 \bar ":|"
+    }
   >>
 
   \layout {
@@ -37,6 +41,10 @@ Test layout-set-staff-size."
     \context Staff = "s2" \with {
       \override StaffSymbol #'staff-space = #0.6
     } {
+      s1 \bar ":|"
+    }
+
+    \context Staff = "s3" {
       s1 \bar ":|"
     }
   >>
