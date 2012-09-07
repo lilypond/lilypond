@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,8 +20,8 @@
 @lilypondfile[quote]{pitches-headword.ly}
 
 Cette section détaille la façon d'indiquer la hauteur des notes, sous
-trois aspects : la saisie des hauteurs, la modification des
-hauteurs et les options de gravure.
+trois aspects : la saisie des hauteurs, la modification des hauteurs et
+les options de gravure.
 
 @menu
 * Écriture des hauteurs de note::
@@ -258,7 +259,7 @@ et la quinte diminuée de seulement six demi-tons.
 @end lilypond
 
 L'une des conséquences de toutes ces règles est que la première note
-rencontrée dans un fragment balisé par @code{@w{\relative f}} sera
+rencontrée dans un fragment balisé par @code{\relative  f} sera
 interprétée tout comme si elle avait été saisie en mode absolu.
 
 @seealso
@@ -374,7 +375,7 @@ cis
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
-@lilypondfile[verbatim,quote,texidoc, doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
@@ -526,7 +527,7 @@ et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
 suédois, le catalan et l'espagnol.
 
 @quotation
-@multitable {@code{nederlands}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
+@multitable {@code{nederlands}} {@b{semi-dièse}} {@b{semi-bémol}} {@b{sesqui-dièse}} {@b{sesqui-bémol}}
 @headitem Langue
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
 @item @code{nederlands}
@@ -1091,7 +1092,7 @@ c2 c
 @cindex chorale, clef de ténor
 @cindex ténor, clef
 
-En ajoutant @code{_8} ou @code{^8} au nom de la clé, celle-ci est
+En ajoutant @code{_8} ou @code{^8} au nom de la clef, celle-ci est
 transposée à l'octave respectivement inférieure ou supérieure, et
 @code{_15} ou @code{^15} la transpose de deux octaves.  D'autres nombres
 entiers peuvent être utilisés selon les besoins.  L'argument
@@ -1115,11 +1116,11 @@ c2 c
 
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
 sujet @ref{Notations anciennes}, @ref{Clefs anciennes},
-@ref{Clefs grégoriennes}, @ref{Tablatures par défaut} et @ref{Tablatures
-personnalisées}.  La nécessité de recourir à d'autres clefs dans le cas
-où la partition comprend des petites notes est abordée au chapitre
-@ref{Mise en forme d'une citation} -- voir les fonctions @code{\cueClef}
-et @code{\cueDuringWithClef}.
+@ref{Clefs grégoriennes}, @ref{Tablatures par défaut} et
+@ref{Tablatures personnalisées}.  La nécessité de recourir à d'autres
+clefs dans le cas où la partition comprend des petites notes est abordée
+au chapitre @ref{Mise en forme d'une citation} -- voir les fonctions
+@code{\cueClef} et @code{\cueDuringWithClef}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1167,7 +1168,7 @@ Elle comprend un ensemble d'altérations (dièses ou bémols) à la clef,
 c'est-à-dire au début de la portée.  Elle peut varier en cours de
 morceau.
 
-On définit ou modifie l'armure avec la commande @code{\key}
+On définit ou modifie l'armure avec la commande @code{\key} :
 
 @example
 \key @var{hauteur} @var{mode}
@@ -1894,7 +1895,7 @@ musicB = {
 
 Cette règle est communément employée pour les partitions de piano au
 XXe siècle.  Très similaire à @code{modern} de par son comportement,
-elle s'en distingue en ce que les altérations tiennent compte des autre
+elle s'en distingue en ce que les altérations tiennent compte des autres
 portées du contexte @code{GrandStaff} ou @code{PianoStaff}.
 
 Cette règle s'applique par défaut dans un @code{GrandStaff} et dans un
@@ -2186,9 +2187,9 @@ musicB = {
 
 @funindex neo-modern-voice-cautionary
 
-Cette règle est identique à @code{neo-modern-voice},
-mais les altérations de précaution sont imprimées
-soit entre parenthèses (par défaut), soit en plus petit.
+Cette règle est identique à @code{neo-modern-voice}, mais les
+altérations de précaution sont imprimées soit entre parenthèses (par
+défaut), soit en plus petit.
 
 @lilypond[quote]
 musicA = {
@@ -2558,16 +2559,15 @@ forget = #(define-music-function (parser location music) (ly:music?) #{
 @cindex tessiture
 @cindex amplitude
 
-L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
-partition.  Ce terme peut aussi désigner la tessiture qu'un instrument
-est capable d'atteindre.  Souvent, cet @emph{ambitus} est imprimé au
+L'@notation{ambitus} est l'amplitude des hauteurs d'une voix donnée dans
+une partition.  Ce terme peut aussi désigner la tessiture qu'un
+instrument est capable d'atteindre.  Souvent, cet ambitus est imprimé au
 début des partitions vocales, afin que les exécutants puissent voir au
 premier coup d'œil s'ils sont en mesure de tenir la partie en question.
 
-Pour exprimer l'@emph{ambitus} d'une pièce, on indique avant la clef
-deux têtes de note représentant la hauteur la plus basse et la plus
-haute.  Les éventuelles altérations accidentelles seront automatiquement
-ajoutées.
+Pour exprimer l'ambitus d'une pièce, on indique avant la clef deux têtes
+de note représentant la hauteur la plus basse et la plus haute.  Les
+éventuelles altérations accidentelles seront automatiquement ajoutées.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -2611,7 +2611,7 @@ Référence des propriétés internes :
 @rinternals{ambitus-interface}.
 
 @knownissues
-LilyPond ne gère pas les collisions entre plusieurs @emph{ambitus}
+LilyPond ne gère pas les collisions entre plusieurs ambitus
 présents sur une même portée.
 
 

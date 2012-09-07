@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -131,7 +132,7 @@ Voici une simple reprise avec une fin alternative :
 c1
 @end lilypond
 
-Et une répétition avec plusieurs alternatives :
+Et une répétition avec plusieurs alternatives :
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 3 { c4 d e f | }
@@ -160,7 +161,7 @@ immanquablement des portées parasites.  Voir
 
 @funindex \partial
 
-Lorsqu'une reprise sans fins alternatives débute au milieu d'une mesure,
+Lorsqu'une reprise sans fin alternative débute au milieu d'une mesure,
 elle devrait se terminer aussi au milieu d'une mesure, de telle sorte
 que les mesures soient complètes.  En pareil cas, les indications de
 reprise ne constituent pas des barres de mesure à proprement parler ; il
@@ -483,7 +484,7 @@ c1
 @end lilypond
 
 Dans certains cas, et tout particulièrement dans un contexte
-@code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
+@code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
 écrire littéralement la même expression musicale plusieurs fois.
 Ainsi :
 
@@ -749,4 +750,3 @@ Morceaux choisis :
 
 @cindex tremolo, cross-staff
 @cindex cross-staff tremolo
-

@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -121,7 +122,7 @@ c4.-> d8---3
 
 Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
 dont la taille est la plus proche de la taille voulue.  La taille
-standard (pour laquelle @w{@code{font-size = #0}}) dépend de la hauteur
+standard (pour laquelle @code{font-size = #0}) dépend de la hauteur
 de la portée.  À une portée de 20 points correspond une police de
 10 points.
 
@@ -224,7 +225,7 @@ Référence des propriétés internes :
 
 @knownissues
 La syntaxe @samp{@var{note}-@var{digit}} ne prend pas en charge, par
-défaut, les chiffres supérieurs à 9.
+défaut, les chiffres supérieurs à 9.
 
 
 @node Dictée à trous
@@ -363,7 +364,7 @@ b2 cis
 Un autre moyen consiste à fournir à la fonction Scheme @code{rgb-color}
 les composantes de la couleur exacte au format rouge-vert-bleu
 (@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
-l'exemple suivant correspond à 128).
+l'exemple suivant correspond à 128).
 
 @lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -725,4 +726,3 @@ Référence des propriétés internes :
 @rinternals{HorizontalBracket},
 @rinternals{horizontal-bracket-interface},
 @rinternals{Staff}.
-
