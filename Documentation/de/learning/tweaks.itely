@@ -4359,14 +4359,14 @@ das richtige Verzeichnis auf Ihrem System finden.  Die Position
 hängt a) davon ab, ob Ihre LilyPond-Installation mit der vorkompilierten
 Version von der LilyPond-Internetseite vorgenommen wurde oder Sie
 die Version durch Ihren Paketmanager installiert haben (also
-z. B. in einer Linux-Distribution oder unter fink oder cygwin
+z. B. in einer GNU/Linux-Distribution oder unter fink oder cygwin
 installiert), und b) auf welchem Betriebssystem Sie das Programm
 benutzen:
 
 @strong{Von lilypond.org heruntergeladen}
 
 @itemize @bullet
-@item Linux
+@item GNU/Linux
 
 Wechseln Sie in das Verzeichnis
 @example

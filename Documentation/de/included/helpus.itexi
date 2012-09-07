@@ -88,7 +88,7 @@ MacOS X benutzen, @strong{nicht} ihre eigene Entwicklungsumgebung
 einrichten, sondern anstattdessen lilybuntu benutzen, welches
 besprochen ist in @rcontribnamed{Quick start,Schnellstart}.}
 
-Beitragende, die Linux oder FreBSD benutzen, können auch lilybuntu
+Beitragende, die GNU/Linux oder FreBSD benutzen, können auch lilybuntu
 einsetzen, aber wenn Sie Ihre eigene Entwicklungsumgebung einrichten
 wollen, lesen Sie bitte @rcontribnamed{Working with source code,Mit dem Sourcecode arbeiten}
 und @rcontribnamed{Compiling,Kompilieren}.

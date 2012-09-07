@@ -49,7 +49,7 @@ Links für die stabile Version von LilyPond finden sich auf
 @item
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux und FreeBSD)}
+@ref{Unix, Unix (GNU/Linux und FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}

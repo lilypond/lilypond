@@ -299,7 +299,7 @@ erfordern (wenn man etwa mit @code{lilypond-book} arbeitet), lohnt
 sich die Erstellung einer Make-Datei.  Diese Dateien können sehr
 unterschiedliche ausfallen, und ihre Komplexität und Flexibilität kann
 den Bedürfnissen aber auch Kenntnissen des Schreibers angepasst werden.
-Das Programm GNU Make ist auf GNU/Linux Distributionen und MacOS X
+Das Programm GNU Make ist auf GNU/Linux-Distributionen und MacOS X
 installiert, aber es ist auch für Windows erhältlich.
 
 Das @strong{GNU Make Manual} gibt eine vollständige Anleitung, wie
@@ -307,11 +307,11 @@ Das @strong{GNU Make Manual} gibt eine vollständige Anleitung, wie
 Blicke auf die vielfältigen Möglichkeiten geworfen werden.
 
 Die Befehle, um Regeln in einer Make-Datei zu erstellen, unterscheidet
-sich zwischen den Betriebssystemen.  Die verschiedenen Linuxe und
+sich zwischen den Betriebssystemen.  Die verschiedenen GNU/Linuxe und
 MacOS X benutzen @code{bash}, während unter Windows @code{cmd} eingesetzt
 wird.  Unter MacOS X muss man das System so konfigurieren, dass
 die Kommandozeile benutzt wird.  Hier einige Beispiele für Make-Dateien,
-mit Versionen für Linux/MacOS und Windows.
+mit einer Version für GNU/Linux und MacOS und einer für Windows.
 
 Das erste Beispiel ist für ein Orchesterstück in vier Stätzen unt mit
 der folgenden Dateistruktur:
