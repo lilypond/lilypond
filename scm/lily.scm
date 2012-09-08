@@ -843,10 +843,13 @@ PIDs or the number of the process."
          (ly:set-option 'debug-gc-assert-parsed-dead #t)
          (gc)
          (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	 (for-each
-	  (lambda (x)
-	    (ly:programming-error "Parsed object should be dead: ~a" x))
-	  (ly:parsed-undead-list!))
+         (for-each
+          (lambda (x)
+            (if (not (hashq-ref gc-zombies x))
+                (begin
+                  (ly:programming-error "Parsed object should be dead: ~a" x)
+                  (hashq-set! gc-zombies x #t))))
+          (ly:parsed-undead-list!))
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)
              (ly:reset-all-fonts))
