@@ -10,6 +10,10 @@ enddecr = #(make-span-event 'DecrescendoEvent STOP)
 endcr = #(make-span-event 'CrescendoEvent STOP) 
 
 
+startMeasureCount = #(make-span-event 'MeasureCounterEvent START)
+stopMeasureCount = #(make-span-event 'MeasureCounterEvent STOP)
+
+
 startTextSpan = #(make-span-event 'TextSpanEvent START)
 stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 

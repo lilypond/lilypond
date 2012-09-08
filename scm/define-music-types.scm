@@ -309,6 +309,11 @@ Example: @code{\\mark \"A\"}")
 	(types . (general-music mark-event event))
 	))
 
+    (MeasureCounterEvent
+     . ((description . "Used to signal the start and end of a measure count.")
+        (types . (general-music measure-counter-event span-event event))
+        ))
+
     (MultiMeasureRestEvent
      . ((description . "Used internally by @code{MultiMeasureRestMusic}
 to signal rests.")

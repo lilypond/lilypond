@@ -201,6 +201,9 @@ this grob looks as a continued break.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
+     (count-from ,integer? "The first measure in a measure count
+receives this number.  The following measures are numbered in
+increments from this initial value.")
 
 ;;
 ;; d

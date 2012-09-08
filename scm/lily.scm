@@ -496,6 +496,7 @@ messages into errors.")
     "define-grobs.scm"
     "define-grob-interfaces.scm"
     "define-stencil-commands.scm"
+    "scheme-engravers.scm"
     "titling.scm"
     "text.scm"
 

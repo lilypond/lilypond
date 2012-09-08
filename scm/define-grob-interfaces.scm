@@ -170,6 +170,11 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'measure-counter-interface
+ "A counter for numbering measures."
+ '(columns count-from))
+
+(ly:add-interface
  'metronome-mark-interface
  "A metronome mark."
  '())

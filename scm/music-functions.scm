@@ -1957,3 +1957,39 @@ of list @var{arg}."
    (if (>= (length siblings) 2)
        (helper siblings arg)
        (car arg))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; measure counter
+
+(define (measure-counter-stencil grob)
+  "Create a number for a measure count.  The number is centered using
+the extents of the @code{BreakAlignment} grobs associated with the
+@code{NonMusicalPaperColumn} grobs which form the left and right bounds
+of the spanner."
+  (let* ((cols (ly:grob-object grob 'columns))
+         (refp (ly:grob-common-refpoint-of-array grob cols X))
+         (col-list (ly:grob-array->list cols))
+         (elts-L (ly:grob-array->list (ly:grob-object (car col-list) 'elements)))
+         (elts-R (ly:grob-array->list (ly:grob-object (cadr col-list) 'elements)))
+         (break-alignment-L
+           (filter
+             (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
+             elts-L))
+         (break-alignment-R
+           (filter
+             (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
+             elts-R))
+         (break-alignment-L-ext (ly:grob-extent (car break-alignment-L) refp X))
+         (break-alignment-R-ext (ly:grob-extent (car break-alignment-R) refp X))
+         (counter (ly:grob-property grob 'count-from))
+         (num (grob-interpret-markup grob (markup (number->string counter))))
+         (num (ly:stencil-aligned-to num X (ly:grob-property grob 'self-alignment-X)))
+         (num
+           (ly:stencil-translate-axis
+             num
+             (+ (interval-length break-alignment-L-ext)
+                (* 0.5
+                   (- (car break-alignment-R-ext)
+                      (cdr break-alignment-L-ext))))
+             X)))
+    num))

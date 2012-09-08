@@ -1321,6 +1321,24 @@
 				self-alignment-interface
 				text-interface))))))
 
+    (MeasureCounter
+     . (
+        (count-from . 1)
+        (direction . ,UP)
+        (font-encoding . fetaText)
+        (font-size . -2)
+        (outside-staff-horizontal-padding . 0.5)
+        (outside-staff-padding . 0.5)
+        (outside-staff-priority . 750)
+        (self-alignment-X . ,CENTER)
+        (staff-padding . 0.5)
+        (stencil . ,measure-counter-stencil)
+        (meta . ((class . Spanner)
+                 (interfaces . (font-interface
+                                measure-counter-interface
+                                self-alignment-interface
+                                text-interface))))))
+
     (MeasureGrouping
      . (
 	(direction . ,UP)
