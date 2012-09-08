@@ -2918,7 +2918,7 @@ ManualOneVoiceTwoMusic = \relative c' {
 }
 ManualTwoMusic = \relative c' {
   c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
+  f16 ees f d g aes g f ees d ees8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
   r8 c16 d ees d ees8~ ees16 a, b g c b c8 |

@@ -162,10 +162,9 @@ verbatim.
   @tab direction, beam-thickness
 @end multitable
 
-As we shall see shortly, the properties of different types of
-object are modified by different commands, so it is useful to
-be able to recognize the type of object from the names of its
-properties.
+As we shall see shortly, the properties of different types of object are
+modified by different commands, so it is useful to be able to recognize
+the types of objects and properties from their names.
 
 
 @node Tweaking methods
@@ -570,10 +569,9 @@ this page, but if you have an idea about the name of the layout object
 to be tweaked, it is easier to go straight to the IR and search there.
 
 This Slur page in the IR tells us first that Slur objects are created
-by the Slur_engraver.  Then it lists the standard settings.  Note
-these are @strong{not} in alphabetic order.  Browse down them looking
-for a property that might control the heaviness of slurs, and you
-should find
+by the Slur_engraver.  Then it lists the standard settings.  Browse
+through them looking for a property that might control the heaviness of
+slurs, and you should find
 
 @example
 @code{thickness} (number)
@@ -654,7 +652,7 @@ Slur, where it says @q{Slur objects are created by: Slur
 engraver}.  So slurs will be created in whichever context
 the @code{Slur_engraver} is in.  Follow the link to the
 @code{Slur_engraver} page.  At the very bottom it tells
-us that @code{Slur_engraver} is part of five Voice contexts,
+us that @code{Slur_engraver} is part of seven Voice contexts,
 including the standard voice context, @code{Voice}, so our
 guess was correct.  And because @code{Voice} is one of the
 lowest level contexts which is implied unambiguously by
@@ -1285,7 +1283,7 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 @end lilypond
 
 Finally, there is also a grey scale available as part of the
-X11 set of colors.  These range from black, @code{'grey0'},
+X11 set of colors.  These range from black, @code{'grey0},
 to white, @code{'grey100}, in steps of 1.  Let's illustrate
 this by setting all the layout objects in our example to
 various shades of grey:
@@ -1334,7 +1332,7 @@ found.
 @cindex objects, changing size of
 
 Let us begin by looking again at the earlier example
-see @ref{Nesting music expressions}) which showed
+(see @ref{Nesting music expressions}) which showed
 how to introduce a new temporary staff, as in an @rglos{ossia}.
 
 @cindex alignAboveContext property, example
@@ -1694,17 +1692,16 @@ this @q{nestling} of the notes on adjacent staves:
 @node Within-staff objects
 @subsection Within-staff objects
 
-We have already seen how the commands @code{\voiceXXX} affect
-the direction of slurs, ties, fingering and
-everything else which depends on the direction of the stems.
-These commands are essential when writing polyphonic music to
-permit interweaving melodic lines to be distinguished.
-But occasionally it may be necessary to override this automatic
-behavior.  This can be done for whole sections of music or even
-for an individual note.  The property which controls this
-behavior is the @code{direction} property of each layout object.
-We first explain what this does, and then introduce a number of
-ready-made commands which avoid your having to code explicit
+We have already seen how the commands @code{\voiceXXX} affect the
+direction of slurs, ties, fingering and everything else which depends on
+the direction of the stems -- see @ref{Explicitly instantiating voices}.
+These commands are essential when writing polyphonic music to permit
+interweaving melodic lines to be distinguished.  But occasionally it may
+be necessary to override this automatic behavior.  This can be done for
+whole sections of music or even for an individual note.  The property
+which controls this behavior is the @code{direction} property of each
+layout object.  We first explain what this does, and then introduce a
+number of ready-made commands which avoid your having to code explicit
 overrides for the more common modifications.
 
 Some layout objects like slurs and ties curve, bend or point
@@ -2179,7 +2176,7 @@ c2^"Text4" |
 
 The command to revert to the default behavior is
 @code{\textLengthOff}.  Remember @code{\once} only works with
-@code{\override}, @code{\set}, @code{\revert} or @code{unset},
+@code{\override}, @code{\set}, @code{\revert} or @code{\unset},
 so cannot be used with @code{\textLengthOn}.
 
 @cindex markup text, allowing collisions
@@ -2220,7 +2217,7 @@ c''2 |
 @cindex dynamics, tweaking placement
 
 Dynamic markings will normally be positioned beneath the
-staff, but may be positioned above with the @code{dynamicUp}
+staff, but may be positioned above with the @code{\dynamicUp}
 command.  They will be positioned vertically relative to the
 note to which they are attached, and will float below (or above)
 all within-staff objects such as phrasing slurs and bar numbers.
@@ -2890,7 +2887,7 @@ Voice) need not be shifted away from the note column of the higher
 note.  To correct this we set @code{force-hshift}, which is a property
 of @code{NoteColumn}, of this note to zero.
 
-In the second chord we prefer the F to line up with the A and the
+In the second chord we prefer the F to line up with the A-flat and the
 lowest note to be positioned slightly right to avoid a collision of
 stems.  We achieve this by setting @code{force-hshift} in the
 @code{NoteColumn} of the low D-flat to move it to the right by half
@@ -3891,7 +3888,7 @@ will be displayed on the screen, we'll also increase the
 overall size of the output.
 
 @example
-%%%  definitions.ily
+%%%  web-publish.ily
 mpdolce =
 #(make-dynamic-script
   #@{ \markup @{ \hspace #0
