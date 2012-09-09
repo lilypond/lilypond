@@ -1635,7 +1635,6 @@ LilyPond benutzt folgende Parser-Variablen:
 @item mode
 @item output-count
 @item output-suffix
-@item parseStringResult
 @item partCombineListener
 @item pitchnames
 @item toplevel-bookparts

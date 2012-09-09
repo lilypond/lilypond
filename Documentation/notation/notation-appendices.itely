@@ -1559,7 +1559,6 @@ binary installation.
 @cindex mode
 @cindex output-count
 @cindex output-suffix
-@cindex parseStringResult
 @cindex partCombineListener
 @cindex pitchnames
 @cindex toplevel-bookparts
@@ -1587,7 +1586,6 @@ LilyPond uses the following parser variables:
 @item mode
 @item output-count
 @item output-suffix
-@item parseStringResult
 @item partCombineListener
 @item pitchnames
 @item toplevel-bookparts

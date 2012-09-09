@@ -40,6 +40,7 @@
 %}
 
 %parse-param {Lily_parser *parser}
+%parse-param {SCM *retval}
 %lex-param {Lily_parser *parser}
 %error-verbose
 %debug
@@ -144,7 +145,7 @@ using namespace std;
 #include "warn.hh"
 
 void
-Lily_parser::parser_error (Input const *i, Lily_parser *parser, string s)
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, string s)
 {
 	parser->parser_error (*i, s);
 }
@@ -568,7 +569,7 @@ start_symbol:
 		parser->lexer_->push_note_state (nn);
 	} embedded_lilypond {
 		parser->lexer_->pop_state ();
-		parser->lexer_->set_identifier (ly_symbol2scm ("parseStringResult"), $3);
+                *retval = $3;
  	}
 	;
 
@@ -3251,10 +3252,12 @@ Lily_parser::set_yydebug (bool x)
 	yydebug = x;
 }
 
-void
+SCM
 Lily_parser::do_yyparse ()
 {
-	yyparse (this);
+        SCM retval = SCM_UNDEFINED;
+	yyparse (this, &retval);
+        return retval;
 }
 
 

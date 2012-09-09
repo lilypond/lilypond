@@ -171,9 +171,7 @@ Lily_parser::parse_string_expression (string ly_code, string filename,
   SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   lexer_->push_extra_token (EMBEDDED_LILY);
-  do_yyparse ();
-  SCM result = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parseStringResult"));
-  // parseStringResult is set in the grammar rule for embedded_lilypond
+  SCM result = do_yyparse ();
 
   lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
   scm_set_current_module (mod);
