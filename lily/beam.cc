@@ -284,6 +284,18 @@ Beam::calc_direction (SCM smob)
             dir = to_dir (stem->get_property_data ("direction"));
           else
             dir = to_dir (stem->get_property ("default-direction"));
+
+          extract_grob_set (stem, "note-heads", heads);
+          /* default position of Kievan heads with beams is down
+             placing this here avoids warnings downstream */
+          if (heads.size())
+            {
+               if (heads[0]->get_property ("style") == ly_symbol2scm ("kievan"))
+                 {
+                    if (dir == CENTER)
+                      dir = DOWN;
+                 }
+            }
         }
     }
 

@@ -393,12 +393,12 @@
 	(beam-gap . ,ly:beam::calc-beam-gap)
 	(minimum-length . ,ly:beam::calc-minimum-length)
 	(neutral-direction . ,DOWN)
-	(positions . ,beam::place-broken-parts-individually)
+	(positions . ,beam::get-positions)
 	(springs-and-rods . ,ly:beam::calc-springs-and-rods)
 	(X-positions . ,ly:beam::calc-x-positions)
 
 	;; this is a hack to set stem lengths, if positions is set.
-	(quantized-positions . ,ly:beam::set-stem-lengths)
+	(quantized-positions . ,beam::get-quantized-positions)
 
 	(shorten . ,ly:beam::calc-stem-shorten)
 	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
