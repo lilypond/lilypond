@@ -300,7 +300,6 @@ acknowledged.
 For MacOS X 10.4 or higher, running on Intel CPUs (if in doubt,
 use this).
 
-MacOS X 10.7 Lion is not yet supported.
 
 @item
 @sourceimage{logo-macosx,,,}
@@ -308,7 +307,6 @@ MacOS X 10.7 Lion is not yet supported.
 For MacOS X 10.4 or higher, running on G3 and G4 CPUs (old Apple
 computers).
 
-MacOS X 10.7 Lion is not yet supported.
 
 @end itemize
 
