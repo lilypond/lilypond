@@ -70,7 +70,8 @@ Tab_tie_follow_engraver::acknowledge_tab_note_head (Grob_info info)
 void
 Tab_tie_follow_engraver::acknowledge_slur (Grob_info info)
 {
-  slurs_.push_back (info.spanner ());
+  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")))
+    slurs_.push_back (info.spanner ());
 }
 
 void

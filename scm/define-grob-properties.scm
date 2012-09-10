@@ -1155,6 +1155,7 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
      (stems ,ly:grob-array? "An array of stem objects.")
+     (surrogate ,ly:grob? "The grob that a cross-staff stub is shadowing.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
      (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")

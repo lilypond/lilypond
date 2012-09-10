@@ -47,7 +47,7 @@ avoid_staff_line (Slur_score_state const &state,
 
       Grob *staff = state.extremes_[LEFT].staff_;
 
-      Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
+      Real p = 2 * (y - staff->maybe_pure_coordinate (state.common_[Y_AXIS], Y_AXIS, state.stub_, 0, INT_MAX))
                / state.staff_space_;
 
       Real const round = my_round (p);

@@ -177,6 +177,8 @@ Grob *common_refpoint_of_array (set<Grob *> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */
+Interval maybe_pure_robust_relative_extent (Grob *, Grob *, Axis, bool, int, int);
+Interval pure_robust_relative_extent (Grob *, Grob *, int, int);
 Interval robust_relative_extent (Grob *, Grob *, Axis);
 
 /* offset/extent callbacks. */

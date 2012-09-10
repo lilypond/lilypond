@@ -102,7 +102,8 @@ Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 void
 Figured_bass_position_engraver::acknowledge_slur (Grob_info info)
 {
-  span_support_.push_back (info.grob ());
+  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")))
+    span_support_.push_back (info.grob ());
 }
 
 void

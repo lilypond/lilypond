@@ -28,8 +28,8 @@
 class Axis_group_interface
 {
   static Real default_outside_staff_padding_;
-  public
-:
+  public :
+
   static SCM generic_group_extent (Grob *me, Axis a);
   static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
@@ -63,6 +63,7 @@ class Axis_group_interface
 
   static Grob *outside_staff_ancestor (Grob *me);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob *> elements);
+  static void add_interior_skylines (Grob *me, Grob *x_common, Grob *y_common, vector<Skyline_pair> *skylines, bool pure = false);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);

@@ -96,6 +96,11 @@ printed, but a line break is allowed at that spot.
  '(thickness delta-position))
 
 (ly:add-interface
+ 'cross-staff-stub-interface
+ "Used to approximate vertical skylines in cross-staff grobs."
+ '(surrogate))
+
+(ly:add-interface
  'dynamic-interface
  "Any kind of loudness sign."
  '())

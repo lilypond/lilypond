@@ -41,12 +41,34 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), script);
 }
 
+int
+pushed_by_slur (Grob *g)
+{
+  return g->get_property ("avoid-slur") == ly_symbol2scm ("outside")
+         || g->get_property ("avoid-slur") == ly_symbol2scm ("around");
+}
+
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
            2, 0, 0, (SCM a, SCM b),
            "Compare two grobs by script priority.  For internal use.")
 {
   Grob *i1 = unsmob_grob (a);
   Grob *i2 = unsmob_grob (b);
+
+  /*
+   * avoid-staff of slur trumps script priority. If one grob is
+   * supposed to be printed outside a slur and another grob inside,
+   * we place the inside grob below the outside even if the inside
+   * grob has a higher script-priority.
+   */
+  if (unsmob_grob (i1->get_object ("slur"))
+      && unsmob_grob (i2->get_object ("slur")))
+    {
+      int push1 = pushed_by_slur (i1);
+      int push2 = pushed_by_slur (i2);
+      if (push1 != push2)
+        return push1 < push2 ? SCM_BOOL_T : SCM_BOOL_F;
+    }
 
   SCM p1 = i1->get_property ("script-priority");
   SCM p2 = i2->get_property ("script-priority");

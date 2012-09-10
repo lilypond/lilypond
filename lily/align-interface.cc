@@ -83,9 +83,10 @@ get_skylines (Grob *me,
 
       if (!pure)
         {
-          Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
-                                                                      ? "vertical-skylines"
-                                                                      : "horizontal-skylines"));
+          Skyline_pair *skys = a == Y_AXIS
+                               ? Skyline_pair::unsmob (g->get_property ("vertical-skylines"))
+                               : Skyline_pair::unsmob (g->get_property ("horizontal-skylines"));
+
           if (skys)
             skylines = *skys;
 

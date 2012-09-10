@@ -924,6 +924,25 @@ common_refpoint_of_array (set<Grob *> const &arr, Grob *common, Axis a)
 }
 
 Interval
+maybe_pure_robust_relative_extent (Grob *me, Grob *refp, Axis a, bool pure, int start, int end)
+{
+  if (pure && a != Y_AXIS)
+    programming_error ("tried to get pure X-offset");
+  return (pure && a == Y_AXIS) ? pure_robust_relative_extent (me, refp, start, end)
+         : robust_relative_extent (me, refp, a);
+}
+
+Interval
+pure_robust_relative_extent (Grob *me, Grob *refpoint, int start, int end)
+{
+  Interval ext = me->pure_height (refpoint, start, end);
+  if (ext.is_empty ())
+    ext.add_point (me->pure_relative_y_coordinate (refpoint, start, end));
+
+  return ext;
+}
+
+Interval
 robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
 {
   Interval ext = me->extent (refpoint, a);

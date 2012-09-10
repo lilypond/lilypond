@@ -402,9 +402,9 @@ shiftOff  = \revert NoteColumn #'horizontal-shift
 %% slurs
 
 % directions
-slurUp         = \override Slur #'direction = #UP
-slurDown       = \override Slur #'direction = #DOWN
-slurNeutral    = \revert Slur #'direction
+slurUp         = { \override Slur #'direction = #UP \override SlurStub #'direction = #UP }
+slurDown       = { \override Slur #'direction = #DOWN \override SlurStub #'direction = #DOWN }
+slurNeutral    = { \revert Slur #'direction \revert SlurStub #'direction  }
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 slurDashPattern =
