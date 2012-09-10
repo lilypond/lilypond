@@ -39,7 +39,7 @@ protected:
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_END_ACKNOWLEDGER (slur);
-  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (bass_figure_alignment);
   DECLARE_END_ACKNOWLEDGER (bass_figure_alignment);
 
@@ -106,7 +106,7 @@ Figured_bass_position_engraver::acknowledge_slur (Grob_info info)
 }
 
 void
-Figured_bass_position_engraver::acknowledge_tie (Grob_info info)
+Figured_bass_position_engraver::acknowledge_end_tie (Grob_info info)
 {
   support_.push_back (info.grob ());
 }
@@ -142,7 +142,7 @@ ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
 ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
 ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
 
-ADD_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
+ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
 ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
 ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
 

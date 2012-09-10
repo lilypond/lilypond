@@ -62,7 +62,7 @@ protected:
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (dots);
   DECLARE_ACKNOWLEDGER (text_script);
-  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
 
   void acknowledge_extra_object (Grob_info);
@@ -156,7 +156,7 @@ Phrasing_slur_engraver::acknowledge_text_script (Grob_info info)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
+Phrasing_slur_engraver::acknowledge_end_tie (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -314,7 +314,7 @@ ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
+ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,

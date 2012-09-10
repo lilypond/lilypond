@@ -46,9 +46,9 @@ struct Head_event_tuple
 {
   Grob *head_;
   Moment end_moment_;
-  SCM tie_definition_;
   Stream_event *tie_stream_event_;
   Stream_event *tie_event_;
+  Spanner *tie_;
   // Indicate whether a tie from the same moment has been processed successfully
   // This is needed for tied chords, e.g. <c e g>~ g, because otherwise the c
   // and e will trigger a warning for an unterminated tie!
@@ -57,15 +57,20 @@ struct Head_event_tuple
   Head_event_tuple ()
   {
     head_ = 0;
-    tie_definition_ = SCM_EOL;
     tie_event_ = 0;
     tie_stream_event_ = 0;
     tie_from_chord_created = false;
+    tie_ = 0;
   }
 };
 
 class Tie_engraver : public Engraver
 {
+  /*
+    Whether tie event has been processed and can be deleted or should
+    be kept for later portions of a split note.
+  */
+  bool event_processed_;
   Stream_event *event_;
   vector<Grob *> now_heads_;
   vector<Head_event_tuple> heads_to_tie_;
@@ -74,8 +79,8 @@ class Tie_engraver : public Engraver
   Spanner *tie_column_;
 
 protected:
+  void process_acknowledged ();
   void stop_translation_timestep ();
-  virtual void derived_mark () const;
   void start_translation_timestep ();
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_TRANSLATOR_LISTENER (tie);
@@ -87,18 +92,11 @@ public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
 
-void
-Tie_engraver::derived_mark () const
-{
-  Engraver::derived_mark ();
-  for (vsize i = 0; i < heads_to_tie_.size (); i++)
-    scm_gc_mark (heads_to_tie_[i].tie_definition_);
-}
-
 Tie_engraver::Tie_engraver ()
 {
   event_ = 0;
   tie_column_ = 0;
+  event_processed_ = false;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
@@ -114,7 +112,10 @@ void Tie_engraver::report_unterminated_tie (Head_event_tuple const &tie_start)
   // moment that created a tie, so this is not necessarily an unterminated
   // tie. Happens e.g. for <c e g>~ g
   if (!tie_start.tie_from_chord_created)
-    tie_start.head_->warning (_ ("unterminated tie"));
+    {
+      tie_start.tie_->warning (_ ("unterminated tie"));
+      tie_start.tie_->suicide ();
+    }
 }
 
 /*
@@ -166,20 +167,21 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
       if (ly_is_equal (right_ev->get_property ("pitch"), left_ev->get_property ("pitch"))
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
-          Grob *p = new Spanner (heads_to_tie_[i].tie_definition_);
+          Grob *p = heads_to_tie_[i].tie_;
           Moment end = heads_to_tie_[i].end_moment_;
 
-          SCM cause = heads_to_tie_[i].tie_event_
-                      ? heads_to_tie_[i].tie_event_->self_scm ()
-                      : heads_to_tie_[i].tie_stream_event_->self_scm ();
+          Stream_event *cause = heads_to_tie_[i].tie_event_
+                                    ? heads_to_tie_[i].tie_event_
+                                    : heads_to_tie_[i].tie_stream_event_;
 
-          announce_grob (p, cause);
+          announce_end_grob (p, cause->self_scm ());
+
           Tie::set_head (p, LEFT, th);
           Tie::set_head (p, RIGHT, h);
 
-          if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
+          if (is_direction (cause->get_property ("direction")))
             {
-              Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
+              Direction d = to_dir (cause->get_property ("direction"));
               p->set_property ("direction", scm_from_int (d));
             }
 
@@ -229,7 +231,7 @@ Tie_engraver::start_translation_timestep ()
 }
 
 void
-Tie_engraver::stop_translation_timestep ()
+Tie_engraver::process_acknowledged ()
 {
   bool wait = to_boolean (get_property ("tieWaitForNote"));
   if (ties_.size ())
@@ -251,11 +253,6 @@ Tie_engraver::stop_translation_timestep ()
 
   vector<Head_event_tuple> new_heads_to_tie;
 
-  /*
-    Whether tie event has been processed and can be deleted or should
-    be kept for later portions of a split note.
-  */
-  bool event_processed = false;
 
   for (vsize i = 0; i < now_heads_.size (); i++)
     {
@@ -292,17 +289,16 @@ Tie_engraver::stop_translation_timestep ()
       if (left_ev && (tie_event || tie_stream_event)
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
-          event_processed = true;
+          event_processed_ = true;
 
           Head_event_tuple event_tup;
 
-          SCM start_definition
-            = updated_grob_properties (context (), ly_symbol2scm ("Tie"));
-
           event_tup.head_ = head;
-          event_tup.tie_definition_ = start_definition;
           event_tup.tie_event_ = tie_event;
           event_tup.tie_stream_event_ = tie_stream_event;
+          event_tup.tie_ = make_spanner ("Tie", tie_event
+                                    ? tie_event->self_scm ()
+                                    : tie_stream_event->self_scm ());
 
           Moment end = now_mom ();
           if (end.grace_part_)
@@ -331,14 +327,20 @@ Tie_engraver::stop_translation_timestep ()
   for (vsize i = 0; i < new_heads_to_tie.size (); i++)
     heads_to_tie_.push_back (new_heads_to_tie[i]);
 
+  now_heads_.clear ();
+}
+
+void
+Tie_engraver::stop_translation_timestep ()
+{
   /*
     Discard event only if it has been processed with at least one
     appropriate note.
   */
-  if (event_processed)
+  if (event_processed_)
     event_ = 0;
 
-  now_heads_.clear ();
+  event_processed_ = false;
 }
 
 void
