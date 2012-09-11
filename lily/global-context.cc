@@ -55,7 +55,7 @@ Global_context::Global_context (Output_def *o)
   SCM p = get_property ("EventClasses");
 
   ancestor_lookup_ = scm_make_hash_table (scm_length (p));
-  for (;scm_is_pair (p); p = scm_cdr (p))
+  for (; scm_is_pair (p); p = scm_cdr (p))
     scm_hashq_set_x (ancestor_lookup_, scm_caar (p), scm_car (p));
 
   accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));

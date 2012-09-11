@@ -1,13 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: eccc513d15d19b03ed8a9ae776c828fff4dbfbee
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -121,14 +122,14 @@ et aborderons la manière de générer vos propres signes.
 @funindex -
 
 Les différents symboles qui indiquent des ponctuations ou des modes de
-jeu différents s'ajoutent aux notes de la manière suivante@tie{}:
+jeu différents s'ajoutent aux notes de la manière suivante :
 
 @example
 @var{note}\@var{nom}
 @end example
 
 Les valeurs de @var{nom} sont répertoriées dans l'annexe
-@ref{Liste des signes d'articulation}. En voici un exemple@tie{}:
+@ref{Liste des signes d'articulation}. En voici un exemple :
 
 @lilypond[verbatim,quote,relative=2]
 c4\staccato c\mordent b2\turn
@@ -159,13 +160,13 @@ contenues dans le fichier @file{scm/script.scm}, il est possible de
 l'obliger à les positionner au-dessus ou en dessous de la note, comme
 indiqué au chapitre @ref{Direction et positionnement}.
 
-Les articulations sont des objets de type @code{script}@tie{}; les
+Les articulations sont des objets de type @code{script} ; les
 propriétés de ces objets sont abordées plus en détail au chapitre
 @rinternals{Script}.
 
 Une articulation peut se rattacher aussi bien à un silence qu'à une
 note, mais @strong{pas à un silence multimesures}.  Il existe cependant
-un cas particulier@tie{}: le point d'orgue -- ou point d'arrêt --
+un cas particulier : le point d'orgue -- ou point d'arrêt --
 attaché à un silence valant l'intégralité de la mesure.  LilyPond
 dispose à cet effet de la commande @code{\fermataMarkup}, qui créera un
 objet @code{MultiMeasureRestText} rattaché à ce @qq{silence
@@ -270,12 +271,12 @@ Référence des propriétés internes :
 @funindex rfz
 
 À chaque nuance absolue correspond une commande qui peut être indiquée
-après une note@tie{}: @code{c4\ff} par exemple.  Les commandes de nuance
+après une note : @code{c4\ff} par exemple.  Les commandes de nuance
 disponibles sont @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
 @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, et @code{\rfz}.  Les nuances se
-placent aussi bien en dessous qu'au-dessus de la portée@tie{}; pour plus
+@code{\sp}, @code{\spp}, @code{\sfz} et @code{\rfz}.  Les nuances se
+placent aussi bien en dessous qu'au-dessus de la portée ; pour plus
 d'information, consultez @ref{Direction et positionnement}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -327,7 +328,7 @@ c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
 
 Il en va de même lorsqu'un soufflet est interrompu par une nuance
 explicite. Notez bien que la largeur occupée par cette nuance explicite
-influe sur la terminaison du soufflet@tie{}:
+influe sur la terminaison du soufflet :
 
 @lilypond[verbatim,quote,relative=2]
 c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
@@ -336,9 +337,9 @@ c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
 @cindex nuances successives sur une note tenue
 @cindex tenue et nuances successives
 
-Les indications de nuance sont attachées aux notes@tie{}; aussi, lorsque
+Les indications de nuance sont attachées aux notes ; aussi, lorsque
 l'on veut faire se succéder plusieurs nuances pendant une note tenue, il
-faudra avoir recours à des silences invisibles@tie{}:
+faudra avoir recours à des silences invisibles :
 
 @lilypond[verbatim,quote,relative=2]
 c4\< c\! d\> e\!
@@ -391,7 +392,7 @@ a2. r4\! |
 @funindex dimHairpin
 
 Une indication textuelle peut indiquer, au lieu d'un soufflet, un
-changement de nuance@tie{}:
+changement de nuance :
 
 @lilypond[verbatim,quote,relative=2]
 \crescTextCresc
@@ -540,7 +541,7 @@ moltoF = \markup { molto \dynamic f }
 
 Vous pouvez créer des indications de nuance éditoriales (entre
 parenthèses ou crochets) grâce aux étiquettes (@emph{mode
-markup})@tie{}; la syntaxe en est abordée au chapitre
+markup}) ; la syntaxe en est abordée au chapitre
 @ref{Mise en forme du texte}.
 
 @lilypond[verbatim,quote]
@@ -601,7 +602,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 @end lilypond
 
 La construction d'une indication de nuance personnalisée peut aussi se
-faire en langage Scheme@tie{}; voir
+faire en langage Scheme ; voir
 @rextend{Construction d'un markup en Scheme} pour en connaître les
 modalités.
 
@@ -639,7 +640,7 @@ Manuel d'extension :
 @cindex courbes
 
 Ce chapitre traite des signes d'interprétation imprimés sous forme de
-courbe@tie{}: liaisons d'articulation ou de phrasé, respirations, chutes
+courbe : liaisons d'articulation ou de phrasé, respirations, chutes
 et sauts.
 
 @menu
@@ -709,7 +710,7 @@ plus courtes, utilisez des @ref{Liaisons de phrasé}.
 @funindex slurSolid
 
 Une liaison est par défaut dessinée d'un trait plein.  Il est aussi
-possible de l'imprimer sous la forme de tirets ou en pointillé@tie{}:
+possible de l'imprimer sous la forme de tirets ou en pointillé :
 
 @lilypond[verbatim,quote,relative=1]
 c4( e g2)
@@ -748,7 +749,7 @@ g4( e c2)
 @cindex liaison, densité des tirets
 
 Vous pouvez même personnaliser la densité des tirets d'une
-liaison@tie{}:
+liaison :
 
 @lilypond[verbatim,quote,relative=1]
 c4( e g2)
@@ -861,7 +862,7 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 @funindex phrasingSlurSolid
 
 Une liaison est par défaut dessinée d'un trait plein.  Il est aussi
-possible de l'imprimer sous la forme de tirets ou en pointillé@tie{}:
+possible de l'imprimer sous la forme de tirets ou en pointillé :
 
 @lilypond[verbatim,quote,relative=1]
 c4\( e g2\)
@@ -899,7 +900,7 @@ g4\( e c2\)
 
 @cindex liaison, densité des tirets
 
-Vous pouvez même personnaliser la densité des tirets d'une liaison@tie{}:
+Vous pouvez même personnaliser la densité des tirets d'une liaison :
 
 @lilypond[verbatim,quote,relative=1]
 c4\( e g2\)
@@ -1116,13 +1117,13 @@ le long de la ligne de glissando.
 @funindex arpeggioNormal
 
 On peut indiquer qu'un accord doit être arpégé en lui accolant la
-commande @code{\arpeggio}@tie{}:
+commande @code{\arpeggio} :
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>1\arpeggio
 @end lilypond
 
-LilyPond dispose de différents graphismes pour indiquer un arpège@tie{};
+LilyPond dispose de différents graphismes pour indiquer un arpège ;
 @code{\arpeggioNormal} reviendra au style par défaut.
 
 @lilypond[verbatim,quote,relative=1]
@@ -1148,7 +1149,7 @@ LilyPond dispose de différents graphismes pour indiquer un arpège@tie{};
 @funindex arpeggioParenthesisDashed
 
 Des crochets indiquent que l'accord devra être plaqué et non
-arpégé@tie{}:
+arpégé :
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
@@ -1236,10 +1237,10 @@ forme de parenthèse.
 @funindex stopTrillSpan
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation, avec
-un simple @code{\trill}@tie{}; voir @ref{Articulations et ornements}.
+un simple @code{\trill} ; voir @ref{Articulations et ornements}.
 
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et
-@code{\stopTrillSpan}@tie{}:
+@code{\stopTrillSpan} :
 
 @lilypond[verbatim,quote,relative=2]
 d1\startTrillSpan
@@ -1249,7 +1250,7 @@ c2\stopTrillSpan r2
 
 Lorsqu'un saut de ligne intervient alors qu'une prolongation de trille
 est présente, l'indication de trille et sa prolongation sont rappelées
-sur la première note de la nouvelle ligne@tie{}:
+sur la première note de la nouvelle ligne :
 
 @lilypond[ragged-right,verbatim,quote,relative=2]
 d1\startTrillSpan
@@ -1261,7 +1262,7 @@ c2\stopTrillSpan r2
 Lorsque des trilles interviennent sur une succession de hauteurs
 différentes, point n'est besoin d'expliciter la commande
 @code{\stopTrillSpan} puisque l'apparition d'un nouveau trille
-interrompt de fait celui qui le précédait@tie{}:
+interrompt de fait celui qui le précédait :
 
 @lilypond[verbatim,quote,relative=2]
 d1\startTrillSpan
@@ -1288,7 +1289,7 @@ e2 r2
 
 Les trilles qui font intervenir une hauteur précise peuvent être
 indiqués par la commande @code{pitchedTrill}.  Le premier argument est
-la note réelle@tie{}; le second est une hauteur qui sera imprimée comme
+la note réelle ; le second est une hauteur qui sera imprimée comme
 une tête de note noire entre parenthèses.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1303,7 +1304,7 @@ d2 c2\stopTrillSpan
 Dans l'exemple suivant, le second trille de la deuxième mesure est
 ambigu -- le fa qui est forcé n'est pas diésé.  Pour lever toute
 ambiguïté, il suffit de forcer l'impression de l'altération en
-ajoutant un @code{!} à la note considérée.
+ajoutant un @code{!} à la note considérée.
 
 @lilypond[verbatim,quote,relative=2]
 \pitchedTrill
@@ -1338,4 +1339,3 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{TrillSpanner}.
-

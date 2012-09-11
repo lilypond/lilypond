@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ce1c0fabb3d5ac18e61fb8fcc91a3990714553c2
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @node Trucar la salida
 @chapter Trucar la salida
@@ -4181,7 +4181,7 @@ echarles un vistazo, en primer lugar debe buscar la carpeta
 correspondiente a su sistema.  La ubicación de esta carpeta depende
 (a) de si consiguió el programa LilyPond descargando un binario
 precompilado desde el sitio web lilypond.org o si lo instaló mediante
-un gestor de paquetes (es decir, distribuido con Linux, o instalado
+un gestor de paquetes (es decir, distribuido con GNU/Linux, o instalado
 bajo fink o cygwin) o fue compilado a partir de la fuente, y (b) de
 qué sistema operativo está utilizando:
 
@@ -4189,7 +4189,7 @@ qué sistema operativo está utilizando:
 @strong{Descargado de lilypond.org}
 
 @itemize @bullet
-@item Linux
+@item GNU/Linux
 
 Diríjase a
 @example

@@ -84,9 +84,9 @@ Slur_engraver::Slur_engraver ()
 void
 Slur_engraver::derived_mark () const
 {
-  for (vsize i=start_events_.size(); i--;)
+  for (vsize i = start_events_.size (); i--;)
     scm_gc_mark (start_events_[i]->self_scm ());
-  for (vsize i=stop_events_.size(); i--;)
+  for (vsize i = stop_events_.size (); i--;)
     scm_gc_mark (stop_events_[i]->self_scm ());
 }
 
@@ -204,7 +204,7 @@ Slur_engraver::process_music ()
           for (vsize j = stop_events_.size (); --j > i;)
             {
               if (id == robust_scm2string (stop_events_[j]->get_property ("spanner-id"), ""))
-                stop_events_.erase (stop_events_.begin() + j);
+                stop_events_.erase (stop_events_.begin () + j);
             }
         }
       else
@@ -242,10 +242,11 @@ Slur_engraver::process_music ()
 
               Stream_event *c = unsmob_stream_event (slurs_[j]->get_property ("cause"));
 
-              if (!c) {
-                slurs_[j]->programming_error ("slur without a cause");
-                continue;
-              }
+              if (!c)
+                {
+                  slurs_[j]->programming_error ("slur without a cause");
+                  continue;
+                }
 
               Direction slur_dir = to_dir (c->get_property ("direction"));
 

@@ -20,6 +20,7 @@
 #include "performer.hh"
 #include "audio-item.hh"
 #include "stream-event.hh"
+#include "international.hh"
 
 #include "translator.icc"
 
@@ -40,6 +41,7 @@ private:
   Drul_array<Stream_event *> span_events_;
   Drul_array<Direction> grow_dir_;
   Real last_volume_;
+  bool last_volume_initialized_;
   Audio_dynamic *absolute_;
   Audio_span_dynamic *span_dynamic_;
   Audio_span_dynamic *finished_span_dynamic_;
@@ -47,7 +49,8 @@ private:
 
 Dynamic_performer::Dynamic_performer ()
 {
-  last_volume_ = 0.5;
+  last_volume_ = 0.0;
+  last_volume_initialized_ = false;
   script_event_ = 0;
   absolute_ = 0;
   span_events_[LEFT]
@@ -104,26 +107,41 @@ Dynamic_performer::process_music ()
 {
   if (span_events_[STOP] || script_event_)
     {
+      // End of a dynamic spanner, or an explicit dynamic script event.
       finished_span_dynamic_ = span_dynamic_;
       span_dynamic_ = 0;
     }
 
   if (span_events_[START])
     {
+      // Start of a dynamic spanner.  Create a new Audio_span_dynamic for
+      // collecting changes in dynamics within this spanner.
       span_dynamic_ = new Audio_span_dynamic (equalize_volume (0.1), equalize_volume (1.0));
       announce_element (Audio_element_info (span_dynamic_, span_events_[START]));
 
       span_dynamic_->grow_dir_ = grow_dir_[START];
+
+      if (!last_volume_initialized_ && !script_event_)
+        {
+          // No explicit dynamic script events have occurred yet, but there is
+          // nevertheless a dynamic spanner.  Initialize last_volume_ to a
+          // value within the available range.
+          span_events_[START]->origin ()->warning (_ ("(De)crescendo with unspecified starting volume in MIDI."));
+          last_volume_ = equalize_volume (0.5);
+          last_volume_initialized_ = true;
+        }
     }
 
   if (script_event_
       || span_dynamic_
       || finished_span_dynamic_)
     {
+      // New change in dynamics.
       absolute_ = new Audio_dynamic ();
 
       if (script_event_)
         {
+          // Explicit dynamic script event: determine the volume.
           SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
           SCM svolume = SCM_EOL;
@@ -137,6 +155,7 @@ Dynamic_performer::process_music ()
 
           last_volume_
             = absolute_->volume_ = equalize_volume (volume);
+          last_volume_initialized_ = true;
         }
 
       Audio_element_info info (absolute_, script_event_);
@@ -166,6 +185,7 @@ Dynamic_performer::stop_translation_timestep ()
   else if (absolute_)
     {
       last_volume_ = absolute_->volume_;
+      last_volume_initialized_ = true;
     }
 
   absolute_ = 0;

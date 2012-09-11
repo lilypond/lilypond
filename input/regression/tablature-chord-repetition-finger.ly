@@ -1,4 +1,4 @@
-\version "2.15.28"
+\version "2.16.0"
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs

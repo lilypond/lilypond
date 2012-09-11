@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 
 #(ly:expect-warning (_ "Cannot determine neighbors for floating column. "))
 #(ly:expect-warning (_ "Loose column does not have right side to attach to."))

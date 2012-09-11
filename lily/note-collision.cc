@@ -178,7 +178,7 @@ check_meshing_chords (Grob *me,
   full_collide = full_collide || (close_half_collide
                                   && distant_half_collide)
                  || ( distant_half_collide // like full_ for wholes and longer
-                     && (up_ball_type <= 0 || down_ball_type <= 0));
+                      && (up_ball_type <= 0 || down_ball_type <= 0));
 
   /* Determine which chord goes on the left, and which goes right.
      Up-stem usually goes on the right, but if chords just 'touch' we can put
@@ -353,8 +353,8 @@ check_meshing_chords (Grob *me,
           Grob *stem = unsmob_grob (head_down->get_object ("stem"));
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
-            unsmob_grob (heads[i]->get_object ("dot"))
-            ->set_property ("direction", scm_from_int (dir));
+            if (Grob *dot = unsmob_grob (heads[i]->get_object ("dot")))
+              dot->set_property ("direction", scm_from_int (dir));
         }
     }
 

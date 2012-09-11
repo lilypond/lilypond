@@ -1,13 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.43"
+@c \version "2.16.0"
 
 @c Translators: Matthieu Jacquot
 @c Translation checkers: Jean-Charles Malahieude
@@ -391,7 +392,7 @@ ties = \relative c' {
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
 
-Les indications de sons harmoniques ainsi que les glissandi
+Les indications de sons harmoniques ainsi que les glissandos
 peuvent être ajoutés aux tablatures.
 
 @lilypond[verbatim,quote]
@@ -506,7 +507,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 Le support des modes de jeu propres à la guitare se limite aux sons
-harmoniques et aux glissandi.
+harmoniques et aux glissandos.
 
 
 @node Tablatures personnalisées
@@ -556,7 +557,7 @@ basse, il sonnera donc une octave en dessous de ce qui est écrit.
 @end lilypond
 
 L'accordage par défaut est @code{guitar-tuning}_; il correspond à
-l'accordage standard d'une guitare@tie{}: mi la ré sol si mi (EADGBE).
+l'accordage standard d'une guitare : mi la ré sol si mi (EADGBE).
 D'autres accordages prédéfinis sont disponibles :
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 @code{banjo-open-g-tuning}.  Les accordages prédéfinis sont répertoriés
@@ -1613,7 +1614,7 @@ Pour plus de clarté, vous pouvez traduire ou abréger la commande
 même @code{MD} :
 
 @example
-MD=#rightHandFinger
+MD = #rightHandFinger
 @end example
 
 @snippets
@@ -1889,10 +1890,10 @@ banjo, afin d'avoir le bon nombre de cordes et le bon accordage :
 @funindex four-string-banjo
 
 LilyPond prend en charge un certain nombre d'accordages courants pour
-banjo@tie{}: @code{banjo-c-tuning} sol,do,sol,si,ré (gCGBD),
-@code{banjo-modal-tuning} sol,ré,sol,do,ré (gDGCD),
-@code{banjo-open-d-tuning} la,ré,fa#,la,ré (aDF#AD) et
-@code{banjo-open-dm-tuning} la,ré,fa,la,ré (aDFAD).
+banjo : @code{banjo-c-tuning} sol do sol si ré (gCGBD),
+@code{banjo-modal-tuning} sol ré sol do ré (gDGCD),
+@code{banjo-open-d-tuning} la ré fa# la ré (aDF#AD) et
+@code{banjo-open-dm-tuning} la ré fa la ré (aDFAD).
 
 Ces accordages peuvent être convertis pour banjo à quatre cordes au
 moyen de la fonction @code{four-string-banjo} :
@@ -1907,4 +1908,3 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
-

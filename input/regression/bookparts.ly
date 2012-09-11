@@ -1,4 +1,4 @@
-\version "2.15.17"
+\version "2.16.0"
 
 \header {
   texidoc = "A book can be split into several parts with different paper settings,

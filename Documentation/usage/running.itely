@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.18"
+@c \version "2.16.0"
 
 
 @node Running lilypond
@@ -721,7 +721,7 @@ smaller value means more CPU time is used.  The default value is
 
 Setting up the server to run LilyPond in a chroot jail is a complicated
 task.  The steps are listed below.  Examples in the steps are from
-Ubuntu Linux, and may require the use of @code{sudo} as appropriate.
+Ubuntu GNU/Linux, and may require the use of @code{sudo} as appropriate.
 
 @itemize
 

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: f37e505be4a6005fb28c373f2057a4d27aa08b38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Jean-Jacques Gerbaud, Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude
@@ -25,10 +25,10 @@ Voici des listes de références utilisées dans Lilypond.
 * Bibliographie développée::
 @end menu
 
+
 @node Bibliographie succincte
 @section Bibliographie succincte
 @translationof Short literature list
-
 
 Voici quelques titres intéressants pour en savoir plus
 sur la notation de la musique.
@@ -39,13 +39,12 @@ sur la notation de la musique.
 Klaus Ignatzek, Die Jazzmethode für Klavier. Schott's Söhne
 1995. Mainz, Germany ISBN 3-7957-5140-3.
 
-Une méthode d'introduction pour le jazz au piano. Un des premiers
+Une méthode d'introduction pour le jazz au piano.  Un des premiers
 chapitres contient une présentation des accords couramment utilisés
 dans la musique de jazz.
 
 
 @item Gerou 1996
-
 Tom Gerou and Linda Lusk, Essential Dictionary of Music
 Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
 
@@ -60,6 +59,7 @@ Taplinger Publishing, New York (2nd edition).
 
 Un ouvrage canonique sur la notation de la musique.
 
+
 @item Ross 1987
 Ted Ross, Teach yourself the art of music engraving and processing.
 Hansen House, Miami, Florida 1987.
@@ -70,18 +70,19 @@ l'estampage, l'utilisation des plumes et les conventions de notation,
 ainsi que d'intéressants chapitres traitant de détails techniques et
 historiques.
 
+
 @item Schirmer 2001
 The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
 (Ce livre peut être commandé depuis le service de location.)
 
 Ce manuel se concentre spécifiquement sur la préparation d'épreuves
 pour les publications de Schirmer.  Il traite de plusieurs
-détails qu'on ne trouve pas dans les livres plus conventionnels. Il
+détails qu'on ne trouve pas dans les livres plus conventionnels.  Il
 donne également une bonne idée de la qualité requise pour des tirages
 destinés à la publication.
 
-@item Stone 1980
 
+@item Stone 1980
 Kurt Stone, Music Notation in the Twentieth Century.
 Norton, New York 1980.
 

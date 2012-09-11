@@ -1,4 +1,4 @@
-\version "2.15.10"
+\version "2.16.0"
 % the example header file caused the head to be chopped off
 %\include "example-header.ily"
 

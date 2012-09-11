@@ -22,7 +22,7 @@
 
 %%%  Add basic chordshapes
 
-\version "2.14.0"
+\version "2.16.0"
 
 \addChordShape #'f #guitar-tuning #"1-1-(;3-3;3-4;2-2;1-1;1-1-);"
 \addChordShape #'f:m #guitar-tuning #"1-1-(;3-3;3-4;1-1;1-1;1-1-);"

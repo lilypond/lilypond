@@ -57,14 +57,14 @@ LY_DEFINE (ly_make_context_mod, "ly:make-context-mod",
 }
 
 LY_DEFINE (ly_context_mod_apply_x, "ly:context-mod-apply!",
-	   2, 0, 0, (SCM context, SCM mod),
-	   "Apply the context modification @var{mod} to @var{context}.")
+           2, 0, 0, (SCM context, SCM mod),
+           "Apply the context modification @var{mod} to @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_SMOB (Context_mod, mod, 2);
 
   apply_property_operations (unsmob_context (context),
-			     unsmob_context_mod (mod)->get_mods ());
+                             unsmob_context_mod (mod)->get_mods ());
   scm_remember_upto_here_1 (context);
   return SCM_UNSPECIFIED;
 }

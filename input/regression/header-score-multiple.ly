@@ -1,4 +1,4 @@
-\version "2.15.42"
+\version "2.16.0"
 \header {
   texidoc="
 A second score-level header block shall not entirely replace a first header block, but only update changed variables.

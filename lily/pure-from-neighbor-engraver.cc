@@ -124,12 +124,12 @@ Pure_from_neighbor_engraver::finalize ()
           for (vsize k = 0;
                k < need_pure_heights_from_neighbors[pos[j]].size ();
                k++)
-            if (!in_same_column(need_pure_heights_from_neighbors[pos[j]][k],
-                                pure_relevants_[i]))
+            if (!in_same_column (need_pure_heights_from_neighbors[pos[j]][k],
+                                 pure_relevants_[i]))
               Pointer_group_interface::add_grob
-                (need_pure_heights_from_neighbors[pos[j]][k],
-                 ly_symbol2scm ("neighbors"),
-                 pure_relevants_[i]);
+              (need_pure_heights_from_neighbors[pos[j]][k],
+               ly_symbol2scm ("neighbors"),
+               pure_relevants_[i]);
     }
 
   need_pure_heights_from_neighbors_.clear ();

@@ -1,4 +1,4 @@
-\version "2.15.36"
+\version "2.16.0"
 
 \header {
   texidoc = "Stems reach correct begin points of merged noteheads.

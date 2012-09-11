@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 \header {
   texidoc = "The space between an absolute dynamic and a dynamic text
 span can be changed using @code{'right-padding}.

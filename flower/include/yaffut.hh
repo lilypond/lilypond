@@ -398,7 +398,6 @@ void assert_throw (void (*pf) (), const char *at = "")
 #include <sys/types.h>
 #include <unistd.h>
 
-
 int main (int argc, const char *argv[])
 {
   std::cout << "pid(" << getpid () << ")" << std::endl;

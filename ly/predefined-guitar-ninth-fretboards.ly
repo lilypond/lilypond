@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.14.0"
+\version "2.16.0"
 
 %  Add ninth chords to predefined fret diagrams for standard guitar tunings
 

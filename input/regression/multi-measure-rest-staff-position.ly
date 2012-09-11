@@ -1,4 +1,4 @@
-\version "2.15.9"
+\version "2.16.0"
 
 \header {
   texidoc = "Multi measure rest staff position can be overridden

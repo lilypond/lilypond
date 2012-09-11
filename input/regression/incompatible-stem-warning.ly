@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "adding note head to incompatible stem (type = %d/%d)") 1 1)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "maybe input should specify polyphonic voices"))

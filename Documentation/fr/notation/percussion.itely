@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8afb2adf0bab372f845ff3eae30e1e950b5c63ca
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -55,7 +55,7 @@ rubriques @ref{Gravure de lignes rythmiques} et
 @ref{Initialisation de nouvelles portées}.
 
 @item Le rendu MIDI des percussions fait l'objet d'une rubrique
-dédiée@tie{}: @ref{MIDI et percussions}.
+dédiée : @ref{MIDI et percussions}.
 
 @end itemize
 
@@ -80,7 +80,7 @@ Les parties de percussions peuvent être saisies avec le mode
 @code{\drummode}, qui est l'équivalent du mode standard utilisé pour les
 notes à hauteur déterminée.  Le moyen plus simple pour saisir une partie
 de percussion est d'utiliser la commande @code{\drums}, qui crée un
-contexte spécifique@tie{}:
+contexte spécifique :
 
 @lilypond[quote,verbatim]
 \drums {
@@ -108,7 +108,7 @@ nom complet et un nom raccourci.  Ces noms sont inventoriés à l'annexe
 Notez bien que l'utilisation de hauteurs (comme un @code{cis4}) dans un
 contexte @code{DrumStaff} déclenchera immanquablement une erreur.  Un
 contexte @code{DrumStaff} fait automatiquement appel à une clef
-spécifique@tie{}; vous pouvez la spécifier explicitement ou utiliser une
+spécifique ; vous pouvez la spécifier explicitement ou utiliser une
 autre clef.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -121,7 +121,7 @@ autre clef.
 @end lilypond
 
 Certains instruments à percussion connaissent quelques problèmes quant à
-leur prise en charge au niveau de la génération de fichiers MIDI@tie{};
+leur prise en charge au niveau de la génération de fichiers MIDI ;
 de plus amples informations sont disponibles à la rubrique
 @ref{MIDI et percussions}.
 
@@ -192,7 +192,7 @@ Morceaux choisis :
 @translationof Pitched percussion
 
 Certains instruments à percussion émettent des hauteurs, comme le
-xylophone, le vibraphone ou les timbales@tie{}; ils utilisent donc des
+xylophone, le vibraphone ou les timbales ; ils utilisent donc des
 portées classiques.  Cette possibilité est abordée dans d'autres parties
 du manuel.
 
@@ -236,7 +236,7 @@ down = \drummode {
 
 L'exemple ci-dessus montre une notation polyphonique détaillée.  La
 notation polyphonique abrégée peut être employée -- voir la rubrique
-@rlearning{J'entends des Voix} -- comme ici@tie{}:
+@rlearning{J'entends des Voix} -- comme ici :
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
@@ -253,7 +253,7 @@ notation polyphonique abrégée peut être employée -- voir la rubrique
 
 On peut choisir d'autres mises en forme si l'on définit la propriété
 @code{drumStyleTable} dans le contexte @code{DrumVoice}.
-Quelques variables prédéfinies sont disponibles@tie{}:
+Quelques variables prédéfinies sont disponibles :
 
 @c TODO: decide what to do about this table.  (ie verbatim or not)
 @table @code
@@ -290,7 +290,7 @@ mus = \drummode {
 
 Le plan de la batterie peut inclure jusqu'à six toms différents.  Bien
 sûr, vous n'êtes pas obligé de tous les utiliser si la musique en
-prévoit moins@tie{}; par exemple, les trois toms des lignes du milieu
+prévoit moins ; par exemple, les trois toms des lignes du milieu
 sont @code{tommh}, @code{tomml}, et @code{tomfh}.
 
 @item timbales-style
@@ -405,8 +405,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @unnumberedsubsubsec Personnalisation de portées de percussion
 @translationof Custom percussion staves
 
-Cependant, si aucun des styles prédéfinis ne vous convient, il est aisé
-de définir le vôtre en début de fichier.
+Dans l'éventualité où aucun des styles prédéfinis ne vous convient, il
+est aisé de définir le vôtre en début de fichier.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -433,7 +433,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 Voici quelques exemples.
 
 Deux @emph{woodblocks} saisis comme @code{wbh} (woodblock aigu) et
-@code{wbl} (woodblock grave)@tie{}:
+@code{wbl} (woodblock grave) :
 
 @lilypond[quote,verbatim]
 % These lines define the position of the woodblocks in the stave;
@@ -471,7 +471,7 @@ l'instruction
 aussi définir la position des deux lignes de la portée -- voir à ce
 sujet la rubrique @ref{Symbole de la portée}.
 
-Un tambourin, saisi avec un @qq{tamb}@tie{}:
+Un tambourin, saisi avec un @qq{tamb} :
 
 @lilypond[quote,verbatim]
 #(define mydrums '((tambourine default #t 0)))
@@ -497,7 +497,7 @@ tambustaff = {
 }
 @end lilypond
 
-Un peu de tam tam, abrégé @qq{tt}@tie{}:
+Un peu de tam tam, abrégé @qq{tt} :
 
 @lilypond[quote,verbatim]
 #(define mydrums '((tamtam default #t 0)))
@@ -519,7 +519,7 @@ tamtamstaff = {
 @end lilypond
 
 Deux cloches, une sonnaille -- @qq{cb} pour @emph{cowbell} -- et une
-cloche de quart -- @qq{rb} pour @emph{ridebell}@tie{}:
+cloche de quart -- @qq{rb} pour @emph{ridebell} :
 
 @lilypond[quote,verbatim]
 #(define mydrums '((ridebell default #t  3)
@@ -543,7 +543,7 @@ bellstaff = {
 @end lilypond
 
 Et pour finir un extrait tiré de @qq{L'histoire du Soldat} de
-Stravinsky@tie{}:
+Stravinsky :
 
 @lilypond[quote,verbatim]
 #(define mydrums '((bassdrum   default #t  4)

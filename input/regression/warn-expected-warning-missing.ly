@@ -1,4 +1,4 @@
-\version "2.15.14"
+\version "2.16.0"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "this is a warning that won't be triggered"))

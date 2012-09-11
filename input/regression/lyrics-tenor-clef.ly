@@ -2,7 +2,7 @@
     texidoc = "Lyrics are not lowered despite the presence of an octavation 8."
 }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \paper {
   ragged-right = ##t

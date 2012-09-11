@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 \header {
   texidoc = "Beams can be allowed to collide with grobs by overriding
 the collision-interfaces property."

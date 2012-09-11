@@ -8,7 +8,7 @@ beaming pattern related functions at the start of an autobeam."
 }
 
 
-\version "2.14.0"
+\version "2.16.0"
 \paper { ragged-right = ##t }
 {
   \time 2/4

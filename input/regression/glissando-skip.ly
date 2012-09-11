@@ -1,4 +1,4 @@
-\version "2.15.12"
+\version "2.16.0"
 
 \header {
   texidoc = "@code{NoteColumn} grobs can be skipped over by glissandi.

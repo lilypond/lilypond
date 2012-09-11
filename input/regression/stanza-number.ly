@@ -1,4 +1,4 @@
-\version "2.15.2"
+\version "2.16.0"
 
 \header {
   texidoc = "Stanza numbers are put left of their lyric.  They

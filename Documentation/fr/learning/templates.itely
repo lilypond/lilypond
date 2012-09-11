@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0f93dd92ffa0319328e58148458d22c5448b3d58
+    Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -20,7 +20,6 @@ Cette annexe du manuel d'initiation propose des patrons de partition
 Lilypond, prets à l'emploi.  Il vous suffira d'y ajouter quelques notes,
 de lancer LilyPond, et d'aprécier le résultat.
 
-
 @menu
 * Portée unique::
 * Modèles pour piano::
@@ -31,6 +30,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 * Autres modèles::
 @end menu
 
+
 @node Portée unique
 @appendixsec Portée unique
 @translationof Single staff
@@ -40,15 +40,18 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
+
 @appendixsubsec Notes et paroles
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
+
 @appendixsubsec Notes et accords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
+
 
 @appendixsubsec Notes, paroles et accords
 
@@ -65,10 +68,12 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
+
 @appendixsubsec Chant et accompagnement
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
+
 
 @appendixsubsec Piano et paroles entre les portées
 
@@ -85,6 +90,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
+
 @appendixsubsec Parties pour quatuor à cordes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
@@ -100,30 +106,36 @@ de lancer LilyPond, et d'aprécier le résultat.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
+
 @appendixsubsec Partition pour chœur SATB avec réduction pour piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
+
 
 @appendixsubsec Partition pour chœur SATB avec alignement des contextes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+
 @appendixsubsec Chœur à quatre voix mixtes sur quatre portées
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
+
 
 @appendixsubsec Couplet pour solo et refrain à deux voix
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
+
 @appendixsubsec Hymnes et cantiques
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
+
 
 @appendixsubsec Psalmodie
 
@@ -151,6 +163,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 @c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
+
 
 @appendixsubsec Transcription du grégorien
 

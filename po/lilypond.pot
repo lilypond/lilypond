@@ -6,13 +6,14 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.15.42\n"
+"Project-Id-Version: lilypond 2.16.0\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-08-02 18:31+0100\n"
+"POT-Creation-Date: 2012-08-24 11:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -156,7 +157,7 @@ msgstr ""
 
 #: convertrules.py:81 convertrules.py:1855 convertrules.py:2031
 #: convertrules.py:2174 convertrules.py:2505 convertrules.py:2800
-#: convertrules.py:3150
+#: convertrules.py:3150 convertrules.py:3384
 msgid "bump version for release"
 msgstr ""
 
@@ -1796,7 +1797,7 @@ msgstr ""
 msgid "cannot find or create: `%s'"
 msgstr ""
 
-#: custos.cc:88
+#: custos.cc:87
 #, c-format
 msgid "custos `%s' not found"
 msgstr ""
@@ -1841,6 +1842,13 @@ msgstr ""
 
 #: dynamic-engraver.cc:333
 msgid "unterminated (de)crescendo"
+msgstr ""
+
+#. No explicit dynamic script events have occurred yet, but there is
+#. nevertheless a dynamic spanner.  Initialize last_volume_ to a
+#. value within the available range.
+#: dynamic-performer.cc:129
+msgid "(De)crescendo with unspecified starting volume in MIDI."
 msgstr ""
 
 #: episema-engraver.cc:75
@@ -2836,11 +2844,11 @@ msgstr ""
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:158 rest-collision.cc:272
+#: rest-collision.cc:157 rest-collision.cc:266
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:193
+#: rest.cc:192
 #, c-format
 msgid "rest `%s' not found"
 msgstr ""
@@ -2991,7 +2999,7 @@ msgstr ""
 
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:94
+#: time-signature.cc:122
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
@@ -3058,11 +3066,11 @@ msgstr ""
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr ""
 
-#: vaticana-ligature.cc:95
+#: vaticana-ligature.cc:94
 msgid "flexa-height undefined; assuming 0"
 msgstr ""
 
-#: vaticana-ligature.cc:100
+#: vaticana-ligature.cc:99
 msgid "ascending vaticana style flexa"
 msgstr ""
 
@@ -3083,147 +3091,142 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:162 parser.yy:176 /home/gperciva/src/lilypond/lily/parser.yy:162
-#: /home/gperciva/src/lilypond/lily/parser.yy:176
+#: parser.yy:161 parser.yy:175
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:835 parser.yy:1256 /home/gperciva/src/lilypond/lily/parser.yy:835
-#: /home/gperciva/src/lilypond/lily/parser.yy:1256
+#: parser.yy:835 parser.yy:1284
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1027 /home/gperciva/src/lilypond/lily/parser.yy:1027
+#: parser.yy:1027
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1051 /home/gperciva/src/lilypond/lily/parser.yy:1051
+#: parser.yy:1051
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1176 /home/gperciva/src/lilypond/lily/parser.yy:1176
+#: parser.yy:1204
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:2016 /home/gperciva/src/lilypond/lily/parser.yy:2016
+#: parser.yy:2044
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2029 /home/gperciva/src/lilypond/lily/parser.yy:2029
+#: parser.yy:2057
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:2233 /home/gperciva/src/lilypond/lily/parser.yy:2233
+#: parser.yy:2261
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2329 parser.yy:2334
-#: /home/gperciva/src/lilypond/lily/parser.yy:2329
-#: /home/gperciva/src/lilypond/lily/parser.yy:2334
+#: parser.yy:2357 parser.yy:2362
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2449 /home/gperciva/src/lilypond/lily/parser.yy:2449
+#: parser.yy:2477
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2609 parser.yy:2653
-#: /home/gperciva/src/lilypond/lily/parser.yy:2609
-#: /home/gperciva/src/lilypond/lily/parser.yy:2653
+#: parser.yy:2637 parser.yy:2681
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2772 /home/gperciva/src/lilypond/lily/parser.yy:2772
+#: parser.yy:2800
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2827 /home/gperciva/src/lilypond/lily/parser.yy:2827
+#: parser.yy:2855
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3087 /home/gperciva/src/lilypond/lily/parser.yy:3087
+#: parser.yy:3115
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:224
+#: lexer.ll:218
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:227
+#: lexer.ll:221
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:285
+#: lexer.ll:279
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:302
+#: lexer.ll:296
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:306
+#: lexer.ll:300
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:310
+#: lexer.ll:304
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:333
+#: lexer.ll:327
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:357
+#: lexer.ll:351
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:383
+#: lexer.ll:377
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:393
+#. backup rule
+#: lexer.ll:387
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:551
+#: lexer.ll:558
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:662
+#: lexer.ll:672
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:674
+#: lexer.ll:684
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:770
+#: lexer.ll:782
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:881
+#: lexer.ll:903 lexer.ll:904
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1164
+#: lexer.ll:1186 lexer.ll:1187
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1208
+#: lexer.ll:1230 lexer.ll:1231
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1209
+#: lexer.ll:1231 lexer.ll:1232
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1215
+#: lexer.ll:1237 lexer.ll:1238
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""

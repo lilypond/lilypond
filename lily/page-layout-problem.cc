@@ -592,7 +592,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
       if (sky)
         first_skyline.merge ((*sky)[UP]);
       first_skyline.shift (indent);
-      minimum_distance = first_skyline.distance (bottom_skyline_) - bottom_loose_baseline_ ;
+      minimum_distance = first_skyline.distance (bottom_skyline_) - bottom_loose_baseline_;
     }
   bottom_skyline_ = down_skyline;
   elements_.push_back (Element (elts, minimum_offsets, minimum_distance, padding));

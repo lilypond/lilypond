@@ -29,14 +29,14 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
            " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
            " the timing for the main notes, and @var{g} the timing for"
            " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.\n"
-	   "\n"
-	   "For compatibility reasons, it is possible to write two"
-	   " numbers specifying numerator and denominator instead of"
+           "\n"
+           "For compatibility reasons, it is possible to write two"
+           " numbers specifying numerator and denominator instead of"
            " the rationals.  These forms cannot be mixed, and the two-"
-	   "argument form is disambiguated by the sign of the second"
-	   " argument: if it is positive, it can only be a denominator"
-	   " and not a grace timing."
-)
+           "argument form is disambiguated by the sign of the second"
+           " argument: if it is positive, it can only be a denominator"
+           " and not a grace timing."
+          )
 {
   LY_ASSERT_TYPE (ly_is_rational, m, 1);
   if (SCM_UNBNDP (g))
@@ -46,14 +46,14 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
     {
       LY_ASSERT_TYPE (ly_is_rational, g, 2);
       if (scm_is_true (scm_positive_p (g)))
-	{
-	  LY_ASSERT_TYPE (scm_is_integer, m, 1);
-	  LY_ASSERT_TYPE (scm_is_integer, g, 2);
-	  return Moment (Rational (scm_to_int64 (m),
-				   scm_to_int64 (g))).smobbed_copy ();
-	}
+        {
+          LY_ASSERT_TYPE (scm_is_integer, m, 1);
+          LY_ASSERT_TYPE (scm_is_integer, g, 2);
+          return Moment (Rational (scm_to_int64 (m),
+                                   scm_to_int64 (g))).smobbed_copy ();
+        }
       return Moment (ly_scm2rational (m),
-		     ly_scm2rational (g)).smobbed_copy ();
+                     ly_scm2rational (g)).smobbed_copy ();
     }
 
   LY_ASSERT_TYPE (scm_is_integer, m, 1);
@@ -172,7 +172,6 @@ LY_DEFINE (ly_moment_main, "ly:moment-main",
 
   return ly_rational2scm (unsmob_moment (mom)->main_part_);
 }
-
 
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
            1, 0, 0, (SCM mom),

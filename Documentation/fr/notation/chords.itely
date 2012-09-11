@@ -1,13 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave,Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -69,15 +70,15 @@ différentes façons de libeller votre code, voir @ref{Modes de saisie}.
 @end lilypond
 
 Tout accord saisi dans ce mode dédié constitue un élément musical à
-part entière@tie{}; il pourra donc par exemple être transposé comme
+part entière ; il pourra donc par exemple être transposé comme
 n'importe quel ensemble de hauteurs simultanées.  @code{\chordmode}
-travaille en absolu@tie{}; une instruction @code{\relative} restera sans
+travaille en absolu ; une instruction @code{\relative} restera sans
 effet au sein d'un bloc @code{chordmode}.  Notez toutefois que les
 hauteurs absolues sont une octave plus haut en @code{\chordmode} qu'en
 mode notes traditionnel.
 
 Mode notes et mode accords peuvent tout à fait cohabiter dans une
-séquence musicale@tie{}:
+séquence musicale :
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 <c e g>2 <g b d>
@@ -103,7 +104,7 @@ en mode accord -- voir @ref{Articulations et ornements}.
 
 Lorsque vous mélangez mode accords et mode notes dans une séquence
 musicale qui démarre par le mode accords, le mode notes créera un
-nouveau contexte @code{Staff}@tie{}:
+nouveau contexte @code{Staff} :
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c2 f }
@@ -112,7 +113,7 @@ nouveau contexte @code{Staff}@tie{}:
 
 @noindent
 La solution consiste à créer explicitement le contexte @code{Staff} dès
-le départ@tie{}:
+le départ :
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \new Staff {
@@ -141,13 +142,13 @@ peut adjoindre une durée.
 @end lilypond
 
 On peut cependant obtenir des accords différents -- mineur, augmenté ou
-diminué -- en utilisant le caractère deux points (@code{:}).
+diminué -- en utilisant le caractère deux points (@code{:}).
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
-Les accords de septième sont aisément stipulables@tie{}:
+Les accords de septième sont aisément stipulables :
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
@@ -159,7 +160,7 @@ Les accords de septième sont aisément stipulables@tie{}:
 @funindex m
 
 Voici les différents modificateurs d'accord de trois sons ou de
-septième.  Par défaut, la septième ajoutée sera mineure@tie{}; la
+septième.  Par défaut, la septième ajoutée sera mineure ; la
 septième de dominante est donc l'accord de septième de base.  Toutes les
 altérations sont relatives à la septième de dominante.  Une table
 étendue des modificateurs et de leur utilisation est à l'annexe
@@ -178,7 +179,7 @@ altérations sont relatives à la septième de dominante.  Une table
 @item
 Néant
 @tab
-Action par défaut@tie{}; produit une triade majeure.
+Action par défaut ; produit une triade majeure.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -272,10 +273,10 @@ déterminer l'étendue d'un accord.  L'accord sera construit par ajout à
 la fondamentale, d'autant de tierces consécutives que nécessaire pour
 atteindre le nombre spécifié.  N'oubliez pas que la septième ajoutée à
 un accord est minorée par défaut.  Lorsque le dernier degré ne
-correspond pas à une tierce -- la sixte par exemple --  les tierces
+correspond pas à une tierce -- la sixte par exemple -- les tierces
 seront empilées jusqu'à celle directement inférieure au degré mentionné,
 qui sera alors ajouté pour conclure l'accord.  L'étendue maximale
-autorisée est la treizième@tie{}; toute étendue plus élevée sera
+autorisée est la treizième ; toute étendue plus élevée sera
 interprétée comme un accord de treizième.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -354,7 +355,7 @@ par un point lorsqu'il y en a plus d'une.
 L'ajout du modificateur @code{sus} permet de créer un accord de
 suspension.  Ceci aura pour effet de supprimer la tierce et y ajouter,
 suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
-quarte.  @code{sus} est équivalent à @code{^3}@tie{}; @code{sus4} est
+quarte.  @code{sus} est équivalent à @code{^3} ; @code{sus4} est
 équivalent à @code{.4^3}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -402,7 +403,7 @@ Morceaux choisis :
 @knownissues
 Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi,
 dans l'accord suivant, seule la quinte augmentée est prise en compte,
-parce qu'elle est indiquée en dernier@tie{}:
+parce qu'elle est indiquée en dernier :
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:5.5-.5+ }
@@ -439,7 +440,7 @@ comme un empilement de notes sur une portée.
 @cindex chiffrages d'accords
 @cindex accords
 
-Les chiffrages d'accords sont liés au contexte @code{ChordNames}@tie{}:
+Les chiffrages d'accords sont liés au contexte @code{ChordNames} :
 
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
@@ -584,7 +585,7 @@ propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
 En plus des différents systèmes de nommage, le nom de la fondamentale
 varie selon la langue utilisée.  Les instructions @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} et @code{\frenchChords}
-permettent de définir la langue, comme vous pouvez le constater@tie{}:
+permettent de définir la langue, comme vous pouvez le constater :
 
 @lilypondfile[ragged-right]
 {chord-names-languages.ly}
@@ -593,7 +594,7 @@ permettent de définir la langue, comme vous pouvez le constater@tie{}:
 Nombre de carnets de chant allemands indiquent un accord mineur par
 l'emploi de caractères en minuscule, sans le suffixe @code{m}.  Cette
 fonctionnalité est gérée par la propriété
-@code{chordNameLowercaseMinor}@tie{}:
+@code{chordNameLowercaseMinor} :
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -615,9 +616,9 @@ Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
 est exprimée par une lettre capitale, parfois suivie d'une altération,
 correspondant à la notation anglo-saxonne de la musique.  Cette
 propriété a pour valeur la fonction qui transforme la hauteur de la note
-fondamentale en nom de note@tie{}; c'est donc en assignant une nouvelle
+fondamentale en nom de note ; c'est donc en assignant une nouvelle
 fonction à cette propriété que l'on peut produire des noms de note
-spéciaux, adaptés par exemple aux systèmes de notation d'autres pays.
+spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 
 @funindex majorSevenSymbol
 
@@ -632,7 +633,7 @@ indiquer une septième majeure.  Les options prédéfinies sont
 @item additionalPitchPrefix
 Lorsqu'un chiffrage contient des notes ajoutées, vous pouvez le préfixer
 d'une annotation.  LilyPond n'en ajoute pas par défaut, dans le but de
-ne pas trop surcharger la partition@tie{}; vous pouvez cependant les
+ne pas trop surcharger la partition ; vous pouvez cependant les
 faire apparaître si elles sont visuellement efficaces.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -800,7 +801,8 @@ myChords = \relative c' {
 @translationof Figured bass
 
 @c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,line-width=14.5\cm]
+{figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.
 
@@ -872,7 +874,6 @@ pouvez formater à votre convenance grâce aux propriétés des
 déterminé par la propriété @code{baseline-skip}.
 @end ignore
 
-
 @seealso
 Glossaire musicologique :
 @rglosnamed{figured bass, basse chifrée}.
@@ -890,7 +891,7 @@ le mode de chiffrage.  De plus amples informations quant aux différents
 modes sont regroupées à la rubrique @ref{Modes de saisie}.
 
 En mode de saisie, un chiffrage est délimité par @code{<} et
-@code{>}.  La  durée est indiquée après le @code{>}@tie{}:
+@code{>}.  La  durée est indiquée après le @code{>} :
 
 @lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
@@ -901,7 +902,7 @@ En mode de saisie, un chiffrage est délimité par @code{<} et
 @end lilypond
 
 Une altération -- y compris un bécarre -- peut s'attacher à un
-chiffre@tie{}:
+chiffre :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -909,7 +910,7 @@ chiffre@tie{}:
 }
 @end lilypond
 
-Vous pouvez stipuler un intervalle augmenté ou diminué@tie{}:
+Vous pouvez stipuler un intervalle augmenté ou diminué :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -918,7 +919,7 @@ Vous pouvez stipuler un intervalle augmenté ou diminué@tie{}:
 @end lilypond
 
 Vous pouvez barrer un chiffre d'une oblique inversée, typiquement pour
-une @qq{petite sixte}@tie{}:
+une @qq{petite sixte} :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -926,7 +927,7 @@ une @qq{petite sixte}@tie{}:
 }
 @end lilypond
 
-Vous pouvez insérer un espace ou ajouter des crochets@tie{}:
+Vous pouvez insérer un espace ou ajouter des crochets :
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -985,7 +986,7 @@ explicitement interrompue.
 @end lilypond
 
 Voici, de manière synthétique, les différents modificateurs
-disponibles@tie{}:
+disponibles :
 
 @multitable @columnfractions .1 .5 .4
 

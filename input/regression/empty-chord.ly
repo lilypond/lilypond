@@ -1,4 +1,4 @@
-\version "2.14"
+\version "2.16.0"
 
 \header { texidoc = "Empty chords accept articulations, occupy no time,
                      and leave the current duration unchanged."

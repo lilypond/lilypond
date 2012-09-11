@@ -1,4 +1,4 @@
-\version "2.15.28"
+\version "2.16.0"
 
 \header {
 texidoc = "A @code{MetronomeMark}, @code{RehearsalMark} and @code{BarNumber}

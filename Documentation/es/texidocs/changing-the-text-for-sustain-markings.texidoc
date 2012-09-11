@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b482c3e5b56c3841a88d957e0ca12964bd3e64fa
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
 Se puede usar @code{Staff.pedalSustainStrings} para fijar el texto de
 las indicaciones de pisar pedal y levantar pedal.  Observe que las

@@ -92,7 +92,6 @@ LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
   return scm_from_bool (result);
 }
 
-
 LY_DEFINE (ly_broadcast, "ly:broadcast",
            2, 0, 0, (SCM disp, SCM ev),
            "Send the stream event @var{ev} to the dispatcher @var{disp}.")

@@ -1,4 +1,4 @@
-\version "2.15.20"
+\version "2.16.0"
 \header {
 
 texidoc = "Several automatic accidental rules

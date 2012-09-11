@@ -59,10 +59,10 @@ Rhythmic_music_iterator::process (Moment m)
           SCM unlistened = SCM_EOL;
           for (; scm_is_pair (arts); arts = scm_cdr (arts))
             {
-	      SCM art = scm_car (arts);
+              SCM art = scm_car (arts);
 
               if (c->event_source ()->is_listened_class
-		  (unsmob_stream_event (art)->get_property ("class")))
+                  (unsmob_stream_event (art)->get_property ("class")))
                 listened = scm_cons (art, listened);
               else
                 unlistened = scm_cons (art, unlistened);

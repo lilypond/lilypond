@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.16.0"
 \header {
   texidoc = "Beam collision can be tweaked to only apply to the grobs
 within the beam's original voice."

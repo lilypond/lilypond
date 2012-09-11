@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7c3242c2474c98f8ec96c0de0b05066e5f0ef248
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.32"
+@c \version "2.16.0"
 
 @node Grabado musical
 @chapter Grabado musical

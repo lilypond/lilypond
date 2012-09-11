@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e765ccfb78a8fd117c55773b4cfb8606484bcab9
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translation status: post-GDP
 
@@ -15,7 +15,7 @@
 @section Notas simultáneas
 @translationof Simultaneous notes
 
-@lilypondfile[quote]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
 La polifonía en música hace referencia a tener más de una voz en una
 pieza cualquiera de música.  En LilyPond la polifonía hace referencia
@@ -69,7 +69,8 @@ Las notas dentro del propio acorde también pueden ir seguidas
 de articulaciones y ornamentos.
 
 @lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+<a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
 Sin embargo, algunos elementos de notación tales como las
@@ -78,7 +79,8 @@ ligaduras de espresión, se deben unir al acorde y no a las notas que integran
 el mismo, pues en caso contrario no se imprimirán.
 
 @lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+<a c e>\< <a c e> <a c e>\!
 @end lilypond
 
 @cindex acordes vacíos

@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.16.0"
 
 \header {
   texidoc = "In addition to @code{Slur}, the music function @code{\\shape} works

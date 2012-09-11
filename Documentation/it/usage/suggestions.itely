@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: de9ddc8183a93f28d167af8f195be95e5fbc91b9
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @node Consigli su come scrivere i file
 @chapter Consigli su come scrivere i file
@@ -280,11 +280,11 @@ Si veda il @strong{Manuale di GNU Make} per conoscere in dettaglio l'uso di
 @code{make}, dato che quel che segue dà solo un'idea delle sue potenzialità.
 
 I comandi per definire delle regole in un Makefile cambiano in base
-alla piattaforma; ad esempio le varie distribuzioni di Linux e
+alla piattaforma; ad esempio le varie distribuzioni di GNU/Linux e
 MacOS usano @code{bash}, mentre Windows usa @code{cmd}.  Nota che su
 MacOS X è necessario configurare il sistema per usare l'interprete da linea
 di comando.  Di seguito alcuni Makefile di esempio, con versioni sia per
-Linux/MacOS sia per Windows.
+GNU/Linux/MacOS sia per Windows.
 
 Il primo esempio è per una composizione per orchestra in quattro
 movimenti e presenta una directory strutturata come segue:

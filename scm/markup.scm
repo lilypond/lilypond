@@ -79,7 +79,8 @@ Example:
 
 ;;; convert a full markup object to an approximate pure string representation
 
-(define-public (markup->string m)
+(define-public (markup->string m . argscopes)
+(let* ((scopes (if (pair? argscopes) (car argscopes) '())))
   ;; markup commands with one markup argument, formatting ignored
   (define markups-first-argument '(list
                                    bold-markup box-markup caps-markup dynamic-markup finger-markup
@@ -105,9 +106,9 @@ Example:
                                     translate-scaled-markup with-url-markup scale-markup ))
 
   ;; helper functions to handle string cons like string lists
-  (define (markup-cons->string-cons c)
-    (if (not (pair? c)) (markup->string c)
-        (cons (markup->string (car c)) (markup-cons->string-cons (cdr c)))))
+  (define (markup-cons->string-cons c scopes)
+    (if (not (pair? c)) (markup->string c scopes)
+        (cons (markup->string (car c) scopes) (markup-cons->string-cons (cdr c) scopes))))
   (define (string-cons-join c)
     (if (not (pair? c)) c
         (string-join (list (car c) (string-cons-join (cdr c))) "")))
@@ -115,24 +116,36 @@ Example:
   (cond
    ((string? m) m)
    ((null? m) "")
+   ((not (pair? m)) "")
 
    ;; handle \concat (string-join without spaces)
    ((and (pair? m) (equal? (car m) concat-markup))
-    (string-cons-join (markup-cons->string-cons (cadr m))) )
+    (string-cons-join (markup-cons->string-cons (cadr m) scopes)) )
 
    ;; markup functions with the markup as first arg
    ((member (car m) (primitive-eval markups-first-argument))
-    (markup->string (cadr m)))
+    (markup->string (cadr m) scopes))
 
    ;; markup functions with markup as second arg
    ((member (car m) (primitive-eval markups-second-argument))
-    (markup->string (cddr m)))
+    (markup->string (cddr m) scopes))
+
+   ;; fromproperty-markup reads property values from the header block:
+   ((equal? (car m) fromproperty-markup)
+    (let* ((varname (symbol->string (cadr m)))
+           ;; cut off the header: prefix from the variable name:
+           (newvarname (if (string-prefix? "header:" varname) (substring varname 7) varname))
+           (var (string->symbol newvarname))
+           (mod (make-module 1)))
+      ;; Prevent loops by temporarily clearing the variable we have just looked up
+      (module-define! mod var "")
+      (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
 
    ;; ignore all other markup functions
    ((markup-function? (car m)) "")
 
    ;; handle markup lists
    ((list? m)
-    (string-join (map markup->string m) " "))
+    (string-join (map (lambda (mm) (markup->string mm scopes)) m) " "))
 
-   (else "ERROR, unable to extract string from markup")))
+   (else "ERROR, unable to extract string from markup"))))

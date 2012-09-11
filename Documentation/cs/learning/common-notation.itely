@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @ignore
 Tutorial guidelines:
@@ -51,7 +51,7 @@ V této kapitole jsou vyučovány základní složky notového zápisu,
 jež se používají pro jeden hlas v jedné notové osnově.
 
 @menu
-* Přezkoušení taktů
+* Přezkoušení taktů::
 * Předznamenání a označení tóniny (předznamenání)::
 * Ligatury a legatové obloučky::
 * Artikulační znaménka a hlasitost::

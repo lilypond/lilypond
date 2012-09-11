@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.15.10"
+@c \version "2.16.0"
 
 @node Ladění výstupu
 @chapter Ladění výstupu
@@ -2744,7 +2744,7 @@ macht es möglich, eine Notenkolumne zu verschieben, dabei gilt als
 Einheit die Breite einer Kolumne, also die Breite des Notenkopfes der
 ersten Stimme.  Diese Eigenschaft kann in Situationen benutzt werden,
 in denen die normalen @code{\shiftOn}-Befehle (siehe auch
-@ref{Přímo vyjádřené začátky hlasů}) das Problem nicht beseitigen.
+@ref{Přesně vyjádřené začátky hlasů}) das Problem nicht beseitigen.
 Diese Eigenschaft ist besser in solchen Fällen zu verwenden als die
 @code{extra-offset}-Eigenschaft, weil man die richtige Entfernung nicht
 in Notenlinienabständen ausrechnen muss.  Wenn eine Note in eine
@@ -3303,7 +3303,7 @@ andere ist eine einzige Stimme, es ist also am einfachsten, die
 zusätzlichen drei Stimmen nur zeitweise zu erstellen, wenn sie
 auftreten.  Wenn Sie vergessen haben, wie man das anstellt,
 schauen Sie sich nochmal den Abschnitt @ref{Slyším hlasy}
-und @ref{Přímo vyjádřené začátky hlasů} an.  Hier wollen wir explizit
+und @ref{Přesně vyjádřené začátky hlasů} an.  Hier wollen wir explizit
 begonnene Stimmen für die polyphone Stelle benutzen, weil LilyPond
 Kollisionen besser vermeidet, wenn alle Stimmen auf diese Weise
 explizit begonnen werden.

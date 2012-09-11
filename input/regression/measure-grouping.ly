@@ -7,7 +7,7 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.15.19"
+\version "2.16.0"
 
 \layout  {
   ragged-right = ##t

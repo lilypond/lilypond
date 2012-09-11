@@ -181,9 +181,9 @@ Dispatcher::is_listened_class (SCM cl)
 
 static SCM
 accumulate_types (void * /* closure */,
-		  SCM key,
-		  SCM val,
-		  SCM result)
+                  SCM key,
+                  SCM val,
+                  SCM result)
 {
   if (scm_is_pair (val))
     return scm_cons (key, result);

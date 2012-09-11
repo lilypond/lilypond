@@ -2,7 +2,7 @@
   texidoc = "Staves can be started and stopped at command. "
 }
 
-\version "2.14.0"
+\version "2.16.0"
 
 \paper {
   ragged-right = ##t

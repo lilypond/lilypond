@@ -8,7 +8,7 @@ edge of a bar line.  This spacing should also take place when
 "
 }
 
-\version "2.15.20"
+\version "2.16.0"
 
 upper = \relative c' {
   \key f \minor \time 12/8 

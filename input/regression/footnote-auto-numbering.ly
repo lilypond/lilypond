@@ -1,4 +1,4 @@
-\version "2.15.39"
+\version "2.16.0"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is not reset on each page.  It uses the default

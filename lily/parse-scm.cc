@@ -68,9 +68,9 @@ internal_ly_parse_scm (Parse_start *ps)
             form = scm_list_1 (c);
         }
       if (multiple)
-	form = scm_list_3 (ly_symbol2scm ("apply"),
-			   ly_symbol2scm ("values"),
-			   form);
+        form = scm_list_3 (ly_symbol2scm ("apply"),
+                           ly_symbol2scm ("values"),
+                           form);
       return scm_cons (form, make_input (ps->start_location_));
     }
 

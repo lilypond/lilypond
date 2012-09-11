@@ -1,13 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -2796,7 +2797,7 @@ Si vous utilisez @ref{Le script Articulate}, d'autres éléments seront
 alors inclus :
 
 @itemize
-@item articulations (lié, staccato, etc.),
+@item articulations (lié, staccato, etc.),
 @item trilles et groupettos,
 @item rallentando et accelerando.
 @end itemize

@@ -1,16 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-   Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+   Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Ludovic Sardain, Jean-Charles Malahieude
-@c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
+@c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau
 
 @node Suggestions pour la saisie de fichiers LilyPond
 @chapter Suggestions pour la saisie de fichiers LilyPond
@@ -18,7 +19,7 @@
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond -- des pièces entières, et plus seulement les petits
-exemples du tutoriel.  Mais comment devriez-vous vous y prendre@tie{}?
+exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
 
 Tant que LilyPond parvient à comprendre vos fichiers et produit le
 résultat que vous souhaitez, peu importe la manière dont le code est
@@ -32,18 +33,18 @@ peut permettre de la localiser plus ou moins facilement.
 
 @item
 Et si vous souhaitez partager vos fichiers avec quelqu'un d'autre, ou si
-vous souhaitez modifier vos propres fichiers dans quelques années@tie{}?
+vous souhaitez modifier vos propres fichiers dans quelques années ?
 Si certains fichiers LilyPond sont compréhensibles au premier coup
 d'œil, d'autres vous feront vous arracher les cheveux pendant une heure.
 
 @item
 Et si vous souhaitez mettre à jour votre fichier pour l'utiliser avec
-une version plus récente de LilyPond@tie{}?  La syntaxe du 
-langage d'entrée change parfois lorsque LilyPond s'améliore.  La
-plupart des changements peuvent être appliqués automatiquement avec
-@code{convert-ly}, mais quelques-uns peuvent requérir une intervention
-manuelle.  Vos fichiers LilyPond peuvent être structurés de manière à
-faciliter leur mise à jour.
+une version plus récente de LilyPond ?  La syntaxe du  langage d'entrée
+change parfois lorsque LilyPond s'améliore.  La plupart des changements
+peuvent être appliqués automatiquement avec @code{convert-ly}, mais
+quelques-uns peuvent requérir une intervention manuelle.  Vos fichiers
+LilyPond peuvent être structurés de manière à faciliter leur mise à
+jour.
 @end itemize
 
 @menu
@@ -65,7 +66,7 @@ en résoudre d'autres.
 @itemize
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
 Notez que chaque fichier modèle contient une ligne
-@code{\version@tie{}"@version{}"}.  Nous vous conseillons fortement
+@code{\version "@version{}"}.  Nous vous conseillons fortement
 d'inclure cette ligne, même pour de petits fichiers.  Par expérience, il
 est très difficile de se rappeler quelle version de LilyPond on
 utilisait quelques années auparavant.  L'utilitaire @command{convert-ly}
@@ -76,7 +77,7 @@ demande que vous spécifiiez la version de LilyPond vous utilisiez alors.
 @rusernamed{Vérification des limites et numéros de mesure,de limite ou
 numéro de mesure}.  Si vous avez ajouté des contrôles de loin en loin,
 et que vous faites une erreur, vous pourrez la retrouver plus
-rapidement.  @qq{De loin en loin}, qu'est-ce à dire@tie{}?  Cela dépend
+rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?  Cela dépend
 de la complexité de la musique.  Pour de la musique très simple,
 peut-être une ou deux fois.  Pour de la musique très complexe, peut-être
 à chaque mesure.
@@ -91,7 +92,7 @@ fichiers.
 @item @strong{Ajoutez des commentaires}.
 Utilisez soit des numéros de mesure (assez souvent), soit des références
 au contenu musical -- @qq{second thème des violons}, @qq{quatrième
-variation}, etc. Vous pouvez ne pas avoir besoin des commentaires
+variation}, etc.  Vous pouvez ne pas avoir besoin des commentaires
 lorsque vous écrivez une pièce pour la première fois, mais si vous
 souhaitez y revenir deux ou trois ans plus tard pour changer quelque
 chose, ou si vous donnez le fichier source à un ami, ce sera beaucoup
@@ -130,16 +131,16 @@ n'entrez qu'un seul système de la partition originale
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
 pour accélérer la compilation -- voir
-@ruser{Ignorer des passages de la partition}@tie{};
+@ruser{Ignorer des passages de la partition} ;
 
 @item
-définissez @code{mBreak = @{\break @}} et insérez @code{\mBreak} dans le
-fichier d'entrée pour obtenir des sauts de ligne identiques à la
+définissez @code{mBreak = @{ \break @}} et insérez @code{\mBreak} dans
+le fichier d'entrée pour obtenir des sauts de ligne identiques à la
 partition originale.  Cela facilite la comparaison entre la partition
 originale et la partition de LilyPond.  Lorsque vous avez fini de relire
-votre musique, vous pouvez définir @code{mBreak@tie{}=@tie{}@{@tie{}@}}
-pour enlever tous ces sauts de ligne, et  laisser LilyPond placer les
-sauts de ligne selon son propre algorithme@tie{};
+votre musique, vous pouvez définir @code{mBreak = @{ @}}
+pour enlever tous ces sauts de ligne, et laisser LilyPond placer les
+sauts de ligne selon son propre algorithme ;
 
 @item
 encadrez les notes d'une partie pour instrument transpositeur dans un
@@ -178,14 +179,14 @@ dans une nouvelle version de LilyPond, alors que la définition du
 @code{violon} l'est beaucoup moins.
 
 @example
-violin = \relative c'' @{
+violon = \relative c'' @{
 g4 c'8. e16
 @}
 ...
 \score @{
  \new GrandStaff @{
    \new Staff @{
-     \violin
+     \violon
    @}
  @}
 @}
@@ -194,16 +195,15 @@ g4 c'8. e16
 @item @strong{Séparez les retouches} des définitions de musique.
 Nous vous avons déjà invité à adopter une telle pratique, qui
 par ailleurs devient vitale pour des projets d'importance.  Nous
-pouvons avoir besoin de changer la définition de
-@code{fpuisp}, mais dans ce cas nous n'aurons besoin de le faire
-qu'une seule fois, et nous pourrons encore éviter de
-modifier quoi que ce soit à l'intérieur de la définition
-du @code{violon}.
+pouvons avoir besoin de changer la définition de @code{fpuisp}, mais
+dans ce cas nous n'aurons besoin de le faire qu'une seule fois, et nous
+pourrons encore éviter de modifier quoi que ce soit à l'intérieur de la
+définition du @code{violon}.
 
 @example
 fpuisp = _\markup@{
  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
+violon = \relative c'' @{
 g4\fpuisp c'8. e16
 @}
 @end example
@@ -268,8 +268,6 @@ Une autre technique de débogage très utile est la construction
 d'un @rwebnamed{Exemples minimaux,exemple minimaliste}.
 
 
-
-
 @node De la commande make et des fichiers Makefile
 @section De la commande make et des fichiers Makefile
 @translationof Make and Makefiles
@@ -296,25 +294,25 @@ matériel d'orchestre complet avec la partition pour le chef et une
 partition séparée pour chacun des pupitres -- ou bien si votre projet
 requiert certaines commandes particulières comme @code{lilypond-book}.
 Les @emph{Makefiles} varient tant en complexité qu'en flexibilité selon
-les besoin et les aptitudes de celui qui les crée.  Le programme GNU Make
-est installé par défaut sur les distributions Linux et sur MacOS@tie{}X,
-et il en existe une version pour les environnements Windows.
+les besoin et les aptitudes de celui qui les crée.  Le programme GNU
+Make est installé par défaut sur les distributions GNU/Linux et sur
+MacOS X, et il en existe une version pour les environnements Windows.
 
 Consultez le @strong{GNU Make Manual} pour plus de détails sur ce dont
 @code{make} est capable -- vous pourrez même en trouver des versions
 françaises à l'aide des moteurs de recherche --, dans la mesure où ce
-qui suit ne donne qu'un bref apperçu de ses possibilités.
+qui suit ne donne qu'un bref aperçu de ses possibilités.
 
 Les commandes permettant de définir les règles diffèrent selon la
-plate-forme@tie{}: si les différents Linux et MacOS@tie{}X utilisent
-@code{bash}, Windows utilise @code{cmd}.  Dans le cas de MacOS@tie{}X,
+plate-forme : si les différents GNU/Linux et MacOS X utilisent
+@code{bash}, Windows utilise @code{cmd}.  Dans le cas de MacOS X,
 vous devrez toutefois configurer votre système de telle sorte qu'il
 utilise l'interpréteur en ligne de commande.  Voici quelques exemples de
-fichier @emph{Makefile}, avec une version pour Linux ou MacOS et une
+fichier @emph{Makefile}, avec une version pour GNU/Linux ou MacOS et une
 pour Windows.
 
 Pour commencer, une pièce à quatre mouvements pour orchestre et dont les
-fichiers sont répartis selon l'arborescence suivante@tie{}:
+fichiers sont répartis selon l'arborescence suivante :
 
 @example
 Symphonie/
@@ -337,7 +335,7 @@ Symphonie/
 |   `-- symphonieIV.ly
 |-- PDF/
 |-- Pupitres/
-|   |-- symphon-alto.ly
+|   |-- symphonie-alto.ly
 |   |-- symphonie-cello.ly
 |   |-- symphonie-cor.ly
 |   |-- symphonie-hautbois.ly
@@ -347,11 +345,11 @@ Symphonie/
 @end example
 
 Les fichiers @file{.ly} des répertoires @code{Partitions} et
-@code{Pupitres} récupèreront la notation des fichiers @file{.ily}
-contenus dans le répertoire @code{Notes}@tie{}:
+@code{Pupitres} récupéreront la notation des fichiers @file{.ily}
+contenus dans le répertoire @code{Notes} :
 
 @example
-%%% début du fichier "symphone-cello.ly"
+%%% début du fichier "symphonie-cello.ly"
 \include ../symphonieDefs.ily
 \include ../Notes/cello.ily
 @end example
@@ -362,7 +360,7 @@ mouvements au format conducteur) et @code{pupitres} (une partition par
 pupitre).  Il contient aussi une cible @code{archive} chargée de générer
 une archive des fichiers source qui pourra être diffusée sur la toile ou
 transmise par courriel.  Voici ce que contiendrait ce @emph{Makefile}
-pour Linux ou MacOS@tie{}X.  Ce fichier doit être enregistré sous le nom
+pour GNU/Linux ou MacOS X.  Ce fichier doit être enregistré sous le nom
 de @code{Makefile} à la racine du projet -- ici @code{Symphonie}.
 
 @warning{Lorsque vous définissez une cible ou une règle sur plusieurs
@@ -395,7 +393,7 @@ VPATH = \
 # Les .pdf résultants iront dans le sous-répertoire "PDF" et les fichiers
 # .midi dans le sous-répertoire "MIDI".
 %.pdf %.midi: %.ly
-        $(LILY_CMD) $<; \           # cette ligne commence par une tabulation
+        $(LILY_CMD) $<; \       # cette ligne commence par une tabulation
         if test -f "$*.pdf"; then \
             mv "$*.pdf" PDF/; \
         fi; \
@@ -428,8 +426,8 @@ $(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily
 $(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily
 $(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily
 
-# Lancer `make score' pour générer l'intégrale des quatre mouvements en
-# un seul fichier.
+# Lancer `make score' pour générer l'intégrale des quatre mouvements
+# en un seul fichier.
 .PHONY: score
 score: $(piece).pdf
 
@@ -455,7 +453,7 @@ mouvements: $(piece)I.pdf \
 all: score parties mouvements
 
 archive:
-        tar -cvvf symphonie.tar \      # cette ligne commence par une tabulation
+        tar -cvvf symphonie.tar \    # cette ligne commence par une tabulation
         --exclude=*pdf --exclude=*~ \
         --exclude=*midi --exclude=*.tar \
         ../Symphonie/*
@@ -469,9 +467,9 @@ du système --  afin que l'interpréteur de commandes DOS puisse le
 localiser.  Pour cela, faites un clic droite sur @qq{Poste de travail},
 choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
 @code{Variables d'environnement} puis, dans l'onglet
-@code{Variables@tie{}système}, mettez @code{path} en surbrillance et
+@code{Variables système}, mettez @code{path} en surbrillance et
 cliquez sur @code{Modifier}.  Ajoutez alors le chemin d'accès complet à
-l'exécutable de GNU Make, qui devrait ressembler à@tie{}:
+l'exécutable de GNU Make, qui devrait ressembler à :
 
 @example
 C:\Program Files\GnuWin32\bin
@@ -559,7 +557,7 @@ Le @emph{Makefile} suivant convient pour un document
 @command{lilypond-book} réalisé avec @LaTeX{}.  Ce projet contiendra un
 index, ce qui nécessitera de lancer une deuxième fois @command{latex}
 pour mettre à jour les liens.  Les fichiers résultants iront dans le
-répertoire @code{out} pour ce qui est des .pdf et dans le répertoire
+répertoire @code{out} pour ce qui est des pdf et dans le répertoire
 @code{htmlout} pour ce qui est du html.
 
 @example
@@ -622,7 +620,7 @@ réduire le nombre de processus à lancer dans une seule commande.  Vous
 devrez enregistrer les lignes suivantes dans un fichier
 @code{construire.bat} ou @code{construire.cmd}.  Ce fichier pourra être
 exécuté soit en ligne de commande, soit par un double clic sur son
-icone.
+icône.
 
 @example
 lilypond-book --output=out --pdf monprojet.lytex
@@ -633,7 +631,6 @@ pdflatex monprojet
 cd ..
 copy out\monprojet.pdf MonProjet.pdf
 @end example
-
 
 @seealso
 Manuel d'utilisation :

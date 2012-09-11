@@ -149,7 +149,6 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (LEFT_and_RIGHT (d))
         vector_sort (ordered_rests[d], rest_shift_less);
 
-
       for (LEFT_and_RIGHT (d))
         {
           if (ordered_rests[d].size () < 1)
@@ -250,19 +249,14 @@ Rest_collision::calc_positioning_done (SCM smob)
           Real y = dir * max (0.0,
                               -dir * restdim[-dir] + dir * notedim[dir] + minimum_dist);
 
-          int stafflines = Staff_symbol_referencer::line_count (me);
-          if (!stafflines)
-            {
-              programming_error ("no staff line count");
-              stafflines = 5;
-            }
-
           // move discretely by half spaces.
           int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
 
+          Interval staff_span = Staff_symbol_referencer::staff_span (rest);
+          staff_span.widen (1);
           // move by whole spaces inside the staff.
-          if (fabs (Staff_symbol_referencer::get_position (rest)
-                    + discrete_y) < stafflines + 1)
+          if (staff_span.contains
+              (Staff_symbol_referencer::get_position (rest) + discrete_y))
             {
               discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
             }

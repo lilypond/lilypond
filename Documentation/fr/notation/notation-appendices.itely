@@ -1,13 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.17"
+@c \version "2.16.0"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -792,10 +794,10 @@ Un nom de couleur peut s'écrire sous la forme d'un mot composé et sans
 espace auquel chaque élément prend un initiale capitalisée (p. ex.
 @code{LightSlateBlue}).  Il peut aussi s'exprimer sous la forme d'une
 suite de mots, auquel cas les initiales ne sont pas capitalisées
-(p. ex. @code{light slate blue}).
+(par ex. @code{light slate blue}).
 
 Le @emph{gris} accepte aussi bien l'orthographe @qq{grey} que
-@qq{gray} (p. ex. @code{DarkSlateGray}).
+@qq{gray} (par ex. @code{DarkSlateGray}).
 
 Certains noms peuvent prendre un suffixe numérique, comme
 @code{LightSalmon4}.
@@ -1275,7 +1277,7 @@ décoller de l'encadrement.
 @cindex talon
 
 Voici la liste exhaustive des symboles prédéfinis et que vous pouvez
-attacher à une note (p. ex. @code{c\accent}) :
+attacher à une note (par ex. @code{c\accent}) :
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")

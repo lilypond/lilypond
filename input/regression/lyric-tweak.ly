@@ -3,7 +3,7 @@
   texidoc = "The @code{\\tweak} function can be used in Lyrics."
 }
 
-\version "2.15.39"
+\version "2.16.0"
 \paper {
   ragged-right = ##t
 }

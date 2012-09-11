@@ -497,10 +497,10 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
         size.
 
        */
-      Interval staff_span =
-        Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
+      Interval staff_span
+        = Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
       staff_span.widen (-1);
-      bool const within_staff = staff_span.contains(pos);
+      bool const within_staff = staff_span.contains (pos);
       if (head_positions_slice (columns[LEFT]).contains (pos)
           || head_positions_slice (columns[RIGHT]).contains (pos)
           || within_staff)
@@ -721,8 +721,8 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
   Real top_y = tip_y + conf->dir_ * height;
   Real top_pos = 2 * top_y / details_.staff_space_;
   Real round_top_pos = rint (top_pos);
-  Interval staff_span =
-    Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
+  Interval staff_span
+    = Staff_symbol_referencer::staff_span (details_.staff_symbol_referencer_);
   if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_,
                                         int (round_top_pos))
       && staff_span[UP] * 0.5 > top_y)

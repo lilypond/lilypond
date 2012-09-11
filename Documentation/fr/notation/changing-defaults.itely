@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.39"
+@c \version "2.16.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -732,7 +732,7 @@ le @code{Bar_engraver} devrait toujours être le premier ;
 
 @item
 le @code{New_fingering_engraver} doit toujours précéder le
-@code{Script_column_engraver},
+@code{Script_column_engraver} ;
 
 @item
 le @code{Timing_translator} doit toujours précéder le
@@ -1513,7 +1513,7 @@ francophones.
 Tous les éléments de notation sont considérés comme des objets
 graphiques (en anglais @emph{Graphical Object}, d'où le diminutif
 @emph{Grob}).  Chaque objet est doté d'un certain nombre de propriétés
-(l'épaisseur du trait, l'orientation etc.), et lié à d'autres objets.
+(l'épaisseur du trait, l'orientation,  etc.), et lié à d'autres objets.
 Le fonctionnement de ces objets est décrit en détail dans
 @rinternals{grob-interface}.
 
@@ -2560,7 +2560,7 @@ valeur des clés individuellement par des déclarations imbriquées.
 @warning{Les déclarations imbriquées ne sont pas fonctionnelles dans le
 cas des listes associatives des propriétés de contexte -- telles
 @code{beamExceptions}, @code{keySignature},
-@code{timeSignatureSettings}, etc.  Ces propriétés ne sont modifiables
+@code{timeSignatureSettings}, etc.  Ces propriétés ne sont modifiables
 qu'au travers d'une complète redéfinition de leur liste associative.}
 
 
@@ -2661,7 +2661,7 @@ voir @rusernamed{Text markup commands,Commandes pour le mode markup}.
 
 Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
 s'activer par la commande @code{\notemode}.  Les saisies seront
-interprétées comme étant des hauteurs, durées, @emph{markups} etc. qui
+interprétées comme étant des hauteurs, durées, @emph{markups}, etc. qui
 seront rendues sous forme de notation musicale sur une portée.
 
 Nul n'est besoin de spécifier le mode notes de manière explicite, hormis
@@ -4085,7 +4085,7 @@ travaillent de concert.  Comme leur nom anglais l'indiquent,
 puis @code{VerticalAlignment} synchronise verticalement ces différents
 groupes.  En général, il n'y a qu'un seul @code{VerticalAlignment} pour
 l'ensemble de la partition, mais chaque contexte @code{Staff},
-@code{Lyrics} etc. possède son propre @code{VerticalAxisGroup}.
+@code{Lyrics}, etc. possède son propre @code{VerticalAxisGroup}.
 
 
 @node Modification des stencils

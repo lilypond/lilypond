@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c299f84d574ac9b97ab7ffbb640b5c3a1cdca5cc
+    Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.14.0"
+@c \version "2.16.0"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
@@ -22,7 +22,7 @@
 
 La syntaxe des fichiers LilyPond évolue avec le temps, que ce soit dans
 le but de la simplifier ou pour l'améliorer.  Il en résulte que
-l'interpréteur de LilyPond se retrouve incapable de traîter d'anciens
+l'interpréteur de LilyPond se retrouve incapable de traiter d'anciens
 fichiers.  L'utilitaire @command{convert-ly} permet cependant de
 mettre ces fichiers en conformité au fur et à mesure que de nouvelles
 versions de LilyPond sont disponibles.
@@ -50,13 +50,13 @@ plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
 fonctionnalités.
 
 Par exemple, tous les noms des propriétés de @code{\paper} et
-@code{\layout} devaient étre étaient libellées sous la forme
+@code{\layout} devaient être libellées sous la forme
 @code{@w{premier-deuxième-troisième}}.  Nous avons constaté, une fois la
 version 2.11.60 mise à disposition, que la propriété
 @code{printallheaders} ne respectait pas cette convention.  Aurions-nous
-du la laisser telle que, au risque de dérouter les nouveaux utilisateurs
-par cette exception de formatage, ou bien la modifier -- ce qui allait
-obliger ceux qui l'avaient déjà utilisée à se mettre en chasse@tie{}?
+dû la laisser telle que, au risque de dérouter les nouveaux utilisateurs
+par cette exception au formatage, ou bien la modifier -- ce qui allait
+obliger ceux qui l'avaient déjà utilisée à se mettre en chasse ?
 Pour ce cas d'espèce, nous avons décidé de changer pour
 @code{print-all-headers}.  Cette modification peut heureusement être
 automatisée par notre utilitaire @command{convert-ly}.
@@ -64,10 +64,10 @@ automatisée par notre utilitaire @command{convert-ly}.
 Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
 modifications.  Par exemple, dans les versions 2.4 et antérieures de
 LilyPond, les accents et les lettres non anglaises étaient entrées en
-utilisant LaTeX -- par exemple, @code{No\"el}.  À partir de la
-version@tie{}2.6, le caratère @code{ë} doit être entré directement dans
+utilisant @LaTeX{} -- par exemple, @code{No\"el}.  À partir de la
+version 2.6, le caractère @code{ë} doit être entré directement dans
 le fichier LilyPond comme caractère UTF-8.  @code{convert-ly} ne peut
-pas changer tous les caractères LaTeX en caractères UTF-8@tie{}; vous
+pas changer tous les caractères @LaTeX{} en caractères UTF-8 ; vous
 devez mettre à jour vos vieux fichiers LilyPond manuellement.
 
 
@@ -86,7 +86,7 @@ convert-ly -e monfichier.ly
 
 @noindent
 dans le dossier où il se trouve.  @file{monfichier.ly} sera mis à jour,
-et vous aurez une copie de l'original@tie{}: @file{monfichier.ly~}.
+et vous aurez une copie de l'original : @file{monfichier.ly~}.
 
 @warning{@command{convert-ly} effectuera les conversions jusqu'aux
 modifications de syntaxe les plus récentes qu'il contient.  C'est la
@@ -101,7 +101,7 @@ convert-ly -e *.ly
 @end example
 
 Vous pouvez aussi affecter un autre nom au fichier mis à jour et
-conserver votre fichier original en l'état@tie{}:
+conserver votre fichier original en l'état :
 
 @example
 convert-ly monfichier.ly > monnouveaufichier.ly
@@ -112,24 +112,24 @@ différentes conversions effectuées.  Si aucun numéro de version
 n'apparaît, considérez que le fichier ne comporte pas de syntaxe
 obsolète.
 
-Les utilisateurs de MacOS@tie{}X disposent d'une entrée spécifique dans
-le menu@tie{}: @code{Compile > Update syntax}.
+Les utilisateurs de MacOS X disposent d'une entrée spécifique dans
+le menu : @code{Compile > Update syntax}.
 
 Si vous utilisez windows, ouvrez un interpréteur de commande en faisant
-@code{Démarrer > Accessoires > Interpréteur de commmandes}.
+@code{Démarrer > Accessoires > Interpréteur de commandes}.
 
 
 @node Options en ligne de commande pour convert-ly
 @section Options en ligne de commande pour @command{convert-ly}
 @translationof Command line options for convert-ly
 
-L'utilitaire @command{convert-ly} se lance de la manière suivante@tie{}:
+L'utilitaire @command{convert-ly} se lance de la manière suivante :
 
 @example
 convert-ly [@var{option}]@dots{} @var{fichier}@dots{}
 @end example
 
-Vous pouvez utiliser les options@tie{}:
+Vous pouvez utiliser les options :
 
 @table @code
 @item -e,--edit
@@ -140,7 +140,7 @@ pour définir le numéro de version à partir duquel vous voulez effectuer
 les conversions.  Lorsque cette option n'est pas activée,
 @command{convert-ly} tentera de le déterminer sur la foi de la mention
 de @code{\version} contenue dans le fichier.  Cette option s'utilise
-sous la forme@tie{}: @code{--from=2.10.25}
+sous la forme : @code{--from=2.10.25}
 
 @item -n,--no-version
 Normalement, @command{convert-ly} ajoutera une indication de
@@ -153,7 +153,7 @@ pour afficher les conversions applicables.
 @item --to=@var{to-patchlevel}
 pour n'appliquer les conversions que jusqu'à une version déterminée.  Il
 s'agit par défaut de la dernière version disponible.  Cette option
-s'utilise sous la forme@tie{}: @code{--to=2.12.2}
+s'utilise sous la forme : @code{--to=2.12.2}
 
 
 @item -h, --help
@@ -187,7 +187,7 @@ convert-ly --from=@var{ancienne} --to=@var{récente} -s
 
 Sous Windows, lorsque le nom du fichier original ou le chemin qui y mène
 comporte des espaces, l'interpréteur de commande requiert qu'il soit
-entouré de triples guillemets comme ci-dessous@tie{}:
+entouré de triples guillemets comme ci-dessous :
 
 @example
 convert-ly """D:/Mes Partitions/Ode.ly""" > "D:/Mes Partitions/nouveau Ode.ly"
@@ -196,15 +196,13 @@ convert-ly """D:/Mes Partitions/Ode.ly""" > "D:/Mes Partitions/nouveau Ode.ly"
 Lorsque la commande @command{convert-ly -e *.ly} échoue parce que
 son expansion dépasse la taille maximale d'une ligne, vous pouvez lancer
 @command{convert-ly} dans une boucle.  L'exemple suivant permet, sous
-Unix, de convertir tous les fichiers @file{.ly} d'un même
-répertoire@tie{}:
+Unix, de convertir tous les fichiers @file{.ly} d'un même répertoire :
 
 @example
 for f in *.ly; do convert-ly -e $f; done;
 @end example
 
-Avec l'interpréteur de commandes de Windows, la syntaxe consacrée
-est@tie{}:
+Avec l'interpréteur de commandes de Windows, la syntaxe consacrée est :
 
 @example
 for %x in (*.ly) do convert-ly -e """%x"""
@@ -213,7 +211,7 @@ for %x in (*.ly) do convert-ly -e """%x"""
 Toutes les évolutions du langage ne sont pas forcément prises en charge.
 @command{convert-ly} ne tolère qu'une seule option de sortie à la fois.
 La mise à jour automatique du code Scheme inclus dans les fichiers
-LilyPond est plus qu'hasardeuse@tie{}; atendez-vous à devoir mettre les
+LilyPond est plus qu'hasardeuse ; attendez-vous à devoir mettre les
 mains dans le cambouis.
 
 
@@ -222,18 +220,18 @@ mains dans le cambouis.
 @translationof Manual conversions
 
 En théorie, un programme tel que @command{convert-ly} devrait pouvoir
-traîter n'importe quel changement de syntaxe.  En effet, si un programme
+traiter n'importe quel changement de syntaxe.  En effet, si un programme
 informatique sait interpréter aussi bien une version que l'autre, un
 autre programme informatique doit alors être capable de traduire un
-fichier donné
-@footnote{At least, this is possible in any LilyPond file which does not
-contain scheme.  If there is scheme in the file, then the LilyPond file
-contains a Turing-complete language, and we run into problems with the
-famous @qq{Halting Problem} in computer science.}.
+fichier donné@footnote{Ceci est réalisable tant que le fichier LilyPond
+ne contient pas de Scheme.  Dès lors qu'un fichier contient du Scheme,
+des bribes de langage évolué se retrouvent danas le fichier LilyPond, ce
+qui conduit immanquablement au « problème de l'arrêt » bien connu en
+informatique.}. 
 
-Le projet LilyPond ne dispose cependant que de ressources
-limitées@tie{}: les conversions ne sont pas toutes automatisées.  Voici
-une liste de problèmes clairement identifiés@tie{}:
+Le projet LilyPond ne dispose cependant que de ressources limitées : les
+conversions ne sont pas toutes automatisées.  Voici une liste de
+problèmes clairement identifiés :
 
 
 @verbatim

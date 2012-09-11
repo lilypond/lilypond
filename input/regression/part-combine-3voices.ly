@@ -1,4 +1,4 @@
-\version "2.15.14"
+\version "2.16.0"
 
 \header {
   texidoc ="It is possible to use the part combiner for three

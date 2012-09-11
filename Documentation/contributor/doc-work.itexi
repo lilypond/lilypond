@@ -1804,11 +1804,6 @@ Spanish translation blah
 "
 @end example
 
-@noindent
-Then, you should get these translated strings into compiled snippets in
-@file{Documentation/snippets}, see @q{General guidelines} in @ref{Adding
-and editing snippets}.
-
 @code{@@example} blocks need not be verbatim copies, e.g. variable
 names, file names and comments should be translated.
 

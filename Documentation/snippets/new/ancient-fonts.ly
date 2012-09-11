@@ -1,5 +1,5 @@
 %% This file is in the public domain.
-\version "2.15.9"
+\version "2.16.0"
 
 \header {
   lsrtags = "ancient-notation, symbols-and-glyphs"
