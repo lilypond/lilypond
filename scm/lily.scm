@@ -803,10 +803,11 @@ PIDs or the number of the process."
   (let* ((failed '())
          (separate-logs (ly:get-option 'separate-log-files))
          (ping-log
-          (if separate-logs
-              (open-file (if (string-or-symbol? (ly:get-option 'log-file))
-                             (format #f "~a.log" (ly:get-option 'log-file))
-                     "/dev/stderr") "a") #f))
+          (and separate-logs
+               (if (string-or-symbol? (ly:get-option 'log-file))
+                   (open-file (format #f "~a.log" (ly:get-option 'log-file))
+                              "a")
+                   (fdes->outport 2))))
          (do-measurements (ly:get-option 'dump-profile))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))
