@@ -223,32 +223,26 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 static void
 set_column_rods (vector<Grob *> const &cols, Real padding)
 {
-  /* distances[i] will be the minimum distance between column i and column i+1 */
-  vector<Real> distances;
+  /* distances[i] will be the distance betwen cols[i-1] and cols[i]
+     when each column is placed as far to the left as possible. */
+  vector<Real> distances (cols.size ());
 
   for (vsize i = 1; i < cols.size (); i++)
     {
-      assert (distances.size () == i - 1);
-
       Item *r = dynamic_cast<Item *> (cols[i]);
       Item *rb = r->find_prebroken_piece (LEFT);
 
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
-        {
-          distances.push_back (0);
-          continue;
-        }
+        continue;
 
       Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
-      Real right_stickout = skys ? (*skys)[LEFT].max_height () : 0.0;
 
-      /* min rather than max because right-stickout will be negative if the right-hand column
+      /* min rather than max because stickout_i will be negative if the right-hand column
          sticks out a lot to the left */
-      right_stickout = min (right_stickout,
-                            Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
+      Real stickout_i = min (skys ? (*skys)[LEFT].max_height () : 0.0,
+                             Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
-      Drul_array<Item *> r_cols (r, rb);
-      Drul_array<Real> cur_dist (0.0, 0.0);
+      Real prev_distances = 0.0;
 
       /* This is an inner loop and hence it is potentially quadratic. However, we only continue
          as long as there is a rod to insert. Therefore, this loop will usually only execute
@@ -258,42 +252,30 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
           Item *l = dynamic_cast<Item *> (cols[j]);
           Item *lb = l->find_prebroken_piece (RIGHT);
           Skyline_pair *skys = Skyline_pair::unsmob (l->get_property ("horizontal-skylines"));
-          Real left_stickout = skys ? (*skys)[RIGHT].max_height () : 0.0;
-          bool done = true;
+          Real stickout_j = skys ? (*skys)[RIGHT].max_height () : 0.0;
 
-          for (LEFT_and_RIGHT (d))
+          bool touches = stickout_i - stickout_j + prev_distances + distances[i] < 0.0;
+          Real dist = 0.0;
+
+          if (touches || j == i - 1)
             {
-              if (j < i - 1)
-                cur_dist[d] += distances[j];
-
-              Item *r_col = r_cols[d];
-              bool touches = right_stickout - left_stickout + cur_dist[d] < 0.0;
-              Real dist = 0.0;
-
-              /* we set a distance for the line-starter column even if its non-broken counterpart
-                 doesn't touch the right column. */
-              if (lb)
-                Separation_item::set_distance (lb, r_col, padding);
-
-              if (touches || j == i - 1)
-                dist = Separation_item::set_distance (l, r_col, padding);
-
-              if (j == i - 1 && d == LEFT)
-                distances.push_back (dist);
-
-              if (j == i - 1)
-                cur_dist[d] = distances[j];
-
-              cur_dist[d] = max (cur_dist[d], dist);
-              done = done && !touches;
-
-              if (!rb)
-                break;
+              dist = Separation_item::set_distance (l, r, padding);
+              if (rb)
+                Separation_item::set_distance (l, rb, padding);
             }
+          distances[i] = max (distances[i], dist - prev_distances);
 
+          /* we set a distance for the line-starter column even if its non-broken counterpart
+             doesn't touch the right column. */
+          if (lb)
+            Separation_item::set_distance (lb, r, padding);
+          if (lb && rb)
+            Separation_item::set_distance (lb, rb, padding);
+
+          prev_distances += distances[j];
           /* we need the empty check for gregorian notation, where there are a lot of
              extraneous paper-columns that we need to skip over */
-          if (done && !Separation_item::is_empty (l))
+          if (!touches && !Separation_item::is_empty (l))
             break;
         }
     }
