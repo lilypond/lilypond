@@ -69,7 +69,6 @@ Slur_score_state::Slur_score_state ()
 {
   musical_dy_ = 0.0;
   valid_ = false;
-  stub_ = false;
   edge_has_beams_ = false;
   has_same_beam_ = false;
   is_broken_ = false;
@@ -115,8 +114,8 @@ Slur_score_state::get_encompass_info (Grob *col) const
     {
       programming_error ("no stem for note column");
       ei.x_ = col->relative_coordinate (common_[X_AXIS], X_AXIS);
-      ei.head_ = ei.stem_ = col->maybe_pure_extent (common_[Y_AXIS],
-                                         Y_AXIS, stub_, 0, INT_MAX)[dir_];
+      ei.head_ = ei.stem_ = col->extent (common_[Y_AXIS],
+                                         Y_AXIS)[dir_];
       return ei;
     }
   Direction stem_dir = get_grob_direction (stem);
@@ -129,16 +128,16 @@ Slur_score_state::get_encompass_info (Grob *col) const
   Grob *h = Stem::extremal_heads (stem)[Direction (dir_)];
   if (!h)
     {
-      ei.head_ = ei.stem_ = col->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_];
+      ei.head_ = ei.stem_ = col->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       return ei;
     }
 
-  ei.head_ = h->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_];
+  ei.head_ = h->extent (common_[Y_AXIS], Y_AXIS)[dir_];
 
   if ((stem_dir == dir_)
-      && !stem->maybe_pure_extent (stem, Y_AXIS, stub_, 0, INT_MAX).is_empty ())
+      && !stem->extent (stem, Y_AXIS).is_empty ())
     {
-      ei.stem_ = stem->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_];
+      ei.stem_ = stem->extent (common_[Y_AXIS], Y_AXIS)[dir_];
       if (Grob *b = Stem::get_beam (stem))
         ei.stem_ += stem_dir * 0.5 * Beam::get_beam_thickness (b);
 
@@ -176,13 +175,9 @@ Slur_score_state::get_bound_info () const
               for (int a = X_AXIS; a < NO_AXES; a++)
                 {
                   Axis ax = Axis (a);
-                  Interval s = ax == Y_AXIS
-                               ? extremes[d].stem_->maybe_pure_extent (common_[ax], ax, stub_, 0, INT_MAX)
-                               : extremes[d].stem_->extent (common_[ax], ax);
+                  Interval s = extremes[d].stem_->extent (common_[ax], ax);
                   if (extremes[d].flag_)
-                    s.unite (ax == Y_AXIS
-                             ? extremes[d].flag_->maybe_pure_extent (common_[ax], ax, stub_, 0, INT_MAX)
-                             : extremes[d].flag_->extent (common_[ax], ax));
+                    s.unite (extremes[d].flag_->extent (common_[ax], ax));
                   if (s.is_empty ())
                     {
                       /*
@@ -190,9 +185,7 @@ Slur_score_state::get_bound_info () const
                         whole notes.
                       */
                       s = Interval (0, 0)
-                          + (ax == Y_AXIS
-                             ? extremes[d].stem_->maybe_pure_coordinate (common_[ax], ax, stub_, 0, INT_MAX)
-                             : extremes[d].stem_->relative_coordinate (common_[ax], ax));
+                          + extremes[d].stem_->relative_coordinate (common_[ax], ax);
                     }
                   extremes[d].stem_extent_[ax] = s;
                 }
@@ -222,8 +215,6 @@ void
 Slur_score_state::fill (Grob *me)
 {
   slur_ = dynamic_cast<Spanner *> (me);
-  stub_ = slur_->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface"));
-
   columns_
     = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
@@ -325,7 +316,7 @@ Slur_score_state::fill (Grob *me)
       if (!is_broken_
           && extremes_[d].slur_head_)
         musical_dy_ += d
-                       * extremes_[d].slur_head_->maybe_pure_coordinate (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX);
+                       * extremes_[d].slur_head_->relative_coordinate (common_[Y_AXIS], Y_AXIS);
     }
 
   edge_has_beams_
@@ -341,13 +332,6 @@ SCM
 Slur::calc_control_points (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-
-  if (!to_boolean (me->get_property ("cross-staff"))
-      && me->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")))
-    {
-      me->suicide ();
-      return SCM_EOL;
-    }
 
   Slur_score_state state;
   state.fill (me);
@@ -388,9 +372,7 @@ Slur::calc_control_points (SCM smob)
     {
       Offset o = best->curve_.control_[i]
                  - Offset (me->relative_coordinate (state.common_[X_AXIS], X_AXIS),
-                           me->maybe_pure_coordinate (state.common_[Y_AXIS], Y_AXIS,
-                               state.stub_, 0, INT_MAX));
-
+                           me->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
     }
 
@@ -480,8 +462,7 @@ Slur_score_state::get_y_attachment_range () const
           end_ys[d] = dir_
                       * max (max (dir_ * (base_attachments_[d][Y_AXIS]
                                           + parameters_.region_size_ * dir_),
-                                  dir_ * (dir_ + extremes_[d].note_column_->maybe_pure_extent
-                                                   (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_])),
+                                  dir_ * (dir_ + extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)[dir_])),
                              dir_ * base_attachments_[-d][Y_AXIS]);
         }
       else
@@ -531,7 +512,7 @@ Slur_score_state::get_base_attachments () const
                   || has_same_beam_))
             y = extremes_[d].stem_extent_[Y_AXIS][dir_];
           else if (head)
-            y = head->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_];
+            y = head->extent (common_[Y_AXIS], Y_AXIS)[dir_];
           y += dir_ * 0.5 * staff_space_;
 
           y = move_away_from_staffline (y, head);
@@ -563,7 +544,7 @@ Slur_score_state::get_base_attachments () const
 
           if (extremes_[-d].bound_ != col)
             {
-              y = maybe_pure_robust_relative_extent (col, common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX)[dir_];
+              y = robust_relative_extent (col, common_[Y_AXIS], Y_AXIS)[dir_];
               y += dir_ * 0.5 * staff_space_;
 
               if (get_grob_direction (col) == dir_
@@ -609,8 +590,8 @@ Slur_score_state::move_away_from_staffline (Real y,
     return y;
 
   Real pos
-    = (y - staff_symbol->maybe_pure_coordinate (common_[Y_AXIS],
-                                              Y_AXIS, stub_, 0, INT_MAX))
+    = (y - staff_symbol->relative_coordinate (common_[Y_AXIS],
+                                              Y_AXIS))
       * 2.0 / staff_space_;
 
   if (fabs (pos - my_round (pos)) < 0.2
@@ -648,7 +629,7 @@ Slur_score_state::generate_avoid_offsets () const
 
           Offset z = b.curve_point (0.5);
           z += Offset (small_slur->relative_coordinate (common_[X_AXIS], X_AXIS),
-                       small_slur->maybe_pure_coordinate (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX));
+                       small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
 
           z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
           avoid.push_back (z);
@@ -657,7 +638,7 @@ Slur_score_state::generate_avoid_offsets () const
         {
           Grob *g = extra_encompasses [i];
           Interval xe = g->extent (common_[X_AXIS], X_AXIS);
-          Interval ye = g->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX);
+          Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
 
           if (!xe.is_empty ()
               && !ye.is_empty ())
@@ -775,7 +756,7 @@ Slur_score_state::get_extra_encompass_infos () const
           Bezier b = Slur::get_curve (small_slur);
 
           Offset relative (small_slur->relative_coordinate (common_[X_AXIS], X_AXIS),
-                           small_slur->maybe_pure_coordinate (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX));
+                           small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
 
           for (int k = 0; k < 3; k++)
             {
@@ -809,7 +790,7 @@ Slur_score_state::get_extra_encompass_infos () const
         {
           Grob *g = encompasses [i];
           Interval xe = g->extent (common_[X_AXIS], X_AXIS);
-          Interval ye = g->maybe_pure_extent (common_[Y_AXIS], Y_AXIS, stub_, 0, INT_MAX);
+          Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
           if (Dots::has_interface (g))
             ye.widen (0.2);
 

@@ -84,7 +84,6 @@ struct Slur_score_state
 {
   Spanner *slur_;
   Grob *common_[NO_AXES];
-  bool stub_;
   bool valid_;
   bool edge_has_beams_;
   bool is_broken_;

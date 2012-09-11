@@ -70,10 +70,9 @@ Melody_engraver::stop_translation_timestep ()
 }
 
 void
-Melody_engraver::acknowledge_slur (Grob_info info)
+Melody_engraver::acknowledge_slur (Grob_info /* info */)
 {
-  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")))
-    melody_item_ = 0;
+  melody_item_ = 0;
 }
 
 void

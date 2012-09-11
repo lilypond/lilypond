@@ -109,14 +109,6 @@
    (ly:side-position-interface::calc-cross-staff g)))
 
 
-(define-public (slur::if-not-cross-staff-suicide g)
-  (let ((cs (ly:slur::calc-cross-staff g)))
-    (if (not cs)
-        (begin
-          (ly:grob-suicide! g)
-          #f)
-        #t)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
@@ -363,6 +355,7 @@ and duration-log @var{log}."
 
 
 (define-public spanbar-begin-of-line-invisible #(#t #f #f))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines

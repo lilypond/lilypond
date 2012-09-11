@@ -613,6 +613,28 @@ pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
   return priority_1 < priority_2;
 }
 
+static void
+add_interior_skylines (Grob *me, Grob *x_common, Grob *y_common, vector<Skyline_pair> *skylines)
+{
+  if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
+    {
+      for (vsize i = 0; i < elements->size (); i++)
+        add_interior_skylines (elements->grob (i), x_common, y_common, skylines);
+    }
+  else if (!scm_is_number (me->get_property ("outside-staff-priority"))
+           && !to_boolean (me->get_property ("cross-staff")))
+    {
+      Skyline_pair *maybe_pair = Skyline_pair::unsmob (me->get_property ("vertical-skylines"));
+      if (!maybe_pair)
+        return;
+      if (maybe_pair->is_empty ())
+        return;
+      skylines->push_back (Skyline_pair (*maybe_pair));
+      skylines->back ().shift (me->relative_coordinate (x_common, X_AXIS));
+      skylines->back ().raise (me->relative_coordinate (y_common, Y_AXIS));
+    }
+}
+
 // Raises the grob elt (whose skylines are given by h_skyline
 // and v_skyline) so that it doesn't intersect with staff_skyline,
 // or with anything in other_h_skylines and other_v_skylines.
@@ -802,30 +824,6 @@ Axis_group_interface::outside_staff_ancestor (Grob *me)
   return outside_staff_ancestor (parent);
 }
 
-void
-Axis_group_interface::add_interior_skylines
-(Grob *me, Grob *x_common, Grob *y_common, vector<Skyline_pair> *skylines, bool pure)
-{
-  if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
-    {
-      for (vsize i = 0; i < elements->size (); i++)
-        add_interior_skylines (elements->grob (i), x_common, y_common, skylines, pure);
-    }
-  else if (pure ||
-           (!scm_is_number (me->get_property ("outside-staff-priority"))
-            && !to_boolean (me->get_property ("cross-staff"))))
-    {
-      Skyline_pair *maybe_pair = Skyline_pair::unsmob (me->get_property ("vertical-skylines"));
-      if (!maybe_pair)
-        return;
-      if (maybe_pair->is_empty ())
-        return;
-      skylines->push_back (Skyline_pair (*maybe_pair));
-      skylines->back ().shift (me->relative_coordinate (x_common, X_AXIS));
-      skylines->back ().raise (me->maybe_pure_coordinate (y_common, Y_AXIS, pure, 0, INT_MAX));
-    }
-}
-
 // It is tricky to correctly handle skyline placement of cross-staff grobs.
 // For example, cross-staff beams cannot be formatted until the distance between
 // staves is known and therefore any grobs that depend on the beam cannot be placed
@@ -877,9 +875,8 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob *> elements)
     {
       Grob *elt = elements[i];
       Grob *ancestor = outside_staff_ancestor (elt);
-      if (!(to_boolean (elt->get_property ("cross-staff")) || ancestor)
-          || elt->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")))
-        add_interior_skylines (elt, x_common, y_common, &inside_staff_skylines, elt->internal_has_interface (ly_symbol2scm ("cross-staff-stub-interface")));
+      if (!(to_boolean (elt->get_property ("cross-staff")) || ancestor))
+        add_interior_skylines (elt, x_common, y_common, &inside_staff_skylines);
       if (ancestor)
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
     }

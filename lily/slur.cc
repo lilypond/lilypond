@@ -145,7 +145,6 @@ SCM
 Slur::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
   extract_grob_set (me, "note-columns", encompasses);
   if (encompasses.empty ())
     {
@@ -250,25 +249,6 @@ void
 Slur::add_extra_encompass (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
-}
-
-void
-Slur::main_to_stub (Grob *main, Grob *stub)
-{
-  extract_grob_set (main, "note-columns", nc);
-  for (vsize i = 0; i < nc.size (); i++)
-    add_column (stub, nc[i]);
-
-  extract_grob_set (main, "encompass-objects", eo);
-  for (vsize i = 0; i < eo.size (); i++)
-    add_extra_encompass (stub, eo[i]);
-
-  stub->set_object ("surrogate", main->self_scm ());
-
-  dynamic_cast<Spanner *> (stub)->set_bound
-    (LEFT, dynamic_cast<Spanner *> (main)->get_bound (LEFT));
-  dynamic_cast<Spanner *> (stub)->set_bound
-    (RIGHT, dynamic_cast<Spanner *> (main)->get_bound (RIGHT));
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback, 4, 1, "");
@@ -408,68 +388,31 @@ Slur::vertical_skylines (SCM smob)
 }
 
 /*
- * USE ME ONLY FOR CROSS STAFF SLURS!
- * We only want to keep the topmost skyline of the topmost axis group(s)
- * and the bottommost skyline of the bottommost axis group(s). Otherwise,
- * the VerticalAxisGroups will be spaced very far apart to accommodate the
- * slur, which we don't want, as it is cross staff.
- *
- * TODO: Currently, the code below keeps the topmost and bottommost axis
- * groups and gets rid of the rest.  This should be more nuanced for
- * cases like ossias where the topmost staff changes over the course of
- * the slur.  Ditto for the bottommost staff.
- */
-
-MAKE_SCHEME_CALLBACK (Slur, extremal_stub_vertical_skylines, 1);
-SCM
-Slur::extremal_stub_vertical_skylines (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Grob *my_vag = Grob::get_vertical_axis_group (me);
-  extract_grob_set (me, "note-columns", ro_note_columns);
-  vector<Grob *> note_columns (ro_note_columns);
-  vector_sort (note_columns, Grob::vertical_less);
-  bool highest = my_vag == Grob::get_vertical_axis_group (note_columns[0]);
-  bool lowest = my_vag == Grob::get_vertical_axis_group (note_columns.back ());
-  if (!highest && !lowest)
-    return Skyline_pair ().smobbed_copy ();
-
-  Skyline_pair sky = *Skyline_pair::unsmob (vertical_skylines (smob));
-
-  if (highest)
-    sky[DOWN] = Skyline (DOWN);
-  else
-    sky[UP] = Skyline (UP);
-
-  return sky.smobbed_copy ();
-}
-
-/*
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
 Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
-                                          vector<Slur_info> &slur_infos,
-                                          vector<Slur_info> &end_slur_infos)
+                                          vector<Grob *> &slurs,
+                                          vector<Grob *> &end_slurs)
 {
-  if (slur_infos.empty () && end_slur_infos.empty ())
+  if (slurs.empty () && end_slurs.empty ())
     return;
 
   Grob *e = info.grob ();
   SCM avoid = e->get_property ("avoid-slur");
   Grob *slur;
-  if (end_slur_infos.size () && !slur_infos.size ())
-    slur = end_slur_infos[0].slur_;
+  if (end_slurs.size () && !slurs.size ())
+    slur = end_slurs[0];
   else
-    slur = slur_infos[0].slur_;
+    slur = slurs[0];
 
   if (Tie::has_interface (e)
       || avoid == ly_symbol2scm ("inside"))
     {
-      for (vsize i = slur_infos.size (); i--;)
-        add_extra_encompass (slur_infos[i].slur_, e);
-      for (vsize i = end_slur_infos.size (); i--;)
-        add_extra_encompass (end_slur_infos[i].slur_, e);
+      for (vsize i = slurs.size (); i--;)
+        add_extra_encompass (slurs[i], e);
+      for (vsize i = end_slurs.size (); i--;)
+        add_extra_encompass (end_slurs[i], e);
       if (slur)
         e->set_object ("slur", slur->self_scm ());
     }

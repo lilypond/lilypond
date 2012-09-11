@@ -30,8 +30,6 @@
 
 #include "translator.icc"
 
-#include <algorithm>
-
 /*
   NOTE NOTE NOTE
 
@@ -47,18 +45,12 @@
   least, it is for phrasing slurs: a note can be both beginning and
   ending of a phrase.
 */
-
-Slur_info::Slur_info (Grob *slur)
-{
-  slur_ = slur;
-}
-
 class Slur_engraver : public Engraver
 {
   vector<Stream_event *> start_events_;
   vector<Stream_event *> stop_events_;
-  vector<Slur_info> slur_infos_;
-  vector<Slur_info> end_slur_infos_;
+  vector<Grob *> slurs_;
+  vector<Grob *> end_slurs_;
   vector<Grob_info> objects_to_acknowledge_;
 
   void set_melisma (bool);
@@ -120,28 +112,11 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::acknowledge_note_column (Grob_info info)
 {
-  /*
-   * For every active slur, we create a slur stub.
-   * As we do not yet know what vertical axis groups note columns belong to,
-   * we create a stub for each note and then suicide duplicate stubs on
-   * axis groups.
-   * These slurs should be used ONLY to approximate cross-staff slurs
-   * in vertical skylines.
-   */
-
   Grob *e = info.grob ();
-  for (vsize i = slur_infos_.size (); i--;)
-    {
-      Slur::add_column (slur_infos_[i].slur_, e);
-      Grob *stub = make_spanner ("SlurStub", info.grob ()->self_scm ());
-      slur_infos_[i].stubs_.push_back (stub);
-    }
-  for (vsize i = end_slur_infos_.size (); i--;)
-    {
-      Slur::add_column (end_slur_infos_[i].slur_, e);
-      Grob *stub = make_spanner ("SlurStub", info.grob ()->self_scm ());
-      end_slur_infos_[i].stubs_.push_back (stub);
-    }
+  for (vsize i = slurs_.size (); i--;)
+    Slur::add_column (slurs_[i], e);
+  for (vsize i = end_slurs_.size (); i--;)
+    Slur::add_column (end_slurs_[i], e);
 }
 
 void
@@ -196,15 +171,12 @@ Slur_engraver::acknowledge_end_tie (Grob_info info)
 void
 Slur_engraver::finalize ()
 {
-  for (vsize i = 0; i < slur_infos_.size (); i++)
+  for (vsize i = 0; i < slurs_.size (); i++)
     {
-      slur_infos_[i].slur_->warning (_ ("unterminated slur"));
-      slur_infos_[i].slur_->suicide ();
-      for (vsize j = 0; j < slur_infos_[i].stubs_.size (); j++)
-        slur_infos_[i].stubs_[j]->suicide ();
+      slurs_[i]->warning (_ ("unterminated slur"));
+      slurs_[i]->suicide ();
     }
-
-  slur_infos_.clear ();
+  slurs_.clear ();
 }
 
 void
@@ -217,13 +189,13 @@ Slur_engraver::process_music ()
 
       // Find the slurs that are ended with this event (by checking the spanner-id)
       bool ended = false;
-      for (vsize j = slur_infos_.size (); j--;)
+      for (vsize j = slurs_.size (); j--;)
         {
-          if (id == robust_scm2string (slur_infos_[j].slur_->get_property ("spanner-id"), ""))
+          if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
             {
               ended = true;
-              end_slur_infos_.push_back (slur_infos_[j]);
-              slur_infos_.erase (slur_infos_.begin () + j);
+              end_slurs_.push_back (slurs_[j]);
+              slurs_.erase (slurs_.begin () + j);
             }
         }
       if (ended)
@@ -239,7 +211,7 @@ Slur_engraver::process_music ()
         ev->origin ()->warning (_ ("cannot end slur"));
     }
 
-  vsize old_slurs = slur_infos_.size ();
+  vsize old_slurs = slurs_.size ();
   for (vsize i = start_events_.size (); i--;)
     {
       Stream_event *ev = start_events_[i];
@@ -247,10 +219,10 @@ Slur_engraver::process_music ()
       Direction updown = to_dir (ev->get_property ("direction"));
 
       bool completed;
-      for (vsize j = slur_infos_.size (); !(completed = (j-- == 0));)
+      for (vsize j = slurs_.size (); !(completed = (j-- == 0));)
         {
           // Check if we already have a slur with the same spanner-id.
-          if (id == robust_scm2string (slur_infos_[j].slur_->get_property ("spanner-id"), ""))
+          if (id == robust_scm2string (slurs_[j]->get_property ("spanner-id"), ""))
             {
               if (j < old_slurs)
                 {
@@ -268,11 +240,11 @@ Slur_engraver::process_music ()
               if (!updown)
                 break;
 
-              Stream_event *c = unsmob_stream_event (slur_infos_[j].slur_->get_property ("cause"));
+              Stream_event *c = unsmob_stream_event (slurs_[j]->get_property ("cause"));
 
               if (!c)
                 {
-                  slur_infos_[j].slur_->programming_error ("slur without a cause");
+                  slurs_[j]->programming_error ("slur without a cause");
                   continue;
                 }
 
@@ -283,10 +255,8 @@ Slur_engraver::process_music ()
 
               if (!slur_dir)
                 {
-                  slur_infos_[j].slur_->suicide ();
-                  for (vsize k = 0; k < slur_infos_[j].stubs_.size (); k++)
-                    slur_infos_[j].stubs_[k]->suicide ();
-                  slur_infos_.erase (slur_infos_.begin () + j);
+                  slurs_[j]->suicide ();
+                  slurs_.erase (slurs_.begin () + j);
                   continue;
                 }
 
@@ -303,7 +273,7 @@ Slur_engraver::process_music ()
           slur->set_property ("spanner-id", ly_string2scm (id));
           if (updown)
             set_grob_direction (slur, updown);
-          slur_infos_.push_back (Slur_info (slur));
+          slurs_.push_back (slur);
 
           if (to_boolean (get_property ("doubleSlurs")))
             {
@@ -311,11 +281,11 @@ Slur_engraver::process_music ()
               slur = make_spanner ("Slur", ev->self_scm ());
               slur->set_property ("spanner-id", ly_string2scm (id));
               set_grob_direction (slur, UP);
-              slur_infos_.push_back (Slur_info (slur));
+              slurs_.push_back (slur);
             }
         }
     }
-  set_melisma (slur_infos_.size ());
+  set_melisma (slurs_.size ());
 }
 
 void
@@ -323,59 +293,27 @@ Slur_engraver::stop_translation_timestep ()
 {
   if (Grob *g = unsmob_grob (get_property ("currentCommandColumn")))
     {
-      for (vsize i = 0; i < end_slur_infos_.size (); i++)
-        Slur::add_extra_encompass (end_slur_infos_[i].slur_, g);
+      for (vsize i = 0; i < end_slurs_.size (); i++)
+        Slur::add_extra_encompass (end_slurs_[i], g);
 
       if (!start_events_.size ())
-        for (vsize i = 0; i < slur_infos_.size (); i++)
-          Slur::add_extra_encompass (slur_infos_[i].slur_, g);
+        for (vsize i = 0; i < slurs_.size (); i++)
+          Slur::add_extra_encompass (slurs_[i], g);
     }
 
-  for (vsize i = 0; i < end_slur_infos_.size (); i++)
+  for (vsize i = 0; i < end_slurs_.size (); i++)
     {
-      Spanner *s = dynamic_cast<Spanner *> (end_slur_infos_[i].slur_);
+      Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
       if (!s->get_bound (RIGHT))
         s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
       announce_end_grob (s, SCM_EOL);
     }
 
   for (vsize i = 0; i < objects_to_acknowledge_.size (); i++)
-    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slur_infos_, end_slur_infos_);
-
-  for (vsize i = 0; i < end_slur_infos_.size (); i++)
-    {
-      // There are likely SlurStubs we don't need. Get rid of them
-      // and only keep one per VerticalAxisGroup.
-      vector<Grob *> vags;
-      vector<Grob *> stubs;
-      for (vsize j = 0; j < end_slur_infos_[i].stubs_.size (); j++)
-        {
-          Grob *stub = end_slur_infos_[i].stubs_[j];
-          Grob *vag = Grob::get_vertical_axis_group (stub);
-          if (vag)
-            {
-              vector<Grob *>::const_iterator it =
-                find (vags.begin (), vags.end (), vag);
-              if (it != vags.end ())
-                stub->suicide ();
-              else
-                {
-                  vags.push_back (vag);
-                  stubs.push_back (stub);
-                }
-            }
-          else
-            {
-              end_slur_infos_[i].slur_->programming_error ("Cannot find vertical axis group for NoteColumn.");
-              stub->suicide ();
-            }
-        }
-      for (vsize j = 0; j < stubs.size (); j++)
-        Slur::main_to_stub (end_slur_infos_[i].slur_, stubs[j]);
-    }
+    Slur::auxiliary_acknowledge_extra_object (objects_to_acknowledge_[i], slurs_, end_slurs_);
 
   objects_to_acknowledge_.clear ();
-  end_slur_infos_.clear ();
+  end_slurs_.clear ();
   start_events_.clear ();
   stop_events_.clear ();
 }

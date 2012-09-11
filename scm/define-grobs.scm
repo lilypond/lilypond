@@ -1844,30 +1844,6 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
-    ;; Only should be used to approximate vertical skylines
-    ;; of a cross-staff slur.
-    (SlurStub
-     . (
-	(avoid-slur . inside)
-	(control-points . ,ly:slur::calc-control-points)
-	(cross-staff . ,slur::if-not-cross-staff-suicide)
-	(details . ,default-slur-details)
-	(direction . ,ly:slur::calc-direction)
-	(height-limit . 2.0)
-	(line-thickness . 0.8)
-	(minimum-length . 1.5)
-	(ratio . 0.25)
-	(spanner-id . "")
-	(springs-and-rods . ,ly:spanner::set-spacing-rods)
-	(stencil . ,ly:slur::print)
-	(thickness . 1.2)
-	(transparent . #t)
-	(vertical-skylines . ,ly:slur::extremal-stub-vertical-skylines)
-	(Y-extent . ,ly:slur::height)
-	(meta . ((class . Spanner)
-		 (interfaces . (cross-staff-stub-interface
-				slur-interface))))))
-
     (SostenutoPedal
      . (
 	(direction . ,RIGHT)
