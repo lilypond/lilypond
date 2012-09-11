@@ -223,11 +223,13 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 static void
 set_column_rods (vector<Grob *> const &cols, Real padding)
 {
-  /* distances[i] will be the distance betwen cols[i-1] and cols[i]
+  /* distances[i] will be the distance betwen cols[i-1] and cols[i], and
+     overhangs[j] the amount by which cols[0 thru j] extend beyond cols[j]
      when each column is placed as far to the left as possible. */
   vector<Real> distances (cols.size ());
+  vector<Real> overhangs (cols.size ());
 
-  for (vsize i = 1; i < cols.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
       Item *r = dynamic_cast<Item *> (cols[i]);
       Item *rb = r->find_prebroken_piece (LEFT);
@@ -235,12 +237,15 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
         continue;
 
-      Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
+      Interval r_ext = r->extent (r, X_AXIS);
+      overhangs[i] = r_ext[RIGHT];
 
-      /* min rather than max because stickout_i will be negative if the right-hand column
+      if (0 == i) continue;
+
+      /* min rather than max because stickout will be negative if the right-hand column
          sticks out a lot to the left */
-      Real stickout_i = min (skys ? (*skys)[LEFT].max_height () : 0.0,
-                             Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
+      Real stickout = min (r_ext[LEFT],
+                           Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
       Real prev_distances = 0.0;
 
@@ -249,35 +254,35 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
          a constant number of times per iteration of the outer loop. */
       for (vsize j = i; j--;)
         {
+          if (overhangs[j] + padding <= prev_distances + distances[i] + stickout)
+            break; // cols[0 thru j] cannot reach cols[i]
+
           Item *l = dynamic_cast<Item *> (cols[j]);
           Item *lb = l->find_prebroken_piece (RIGHT);
-          Skyline_pair *skys = Skyline_pair::unsmob (l->get_property ("horizontal-skylines"));
-          Real stickout_j = skys ? (*skys)[RIGHT].max_height () : 0.0;
 
-          bool touches = stickout_i - stickout_j + prev_distances + distances[i] < 0.0;
-          Real dist = 0.0;
-
-          if (touches || j == i - 1)
-            {
-              dist = Separation_item::set_distance (l, r, padding);
-              if (rb)
-                Separation_item::set_distance (l, rb, padding);
-            }
+          Real dist = Separation_item::set_distance (l, r, padding);
           distances[i] = max (distances[i], dist - prev_distances);
 
-          /* we set a distance for the line-starter column even if its non-broken counterpart
-             doesn't touch the right column. */
           if (lb)
-            Separation_item::set_distance (lb, r, padding);
+            {
+              dist = Separation_item::set_distance (lb, r, padding);
+              // The left-broken version might reach more columns to the
+              // right than the unbroken version, by extending farther and/or
+              // nesting more closely;
+              if (j == i - 1) // check this, the first time we see each lb.
+                overhangs[j] = max (overhangs[j],
+                                    lb->extent (lb, X_AXIS)[RIGHT]
+                                    + distances[i] - dist);
+            }
+          if (rb)
+            Separation_item::set_distance (l, rb, padding);
           if (lb && rb)
             Separation_item::set_distance (lb, rb, padding);
 
           prev_distances += distances[j];
-          /* we need the empty check for gregorian notation, where there are a lot of
-             extraneous paper-columns that we need to skip over */
-          if (!touches && !Separation_item::is_empty (l))
-            break;
         }
+      overhangs[i] = max (overhangs[i],
+                          overhangs[i - 1] - distances[i]);
     }
 }
 
