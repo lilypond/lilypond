@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.15.20"
+@c \version "2.15.39"
 
 @c Translators: Till Paala
 
@@ -681,103 +681,81 @@ jedes System eine unterschiedliche Taktart hat:
 
 @knownissues
 
-Normalerweise spielt es keine Rolle, in welcher Reihenfolge
-Engraver angegeben werden, aber in einigen Spezialfällen
+Die Reihenfolge, in der die Engraver definiert werden,
+ist die Reihenfolge, in welcher sie aufgerufen werden, um
+ihre Verarbeitung vorzunehmen.  Normalerweise spielt die
+Reihenfolge, in welcher die Engraver angegeben werden,
+keine Rolle, aber in einigen Spezialfällen
 ist die Reihenfolge sehr wichtig.  Das kann beispielsweise
 vorkommen, wenn ein Engraver eine Eigenschaft erstellt und
 ein anderer von ihr liest, oder ein Engraver erstellt ein
-Grob und ein anderer wertet es aus.  Die Reihenfolge, in der
-Engraver angegeben werden, ist die Reihenfolge, in der sie
-aufgerufen werden, um ihre Tätigkeiten auszuführen.
+Grob und ein anderer wertet es aus.
 
-Folgende Reihenfolgen müssen beachtet werden: der
-@code{Bar_engraver} muss normalerweise zuerst kommen, und
+Folgende Reihenfolgen müssen beachtet werden:
+
+@itemize
+@item
+der @code{Bar_engraver} muss normalerweise zuerst kommen,
+
+@item
 der @code{New_fingering_engraver} muss vor dem
-@code{Script_column_engraver} kommen.  Es gibt möglicherweise weitere
-Abhängigkeiten von der Reihenfolge geben.
+@code{Script_column_engraver} kommen,
+
+@item
+der @code{Timing_translator} muss vor dem @code{Bar_number_engraver}
+kommen.
+@end itemize
+
+@seealso
+Installlierte Dateien:
+@file{ly/engraver-init.ly}.
 
 
 @node Die Standardeinstellungen von Kontexten ändern
 @subsection Die Standardeinstellungen von Kontexten ändern
 @translationof Changing context default settings
 
-Die Kontexteinstellungen, die standardmäßig in
-@code{Score}, @code{Staff} und @code{Voice}-Kontexten
-benutzt werden, können in einer @code{\layout}-Umgebung
-eingestellt werden, wie das folgende Beispiel zeigt.  Die
-@code{\layout}-Umgebung sollte innerhalb der
-@code{\score}-Umgebung gesetzt werden, auf die sie sich
-auswirken soll, aber außerhalb von Notation.
+@cindex Standardkontexteigenschaften, ändern
+@cindex Kontexteigenschaften, Einstellungen ändern
 
-Auch muss der @code{\set}-Befehl und der Kontext weggelassen
-werden, wenn die Einstellungen für den Kontext auf diese Weise
-vorgenommen werden:
+Kontext- und Grob-Eigenschaften können mit den Befehlen @code{\set}
+und @code{\override} verändert werden, wie beschrieben in
+@ref{Eigenschaften verändern}.  Diese Befehle erstellen musikalische
+Ereignisse, damit die Veränderungen zum Zeitpunkt der Verarbeitung
+in den Noten erscheinen.
 
-@lilypond[quote,verbatim]
-\score {
-  \relative c'' {
-    a4^"Really small, thicker stems, no time signature" a a a
-    a a a a
-  }
-  \layout {
-    \context {
-      \Staff
-      fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
-    }
-  }
-}
-@end lilypond
+Dieser Abschnitt hingegen erklärt, wie man die @emph{Standardwerte} von
+Kontext- und Grob-Eigenschaften zum Zeitpunkt, an dem der Kontext erstellt
+wird, verändert.  Es gibt hierzu zwei Möglichkeiten.  Die eine verändert
+die Standardeinstellungen aller Kontexte eines bestimmten Typs, die andere
+verändert die Standardwerte nur eines bestimmten Kontextes.
 
-Hier zeigt der @code{\Staff}-Befehl an, dass die folgenden Einstellungen
-sich auf alle Systeme in dieser Partitur erstrecken sollen.
+@menu
+* Alle Kontexte des gleichen Typs verändern::
+* Nur einen bestimmten Kontext verändern::
+* Rangfolge von Kontextwerten::
+@end menu
 
-Veränderungen können auch für den @code{Score}- oder alle
-@code{Voice}-Kontexte auf gleiche Weise vorgenommen werden.
+@node Alle Kontexte des gleichen Typs verändern
+@unnumberedsubsubsec Alle Kontexte des gleichen Typs verändern
+@translationof Changing all contexts of the same type
 
-Kontextänderungen können in eine Variable geschrieben werden und dann
-einer @code{\context}-Definition zu gewiesen werden, indem man der
-Veränderung ein @code{\with} voranstellt:
+@cindex \context in \layout-Umgebung
+@funindex \context
+@funindex \layout
 
-@lilypond[quote,verbatim]
-blubb = \with {
-  fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
 
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
 
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
-}
+@node Nur einen bestimmten Kontext verändern
+@unnumberedsubsubsec Nur einen bestimmten Kontext verändern
+@translationof Changing just one specific context
 
-\score {
-  <<
-    \new Staff <<
-      \melody
-      s1*0^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s1*0^"Different"
-    >>
-  >>
-  \layout {
-    \context {
-      \Staff
-      \blubb
-    }
-  }
-}
-@end lilypond
 
- @c TODO: add \with in here.
+
+@node Rangfolge von Kontextwerten
+@unnumberedsubsubsec Rangfolge von Kontextwerten
+@translationof Order of precedence
+
  
 
 @node Neue Kontexte definieren
