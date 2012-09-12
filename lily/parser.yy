@@ -407,6 +407,8 @@ lilypond:	/* empty */ { $$ = SCM_UNSPECIFIED; }
 	}
 	| lilypond assignment {
 	}
+	| lilypond embedded_scm {
+	}
 	| lilypond error {
 		parser->error_level_ = 1;
 	}
@@ -532,6 +534,9 @@ lilypond_header_body:
 	| lilypond_header_body assignment  {
 
 	}
+	| lilypond_header_body embedded_scm  {
+
+	}
 	;
 
 lilypond_header:
@@ -558,7 +563,6 @@ assignment:
 		parser->lexer_->set_identifier (path, $4);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| embedded_scm { $$ = SCM_UNSPECIFIED; }
 	;
 
 
@@ -878,6 +882,9 @@ output_def_body:
 		parser->lexer_->add_scope (o->scope_);
 	}
 	| output_def_body assignment  {
+
+	}
+	| output_def_body embedded_scm  {
 
 	}
 	| output_def_body
