@@ -692,14 +692,7 @@ BOM_UTF8	\357\273\277
 	[^$#{}\"\\ \t\n\r\f]+ {
 		string s (YYText_utf8 ()); 
 
-		char c = s[s.length () - 1];
-		/* brace open is for not confusing dumb tools.  */
-		if (c == '{' ||  c == '}')
-			here_input ().warning (
-				_ ("Brace found at end of markup.  Did you forget a space?"));
 		yylval = ly_string2scm (s);
-
-
 		return STRING;
 	}
 	.  {
