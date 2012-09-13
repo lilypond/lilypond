@@ -232,7 +232,6 @@ SCM make_simple_markup (SCM a);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
-void set_music_properties (Music *p, SCM a);
 
 %}
 
@@ -3191,14 +3190,6 @@ is_duration (int t)
 {
   return t && t == 1 << intlog2 (t);
 }
-
-void
-set_music_properties (Music *p, SCM a)
-{
-  for (SCM k = a; scm_is_pair (k); k = scm_cdr (k))
- 	p->set_property (scm_caar (k), scm_cdar (k));
-}
-
 
 SCM
 make_chord_step (SCM step_scm, Rational alter)
