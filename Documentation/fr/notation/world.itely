@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,7 +95,7 @@ Glossaire musicologique :
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
-Notation Reference:
+Manuel de notation :
 @ref{Écriture des hauteurs de note},
 @ref{Musique arabe},
 @ref{Musique classique turque},
@@ -148,7 +149,7 @@ En général, la notation de la musique arabe n'essaie pas d'indiquer
 précisément les micro-intervalles intervenant dans la pratique musicale.
 
 Plusieurs particularités propres à la musique arabe sont traitées
-ailleurs@tie{}:
+ailleurs :
 
 @itemize
 @item Les noms des notes et altérations (y compris les quarts de tons)
@@ -192,7 +193,7 @@ On  peut également utiliser des altérations, comme cela est expliqué
 dans @ref{Nom des notes dans d'autres langues}.
 
 Par exemple, voici comment on peut écrire la gamme arabe
-@notation{rast}@tie{}:
+@notation{rast} :
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
@@ -240,7 +241,7 @@ Morceaux choisis :
 @c elles ne doivent donc pas être traduites. -vv
 
 Outre les armures mineures et majeures, les armures suivantes
-sont définies dans la fichier @file{arabic.ly}@tie{}: @notation{bayati},
+sont définies dans la fichier @file{arabic.ly} : @notation{bayati},
 @notation{rast}, @notation{sikah}, @notation{iraq} et @notation{kurd}.
 Ces armatures définissent un petit nombre de groupes de maqams plutôt
 que le grand nombre de maqams habituellement utilisés.
@@ -249,7 +250,7 @@ En général, un maqam utilise l'armure de son groupe ou d'un groupe
 voisin et diverses altérations accidentelles sont indiquées tout au long
 de la musique.
 
-Par exemple, pour indiquer l'armure d'une pièce en maqam muhayer@tie{}:
+Par exemple, pour indiquer l'armure d'une pièce en maqam muhayer :
 
 @example
 \key re \bayati
@@ -277,7 +278,7 @@ Ainsi, dans ce même groupe de bayati, du maqam Nawa, dont la modulation
 est indiquée entre parenthèses dans le tableau.
 Les maqams arabes n'admettent que des modulations limitées, en raison de
 la nature des instruments de musique arabes.  Le Nawa peut être indiqué
-comme suit@tie{}:
+comme suit :
 
 @example
 \key sol \bayati
@@ -285,11 +286,11 @@ comme suit@tie{}:
 
 En musique arabe, le terme utilisé pour désigner un groupe maqam,
 tel que bayati, est également lui-même un maqam, généralement le plus
-important dans le groupe@tie{}; on peut le considérer comme un maqam
+important dans le groupe ; on peut le considérer comme un maqam
 de base.
 
 Voici une suggestion de groupement qui relie les maqams les plus
-courants à leur armure@tie{}:
+courants à leur armure :
 
 @multitable @columnfractions 0.15 0.1 0.1 0.6
 @headitem groupe maqam
@@ -456,7 +457,7 @@ Morceaux choisis :
 1996], contient une étude des maqams et leur méthode de classification.
 
 Il existe également de nombreux sites web qui expliquent les maqams,
-dont quelques uns s'accompagnent d'exemples audio@tie{}:
+dont quelques uns s'accompagnent d'exemples audio :
 
 @itemize @bullet
 @item
@@ -526,7 +527,7 @@ sont dérivées les formes mélodiques @notation{makam} (pluriel
 
 
 Quelques questions relatives à la musique classique turque sont
-traitées dans d'autres chapitres@tie{}:
+traitées dans d'autres chapitres :
 
 @itemize
 @item Les noms de notes et altérations sont mentionnés dans
@@ -546,7 +547,7 @@ traitées dans d'autres chapitres@tie{}:
 La musique classique turque attribue traditionnellement un nom unique à
 chaque hauteur, et du fait de la division du ton en neuf parts, les
 makamlar emploient une échelle de hauteurs complètement différente des
-gammes et modes d'occident@tie{}:@*
+gammes et modes d'occident :@*
 @notation{koma} de 1/9 de ton entier, @notation{eksik bakiye} (3/9),
 @notation{bakiye} (4/9), @notation{kücük mücenneb} (5/9),
 @notation{büyük mücenneb} (8/9), @notation{tanîni} (un ton entier)

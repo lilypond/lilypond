@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -187,7 +188,7 @@ cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
 @end example
 
 @noindent
-en début de fichier.  Ainsi, vous bénéficierez de commandes courtes pour
+en début de fichier.  Vous bénéficierez ainsi de commandes courtes pour
 les appoggiatures spéciales et idiomatiques de la cornemuse.  Par
 exemple, @code{\taor} est un raccourci pour
 
@@ -206,7 +207,7 @@ pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
 
 La musique pour cornemuse est traditionnellement écrite en ré majeur.
 Dans la mesure où c'est la seule tonalité possible, l'usage est de ne
-pas indiquer l'armure explicitement. À cet effet, pensez à commencer
+pas indiquer l'armure explicitement.  À cet effet, pensez à commencer
 votre partition par @code{\hideKeySignature} -- ou bien
 @code{\showKeySignature} si, pour une raison ou pour une autre, vous
 tenez à afficher l'armure.
@@ -308,8 +309,7 @@ bois, et tout particulièrement les instruments suivants :
 @end itemize
 
 @noindent
-Les diagrammes sont générés en tant qu'objet de type
-@emph{markup} :
+Les diagrammes sont générés en tant qu'objet de type @emph{markup} :
 
 @lilypond[verbatim,quote,relative=2]
 c1^\markup
@@ -436,8 +436,8 @@ c1^\markup {
 Bien que cela ne produise pas de notation, vous pouvez obtenir la liste
 de toutes les possibilités pour un instrument donné, en utilisant dans
 un fichier les instructions
-@code{#(print-keys-verbose@tie{}'@var{vent})} -- affichage à l'écran --
-@code{#(print-keys-verbose@tie{}'@var{vent}@tie{}(current-error-port))}
+@code{#(print-keys-verbose '@var{vent})} -- affichage à l'écran -- ou
+@code{#(print-keys-verbose '@var{vent} (current-error-port))}
 -- génération d'un fichier de journalisation.
 
 De nouveaux diagrammes sont réalisables, bien que ceci requiert de
@@ -470,4 +470,3 @@ Morceaux choisis :
 Référence des propriétés internes :
 @rinternals{TextScript},
 @rinternals{instrument-specific-markup-interface}.
-
