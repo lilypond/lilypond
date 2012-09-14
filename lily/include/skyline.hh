@@ -90,6 +90,8 @@ public:
   Real height (Real airplane) const;
   Real max_height () const;
   Real max_height_position () const;
+  Real left () const;
+  Real right () const;
   void set_minimum_height (Real height);
   void clear ();
   bool is_empty () const;

@@ -35,6 +35,8 @@ public:
   Skyline_pair (vector<Skyline_pair> const &skypairs);
   Skyline_pair (Box const &, Axis a);
 
+  Real left () const;
+  Real right () const;
   void raise (Real);
   void shift (Real);
   void deholify ();

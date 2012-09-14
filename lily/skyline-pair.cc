@@ -90,6 +90,18 @@ Skyline_pair::print () const
   skylines_[DOWN].print ();
 }
 
+Real
+Skyline_pair::left () const
+{
+  return min (skylines_[UP].left (), skylines_[DOWN].left ());
+}
+
+Real
+Skyline_pair::right () const
+{
+  return max (skylines_[UP].right (), skylines_[DOWN].right ());
+}
+
 void
 Skyline_pair::print_points () const
 {

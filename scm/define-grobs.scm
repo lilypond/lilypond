@@ -33,6 +33,7 @@
 	(glyph-name . ,accidental-interface::glyph-name)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(stencil . ,ly:accidental-interface::print)
+	(horizontal-skylines . ,ly:accidental-interface::horizontal-skylines)
 	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-extent . ,ly:accidental-interface::width)
 	(Y-extent . ,ly:accidental-interface::height)

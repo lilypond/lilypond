@@ -27,6 +27,7 @@
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
 #include "skyline.hh"
+#include "skyline-pair.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -115,16 +116,14 @@ Accidental_placement::get_relevant_accidentals (vector<Grob *> const &elts, Grob
 
 struct Accidental_placement_entry
 {
-  Skyline left_skyline_;
-  Skyline right_skyline_;
-  Interval vertical_extent_;
-  vector<Box> extents_;
+  Skyline_pair horizontal_skylines_;
   vector<Grob *> grobs_;
 };
 
 Real ape_priority (Accidental_placement_entry const *a)
 {
-  return a->vertical_extent_[UP];
+  // right is up because we're horizontal
+  return a->horizontal_skylines_.right ();
 }
 
 bool ape_less (Accidental_placement_entry *const &a,
@@ -261,17 +260,17 @@ set_ape_skylines (Accidental_placement_entry *ape,
           offset -= a->extent (a, X_AXIS).length () + padding;
         }
 
-      vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
-      ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
-
-      for (vsize j = boxes.size (); j--;)
-        ape->vertical_extent_.unite (boxes[j][Y_AXIS]);
+      if (Skyline_pair *sky = Skyline_pair::unsmob (a->get_property ("horizontal-skylines")))
+        {
+          Skyline_pair copy (*sky);
+          copy.raise (a->relative_coordinate (common[X_AXIS], X_AXIS));
+          copy.shift (a->relative_coordinate (common[Y_AXIS], Y_AXIS));
+          ape->horizontal_skylines_.merge (copy);
+        }
 
       last_octave = p->get_octave ();
       last_alteration = p->get_alteration ();
     }
-  ape->left_skyline_ = Skyline (ape->extents_, Y_AXIS, LEFT);
-  ape->right_skyline_ = Skyline (ape->extents_, Y_AXIS, RIGHT);
 }
 
 static vector<Grob *>
@@ -375,13 +374,13 @@ position_apes (Grob *me,
     {
       Accidental_placement_entry *ape = apes[i];
 
-      Real offset = -ape->right_skyline_.distance (left_skyline);
+      Real offset = -ape->horizontal_skylines_[RIGHT].distance (left_skyline);
       if (isinf (offset))
         offset = last_offset;
       else
         offset -= padding;
 
-      Skyline new_left_skyline = ape->left_skyline_;
+      Skyline new_left_skyline = ape->horizontal_skylines_[LEFT];
       new_left_skyline.raise (offset);
       new_left_skyline.merge (left_skyline);
       left_skyline = new_left_skyline;
@@ -390,8 +389,12 @@ position_apes (Grob *me,
       for (vsize j = ape->grobs_.size (); j--;)
         ape->grobs_[j]->translate_axis (offset, X_AXIS);
 
-      for (vsize j = ape->extents_.size (); j--;)
-        width.unite (offset + ape->extents_[j][X_AXIS]);
+      for (LEFT_and_RIGHT (d))
+        {
+          Real mh = ape->horizontal_skylines_[d].max_height ();
+          if (!isinf (mh))
+            width.add_point (mh);
+        }
 
       last_offset = offset;
     }

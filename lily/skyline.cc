@@ -767,6 +767,28 @@ Skyline::max_height () const
 }
 
 Real
+Skyline::left () const
+{
+  for (list<Building>::const_iterator i (buildings_.begin ());
+       i != buildings_.end (); i++)
+    if (i->y_intercept_ > -infinity_f)
+      return i->start_;
+
+  return infinity_f;
+}
+
+Real
+Skyline::right () const
+{
+  for (list<Building>::const_reverse_iterator i (buildings_.rbegin ());
+       i != buildings_.rend (); ++i)
+    if (i->y_intercept_ > -infinity_f)
+      return i->end_;
+
+  return -infinity_f;
+}
+
+Real
 Skyline::max_height_position () const
 {
   Skyline s (-sky_);

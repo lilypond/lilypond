@@ -259,39 +259,31 @@ Side_position_interface::skyline_side_position (Grob *me, Axis a,
 
       if (e)
         {
-          if (Accidental_interface::has_interface (e))
-            {
-              vector<Box> bs = Accidental_interface::accurate_boxes (e, common);
-              boxes.insert (boxes.end (), bs.begin (), bs.end ());
-            }
-          else
-            {
-              if (Note_column::has_interface (e->get_parent (X_AXIS))
-                  && to_boolean (me->get_property ("add-stem-support")))
-                {
-                  note_column_map[e->get_parent (X_AXIS)].push_back (e);
-                  continue;
-                }
+           if (Note_column::has_interface (e->get_parent (X_AXIS))
+               && to_boolean (me->get_property ("add-stem-support")))
+             {
+               note_column_map[e->get_parent (X_AXIS)].push_back (e);
+               continue;
+             }
 
-              Skyline_pair *sp = Skyline_pair::unsmob (e->get_property ("vertical-skylines"));
-              if (sp && a == Y_AXIS && !pure)
-                {
-                  Skyline_pair copy = Skyline_pair (*sp);
-                  copy.shift (e->relative_coordinate (common[X_AXIS], X_AXIS));
-                  copy.raise (e->relative_coordinate (common[Y_AXIS], Y_AXIS));
-                  skyps.push_back (copy);
-                  continue;
-                }
-              Box b;
-              for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-                b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
+           Skyline_pair *sp = Skyline_pair::unsmob (e->get_property ("vertical-skylines"));
+           if (sp && a == Y_AXIS && !pure)
+             {
+               Skyline_pair copy = Skyline_pair (*sp);
+               copy.shift (e->relative_coordinate (common[X_AXIS], X_AXIS));
+               copy.raise (e->relative_coordinate (common[Y_AXIS], Y_AXIS));
+               skyps.push_back (copy);
+               continue;
+             }
+           Box b;
+           for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+             b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
 
-              if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
-                continue;
+           if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+             continue;
 
-              boxes.push_back (b);
-              min_h = minmax (dir, b[a][-dir], min_h);
-            }
+           boxes.push_back (b);
+           min_h = minmax (dir, b[a][-dir], min_h);
         }
     }
 
