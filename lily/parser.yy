@@ -363,7 +363,6 @@ If we give names, Bison complains.
 %token FRACTION
 %token LYRICS_STRING
 %token LYRIC_ELEMENT
-%token LYRIC_MARKUP_IDENTIFIER
 %token MARKUP_FUNCTION
 %token MARKUP_LIST_FUNCTION
 %token MARKUP_IDENTIFIER
@@ -407,8 +406,6 @@ lilypond:	/* empty */ { $$ = SCM_UNSPECIFIED; }
 	}
 	| lilypond assignment {
 	}
-	| lilypond embedded_scm {
-	}
 	| lilypond error {
 		parser->error_level_ = 1;
 	}
@@ -448,6 +445,24 @@ toplevel_expression:
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
 		scm_call_2 (proc, parser->self_scm (), $1);
 	}
+	| SCM_TOKEN {
+		// Evaluate and ignore #xxx, as opposed to \xxx
+		parser->lexer_->eval_scm_token ($1);
+	}
+	| embedded_scm_active
+	{
+		SCM out = SCM_UNDEFINED;
+		if (Text_interface::is_markup ($1))
+			out = scm_list_1 ($1);
+		else if (Text_interface::is_markup_list ($1))
+			out = $1;
+		if (scm_is_pair (out))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
+			scm_call_2 (proc, parser->self_scm (), out);
+		} else if (!scm_is_eq ($1, SCM_UNSPECIFIED))
+			parser->parser_error (@1, _("bad expression type"));
+	}
 	| output_def {
 		SCM id = SCM_EOL;
 		Output_def * od = unsmob_output_def ($1);
@@ -469,6 +484,11 @@ embedded_scm_bare:
 		$$ = parser->lexer_->eval_scm_token ($1);
 	}
 	| SCM_IDENTIFIER
+	;
+
+embedded_scm_active:
+	SCM_IDENTIFIER
+	| scm_function_call
 	;
 
 embedded_scm_bare_arg:
@@ -691,11 +711,28 @@ book_body:
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 		scm_call_2 (proc, $1, $2);
 	}
+	| book_body SCM_TOKEN {
+		// Evaluate and ignore #xxx, as opposed to \xxx
+		parser->lexer_->eval_scm_token ($2);
+	}
+	| book_body embedded_scm_active
+	{
+		SCM out = SCM_UNDEFINED;
+		if (Text_interface::is_markup ($2))
+			out = scm_list_1 ($2);
+		else if (Text_interface::is_markup_list ($2))
+			out = $2;
+		if (scm_is_pair (out))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
+			scm_call_2 (proc, $1, out);
+		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+			parser->parser_error (@2, _("bad expression type"));
+	}
 	| book_body
 	{
 		parser->lexer_->add_scope (unsmob_book ($1)->header_);
 	} lilypond_header
-	| book_body embedded_scm { }
 	| book_body error {
                 Book *book = unsmob_book ($1);
 		book->paper_ = 0;
@@ -741,6 +778,24 @@ bookpart_body:
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 		scm_call_2 (proc, $1, $2);
 	}
+	| bookpart_body SCM_TOKEN {
+		// Evaluate and ignore #xxx, as opposed to \xxx
+		parser->lexer_->eval_scm_token ($2);
+	}
+	| bookpart_body embedded_scm_active
+	{
+		SCM out = SCM_UNDEFINED;
+		if (Text_interface::is_markup ($2))
+			out = scm_list_1 ($2);
+		else if (Text_interface::is_markup_list ($2))
+			out = $2;
+		if (scm_is_pair (out))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
+			scm_call_2 (proc, $1, out);
+		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+			parser->parser_error (@2, _("bad expression type"));
+	}
 	| bookpart_body
 	{
                 Book *book = unsmob_book ($1);
@@ -748,7 +803,6 @@ bookpart_body:
 			book->header_ = ly_make_module (false);
 		parser->lexer_->add_scope (book->header_);
 	} lilypond_header
-	| bookpart_body embedded_scm { }
 	| bookpart_body error {
                 Book *book = unsmob_book ($1);
 		book->paper_ = 0;
@@ -1879,16 +1933,7 @@ simple_string: STRING {
 	| LYRICS_STRING {
 		$$ = $1;
 	}
-	| MARKUP_IDENTIFIER
-	{
-		if (scm_is_string ($1)) {
-			$$ = $1;
-		} else {
-			parser->parser_error (@1, (_ ("simple string expected")));
-			$$ = scm_string (SCM_EOL);
-		}
-	}
-	| LYRIC_MARKUP_IDENTIFIER
+	| embedded_scm_bare
 	{
 		if (scm_is_string ($1)) {
 			$$ = $1;
@@ -2339,6 +2384,18 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
+	| embedded_scm_bare
+	{
+		Music *m = unsmob_music ($1);
+		if (m && m->is_mus_type ("post-event"))
+			$$ = $1;
+		else if (Text_interface::is_markup ($1)) {
+			Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
+			t->set_property ("text", $1);
+			$$ = t->unprotect ();
+		} else
+			parser->parser_error (@1, _ ("not an articulation"));
+	}
 	;
 
 fingering:
@@ -2464,6 +2521,18 @@ bass_number:
 	UNSIGNED { $$ = $1; }
 	| STRING { $$ = $1; }
 	| full_markup { $$ = $1; }
+	| embedded_scm_bare
+	{
+		// as an integer, it needs to be non-negative, and otherwise
+		// it needs to be suitable as a markup.
+		if (scm_is_integer ($1)
+		    ? scm_is_true (scm_negative_p ($1))
+		    : !Text_interface::is_markup ($1))
+		{
+			parser->parser_error (@1, _ ("bass number expected"));
+			$$ = SCM_INUM0;
+		}
+	}
 	;
 
 figured_bass_alteration:
@@ -2844,10 +2913,7 @@ This should be done more dynamically if possible.
 */
 
 lyric_markup:
-	LYRIC_MARKUP_IDENTIFIER {
-		$$ = $1;
-	}
-	| LYRIC_MARKUP
+	LYRIC_MARKUP
 		{ parser->lexer_->push_markup_state (); }
 	markup_top {
 		$$ = $3;
@@ -2856,10 +2922,7 @@ lyric_markup:
 	;
 
 full_markup_list:
-	MARKUPLIST_IDENTIFIER {
-		$$ = $1;
-	}
-	| MARKUPLIST
+	MARKUPLIST
 		{ parser->lexer_->push_markup_state (); }
 	markup_list {
 		$$ = $3;
@@ -2868,10 +2931,7 @@ full_markup_list:
 	;
 
 full_markup:
-	MARKUP_IDENTIFIER {
-		$$ = $1;
-	}
-	| MARKUP
+	MARKUP
 		{ parser->lexer_->push_markup_state (); }
 	markup_top {
 		$$ = $3;
@@ -2907,10 +2967,7 @@ markup_scm:
 			
 
 markup_list:
-	MARKUPLIST_IDENTIFIER {
-		$$ = $1;
-	}
-	| markup_composed_list {
+	markup_composed_list {
 		$$ = $1;
 	}
 	| markup_braced_list {
@@ -2991,12 +3048,6 @@ markup_head_1_list:
 simple_markup:
 	STRING {
 		$$ = make_simple_markup ($1);
-	}
-	| MARKUP_IDENTIFIER {
-		$$ = $1;
-	}
-	| LYRIC_MARKUP_IDENTIFIER {
-		$$ = $1;
 	}
 	| SCORE {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
@@ -3101,14 +3152,6 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = p->self_scm ();
 		p->unprotect ();
 		return OUTPUT_DEF_IDENTIFIER;
-	} else if (Text_interface::is_markup (sid)) {
-		*destination = sid;
-		if (is_lyric_state ())
-			return LYRIC_MARKUP_IDENTIFIER;
-		return MARKUP_IDENTIFIER;
-	} else if (Text_interface::is_markup_list (sid)) {
-		*destination = sid;
-		return MARKUPLIST_IDENTIFIER;
 	}
 
 	return -1;
