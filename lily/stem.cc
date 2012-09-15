@@ -275,9 +275,12 @@ Stem::add_head (Grob *me, Grob *n)
 bool
 Stem::is_invisible (Grob *me)
 {
-  return !is_normal_stem (me)
-         && (robust_scm2double (me->get_property ("stemlet-length"),
-                                0.0) == 0.0);
+  if (is_normal_stem (me))
+    return false;
+  else if (head_count (me))
+    return true;
+  else // if there are no note-heads, we might want stemlets
+    return 0.0 == robust_scm2double (me->get_property ("stemlet-length"), 0.0);
 }
 
 bool
@@ -811,9 +814,6 @@ Stem::is_valid_stem (Grob *me)
   Grob *beam = unsmob_grob (me->get_object ("beam"));
 
   if (!lh && !beam)
-    return false;
-
-  if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1)
     return false;
 
   if (is_invisible (me))
