@@ -1082,6 +1082,7 @@ closed_music:
 	{
 		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
 	}
+	| music_function_call_closed
 	;
 
 music_bare:
@@ -2029,7 +2030,7 @@ music_function_chord_body:
 // with the last argument of the event function or with the expression
 // for which the function call acts itself as event.
 
-music_function_event:
+music_function_call_closed:
 	MUSIC_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
@@ -2100,7 +2101,7 @@ post_event_nofinger:
 	direction_less_event {
 		$$ = $1;
 	}
-	| script_dir music_function_event {
+	| script_dir music_function_call_closed {
 		$$ = $2;
 		if (!SCM_UNBNDP ($1))
 		{
