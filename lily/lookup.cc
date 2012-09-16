@@ -27,6 +27,7 @@ using namespace std;
 
 #include "line-interface.hh"
 #include "warn.hh"
+#include "international.hh"
 #include "dimensions.hh"
 #include "bezier.hh"
 #include "file-path.hh"
@@ -169,13 +170,18 @@ Lookup::filled_box (Box b)
 Stencil
 Lookup::round_filled_box (Box b, Real blotdiameter)
 {
-  if (b.x ().length () < blotdiameter)
-    blotdiameter = b.x ().length ();
-  if (b.y ().length () < blotdiameter)
-    blotdiameter = b.y ().length ();
+  Real width = b.x ().delta ();
+  blotdiameter = min (blotdiameter, width);
+  Real height = b.y ().delta ();
+  blotdiameter = min (blotdiameter, height);
 
-  if (isinf (b.x ().delta ()) || isinf (b.y ().delta ()))
-    return Stencil (b, SCM_EOL);
+  if (blotdiameter < 0.0)
+    {
+      if (!isinf (blotdiameter))
+        warning (_f ("Not drawing a box with negative dimension, %.2f by %.2f.",
+                     width, height));
+      return Stencil (b, SCM_EOL);
+    }
 
   SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
                         scm_from_double (-b[X_AXIS][LEFT]),

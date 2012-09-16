@@ -646,8 +646,9 @@ fret-diagram overall parameters."
                 (stencil-coordinates
                   end-fret-coordinate end-string-coordinate)))
          (ly:round-filled-box
-           (cons (car lower-left) (car upper-right))
-           (cons (cdr lower-left) (cdr upper-right))
+           ;; Put limits in order, or else the intervals are considered empty
+           (ordered-cons (car lower-left) (car upper-right))
+           (ordered-cons (cdr lower-left) (cdr upper-right))
            sth)))
 
      (define (draw-xo xo-list)
