@@ -472,9 +472,11 @@ Grob::extent (Grob *refp, Axis a) const
     }
 
   // We never want nan, so we avoid shifting infinite values.
-  for (LEFT_and_RIGHT (d))
-    if (!isinf (real_ext[d]))
-      real_ext[d] += offset;
+    if(!isinf (offset))
+      real_ext.translate(offset);
+    else
+      this->warning(_f ("ignored infinite %s-offset",
+                        a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
 }

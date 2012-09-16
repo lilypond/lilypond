@@ -186,11 +186,13 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
   Real blot
     = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
-  Real y2 = pure
-            ? stem->pure_height (stem, 0, INT_MAX)[d]
-            : stem->extent (stem, Y_AXIS)[d];
+  Interval stem_extent = pure
+                         ? stem->pure_height (stem, 0, INT_MAX)
+                         : stem->extent (stem, Y_AXIS);
 
-  return scm_from_double (y2 - d * blot / 2);
+  return scm_from_double (stem_extent.is_empty ()
+                          ? 0.0
+                          : stem_extent[d] - d * blot / 2);
 }
 
 MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);

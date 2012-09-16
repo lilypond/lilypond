@@ -545,7 +545,8 @@ Stem::calc_positioning_done (SCM smob)
           = hed->extent (hed, X_AXIS).linear_combination (CENTER)
             - heads[i]->extent (heads[i], X_AXIS).linear_combination (CENTER);
 
-      heads[i]->translate_axis (amount, X_AXIS);
+      if (!isnan (amount)) // empty heads can produce NaN
+        heads[i]->translate_axis (amount, X_AXIS);
     }
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
@@ -794,7 +795,8 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
       Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      pos += d * y_attach * 2 / ss;
+      if (!isinf (y_attach) && !isnan (y_attach)) // empty heads
+        pos += d * y_attach * 2 / ss;
     }
 
   return pos;
@@ -882,7 +884,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      Real r = real_attach;
+      Real r = isnan(real_attach)? 0.0: real_attach;
 
       /* If not centered: correct for stem thickness.  */
       string style = robust_symbol2string (f->get_property ("style"), "default");
