@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 43cc33a86fdb744d8b60abf2999cf3393548c227
+    Translation of GIT committish: 2b55f813985dd14f8e61011d1c76ecf00e45691e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,7 +59,7 @@ Jan Warchoł
 Colaboradores de programación:
 
 Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
-Marc Hohl, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Marc Hohl, David Nalesnik, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
 Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
 Jan-Peter Voigt, Janek Warchol
 
