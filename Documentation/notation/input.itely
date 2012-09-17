@@ -1815,14 +1815,54 @@ statements of their own.  By default, these second-level
 been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
 not the directory containing the included file.  However,
-this behavior can be changed by passing the option
+this behavior can be changed globally by passing the option
 @option{-drelative-includes} option at the command line
 (or by adding @code{#(ly:set-option 'relative-includes #t)}
-at the top of the main input file).  With @code{relative-includes}
-set, the path for each @code{\include} command will be taken
-relative to the file containing that command.  This behavior is
-recommended and it will become the default behavior in a future
-version of lilypond.
+at the top of the main input file).
+
+When @code{relative-includes} is set to @code{#t}, the path for each
+@code{\include} command will be taken relative to the file containing
+that command.  This behavior is recommended and it will become the
+default behavior in a future version of lilypond.
+
+Files relative to the main directory and files relative to some other
+directory may both be @code{\include}d by setting
+@code{relative-includes} to @code{#t} or @code{#f} at appropriate
+places in the files.  For example, if a general library, libA, has
+been created which itself uses sub-files which are @code{\include}d
+by the entry file of that library, those @code{\include} statements
+will need to be preceded by
+@code{#(ly:set-option #relative-includes #t)} so they are interpreted
+correctly when brought into the main @code{.ly} file, like this:
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  ...
+@end example
+
+@noindent
+then the entry file, @code{libA.ly}, will contain
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+...
+% return to default setting
+#(ly:set-option 'relative-includes #f)
+@end example
+
+Any @file{.ly} file can then include the entire library simply with
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+More complex file structures may be devised by switching at
+appropriate places.
 
 Files can also be included from a directory in a search path
 specified as an option when invoking LilyPond from the command
