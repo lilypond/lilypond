@@ -67,13 +67,12 @@ ly_module_lookup (SCM module, SCM sym)
 /*
   Issue 2758:
     Guile V2 onward has a scm_module_variable API module.
-    Guile V1.8.7 only has a (module-variable) REPL function.
-    Replace previous code using undocumented API calls deprecated
-      in Guile V2.
+    Guile V1.8.7 only has a (module-variable) REPL function, however
+    using ly_lily_module_constant ("module-variable") and calling
+    the memoized result is slow.
  */
 #if GUILEV1
-  static SCM module_variable_func = ly_lily_module_constant ("module-variable");
-  return scm_call_2 (module_variable_func, module, sym);
+  return scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
 #else
   return scm_module_variable (module, sym);
 #endif
