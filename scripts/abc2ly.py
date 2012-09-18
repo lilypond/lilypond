@@ -222,11 +222,11 @@ def dump_header (outf,hdr):
 
 def dump_lyrics (outf):
     if (len(lyrics)):
-        outf.write("\n\\score\n{\n \\lyrics\n <<\n")
+        outf.write("\n\\markup \\column {\n")
         for i in range (len (lyrics)):
-            outf.write ( lyrics [i])
+            outf.write (lyrics [i])
             outf.write ("\n")
-        outf.write("    >>\n    \\layout{}\n}\n")
+        outf.write("}\n")
 
 def dump_default_bar (outf):
     """
@@ -284,7 +284,15 @@ def try_parse_q(a):
         dur = duration_to_lilypond_duration ((numerator,denominator), 1, 0)
         voices_append ("\\tempo " + descr + " " + dur + "=" + tempo + "\n")
     else:
-        sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
+        # Parsing of numeric tempi, as these are fairly
+        # common.  The spec says the number is a "beat" so using
+        # a quarter note as the standard time
+        numericQ = re.compile ('[0-9]+')
+        m = numericQ.match (a)
+        if m:
+            voices_append ("\\tempo 4=" + m.group(0))
+        else:
+            sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
 
 def dump_score (outf):
     outf.write (r"""
@@ -617,7 +625,7 @@ def repeat_prepend():
 def lyrics_append(a):
     a = re.sub ('#', '\\#', a)        # latex does not like naked #'s
     a = re.sub ('"', '\\"', a)        # latex does not like naked "'s
-    a = '\t{  "' + a + '" }\n'
+    a = '  \\line { "' + a + '" }\n'
     stuff_append (lyrics, current_lyric_idx, a)
 
 # break lyrics to words and put "'s around words containing numbers and '"'s
