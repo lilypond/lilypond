@@ -1051,11 +1051,34 @@ Mensural time signatures are covered in
 @funindex \overrideTimeSignatureSettings
 
 In addition to setting the printed time signature, the @code{\time}
-command also sets time-signature-based default values for the properties
-@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.  The
-predefined default values for these properties can be found in
-@file{scm/time-signature-settings.scm}.  The existing default values can
-be changed, or new default values can be added:
+command also sets the values of the time-signature-based properties
+@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+The predefined default values for these properties can be found in
+@file{scm/time-signature-settings.scm}.
+
+The default value of @code{beatStructure} can be overridden in the
+@code{\time} command itself by supplying it as the optional first
+argument:
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c' {
+      \time #'(2 2 3) 7/8
+      \repeat unfold 7 { c8 } |
+      \time #'(3 2 2) 7/8
+      \repeat unfold 7 { c8 } |
+    }
+  }
+}
+@end lilypond
+
+Alternatively, the default values of all these time-signature-based
+variables, including @code{baseMoment} and @code{beamExceptions},
+can be set together.  The values can be set independently for several
+different time signatures.  The new values take effect when a
+subsequent @code{\time} command with the same value of the time
+signature is executed:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1079,7 +1102,7 @@ be changed, or new default values can be added:
 
 @item
 @code{@var{timeSignatureFraction}}, a fraction describing the
-time signature.
+time signature to which these values apply.
 
 @item
 @code{@var{baseMomentFraction}}, a fraction containing the numerator
@@ -1194,6 +1217,10 @@ for different staves by moving the @code{Timing_translator} and the
 }
 @end lilypond
 
+A further method of changing these time-signature-related variables,
+which avoids reprinting the time signature at the time of the change,
+is shown in @ref{Setting automatic beam behavior}.
+
 @predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
@@ -1210,7 +1237,11 @@ Music Glossary:
 
 Notation Reference:
 @ref{Mensural time signatures},
+@ref{Setting automatic beam behavior},
 @ref{Time administration}.
+
+Installed Files:
+@file{scm/time-signature-settings.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1987,6 +2018,10 @@ new beam starts.
 When automatic beaming is enabled, the placement of automatic beams
 is determined by three context properties:
 @code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+The default values of these variables may be overridden as described
+below, or alternatively the default values themselves may be changed
+as explained in @ref{Time signature}.
+
 If a @code{beamExceptions} rule is defined for the time signature in
 force, that rule is used to determine the beam placement.  If no
 @code{beamExceptions} rule is defined for the time signature in force,
@@ -2283,8 +2318,11 @@ The default beaming rules can be found in
 {beam-endings-in-score-context.ly}
 
 @seealso
+Notation Reference:
+@ref{Time signature}.
+
 Installed Files:
-@file{scm/beam-settings.scm}.
+@file{scm/time-signature-settings.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
