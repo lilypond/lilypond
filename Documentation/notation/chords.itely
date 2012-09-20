@@ -563,7 +563,7 @@ Jazz notation are shown on the chart in @ref{Chord name chart}.
 
 In addition to the different naming systems, different note names
 are used for the root in different languages.  The predefined
-variables @code{\germanChords}, @code{\semiGermanChords},
+commands @code{\germanChords}, @code{\semiGermanChords},
 @code{\italianChords} and @code{\frenchChords} set these variables.
 The effect is demonstrated here:
 
