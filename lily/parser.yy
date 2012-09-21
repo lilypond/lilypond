@@ -1,4 +1,4 @@
-/* -*- mode: c++; c-file-style: "linux" -*- */
+/* -*- mode: c++; c-file-style: "linux"; indent-tabs-mode: t -*- */
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
