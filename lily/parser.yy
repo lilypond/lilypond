@@ -380,7 +380,6 @@ If we give names, Bison complains.
 %token SCM_TOKEN
 %token SCORE_IDENTIFIER
 %token STRING
-%token STRING_IDENTIFIER
 %token TONICNAME_PITCH
 
 %left '-' '+'
@@ -473,7 +472,6 @@ embedded_scm_bare:
 embedded_scm_bare_arg:
 	embedded_scm_bare
 	| STRING
-	| STRING_IDENTIFIER
 	| full_markup
 	| full_markup_list
 	| context_modification
@@ -576,7 +574,6 @@ identifier_init:
 	| FRACTION
 	| string
         | embedded_scm
-	| full_markup
 	| full_markup_list
         | context_modification
 	;
@@ -1859,10 +1856,16 @@ string:
 	STRING {
 		$$ = $1;
 	}
-	| STRING_IDENTIFIER {
-		$$ = $1;
-	}
+	| full_markup
 	| string '+' string {
+		if (!scm_is_string ($1)) {
+			parser->parser_error (@1, (_ ("simple string expected")));
+			$1 = scm_string (SCM_EOL);
+		}
+		if (!scm_is_string ($3)) {
+			parser->parser_error (@3, (_ ("simple string expected")));
+			$3 = scm_string (SCM_EOL);
+		}
 		$$ = scm_string_append (scm_list_2 ($1, $3));
 	}
 	;
@@ -1873,8 +1876,23 @@ simple_string: STRING {
 	| LYRICS_STRING {
 		$$ = $1;
 	}
-	| STRING_IDENTIFIER {
-		$$ = $1;
+	| MARKUP_IDENTIFIER
+	{
+		if (scm_is_string ($1)) {
+			$$ = $1;
+		} else {
+			parser->parser_error (@1, (_ ("simple string expected")));
+			$$ = scm_string (SCM_EOL);
+		}
+	}
+	| LYRIC_MARKUP_IDENTIFIER
+	{
+		if (scm_is_string ($1)) {
+			$$ = $1;
+		} else {
+			parser->parser_error (@1, (_ ("simple string expected")));
+			$$ = scm_string (SCM_EOL);
+		}
 	}
 	;
 
@@ -2309,7 +2327,13 @@ gen_text_def:
 		t->set_property ("text", $1);
 		$$ = t->unprotect ();
 	}
-	| simple_string {
+	| STRING {
+		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
+		t->set_property ("text",
+			make_simple_markup ($1));
+		$$ = t->unprotect ();
+	}
+	| LYRICS_STRING {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 		t->set_property ("text",
 			make_simple_markup ($1));
@@ -2974,9 +2998,6 @@ simple_markup:
 	| LYRIC_MARKUP_IDENTIFIER {
 		$$ = $1;
 	}
-	| STRING_IDENTIFIER {
-		$$ = $1;
-	}
 	| SCORE {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
@@ -3032,10 +3053,7 @@ otherwise, we have to import music classes into the lexer.
 int
 Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (scm_is_string (sid)) {
-		*destination = sid;
-		return STRING_IDENTIFIER;
-	} else if (unsmob_book (sid)) {
+	if (unsmob_book (sid)) {
 		Book *book =  unsmob_book (sid)->clone ();
 		*destination = book->self_scm ();
 		book->unprotect ();
