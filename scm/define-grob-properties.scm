@@ -758,8 +758,10 @@ in a 3/2 measure.")
 for stems that are placed in tight configurations.  This amount is
 used for stems with the same direction to compensate for note head to
 stem distance.")
-     (script-priority ,number? "A sorting key that determines in what
-order a script is within a stack of scripts.")
+     (script-priority ,number? "A key for determining the order of
+scripts in a stack, by being added to the position of the script in
+the user input, the sum being the overall priority.  Smaller means
+closer to the head.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
