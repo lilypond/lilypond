@@ -27,7 +27,7 @@
  * inconsistent state of indentation.
  */
 
-%code requires {
+%{
 
 #define yyerror Lily_parser::parser_error
 
@@ -49,7 +49,7 @@
                 free (p);                                               \
         } while (0)
 
-}
+%}
 
 %parse-param {Lily_parser *parser}
 %parse-param {SCM *retval}

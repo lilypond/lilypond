@@ -54,7 +54,7 @@ private:
 public:
   SCM eval_scm_token (SCM sval) { return eval_scm (sval, '#'); }
   SCM extra_tokens_;
-  YYSTYPE *lexval_;
+  SCM *lexval_;
   Input *lexloc_;
   bool is_main_input_;
 
