@@ -231,7 +231,8 @@ check_meshing_chords (Grob *me,
 
       /* If possible, don't wipe any heads.  Else, wipe shortest head,
          or head with smallest amount of dots.  Note: when merging
-         different heads, dots on the smaller one disappear. */
+         different heads, dots on the smaller one disappear; and when
+         merging identical heads, dots on the down-stem head disappear */
       Grob *wipe_ball = 0;
       Grob *dot_wipe_head = head_up;
 
@@ -248,7 +249,7 @@ check_meshing_chords (Grob *me,
               wipe_ball = head_up;
             }
           else
-            dot_wipe_head = head_up;
+            dot_wipe_head = head_down;
         }
       else if (down_ball_type > up_ball_type)
         {
