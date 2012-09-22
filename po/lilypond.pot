@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.2\n"
+"Project-Id-Version: lilypond 2.17.3\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-09-10 17:06+0100\n"
+"POT-Creation-Date: 2012-09-22 15:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1643,12 +1643,12 @@ msgstr ""
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:200
+#: accidental.cc:169
 #, c-format
 msgid "Could not find glyph-name for alteration %s"
 msgstr ""
 
-#: accidental.cc:215
+#: accidental.cc:184
 msgid "natural alteration glyph not found"
 msgstr ""
 
@@ -1682,12 +1682,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:664
+#: axis-group-interface.cc:686
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:734
+#: axis-group-interface.cc:756
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -1974,6 +1974,11 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
+#: grob.cc:478
+#, c-format
+msgid "ignored infinite %s-offset"
+msgstr ""
+
 #: hairpin.cc:60
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
@@ -2126,8 +2131,9 @@ msgstr ""
 msgid "Parsing..."
 msgstr ""
 
-#: line-spanner.cc:373
-msgid "Line spanner's left point is to the right of its right point."
+#: lookup.cc:181
+#, c-format
+msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
 #: lyric-combine-music-iterator.cc:199
@@ -2717,22 +2723,22 @@ msgstr ""
 msgid "MIDI output to `%s'..."
 msgstr ""
 
-#: phrasing-slur-engraver.cc:105 slur-engraver.cc:110
+#: phrasing-slur-engraver.cc:101 slur-engraver.cc:102
 #, c-format
 msgid "direction of %s invalid: %d"
 msgstr ""
 
-#: phrasing-slur-engraver.cc:189
+#: phrasing-slur-engraver.cc:175
 msgid "unterminated phrasing slur"
 msgstr ""
 
-#: phrasing-slur-engraver.cc:226
+#: phrasing-slur-engraver.cc:210
 msgid "cannot end phrasing slur"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: phrasing-slur-engraver.cc:246
+#: phrasing-slur-engraver.cc:230
 msgid "already have phrasing slur"
 msgstr ""
 
@@ -2896,25 +2902,25 @@ msgstr ""
 msgid " scheme encoding: "
 msgstr ""
 
-#: skyline-pair.cc:148
+#: skyline-pair.cc:160
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
-#: slur-engraver.cc:201
+#: slur-engraver.cc:176
 msgid "unterminated slur"
 msgstr ""
 
-#: slur-engraver.cc:239
+#: slur-engraver.cc:211
 msgid "cannot end slur"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-engraver.cc:259
+#: slur-engraver.cc:231
 msgid "already have slur"
 msgstr ""
 
-#: slur.cc:487
+#: slur.cc:430
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3095,141 +3101,142 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:162 parser.yy:176
+#: parser.yy:174 parser.yy:188 /home/phil/lilypond-git/lily/parser.yy:174
+#: /home/phil/lilypond-git/lily/parser.yy:188
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:837 parser.yy:1286
+#: parser.yy:606 parser.yy:1039 /home/phil/lilypond-git/lily/parser.yy:606
+#: /home/phil/lilypond-git/lily/parser.yy:1039
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1029
+#: parser.yy:785 /home/phil/lilypond-git/lily/parser.yy:785
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1053
+#: parser.yy:809 /home/phil/lilypond-git/lily/parser.yy:809
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1206
+#: parser.yy:959 /home/phil/lilypond-git/lily/parser.yy:959
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:2046
+#: parser.yy:1800 /home/phil/lilypond-git/lily/parser.yy:1800
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2059
+#: parser.yy:1813 /home/phil/lilypond-git/lily/parser.yy:1813
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:2263
+#: parser.yy:2017 /home/phil/lilypond-git/lily/parser.yy:2017
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2359 parser.yy:2364
+#: parser.yy:2113 parser.yy:2118 /home/phil/lilypond-git/lily/parser.yy:2113
+#: /home/phil/lilypond-git/lily/parser.yy:2118
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2479
+#: parser.yy:2233 /home/phil/lilypond-git/lily/parser.yy:2233
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2639 parser.yy:2683
+#: parser.yy:2388 parser.yy:2434 /home/phil/lilypond-git/lily/parser.yy:2388
+#: /home/phil/lilypond-git/lily/parser.yy:2434
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2802
+#: parser.yy:2553 /home/phil/lilypond-git/lily/parser.yy:2553
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2857
+#: parser.yy:2612 /home/phil/lilypond-git/lily/parser.yy:2612
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3117
+#: parser.yy:2878 /home/phil/lilypond-git/lily/parser.yy:2878
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:218
+#: lexer.ll:220 /home/phil/lilypond-git/lily/lexer.ll:220
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:221
+#: lexer.ll:223 /home/phil/lilypond-git/lily/lexer.ll:223
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:279
+#: lexer.ll:281 /home/phil/lilypond-git/lily/lexer.ll:281
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:296
+#: lexer.ll:298 /home/phil/lilypond-git/lily/lexer.ll:298
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:300
+#: lexer.ll:302 /home/phil/lilypond-git/lily/lexer.ll:302
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:304
+#: lexer.ll:306 /home/phil/lilypond-git/lily/lexer.ll:306
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:327
+#: lexer.ll:329 /home/phil/lilypond-git/lily/lexer.ll:329
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:351
+#: lexer.ll:353 /home/phil/lilypond-git/lily/lexer.ll:353
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:377
+#: lexer.ll:379 /home/phil/lilypond-git/lily/lexer.ll:379
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:387
+#. backup rule
+#: lexer.ll:389 /home/phil/lilypond-git/lily/lexer.ll:389
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:558
+#: lexer.ll:576 /home/phil/lilypond-git/lily/lexer.ll:576
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:672
-msgid "Brace found at end of markup.  Did you forget a space?"
-msgstr ""
-
-#: lexer.ll:684
+#: lexer.ll:705 /home/phil/lilypond-git/lily/lexer.ll:705
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:782
+#: lexer.ll:807 /home/phil/lilypond-git/lily/lexer.ll:807
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:903
+#: lexer.ll:930 /home/phil/lilypond-git/lily/lexer.ll:931
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1186
+#: lexer.ll:1213 /home/phil/lilypond-git/lily/lexer.ll:1214
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1230
+#: lexer.ll:1257 /home/phil/lilypond-git/lily/lexer.ll:1258
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1231
+#: lexer.ll:1258 /home/phil/lilypond-git/lily/lexer.ll:1259
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1237
+#: lexer.ll:1264 /home/phil/lilypond-git/lily/lexer.ll:1265
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3507,17 +3514,17 @@ msgid ""
 "~a"
 msgstr ""
 
-#: lily.scm:802 lily.scm:891
+#: lily.scm:802 lily.scm:892
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:882
+#: lily.scm:883
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:901 ps-to-png.scm:66
+#: lily.scm:902 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3612,7 +3619,7 @@ msgstr ""
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1588
+#: music-functions.scm:1586
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
