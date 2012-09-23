@@ -36,4 +36,12 @@
    Add any compatibility definitions here for Guile V2.n
 */
 #endif // SCM_MAJOR_VERSION == 1
+#if defined (SCM_MAJOR_VERSION) && (SCM_MAJOR_VERSION > 1)
+#define GUILEV2 1
+#endif
+// TODO - remove GUILE1 definition when support for Guile 1 is dropped.
+#if defined (SCM_MAJOR_VERSION) && (SCM_MAJOR_VERSION < 2)
+#define GUILEV1 1
+#define GUILEV2 0
+#endif
 #endif /* GUILE_COMPATIBILITY_HH */
