@@ -1140,6 +1140,13 @@ the text view when printed from there.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@uref{http://elysium.thsoft.hu}
+
+Elysium is a LilyPond IDE for Eclipse with an integrated, side-by-side
+view for source and score.  It includes rapid visual & auditive feedback
+without having to switch contexts, and comes with many wizard-driven
+templates.
+
 @uref{http://www.gnu.org/software/emacs/}
 
 Emacs is a text editor with language-sensitive capabilities for
