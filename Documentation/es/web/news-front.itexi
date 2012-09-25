@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 488508ff926c03b14d030ffc255ae19fc3ce1f50
+    Translation of GIT committish: 6ed88961376f5b129a41114a198342e2e5c2fb82
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,51 +18,113 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.15.95!  @emph{11 de agosto de 2012}
+@subsubheading ¡Lanzado LilyPond 2.17.3!  @emph{23 de septiembre de 2012}
 
-Estamos encantados de anunciar el lanzamiento de LilyPond 2.15.95.
-Con esta edición, se congela el desarrollo sobre la versión 2.15 para
-la inminente versión estable 2.16 y queda abierta solamente a
-correcciones de fallos.
+Nos complace anunciar el lanzamiento de LilyPond 2.17.3.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+Se recomienda enérgicamente a los usuarios normales que
+@strong{no} utilicen esta versión, sino la 2.16 estable en su
+lugar.
 
-Urgimos a todos los usuarios a que prueben esta versión para asegurar
-la máxima calidad de la próxima versión estable.  Si descubre
-cualquier problema, le rogamos nos envíe @ref{Informes de fallos}.
 
-Las funcionaliades nuevas desde la versión 2.14.2 están relacionadas
-en el manual de @qq{Cambios} en la sección de la página web sobre
-@ref{Desarrollo}.
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.17.2!  @emph{10 de septiembre de 2012}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.17.2.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+Se recomienda enérgicamente a los usuarios normales que
+@strong{no} utilicen esta versión, sino la 2.16 estable en su
+lugar.
+
+@newsEnd
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.17.1!  @emph{28 de agosto de 2012}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.17.1.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+Se recomienda enérgicamente a los usuarios normales que
+@strong{no} utilicen esta versión, sino la 2.16 estable en su
+lugar.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.15.42!  @emph{2 de agosto de 2012}
+@subsubheading ¡Lanzado LilyPond 2.17.0!  @emph{26 de agosto de 2012}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.15.42.  Esta versión
-contiene el conjunto habitual de correcciones de fallos.
-
-Se recomienda enérgicamente a los usuarios normales que @strong{no}
-utilicen esta versión, sino la 2.14 estable en su lugar.  Tenga en
-cuenta que a causa de algunos bugs críticos, esta versión no es
-candidata al lanzamiento de la próxima versión estable.
+Nos complace anunciar el lanzamiento de LilyPond 2.17.0.  Esta
+versión contiene el conjunto habitual de correcciones de fallos.
+Se recomienda enérgicamente a los usuarios normales que
+@strong{no} utilicen esta versión, sino la 2.16 estable en su
+lugar.
 
 @newsEnd
 
 
 @newsItem
-@subsubheading El Informe LilyPond, número 27. @emph{2 de agosto 2012}
+@subsubheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
 
-Vuelve @emph{El informe LilyPond}, con una interesante incursión en
-las funcionalidades relacionadas con Scheme añadidas recientemente por
-el único desarrollador remunerado de nuestra comunidad, David Kastrup
-(gracias a sus @uref{http://lilypond.org/sponsoring.html, donaciones
-continuas}).  En esta edición también se encuentra una panorámica
-sobre ciertos proyectos poco conocidos colaterales a LilyPond, y
-algunas otras noticias más ligeras.
+Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.16.0.
+LilyPond es un programa de tipografía musical para editar partituras,
+consagrado a la producción de música impresa de la mayor calidad
+posible.  Lleva al ordenador la estética de la música grabada de la
+forma tradicional.
 
-Acérquese y @uref{http://news.lilynet.net/?The-LilyPond-Report-27,
-lea ya el Informe LilyPond número 27}; ¡todos los comentarios y
-aportaciones serán calurosamente bien recibidos!
+Durante el último año y a partir de la principal versión estable
+anterior, se han realizado multitud de mejoras.  Algunas de las
+mejoras fundamentales son:
+
+@itemize
+@item
+Soporte para la notación cuadrada del canto kievano
+@item
+Se han mejorado espectacularmente las interfaces de programación y del usuario
+@item
+Las funciones musicales son ahora mucho más versátiles
+@end itemize
+
+Hay una lista completa de todas las funcionalidades nuevas en
+
+@example
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/}
+@end example
+
+¡Que tenga una feliz tipografía musical!  LilyPond 2.16 ha sido hecho para usted por...
+
+El equipo principal de desarrollo:
+
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian Hulin,
+Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner Lemberg,
+John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen Nienhuys,
+Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil Puttock,
+Mike Solomon, Carl Sorensen, Francisco Vila, Valentin Villenave,
+Jan Warchoł
+
+Colaboradores de programación:
+
+Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
+Marc Hohl, David Nalesnik, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
+Jan-Peter Voigt, Janek Warchol
+
+Colaboradores de documentación:
+
+James Lowe, Pavel Roskin, Alberto Simoes, Stefan Weil
+
+Escuadrón de caza de fallos:
+
+Colin Campbell, Eluze, Phil Holmes, Marek Klein, Ralph Palmer,
+James Lowe
+
+Apoyo:
+
+Colin Campbell, Christian Hitz, Phil Holmes
+
+Colaboradores de traducciones:
+
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
 
 @newsEnd
