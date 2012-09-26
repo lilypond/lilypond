@@ -475,6 +475,18 @@ given through @var{ratio}.")
     \revert NoteHead #'stencil
   #})
 
+hide =
+#(define-music-function (parser location item) (string-or-music?)
+   (_i "Set @var{item}'s @samp{transparent} property to @code{#t},
+making it invisible while still retaining its dimensions.
+
+If @var{item} is a string, the result is an override for the grob name
+specified by it.  If @var{item} is a music expression, the result is
+the same music expression with an appropriate tweak applied to it.")
+   (if (string? item)
+       #{ \override $item #'transparent = ##t #}
+       #{ \tweak #'transparent ##t $item #}))
+
 inStaffSegno =
 #(define-music-function (parser location) ()
    (_i "Put the segno variant 'varsegno' at this position into the staff,
@@ -663,6 +675,18 @@ octaveCheck =
    (_i "Octave check.")
    (make-music 'RelativeOctaveCheck
                'pitch pitch))
+
+omit =
+#(define-music-function (parser location item) (string-or-music?)
+   (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
+effectively omitting it without taking up space.
+
+If @var{item} is a string, the result is an override for the grob name
+specified by it.  If @var{item} is a music expression, the result is
+the same music expression with an appropriate tweak applied to it.")
+   (if (string? item)
+       #{ \override $item #'stencil = ##f #}
+       #{ \tweak #'stencil ##f $item #}))
 
 once =
 #(define-music-function (parser location music) (ly:music?)
