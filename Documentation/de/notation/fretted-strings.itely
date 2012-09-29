@@ -399,7 +399,10 @@ firstHarmonic = {
 }
 \score {
   <<
-    \new Staff { \firstHarmonic }
+    \new Staff {
+      \clef "treble_8"
+      \firstHarmonic
+    }
     \new TabStaff { \firstHarmonic }
   >>
 }
@@ -421,7 +424,10 @@ fretHarmonics = {
 }
 \score {
   <<
-    \new Staff { \fretHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \fretHarmonics
+    }
     \new TabStaff { \fretHarmonics }
   >>
 }
@@ -438,7 +444,10 @@ ratioHarmonics = {
 }
 \score {
   <<
-    \new Staff { \ratioHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \ratioHarmonics
+    }
     \new TabStaff { \ratioHarmonics }
   >>
 }
@@ -1305,7 +1314,7 @@ kann entweder eine @code{fret-diagram-terse}-Definition oder eine
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
-\storePredefinedDiagram #default-fret-table 
+\storePredefinedDiagram #default-fret-table
                         \chordmode { c:maj9 }
                         #guitar-tuning
                         #"x;3-2;o;o;o;o;"
@@ -1382,11 +1391,11 @@ oder als @code{fret-diagram-verbose}-Liste erstellt werden.
 
 % add some new chords based on the power chord shape
 
-\storePredefinedDiagram #default-fret-table 
+\storePredefinedDiagram #default-fret-table
                         \chordmode { f'' }
                         #guitar-tuning
                         #(chord-shape 'powerf guitar-tuning)
-\storePredefinedDiagram #default-fret-table 
+\storePredefinedDiagram #default-fret-table
                         \chordmode { g'' }
                         #guitar-tuning
                         #(offset-fret 2 (chord-shape 'powerf guitar-tuning))

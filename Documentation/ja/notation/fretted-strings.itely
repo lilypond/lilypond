@@ -391,7 +391,10 @@ firstHarmonic = {
 }
 \score {
   <<
-    \new Staff { \firstHarmonic }
+    \new Staff {
+      \clef "treble_8"
+      \firstHarmonic
+    }
     \new TabStaff { \firstHarmonic }
   >>
 }
@@ -414,7 +417,10 @@ fretHarmonics = {
 }
 \score {
   <<
-    \new Staff { \fretHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \fretHarmonics
+    }
     \new TabStaff { \fretHarmonics }
   >>
 }
@@ -432,7 +438,10 @@ ratioHarmonics = {
 }
 \score {
   <<
-    \new Staff { \ratioHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \ratioHarmonics
+    }
     \new TabStaff { \ratioHarmonics }
   >>
 }

@@ -403,7 +403,10 @@ firstHarmonic = {
 }
 \score {
   <<
-    \new Staff { \firstHarmonic }
+    \new Staff {
+      \clef "treble_8"
+      \firstHarmonic
+    }
     \new TabStaff { \firstHarmonic }
   >>
 }
@@ -425,7 +428,10 @@ fretHarmonics = {
 }
 \score {
   <<
-    \new Staff { \fretHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \fretHarmonics
+    }
     \new TabStaff { \fretHarmonics }
   >>
 }
@@ -442,7 +448,10 @@ ratioHarmonics = {
 }
 \score {
   <<
-    \new Staff { \ratioHarmonics }
+    \new Staff {
+      \clef "treble_8"
+      \ratioHarmonics
+    }
     \new TabStaff { \ratioHarmonics }
   >>
 }
@@ -602,7 +611,7 @@ mynotes = {
 La propriété @code{stringTunings} permet aussi au @code{FretBoards} de
 calculer automatiquement les diagrammes de frets.
 
-L'accordage fait partie de la clé permettant d'identifier les 
+L'accordage fait partie de la clé permettant d'identifier les
 diagrammes prédéfinis -- voir @ref{Tablatures prédéfinies}.
 
 Nous pourrions donc écrire l'exemple précédent ainsi :
@@ -656,7 +665,7 @@ accordage personnalisé dès lors que votre fichier comportera une clause
   @}
 @}
 @end example
- 
+
 @cindex moderntab, clef
 @cindex clef moderntab
 @cindex clef de tablature
