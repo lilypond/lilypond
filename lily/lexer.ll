@@ -153,10 +153,6 @@ A		[a-zA-Z\200-\377]
 AA		{A}|_
 N		[0-9]
 ANY_CHAR	(.|\n)
-PUNCT		[][()?!:'`]
-SPECIAL_CHAR		[&@]
-NATIONAL	[\001-\006\021-\027\031\036]
-TEX		{AA}|-|{PUNCT}|{NATIONAL}|{SPECIAL_CHAR}
 WORD		{A}([-_]{A}|{A})*
 COMMAND		\\{WORD}
 
@@ -169,7 +165,6 @@ WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
-LYRICS		({AA}|{TEX})[^0-9 \t\n\r\f]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
 HYPHEN		--
@@ -560,7 +555,12 @@ BOM_UTF8	\357\273\277
 	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
-	{LYRICS} {
+	/* Characters needed to express durations, assignments, barchecks */
+	[*.=|]	{
+                yylval = SCM_UNSPECIFIED;
+		return YYText ()[0];
+	}
+	[^$#{}\"\\ \t\n\r\f0-9]+ {
 		/* ugr. This sux. */
 		string s (YYText_utf8 ());
                 yylval = SCM_UNSPECIFIED;
@@ -569,19 +569,14 @@ BOM_UTF8	\357\273\277
 		if (s == "--")
 			return HYPHEN;
 		s = lyric_fudge (s);
-
-		char c = s[s.length () - 1];
-		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
-			here_input ().warning (
-				_ ("Brace found at end of lyric.  Did you forget a space?"));
 		yylval = ly_string2scm (s);
-
 
 		return LYRICS_STRING;
 	}
+	/* This should really just cover {} */
 	. {
                 yylval = SCM_UNSPECIFIED;
-		return YYText ()[0]; // LYRICS already catches all multibytes.
+		return YYText ()[0]; // above catches all multibytes.
 	}
 }
 <chords>{
@@ -685,10 +680,6 @@ BOM_UTF8	\357\273\277
 		}
 		return token_type;
 	}
-	[{}]	{
-                yylval = SCM_UNSPECIFIED;
-		return YYText ()[0];
-	}
 	[^$#{}\"\\ \t\n\r\f]+ {
 		string s (YYText_utf8 ()); 
 
@@ -697,7 +688,7 @@ BOM_UTF8	\357\273\277
 	}
 	.  {
                 yylval = SCM_UNSPECIFIED;
-		return YYText()[0];  // Above is catchall for multibyte
+		return YYText ()[0];  // Above is catchall for multibyte
 	}
 }
 
