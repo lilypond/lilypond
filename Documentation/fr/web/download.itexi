@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 446dc1f3ac9bfff6bfee31de929698b0425da6fe
+    Translation of GIT committish: fd428311a08b990a0a3bc52c9f6f8bc69d4827d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,7 +52,7 @@ lire @ref{Entrée sous forme de texte}.}
 @c TODO: duplicate to avoid underlined refs in HTML?  icky.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux et FreeBSD)}
+@ref{Unix, Unix (GNU/Linux et FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}

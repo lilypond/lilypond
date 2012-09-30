@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 24370ed49745de7a9dd734ae5e6066b365054904
+    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,7 +72,7 @@ sont décrites dans @ref{Doigtés}.
 accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords
 peuvent être ajoutées, comme l'indique @ref{Arpèges}.
 
-@item Un modèle pour quatuor à cordes est disponible au chapitre
+@item Un modèle pour quatuor à cordes est disponible à la rubrique
 @rlearning{Quatuor à cordes}.  D'autres informations se trouvent dans les
 exemples de code.
 
@@ -110,7 +110,7 @@ Les indications d'archet se créent comme des articulations, elles sont
 décrites dans @ref{Articulations et ornements}.
 
 Les indications d'archet, poussé (@code{\upbow}) et tiré
-(@code{\downbow}), peuvent se combiner à des liaisons comme ici :
+(@code{\downbow}), peuvent se combiner à des liaisons comme ici :
 
 @lilypond[verbatim,quote,relative=2]
 c4(\downbow d) e(\upbow f)
@@ -118,7 +118,7 @@ c4(\downbow d) e(\upbow f)
 
 @noindent
 ou dans l'exemple suivant qui montre trois manières d'indiquer la corde
-de La, à vide, sur un violon :
+de La, à vide, sur un violon :
 
 @lilypond[verbatim,quote,relative=2]
 a4 \open
@@ -154,7 +154,7 @@ Manuel de notation :
 @funindex \harmonicsOn
 @funindex \harmonicsOff
 
-Les harmoniques naturels sont indiqués de différentes manières : une
+Les harmoniques naturels sont indiqués de différentes manières : une
 tête de note en forme de losange signifie généralement que vous devez
 effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
 été normale.
@@ -170,7 +170,7 @@ d8 e e
 
 Une autre façon de procéder consiste à faire surmonter la note normale
 d'un petit cercle.  Ceci indique que la note écrite doit être jouée en
-harmonique :
+harmonique :
 
 @lilypond[verbatim,quote,relative=2]
 d2^\flageolet d_\flageolet
@@ -184,8 +184,8 @@ code contenus dans @ref{Références en matière de cordes non frettées}.
 @cindex harmoniques artificiels
 @cindex artificiels, harmoniques
 
-Les harmoniques artificiels sont indiqués par une double tête de note :
-l'une, normale, indique la note à pincer, et l'autre, en forme de
+Les harmoniques artificiels sont indiqués par une double tête de note :
+l'une normale, indique la note à pincer, et l'autre, en forme de
 losange, indique l'endroit où la corde doit être effleurée.
 
 
@@ -232,4 +232,3 @@ c4\snappizzicato
 <c' e g>4^\snappizzicato
 <c, e g>4_\snappizzicato
 @end lilypond
-
