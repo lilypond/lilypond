@@ -21,12 +21,12 @@ slides = {
   c'8\3(\glissando d'8\3)
   c'8\3\glissando d'8\3
   \hideNotes
-  \grace { g16\3\glissando }
+  \grace { g16\glissando }
   \unHideNotes
   c'4\3
   \afterGrace d'4\3\glissando {
   \stemDown \hideNotes
-  g16\3 }
+  g16 }
   \unHideNotes
 }
 
