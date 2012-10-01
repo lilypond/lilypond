@@ -3392,6 +3392,12 @@ def conv (str):
     str = re.sub ('blank-after-score-page-force', 'blank-after-score-page-penalty', str)
     return str
 
+@rule ((2, 17, 4), r"\shape Grob #offsets -> \shape #offsets Grob")
+def conv (str):
+    str = re.sub (r"\\shape(\s+(?:[a-zA-Z]+|" + matchstring + "))(" +
+                  matcharg + ")", r"\\shape\2\1", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
