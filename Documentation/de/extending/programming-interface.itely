@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: 32b9cd030a1917570346e9b9ea267fe409156b2f
+    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -476,7 +476,7 @@ withAlt =
      \override Stem #'length = #(* 7.0 mag)
      \override NoteHead #'font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
-     $music
+     #music
      \revert Stem #'length
      \revert NoteHead #'font-size
    #})
@@ -848,7 +848,7 @@ ein Argument annimmt (den Text).  Er zeichnet zwei Kästen mit genügend Abstand
   "Draw a double box around text."
   (interpret-markup layout props
     #@{\markup \override #'(box-padding . 0.4) \box
-            \override #'(box-padding . 0.6) \box @{ $text @}#@}))
+            \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
 oder äquivalent
@@ -896,7 +896,7 @@ so definiert:
   (interpret-markup layout props
     #@{\markup \override #`(box-padding . ,inter-box-padding) \box
                \override #`(box-padding . ,box-padding) \box
-               @{ $text @} #@}))
+               @{ #text @} #@}))
 @end lisp
 
 Wiederum wäre die entsprechende Version mit dem @code{markup}-Makro
@@ -933,7 +933,7 @@ der Kästen kann angepasst werden:
   (interpret-markup layout props
     #{\markup \override #`(box-padding . ,inter-box-padding) \box
               \override #`(box-padding . ,box-padding) \box
-              { $text } #}))
+              { #text } #}))
 
 \markup \double-box A
 \markup \override #'(inter-box-padding . 0.8) \double-box A
@@ -1050,7 +1050,7 @@ denen die erste Zeile eingerückt ist.  Der Einzug wird aus dem
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    #:properties ((par-indent 2))
    (interpret-markup-list layout props
-     #@{\markuplist \justified-lines @{ \hspace #par-indent $args @} #@}))
+     #@{\markuplist \justified-lines @{ \hspace #par-indent #args @} #@}))
 @end example
 
 Die Version nur in Scheme ist etwas komplexer:
