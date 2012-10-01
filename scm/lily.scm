@@ -43,6 +43,77 @@
    (string-downcase
     (car (string-tokenize (utsname:sysname (uname)))))))
 
+(define lilypond-declarations '())
+
+(defmacro-public define-session (name value)
+  "This defines a variable @var{name} with the starting value
+@var{value} that is reinitialized at the start of each session.
+A@tie{}session basically corresponds to one LilyPond file on the
+command line.  The value is recorded at the start of the first session
+after loading all initialization files and before loading the user
+file and is reinstated for all of the following sessions.  This
+happens just by replacing the value, not by copying structures, so you
+should not destructively modify them.  For example, lists defined in
+this manner should be changed within a session only be adding material
+to their front or replacing them altogether, not by modifying parts of
+them.  It is an error to call @code{define-session} after the first
+session has started."
+  (define (add-session-variable name value)
+    (if (ly:undead? lilypond-declarations)
+        (ly:error (_ "define-session used after session start")))
+    (let ((var (make-variable value)))
+      (module-add! (current-module) name var)
+      (set! lilypond-declarations (cons var lilypond-declarations))))
+  `(,add-session-variable ',name ,value))
+
+(defmacro-public define-session-public (name value)
+  "Like @code{define-session}, but also exports @var{name}."
+  `(begin
+     (define-session ,name ,value)
+     (export ,name)))
+
+(define-public (session-initialize thunk)
+  "Initialize this session.  The first session in a LilyPond run is
+initialized by calling @var{thunk}, then recording the values of all
+variables in the current module as well as those defined with
+@code{define-session}.  Subsequent calls of @code{session-initialize}
+ignore @var{thunk} and instead just reinitialize all recorded
+variables to their value after the initial call of @var{thunk}."
+
+;; We need to save the variables of the current module along with
+;; their values: functions defined in the module might refer to the
+;; variables.
+
+;; The entries in lilypond-declarations consist of a cons* consisting
+;; of symbol, variable, and value.  Variables defined with
+;; define-session have the symbol set to #f.
+
+  (if (ly:undead? lilypond-declarations)
+      (begin
+        (for-each
+         (lambda (p)
+           (let ((var (cadr p))
+                 (val (cddr p)))
+             (variable-set! var val)
+             (if (car p)
+                 (module-add! (current-module) (car p) var))))
+         (ly:get-undead lilypond-declarations)))
+      (begin
+        (thunk)
+        (let ((decl (map! (lambda (v)
+                            (cons* #f v (variable-ref v)))
+                          lilypond-declarations)))
+          (module-for-each
+           (lambda (s v)
+             (let ((val (variable-ref v)))
+               (if (not (ly:lily-parser? val))
+                   (set! decl
+                         (cons
+                          (cons* s v val)
+                          decl)))))
+           (current-module))
+          (set! lilypond-declarations (ly:make-undead decl))))))
+
 (define scheme-options-definitions
   `(
     ;; NAMING: either
@@ -864,8 +935,6 @@ PIDs or the number of the process."
     (if (ly:get-option 'dump-profile)
         (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
-
-(define-public lilypond-declarations '())
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed
