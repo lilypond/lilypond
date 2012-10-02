@@ -1177,7 +1177,7 @@ function_arglist_nonbackup_common:
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length {
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed FRACTION
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist FRACTION
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1319,7 +1319,7 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep FRACTION
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep FRACTION
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1410,7 +1410,7 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional FRACTION
+	| EXPECT_SCM function_arglist_optional FRACTION
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1549,7 +1549,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional FRACTION
+	| EXPECT_SCM function_arglist_optional FRACTION
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
