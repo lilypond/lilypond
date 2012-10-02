@@ -1033,7 +1033,6 @@ music_arg:
 music_assign:
 	simple_music
 	| composite_music %prec COMPOSITE
-	| lyric_element_music
 	;
 
 repeated_music:
