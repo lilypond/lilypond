@@ -443,6 +443,7 @@ def draw_brevis (expr exact_center, bwidth, bheight, blinethickness) =
 	penlabels (1, 2, 3);
 enddef;
 
+
 %
 % Draw two brevis notes; the second one shifted down by `shift'.
 % The other parameters are the same as with `draw_brevis'.
@@ -520,6 +521,7 @@ def draw_double_brevis (expr exact_center, bwidth, bheight,
 
 	penlabels (1, 2, 3, 4, 5, 6);
 enddef;
+
 
 def draw_neomensural_c_clef (expr exact_center, reduction) = 
 	save reduced_il, reduced_slt, stem_width;
@@ -761,10 +763,12 @@ fet_endchar;
 
 def draw_mensural_c_clef (expr exact_center, reduction, fill_char) =
 	save reduced_il, vert_thick, hor_thick, blot_rad;
+
 	reduced_il# = staff_space# * reduction;
 	vert_thick# = linethickness# * 1.4;
 	hor_thick# = staff_space# * reduction * 0.25;
-	blot_rad = blot_diameter/2;
+
+	blot_rad = blot_diameter / 2;
 
 	define_pixels (reduced_il, vert_thick, hor_thick);
 
@@ -783,41 +787,58 @@ def draw_mensural_c_clef (expr exact_center, reduction, fill_char) =
 	x2l = 0;
 	top y2 = 2.2 reduced_il;
 	z3 = (vert_thick, 0.75 reduced_il);
-	z4 = z3 + (reduced_il-vert_thick, 0);
-	z5 = z4 + (vert_thick, - 0.5 reduced_il);
+	z4 = z3 + (reduced_il - vert_thick, 0);
+	z5 = z4 + (vert_thick, -0.5 reduced_il);
 	z6 = z5 - (reduced_il, 0);
 	z7 = z4 + (0.5 vert_thick, 0.5 reduced_il);
 	z8 = z5 - (vert_thick, 0);
+
 	save pat, pat_mid;
 	path pat, pat_mid;
+
 	pat = z1l
-		  --z2l{up}..z2+(0, blot_rad)..{down}z2r
-		  --top z3r{down}..{right}rt z3r
-		  --lft z4r{right}..{up}top z4r
-		  --z7l{up}..z7+(0, blot_rad)..{down}z7r
-		  --top z5l{down}..{left}lft z5l
-		  --rt z6l{left}..{down}bot z6l
-		  --z1r;
-	pat := pat -- reverse pat yscaled -1 -- cycle;
+	      -- z2l{up}
+	      .. z2 + (0, blot_rad)
+	      .. {down}z2r
+	      -- top z3r{down}
+	      .. {right}rt z3r
+	      -- lft z4r{right}
+	      .. {up}top z4r
+	      -- z7l{up}
+	      .. z7 + (0, blot_rad)
+	      .. {down}z7r
+	      -- top z5l{down}
+	      .. {left}lft z5l
+	      -- rt z6l{left}
+	      .. {down}bot z6l
+	      --z1r;
+	pat := pat
+	       -- reverse pat yscaled -1
+	       -- cycle;
 	fill pat;
 
 	if fill_char:
-		pat_mid = bot z3l{up}..{right}rt z3l
-				  --lft z4l{right}..{down}bot z4l
-				  --top z8r{down}..{left}lft z8r
-				  --rt z6r{left}..{up}top z6r
-				  --cycle;
+		pat_mid = bot z3l{up}
+			  .. {right}rt z3l
+			  -- lft z4l{right}
+			  .. {down}bot z4l
+			  -- top z8r{down}
+			  .. {left}lft z8r
+			  -- rt z6r{left}
+			  .. {up}top z6r
+			  --cycle;
 		unfill pat_mid;
+
 		pat_mid := pat_mid shifted (0, -reduced_il);
 		unfill pat_mid;
 	fi;
 
 	set_char_box (0, reduced_il# + vert_thick#,
-		  2.2 reduced_il#,
-		  2.2 reduced_il#);
+		      2.2 reduced_il#, 2.2 reduced_il#);
 
-	penlabels (1,2,3,4,5,6,7,8);
+	penlabels (1, 2, 3, 4, 5, 6, 7, 8);
 enddef;
+
 
 fet_beginchar ("mensural c clef", "mensural.c");
 	if test = 1:
@@ -826,9 +847,11 @@ fet_beginchar ("mensural c clef", "mensural.c");
 	draw_mensural_c_clef ((0, 0), 1.0, true);
 fet_endchar;
 
+
 fet_beginchar ("mensural c clef", "mensural.c_change");
 	draw_mensural_c_clef ((0, 0), .8, true);
 fet_endchar;
+
 
 fet_beginchar ("black mensural c clef", "blackmensural.c");
 	if test = 1:
@@ -837,9 +860,11 @@ fet_beginchar ("black mensural c clef", "blackmensural.c");
 	draw_mensural_c_clef ((0, 0), 1.0, false);
 fet_endchar;
 
+
 fet_beginchar ("black mensural c clef", "blackmensural.c_change");
 	draw_mensural_c_clef ((0, 0), 0.8, false);
 fet_endchar;
+
 
 def draw_diamond (expr exact_center, reduction) =
 	save stem_width, reduced_nht, holeheight, beamheight;
