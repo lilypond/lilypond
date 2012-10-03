@@ -1321,6 +1321,50 @@ are affected.")
 	   (ly:music-property music 'tweaks)))
    music)
 
+undo =
+#(define-music-function (parser location music)
+   (ly:music?)
+   (_i "Convert @code{\\override} and @code{\\set} in @var{music} to
+@code{\\revert} and @code{\\unset}, respectively.  Any reverts and
+unsets already in @var{music} are ignored and not converted.")
+   (let loop
+       ((music music))
+     (let
+         ((lst
+           (fold-some-music
+            (lambda (m) (or (music-is-of-type? m 'layout-instruction-event)
+                            (music-is-of-type? m 'context-specification)))
+            (lambda (m overrides)
+              (case (ly:music-property m 'name)
+                ((OverrideProperty)
+                 (cons
+                  (make-music 'RevertProperty
+                              'symbol (ly:music-property m 'symbol)
+                              'grob-property-path
+                              (cond
+                               ((ly:music-property m 'grob-property #f) => list)
+                               (else
+                                (ly:music-property m 'grob-property-path))))
+                  overrides))
+                ((PropertySet)
+                 (cons
+                  (make-music 'PropertyUnset
+                              'symbol (ly:music-property m 'symbol))
+                  overrides))
+                ((ContextSpeccedMusic)
+                 (cons
+                  (make-music 'ContextSpeccedMusic
+                              'element (loop (ly:music-property m 'element))
+                              'context-type (ly:music-property m 'context-type))
+                  overrides))
+                (else overrides)))
+            '()
+            music)))
+       (cond
+        ((null? lst) (make-music 'Music))
+        ((null? (cdr lst)) (car lst))
+        (else (make-sequential-music lst))))))
+
 unfoldRepeats =
 #(define-music-function (parser location music) (ly:music?)
    (_i "Force any @code{\\repeat volta}, @code{\\repeat tremolo} or
