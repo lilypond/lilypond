@@ -411,17 +411,11 @@ bookoutput function"
 (define-public (first-member members lst)
   "Return first successful member (of member) from @var{members} in
 @var{lst}."
-  (if (null? members)
-      #f
-      (let ((m (member (car members) lst)))
-	(if m m (first-member (cdr members) lst)))))
+  (any (lambda (m) (member m lst)) members))
 
 (define-public (first-assoc keys lst)
   "Return first successful assoc of key from @var{keys} in @var{lst}."
-  (if (null? keys)
-      #f
-      (let ((k (assoc (car keys) lst)))
-	(if k k (first-assoc (cdr keys) lst)))))
+  (any (lambda (k) (assoc k lst)) keys))
 
 (define-public (flatten-alist alist)
   (if (null? alist)
