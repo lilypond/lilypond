@@ -3199,19 +3199,22 @@ bool
 is_regular_identifier (SCM id)
 {
   string str = ly_scm2string (id);
-  char const *s = str.c_str ();
 
-  bool v = true;
-#if 0
-  isalpha (*s);
-  s++;
-#endif
-  while (*s && v)
-   {
-        v = v && isalnum (*s);
-        s++;
-   }
-  return v;
+  bool middle = false;
+
+  for (string::iterator it=str.begin(); it != str.end (); it++)
+  {
+	  int c = *it & 0xff;
+	  if ((c >= 'a' && c <= 'z')
+	      || (c >= 'A' && c <= 'Z')
+	      || c > 0x7f)
+		  middle = true;
+	  else if (middle && (c == '-' || c == '_'))
+		  middle = false;
+	  else
+		  return false;
+  }
+  return middle;
 }
 
 SCM
