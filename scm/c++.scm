@@ -48,6 +48,9 @@
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
+(define-public (symbol-list? x)
+  (and (list? x) (every symbol? x)))
+
 (define-public (string-or-symbol? x)
   (or (string? x) (symbol? x)))
 

@@ -584,6 +584,7 @@ messages into errors.")
     (,string-or-pair? . "string or pair")
     (,string-or-music? . "string or music")
     (,string-or-symbol? . "string or symbol")
+    (,symbol-list? . "symbol list")
     (,void? . "void")
     ))
 
