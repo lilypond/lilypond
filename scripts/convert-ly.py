@@ -185,11 +185,9 @@ string."""
 
     ly.progress (_ ("Applying conversion: "), newline = False)
 
-    last_conversion = ()
+    last_conversion = None
     errors = 0
     try:
-        if not conv_list:
-            last_conversion = to_version
         for x in conv_list:
             if x != conv_list[-1]:
                 ly.progress (tup_to_str (x[0]), newline = False)
@@ -260,10 +258,10 @@ def do_one_file (infile_name):
 
     (last, result, errors) = do_conversion (input, from_version, to_version)
 
+    if global_options.force_current_version and \
+            (last is None or last == to_version):
+        last = str_to_tuple (program_version)
     if last:
-        if global_options.force_current_version and last == to_version:
-            last = str_to_tuple (program_version)
-
         if global_options.diff_version_update:
             if result == input:
                 # check the y in x.y.z  (minor version number)
@@ -283,21 +281,20 @@ def do_one_file (infile_name):
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
 
-        ly.progress ('\n')
+    ly.progress ('\n')
+
+    if global_options.edit:
+        try:
+            os.remove (infile_name + '~')
+        except:
+            pass
+        os.rename (infile_name, infile_name + '~')
+        outfile = open (infile_name, 'w')
+    else:
+        outfile = sys.stdout
+
+    outfile.write (result)
     
-        if global_options.edit:
-            try:
-                os.remove(infile_name + '~')
-            except:
-                pass
-            os.rename (infile_name, infile_name + '~')
-            outfile = open (infile_name, 'w')
-        else:
-            outfile = sys.stdout
-
-
-        outfile.write (result)
-
     sys.stderr.flush ()
 
     return errors
