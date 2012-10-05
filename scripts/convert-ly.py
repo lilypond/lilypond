@@ -230,7 +230,7 @@ class InvalidVersion (Exception):
       self.version = version
 
 def do_one_file (infile_name):
-    ly.progress (_ ("Processing `%s\'... ") % infile_name, True)
+    ly.progress (_ (u"Processing `%s\'... ") % infile_name, True)
 
     if infile_name:
         infile = open (infile_name, 'r')
@@ -339,20 +339,21 @@ def main ():
     for f in files:
         if f == '-':
             continue
+        f = f.decode (sys.stdin.encoding or "utf-8")
         if not os.path.isfile (f):
-            ly.error (_ ("%s: Unable to open file") % f)
+            ly.error (_ (u"%s: Unable to open file") % f)
             errors += 1
             continue
         try:
             errors += do_one_file (f)
         except UnknownVersion:
-            ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
+            ly.error (_ (u"%s: Unable to determine version.  Skipping") % f)
             errors += 1
         except InvalidVersion:
             # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
             # work in python 2.4!):
             t, v, b = sys.exc_info ()
-            ly.error (_ ("%s: Invalid version string `%s' \n"
+            ly.error (_ (u"%s: Invalid version string `%s' \n"
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
             errors += 1
