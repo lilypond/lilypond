@@ -186,6 +186,7 @@ string."""
     ly.progress (_ ("Applying conversion: "), newline = False)
 
     last_conversion = ()
+    errors = 0
     try:
         if not conv_list:
             last_conversion = to_version
@@ -202,8 +203,9 @@ string."""
         ly.error (_ ("Error while converting")
                   + '\n'
                   + _ ("Stopping at last successful rule"))
+        errors += 1
 
-    return (last_conversion, str)
+    return (last_conversion, str, errors)
 
 
 
@@ -256,7 +258,7 @@ def do_one_file (infile_name):
         raise InvalidVersion (".".join ([str(n) for n in from_version]))
 
 
-    (last, result) = do_conversion (input, from_version, to_version)
+    (last, result, errors) = do_conversion (input, from_version, to_version)
 
     if last:
         if global_options.force_current_version and last == to_version:
@@ -298,6 +300,8 @@ def do_one_file (infile_name):
 
     sys.stderr.flush ()
 
+    return errors
+
 def do_options ():
     opt_parser = get_option_parser()
     (options, args) = opt_parser.parse_args ()
@@ -331,18 +335,19 @@ def main ():
 
     identify ()
 
+    errors = 0
     for f in files:
         if f == '-':
-            f = ''
-        elif not os.path.isfile (f):
+            continue
+        if not os.path.isfile (f):
             ly.error (_ ("%s: Unable to open file") % f)
-            if len (files) == 1:
-                sys.exit (1)
+            errors += 1
             continue
         try:
-            do_one_file (f)
+            errors += do_one_file (f)
         except UnknownVersion:
             ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
+            errors += 1
         except InvalidVersion:
             # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
             # work in python 2.4!):
@@ -350,6 +355,12 @@ def main ():
             ly.error (_ ("%s: Invalid version string `%s' \n"
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
+            errors += 1
+
+    if errors:
+        ly.warning (ly.ungettext ("There was %d error.",
+            "There were %d errors.", errors) % errors)
+        sys.exit (1)
 
 
 main ()

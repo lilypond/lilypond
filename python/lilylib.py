@@ -40,9 +40,14 @@ try:
     import gettext
     t = gettext.translation ('lilypond', localedir)
     _ = t.ugettext
+    ungettext = t.ungettext
 except:
     def _ (s):
         return s
+    def ungettext (s, p, n):
+        if n == 1:
+            return s
+        return p
 underscore = _
 
 # Urg, Python 2.4 does not define stderr/stdout encoding
