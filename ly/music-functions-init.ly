@@ -1119,12 +1119,16 @@ a context modification duplicating their effect.")
      mods))
 
 shape =
-#(define-music-function (parser location grob offsets)
-   (string? list?)
-   (_i "Offset control-points of @var{grob} by @var{offsets}.  The argument
-is a list of number pairs or list of such lists.  Each element of a pair
-represents an offset to one of the coordinates of a control-point.")
-   (define ((shape-curve offsets) grob)
+#(define-music-function (parser location offsets item)
+   (list? string-or-music?)
+   (_i "Offset control-points of @var{item} by @var{offsets}.  The
+argument is a list of number pairs or list of such lists.  Each
+element of a pair represents an offset to one of the coordinates of a
+control-point.  If @var{item} is a string, the result is
+@code{\\once\\override} for the specified grob type.  If @var{item} is
+a music expression, the result is the same music expression with an
+appropriate tweak applied.")
+   (define (shape-curve grob)
      (let* ((orig (ly:grob-original grob))
             (siblings (if (ly:spanner? grob)
                           (ly:spanner-broken-into orig) '()))
@@ -1155,10 +1159,13 @@ represents an offset to one of the coordinates of a control-point.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-
-   #{
-     \once \override $grob #'control-points = #(shape-curve offsets)
-   #})
+   (if (ly:music? item)
+       #{
+         \tweak #'control-points #shape-curve $item
+       #}
+       #{
+         \once \override $item #'control-points = #shape-curve
+       #}))
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
