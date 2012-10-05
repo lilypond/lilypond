@@ -142,7 +142,7 @@ ligaduras de unión y de expresión.
 
 @lilypond[quote,verbatim,relative=2]
 g8->( bes,-.) d4
-\shape Slur #'((-0.5 . 1.5) (-3 . 0) (0 . 0) (0 . 0))
+\shape #'((-0.5 . 1.5) (-3 . 0) (0 . 0) (0 . 0)) Slur
 g8->( bes,!-.) d4
 @end lilypond
 
