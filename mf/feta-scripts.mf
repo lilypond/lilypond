@@ -1780,7 +1780,7 @@ fet_beginchar ("Tick mark", "tickmark");
 	      .. {z4 - z3}z3l
 	      .. {z2 - (z3 - (0.6 staff_space, 0))}rt z2r
 	      .. {z1 - z2}lft z2r{z1 - z2}
-	      ..cycle;
+	      .. cycle;
 	fill pat;
 
 	set_char_box (x_centre#, x_extent# - x_centre#, 0, x_extent#);
