@@ -492,8 +492,11 @@ embedded_scm_active:
 	;
 
 embedded_scm_bare_arg:
-	embedded_scm_bare
-	| STRING
+	STRING
+	| SCM_TOKEN
+	{
+		$$ = parser->lexer_->eval_scm_token ($1);
+	}
 	| full_markup
 	| full_markup_list
 	| context_modification
@@ -1221,6 +1224,10 @@ function_arglist_closed_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist SCM_IDENTIFIER
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
@@ -1230,6 +1237,10 @@ function_arglist_closed_nonbackup:
 function_arglist_nonbackup:
 	function_arglist_nonbackup_common
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist SCM_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1251,6 +1262,16 @@ function_arglist_closed_keep:
 
 function_arglist_backup:
 	EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (SCM_IDENTIFIER, $4, @4);
+		}
+	}
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep SCM_IDENTIFIER
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1386,6 +1407,11 @@ function_arglist_backup:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
+	| function_arglist_backup REPARSE SCM_IDENTIFIER
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
 	| function_arglist_backup REPARSE bare_number
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1401,6 +1427,11 @@ function_arglist:
 function_arglist_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional SCM_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1507,6 +1538,11 @@ function_arglist_closed:
 function_arglist_closed_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $2, $1);
+	}
+	| EXPECT_SCM function_arglist_optional SCM_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1945,6 +1981,7 @@ simple_string: STRING {
 
 scalar:
 	embedded_scm_arg
+	| SCM_IDENTIFIER
 	| bare_number
 	| FRACTION
 	| lyric_element
@@ -1952,6 +1989,7 @@ scalar:
 
 scalar_closed:
 	embedded_scm_arg_closed
+	| SCM_IDENTIFIER
 	| bare_number
 	| FRACTION
 	| lyric_element
