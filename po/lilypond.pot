@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.3\n"
+"Project-Id-Version: lilypond 2.17.4\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-09-22 15:44+0100\n"
+"POT-Creation-Date: 2012-10-06 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -874,41 +874,41 @@ msgstr ""
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
-#: abc2ly.py:1378 convert-ly.py:81 lilypond-book.py:122 midi2ly.py:1044
+#: abc2ly.py:1386 convert-ly.py:81 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
 
-#: abc2ly.py:1379
+#: abc2ly.py:1387
 #, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1387 convert-ly.py:88 etf2ly.py:1208 lilypond-book.py:231
+#: abc2ly.py:1395 convert-ly.py:88 etf2ly.py:1208 lilypond-book.py:231
 #: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:138
 msgid "show version number and exit"
 msgstr ""
 
-#: abc2ly.py:1390 convert-ly.py:92 etf2ly.py:1204 lilypond-book.py:140
+#: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1204 lilypond-book.py:140
 #: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:117
 msgid "show this help and exit"
 msgstr ""
 
-#: abc2ly.py:1393 etf2ly.py:1209 midi2ly.py:1071
+#: abc2ly.py:1401 etf2ly.py:1209 midi2ly.py:1071
 msgid "write output to FILE"
 msgstr ""
 
-#: abc2ly.py:1396
+#: abc2ly.py:1404
 msgid "be strict about success"
 msgstr ""
 
-#: abc2ly.py:1399
+#: abc2ly.py:1407
 msgid "preserve ABC's notion of beams"
 msgstr ""
 
-#: abc2ly.py:1402
+#: abc2ly.py:1410
 msgid "suppress progress messages"
 msgstr ""
 
@@ -916,7 +916,7 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: abc2ly.py:1405 convert-ly.py:146 etf2ly.py:1218 lilypond-book.py:258
+#: abc2ly.py:1413 convert-ly.py:146 etf2ly.py:1218 lilypond-book.py:258
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:249
 #, c-format, python-format
 msgid "Report bugs via %s"
@@ -2472,7 +2472,7 @@ msgstr ""
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:496
+#: note-collision.cc:497
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
@@ -3106,137 +3106,160 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:606 parser.yy:1039 /home/phil/lilypond-git/lily/parser.yy:606
-#: /home/phil/lilypond-git/lily/parser.yy:1039
+#: parser.yy:464 parser.yy:730 parser.yy:797
+#: /home/phil/lilypond-git/lily/parser.yy:464
+#: /home/phil/lilypond-git/lily/parser.yy:730
+#: /home/phil/lilypond-git/lily/parser.yy:797
+msgid "bad expression type"
+msgstr ""
+
+#: parser.yy:627 parser.yy:1093 /home/phil/lilypond-git/lily/parser.yy:627
+#: /home/phil/lilypond-git/lily/parser.yy:1093
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:785 /home/phil/lilypond-git/lily/parser.yy:785
+#: parser.yy:840 /home/phil/lilypond-git/lily/parser.yy:840
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:809 /home/phil/lilypond-git/lily/parser.yy:809
+#: parser.yy:864 /home/phil/lilypond-git/lily/parser.yy:864
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:959 /home/phil/lilypond-git/lily/parser.yy:959
+#: parser.yy:1017 /home/phil/lilypond-git/lily/parser.yy:1017
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1800 /home/phil/lilypond-git/lily/parser.yy:1800
+#: parser.yy:1028 parser.yy:1971 /home/phil/lilypond-git/lily/parser.yy:1028
+#: /home/phil/lilypond-git/lily/parser.yy:1971
+msgid "music expected"
+msgstr ""
+
+#: parser.yy:1854 /home/phil/lilypond-git/lily/parser.yy:1854
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:1813 /home/phil/lilypond-git/lily/parser.yy:1813
+#: parser.yy:1867 /home/phil/lilypond-git/lily/parser.yy:1867
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:2017 /home/phil/lilypond-git/lily/parser.yy:2017
+#: parser.yy:1919 parser.yy:1923 parser.yy:1941
+#: /home/phil/lilypond-git/lily/parser.yy:1919
+#: /home/phil/lilypond-git/lily/parser.yy:1923
+#: /home/phil/lilypond-git/lily/parser.yy:1941
+msgid "simple string expected"
+msgstr ""
+
+#: parser.yy:2080 /home/phil/lilypond-git/lily/parser.yy:2080
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2113 parser.yy:2118 /home/phil/lilypond-git/lily/parser.yy:2113
-#: /home/phil/lilypond-git/lily/parser.yy:2118
+#: parser.yy:2176 parser.yy:2181 /home/phil/lilypond-git/lily/parser.yy:2176
+#: /home/phil/lilypond-git/lily/parser.yy:2181
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2233 /home/phil/lilypond-git/lily/parser.yy:2233
+#: parser.yy:2296 /home/phil/lilypond-git/lily/parser.yy:2296
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2388 parser.yy:2434 /home/phil/lilypond-git/lily/parser.yy:2388
-#: /home/phil/lilypond-git/lily/parser.yy:2434
+#: parser.yy:2397 /home/phil/lilypond-git/lily/parser.yy:2397
+msgid "not an articulation"
+msgstr ""
+
+#: parser.yy:2469 parser.yy:2515 /home/phil/lilypond-git/lily/parser.yy:2469
+#: /home/phil/lilypond-git/lily/parser.yy:2515
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2553 /home/phil/lilypond-git/lily/parser.yy:2553
+#: parser.yy:2532 /home/phil/lilypond-git/lily/parser.yy:2532
+msgid "bass number expected"
+msgstr ""
+
+#: parser.yy:2646 /home/phil/lilypond-git/lily/parser.yy:2646
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2612 /home/phil/lilypond-git/lily/parser.yy:2612
+#: parser.yy:2705 /home/phil/lilypond-git/lily/parser.yy:2705
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:2878 /home/phil/lilypond-git/lily/parser.yy:2878
+#: parser.yy:2962 /home/phil/lilypond-git/lily/parser.yy:2962
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:220 /home/phil/lilypond-git/lily/lexer.ll:220
+#: lexer.ll:215 /home/phil/lilypond-git/lily/lexer.ll:215
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:223 /home/phil/lilypond-git/lily/lexer.ll:223
+#: lexer.ll:218 /home/phil/lilypond-git/lily/lexer.ll:218
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:281 /home/phil/lilypond-git/lily/lexer.ll:281
+#: lexer.ll:276 /home/phil/lilypond-git/lily/lexer.ll:276
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:298 /home/phil/lilypond-git/lily/lexer.ll:298
+#: lexer.ll:293 /home/phil/lilypond-git/lily/lexer.ll:293
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:302 /home/phil/lilypond-git/lily/lexer.ll:302
+#: lexer.ll:297 /home/phil/lilypond-git/lily/lexer.ll:297
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:306 /home/phil/lilypond-git/lily/lexer.ll:306
+#: lexer.ll:301 /home/phil/lilypond-git/lily/lexer.ll:301
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:329 /home/phil/lilypond-git/lily/lexer.ll:329
+#: lexer.ll:324 /home/phil/lilypond-git/lily/lexer.ll:324
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:353 /home/phil/lilypond-git/lily/lexer.ll:353
+#: lexer.ll:348 /home/phil/lilypond-git/lily/lexer.ll:348
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:379 /home/phil/lilypond-git/lily/lexer.ll:379
+#: lexer.ll:374 /home/phil/lilypond-git/lily/lexer.ll:374
 msgid "string expected after \\include"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:389 /home/phil/lilypond-git/lily/lexer.ll:389
+#: lexer.ll:384 /home/phil/lilypond-git/lily/lexer.ll:384
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:576 /home/phil/lilypond-git/lily/lexer.ll:576
-msgid "Brace found at end of lyric.  Did you forget a space?"
-msgstr ""
-
-#: lexer.ll:705 /home/phil/lilypond-git/lily/lexer.ll:705
+#: lexer.ll:696 /home/phil/lilypond-git/lily/lexer.ll:696
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:807 /home/phil/lilypond-git/lily/lexer.ll:807
+#: lexer.ll:798 /home/phil/lilypond-git/lily/lexer.ll:798
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:930 /home/phil/lilypond-git/lily/lexer.ll:931
+#: lexer.ll:921 /home/phil/lilypond-git/lily/lexer.ll:922
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1213 /home/phil/lilypond-git/lily/lexer.ll:1214
+#: lexer.ll:1204 /home/phil/lilypond-git/lily/lexer.ll:1205
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1257 /home/phil/lilypond-git/lily/lexer.ll:1258
+#: lexer.ll:1248 /home/phil/lilypond-git/lily/lexer.ll:1249
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1258 /home/phil/lilypond-git/lily/lexer.ll:1259
+#: lexer.ll:1249 /home/phil/lilypond-git/lily/lexer.ll:1250
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1264 /home/phil/lilypond-git/lily/lexer.ll:1265
+#: lexer.ll:1255 /home/phil/lilypond-git/lily/lexer.ll:1256
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3447,84 +3470,88 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:299
+#: lily-library.scm:305
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:349
+#: lily-library.scm:361
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:365
+#: lily-library.scm:377
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:892
+#: lily-library.scm:904
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:966
+#: lily-library.scm:978
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:991
+#: lily-library.scm:1003
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:997
+#: lily-library.scm:1009
 msgid "old relative compatibility not used"
 msgstr ""
 
-#: lily.scm:234
+#: lily.scm:63
+msgid "define-session used after session start"
+msgstr ""
+
+#: lily.scm:305
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:237
+#: lily.scm:308
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:296
+#: lily.scm:367
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:714
+#: lily.scm:786
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:715
+#: lily.scm:787
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:777
+#: lily.scm:849
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:780
+#: lily.scm:852
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:802 lily.scm:892
+#: lily.scm:874 lily.scm:962
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:883
+#: lily.scm:953
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:902 ps-to-png.scm:66
+#: lily.scm:972 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3673,12 +3700,12 @@ msgstr ""
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
-#: parser-clef.scm:143 parser-clef.scm:183
+#: parser-clef.scm:151 parser-clef.scm:191
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr ""
 
-#: parser-clef.scm:144 parser-clef.scm:184
+#: parser-clef.scm:152 parser-clef.scm:192
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr ""
