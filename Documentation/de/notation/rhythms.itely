@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2094,6 +2094,28 @@ Balken beginnt.
 @funindex \set
 @funindex set
 
+Wenn die automatischen Balken angeschaltet sind, wird die Platzierung der
+automatischen Balken von drei Kontexteigenschaften bestimmt:
+@code{baseMoment}, @code{beatStructure} und @code{beamExceptions}.
+Wenn eine @code{beamExceptions}-Regel für die aktuelle Taktart definiert ist,
+wird diese Regel zur Bestimmmung der Balkenplatzierung herangezogen.  Wenn keine
+@code{beamExceptions}-Regel für die aktuelle Taktart vorhanden ist, wird
+die Platzierung der Balken durch die Einstellungen von @code{baseMoment}
+und @code{beatStructure} bestimmt.
+
+Standardmäßig sind @code{beamExceptions}-Regel für alle häufigen Taktarten
+vordefiniert, sodass die @code{beamExceptions}-Regeln deaktiviert werden
+müssen, wenn die Balkenplatzierung aufgrund von @code{baseMoment} und
+@code{beatStructure} stattfinden soll.  Die @code{beamExceptions}-Regeln werden
+deaktiviert durch
+
+@example
+\set Timing.beamExceptions = #'()
+@end example
+
+
+@subsubheading @i{Bebalkung basierend auf @code{baseMoment} und @code{beatStructure}}
+
 In den meisten Fällen enden automatische Balken am Ende eines Taktes.
 Die Endpunkte für Schläge werden durch die Kontexteigenschaften
 @code{baseMoment} und @code{beatStructure} bestimmt.  @code{beatStructure}
@@ -2111,6 +2133,25 @@ c16^"default" c c c c |
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
+@end lilypond
+
+Wenn eine häufige Taktart benützt wird, @emph{muss} @code{beamExceptions}
+deaktiviert werden, damit @code{beatStructure} funktionieren kann.
+Der @code{\set Timing.beamExceptions = #'()}-Befehl kann immer eingefügt
+werden, wenn die Bebalkung von @code{beatStructure} bestimmt werden soll.
+
+@lilypond[quote,relative=2,verbatim]
+\time 4/4
+a8^"default" a a a a a a a
+
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"no change" a a a a a a a
+
+\set Timing.beamExceptions = #'()
+\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.beatStructure = #'(1 1 1 1)
+a8^"changed" a a a a a a a
 @end lilypond
 
 Balkenregelveränderungen können auf bestimmte Kontexte beschränkt
@@ -2175,6 +2216,8 @@ siehe @ref{Verwaltung der Zeiteinheiten}.
 Der Standardwert von @code{baseMoment} ist Eins durch den Denominator
 der Taktangabe.  Alle Ausnahmen dieses Standards finden sich in der Datei
 @file{scm/time-signature-settings.scm}.
+
+@subsubheading @i{Bebalkung basierend auf @code{beamExceptions}}
 
 Besondere automatische Bebalkungsregeln (außer dass ein Balken auf einem
 Taktschlag aufhört) sind in der @code{beamExceptions}-Eigenschaft
@@ -2266,8 +2309,6 @@ Auf gleiche Art werden Achtelnoten im 3/4-Takt über den ganzen Takt hin
 mit Balken versehen.  Damit Achtelnoten im 3/4-Takt auf jedem Schlag
 einen neuen Balken erhalten, muss @code{beamExceptions} verändert werden:
 
-
-
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
 % by default we beam in (6) due to beamExceptions
@@ -2292,7 +2333,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@i{@strong{Wie die automatische Bebalkung funktioniert}}
+@subsubheading @i{Wie die automatische Bebalkung funktioniert}
 
 Wenn die automatische Bebalkung aktiviert ist, wird die Platzierung
 der automatischen Balken durch die Kontexteigenschaften

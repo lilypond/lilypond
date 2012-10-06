@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: a0077273ac8bf29ae472c8712bc78a02d138f898
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -767,7 +767,7 @@ benötigt.  Voreinstellung ist ein Wert von @code{70}.
 
 Einen Server einzurichten, der LilyPond in einem chroot-Kerker bedient, ist
 recht kompliziert.  Die einzelnen Schritten finden sich unten aufgeliestet.
-Beispiele sind für Ubuntu Linux und erfordern evtl. die Benutzung von
+Beispiele sind für Ubuntu GNU/Linux und erfordern evtl. die Benutzung von
 @code{sudo} an den entsprechenden Stellen.
 
 @itemize
