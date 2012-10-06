@@ -1736,14 +1736,16 @@ fet_beginchar ("Straight caesura", "caesura.straight");
 	labels(1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
 fet_endchar;
 
-% A tick character to use instead of a comma or caesura as a breath mark,
-% Very common in vocal notation
+
+% A tick character to use instead of a comma or caesura as a breath mark.
+% Very common in vocal notation.
 
 fet_beginchar ("Tick mark", "tickmark");
 	save end_rad, bot_rad, pat, x_centre, x_extent;
+	path pat;
+
 	end_rad = linethickness / 2;
 	bot_rad = linethickness;
-	path pat;
 
 	x_centre# = 0.6 staff_space#;
 	x_extent# = 1.7 staff_space#;
@@ -1759,6 +1761,7 @@ fet_beginchar ("Tick mark", "tickmark");
 	y2l = 0;
 
 	top rt z3 = (x_extent - x_centre, x_extent);
+
 	x4 = lft x1;
 	y4 = staff_space;
 
@@ -1767,21 +1770,25 @@ fet_beginchar ("Tick mark", "tickmark");
 	penpos1 (end_rad, angle(z2 - z1) + 90);
 
 	pat = z1r
-		  ..top z1..z1l{z2-z1}
-		  ..{z2 - (z1 + (0.3 staff_space,0))}z2l + (-bot_rad, bot_rad)
-		  ..z2l
-		  ..z2l + (bot_rad, bot_rad){z3 - (0.6 staff_space, 0) - z2}
-		  ..{z3 - z4}z3r
-		  ..rt z3..{z4 - z3}z3l
-		  ..{z2 - (z3 - (0.6 staff_space, 0))}rt z2r
-		  ..{z1 - z2}lft z2r{z1 - z2}
-		  ..cycle;
+	      .. top z1
+	      .. z1l{z2 - z1}
+	      .. {z2 - (z1 + (0.3 staff_space,0))}z2l + (-bot_rad, bot_rad)
+	      .. z2l
+	      .. z2l + (bot_rad, bot_rad){z3 - (0.6 staff_space, 0) - z2}
+	      .. {z3 - z4}z3r
+	      .. rt z3
+	      .. {z4 - z3}z3l
+	      .. {z2 - (z3 - (0.6 staff_space, 0))}rt z2r
+	      .. {z1 - z2}lft z2r{z1 - z2}
+	      ..cycle;
 	fill pat;
 
 	set_char_box (x_centre#, x_extent# - x_centre#, 0, x_extent#);
 
-	penlabels (1, 2, 3, 4);
+	penlabels (1, 2, 3);
+	labels (4);
 fet_endchar;
+
 
 fet_beginchar ("snap pizzicato (Bartok pizzicato)", "snappizzicato");
 	save height, width, thickness, superness;
