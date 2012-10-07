@@ -13,10 +13,16 @@ defaultNoteHeads =
    (_i "Revert to the default note head style.")
    (revert-head-style '(NoteHead TabNoteHead)))
 
+#(define (context-name? c)
+  "A stopgap measure until dotted lists become available as arguments.
+Distinguish context names from accidental styles by virtue of their
+first letter being uppercase."
+  (and (symbol? c)
+   (char-upper-case? (string-ref (symbol->string c) 0))))
 
 accidentalStyle =
 #(define-music-function
-   (parser location context style) ((symbol?) string?)
+   (parser location context style) ((context-name?) string?)
    (_i "Set accidental style to @var{style}, a string.  If an optional
 @var{context} symbol is given, e.g. @code{#'Staff} or @code{#'Voice},
 the settings are applied to that context.  Otherwise, the context
