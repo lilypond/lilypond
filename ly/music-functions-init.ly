@@ -87,34 +87,23 @@ markups), or inside a score.")
 
 alterBroken =
 #(define-music-function (parser location name property arg)
-  (string? scheme? list?)
+  (symbol-list? symbol? list?)
   (_i "Override @var{property} for pieces of broken spanner @var{name} with
 values @var{arg}.")
-  (let* ((name (string-delete name char-set:blank)) ; remove any spaces
-         (name-components (string-split name #\.))
-         (context-name "Bottom")
-         (grob-name #f))
-
-    (if (> 2 (length name-components))
-        (set! grob-name (car name-components))
-        (begin
-          (set! grob-name (cadr name-components))
-          (set! context-name (car name-components))))
-
     ;; only apply override if grob is a spanner
-    (let ((description
-            (assoc-get (string->symbol grob-name) all-grob-descriptions)))
-      (if (and description
-               (member 'spanner-interface
-                       (assoc-get 'interfaces
-                                  (assoc-get 'meta description))))
-          #{
-            \override $context-name . $grob-name $property =
-              #(value-for-spanner-piece arg)
-          #}
-          (begin
-            (ly:input-warning location (_ "not a spanner name, `~a'") grob-name)
-            (make-music 'SequentialMusic 'void #t))))))
+  (let ((description
+         (assoc-get (last name) all-grob-descriptions)))
+    (if (and description
+             (member 'spanner-interface
+                     (assoc-get 'interfaces
+                                (assoc-get 'meta description))))
+        #{
+          \override $name $property =
+          #(value-for-spanner-piece arg)
+        #}
+        (begin
+          (ly:input-warning location (_ "not a spanner name, `~a'") name)
+          (make-music 'SequentialMusic 'void #t)))))
 
 appendToTag =
 #(define-music-function (parser location tag more music)
@@ -476,16 +465,17 @@ given through @var{ratio}.")
   #})
 
 hide =
-#(define-music-function (parser location item) (string-or-music?)
+#(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{transparent} property to @code{#t},
 making it invisible while still retaining its dimensions.
 
-If @var{item} is a string, the result is an override for the grob name
+If @var{item} is a symbol list of form @code{GrobName} or
+@code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (string? item)
-       #{ \override $item #'transparent = ##t #}
-       #{ \tweak #'transparent ##t $item #}))
+   (if (ly:music? item)
+       #{ \tweak #'transparent ##t $item #}
+       #{ \override $item #'transparent = ##t #}))
 
 inStaffSegno =
 #(define-music-function (parser location) ()
@@ -677,16 +667,17 @@ octaveCheck =
                'pitch pitch))
 
 omit =
-#(define-music-function (parser location item) (string-or-music?)
+#(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
 effectively omitting it without taking up space.
 
-If @var{item} is a string, the result is an override for the grob name
+If @var{item} is a symbol list of form @code{GrobName} or
+@code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (string? item)
-       #{ \override $item #'stencil = ##f #}
-       #{ \tweak #'stencil ##f $item #}))
+   (if (ly:music? item)
+       #{ \tweak #'stencil ##f $item #}
+       #{ \override $item #'stencil = ##f #}))
 
 once =
 #(define-music-function (parser location music) (ly:music?)
@@ -722,30 +713,27 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
 
 overrideProperty =
 #(define-music-function (parser location name property value)
-   (string? symbol? scheme?)
+   (symbol-list? symbol? scheme?)
 
    (_i "Set @var{property} to @var{value} in all grobs named @var{name}.
-The @var{name} argument is a string of the form @code{\"Context.GrobName\"}
-or @code{\"GrobName\"}.")
+The @var{name} argument is a symbol list of the form @code{Context.GrobName}
+or @code{GrobName}.")
+   (if (<= 1 (length name) 2)
+       (make-music 'ApplyOutputEvent
+                   'context-type (if (null? (cdr name)) 'Bottom
+                                     (car name))
+                   'procedure
+                   (lambda (grob orig-context context)
+                     (if (equal?
+                          (cdr (assoc 'name (ly:grob-property grob 'meta)))
+                          (last name))
+                         (set! (ly:grob-property grob property) value))))
+       (begin
+         (ly:parser-error parser (_ "bad grob name") location)
+         (make-music 'Music))))
+   
 
-   (let ((name-components (string-split name #\.))
-	 (context-name 'Bottom)
-	 (grob-name #f))
 
-     (if (> 2 (length name-components))
-	 (set! grob-name (string->symbol (car name-components)))
-	 (begin
-	   (set! grob-name (string->symbol (list-ref name-components 1)))
-	   (set! context-name (string->symbol (list-ref name-components 0)))))
-
-     (make-music 'ApplyOutputEvent
-		 'context-type context-name
-		 'procedure
-		 (lambda (grob orig-context context)
-		   (if (equal?
-			(cdr (assoc 'name (ly:grob-property grob 'meta)))
-			grob-name)
-		       (set! (ly:grob-property grob property) value))))))
 
 
 
@@ -1120,7 +1108,7 @@ a context modification duplicating their effect.")
 
 shape =
 #(define-music-function (parser location offsets item)
-   (list? string-or-music?)
+   (list? symbol-list-or-music?)
    (_i "Offset control-points of @var{item} by @var{offsets}.  The
 argument is a list of number pairs or list of such lists.  Each
 element of a pair represents an offset to one of the coordinates of a
