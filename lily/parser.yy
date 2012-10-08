@@ -381,6 +381,7 @@ If we give names, Bison complains.
 %token SCM_TOKEN
 %token SCORE_IDENTIFIER
 %token STRING
+%token SYMBOL_LIST
 %token TONICNAME_PITCH
 
 %left '-' '+'
@@ -645,7 +646,8 @@ context_def_spec_body:
 		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	| context_def_spec_body context_mod {
-		unsmob_context_def ($$)->add_context_mod ($2);
+		if (!SCM_UNBNDP ($2))
+			unsmob_context_def ($$)->add_context_mod ($2);
 	}
 	| context_def_spec_body context_modification {
                 Context_def *td = unsmob_context_def ($$);
@@ -1115,7 +1117,8 @@ context_mod_list:
             $$ = Context_mod ().smobbed_copy ();
         }
         | context_mod_list context_mod  {
-                 unsmob_context_mod ($1)->add_context_mod ($2);
+		if (!SCM_UNBNDP ($2))
+			unsmob_context_mod ($1)->add_context_mod ($2);
         }
         | context_mod_list CONTEXT_MOD_IDENTIFIER {
                  Context_mod *md = unsmob_context_mod ($2);
@@ -1157,6 +1160,34 @@ grouped_music_list:
 /* An argument list. If a function \foo expects scm scm pitch, then the lexer expands \foo into the token sequence:
  MUSIC_FUNCTION EXPECT_PITCH EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
 and this rule returns the reversed list of arguments. */
+
+/* Function argument lists come in a number of flavors.  Whenever
+ * LilyPond has to pick between different flavors, the decision is
+ * either made because of tokens it has already seen, or it is
+ * postponed until tokens suitable for making the decision come up.
+ * For postponing decisions, it may be necessary that the competing
+ * rules are written in a way making them compatible until a decision
+ * can be made.  Sometimes this is done by putting common traits into
+ * a separate "common" rule set.
+ *
+ * function_arglist: a full argument list.  Optional arguments at the
+ * end of the list can only be skipped by writing \default in their
+ * place.
+ *
+ * function_arglist_backup: an argument list ending in an optional
+ * argument that may be skipped depending on its predicate.
+ *
+ * function_arglist_skip: an argument list _not_ ending in an optional
+ * argument that is actually taken.
+ *
+ * function_arglist_nonbackup: an argument list ending in an optional
+ * argument that may not be skipped because it is in end position and
+ * has not been shortcircuited with \default.
+ *
+ * function_arglist* / function_arglist_closed*: The closed variants
+ * don't end in simple music expressions that might still accept
+ * things like a duration or a postevent.
+ */
 
 function_arglist_skip:
 	function_arglist_common
@@ -1260,6 +1291,48 @@ function_arglist_closed_nonbackup:
 	}
 	;
 
+symbol_list_arg:
+	SYMBOL_LIST
+	| SYMBOL_LIST '.' symbol_list_rev
+	{
+		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
+	;
+
+symbol_list_rev:
+	symbol_list_part
+	| symbol_list_rev '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($3, $1));
+	}
+	;
+
+// symbol_list_part delivers elements in reverse copy.
+
+symbol_list_part:
+	symbol_list_element
+	{
+		SCM sym_l_p = ly_lily_module_constant ("symbol-list?");
+		if (scm_is_true (scm_call_1 (sym_l_p, $1)))
+			$$ = scm_reverse ($1);
+		else {
+			$$ = try_string_variants (sym_l_p, $1);
+			if (SCM_UNBNDP ($$)) {
+				parser->parser_error (@1, _("not a symbol"));
+				$$ = SCM_EOL;
+			}
+		}
+	}
+	;
+
+
+symbol_list_element:
+	STRING
+	| LYRICS_STRING
+	| embedded_scm_bare
+	;
+
+
 function_arglist_nonbackup:
 	function_arglist_nonbackup_common
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
@@ -1270,19 +1343,15 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist STRING
-	{
-		SCM res = try_string_variants ($2, $4);
-		if (SCM_UNBNDP (res))
-			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-		else
-			$$ = scm_cons (res, $3);
-	}
 	| function_arglist_nonbackup_reparse REPARSE SCM_ARG
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	| function_arglist_nonbackup_reparse REPARSE lyric_element_music
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
+	| function_arglist_nonbackup_reparse REPARSE symbol_list_arg
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -1294,7 +1363,10 @@ function_arglist_nonbackup_reparse:
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
-			MYREPARSE (@4, $2, SCM_ARG, res);
+			if (scm_is_pair (res))
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@4, $2, SCM_ARG, res);
 		else if (scm_is_true
 			 (scm_call_1
 			  ($2, make_music_from_simple
@@ -1308,12 +1380,27 @@ function_arglist_nonbackup_reparse:
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
-			MYREPARSE (@4, $2, SCM_ARG, res);
+			if (scm_is_pair (res))
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@4, $2, SCM_ARG, res);
 		else if (scm_is_true
 			 (scm_call_1
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, LYRICS_STRING, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist STRING
+	{
+		$$ = $3;
+		SCM res = try_string_variants ($2, $4);
+		if (!SCM_UNBNDP (res))
+			if (scm_is_pair (res))
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@4, $2, SCM_ARG, res);
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
@@ -1467,7 +1554,12 @@ function_arglist_backup:
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
-			$$ = scm_cons (res, $3);
+			if (scm_is_pair (res)) {
+				$$ = $3;
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			}
+			else
+				$$ = scm_cons (res, $3);
 		else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
@@ -1477,7 +1569,12 @@ function_arglist_backup:
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
-			$$ = scm_cons (res, $3);
+			if (scm_is_pair (res)) {
+				$$ = $3;
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			}
+			else
+				$$ = scm_cons (res, $3);
 		else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (STRING, $4, @4);
@@ -1487,7 +1584,12 @@ function_arglist_backup:
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
-			$$ = scm_cons (res, $3);
+			if (scm_is_pair (res)) {
+				$$ = $3;
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			}
+			else
+				$$ = scm_cons (res, $3);
 		else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (LYRICS_STRING, $4, @4);
@@ -1502,6 +1604,10 @@ function_arglist_backup:
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
+	}
+	| function_arglist_backup REPARSE symbol_list_arg
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	;
 
@@ -1537,17 +1643,6 @@ function_arglist_common:
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
 		$$ = check_scheme_arg (parser, @4, n, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional STRING
-	{
-		SCM res = try_string_variants ($1, $3);
-		if (!SCM_UNBNDP (res))
-			$$ = scm_cons ($3, $2);
-		else
-			// This is going to flag a syntax error, we
-			// know the predicate to be false.
-			$$ = check_scheme_arg (parser, @3,
-					       $3, $2, $1);
-	}
 	| function_arglist_common_reparse REPARSE SCM_ARG
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1563,6 +1658,10 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
+	| function_arglist_common_reparse REPARSE symbol_list_arg
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
 	;
 
 function_arglist_common_reparse:
@@ -1571,11 +1670,28 @@ function_arglist_common_reparse:
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
 		if (!SCM_UNBNDP (res))
-			MYREPARSE (@3, $1, SCM_ARG, res);
+			if (scm_is_pair (res))
+				MYREPARSE (@3, $1, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@3, $1, SCM_ARG, res);
 		else if (scm_is_true
-			   (scm_call_1
-			    ($1, make_music_from_simple (parser, @3, $3))))
+			 (scm_call_1
+			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
+		else
+			// This is going to flag a syntax error, we
+			// know the predicate to be false.
+			MYREPARSE (@3, $1, SCM_ARG, $3);
+	}
+	| EXPECT_SCM function_arglist_optional STRING
+	{
+		$$ = $2;
+		SCM res = try_string_variants ($1, $3);
+		if (!SCM_UNBNDP (res))
+			if (scm_is_pair (res))
+				MYREPARSE (@3, $1, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@3, $1, SCM_ARG, res);
 		else
 			// This is going to flag a syntax error, we
 			// know the predicate to be false.
@@ -1586,10 +1702,13 @@ function_arglist_common_reparse:
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
 		if (!SCM_UNBNDP (res))
-			MYREPARSE (@3, $1, SCM_ARG, res);
+			if (scm_is_pair (res))
+				MYREPARSE (@3, $1, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@3, $1, SCM_ARG, res);
 		else if (scm_is_true
-			   (scm_call_1
-			    ($1, make_music_from_simple (parser, @3, $3))))
+			 (scm_call_1
+			  ($1, make_music_from_simple (parser, @3, $3))))
 			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
 		else
 			// This is going to flag a syntax error, we
@@ -1599,10 +1718,6 @@ function_arglist_common_reparse:
 	| EXPECT_SCM function_arglist_optional lyric_markup
 	{
 		$$ = $2;
-		// We check how the predicate thinks about the
-		// unmodified lyric element.  If it would be accepted
-		// in this form, we don't try interpreting is as lyric
-		// music.
 		if (scm_is_true (scm_call_1 ($1, $3)))
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 		else if (scm_is_true
@@ -1672,17 +1787,6 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional STRING
-	{
-		SCM res = try_string_variants ($1, $3);
-		if (!SCM_UNBNDP (res))
-			$$ = scm_cons ($3, $2);
-		else
-			// This is going to flag a syntax error, we
-			// know the predicate to be false.
-			$$ = check_scheme_arg (parser, @3,
-					       $3, $2, $1);
-	}
 	| function_arglist_common_reparse REPARSE SCM_ARG
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1692,6 +1796,10 @@ function_arglist_closed_common:
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
+	}
+	| function_arglist_common_reparse REPARSE symbol_list_arg
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	;
 
@@ -1923,18 +2031,12 @@ context_change:
 	;
 
 
-property_path_revved:
-	embedded_scm_closed {
-		$$ = scm_cons ($1, SCM_EOL);
-	}
-	| property_path_revved embedded_scm_closed {
-		$$ = scm_cons ($2, $1);
-	}
-	;
-
 property_path:
-	property_path_revved  {
+	symbol_list_rev  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
+	}
+	| symbol_list_rev property_path {
+		$$ = scm_reverse_x ($1, $2);
 	}
 	;
 
@@ -1947,15 +2049,73 @@ property_operation:
 		$$ = scm_list_2 (ly_symbol2scm ("unset"),
 			scm_string_to_symbol ($2));
 	}
-	| OVERRIDE simple_string property_path '=' scalar {
-		$$ = scm_append (scm_list_2 (scm_list_3 (ly_symbol2scm ("push"),
-							scm_string_to_symbol ($2), $5),
-					     $3));
+	| OVERRIDE property_path '=' scalar {
+		if (scm_ilength ($2) < 2) {
+			parser->parser_error (@2, _("bad grob property path"));
+			$$ = SCM_UNDEFINED;
+		} else {
+			$$ = scm_cons (ly_symbol2scm ("push"),
+				       scm_cons2 (scm_car ($2),
+						  $4,
+						  scm_cdr ($2)));
+		}
 	}
-	| REVERT simple_string embedded_scm {
+	| REVERT revert_arg {
 		$$ = scm_list_3 (ly_symbol2scm ("pop"),
-			scm_string_to_symbol ($2), $3);
+				 scm_car ($2),
+				 scm_cdr ($2));
 	}
+	;
+
+// This is all quite awkward for the sake of substantial backward
+// compatibility while at the same time allowing a more "natural" form
+// of specification not separating grob specification from grob
+// property path.  The purpose of this definition of revert_arg is to
+// allow the symbol list which specifies grob and property to revert
+// to be optionally be split into two parts after the grob (which in
+// this case is just the first element of the list).  symbol_list_part
+// is only one path component, but it can be parsed without lookahead,
+// so we can follow it with a synthetic BACKUP token when needed.  If
+// the first symbol_list_part already contains multiple elements (only
+// possible if a Scheme expression provides them), we just parse for
+// additional elements introduced by '.', which is what the
+// SYMBOL_LIST backup in connection with the immediately following
+// rule using symbol_list_arg does.
+//
+// As long as we don't have our coffers filled with both grob and at
+// least one grob property specification, the rest of the required
+// symbol list chain may be provided either with or without a leading
+// dot.  This is for both allowing the traditional
+// \revert Accidental #'color
+// as well as well as the "naive" form
+// \revert Accidental.color
+
+revert_arg:
+	revert_arg_part
+	{
+		if (scm_is_null ($1)
+		    || scm_is_null (scm_cdr ($1)))
+			MYBACKUP (SCM_ARG, $1, @1);
+		else
+			MYBACKUP (SYMBOL_LIST, scm_reverse_x ($1, SCM_EOL), @1);
+	}
+	| revert_arg BACKUP symbol_list_arg
+	{
+		$$ = $3;
+	}
+	;
+
+// revert_arg_part delivers results in reverse
+revert_arg_part:
+	symbol_list_part
+	| revert_arg BACKUP SCM_ARG '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($5, $3));
+	}
+	| revert_arg BACKUP SCM_ARG symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($4, $3));
+	}		
 	;
 
 context_def_mod:
@@ -1993,52 +2153,141 @@ context_mod:
 	}
 	;
 
-context_prop_spec:
-	simple_string {
-		if (!is_regular_identifier ($1))
+// If defined, at least two members.
+grob_prop_spec:
+	symbol_list_rev
+	{
+		SCM l = scm_reverse_x ($1, SCM_EOL);
+		if (scm_is_pair (l)
+		    && to_boolean
+		    (scm_object_property (scm_car (l),
+					  ly_symbol2scm ("is-grob?"))))
+			l = scm_cons (ly_symbol2scm ("Bottom"), l);
+		if (scm_is_null (l) || scm_is_null (scm_cdr (l))) {
+			parser->parser_error (@1, _ ("bad grob property path"));
+			l = SCM_UNDEFINED;
+		}
+		$$ = l;
+	}
+	;
+
+// If defined, at least three members
+grob_prop_path:
+	grob_prop_spec
+	{
+		if (!SCM_UNBNDP ($1) && scm_is_null (scm_cddr ($1)))
 		{
-			@$.error (_("Grob name should be alphanumeric"));
+			parser->parser_error (@1, _ ("bad grob property path"));
+			$$ = SCM_UNDEFINED;
+		}
+	}
+	| grob_prop_spec property_path
+	{
+		if (!SCM_UNBNDP ($1)) {
+			$$ = scm_append_x (scm_list_2 ($1, $2));
+			if (scm_is_null (scm_cddr ($$))) {
+				parser->parser_error (@$, _ ("bad grob property path"));
+				$$ = SCM_UNDEFINED;
+			}
 		}
 
-		$$ = scm_list_2 (ly_symbol2scm ("Bottom"),
-			scm_string_to_symbol ($1));
 	}
-	| simple_string '.' simple_string {
-		$$ = scm_list_2 (scm_string_to_symbol ($1),
-			scm_string_to_symbol ($3));
+	;
+
+// Exactly two elements or undefined
+context_prop_spec:
+	symbol_list_rev
+	{
+		SCM l = scm_reverse_x ($1, SCM_EOL);
+		switch (scm_ilength (l)) {
+		case 1:
+			l = scm_cons (ly_symbol2scm ("Bottom"), l);
+		case 2:
+			break;
+		default:
+			parser->parser_error (@1, _ ("bad context property path"));
+			l = SCM_UNDEFINED;
+		}
+		$$ = l;
 	}
 	;
 
 simple_music_property_def:
-	OVERRIDE context_prop_spec property_path '=' scalar {
-		$$ = scm_append (scm_list_2 (scm_list_n (scm_car ($2),
-				ly_symbol2scm ("OverrideProperty"),
-				scm_cadr ($2),
-				$5, SCM_UNDEFINED),
-				$3));
+	OVERRIDE grob_prop_path '=' scalar {
+		if (SCM_UNBNDP ($2))
+			$$ = SCM_UNDEFINED;
+		else {
+			$$ = scm_list_5 (scm_car ($2),
+					 ly_symbol2scm ("OverrideProperty"),
+					 scm_cadr ($2),
+					 $4,
+					 scm_cddr ($2));
+		}
 	}
-	| REVERT context_prop_spec embedded_scm {
-		$$ = scm_list_4 (scm_car ($2),
-			ly_symbol2scm ("RevertProperty"),
-			scm_cadr ($2),
-			$3);
+	| REVERT simple_revert_context revert_arg {
+		$$ = scm_list_4 ($2,
+				 ly_symbol2scm ("RevertProperty"),
+				 scm_car ($3),
+				 scm_cdr ($3));
 	}
 	| SET context_prop_spec '=' scalar {
-		$$ = scm_list_4 (scm_car ($2),
-			ly_symbol2scm ("PropertySet"),
-			scm_cadr ($2),
-			$4);
+		if (SCM_UNBNDP ($2))
+			$$ = SCM_UNDEFINED;
+		else
+			$$ = scm_list_4 (scm_car ($2),
+					 ly_symbol2scm ("PropertySet"),
+					 scm_cadr ($2),
+					 $4);
 	}
 	| UNSET context_prop_spec {
-		$$ = scm_list_3 (scm_car ($2),
-			ly_symbol2scm ("PropertyUnset"),
-			scm_cadr ($2));
+		if (SCM_UNBNDP ($2))
+			$$ = SCM_UNDEFINED;
+		else
+			$$ = scm_list_3 (scm_car ($2),
+					 ly_symbol2scm ("PropertyUnset"),
+					 scm_cadr ($2));
+	}
+	;
+
+
+// This is all quite awkward for the sake of substantial backward
+// compatibility while at the same time allowing a more "natural" form
+// of specification not separating grob specification from grob
+// property path.  The purpose of this definition of
+// simple_revert_context is to allow the symbol list which specifies
+// grob and property to revert to be optionally be split into two
+// parts after the grob (which may be preceded by a context
+// specification, a case which we distinguish by checking whether the
+// first symbol is a valid grob symbol instead).
+//
+// See revert_arg above for the main work horse of this arrangement.
+// simple_revert_context just caters for the context and delegates the
+// rest of the job to revert_arg.
+
+simple_revert_context:
+	symbol_list_part
+	{
+		$1 = scm_reverse_x ($1, SCM_EOL);
+		if (scm_is_null ($1)
+		    || to_boolean
+		    (scm_object_property (scm_car ($1),
+					  ly_symbol2scm ("is-grob?")))) {
+			$$ = ly_symbol2scm ("Bottom");
+			parser->lexer_->push_extra_token (SCM_IDENTIFIER, $1);
+		} else {
+			$$ = scm_car ($1);
+			parser->lexer_->push_extra_token (SCM_IDENTIFIER,
+							  scm_cdr ($1));
+		}
 	}
 	;
 
 music_property_def:
 	simple_music_property_def {
-		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (parser->self_scm (), make_input (@$), $1));
+		if (SCM_UNBNDP ($1))
+			$$ = MAKE_SYNTAX ("void-music", @1);
+		else
+			$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (parser->self_scm (), make_input (@$), $1));
 	}
 	;
 
@@ -3316,9 +3565,18 @@ try_string_variants (SCM pred, SCM str)
 {
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
-	if (!is_regular_identifier (str))
+	if (scm_is_string (str))
+	{
+		if (!is_regular_identifier (str))
+			return SCM_UNDEFINED;
+
+		str = scm_string_to_symbol (str);
+		if (scm_is_true (scm_call_1 (pred, str)))
+			return str;
+	} else if (!scm_is_symbol (str))
 		return SCM_UNDEFINED;
-	str = scm_string_to_symbol (str);
+
+	str = scm_list_1 (str);
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
 	return SCM_UNDEFINED;
