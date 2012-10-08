@@ -13,24 +13,21 @@ defaultNoteHeads =
    (_i "Revert to the default note head style.")
    (revert-head-style '(NoteHead TabNoteHead)))
 
-#(define (context-name? c)
-  "A stopgap measure until dotted lists become available as arguments.
-Distinguish context names from accidental styles by virtue of their
-first letter being uppercase."
-  (and (symbol? c)
-   (char-upper-case? (string-ref (symbol->string c) 0))))
-
 accidentalStyle =
 #(define-music-function
-   (parser location context style) ((context-name?) string?)
-   (_i "Set accidental style to @var{style}, a string.  If an optional
-@var{context} symbol is given, e.g. @code{#'Staff} or @code{#'Voice},
-the settings are applied to that context.  Otherwise, the context
-defaults to @samp{Staff}, except for piano styles, which use
-@samp{GrandStaff} as a context." )
-   (if context
-       (set-accidental-style (string->symbol style) context)
-       (set-accidental-style (string->symbol style))))
+   (parser location style) (symbol-list?)
+   (_i "Set accidental style to symbol list @var{style} in the form
+@samp{piano-cautionary}.  If @var{style} has a form like
+@samp{Staff.piano-cautionary}, the settings are applied to that
+context.  Otherwise, the context defaults to @samp{Staff}, except for
+piano styles, which use @samp{GrandStaff} as a context." )
+   (case (length style)
+    ((1) (set-accidental-style (car style)))
+    ((2) (set-accidental-style (cadr style) (car style)))
+    (else
+     (ly:parser-error parser (_ "not an accidental style")
+      location)
+     (make-music 'Music))))
 
 %% arpeggios
 
