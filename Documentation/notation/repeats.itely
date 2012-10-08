@@ -298,6 +298,7 @@ Music Glossary:
 Notation Reference:
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
+@ref{Modifying ties and slurs},
 @ref{Time administration}.
 
 Snippets:
@@ -321,8 +322,16 @@ Internals Reference:
 @cindex slur and repeat
 
 Slurs that span from a @code{\repeat} block into an
-@code{\alternative} block will only work for the first alternate
-ending.  Also, slurs cannot wrap around from the end of one
+@code{\alternative} block will only work for the first alternative
+ending.  The visual appearance of a continuing slur in other
+alternative blocks may be simulated with @code{\repeatTie} if the
+slur extends into only one note in the alternative block, although
+this method does not work in @code{TabStaff}.  Other methods which
+may be tailored to indicate continuing slurs over several notes in
+alternative blocks, and which also work in @code{TabStaff} contexts,
+are shown in @ref{Modifying ties and slurs}.
+
+Also, slurs cannot wrap around from the end of one
 alternative back to the beginning of the repeat.
 
 If a repeat that begins with an incomplete measure has an

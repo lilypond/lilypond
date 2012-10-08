@@ -3892,11 +3892,28 @@ Notation Reference:
 @cindex Bézier curves, control points
 @cindex control points, Bézier curves
 
-Ties, slurs and phrasing slurs are drawn as third-order Bézier
-curves.  If the shape of the tie or slur which is calculated
-automatically is not optimum, the shape may be modified manually by
-explicitly specifying the four control points required to define
-a third-order Bézier curve.
+@code{Tie}s, @code{Slur}s, @code{PhrasingSlur}s,
+@code{LaissezVibrerTie}s and @code{RepeatTie}s are all drawn as
+third-order Bézier curves.  If the shape of the tie or slur which
+is calculated automatically is not optimum, the shape may be
+modified manually in two ways:
+
+@enumerate a
+@item
+by specifying the displacements to be made to the control points
+of the automatically calculated Bézier curve, or
+
+@item
+by explicitly specifying the positions of the four control points
+required to define the wanted curve.
+@end enumerate
+
+Both methods are explained below.  The first method is more suitable
+if only slight adjustments to the curve are required; the second may
+be better for creating curves which are related to just a single
+note.
+
+@subsubsubheading Cubic Bézier curves
 
 Third-order or cubic Bézier curves are defined by four control
 points.  The first and fourth control points are precisely the
@@ -3908,10 +3925,17 @@ heading directly towards the second, gradually bending over to
 head towards the third and continuing to bend over to head towards
 the fourth, arriving there travelling directly from the third
 control point.  The curve is entirely contained in the
-quadrilateral defined by the four control points.
+quadrilateral defined by the four control points.  Translations,
+rotations and scaling of the control points all result in exactly
+the same operations on the curve.
 
-Here is an example of a case where the tie is not optimum, and
-where @code{\tieDown} would not help.
+@subsubsubheading Specifying displacements from current control points
+
+@cindex shaping slurs and ties
+@funindex \shape
+
+In this example the automatic placement of the tie is not optimum,
+and @code{\tieDown} would not help.
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -3921,38 +3945,150 @@ where @code{\tieDown} would not help.
 >>
 @end lilypond
 
-One way of improving this tie is to manually modify its control
-points, as follows.
+Adjusting the control points of the tie with @code{\shape} allows
+the collisions to be avoided.
+
+The syntax of @code{\shape} is
+
+@example
+[-]@code{\shape} @var{displacements} @var{item}
+@end example
+
+This will reposition the control-points of @var{item} by the amounts
+given by @var{displacements}.  The @var{displacements} argument is a
+list of number pairs or a list of such lists.  Each element of a pair
+represents the displacement of one of the coordinates of a
+control-point.  If @var{item} is a string, the result is
+@code{\once\override} for the specified grob type.  If @var{item} is
+a music expression, the result is the same music expression with an
+appropriate tweak applied.
+
+In other words, the @code{\shape} function can act as either a
+@code{\once\override} command or a @code{\tweak} command depending
+on whether the @var{item} argument is a grob name, like @qq{Slur},
+or a music expression, like @qq{(}.  The @var{displacements} argument
+specifies the displacements of the four control points as a list of
+four pairs of (dx . dy) values in units of staff-spaces (or a list
+of such lists if the curve has more than one segment).
+
+The leading hyphen is required if and only if the @code{\tweak} form
+is being used.
+
+So, using the same example as above and the @code{\once\override}
+form of @code{\shape}, this will raise the tie by half a staff-space:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e1~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+This positioning of the tie is better, but maybe it should be raised
+more in the center.  The following example does this, this time using
+the alternative @code{\tweak} form:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Changes to the horizontal positions of the control points may be made
+in the same way, and two different curves starting at the same
+musical moment may also be shaped:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+c8(\( a) a'4 e c\)
+\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+c8(\( a) a'4 e c\)
+@end lilypond
+
+The @code{\shape} function can also displace the control points of
+curves which stretch across line breaks.  Each piece of the broken
+curve can be given its own list of offsets.  If changes to a
+particular segment are not needed, the empty list can serve as a
+placeholder.  In this example the line break makes the single slur
+look like two:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+Changing the shapes of the two halves of the slur makes it clearer
+that the slur continues over the line break:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+% () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% if any of the segments does not need to be changed
+\shape #'(
+           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+         ) Slur
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+If an S-shaped curve is required the control points must always be
+adjusted manually --- LilyPond will never select such shapes
+automatically.
+
+@lilypond[verbatim,quote,relative=2]
+c8( e b-> f d' a e-> g)
+\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+c8\( e b-> f d' a e-> g\)
+@end lilypond
+
+@subsubsubheading Specifying control points explicitly
 
 The coordinates of the Bézier control points are specified in units
 of staff-spaces.  The X@tie{}coordinate is relative to the reference
 point of the note to which the tie or slur is attached, and the
 Y@tie{}coordinate is relative to the staff center line.  The
-coordinates are entered as a list of four pairs of decimal numbers
+coordinates are specified as a list of four pairs of decimal numbers
 (reals).  One approach is to estimate the coordinates of the two
 end points, and then guess the two intermediate points.  The optimum
-values are then found by trial and error.
+values are then found by trial and error.  Be aware that these values
+may need to be manually adjusted if any further changes are made to
+the music or the layout.
 
-It is useful to remember that a symmetric curve requires symmetric
-control points, and that Bézier curves have the useful property that
-transformations of the curve such as translation, rotation and
-scaling can be achieved by applying the same transformation to the
-curve's control points.
+One situation where specifying the control points explicitly is
+preferable to specifying displacements is when they need to be
+specified relative to a single note.  Here is an example of this.
+It shows one way of indicating a slur extending into alternative
+sections of a volta repeat.
 
-For the example above the following override gives a satisfactory
-tie.  Note the placement -- it has to be immediately before the note
-to which the start of the tie (or slur) is attached.
-
-@lilypond[verbatim,quote,relative=1]
-<<
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 3 { c4 d( e f }
+\alternative {
+  { g2) d }
   {
-    \once \override Tie
-      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e
+    g2
+    % create a slur and move it to a new position
+    % the <> is just an empty chord to carry the slur termination
+    -\tweak #'control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+    f,
   }
-\\
-  { r4 <g c,> <g c,> <g c,> }
->>
+  {
+    e'2
+    % create a slur and move it to a new position
+    -\tweak #'control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+    f,
+  }
+}
 @end lilypond
 
 @knownissues
