@@ -51,6 +51,11 @@
 (define-public (symbol-list? x)
   (and (list? x) (every symbol? x)))
 
+(define-public (symbol-list-or-music? x)
+  (if (list? x)
+      (every symbol? x)
+      (ly:music? x)))
+
 (define-public (string-or-symbol? x)
   (or (string? x) (symbol? x)))
 
