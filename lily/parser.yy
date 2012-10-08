@@ -231,7 +231,7 @@ SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
-bool is_regular_identifier (SCM id);
+bool is_regular_identifier (SCM id, bool multiple=false);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 
@@ -1313,15 +1313,12 @@ symbol_list_part:
 	symbol_list_element
 	{
 		SCM sym_l_p = ly_lily_module_constant ("symbol-list?");
-		if (scm_is_true (scm_call_1 (sym_l_p, $1)))
-			$$ = scm_reverse ($1);
-		else {
-			$$ = try_string_variants (sym_l_p, $1);
-			if (SCM_UNBNDP ($$)) {
-				parser->parser_error (@1, _("not a symbol"));
-				$$ = SCM_EOL;
-			}
-		}
+		$$ = try_string_variants (sym_l_p, $1);
+		if (SCM_UNBNDP ($$)) {
+			parser->parser_error (@1, _("not a symbol"));
+			$$ = SCM_EOL;
+		} else
+			$$ = scm_reverse ($$);
 	}
 	;
 
@@ -3563,27 +3560,47 @@ SCM loc_on_music (Input loc, SCM arg)
 SCM
 try_string_variants (SCM pred, SCM str)
 {
+	// a matching predicate is always ok
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
-	if (scm_is_string (str))
-	{
-		if (!is_regular_identifier (str))
-			return SCM_UNDEFINED;
-
-		str = scm_string_to_symbol (str);
+	// a symbol may be interpreted as a list of symbols if it helps
+	if (scm_is_symbol (str)) {
+		str = scm_list_1 (str);
 		if (scm_is_true (scm_call_1 (pred, str)))
 			return str;
-	} else if (!scm_is_symbol (str))
+		return SCM_UNDEFINED;
+	}
+
+	// If this cannot be a string representation of a symbol list,
+	// we are through.
+
+	if (!is_regular_identifier (str, true))
 		return SCM_UNDEFINED;
 
-	str = scm_list_1 (str);
+	str = scm_string_split (str, SCM_MAKE_CHAR ('.'));
+	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
+		scm_set_car_x (p, scm_string_to_symbol (scm_car (p)));
+
+	// Let's attempt the symbol list interpretation first.
+
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
+
+	// If there is just one symbol in the list, we might interpret
+	// it as a single symbol
+
+	if (scm_is_null (scm_cdr (str)))
+	{
+		str = scm_car (str);
+		if (scm_is_true (scm_call_1 (pred, str)))
+			return str;
+	}
+
 	return SCM_UNDEFINED;
 }
 
 bool
-is_regular_identifier (SCM id)
+is_regular_identifier (SCM id, bool multiple)
 {
   if (!scm_is_string (id))
 	  return false;
@@ -3599,7 +3616,7 @@ is_regular_identifier (SCM id)
 	      || (c >= 'A' && c <= 'Z')
 	      || c > 0x7f)
 		  middle = true;
-	  else if (middle && (c == '-' || c == '_'))
+	  else if (middle && (c == '-' || c == '_' || (multiple && c == '.')))
 		  middle = false;
 	  else
 		  return false;
