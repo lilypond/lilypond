@@ -712,10 +712,10 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
-#(define-music-function (parser location name property value)
-   (symbol-list? symbol? scheme?)
+#(define-music-function (parser location name property-path value)
+   (symbol-list? symbol-list-or-symbol? scheme?)
 
-   (_i "Set @var{property} to @var{value} in all grobs named @var{name}.
+   (_i "Set @var{property-path} to @var{value} in all grobs named @var{name}.
 The @var{name} argument is a symbol list of the form @code{Context.GrobName}
 or @code{GrobName}.")
    (if (<= 1 (length name) 2)
@@ -727,11 +727,20 @@ or @code{GrobName}.")
                      (if (equal?
                           (cdr (assoc 'name (ly:grob-property grob 'meta)))
                           (last name))
-                         (set! (ly:grob-property grob property) value))))
+                         (if (symbol? property-path)
+                             (ly:grob-set-property! grob property-path value)
+                             (case (length property-path)
+                               ((0) *unspecified*)
+                               ((1)
+                                (ly:grob-set-property!
+                                 grob (car property-path) value))
+                               (else
+                                (ly:grob-set-nested-property!
+                                 grob property-path value)))))))
        (begin
          (ly:parser-error parser (_ "bad grob name") location)
          (make-music 'Music))))
-   
+
 
 
 
