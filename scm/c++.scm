@@ -74,8 +74,10 @@
 (define-public (cheap-list? x)
   (or (pair? x) (null? x)))
 
-(define-public (list-or-symbol? x)
-  (or (cheap-list? x) (symbol? x)))
+(define-public (symbol-list-or-symbol? x)
+  (if (list? x)
+      (every symbol? x)
+      (symbol? x)))
 
 (define-public (scheme? x) #t)
 

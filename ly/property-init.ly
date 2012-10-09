@@ -382,7 +382,7 @@ back to the lilypond source statement.")
    (make-music 'SequentialMusic 'void #t))
 
 pointAndClickTypes =
-#(define-void-function (parser location types) (list-or-symbol?)
+#(define-void-function (parser location types) (symbol-list-or-symbol?)
   (_i "Set a type or list of types (such as @code{#'note-event}) for which point-and-click info is generated.")
   (ly:set-option 'point-and-click types))
 
