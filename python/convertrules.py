@@ -3426,6 +3426,13 @@ def conv(str):
 symbol_list = (r"#'(?:" + wordsyntax + r"|\(\s*(?:" + wordsyntax + r"\s+)*"
                + wordsyntax + r"\s*\))")
 
+grob_path = r"(?:" + symbol_list + r"\s+)*" + symbol_list
+
+grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
+
+def path_replace (m):
+    return m.group (1) + string.join (re.findall (wordsyntax, m.group (2)), ".")
+
 @rule ((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
 \alterBroken "Context.grob" -> \alterBroken Context.grob
 \overrideProperty "Context.grob" -> \overrideProperty Context.grob
@@ -3459,6 +3466,8 @@ def conv (str):
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
                   r"\1\2.\3", str)
+    str = re.sub (r'''(\\tweak\s+)#'([-A-Za-z]+)''',
+                  r"\1\2", str)
     str = re.sub ("(" + matchmarkup + ")|"
                   + r"(\\footnote(?:\s*"
                   + matchmarkup + ")?" + matcharg + ")(" + matcharg
@@ -3466,6 +3475,10 @@ def conv (str):
                   patrep, str)
     str = re.sub (r'''(\\alterBroken)(\s+[A-Za-z.]+)(''' + matcharg
                   + matcharg + ")", r"\1\3\2", str)
+    str = re.sub (r"(\\overrideProperty\s+)(" + grob_spec + r"\s+" + grob_path + ")",
+                  path_replace, str)
+    str = re.sub (r"(\\(?:override|revert)\s+)(" + grob_spec + r"\s+" + grob_path + ")",
+                  path_replace, str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
