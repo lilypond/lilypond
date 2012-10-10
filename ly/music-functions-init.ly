@@ -1328,26 +1328,26 @@ transposition =
     'Staff))
 
 tweak =
-#(define-music-function (parser location grob prop value music)
-   ((string?) symbol? scheme? ly:music?)
+#(define-music-function (parser location prop value music)
+   (symbol-list-or-symbol? scheme? ly:music?)
    (_i "Add a tweak to the following @var{music}.
 Layout objects created by @var{music} get their property @var{prop}
-set to @var{value}.  If @var{grob} is specified, like with
+set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with
 @example
-\\tweak Accidental #'color #red cis'
+\\tweak Accidental.color #red cis'
 @end example
 an indirectly created grob (@samp{Accidental} is caused by
 @samp{NoteHead}) can be tweaked; otherwise only directly created grobs
 are affected.")
-   (if (not (object-property prop 'backend-type?))
-       (begin
-	 (ly:input-warning location (_ "cannot find property type-check for ~a") prop)
-	 (ly:warning (_ "doing assignment anyway"))))
-   (set!
-    (ly:music-property music 'tweaks)
-    (acons (if grob (cons (string->symbol grob) prop) prop)
-	   value
-	   (ly:music-property music 'tweaks)))
+   (if (symbol? prop)
+       (set! prop (list prop)))
+   (if (and (<= 1 (length prop) 2)
+            (object-property (last prop) 'backend-type?))
+       (set! (ly:music-property music 'tweaks)
+             (acons (apply cons* prop)
+                    value
+                    (ly:music-property music 'tweaks)))
+       (ly:input-warning location (_ "cannot find property type-check for ~a") prop))
    music)
 
 undo =

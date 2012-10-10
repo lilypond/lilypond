@@ -3425,13 +3425,16 @@ def conv(str):
 
 @rule ((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
 \alterBroken "Context.grob" -> \alterBroken Context.grob
-\overrideProperty "Context.grob" -> \overrideProperty Context.grob""")
+\overrideProperty "Context.grob" -> \overrideProperty Context.grob
+\tweak Grob #'symbol -> \tweak Grob.symbol""")
 def conv (str):
     str = re.sub (r'''(\\accidentalStyle\s+)#?"([-A-Za-z]+)"''',
                   r"\1\2", str)
     str = re.sub (r'''(\\accidentalStyle\s+)#'([A-Za-z]+)\s+#?"?([-A-Za-z]+)"?''',
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\(?:alterBroken|overrideProperty)\s+)#?"([A-Za-z]+)\s*\.\s*([A-Za-z]+)"''',
+                  r"\1\2.\3", str)
+    str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
                   r"\1\2.\3", str)
     return str
 
