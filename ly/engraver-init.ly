@@ -85,7 +85,6 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
   \consists "Cue_clef_engraver"
-  \consists "Footnote_engraver"
 
   localKeySignature = #'()
   createSpacing = ##t

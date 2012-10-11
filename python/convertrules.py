@@ -3423,11 +3423,34 @@ def conv(str):
     str = re.sub (barstring + r'"empty"', '\\1\\2"-"', str)
     return str
 
+symbol_list = (r"#'(?:" + wordsyntax + r"|\(\s*(?:" + wordsyntax + r"\s+)*"
+               + wordsyntax + r"\s*\))")
+
 @rule ((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
 \alterBroken "Context.grob" -> \alterBroken Context.grob
 \overrideProperty "Context.grob" -> \overrideProperty Context.grob
 \tweak Grob #'symbol -> \tweak Grob.symbol""")
 def conv (str):
+    def patrep (m):
+        def fn_path_replace (m):
+            x = string.join (re.findall (wordsyntax, m.group (2)), ".")
+            if x in ["TimeSignature", "KeySignature", "BarLine",
+                     "Clef", "StaffSymbol", "OttavaBracket",
+                     "LedgerLineSpanner"]:
+                x = "Staff." + x
+            return m.group (1) + x
+        if m.group (1):
+            return m.group (0)
+        x = m.group (2) + m.group (4)
+        
+        if m.group (3):
+            x = x + re.sub (r"(\s*)(" + symbol_list + ")", fn_path_replace,
+                            m.group (3))
+
+            if not m.group (5):
+                x = r"\single" + x
+        return x
+
     str = re.sub (r'''(\\accidentalStyle\s+)#?"([-A-Za-z]+)"''',
                   r"\1\2", str)
     str = re.sub (r'''(\\accidentalStyle\s+)#'([A-Za-z]+)\s+#?"?([-A-Za-z]+)"?''',
@@ -3436,6 +3459,11 @@ def conv (str):
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
                   r"\1\2.\3", str)
+    str = re.sub ("(" + matchmarkup + ")|"
+                  + r"(\\footnote(?:\s*"
+                  + matchmarkup + ")?" + matcharg + ")(" + matcharg
+                  + r")?(\s+" + matchmarkup + r")(\s+\\default)?",
+                  patrep, str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
