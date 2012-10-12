@@ -49,6 +49,7 @@ for documentation purposes.")
 \makeDefaultStringTuning #'guitar-tuning \stringTuning <e, a, d g b e'>
 \makeDefaultStringTuning #'guitar-seven-string-tuning \stringTuning <b,, e, a, d g b e'>
 \makeDefaultStringTuning #'guitar-drop-d-tuning \stringTuning <d, a, d g b e'>
+\makeDefaultStringTuning #'guitar-drop-c-tuning \stringTuning <c, g, c f a d'>
 \makeDefaultStringTuning #'guitar-open-g-tuning \stringTuning <d, g, d g b d'>
 \makeDefaultStringTuning #'guitar-open-d-tuning \stringTuning <d, a, d fis a d'>
 \makeDefaultStringTuning #'guitar-dadgad-tuning \stringTuning <d, a, d g a d'>
