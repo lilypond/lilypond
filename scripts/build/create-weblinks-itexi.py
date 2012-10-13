@@ -58,6 +58,10 @@ translations = {
 
         'Regression tests for ': 'Regressionstests für ',
         'PDF of regtests for ': 'PDF der Regressionstests für ',
+        'abc2ly Regression tests for ': 'abc2ly Regressionstests für ',
+        'PDF of abc2ly regtests for ': 'PDF der abc2ly Regressionstests für ',
+        'lilypond-book Regression tests for ': 'lilypond-book Regressionstests für ',
+        'PDF of lilypond-book regtests for ': 'PDF der lilypond-book Regressionstests für ',
         'MusicXML Regression tests for ': 'MusicXML Regressionstests für ',
         'PDF of MusicXML regtests for ': 'PDF der MusicXML Regressionstests für ',
 
@@ -85,6 +89,10 @@ translations = {
 
         'Regression tests for ': 'Pruebas de regresión para ',
         'PDF of regtests for ': 'Pruebas en PDF para ',
+        'abc2ly Regression tests for ': 'Pruebas de regresión de abc2ly para ',
+        'PDF of abc2ly regtests for ': 'Pruebas de abc2ly en PDF para ',
+        'lilypond-book Regression tests for ': 'Pruebas de regresión de lilypond-book para ',
+        'PDF of lilypond-book regtests for ': 'Pruebas de lilypond-book en PDF para ',
         'MusicXML Regression tests for ': 'Pruebas de regresión de MusicXML para ',
         'PDF of MusicXML regtests for ': 'Pruebas de MusicXML en PDF para ',
 
@@ -112,6 +120,10 @@ translations = {
 
         'Regression tests for ': 'Tests de régression pour ',
         'PDF of regtests for ': 'PDF des tests de régression pour ',
+        'abc2ly Regression tests for ': 'Tests de régression de abc2ly pour ',
+        'PDF of abc2ly regtests for ': 'PDF des tests de régression de abc2ly pour ',
+        'lilypond-book Regression tests for ': 'Tests de régression de lilypond-book pour ',
+        'PDF of lilypond-book regtests for ': 'PDF des tests de régression de lilypond-book pour ',
         'MusicXML Regression tests for ': 'Tests de régression de MusicXML pour ',
         'PDF of MusicXML regtests for ': 'PDF des tests de régression de MusicXML pour ',
 
@@ -137,6 +149,10 @@ translations = {
 
         'Regression tests for ': 'Regressziós tesztek - verzió: ',
         'PDF of regtests for ': 'PDF formátumban - verzió: ',
+        'abc2ly Regression tests for ': 'abc2ly regressziós tesztek - verzió: ',
+        'PDF of abc2ly regtests for ': 'PDF formátumban - verzió: ',
+        'lilypond-book Regression tests for ': 'lilypond-book regressziós tesztek - verzió: ',
+        'PDF of lilypond-book regtests for ': 'PDF formátumban - verzió: ',
         'MusicXML Regression tests for ': 'MusicXML regressziós tesztek - verzió: ',
         'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
@@ -165,6 +181,10 @@ translations = {
 
         'Regression tests for ': '回帰テスト バージョン ',
         'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
+        'abc2ly Regression tests for ': 'abc2ly 回帰テスト バージョン ',
+        'PDF of abc2ly regtests for ': 'abc2ly 回帰テスト (PDF 版) バージョン ',
+        'lilypond-book Regression tests for ': 'lilypond-book 回帰テスト バージョン ',
+        'PDF of lilypond-book regtests for ': 'lilypond-book 回帰テスト (PDF 版) バージョン ',
         'MusicXML Regression tests for ': 'MusicXML 回帰テスト バージョン ',
         'PDF of MusicXML regtests for ': 'MusicXML 回帰テスト (PDF 版) バージョン ',
 
@@ -193,6 +213,10 @@ translations = {
 
         'Regression tests for ': 'Regressietesten voor ',
         'PDF of regtests for ': 'PDF van regressietesten voor ',
+        'abc2ly Regression tests for ': 'abc2ly regressietesten voor ',
+        'PDF of abc2ly regtests for ': 'abc2ly regressietesten voor ',
+        'lilypond-book Regression tests for ': 'lilypond-book regressietesten voor ',
+        'PDF of lilypond-book regtests for ': 'lilypond-book regressietesten voor ',
         'MusicXML Regression tests for ': 'MusicXML regressietesten voor ',
         'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
 
@@ -220,6 +244,10 @@ translations = {
 
         'Regression tests for ': '回归测试 ',
         'PDF of regtests for ': '回归测试的 PDF ',
+        'abc2ly Regression tests for ': 'abc2ly 回归测试 ',
+        'PDF of abc2ly regtests for ': 'abc2ly 的 PDF 回归测试 ',
+        'lilypond-book Regression tests for ': 'lilypond-book 回归测试 ',
+        'PDF of lilypond-book regtests for ': 'lilypond-book 的 PDF 回归测试 ',
         'MusicXML Regression tests for ': 'MusicXML 回归测试 ',
         'PDF of MusicXML regtests for ': 'MusicXML 的 PDF 回归测试 ',
 
