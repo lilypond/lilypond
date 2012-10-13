@@ -303,11 +303,13 @@ for line in version_contents:
 VERSION = str(major)+'.'+str(minor)+'.'+str(patch)
 
 def _ (string, lang):
-    return translations.get (lang.split ('_')[0], {}).get (string, string)
+    return translations.get (lang.split ('_')[0], {}).get (string, None)
 
 getTrans = _
 # let's not barf, but print a warning when something's missing
 def getTrans(text, lang):
+    if not lang:
+        return text
     trans = _ (text, lang)
     if not trans:
         trans = text
@@ -315,7 +317,7 @@ def getTrans(text, lang):
     return trans
 
 def macroLang(name, lang):
-    if (lang != ''):
+    if lang:
         return name + '-' + lang
     return name
 
