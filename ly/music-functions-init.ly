@@ -259,8 +259,8 @@ crossStaff =
 #(define-music-function (parser location notes) (ly:music?)
   (_i "Create cross-staff stems")
   #{
-  \override Stem #'cross-staff = #cross-staff-connect
-  \override Flag #'style = #'no-flag
+  \temporary \override Stem #'cross-staff = #cross-staff-connect
+  \temporary \override Flag #'style = #'no-flag
   $notes
   \revert Stem #'cross-staff
   \revert Flag #'style
@@ -418,11 +418,11 @@ harmonicByFret = #(define-music-function (parser location fret music) (number? l
 harmonics played on a fretted instrument by touching the strings at @var{fret}.")
   #{
     \set harmonicDots = ##t
-    \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
-    \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
+    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
        (calc-harmonic-pitch (fret->pitch (number->string fret)) music))
@@ -438,11 +438,11 @@ harmonics played on a fretted instrument by touching the strings at the point
 given through @var{ratio}.")
   #{
     \set harmonicDots = ##t
-    \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
-    \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
+    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
       (calc-harmonic-pitch (ratio->pitch ratio) music))
