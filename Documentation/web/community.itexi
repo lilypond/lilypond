@@ -1193,7 +1193,16 @@ Descriptive list of changes by version:
 @subheading Thanks
 
 Thanks to developers, contributors, bug hunters and suggestions for
-@miscLink{THANKS-2.14,releases up to 2.14}.
+@miscLink{THANKS-2.16,v2.16},
+@miscLink{THANKS-2.14,v2.14},
+@miscLink{THANKS-2.12,v2.12},
+@miscLink{THANKS-2.10,v2.10},
+@miscLink{THANKS-2.8,v2.8},
+@miscLink{THANKS-2.6,v2.6},
+@miscLink{THANKS-2.4,v2.4},
+@miscLink{THANKS-2.2,v2.2},
+@miscLink{THANKS-2.0,v2.0},
+@miscLink{THANKS-1.8,v1.8}
 
 @divEnd
 
