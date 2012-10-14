@@ -14,13 +14,21 @@
   Contributors are everybody else, and simply list their
   contributions.  All lists are sorted alphabetically.
 
+  Developers should be listed under "main developers" and nowhere
+  else. Main developers may appear in both the current and previous.
   Anybody who has finished doing a "main devel team" task should
   list it under developersPrevious, even if they're still doing
   other "main devel team" stuff.  See "Graham Percival" for an
   example.
 
-  Contributors are also split between Current and Previous, and
-  each category contains:
+  Contributors are also split between Current and Previous.
+  Anybody who worked on anything up to and including the latest
+  stable release should be listed under "previous contributors".
+  Contributors who worked on the unstable release should be listed
+  under "current contributors".  A contributor can thus be listed
+  twice (under previous and current).
+
+  Each category contains:
     core...     (programming)
     font...     (duh)
     doc...      (documentation and examples)
@@ -169,6 +177,12 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
+Aleksandr Andreev,
+Marc Hohl,
+Keith OHara,
+Benkő Pál,
+Julien Rioux
+
 @c no comma for last entry
 
 @end macro
@@ -189,12 +203,26 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
+Frédéric Bron,
+James Lowe,
+Arnold Theresius,
+Rodolfo Zitellini
+
 @c no comma for last entry
 
 @end macro
 
 
 @macro bugsquadCurrent
+
+@c use commas not colons
+
+Colin Campbell,
+Eluze,
+Marc Hohl,
+Phil Holmes,
+Marek Klein,
+Ralph Palmer
 
 @c no comma for last entry
 
@@ -215,6 +243,12 @@ Core developer, Schemer extraordinaire
 
 @c use commas not colons
 
+Federico Bruni,
+Felipe Castro,
+Pavel Fric,
+Jean-Charles Malahieude,
+Till Rettig
+
 @c no comma for last entry
 
 @end macro
@@ -233,7 +267,6 @@ Guido Amoruso,
 Sven Axelsson,
 Kristof Bastiaensen,
 Pál Benkő,
-Bertrand Bordage,
 Frédéric Bron,
 Juliusz Chroboczek,
 Peter Chubb,
@@ -251,7 +284,6 @@ Andrew Hawryluk,
 Christian Hitz,
 Karin Hoethker,
 Marc Hohl,
-Ian Hulin,
 Bernard Hurley,
 Yoshinobu Ishizaki,
 Chris Jackson,
@@ -267,7 +299,6 @@ Kieren MacMillan,
 Hendrik Maryns,
 Thomas Morgan,
 David Nalesnik,
-Joe Neeman,
 Matthias Neeracher,
 Keith OHara,
 Justin Ohmie,
@@ -292,7 +323,6 @@ Piers Titus van der Torren,
 Owen Tuz,
 Sebastiano Vigna,
 Jan-Peter Voigt,
-Janek Warchoł,
 Arno Waschk,
 John Williams,
 Andrew Wilson,
@@ -338,7 +368,6 @@ Joseph Harfouch,
 Andrew Hawryluk,
 Cameron Horsburgh,
 Geoff Horton,
-Ian Hulin,
 Heikki Junes,
 Kurtis Kroon,
 James Lowe,
@@ -355,7 +384,6 @@ Till Rettig,
 Pavel Roskin,
 Patrick Schmidt,
 Alberto Simoes,
-Carl D. Sorensen,
 Anh Hai Trinh,
 Eduardo Vieira,
 Stefan Weil,
@@ -392,7 +420,7 @@ Dmytro O. Redchuk
 Colin Campbell,
 Anthony Fok,
 Christian Hitz,
-Phil Holmes
+Phil Holmes,
 Chris Jackson,
 Heikki Junes,
 David Svoboda
