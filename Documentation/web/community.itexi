@@ -1160,6 +1160,7 @@ the @ref{Attic}}
 @subheading Announcements
 
 Announcements and news by version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
