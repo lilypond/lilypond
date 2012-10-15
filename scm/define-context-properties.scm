@@ -576,7 +576,7 @@ of bar line to create.
 Example:
 
 @example
-\\set Staff.whichBar = \"|:\"
+\\set Staff.whichBar = \".|:\"
 @end example
 
 @noindent

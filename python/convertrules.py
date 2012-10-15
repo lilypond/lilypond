@@ -3399,7 +3399,7 @@ def conv (str):
                   matcharg + ")", r"\\shape\2\1", str)
     return str
 
-barstring=r"(\\bar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
+barstring=r"(\\bar|whichBar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
 
 @rule ((2, 17, 5), r"New bar line interface")
 def conv(str):
