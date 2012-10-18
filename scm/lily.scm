@@ -72,6 +72,12 @@ session has started."
      (define-session ,name ,value)
      (export ,name)))
 
+(define (session-terminate)
+  (if (ly:undead? lilypond-declarations)
+      (for-each
+       (lambda (p) (variable-set! (cadr p) (cddr p)))
+       (ly:get-undead lilypond-declarations))))
+
 (define-public (session-initialize thunk)
   "Initialize this session.  The first session in a LilyPond run is
 initialized by calling @var{thunk}, then recording the values of all
@@ -905,6 +911,7 @@ PIDs or the number of the process."
              (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
+         (session-terminate)
          (if start-measurements
              (dump-profile x start-measurements (profile-measurements)))
          (if (ly:get-option 'trace-memory-frequency)
