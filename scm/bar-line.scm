@@ -222,9 +222,9 @@ and as a span bar (@var{span-glyph}) respectively."
   (set! span-bar-glyph-alist
     (acons bar-glyph span-glyph span-bar-glyph-alist)))
 
-(define-session-public bar-glyph-alist '())
+(define-session bar-glyph-alist '())
 
-(define-session-public span-bar-glyph-alist '())
+(define-session span-bar-glyph-alist '())
 
 (define-public (add-bar-glyph-print-procedure glyph proc)
   "Specify the single glyph @var{glyph} that calls print procedure @var{proc}.
@@ -239,7 +239,7 @@ is not used within the routine."
       (set! bar-glyph-print-procedures
         (acons glyph proc bar-glyph-print-procedures))))
 
-(define-session-public bar-glyph-print-procedures `())
+(define-session bar-glyph-print-procedures `())
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; drawing functions for various bar line types
@@ -907,7 +907,7 @@ no elements."
       (ly:warning (_ ("Volta hook bar line must be a string; ignoring '~a'.")
                   bar-glyph))))
 
-(define-session-public volta-bracket-allow-volta-hook-list '())
+(define-session volta-bracket-allow-volta-hook-list '())
 
 (define-public (volta-bracket::calc-hook-visibility bar-glyph)
   "Determine the visibility of the volta bracket hook. It is called in
