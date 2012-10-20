@@ -6,16 +6,17 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.4\n"
+"Project-Id-Version: lilypond 2.17.5\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-10-06 12:16+0100\n"
+"POT-Creation-Date: 2012-10-20 17:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: book_base.py:26
 #, python-format
@@ -136,7 +137,7 @@ msgstr ""
 msgid "%s has been replaced by %s"
 msgstr ""
 
-#: convertrules.py:24 lilylib.py:131 warn.cc:223
+#: convertrules.py:24 lilylib.py:136 warn.cc:223
 #, c-format, python-format
 msgid "warning: %s"
 msgstr ""
@@ -785,37 +786,37 @@ msgstr ""
 msgid "Writing fonts to %s"
 msgstr ""
 
-#: lilylib.py:96
+#: lilylib.py:101
 #, python-format
 msgid "Setting loglevel to %s"
 msgstr ""
 
-#: lilylib.py:99
+#: lilylib.py:104
 #, python-format
 msgid "Unknown or invalid loglevel '%s'"
 msgstr ""
 
-#: lilylib.py:128 warn.cc:211
+#: lilylib.py:133 warn.cc:211
 #, c-format, python-format
 msgid "error: %s"
 msgstr ""
 
-#: lilylib.py:185
+#: lilylib.py:190
 #, python-format
 msgid "Processing %s.ly"
 msgstr ""
 
-#: lilylib.py:189 lilylib.py:250
+#: lilylib.py:194 lilylib.py:255
 #, python-format
 msgid "Invoking `%s'"
 msgstr ""
 
-#: lilylib.py:191 lilylib.py:252
+#: lilylib.py:196 lilylib.py:257
 #, python-format
 msgid "Running %s..."
 msgstr ""
 
-#: lilylib.py:328
+#: lilylib.py:333
 #, python-format
 msgid "Usage: %s"
 msgstr ""
@@ -1000,11 +1001,11 @@ msgstr ""
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:202
+#: convert-ly.py:201
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:204
+#: convert-ly.py:203
 msgid "Stopping at last successful rule"
 msgstr ""
 
@@ -1013,23 +1014,30 @@ msgstr ""
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:338
+#: convert-ly.py:341
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:345
+#: convert-ly.py:347
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:350
+#: convert-ly.py:353
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
 "Valid version strings consist of three numbers, separated by dots, e.g. "
 "`2.8.12'"
 msgstr ""
+
+#: convert-ly.py:359
+#, python-format
+msgid "There was %d error."
+msgid_plural "There were %d errors."
+msgstr[0] ""
+msgstr[1] ""
 
 #: etf2ly.py:1197
 #, python-format
@@ -1555,15 +1563,15 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: website_post.py:123
+#: website_post.py:125
 msgid "English"
 msgstr ""
 
-#: website_post.py:126
+#: website_post.py:128
 msgid "Other languages"
 msgstr ""
 
-#: website_post.py:127
+#: website_post.py:129
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr ""
@@ -2519,7 +2527,7 @@ msgstr ""
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:336 pango-font.cc:249
+#: open-type-font.cc:336 pango-font.cc:256
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -2651,19 +2659,24 @@ msgstr ""
 msgid "\tprevious break: %d"
 msgstr ""
 
-#: pango-font.cc:265
+#: pango-font.cc:245
+#, c-format
+msgid "no glyph for character U+%0X in font `%s'"
+msgstr ""
+
+#: pango-font.cc:272
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%0X, file %s"
 msgstr ""
 
-#: pango-font.cc:315
+#: pango-font.cc:322
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:365
+#: pango-font.cc:372
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -3296,6 +3309,36 @@ msgstr ""
 msgid "missing stencil expression `~S'"
 msgstr ""
 
+#: bar-line.scm:140
+#, scheme-format
+msgid "Bar glyph ~a not known. Ignoring."
+msgstr ""
+
+#: bar-line.scm:168
+#, scheme-format
+msgid ""
+"Annotation '~a' is allowed in the first argument of a bar line definition "
+"only."
+msgstr ""
+
+#: bar-line.scm:176
+#, scheme-format
+msgid ""
+"Replacement '~a' is allowed in the last argument of a bar line definition "
+"only."
+msgstr ""
+
+#: bar-line.scm:237
+#, scheme-format
+msgid ""
+"add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
+msgstr ""
+
+#: bar-line.scm:808
+#, scheme-format
+msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
+msgstr ""
+
 #: chord-entry.scm:52
 #, scheme-format
 msgid "Spurious garbage following chord: ~A"
@@ -3508,50 +3551,50 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:305
+#: lily.scm:311
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:308
+#: lily.scm:314
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:367
+#: lily.scm:373
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:786
+#: lily.scm:792
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:787
+#: lily.scm:793
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:849
+#: lily.scm:855
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:852
+#: lily.scm:858
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:874 lily.scm:962
+#: lily.scm:880 lily.scm:969
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:953
+#: lily.scm:960
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:972 ps-to-png.scm:66
+#: lily.scm:979 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
