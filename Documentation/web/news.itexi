@@ -27,6 +27,47 @@ NOTE:
 @end ignore
 
 @newsItem
+@subsubheading LilyPond 2.17.3 released!  @emph{September 23, 2012}
+
+We are happy to announce the release of LilyPond 2.17.3.  This
+release contains the usual number of bugfixes.  It is strongly
+recommended that normal users do @strong{not} use this release,
+and instead use the stable 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.2 released!  @emph{September 10, 2012}
+
+We are happy to announce the release of LilyPond 2.17.2.  This
+release contains the usual number of bugfixes.  It is strongly
+recommended that normal users do @strong{not} use this release,
+and instead use the stable 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.1 released!  @emph{August 28, 2012}
+
+We are happy to announce the release of LilyPond 2.17.1.  This
+release contains the usual number of bugfixes.  It is strongly
+recommended that normal users do @strong{not} use this release,
+and instead use the stable 2.16 version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.17.0 released!  @emph{August 26, 2012}
+
+We are happy to announce the release of LilyPond 2.17.0.  This
+release contains the usual number of bugfixes.  It is strongly
+recommended that normal users do @strong{not} use this release,
+and instead use the stable 2.16 version.
+
+@newsEnd
+
+@newsItem
 @subsubheading Lilypond 2.15.95 released!  @emph{August 11, 2012}
 
 We are excited to announce the release of LilyPond 2.15.95.
