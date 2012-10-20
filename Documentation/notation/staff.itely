@@ -910,8 +910,9 @@ multi-line instrument names, @code{\center-column} must be used:
   { f2 g4 f }
   \new Staff \with {
     instrumentName = \markup {
-      \center-column { "Clarinet" }
-      \line { "in B" \smaller \flat }
+      \center-column { "Clarinet"
+        \line { "in B" \smaller \flat }
+      }
     }
   }
   { c4 b c2 }
