@@ -248,6 +248,7 @@ Languages in this order.
 * homophony::
 * hook::
 * hymn meter::
+* incomplete dominant seventh chord::
 * interval::
 * inversion::
 * inverted interval::
@@ -1605,7 +1606,7 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European music
+Two or more tones sounding simultaneously.  In traditional European music
 the base chord is a @emph{triad} consisting of two thirds.  @emph{Major}
 (major + minor third) as well as @emph{minor} (minor + major third) chords
 may be extended with more thirds.  Four-tone @emph{seventh chords} and
@@ -1615,7 +1616,7 @@ define their mood are a special case called @q{open chords}.  The lack of
 the middle third means their quality is ambivalent -- neither major nor
 minor.
 
-@lilypond[quote,notime,line-width=13.0\cm]
+@lilypond[quote,notime]
 <<
   \new Staff {
     \relative c'' {
@@ -1633,8 +1634,8 @@ minor.
     "minor  "
     "diminished  "
     "augmented  "
-    "seventh-chord  "
-    "ninth-chord"
+    "seventh  "
+    "ninth"
   }
 >>
 @end lilypond
@@ -3876,10 +3877,29 @@ functionally different chords: tonic (T, the chord on the first note of the
 scale), subdominant (S, the chord on the fourth note), and dominant (D, the
 chord on the fifth note).  Others are considered to be variants of the base
 chords.
-
-TODO: what does the @q{p} mean in Sp, Dp, Tp?
+A few examples among many others are the tonic, subdominant or dominant of
+the parallel minor scale, or the incomplete dominant seventh chord.
 
 @lilypond[quote,notime,relative=2,line-width=13.0\cm]
+#(define-markup-command (diagonal-stroke layout props arg)
+  (markup?)
+  #:category font
+  #:properties ((font-size 0) (thickness 1.5) (extension 0.07))
+  (let*
+   ((thick (* (magstep font-size)
+      (ly:output-def-lookup layout 'line-thickness)))
+    (underline-thick (* thickness thick))
+    (markup (interpret-markup layout props arg))
+    (x1 (car (ly:stencil-extent markup X)))
+    (x2 (cdr (ly:stencil-extent markup X)))
+    (y1 (car (ly:stencil-extent markup Y)))
+    (y2 (cdr (ly:stencil-extent markup Y)))
+    (dx (* extension (- x2 x1)))
+    (dy (* extension (- y2 y1)))
+    (line (make-line-stencil underline-thick
+      (- x1 dx) (- y1 dy)
+      (+ x2 dx) (+ y2 dy))))
+   (ly:stencil-add markup line)))
 <<
   {
     <g e c>1 <a f d> <b g e>
@@ -3887,13 +3907,14 @@ TODO: what does the @q{p} mean in Sp, Dp, Tp?
   }
   \lyrics {
     T Sp Dp S D Tp
-    \markup { D \translate #'(-2 . 0) | }
+    \markup { \concat { \diagonal-stroke D \super "7" } }
   }
 >>
 @end lilypond
 
 @seealso
-No cross-references.
+@ref{dominant}, @ref{incomplete dominant seventh chord},
+@ref{subdominant}, @ref{tonic}.
 
 
 @node G
@@ -4335,6 +4356,25 @@ easier reading, a hymn with a meter of 87.87.87.87 is usually written
 No cross-references.
 
 
+@node incomplete dominant seventh chord
+@section incomplete dominant seventh chord
+
+ES: ?,
+I: ?,
+F: ?,
+D: verkürzter Dominantseptakkord,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A dominant seventh chord where the root tone is removed.
+The remaining three tones build a diminished triad.
+
+@seealso
+@ref{chord}, @ref{dominant seventh chord}, @ref{functional harmony}.
+
+
 @node interval
 @section interval
 
@@ -4353,7 +4393,7 @@ are identical (or @emph{enharmonic}) on an equal-tempered twelve-tone scale
 and are called @emph{tritonus} because they consist of three whole tones.
 The addition of such two intervals forms an octave.
 
-@lilypond[quote,notime,line-width=13.0\cm]
+@lilypond[quote]
 <<
 \context Voice \relative c'' {
 % Prime or unison

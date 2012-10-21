@@ -43,7 +43,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-7 -4)
+  \override StaffSymbol #'line-positions = #'(-8 -4)
 } {
   <<
     \clef french
@@ -53,12 +53,21 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
+  \override StaffSymbol #'line-positions = #'(-2 0)
   \override StaffSymbol #'staff-space = #1.5
+} {
+  <<
+    \mus
+    \context Voice { s1^"widened by staff-space" }
+  >>
+}
+
+\new Staff \with {
   \override StaffSymbol #'line-positions = #'(-2 0)
 } {
   <<
     \mus
-    \context Voice { s1^"as wide as previous" }
+    \context Voice { s1^"dots outside" }
   >>
 }
 
@@ -81,17 +90,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-4 -3 -2)
-  \override StaffSymbol #'staff-space = #0.8
-} {
-  <<
-    \mus
-    \context Voice { s1^"denser staff" }
-  >>
-}
-
-\new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-6 -2 0 5)
+  \override StaffSymbol #'line-positions = #'(-6 -5 -2 0 3 5)
 } {
   <<
     \mus
@@ -106,6 +105,24 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
   <<
     \mus
     \context Voice { s1^"irregular staff, nonstandard spacing" }
+  >>
+}
+
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(-10 -2 6 14)
+} {
+  <<
+    \mus
+    \context Voice { s1^"dots in outer spaces" }
+  >>
+}
+
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(-5 -4 -2 2 4 6)
+} {
+  <<
+    \mus
+    \context Voice { s1^"dots in the middle" }
   >>
 }
 

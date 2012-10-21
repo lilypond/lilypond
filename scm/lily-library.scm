@@ -275,11 +275,17 @@ bookoutput function"
 		(cons* 'push
 		       symbol
 		       (ly:music-property m 'grob-value)
-		       (ly:music-property m 'grob-property-path)))
-	       ((RevertProperty)
+                       (cond
+                        ((ly:music-property m 'grob-property #f) => list)
+                        (else
+                         (ly:music-property m 'grob-property-path)))))
+               ((RevertProperty)
 		(cons* 'pop
 		       symbol
-		       (ly:music-property m 'grob-property-path))))))
+                       (cond
+                        ((ly:music-property m 'grob-property #f) => list)
+                        (else
+                         (ly:music-property m 'grob-property-path))))))))
 	  (case (ly:music-property m 'name)
 	    ((ApplyContext)
 	     (ly:add-context-mod mods
@@ -326,11 +332,17 @@ bookoutput function"
 	      (cons* 'push
 		     (ly:music-property m 'symbol)
 		     (ly:music-property m 'grob-value)
-		     (ly:music-property m 'grob-property-path)))
+                     (cond
+                      ((ly:music-property m 'grob-property #f) => list)
+                      (else
+                       (ly:music-property m 'grob-property-path)))))
 	     ((RevertProperty)
 	      (cons* 'pop
 		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-property-path)))))
+                     (cond
+                      ((ly:music-property m 'grob-property #f) => list)
+                      (else
+                       (ly:music-property m 'grob-property-path)))))))
 	  (case (ly:music-property m 'name)
 	    ((ApplyContext)
 	     (ly:add-context-mod mods

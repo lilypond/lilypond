@@ -6,7 +6,7 @@
 \layout {
   \context {
     \Staff
-    \consists Custos_engraver
+    \consists "Custos_engraver"
   }
   ragged-right = ##t
 }

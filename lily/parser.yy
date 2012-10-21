@@ -240,6 +240,7 @@ void set_music_properties (Music *p, SCM a);
 */
 
 /* Keyword tokens with plain escaped name.  */
+%token END_OF_FILE 0 "end of input"
 %token ACCEPTS "\\accepts"
 %token ADDLYRICS "\\addlyrics"
 %token ALIAS "\\alias"
@@ -515,7 +516,7 @@ If we give names, Bison complains.
 %type <scm> mode_changing_head
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
-%type <scm> music_function_event
+%type <scm> music_function_call_closed
 %type <scm> music_function_chord_body
 %type <scm> new_chord
 %type <scm> new_lyrics
@@ -1327,6 +1328,7 @@ closed_music:
 	{
 		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
 	}
+	| music_function_call_closed
 	;
 
 music_bare:
@@ -2274,7 +2276,7 @@ music_function_chord_body:
 // with the last argument of the event function or with the expression
 // for which the function call acts itself as event.
 
-music_function_event:
+music_function_call_closed:
 	MUSIC_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
@@ -2345,7 +2347,7 @@ post_event_nofinger:
 	direction_less_event {
 		$$ = $1;
 	}
-	| script_dir music_function_event {
+	| script_dir music_function_call_closed {
 		$$ = $2;
 		if ($1)
 		{
@@ -2378,7 +2380,6 @@ post_event_nofinger:
 		}
 		$$ = $2;
 	}
-	| string_number_event
 	| '^' fingering
 	{
 		$$ = $2;
@@ -2454,6 +2455,7 @@ direction_less_event:
 		}
 		$$ = m->unprotect ();
 	}
+	| string_number_event
 	| EVENT_IDENTIFIER	{
 		$$ = $1;
 	}

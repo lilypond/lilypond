@@ -130,7 +130,7 @@ section, @ref{Paper size and automatic scaling}.  The
 @code{\paper} variables that deal with page layout are discussed
 in later sections.  The markup definitions that deal with headers,
 footers, and titles are discussed in
-@ref{Custom headers footers and titles}.
+@ref{Custom titles headers and footers}.
 
 Most @code{\paper} variables will only work in a @code{\paper}
 block.  The few that will also work in a @code{\layout} block are
@@ -175,7 +175,7 @@ The Scheme equivalent of the above example is:
 @seealso
 Notation Reference:
 @ref{Paper size and automatic scaling},
-@ref{Custom headers footers and titles},
+@ref{Custom titles headers and footers},
 @ref{The \layout block}.
 
 Installed Files:
@@ -265,7 +265,18 @@ accordingly.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-The music output will @emph{not} be rotated, just the paper size.
+Swapping the paper dimensions @emph{without} having the print rotated
+(like when printing to postcard size, or creating graphics for inclusion
+rather than a standalone document) can be achieved by appending
+@samp{landscape} to the name of the paper size itself:
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+When the paper size ends with an explicit @samp{landscape} or
+@samp{portrait}, the presence of a @code{'landscape} symbol @emph{only}
+affects print orientation, not the paper dimensions used for layout.
 
 @seealso
 Notation Reference:
@@ -1350,7 +1361,7 @@ with the music:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove Forbid_line_break_engraver
+  \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
     { c2. \times 2/3 { c4 c c } c2. | }
@@ -1415,13 +1426,6 @@ every 4 measures, and only there:
   @{ @var{the actual music@dots{}} @}
 >>
 @end example
-
-@c TODO Check this
-A linebreaking configuration can be saved as a @file{.ly} file
-automatically.  This allows vertical alignments to be stretched to
-fit pages in a second formatting run.  This is fairly new and
-complicated.  More details are available in
-@rlsr{Spacing}.
 
 
 @predefined
@@ -3012,7 +3016,7 @@ which may be used together or alone:
 @item @code{proportionalNotationDuration}
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
-@item @code{\remove Separating_line_group_engraver}
+@item @code{\remove "Separating_line_group_engraver"}
 @item @code{\override PaperColumn #'used = ##t}
 @end itemize
 
@@ -3302,7 +3306,7 @@ reduces this space to zero.
 }
 
 \new Staff \with {
-  \remove Separating_line_group_engraver
+  \remove "Separating_line_group_engraver"
 } {
   c'1
   \break
@@ -3367,7 +3371,7 @@ that frequently appear in proportional scores.  These include:
 @item @code{\override Beam #'breakable = ##t}
 @item @code{\override Glissando #'breakable = ##t}
 @item @code{\override TextSpanner #'breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver in the Voice context}
+@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
 @end itemize
 
 These settings space grace notes strictly, extend tuplet brackets to

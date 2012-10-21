@@ -237,10 +237,6 @@
     ("pa10" . (cons (* 26 mm) (* 35 mm)))
     ;; F4 used in southeast Asia and Australia
     ("f4" . (cons (* 210 mm) (* 330 mm)))
-    ;; Used for very small @lilypond examples in the Documentation
-    ;; based on a8 and a7 sizes but landscape not portrait
-    ("a8landscape" . (cons (* 74 mm) (* 52 mm)))
-    ("a7landscape" . (cons (* 105 mm) (* 74 mm)))
     ))
 
 ;; todo: take dimension arguments.
@@ -303,23 +299,32 @@
      scaled-values)))
 
 (define (internal-set-paper-size module name landscape?)
-  (define (swap x)
-    (cons (cdr x) (car x)))
-
-  (let* ((entry (assoc-get name paper-alist))
+  (let* ((entry-name name)
+	 (swapped?
+	  (cond ((string-suffix? "landscape" name)
+		 (set! entry-name
+		       (string-trim-right (string-drop-right name 9)))
+		 #t)
+		((string-suffix? "portrait" name)
+		 (set! entry-name
+		       (string-trim-right (string-drop-right name 8)))
+		 #f)
+		(else landscape?)))
+	 (entry (assoc-get entry-name paper-alist))
 	 (is-paper? (module-defined? module 'is-paper))
 	 (mm (eval 'mm module)))
+    (define (swap x)
+      (cons (cdr x) (car x)))
 
     (cond
      ((not is-paper?)
       (ly:warning (_ "This is not a \\layout {} object, ~S") module))
      (entry
-
       (set! entry (eval entry module))
-      (if landscape?
+      (if swapped?
 	  (set! entry (swap entry)))
       (set-paper-dimensions module (car entry) (cdr entry))
-
+      
       (module-define! module 'papersizename name)
       (module-define! module 'landscape
 		      (if landscape? #t #f)))

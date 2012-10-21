@@ -221,15 +221,33 @@ how to modify the snippet files and SL, see @ref{LSR work}.
 @node Sectioning commands
 @subsection Sectioning commands
 
-Most of the manual operates at the
+The Notation Reference uses section headings at four, occasionally
+five, levels.
+
+@itemize
+
+@item Level 1: @@chapter
+@item Level 2: @@section
+@item Level 3: @@subsection
+@item Level 4: @@unnumberedsubsubsec
+@item Level 5: @@subsubsubheading
+@end itemize
+
+The first three levels are numbered in html, the last two are not.
+Numbered sections correspond to a single html page in the split html
+documents.
+
+The first four levels always have accompanying nodes so they can be
+referenced and are also included in the ToC in html.
+
+Most of the manual is written at level 4 under headings created with
 
 @example
 @@node Foo
-@@subsubsection Foo
+@@unnumberedsubsubsec Foo
 @end example
 
-@noindent
-level.  Sections are created with
+Level 3 subsections are created with
 
 @example
 @@node Foo
@@ -263,11 +281,10 @@ match the node name exactly.
 No commas may be used in the node names.
 
 @item
-If a heading is desired without creating a @code{@@node}, please use
-the following:
+If a heading is desired without creating a @code{@@node}, please use:
 
 @example
-@@subheading Foo
+@@subsubsubheading Foo
 @end example
 
 @item

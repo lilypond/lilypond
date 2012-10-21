@@ -17,6 +17,6 @@ music = \relative c'' { \time 3/4 << {
 \markup "move Dot_column_engraver to Voice :"
 \score{ \music
 \layout {
-  \context {\Staff \remove Dot_column_engraver}
-  \context {\Voice \consists Dot_column_engraver}
+  \context {\Staff \remove "Dot_column_engraver"}
+  \context {\Voice \consists "Dot_column_engraver"}
 }}

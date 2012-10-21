@@ -365,9 +365,10 @@ A direct scheme expression, such as
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
-A @code{\header} block.  This sets the global header block.  This
-is the block containing the definitions for book-wide settings, like
-composer, title, etc.
+A @code{\header} block.  This sets the global (i.e. the top of
+file) header block.  This is the block containing the default
+settings of titling fields like composer, title, etc. for all
+books within the file (see @ref{Titles explained}).
 
 @item
 A @code{\score} block.  This score will be collected with other
@@ -511,6 +512,7 @@ Learning Manual:
 @rlearning{How LilyPond input files work}.
 
 Notation Reference:
+@ref{Titles explained},
 @ref{The \layout block}.
 
 
@@ -522,7 +524,7 @@ some pieces include a lot more information.
 
 @menu
 * Creating titles headers and footers::
-* Custom headers footers and titles::
+* Custom titles headers and footers::
 * Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
@@ -533,28 +535,96 @@ some pieces include a lot more information.
 @subsection Creating titles headers and footers
 
 @menu
-* Title blocks explained::
-* Default layout of book and score title blocks::
+* Titles explained::
+* Default layout of bookpart and score titles::
 * Default layout of headers and footers::
 @end menu
 
 
-@node Title blocks explained
-@unnumberedsubsubsec Title blocks explained
+@node Titles explained
+@unnumberedsubsubsec Titles explained
 
-@c TODO: figure out how \bookpart titles work
+Each @code{\book} block in a single input file produces a separate
+output file, see @ref{File structure}.  Within each output file
+two types of titling areas are provided: @emph{Bookpart Titles} at
+the beginning of each bookpart and @emph{Score Titles} at the
+beginning of each score.
 
-There are two types of title blocks: the main title block that appears
-above of the first @code{\score} of a book, and individual title
-blocks that appear within each @code{\score} block.  Text fields for
-both types are entered using a @code{\header} block.
+Values of titling fields such as @code{title} and @code{composer}
+are set in @code{\header} blocks.  (For the syntax of @code{\header}
+blocks and a complete list of the fields available by default see
+@ref{Default layout of bookpart and score titles}).  Both Bookpart
+Titles and Score Titles can contain the same fields, although by
+default the fields in Score Titles are limited to @code{piece} and
+@code{opus}.
 
-If the book only has a single score, the @code{\header} block may be
-placed inside or outside of the @code{\score} block.
+@code{\header} blocks may be placed in four different places to form
+a descending hierarchy of @code{\header} blocks:
 
-@warning{Remember when adding a @bs{}@code{header} block inside a
+@itemize
+
+@item
+At the top of the input file, before all @code{\book},
+@code{\bookpart}, and @code{\score} blocks.
+
+@item
+Within a @code{\book} block but outside all the @code{\bookpart} and
+@code{\score} blocks within that book.
+
+@item
+Within a @code{\bookpart} block but outside all @code{\score} blocks
+within that bookpart.
+
+@item
+After the music expression in a @code{\score} block.
+
+@end itemize
+
+The values of the fields filter down this hierarchy, with the values
+set higher in the hierarchy persisting unless they are over-ridden
+by a value set lower in the hierarchy, so:
+
+@itemize
+
+@item
+ A Bookpart Title is derived from fields set at the top of the input
+file, modified by fields set in the @code{\book} block, and further
+modified by fields set in the @code{\bookpart} block.  The resulting
+values are used to print the Bookpart Title for that bookpart.
+
+@item
+A Score Title is derived from fields set at the top of the input
+file, modified by fields set in the @code{\book} block, further
+modified by fields set in the @code{\bookpart} block and finally
+modified by fields set in the @code{\score} block.  The resulting
+values are used to print the Score Title for that score.  Note,
+though, that only @code{piece} and @code{opus} fields are printed
+by default in Score Titles unless the @code{\paper} variable,
+@code{print-all-headers}, is set to @code{#t}.
+
+@end itemize
+
+@warning{Remember when placing a @bs{}@code{header} block inside a
 @bs{}@code{score} block, that the music expression must come before the
 @bs{}@code{header} block.}
+
+It is not necessary to provide @code{\header} blocks in all four
+places: any or even all of them may be omitted.  Similarly, simple
+input files may omit the @code{\book} and @code{\bookpart} blocks,
+leaving them to be created implicitly.
+
+If the book has only a single score, the @code{\header} block should
+normally be placed at the top of the file so that just a Bookpart
+Title is produced, making all the titling fields available for use.
+
+If the book has multiple scores a number of different arrangements
+of @code{\header} blocks are possible, corresponding to the various
+types of musical publications.  For example, if the publication
+contains several pieces by the same composer a @code{\header} block
+placed at the top of the file specifying the book title and the
+composer with @code{\header} blocks in each @code{\score} block
+specifying the @code{piece} and/or @code{opus} would be most
+suitable, as here:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -588,8 +658,10 @@ placed inside or outside of the @code{\score} block.
 }
 @end lilypond
 
-Text fields from the main title block of a book can be displayed in all
-@code{\score} blocks, or manually suppressed:
+More complicated arrangements are possible.  For example, text
+fields from the @code{\header} block in a book can be displayed in
+all Score Titles, with some fields over-ridden and some manually
+suppressed:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -634,11 +706,12 @@ Text fields from the main title block of a book can be displayed in all
 @seealso
 Notation Reference:
 @ref{File structure},
-@ref{Custom layout for title blocks}.
+@ref{Default layout of bookpart and score titles},
+@ref{Custom layout for titles}.
 
 
-@node Default layout of book and score title blocks
-@unnumberedsubsubsec Default layout of book and score title blocks
+@node Default layout of bookpart and score titles
+@unnumberedsubsubsec Default layout of bookpart and score titles
 
 This example demonstrates all @code{\header} variables:
 
@@ -712,7 +785,7 @@ and @code{opus} text fields at opposite ends of the same line.
 
 @end itemize
 
-To change the default layout see @ref{Custom layout for title blocks}.
+To change the default layout see @ref{Custom layout for titles}.
 
 @cindex breakbefore
 
@@ -743,7 +816,7 @@ Learning Manual:
 @rlearning{How LilyPond input files work},
 
 Notation Reference:
-@ref{Custom layout for title blocks},
+@ref{Custom layout for titles},
 @ref{File structure}.
 
 Installed Files:
@@ -816,21 +889,21 @@ top-level @code{\header} block.
 To remove the @code{tagline} set the value to @code{##f}.
 
 
-@node Custom headers footers and titles
-@subsection Custom headers footers and titles
+@node Custom titles headers and footers
+@subsection Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* Custom text formatting for title blocks::
-* Custom layout for title blocks::
+* Custom text formatting for titles::
+* Custom layout for titles::
 * Custom layout for headers and footers::
 @end menu
 
 
-@node Custom text formatting for title blocks
-@unnumberedsubsubsec Custom text formatting for title blocks
+@node Custom text formatting for titles
+@unnumberedsubsubsec Custom text formatting for titles
 
 Standard @code{\markup} commands can be used to customize any header,
 footer and title text within the @code{\header} block.
@@ -850,8 +923,8 @@ Notation Reference:
 @ref{Formatting text}.
 
 
-@node Custom layout for title blocks
-@unnumberedsubsubsec Custom layout for title blocks
+@node Custom layout for titles
+@unnumberedsubsubsec Custom layout for titles
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -870,7 +943,7 @@ change either or both of the following @code{\paper} variables:
 
 The placement of titles when using the default values of these
 @code{\markup} variables is shown in the examples in
-@ref{Default layout of book and score title blocks}.
+@ref{Default layout of bookpart and score titles}.
 
 The default settings for @code{scoreTitleMarkup} as defined in
 @file{ly/titling-init.ly} are:
@@ -925,12 +998,12 @@ text field is centered and in a large, bold font.
 }
 @end lilypond
 
-Text fields normally reserved for the main title block can be included
-in individual score title blocks with the @code{print-all-headers}
+Text fields not normally effective in score @code{\header} blocks
+can be printed in the Score Title area if @code{print-all-headers} is
 placed inside the @code{\paper} block.  A disadvantage of using this
-method is that the text fields that are intended specifically for the
-top-level @code{\header} block need to be manually suppressed in every
-@code{\score} block.  See @ref{Title blocks explained}.
+method is that text fields that are intended specifically for the
+Bookpart Title area need to be manually suppressed in every
+@code{\score} block.  See @ref{Titles explained}.
 
 To avoid this, add the desired text field to the @code{scoreTitleMarkup}
 definition.  In the following example, the @code{composer} text field
@@ -1004,7 +1077,7 @@ them in the markup definition.
 
 @seealso
 Notation Reference:
-@ref{Title blocks explained}.
+@ref{Titles explained}.
 
 
 @node Custom layout for headers and footers
@@ -1110,8 +1183,8 @@ determines if the output is a single page.
 
 @seealso
 Notation Reference:
-@ref{Title blocks explained},
-@ref{Default layout of book and score title blocks}.
+@ref{Titles explained},
+@ref{Default layout of bookpart and score titles}.
 
 Installed Files:
 @file{../ly/titling-init.ly}.
@@ -1120,244 +1193,354 @@ Installed Files:
 @node Creating footnotes
 @subsection Creating footnotes
 
-There are two types of footnotes that can be created; automatic
-footnotes and manual footnotes.
+@cindex footnotes
+
+Footnotes may be used in many different situations.  In all cases,
+a @q{footnote mark} is placed as a reference in text or music, and
+the corresponding @q{footnote text} appears at the bottom of the
+same page.
+
+Footnotes within music expressions and footnotes in stand-alone text
+outside music expressions are created in different ways.
 
 @menu
-* Footnotes overview::
-* Automatic footnotes::
-* Manual footnotes::
+* Footnotes in music expressions::
+* Footnotes in stand-alone text::
 @end menu
 
-@node Footnotes overview
-@unnumberedsubsubsec Footnotes overview
+@node Footnotes in music expressions
+@unnumberedsubsubsec Footnotes in music expressions
 
-Automatic footnotes create incrementing numerical indicators and manual
-footnotes allow a custom indicator to be created instead.  Footnotes are
-normally applied like @code{\tweak} and consequently can be placed
-directly on grobs (graphical objects) created by most music elements and
-post-events.  In cases where this does not work (like with bar lines and
-meter changes, where the grobs are produced as a consequence of property
-changes), footnotes can also be specified as a standalone music event
-affecting all grobs of a given type at a particular time step.
+@cindex footnotes in music expressions
+@funindex \footnote
 
-The full form of a footnote command is
+@subsubsubheading Music footnotes overview
 
-@example
-\footnote @var{mark} @var{offset} @var{grob-name} @var{footnote}
-@var{music}
-@end example
+Footnotes in music expressions fall into two categories:
 
-The elements are as follows:
+@table @emph
+@item Event-based footnotes
+are attached to a particular event.  Examples
+for such events are single notes, notes inside a chord, articulations
+(like beams, slurs, fingering indications, accents, dynamics) and
+lyrics.
 
-@table @var
-@item mark
-is a markup or string specifying the footnote mark which is used for
-both marking the reference point as well as the footnote itself at the
-bottom of the page.  It can be omitted (or equivalently replaced with
-@code{\default}) in which case a number in sequence will be generated.
-@item offset
-is a number pair such as @samp{#(2 . 1)} specifying the X and Y offset
-from the reference point where the mark will be placed.
-@item grob-name
-specifies a type of grob to mark (like @samp{#'Flag}).  If it is given,
-the respective grob will be used as a reference point even in case that
-its @q{cause} is not the referenced @var{music} itself but a grob
-created from it.  It can be omitted (or replaced with @code{\default}),
-and then only a directly created grob will be annotated.
-@item footnote
-This markup or string specifies the footnote text to use at the bottom
-of the page.
-@item music
-This is the item, a music event or chord constituent or post-event, that
-is being annotated.  While it cannot be omitted, it @emph{can} be
-replaced by @code{\default} in which case the footnote is not attached
-to a music expression in particular, but rather to a moment of time.  It
-is mandatory in this case to use the @var{grob-name} argument for
-selecting an affected grob type, like @samp{#'TimeSignature}.
+@item Time-based footnotes
+are bound to a particular point of time in a
+musical context.  Some commands like @code{\time} and @code{\clef}
+don't actually use events for creating objects like time signatures
+and clefs.  Neither does a chord create an event of its own: its
+stem or flag is created at the end of a time step (nominally through
+one of the note events inside).  A time-based footnote allows
+annotating such layout objects without referring to an event.
+
 @end table
 
-Like with @code{\tweak}, if your @code{\footnote} is applied to a
-post-event or articulation, it will itself have to be preceded with
-@code{-} to make the parser attach the result to the preceding note or
-rest.
+The full form of a footnote command for both Event- and Time-based
+footnotes is
 
-@node Automatic footnotes
-@unnumberedsubsubsec Automatic footnotes
+@example
+[@var{direction}] \footnote [@var{mark}] @var{offset} [@var{grob-name}] @var{footnote} @var{music}
+@end example
 
-Automatic footnotes take four arguments: the @samp{(x . y)} position of
-the indicator, the optional @var{grob-name} specifying the layout object
-to be annotated, the @var{footnote} markup itself that will appear at
-the bottom of the page, and of course the @var{music} to attach the
-footnote to.
+The elements are:
 
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
+@table @var
+
+@item direction
+If (and only if) the @code{\footnote} is being applied to a
+post-event or articulation, it must be preceded with a direction
+indicator (@code{-, _, ^}) in order to attach @var{music} (with
+a footnote mark) to the preceding note or rest.
+
+@item mark
+is a markup or string specifying the footnote mark which is used for
+marking both the reference point and the footnote itself at the
+bottom of the page.  It may be omitted (or equivalently replaced with
+@code{\default}) in which case a number in sequence will be generated
+automatically.  Such numerical sequences restart on each page
+containing a footnote.
+
+@item offset
+is a number pair such as @samp{#(2 . 1)} specifying the X and
+Y@tie{}offsets in units of staff-spaces from the boundary of the
+object where the mark should be placed.  Positive values of the
+offsets are taken from the right/top edge, negative values from the
+left/bottom edge and zero implies the mark is centered on the edge.
+
+@item grob-name
+specifies a type of grob to mark (like @samp{#'Flag}).  If it is
+given, a grob of that type associated with the referenced @var{music}
+will be used as the reference point.  It can be omitted (or replaced
+with @code{\default}) if the footnote mark is to be attached to the
+directly created grob in @var{music}.
+
+@item footnote
+is the markup or string specifying the footnote text to use at the
+bottom of the page.
+
+@item music
+is the music event or chord constituent or post-event that is being
+annotated.  While it cannot be omitted, it can be replaced by
+@code{\default} in which case the footnote is not attached to a music
+expression in particular, but rather to a moment of time.  It is
+mandatory in this case to use the @var{grob-name} argument for
+selecting an affected grob type, like @samp{#'TimeSignature}.
+
+@end table
+
+@subsubsubheading Event-based footnotes
+
+@cindex footnotes, event-based
+
+The simplest form of event-based footnotes is just
+
+@example
+\footnote @var{offset} @var{footnote} @var{music}
+@end example
+
+This kind of footnote is attached to a layout object directly caused
+by the event corresponding to @var{music}.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . 3) "A note" a4
+    a4
+    \footnote #'(2 . 2) "A rest" r4
+    a4
+  }
+}
+@end lilypond
+
+If the footnote is to be attached to a post-event or articulation
+the @code{\footnote} command must be preceded by a direction
+indicator, @code{-, _, ^}, and followed by the post-event or
+articulation to be annotated as the @var{music} argument.  In this
+form the @code{\footnote} can be considered to be simply a copy of
+its last argument with a footnote mark attached to it.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    a4_\footnote #'(0 . -1) "A slur forced down" (
+    b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
+    b8 ]
+    c4 )
+    c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+Custom marks can be used as alternatives to numerical marks, and the
+annotation line joining the marked object to the mark can be
+suppressed:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2)
-      \markup { The first note }
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
     a'4 b8
-    \footnote #'(0.5 . 1) #'Flag
-      \markup { The third note }
-    e\noBeam c4 d4
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " The second note" }
+    e c4
+    \once \override Score.FootnoteItem #'annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Editorial" } \p
   }
 }
 @end lilypond
 
-Chorded notes pose no particular difficulty:
+More examples of custom marks are shown in
+@ref{Footnotes in stand-alone text}.
+
+Marking an entire chord in this manner is not possible since a
+chord does not produce an event separate from that of its chord
+constituents, but the constituents themselves can be marked.
+
+If the layout object being footmarked is @emph{indirectly} caused by
+an event (like an @code{Accidental} or @code{Stem} caused by a
+@code{NoteHead}), an additional symbol argument, the @var{grob-name},
+is required before the footnote text:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    % footnotes may be added to chord constituents
+    < \footnote #'(-1 . -3) #'Accidental "Another flat" aes
+      c
+      \footnote #'(-1 . 0.5) #'Accidental "A flat" ees
+    >2
+    \footnote #'(-1 . 2) #'Stem "A stem" ees2
+  }
+}
+@end lilypond
+
+@warning {When footnotes are attached to several musical elements at
+the same musical moment, the footnotes are numbered from the higher
+to the lower elements as they appear in the printed output, not in
+the order in which they are written in the input stream.}
+
+@subsubsubheading Time-based footnotes
+
+@cindex footnotes, time-based
+
+Layout objects like clefs and key change signatures are mostly caused
+as a consequence of changed properties rather than actual events.
+Others, like bar lines and bar numbers, are a direct consequence of
+timing.  For this reason, footnotes on such objects have to be based
+on their musical timing.  Time-based footnotes are also preferable
+when marking features like stems and beams on @emph{chords}: while
+such per-chord features are nominally assigned to @emph{one} event
+inside the chord, relying on a particular choice would be imprudent.
+
+A time-based footnote is written in the same manner as an event-based
+footnote, except that @code{\default} is used in place of music
+indicating an event.  The layout object in question should always be
+explicitly specified for time-based footnotes to avoid getting marks
+on unexpected objects.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) #'TimeSignature "Meter change" \default
+    \time 3/4
+    \footnote #'(1 . -1) #'Stem "Chord stem" \default
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) #'BarLine "Bar line" \default
+    q q
+    \footnote #'(0.5 . -1) #'KeySignature "Key change" \default
+    \key c\minor
+    q
+  }
+}
+@end lilypond
+
+
+@node Footnotes in stand-alone text
+@unnumberedsubsubsec Footnotes in stand-alone text
+
+@cindex footnotes in stand-alone text
+
+These are for use in markup outside of music expressions.  They do
+not have a line drawn to their point of reference: their marks simply
+follow the referenced markup.  Marks can be inserted automatically,
+in which case they are numerical.  Alternatively, custom marks can be
+provided manually.
+
+Footnotes to stand-alone text with automatic and custom marks are
+created in different ways.
+
+@subsubsubheading Footnotes in stand-alone text with automatic marks
+
+The syntax of a footnote in stand-alone text with automatic marks is
+
+@example
+\markup @{ ... \auto-footnote @var{text} @var{footnote} ... @}
+@end example
+
+The elements are:
+
+@table @var
+
+@item text
+is the markup or string to be marked.
+
+@item footnote
+is the markup or string specifying the footnote text to use at the bottom
+of the page.
+
+@end table
+
+For example:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote #'(1 . -1.25) "Here is a C" c
-    \footnote #'(2 . -0.25) \markup { \italic "An E-flat" } es
-    \footnote #'(2 . 3) \markup { \bold "This is a G" } g
-    >1
+  \markup {
+    "A simple"
+    \auto-footnote "tune" \italic " By me"
+    "is shown below.  It is a"
+    \auto-footnote "recent" \italic " Aug 2012"
+    "composition."
   }
-}
-@end lilypond
-
-@warning {When footnotes have the same vertical position, the footnotes
-are printed in order of descendancy; the higher the footnote, the
-higher up in the list.}
-
-Here are some more examples of footnoted grobs, also showing the
-relative position of the footnotes to the tagline and copyright.
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { copyright = \markup { "Copyright 1970" } }
-  \relative c' {
-    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
-    -\footnote #'(0 . 1.5) \markup { A slur } (
-    b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
-    \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } }
-    c4
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental }
-    \footnote #'(1 . 1) "The note itself"
-    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
-         _"rit."
-  }
-}
-@end lilypond
-
-For top-level @code{\markup}, the @code{\auto-footnote} command is
-required:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { \auto-footnote "A simple tune" \italic "By me" }
   \relative c' {
     a'4 b8 e c4 d
   }
 }
 @end lilypond
 
+@subsubsubheading Footnotes in stand-alone text with custom marks
 
-@node Manual footnotes
-@unnumberedsubsubsec Manual footnotes
+The syntax of a footnote in stand-alone text with custom marks is
 
-@cindex footnotes, manual
+@example
+\markup @{ ... \footnote @var{mark} @var{footnote} ... @}
+@end example
 
-Manually marked footnotes take an additional first markup argument
-@var{mark} for making the reference mark.  In contrast to automatically
-generated footnote marks, they will not appear before the @var{footnote}
-markup at the bottom of the page: establishing the visual connection is
-left to the user.  LilyPond will only make sure that the corresponding
-markup appears on the bottom of the same page.
+The elements are:
 
-Other than that, the use is identical to that of automatically numbered
-footnotes.
+@table @var
+
+@item mark
+is a markup or string specifying the footnote mark which is used for
+marking the reference point.  Note that this mark is @emph{not}
+inserted automatically before the footnote itself.
+
+@item footnote
+is the markup or string specifying the footnote text to use at the
+bottom of the page, preceded by the @var{mark}.
+
+@end table
+
+Any easy-to-type character such as * or + may be used as a mark, as
+shown in @ref{Footnotes in music expressions}.  Alteratively, ASCII
+aliases may be used (see @ref{ASCII aliases}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
+  \paper { #(include-special-characters) }
   \header { tagline = ##f }
+  \markup {
+    "A simple tune"
+    \footnote "*" \italic "* By me"
+    "is shown below.  It is a recent"
+    \footnote \super &dagger; \concat {
+      \super &dagger; \italic " Aug 2012"
+    }
+    "composition."
+  }
   \relative c' {
-    \footnote
-          "1" #'(0.5 . -2)
-          \markup { \italic "1. The first note" }
-    a'4
-    b8
-    \footnote
-          \markup { \bold "2" } #'(0.5 . 1)
-          "2. The second note"
-    e
-    c4
-    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
 
-To annotate chorded notes with manual footnotes:
+Unicode character codes may also be used to specify marks
+(see @ref{Unicode}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote "1" #'(1 . -1.25) "1. C" c
-    \footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
-    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
-    >1
+  \markup {
+    "A simple tune"
+    \footnote \super \char##x00a7 \concat {
+      \super \char##x00a7 \italic " By me"
+    }
+    "is shown below.  It is a recent"
+    \footnote \super \char##x00b6 \concat {
+      \super \char##x00b6 \italic " Aug 2012"
+    }
+    "composition."
   }
-}
-@end lilypond
-
-@warning {When footnotes have the same vertical position, the footnotes
-are printed in order of descendancy; the higher the footnote, the
-higher up in the list.}
-
-Here are some examples of manually footnoted grobs, also showing
-the relative position of the footnotes to the tagline and copyright
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-      \markup { \teeny 1 } #'(-3 . 0)
-      \markup { 1. \bold Forte } \f
-    -\footnote
-      \markup { \teeny b } #'(0 . 1.5)
-      \markup { b. A slur } (
-    b8)-\footnote
-      \markup { \teeny 3 } #'(0 . -2)
-      \markup { 3. Beam } [
-    e]
-    \footnote
-      \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } }
-    c4
-    \footnote
-      \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental }
-    dis?4-\footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
-      \markup \italic { a. Slow Down } _"rit."
-    \footnote
-      \markup { \teeny \musicglyph #"rests.4" }
-          #'(1.5 . -0.25)
-      \markup { \null } \breathe
-  }
-}
-@end lilypond
-
-To manually footnote a top-level @code{\markup}:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { "A simple tune" \footnote "*" \italic "* By me" }
-  \relative c' {
-    a'4 b8 e c4 d4
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
@@ -1367,11 +1550,12 @@ Learning Manual:
 @rlearning{Objects and interfaces}.
 
 Notation Reference:
+@ref{ASCII aliases},
 @ref{Balloon help},
-@ref{Page layout},
+@ref{List of special characters},
 @ref{Text marks},
 @ref{Text scripts},
-@ref{Titles and headers}.
+@ref{Unicode}.
 
 Internals Reference:
 @rinternals{FootnoteEvent},
@@ -1380,12 +1564,12 @@ Internals Reference:
 @rinternals{Footnote_engraver}.
 
 @knownissues
-Multiple footnotes for the same page can only be stacked, one on top of
-the other, and cannot be printed on the same line.  Footnotes cannot be
-attached to @code{MultiMeasureRests} and may collide with @code{Staff},
-@code{\markup} objects and other @code{footnote} annotations.  When
-using any manual @code{footnote} command a @code{\paper} block
-containing @code{footnote-auto-number = ##f} is required.
+Multiple footnotes for the same page can only be stacked, one on top
+of the other; they cannot be printed on the same line.
+
+Footnotes cannot be attached to @code{MultiMeasureRests} or
+automatic beams and footnote marks may collide with staves,
+@code{\markup} objects, other footnote marks and annotation lines.
 
 
 @node Reference to page numbers
@@ -1631,14 +1815,54 @@ statements of their own.  By default, these second-level
 been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
 not the directory containing the included file.  However,
-this behavior can be changed by passing the option
+this behavior can be changed globally by passing the option
 @option{-drelative-includes} option at the command line
 (or by adding @code{#(ly:set-option 'relative-includes #t)}
-at the top of the main input file).  With @code{relative-includes}
-set, the path for each @code{\include} command will be taken
-relative to the file containing that command.  This behavior is
-recommended and it will become the default behavior in a future
-version of lilypond.
+at the top of the main input file).
+
+When @code{relative-includes} is set to @code{#t}, the path for each
+@code{\include} command will be taken relative to the file containing
+that command.  This behavior is recommended and it will become the
+default behavior in a future version of lilypond.
+
+Files relative to the main directory and files relative to some other
+directory may both be @code{\include}d by setting
+@code{relative-includes} to @code{#t} or @code{#f} at appropriate
+places in the files.  For example, if a general library, libA, has
+been created which itself uses sub-files which are @code{\include}d
+by the entry file of that library, those @code{\include} statements
+will need to be preceded by
+@code{#(ly:set-option #relative-includes #t)} so they are interpreted
+correctly when brought into the main @code{.ly} file, like this:
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  ...
+@end example
+
+@noindent
+then the entry file, @code{libA.ly}, will contain
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+...
+% return to default setting
+#(ly:set-option 'relative-includes #f)
+@end example
+
+Any @file{.ly} file can then include the entire library simply with
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+More complex file structures may be devised by switching at
+appropriate places.
 
 Files can also be included from a directory in a search path
 specified as an option when invoking LilyPond from the command

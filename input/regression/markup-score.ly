@@ -7,7 +7,7 @@
 tuning = \markup {
     \score {
 	\new Staff \with {
-	    \remove Time_signature_engraver
+	    \remove "Time_signature_engraver"
 	} {
 	    \clef bass  <c, g, d g>1
 	}

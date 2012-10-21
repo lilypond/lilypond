@@ -1663,7 +1663,7 @@ constructions@dots{}
   \layout {
     \context {
       \Staff
-      \consists Horizontal_bracket_engraver
+      \consists "Horizontal_bracket_engraver"
     }
   }
 }

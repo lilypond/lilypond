@@ -47,7 +47,7 @@
   >>
   \layout {
     \context {
-      \Voice \remove Forbid_line_break_engraver
+      \Voice \remove "Forbid_line_break_engraver"
     }
   }
 }

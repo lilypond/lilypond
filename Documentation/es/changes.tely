@@ -121,10 +121,10 @@ independiente para cada voz.
 \layout {
   \context {
     \Staff
-    \remove Dot_column_engraver
+    \remove "Dot_column_engraver"
   } \context {
     \Voice
-    \consists Dot_column_engraver
+    \consists "Dot_column_engraver"
   }
 }
 \relative c'' <<

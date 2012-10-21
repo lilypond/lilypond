@@ -732,7 +732,7 @@ PIDs or the number of the process."
                       (> (string-length s) 0))
                     (apply append
                            (map (lambda (f)
-                                  (string-split (ly:gulp-file f) #\nl))
+                                  (string-split (string-delete (ly:gulp-file f) #\cr) #\nl))
                                 files)))))
   (if (and (number? (ly:get-option 'job-count))
            (>= (length files) (ly:get-option 'job-count)))
@@ -803,10 +803,11 @@ PIDs or the number of the process."
   (let* ((failed '())
          (separate-logs (ly:get-option 'separate-log-files))
          (ping-log
-          (if separate-logs
-              (open-file (if (string-or-symbol? (ly:get-option 'log-file))
-                             (format #f "~a.log" (ly:get-option 'log-file))
-                     "/dev/stderr") "a") #f))
+          (and separate-logs
+               (if (string-or-symbol? (ly:get-option 'log-file))
+                   (open-file (format #f "~a.log" (ly:get-option 'log-file))
+                              "a")
+                   (fdes->outport 2))))
          (do-measurements (ly:get-option 'dump-profile))
          (handler (lambda (key failed-file)
                     (set! failed (append (list failed-file) failed)))))

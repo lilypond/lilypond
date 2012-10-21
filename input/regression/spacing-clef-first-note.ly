@@ -10,7 +10,7 @@ than clef changes halfway the line."
     ragged-right = ##t
     \context {
       \Staff
-      \remove Time_signature_engraver
+      \remove "Time_signature_engraver"
     }
   }
 

@@ -2894,7 +2894,7 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -2906,7 +2906,7 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
 \score {
   \new ChoirStaff <<
     \new Staff
-    \with { \remove Bar_engraver } {
+    \with { \remove "Bar_engraver" } {
       \relative c'' {
         a4 b c2 |
         a4 b c2 |
@@ -3000,7 +3000,7 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove "Bar_engraver"
     }
   }
 }
@@ -3020,9 +3020,9 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
-      \remove Time_signature_engraver
-      \remove Clef_engraver
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
     }
   }
 }

@@ -314,7 +314,7 @@ folgenden Beispiel gezeigt:
   \layout {
     \context {
       \Staff
-      \consists Custos_engraver
+      \consists "Custos_engraver"
       \override Custos #'style = #'mensural
     }
   }
@@ -582,9 +582,9 @@ Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte
   indent = 0.0
   \context {
     \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+    \remove "Staff_symbol_engraver"
+    \remove "Clef_engraver"
+    \remove "Time_signature_engraver"
   }
 }
 {
@@ -967,8 +967,8 @@ setzt) entfernt werden, wie im Beispiel.
 \layout @{
   \context @{
     \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
+    \remove "Ligature_bracket_engraver"
+    \consists "Mensural_ligature_engraver"
   @}
 @}
 @end example
@@ -1020,8 +1020,8 @@ Eine Datei kann zum Beispiel so aussehen:
   \layout {
     \context {
       \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
+      \remove "Ligature_bracket_engraver"
+      \consists "Mensural_ligature_engraver"
     }
   }
 }

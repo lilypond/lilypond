@@ -51,10 +51,13 @@
         (iv (cons 0.0 0.0)))
 
        (if (pair? line-pos)
-           (map (lambda (x)
-                        (set! iv (cons (min (car iv) x)
-                                       (max (cdr iv) x))))
-                line-pos)
+           (begin
+             (set! iv (cons (car line-pos) (car line-pos)))
+             (map (lambda (x)
+                    (set! iv (cons (min (car iv) x)
+                                   (max (cdr iv) x))))
+                  (cdr line-pos)))
+
            (let ((line-count (ly:grob-property grob 'line-count 0)))
 
                 (set! iv (cons (- 1 line-count)
@@ -164,28 +167,82 @@
 
 (define (make-colon-bar-line grob)
   (let* ((staff-space (ly:staff-symbol-staff-space grob))
+         (line-thickness (ly:staff-symbol-line-thickness grob))
          (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot"))
-         (staff-symbol (get-staff-symbol grob))
-         (lines (staff-symbol-line-count staff-symbol))
+         (dot-y-length (interval-length (ly:stencil-extent dot Y)))
          (stencil empty-stencil)
-         (dist (* (if (or (odd? lines)
-                          (zero? lines))
-                      1
-                      (if (< staff-space 2)
-                          2
-                          0.5))
-                  staff-space)))
+         ;; the two dots of the repeat sign should be centred at the
+         ;; middle of the staff and neither should collide with staff
+         ;; lines.
+         ;; the required space is measured in line positions,
+         ;; i.e. in half staff spaces.
 
-        (if (zero? staff-space)
-            (set! staff-space 1.0))
+         ;; dots are to fall into distict spaces, except when there's
+         ;; only one space (and it's big enough to hold two dots and
+         ;; some space between them)
 
-        (let* ((stencil (ly:stencil-add stencil dot))
-               (stencil (ly:stencil-translate-axis
-                          stencil dist Y))
-               (stencil (ly:stencil-add stencil dot))
-               (stencil (ly:stencil-translate-axis
-                          stencil (/ dist -2) Y)))
-              stencil)))
+         ;; choose defaults working without any staff
+         (center 0.0)
+         (dist (* 4 dot-y-length)))
+
+    (if (> staff-space 0)
+        (begin
+          (set! dist (/ dist staff-space))
+          (let ((staff-symbol (get-staff-symbol grob)))
+
+            (if (ly:grob? staff-symbol)
+                (let ((line-pos (staff-symbol-line-positions staff-symbol)))
+
+                  (if (pair? line-pos)
+                      (begin
+                        (set! center
+                              (interval-center (staff-symbol-line-span
+                                                staff-symbol)))
+                        ;; fold the staff into two at center
+                        (let* ((folded-staff
+                                (sort (map (lambda (lp) (abs (- lp center)))
+                                           line-pos) <))
+                               (gap-to-find (/ (+ dot-y-length line-thickness)
+                                               (/ staff-space 2)))
+                               (first (car folded-staff))
+                               (found #f))
+
+                          ;; find the first space big enough
+                          ;; to hold a dot and a staff line
+                          ;; (a space in the folded staff may be
+                          ;; narrower but can't be wider than the
+                          ;; corresponding original spaces)
+                          (reduce (lambda (x y) (if (and (> (- x y) gap-to-find)
+                                                         (not found))
+                                                    (begin
+                                                      (set! found #t)
+                                                      (set! dist (+ x y))))
+                                          x)
+                                  ""
+                                  folded-staff)
+
+                          (if (not found)
+                              (set! dist (if (< gap-to-find first)
+                                             ;; there's a central space big
+                                             ;; enough to hold both dots
+                                             first
+
+                                             ;; dots should go outside
+                                             (+ (* 2 (car
+                                                      (reverse folded-staff)))
+                                                (/ (* 4 dot-y-length)
+                                                   staff-space))))))))))))
+        (set! staff-space 1.0))
+
+    (let* ((stencil empty-stencil)
+           (stencil (ly:stencil-add stencil dot))
+           (stencil (ly:stencil-translate-axis
+                     stencil (* dist (/ staff-space 2)) Y))
+           (stencil (ly:stencil-add stencil dot))
+           (stencil (ly:stencil-translate-axis
+                     stencil (* (- center (/ dist 2))
+                                (/ staff-space 2)) Y)))
+      stencil)))
 
 (define (make-dotted-bar-line grob extent)
   (let* ((position (round (* (interval-end extent) 2)))
@@ -343,21 +400,32 @@
        (if (ly:grob? staff-symbol)
            (let* ((bar-line-color (ly:grob-property grob 'color))
                   (staff-color (ly:grob-property staff-symbol 'color))
-                  (radius (ly:staff-symbol-staff-radius grob))
-                  (staff-line-thickness (ly:staff-symbol-line-thickness grob)))
+                  (staff-line-thickness (ly:staff-symbol-line-thickness grob))
+                  (staff-space (ly:staff-symbol-staff-space grob)))
 
-                 ;; Due to rounding problems, bar lines extending to the outermost edges
-                 ;; of the staff lines appear wrongly in on-screen display
-                 ;; (and, to a lesser extent, in print) - they stick out a pixel.
-                 ;; The solution is to extend bar lines only to the middle
-                 ;; of the staff line - unless they have different colors,
-                 ;;when it would be undesirable.
                  (set! staff-extent (ly:staff-symbol::height staff-symbol))
-                 (if (and (eq? bar-line-color staff-color)
-                          radius)
+
+                 (if (zero? staff-space)
+                     (set! staff-space 1.0))
+
+                 (if (< (interval-length staff-extent) staff-space)
+                     ;; staff is too small (perhaps consists of a single line);
+                     ;; extend the bar line to make it visible
                      (set! staff-extent
-                       (interval-scale staff-extent
-                                       (- 1 (* 1/2 (/ staff-line-thickness radius))))))))
+                           (interval-widen staff-extent staff-space))
+                     ;; Due to rounding problems, bar lines extending to the outermost edges
+                     ;; of the staff lines appear wrongly in on-screen display
+                     ;; (and, to a lesser extent, in print) - they stick out a pixel.
+                     ;; The solution is to extend bar lines only to the middle
+                     ;; of the staff line - unless they have different colors,
+                     ;; when it would be undesirable.
+                     ;;
+                     ;; This reduction should not influence whether bar is to be
+                     ;; expanded later, so length is not updated on purpose.
+                     (if (eq? bar-line-color staff-color)
+                         (set! staff-extent
+                               (interval-widen staff-extent
+                                               (* -1/2 staff-line-thickness)))))))
        staff-extent))
 
 (define (bar-line::bar-y-extent grob refpoint)

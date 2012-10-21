@@ -11,7 +11,7 @@ multimeasure rests. "
   ragged-right = ##t
   \context {
     \Staff
-    \consists Instrument_name_engraver
+    \consists "Instrument_name_engraver"
 
   }
 }

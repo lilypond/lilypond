@@ -1030,24 +1030,69 @@ follow a linear path: glissandos, arpeggios, and trills.
 @funindex \glissando
 @funindex glissando
 
-A @notation{glissando} is created by attaching @code{\glissando}
+A @notation{glissando} is created by appending @code{\glissando}
 to a note:
 
 @lilypond[verbatim,quote,relative=2]
 g2\glissando g'
 c2\glissando c,
+\afterGrace f,1\glissando f'16
+@end lilypond
+
+A glissando can connect notes across staves:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "right" {
+    e'''2\glissando
+    \change Staff = "left"
+    a,,4\glissando
+    \change Staff = "right"
+    b''8 r |
+  }
+  \new Staff = "left" {
+    \clef bass
+    s1
+  }
+>>
+@end lilypond
+
+A glissando can connect notes in chords.  If anything other than a
+direct one-to-one pairing of the notes in the two chords is required
+the connections between the notes are defined by setting
+@code{\glissandoMap}, where the notes of a chord are assumed to be
+numbered from zero in the order in which they appear in the input
+@file{.ly} file.
+
+@lilypond[verbatim,quote,relative=2]
+<c, e>1\glissando g' |
+<c, e>1\glissando |
+<g' b> |
+\break
+\set glissandoMap = #'((0 . 1) (1 . 0))
+<c, g'>1\glissando |
+<d a'> |
+\set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
+c1\glissando |
+<d f a> |
+\set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
+<f d a'>1\glissando |
+<c c'> |
 @end lilypond
 
 Different styles of glissandi can be created.  For details, see
 @ref{Line styles}.
 
+
 @snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{glissandi-can-skip-grobs.ly}
-
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-timing-marks-to-long-glissandi.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-glissandi-breakable.ly}
 
 @seealso
 Music Glossary:

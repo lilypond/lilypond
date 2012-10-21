@@ -1454,7 +1454,7 @@ forcés doivent être saisis au sein d'une expression polyphonique :
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove Forbid_line_break_engraver
+  \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
     { c2. \times 2/3 { c4 c c } c2. | }
@@ -3183,7 +3183,7 @@ point cette notation proportionnelle.
 
 @item @code{strict-note-spacing}
 
-@item @code{\remove Separating_line_group_engraver}
+@item @code{\remove "Separating_line_group_engraver"}
 
 @item @code{\override PaperColumn #'used = ##t}
 
@@ -3484,7 +3484,7 @@ réduire cet espace à zéro.
 }
 
 \new Staff \with {
-  \remove Separating_line_group_engraver
+  \remove "Separating_line_group_engraver"
 } {
   c'1
   \break
@@ -3554,7 +3554,7 @@ réglages en usage dans la notation proportionnelle comme, entre autres,
 @item @code{\override Beam #'breakable = ##t}
 @item @code{\override Glissando #'breakable = ##t}
 @item @code{\override TextSpanner #'breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver (dans un contexte de voix}
+@item @code{\remove "Forbid_line_break_engraver" (dans un contexte de voix}
 @end itemize
 
 Ces différents réglages permettent un espacement strict des notes

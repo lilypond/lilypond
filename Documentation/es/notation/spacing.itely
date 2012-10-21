@@ -1446,7 +1446,7 @@ paralelo con la música:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
-  \remove Forbid_line_break_engraver
+  \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
     { c2. \times 2/3 { c4 c c } c2. | }
@@ -3188,7 +3188,7 @@ proporcional, que se pueden usar solos o combinados:
 @item @code{proportionalNotationDuration}
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
-@item @code{\remove Separating_line_group_engraver}
+@item @code{\remove "Separating_line_group_engraver"}
 @item @code{\override PaperColumn #'used = ##t}
 @end itemize
 
@@ -3492,7 +3492,7 @@ espacio a cero.
 }
 
 \new Staff \with {
-  \remove Separating_line_group_engraver
+  \remove "Separating_line_group_engraver"
 } {
   c'1
   \break
@@ -3560,7 +3560,7 @@ frecuencia en las partituras proporcionales.  Entre ellos están:
 @item @code{\override Beam #'breakable = ##t}
 @item @code{\override Glissando #'breakable = ##t}
 @item @code{\override TextSpanner #'breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver in the Voice context}
+@item @code{\remove "Forbid_line_break_engraver" in the Voice context}
 @end itemize
 
 Estos ajustes dan a las notas de adorno un espaciado estricto,

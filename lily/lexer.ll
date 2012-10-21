@@ -694,7 +694,7 @@ BOM_UTF8	\357\273\277
 		   reflect after.
  		*/ 
 		is_main_input_ = include_stack_.size () > 2;
-		if (!close_input ())
+		if (!close_input () || !is_main_input_)
  	        /* Returns YY_NULL */
 			yyterminate ();
 	}
