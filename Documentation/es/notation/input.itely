@@ -19,7 +19,7 @@ generales de LilyPond, más que con la notación específica.
 
 @menu
 * Estructura del código de entrada::
-* Títulos y cabeceras::
+* Títulos y encabezamientos::
 * Trabajar sobre los archivos de entrada::
 * Controlar la salida::
 * Salida MIDI::
@@ -537,24 +537,24 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{El bloque \layout}.
 
-@node Títulos y cabeceras
-@section Títulos y cabeceras
+@node Títulos y encabezamientos
+@section Títulos y encabezamientos
 @translationof Titles and headers
 
 Casi toda la música impresa tiene un título y el nombre del
 compositor; ciertas piezas tienen mucha más información.
 
 @menu
-* Crear títulos cabeceras y pies de página::
-* Cabeceras pies y títulos personalizados::
+* Crear títulos encabezamientos y pies de página::
+* Títulos encabezamientos y pies de página personalizados::
 * Crear notas al pie::
 * Referencia a números de página::
 * Índice general::
 @end menu
 
 
-@node Crear títulos cabeceras y pies de página
-@subsection Crear títulos, cabeceras y pies de página
+@node Crear títulos encabezamientos y pies de página
+@subsection Crear títulos, encabezamientos y pies de página
 @translationof Creating titles headers and footers
 
 @menu
@@ -857,9 +857,9 @@ Para eliminar la línea @code{tagline}, establezca su valor a
 @code{##f}.
 
 
-@node Cabeceras pies y títulos personalizados
-@subsection Cabeceras, pies y títulos personalizados
-@translationof Custom headers footers and titles
+@node Títulos encabezamientos y pies de página personalizados
+@subsection Títulos, encabezamientos y pies de página personalizados
+@translationof Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
@@ -1441,7 +1441,7 @@ Referencia de la notación:
 @ref{Disposición de la página},
 @ref{Indicaciones de texto},
 @ref{Guiones de texto},
-@ref{Títulos y cabeceras}.
+@ref{Títulos y encabezamientos}.
 
 Referencia de funcionamiento interno:
 @rinternals{FootnoteEvent},

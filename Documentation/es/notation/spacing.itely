@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: b2bdfeb83d3dd8460ffe0afef5f99e08dbe7f1ba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -141,7 +141,7 @@ La función @code{set-paper-size} se estudia en la sección siguiente,
 @code{\paper} que se ocupan de la disposición de la página
 se estudian en secciones posteriores.  Las definiciones de elementos
 de marcado que se encargan de los encabezamientos, pies y títulos se
-estudian en @ref{Cabeceras pies y títulos personalizados}.
+estudian en @ref{Títulos encabezamientos y pies de página personalizados}.
 
 Casi todas las variables de @code{\paper} funcionan solamente dentro
 de un bloque @code{\paper}.  Las pocas que funcionan también en un
@@ -187,7 +187,7 @@ El equivalente de Scheme del ejemplo anterior es:
 @seealso
 Referencia de la notación:
 @ref{Tamaño del papel y escalado automático},
-@ref{Cabeceras pies y títulos personalizados},
+@ref{Títulos encabezamientos y pies de página personalizados},
 @ref{El bloque \layout}.
 
 Archivos instalados:
@@ -283,8 +283,21 @@ anchura de las líneas.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-La salida de música @emph{no} se gira, solo las dimensiones de la
-página lo hacen.
+Se pueden intercambiar las dimensiones del papel @emph{sin que la
+impresión resulte girada} (como cuando se imprime en tamaño tarjeta
+postal, o al crear gráficos para su inclusión en lugar de un documento
+independiente) añadiendo @samp{landscape} después del nombre del
+propio tamaño del papel:
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+Cuando el tamaño del papel termina de forma explícita con
+@samp{landscape} o con @samp{portrait}, la presencia de un símbolo
+@code{'landscape} @emph{solamente} afecta a la orientación de la
+impresión, no a las dimensiones del papel que se usan para la
+disposición.
 
 @seealso
 Referencia de la notación:
@@ -1512,12 +1525,6 @@ compases, y sólo en dichos lugares:
 >>
 @end example
 
-@c TODO Check this
-Una configuración de división de líneas se puede guardar como archivo
-@file{.ly} automáticamente.  Ello permite que alineaciones verticales
-se estiren para que encajen en las páginas durante una segunda
-ejecución del proceso de formateo.  Esta posibilidad es bastante
-novedosa y difícil.  Hay más detalles disponibles en @rlsr{Spacing}.
 
 @predefined
 @funindex \break

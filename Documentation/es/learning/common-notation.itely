@@ -1370,15 +1370,13 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 @end example
 
 
-
-
 @node Añadir títulos
 @subsection Añadir títulos
 @translationof Adding titles
 
 @cindex título
-@cindex cabeceras
-@cindex bloque de cabeceras
+@cindex encabezamientos
+@cindex bloque de encabezamientos
 
 @funindex \header
 @funindex header
@@ -1404,7 +1402,7 @@ sitúa por debajo del número de versión.
 
 Cuando se procesa el archivo, el título y el autor se imprimen por
 encima de la música.  Puede obtener más información sobre los títulos
-en @ruser{Crear títulos cabeceras y pies de página}.
+en @ruser{Crear títulos encabezamientos y pies de página}.
 
 
 @node Nombres de nota absolutos
@@ -1525,4 +1523,3 @@ LilyPond, de manera que los recién llegados con frecuencia no saben
 exactamente dónde deben buscar la ayuda.  Si emplea cinco minutos en
 leer cuidadosamente esta sección ¡se ahorrará horas de frustración
 buscando en el sitio equivocado!
-
