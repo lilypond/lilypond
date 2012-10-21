@@ -1129,8 +1129,8 @@ provided:
 @headitem  Procedure name           @tab  Condition tested
 
 @item print-page-number-check-first @tab  should this page number be printed?
-@item create-page-number-stencil    @tab  'print-page-numbers true?
-@item print-all-headers             @tab  'print-all-headers true?
+@item create-page-number-stencil    @tab  print-page-numbers true?
+@item print-all-headers             @tab  print-all-headers true?
 @item first-page                    @tab  first page in the book?
 @item (on-page nmbr)                @tab  page number = nmbr?
 @item last-page                     @tab  last page in the book?
