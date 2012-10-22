@@ -265,9 +265,10 @@ instrucciones y letra de canciones, pero aún no es probable que
 ofrezca resultados.
 
 @item
-@code{\tweak} now takes an optional layout object specification.  It can
-be used for tweaking layout objects that are only indirectly caused by
-the tweaked event, like accidentals, stems, and flags:
+@code{\tweak} toma ahora opcionalmente la especificación de un objeto
+de presentación.  Se puede usar para trucar objetos de presentación
+que están causados sólo indirectamente por el evento trucado, como
+alteraciones accidentales, plicas y corchetes:
 
 @lilypond[verbatim,quote,ragged-right,relative=2]
 <\tweak Accidental #'color #red   cis4
@@ -441,7 +442,7 @@ ligadura de expresión, y no solo dentro de una ligadura de fraseo.
 Asimismo, se ha añadido la función @code{\slashedGrace} que no imprime
 ninguna ligadura partiendo de la nota del mordente.
 
-@lilypond[fragment,relative=2]
+@lilypond[fragment,quote,relative=2]
 c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
 @end lilypond
 
