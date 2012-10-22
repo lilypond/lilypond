@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: ba92a1755026936bebe14a6c8ff6d2cfc704eeb1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -386,8 +386,10 @@ Una expresión directa de Scheme, como
 
 @item
 Un bloque @code{\header}.  Esto establece el bloque de encabezamiento
-global.  Es el bloque que contiene las definiciones de los ajustes
-para todo el libro, como el compositor, título, etc.
+global (es decir, al principio del archivo).  Es el bloque que
+contiene los ajustes predeterminados de los campos de encabezamientos
+como el compositor, título, etc. para todos los libros que están
+dentro del archivo (véase @ref{Explicación de los títulos}).
 
 @item
 Un bloque @code{\score}.  Esta partitura se reúne con otras partituras
@@ -535,6 +537,7 @@ Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
 
 Referencia de la notación:
+@ref{Explicación de los títulos},
 @ref{El bloque \layout}.
 
 @node Títulos y encabezamientos
@@ -558,30 +561,109 @@ compositor; ciertas piezas tienen mucha más información.
 @translationof Creating titles headers and footers
 
 @menu
-* Explicación de los bloques de títulos::
-* Presentación predeterminada de los bloques de título del libro y la partitura::
+* Explicación de los títulos::
+* Presentación predeterminada de los títulos de partes de libro y partitura::
 * Disposición predeterminada de las cabeceras y pies de página::
 @end menu
 
 
-@node Explicación de los bloques de títulos
-@unnumberedsubsubsec Explicación de los bloques de títulos
-@translationof Title blocks explained
+@node Explicación de los títulos
+@unnumberedsubsubsec Explicación de los títulos
+@translationof Titles explained
 
-@c TODO: figure out how \bookpart titles work
+Cada bloque @code{\book} de un solo archivo de entrada produce un
+archivo de salida distinto, véase @ref{Estructura del archivo}.
+Dentro de cada archivo de salida están disponibles dos tipos de zonas
+para títulos: @emph{Títulos de parte de libro} al principio de cada
+parte de un libro y @emph{Títulos de partitura} al comienzo de una
+partitura.
 
-Existen dos clases de bloques de títulos: el bloque principal de
-títulos que aparece encima del primer bloque @code{\score} de un
-libro, y los bloques individuales de título que aparecen dentro de
-cada bloque @code{\score}.  Los campos de texto para los dos tipos de
-bloque se introducen mediante un bloque @code{\header}.
+Los valores de los campos para encabezamientos tales como @code{title}
+(para el título) y @code{composer} (para el autor) se establecen en
+bloques @code{\header} (para ver la sintaxis de los bloques
+@code{\header} y una lista completa de los campos disponibles de forma
+predeterminada, consulte @ref{Presentación predeterminada de los
+títulos de partes de libro y partitura}).  Tanto los títulos de parte
+de libro como los títulos de partitura pueden contener los mismos
+campos, aunque de forma predeterminada los campos de los títulos de
+partitura se limitan a @code{piece} (pieza) y @code{opus}.
 
-Si el libro tiene una única partitura, el bloque @code{\header} se
-puede situar dentro o fuera del bloque @code{\score}.
+Los bloques @code{\header} se pueden situar en cuatro lugares
+distintos para formar una jerarquía descendente de bloques
+@code{\header}:
 
-@warning{Recuerde que al añadir un bloque @bs{}@code{header} dentro de
+@itemize
+
+@item
+Al principio del archivo de entrada, antes de cualquier otro bloque
+@code{\book}, @code{\bookpart} o @code{\score}.
+
+@item
+Dentro de un bloque @code{\book} pero fuera de los bloques
+@code{\bookpart} y @code{\score} que están dentro de ese libro.
+
+@item
+Dentro de un bloque @code{\bookpart} pero fuera de cualquier bloque
+@code{\score} dentro de dicha parte de libro.
+
+@item
+Después de la expresión musical de un bloque @code{\score}.
+
+@end itemize
+
+Los valores de los campos se fitran a través de esta jerarquía,
+persistiendo aquellos que se establecen más arriba a no ser que se
+sobreescriban por un valor establecido más abajo en la jerarquía, y
+así:
+
+@itemize
+
+@item
+Un título de parte de libro se deriva de los campos fijados al
+principio del archivo de entrada, modificado por los campos
+establecidos dentro del bloque @code{\book}, y posteriormente
+modificado por los campos que se fijan dentro del bloque
+@code{\bookpart}.  Los valores resultantes se usan para imprimir el
+título de parte de libro para esa parte.
+
+@item
+Un título de partitura se deriva de los campos que se fijan al
+principio del archivo de entrada, modificados por los campos fijados
+dentro del bloque @code{\book}, posteriormente modificados por los
+campos que se fijan dentro del bloque @code{\bookpart} y finalmente
+modificados por los campos establecidos dentro del bloque
+@code{\score}.  Los valores restulantes se utilizan para imprimir el
+título de partitura.  Observe, sin embargo, que de forma
+predeterminada solamente se imprimen los campos @code{piece} y
+@code{opus} en los títulos de partitura a no ser que la variable de
+@code{\paper}, @code{print-all-headers}, tenga el valor @code{#t}.
+
+@end itemize
+
+@warning{Recuerde que al poner un bloque @bs{}@code{header} dentro de
 un bloque @bs{}@code{score}, la expresión musical debe aparecer antes
 del bloque @bs{}@code{header}.}
+
+No es necesario aportar bloques @code{\header} en los cuatro lugares:
+cualquiera de ellos o incluso todos pueden omitirse.  De forma
+similar, los archivos de entrada sencillos pueden omitir los bloques
+@code{\book} y @code{\bookpart}, dejando que se creen de forma
+implícita.
+
+Si el lobro solamente tiene una partitura, el bloque @code{\header}
+debiera situarse normalmente al principio del archivo de forma que
+solamente se produce una zona de título de parte de libro, haciendo
+que estén disponibles para su uso todos los títulos de
+encabezamientos.
+
+Si el libro tiene varias partituras, son posibles distintas
+combinaciones de bloques @code{\header}, según los distintos tipos de
+publicaciones musicales.  Por ejemplo, si la publicación contiene
+varias piezas del mismo autor, un bloque @code{\header} colocado al
+principio del archivo que especifique el título del libro y el autor,
+con bloques @code{\header} en cada bloque @code{\score} que
+especifique la @code{piece} y/o el @code{opus} sería lo más adecuado,
+como aquí:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -615,9 +697,10 @@ del bloque @bs{}@code{header}.}
 }
 @end lilypond
 
-Los campos de texto extraídos del bloque prinicipal de título de un
-libro se pueden imprimir en todos los bloques @code{\score}, o
-suprimirse manualmente:
+Son posibles disposiciones más complejas.  Por ejemplo, los campos de
+texto extraídos del bloque @code{\header} de un libro se pueden
+imprimir en todos los títulos de partitura, con ciertos campos
+sobreescritos y otros suprimidos manualmente:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -662,12 +745,13 @@ suprimirse manualmente:
 @seealso
 Referencia de la notación:
 @ref{Estructura del archivo},
+@ref{Presentación predeterminada de los títulos de partes de libro y partitura},
 @ref{Personalización de los bloques de título}.
 
 
-@node Presentación predeterminada de los bloques de título del libro y la partitura
-@unnumberedsubsubsec Presentación predeterminada de los bloques de título del libro y la partitura
-@translationof Default layout of book and score title blocks
+@node Presentación predeterminada de los títulos de partes de libro y partitura
+@unnumberedsubsubsec Presentación predeterminada de los títulos de partes de libro y partitura
+@translationof Default layout of bookpart and score titles
 
 Este ejemplo muestra todas las variables de @code{\header}:
 
@@ -745,7 +829,7 @@ misma línea.
 @end itemize
 
 Para cambiar la disposición predeterminada, véase
-@ref{Personalización de los bloques de título}.
+@ref{Personalización de los títulos}.
 
 @cindex breakbefore
 
@@ -778,7 +862,7 @@ Manual de aprendizaje:
 @rlearning{Cómo funcionan los archivos de entrada de LilyPond}
 
 Referencia de la notación:
-@ref{Personalización de los bloques de título},
+@ref{Personalización de los títulos},
 @ref{Estructura del archivo}.
 
 Archivos de inicio:
@@ -865,15 +949,15 @@ Para eliminar la línea @code{tagline}, establezca su valor a
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* Formateo personalizado del texto de los bloques de título::
-* Personalización de los bloques de título::
+* Formateo personalizado del texto de los títulos::
+* Personalización de los títulos::
 * Disposición personalizada de cabeceras y pies de página::
 @end menu
 
 
-@node Formateo personalizado del texto de los bloques de título
+@node Formateo personalizado del texto de los títulos
 @unnumberedsubsubsec Formateo personalizado del texto de los bloques de título
-@translationof Custom text formatting for title blocks
+@translationof Custom text formatting for titles
 
 Se pueden usar instrucciones @code{\markup} estándar para personalizar
 el texto de cualquier cabecera, pie o título dentro del bloque
@@ -894,9 +978,9 @@ Referencia de la notación:
 @ref{Formatear el texto}.
 
 
-@node Personalización de los bloques de título
-@unnumberedsubsubsec Personalización de los bloques de título
-@translationof Custom layout for title blocks
+@node Personalización de los títulos
+@unnumberedsubsubsec Personalización de los títulos
+@translationof Custom layout for titles
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -917,7 +1001,7 @@ la colocación de los campos de texto, cambie una o las dos variables de
 La colocación de los títulos cuando se utilizan los valores
 predeterminados de estas variables de @code{\markup} se muestra en los
 ejemplos de
-@ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+@ref{Presentación predeterminada de los títulos de partes de libro y partitura}.
 
 Los ajustes predeterminados para @code{scoreTitleMarkup} tal y como
 están definidos en el archivo @file{ly/titling-init.ly} son:
@@ -973,14 +1057,15 @@ en negrita.
 }
 @end lilypond
 
-Los campos de texto reservados normalmente para el bloque principal de
-título se pueden insertar dentro de los bloques de título de las
-partituras individuales con la variable @code{print-all-headers}
-establecida dentro del bloque @code{\paper}.  Una desventaja de la
+Los campos de texto que normalmente no son efectivos
+dentro de los bloques @code{\header} de una partitura
+se pueden imprimir el la zona del Título de la partitura
+si se coloca @code{print-all-headers} dentro del bloque @code{\paper}.
+Una desventaja de la
 utilización de este método es que los campos de texto que están
-orientados específicamente para el bloque @code{\header} del nivel
-superior han de suprimirse manualmente en cada uno de los bloques
-@code{\score}.  Véase @ref{Explicación de los bloques de títulos}.
+orientados específicamente para la zona del título de parte de libro
+han de suprimirse manualmente en cada uno de los bloques
+@code{\score}.  Véase @ref{Explicación de los títulos}.
 
 Para evitarlo, añada el campo de texto deseado a la definición de
 @code{scoreTitleMarkup}.  En el ejemplo siguiente, el campo de texto
@@ -1054,7 +1139,7 @@ y referirnos a ellos en la definición del elemento de marcado.
 
 @seealso
 Referencia de la notación:
-@ref{Explicación de los bloques de títulos}.
+@ref{Explicación de los títulos}.
 
 
 @node Disposición personalizada de cabeceras y pies de página
@@ -1164,8 +1249,8 @@ determina si la salida es una sola página.
 
 @seealso
 Referencia de la notación:
-@ref{Explicación de los bloques de títulos},
-@ref{Presentación predeterminada de los bloques de título del libro y la partitura}.
+@ref{Explicación de los títulos},
+@ref{Presentación predeterminada de los títulos de partes de libro y partitura}.
 
 Archivos instalados:
 @file{../ly/titling-init.ly}.
@@ -1175,259 +1260,368 @@ Archivos instalados:
 @subsection Crear notas al pie
 @translationof Creating footnotes
 
+@cindex notas al pie
+
 Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 
 @menu
-* Panorámica de las notas al pie::
-* Notas al pie automáticas::
-* Notas al pie manuales::
+* Notas al pie dentro de expresiones musicales::
+* Notas al pie en texto independiente::
 @end menu
 
-@node Panorámica de las notas al pie
-@unnumberedsubsubsec Panorámica de las notas al pie
-@translationof Footnotes overview
+@node Notas al pie dentro de expresiones musicales
+@unnumberedsubsubsec Notas al pie dentro de expresiones musicales
+@translationof Footnotes in music expressions
 
-Las notas al pie automáticas crean indicadores numéricos crecientes;
-en cambio las notas al pie manuales permiten crear un indicador
-personalizado.  Normalmente, las notas al pie se aplican como
-@code{\tweak}s y por ello se pueden colocar directamente sobre los
-grobs (objetos gráficos) creados por la mayor parte de los elementos y
-post-eventos musicales.  En los casos en que esto no funciona así
-(como con las líneas divisorias y los cambios de compás, donde los
-grobs se producen como consecuencia de cambios en propiedades), las
-notas al pie se pueden también especificar como un evento musical
-independiente que afecta a todos los grobs de un tipo dado en un punto
-temporal concreto.
+@cindex notas al pie dentro de expresiones musicales
+@funindex \footnote
 
-La forma completa de una instrucción de nota al pie es
+@subsubsubheading Panorámica de las notas al pie
+
+Las notas al pie dentro de expresiones musicales caen dentro de dos
+categorías:
+
+@table @emph
+@item Notas al pie basadas en eventos
+Se adjuntan a un evento en particular.  Son ejemplos de tales eventos
+las notas sueltas, notas dentro de un acorde, articulaciones (como
+barras, ligaduras de expresión, indicaciones de digitación, acentos,
+indicaciones dinámicas) y letra de las canciones.
+
+@item Notas al pie basadas en tiempo
+Se ligan a un punto temporal determinado, dentro de un contexto
+musical.  Algunas instrucciones como @code{\time} y @code{\clef} en
+realidad no usan eventos para crear objetos como la indicación de
+compás y la clave.  Un acorde tampoco crea un evento por sí mismo: su
+plica o corchete se crea al final de un paso de tiempo (nominalmente,
+a través de uno de los eventos de nota que contiene).  Una nota al pie
+basada en tiempo permite anotar tales objetos de presentación sin
+referirse a ningún evento.
+
+@end table
+
+La forma completa de una instrucción de nota al pie tanto para las
+notas al pie basadas en eventos como para las basadas en tiempo, es:
 
 @example
-\footnote @var{marca} @var{desplazamiento} @var{grob} @var{nota}
-@var{música}
+[@var{dirección}] \footnote [@var{marca}] @var{desplazamiento} [@var{nombre-del-grob}] @var{texto-de-la-nota} @var{música}
 @end example
 
 Los elementos son como sigue:
 
 @table @var
+
+@item dirección
+Si (y sólo si) el @code{\footnote} se está aplicando a un post-evento
+o articulación, debe ir precedida de un indicador de dirección
+(@code{-, _, ^}) con el objeto de adjuntar la @var{música} (con una
+marca de nota al pie) a la nota o silencio precedente.
+
 @item marca
-es un elemento de marcado o cadena que especifica la nmarca de nota al
-pie que se usa tanto para señalar el punto de referencia como la nota
-en sí en la parte inferior de la página.  Se puede omitir (o, de forma
-equivalente, sustituirse con @code{\default}) en cuyo caso se genera
-un número en secuencia.
+es un elemento de marcado o cadena de caracteres que especifica la
+marca de nota al pie que se usa para marcar tanto el punto de
+referencia como la propia nota al pie en la parte inferior de la
+página.  Se puede omitir (o, de forma equivalente, sustituirse por
+@code{\default}) en cuyo caso se genera un número secuencialmente de
+forma automática.  Tales secuencias numéricas se reinician en cada
+página que contiene una nota al pie.
+
 @item desplazamiento
-es una pareja de números como @samp{#(2 . 1)} que especifica los
-desplazamientos X e Y a partir del punto de referencia en que se
-situará la marca.
-@item grob
-especifica, por su nombre, un tipo de objeto gráfico o grob que marcar
-(como @samp{#'Flag} para el corchete de una nota).  Si se da, el grob
-respectivo se usa como punto de referencia incluso en el caso de que
-su @q{causa} no sea la propia @var{música} referenciada sino un grob
-creado a partir de ella. Se puede omitit (o sustituirse por
-@code{\default}), y entonces sólo se anotará un grob creado
-directamente.
-@item nota
-Esta cadena o elemento de marcado especifica el texto de la nota que
-utilizar en la parte inferior de la página.
+es una pareja de números tal como @samp{#(2 . 1)} que especifica los
+desplazamientos en X y en Y en unidades de espacios de pentagrama a
+partir del límite del objeto en que se desea situar la marca.  Los
+valores de desplazamiento positivos se toman a partir del borde
+superior derecho, los valores negativos a partir del borde inferior
+izquierdo y cero implica que la marca se centra sobre el borde.
+
+@item nombre-del-grob
+especifica un tipo de grob que marcar (como @samp{#'Flag} para el
+corchete).  Si se da, se usa como punto de referencia un grob de ese
+tipo asociado con la @var{música} referenciada.  Se puede omitir (o
+sustituirse con @code{\default}) si se desea que la marca de nota al
+pie se adjunte al grob directamente creado dentro de @var{música}.
+
+@item texto-de-la-nota
+es el elemento de marccado o cadena de caracteres que especifica el
+texto de la nota al pie que utilizar en la parte baja de la página.
+
 @item música
-Éste es el elemento, evento musical o componente de un acorde o
-post-evento, que se está anotando.  Aunque no puede omitirse, @emph{sí
-puede} sustituirse por @code{\default} en cuyo caso la nota al pie no
-se adjunta a una expresión musical dada, sino a un momento de tiempo.
-Es obligatorio en este caso utilizar el argumento @var{grob} para
-seleccionar un tipo de grob afectado, como @samp{#'TimeSignature}
-(indicación de compás).
+es el evento musical o componente de un acorde o post-evento que se
+está anotando.  Aunque no se puede omitir, se puede sustituir por
+@code{\default} en cuyo caso la nota al pie no se adjunta a ninguna
+expresión en particular, sino más bien a un momento de tiempo.  Es
+obligatorio en este caso utilizar el argumento @var{nombre-del-grob}
+para seleccionar un tipo de grob afectado, como por ejemplo
+@samp{#'TimeSignature}.
+
 @end table
 
-Como ocurre con @code{\tweak}, si nuestra @code{\footnote} se aplica a
-un post-evento o articulación, tendrá que ser ella misma precedida de
-@code{-} para que el analizador sintáctico adjunte el resultado a la
-nota o silencio precedente.
+@subsubsubheading Notas al pie basadas en eventos
 
+@cindex Notas al pie, basadas en eventos
 
-@node Notas al pie automáticas
-@unnumberedsubsubsec Notas al pie automáticas
-@translationof Automatic footnotes
+La forma más simple de una nota al pie basada en eventos es
+sencillamente
 
-Las notas al pie automáticas toman cuatro argumentos: la posición
-@samp{(x . y)} del indicador, el nombre opcional del @var{grob} que
-especifica el objeto de presentación que se anota, el elemento de
-marcado de la porpia @var{nota} que aparecerá en la parte inferior de
-la página, y por supuesto la @var{música} a que adjuntar la nota al
-pie.
+@example
+\footnote @var{desplazamiento} @var{texto-de-la-nota} @var{música}
+@end example
 
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
+Este tipo de nota al pie se adjunta a un objeto de presentación
+causado directamente por el evento que corresponde a @var{música}.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . 3) "A note" a4
+    a4
+    \footnote #'(2 . 2) "A rest" r4
+    a4
+  }
+}
+@end lilypond
+
+Si se desea que la nota al pie se adjunte a un post-evento o
+articulación, la instrucción @code{\footnote} debe ir precedida por un
+indicador de dirección, @code{-, _, ^}, y seguida por el post-evento o
+articulación que se desea anotar como argumento @var{música}.  En esta
+forma, la @code{\footnote} se puede considerar como una simple copia
+de su último argumento con una marca de nota al pie adjunta.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    a4_\footnote #'(0 . -1) "A slur forced down" (
+    b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
+    b8 ]
+    c4 )
+    c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+Se pueden usar marcas personalizadas como altenativas a las marcas
+numéricas, y la línea de anotación que une el objeto marcado con la
+marca puede suprimirse:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2)
-      \markup { The first note }
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
     a'4 b8
-    \footnote #'(0.5 . 1) #'Flag
-      \markup { The third note }
-    e\noBeam c4 d4
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " The second note" }
+    e c4
+    \once \override Score.FootnoteItem #'annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Editorial" } \p
   }
 }
 @end lilypond
 
-Las notas en acorde no ofrecen ninguna dificultad especial:
+Se pueden ver más ejemplos de marcas personalizadas en
+@ref{Notas al pie en texto independiente}.
+
+No es posible hacer un acorde completo de esta forma porque un acorde
+no produce un evento distinto al de las notas que lo componen, pero
+las propias notas que lo componen sí se pueden marcar.
+
+Si el objeto de presentación que se está anotando está causado
+@emph{indirectly} por un evento (como una alteración accidental o una
+plica causados por una cabeza de nota), se requiere un argumento
+adicional de símbolo, el @var{nombre-del-grob}, antes del texto de la
+nota al pie:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    % footnotes may be added to chord constituents
+    < \footnote #'(-1 . -3) #'Accidental "Another flat" aes
+      c
+      \footnote #'(-1 . 0.5) #'Accidental "A flat" ees
+    >2
+    \footnote #'(-1 . 2) #'Stem "A stem" ees2
+  }
+}
+@end lilypond
+
+@warning {Cuando las notas al pie se adjuntan a varios elementos musicales que
+están dentro del mismo momento musical, las notas al pie se numeran
+desde los elementos más altos a los más bajos tal y como aparecen en
+la salida impresa, no en el orden en que se escriben en el flujo de
+entrada.}
+
+@subsubsubheading Notas al pie basadas en tiempo
+
+@cindex Notas al pie, basadas en tiempo
+
+Los objetos de presentación como las claves y las armaduras de
+tonalidad están producidas mayormente como consecuencia de propiedades
+cambiadas, más que como verdaderos eventos.  Otros, como las líneas
+divisorias y los números de compás, son una consecuencia directa de la
+cuenta de tiempo.  Por este motivo, las notas al pie basadas en estos
+objetos tienen que estar basadas en su cuenta de tiempo musical.  Las
+notas al pie basadas en tiempo son preferibles también cuando se están
+creando funcionalidades como plicas y barras dentro de @emph{acordes}:
+mientras que tales funcionalidades por cada acorde se asignan
+normalmente a @emph{un} evento dentro del acorde, confiar en una
+elección en particular sería imprudente.
+
+Una nota al pie basada en tiempo se escribe de la misma manera que con
+una nota al pie basada en evento, excepto que se usa @code{\default}
+en lugar de la música que indica un evento.  El objeto de presentación
+en cuestión debería siempre especificarse explícitamente para las
+notas al pie basadas en tiempo para evitar acabar teniendo marcas en
+los objetos más inesperados.
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) #'TimeSignature "Meter change" \default
+    \time 3/4
+    \footnote #'(1 . -1) #'Stem "Chord stem" \default
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) #'BarLine "Bar line" \default
+    q q
+    \footnote #'(0.5 . -1) #'KeySignature "Key change" \default
+    \key c\minor
+    q
+  }
+}
+@end lilypond
+
+
+@node Notas al pie en texto independiente
+@unnumberedsubsubsec Notas al pie en texto independiente
+@translationof Footnotes in stand-alone text
+
+@cindex notas al pie en texto independiente
+
+Se utilizan dentro de un elemento de marcado fuera de cualquier
+expresión musical.  No se traza una líne hasta el punto de referencia:
+la marca simplemente sigue al elemento de marcado que se referencia.
+Se pueden insertar las marcas automáticamente, en cuyo caso son
+numéricas.  De forma alternativa, se pueden aportar manualmente marcas
+personalizadas.
+
+Las notas al pie para texto independiente con marcas automáticas y
+personalizadas se crean de distintas formas.
+
+@subsubsubheading Notas al pie en texto independiente con marcas automáticas
+
+La sintaxis de una nota al pue sobre texto independiente con marcas
+automáticas es
+
+@example
+\markup @{ ... \auto-footnote @var{texto} @var{nota} ... @}
+@end example
+
+Los elementos son:
+
+@table @var
+
+@item texto
+es el elemento de marcado o cadena de caracteres que se desea anotar.
+
+@item nota
+es el elemento de marcado o cadena de caracteres que especifica el
+texto de la nota al pie que utilizar en la parte baja de la página.
+
+@end table
+
+Por ejemplo:
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote #'(1 . -1.25) "Here is a C" c
-    \footnote #'(2 . -0.25) \markup { \italic "An E-flat" } es
-    \footnote #'(2 . 3) \markup { \bold "This is a G" } g
-    >1
+  \markup {
+    "A simple"
+    \auto-footnote "tune" \italic " By me"
+    "is shown below.  It is a"
+    \auto-footnote "recent" \italic " Aug 2012"
+    "composition."
   }
-}
-@end lilypond
-
-@warning{Cuando las notas al pie tienen la misma posición vertical, se
-imprimen en orden de descendencia: cuando más alta es la nota al pie,
-más arriba está en la lista.}
-
-He aquí unos ejemplos más de grobs con notas al pie, que
-muestran también la posición relativa de las notas respecto de la
-línea informativa y la línea de copyright.
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { copyright = \markup { "Copyright 1970" } }
-  \relative c' {
-    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
-    -\footnote #'(0 . 1.5) \markup { A slur } (
-    b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
-    \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } }
-    c4
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental }
-    \footnote #'(1 . 1) "The note itself"
-    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
-         _"rit."
-  }
-}
-@end lilypond
-
-Para los elementos @code{\markup} del nivel superior, se requiere el
-uso de la instrucción @code{\auto-footnote}:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { \auto-footnote "A simple tune" \italic "By me" }
   \relative c' {
     a'4 b8 e c4 d
   }
 }
 @end lilypond
 
+@subsubsubheading Notas al pie sobre texto independiente con marcas personalizadas
 
-@node Notas al pie manuales
-@unnumberedsubsubsec Notas al pie manuales
-@translationof Manual footnotes
+La sintaxis de una nota al pie sobre texto independiente con marcas
+personalizadas es
 
-@cindex notas al pie manuales
+@example
+\markup @{ ... \footnote @var{marca} @var{nota} ... @}
+@end example
 
-Las notas al pie marcadas manualmente toman un primer argumento
-adicional de marcado, @var{marca} para construir la marca de
-referencia.  A diferencia de las marcas de notas al pie generadas
-automáticamente, no aparecen antes del elemento de marcado @var{nota}
-en la parte inferior de la página: el establecimiento de la conexión
-visual se deja para el usuario.  LilyPond sólo asegura que el marcado
-correspondiente aparece en la parte inferior de la misma página.
+Los elementos son:
 
-Aparte de esto, su uso es idéntico al de las notas al pie numeradas
-automáticamente.
+@table @var
+
+@item marca
+es un elemento de marcado o cadena de caracteres que especifica la
+marca que se usa para señalar el punto de referencia.  Observe que
+esta marca @emph{no} se inserta automáticamente antes de la propia
+nota al pie.
+
+@item nota
+es el elemento de marcado o cadena de caracteres que especifica el
+texto de la nota que aparece en la parte baja de la página, precedida
+por la @var{marca} especificada.
+
+@end table
+
+Se puede usar como marca un carácter fácil de teclear, como * ó +,
+según se muestra en @ref{Notas al pie dentro de expresiones musicales}.
+De forma alternativa, se pueden usar alias en ASCII (véase
+@ref{Alias de ASCII}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
+  \paper { #(include-special-characters) }
   \header { tagline = ##f }
+  \markup {
+    "A simple tune"
+    \footnote "*" \italic "* By me"
+    "is shown below.  It is a recent"
+    \footnote \super &dagger; \concat {
+      \super &dagger; \italic " Aug 2012"
+    }
+    "composition."
+  }
   \relative c' {
-    \footnote
-          "1" #'(0.5 . -2)
-          \markup { \italic "1. The first note" }
-    a'4
-    b8
-    \footnote
-          \markup { \bold "2" } #'(0.5 . 1)
-          "2. The second note"
-    e
-    c4
-    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
 
-Para anotar notas de acordes con notas al pie manuales:
+También pueden utilizarse códigos de caracteres Unicode para
+especificar las marcas (véase @ref{Unicode}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote "1" #'(1 . -1.25) "1. C" c
-    \footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
-    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
-    >1
+  \markup {
+    "A simple tune"
+    \footnote \super \char##x00a7 \concat {
+      \super \char##x00a7 \italic " By me"
+    }
+    "is shown below.  It is a recent"
+    \footnote \super \char##x00b6 \concat {
+      \super \char##x00b6 \italic " Aug 2012"
+    }
+    "composition."
   }
-}
-@end lilypond
-
-@warning {Cuando las notas al pie tienen la misma posición vertical, las
-anotaciones se imprimen en orden de descendencia; cuanto más alta es
-la nota al pie, más arriba está en la lista.}
-
-He aquí algunos ejemplos de grobs anotados manualmente, mostrando
-también la posición relativa de las notas al pie respecto a la línea
-informativa a la de copyright:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-      \markup { \teeny 1 } #'(-3 . 0)
-      \markup { 1. \bold Forte } \f
-    -\footnote
-      \markup { \teeny b } #'(0 . 1.5)
-      \markup { b. A slur } (
-    b8)-\footnote
-      \markup { \teeny 3 } #'(0 . -2)
-      \markup { 3. Beam } [
-    e]
-    \footnote
-      \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } }
-    c4
-    \footnote
-      \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental }
-    dis?4-\footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
-      \markup \italic { a. Slow Down } _"rit."
-    \footnote
-      \markup { \teeny \musicglyph #"rests.4" }
-          #'(1.5 . -0.25)
-      \markup { \null } \breathe
-  }
-}
-@end lilypond
-
-Para anotar manualmente un elemento @code{\markup} del nivel superior:
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { "A simple tune" \footnote "*" \italic "* By me" }
-  \relative c' {
-    a'4 b8 e c4 d4
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
@@ -1437,11 +1631,12 @@ Manual de aprendizaje:
 @rlearning{Objetos e interfaces}.
 
 Referencia de la notación:
+@ref{ASCII aliases},
 @ref{Globos de ayuda},
-@ref{Disposición de la página},
+@ref{List of special characters},
 @ref{Indicaciones de texto},
 @ref{Guiones de texto},
-@ref{Títulos y encabezamientos}.
+@ref{Unicode}.
 
 Referencia de funcionamiento interno:
 @rinternals{FootnoteEvent},
@@ -1451,13 +1646,12 @@ Referencia de funcionamiento interno:
 
 @knownissues
 Varias notas al pie en la misma página solo pueden ir apiladas unas
-sobre otras, y no se pueden imprimir en la misma línea.  Las notas al
-pie no se pueden adjuntar a elementos de silencio multicompás
-@code{MultiMeasureRests}, y pueden colisionar con el objeto
-@code{Staff}, objetos de @code{\markup} y otras anotaciones
-@code{footnote}.  Cuando use una cualquiera de las instrucciones
-@code{footnote} se requiere un bloque @code{\paper} que contenga
-@code{footnote-auto-number = ##f}.
+sobre otras; no se pueden imprimir en la misma línea.
+
+Las notas al pie no se pueden adjuntar a @code{MultiMeasureRests}
+(silencios multicompás) o a barras de corchea automáticas y las notas
+al pie pueden colisionar con las pautas, objetos @code{\markup}, otras
+marcas de notas al pie y líneas de anotación.
 
 
 @node Referencia a números de página
@@ -1714,14 +1908,57 @@ Los archivos de inclusión también pueden contener enunciados
 incorporan al archivo principal, por lo que los nombres de archivo que
 especifican deben ser relativos al directorio que contiene el archivo
 principal, no al directorio que contiene el archivo incluido.  Sin
-embargo, este comportamiento se puede modificar pasando la opción
-@option{-drelative-includes} en la línea de órdenes (o mediante la
-adición de @code{#(ly:set-option 'relative-includes #t)} al principio
-del archivo principal de entrada).  Con el valor de
-@code{relative-includes} establecido, la ruta de cada instrucción
-@code{\include} se considera relativa al archivo que contiene dicha
-instrucción.  Este comportamiento es el recomendado y se convertirá en
-el comportamiento predeterminado en una versión futura de lilypond.
+embargo, este comportamiento se puede modificar globalmente pasando la
+opción @option{-drelative-includes} en la línea de órdenes (o mediante
+la adición de @code{#(ly:set-option 'relative-includes #t)} al
+principio del archivo principal de entrada).
+
+Cuando @code{relative-includes} está establecido al valor @code{#t},
+la ruta de cada instrucción @code{\include} se considera relativa al
+archivo que contiene dicha instrucción.  Este comportamiento es el
+recomendado y se convertirá en el comportamiento predeterminado en una
+versión futura de lilypond.
+
+Tanto los archivos relativos al directorio principal como los archivos
+relativos a algún otro directorio se pueden @code{\include}ar mediante
+el establecimiento de @code{relative-includes} al valor @code{#t} o a
+@code{#f} en los lugares apropiados dentro de los archivos.  Por
+ejemplo, si se ha creado una biblioteca genérica, libA, que a su vez
+utiliza sub-archivos que se @code{\include}an por medio del archivo de
+entrada de dicha biblioteca, esas instrucciones @code{\include}
+tendrán que venir precedidas por @code{#(ly:set-option
+#relative-includes #t)} de manera que se interpreten correctamente al
+construir el archivo de entrada @code{.ly} principal, de esta forma:
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  ...
+@end example
+
+@noindent
+entonces el archivo de entrada, @code{libA.ly}, contiene
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+...
+% vuelta al ajuste predeterminado
+#(ly:set-option 'relative-includes #f)
+@end example
+
+Cualquier archivo @file{.ly} puede entonces incluir la biblioteca
+completa, simplemente con
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+Se pueden usar estructuras de archivo más complejas instando los
+cambios en los lugares adecuados.
 
 También se pueden incluir archivos de un directorio que está en una
 ruta de búsqueda especificada como opción al invocar a LilyPond desde
@@ -2164,6 +2401,7 @@ portuguese = \lyricmode {
 
 @node Unicode
 @unnumberedsubsubsec Unicode
+@translationof Unicode
 
 @cindex Unicode
 
