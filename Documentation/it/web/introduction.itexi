@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 6cb3cdbe1895fd9cb466fa8b6338c1420065cb79
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1048,6 +1048,24 @@ In particular, don't link to:
 @end ignore
 
 @divClass{column-center-top}
+@subheading Tunefl
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.tunefl.com}
+
+Con tunefl è possibile scrivere le partiture direttamente online,
+senza bisogno di installare lilypond sul proprio computer. Consente di
+sperimentare tutte le funzionalità del programma usando una comoda
+interfaccia web.
+
+@divEnd
+
+
+@divClass{column-center-top}
 @subheading LilyPondTool
 
 @imageClickable{lilypondtool-2.12-screenshot-400wide,png,
@@ -1121,6 +1139,15 @@ quando elaborato da lì.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@uref{http://elysium.thsoft.hu}
+
+Elysium è un ambiente di sviluppo integrato (IDE) per LilyPond ed è
+un'estensione dell'editor Eclipse.  Ha una vista che affianca
+sorgente e spartito e permette un rapido feedback visivo e sonoro
+senza bisogno di cambiare i contesti.  Include molti modelli con
+configurazione assistita.
+
+
 @uref{http://www.gnu.org/software/emacs/}
 
 Emacs è un editor di testo che ha la capacità di comprendere molti
@@ -1173,14 +1200,25 @@ esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
 che vogliono provarlo sono benvenuti.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-un editor di partiture basato sulla libreria
-@uref{http://www.cairographics.org,Cairo}, supporta in via sperimentale
-l'esportazione in formato LilyPond.
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} è un programma GNU/Linux che
+converte uno spartito @uref{http://www.gvox.com/,Encore} in uno in formato
+LilyPond.
+
+@item
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} è uno strumento Go che
+converte i file @uref{http://www.gvox.com/,Encore} in formato LilyPond. È stato
+creato grazie al lavoro di ricerca e di reverse engineering di Felipe Castro, che
+ha modificato file .enc esistenti e li ha caricati usando la versione demo 4.55.
 
 @item
 @uref{http://www.musescore.org,MuseScore}, un editor di partiture, ha un'esportazione
 in formato LilyPond incompleta ma è in attivo sviluppo.
+
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+un editor di partiture basato sulla libreria
+@uref{http://www.cairographics.org,Cairo}, supporta in via sperimentale
+l'esportazione in formato LilyPond.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
@@ -1189,10 +1227,9 @@ NW2LY} è un programma scritto in C# che converte una canzone di NoteWorthy
 in formato LilyPond.
 
 @item
-@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
-Ripple} è un programma che aiuta a creare partiture e parti; include un
-modo per mischiare insieme opere musicali diverse in una singola partitura
-o parte.
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple} è
+un programma che aiuta a creare partiture e parti; include un modo per
+mischiare insieme opere musicali diverse in una singola partitura o parte.
 
 @item
 @uref{http://www.rosegardenmusic.com,Rosegarden}, un sequencer audio

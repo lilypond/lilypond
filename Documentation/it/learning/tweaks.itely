@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -165,8 +165,8 @@ normalmente.
 @end multitable
 
 Come vedremo tra poco, ogni tipo di oggetto richiede un comando diverso
-per modificare le sue proprietà, dunque è utile poter riconoscere il
-tipo di oggetto dai nomi delle sue proprietà.
+per modificare le sue proprietà, dunque è utile poter riconoscere i tipi
+di oggetti e proprietà dai loro nomi.
 
 
 @node Metodi di modifica
@@ -581,11 +581,8 @@ interno e cercare lì.
 
 La pagina sulla legatura di portamento (@emph{Slur}) ci dice per prima cosa che gli
 oggetti Slur sono creati dall'incisore Slur_engraver.  Poi elenca le impostazioni
-standard.
-@c removed, see issue 2791. -- fb
-@c Si noti che queste @strong{non} sono in ordine alfabetico.
-Scorrile cercando la proprietà che potrebbe controllare lo spessore delle
-legature di portamento; dovresti trovare
+standard.  Scorrile cercando la proprietà che potrebbe controllare lo spessore
+delle legature di portamento; dovresti trovare
 
 @example
 @code{thickness} (number)
@@ -1739,7 +1736,8 @@ seguente mostra questo @q{annidamento} delle note su righi adiacenti:
 
 Abbiamo già visto come i comandi @code{\voiceXXX} influenzino
 la direzione di legature di portamento e di valore, delle diteggiature e
-di qualsiasi altro elemento che dipenda dalla direzione dei gambi.
+di qualsiasi altro elemento che dipenda dalla direzione dei gambi (vedi
+@ref{Explicitly instantiating voices}).
 Questi comandi sono fondamentali quando si scrive musica polifonica,
 perché permettono di distinguere le linee melodiche che si intrecciano.
 Talvolta, però, capita di voler modificare questo comportamento

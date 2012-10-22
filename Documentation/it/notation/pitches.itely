@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+   Translation of GIT committish: 35d565c89b853ed87b1bb2feb59f6ce8bef6263b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -911,7 +911,7 @@ Può anche essere rovesciato per produrre il @notation{retrogrado}, si veda
 @warning{Le note che non si trovano all'interno della scala definita non
 vengono trasformate.}
 
-@subsubheading Trasposizione modale
+@subsubsubheading Trasposizione modale
 
 @cindex trasposizione modale
 @cindex modale, trasposizione
@@ -968,7 +968,7 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-@subsubheading Inversione modale
+@subsubsubheading Inversione modale
 
 @cindex inversione modale
 @cindex modale, inversione
