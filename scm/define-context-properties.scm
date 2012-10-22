@@ -581,7 +581,7 @@ Example:
 
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
-are described in @rinternals{bar-line-interface}.")
+are described in @file{scm/bar-line.scm}.")
      )))
 
 
