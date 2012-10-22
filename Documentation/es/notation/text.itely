@@ -20,8 +20,8 @@ formateo) en las partituras.
 
 @noindent
 Ciertos elementos de texto de los que no nos ocupamos aquí se tratan
-en otras secciones específicas: @ref{Música vocal}, @ref{Títulos y
-cabeceras}.
+en otras secciones específicas: @ref{Música vocal},
+@ref{Títulos y encabezamientos}.
 
 @menu
 * Escritura del texto::
