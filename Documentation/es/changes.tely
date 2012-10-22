@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2e3c5412eacdbfd976d2cd6c5cc90f272ddfc263
+    Translation of GIT committish: cced43289cf170305e6e6517180659a1c4fa91db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ Véase el manual del usuario, \NAME\
 @finalout
 
 @node Top
-@top Funcionalidades nuevas de la versión 2.16 desde la 2.14
+@top Funcionalidades nuevas de la versión 2.18 desde la 2.16
 
 @allowcodebreaks false
 
@@ -68,407 +68,34 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
-@item
-Se contemplan las plicas de pentagrama cruzado en acordes, utilizando
-@code{crossStaff} y el grabador @code{Span_stem_engraver}.  Éste
-efectúa el cálculo de la longitud de las plicas de pentagrama cruzado
-de forma automática.
-@lilypondfile[quote]
-{cross-staff-stems.ly}
 
 @item
-La sintaxis de las palabras (secuencias de caracteres que se reconocen
-sin encerrarlas entre comillas) y las instrucciones (que ahora son
-siempre una barra invertida @samp{\} seguida de una palabra) se ha
-unificado para todos los modos: ahora consiste en caracteres
-alfabéticos, posiblemente comprendiendo guiones aislados @samp{-} y
-guiones bajos @samp{_}.
-
-Una consecuencia es que la utilización de guiones de texto sin
-entrecomillar como (literalmente)
-@example
-@{ c-script c\f_script @}
-@end example
-ahora tienden a producir una música no válida.  La omisión de las
-comillas para texto arbitrario en lugar de palabras clave nunca ha
-sido una buena práctica o se ha documentado, y es poco probable que se
-haya utilizado mucho.
-
-Quedarse con las convenciones establecidas (como no utilizar guiones o
-guiones bajos para los nombres de instrucción orientados a ser
-utilizados dentro de la música) sigue siendo recomendable.  El motivo
-de este cambio es el reconocimiento más robusto de las unidades
-léxicas de LilyPond para sí mismo así como para las herramientas
-externas que interpretan su sintaxis.
+Se ha modificado la interfaz de usuario de las líneas divisorias.
+Los glifos de barra de compás ahora se asemejan al aspecto de los
+caracteres utilizados para expresar el tipo de barra, de manera
+que un signo de repetición por la izquierda se debe codificar como
+@code{.|:}.  La instrucción @code{\defineBarLine} provee una
+manera sencilla de definir estilos adicionales de línea divisoria.
 
 @item
-Se contempla el canto kievano en notación cuadrada:
-@lilypond[quote,relative=1,verbatim]
-\new KievanVoice {
-  \cadenzaOn
-  c d e f g a bes
-  \bar "kievan"
-}
+Las alteraciones accidentales en la armadura de la tonalidad se
+pueden imprimir en distinta octava de las posiciones
+tradicionales, o en más de una octava.
+@lilypond[quote,relative=0]
+\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+\override Staff.KeySignature #'sharp-positions = #'(2)
+\bar "||" \key d\major b fis b2
 @end lilypond
-
-@item
-Los puntillos ahora evitan a las otras voces en la polifonía a dos
-partes, de manera que los usuarios pueden trasladar el grabador
-@code{Dot_column_engraver} para ajustar los puntillos de forma
-independiente para cada voz.
-
-@lilypond[quote]
-\layout {
-  \context {
-    \Staff
-    \remove "Dot_column_engraver"
-  } \context {
-    \Voice
-    \consists "Dot_column_engraver"
-  }
-}
-\relative c'' <<
-  { \time 6/8
-    <d f g>4. <d f g> <f, g> b
-  } \\ {
-    <f g b>4. <g b d> <b d> <e, g>
-  } >>
-@end lilypond
-
-@item
-Ahora se incluye en LilyPond una función de Scheme, desarrollada por
-varios usuarios, para ajustar los puntos de control de las curvas como
-ligaduras de unión y de expresión.
-
-@lilypond[quote,verbatim,relative=2]
-g8->( bes,-.) d4
-\shape #'((-0.5 . 1.5) (-3 . 0) (0 . 0) (0 . 0)) Slur
-g8->( bes,!-.) d4
-@end lilypond
-
-@item
-El uso de las especificaciones de @code{\tempo} en los bloques
-@code{\midi} (eliminados en la versión 2.9.16 en favor del ajuste
-explícito de @code{tempoWholesPerMinute}) ha resurgido: ahora
-cualquier clase de música que efectúe ajustes de propiedades se
-convierte en definiciones de contexto dentro de las especificaciones
-de salida, permitiendo declaraciones como
-@example
-\layout @{ \accidentalStyle modern @}
-\midi @{ \tempo 4. = 66 @}
-@end example
-
-@item
-Se ha rediseñado la clave de Sol de LilyPond: el bucle superior está
-más equilibrado, el gancho inferior sobresale menos y la línea
-vertical principal ("spine") está curvada de forma más regular.
-Pueden compararse las versiones vieja y nueva consultando la
-documentación:
-@uref{http://lilypond.org/doc/v2.14/Documentation/notation/the-feta-font.html#clef-glyphs,
-versión antigua},
-@uref{http://lilypond.org/doc/v2.15/Documentation/notation/the-feta-font.html#clef-glyphs,
-versión nueva}.
-
-@item
-Se han simplificado las instrucciones de los sellos de elementos
-gráficos para permitir una menor duplicación de código y mejores
-aproximaciones de altura de los objetos gráficos.  Se han eliminado
-las siguientes instrucciones de sello:
-@itemize
-@item @code{beam}
-@item @code{bezier-sandwich}
-@item @code{bracket}
-@item @code{dashed-slur}
-@item @code{dot}
-@item @code{oval}
-@item @code{repeat-slash}
-@item @code{zigzag-line}
-@end itemize
-
-@item
-Ahora se tratan los corchetes como objetos diferenciados y no como
-parte de la plica.
-@lilypond[fragment,quote,relative=2]
-\override Flag #'color = #red
-g8
-@end lilypond
-
-@item
-Se puede elegir entre dos métodos de numeración de compases, en
-especial para cuando se emplean repeticiones:
-
-@lilypond[fragment,quote,relative=1,noragged-right]
-\relative c'{
-  \set Score.alternativeNumberingStyle = #'numbers
-  \repeat volta 3 { c4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1 \break
-  \set Score.alternativeNumberingStyle = #'numbers-with-letters
-  \repeat volta 3 { c,4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1
-}
-@end lilypond
-
-@item
-Lo que sigue es un cambio fundamental en la representación que
-LilyPond hace de la música: los eventos de duración como
-@code{LyricEvent} y @code{NoteEvent} ya no se encuentran envueltos
-dentro de elementos @code{EventChord} a no ser que se hayan escrito
-realmente como parte de un acorde.  Si manipulamos expresiones
-musicales en Scheme, el nuevo comportamiento puede necesitar cambios
-en nuestro código.  Las llamadas a la función musical
-@code{\eventChords} o a la función de Scheme @code{event-chord-wrap!}
-convierten a la representación anterior; la utilización de una
-cualquiera de ellas puede ser la vía más sencilla para mantener
-operativo el código tradicional.
-
-Los tres siguientes elementos de la lista son consecuencia de este
-cambio.
-
-@item
-Se ha reimplementado la abreviatura de ayuda para intruducción
-repetitiva de acordes, @code{q}.  Ahora los acordes repetidos se
-sustituyen justo antes de la interpretación de la expresión musical.
-En caso de que el usuario quiera retener ciertos eventos del acorde
-original, puede ejecutar manualmente la función @code{\chordRepeats}
-de sustitución de acordes de repetición.
-
-@item
-Los números de cuerdas y digitaciones de la mano derecha sobre notas
-individuales aparecen ahora sin tener que escribirlas dentro de
-corchetes de acorde.
-
-@item
-Ahora las funciones musicales funcionan igual cuando se usan dentro o
-fuera de los acordes, incluidas todas las posibilidades de la
-exploración de argumentos.  Las variables musicales se pueden usar
-dentro de acordes: una construcción como
-@lilypond[verbatim,quote,ragged-right]
-tonic=fis'
-{ <\tonic \transpose c g \tonic> }
-@end lilypond
-@noindent
-ahora funciona como se espera.  Puede utilizarse @code{#@{@dots{}#@}}
-para la construcción de componentes de acordes.  Ahora @code{\tweak}
-funciona sobre notas individuales sin necesidad de incluirlas dentro
-de un acorde.  Ahora es posible usarla dentro de eventos de
-instrucciones y letra de canciones, pero aún no es probable que
-ofrezca resultados.
-
-@item
-@code{\tweak} now takes an optional layout object specification.  It can
-be used for tweaking layout objects that are only indirectly caused by
-the tweaked event, like accidentals, stems, and flags:
-
-@lilypond[verbatim,quote,ragged-right,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
-                                  g>
-@end lilypond
-
-@item
-Las expresiones de Scheme dentro de fragmentos de código de LilyPond
-incrustados (@code{#@{@dots{}#@}}) se ejecutan ahora dentro de la
-cerradura léxica del código de Scheme circundante.  El símbolo
-@code{$} ya no es especial dentro del código de LilyPond incrustado.
-Se puede utilizar de forma incondicional dentro de código de LilyPond
-para la evaluación inmediata de expresiones de Scheme, de forma
-parecida a la forma en que se utilizaba anteriormente
-@code{ly:export}.  Se ha suprimido @code{ly:export}.  Como
-consecuencia, ahora @code{#} está libre para diferir la evaluación de
-su argumento hasta que el analizador sintáctico reduzca efectivamente
-la expresión contenida, reduciendo significativamente el potencial de
-la evaluación prematura.  También están los operadores de @q{división
-de cadenas} @code{$@@} y @code{#@@} para la interpretación de los
-miembros de una lista de forma individual.
-
-@item
-Para reducir la necesidad de utilizar @code{$}, las expresiones de
-Scheme escritas con @code{#} se interpretan como música dentro de las
-listas de música, y como elementos de marcado o de listas de marcado
-dentro de los elementos de marcado.
-
-@item
-Se ha mejorado el soporte de acordes de tipo jazz: se reconocen los
-acordes lidios y alterados; ahora se tratan los separadores entre
-modificadores de acorde de forma independiente de los separadores
-entre acordes invertidos y sus notas de bajo (y por omisión, la barra
-inclinada se usa ahora solamente para el último tipo de separador);
-las notas adicionales ya no van prefijadas por "add" de forma
-predeterminada; y la "m" en los acordes menores se puede personalizar.
-Consulte @ruser{Nombres de acorde personalizados} para más
-información.
-
-@item
-Se ha cambiado el nombre de la instrucción @code{\markuplines} por
-@code{\markuplist} para conseguir una mejor correspondencia con su
-semántica y con la nomenclatura general de LilyPond.
-
-@item
-Se ha simplificado considerablemente la interfaz para especificar
-afinaciones en las tablaturas y se emplea la función de Scheme
-@code{\stringTuning} para la mayor parte de los propósitos.
-
-@item
-Las barras ahora pueden preservar la inclinación por encima de los
-saltos de línea.
-@lilypond[fragment,quote,relative=2]
-\override Beam #'breakable = ##t
-a8[ b c d e f g \bar "" \break f e d c b a]
-\once \override Beam #'positions = #beam::align-with-broken-parts
-a8[ b c d e f g \bar "" \break f e d c b a]
-\once \override Beam #'positions = #beam::slope-like-broken-parts
-a8[ b c d e f g \bar "" \break f e d c b a]
-@end lilypond
-Para hacerlo, se han hecho obsoletas varias funciones de "callback".
-@itemize
-@item @code{ly:beam::calc-least-squares-positions}
-@item @code{ly:beam::slope-damping}
-@item @code{ly:beam::shift-region-to-valid}
-@end itemize
-Además, @code{ly:beam::quanting} ahora acepta un argumento adicional
-para ayudar a los cálculos sobre los cambios de línea.  Todas estas
-funciones se llaman automáticamente cuando se ajusta el parámetro
-@code{positions}.
-
-@item
-En los argumentos de función, la música, los elementos de marcado y
-las expresiones de Scheme (así como algunas otras entidades
-sintácticas) se han hecho mayormente intercambiables y se diferencian
-solamente mediante la evaluación del predicado respectivo.  En ciertos
-casos, el analizador sintáctico consulta este predicado, como cuando
-se decide si interpretar @code{-3} como un número o como un evento de
-digitación.
-
-@item
-Ahora se pueden definir las funciones musicales (y sus parientes
-cercanos) con argumentos opcionales.
-
-@item
-Para definir instrucciones que se ejecutan solamente por sus efectos
-secundarios, ahora está disponible @code{define-void-function}.
-
-@item
-Hay una instrucción nueva @code{define-event-function} en analogía con
-@code{define-music-function} que se puede usar para definir funciones
-musicales que actúan como post-eventos sin que se requiera un especificador
-de dirección como (@code{-}, @code{^} o @code{_}) antes de ellos.
-
-@lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
-         (make-dynamic-script arg))
-\relative c' { c\dyn pfsss }
-@end lilypond
-
-@item
-Se puede incluir una lista de alias en ASCII para caracteres
-especiales.
-
-@lilypond[quote,verbatim]
-\paper {
-  #(include-special-characters)
-}
-\markup "&bull; &dagger; &copyright; &OE; &ss; &para;"
-@end lilypond
-
-@item
-Hay una instrucción nueva @code{define-scheme-function} en analogía
-con @code{define-music-function} que puede usarse para definir
-funciones que se evalúan a expresiones de Scheme pero aceptan
-argumentos en la sintaxis de LilyPond.
-
-@item
-Ahora se puede utilizar la construcción @code{#@{ @dots{} #@}} no solo
-para crear listas secuenciales de música, sino también para alturas
-(que se distinguen de los eventos de nota sencillos por la ausencia de
-duración u otra información que no puede formar parte de una altura),
-eventos musicales únicos, expresiones musicales vacías, post-eventos,
-elementos de marcado (sobre todo para liberar a los usuarios de la
-necesidad de usar la macro @code{markup}), listas de marcado,
-expresiones numéricas, definiciones y modificaciones de contextos y
-algunas otras cosas.  Si no contiene nada o contiene un único evento
-musical, ya no devuelve una lista secuencial de música, sino una
-expresión musical vacía o simplemente el propio evento musical,
-respectivamente.
-
-@item
-Se pueden usar alturas en la parte derecha de las asignaciones.  Las
-alturas se diferencian de los eventos de una sola nota en que no
-tienen duración ni otras informaciones que no pueden formar parte de
-una altura.
-
-@item
-Nueva opción de la línea de órdenes @option{--loglevel=@var{level}}
-para controlar el volumen de datos que LilyPond produce en la salida.
-Los valores posibles son ERROR (errores), WARN (advertencias),
-BASIC_PROGRESS (progreso básico), PROGRESS (progreso) y DEBUG
-(depuración).
-
-@item
-@code{\once \set} ahora reinicia correctamente el valor de la
-propiedad al valor previo.
-
-@lilypond[fragment,quote,relative=2]
-  \set fingeringOrientations = #'(left)
-  <e-1>4
-  \once \set fingeringOrientations = #'(right)
-  <e-1>
-  <e-1>-"left"
-@end lilypond
-
-@item
-La alineación de los elementos de matiz dinámico extensos
-(reguladores, crescendi textuales, etc.) se divide automáticamente si
-se da explícitamente una dirección distinta.
-
-@lilypond[fragment,quote,relative=2]
-c4_\< c c^\> c c1_\p
-@end lilypond
-
-
-@item
-Ahora las apoyaturas y mordentes funcionan también dentro de una
-ligadura de expresión, y no solo dentro de una ligadura de fraseo.
-Asimismo, se ha añadido la función @code{\slashedGrace} que no imprime
-ninguna ligadura partiendo de la nota del mordente.
-
-@lilypond[fragment,relative=2]
-c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
-@end lilypond
-
-
-@item
-Para suprimir a línea en un elemento de crescendo extenso (y otros
-elementos extensos similares), LilyPond contempla ahora de forma plena
-la propiedad @code{#'style = #'none}.
-
-@lilypond[fragment,quote,relative=2]
-\override DynamicTextSpanner #'style = #'none
-c4\cresc c c g, c'\p
-@end lilypond
-
-@item
-LilyPond.app está disponible ahora para MacOS X 10.7. ¡Gracias,
-Christian Hitz!
-
-@item
-Los glissandos pueden abarcar varias líneas.
 
 @end itemize
 
 @ifhtml
 Para ver noticias anteriores, diríjase a
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
 o @uref{../,vuelva} al índice de la documentación.
 
 
