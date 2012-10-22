@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
+    Translation of GIT committish: 44011e382e91f43fb6752b3fbbf8d8984131a565
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2505,7 +2505,7 @@ tal y como se usa en los cantorales impresos por el Sacro Sínodo Ruso
 en la década de 1910 y recientemenre reimpreso por la Casa de
 Publicaciones del Patriarcado de Moscú.  LilyPond no contempla las
 formas anteriores (menos corrientes) de notación kievana que se usaban
-en Galicia para la notación del canto llano ruso.
+en Galitzia para la notación del canto llano ruteno.
 
 @node Claves del canto kievano
 @unnumberedsubsubsec Claves del canto kievano

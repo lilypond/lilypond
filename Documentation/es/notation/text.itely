@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: dd8a0b7cc3280f273e66d20c72f1d4097dc6645a
+    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,8 +20,8 @@ formateo) en las partituras.
 
 @noindent
 Ciertos elementos de texto de los que no nos ocupamos aquí se tratan
-en otras secciones específicas: @ref{Música vocal}, @ref{Títulos y
-cabeceras}.
+en otras secciones específicas: @ref{Música vocal},
+@ref{Títulos y encabezamientos}.
 
 @menu
 * Escritura del texto::

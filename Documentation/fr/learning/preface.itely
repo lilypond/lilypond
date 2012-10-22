@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5f722f1688eff7436789f8ca011205bdb16c04b7
+    Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -48,10 +48,10 @@ il fait maintenant partie de notre vie, et nous nous accrochons.
 Notre principale motivation vient sans doute de l'utilité réelle de
 notre logiciel.  En flânant sur Internet, nous trouvons beaucoup de
 gens qui utilisent LilyPond pour réaliser d'impressionnantes
-partitions@tie{}: c'est incroyable, mais en même temps très flatteur.
+partitions : c'est incroyable, mais en même temps très flatteur.
 
 Les utilisateurs ne se contentent pas de nous encourager en utilisant
-notre logiciel@tie{}; nombre d'entre eux nous aident aussi en faisant des
+notre logiciel ; nombre d'entre eux nous aident aussi en faisant des
 suggestions et en signalant des bogues.  Aussi, nous voudrions
 remercier ici tous les utilisateurs qui nous ont signalé des bugs, ont
 fait des suggestions ou ont contribué d'une façon ou d'une autre au
@@ -62,7 +62,7 @@ séduisante.  Même si l'on s'amuse beaucoup en programmant tous
 ensemble, et qu'on éprouve une satisfaction profonde à aider les gens,
 au bout du compte, notre travail sur LilyPond est avant tout une
 manière d'exprimer notre amour sincère de la musique.  Puisse-t-il
-vous aider à créer de nombreuses et belles œuvres@tie{}!
+vous aider à créer de nombreuses et belles œuvres !
 
 Han-Wen et Jan
 

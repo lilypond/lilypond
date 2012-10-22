@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,7 +19,8 @@
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{staff-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]
+{staff-headword.ly}
 
 Cette section aborde les détails de gravure de la portée, la
 réalisation de partitions comprenant plusieurs portées et l'ajout
@@ -446,7 +448,7 @@ f'4 d \startStaff g, e
 @code{\stopStaff}.
 @endpredefined
 
-Les notes, nuances, etc. sont regroupées dans un assemblage de lignes
+Les notes, nuances, etc. sont regroupées dans un assemblage de lignes
 horizontales, que l'on nomme la portée (en anglais @emph{staff}, et
 @emph{staves} au pluriel).  Dans LilyPond, ces lignes sont dessinées au
 moyen d'un objet graphique (@emph{grob}) à part entière, nommé
@@ -520,7 +522,7 @@ L'emplacement des lignes supplémentaires est réglable :
 @end lilypond
 
 Vous pouvez faire apparaître des lignes supplémentaires additionnelles
-au-dessus ou en dessous des têtes de note selon le positionnement
+au-dessus ou en dessous des têtes de note selon leur positionnement
 relatif aux autres notes, qu'elles aient ou non elles-mêmes des lignes
 supplémentaires.
 
@@ -614,7 +616,7 @@ plus.  Afin que cette ossia se place au-dessus de la portée à laquelle
 elle se réfère, étant par ailleurs dépourvue de métrique et de clef, et
 d'une taille légèrement inférieure, vous devrez avoir recours à quelques
 retouches.  Le manuel d'initiation aborde une technique particulière
-pour obtenir ce résultat au chapitre
+pour obtenir ce résultat, au chapitre
 @rlearning{Expressions musicales imbriquées}.
 
 L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
@@ -644,7 +646,7 @@ lorsqu'il y a un nombre restreint d'ossias.
 Dans le cas où de nombreux et courts fragments d'ossia affecteraient
 une même portée, il est judicieux de créer un contexte @code{Staff} vide
 auquel sera attribué un @emph{identifiant}. Il suffira alors, pour
-entamer un fragment d'ossia, de @emph{faire appel} à ce contexte grâce
+entamer un fragment d'ossia, de @qq{faire appel} à ce contexte grâce
 aux commandes @code{\startStaff} et @code{\stopStaff}.  Vous vous
 rendrez compte à l'utilisation des avantages que procure cette façon de
 procéder, bien plus que dans l'exemple suivant.
@@ -748,7 +750,7 @@ Référence des propriétés internes :
 @translationof Hiding staves
 
 @cindex Frenched scores
-@cindex Masquage de portée
+@cindex masquage de portée
 @cindex portée vide
 
 @funindex \RemoveEmptyStaves
@@ -777,8 +779,8 @@ partition, hormis celles du premier système.
 
 @warning{Une portée est considérée comme vide dès lors qu'elle ne
 contient que des silences multimesures, des silences visibles ou
-invisibles (ou d'espacement -- les @emph{\skip}) ou bien une combinaison
-de ces éléments.}
+invisibles (ou d'espacement -- les @emph{@bs{}skip}) ou bien une
+combinaison de ces éléments.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -927,8 +929,7 @@ d'instrument particuliers, tels que
 Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
 par défaut centrés.  Si l'un d'entre eux est libellé sur plusieurs
-lignes, il faudra reccourrir à l'instruction
-@code{\center-column} :
+lignes, il faudra recourir à l'instruction @code{\center-column} :
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
@@ -1030,7 +1031,7 @@ de caractères qui servira d'identifiant, et une liste d'association
 de valeurs aux propriétés de ce nouvel instrument.  Ces définitions
 devront être déclarées avant tout autre élément musical.  L'instruction
 @code{\instrumentSwitch} se placera dans la musique au moment de la
-subtitution :
+substitution :
 
 @lilypond[verbatim,quote,ragged-right]
 \addInstrumentDefinition #"contrabassoon"
@@ -1092,7 +1093,7 @@ voix est la @emph{réplique} d'une autre, sans devoir ressaisir la
 musique en question.
 
 L'instruction @code{\addQuote}, placée au niveau le plus haut -- c'est à
-dire en dehors de tout bloc de musique -- définit le musique dont il
+dire en dehors de tout bloc de musique -- définit la musique dont il
 sera possible de répliquer des fragments.
 
 Au cours d'une partie, des extraits de répliques peuvent être cités en
@@ -1178,7 +1179,7 @@ oboeNotes = \relative c'' {
 @funindex quotedCueEventTypes
 
 LilyPond répliquera, par défaut, tous les éléments -- articulations,
-nuances, @emph{markups}, etc. La propriété @code{quotedEventTypes}
+nuances, @emph{markups}, etc. La propriété @code{quotedEventTypes}
 permet de définir plus précisément quels éléments de la voix originelle
 seront reproduits.
 
@@ -1309,7 +1310,7 @@ citations de plusieurs sources, vous disposez des instructions
 la commande @code{\quoteDuring} -- voir la rubrique précédente
 (@ref{Citation d'autres voix}).
 
-Leur syntaxe est :
+Leur syntaxe est :
 
 @example
 \cueDuring #@var{origine} #@var{position} #@var{musique}
@@ -1550,4 +1551,3 @@ silence entre les contextes @code{Voice} et @code{CueVoice}.
 Dans le cadre d'un @code{\cueDuringWithClef} ou d'un
 @code{\transposedCueDuring}, l'argument supplémentaire doit intervenir
 après l'origine et la position.
-

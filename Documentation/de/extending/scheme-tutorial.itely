@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 233fb6a8b3b6e31de1841641dbbd4c4f43423151
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -637,6 +637,7 @@ guile> (cond ((< a b) "a is less than b")
 * LilyPond Scheme-Syntax::
 * LilyPond-Variablen::
 * Eingabe-Variablen und Scheme::
+* Scheme in LilyPond importieren::
 * Objekteigenschaften::
 * Zusammengesetzte LilyPond-Variablen::
 * Interne musikalische Repräsentation::
@@ -684,13 +685,24 @@ Scheme-Ausdruckstyp geprüft und eine Tokentyp dafür ausgesucht (einer von mehr
 übergeben.
 
 Das ist auch der gleiche Mechanismus, nach dem LilyPond funktioniert, wenn man eine Variable oder musikalische Funktion mit ihrer Bezeichnung ausruft, wie
-in @code{\Bezeichnung}, mit dem einzigen Unterschied, dass ihr Ende durch den
+in @code{\Bezeichnung}, mit dem einzigen Unterschied, dass ihre Bezeichnung durch den
 LilyPond-Lexer bestimmt wird, ohne den Scheme-reader einzubeziehen, und also
 nur Variablen akzeptiert werden, die im aktuellen LilyPond-Modus gültig sind.
 
-Die direkte Auswirkung von @code{$} kann zu Überraschungen führen, siehe auch
+Die direkte Auswirkung von @code{$} kann zu Überraschungen führen, siehe
 @ref{Eingabe-Variablen und Scheme}.  Es bietet sich daher an, @code{#} immer
-zu benützen, wenn der Parser es unterstützt.
+zu benützen, wenn der Parser es unterstützt.  Innerhalb von musikalischen
+Ausdrücken werden Ausdrücke, die mit @code{#} erstellt werden, @emph{tatsächlich}
+als Noten interpretiert.  Sie werden jedoch @emph{nicht} vor der Benutzung
+kopiert.  Wenn Sie Teil einer Struktur sind, die noch einmal benutzt werden
+soll, muss man eventuell @code{ly:music-deep-copy} explizit einsetzen.
+
+@funindex $@@
+@funindex #@@
+
+Es gibt auch die Operatoren @code{$@@} und @code{#@@}, die eine @qq{listentrennende}
+Funktion aufweisen, indem sie alle Elemente einer Liste in den umgebenden
+Kontext einfügen.
 
 Jetzt wollen wir uns tatsächlichen Scheme-Code anschauen.  Scheme-Prozeduren
 können in LilyPond-Eingabedateien definiert werden:
@@ -828,7 +840,7 @@ traLaLa = { c'4 d'4 }
 #(define twice
   (make-sequential-music newLa))
 
-{ \twice }
+\twice
 @end lilypond
 
 Das ist ein interessantes Beispiel.  Die Zuweisung findet erst statt,
@@ -838,6 +850,14 @@ Er liest @code{#} und den darauf folgenden Scheme-Ausdruck, @emph{ohne} ihn
 auszuwerten, so dass er weiterlesen und erst @emph{danach}
 wird der Scheme-Code ohne Probleme ausführen kann.
 
+
+@node Scheme in LilyPond importieren
+@subsection Scheme in LilyPond importieren
+@translationof Importing Scheme in LilyPond
+
+@funindex $
+@funindex #
+
 Das Beispiel zeigt, wie man musikalische Ausdrücke aus der Eingabe in den
 Scheme-Auswerter @qq{exportieren} kann.  Es geht auch andersherum.  Indem
 man Scheme-Werte nach @code{$} schreibt, wird ein
@@ -846,7 +866,7 @@ Anstatt @code{\twice} zu definieren, könne man also auch schreiben:
 
 @example
 ...
-@{ $(make-sequential-music (list newLa)) @}
+$(make-sequential-music newLa)
 @end example
 
 Mann kann @code{$} zusammen mit einem Scheme-Ausdruck überall benutzen,
@@ -860,8 +880,30 @@ hätte, würde der folgende Scheme-Ausdruck fehlschlagen, weil @code{traLaLa}
 noch nicht definiert worden wäre.  Zu einer Erklärung dieses Timingproblems
 siehe @ref{LilyPond Scheme-Syntax}.
 
-Auf jeden Fall findet die Auswertung des Scheme-Codes spätestens im Parser
-statt.  Wenn man es noch später ausgeführt haben möchte, muss man 
+@funindex $@@
+@funindex #@@
+
+Eine weitere Bequemlichkeit können die @qq{listentrennenden} Operatoren
+@code{$@@} und @code{#@@} bieten, indem sie die Elemente einer Liste
+in den umgebenden Kontext einfügen.  Wenn man sie einsetzt, hätte der
+letzte Teil des Beispiels auch so geschrieben werden können:
+
+@example
+...
+@{ #@@newLa @}
+@end example
+
+Hier wird jedes Element der Liste, welche in @code{newLa} gespeichert ist,
+der Reihenfolge nach genommen und in die Liste eingefügt, als ob man
+geschrieben hätte:
+
+@example
+@{ #(first newLa) #(second newLa) @}
+@end example
+
+In allen diesen Formen findet die Auswertung des Scheme-Codes statt,
+während die Eingabe noch gelesen wird, entweder im Lexer oder im Parser.
+Wenn man es später ausgeführt haben möchte, muss man 
 @ref{Leere Scheme-Funktionen} benutzen oder es in einem Makro speichern:
 
 @example
@@ -1111,7 +1153,7 @@ diese Ausgabe an eine eigene Datei zu senden:
 
 @example
 @{
-  $(with-output-to-file "display.txt"
+  #(with-output-to-file "display.txt"
       (lambda () #@{ \displayMusic @{ c'4\f @} #@}))
 @}
 @end example
@@ -1339,11 +1381,11 @@ gleiche wie die normale Befehlsform @code{\variable} in
 
 @noindent
 in LilyPond nicht funktioniert.  Das Problem könnte vermieden
-werden, indem das Artikulationszeichen an eine Pseudonote
+werden, indem das Artikulationszeichen an einen leeren Akkord
 gehängt wird:
 
 @example
-@{ << \music s1*0-.-> @}
+@{ << \music <> -. -> >> @}
 @end example
 
 @noindent
@@ -1567,16 +1609,16 @@ Es kann auch benutzt werden, um Befehle zu erstellen:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded = #(define-music-function (parser location padding tempotext)
-  (number? string?)
+  (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = $padding
+  \once \override Score.MetronomeMark #'padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
@@ -1586,7 +1628,7 @@ Sogar ganze Musikausdrücke können eingefügt werden:
 @lilypond[quote,verbatim,ragged-right]
 pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 #{
-  $x e8 a b $y b a e
+  #x e8 a b $y b a e
 #})
 
 \relative c''{

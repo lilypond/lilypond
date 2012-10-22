@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -873,14 +873,16 @@ Des anstelle von e-dreifach-b).
 @funindex \inversion
 @funindex inversion
 
-Ein musikalischer Ausdruck kann in seine Umkehrung transformiert werden:
+Ein musikalischer Ausdruck kann in seine Umkehrung transformiert und
+gleichzeitig transponiert werden:
 
 @example
-\inversion @var{vonTonhöhe} @var{nachTonhöhe} @var{mus. Ausdruck}
+\inversion @var{umTonhöhe} @var{nachTonhöhe} @var{mus. Ausdruck}
 @end example
 
-Der @code{@var{mus. Ausdruck}} wird Intervall für Intervall umgekehrt und dann
-von @code{v@var{vonTonhöhe}} nach @code{@var{nachTonhöhe}} transponiert.
+Der @code{@var{mus. Ausdruck}} wird Intervall für Intervall um
+@code{v@var{UmTonhöhe}} umgekehrt und dann von @code{v@var{UmTonhöhe}}
+nach @code{@var{nachTonhöhe}} transponiert.
 
 @lilypond[verbatim,quote]
 music = \relative c' { c d e f }
@@ -890,6 +892,10 @@ music = \relative c' { c d e f }
   \inversion d' ees' \music
 }
 @end lilypond
+
+@warning{Motive, die umgekehrt werden, sollen in absoluten Tonhöhen
+notiert werden oder zuerst in absolute Tonhöhen umgewandelt werden,
+indem sie in eine @code{\relative}-Umgebung eingeschlossen werden.}
 
 @seealso
 Notationsreferenz:
@@ -1467,7 +1473,7 @@ zwischen B- und A-Klarinette wechseln.
 \transposition a
 c d e f
 \textLengthOn
-s1*0^\markup { B-Klarinette benutzen }
+<>^\markup { B-Klarinette benutzen }
 R1
 
 \key bes \major
@@ -2654,7 +2660,7 @@ die den Versetzungszeichenstil kurzzeitig auf @code{forget} umschaltet:
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
   \accidentalStyle "forget"
-  $music
+  #music
   \accidentalStyle "modern"
 #})
 {

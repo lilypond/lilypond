@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -363,8 +364,8 @@ Référence des propriétés internes :
 @funindex \addlyrics
 @funindex \lyricsto
 
-Les paroles peuvent être automatiquement alignées sous
-une mélodie, de trois manières différentes :
+Les paroles peuvent être automatiquement alignées sous une mélodie, de
+trois manières différentes :
 
 @itemize
 
@@ -482,8 +483,7 @@ constructions polyphoniques.  Dans ce cas, mieux vaut employer
 @c VO: Using associatedVoice
 
 La propriété @code{associatedVoice} permet de basculer de mélodie pour
-la synchronisation des paroles.  Elle s'emploie de la manière
-suivante :
+la synchronisation des paroles.  Elle s'emploie de la manière suivante :
 
 @example
 \set associatedVoice = #"lala"
@@ -664,8 +664,7 @@ n'en comporte qu'une, l'usage est d'indiquer la @qq{tenue} jusqu'à la
 dernière note de la vocalise.  Ceci s'obtient en ajoutant un double
 caractère souligné @code{__} après cette syllabe.
 
-Vous disposez de cinq méthodes pour indiquer la présence d'un
-mélisme :
+Vous disposez de cinq méthodes pour indiquer la présence d'un mélisme :
 
 @itemize
 
@@ -826,7 +825,6 @@ par un simple caractère souligné pour chaque note à inclure :
 @code{\melismaEnd}.
 @endpredefined
 
-
 @seealso
 Glossaire musicologique :
 @rglos{melisma}.
@@ -861,7 +859,7 @@ caractère souligné.
 Un mélisme sur la dernière syllabe d'un mot est indiqué par une longue
 ligne horizontale basse s'étirant jusqu'à syllabe suivante.  Une telle
 ligne, que nous appellerons prolongateur ou extenseur, s'obtient en
-saisissant @samp{ __ } (notez les espaces entourant le double caractère
+saisissant @samp{ __ } (notez les espaces entourant le double caractère
 souligné).
 
 @warning{Dans une partition, les mélismes, ou vocalises, sont
@@ -874,7 +872,7 @@ note à chaque fois et de ne pas imprimer de ligne.}
 
 @c leave this as samp. -gp
 Un trait d'union séparant deux syllabes d'un même mot s'obtient en
-saisissant @samp{ -- } (notez les espaces entourant le tiret double).
+saisissant @samp{ -- } (notez les espaces entourant le tiret double).
 Ce trait d'union sera centré entre les deux syllabes et sa longueur
 sera proportionnelle à l'espace les séparant.
 
@@ -1353,7 +1351,6 @@ Et ce quel que soit le nombre de @qq{couplets} :
   >>
 }
 @end lilypond
-
 
 @cindex alignBelowContext
 @funindex alignBelowContext
@@ -1978,7 +1975,7 @@ rattaché au contexte @code{lahlah}, bascule sur la mélodie
 où @code{alternative} désigne le nom du contexte @code{Voice} qui contient
 le triolet.
 
-notez bien où apparaît la commande @code{\set associatedVoice} --
+Notez bien où apparaît la commande @code{\set associatedVoice} --
 une syllabe en avance, ce qui est tout à fait correct.
 
 @warning{La commande @code{@bs{}set associatedVoice} @strong{doit}
@@ -1993,12 +1990,12 @@ raison en est purement technique.}
 @translationof Printing stanzas at the end
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
-mélodie, et de présenter tous les autres en bloc à la fin du morceau.
+mélodie et de présenter tous les autres en bloc à la fin du morceau.
 Ces couplets additionnels peuvent être inclus dans une section
 @code{\markup} en dehors du bloc @code{\score} principal.
 Vous en trouverez un exemple ci-dessous ; notez également les deux
 méthodes différentes employées pour indiquer les sauts de ligne,
-entre les couplets (@emph{verses} en anglais) 2 et 3.
+entre les couplets (@emph{verses} en anglais) 2 et 3.
 
 @c KEEP LY
 @lilypond[ragged-right,verbatim,quote]
@@ -2166,8 +2163,8 @@ en surplomb de la mélodie.  Ceci est abordé au chapitre
 @ref{Gravure des accords}.
 
 @item
-L'impression de diagrammes d'accord lorsque l'accompagnement est fait à
-la guitare est expliqué à la rubrique @qq{Tablatures sous forme
+L'impression de diagrammes d'accord, lorsque l'accompagnement est fait à
+la guitare, est expliqué à la rubrique @qq{Tablatures sous forme
 d’étiquette}, au chapitre @ref{Vue d'ensemble des cordes frettées}.
 
 @end itemize
@@ -2249,7 +2246,7 @@ différents endroits de la documentation de LilyPond :
 
 @item
 La création pas à pas d'une partition pour chœur se trouve dans le
-manuel d'initiation, au chapitre
+manuel d'initiation, à la rubrique
 @rlearning{Partition pour chœur à quatre voix mixtes}.
 
 @item
@@ -2268,8 +2265,8 @@ Les formes de notation particulière, telle que celle utilisée en
 
 @item
 Lorsque plusieurs pupitres sont regroupés sur la même portée, les
-hampes, liaisons etc. de la voix supérieure sont orientées vers le haut,
-et inversement pour la voix inférieure.  L'utilisation de
+hampes, liaisons,  etc. de la voix supérieure sont orientées vers le
+haut, et inversement pour la voix inférieure.  L'utilisation de
 @code{\voiceOne} et @code{\voiceTwo} est expliquée au chapitre
 @ref{Polyphonie sur une portée}.
 
@@ -2735,7 +2732,7 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 
 Il est clair, au vu de ces deux exemples, que multiplier le nombre de
 citations dans une partition vocale demande un travail fastidieux et que
-relire la partie de piano deviendrait vite un cauchemar.  Vous pouvez
+relire la partie de piano deviendra vite un cauchemar.  Vous pouvez
 néanmoins, comme l'illustre l'exemple suivant, définir une fonction
 musicale dans le but de vous épargner de la saisie tout en améliorant
 la lisibilité des notes du piano.
@@ -2965,8 +2962,7 @@ barres de mesure produira des portées sans barre :
 }
 @end lilypond
 
-L'absence de barre de mesure peut ne concerner que certaines
-portées :
+L'absence de barre de mesure peut ne concerner que certaines portées :
 
 @lilypond[verbatim, quote]
 \score {
@@ -3221,7 +3217,7 @@ répétées pour chaque verset.  Dans le cas d'un chant double, les
 quatorze mesures se répètent par couple de versets.  Des marques
 insérées dans le texte indiquent comment il s'articule par rapport à la
 mélodie.  Chaque verset est séparé en deux, et la rupture est indiquée
-par un caractère deux points (@code{:}) correspondant à la double barre
+par un caractère deux points (@code{:}) correspondant à la double barre
 de la mélodie.  Le texte précédant les deux points se chante sur les
 trois premières mesures, celui qui suit sur les quatre dernières
 mesures.

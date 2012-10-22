@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3c169262c8f580c0f42c09f3a61b9ae9f0d6261c
+    Translation of GIT committish: 35d565c89b853ed87b1bb2feb59f6ce8bef6263b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -913,7 +913,7 @@ pivote de la escala.  También se puede revertir para producir una
 @warning{Cualquier nota que no entre en la escada dada, se dejará sin
 transformar.}
 
-@subsubheading Transposición modal
+@subsubsubheading Transposición modal
 
 @cindex transporte
 @cindex transporte modal
@@ -972,7 +972,7 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-@subsubheading Inversión modal
+@subsubsubheading Inversión modal
 
 @cindex modal, inversion
 @cindex inversión modal

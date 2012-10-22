@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -671,12 +671,12 @@ werden @qq{Voice context} (Stimmenkontext) oder auch nur @qq{Voice}
 (Stimme) genannt.  Stimmen werden in anderen Notationsprogrammen
 manchmal auch als @qq{layer} (Ebene) bezeichnet.
 
-Tatsächlich ist die Stimmenebene die einzige, die wirklich Noten
-enthalten kann.  Wenn kein Stimmenkontext explizit erstellt wird,
+Tatsächlich ist die Voice-Ebene die einzige, die wirklich Noten
+enthalten kann.  Wenn kein Voice-Kontext explizit erstellt wird,
 wird er automatisch erstellt, wie am Anfang dieses Kapitels
 gezeigt.  Manche Instrumente wie etwa die Oboe können nur eine
-Note gleichzeitig spielen.  Noten für solche Instrumente sind
-monophon und brauchen nur eine einzige Stimme.  Instrumente, die
+Note gleichzeitig spielen.  Noten für solche Instrumente brauchen nur
+eine einzige Stimme.  Instrumente, die
 mehrere Noten gleichzeitig spielen können, wie das Klavier, brauchen
 dagegen oft mehrere Stimmen, um die verschiedenen gleichzeitig
 erklingenden Noten mit oft unterschiedlichen Rhythmen darstellen
@@ -728,7 +728,7 @@ und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
 << { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
 @end lilypond
 
-Beachte, dass die Hälse der zweiten Stimme nun nach unten zeigen.
+Beachten Sie, dass die Hälse der zweiten Stimme nun nach unten zeigen.
 
 Hier ein anderes Beispiel:
 
@@ -765,9 +765,12 @@ Dieses Beispiel hat nur zwei Stimmen, aber die gleiche Konstruktion kann
 angewendet werden, wenn man drei oder mehr Stimmen hat, indem man weitere
 Backslash-Trenner hinzufügt.
 
-Die Stimmenkontexte tragen die Namen @code{"1"}, @code{"2"} usw. In jedem
-dieser Kontexte wird die vertikale Ausrichtung von Hälsen, Bögen, Dynamik-Zeichen
-usw. entsprechend ausgerichtet.
+Die Stimmenkontexte tragen die Namen @code{"1"}, @code{"2"} usw. Der erste
+Kontext stellt die @qq{äußeren} Stimmen ein, die höchste Stimme im
+Kontext @code{"1"} und die tiefste Stimme im Kontext @code{"2"}.  Die
+inneren Stimmen kommen in die Kontexte @code{"3"} und @code{"4"}.  In
+jeder dieser Kontexte wird die vertikale Ausrichtung von Bögen, Hälsen,
+Dynamik usw. entsprechend eingestellt.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -892,15 +895,18 @@ in späteren Abschnitten erklärt werden.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -940,19 +946,20 @@ verstehen können.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5
-      des2
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
-  >>
-  <c ees aes c>1
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
@@ -965,7 +972,7 @@ die drei Stimmen des ersten Taktes notieren:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -987,35 +994,32 @@ korrigieren, indem wir die dritte Stimme einfach auslassen und die
 Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
 indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 
-@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  <<  % erste Stimme
+  <<  % Voice one
     { c2 aes4. bes8 }
-  \\  % zweite Stimme
-    { aes2 f4 fes }
-  \\  % Stimme drei auslassen
-  \\  % vierte Stimme
-    { <ees c>2 des }
-  >>
-  <c ees aes c>1
+  \\  % Voice two
+    { <ees, c>2 des }
+  \\  % Omit Voice three
+  \\  % Voice four
+    { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Wie zu sehen ist, ändert das die Richtung der Hälse, aber zeigt ein
-anderes Problem auf, auf das man manchmal bei mehreren Stimmen stößt:
-Die Hälse einer Stimme können mit den Hälsen anderer Stimmen kollidieren.
-LilyPond erlaubt Noten in verschiedenen Stimmen sich auf der gleichen
-vertikalen Position zu befinden, wenn die Hälse in entgegengesetzte
-Richtungen zeigen, und positioniert die dritte und vierte Stimme dann
-so, dass Zusammenstöße möglichst vermieden werden.  Das funktioniert
-gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
-Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
-verschiedene Möglichkeiten, die horizontale Position von Noten
-anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
-anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in
+Wie zu sehen ist, ändert das die Richtung der Hälse, aber die horizontale
+Ausrichtung der Noten ist nicht so, wie wir sie wollen.  LilyPond
+verschiebt die inneren NOten wenn sie oder ihre Hälse mit den äußeren
+Stimmen zusammenstoßen würden, aber das ist nicht richtig für Klaviermusik.
+In anderen Situationen können die Verschiebungen von LilyPond nicht
+ausreichend sein, um Überlappungen aufzulösen.  LilyPond stellt verschiedene
+Möglichkeiten zur Verfügung, um die horizontale Ausrichtung von Noten
+zu beeinflussen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
+anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt
+auf; siehe @code{force-hshift}-Eigenschaft in
 @ref{Überlappende Notation in Ordnung bringen}.
 
 @warning{Gesangstext und Strecker (wie etwa Bögen, Crescendo-Klammern usw.) können
@@ -1139,7 +1143,7 @@ Phrasierungsbogen ober sie gesetzt werden.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<
@@ -3326,7 +3330,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript #'padding = #padding
    #})
 
 \relative c''' {

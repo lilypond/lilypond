@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 @section Gleichzeitig erscheinende Noten
 @translationof Simultaneous notes
 
-@lilypondfile[quote]{simultaneous-headword.ly}
+@lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
 Polyphonie bedeutet in der musikalischen Terminologie das
 Vorhandensein von mehr als einer (eigenständigen) Stimme
@@ -74,7 +74,8 @@ Die Noten innerhalb der Akkorde konnen auch von Artikulationen oder
 Ornamenten gefolgt werden.
 
 @lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4 <a-+ c-->8. <g\fermata c e\turn>16
+<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+<a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
 Manche Notationselemente, wie etwa Dynamik, Crescendo-Klammern und
@@ -82,7 +83,22 @@ Legatobögen müssen an den gesamten Akkord gehängt werden und nicht
 an einzelne Noten, damit sie ausgegeben werden.
 
 @lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>) <a c e>\< <a c e> <a c e>\!
+<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+<a c e>\< <a c e> <a c e>\!
+@end lilypond
+
+Ein Akkord ist sozusagen ein Container für die Noten, ihre Artikulationen
+und andere angehänge Elemente.  Demzufolge hat also auch ein Akkord ohne
+wirkliche Noten innerhalb der Klammern keine Dauer.  Alle angehängten
+Artikulationen geschehen zur selben musikalischen Zeit wie die folgende
+Note oder der folgende Akkord und werden damit kombiniert (für
+komplexere Möglichkeiten, derartige Elemente zu kombinieren, siehe
+@ref{Gleichzeitige Ausdrücke}.
+
+@lilypond[verbatim,quote,relative=2]
+\grace { g8[( a b] }
+<> ) \p \< -. -\markup \italic "sempre staccato"
+\repeat unfold 4 { c4 e }  c1\f
 @end lilypond
 
 @cindex relative Tonhöhe, Akkorde
@@ -260,7 +276,17 @@ a << { a4 b g } { d4 g c, } >>
 Dass kann benutzt werden, wenn die simultanen Abschnitte einen
 identischen Rhythmus haben, aber wenn versucht wird, Noten mit
 unterschiedlicher Dauer an denselben Hals zu setzen, gibt es
-Fehlermeldungen.
+Fehlermeldungen.  Noten, Artikulationen und Eigenschaftsänderungen
+in einer @emph{einzelnen} @samp{Voice} werden gesammelt und
+in musikalischer Reihenfolge gesetzt:
+
+@lilypond[quote,verbatim,relative=2]
+<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@end lilypond
+
+Mehrfache Hälse oder Balken oder unterschiedliche Notendauern
+oder Eigenschaften zur selben musikalischen Zeit erfordern den
+Einsatz von mehreren Stimmen.
 
 Das nächste Beispiel zeigt, wie ein simultaner Ausdruck implizit
 mehrere Systeme erstellt:
@@ -270,7 +296,8 @@ mehrere Systeme erstellt:
 << { a4 b g2 } { d4 g2 c,4 } >>
 @end lilypond
 
-In diesem Fall stellt der unterschiedliche Rhythmus kein Problem dar.
+In diesem Fall stellt der unterschiedliche Rhythmus kein Problem dar,
+weil sie in unterschiedlichen Stimmen interpretiert werden.
 
 @cindex Zusammenstöße, kollidierende Notenkolumnen
 @cindex Zusammenstöße, ignorieren

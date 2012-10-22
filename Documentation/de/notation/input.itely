@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -385,8 +385,10 @@ Ebene einer der folgenden sein kann:
 Eine Ausgabedefinition, wie @code{\paper}, @code{\midi} und
 @code{\layout}.  Derartige Definitionen auf oberster Ebene verändern
 die globalen Einstellungen für das ganze @qq{Buch}.  Wenn mehr
-als eine derartige Definition desselben Typs angegeben wird, hat
-die spätere Vorrang.
+als eine derartige Definition desselben Typs auf oberster Ebene
+angegeben wird, hat die spätere Vorrang.  Für Einzelheiten, wie dadurch
+die @code{\layout}-Umgebung beeinflusst wird, siehe
+@ref{Die \layout-Umgebung}.
 
 @item
 Ein direkter Scheme-Ausdruck, wie etwa
@@ -552,6 +554,9 @@ und vor dem gesamten Befehl geschrieben werden.
 Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
 
+Notationsreferenz:
+@ref{The \layout block}.
+
 
 @node Titel
 @section Titel
@@ -686,48 +691,82 @@ Notationsreferenz:
 @unnumberedsubsubsec Standardlayout von @code{book}- und Partitur-Titelumgebungen
 @translationof Default layout of book and score title blocks
 
-Layout und Formatierung der Titelfelder wird durch zwei
-@code{\paper}-Variablen kontrolliert: @code{bookTitleMarkup} für
-die Hauptumgebung und @code{scoreTitleMarkup} für einzelne
-@code{\header}-Umgebungen innerhalb von einer @code{\score}-Umgebung.
+Dieses Beispiel zeigt alle @code{\header}-(Überschrifen)-Variablen:
 
-@lilypond[papersize=a6,quote,verbatim,noragged-right]
-\header {
-  % The following fields are centered
-  dedication = "Dedication"
-  title = "Title"
-  subtitle = "Subtitle"
-  subsubtitle = "Subsubtitle"
-  instrument = "Instrument"
-
-  % The following fields are left-aligned on the left side
-  poet = "Poet"
-  meter = "Meter"
-
-  % The following fields are right-aligned on the right side
-  composer = "Composer"
-  arranger = "Arranger"
-}
-
-\score {
-  { s1 }
+@lilypond[papersize=a7,quote,verbatim,noragged-right]
+\book {
   \header {
-    % The following fields are placed at opposite ends of the same line
-    piece = "Piece"
-    opus = "Opus"
+      % The following fields are centered
+    dedication = "Dedication"
+    title = "Title"
+    subtitle = "Subtitle"
+    subsubtitle = "Subsubtitle"
+      % The following fields are evenly spread on one line
+      % the field "instrument" also appears on following pages
+    instrument = \markup \with-color #green "Instrument"
+    poet = "Poet"
+    composer = "Composer"
+      % The following fields are placed at opposite ends of the same line
+    meter = "Meter"
+    arranger = "Arranger"
+      % The following fields are centered at the bottom
+    tagline = "tagline goes at the bottom of the last page"
+    copyright = "copyright goes at the bottom of the first page"
+  }
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 1"
+      opus = "Opus 1"
+    }
+  }
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 2 on the same page"
+      opus = "Opus 2"
+    }
+  }
+  \pageBreak
+  \score {
+    { s1 }
+    \header {
+        % The following fields are placed at opposite ends of the same line
+      piece = "Piece 3 on a new page"
+      opus = "Opus 3"
+    }
   }
 }
 @end lilypond
 
-@c Is the bit about \null markups true? -mp
+Beachten Sie:
 
+@itemize
+@item
+Die Instrumentenbezeichnung wird auf jeder Seite wiederholt.
+
+@item
+Nur @code{piece} (Stück)uand @code{opus} werden für eine Partitur 
+(@code{\score}) gesetzt, wenn die @code{\paper}-Variable
+@code{print-all-headers} auf @code{##f} gesetzt ist (Standardeinstellung).
+
+@item
+@c Is the bit about \null markups true? -mp
 Textfelder, die in einer @code{\header}-Umgebung nicht benutzt werden,
 werden durch @code{\null}-Textbeschriftung ersetzt, sodass sie keinen
 leeren Platz belegen.
 
+@item
 Die Standardeinstellungen von @code{scoreTitleMarkup} platzieren
 die Felder @code{piece} (Stück) und @code{opus} zu den gegenüberliegenden
 Seiten der selben Zeile.
+
+@end itemize
+
+Um die Standardeinstellungen des Layouts zu ändern, siehe
+@ref{Angepasstes Layout für Titelumgebungen}.
 
 @funindex breakbefore
 
@@ -759,7 +798,8 @@ Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert},
 
 Notationsreferenz:
-@ref{Die Dateistruktur}.
+@ref{Die Dateistruktur},
+@ref{Angepasstes Layout für Titelumgebungen}.
 
 Installierte Dateien:
 @file{ly/titling-init.ly}.
@@ -879,6 +919,11 @@ Notationsreferenz:
 @unnumberedsubsubsec Angepasstes Layout für Titelumgebungen
 @translationof Custom layout for title blocks
 
+@cindex bookTitleMarkup
+@cindex scoreTitleMarkup
+@funindex bookTitleMarkup
+@funindex scoreTitleMarkup
+
 @code{\markup}-Befehle in der @code{\header}-Umgebung sind sinnvoll
 für einfaches Formatieren von Text, aber sie gewähren keine genaue
 Kontrolle über die Positionierung von Titeln.  Um die Positionierung
@@ -890,7 +935,8 @@ folgenden Variablen (die man in der @code{\paper}-Umgebung einsetzen muss):
 @item @code{scoreTitleMarkup}
 @end itemize
 
-Diese Beschriftungsvariablen sind behandelt in
+Die Positionierung von Titeln, wenn die Standardeinstellung dieser
+Variablen benützt werden, wird anhand einem Beispiel gezeigt in
 @ref{Standardlayout von book und Partitur Titelumgebungen}.
 
 Die Standardeinstellungen von @code{scoreTitleMarkup}, wie in der
@@ -1049,6 +1095,51 @@ folgenden Variablen (die man in der @code{\paper}-Umgebung einsetzen muss):
 @item @code{evenFooterMarkup}
 @end itemize
 
+@cindex Beschriftung mit Bedingung
+@cindex on-the-fly
+@funindex \on-the-fly
+
+Der @code{\markup}-Befehl @code{\on-the-fly} kann eingesetzt werden,
+um Beschriftung anhand einer Bedingung zu Kopf- und Fußzeilentext
+innerhalb der @code{\paper}-Umgebung hinzuzufügen.  Hierzu wird folgende
+Syntax eingesetzt:
+
+@example
+@code{Variable} = @code{\markup} @{
+  ...
+  @code{\on-the-fly}  #@var{Prozedur}  @var{Beschriftung}
+  ...
+@}
+@end example
+
+Die @var{Prozedur} wird jedes mal aufgerufen, wenn dar
+@code{\markup}-Befehl, auf den sie sich auswirkt, ausgewertet wird.
+Die @var{Prozedur} sollte nach einer bestimmten Bedingung fragen und
+das @var{Beschriftung}-Argument ausführen (also setzen), wenn diese
+Bedinung wahr ist.
+
+Eine Anzahl von fertigen Prozeduren, um verschiedene Bedinungen zu testen,
+werden bereitgestellt:
+
+@quotation
+@multitable {print-page-number-check-first-----} {should this page be printed-----}
+
+@headitem  Prozedurbezeichnung      @tab  Getestete Bedinung
+
+@item print-page-number-check-first @tab  sollte diese Seitenzahl gesetzt werden?
+@item create-page-number-stencil    @tab  'print-page-numbers wahr?
+@item print-all-headers             @tab  'print-all-headers wahr?
+@item first-page                    @tab  erste Seite im Buch?
+@item (on-page nmbr)                @tab  Seitenzahl = nmbr?
+@item last-page                     @tab  letzte Seite im Buch?
+@item not-first-page                @tab  nicht erste Seite im Buch?
+@item part-first-page               @tab  erste Seite im book part?
+@item part-last-page                @tab  letzte Seite im book part?
+@item not-single-page               @tab  Seiten im book part > 1?
+
+@end multitable
+@end quotation
+
 Das folgende Beispiel zentriert die Seitenzahlen unten auf jeder Seite.
 Zuerst werden die Standardeinstellungen von @code{oddHeaderMarkup} und
 @code{evenHeaderMarkup} entfernt, indem sie als @qq{Null}-Beschriftung
@@ -1077,10 +1168,25 @@ die selbe Layoutdefinition wie @code{\oddFooterMarkup}:
 }
 @end lilypond
 
+Verschiedene @code{\on-the-fly}-Bedingungen können mit dem Operator
+@qq{UND} verknüpft werden, beispielsweise bestimmt
+
+@example
+  @code{\on-the-fly #first-page}
+  @code{\on-the-fly #last-page}
+  @code{@{ \markup ... \fromproperty #'header: ... @}}
+@end example
+
+@noindent
+ob es sich um eine einzelne Seite bei der Ausgabe handelt.
+
 @seealso
 Notationsreferenz:
 @ref{Wie funktioniert die Titel-Umgebung?},
 @ref{Standardlayout von book und Partitur Titelumgebungen}.
+
+Installierte Dateien:
+@file{../ly/titling-init.ly}.
 
 
 @node Fußnoten erstellen
@@ -1102,11 +1208,65 @@ manuelle Fußnoten.
 
 Automatische Fußnoten erstellen aufsteigende Zahlenverweise, während
 mit manuellen Fußnoten eigene angepasste Verweise erstellt werden
-können.  Alle Grobs, @code{\markup}-Beschriftung auf höchster Ebene
-und zu Akkord zusammengefasste Noten können mit Fußnoten versehen werden.
+können.  Fußnoten werden normalerweise wie ein @code{\tweak}-Befehl
+an Noten gehängt und können deshalb auch direkt mit den Grobs
+(graphischen Objekten) verknüpft werden, die von den meisten
+musikalischen Elementen und Postelementen erstellt werden.  In Fällen, wo
+das nicht funktioniert (etwa bei Taktstrichen und Taktartänderungen, wo
+die Grobs als Folge einer Eigenschaftsänderung erstellt werden), können
+Fußnoten als einzelnstehendes musikalisches Ereigenis ersetllt werden,
+das sich auf alle Grobs eines bestimmten Typs zu einer bestimmten Zeit
+bezieht.
 
-Die Reihenfolge, in welcher ein Grob erstellt wird, bestimmt die
-Reihenfolge der Nummerierung automatischer Fußnoten.
+Der vollständige Befehl ist:
+
+@example
+\footnote @var{Zeichen} @var{Verschiebung} @var{Grob-Bezeichnung} @var{Fußnote}
+@var{Noten}
+@end example
+
+Die Elemente sind folgende:
+
+@table @var
+@item
+Zeichen
+ist eine Beschriftung oder Zeichenkette, die das Fußnotenzeichen
+angbit, welches für den Referenzpunkt als auch für die Fußnote
+unten auf der Seite benützt wird.  Es kann ausgelassen werden
+(oder durch @code{\default} ersetzt werden); in diesem Fall wird
+eine aufsteigende Zahlenfolge erstellt.
+
+@item Verschiebung (offset)
+ist ein Zahlenpaar wie etwa @samp{#(2 . 1)}, das die X- und Y-Verschiebung
+vom Referenzpunkt aus angibt, wo das Zeichen gesetzt werden soll.
+
+@item Grob-Bezeichnung
+gibt die Grob-Art an, der ein Fußnotenzeichen hinzugefügt werden soll
+(wie etwa @samp{#'Flag}).  Wenn sie angegeben wird, wird der entsprechende
+Grob als Referenzpunkt eingesetzt, auch wenn das referenzierte Element
+nicht die @var{Noten} selber sind, sondern ein Grob, der durch sie
+erstellt wird.  Das Element kann ausgelassen werden (oder durch
+@code{\default} ersetzt werden); dann wird nur ein direkt erstellter Grob
+mit Fußnote versehen.
+
+@item Fußnote
+Diese Beschriftung oder Zeichenkette bezeichnet den Fußnotentext, der
+am unteren Seitenrand gesetzt werden soll.
+
+@item Noten
+Das ist das Element, ein musikalisches Ereignis oder eine Akkordkonstruktion
+oder ein Post-Ereignis, das die Fußnote erhält.  Man kann es nicht auslassen,
+aber man @emph{kann} es durch @code{\default} ersetzten.  In diesem Fall
+wird die Fußnote aber nicht an einen bestimmten musikalischen Ausdruck
+angehänt, sondern an einen zeitlichen Moment.  In diesem Fall muss man
+zwingend die @var{Grob-Bezeichnung} angeben, um den Grob-Typ auszuwählen, auf
+den sich die Fußnote bezieht (etwa @samp{#'TimeSignature}).
+@end table
+
+Wie auch mit @code{\tweak} muss dem @code{\footnote}-Befehl @code{-}
+vorangestellt werde,n wenn er an ein Post-Ereignis oder eine
+Artikulation angehängt werden soll, damit der Parser das Ergebnis
+der vorherigen Note oder Pause zuordnen kann.
 
 
 @node Automatische Fußnoten
@@ -1115,9 +1275,10 @@ Reihenfolge der Nummerierung automatischer Fußnoten.
 
 @cindex Fußnoten, automatisch
 
-Automatische Fußnoten brauchen drei Argumente: das @var{Layoutobjekt}, das die
-Anmerkung erhalten soll, die @var{(x . y)}-Position des Indikators und
-eine @code{\markup}-Beschriftung, die den Inhalt der Fußnote enthält.
+Automatische Fußnoten haben vier Argumente: die @var{(x . y)}-Position des Indikators,
+die optionale @var{Grob-Bezeichnung}, die die Anmerkung erhalten soll,
+die @var{Fußnote}-Beschriftung, die den Inhalt der Fußnote enthält, und
+natürlich die @var{Noten}, welche mit einer Fußnote versehen werden sollen.
 
 Der Befehl @code{\footnote} muss @emph{vor} dem Grob geschrieben
 werden, auf den sich die Fußnote bezieht.
@@ -1127,19 +1288,17 @@ werden, auf den sich die Fußnote bezieht.
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote #'(0.5 . -2) #'NoteHead
+    \footnote #'(0.5 . -2)
       \markup { Die erste Note } \default
     a'4 b8
-    \footnote #'(0.5 . 1) #'NoteHead
+    \footnote #'(0.5 . 1) #'Flag
       \markup { Die dritte Note } \default
-    e c4 d4
+    e\noBeam c4 d4
   }
 }
 @end lilypond
 
-Bei Noten in Akkorden muss der Befehl @code{\footnote} @emph{nach}
-der Note, auf der sie sich bezieht, in Form eines @code{TextScript}
-stehen:
+Noten in Akkorden stellen keine Schwierigkeit dar:
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
@@ -1147,9 +1306,9 @@ stehen:
   \header { tagline = ##f }
   \relative c' {
     <
-    c-\footnote #'(1 . -1.25) "Hier ein C" \default
-    es-\footnote #'(2 . -0.25) \markup { \italic "Ein Es" } \default
-    g-\footnote #'(2 . 3) \markup { \bold "Das ist ein G" } \default
+    \footnote #'(1 . -1.25) "Hier ein C" c
+    \footnote #'(2 . -0.25) \markup { \italic "Ein Es" } es
+    \footnote #'(2 . 3) \markup { \bold "Das ist ein G" } g
     >1
   }
 }
@@ -1167,27 +1326,17 @@ Tagline und Copyright gezeigt wird.
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
   \relative c' {
-    \footnote #'(-3 . 0) #'DynamicText
-      \markup { \bold Forte } \default
-
-    \footnote #'(0 . 1.5) #'Slur
-      \markup { Ein Bogen } \default
-    a'4\f(
-
-    \footnote #'(0 . -2) #'Beam
-      \markup { Balken } \default
-    b8)[ e]
-
+    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
+    -\footnote #'(0 . 1.5) \markup { Ein Bogen } (
+    b8)-\footnote #'(0 . -2) \markup { Balken } [ e]
     \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { Das ist ein Hals } } \default
+      \markup  { \teeny { Das ist ein Hals } }
     c4
-
     \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { Ein Warnungsversetzungszeichen } \default
-
-    \footnote #'(0.5 . -0.5) #'TextScript
-      \markup \italic { Langsamer hier } \default
-    dis?4_"rit."
+      \markup \italic { Ein warnendes Versetzungszeichen }
+    \footnote #'(1 . 1) "Die Note selber"
+    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { langsamer werden }
+         _"rit."
   }
 }
 @end lilypond
@@ -1213,28 +1362,31 @@ den Befehl @code{\auto-footnote}:
 
 @cindex Fußnoten, manuell
 
-Manuell erstellte Fußnoten brauchen vier Argumente: das @var{Layoutobjekt},
-das die Anmerkung erhalten soll, die @var{(x . y)}-Position des
-Indikators und zwei @code{\markup}-Beschriftungen; die erste ist der
-Indikator, der an die Note oder den Grob gehängt wird, die zweite
-der Inhalt der Fußnote unten auf der Seite.
+Manuell erstellte Fußnoten haben ein zusätzliches erstes Argument
+@var{Zeichen}, das das Fußnotenzeichen erstellt.  Im Gegensatz zu
+automatisch erstellten Fußnotenzeichen erscheinen sie nicht unbedingt
+vor dem Fußnotentext unten auf der Seite -- das Herstellen eines visualen
+Zusammenhanges ist dem Setzer überlassen.  LilyPond stellt nur ischer, dass
+der zugehörige Text unten auf der selben Seite erscheint.
 
-Wie auch bei automatischen Fußnoten muss der Befehl @code{\footnote}
-@emph{vor} dem Grob kommen, an den die Fußnote gehängt wird und als
-@code{TextScript} geschrieben werden:
+Davon abgesehen ist die Benutzung identisch mit automatischen Fußnoten.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-          "1" #'(0.5 . -2) #'NoteHead \markup { \italic "1. Die erste Note" } \default
+    \footnote
+          "1" #'(0.5 . -2)
+          \markup { \italic "1. Die erste Note" }
+    a'4
     b8
-    e-\footnote
-          \markup { \bold "2" } #'(0.5 . 1) #'NoteHead "2. Die zweite Note" \default
+    \footnote
+          \markup { \bold "2" } #'(0.5 . 1)
+          "2. Die zweite Note"
+    e
     c4
-    d\p-\footnote "3" #'(0.5 . -1) #'DynamicText "3. Piano" \default
+    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
   }
 }
 @end lilypond
@@ -1266,44 +1418,38 @@ Position der Fußnotentexte zu Tagline und Copyright anzeigen:
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote
-      \markup { \teeny 1 } #'(-3 . 0) #'DynamicText
-      \markup { 1. \bold Forte } \default
-
-    \footnote
-      \markup { \teeny b } #'(0 . 1.5) #'Slur
-      \markup { b. Ein Bogen } \default
-    a'4\f(
-
-    \footnote
-      \markup { \teeny 3 } #'(0 . -2) #'Beam
-      \markup { 3. Balken } \default
-    b8)[ e]
-
+    a'4-\footnote
+      \markup { \teeny 1 } #'(-3 . 0)
+      \markup { 1. \bold Forte } \f
+    -\footnote
+      \markup { \teeny b } #'(0 . 1.5)
+      \markup { b. Ein Bogen } (
+    b8)-\footnote
+      \markup { \teeny 3 } #'(0 . -2)
+      \markup { 3. Balken } [
+    e]
     \footnote
       \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { Das ist ein Hals } } \default
+      \markup  { \bold 4. { Das ist ein Hals } }
     c4
-
     \footnote
-      \markup \concat \teeny { "sharp (v)" } #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. Ein Warnungsversetzungszeichen } \default
-
+      \markup \concat \teeny { "sharp (v)" }
+          #'(0 . 0.5) #'AccidentalCautionary
+      \markup \italic { v. Ein warndendes Versetzungszeichen }
+    dis?4-\footnote
+      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
+      \markup \italic { a. Langsamer werden } _"rit."
     \footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5) #'TextScript
-      \markup \italic { a. Langsamer hier } \default
-    dis?4_"rit."
-
-    \breathe
-    \footnote
-      \markup { \teeny \musicglyph #"rests.4" } #'(1.5 . -0.25) #'BreathingSign
-      \markup { \null } \default
+      \markup { \teeny \musicglyph #"rests.4" }
+          #'(1.5 . -0.25)
+      \markup { \null } \breathe
   }
 }
 @end lilypond
 
 Eine @code{\markup}-Beschriftung der höchsten Ebene wird wie folgt
 annotiert:
+
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1489,7 +1635,7 @@ tocAct =
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
-@lilypond[line-width=11.0\cm]
+@lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocActMarkup = \markup \large \column {
@@ -1518,7 +1664,7 @@ tocAct =
 Die Zeile zwischen dem Inhalt und der Seitenzahl kann mit einer gepunkteten
 Linie gefüllt werden:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=10.0\cm]
 \header { tagline = ##f }
 \paper {
   tocItemMarkup = \tocItemWithDotsMarkup

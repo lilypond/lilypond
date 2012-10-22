@@ -228,7 +228,7 @@ Dvěma dosud neviděnými příkazy jsou
 @code{\layout @{ @}} a @code{\midi @{@}}.  Když se objeví v nějakém
 souboru, vede to k tomu, že Lilypond vytvoří tisknutelný soubor PDF
 popřípadě soubor MIDI.  Přesněji jsou popsány v uživatelské příručce -
-doporučení k notovému zápisu -- @ruser{Rozvržení notového zápisu} a
+notace -- @ruser{Rozvržení notového zápisu} a
 @ruser{Vytváření souborů MIDI}.
 
 @cindex Notové zápisy, více
@@ -465,7 +465,7 @@ samém místě.
 
 
 @seealso
-Doporučení k notovému zápisu: @ruser{Stavba notového zápisu}.
+Notace: @ruser{Stavba notového zápisu}.
 
 
 @node Naskládání hudebních výrazů do sebe
@@ -528,7 +528,7 @@ osnovu:
 @end lilypond
 
 Tento příklad používá příkaz @code{\with}, který bude později
-gvysvětlen ještě přesněji.  Jím lze měnit výchozí chování jedné
+vysvětlen ještě přesněji.  Jím lze měnit výchozí chování jedné
 notové osnovy: Zde se jednoduše říká, že nová notová osnova
 se má umístit nad již jsoucí osnovu s názvem
 @qq{main} namísto výchozího umístění, které je
@@ -566,7 +566,7 @@ krátce projít znovu:
 @item @code{@{ .. @}}
   @tab Uzavírá postupnou část hudby
 @item @code{< .. >}
-  @tab Uzavírá noty jednoho akkordu
+  @tab Uzavírá noty jednoho akordu
 @item @code{<< .. >>}
   @tab Uzavírá souběžné hudební výrazy
 @item @code{( .. )}
@@ -638,7 +638,7 @@ tím nejzákladnějším pojmem.
 
 @menu
 * Slyším hlasy::
-* Přímo vyjádřené začátky hlasů::
+* Přesně vyjádřené začátky hlasů::
 * Hlasy a zpěvy::
 @end menu
 
@@ -849,7 +849,7 @@ akordu.  Tak například zde je spočítáno
 @noindent
 @code{NoteB} se zřetelem na @code{NoteA}                      @*
 @code{NoteC} se zřetelem na @code{NoteB}, ne @code{noteA};   @*
-@code{NoteD} se zřetelem na @code{NoteB}, ne @code{NoteA} oder
+@code{NoteD} se zřetelem na @code{NoteB}, ne @code{NoteA} nebo
 @code{NoteC};                                                 @*
 @code{NoteE} se zřetelem na @code{NoteD}, ne @code{NoteA}.
 
@@ -898,26 +898,26 @@ a hlasy.  Složitější věci budou vysvětleny v pozdějších částech.
 }
 @end lilypond
 
-Die Richtung der Hälse wird  oft benutzt, um anzuzeigen, dass zwei
-gleichzeitige Melodien sich fortsetzen.  Hier zeigen die Hälse aller
-oberen Noten nach oben und die Hälse aller unteren Noten nach unten.
-Das ist der erste Anhaltspunkt, dass mehr als eine Stimme benötigt
-wird.
+Směr nožičky se často používá k tomu, aby se ukázala souvislost
+dvou souběžných melodií.  Zde ukazují nožičky všech horních
+not nahoru a nožičky všech dolních not dolů.
+To je první známkou toho, že je potřeba více než jeden
+hlas.
 
-Aber die wirkliche Notwendigkeit für mehrere Stimmen tritt erst
-dann auf, wenn unterschiedliche Noten gleichzeitig erklingen, aber
-unterschiedliche Dauern besitzen.  Schauen Sie sich die Noten
-auf dem dritten Schlag im ersten Takt an.  Das As ist eine punktierte
-Viertel, das F ist eine Viertel und das Des eine Halbe.  Sie können
-nicht als Akkord geschrieben werden, denn alle Noten in einem Akkord
-besitzen die gleiche Dauer.  Sie können aber auch nicht nacheinander
-geschrieben werden, denn sie beginnen auf der gleichen Taktzeit.  Dieser
-Taktabschnitt benötigt drei Stimmen, und normalerweise schreibt man
-drei Stimmen für den ganzen Takt, wie im Beispiel unten zu sehen ist;
-hier sind unterschiedliche Köpfe und Farben für die verschiedenen Stimmen
-eingesetzt.  Noch einmal: der Quellcode für dieses Beispiel wird später
-erklärt werden, deshalb ignorieren Sie alles, was Sie hier nicht
-verstehen können.
+Ale skutečná nezbytnost více hlasů nadejde teprve tehdy,
+když současně zaznívají různé noty, které začínají ve stejnou dobu,
+mají rozdílné doby trvání.  Podívejte se na noty, jež začínají na
+třetí době prvního taktu.  As je tečkovaná čtvrťová nota,
+F je čtvrťová nota a Des je půlová nota.  Nemohou být
+zapsány jako akord, protože všechny noty jednoho akordu
+mají stejnou dobu trvání.  Nemohou být ale zapsány ani jako jdoucí po sobě,
+protože musí začínat v tutéž dobu.  Tato část taktu
+potřebuje tři hlasy, a běžně se zapisují tři hlasy
+pro celý takt, jak je to vidět na příkladu níže;
+kde jsou použity různé hlavičky not a barvy pro různé
+hlasy.  Ještě jednou: Zdrojový kód pro tento příklad bude později
+vysvětlen znovu, proto si nevšímejte ničeho, čemu zde nemůžete
+porozumět.
 
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
@@ -947,10 +947,10 @@ verstehen können.
 }
 @end lilypond
 
-Versuchen wir also, diese Musik selber zu notieren.  Wie wir sehen
-werden, beinhaltet das einige Schwierigkeiten.  Fangen wir an, wie
-wir es gelernt haben, indem wir mit der @code{<< \\  >>}-Konstruktion
-die drei Stimmen des ersten Taktes notieren:
+Pokusme se tedy tyto noty zapsat od začátku.  Jak je zde
+vidět, je tu obsaženo několik potíží.  Začneme, jak jsme
+se to naučili, pomocí konstrukcí @code{<< \\  >>},
+kterou zapíšeme tři hlasy prvního taktu:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
@@ -962,21 +962,20 @@ die drei Stimmen des ersten Taktes notieren:
 }
 @end lilypond
 
-@cindex Hals nach unten
-@cindex Hals nach oben
-@cindex Notenhals, Richtung
-@cindex Richtung des Notenhalses
-@cindex Notenhalsrichtung
-@cindex Stimmen und Notenhalsrichtung
-@cindex Notenhalsrichtung in Stimmen
+@cindex Nožička dolů
+@cindex Nožička nahoru
+@cindex Notová nožička, Směr
+@cindex Směr notové nožičky
+@cindex Hlasy a směr notové nožičky
+@cindex Směr notové nožičky ve hlasech
 
-Die Richtung des Notenhalses wird automatisch zugewiesen; die ungeraden
-Stimmen tragen Hälse nach oben, die gerade Hälse nach unten.  Die Hälse
-für die Stimmen 1 und 2 stimmen, aber die Hälse in der dritten Stimme
-sollen in diesem Beispiel eigentlich nach unten zeigen.  Wir können das
-korrigieren, indem wir die dritte Stimme einfach auslassen und die
-Noten in die vierte Stimme verschieben.  Das wird einfach vorgenommen,
-indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
+Směr notové nožičky je přiřazen automaticky; hlasy s lichým
+číslem nesou nožičky nahoru, sudé mají nožičky dolů.  Nožičky
+pro hlasy 1 a 2 jsou správně, ale nožičky třetího hlasu
+by v tomto příkladu měly vlastně ukazovat dolů.  Můžeme to opravit
+jednoduše tak, že vypustíme třetí hlas, přeskočíme jej a noty
+umístíme do čtvrtého hlasu.  To se udělá jednoduše přidáním
+páru @code{\\}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \relative c'' {
@@ -994,27 +993,27 @@ indem noch ein Paar @code{\\}-Stimmen hinzugefügt wird.
 @end lilypond
 
 @noindent
-Wie zu sehen ist, ändert das die Richtung der Hälse, aber zeigt ein
-anderes Problem auf, auf das man manchmal bei mehreren Stimmen stößt:
-Die Hälse einer Stimme können mit den Hälsen anderer Stimmen kollidieren.
-LilyPond erlaubt Noten in verschiedenen Stimmen sich auf der gleichen
-vertikalen Position zu befinden, wenn die Hälse in entgegengesetzte
-Richtungen zeigen, und positioniert die dritte und vierte Stimme dann
-so, dass Zusammenstöße möglichst vermieden werden.  Das funktioniert
-gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
-Stimme eindeutig standardmäßig schlecht positioniert.  LilyPond bietet
-verschiedene Möglichkeiten, die horizontale Position von Noten
-anzupassen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
-anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in
+Vidíme, že se tím mění směr nožiček, ale ukazuje se jiný
+problém, na který se někdy při více hlasech narazí:
+Nožičky not jednoho hlasu se mohou střetávat s nožičkami jiného hlasu.
+LilyPond dovoluje notám různých hlasů, aby se nacházely ve
+stejné svislé poloze, za předpokladu že nožičky ukazují v opačných
+směrech, a třetí a čtvrtý hlas pak umísťuje tak, aby pokud možno
+k vzájemnému střetu nedocházelo.  Obvykle to pracuje
+dobře, ale v tomto případě jsou noty nejnižšího hlasu
+zřetelně nedobře umístěny.  LilyPond nabízí několik různých způsobů,
+jak vodorovnou polohu not přizpůsobit.  Nejsme však ještě tak daleko,
+abychom tyto funkce mohli použít. Proto
+tento problém odložíme na později; viz vlastnost @code{force-hshift} v
 @ref{Oprava překrývajících se not}.
 
 
 @seealso
-Notationsreferenz: @ruser{Mehrere Stimmen}.
+Notace: @ruser{Více hlasů}.
 
 
-@node Přímo vyjádřené začátky hlasů
-@subsection Přímo vyjádřené začátky hlasů
+@node Přesně vyjádřené začátky hlasů
+@subsection Přesně vyjádřené začátky hlasů
 @translationof Explicitly instantiating voices
 
 @funindex \voiceOne
@@ -1028,19 +1027,19 @@ Notationsreferenz: @ruser{Mehrere Stimmen}.
 @funindex \oneVoice
 @funindex oneVoice
 @funindex \new Voice
-@cindex Voice context, erstellen von
-@cindex Stimmenkontexte, erstellen von
+@cindex Vytvoření prostředí hlasu
+@cindex Prostředí hlasu, vytvoření
 
-Voice-Kontexte können auch manuell innerhalb
-eines @code{<< >>}-Abschnittes initiiert werden.  Mit den Befehlen
-@code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme
-entsprechendes Verhalten von vertikaler Verschiebung und Richtung
-von Hälsen und anderen Objekten hinzugefügt werden.  In längeren
-Partituren können die Stimmen damit besser auseinander gehalten
-werden.
+Prostředí hlasů lze vytvářet i ručně uvnitř bloku @code{<< >>}
+pro vytvoření vícehlesé hudby.  Pomocí příkazů @code{\voiceOne} až
+@code{\voiceFour} lze ke každému hlasu přidat odpovídající chování
+svislého posunu a požadované směry nožiček, legatové obloučky
+a jiné předměty.  V delších notových zápisech je tento způsob čistší,
+protože dovoluje, aby byly hlasy odděleny a aby se jim daly
+popisnější názvy.
 
-Die @code{<< \\ >>}-Konstruktion, die wir im vorigen Abschnitt
-verwendet haben:
+Stavba @code{<< \\ >>}, kterou jsme použili v předchozím
+úryvku:
 
 @example
 \new Staff @{
@@ -1060,7 +1059,7 @@ ist identisch mit
 >>
 @end example
 
-Beide würden folgendes Notenbild erzeugen:
+Obojí výše by vytvořilo následující notový obraz:
 
 @c The following example should not display the code
 @lilypond[ragged-right,quote]
@@ -1070,21 +1069,21 @@ Beide würden folgendes Notenbild erzeugen:
 >>
 @end lilypond
 
-@cindex Stimmen, mehrere zu einer zusammenführen
-@cindex eine Stimme wiederherstellen
+@cindex Hlasy, sloučení více do jednoho
+@cindex Obnovení jednoho hlasu
 
-Der @code{\voiceXXX}-Befehl setzt die Richtung von Hälsen,
-Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen.
-@code{\voiceOne} und @code{\voiceThree} lassen diese Objekte
-nach oben zeigen, @code{\voiceTwo} und @code{\voiceFour}
-dagegen lassen sie abwärts zeigen. Diese Befehle erzeugen eine
-horizontale Verschiebung, wenn es erforderlich ist, um Zusammenstöße
-zu vermeiden.  Der Befehl
-@code{\oneVoice} stellt wieder auf das normale Verhalten um.
+Příkazy @code{\voiceXXX} nastavuje směr nožiček, legata
+ligatury, artikulace, textové poznámky, tečkování tečkovaných not
+a prstoklady. @code{\voiceOne} a @code{\voiceThree} nechají tyto
+předměty ukazovat nahoru, @code{\voiceTwo} a @code{\voiceFour} je
+naproti tomu nechají ukazovat dolů. Tyto příkazy rovněž vytvářejí
+vodorovný posun pro každý hlas, když se vyžaduje vyvarování se
+střetům notových hlaviček.  Příkaz @code{\oneVoice} nastavení vrací
+na obvyklou hodnotu pro jeden hlas.
 
-Schauen wir uns in einigen einfachen Beispielen an, was genau
-die Befehle @code{\oneVoice}, @code{\voiceOne} und @code{voiceTwo}
-mit Text, Bögen und Dynamikbezeichnung anstellen:
+Podívejme se na některých jednoduchých příkladech, jaký přesně
+mají příkazy @code{\oneVoice}, @code{\voiceOne} a @code{voiceTwo}
+účinek na text, obloučky a označení dynamiky:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
@@ -1111,18 +1110,16 @@ mit Text, Bögen und Dynamikbezeichnung anstellen:
 }
 @end lilypond
 
-Schauen wir und nun drei unterschiedliche Arten an, den gleichen
-Abschnitt polyphoner Musik zu notieren, jede Art mit ihren
-Vorteilen in unterschiedlichen Situationen.  Wir benutzen dabei
-das Beispiel vom vorherigen Abschnitt.
+Nyní se podívejme na tři různé způsoby zápisu té samé pasáže
+vícehlasé hudby, z nichž každý má své výhody za jiných
+okolností.  Použijeme k tomu příklad z předchozí části.
 
-Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung
-auftritt, gehört der Hauptstimme an.  Das ist nützlich, wenn zusätzliche
-Stimme auftreten, während die Hauptstimme sich fortsetzt.  Hier also
-eine bessere Version des Beispiels aus dem vorigen Abschnitt.  Die
-farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in
-einem einzigen Stimmen (@code{voice})-Kontext befindet.  Somit kann ein
-Phrasierungsbogen ober sie gesetzt werden.
+Výraz, který se vyskytuje přímo uvnitř @code{<< >>}, náleží
+hlavnímu hlasu (ale všimněte si @strong{not} ve stavbě @code{<< \\ >>}).
+Toto je užitečné, když se objeví dodatečné hlasy, zatímco hlavní hlas pokračuje.
+Zde je lepší verze našeho příkladu z předchozí části.  Hlavičky not ve
+tvaru červeného diamantu ukazují, že se hlavní hlas nachází v prostředí
+jednotlivého hlasu. Tím se může frázovací oblouček malovat nad ně.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -1149,17 +1146,17 @@ Phrasierungsbogen ober sie gesetzt werden.
 }
 @end lilypond
 
-@cindex Verschachteln von musikalischen Ausdrücken
+@cindex Vnoření hudebních výrazů
 @cindex Verschachteln von gleichzeitigen Ausdrücken
-@cindex Ausdrücke, Verschachteln von
-@cindex Stimmen, temporär
-@cindex Stimmen, Verschachteln von
-@cindex Verschachteln von Stimmen
-@cindex temporäre Stimmen
+@cindex Výrazy, vnoření
+@cindex Hlasy, dočasné
+@cindex Hlasy, vnoření
+@cindex Vnoření hlasů
+@cindex Dočasné hlasy
 
-Tiefer verschachtelte polyphone Konstrukte sind möglich, und
-wenn eine Stimme nur kurz auftaucht, kann das der bessere Weg
-sein, Noten zu setzen:
+Hlouběji vnořené vícehlasé stavby jsou možné, a pokud se
+hlas objeví jen krátce, může to být přirozenější způsob
+sázení not:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -1181,16 +1178,15 @@ sein, Noten zu setzen:
 }
 @end lilypond
 
-@cindex Platzhalternoten
-@cindex unsichtbare Noten
-@cindex Noten verstecken
+@cindex Noty držící místo
+@cindex Neviditelné noty
+@cindex Skrytí not
 
-Diese Methode, neue Stimmen kurzzeitig zu verschachteln, bietet sich
-an, wenn nur sehr kleine Abschnitte polyphonisch gesetzt sind.  Wenn
-aber die ganze Partitur polyphon ist, ist es meistens klarer, direkt
-unterschiedliche Stimmen über die gesamte Partitur hinweg einzusetzen.
-Hierbei kann man mit unsichtbaren Noten dann die Stellen überspringen,
-an denen die Stimme nicht auftaucht, wie etwa hier:
+Tento způsob krátkodobého vnoření nových hlasů je užitečný,
+když jsou vícehlasé jen malé části hudby. Ale když je vícehlasá celá
+osnova, je většinou jasnější použití více hlasů v celé osnově. Tady
+se dají místa, kde se hlas nevyskytuje, přeskočit pomocí neviditelných not,
+jako je tomu zde:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' <<
@@ -1214,15 +1210,13 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
 >>
 @end lilypond
 
-@subsubheading Notenkolumnen
+@subsubheading Notové sloupce
 
-@cindex Notenkolumne
-@cindex Notenkollision
-@cindex Zusammenstöße von Noten
-@cindex Kollisionen von Noten
-@cindex Vertikale Position
-@cindex shift-Befehle
-@cindex Verschieben von Noten
+@cindex Notové sloupce
+@cindex Notové střety
+@cindex Svislé umístění
+@cindex Příkazy shift
+@cindex Posunutí not
 @funindex \shiftOff
 @funindex \shiftOn
 @funindex \shiftOnn
@@ -1232,71 +1226,63 @@ an denen die Stimme nicht auftaucht, wie etwa hier:
 @funindex shiftOnn
 @funindex shiftOnnn
 
-Dicht notierte Noten in einem Akkord, oder Noten auf der gleichen
-Taktzeit aber in unterschiedlichen Stimmen, werden in zwei, manchmal
-auch mehreren Kolumnen gesetzt, um die Noten am Überschneiden zu
-hindern.  Wir bezeichnen sie als Notenkolumnen.  Jede Stimme hat
-eine eigene Kolumne, und ein stimmenabhängiger Verschiebunsbefehl (engl.
-shift) wird eingesetzt, wenn eine Kollision auftreten könnte.
-Das zeigt das Beispiel oben.  Im zweiten Takt wird das C der zweiten
-Stimme nach rechts verschoben, relativ gesehen zum D der ersten Stimme,
-und im letzten Akkord wird das C der dritten Stimme auch nach
-rechts verschoben im Verhältnis zu den anderen Stimmen.
+Hustě zapisované noty v akordu, nebo noty vyskytující se ve stejnou
+dobu ale v různých hlasech, jsou uspořádány do dvou, někdy i do více,
+sloupců, aby se zabránilo překrytí hlaviček not.  Označují se jako
+notové sloupce.  Každý hlas má svůj vlastní sloupec, a příkaz pro posun
+závislý na hlase (ang. shift) se na notový sloupec použije, jestliže
+by jinak došlo ke střetu.  To ukazuje příklad výše.  Ve druhém taktu
+je C druhého hlasu posunuto doprava, ve vztahu k D v prvním hlasu, a
+v posledním akordu je C v třetím hlasu posunuto doprava, ve vztahu
+k jiným hlasům.
 
-Die Befehle @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} und
-@code{\shiftOff} bestimmen den Grad, zu dem Noten und Akkorde
-verschoben werden sollen, wenn sich sonst eine Kollision nicht
-vermeiden ließe.  Die Standardeinstellung ist, dass die äußeren
-Stimmen (also normalerweise Stimme 1 und 2) @code{\shiftOff}
-eingestellt haben, während für die inneren Stimmen (3 und 4)
-@code{\shiftOn} eingeschaltet ist.  Wenn eine Verschiebung
-auftritt, werden Stimmen 1 und 3 nach rechts und Stimmen 2 und 4
-nach links verschoben.
+Příkazy @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} a
+@code{\shiftOff} určují stupeň, k němuž se mají noty a akordy
+hlasu posunout, když se nedá vyhnout střetu jinak.  Ve výchozím
+nastavení se vnější hlasy nastavují (obyčejně jde o hlasy
+jedna a dva) tak, že mají stanoveno @code{\shiftOff}, zatímco pro
+vnitřní hlasy (tři a čtyři) je stanoveno @code{\shiftOn}.
+Když se použije posunutí, posunou se hlasy jedna a tři doprava
+a hlasy dva a čtyři doleva.
 
-@code{\shiftOnn} und @code{\shiftOnnn} definieren weitere
-Verschiebungsebenen, die man kurzzeitig anwählen kann, um
-Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
-@ref{Příklady ze života}.
+@code{\shiftOnn} a @code{\shiftOnnn} stanovují další úrovně posunu,
+které mohou být stanoveny krátkodobě kvůli vyřešení střetů
+ve složitých situacích. Podívejte se také na @ref{Příklady ze života}.
 
-Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
-einer Stimme mit Hälsen nach oben und eine Note (oder einen
-Akkord) von einer Stimme mit Hälsen nach unten tragen.  Wenn
-Noten von zwei Stimmen mit den Hälsen in die gleiche Richtung
-an der selben Stelle auftreten und in beiden Stimmen ist
-keine Verschiebung oder die gleiche Verschiebungsebene
-definiert, wird die Fehlermeldung
-@qq{zu viele kollidierende Notenspalten werden ignoriert}
-ausgegeben.
+Notový sloupec může obsahovat jen jednu notu (nebo jeden akord) hlasu
+s nožičkami nahoru a jednu notu (nebo jeden akord) hlasu
+s nožičkami dolů.  Pokud jsou na témže místě umístěny noty dvou hlasů,
+které mají své nožičky v tomtéž směru, a u obou hlasů není žádný
+posun, nebo je stanoven stejný posun, je vydáno hlášení o chybě
+@qq{Příliš mnoho střetávajících se notových sloupců}.
 
 
 @seealso
-Notationsreferenz: @ruser{Mehrere Stimmen}.
+Notace: @ruser{Více hlasů}.
 
 
 @node Hlasy a zpěvy
 @subsection Hlasy a zpěvy
 @translationof Voices and vocals
 
-Die Notation von Vokalmusik ihre eigene Schwierigkeit, nämlich
-die Kombination von zwei Ausdrücken: den Noten und dem Text.
-Achtung: Der Gesangstext wird auf Englisch @qq{lyrics} genannt.
+Notový zápis vokální hudby má své vlastní obtíže, je totiž
+potřeba spojení dvou výrazů: not a textu.
+Pozor: Textu písně se v angličtině říká @qq{lyrics}.
 
 
 @funindex \new Lyrics
 @funindex \lyricsto
 @funindex lyricsto
 @funindex Lyrics
-@cindex Lyrics context, erstellen
-@cindex Gesangtext, Verbindung mit Noten
+@cindex Prostředí text písně, vytvoření
+@cindex Text písně, spojení s notami
 
-Wir haben schon den @code{\addlyrics@{@}}-Befehl betrachtet,
-mit dem einfache Partituren gut erstellt werden können.
-Diese Methode ist jedoch recht eingeschränkt.  Wenn der Notensatz
-komplexer wird, muss der Gesangstext mit einem neuen
-@code{Lyrics}-Kontext begonnen werden (mit dem Befehl
-@code{\new Lyrics}) und durch den Befehl @code{\lyricsto@{@}}
-mit einer bestimmten Stimme verknüpft werden, indem die
-Bezeichnung der Stimme benutzt wird.
+Již jste viděli příkaz @code{\addlyrics@{@}}, s nímž lze
+dobře vytvářet jednoduché osnovy.  Tento způsobem je ale docela
+omezený.  U složitějších not se musí text písně začít novým prostředím
+@code{Lyrics} (pomocí příkazu @code{\new Lyrics}) a přesně
+spojit text s notami určitého hlasu příkazem @code{\lyricsto@{@}} tak, že
+se použije označení přiřazené hlasu.
 
 @lilypond[quote,verbatim]
 <<
@@ -1313,40 +1299,37 @@ Bezeichnung der Stimme benutzt wird.
 >>
 @end lilypond
 
-Beachten Sie, dass der Notentext nur mit einem @code{Voice}-Kontext
-verknüpft werden kann, nicht mit einem @code{Staff}-Kontext.
-In diesem Fall also müssen Sie ein System (@code{Staff}) und
-eine Stimme (@code{Voice}) explizit erstellen, damit alles
-funktioniert.
+Všimněte si, že text k notám může být spojen jedině s prostředím
+@code{Voice}, @emph{ne} s prostředím @code{Staff}.  V tomto
+případě je také nutné přesně vytvořit prostředí osnovy @code{Staff}
+a hlasu @code{Voice}, aby všechno fungovalo.
 
-@cindex Gesangstext und Balken
-@cindex Text und Balken
-@cindex Balken und Text
+@cindex Text písně a trámce
+@cindex Text a trámce
+@cindex Trámce a text
 @funindex \autoBeamOff
 @funindex autoBeamOff
 
-Die automatischen Balken, die LilyPond in der Standardeinstellung
-setzt, eignen sich sehr gut für instrumentale Musik, aber nicht
-so gut für Musik mit Text, wo man entweder gar keine Balken
-benutzt oder sie einsetzt, um Melismen zu verdeutlichen.
-Im Beispiel oben wird deshalb der Befehl @code{\autoBeamOff}
-eingesetzt um die automatischen Balken (engl. beam) auszuschalten.
+Automatické trámce, jež LilyPond používá ve výchozím nastavení, pracují
+dobře pro instrumentální hudbu, ale ne tak dobře v případě hudby s textem,
+kde se trámce nepožadují buď vůbec, nebo se jich užívá na ukázání
+melismat v textu písně.  V příkladu výše se používá příkaz
+@code{\autoBeamOff} k vypnutí automatických trámců (ang. beam).
 
 @funindex \new ChoirStaff
 @funindex \lyricmode
 @funindex ChoirStaff
 @funindex lyricmode
-@cindex Vokalpartitur, Aufbau
-@cindex Chorpartitur, Aufbau
+@cindex Vokální notový zápis, stavba
+@cindex Sborový notový zápis, stavba
 
-Wir wollen das frühere Beispiel von @notation{Judas Maccabæus}
-benutzen, um diese flexiblere Technik für Gesangstexte
-zu illustrieren.  Das Beispiel wurde so umgeformt, dass jetzt
-Variablen eingesetzt werden, um den Text und die Noten
-von der Partiturstruktur zu trennen.  Es wurde zusätzlich
-eine Chorpartiturklammer hinzugefügt.  Der Gesangtext muss mit
-@code{\lyricmode} eingegeben werden, damit er als Text und
-nicht als Noten interpretiert werden kann.
+Chceme použít dřívější příklad @notation{Judas Maccabæus}
+na znázornění těchto průžných technik pro texty písní. Příklad
+byl předělán tak, aby se teď dosadily proměnné, aby byl oddělen
+text a noty od stavby notového zápisu.  Byla dodatečně přidána
+závorka sborového notového zápisu.  Text písně se musí zadat s
+@code{\lyricmode}, aby byl vykládán jako text a
+ne jako noty.
 
 @lilypond[quote,verbatim]
 global = { \key f \major \time 6/8 \partial 8 }
@@ -1388,28 +1371,26 @@ SopTwoLyrics = \lyricmode {
 }
 @end lilypond
 
-Dies ist die Grundstruktur für alle Chorpartituren.  Mehr
-Systeme können hinzugefügt werden, wenn sie gebraucht werden, mehr
-Stimmen können zu jedem System hinzugefügt werden, mehr
-Strophen können zum Text hinzugefügt werden, und schließlich
-können die Variablen schnell in eine eigene Datei verschoben
-werden, wenn sie zu lang werden sollten.
+Toto je základní stavba pro všechny notové zápisy sboru.  Je
+možné přidat více velkých osnov, když jsou potřeba. Ke každé
+velké osnově je možné přidat více hlasů, je možné přidat více
+slok k textu, a konečně lze proměnné rychle přesunout do
+vlastního souboru, když by se staly příliš dlouhými.
 
-@cindex Choralnotation
-@cindex Hymnus-Notation
-@cindex SATB-Partitur
-@cindex mehrere Strophen
-@cindex Strophen, mehrere
-@cindex Choral mit mehreren Strophen
+@cindex Chorálová notace
+@cindex Notace hymnu
+@cindex Notový zápis SATB
+@cindex Více slok
+@cindex Sloky, více
+@cindex Choral s více slokami
 
-Hier ein Beispiel der ersten Zeile eines Chorals mit vier
-Strophen für gemischten Chor.  In diesem Fall ist der Text
-für alle vier Stimmen identisch.  Beachten Sie, wie die
-Variablen eingesetzt werden, um Inhalt (Noten und Text) und Form
-(die Partitur) voneinander zu trennen.  Eine Variable wurde
-eingesetzt, um die Elemente, die auf beiden Systemen auftauchen,
-aufzunehmen, nämlich Taktart und Tonart.  Solch eine
-Variable wird oft auch mit @qq{global} bezeichnet.
+Zde příklad prvního řádku chorálu se čtyřmi slokami
+pro smíšený sbor.  V tomto případě je text pro všechny
+čtyři hlasy stejný.  Všimněte si, jak se dosazují proměnné,
+aby od sebe oddělily obsah (noty a text) a formu (notový
+zápis).  Byla dosazena proměnné, aby přijala prvky,
+které se objevují na obou, osnovách, totiž druh taktu a
+tóninu.  Taková proměnná se často označuje @qq{global}.
 
 @lilypond[quote,verbatim]
 keyTime = { \key c \major \time 4/4 \partial 4 }
@@ -1450,7 +1431,7 @@ VerseFour  =
 
 
 @seealso
-Notation Reference: @ruser{Notation von Gesang}.
+Notace: @ruser{Notový zápis zpěvu}.
 
 
 @node Prostředí a rytci

@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 952705bbbb000581a13836e6a733df04511e93c5
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,7 +80,7 @@ précisément conçu pour gérer la notation spécifique au piano et autres
 instruments à clavier, notamment ces croisements.
 
 Certaines particularités de la notation pour claviers sont abordées dans
-d'autres chapitres@tie{}:
+d'autres chapitres :
 
 @itemize
 
@@ -98,7 +99,7 @@ apparaissent sur leur propre ligne centrée entre les deux portées.  Voir
 à ce sujet @ref{Nuances}.
 
 @item
-Les indications de doigté sont abrodées dans @ref{Doigtés}.
+Les indications de doigté sont abordées dans @ref{Doigtés}.
 
 @item
 Les indications en matière de pédalier d'orgue sont traitées comme
@@ -118,7 +119,7 @@ Le traitement des arpèges couvrant plusieurs voix ou portées est
 abordé au chapitre @ref{Arpèges}.
 
 @item
-Une description des indications de tremolo est disponible au
+Une description des indications de trémolo est disponible au
 chapitre @ref{Répétitions en trémolo}.
 
 @item
@@ -189,7 +190,7 @@ préalable.  Le cas échéant, vous devrez @qq{garder actives} certaines
 portées -- voir @ref{Conservation d'un contexte} à ce propos.
 
 Pour ligaturer automatiquement des notes entre deux portées, procédez
-ainsi@tie{}:
+ainsi :
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -220,7 +221,7 @@ retouche sur des ligatures.
 @cindex changement de portée et collision
 @cindex collision et changement de portée
 
-Une voix qui change de portée peut entraîner des collisions@tie{}:
+Une voix qui change de portée peut entraîner des collisions :
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -288,7 +289,7 @@ de portée, utilisez alors une ligature manuelle.
 @funindex PianoStaff
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
-de la syntaxe suivante@tie{}:
+de la syntaxe suivante :
 
 @example
 \autochange @dots{}@var{musique}@dots{}
@@ -297,10 +298,10 @@ de la syntaxe suivante@tie{}:
 @noindent
 Deux portées seront alors créées au sein du contexte @code{PianoStaff},
 nommées respectivement @code{"up"} et @code{"down"}.  La portée du bas
-sera par défaut en clé de fa.  La commande @code{\autochange} bascule
+sera par défaut en clef de fa.  La commande @code{\autochange} bascule
 les notes d'une portée à l'autre en fonction de leur hauteur (le do du
 milieu servant de pivot), et place les silences en fonction des notes
-qui les suivront. Ainsi@tie{}:
+qui les suivront. Ainsi :
 
 @lilypond[quote,verbatim]
 \new PianoStaff {
@@ -323,12 +324,12 @@ Une section en mode @code{\relative} se situant en dehors de la commande
 @code{\relative} @strong{après} @code{\autochange}.
 
 Lorsque des contrôles particuliers doivent s'appliquer aux portées,
-mieux vaut les nommer explicitement -- attention@tie{}: sous peine
+mieux vaut les nommer explicitement -- attention : sous peine
 d'effet indésirable quant au résultat, la portée supérieure doit
-s'appeler @code{"up"} et l'inférieure @code{"down"}@tie{}; @emph{ceci
+s'appeler @code{"up"} et l'inférieure @code{"down"} ; @emph{ceci
 est à notre connaissance le seul cas où ces noms de variable sont
 figés}.  Cette procédure sert, entre autres, à indiquer l'armure sur la
-portée inférieure@tie{}:
+portée inférieure :
 
 @c Keep Ly needed, otherwise 'up' and 'down' get
 @c incorrectly translated in verbatim output
@@ -370,7 +371,7 @@ Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
 vaut mieux indiquer soi-même ces changements.
 
-Un accord ne peut se répartir sur plusieurs portées@tie{}; sa portée
+Un accord ne peut se répartir sur plusieurs portées ; sa portée
 d'affectation sera déterminée par la première hauteur mentionnée dans la
 construction de cet accord.
 
@@ -394,7 +395,7 @@ construction de cet accord.
 
 Lorsqu'une voix change de portée, il est possible d'imprimer
 automatiquement une ligne reliant les notes, en faisant appel à la
-commande @code{\showStaffSwitch}@tie{}:
+commande @code{\showStaffSwitch} :
 
 @lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
@@ -463,7 +464,7 @@ Référence des propriétés internes :
 @subsection Piano
 @translationof Piano
 
-Ce chapitre traîte des aspects de la notation directement liés au piano.
+Ce chapitre traite des aspects de la notation directement liés au piano.
 
 @menu
 * Pédales de piano::
@@ -499,11 +500,10 @@ Ce chapitre traîte des aspects de la notation directement liés au piano.
 @funindex treCorde
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
-l'émission du son@tie{}: une pédale de @notation{tenue}
-(@emph{sustain}), une pédale de @notation{sourdine} (@emph{una corda} ou
-@emph{U.C.}) et une pédale @notation{tonale} (@emph{sostenuto} ou
-@emph{sos.}).  La pédale @emph{sustain} se rencontre aussi sur les
-vibraphones et celestas.
+l'émission du son : une pédale de @notation{tenue} (@emph{sustain}), une
+pédale de @notation{sourdine} (@emph{una corda} ou @emph{U.C.}) et une
+pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
+@emph{sustain} se rencontre aussi sur les vibraphones et celestas.
 
 @lilypond[quote,verbatim,relative=2]
 c4\sustainOn d e g
@@ -527,9 +527,9 @@ c4\unaCorda d e g
 @funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
-pédale@tie{}: sous forme de texte, de crochet, ou une combinaison des
+pédale : sous forme de texte, de crochet, ou une combinaison des
 deux.  @code{text} est le style de notation par défaut pour les pédales
-de tenue ou de sourdine --- le traditionnel @q{*Ped.}.  La pédale
+de tenue ou de sourdine --- le traditionnel @qq{*Ped.}.  La pédale
 tonale, en revanche, utilise @code{mixed} par défaut.
 
 @lilypond[quote,verbatim,relative=2]
@@ -544,7 +544,7 @@ d\sustainOff\sustainOn g, c2
 @end lilypond
 
 Le placement des commandes de pédale correspond au mouvement de la
-pédale de tenue pendant le jeu.  Garder une pédale enclanchée jusqu'à la
+pédale de tenue pendant le jeu.  Garder une pédale enclenchée jusqu'à la
 barre finale s'obtient tout simplement en omettant la commande de
 relâcher.
 
@@ -613,7 +613,8 @@ Morceaux choisis :
 @subsection Harpe
 @translationof Harp
 
-This section discusses notation issues that are unique to the harp.
+Cette partie s'intéresse aux particularités en matière de notation pour
+la harpe.
 
 @menu
 * Généralités sur la harpe::
@@ -627,8 +628,8 @@ This section discusses notation issues that are unique to the harp.
 @cindex harpes
 @cindex bisbigliando
 
-Certaines caractéritiques de la musique pour harpes sont abordées dans
-d'autres chapitres, telles que@tie{}:
+Certaines caractéristiques de la musique pour harpes sont abordées dans
+d'autres chapitres, tels que :
 
 @itemize
 
@@ -640,7 +641,7 @@ d'autres chapitres, telles que@tie{}:
 
 @item Les harmoniques naturelles sont présentées dans @ref{Harmoniques}.
 
-@item L'interprétation des arpeggios est abrodée dans @ref{Arpèges}.
+@item L'interprétation des arpeggios est abordée dans @ref{Arpèges}.
 
 @end itemize
 
@@ -668,7 +669,7 @@ pédalier ayant la même note de base sont contrôlées par une seule
 pédale.  De gauche à droite, elles correspondent aux notes ré, do, si,
 et mi, fa, sol, la pour la grande harpe. Les trois premières pédales
 sont réservées au pied gauche, les quatre dernières au pied droit.  Leur
-position peut être indiquée par une marque textuelle@tie{}:
+position peut être indiquée par une marque textuelle :
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
@@ -678,14 +679,15 @@ c!1_\markup \concat \vcenter {
   [ C \natural ]}
 @end lilypond
 
-ou bien sous forme de diagrammes@tie{}:
+ou bien sous forme de diagramme :
 
 @lilypond[quote,verbatim,relative=2]
 \textLengthOn
 cis1_\markup { \harp-pedal #"^v-|vv-^" }
 c!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
-bémol si la pédale est relâchée (ou en haut), bécarre si elle est
+
+Bémol si la pédale est relâchée (ou en haut), bécarre si elle est
 bloquée sur le cran du milieu, et dièse si elle est tout à fait
 enfoncée.  La commande @code{\harp-pedal} prend en argument une chaîne
 de caractères, où @code{^} indique que la pédale est relâchée ou en haut
@@ -698,4 +700,3 @@ précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 Manuel de notation :
 @ref{Commentaires textuels},
 @ref{Instrument Specific Markup}.
-

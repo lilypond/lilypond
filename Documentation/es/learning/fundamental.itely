@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3c169262c8f580c0f42c09f3a61b9ae9f0d6261c
+    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3033,7 +3033,7 @@ ManualOneVoiceTwoMusic = \relative c' {
 }
 ManualTwoMusic = \relative c' {
   c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
+  f16 ees f d g aes g f ees d ees8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
   r8 c16 d ees d ees8~ ees16 a, b g c b c8 |

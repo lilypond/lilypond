@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -681,104 +681,343 @@ jedes System eine unterschiedliche Taktart hat:
 
 @knownissues
 
-Normalerweise spielt es keine Rolle, in welcher Reihenfolge
-Engraver angegeben werden, aber in einigen Spezialfällen
+Die Reihenfolge, in der die Engraver definiert werden,
+ist die Reihenfolge, in welcher sie aufgerufen werden, um
+ihre Verarbeitung vorzunehmen.  Normalerweise spielt die
+Reihenfolge, in welcher die Engraver angegeben werden,
+keine Rolle, aber in einigen Spezialfällen
 ist die Reihenfolge sehr wichtig.  Das kann beispielsweise
 vorkommen, wenn ein Engraver eine Eigenschaft erstellt und
 ein anderer von ihr liest, oder ein Engraver erstellt ein
-Grob und ein anderer wertet es aus.  Die Reihenfolge, in der
-Engraver angegeben werden, ist die Reihenfolge, in der sie
-aufgerufen werden, um ihre Tätigkeiten auszuführen.
+Grob und ein anderer wertet es aus.
 
-Folgende Reihenfolgen müssen beachtet werden: der
-@code{Bar_engraver} muss normalerweise zuerst kommen, und
+Folgende Reihenfolgen müssen beachtet werden:
+
+@itemize
+@item
+der @code{Bar_engraver} muss normalerweise zuerst kommen,
+
+@item
 der @code{New_fingering_engraver} muss vor dem
-@code{Script_column_engraver} kommen.  Es gibt möglicherweise weitere
-Abhängigkeiten von der Reihenfolge geben.
+@code{Script_column_engraver} kommen,
+
+@item
+der @code{Timing_translator} muss vor dem @code{Bar_number_engraver}
+kommen.
+@end itemize
+
+@seealso
+Installlierte Dateien:
+@file{ly/engraver-init.ly}.
 
 
 @node Die Standardeinstellungen von Kontexten ändern
 @subsection Die Standardeinstellungen von Kontexten ändern
 @translationof Changing context default settings
 
-Die Kontexteinstellungen, die standardmäßig in
-@code{Score}, @code{Staff} und @code{Voice}-Kontexten
-benutzt werden, können in einer @code{\layout}-Umgebung
-eingestellt werden, wie das folgende Beispiel zeigt.  Die
-@code{\layout}-Umgebung sollte innerhalb der
-@code{\score}-Umgebung gesetzt werden, auf die sie sich
-auswirken soll, aber außerhalb von Notation.
+@cindex Standardkontexteigenschaften, ändern
+@cindex Kontexteigenschaften, Einstellungen ändern
 
-Auch muss der @code{\set}-Befehl und der Kontext weggelassen
-werden, wenn die Einstellungen für den Kontext auf diese Weise
-vorgenommen werden:
+Kontext- und Grob-Eigenschaften können mit den Befehlen @code{\set}
+und @code{\override} verändert werden, wie beschrieben in
+@ref{Eigenschaften verändern}.  Diese Befehle erstellen musikalische
+Ereignisse, damit die Veränderungen zum Zeitpunkt der Verarbeitung
+in den Noten erscheinen.
+
+Dieser Abschnitt hingegen erklärt, wie man die @emph{Standardwerte} von
+Kontext- und Grob-Eigenschaften zum Zeitpunkt, an dem der Kontext erstellt
+wird, verändert.  Es gibt hierzu zwei Möglichkeiten.  Die eine verändert
+die Standardeinstellungen aller Kontexte eines bestimmten Typs, die andere
+verändert die Standardwerte nur eines bestimmten Kontextes.
+
+@menu
+* Alle Kontexte des gleichen Typs verändern::
+* Nur einen bestimmten Kontext verändern::
+* Rangfolge von Kontextwerten::
+@end menu
+
+@node Alle Kontexte des gleichen Typs verändern
+@unnumberedsubsubsec Alle Kontexte des gleichen Typs verändern
+@translationof Changing all contexts of the same type
+
+@cindex \context in \layout-Umgebung
+@funindex \context
+@funindex \layout
+
+Die Kontexteinstellungen, die standardmäßig in @code{Score}, @code{Staff},
+@code{Voice} und anderen Kontexten eingesetzt werden, können in einer
+@code{\context}-Umgebung innerhalb einer beliebigen @code{\layout}-Umgebung
+spezifiziert werden.  Die @code{\layout}-Umgebung sollte innerhalb der
+@code{\score} (Partitur) stehen, auf die sie sich bezieht, nach den Noten.
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    [Kontexteinstellungen für alle Voice-Kontexte]
+  @}
+  \context @{
+    \Staff
+    [Kontexteinstellungen für alle Staff-Kontexte]
+  @}
+@}
+@end example
+
+Folgende Einstellungstypen können angegeben werden:
+
+@itemize
+@item
+Ein @code{\override}-Befehl, aber ohne die Kontextbezeichnung:
 
 @lilypond[quote,verbatim]
 \score {
   \relative c'' {
-    a4^"Really small, thicker stems, no time signature" a a a
-    a a a a
+    a4^"Thicker stems" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Staff
+      \override Stem #'thickness = #4.0
+    }
+  }
+}
+@end lilypond
+
+@item
+Eine Kontexteigenschaft kann direkt gesetzt werden:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Smaller font" a a a
+    a4 a a\ff a
   }
   \layout {
     \context {
       \Staff
       fontSize = #-4
-      \override Stem #'thickness = #4.0
-      \remove "Time_signature_engraver"
     }
   }
 }
 @end lilypond
 
-Hier zeigt der @code{\Staff}-Befehl an, dass die folgenden Einstellungen
-sich auf alle Systeme in dieser Partitur erstrecken sollen.
-
-Veränderungen können auch für den @code{Score}- oder alle
-@code{Voice}-Kontexte auf gleiche Weise vorgenommen werden.
-
-Kontextänderungen können in eine Variable geschrieben werden und dann
-einer @code{\context}-Definition zu gewiesen werden, indem man der
-Veränderung ein @code{\with} voranstellt:
+@item
+Ein vordefinierter Befehl wie etwa @code{\dynamicUp} oder ein
+musikalischer Ausdruck wie @code{\accidentalStyle "dodecaphonic"}:
 
 @lilypond[quote,verbatim]
-blubb = \with {
+\score {
+  \relative c'' {
+    a4^"Dynamics above" a a a
+    a4 a a\ff a
+  }
+  \layout {
+    \context {
+      \Voice
+      \dynamicUp
+    }
+    \context {
+      \Staff
+      \accidentalStyle "dodecaphonic"
+    }
+  }
+}
+@end lilypond
+
+@item
+Eine vom Benutzer definierte Variable, die eine @code{\with}-Umgebung enthält;
+zu Details der @code{\with}-Umgebung, siehe
+@ref{Nur einen bestimmten Kontext verändern}.
+
+@lilypond[quote,verbatim]
+StaffDefaults = \with {
   fontSize = #-4
-  \override Stem #'thickness = #4.0
-  \remove "Time_signature_engraver"
-}
-
-bla = \with {
-  fontSize = #3
-  \override Stem #'thickness = #-2.0
-}
-
-melody = \relative c'' {
-  a4 a a a |
-  a4 a a a |
 }
 
 \score {
-  <<
-    \new Staff <<
-      \melody
-      s1*0^"Small, thicker stems, no time signature"
-    >>
-    \new Staff \bla <<
-      \melody
-      s1*0^"Different"
-    >>
-  >>
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
   \layout {
     \context {
       \Staff
-      \blubb
+      \StaffDefaults
     }
   }
 }
 @end lilypond
 
- @c TODO: add \with in here.
- 
+@end itemize
+
+Befehle, die die Eigenschaften verändern, können in einer @code{\layout}-Umgebung
+platziert werden, ohne von einer @code{\context}-Umgebung eingeschlossen zu werden.
+Derartige Einstellungen verhalten sich äquivalet wie Eigenschaftsveränderungen,
+die zu jedem Beginn eines bestimmten Kontextes angegeben werden.  Wenn kein
+Kontext angegeben wird, wird @emph{jeder} Kontext auf der untersten Ebene
+beeinflusst, siehe auch @ref{Unterste Kontexte -- Stimmen}.  Die Syntax eines
+Befehls zu Einstellung von Eigenschaftseinstellungen in einer @code{\layout}-Umgebung
+ist die gleiche wie für den Befehl direkt zwischen den Noten geschrieben.
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c'' {
+      a4^"Smaller font" a a a
+      a4 a a a
+    }
+  }
+  \layout {
+    \accidentalStyle "dodecaphonic"
+    \set fontSize = #-4
+    \override Voice.Stem #'thickness = #4.0
+  }
+}
+@end lilypond
+
+
+@node Nur einen bestimmten Kontext verändern
+@unnumberedsubsubsec Nur einen bestimmten Kontext verändern
+@translationof Changing just one specific context
+
+@cindex \with
+@funindex \with
+
+Die Kontexteigenschaften nur eines bestimmten Kontextes können mit einer
+@code{\with}-Umgebung geändert werden.  Alle anderen Vorkommen des
+gleichen Kontexts behalten ihre Standardeinstellungen, möglicherweise
+durch Einstellungn in @code{\layout}-Umgebungen verändert.  Die
+@code{\with}-Umgebung muss direkt nach dem Befehl @code{\new}
+@var{Kontext-Typ} gesetzt werden:
+
+@example
+\new Staff
+\with @{
+  [enthält Einstellungen nur für diesen spezifischen Kontext]
+@} @{
+...
+@}
+@end example
+
+Folgende Arten von Einstellungen können angegeben werden:
+
+@itemize
+@item
+Ein @code{\override}-Befehl, dessen Kontextbezeichnung ausgelassen wird:
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \new Voice
+    \with {
+      \override Stem #'thickness = #4.0
+    }
+    {
+      \relative c'' {
+        a4^"Thick stems" a a a
+        a4 a a a
+      }
+    }
+  }
+}
+@end lilypond
+
+@item
+Eine Kontexeigenschaft direkt einstellen:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        a4^"Default font" a a a
+        a4 a a a
+      }
+    }
+    \new Staff
+    \with {
+      fontSize = #-4
+    } {
+      \relative c'' {
+        a4^"Smaller font" a a a
+        a4 a a a
+      }
+    }
+  >>
+}
+@end lilypond
+
+@item
+Ein vordefinierter Befehl wie etwa @code{\dynamicUp}
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \new Voice {
+        \relative c'' {
+          a4^"Dynamics below" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+    \new Staff
+    \with { \accidentalStyle "dodecaphonic" }
+    {
+      \new Voice
+      \with { \dynamicUp }
+      {
+        \relative c'' {
+          a4^"Dynamics above" a a a
+          a4 a a\ff a
+        }
+      }
+    }
+  >>
+}
+@end lilypond
+
+@end itemize
+
+
+@node Rangfolge von Kontextwerten
+@unnumberedsubsubsec Rangfolge von Kontextwerten
+@translationof Order of precedence
+
+Der Wert einer Eigenschaft, die zu einer bestimmten Zeit aktiv ist, wird
+wie folgend bestimmt:
+
+@itemize
+@item
+wenn ein @code{\override}- oder @code{\set}-Befehl in der Eingabe aktiv ist,
+wird dieser Wert benützt,
+
+@item
+ansonsten wird der Standardwert aus einer @code{\with}-Umgebung zu
+Beginn des Kontextes benützt,
+
+@item
+ansonsten wied der Standardwert aus der letzten passenden
+@code{\context}-Umgebung in der letzten @code{\layout}-Umgebung benützt,
+
+@item
+ansonsten wird der Standardwert von LilyPond eingesetzt.
+@end itemize
+
+@seealso
+Handbuch zum Lernen:
+@rlearning{Kontexteigenschaften verändern}.
+
+Notationsreferenz:
+@ref{Was sind Kontexte?},
+@ref{Unterste Kontexte -- Stimmen},
+@ref{Der set-Befehl},
+@ref{Der override-Befehl},
+@ref{Die \layout-Umgebung}.
+
 
 @node Neue Kontexte definieren
 @subsection Neue Kontexte definieren
@@ -1038,7 +1277,44 @@ Befehl auftritt, der in den aktuellen Kontexten nicht enthalten
 sein kann.  Dass kann zu unerwarteten neuen Systemgruppen oder Partituren
 führen.
 
+@cindex alignAboveContext
+@cindex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+Manchmal soll ein Kontext nur für einen kurzen Moment existieren,
+ein gutes Beispiel etwa ein System für ein Ossia.  Das wird normalerweise
+erreicht, indem man die Kontextdefinition an der richtigen Stelle parallel
+mit dem existierenden Abschnitt der Hauptnoten anlegt.  Standardmäßig wird
+der neue Kontext unter den existierenden Kontexten angelegt.  Um ihn aber
+über dem Kontext mit der Bezeichnung @qq{Hauptstimme} zu positionieren,
+sollte er folgenderweise erstellt werden:
+
+@example
+@code{\new Staff \with @{ alignAboveContext = #"Hauptstimme" @} }
+@end example
+
+Eine ähnliche Situation entsteht, wenn man einen zeitweiligen Gesangstext
+in einem Layout mit mehreren Notensystemen anlegen und positionieren will,
+etwa wenn eine zweite Strophe zu einem wiederholten Abschnitt in einem
+@code{ChoirStaff} hinzugefügt wird.  Standardmäßig wird der neue Text unter
+dem untersten System angelegt.  Wenn der Gesangstext mit der Eigenschaft
+@code{alignBelowContext} definiert wird, kann er korrekt unter dem
+(bezeichneten) Gesangstext positioniert werden, der die erste Strophe
+enthält.
+
+Beispiele, die diese Neuordnung von temporären Kontexten zeigen, finden sich
+an anderen Stellen; siehe @rlearning{Musikalische Ausdrücke ineinander verschachteln},
+@ref{Einzelne Systeme verändern} und @ref{Techniken für die Gesangstextnotation}.
+
 @seealso
+Handbuch zum Lernen:
+@rlearning{Musikalische Ausdrücke ineinander verschachteln}.
+
+Notationsreferenz:
+@ref{Einzelne Systeme verändern},
+@ref{Techniken für die Gesangstextnotation}.
+
 Handbuch zur Benutzung:
 @rprogram{Ein zusätzliches System erscheint}.
 
@@ -1843,11 +2119,12 @@ aktuellen Kontextes.  Das kann mit dem @code{\tweak}-Befehl erreicht
 werden, mit dem man Optimierungen vornehmen kann:
 
 @example
-\tweak #'@code{grob-eigenschaft} #@code{Wert}
+\tweak @var{Layout-Objekt} #'@code{grob-eigenschaft} #@code{Wert}
 @end example
 
-Der @code{\tweak}-Befehl wirkt sich auf das Objekt aus, dass direkt auf
-@code{Wert} folgt.
+Die Angabe von @var{Layout-Objekt} ist optional.
+Der @code{\tweak}-Befehl wirkt sich auf das musikalische Objekt aus, dass direkt
+auf @code{Wert} folgt.
 
 @ignore
 In einigen Fällen ist es möglich, mit einem abgekürzten Befehl
@@ -1949,25 +2226,33 @@ c-\tweak #'thickness #5 ( d e f)
 @end lilypond
 
 Damit der @code{\tweak}-Befehl funktioniert, muss er direkt vor dem
-Objekt stehen, auf das er sich bezieht.  Manchmal kommt es vor, dass
-LilyPond während der Kompilierung der Datei zusätzliche Elemente
-einfügt, die dann zwischen der Optimierung und dem Objekt stehen.
-Noten, auch einzlene Noten, werden beispielsweise intern von LilyPond
-immer wie Akkorde behandelt, sodass auch ein @code{\tweak}-Befehl
-für eine einzelne Note innerhalb von Akkordzeichen notiert werden
-muss:
+Objekt stehen, auf das er sich bezieht.  Einen ganzen Akkord kann man
+nicht mit @code{\tweak} verändern, weil der Akkord wie ein Kontainer
+ist, in dem alle Layoutelemente aus Ereignissen innerhalb von
+@code{EventChord} erstellt werden:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
-<\tweak #'color #red c>4
+\tweak #'color #red <c e>4
+<\tweak #'color #red c e>4
 @end lilypond
 
-Der @code{\tweak}-Befehl kann @emph{nicht} eingesetzt werden, um
-Elemente zu verändern, die sich nicht direkt im Notentext befinden.
-Insbesondere Hälse, Balken oder Versetzungszeichen lassen sich nicht
-beeinflussen, weil diese später durch den Notenkopf erstellt werden
-und nicht direkt durch
-den Quelltext.  @code{\tweak} kann auch nicht verwendet werden,
+Der einfache @code{\tweak}-Befehl kann @emph{nicht} eingesetzt werden, um
+Elemente zu verändern, die nicht direkt aus der Eingabe erstellt werden.
+Insbesondere Hälse, automatische Balken oder Versetzungszeichen lassen sich nicht
+beeinflussen, weil diese später durch die Layoutobjekte des Notenkopfs erstellt
+werden und nicht direkt durch
+den Quelltext.
+
+Derartige indirekt erstellt Layoutobjekte können mit @code{\tweak} verändert
+werden, indem man die ausführliche Form des Befehls einsetzt:
+
+@lilypond[relative=2,verbatim,quote]
+\tweak Stem #'color #red
+\tweak Beam #'color #green c8 e
+<c e \tweak Accidental #'font-size #-3 ges>4
+@end lilypond
+
+@code{\tweak} kann auch nicht verwendet werden,
 um Schlüssel oder Taktarten zu verändern, denn sie werden von
 dem @code{\tweak}-Befehl während der Interpretation durch
 automatisches Einfügen von zusätzlichen Kontextelementen getrennt.
@@ -2000,18 +2285,6 @@ Erweitern:
 @rextend{Musikalische Funktionen darstellen}.
 
 @knownissues
-
-@cindex tweak-Befehl in einer Variable
-@cindex Variable, tweak-Befehl benutzen
-@cindex Optimierung innerhalb einer Variable
-
-Der @code{\tweak}-Befehl kann nicht innerhalb von einer Variable eingesetzt werden.
-
-@cindex tweaks-Befehl in Gesangstext
-@cindex lyrics und tweak-Befehl
-@cindex Gesangstext und tweak-Befehl
-
-Der @code{\tweak}-Befehl kann nicht innerhalb von @code{\lyricmode} eingesetzt werden.
 
 @cindex Kontrollpunkte und tweak
 @cindex tweak und Kontrollpunkte
@@ -3021,7 +3294,7 @@ definiert sind.  Die letzten drei Spalten der folgenden Tabelle
 zeigen an, ob das Layout-Objekt an einer bestimmten Position
 sichtbar sein wird oder nicht:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {ja} {ja} {ja}
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {Vor} {Bei Nr.} {Nach}
 @headitem Funktion                   @tab Vektor                  @tab Vor @tab kein    @tab Nach
 @headitem Form                       @tab Form                    @tab Umbruch  @tab Umbruch    @tab Umbruch
 
@@ -3961,8 +4234,6 @@ ist die Funktion, die als @qq{sauber} bezeichnet wird, und braucht @var{n + 2}
 Argumente.  Wiederum muss das erste Argument immer der Grob sein, aber
 das erste und zweite Argument sind @qq{Beginn-} und @qq{Endeargumente}.
 
-
-
 @var{start} (Beginn) und @var{end} (Ende) sind absichtlich
 nur Platzhalter, die nur für die Strecker gelten (etwa @code{Hairpin} oder
 @code{Beam}), die unterschiedliche Höhenberechnungen je nach beginnender und
@@ -4073,7 +4344,7 @@ den Wert @code{#t} ausgibt.
 @item @code{@var{@dots{}Noten@dots{}}}
 @tab normale LilyPond-Eingabe, wobei @code{$} (wenn nur LilyPond-Konstruktionen
 erlaubt sind) oder @code{#} (um es als Scheme-Wert oder Argument einer
-musikalischen Funktionen einzusetzen) benutzt wird, um
+musikalischen Funktionen oder als Noten innerhalb von Notenlisten einzusetzen) benutzt wird, um
 Argumente zu referenzieren (etwa @samp{$Arg1}).
 @end multitable
 
@@ -4153,20 +4424,17 @@ padText =
 Neben Zahlen können auch musikalische Ausdrücke wie Noten
 als Argumente für musikalische Funktionen eingesetzt werden:
 
-@c TODO: use a better example (the music argument is redundant).
-
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
      (parser location note)
      (ly:music?)
    #{
-     \once \override Voice.NoteHead #'stencil =
-       #ly:text-interface::print
-     \once \override Voice.NoteHead #'text =
-       \markup \musicglyph #"custodes.mensural.u0"
-     \once \override Voice.Stem #'stencil = ##f
-     $note
+     \tweak NoteHead #'stencil #ly:text-interface::print
+     \tweak NoteHead #'text
+        \markup \musicglyph #"custodes.mensural.u0"
+     \tweak Stem #'stencil ##f
+     #note
    #})
 
 \relative c' { c4 d e f \custosNote g }
@@ -4179,7 +4447,7 @@ werden:
 tempoPadded =
 #(define-music-function
      (parser location padding tempotext)
-     (number? string?)
+     (number? markup?)
    #{
      \once \override Score.MetronomeMark #'padding = #padding
      \tempo \markup { \bold #tempotext }
@@ -4188,7 +4456,7 @@ tempoPadded =
 \relative c'' {
   \tempo \markup { "Low tempo" }
   c4 d e f g1
-  \tempoPadded #4.0 #"High tempo"
+  \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond

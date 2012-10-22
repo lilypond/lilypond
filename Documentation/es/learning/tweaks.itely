@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
+    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -173,8 +173,8 @@ literalmente como están.
 
 Como podremos ver en breve, las propiedades de distintos tipos de
 objeto se modifican por parte de diferentes instrucciones; así pues,
-es útil poder reconocer el tipo de objeto a partir de sus nombres de
-propiedad.
+es útil poder reconocer los tipos de objetos y propiedades
+a partir de sus nombres.
 
 @node Métodos de trucaje
 @subsection Métodos de trucaje
@@ -602,9 +602,8 @@ directamente al RFI y buscar allí.
 Esta página sobre las ligaduras de expresión dentro del manual RFI nos
 dice en primer lugar que los objetos Slur se crean por el grabador
 Slur_engraver.  A continuación relaciona los ajustes estándar.
-Observe que @strong{no} están en orden alfabético.  Navegue hacia
-abajo buscando una propiedad que pudiera controlar el grosor de las
-ligaduras, y encontrará
+Navegue por ellos buscando una propiedad que pudiera controlar
+el grosor de las ligaduras, y encontrará
 
 @example
 @code{thickness} (number)
@@ -691,7 +690,7 @@ ligadura de expresión se crean por: el grabador Slur»).  Así pues, las
 ligaduras de expresión se crean en cualquier contexto en el que se
 encuentre el grabador @code{Slur_engraver}.  Siga el enlace a la
 página del grabador @code{Slur_engraver}.  Al final del todo, dice que
-el grabador @code{Slur_engraver} es parte de cinco contextos de voz,
+el grabador @code{Slur_engraver} es parte de siete contextos de voz,
 incluido el contexto de voz estándar, @code{Voice}, por lo que nuestra
 suposición era acertada.  Y a causa de que @code{Voice} es uno de los
 contextos de más bajo nivel que se encuentra implícito sin ambigüedad
@@ -1346,7 +1345,7 @@ valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 @end lilypond
 
 Finalmente, existe también una escala de grises como parte del
-conjunto de colores de X11.  Varían desde el negro, @code{'grey0'},
+conjunto de colores de X11.  Varían desde el negro, @code{'grey0},
 hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
 estableciendo todos los objetos de presentación de nuestro ejemplo a
 varias gradaciones de gris:
@@ -1396,8 +1395,8 @@ normalmente el grabador.
 @cindex objetos, cambiar el tamaño de
 
 Empezaremos examinando de nuevo un ejemplo anterior (véase
-@ref{Anidado de expresiones musicales}) que nos mostraba cómo introducir un
-pentagrama temporal, como en un @rglos{ossia}.
+@ref{Anidado de expresiones musicales}) que nos mostraba cómo
+introducir un pentagrama temporal, como en un @rglos{ossia}.
 
 @cindex alignAboveContext, propiedad, ejemplo
 @cindex @code{\with}, ejemplo
@@ -1778,7 +1777,8 @@ pentagramas adyacentes:
 
 Ya hemos visto cómo las instrucciones @code{\voiceXXX} afectan a la
 dirección de las ligaduras de expresión y de unión, digitaciones y
-todo lo demás que dependa de la dirección de las plicas.  Cuando se
+todo lo demás que dependa de la dirección de las plicas (véase
+@ref{Voces explícitas}).  Cuando se
 escribe música polifónica, estas instrucciones son esenciales para que
 puedan distinguirse varias líneas melódicas entrelazadas.  Pero
 ocasionalmente puede ser necesario sobreescribir este comportamiento
@@ -2284,7 +2284,7 @@ c2^"Text4" |
 
 La instrucción para volver al comportamiento predeterminado es
 @code{\textLengthOff}.  Recuerde que @code{\once} funciona solamente
-con @code{\override}, @code{\set}, @code{\revert} o @code{unset}, así
+con @code{\override}, @code{\set}, @code{\revert} o @code{\unset}, así
 que no se puede usar con @code{\textLengthOn}.
 
 @cindex marcado, texto de, permitir las colisiones en
@@ -2328,7 +2328,7 @@ c''2 |
 
 Las indicaciones de matiz dinámico normalmente se colocarán por debajo
 del pentagrama, pero se pueden posicionar por encima con la
-instrucción @code{dynamicUp}.  Se situarán verticalmente respecto a la
+instrucción @code{\dynamicUp}.  Se situarán verticalmente respecto a la
 nota a la que van adosadas, y flotarán por debajo (o por encima) de
 todos los objetos dentro-del-pentagrama tales como ligaduras de fraseo
 y números de compás.  Esto puede ofrecer resultados bastante
@@ -3034,8 +3034,8 @@ cuarta voz) no se aparte de la columna vertical de la nota aguda.
 Para corregirlo, ajustamos a cero el valor para esta nota de
 @code{force-hshift}, que es una propiedad de @code{NoteColumn}.
 
-En el segundo acorde preferimos que el Fa esté alineado con el La y
-que la nota grave se coloque ligeramente a la derecha para evitar una
+En el segundo acorde preferimos que el Fa esté alineado con el La bemol
+y que la nota grave se coloque ligeramente a la derecha para evitar una
 colisión de las plicas.  Lo conseguimos ajustando el valor de
 @code{force-hshift} en la @code{NoteColumn} del Re bemol grave para
 moverlo a la derecha medio espacio de pentagrama.
@@ -4061,7 +4061,7 @@ esta música es producir un PDF que va a mostrarse en la pantalla,
 también vamos a aumentar el tamaño general de la salida.
 
 @example
-%%%  definiciones.ily
+%%%  publicar-web.ily
 mpdolce =
 #(make-dynamic-script
   #@{ \markup @{ \hspace #0

@@ -46,15 +46,15 @@ Copyright @copyright{} 1999--2012 by the authors.
 @ifnottex
 
 @menu
-* Tutorial::                         Le basi della composizione tipografica in LilyPond.
-* Notazione comunemente utilizzata:: Come si scrive la notazione più comunemente utilizzata.
+* Tutorial::                          Le basi della composizione tipografica in LilyPond.
+* Notazione comunemente utilizzata::  Come si scrive la notazione più comunemente utilizzata.
 * Concetti fondamentali::             Concetti di base necessari per leggere gli altri manuali.
-* Tweaking output::                Introduzione alla modifica dell'output.
+* Modifica dell'output::              Introduzione alla modifica dell'output.
 
 Appendici
 
-* Modelli::                      Modelli già pronti.
-* GNU Free Documentation License:: Licenza di questo documento.
+* Modelli::                           Modelli già pronti.
+* GNU Free Documentation License::    Licenza di questo documento.
 * Indice di LilyPond::
 @end menu
 

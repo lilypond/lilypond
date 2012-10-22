@@ -121,7 +121,7 @@ Für LilyPond Version @version{}
 @subheading Was ist LilyPond?
 
 LilyPond ist ein Notensatzprogramm, dass es sich zum Ziel gemacht hat, Notendruck von der bestmöglichen Qualität zu erstellen.  Mit dem Programm wird es
-möglich, die Ästhetik handgestochenen traditionellen Notensatzes mit computergesetzen Noten zu erreichen.  LilyPond ist ein Open Source-Programm
+möglich, die Ästhetik handgestochenen traditionellen Notensatzes mit computergesetzen Noten zu erreichen.  LilyPond ist Freie Software
 und Teil des @uref{http://gnu.org,GNU Projekts}.
 
 @divClass{align-right}

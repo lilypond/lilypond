@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -240,7 +240,8 @@ werden. Später soll gezeigt werden, in welchen Fällen er ausdrücklich
 definiert werden muss.
 
 Spätere Abschnitte behandeln umfassend Eigenschaften und ihre
-Werte, aber um ihre Funktion und ihr Format zu demonstrieren,
+Werte, siehe @ref{Typen von Eigenschaften}. Aber um ihre Funktion und ihr
+Format zu demonstrieren,
 werden wir hier nur einige einfache Eigenschaften und Werte einsetzen,
 die einfach zu verstehen sind.
 
@@ -388,11 +389,10 @@ an allen Objekten auszuführen, die zum selben Musik-Moment
 auftreten wie der @code{\override}-Befehl.
 
 Der @code{\tweak}-Befehl funktioniert anders. Er bezieht sich
-auf das direkt folgende Element in der Eingabe-Datei.  Es wirkt
-aber auch nur mit Objekten, die direkt von der Eingabe kreiert
-werden, insbesondere Notenköpfe und Artikulationszeichen.
-Objekte wie etwa Hälse oder Versetzungszeichen werden erst
-später erstellt und lassen sich nicht auf diese Weise ändern.
+auf das direkt folgende Element in der Eingabe-Datei.  In seiner
+einfachsten Form ist der Befehl nur an Objekten wirksam, die direkt
+vom vorhergehenden Element erstellt worden sind, insbesondere
+Notenköpfe und Artikulation.
 
 Um also zu unserem Beispiel zurückzukommen, könnte man die
 mittlere Note eines Akkordes auf diese Weise ändern:
@@ -407,12 +407,12 @@ mittlere Note eines Akkordes auf diese Weise ändern:
 @end lilypond
 
 Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
-von der des @code{\override}-Befehls unterscheidet. Weder
-Kontext noch Layout-Objekt können angegeben werden, denn
-das würde zu einem Fehler führen. Beide Angaben sind
-durch das folgende Element impliziert. Hier sollte auch
+von der des @code{\override}-Befehls unterscheidet. Der
+Kontext dürfen nicht angegeben werden, denn
+das würde zu einem Fehler führen. Sowohl Kontext als auch das Layout-Objekt sind
+durch das folgende Element im Inputstream impliziert. Hier sollte auch
 kein Gleichheitszeichen vorhanden sein.  Die verallgemeinerte
-Syntax des @code{\tweak}-Befehls ist also einfach
+Syntax des @code{\tweak}-Befehls ist also
 
 @example
 \tweak #'@var{layout-eigenschaft} #@var{Wert}
@@ -437,6 +437,27 @@ geschrieben werden muss, weil auch der @code{\tweak}-Ausdruck als
 Artikulation angefügt wird.  Im Falle von mehreren Richtungsmodifikatoren
 (@code{^} or @code{_}) gilt der Modifikator links außen, weil er als
 letzter angefügt wird.
+
+@cindex @code{\tweak}, Versetzungszeichen
+@cindex @code{\tweak}, bestimmtes Layout-Objekt
+
+Objekte wie Hälse und Versetzungszeichen werden später erstellt und nicht
+direkt aus dem vorhergehenden Ereignis.  Es ist dennoch möglich, @code{\tweak}
+mit solchen indirekt erstelltn Objekten zu verwenden, indem man die
+Layout-Objekte direkt benennt, vorausgesetzt dass LilyPond ihre Herkunft
+bis zu dem ursprünglichen Ereignis zurück verfolgen kann:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<\tweak Accidental #'color #red   cis4
+ \tweak Accidental #'color #green es
+                                  g>
+@end lilypond
+
+Diese Langform des @code{\tweak}-Befehls kann wie folgend beschrieben werden:
+
+@example
+\tweak @var{layout-object} #'@var{layout-property} @var{value}
+@end example
 
 @cindex Triolen, geschachtelt
 @cindex N-tolen, geschachtelt
@@ -3162,29 +3183,26 @@ gebracht:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
+    { <ees, c>2 des }
     \\
-    {
-      \voiceFour
-      <ees c>2 des
-    }
+    \\
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-Die unteren zwei Noten des ersten Akkords (also die in der
-dritten Stimme) sollten nicht aus der Notenkolumne der
-oberen zwei Noten weggeschoben werden.  Um das zu
-korrigieren, setzen wir @code{force-hshift}, das eine
-Eigenschaft von
-@code{NoteColumn} ist, für diese Noten auf Null.
-Die untere Note des zweiten Akkordes wird am besten
-direkt rechts von den oberen Noten gesetzt.  Das erreichen
-wir, indem wir @code{force-hshift} für diese Note auf
-0.5 setzen, also eine halbe Notenkopfbreite nach rechts von
-der Kolumne der oberen Noten aus.
+Die inneren Noten des ersten Akkordes (also das As in der vierten Stimme)
+müssen nicht mit shift verschoben aus der Noten-Kolumne der höheren Stimme
+verschoben werden.  Um das zu korrigieren, setzen wir den Wert von
+@code{force-hshift}, einer Eigenschaft von @code{NoteColumn}, auf Null.
+
+Im zweiten Akkord wollen wir, dass das F sich am A orientiert und die
+tiefste Note leicht nach rechts verschoben wird, damit ein Zusammenstoß
+der Hälse vermieden wird.  Das erreicht man mit @code{force-hshift} in
+@code{NoteColumn} des unteren Des, um es nach rechts um einen halben
+Notenlinienzwischenraum zu verschieben.
 
 Hier das Endergebnis:
 
@@ -3198,14 +3216,16 @@ Hier das Endergebnis:
   <<
     { c2 aes4. bes8 }
     \\
-    { aes2 f4 fes }
-    \\
     {
-      \voiceFour
-      \once \override NoteColumn #'force-hshift = #0
-      <ees c>2
+      <ees, c>2
       \once \override NoteColumn #'force-hshift = #0.5
       des2
+    }
+    \\
+    \\
+    {
+      \override NoteColumn #'force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -3262,8 +3282,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
+        \tweak Flag #'transparent ##t
         d2
       }
       \new Voice {
@@ -3712,8 +3732,7 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \once \override Stem #'transparent = ##t
-        \once \override Flag #'transparent = ##t
+        \tweak Stem #'transparent ##t
         d2
       }
       \new Voice {
@@ -3802,8 +3821,8 @@ den Stimmen stattfindet:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3819,9 +3838,9 @@ gesetzt wird:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \once \override Stem #'transparent = ##t
-    \once \override Flag #'transparent = ##t
-    \once \override Stem #'length = #8
+    \tweak Stem #'transparent ##t
+    \tweak Flag #'transparent ##t
+    \tweak Stem #'length #8
     b8~ b\noBeam
   }
 \\
@@ -4050,9 +4069,8 @@ inst =
 }
 @end lilypond
 
-Es gibt einige Probleme mit sich überschneidender Ausgabe, die wird
-zurechtgerückt mit den Techniken von @ref{Verschieben von Objekten}.
-Aber jetzt zu den Definitionen von @code{mpdolce} und @code{inst}.
+Vielleicht können die Definitionen von @code{mpdolce} und @code{inst} noch
+etwas verbessert werden.
 Sie erstellen die gewünschte Ausgabe, aber wir wollen sie vielleicht
 auch in einem anderen Stück verwenden.  Wir könnten sie immer wieder
 kopieren und oben in jedes Stück einfügen, aber das ist sehr aufwändig.
@@ -4340,14 +4358,14 @@ das richtige Verzeichnis auf Ihrem System finden.  Die Position
 hängt a) davon ab, ob Ihre LilyPond-Installation mit der vorkompilierten
 Version von der LilyPond-Internetseite vorgenommen wurde oder Sie
 die Version durch Ihren Paketmanager installiert haben (also
-z. B. in einer Linux-Distribution oder unter fink oder cygwin
+z. B. in einer GNU/Linux-Distribution oder unter fink oder cygwin
 installiert), und b) auf welchem Betriebssystem Sie das Programm
 benutzen:
 
 @strong{Von lilypond.org heruntergeladen}
 
 @itemize @bullet
-@item Linux
+@item GNU/Linux
 
 Wechseln Sie in das Verzeichnis
 @example

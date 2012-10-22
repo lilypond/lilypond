@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
+    Translation of GIT committish: 4239aa2369f74d8e8622c2235154e9f064c394f7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -302,7 +302,6 @@ todos los logotipos e imágenes de producto.
 Para MacOS X 10.4 o superior sobre
 CPU Intel (si no está seguro, utilice éste).
 
-MacOS X 10.7 Lion no está contemplado aún.
 
 @item
 @sourceimage{logo-macosx,,,}
@@ -310,7 +309,6 @@ MacOS X 10.7 Lion no está contemplado aún.
 Para MacOS X 10.4 o superior sobre
 CPUs G3 y G4 (ordenadores Apple antiguos).
 
-MacOS X 10.7 Lion no está contemplado aún.
 
 @end itemize
 

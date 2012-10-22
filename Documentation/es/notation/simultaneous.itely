@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 844e5387a003bde2c10389ad863184defe893b6c
+    Translation of GIT committish: 35d565c89b853ed87b1bb2feb59f6ce8bef6263b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -401,7 +401,7 @@ pentagramas.
 @funindex \oneVoice
 @funindex oneVoice
 
-@strong{@i{Instanciar las voces explícitamente}}
+@subsubsubheading Instanciar las voces explícitamente
 
 La estructura básica necesaria para obtener varias voces
 independientes en un mismo pentagrama se ilustra en el ejemplo
@@ -428,7 +428,7 @@ también automáticamente para evitar las colisiones.  La instrucción
 @code{\oneVoice} (una voz) devuelve todos los ajustes de las voces al
 estado neutro predeterminado.
 
-@strong{@i{Pasajes polifónicos temporales}}
+@subsubsubheading Pasajes polifónicos temporales
 
 Se puede crear un pasaje polifónico temporal con la construcción
 siguiente:
@@ -475,7 +475,7 @@ de la sección polifónica:
 Aquí, las instrucciones @code{\voiceOne} y @code{\voiceTwo} son
 necesarias para definir los ajustes de cada voz.
 
-@strong{@i{La construcción de la doble barra invertida}}
+@subsubsubheading La construcción de la doble barra invertida
 
 La construcción @code{<< @{...@} \\ @{...@} >>}, en que las dos
 expresiones (o más) están separadas por doble barra invertida, se
@@ -521,7 +521,7 @@ En todas las partituras excepto las más simples, se recomienda crear
 contextos @code{Voice} explícitos como aparece explicado en
 @rlearning{Contextos y grabadores} y en @rlearning{Voces explícitas}.
 
-@strong{@i{Orden de las voces}}
+@subsubsubheading Orden de las voces
 
 Al escribir varias voces en el archivo de entrada,
 utilice el orden siguiente:
@@ -561,7 +561,7 @@ hacia arriba, y las de numeración par reciben plicas hacia abajo:
 @warning{No se pueden crear letras ni elementos de extensión
 (como ligaduras, reguladores, etc.) que se crucen de una voz a otra.}
 
-@strong{@i{Duraciones idénticas}}
+@subsubsubheading Duraciones idénticas
 
 En el caso especial en que queremos tipografiar fragmentos de música
 que discurre en paralelo y con las mismas duraciones, se pueden

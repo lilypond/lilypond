@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 0512fcc5db9b050be664413ba0f79a3dcfc1028a
+    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,7 +36,7 @@
 
 La gestion par LilyPond des formes de notation ancienne inclut des
 fonctionnalités spécifiques à la notation mensurale, au chant
-grégorien et à la notation de style Kievan.  Ces fonctionnalités sont
+grégorien et à la notation de style kievien.  Ces fonctionnalités sont
 accessibles en modifiant les propriétés de style des objets graphiques
 tels que tête de note ou silence, ou bien grâce aux contextes prédéfinis
 à cet effet.
@@ -265,9 +266,9 @@ Les altérations ne pouvant être imprimées à l'intérieur d'une
 ligature, il faut les rassembler et les imprimer juste avant.
 
 La syntaxe utilisée correspond à l'ancienne convention de préfixage
-@code{\[ expression musicale\]}.  Pour des raisons d'uniformité,
+@code{\[ expression musicale\]}.  Pour des raisons d'uniformité,
 nous opterons probablement pour le style en suffixe (postfix)
-@w{@code{note\[ @dots{} note\]}}.
+@code{note\[ @dots{} note\]}.
 
 @c En attendant, vous pouvez inclure le fichier
 @c @file{gregorian-init.ly}, qui fournit une fonction Scheme
@@ -664,7 +665,7 @@ Manuel de notation :
 
 @knownissues
 Les équivalences de durées de note ne sont pas modifiées par un
-changement de métrique.  Par exemple, l'équivalence 1 brève pour 3
+changement de métrique.  Par exemple, l'équivalence une brève pour trois
 semi-brèves (@emph{tempus perfectum}) doit s'effectuer à la main en
 entrant :
 
@@ -1350,7 +1351,7 @@ Une division -- @emph{divisio}, pluriel @emph{divisiones} en latin --
 est un symbole ajouté à la portée et utilisé en chant grégorien pour
 séparer les phrases ou parties.  @emph{Divisio minima}, @emph{divisio
 maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
-comme une pauses courte, moyenne ou longue, à l'image des marques de
+comme une pause courte, moyenne ou longue, à l'image des marques de
 respiration --- cf. @ref{Signes de respiration}.  Le signe
 @emph{finalis} n'est pas uniquement une marque de fin de chant ; il
 sert aussi à indiquer la fin de chaque partie dans une structure
@@ -1475,11 +1476,11 @@ de note.
 Les points d'@emph{augmentum}, ou @emph{morae}, s'obtiennent avec la
 fonction @code{\augmentum}.  Notez que cette fonction @code{\augmentum}
 est implémentée en tant que fonction unaire plutôt que comme un préfixe
-de note.  Par conséquent, @code{\augmentum \virga c} ne donnera rien de
-particulier.  Il faut l'utiliser avec la syntaxe @code{\virga \augmentum
-c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
-@code{\augmentum @{a g@}} constitue une forme abrégée de
-@code{\augmentum a \augmentum g}.
+de note.  Par conséquent, @code{\augmentum \virga c} ne donnera rien de
+particulier.  Il faut l'utiliser avec la syntaxe
+@code{\virga \augmentum c} ou @code{\augmentum @{\virga c@}}.  Par
+ailleurs, l'expression @code{\augmentum @{a g@}} constitue une forme
+abrégée de @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1586,16 +1587,16 @@ Ligatures
 Contrairement à la majorité des autres systèmes de notation neumatique,
 la manière de saisir les neumes n'a rien à voir avec leur apparence
 typographique ; elle se concentre plutôt sur le sens musical.
-Ainsi, @code{\[ a \pes b \flexa g \]} produit un @emph{torculus}
-constitué de trois @emph{punctums}, alors que @code{\[ a \flexa g \pes b
-\]} produit un @emph{porrectus} avec une flexe incurvée et un seul
-@emph{punctum}.  Il n'existe pas de commande à proprement parler qui
-permette de spécifier la courbe d'une flexe ; c'est la source
-musicale qui va le déterminer.  Le fondement d'une telle approche réside
-dans la distinction que nous faisons entre les aspects musicaux de la
-source et le style de notation que nous voulons obtenir.  De ce fait, la
-même source pourra être utilisée pour imprimer dans un autre style de
-notation grégorienne.
+Ainsi, @code{\[ a \pes b \flexa g \]} produit un @emph{torculus}
+constitué de trois @emph{punctums}, alors que
+@code{\[ a \flexa g \pes b \]} produit un @emph{porrectus} avec une
+flexe incurvée et un seul @emph{punctum}.  Il n'existe pas de commande à
+proprement parler qui permette de spécifier la courbe d'une flexe ;
+c'est la source musicale qui va le déterminer.  Le fondement d'une telle
+approche réside dans la distinction que nous faisons entre les aspects
+musicaux de la source et le style de notation que nous voulons obtenir.
+De ce fait, la même source pourra être utilisée pour imprimer dans un
+autre style de notation grégorienne.
 
 @noindent
 Neumes liquescents
@@ -1615,10 +1616,10 @@ différentes et relativement interchangeables : une note plus
 petite, ou une @qq{bascule} verticale de la note principale.  La
 première option s'obtient en créant un @code{pes} ou une @code{flexa}
 puis une modification de l'aspect de la deuxième note :
-@code{\[ a \pes \deminutum b \]}.  La seconde option consiste à
+@code{\[ a \pes \deminutum b \]}.  La seconde option consiste à
 modifier l'aspect d'un neume sur note unique avec un @code{\auctum} tout
 en lui affectant une direction @code{\descendens} ou
-@code{\ascendens} : @code{\[ \auctum \descendens a \]}.
+@code{\ascendens} : @code{\[ \auctum \descendens a \]}.
 
 @noindent
 Signes spéciaux
@@ -2458,7 +2459,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 @translationof Typesetting Kievan square notation
 
 @cindex kiévien
-@cindex slavon
+@cindex Kievan
 
 @menu
 * Contextes de notation kiévienne::
@@ -2669,7 +2670,7 @@ une édition en notation moderne à partir d'une même source.
 @seealso
 @c ... and reference to other sections ...
 Morceaux choisis:
-@rlsrnamed{Ancient notation,Notations anciennes}.
+@rlsrnamed{Ancient notation, Notations anciennes}.
 
 
 @node Mise en forme de la musique mensurale
@@ -2719,27 +2720,27 @@ grâce à quelques simples artifices.
 Certaines transcriptions laissent néanmoins apparaître
 occasionnellement des hampes, notamment pour indiquer la transition
 entre un récitatif monodique et une phrase mélodique.  Il suffit en
-pareil cas d'utiliser plutôt @code{\override Stem #'transparent = ##t}
-ou @code{\override Stem #'length = #0} puis, en cas de besoin, recourir
-à une clause @code{\once \override Stem #'transparent = ##f} comme dans
+pareil cas d'utiliser plutôt @code{\override Stem #'transparent = ##t}
+ou @code{\override Stem #'length = #0} puis, en cas de besoin, recourir
+à une clause @code{\once \override Stem #'transparent = ##f} comme dans
 l'exemple ci-dessous.  N'oubliez pas que les crochets aussi doivent
-disparaître, grâce à un @code{\override Flag #'transparent = ##t}.
+disparaître, grâce à un @code{\override Flag #'transparent = ##t}.
 
 @b{Temps}.  En matière de chant non mesuré, plusieurs alternatives
-s'offrent  à vous.
+s'offrent à vous.
 
 La suppression du @code{Time_signature_engraver} du contexte
 @code{Staff} ne produit aucun effet négatif.  Une alternative serait de
 rendre la métrique transparente, ce qui par contre préservera l'espace
 qu'elle occupe.
 
-Dans de nombreux cas, une clause @code{\set Score.timing = ##f} donne de
+Dans de nombreux cas, une clause @code{\set Score.timing = ##f} donne de
 bons résultats.  On pourrait aussi utiliser @code{\CadenzaOn} et
 @code{\CadenzaOff}.
 
 Rien de plus radical que de supprimer du contexte @code{Staff} le
 @code{Bar_engraver} pour ne pas voir de barre de mesure.  Là aussi, une
-clause @code{\override BarLine #'transparent = ##t} vous permettra d'en
+clause @code{\override BarLine #'transparent = ##t} vous permettra d'en
 afficher une au besoin.
 
 Dans de nombreuses transcriptions, le récitatif fait apparaître une

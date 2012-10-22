@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2e3c5412eacdbfd976d2cd6c5cc90f272ddfc263
+    Translation of GIT committish: a8855343a15503ca5bb4a30d41a3bff9c60e66f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -450,6 +450,11 @@ necesario que estén unidas en la otra pauta.
 
 @lilypondfile[verbatim,quote]
 {cross-staff-stems.ly}
+
+Por el momento no se puede especificar este grabador por su
+nombre entre comillas, sino prefijando el nombre con un símbolo
+de almohadilla @code{#}, a causa de la manera en que está
+implementado.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]

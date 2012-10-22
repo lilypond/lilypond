@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -244,6 +244,10 @@ verändernt.  Es ist jedoch sehr viel bequemer, die Spielposition unter
 Benutzung von @code{minimumFret} zu definieren.  Der Standardwert von
 @code{minimumFret} beträgt 0.
 
+Auch wenn @code{minimumFret} gesetzt ist, werden offene Saiten immer
+benützt, wenn es möglich ist.  Dieses Verhalten kann verändert werden,
+indem @code{restrainOpenStrings} auf @code{#t} gesetzt wird.
+
 @lilypond[quote,ragged-right,verbatim]
 \layout { \override Voice.StringNumber #'stencil = ##f }
 \new StaffGroup <<
@@ -258,6 +262,7 @@ Benutzung von @code{minimumFret} zu definieren.  Der Standardwert von
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
+     \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
 >>
@@ -1167,7 +1172,7 @@ vordefinierte Diagramme für die Gitarrenstimmung (@code{guitar-tuning}).
 Anhand der Beispiele in dieser Datei können auch für andere
 Instrumente oder Stimmungen Diagramme definiert werden.
 
-Bunddiagramme für die Ukulele finden sich in der Datei
+Bunddiagramme für die Ukulele finden sich in der Datei @*
 @file{predefined-ukulele-fretboards.ly}.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1444,9 +1449,9 @@ Notationsreferenz:
 @ref{Die vordefinierten Bund-Diagramme}.
 
 Installierte Dateien:
-@file{ly/predefined-guitar-fretboards.ly},
-@file{ly/predefined-guitar-ninth-fretboards.ly},
-@file{ly/predefined-ukulele-fretboards.ly},
+@file{ly/predefined-guitar-fretboards.ly}, @*
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
+@file{ly/predefined-ukulele-fretboards.ly}, @*
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Schnipsel:
@@ -1634,7 +1639,7 @@ cindex Fingersatz der rechten Hand, Bundinstrumente
 @funindex rightHandFinger
 @funindex \rightHandFinger
 
-Fingersatz für die rechte Hand in Akkorden @var{p-i-m-a}
+Fingersatz für die rechte Hand @var{p-i-m-a}
 muss mit @code{\rightHandFinger}, gefolgt von einer Zahl, notiert werden.
 
 @warning{Wenn die Zahl in Scheme-Notation eingegeben wird, muss darauf

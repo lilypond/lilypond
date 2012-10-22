@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: 06f227dd80f3a30cbf33c879b7c125079dfaf5c3
+    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,12 +29,14 @@
 * Alte Notation -- Allgemeines::
 * Mesurale Musik setzen::
 * Gregorianischen Choral setzen::
+* Kiever Quadratnotation setzen::
 * Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen::
 @end menu
 
 Unterstützung für Notation der Alten Musik enthält einige Eigenheiten
-der Mensuralnotation und der Notation des gregorianischen
-Chorals.  Diese Eigenheiten können eingestellt werden, indem
+der Mensuralnotation, der Notation des gregorianischen
+Chorals und der Kiever Quadratnotation.  Diese Eigenheiten können
+eingestellt werden, indem
 man Stileigenschaften von graphischen Objekten wie Notenköpfen
 und Pausen verändert, oder indem man vordefinierte fertige
 Kontexte für mensurale oder Choralnotation einsetzt.
@@ -469,7 +471,7 @@ Mensuraler C-Schlüssel im historischen Stil
 @code{mensural-c1}, @code{mensural-c2},@*
 @code{mensural-c3}, @code{mensural-c4}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-c2"
   \override NoteHead #'style = #'mensural
   c
@@ -480,7 +482,7 @@ Mensuraler F-Schlüssel im historischen Stil
 @tab
 @code{mensural-f}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-f"
   \override NoteHead #'style = #'mensural
   c
@@ -491,7 +493,7 @@ Mensuraler G-Schlüssel im historischen Stil
 @tab
 @code{mensural-g}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "mensural-g"
   \override NoteHead #'style = #'mensural
   c
@@ -503,7 +505,7 @@ Mensuraler C-Schlüssel im modernen Stil
 @code{neomensural-c1}, @code{neomensural-c2},@*
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "neomensural-c2" c
 @end lilypond
 
@@ -516,7 +518,7 @@ Beispiel den Schlüssel auf der zweiten Linie)
 @code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead #'style = #'mensural
   c
@@ -530,7 +532,7 @@ Notenlinien benutzt werden (im Beispiel auf der dritten Linie)
 @code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead #'style = #'mensural
   c
@@ -541,7 +543,7 @@ Mensuraler G-Schlüssel im Petrucci-Stil
 @tab
 @code{petrucci-g}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \clef "petrucci-g"
   \override NoteHead #'style = #'mensural
   c
@@ -626,7 +628,7 @@ können die Taktarten angewählt werden. Unterstützte Stile sind:
 neomensurale Stil verwendet.  Im folgenden Beispiel sind die
 unterschiedlichen Stile dargestellt.
 
-@lilypond[ragged-right,fragment,relative=1,quote]
+@lilypond[ragged-right,relative=1,quote]
 {
   \textLengthOn
 
@@ -871,8 +873,10 @@ Der Stil für Versetzungszeichen und Vorzeichen wird durch die
 @code{Accidental} und @code{KeySignature} bestimmt,
 also etwa folgendermaßen:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 
 @seealso
@@ -912,7 +916,7 @@ werden.  Hierzu muss @code{suggestAccidentals} auf wahr gesetzt werden:
 
 @funindex suggestAccidentals
 
-@lilypond[verbatim,fragment,relative=1]
+@lilypond[fragment,relative=1]
 fis gis
 \set suggestAccidentals = ##t
 ais bis
@@ -1160,7 +1164,7 @@ Do-Schlüssel der Editio Vaticana
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1176,7 +1180,7 @@ Fa-Schlüssel der Editio Vaticana
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1193,7 +1197,7 @@ Do-Schlüssel der Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1209,7 +1213,7 @@ Fa-Schlüssel der Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1226,7 +1230,7 @@ Hufnagel Do-Schlüssel für den historischen Stil
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1242,7 +1246,7 @@ Hufnagel Fa-Schlüssel für den historischen Stil
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
@@ -1258,7 +1262,7 @@ Kombinierter Do/Fa-Hufnagelschlüssel für den historischen Stil
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[fragment,relative=1,notime]
+@lilypond[relative=1,notime]
   \override Staff.StaffSymbol #'color = #red
   \override Staff.LedgerLineSpanner #'color = #red
   \override Voice.Stem #'transparent = ##t
@@ -1321,8 +1325,10 @@ Der Stil für Versetzungs- und Vorzeichen wird von der
 @code{Accidental} und @code{KeySignature}
 kontrolliert, beispielsweise:
 
-@code{\override Staff.Accidental #'glyph-name-alist =
-#alteration-mensural-glyph-name-alist}
+@example
+\override Staff.Accidental #'glyph-name-alist =
+  #alteration-mensural-glyph-name-alist
+@end example
 
 @seealso
 Glossar:
@@ -2509,6 +2515,172 @@ System eingegeben werden.
 @code{\augmentum} sollte als Präfix implementiert sein, nicht als eigene
 musikalische Funktion, so dass @code{\augmentum} mit den anderen
 Präfixen in arbiträrer Reihenfolge notiert werden kann.
+
+
+@node Kiever Quadratnotation setzen
+@subsection Kiever Quadratnotation setzen
+@translationof Typesetting Kievan square notation
+
+@menu
+* Kiever Kontexte::
+* Kiever Schlüssel::
+* Kiever Notenköpfe::
+* Kiever Versetzungszeichen::
+* Kiever Taktstriche::
+@end menu
+
+@node Kiever Kontexte
+@unnumberedsubsubsec Kiever Kontexte
+@translationof Kievan contexts
+
+@funindex KievanVoiceContext
+@funindex KievanStaffContext
+
+Wie auch für die Mensural- und Gregorianische Notation können die Kontexte
+@code{KievanVoice} and @code{KievanStaff} eingesetzt werdne, um
+Noten der Kiever Quadratnotation zu setzen.  Diese Kontexte initialisieren
+die benötigten Kontexteigenschaften und Grob-Eigenschaften mit den
+richtigen Werten, sodass man sofort den Choral notieren kann:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	c4 c c c c2 b,\longa
+	\bar "kievan"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Го -- спо -- ди по -- ми -- луй.
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glossar:
+@rglos{kievan notation}.
+
+@knownissues
+LilyPond unterstützt Kiever Notation des Synodischen Stils, welcher
+im Korpus der Gesangsbücher eingesetzt wurde, die durch Russische
+Heilige Synode 1910 gedruckt wurden und neuerdings durch das
+Moskauer Patriarchat Verlagshaus neu heruasgegeben wurden.
+LilyPond kann nicht die älteren (selteren) Formen der Kiever
+Notation setzen, mit denen in Galizien rusinischer Choral notiert
+worden ist.
+
+@node Kiever Schlüssel
+@unnumberedsubsubsec Kiever Schlüssel
+@translationof Kievan clefs
+
+@cindex Schlüssel, Kiever Notation
+
+Es gibt nur einen Schlüssel in der Kiever Notation (der Tse-fa-ut-Schlüssel).
+Er bezeichnet die Position von @code{c}:
+
+@lilypond[quote,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c
+@end lilypond
+
+@seealso
+Glossar:
+@rglos{kievan notation},
+@rglos{clef}.
+
+Notationsreferenz:
+@ref{Notenschlüssel}.
+
+@node Kiever Notenköpfe
+@unnumberedsubsubsec Kiever Notenköpfe
+@translationof Kievan note heads
+
+@cindex Notenköpfe, Kiever Notation
+
+Für die Kiever Notation muss der richtige Notenkopfstil gewählt
+werden.  Die erreicht man, indem man die @code{style}-Eigenschaft des
+@code{NoteHead}-Objekts auf @code{kievan} setzt.
+
+Die Kiever Schlussnote, welche am Ende eines Stückes gesetzt wird,
+kann gewählt werden, indem man die Notendauer @code{\longa} einsetzt.
+Das Kiever Rezitativzeichen, welches die Rezitation auf einer Tonhöhe
+anzeigt, kann gesetzt werden, indem die Notendauer @code{\breve}
+notiert wird.  Folgendes Beispiel demonstriert die unterschiedlichen
+Notenköpfe:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\autoBeamOff
+\cadenzaOn
+\override NoteHead #'style = #'kievan
+b'1 b'2 b'4 b'8 b'\breve b'\longa
+@end lilypond
+
+@seealso
+Glossar:
+@rglos{kievan notation},
+@rglos{note head}.
+
+Notationsreferenz:
+@ref{Notenkopfstile}.
+
+@knownissues
+LilyPond bestimmt automatisch die Richtung eines Halses.  Für Gesang
+in der Quadratnotation zeigen die Hälse jedoch alle in die gleiche
+Richtung innerhalb eines Melismas.  Das kann man manuell erreichen,
+indem man die @code{direction}-Eigenschaft des @code{Stem}-Objekts
+setzt.
+
+@node Kiever Versetzungszeichen
+@unnumberedsubsubsec Kiever Versetzungszeichen
+@translationof Kievan accidentals
+
+@cindex Versetzungszeichen, Kiever Notation
+
+Der Versetzungszeichenstil @code{kievan} wird durch die Eigenschaft
+@code{glyph-name-alist} des @code{Accidental}-Grobs ausgewählt.
+Dieser Stil stellt ein Kreuz und ein B-Zeichen zur Verfügung, die
+sich von den Standardzeichen unterscheiden.  Es gibt kein Auflösungszeichen
+in der Kiever Notation.  Das Kreuz wird in der Synodalen Musik nicht
+eingesetzt, kann aber in früheren Manuskripten auftreten.  Es wurde
+vor allem der Vollständigkeit halber eingesetzt.
+
+@lilypond[quote,relative=1,notime,verbatim]
+\clef "kievan-do"
+\override NoteHead #'style = #'kievan
+\override Accidental #'glyph-name-alist =
+ #alteration-kievan-glyph-name-alist
+bes' dis,
+@end lilypond
+
+@seealso
+Glossar:
+@rglos{kievan notation},
+@rglos{accidental}.
+
+Notationsreferenz:
+@ref{Versetzungszeichen},
+@ref{Automatische Versetzungszeichen},
+@ref{Die Feta-Schriftart}
+
+@node Kiever Taktstriche
+@unnumberedsubsubsec Kiever Taktstriche
+@translationof Kievan bar line
+
+Eine dekorative Figur wird üblicherweise am Ende von eines
+Musikstückes der Kiever Notation gesetzt, was man als Kiever
+Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "kievan"}.
+
+@lilypond[quote,relative=1,notime,verbatim]
+  \clef "kievan-do"
+  \override NoteHead #'style = #'kievan
+  c \bar "kievan"
+@end lilypond
+
+@seealso
+@ref{Takte},
+@ref{Die Feta-Schriftart}
 
 
 @c Working with ancient music: scenarios and solutions::  {{{1
