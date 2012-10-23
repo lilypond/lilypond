@@ -501,15 +501,21 @@ instrumentSwitch =
 
 
 keepWithTag =
-#(define-music-function (parser location tag music) (symbol? ly:music?)
-   (_i "Include only elements of @var{music} that are tagged with @var{tag}.")
+#(define-music-function (parser location tag music)
+   (symbol-list-or-symbol? ly:music?)
+   (_i "Include only elements of @var{music} that are either untagged
+or tagged with one of the tags in @var{tag}.  @var{tag} may be either
+a single symbol or a list of symbols.")
    (music-filter
-    (lambda (m)
-      (let* ((tags (ly:music-property m 'tags))
-	     (res (memq tag tags)))
-	(or
-	 (eq? tags '())
-	 res)))
+    (if (symbol? tag)
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or (null? music-tags)
+                (memq tag music-tags))))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or (null? music-tags)
+                (any (lambda (t) (memq t music-tags)) tag)))))
     music))
 
 key =
@@ -1004,13 +1010,19 @@ relative =
 	       'element music))
 
 removeWithTag =
-#(define-music-function (parser location tag music) (symbol? ly:music?)
-   (_i "Remove elements of @var{music} that are tagged with @var{tag}.")
+#(define-music-function (parser location tag music)
+   (symbol-list-or-symbol? ly:music?)
+   (_i "Remove elements of @var{music} that are tagged with one of the
+tags in @var{tag}.  @var{tag} may be either a single symbol or a list
+of symbols.")
    (music-filter
-    (lambda (m)
-      (let* ((tags (ly:music-property m 'tags))
-	     (res (memq tag tags)))
-	(not res)))
+    (if (symbol? tag)
+        (lambda (m)
+          (not (memq tag (ly:music-property m 'tags))))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or (null? music-tags)
+                (not (any (lambda (t) (memq t music-tags)) tag))))))
     music))
 
 resetRelativeOctave =
