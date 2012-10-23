@@ -1242,6 +1242,47 @@ tag =
 	  (ly:music-property arg 'tags)))
    arg)
 
+temporary =
+#(define-music-function (parser location music)
+   (ly:music?)
+   (_i "Make any @code{\\override} in @var{music} replace an existing
+grob property value only temporarily, restoring the old value when a
+corresponding @code{\\revert} is executed.  This is achieved by
+clearing the @samp{pop-first} property normally set on
+@code{\\override}s.
+
+An @code{\\override}/@/@code{\\revert} sequence created by using
+@code{\\temporary} and @code{\\undo} on the same music containing
+overrides will cancel out perfectly or cause a@tie{}warning.
+
+Non-property-related music is ignored, warnings are generated for any
+property-changing music that isn't an @code{\\override}.")
+   (define warned #f)
+   (for-some-music
+    (lambda (m)
+      (and (or (music-is-of-type? m 'layout-instruction-event)
+               (music-is-of-type? m 'context-specification)
+               (music-is-of-type? m 'apply-context)
+               (music-is-of-type? m 'time-signature-music))
+           (case (ly:music-property m 'name)
+             ((OverrideProperty)
+              (if (ly:music-property m 'pop-first #f)
+                  (set! (ly:music-property m 'pop-first) '()))
+              (if (ly:music-property m 'once #f)
+                  (set! (ly:music-property m 'once) '()))
+              #t)
+             ((ContextSpeccedMusic)
+              #f)
+             (else
+              (if (not warned)
+                  (begin
+                    (ly:input-warning location (_ "Cannot make ~a revertible")
+                                      (ly:music-property m 'name))
+                    (set! warned #t)))
+              #t))))
+    music)
+   music)
+
 time =
 #(define-music-function (parser location beat-structure fraction)
    ((number-list? '()) fraction?)
@@ -1326,14 +1367,17 @@ undo =
    (ly:music?)
    (_i "Convert @code{\\override} and @code{\\set} in @var{music} to
 @code{\\revert} and @code{\\unset}, respectively.  Any reverts and
-unsets already in @var{music} are ignored and not converted.")
+unsets already in @var{music} cause a warning.  Non-property-related music is ignored.")
+   (define warned #f)
    (let loop
        ((music music))
      (let
          ((lst
            (fold-some-music
             (lambda (m) (or (music-is-of-type? m 'layout-instruction-event)
-                            (music-is-of-type? m 'context-specification)))
+                            (music-is-of-type? m 'context-specification)
+                            (music-is-of-type? m 'apply-context)
+                            (music-is-of-type? m 'time-signature-music)))
             (lambda (m overrides)
               (case (ly:music-property m 'name)
                 ((OverrideProperty)
@@ -1357,7 +1401,13 @@ unsets already in @var{music} are ignored and not converted.")
                               'element (loop (ly:music-property m 'element))
                               'context-type (ly:music-property m 'context-type))
                   overrides))
-                (else overrides)))
+                (else
+                 (if (not warned)
+                     (begin
+                       (ly:input-warning location (_ "Cannot revert ~a")
+                                         (ly:music-property m 'name))
+                       (set! warned #t)))
+                 overrides)))
             '()
             music)))
        (cond
