@@ -93,7 +93,7 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
   fix_prefix ("pes_or_flexa", LINEA, current_set, min_set, max_set, primitive);
 }
 
-void check_and_fix_all_prefixes (vector<Grob_info> primitives)
+void check_and_fix_all_prefixes (vector<Grob_info> const &primitives)
 {
   /* Check for invalid head modifier combinations */
   for (vsize i = 0; i < primitives.size (); i++)
@@ -204,7 +204,7 @@ void check_and_fix_all_prefixes (vector<Grob_info> primitives)
  * Marks those heads that participate in a pes or flexa.
  */
 void
-provide_context_info (vector<Grob_info> primitives)
+provide_context_info (vector<Grob_info> const &primitives)
 {
   Grob *prev_primitive = 0;
   int prev_prefix_set = 0;
@@ -253,7 +253,7 @@ provide_context_info (vector<Grob_info> primitives)
 
 void
 Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
-                                             vector<Grob_info> primitives)
+                                             vector<Grob_info> const &primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

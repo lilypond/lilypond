@@ -67,7 +67,7 @@ private:
                                int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
                         int context_info);
-  Real align_heads (vector<Grob_info> primitives,
+  Real align_heads (vector<Grob_info> const &primitives,
                     Real flexa_width,
                     Real thickness);
   void check_for_prefix_loss (Item *primitive);
@@ -81,7 +81,7 @@ public:
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
-                                vector<Grob_info> primitives);
+                                vector<Grob_info> const &primitives);
   DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
   DECLARE_TRANSLATOR_LISTENER (ligature);
 };
@@ -199,7 +199,7 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 }
 
 Real
-Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
+Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
                                          Real flexa_width,
                                          Real thickness)
 {
@@ -473,7 +473,7 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
 
 void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-                                             vector<Grob_info> primitives)
+                                             vector<Grob_info> const &primitives)
 {
   Real flexa_width = robust_scm2double (ligature->get_property ("flexa-width"), 2);
 
