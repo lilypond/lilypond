@@ -1343,6 +1343,7 @@
 
     (MensuralLigature
      . (
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:mensural-ligature::print)
 	(thickness . 1.3)
 	(meta . ((class . Spanner)
