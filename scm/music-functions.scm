@@ -1962,15 +1962,34 @@ of list @var{arg}."
 ;; measure counter
 
 (define (measure-counter-stencil grob)
-  "Create a number for a measure count.  The number is centered using
-the extents of the @code{BreakAlignment} grobs associated with the
-@code{NonMusicalPaperColumn} grobs which form the left and right bounds
-of the spanner."
-  (let* ((cols (ly:grob-object grob 'columns))
-         (refp (ly:grob-common-refpoint-of-array grob cols X))
-         (col-list (ly:grob-array->list cols))
-         (elts-L (ly:grob-array->list (ly:grob-object (car col-list) 'elements)))
-         (elts-R (ly:grob-array->list (ly:grob-object (cadr col-list) 'elements)))
+  "Print a number for a measure count.  The number is centered using
+the extents of @code{BreakAlignment} grobs associated with
+@code{NonMusicalPaperColumn} grobs.  In the case of an unbroken measure, these
+columns are the left and right bounds of a @code{MeasureCounter} spanner.
+Broken measures are numbered in parentheses."
+  (let* ((orig (ly:grob-original grob))
+         (siblings (ly:spanner-broken-into orig)) ; have we been split?
+         (bounds (ly:grob-array->list (ly:grob-object grob 'columns)))
+         (refp (ly:grob-system grob))
+         ; we use the first and/or last NonMusicalPaperColumn grob(s) of
+         ; a system in the event that a MeasureCounter spanner is broken
+         (all-cols (ly:grob-array->list (ly:grob-object refp 'columns)))
+         (all-cols
+           (filter
+             (lambda (col) (eq? #t (ly:grob-property col 'non-musical)))
+             all-cols))
+         (left-bound
+           (if (or (null? siblings) ; spanner is unbroken
+                   (eq? grob (car siblings))) ; or the first piece
+               (car bounds)
+               (car all-cols)))
+         (right-bound
+           (if (or (null? siblings)
+                   (eq? grob (car (reverse siblings))))
+               (car (reverse bounds))
+               (car (reverse all-cols))))
+         (elts-L (ly:grob-array->list (ly:grob-object left-bound 'elements)))
+         (elts-R (ly:grob-array->list (ly:grob-object right-bound 'elements)))
          (break-alignment-L
            (filter
              (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
@@ -1981,8 +2000,13 @@ of the spanner."
              elts-R))
          (break-alignment-L-ext (ly:grob-extent (car break-alignment-L) refp X))
          (break-alignment-R-ext (ly:grob-extent (car break-alignment-R) refp X))
-         (counter (ly:grob-property grob 'count-from))
-         (num (grob-interpret-markup grob (markup (number->string counter))))
+         (num (markup (number->string (ly:grob-property grob 'count-from))))
+         (num
+           (if (or (null? siblings)
+                   (eq? grob (car siblings)))
+               num
+               (make-parenthesize-markup num)))
+         (num (grob-interpret-markup grob num))
          (num (ly:stencil-aligned-to num X (ly:grob-property grob 'self-alignment-X)))
          (num
            (ly:stencil-translate-axis
