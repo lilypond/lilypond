@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -885,8 +885,8 @@ Il peut aussi être renversé pour produire une rétrogradation.
 sera pas transformée.}
 
 
-@subsubheading Transposition modale
-@translationof Modal transposition
+@subsubsubheading Transposition modale
+@c VO Modal transposition
 
 @cindex modale, transposition
 
@@ -943,8 +943,8 @@ motif = \relative c' { c8 d e f g a b c }
 @end lilypond
 
 
-@subsubheading Inversion modale
-@translationof Modal inversion
+@subsubsubheading Inversion modale
+@c VO Modal inversion
 
 @cindex modale, inversion
 
