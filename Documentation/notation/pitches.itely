@@ -1179,6 +1179,21 @@ Internals Reference:
 @rinternals{OctavateEight},
 @rinternals{clef-interface}.
 
+@knownissues
+Ottavation numbers attached to clefs are treated as separate grobs.  So
+any @code{\override} done to the @var{Clef} will also need to be
+applied, as a separate @code{\override}, to the @var{OctavateEight}
+grob.
+
+@lilypond[fragment,quote,relative=1]
+\new Staff \with {
+  \override OctavateEight #'color = #red
+  \override Clef #'color = #blue
+}
+
+\clef "treble_8" c4
+@end lilypond
+
 
 @node Key signature
 @unnumberedsubsubsec Key signature
