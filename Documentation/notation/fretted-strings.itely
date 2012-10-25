@@ -368,9 +368,6 @@ ties = \relative c' {
 
 @cindex harmonic indications in tablature notation
 @cindex tablature and harmonic indications
-@cindex slides in tablature notation
-@cindex tablature and slides
-@cindex chord glissandi
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -454,8 +451,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
+@cindex slides in tablature notation
+@cindex tablature and slides
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
+
+@cindex chord glissandi
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
