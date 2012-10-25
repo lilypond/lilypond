@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -1417,7 +1417,7 @@ modifiés par @code{\override}.  Parmi ceux-là, les objets
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Nom de l'objet
+Score.NonMusicalPaperColumn  % Nom de l'objet
 #'line-break-system-details     % Nom de la propriété
 #'((next-padding . 20))         % Valeur
 @end example

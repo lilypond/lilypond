@@ -1,4 +1,4 @@
-\version "2.17.0"
+\version "2.17.6"
 
 \header {
   texidoc = "@code{VerticalAxisGroup} grobs can place outside staff objects
@@ -26,7 +26,7 @@ music = \context Voice {
   \clef "petrucci-c4"
   \set Staff.printKeyCancellation = ##f
   \cadenzaOn % turn off bar lines
-  \accidentalStyle "forget"
+  \accidentalStyle forget
   \textLengthOn
 
 % ligaturae binaria

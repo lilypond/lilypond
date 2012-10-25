@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is not reset on each page.  It uses the default
@@ -40,7 +40,7 @@ footnotes.
 \relative c' {
   \once \override FootnoteItem #'numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 3))
-  \footnote #'(1 . -1) #'NoteHead \markup { j } \default
+  \footnote #'(1 . -1) \markup { j } NoteHead
   a b c d
 }
 

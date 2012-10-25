@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.17.6"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1204,7 +1204,7 @@ spacingTweaks =
    (_i "Set the system stretch, by reading the 'system-stretch property of
 the `parameters' assoc list.")
    #{
-     \overrideProperty #"Score.NonMusicalPaperColumn"
+     \overrideProperty Score.NonMusicalPaperColumn
      #'line-break-system-details
      #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 	     (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))

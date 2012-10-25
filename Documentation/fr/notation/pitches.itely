@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Frédéric Chiasson
 @c Translation checkers: Valentin Villenave, Jean-Charles Malahieude
@@ -1411,7 +1411,7 @@ suivante :
 
 @example
 \new Staff <<
-  \accidentalStyle "voice"
+  \accidentalStyle voice
   @{ @dots{} @}
 >>
 @end example
@@ -1425,7 +1425,7 @@ utiliser, pour que toutes les portées d'un même système -- contexte
 @code{StaffGroup} -- soient soumises à la même règle :
 
 @example
-\accidentalStyle #'StaffGroup "voice"
+\accidentalStyle StaffGroup.voice
 @end example
 
 Nous vous présentons ci-après les différentes règles d'altération prises
@@ -1468,11 +1468,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicB
     }
   >>
@@ -1487,7 +1487,7 @@ dernières lignes de cet exemple nous intéressent.
   <<
     \context Staff = "haut" @{
       %%% voici la ligne à modifier en conséquence :
-      \accidentalStyle #'Score "default"
+      \accidentalStyle Score.default
       \musicA
     @}
     \context Staff = "bas" @{
@@ -1549,11 +1549,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicB
     }
   >>
@@ -1621,11 +1621,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "voice"
+      \accidentalStyle voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "voice"
+      \accidentalStyle voice
       \musicB
     }
   >>
@@ -1685,11 +1685,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern"
+      \accidentalStyle modern
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern"
+      \accidentalStyle modern
       \musicB
     }
   >>
@@ -1747,11 +1747,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-cautionary"
+      \accidentalStyle modern-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-cautionary"
+      \accidentalStyle modern-cautionary
       \musicB
     }
   >>
@@ -1814,11 +1814,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-voice"
+      \accidentalStyle modern-voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-voice"
+      \accidentalStyle modern-voice
       \musicB
     }
   >>
@@ -1874,11 +1874,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-voice-cautionary"
+      \accidentalStyle modern-voice-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-voice-cautionary"
+      \accidentalStyle modern-voice-cautionary
       \musicB
     }
   >>
@@ -1937,7 +1937,7 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "piano"
+      \accidentalStyle piano
       \musicA
     }
     \context Staff = "down" {
@@ -1994,7 +1994,7 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "piano-cautionary"
+      \accidentalStyle piano-cautionary
       \musicA
     }
     \context Staff = "down" {
@@ -2052,11 +2052,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern"
+      \accidentalStyle neo-modern
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern"
+      \accidentalStyle neo-modern
       \musicB
     }
   >>
@@ -2109,11 +2109,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-cautionary"
+      \accidentalStyle neo-modern-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-cautionary"
+      \accidentalStyle neo-modern-cautionary
       \musicB
     }
   >>
@@ -2172,11 +2172,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-voice"
+      \accidentalStyle neo-modern-voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-voice"
+      \accidentalStyle neo-modern-voice
       \musicB
     }
   >>
@@ -2227,11 +2227,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-voice-cautionary"
+      \accidentalStyle neo-modern-voice-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-voice-cautionary"
+      \accidentalStyle neo-modern-voice-cautionary
       \musicB
     }
   >>
@@ -2286,11 +2286,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
       \musicB
     }
   >>
@@ -2348,12 +2348,12 @@ musicB = {
   <<
     \context Staff = "up" {
       \key fis \minor
-      \accidentalStyle "teaching"
+      \accidentalStyle teaching
       \musicA
     }
     \context Staff = "down" {
       \key fis \minor
-      \accidentalStyle "teaching"
+      \accidentalStyle teaching
       \musicB
     }
   >>
@@ -2406,11 +2406,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "no-reset"
+      \accidentalStyle no-reset
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "no-reset"
+      \accidentalStyle no-reset
       \musicB
     }
   >>
@@ -2465,11 +2465,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "forget"
+      \accidentalStyle forget
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "forget"
+      \accidentalStyle forget
       \musicB
     }
   >>
@@ -2516,7 +2516,7 @@ la seconde alternative ne nécessite pas son bécarre.
 
 @lilypond[quote]
 {
-  \accidentalStyle "modern"
+  \accidentalStyle modern
   \time 2/4
   \repeat volta 2 {
     c'2
@@ -2533,12 +2533,12 @@ L'astuce suivante, qui définit temporairement le recours au style
 
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
-  \accidentalStyle "forget"
+  \accidentalStyle forget
   #music
-  \accidentalStyle "modern"
+  \accidentalStyle modern
 #})
 {
-  \accidentalStyle "modern"
+  \accidentalStyle modern
   \time 2/4
   \repeat volta 2 {
     c'2

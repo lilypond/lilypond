@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the
@@ -25,7 +25,7 @@
   \clef "petrucci-c4"
   \set Staff.printKeyCancellation = ##f
   \cadenzaOn % turn off bar lines
-  \accidentalStyle "forget"
+  \accidentalStyle forget
   \textLengthOn
 
 % ligaturae binaria
@@ -309,7 +309,7 @@
   \clef "petrucci-c5"
   \set Staff.printKeyCancellation = ##f
   \cadenzaOn % turn off bar lines
-  \accidentalStyle "forget"
+  \accidentalStyle forget
   \textLengthOn
 
   \[

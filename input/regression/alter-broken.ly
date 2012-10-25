@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The command @code{\\alterBroken} may be used to override the
@@ -20,9 +20,9 @@ its usage with a variety of data types."
   d4( d' b g
   \break
   d d' b g)
-  \alterBroken "Staff.OttavaBracket" #'padding #'(1 3)
+  \alterBroken Staff.OttavaBracket #'padding #'(1 3)
   % Spaces in spanner's name are disregarded.
-  \alterBroken "Staff . OttavaBracket" #'style #'(line dashed-line)
+  \alterBroken Staff.OttavaBracket #'style #'(line dashed-line)
   \ottava #1
   % It is possible to use procedures as arguments.
   \alterBroken Hairpin #'stencil #`(

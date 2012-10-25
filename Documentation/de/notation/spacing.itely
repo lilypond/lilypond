@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -1852,19 +1852,19 @@ music = \relative c'' { c4 c c c }
 \score {
   \new Staff <<
     \new Voice {
-      \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty Score.NonMusicalPaperColumn
         #'line-break-system-details #'((Y-offset . 0))
       s1 * 2 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty Score.NonMusicalPaperColumn
         #'line-break-system-details #'((Y-offset . 35))
       s1 * 3 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty Score.NonMusicalPaperColumn
         #'line-break-system-details #'((Y-offset . 70))
       s1 * 6 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
+      \overrideProperty Score.NonMusicalPaperColumn
         #'line-break-system-details #'((Y-offset . 105))
       s1 * 5 \break
     }
@@ -2619,13 +2619,13 @@ ersichtlich benutzt werden:
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 80))
           s1*5 \break
         }
@@ -2658,15 +2658,15 @@ von @code{line-break-system-details}.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 20)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (15)))
           s1*5 \break
@@ -2700,15 +2700,15 @@ die vertikale Position von einzelnen Notensystemen.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 0)
                                            (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
+          \overrideProperty Score.NonMusicalPaperColumn
             #'line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (10 30)))
           s1*5 \break

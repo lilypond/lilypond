@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -1420,7 +1420,7 @@ und @code{PaperColumn}.  Sie können mit der
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Grob-Bezeichnung
+Score.NonMusicalPaperColumn  % Grob-Bezeichnung
 #'line-break-system-details     % Eigenschaftsbezeichnung
 #'((next-padding . 20))         % Wert
 @end example

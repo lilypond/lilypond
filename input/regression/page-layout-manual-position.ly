@@ -8,7 +8,7 @@ systems may be placed absolutely on the printable area of the page."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 #(set-default-paper-size "a6" 'portrait)
 
@@ -25,14 +25,14 @@ systems may be placed absolutely on the printable area of the page."
   \score {
     {
       \overrideProperty 
-      #"Score.NonMusicalPaperColumn"
+      Score.NonMusicalPaperColumn
       #'line-break-system-details
       #'((Y-offset . 0.0))
       c1 c1 \break
       
     
       \overrideProperty 
-      #"Score.NonMusicalPaperColumn"
+      Score.NonMusicalPaperColumn
       #'line-break-system-details
       #'((Y-offset . 62.0)
          (X-offset . 8.0)

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -103,7 +103,7 @@ Text headword
 
     |
     \break
-    \overrideProperty "Score.NonMusicalPaperColumn"
+    \overrideProperty Score.NonMusicalPaperColumn
     #'line-break-system-details #'((alignment-distances . (12)))
 
     c''4. (
