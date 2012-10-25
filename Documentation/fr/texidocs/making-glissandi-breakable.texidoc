@@ -1,0 +1,10 @@
+%% Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+
+  texidocfr = "
+L'affectation de la valeur @code{#t} à la propriété @code{breakable},
+combinée à @code{after-line-breaking}, permet la rupture d'une
+indication de glissando lors d'un saut de ligne.
+
+"
+
+  doctitlefr = "Saut de ligne et glissando"

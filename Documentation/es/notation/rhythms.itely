@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 1141313811fa104882b882085f1a7c80fee69f91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1081,12 +1081,36 @@ Las indicaciones de compás de la música mensural se tratan en
 @funindex \overrideTimeSignatureSettings
 
 Además de ajustar la indicación de compás que se imprime, la
-instrucción @code{\time} establece también los valores predeterminados
-basados en el tipo de compás para las propiedades @code{baseMoment},
+instrucción @code{\time} establece también los valores de las
+propiedades basadas en el tipo de compás @code{baseMoment},
 @code{beatStructure} y @code{beamExceptions}.  Los valores
 predefinidos de estas propiedades están en
-@file{scm/time-signature-settings.scm}.  Los valores predefinidos
-existentes se pueden cambiar, o pueden añadirse valores nuevos:
+@file{scm/time-signature-settings.scm}.
+
+El valor predeterminado de @code{beatStructure} puede sobreescribirse
+dentro de la propia instrucción @code{\time} escribiéndolo como primer
+argumento opcional:
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c' {
+      \time #'(2 2 3) 7/8
+      \repeat unfold 7 { c8 } |
+      \time #'(3 2 2) 7/8
+      \repeat unfold 7 { c8 } |
+    }
+  }
+}
+@end lilypond
+
+De forma alternativa, los valores predeterminados de todoas estas
+variables basadas en la indicación de compás, incluidas
+@code{baseMoment} y @code{beamExceptions}, se pueden establecer
+juntas.  Los valores se pueden fijar independientemente para varios
+tipos de compás distintos.  Los nuevos valores tienen efecto cuando se
+ejecuta una instrucción @code{\time} posterior con el mismo valor del
+tipo de compás:
 
 @lilypond[quote,verbatim]
 \score {
@@ -1110,7 +1134,7 @@ existentes se pueden cambiar, o pueden añadirse valores nuevos:
 
 @item
 @code{@var{timeSignatureFraction}}, una fracción que describe
-el tipo de compás.
+el tipo de compás al que se aplican estos valores.
 
 @item
 @code{@var{baseMomentFraction}}, una fracción que contiene el
@@ -1227,10 +1251,16 @@ moviendo el @code{Timing_translator} y el
 }
 @end lilypond
 
+Otro método para cambiar estas variables relacionadas con el tipo de
+compás, que evita la reimpresión de la indicación de compás en el
+momento del cambio, se muestra en
+@ref{Establecer el comportamiento de las barras automáticas}.
+
 @predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
 @endpredefined
+
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1242,7 +1272,11 @@ Glosario musical:
 
 Referencia de la notación:
 @ref{Indicaciones de compás de la música mensural},
+@ref{Establecer el comportamiento de las barras automáticas},
 @ref{Gestión del tiempo}.
+
+Archivos instalados:
+@file{scm/time-signature-settings.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1313,6 +1347,7 @@ entrada:
 \tempo "" 8 = 96
 d4 g e c
 @end lilypond
+
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1606,7 +1641,7 @@ Está contemplada la notación polimétrica, ya sea explícitamente o
 mediante la modificación manual de la indicación visible del compás y/o el
 escalado de la duración de las notas.
 
-@subsubheading Pentagramas con distintas indicaciones de compás y compases de igual longitud
+@subsubsubheading Pentagramas con distintas indicaciones de compás y compases de igual longitud
 
 Establezca una indicación de compás común para cada pentagrama, y fije
 @code{timeSignatureFraction} a la fracción deseada.  Luego use la función
@@ -1649,7 +1684,7 @@ de barrado automático.
 >>
 @end lilypond
 
-@subsubheading Pentagramas con distintas indicaciones de compás y longitudes de compás distintas
+@subsubsubheading Pentagramas con distintas indicaciones de compás y longitudes de compás distintas
 
 Se puede dar a cada pentagrama su propia indicación de compás
 independiente trasladando los grabadores @code{Timing_translator} y
@@ -1697,7 +1732,7 @@ independiente trasladando los grabadores @code{Timing_translator} y
 @cindex compuesto, indicaciones de compás
 @cindex compás compuesto, indicación de
 
-@subsubheading Indicaciones de compás compuesto
+@subsubsubheading Indicaciones de compás compuesto
 
 Se crean usando la función @code{\compoundMeter}.  La sintaxis es:
 
@@ -1892,12 +1927,15 @@ rasgueado.  Esto se puede hacer con el grabador
 >>
 @end lilypond
 
+
 @predefined
 @code{\improvisationOn},
 @code{\improvisationOff}.
 @endpredefined
 
+
 @snippets
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {guitar-strum-rhythms.ly}
 
@@ -2042,7 +2080,12 @@ barra nueva.
 Cuando está habilitado el barrado automático, la colocación de las
 barras automñaticas viene determinada por tres propiedades de
 contexto: @code{baseMoment}, @code{beatStructure} y
-@code{beamExceptions}.  Si hay definida una regla de
+@code{beamExceptions}.  Los valores predeterminados de estas variables
+se pueden sobreescribir como se describe más abajo, o de forma
+alternativa los propios valores predeterminados se pueden cambiar como
+se explica en @ref{Indicación de compás}.
+
+Si hay definida una regla de
 @code{beamExceptions} para el compás en curso, se usa dicha regla para
 determinar la colocación de las barras.  Si no está definida ninguna
 regla de @code{beamExceptions} para el tipo de compás en curso, la
@@ -2060,7 +2103,7 @@ Las reglas de @code{beamExceptions} se desactivan mediante
 @end example
 
 
-@subsubheading @i{Barrado basado en @code{baseMoment} y @code{beatStructure}}
+@subsubsubheading Barrado basado en @code{baseMoment} y @code{beatStructure}
 
 En la mayor parte de los casos, las barras automáticas terminan al
 final de un pulso.  Los puntos finales de las barras vienen
@@ -2165,7 +2208,7 @@ que el denominador del compás.  Todas las excepciones a este valor
 predeterminado están en
 @file{scm/time-signature-settings.scm}.
 
-@subsubheading @i{Barrado basado en @code{beamExceptions}}
+@subsubsubheading Barrado basado en @code{beamExceptions}
 
 Las reglas de autobarrado especiales (distintas de terminar una barra
 sobre un pulso) están definidas en la propiedad @code{beamExceptions}.
@@ -2283,7 +2326,7 @@ r4. a8 a a |
 r4. a8 a a |
 @end lilypond
 
-@subsubheading @i{Cómo funciona el barrado automático}
+@subsubsubheading Cómo funciona el barrado automático
 
 Cuando se habilita el barrado automático, la colocación de las barras
 de corchea automáticas viene determinada por las propiedades de
@@ -2347,8 +2390,11 @@ en el archivo @file{scm/time-signature-settings.scm}.
 {beam-endings-in-score-context.ly}
 
 @seealso
+Referencia de la notación:
+@ref{Indicación de compás}.
+
 Archivos de inicio:
-@file{scm/beam-settings.scm}.
+@file{scm/time-signature-settings.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.

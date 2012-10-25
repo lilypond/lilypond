@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
+    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -182,8 +182,8 @@ Les autres caractères sont à prendre tels qu'ils se présentent.
 
 Comme nous le verrons bientôt, les propriétés des différents
 types d'objet sont modifiées par des commandes différentes, si bien
-qu'il est bon de savoir reconnaître le type d'un objet en fonction du
-nom de ses propriétés.
+qu'il est bon de savoir reconnaître le type d'un objet ou d'une
+propriété en fonction de son nom.
 
 
 @node Méthodes de retouche
@@ -604,10 +604,9 @@ page.  Mais lorsque vous connaissez le nom de l'objet à retoucher, le
 plus simple est de consulter la RPI.
 
 La page de la RPI sur les liaisons commence par préciser que les objets
-Liaison sont créés par le graveur Slur_engraver.  Vient ensuite la liste
-des réglages standard.  Attention : ceux-ci @strong{ne suivent pas}
-l'ordre alphabétique.  Il faut donc les parcourir en entier pour trouver
-la propriété susceptible de contrôler l'épaisseur des traits de liaison.
+« Liaison » sont créés par le graveur Slur_engraver.  Vient ensuite la
+liste des réglages standard ; vous y trouverez la propriété susceptible
++de contrôler l'épaisseur des traits de liaison.
 
 @example
 @code{thickness} (nombre)
@@ -692,7 +691,7 @@ il est écrit : @qq{Les objets Liaison sont créés par le graveur
 Slur_engraver}.  Ainsi les liaisons seront créées dans n'importe quel
 contexte où se trouve le @code{Slur_engraver}.  Suivons le lien vers la
 page @code{Slur_engraver}.  Tout en bas, on lit que le
-@code{Slur_engraver} est un élément appartenant à cinq contextes Voix,
+@code{Slur_engraver} est un élément appartenant à sept contextes Voix,
 dont le contexte de voix standard, @code{Voice}.  Notre hypothèse était
 donc juste.  Et parce que @code{Voice} est un contexte de très bas
 niveau, qu'il est activé sans ambiguïté par le fait que l'on est
@@ -1360,7 +1359,7 @@ Ainsi, pour choisir la couleur rouge, la valeur serait
 
 Enfin, il existe une échelle de gris parmi les possibilités de couleurs
 X11.  Elle va du noir (@code{'grey0}) au blanc (@code{'grey100}), avec
-un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
+un pas de 1.  Essayons de l'utiliser en attribuant à tous les objets de
 notre exemple différentes nuances de gris :
 
 @cindex StaffSymbol, exemple de dérogation
@@ -1781,7 +1780,7 @@ chevauchement.
 @translationof Within-staff objects
 
 Nous avons vu que les commandes @code{\voiceXXX} jouent sur la
-direction des liaisons, des doigtés et sur toute autre chose liée à
+direction des liaisons, des doigtés et sur tout autre élément lié à
 l'orientation des hampes. Ces commandes sont essentielles dans
 la musique polyphonique pour distinguer des lignes mélodiques
 entremêlées.  Mais il arrive qu'on ait besoin de modifier ce
@@ -2326,7 +2325,7 @@ c''2 |
 @cindex nuances, modification du positionnement
 
 Les indications de nuance se placent normalement sous la portée, mais on
-peut les placer au-dessus avec la commande @code{dynamicUp}.  Elles se
+peut les placer au-dessus avec la commande @code{\dynamicUp}.  Elles se
 positionnent verticalement par rapport à la note à laquelle elles sont
 liées et se décalent vers le bas (ou le haut) en fonction des objets de
 la portée comme les liaisons de phrasé ou les numéros de mesure.  Cela
@@ -4077,7 +4076,7 @@ est destinée à produire un fichier PDF affiché sur écran, nous allons
 aussi augmenter la taille globale de police.
 
 @example
-%%%  definitions.ily
+%%%  web-publish.ily
 mpdolce =
 #(make-dynamic-script
   #@{ \markup @{ \hspace #0
