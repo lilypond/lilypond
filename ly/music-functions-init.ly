@@ -1345,27 +1345,46 @@ transposition =
     'Staff))
 
 tweak =
-#(define-music-function (parser location prop value music)
-   (symbol-list-or-symbol? scheme? ly:music?)
-   (_i "Add a tweak to the following @var{music}.
-Layout objects created by @var{music} get their property @var{prop}
+#(define-music-function (parser location prop value item)
+   (symbol-list-or-symbol? scheme? symbol-list-or-music?)
+   (_i "Add a tweak to the following @var{item}, usually music.
+Layout objects created by @var{item} get their property @var{prop}
 set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with
 @example
 \\tweak Accidental.color #red cis'
 @end example
 an indirectly created grob (@samp{Accidental} is caused by
 @samp{NoteHead}) can be tweaked; otherwise only directly created grobs
-are affected.")
-   (if (symbol? prop)
-       (set! prop (list prop)))
-   (if (and (<= 1 (length prop) 2)
-            (object-property (last prop) 'backend-type?))
-       (set! (ly:music-property music 'tweaks)
-             (acons (apply cons* prop)
-                    value
-                    (ly:music-property music 'tweaks)))
-       (ly:input-warning location (_ "cannot find property type-check for ~a") prop))
-   music)
+are affected.
+
+As a special case, @var{item} may be a symbol list specifying a grob
+path, in which case @code{\\once\\override} is called on it instead of
+creating tweaked music.  This is mainly useful when using
+@code{\\tweak} as as a component for building other functions.")
+   (if (ly:music? item)
+       (let ((p (check-grob-path prop parser location
+                                 #:start 1
+                                 #:default #t
+                                 #:min 2
+                                 #:max 2)))
+         (if p
+             (set! (ly:music-property item 'tweaks)
+                   (acons (if (eq? (car p) #t)
+                              (cadr p)
+                              (cons (car p) (cadr p)))
+                          value
+                          (ly:music-property item 'tweaks))))
+         item)
+       ;; We could just throw this at \override and let it sort this
+       ;; out on its own, but this way we should get better error
+       ;; diagnostics.
+       (let ((a (check-grob-path item parser location
+                                 #:default 'Bottom #:min 2 #:max 2))
+             (b (check-grob-path prop parser location
+                                 #:start 2)))
+         (if (and a b)
+             #{ \once\override #(append a b) = #value #}
+             (make-music 'Music)))))
 
 undo =
 #(define-music-function (parser location music)
