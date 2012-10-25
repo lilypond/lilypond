@@ -379,7 +379,6 @@ If we give names, Bison complains.
 %token SCM_FUNCTION
 %token SCM_IDENTIFIER
 %token SCM_TOKEN
-%token SCORE_IDENTIFIER
 %token STRING
 %token SYMBOL_LIST
 %token TONICNAME_PITCH
@@ -830,8 +829,16 @@ score_body:
 
 		unsmob_score ($$)->origin ()->set_spot (@$);
 	}
-	| SCORE_IDENTIFIER {
+	| embedded_scm_active {
+		Score *score;
+		if (unsmob_score ($1))
+			score = new Score (*unsmob_score ($1));
+		else {
+			score = new Score;
+			parser->parser_error (@1, _("score expected"));
+		}
 		unsmob_score ($$)->origin ()->set_spot (@$);
+		$$ = score->unprotect ();
 	}
 	| score_body
 	{
@@ -3485,12 +3492,6 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
                 *destination = unsmob_context_mod (sid)->smobbed_copy ();
 
                 return CONTEXT_MOD_IDENTIFIER;
-	} else if (unsmob_score (sid)) {
-		Score *score = new Score (*unsmob_score (sid));
-		*destination = score->self_scm ();
-
-		score->unprotect ();
-		return SCORE_IDENTIFIER;
 	} else if (Music *mus = unsmob_music (sid)) {
 		mus = mus->clone ();
 		*destination = mus->self_scm ();
