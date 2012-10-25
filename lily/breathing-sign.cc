@@ -76,22 +76,65 @@ Breathing_sign::divisio_maior (SCM smob)
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   /*
-   * Draw a vertical line that is vertically centered in the staff
-   * (just like a bar).  The height of this line should be a little
-   * more than half the size of the staff, such that the endings of
-   * the line are in the middle of a staff space.
-   */
-  Interval ydim = Staff_symbol_referencer::staff_span (me);
-  ydim.widen (-0.25 * ydim.delta ());
-  for (UP_and_DOWN (i))
+    Draw a vertical line that is roughly centered vertically in
+    the staff (just like a bar) with the following requirements:
+    1. length should be at least half the size of the staff
+    2. both ends should be in the middle of a staff space.
+
+    These two requirements contradict if the first or last space is
+    larger than half of the whole staff (e.g. the staff consists of
+    two lines only); in such cases the first prescription wins.
+  */
+  Interval ydim (0.0, 0.0);
+  if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
     {
-      int const int_dim = (int) ydim[i];
-      if (int_dim == ydim[i]
-          && Staff_symbol_referencer::on_staff_line (me, int_dim))
-        ydim[i] += i;
+      std::vector<Real> line_pos = Staff_symbol::line_positions (staff);
+      if (!line_pos.empty ())
+        {
+          std::sort (line_pos.begin (), line_pos.end ());
+          ydim[DOWN] = line_pos.front ();
+          ydim[UP] = line_pos.back ();
+          if (Real const height = ydim.length ())
+            {
+              ydim.widen (-0.25 * height);
+
+              /*
+                ydim has now the required height; to satisfy req. 2
+                find the staff spaces containing current endpoints.
+
+                standard algorithms are suitable to find the upper
+                line of these spaces; we must choose between
+                upper_bound and lower_bound considering that if
+                there's a line exactly at quarter of the staff (the
+                lower end) then we need the space below it, while if
+                there's a line exactly at three quarters of the staff
+                (upper end) then we need the space above it.
+
+                if the middle of the space found is not low/high
+                enough, take the next space (if there are no more
+                spaces, ydim won't be enlarged further).
+              */
+              std::vector<Real>::const_iterator it
+                = std::lower_bound (line_pos.begin (), line_pos.end (),
+                                    ydim[DOWN]);
+              assert (line_pos.begin () < it);
+              double val = (it[-1] + it[0]) / 2;
+              if (ydim[DOWN] < val && line_pos.begin () < it + 1)
+                val = (it[-2] + it[-1]) / 2;
+              ydim.add_point (val);
+
+              it = std::upper_bound (line_pos.begin (), line_pos.end (),
+                                     ydim[UP]);
+              assert (it < line_pos.end ());
+              val = (it[-1] + it[0]) / 2;
+              if (val < ydim[UP] && it + 1 < line_pos.end ())
+                val = (it[0] + it[1]) / 2;
+              ydim.add_point (val);
+            }
+        }
     }
 
-  ydim *= 1.0 / Staff_symbol_referencer::staff_space (me);
+  ydim *= Staff_symbol_referencer::staff_space (me) / 2;
 
   Interval xdim (0, thickness);
   Box b (xdim, ydim);
