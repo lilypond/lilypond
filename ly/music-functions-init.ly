@@ -410,9 +410,7 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'automatically-numbered (not mark)
 	       'text (or mark (make-null-markup))
 	       'footnote-text footnote)))
-     (if (ly:music? item)
-         #{ \tweak footnote-music #mus #item #}
-         #{ \once\override $item #'footnote-music = #mus #})))
+     #{ \tweak footnote-music #mus #item #}))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
@@ -1165,13 +1163,7 @@ appropriate tweak applied.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-   (if (ly:music? item)
-       #{
-         \tweak control-points #shape-curve $item
-       #}
-       #{
-         \once \override $item #'control-points = #shape-curve
-       #}))
+   #{ \tweak control-points #shape-curve #item #})
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
