@@ -91,11 +91,6 @@ bool is_valid_version (string s);
                 yylval = SCM_EOL;               \
         } while (0)
 
-#define start_lyric_quote() do {                \
-                yy_push_state (lyric_quote);    \
-                yylval = SCM_EOL;               \
-        } while (0)
-
 #define yylval (*lexval_)
 
 #define yylloc (*lexloc_)
@@ -124,7 +119,6 @@ SCM (* scm_parse_error_handler) (void *);
 %x figures
 %x incl
 %x lyrics
-%x lyric_quote
 %x longcomment
 %x markup
 %x notes
@@ -510,7 +504,7 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-<quote,lyric_quote>{
+<quote>{
 	\\{ESCAPED}	{
                 char c = escaped_char (YYText ()[1]);
 		yylval = scm_cons (scm_from_locale_stringn (&c, 1),
@@ -540,7 +534,7 @@ BOM_UTF8	\357\273\277
 
 <lyrics>{
 	\" {
-		start_lyric_quote ();
+		start_quote ();
 	}
 	{FRACTION}	{
 		yylval =  scan_fraction (YYText ());
