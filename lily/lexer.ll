@@ -91,6 +91,15 @@ bool is_valid_version (string s);
                 yylval = SCM_EOL;               \
         } while (0)
 
+/*
+  The inside of \"violin1" is marked by commandquote mode
+*/
+
+#define start_command_quote() do {		\
+                yy_push_state (commandquote);	\
+                yylval = SCM_EOL;               \
+        } while (0)
+
 #define yylval (*lexval_)
 
 #define yylloc (*lexloc_)
@@ -124,6 +133,7 @@ SCM (* scm_parse_error_handler) (void *);
 %x markup
 %x notes
 %x quote
+%x commandquote
 %x sourcefileline
 %x sourcefilename
 %x version
@@ -503,7 +513,9 @@ BOM_UTF8	\357\273\277
 	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
 	}
-
+	\\\"	{
+		start_command_quote ();
+	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1); 
@@ -527,7 +539,7 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-<quote>{
+<quote,commandquote>{
 	\\{ESCAPED}	{
                 char c = escaped_char (YYText ()[1]);
 		yylval = scm_cons (scm_from_locale_stringn (&c, 1),
@@ -539,13 +551,18 @@ BOM_UTF8	\357\273\277
 	}
 	\"	{
 
-		yy_pop_state ();
-
 		/* yylval is union. Must remember STRING before setting SCM*/
 
                 yylval = scm_string_concatenate_reverse (yylval,
                                                          SCM_UNDEFINED,
                                                          SCM_UNDEFINED);
+
+		if (get_state () == commandquote) {
+			yy_pop_state ();
+			return scan_escaped_word (ly_scm2string (yylval));
+		}
+
+		yy_pop_state ();
 
 		return STRING;
 	}
@@ -571,6 +588,9 @@ BOM_UTF8	\357\273\277
 	{UNSIGNED}		{
 		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
+	}
+	\\\"	{
+		start_command_quote ();
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
@@ -608,6 +628,9 @@ BOM_UTF8	\357\273\277
 	{WORD}/[-_]	| // backup rule
 	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
+	}
+	\\\"	{
+		start_command_quote ();
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
@@ -649,6 +672,9 @@ BOM_UTF8	\357\273\277
 	\\score {
                 yylval = SCM_UNSPECIFIED;
 		return SCORE;
+	}
+	\\\"	{
+		start_command_quote ();
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND} {
@@ -718,7 +744,7 @@ BOM_UTF8	\357\273\277
 		yy_pop_state ();
 	}
 
-<quote><<EOF>> {
+<quote,commandquote><<EOF>> {
 	LexerError (_ ("EOF found inside string").c_str ());
 	yy_pop_state ();
 }
@@ -762,6 +788,9 @@ BOM_UTF8	\357\273\277
 	{WORD}/[-_]	| // backup rule
 	{WORD}	{
 		return scan_bare_word (YYText_utf8 ());
+	}
+	\\\"	{
+		start_command_quote ();
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
