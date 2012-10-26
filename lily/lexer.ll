@@ -159,7 +159,7 @@ WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
-ESCAPED		[nt\\'"]
+ESCAPED		[nt\\''""]
 EXTENDER	__
 HYPHEN		--
 BOM_UTF8	\357\273\277
@@ -247,7 +247,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,notes,figures>\\sourcefileline{WHITE}*	{
 	yy_push_state (sourcefileline);
 }
-<version>\"[^"]*\"     { /* got the version number */
+<version>\"[^""]*\"     { /* got the version number */
 	string s (YYText_utf8 () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
