@@ -36,3 +36,63 @@ finalis, the latter three looking similar to bar glyphs.
     \finalis
   }
 }
+
+mus = \relative f' {
+  \clef tenor
+  c g c
+  c \virgula g c
+  c \caesura g c
+  c \divisioMinima g c
+  c \divisioMaior g c
+  c \divisioMaxima g c
+  \finalis
+}
+
+\new Staff \with {
+  \remove Bar_engraver
+} {
+  \context Voice \with {
+    \remove Stem_engraver
+  } {
+    \mus
+} }
+
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(-2 0 2 4)
+  \remove Bar_engraver
+} {
+  \context Voice \with {
+    \remove Stem_engraver
+  } {
+    \mus
+} }
+
+\new Staff \with {
+  \override StaffSymbol #'line-count = #6
+  \remove Bar_engraver
+} {
+  \context Voice \with {
+    \remove Stem_engraver
+  } {
+    \mus
+} }
+
+\new Staff \with {
+  \override StaffSymbol #'line-count = #2
+  \remove Bar_engraver
+} {
+  \context Voice \with {
+    \remove Stem_engraver
+  } {
+    \mus
+} }
+
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(-4 -2 2 5)
+  \remove Bar_engraver
+} {
+  \context Voice \with {
+    \remove Stem_engraver
+  } {
+    \mus
+} }
