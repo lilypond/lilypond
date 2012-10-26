@@ -1229,15 +1229,17 @@ styledNoteHeads =
    (style-note-heads heads style music))
 
 tag =
-#(define-music-function (parser location tag arg) (symbol? ly:music?)
-
-   (_i "Add @var{tag} to the @code{tags} property of @var{arg}.")
+#(define-music-function (parser location tag music) (symbol-list-or-symbol? ly:music?)
+   (_i "Tag the following @var{music} with @var{tag} and return the
+result, by adding the single symbol or symbol list @var{tag} to the
+@code{tags} property of @var{music}.")
 
    (set!
-    (ly:music-property arg 'tags)
-    (cons tag
-	  (ly:music-property arg 'tags)))
-   arg)
+    (ly:music-property music 'tags)
+    ((if (symbol? tag) cons append)
+     tag
+     (ly:music-property music 'tags)))
+   music)
 
 temporary =
 #(define-music-function (parser location music)
