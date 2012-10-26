@@ -6,7 +6,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \book {
   \score {
@@ -15,17 +15,17 @@
       \new Staff { c c c c }
       \new Staff { 
 	\overrideProperty
-	#"Score.NonMusicalPaperColumn"
+	Score.NonMusicalPaperColumn
 	#'line-break-system-details
 	#'((alignment-distances . (#f 20)))
 	c1 \break
 	\overrideProperty
-	#"Score.NonMusicalPaperColumn"
+	Score.NonMusicalPaperColumn
 	#'line-break-system-details
 	#'((alignment-distances . (5 15)))
 	c1 \break
 	\overrideProperty
-	#"Score.NonMusicalPaperColumn"
+	Score.NonMusicalPaperColumn
 	#'line-break-system-details
 	#'((alignment-distances . (15 5)))
 	c1 c

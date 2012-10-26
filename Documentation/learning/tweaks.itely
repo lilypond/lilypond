@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -402,8 +402,8 @@ the layout object, provided that LilyPond can trace its origin back to
 the original event:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
+<\tweak Accidental.color #red   cis4
+ \tweak Accidental.color #green es
                                   g>
 @end lilypond
 
@@ -2970,8 +2970,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3405,8 +3405,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3488,8 +3488,8 @@ cross voices:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3504,9 +3504,9 @@ too much, we can lengthen the stem by setting the
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
-    \tweak Stem #'length #8
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
+    \tweak Stem.length #8
     b8~ b\noBeam
   }
 \\

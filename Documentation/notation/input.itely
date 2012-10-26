@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node General input and output
 @chapter General input and output
@@ -1371,11 +1371,11 @@ is required before the footnote text:
   \header { tagline = ##f }
   \relative c'' {
     % footnotes may be added to chord constituents
-    < \footnote #'(-1 . -3) #'Accidental "Another flat" aes
+    < \single\footnote #'(-1 . -3) "Another flat" Accidental aes
       c
-      \footnote #'(-1 . 0.5) #'Accidental "A flat" ees
+      \single\footnote #'(-1 . 0.5) "A flat" Accidental ees
     >2
-    \footnote #'(-1 . 2) #'Stem "A stem" ees2
+    \single\footnote #'(-1 . 2) "A stem" Stem ees2
   }
 }
 @end lilypond
@@ -1409,13 +1409,13 @@ on unexpected objects.
   \header { tagline = ##f }
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) #'TimeSignature "Meter change" \default
+    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) #'Stem "Chord stem" \default
+    \footnote #'(1 . -1) "Chord stem" Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) #'BarLine "Bar line" \default
+    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) #'KeySignature "Key change" \default
+    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
     \key c\minor
     q
   }

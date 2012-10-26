@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.17.6"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,34 +87,23 @@ markups), or inside a score.")
 
 alterBroken =
 #(define-music-function (parser location name property arg)
-  (string? scheme? list?)
+  (symbol-list? symbol? list?)
   (_i "Override @var{property} for pieces of broken spanner @var{name} with
 values @var{arg}.")
-  (let* ((name (string-delete name char-set:blank)) ; remove any spaces
-         (name-components (string-split name #\.))
-         (context-name "Bottom")
-         (grob-name #f))
-
-    (if (> 2 (length name-components))
-        (set! grob-name (car name-components))
-        (begin
-          (set! grob-name (cadr name-components))
-          (set! context-name (car name-components))))
-
     ;; only apply override if grob is a spanner
-    (let ((description
-            (assoc-get (string->symbol grob-name) all-grob-descriptions)))
-      (if (and description
-               (member 'spanner-interface
-                       (assoc-get 'interfaces
-                                  (assoc-get 'meta description))))
-          #{
-            \override $context-name . $grob-name $property =
-              #(value-for-spanner-piece arg)
-          #}
-          (begin
-            (ly:input-warning location (_ "not a spanner name, `~a'") grob-name)
-            (make-music 'SequentialMusic 'void #t))))))
+  (let ((description
+         (assoc-get (last name) all-grob-descriptions)))
+    (if (and description
+             (member 'spanner-interface
+                     (assoc-get 'interfaces
+                                (assoc-get 'meta description))))
+        #{
+          \override $name $property =
+          #(value-for-spanner-piece arg)
+        #}
+        (begin
+          (ly:input-warning location (_ "not a spanner name, `~a'") name)
+          (make-music 'SequentialMusic 'void #t)))))
 
 appendToTag =
 #(define-music-function (parser location tag more music)
@@ -379,24 +368,23 @@ featherDurations=
      argument))
 
 footnote =
-#(define-music-function (parser location mark offset grob-name footnote music)
-   ((markup?) number-pair? (symbol?) markup? (ly:music?))
-   (_i "Make the markup @var{footnote} a footnote on @var{music}.  The
+#(define-music-function (parser location mark offset footnote item)
+   ((markup?) number-pair? markup? symbol-list-or-music?)
+   (_i "Make the markup @var{footnote} a footnote on @var{item}.  The
 footnote is marked with a markup @var{mark} moved by @var{offset} with
 respect to the marked music.
 
 If @var{mark} is not given or specified as @var{\\default}, it is
-replaced by an automatically generated sequence number.  If a symbol
-@var{grob-name} is specified, then grobs of that type will be marked
-if they have @var{music} as their ultimate cause; by default all grobs
-having @var{music} as their @emph{direct} cause will be marked,
-similar to the way @code{\\tweak} works.
+replaced by an automatically generated sequence number.  If @var{item}
+is a symbol list of form @samp{Grob} or @samp{Context.Grob}, then
+grobs of that type will be marked at the current time step in the
+given context (default @code{Bottom}).
 
-If @var{music} is given as @code{\\default}, a footnote event
-affecting @emph{all} grobs matching @var{grob-name} at a given time
-step is generated.  This may be required for creating footnotes on
-time signatures, clefs, and other items not cooperating with
-@code{\\tweak}.
+If @var{item} is music, the music will get a footnote attached to a
+grob immediately attached to the event, like @var{\\tweak} does.  For
+attaching a footnote to an @emph{indirectly} caused grob, write
+@code{\\single\\footnote}, use @var{item} to specify the grob, and
+follow it with the music to annotate.
 
 Like with @code{\\tweak}, if you use a footnote on a following
 post-event, the @code{\\footnote} command itself needs to be attached
@@ -407,21 +395,10 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'Y-offset (cdr offset)
 	       'automatically-numbered (not mark)
 	       'text (or mark (make-null-markup))
-	       'footnote-text footnote
-	       'symbol (or grob-name '()))))
-     (cond (music
-	    (set! (ly:music-property music 'tweaks)
-		  (acons (if grob-name
-			     (cons grob-name 'footnote-music)
-			     'footnote-music)
-			 mus
-			 (ly:music-property music 'tweaks)))
-	    music)
-	   (grob-name mus)
-	   (else
-	    (ly:input-warning location
-			      (_ "\\footnote requires music or grob-name"))
-	    (make-music 'Music)))))
+	       'footnote-text footnote)))
+     (if (ly:music? item)
+         #{ \tweak #'footnote-music #mus #item #}
+         #{ \once\override $item #'footnote-music = #mus #})))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
@@ -476,16 +453,17 @@ given through @var{ratio}.")
   #})
 
 hide =
-#(define-music-function (parser location item) (string-or-music?)
+#(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{transparent} property to @code{#t},
 making it invisible while still retaining its dimensions.
 
-If @var{item} is a string, the result is an override for the grob name
+If @var{item} is a symbol list of form @code{GrobName} or
+@code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (string? item)
-       #{ \override $item #'transparent = ##t #}
-       #{ \tweak #'transparent ##t $item #}))
+   (if (ly:music? item)
+       #{ \tweak #'transparent ##t $item #}
+       #{ \override $item #'transparent = ##t #}))
 
 inStaffSegno =
 #(define-music-function (parser location) ()
@@ -677,16 +655,17 @@ octaveCheck =
                'pitch pitch))
 
 omit =
-#(define-music-function (parser location item) (string-or-music?)
+#(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
 effectively omitting it without taking up space.
 
-If @var{item} is a string, the result is an override for the grob name
+If @var{item} is a symbol list of form @code{GrobName} or
+@code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (string? item)
-       #{ \override $item #'stencil = ##f #}
-       #{ \tweak #'stencil ##f $item #}))
+   (if (ly:music? item)
+       #{ \tweak #'stencil ##f $item #}
+       #{ \override $item #'stencil = ##f #}))
 
 once =
 #(define-music-function (parser location music) (ly:music?)
@@ -721,31 +700,37 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
-#(define-music-function (parser location name property value)
-   (string? symbol? scheme?)
+#(define-music-function (parser location name property-path value)
+   (symbol-list? symbol-list-or-symbol? scheme?)
 
-   (_i "Set @var{property} to @var{value} in all grobs named @var{name}.
-The @var{name} argument is a string of the form @code{\"Context.GrobName\"}
-or @code{\"GrobName\"}.")
+   (_i "Set @var{property-path} to @var{value} in all grobs named @var{name}.
+The @var{name} argument is a symbol list of the form @code{Context.GrobName}
+or @code{GrobName}.")
+   (if (<= 1 (length name) 2)
+       (make-music 'ApplyOutputEvent
+                   'context-type (if (null? (cdr name)) 'Bottom
+                                     (car name))
+                   'procedure
+                   (lambda (grob orig-context context)
+                     (if (equal?
+                          (cdr (assoc 'name (ly:grob-property grob 'meta)))
+                          (last name))
+                         (if (symbol? property-path)
+                             (ly:grob-set-property! grob property-path value)
+                             (case (length property-path)
+                               ((0) *unspecified*)
+                               ((1)
+                                (ly:grob-set-property!
+                                 grob (car property-path) value))
+                               (else
+                                (ly:grob-set-nested-property!
+                                 grob property-path value)))))))
+       (begin
+         (ly:parser-error parser (_ "bad grob name") location)
+         (make-music 'Music))))
 
-   (let ((name-components (string-split name #\.))
-	 (context-name 'Bottom)
-	 (grob-name #f))
 
-     (if (> 2 (length name-components))
-	 (set! grob-name (string->symbol (car name-components)))
-	 (begin
-	   (set! grob-name (string->symbol (list-ref name-components 1)))
-	   (set! context-name (string->symbol (list-ref name-components 0)))))
 
-     (make-music 'ApplyOutputEvent
-		 'context-type context-name
-		 'procedure
-		 (lambda (grob orig-context context)
-		   (if (equal?
-			(cdr (assoc 'name (ly:grob-property grob 'meta)))
-			grob-name)
-		       (set! (ly:grob-property grob property) value))))))
 
 
 
@@ -1120,7 +1105,7 @@ a context modification duplicating their effect.")
 
 shape =
 #(define-music-function (parser location offsets item)
-   (list? string-or-music?)
+   (list? symbol-list-or-music?)
    (_i "Offset control-points of @var{item} by @var{offsets}.  The
 argument is a list of number pairs or list of such lists.  Each
 element of a pair represents an offset to one of the coordinates of a
@@ -1219,7 +1204,7 @@ spacingTweaks =
    (_i "Set the system stretch, by reading the 'system-stretch property of
 the `parameters' assoc list.")
    #{
-     \overrideProperty #"Score.NonMusicalPaperColumn"
+     \overrideProperty Score.NonMusicalPaperColumn
      #'line-break-system-details
      #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 	     (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
@@ -1340,26 +1325,26 @@ transposition =
     'Staff))
 
 tweak =
-#(define-music-function (parser location grob prop value music)
-   ((string?) symbol? scheme? ly:music?)
+#(define-music-function (parser location prop value music)
+   (symbol-list-or-symbol? scheme? ly:music?)
    (_i "Add a tweak to the following @var{music}.
 Layout objects created by @var{music} get their property @var{prop}
-set to @var{value}.  If @var{grob} is specified, like with
+set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with
 @example
-\\tweak Accidental #'color #red cis'
+\\tweak Accidental.color #red cis'
 @end example
 an indirectly created grob (@samp{Accidental} is caused by
 @samp{NoteHead}) can be tweaked; otherwise only directly created grobs
 are affected.")
-   (if (not (object-property prop 'backend-type?))
-       (begin
-	 (ly:input-warning location (_ "cannot find property type-check for ~a") prop)
-	 (ly:warning (_ "doing assignment anyway"))))
-   (set!
-    (ly:music-property music 'tweaks)
-    (acons (if grob (cons (string->symbol grob) prop) prop)
-	   value
-	   (ly:music-property music 'tweaks)))
+   (if (symbol? prop)
+       (set! prop (list prop)))
+   (if (and (<= 1 (length prop) 2)
+            (object-property (last prop) 'backend-type?))
+       (set! (ly:music-property music 'tweaks)
+             (acons (apply cons* prop)
+                    value
+                    (ly:music-property music 'tweaks)))
+       (ly:input-warning location (_ "cannot find property type-check for ~a") prop))
    music)
 
 undo =

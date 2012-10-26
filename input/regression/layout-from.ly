@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "
@@ -11,7 +11,7 @@ into context modifications.
 \score {
   \relative c' { cis cis cis cis }
   \layout {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
   }
   \midi {
     \tempo 4 = 240

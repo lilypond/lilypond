@@ -6,7 +6,7 @@ individual grobs that are indirectly caused by events may be tuned."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper {
   ragged-right = ##t
 }
@@ -14,8 +14,8 @@ individual grobs that are indirectly caused by events may be tuned."
 \relative c''
 {
   <
-    \tweak Accidental #'color #red   cis4
-    \tweak Accidental #'color #green es
+    \tweak Accidental.color #red   cis4
+    \tweak Accidental.color #green es
     g
   >4
 }

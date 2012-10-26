@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Interfaces para programadores
 @chapter Interfaces para programadores
@@ -1385,7 +1385,7 @@ razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Nombre del grob
+Score.NonMusicalPaperColumn  % Nombre del grob
 #'line-break-system-details     % Nombre de la propiedad
 #'((next-padding . 20))         % Valor
 @end example

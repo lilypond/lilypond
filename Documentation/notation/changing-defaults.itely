@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -791,7 +791,7 @@ Directly setting a context property
 
 @item
 A predefined command such as @code{\dynamicUp} or a music
-expression like @code{\accidentalStyle "dodecaphonic"}
+expression like @code{\accidentalStyle dodecaphonic}
 
 @lilypond[quote,verbatim]
 \score {
@@ -806,7 +806,7 @@ expression like @code{\accidentalStyle "dodecaphonic"}
     }
     \context {
       \Staff
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
     }
   }
 }
@@ -858,7 +858,7 @@ the same command written in the music stream.
     }
   }
   \layout {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
     \set fontSize = #-4
     \override Voice.Stem #'thickness = #4.0
   }
@@ -951,7 +951,7 @@ A predefined command such as @code{\dynamicUp}
       }
     }
     \new Staff
-    \with { \accidentalStyle "dodecaphonic" }
+    \with { \accidentalStyle dodecaphonic }
     {
       \new Voice
       \with { \dynamicUp }
@@ -2200,9 +2200,9 @@ Such indirectly created layout objects can be tweaked using the explicit
 form of the @code{\tweak} command:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak Stem #'color #red
-\tweak Beam #'color #green c8 e
-<c e \tweak Accidental #'font-size #-3 ges>4
+\tweak Stem.color #red
+\tweak Beam.color #green c8 e
+<c e \tweak Accidental.font-size #-3 ges>4
 @end lilypond
 
 @code{\tweak} cannot be used to modify clefs or time
@@ -4335,10 +4335,10 @@ custosNote =
      (parser location note)
      (ly:music?)
    #{
-     \tweak NoteHead #'stencil #ly:text-interface::print
-     \tweak NoteHead #'text
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
         \markup \musicglyph #"custodes.mensural.u0"
-     \tweak Stem #'stencil ##f
+     \tweak Stem.stencil ##f
      #note
    #})
 

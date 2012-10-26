@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -1289,10 +1289,10 @@ werden, auf den sich die Fußnote bezieht.
   \header { tagline = ##f }
   \relative c' {
     \footnote #'(0.5 . -2)
-      \markup { Die erste Note } \default
+      \markup { Die erste Note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'Flag
-      \markup { Die dritte Note } \default
+    \footnote #'(0.5 . 1)
+      \markup { Die dritte Note } Flag
     e\noBeam c4 d4
   }
 }
@@ -1329,11 +1329,11 @@ Tagline und Copyright gezeigt wird.
     a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
     -\footnote #'(0 . 1.5) \markup { Ein Bogen } (
     b8)-\footnote #'(0 . -2) \markup { Balken } [ e]
-    \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { Das ist ein Hals } }
+    \single\footnote #'(1 . -1)
+      \markup  { \teeny { Das ist ein Hals } } Stem
     c4
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { Ein warnendes Versetzungszeichen }
+    \single\footnote #'(0 . 0.5)
+      \markup \italic { Ein warnendes Versetzungszeichen } AccidentalCautionary
     \footnote #'(1 . 1) "Die Note selber"
     dis?4-\footnote #'(0.5 . -0.5) \markup \italic { langsamer werden }
          _"rit."
@@ -1428,14 +1428,14 @@ Position der Fußnotentexte zu Tagline und Copyright anzeigen:
       \markup { \teeny 3 } #'(0 . -2)
       \markup { 3. Balken } [
     e]
-    \footnote
-      \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { Das ist ein Hals } }
+    \single\footnote
+      \markup { 4 } #'(1 . -1)
+      \markup  { \bold 4. { Das ist ein Hals } } Stem
     c4
-    \footnote
+    \single\footnote
       \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. Ein warndendes Versetzungszeichen }
+          #'(0 . 0.5)
+      \markup \italic { v. Ein warndendes Versetzungszeichen } AccidentalCautionary
     dis?4-\footnote
       \markup \concat \teeny { "a" } #'(0.5 . -0.5)
       \markup \italic { a. Langsamer werden } _"rit."

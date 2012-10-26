@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
 texidoc = "Several automatic accidental rules
@@ -30,13 +30,13 @@ Both scores should show the same accidentals.
 
 \score {
   \relative c'' {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
     gis4 a g gisis
-    \accidentalStyle "neo-modern"
+    \accidentalStyle neo-modern
     gis8 a gis gis g' gis gis,, a'
-    \accidentalStyle "neo-modern-cautionary"
+    \accidentalStyle neo-modern-cautionary
     eis fis eis eis g2
-    \accidentalStyle "teaching"
+    \accidentalStyle teaching
     \key e \major
     e8 eis fis fis gis2
   }

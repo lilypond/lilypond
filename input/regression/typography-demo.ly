@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 
@@ -77,7 +77,7 @@ secondVerse = \lyricmode {
 }
 
 pianoRH =  \relative c''' \repeat volta 2\new Voice {
-  \accidentalStyle "modern"
+  \accidentalStyle modern
   \voiceOne
   g16( fis a g fis g f e d c b
   \oneVoice
@@ -100,7 +100,7 @@ pianoRH =  \relative c''' \repeat volta 2\new Voice {
 	      }
 
 pianoLH =  \relative c'' \repeat volta 2\new Voice {
-    \accidentalStyle "modern"
+    \accidentalStyle modern
     \voiceTwo
     g16( fis a g fis g
 
@@ -126,7 +126,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	   fontSize = #-3
 	   \override StaffSymbol #'staff-space = #(magstep -3)
 	 } <<
-	   \context Staff \accidentalStyle "modern"
+	   \context Staff \accidentalStyle modern
 	   \melody >>
 	 \lyricsto "singer" \new Lyrics \firstVerse
 	 \lyricsto "singer" \new Lyrics \secondVerse

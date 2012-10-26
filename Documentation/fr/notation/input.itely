@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1314,8 +1314,8 @@ l'@var{annotation} qui apparaîtra au bas de la page, et enfin la
     \footnote #'(0.5 . -2)
       \markup { La première note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'Flag
-      \markup { La troisième note }
+    \single\footnote #'(0.5 . 1)
+      \markup { La troisième note } Flag
     e\noBeam c4 d4
   }
 }
@@ -1353,11 +1353,11 @@ et le pied de page.
     a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
     -\footnote #'(0 . 1.5) \markup { A slur } (
     b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
-    \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { This is a stem } }
+    \single\footnote #'(1 . -1)
+      \markup  { \teeny { This is a stem } } Stem
     c4
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { A cautionary accidental }
+    \single\footnote #'(0 . 0.5)
+      \markup \italic { A cautionary accidental } AccidentalCautionary
     \footnote #'(1 . 1) "The note itself"
     dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
          _"rit."
@@ -1456,14 +1456,14 @@ et le pied de page.
       \markup { \teeny 3 } #'(0 . -2)
       \markup { 3. Beam } [
     e]
-    \footnote
-      \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { This is a stem } }
+    \single\footnote
+      \markup { 4 } #'(1 . -1)
+      \markup  { \bold 4. { This is a stem } } Stem
     c4
-    \footnote
+    \single\footnote
       \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. A cautionary accidental }
+          #'(0 . 0.5)
+      \markup \italic { v. A cautionary accidental } AccidentalCautionary
     dis?4-\footnote
       \markup \concat \teeny { "a" } #'(0.5 . -0.5)
       \markup \italic { a. Slow Down } _"rit."

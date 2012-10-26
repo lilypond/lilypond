@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -1281,7 +1281,7 @@ and @code{PaperColumn}.  They can be changed with the
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Grob name
+Score.NonMusicalPaperColumn  % Grob name
 #'line-break-system-details     % Property name
 #'((next-padding . 20))         % Value
 @end example

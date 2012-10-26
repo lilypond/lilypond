@@ -8,7 +8,7 @@ Translation of GIT committish: 44011e382e91f43fb6752b3fbbf8d8984131a565
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -788,7 +788,7 @@ Estableciendo una propiedad de contexto directamente
 
 @item
 Una instrucción predefinida tal como @code{\dynamicUp} o una expresión
-musical como @code{\accidentalStyle "dodecaphonic"}
+musical como @code{\accidentalStyle dodecaphonic}
 
 @lilypond[quote,verbatim]
 \score {
@@ -803,7 +803,7 @@ musical como @code{\accidentalStyle "dodecaphonic"}
     }
     \context {
       \Staff
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
     }
   }
 }
@@ -857,7 +857,7 @@ estuviera escrita en el propio flujo musical.
     }
   }
   \layout {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
     \set fontSize = #-4
     \override Voice.Stem #'thickness = #4.0
   }
@@ -953,7 +953,7 @@ Una instrucción predefinida tal como @code{\dynamicUp}
       }
     }
     \new Staff
-    \with { \accidentalStyle "dodecaphonic" }
+    \with { \accidentalStyle dodecaphonic }
     {
       \new Voice
       \with { \dynamicUp }
@@ -2215,9 +2215,9 @@ Tales objetos de presencaión creados indirectamente se pueden trucar
 usando la forma explícita de la instrucción @code{\tweak}:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak Stem #'color #red
-\tweak Beam #'color #green c8 e
-<c e \tweak Accidental #'font-size #-3 ges>4
+\tweak Stem.color #red
+\tweak Beam.color #green c8 e
+<c e \tweak Accidental.font-size #-3 ges>4
 @end lilypond
 
 No se puede usar @code{\tweak} para modificar las claves o las
@@ -4323,10 +4323,10 @@ custosNote =
      (parser location note)
      (ly:music?)
    #{
-     \tweak NoteHead #'stencil #ly:text-interface::print
-     \tweak NoteHead #'text
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
         \markup \musicglyph #"custodes.mensural.u0"
-     \tweak Stem #'stencil ##f
+     \tweak Stem.stencil ##f
      #note
    #})
 

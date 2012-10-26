@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.17.6"
 
 \context {
   \name "Global"
@@ -85,7 +85,6 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
   \consists "Cue_clef_engraver"
-  \consists "Footnote_engraver"
 
   localKeySignature = #'()
   createSpacing = ##t
@@ -1072,7 +1071,7 @@ accommodated for typesetting a piece in mensural style."
   \override Custos #'neutral-direction = #DOWN
 
   %% Accidentals are valid only once (same as
-  %% \accidentalStyle "forget")
+  %% \accidentalStyle forget)
   extraNatural = ##f
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
   autoCautionaries = #'()
