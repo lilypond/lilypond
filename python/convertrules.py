@@ -3464,6 +3464,8 @@ def conv (str):
                   + matchmarkup + ")?" + matcharg + ")(" + matcharg
                   + r")?(\s+" + matchmarkup + r")(\s+\\default)?",
                   patrep, str)
+    str = re.sub (r'''(\\alterBroken)(\s+[A-Za-z.]+)(''' + matcharg
+                  + matcharg + ")", r"\1\3\2", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

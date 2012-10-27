@@ -86,24 +86,38 @@ markups), or inside a score.")
 					   'break-permission 'allow))))
 
 alterBroken =
-#(define-music-function (parser location name property arg)
-  (symbol-list? symbol? list?)
-  (_i "Override @var{property} for pieces of broken spanner @var{name} with
-values @var{arg}.")
-    ;; only apply override if grob is a spanner
-  (let ((description
-         (assoc-get (last name) all-grob-descriptions)))
-    (if (and description
-             (member 'spanner-interface
-                     (assoc-get 'interfaces
-                                (assoc-get 'meta description))))
-        #{
-          \override $name $property =
-          #(value-for-spanner-piece arg)
-        #}
-        (begin
-          (ly:input-warning location (_ "not a spanner name, `~a'") name)
-          (make-music 'SequentialMusic 'void #t)))))
+#(define-music-function (parser location property arg item)
+  (symbol-list-or-symbol? list? symbol-list-or-music?)
+  (_i "Override @var{property} for pieces of broken spanner @var{item}
+with values @var{arg}.  @var{item} may either be music in the form of
+a starting spanner event, or a symbol list in the form
+@samp{Context.Grob} or just @samp{Grob}.  Iff @var{item} is in the
+form of a spanner event, @var{property} may also have the form
+@samp{Grob.property} for specifying a directed tweak.")
+  (if (ly:music? item)
+      (if (eq? (ly:music-property item 'span-direction) START)
+          #{ \tweak #property #(value-for-spanner-piece arg) #item #}
+          (begin
+            (ly:music-warning item (_ "not a spanner"))
+            item))
+      (let* ((p (check-grob-path item parser location
+                                 #:default 'Bottom
+                                 #:min 2
+                                 #:max 2))
+             (name (and p (second p)))
+             (description
+              (and name (assoc-get name all-grob-descriptions))))
+        (if (and description
+                 (member 'spanner-interface
+                         (assoc-get 'interfaces
+                                    (assoc-get 'meta description))))
+            #{
+              \override #item . #property =
+              #(value-for-spanner-piece arg)
+            #}
+            (begin
+              (ly:input-warning location (_ "not a spanner name, `~a'") name)
+              (make-music 'Music))))))
 
 appendToTag =
 #(define-music-function (parser location tag more music)
