@@ -609,6 +609,8 @@ automatically when an output definition (a @code{\score} or
   endRepeatType = #":|."
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
+  clefOctavationFormatter = #clef-octavation-markup
+  cueClefOctavationFormatter = #clef-octavation-markup
   automaticBars = ##t
 
   explicitClefVisibility = #all-visible

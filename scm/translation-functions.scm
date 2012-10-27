@@ -18,6 +18,24 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; clefs
+
+(define-public (clef-octavation-markup oct style)
+  "The octavation sign formatting function.  @var{oct} is supposed to be
+a string holding the octavation number, @var{style} determines the
+way the octavation number is displayed."
+  (let* ((delim (if (symbol? style)
+                    (case style
+                      ((parenthesized) (cons "(" ")"))
+                      ((bracketed) (cons "[" "]"))
+                      (else (cons "" "")))
+                    (cons "" "")))
+         (text (string-concatenate (list (car delim) oct (cdr delim)))))
+
+       (make-vcenter-markup text)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; metronome marks
 
 (define-public (format-metronome-markup event context)

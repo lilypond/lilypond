@@ -171,6 +171,11 @@ object to a text markup.  Used for chords.")
      (clefGlyph ,string? "Name of the symbol within the music font.")
      (clefOctavation ,integer? "Add this much extra octavation.
 Values of 7 and -7 are common.")
+     (clefOctavationFormatter ,procedure? "A procedure that takes the
+Octavation number as a string and the style as a symbol and returns a markup.")
+     (clefOctavationStyle ,symbol? "Determines the way the octavateEight
+grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
+and @samp{bracketed}.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
@@ -192,6 +197,11 @@ crescendo, i.e., @samp{cresc.}.")
      (cueClefGlyph ,string? "Name of the symbol within the music font.")
      (cueClefOctavation ,integer? "Add this much extra octavation.
 Values of 7 and -7 are common.")
+     (cueClefOctavationFormatter ,procedure? "A procedure that takes the
+Octavation number as a string and the style as a symbol and returns a markup.")
+     (cueClefOctavationStyle ,symbol? "Determines the way the octavateEight
+grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
+and @samp{bracketed}.")
      (cueClefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
