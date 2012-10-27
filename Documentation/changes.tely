@@ -62,6 +62,50 @@ which scares away people.
 @end ignore
 
 @item
+The LilyPond syntax of dot-separated words @code{Voice.Accidental}
+has been made interchangeable with @code{#'(Voice Accidental)}, a
+Scheme list of symbols.  As one result, code like
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+is now equivalent to
+@example
+\override Voice.TextSpanner bound-details.left.text = "rit."
+@end example
+or even
+@example
+\override #'(Voice TextSpanner) bound-details.left.text = "rit."
+@end example
+
+@item
+Grob and grob property path no longer need to be specified as two
+separate arguments to commands like @samp{\override} and
+@code{\revert}, allowing for the syntax
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+Since complementary music functions like @samp{\overrideProperty}
+cannot support forms with and without separating space at the same
+time, using a single dotted path is now the preferred form.
+Specifying grob path and grob property path separately, currently
+still supported with @samp{\override} and @samp{\revert} for
+compatibility reasons, is deprecated.
+
+@item
+Due to words now being accepted as symbol function arguments, the
+interfaces of @samp{\accidentalStyle}, @samp{\alterBroken},
+@samp{\footnote} and @samp{\tweak} had to be redesigned where
+optional symbol arguments were involved.  Please check the
+respective music function documentation for details.
+
+@item
+Several commands now accept symbol lists (conveniently entered as
+dot-separated words) for various kinds of arguments.  These
+include @samp{\accidentalStyle}, @samp{\alterBroken},
+@samp{\footnote}, @samp{\hide}, @samp{\omit},
+@samp{\overrideProperty}, @samp{\shape}, and @samp{\tweak}.
+
+@item
 The bar line user interface has changed. Bar glyphs now resemble the
 appearance of the bar line, so a left repeat sign has to be coded
 as @code{.|:}. The command @code{\defineBarLine} provides an easy way
