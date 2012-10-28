@@ -25,8 +25,8 @@ mark can be moved up a little to take it away from the stave.
   \breathe
   d2
   \override BreathingSign #'Y-offset = #2.6
-  \override BreathingSign
-    #'text = \markup { \musicglyph #"scripts.tickmark" }
+  \override BreathingSign #'text =
+    \markup { \musicglyph #"scripts.tickmark" }
   c2
   \breathe
   d2
