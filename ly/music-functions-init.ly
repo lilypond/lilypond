@@ -720,33 +720,28 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
-#(define-music-function (parser location name property-path value)
-   (symbol-list? symbol-list-or-symbol? scheme?)
+#(define-music-function (parser location grob-property-path value)
+   (symbol-list? scheme?)
 
-   (_i "Set @var{property-path} to @var{value} in all grobs named @var{name}.
-The @var{name} argument is a symbol list of the form @code{Context.GrobName}
-or @code{GrobName}.")
-   (if (<= 1 (length name) 2)
-       (make-music 'ApplyOutputEvent
-                   'context-type (if (null? (cdr name)) 'Bottom
-                                     (car name))
-                   'procedure
-                   (lambda (grob orig-context context)
-                     (if (equal?
-                          (cdr (assoc 'name (ly:grob-property grob 'meta)))
-                          (last name))
-                         (if (symbol? property-path)
-                             (ly:grob-set-property! grob property-path value)
-                             (case (length property-path)
-                               ((0) *unspecified*)
-                               ((1)
-                                (ly:grob-set-property!
-                                 grob (car property-path) value))
-                               (else
-                                (ly:grob-set-nested-property!
-                                 grob property-path value)))))))
-       (begin
-         (ly:parser-error parser (_ "bad grob name") location)
+   (_i "Set the grob property specified by @var{grob-property-path} to
+@var{value}.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.")
+   (let ((p (check-grob-path grob-property-path parser location
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (make-music 'ApplyOutputEvent
+                     'context-type (first p)
+                     'procedure
+                     (lambda (grob orig-context context)
+                       (if (equal?
+                            (cdr (assoc 'name (ly:grob-property grob 'meta)))
+                            (second p))
+                         (if (null? (cdddr p))
+                             (ly:grob-set-property! grob (caddr p) value)
+                             (ly:grob-set-nested-property!
+                              grob (cddr p) value)))))
          (make-music 'Music))))
 
 
