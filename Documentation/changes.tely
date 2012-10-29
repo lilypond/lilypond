@@ -35,11 +35,28 @@ See user manual, \NAME\
 
 @finalout
 
-@node Top
-@top New features in 2.16 since 2.14
+@node Top, Fixes and changes after 2.16.0, (dir), (dir)
+@top New features in 2.16
+
+@menu
+* Fixes and changes after 2.16.0::
+* New features in 2.16 since 2.14::
+@end menu
+
 
 @allowcodebreaks false
 
+@node Fixes and changes after 2.16.0, New features in 2.16 since 2.14, Top, Top
+@section Fixes and changes after 2.16.0
+@table @b
+@item 2.16.1
+Please refer to the bug tracker for
+@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=Fixed_2_16_1,
+issues fixed in 2.16.1}.
+@end table
+
+@node New features in 2.16 since 2.14,  , Fixes and changes after 2.16.0, Top
+@section New features in 2.16 since 2.14
 @itemize
 
 @ignore
