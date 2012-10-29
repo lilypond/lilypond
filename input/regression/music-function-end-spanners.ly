@@ -6,7 +6,7 @@ end span events at the end of a note."
   
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper{
   ragged-right = ##T
 }
@@ -14,7 +14,7 @@ end span events at the end of a note."
 << {   c'4 c c c }
    \\
    {
-     \override TextSpanner #'bound-details #'left #'text = "x" 
+     \override TextSpanner.bound-details.left.text = "x" 
      \endSpanners c,2\<\startTextSpan c2
 
    }

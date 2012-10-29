@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, version-specific"
@@ -25,7 +25,7 @@ tuplets have to be beamed manually.
     % Permit line breaks within tuplets
     \remove "Forbid_line_break_engraver"
     % Allow beams to be broken at line breaks
-    \override Beam #'breakable = ##t
+    \override Beam.breakable = ##t
   }
 }
 \relative c'' {

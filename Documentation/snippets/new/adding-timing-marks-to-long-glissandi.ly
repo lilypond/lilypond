@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
@@ -16,15 +16,15 @@ be repositioned slightly.
 }
 
 glissandoSkipOn = {
-  \override NoteColumn #'glissando-skip = ##t
-  \override NoteHead #'transparent = ##t
-  \override NoteHead #'no-ledgers = ##t
+  \override NoteColumn.glissando-skip = ##t
+  \override NoteHead.transparent = ##t
+  \override NoteHead.no-ledgers = ##t
 }
 
 glissandoSkipOff = {
-  \revert NoteColumn #'glissando-skip
-  \revert NoteHead #'transparent
-  \revert NoteHead #'no-ledgers
+  \revert NoteColumn.glissando-skip
+  \revert NoteHead.transparent
+  \revert NoteHead.no-ledgers
 }
 
 \relative c'' {

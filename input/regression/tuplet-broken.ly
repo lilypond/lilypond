@@ -8,7 +8,7 @@
 
 }
 
-\version "2.17.5"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t  
@@ -17,9 +17,9 @@
 
 
 \relative c'' {
-  \override TupletNumber #'text = #tuplet-number::calc-fraction-text
+  \override TupletNumber.text = #tuplet-number::calc-fraction-text
 
-  \override TupletBracket #'edge-text = #(cons
+  \override TupletBracket.edge-text = #(cons
 					  (markup #:fontsize 6
 					     #:arrow-head X LEFT #f)
 					  (markup #:arrow-head X RIGHT #f))

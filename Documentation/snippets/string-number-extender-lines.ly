@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, text, fretted-strings, tweaks-and-overrides, scheme-language"
@@ -22,10 +22,10 @@ series of notes is supposed to be played all on the same string.
 stringNumberSpanner =
 #(define-music-function (parser location StringNumber) (string?)
   #{
-    \override TextSpanner #'style = #'solid
-    \override TextSpanner #'font-size = #-5
-    \override TextSpanner #'(bound-details left stencil-align-dir-y) = #CENTER
-    \override TextSpanner #'(bound-details left text) = \markup { \circle \number #StringNumber }
+    \override TextSpanner.style = #'solid
+    \override TextSpanner.font-size = #-5
+    \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
+    \override TextSpanner.bound-details.left.text = \markup { \circle \number #StringNumber }
   #})
 
 

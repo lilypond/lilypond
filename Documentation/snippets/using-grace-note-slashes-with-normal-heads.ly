@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -20,6 +20,6 @@ other situations.
 
 
 \relative c'' {
-  \override Flag #'stroke-style = #"grace"
+  \override Flag.stroke-style = #"grace"
   c8( d2) e8( f4)
 }

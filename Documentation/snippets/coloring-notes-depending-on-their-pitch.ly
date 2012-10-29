@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, pitches, really-cool"
@@ -55,7 +55,7 @@ to distinguish enharmonics.
 
 \score {
   \new Staff \relative c' {
-    \override NoteHead #'color = #color-notehead
+    \override NoteHead.color = #color-notehead
     c8 b d dis ees f g aes
   }
 }

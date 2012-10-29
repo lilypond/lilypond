@@ -5,9 +5,9 @@ should end at that bar line. "
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c'' {
-  \override Hairpin #'bound-padding = #1.0
+  \override Hairpin.bound-padding = #1.0
   c4\< c2. c4\!
 }

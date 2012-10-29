@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "automatic-notation, keyboards, template, vocal-music"
@@ -67,7 +67,7 @@ bassWords = \lyricmode {
     \new ChoirStaff <<
       \new Lyrics = "sopranos" \with {
         % This is needed for lyrics above a staff
-        \override VerticalAxisGroup #'staff-affinity = #DOWN
+        \override VerticalAxisGroup.staff-affinity = #DOWN
       }
       \new Staff = "women" <<
         \new Voice = "sopranos" { \voiceOne << \global \sopMusic >> }
@@ -76,7 +76,7 @@ bassWords = \lyricmode {
       \new Lyrics = "altos"
       \new Lyrics = "tenors" \with {
         % This is needed for lyrics above a staff
-        \override VerticalAxisGroup #'staff-affinity = #DOWN
+        \override VerticalAxisGroup.staff-affinity = #DOWN
       }
 
       \new Staff = "men" <<

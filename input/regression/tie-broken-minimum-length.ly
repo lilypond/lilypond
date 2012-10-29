@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -14,7 +14,7 @@ has a @code{minimum-length} of 5."
 }
 
 \relative c' {
-  \override Tie #'minimum-length = #5
+  \override Tie.minimum-length = #5
   f2. f16  f  f  f ~ | \break
   f1
 }

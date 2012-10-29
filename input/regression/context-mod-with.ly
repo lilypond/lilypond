@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header  {
 texidoc = "Context modifications can be stored into a variable as a
@@ -9,7 +9,7 @@ texidoc = "Context modifications can be stored into a variable as a
 ctxmod = \with {
   \remove "Time_signature_engraver"
   \consists "Ambitus_engraver"
-  \override StaffSymbol #'line-count = 4
+  \override StaffSymbol.line-count = 4
 }
 
 \layout {
@@ -29,14 +29,14 @@ ctxmod = \with {
 music = \relative c'' { \key fis \minor c1 d e }
 
 \score { <<
-  \override Score.RehearsalMark #'self-alignment-X = #LEFT
-  \override Score.RehearsalMark #'font-size = #-2
+  \override Score.RehearsalMark.self-alignment-X = #LEFT
+  \override Score.RehearsalMark.font-size = #-2
   % No modifications:
   \new Staff { \mark \markup { No modifications } \music }
   \new Staff \with {
     \remove "Time_signature_engraver"
     \consists "Ambitus_engraver"
-    \override StaffSymbol #'line-count = 4
+    \override StaffSymbol.line-count = 4
   } {
     \mark
     \markup { "Remove time sig, add ambitus, set staff to 4 lines" }

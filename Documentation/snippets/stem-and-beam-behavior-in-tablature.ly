@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings"
@@ -24,7 +24,7 @@ example.
     \tabFullNotation
     g16 b d g b d g b
     \stemDown
-    \override Beam #'concaveness = #10000
+    \override Beam.concaveness = #10000
     g,,16 b d g b d g b
   }
 }

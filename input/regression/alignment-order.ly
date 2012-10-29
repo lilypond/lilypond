@@ -3,7 +3,7 @@
 anywhere in the vertical alignment. "
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t
@@ -23,7 +23,7 @@ anywhere in the vertical alignment. "
       \new Staff {
         \set Staff.alignAboveContext = #"3"
         \times 4/6 {
-          \override TextScript #'padding = #3
+          \override TextScript.padding = #3
           c4^"this" d_"staff" e^"above" d_"last" e^"staff" f
         }
       }

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.5"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -166,14 +166,14 @@ Infolgedessen müssen auch um Eigenschaftsbezeichnungen Leerzeichen gesetzt
 werden.  Ein Befehl heißt also @emph{nicht}:
 
 @example
-\override Score.LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 @noindent
 sondern
 
 @example
-\override Score . LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 Punkte, Gesangstext mit Akzenten, verschiedene lateinische und nicht-lateinische
@@ -1050,7 +1050,7 @@ verweist, mit @code{\context} angegeben:
   <<
     \new Lyrics = "lyrics" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "melody" {
@@ -1081,7 +1081,7 @@ einesetzt werden können.  Hier ein Beispiel für die zweite Methode:
     \new Lyrics = "sopranos"
     \new Lyrics = "contraltos" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "contraltos" {
@@ -1135,7 +1135,7 @@ Um den Abstand zwischen Silben zu vergrößern, kann die
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
 }
 \addlyrics {
@@ -1161,7 +1161,7 @@ wirkt, muss sie im @code{layout}-Block vorgenommen werden.
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = #1.0
     }
   }
 }
@@ -1179,7 +1179,7 @@ Seitenränder ragt, verlangt zusätzliche Computerzeit.  Um den
 Notensatz etwas zu beschleunigen, kann die Überprüfung abgestellt werden:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 Damit Gesangstext auch nicht mit Taktlinien
@@ -1191,7 +1191,7 @@ zusammenstößt, kann folgende Einstellung gesetzt werden:
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
   @}
 @}
 @end example
@@ -1927,7 +1927,7 @@ unterschiedlichen Melodien auszurichten.  Das wird mit der
         \voiceOne
         \times 2/3 {
           % show associations clearly.
-          \override NoteColumn #'force-hshift = #-3
+          \override NoteColumn.force-hshift = #-3
           f8 f g
         }
       }
@@ -2341,8 +2341,8 @@ Form genutzt werden, wie das Beispiel zeigt:
   \layout {
     \context {
       \Score
-      \override DynamicText #'direction = #UP
-      \override DynamicLineSpanner #'direction = #UP
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
     }
   }
 }
@@ -2627,7 +2627,7 @@ pianoRH = \relative c'' {
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
     \set instrumentCueName = "Flute"
   }
   \cueDuring "flute" #UP { g4 bes4 }
@@ -2671,8 +2671,8 @@ pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
-    \override InstrumentSwitch #'direction = #DOWN
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
+    \override InstrumentSwitch.direction = #DOWN
     \set instrumentCueName = "Clar."
   }
   \cueDuring "clarinet" #DOWN { c4. g8 }
@@ -2813,8 +2813,8 @@ dialogue = \lyricmode {
 \score {
   <<
     \new Lyrics \with {
-      \override LyricText #'font-shape = #'italic
-      \override LyricText #'self-alignment-X = #LEFT
+      \override LyricText.font-shape = #'italic
+      \override LyricText.self-alignment-X = #LEFT
     }
     { \dialogue }
     \new Staff {
@@ -2883,7 +2883,7 @@ die Tonhöhen darzustellen, während der Rhythmus sich am Rhythmus
 der gesprochenen Worte orientiert.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem #'transparent = ##t }
+stemOff = { \override Staff.Stem.transparent = ##t }
 
 \relative c' {
   \stemOff
@@ -2988,23 +2988,23 @@ Veränderung des @code{\breathe}-Zeichens:
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 
@@ -3120,8 +3120,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner
-          #'base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
         }
         \context {
           \Staff

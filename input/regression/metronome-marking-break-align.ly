@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "@code{\\tempo} marks are aligned with the time signature
@@ -28,7 +28,7 @@ with a key signature.
   \time 8/8
   \tempo "T-time"
   R1
-  \override Score.MetronomeMark #'break-align-symbols = #'(key-signature)
+  \override Score.MetronomeMark.break-align-symbols = #'(key-signature)
   \key as \major
   \tempo "T-key"
   R1

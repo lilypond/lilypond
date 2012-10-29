@@ -4,7 +4,7 @@
 " }
 
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   debug-tie-scoring = ##t
@@ -12,7 +12,7 @@
 }
 
 \relative c'' {
-  \override Tie #'layer = #2
+  \override Tie.layer = #2
   a ~ <fis a>
 }
 

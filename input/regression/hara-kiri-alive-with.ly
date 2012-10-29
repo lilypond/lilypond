@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Staves in a PianoStaff remain alive as long as any of
@@ -9,7 +9,7 @@ the staves has something interesting."
   \context {
     \Staff
     \RemoveEmptyStaves
-    \override VerticalAxisGroup #'remove-first = ##t
+    \override VerticalAxisGroup.remove-first = ##t
   }
 }
 

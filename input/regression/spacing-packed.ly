@@ -10,9 +10,9 @@
 "
   }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c' {
-  \override Score.SpacingSpanner #'packed-spacing = ##t
+  \override Score.SpacingSpanner.packed-spacing = ##t
   c2 d4 f8[ g] a
 }

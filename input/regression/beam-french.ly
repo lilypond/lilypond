@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
     texidoc = "In French style beaming, the stems do not go between beams."
@@ -8,7 +8,7 @@
 
 \relative c'
 {
-    \override Stem  #'french-beaming = ##t
+    \override Stem.french-beaming = ##t
     c16[ c c c]
     c8[ c16 e16 f16 g16 g8]
 }

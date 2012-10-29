@@ -359,7 +359,7 @@ manualBeam =
      (parser location beg-end)
      (pair?)
    #@{
-     \once \override Beam #'positions = #beg-end
+     \once \override Beam.positions = #beg-end
    #@})
 
 \relative c' @{
@@ -378,7 +378,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = #(cons beg end)
+     \once \override Beam.positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -399,14 +399,14 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
-  \revert Stem #'length
-  \revert NoteHead #'font-size
+  \revert Stem.length
+  \revert NoteHead.font-size
 }
 
 \relative c' {
@@ -424,12 +424,12 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      #music
-     \revert Stem #'length
-     \revert NoteHead #'font-size
+     \revert Stem.length
+     \revert NoteHead.font-size
    #})
 
 \relative c' {
@@ -458,7 +458,7 @@ displayBarNum =
      (parser location)
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
-       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
        #@{#@}))
 @end example
 
@@ -1077,13 +1077,13 @@ Properties (like @code{thickness}, @code{direction}, etc.) can be
 set at fixed values with @code{\override}, e.g.
 
 @example
-\override Stem #'thickness = #2.0
+\override Stem.thickness = #2.0
 @end example
 
 Properties can also be set to a Scheme procedure,
 
 @lilypond[fragment,verbatim,quote,relative=2]
-\override Stem #'thickness = #(lambda (grob)
+\override Stem.thickness = #(lambda (grob)
     (if (= UP (ly:grob-property grob 'direction))
         2.0
         7.0))
@@ -1153,7 +1153,7 @@ my-callback = #(lambda (grob)
 
 TODO: the example for this section is ill-chosen since
 @example
-F = -\tweak #'font-size #-3 -\flageolet
+F = -\tweak font-size #-3 -\flageolet
 @end example
 (note the @samp{-} marking it as a post event) will actually work fine
 for the stated purpose.  Until this section gets a rewrite, let's
@@ -1163,7 +1163,7 @@ The main disadvantage of @code{\tweak} is its syntactical
 inflexibility.  For example, the following produces a syntax error.
 
 @example
-F = \tweak #'font-size #-3 -\flageolet
+F = \tweak font-size #-3 -\flageolet
 
 \relative c'' @{
   c4^\F c4_\F
@@ -1258,7 +1258,7 @@ of the broken tie is repositioned.
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
-  \override Tie #'after-line-breaking =
+  \override Tie.after-line-breaking =
   #my-callback
   c1 ~ \break
   c2 ~ c

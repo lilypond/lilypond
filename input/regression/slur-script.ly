@@ -6,7 +6,7 @@
     slur responds appropriately if a script is moved."
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \layout {
   indent = 0\mm
   ragged-right = ##t
@@ -14,9 +14,9 @@
 \relative
 {
   b4-.( b-.)
-  \once \override Script #'padding = #1.5
+  \once \override Script.padding = #1.5
   b-.( b-.)
   b_\downbow( b_\downbow)
-  \once \override Script #'padding = #1.5
+  \once \override Script.padding = #1.5
   b_\downbow( b_\downbow)
 }

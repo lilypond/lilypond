@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "correction-wanted, spacing, text, vocal-music, workaround"
@@ -34,7 +34,7 @@ This snippet shows how to bring the lyrics line closer to the staff.
   }
   % Reducing the minimum space below the staff and above the lyrics:
   \new Lyrics \with {
-    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((basic-distance . 1))
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #'((basic-distance . 1))
   }
   \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>

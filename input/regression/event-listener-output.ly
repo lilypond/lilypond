@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Music events can be extracted from a score with event
@@ -18,18 +18,18 @@ st =
   (parser location text)
   (string?)
 #{
-  \override TextSpanner #'(bound-details left text) = $text
+  \override TextSpanner.bound-details.left.text = $text
 #})
 
 
 vlnone = \new Staff {
   \set Staff.instrumentName = "violin-1"
   \set Staff.midiInstrument = "violin"
-  \override TextSpanner #'style = #'line
-  \override TextSpanner #'(bound-details right padding) = #-1
-  \override TextSpanner #'(bound-details left stencil-align-dir-y) =
+  \override TextSpanner.style = #'line
+  \override TextSpanner.bound-details.right.padding = #-1
+  \override TextSpanner.bound-details.left.stencil-align-dir-y =
     #CENTER
-  \override TextSpanner #'(bound-details right text) =
+  \override TextSpanner.bound-details.right.text =
     \markup { \draw-line #'(0 . -1) }
 \relative c' {
   \key d \major

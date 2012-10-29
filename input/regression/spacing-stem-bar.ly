@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
   texidoc = "Upstem notes before a barline are printed with some extra
@@ -13,8 +13,8 @@ space. This is an optical correction similar to juxtaposed stems.
 
 \relative e'
 {
-  \override Score.PaperColumn #'layer = #1
-  \override Score.PaperColumn #'stencil = #ly:paper-column::print
+  \override Score.PaperColumn.layer = #1
+  \override Score.PaperColumn.stencil = #ly:paper-column::print
 
   
   \time 2/8

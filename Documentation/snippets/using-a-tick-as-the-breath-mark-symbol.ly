@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.4
-\version "2.17.4"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks"
@@ -24,8 +24,8 @@ mark can be moved up a little to take it away from the stave.
   c2
   \breathe
   d2
-  \override BreathingSign #'Y-offset = #2.6
-  \override BreathingSign #'text =
+  \override BreathingSign.Y-offset = #2.6
+  \override BreathingSign.text =
     \markup { \musicglyph #"scripts.tickmark" }
   c2
   \breathe

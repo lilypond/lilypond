@@ -88,7 +88,7 @@ Bass = {
     }
     \context {
       \Voice
-      \override StanzaNumber #'padding = #1.8
+      \override StanzaNumber.padding = #1.8
     }
   }
 }

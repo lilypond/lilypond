@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Dynamic centering still works with alignment-distances."
@@ -13,7 +13,7 @@
   \layout {
     \context {
       \Score
-      \override NonMusicalPaperColumn #'line-break-system-details =
+      \override NonMusicalPaperColumn.line-break-system-details =
         #'((alignment-distances . (20)))
     }
   }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header  {
 
@@ -22,7 +22,7 @@ measures stretch to accommodate wide texts.
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
-  \override MultiMeasureRestText  #'springs-and-rods
+  \override MultiMeasureRestText.springs-and-rods
     = #ly:multi-measure-rest::set-text-rods
 
   R2.^"very very very very very very long text"

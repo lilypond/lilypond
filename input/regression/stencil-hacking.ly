@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -53,13 +53,13 @@ GROB.  The dimensions of the stencil is not affected.
 \relative c' {
     c4 e
 
-    \override NoteHead  #'stencil
+    \override NoteHead.stencil
     =
     #(parenthesize-callback ly:note-head::print)
     g bes
-    \revert NoteHead #'stencil
+    \revert NoteHead.stencil
 
-    \override Beam  #'stencil
+    \override Beam.stencil
     =
     #(parenthesize-callback ly:beam::print)
 

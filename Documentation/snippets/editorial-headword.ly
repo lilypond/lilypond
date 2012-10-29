@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -53,7 +53,7 @@ Beethoven, Op. 31, No. 3 Piano sonata 18, Movt II, Scherzo Measures 9 -
     |
     e'4-2
     r8
-    \once \override Script #'script-priority = #-100
+    \once \override Script.script-priority = #-100
     \afterGrace
     f'8 ( \trill ^ \markup { \finger "3-2" }
     { e'16 [ f'16 ] }
@@ -71,7 +71,7 @@ Beethoven, Op. 31, No. 3 Piano sonata 18, Movt II, Scherzo Measures 9 -
   \new Staff {
     \key af \major
     \clef treble
-    \override Fingering #'direction = #down
+    \override Fingering.direction = #down
     \set Staff.fingeringOrientations = #'(down)
     \partial 8
     <af' af>8 \staccato

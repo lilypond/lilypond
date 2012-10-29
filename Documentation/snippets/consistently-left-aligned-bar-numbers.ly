@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -19,8 +19,8 @@ first bar number following line breaks.
 } % begin verbatim
 
 consistentlyLeftAlignedBarNumbers = {
-  \override Score.BarNumber #'break-visibility = #end-of-line-invisible
-  \override Score.BarNumber #'self-alignment-X =
+  \override Score.BarNumber.break-visibility = #end-of-line-invisible
+  \override Score.BarNumber.self-alignment-X =
     #(lambda (grob)
        (let ((break-dir (ly:item-break-dir grob)))
          (if (= break-dir RIGHT) RIGHT LEFT)))

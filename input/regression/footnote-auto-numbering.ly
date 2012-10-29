@@ -38,7 +38,7 @@ footnotes.
 \markup { h i }
 
 \relative c' {
-  \once \override FootnoteItem #'numbering-assertion-function =
+  \once \override FootnoteItem.numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 3))
   \footnote #'(1 . -1) \markup { j } NoteHead
   a b c d
@@ -52,10 +52,10 @@ footnotes.
 
 \relative c' {
   d4 e
-  \once \override FootnoteItem #'numbering-assertion-function =
+  \once \override FootnoteItem.numbering-assertion-function =
     #(lambda (grob) (make-footnote-numbering-assertion-function 5))
   < f \footnote #'(1 . -1) \markup { n } a c >
-  \once \override FootnoteSpanner #'numbering-assertion-function =
+  \once \override FootnoteSpanner.numbering-assertion-function =
     #(simultaneous-footnote-numbering-assertion-function 6 7)
   a8-\footnote #'(1 . 1) \markup { p } \<
   -\footnote #'(1 . 1) \markup { o } [ b c d ] a4 b c |

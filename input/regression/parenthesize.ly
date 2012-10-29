@@ -12,12 +12,12 @@
   ragged-right = ##t
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c' {
   c4 -\parenthesize -.
 
-  \override ParenthesesItem #'padding = #0.1
+  \override ParenthesesItem.padding = #0.1
   <d \parenthesize fis a> 
 
 }

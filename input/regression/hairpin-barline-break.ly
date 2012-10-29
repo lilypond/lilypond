@@ -5,7 +5,7 @@ do not print that ending.  But on the previous line, this hairpin
 should not be left open, and should end at the bar line. "
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   line-width = 4.\cm
@@ -15,7 +15,7 @@ should not be left open, and should end at the bar line. "
   c1\>
   \break
   c1\!
-  \override Hairpin #'to-barline = ##f
+  \override Hairpin.to-barline = ##f
   c1\>
   \break
   c1\!

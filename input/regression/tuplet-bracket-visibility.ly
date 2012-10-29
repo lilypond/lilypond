@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The default behavior of tuplet-bracket visibility is to print a bracket
@@ -29,11 +29,11 @@ music = \relative c'' {
 \new Voice {
   \relative c' {
     << \music s4^"default" >>
-    \override TupletBracket #'bracket-visibility = #'if-no-beam
+    \override TupletBracket.bracket-visibility = #'if-no-beam
     << \music s4^"'if-no-beam" >>
-    \override TupletBracket #'bracket-visibility = ##t
+    \override TupletBracket.bracket-visibility = ##t
     << \music s4^"#t" >>
-    \override TupletBracket #'bracket-visibility = ##f
+    \override TupletBracket.bracket-visibility = ##f
     << \music s4^"#f" >>
   }
 }

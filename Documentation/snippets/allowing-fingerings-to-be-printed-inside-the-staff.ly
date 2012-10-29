@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, spacing, specific-notation"
@@ -21,6 +21,6 @@ chord construct <>, even if it is only a single note.
 
 \relative c' {
   <c-1 e-2 g-3 b-5>2
-  \override Fingering #'staff-padding = #'()
+  \override Fingering.staff-padding = #'()
   <c-1 e-2 g-3 b-5>4 <g'-0>
 }

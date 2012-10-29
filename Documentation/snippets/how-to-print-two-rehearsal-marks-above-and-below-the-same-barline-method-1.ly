@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, staff-notation, tweaks-and-overrides"
@@ -39,16 +39,16 @@ box of the mark from its original value.
 
 \relative c'{
     c d e f |
-    \once \override Score.RehearsalMark #'extra-offset = #'(0 . -8.5)
-    \once \override Score.RehearsalMark #'baseline-skip = #9
+    \once \override Score.RehearsalMark.extra-offset = #'(0 . -8.5)
+    \once \override Score.RehearsalMark.baseline-skip = #9
     \mark \markup \center-column { \circle 1 \box A }
     g f e d |
-    \once \override Score.RehearsalMark #'extra-offset = #'(0 . -8.5)
-    \once \override Score.RehearsalMark #'baseline-skip = #9
+    \once \override Score.RehearsalMark.extra-offset = #'(0 . -8.5)
+    \once \override Score.RehearsalMark.baseline-skip = #9
     \mark \markup \center-column { \flat { \bold \small \italic Fine. } }
     g f e d |
-    \once \override Score.RehearsalMark #'extra-offset = #'(0 . -8.5)
-    \once \override Score.RehearsalMark #'baseline-skip = #9
-    \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
+    \once \override Score.RehearsalMark.extra-offset = #'(0 . -8.5)
+    \once \override Score.RehearsalMark.baseline-skip = #9
+    \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
     \mark \markup \center-column { \musicglyph #"scripts.ufermata" \box z }
 }

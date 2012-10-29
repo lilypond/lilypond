@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
@@ -206,7 +206,7 @@ Overlapping notation can result when voices cross staves:
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner #'staff-padding = #3.4
+    \once\override DynamicLineSpanner.staff-padding = #3.4
     e''2\p\< d''\>
     c''1\!
   }

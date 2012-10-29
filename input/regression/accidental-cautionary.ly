@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
 texidoc = "Cautionary accidentals may be indicated using either
@@ -13,10 +13,10 @@ parentheses (default) or smaller accidentals.
 {
     c''4
     cis''?4
-    \once \override Staff.AccidentalCautionary #'parenthesized = ##f
-    \once \override Staff.AccidentalCautionary #'font-size = #-2
+    \once \override Staff.AccidentalCautionary.parenthesized = ##f
+    \once \override Staff.AccidentalCautionary.font-size = #-2
     cis''?4
-    \once \override Staff.AccidentalCautionary #'parenthesized = ##t
+    \once \override Staff.AccidentalCautionary.parenthesized = ##t
     cis''?4
 }
 

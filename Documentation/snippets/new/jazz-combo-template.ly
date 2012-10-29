@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template, real-music"
@@ -33,17 +33,17 @@ music is within a @code{\\transpose} section.
 %%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
 
 sl = {
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
 }
 nsl = {
-  \revert NoteHead #'style
-  \revert Stem #'transparent
-  \revert Flag #'transparent
+  \revert NoteHead.style
+  \revert Stem.transparent
+  \revert Flag.transparent
 }
-crOn = \override NoteHead #'style = #'cross
-crOff = \revert NoteHead #'style
+crOn = \override NoteHead.style = #'cross
+crOff = \revert NoteHead.style
 
 %% insert chord name style stuff here.
 
@@ -264,8 +264,8 @@ drumContents = {
     \context { \Staff \RemoveEmptyStaves }
     \context {
       \Score
-      \override BarNumber #'padding = #3
-      \override RehearsalMark #'padding = #2
+      \override BarNumber.padding = #3
+      \override RehearsalMark.padding = #2
       skipBars = ##t
     }
   }

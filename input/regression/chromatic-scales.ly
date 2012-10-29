@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header{
   texidoc="@code{staffLineLayoutFunction} is used to change the position of the notes.
 This sets @code{staffLineLayoutFunction} to @code{ly:pitch-semitones} to
@@ -21,7 +21,7 @@ scales = \relative c' {
   clefPosition = #(+ -6 7)
 }
 {
-  \override Staff.StaffSymbol #'line-count = #5
+  \override Staff.StaffSymbol.line-count = #5
   \time 4/4
   <<
     \scales

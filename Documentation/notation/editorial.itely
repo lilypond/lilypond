@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Editorial annotations
 @section Editorial annotations
@@ -97,11 +97,11 @@ so that only certain layout objects are affected.
 @lilypond[verbatim,quote,relative=2]
 \set fontSize = #3
 c4.-> d8---3
-\override NoteHead #'font-size = #-4
+\override NoteHead.font-size = #-4
 c4.-> d8---3
-\override Script #'font-size = #2
+\override Script.font-size = #2
 c4.-> d8---3
-\override Stem #'font-size = #-5
+\override Stem.font-size = #-5
 c4.-> d8---3
 @end lilypond
 
@@ -302,11 +302,11 @@ Individual objects may be assigned colors.  Valid color names
 are listed in the @ref{List of colors}.
 
 @lilypond[verbatim,quote,relative=2]
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 c4 c
-\override NoteHead #'color = #(x11-color 'LimeGreen)
+\override NoteHead.color = #(x11-color 'LimeGreen)
 d
-\override Stem #'color = #blue
+\override Stem.color = #blue
 e
 @end lilypond
 
@@ -323,20 +323,20 @@ If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black.
 
 @lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
 
 gis8 a
-\override Beam #'color = #(x11-color "medium turquoise")
+\override Beam.color = #(x11-color "medium turquoise")
 gis a
-\override Accidental #'color = #(x11-color 'DarkRed)
+\override Accidental.color = #(x11-color 'DarkRed)
 gis a
-\override NoteHead #'color = #(x11-color "LimeGreen")
+\override NoteHead.color = #(x11-color "LimeGreen")
 gis a
 % this is deliberate nonsense; note that the stems remain black
-\override Stem #'color = #(x11-color 'Boggle)
+\override Stem.color = #(x11-color 'Boggle)
 b2 cis
 @end lilypond
 
@@ -350,16 +350,16 @@ Exact RGB colors can be specified using the Scheme function
 @code{rgb-color}.
 
 @lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
 
-\override Stem #'color = #(rgb-color 0 0 0)
+\override Stem.color = #(rgb-color 0 0 0)
 gis8 a
-\override Stem #'color = #(rgb-color 1 1 1)
+\override Stem.color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5)
+\override Stem.color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 

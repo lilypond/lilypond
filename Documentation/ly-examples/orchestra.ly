@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   tagline = ##f
@@ -41,23 +41,23 @@ naturale = \markup { \bold \italic "Naturale" }
 moltocr = {
   \set crescendoText = \markup { \italic "Molto cresc." }
   \set crescendoSpanner = #'text
-  \override DynamicTextSpanner #'style = #'dotted-line
+  \override DynamicTextSpanner.style = #'dotted-line
 }
 offCr = {
   \unset crescendoText
   \unset crescendoSpanner
-  \revert DynamicTextSpanner #'style
+  \revert DynamicTextSpanner.style
 }
 
 %% Layout for piano dynamics
 \layout {
   \context {
     \Voice
-    \override Glissando #'breakable = ##t
-    \override TextSpanner #'breakable = ##t
-    \override DynamicLineSpanner #'breakable = ##t
-    \override DynamicTextSpanner #'breakable = ##t
-    \override TrillSpanner #'breakable = ##t
+    \override Glissando.breakable = ##t
+    \override TextSpanner.breakable = ##t
+    \override DynamicLineSpanner.breakable = ##t
+    \override DynamicTextSpanner.breakable = ##t
+    \override TrillSpanner.breakable = ##t
   }
 }
 
@@ -107,10 +107,10 @@ offCr = {
     \consists "Text_engraver"
     \consists "Text_spanner_engraver"
     \consists "Font_size_engraver"
-    \override VerticalAxisGroup #'staff-affinity = #DOWN
-    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #2
-    \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #5
-    \override TextSpanner #'breakable = ##t
+    \override VerticalAxisGroup.staff-affinity = #DOWN
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #2
+    \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = #5
+    \override TextSpanner.breakable = ##t
   }
   \context {
     \Score
@@ -132,8 +132,8 @@ offCr = {
   \context {
     \MarkLine
     \name "SmallMarkLine"
-    \override MetronomeMark #'outside-staff-priority = #800
-    \override RehearsalMark #'outside-staff-priority = #1200
+    \override MetronomeMark.outside-staff-priority = #800
+    \override RehearsalMark.outside-staff-priority = #1200
   }
   \context {
     \Score

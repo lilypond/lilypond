@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -20,10 +20,10 @@ and lower start positions independently.
 
 \relative c' {
   <c e g b>1\arpeggio
-  \once \override Arpeggio #'positions = #'(-5 . 0)
+  \once \override Arpeggio.positions = #'(-5 . 0)
   <c e g b>1\arpeggio
-  \once \override Arpeggio #'positions = #'(0 . 5)
+  \once \override Arpeggio.positions = #'(0 . 5)
   <c e g b>1\arpeggio
-  \once \override Arpeggio #'positions = #'(-5 . 5)
+  \once \override Arpeggio.positions = #'(-5 . 5)
   <c e g b>1\arpeggio
 }

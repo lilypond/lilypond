@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header { texidoc = "If the 'whiteout property of a
 grob is set to #t, that part of all objects in lower
@@ -10,11 +10,11 @@ Tie but not the StaffSymbol.
 
 \relative c' {
   \time 3/4
-  \override Staff.StaffSymbol #'layer = #4
-  \once \override Tie #'layer = #2
+  \override Staff.StaffSymbol.layer = #4
+  \once \override Tie.layer = #2
   b'2.~
-  \once \override Staff.TimeSignature #'whiteout = ##t
-  \once \override Staff.TimeSignature #'layer = #3
+  \once \override Staff.TimeSignature.whiteout = ##t
+  \once \override Staff.TimeSignature.layer = #3
   \time 5/4
   b4
 }

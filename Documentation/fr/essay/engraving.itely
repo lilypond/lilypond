@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
@@ -344,9 +344,9 @@ music = {
   \layout {
     \context {
       \Staff
-      \override NoteSpacing #'stem-spacing-correction = #0.0
-      \override NoteSpacing #'same-direction-correction = #0.0
-      \override StaffSpacing #'stem-spacing-correction = #0.0
+      \override NoteSpacing.stem-spacing-correction = #0.0
+      \override NoteSpacing.same-direction-correction = #0.0
+      \override StaffSpacing.stem-spacing-correction = #0.0
     }
   }
 }
@@ -372,7 +372,7 @@ music = {
   \layout {
     \context {
       \Staff
-      \override NoteSpacing #'stem-spacing-correction = #0.6
+      \override NoteSpacing.stem-spacing-correction = #0.6
     }
   }
 }
@@ -500,8 +500,8 @@ global = {
   <<
     \new Staff \with {
       fontSize = #-4
-      \override StaffSymbol #'staff-space = #(magstep -4)
-      \override StaffSymbol #'thickness = #(magstep -3)
+      \override StaffSymbol.staff-space = #(magstep -4)
+      \override StaffSymbol.thickness = #(magstep -3)
     }
     \relative c' {
       \global
@@ -523,7 +523,7 @@ global = {
         \clef "bass"
         <<
         {
-          \once \override DynamicText #'X-offset = #-3
+          \once \override DynamicText.X-offset = #-3
           <ees g c>2.~->^\f
           <ees g c>4.~ <ees g c>8
         } \\ {
@@ -615,9 +615,9 @@ choisir pour formater la liaison ?
 @lilypond
 \relative c {
     \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
+    \once \override Slur.positions = #'(1.5 . 1)
     e8[( f] g[ a b d,)] r4
-    \once \override Slur #'positions = #'(2 . 3)
+    \once \override Slur.positions = #'(2 . 3)
     e8[( f] g[ a b d,)] r4
     e8[( f] g[ a b d,)] r4
 }
@@ -660,7 +660,7 @@ notamment pour l'effleurement de la tête de note.
 @lilypond
 \relative c {
     \clef bass
-    \once \override Slur #'positions = #'(1.5 . 1)
+    \once \override Slur.positions = #'(1.5 . 1)
     e8[(_"15.39" f] g[ a b d,)] r4
 }
 @end lilypond
@@ -676,7 +676,7 @@ fait un total de 13,08 points de laideur.
 @lilypond
 \relative c {
     \clef bass
-    \once \override Slur #'positions = #'(2 . 3)
+    \once \override Slur.positions = #'(2 . 3)
     e8[(_"13.08" f] g[ a b d,)] r4
 }
 @end lilypond
@@ -900,7 +900,7 @@ partIV = \relative c {
     }
     \context {
       \PianoStaff
-      \override StaffGrouper #'staff-staff-spacing #'padding = #1
+      \override StaffGrouper.staff-staff-spacing.padding = #1
     }
   }
 }
@@ -923,7 +923,7 @@ inférieure de croisent temporairement :
 
 @c KEEP LY
 @lilypond
-collide = \once \override NoteColumn #'force-hshift = #0
+collide = \once \override NoteColumn.force-hshift = #0
 
 \score {
   <<
@@ -1183,8 +1183,8 @@ musique se complique :
         \change Staff = "LH" \oneVoice
         \stemUp g,( c}
       r4
-      \override Stem #'cross-staff = ##t
-      \override Stem #'length = #12
+      \override Stem.cross-staff = ##t
+      \override Stem.length = #12
       <fis, b>) r\fermata
     }
   >>
@@ -1470,14 +1470,14 @@ vers le haut (ou la droite) pour le second.
 \score {
   \relative c' {
     \stemDown <e g b>4_>-\arpeggio
-    \override Arpeggio #'direction = #RIGHT
+    \override Arpeggio.direction = #RIGHT
     \stemUp <e g b>4^>-\arpeggio
   }
   \layout {
     \context {
       \Score
-      \override SpacingSpanner #'spacing-increment = #3
-      \override TimeSignature #'transparent = ##t
+      \override SpacingSpanner.spacing-increment = #3
+      \override TimeSignature.transparent = ##t
     }
   }
 }
@@ -1502,12 +1502,12 @@ fragment = {
 <<
    \new Staff \fragment
    \new Staff \with {
-      \override Beam #'beam-thickness = #0.3
-      \override Stem #'thickness = #0.5
-      \override Bar #'thickness = #3.6
-      \override Tie #'thickness = #2.2
-      \override StaffSymbol #'thickness = #3.0
-      \override Tie #'extra-offset = #'(0 .  0.3)
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #0.5
+      \override Bar.thickness = #3.6
+      \override Tie.thickness = #2.2
+      \override StaffSymbol.thickness = #3.0
+      \override Tie.extra-offset = #'(0 .  0.3)
       }
       \fragment
 >>
@@ -1543,12 +1543,12 @@ musical :
   \set autoBeaming = ##f
   \time 2/4
   <d f g>4
-  \once \override NoteHead #'stencil = #note-head::brew-ez-stencil
-  \once \override NoteHead #'font-size = #-7
-  \once \override NoteHead #'font-family = #'sans
-  \once \override NoteHead #'font-series = #'bold
+  \once \override NoteHead.stencil = #note-head::brew-ez-stencil
+  \once \override NoteHead.font-size = #-7
+  \once \override NoteHead.font-family = #'sans
+  \once \override NoteHead.font-series = #'bold
   <d f g>4
-  \once \override NoteHead #'style = #'cross
+  \once \override NoteHead.style = #'cross
   <d f g>4
   \applyOutput #'Voice #mc-squared
   <d f g>4
@@ -1614,7 +1614,7 @@ constructions@dots{}
       \time 4/8
       \key c \minor
       << {
-        \revert Stem #'direction
+        \revert Stem.direction
         \change Staff = down
         \set subdivideBeams = ##t
         g16.[
@@ -1643,16 +1643,16 @@ constructions@dots{}
       \clef bass
       \key c \minor
       \set subdivideBeams = ##f
-      \override Stem  #'french-beaming = ##t
-      \override Beam  #'beam-thickness = #0.3
-      \override Stem  #'thickness = #4.0
+      \override Stem.french-beaming = ##t
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #4.0
       g'16[ b16 fis16 g16]
       << \makeClusters {
         as16 <as b>
         <g b>
         <g cis>
       } \\ {
-        \override Staff.Arpeggio  #'arpeggio-direction =#down
+        \override Staff.Arpeggio.arpeggio-direction =#down
         <cis, e, gis, b, cis>4\arpeggio
       }
     >> }
@@ -1835,7 +1835,7 @@ partIV = \relative c {
     }
     \context {
       \PianoStaff
-      \override StaffGrouper #'staff-staff-spacing #'padding = #1
+      \override StaffGrouper.staff-staff-spacing.padding = #1
     }
   }
 }

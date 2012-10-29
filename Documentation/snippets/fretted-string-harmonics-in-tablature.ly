@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings"
@@ -18,15 +18,15 @@ Demonstrates fretted-string harmonics in tablature
 
 pinchedHarmonics = {
    \textSpannerDown
-   \override TextSpanner #'bound-details #'left #'text =
+   \override TextSpanner.bound-details.left.text =
       \markup {\halign #-0.5 \teeny "PH" }
-      \override TextSpanner #'style =
+      \override TextSpanner.style =
          #'dashed-line
-   \override TextSpanner #'dash-period = #0.6
-   \override TextSpanner #'bound-details #'right #'attach-dir = #1
-   \override TextSpanner #'bound-details #'right #'text =
+   \override TextSpanner.dash-period = #0.6
+   \override TextSpanner.bound-details.right.attach-dir = #1
+   \override TextSpanner.bound-details.right.text =
       \markup { \draw-line #'(0 . 1) }
-   \override TextSpanner #'bound-details #'right #'padding = #-0.5
+   \override TextSpanner.bound-details.right.padding = #-0.5
 }
 
 harmonics = {

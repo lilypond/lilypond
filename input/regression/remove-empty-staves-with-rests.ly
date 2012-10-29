@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
   texidoc = "
@@ -20,5 +20,5 @@ following example should have only one staff.
  >>
 
  \layout { \context { \RemoveEmptyStaffContext
-     \override VerticalAxisGroup #'remove-first = ##t } }
+     \override VerticalAxisGroup.remove-first = ##t } }
 }

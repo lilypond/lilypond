@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
@@ -43,7 +43,7 @@ splitStaffBarLineMarkup = \markup \with-dimensions #'(0 . 0) #'(0 . 0) {
 }
 
 splitStaffBarLine = {
-  \once \override Staff.BarLine #'stencil =
+  \once \override Staff.BarLine.stencil =
     #(lambda (grob)
        (ly:stencil-combine-at-edge
         (ly:bar-line::print grob)
@@ -98,7 +98,7 @@ splitStaffBarLine = {
   \layout {
     \context {
       \Staff \RemoveEmptyStaves
-      \override VerticalAxisGroup #'remove-first = ##t
+      \override VerticalAxisGroup.remove-first = ##t
     }
   }
 }

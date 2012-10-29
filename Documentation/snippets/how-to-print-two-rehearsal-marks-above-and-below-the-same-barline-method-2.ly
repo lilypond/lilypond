@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, staff-notation, tweaks-and-overrides"
@@ -40,7 +40,7 @@ independently of the other.
         \new Voice \with {
           \consists Mark_engraver
           \consists "Staff_collecting_engraver"
-          \override RehearsalMark #'direction = #DOWN
+          \override RehearsalMark.direction = #DOWN
         }
         { s4 s s s
           \mark \markup { \circle 1 }

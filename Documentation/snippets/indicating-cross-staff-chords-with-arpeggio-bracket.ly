@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "keyboards, real-music"
@@ -26,7 +26,7 @@ context.
 
 \new PianoStaff <<
   \set PianoStaff.connectArpeggios = ##t
-  \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
+  \override PianoStaff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
   \new Staff {
     \relative c' {
       \key b \major

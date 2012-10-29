@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides, version-specific"
@@ -22,7 +22,7 @@ flageolets in the snippet. To mimic the behaviour of scripts outside a
 chord, 'add-stem-support would be required. So, the solution is to
 write the note as a chord and add the articulations inside the <...>.
 The direction will always be above, but one can tweak this via a
-\\tweak: @code{<c-\\tweak #'direction #DOWN-\\fermata^\\fermata>}
+\\tweak: @code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
 
 "
   doctitle = "Showing the same articulation above and below a note or chord"

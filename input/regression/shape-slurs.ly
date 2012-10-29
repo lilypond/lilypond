@@ -1,4 +1,4 @@
-\version "2.17.4"
+\version "2.17.6"
 
 \header {
   texidoc = "The control points of a broken or unbroken slur may be offset by
@@ -21,7 +21,7 @@
 
 % modified
 \relative c'' {
-  \override Slur #'color = #blue
+  \override Slur.color = #blue
   \shape #'((0 . -2) (-1 . 3.5) (0.5 . 0.5) (0 . -2.5)) Slur
   d4( d' b g g,8  f' e d c2)
   \shape #'(

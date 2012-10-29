@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contemporary-notation, rhythms"
@@ -38,10 +38,10 @@ the different notations.
   g'16[^\markup { beams over rests } f' r d']
 
   % N.B. use Score.Stem to set for the whole score.
-  \override Staff.Stem #'stemlet-length = #0.75
+  \override Staff.Stem.stemlet-length = #0.75
 
   c'16[^\markup { stemlets over rests } d' r f']
   g'16[^\markup { stemlets and no rests } f'
-  \once \override Rest #'transparent = ##t
+  \once \override Rest.transparent = ##t
   r16 d']
 }

@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
+%% Note: this file works from version 2.16.0
 \version "2.17.6"
 
 \header {
@@ -96,7 +96,7 @@ Bass = {
     }
     \context {
       \Voice
-      \override StanzaNumber #'padding = #1.8
+      \override StanzaNumber.padding = #1.8
     }
   }
 }

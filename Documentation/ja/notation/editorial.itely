@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -106,11 +106,11 @@ Scheme 関数 @code{magstep} は @code{font-size} 数をスケーリング フ�
 @lilypond[verbatim,quote,relative=2]
 \set fontSize = #3
 c4.-> d8---3
-\override NoteHead #'font-size = #-4
+\override NoteHead.font-size = #-4
 c4.-> d8---3
-\override Script #'font-size = #2
+\override Script.font-size = #2
 c4.-> d8---3
-\override Stem #'font-size = #-5
+\override Stem.font-size = #-5
 c4.-> d8---3
 @end lilypond
 
@@ -324,11 +324,11 @@ Notation Reference:
 有効なカラー名は @ref{List of colors} でリストアップされています。
 
 @lilypond[verbatim,quote,relative=2]
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 c4 c
-\override NoteHead #'color = #(x11-color 'LimeGreen)
+\override NoteHead.color = #(x11-color 'LimeGreen)
 d
-\override Stem #'color = #blue
+\override Stem.color = #blue
 e
 @end lilypond
 
@@ -347,20 +347,20 @@ X11 のために定義された色の全範囲にアクセスすることがで�
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
 
 gis8 a
-\override Beam #'color = #(x11-color "medium turquoise")
+\override Beam.color = #(x11-color "medium turquoise")
 gis a
-\override Accidental #'color = #(x11-color 'DarkRed)
+\override Accidental.color = #(x11-color 'DarkRed)
 gis a
-\override NoteHead #'color = #(x11-color "LimeGreen")
+\override NoteHead.color = #(x11-color "LimeGreen")
 gis a
 % 以下は意図的に意味をなさない色を指定しています。符幹が黒のままであることに注意してください
-\override Stem #'color = #(x11-color 'Boggle)
+\override Stem.color = #(x11-color 'Boggle)
 b2 cis
 @end lilypond
 
@@ -374,16 +374,16 @@ Scheme 関数 @code{rgb-color} を用いることによって、@c
 厳密な RGB カラーを指定することができます。
 
 @lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
 
-\override Stem #'color = #(rgb-color 0 0 0)
+\override Stem.color = #(rgb-color 0 0 0)
 gis8 a
-\override Stem #'color = #(rgb-color 1 1 1)
+\override Stem.color = #(rgb-color 1 1 1)
 gis8 a
-\override Stem #'color = #(rgb-color 0 0 0.5)
+\override Stem.color = #(rgb-color 0 0 0.5)
 gis4 a
 @end lilypond
 

@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "vocal-music, ancient-notation, template"
@@ -44,12 +44,12 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \override Stem #'transparent = ##t
-      \override Flag #'transparent = ##t
+      \override Stem.transparent = ##t
+      \override Flag.transparent = ##t
     }
     \context {
       \Voice
-      \override Stem #'length = #0
+      \override Stem.length = #0
     }
     \context {
       \Score

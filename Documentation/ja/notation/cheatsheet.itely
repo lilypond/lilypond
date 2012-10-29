@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -33,7 +33,7 @@
 @tab
 @lilypond[fragment,relative=2,notime]
 \set Staff.autoBeaming = ##f
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
 
@@ -41,7 +41,7 @@ c1 c2 c8 c16
 @tab 増音の付点
 @tab
 @lilypond[relative=2,notime]
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 c4. c4..
 @end lilypond
 
@@ -74,7 +74,7 @@ s4_" "
 @tab 拍子記号
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t
+\override Staff.Clef.transparent = ##t
 \time 3/4
 s4_" "
 \time 4/4
@@ -86,7 +86,7 @@ s16_" "
 @tab 休符
 @tab
 @lilypond[relative=2,notime,fragment]
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 r4 r8
 @end lilypond
 

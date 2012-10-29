@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Spacing corrections for kneed beams still work when
@@ -10,7 +10,7 @@ compression is involved."
 \layout {
   \context {
     \Voice
-    \override Beam #'auto-knee-gap = #1
+    \override Beam.auto-knee-gap = #1
   }
 }
 

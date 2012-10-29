@@ -7,7 +7,7 @@
 %  debug-beam-scoring = ##t
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \new Staff
 {
@@ -36,7 +36,7 @@
       s4. <g g'>4.
     } \\
     {
-%      \override Beam #'inspect-quants = #'(-4 . -3)
+%      \override Beam.inspect-quants = #'(-4 . -3)
       a8[ d e f g]
     }
     >>

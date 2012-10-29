@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -21,7 +21,7 @@ foo = \relative c' {
 \new Staff
 <<
   \new Voice \transpose c c' {
-    \override Stem #'direction = #UP
+    \override Stem.direction = #UP
     \foo
   }
   \new Voice {

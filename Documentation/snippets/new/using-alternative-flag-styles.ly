@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -21,13 +21,13 @@ testnotes = {
   \time 2/4
   \testnotes
 
-  \override Flag #'stencil = #modern-straight-flag
+  \override Flag.stencil = #modern-straight-flag
   \testnotes
 
-  \override Flag #'stencil = #old-straight-flag
+  \override Flag.stencil = #old-straight-flag
   \testnotes
 
-  \revert Flag #'stencil
+  \revert Flag.stencil
   \testnotes
 }
 

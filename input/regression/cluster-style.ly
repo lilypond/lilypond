@@ -1,6 +1,6 @@
 
 
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc = "Clusters behave well across line breaks."
 }
@@ -16,16 +16,16 @@ fragment = \relative c' {
 <<
   \time 2/4 
   \new Staff {
-    \override ClusterSpanner #'style = #'ramp
+    \override ClusterSpanner.style = #'ramp
     \makeClusters \fragment
     r4
-    \override ClusterSpanner #'style = #'leftsided-stairs
+    \override ClusterSpanner.style = #'leftsided-stairs
     \makeClusters \fragment
     r4
-    \override ClusterSpanner #'style = #'rightsided-stairs
+    \override ClusterSpanner.style = #'rightsided-stairs
     \makeClusters \fragment
     r4
-    \override ClusterSpanner #'style = #'centered-stairs
+    \override ClusterSpanner.style = #'centered-stairs
     \makeClusters \fragment
     }
   

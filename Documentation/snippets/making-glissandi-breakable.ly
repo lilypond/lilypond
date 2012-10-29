@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -21,14 +21,14 @@ at a line break:
 
 
 glissandoSkipOn = {
-  \override NoteColumn #'glissando-skip = ##t
-  \override NoteHead #'transparent = ##t
-  \override NoteHead #'no-ledgers = ##t
+  \override NoteColumn.glissando-skip = ##t
+  \override NoteHead.transparent = ##t
+  \override NoteHead.no-ledgers = ##t
 }
 
 \relative c'' {
-  \override Glissando #'breakable = ##t
-  \override Glissando #'after-line-breaking = ##t
+  \override Glissando.breakable = ##t
+  \override Glissando.after-line-breaking = ##t
   f1\glissando |
   \break
   a4 r2. |

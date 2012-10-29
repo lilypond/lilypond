@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "tremolo duration is too long"))
@@ -24,7 +24,7 @@ printed.
 
 \context Voice \relative c''{
   \textSpannerUp
-  \override TextScript  #'padding = #5
+  \override TextScript.padding = #5
   % The following note should print a warning (quarter tremolo cannot be notated)
   a1:4^":4" a:8^":8" c:16^":16" a:32^":32" a^"x" a:^":"
   a':32 a,,:32

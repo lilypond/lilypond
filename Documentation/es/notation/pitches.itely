@@ -2708,13 +2708,13 @@ Se puede modificar la apariencia de la cabeza de las notas:
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
-\override NoteHead #'style = #'cross
+\override NoteHead.style = #'cross
 c4 b
-\revert NoteHead #'style
+\revert NoteHead.style
 a b
-\override NoteHead #'style = #'harmonic
+\override NoteHead.style = #'harmonic
 a b
-\revert NoteHead #'style
+\revert NoteHead.style
 c4 d e f
 @end lilypond
 

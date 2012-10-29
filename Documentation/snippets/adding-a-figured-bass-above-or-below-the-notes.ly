@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "ancient-notation, chords, contexts-and-engravers"
@@ -32,11 +32,11 @@ bass = {
 }
 continuo = \figuremode {
   <_>4 <6>4 <5/>4
-  \override Staff.BassFigureAlignmentPositioning #'direction = #UP
+  \override Staff.BassFigureAlignmentPositioning.direction = #UP
   %\bassFigureStaffAlignmentUp
   < _+ >4 <6>
   \set Staff.useBassFigureExtenders = ##t
-  \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+  \override Staff.BassFigureAlignmentPositioning.direction = #DOWN
   %\bassFigureStaffAlignmentDown
   <4>4. <4>8 <_+>4
 }

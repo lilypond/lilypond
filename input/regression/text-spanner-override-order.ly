@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 sample = \relative c'' {
   c2\startTextSpan c2 \break
@@ -13,15 +13,15 @@ sample = \relative c'' {
 }
 
 << {
-  \override TextSpanner #'bound-details #'left-broken #' text =
+  \override TextSpanner.bound-details.left-broken #' text =
     \markup { \large "BROKEN" }
-  \override TextSpanner #'(bound-details left text) =
+  \override TextSpanner.bound-details.left.text =
     \markup { "text" }
   \sample
 } \\ {
-  \override TextSpanner #'(bound-details left text) =
+  \override TextSpanner.bound-details.left.text =
     \markup { "text" }
-  \override TextSpanner #'bound-details #'left-broken #' text =
+  \override TextSpanner.bound-details.left-broken #' text =
     \markup { \large "BROKEN" }
   \sample
 } >>

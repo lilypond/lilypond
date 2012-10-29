@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "paper-and-layout, text, titles"
@@ -28,7 +28,7 @@ and the following systems, respectively.
 \score {
   \new StaffGroup <<
     \new Staff {
-      \override Staff.InstrumentName #'self-alignment-X = #LEFT
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \set Staff.instrumentName = \markup \left-column {
         "Left aligned"
         "instrument name"
@@ -39,7 +39,7 @@ and the following systems, respectively.
       c''1
     }
     \new Staff {
-      \override Staff.InstrumentName #'self-alignment-X = #CENTER
+      \override Staff.InstrumentName.self-alignment-X = #CENTER
       \set Staff.instrumentName = \markup \center-column {
         Centered
         "instrument name"
@@ -49,7 +49,7 @@ and the following systems, respectively.
       g'1
     }
     \new Staff {
-      \override Staff.InstrumentName #'self-alignment-X = #RIGHT
+      \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \set Staff.instrumentName = \markup \right-column {
         "Right aligned"
         "instrument name"

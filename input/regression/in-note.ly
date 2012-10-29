@@ -9,7 +9,7 @@
 \book {
   \relative c' {
     \repeat unfold 5 {
-      \once \override FootnoteItem #'footnote = ##f
+      \once \override FootnoteItem.footnote = ##f
       \footnote
          "" #'(0 . 0)
          \markup { \box \fill-line { "this is a test" } } NoteHead

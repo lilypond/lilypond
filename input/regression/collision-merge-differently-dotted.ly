@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
     
     texidoc = "If @code{NoteCollision} has
@@ -13,7 +13,7 @@ should not disappear when merging similar note heads."
 \context Staff \relative c'' <<
   {
     g8[ g8]
-    \override Staff.NoteCollision  #'merge-differently-dotted = ##t
+    \override Staff.NoteCollision.merge-differently-dotted = ##t
     g8[ g8]
     g4. r8 g8. g16
     g8 g4 r8 g4

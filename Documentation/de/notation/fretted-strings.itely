@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -249,7 +249,7 @@ benützt, wenn es möglich ist.  Dieses Verhalten kann verändert werden,
 indem @code{restrainOpenStrings} auf @code{#t} gesetzt wird.
 
 @lilypond[quote,ragged-right,verbatim]
-\layout { \override Voice.StringNumber #'stencil = ##f }
+\layout { \override Voice.StringNumber.stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -396,7 +396,7 @@ Flageolett (engl. @emph{harmonic}) kann zur Tabulaturnotation als klingende Tonh
 werden:
 
 @lilypond[verbatim,quote]
-\layout { \override Voice.StringNumber #'stencil = ##f }
+\layout { \override Voice.StringNumber.stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -557,7 +557,7 @@ geschrieben ist:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice \with {
-    \override StringNumber #'stencil = ##f
+    \override StringNumber.stencil = ##f
   } {
     \clef "bass_8"
     \relative c, {
@@ -945,8 +945,7 @@ Fingersatz kann im knappen Modus hinzugefügt werden:
     }
   }
   \context Staff {
-    \override Voice.TextScript
-      #'(fret-diagram-details finger-code) = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
@@ -1023,8 +1022,7 @@ unterste Bund im Diagramm.
     }
   \context Staff {
     \clef "treble_8"
-    \override Voice.TextScript
-      #'(fret-diagram-details finger-code) = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1716,7 +1714,7 @@ notieren kann.
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
-\override TextSpanner #'(bound-details left text) = #"XII "
+\override TextSpanner.bound-details.left.text = #"XII "
 g16\startTextSpan
 b16 e g e b g\stopTextSpan
 e16 b g d
@@ -1754,7 +1752,7 @@ mit einem Text erklärt.
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
-  \override Staff.NoteHead #'style = #'harmonic-mixed
+  \override Staff.NoteHead.style = #'harmonic-mixed
   d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond

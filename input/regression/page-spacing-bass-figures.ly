@@ -9,8 +9,7 @@ the bass figure line should be directly below the 6."
 \score {
  <<
    \new Staff {
-     \overrideProperty Score.NonMusicalPaperColumn
-     #'line-break-system-details #'((alignment-distances . (15)))
+     \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
      c'4
    }
    \new Staff <<

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
@@ -25,8 +25,8 @@ cueWhile =
    (string? string? ly:dir? ly:music?)
    #{
      \cueDuring $instrument #dir {
-       \once \override TextScript #'self-alignment-X = #RIGHT
-       \once \override TextScript #'direction = $dir
+       \once \override TextScript.self-alignment-X = #RIGHT
+       \once \override TextScript.direction = $dir
        <>-\markup { \tiny #name }
        $music
      }

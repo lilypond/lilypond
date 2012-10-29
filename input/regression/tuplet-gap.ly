@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   indent = 0.0\mm
@@ -14,7 +14,7 @@
 
 
 \relative c'' {
-  \override TupletNumber #'text = #tuplet-number::calc-fraction-text
+  \override TupletNumber.text = #tuplet-number::calc-fraction-text
   \times  17/12  { c8 c4 c8 c8}
 }
 

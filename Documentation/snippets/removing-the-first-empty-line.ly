@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "breaks, staff-notation, tweaks-and-overrides"
@@ -30,7 +30,7 @@ written.
   \context {
     \Staff \RemoveEmptyStaves
     % To use the setting globally, uncomment the following line:
-    % \override VerticalAxisGroup #'remove-first = ##t
+    % \override VerticalAxisGroup.remove-first = ##t
   }
 }
 \new StaffGroup <<
@@ -41,7 +41,7 @@ written.
   \new Staff {
     % To use the setting globally, comment this line,
     % uncomment the line in the \layout block above
-    \override Staff.VerticalAxisGroup #'remove-first = ##t
+    \override Staff.VerticalAxisGroup.remove-first = ##t
     R1 \break
     R
   }

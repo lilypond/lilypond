@@ -260,7 +260,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
          (timesig (cons (ly:moment-main-numerator mlen)
                         (ly:moment-main-denominator mlen))))
   #{
-    \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
+    \once \override Staff.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (format-compound-time args)))
     \set Timing.timeSignatureFraction = $timesig
     \set Timing.baseMoment = $beat
@@ -273,11 +273,11 @@ crossStaff =
 #(define-music-function (parser location notes) (ly:music?)
   (_i "Create cross-staff stems")
   #{
-  \temporary \override Stem #'cross-staff = #cross-staff-connect
-  \temporary \override Flag #'style = #'no-flag
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
   $notes
-  \revert Stem #'cross-staff
-  \revert Flag #'style
+  \revert Stem.cross-staff
+  \revert Flag.style
 #})
 
 cueClef =
@@ -411,7 +411,7 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'text (or mark (make-null-markup))
 	       'footnote-text footnote)))
      (if (ly:music? item)
-         #{ \tweak #'footnote-music #mus #item #}
+         #{ \tweak footnote-music #mus #item #}
          #{ \once\override $item #'footnote-music = #mus #})))
 
 grace =
@@ -432,18 +432,18 @@ harmonicByFret = #(define-music-function (parser location fret music) (number? l
 harmonics played on a fretted instrument by touching the strings at @var{fret}.")
   #{
     \set harmonicDots = ##t
-    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
-    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
+    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
        (calc-harmonic-pitch (fret->pitch (number->string fret)) music))
     \unset harmonicDots
-    \revert TabNoteHead #'stencil
-    \revert NoteHead #'Y-extent
-    \revert NoteHead #'stencil
+    \revert TabNoteHead.stencil
+    \revert NoteHead.Y-extent
+    \revert NoteHead.stencil
   #})
 
 harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
@@ -452,18 +452,18 @@ harmonics played on a fretted instrument by touching the strings at the point
 given through @var{ratio}.")
   #{
     \set harmonicDots = ##t
-    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
-    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
+    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
       (calc-harmonic-pitch (ratio->pitch ratio) music))
     \unset harmonicDots
-    \revert TabNoteHead #'stencil
-    \revert NoteHead #'Y-extent
-    \revert NoteHead #'stencil
+    \revert TabNoteHead.stencil
+    \revert NoteHead.Y-extent
+    \revert NoteHead.stencil
   #})
 
 hide =
@@ -476,7 +476,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak #'transparent ##t $item #}
+       #{ \tweak transparent ##t $item #}
        #{ \override $item #'transparent = ##t #}))
 
 inStaffSegno =
@@ -684,7 +684,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak #'stencil ##f $item #}
+       #{ \tweak stencil ##f $item #}
        #{ \override $item #'stencil = ##f #}))
 
 once =
@@ -1167,7 +1167,7 @@ appropriate tweak applied.")
            (offset-control-points (car offsets)))))
    (if (ly:music? item)
        #{
-         \tweak #'control-points #shape-curve $item
+         \tweak control-points #shape-curve $item
        #}
        #{
          \once \override $item #'control-points = #shape-curve
@@ -1225,8 +1225,7 @@ spacingTweaks =
    (_i "Set the system stretch, by reading the 'system-stretch property of
 the `parameters' assoc list.")
    #{
-     \overrideProperty Score.NonMusicalPaperColumn
-     #'line-break-system-details
+     \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
      #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 	     (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})

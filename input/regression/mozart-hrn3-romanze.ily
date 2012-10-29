@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \include  "mozart-hrn3-defs.ily"
 
 romanze =  \relative c' {
@@ -44,12 +44,12 @@ romanze =  \relative c' {
   \grace e16
   d8.[  c16) \< ]  c8[ c-.( c-. c)-.]\!
   \mark "C"
-  \override DynamicLineSpanner #'staff-padding = #2.5
+  \override DynamicLineSpanner.staff-padding = #2.5
   des1\sfp
   g,1\sfp
   c\sfp
   c,\sfp
-  \revert DynamicLineSpanner #'staff-padding
+  \revert DynamicLineSpanner.staff-padding
   R1*3
   r8  c[\p c c] c2~
   c8[ c' c c] c2~

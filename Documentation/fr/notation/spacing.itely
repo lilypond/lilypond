@@ -31,7 +31,7 @@ the staff lines."
 
 Could we add a sentence:
 "Use instead the pair fontSize = #@var{N}
-        \override StaffSymbol #'staff-space = #(magstep @var{N})
+        \override StaffSymbol.staff-space = #(magstep @var{N})
 inside the Staff context to change the size of the font and the
 distance between staff lines accordingly."
 
@@ -1165,12 +1165,12 @@ Voici un exemple de bloc @code{\layout} :
   indent = 2\cm
   \context @{
     \StaffGroup
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #8
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #8
   @}
   \context @{
     \Voice
-    \override TextScript #'padding = #1
-    \override Glissando #'thickness = #3
+    \override TextScript.padding = #1
+    \override Glissando.thickness = #3
   @}
 @}
 @end example
@@ -1192,8 +1192,8 @@ Par exemple, placer le bloc suivant
 \layout @{
   \context @{
     \Voice
-    \override TextScript #'color = #magenta
-    \override Glissando #'thickness = #1.5
+    \override TextScript.color = #magenta
+    \override Glissando.thickness = #1.5
   @}
 @}
 @end example
@@ -1215,7 +1215,7 @@ Lorsque nous définissons la variable suivante,
 layoutVariable = \layout @{
   \context @{
     \Voice
-    \override NoteHead #'font-size = #4
+    \override NoteHead.font-size = #4
   @}
 @}
 @end example
@@ -1235,7 +1235,7 @@ Notre variable peut alors être utilisée au sein d'un autre bloc
   \layoutVariable
   \context @{
     \Voice
-    \override NoteHead #'color = #red
+    \override NoteHead.color = #red
   @}
 @}
 @end example
@@ -1465,10 +1465,10 @@ forcés doivent être saisis au sein d'une expression polyphonique :
 
 Selon le même principe, un saut de ligne ne peut intervenir alors qu'une
 ligature s'étend sur deux mesures consécutives.  Il faut en ce cas là
-introduire la dérogation @w{@code{\override Beam #'breakable = ##t}}.
+introduire la dérogation @w{@code{\override Beam.breakable = ##t}}.
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam #'breakable = ##t
+\override Beam.breakable = ##t
 c2. c8[ c | \break
 c8 c] c2. |
 @end lilypond
@@ -1800,8 +1800,8 @@ Il arrive parfois que LilyPond rejette des @code{\break} ou des
 avec ces deux instructions dérogatoires :
 
 @example
-\override NonMusicalPaperColumn #'line-break-permission = ##f
-\override NonMusicalPaperColumn #'page-break-permission = ##f
+\override NonMusicalPaperColumn.line-break-permission = ##f
+\override NonMusicalPaperColumn.page-break-permission = ##f
 @end example
 
 Lorsque vous désactivez @code{line-break-permission}, LilyPond
@@ -1834,8 +1834,8 @@ musique = \relative c'' { c8 c c c }
   \layout {
     \context {
       \Score
-      \override NonMusicalPaperColumn #'line-break-permission = ##f
-      \override NonMusicalPaperColumn #'page-break-permission = ##f
+      \override NonMusicalPaperColumn.line-break-permission = ##f
+      \override NonMusicalPaperColumn.page-break-permission = ##f
     }
   }
 }
@@ -1906,20 +1906,16 @@ music = \relative c'' { c4 c c c }
 \score {
   \new Staff <<
     \new Voice {
-      \overrideProperty Score.NonMusicalPaperColumn
-        #'line-break-system-details #'((Y-offset . 0))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
       s1 * 2 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn
-        #'line-break-system-details #'((Y-offset . 35))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 35))
       s1 * 3 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn
-        #'line-break-system-details #'((Y-offset . 70))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 70))
       s1 * 6 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn
-        #'line-break-system-details #'((Y-offset . 105))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 105))
       s1 * 5 \break
     }
     \new Voice {
@@ -2054,14 +2050,14 @@ En voici une représentation graphique :
 #(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
 }
 staffAffinityDown = \with {
-  \override VerticalAxisGroup #'staff-affinity = #DOWN
+  \override VerticalAxisGroup.staff-affinity = #DOWN
 }
 labelContext =
 #(define-music-function
@@ -2079,13 +2075,13 @@ labelContext =
                           \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
-    \override BarLine #'stencil = ##f
-    \override DynamicText #'self-alignment-X = #-1
-    \override FretBoard #'X-offset = #1.75
-    \override InstrumentName #'minimum-Y-extent = #'(-2 . 2)
-    \override InstrumentName #'extra-offset = #'(0 . -0.5)
-    \override TextScript #'minimum-Y-extent = #'(-2 . 3)
-    \override TimeSignature #'stencil = ##f
+    \override BarLine.stencil = ##f
+    \override DynamicText.self-alignment-X = #-1
+    \override FretBoard.X-offset = #1.75
+    \override InstrumentName.minimum-Y-extent = #'(-2 . 2)
+    \override InstrumentName.extra-offset = #'(0 . -0.5)
+    \override TextScript.minimum-Y-extent = #'(-2 . 3)
+    \override TimeSignature.stencil = ##f
   }
 }
 
@@ -2151,11 +2147,11 @@ alors que la seconde redéfinit la propriété dans son intégralité.
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+  \override VerticalAxisGroup.staff-staff-spacing.basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'staff-staff-spacing =
+  \override VerticalAxisGroup.staff-staff-spacing =
     #'(('basic-distance  . 10)
        (minimum-distance . 9)
        (padding . 1)
@@ -2170,7 +2166,7 @@ bloc @code{\layout} :
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'staff-staff-spacing #'basic-distance = #10
+    \override VerticalAxisGroup.staff-staff-spacing.basic-distance = #10
   @}
 @}
 @end example
@@ -2329,7 +2325,7 @@ sein de regroupements.
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'default-staff-staff-spacing =
+    \override VerticalAxisGroup.default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
@@ -2351,7 +2347,7 @@ sein de regroupements.
   % By setting 'padding to a negative value, staves can be made to
   % collide.  The lowest acceptable value for 'basic-distance is 0.
   \new Staff \with {
-    \override VerticalAxisGroup #'default-staff-staff-spacing =
+    \override VerticalAxisGroup.default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2409,14 +2405,14 @@ regroupées, à l'aide des propriétés de l'objet graphique
 \layout {
   \context {
     \Score
-    \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
+    \override StaffGrouper.staff-staff-spacing.padding = #0
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
+    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2477,24 +2473,23 @@ Vous noterez que la valeur élevée attribuée à la clé
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup
-      #'nonstaff-nonstaff-spacing #'stretchability = #1000
+    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
+    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #UP
+    \override VerticalAxisGroup.staff-affinity = #UP
   } \lyricmode { up }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #CENTER
+    \override VerticalAxisGroup.staff-affinity = #CENTER
   } \lyricmode { center }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #DOWN
+    \override VerticalAxisGroup.staff-affinity = #DOWN
   } \lyricmode { down }
   \new Staff { c'1 }
 >>
@@ -2559,21 +2554,16 @@ quelques exemples de réglages de @code{NonMusicalPaperColumn} à l'aide
 de la commande @code{\overrideProperty} :
 
 @example
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20)
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
                                  (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20)
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
                                  (Y-offset . 40)
                                  (alignment-distances . (15)))
 @end example
@@ -2627,14 +2617,11 @@ de l'objet @code{NonMusicalPaperColumn} :
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 0))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 40))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 80))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 80))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2666,16 +2653,13 @@ jouer sur la distance séparant les portées de chacun des systèmes, grâce
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 20)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 20)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 60)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 100)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (15)))
           s1*5 \break
         }
@@ -2707,16 +2691,13 @@ d'un regroupement de portées.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 0)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0)
                                            (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 60)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn
-            #'line-break-system-details #'((Y-offset . 100)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (10 30)))
           s1*5 \break
         }
@@ -2794,13 +2775,13 @@ près de la portée.
 @lilypond[quote,ragged-right,relative=2,verbatim]
 c4_"Text"\pp
 r2.
-\once \override TextScript #'outside-staff-priority = #1
+\once \override TextScript.outside-staff-priority = #1
 c4_"Text"\pp % this time the text will be closer to the staff
 r2.
 % by setting outside-staff-priority to a non-number,
 % we disable the automatic collision avoidance
-\once \override TextScript #'outside-staff-priority = ##f
-\once \override DynamicLineSpanner #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
+\once \override DynamicLineSpanner.outside-staff-priority = ##f
 c4_"Text"\pp % now they will collide
 @end lilypond
 
@@ -2809,9 +2790,9 @@ le précède se contrôle par la propriété @code{outside-staff-padding}.
 
 @c KEEP LY
 @lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript #'outside-staff-padding = #0
+\once \override TextScript.outside-staff-padding = #0
 a'^"Ce texte est placé au plus près de la note"
-\once \override TextScript #'outside-staff-padding = #3
+\once \override TextScript.outside-staff-padding = #3
 c^"Ce texte est décalé par rapport au texte précédent"
 c^"Ce texte est accolé au texte précédent"
 @end lilypond
@@ -2832,7 +2813,7 @@ c4
 c''2
 % setting outside-staff-horizontal-padding fixes this
 R1
-\once \override TextScript #'outside-staff-horizontal-padding = #1
+\once \override TextScript.outside-staff-horizontal-padding = #1
 c,,4^"Text"
 c4
 c''2
@@ -2941,8 +2922,8 @@ les réglages par défaut, puis avec des corrections forcées.
 {
   c'4 e''4 e'4 b'4 |
   b'4 e''4 b'4 e''4 |
-  \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
-  \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
+  \override Staff.NoteSpacing.stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing.stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
   b'4 e''4 b'4 e''4 |
 }
@@ -2971,7 +2952,7 @@ cependant @qq{d'aérer} artificiellement une partition ; il vous
 suffit d'ajuster la valeur du décalage @emph{(padding)} autant que de
 besoin.
 @example
- \override Score.NonMusicalPaperColumn #'padding = #10
+ \override Score.NonMusicalPaperColumn.padding = #10
 @end example
 
 Il n'y a aucun moyen de diminuer l'espacement.
@@ -3046,8 +3027,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -3081,7 +3061,7 @@ s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
   \layout {
     \context {
       \Score
-      \override SpacingSpanner #'uniform-stretching = ##t
+      \override SpacingSpanner.uniform-stretching = ##t
     }
   }
 }
@@ -3092,7 +3072,7 @@ les notes sans tenir compte des clefs, barres de mesure ou notes
 d'ornement qui pourraient apparaître :
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override Score.SpacingSpanner #'strict-note-spacing = ##t
+\override Score.SpacingSpanner.strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
@@ -3185,7 +3165,7 @@ point cette notation proportionnelle.
 
 @item @code{\remove "Separating_line_group_engraver"}
 
-@item @code{\override PaperColumn #'used = ##t}
+@item @code{\override PaperColumn.used = ##t}
 
 @end itemize
 
@@ -3422,7 +3402,7 @@ allons activer le @code{uniform-stretching}, propriété attachée au
     \context {
       \Score
       proportionalNotationDuration = #(ly:make-moment 1 20)
-      \override SpacingSpanner #'uniform-stretching = ##t
+      \override SpacingSpanner.uniform-stretching = ##t
     }
   }
 }
@@ -3526,7 +3506,7 @@ les deux portées suivantes :
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
-  \override Score.SpacingSpanner #'strict-note-spacing = ##t
+  \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
   c''8
@@ -3549,11 +3529,11 @@ En plus de ceux que nous venons de voir, vous trouverez d'autres
 réglages en usage dans la notation proportionnelle comme, entre autres,
 
 @itemize
-@item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
+@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
 @item @code{tupletFullLength = ##t}
-@item @code{\override Beam #'breakable = ##t}
-@item @code{\override Glissando #'breakable = ##t}
-@item @code{\override TextSpanner #'breakable = ##t}
+@item @code{\override Beam.breakable = ##t}
+@item @code{\override Glissando.breakable = ##t}
+@item @code{\override TextSpanner.breakable = ##t}
 @item @code{\remove "Forbid_line_break_engraver" (dans un contexte de voix}
 @end itemize
 
@@ -3711,7 +3691,7 @@ se @qq{détachent} d'un système peuvent être rapprochés de la portée :
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
-e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
+e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
 @end lilypond
 
 @item
@@ -3750,8 +3730,7 @@ valeur plus longue -- donnera un effet @qq{resserré} à la musique :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
     }
   }
 }

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -24,9 +24,9 @@ beaming for grace notes.
   f8[ e]
   \grace {
     f8[ e]
-    \override Stem  #'no-stem-extend = ##f
+    \override Stem.no-stem-extend = ##f
     f8[ e]
-    \revert Stem #'no-stem-extend
+    \revert Stem.no-stem-extend
   }
   f8[ e]
 }

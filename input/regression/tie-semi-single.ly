@@ -8,7 +8,7 @@ tweaked with @code{'direction}."
 
 
 }
-\version "2.16.0"
+\version "2.17.6"
 \layout{ragged-right=##t}
 
 {
@@ -24,7 +24,7 @@ tweaked with @code{'direction}."
   c''\laissezVibrer\repeatTie
   r
   
-  \override LaissezVibrerTie #'direction = #DOWN
-  \override RepeatTie #'direction = #DOWN
+  \override LaissezVibrerTie.direction = #DOWN
+  \override RepeatTie.direction = #DOWN
   c''\laissezVibrer_"override"\repeatTie
 } 

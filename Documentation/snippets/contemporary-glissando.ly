@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contemporary-notation, expressive-marks, specific-notation"
@@ -20,7 +20,7 @@ hidden note and cadenza timing.
 
 \relative c'' {
   \time 3/4
-  \override Glissando #'style = #'zigzag
+  \override Glissando.style = #'zigzag
   c4 c
   \cadenzaOn
   c4\glissando

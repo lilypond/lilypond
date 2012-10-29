@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   
   texidoc = "There is limited support for mensural notation: note head
@@ -9,7 +9,7 @@ both for up and down stems."
 
 
 { \context Voice { 
-  \override NoteHead  #'style = #'mensural
+  \override NoteHead.style = #'mensural
   \transpose c d'' {  c4 c2 c8  c16 c16  c1 c\breve c\longa }
   \transpose c c' { c4 c2 c8  c16 c16  c1 c\breve c\longa }
 }}

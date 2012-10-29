@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc="Festival song synthesis output supports
 reordered lyrics.
@@ -15,7 +15,7 @@ reordered lyrics.
       \context Voice = alternative {
         \voiceOne
         \times 2/3 {
-          \override NoteColumn #'force-hshift = #-3
+          \override NoteColumn.force-hshift = #-3
           f8 f g
         }
       }

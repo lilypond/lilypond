@@ -5,7 +5,7 @@
 
 }
 \paper { ragged-right = ##T }
-\version "2.16.0"
+\version "2.17.6"
 
 \score{
   {
@@ -40,7 +40,7 @@
   \layout {
     \context {
       \Score
-      \override PaperColumn #'keep-inside-line = ##f
+      \override PaperColumn.keep-inside-line = ##f
     }
   }
 }

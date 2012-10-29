@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -20,16 +20,16 @@ dotted-line, line, trill or zigzag.
 
 \relative c' {
   c2\< c\!
-  \override Hairpin #'style = #'dashed-line
+  \override Hairpin.style = #'dashed-line
   c2\< c\!
-  \override Hairpin #'style = #'dotted-line
+  \override Hairpin.style = #'dotted-line
   c2\< c\!
-  \override Hairpin #'style = #'line
+  \override Hairpin.style = #'line
   c2\< c\!
-  \override Hairpin #'style = #'trill
+  \override Hairpin.style = #'trill
   c2\< c\!
-  \override Hairpin #'style = #'zigzag
+  \override Hairpin.style = #'zigzag
   c2\< c\!
-  \revert Hairpin #'style
+  \revert Hairpin.style
   c2\< c\!
 }

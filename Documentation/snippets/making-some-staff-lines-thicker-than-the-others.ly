@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, staff-notation, workaround"
@@ -21,7 +21,7 @@ emphasized, using the @code{line-positions} property of the
 } % begin verbatim
 
 {
-  \override Staff.StaffSymbol #'line-positions =
+  \override Staff.StaffSymbol.line-positions =
     #'(-4 -2 -0.2 0 0.2 2 4)
   d'4 e' f' g'
 }

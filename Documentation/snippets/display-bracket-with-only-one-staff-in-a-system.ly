@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -28,8 +28,8 @@ property has to be set, as shown on the second system in the example.
   \score {
     \new StaffGroup <<
       % Must be lower than the actual number of staff lines
-      \override StaffGroup.SystemStartBracket #'collapse-height = #1
-      \override Score.SystemStartBar #'collapse-height = #1
+      \override StaffGroup.SystemStartBracket.collapse-height = #1
+      \override Score.SystemStartBar.collapse-height = #1
       \new Staff {
         c'1
       }
@@ -39,8 +39,8 @@ property has to be set, as shown on the second system in the example.
   \null
   \score {
     \new PianoStaff <<
-      \override PianoStaff.SystemStartBrace #'collapse-height = #1
-      \override Score.SystemStartBar #'collapse-height = #1
+      \override PianoStaff.SystemStartBrace.collapse-height = #1
+      \override Score.SystemStartBar.collapse-height = #1
       \new Staff {
         c'1
       }

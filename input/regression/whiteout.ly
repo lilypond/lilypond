@@ -4,7 +4,7 @@
 markup.  "
 
 }
-\version "2.16.0"
+\version "2.17.6"
 
 \paper
 {
@@ -12,7 +12,7 @@ markup.  "
 }
 
 \relative c'' {
-  \override TextScript #'layer = #'2
-  \override TextScript #'extra-offset = #'(2 . 4)
+  \override TextScript.layer = #'2
+  \override TextScript.extra-offset = #'(2 . 4)
   c4-\markup  { \whiteout \pad-markup #0.5 foo } c
 }

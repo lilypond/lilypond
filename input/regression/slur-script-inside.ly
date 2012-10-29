@@ -8,17 +8,17 @@
 }
 
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout { ragged-right = ##t }
 
 \relative c''{
     \clef alto
     \slurUp
-    \override Script #'slur-padding = #0.2
-    \override Script #'avoid-slur = #'inside
+    \override Script.slur-padding = #0.2
+    \override Script.avoid-slur = #'inside
     c4(^\downbow b) 
-    \override Script #'avoid-slur = #'around
+    \override Script.avoid-slur = #'around
     c4(^\downbow b) 
     c4^\downbow b 
 }

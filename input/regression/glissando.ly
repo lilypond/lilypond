@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header{
 
@@ -18,7 +18,7 @@ The engraver does no time-keeping, so it involves some trickery to get
 }
 
 \new Staff \relative c''{
-  \override Glissando #'breakable = ##t
+  \override Glissando.breakable = ##t
   
   %% gliss non gliss and 
   c4 \glissando d e \glissando f \glissando \break
@@ -26,7 +26,7 @@ The engraver does no time-keeping, so it involves some trickery to get
   c \glissando d, \glissando e'
   << { e8 \glissando g8 } \\
      { \repeat unfold 4 d16 } >>
-  \override Glissando  #'style = #'zigzag
+  \override Glissando.style = #'zigzag
   c4 \glissando c,, \glissando c' \glissando d
 }
 

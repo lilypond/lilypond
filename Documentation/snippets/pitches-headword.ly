@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -67,7 +67,7 @@ Piches headword
     % RH Voice 2
     \new Voice {
       \voiceTwo
-      \override Staff.DynamicLineSpanner #'staff-padding = #2.5
+      \override Staff.DynamicLineSpanner.staff-padding = #2.5
       <e'' b'>2 \p
       <ds'' a'>4
       <cs'' gs'>4
@@ -75,7 +75,7 @@ Piches headword
       <bs' fs'>2
       e'2
       |
-      \once \override TextScript #'staff-padding = #2.5
+      \once \override TextScript.staff-padding = #2.5
       <b'! a'>2 _ \markup \italic { cresc. }
       b'4
       <e'' cs''>4
@@ -99,7 +99,7 @@ Piches headword
 
   % LH Staff
   \new Staff {
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #5
+    \override Staff.SustainPedalLineSpanner.staff-padding = #5
     <gs' e'>2 ( \sustainOn
     <fs' ds' b>4 \sustainOff
     <e' cs'>4

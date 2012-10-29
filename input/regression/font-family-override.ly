@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   % change for other default global staff size.
@@ -55,7 +55,7 @@
   \layout {
     \context {
       \Score
-      \override PaperColumn #'keep-inside-line = ##f
+      \override PaperColumn.keep-inside-line = ##f
     }
   }
 

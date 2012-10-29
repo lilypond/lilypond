@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t
@@ -12,7 +12,7 @@ even across multiple staves."
 \layout {
   \context {
     \Score
-    \override TupletBracket #'bracket-visibility = ##t
+    \override TupletBracket.bracket-visibility = ##t
   }
 }
 

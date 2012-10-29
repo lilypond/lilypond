@@ -3,7 +3,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper {
   ragged-right = ##t
 }
@@ -16,7 +16,7 @@
     c]
 
   % only works for the right edge, sorry. 
-  \override Beam #'break-overshoot = #'(-0.5 . 0.5) 
+  \override Beam.break-overshoot = #'(-0.5 . 0.5) 
   \set stemLeftBeamCount = #2
   c8[
     c16

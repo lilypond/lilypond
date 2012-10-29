@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks"
@@ -20,7 +20,7 @@ following way:
 
 
 \relative c'' {
-  \override DynamicTextSpanner #'style = #'none
+  \override DynamicTextSpanner.style = #'none
   \crescTextCresc
   c1\< | d | b | c\!
 }

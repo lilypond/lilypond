@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
@@ -25,7 +25,7 @@ used with care.
 } % begin verbatim
 
 
-ignore = \override NoteColumn #'ignore-collision = ##t
+ignore = \override NoteColumn.ignore-collision = ##t
 
 \relative c' {
   <<

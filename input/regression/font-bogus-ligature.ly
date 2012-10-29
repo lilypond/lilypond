@@ -5,7 +5,7 @@ This may happen with incorrect font versions.
 "
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##T
@@ -19,7 +19,7 @@ This may happen with incorrect font versions.
   \layout {
     \context {
       \Score
-      \override PaperColumn #'keep-inside-line = ##f
+      \override PaperColumn.keep-inside-line = ##f
     }
   }
 }

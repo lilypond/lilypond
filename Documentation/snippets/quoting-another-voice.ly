@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation"
@@ -33,7 +33,7 @@ quoteMe = \relative c' {
 
 original = \relative c'' {
   c8 d s2
-  \once \override NoteColumn #'ignore-collision = ##t
+  \once \override NoteColumn.ignore-collision = ##t
   es8 gis8
 }
 
@@ -54,7 +54,7 @@ original = \relative c'' {
     \new Voice {
       s4
       \set fontSize = #-4
-      \override Stem #'length-fraction = #(magstep -4)
+      \override Stem.length-fraction = #(magstep -4)
       \quoteDuring #"quoteMe" { \skip 2. }
     }
   >>

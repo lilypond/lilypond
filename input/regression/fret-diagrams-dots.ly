@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -32,8 +32,7 @@ size, and coloring.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \override TextScript #'fret-diagram-details 
-        #'dot-radius = #0.3
+    \override TextScript.fret-diagram-details.dot-radius = #0.3
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -44,9 +43,8 @@ size, and coloring.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \revert TextScript #'(fret-diagram-details dot-radius)
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-color = #'white
+    \revert TextScript.fret-diagram-details.dot-radius
+    \once \override TextScript.fret-diagram-details.dot-color = #'white
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -57,8 +55,7 @@ size, and coloring.
                                      (barre 5 1 3))}
 
      %% C major for guitar,  verbose style
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-position = #0.5
+    \once \override TextScript.fret-diagram-details.dot-position = #0.5
     c'1 ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)

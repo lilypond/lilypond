@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -309,7 +309,7 @@ warning: ignoring too many clashing note columns
 以下でこのメッセージを表示させなくすることができます:
 
 @example
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 @end example
 
 しかしながら、これは警告を非表示にするだけでなく、@c
@@ -858,13 +858,13 @@ etc.
 @cindex collisions, ignoring (衝突を無視する)
 
 @knownissues
-@code{\override NoteColumn #'ignore-collision = ##t} を使うと@c
+@code{\override NoteColumn.ignore-collision = ##t} を使うと@c
 異なるボイスにある符頭が異なる音符を不適切にマージします。
 
 @lilypond[quote,relative=1,verbatim]
 \mergeDifferentlyHeadedOn
 << { c16 a' b a } \\ { c,2 } >>
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 << { c16 a' b a } \\ { c,2 } >>
 @end lilypond
 

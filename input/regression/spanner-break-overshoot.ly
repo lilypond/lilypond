@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The @code{break-overshoot} property sets the amount that
@@ -10,9 +10,9 @@ prefatory matter."
 \paper { ragged-right = ##t }
 
 \relative c'' {
-  \override Beam #'break-overshoot = #'(1.0 . 2.0)
-  \override TupletBracket #'break-overshoot = #'(1.0 . 2.0)
-  \override TupletBracket #'bracket-visibility = ##t
-  \override Beam #'breakable = ##t
+  \override Beam.break-overshoot = #'(1.0 . 2.0)
+  \override TupletBracket.break-overshoot = #'(1.0 . 2.0)
+  \override TupletBracket.bracket-visibility = ##t
+  \override Beam.breakable = ##t
   c2.. \times 2/3 { c8.[ \break c8.] }
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The @code{dot-count} property
@@ -8,8 +8,8 @@ for @code{Dots} can be modified by the user."
 
 \relative c'' {
   c4.. a16
-  \override Dots #'dot-count = #4
+  \override Dots.dot-count = #4
   g4.. e16
-  \override Dots #'dot-count = #0
+  \override Dots.dot-count = #0
   c4. r8 r2
 }

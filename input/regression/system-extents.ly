@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
     texidoc = "The size of every system is correctly determined; this 
@@ -10,14 +10,14 @@
 \layout { 
     \context {
 	\Score
-	\override System  #'stencil = #box-grob-stencil
+	\override System.stencil = #box-grob-stencil
     }
 }
 
 \new Voice
 {
     \unset Staff.minimumVerticalExtent
-    \override Score.RehearsalMark #'font-size = #20
+    \override Score.RehearsalMark.font-size = #20
     
     \slurDown c4 ( g4  c''4)
 }

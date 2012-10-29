@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -316,7 +316,7 @@ Warnung: zu viele kollidierende Notenspalten werden ignoriert
 während der Kompilation.  Diese Nachricht kann unterdrückt werden durch
 
 @example
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 @end example
 
 Das unterdrückt jedoch nicht nur die Warnungen, sondern schaltet auch
@@ -888,14 +888,14 @@ Referenz der Interna:
 @rinternals{RestCollision}.
 
 @knownissues
-Die Benutzung von @code{\override NoteColumn #'ignore-collision = ##t}
+Die Benutzung von @code{\override NoteColumn.ignore-collision = ##t}
 führt dazu, dass Noten mit unterschiedlichen Köpfen in unterschiedlichen
 Stimmen falsch verschmolzen werden.
 
 @lilypond[quote,relative=1,verbatim]
 \mergeDifferentlyHeadedOn
 << { c16 a' b a } \\ { c,2 } >>
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 << { c16 a' b a } \\ { c,2 } >>
 @end lilypond
 

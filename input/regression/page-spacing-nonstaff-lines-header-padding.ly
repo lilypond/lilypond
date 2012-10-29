@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Padding from the header and footer is measured to the
@@ -17,10 +17,10 @@ first non-staff line, whether or not it is spaceable."
 
   \score {
     <<
-      \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { foo }
-      \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { foo }
-      \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { foo }
-      \new Lyrics \with { \override VerticalAxisGroup #'staff-affinity = #DOWN } \lyricmode { foo }
+      \new Lyrics \with { \override VerticalAxisGroup.staff-affinity = #DOWN } \lyricmode { foo }
+      \new Lyrics \with { \override VerticalAxisGroup.staff-affinity = #DOWN } \lyricmode { foo }
+      \new Lyrics \with { \override VerticalAxisGroup.staff-affinity = #DOWN } \lyricmode { foo }
+      \new Lyrics \with { \override VerticalAxisGroup.staff-affinity = #DOWN } \lyricmode { foo }
       \new Staff { c'1 }
       \new Staff { c'1 }
       \new Lyrics \lyricmode { foo }

@@ -10,7 +10,7 @@
 
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c \version "2.16.0"
+@c \version "2.17.6"
 @node A kimenet finomhangolása
 @chapter A kimenet finomhangolása
 @translationof Tweaking output
@@ -605,7 +605,7 @@
 @c line-width ensures no break
 @c line-width ensures no break
 @c ode{staff-position} property, which is specified in half staff
-@c ode{\once \override Tie #'staff-position = #3.5}
+@c ode{\once \override Tie.staff-position = #3.5}
 @c line-width ensures no break
 @c line-width ensures no break
 @c index Tie, example of overriding
@@ -672,10 +672,10 @@
 @c index variables, using for tweaks
 @c index using variables for tweaks
 @c index tweaks, using variables for
-@c ode{\override Lyrics . LyricText #'font-shape = #'italic}
-@c ode{\override Lyrics . LyricText #'font-series = #'bold}
-@c ode{\revert Lyrics . LyricText #'font-shape}
-@c ode{\revert Lyrics . LyricText #'font-series}
+@c ode{\override Lyrics.LyricText.font-shape = #'italic}
+@c ode{\override Lyrics.LyricText.font-series = #'bold}
+@c ode{\revert Lyrics.LyricText.font-shape}
+@c ode{\revert Lyrics.LyricText.font-series}
 @c index LyricText, example of overriding
 @c index font-shape property, example
 @c index font-series property, example

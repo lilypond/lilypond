@@ -6,17 +6,17 @@ Scheme list syntax."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c' {
   f2 \glissando c
-  \override Glissando #'bound-details #'right #'Y = #4
+  \override Glissando.bound-details.right.Y = #4
   f2 \glissando c |
-  \override Glissando #'bound-details #'left #'Y = #-6
+  \override Glissando.bound-details.left.Y = #-6
   f2 \glissando c
-  \revert Glissando #'(bound-details right Y)
+  \revert Glissando.bound-details.right.Y
   f2 \glissando c
-  \revert Glissando #'(bound-details left Y)
+  \revert Glissando.bound-details.left.Y
   f2 \glissando c
 }
 

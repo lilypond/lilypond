@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -22,7 +22,7 @@ second number indicates the direction (1 = up, -1 = down).
 
 \relative c' {
   <c e g>2~ <c e g>
-  \override TieColumn #'tie-configuration =
+  \override TieColumn.tie-configuration =
     #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
   <c e g>2~ <c e g>
 }

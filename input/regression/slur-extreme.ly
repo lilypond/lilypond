@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -18,7 +18,7 @@ baseWalk =  \relative c {
     \slurUp
     d,8[( a' d f] a[ d f d] a[ f d  a)]
     d,8[( a' d f] a[ a a d] f[ d d,  a)]
-    \once\override Slur #'eccentricity = #6.0
+    \once\override Slur.eccentricity = #6.0
     d,8[( a' d f] a[ a a d] f[ d d,  a)]
 }
 

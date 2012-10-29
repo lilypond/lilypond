@@ -3,13 +3,13 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout{ragged-right=##t}
 \new Staff {
 
-  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
-  \override Score.NonMusicalPaperColumn #'layer = #1
+  \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
+  \override Score.NonMusicalPaperColumn.layer = #1
   
   s1
   <b' c'' c'>2\arpeggio

@@ -14,7 +14,7 @@ effect of a setting is delayed is one syllable."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   ragged-right = ##t
@@ -35,10 +35,10 @@ effect of a setting is delayed is one syllable."
   syl -- lab word
 
   %% increase minimum-distance: forces more space, so hyphen reappears
-  \override LyricHyphen #'minimum-distance = #1.0
+  \override LyricHyphen.minimum-distance = #1.0
   syl -- lab word
 
   %% minimum-distance 0 for LyricSpace: this places words next to each other. 
-  \override LyricSpace #'minimum-distance = #0.0
+  \override LyricSpace.minimum-distance = #0.0
   syl -- lab word
 }
