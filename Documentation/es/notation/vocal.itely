@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.5"
+@c \version "2.17.6"
 
 @node Música vocal
 @section Música vocal
@@ -174,14 +174,14 @@ dentro de las instrucciones @code{\override}.  @emph{No} escriba lo
 siguiente:
 
 @example
-\override Score.LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 @noindent
 sino lo siguiente:
 
 @example
-\override Score . LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 Los signos de puntuación, las letras con caracteres acentuados o de
@@ -1066,7 +1066,7 @@ referencia, usando @code{\context}, como se ve a continuación:
   <<
     \new Lyrics = "lyrics" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "melody" {
@@ -1097,7 +1097,7 @@ ejemplo del segundo método:
     \new Lyrics = "sopranos"
     \new Lyrics = "contraltos" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "contraltos" {
@@ -1147,7 +1147,7 @@ propiedad @code{minimum-distance} de @code{LyricSpace}.
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
 }
 \addlyrics {
@@ -1173,7 +1173,7 @@ la propiedad dentro del bloque @code{\layout}.
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = #1.0
     }
   }
 }
@@ -1191,7 +1191,7 @@ acelerar ligeramente el procesado, se puede desactivar esta
 funcionalidad:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 Para hacer que el texto evite también las líneas divisorias, use
@@ -1202,7 +1202,7 @@ Para hacer que el texto evite también las líneas divisorias, use
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
   @}
 @}
 @end example
@@ -1937,7 +1937,7 @@ propiedad @code{associatedVoice}:
         \voiceOne
         \times 2/3 {
           % show associations clearly.
-          \override NoteColumn #'force-hshift = #-3
+          \override NoteColumn.force-hshift = #-3
           f8 f g
         }
       }
@@ -2365,8 +2365,8 @@ pautas respectivas, como se muestra aquí:
   \layout {
     \context {
       \Score
-      \override DynamicText #'direction = #UP
-      \override DynamicLineSpanner #'direction = #UP
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
     }
   }
 }
@@ -2656,7 +2656,7 @@ pianoRH = \relative c'' {
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
     \set instrumentCueName = "Flute"
   }
   \cueDuring "flute" #UP { g4 bes4 }
@@ -2700,8 +2700,8 @@ pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
-    \override InstrumentSwitch #'direction = #DOWN
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
+    \override InstrumentSwitch.direction = #DOWN
     \set instrumentCueName = "Clar."
   }
   \cueDuring "clarinet" #DOWN { c4. g8 }
@@ -2843,8 +2843,8 @@ dialogue = \lyricmode {
 \score {
   <<
     \new Lyrics \with {
-      \override LyricText #'font-shape = #'italic
-      \override LyricText #'self-alignment-X = #LEFT
+      \override LyricText.font-shape = #'italic
+      \override LyricText.self-alignment-X = #LEFT
     }
     { \dialogue }
     \new Staff {
@@ -2914,7 +2914,7 @@ Los cánticos usan con frecuencia figuras negras sin plica para indicar
 la altura, tomando las duraciones del ritmo hablado del texto.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem #'transparent = ##t }
+stemOff = { \override Staff.Stem.transparent = ##t }
 
 \relative c' {
   \stemOff
@@ -3022,23 +3022,23 @@ Este ejemplo utiliza una marca @code{\breathe} modificada:
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 
@@ -3154,8 +3154,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner
-          #'base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
         }
         \context {
           \Staff

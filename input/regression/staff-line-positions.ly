@@ -6,11 +6,11 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 
 \new Staff \relative c'  {
-  \override Staff.StaffSymbol #'line-positions = #'(-7 -2 0 3 9)
+  \override Staff.StaffSymbol.line-positions = #'(-7 -2 0 3 9)
   g c f b e a
 }
   

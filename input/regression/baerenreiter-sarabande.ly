@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 forcedLastBreak =  { \break }
 
@@ -16,7 +16,7 @@ forcedLastBreak =  { \break }
 
 
 #(define (assert-system-count-override count)
-  #{ \override NoteHead #'after-line-breaking
+  #{ \override NoteHead.after-line-breaking
        = #(lambda (smob) (assert-system-count smob count))
   #})
 
@@ -51,7 +51,7 @@ half way in measure 13 has been forgotten.
 
 
 sarabandeA =  \context Voice  \relative c {
-  \override Staff.NoteCollision  #'merge-differently-dotted = ##t
+  \override Staff.NoteCollision.merge-differently-dotted = ##t
 
 
   << { d8. e16 e4.\trill d16 e } \\
@@ -156,11 +156,11 @@ smallerPaper = \layout {
   \context {
     \Staff
     fontSize = #-1
-    \override StaffSymbol  #'staff-space = #0.8
+    \override StaffSymbol.staff-space = #0.8
   }
   \context {
     \Score
-    \override SpacingSpanner #'spacing-increment = #0.96
+    \override SpacingSpanner.spacing-increment = #0.96
   }
 
   indent = 5.6 \mm

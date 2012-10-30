@@ -5,15 +5,15 @@
 }
 
 
-\version "2.16.0"
+\version "2.17.6"
 \layout{
   ragged-right = ##t 
 }
 
 
 \relative c'' {
-  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
-  \override Score.NonMusicalPaperColumn #'layer = #2
+  \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
+  \override Score.NonMusicalPaperColumn.layer = #2
   
   \time 2/4
   \stemUp

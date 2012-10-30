@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, tweaks-and-overrides"
@@ -23,8 +23,8 @@ horizontally.
 
 
 \relative c'' {
-  \once \override TextScript #'avoid-slur = #'inside
-  \once \override TextScript #'outside-staff-priority = ##f
+  \once \override TextScript.avoid-slur = #'inside
+  \once \override TextScript.outside-staff-priority = ##f
   c2(^\markup \tiny \override #'(baseline-skip . 1) {
     \halign #-4
     \center-column {

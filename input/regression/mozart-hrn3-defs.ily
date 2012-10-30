@@ -1,10 +1,10 @@
 % 
 
-longgrace = \override Flag  #'stroke-style = #'()
-endlonggrace = \revert Flag #'stroke-style
+longgrace = \override Flag.stroke-style = #'()
+endlonggrace = \revert Flag.stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   \context {
@@ -12,11 +12,11 @@ ritenuto = \markup { \italic  "rit." }
     skipBars = ##t
     midiInstrument = #"french horn"
     %% try to mimic Breitkopf
-    \override RehearsalMark #'padding = #1
+    \override RehearsalMark.padding = #1
     restNumberThreshold = #1
 
-    \override RehearsalMark #'font-series = #'bold
-    \override RehearsalMark #'font-size = #4.5
+    \override RehearsalMark.font-series = #'bold
+    \override RehearsalMark.font-size = #4.5
   }
 }
 

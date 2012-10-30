@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "symbols-and-glyphs, winds"
@@ -18,8 +18,8 @@ useful for wind instruments.
 } % begin verbatim
 
 centermarkup = {
-  \once \override TextScript #'self-alignment-X = #CENTER
-  \once \override TextScript #'X-offset =#(ly:make-simple-closure
+  \once \override TextScript.self-alignment-X = #CENTER
+  \once \override TextScript.X-offset =#(ly:make-simple-closure
     `(,+
       ,(ly:make-simple-closure (list
         ly:self-alignment-interface::centered-on-x-parent))
@@ -30,7 +30,7 @@ centermarkup = {
 {\relative c'
   {
     g\open
-    \once \override TextScript #'staff-padding = #-1.0 \centermarkup
+    \once \override TextScript.staff-padding = #-1.0 \centermarkup
     g^\markup{\combine \musicglyph #"scripts.open" \musicglyph
     #"scripts.tenuto"}
     \centermarkup g^\markup{\combine \musicglyph #"scripts.open"

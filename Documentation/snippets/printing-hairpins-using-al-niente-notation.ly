@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks"
@@ -20,7 +20,7 @@ notation) by setting the @code{circled-tip} property of the
 
 
 \relative c'' {
-  \override Hairpin #'circled-tip = ##t
+  \override Hairpin.circled-tip = ##t
   c2\< c\!
   c4\> c\< c2\!
 }

@@ -86,24 +86,38 @@ markups), or inside a score.")
 					   'break-permission 'allow))))
 
 alterBroken =
-#(define-music-function (parser location name property arg)
-  (symbol-list? symbol? list?)
-  (_i "Override @var{property} for pieces of broken spanner @var{name} with
-values @var{arg}.")
-    ;; only apply override if grob is a spanner
-  (let ((description
-         (assoc-get (last name) all-grob-descriptions)))
-    (if (and description
-             (member 'spanner-interface
-                     (assoc-get 'interfaces
-                                (assoc-get 'meta description))))
-        #{
-          \override $name $property =
-          #(value-for-spanner-piece arg)
-        #}
-        (begin
-          (ly:input-warning location (_ "not a spanner name, `~a'") name)
-          (make-music 'SequentialMusic 'void #t)))))
+#(define-music-function (parser location property arg item)
+  (symbol-list-or-symbol? list? symbol-list-or-music?)
+  (_i "Override @var{property} for pieces of broken spanner @var{item}
+with values @var{arg}.  @var{item} may either be music in the form of
+a starting spanner event, or a symbol list in the form
+@samp{Context.Grob} or just @samp{Grob}.  Iff @var{item} is in the
+form of a spanner event, @var{property} may also have the form
+@samp{Grob.property} for specifying a directed tweak.")
+  (if (ly:music? item)
+      (if (eq? (ly:music-property item 'span-direction) START)
+          #{ \tweak #property #(value-for-spanner-piece arg) #item #}
+          (begin
+            (ly:music-warning item (_ "not a spanner"))
+            item))
+      (let* ((p (check-grob-path item parser location
+                                 #:default 'Bottom
+                                 #:min 2
+                                 #:max 2))
+             (name (and p (second p)))
+             (description
+              (and name (assoc-get name all-grob-descriptions))))
+        (if (and description
+                 (member 'spanner-interface
+                         (assoc-get 'interfaces
+                                    (assoc-get 'meta description))))
+            #{
+              \override #item . #property =
+              #(value-for-spanner-piece arg)
+            #}
+            (begin
+              (ly:input-warning location (_ "not a spanner name, `~a'") name)
+              (make-music 'Music))))))
 
 appendToTag =
 #(define-music-function (parser location tag more music)
@@ -246,7 +260,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
          (timesig (cons (ly:moment-main-numerator mlen)
                         (ly:moment-main-denominator mlen))))
   #{
-    \once \override Staff.TimeSignature #'stencil = #(lambda (grob)
+    \once \override Staff.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (format-compound-time args)))
     \set Timing.timeSignatureFraction = $timesig
     \set Timing.baseMoment = $beat
@@ -259,11 +273,11 @@ crossStaff =
 #(define-music-function (parser location notes) (ly:music?)
   (_i "Create cross-staff stems")
   #{
-  \temporary \override Stem #'cross-staff = #cross-staff-connect
-  \temporary \override Flag #'style = #'no-flag
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
   $notes
-  \revert Stem #'cross-staff
-  \revert Flag #'style
+  \revert Stem.cross-staff
+  \revert Flag.style
 #})
 
 cueClef =
@@ -397,7 +411,7 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'text (or mark (make-null-markup))
 	       'footnote-text footnote)))
      (if (ly:music? item)
-         #{ \tweak #'footnote-music #mus #item #}
+         #{ \tweak footnote-music #mus #item #}
          #{ \once\override $item #'footnote-music = #mus #})))
 
 grace =
@@ -418,18 +432,18 @@ harmonicByFret = #(define-music-function (parser location fret music) (number? l
 harmonics played on a fretted instrument by touching the strings at @var{fret}.")
   #{
     \set harmonicDots = ##t
-    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
-    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
+    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
        (calc-harmonic-pitch (fret->pitch (number->string fret)) music))
     \unset harmonicDots
-    \revert TabNoteHead #'stencil
-    \revert NoteHead #'Y-extent
-    \revert NoteHead #'stencil
+    \revert TabNoteHead.stencil
+    \revert NoteHead.Y-extent
+    \revert NoteHead.stencil
   #})
 
 harmonicByRatio = #(define-music-function (parser location ratio music) (number? ly:music?)
@@ -438,18 +452,18 @@ harmonics played on a fretted instrument by touching the strings at the point
 given through @var{ratio}.")
   #{
     \set harmonicDots = ##t
-    \temporary \override TabNoteHead #'stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
-    \temporary \override NoteHead #'Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
+    \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
+    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
                                        (lambda (grob start end)
                                                (ly:grob::stencil-height grob)))
-    \temporary \override NoteHead #'stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+    \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     $(make-harmonic
       (calc-harmonic-pitch (ratio->pitch ratio) music))
     \unset harmonicDots
-    \revert TabNoteHead #'stencil
-    \revert NoteHead #'Y-extent
-    \revert NoteHead #'stencil
+    \revert TabNoteHead.stencil
+    \revert NoteHead.Y-extent
+    \revert NoteHead.stencil
   #})
 
 hide =
@@ -462,7 +476,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak #'transparent ##t $item #}
+       #{ \tweak transparent ##t $item #}
        #{ \override $item #'transparent = ##t #}))
 
 inStaffSegno =
@@ -670,7 +684,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak #'stencil ##f $item #}
+       #{ \tweak stencil ##f $item #}
        #{ \override $item #'stencil = ##f #}))
 
 once =
@@ -706,33 +720,28 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
-#(define-music-function (parser location name property-path value)
-   (symbol-list? symbol-list-or-symbol? scheme?)
+#(define-music-function (parser location grob-property-path value)
+   (symbol-list? scheme?)
 
-   (_i "Set @var{property-path} to @var{value} in all grobs named @var{name}.
-The @var{name} argument is a symbol list of the form @code{Context.GrobName}
-or @code{GrobName}.")
-   (if (<= 1 (length name) 2)
-       (make-music 'ApplyOutputEvent
-                   'context-type (if (null? (cdr name)) 'Bottom
-                                     (car name))
-                   'procedure
-                   (lambda (grob orig-context context)
-                     (if (equal?
-                          (cdr (assoc 'name (ly:grob-property grob 'meta)))
-                          (last name))
-                         (if (symbol? property-path)
-                             (ly:grob-set-property! grob property-path value)
-                             (case (length property-path)
-                               ((0) *unspecified*)
-                               ((1)
-                                (ly:grob-set-property!
-                                 grob (car property-path) value))
-                               (else
-                                (ly:grob-set-nested-property!
-                                 grob property-path value)))))))
-       (begin
-         (ly:parser-error parser (_ "bad grob name") location)
+   (_i "Set the grob property specified by @var{grob-property-path} to
+@var{value}.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.")
+   (let ((p (check-grob-path grob-property-path parser location
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (make-music 'ApplyOutputEvent
+                     'context-type (first p)
+                     'procedure
+                     (lambda (grob orig-context context)
+                       (if (equal?
+                            (cdr (assoc 'name (ly:grob-property grob 'meta)))
+                            (second p))
+                         (if (null? (cdddr p))
+                             (ly:grob-set-property! grob (caddr p) value)
+                             (ly:grob-set-nested-property!
+                              grob (cddr p) value)))))
          (make-music 'Music))))
 
 
@@ -1158,7 +1167,7 @@ appropriate tweak applied.")
            (offset-control-points (car offsets)))))
    (if (ly:music? item)
        #{
-         \tweak #'control-points #shape-curve $item
+         \tweak control-points #shape-curve $item
        #}
        #{
          \once \override $item #'control-points = #shape-curve
@@ -1216,8 +1225,7 @@ spacingTweaks =
    (_i "Set the system stretch, by reading the 'system-stretch property of
 the `parameters' assoc list.")
    #{
-     \overrideProperty Score.NonMusicalPaperColumn
-     #'line-break-system-details
+     \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
      #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 	     (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})

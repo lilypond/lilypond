@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings"
@@ -38,10 +38,10 @@ slides = {
   \layout {
     \context {
       \Score
-      \override Glissando #'minimum-length = #4
-      \override Glissando #'springs-and-rods =
+      \override Glissando.minimum-length = #4
+      \override Glissando.springs-and-rods =
                           #ly:spanner::set-spacing-rods
-      \override Glissando #'thickness = #2
+      \override Glissando.thickness = #2
     }
   }
 }

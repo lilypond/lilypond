@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Setting @code{'zigzag} style for spanners does not
@@ -10,10 +10,10 @@ the second markup and default trillspanner.
 
 \relative c' {
   c1^"text"
-  \override TrillSpanner #'style = #'zigzag
+  \override TrillSpanner.style = #'zigzag
   c1\startTrillSpan
   c2^\stopTrillSpan c^"text"
-  \revert TrillSpanner #'style
+  \revert TrillSpanner.style
   c1\startTrillSpan
   c1^\stopTrillSpan
 }

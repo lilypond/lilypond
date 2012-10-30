@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -31,19 +31,19 @@ this snippet.
       \new Staff {
         % hides staff and notes so that only the grid lines are visible
         \hideNotes
-        \override Staff.BarLine #'transparent = ##t
-        \override Staff.StaffSymbol #'line-count = #0
-        \override Staff.TimeSignature #'transparent = ##t
-        \override Staff.Clef #'transparent = ##t
+        \override Staff.BarLine.transparent = ##t
+        \override Staff.StaffSymbol.line-count = #0
+        \override Staff.TimeSignature.transparent = ##t
+        \override Staff.Clef.transparent = ##t
 
         % dummy notes to force regular note spacing
-        \once  \override Score.GridLine #'thickness = #4.0
+        \once  \override Score.GridLine.thickness = #4.0
         c8 c c
-        \once  \override Score.GridLine #'thickness = #3.0
+        \once  \override Score.GridLine.thickness = #3.0
         c8 c c
-        \once  \override Score.GridLine #'thickness = #4.0
+        \once  \override Score.GridLine.thickness = #4.0
         c8 c c
-        \once  \override Score.GridLine #'thickness = #3.0
+        \once  \override Score.GridLine.thickness = #3.0
         c8 c c
       }
     >>
@@ -53,7 +53,7 @@ this snippet.
       \Score
       \consists "Grid_line_span_engraver"
       % center grid lines horizontally below note heads
-      \override NoteColumn #'X-offset = #-0.5
+      \override NoteColumn.X-offset = #-0.5
     }
     \context {
       \Staff
@@ -62,7 +62,7 @@ this snippet.
       % set line length and positioning:
       % two staff spaces above center line on hidden staff
       % to four spaces below center line on visible staff
-      \override GridPoint #'Y-extent = #'(2 . -4)
+      \override GridPoint.Y-extent = #'(2 . -4)
     }
     ragged-right = ##t
   }

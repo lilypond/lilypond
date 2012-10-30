@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 \header {
   
   texidoc = "In complex configurations of knee beaming, according to
@@ -13,7 +13,7 @@ beam. This is in disagreement with the current algorithm."
 
 \relative c'
 {
-  \override Beam  #'auto-knee-gap = #7
+  \override Beam.auto-knee-gap = #7
   \set subdivideBeams = ##t	     
   \time 8/8
   c,16[  g'''16  

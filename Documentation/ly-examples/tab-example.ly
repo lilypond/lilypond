@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 #(set-global-staff-size 22.45)
 
@@ -47,17 +47,17 @@ lower= \relative c {
     \new Staff = "guitar" <<
       \context Voice = "upper guitar" {
         \clef "G_8" \voiceOne
-        \override Glissando #'gap = #0.5
-        \override Glissando #'extra-offset = #'(-0.5 . 0)
-        \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
-        \override Glissando #'minimum-length = #4
-        \override Glissando #'extra-dy = #glissando::calc-extra-dy
+        \override Glissando.gap = #0.5
+        \override Glissando.extra-offset = #'(-0.5 . 0)
+        \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
+        \override Glissando.minimum-length = #4
+        \override Glissando.extra-dy = #glissando::calc-extra-dy
         \upper
       }
       \context Voice = "lower guitar" {
         \clef "G_8" \voiceTwo
-        \override Glissando #'bound-details #'right #'padding = #1
-        \override Glissando #'bound-details #'left #'padding = #0.2
+        \override Glissando.bound-details.right.padding = #1
+        \override Glissando.bound-details.left.padding = #0.2
         \lower
       }
     >>
@@ -70,11 +70,11 @@ lower= \relative c {
   \layout {
     \context {
       \Staff
-      \override StringNumber #'transparent = ##t
+      \override StringNumber.transparent = ##t
     }
     \context {
       \TabStaff
-      \revert Arpeggio #'stencil
+      \revert Arpeggio.stencil
     }
   }
 }

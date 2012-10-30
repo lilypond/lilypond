@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The @code{\\quoteDuring} command shall also quote correctly all
@@ -12,7 +12,7 @@
 }
 
 mus = \relative c' {
-  % Acciaccaturas contain a slur and  \override Flag #'stroke-style
+  % Acciaccaturas contain a slur and  \override Flag.stroke-style
   % Thus, we're checking \override here
   c4 \acciaccatura d8 c4
   % Checking \set and \unset
@@ -21,17 +21,17 @@ mus = \relative c' {
 
   \set autoBeaming = ##f
   % Checking \once \override
-  \once \override Stem #'thickness = #8.0 d8
+  \once \override Stem.thickness = #8.0 d8
   % Checking two overrides
-  \override Stem #'thickness = #8.0 \override Flag #'stroke-style = "grace"
+  \override Stem.thickness = #8.0 \override Flag.stroke-style = "grace"
   d8
   % reverting one of them
-  \revert Stem #'thickness d8
+  \revert Stem.thickness d8
   % and the other
-  \revert Flag #'stroke-style c8
+  \revert Flag.stroke-style c8
 
   % checking tweaks
-  c2-\tweak #'color #red ->
+  c2-\tweak color #red ->
 }
 \addQuote "music" \mus
 

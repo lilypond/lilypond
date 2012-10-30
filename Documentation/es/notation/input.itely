@@ -527,7 +527,7 @@ de Scheme, es decir, todo elemento que comience por un signo@tie{}@code{#}.
 @item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
 @code{\override} y @code{\set}.  Concretamente, hay que usar espacios
 alrededor del punto y el signo igual en instrucciones como
-@code{\override Score . LyricText #'font-size = #5} y antes y después
+@code{\override Score.LyricText.font-size = #5} y antes y después
 de la instrucción completa.
 
 @end itemize
@@ -1415,7 +1415,7 @@ marca puede suprimirse:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" }
     e c4
-    \once \override Score.FootnoteItem #'annotation-line = ##f
+    \once \override Score.FootnoteItem.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }

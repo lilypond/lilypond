@@ -5,11 +5,11 @@
   
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \new Staff \with {
    \remove "Bar_engraver"
-   \override Beam #'breakable = ##t
+   \override Beam.breakable = ##t
 } {
    \time 1/8
    c'32 [

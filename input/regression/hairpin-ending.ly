@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -12,7 +12,7 @@ into them."
 \layout { ragged-right = ##t } 
 
 \relative c'' {
-  \override Score.PaperColumn #'keep-inside-line = ##f
+  \override Score.PaperColumn.keep-inside-line = ##f
   c4 \> c4 c4\! c4_\ff \> c4 c4\!\p
   
   <<

@@ -6,7 +6,7 @@
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..@end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -180,8 +180,8 @@ c4->  c-.  c2-_
 このコマンドは @code{MultiMeasureRestText} オブジェクトを作成します。
 
 @lilypond[verbatim,quote,relative=2]
-\override Script #'color = #red
-\override MultiMeasureRestText #'color = #blue
+\override Script.color = #red
+\override MultiMeasureRestText.color = #blue
 a2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond

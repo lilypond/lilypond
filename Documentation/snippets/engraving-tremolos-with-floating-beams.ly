@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "repeats, rhythms"
@@ -28,20 +28,20 @@ the @code{'gap} property.
 
 \relative c'' {
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap-count = #1
+  \override Beam.gap-count = #1
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap-count = #2
+  \override Beam.gap-count = #2
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap-count = #3
+  \override Beam.gap-count = #3
   \repeat tremolo 8 { a32 f }
 
-  \override Beam #'gap-count = #3
-  \override Beam #'gap = #1.33
+  \override Beam.gap-count = #3
+  \override Beam.gap = #1.33
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap = #1
+  \override Beam.gap = #1
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap = #0.67
+  \override Beam.gap = #0.67
   \repeat tremolo 8 { a32 f }
-  \override Beam #'gap = #0.33
+  \override Beam.gap = #0.33
   \repeat tremolo 8 { a32 f }
 }

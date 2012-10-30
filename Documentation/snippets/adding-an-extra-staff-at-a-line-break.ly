@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "breaks, contexts-and-engravers, staff-notation, workaround"
@@ -30,7 +30,7 @@ workaround is to add a setting of
     << { c1 | c }
        \new Staff {
          \key f \major
-         \once \override Staff.TimeSignature #'stencil = ##f
+         \once \override Staff.TimeSignature.stencil = ##f
          c1 | c
        }
     >>
@@ -39,7 +39,7 @@ workaround is to add a setting of
        \new Staff {
          \once \set Staff.explicitKeySignatureVisibility = #end-of-line-invisible
          \key f \major
-         \once \override Staff.TimeSignature #'stencil = ##f
+         \once \override Staff.TimeSignature.stencil = ##f
          c1 | c
        }
     >>

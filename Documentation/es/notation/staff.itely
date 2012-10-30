@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
@@ -450,11 +450,11 @@ Se puede cambiar el número de líneas de la pauta:
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-count = #2
+\override Staff.StaffSymbol.line-count = #2
 \startStaff g, e |
 
 f'4 d \stopStaff
-\revert Staff.StaffSymbol #'line-count
+\revert Staff.StaffSymbol.line-count
 \startStaff g, e |
 @end lilypond
 
@@ -467,10 +467,10 @@ la pauta pueden cambiarse con una sola operación de sobreescritura.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(1 3 5 -1 -3)
+\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
 \startStaff g, e |
 f'4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(8 6.5 -6 -8 -0.5)
+\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
 \startStaff g, e
 @end lilypond
 
@@ -484,7 +484,7 @@ plica de las figuras.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #3
+  \override StaffSymbol.thickness = #3
 }
 { f4 d g, e }
 @end lilypond
@@ -497,8 +497,8 @@ las líneas adicionales.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #2
-  \override StaffSymbol #'ledger-line-thickness = #'(0.5 . 0.4)
+  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -507,7 +507,7 @@ Pueden alterarse las posiciones verticales de las líneas adicionales:
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-positions = #'(-3 -2 -1 2 5 6)
+  \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -519,7 +519,7 @@ propias líneas adicionales.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-extra = #4
+  \override StaffSymbol.ledger-extra = #4
 }
 { f'4 a, d, f, }
 @end lilypond
@@ -534,11 +534,11 @@ ejemplo para revertir la instrucción de sobreescritura
 pauta).
 
 @lilypond[fragment,quote,relative=1]
-\override Staff.StaffSymbol #'line-positions =   #'(-8 0 2 4)
+\override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
 d4 e f g
 \stopStaff
 \startStaff
-\override Staff.StaffSymbol #'ledger-positions = #'(-8 -6 (-4 -2) 0)
+\override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
 d4 e f g
 @end lilypond
 
@@ -547,7 +547,7 @@ también al espaciado de las líneas adicionales.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.staff-space = #1.5
 }
 { f'4 d, g, e, }
 @end lilypond
@@ -624,8 +624,8 @@ cuando se necesitan sólo algunos pentagramas de ossia.
       \remove "Time_signature_engraver"
       alignAboveContext = #"main"
       fontSize = #-3
-      \override StaffSymbol #'staff-space = #(magstep -3)
-      \override StaffSymbol #'thickness = #(magstep -3)
+      \override StaffSymbol.staff-space = #(magstep -3)
+      \override StaffSymbol.thickness = #(magstep -3)
       firstClef = ##f
     }
     { e4 d f e }
@@ -646,10 +646,10 @@ en ejemplo siguiente.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   }
   { \stopStaff s1*6 }
 
@@ -684,10 +684,10 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   } \relative c'' {
     R1*3
     c4 e8 d c2
@@ -705,7 +705,7 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 \layout {
   \context {
     \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup #'remove-first = ##t
+    \override VerticalAxisGroup.remove-first = ##t
   }
 }
 @end lilypond
@@ -862,8 +862,8 @@ utilice las siguientes sobreescrituras de valores en vez de quitar el
 grabador:
 
 @example
-\override StaffSymbol #'stencil = ##f
-\override NoteHead #'no-ledgers = ##t
+\override StaffSymbol.stencil = ##f
+\override NoteHead.no-ledgers = ##t
 @end example
 
 Para ver los fallos y problemas conocidos, así como las advertencias

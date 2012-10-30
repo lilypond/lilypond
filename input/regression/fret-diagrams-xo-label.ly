@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -25,20 +25,15 @@ can be changed.
             \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"}
 
      %% D major for guitar, terse style
-    \once \override TextScript #'fret-diagram-details
-        #'top-fret-thickness = #5
-    \once \override TextScript #'fret-diagram-details
-        #'xo-font-magnification = #0.3
+    \once \override TextScript.fret-diagram-details.top-fret-thickness = #5
+    \once \override TextScript.fret-diagram-details.xo-font-magnification = #0.3
     d'1 ^\markup {
             \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"}
 
      %% D major for guitar, terse style
-    \override TextScript #'fret-diagram-details
-        #'mute-string = #"M"
-    \override TextScript #'fret-diagram-details
-        #'open-string = #"*"
-    \override TextScript #'fret-diagram-details
-        #'xo-padding = #0.5
+    \override TextScript.fret-diagram-details.mute-string = #"M"
+    \override TextScript.fret-diagram-details.open-string = #"*"
+    \override TextScript.fret-diagram-details.xo-padding = #0.5
     d'1 ^\markup {
             \fret-diagram-terse #"x;x;o;2-1;3-2;2-3;"}
 

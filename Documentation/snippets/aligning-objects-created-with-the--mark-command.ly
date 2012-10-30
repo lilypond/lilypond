@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "text"
@@ -21,11 +21,11 @@ This behavior can be modified to align at right or left.
 \relative c' {
   c1 \mark "(Center)"
   c1
-  \once \override Score.RehearsalMark #'self-alignment-X = #LEFT
+  \once \override Score.RehearsalMark.self-alignment-X = #LEFT
   \mark "(Left)"
   c4 c c c
   c4 c c c
-  \once \override Score.RehearsalMark #'self-alignment-X = #RIGHT
+  \once \override Score.RehearsalMark.self-alignment-X = #RIGHT
   \mark "(Right)"
   c1
 }

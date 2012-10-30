@@ -10,7 +10,7 @@ They have fixed size. Their formatting can be tuned with
 "
   }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper {
   ragged-right = ##t
 }
@@ -22,7 +22,7 @@ They have fixed size. Their formatting can be tuned with
   <c d f g>4.\laissezVibrer r8
 
   <c d e f>4\laissezVibrer r
-  \override LaissezVibrerTieColumn #'tie-configuration
+  \override LaissezVibrerTieColumn.tie-configuration
   = #'((-7 . -1)
        (-5 . -1)
        (-3 . 1)

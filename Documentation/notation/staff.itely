@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Staff notation
 @section Staff notation
@@ -439,11 +439,11 @@ The number of staff lines can be altered,
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-count = #2
+\override Staff.StaffSymbol.line-count = #2
 \startStaff g, e |
 
 f'4 d \stopStaff
-\revert Staff.StaffSymbol #'line-count
+\revert Staff.StaffSymbol.line-count
 \startStaff g, e |
 @end lilypond
 
@@ -455,10 +455,10 @@ position in the staff, can be changed with a single override.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(1 3 5 -1 -3)
+\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
 \startStaff g, e |
 f'4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(8 6.5 -6 -8 -0.5)
+\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
 \startStaff g, e
 @end lilypond
 
@@ -470,7 +470,7 @@ default, are also affected.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #3
+  \override StaffSymbol.thickness = #3
 }
 { f4 d g, e }
 @end lilypond
@@ -482,8 +482,8 @@ ledger line thickness.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #2
-  \override StaffSymbol #'ledger-line-thickness = #'(0.5 . 0.4)
+  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -492,7 +492,7 @@ The vertical positions of ledger lines can be altered,
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-positions = #'(-3 -2 -1 2 5 6)
+  \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -503,7 +503,7 @@ also have their own ledger lines.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-extra = #4
+  \override StaffSymbol.ledger-extra = #4
 }
 { f'4 a, d, f, }
 @end lilypond
@@ -515,11 +515,11 @@ The @code{stopStaff} is needed in the example to revert the
 @code{\override} for the whole @code{StaffSymbol}.
 
 @lilypond[fragment,quote,relative=1]
-\override Staff.StaffSymbol #'line-positions =   #'(-8 0 2 4)
+\override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
 d4 e f g
 \stopStaff
 \startStaff
-\override Staff.StaffSymbol #'ledger-positions = #'(-8 -6 (-4 -2) 0)
+\override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
 d4 e f g
 @end lilypond
 
@@ -528,7 +528,7 @@ line spacing as well.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.staff-space = #1.5
 }
 { f'4 d, g, e, }
 @end lilypond
@@ -604,8 +604,8 @@ only a few ossia staves are needed.
       \remove "Time_signature_engraver"
       alignAboveContext = #"main"
       fontSize = #-3
-      \override StaffSymbol #'staff-space = #(magstep -3)
-      \override StaffSymbol #'thickness = #(magstep -3)
+      \override StaffSymbol.staff-space = #(magstep -3)
+      \override StaffSymbol.thickness = #(magstep -3)
       firstClef = ##f
     }
     { e4 d f e }
@@ -626,10 +626,10 @@ example.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   }
   { \stopStaff s1*6 }
 
@@ -665,10 +665,10 @@ break.  For more information about
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   } \relative c'' {
     R1*3
     c4 e8 d c2
@@ -686,7 +686,7 @@ break.  For more information about
 \layout {
   \context {
     \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup #'remove-first = ##t
+    \override VerticalAxisGroup.remove-first = ##t
   }
 }
 @end lilypond
@@ -839,8 +839,8 @@ this case, use the following overrides instead of removing the
 engraver:
 
 @example
-\override StaffSymbol #'stencil = ##f
-\override NoteHead #'no-ledgers = ##t
+\override StaffSymbol.stencil = ##f
+\override NoteHead.no-ledgers = ##t
 @end example
 
 For the Known issues and warnings associated with

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -143,7 +143,7 @@ viel Rechenaufwand.  Sollten Sie aber etwas bessere Leistung bevorzugen,
 schreiben Sie in Ihre Datei:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 
@@ -163,7 +163,7 @@ können von einer Note bis zu einer anderen mit folgender
 Anweisung erstellt werden:
 
 @lilypond[verbatim,quote,relative=2]
-\override TextSpanner #'(bound-details left text) = "rit."
+\override TextSpanner.bound-details.left.text = "rit."
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
@@ -179,7 +179,7 @@ Formatierung kann erreicht werden, indem man @code{\markup}-Blöcke
 einsetzt, wie beschrieben in @ref{Text formatieren}.
 
 @lilypond[quote,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text) =
+\override TextSpanner.bound-details.left.text =
   \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan
@@ -1488,12 +1488,12 @@ Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten
 Änderung in Bezug auf die Standardschriftgröße.
 
 @lilypond[quote,verbatim,relative=2]
-\override Score.RehearsalMark #'font-family = #'typewriter
+\override Score.RehearsalMark.font-family = #'typewriter
 \mark \markup "Ouverture"
-\override Voice.TextScript #'font-shape = #'italic
-\override Voice.TextScript #'font-series = #'bold
+\override Voice.TextScript.font-shape = #'italic
+\override Voice.TextScript.font-series = #'bold
 d2.^\markup "Allegro"
-\override Voice.TextScript #'font-size = #-3
+\override Voice.TextScript.font-size = #-3
 c4^smaller
 @end lilypond
 
@@ -1548,8 +1548,8 @@ FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
 verwendet man folgende Syntax:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
-\override Staff.TimeSignature #'font-size = #2
+\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-size = #2
 \time 3/4
 
 a1_\markup {

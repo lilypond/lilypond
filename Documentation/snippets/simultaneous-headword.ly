@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -28,15 +28,15 @@ Simultaneous notes
 \layout {
   \context {
     \Score
-    \override SpacingSpanner #'base-shortest-duration =
+    \override SpacingSpanner.base-shortest-duration =
     #(ly:make-moment 1 18)
-    \override NonMusicalPaperColumn #'line-break-system-details =
+    \override NonMusicalPaperColumn.line-break-system-details =
     #'((alignment-distances . (12)))
   }
 }
 
 trillFlat =
-\once \override TrillSpanner #'(bound-details left text) = \markup {
+\once \override TrillSpanner.bound-details.left.text = \markup {
   \concat {
     \musicglyph #"scripts.trill"
     \translate #'(-0.5 . 1.9)
@@ -80,7 +80,7 @@ trillFlat =
     % RH voice 2
     \new Voice {
       \voiceTwo
-      \override Voice.TrillSpanner #'direction = #DOWN
+      \override Voice.TrillSpanner.direction = #DOWN
       d''4.~ \f \startTrillSpan
       d''8.~ |
       d''4.~ d''8.~ |
@@ -94,7 +94,7 @@ trillFlat =
       d''4.~ \startTrillSpan
       d''8. ~ |
       d''4.~ d''8.~ |
-      \once \override NoteColumn #'ignore-collision = ##t
+      \once \override NoteColumn.ignore-collision = ##t
       \hideNotes
       d''8. \stopTrillSpan
       s4. |
@@ -123,7 +123,7 @@ trillFlat =
     <<
       \new Voice {
         \voiceOne
-        \override Voice.TrillSpanner #'direction = #UP
+        \override Voice.TrillSpanner.direction = #UP
         f'4.~ \startTrillSpan
         f'8.~ |
         f'4.~ f'8.~ |
@@ -131,7 +131,7 @@ trillFlat =
       }
       \new Voice {
         \voiceTwo
-        \override Voice.TrillSpanner #'direction = #DOWN
+        \override Voice.TrillSpanner.direction = #DOWN
         bf8.[ bf8. bf8.] |
         bf8.[ bf8. bf8.] |
         bf8.

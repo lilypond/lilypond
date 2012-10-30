@@ -17,8 +17,8 @@ using one of the four directives shown below.
   }
   \context {
     \Score
-    \override SpacingSpanner #'packed-spacing = ##t
-    \override PaperColumn #'keep-inside-line = ##f
+    \override SpacingSpanner.packed-spacing = ##t
+    \override PaperColumn.keep-inside-line = ##f
   }
 }
 
@@ -85,22 +85,22 @@ music = \context Voice {
 }
 
 {
-  \override Staff.VerticalAxisGroup #'outside-staff-placement-directive =
+  \override Staff.VerticalAxisGroup.outside-staff-placement-directive =
     #'left-to-right-polite
   \music
 }
 {
-  \override Staff.VerticalAxisGroup #'outside-staff-placement-directive =
+  \override Staff.VerticalAxisGroup.outside-staff-placement-directive =
     #'left-to-right-greedy
   \music
 }
 {
-  \override Staff.VerticalAxisGroup #'outside-staff-placement-directive =
+  \override Staff.VerticalAxisGroup.outside-staff-placement-directive =
     #'right-to-left-polite
   \music
 }
 {
-  \override Staff.VerticalAxisGroup #'outside-staff-placement-directive =
+  \override Staff.VerticalAxisGroup.outside-staff-placement-directive =
     #'right-to-left-greedy
   \music
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 % the example header file caused the head to be chopped off
 %\include "example-header.ily"
 
@@ -34,17 +34,17 @@
 	\new StaffGroup <<
 
 		\new Staff \with {
-			\override Stem #'direction = #down
-			\override Beam #'positions = #'(-7 . -7)
-			\override TupletBracket #'direction = #down
-			\override TupletBracket #'staff-padding = #5
-			\override TupletBracket #'padding = #2.25
+			\override Stem.direction = #down
+			\override Beam.positions = #'(-7 . -7)
+			\override TupletBracket.direction = #down
+			\override TupletBracket.staff-padding = #5
+			\override TupletBracket.padding = #2.25
 		} <<
 
 			\new Voice {
 
-            \override Score.MetronomeMark #'extra-offset = #'(0 . 6)
-            \override Score.MetronomeMark #'font-size = #3
+            \override Score.MetronomeMark.extra-offset = #'(0 . 6)
+            \override Score.MetronomeMark.font-size = #3
             \tempo 8=42
 				\time 5/16	 s4 ~ s16 	\noBreak		 % measure 6
 				\time 4/8	 s2 			\noBreak		 % measure 7
@@ -95,23 +95,23 @@
 		>>
 
 		\new Staff \with {
-			\override Clef #'transparent = ##t
-			\override StaffSymbol #'line-positions = #'(-4 -2   2 4)
-			\override Stem #'direction = #down
-			\override TupletBracket #'staff-padding = #5
-			\override TupletBracket #'padding = #2.25
+			\override Clef.transparent = ##t
+			\override StaffSymbol.line-positions = #'(-4 -2   2 4)
+			\override Stem.direction = #down
+			\override TupletBracket.staff-padding = #5
+			\override TupletBracket.padding = #2.25
 		} <<
 
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
-				\override Stem #'direction = #up
-				\override Flag #'stroke-style = #"grace"
-				\override Stem #'font-size = #-3
-				\override Rest #'transparent = ##t
-				\override NoteHead #'no-ledgers = ##t
-				\override Dots #'transparent = ##t
-				\override TupletBracket #'transparent = ##t
-				\override TupletNumber #'transparent = ##t
+				\override Stem.direction = #up
+				\override Flag.stroke-style = #"grace"
+				\override Stem.font-size = #-3
+				\override Rest.transparent = ##t
+				\override NoteHead.no-ledgers = ##t
+				\override Dots.transparent = ##t
+				\override TupletBracket.transparent = ##t
+				\override TupletNumber.transparent = ##t
 			} {
 
 				% measure 6
@@ -175,14 +175,14 @@
 
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
-				\override Stem #'transparent = ##t
-				\override Flag #'transparent = ##t
-				\override Rest #'transparent = ##t
-				\override Rest #'staff-position = #-0.5
-				\override Dots #'transparent = ##t
-				\override Beam #'transparent = ##t
-				\override TupletBracket #'transparent = ##t
-				\override TupletNumber #'transparent = ##t
+				\override Stem.transparent = ##t
+				\override Flag.transparent = ##t
+				\override Rest.transparent = ##t
+				\override Rest.staff-position = #-0.5
+				\override Dots.transparent = ##t
+				\override Beam.transparent = ##t
+				\override TupletBracket.transparent = ##t
+				\override TupletNumber.transparent = ##t
 			} {
 
 				% measure 6
@@ -246,14 +246,14 @@
 
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
-				\override Stem #'direction = #down
-				\override Stem #'font-size = #-3
-				\override Flag #'stroke-style = #"grace"
-				\override Rest #'transparent = ##t
-				\override NoteHead #'no-ledgers = ##t
-				\override Dots #'transparent = ##t
-				\override TupletBracket #'transparent = ##t
-				\override TupletNumber #'transparent = ##t
+				\override Stem.direction = #down
+				\override Stem.font-size = #-3
+				\override Flag.stroke-style = #"grace"
+				\override Rest.transparent = ##t
+				\override NoteHead.no-ledgers = ##t
+				\override Dots.transparent = ##t
+				\override TupletBracket.transparent = ##t
+				\override TupletNumber.transparent = ##t
 			} {
 
 				% measure 6
@@ -317,19 +317,19 @@
 
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
-				\override Stem #'direction = #down
-				\override NoteHead #'transparent = ##t
-				\override NoteHead #'no-ledgers = ##t
-				\override Rest #'staff-position = #-18
-				\override Stem #'length = #10
-				\override Beam #'positions = #'(-13 . -13)
-				\override DynamicLineSpanner #'staff-padding = #18
-				\override TextSpanner #'(bound-details left text) = #(markup (#:italic "covered"))
-				\override TextSpanner #'dash-period = #1
-				\override TextSpanner #'dash-fraction = #0.2
-				\override TextSpanner #'(bound-details left padding) = #0.5
-				\override TextSpanner #'(bound-details right padding) = #0.5
-				\override TextSpanner #'staff-padding = #4
+				\override Stem.direction = #down
+				\override NoteHead.transparent = ##t
+				\override NoteHead.no-ledgers = ##t
+				\override Rest.staff-position = #-18
+				\override Stem.length = #10
+				\override Beam.positions = #'(-13 . -13)
+				\override DynamicLineSpanner.staff-padding = #18
+				\override TextSpanner.bound-details.left.text = #(markup (#:italic "covered"))
+				\override TextSpanner.dash-period = #1
+				\override TextSpanner.dash-fraction = #0.2
+				\override TextSpanner.bound-details.left.padding = #0.5
+				\override TextSpanner.bound-details.right.padding = #0.5
+				\override TextSpanner.staff-padding = #4
 			} {
 
 				% measure 6

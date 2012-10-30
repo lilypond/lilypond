@@ -124,7 +124,7 @@
 
   clefGlyph = #"clefs.percussion"
   clefPosition = #0
-  \override Script #'staff-padding = #0.75
+  \override Script.staff-padding = #0.75
 }
 
 
@@ -168,12 +168,12 @@ contained staves are not connected vertically."
   \name RhythmicStaff
   \alias "Staff"
 
-  \override BarLine #'bar-extent = #'(-2 . 2)
-  \override VoltaBracket #'staff-padding = #3
-  \override StaffSymbol #'line-count = #1
+  \override BarLine.bar-extent = #'(-2 . 2)
+  \override VoltaBracket.staff-padding = #3
+  \override StaffSymbol.line-count = #1
 
-  \override Stem  #'neutral-direction = #UP
-  \override Beam  #'neutral-direction = #UP
+  \override Stem.neutral-direction = #UP
+  \override Beam.neutral-direction = #UP
 
   \consists "Output_property_engraver"
   \consists "Font_size_engraver"
@@ -278,9 +278,9 @@ multiple voices on the same staff."
   \name CueVoice
   \alias Voice
   fontSize = #-4
-  \override Stem #'length-fraction = #(magstep -4)
-  \override Beam #'length-fraction = #(magstep -4)
-  \override Beam #'beam-thickness = #0.35
+  \override Stem.length-fraction = #(magstep -4)
+  \override Beam.length-fraction = #(magstep -4)
+  \override Beam.beam-thickness = #0.35
 }
 
 \context {
@@ -408,13 +408,13 @@ a collection of staves, with a bracket in front and spanning bar lines."
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-  \override VerticalAxisGroup #'staff-affinity = #CENTER
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+  \override VerticalAxisGroup.staff-affinity = #CENTER
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
     #'((basic-distance . 5)
        (padding . 0.5))
-  \override TextScript #'font-shape = #'italic
-  \override DynamicLineSpanner #'Y-offset = #0
-  \override DynamicText #'X-offset =
+  \override TextScript.font-shape = #'italic
+  \override DynamicLineSpanner.Y-offset = #0
+  \override DynamicText.X-offset =
   #(ly:make-simple-closure
     `(,+
       ,(ly:make-simple-closure
@@ -448,27 +448,27 @@ printing of a single line of lyrics."
   instrumentName = #'()
   shortInstrumentName = #'()
 
-  \override VerticalAxisGroup #'remove-first = ##t
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+  \override VerticalAxisGroup.remove-first = ##t
+  \override VerticalAxisGroup.remove-empty = ##t
+  \override VerticalAxisGroup.staff-affinity = #UP
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
     #'((basic-distance . 5.5)
        (padding . 0.5)
        (stretchability . 1))
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing =
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing =
      #'((basic-distance . 0)
 	(minimum-distance . 2.8)
 	(padding . 0.2)
 	(stretchability . 0))
-  \override VerticalAxisGroup #'nonstaff-unrelatedstaff-spacing #'padding = #1.5
-  \override InstrumentName #'self-alignment-Y = ##f
+  \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = #1.5
+  \override InstrumentName.self-alignment-Y = ##f
 
   %% sync with define-grobs.scm ;
-  \override InstrumentName #'font-size = #1.0
+  \override InstrumentName.font-size = #1.0
 
   %% make sure that barlines aren't collapsed, when
   %% Bar_engraver is there.
-  \override BarLine #'bar-extent = #'(-0.05 . 0.05)
+  \override BarLine.bar-extent = #'(-0.05 . 0.05)
 
 }
 
@@ -478,18 +478,17 @@ printing of a single line of lyrics."
   \description "A context for printing the names of notes."
   \consists "Axis_group_engraver"
 
-  \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing =
+  \override VerticalAxisGroup.staff-affinity = #UP
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing =
     #'((basic-distance . 0)
        (minimum-distance . 2.8)
        (padding . 0.2)
        (stretchability . 0))
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing =
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
     #'((basic-distance . 5.5)
        (padding . 0.5)
        (stretchability . 1))
-  \override VerticalAxisGroup
-    #'nonstaff-unrelatedstaff-spacing #'padding = 1.5
+  \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = 1.5
 
   \consists "Tie_engraver"
   \consists "Note_name_engraver"
@@ -506,11 +505,11 @@ printing of a single line of lyrics."
   \consists "Chord_name_engraver"
   \consists "Hara_kiri_engraver"
 %  \consists "Note_spacing_engraver"
-  \override VerticalAxisGroup #'remove-first = ##t
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \override VerticalAxisGroup #'staff-affinity = #DOWN
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #0.5
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'padding = #0.5
+  \override VerticalAxisGroup.remove-first = ##t
+  \override VerticalAxisGroup.remove-empty = ##t
+  \override VerticalAxisGroup.staff-affinity = #DOWN
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #0.5
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing.padding = #0.5
 }
 
 \context {
@@ -768,11 +767,11 @@ automatically when an output definition (a @code{\score} or
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
 
-  \override VerticalAxisGroup #'remove-empty = ##t
-  \override VerticalAxisGroup #'remove-first = ##t
-  \override VerticalAxisGroup #'staff-affinity = #UP
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing #'padding = #0.5
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'padding = #0.5
+  \override VerticalAxisGroup.remove-empty = ##t
+  \override VerticalAxisGroup.remove-first = ##t
+  \override VerticalAxisGroup.staff-affinity = #UP
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing.padding = #0.5
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing.padding = #0.5
 }
 
 \context {
@@ -803,69 +802,69 @@ context."
   %% TabStaff increase the staff-space, which in turn
   %% increases beam thickness and spacing; beams are
   %% too big. We have to adjust the beam settings:
-  \override Beam #'beam-thickness = #0.32
-  \override Beam #'length-fraction = #0.62
+  \override Beam.beam-thickness = #0.32
+  \override Beam.length-fraction = #0.62
   %% the same goes for tremolo beams
-  \override StemTremolo #'beam-thickness = #0.32
+  \override StemTremolo.beam-thickness = #0.32
   %% NOTE: in lily/stem-tremolo.cc, we have length-fraction = 1,
   %% and the tablature staff space is scaled (1.5 by default),
   %% so we use the inversion of the scale factor:
-  \override StemTremolo #'length-fraction = #(lambda (grob)
+  \override StemTremolo.length-fraction = #(lambda (grob)
                                                (/ 1 (ly:staff-symbol-staff-space grob)))
-  \override StemTremolo #'beam-width = #stem-tremolo::calc-tab-width
+  \override StemTremolo.beam-width = #stem-tremolo::calc-tab-width
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
   %% make the Stems as short as possible to minimize their influence
   %% on the slur::calc-control-points routine
-  \override Stem #'no-stem-extend = ##t
-  \override Flag #'style = #'no-flag
-  \override Stem #'details = #'((lengths 0 0 0 0 0 0)
+  \override Stem.no-stem-extend = ##t
+  \override Flag.style = #'no-flag
+  \override Stem.details = #'((lengths 0 0 0 0 0 0)
                                 (beamed-lengths 0 0 0)
                                 (beamed-minimum-free-lengths 0 0 0)
                                 (beamed-extreme-minimum-free-lengths 0 0)
                                 (stem-shorten 0 0))
   %% after all, the stubs of the stems may still be visible, so ...
-  \override Stem #'stencil = ##f
-  \override Flag #'stencil = ##f
+  \override Stem.stencil = ##f
+  \override Flag.stencil = ##f
   %% automatic beams should be suppressed for similar reasons ...
   autoBeaming = ##f
   %% remove beams, dots and rests ...
-  \override Beam #'stencil = ##f
-  \override StemTremolo #'stencil = ##f
-  \override Dots #'stencil = ##f
-  \override Rest #'stencil = ##f
-  \override MultiMeasureRest #'stencil = ##f
-  \override MultiMeasureRestNumber #'stencil = ##f
-  \override MultiMeasureRestText #'stencil = ##f
+  \override Beam.stencil = ##f
+  \override StemTremolo.stencil = ##f
+  \override Dots.stencil = ##f
+  \override Rest.stencil = ##f
+  \override MultiMeasureRest.stencil = ##f
+  \override MultiMeasureRestNumber.stencil = ##f
+  \override MultiMeasureRestText.stencil = ##f
   %% ... all kinds of ties/slurs
-  \override Tie  #'stencil = ##f
-  \override RepeatTie #'stencil = ##f
-  \override LaissezVibrerTie #'stencil = ##f
-  \override Slur #'stencil = #slur::draw-tab-slur
-  \override PhrasingSlur #'stencil = ##f
+  \override Tie.stencil = ##f
+  \override RepeatTie.stencil = ##f
+  \override LaissezVibrerTie.stencil = ##f
+  \override Slur.stencil = #slur::draw-tab-slur
+  \override PhrasingSlur.stencil = ##f
   %% 'tied to' fret numbers become invisible or parenthesized, respectively)
-  \override Tie #'after-line-breaking = #tie::handle-tab-note-head
-  \override RepeatTie #'after-line-breaking = #repeat-tie::handle-tab-note-head
+  \override Tie.after-line-breaking = #tie::handle-tab-note-head
+  \override RepeatTie.after-line-breaking = #repeat-tie::handle-tab-note-head
   %% ... and all kinds of markups, spanners etc.
-  \override TupletBracket #'stencil = ##f
-  \override TupletNumber #'stencil = ##f
-  \override DynamicText #'stencil = ##f
-  \override DynamicTextSpanner #'stencil = ##f
-  \override TextSpanner #'stencil = ##f
-  \override Hairpin #'stencil = ##f
-  \override Script #'stencil = ##f
-  \override TextScript #'stencil = ##f
-  \override Glissando #'stencil = #glissando::draw-tab-glissando
+  \override TupletBracket.stencil = ##f
+  \override TupletNumber.stencil = ##f
+  \override DynamicText.stencil = ##f
+  \override DynamicTextSpanner.stencil = ##f
+  \override TextSpanner.stencil = ##f
+  \override Hairpin.stencil = ##f
+  \override Script.stencil = ##f
+  \override TextScript.stencil = ##f
+  \override Glissando.stencil = #glissando::draw-tab-glissando
   %% the direction for glissando lines will be automatically corrected
-  \override Glissando #'extra-dy = #glissando::calc-tab-extra-dy
-  \override Glissando #'bound-details #'right = #`((attach-dir . ,LEFT)
+  \override Glissando.extra-dy = #glissando::calc-tab-extra-dy
+  \override Glissando.bound-details.right = #`((attach-dir . ,LEFT)
 						   (padding . 0.3))
-  \override Glissando #'bound-details #'left = #`((attach-dir . ,RIGHT)
+  \override Glissando.bound-details.left = #`((attach-dir . ,RIGHT)
 						   (padding . 0.3))
   %% dead notes
-  \override TabNoteHead #'glyph-name = #tab-note-head::calc-glyph-name
-  \override TabNoteHead #'stencil = #tab-note-head::whiteout-if-style-set
+  \override TabNoteHead.glyph-name = #tab-note-head::calc-glyph-name
+  \override TabNoteHead.stencil = #tab-note-head::whiteout-if-style-set
 }
 
 \context {
@@ -882,10 +881,10 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \defaultchild "TabVoice"
 
   %% 6 strings, bigger spacing
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.staff-space = #1.5
 
   %% Don't draw stems over the tablature figures !
-  \override Stem #'avoid-note-head = ##t
+  \override Stem.avoid-note-head = ##t
 
   %% No accidental in tablature !
   \remove "Accidental_engraver"
@@ -893,14 +892,14 @@ contexts and handles the line spacing, the tablature clef etc. properly."
 
   \remove "Ottava_spanner_engraver"
   %% the clef handler
-  \override Clef #'stencil = #clef::print-modern-tab-if-set
+  \override Clef.stencil = #clef::print-modern-tab-if-set
   %% no time signature
-  \override TimeSignature #'stencil = ##f
+  \override TimeSignature.stencil = ##f
   %% no arpeggios
-  \override Arpeggio #'stencil = ##f
+  \override Arpeggio.stencil = ##f
   %% we ignore collision warnings that may occur due to
   %% stem overlapping, because we have no stems ;-)
-  \override NoteColumn #'ignore-collision = ##t
+  \override NoteColumn.ignore-collision = ##t
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
@@ -926,11 +925,11 @@ of Editio Vaticana."
   \consists "Episema_engraver"
 
   %% Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'vaticana.punctum
+  \override NoteHead.style = #'vaticana.punctum
 
   %% Put some space before and after divisiones.
   %% FIXME: This does not seem to show any effect.
-  \override Script #'padding = #0.5
+  \override Script.padding = #0.5
 
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
@@ -954,13 +953,13 @@ of Editio Vaticana."
   %% We can not remove Bar_engraver; otherwise clefs and custodes will
   %% not show up any more among other line breaking issues.
   %% Instead, we make the grob transparent.
-  \override BarLine #'transparent = ##t
+  \override BarLine.transparent = ##t
 
-  \override StaffSymbol #'line-count = #4
-  \override StaffSymbol #'thickness = #0.6
+  \override StaffSymbol.line-count = #4
+  \override StaffSymbol.thickness = #0.6
 
   %% FIXME: unit on StaffSymbol's width should be \linewidth.
-  %% \override StaffSymbol #'width = #60.0
+  %% \override StaffSymbol.width = #60.0
 
   %% Choose vaticana do clef on 3rd line as default.
   clefGlyph = #"clefs.vaticana.do"
@@ -970,12 +969,12 @@ of Editio Vaticana."
   clefOctavation = #0
 
   %% Select vaticana style font.
-  \override KeySignature #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
-  \override Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
-  \override Custos #'style = #'vaticana
-  \override Custos #'neutral-position = #3
-  \override Custos #'neutral-direction = #DOWN
-  \override Dots #'style = #'vaticana
+  \override KeySignature.glyph-name-alist = #alteration-vaticana-glyph-name-alist
+  \override Accidental.glyph-name-alist = #alteration-vaticana-glyph-name-alist
+  \override Custos.style = #'vaticana
+  \override Custos.neutral-position = #3
+  \override Custos.neutral-direction = #DOWN
+  \override Dots.style = #'vaticana
 }
 
 \context {
@@ -988,11 +987,11 @@ of Editio Vaticana."
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
   %% warning for every "\[" and "\]".  Therefore, we make the grob
   %% transparent instead.
-  \override LigatureBracket #'transparent = ##t
+  \override LigatureBracket.transparent = ##t
 
   %% Put some space before and after divisiones.
   %% FIXME: This does not seem to show any effect.
-  \override Script #'padding = #0.5
+  \override Script.padding = #0.5
 
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
@@ -1010,7 +1009,7 @@ of Editio Vaticana."
   %% We can not remove Bar_engraver; otherwise clefs and custodes will
   %% not show up any more among other line breaking issues.
   %% Instead, we make the grob transparent.
-  \override BarLine #'transparent = ##t
+  \override BarLine.transparent = ##t
 }
 
 \context {
@@ -1025,9 +1024,9 @@ accommodated for typesetting a piece in mensural style."
   \consists "Mensural_ligature_engraver"
 
   %% Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'mensural
-  \override Rest #'style = #'mensural
-  \override Flag #'style = #'mensural
+  \override NoteHead.style = #'mensural
+  \override Rest.style = #'mensural
+  \override Flag.style = #'mensural
 
   %% There are no beams in mensural notation.
   autoBeaming = ##f
@@ -1048,12 +1047,12 @@ accommodated for typesetting a piece in mensural style."
   %% We can not remove Bar_engraver; otherwise clefs and custodes will
   %% not show up any more among other line breaking issues.
   %% Instead, we make the grob transparent.
-  \override BarLine #'transparent = ##t
+  \override BarLine.transparent = ##t
 
-  \override StaffSymbol #'thickness = #0.6
+  \override StaffSymbol.thickness = #0.6
 
   %% FIXME: unit on StaffSymbol's width should be \linewidth.
-  %% \override StaffSymbol #'width = #60.0
+  %% \override StaffSymbol.width = #60.0
 
   %% Choose mensural g clef on 2nd line as default.
   clefGlyph = #"clefs.mensural.g"
@@ -1063,12 +1062,12 @@ accommodated for typesetting a piece in mensural style."
   clefOctavation = #0
 
   %% Select mensural style font.
-  \override TimeSignature #'style = #'mensural
-  \override KeySignature #'glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override Accidental #'glyph-name-alist = #alteration-mensural-glyph-name-alist
-  \override Custos #'style = #'mensural
-  \override Custos #'neutral-position = #3
-  \override Custos #'neutral-direction = #DOWN
+  \override TimeSignature.style = #'mensural
+  \override KeySignature.glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override Accidental.glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override Custos.style = #'mensural
+  \override Custos.neutral-position = #3
+  \override Custos.neutral-direction = #DOWN
 
   %% Accidentals are valid only once (same as
   %% \accidentalStyle forget)
@@ -1089,12 +1088,12 @@ accommodated for typesetting a piece in Petrucci style."
   \consists "Mensural_ligature_engraver"
 
   %% Set glyph styles.
-  \override NoteHead #'style = #'petrucci
-  \override Rest #'style = #'mensural
+  \override NoteHead.style = #'petrucci
+  \override Rest.style = #'mensural
 
   % Thickens and shortens stems.
-  \override Stem #'thickness = #1.7
-  \override Stem #'length = #5
+  \override Stem.thickness = #1.7
+  \override Stem.length = #5
 
   %% There are no beams in Petrucci notation.
   autoBeaming = ##f
@@ -1112,7 +1111,7 @@ accommodated for typesetting a piece in Petrucci style."
 
   \consists "Custos_engraver"
 
-  \override StaffSymbol #'thickness = #1.3
+  \override StaffSymbol.thickness = #1.3
 
   %% Choose Petrucci g clef on 2nd line as default.
   clefGlyph = #"clefs.petrucci.g"
@@ -1121,9 +1120,9 @@ accommodated for typesetting a piece in Petrucci style."
   clefPosition = #-2
   clefOctavation = #0
 
-  \override Custos #'style = #'mensural
-  \override Custos #'neutral-position = #3
-  \override Custos #'neutral-direction = #DOWN
+  \override Custos.style = #'mensural
+  \override Custos.neutral-position = #3
+  \override Custos.neutral-direction = #DOWN
 
   %% Accidentals are valid only once (if the following note is different)
   extraNatural = ##f
@@ -1141,11 +1140,11 @@ accommodated for typesetting a piece in Petrucci style."
 accommodated for typesetting a piece in Kievan style."
 
  %% Set glyph styles.
- \override NoteHead #'style = #'kievan
- \override Rest #'style = #'mensural
- \override Accidental #'glyph-name-alist = #alteration-kievan-glyph-name-alist
- \override Dots #'style = #'kievan
- \override Slur #'stencil = ##f
+ \override NoteHead.style = #'kievan
+ \override Rest.style = #'mensural
+ \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
+ \override Dots.style = #'kievan
+ \override Slur.stencil = ##f
 
  %% There are beams in Kievan notation, but they are invoked manually
  autoBeaming = ##f

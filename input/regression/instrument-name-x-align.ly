@@ -8,12 +8,12 @@ the following systems, respectively."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper { left-margin = 3\cm }
 \score {
   \new StaffGroup <<
     \new Staff {
-      \override Staff . InstrumentName #'self-alignment-X = #LEFT
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \set Staff . instrumentName = \markup \column {
 	"Left aligned" "instrument name"
       }
@@ -21,7 +21,7 @@ the following systems, respectively."
       c''1 \break c''
     }
     \new Staff {
-      \override Staff . InstrumentName #'self-alignment-X = #CENTER
+      \override Staff.InstrumentName.self-alignment-X = #CENTER
       \set Staff . instrumentName = \markup \center-column {
 	"Centered" "instrument name"
       }
@@ -29,7 +29,7 @@ the following systems, respectively."
       g'1 g'
     }
     \new Staff {
-      \override Staff . InstrumentName #'self-alignment-X = #RIGHT
+      \override Staff.InstrumentName.self-alignment-X = #RIGHT
       \set Staff . instrumentName = \markup \column \right-align {
 	"Right aligned" "instrument name"
       }

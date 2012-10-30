@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 \include "catalan.ly"
 
 \header {
@@ -36,7 +36,7 @@ trompette = \relative do'' {
   \key mib \major
   \time 2/4
   R2^\markup { \italic Comodo } |
-  r8 \once \override TextScript #'padding = #2.0
+  r8 \once \override TextScript.padding = #2.0
   sib16-.^\markup {\dynamic p \italic grazioso} do-. mib( re)-. do-. sib-. |
   re8-. r8 re4->( |
   re8) do16-. re-. mib( re) do-. re-. |

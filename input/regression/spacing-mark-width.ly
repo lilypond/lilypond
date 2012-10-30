@@ -4,7 +4,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t
@@ -12,7 +12,7 @@
 
 \relative c''
 {
-  \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
+  \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
   c1
   \mark "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx "
 }

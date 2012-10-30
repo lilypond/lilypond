@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 texidoc = "Concave beaming works for chords as well as monophonic
 music.
@@ -37,10 +37,10 @@ nonHorizontalBeams = {
 
 #(define (<> x y) (not (= x y)))
 mustBeHorizontal = {
-  \override Staff.Beam #'positions = #(check-slope-callbacks =)
+  \override Staff.Beam.positions = #(check-slope-callbacks =)
 }
 mustNotBeHorizontal = {
-  \override Staff.Beam #'positions = #(check-slope-callbacks <>)
+  \override Staff.Beam.positions = #(check-slope-callbacks <>)
 }
 
 \new Voice {

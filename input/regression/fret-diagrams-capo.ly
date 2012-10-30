@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -33,8 +33,7 @@ string, and its thickness can be changed.
      %% C major for guitar, with capo on third fret
        % thinner capo
         % verbose style
-    \override TextScript #'fret-diagram-details 
-        #'capo-thickness = #0.2
+    \override TextScript.fret-diagram-details.capo-thickness = #0.2
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (capo 3)

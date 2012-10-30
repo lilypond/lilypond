@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -23,12 +23,12 @@ a staff-by-staff basis.
   \new StaffGroup <<
     \new Staff {
       e1 | e
-      \once \override Staff.BarLine #'allow-span-bar = ##f
+      \once \override Staff.BarLine.allow-span-bar = ##f
       e1 | e | e
     }
     \new Staff {
       c1 | c | c
-      \once \override Staff.BarLine #'allow-span-bar = ##f
+      \once \override Staff.BarLine.allow-span-bar = ##f
       c1 | c
     }
     \new Staff {

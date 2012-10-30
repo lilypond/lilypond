@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node Eseguire lilypond
@@ -980,7 +980,7 @@ delle note nel rigo, ma in realtà produce due righi, di cui il più basso
 conserva il colore nero predefinito per le teste delle note.
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -992,7 +992,7 @@ corretto per colorare le teste di tutte le note è
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond
@@ -1083,7 +1083,7 @@ messaggi di avvertimento facendo in modo che uno dei contesti si comporti
 come un rigo inserendo
 
 @example
-\override VerticalAxisGroup #'staff-affinity = ##f
+\override VerticalAxisGroup.staff-affinity = ##f
 @end example
 
 @noindent

@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -17,10 +17,10 @@ be increased.
 }
 
 \relative c'' {
-  \override Score.BarNumber #'break-visibility = #all-visible
+  \override Score.BarNumber.break-visibility = #all-visible
   \partial 4 c4 
   c1 c c
   \set Score.currentBarNumber = #99999
-  \override Score.BarNumber  #'padding = #3
+  \override Score.BarNumber.padding = #3
   c1 c
 }

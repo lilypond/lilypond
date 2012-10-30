@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc =
 
@@ -14,7 +14,7 @@ if the black note heads are from 8th or shorter notes.
 
 \context Staff  \relative c'' <<
   {
-    \override Staff.NoteCollision  #'merge-differently-headed = ##t
+    \override Staff.NoteCollision.merge-differently-headed = ##t
     c2 c8 c4.
     c2
   }\\

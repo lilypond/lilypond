@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -26,9 +26,9 @@ Rhythms headword
 \layout {
   \context {
     \Score
-    \override SpacingSpanner #'base-shortest-duration =
+    \override SpacingSpanner.base-shortest-duration =
       #(ly:make-moment 1 40)
-      %\override SpacingSpanner #'strict-grace-spacing = ##t
+      %\override SpacingSpanner.strict-grace-spacing = ##t
   }
 }
 
@@ -65,7 +65,7 @@ Rhythms headword
          }
       <e''! e'>16
       <f'' f'>16 ] )
-      \once \override TextScript #'padding = #3.8
+      \once \override TextScript.padding = #3.8
       <g'' g'>16 ( \staccato -\markup { \italic cresc. }
       <a'' a'>16 ) \staccato
       <bf'' bf'>32  (
@@ -75,7 +75,7 @@ Rhythms headword
 
       |
 
-      \once \override DynamicLineSpanner #'padding = #2
+      \once \override DynamicLineSpanner.padding = #2
       b''32 ( \p \>
       c'''32
       d'''32

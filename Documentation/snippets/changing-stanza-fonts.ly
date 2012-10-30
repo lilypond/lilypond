@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "really-simple, vocal-music"
@@ -28,8 +28,8 @@ used for printing the stanza number.
   Hi, my name is Bert.
 }
 \addlyrics {
-  \override StanzaNumber #'font-name = #"DejaVu"
+  \override StanzaNumber.font-name = #"DejaVu"
   \set stanza = #"2. "
-  \override LyricText #'font-family = #'typewriter
+  \override LyricText.font-family = #'typewriter
   Oh, ché -- ri, je t'aime
 }

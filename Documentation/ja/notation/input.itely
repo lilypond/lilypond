@@ -530,7 +530,7 @@ foo = @{ c4 d e d @}
 @item Scheme 表記要素を区切る空白。
 @item @code{lyricmode} モードの @code{\override} と @code{\set} コマンドの@c
 中にある単語を区切る空白。@c
-特に、@code{\override Score . LyricText #'font-size = #5} のように、@c
+特に、@code{\override Score.LyricText.font-size = #5} のように、@c
 コマンドの中のドットとイコール記号の前後、コマンド全体の前後に@c
 空白を挿入することを忘れないで下さい。
 

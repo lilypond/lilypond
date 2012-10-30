@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
@@ -1051,7 +1051,7 @@ soient en rouge, alors que le résultat nous présente deux portées et que
 les notes, placées sur la portée inférieure, restent en noir.
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -1064,7 +1064,7 @@ ces notes en rouge :
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond
@@ -1162,7 +1162,7 @@ dès lors que vous autoriserez l'un de ces contextes à se comporter comme
 une portée, à l'aide de l'instruction
 
 @example
-\override VerticalAxisGroup #'staff-affinity = ##f
+\override VerticalAxisGroup.staff-affinity = ##f
 @end example
 
 @noindent

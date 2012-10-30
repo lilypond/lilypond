@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "pitches"
@@ -18,7 +18,7 @@ system.
 } % begin verbatim
 
 \relative c'' {
-  \override Accidental #'hide-tied-accidental-after-break = ##t
+  \override Accidental.hide-tied-accidental-after-break = ##t
   cis1~ cis~
   \break
   cis

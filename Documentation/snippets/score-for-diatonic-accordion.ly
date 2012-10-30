@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
+%% Note: this file works from version 2.16.0
 \version "2.17.6"
 
 \header {
@@ -72,15 +72,15 @@ harmonies = \new ChordNames \chordmode {
   bes1
 }
 
-NoStem = { \override Stem #'transparent = ##t \override Flag #'transparent = ##t }
-NoNoteHead = \override NoteHead #'transparent = ##t
-ZeroBeam = \override Beam  #'positions = #'(0 . 0)
+NoStem = { \override Stem.transparent = ##t \override Flag.transparent = ##t }
+NoNoteHead = \override NoteHead.transparent = ##t
+ZeroBeam = \override Beam.positions = #'(0 . 0)
 
 staffTabLine = \new Staff \with {
   \remove "Time_signature_engraver"
   \remove "Clef_engraver"
 } {
-  \override Staff.StaffSymbol #'line-positions = #'(0)
+  \override Staff.StaffSymbol.line-positions = #'(0)
   % Shows one horizontal line. The vertical line (simulating a bar-line) is simulated with a gridline
   \set Staff.midiInstrument = #"choir aahs"
   \key c \major
@@ -88,7 +88,7 @@ staffTabLine = \new Staff \with {
   {
     % disable the following line to see the the noteheads while writing the song
     \NoNoteHead
-    \override NoteHead #'no-ledgers = ##t
+    \override NoteHead.no-ledgers = ##t
 
     % The beam between 8th-notes is used to draw the push-line
     %How to fast write the push-lines:
@@ -160,7 +160,7 @@ AccordionTab= { \dynamicUp
     \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 4 4) % 4/4 - tact. How many beats per bar
     % The following line has to be adjusted O-F-T-E-N.
-    \override GridPoint #'Y-extent = #'(-2 . -21)
+    \override GridPoint.Y-extent = #'(-2 . -21)
   }
   \context {
     \ChoirStaff
@@ -196,13 +196,13 @@ staffAccordionMel =
 
 AltOn =
 #(define-music-function (parser location mag) (number?)
-  #{ \override Stem #'length = #(* 7.0 mag)
-      \override NoteHead #'font-size =
+  #{ \override Stem.length = #(* 7.0 mag)
+      \override NoteHead.font-size =
 #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
 
 AltOff = {
-  \revert Stem #'length
-  \revert NoteHead #'font-size
+  \revert Stem.length
+  \revert NoteHead.font-size
 }
 
 BassRhytm = {s4 s8 | c2 c2 | c2 s8 }
@@ -212,8 +212,8 @@ staffBassRhytm =
 \new Staff = staffbass \with { \remove "Clef_engraver" } {
   % This is not a RhythmicStaff  because it must be possible to append lyrics.
 
-  \override Score.GridLine #'extra-offset = #'( 13.0 . 0.0 ) % x.y
-  \override Staff.StaffSymbol #'line-positions = #'( 0 )
+  \override Score.GridLine.extra-offset = #'( 13.0 . 0.0 ) % x.y
+  \override Staff.StaffSymbol.line-positions = #'( 0 )
   % Shows one horizontal line. The vertical line (simulating a bar-line) is simulated by a grid
   % Search for 'grid' in this page to find all related functions
   \time 4/4

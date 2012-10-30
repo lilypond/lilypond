@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, stylesheet, version-specific"
@@ -97,30 +97,30 @@ xDown = \markup { \column { \small x \line { \strokeDown } } }
 
 % Just handy :)
 tupletOff = {
-  \once \override TupletNumber #'stencil = ##f
-  \once \override TupletBracket #'stencil = ##f
+  \once \override TupletNumber.stencil = ##f
+  \once \override TupletBracket.stencil = ##f
 }
 
 tupletsOff = {
-  \override TupletNumber #'stencil = ##f
-  \override TupletBracket #'bracket-visibility = #'if-no-beam
+  \override TupletNumber.stencil = ##f
+  \override TupletBracket.bracket-visibility = #'if-no-beam
 }
 
 tupletsOn = {
-  \override TupletBracket #'bracket-visibility = #'default
-  \revert TupletNumber #'stencil
+  \override TupletBracket.bracket-visibility = #'default
+  \revert TupletNumber.stencil
 }
 
 headsOff = {
-  \override TabNoteHead #'transparent = ##t
-  \override NoteHead #'transparent = ##t
-  \override NoteHead #'no-ledgers = ##t
+  \override TabNoteHead.transparent = ##t
+  \override NoteHead.transparent = ##t
+  \override NoteHead.no-ledgers = ##t
 }
 
 headsOn = {
-  \override TabNoteHead #'transparent = ##f
-  \override NoteHead #'transparent = ##f
-  \override NoteHead #'no-ledgers = ##f
+  \override TabNoteHead.transparent = ##f
+  \override NoteHead.transparent = ##f
+  \override NoteHead.no-ledgers = ##f
 }
 
 %%%%%%%  Cut here ----- End 'flamenco.ly'
@@ -193,7 +193,7 @@ part = \relative c' {
   }
 
   \tupletsOff
-  \override Beam #'positions = #'(2 . 2)
+  \override Beam.positions = #'(2 . 2)
   \times 2/3 {
     a8^\markup{ \small p }
     <e' a>^\strokeUpGolpe
@@ -216,7 +216,7 @@ part = \relative c' {
   }
   \tupletsOn
 
-  \once \override TextScript #'extra-offset = #'(0 . -1)
+  \once \override TextScript.extra-offset = #'(0 . -1)
   <g, b f'>1_\golpe^\mUp
   \bar "|."
 }

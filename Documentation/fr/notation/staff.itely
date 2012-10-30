@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -460,11 +460,11 @@ Vous pouvez modifier le nombre de lignes d'une portée.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-count = #2
+\override Staff.StaffSymbol.line-count = #2
 \startStaff g, e |
 
 f'4 d \stopStaff
-\revert Staff.StaffSymbol #'line-count
+\revert Staff.StaffSymbol.line-count
 \startStaff g, e |
 @end lilypond
 
@@ -477,10 +477,10 @@ d'une seule commande.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(1 3 5 -1 -3)
+\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
 \startStaff g, e |
 f'4 d \stopStaff
-\override Staff.StaffSymbol #'line-positions = #'(8 6.5 -6 -8 -0.5)
+\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
 \startStaff g, e
 @end lilypond
 
@@ -493,7 +493,7 @@ les lignes supplémentaires et les hampes seront aussi modifiées.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #3
+  \override StaffSymbol.thickness = #3
 }
 { e4 d c b }
 @end lilypond
@@ -506,8 +506,8 @@ déterminer l'épaisseur des lignes supplémentaires.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'thickness = #2
-  \override StaffSymbol #'ledger-line-thickness = #'(0.5 . 0.4)
+  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -516,7 +516,7 @@ L'emplacement des lignes supplémentaires est réglable :
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-positions = #'(-3 -2 -1 2 5 6)
+  \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
 }
 { f'4 a, a,, f }
 @end lilypond
@@ -528,7 +528,7 @@ supplémentaires.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'ledger-extra = #4
+  \override StaffSymbol.ledger-extra = #4
 }
 { f'4 a, d, f, }
 @end lilypond
@@ -542,11 +542,11 @@ rendue nécessaire pour annuler les effets de la commande
 @code{\override} qui s'applique à l'intégralité du @code{StaffSymbol}.
 
 @lilypond[fragment,quote,relative=1]
-\override Staff.StaffSymbol #'line-positions =   #'(-8 0 2 4)
+\override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
 d4 e f g
 \stopStaff
 \startStaff
-\override Staff.StaffSymbol #'ledger-positions = #'(-8 -6 (-4 -2) 0)
+\override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
 d4 e f g
 @end lilypond
 
@@ -555,7 +555,7 @@ lignes supplémentaires.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.staff-space = #1.5
 }
 { f'4 d, g, e, }
 @end lilypond
@@ -633,8 +633,8 @@ lorsqu'il y a un nombre restreint d'ossias.
       \remove "Time_signature_engraver"
       alignAboveContext = #"main"
       fontSize = #-3
-      \override StaffSymbol #'staff-space = #(magstep -3)
-      \override StaffSymbol #'thickness = #(magstep -3)
+      \override StaffSymbol.staff-space = #(magstep -3)
+      \override StaffSymbol.thickness = #(magstep -3)
       firstClef = ##f
     }
     { e4 d f e }
@@ -655,10 +655,10 @@ procéder, bien plus que dans l'exemple suivant.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   }
   { \stopStaff s1*6 }
 
@@ -694,10 +694,10 @@ début de ligne.  Pour plus d'information au sujet de la commande
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef #'transparent = ##t
+    \override Clef.transparent = ##t
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
+    \override StaffSymbol.thickness = #(magstep -3)
   } \relative c'' {
     R1*3
     c4 e8 d c2
@@ -715,7 +715,7 @@ début de ligne.  Pour plus d'information au sujet de la commande
 \layout {
   \context {
     \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup #'remove-first = ##t
+    \override VerticalAxisGroup.remove-first = ##t
   }
 }
 @end lilypond
@@ -862,8 +862,8 @@ de formatage.  En pareil cas il vaut mieux, au lieu de supprimer le
 graveur, recourir aux dérogations suivantes :
 
 @example
-\override StaffSymbol #'stencil = ##f
-\override NoteHead #'no-ledgers = ##t
+\override StaffSymbol.stencil = ##f
+\override NoteHead.no-ledgers = ##t
 @end example
 
 En ce qui concerne les désagréments et messages liés à l'utilisation de

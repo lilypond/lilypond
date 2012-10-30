@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -20,11 +20,9 @@ of the topmost fret or string.
   \new FretBoards {
     \chordmode{
     c1 |
-    \override FretBoard #'fret-diagram-details
-       #'orientation = #'landscape
+    \override FretBoard.fret-diagram-details.orientation = #'landscape
     c1 |
-    \override FretBoard #'fret-diagram-details
-       #'orientation = #'opposing-landscape
+    \override FretBoard.fret-diagram-details.orientation = #'opposing-landscape
     c1
     }
   }

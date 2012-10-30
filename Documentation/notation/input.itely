@@ -502,7 +502,7 @@ expression, i.e. every item that begins with a @code{#}@tie{}sign.
 @item In @code{lyricmode} to separate all the terms in both
 @code{\override} and @code{\set} commands.  In particular, spaces
 must be used around the dot and the equals sign in commands like
-@code{\override Score . LyricText #'font-size = #5} and before and
+@code{\override Score.LyricText.font-size = #5} and before and
 after the entire command.
 
 @end itemize
@@ -1347,7 +1347,7 @@ suppressed:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" }
     e c4
-    \once \override Score.FootnoteItem #'annotation-line = ##f
+    \once \override Score.FootnoteItem.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }

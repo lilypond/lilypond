@@ -3,7 +3,7 @@
   texidoc = "The note markup function may be used to make metronome
  markings. It works for a variety of flag, dot and duration settings."
 }
-\version "2.16.0"
+\version "2.17.6"
 
 \score {
   \relative c''
@@ -52,14 +52,14 @@
 
     }
 
-    \override NoteHead #'style = #'triangle
+    \override NoteHead.style = #'triangle
     c4 a
   }
 
   \layout {
     \context {
       \Score
-      \override PaperColumn #'keep-inside-line = ##f
+      \override PaperColumn.keep-inside-line = ##f
     }
   }
 

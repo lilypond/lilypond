@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, scheme-language, tweaks-and-overrides"
@@ -34,12 +34,12 @@ parallelogram =
     (cons 0 1.3125)
     (cons -.75 .75))
 
-myNoteHeads = \override NoteHead #'stencil = \parallelogram
-normalNoteHeads = \revert NoteHead #'stencil
+myNoteHeads = \override NoteHead.stencil = \parallelogram
+normalNoteHeads = \revert NoteHead.stencil
 
 \relative c'' {
   \myNoteHeads
   g4 d'
   \normalNoteHeads
-  <f, \tweak #'stencil \parallelogram b e>4 d
+  <f, \tweak stencil \parallelogram b e>4 d
 }

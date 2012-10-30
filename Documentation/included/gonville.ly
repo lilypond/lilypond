@@ -7,7 +7,7 @@ path)."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   myStaffSize = 20
@@ -56,7 +56,7 @@ sampleMusic = \relative c'' {
 {
   \set Staff.instrumentName = #"Gonv override"
   c2^\trill c
-  \override NoteHead #'font-family = #'gonville
-  \override Script #'font-family = #'gonville
+  \override NoteHead.font-family = #'gonville
+  \override Script.font-family = #'gonville
   c^\trill c 
 }

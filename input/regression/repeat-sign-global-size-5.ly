@@ -1,4 +1,4 @@
-\version "2.17.5"
+\version "2.17.6"
 \header {
   texidoc = "The two dots of a repeat sign should be symmetric
 to the staff centre and avoid staff lines even for exotic staves.
@@ -10,13 +10,13 @@ Test set-global-staff size 10 (with layout-set-staff-size)."
 \score {
   <<
     \context Staff = "s1" \with {
-      \override StaffSymbol #'staff-space = #0.7
+      \override StaffSymbol.staff-space = #0.7
     } {
       s1 \bar ":|."
     }
 
     \context Staff = "s2" \with {
-      \override StaffSymbol #'line-positions = #'(-4 -2 0 2)
+      \override StaffSymbol.line-positions = #'(-4 -2 0 2)
     } {
       s1 \bar ":|."
     }
@@ -34,14 +34,14 @@ Test set-global-staff size 10 (with layout-set-staff-size)."
     }
 
     \context Staff = "s2" \with {
-      \override StaffSymbol #'staff-space = #3
-      \override StaffSymbol #'line-positions = #'(-4 -2 0 2)
+      \override StaffSymbol.staff-space = #3
+      \override StaffSymbol.line-positions = #'(-4 -2 0 2)
     } {
       s1 \bar ":|."
     }
 
     \context Staff = "s3" \with {
-      \override StaffSymbol #'staff-space = #6
+      \override StaffSymbol.staff-space = #6
     } {
       s1 \bar ":|."
     }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Instrument names are removed when the staves are
@@ -10,7 +10,7 @@ disappears, as does the instrument name."
         
 \new PianoStaff <<
   \new Staff {
-    \override Staff.VerticalAxisGroup #'remove-empty = ##t  
+    \override Staff.VerticalAxisGroup.remove-empty = ##t  
     \set PianoStaff.instrumentName = #"up" 
     \set PianoStaff.shortInstrumentName = #"u"
     c'1\break R

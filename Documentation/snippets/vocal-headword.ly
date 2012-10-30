@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -19,8 +19,8 @@ Vocal headword
 \layout {
   \context {
     \Score
-    \override PaperColumn #'keep-inside-line = ##t
-    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+    \override PaperColumn.keep-inside-line = ##t
+    \override NonMusicalPaperColumn.keep-inside-line = ##t
   }
 }
 
@@ -56,7 +56,7 @@ Vocal headword
     e([ d)] d([ cis d a)]
     g8([ fis)] fis([ e d c)]
     c8([ b)] g'2~
-    \once \override Script #'outside-staff-priority = #1 % put fermata closer to staff
+    \once \override Script.outside-staff-priority = #1 % put fermata closer to staff
     g4.\fermata ^\markup { \small \italic "ad libitum" } e8[ cis!] d
     d8 a a4 r \bar "||"
 

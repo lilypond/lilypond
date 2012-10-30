@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Text spanners work in the @code{Dynamics} context."
@@ -9,7 +9,7 @@
     c1 | c
   }
   \new Dynamics {
-    \override TextSpanner #'(bound-details left text) = #"rit."
+    \override TextSpanner.bound-details.left.text = #"rit."
     s1\startTextSpan
     s1\stopTextSpan
   }

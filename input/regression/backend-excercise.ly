@@ -2,7 +2,7 @@
   texidoc = "Exercise all output functions"
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper { ragged-right = ##t }
 
@@ -15,14 +15,14 @@
 	\ottava #0
 	<f,, \5>4
 
-	\override TextScript #'color = #red
+	\override TextScript.color = #red
 	g4^"red"
       }
 
     \new Staff \relative c'' {
       \makeClusters { <g a>8 <e a> <g a>4 }
 
-      \override Glissando #'style = #'zigzag
+      \override Glissando.style = #'zigzag
       \slurDashed
       f2( \glissando f')
       \easyHeadsOn

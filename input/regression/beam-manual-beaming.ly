@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 
 \header {
@@ -18,11 +18,9 @@
        %%  \once.
        %%
 
-       \once \override Stem 
-       #'beaming = #(cons (list   1 2) (list 0 2 4))
+       \once \override Stem.beaming = #(cons (list   1 2) (list 0 2 4))
        c
-       \once \override Stem 
-       #'beaming = #(cons (list 0 2 4) (list 0 1 4))
+       \once \override Stem.beaming = #(cons (list 0 2 4) (list 0 1 4))
        c c c]
 }
 

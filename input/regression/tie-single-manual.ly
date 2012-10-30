@@ -5,20 +5,20 @@ specifying their @code{direction} and/@/or @code{staff-position}."
   
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t
 }
 
 {
-  \override Tie #'staff-position = #-5.5
+  \override Tie.staff-position = #-5.5
   c'4 ~ c'
-  \override Tie #'staff-position = #-6.5
+  \override Tie.staff-position = #-6.5
   c'4 ~ c'
-  \override Tie #'staff-position = #-7.5
+  \override Tie.staff-position = #-7.5
   c'4 ~ c'
-  \revert Tie #'staff-position
-  \override Tie #'direction = #UP
+  \revert Tie.staff-position
+  \override Tie.direction = #UP
   c'4 ~ c'
 }

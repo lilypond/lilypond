@@ -3,7 +3,7 @@
   texidoc = "The @code{\\tweak} function can be used in Lyrics."
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper {
   ragged-right = ##t
 }
@@ -11,8 +11,8 @@
 \new Lyrics \lyricmode
 {
   \markup \raise #1 \rotate #30 One 4
-  \tweak #'extra-offset #'(0 . 2) fish,
+  \tweak extra-offset #'(0 . 2) fish,
   \markup \raise #1 \rotate #-30 two fish,
-  \tweak #'color #red red fish,
-  \tweak #'color #blue blue fish.
+  \tweak color #red red fish,
+  \tweak color #blue blue fish.
 }

@@ -1187,8 +1187,8 @@ grob.
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override OctavateEight #'color = #red
-  \override Clef #'color = #blue
+  \override OctavateEight.color = #red
+  \override Clef.color = #blue
 }
 
 \clef "treble_8" c4
@@ -1288,12 +1288,12 @@ accidentals are placed within the octave ending at that staff
 position.
 
 @lilypond[verbatim, quote,relative=0]
-\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
-\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
 \clef bass \key es\major es g bes d
 \clef treble \bar "||" \key es\major es g bes d
 
-\override Staff.KeySignature #'sharp-positions = #'(2)
+\override Staff.KeySignature.sharp-positions = #'(2)
 \bar "||" \key b\major b fis b2
 @end lilypond
 
@@ -2741,13 +2741,13 @@ The appearance of note heads may be altered:
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
-\override NoteHead #'style = #'cross
+\override NoteHead.style = #'cross
 c4 b
-\revert NoteHead #'style
+\revert NoteHead.style
 a b
-\override NoteHead #'style = #'harmonic
+\override NoteHead.style = #'harmonic
 a b
-\revert NoteHead #'style
+\revert NoteHead.style
 c4 d e f
 @end lilypond
 

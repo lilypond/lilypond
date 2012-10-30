@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Fingerings work correctly with cross-staff beams."
@@ -19,7 +19,7 @@ music = \relative c {
       \stemUp \music }
     \new Staff="down" \new Voice { 
       \clef bass  \stemDown 
-      \override Fingering #'direction = #down 
+      \override Fingering.direction = #down 
       \transpose c c, \music }
   >>
 }

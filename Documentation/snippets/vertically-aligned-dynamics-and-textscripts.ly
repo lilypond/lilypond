@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides, workaround"
@@ -32,8 +32,8 @@ music = \relative c' {
 {
   \music
   \break
-  \override DynamicLineSpanner #'staff-padding = #2.0
-  \override DynamicLineSpanner #'Y-extent = #'(-1.5 . 1.5)
-  \override TextScript #'Y-extent = #'(-1.5 . 1.5)
+  \override DynamicLineSpanner.staff-padding = #2.0
+  \override DynamicLineSpanner.Y-extent = #'(-1.5 . 1.5)
+  \override TextScript.Y-extent = #'(-1.5 . 1.5)
   \music
 }

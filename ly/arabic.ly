@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \language "italiano"
 
 %%%%%%%
@@ -21,7 +21,7 @@
 %
 
 dwn = {
-  \once \override Voice.Accidental #'stencil = #(lambda (grob)
+  \once \override Voice.Accidental.stencil = #(lambda (grob)
   (ly:stencil-combine-at-edge
     (ly:accidental-interface::print grob) Y UP
     (grob-interpret-markup grob (markup #:line

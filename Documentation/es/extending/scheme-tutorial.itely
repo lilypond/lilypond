@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Tutorial de Scheme
 @appendix Tutorial de Scheme
@@ -960,7 +960,7 @@ asignación de un valor a la lista-A con una clave y un valor.  La
 sintaxis de LilyPond para hacer esto es la siguiente:
 
 @example
-\override Stem #'thickness = #2.6
+\override Stem.thickness = #2.6
 @end example
 
 Esta instrucción ajusta el aspecto de las plicas.  Se añade una
@@ -994,7 +994,7 @@ como @emph{parejas}.  El @code{car} del desplazamiento es la
 coordenada X, y el @code{cdr} es la coordenada Y.
 
 @example
-\override TextScript #'extra-offset = #'(1 . 2)
+\override TextScript.extra-offset = #'(1 . 2)
 @end example
 
 Esto asigna la pareja @code{(1 . 2)} a la propiedad
@@ -1580,8 +1580,7 @@ Podemos verificar que esta función musical funciona correctamente:
 @c @transl ationof Tweaking with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar
-profundamente usando instrucciones como @code{\override TextScript
-#'extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
+profundamente usando instrucciones como @code{\override TextScript.extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
 utilizamos Scheme.  Para ver una explicación completa de esto,
 consulte el @ref{Tutorial de Scheme}, y @ruser{Interfaces para programadores}.
 
@@ -1597,7 +1596,7 @@ TODO Find a simple example
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
-  \once \override TextScript #'padding = #padding
+  \once \override TextScript.padding = #padding
 #})
 
 \relative c''' {
@@ -1621,7 +1620,7 @@ Lo podemos usar para crear instrucciones nuevas:
 tempoPadded = #(define-music-function (parser location padding tempotext)
   (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = #padding
+  \once \override Score.MetronomeMark.padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 

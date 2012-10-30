@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "
@@ -11,7 +11,7 @@ even if scaled to a smaller size.
 <<
   \new Staff \with {
     fontSize = #-6
-    \override StaffSymbol #'staff-space = #(magstep -6)
+    \override StaffSymbol.staff-space = #(magstep -6)
   }
   \relative c' {
     c1\startTrillSpan | c\stopTrillSpan |

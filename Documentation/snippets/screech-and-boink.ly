@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -23,7 +23,7 @@ Random complex notation
       \key c \minor
       <<
         {
-          \revert Stem #'direction
+          \revert Stem.direction
           \change Staff = down
           \set subdivideBeams = ##t
           g16.[
@@ -52,9 +52,9 @@ Random complex notation
       \clef bass
       \key c \minor
       \set subdivideBeams = ##f
-      \override Stem #'french-beaming = ##t
-      \override Beam #'beam-thickness = #0.3
-      \override Stem #'thickness = #4.0
+      \override Stem.french-beaming = ##t
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #4.0
       g'16[ b16 fis16 g16]
       <<
         \makeClusters {
@@ -62,7 +62,7 @@ Random complex notation
         }
         \\
         {
-          \override Staff.Arpeggio #'arpeggio-direction = #DOWN
+          \override Staff.Arpeggio.arpeggio-direction = #DOWN
           <cis, e, gis, b, cis>4\arpeggio
         }
       >>

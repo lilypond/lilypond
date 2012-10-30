@@ -7,7 +7,7 @@ things are quoted. In this example, a 16th rest is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.16.0"
+\version "2.17.6"
 \layout {
     ragged-right = ##t
 }
@@ -35,7 +35,7 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	  \new Voice {\voiceTwo
 	    s4
 	    \set fontSize = #-4
-	    \override Stem #'length-fraction = #(magstep -4)
+	    \override Stem.length-fraction = #(magstep -4)
 	    \quoteDuring #"quoteMe" { \skip 2. }
 	}
     >>

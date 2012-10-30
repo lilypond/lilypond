@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, tweaks-and-overrides"
@@ -29,7 +29,7 @@ changed by scaling the properties @code{'staff-space} and
   }
   \new Staff \with {
     fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
+    \override StaffSymbol.staff-space = #(magstep -3)
   } {
     \clef bass
     c8 c c c c\f c c c

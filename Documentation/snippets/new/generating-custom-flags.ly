@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -42,21 +42,21 @@ function to generate the glyph for the flag.
 snippetexamplenotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 }
 
 {
-  \override Score.RehearsalMark #'self-alignment-X = #LEFT
+  \override Score.RehearsalMark.self-alignment-X = #LEFT
   \time 1/4
   \mark "Normal flags"
   \snippetexamplenotes
 
   \mark "Custom flag: inverted"
-  \override Flag #'stencil = #inverted-flag
+  \override Flag.stencil = #inverted-flag
   \snippetexamplenotes
 
   \mark "Custom flag: weight"
-  \override Flag #'stencil = #weight-flag
+  \override Flag.stencil = #weight-flag
   \snippetexamplenotes
 
   \mark "Revert to normal"
-  \revert Flag #'stencil
+  \revert Flag.stencil
   \snippetexamplenotes
 }
 

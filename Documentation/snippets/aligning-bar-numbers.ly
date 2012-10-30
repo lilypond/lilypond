@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -22,16 +22,16 @@ positioned directly over the bar line or left-aligned to the bar line.
 
 \relative c' {
   \set Score.currentBarNumber = #111
-  \override Score.BarNumber #'break-visibility = #all-visible
+  \override Score.BarNumber.break-visibility = #all-visible
   % Increase the size of the bar number by 2
-  \override Score.BarNumber #'font-size = #2
+  \override Score.BarNumber.font-size = #2
   % Print a bar number every second measure
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
   c1 | c1
   % Center-align bar numbers
-  \override Score.BarNumber #'self-alignment-X = #CENTER
+  \override Score.BarNumber.self-alignment-X = #CENTER
   c1 | c1
   % Left-align bar numbers
-  \override Score.BarNumber #'self-alignment-X = #LEFT
+  \override Score.BarNumber.self-alignment-X = #LEFT
   c1 | c1
 }

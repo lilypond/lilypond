@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "ancient-notation, real-music, really-cool, template"
@@ -27,18 +27,18 @@ global = {
   \set Score.skipBars = ##t
 
   % incipit
-  \once \override Score.SystemStartBracket #'transparent = ##t
+  \once \override Score.SystemStartBracket.transparent = ##t
    % Set tight spacing
-  \override Score.SpacingSpanner #'spacing-increment = #1.0
+  \override Score.SpacingSpanner.spacing-increment = #1.0
   \key f \major
   \time 2/2
-  \once \override Staff.TimeSignature #'style = #'neomensural
-  \override Voice.NoteHead #'style = #'neomensural
-  \override Voice.Rest #'style = #'neomensural
+  \once \override Staff.TimeSignature.style = #'neomensural
+  \override Voice.NoteHead.style = #'neomensural
+  \override Voice.Rest.style = #'neomensural
   \set Staff.printKeyCancellation = ##f
   \cadenzaOn % turn off bar lines
   \skip 1*10
-  \once \override Staff.BarLine #'transparent = ##f
+  \once \override Staff.BarLine.transparent = ##f
   \bar "||"
   \skip 1*1 % need this extra \skip such that clef change comes
             % after bar line
@@ -46,12 +46,12 @@ global = {
 
   % main
   \cadenzaOff % turn bar lines on again
-  \once \override Staff.Clef #'full-size-change = ##t
+  \once \override Staff.Clef.full-size-change = ##t
   \set Staff.forceClef = ##t
   \key g \major
   \time 4/4
-  \override Voice.NoteHead #'style = #'default
-  \override Voice.Rest #'style = #'default
+  \override Voice.NoteHead.style = #'default
+  \override Voice.Rest.style = #'default
 
   % Setting printKeyCancellation back to #t must not
   % occur in the first bar after the incipit.  Dto. for forceClef.
@@ -63,7 +63,7 @@ global = {
   \skip 1*7 % the actual music
 
   % let finis bar go through all staves
-  \override Staff.BarLine #'transparent = ##f
+  \override Staff.BarLine.transparent = ##f
 
   % finis bar
   \bar "|."
@@ -86,7 +86,7 @@ discantusNotes = {
     c'4 e'4.( d'8 c' b |
     a4) b a2 |
     b4.( c'8 d'4) c'4 |
-    \once \override NoteHead #'transparent = ##t c'1 |
+    \once \override NoteHead.transparent = ##t c'1 |
     b\breve |
   }
 }
@@ -122,7 +122,7 @@ altusNotes = {
     a2 g4 e |
     fis g4.( fis16 e fis4) |
     g1 |
-    \once \override NoteHead #'transparent = ##t g1 |
+    \once \override NoteHead.transparent = ##t g1 |
     g\breve |
   }
 }
@@ -158,7 +158,7 @@ tenorNotes = {
     R1 |
     R1 |
     r2 d'2. d'4 b e' | % two bars
-    \once \override NoteHead #'transparent = ##t e'1 |
+    \once \override NoteHead.transparent = ##t e'1 |
     d'\breve |
   }
 }
@@ -190,7 +190,7 @@ bassusNotes = {
     R1 |
     R1 |
     g2. e4 |
-    \once \override NoteHead #'transparent = ##t e1 |
+    \once \override NoteHead.transparent = ##t e1 |
     g\breve |
   }
 }
@@ -229,7 +229,7 @@ bassusLyrics = \lyricmode {
       \Score
 
       % no bars in staves
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
 
       % incipit should not start with a start delimiter
       \remove "System_start_delimiter_engraver"
@@ -238,7 +238,7 @@ bassusLyrics = \lyricmode {
       \Voice
 
       % no slurs
-      \override Slur #'transparent = ##t
+      \override Slur.transparent = ##t
 
       % The command below can be commented out in
       % short scores, but especially for large scores you

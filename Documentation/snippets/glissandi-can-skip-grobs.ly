@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.16.0
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
@@ -16,6 +16,6 @@
 
 \relative c' {
   a2 \glissando
-  \once \override NoteColumn #'glissando-skip = ##t
+  \once \override NoteColumn.glissando-skip = ##t
   f''4 d,
 }

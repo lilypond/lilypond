@@ -4,7 +4,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   ragged-right = ##t
@@ -18,7 +18,7 @@ fragment = \relative c' {
 <<
   \new Staff \with {
     fontSize = #-4
-    \override StaffSymbol #'staff-space = #(magstep -4)
+    \override StaffSymbol.staff-space = #(magstep -4)
   }
   \fragment
   \new Staff \fragment

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "If the line for a @code{DynamicTextSpanner} is hidden, the
@@ -10,7 +10,7 @@ dynamics to be unlinked."
   g4\p\cresc g g g
   g,1\f
 
-  \override DynamicTextSpanner #'style = #'none
+  \override DynamicTextSpanner.style = #'none
   g'4\p\cresc g g g
   g,1\f  
 }

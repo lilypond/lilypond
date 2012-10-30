@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c TODO: add tablature.
@@ -29,7 +29,7 @@
 @tab
 @lilypond[relative=2,notime]
 \set Staff.autoBeaming = ##f
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
 
@@ -37,7 +37,7 @@ c1 c2 c8 c16
 @tab puntillos
 @tab
 @lilypond[relative=2,notime]
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 c4. c4..
 @end lilypond
 
@@ -69,7 +69,7 @@ s4_" "
 @tab compás
 @tab
 @lilypond[relative=1]
-\override Staff.Clef #'stencil = #empty-stencil
+\override Staff.Clef.stencil = #empty-stencil
 \time 3/4
 s4_" "
 \time 4/4
@@ -81,7 +81,7 @@ s16_" "
 @tab silencio
 @tab
 @lilypond[relative=2,notime]
-\override Staff.Clef #'break-visibility = #all-invisible
+\override Staff.Clef.break-visibility = #all-invisible
 r4 r8
 @end lilypond
 

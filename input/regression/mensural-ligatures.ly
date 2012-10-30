@@ -16,8 +16,8 @@
   }
   \context {
     \Score
-    \override SpacingSpanner #'packed-spacing = ##t
-    \override PaperColumn #'keep-inside-line = ##f
+    \override SpacingSpanner.packed-spacing = ##t
+    \override PaperColumn.keep-inside-line = ##f
   }
 }
 
@@ -213,14 +213,14 @@
     \]
 
   \[
-    \override NoteHead #'style = #'blackpetrucci
+    \override NoteHead.style = #'blackpetrucci
     b\longa^\markup { "LBBBBB." }
     c'\breve
     d'
     g
-    \once \override NoteHead #'ligature-flexa = ##t
+    \once \override NoteHead.ligature-flexa = ##t
     f
-    \revert NoteHead #'style
+    \revert NoteHead.style
     g\breve.
     \]
 
@@ -233,11 +233,11 @@
     \]
 
   \[
-    \override NoteHead #'style = #'blackpetrucci
+    \override NoteHead.style = #'blackpetrucci
     e'1^\markup { "SSB" }
     a
     g\breve
-    \revert NoteHead #'style
+    \revert NoteHead.style
     \]
 
   \[
@@ -248,29 +248,29 @@
     \]
 
   \[
-    \override NoteHead #'style = #'blackpetrucci
+    \override NoteHead.style = #'blackpetrucci
     e'\longa^\markup { "LBB" }
     f'\breve
-    \revert NoteHead #'style
+    \revert NoteHead.style
     e'
     \]
 
   \[
-    \override NoteHead #'style = #'blackpetrucci
+    \override NoteHead.style = #'blackpetrucci
     b\breve^\markup { "BBBBBBL" }
     g
-    \override NoteHead #'ligature-flexa = ##t
-    \override NoteHead #'flexa-width = #3
+    \override NoteHead.ligature-flexa = ##t
+    \override NoteHead.flexa-width = #3
     f
     f'
-    \override NoteHead #'flexa-width = #5
+    \override NoteHead.flexa-width = #5
     b
     c'
-    \revert NoteHead #'style
+    \revert NoteHead.style
     % though ligature-flexa is still ##t, this pair must be drawn as recta
     b\longa
-    \revert NoteHead #'flexa-width
-    \revert NoteHead #'ligature-flexa
+    \revert NoteHead.flexa-width
+    \revert NoteHead.ligature-flexa
     \]
 
   \bar "|" \break
@@ -303,7 +303,7 @@
 
 \context Staff \with
 {
-  \override StaffSymbol #'line-count = #4
+  \override StaffSymbol.line-count = #4
 }
 {
   \clef "petrucci-c5"

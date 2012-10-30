@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The gaps between an @code{AmbitusLine} and its
@@ -14,7 +14,7 @@ note heads are set by the @code{gap} property."
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine #'gap = #1
+  \override AmbitusLine.gap = #1
   c'4 g''
 }
 

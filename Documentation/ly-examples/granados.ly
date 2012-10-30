@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,13 +26,13 @@ appassmolto = \markup { \italic \large "appassionato molto" }
 global = {
   \time 3/4
   \set fontSize = #1
-  \override Beam #'thickness = #0.5
-  \override NoteColumn #'ignore-collision = ##t
+  \override Beam.thickness = #0.5
+  \override NoteColumn.ignore-collision = ##t
 }
 
 upperVoiceOne = \relative c'' {
   \voiceOne
-  \override TupletBracket #'transparent = ##t
+  \override TupletBracket.transparent = ##t
   <aes f'>8\([ \times 4/5{g'32( aes g f g]) }
     <es aes>8[ \times 4/5{<d bes'>32( c' bes aes bes]) }
     <es, aes es'>8 <d fis b d>\) | % end m. 1
@@ -55,20 +55,20 @@ upperVoiceTwo = \relative c'' {
   \voiceTwo
   s8 c8\< <bes, f'>[ <bes aes'> c' <bes, d fis>\!]
   s32 s32_\appassmolto s8. \voiceOne r8 <bes'' es bes'>-> s4
-  \override Stem #'cross-staff = ##t
-  \override Stem #'length = #28
-  \override Flag #'style = #'no-flag
+  \override Stem.cross-staff = ##t
+  \override Stem.length = #28
+  \override Flag.style = #'no-flag
   s8 \voiceTwo g,8 aes4 s4
 }
 
 middleVoiceOne = \relative c' {
-  \override Stem #'cross-staff = ##t
-  \override Stem #'length = #32
-  \override Flag #'style = #'no-flag
+  \override Stem.cross-staff = ##t
+  \override Stem.length = #32
+  \override Flag.style = #'no-flag
   d!8\noBeam s8 s8 s8_\crmolto s4  % 1
   s4 <g bes\arpeggio>8[ <es' g>] \voiceOne e,8( dis16 e) | % 2
-  \revert Stem #'length
-  \revert Stem #'cross-staff
+  \revert Stem.length
+  \revert Stem.cross-staff
   \showStaffSwitch
   \csh \stemUp f4 s2
   %s2.  % beginning m. 3
@@ -76,16 +76,16 @@ middleVoiceOne = \relative c' {
 
 middleVoiceTwo = \relative c' {
   s2. | % 1
-  \override Stem #'cross-staff = ##t
-  \override Stem #'length = #24
-  \override Flag #'style = #'no-flag
+  \override Stem.cross-staff = ##t
+  \override Stem.length = #24
+  \override Flag.style = #'no-flag
   s2 \voiceTwo e!4 | % 2
   s4 \voiceTwo <bes c es f>8 <f' aes es'>16 d' <bes, f' aes c>8 <bes' fis'> | % 3
 }
 
 lowerVoiceOne = \relative c, {
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \override Staff.NoteCollision.merge-differently-headed = ##t
+  \override Staff.NoteCollision.merge-differently-dotted = ##t
   bes8 \csm \stemDown <bes'' c es>8 s2
   \csl \stemUp
   \set subdivideBeams = ##t
@@ -101,9 +101,9 @@ lowerVoiceTwo = \relative c, {
   \voiceTwo
   bes2.
   \csh
-  \once \override Beam #'damping = #+inf.0
+  \once \override Beam.damping = #+inf.0
   <bes'' es g>8 \csl \slurUp
-  %\once\override Slur #'extra-offset = #'(0 . 4)
+  %\once\override Slur.extra-offset = #'(0 . 4)
   es,,64 bes' es g s32.
     c64
     s4 <bes des>
@@ -114,7 +114,7 @@ lowerVoiceTwo = \relative c, {
 \score {
   \new PianoStaff <<
     \set PianoStaff.connectArpeggios = ##t
-%    \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
+%    \override PianoStaff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
     \new Staff = "high" <<
       \global
       \context Voice = "upperVoiceOne" { \upperVoiceOne }
@@ -135,7 +135,7 @@ lowerVoiceTwo = \relative c, {
   \layout {
     \context {
       \Score
-      \override TimeSignature #'stencil = ##f
+      \override TimeSignature.stencil = ##f
       \remove "Bar_number_engraver"
     }
   }

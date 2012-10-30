@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, repeats, staff-notation, workaround"
@@ -27,8 +27,8 @@ transparent percent repeats.
   }
   \context Voice = "foo" {
     \set countPercentRepeats = ##t
-    \override PercentRepeat #'transparent = ##t
-    \override PercentRepeatCounter #'staff-padding = #1
+    \override PercentRepeat.transparent = ##t
+    \override PercentRepeatCounter.staff-padding = #1
     \repeat percent 4 { s1 }
   }
 >>

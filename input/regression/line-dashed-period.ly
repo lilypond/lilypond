@@ -5,7 +5,7 @@ starts and ends on a full dash. "
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   indent = 0.0\mm
@@ -18,8 +18,8 @@ starts and ends on a full dash. "
     c1_\< c c1\!
   }
   \new Staff {
-    \override DynamicTextSpanner #'dash-period = #3
-    \override DynamicTextSpanner #'dash-fraction = #0.3
+    \override DynamicTextSpanner.dash-period = #3
+    \override DynamicTextSpanner.dash-fraction = #0.3
     \crescTextCresc
     c1^\< c c1\!
   }

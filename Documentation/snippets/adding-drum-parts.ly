@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "percussion, preparing-parts, really-simple, rhythms, specific-notation"
@@ -30,8 +30,8 @@ timb = \drummode { timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb }
   <<
     \new DrumStaff \with {
       drumStyleTable = #timbales-style
-      \override StaffSymbol #'line-count = #2
-      \override BarLine #'bar-extent = #'(-1 . 1)
+      \override StaffSymbol.line-count = #2
+      \override BarLine.bar-extent = #'(-1 . 1)
     } <<
       \set Staff.instrumentName = #"timbales"
       \timb

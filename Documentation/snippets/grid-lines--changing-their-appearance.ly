@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -29,16 +29,16 @@ properties.
     \new Staff {
       \relative c {
         % this moves them up one staff space from the default position
-        \override Score.GridLine #'extra-offset = #'(0.0 . 1.0)
+        \override Score.GridLine.extra-offset = #'(0.0 . 1.0)
         \stemDown
         \clef bass
-        \once \override Score.GridLine #'thickness = #5.0
+        \once \override Score.GridLine.thickness = #5.0
         c4
-        \once \override Score.GridLine #'thickness = #1.0
+        \once \override Score.GridLine.thickness = #1.0
         g'4
-        \once \override Score.GridLine #'thickness = #3.0
+        \once \override Score.GridLine.thickness = #3.0
         f4
-        \once \override Score.GridLine #'thickness = #5.0
+        \once \override Score.GridLine.thickness = #5.0
         e4
       }
     }
@@ -55,7 +55,7 @@ properties.
       \Score
       \consists "Grid_line_span_engraver"
       % this moves them to the right half a staff space
-      \override NoteColumn #'X-offset = #-0.5
+      \override NoteColumn.X-offset = #-0.5
     }
   }
 }

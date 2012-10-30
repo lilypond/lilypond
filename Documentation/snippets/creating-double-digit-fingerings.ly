@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, scheme-language, staff-notation, tweaks-and-overrides"
@@ -40,7 +40,7 @@ finger =
 
 \relative c' {
   % optional override to remove warnings for fingerings larger than 5
-  \override Fingering #'text = #calc-finger-without-warning
+  \override Fingering.text = #calc-finger-without-warning
   c1\ten
   c1\fifty
   c1-\finger #36

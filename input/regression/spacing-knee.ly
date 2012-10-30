@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 
   texidoc = "For knees, the spacing correction is such that the
@@ -13,9 +13,9 @@ width of the note heads and the thickness of the stem.
   g''8[ g g'' g''] 
 
 				% check code independent of default settings.
-  \override NoteSpacing  #'knee-spacing-correction = #1.0 
+  \override NoteSpacing.knee-spacing-correction = #1.0 
   g''8[ g g'' g''] 
-  \override Stem  #'thickness = #10 
+  \override Stem.thickness = #10 
   g''8[ g g'' g''] 
 }
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "half rests should lie on a staff line, whole rests should hang
@@ -42,17 +42,17 @@ mus = {
   }
 
   \new Staff {
-    \override Staff.StaffSymbol #'line-positions = #'(-4 -2 0 2)
+    \override Staff.StaffSymbol.line-positions = #'(-4 -2 0 2)
     \mus
   }
 
   \new Staff {
-    \override Staff.StaffSymbol #'line-count = #4
+    \override Staff.StaffSymbol.line-count = #4
     \mus
   }
 
   \new Staff {
-    \override Staff.StaffSymbol #'line-positions = #'(-4 -2 1 5)
+    \override Staff.StaffSymbol.line-positions = #'(-4 -2 1 5)
     \mus
   }
 

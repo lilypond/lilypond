@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Incipits can be printed using an @code{InstrumentName}
@@ -19,10 +19,10 @@ grob."
 \score {
   \new Staff {
     %% All this would be shortcuted by an appropriate music function:
-    \override Staff.InstrumentName #'music = ##{ \clef "petrucci-c1" c'4 d' e' f' #}
-    \override Staff.InstrumentName #'self-alignment-X = #RIGHT
-    \override Staff.InstrumentName #'padding = #0
-    \override Staff.InstrumentName #'stencil =
+    \override Staff.InstrumentName.music = ##{ \clef "petrucci-c1" c'4 d' e' f' #}
+    \override Staff.InstrumentName.self-alignment-X = #RIGHT
+    \override Staff.InstrumentName.padding = #0
+    \override Staff.InstrumentName.stencil =
       #(lambda (grob)
          (let* ((instrument-name (ly:grob-property grob 'long-text))
                 (layout (ly:output-def-clone (ly:grob-layout grob)))

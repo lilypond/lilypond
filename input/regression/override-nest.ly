@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Sublist of grob property lists may be also tuned.  In the
@@ -7,8 +7,8 @@ grob is tweaked."
 }
 
 \relative c' {
-  \override Stem #'details #'beamed-lengths = #'(6 10 8)
+  \override Stem.details.beamed-lengths = #'(6 10 8)
   c8[ c] c16[ c] c32[ c]
-  \revert Stem #'details
+  \revert Stem.details
   c8[ c] c16[ c] c32[ c]
 }

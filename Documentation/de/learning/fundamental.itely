@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 @c Translators: Till Paala, Reinhold Kainhofer
 
 @node Grundbegriffe
@@ -897,15 +897,15 @@ in späteren Abschnitten erklärt werden.
   \\  % Voice two
     {
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'ignore-collision = ##t
+      \once \override NoteColumn.ignore-collision = ##t
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
   \\  % No voice three
   \\  % Voice four
     {
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -947,15 +947,15 @@ verstehen können.
   \\  % Voice two
     { \voiceTwoStyle
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'ignore-collision = ##t
+      \once \override NoteColumn.ignore-collision = ##t
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -3136,8 +3136,7 @@ sind.
         @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
-        \override VerticalAxisGroup
-          #'staff-staff-spacing #'stretchability = 5
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -3202,8 +3201,7 @@ PedalOrganMusic = \relative c {
         }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
-        \override VerticalAxisGroup
-          #'staff-staff-spacing #'stretchability = 5
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       } <<
         \keyTime
         \clef "bass"
@@ -3271,7 +3269,7 @@ werden:
 @c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
-padText = { \once \override TextScript #'padding = #5.0 }
+padText = { \once \override TextScript.padding = #5.0 }
 fthenp=_\markup {
     \dynamic f \italic \small { 2nd } \hspace #0.1 dynamic p
 }
@@ -3303,7 +3301,7 @@ sehr viel schwerer lesbar, besonders die letzte Zeile.
 violin = \relative c'' @{
   \repeat volta 2 @{
     c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
-    \once \override TextScript #'padding = #5.0
+    \once \override TextScript.padding = #5.0
     c4.^"hi there!" d8 e' f g d
     c,4.\markup @{
       \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
@@ -3330,7 +3328,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = #padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative c''' {

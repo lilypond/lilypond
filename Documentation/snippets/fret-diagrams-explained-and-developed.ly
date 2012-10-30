@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -29,10 +29,9 @@ diagrams.
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
-    \override TextScript #'size = #1.2
-    \override TextScript
-      #'fret-diagram-details #'finger-code = #'below-string
-    \override TextScript #'fret-diagram-details #'dot-color = #'black
+    \override TextScript.size = #1.2
+    \override TextScript.fret-diagram-details.finger-code = #'below-string
+    \override TextScript.fret-diagram-details.dot-color = #'black
 
     %% A chord for ukulele
     a'2^\markup {
@@ -154,8 +153,7 @@ diagrams.
     }
 
       % These chords will be in landscape orientation
-    \override TextScript
-       #'fret-diagram-details #'orientation = #'landscape
+    \override TextScript.fret-diagram-details.orientation = #'landscape
 
     %% C major for guitar, barred on third fret
     %  verbose style
@@ -253,8 +251,7 @@ diagrams.
     }
 
       % These chords will be in opposing-landscape orientation
-    \override TextScript #'fret-diagram-details
-                           #'orientation = #'opposing-landscape
+    \override TextScript.fret-diagram-details.orientation = #'opposing-landscape
 
     %% C major for guitar, barred on third fret
     %  verbose style

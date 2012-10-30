@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -25,8 +25,7 @@ and fingering label font size can be adjusted.
   \new Voice {
     \textLengthOn
      %% C major for guitar,  verbose style
-    \override TextScript #'fret-diagram-details
-      #'finger-code = #'below-string
+    \override TextScript.fret-diagram-details.finger-code = #'below-string
     c'1 ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -37,8 +36,7 @@ and fingering label font size can be adjusted.
                                      (barre 5 1 3))}
 
      %% C major for guitar,  verbose style
-    \override TextScript #'fret-diagram-details 
-        #'string-label-font-mag = #0.4
+    \override TextScript.fret-diagram-details.string-label-font-mag = #0.4
     c'1 ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -49,8 +47,7 @@ and fingering label font size can be adjusted.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \override TextScript #'fret-diagram-details
-      #'finger-code = #'in-dot
+    \override TextScript.fret-diagram-details.finger-code = #'in-dot
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -61,8 +58,7 @@ and fingering label font size can be adjusted.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-color = #'white
+    \once \override TextScript.fret-diagram-details.dot-color = #'white
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -73,8 +69,7 @@ and fingering label font size can be adjusted.
                                      (barre 5 1 3))}
 
      %% C major for guitar,  verbose style
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-label-font-mag = #0.75
+    \once \override TextScript.fret-diagram-details.dot-label-font-mag = #0.75
     c'1 ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -84,8 +79,7 @@ and fingering label font size can be adjusted.
                                      (place-fret 1 3 1)
                                      (barre 5 1 3))}
     %% dot color inversion, white on black
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-color = #'black
+    \once \override TextScript.fret-diagram-details.dot-color = #'black
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1 inverted)
@@ -95,8 +89,7 @@ and fingering label font size can be adjusted.
                                      (place-fret 1 3 1)
                                      (barre 5 1 3))}
     %% dot color inversion, black on white
-    \once \override TextScript #'fret-diagram-details 
-        #'dot-color = #'white
+    \once \override TextScript.fret-diagram-details.dot-color = #'white
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1 inverted)

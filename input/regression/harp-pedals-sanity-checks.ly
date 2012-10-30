@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal.") '(1 3 5))
@@ -14,7 +14,7 @@ a warning is printed out, but they should still look okay."
 }
 
 \relative c'' {
-  \override Score.PaperColumn #'keep-inside-line = ##f
+  \override Score.PaperColumn.keep-inside-line = ##f
   % Sanity checks: #pedals != 7:
   c1^\markup \harp-pedal #"^-v|--"
   % Sanity checks: no divider, multiple dividers, divider on wrong position:

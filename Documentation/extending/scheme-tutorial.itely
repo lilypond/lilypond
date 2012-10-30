@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Scheme tutorial
 @chapter Scheme tutorial
@@ -902,7 +902,7 @@ the alist with both a key and a value.  The LilyPond syntax for doing
 this is:
 
 @example
-\override Stem #'thickness = #2.6
+\override Stem.thickness = #2.6
 @end example
 
 This instruction adjusts the appearance of stems.  An alist entry
@@ -934,7 +934,7 @@ The @code{car} of the offset is the X coordinate, and the @code{cdr} is
 the Y coordinate.
 
 @example
-\override TextScript #'extra-offset = #'(1 . 2)
+\override TextScript.extra-offset = #'(1 . 2)
 @end example
 
 This assigns the pair @code{(1 . 2)} to the @code{extra-offset}
@@ -1490,7 +1490,7 @@ We may verify that this music function works correctly,
 
 We have seen how LilyPond output can be heavily modified using
 commands like
-@code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
+@code{\override TextScript.extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explanation
 of this, see the @ref{Scheme tutorial}, and
 @ref{Interfaces for programmers}.
@@ -1506,7 +1506,7 @@ TODO Find a simple example
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
-  \once \override TextScript #'padding = #padding
+  \once \override TextScript.padding = #padding
 #})
 
 \relative c''' {
@@ -1530,7 +1530,7 @@ We can use it to create new commands:
 tempoPadded = #(define-music-function (parser location padding tempotext)
   (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = #padding
+  \once \override Score.MetronomeMark.padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 

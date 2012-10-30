@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Non-staff lines between two systems don't confuse the
@@ -15,7 +15,7 @@ between the two closest staves of consecutive systems."
 
 <<
   \new Lyrics
-  \with { \override VerticalAxisGroup #'staff-affinity = #DOWN }
+  \with { \override VerticalAxisGroup.staff-affinity = #DOWN }
   \lyricmode {
     My2 first Li4 -- ly song,2
     My2 first Li4 -- ly song,2

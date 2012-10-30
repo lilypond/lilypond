@@ -25,14 +25,12 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 	c\break
 
 	\overrideProperty
-	Score.NonMusicalPaperColumn
-	#'line-break-system-details
+	Score.NonMusicalPaperColumn.line-break-system-details
 	#'((Y-extent . (-30 . 10)))
 	c_"Big bounding box (property Y-extent)"\break
 
 	\overrideProperty
-	Score.NonMusicalPaperColumn
-	#'line-break-system-details
+	Score.NonMusicalPaperColumn.line-break-system-details
 	#'((refpoint-Y-extent . (-37 . -10)))
 	c_\markup {
 	  \column {
@@ -44,19 +42,17 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 	\break
 
 	\overrideProperty
-	Score.NonMusicalPaperColumn
-	#'line-break-system-details
+	Score.NonMusicalPaperColumn.line-break-system-details
 	#'((next-padding . 10))
 
 	c_"Followed by padding, ie unstretchable space. (property next-padding)" \break
 	\overrideProperty
-	Score.NonMusicalPaperColumn
-	#'line-break-system-details
+	Score.NonMusicalPaperColumn.line-break-system-details
 	#'((next-space . 20))
 	c_"Followed by stretchable space (property next-space)"\break
 	c\break
 	\overrideProperty
-	Score.NonMusicalPaperColumn #'line-break-system-details
+	Score.NonMusicalPaperColumn.line-break-system-details
 	#'((bottom-space . 25.0))
 	c_"25 staff space to the bottom of the page. (property bottom-space)"\break
 

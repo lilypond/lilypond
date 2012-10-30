@@ -6,19 +6,19 @@
 }
 
 
-\version "2.16.0"
+\version "2.17.6"
 
 ledgerUp =
 {
   s2
   \stopStaff
-  \override Staff.StaffSymbol #'line-positions = #'(-4 -2 0 2 4 6)
+  \override Staff.StaffSymbol.line-positions = #'(-4 -2 0 2 4 6)
   \startStaff
   s2
   \noBreak
   s2
   \stopStaff
-  \revert Staff.StaffSymbol #'line-positions
+  \revert Staff.StaffSymbol.line-positions
   \startStaff
   s2
 }
@@ -27,11 +27,11 @@ ledgerDown =
 {
   s2
   \stopStaff
-  \override Staff.StaffSymbol #'line-positions = #'(-6 -4 -2 0 2 4)
+  \override Staff.StaffSymbol.line-positions = #'(-6 -4 -2 0 2 4)
   \startStaff
   s1
   \stopStaff
-  \revert Staff.StaffSymbol #'line-positions
+  \revert Staff.StaffSymbol.line-positions
   \startStaff
   s2
 }
@@ -40,7 +40,7 @@ ledgerDown =
 <<
   \new Staff \with
   {
-    \override BarLine #'bar-extent = #'(-1 . 1.5)
+    \override BarLine.bar-extent = #'(-1 . 1.5)
   }
   {
     \ledgerUp \ledgerDown
@@ -56,7 +56,7 @@ ledgerDown =
 
   \new Staff \with
   {
-    \override BarLine #'bar-extent = #'(0 . 0)
+    \override BarLine.bar-extent = #'(0 . 0)
   }
   {
     s1*4
@@ -72,7 +72,7 @@ ledgerDown =
 
   \new Staff \with
   {
-    \override BarLine #'bar-extent = #'(-2 . 0)
+    \override BarLine.bar-extent = #'(-2 . 0)
   }
   {
     s1*4

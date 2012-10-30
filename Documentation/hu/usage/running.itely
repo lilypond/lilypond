@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node A lilypond használata
@@ -526,7 +526,7 @@ valójában az eredmény két kottasor, mely közül az alsóban alapértelmezet
 színű, fekete kottafejek lesznek.
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -537,7 +537,7 @@ létrehozott kottasorra. A példa helyesen:
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -22,7 +22,7 @@ the) graces are put left of the musical columns for the main notes.
 
 \relative c'' {
   <<
-    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+    \override Score.SpacingSpanner.strict-grace-spacing = ##t
     \new Staff \new Voice {
       \afterGrace c4 { c16[ c8 c16] }
       c8[ \grace { b16[ d] } c8]

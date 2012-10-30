@@ -37,7 +37,7 @@ b c d a
 b c d a
 b c d a\!
 
-\once \override FootnoteSpanner #'spanner-placement = #RIGHT
+\once \override FootnoteSpanner.spanner-placement = #RIGHT
 b4-\single\footnote
               \markup { \tiny "2." }
               #'(0.5 . 0.5)

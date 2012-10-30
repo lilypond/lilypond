@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "
@@ -12,7 +12,7 @@ interleaved with the high notes from the next system.
 \book {
   \score {
     {
-      \override Staff.TimeSignature #'stencil =  ##f
+      \override Staff.TimeSignature.stencil =  ##f
       \repeat unfold 3 { <c'''-1 e'''-3 g'''-5> c' <c,-1 e,-3 g,-5> c' \break}
     }
     \layout {
@@ -20,7 +20,7 @@ interleaved with the high notes from the next system.
       ragged-right = ##t
       \context {
         \Score
-	\override System #'skyline-horizontal-padding = #3.0
+	\override System.skyline-horizontal-padding = #3.0
       }
     }
   }

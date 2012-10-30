@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Notación de acordes
 @section Notación de acordes
@@ -184,7 +184,7 @@ Acción predeterminada; produce una tríada mayor.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1
 }
 @end lilypond
@@ -196,7 +196,7 @@ Acorde menor.  Este modificador baja la tercera.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:m c:m7
 }
 @end lilypond
@@ -210,7 +210,7 @@ existe, la séptima.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:dim c:dim7
 }
 @end lilypond
@@ -222,7 +222,7 @@ Acorde aumentado.  Este modificador eleva la quinta.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:aug
 }
 @end lilypond
@@ -236,7 +236,7 @@ modificador para crear una tríada mayor.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:maj c:maj7
 }
 @end lilypond

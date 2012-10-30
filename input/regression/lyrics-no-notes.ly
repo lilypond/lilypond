@@ -6,9 +6,9 @@ paper column is very wide."
  
 \layout{ ragged-right = ##t }
 
-\version "2.16.0"
+\version "2.17.6"
 <<
-  \override Score.PaperColumn #'keep-inside-line = ##f
+  \override Score.PaperColumn.keep-inside-line = ##f
   \new Staff \relative c' {
     \key aes \major
     \context Voice = "1" { 

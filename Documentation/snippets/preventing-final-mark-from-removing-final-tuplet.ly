@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -25,9 +25,9 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
-   \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
-   \override Score.RehearsalMark #'direction = #DOWN
-   \override Score.RehearsalMark #'self-alignment-X = #RIGHT
+   \override Score.RehearsalMark.break-visibility = #'#(#t #t #t)
+   \override Score.RehearsalMark.direction = #DOWN
+   \override Score.RehearsalMark.self-alignment-X = #RIGHT
 % due to issue 2362 the following line is commented
 %   \mark "Composed Feb 2007 - Feb 2008"
 % and a shorter mark is used.
@@ -37,15 +37,15 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
 \new Staff {
   \set tupletFullLength = ##t
 
-  \override TupletBracket #'full-length-to-extent = ##f
+  \override TupletBracket.full-length-to-extent = ##f
 
   \time 1/8
   \times 2/3 { c'16 c'16 c'16 }
   \times 2/3 { c'16 c'16 c'16 }
   \times 2/3 { c'16 c'16 c'16 }
-  \override Score.RehearsalMark #'break-visibility = #'#(#t #t #t)
-  \override Score.RehearsalMark #'direction = #DOWN
-  \override Score.RehearsalMark #'self-alignment-X = #RIGHT
+  \override Score.RehearsalMark.break-visibility = #'#(#t #t #t)
+  \override Score.RehearsalMark.direction = #DOWN
+  \override Score.RehearsalMark.self-alignment-X = #RIGHT
 % due to issue 2362 the following line is commented
 %   \mark "Composed Feb 2007 - Feb 2008"
 % and a shorter mark is used.

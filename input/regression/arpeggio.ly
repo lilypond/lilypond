@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 \header{
   texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
@@ -14,7 +14,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
     <fis,  d a>\arpeggio
     \arpeggioArrowUp
     <fis d a >\arpeggio	    
-    %%\override PianoStaff.SpanArpeggio  #'connect = ##t
+    %%\override PianoStaff.SpanArpeggio.connect = ##t
     \set PianoStaff.connectArpeggios = ##t
     <fis d a>\arpeggio
   }

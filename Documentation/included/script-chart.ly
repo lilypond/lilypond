@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc ="@cindex Feta scripts
@@ -164,23 +164,23 @@ This chart shows all articulations, or scripts, that the feta font contains.
     \Score
     timing = ##f
     barAlways = ##t
-    \override NonMusicalPaperColumn #'padding = #2.5
-    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn.padding = #2.5
+    \override PaperColumn.keep-inside-line = ##t
   }
   \context {
     \RhythmicStaff
     \remove "Time_signature_engraver"
-    \override BarLine #'transparent = ##t
-    \override Stem #'direction = #down
+    \override BarLine.transparent = ##t
+    \override Stem.direction = #down
   }
   \context {
     \Lyrics
-    \override LyricText #'font-family = #'typewriter
-    \override LyricText #'font-shape = #'upright
+    \override LyricText.font-family = #'typewriter
+    \override LyricText.font-shape = #'upright
   }
   \context {
     \VaticanaVoice
-    \override Script #'padding = #0
+    \override Script.padding = #0
   }
 }
 

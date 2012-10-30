@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 startGraceSlur = #(make-music 'SlurEvent 'span-direction START 'spanner-id "grace")
 stopGraceSlur = #(make-music 'SlurEvent 'span-direction STOP 'spanner-id "grace")
@@ -21,18 +21,18 @@ stopAppoggiaturaMusic =  {
 
 startAcciaccaturaMusic =  {
     <>\startGraceSlur
-    \temporary \override Flag  #'stroke-style = #"grace"
+    \temporary \override Flag.stroke-style = #"grace"
 }
 
 stopAcciaccaturaMusic =  {
-    \revert Flag #'stroke-style
+    \revert Flag.stroke-style
     <>\stopGraceSlur
 }
 
 startSlashedGraceMusic =  {
-  \temporary \override Flag #'stroke-style = #"grace"
+  \temporary \override Flag.stroke-style = #"grace"
 }
 
 stopSlashedGraceMusic =  {
-  \revert Flag #'stroke-style
+  \revert Flag.stroke-style
 }

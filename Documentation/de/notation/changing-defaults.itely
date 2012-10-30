@@ -778,7 +778,7 @@ Ein @code{\override}-Befehl, aber ohne die Kontextbezeichnung:
   \layout {
     \context {
       \Staff
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
   }
 }
@@ -873,7 +873,7 @@ ist die gleiche wie für den Befehl direkt zwischen den Noten geschrieben.
   \layout {
     \accidentalStyle dodecaphonic
     \set fontSize = #-4
-    \override Voice.Stem #'thickness = #4.0
+    \override Voice.Stem.thickness = #4.0
   }
 }
 @end lilypond
@@ -913,7 +913,7 @@ Ein @code{\override}-Befehl, dessen Kontextbezeichnung ausgelassen wird:
   \new Staff {
     \new Voice
     \with {
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
     {
       \relative c'' {
@@ -1060,9 +1060,9 @@ in Jazzmusik anzuzeigen.
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1130,9 +1130,9 @@ das die Mittellinie.
 Die Noten sehen wie ein Querstrich aus und haben keine Hälse:
 
 @example
-\override NoteHead #'style = #'slash
-\override Stem #'transparent = ##t
-\override Flag #'transparent = ##t
+\override NoteHead.style = #'slash
+\override Stem.transparent = ##t
+\override Flag.transparent = ##t
 @end example
 
 Alle diese Engraver müssen zusammenarbeiten, und das wird erreicht mit
@@ -1153,9 +1153,9 @@ Alles zusammen haben wir folgende Einstellungen:
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example
@@ -1582,14 +1582,14 @@ weiter weg von der Note gesetzt werden.  Dieser Befehl beispielsweise
 fügt drei Notenlinienzwischenräume zwischen die Zahl und den Notenkopf:
 
 @example
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 @end example
 
 Wenn dieser Befehl in den Quelltext eingefügt wird, bevor der
 Fingersatz notiert ist, erhält man folgendes:
 
 @lilypond[quote,relative=2,verbatim]
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 c-2
 \stemUp
 f
@@ -1696,7 +1696,7 @@ Befehls betrachtet.
 Der Befehl
 
 @verbatim
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 @end verbatim
 
 @noindent
@@ -1708,7 +1708,7 @@ ihr normales Aussehen.  Hier ein Beispiel mit diesem Befehl:
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 c4
 c4
 c4
@@ -1726,7 +1726,7 @@ Kontext ausgelassen werden, wobei dann immer implizit der
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\once \override Stem #'thickness = #4.0
+\once \override Stem.thickness = #4.0
 c4
 c4
 @end lilypond
@@ -1738,9 +1738,9 @@ schon geschrieben werden, bevor das Objekt begonnen wird.  In dem
 folgenden Beispiel
 
 @lilypond[quote,verbatim,relative=2]
-\override Slur #'thickness = #3.0
+\override Slur.thickness = #3.0
 c8[( c
-\override Beam #'beam-thickness = #0.6
+\override Beam.beam-thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -1756,8 +1756,8 @@ nur Einstellungen betroffen, die sich im gleichen Kontext befinden.  Der
 weil er für den falschen Kontext gefordert wird.
 
 @example
-\override Voice.Stem #'thickness = #4.0
-\revert Staff.Stem #'thickness
+\override Voice.Stem.thickness = #4.0
+\revert Staff.Stem.thickness
 @end example
 
 Einige veränderbare Optionen werden als Untereigenschaften (engl.
@@ -1774,7 +1774,7 @@ Befehl folgende Form an:
 wie beispielsweise
 
 @example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
+\override Stem.details.beamed-lengths = #'(4 4 3)
 @end example
 @end ignore
 
@@ -1990,7 +1990,7 @@ man die @code{thickness}-Eigenschaft des @code{Stem}-Objekts verändert:
 
 @lilypond[quote, verbatim, relative=2]
 c4 c
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
 @end lilypond
 
@@ -1998,11 +1998,11 @@ Wenn kein Kontext angegeben wird, wird der tiefste aktuelle Kontext
 benutzt:
 
 @lilypond[quote, verbatim, relative=2]
-{ \override Staff.Stem #'thickness = #3.0
+{ \override Staff.Stem.thickness = #3.0
   <<
     {
       e4 e
-      \override Stem #'thickness = #0.5
+      \override Stem.thickness = #0.5
       e4 e
     } \\ {
       c4 c c c
@@ -2024,9 +2024,9 @@ rückgängig gemacht werden:
 
 @lilypond[quote, verbatim, relative=2]
 c4
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
-\revert Voice.Stem #'thickness
+\revert Voice.Stem.thickness
 c4
 @end lilypond
 
@@ -2038,11 +2038,11 @@ Grobs im entsprechenden Kontext aber der Stelle aus, an der sie gesetzt werden:
   <<
     {
       e4
-      \override Staff.Stem #'thickness = #3.0
+      \override Staff.Stem.thickness = #3.0
       e4 e e
     } \\ {
       c4 c c
-      \revert Staff.Stem #'thickness
+      \revert Staff.Stem.thickness
       c4
     }
   >>
@@ -2064,11 +2064,11 @@ um nur den aktuellen Zeitwert zu verändern:
 {
   <<
     {
-      \override Stem #'thickness = #3.0
+      \override Stem.thickness = #3.0
       e4 e e e
     } \\ {
       c4
-      \once \override Stem #'thickness = #3.0
+      \once \override Stem.thickness = #3.0
       c4 c c
     }
   >>
@@ -2134,13 +2134,13 @@ eingesetzt werden:
 
 @lilypond[relative=2,verbatim]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
--\tweak #'padding #8
+-\tweak padding #8
 -^
 @end lilypond
 
@@ -2174,14 +2174,14 @@ An einem Beispiel demonstriert:  Das funktioniert:
 
 
 @lilypond[relative=2,verbatim,quote]
-<\tweak #'color #red c>4
+<\tweak color #red c>4
 @end lilypond
 
 @noindent
 und das nicht:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
+\tweak color #red c4
 @end lilypond
 
 @end ignore
@@ -2211,10 +2211,10 @@ anderen Notenkopfes innerhalb eines Akkordes verändert:
 
 @lilypond[relative=2,verbatim,quote]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
 @end lilypond
@@ -2222,7 +2222,7 @@ anderen Notenkopfes innerhalb eines Akkordes verändert:
 @code{\tweak} kann auch benutzt werden, um Bögen zu verändern:
 
 @lilypond[verbatim,quote,relative=1]
-c-\tweak #'thickness #5 ( d e f)
+c-\tweak thickness #5 ( d e f)
 @end lilypond
 
 Damit der @code{\tweak}-Befehl funktioniert, muss er direkt vor dem
@@ -2232,8 +2232,8 @@ ist, in dem alle Layoutelemente aus Ereignissen innerhalb von
 @code{EventChord} erstellt werden:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red <c e>4
-<\tweak #'color #red c e>4
+\tweak color #red <c e>4
+<\tweak color #red c e>4
 @end lilypond
 
 Der einfache @code{\tweak}-Befehl kann @emph{nicht} eingesetzt werden, um
@@ -2262,10 +2262,10 @@ gesetzt werden und alle werden interpretiert:
 
 @lilypond[verbatim,quote,relative=1]
 c
--\tweak #'style #'dashed-line
--\tweak #'dash-fraction #0.2
--\tweak #'thickness #3
--\tweak #'color #red
+-\tweak style #'dashed-line
+-\tweak dash-fraction #0.2
+-\tweak thickness #3
+-\tweak color #red
  \glissando
 f'
 @end lilypond
@@ -2408,7 +2408,7 @@ Schlüssel zu verändern, wird ein geschachtelter Aufruf benutzt:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
+  \override StaffGrouper.staff-staff-spacing.basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2427,7 +2427,7 @@ kann mit einem Aufruf als Aliste vollständig verändert werden:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'staff-staff-spacing =
+  \override StaffGrouper.staff-staff-spacing =
     #'((basic-distance . 0)
        (minimum-distance . 0)
        (padding . 0)
@@ -2447,10 +2447,10 @@ den Wert von @code{space} hat, wenn sie nicht definiert ist).  Somit sind
 folgende Aufrufe äquivalent:
 
 @example
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7))
 
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7)
      (minimum-distance . 0)
      (padding . 0)
@@ -2796,7 +2796,7 @@ die Anzahl der Elemente in der Liste der Werte von
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+  \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2808,7 +2808,7 @@ beeinflusst.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'width = #23
+  \override StaffSymbol.width = #23
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2856,7 +2856,7 @@ unten dargestellt.
 a~a
 a
 % increase the length of the tie
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ~a
 @end lilypond
 
@@ -2865,7 +2865,7 @@ a1
 \compressFullBarRests
 R1*23
 % increase the length of the rest bar
-\once \override MultiMeasureRest #'minimum-length = #20
+\once \override MultiMeasureRest.minimum-length = #20
 R1*23
 a1
 @end lilypond
@@ -2873,7 +2873,7 @@ a1
 @lilypond[verbatim,quote,relative=2]
 a \< a a a \!
 % increase the length of the hairpin
-\override Hairpin #'minimum-length = #20
+\override Hairpin.minimum-length = #20
 a \< a a a \!
 @end lilypond
 
@@ -2883,12 +2883,12 @@ von Legato- und Phrasierungsbögen zu verändern:
 @lilypond[verbatim,quote,relative=2]
 a( a)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ( a)
 
 a\( a\)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 \( a\)
 @end lilypond
 
@@ -2905,12 +2905,12 @@ die @code{springs-and-rods}-Eigenschaft gesetzt ist:
 e \glissando c'
 
 % not effective alone
-\once \override Glissando #'minimum-length = #20
+\once \override Glissando.minimum-length = #20
 e, \glissando c'
 
 % effective only when both overrides are present
-\once \override Glissando #'minimum-length = #20
-\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Glissando.minimum-length = #20
+\once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
 e, \glissando c'
 @end lilypond
 
@@ -2918,12 +2918,12 @@ Das gilt auch für das @code{Beam}-(Balken-)Objekt:
 
 @lilypond[verbatim,quote,relative=1]
 % not effective alone
-\once \override Beam #'minimum-length = #20
+\once \override Beam.minimum-length = #20
 e8 e e e
 
 % effective only when both overrides are present
-\once \override Beam #'minimum-length = #20
-\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Beam.minimum-length = #20
+\once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
 e8 e e e
 @end lilypond
 
@@ -2940,7 +2940,7 @@ hinüber und enden erst an der entsprechenden Note:
 
 @lilypond[verbatim,quote,relative=2]
 a \< a a a a \! a a a \break
-\override Hairpin #'to-barline = ##f
+\override Hairpin.to-barline = ##f
 a \< a a a a \! a a a
 @end lilypond
 
@@ -2976,8 +2976,8 @@ ist ziemlich einfach:
 
 @lilypond[relative=2,quote,verbatim]
 e2 \glissando b
-\once \override Glissando #'(bound-details left Y) = #3
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.left.Y = #3
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando b
 @end lilypond
 
@@ -2997,8 +2997,8 @@ in den Unterlisten @code{left-broken} bzw. @code{right-broken}
 von @code{bound-details} abgelegt.  Zum Beispiel:
 
 @lilypond[relative=2,ragged-right,verbatim,quote]
-\override Glissando #'breakable = ##t
-\override Glissando #'(bound-details right-broken Y) = #-3
+\override Glissando.breakable = ##t
+\override Glissando.bound-details.right-broken.Y = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -3042,7 +3042,7 @@ um @i{cresc.}, @i{tr} oder andere Texte an horizontale
 Strecker zu setzen.
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -3058,15 +3058,11 @@ gesetzt werden, wird das Symbol am Rand vertikal entsprechend
 des Endpunktes der Linie verschoben:
 
 @lilypond[relative=1,quote,verbatim]
-\override TextSpanner
-  #'(bound-details left stencil-align-dir-y) = #-2
-\override TextSpanner
-  #'(bound-details right stencil-align-dir-y) = #UP
+\override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
+\override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner
-  #'(bound-details left text) = #"ggg"
-\override TextSpanner
-  #'(bound-details right text) = #"hhh"
+\override TextSpanner.bound-details.left.text = #"ggg"
+\override TextSpanner.bound-details.right.text = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -3169,9 +3165,9 @@ wieder hergestellt werden.
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine #'stencil = ##f
+\override Score.BarLine.stencil = ##f
 a a
-\revert Score.BarLine #'stencil
+\revert Score.BarLine.stencil
 a a a
 @end lilypond
 
@@ -3192,7 +3188,7 @@ den entsprechenden Platz ein, ist aber unsichtbar.
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead #'transparent = ##t
+\once \override NoteHead.transparent = ##t
 a a
 @end lilypond
 
@@ -3222,7 +3218,7 @@ dass man die Umrisse des weißen Objektes erahnen kann, wie
 in diesem Beispiel:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
+\override Staff.Clef.color = #white
 a1
 @end lilypond
 
@@ -3246,8 +3242,8 @@ Im oberen Beispiel wird der weiße Schlüssel, der einen Wert von
 werden, sodass es früher gesetzt wird:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
-\override Staff.Clef #'layer = #-1
+\override Staff.Clef.color = #white
+\override Staff.Clef.layer = #-1
 a1
 @end lilypond
 
@@ -3345,7 +3341,7 @@ Sichtbarkeit von Taktlinien zu bestimmten:
 f4 g a b
 f4 g a b
 % Remove bar line at the end of the current line
-\once \override Score.BarLine #'break-visibility = #'#(#f #t #t)
+\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
 \break
 f4 g a b
 f4 g a b
@@ -3407,7 +3403,7 @@ nach dem expliziten Wechsel zu B-Dur immer noch sichtbar, obwohl
 \key g \major
 f4 g a b
 % Try to remove all key signatures
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b
 \break
@@ -3434,7 +3430,7 @@ Schlüssel zu Beginn einer Zeile -- um diese zu beeinflussen, muss
 \key g \major
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3452,7 +3448,7 @@ expliziten Tonartänderung auftreten, muss die @code{Staff}-Eigenschaft
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3527,13 +3523,13 @@ und wie sie verändert werden können:
 
 @lilypond[relative=2,ragged-right,verbatim,quote]
 d2 \glissando d'2
-\once \override Glissando #'style = #'dashed-line
+\once \override Glissando.style = #'dashed-line
 d,2 \glissando d'2
-\override Glissando #'style = #'dotted-line
+\override Glissando.style = #'dotted-line
 d,2 \glissando d'2
-\override Glissando #'style = #'zigzag
+\override Glissando.style = #'zigzag
 d,2 \glissando d'2
-\override Glissando #'style = #'trill
+\override Glissando.style = #'trill
 d,2 \glissando d'2
 @end lilypond
 
@@ -3544,7 +3540,7 @@ es ist möglich, sie manuell vorzugeben:
 @c TODO Complete
 @lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando f
 @end lilypond
 
@@ -3604,7 +3600,7 @@ eine sinnvolle Anwendung:
 
 @lilypond[quote,verbatim,relative=1]
 g4\< e' d' f\!
-\override Hairpin #'rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(20 -1 0)
 g,,4\< e' d' f\!
 @end lilypond
 
@@ -3625,7 +3621,7 @@ werden, wodurch andernfalls einige der Texte zu hoch geschoben werden
 würden.
 
 @lilypond[quote,verbatim,relative=1]
-\override TextScript #'outside-staff-priority = ##f
+\override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "a G" }
 b^\markup { \rotate #30 "a B" }
 des^\markup { \rotate #30 "a D-Flat" }
@@ -3745,12 +3741,12 @@ verändert werden.
 @lilypond[verbatim,quote,relative=2]
 a-3
 a
--\tweak #'X-offset #0
--\tweak #'Y-offset #0
+-\tweak X-offset #0
+-\tweak Y-offset #0
 -3
 a
--\tweak #'X-offset #-1
--\tweak #'Y-offset #1
+-\tweak X-offset #-1
+-\tweak Y-offset #1
 -3
 @end lilypond
 
@@ -3832,13 +3828,13 @@ an einer einzigen Note auszurichten:
 
 @lilypond[quote,verbatim,relative=1]
 a'
--\tweak #'self-alignment-X #-1
+-\tweak self-alignment-X #-1
 ^"left-aligned"
--\tweak #'self-alignment-X #0
+-\tweak self-alignment-X #0
 ^"center-aligned"
--\tweak #'self-alignment-X #RIGHT
+-\tweak self-alignment-X #RIGHT
 ^"right-aligned"
--\tweak #'self-alignment-X #-2.5
+-\tweak self-alignment-X #-2.5
 ^"aligned further to the right"
 @end lilypond
 
@@ -3875,9 +3871,9 @@ ausrichtet, dass sie nah am Notenkopf bleibt.
 
 @lilypond[quote,verbatim,relative=2]
 a
--\tweak #'self-alignment-X #0.5  % move horizontally left
--\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak #'self-alignment-Y #-1  % move vertically up
+-\tweak self-alignment-X #0.5  % move horizontally left
+-\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak self-alignment-Y #-1  % move vertically up
 -3  % third finger
 @end lilypond
 
@@ -3903,20 +3899,20 @@ Standardmäßig werden Übungszeichen und Taktzahlen horizontal
 
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be centered above the Clef
-\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % The RehearsalMark will be centered above the TimeSignature
-\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
 % The rehearsal mark will be centered above the Breath Mark
-\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
@@ -3937,14 +3933,14 @@ ausgerichtet, an der sich der Taktstrich befinden würde.
 
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be centered above the Key Signature
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % The RehearsalMark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef bass
 \mark "↓"
@@ -3952,7 +3948,7 @@ gis,,1
 % The rehearsal mark will be centered above the Bar Line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
@@ -3967,19 +3963,19 @@ vornehmen.
 
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be centered above the KeySignature
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
 % The RehearsalMark will be aligned with the left edge of the KeySignature
-\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
 e1
 % The RehearsalMark will be aligned with the right edge of the KeySignature
-\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
 e1
@@ -3991,14 +3987,14 @@ verschoben werden.  Die Einheiten sind in Notenlinienzwischenräumen:
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be aligned with the left edge of the KeySignature
 % and then shifted right by 3.5 staff-spaces
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-\once \override Score.KeySignature #'break-align-anchor = #3.5
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
 e1
 % The RehearsalMark will be aligned with the left edge of the KeySignature
 % and then shifted left by 2 staff-spaces
-\once \override Score.KeySignature #'break-align-anchor = #-2
+\once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
 e1
@@ -4055,8 +4051,8 @@ wird.
 
 @lilypond[verbatim,quote]
 XinO = {
-  \once \override NoteHead  #'stencil = #ly:text-interface::print
-  \once \override NoteHead #'text = \markup {
+  \once \override NoteHead.stencil = #ly:text-interface::print
+  \once \override NoteHead.text = \markup {
     \combine
       \halign #-0.7 \draw-circle #0.85 #0.2 ##f
       \musicglyph #"noteheads.s2cross"
@@ -4157,8 +4153,7 @@ wird.
 @lilypond[verbatim,quote,relative=1]
 <<
   {
-  \once \override Tie
-    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+  \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
   e1~ e1
   }
 \\
@@ -4257,12 +4252,12 @@ Layoutprozess die Platzierung justiert werden soll.
                               '(-0.5 . 0.5)))))
 
 squareLineCircleSpace = {
-  \override NoteHead #'stencil = #square-line-circle-space
+  \override NoteHead.stencil = #square-line-circle-space
 }
 
 smartSquareLineCircleSpace = {
   \squareLineCircleSpace
-  \override NoteHead #'Y-extent =
+  \override NoteHead.Y-extent =
    #(ly:make-unpure-pure-container
       ly:grob::stencil-height
       (lambda (grob start end) (ly:grob::stencil-height grob)))
@@ -4409,7 +4404,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = #padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative c''' {
@@ -4449,7 +4444,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? markup?)
    #{
-     \once \override Score.MetronomeMark #'padding = #padding
+     \once \override Score.MetronomeMark.padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 

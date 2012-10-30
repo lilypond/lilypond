@@ -27,7 +27,7 @@ Text headword
 \layout {
   \context {
     \Score
-    \override SpacingSpanner #'base-shortest-duration =
+    \override SpacingSpanner.base-shortest-duration =
     #(ly:make-moment 1 20)
   }
 }
@@ -40,7 +40,7 @@ Text headword
     \key af \major
     \time 3/4
 
-    \once \override TextScript #'staff-padding = #4
+    \once \override TextScript.staff-padding = #4
     <c'' af'>4. (
     _ \markup { \dynamic p \italic { con amabilità } }
     <af' ef'>8 )
@@ -66,7 +66,7 @@ Text headword
 
         |
 
-        \once \override TextScript #'staff-padding = #4
+        \once \override TextScript.staff-padding = #4
         ef''8. (
         _ \markup { \italic { tranqu. } }
         d''16 )
@@ -90,7 +90,7 @@ Text headword
     >>
 
     \oneVoice
-    \once \override TextScript #'staff-padding = #4
+    \once \override TextScript.staff-padding = #4
     df''32
     _ \markup { \italic dolce }
     c''32
@@ -103,8 +103,7 @@ Text headword
 
     |
     \break
-    \overrideProperty Score.NonMusicalPaperColumn
-    #'line-break-system-details #'((alignment-distances . (12)))
+    \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (12)))
 
     c''4. (
     ^ \markup \italic { cantabile, con intimissimo sentimento,
@@ -183,9 +182,9 @@ Text headword
 
     |
 
-    \override Staff.SustainPedalLineSpanner #'outside-staff-priority = #1000
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #7
-    \once \override TextScript #'padding = #2
+    \override Staff.SustainPedalLineSpanner.outside-staff-priority = #1000
+    \override Staff.SustainPedalLineSpanner.staff-padding = #7
+    \once \override TextScript.padding = #2
     af16 \sustainOn
     ^ \markup \italic { non staccato }
     _ \markup \italic { molto \concat { \dynamic { p } , } sempre tranquillo
@@ -219,7 +218,7 @@ Text headword
 
     |
 
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #4
+    \override Staff.SustainPedalLineSpanner.staff-padding = #4
     df'16 \sustainOn
     <bf' g' ef'>16
     <bf' g' ef'>16

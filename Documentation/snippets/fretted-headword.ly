@@ -10,7 +10,7 @@
 % on melodies from Bellini's "Norma"                              %
 %*****************************************************************%
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -43,7 +43,7 @@ ssnor = \set stringNumberOrientations = #'(right)
 % define fingering offset
 FO = #(define-music-function (parser location offsetX offsetY) (number? number?)
 #{
-  \once \override Voice.Fingering #'extra-offset = #(cons offsetX offsetY)
+  \once \override Voice.Fingering.extra-offset = #(cons offsetX offsetY)
 #})
 
 % markups
@@ -115,7 +115,7 @@ bass = \relative c {
 
   %% new section starts here in A minor
   \set Score.beamExceptions = #'()
-  \once \override TextScript #'staff-padding = #1.7
+  \once \override TextScript.staff-padding = #1.7
   \times 2/3 { a8\p^\andantino e' a c a e a, e' a c a e } | % m. 5
 
   \times 2/3 { a,8\pdolce e' a c a e } % beg m. 6
@@ -141,9 +141,9 @@ bass = \relative c {
   \layout {
     \context {
       \Score
-      \override Fingering #'staff-padding = #'()
-      \override TupletNumber #'stencil = ##f
-      \override TupletBracket #'bracket-visibility = ##f
+      \override Fingering.staff-padding = #'()
+      \override TupletNumber.stencil = ##f
+      \override TupletBracket.bracket-visibility = ##f
     }
   }
   \midi { }

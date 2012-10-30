@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The @code{SpanBarStub} grob takes care of horizontal spacing
@@ -18,10 +18,10 @@ span bar were not there.
       \new Voice = "upper"
         \relative c'' {
           c2 c c c
-          \once \override Staff . BarLine #'allow-span-bar = ##f
+          \once \override Staff.BarLine.allow-span-bar = ##f
           c2 c c c
           c2 c c c
-          \once \override Staff . BarLine #'allow-span-bar = ##f
+          \once \override Staff.BarLine.allow-span-bar = ##f
           c2 c c c
         }
     \new Lyrics \lyricsto "upper" \lyricmode {
@@ -35,7 +35,7 @@ span bar were not there.
           c2 c c c
           c2 c c c
           c2 c c c
-          \once \override Staff . BarLine #'allow-span-bar = ##f
+          \once \override Staff.BarLine.allow-span-bar = ##f
           c2 c c c
         }
     \new Lyrics \lyricsto "middle" \lyricmode {

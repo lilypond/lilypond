@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 texidoc = "Flags can be drawn straight in the style used by
@@ -10,15 +10,15 @@ Stockhausen and Boulez.
 stemLength = #(define-music-function (parser location length) (number?)
   "Set the length of the next stem explicitly."
   #{
-    \once \override Stem #'length-fraction = #length
+    \once \override Stem.length-fraction = #length
   #}
 )
 
 {
     \autoBeamOff
     \time 3/8
-    \override Flag #'stencil = #modern-straight-flag
-    \override Stem #'length-fraction = #'1.5
+    \override Flag.stencil = #modern-straight-flag
+    \override Stem.length-fraction = #'1.5
     r8
     \acciaccatura {
          \stemDown

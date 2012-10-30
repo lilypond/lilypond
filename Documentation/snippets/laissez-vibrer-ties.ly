@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "connecting-notes, contemporary-notation, expressive-marks, fretted-strings, keyboards, specific-notation"
@@ -23,7 +23,7 @@ using @code{'tie-configuration}.
   <c d f g>4\laissezVibrer r <c d f g>4.\laissezVibrer r8
 
   <c d e f>4\laissezVibrer r
-  \override LaissezVibrerTieColumn #'tie-configuration
+  \override LaissezVibrerTieColumn.tie-configuration
      = #`((-7 . ,DOWN)
           (-5 . ,DOWN)
           (-3 . ,UP)

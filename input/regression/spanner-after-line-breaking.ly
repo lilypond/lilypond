@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 texidoc = "The visibility of left-broken line spanners and hairpins
@@ -10,7 +10,7 @@ controlled by the callback @code{ly:spanner::kill-zero-spanned-time}.
 \paper { ragged-right = ##t }
 
 \relative c' {
-  \override TextSpanner #'bound-details =
+  \override TextSpanner.bound-details =
     #'((left
         (Y . 0)
         (padding . 0.25)
@@ -26,10 +26,10 @@ controlled by the callback @code{ly:spanner::kill-zero-spanned-time}.
        (right-broken
         (text . #f)))
   c1\startTextSpan\< \break
-  \override Hairpin #'to-barline = ##f
-  \override Hairpin #'after-line-breaking = ##f
+  \override Hairpin.to-barline = ##f
+  \override Hairpin.after-line-breaking = ##f
   c2\stopTextSpan\!
-  \override TextSpanner #'after-line-breaking =
+  \override TextSpanner.after-line-breaking =
     #ly:spanner::kill-zero-spanned-time
   c\startTextSpan\< \break
   c1\!\stopTextSpan

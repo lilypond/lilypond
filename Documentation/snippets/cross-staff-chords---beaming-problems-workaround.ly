@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "chords, keyboards, tweaks-and-overrides, workaround"
@@ -15,7 +15,7 @@ cross-staff chords, because no problems with automatic beam collision
 avoidance then arise.  If the stems from the lower staff were used in
 the following example, it would be necessary to change the automatic
 beam collision avoidance settings so that it doesn't detect collisions
-between staves using @code{\\override Staff.Beam #'collision-voice-only
+between staves using @code{\\override Staff.Beam.collision-voice-only
 = ##t}
 
 "
@@ -28,17 +28,17 @@ between staves using @code{\\override Staff.Beam #'collision-voice-only
     \relative c' {
       <<
         { r4
-          \override Stem #'cross-staff = ##t
-          \override Stem #'length = #19 % this is in half-spaces,
+          \override Stem.cross-staff = ##t
+          \override Stem.length = #19 % this is in half-spaces,
               % so it makes stems 9.5 staffspaces long
-          \override Stem #'Y-offset = #-6 % stems are normally lengthened
+          \override Stem.Y-offset = #-6 % stems are normally lengthened
               % upwards, so here we must lower the stem by the amount
               % equal to the lengthening - in this case (19 - 7) / 2
               % (7 is default stem length)
           e e e }
         { s4
           \change Staff = "bottom"
-          \override NoteColumn #'ignore-collision = ##t
+          \override NoteColumn.ignore-collision = ##t
           c, c c
         }
       >>

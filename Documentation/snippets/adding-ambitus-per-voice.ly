@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "pitches, staff-notation, vocal-music"
@@ -22,7 +22,7 @@ manually to prevent collisions.
   \new Voice \with {
     \consists "Ambitus_engraver"
   } \relative c'' {
-    \override Ambitus #'X-offset = #2.0
+    \override Ambitus.X-offset = #2.0
     \voiceOne
     c4 a d e
     f1

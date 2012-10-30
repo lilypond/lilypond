@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1028,7 +1028,7 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 結果は 2 つの譜が表示され、下の譜の符頭の色はデフォルトの黒のままとなります。
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -1043,7 +1043,7 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond
@@ -1133,7 +1133,7 @@ UTF-8 エンコードで保存されていない場合、@c
 譜として振舞うコンテキストを作ることで回避できます:
 
 @example
-\override VerticalAxisGroup #'staff-affinity = ##f
+\override VerticalAxisGroup.staff-affinity = ##f
 @end example
 
 @noindent

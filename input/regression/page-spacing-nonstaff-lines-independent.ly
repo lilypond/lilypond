@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Spacing rules between Staves coexist with rules affecting
@@ -17,9 +17,9 @@ staves is larger than the @code{padding} for associated lyrics."
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #'((padding . 0.2))
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #'((padding . 0.2))
   } \context {
     \Staff
-    \override VerticalAxisGroup #'default-staff-staff-spacing = #'((padding . 4))
+    \override VerticalAxisGroup.default-staff-staff-spacing = #'((padding . 4))
   }
 }

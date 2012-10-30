@@ -6,13 +6,13 @@
 
   }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper{ ragged-right=##t }
 
 \new Staff \relative c' <<
   { fis4.
-    \override Staff.NoteCollision #'prefer-dotted-right = ##f
+    \override Staff.NoteCollision.prefer-dotted-right = ##f
     fis4. }
   \\
   { \autoBeamOff e8 e e e e e e }

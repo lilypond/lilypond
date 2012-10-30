@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "specific-notation, staff-notation, tweaks-and-overrides"
@@ -18,7 +18,7 @@ Another way to put the time signature in parenthesis
 
 
 \relative c'' {
-  \override Staff.TimeSignature #'stencil = #(lambda (grob)
+  \override Staff.TimeSignature.stencil = #(lambda (grob)
     (parenthesize-stencil (ly:time-signature::print grob) 0.1 0.4 0.4 0.1 ))
   \time 2/4
   a4 b8 c

@@ -84,7 +84,7 @@ pianoRH =  \relative c''' \repeat volta 2\new Voice {
   a ) | 
   <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r | 
   r8 c'( e,) f r a |
-  \once \override DynamicLineSpanner   #'padding =#3
+  \once \override DynamicLineSpanner.padding =#3
   r8
   << { fis( g) } \\
      << { a4 } { s8\> s8\! } >>
@@ -124,7 +124,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
       << \time 6/8
 	 \new Staff \with {
 	   fontSize = #-3
-	   \override StaffSymbol #'staff-space = #(magstep -3)
+	   \override StaffSymbol.staff-space = #(magstep -3)
 	 } <<
 	   \context Staff \accidentalStyle modern
 	   \melody >>
@@ -148,15 +148,15 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
       \layout {
 	\context {
 	  \Lyrics
-	  \override LyricText #'font-size = #-1
+	  \override LyricText.font-size = #-1
 	}
 	\context {
 	  \Score
-	  \override Beam #'beam-thickness = #0.55
-	  \override Beam #'auto-knee-gap = #4.0
-	  \override SpacingSpanner #'spacing-increment = #1.0
-	  \override Stem #'stemlet-length = #0.5
-	  \override Slur #'height-limit = #1.5
+	  \override Beam.beam-thickness = #0.55
+	  \override Beam.auto-knee-gap = #4.0
+	  \override SpacingSpanner.spacing-increment = #1.0
+	  \override Stem.stemlet-length = #0.5
+	  \override Slur.height-limit = #1.5
 	}
       }
       
