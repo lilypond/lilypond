@@ -318,7 +318,7 @@ BOM_UTF8	\357\273\277
 
 
 <INITIAL,chords,lyrics,notes,figures>\\maininput           {
-	if (!is_main_input_)
+	if (!is_main_input_ && include_stack_.size () == 1)
 	{
 		start_main_input ();
 		is_main_input_ = true;
