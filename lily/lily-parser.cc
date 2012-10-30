@@ -143,7 +143,6 @@ void
 Lily_parser::parse_string (string ly_code)
 {
   lexer_->main_input_name_ = "<string>";
-  lexer_->is_main_input_ = true;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
@@ -161,7 +160,6 @@ Lily_parser::parse_string_expression (string ly_code, string filename,
                                       int line)
 {
   lexer_->main_input_name_ = filename;
-  lexer_->is_main_input_ = true;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
   if (line)
     {
