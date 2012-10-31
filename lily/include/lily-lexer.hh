@@ -57,6 +57,7 @@ public:
   SCM *lexval_;
   Input *lexloc_;
   bool is_main_input_;
+  vsize main_input_level_;
 
   Sources *sources_;
 

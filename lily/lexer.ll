@@ -309,9 +309,10 @@ BOM_UTF8	\357\273\277
 
 
 <INITIAL,chords,lyrics,notes,figures>\\maininput           {
-	if (!is_main_input_ && include_stack_.size () == 1)
+	if (!is_main_input_)
 	{
 		start_main_input ();
+		main_input_level_ = include_stack_.size ();
 		is_main_input_ = true;
 	}
 	else
@@ -698,11 +699,9 @@ BOM_UTF8	\357\273\277
         yylval = SCM_UNSPECIFIED;
         if (is_main_input_)
 	{
-		/* 2 = init.ly + current file.
-		   > because we're before closing, but is_main_input_ should
-		   reflect after.
- 		*/ 
-		is_main_input_ = include_stack_.size () > 2;
+		is_main_input_ = include_stack_.size () > main_input_level_;
+		if (!is_main_input_)
+			main_input_level_ = 0;
 		if (!close_input () || !is_main_input_)
  	        /* Returns YY_NULL */
 			yyterminate ();
