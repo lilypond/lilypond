@@ -96,6 +96,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   scopes_ = SCM_EOL;
   error_level_ = 0;
   is_main_input_ = false;
+  main_input_level_ = 0;
   start_module_ = SCM_EOL;
   extra_tokens_ = SCM_EOL;
   smobify_self ();
@@ -118,6 +119,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
 
   error_level_ = 0;
   is_main_input_ = src.is_main_input_;
+  main_input_level_ = 0;
 
   extra_tokens_ = SCM_EOL;
 
