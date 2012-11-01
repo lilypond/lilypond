@@ -328,7 +328,6 @@ If we give names, Bison complains.
 %token HYPHEN "--"
 
 %token CHORDMODIFIERS
-%token LYRIC_MARKUP
 %token MULTI_MEASURE_REST
 
 
@@ -498,7 +497,6 @@ embedded_scm_bare_arg:
 	{
 		$$ = parser->lexer_->eval_scm_token ($1);
 	}
-	| full_markup
 	| full_markup_list
 	| context_modification
 	| score_block
@@ -1275,7 +1273,7 @@ function_arglist_closed_nonbackup:
 				       try_string_variants ($2, $4),
 				       $3, $2, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist lyric_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist full_markup
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1378,7 +1376,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist lyric_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist full_markup
 	{
 		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -1424,7 +1422,7 @@ function_arglist_backup:
 			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep lyric_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep full_markup
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			$$ = scm_cons ($4, $3);
@@ -1660,7 +1658,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional lyric_markup
+	| EXPECT_SCM function_arglist_optional full_markup
 	{
 		$$ = $2;
 		if (scm_is_true (scm_call_1 ($1, $3)))
@@ -3035,7 +3033,7 @@ simple_chord_elements:
 	;
 
 lyric_element:
-	lyric_markup {
+	full_markup {
 		$$ = $1;
 	}
 	| STRING {
@@ -3204,19 +3202,6 @@ questions:
                 else
                         $$ = scm_not ($1);
         }
-	;
-
-/*
-This should be done more dynamically if possible.
-*/
-
-lyric_markup:
-	LYRIC_MARKUP
-		{ parser->lexer_->push_markup_state (); }
-	markup_top {
-		$$ = $3;
-		parser->lexer_->pop_state ();
-	}
 	;
 
 full_markup_list:

@@ -902,8 +902,7 @@ Lily_lexer::scan_escaped_word (string str)
 
         yylval = SCM_UNSPECIFIED;
 	int i = lookup_keyword (str);
- 	if (i == MARKUP && is_lyric_state ())
- 		return LYRIC_MARKUP;
+
 	if (i != -1)
 		return i;
 
