@@ -3642,17 +3642,19 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 	if (unsmob_music (simple))
 		return simple;
 	if (parser->lexer_->is_note_state ()) {
-		Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
-		n->set_property ("duration", parser->default_duration_.smobbed_copy ());
-		if (scm_is_symbol (simple))
+		if (scm_is_symbol (simple)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
+			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
 			n->set_property ("drum-type", simple);
-		else if (unsmob_pitch (simple))
-			n->set_property ("pitch", simple);
-		else {
-			n->unprotect ();
-			return simple;
+			return n->unprotect ();
 		}
-		return n->unprotect ();
+		if (unsmob_pitch (simple)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
+			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
+			n->set_property ("pitch", simple);
+			return n->unprotect ();
+		}
+		return simple;
 	} else if (parser->lexer_->is_lyric_state ()) {
 		if (Text_interface::is_markup (simple))
 			return MAKE_SYNTAX ("lyric-event", loc, simple,
