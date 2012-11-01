@@ -525,7 +525,7 @@ BOM_UTF8	\357\273\277
                                                          SCM_UNDEFINED,
                                                          SCM_UNDEFINED);
 
-		return is_lyric_state () ? LYRICS_STRING : STRING;
+		return STRING;
 	}
 	\\	{
                 yylval = scm_cons (scm_from_locale_string (YYText ()),
@@ -566,7 +566,7 @@ BOM_UTF8	\357\273\277
 		s = lyric_fudge (s);
 		yylval = ly_string2scm (s);
 
-		return LYRICS_STRING;
+		return STRING;
 	}
 	/* This should really just cover {} */
 	. {

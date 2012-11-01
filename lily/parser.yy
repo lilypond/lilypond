@@ -362,7 +362,6 @@ If we give names, Bison complains.
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
 %token FRACTION
-%token LYRICS_STRING
 %token LYRIC_ELEMENT
 %token MARKUP_FUNCTION
 %token MARKUP_LIST_FUNCTION
@@ -575,7 +574,6 @@ lilypond_header:
 */
 assignment_id:
 	STRING		{ $$ = $1; }
-	| LYRICS_STRING { $$ = $1; }
 	;
 
 assignment:
@@ -1277,12 +1275,6 @@ function_arglist_closed_nonbackup:
 				       try_string_variants ($2, $4),
 				       $3, $2, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist LYRICS_STRING
-	{
-		$$ = check_scheme_arg (parser, @4,
-				       try_string_variants ($2, $4),
-				       $3, $2, $4);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist lyric_markup
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
@@ -1323,7 +1315,6 @@ symbol_list_part:
 
 symbol_list_element:
 	STRING
-	| LYRICS_STRING
 	| embedded_scm_bare
 	;
 
@@ -1366,24 +1357,7 @@ function_arglist_nonbackup_reparse:
 			 (scm_call_1
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
-			MYREPARSE (@4, $2, LYRICS_STRING, $4);
-		else
-			MYREPARSE (@4, $2, SCM_ARG, $4);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist LYRICS_STRING
-	{
-		$$ = $3;
-		SCM res = try_string_variants ($2, $4);
-		if (!SCM_UNBNDP (res))
-			if (scm_is_pair (res))
-				MYREPARSE (@4, $2, SYMBOL_LIST, res);
-			else
-				MYREPARSE (@4, $2, SCM_ARG, res);
-		else if (scm_is_true
-			 (scm_call_1
-			  ($2, make_music_from_simple
-			   (parser, @4, $4))))
-			MYREPARSE (@4, $2, LYRICS_STRING, $4);
+			MYREPARSE (@4, $2, STRING, $4);
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
@@ -1396,6 +1370,11 @@ function_arglist_nonbackup_reparse:
 				MYREPARSE (@4, $2, SYMBOL_LIST, res);
 			else
 				MYREPARSE (@4, $2, SCM_ARG, res);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple
+			   (parser, @4, $4))))
+			MYREPARSE (@4, $2, STRING, $4);
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
@@ -1408,7 +1387,7 @@ function_arglist_nonbackup_reparse:
 			 (scm_call_1
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
-			MYREPARSE (@4, $2, LYRICS_STRING, $4);
+			MYREPARSE (@4, $2, STRING, $4);
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
@@ -1575,21 +1554,6 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep LYRICS_STRING
-	{
-		SCM res = try_string_variants ($2, $4);
-		if (!SCM_UNBNDP (res))
-			if (scm_is_pair (res)) {
-				$$ = $3;
-				MYREPARSE (@4, $2, SYMBOL_LIST, res);
-			}
-			else
-				$$ = scm_cons (res, $3);
-		else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (LYRICS_STRING, $4, @4);
-		}
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup BACKUP
 	{
 		$$ = scm_cons ($1, $3);
@@ -1679,20 +1643,6 @@ function_arglist_common_reparse:
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
 	| EXPECT_SCM function_arglist_optional STRING
-	{
-		$$ = $2;
-		SCM res = try_string_variants ($1, $3);
-		if (!SCM_UNBNDP (res))
-			if (scm_is_pair (res))
-				MYREPARSE (@3, $1, SYMBOL_LIST, res);
-			else
-				MYREPARSE (@3, $1, SCM_ARG, res);
-		else
-			// This is going to flag a syntax error, we
-			// know the predicate to be false.
-			MYREPARSE (@3, $1, SCM_ARG, $3);
-	}
-	| EXPECT_SCM function_arglist_optional LYRICS_STRING
 	{
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
@@ -2307,9 +2257,6 @@ string:
 simple_string: STRING {
 		$$ = $1;
 	}
-	| LYRICS_STRING {
-		$$ = $1;
-	}
 	| embedded_scm_bare
 	{
 		if (scm_is_string ($1)) {
@@ -2327,7 +2274,6 @@ scalar:
 	| bare_number
 	| FRACTION
 	| lyric_element
-	| STRING
 	;
 
 scalar_closed:
@@ -2336,7 +2282,6 @@ scalar_closed:
 	| bare_number
 	| FRACTION
 	| lyric_element
-	| STRING
 	;
 
 
@@ -2759,12 +2704,6 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
-	| LYRICS_STRING {
-		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
-		t->set_property ("text",
-			make_simple_markup ($1));
-		$$ = t->unprotect ();
-	}
 	| embedded_scm_closed
 	{
 		Music *m = unsmob_music ($1);
@@ -3099,7 +3038,7 @@ lyric_element:
 	lyric_markup {
 		$$ = $1;
 	}
-	| LYRICS_STRING {
+	| STRING {
 		$$ = $1;
 	}
 	| LYRIC_ELEMENT
