@@ -235,6 +235,8 @@ SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
 SCM make_duration (SCM t, int dots = 0, SCM factor = SCM_UNDEFINED);
 bool is_regular_identifier (SCM id, bool multiple=false);
+SCM make_reverse_key_list (SCM keys);
+SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 
@@ -373,6 +375,7 @@ If we give names, Bison complains.
 %token STRING
 %token SYMBOL_LIST
 %token TONICNAME_PITCH
+%token WORD
 
 %left '-' '+'
 
@@ -668,7 +671,8 @@ header_block:
 	DECLARATIONS
 */
 assignment_id:
-	STRING		{ $$ = $1; }
+	STRING
+	| WORD
 	;
 
 assignment:
@@ -1739,38 +1743,41 @@ symbol_list_rev:
 	}
 	;
 
-// symbol_list_part delivers elements in reverse copy.
+// symbol_list_part delivers elements in reverse copy, no lookahead
 
 symbol_list_part:
-	symbol_list_element
+	symbol_list_part_bare
+	| embedded_scm_bare
 	{
-		$$ = try_string_variants (Lily::key_list_p, $1);
+		$$ = make_reverse_key_list ($1);
 		if (SCM_UNBNDP ($$)) {
 			parser->parser_error (@1, _("not a key"));
 			$$ = SCM_EOL;
-		} else
-			$$ = scm_reverse ($$);
+		}
 	}
 	;
 
 
 symbol_list_element:
 	STRING
-	| embedded_scm_bare
+	{
+		$$ = scm_string_to_symbol ($1);
+	}
 	| UNSIGNED
 	;
 
+
 symbol_list_part_bare:
-	STRING
+	WORD
 	{
-		$$ = try_string_variants (Lily::key_list_p, $1);
+		$$ = try_word_variants (Lily::key_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
 			parser->parser_error (@1, _("not a key"));
 			$$ = SCM_EOL;
 		} else
 			$$ = scm_reverse ($$);
 	}
-	| UNSIGNED
+	| symbol_list_element
 	{
 		$$ = scm_list_1 ($1);
 	}
@@ -1914,6 +1921,23 @@ function_arglist_nonbackup_reparse:
 	{
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
+		if (!SCM_UNBNDP (res))
+			if (scm_is_pair (res))
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@4, $2, SCM_ARG, res);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple
+			   (parser, @4, $4))))
+			MYREPARSE (@4, $2, STRING, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup WORD
+	{
+		$$ = $3;
+		SCM res = try_word_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
 			if (scm_is_pair (res))
 				MYREPARSE (@4, $2, SYMBOL_LIST, res);
@@ -2180,6 +2204,21 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup WORD
+	{
+		SCM res = try_word_variants ($2, $4);
+		if (!SCM_UNBNDP (res))
+			if (scm_is_pair (res)) {
+				$$ = $3;
+				MYREPARSE (@4, $2, SYMBOL_LIST, res);
+			}
+			else
+				$$ = scm_cons (res, $3);
+		else {
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
+			MYBACKUP (STRING, $4, @4);
+		}
+	}
 	| function_arglist_backup REPARSE pitch_or_music
 	{
 		if (scm_is_true (scm_call_1 ($2, $3)))
@@ -2392,6 +2431,24 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
+		if (!SCM_UNBNDP (res))
+			if (scm_is_pair (res))
+				MYREPARSE (@3, $1, SYMBOL_LIST, res);
+			else
+				MYREPARSE (@3, $1, SCM_ARG, res);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($1, make_music_from_simple (parser, @3, $3))))
+			MYREPARSE (@3, $1, LYRIC_ELEMENT, $3);
+		else
+			// This is going to flag a syntax error, we
+			// know the predicate to be false.
+			MYREPARSE (@3, $1, SCM_ARG, $3);
+	}
+	| EXPECT_SCM function_arglist_optional WORD
+	{
+		$$ = $2;
+		SCM res = try_word_variants ($1, $3);
 		if (!SCM_UNBNDP (res))
 			if (scm_is_pair (res))
 				MYREPARSE (@3, $1, SYMBOL_LIST, res);
@@ -2716,6 +2773,9 @@ context_mod:
 	| context_def_mod STRING {
 		$$ = scm_list_2 ($1, $2);
 	}
+	| context_def_mod WORD {
+		$$ = scm_list_2 ($1, $2);
+	}
 	| context_def_mod embedded_scm
 	{
 		if (!scm_is_string ($2)
@@ -2858,11 +2918,13 @@ music_property_def:
 
 string:
 	STRING
+	| WORD
 	| full_markup
 	;
 
 text:
 	STRING
+	| WORD
 	| full_markup
 	| embedded_scm_bare
 	{
@@ -2876,6 +2938,7 @@ text:
 	;
 
 simple_string: STRING
+	| WORD
 	| embedded_scm_bare
 	{
 		if (scm_is_string ($1)) {
@@ -2889,6 +2952,12 @@ simple_string: STRING
 
 symbol:
 	STRING {
+		$$ = scm_string_to_symbol ($1);
+	}
+	| WORD
+	{
+		if (!is_regular_identifier ($1, false))
+			parser->parser_error (@1, (_ ("symbol expected")));
 		$$ = scm_string_to_symbol ($1);
 	}
 	| embedded_scm_bare
@@ -3272,6 +3341,13 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
+	| WORD {
+		// Flag a warning? could be unintentional
+		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
+		t->set_property ("text",
+			make_simple_markup ($1));
+		$$ = t->unprotect ();
+	}
 	| embedded_scm
 	{
 		Music *m = unsmob<Music> ($1);
@@ -3410,9 +3486,10 @@ tremolo_type:
 	;
 
 bass_number:
-	UNSIGNED { $$ = $1; }
-	| STRING { $$ = $1; }
-	| full_markup { $$ = $1; }
+	UNSIGNED
+	| STRING
+	| WORD
+	| full_markup
 	| embedded_scm_bare
 	{
 		// as an integer, it needs to be non-negative, and otherwise
@@ -3598,9 +3675,14 @@ lyric_element:
 			parser->parser_error (@1, _ ("markup outside of text script or \\lyricmode"));
 		$$ = $1;
 	}
-	| STRING {
+	| WORD {
 		if (!parser->lexer_->is_lyric_state ())
 			parser->parser_error (@1, _f ("not a note name: %s", ly_scm2string ($1)));
+		$$ = $1;
+	}
+	| STRING {
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("string outside of text script or \\lyricmode"));
 		$$ = $1;
 	}
 	| LYRIC_ELEMENT
@@ -3986,6 +4068,9 @@ simple_markup:
 	STRING {
 		$$ = make_simple_markup ($1);
 	}
+	| WORD {
+		$$ = make_simple_markup ($1);
+	}
 	| SCORE {
 		parser->lexer_->push_note_state (Lily::pitchnames);
 	} '{' score_body '}' {
@@ -4186,18 +4271,68 @@ SCM loc_on_copy (Lily_parser *parser, Input loc, SCM arg)
 }
 
 SCM
+make_reverse_key_list (SCM keys)
+{
+	if (scm_is_true (Lily::key_p (keys)))
+		return scm_list_1 (keys);
+	if (scm_is_string (keys))
+		return scm_list_1 (scm_string_to_symbol (keys));
+	if (!ly_is_list (keys))
+		return SCM_UNDEFINED;
+	SCM res = SCM_EOL;
+	for (; scm_is_pair (keys); keys = scm_cdr (keys))
+	{
+		SCM elt = scm_car (keys);
+		if (scm_is_true (Lily::key_p (elt)))
+			res = scm_cons (elt, res);
+		else if (scm_is_string (elt))
+			res = scm_cons (scm_string_to_symbol (elt), res);
+		else return SCM_UNDEFINED;
+	}
+	return res;
+}
+
+SCM
 try_string_variants (SCM pred, SCM str)
 {
 	// a matching predicate is always ok
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
-	// a symbol may be interpreted as a list of symbols if it helps
+	// a key may be interpreted as a list of keys if it helps
 	if (scm_is_true (Lily::key_p (str))) {
 		str = scm_list_1 (str);
 		if (scm_is_true (scm_call_1 (pred, str)))
 			return str;
 		return SCM_UNDEFINED;
 	}
+
+	if (!scm_is_string (str))
+		return SCM_UNDEFINED;
+
+	// Let's attempt the symbol list interpretation first.
+
+	str = scm_string_to_symbol (str);
+
+	SCM lst = scm_list_1 (str);
+
+	if (scm_is_true (scm_call_1 (pred, lst)))
+		return lst;
+
+	// Try the single symbol interpretation
+
+	if (scm_is_true (scm_call_1 (pred, str)))
+		return str;
+
+	return SCM_UNDEFINED;
+}
+
+SCM
+try_word_variants (SCM pred, SCM str)
+{
+	// str is always a string when we come here
+
+	if (scm_is_true (scm_call_1 (pred, str)))
+		return str;
 
 	// If this cannot be a string representation of a symbol list,
 	// we are through.

@@ -583,7 +583,7 @@ BOM_UTF8	\357\273\277
 		s = lyric_fudge (s);
 		yylval = ly_string2scm (s);
 
-		return STRING;
+		return WORD;
 	}
 	/* This should really just cover {} */
 	[{}] {
@@ -702,7 +702,7 @@ BOM_UTF8	\357\273\277
 		string s (YYText_utf8 ()); 
 
 		yylval = ly_string2scm (s);
-		return STRING;
+		return WORD;
 	}
 	[{}]  {
                 yylval = SCM_UNSPECIFIED;
@@ -927,7 +927,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 
 	yylval = ly_string2scm (str);
 
-	return STRING;
+	return STRING; // WORD would cause additional processing
 }
 
 int
@@ -1038,7 +1038,7 @@ Lily_lexer::scan_bare_word (const string &str)
 		return state;
 	}
 	yylval = ly_string2scm (str);
-	return STRING;
+	return WORD;
 }
 
 int
