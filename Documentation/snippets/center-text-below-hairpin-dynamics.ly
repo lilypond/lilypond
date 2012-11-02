@@ -30,11 +30,11 @@ hairpinWithCenteredText =
              (par-y (ly:grob-parent grob Y))
              (dir (ly:grob-property par-y 'direction))
              (new-stencil (ly:stencil-aligned-to
-	           (ly:stencil-combine-at-edge
-	             (ly:stencil-aligned-to stencil X CENTER)
-	             Y dir
-	             (ly:stencil-aligned-to (grob-interpret-markup grob text) X CENTER))
-	             X LEFT))
+       	           (ly:stencil-combine-at-edge
+       	             (ly:stencil-aligned-to stencil X CENTER)
+       	             Y dir
+       	             (ly:stencil-aligned-to (grob-interpret-markup grob text) X CENTER))
+       	             X LEFT))
              (staff-space (ly:output-def-lookup (ly:grob-layout grob) 'staff-space))
              (staff-line-thickness (ly:output-def-lookup (ly:grob-layout grob) 'line-thickness))
              (grob-name (lambda (x) (assq-ref (ly:grob-property x 'meta) 'name)))
