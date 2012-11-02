@@ -2888,8 +2888,6 @@ connected between different staves of a @code{StaffGroup},
 @cindex default bar lines, changing
 @cindex bar lines, default, changing
 
-@snippets
-
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
