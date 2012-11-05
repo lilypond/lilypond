@@ -2774,7 +2774,7 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
-	| embedded_scm_bare
+	| embedded_scm_closed
 	{
 		Music *m = unsmob_music ($1);
 		if (m && m->is_mus_type ("post-event"))
