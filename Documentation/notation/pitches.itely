@@ -841,7 +841,7 @@ music = \relative c' { c d e f }
 @end lilypond
 
 @warning{Motifs to be inverted should be expressed in absolute form
-or be first converted to absolute form by enclosing them in a 
+or be first converted to absolute form by enclosing them in a
 @code{\relative} block.}
 
 @seealso
@@ -1127,6 +1127,8 @@ c2 c
 @cindex transposing clef
 @cindex clef, transposing
 @cindex octave transposition
+@cindex optional octave transposition
+@cindex octave transposition, optional
 @cindex choral tenor clef
 @cindex tenor clef, choral
 
@@ -1150,6 +1152,19 @@ c2 c
 \clef "F^5"
 c2 c
 @end lilypond
+
+Optional octavation can be obtained by enclosing the numeric
+argument in parentheses or brackets:
+
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+The pitches are displayed as if the numeric argument were
+given without parentheses/brackets.
 
 Some special purpose clefs are described in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
