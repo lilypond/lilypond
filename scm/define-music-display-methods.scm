@@ -848,33 +848,25 @@ Otherwise, return #f."
 	 (value	  (ly:music-property expr 'grob-value))
 	 (once	  (ly:music-property expr 'once)))
 
-    (format #f "~a\\override ~a~a #'~a = ~a~a"
+    (format #f "~a\\override ~{~a~^.~} = ~a~a"
 	    (if (or (null? once)
 		    (not once))
 		""
 		"\\once ")
-	    (if (eqv? (*current-context*) 'Bottom)
-		""
-		(format #f "~a . " (*current-context*)))
-	    symbol
-	    (if (null? (cdr properties))
-		(car properties)
-		properties)
-	    (property-value->lily-string value parser)
+            (if (eqv? (*current-context*) 'Bottom)
+                (cons symbol properties)
+                (cons* (*current-context*) symbol properties))
+            (property-value->lily-string value parser)
 	    (new-line->lily-string))))
 
 (define-display-method RevertProperty (expr parser)
   (let* ((symbol (ly:music-property expr 'symbol))
          (properties (ly:music-property expr 'grob-property-path
                                              (list (ly:music-property expr 'grob-property)))))
-    (format #f "\\revert ~a~a #'~a~a"
-	    (if (eqv? (*current-context*) 'Bottom)
-		""
-		(format #f "~a . " (*current-context*)))
-	    symbol
-	    (if (null? (cdr properties))
-		(car properties)
-		properties)
+    (format #f "\\revert ~{~a~^.~}~a"
+            (if (eqv? (*current-context*) 'Bottom)
+                (cons symbol properties)
+                (cons* (*current-context*) symbol properties))
 	    (new-line->lily-string))))
 
 (define-display-method TimeSignatureMusic (expr parser)
