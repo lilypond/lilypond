@@ -9,6 +9,30 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading The LilyPond Report #28.  @emph{November 12, 2012}
+
+The @uref{http://news.lilynet.net/?The-LilyPond-Report-28, October
+issue of the @emph{LilyPond Report}} focuses on the
+@uref{http://news.lilynet.net/?LilyPond-meeting-in-Waltrop,
+meeting of LilyPond developers and users} in Waltrop, Germany last
+August.  Of course, there are also some musings on LilyPond
+triggered by the release of 2.16.0 and 2.17.0 occuring from that
+venue.
+
+There are also two monthly financial reports from David Kastrup
+whose work on LilyPond is
+@uref{http://news.lilynet.net/?The-LilyPond-Report-24#an_urgent_request_for_funding,
+solely paid for} by financial contributions from other developer
+and users (thank you!), and a report about experiences from
+@uref{http://scorio.com, a web-based music typesetting service}
+using LilyPond internally.
+
+Come @uref{http://news.lilynet.net/?The-LilyPond-Report-28, read
+LilyPond Report 28} now; comments and contributions are warmly
+encouraged!
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
 
 We are happy to announce the release of LilyPond 2.16.1. This has a number of
