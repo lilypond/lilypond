@@ -318,8 +318,10 @@ Internals Reference:
 @cindex repeat and measure number
 @cindex timing information and repeats
 @cindex measure number and repeats
-@cindex repeat and slur
-@cindex slur and repeat
+@cindex repeats and slur
+@cindex slur and repeats
+@cindex glissandi and repeats
+@cindex repeats and glissandi
 
 Slurs that span from a @code{\repeat} block into an
 @code{\alternative} block will only work for the first alternative
@@ -333,6 +335,14 @@ are shown in @ref{Modifying ties and slurs}.
 
 Also, slurs cannot wrap around from the end of one
 alternative back to the beginning of the repeat.
+
+Glissandi that span from a @code{\repeat} block into an
+@code{\alternative} block will only work for the first alternative
+ending.  The visual appearance of a continuing glissando in other
+alternative blocks may be indicated by coding a glissando starting
+on a hidden grace note.  For an example, see
+@qq{Extending glissandi across repeats} under Selected Snippets
+in @ref{Glissando}.
 
 If a repeat that begins with an incomplete measure has an
 @code{\alternative} block that contains modifications to the

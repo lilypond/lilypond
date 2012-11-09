@@ -1099,6 +1099,9 @@ Different styles of glissandi can be created.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
+
 @seealso
 Music Glossary:
 @rglos{glissando}.
