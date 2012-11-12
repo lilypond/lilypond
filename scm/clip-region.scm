@@ -26,15 +26,15 @@
 ;;
 ;;
 ;; 	(define-public (make-rhythmic-location bar-num num den)
-;: 	(define-public (rhythmic-location? a)
+;; 	(define-public (rhythmic-location? a)
 ;; 	(define-public (make-graceless-rhythmic-location loc)
 ;; 	(define-public rhythmic-location-measure-position cdr)
 ;; 	(define-public rhythmic-location-bar-number car)
 ;; 	(define-public (rhythmic-location<? a b)
-;:	(define-public (rhythmic-location<=? a b)
-;:	(define-public (rhythmic-location>=? a b)
+;;	(define-public (rhythmic-location<=? a b)
+;;	(define-public (rhythmic-location>=? a b)
 ;;	(define-public (rhythmic-location>? a b)
-;:	(define-public (rhythmic-location=? a b)
+;;	(define-public (rhythmic-location=? a b)
 ;;	(define-public (rhythmic-location->file-string a)
 ;;	(define-public (rhythmic-location->string a)
 
@@ -45,20 +45,20 @@
 ;;
 ;; the total of this will be
 ;; O(#systems * #regions)
-;; 
+;;
 ;; we can actually do better by sorting the regions as well,
 ;; but let's leave that for future extensions.
 ;;
 (define-public (system-clipped-x-extent system-grob clip-region)
   "Return the X-extent of @var{system-grob} when clipped with
 @var{clip-region}.  Return @code{#f} if not appropriate."
-  
+
   (let*
       ((region-start (car clip-region))
        (columns (ly:grob-object system-grob 'columns))
        (region-end (cdr clip-region))
        (found-grace-end  #f)
-       (candidate-columns 
+       (candidate-columns
 	(filter
 	 (lambda (j)
 	   (let*
@@ -66,7 +66,7 @@
 		(loc (ly:grob-property column 'rhythmic-location))
 		(grace-less (make-graceless-rhythmic-location loc))
 		)
-		
+
 	     (and (rhythmic-location? loc)
 		  (rhythmic-location<=? region-start loc)
 		  (or (rhythmic-location<? grace-less region-end)
@@ -76,9 +76,9 @@
 			   )))
 
 	     ))
-	 
+
 	 (iota (ly:grob-array-length columns))))
-       
+
        (column-range
 	(if (>= 1 (length candidate-columns))
 	    #f
@@ -95,16 +95,16 @@
 		   system-grob
 		   (ly:grob-array-ref columns (car column-range)))
 	       system-grob X))
-	     
+
 	     (interval-end
 	      (ly:grob-robust-relative-extent
 	      (if (= (1- (ly:grob-array-length columns)) (cdr column-range))
 		  system-grob
 		  (ly:grob-array-ref columns (cdr column-range)))
 	      system-grob X)))
-	    
-	    
+
+
 	    #f
 	    )))
-    
+
     clipped-x-interval))
