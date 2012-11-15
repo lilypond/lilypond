@@ -2640,6 +2640,7 @@ lilypond … -dmidi-extension=midi lilyFile.ly
 @unnumberedsubsubsec Instrument names
 
 @cindex instrument names
+@cindex MIDI, instrument
 @funindex Staff.midiInstrument
 
 The MIDI instrument to be used is specified by setting the
