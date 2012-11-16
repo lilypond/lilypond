@@ -298,6 +298,35 @@ improvisationOff = {
   \revert AccidentalCautionary.stencil
 }
 
+%% kievan
+kievanOn = {
+ \override NoteHead.style = #'kievan
+ \override Stem.X-offset = #stem::kievan-offset-callback
+ \override Stem.stencil = ##f
+ \override Flag.stencil = ##f
+ \override Rest.style = #'mensural
+ \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
+ \override Dots.style = #'kievan
+ \override Slur.stencil = ##f
+ \override Stem.length = #0.0
+ \override Beam.positions = #beam::get-kievan-positions
+ \override Beam.quantized-positions = #beam::get-kievan-quantized-positions
+ \override NoteHead.duration-log = #note-head::calc-kievan-duration-log
+}
+kievanOff = {
+ \revert NoteHead.style
+ \revert Stem.X-offset
+ \revert Stem.stencil
+ \revert Rest.style
+ \revert Accidental.glyph-name-alist
+ \revert Dots.style
+ \revert Slur.stencil
+ \revert Flag.stencil
+ \revert Stem.length
+ \revert Beam.positions
+ \revert Beam.quantized-positions
+ \revert NoteHead.duration-log
+}
 
 %% merging
 

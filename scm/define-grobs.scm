@@ -394,12 +394,12 @@
 	(beam-gap . ,ly:beam::calc-beam-gap)
 	(minimum-length . ,ly:beam::calc-minimum-length)
 	(neutral-direction . ,DOWN)
-	(positions . ,beam::get-positions)
+	(positions . ,beam::place-broken-parts-individually)
 	(springs-and-rods . ,ly:beam::calc-springs-and-rods)
 	(X-positions . ,ly:beam::calc-x-positions)
 
 	;; this is a hack to set stem lengths, if positions is set.
-	(quantized-positions . ,beam::get-quantized-positions)
+	(quantized-positions . ,ly:beam::set-stem-lengths)
 
 	(shorten . ,ly:beam::calc-stem-shorten)
 	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
@@ -2025,7 +2025,7 @@
 
 	(direction . ,ly:stem::calc-direction)
 	(duration-log . ,stem::calc-duration-log)
-        (length . ,stem::length)
+        (length . ,ly:stem::calc-length)
 	(neutral-direction . ,DOWN)
 	(positioning-done . ,ly:stem::calc-positioning-done)
 	(stem-info . ,ly:stem::calc-stem-info)
@@ -2786,7 +2786,7 @@
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
     (,ly:stem::calc-stem-begin-position . ,ly:stem::pure-calc-stem-begin-position)
     (,ly:stem::calc-stem-end-position . ,ly:stem::pure-calc-stem-end-position)
-    (,stem::length . ,stem::pure-length)
+    (,ly:stem::calc-length . ,ly:stem::pure-calc-length)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:stem-tremolo::calc-y-offset . ,ly:stem-tremolo::pure-calc-y-offset)
     (,ly:system::height . ,ly:system::calc-pure-height)))

@@ -289,9 +289,7 @@ Stem::is_normal_stem (Grob *me)
   if (!head_count (me))
     return false;
 
-  extract_grob_set (me, "note-heads", heads);
-  SCM style = heads[0]->get_property ("style");
-  return style != ly_symbol2scm ("kievan") && scm_to_int (me->get_property ("duration-log")) >= 1;
+  return scm_to_int (me->get_property ("duration-log")) >= 1;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
@@ -803,6 +801,33 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
     }
 
   return pos;
+}
+
+
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
+SCM
+Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
+{
+  Grob *me = unsmob_grob (smob);
+  Real beg = robust_scm2double (me->get_pure_property ("stem-begin-position", 0, INT_MAX), 0.0);
+  Real res = fabs (internal_calc_stem_end_position (me, false) - beg);
+  return scm_from_double (res);
+}
+
+MAKE_SCHEME_CALLBACK (Stem, calc_length, 1);
+SCM
+Stem::calc_length (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  if (unsmob_grob (me->get_object ("beam")))
+    {
+      me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
+      return scm_from_double (0.0);
+    }
+
+  Real beg = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
+  Real res = fabs (internal_calc_stem_end_position (me, true) - beg);
+  return scm_from_double (res);
 }
 
 bool

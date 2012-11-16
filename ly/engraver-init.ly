@@ -1143,10 +1143,17 @@ accommodated for typesetting a piece in Kievan style."
 
  %% Set glyph styles.
  \override NoteHead.style = #'kievan
+ \override Stem.X-offset = #stem::kievan-offset-callback
+ \override Stem.stencil = ##f
+ \override Flag.stencil = ##f
  \override Rest.style = #'mensural
  \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
  \override Dots.style = #'kievan
  \override Slur.stencil = ##f
+ \override Stem.length = #0.0
+ \override Beam.positions = #beam::get-kievan-positions
+ \override Beam.quantized-positions = #beam::get-kievan-quantized-positions
+ \override NoteHead.duration-log = #note-head::calc-kievan-duration-log
 
  %% There are beams in Kievan notation, but they are invoked manually
  autoBeaming = ##f
