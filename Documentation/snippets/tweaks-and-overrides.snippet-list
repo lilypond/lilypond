@@ -34,6 +34,7 @@ drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
 dynamics-custom-text-spanner-postfix.ly
 dynamics-text-spanner-postfix.ly
+extending-glissandi-across-repeats.ly
 fine-tuning-pedal-brackets.ly
 forcing-horizontal-shift-of-notes.ly
 fret-diagrams-explained-and-developed.ly
