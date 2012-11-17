@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.6\n"
+"Project-Id-Version: lilypond 2.17.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-11-03 14:43+0000\n"
+"POT-Creation-Date: 2012-11-17 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2089,16 +2089,16 @@ msgstr ""
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:244
+#: lily-lexer.cc:246
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:271
+#: lily-lexer.cc:273
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:292 lily-lexer.cc:305
+#: lily-lexer.cc:294 lily-lexer.cc:307
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -3243,52 +3243,52 @@ msgstr ""
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:318 /home/phil/lilypond-git/lily/lexer.ll:318
+#: lexer.ll:319 /home/phil/lilypond-git/lily/lexer.ll:318
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:342 /home/phil/lilypond-git/lily/lexer.ll:342
+#: lexer.ll:343 /home/phil/lilypond-git/lily/lexer.ll:342
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:368 /home/phil/lilypond-git/lily/lexer.ll:368
+#: lexer.ll:369 /home/phil/lilypond-git/lily/lexer.ll:368
 msgid "string expected after \\include"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:378 /home/phil/lilypond-git/lily/lexer.ll:378
+#: lexer.ll:379 /home/phil/lilypond-git/lily/lexer.ll:378
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:690 /home/phil/lilypond-git/lily/lexer.ll:690
+#: lexer.ll:691 /home/phil/lilypond-git/lily/lexer.ll:690
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:792 /home/phil/lilypond-git/lily/lexer.ll:792
+#: lexer.ll:791 /home/phil/lilypond-git/lily/lexer.ll:792
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:915 /home/phil/lilypond-git/lily/lexer.ll:916
+#: lexer.ll:914 /home/phil/lilypond-git/lily/lexer.ll:916
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1198 /home/phil/lilypond-git/lily/lexer.ll:1199
+#: lexer.ll:1197 /home/phil/lilypond-git/lily/lexer.ll:1199
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1242 /home/phil/lilypond-git/lily/lexer.ll:1243
+#: lexer.ll:1241 /home/phil/lilypond-git/lily/lexer.ll:1243
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1243 /home/phil/lilypond-git/lily/lexer.ll:1244
+#: lexer.ll:1242 /home/phil/lilypond-git/lily/lexer.ll:1244
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1249 /home/phil/lilypond-git/lily/lexer.ll:1250
+#: lexer.ll:1248 /home/phil/lilypond-git/lily/lexer.ll:1250
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3366,7 +3366,7 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:67
+#: define-event-classes.scm:69
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
@@ -3395,35 +3395,35 @@ msgstr ""
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-music-types.scm:765
+#: define-music-types.scm:770
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:768
+#: define-music-types.scm:773
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:787
+#: define-music-types.scm:792
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:788
+#: define-music-types.scm:793
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
-#: define-note-names.scm:962
+#: define-note-names.scm:971
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:968
+#: define-note-names.scm:977
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:971
+#: define-note-names.scm:980
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -3580,37 +3580,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:793
+#: lily.scm:794
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:794
+#: lily.scm:795
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:856
+#: lily.scm:857
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:859
+#: lily.scm:860
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:881 lily.scm:970
+#: lily.scm:882 lily.scm:971
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:961
+#: lily.scm:962
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:980 ps-to-png.scm:66
+#: lily.scm:981 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3764,12 +3764,12 @@ msgstr ""
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
-#: parser-clef.scm:151 parser-clef.scm:191
+#: parser-clef.scm:164 parser-clef.scm:215
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr ""
 
-#: parser-clef.scm:152 parser-clef.scm:192
+#: parser-clef.scm:165 parser-clef.scm:216
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr ""
@@ -3793,40 +3793,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:359
+#: translation-functions.scm:377
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:362
+#: translation-functions.scm:380
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:413
+#: translation-functions.scm:431
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:428 translation-functions.scm:440
+#: translation-functions.scm:446 translation-functions.scm:458
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:431
+#: translation-functions.scm:449
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:443
+#: translation-functions.scm:461
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:466
+#: translation-functions.scm:484
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:571
+#: translation-functions.scm:589
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
