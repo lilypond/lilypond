@@ -12,7 +12,7 @@
   texidoc = "
 In orchestral scores sometimes single or groups of instruments are
 silent for a while and their staves can be removed for that time (with
-@code{\\removeEmptStaves}).
+@code{\\removeEmptyStaves}).
 
 
 When they play again it is often preferred to show the staves of all
@@ -31,27 +31,36 @@ the second violin is also displayed.
 
 \score {
   <<
-    \new StaffGroup = "StaffGroup_woodwinds" <<
+    \new StaffGroup = "StaffGroup_woodwinds"
+    <<
       \new Staff = "Staff_flute" \with {
         instrumentName = "Flute"
         shortInstrumentName = "Fl"}
-        \relative { \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break } }
+        \relative { \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break }
+      }
     >>
-    \new StaffGroup = "StaffGroup_Strings" <<
-      \new GrandStaff = "GrandStaff_violins" <<
+    \new StaffGroup = "StaffGroup_Strings"
+    <<
+      \new GrandStaff = "GrandStaff_violins"
+      <<
         \new Staff = "StaffViolinI" \with {
           instrumentName = "Violin I"
-          shortInstrumentName = "Vi I"}
-          \relative c'' { a1 \repeat unfold 7 { s1 } \repeat unfold 12 a16  a4}
+          shortInstrumentName = "Vi I"
+        }
+        \relative c'' {
+          a1 \repeat unfold 7 { s1 } \repeat unfold 12 a16  a4
+        }
         \new Staff = "StaffViolinII" \with {
           instrumentName = "Violin II"
-          shortInstrumentName = "Vi II"}
-          \relative { e1 \repeat unfold 8 { s1 } }
+          shortInstrumentName = "Vi II"
+        }
+        \relative { e1 \repeat unfold 8 { s1 } }
       >>
       \new Staff = "Staff_cello" \with {
         instrumentName = "Cello"
-        shortInstrumentName = "Ce"}
-        \relative c { \clef bass \repeat unfold 9 { c1 }}
+        shortInstrumentName = "Ce"
+      }
+      \relative c { \clef bass \repeat unfold 9 { c1 }}
     >>
   >>
 }
