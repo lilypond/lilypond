@@ -45,6 +45,9 @@ lilypond_version_strict_re = re.compile (lilypond_version_strict_re_str)
 help_summary = (
 _ ('''Update LilyPond input to newer version.  By default, update from the
 version taken from the \\version command, to the current LilyPond version.''')
++ "\n"
++ _ ("If FILE is `-', read from standard input.")
++ "\n\n"
 + _ ("Examples:")
 + '''
   $ convert-ly -e old.ly
@@ -334,10 +337,10 @@ def main ():
 
     errors = 0
     for f in files:
-        if f == '-':
-            continue
         f = f.decode (sys.stdin.encoding or "utf-8")
-        if not os.path.isfile (f):
+        if f == '-':
+            f = ''
+        elif not os.path.isfile (f):
             ly.error (_ (u"%s: Unable to open file") % f)
             errors += 1
             continue
