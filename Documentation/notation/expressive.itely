@@ -604,6 +604,20 @@ moltoF = #(make-dynamic-script
 }
 @end lilypond
 
+To left-align the dynamic text rather than centering it on a note
+use a @code{\tweak}:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
 Font settings in markup mode are described in
 @ref{Selecting font and font size}.
 
