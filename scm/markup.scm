@@ -62,7 +62,8 @@ Example:
   (cons (acons key val (car chain)) (cdr chain)))
 
 (define-public (stack-stencil-line space stencils)
-  "DOCME"
+  "Adjoin a list of STENCILS along the X axis, leaving SPACE between the
+   end of each stencil and the reference point of the following stencil."
   (if (and (pair? stencils)
            (ly:stencil? (car stencils)))
 
@@ -70,7 +71,7 @@ Example:
                (ly:stencil? (cadr stencils)))
           (let* ((tail (stack-stencil-line space (cdr stencils)))
                  (head (car stencils))
-                 (xoff (+ space (interval-length (ly:stencil-extent head X)))))
+                 (xoff (+ space (interval-end (ly:stencil-extent head X)))))
             (ly:stencil-add head
                             (ly:stencil-translate-axis tail xoff X)))
           (car stencils))
