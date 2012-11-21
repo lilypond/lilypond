@@ -464,9 +464,9 @@ The available languages and the note names they define are:
   @tab c d e f g a b h
 @item @code{english}
   @tab c d e f g a bf b
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -497,9 +497,9 @@ also vary depending on the language:
 @item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
@@ -551,9 +551,9 @@ appear in this table do not provide special note names yet.
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
