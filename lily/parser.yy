@@ -1236,11 +1236,8 @@ function_arglist_nonbackup_common:
 		else {
 			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
 			t->set_property ("digit", $5);
-			$$ = t->unprotect ();
-			if (scm_is_true (scm_call_1 ($2, $$)))
-				$$ = scm_cons ($$, $3);
-			else
-				$$ = check_scheme_arg (parser, @4, n, $3, $2);
+			$$ = check_scheme_arg (parser, @4, t->unprotect (),
+					       $3, $2, n);
 		}
 		
 	}
@@ -1270,27 +1267,21 @@ function_arglist_closed_nonbackup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist SCM_IDENTIFIER
 	{
-		SCM res = try_string_variants ($2, $4);
-		if (SCM_UNBNDP (res))
-			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-		else
-			$$ = scm_cons (res, $3);
+		$$ = check_scheme_arg (parser, @4,
+				       try_string_variants ($2, $4),
+				       $3, $2, $4);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist STRING
 	{
-		SCM res = try_string_variants ($2, $4);
-		if (SCM_UNBNDP (res))
-			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-		else
-			$$ = scm_cons (res, $3);
+		$$ = check_scheme_arg (parser, @4,
+				       try_string_variants ($2, $4),
+				       $3, $2, $4);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist LYRICS_STRING
 	{
-		SCM res = try_string_variants ($2, $4);
-		if (SCM_UNBNDP (res))
-			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-		else
-			$$ = scm_cons (res, $3);
+		$$ = check_scheme_arg (parser, @4,
+				       try_string_variants ($2, $4),
+				       $3, $2, $4);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist lyric_markup
 	{
