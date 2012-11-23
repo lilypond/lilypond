@@ -224,7 +224,7 @@ SCM get_next_unique_lyrics_context_id ();
 
 static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
-		      SCM arg, SCM args, SCM pred);
+		      SCM arg, SCM args, SCM pred, SCM disp = SCM_UNDEFINED);
 SCM make_music_from_simple (Lily_parser *parser, Input loc, SCM pitch);
 SCM loc_on_music (Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
@@ -3535,14 +3535,34 @@ get_next_unique_lyrics_context_id ()
 	return scm_from_locale_string (s);
 }
 
+// check_scheme_arg checks one argument with a given predicate for use
+// in an argument list and throws a syntax error if it is unusable.
+// The argument is prepended to the argument list in any case.  After
+// throwing a syntax error, the argument list is terminated with #f as
+// its last cdr in order to mark it as uncallable while not losing
+// track of its total length.
+//
+// There are a few special considerations: if optional argument disp
+// is given (otherwise it defaults to SCM_UNDEFINED), it will be used
+// instead of arg in a prospective error message.  This is useful if
+// arg is not the actual argument but rather a transformation of it.
+//
+// If arg itself is SCM_UNDEFINED, the predicate is considered false
+// and an error message using disp is produced unconditionally.
+
 SCM check_scheme_arg (Lily_parser *parser, Input loc,
-		      SCM arg, SCM args, SCM pred)
+		      SCM arg, SCM args, SCM pred, SCM disp)
 {
-	args = scm_cons (arg, args);
-	if (scm_is_true (scm_call_1 (pred, arg)))
-		return args;
+	if (SCM_UNBNDP (arg))
+		args = scm_cons (disp, args);
+	else {
+		args = scm_cons (arg, args);
+		if (scm_is_true (scm_call_1 (pred, arg)))
+			return args;
+	}
 	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
-	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred, arg);
+	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred,
+		     SCM_UNBNDP (disp) ? arg : disp);
 	scm_set_cdr_x (scm_last_pair (args), SCM_BOOL_F);
 	return args;
 }
