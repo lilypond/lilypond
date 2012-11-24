@@ -1352,18 +1352,21 @@ are affected.
 As a special case, @var{item} may be a symbol list specifying a grob
 path, in which case @code{\\once\\override} is called on it instead of
 creating tweaked music.  This is mainly useful when using
-@code{\\tweak} as as a component for building other functions.")
+@code{\\tweak} as as a component for building other functions.
+
+@var{prop} can contain additional elements in which case a nested
+property (inside of an alist) is tweaked.")
    (if (ly:music? item)
        (let ((p (check-grob-path prop parser location
                                  #:start 1
                                  #:default #t
-                                 #:min 2
-                                 #:max 2)))
+                                 #:min 2)))
          (if p
              (set! (ly:music-property item 'tweaks)
-                   (acons (if (eq? (car p) #t)
-                              (cadr p)
-                              (cons (car p) (cadr p)))
+                   (acons (cond ((pair? (cddr p)) p)
+                                ((symbol? (car p))
+                                 (cons (car p) (cadr p)))
+                                (else (cadr p)))
                           value
                           (ly:music-property item 'tweaks))))
          item)
