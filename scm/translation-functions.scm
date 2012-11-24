@@ -396,16 +396,8 @@ the current tuning?"
                   defined-strings defined-fingers))
 
     ;;; body of determine-frets-and-strings
-    (let* ((pitch-alist (apply (lambda (mylist)
-                                 (let ((index -1))
-                                   (map (lambda (note)
-                                          (begin
-                                            (set! index (1+ index))
-                                            (cons (note-pitch note)
-                                                  index)))
-                                        mylist)))
-                               notes '()))
-           (pitches (map note-pitch notes)))
+    (let* ((pitches (map note-pitch notes))
+           (pitch-alist (map cons pitches (iota (length pitches)))))
 
       ;; handle notes with strings assigned and fingering of 0
       (for-each
