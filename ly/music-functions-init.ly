@@ -1177,8 +1177,7 @@ single =
 #(define-music-function (parser location overrides music)
    (ly:music? ly:music?)
    (_i "Convert @var{overrides} to tweaks and apply them to @var{music}.
-This does not convert @code{\\revert}, @code{\\set} or @code{\\unset}
-and ignores nested overrides.")
+This does not convert @code{\\revert}, @code{\\set} or @code{\\unset}.")
    (set! (ly:music-property music 'tweaks)
          (fold-some-music
           (lambda (m) (eq? (ly:music-property m 'name)
@@ -1188,12 +1187,12 @@ and ignores nested overrides.")
                       ((ly:music-property m 'grob-property #f) => list)
                       (else
                        (ly:music-property m 'grob-property-path)))))
-              (if (pair? (cdr p))
-                  tweaks ;ignore nested properties
-                  (acons (cons (ly:music-property m 'symbol) ;grob name
-                               (car p)) ;grob property
-                         (ly:music-property m 'grob-value)
-                         tweaks))))
+              (acons (cons (ly:music-property m 'symbol) ;grob name
+                           (if (pair? (cdr p))
+                               p ;grob property path
+                               (car p))) ;grob property
+                     (ly:music-property m 'grob-value)
+                     tweaks)))
           (ly:music-property music 'tweaks)
           overrides))
    music)
