@@ -736,10 +736,8 @@ with subproperties given as well.")
                        (if (equal?
                             (cdr (assoc 'name (ly:grob-property grob 'meta)))
                             (second p))
-                         (if (null? (cdddr p))
-                             (ly:grob-set-property! grob (caddr p) value)
-                             (ly:grob-set-nested-property!
-                              grob (cddr p) value)))))
+                           (ly:grob-set-nested-property!
+                            grob (cddr p) value))))
          (make-music 'Music))))
 
 
