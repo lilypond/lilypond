@@ -262,11 +262,11 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
   #{
     \once \override Staff.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (format-compound-time args)))
-    \set Timing.timeSignatureFraction = $timesig
-    \set Timing.baseMoment = $beat
-    \set Timing.beatStructure = $beatGrouping
+    \set Timing.timeSignatureFraction = #timesig
+    \set Timing.baseMoment = #beat
+    \set Timing.beatStructure = #beatGrouping
     \set Timing.beamExceptions = #'()
-    \set Timing.measureLength = $mlen
+    \set Timing.measureLength = #mlen
   #} ))
 
 crossStaff =
@@ -275,7 +275,7 @@ crossStaff =
   #{
   \temporary \override Stem.cross-staff = #cross-staff-connect
   \temporary \override Flag.style = #'no-flag
-  $notes
+  #notes
   \revert Stem.cross-staff
   \revert Flag.style
 #})
@@ -436,7 +436,7 @@ harmonics played on a fretted instrument by touching the strings at @var{fret}."
                                                (ly:grob::stencil-height grob)))
     \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
-    $(make-harmonic
+    #(make-harmonic
        (calc-harmonic-pitch (fret->pitch (number->string fret)) music))
     \unset harmonicDots
     \revert TabNoteHead.stencil
@@ -456,7 +456,7 @@ given through @var{ratio}.")
                                                (ly:grob::stencil-height grob)))
     \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
-    $(make-harmonic
+    #(make-harmonic
       (calc-harmonic-pitch (ratio->pitch ratio) music))
     \unset harmonicDots
     \revert TabNoteHead.stencil
@@ -474,8 +474,8 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak transparent ##t $item #}
-       #{ \override $item #'transparent = ##t #}))
+       #{ \tweak transparent ##t #item #}
+       #{ \override #item . transparent = ##t #}))
 
 inStaffSegno =
 #(define-music-function (parser location) ()
@@ -682,8 +682,8 @@ If @var{item} is a symbol list of form @code{GrobName} or
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (if (ly:music? item)
-       #{ \tweak stencil ##f $item #}
-       #{ \override $item #'stencil = ##f #}))
+       #{ \tweak stencil ##f #item #}
+       #{ \override #item . stencil = ##f #}))
 
 once =
 #(define-music-function (parser location music) (ly:music?)
