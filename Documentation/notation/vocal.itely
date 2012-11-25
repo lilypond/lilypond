@@ -149,25 +149,6 @@ compile.  Instead, braces should always be surrounded with white space:
 \lyricmode @{ lah lah lah @}
 @end example
 
-@cindex overrides in lyric mode
-@funindex \override in \lyricmode
-
-Similarly, in lyric mode, a period will be included in the
-alphabetic sequence that it follows.  As a consequence, spaces
-must be inserted around the period in @code{\override} commands.
-Do @emph{not} write
-
-@example
-\override Score.LyricText.font-shape = #'italic
-@end example
-
-@noindent
-but instead use
-
-@example
-\override Score.LyricText.font-shape = #'italic
-@end example
-
 Punctuation, lyrics with accented characters, characters from
 non-English languages, or special characters (such as the heart
 symbol or slanted quotes), may simply be inserted directly

@@ -197,8 +197,7 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @var{Context}.@var{LayoutObject} #'@var{layout-property} =
-#@var{value}
+\override @var{Context}.@var{LayoutObject}.@var{layout-property} = #@var{value}
 @end example
 
 @noindent
@@ -206,25 +205,31 @@ This will set the property with the name @var{layout-property} of the
 layout object with the name @var{LayoutObject}, which is a member of
 the @var{Context} context, to the value @var{value}.
 
-The @var{Context} can be omitted (and usually is) when the
+The @var{Context} may be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
 level contexts, i.e., @code{Voice}, @code{ChordNames} or
 @code{Lyrics}, and we shall omit it in many of the following
 examples.  We shall see later when it must be specified.
 
 Later sections deal comprehensively with properties and their
-values, see @ref{Types of properties}.  But in this section we shall 
+values, see @ref{Types of properties}.  But in this section we shall
 use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
-For now, don't worry about the @code{#'}, which must precede the
-layout property, and the@tie{}@code{#}, which must precede the value.
-These must always be present in exactly this form.  This is the
-most common command used in tweaking, and most of the rest of
-this chapter will be directed to presenting examples of how it is
-used.  Here is a simple example to change the color of the
-note head:
+LilyPond's primary expressions are musical items like notes,
+durations, and markups.  More basic expressions like numbers,
+strings, and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  Although the
+values may sometimes have a valid representation in LilyPond's
+musical mode, this manual will always use @samp{#} for their
+entry for the sake of consistency.  For more information about
+Scheme mode, see @rextend{LilyPond Scheme syntax}.
+
+@code{\override} is the most common command used in tweaking, and
+most of the rest of this chapter will be directed to presenting
+examples of how it is used.  Here is a simple example to change the
+color of the note head:
 
 @cindex color property, example
 @cindex NoteHead, example of overriding
@@ -252,7 +257,7 @@ value; note, not its previous value if several @code{\override}
 commands have been issued.
 
 @example
-\revert @var{Context}.@var{LayoutObject} #'@var{layout-property}
+\revert @var{Context}.@var{LayoutObject}.@var{layout-property}
 @end example
 
 Again, just like @var{Context} in the @code{\override} command,
@@ -371,7 +376,7 @@ also that an equals sign should not be present.  So the simple form
 of the @code{\tweak} command is
 
 @example
-\tweak #'@var{layout-property} #@var{value}
+\tweak @var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -404,12 +409,13 @@ the original event:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <\tweak Accidental.color #red   cis4
  \tweak Accidental.color #green es
-                                  g>
+ g>
 @end lilypond
 
 This long form of the @code{\tweak} command can be described as
+
 @example
-\tweak @var{layout-object} #'@var{layout-property} @var{value}
+\tweak @var{layout-object}.@var{layout-property} @var{value}
 @end example
 
 @cindex tuplets, nested
@@ -455,8 +461,6 @@ appearance may be modified in the usual way with
 @cindex transparent property, example
 @cindex TupletNumber, example of overriding
 
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
@@ -599,8 +603,7 @@ at first, so we can be sure the command is working.  We get:
 \override Slur.thickness = #5.0
 @end example
 
-Don't forget the @code{#'} preceding the
-property name and a@tie{}@code{#} preceding the new value!
+Don't forget the@tie{}@code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -831,17 +834,12 @@ to change the lyrics to italics.  The object is @code{LyricText},
 the property is @code{font-shape} and the value is
 @code{italic}.  As before, we'll omit the context.
 
-As an aside, although it is an important one, note that because the
-values of @code{font-shape} are symbols they must be introduced with a
-single apostrophe, @code{'}.  That is why apostrophes are needed
-before @code{thickness} in the earlier example and @code{font-shape}.
-These are both symbols too.  Symbols are then read internally by
-LilyPond.  Some of them are the names of properties, like
-@code{thickness} or @code{font-shape}, others are used as values that
-can be given to properties, like @code{italic}.  Note the distinction
-from arbitrary text strings, which would appear as @code{"a text
-string"}; for more details about symbols and strings, see
-@rextend{Scheme tutorial}.
+As an aside, although it is an important one, note that some
+properties take values that are symbols, like @code{italic}, and
+must be preceded by an apostrophe, @code{'}.  Symbols are then
+read internally by LilyPond.  Note the distinction from arbitrary
+text strings, which would appear as @code{"a text string"}; for
+more details about symbols and strings, see @rextend{Scheme tutorial}.
 
 So we see that the @code{\override} command needed to print the lyrics
 in italics is:
@@ -878,32 +876,8 @@ like so:
 @noindent
 and the lyrics are all printed in italics.
 
-@subheading Specifying the context in lyric mode
-
-@cindex context, specifying in lyric mode
-@cindex lyric mode, specifying context
-
-In the case of lyrics, if you try specifying the context in the
-format given earlier the command will fail.  A syllable
-entered in lyricmode is terminated by either a space,
-a newline or a digit.  All other characters are included
-as part of the syllable.  For this reason a space or newline
-must appear before the terminating @code{@}} to prevent it being
-included as part of the final syllable.  Similarly,
-spaces must be inserted before and after the
-period or dot, @q{.}, separating the context name from the
-object name, as otherwise the two names are run together and
-the interpreter cannot recognize them.  So the command should be:
-
-@example
-\override Lyrics.LyricText.font-shape = #'italic
-@end example
-
 @warning{In lyrics always leave whitespace between the final
 syllable and the terminating brace.}
-
-@warning{In overrides in lyrics always place spaces around
-the dot between the context name and the object name.}
 
 
 @seealso

@@ -1909,28 +1909,11 @@ association list.  See @file{scm/define-grobs.scm}
 to see the settings for each grob description.  Grob descriptions
 are modified with @code{\override}.
 
-@code{\override} is actually a shorthand;
+The syntax for the @code{\override} command is
 
 @example
-\override @var{context}.@var{GrobName} #'@var{property} = #@var{value}
+\override [@var{context}.]@var{GrobName}.@var{property} = #@var{value}
 @end example
-
-@noindent
-is more or less equivalent to
-
-@c  leave this long line -gp
-@example
-\set @var{context}.@var{GrobName}  =
-  #(cons (cons '@var{property} @var{value})
-         <previous value of @var{context}.@var{GrobName}>)
-@end example
-
-The value of @code{context}.@code{GrobName} (the alist) is used to initialize
-the properties of individual grobs.  Grobs have
-properties, named in Scheme style, with
-@code{dashed-words}.  The values of grob properties change
-during the formatting process: formatting basically amounts
-to computing properties using callback functions.
 
 For example, we can increase the thickness of a note stem by
 overriding the @code{thickness} property of the @code{Stem}
@@ -1959,11 +1942,33 @@ context is used:
 }
 @end lilypond
 
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands in the form
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+or to modify the ends of spanners, use a form like these
+
+@example
+\override TextSpanner.bound-details.left.text = #"left text"
+\override TextSpanner.bound-details.right.text = #"right text"
+@end example
+
 @funindex \revert
 @cindex reverting overrides
 @cindex overrides, reverting
 
-The effects of @code{\override} can be undone by @code{\revert}:
+The effects of @code{\override} can be undone by @code{\revert}.
+
+The syntax for the @code{\revert} command is
+
+@example
+\revert [@var{context}.]@var{GrobName}.@var{property}
+@end example
+
+For example,
 
 @lilypond[quote,verbatim,relative=2]
 c4
@@ -2031,13 +2036,6 @@ To construct this tweak we must determine these bits of information:
 @item a sensible value: here @code{3.0}.
 @end itemize
 
-Some tweakable options are called @q{subproperties} and reside inside
-properties.  To tweak those, use commands in the form
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-
 @cindex internal documentation
 @cindex finding graphical objects
 @cindex graphical object descriptions
@@ -2074,7 +2072,7 @@ accomplished with the @code{\tweak} command, which has the following
 syntax:
 
 @example
-\tweak @var{layout-object} #'@var{grob-property} @var{value}
+\tweak [@var{layout-object}.]@var{grob-property} @var{value}
 @end example
 
 Specifying @var{layout-object} is optional.
@@ -2101,7 +2099,7 @@ For example:
 
 
 
-But the main use of the @code{\tweak} command is to modify just
+The main use of the @code{\tweak} command is to modify just
 one of a number of notation elements which start at the same musical
 moment, like the notes of a chord, or tuplet brackets which start
 at the same time.
@@ -2196,8 +2194,9 @@ beams or accidentals, since these are generated later by
 @code{NoteHead} layout objects rather than by music elements in the
 input stream.
 
-Such indirectly created layout objects can be tweaked using the explicit
-form of the @code{\tweak} command:
+Such indirectly created layout objects can be tweaked using the form
+of the @code{\tweak} command in which the grob name is specified
+explicitly:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak Stem.color #red

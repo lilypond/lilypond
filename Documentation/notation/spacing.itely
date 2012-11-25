@@ -1169,7 +1169,7 @@ layoutVariable = \layout @{
 @end example
 
 it will hold the current @code{\layout} configuration with the
-@code{NoteHead #'font-size} override added, but this combination
+@code{NoteHead.font-size} override added, but this combination
 is @emph{not} saved as the new current configuration.  Be aware
 that the @q{current configuration} is read when the variable is
 defined and not when it is used, so the content of the variable
@@ -1201,11 +1201,11 @@ use of @code{\layoutVariable} the final @code{\layout} block would
 consist of:
 
 @example
-  TextScript #'padding = #1
-  TextScript #'color = #magenta
-  Glissando #'thickness = #1.5
-  NoteHead #' font-size = #4
-  NoteHead #' color = #red
+  TextScript.padding = #1
+  TextScript.color = #magenta
+  Glissando.thickness = #1.5
+  NoteHead.font-size = #4
+  NoteHead.color = #red
 @end example
 
 plus the @code{indent} and the @code{StaffGrouper} overrides.
@@ -1215,8 +1215,8 @@ But if the variable had already been defined before the first
 only
 
 @example
-  NoteHead #' font-size= #4 % (written in the variable definition)
-  NoteHead #' color = #red % (added after the use of the variable)
+  NoteHead.font-size = #4 % (written in the variable definition)
+  NoteHead.color = #red % (added after the use of the variable)
 @end example
 
 If carefully planned, @code{\layout} variables can be a valuable tool
@@ -2415,12 +2415,12 @@ explained above is as a collection of settings that control the
 amount of vertical padding between staves and systems.
 
 It is possible to approach vertical spacing in a different way
-using @code{NonMusicalPaperColumn #'line-break-system-details}.
+using @code{NonMusicalPaperColumn.line-break-system-details}.
 While the flexible vertical spacing mechanisms specify vertical
-padding, @code{NonMusicalPaperColumn #'line-break-system-details}
+padding, @code{NonMusicalPaperColumn.line-break-system-details}
 can specify exact vertical positions on the page.
 
-@code{NonMusicalPaperColumn #'line-break-system-details} accepts
+@code{NonMusicalPaperColumn.line-break-system-details} accepts
 an associative list of three different settings:
 
 @itemize
@@ -2613,7 +2613,7 @@ do not count as a staff.
 of the distance between adjacent staff lines.  Positive values move staves
 and lyrics up, negative values move staves and lyrics down.
 
-@item Because the @code{NonMusicalPaperColumn #'line-break-system-details}
+@item Because the @code{NonMusicalPaperColumn.line-break-system-details}
 settings given here allow the positioning of staves and systems anywhere
 on the page, it is possible to violate paper or margin boundaries or even
 to print staves or systems on top of one another.  Reasonable values
@@ -2914,7 +2914,7 @@ than @code{1 16}.
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
 such symbols and force uniform equal-duration spacing, use
-@code{Score.SpacingSpanner #'uniform-stretching}.  This
+@code{Score.SpacingSpanner.uniform-stretching}.  This
 property can only be changed at the beginning of a score,
 
 @lilypond[quote,ragged-right,verbatim]
