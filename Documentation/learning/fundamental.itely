@@ -2325,7 +2325,7 @@ celloMusic = \relative c {
 
 @seealso
 The starting templates can be found in the @q{Templates} appendix,
-see @ref{Single staff}.
+see @ref{Single staff templates}.
 
 
 @node Four-part SATB vocal score
@@ -2437,8 +2437,8 @@ lower = \relative c, {
 @end lilypond
 
 None of the templates provides this layout exactly.  The nearest is
-@q{SATB vocal score and automatic piano reduction} -- see
-@ref{Vocal ensembles} -- but we need to change the layout and add a piano
+@ref{SATB vocal score and automatic piano reduction} -- but we need
+to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.

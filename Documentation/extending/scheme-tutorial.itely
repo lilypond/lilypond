@@ -209,7 +209,15 @@ For a complete listing see the Guile reference guide,
 There are also compound data types in Scheme.  The  types commonly used in
 LilyPond programming include pairs, lists, alists, and hash tables.
 
-@subheading Pairs
+@menu
+* Pairs::
+* Lists::
+* Association lists (alists)::
+* Hash tables::
+@end menu
+
+@node Pairs
+@unnumberedsubsubsec Pairs
 
 The foundational compound data type of Scheme is the @code{pair}.  As
 might be expected from its name, a pair is two values glued together.
@@ -264,7 +272,8 @@ Note:  @code{cdr} is pronounced "could-er", according Sussman and
 Abelson, see
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
-@subheading Lists
+@node Lists
+@unnumberedsubsubsec Lists
 
 A very common Scheme data structure is the @emph{list}.  Formally, a
 list is defined as either the empty list (represented as @code{'()},
@@ -294,7 +303,8 @@ Lists are a central part of Scheme.  In, fact, Scheme is considered
 a dialect of lisp, where @q{lisp} is an abbreviation for
 @q{List Processing}.  Scheme expressions are all lists.
 
-@subheading Association lists (alists)
+@node Association lists (alists)
+@unnumberedsubsubsec Association lists (alists)
 
 A special type of list is an @emph{association list} or @emph{alist}.
 An alist is used to store data for easy retrieval.
@@ -318,7 +328,8 @@ guile>
 
 Alists are widely used in LilyPond to store properties and other data.
 
-@subheading Hash tables
+@node Hash tables
+@unnumberedsubsubsec Hash tables
 
 A data structure that is used occasionally in LilyPond.  A hash table
 is similar to an array, but the indexes to the array can be any type
@@ -488,7 +499,14 @@ Scheme procedures are executable scheme expressions that return a
 value resulting from their execution.  They can also manipulate
 variables defined outside of the procedure.
 
-@subheading Defining procedures
+@menu
+* Defining procedures::
+* Predicates::
+* Return values::
+@end menu
+
+@node Defining procedures
+@unnumberedsubsubsec Defining procedures
 
 Procedures are defined in Scheme with define
 
@@ -514,7 +532,8 @@ guile> (average 3 12)
 15/2
 @end lisp
 
-@subheading Predicates
+@node Predicates
+@unnumberedsubsubsec Predicates
 
 Scheme procedures that return boolean values are often called
 @emph{predicates}.  By convention (but not necessity), predicate names
@@ -528,7 +547,8 @@ guile> (less-than-ten? 15)
 #f
 @end lisp
 
-@subheading Return values
+@node Return values
+@unnumberedsubsubsec Return values
 
 Scheme procedures always return a return value, which is the value
 of the last expression executed in the procedure.  The return
@@ -561,7 +581,13 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @node Scheme conditionals
 @subsection Scheme conditionals
 
-@subheading if
+@menu
+* if::
+* cond::
+@end menu
+
+@node if
+@unnumberedsubsubsec if
 
 Scheme has an @code{if} procedure:
 
@@ -581,7 +607,8 @@ guile> (if (> a b) "a is greater than b" "a is not greater than b")
 "a is not greater than b"
 @end lisp
 
-@subheading cond
+@node cond
+@unnumberedsubsubsec cond
 
 Another conditional procedure in scheme is @code{cond}:
 
@@ -927,7 +954,16 @@ while @code{twentyFour} is a variable.
 @node LilyPond compound variables
 @subsection LilyPond compound variables
 
-@subheading Offsets
+@menu
+* Offsets::
+* Fractions::
+* Extents::
+* Property alists::
+* Alist chains::
+@end menu
+
+@node Offsets
+@unnumberedsubsubsec Offsets
 
 Two-dimensional offsets (X and Y coordinates) are stored as @emph{pairs}.
 The @code{car} of the offset is the X coordinate, and the @code{cdr} is
@@ -944,7 +980,8 @@ this command moves the object 1 staff space to the right, and 2 spaces up.
 
 Procedures for working with offsets are found in @file{scm/lily-library.scm}.
 
-@subheading Fractions
+@node Fractions
+@unnumberedsubsubsec Fractions
 
 Fractions as used by LilyPond are again stored as @emph{pairs}, this
 time of unsigned integers.  While Scheme can represent rational numbers
@@ -954,7 +991,8 @@ no negative @q{fractions} in LilyPond's mind.  So @code{2/4} in LilyPond
 means @code{(2 . 4)} in Scheme, and @code{#2/4} in LilyPond means
 @code{1/2} in Scheme.
 
-@subheading Extents
+@node Extents
+@unnumberedsubsubsec Extents
 
 Pairs are also used to store intervals, which represent a range of numbers
 from the minimum (the @code{car}) to the maximum (the @code{cdr}).
@@ -967,7 +1005,8 @@ Procedures for working with intervals are found in
 @file{scm/lily-library.scm}.  These procedures should be used when possible
 to ensure consistency of code.
 
-@subheading Property alists
+@node Property alists
+@unnumberedsubsubsec Property alists
 
 A property alist is a LilyPond data structure that is an alist whose
 keys are properties and whose values are Scheme expressions that give
@@ -975,7 +1014,8 @@ the desired value for the property.
 
 LilyPond properties are Scheme symbols, such as @code{'thickness}.
 
-@subheading Alist chains
+@node Alist chains
+@unnumberedsubsubsec Alist chains
 
 An alist chain is a list containing property alists.
 

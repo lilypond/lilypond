@@ -2505,7 +2505,13 @@ left, right or center; etc.  Most of these choices may be left to
 be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
 
-@strong{Articulation direction indicators}
+@menu
+* Articulation direction indicators::
+* The direction property::
+@end menu
+
+@node Articulation direction indicators
+@unnumberedsubsubsec Articulation direction indicators
 
 By default some directions are always up or always down (e.g.
 dynamics or fermata), while other things can alternate between
@@ -2538,7 +2544,8 @@ c2( c)
 c2^( c)
 @end lilypond
 
-@strong{The direction property}
+@node The direction property
+@unnumberedsubsubsec The direction property
 
 The position or direction of many layout objects is controlled by the
 @code{direction} property.
@@ -2708,6 +2715,12 @@ All spanners support the @code{spanner-interface}.  A few, essentially
 those that draw a straight line between the two objects, support in
 addition the @code{line-spanner-interface}.
 
+@menu
+* Using the spanner-interface::
+* Using the line-spanner-interface::
+@end menu
+
+@node Using the spanner-interface
 @unnumberedsubsubsec Using the @code{spanner-interface}
 
 This interface provides two properties that apply to several spanners.
@@ -2836,6 +2849,7 @@ setting it to @code{#t} has no effect on slurs or phrasing slurs
 or on other spanners for which terminating on the bar line would
 not be meaningful.
 
+@node Using the line-spanner-interface
 @unnumberedsubsubsec Using the @code{line-spanner-interface}
 
 Objects which support the @code{line-spanner-interface} include
@@ -3590,7 +3604,7 @@ to value of @code{direction}.
 @node Using the self-alignment-interface
 @unnumberedsubsubsec Using the @code{self-alignment-interface}
 
-@emph{Self-aligning objects horizontally}
+@subsubsubheading Self-aligning objects horizontally
 
 The horizontal alignment of an object which supports the
 @code{self-alignment-interface} is controlled by the value of
@@ -3625,7 +3639,7 @@ a'
 ^"aligned further to the right"
 @end lilypond
 
-@emph{Self-aligning objects vertically}
+@subsubsubheading Self-aligning objects vertically
 
 Objects may be aligned vertically in an analogous way to aligning
 them horizontally if the @code{Y-offset} property is set to
@@ -3643,7 +3657,7 @@ with the reference point of the parent.  The symbols @code{DOWN},
 @code{CENTER}, and @code{UP} may be substituted for @w{@code{-1}},
 @code{0}, and @code{1}, respectively.
 
-@emph{Self-aligning objects in both directions}
+@subsubsubheading Self-aligning objects in both directions
 
 By setting both @code{X-offset} and @code{Y-offset}, an object may
 be aligned in both directions simultaneously.
