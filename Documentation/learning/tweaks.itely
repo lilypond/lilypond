@@ -1050,7 +1050,20 @@ it by adding the correct context:
 }
 @end lilypond
 
-Now the bar lines have vanished.
+Now the bar lines have vanished.  Setting the @code{stencil}
+property to @code{#f} is such a frequent operation that there is a
+shorthand for it called @code{\omit}:
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Note, though, that setting the @code{stencil} property to @code{#f}
 will cause errors when the dimensions of the object are required for
@@ -1077,10 +1090,11 @@ We see from the @code{BarLine} properties in the IR that the
 These control respectively whether bar lines are printed at the end of
 a line, in the middle of lines, and at the beginning of lines.  For
 our example we want all bar lines to be suppressed, so the value we
-need is @code{'#(#f #f #f)}.  Let's try that, remembering to include
+need is @code{#(#f #f #f)} (also available
+under the name @code{all-invisible}).  Let's try that, remembering to include
 the @code{Staff} context.  Note also that in writing this value we
-have @code{#'#} before the opening bracket.  The @code{'#} is required
-as part of the value to introduce a vector, and the first@tie{}@code{#} is
+have @code{##} before the opening parenthesis.  One @code{#} is required
+as part of vector constant syntax, and the first@tie{}@code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 
@@ -1090,7 +1104,7 @@ required, as always, to precede the value itself in the
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1130,7 +1144,24 @@ transparent is:
 @end lilypond
 
 @noindent
-The time signature is gone, but this command leaves a gap where
+Again, setting the @code{transparent} property is a rather
+frequent operation, so we have a shorthand for it called
+@code{\hide}:
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+In either case, the time signature is gone, but this command
+leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
 an exercise for the student to fill it in, but in other
 circumstances a gap might be undesirable.  To remove it, the
@@ -1143,7 +1174,7 @@ instead:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1152,7 +1183,9 @@ instead:
 
 @noindent
 and the difference is obvious: setting the stencil to @code{#f}
+(possibly via @code{\omit})
 removes the object entirely; making the object @code{transparent}
+(which can be done using @code{\hide})
 leaves it where it is, but makes it invisible.
 
 @subheading color
@@ -1194,11 +1227,11 @@ we write:
 @noindent
 and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
-a symbol, but a @emph{function}.  When called, it provides
+a symbol, but a @emph{variable}.  When evaluated, it provides
 the list of internal values required to set the color to
-white.  The other colors in the normal list are functions
+white.  The other colors in the normal list are variables
 too.  To convince yourself this is working you might like
-to change the color to one of the other functions in the
+to change the color to one of the other variables in the
 list.
 
 @cindex color, X11
@@ -1208,9 +1241,9 @@ list.
 
 The second way of changing the color is to use the list of
 X11 color names in the second list in @ruser{List of colors}.
-However, these must be preceded by another function, which
-converts X11 color names into the list of internal values,
-@code{x11-color}, like this:
+However, these are mapped to the actual values by the function
+@code{x11-color} which
+converts X11 color symbols into the list of internal values like this:
 
 @cindex BarLine, example of overriding
 @cindex color property, example
@@ -1228,14 +1261,15 @@ converts X11 color names into the list of internal values,
 @noindent
 Note that in this case the function @code{x11-color} takes
 a symbol as an argument, so the symbol must be preceded by
-an apostrophe and the two enclosed in brackets.
+an apostrophe to keep it from being evaluated as a variable, and
+the whole function call has to be enclosed in parentheses.
 
 @cindex rgb colors
 @cindex color, rgb
 
 @funindex rgb-color
 
-There is yet a third function, one which converts RGB values into
+There is another function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
 three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
@@ -1334,7 +1368,7 @@ we simply set the stencil of each to @code{#f}, as follows:
 
 @cindex alignAboveContext property, example
 @cindex @code{\with}, example
-@cindex stencil property, example
+@funindex \omit
 @cindex Clef, example of overriding
 @cindex TimeSignature, example of overriding
 
@@ -1349,8 +1383,8 @@ we simply set the stencil of each to @code{#f}, as follows:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef.stencil = ##f
-        \override Staff.TimeSignature.stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1366,7 +1400,9 @@ to the ossia staff.
 
 But what is the difference between modifying the staff context by
 using @code{\with} and modifying the stencils of the clef and the
-time signature with \override?  The main difference is that
+time signature with @code{\override}, or in this case
+@code{\omit}?
+The main difference is that
 changes made in a @code{\with} clause are made at the time the
 context is created, and remain in force as the @strong{default}
 values for the duration of that context, whereas
@@ -1412,6 +1448,31 @@ So we could replace the example above with
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
         \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+It turns out that we can also employ the shorthands @code{\hide}
+and @code{\omit} for setting the @code{transparent} property and
+clearing the @code{stencil} here, leading to the result
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1472,8 +1533,8 @@ Let's try it in our ossia example:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
@@ -1538,8 +1599,8 @@ objects in proportion.  It is used like this:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
@@ -1760,12 +1821,12 @@ the commonest.  The meaning of each is stated where it is not obvious.
   @tab Tuplets are below/above notes
 @end multitable
 
-Note that these predefined commands may @strong{not} be
+The neutral/normal variants of these commands are implemented
+using @code{\revert} and may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
-effect to a single note you must either use the equivalent
-@code{\once \override} command or use the predefined command
-followed after the affected note by the corresponding
-@code{\xxxNeutral} command.
+effect of the other commands (which are implemented using
+@code{\override}) to a single timestep, you can precede them with
+@code{\once} like you would do with explicit overrides.
 
 @unnumberedsubsubsec Fingering
 
@@ -3485,6 +3546,35 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
+@funindex \single
+@cindex tweak, generated from override
+Now for @emph{overriding} the transparency of a graphical object,
+we could have used the shorthand @code{\hide} as explained above.
+Tweaking is a different operation, affecting only properties
+generated from a single music expression.  It turns out that we
+can convert overrides into tweaks using @code{\single}, making it
+possible to rewrite the above example as
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+In this particular case, the difference to @code{\once \hide} is
+not apparent.  It is important when there are several objects at
+the same point in musical time (like noteheads in a chord).  In
+that case, @code{\once} will affect all of those objects while
+@code{\single} will only affect a single one, the one generated by
+the immediately following music expression.
+
 @subheading Simulating a fermata in MIDI
 
 @cindex stencil property, use of
@@ -3515,7 +3605,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.transparent = ##t
+    \once \hide Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3537,7 +3627,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.stencil = ##f
+    \once \omit Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
