@@ -282,6 +282,12 @@ dot placement entries."
     (length (filter (lambda (x) (not (null? x)))
                     art-list)))
 
+  (define (string-number event)
+    "Get the string-number from @var{event}.  Return @var{#f}
+if no string-number is present."
+    (let ((num (ly:event-property event 'string-number)))
+      (and (integer? num) (positive? num) num)))
+
   (define (determine-frets-and-strings
 	    notes
 	    defined-strings
@@ -324,14 +330,6 @@ if no fingering is present."
 		   (set! finger-found num))))
 	     articulations)
 	finger-found))
-
-    (define (string-number event)
-      "Get the string-number from @var{event}.  Return @var{#f}
-if no string-number is present."
-      (let ((num (ly:event-property event 'string-number)))
-	(if (number? num)
-	  num
-	  #f)))
 
     (define (delete-free-string string)
       (if (number? string)
@@ -519,7 +517,7 @@ chords.  Returns a placement-list."
          (defined-strings (map (lambda (x)
                                  (if (null? x)
                                      x
-                                     (ly:event-property x 'string-number)))
+                                     (or (string-number x) '())))
                                (car specified-info)))
          (defined-fingers (map (lambda (x)
                                  (if (null? x)
