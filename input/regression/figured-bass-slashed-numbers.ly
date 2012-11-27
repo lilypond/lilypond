@@ -25,10 +25,9 @@ bassfigures = \figuremode {
 #(define (adjust-slash-stencil-default num forward stencil mag)
     stencil)
 
-unsetExceptions = #(define-music-function (parser location) ()
+unsetExceptions = #(define-void-function (parser location) ()
 ;  (set! horizontal-slash-interval horizontal-slash-interval-default)
 ;  (set! adjust-slash-stencil adjust-slash-stencil-default)
-  (make-music 'Music 'void #t)
 )
 
 <<

@@ -393,19 +393,17 @@ phrasingSlurSolid =
 %% point and click
 
 pointAndClickOn  =
-#(define-music-function (parser location) ()
+#(define-void-function (parser location) ()
    (_i "Enable generation of code in final-format (e.g. pdf) files to reference the
 originating lilypond source statement;
 this is helpful when developing a score but generates bigger final-format files.")
-   (ly:set-option 'point-and-click #t)
-   (make-music 'SequentialMusic 'void #t))
+   (ly:set-option 'point-and-click #t))
 
 pointAndClickOff =
-#(define-music-function (parser location) ()
+#(define-void-function (parser location) ()
    (_i "Suppress generating extra code in final-format (e.g. pdf) files to point
 back to the lilypond source statement.")
-   (ly:set-option 'point-and-click #f)
-   (make-music 'SequentialMusic 'void #t))
+   (ly:set-option 'point-and-click #f))
 
 pointAndClickTypes =
 #(define-void-function (parser location types) (symbol-list-or-symbol?)
