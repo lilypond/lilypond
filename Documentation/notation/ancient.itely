@@ -2415,7 +2415,7 @@ with head prefixes in arbitrary order.
 @menu
 * Kievan contexts::
 * Kievan clefs::
-* Kievan note heads::
+* Kievan notes::
 * Kievan accidentals::
 * Kievan bar line::
 @end menu
@@ -2468,7 +2468,7 @@ It is used to indicate the position of @code{c}:
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
+  \kievanOn
   c
 @end lilypond
 
@@ -2480,14 +2480,18 @@ Music Glossary:
 Notation Reference:
 @ref{Clef}.
 
-@node Kievan note heads
-@unnumberedsubsubsec Kievan note heads
+@node Kievan notes
+@unnumberedsubsubsec Kievan notes
 
 @cindex note heads, ancient
 
 For Kievan square notation, the appropriate note head style needs
-to be chosen.  This is accomplished by setting the @code{style}
-property of the @code{NoteHead} object to @code{kievan}.
+to be chosen and the flags and stems need to be turned off.
+This is accomplished by calling the @code{\kievanOn} function,
+which sets the appropriate properties of the note head, stems,
+and flags. Once Kievan note heads are not needed, these
+properties can be reverted by calling the @code{\kievanOff}
+function.
 
 The Kievan final note, which usually comes at the end of a piece
 of music, may be selected by setting the duration to
@@ -2499,8 +2503,10 @@ demonstrates the various Kievan note heads:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
 \cadenzaOn
-\override NoteHead.style = #'kievan
+\kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
+\kievanOff
+b'2
 @end lilypond
 
 @seealso
@@ -2533,7 +2539,6 @@ primarily for the sake of compatibility.
 
 @lilypond[quote,relative=1,notime,verbatim]
 \clef "kievan-do"
-\override NoteHead.style = #'kievan
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis,
@@ -2557,8 +2562,8 @@ Kievan notation, which may be called the Kievan final bar line.
 It can be invoked as @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
+  \kievanOn
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
   c \bar "k"
 @end lilypond
 
