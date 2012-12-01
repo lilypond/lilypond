@@ -27,6 +27,46 @@ NOTE:
 @end ignore
 
 @newsItem
+@subsubheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
+
+We are happy to announce the release of LilyPond 2.16.1. This has a number of
+updates to the previous stable version, and should cause no problems. We
+recommend that everybody upgrade to this version.
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.6 released!  @emph{November 3, 2012}
+
+We are happy to announce the release of LilyPond 2.17.6.  This
+release contains the usual number of bugfixes and enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.5 released!  @emph{October 20, 2012}
+
+We are happy to announce the release of LilyPond 2.17.5.  This
+release contains the usual number of bugfixes and enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.4 released!  @emph{October 6, 2012}
+
+We are happy to announce the release of LilyPond 2.17.4.  This
+release contains the usual number of bugfixes.  It is strongly
+recommended that normal users do @strong{not} use this release,
+and instead use the stable 2.16 version.
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.17.3 released!  @emph{September 23, 2012}
 
 We are happy to announce the release of LilyPond 2.17.3.  This
@@ -64,6 +104,69 @@ We are happy to announce the release of LilyPond 2.17.0.  This
 release contains the usual number of bugfixes.  It is strongly
 recommended that normal users do @strong{not} use this release,
 and instead use the stable 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
+
+We are proud to announce the release of GNU LilyPond 2.16.0.
+LilyPond is a music engraving program, devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+Many improvements have been made in the past year since the previous
+main stable version. A few major improvements are: 
+
+@itemize
+@item
+Support for kievan square notation
+@item
+User and programming interfaces have greatly improved
+@item
+Music functions have become quite more versatile 
+@end itemize
+
+A full list of new features is given in:
+
+@example
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html}
+@end example
+
+Happy music typesetting!  LilyPond 2.16 was brought to you by...
+
+Main development team:
+
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian Hulin,
+Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner Lemberg,
+John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen Nienhuys,
+Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil Puttock,
+Mike Solomon, Carl Sorensen, Francisco Vila, Valentin Villenave,
+Jan Warchoł
+
+Programming contributors:
+
+Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
+Marc Hohl, David Nalesnik, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
+Jan-Peter Voigt, Janek Warchol
+
+Documentation contributors:
+
+James Lowe, Pavel Roskin, Alberto Simoes, Stefan Weil
+
+Bug squad:
+
+Colin Campbell, Eluze, Phil Holmes, Marek Klein, Ralph Palmer,
+James Lowe
+
+Support:
+
+Colin Campbell, Christian Hitz, Phil Holmes
+
+Translation contributors:
+
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada 
 
 @newsEnd
 
