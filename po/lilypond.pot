@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.7\n"
+"Project-Id-Version: lilypond 2.17.8\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-11-17 15:19+0000\n"
+"POT-Creation-Date: 2012-12-01 17:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -875,7 +875,7 @@ msgstr ""
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
-#: abc2ly.py:1386 convert-ly.py:81 lilypond-book.py:122 midi2ly.py:1044
+#: abc2ly.py:1386 convert-ly.py:84 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
@@ -887,12 +887,12 @@ msgid ""
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1395 convert-ly.py:88 etf2ly.py:1208 lilypond-book.py:231
+#: abc2ly.py:1395 convert-ly.py:91 etf2ly.py:1208 lilypond-book.py:231
 #: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:138
 msgid "show version number and exit"
 msgstr ""
 
-#: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1204 lilypond-book.py:140
+#: abc2ly.py:1398 convert-ly.py:95 etf2ly.py:1204 lilypond-book.py:140
 #: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:117
 msgid "show this help and exit"
 msgstr ""
@@ -917,7 +917,7 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: abc2ly.py:1413 convert-ly.py:146 etf2ly.py:1218 lilypond-book.py:258
+#: abc2ly.py:1413 convert-ly.py:149 etf2ly.py:1218 lilypond-book.py:258
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:249
 #, c-format, python-format
 msgid "Report bugs via %s"
@@ -929,102 +929,106 @@ msgid ""
 "version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 
-#: convert-ly.py:48 lilypond-book.py:82
+#: convert-ly.py:49
+msgid "If FILE is `-', read from standard input."
+msgstr ""
+
+#: convert-ly.py:51 lilypond-book.py:82
 msgid "Examples:"
 msgstr ""
 
-#: convert-ly.py:75 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
+#: convert-ly.py:78 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr ""
 
-#: convert-ly.py:77 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
+#: convert-ly.py:80 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
 msgid "Distributed under terms of the GNU General Public License."
 msgstr ""
 
-#: convert-ly.py:78 etf2ly.py:1194 lilypond-book.py:118 midi2ly.py:84
+#: convert-ly.py:81 etf2ly.py:1194 lilypond-book.py:118 midi2ly.py:84
 msgid "It comes with NO WARRANTY."
 msgstr ""
 
-#: convert-ly.py:96 convert-ly.py:137
+#: convert-ly.py:99 convert-ly.py:140
 msgid "VERSION"
 msgstr ""
 
-#: convert-ly.py:98
+#: convert-ly.py:101
 msgid "start from VERSION [default: \\version found in file]"
 msgstr ""
 
-#: convert-ly.py:101
+#: convert-ly.py:104
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:105 lilypond-book.py:179 musicxml2ly.py:2627
+#: convert-ly.py:108 lilypond-book.py:179 musicxml2ly.py:2627
 msgid ""
 "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
-#: convert-ly.py:107 lilypond-book.py:163 lilypond-book.py:181
+#: convert-ly.py:110 lilypond-book.py:163 lilypond-book.py:181
 #: musicxml2ly.py:2629 main.cc:131
 msgid "LOGLEVEL"
 msgstr ""
 
-#: convert-ly.py:113
+#: convert-ly.py:116
 msgid "do not add \\version command if missing"
 msgstr ""
 
-#: convert-ly.py:119
+#: convert-ly.py:122
 #, python-format
 msgid "force updating \\version number to %s"
 msgstr ""
 
-#: convert-ly.py:125
+#: convert-ly.py:128
 msgid "only update \\version number if file is modified"
 msgstr ""
 
-#: convert-ly.py:131
+#: convert-ly.py:134
 #, python-format
 msgid "show rules [default: -f 0, -t %s]"
 msgstr ""
 
-#: convert-ly.py:136
+#: convert-ly.py:139
 #, python-format
 msgid "convert to VERSION [default: %s]"
 msgstr ""
 
-#: convert-ly.py:141 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
+#: convert-ly.py:144 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
 #: main.cc:140
 msgid "show warranty and copyright"
 msgstr ""
 
-#: convert-ly.py:186
+#: convert-ly.py:189
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:201
+#: convert-ly.py:204
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:203
+#: convert-ly.py:206
 msgid "Stopping at last successful rule"
 msgstr ""
 
-#: convert-ly.py:231
+#: convert-ly.py:234
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:341
+#: convert-ly.py:344
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:347
+#: convert-ly.py:350
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:353
+#: convert-ly.py:356
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1032,7 +1036,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:359
+#: convert-ly.py:362
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -1785,8 +1789,7 @@ msgstr ""
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
 
-#. if we get to here, just put everything on one line
-#: constrained-breaking.cc:187 constrained-breaking.cc:205
+#: constrained-breaking.cc:187 constrained-breaking.cc:206
 msgid "cannot find line breaking that satisfies constraints"
 msgstr ""
 
@@ -1934,15 +1937,15 @@ msgstr ""
 msgid "unterminated glissando"
 msgstr ""
 
-#: global-context-scheme.cc:96 global-context-scheme.cc:114
+#: global-context-scheme.cc:95 global-context-scheme.cc:113
 msgid "no music found in score"
 msgstr ""
 
-#: global-context-scheme.cc:104
+#: global-context-scheme.cc:103
 msgid "Interpreting music..."
 msgstr ""
 
-#: global-context-scheme.cc:126
+#: global-context-scheme.cc:125
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
@@ -2537,37 +2540,37 @@ msgstr ""
 msgid "Finding the ideal number of pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:85
+#: optimal-page-breaking.cc:92
 msgid ""
 "could not satisfy systems-per-page and page-count at the same time, ignoring "
 "systems-per-page"
 msgstr ""
 
-#: optimal-page-breaking.cc:105
+#: optimal-page-breaking.cc:112
 msgid "Fitting music on 1 page..."
 msgstr ""
 
-#: optimal-page-breaking.cc:107
+#: optimal-page-breaking.cc:114
 #, c-format
 msgid "Fitting music on %d pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:109
+#: optimal-page-breaking.cc:116
 #, c-format
 msgid "Fitting music on %d or %d pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:119 optimal-page-breaking.cc:172
+#: optimal-page-breaking.cc:126 optimal-page-breaking.cc:179
 #, c-format
 msgid "trying %d systems"
 msgstr ""
 
-#: optimal-page-breaking.cc:138 optimal-page-breaking.cc:200
+#: optimal-page-breaking.cc:145 optimal-page-breaking.cc:207
 #, c-format
 msgid "best score for this sys-count: %f"
 msgstr ""
 
-#: optimal-page-breaking.cc:207 page-turn-page-breaking.cc:248
+#: optimal-page-breaking.cc:214 page-turn-page-breaking.cc:248
 #: paper-score.cc:162
 msgid "Drawing systems..."
 msgstr ""
@@ -3147,74 +3150,74 @@ msgstr ""
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1042 parser.yy:2361 /home/phil/lilypond-git/lily/parser.yy:1042
-#: /home/phil/lilypond-git/lily/parser.yy:2361
+#: parser.yy:1042 parser.yy:2352 /home/phil/lilypond-git/lily/parser.yy:1042
+#: /home/phil/lilypond-git/lily/parser.yy:2352
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1325 /home/phil/lilypond-git/lily/parser.yy:1325
+#: parser.yy:1316 /home/phil/lilypond-git/lily/parser.yy:1316
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2058 parser.yy:2171 parser.yy:2184 parser.yy:2193
-#: /home/phil/lilypond-git/lily/parser.yy:2058
-#: /home/phil/lilypond-git/lily/parser.yy:2171
+#: parser.yy:2049 parser.yy:2162 parser.yy:2175 parser.yy:2184
+#: /home/phil/lilypond-git/lily/parser.yy:2049
+#: /home/phil/lilypond-git/lily/parser.yy:2162
+#: /home/phil/lilypond-git/lily/parser.yy:2175
 #: /home/phil/lilypond-git/lily/parser.yy:2184
-#: /home/phil/lilypond-git/lily/parser.yy:2193
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2151 /home/phil/lilypond-git/lily/parser.yy:2151
+#: parser.yy:2142 /home/phil/lilypond-git/lily/parser.yy:2142
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2212 /home/phil/lilypond-git/lily/parser.yy:2212
+#: parser.yy:2203 /home/phil/lilypond-git/lily/parser.yy:2203
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2305 parser.yy:2309 parser.yy:2327
-#: /home/phil/lilypond-git/lily/parser.yy:2305
-#: /home/phil/lilypond-git/lily/parser.yy:2309
-#: /home/phil/lilypond-git/lily/parser.yy:2327
+#: parser.yy:2296 parser.yy:2300 parser.yy:2318
+#: /home/phil/lilypond-git/lily/parser.yy:2296
+#: /home/phil/lilypond-git/lily/parser.yy:2300
+#: /home/phil/lilypond-git/lily/parser.yy:2318
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2470 /home/phil/lilypond-git/lily/parser.yy:2470
+#: parser.yy:2461 /home/phil/lilypond-git/lily/parser.yy:2461
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2566 parser.yy:2571 /home/phil/lilypond-git/lily/parser.yy:2566
-#: /home/phil/lilypond-git/lily/parser.yy:2571
+#: parser.yy:2557 parser.yy:2562 /home/phil/lilypond-git/lily/parser.yy:2557
+#: /home/phil/lilypond-git/lily/parser.yy:2562
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2686 /home/phil/lilypond-git/lily/parser.yy:2686
+#: parser.yy:2677 /home/phil/lilypond-git/lily/parser.yy:2677
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2787 /home/phil/lilypond-git/lily/parser.yy:2787
+#: parser.yy:2778 /home/phil/lilypond-git/lily/parser.yy:2778
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2859 parser.yy:2905 /home/phil/lilypond-git/lily/parser.yy:2859
-#: /home/phil/lilypond-git/lily/parser.yy:2905
+#: parser.yy:2850 parser.yy:2896 /home/phil/lilypond-git/lily/parser.yy:2850
+#: /home/phil/lilypond-git/lily/parser.yy:2896
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2922 /home/phil/lilypond-git/lily/parser.yy:2922
+#: parser.yy:2913 /home/phil/lilypond-git/lily/parser.yy:2913
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3036 /home/phil/lilypond-git/lily/parser.yy:3036
+#: parser.yy:3027 /home/phil/lilypond-git/lily/parser.yy:3027
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3095 /home/phil/lilypond-git/lily/parser.yy:3095
+#: parser.yy:3086 /home/phil/lilypond-git/lily/parser.yy:3086
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3330 /home/phil/lilypond-git/lily/parser.yy:3330
+#: parser.yy:3321 /home/phil/lilypond-git/lily/parser.yy:3321
 msgid "not a markup"
 msgstr ""
 
@@ -3803,30 +3806,30 @@ msgstr ""
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:431
+#: translation-functions.scm:423
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:446 translation-functions.scm:458
+#: translation-functions.scm:438 translation-functions.scm:450
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:449
+#: translation-functions.scm:441
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:461
+#: translation-functions.scm:453
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:484
+#: translation-functions.scm:476
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:589
+#: translation-functions.scm:581
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
