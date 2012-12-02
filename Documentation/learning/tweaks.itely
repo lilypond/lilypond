@@ -2878,39 +2878,38 @@ f4-5
 @cindex phrasing slurs, controlling manually
 @cindex beams, controlling manually
 
-The @code{positions} property allows the position and slope of
-tuplets, slurs, phrasing slurs and beams to be controlled manually.
-Here's an example which has an ugly phrasing slur due to its trying to
-avoid the slur on the acciaccatura.
+The @code{positions} property allows the vertical position and hence
+the slope of tuplets, slurs, phrasing slurs and beams to be controlled
+manually.
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4 \acciaccatura e8\( d8 c~ c d c d\)
+Here's an example in which the phrasing slur and slur collide:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+a8 \( ( a'16 ) a \)
 @end lilypond
-
-@noindent
-We could simply move the phrasing slur above the notes, and this
-would be the preferred solution:
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\phrasingSlurUp
-\acciaccatura e8\( d8 c~ c d c d\)
-@end lilypond
-
-@noindent
-But if there were some reason why this could not be done the
-other alternative would be to move the left end of the phrasing
-slur down a little using the @code{positions} property.  This
-also resolves the rather nasty shape.
 
 @cindex PhrasingSlur, example of overriding
 @cindex positions property, example
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\once \override PhrasingSlur.positions = #'(-4 . -3)
-\acciaccatura e8\( d8 c~ c d c d\)
+@noindent
+One possibility would be to move the two ends of the phrasing slur
+higher.  We can try setting the left end to 2.5 staff-spaces above the
+centre line and the right end to 4.5 above, and LilyPond will
+select the phrasing slur from the candidates it has found with its
+end points closest to these:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\once \override PhrasingSlur.positions = #'(2.5 . 4.5)
+a8 \( ( a'16 ) a \)
 @end lilypond
+
+This is an improvement, but why not lower the right end of the slur
+a little?  If you try it you'll find it can't be done in this way.
+That's because there are no candidate slurs lower than the one
+already selected, and in this case the @code{positions} property has
+no effect.  However, ties, slurs and phrasing slurs @emph{can} be
+positioned and shaped very precisely when necessary.  To learn how to
+do this, see @ruser{Modifying ties and slurs}.
 
 Here's a further example.  We see that the beams
 collide with the ties:
