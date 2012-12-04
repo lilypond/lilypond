@@ -914,7 +914,10 @@ property name in the IR.  Here is a list of the types you may
 need, together with the rules for that type, and some examples.
 You must always add a hash symbol, @code{#}, of course,
 to the front of these values when they are entered in the
-@code{\override} command.
+@code{\override} command, even if the value itself already
+starts with@tie{}@code{#}.  We only give examples for constants
+here: if you want to compute a value using Scheme, see
+@rextend{Calculations in Scheme}.
 
 @multitable @columnfractions .2 .45 .35
 @headitem Property type
@@ -924,32 +927,33 @@ to the front of these values when they are entered in the
   @tab Either True or False, represented by #t or #f
   @tab @code{#t}, @code{#f}
 @item Dimension (in staff space)
-  @tab A positive decimal number (in units of staff space)
+  @tab A decimal number (in units of staff space)
   @tab @code{2.5}, @code{0.34}
 @item Direction
-  @tab A valid direction constant or its numerical equivalent (decimal
-values between -1 and 1 are allowed)
+  @tab A valid direction constant or its numerical equivalent
+  (@code{0} or @code{CENTER} indicate a neutral direction)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @w{@code{-1}}
 @item Integer
-  @tab A positive whole number
-  @tab @code{3}, @code{1}
+  @tab A whole number
+  @tab @code{3}, @code{-1}
 @item List
-  @tab A set of values separated by spaces, enclosed in parentheses
-and preceded by an apostrophe
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+  @tab A sequence of constants or symbols separated by spaces, enclosed
+  in parentheses
+and preceded by an apostrophe (quote mark)
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
        @code{'(1.0 0.25 0.5)}
 @item Markup
   @tab Any valid markup
-  @tab @code{\markup @{ \italic "cresc." @}}
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
 @item Moment
   @tab A fraction of a whole note constructed with the
 make-moment function
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Number
-  @tab Any positive or negative decimal value
-  @tab @code{3.5}, @w{@code{-2.45}}
+  @tab Any positive or negative, possibly decimal, value
+  @tab @code{3}, @w{@code{-2.45}}
 @item Pair (of numbers)
   @tab Two numbers separated by a @q{space . space} and enclosed
 in brackets preceded by an apostrophe
@@ -963,9 +967,9 @@ preceded by an apostrophe
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
-  @tab A list of three items enclosed in parentheses and preceded
-by apostrophe-hash, @code{'#}.
-  @tab @code{'#(#t #t #f)}
+  @tab Constants
+  enclosed in @code{#(}@dots{}@code{)}.
+  @tab @code{#(#t #t #f)}
 @end multitable
 
 
