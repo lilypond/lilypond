@@ -3218,6 +3218,263 @@ a shortened down stem.
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; the rest command.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (rest-by-number layout props log dot-count)
+  (number? number?)
+  #:category music
+  #:properties ((font-size 0)
+                (style '())
+                (multi-measure-rest #f))
+  "
+@cindex rests or multi-measure-rests within text by log and dot-count
+
+A rest or multi-measure-rest symbol.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\rest-by-number #3 #2
+  \\hspace #2
+  \\override #'(multi-measure-rest . #t)
+  \\rest-by-number #3 #0
+}
+@end lilypond"
+
+  (define (get-glyph-name-candidates log style)
+    (let* (;; Choose the style-string to be added.
+           ;; If no glyph exists, select others for the specified styles
+           ;; otherwise defaulting.
+           (style-strg
+             (cond (
+                   ;; 'baroque needs to be special-cased, otherwise
+                   ;; `select-head-glyph´ would catch neomensural-glyphs for
+                   ;; this style, if (< log 0).
+                   (eq? style 'baroque)
+                    (string-append (number->string log) ""))
+                   ((eq? style 'petrucci)
+                    (string-append (number->string log) "mensural"))
+                    ;; In other cases `select-head-glyph´ from output-lib.scm
+                    ;; works for rest-glyphs, too.
+                   ((and (symbol? style) (not (eq? style 'default)))
+                    (select-head-glyph style log))
+                   (else log)))
+           ;; Choose ledgered glyphs for whole and half rest.
+           ;; Except for the specified styles, logs and MultiMeasureRests.
+           (ledger-style-rests
+             (if (and (or (list? style)
+                          (not (member style
+                                  '(neomensural mensural petrucci))))
+                      (not multi-measure-rest)
+                      (or (= log 0) (= log 1)))
+                "o"
+                "")))
+      (format #f "rests.~a~a" style-strg ledger-style-rests)))
+
+  (define (get-glyph-name font cands)
+     (if (ly:stencil-empty? (ly:font-get-glyph font cands))
+        ""
+        cands))
+
+  (let* ((font
+           (ly:paper-get-font layout
+             (cons '((font-encoding . fetaMusic)) props)))
+         (rest-glyph-name
+            (let ((result
+                    (get-glyph-name font
+                      (get-glyph-name-candidates log style))))
+              (if (string-null? result)
+                ;; If no glyph name can be found, select default rests.  Though
+                ;; this usually means an unsupported style has been chosen, it
+                ;; also prevents unrelated 'style settings from other grobs
+                ;; (e.g., TextSpanner and TimeSignature) leaking into markup.
+                (get-glyph-name font (get-glyph-name-candidates log 'default))
+                result)))
+         (rest-glyph (ly:font-get-glyph font rest-glyph-name))
+         (dot (ly:font-get-glyph font "dots.dot"))
+         (dot-width (interval-length (ly:stencil-extent dot X)))
+         (dots (and (> dot-count 0)
+                    (apply ly:stencil-add
+                           (map (lambda (x)
+                                  (ly:stencil-translate-axis
+                                   dot (* 2 x dot-width) X))
+                                (iota dot-count))))))
+
+    ;; Apart from mensural-, neomensural- and petrucci-style ledgered
+    ;; glyphs are taken for whole and half rests.
+    ;; If they are dotted, move the dots in X-direction to avoid collision.
+    (if (and dots
+             (< log 2)
+             (>= log 0)
+             (not (member style '(neomensural mensural petrucci))))
+       (set! dots (ly:stencil-translate-axis dots dot-width X)))
+
+    ;; Add dots to the rest-glyph.
+    ;;
+    ;; Not sure how to vertical align dots.
+    ;; For now the dots are centered for half, whole or longer rests.
+    ;; Otherwise placed near the top of the rest.
+    ;;
+    ;; Dots for rests with (< log 0) dots are allowed, but not
+    ;; if multi-measure-rest is set #t.
+    (if (and (not multi-measure-rest) dots)
+        (set! rest-glyph
+              (ly:stencil-add
+               (ly:stencil-translate
+                   dots
+                        (cons
+                           (+ (cdr (ly:stencil-extent rest-glyph X)) dot-width)
+                           (if (< log 2)
+                             (interval-center (ly:stencil-extent rest-glyph Y))
+                             (- (interval-end (ly:stencil-extent rest-glyph Y))
+                                (/ (* 2 dot-width) 3)))))
+               rest-glyph)))
+    rest-glyph))
+
+(define-markup-command (rest layout props duration)
+  (string?)
+  #:category music
+  #:properties ((style '())
+                (multi-measure-rest #f)
+                (multi-measure-rest-number #t)
+                (word-space 0.6))
+  "
+@cindex rests or multi-measure-rests within text by string
+
+This produces a rest, with the @var{duration} for the rest type and
+augmentation dots.
+@code{\"breve\"}, @code{\"longa\"} and @code{\"maxima\"} are valid
+input-strings.
+
+Printing MultiMeasureRests could be enabled with
+@code{\\override #'(multi-measure-rest . #t)}
+If MultiMeasureRests are taken, the MultiMeasureRestNumber is printed above.
+This is enabled for all styles using default-glyphs.
+Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\rest #\"4..\"
+  \\hspace #2
+  \\rest #\"breve\"
+  \\hspace #2
+  \\override #'(multi-measure-rest . #t)
+  {
+  \\rest #\"7\"
+  \\hspace #2
+  \\override #'(multi-measure-rest-number . #f)
+  \\rest #\"7\"
+  }
+}
+@end lilypond"
+  ;; Get the number of mmr-glyphs.
+  ;; Store them in a list.
+  ;; example: (mmr-numbers 25) -> '(3 0 0 1)
+  (define (mmr-numbers nmbr)
+      (let* ((8-bar-glyph (floor (/ nmbr 8)))
+             (8-remainder (remainder nmbr 8))
+             (4-bar-glyph (floor (/ 8-remainder 4)))
+             (4-remainder (remainder nmbr 4))
+             (2-bar-glyph (floor (/ 4-remainder 2)))
+             (2-remainder (remainder 4-remainder 2))
+             (1-bar-glyph (floor (/ 2-remainder 1))))
+       (list 8-bar-glyph 4-bar-glyph 2-bar-glyph 1-bar-glyph)))
+
+  ;; Get the correct mmr-glyphs.
+  ;; Store them in a list.
+  ;; example:
+  ;; (get-mmr-glyphs '(1 0 1 0) '("rests.M3" "rests.M2" "rests.M1" "rests.0"))
+  ;; -> ("rests.M3" "rests.M1")
+  (define (get-mmr-glyphs lst1 lst2)
+     (define (helper l1 l2 l3)
+        (if (null? l1)
+           (reverse l3)
+           (helper (cdr l1)
+                   (cdr l2)
+                   (append (make-list (car l1) (car l2)) l3))))
+      (helper lst1 lst2 '()))
+
+  ;; If duration is not valid, print a warning and return empty-stencil
+  (if (or (and (not (integer? (car (parse-simple-duration duration))))
+               (not multi-measure-rest))
+          (and (= (string-length (car (string-split duration #\. ))) 1)
+               (= (string->number (car (string-split duration #\. ))) 0)))
+    (begin
+      (ly:warning (_ "not a valid duration string: ~a - ignoring") duration)
+      empty-stencil)
+    (let* (
+       ;; For simple rests:
+           ;; Get a (log dots) list.
+           (parsed (parse-simple-duration duration))
+           ;; Create the rest-stencil
+           (stil
+              (rest-by-number-markup layout props (car parsed) (cadr parsed)))
+       ;; For MultiMeasureRests:
+           ;; Get the duration-part of duration
+           (dur-part-string (car (string-split duration #\. )))
+           ;; Get the duration of MMR:
+           ;; If not a number (eg. "maxima") calculate it.
+           (mmr-duration
+             (or (string->number dur-part-string) (expt 2 (abs (car parsed)))))
+           ;; Get a list of the correct number of each mmr-glyph.
+           (count-mmr-glyphs-list (mmr-numbers mmr-duration))
+           ;; Create a list of mmr-stencils,
+           ;; translating the glyph for a whole rest.
+           (mmr-stils-list
+              (map
+                 (lambda (x)
+                    (let ((single-mmr-stil
+                            (rest-by-number-markup layout props (* -1 x) 0)))
+                       (if (= x 0)
+                          (ly:stencil-translate-axis
+                            single-mmr-stil
+                            ;; Ugh, hard-coded, why 1?
+                            1
+                            Y)
+                           single-mmr-stil)))
+                 (get-mmr-glyphs count-mmr-glyphs-list (reverse (iota 4)))))
+            ;; Adjust the space between the mmr-glyphs,
+            ;; if not default-glyphs are used.
+            (word-space (if (member style
+                                    '(neomensural mensural petrucci))
+                           (/ (* word-space 2) 3)
+                           word-space))
+            ;; Create the final mmr-stencil
+            ;; via `stack-stencil-line´ from /scm/markup.scm
+            (mmr-stil (stack-stencil-line word-space mmr-stils-list)))
+
+      ;; Print the number above a multi-measure-rest
+      ;; Depends on duration, style and multi-measure-rest-number set #t
+      (if (and multi-measure-rest
+               multi-measure-rest-number
+               (> mmr-duration 1)
+               (not (member style '(neomensural mensural petrucci))))
+         (let* ((mmr-stil-x-center
+                   (interval-center (ly:stencil-extent mmr-stil X)))
+                (duration-markup
+                   (markup
+                      #:fontsize -2
+                      #:override '(font-encoding . fetaText)
+                      (number->string mmr-duration)))
+                (mmr-number-stil
+                   (interpret-markup layout props duration-markup))
+                (mmr-number-stil-x-center
+                   (interval-center (ly:stencil-extent mmr-number-stil X))))
+
+         (set! mmr-stil (ly:stencil-combine-at-edge
+                           mmr-stil
+                           Y UP
+                           (ly:stencil-translate-axis
+                              mmr-number-stil
+                              (- mmr-stil-x-center mmr-number-stil-x-center)
+                              X)
+                           ;; Ugh, hardcoded
+                           0.8))))
+    (if multi-measure-rest
+       mmr-stil
+       stil))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
