@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header{
   texidoc="
 Note head shapes may be set from several choices.
@@ -16,94 +16,67 @@ dimensions.
   ragged-right = ##t
 }
 
-pattern = <<
-  \new Voice {
-    \override Stem  #'direction = #UP
+pattern =
+#(define-music-function (parser location name style) (markup? ly:context-mod?)
+#{ <<
+  s1^#name
+  \new Voice \with #style {
+    \override Stem.direction = #UP
     e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4
   }
-  \new Voice {
-    \override Stem  #'direction = #DOWN
+  \new Voice \with #style {
+    \override Stem.direction = #DOWN
     g4 g2. g1 g\breve*1/2 g\longa*1/4
   }
->>
+>> #})
 
+patternStyle =
+#(define-music-function (parser location style) (symbol?)
+  #{
+     \pattern #(symbol->string style) \with {
+       \override NoteHead.style = #style
+     }
+  #})
 
 \transpose c c {
   \clef C
 
-  \override Staff.NoteHead  #'style = #'default
-  s1*0^\markup { "default" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'altdefault
-  s1*0^\markup { "altdefault" }
-  \pattern
+  \patternStyle default
+  \patternStyle altdefault
 
   \break
 
-  \override Staff.NoteHead  #'style = #'baroque
-  s1*0^\markup { "baroque" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'neomensural
-  s1*0^\markup { "neomensural" }
-  \pattern
+  \patternStyle baroque
+  \patternStyle neomensural
 
   \break
 
-  \override Staff.NoteHead  #'style = #'mensural
-  s1*0^\markup { "mensural" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'petrucci
-  s1*0^\markup { "petrucci" }
-  \pattern
+  \patternStyle mensural
+  \patternStyle petrucci
 
   \break
 
-  \override Staff.NoteHead  #'style = #'harmonic
-  s1*0^\markup { "harmonic" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'harmonic-black
-  s1*0^\markup { "harmonic-black" }
-  \pattern
+  \patternStyle harmonic
+  \patternStyle harmonic-black
 
   \break
 
-  \override Staff.NoteHead  #'style = #'harmonic-mixed
-  s1*0^\markup { "harmonic-mixed" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'diamond
-  s1*0^\markup { "diamond" }
-  \pattern
+  \patternStyle harmonic-mixed
+  \patternStyle diamond
 
   \break
 
-  \override Staff.NoteHead  #'style = #'cross
-  s1*0^\markup { "cross" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'xcircle
-  s1*0^\markup { "xcircle" }
-  \pattern
+  \patternStyle cross
+  \patternStyle xcircle
 
   \break
 
-  \override Staff.NoteHead  #'style = #'triangle
-  s1*0^\markup { "triangle" }
-  \pattern
-
-  \override Staff.NoteHead  #'style = #'slash
-  s1*0^\markup { "slash" }
-  \pattern
+  \patternStyle triangle
+  \patternStyle slash
 
   \break
 
-  \override Staff.NoteHead  #'style = #'kievan
-  s1*0^\markup { "kievan" }
-  \pattern
+  \pattern "kievan" \with { \kievanOn }
 
 }
 

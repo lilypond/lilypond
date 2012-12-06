@@ -56,37 +56,6 @@ using namespace std;
 #include "warn.hh"
 
 /*
- * Global options that can be overridden through command line.
- */
-
-/* Names of header fields to be dumped to a separate file. */
-vector<string> dump_header_fieldnames_global;
-
-/* Name of initialisation file. */
-string init_name_global;
-
-/* Output formats to generate.  */
-string output_format_global = "";
-
-/* Current output name. */
-string output_name_global;
-
-/* Run in safe mode? */
-bool be_safe_global = false;
-
-/* Scheme code to execute before parsing, after .scm init.
-   This is where -e arguments are appended to.  */
-string init_scheme_code_global;
-string init_scheme_variables_global;
-
-bool relocate_binary = true;
-
-/*
- * Miscellaneous global stuff.
- */
-File_path global_path;
-
-/*
  * File globals.
  */
 
@@ -119,13 +88,8 @@ static char const *WARRANTY
         "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
         "Boston, MA 02111-1307, USA.\n");
 
-/* Where the init files live.  Typically:
-   LILYPOND_DATADIR = /usr/share/lilypond
-*/
-string lilypond_datadir;
-
 /* The jail specification: USER, GROUP, JAIL, DIR. */
-string jail_spec;
+static string jail_spec;
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -604,8 +568,6 @@ setup_guile_env ()
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
                "104857600", overwrite);
 }
-
-vector<string> start_environment_global;
 
 int
 main (int argc, char **argv, char **envp)

@@ -20,7 +20,7 @@
 
 (define-class <Voice-state> ()
   (event-list #:init-value '() #:accessor events #:init-keyword #:events)
-  (when-moment #:accessor when #:init-keyword #:when)
+  (when-moment #:accessor moment #:init-keyword #:moment)
   (tuning #:accessor tuning #:init-keyword #:tuning)
   (split-index #:accessor split-index)
   (vector-index)
@@ -32,7 +32,7 @@
   (spanner-state #:init-value '() #:accessor span-state))
 
 (define-method (write (x <Voice-state> ) file)
-  (display (when x) file)
+  (display (moment x) file)
   (display " evs = " file)
   (display (events x) file)
   (display " active = " file)
@@ -58,7 +58,7 @@
   (configuration #:init-value '() #:accessor configuration)
   ;; Allow overriding split configuration, takes precedence over configuration
   (forced-configuration #:init-value #f #:accessor forced-configuration)
-  (when-moment #:accessor when #:init-keyword #:when)
+  (when-moment #:accessor moment #:init-keyword #:moment)
   ;; voice-states are states starting with the Split-state or later
   ;;
   (is #:init-keyword #:voice-states #:accessor voice-states)
@@ -66,7 +66,7 @@
 
 
 (define-method (write (x <Split-state> ) f)
-  (display (when x) f)
+  (display (moment x) f)
   (display " = " f)
   (display (configuration x) f)
   (if (synced? x)
@@ -83,7 +83,7 @@
 (define (make-voice-states evl)
   (let ((vec (list->vector (map (lambda (v)
 				  (make <Voice-state>
-				    #:when (caar v)
+				    #:moment (caar v)
 				    #:tuning (cdar v)
 				    #:events (map car (cdr v))))
 				evl))))
@@ -100,15 +100,15 @@ Voice-state objects
   (define (helper ss-idx ss-list idx1 idx2)
     (let* ((state1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
 	   (state2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
-	   (min (cond ((and state1 state2) (moment-min (when state1) (when state2)))
-		      (state1 (when state1))
-		      (state2 (when state2))
+	   (min (cond ((and state1 state2) (moment-min (moment state1) (moment state2)))
+		      (state1 (moment state1))
+		      (state2 (moment state2))
 		      (else #f)))
-	   (inc1 (if (and state1 (equal? min (when state1))) 1 0))
-	   (inc2 (if (and state2 (equal? min (when state2))) 1 0))
+	   (inc1 (if (and state1 (equal? min (moment state1))) 1 0))
+	   (inc2 (if (and state2 (equal? min (moment state2))) 1 0))
 	   (ss-object (if min
 			  (make <Split-state>
-			    #:when min
+			    #:moment min
 			    #:voice-states (cons state1 state2)
 			    #:synced (= inc1 inc2))
 			  #f)))
@@ -402,7 +402,7 @@ Only set if not set previously.
 			 (new-active1 (span-state vs1))
 			 (new-active2 (span-state vs2)))
 		     (if #f ; debug
-			 (display (list (when now-state) result-idx
+			 (display (list (moment now-state) result-idx
 					active1 "->" new-active1
 					active2 "->" new-active2
 					"\n")))
@@ -459,7 +459,7 @@ Only set if not set previously.
       (define (current-voice-state now-state voice-num)
 	(define vs ((if (= 1 voice-num) car cdr)
 		    (voice-states now-state)))
-	(if (or (not vs) (equal? (when now-state) (when vs)))
+	(if (or (not vs) (equal? (moment now-state) (moment vs)))
 	    vs
 	    (previous-voice-state vs)))
 
@@ -475,7 +475,7 @@ the mark when there are no spanners active.
 		   (silent-state (current-voice-state now-state (if (equal? type 'solo1) 2 1)))
 		   (silent-notes (if silent-state (note-events silent-state) '()))
 		   (solo-notes (if solo-state (note-events solo-state) '())))
-	      ;; (display (list "trying " type " at "  (when now-state) solo-state silent-state	 "\n"))
+	      ;; (display (list "trying " type " at "  (moment now-state) solo-state silent-state	 "\n"))
 	      (cond ((not (equal? (configuration now-state) 'apart))
 		     current-idx)
 		    ((> (length silent-notes) 0) start-idx)
@@ -509,18 +509,18 @@ the mark when there are no spanners active.
 	       (notes2 (if vs2 (note-events vs2) '()))
 	       (n1 (length notes1))
 	       (n2 (length notes2)))
-	  ;; (display (list "analyzing step " result-idx "  moment " (when now-state) vs1 vs2  "\n"))
+	  ;; (display (list "analyzing step " result-idx "  moment " (moment now-state) vs1 vs2  "\n"))
 	  (max
 	   ;; we should always increase.
 	   (cond ((and (= n1 0) (= n2 0))
 		  (put 'apart-silence)
 		  (1+ result-idx))
 		 ((and (= n2 0)
-		       (equal? (when vs1) (when now-state))
+		       (equal? (moment vs1) (moment now-state))
 		       (null? (previous-span-state vs1)))
 		  (try-solo 'solo1 result-idx result-idx))
 		 ((and (= n1 0)
-		       (equal? (when vs2) (when now-state))
+		       (equal? (moment vs2) (moment now-state))
 		       (null? (previous-span-state vs2)))
 		  (try-solo 'solo2 result-idx result-idx))
 
@@ -561,7 +561,7 @@ the mark when there are no spanners active.
     ;; (display result)
     (set! result (map
 		  ;; forced-configuration overrides, if it is set
-		  (lambda (x) (cons (when x) (or (forced-configuration x) (configuration x))))
+		  (lambda (x) (cons (moment x) (or (forced-configuration x) (configuration x))))
 		  (vector->list result)))
     (if #f ;; pc-debug
 	 (display result))

@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.30
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "chords, fretted-strings"
@@ -42,12 +42,12 @@ bbarre =
                  (cons (make-music 'TextSpanEvent 'span-direction 1)
                        (ly:music-property last-element 'articulations))))))
    #{
-       \once \override TextSpanner #'font-size = #-2
-       \once \override TextSpanner #'font-shape = #'upright
-       \once \override TextSpanner #'staff-padding = #3
-       \once \override TextSpanner #'style = #'line
-       \once \override TextSpanner #'to-barline = ##f
-       \once \override TextSpanner #'bound-details =
+       \once \override TextSpanner.font-size = #-2
+       \once \override TextSpanner.font-shape = #'upright
+       \once \override TextSpanner.staff-padding = #3
+       \once \override TextSpanner.style = #'line
+       \once \override TextSpanner.to-barline = ##f
+       \once \override TextSpanner.bound-details =
             #`((left
                 (text . ,#{ \markup { \draw-line #'( 0 . -.5) } #})
                 (Y . 0)
@@ -59,7 +59,7 @@ bbarre =
                 (padding . 0.25)
                 (attach-dir . 2)))
 %% uncomment this line for make full barred
-       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
+       % \once  \override TextSpanner.bound-details.left.text =  \markup { "B" #str }
        $music
    #})
 

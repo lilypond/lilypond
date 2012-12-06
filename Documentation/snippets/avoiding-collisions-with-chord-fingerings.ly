@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "chords, editorial-annotations, rhythms, tweaks-and-overrides"
@@ -34,10 +34,10 @@ overridden.
 
   % Corrected to avoid collisions
   r8
-  \override Fingering #'add-stem-support = ##t
+  \override Fingering.add-stem-support = ##t
   <f c'-5>8
-  \override StringNumber #'add-stem-support = ##t
+  \override StringNumber.add-stem-support = ##t
   <f c'\5>8
-  \override StrokeFinger #'add-stem-support = ##t
+  \override StrokeFinger.add-stem-support = ##t
   <f c'-\rightHandFinger #2 >8
 }

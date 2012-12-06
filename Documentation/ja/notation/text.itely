@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -138,7 +138,7 @@ a4_"scherzando" f
 処理速度を上げる必要がある場合は、以下を用います:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 
@@ -157,7 +157,7 @@ a4_"scherzando" f
 ある音符から他の音符までの範囲に作成することができます:
 
 @lilypond[verbatim,quote,relative=2]
-\override TextSpanner #'(bound-details left text) = "rit."
+\override TextSpanner.bound-details.left.text = "rit."
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
@@ -169,7 +169,7 @@ e,\stopTextSpan
 @code{\markup} ブロックを用いることで他の書体にすることができます。
 
 @lilypond[quote,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text) =
+\override TextSpanner.bound-details.left.text =
   \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan
@@ -1454,12 +1454,12 @@ a1^\markup {
 @code{font-size} に提供する値が必要となります。
 
 @lilypond[quote,verbatim,relative=2]
-\override Score.RehearsalMark #'font-family = #'typewriter
+\override Score.RehearsalMark.font-family = #'typewriter
 \mark \markup "Ouverture"
-\override Voice.TextScript #'font-shape = #'italic
-\override Voice.TextScript #'font-series = #'bold
+\override Voice.TextScript.font-shape = #'italic
+\override Voice.TextScript.font-series = #'bold
 d2.^\markup "Allegro"
-\override Voice.TextScript #'font-size = #-3
+\override Voice.TextScript.font-size = #-3
 c4^smaller
 @end lilypond
 
@@ -1515,8 +1515,8 @@ FontConfig に認識されている任意のフォントを@c
 楽譜の中で使用することができます:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
-\override Staff.TimeSignature #'font-size = #2
+\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-size = #2
 \time 3/4
 
 a1_\markup {

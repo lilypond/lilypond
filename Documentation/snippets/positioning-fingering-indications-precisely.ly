@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -24,14 +24,14 @@ involved.
 \relative c' {
   \set fingeringOrientations = #'(left)
   <c-1 d-2 a'-5>4
-  <c-1 d-\tweak #'extra-offset #'(0 . 0.7)-2 a'-5>4
+  <c-1 d-\tweak extra-offset #'(0 . 0.7)-2 a'-5>4
   \set fingeringOrientations = #'(down)
   <c-1 d-2 a'-5>4
-  <c-1 d-\tweak #'extra-offset #'(-1.2 . 0)-2 a'-5>4
+  <c-1 d-\tweak extra-offset #'(-1.2 . 0)-2 a'-5>4
   \set fingeringOrientations = #'(down right up)
   <c-1 d-2 a'-5>4
-  <c-1 d-\tweak #'extra-offset #'(-1 . 1.2)-2 a'-5>4
+  <c-1 d-\tweak extra-offset #'(-1 . 1.2)-2 a'-5>4
   \set fingeringOrientations = #'(up)
   <c-1 d-2 a'-5>4
-  <c-1 d-\tweak #'extra-offset #'(-1.2 . 0)-2 a'-5>4
+  <c-1 d-\tweak extra-offset #'(-1.2 . 0)-2 a'-5>4
 }

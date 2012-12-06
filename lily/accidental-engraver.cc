@@ -73,7 +73,7 @@ protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
   void process_music ();
 
-  void acknowledge_tie (Grob_info);
+  void acknowledge_end_tie (Grob_info);
   void acknowledge_arpeggio (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_finger (Grob_info);
@@ -468,7 +468,7 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 }
 
 void
-Accidental_engraver::acknowledge_tie (Grob_info info)
+Accidental_engraver::acknowledge_end_tie (Grob_info info)
 {
   ties_.push_back (dynamic_cast<Spanner *> (info.grob ()));
 }
@@ -502,7 +502,7 @@ Accidental_engraver::process_music ()
 ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
 ADD_ACKNOWLEDGER (Accidental_engraver, finger);
 ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Accidental_engraver, tie);
+ADD_END_ACKNOWLEDGER (Accidental_engraver, tie);
 ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
 
 ADD_TRANSLATOR (Accidental_engraver,

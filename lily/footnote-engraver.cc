@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2011--2012 Mike Solomon <mike@apollinemike.com>
+  Copyright (C) 2011--2012 Mike Solomon <mike@mikesolomon.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,43 +33,20 @@ class Footnote_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 
-  DECLARE_TRANSLATOR_LISTENER (footnote);
   DECLARE_ACKNOWLEDGER (grob);
   DECLARE_END_ACKNOWLEDGER (grob);
-  vector<Stream_event *> events_;
+
   vector<Drul_array<Spanner *> > annotated_spanners_;
 
-  void stop_translation_timestep ();
   void finalize ();
-  virtual void derived_mark () const;
 
   void footnotify (Grob *, SCM);
 };
-
-IMPLEMENT_TRANSLATOR_LISTENER (Footnote_engraver, footnote);
-void
-Footnote_engraver::listen_footnote (Stream_event *ev)
-{
-  events_.push_back (ev);
-}
-
-void
-Footnote_engraver::stop_translation_timestep ()
-{
-  events_.clear ();
-}
 
 void
 Footnote_engraver::finalize ()
 {
   annotated_spanners_.clear ();
-}
-
-void
-Footnote_engraver::derived_mark () const
-{
-  for (vsize i = 0; i < events_.size (); ++i)
-    scm_gc_mark (events_[i]->self_scm ());
 }
 
 Footnote_engraver::Footnote_engraver ()
@@ -115,24 +92,8 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
 
       // This grob has exhausted its footnote
       info.grob ()->set_property ("footnote-music", SCM_EOL);
+
       return;
-    }
-
-  if (!events_.empty ())
-    {
-      string grobname = info.grob ()->name ();
-
-      for (vsize i = 0; i < events_.size (); i++)
-        {
-          SCM name = events_[i]->get_property ("symbol");
-          if (scm_is_symbol (name)
-              && grobname == ly_symbol2string (name))
-            {
-              footnotify (info.grob (), events_[i]->self_scm ());
-              // Event has exhausted its footnote
-              events_[i]->set_property ("symbol", SCM_EOL);
-            }
-        }
     }
 }
 

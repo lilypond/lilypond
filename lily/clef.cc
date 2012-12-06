@@ -63,6 +63,7 @@ Clef::print (SCM smob)
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())
     me->warning (_f ("clef `%s' not found", glyph.c_str ()));
+
   return out.smobbed_copy ();
 }
 

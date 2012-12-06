@@ -1,30 +1,18 @@
-.PHONY: install-doc uninstall-doc
+.PHONY: install-doc uninstall-doc distclean top-doc
 install-doc:
 uninstall-doc:
 
-local-dist: configure
+distclean: clean doc-clean test-clean log-clean
+	$(MAKE) local-distclean
 
 local-distclean:
-	rm -f config.hh config.make Makefile GNUmakefile \
-		config.cache config.status config.log index.html \
-		stepmake/stepmake/stepmake stepmake/stepmake/bin
+	rm -f config.hh config.make GNUmakefile \
+		config.cache config.status config.log
 	rm -rf autom4te.cache
 	rm -rf $(outdir)
 
-local-maintainerclean:
-
 GNUmakefile: GNUmakefile.in
 	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
-
-ifneq ($(PACKAGE),STEPMAKE)
-aclocal.m4: $(stepmake)/aclocal.m4
-	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=dnl -f $(stepdir)/automatically-generated.sub.make
-
-autogen.sh: $(stepmake)/autogen.sh
-	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=\# -f $(stepdir)/automatically-generated.sub.make
-	chmod +x autogen.sh
-endif
-
 
 $(package-icon):
 	$(MAKE) -C Documentation/logo icon
@@ -44,22 +32,11 @@ ifeq ($(strip $(SRCMAKE)),)
 	$(MAKE) final-install
 endif
 
-local-dist: top-doc
-
-dist:
-	rm -rf $(distdir)
-	$(MAKE) local-dist $(distdir)
-	chmod -R a+r $(distdir)
-	chmod  a+x `find $(distdir) -type d -print`
-	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
-	rm -rf $(distdir)
-
 local-help:
 	@echo "  config          rerun configure"
 	@echo "  dist            roll tarball: $(depth)/$(outdir)/$(distname).tar.gz"
-	@echo "  distclean       also remove configure output"
-	@echo "  cvs-clean       also remove out directories and generated files"
-	@echo "  maintainerclean also remove distributed generated files"
+	@echo "  distclean       make clean, doc-clean, test-clean, log-clean and"
+	@echo "                   also remove configure output"
 	@echo "  po              make new translation Portable Object database"
 	@echo "  po-replace      do po-update and replace catalogs with msgmerged versions"
 	@echo "  po-update       update translation Portable Object database"
@@ -78,6 +55,6 @@ local-help:
 	@echo "  test-clean"
 	@echo
 	@echo "  For more information on these targets, see"
-	@echo "    \`Testing LilyPond' in the Contributor's Guide."
+	@echo "    \`Verify regression tests' in the Contributor's Guide."
 	@echo
 

@@ -63,7 +63,7 @@ protected:
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (dots);
   DECLARE_ACKNOWLEDGER (text_script);
-  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
 
   void acknowledge_extra_object (Grob_info);
@@ -163,7 +163,7 @@ Slur_engraver::acknowledge_text_script (Grob_info info)
 }
 
 void
-Slur_engraver::acknowledge_tie (Grob_info info)
+Slur_engraver::acknowledge_end_tie (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -324,7 +324,7 @@ ADD_ACKNOWLEDGER (Slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Slur_engraver, script);
 ADD_ACKNOWLEDGER (Slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Slur_engraver, dots);
-ADD_ACKNOWLEDGER (Slur_engraver, tie);
+ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
 ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,
                 /* doc */

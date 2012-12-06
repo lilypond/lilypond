@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2011--2012 Mike Solomon <mike@apollinemike.com>
+  Copyright (C) 2011--2012 Mike Solomon <mike@mikesolomon.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ protected:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (clef);
+  DECLARE_ACKNOWLEDGER (octavate_eight);
   DECLARE_ACKNOWLEDGER (key_signature);
   DECLARE_ACKNOWLEDGER (time_signature);
   DECLARE_ACKNOWLEDGER (beam);
@@ -166,6 +167,12 @@ Beam_collision_engraver::acknowledge_key_signature (Grob_info i)
 }
 
 void
+Beam_collision_engraver::acknowledge_octavate_eight (Grob_info i)
+{
+  covered_grobs_.push_back (i);
+}
+
+void
 Beam_collision_engraver::acknowledge_time_signature (Grob_info i)
 {
   covered_grobs_.push_back (i);
@@ -192,6 +199,7 @@ ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
+ADD_ACKNOWLEDGER (Beam_collision_engraver, octavate_eight);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, flag);
 ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
 

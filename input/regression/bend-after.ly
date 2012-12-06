@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -13,7 +13,7 @@
 }
 
 \relative c'' {
-  \override Score.SpacingSpanner #'shortest-duration-space = #3.0
+  \override Score.SpacingSpanner.shortest-duration-space = #3.0
   c4-\bendAfter #+5
   c4-\bendAfter #+4
   c4-\bendAfter #+3

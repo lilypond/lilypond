@@ -5,24 +5,24 @@
 staves synchronized with the notes."
 
 }
-\version "2.16.0"
+\version "2.17.6"
 
 skips =
 {
   \time 12/8
-  \once  \override Score.GridLine #'thickness = #4.0
+  \once  \override Score.GridLine.thickness = #4.0
   s8 
   s8 
   s8 
-  \once  \override Score.GridLine #'thickness = #3.0
+  \once  \override Score.GridLine.thickness = #3.0
   s8 
   s8 
   s8 
-  \once  \override Score.GridLine #'thickness = #4.0
+  \once  \override Score.GridLine.thickness = #4.0
   s8 
   s8 
   s8 
-  \once  \override Score.GridLine #'thickness = #3.0
+  \once  \override Score.GridLine.thickness = #3.0
   s8 
   s8 
   s8 
@@ -40,7 +40,7 @@ skips =
     \RhythmicStaff
     \consists "Grid_point_engraver"
     gridInterval = #(ly:make-moment 1 8)
-    \override BarLine #'bar-extent = #'(-0.025 . 0.025)
+    \override BarLine.bar-extent = #'(-0.025 . 0.025)
   }
   \context {
     \StaffGroup
@@ -49,10 +49,10 @@ skips =
   \context {
     \Score
       \consists "Grid_line_span_engraver"
-      \override SystemStartBrace #'transparent = ##t
+      \override SystemStartBrace.transparent = ##t
 
-      \override NoteColumn #'X-offset = #-0.5
-      \override NoteHead #'Y-offset = #0.75
+      \override NoteColumn.X-offset = #-0.5
+      \override NoteHead.Y-offset = #0.75
   }
 }
 
@@ -63,7 +63,7 @@ skips =
 \new StaffGroup <<
   \new RhythmicStaff \with
   {
-    \override NoteHead  #'no-ledgers = ##t
+    \override NoteHead.no-ledgers = ##t
   }
   {
     \stemUp
@@ -71,11 +71,11 @@ skips =
   }
   \new RhythmicStaff
   {
-    \override NoteHead #'transparent = ##t
-    \override NoteHead #'no-ledgers = ##t
-    \override Stem #'transparent = ##t
-    \override Flag #'transparent = ##t
-    \override Beam #'transparent = ##t
+    \override NoteHead.transparent = ##t
+    \override NoteHead.no-ledgers = ##t
+    \override Stem.transparent = ##t
+    \override Flag.transparent = ##t
+    \override Beam.transparent = ##t
     << \skips
 
 				% force regular spacing by introducing notes.

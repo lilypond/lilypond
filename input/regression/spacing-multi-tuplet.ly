@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
  \header{
 
@@ -11,7 +11,7 @@ hence it must be switched on explicitly with the
 \layout{
   \context{
     \Score
-    \override SpacingSpanner #'uniform-stretching = ##t
+    \override SpacingSpanner.uniform-stretching = ##t
   }
 }
 

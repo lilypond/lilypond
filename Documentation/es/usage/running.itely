@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node Ejecutar LilyPond
@@ -1038,7 +1038,7 @@ permaneciendo el de abajo con las notas en el color negro
 predeterminado.
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -1051,7 +1051,7 @@ las notas de rojo es
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond
@@ -1149,7 +1149,7 @@ mensajes de advertencia se pueden evitar haciendo que uno de los
 contextos se comporte como un pentagrama, insertando
 
 @example
-\override VerticalAxisGroup #'staff-affinity = ##f
+\override VerticalAxisGroup.staff-affinity = ##f
 @end example
 
 @noindent

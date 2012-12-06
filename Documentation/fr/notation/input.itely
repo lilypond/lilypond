@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1419,11 +1419,11 @@ avant le texte de l'annotation :
   \header { tagline = ##f }
   \relative c'' {
     % footnotes may be added to chord constituents
-    < \footnote #'(-1 . -3) #'Accidental "Un autre bémol" aes
+    < \single\footnote #'(-1 . -3) "Un autre bémol" Accidental aes
       c
-      \footnote #'(-1 . 0.5) #'Accidental "Un bémol" ees
+      \single\footnote #'(-1 . 0.5) "Un bémol" Accidental ees
     >2
-    \footnote #'(-1 . 2) #'Stem "Une hampe" ees2
+    \single\footnote #'(-1 . 2) "Une hampe" Stem ees2
   }
 }
 @end lilypond

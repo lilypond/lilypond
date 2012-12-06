@@ -275,9 +275,12 @@ Stem::add_head (Grob *me, Grob *n)
 bool
 Stem::is_invisible (Grob *me)
 {
-  return !is_normal_stem (me)
-         && (robust_scm2double (me->get_property ("stemlet-length"),
-                                0.0) == 0.0);
+  if (is_normal_stem (me))
+    return false;
+  else if (head_count (me))
+    return true;
+  else // if there are no note-heads, we might want stemlets
+    return 0.0 == robust_scm2double (me->get_property ("stemlet-length"), 0.0);
 }
 
 bool
@@ -286,9 +289,7 @@ Stem::is_normal_stem (Grob *me)
   if (!head_count (me))
     return false;
 
-  extract_grob_set (me, "note-heads", heads);
-  SCM style = heads[0]->get_property ("style");
-  return style != ly_symbol2scm ("kievan") && scm_to_int (me->get_property ("duration-log")) >= 1;
+  return scm_to_int (me->get_property ("duration-log")) >= 1;
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
@@ -545,7 +546,8 @@ Stem::calc_positioning_done (SCM smob)
           = hed->extent (hed, X_AXIS).linear_combination (CENTER)
             - heads[i]->extent (heads[i], X_AXIS).linear_combination (CENTER);
 
-      heads[i]->translate_axis (amount, X_AXIS);
+      if (!isnan (amount)) // empty heads can produce NaN
+        heads[i]->translate_axis (amount, X_AXIS);
     }
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
@@ -794,10 +796,38 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
       Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      pos += d * y_attach * 2 / ss;
+      if (!isinf (y_attach) && !isnan (y_attach)) // empty heads
+        pos += d * y_attach * 2 / ss;
     }
 
   return pos;
+}
+
+
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, 3);
+SCM
+Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
+{
+  Grob *me = unsmob_grob (smob);
+  Real beg = robust_scm2double (me->get_pure_property ("stem-begin-position", 0, INT_MAX), 0.0);
+  Real res = fabs (internal_calc_stem_end_position (me, false) - beg);
+  return scm_from_double (res);
+}
+
+MAKE_SCHEME_CALLBACK (Stem, calc_length, 1);
+SCM
+Stem::calc_length (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  if (unsmob_grob (me->get_object ("beam")))
+    {
+      me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
+      return scm_from_double (0.0);
+    }
+
+  Real beg = robust_scm2double (me->get_property ("stem-begin-position"), 0.0);
+  Real res = fabs (internal_calc_stem_end_position (me, true) - beg);
+  return scm_from_double (res);
 }
 
 bool
@@ -809,9 +839,6 @@ Stem::is_valid_stem (Grob *me)
   Grob *beam = unsmob_grob (me->get_object ("beam"));
 
   if (!lh && !beam)
-    return false;
-
-  if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1)
     return false;
 
   if (is_invisible (me))
@@ -882,7 +909,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      Real r = real_attach;
+      Real r = isnan(real_attach)? 0.0: real_attach;
 
       /* If not centered: correct for stem thickness.  */
       string style = robust_symbol2string (f->get_property ("style"), "default");

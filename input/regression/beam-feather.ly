@@ -6,7 +6,7 @@
   
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {
   ragged-right = ##t
@@ -19,7 +19,7 @@
 %
 
 \featherDurations #(ly:make-moment 3 4) \relative c'' {
-  \override Beam #'grow-direction = #LEFT
+  \override Beam.grow-direction = #LEFT
   c16[
     c c c
     c c c c ] 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -246,9 +246,9 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a b c |
 @end lilypond
 
@@ -281,11 +281,11 @@ g4 a b c |
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b4 c |
 @end lilypond
 
@@ -305,11 +305,11 @@ b4 c |
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\once \override NoteHead #'color = #green
+\once \override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b c |
 @end lilypond
 
@@ -353,7 +353,7 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-\once \override NoteHead #'font-size = #-3
+\once \override NoteHead.font-size = #-3
 <c e g>4
 <c e g>4
 @end lilypond
@@ -376,7 +376,7 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-<c \tweak #'font-size #-3 e g>4
+<c \tweak font-size #-3 e g>4
 @end lilypond
 
 @code{\tweak} の構文は @code{\override} コマンドの構文とは@c
@@ -400,8 +400,8 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4^"Black"
-  -\tweak #'color #red ^"Red"
-  -\tweak #'color #green _"Green"
+  -\tweak color #red ^"Red"
+  -\tweak color #green _"Green"
 @end lilypond
 
 @noindent
@@ -422,8 +422,8 @@ a4^"Black"
 追跡できるようにすることで、@code{\tweak} で調整することができます:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
+<\tweak Accidental.color #red   cis4
+ \tweak Accidental.color #green es
                                   g>
 @end lilypond
 
@@ -458,9 +458,9 @@ a4^"Black"
 @cindex color property, example (color プロパティの例)
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak #'direction #up
+\tweak direction #up
 \times 4/3 {
-  \tweak #'color #red
+  \tweak color #red
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
@@ -479,12 +479,11 @@ a4^"Black"
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
-\once \override TupletNumber
-  #'text = #tuplet-number::calc-fraction-text
+\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c8[ c]
   c8[ c]
-  \once \override TupletNumber #'transparent = ##t
+  \once \override TupletNumber.transparent = ##t
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
 }
@@ -631,7 +630,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 実行するコマンドは以下のようになります:
 
 @example
-\override Slur #'thickness = #5.0
+\override Slur.thickness = #5.0
 @end example
 
 プロパティ名の前に @code{#'} を付けること、@c
@@ -651,7 +650,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   \time 6/8
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     r4 bes8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -728,7 +727,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   {
     r4 bes8
     % 直後にあるスラーのみを太くします
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes8[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -767,10 +766,10 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   {
     r4 bes8
     % 直後にあるスラーのみを太くします
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes[( g]) g |
     % 直後にあるスラーのみを太くします
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -796,11 +795,11 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   {
     r4 bes8
     % 以後のスラーの太さを 1.2 から 5.0 に増やします
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     bes[( g]) g |
     g8[( es]) es
     % 以後のスラーの太さをデフォルトの 1.2 に戻します
-    \revert Slur #'thickness
+    \revert Slur.thickness
     d8[( f]) as |
     as8 g
   }
@@ -905,7 +904,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @code{\override} コマンドは以下のようになります:
 
 @example
-\override LyricText #'font-shape = #'italic
+\override LyricText.font-shape = #'italic
 @end example
 
 @noindent
@@ -926,7 +925,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
     as8 g
   }
   \addlyrics {
-    \override LyricText #'font-shape = #'italic
+    \override LyricText.font-shape = #'italic
     The man who | feels love's sweet e -- | mo -- tion
   }
 }
@@ -954,7 +953,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 そのため、コマンドは以下のようにすべきです:
 
 @example
-\override Lyrics . LyricText #'font-shape = #'italic
+\override Lyrics.LyricText.font-shape = #'italic
 @end example
 
 @warning{歌詞の中では、最後の音節と終端の波括弧の間に常にスペースを@c
@@ -1114,7 +1113,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override BarLine #'stencil = ##f
+  \override BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1145,7 +1144,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'stencil = ##f
+  \override Staff.BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1167,7 +1166,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,verbatim,relative=2]
 {
   c4 c
-  \once \override NoteHead #'stencil = #point-stencil
+  \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
 @end lilypond
@@ -1197,7 +1196,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1233,7 +1232,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'transparent = ##t
+  \override Staff.TimeSignature.transparent = ##t
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1254,7 +1253,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1296,7 +1295,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #white
+  \override Staff.BarLine.color = #white
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1329,7 +1328,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(x11-color 'white)
+  \override Staff.BarLine.color = #(x11-color 'white)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1360,7 +1359,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  \override Staff.BarLine.color = #(rgb-color 1 1 1)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1386,12 +1385,12 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
-  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
-  \override Staff.Clef          #'color = #(x11-color 'grey60)
-  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
-  \override Voice.Stem          #'color = #(x11-color 'grey85)
-  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  \override Staff.StaffSymbol.color = #(x11-color 'grey30)
+  \override Staff.TimeSignature.color = #(x11-color 'grey60)
+  \override Staff.Clef.color = #(x11-color 'grey60)
+  \override Voice.NoteHead.color = #(x11-color 'grey85)
+  \override Voice.Stem.color = #(x11-color 'grey85)
+  \override Staff.BarLine.color = #(x11-color 'grey10)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1465,8 +1464,8 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef #'stencil = ##f
-        \override Staff.TimeSignature #'stencil = ##f
+        \override Staff.Clef.stencil = ##f
+        \override Staff.TimeSignature.stencil = ##f
         { f8 f c }
       }
     >>
@@ -1527,9 +1526,9 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
       \new Staff \with {
         alignAboveContext = #"main"
         % この譜には音部記号を譜刻しません
-        \override Clef #'stencil = ##f
+        \override Clef.stencil = ##f
         % この譜には拍子記号を譜刻しません
-        \override TimeSignature #'stencil = ##f
+        \override TimeSignature.stencil = ##f
       }
       { f8 f c }
     >>
@@ -1563,7 +1562,7 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 フォント サイズを変更する:
 
 @example
-\override NoteHead #'font-size = #-2
+\override NoteHead.font-size = #-2
 @end example
 
 あるいは、@code{\set} を使って特別なプロパティ @code{fontSize} を設定するか、@c
@@ -1596,8 +1595,8 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \override Clef.stencil = ##f
+        \override TimeSignature.stencil = ##f
         % すべてのフォント サイズを約 24% 減らします
         fontSize = #-2
       }
@@ -1664,11 +1663,11 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \override Clef.stencil = ##f
+        \override TimeSignature.stencil = ##f
         fontSize = #-2
         % 符幹の長さと譜線の間隔を減らします
-        \override StaffSymbol #'staff-space = #(magstep -2)
+        \override StaffSymbol.staff-space = #(magstep -2)
       }
       { f8 f c }
     >>
@@ -1825,11 +1824,11 @@ c2^"Text4" |
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a |
-\override Stem #'direction = #DOWN
+\override Stem.direction = #DOWN
 a4 g c a |
-\override Stem #'direction = #UP
+\override Stem.direction = #UP
 a4 g c a |
-\revert Stem #'direction
+\revert Stem.direction
 a4 g c a |
 @end lilypond
 
@@ -1918,9 +1917,9 @@ a4 g c a |
 
 @lilypond[quote,verbatim,relative=2]
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #DOWN
+\override Fingering.direction = #DOWN
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #UP
+\override Fingering.direction = #UP
 c4-5 a-3 f-1 c'-5 |
 @end lilypond
 
@@ -2022,7 +2021,7 @@ LilyPond はこれらの制約を受け取り、
 @w{@code{-5}} であることがわかるので、@w{@code{-7}} にセットしてみましょう:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering #'font-size = #-7
+\override Fingering.font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>4
 <c-1 e-2 g-3 b-5>4
@@ -2110,7 +2109,7 @@ LilyPond はこれらの制約を受け取り、
 @c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % 以降のテキスト スパナの詳細を設定します
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % 強弱記号を譜の上に配置します
 \dynamicUp
@@ -2161,12 +2160,12 @@ c,4 c c c |
 @c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % 以降のテキスト スパナの詳細を設定します
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % 強弱記号を譜の上に配置します
 \dynamicUp
 % 以降のオッターバ囲みをテキスト スパナの下に配置します
-\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket.outside-staff-priority = #340
 % オッターバ囲みの開始
 \ottava #1
 c'4 \startTextSpan
@@ -2213,10 +2212,10 @@ c,4 c c c |
 @lilypond[quote,verbatim,relative=2]
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 c4(
-\once \override TextScript #'avoid-slur = #'inside
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.avoid-slur = #'inside
+\once \override TextScript.outside-staff-priority = ##f
 c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur #'outside-staff-priority = #500
+\once \override Slur.outside-staff-priority = #500
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 @end lilypond
 
@@ -2234,7 +2233,7 @@ c4( c^\markup { \tiny \sharp } d4.) c8 |
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
 c2^"Text2" |
-\once \override TextScript #'outside-staff-priority = #500
+\once \override TextScript.outside-staff-priority = #500
 c2^"Text3"
 c2^"Text4" |
 @end lilypond
@@ -2300,12 +2299,12 @@ c,,2^"Text" c'' |
 R1 |
 
 % 衝突回避を OFF にします
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 c,,2^"Long Text   " c'' |
 R1 |
 
 % 衝突回避を OFF にします
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 \textLengthOn        % そして textLengthOn を ON にします
 c,,2^"Long Text   "  % 後ろにスペースが付け加えられます
 c''2 |
@@ -2386,7 +2385,7 @@ a4\f b\mf c\mp b\p
 以下は強弱記号テキストに対してこれを行うコマンドです:
 
 @example
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 @end example
 
 @noindent
@@ -2397,7 +2396,7 @@ a4\f b\mf c\mp b\p
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 a4\f b\mf c\mp b\p |
 @end lilypond
 
@@ -2418,7 +2417,7 @@ a4\f b\mf c\mp b\p |
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2719,7 +2718,7 @@ LilyPond はまずスラーが取り得る位置のリストを生成し、そ�
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
-\override Script #'padding = #3
+\override Script.padding = #3
 b2\fermata
 @end lilypond
 
@@ -2729,11 +2728,11 @@ b2\fermata
 @c KEEP LY
 @lilypond[quote,fragment,relative=1,verbatim]
 % これは機能しません。この下を見てください
-\override MetronomeMark #'padding = #3
+\override MetronomeMark.padding = #3
 \tempo 4 = 120
 c1 |
 % これは機能します
-\override Score.MetronomeMark #'padding = #3
+\override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
 d1 |
 @end lilypond
@@ -2773,15 +2772,13 @@ sesquisharp = \markup { \sesquisharp }
 \relative c'' {
   c4
   % これは 1.5 倍シャープを譜刻しますが、スペースが小さすぎます
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 c
   % これはスペースを改善しています
-  \once \override Score.AccidentalPlacement #'right-padding = #0.6
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Score.AccidentalPlacement.right-padding = #0.6
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 |
 }
 @end lilypond
@@ -2822,9 +2819,9 @@ sesquisharp = \markup { \sesquisharp }
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % 幅を 1 単位広げます
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % 強弱記号を譜から 2 単位上のベース ラインに揃えます
-\override DynamicLineSpanner #'staff-padding = #2
+\override DynamicLineSpanner.staff-padding = #2
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2841,7 +2838,7 @@ a4\f b\mf c\mp b\p
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
 <a\2>
-\once \override StringNumber #'self-alignment-X = #RIGHT
+\once \override StringNumber.self-alignment-X = #RIGHT
 <a\2>
 @end lilypond
 
@@ -2877,7 +2874,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 <<
   { c4 c c c }
   \\
-  \override MultiMeasureRest #'staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-8
   { R1 }
 >>
 @end lilypond
@@ -2904,7 +2901,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
 f4-5
-\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+\once \override Fingering.extra-offset = #'(-0.3 . -1.8)
 f4-5
 @end lilypond
 
@@ -2946,7 +2943,7 @@ r4
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
-\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\once \override PhrasingSlur.positions = #'(-4 . -3)
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
@@ -2981,7 +2978,7 @@ r4
     { c'1 ~ c'2. e'8 f' }
     \\
     {
-      \override Beam #'positions = #'(-1 . -1)
+      \override Beam.positions = #'(-1 . -1)
       e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
     }
   >>
@@ -3046,13 +3043,13 @@ r4
     \\
     {
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
     \\
     \\
     {
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -3087,7 +3084,7 @@ r4
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3100,7 +3097,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % マージされる音符の右にある c2 を再配置します
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % c2 をメインの音符列から外したため、
         % マージが機能します
         \shiftOnn
@@ -3112,8 +3109,8 @@ rhMusic = \relative c'' {
         % マージさせるために d2 の符幹を下向きにする必要があります
         \stemDown
         % d2 の符幹を不可視にします
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3300,7 +3297,7 @@ lhMusic = \relative c' {
 ですから、以下の以下のオーバライドをタイで結ばれる最初の音符の前に置けば、@c
 タイは中央線から 3.5 半譜スペースだけ上の位置に移動させられます:
 
-@code{\once \override Tie #'staff-position = #3.5}
+@code{\once \override Tie.staff-position = #3.5}
 
 これで第 2 小節の修正も完了で、以下のようになります:
 
@@ -3310,7 +3307,7 @@ lhMusic = \relative c' {
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3392,7 +3389,7 @@ lhMusic = \relative c' {
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3471,7 +3468,7 @@ C はシフト off のボイス 2 の中にあり、2 つの D はボイス 1 �
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3544,7 +3541,7 @@ lhMusic = \relative c' {
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3558,7 +3555,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % マージされる音符の右にある c2 を再配置します
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % c2 をメインの音符列から外したため、マージが機能します
         \shiftOnn
         c2
@@ -3569,8 +3566,8 @@ rhMusic = \relative c'' {
         % マージさせるために d2 の符幹を下向きにする必要があります
         \stemDown
         % d2 の符幹を不可視にします
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3653,8 +3650,8 @@ lhMusic = \relative c' {
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3668,9 +3665,9 @@ lhMusic = \relative c' {
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
-    \tweak Stem #'length #8
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
+    \tweak Stem.length #8
     b8~ b\noBeam
   }
 \\
@@ -3711,7 +3708,7 @@ lhMusic = \relative c' {
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'transparent = ##t
+    \once \override Score.MetronomeMark.transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3733,7 +3730,7 @@ lhMusic = \relative c' {
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'stencil = ##f
+    \once \override Score.MetronomeMark.stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3782,11 +3779,11 @@ lhMusic = \relative c' {
 使うことはできないでしょうか？
 
 @example
-@code{\override Lyrics . LyricText #'font-shape = #'italic}
-@code{\override Lyrics . LyricText #'font-series = #'bold}
+@code{\override Lyrics.LyricText.font-shape = #'italic}
+@code{\override Lyrics.LyricText.font-series = #'bold}
 
-@code{\revert Lyrics . LyricText #'font-shape}
-@code{\revert Lyrics . LyricText #'font-series}
+@code{\revert Lyrics.LyricText.font-shape}
+@code{\revert Lyrics.LyricText.font-series}
 @end example
 
 これらも、強調する必要のある単語がたくさんある場合、入力するのが@c
@@ -3807,13 +3804,13 @@ lhMusic = \relative c' {
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics.LyricText #'font-shape = #'italic
-  \override Lyrics.LyricText #'font-series = #'bold
+  \override Lyrics.LyricText.font-shape = #'italic
+  \override Lyrics.LyricText.font-series = #'bold
 }
 
 normal = {
-  \revert Lyrics.LyricText #'font-shape
-  \revert Lyrics.LyricText #'font-series
+  \revert Lyrics.LyricText.font-shape
+  \revert Lyrics.LyricText.font-series
 }
 
 global = { \key c \major \time 4/4 \partial 4 }
@@ -4002,17 +3999,17 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -4035,17 +4032,17 @@ inst =
 \layout{
   \context {
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context {
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   }
   \context {
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -4089,16 +4086,16 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -4122,12 +4119,12 @@ inst =
 
 \layout{
   \context { \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context { \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -4254,8 +4251,8 @@ LilyPond アプリケーション上でコントロール クリックして
 
 @example
 tieDotted = @{
-  \override Tie #'dash-period = #0.75
-  \override Tie #'dash-fraction = #0.1
+  \override Tie.dash-period = #0.75
+  \override Tie.dash-fraction = #0.1
 @}
 @end example
 
@@ -4357,7 +4354,7 @@ Scheme プロシージャをセットすることができます。@c
 
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
-  \override NoteHead #'color = #color-notehead
+  \override NoteHead.color = #color-notehead
   a2 b | c2 d | e2 f | g2 a |
 }
 @end lilypond

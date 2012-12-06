@@ -241,17 +241,12 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 #endif
 
-  /*
-    If the function returns SCM_UNSPECIFIED, we assume the
-    property has been set with an explicit set_property ()
-    call.
-  */
   if (value == SCM_UNSPECIFIED)
     {
       value = get_property_data (sym);
       assert (value == SCM_EOL || value == marker);
       if (value == marker)
-        *alist = scm_assq_remove_x (*alist, marker);
+        *alist = scm_assq_remove_x (*alist, sym);
     }
   else
     {

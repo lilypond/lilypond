@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -28,24 +28,24 @@ slurs further down.
 \relative c' {
   \stemDown
   e4( a)
-  \override Slur #'positions = #'(1 . 1)
+  \override Slur.positions = #'(1 . 1)
   e4( a)
-  \override Slur #'positions = #'(2 . 2)
+  \override Slur.positions = #'(2 . 2)
   e4( a)
-  \override Slur #'positions = #'(3 . 3)
+  \override Slur.positions = #'(3 . 3)
   e4( a)
-  \override Slur #'positions = #'(4 . 4)
+  \override Slur.positions = #'(4 . 4)
   e4( a)
-  \override Slur #'positions = #'(5 . 5)
+  \override Slur.positions = #'(5 . 5)
   e4( a)
-  \override Slur #'positions = #'(0 . 5)
+  \override Slur.positions = #'(0 . 5)
   e4( a)
-  \override Slur #'positions = #'(5 . 0)
+  \override Slur.positions = #'(5 . 0)
   e4( a)
   \stemUp
-  \override Slur #'positions = #'(-5 . -5)
+  \override Slur.positions = #'(-5 . -5)
   e4( a)
   \stemDown
-  \revert Slur #'positions
+  \revert Slur.positions
   e4( a)
 }

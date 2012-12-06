@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.15
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -25,12 +25,12 @@ other effects may be obtained.
 
 startAcciaccaturaMusic = {
   <>(
-  \override Flag #'stroke-style = #"grace"
+  \override Flag.stroke-style = #"grace"
   \slurDashed
 }
 
 stopAcciaccaturaMusic = {
-  \revert Flag #'stroke-style
+  \revert Flag.stroke-style
   \slurSolid
   <>)
 }

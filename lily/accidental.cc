@@ -25,6 +25,7 @@
 #include "paper-column.hh"
 #include "pitch.hh"
 #include "stencil.hh"
+#include "skyline-pair.hh"
 
 Stencil
 parenthesize (Grob *me, Stencil m)
@@ -68,6 +69,53 @@ Accidental_interface::width (SCM smob)
   return get_extent (unsmob_grob (smob), X_AXIS);
 }
 
+MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines, 1);
+SCM
+Accidental_interface::horizontal_skylines (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  if (!me->is_live ())
+    return Skyline_pair ().smobbed_copy ();
+
+  /*
+   * Using the print function may trigger a suicide
+   * before line breaking. It is therefore `unpure' (c).
+   * We use the more basic get_stencil.
+   */
+  Stencil *my_stencil = unsmob_stencil (get_stencil (me));
+  Skyline_pair *sky =
+    Skyline_pair::unsmob
+      (Stencil::skylines_from_stencil
+        (my_stencil->smobbed_copy (), 0.0, Y_AXIS));
+
+  if (!sky)
+    return Skyline_pair ().smobbed_copy ();
+
+  SCM alist = me->get_property ("glyph-name-alist");
+  SCM alt = me->get_property ("alteration");
+  string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
+                                                       "");
+  if (glyph_name == "accidentals.flat"
+      || glyph_name == "accidentals.flatflat")
+    {
+      // a bit more padding for the right of the stem
+      // we raise the stem horizontally to a bit less than the average
+      // horizontal "height" of the entire glyph. This will bring flats
+      // closer to doubleflats, which looks better (MS opinion).
+      // this should work for all fonts where the flat is not
+      // completely bizarre
+      Real left = my_stencil->extent (X_AXIS)[LEFT];
+      Real right = my_stencil->extent (X_AXIS)[RIGHT] * 0.375;
+      Real down = my_stencil->extent (Y_AXIS)[DOWN];
+      Real up = my_stencil->extent (Y_AXIS)[UP];
+      vector<Box> boxes;
+      boxes.push_back (Box (Interval (left, right), Interval (down, up)));
+      Skyline merge_with_me (boxes, Y_AXIS, RIGHT);
+      (*sky)[RIGHT].merge (merge_with_me);
+    }
+  return sky->smobbed_copy ();
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
 SCM
 Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
@@ -87,85 +135,6 @@ Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
     }
 
   return ly_interval2scm (Interval ());
-}
-
-vector<Box>
-Accidental_interface::accurate_boxes (Grob *me, Grob **common)
-{
-  Box b;
-  b[X_AXIS] = me->extent (me, X_AXIS);
-  b[Y_AXIS] = me->extent (me, Y_AXIS);
-
-  vector<Box> boxes;
-
-  bool parens = to_boolean (me->get_property ("parenthesized"));
-  if (!me->is_live ())
-    return boxes;
-
-  if (!to_boolean (me->get_property ("restore-first"))
-      && !parens)
-    {
-      SCM alist = me->get_property ("glyph-name-alist");
-      SCM alt = me->get_property ("alteration");
-      string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
-                                             "");
-
-      if (glyph_name == "accidentals.flat"
-          || glyph_name == "accidentals.mirroredflat")
-        {
-          Box stem = b;
-          Box bulb = b;
-
-          /*
-            we could make the stem thinner, but that places the flats
-            really close.
-          */
-          Direction bulb_dir
-            = glyph_name == "accidentals.mirroredflat" ? LEFT : RIGHT;
-          stem[X_AXIS][bulb_dir] = stem[X_AXIS].center ();
-
-          /*
-            To prevent vertical alignment for 6ths
-          */
-          stem[Y_AXIS] *= 1.1;
-          bulb[Y_AXIS][UP] *= .35;
-
-          boxes.push_back (bulb);
-          boxes.push_back (stem);
-        }
-      else if (glyph_name == "accidentals.natural")
-        {
-          Box lstem = b;
-          Box rstem = b;
-          Box belly = b;
-
-          lstem[Y_AXIS] *= 1.1;
-          rstem[Y_AXIS] *= 1.1;
-
-          belly[Y_AXIS] *= 0.75;
-          lstem[X_AXIS][RIGHT] *= .33;
-          rstem[X_AXIS][LEFT] = rstem[X_AXIS].linear_combination (1.0 / 3.0);
-          lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
-          rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
-          boxes.push_back (belly);
-          boxes.push_back (lstem);
-          boxes.push_back (rstem);
-        }
-      /*
-        TODO: add support for, double flat.
-      */
-    }
-
-  if (!boxes.size ())
-    boxes.push_back (b);
-
-  Offset o (me->relative_coordinate (common[X_AXIS], X_AXIS),
-            me->relative_coordinate (common[Y_AXIS], Y_AXIS));
-
-  for (vsize i = boxes.size (); i--;)
-    boxes[i].translate (o);
-
-  return boxes;
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
@@ -231,6 +200,7 @@ ADD_INTERFACE (Accidental_interface,
                "avoid-slur "
                "forced "
                "glyph-name-alist "
+               "glyph-name "
                "hide-tied-accidental-after-break "
                "parenthesized "
                "restore-first "

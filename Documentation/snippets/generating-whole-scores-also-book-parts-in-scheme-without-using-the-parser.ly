@@ -98,9 +98,8 @@ modified to inser all collected scores so far to the book.
             (set! pitch (modulo (1+ pitch) 7)))))
 
 oneNoteScore =
-#(define-music-function (parser location) ()
-   (add-one-note-score parser)
-   (make-music 'Music 'void #t))
+#(define-void-function (parser location) ()
+   (add-one-note-score parser))
 
 %%%
 

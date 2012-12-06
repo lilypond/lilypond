@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The functions passed to the @code{positions} property should
@@ -10,18 +10,18 @@ cases.
 \paper { ragged-right = ##t }
 {
   r2.
-  \override Beam #'breakable = ##t
+  \override Beam.breakable = ##t
   r8[ g' \break a' r]
 }
 {
   r2.
-  \override Beam #'positions = #beam::align-with-broken-parts
-  \override Beam #'breakable = ##t
+  \override Beam.positions = #beam::align-with-broken-parts
+  \override Beam.breakable = ##t
   r8[ g' \break a' r]
 }
 {
   r2.
-  \override Beam #'positions = #beam::slope-like-broken-parts
-  \override Beam #'breakable = ##t
+  \override Beam.positions = #beam::slope-like-broken-parts
+  \override Beam.breakable = ##t
   r8[ g' \break a' r]
 }

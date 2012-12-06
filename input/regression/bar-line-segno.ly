@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.5"
 
 \header { texidoc = "Segno bar lines can be used to mark
                      the begin and the end of a segno part."
@@ -8,10 +8,10 @@
 
 \relative \new StaffGroup <<
   \new Staff {
-    c4 \bar "S" c \bar "|S" c \bar "S|" c \bar ":|S" \break
-    c4 c \bar ":|S|:" c c \bar ":|S.|:" \break
-    c4 c c2 \bar ".S|:" \break
-    c1 \bar ":|S." \break
+    c4 \bar "S" c \bar "S-|" c \bar "S-S" c \bar ":|.S" \break
+    c4 c \bar ":|.S.|:" c c \bar ":|.S.|:-S" \break
+    c4 c c2 \bar "S.|:" \break
+    c1 \bar ":|.S-S" \break
     c1 \bar "S" \break
     c1 }
   \new Staff {

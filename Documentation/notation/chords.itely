@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node Chord notation
@@ -168,7 +168,7 @@ The default action; produces a major triad.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1
 }
 @end lilypond
@@ -180,7 +180,7 @@ The minor chord.  This modifier lowers the 3rd.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:m c:m7
 }
 @end lilypond
@@ -194,7 +194,7 @@ present) the 7th step.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:dim c:dim7
 }
 @end lilypond
@@ -206,7 +206,7 @@ The augmented chord.  This modifier raises the 5th step.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:aug
 }
 @end lilypond
@@ -220,7 +220,7 @@ to create a major triad.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c1:maj c:maj7
 }
 @end lilypond
@@ -563,7 +563,7 @@ Jazz notation are shown on the chart in @ref{Chord name chart}.
 
 In addition to the different naming systems, different note names
 are used for the root in different languages.  The predefined
-variables @code{\germanChords}, @code{\semiGermanChords},
+commands @code{\germanChords}, @code{\semiGermanChords},
 @code{\italianChords} and @code{\frenchChords} set these variables.
 The effect is demonstrated here:
 

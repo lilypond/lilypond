@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -28,16 +28,16 @@ be hidden by enabling the callback.
 \paper { ragged-right = ##t }
 
 \relative c'' {
-  \override Hairpin #'to-barline = ##f
-  \override Glissando #'breakable = ##t
+  \override Hairpin.to-barline = ##f
+  \override Glissando.breakable = ##t
   % show hairpin
-  \override Hairpin #'after-line-breaking = ##t
+  \override Hairpin.after-line-breaking = ##t
   % hide text span
-  \override TextSpanner #'after-line-breaking =
+  \override TextSpanner.after-line-breaking =
     #ly:spanner::kill-zero-spanned-time
   e2\<\startTextSpan
   % show glissando
-  \override Glissando #'after-line-breaking = ##t
+  \override Glissando.after-line-breaking = ##t
   f2\glissando
   \break
   f,1\!\stopTextSpan

@@ -355,9 +355,9 @@ Line_spanner::print (SCM smob)
     }
 
   Offset adjust = dz.direction () * Staff_symbol_referencer::staff_space (me);
-
   Offset line_left = span_points[LEFT] + (arrows[LEFT] ? adjust * 1.4 : Offset (0, 0));
   Offset line_right = span_points[RIGHT] - (arrows[RIGHT] ? adjust * 0.55 : Offset (0, 0));
+
   if (line_right[X_AXIS] > line_left[X_AXIS])
     {
       line.add_stencil (Line_interface::line (me, line_left, line_right));

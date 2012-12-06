@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "keyboards, tweaks-and-overrides"
@@ -21,10 +21,10 @@ The appearance of pedal brackets may be altered in different ways.
 \relative c'' {
   c2\sostenutoOn c
   c2\sostenutoOff c
-  \once \override Staff.PianoPedalBracket #'shorten-pair = #'(-7 . -2)
+  \once \override Staff.PianoPedalBracket.shorten-pair = #'(-7 . -2)
   c2\sostenutoOn c
   c2\sostenutoOff c
-  \once \override Staff.PianoPedalBracket #'edge-height = #'(0 . 3)
+  \once \override Staff.PianoPedalBracket.edge-height = #'(0 . 3)
   c2\sostenutoOn c
   c2\sostenutoOff c
 }

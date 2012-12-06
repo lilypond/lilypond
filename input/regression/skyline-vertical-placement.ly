@@ -5,13 +5,13 @@ using a skyline algorithm so that they don't collide with other objects."
 
 \layout {ragged-right = ##t}
 
-\version "2.16.0"
+\version "2.17.6"
 \relative c''' {
-  \override Score.PaperColumn #'keep-inside-line = ##f
-  \override TextScript #'outside-staff-priority = #2
-  \override DynamicLineSpanner #'outside-staff-priority = #1
+  \override Score.PaperColumn.keep-inside-line = ##f
+  \override TextScript.outside-staff-priority = #2
+  \override DynamicLineSpanner.outside-staff-priority = #1
   c
-  \once \override TextScript #'self-alignment-X = #CENTER
+  \once \override TextScript.self-alignment-X = #CENTER
   a,^"this doesn't collide with the c"
   b^"this goes above the previous markup"
   a8_"this goes below the dynamic"

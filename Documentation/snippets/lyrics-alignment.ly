@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "really-simple, text, vocal-music"
@@ -27,10 +27,10 @@ well.
   c1
 }
 \addlyrics {
-  \once \override LyricText #'self-alignment-X = #LEFT
+  \once \override LyricText.self-alignment-X = #LEFT
   "This is left-aligned"
-  \once \override LyricText #'self-alignment-X = #CENTER
+  \once \override LyricText.self-alignment-X = #CENTER
   "This is centered"
-  \once \override LyricText #'self-alignment-X = #1
+  \once \override LyricText.self-alignment-X = #1
   "This is right-aligned"
 }

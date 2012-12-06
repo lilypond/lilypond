@@ -39,12 +39,11 @@ distname = $(package)-$(TOPLEVEL_VERSION)
 doc-dir = $(src-depth)/Documentation
 po-srcdir = $(src-depth)/po
 po-outdir = $(depth)/po/$(outdir)
-step-bindir = $(stepmake)/bin
 
 # stepmake package support.
 DEPTH = $(depth)/$(package-depth)
 
-INSTALLPY=$(PYTHON) $(step-bindir)/install.py -c
+INSTALLPY=$(buildscript-dir)/install -c
 INSTALL=$(INSTALLPY)
 
 group-dir = $(shell cd $(DEPTH);pwd)/..
@@ -83,7 +82,6 @@ INCLUDES = $(src-dir)/include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES
 
 M4 = m4
 
-DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES) $(call src-wildcard,SConscript)
 DOCDIR=$(depth)/$(outdir)
 
 #?

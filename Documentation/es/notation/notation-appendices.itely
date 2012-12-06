@@ -1656,7 +1656,6 @@ LilyPond.
 @cindex modo
 @cindex output-count
 @cindex output-suffix
-@cindex parseStringResult
 @cindex partCombineListener
 @cindex pitchnames
 @cindex toplevel-bookparts
@@ -1684,7 +1683,6 @@ LilyPond utiliza las siguientes variables del analizador sintáctico:
 @item mode
 @item output-count
 @item output-suffix
-@item parseStringResult
 @item partCombineListener
 @item pitchnames
 @item toplevel-bookparts

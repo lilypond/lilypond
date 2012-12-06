@@ -7,16 +7,7 @@ include $(depth)/make/stepmake.make
 
 TITLE=lilypond-book Test Suite
 
-SUBDIRS=include
-
 COLLATED_FILES = $(OUT_FILES)
-
-EXTRA_DIST_FILES = include.mxl
-EXTRA_DIST_FILES += include.xml
-EXTRA_DIST_FILES += $(call src-wildcard,*.ly)
-EXTRA_DIST_FILES += $(call src-wildcard,*.ily)
-EXTRA_DIST_FILES += $(call src-wildcard,*.tely)
-EXTRA_DIST_FILES += $(call src-wildcard,*.itely)
 
 OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.info}
 OUT_TEXI_FILES += ${TEXI_FILES:%.texi=$(outdir)/%.pdf}

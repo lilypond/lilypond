@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "vocal-music"
@@ -25,16 +25,16 @@ rightbrace = \markup { \rotate #180 \leftbrace }
 
 dropLyrics =
 {
-    \override LyricText #'extra-offset = #'(0 . -5)
-    \override LyricHyphen #'extra-offset = #'(0 . -5)
-    \override LyricExtender #'extra-offset = #'(0 . -5)
+    \override LyricText.extra-offset = #'(0 . -5)
+    \override LyricHyphen.extra-offset = #'(0 . -5)
+    \override LyricExtender.extra-offset = #'(0 . -5)
 }
 
 raiseLyrics =
 {
-    \revert LyricText #'extra-offset
-    \revert LyricHyphen #'extra-offset
-    \revert LyricExtender #'extra-offset
+    \revert LyricText.extra-offset
+    \revert LyricHyphen.extra-offset
+    \revert LyricExtender.extra-offset
 }
 
 skipFour = \repeat unfold 4 { \skip 8 }

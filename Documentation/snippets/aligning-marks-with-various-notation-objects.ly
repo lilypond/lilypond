@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "text"
@@ -33,14 +33,14 @@ be done for all the staves).
   e1
 
   % the RehearsalMark will be centered above the Clef
-  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \override Score.RehearsalMark.break-align-symbols = #'(clef)
   \key a \major
   \clef treble
   \mark \markup { \char ##x2193 }
   e1
 
   % the RehearsalMark will be centered above the TimeSignature
-  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+  \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
   \key a \major
   \clef treble
   \time 3/4
@@ -48,7 +48,7 @@ be done for all the staves).
   e2.
 
   % the RehearsalMark will be centered above the KeySignature
-  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
   \key a \major
   \clef treble
   \time 4/4
@@ -59,20 +59,20 @@ be done for all the staves).
   e1
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
-  \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+  \once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
   \mark \markup { \char ##x2193 }
   \key a \major
   e1
 
   % the RehearsalMark will be aligned with the right edge of the KeySignature
-  \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
   \key a \major
   \mark \markup { \char ##x2193 }
   e1
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
   % and then shifted right by one unit.
-  \once \override Score.KeySignature #'break-align-anchor = #1
+  \once \override Score.KeySignature.break-align-anchor = #1
   \key a \major
   \mark \markup { \char ##x2193 }
   e1

@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -35,6 +35,6 @@ extreme = \relative c'' {
 {
 				% If we want to test extreme beams,
 				% we should not have them auto-kneed
-  \override Beam  #'auto-knee-gap = ##f
+  \override Beam.auto-knee-gap = ##f
   \extreme
 }

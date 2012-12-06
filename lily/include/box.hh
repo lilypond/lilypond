@@ -20,6 +20,7 @@ public:
   Interval y () const {return interval_a_[Y_AXIS]; }
   Interval operator [] (Axis a) const;
   Interval &operator [] (Axis a);
+  Real area () const;
 
   Offset center () const;
 
@@ -35,5 +36,7 @@ public:
   Box ();
   Box (Interval ix, Interval iy);
 };
+
+DECLARE_UNSMOB (Box, box);
 
 #endif

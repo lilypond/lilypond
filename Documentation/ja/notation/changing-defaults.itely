@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -802,7 +802,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
   \layout {
     \context {
       \Staff
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
   }
 }
@@ -827,7 +827,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @end lilypond
 
 @item
-@code{\dynamicUp} や @code{\accidentalStyle "dodecaphonic"} のような音楽@c
+@code{\dynamicUp} や @code{\accidentalStyle dodecaphonic} のような音楽@c
 表記等、あらかじめ定義されているコマンド
 
 @lilypond[quote,verbatim]
@@ -843,7 +843,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
     }
     \context {
       \Staff
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
     }
   }
 }
@@ -894,9 +894,9 @@ StaffDefaults = \with {
     }
   }
   \layout {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
     \set fontSize = #-4
-    \override Voice.Stem #'thickness = #4.0
+    \override Voice.Stem.thickness = #4.0
   }
 }
 @end lilypond
@@ -937,7 +937,7 @@ StaffDefaults = \with {
   \new Staff {
     \new Voice
     \with {
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
     {
       \relative c'' {
@@ -989,7 +989,7 @@ StaffDefaults = \with {
       }
     }
     \new Staff
-    \with { \accidentalStyle "dodecaphonic" }
+    \with { \accidentalStyle dodecaphonic }
     {
       \new Voice
       \with { \dynamicUp }
@@ -1081,9 +1081,9 @@ StaffDefaults = \with {
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1148,9 +1148,9 @@ squashedPosition = #0
 音符はスラッシュで、符幹を持ちません:
 
 @example
-\override NoteHead #'style = #'slash
-\override Stem #'transparent = ##t
-\override Flag #'transparent = ##t
+\override NoteHead.style = #'slash
+\override Stem.transparent = ##t
+\override Flag.transparent = ##t
 @end example
 
 これらのプラグインすべてが共同する必要があり、@c
@@ -1172,9 +1172,9 @@ squashedPosition = #0
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example
@@ -1656,14 +1656,14 @@ Add this much extra space between objects that are next to each other.
 以下のコマンドは、音符と運指記号の間に 3 譜スペースを挿入します:
 
 @example
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 @end example
 
 このコマンドを @code{Fingering} オブジェクトが作成される前に挿入する
 -- つまり @code{c2} の前に挿入する -- と、以下のような結果が得られます:
 
 @lilypond[quote,relative=2,fragment,verbatim]
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 c-2
 \stemUp
 f
@@ -1777,7 +1777,7 @@ discuss the functionality of this command.
 The command
 
 @verbatim
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 @end verbatim
 
 @noindent
@@ -1788,7 +1788,7 @@ appearance.  Here we see the command in action:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c4
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 c4
 c4
 c4
@@ -1804,7 +1804,7 @@ causing the default context @code{Voice} to be used.  Adding
 
 @lilypond[quote,fragment,verbatim,relative=2]
 c4
-\once \override Stem #'thickness = #4.0
+\once \override Stem.thickness = #4.0
 c4
 c4
 @end lilypond
@@ -1815,9 +1815,9 @@ or beams, the @code{\override} command must be executed at the moment
 when the object is created.  In this example,
 
 @lilypond[quote,fragment,verbatim,relative=2]
-\override Slur #'thickness = #3.0
+\override Slur.thickness = #3.0
 c8[( c
-\override Beam #'thickness = #0.6
+\override Beam.thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -1831,8 +1831,8 @@ affects settings that were made in the same context.  In other words, the
 @code{\revert} in the next example does not do anything.
 
 @example
-\override Voice.Stem #'thickness = #4.0
-\revert Staff.Stem #'thickness
+\override Voice.Stem.thickness = #4.0
+\revert Staff.Stem.thickness
 @end example
 
 Some tweakable options are called @q{subproperties} and reside inside
@@ -1847,7 +1847,7 @@ properties.  To tweak those, use commands of the form
 such as
 
 @example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
+\override Stem.details.beamed-lengths = #'(4 4 3)
 @end example
 
 @end ignore
@@ -2063,7 +2063,7 @@ Translation @expansion{} Tunable context properties.
 
 @lilypond[quote,verbatim,relative=2]
 c4 c
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
 @end lilypond
 
@@ -2071,11 +2071,11 @@ If no context is specified in an @code{\override}, the bottom
 context is used:
 
 @lilypond[quote,verbatim,relative=2]
-{ \override Staff.Stem #'thickness = #3.0
+{ \override Staff.Stem.thickness = #3.0
   <<
     {
       e4 e
-      \override Stem #'thickness = #0.5
+      \override Stem.thickness = #0.5
       e4 e
     } \\ {
       c4 c c c
@@ -2092,9 +2092,9 @@ context is used:
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
-\revert Voice.Stem #'thickness
+\revert Voice.Stem.thickness
 c4
 @end lilypond
 
@@ -2107,11 +2107,11 @@ c4
   <<
     {
       e4
-      \override Staff.Stem #'thickness = #3.0
+      \override Staff.Stem.thickness = #3.0
       e4 e e
     } \\ {
       c4 c c
-      \revert Staff.Stem #'thickness
+      \revert Staff.Stem.thickness
       c4
     }
   >>
@@ -2128,11 +2128,11 @@ c4
 {
   <<
     {
-      \override Stem #'thickness = #3.0
+      \override Stem.thickness = #3.0
       e4 e e e
     } \\ {
       c4
-      \once \override Stem #'thickness = #3.0
+      \once \override Stem.thickness = #3.0
       c4 c c
     }
   >>
@@ -2144,7 +2144,7 @@ c4
 Commands which change output generally look like
 
 @example
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 @end example
 
 @noindent
@@ -2161,7 +2161,7 @@ Some tweakable options are called @q{subproperties} and reside inside
 properties.  To tweak those, use commands in the form
 
 @example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
+\override Stem.details.beamed-lengths = #'(4 4 3)
 @end example
 
 @cindex internal documentation
@@ -2216,13 +2216,13 @@ For example:
 
 @lilypond[relative=2,verbatim,quote]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
--\tweak #'padding #8
+-\tweak padding #8
 -^
 @end lilypond
 
@@ -2250,14 +2250,14 @@ note, and able to modify it.
 So, this works:
 
 @lilypond[relative=2,verbatim,quote]
-<\tweak #'color #red c>4
+<\tweak color #red c>4
 @end lilypond
 
 @noindent
 but this does not:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
+\tweak color #red c4
 @end lilypond
 
 @end ignore
@@ -2288,10 +2288,10 @@ but this does not:
 
 @lilypond[relative=2,verbatim,quote]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
 @end lilypond
@@ -2299,7 +2299,7 @@ but this does not:
 @code{\tweak} を用いて、スラーを変更することができます:
 
 @lilypond[verbatim,quote,relative=1]
-c-\tweak #'thickness #5 ( d e f)
+c-\tweak thickness #5 ( d e f)
 @end lilypond
 
 
@@ -2313,9 +2313,9 @@ c-\tweak #'thickness #5 ( d e f)
 からです:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
-\tweak #'color #red <c e>4
-<\tweak #'color #red c e>4
+\tweak color #red c4
+\tweak color #red <c e>4
+<\tweak color #red c e>4
 @end lilypond
 
 単純な @code{\tweak} コマンドでは入力から直接作成されないオブジェクトを@c
@@ -2329,9 +2329,9 @@ c-\tweak #'thickness #5 ( d e f)
 @code{\tweak} コマンドを用いることで調整することができます:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak Stem #'color #red
-\tweak Beam #'color #green c8 e
-<c e \tweak Accidental #'font-size #-3 ges>4
+\tweak Stem.color #red
+\tweak Beam.color #green c8 e
+<c e \tweak Accidental.font-size #-3 ges>4
 @end lilypond
 
 @code{\tweak} コマンドで音部記号や拍子記号を変更することはできません。@c
@@ -2344,10 +2344,10 @@ c-\tweak #'thickness #5 ( d e f)
 
 @lilypond[verbatim,quote,relative=1]
 c
--\tweak #'style #'dashed-line
--\tweak #'dash-fraction #0.2
--\tweak #'thickness #3
--\tweak #'color #red
+-\tweak style #'dashed-line
+-\tweak dash-fraction #0.2
+-\tweak thickness #3
+-\tweak color #red
  \glissando
 f'
 @end lilypond
@@ -2446,7 +2446,7 @@ property (modified with @code{\set}) was created.
 % 譜間スペースを減らします
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
+  \override StaffGrouper.staff-staff-spacing.basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2463,7 +2463,7 @@ property (modified with @code{\set}) was created.
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'staff-staff-spacing =
+  \override StaffGrouper.staff-staff-spacing =
     #'((basic-distance . 0)
        (minimum-distance . 0)
        (padding . 0)
@@ -2483,10 +2483,10 @@ property (modified with @code{\set}) was created.
 このため、以下の 2 つの宣言は等価です:
 
 @example
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7))
 
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7)
      (minimum-distance . 0)
      (padding . 0)
@@ -2835,7 +2835,7 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+  \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2846,7 +2846,7 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'width = #23
+  \override StaffSymbol.width = #23
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2909,7 +2909,7 @@ Works not at all for:
 a~a
 a
 % タイの長さを増加させます
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ~a
 @end lilypond
 
@@ -2919,7 +2919,7 @@ a1
 \compressFullBarRests
 R1*23
 % 休符バーの長さを増加させます
-\once \override MultiMeasureRest #'minimum-length = #20
+\once \override MultiMeasureRest.minimum-length = #20
 R1*23
 a1
 @end lilypond
@@ -2928,7 +2928,7 @@ a1
 @lilypond[verbatim,quote,relative=2]
 a \< a a a \!
 % ヘアピンの長さを増加させます
-\override Hairpin #'minimum-length = #20
+\override Hairpin.minimum-length = #20
 a \< a a a \!
 @end lilypond
 
@@ -2938,12 +2938,12 @@ a \< a a a \!
 @lilypond[verbatim,quote,relative=2]
 a( a)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ( a)
 
 a\( a\)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 \( a\)
 @end lilypond
 
@@ -2963,12 +2963,12 @@ a
 e \glissando c'
 
 % 単独では効果を持ちません
-\once \override Glissando #'minimum-length = #20
+\once \override Glissando.minimum-length = #20
 e, \glissando c'
 
 % 以下の両方のオーバライドが存在する場合にのみ、効果を持ちます
-\once \override Glissando #'minimum-length = #20
-\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Glissando.minimum-length = #20
+\once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
 e, \glissando c'
 @end lilypond
 
@@ -2977,12 +2977,12 @@ e, \glissando c'
 @c KEEP LY
 @lilypond[verbatim,quote,relative=1]
 % 単独では効果を持ちません
-\once \override Beam #'minimum-length = #20
+\once \override Beam.minimum-length = #20
 e8 e e e
 
 % 以下の両方のオーバライドが存在する場合にのみ、効果を持ちます
-\once \override Beam #'minimum-length = #20
-\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Beam.minimum-length = #20
+\once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
 e8 e e e
 @end lilypond
 
@@ -2997,7 +2997,7 @@ e8 e e e
 
 @lilypond[verbatim,quote,relative=2]
 a \< a a a a \! a a a \break
-\override Hairpin #'to-barline = ##f
+\override Hairpin.to-barline = ##f
 a \< a a a a \! a a a
 @end lilypond
 
@@ -3031,8 +3031,8 @@ a \< a a a a \! a a a
 
 @lilypond[relative=2,quote,verbatim]
 e2 \glissando b
-\once \override Glissando #'(bound-details left Y) = #3
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.left.Y = #3
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando b
 @end lilypond
 
@@ -3049,8 +3049,8 @@ e2 \glissando b
 例を示します:
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
-\override Glissando #'breakable = ##t
-\override Glissando #'(bound-details right-broken Y) = #-3
+\override Glissando.breakable = ##t
+\override Glissando.bound-details.right-broken.Y = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -3090,7 +3090,7 @@ f1
 水平スパナに @i{cresc.}, @i{tr} それに他のテキストを配置するために使用されます。
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -3105,15 +3105,11 @@ c2\startTextSpan b c a\stopTextSpan
 記号が上下します:
 
 @lilypond[relative=1,fragment,verbatim]
-\override TextSpanner
-  #'(bound-details left stencil-align-dir-y) = #-2
-\override TextSpanner
-  #'(bound-details right stencil-align-dir-y) = #UP
+\override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
+\override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner
-  #'(bound-details left text) = #"ggg"
-\override TextSpanner
-  #'(bound-details right text) = #"hhh"
+\override TextSpanner.bound-details.left.text = #"ggg"
+\override TextSpanner.bound-details.right.text = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -3204,9 +3200,9 @@ c2 \< c2 c2
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine #'stencil = ##f
+\override Score.BarLine.stencil = ##f
 a a
-\revert Score.BarLine #'stencil
+\revert Score.BarLine.stencil
 a a a
 @end lilypond
 
@@ -3223,7 +3219,7 @@ a a a
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead #'transparent = ##t
+\once \override NoteHead.transparent = ##t
 a a
 @end lilypond
 
@@ -3249,7 +3245,7 @@ a a
 白いオブジェクトの画像が幽霊のように浮かび上がることがあります:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
+\override Staff.Clef.color = #white
 a1
 @end lilypond
 
@@ -3278,8 +3274,8 @@ a1
 音部記号を先に描画させる必要があります:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
-\override Staff.Clef #'layer = #-1
+\override Staff.Clef.color = #white
+\override Staff.Clef.layer = #-1
 a1
 @end lilypond
 
@@ -3374,7 +3370,7 @@ a1
 f4 g a b
 f4 g a b
 % カレント行の最後で小節線を削除します
-\once \override Score.BarLine #'break-visibility = #'#(#f #t #t)
+\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
 \break
 f4 g a b
 f4 g a b
@@ -3422,7 +3418,7 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 \key g \major
 f4 g a b
 % すべての調号を削除しようと試みます
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b
 \break
@@ -3450,7 +3446,7 @@ f4 g a b
 \key g \major
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3468,7 +3464,7 @@ f4 g a b
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3540,13 +3536,13 @@ f4 g a b
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 d2 \glissando d'2
-\once \override Glissando #'style = #'dashed-line
+\once \override Glissando.style = #'dashed-line
 d,2 \glissando d'2
-\override Glissando #'style = #'dotted-line
+\override Glissando.style = #'dotted-line
 d,2 \glissando d'2
-\override Glissando #'style = #'zigzag
+\override Glissando.style = #'zigzag
 d,2 \glissando d'2
-\override Glissando #'style = #'trill
+\override Glissando.style = #'trill
 d,2 \glissando d'2
 @end lilypond
 
@@ -3557,7 +3553,7 @@ d,2 \glissando d'2
 @c TODO Complete
 @lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando f
 @end lilypond
 
@@ -3610,7 +3606,7 @@ e2 \glissando f
 
 @lilypond[quote,verbatim,relative=1]
 g4\< e' d' f\!
-\override Hairpin #'rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(20 -1 0)
 g,,4\< e' d' f\!
 @end lilypond
 
@@ -3630,7 +3626,7 @@ g,,4\< e' d' f\!
 そうしなければテキストのいくつかは高く押し上げられてしまいます。
 
 @lilypond[quote,verbatim,relative=1]
-\override TextScript #'outside-staff-priority = ##f
+\override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "a G" }
 b^\markup { \rotate #30 "a B" }
 des^\markup { \rotate #30 "a D-Flat" }
@@ -3744,12 +3740,12 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @lilypond[verbatim,quote,relative=2]
 a-3
 a
--\tweak #'X-offset #0
--\tweak #'Y-offset #0
+-\tweak X-offset #0
+-\tweak Y-offset #0
 -3
 a
--\tweak #'X-offset #-1
--\tweak #'Y-offset #1
+-\tweak X-offset #-1
+-\tweak Y-offset #1
 -3
 @end lilypond
 
@@ -3831,13 +3827,13 @@ a
 
 @lilypond[quote,verbatim,relative=1]
 a'
--\tweak #'self-alignment-X #-1
+-\tweak self-alignment-X #-1
 ^"left-aligned"
--\tweak #'self-alignment-X #0
+-\tweak self-alignment-X #0
 ^"center-aligned"
--\tweak #'self-alignment-X #RIGHT
+-\tweak self-alignment-X #RIGHT
 ^"right-aligned"
--\tweak #'self-alignment-X #-2.5
+-\tweak self-alignment-X #-2.5
 ^"aligned further to the right"
 @end lilypond
 
@@ -3871,9 +3867,9 @@ a'
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
 a
--\tweak #'self-alignment-X #0.5  % 左方向に移動させます
--\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak #'self-alignment-Y #-1  % 上方向に移動させます
+-\tweak self-alignment-X #0.5  % 左方向に移動させます
+-\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak self-alignment-Y #-1  % 上方向に移動させます
 -3  % 3 の指
 @end lilypond
 
@@ -3926,20 +3922,20 @@ example shows the difference:
 @c KEEP LY
 @lilypond[verbatim,quote,relative=1]
 % リハーサル記号は音部記号の上に中央揃えされます
-\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % リハーサル記号は拍子記号の上に中央揃えされます
-\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
 % リハーサル記号はブレス記号の上に中央揃えされます
-\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
@@ -3960,14 +3956,14 @@ e1
 @c KEEP LY
 @lilypond[verbatim,quote,relative=1]
 % リハーサル記号は調号の上に中央揃えされます
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % リハーサル記号は音部記号の上に中央揃えされます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \minor
 \clef bass
 \mark "↓"
@@ -3975,7 +3971,7 @@ gis,,1
 % リハーサル記号は小節線の上に中央揃えされます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
@@ -3989,19 +3985,19 @@ e''1
 @c KEEP LY
 @lilypond[verbatim,quote,relative=1]
 % RehearsalMark は KeySignature の上に中央揃えされます
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
 % RehearsalMark は KeySignature の左端に揃えられます
-\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
 e
 % RehearsalMark は KeySignature の右端に揃えられます
-\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
 e
@@ -4015,14 +4011,14 @@ e
 @lilypond[verbatim,quote,relative=1]
 % リハーサル記号は調号の左端に揃えられて
 % さらに 3.5 譜スペース右にずらされます
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-\once \override Score.KeySignature #'break-align-anchor = #3.5
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
 e1
 % リハーサル記号は調号の左端に揃えられて
 % さらに 2 譜スペース左にずらされます
-\once \override Score.KeySignature #'break-align-anchor = #-2
+\once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
 e1
@@ -4074,8 +4070,8 @@ Staff, Lyrics 等はそれ自体でそれぞれに VerticalAxisGroup を持ち�
 
 @lilypond[verbatim,quote]
 XinO = {
-  \once \override NoteHead  #'stencil = #ly:text-interface::print
-  \once \override NoteHead #'text = \markup {
+  \once \override NoteHead.stencil = #ly:text-interface::print
+  \once \override NoteHead.text = \markup {
     \combine
       \halign #-0.7 \draw-circle #0.85 #0.2 ##f
       \musicglyph #"noteheads.s2cross"
@@ -4173,8 +4169,7 @@ X@tie{}座標はそのタイあるいはスラーを取り付けられる音符�
 @lilypond[verbatim,quote,relative=1]
 <<
   {
-    \once \override Tie
-      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+    \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
      e1 ~ e
   }
 \\
@@ -4264,12 +4259,12 @@ starting and ending column.
                               '(-0.5 . 0.5)))))
 
 squareLineCircleSpace = {
-  \override NoteHead #'stencil = #square-line-circle-space
+  \override NoteHead.stencil = #square-line-circle-space
 }
 
 smartSquareLineCircleSpace = {
   \squareLineCircleSpace
-  \override NoteHead #'Y-extent =
+  \override NoteHead.Y-extent =
    #(ly:make-unpure-pure-container
       ly:grob::stencil-height
       (lambda (grob start end) (ly:grob::stencil-height grob)))
@@ -4278,9 +4273,9 @@ smartSquareLineCircleSpace = {
 \new Voice \with { \remove "Stem_engraver" }
 \relative c'' {
   \squareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
   \smartSquareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
 }
 @end lilypond
 
@@ -4402,7 +4397,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = $padding
+     \once \override TextScript.padding = $padding
    #})
 
 \relative c''' {
@@ -4422,10 +4417,10 @@ custosNote =
      (parser location note)
      (ly:music?)
    #{
-     \tweak NoteHead #'stencil #ly:text-interface::print
-     \tweak NoteHead #'text
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
         \markup \musicglyph #"custodes.mensural.u0"
-     \tweak Stem #'stencil ##f
+     \tweak Stem.stencil ##f
      #note
    #})
 
@@ -4440,7 +4435,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? markup?)
    #{
-     \once \override Score.MetronomeMark #'padding = $padding
+     \once \override Score.MetronomeMark.padding = $padding
      \tempo \markup { \bold #tempotext }
    #})
 

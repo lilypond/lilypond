@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -25,6 +25,6 @@ spaces.
 
 {
   f8 f''8 f8 f''8
-  \override Beam #'auto-knee-gap = #6
+  \override Beam.auto-knee-gap = #6
   f8 f''8 f8 f''8
 }

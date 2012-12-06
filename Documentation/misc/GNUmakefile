@@ -4,9 +4,11 @@ NAME = documentation
 
 STEPMAKE_TEMPLATES = documentation texinfo
 
-TEXTS = $(call src-wildcard,ANNOUNCE-*[0-9]) $(call src-wildcard,CHANGES-*[0-9]) $(call src-wildcard,ChangeLog*[0-9]) $(call src-wildcard,NEWS-*[0-9])
-EXTRA_DIST_FILES = $(TEXTS)
-EXTRA_DIST_FILES += $(call src-wildcard,*.html)
+TEXTS = $(call src-wildcard,ANNOUNCE-*[0-9]) \
+  $(call src-wildcard,CHANGES-*[0-9]) \
+  $(call src-wildcard,ChangeLog*[0-9]) \
+  $(call src-wildcard,NEWS-*[0-9]) \
+  $(call src-wildcard,THANKS-*[0-9])
 
 include $(depth)/make/stepmake.make
 
@@ -24,5 +26,5 @@ $(outdir)/%.txt: %
 	cp $< $@
 
 txt-to-html:
-	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+	$(buildscript-dir)/text2html $(OUT_TXT_FILES)
 	$(footify) $(addprefix $(outdir)/, $(addsuffix .html, $(TEXTS)))

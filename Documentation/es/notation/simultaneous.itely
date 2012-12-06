@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translation status: post-GDP
 
@@ -314,7 +314,7 @@ advertencia: demasiadas columnas de notas que chocan entre sí. Se ignoran
 durante la compilación.  Este mensaje se puede suprimir mediante
 
 @example
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 @end example
 
 Sin embargo, esto no solamente suprime la advertencia sino que
@@ -870,14 +870,14 @@ Referencia de funcionamiento interno:
 @cindex colisiones, ignorar
 
 @knownissues
-El uso de @code{\override NoteColumn #'ignore-collision = ##t} hace
+El uso de @code{\override NoteColumn.ignore-collision = ##t} hace
 que las notas con distinta cabeza en voces diferentes se mezclen
 incorrectamente.
 
 @lilypond[quote,relative=1,verbatim]
 \mergeDifferentlyHeadedOn
 << { c16 a' b a } \\ { c,2 } >>
-\override NoteColumn #'ignore-collision = ##t
+\override NoteColumn.ignore-collision = ##t
 << { c16 a' b a } \\ { c,2 } >>
 @end lilypond
 

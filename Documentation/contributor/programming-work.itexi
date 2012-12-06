@@ -979,7 +979,7 @@ for all errors and defines functions for displaying scheme objects
 (ps), grobs (pgrob), and parsed music expressions (pmusic).
 
 @example
-file ~/lilypond-git/build/out/bin/lilypond
+file $LILYPOND_GIT/build/out/bin/lilypond
 b programming_error
 b Grob::programming_error
 
@@ -1418,9 +1418,14 @@ Although it is not required, it is helpful if the developer
 can write relevant material for inclusion in the Notation
 Reference.  If the developer does not feel qualified to write
 the documentation, a documentation editor will be able to
-write it from the regression tests.  The text that is added to
-or removed from the documentation should be changed only in
-the English version.
+write it from the regression tests.  In this case the developer
+should raise a new issue with the Type=Documentation tag containing
+a reference to the original issue number and/or the committish of
+the pushed patch so that the need for new documention is not
+overlooked.
+
+Any text that is added to or removed from the documentation should
+be changed only in the English version.
 
 
 @node Edit changes.tely

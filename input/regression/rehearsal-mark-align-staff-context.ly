@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "RehearsalMarks still align correctly if Mark_engraver is moved to
@@ -21,11 +21,11 @@ another context."
   c1
   \key cis \major
   \clef alto
-  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
   \mark "on-key"
   cis
   \key ces \major
-  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \override Score.RehearsalMark.break-align-symbols = #'(clef)
   \clef treble
   \mark "on clef"
   ces

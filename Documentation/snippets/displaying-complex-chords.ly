@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "chords, simultaneous-notes, workaround"
@@ -18,14 +18,14 @@ with different accidentals.
 } % begin verbatim
 
 fixA = {
-  \once \override Stem #'length = #9
+  \once \override Stem.length = #9
 }
 fixB = {
-  \once \override NoteHead #'X-offset = #1.7
-  \once \override Stem #'rotation = #'(45 0 0)
-  \once \override Stem #'extra-offset = #'(-0.2 . -0.2)
-  \once \override Flag #'style = #'no-flag
-  \once \override Accidental #'extra-offset = #'(4 . 0)
+  \once \override NoteHead.X-offset = #1.7
+  \once \override Stem.rotation = #'(45 0 0)
+  \once \override Stem.extra-offset = #'(-0.2 . -0.2)
+  \once \override Flag.style = #'no-flag
+  \once \override Accidental.extra-offset = #'(4 . 0)
 }
 
 \relative c' {

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -54,7 +54,7 @@ treble = \new Voice \relative c''{
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
         cis8
-	\revert Stem #'direction
+	\revert Stem.direction
 
 	a16[-5_( fis dis]
 	\ottava #0
@@ -72,7 +72,7 @@ treble = \new Voice \relative c''{
     r8 <a' a,>8(\mf <gis gis,> <fis fis,>
 
     % \fingerUp
-    \override Fingering  #'direction = #UP
+    \override Fingering.direction = #UP
 
     <gis gis,> <fis fis,> e)-1-4-5 r
 
@@ -88,7 +88,7 @@ trebleTwo = \new Voice \relative c''{
     \stemDown
     \slurDown
     % \fingerDown
-    \override Fingering  #'direction = #DOWN
+    \override Fingering.direction = #DOWN
     s2
     | %1
     s1*2
@@ -99,9 +99,9 @@ trebleTwo = \new Voice \relative c''{
     | %5
     s8 cis4. d4
     % fair to count as one tweak?
-    \override Fingering #'add-stem-support = ##t %tweak
-    \override Fingering #'padding = #0.15
-    \override Fingering #'slur-padding = #0.1
+    \override Fingering.add-stem-support = ##t %tweak
+    \override Fingering.padding = #0.15
+    \override Fingering.slur-padding = #0.1
     <cis e,>8[( <d,_3 b'_1>
     | %6
     <cis_1 a'_2>)] cis'4. d4
@@ -119,7 +119,7 @@ bass = \new Voice \relative c{
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
-    %\override Staff.SustainPedalLineSpanner #'staff-padding = #5 %tweak
+    %\override Staff.SustainPedalLineSpanner.staff-padding = #5 %tweak
 
     <cis cis,>4\sustainOn
     \change Staff=treble
@@ -154,7 +154,7 @@ bass = \new Voice \relative c{
     >>
 
     \grace {
-	\override Flag  #'stroke-style = #"grace"
+	\override Flag.stroke-style = #"grace"
 
         s8
         s16 s s
@@ -163,7 +163,7 @@ bass = \new Voice \relative c{
 	\clef bass
 	<e,,, e,>32(\sustainOff\sustainOn
 
-	\revert Flag #'stroke-style
+	\revert Flag.stroke-style
     }
     <gis' e>2)
 
@@ -171,10 +171,10 @@ bass = \new Voice \relative c{
     \slurUp
 
     % \fingerDown
-    \override Fingering  #'direction = #DOWN
+    \override Fingering.direction = #DOWN
 
 
-    %\override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
+    %\override Staff.SustainPedalLineSpanner.staff-padding = #3.5 %tweak
     \set Staff.pedalSustainStyle = #'mixed
     %%a,8 e'[-5(<a-2 cis-3>])
 
@@ -208,7 +208,7 @@ bassTwo = \new Voice \relative c{
 }
 
 middleDynamics = {
-    %\override Dynamics.TextScript  #'padding = #-1 %tweak
+    %\override Dynamics.TextScript.padding = #-1 %tweak
     s2
     s1*2
     | %4

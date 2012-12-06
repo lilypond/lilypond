@@ -40,20 +40,15 @@ set_rods (Drul_array<Interval> const &current_extents,
           Drul_array<Interval> const &previous_extents,
           Item *current_column,
           Item *previous_column,
-          Real min_length_fraction)
+          Real min_length)
 {
-  Direction d = UP;
-  do
+  for (UP_and_DOWN (d))
     {
       if (!current_extents[d].is_empty ()
           && !previous_extents[d].is_empty ())
         {
-          Real total_head_length = previous_extents[d].length ()
-                                   + current_extents[d].length ();
-
           Rod rod;
-          rod.distance_ = total_head_length
-                          * (3 / 2 * min_length_fraction)
+          rod.distance_ = 2 * min_length
                           /*
                             we go from right to left.
                           */
@@ -65,7 +60,6 @@ set_rods (Drul_array<Interval> const &current_extents,
           rod.add_to_cols ();
         }
     }
-  while (flip (&d) != DOWN);
 }
 
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
@@ -87,6 +81,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 
   Drul_array<Interval> current_extents;
   Drul_array<Interval> previous_extents;
+  Real current_head_width = 0.0;
   Item *previous_column = 0;
   Item *current_column = 0;
 
@@ -108,12 +103,17 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       if (staff_extent.contains (pos))
         continue;
 
+      /* Ambitus heads can appear out-of-order in heads[],
+       * but as part of prefatory matter, they need no rods */
+      if (h->internal_has_interface (ly_symbol2scm ("ambitus-interface")))
+        continue;
+
       Item *column = h->get_column ();
       if (current_column != column)
         {
           set_rods (current_extents, previous_extents,
                     current_column, previous_column,
-                    min_length_fraction);
+                    current_head_width * min_length_fraction);
 
           previous_column = current_column;
           current_column = column;
@@ -121,6 +121,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 
           current_extents[DOWN].set_empty ();
           current_extents[UP].set_empty ();
+          current_head_width = 0.0;
         }
 
       Interval head_extent = h->extent (column, X_AXIS);
@@ -129,12 +130,13 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
         continue;
 
       current_extents[vdir].unite (head_extent);
+      current_head_width = max (current_head_width, head_extent.length ());
     }
 
   if (previous_column && current_column)
     set_rods (current_extents, previous_extents,
               current_column, previous_column,
-              min_length_fraction);
+              current_head_width * min_length_fraction);
 
   return SCM_UNSPECIFIED;
 }

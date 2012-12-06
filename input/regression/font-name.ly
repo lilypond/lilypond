@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -13,11 +13,11 @@ without size specification."
 
 
 {
-  \override Score.PaperColumn #'keep-inside-line = ##f
-  \override Staff.TimeSignature  #'font-name = #"Times New Roman"
+  \override Score.PaperColumn.keep-inside-line = ##f
+  \override Staff.TimeSignature.font-name = #"Times New Roman"
   \time 3/4
   \set Score.skipBars = ##t
-  \override Staff.MultiMeasureRestText #'font-name = #"LuxiMono"
+  \override Staff.MultiMeasureRestText.font-name = #"LuxiMono"
   R1*21^"Rest in LuxiMono"
 
   c'1_\markup {

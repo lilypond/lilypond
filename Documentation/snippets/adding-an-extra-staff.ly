@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contexts-and-engravers, really-simple, staff-notation"
@@ -31,7 +31,7 @@ piece.
             c1 | d
           }
           \new Staff {
-            \once \override Staff.TimeSignature #'stencil = ##f
+            \once \override Staff.TimeSignature.stencil = ##f
             c1 | b
           }
         >>

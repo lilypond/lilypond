@@ -60,7 +60,7 @@ public:
 
   void clear ();
   void do_init_file ();
-  void do_yyparse ();
+  SCM do_yyparse ();
   void include_string (string ly_code);
   void parse_file (string init, string name, string out_name);
   void parse_string (string ly_code);
@@ -68,7 +68,7 @@ public:
   void parser_error (string);
   void parser_error (Input const &, string);
   // The following is called as yyerror
-  static void parser_error (Input const *i, Lily_parser *parser, string s);
+  static void parser_error (Input const *i, Lily_parser *parser, SCM *, string s);
   void set_yydebug (bool);
 
   SCM make_scope () const;

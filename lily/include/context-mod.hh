@@ -42,8 +42,6 @@ public:
   void add_context_mod (SCM);
   void add_context_mods (SCM);
 
-  VIRTUAL_COPY_CONSTRUCTOR (Context_mod, Context_mod);
-
   SCM get_mods () const;
 
   Context_mod ();

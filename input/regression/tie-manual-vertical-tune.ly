@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "If using integers, the tie will vertically tuned for
@@ -7,9 +7,9 @@ as the exact location."
 }
 
 \relative c'' {
-  \override Tie #'staff-position = #3
+  \override Tie.staff-position = #3
   d4 ~
-  \override Tie #'staff-position = #3.0
+  \override Tie.staff-position = #3.0
   d ~
   d
 }

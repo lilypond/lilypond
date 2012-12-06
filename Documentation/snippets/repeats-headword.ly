@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -30,7 +30,7 @@ Repeats headword
       \key df \major
       \time 2/4
       \set Score.currentBarNumber = #9
-      \bar "|:"
+      \bar ".|:"
       <af ef c>4 (
       <af gf c>8..
       <af ef c>32
@@ -84,7 +84,7 @@ Repeats headword
       \oneVoice
       r8
       \clef bass
-      \bar ":|"
+      \bar ":|."
    }
 
    \new Staff = LH {

@@ -3385,6 +3385,101 @@ def conv (str):
 def conv (str):
     return str
 
+@rule ((2, 17, 0), r"blank-*-force -> blank-*-penalty")
+def conv (str):
+    str = re.sub ('blank-page-force', 'blank-page-penalty', str)
+    str = re.sub ('blank-last-page-force', 'blank-last-page-penalty', str)
+    str = re.sub ('blank-after-score-page-force', 'blank-after-score-page-penalty', str)
+    return str
+
+
+@rule ((2, 17, 4), r"\shape Grob #offsets -> \shape #offsets Grob")
+def conv (str):
+    str = re.sub (r"\\shape(\s+(?:[a-zA-Z]+|" + matchstring + "))(" +
+                  matcharg + ")", r"\\shape\2\1", str)
+    return str
+
+barstring=r"(\\bar|whichBar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
+
+@rule ((2, 17, 5), r"New bar line interface")
+def conv(str):
+    str = re.sub (barstring + r'"\|:"', '\\1\\2".|:"', str)
+    str = re.sub (barstring + r'":\|"', '\\1\\2":|."', str)
+    str = re.sub (barstring + r'"\|\|:"', '\\1\\2".|:-||"', str)
+    str = re.sub (barstring + r'":\|:"', '\\1\\2":..:"', str)
+    str = re.sub (barstring + r'"\.\|\."', '\\1\\2".."', str)
+    str = re.sub (barstring + r'"\|S"', '\\1\\2"S-|"', str)
+    str = re.sub (barstring + r'"S\|"', '\\1\\2"S-S"', str)
+    str = re.sub (barstring + r'":\|S"', '\\1\\2":|.S"', str)
+    str = re.sub (barstring + r'":\|S\."', '\\1\\2":|.S-S"', str)
+    str = re.sub (barstring + r'"S\|:"', '\\1\\2"S.|:-S"', str)
+    str = re.sub (barstring + r'"\.S\|:"', '\\1\\2"S.|:"', str)
+    str = re.sub (barstring + r'":\|S\|:"', '\\1\\2":|.S.|:"', str)
+    str = re.sub (barstring + r'":\|S\.\|:"', '\\1\\2":|.S.|:-S"', str)
+    str = re.sub (barstring + r'":"', '\\1\\2";"', str)
+    str = re.sub (barstring + r'"\|s"', '\\1\\2"|-s"', str)
+    str = re.sub (barstring + r'"dashed"', '\\1\\2"!"', str)
+    str = re.sub (barstring + r'"kievan"', '\\1\\2"k"', str)
+    str = re.sub (barstring + r'"empty"', '\\1\\2"-"', str)
+    return str
+
+symbol_list = (r"#'(?:" + wordsyntax + r"|\(\s*(?:" + wordsyntax + r"\s+)*"
+               + wordsyntax + r"\s*\))")
+
+grob_path = r"(?:" + symbol_list + r"\s+)*" + symbol_list
+
+grob_spec = wordsyntax + r"(?:\s*\.\s*" + wordsyntax + r")?"
+
+def path_replace (m):
+    return m.group (1) + string.join (re.findall (wordsyntax, m.group (2)), ".")
+
+@rule ((2, 17, 6), r"""\accidentalStyle #'Context "style" -> \accidentalStyle Context.style
+\alterBroken "Context.grob" -> \alterBroken Context.grob
+\overrideProperty "Context.grob" -> \overrideProperty Context.grob
+\tweak Grob #'symbol -> \tweak Grob.symbol""")
+def conv (str):
+    def patrep (m):
+        def fn_path_replace (m):
+            x = string.join (re.findall (wordsyntax, m.group (2)), ".")
+            if x in ["TimeSignature", "KeySignature", "BarLine",
+                     "Clef", "StaffSymbol", "OttavaBracket",
+                     "LedgerLineSpanner"]:
+                x = "Staff." + x
+            return m.group (1) + x
+        if m.group (1):
+            return m.group (0)
+        x = m.group (2) + m.group (4)
+        
+        if m.group (3):
+            x = x + re.sub (r"(\s*)(" + symbol_list + ")", fn_path_replace,
+                            m.group (3))
+
+            if not m.group (5):
+                x = r"\single" + x
+        return x
+
+    str = re.sub (r'''(\\accidentalStyle\s+)#?"([-A-Za-z]+)"''',
+                  r"\1\2", str)
+    str = re.sub (r'''(\\accidentalStyle\s+)#'([A-Za-z]+)\s+#?"?([-A-Za-z]+)"?''',
+                  r"\1\2.\3", str)
+    str = re.sub (r'''(\\(?:alterBroken|overrideProperty)\s+)#?"([A-Za-z]+)\s*\.\s*([A-Za-z]+)"''',
+                  r"\1\2.\3", str)
+    str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
+                  r"\1\2.\3", str)
+    str = re.sub (r'''(\\tweak\s+)#'([-A-Za-z]+)''',
+                  r"\1\2", str)
+    str = re.sub ("(" + matchmarkup + ")|"
+                  + r"(\\footnote(?:\s*"
+                  + matchmarkup + ")?" + matcharg + ")(" + matcharg
+                  + r")?(\s+" + matchmarkup + r")(\s+\\default)?",
+                  patrep, str)
+    str = re.sub (r'''(\\alterBroken)(\s+[A-Za-z.]+)(''' + matcharg
+                  + matcharg + ")", r"\1\3\2", str)
+    str = re.sub (r"(\\overrideProperty\s+)(" + grob_spec + r"\s+" + grob_path + ")",
+                  path_replace, str)
+    str = re.sub (r"(\\(?:override|revert)\s+)(" + grob_spec + r"\s+" + grob_path + ")",
+                  path_replace, str)
+    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

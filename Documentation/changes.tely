@@ -35,28 +35,11 @@ See user manual, \NAME\
 
 @finalout
 
-@node Top, Fixes and changes after 2.16.0, (dir), (dir)
-@top New features in 2.16
-
-@menu
-* Fixes and changes after 2.16.0::
-* New features in 2.16 since 2.14::
-@end menu
-
+@node Top
+@top New features in 2.18 since 2.16
 
 @allowcodebreaks false
 
-@node Fixes and changes after 2.16.0, New features in 2.16 since 2.14, Top, Top
-@section Fixes and changes after 2.16.0
-@table @b
-@item 2.16.1
-Please refer to the bug tracker for
-@uref{http://code.google.com/p/lilypond/issues/list?can=1&q=Fixed_2_16_1,
-issues fixed in 2.16.1}.
-@end table
-
-@node New features in 2.16 since 2.14,  , Fixes and changes after 2.16.0, Top
-@section New features in 2.16 since 2.14
 @itemize
 
 @ignore
@@ -77,355 +60,84 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
-@item
-Support for cross-staff stems on chords, using @code{crossStaff}
-and the @code{Span_stem_engraver}.  This calculates the length of
-cross-staff stems automatically.
-@lilypondfile[quote]
-{cross-staff-stems.ly}
 
 @item
-The syntax of words (character sequences recognized without enclosing
-quotes) and commands (now always a backslash @samp{\} followed by a
-word) has been unified across all modes: it now consists of alphabetic
-characters, possibly enclosing isolated dashes @samp{-} and underlines
-@samp{_}.
+The @code{\clef} command supports optional octavation:
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
 
-As one consequence, using unquoted text scripts like (literally!)
+@item
+The LilyPond syntax of dot-separated words @code{Voice.Accidental}
+has been made interchangeable with @code{#'(Voice Accidental)}, a
+Scheme list of symbols.  As one result, code like
 @example
-@{ c-script c\f_script @}
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
 @end example
-will now tend to result in invalid music.  Omitting quote marks
-for arbitrary text rather than keywords has never been good practice or
-even documented, and it is unlikely to have seen significant use.
-
-Staying with established conventions (like not using dashes or
-underlines for command names intended to be used inside of music)
-remains advisable.  The reason for this change is more robust
-recognition of LilyPond's lexical units for LilyPond itself as well as
-external tools interpreting its syntax.
-
-@item
-Support for Kievan square notation:
-@lilypond[quote,relative=1,verbatim]
-\new KievanVoice {
-  \cadenzaOn
-  c d e f g a bes
-  \bar "kievan"
-}
-@end lilypond
-
-@item
-Augmentation dots now avoid the other voice in two-voice polyphony
-so that users can move the @code{Dot_column_engraver} to set dots
-independently for each @code{Voice}.
-@lilypond[quote]
-\layout {
-  \context {
-    \Staff
-    \remove Dot_column_engraver
-  } \context {
-    \Voice
-    \consists Dot_column_engraver
-  }
-}
-\relative c'' <<
-  { \time 6/8
-    <d f g>4. <d f g> <f, g> b
-  } \\ {
-    <f g b>4. <g b d> <b d> <e, g>
-  } >>
-@end lilypond
-
-@item
-A Scheme function to adjust the control points of curves such as slurs
-and ties, developed by several users, is now included in LilyPond.
-@lilypond[quote,verbatim,relative=2]
-g8->( bes,-.) d4
-\shape Slur #'((-0.5 . 1.5) (-3 . 0) (0 . 0) (0 . 0))
-g8->( bes,!-.) d4
-@end lilypond
-
-@item
-Use of @code{\tempo} specifications in @code{\midi} blocks (removed in
-2.9.16 in favor of explicit @code{tempoWholesPerMinute} settings) has
-seen a revival: now any kind of property-setting music is turned into
-context definitions within output specifications, allowing for
-declarations like
+is now equivalent to
 @example
-\layout @{ \accidentalStyle modern @}
-\midi @{ \tempo 4. = 66 @}
+\override Voice.TextSpanner bound-details.left.text = "rit."
+@end example
+or even
+@example
+\override #'(Voice TextSpanner) bound-details.left.text = "rit."
 @end example
 
 @item
-The LilyPond G clef has been redesigned - upper loop is now more balanced,
-bottom crook sticks out less and the "spine" (main vertical line) is more
-evenly curved. The old and new versions can be compared by looking at the
-documentation:
-@uref{http://lilypond.org/doc/v2.14/Documentation/notation/the-feta-font.html#clef-glyphs, old version},
-@uref{http://lilypond.org/doc/v2.15/Documentation/notation/the-feta-font.html#clef-glyphs, new version}.
+Grob and grob property path no longer need to be specified as two
+separate arguments to commands like @samp{\override} and
+@code{\revert}, allowing for the syntax
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+Since complementary music functions like @samp{\overrideProperty}
+cannot support forms with and without separating space at the same
+time, using a single dotted path is now the preferred form.
+Specifying grob path and grob property path separately, currently
+still supported with @samp{\override} and @samp{\revert} for
+compatibility reasons, is deprecated.
 
 @item
-Lilypond's stencil commands have been simplified to allow for less code
-duplication and better height approximations of graphical objects.  The
-following stencil commands have been eliminated:
-@itemize
-@item @code{beam}
-@item @code{bezier-sandwich}
-@item @code{bracket}
-@item @code{dashed-slur}
-@item @code{dot}
-@item @code{oval}
-@item @code{repeat-slash}
-@item @code{zigzag-line}
-@end itemize
+Due to words now being accepted as symbol function arguments, the
+interfaces of @samp{\accidentalStyle}, @samp{\alterBroken},
+@samp{\footnote} and @samp{\tweak} had to be redesigned where
+optional symbol arguments were involved.  Please check the
+respective music function documentation for details.
 
 @item
-Flags are now treated as separate objects rather than as stem parts.
-@lilypond[fragment,quote,relative=2]
-\override Flag #'color = #red
-g8
+Several commands now accept symbol lists (conveniently entered as
+dot-separated words) for various kinds of arguments.  These
+include @samp{\accidentalStyle}, @samp{\alterBroken},
+@samp{\footnote}, @samp{\hide}, @samp{\omit},
+@samp{\overrideProperty}, @samp{\shape}, and @samp{\tweak}.
+
+@item
+The bar line user interface has changed. Bar glyphs now resemble the
+appearance of the bar line, so a left repeat sign has to be coded
+as @code{.|:}. The command @code{\defineBarLine} provides an easy way
+to define additional bar line styles.
+
+@item
+Accidentals in the key signature may be printed in octaves other
+than their traditional positions, or in multiple octaves.
+@lilypond[quote,relative=0]
+\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+\override Staff.KeySignature #'sharp-positions = #'(2)
+\bar "||" \key d\major b fis b2
 @end lilypond
-
-@item
-Two alternative methods for bar numbering can be set, especially for
-when using repeated music;
-
-@lilypond[fragment,quote,relative=1,noragged-right]
-\relative c'{
-  \set Score.alternativeNumberingStyle = #'numbers
-  \repeat volta 3 { c4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1 \break
-  \set Score.alternativeNumberingStyle = #'numbers-with-letters
-  \repeat volta 3 { c,4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1
-}
-@end lilypond
-
-@item
-The following is a fundamental change in LilyPond's music
-representation: Rhythmic events like @code{LyricEvent} and
-@code{NoteEvent} are no longer wrapped in @code{EventChord} unless they
-have been actually entered as part of a chord in the input.  If you
-manipulate music expressions in Scheme, the new behavior may require
-changes in your code.  Calling the music function @code{\eventChords} or
-the Scheme function @code{event-chord-wrap!}  converts to the old
-representation; using one of those might be easiest for keeping legacy
-code operative.
-
-The following three items are consequences of this change.
-
-@item
-The repetitive chord entry aid @code{q} has been reimplemented.
-Repeated chords are now replaced right before interpreting a music
-expression.  In case the user wants to retain some events of the
-original chord, he can run the repeat chord replacement function
-@code{\chordRepeats} manually.
-
-@item
-String numbers and right hand fingerings on single notes now appear
-without having to be written inside of chord brackets.
-
-@item
-Music functions now work the same when used inside or outside of chords,
-including all the possibilities of argument parsing.  Music variables
-can be used inside of chords: a construct like
-@lilypond[verbatim,quote,ragged-right]
-tonic=fis'
-{ <\tonic \transpose c g \tonic> }
-@end lilypond
-@noindent
-now works as expected.  One can use @code{#@{@dots{}#@}} for
-constructing chord constituents.  @code{\tweak} now works on single
-notes without needing to wrap them in a chord.  Using it on command
-events and lyrics is now possible, but not likely to give results yet.
-
-@item
-@code{\tweak} now takes an optional layout object specification.  It can
-be used for tweaking layout objects that are only indirectly caused by
-the tweaked event, like accidentals, stems, and flags:
-
-@lilypond[verbatim,quote,ragged-right,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
-                                  g>
-@end lilypond
-
-@item
-Scheme expressions inside of embedded Lilypond (@code{#@{@dots{}#@}})
-are now executed in lexical closure of the surrounding Scheme code.
-@code{$} is no longer special in embedded Lilypond.  It can be used
-unconditionally in Lilypond code for immediate evaluation of Scheme
-expressions, similar to how @code{ly:export} could previously be used.
-@code{ly:export} has been removed.  As a consequence, @code{#} is now
-free to delay evaluation of its argument until the parser actually
-reduces the containing expression, greatly reducing the potential for
-premature evaluation.  There are also @q{splicing} operators @code{$@@}
-and @code{#@@} for interpreting the members of a list individually.
-
-@item
-To reduce the necessity for using @code{$}, Scheme expressions written
-with @code{#} are interpreted as music inside of music lists, and as
-markups or markup lists inside of markups.
-
-@item
-Support for jazz-like chords has been improved: Lydian and altered
-chords are recognised; separators between chord modifiers are now
-treated independently of separators between ``slash'' chords and their
-bass notes (and by default, slashes are now only used for the latter
-type of separator); additional pitches are no longer prefixed with
-``add'' by default; and the ``m'' in minor chords can be customized.
-@ruser{Customizing chord names} for more information.
-
-@item
-The @code{\markuplines} command has been renamed to @code{\markuplist}
-for a better match with its semantics and general Lilypond
-nomenclature.
-
-@item
-The interface for specifying string tunings in tablature has been
-simplified considerably and employs the scheme function
-@code{\stringTuning} for most purposes.
-
-@item
-Beams can now have their slopes preserved over line breaks.
-@lilypond[fragment,quote,relative=2]
-\override Beam #'breakable = ##t
-a8[ b c d e f g \bar "" \break f e d c b a]
-\once \override Beam #'positions = #beam::align-with-broken-parts
-a8[ b c d e f g \bar "" \break f e d c b a]
-\once \override Beam #'positions = #beam::slope-like-broken-parts
-a8[ b c d e f g \bar "" \break f e d c b a]
-@end lilypond
-To do this, several callback functions are now deprecated.
-@itemize
-@item @code{ly:beam::calc-least-squares-positions}
-@item @code{ly:beam::slope-damping}
-@item @code{ly:beam::shift-region-to-valid}
-@end itemize
-Furthermore, @code{ly:beam::quanting} now takes an additional argument
-to help calculations over line breaks.  All of these functions are now
-automatically called when setting the @code{positions} parameter.
-
-@item
-In function arguments music, markups and Scheme expressions (as well as
-several other syntactic entities) have become mostly interchangeable and
-are told apart only by evaluating the respective predicate.  In several
-cases, the predicate is consulted by the parser, like when deciding
-whether to interpret @code{-3} as a number or a fingering event.
-
-@item
-Music functions (and their close relatives) can now be defined with
-optional arguments.
-
-@item
-For defining commands executed only for their side-effects,
-@code{define-void-function} is now available.
-
-@item
-There is a new @code{define-event-function} command in analogy to
-@code{define-music-function} that can be used for defining music
-functions acting as post events without requiring a direction specifier
-(@code{-}, @code{^}, or @code{_}) placed before them.
-@lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
-         (make-dynamic-script arg))
-\relative c' { c\dyn pfsss }
-@end lilypond
-
-@item
-A list of ASCII aliases for special characters can be included.
-@lilypond[quote,verbatim]
-\paper {
-  #(include-special-characters)
-}
-\markup "&bull; &dagger; &copyright; &OE; &ss; &para;"
-@end lilypond
-
-@item
-There is a new @code{define-scheme-function} command in analogy to
-@code{define-music-function} that can be used to define functions
-evaluating to Scheme expressions while accepting arguments in Lilypond
-syntax.
-
-@item
-The construct @code{#@{ @dots{} #@}} can now be used not just for
-constructing sequential music lists, but also for pitches (distinguished
-from single note events by the absence of a duration or other
-information that can't be part of a pitch), single music events, void
-music expressions, post events, markups (mostly freeing users from
-having to use the @code{markup} macro), markup lists, number
-expressions, context definitions and modifications, and a few other
-things.  If it encloses nothing or only a single music event, it no
-longer returns a sequential music list but rather a void music
-expression or just the music event itself, respectively.
-
-@item
-Pitches can be used on the right side of assignments.  They are
-distinguished from single note events by the absence of a duration or
-other information that can't be part of a pitch.
-
-@item
-New command-line option @option{--loglevel=@var{level}} to control how much output
-LilyPond creates. Possible values are ERROR, WARN, BASIC_PROGRESS, PROGRESS, DEBUG.
-
-@item
-@code{\once \set} now correctly resets the property value to the previous value.
-@lilypond[fragment,quote,relative=2]
-  \set fingeringOrientations = #'(left)
-  <e-1>4
-  \once \set fingeringOrientations = #'(right)
-  <e-1>
-  <e-1>-"left"
-@end lilypond
-
-@item
-The alignment of dynamic spanners (hairpins, text crescendo, etc.) is now
-automatically broken if a different direction is explicitly given.
-@lilypond[fragment,quote,relative=2]
-c4_\< c c^\> c c1_\p
-@end lilypond
-
-
-@item
-Appoggiaturas and acciaccaturas now also work inside a slur, not only inside
-a phrasing slur. Also, a function @code{\slashedGrace} was added that does
-not use a slur from the acciaccatura note.
-@lilypond[fragment,quote,relative=2]
-c4( \appoggiatura e8 d4 \acciaccatura e8 d4 \slashedGrace e8 c4)
-@end lilypond
-
-
-@item
-To suppress the line on a crescendo text spanner (and other similar spanners),
-LilyPond now fully supports the @code{#'style = #'none} property.
-@lilypond[fragment,quote,relative=2]
-\override DynamicTextSpanner #'style = #'none
-c4\cresc c c g, c'\p
-@end lilypond
-
-@item
-LilyPond.app now supports MacOS X 10.7, thanks Christian Hitz!
-
-@item
-Glissandi can now span multiple lines.
 
 @end itemize
 
 @ifhtml
 For older news, go to
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
-@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS.html},
 or @uref{../,go back} to the Documentation index.
 
 

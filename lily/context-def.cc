@@ -93,6 +93,9 @@ Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
 
   scm_puts ("#<Context_def ", port);
   scm_display (me->context_name_, port);
+  scm_puts (" ", port);
+  string loc = me->origin ()->location_string ();
+  scm_puts (loc.c_str (), port);
   scm_puts (">", port);
   return 1;
 }

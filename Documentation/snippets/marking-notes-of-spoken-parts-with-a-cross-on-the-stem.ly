@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contemporary-notation, editorial-annotations, vocal-music, workaround"
@@ -20,7 +20,7 @@ a spoken section with the @code{\\speakOn} keyword, and end it with the
 
 
 speakOn = {
-  \override Stem #'stencil =
+  \override Stem.stencil =
     #(lambda (grob)
        (let* ((x-parent (ly:grob-parent grob X))
               (is-rest? (ly:grob? (ly:grob-object x-parent 'rest))))
@@ -37,8 +37,8 @@ speakOn = {
 }
 
 speakOff = {
-  \revert Stem #'stencil
-  \revert Flag #'stencil
+  \revert Stem.stencil
+  \revert Flag.stencil
 }
 
 \score {

@@ -72,6 +72,9 @@ public:
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (pure_rest_collision_callback, (SCM element, SCM, SCM, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_beam_gap, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_springs_and_rods, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_minimum_length, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_shorten, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
@@ -89,6 +92,7 @@ public:
 private:
   friend class Beam_scoring_problem;
 
+  static bool whole_note_close_chord_tremolo (Grob *me);
   static Direction get_default_dir (Grob *);
   static vector<Beam_segment> get_beam_segments (Grob *);
   static void set_stem_directions (Grob *, Direction);

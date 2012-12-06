@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, text, vocal-music"
 
   texidoc = "
 Lyrics can be moved vertically to place them inside the staff.  The
-lyrics are moved with @code{\\override LyricText #'extra-offset = #'(0
+lyrics are moved with @code{\\override LyricText.extra-offset = #'(0
 . dy)} and there are similar commands to move the extenders and
 hyphens.  The offset needed is established with trial and error.
 
@@ -24,8 +24,8 @@ hyphens.  The offset needed is established with trial and error.
     \new Voice = "voc" \relative c' { \stemDown a bes c8 b c4 }
   >>
   \new Lyrics \with {
-    \override LyricText #'extra-offset = #'(0 . 8.6)
-    \override LyricExtender #'extra-offset = #'(0 . 8.6)
-    \override LyricHyphen #'extra-offset = #'(0 . 8.6)
+    \override LyricText.extra-offset = #'(0 . 8.6)
+    \override LyricExtender.extra-offset = #'(0 . 8.6)
+    \override LyricHyphen.extra-offset = #'(0 . 8.6)
   } \lyricsto "voc" { La la -- la __ _ la }
 >>

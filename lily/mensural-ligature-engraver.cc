@@ -57,16 +57,20 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 
 protected:
   virtual Spanner *create_ligature_spanner ();
-  virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
+  virtual void build_ligature (Spanner *ligature,
+                               vector<Grob_info> const &primitives);
   DECLARE_TRANSLATOR_LISTENER (ligature);
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (vector<Grob_info> primitives);
-  void propagate_properties (Spanner *ligature, vector<Grob_info> primitives);
-  void fold_up_primitives (vector<Grob_info> primitives);
+  void transform_heads (vector<Grob_info> const &primitives);
+  void propagate_properties (Spanner *ligature,
+                             vector<Grob_info> const &primitives,
+                             Real &min_length);
+  void fold_up_primitives (vector<Grob_info> const &primitives,
+                           Real &min_length);
 };
 
 IMPLEMENT_TRANSLATOR_LISTENER (Mensural_ligature_engraver, ligature);
@@ -89,7 +93,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
+Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -336,7 +340,8 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
  */
 void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
-                                                  vector<Grob_info> primitives)
+                                                  vector<Grob_info> const &primitives,
+                                                  Real &min_length)
 {
   Real thickness
     = robust_scm2double (ligature->get_property ("thickness"), 1.3);
@@ -350,6 +355,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
     = Font_interface::get_default_font (ligature)->
       find_by_name ("noteheads.sM3ligmensural").extent (X_AXIS).length ();
 
+  min_length = 0.0;
   Item *prev_primitive = NULL;
   for (vsize i = 0; i < primitives.size (); i++)
     {
@@ -362,9 +368,11 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
         {
         case MLP_BREVIS:
         case MLP_LONGA:
+          min_length += head_width;
           primitive->set_property ("head-width", scm_from_double (head_width));
           break;
         case MLP_MAXIMA:
+          min_length += maxima_head_width;
           primitive->set_property ("head-width",
                                    scm_from_double (maxima_head_width));
           break;
@@ -377,6 +385,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
           {
             SCM flexa_scm = primitive->get_property ("flexa-width");
             Real const flexa_width = robust_scm2double (flexa_scm, 2.0);
+            min_length += flexa_width + thickness;
             SCM head_width = scm_from_double (0.5 * (flexa_width + thickness));
             primitive->set_property ("head-width", head_width);
             prev_primitive->set_property ("head-width", head_width);
@@ -393,7 +402,8 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
+Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitives,
+                                                Real &min_length)
 {
   Item *first = 0;
   Real distance = 0.0;
@@ -416,7 +426,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
       Real head_width = scm_to_double (current->get_property ("head-width"));
       distance += head_width - thickness;
 
-      if (Rhythmic_head::dot_count (current) > 0)
+      if (size_t const dot_count = Rhythmic_head::dot_count (current))
         /*
           Move dots above/behind the ligature.
           dots should also avoid staff lines.
@@ -452,6 +462,8 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
               else if (delta == 1 || delta == -1)
                 vert_shift -= delta * staff_space;
             }
+          else
+            min_length += head_width * dot_count;
 
           dot_gr->translate_axis (vert_shift, Y_AXIS);
 
@@ -466,11 +478,21 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
 
 void
 Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-                                            vector<Grob_info> primitives)
+                                            vector<Grob_info> const &primitives)
 {
+  /*
+    the X extent of the actual graphics representing the ligature;
+    less space than that means collision
+  */
+  Real min_length;
+
   transform_heads (primitives);
-  propagate_properties (ligature, primitives);
-  fold_up_primitives (primitives);
+  propagate_properties (ligature, primitives, min_length);
+  fold_up_primitives (primitives, min_length);
+
+  if (robust_scm2double (ligature->get_property ("minimum-length"), 0.0)
+      < min_length)
+    ligature->set_property ("minimum-length", scm_from_double (min_length));
 }
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);

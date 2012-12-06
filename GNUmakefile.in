@@ -6,10 +6,10 @@ SUBDIRS = python scripts \
 	flower lily \
 	mf ly \
 	tex ps scm \
-	po make \
+	po \
 	elisp vim \
 	input \
-	stepmake $(documentation-dir)
+	$(documentation-dir)
 
 
 ## this convoluted construction is necessary, since we don't know the
@@ -17,7 +17,7 @@ SUBDIRS = python scripts \
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
-README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP THANKS HACKING \
+README_FILES = COPYING COPYING.FDL DEDICATION ROADMAP HACKING \
   LICENSE LICENSE.DOCUMENTATION
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
@@ -26,11 +26,9 @@ IN_FILES := $(call src-wildcard,*.in)
 RELEASE_FILES = ChangeLog RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 OUT_DIST_FILES += $(RELEASE_OUT_FILES)
-EXTRA_DIST_FILES = VERSION .gitignore .mailmap \
-  $(README_FILES) $(SCRIPTS) $(IN_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
-
+GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
 # bootstrap stepmake:
 #
 STEPMAKE_TEMPLATES=toplevel po install
@@ -40,7 +38,36 @@ include $(depth)/make/stepmake.make
 
 .PHONY: test info website
 
-local-dist: refresh-release-files dist-toplevel-txt-files
+dist: local-dist $(GENERATED_BUILD_FILES) top-doc refresh-release-files .gitfilelist
+	@cd $(top-src-dir) && \
+	  if test -n "`find . -name .git`" -a '(' -n "`git diff HEAD | head -1`" \
+	    -o -n "`git status | grep -i untracked`" ')'; \
+	  then echo "***   dist must been rolled on a clean git tree;"; \
+	  echo "uncommitted changes or untracked files detected, aborting."; \
+	  exit 1; fi
+	rm -rf $(distdir)
+	$(MAKE) local-dist $(distdir)
+	chmod -R a+r $(distdir)
+	chmod  a+x `find $(distdir) -type d -print`
+	$(LN) $(TOPDOC_TXT_FILES) $(distdir)
+	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) .gitfilelist $(distdir)
+	cd $(top-src-dir) && xargs $(buildscript-dir)/mass-link hard . $(distdir) <$(top-build-dir)/.gitfilelist
+	if test -n "`find $(top-src-dir) -name .git`"; then \
+	  COMMIT_DATE=`git --git-dir=$(top-src-dir)/.git log -1 --format=%cD`; \
+	  find $(distdir) | xargs touch -d "$$COMMIT_DATE"; fi
+	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+	rm -rf $(distdir)
+
+ifneq ($(shell find $(top-src-dir) -name .git),)
+.gitfilelist: $(top-src-dir)/.git/index
+	cd $(top-src-dir) && git ls-files >$(top-build-dir)/$@
+local-clean-filelist:
+	rm -f .gitfilelist
+else
+.gitfilelist: $(src-dir)/.gitfilelist
+	cp $< $@
+local-clean-filelist:
+endif
 
 all: $(outdir)/VERSION
 
@@ -65,15 +92,10 @@ python-modules:
 
 top-doc: python-modules
 
-local-clean: local-clean-ChangeLog
+local-clean: local-clean-ChangeLog local-clean-filelist
 
 local-clean-ChangeLog:
 	rm -f ChangeLog
-
-dist-toplevel-txt-files: top-doc
-	-mkdir -p $(distdir)
-	ln $(TOPDOC_TXT_FILES) $(distdir)
-	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)
 
 info:
 	$(foreach d, $(INFO_DIRECTORIES),$(MAKE) -C $(d) out=www info && ) true
@@ -285,32 +307,9 @@ test:
 	$(MAKE) -C input/regression/abc2ly out=test local-test
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
 
-ifndef BASELINE_COMMIT
-BASELINE_COMMIT:=HEAD
-endif
-
-ifdef LILYPOND_BASELINES
-BASELINE_ARCHIVE:=$(LILYPOND_BASELINES)/baseline-$(shell git rev-list -1 $(BASELINE_COMMIT)).tar.gz
-
-test-baseline: $(BASELINE_ARCHIVE)
-	tar xzf $(BASELINE_ARCHIVE)
-	$(MAKE) test-snippets-clean
-
-$(BASELINE_ARCHIVE):
-	$(MAKE) test-baseline-create
-	tar czf $(BASELINE_ARCHIVE) input/regression/out-test-baseline \
-		input/regression/midi/out-test-baseline \
-		input/regression/musicxml/out-test-baseline \
-		input/regression/abc2ly/out-test-baseline \
-		input/regression/lilypond-book/out-test-baseline
-else
-test-baseline: test-baseline-create
-	$(MAKE) test-snippets-clean
-endif
-
-test-baseline-create:
+test-baseline:
 	@if test -d .git ; then \
-		$(if $(shell git diff $(BASELINE_COMMIT)), echo "commit before base lining" && false,true) ; \
+		$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
 	fi
 	$(MAKE)
 	$(MAKE) test
@@ -319,6 +318,8 @@ test-baseline-create:
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
 	$(MAKE) out=test -C input/regression/abc2ly local-test-baseline
 	$(MAKE) out=test -C input/regression/lilypond-book local-test-baseline
+	$(MAKE) test-snippets-clean
+
 
 local-check: test
 	rm -rf $(RESULT_DIR)

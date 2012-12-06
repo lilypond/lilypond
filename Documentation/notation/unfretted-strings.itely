@@ -60,14 +60,14 @@ in @ref{Fingering instructions}.
 see @ref{Chorded notes}.  Directives for playing chords may be
 added, see @ref{Arpeggio}.
 
-@item A template for a string quartet can be found in
-@rlearning{String quartet}.  Others are shown in the snippets.
+@item Templates for string quartets can be found in
+@rlearning{String quartet templates}.  Others are shown in the snippets.
 
 @end itemize
 
 @seealso
 Learning Manual:
-@rlearning{String quartet}.
+@rlearning{String quartet templates}.
 
 Notation Reference:
 @ref{Text scripts},

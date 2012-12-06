@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="
@@ -29,7 +29,7 @@ string thickness.
                                      (barre 5 1 3))}
 
      %% C major for guitar,  verbose style
-    \once \override TextScript #'thickness = #1.5 
+    \once \override TextScript.thickness = #1.5 
     c'1 ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -40,8 +40,7 @@ string thickness.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \once \override TextScript #'fret-diagram-details
-      #'string-thickness-factor = #0.3
+    \once \override TextScript.fret-diagram-details.string-thickness-factor = #0.3
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)

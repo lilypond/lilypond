@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Text
 @section Text
@@ -124,7 +124,7 @@ margins requires additonal calculations. In cases where slightly faster
 performance is desired, use
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 
@@ -140,7 +140,7 @@ multiple notes with dotted lines.  Such objects, called
 following syntax:
 
 @lilypond[verbatim,quote,relative=2]
-\override TextSpanner #'(bound-details left text) = "rit."
+\override TextSpanner.bound-details.left.text = "rit."
 b1\startTextSpan
 e,\stopTextSpan
 @end lilypond
@@ -155,7 +155,7 @@ obtained using @code{\markup} blocks, as described in
 @ref{Formatting text}.
 
 @lilypond[quote,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text) =
+\override TextSpanner.bound-details.left.text =
   \markup { \upright "rit." }
 b1\startTextSpan c
 e,\stopTextSpan
@@ -1403,12 +1403,12 @@ series and sizes.  The value supplied to @code{font-size} is the
 required change from the default size.
 
 @lilypond[quote,verbatim,relative=2]
-\override Score.RehearsalMark #'font-family = #'typewriter
+\override Score.RehearsalMark.font-family = #'typewriter
 \mark \markup "Ouverture"
-\override Voice.TextScript #'font-shape = #'italic
-\override Voice.TextScript #'font-series = #'bold
+\override Voice.TextScript.font-shape = #'italic
+\override Voice.TextScript.font-series = #'bold
 d2.^\markup "Allegro"
-\override Voice.TextScript #'font-size = #-3
+\override Voice.TextScript.font-size = #-3
 c4^smaller
 @end lilypond
 
@@ -1459,8 +1459,8 @@ Any font that is installed on the operating system and recognized by
 FontConfig may be used in a score, using the following syntax:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.TimeSignature #'font-name = #"Bitstream Charter"
-\override Staff.TimeSignature #'font-size = #2
+\override Staff.TimeSignature.font-name = #"Bitstream Charter"
+\override Staff.TimeSignature.font-size = #2
 \time 3/4
 
 a1_\markup {

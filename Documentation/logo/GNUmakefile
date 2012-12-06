@@ -2,7 +2,6 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation
 XPM_FILES=$(call src-wildcard,*.xpm)
-EXTRA_DIST_FILES= $(XPM_FILES)
 
 lilypond-icon = $(outdir)/lilypond.ico
 ly-icon = $(outdir)/ly.ico

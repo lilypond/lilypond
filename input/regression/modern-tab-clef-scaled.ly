@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header{ texidoc = "The sans serif style tab clef is automatically adjusted to
                     different string spacings."
@@ -32,7 +32,7 @@ guitar = \relative c {
     \new TabStaff {
       \clef "moderntab"
       \set TabStaff.stringTunings = #guitar-tuning
-      \override TabStaff.StaffSymbol #'staff-space = #1.0 % default value is 1.5
+      \override TabStaff.StaffSymbol.staff-space = #1.0 % default value is 1.5
       \guitar
     }
   >>

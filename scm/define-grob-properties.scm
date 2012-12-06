@@ -108,6 +108,7 @@ default length of the beamlet to the right.  The actual length of a
 beamlet is determined by taking either the default length or the
 length specified by @code{beamlet-max-length-proportion}, whichever is
 smaller.")
+     (beam-gap ,number-pair? "Size of a gap in a @code{Beam}.")
      (beamlet-max-length-proportion ,pair? "The maximum length of a
 beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger
@@ -200,6 +201,9 @@ this grob looks as a continued break.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
+     (count-from ,integer? "The first measure in a measure count
+receives this number.  The following measures are numbered in
+increments from this initial value.")
 
 ;;
 ;; d
@@ -276,16 +280,20 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
-     (extra-X-extent ,number-pair? "A grob is enlarged in
-X@tie{}dimension by this much.")
-     (extra-Y-extent ,number-pair? "A grob is enlarged in
-Y@tie{}dimension by this much.")
 
 
 ;;
 ;; f
 ;;
      (flag-count ,number? "The number of tremolo beams.")
+     (flat-positions ,list? "Flats in key signatures are placed
+within the specified ranges of staff-positions.  The general form
+is a list of pairs, with one pair for each type of clef, in order
+of the staff-position at which each clef places C:
+@code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+If the list contains a single element it applies for all clefs.
+A single number in place of a pair sets accidentals within the octave
+ending at that staff-position.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -424,8 +432,15 @@ read from the NonMusicalPaperColumn that begins the measure.")
 by glissandi?")
      (glyph ,string? "A string determining what @q{style} of glyph is
 typeset.  Valid choices depend on the function that is reading this
-property.")
-     (glyph-name ,string? "The glyph name within the font.")
+property.
+
+In combination with (span) bar lines, it is a string resembling the
+bar line appearance in ASCII form.")
+     (glyph-name ,string? "The glyph name within the font.
+
+In the context of (span) bar lines, @var{glyph-name} represents
+a processed form of @code{glyph}, where decisions about line breaking
+etc. are already taken.")
      (glyph-name-alist ,list? "An alist of key-string pairs.")
      (graphical ,boolean? "Display in graphical (vs. text) form.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
@@ -660,6 +675,24 @@ is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
 this grob and the staff when spacing according to
 @code{outside-staff-priority}.")
+     (outside-staff-placement-directive ,symbol? "One of four directives
+telling how outside staff objects should be placed.
+@itemize @bullet
+@item
+@code{left-to-right-greedy} -- Place each successive grob from left to
+right.
+@item
+@code{left-to-right-polite} -- Place a grob from left to right only if
+it does not potentially overlap with another grob that has been placed
+on a pass through a grob array. If there is overlap, do another pass to
+determine placement.
+@item
+@code{right-to-left-greedy} -- Same as @code{left-to-right-greedy}, but
+from right to left.
+@item
+@code{right-to-left-polite} -- Same as @code{left-to-right-polite}, but
+from right to left.
+@end itemize")
      (outside-staff-priority ,number? "If set, the grob is positioned
 outside the staff in such a way as to avoid all collisions.  In case
 of a potential collision, the grob with the smaller
@@ -722,6 +755,7 @@ of an object (e.g., between note and its accidentals).")
      (rotation ,list? "Number of degrees to rotate this object, and
 what point to rotate around.  For example, @code{'(45 0 0)} rotates
 by 45 degrees around the center of this object.")
+     (rounded ,boolean? "Decide whether lines should be drawn rounded or not.")
      (round-up-to-longer-rest ,boolean? "Displays the longer multi-measure
 rest when the length of a measure is between two values of
 @code{usable-duration-logs}.  For example, displays a breve instead of a whole
@@ -735,14 +769,24 @@ in a 3/2 measure.")
 for stems that are placed in tight configurations.  This amount is
 used for stems with the same direction to compensate for note head to
 stem distance.")
-     (script-priority ,number? "A sorting key that determines in what
-order a script is within a stack of scripts.")
+     (script-priority ,number? "A key for determining the order of
+scripts in a stack, by being added to the position of the script in
+the user input, the sum being the overall priority.  Smaller means
+closer to the head.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
 values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
+     (sharp-positions ,list? "Sharps in key signatures are placed
+within the specified ranges of staff-positions.  The general form
+is a list of pairs, with one pair for each type of clef, in order
+of the staff-position at which each clef places C:
+@code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+If the list contains a single element it applies for all clefs.
+A single number in place of a pair sets accidentals within the octave
+ending at that staff-position.")
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive
 values shorten the text-spanner, while negative values lengthen it.")
@@ -943,7 +987,6 @@ positioning?")
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
 
-
 ;;
 ;; w
 ;;
@@ -1053,8 +1096,6 @@ in addition to notes and stems.")
 a whole system.")
      (footnotes-after-line-breaking ,ly:grob-array? "Footnote grobs of
 a broken system.")
-     (full-score-pure-minimum-translations ,list? "A list of translations
-for a full score's worth of grobs.")
 
      (glissando-index ,integer? "The index of a glissando in its note
 column.")
@@ -1079,6 +1120,8 @@ empty in a particular staff, then that staff is erased.")
 for this column.")
 
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
+     (minimum-translations-alist ,list? "An list of translations for a given
+start and end point.")
 
      (neighbors ,ly:grob-array? "The X-axis neighbors of a grob. Used by the
 pure-from-neighbor-interface to determine various grob heights.")
@@ -1108,8 +1151,6 @@ relevant for finding the @code{pure-Y-extent}.")
 
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
-     (skyline-quantizing ,index? "The number of boxes to break a
-slur into when calculating its skyline.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
@@ -1134,6 +1175,11 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplet-start ,boolean? "Is stem at the start of a tuplet?")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
+
+     (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
+     (vertical-skyline-elements ,ly:grob-array? "An array of grobs
+used to create vertical skylines.")
+
      (X-colliding-grobs ,ly:grob-array? "Grobs that can collide
 with a self-aligned grob on the X-axis.")
      (Y-colliding-grobs ,ly:grob-array? "Grobs that can collide

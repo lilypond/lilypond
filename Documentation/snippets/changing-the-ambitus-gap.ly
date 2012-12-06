@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "pitches"
@@ -31,18 +31,18 @@ It is possible to change the default gap setting for ambitus.
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine #'gap = #0
+  \override AmbitusLine.gap = #0
   c'4 g''
 }
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine #'gap = #1
+  \override AmbitusLine.gap = #1
   c'4 g''
 }
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine #'gap = #1.5
+  \override AmbitusLine.gap = #1.5
   c'4 g''
 }

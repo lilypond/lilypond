@@ -30,14 +30,13 @@
 % chord-shape-table
 
 addChordShape =
-#(define-music-function (parser location key-symbol tuning shape-definition)
+#(define-void-function (parser location key-symbol tuning shape-definition)
    (symbol? pair? string-or-pair?)
    (_i "Add chord shape @var{shape-definition} to the @var{chord-shape-table}
 hash with the key @code{(cons @var{key-symbol} @var{tuning})}.")
    (hash-set! chord-shape-table
                (cons key-symbol tuning)
-               shape-definition)
-   (make-music 'SequentialMusic 'void #t))
+               shape-definition))
 
 #(define (chord-shape shape-code tuning)
    (get-chord-shape shape-code tuning chord-shape-table))
@@ -62,7 +61,7 @@ table @code{rest}."
 % fretboard-table
 
 storePredefinedDiagram =
-#(define-music-function
+#(define-void-function
    (parser location fretboard-table chord tuning diagram-definition)
    (hash-table? ly:music? pair? string-or-pair?)
   (_i "Add predefined fret diagram defined by @var{diagram-definition}
@@ -75,5 +74,4 @@ storePredefinedDiagram =
                                  diagram-definition)))
   (hash-set! fretboard-table
              hash-key
-             verbose-definition)
-  (make-music 'SequentialMusic 'void #t)))
+             verbose-definition)))

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, workaround"
@@ -21,7 +21,7 @@ objects in parentheses.  The associated grob is @code{ParenthesesItem}.
 
 \relative c' {
   c2-\parenthesize ->
-  \override ParenthesesItem #'padding = #0.1
-  \override ParenthesesItem #'font-size = #-4
+  \override ParenthesesItem.padding = #0.1
+  \override ParenthesesItem.font-size = #-4
   <d \parenthesize f a>2
 }

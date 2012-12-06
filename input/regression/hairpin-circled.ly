@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -10,9 +10,9 @@ followed by a crescendo al niente should only print one circle."
 \layout { ragged-right = ##t } 
 
 \relative c'' {
-  \override Hairpin #'circled-tip = ##t
+  \override Hairpin.circled-tip = ##t
   c1\< d\! d\> c\!
-  \override Hairpin #'to-barline = ##f
+  \override Hairpin.to-barline = ##f
   e\> c\< d\! \break
   c\< \break
   e d\! c\> \break

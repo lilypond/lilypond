@@ -1,12 +1,9 @@
-.PHONY : all clean bin-clean config default dist exe help html lib TAGS\
+.PHONY : all clean bin-clean default dist exe help html lib TAGS\
 	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
 	 log-clean
 
 all:	 default
 	$(LOOP)
-
-bin:
-	$(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C lily
 
 man:
 	$(LOOP)
@@ -33,26 +30,6 @@ dist:
 	$(MAKE) -C $(depth) dist
 endif
 
-distclean: clean
-	$(MAKE) local-distclean
-
-cvs-clean:
-	$(MAKE) local-distclean
-	rm -rf out
-	rm -rf out-www
-	rm -f aclocal.m4 configure
-
-maintainerclean:
-	$(LOOP)
-	$(MAKE)	local-maintainerclean
-	$(MAKE) local-distclean
-
-
-# This doesn't allow command-line options, is it really useful? -jm
-config:
-	./$(src-depth)/configure
-
-
 generic-help:
 	@echo "Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)"
 	@echo "Usage: make ["VARIABLE=value"]... [TARGET]"
@@ -69,32 +46,27 @@ help: generic-help local-help
 	@echo "  doc-clean    clean \`out-www' directory"
 	@echo "  install      install programs and data (prefix=$(prefix))"
 	@echo "  uninstall    uninstall programs and data"
+	@echo "  test         build regression tests for the program and scripts"
 	@echo
 	@echo "  *Note: Prepend \`local-' (eg. \`local-clean') to restrict"
 	@echo "         any of the above commands to the current directory."
 	@echo
 	@echo "Other generic targets:"
 	@echo "  default      same as the empty target"
-	@echo "  bin          check the lily directory and rebuild lilypond.exe if needed"
 	@echo "  exe          update all executables"
 	@echo "  help         this help"
 	@echo "  lib          update all libraries"
+	@echo "  log-clean    remove .log files"
 	@echo "  TAGS         generate tagfiles"
 	@echo
-	@echo "\`make' may be invoked from any subdirectory."
+	@echo "\`make' may be invoked from any subdirectory that contains a GNUmakefile."
 
 local-help:
 
-local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
-	mkdir -p $(distdir)/$(localdir)
-	$(LN) $(DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir)
-
-	case "$(NON_ESSENTIAL_DIST_FILES)x" in x) ;; *) \
-		$(LN) $(NON_ESSENTIAL_DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir);; \
-	esac
-	case "$(OUT_DIST_FILES)x" in x) ;; *) \
-		mkdir -p $(distdir)/$(localdir)/$(outdir); \
-		$(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/$(outdir);; \
+local-dist: $(OUT_DIST_FILES)
+	case "$(OUT_DIST_FILES)x" in x) ;; \
+	     *) mkdir -p $(distdir)/$(localdir)/$(outdir) && \
+	        $(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/$(outdir);; \
 	esac
 	$(foreach i, $(SUBDIRS), $(MAKE) top-src-dir=$(top-src-dir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
 
@@ -115,8 +87,10 @@ local-tags:
 			$(ERROR_LOG) ; \
 	fi
 
-$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(step-bindir)/make-version.py
-	$(PYTHON) $(step-bindir)/make-version.py $< > $@
+# Don't use $(buildscript-dir)/make-version, because it is not known whether
+# build process has visited scripts/build
+$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(top-src-dir)/scripts/build/make-version.py
+	$(PYTHON) $(top-src-dir)/scripts/build/make-version.py $< > $@
 
 $(outdir)/config.hh: $(config_h)
 	cp -p $< $@
@@ -128,8 +102,6 @@ configure: configure.in aclocal.m4
 local-clean:
 
 local-distclean:
-
-local-maintainerclean:
 
 install-strip:
 	$(MAKE) INSTALLPY="$(INSTALLPY) -s" install
@@ -204,6 +176,7 @@ local-doc:
 	$(MAKE) out=www WWW-post
 
 doc-stage-1:
+	$(MAKE) -C $(top-build-dir)/Documentation/po out=www messages
 	$(MAKE) -C $(depth)/scripts/build out=
 	$(MAKE) out=www WWW-1
 

@@ -3,6 +3,7 @@ adding-an-extra-staff-at-a-line-break.ly
 adding-an-extra-staff.ly
 adding-indicators-to-staves-which-get-split-after-a-break.ly
 adding-orchestral-cues-to-a-vocal-score.ly
+adding-timing-marks-to-long-glissandi.ly
 alternative-bar-numbering.ly
 changing-the-number-of-lines-in-a-staff.ly
 changing-the-staff-size.ly
@@ -10,6 +11,7 @@ creating-blank-staves.ly
 creating-double-digit-fingerings.ly
 cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
+extending-glissandi-across-repeats.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 glissandi-can-skip-grobs.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
@@ -17,6 +19,7 @@ how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-2.ly
 incipit.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
 letter-tablature-formatting.ly
+making-glissandi-breakable.ly
 making-some-staff-lines-thicker-than-the-others.ly
 measure-counter.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly

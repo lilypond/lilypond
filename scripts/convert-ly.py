@@ -45,6 +45,9 @@ lilypond_version_strict_re = re.compile (lilypond_version_strict_re_str)
 help_summary = (
 _ ('''Update LilyPond input to newer version.  By default, update from the
 version taken from the \\version command, to the current LilyPond version.''')
++ "\n"
++ _ ("If FILE is `-', read from standard input.")
++ "\n\n"
 + _ ("Examples:")
 + '''
   $ convert-ly -e old.ly
@@ -185,10 +188,9 @@ string."""
 
     ly.progress (_ ("Applying conversion: "), newline = False)
 
-    last_conversion = ()
+    last_conversion = None
+    errors = 0
     try:
-        if not conv_list:
-            last_conversion = to_version
         for x in conv_list:
             if x != conv_list[-1]:
                 ly.progress (tup_to_str (x[0]), newline = False)
@@ -202,8 +204,9 @@ string."""
         ly.error (_ ("Error while converting")
                   + '\n'
                   + _ ("Stopping at last successful rule"))
+        errors += 1
 
-    return (last_conversion, str)
+    return (last_conversion, str, errors)
 
 
 
@@ -228,7 +231,7 @@ class InvalidVersion (Exception):
       self.version = version
 
 def do_one_file (infile_name):
-    ly.progress (_ ("Processing `%s\'... ") % infile_name, True)
+    ly.progress (_ (u"Processing `%s\'... ") % infile_name, True)
 
     if infile_name:
         infile = open (infile_name, 'r')
@@ -256,12 +259,12 @@ def do_one_file (infile_name):
         raise InvalidVersion (".".join ([str(n) for n in from_version]))
 
 
-    (last, result) = do_conversion (input, from_version, to_version)
+    (last, result, errors) = do_conversion (input, from_version, to_version)
 
+    if global_options.force_current_version and \
+            (last is None or last == to_version):
+        last = str_to_tuple (program_version)
     if last:
-        if global_options.force_current_version and last == to_version:
-            last = str_to_tuple (program_version)
-
         if global_options.diff_version_update:
             if result == input:
                 # check the y in x.y.z  (minor version number)
@@ -281,22 +284,23 @@ def do_one_file (infile_name):
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
 
-        ly.progress ('\n')
+    ly.progress ('\n')
+
+    if global_options.edit:
+        try:
+            os.remove (infile_name + '~')
+        except:
+            pass
+        os.rename (infile_name, infile_name + '~')
+        outfile = open (infile_name, 'w')
+    else:
+        outfile = sys.stdout
+
+    outfile.write (result)
     
-        if global_options.edit:
-            try:
-                os.remove(infile_name + '~')
-            except:
-                pass
-            os.rename (infile_name, infile_name + '~')
-            outfile = open (infile_name, 'w')
-        else:
-            outfile = sys.stdout
-
-
-        outfile.write (result)
-
     sys.stderr.flush ()
+
+    return errors
 
 def do_options ():
     opt_parser = get_option_parser()
@@ -331,25 +335,33 @@ def main ():
 
     identify ()
 
+    errors = 0
     for f in files:
+        f = f.decode (sys.stdin.encoding or "utf-8")
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            ly.error (_ ("%s: Unable to open file") % f)
-            if len (files) == 1:
-                sys.exit (1)
+            ly.error (_ (u"%s: Unable to open file") % f)
+            errors += 1
             continue
         try:
-            do_one_file (f)
+            errors += do_one_file (f)
         except UnknownVersion:
-            ly.error (_ ("%s: Unable to determine version.  Skipping") % f)
+            ly.error (_ (u"%s: Unable to determine version.  Skipping") % f)
+            errors += 1
         except InvalidVersion:
             # Compat code for 2.x and 3.0 syntax ("except .. as v" doesn't 
             # work in python 2.4!):
             t, v, b = sys.exc_info ()
-            ly.error (_ ("%s: Invalid version string `%s' \n"
+            ly.error (_ (u"%s: Invalid version string `%s' \n"
                          "Valid version strings consist of three numbers, "
                          "separated by dots, e.g. `2.8.12'") % (f, v.version) )
+            errors += 1
+
+    if errors:
+        ly.warning (ly.ungettext ("There was %d error.",
+            "There were %d errors.", errors) % errors)
+        sys.exit (1)
 
 
 main ()

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The second and third notes should not get accidentals,
@@ -20,7 +20,7 @@ mus =  	\relative c' {
   fis8  gis8 ~
   \break
   gis1
-  \override Accidental #'hide-tied-accidental-after-break = ##t
+  \override Accidental.hide-tied-accidental-after-break = ##t
   f1~
   f2~f4 % ~ f8
   fis8  gis8 ~

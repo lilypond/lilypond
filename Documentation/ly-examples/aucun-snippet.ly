@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \include "example-header.ily"
 
 \paper {
@@ -17,14 +17,14 @@
 %%%%%%%%%%% INCIPIT DEFS %%%%%%%%%%
 
 incipitGlobal = {
-		\override NoteHead   #'style = #'mensural
-		\override Accidental #'style = #'mensural
-		\override KeySignature #'style = #'mensural
-		\override Rest #'style = #'mensural
-%		\override Staff.TimeSignature #'style = #'mensural
+		\override NoteHead.style = #'mensural
+		\override Accidental.style = #'mensural
+		\override KeySignature.style = #'mensural
+		\override Rest.style = #'mensural
+%		\override Staff.TimeSignature.style = #'mensural
 		\cadenzaOn
-	  \override Score.Clef #'extra-offset = #'(-0.0 . 0.5)
-	  \override Score.Clef #'font-size = #3
+	  \override Score.Clef.extra-offset = #'(-0.0 . 0.5)
+	  \override Score.Clef.font-size = #3
 	  \clef "vaticana-do1"
 }
 
@@ -94,10 +94,10 @@ incipitTenor = \markup{
 incipitBassus = \markup{
     \score{ {
     \set Staff.instrumentName = "Bassus  "
-    \override NoteHead   #'style = #'neomensural
-		\override Accidental #'style = #'neomensural
-	\override Rest #'style = #'neomensural
-	\override Staff.TimeSignature #'style = #'neomensural
+    \override NoteHead.style = #'neomensural
+		\override Accidental.style = #'neomensural
+	\override Rest.style = #'neomensural
+	\override Staff.TimeSignature.style = #'neomensural
 	\cadenzaOn
 	\clef "petrucci-f3"
 	\key f \major
@@ -121,12 +121,12 @@ incipitBassus = \markup{
 #(ly:set-option 'point-and-click #f)
 
 global = {
-  \override Staff.TimeSignature #'stencil = #(lambda (grob)
+  \override Staff.TimeSignature.stencil = #(lambda (grob)
 	(bracketify-stencil (ly:time-signature::print grob) Y 0.1 0.2 0.1))
   \time 3/4
-	\override Staff.BarLine #'transparent = ##t
-  \override HorizontalBracket #'direction = #UP
-  \override HorizontalBracket #'bracket-flare = #'(0 . 0)
+	\override Staff.BarLine.transparent = ##t
+  \override HorizontalBracket.direction = #UP
+  \override HorizontalBracket.bracket-flare = #'(0 . 0)
 }
 
 %%%%%%%%% MACRO FOR MAKING SLASHES THROUGH STEMS %%%%%%%%%%
@@ -135,7 +135,7 @@ thick y-factor offset)
                                     (number? number? number? number? number?
 pair?)
 #{
-\once \override Voice.Stem #'text = \markup {
+\once \override Voice.Stem.text = \markup {
     \postscript #(let ((x-off (car offset))
                        (y-off (cdr offset)))
     (string-append
@@ -154,7 +154,7 @@ thick)) " moveto "
 270 90 arc "
                                              " gsave fill grestore stroke")) }
 
-\once \override Voice.Stem #'stencil = #(lambda (grob)
+\once \override Voice.Stem.stencil = #(lambda (grob)
     (let* ((sten1 (ly:stem::print grob))
            (sten2 (ly:text-interface::print grob))
            (extent1 (ly:stencil-extent sten1 Y))
@@ -182,8 +182,8 @@ triplumNotes = \relative c' {
   \clef "treble_8"
 	%\set Staff.midiInstrument = "flute"
 %	\global
-	\override StemTremolo #'beam-thickness = #.125
-	\override StemTremolo #'slope = #1.0
+	\override StemTremolo.beam-thickness = #.125
+	\override StemTremolo.slope = #1.0
   f8 f4 e8 d c f f f | % 1
 	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter

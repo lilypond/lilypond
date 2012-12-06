@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks"
@@ -30,10 +30,10 @@ is not masked.
 } % begin verbatim
 
 {
-  \override Score.StaffSymbol #'layer = #4
-  \override Staff.TimeSignature #'layer = #3
+  \override Score.StaffSymbol.layer = #4
+  \override Staff.TimeSignature.layer = #3
   b'2 b'~
-  \once \override Staff.TimeSignature #'whiteout = ##t
+  \once \override Staff.TimeSignature.whiteout = ##t
   \time 3/4
   b' r4
 }

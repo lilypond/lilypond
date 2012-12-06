@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "vocal-music"
@@ -27,10 +27,10 @@ omitted.  The behaviour can be overridden with the
 }
 \addlyrics {
   syl -- lab word word
-  \override LyricHyphen #'minimum-distance = #1.0
+  \override LyricHyphen.minimum-distance = #1.0
   syl -- lab word word
-  \override LyricHyphen #'minimum-distance = #2.0
+  \override LyricHyphen.minimum-distance = #2.0
   syl -- lab word word
-  \revert LyricHyphen #'minimum-distance
+  \revert LyricHyphen.minimum-distance
   syl -- lab word word
 }

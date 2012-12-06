@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "devel, scheme-language, tweaks-and-overrides"
@@ -39,7 +39,7 @@ When called this way
 
 
 @{
- \\once \\override NoteHead #'before-line-breaking = #display-ancestry
+ \\once \\override NoteHead.before-line-breaking = #display-ancestry
  c @}
 
 
@@ -114,9 +114,9 @@ NoteHead X,Y: NoteColumn
       (format-ancestry (get-ancestry grob) 0)))
 
 \relative c' {
-  \once \override NoteHead #'before-line-breaking = #display-ancestry
+  \once \override NoteHead.before-line-breaking = #display-ancestry
   f4
-  \once \override Accidental #'before-line-breaking = #display-ancestry
-  \once \override Arpeggio #'before-line-breaking = #display-ancestry
+  \once \override Accidental.before-line-breaking = #display-ancestry
+  \once \override Arpeggio.before-line-breaking = #display-ancestry
   <f as c>4\arpeggio
 }

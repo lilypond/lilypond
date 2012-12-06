@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Stem length and stem-begin-position can be set manually.
@@ -10,11 +10,11 @@
   \autoBeamOff
   \stemUp
   a8 aes''8
-  \override Stem #'length = #20
+  \override Stem.length = #20
   a,,8
-  \revert Stem #'length
+  \revert Stem.length
   aes''!8
   \stemNeutral
-  \override Stem #'stem-begin-position = #-2
+  \override Stem.stem-begin-position = #-2
   c,8
 }

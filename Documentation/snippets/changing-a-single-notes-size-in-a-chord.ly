@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, really-simple, simultaneous-notes, specific-notation, tweaks-and-overrides"
@@ -28,5 +28,5 @@ note head).
 
 
 \relative c' {
-  <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
+  <\tweak font-size #+2 c e g c \tweak font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
 }

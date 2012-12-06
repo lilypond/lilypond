@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms"
@@ -28,7 +28,7 @@ signatures and adapting the automatic beaming behavior.
                                            (#:column (two num)))))))
 
 \relative c' {
-  \override Staff.TimeSignature #'stencil = #(compound-time "2" "3" "8")
+  \override Staff.TimeSignature.stencil = #(compound-time "2" "3" "8")
   \time 5/8
   \set Staff.beatStructure = #'(2 3)
   c8 d e fis gis

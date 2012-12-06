@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
 texidoc = "Breve, whole and half rests moving outside the staff should get
 ledger lines."
@@ -9,7 +9,7 @@ ledger lines."
 
 rPos =
 #(define-music-function (parser location y) (number?)
-  #{ \override Rest #'staff-position = #y #})
+  #{ \override Rest.staff-position = #y #})
 
 {
   \set Score.timing = ##f

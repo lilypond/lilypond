@@ -48,6 +48,14 @@
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
+(define-public (symbol-list? x)
+  (and (list? x) (every symbol? x)))
+
+(define-public (symbol-list-or-music? x)
+  (if (list? x)
+      (every symbol? x)
+      (ly:music? x)))
+
 (define-public (string-or-symbol? x)
   (or (string? x) (symbol? x)))
 
@@ -57,14 +65,19 @@
 (define-public (string-or-pair? x)
   (or (string? x) (pair? x)))
 
+(define-public (string-or-music? x)
+  (or (string? x) (ly:music? x)))
+
 (define-public (number-or-pair? x)
   (or (number? x) (pair? x)))
 
 (define-public (cheap-list? x)
   (or (pair? x) (null? x)))
 
-(define-public (list-or-symbol? x)
-  (or (cheap-list? x) (symbol? x)))
+(define-public (symbol-list-or-symbol? x)
+  (if (list? x)
+      (every symbol? x)
+      (symbol? x)))
 
 (define-public (scheme? x) #t)
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -197,8 +197,7 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @var{Context}.@var{LayoutObject} #'@var{layout-property} =
-#@var{value}
+\override @var{Context}.@var{LayoutObject}.@var{layout-property} = #@var{value}
 @end example
 
 @noindent
@@ -206,34 +205,40 @@ This will set the property with the name @var{layout-property} of the
 layout object with the name @var{LayoutObject}, which is a member of
 the @var{Context} context, to the value @var{value}.
 
-The @var{Context} can be omitted (and usually is) when the
+The @var{Context} may be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
 level contexts, i.e., @code{Voice}, @code{ChordNames} or
 @code{Lyrics}, and we shall omit it in many of the following
 examples.  We shall see later when it must be specified.
 
 Later sections deal comprehensively with properties and their
-values, see @ref{Types of properties}.  But in this section we shall 
+values, see @ref{Types of properties}.  But in this section we shall
 use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
-For now, don't worry about the @code{#'}, which must precede the
-layout property, and the@tie{}@code{#}, which must precede the value.
-These must always be present in exactly this form.  This is the
-most common command used in tweaking, and most of the rest of
-this chapter will be directed to presenting examples of how it is
-used.  Here is a simple example to change the color of the
-note head:
+LilyPond's primary expressions are musical items like notes,
+durations, and markups.  More basic expressions like numbers,
+strings, and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  Although the
+values may sometimes have a valid representation in LilyPond's
+musical mode, this manual will always use @samp{#} for their
+entry for the sake of consistency.  For more information about
+Scheme mode, see @rextend{LilyPond Scheme syntax}.
+
+@code{\override} is the most common command used in tweaking, and
+most of the rest of this chapter will be directed to presenting
+examples of how it is used.  Here is a simple example to change the
+color of the note head:
 
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a b c |
 @end lilypond
 
@@ -252,7 +257,7 @@ value; note, not its previous value if several @code{\override}
 commands have been issued.
 
 @example
-\revert @var{Context}.@var{LayoutObject} #'@var{layout-property}
+\revert @var{Context}.@var{LayoutObject}.@var{layout-property}
 @end example
 
 Again, just like @var{Context} in the @code{\override} command,
@@ -265,11 +270,11 @@ of the note head to the default value for the final two notes:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b4 c |
 @end lilypond
 
@@ -291,11 +296,11 @@ note like this:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\once \override NoteHead #'color = #green
+\once \override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b c |
 @end lilypond
 
@@ -335,7 +340,7 @@ middle note head (the E) in a C major chord.  Let's first see what
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-\once \override NoteHead #'font-size = #-3
+\once \override NoteHead.font-size = #-3
 <c e g>4
 <c e g>4
 @end lilypond
@@ -360,7 +365,7 @@ a chord would be changed in this way:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-<c \tweak #'font-size #-3 e g>4
+<c \tweak font-size #-3 e g>4
 @end lilypond
 
 Note that the syntax of @code{\tweak} is different from that of the
@@ -371,7 +376,7 @@ also that an equals sign should not be present.  So the simple form
 of the @code{\tweak} command is
 
 @example
-\tweak #'@var{layout-property} #@var{value}
+\tweak @var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -382,8 +387,8 @@ a series of articulations, as shown here:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4^"Black"
-  -\tweak #'color #red ^"Red"
-  -\tweak #'color #green _"Green"
+  -\tweak color #red ^"Red"
+  -\tweak color #green _"Green"
 @end lilypond
 
 @noindent
@@ -402,14 +407,15 @@ the layout object, provided that LilyPond can trace its origin back to
 the original event:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
-                                  g>
+<\tweak Accidental.color #red   cis4
+ \tweak Accidental.color #green es
+ g>
 @end lilypond
 
 This long form of the @code{\tweak} command can be described as
+
 @example
-\tweak @var{layout-object} #'@var{layout-property} @var{value}
+\tweak @var{layout-object}.@var{layout-property} @var{value}
 @end example
 
 @cindex tuplets, nested
@@ -437,9 +443,9 @@ printed in red on the first short tuplet bracket.
 @cindex color property, example
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak #'direction #up
+\tweak direction #up
 \times 4/3 {
-  \tweak #'color #red
+  \tweak color #red
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
@@ -455,16 +461,13 @@ appearance may be modified in the usual way with
 @cindex transparent property, example
 @cindex TupletNumber, example of overriding
 
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
-\once \override TupletNumber
-  #'text = #tuplet-number::calc-fraction-text
+\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c8[ c]
   c8[ c]
-  \once \override TupletNumber #'transparent = ##t
+  \once \override TupletNumber.transparent = ##t
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
 }
@@ -597,11 +600,10 @@ the context.  Let's use a very large value for the thickness
 at first, so we can be sure the command is working.  We get:
 
 @example
-\override Slur #'thickness = #5.0
+\override Slur.thickness = #5.0
 @end example
 
-Don't forget the @code{#'} preceding the
-property name and a@tie{}@code{#} preceding the new value!
+Don't forget the@tie{}@code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -617,7 +619,7 @@ close to it.}  Let's do that:
   \time 6/8
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     r4 bes8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -687,7 +689,7 @@ repositioned as follows:
   {
     r4 bes8
     % Increase thickness of immediately following slur only
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes8[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -727,10 +729,10 @@ the slurs begin:
   {
     r4 bes8
     % Increase thickness of immediately following slur only
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes[( g]) g |
     % Increase thickness of immediately following slur only
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -755,11 +757,11 @@ after the second slur:
   {
     r4 bes8
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     bes[( g]) g |
     g8[( es]) es
     % Revert thickness of all following slurs to default of 1.2
-    \revert Slur #'thickness
+    \revert Slur.thickness
     d8[( f]) as |
     as8 g
   }
@@ -832,23 +834,18 @@ to change the lyrics to italics.  The object is @code{LyricText},
 the property is @code{font-shape} and the value is
 @code{italic}.  As before, we'll omit the context.
 
-As an aside, although it is an important one, note that because the
-values of @code{font-shape} are symbols they must be introduced with a
-single apostrophe, @code{'}.  That is why apostrophes are needed
-before @code{thickness} in the earlier example and @code{font-shape}.
-These are both symbols too.  Symbols are then read internally by
-LilyPond.  Some of them are the names of properties, like
-@code{thickness} or @code{font-shape}, others are used as values that
-can be given to properties, like @code{italic}.  Note the distinction
-from arbitrary text strings, which would appear as @code{"a text
-string"}; for more details about symbols and strings, see
-@rextend{Scheme tutorial}.
+As an aside, although it is an important one, note that some
+properties take values that are symbols, like @code{italic}, and
+must be preceded by an apostrophe, @code{'}.  Symbols are then
+read internally by LilyPond.  Note the distinction from arbitrary
+text strings, which would appear as @code{"a text string"}; for
+more details about symbols and strings, see @rextend{Scheme tutorial}.
 
 So we see that the @code{\override} command needed to print the lyrics
 in italics is:
 
 @example
-\override LyricText #'font-shape = #'italic
+\override LyricText.font-shape = #'italic
 @end example
 
 @noindent
@@ -870,7 +867,7 @@ like so:
     as8 g
   }
   \addlyrics {
-    \override LyricText #'font-shape = #'italic
+    \override LyricText.font-shape = #'italic
     The man who | feels love's sweet e -- | mo -- tion
   }
 }
@@ -879,32 +876,8 @@ like so:
 @noindent
 and the lyrics are all printed in italics.
 
-@subheading Specifying the context in lyric mode
-
-@cindex context, specifying in lyric mode
-@cindex lyric mode, specifying context
-
-In the case of lyrics, if you try specifying the context in the
-format given earlier the command will fail.  A syllable
-entered in lyricmode is terminated by either a space,
-a newline or a digit.  All other characters are included
-as part of the syllable.  For this reason a space or newline
-must appear before the terminating @code{@}} to prevent it being
-included as part of the final syllable.  Similarly,
-spaces must be inserted before and after the
-period or dot, @q{.}, separating the context name from the
-object name, as otherwise the two names are run together and
-the interpreter cannot recognize them.  So the command should be:
-
-@example
-\override Lyrics . LyricText #'font-shape = #'italic
-@end example
-
 @warning{In lyrics always leave whitespace between the final
 syllable and the terminating brace.}
-
-@warning{In overrides in lyrics always place spaces around
-the dot between the context name and the object name.}
 
 
 @seealso
@@ -1045,7 +1018,7 @@ the implied Context, @code{Voice}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override BarLine #'stencil = ##f
+  \override BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1070,14 +1043,27 @@ it by adding the correct context:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'stencil = ##f
+  \override Staff.BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
 @end lilypond
 
-Now the bar lines have vanished.
+Now the bar lines have vanished.  Setting the @code{stencil}
+property to @code{#f} is such a frequent operation that there is a
+shorthand for it called @code{\omit}:
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Note, though, that setting the @code{stencil} property to @code{#f}
 will cause errors when the dimensions of the object are required for
@@ -1090,7 +1076,7 @@ with zero size:
 @lilypond[quote,verbatim,relative=2]
 {
   c4 c
-  \once \override NoteHead #'stencil = #point-stencil
+  \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
 @end lilypond
@@ -1104,10 +1090,11 @@ We see from the @code{BarLine} properties in the IR that the
 These control respectively whether bar lines are printed at the end of
 a line, in the middle of lines, and at the beginning of lines.  For
 our example we want all bar lines to be suppressed, so the value we
-need is @code{'#(#f #f #f)}.  Let's try that, remembering to include
+need is @code{#(#f #f #f)} (also available
+under the name @code{all-invisible}).  Let's try that, remembering to include
 the @code{Staff} context.  Note also that in writing this value we
-have @code{#'#} before the opening bracket.  The @code{'#} is required
-as part of the value to introduce a vector, and the first@tie{}@code{#} is
+have @code{##} before the opening parenthesis.  One @code{#} is required
+as part of vector constant syntax, and the first@tie{}@code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 
@@ -1117,7 +1104,7 @@ required, as always, to precede the value itself in the
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1149,7 +1136,7 @@ transparent is:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'transparent = ##t
+  \override Staff.TimeSignature.transparent = ##t
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1157,7 +1144,24 @@ transparent is:
 @end lilypond
 
 @noindent
-The time signature is gone, but this command leaves a gap where
+Again, setting the @code{transparent} property is a rather
+frequent operation, so we have a shorthand for it called
+@code{\hide}:
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+In either case, the time signature is gone, but this command
+leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
 an exercise for the student to fill it in, but in other
 circumstances a gap might be undesirable.  To remove it, the
@@ -1170,7 +1174,7 @@ instead:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'stencil = ##f
+  \omit Staff.TimeSignature
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1179,7 +1183,9 @@ instead:
 
 @noindent
 and the difference is obvious: setting the stencil to @code{#f}
+(possibly via @code{\omit})
 removes the object entirely; making the object @code{transparent}
+(which can be done using @code{\hide})
 leaves it where it is, but makes it invisible.
 
 @subheading color
@@ -1211,7 +1217,7 @@ we write:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #white
+  \override Staff.BarLine.color = #white
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1221,11 +1227,11 @@ we write:
 @noindent
 and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
-a symbol, but a @emph{function}.  When called, it provides
+a symbol, but a @emph{variable}.  When evaluated, it provides
 the list of internal values required to set the color to
-white.  The other colors in the normal list are functions
+white.  The other colors in the normal list are variables
 too.  To convince yourself this is working you might like
-to change the color to one of the other functions in the
+to change the color to one of the other variables in the
 list.
 
 @cindex color, X11
@@ -1235,9 +1241,9 @@ list.
 
 The second way of changing the color is to use the list of
 X11 color names in the second list in @ruser{List of colors}.
-However, these must be preceded by another function, which
-converts X11 color names into the list of internal values,
-@code{x11-color}, like this:
+However, these are mapped to the actual values by the function
+@code{x11-color} which
+converts X11 color symbols into the list of internal values like this:
 
 @cindex BarLine, example of overriding
 @cindex color property, example
@@ -1245,7 +1251,7 @@ converts X11 color names into the list of internal values,
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(x11-color 'white)
+  \override Staff.BarLine.color = #(x11-color 'white)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1255,14 +1261,15 @@ converts X11 color names into the list of internal values,
 @noindent
 Note that in this case the function @code{x11-color} takes
 a symbol as an argument, so the symbol must be preceded by
-an apostrophe and the two enclosed in brackets.
+an apostrophe to keep it from being evaluated as a variable, and
+the whole function call has to be enclosed in parentheses.
 
 @cindex rgb colors
 @cindex color, rgb
 
 @funindex rgb-color
 
-There is yet a third function, one which converts RGB values into
+There is another function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
 three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
@@ -1275,7 +1282,7 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  \override Staff.BarLine.color = #(rgb-color 1 1 1)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1300,12 +1307,12 @@ various shades of grey:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
-  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
-  \override Staff.Clef          #'color = #(x11-color 'grey60)
-  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
-  \override Voice.Stem          #'color = #(x11-color 'grey85)
-  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  \override Staff.StaffSymbol.color = #(x11-color 'grey30)
+  \override Staff.TimeSignature.color = #(x11-color 'grey60)
+  \override Staff.Clef.color = #(x11-color 'grey60)
+  \override Voice.NoteHead.color = #(x11-color 'grey85)
+  \override Voice.Stem.color = #(x11-color 'grey85)
+  \override Staff.BarLine.color = #(x11-color 'grey10)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1361,7 +1368,7 @@ we simply set the stencil of each to @code{#f}, as follows:
 
 @cindex alignAboveContext property, example
 @cindex @code{\with}, example
-@cindex stencil property, example
+@funindex \omit
 @cindex Clef, example of overriding
 @cindex TimeSignature, example of overriding
 
@@ -1376,8 +1383,8 @@ we simply set the stencil of each to @code{#f}, as follows:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef #'stencil = ##f
-        \override Staff.TimeSignature #'stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1393,7 +1400,9 @@ to the ossia staff.
 
 But what is the difference between modifying the staff context by
 using @code{\with} and modifying the stencils of the clef and the
-time signature with \override?  The main difference is that
+time signature with @code{\override}, or in this case
+@code{\omit}?
+The main difference is that
 changes made in a @code{\with} clause are made at the time the
 context is created, and remain in force as the @strong{default}
 values for the duration of that context, whereas
@@ -1436,9 +1445,34 @@ So we could replace the example above with
       \new Staff \with {
         alignAboveContext = #"main"
         % Don't print clefs in this staff
-        \override Clef #'stencil = ##f
+        \override Clef.stencil = ##f
         % Don't print time signatures in this staff
-        \override TimeSignature #'stencil = ##f
+        \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+It turns out that we can also employ the shorthands @code{\hide}
+and @code{\omit} for setting the @code{transparent} property and
+clearing the @code{stencil} here, leading to the result
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1467,7 +1501,7 @@ fonts of each object type, like @code{NoteHead}s with commands
 like
 
 @example
-\override NoteHead #'font-size = #-2
+\override NoteHead.font-size = #-2
 @end example
 
 or we can change the size of all fonts by setting a special
@@ -1499,8 +1533,8 @@ Let's try it in our ossia example:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
@@ -1565,11 +1599,11 @@ objects in proportion.  It is used like this:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Reduce stem length and line spacing to match
-        \override StaffSymbol #'staff-space = #(magstep -2)
+        \override StaffSymbol.staff-space = #(magstep -2)
       }
       { f8 f c }
     >>
@@ -1725,11 +1759,11 @@ default behavior.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a |
-\override Stem #'direction = #DOWN
+\override Stem.direction = #DOWN
 a4 g c a |
-\override Stem #'direction = #UP
+\override Stem.direction = #UP
 a4 g c a |
-\revert Stem #'direction
+\revert Stem.direction
 a4 g c a |
 @end lilypond
 
@@ -1787,12 +1821,12 @@ the commonest.  The meaning of each is stated where it is not obvious.
   @tab Tuplets are below/above notes
 @end multitable
 
-Note that these predefined commands may @strong{not} be
+The neutral/normal variants of these commands are implemented
+using @code{\revert} and may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
-effect to a single note you must either use the equivalent
-@code{\once \override} command or use the predefined command
-followed after the affected note by the corresponding
-@code{\xxxNeutral} command.
+effect of the other commands (which are implemented using
+@code{\override}) to a single timestep, you can precede them with
+@code{\once} like you would do with explicit overrides.
 
 @unnumberedsubsubsec Fingering
 
@@ -1816,9 +1850,9 @@ specifying @code{DOWN} and @code{UP}:
 
 @lilypond[quote,verbatim,relative=2]
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #DOWN
+\override Fingering.direction = #DOWN
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #UP
+\override Fingering.direction = #UP
 c4-5 a-3 f-1 c'-5 |
 @end lilypond
 
@@ -1921,7 +1955,7 @@ could be reduced.  The default value can be seen from the
 try @w{@code{-7}}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering #'font-size = #-7
+\override Fingering.font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>4
 <c-1 e-2 g-3 b-5>4
@@ -2019,7 +2053,7 @@ these.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2069,12 +2103,12 @@ in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
 % Place following Ottava Bracket below Text Spanners
-\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket.outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
 c'4 \startTextSpan
@@ -2117,10 +2151,10 @@ example showing the effect of the two methods:
 @lilypond[quote,verbatim,relative=2]
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 c4(
-\once \override TextScript #'avoid-slur = #'inside
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.avoid-slur = #'inside
+\once \override TextScript.outside-staff-priority = ##f
 c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur #'outside-staff-priority = #500
+\once \override Slur.outside-staff-priority = #500
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 @end lilypond
 
@@ -2139,7 +2173,7 @@ in the IR or in the tables above, and increase the priority of
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
 c2^"Text2" |
-\once \override TextScript #'outside-staff-priority = #500
+\once \override TextScript.outside-staff-priority = #500
 c2^"Text3"
 c2^"Text4" |
 @end lilypond
@@ -2199,12 +2233,12 @@ c,,2^"Text" c'' |
 R1 |
 
 % Turn off collision avoidance
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 c,,2^"Long Text   " c'' |
 R1 |
 
 % Turn off collision avoidance
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 \textLengthOn        % and turn on textLengthOn
 c,,2^"Long Text   "  % Spaces at end are honored
 c''2 |
@@ -2282,7 +2316,7 @@ must override this value of @code{extra-spacing-width} to
 the command to do this for dynamic text:
 
 @example
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 @end example
 
 @noindent
@@ -2293,7 +2327,7 @@ Let's see if this works in our previous example:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 a4\f b\mf c\mp b\p |
 @end lilypond
 
@@ -2314,7 +2348,7 @@ right edge half a unit to the right should do it:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2585,7 +2619,7 @@ above or below notes.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
-\override Script #'padding = #3
+\override Script.padding = #3
 b2\fermata
 @end lilypond
 
@@ -2594,11 +2628,11 @@ b2\fermata
 
 @lilypond[quote,fragment,relative=1,verbatim]
 % This will not work, see below
-\override MetronomeMark #'padding = #3
+\override MetronomeMark.padding = #3
 \tempo 4 = 120
 c1 |
 % This works
-\override Score.MetronomeMark #'padding = #3
+\override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
 d1 |
 @end lilypond
@@ -2637,15 +2671,13 @@ sesquisharp = \markup { \sesquisharp }
 \relative c'' {
   c4
   % This prints a sesquisharp but the spacing is too small
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 c
   % This improves the spacing
-  \once \override Score.AccidentalPlacement #'right-padding = #0.6
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Score.AccidentalPlacement.right-padding = #0.6
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 |
 }
 @end lilypond
@@ -2682,9 +2714,9 @@ example taken from the previous section:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 unit
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Align dynamics to a base line 2 units above staff
-\override DynamicLineSpanner #'staff-padding = #2
+\override DynamicLineSpanner.staff-padding = #2
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2701,7 +2733,7 @@ right edge with the reference point of the parent note:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
 <a\2>
-\once \override StringNumber #'self-alignment-X = #RIGHT
+\once \override StringNumber.self-alignment-X = #RIGHT
 <a\2>
 @end lilypond
 
@@ -2734,7 +2766,7 @@ move it, say, four half-staff spaces down to @w{@code{-8}}.
 <<
   { c4 c c c }
   \\
-  \override MultiMeasureRest #'staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-8
   { R1 }
 >>
 @end lilypond
@@ -2761,7 +2793,7 @@ the left, and 1.8 staff space downwards:
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
 f4-5
-\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+\once \override Fingering.extra-offset = #'(-0.3 . -1.8)
 f4-5
 @end lilypond
 
@@ -2805,7 +2837,7 @@ also resolves the rather nasty shape.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
-\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\once \override PhrasingSlur.positions = #'(-4 . -3)
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
@@ -2843,7 +2875,7 @@ say, 1:
     { c'1 ~ c'2. e'8 f' }
     \\
     {
-      \override Beam #'positions = #'(-1 . -1)
+      \override Beam.positions = #'(-1 . -1)
       e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
     }
   >>
@@ -2906,13 +2938,13 @@ Here's the final result:
     \\
     {
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
     \\
     \\
     {
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -2945,7 +2977,7 @@ dynamics, fingering and pedalling.
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -2958,7 +2990,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % Reposition the c2 to the right of the merged note
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % Move the c2 out of the main note column
         % so the merge will work
         \shiftOnn
@@ -2970,8 +3002,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3147,7 +3179,7 @@ spaces relative to the center line of the staff.  So the following
 override placed just before the first tied note would move the tie up
 to 3.5 half staff spaces above the center line:
 
-@code{\once \override Tie #'staff-position = #3.5}
+@code{\once \override Tie.staff-position = #3.5}
 
 This completes bar two, giving:
 
@@ -3156,7 +3188,7 @@ This completes bar two, giving:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3235,7 +3267,7 @@ to the end, giving:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3309,7 +3341,7 @@ Applying these changes gives:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3379,7 +3411,7 @@ the @code{force-hshift} property.  Here's the final result:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3393,7 +3425,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % Reposition the c2 to the right of the merged note
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % Move the c2 out of the main note column
         % so the merge will work
         \shiftOnn
@@ -3405,8 +3437,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3488,8 +3520,8 @@ cross voices:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3504,15 +3536,44 @@ too much, we can lengthen the stem by setting the
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
-    \tweak Stem #'length #8
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
+    \tweak Stem.length #8
     b8~ b\noBeam
   }
 \\
   { b8[ g] }
 >>
 @end lilypond
+
+@funindex \single
+@cindex tweak, generated from override
+Now for @emph{overriding} the transparency of a graphical object,
+we could have used the shorthand @code{\hide} as explained above.
+Tweaking is a different operation, affecting only properties
+generated from a single music expression.  It turns out that we
+can convert overrides into tweaks using @code{\single}, making it
+possible to rewrite the above example as
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+In this particular case, the difference to @code{\once \hide} is
+not apparent.  It is important when there are several objects at
+the same point in musical time (like noteheads in a chord).  In
+that case, @code{\once} will affect all of those objects while
+@code{\single} will only affect a single one, the one generated by
+the immediately following music expression.
 
 @subheading Simulating a fermata in MIDI
 
@@ -3544,7 +3605,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'transparent = ##t
+    \once \hide Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3566,7 +3627,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'stencil = ##f
+    \once \omit Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3610,11 +3671,11 @@ themselves prevents their use in simple variables.  As an
 alternative can we use @code{\override} and @code{\revert} commands?
 
 @example
-@code{\override Lyrics . LyricText #'font-shape = #'italic}
-@code{\override Lyrics . LyricText #'font-series = #'bold}
+@code{\override Lyrics.LyricText.font-shape = #'italic}
+@code{\override Lyrics.LyricText.font-series = #'bold}
 
-@code{\revert Lyrics . LyricText #'font-shape}
-@code{\revert Lyrics . LyricText #'font-series}
+@code{\revert Lyrics.LyricText.font-shape}
+@code{\revert Lyrics.LyricText.font-series}
 @end example
 
 These would also be extremely tedious to enter if there were many
@@ -3632,13 +3693,13 @@ for the variables to make them quicker to type:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics.LyricText #'font-shape = #'italic
-  \override Lyrics.LyricText #'font-series = #'bold
+  \override Lyrics.LyricText.font-shape = #'italic
+  \override Lyrics.LyricText.font-series = #'bold
 }
 
 normal = {
-  \revert Lyrics.LyricText #'font-shape
-  \revert Lyrics.LyricText #'font-series
+  \revert Lyrics.LyricText.font-shape
+  \revert Lyrics.LyricText.font-series
 }
 
 global = { \key c \major \time 4/4 \partial 4 }
@@ -3822,17 +3883,17 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -3855,17 +3916,17 @@ inst =
 \layout{
   \context {
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context {
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   }
   \context {
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -3908,16 +3969,16 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -3941,12 +4002,12 @@ inst =
 
 \layout{
   \context { \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context { \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -4067,8 +4128,8 @@ example, @code{/tieDotted} is defined to be:
 
 @example
 tieDotted = @{
-  \override Tie #'dash-period = #0.75
-  \override Tie #'dash-fraction = #0.1
+  \override Tie.dash-period = #0.75
+  \override Tie.dash-fraction = #0.1
 @}
 @end example
 
@@ -4169,7 +4230,7 @@ the staff.
 
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
-  \override NoteHead #'color = #color-notehead
+  \override NoteHead.color = #color-notehead
   a2 b | c2 d | e2 f | g2 a |
 }
 @end lilypond

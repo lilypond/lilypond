@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "simultaneous-notes, tweaks-and-overrides"
@@ -26,7 +26,7 @@ are staff spaces.
   \\
   {
     <b f'>2
-    \once \override NoteColumn #'force-hshift = #1.7
+    \once \override NoteColumn.force-hshift = #1.7
     <b f'>2
   }
 >>

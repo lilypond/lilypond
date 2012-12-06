@@ -20,6 +20,7 @@
 #include "grob.hh"
 
 #include <cstring>
+#include <set>
 
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
@@ -79,6 +80,10 @@ Grob::Grob (SCM basicprops)
     set_property ("X-extent", Grob::stencil_width_proc);
   if (get_property_data ("Y-extent") == SCM_EOL)
     set_property ("Y-extent", Grob::stencil_height_proc);
+  if (get_property_data ("vertical-skylines") == SCM_EOL)
+    set_property ("vertical-skylines", Grob::simple_vertical_skylines_from_stencil_proc);
+  if (get_property_data ("horizontal-skylines") == SCM_EOL)
+    set_property ("horizontal-skylines", Grob::simple_horizontal_skylines_from_stencil_proc);
 }
 
 Grob::Grob (Grob const &s)
@@ -467,9 +472,11 @@ Grob::extent (Grob *refp, Axis a) const
     }
 
   // We never want nan, so we avoid shifting infinite values.
-  for (LEFT_and_RIGHT (d))
-    if (!isinf (real_ext[d]))
-      real_ext[d] += offset;
+    if(!isinf (offset))
+      real_ext.translate(offset);
+    else
+      this->warning(_f ("ignored infinite %s-offset",
+                        a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
 }
@@ -799,11 +806,10 @@ ADD_INTERFACE (Grob,
                "color "
                "cross-staff "
                "id "
-               "extra-X-extent "
-               "extra-Y-extent "
                "extra-offset "
                "footnote-music "
                "forced-spacing "
+               "horizontal-skylines "
                "interfaces "
                "layer "
                "meta "
@@ -814,10 +820,12 @@ ADD_INTERFACE (Grob,
                "outside-staff-priority "
                "pure-Y-offset-in-progress "
                "rotation "
+               "skyline-horizontal-padding "
                "springs-and-rods "
                "staff-symbol "
                "stencil "
                "transparent "
+               "vertical-skylines "
                "whiteout "
               );
 
@@ -899,6 +907,20 @@ common_refpoint_of_array (vector<Grob *> const &arr, Grob *common, Axis a)
       common = common->common_refpoint (arr[i], a);
     else
       common = arr[i];
+
+  return common;
+}
+
+Grob *
+common_refpoint_of_array (set<Grob *> const &arr, Grob *common, Axis a)
+{
+  set<Grob *>::iterator it;
+
+  for (it = arr.begin (); it != arr.end (); it++)
+    if (common)
+      common = common->common_refpoint (*it, a);
+    else
+      common = *it;
 
   return common;
 }

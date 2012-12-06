@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -538,11 +538,11 @@ c2 ~ c
 オーバライドしてください。
 
 @lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie #'layer = #-2
-\override Staff.TimeSignature #'layer = #-1
-\override Staff.KeySignature #'layer = #-1
-\override Staff.TimeSignature #'whiteout = ##t
-\override Staff.KeySignature #'whiteout = ##t
+\override Tie.layer = #-2
+\override Staff.TimeSignature.layer = #-1
+\override Staff.KeySignature.layer = #-1
+\override Staff.TimeSignature.whiteout = ##t
+\override Staff.KeySignature.whiteout = ##t
 b2 b~
 \time 3/4
 \key a \major
@@ -638,7 +638,7 @@ b r4
 \new Staff {
   % この 2 本線には意味はありません
   \time 16/1
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   % 八全休符を譜刻します。二全休符 4 つと等価です
   r\maxima
   % 四全休符を譜刻します。二全休符 2 つと等価です
@@ -906,10 +906,10 @@ R2.^\fermataMarkup
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
 % この例は誤ったオブジェクト名を指定しているため失敗します
-\override TextScript #'padding = #5
+\override TextScript.padding = #5
 R1^"wrong"
 % この例は正しいオブジェクト名が指定されています
-\override MultiMeasureRestText #'padding = #5
+\override MultiMeasureRestText.padding = #5
 R1^"right"
 @end lilypond
 
@@ -1478,7 +1478,7 @@ d4 e d c
 
 @lilypond[verbatim,relative=2,quote]
 % すべての小節番号を表示します
-\override Score.BarNumber #'break-visibility = #all-visible
+\override Score.BarNumber.break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
 c4 c d8[ d d] f4 g4.
@@ -2509,14 +2509,14 @@ ritardando (徐々に緩やかに) や accelerando (次第に速く) を@c
 最後の 4 つの 32 分音符は一定のテンポです。
 
 @lilypond[relative=1,verbatim,quote]
-\override Beam #'grow-direction = #LEFT
+\override Beam.grow-direction = #LEFT
 \featherDurations #(ly:make-moment 2 1)
 { c16[ c c c c c c c] }
-\override Beam #'grow-direction = #RIGHT
+\override Beam.grow-direction = #RIGHT
 \featherDurations #(ly:make-moment 2 3)
 { c32[ d e f] }
 % revert to non-feathered beams
-\override Beam #'grow-direction = #'()
+\override Beam.grow-direction = #'()
 { g32[ a b c] }
 @end lilypond
 
@@ -2634,7 +2634,7 @@ f1 \bar "|"
 f1 \bar "."
 g1 \bar "||"
 a1 \bar ".|"
-b1 \bar ".|."
+b1 \bar ".."
 c1 \bar "|.|"
 d1 \bar "|."
 e1
@@ -2644,8 +2644,8 @@ e1
 さらに、点線と破線の小節線があります:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":"
-g1 \bar "dashed"
+f1 \bar ";"
+g1 \bar "!"
 a1
 @end lilypond
 
@@ -2653,11 +2653,11 @@ a1
 さらに、繰り返しの小節線が 5 種類あります:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:"
-g1 \bar ":|:"
+f1 \bar ".|:"
+g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|"
+c1 \bar ":|."
 e1
 @end lilypond
 
@@ -2681,13 +2681,13 @@ c4 c c c
 c4 c c c \break
 \bar "S"
 c4 c c c
-\bar "|S"
+\bar "S-|"
 c4 c c c \break
-\bar "|S"
+\bar "S-|"
 c4 c c c
-\bar "S|"
+\bar "S-S"
 c4 c c c \break
-\bar "S|"
+\bar "S-S"
 c1
 @end lilypond
 
@@ -2708,9 +2708,9 @@ c1
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar "||:"
+\bar ".|:-||"
 c4 c c c \break
-\bar "||:"
+\bar ".|:-||"
 c4 c c c
 @end lilypond
 
@@ -2718,29 +2718,29 @@ c4 c c c
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar ":|S"
+\bar ":|.S"
 c4 c c c \break
-\bar ":|S"
+\bar ":|.S"
 c4 c c c
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c \break
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c \break
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c \break
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c \break
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c4 c c c \break
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c1
 @end lilypond
 
@@ -2847,7 +2847,7 @@ c1 c c c
 以下の例では、譜刻可能な場所すべてに小節番号を譜刻しています:
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+\override Score.BarNumber.break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
 % Permit first bar number to be printed
 \bar ""
@@ -3347,8 +3347,8 @@ c1 \afterGrace d1 { c16[ d] } c1
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3359,8 +3359,8 @@ c1 \afterGrace d1 { c16[ d] } c1
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" \grace s16 d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

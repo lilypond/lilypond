@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "The @code{'style} property from grobs such as
@@ -8,12 +8,12 @@ the default note head style for @code{\\note} and
 }
 
 \relative c' {
-  \override Staff.TimeSignature #'stencil =
+  \override Staff.TimeSignature.stencil =
     #(lambda (grob)
        (grob-interpret-markup grob
                               (markup #:override '(baseline-skip . 0)
                                       #:column (#:number "2" #:note "2" DOWN))))
-  \override TextSpanner #'(bound-details left text) =
+  \override TextSpanner.bound-details.left.text =
     \markup { \note #"16" #UP }
   c1\startTextSpan
   c1\stopTextSpan

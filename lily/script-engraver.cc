@@ -58,6 +58,8 @@ protected:
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
+  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (inline_accidental);
 
@@ -200,6 +202,26 @@ Script_engraver::acknowledge_stem_tremolo (Grob_info info)
 }
 
 void
+Script_engraver::acknowledge_tie (Grob_info info)
+{
+  for (vsize i = 0; i < scripts_.size (); i++)
+    {
+      Grob *e = scripts_[i].script_;
+      Side_position_interface::add_support (e, info.grob ());
+    }
+}
+
+void
+Script_engraver::acknowledge_end_tie (Grob_info info)
+{
+  for (vsize i = 0; i < scripts_.size (); i++)
+    {
+      Grob *e = scripts_[i].script_;
+      Side_position_interface::add_support (e, info.grob ());
+    }
+}
+
+void
 Script_engraver::acknowledge_inline_accidental (Grob_info info)
 {
   for (vsize i = 0; i < scripts_.size (); i++)
@@ -255,6 +277,8 @@ Script_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Script_engraver, stem);
+ADD_ACKNOWLEDGER (Script_engraver, tie);
+ADD_END_ACKNOWLEDGER (Script_engraver, tie);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);
 ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
 ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);

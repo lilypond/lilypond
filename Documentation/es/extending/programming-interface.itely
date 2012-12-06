@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Interfaces para programadores
 @chapter Interfaces para programadores
@@ -407,7 +407,7 @@ barraManual =
      (parser location principio-final)
      (pair?)
    #@{
-     \once \override Beam #'positions = #principio-final
+     \once \override Beam.positions = #principio-final
    #@})
 
 \relative c' @{
@@ -425,7 +425,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = #(cons beg end)
+     \once \override Beam.positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -447,14 +447,14 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
-  \revert Stem #'length
-  \revert NoteHead #'font-size
+  \revert Stem.length
+  \revert NoteHead.font-size
 }
 
 \relative c' {
@@ -473,12 +473,12 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      #music
-     \revert Stem #'length
-     \revert NoteHead #'font-size
+     \revert Stem.length
+     \revert NoteHead.font-size
    #})
 
 \relative c' {
@@ -508,7 +508,7 @@ mostrarNumeroDeCompas =
      (parser location)
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
-       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
        #@{#@}))
 @end example
 
@@ -1179,13 +1179,13 @@ Las propiedades (como @code{thickness} (grosor), @code{direction}
 p. ej.:
 
 @example
-\override Stem #'thickness = #2.0
+\override Stem.thickness = #2.0
 @end example
 
 Las propiedades pueden fijarse también a un procedimiento de Scheme,
 
 @lilypond[fragment,verbatim,quote,relative=2]
-\override Stem #'thickness = #(lambda (grob)
+\override Stem.thickness = #(lambda (grob)
     (if (= UP (ly:grob-property grob 'direction))
         2.0
         7.0))
@@ -1264,7 +1264,7 @@ La principal desventaja de @code{\tweak} es su inflexibilidad
 sintáctica.  Por ejemplo, lo siguiente produce un error de sintaxis.
 
 @example
-F = \tweak #'font-size #-3 -\flageolet
+F = \tweak font-size #-3 -\flageolet
 
 \relative c'' @{
   c4^\F c4_\F
@@ -1362,7 +1362,7 @@ arriba.
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
-  \override Tie #'after-line-breaking =
+  \override Tie.after-line-breaking =
   #my-callback
   c1 ~ \break
   c2 ~ c
@@ -1385,7 +1385,7 @@ razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Nombre del grob
+Score.NonMusicalPaperColumn  % Nombre del grob
 #'line-break-system-details     % Nombre de la propiedad
 #'((next-padding . 20))         % Valor
 @end example

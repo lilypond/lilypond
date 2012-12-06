@@ -9,10 +9,8 @@ depth = ..
 
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
-MANUALS_SUBDIRS = usage contributor essay \
-  web learning notation extending
-SUBDIRS = $(MANUALS_SUBDIRS) snippets logo pictures misc po css topdocs \
-  included ly-examples $(LANGS)
+SUBDIRS = logo pictures misc po css topdocs \
+  ly-examples $(LANGS)
 STEPMAKE_TEMPLATES = documentation texinfo tex omf
 LOCALSTEPMAKE_TEMPLATES = lilypond ly
 
@@ -27,13 +25,11 @@ $(outdir)/snippets/index.html: TEXI2HTML_FLAGS += -D short_toc
 
 ### Extra source files
 
-README_TOP_FILES= DEDICATION THANKS
+README_TOP_FILES= DEDICATION
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
 OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=out/%.ly)
-
-EXTRA_DIST_FILES = $(call src-wildcard,*.init) $(call src-wildcard,*.bst)
 
 ### Out files
 
@@ -99,7 +95,6 @@ $(XREF_MAPS_DIR)/web.xref-map: XREF_MAP_FLAGS += --split=node
 ### AJAX scripts
 JS_FILES = $(call src-wildcard,*.js)
 PHP_FILES = $(call src-wildcard,*.php)
-EXTRA_DIST_FILES += $(JS_FILES) $(PHP_FILES)
 
 OUT_JS_FILES = $(JS_FILES:%.js=$(outdir)/%.js)
 OUT_PHP_FILES = $(PHP_FILES:%.php=$(outdir)/%.php)
@@ -116,18 +111,21 @@ $(outdir)/colorado.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/colorado.itexi \
+		-q \
 		$(src-dir)/essay/colorado.bib
 
 $(outdir)/computer-notation.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/computer-notation.itexi \
+		-q \
 		$(src-dir)/essay/computer-notation.bib
 
 $(outdir)/engravingbib.itexi:
 	BSTINPUTS=$(src-dir)/essay $(buildscript-dir)/bib2texi \
 		-s $(top-src-dir)/Documentation/lily-bib \
 		-o $(outdir)/engravingbib.itexi \
+		-q \
 		$(src-dir)/essay/engravingbib.bib
 
 $(outdir)/essay.texi: \
@@ -169,8 +167,6 @@ extra-local-help:
 	@echo
 
 info: $(INFO_FILES)
-	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
-	@echo export PYTHONPATH=$(PYTHONPATH)
 
 xml: $(outdir)/notation/notation.xml $(outdir)/internals/internals.xml
 
@@ -204,7 +200,7 @@ $(OUT_TXT_FILES): $(outdir)/%.txt: $(top-src-dir)/%
 	cp -f $< $@
 
 $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
-	$(PYTHON) $(step-bindir)/text2html.py $<
+	$(buildscript-dir)/text2html $<
 
 # Explicitly list the dependencies on generated content
 $(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
@@ -307,9 +303,6 @@ endif
 ifneq ($(ISOLANG),)
 new-lang-dir:
 	mkdir -p $(ISOLANG)/$(DIR)
-	cp fr/GNUmakefile $(ISOLANG)
-	cp fr/$(DIR)/GNUmakefile $(ISOLANG)/$(DIR)
-	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/$(DIR)/GNUmakefile
 	rm -f $(outdir)/*.*tely $(outdir)/*.*texi
 	$(PYTHON) $(auxscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
 	for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do\
@@ -324,7 +317,10 @@ new-lang-dir:
 
 new-lang:
 # Also for updating/adding missing files
-	mkdir -p $(ISOLANG)
+	mkdir -p $(ISOLANG)/included
+	if test -z "`ls $(ISOLANG)/included`"; then touch $(ISOLANG)/included/.gitignore; fi
+	cp fr/GNUmakefile $(ISOLANG)
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile
 	$(foreach i,$(TRANSLATION_DIRS),$(MAKE) new-lang-dir DIR=$(i) &&) :
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po

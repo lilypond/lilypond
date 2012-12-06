@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -26,8 +26,8 @@ graceNotes = {
 \relative c'' {
   c8
   \graceNotes
-  \override Score.GraceSpacing #'spacing-increment = #2.0
+  \override Score.GraceSpacing.spacing-increment = #2.0
   \graceNotes
-  \revert Score.GraceSpacing #'spacing-increment
+  \revert Score.GraceSpacing.spacing-increment
   \graceNotes
 }

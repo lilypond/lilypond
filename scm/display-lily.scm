@@ -85,9 +85,9 @@ display method will be called."
                  (format #f "~a\\tweak ~a #~a"
                          (if post-event? "-" "")
 			 (if (pair? (car tweak))
-			     (format #f "~a #'~a"
+			     (format #f "~a.~a"
 				     (caar tweak) (cdar tweak))
-			     (format #f "#'~a" (car tweak)))
+			     (format #f "~a" (car tweak)))
                          (scheme-expr->lily-string (cdr tweak))))
                (ly:music-property expr 'tweaks))))
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -85,13 +85,13 @@ fermataLong = \markup {
     >>
     \clef bass
     <ds b! es'>4 ( ^ \markup \bold { Rall. }
-    \override Script #'stencil = #(lambda (grob)
+    \override Script.stencil = #(lambda (grob)
       (grob-interpret-markup grob fermataLong))
     <ds' as'>8 ) \fermata
     \noBeam
     \clef treble
     \slurUp
-    \once \override Hairpin #'to-barline = ##f
+    \once \override Hairpin.to-barline = ##f
     <as fs'>8 ( \pp \>
     |
     <gs b cs'>4. \! ) ^\markup \bold { a Tempo }
@@ -132,19 +132,19 @@ fermataLong = \markup {
         |
         s4. \!
         \slurUp
-        \once \override Script #'direction = #UP
+        \once \override Script.direction = #UP
         <a bs e'>8 ( \accent
         |
         <as! cs' gs'>4. )
-        \once \override Hairpin #'to-barline = ##f
+        \once \override Hairpin.to-barline = ##f
         <a' bs'>8 \ppp \>
         |
         s8 \!
         \stemDown
-        \once \override Script #'direction = #UP
+        \once \override Script.direction = #UP
         \ottava #1
         \voiceOne
-        \once \override PianoStaff.Arpeggio #'padding = #0.8
+        \once \override PianoStaff.Arpeggio.padding = #0.8
         <cs''' as''' cs''''>4. \arpeggio \fermata
         \ottava #0
         \bar "|."
@@ -219,8 +219,8 @@ fermataLong = \markup {
       cs'8
       < ds as >8 ] )
       |
-      \once \override Script #'outside-staff-priority = #100
-      \once \override TextScript #'outside-staff-priority = #500
+      \once \override Script.outside-staff-priority = #100
+      \once \override TextScript.outside-staff-priority = #500
       <cs, gs,>4. \fermata _\markup \italic { ped. }
       <fs, cs>8 (
       |

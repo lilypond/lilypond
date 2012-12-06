@@ -6,11 +6,11 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c''
 <<
-  \override  Score.SpacingSpanner #'uniform-stretching = ##t 
+  \override  Score.SpacingSpanner.uniform-stretching = ##t 
   \new Staff {
     c16[ c c c c c c c c c16]
   }

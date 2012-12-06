@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, rhythms"
@@ -19,10 +19,10 @@ a single note.
 
 \relative c' {
   c4.. a16 r2 |
-  \override Dots #'dot-count = #4
+  \override Dots.dot-count = #4
   c4.. a16 r2 |
-  \override Dots #'dot-count = #0
+  \override Dots.dot-count = #0
   c4.. a16 r2 |
-  \revert Dots #'dot-count
+  \revert Dots.dot-count
   c4.. a16 r2 |
 }

@@ -3,16 +3,16 @@
 account properly."
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \paper {
   ragged-right = ##t
 }
 
 
 \relative c''' {
-  \override Rest #'direction = #UP
+  \override Rest.direction = #UP
   \stemDown b8[ r b]
-  \override Rest #'direction = #DOWN
+  \override Rest.direction = #DOWN
   \stemDown b8[ r b]
 }
 

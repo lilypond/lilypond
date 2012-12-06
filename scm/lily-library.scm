@@ -259,9 +259,9 @@ bookoutput function"
 
 (define-public (context-mod-from-music parser music)
   (let ((warn #t) (mods (ly:make-context-mod)))
-    (let loop ((m music) (context #f))
+    (let loop ((m music))
       (if (music-is-of-type? m 'layout-instruction-event)
-	  (let ((symbol (cons context (ly:music-property m 'symbol))))
+	  (let ((symbol (ly:music-property m 'symbol)))
 	    (ly:add-context-mod
 	     mods
 	     (case (ly:music-property m 'name)
@@ -292,19 +292,17 @@ bookoutput function"
 				 (list 'apply
 				       (ly:music-property m 'procedure))))
 	    ((ContextSpeccedMusic)
-	     (loop (ly:music-property m 'element)
-		   (ly:music-property m 'context-type)))
+	     (loop (ly:music-property m 'element)))
 	    (else
 	     (let ((callback (ly:music-property m 'elements-callback)))
 	       (if (procedure? callback)
-		   (fold loop context (callback m))
+		   (for-each loop (callback m))
 		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
 		       (begin
 			 (ly:music-warning
 			  music
 			  (_ "Music unsuitable for context-mod"))
-			 (set! warn #f))))))))
-      context)
+			 (set! warn #f)))))))))
     mods))
 
 (define-public (context-defs-from-music parser output-def music)

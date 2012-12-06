@@ -43,13 +43,13 @@ RedirectMatch ^/stable    /doc/stable
 #RedirectMatch ^/development    /doc/development
 
 #old# default doc dir
-RedirectMatch ^/doc/*$ /doc/v2.14
+RedirectMatch ^/doc/*$ /doc/v2.16
 # make attempt at `latest' symlink avoid ^v catch-all doc fix rule below
-RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.15/$1
-RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.15/$1
-RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.14/$1
-RedirectMatch ^/doc//*([^v].*)$ /doc/v2.14/$1
-RedirectMatch ^(/Documentation.*)$ /doc/v2.14$1
+RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.17/$1
+RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.17/$1
+RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.16/$1
+RedirectMatch ^/doc//*([^v].*)$ /doc/v2.16/$1
+RedirectMatch ^(/Documentation.*)$ /doc/v2.16$1
 RedirectMatch ^/index$ /
 
 # fix root calculation: no double slashes

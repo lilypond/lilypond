@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc = "The two dots of a repeat sign should be symmetric
 to the staff centre and avoid staff lines even for exotic staves."
 }
 
 
-mus = \context Voice { \relative f' { d e f g \bar ":|" } }
+mus = \context Voice { \relative f' { d e f g \bar ":|." } }
 
 \new Staff {
   <<
@@ -15,7 +15,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-6 -4 -2 0 2)
+  \override StaffSymbol.line-positions = #'(-6 -4 -2 0 2)
 } {
   <<
     \clef french
@@ -25,7 +25,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-count = #4
+  \override StaffSymbol.line-count = #4
 } {
   <<
     \mus
@@ -34,7 +34,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2 0 2 4)
+  \override StaffSymbol.line-positions = #'(-2 0 2 4)
 } {
   <<
     \mus
@@ -43,7 +43,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-8 -4)
+  \override StaffSymbol.line-positions = #'(-8 -4)
 } {
   <<
     \clef french
@@ -53,8 +53,8 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2 0)
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.line-positions = #'(-2 0)
+  \override StaffSymbol.staff-space = #1.5
 } {
   <<
     \mus
@@ -63,7 +63,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2 0)
+  \override StaffSymbol.line-positions = #'(-2 0)
 } {
   <<
     \mus
@@ -72,7 +72,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2.9 -2)
+  \override StaffSymbol.line-positions = #'(-2.9 -2)
 } {
   <<
     \mus
@@ -81,7 +81,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-4 -3 -2)
+  \override StaffSymbol.line-positions = #'(-4 -3 -2)
 } {
   <<
     \mus
@@ -90,7 +90,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-6 -5 -2 0 3 5)
+  \override StaffSymbol.line-positions = #'(-6 -5 -2 0 3 5)
 } {
   <<
     \mus
@@ -99,8 +99,8 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-4 -2 -1)
-  \override StaffSymbol #'staff-space = #1.5
+  \override StaffSymbol.line-positions = #'(-4 -2 -1)
+  \override StaffSymbol.staff-space = #1.5
 } {
   <<
     \mus
@@ -109,7 +109,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-10 -2 6 14)
+  \override StaffSymbol.line-positions = #'(-10 -2 6 14)
 } {
   <<
     \mus
@@ -118,7 +118,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-5 -4 -2 2 4 6)
+  \override StaffSymbol.line-positions = #'(-5 -4 -2 2 4 6)
 } {
   <<
     \mus
@@ -127,7 +127,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'thickness = #4
+  \override StaffSymbol.thickness = #4
 } {
   <<
     \clef french
@@ -139,7 +139,7 @@ mus = \context Voice { \relative f' { d e f g \bar ":|" } }
 }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2)
+  \override StaffSymbol.line-positions = #'(-2)
 } {
   <<
     \mus

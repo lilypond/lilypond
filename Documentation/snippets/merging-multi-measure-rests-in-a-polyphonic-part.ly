@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "really-simple, rhythms, version-specific"
@@ -19,7 +19,7 @@ can be printed on the same staff line, using the following setting.
 } % begin verbatim
 
 
-normalPos = \revert MultiMeasureRest #'staff-position
+normalPos = \revert MultiMeasureRest.staff-position
 
 {
   <<

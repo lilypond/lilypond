@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header{
 
   texidoc = "Fully concave beams should be horizontal. Informally spoken,
@@ -58,7 +58,7 @@ rossBeams = \relative c'' {
 
 #(define (<> x y) (not (= x  y)))
 \new Voice {
-  \override Beam #'positions = #(check-slope-callbacks =)
+  \override Beam.positions = #(check-slope-callbacks =)
   \rossBeams
   
 }

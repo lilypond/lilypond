@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -56,7 +56,7 @@ fermaTa    = \markup \musicglyph #"scripts.ufermata"
 accel   = \markup \tiny \italic \bold "accel..."
 ritar   = \markup \tiny \italic \bold "ritar..."
 
-ignore     = \override NoteColumn #'ignore-collision = ##t
+ignore     = \override NoteColumn.ignore-collision = ##t
 
 
 %%
@@ -76,9 +76,9 @@ quatre         = \markup \teeny "IV"
 %% Shifting Notes
 %%
 
-shift      = \once \override NoteColumn #'force-hshift = #0.9
-shifta     = \once \override NoteColumn #'force-hshift = #1.2
-shiftb     = \once \override NoteColumn #'force-hshift = #1.4
+shift      = \once \override NoteColumn.force-hshift = #0.9
+shifta     = \once \override NoteColumn.force-hshift = #1.2
+shiftb     = \once \override NoteColumn.force-hshift = #1.4
 
 
 %%
@@ -86,21 +86,21 @@ shiftb     = \once \override NoteColumn #'force-hshift = #1.4
 %%
 
 % aniente        = "a niente"
-aniente        = \once \override Hairpin #'circled-tip = ##t
+aniente        = \once \override Hairpin.circled-tip = ##t
 
 
 %%
 %% Tuplets
 %%
 
-tupletbp       = \once \override Staff.TupletBracket #'padding = #2.25
+tupletbp       = \once \override Staff.TupletBracket.padding = #2.25
 
 
 %%
 %% Flag [Note Head - Stem]
 %%
 
-noflag         = \once \override Flag #'style = #'no-flag
+noflag         = \once \override Flag.style = #'no-flag
 
 %%%
 %%% Functions
@@ -126,9 +126,9 @@ ViolinSolo = \relative c' {
   \voiceOne
 
   \set Score.markFormatter     =  #format-mark-box-numbers
-  \override Score.VoltaBracket #'font-name                  = #"sans"
-  \override Score.VoltaBracket #'extra-offset               = #'(0 . 1)
-  \override SpacingSpanner     #'uniform-stretching         = ##t
+  \override Score.VoltaBracket.font-name                  = #"sans"
+  \override Score.VoltaBracket.extra-offset               = #'(0 . 1)
+  \override SpacingSpanner.uniform-stretching         = ##t
 
 
   %% Measure 1
@@ -178,7 +178,7 @@ ViolinSolo = \relative c' {
 
   %% Measure 6
   \time 5/8
-  \once \override Beam #'grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2 3)
+  \once \override Beam.grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2 3)
   { d16 \staccato
     [ d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato]
   }
@@ -220,8 +220,8 @@ ViolinSolo = \relative c' {
       \new Staff \ViolinSolo
     >>
 
-    \override Score.Rest #'transparent = ##t
-    \set Score.defaultBarType          = "empty"
+    \override Score.Rest.transparent = ##t
+    \set Score.defaultBarType          = "-"
   >>
 
   \layout  {

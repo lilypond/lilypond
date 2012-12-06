@@ -91,6 +91,22 @@ Pango_font::register_font_file (string filename,
                               scm_from_int (face_index)));
 }
 
+size_t
+Pango_font::name_to_index (string nm) const
+{
+  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  FT_Face face = pango_fc_font_lock_face (fcfont);
+  char *nm_str = (char *) nm.c_str ();
+  if (FT_UInt idx = FT_Get_Name_Index (face, nm_str))
+    {
+      pango_fc_font_unlock_face (fcfont);
+      return (size_t) idx;
+    }
+
+  pango_fc_font_unlock_face (fcfont);
+  return (size_t) - 1;
+}
+
 void
 Pango_font::derived_mark () const
 {
@@ -114,6 +130,51 @@ get_unicode_name (char *s,
     sprintf (s, "uni%04lX", code);
 }
 
+Box
+Pango_font::get_unscaled_indexed_char_dimensions (size_t signed_idx) const
+{
+  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  FT_Face face = pango_fc_font_lock_face (fcfont);
+  Box b = ly_FT_get_unscaled_indexed_char_dimensions (face, signed_idx);
+  pango_fc_font_unlock_face (fcfont);
+  return b;
+}
+
+Box
+Pango_font::get_scaled_indexed_char_dimensions (size_t signed_idx) const
+{
+  PangoFont *font = pango_context_load_font (context_, pango_description_);
+  PangoRectangle logical_rect;
+  PangoRectangle ink_rect;
+  pango_font_get_glyph_extents (font, signed_idx, &ink_rect, &logical_rect);
+  Box out (Interval (PANGO_LBEARING (ink_rect),
+                     PANGO_RBEARING (ink_rect)),
+           Interval (-PANGO_DESCENT (ink_rect),
+                     PANGO_ASCENT (ink_rect)));
+  out.scale (scale_);
+  return out;
+}
+
+Box
+Pango_font::get_glyph_outline_bbox (size_t signed_idx) const
+{
+  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  FT_Face face = pango_fc_font_lock_face (fcfont);
+  Box b = ly_FT_get_glyph_outline_bbox (face, signed_idx);
+  pango_fc_font_unlock_face (fcfont);
+  return b;
+}
+
+SCM
+Pango_font::get_glyph_outline (size_t signed_idx) const
+{
+  PangoFcFont *fcfont = PANGO_FC_FONT (pango_context_load_font (context_, pango_description_));
+  FT_Face face = pango_fc_font_lock_face (fcfont);
+  SCM s = ly_FT_get_glyph_outline (face, signed_idx);
+  pango_fc_font_unlock_face (fcfont);
+  return s;
+}
+
 Stencil
 Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
 {
@@ -128,7 +189,6 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
   pango_glyph_string_extents (pgs, pa->font, &ink_rect, &logical_rect);
 
   PangoFcFont *fcfont = PANGO_FC_FONT (pa->font);
-
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
 
   Box b (Interval (PANGO_LBEARING (logical_rect),
@@ -231,7 +291,20 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       else
         char_id = scm_from_locale_string (glyph_name);
 
-      *tail = scm_cons (scm_list_4 (scm_from_double (ggeo.width * scale_),
+      PangoRectangle logical_sub_rect;
+      PangoRectangle ink_sub_rect;
+
+      pango_glyph_string_extents_range (pgs, i, i + 1, pa->font, &ink_sub_rect, &logical_sub_rect);
+      Box b_sub (Interval (PANGO_LBEARING (logical_sub_rect),
+                           PANGO_RBEARING (logical_sub_rect)),
+                 Interval (-PANGO_DESCENT (ink_sub_rect),
+                           PANGO_ASCENT (ink_sub_rect)));
+
+      b_sub.scale (scale_);
+
+      *tail = scm_cons (scm_list_5 (scm_from_double (b_sub[X_AXIS][RIGHT] - b_sub[X_AXIS][LEFT]),
+                                    scm_cons (scm_from_double (b_sub[Y_AXIS][DOWN]),
+                                              scm_from_double (b_sub[Y_AXIS][UP])),
                                     scm_from_double (ggeo.x_offset * scale_),
                                     scm_from_double (- ggeo.y_offset * scale_),
                                     char_id),
@@ -284,13 +357,14 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
       ((Pango_font *) this)->register_font_file (file_name,
                                                  ps_name,
                                                  face_index);
-      pango_fc_font_unlock_face (fcfont);
 
-      SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
+      SCM expr = scm_list_n (ly_symbol2scm ("glyph-string"),
+                             self_scm (),
                              ly_string2scm (ps_name),
                              scm_from_double (size),
                              scm_from_bool (cid_keyed),
-                             ly_quote_scm (glyph_exprs));
+                             ly_quote_scm (glyph_exprs),
+                             SCM_UNDEFINED);
 
       return Stencil (b, expr);
     }

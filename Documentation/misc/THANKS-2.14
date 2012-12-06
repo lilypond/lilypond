@@ -1,0 +1,53 @@
+Release 2.14
+************
+
+DEVELOPMENT TEAM
+
+Han-Wen Nienhuys   - Core development
+Jan Nieuwenhuizen  - Core development
+Graham Percival    - Release Meister
+Valentin Villenave - LSR Editor and Bug Meister
+Mats Bengtsson     - Support Guru
+John Mandereau     - Translation Meister
+Trevor Daniels     - Documentation Editor
+
+CONTRIBUTORS
+
+Carl Sorensen      - Fret diagrams
+Jonathan Kulp      - Documentation Patches
+Ralph Palmer       - Documentation Indexing
+
+TRANSLATORS
+
+Francisco Vila
+Jean-Charles Malahieude
+Till Rettig
+Yoshiki Sawada
+
+FROGS
+
+Carl Sorensen     - Frog meister
+Andrew Hawryluk
+Andrew Wilson
+Marek Klein
+Ian Hulin
+Frédéric Bron
+Hajo Dezelski
+Kieren MacMillan
+
+
+BUG HUNTERS/SUGGESTIONS
+
+Chris Liddell
+Chris Snyder
+David Kastrup
+Karim Haddad
+Mark Polesky
+Martin Tarenskeen
+Michael Käppler
+Nick Payne
+
+
+#Local variables:
+#coding: utf-8
+#End:

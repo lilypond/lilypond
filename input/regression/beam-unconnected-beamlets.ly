@@ -6,9 +6,9 @@
 \layout {
   ragged-right = ##t
   }
-\version "2.16.0"
+\version "2.17.6"
 
 \relative c'' {
-  \override Stem #'max-beam-connect = #1
+  \override Stem.max-beam-connect = #1
   c16[ c16]
 }

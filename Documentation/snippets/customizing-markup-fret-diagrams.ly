@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings, tweaks-and-overrides"
@@ -26,11 +26,9 @@ markup.
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
-    \override TextScript #'size = #'1.2
-    \override TextScript
-      #'(fret-diagram-details finger-code) = #'in-dot
-    \override TextScript
-      #'(fret-diagram-details dot-color) = #'white
+    \override TextScript.size = #'1.2
+    \override TextScript.fret-diagram-details.finger-code = #'in-dot
+    \override TextScript.fret-diagram-details.dot-color = #'white
 
     %% C major for guitar, no barre, using defaults
        % terse style

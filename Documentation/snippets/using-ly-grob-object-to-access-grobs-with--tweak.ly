@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "devel, scheme-language, tweaks-and-overrides"
@@ -68,10 +68,10 @@ Example console output:
 
 \relative c' {
   %% display grobs for each note head:
-  %\override NoteHead #'before-line-breaking = #display-grobs
+  %\override NoteHead.before-line-breaking = #display-grobs
   <c
   %% or just for one:
-  \tweak #'before-line-breaking #display-grobs
+  \tweak before-line-breaking #display-grobs
   es
   g>1\arpeggio
 }

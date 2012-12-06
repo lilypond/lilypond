@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,
@@ -38,7 +38,7 @@ and referred to in markups."
       \mark "B" \label #'markB
       d' d'
       d' d'
-      \once \override Score . RehearsalMark #'break-visibility = #begin-of-line-invisible
+      \once \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
       \mark "C" \label #'markC
     }
     \header { piece = "First score" }

@@ -84,8 +84,6 @@ else:
     in_name = sys.argv[1]
     out_name = sys.argv[2]
 
-    print "input file name",in_name
-    print "output file name",out_name
     in_file = open(in_name,'r')
     out_file= open(out_name, 'w')
 

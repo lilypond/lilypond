@@ -121,10 +121,13 @@ The program is invoked as follows:
 convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 @end example
 
-
 The following options can be given:
 
 @table @code
+@item -d,--diff-version-update
+update the @code{\version} to the latest or, if this is greater, do
+nothing.
+
 @item -e,--edit
 Apply the conversions direct to the input file, modifying it
 in-place.
@@ -134,6 +137,14 @@ Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
 E.g. @option{--from=2.10.25}
 
+@item -h, --help
+Print usage help.
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+Set the output verbosity to @var{loglevel}. Possible values, in upper
+case, are @code{PROGRESS} (the default), @code{NONE}, @code{WARNING},
+@code{ERROR} and @code{DEBUG}.
+
 @item -n,--no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator
 to the output.  Specifying this option suppresses this.
@@ -141,16 +152,13 @@ to the output.  Specifying this option suppresses this.
 @item -s, --show-rules
 Show all known conversions and exit.
 
-@item --to=@var{to-patchlevel}
-Set the goal version of the conversion.  It defaults to the latest
-available version.  E.g. @option{--to=2.12.2}
+@item -t, --to=@var{to-patchlevel}
+Explicitly set which @code{\version} to convert to, otherwise the
+default is the most current value.
 
-@item -h, --help
-Print usage help.
-
-@item -l @var{loglevel}, --loglevel=@var{loglevel}
-Set the output verbosity to @var{loglevel}. Possible values are @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and @code{DEBUG}.
+@example
+convert-ly --to=2.14.1 myfile.ly
+@end example
 
 @end table
 

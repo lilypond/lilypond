@@ -190,7 +190,7 @@ private:
   void score_slope_direction (Beam_configuration *config) const;
   void score_slope_musical (Beam_configuration *config) const;
   void score_stem_lengths (Beam_configuration *config) const;
-  void generate_quants (vector<Beam_configuration *>* scores) const;
+  void generate_quants (vector<Beam_configuration *> *scores) const;
   void score_collisions (Beam_configuration *config) const;
 };
 

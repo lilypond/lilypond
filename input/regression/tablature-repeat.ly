@@ -3,7 +3,7 @@
   texidoc = "How a repeat sign looks in tablature."
 }
 
-\version "2.16.0"
+\version "2.17.2"
 \paper
 {
   ragged-right = ##t

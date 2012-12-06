@@ -66,7 +66,7 @@ LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
 
-  bool type_ok = ly_cheap_is_list (symlist);
+  bool type_ok = scm_is_pair (symlist);
 
   if (type_ok)
     for (SCM s = symlist; scm_is_pair (s) && type_ok; s = scm_cdr (s))
@@ -74,7 +74,10 @@ LY_DEFINE (ly_grob_set_nested_property_x, "ly:grob-set-nested-property!",
 
   SCM_ASSERT_TYPE (type_ok, symlist, SCM_ARG2, __FUNCTION__, "list of symbols");
 
-  set_nested_property (sc, symlist, val);
+  if (scm_is_pair (scm_cdr (symlist)))
+    set_nested_property (sc, symlist, val);
+  else
+    ly_grob_set_property_x (grob, scm_car (symlist), val);
   return SCM_UNSPECIFIED;
 }
 
@@ -465,4 +468,16 @@ LY_DEFINE (ly_grob_vertical_less_p, "ly:grob-vertical<?",
   Grob *gb = unsmob_grob (b);
 
   return ly_bool2scm (Grob::vertical_less (ga, gb));
+}
+
+LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-group-index",
+           1, 0, 0, (SCM grob),
+           "Get the index of the vertical axis group the grob @var{grob} belongs to;"
+           " return @code{-1} if none is found.")
+{
+  Grob *gr = unsmob_grob (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+
+  return scm_from_int (Grob::get_vertical_axis_group_index (gr));
 }

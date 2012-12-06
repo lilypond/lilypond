@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header{
 texidoc="
@@ -13,7 +13,7 @@ lyrics do not collide with barlines.
 
 \relative c'' <<
     \new Voice = "a"{
-	b1 \bar "|:" b1 \bar ":|" b1 \bar "|."
+	b1 \bar ".|:" b1 \bar ":|." b1 \bar "|."
     }
     \new Lyrics \with {
 	\consists "Bar_engraver"
@@ -31,9 +31,9 @@ lyrics do not collide with barlines.
 \layout {
   \context {
     \Lyrics
-      \override VerticalAxisGroup #'nonstaff-nonstaff-spacing #'minimum-distance = #4.2
-      \override LyricText #'Y-offset = #-0.7
-      \override BarLine #'bar-extent = #'(-2 . 2)
+      \override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = #4.2
+      \override LyricText.Y-offset = #-0.7
+      \override BarLine.bar-extent = #'(-2 . 2)
   }
 }
 

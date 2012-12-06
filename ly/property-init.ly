@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.16.0"
+\version "2.17.6"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -13,18 +13,21 @@ defaultNoteHeads =
    (_i "Revert to the default note head style.")
    (revert-head-style '(NoteHead TabNoteHead)))
 
-
 accidentalStyle =
 #(define-music-function
-   (parser location context style) ((symbol?) string?)
-   (_i "Set accidental style to @var{style}, a string.  If an optional
-@var{context} symbol is given, e.g. @code{#'Staff} or @code{#'Voice},
-the settings are applied to that context.  Otherwise, the context
-defaults to @samp{Staff}, except for piano styles, which use
-@samp{GrandStaff} as a context." )
-   (if context
-       (set-accidental-style (string->symbol style) context)
-       (set-accidental-style (string->symbol style))))
+   (parser location style) (symbol-list?)
+   (_i "Set accidental style to symbol list @var{style} in the form
+@samp{piano-cautionary}.  If @var{style} has a form like
+@samp{Staff.piano-cautionary}, the settings are applied to that
+context.  Otherwise, the context defaults to @samp{Staff}, except for
+piano styles, which use @samp{GrandStaff} as a context." )
+   (case (length style)
+    ((1) (set-accidental-style (car style)))
+    ((2) (set-accidental-style (cadr style) (car style)))
+    (else
+     (ly:parser-error parser (_ "not an accidental style")
+      location)
+     (make-music 'Music))))
 
 %% arpeggios
 
@@ -35,34 +38,34 @@ defaults to @samp{Staff}, except for piano styles, which use
 
 arpeggio = #(make-music 'ArpeggioEvent)
 arpeggioArrowUp = {
-  \revert Arpeggio  #'stencil
-  \revert Arpeggio #'X-extent
-  \override Arpeggio  #'arpeggio-direction = #UP
+  \revert Arpeggio.stencil
+  \revert Arpeggio.X-extent
+  \override Arpeggio.arpeggio-direction = #UP
 }
 arpeggioArrowDown = {
-  \revert Arpeggio #'stencil
-  \revert Arpeggio #'X-extent
-  \override Arpeggio  #'arpeggio-direction = #DOWN
+  \revert Arpeggio.stencil
+  \revert Arpeggio.X-extent
+  \override Arpeggio.arpeggio-direction = #DOWN
 }
 arpeggioNormal = {
-  \revert Arpeggio #'stencil
-  \revert Arpeggio #'X-extent
-  \revert Arpeggio #'arpeggio-direction
-  \revert Arpeggio #'dash-definition
+  \revert Arpeggio.stencil
+  \revert Arpeggio.X-extent
+  \revert Arpeggio.arpeggio-direction
+  \revert Arpeggio.dash-definition
 }
 arpeggioBracket = {
-  \revert Arpeggio #'X-extent
-  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
+  \revert Arpeggio.X-extent
+  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
 }
 arpeggioParenthesis = {
-  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio #'X-extent = #ly:grob::stencil-width
-  \revert Arpeggio #'dash-definition
+  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
+  \override Arpeggio.X-extent = #ly:grob::stencil-width
+  \revert Arpeggio.dash-definition
 }
 arpeggioParenthesisDashed = {
-  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio #'X-extent = #ly:grob::stencil-width
-  \override Arpeggio #'dash-definition = #'((0 1 0.4 0.75))
+  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
+  \override Arpeggio.X-extent = #ly:grob::stencil-width
+  \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
 }
 
 
@@ -75,13 +78,30 @@ autoBeamOff = \set autoBeaming = ##f
 %% balloon length
 
 balloonLengthOn = {
-  \override BalloonTextItem #'extra-spacing-width = #'(0 . 0)
-  \override BalloonTextItem #'extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override BalloonTextItem.extra-spacing-width = #'(0 . 0)
+  \override BalloonTextItem.extra-spacing-height = #'(-inf.0 . +inf.0)
 }
 balloonLengthOff = {
-  \override BalloonTextItem #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override BalloonTextItem #'extra-spacing-height = #'(0 . 0)
+  \override BalloonTextItem.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override BalloonTextItem.extra-spacing-height = #'(0 . 0)
 }
+
+
+%% bar lines
+
+defineBarLine =
+#(define-void-function
+   (parser location bar glyph-list) (string? list?)
+   (_i "Define bar line settings for bar line @var{bar}.
+     The list @var{glyph-list} must have three entries which define
+     the appearance at the end of line, at the beginning of the next line,
+     and the span bar, respectively." )
+  (if (not (= (length glyph-list) 3))
+      (ly:error (_ "Argument list for bar '~a' must have three components.") bar)
+      (define-bar-line bar
+                       (car glyph-list)
+                       (cadr glyph-list)
+                       (caddr glyph-list))))
 
 
 %% bass figures
@@ -95,11 +115,11 @@ bassFigureExtendersOff = {
   \set Staff.useBassFigureExtenders = ##f
 }
 bassFigureStaffAlignmentDown =
-  \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+  \override Staff.BassFigureAlignmentPositioning.direction = #DOWN
 bassFigureStaffAlignmentUp =
-  \override Staff.BassFigureAlignmentPositioning #'direction = #UP
+  \override Staff.BassFigureAlignmentPositioning.direction = #UP
 bassFigureStaffAlignmentNeutral =
-  \revert Staff.BassFigureAlignmentPositioning #'direction
+  \revert Staff.BassFigureAlignmentPositioning.direction
 
 
 %% cadenzas
@@ -147,40 +167,40 @@ expandFullBarRests   = \set Score.skipBars = ##f
 
 %% dots
 
-dotsUp      = \override Dots #'direction = #UP
-dotsDown    = \override Dots #'direction = #DOWN
-dotsNeutral = \revert Dots #'direction
+dotsUp      = \override Dots.direction = #UP
+dotsDown    = \override Dots.direction = #DOWN
+dotsNeutral = \revert Dots.direction
 
 
 %% dynamics
 
 dynamicUp = {
-  \override DynamicText #'direction = #UP
-  \override DynamicLineSpanner #'direction = #UP
+  \override DynamicText.direction = #UP
+  \override DynamicLineSpanner.direction = #UP
 }
 dynamicDown = {
-  \override DynamicText #'direction = #DOWN
-  \override DynamicLineSpanner #'direction = #DOWN
+  \override DynamicText.direction = #DOWN
+  \override DynamicLineSpanner.direction = #DOWN
 }
 dynamicNeutral = {
-  \revert DynamicText #'direction
-  \revert DynamicLineSpanner #'direction
+  \revert DynamicText.direction
+  \revert DynamicLineSpanner.direction
 }
 
 
 %% easy heads
 
 easyHeadsOn = {
-  \override NoteHead #'stencil = #note-head::brew-ez-stencil
-  \override NoteHead #'font-size = #-8
-  \override NoteHead #'font-family = #'sans
-  \override NoteHead #'font-series = #'bold
+  \override NoteHead.stencil = #note-head::brew-ez-stencil
+  \override NoteHead.font-size = #-8
+  \override NoteHead.font-family = #'sans
+  \override NoteHead.font-series = #'bold
 }
 easyHeadsOff = {
-  \revert NoteHead #'stencil
-  \revert NoteHead #'font-size
-  \revert NoteHead #'font-family
-  \revert NoteHead #'font-series
+  \revert NoteHead.stencil
+  \revert NoteHead.font-size
+  \revert NoteHead.font-family
+  \revert NoteHead.font-series
 }
 
 
@@ -189,8 +209,8 @@ easyHeadsOff = {
 %% End the incipit and print a ``normal line start''.
 endincipit = \context Staff {
   \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
-  \once \override Staff.Clef #'full-size-change = ##t
-  \once \override Staff.Clef #'non-default = ##t
+  \once \override Staff.Clef.full-size-change = ##t
+  \once \override Staff.Clef.non-default = ##t
   \bar ""
 }
 
@@ -240,26 +260,26 @@ harmonicNote =
 
 hideNotes = {
   % hide notes, accidentals, etc.
-  \override Dots #'transparent = ##t
-  \override NoteHead #'transparent = ##t
-  \override NoteHead #'no-ledgers = ##t
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
-  \override Beam #'transparent = ##t
-  \override Accidental #'transparent = ##t
-  \override Rest #'transparent = ##t
-  \override TabNoteHead #'transparent = ##t
+  \override Dots.transparent = ##t
+  \override NoteHead.transparent = ##t
+  \override NoteHead.no-ledgers = ##t
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
+  \override Beam.transparent = ##t
+  \override Accidental.transparent = ##t
+  \override Rest.transparent = ##t
+  \override TabNoteHead.transparent = ##t
 }
 unHideNotes = {
-  \revert Accidental #'transparent
-  \revert Beam #'transparent
-  \revert Stem #'transparent
-  \revert Flag #'transparent
-  \revert NoteHead #'transparent
-  \revert NoteHead #'no-ledgers
-  \revert Dots #'transparent
-  \revert Rest #'transparent
-  \revert TabNoteHead #'transparent
+  \revert Accidental.transparent
+  \revert Beam.transparent
+  \revert Stem.transparent
+  \revert Flag.transparent
+  \revert NoteHead.transparent
+  \revert NoteHead.no-ledgers
+  \revert Dots.transparent
+  \revert Rest.transparent
+  \revert TabNoteHead.transparent
 }
 
 
@@ -267,34 +287,63 @@ unHideNotes = {
 
 improvisationOn = {
   \set squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Accidental #'stencil = ##f
-  \override AccidentalCautionary #'stencil = ##f
+  \override NoteHead.style = #'slash
+  \override Accidental.stencil = ##f
+  \override AccidentalCautionary.stencil = ##f
 }
 improvisationOff = {
   \unset squashedPosition
-  \revert NoteHead #'style
-  \revert Accidental #'stencil
-  \revert AccidentalCautionary #'stencil
+  \revert NoteHead.style
+  \revert Accidental.stencil
+  \revert AccidentalCautionary.stencil
 }
 
+%% kievan
+kievanOn = {
+ \override NoteHead.style = #'kievan
+ \override Stem.X-offset = #stem::kievan-offset-callback
+ \override Stem.stencil = ##f
+ \override Flag.stencil = ##f
+ \override Rest.style = #'mensural
+ \override Accidental.glyph-name-alist = #alteration-kievan-glyph-name-alist
+ \override Dots.style = #'kievan
+ \override Slur.stencil = ##f
+ \override Stem.length = #0.0
+ \override Beam.positions = #beam::get-kievan-positions
+ \override Beam.quantized-positions = #beam::get-kievan-quantized-positions
+ \override NoteHead.duration-log = #note-head::calc-kievan-duration-log
+}
+kievanOff = {
+ \revert NoteHead.style
+ \revert Stem.X-offset
+ \revert Stem.stencil
+ \revert Rest.style
+ \revert Accidental.glyph-name-alist
+ \revert Dots.style
+ \revert Slur.stencil
+ \revert Flag.stencil
+ \revert Stem.length
+ \revert Beam.positions
+ \revert Beam.quantized-positions
+ \revert NoteHead.duration-log
+}
 
 %% merging
 
 mergeDifferentlyDottedOn =
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \override Staff.NoteCollision.merge-differently-dotted = ##t
 mergeDifferentlyDottedOff =
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \revert Staff.NoteCollision.merge-differently-dotted
 mergeDifferentlyHeadedOn =
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision.merge-differently-headed = ##t
 mergeDifferentlyHeadedOff =
-  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision.merge-differently-headed
 
 
 %% numeric time signature
 
-numericTimeSignature = \override Staff.TimeSignature #'style = #'numbered
-defaultTimeSignature = \revert Staff.TimeSignature #'style
+numericTimeSignature = \override Staff.TimeSignature.style = #'numbered
+defaultTimeSignature = \revert Staff.TimeSignature.style
 
 
 %% palm mutes
@@ -313,9 +362,9 @@ palmMute =
 %% phrasing slurs
 
 % directions
-phrasingSlurUp      = \override PhrasingSlur #'direction = #UP
-phrasingSlurDown    = \override PhrasingSlur #'direction = #DOWN
-phrasingSlurNeutral = \revert PhrasingSlur #'direction
+phrasingSlurUp      = \override PhrasingSlur.direction = #UP
+phrasingSlurDown    = \override PhrasingSlur.direction = #DOWN
+phrasingSlurNeutral = \revert PhrasingSlur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 phrasingSlurDashPattern =
@@ -324,42 +373,40 @@ phrasingSlurDashPattern =
    (_i "Set up a custom style of dash pattern for @var{dash-fraction} ratio of
 line to space repeated at @var{dash-period} interval for phrasing slurs.")
   #{
-     \override PhrasingSlur #'dash-definition =
+     \override PhrasingSlur.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
   #})
 phrasingSlurDashed =
-  \override PhrasingSlur #'dash-definition = #'((0 1 0.4 0.75))
+  \override PhrasingSlur.dash-definition = #'((0 1 0.4 0.75))
 phrasingSlurDotted =
-  \override PhrasingSlur #'dash-definition = #'((0 1 0.1 0.75))
+  \override PhrasingSlur.dash-definition = #'((0 1 0.1 0.75))
 phrasingSlurHalfDashed =
-  \override PhrasingSlur #'dash-definition = #'((0 0.5 0.4 0.75)
+  \override PhrasingSlur.dash-definition = #'((0 0.5 0.4 0.75)
 						(0.5 1 1 1))
 phrasingSlurHalfSolid =
-  \override PhrasingSlur #'dash-definition = #'((0 0.5 1 1)
+  \override PhrasingSlur.dash-definition = #'((0 0.5 1 1)
 						(0.5 1 0.4 0.75))
 phrasingSlurSolid =
-  \revert PhrasingSlur #'dash-definition
+  \revert PhrasingSlur.dash-definition
 
 
 %% point and click
 
 pointAndClickOn  =
-#(define-music-function (parser location) ()
+#(define-void-function (parser location) ()
    (_i "Enable generation of code in final-format (e.g. pdf) files to reference the
 originating lilypond source statement;
 this is helpful when developing a score but generates bigger final-format files.")
-   (ly:set-option 'point-and-click #t)
-   (make-music 'SequentialMusic 'void #t))
+   (ly:set-option 'point-and-click #t))
 
 pointAndClickOff =
-#(define-music-function (parser location) ()
+#(define-void-function (parser location) ()
    (_i "Suppress generating extra code in final-format (e.g. pdf) files to point
 back to the lilypond source statement.")
-   (ly:set-option 'point-and-click #f)
-   (make-music 'SequentialMusic 'void #t))
+   (ly:set-option 'point-and-click #f))
 
 pointAndClickTypes =
-#(define-void-function (parser location types) (list-or-symbol?)
+#(define-void-function (parser location types) (symbol-list-or-symbol?)
   (_i "Set a type or list of types (such as @code{#'note-event}) for which point-and-click info is generated.")
   (ly:set-option 'point-and-click types))
 
@@ -393,18 +440,18 @@ walkerHeadsMinor =
 
 %% shifts
 
-shiftOn   = \override NoteColumn #'horizontal-shift = #1
-shiftOnn  = \override NoteColumn #'horizontal-shift = #2
-shiftOnnn = \override NoteColumn #'horizontal-shift = #3
-shiftOff  = \revert NoteColumn #'horizontal-shift
+shiftOn   = \override NoteColumn.horizontal-shift = #1
+shiftOnn  = \override NoteColumn.horizontal-shift = #2
+shiftOnnn = \override NoteColumn.horizontal-shift = #3
+shiftOff  = \revert NoteColumn.horizontal-shift
 
 
 %% slurs
 
 % directions
-slurUp         = \override Slur #'direction = #UP
-slurDown       = \override Slur #'direction = #DOWN
-slurNeutral    = \revert Slur #'direction
+slurUp         = \override Slur.direction = #UP
+slurDown       = \override Slur.direction = #DOWN
+slurNeutral    = \revert Slur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 slurDashPattern =
@@ -413,16 +460,16 @@ slurDashPattern =
   (_i "Set up a custom style of dash pattern for @var{dash-fraction}
 ratio of line to space repeated at @var{dash-period} interval for slurs.")
   #{
-     \override Slur #'dash-definition =
+     \override Slur.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
   #})
-slurDashed     = \override Slur #'dash-definition = #'((0 1 0.4 0.75))
-slurDotted     = \override Slur #'dash-definition = #'((0 1 0.1 0.75))
-slurHalfDashed = \override Slur #'dash-definition = #'((0 0.5 0.4 0.75)
+slurDashed     = \override Slur.dash-definition = #'((0 1 0.4 0.75))
+slurDotted     = \override Slur.dash-definition = #'((0 1 0.1 0.75))
+slurHalfDashed = \override Slur.dash-definition = #'((0 0.5 0.4 0.75)
 						       (0.5 1 1 1))
-slurHalfSolid  = \override Slur #'dash-definition = #'((0 0.5 1 1)
+slurHalfSolid  = \override Slur.dash-definition = #'((0 0.5 1 1)
 						       (0.5 1 0.4 0.75))
-slurSolid      = \revert Slur #'dash-definition
+slurSolid      = \revert Slur.dash-definition
 
 
 %% staff switches
@@ -433,9 +480,9 @@ hideStaffSwitch = \set followVoice = ##f
 
 %% stems
 
-stemUp      = \override Stem #'direction = #UP
-stemDown    = \override Stem #'direction = #DOWN
-stemNeutral = \revert Stem #'direction
+stemUp      = \override Stem.direction = #UP
+stemDown    = \override Stem.direction = #DOWN
+stemNeutral = \revert Stem.direction
 
 
 %% tablature
@@ -443,91 +490,91 @@ stemNeutral = \revert Stem #'direction
 % switch to full notation
 tabFullNotation = {
   % time signature
-  \revert TabStaff.TimeSignature #'stencil
+  \revert TabStaff.TimeSignature.stencil
   % stems (the half note gets a double stem)
-  \revert TabVoice.Stem #'length
-  \revert TabVoice.Stem #'no-stem-extend
-  \revert TabVoice.Flag #'style
-  \revert TabVoice.Stem #'details
-  \revert TabVoice.Stem #'stencil
-  \revert TabVoice.Flag #'stencil
-  \override TabVoice.Stem #'stencil = #tabvoice::draw-double-stem-for-half-notes
-  \override TabVoice.Stem #'X-extent = #tabvoice::make-double-stem-width-for-half-notes
+  \revert TabVoice.Stem.length
+  \revert TabVoice.Stem.no-stem-extend
+  \revert TabVoice.Flag.style
+  \revert TabVoice.Stem.details
+  \revert TabVoice.Stem.stencil
+  \revert TabVoice.Flag.stencil
+  \override TabVoice.Stem.stencil = #tabvoice::draw-double-stem-for-half-notes
+  \override TabVoice.Stem.X-extent = #tabvoice::make-double-stem-width-for-half-notes
   \set TabVoice.autoBeaming = ##t
-  \revert TabVoice.NoteColumn #'ignore-collision
+  \revert TabVoice.NoteColumn.ignore-collision
   % beams, dots
-  \revert TabVoice.Beam #'stencil
-  \revert TabVoice.StemTremolo #'stencil
-  \revert TabVoice.Dots #'stencil
-  \revert TabVoice.Tie #'stencil
-  \revert TabVoice.Tie #'after-line-breaking
-  \revert TabVoice.RepeatTie #'stencil
-  \revert TabVoice.RepeatTie #'after-line-breaking
-  \revert TabVoice.LaissezVibrerTie #'stencil
-  \revert TabVoice.Slur #'stencil
-  \revert TabVoice.PhrasingSlur #'stencil
+  \revert TabVoice.Beam.stencil
+  \revert TabVoice.StemTremolo.stencil
+  \revert TabVoice.Dots.stencil
+  \revert TabVoice.Tie.stencil
+  \revert TabVoice.Tie.after-line-breaking
+  \revert TabVoice.RepeatTie.stencil
+  \revert TabVoice.RepeatTie.after-line-breaking
+  \revert TabVoice.LaissezVibrerTie.stencil
+  \revert TabVoice.Slur.stencil
+  \revert TabVoice.PhrasingSlur.stencil
   % tuplet stuff
-  \revert TabVoice.TupletBracket #'stencil
-  \revert TabVoice.TupletNumber #'stencil
+  \revert TabVoice.TupletBracket.stencil
+  \revert TabVoice.TupletNumber.stencil
   % dynamic signs
-  \revert TabVoice.DynamicText #'stencil
-  \revert TabVoice.DynamicTextSpanner #'stencil
-  \revert TabVoice.DynamicTextSpanner #'stencil
-  \revert TabVoice.Hairpin #'stencil
+  \revert TabVoice.DynamicText.stencil
+  \revert TabVoice.DynamicTextSpanner.stencil
+  \revert TabVoice.DynamicTextSpanner.stencil
+  \revert TabVoice.Hairpin.stencil
   % rests
-  \revert TabVoice.Rest #'stencil
-  \revert TabVoice.MultiMeasureRest #'stencil
-  \revert TabVoice.MultiMeasureRestNumber #'stencil
-  \revert TabVoice.MultiMeasureRestText #'stencil
+  \revert TabVoice.Rest.stencil
+  \revert TabVoice.MultiMeasureRest.stencil
+  \revert TabVoice.MultiMeasureRestNumber.stencil
+  \revert TabVoice.MultiMeasureRestText.stencil
   % markups etc.
-  \revert TabVoice.Glissando #'stencil
-  \revert TabVoice.Script #'stencil
-  \revert TabVoice.TextScript #'stencil
-  \revert TabVoice.TextSpanner #'stencil
-  \revert TabStaff.Arpeggio #'stencil
-  \revert TabStaff.NoteColumn #'ignore-collision
+  \revert TabVoice.Glissando.stencil
+  \revert TabVoice.Script.stencil
+  \revert TabVoice.TextScript.stencil
+  \revert TabVoice.TextSpanner.stencil
+  \revert TabStaff.Arpeggio.stencil
+  \revert TabStaff.NoteColumn.ignore-collision
 }
 
 %tie/repeat tie behaviour
 hideSplitTiedTabNotes = {
-  \override TabVoice.TabNoteHead #'(details tied-properties break-visibility) = #all-invisible
-  \override TabVoice.TabNoteHead #'(details tied-properties parenthesize) = ##f
-  \override TabVoice.TabNoteHead #'(details repeat-tied-properties note-head-visible) = ##f
-  \override TabVoice.TabNoteHead #'(details repeat-tied-properties parenthesize) = ##f
+  \override TabVoice.TabNoteHead.details.tied-properties.break-visibility = #all-invisible
+  \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##f
+  \override TabVoice.TabNoteHead.details.repeat-tied-properties.note-head-visible = ##f
+  \override TabVoice.TabNoteHead.details.repeat-tied-properties.parenthesize = ##f
 }
 
 showSplitTiedTabNotes = {
-  \override TabVoice.TabNoteHead #'(details tied-properties break-visibility) = #begin-of-line-visible
-  \override TabVoice.TabNoteHead #'(details tied-properties parenthesize) = ##t
-  \override TabVoice.TabNoteHead #'(details repeat-tied-properties note-head-visible) = ##t
-  \override TabVoice.TabNoteHead #'(details repeat-tied-properties parenthesize) = ##t
+  \override TabVoice.TabNoteHead.details.tied-properties.break-visibility = #begin-of-line-visible
+  \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##t
+  \override TabVoice.TabNoteHead.details.repeat-tied-properties.note-head-visible = ##t
+  \override TabVoice.TabNoteHead.details.repeat-tied-properties.parenthesize = ##t
 }
 
 %% text length
 
 textLengthOn = {
-  \override TextScript #'extra-spacing-width = #'(0 . 0)
-  \override TextScript #'extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override TextScript.extra-spacing-width = #'(0 . 0)
+  \override TextScript.extra-spacing-height = #'(-inf.0 . +inf.0)
 }
 textLengthOff = {
-  \override TextScript #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override TextScript #'extra-spacing-height = #'(0 . 0)
+  \override TextScript.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override TextScript.extra-spacing-height = #'(0 . 0)
 }
 
 
 %% text spanners
 
-textSpannerUp      = \override TextSpanner #'direction = #UP
-textSpannerDown    = \override TextSpanner #'direction = #DOWN
-textSpannerNeutral = \revert TextSpanner #'direction
+textSpannerUp      = \override TextSpanner.direction = #UP
+textSpannerDown    = \override TextSpanner.direction = #DOWN
+textSpannerNeutral = \revert TextSpanner.direction
 
 
 %% ties
 
 % directions
-tieUp      = \override Tie #'direction = #UP
-tieDown    = \override Tie #'direction = #DOWN
-tieNeutral = \revert Tie #'direction
+tieUp      = \override Tie.direction = #UP
+tieDown    = \override Tie.direction = #DOWN
+tieNeutral = \revert Tie.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 tieDashPattern =
@@ -536,23 +583,23 @@ tieDashPattern =
   (_i "Set up a custom style of dash pattern for @var{dash-fraction}
 ratio of line to space repeated at @var{dash-period} interval for ties.")
   #{
-     \override Tie #'dash-definition =
+     \override Tie.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
   #})
-tieDashed     = \override Tie #'dash-definition = #'((0 1 0.4 0.75))
-tieDotted     = \override Tie #'dash-definition = #'((0 1 0.1 0.75))
-tieHalfDashed = \override Tie #'dash-definition = #'((0 0.5 0.4 0.75)
+tieDashed     = \override Tie.dash-definition = #'((0 1 0.4 0.75))
+tieDotted     = \override Tie.dash-definition = #'((0 1 0.1 0.75))
+tieHalfDashed = \override Tie.dash-definition = #'((0 0.5 0.4 0.75)
 						     (0.5 1 1 1))
-tieHalfSolid  = \override Tie #'dash-definition = #'((0 0.5 1 1)
+tieHalfSolid  = \override Tie.dash-definition = #'((0 0.5 1 1)
 						     (0.5 1 0.4 0.75))
-tieSolid      = \revert Tie #'dash-definition
+tieSolid      = \revert Tie.dash-definition
 
 
 %% tuplets
 
-tupletUp      = \override TupletBracket #'direction = #UP
-tupletDown    = \override TupletBracket #'direction = #DOWN
-tupletNeutral = \revert TupletBracket #'direction
+tupletUp      = \override TupletBracket.direction = #UP
+tupletDown    = \override TupletBracket.direction = #DOWN
+tupletNeutral = \revert TupletBracket.direction
 
 
 %% voice properties
@@ -568,41 +615,47 @@ oneVoice   = #(context-spec-music (make-voice-props-revert) 'Voice)
 %% voice styles
 
 voiceOneStyle = {
-  \override NoteHead #'style = #'diamond
-  \override NoteHead #'color = #red
-  \override Stem #'color = #red
-  \override Flag #'color = #red
-  \override Beam #'color = #red
+  \override NoteHead.style = #'diamond
+  \override NoteHead.color = #red
+  \override Stem.color = #red
+  \override Flag.color = #red
+  \override Beam.color = #red
 }
 voiceTwoStyle = {
-  \override NoteHead #'style = #'triangle
-  \override NoteHead #'color = #blue
-  \override Stem #'color = #blue
-  \override Flag #'color = #blue
-  \override Beam #'color = #blue
+  \override NoteHead.style = #'triangle
+  \override NoteHead.color = #blue
+  \override Stem.color = #blue
+  \override Flag.color = #blue
+  \override Beam.color = #blue
 }
 voiceThreeStyle = {
-  \override NoteHead #'style = #'xcircle
-  \override NoteHead #'color = #green
-  \override Stem #'color = #green
-  \override Flag #'color = #green
-  \override Beam #'color = #green
+  \override NoteHead.style = #'xcircle
+  \override NoteHead.color = #green
+  \override Stem.color = #green
+  \override Flag.color = #green
+  \override Beam.color = #green
 }
 voiceFourStyle = {
-  \override NoteHead #'style = #'cross
-  \override NoteHead #'color = #magenta
-  \override Stem #'color = #magenta
-  \override Flag #'color = #magenta
-  \override Beam #'color = #magenta
+  \override NoteHead.style = #'cross
+  \override NoteHead.color = #magenta
+  \override Stem.color = #magenta
+  \override Flag.color = #magenta
+  \override Beam.color = #magenta
 }
 voiceNeutralStyle = {
-  \revert NoteHead #'style
-  \revert NoteHead #'color
-  \revert Stem #'color
-  \revert Flag #'color
-  \revert Beam #'color
+  \revert NoteHead.style
+  \revert NoteHead.color
+  \revert Stem.color
+  \revert Flag.color
+  \revert Beam.color
 }
 
+
+%% volta brackets
+
+allowVoltaHook =
+#(define-void-function (parser location bar) (string?)
+                       (allow-volta-hook bar))
 
 %% x notes
 

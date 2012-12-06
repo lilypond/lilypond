@@ -35,6 +35,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_style, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   static Stencil raw_stencil (Grob *, Real slope, Direction stemdir);
   static Real y_offset (Grob *, bool pure);

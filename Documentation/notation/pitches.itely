@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node Pitches
@@ -464,9 +464,9 @@ The available languages and the note names they define are:
   @tab c d e f g a b h
 @item @code{english}
   @tab c d e f g a bf b
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -497,9 +497,9 @@ also vary depending on the language:
 @item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
@@ -551,9 +551,9 @@ appear in this table do not provide special note names yet.
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
+@item @code{espanol} or @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano}
+@item @code{italiano} or @code{français}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
@@ -841,7 +841,7 @@ music = \relative c' { c d e f }
 @end lilypond
 
 @warning{Motifs to be inverted should be expressed in absolute form
-or be first converted to absolute form by enclosing them in a 
+or be first converted to absolute form by enclosing them in a
 @code{\relative} block.}
 
 @seealso
@@ -1127,6 +1127,8 @@ c2 c
 @cindex transposing clef
 @cindex clef, transposing
 @cindex octave transposition
+@cindex optional octave transposition
+@cindex octave transposition, optional
 @cindex choral tenor clef
 @cindex tenor clef, choral
 
@@ -1150,6 +1152,19 @@ c2 c
 \clef "F^5"
 c2 c
 @end lilypond
+
+Optional octavation can be obtained by enclosing the numeric
+argument in parentheses or brackets:
+
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+The pitches are displayed as if the numeric argument were
+given without parentheses/brackets.
 
 Some special purpose clefs are described in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
@@ -1178,6 +1193,21 @@ Internals Reference:
 @rinternals{Clef},
 @rinternals{OctavateEight},
 @rinternals{clef-interface}.
+
+@knownissues
+Ottavation numbers attached to clefs are treated as separate grobs.  So
+any @code{\override} done to the @var{Clef} will also need to be
+applied, as a separate @code{\override}, to the @var{OctavateEight}
+grob.
+
+@lilypond[fragment,quote,relative=1]
+\new Staff \with {
+  \override OctavateEight.color = #red
+  \override Clef.color = #blue
+}
+
+\clef "treble_8" c4
+@end lilypond
 
 
 @node Key signature
@@ -1250,6 +1280,37 @@ f
 fis
 @end lilypond
 
+Additional modes can be defined, by listing the alterations
+for each scale step when the mode starts on C.
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative c' {
+  \key c\freygish c4 des e f
+  \bar "||" \key d\freygish d es fis g
+}
+@end lilypond
+
+Accidentals in the key signature may be printed in octaves other
+than their traditional positions, or in multiple octaves, by
+using the @code{flat-positions} and @code{sharp-positions}
+properties of @code{KeySignature}.  Entries in these properties
+specify the range of staff-positions where accidentals will be
+printed.  If a single position is specified in an entry, the
+accidentals are placed within the octave ending at that staff
+position.
+
+@lilypond[verbatim, quote,relative=0]
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+
+\override Staff.KeySignature.sharp-positions = #'(2)
+\bar "||" \key b\major b fis b2
+@end lilypond
 
 @snippets
 
@@ -1276,7 +1337,6 @@ Internals Reference:
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
-@rinternals{key-cancellation-interface},
 @rinternals{key-signature-interface}.
 
 
@@ -1443,7 +1503,7 @@ accidental style to use.  This function is called as follows:
 
 @example
 \new Staff <<
-  \accidentalStyle "voice"
+  \accidentalStyle voice
   @{ @dots{} @}
 >>
 @end example
@@ -1456,7 +1516,7 @@ scope the style should be changed.  For example, to use the same
 style in all staves of the current @code{StaffGroup}, use:
 
 @example
-\accidentalStyle #'StaffGroup "voice"
+\accidentalStyle StaffGroup.voice
 @end example
 
 The following accidental styles are supported.  To demonstrate
@@ -1499,11 +1559,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicB
     }
   >>
@@ -1519,7 +1579,7 @@ both staves.
   <<
     \context Staff = "up" @{
       %%% change the next line as desired:
-      \accidentalStyle #'Score "default"
+      \accidentalStyle Score.default
       \musicA
     @}
     \context Staff = "down" @{
@@ -1582,11 +1642,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "default"
+      \accidentalStyle default
       \musicB
     }
   >>
@@ -1655,11 +1715,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "voice"
+      \accidentalStyle voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "voice"
+      \accidentalStyle voice
       \musicB
     }
   >>
@@ -1721,11 +1781,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern"
+      \accidentalStyle modern
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern"
+      \accidentalStyle modern
       \musicB
     }
   >>
@@ -1785,11 +1845,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-cautionary"
+      \accidentalStyle modern-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-cautionary"
+      \accidentalStyle modern-cautionary
       \musicB
     }
   >>
@@ -1852,11 +1912,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-voice"
+      \accidentalStyle modern-voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-voice"
+      \accidentalStyle modern-voice
       \musicB
     }
   >>
@@ -1913,11 +1973,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "modern-voice-cautionary"
+      \accidentalStyle modern-voice-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "modern-voice-cautionary"
+      \accidentalStyle modern-voice-cautionary
       \musicB
     }
   >>
@@ -1978,7 +2038,7 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "piano"
+      \accidentalStyle piano
       \musicA
     }
     \context Staff = "down" {
@@ -2038,7 +2098,7 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "piano-cautionary"
+      \accidentalStyle piano-cautionary
       \musicA
     }
     \context Staff = "down" {
@@ -2097,11 +2157,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern"
+      \accidentalStyle neo-modern
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern"
+      \accidentalStyle neo-modern
       \musicB
     }
   >>
@@ -2154,11 +2214,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-cautionary"
+      \accidentalStyle neo-modern-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-cautionary"
+      \accidentalStyle neo-modern-cautionary
       \musicB
     }
   >>
@@ -2214,11 +2274,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-voice"
+      \accidentalStyle neo-modern-voice
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-voice"
+      \accidentalStyle neo-modern-voice
       \musicB
     }
   >>
@@ -2271,11 +2331,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "neo-modern-voice-cautionary"
+      \accidentalStyle neo-modern-voice-cautionary
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "neo-modern-voice-cautionary"
+      \accidentalStyle neo-modern-voice-cautionary
       \musicB
     }
   >>
@@ -2331,11 +2391,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
       \musicB
     }
   >>
@@ -2393,12 +2453,12 @@ musicB = {
   <<
     \context Staff = "up" {
       \key fis \minor
-      \accidentalStyle "teaching"
+      \accidentalStyle teaching
       \musicA
     }
     \context Staff = "down" {
       \key fis \minor
-      \accidentalStyle "teaching"
+      \accidentalStyle teaching
       \musicB
     }
   >>
@@ -2453,11 +2513,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "no-reset"
+      \accidentalStyle no-reset
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "no-reset"
+      \accidentalStyle no-reset
       \musicB
     }
   >>
@@ -2512,11 +2572,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      \accidentalStyle "forget"
+      \accidentalStyle forget
       \musicA
     }
     \context Staff = "down" {
-      \accidentalStyle "forget"
+      \accidentalStyle forget
       \musicB
     }
   >>
@@ -2559,7 +2619,7 @@ not need a natural sign:
 
 @lilypond[quote]
 {
-  \accidentalStyle "modern"
+  \accidentalStyle modern
   \time 2/4
   \repeat volta 2 {
     c'2
@@ -2576,12 +2636,12 @@ the accidental style to @code{forget}:
 
 @lilypond[verbatim,quote]
 forget = #(define-music-function (parser location music) (ly:music?) #{
-  \accidentalStyle "forget"
+  \accidentalStyle forget
   #music
-  \accidentalStyle "modern"
+  \accidentalStyle modern
 #})
 {
-  \accidentalStyle "modern"
+  \accidentalStyle modern
   \time 2/4
   \repeat volta 2 {
     c'2
@@ -2696,13 +2756,13 @@ The appearance of note heads may be altered:
 
 @lilypond[verbatim,quote,relative=2]
 c4 b
-\override NoteHead #'style = #'cross
+\override NoteHead.style = #'cross
 c4 b
-\revert NoteHead #'style
+\revert NoteHead.style
 a b
-\override NoteHead #'style = #'harmonic
+\override NoteHead.style = #'harmonic
 a b
-\revert NoteHead #'style
+\revert NoteHead.style
 c4 d e f
 @end lilypond
 

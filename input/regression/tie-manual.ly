@@ -11,7 +11,7 @@ You can leave a Tie alone by introducing a non-pair value
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   ragged-right = ##t
@@ -23,7 +23,7 @@ You can leave a Tie alone by introducing a non-pair value
   <b d f g>~
 
   
-  \once \override TieColumn #'tie-configuration =
+  \once \override TieColumn.tie-configuration =
      #'((0 . -1)  (2 . -1) (5.5 . 1) (7 . 1))
 
   <b d f g>

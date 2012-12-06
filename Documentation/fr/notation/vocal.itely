@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -168,14 +168,14 @@ impératif d'insérer des espaces lorsque vous modifiez les propriétés
 d'une commande.  En d'autres termes, @strong{ne saisissez pas}
 
 @example
-\override Score.LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 @noindent
 mais plutôt
 
 @example
-\override Score . LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 Pour utiliser des lettres accentuées ou des caractères spéciaux
@@ -1053,7 +1053,7 @@ question.  Voici comment cela se présente :
   <<
     \new Lyrics = "lyrics" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "melody" {
@@ -1085,7 +1085,7 @@ deuxième méthode :
     \new Lyrics = "sopranos"
     \new Lyrics = "contraltos" \with {
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "contraltos" {
@@ -1137,7 +1137,7 @@ permet d'accroître l'espacement des paroles.
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
 }
 \addlyrics {
@@ -1163,7 +1163,7 @@ dans le bloc @code{\layout}.
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = #1.0
     }
   }
 }
@@ -1181,7 +1181,7 @@ Afin de réduire le temps de traitement, vous pouvez désactiver cette
 fonctionnalité en ajoutant
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 Pour s'assurer que les paroles ne seront pas traversées par des barres
@@ -1193,7 +1193,7 @@ de mesure, il faut ajouter
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
   @}
 @}
 @end example
@@ -1928,7 +1928,7 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
         \voiceOne
         \times 2/3 {
           % show associations clearly.
-          \override NoteColumn #'force-hshift = #-3
+          \override NoteColumn.force-hshift = #-3
           f8 f g
         }
       }
@@ -2364,8 +2364,8 @@ du chœur.
   \layout {
     \context {
       \Score
-      \override DynamicText #'direction = #UP
-      \override DynamicLineSpanner #'direction = #UP
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
     }
   }
 }
@@ -2660,7 +2660,7 @@ pianoRH = \relative c'' {
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
     \set instrumentCueName = "Flute"
   }
   \cueDuring "flute" #UP { g4 bes4 }
@@ -2704,8 +2704,8 @@ pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
-    \override InstrumentSwitch #'direction = #DOWN
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
+    \override InstrumentSwitch.direction = #DOWN
     \set instrumentCueName = "Clar."
   }
   \cueDuring "clarinet" #DOWN { c4. g8 }
@@ -2847,8 +2847,8 @@ dialogue = \lyricmode {
 \score {
   <<
     \new Lyrics \with {
-      \override LyricText #'font-shape = #'italic
-      \override LyricText #'self-alignment-X = #LEFT
+      \override LyricText.font-shape = #'italic
+      \override LyricText.self-alignment-X = #LEFT
     }
     { \dialogue }
     \new Staff {
@@ -2922,7 +2922,7 @@ indiquer les hauteurs ; le rythme de la mélodie est donné par le
 rythme et l'accentuation des paroles elles-mêmes.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem #'transparent = ##t }
+stemOff = { \override Staff.Stem.transparent = ##t }
 
 \relative c' {
   \stemOff
@@ -3016,9 +3016,9 @@ a4 b c2
 \bar "'"
 a4 b c2
 a4 b c2
-\bar ":"
+\bar ";"
 a4 b c2
-\bar "dashed"
+\bar "!"
 a4 b c2
 \bar "||"
 @end lilypond
@@ -3030,23 +3030,23 @@ besoins :
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 
@@ -3162,8 +3162,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner
-          #'base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
         }
         \context {
           \Staff

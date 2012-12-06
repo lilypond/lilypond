@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "fretted-strings"
@@ -29,10 +29,10 @@ or fret in the different orientations will be aligned.
   \new FretBoards {
     \chordmode {
       c1
-      \override FretBoard #'(fret-diagram-details orientation) =
+      \override FretBoard.fret-diagram-details.orientation =
         #'landscape
       c1
-      \override FretBoard #'(fret-diagram-details orientation) =
+      \override FretBoard.fret-diagram-details.orientation =
         #'opposing-landscape
       c1
     }

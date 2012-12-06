@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -765,7 +765,7 @@ An @code{\override} command, but with the context name omitted
   \layout {
     \context {
       \Staff
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
   }
 }
@@ -791,7 +791,7 @@ Directly setting a context property
 
 @item
 A predefined command such as @code{\dynamicUp} or a music
-expression like @code{\accidentalStyle "dodecaphonic"}
+expression like @code{\accidentalStyle dodecaphonic}
 
 @lilypond[quote,verbatim]
 \score {
@@ -806,7 +806,7 @@ expression like @code{\accidentalStyle "dodecaphonic"}
     }
     \context {
       \Staff
-      \accidentalStyle "dodecaphonic"
+      \accidentalStyle dodecaphonic
     }
   }
 }
@@ -858,9 +858,9 @@ the same command written in the music stream.
     }
   }
   \layout {
-    \accidentalStyle "dodecaphonic"
+    \accidentalStyle dodecaphonic
     \set fontSize = #-4
-    \override Voice.Stem #'thickness = #4.0
+    \override Voice.Stem.thickness = #4.0
   }
 }
 @end lilypond
@@ -899,7 +899,7 @@ An @code{\override} command, but with the context name omitted
   \new Staff {
     \new Voice
     \with {
-      \override Stem #'thickness = #4.0
+      \override Stem.thickness = #4.0
     }
     {
       \relative c'' {
@@ -951,7 +951,7 @@ A predefined command such as @code{\dynamicUp}
       }
     }
     \new Staff
-    \with { \accidentalStyle "dodecaphonic" }
+    \with { \accidentalStyle dodecaphonic }
     {
       \new Voice
       \with { \dynamicUp }
@@ -1040,9 +1040,9 @@ to indicate improvisation in jazz pieces,
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1108,9 +1108,9 @@ the center line.
 The notes look like a slash, and have no stem,
 
 @example
-\override NoteHead #'style = #'slash
-\override Stem #'transparent = ##t
-\override Flag #'transparent = ##t
+\override NoteHead.style = #'slash
+\override Stem.transparent = ##t
+\override Flag.transparent = ##t
 @end example
 
 All these plug-ins have to cooperate, and this is achieved with a
@@ -1131,9 +1131,9 @@ Put together, we get
   \consists "Text_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t
+  \override NoteHead.style = #'slash
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example
@@ -1562,14 +1562,14 @@ fingering away from the note head.  The following command inserts
 3 staff spaces of white
 between the note and the fingering:
 @example
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 @end example
 
 Inserting this command before the Fingering object is created,
 i.e., before @code{c2}, yields the following result:
 
 @lilypond[quote,relative=2,verbatim]
-\once \override Voice.Fingering #'padding = #3
+\once \override Voice.Fingering.padding = #3
 c-2
 \stemUp
 f
@@ -1667,7 +1667,7 @@ discuss the functionality of this command.
 The command
 
 @verbatim
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 @end verbatim
 
 @noindent
@@ -1678,7 +1678,7 @@ appearance.  Here we see the command in action:
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\override Staff.Stem #'thickness = #4.0
+\override Staff.Stem.thickness = #4.0
 c4
 c4
 c4
@@ -1694,7 +1694,7 @@ causing the default context @code{Voice} to be used.  Adding
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\once \override Stem #'thickness = #4.0
+\once \override Stem.thickness = #4.0
 c4
 c4
 @end lilypond
@@ -1705,9 +1705,9 @@ or beams, the @code{\override} command must be executed at the moment
 when the object is created.  In this example,
 
 @lilypond[quote,verbatim,relative=2]
-\override Slur #'thickness = #3.0
+\override Slur.thickness = #3.0
 c8[( c
-\override Beam #'beam-thickness = #0.6
+\override Beam.beam-thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -1721,8 +1721,8 @@ affects settings that were made in the same context.  In other words, the
 @code{\revert} in the next example does not do anything.
 
 @example
-\override Voice.Stem #'thickness = #4.0
-\revert Staff.Stem #'thickness
+\override Voice.Stem.thickness = #4.0
+\revert Staff.Stem.thickness
 @end example
 
 Some tweakable options are called @q{subproperties} and reside inside
@@ -1737,7 +1737,7 @@ properties.  To tweak those, use commands of the form
 such as
 
 @example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
+\override Stem.details.beamed-lengths = #'(4 4 3)
 @end example
 
 @end ignore
@@ -1909,28 +1909,11 @@ association list.  See @file{scm/define-grobs.scm}
 to see the settings for each grob description.  Grob descriptions
 are modified with @code{\override}.
 
-@code{\override} is actually a shorthand;
+The syntax for the @code{\override} command is
 
 @example
-\override @var{context}.@var{GrobName} #'@var{property} = #@var{value}
+\override [@var{context}.]@var{GrobName}.@var{property} = #@var{value}
 @end example
-
-@noindent
-is more or less equivalent to
-
-@c  leave this long line -gp
-@example
-\set @var{context}.@var{GrobName}  =
-  #(cons (cons '@var{property} @var{value})
-         <previous value of @var{context}.@var{GrobName}>)
-@end example
-
-The value of @code{context}.@code{GrobName} (the alist) is used to initialize
-the properties of individual grobs.  Grobs have
-properties, named in Scheme style, with
-@code{dashed-words}.  The values of grob properties change
-during the formatting process: formatting basically amounts
-to computing properties using callback functions.
 
 For example, we can increase the thickness of a note stem by
 overriding the @code{thickness} property of the @code{Stem}
@@ -1938,7 +1921,7 @@ object:
 
 @lilypond[quote,verbatim,relative=2]
 c4 c
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
 @end lilypond
 
@@ -1946,11 +1929,11 @@ If no context is specified in an @code{\override}, the bottom
 context is used:
 
 @lilypond[quote,verbatim,relative=2]
-{ \override Staff.Stem #'thickness = #3.0
+{ \override Staff.Stem.thickness = #3.0
   <<
     {
       e4 e
-      \override Stem #'thickness = #0.5
+      \override Stem.thickness = #0.5
       e4 e
     } \\ {
       c4 c c c
@@ -1959,17 +1942,39 @@ context is used:
 }
 @end lilypond
 
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands in the form
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+or to modify the ends of spanners, use a form like these
+
+@example
+\override TextSpanner.bound-details.left.text = #"left text"
+\override TextSpanner.bound-details.right.text = #"right text"
+@end example
+
 @funindex \revert
 @cindex reverting overrides
 @cindex overrides, reverting
 
-The effects of @code{\override} can be undone by @code{\revert}:
+The effects of @code{\override} can be undone by @code{\revert}.
+
+The syntax for the @code{\revert} command is
+
+@example
+\revert [@var{context}.]@var{GrobName}.@var{property}
+@end example
+
+For example,
 
 @lilypond[quote,verbatim,relative=2]
 c4
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 c4 c
-\revert Voice.Stem #'thickness
+\revert Voice.Stem.thickness
 c4
 @end lilypond
 
@@ -1981,11 +1986,11 @@ grobs in the affected context from the current time forward:
   <<
     {
       e4
-      \override Staff.Stem #'thickness = #3.0
+      \override Staff.Stem.thickness = #3.0
       e4 e e
     } \\ {
       c4 c c
-      \revert Staff.Stem #'thickness
+      \revert Staff.Stem.thickness
       c4
     }
   >>
@@ -2002,11 +2007,11 @@ to affect only the current time step:
 {
   <<
     {
-      \override Stem #'thickness = #3.0
+      \override Stem.thickness = #3.0
       e4 e e e
     } \\ {
       c4
-      \once \override Stem #'thickness = #3.0
+      \once \override Stem.thickness = #3.0
       c4 c c
     }
   >>
@@ -2018,7 +2023,7 @@ to affect only the current time step:
 Commands which change output generally look like
 
 @example
-\override Voice.Stem #'thickness = #3.0
+\override Voice.Stem.thickness = #3.0
 @end example
 
 @noindent
@@ -2030,13 +2035,6 @@ To construct this tweak we must determine these bits of information:
 @item the layout property: here @code{thickness}.
 @item a sensible value: here @code{3.0}.
 @end itemize
-
-Some tweakable options are called @q{subproperties} and reside inside
-properties.  To tweak those, use commands in the form
-
-@example
-\override Stem #'(details beamed-lengths) = #'(4 4 3)
-@end example
 
 @cindex internal documentation
 @cindex finding graphical objects
@@ -2074,7 +2072,7 @@ accomplished with the @code{\tweak} command, which has the following
 syntax:
 
 @example
-\tweak @var{layout-object} #'@var{grob-property} @var{value}
+\tweak [@var{layout-object}.]@var{grob-property} @var{value}
 @end example
 
 Specifying @var{layout-object} is optional.
@@ -2089,19 +2087,19 @@ For example:
 
 @lilypond[relative=2,verbatim,quote]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
--\tweak #'padding #8
+-\tweak padding #8
 -^
 @end lilypond
 
 
 
-But the main use of the @code{\tweak} command is to modify just
+The main use of the @code{\tweak} command is to modify just
 one of a number of notation elements which start at the same musical
 moment, like the notes of a chord, or tuplet brackets which start
 at the same time.
@@ -2123,14 +2121,14 @@ note, and able to modify it.
 So, this works:
 
 @lilypond[relative=2,verbatim,quote]
-<\tweak #'color #red c>4
+<\tweak color #red c>4
 @end lilypond
 
 @noindent
 but this does not:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
+\tweak color #red c4
 @end lilypond
 
 @end ignore
@@ -2161,10 +2159,10 @@ note head are modified within a single chord:
 
 @lilypond[relative=2,verbatim,quote]
 < c
-  \tweak #'color #red
+  \tweak color #red
   d
   g
-  \tweak #'duration-log #1
+  \tweak duration-log #1
   a
 > 4
 @end lilypond
@@ -2172,7 +2170,7 @@ note head are modified within a single chord:
 @code{\tweak} can be used to modify slurs:
 
 @lilypond[verbatim,quote,relative=1]
-c-\tweak #'thickness #5 ( d e f)
+c-\tweak thickness #5 ( d e f)
 @end lilypond
 
 
@@ -2184,9 +2182,9 @@ only acts as a container, and all layout objects are created from events
 inside of the @code{EventChord}:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak #'color #red c4
-\tweak #'color #red <c e>4
-<\tweak #'color #red c e>4
+\tweak color #red c4
+\tweak color #red <c e>4
+<\tweak color #red c e>4
 @end lilypond
 
 The simple @code{\tweak} command cannot be used to modify any object
@@ -2196,13 +2194,14 @@ beams or accidentals, since these are generated later by
 @code{NoteHead} layout objects rather than by music elements in the
 input stream.
 
-Such indirectly created layout objects can be tweaked using the explicit
-form of the @code{\tweak} command:
+Such indirectly created layout objects can be tweaked using the form
+of the @code{\tweak} command in which the grob name is specified
+explicitly:
 
 @lilypond[relative=2,verbatim,quote]
-\tweak Stem #'color #red
-\tweak Beam #'color #green c8 e
-<c e \tweak Accidental #'font-size #-3 ges>4
+\tweak Stem.color #red
+\tweak Beam.color #green c8 e
+<c e \tweak Accidental.font-size #-3 ges>4
 @end lilypond
 
 @code{\tweak} cannot be used to modify clefs or time
@@ -2215,10 +2214,10 @@ notational element -- all affect it:
 
 @lilypond[verbatim,quote,relative=1]
 c
--\tweak #'style #'dashed-line
--\tweak #'dash-fraction #0.2
--\tweak #'thickness #3
--\tweak #'color #red
+-\tweak style #'dashed-line
+-\tweak dash-fraction #0.2
+-\tweak thickness #3
+-\tweak color #red
  \glissando
 f'
 @end lilypond
@@ -2311,7 +2310,7 @@ key individually, use a @emph{nested declaration}:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper #'staff-staff-spacing #'basic-distance = #7
+  \override StaffGrouper.staff-staff-spacing.basic-distance = #7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -2330,7 +2329,7 @@ completely re-defined with one declaration, as an alist:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
-  \override StaffGrouper #'staff-staff-spacing =
+  \override StaffGrouper.staff-staff-spacing =
     #'((basic-distance . 0)
        (minimum-distance . 0)
        (padding . 0)
@@ -2349,10 +2348,10 @@ of @code{basic-distance} when unset).  Thus the following two
 declarations are equivalent:
 
 @example
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7))
 
-\override StaffGrouper #'staff-staff-spacing =
+\override StaffGrouper.staff-staff-spacing =
   #'((basic-distance . 7)
      (minimum-distance . 0)
      (padding . 0)
@@ -2506,7 +2505,13 @@ left, right or center; etc.  Most of these choices may be left to
 be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
 
-@strong{Articulation direction indicators}
+@menu
+* Articulation direction indicators::
+* The direction property::
+@end menu
+
+@node Articulation direction indicators
+@unnumberedsubsubsec Articulation direction indicators
 
 By default some directions are always up or always down (e.g.
 dynamics or fermata), while other things can alternate between
@@ -2539,7 +2544,8 @@ c2( c)
 c2^( c)
 @end lilypond
 
-@strong{The direction property}
+@node The direction property
+@unnumberedsubsubsec The direction property
 
 The position or direction of many layout objects is controlled by the
 @code{direction} property.
@@ -2678,7 +2684,7 @@ for @code{'line-positions}.}
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+  \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2689,7 +2695,7 @@ this setting.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol #'width = #23
+  \override StaffSymbol.width = #23
 }
 { a4 e' f b | d1 }
 @end lilypond
@@ -2709,6 +2715,12 @@ All spanners support the @code{spanner-interface}.  A few, essentially
 those that draw a straight line between the two objects, support in
 addition the @code{line-spanner-interface}.
 
+@menu
+* Using the spanner-interface::
+* Using the line-spanner-interface::
+@end menu
+
+@node Using the spanner-interface
 @unnumberedsubsubsec Using the @code{spanner-interface}
 
 This interface provides two properties that apply to several spanners.
@@ -2747,7 +2759,7 @@ Works not at all for:
 a~a
 a
 % increase the length of the tie
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ~a
 @end lilypond
 
@@ -2756,7 +2768,7 @@ a1
 \compressFullBarRests
 R1*23
 % increase the length of the rest bar
-\once \override MultiMeasureRest #'minimum-length = #20
+\once \override MultiMeasureRest.minimum-length = #20
 R1*23
 a1
 @end lilypond
@@ -2764,7 +2776,7 @@ a1
 @lilypond[verbatim,quote,relative=2]
 a \< a a a \!
 % increase the length of the hairpin
-\override Hairpin #'minimum-length = #20
+\override Hairpin.minimum-length = #20
 a \< a a a \!
 @end lilypond
 
@@ -2774,12 +2786,12 @@ phrasing slurs:
 @lilypond[verbatim,quote,relative=2]
 a( a)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 ( a)
 
 a\( a\)
 a
--\tweak #'minimum-length #5
+-\tweak minimum-length #5
 \( a\)
 @end lilypond
 
@@ -2795,12 +2807,12 @@ the minimum length of a glissando has no effect unless the
 e \glissando c'
 
 % not effective alone
-\once \override Glissando #'minimum-length = #20
+\once \override Glissando.minimum-length = #20
 e, \glissando c'
 
 % effective only when both overrides are present
-\once \override Glissando #'minimum-length = #20
-\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Glissando.minimum-length = #20
+\once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
 e, \glissando c'
 @end lilypond
 
@@ -2808,12 +2820,12 @@ The same is true of the @code{Beam} object:
 
 @lilypond[verbatim,quote,relative=1]
 % not effective alone
-\once \override Beam #'minimum-length = #20
+\once \override Beam.minimum-length = #20
 e8 e e e
 
 % effective only when both overrides are present
-\once \override Beam #'minimum-length = #20
-\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+\once \override Beam.minimum-length = #20
+\once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
 e8 e e e
 @end lilypond
 
@@ -2828,7 +2840,7 @@ itself:
 
 @lilypond[verbatim,quote,relative=2]
 a \< a a a a \! a a a \break
-\override Hairpin #'to-barline = ##f
+\override Hairpin.to-barline = ##f
 a \< a a a a \! a a a
 @end lilypond
 
@@ -2837,6 +2849,7 @@ setting it to @code{#t} has no effect on slurs or phrasing slurs
 or on other spanners for which terminating on the bar line would
 not be meaningful.
 
+@node Using the line-spanner-interface
 @unnumberedsubsubsec Using the @code{line-spanner-interface}
 
 Objects which support the @code{line-spanner-interface} include
@@ -2861,8 +2874,8 @@ the @code{\override} command is quite simple:
 
 @lilypond[relative=2,quote,verbatim]
 e2 \glissando b
-\once \override Glissando #'(bound-details left Y) = #3
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.left.Y = #3
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando b
 @end lilypond
 
@@ -2880,8 +2893,8 @@ specified by the @code{left-broken} and @code{right-broken}
 sub-lists of @code{bound-details}.  For example:
 
 @lilypond[relative=2,ragged-right,verbatim,quote]
-\override Glissando #'breakable = ##t
-\override Glissando #'(bound-details right-broken Y) = #-3
+\override Glissando.breakable = ##t
+\override Glissando.bound-details.right-broken.Y = #-3
 c1 \glissando \break
 f1
 @end lilypond
@@ -2921,7 +2934,7 @@ This is a markup that is evaluated to yield the stencil.  It is used
 to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
 c2\startTextSpan b c a\stopTextSpan
 @end lilypond
@@ -2935,15 +2948,11 @@ or @code{stencil-offset} will move the symbol at the edge vertically
 relative to the end point of the line:
 
 @lilypond[relative=1,quote,verbatim]
-\override TextSpanner
-  #'(bound-details left stencil-align-dir-y) = #-2
-\override TextSpanner
-  #'(bound-details right stencil-align-dir-y) = #UP
+\override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
+\override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
-\override TextSpanner
-  #'(bound-details left text) = #"ggg"
-\override TextSpanner
-  #'(bound-details right text) = #"hhh"
+\override TextSpanner.bound-details.left.text = #"ggg"
+\override TextSpanner.bound-details.right.text = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
@@ -3031,9 +3040,9 @@ will not be drawn.  The default action can be recovered with
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine #'stencil = ##f
+\override Score.BarLine.stencil = ##f
 a a
-\revert Score.BarLine #'stencil
+\revert Score.BarLine.stencil
 a a a
 @end lilypond
 
@@ -3048,7 +3057,7 @@ space but is made invisible.
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead #'transparent = ##t
+\once \override NoteHead.transparent = ##t
 a a
 @end lilypond
 
@@ -3072,7 +3081,7 @@ and this may leave a ghostly image of the white object, as shown
 here:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
+\override Staff.Clef.color = #white
 a1
 @end lilypond
 
@@ -3093,8 +3102,8 @@ the @code{Clef} object must be given in a lower value of
 @code{layer}, say @w{@code{-1}}, so that it is drawn earlier:
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.Clef #'color = #white
-\override Staff.Clef #'layer = #-1
+\override Staff.Clef.color = #white
+\override Staff.Clef.layer = #-1
 a1
 @end lilypond
 
@@ -3188,7 +3197,7 @@ visibility of bar lines:
 f4 g a b
 f4 g a b
 % Remove bar line at the end of the current line
-\once \override Score.BarLine #'break-visibility = #'#(#f #t #t)
+\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
 \break
 f4 g a b
 f4 g a b
@@ -3234,7 +3243,7 @@ is set.
 \key g \major
 f4 g a b
 % Try to remove all key signatures
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b
 \break
@@ -3260,7 +3269,7 @@ object to remove these.
 \key g \major
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3278,7 +3287,7 @@ to @code{#f}:
 f4 g a b
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature #'break-visibility = #all-invisible
+\override Staff.KeySignature.break-visibility = #all-invisible
 \key bes \major
 f4 g a b \break
 f4 g a b
@@ -3347,13 +3356,13 @@ and how to tune them.
 
 @lilypond[relative=2,ragged-right,verbatim,quote]
 d2 \glissando d'2
-\once \override Glissando #'style = #'dashed-line
+\once \override Glissando.style = #'dashed-line
 d,2 \glissando d'2
-\override Glissando #'style = #'dotted-line
+\override Glissando.style = #'dotted-line
 d,2 \glissando d'2
-\override Glissando #'style = #'zigzag
+\override Glissando.style = #'zigzag
 d,2 \glissando d'2
-\override Glissando #'style = #'trill
+\override Glissando.style = #'trill
 d,2 \glissando d'2
 @end lilypond
 
@@ -3364,7 +3373,7 @@ override these:
 @c TODO Complete
 @lilypond[relative=2,ragged-right,verbatim,quote]
 e2 \glissando f
-\once \override Glissando #'(bound-details right Y) = #-2
+\once \override Glissando.bound-details.right.Y = #-2
 e2 \glissando f
 @end lilypond
 
@@ -3415,7 +3424,7 @@ they may be:
 
 @lilypond[quote,verbatim,relative=1]
 g4\< e' d' f\!
-\override Hairpin #'rotation = #'(20 -1 0)
+\override Hairpin.rotation = #'(20 -1 0)
 g,,4\< e' d' f\!
 @end lilypond
 
@@ -3433,7 +3442,7 @@ to disable the automatic collision avoidance, which would push some
 of the text too high.
 
 @lilypond[quote,verbatim,relative=1]
-\override TextScript #'outside-staff-priority = ##f
+\override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "a G" }
 b^\markup { \rotate #30 "a B" }
 des^\markup { \rotate #30 "a D-Flat" }
@@ -3540,12 +3549,12 @@ and @code{Y-offset} modified.
 @lilypond[verbatim,quote,relative=2]
 a-3
 a
--\tweak #'X-offset #0
--\tweak #'Y-offset #0
+-\tweak X-offset #0
+-\tweak Y-offset #0
 -3
 a
--\tweak #'X-offset #-1
--\tweak #'Y-offset #1
+-\tweak X-offset #-1
+-\tweak Y-offset #1
 -3
 @end lilypond
 
@@ -3595,7 +3604,7 @@ to value of @code{direction}.
 @node Using the self-alignment-interface
 @unnumberedsubsubsec Using the @code{self-alignment-interface}
 
-@emph{Self-aligning objects horizontally}
+@subsubsubheading Self-aligning objects horizontally
 
 The horizontal alignment of an object which supports the
 @code{self-alignment-interface} is controlled by the value of
@@ -3620,17 +3629,17 @@ note:
 
 @lilypond[quote,verbatim,relative=1]
 a'
--\tweak #'self-alignment-X #-1
+-\tweak self-alignment-X #-1
 ^"left-aligned"
--\tweak #'self-alignment-X #0
+-\tweak self-alignment-X #0
 ^"center-aligned"
--\tweak #'self-alignment-X #RIGHT
+-\tweak self-alignment-X #RIGHT
 ^"right-aligned"
--\tweak #'self-alignment-X #-2.5
+-\tweak self-alignment-X #-2.5
 ^"aligned further to the right"
 @end lilypond
 
-@emph{Self-aligning objects vertically}
+@subsubsubheading Self-aligning objects vertically
 
 Objects may be aligned vertically in an analogous way to aligning
 them horizontally if the @code{Y-offset} property is set to
@@ -3648,7 +3657,7 @@ with the reference point of the parent.  The symbols @code{DOWN},
 @code{CENTER}, and @code{UP} may be substituted for @w{@code{-1}},
 @code{0}, and @code{1}, respectively.
 
-@emph{Self-aligning objects in both directions}
+@subsubsubheading Self-aligning objects in both directions
 
 By setting both @code{X-offset} and @code{Y-offset}, an object may
 be aligned in both directions simultaneously.
@@ -3658,9 +3667,9 @@ that it nestles close to the note head.
 
 @lilypond[quote,verbatim,relative=2]
 a
--\tweak #'self-alignment-X #0.5  % move horizontally left
--\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak #'self-alignment-Y #-1  % move vertically up
+-\tweak self-alignment-X #0.5  % move horizontally left
+-\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak self-alignment-Y #-1  % move vertically up
 -3  % third finger
 @end lilypond
 
@@ -3710,20 +3719,20 @@ centered above the object:
 
 @lilypond[verbatim,quote,relative=1]
 % The rehearsal mark will be centered above the Clef
-\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % The rehearsal mark will be centered above the Time Signature
-\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
 e2.
 % The rehearsal mark will be centered above the Breath Mark
-\override Score.RehearsalMark #'break-align-symbols = #'(breathing-sign)
+\override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
@@ -3743,14 +3752,14 @@ line would be.
 
 @lilypond[verbatim,quote,relative=1]
 % The rehearsal mark will be centered above the Key Signature
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
 % The rehearsal mark will be centered above the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef bass
 \mark "↓"
@@ -3758,7 +3767,7 @@ gis,,1
 % The rehearsal mark will be centered above the Bar Line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature clef)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
@@ -3771,19 +3780,19 @@ multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be centered above the Key Signature
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
 % The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
 e1
 % The RehearsalMark will be aligned with the right edge of the Key Signature
-\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
 e1
@@ -3795,14 +3804,14 @@ edge by an arbitrary amount.  The units are staff-spaces:
 @lilypond[verbatim,quote,relative=1]
 % The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
-\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-\once \override Score.KeySignature #'break-align-anchor = #3.5
+\override Score.RehearsalMark.break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
 e1
 % The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
-\once \override Score.KeySignature #'break-align-anchor = #-2
+\once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
 e1
@@ -3850,8 +3859,8 @@ symbol to a cross within a circle.
 
 @lilypond[verbatim,quote]
 XinO = {
-  \once \override NoteHead  #'stencil = #ly:text-interface::print
-  \once \override NoteHead #'text = \markup {
+  \once \override NoteHead.stencil = #ly:text-interface::print
+  \once \override NoteHead.text = \markup {
     \combine
       \halign #-0.7 \draw-circle #0.85 #0.2 ##f
       \musicglyph #"noteheads.s2cross"
@@ -3892,11 +3901,28 @@ Notation Reference:
 @cindex Bézier curves, control points
 @cindex control points, Bézier curves
 
-Ties, slurs and phrasing slurs are drawn as third-order Bézier
-curves.  If the shape of the tie or slur which is calculated
-automatically is not optimum, the shape may be modified manually by
-explicitly specifying the four control points required to define
-a third-order Bézier curve.
+@code{Tie}s, @code{Slur}s, @code{PhrasingSlur}s,
+@code{LaissezVibrerTie}s and @code{RepeatTie}s are all drawn as
+third-order Bézier curves.  If the shape of the tie or slur which
+is calculated automatically is not optimum, the shape may be
+modified manually in two ways:
+
+@enumerate a
+@item
+by specifying the displacements to be made to the control points
+of the automatically calculated Bézier curve, or
+
+@item
+by explicitly specifying the positions of the four control points
+required to define the wanted curve.
+@end enumerate
+
+Both methods are explained below.  The first method is more suitable
+if only slight adjustments to the curve are required; the second may
+be better for creating curves which are related to just a single
+note.
+
+@subsubsubheading Cubic Bézier curves
 
 Third-order or cubic Bézier curves are defined by four control
 points.  The first and fourth control points are precisely the
@@ -3908,10 +3934,17 @@ heading directly towards the second, gradually bending over to
 head towards the third and continuing to bend over to head towards
 the fourth, arriving there travelling directly from the third
 control point.  The curve is entirely contained in the
-quadrilateral defined by the four control points.
+quadrilateral defined by the four control points.  Translations,
+rotations and scaling of the control points all result in exactly
+the same operations on the curve.
 
-Here is an example of a case where the tie is not optimum, and
-where @code{\tieDown} would not help.
+@subsubsubheading Specifying displacements from current control points
+
+@cindex shaping slurs and ties
+@funindex \shape
+
+In this example the automatic placement of the tie is not optimum,
+and @code{\tieDown} would not help.
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -3921,38 +3954,150 @@ where @code{\tieDown} would not help.
 >>
 @end lilypond
 
-One way of improving this tie is to manually modify its control
-points, as follows.
+Adjusting the control points of the tie with @code{\shape} allows
+the collisions to be avoided.
+
+The syntax of @code{\shape} is
+
+@example
+[-]@code{\shape} @var{displacements} @var{item}
+@end example
+
+This will reposition the control-points of @var{item} by the amounts
+given by @var{displacements}.  The @var{displacements} argument is a
+list of number pairs or a list of such lists.  Each element of a pair
+represents the displacement of one of the coordinates of a
+control-point.  If @var{item} is a string, the result is
+@code{\once\override} for the specified grob type.  If @var{item} is
+a music expression, the result is the same music expression with an
+appropriate tweak applied.
+
+In other words, the @code{\shape} function can act as either a
+@code{\once\override} command or a @code{\tweak} command depending
+on whether the @var{item} argument is a grob name, like @qq{Slur},
+or a music expression, like @qq{(}.  The @var{displacements} argument
+specifies the displacements of the four control points as a list of
+four pairs of (dx . dy) values in units of staff-spaces (or a list
+of such lists if the curve has more than one segment).
+
+The leading hyphen is required if and only if the @code{\tweak} form
+is being used.
+
+So, using the same example as above and the @code{\once\override}
+form of @code{\shape}, this will raise the tie by half a staff-space:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e1~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+This positioning of the tie is better, but maybe it should be raised
+more in the center.  The following example does this, this time using
+the alternative @code{\tweak} form:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Changes to the horizontal positions of the control points may be made
+in the same way, and two different curves starting at the same
+musical moment may also be shaped:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+c8(\( a) a'4 e c\)
+\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+c8(\( a) a'4 e c\)
+@end lilypond
+
+The @code{\shape} function can also displace the control points of
+curves which stretch across line breaks.  Each piece of the broken
+curve can be given its own list of offsets.  If changes to a
+particular segment are not needed, the empty list can serve as a
+placeholder.  In this example the line break makes the single slur
+look like two:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+Changing the shapes of the two halves of the slur makes it clearer
+that the slur continues over the line break:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+% () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% if any of the segments does not need to be changed
+\shape #'(
+           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+         ) Slur
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+If an S-shaped curve is required the control points must always be
+adjusted manually --- LilyPond will never select such shapes
+automatically.
+
+@lilypond[verbatim,quote,relative=2]
+c8( e b-> f d' a e-> g)
+\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+c8\( e b-> f d' a e-> g\)
+@end lilypond
+
+@subsubsubheading Specifying control points explicitly
 
 The coordinates of the Bézier control points are specified in units
 of staff-spaces.  The X@tie{}coordinate is relative to the reference
 point of the note to which the tie or slur is attached, and the
 Y@tie{}coordinate is relative to the staff center line.  The
-coordinates are entered as a list of four pairs of decimal numbers
+coordinates are specified as a list of four pairs of decimal numbers
 (reals).  One approach is to estimate the coordinates of the two
 end points, and then guess the two intermediate points.  The optimum
-values are then found by trial and error.
+values are then found by trial and error.  Be aware that these values
+may need to be manually adjusted if any further changes are made to
+the music or the layout.
 
-It is useful to remember that a symmetric curve requires symmetric
-control points, and that Bézier curves have the useful property that
-transformations of the curve such as translation, rotation and
-scaling can be achieved by applying the same transformation to the
-curve's control points.
+One situation where specifying the control points explicitly is
+preferable to specifying displacements is when they need to be
+specified relative to a single note.  Here is an example of this.
+It shows one way of indicating a slur extending into alternative
+sections of a volta repeat.
 
-For the example above the following override gives a satisfactory
-tie.  Note the placement -- it has to be immediately before the note
-to which the start of the tie (or slur) is attached.
-
-@lilypond[verbatim,quote,relative=1]
-<<
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 3 { c4 d( e f }
+\alternative {
+  { g2) d }
   {
-    \once \override Tie
-      #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e
+    g2
+    % create a slur and move it to a new position
+    % the <> is just an empty chord to carry the slur termination
+    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+    f,
   }
-\\
-  { r4 <g c,> <g c,> <g c,> }
->>
+  {
+    e'2
+    % create a slur and move it to a new position
+    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+    f,
+  }
+}
 @end lilypond
 
 @knownissues
@@ -4037,12 +4182,12 @@ process.
                               '(-0.5 . 0.5)))))
 
 squareLineCircleSpace = {
-  \override NoteHead #'stencil = #square-line-circle-space
+  \override NoteHead.stencil = #square-line-circle-space
 }
 
 smartSquareLineCircleSpace = {
   \squareLineCircleSpace
-  \override NoteHead #'Y-extent =
+  \override NoteHead.Y-extent =
    #(ly:make-unpure-pure-container
       ly:grob::stencil-height
       (lambda (grob start end) (ly:grob::stencil-height grob)))
@@ -4051,9 +4196,9 @@ smartSquareLineCircleSpace = {
 \new Voice \with { \remove "Stem_engraver" }
 \relative c'' {
   \squareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
   \smartSquareLineCircleSpace
-  cis4 ces cisis c
+  cis4 ces disis d
 }
 @end lilypond
 
@@ -4178,7 +4323,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = #padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative c''' {
@@ -4199,10 +4344,10 @@ custosNote =
      (parser location note)
      (ly:music?)
    #{
-     \tweak NoteHead #'stencil #ly:text-interface::print
-     \tweak NoteHead #'text
+     \tweak NoteHead.stencil #ly:text-interface::print
+     \tweak NoteHead.text
         \markup \musicglyph #"custodes.mensural.u0"
-     \tweak Stem #'stencil ##f
+     \tweak Stem.stencil ##f
      #note
    #})
 
@@ -4217,7 +4362,7 @@ tempoPadded =
      (parser location padding tempotext)
      (number? markup?)
    #{
-     \once \override Score.MetronomeMark #'padding = #padding
+     \once \override Score.MetronomeMark.padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 

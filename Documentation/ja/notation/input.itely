@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -530,7 +530,7 @@ foo = @{ c4 d e d @}
 @item Scheme 表記要素を区切る空白。
 @item @code{lyricmode} モードの @code{\override} と @code{\set} コマンドの@c
 中にある単語を区切る空白。@c
-特に、@code{\override Score . LyricText #'font-size = #5} のように、@c
+特に、@code{\override Score.LyricText.font-size = #5} のように、@c
 コマンドの中のドットとイコール記号の前後、コマンド全体の前後に@c
 空白を挿入することを忘れないで下さい。
 
@@ -1257,8 +1257,8 @@ scoreTitleMarkup = \markup @{ \column @{
     \footnote #'(0.5 . -2)
       \markup { The first note }
     a'4 b8
-    \footnote #'(0.5 . 1) #'Flag
-      \markup { The third note }
+    \single\footnote #'(0.5 . 1)
+      \markup { The third note } Flag
     e\noBeam c4 d4
   }
 }
@@ -1296,11 +1296,11 @@ scoreTitleMarkup = \markup @{ \column @{
     a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
     -\footnote #'(0 . 1.5) \markup { スラー } (
     b8)-\footnote #'(0 . -2) \markup { 連桁 } [ e]
-    \footnote #'(1 . -1) #'Stem
-      \markup  { \teeny { これは符幹です } }
+    \single\footnote #'(1 . -1)
+      \markup  { \teeny { これは符幹です } } Stem
     c4
-    \footnote #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { 忠告の臨時記号 }
+    \single\footnote #'(0 . 0.5)
+      \markup \italic { 忠告の臨時記号 } AccidentalCautionary
     \footnote #'(1 . 1) "音符自体"
     dis?4-\footnote #'(0.5 . -0.5) \markup \italic { スロー ダウン }
          _"rit."
@@ -1397,14 +1397,14 @@ LilyPond は対応するマークアップを同じページの下に表示す�
       \markup { \teeny 3 } #'(0 . -2)
       \markup { 3. 連桁 } [
     e]
-    \footnote
-      \markup { 4 } #'(1 . -1) #'Stem
-      \markup  { \bold 4. { これは符幹です } }
+    \single\footnote
+      \markup { 4 } #'(1 . -1)
+      \markup  { \bold 4. { これは符幹です } } Stem
     c4
-    \footnote
+    \single\footnote
       \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5) #'AccidentalCautionary
-      \markup \italic { v. 忠告の臨時記号 }
+          #'(0 . 0.5)
+      \markup \italic { v. 忠告の臨時記号 } AccidentalCautionary
     dis?4-\footnote
       \markup \concat \teeny { "a" } #'(0.5 . -0.5)
       \markup \italic { a. スローダウン } _"rit."

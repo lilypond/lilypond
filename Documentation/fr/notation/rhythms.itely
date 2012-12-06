@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -551,11 +551,11 @@ portée, une adaptation des propriétés @var{whiteout} et @var{layer}
 permet d'obtenir une meilleure lisibilité.
 
 @lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie #'layer = #-2
-\override Staff.TimeSignature #'layer = #-1
-\override Staff.KeySignature #'layer = #-1
-\override Staff.TimeSignature #'whiteout = ##t
-\override Staff.KeySignature #'whiteout = ##t
+\override Tie.layer = #-2
+\override Staff.TimeSignature.layer = #-1
+\override Staff.KeySignature.layer = #-1
+\override Staff.TimeSignature.whiteout = ##t
+\override Staff.KeySignature.whiteout = ##t
 b2 b~
 \time 3/4
 \key a \major
@@ -651,7 +651,7 @@ s'indiquent à l'aide de commandes prédéfinies :
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   % Print a maxima rest, equal to four breves
   r\maxima
   % Print a longa rest, equal to two breves
@@ -916,10 +916,10 @@ dans l'exemple suivant.}
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
 % Ceci échouera : il y a erreur quant à l'objet spécifié
-\override TextScript #'padding = #5
+\override TextScript.padding = #5
 R1^"pas bon !"
 % Formulation correcte, qui fonctionnera
-\override MultiMeasureRestText #'padding = #5
+\override MultiMeasureRestText.padding = #5
 R1^"ça marche !"
 @end lilypond
 
@@ -1510,7 +1510,7 @@ La numérotation reprend dès la fin d'une cadence.
 
 @lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
-\override Score.BarNumber #'break-visibility = #all-visible
+\override Score.BarNumber.break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
 c4 c d8[ d d] f4 g4.
@@ -2603,14 +2603,14 @@ quatre triples croches qui suivent vont s'accélérant, alors que les
 quatre dernières gardent un tempo régulier.
 
 @lilypond[relative=1,verbatim,quote]
-\override Beam #'grow-direction = #LEFT
+\override Beam.grow-direction = #LEFT
 \featherDurations #(ly:make-moment 2 1)
 { c16[ c c c c c c c] }
-\override Beam #'grow-direction = #RIGHT
+\override Beam.grow-direction = #RIGHT
 \featherDurations #(ly:make-moment 2 3)
 { c32[ d e f] }
 % revert to non-feathered beams
-\override Beam #'grow-direction = #'()
+\override Beam.grow-direction = #'()
 { g32[ a b c] }
 @end lilypond
 
@@ -2719,7 +2719,7 @@ f1 \bar "|"
 f1 \bar "."
 g1 \bar "||"
 a1 \bar ".|"
-b1 \bar ".|."
+b1 \bar ".."
 c1 \bar "|.|"
 d1 \bar "|."
 e1
@@ -2729,8 +2729,8 @@ e1
 ainsi que d'une barre en pointillé et d'une discontinue :
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":"
-g1 \bar "dashed"
+f1 \bar ";"
+g1 \bar "!"
 a1
 @end lilypond
 
@@ -2738,11 +2738,11 @@ a1
 et de cinq types de barre de reprise :
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:"
-g1 \bar ":|:"
+f1 \bar ".|:"
+g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|"
+c1 \bar ":|."
 e1
 @end lilypond
 
@@ -2768,13 +2768,13 @@ c4 c c c
 c4 c c c \break
 \bar "S"
 c4 c c c
-\bar "|S"
+\bar "S-|"
 c4 c c c \break
-\bar "|S"
+\bar "S-|"
 c4 c c c
-\bar "S|"
+\bar "S-S"
 c4 c c c \break
-\bar "S|"
+\bar "S-S"
 c1
 @end lilypond
 
@@ -2794,9 +2794,9 @@ nouvelle.
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar "||:"
+\bar ".|:-||"
 c4 c c c \break
-\bar "||:"
+\bar ".|:-||"
 c4 c c c
 @end lilypond
 
@@ -2805,29 +2805,29 @@ reprise avec un signe @emph{segno} :
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar ":|S"
+\bar ":|.S"
 c4 c c c \break
-\bar ":|S"
+\bar ":|.S"
 c4 c c c
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c \break
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c \break
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c \break
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c \break
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c4 c c c \break
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c1
 @end lilypond
 
@@ -2928,7 +2928,7 @@ visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 numéros de mesure :
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+\override Score.BarNumber.break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
 % Permit first bar number to be printed
 \bar ""
@@ -3406,8 +3406,8 @@ mêlez des portées comprenant des petites notes et d'autres sans :
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3418,8 +3418,8 @@ correspondant à la durée des petites notes :
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" \grace s16 d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

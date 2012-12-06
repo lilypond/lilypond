@@ -113,9 +113,12 @@ Cue_clef_engraver::create_octavate_eight (SCM oct)
       SCM txt = scm_number_to_string (scm_from_int (abs_oct),
                                       scm_from_int (10));
 
-      g->set_property ("text",
-                       scm_list_n (ly_lily_module_constant ("vcenter-markup"),
-                                   txt, SCM_UNDEFINED));
+      SCM style = get_property ("cueClefOctavationStyle");
+
+      SCM formatter = get_property ("cueClefOctavationFormatter");
+      if (ly_is_procedure (formatter))
+        g->set_property ("text", scm_call_2 (formatter, txt, style));
+
       Side_position_interface::add_support (g, clef_);
 
       g->set_parent (clef_, Y_AXIS);
@@ -219,6 +222,7 @@ ADD_TRANSLATOR (Cue_clef_engraver,
                 /* read */
                 "cueClefGlyph "
                 "cueClefOctavation "
+                "cueClefOctavationStyle "
                 "cueClefPosition "
                 "explicitCueClefVisibility "
                 "middleCCuePosition "

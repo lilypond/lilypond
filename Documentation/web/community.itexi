@@ -1160,6 +1160,7 @@ the @ref{Attic}}
 @subheading Announcements
 
 Announcements and news by version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
@@ -1173,6 +1174,7 @@ Announcements and news by version:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Descriptive list of changes by version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
@@ -1185,6 +1187,23 @@ Descriptive list of changes by version:
 @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
 @miscLink{NEWS-1.4,v1.4},
 @miscLink{NEWS-1.2,v1.2}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Thanks
+
+Thanks to developers, contributors, bug hunters and suggestions for
+@miscLink{THANKS-2.16,v2.16},
+@miscLink{THANKS-2.14,v2.14},
+@miscLink{THANKS-2.12,v2.12},
+@miscLink{THANKS-2.10,v2.10},
+@miscLink{THANKS-2.8,v2.8},
+@miscLink{THANKS-2.6,v2.6},
+@miscLink{THANKS-2.4,v2.4},
+@miscLink{THANKS-2.2,v2.2},
+@miscLink{THANKS-2.0,v2.0},
+@miscLink{THANKS-1.8,v1.8}
 
 @divEnd
 

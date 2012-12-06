@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, really-cool, text"
@@ -21,6 +21,6 @@ white box will not overlap any other grob.
 
 \layout { ragged-right = ##f }
 \relative c' {
-  \override TextScript #'extra-offset = #'(2 . 4)
+  \override TextScript.extra-offset = #'(2 . 4)
   c2-\markup { \whiteout \pad-markup #0.5 "middle C" } c
 }

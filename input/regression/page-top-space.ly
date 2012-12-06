@@ -4,7 +4,7 @@
 first system can be forced to be uniform."
 
 }
-\version "2.16.0"
+\version "2.17.6"
 
 #(set-default-paper-size "a6")
 
@@ -16,7 +16,7 @@ first system can be forced to be uniform."
       c1\break\pageBreak
       c1
       \break\pageBreak
-      \override TextScript #'padding = #20
+      \override TextScript.padding = #20
       c1^"bla"
     }
   }

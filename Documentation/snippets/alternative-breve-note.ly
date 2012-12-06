@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, rhythms"
@@ -20,8 +20,8 @@ vertical lines on each side of the notehead instead of one line.
 \relative c'' {
   \time 4/2
   c\breve |
-  \override Staff.NoteHead #'style = #'altdefault
+  \override Staff.NoteHead.style = #'altdefault
   b\breve
-  \revert Staff.NoteHead #'style
+  \revert Staff.NoteHead.style
   a\breve
 }

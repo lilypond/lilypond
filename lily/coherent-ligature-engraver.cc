@@ -131,13 +131,14 @@ Coherent_ligature_engraver::move_related_items_to_column
  * occurs within the broken ligatures any more.
  */
 void
-Coherent_ligature_engraver::collect_accidentals (Spanner *, vector<Grob_info>)
+Coherent_ligature_engraver::collect_accidentals (Spanner *,
+                                                 vector<Grob_info> const &)
 {
   /* TODO */
 }
 
 void
-compute_delta_pitches (vector<Grob_info> primitives)
+compute_delta_pitches (vector<Grob_info> const &primitives)
 {
   int prev_pitch = 0;
   int delta_pitch = 0;
@@ -162,7 +163,7 @@ compute_delta_pitches (vector<Grob_info> primitives)
 
 void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-                                              vector<Grob_info> primitives)
+                                              vector<Grob_info> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

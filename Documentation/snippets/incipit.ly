@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.42
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, ancient-notation, really-cool"
@@ -20,13 +20,13 @@ separate the instrument name definition and the incipit definition.
 incipit =
 #(define-music-function (parser location incipit-music) (ly:music?)
   #{
-    \once \override Staff.InstrumentName #'self-alignment-X = #RIGHT
-    \once \override Staff.InstrumentName #'self-alignment-Y = #UP
-    \once \override Staff.InstrumentName #'Y-offset =
+    \once \override Staff.InstrumentName.self-alignment-X = #RIGHT
+    \once \override Staff.InstrumentName.self-alignment-Y = #UP
+    \once \override Staff.InstrumentName.Y-offset =
       #(lambda (grob)
          (+ 4 (system-start-text::calc-y-offset grob)))
-    \once \override Staff.InstrumentName #'padding = #0.3
-    \once \override Staff.InstrumentName #'stencil =
+    \once \override Staff.InstrumentName.padding = #0.3
+    \once \override Staff.InstrumentName.stencil =
       #(lambda (grob)
 	 (let* ((instrument-name (ly:grob-property grob 'long-text)))
 	   (set! (ly:grob-property grob 'long-text)
@@ -35,8 +35,7 @@ incipit =
 		         {
 			   { \context MensuralStaff \with {
 	                        instrumentName = #instrument-name
-			        \override VerticalAxisGroup
-			         #'Y-extent = #'(-4 . 4)
+			        \override VerticalAxisGroup.Y-extent = #'(-4 . 4)
 	                     } $incipit-music
 			   }
 	                   \layout { $(ly:grob-layout grob)
@@ -67,7 +66,7 @@ global = {
   \skip 1*8
 
   % let finis bar go through all staves
-  \override Staff.BarLine #'transparent = ##f
+  \override Staff.BarLine.transparent = ##f
 
   % finis bar
   \bar "|."
@@ -94,7 +93,7 @@ discantusNotes = {
     c'4 e'4.( d'8 c' b |
     a4) b a2 |
     b4.( c'8 d'4) c'4 |
-    \once \override NoteHead #'transparent = ##t
+    \once \override NoteHead.transparent = ##t
     c'1 |
     b\breve |
   }
@@ -131,7 +130,7 @@ altusNotes = {
     a2 g4 e |
     fis g4.( fis16 e fis4) |
     g1 |
-    \once \override NoteHead #'transparent = ##t
+    \once \override NoteHead.transparent = ##t
     g1 |
     g\breve |
   }
@@ -169,7 +168,7 @@ tenorNotes = {
     R1 |
     % two measures
     r2 d'2. d'4 b e' |
-    \once \override NoteHead #'transparent = ##t
+    \once \override NoteHead.transparent = ##t
     e'1 |
     d'\breve |
   }
@@ -205,7 +204,7 @@ bassusNotes = {
     R1 |
     R1 |
     g2. e4 |
-    \once \override NoteHead #'transparent = ##t
+    \once \override NoteHead.transparent = ##t
     e1 |
     g\breve |
   }
@@ -254,7 +253,7 @@ bassusLyrics = \lyricmode {
     \context {
       \Score
       %% no bar lines in staves or lyrics
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
     }
     %% the next two instructions keep the lyrics between the bar lines
     \context {
@@ -265,7 +264,7 @@ bassusLyrics = \lyricmode {
     \context {
       \Voice
       %% no slurs
-      \override Slur #'transparent = ##t
+      \override Slur.transparent = ##t
       %% Comment in the below "\remove" command to allow line
       %% breaking also at those bar lines where a note overlaps
       %% into the next measure.  The command is commented out in this

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -237,7 +237,7 @@ possible.  This behaviour can be changed by setting @code{restrainOpenStrings}
 to @code{#t}.
 
 @lilypond[quote,ragged-right,verbatim]
-\layout { \override Voice.StringNumber #'stencil = ##f }
+\layout { \override Voice.StringNumber.stencil = ##f }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -368,9 +368,6 @@ ties = \relative c' {
 
 @cindex harmonic indications in tablature notation
 @cindex tablature and harmonic indications
-@cindex slides in tablature notation
-@cindex tablature and slides
-@cindex chord glissandi
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -379,7 +376,7 @@ Harmonic indications can be added to tablature notation as sounding
 pitches:
 
 @lilypond[verbatim,quote]
-\layout { \override Voice.StringNumber #'stencil = ##f }
+\layout { \override Voice.StringNumber.stencil = ##f }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -454,8 +451,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
+@cindex slides in tablature notation
+@cindex tablature and slides
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
+
+@cindex chord glissandi
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
@@ -537,7 +539,7 @@ written.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice \with {
-    \override StringNumber #'stencil = ##f
+    \override StringNumber.stencil = ##f
   } {
     \clef "bass_8"
     \relative c, {
@@ -919,8 +921,7 @@ Fingering indications can be included in the fret-diagram-terse markup string.
     }
   }
   \context Staff {
-    \override Voice.TextScript
-      #'(fret-diagram-details finger-code) = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3-3;2-2;o;1-1;o;"
@@ -994,8 +995,7 @@ capo will be the lowest fret in the fret diagram.
     }
   \context Staff {
     \clef "treble_8"
-    \override Voice.TextScript
-      #'(fret-diagram-details finger-code) = #'below-string
+    \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 1)
@@ -1017,7 +1017,7 @@ capo will be the lowest fret in the fret diagram.
         (place-fret 1 3 3)
       )
     }
-    <c e g c' e'>1^\markup {
+    <c g c' e' g'>1^\markup {
       \fret-diagram-verbose #'(
         (capo 3)
         (mute 6)
@@ -1665,7 +1665,7 @@ barring indications.
 \clef "treble_8"
 b16 d g b e
 \textSpannerDown
-\override TextSpanner #'(bound-details left text) = #"XII "
+\override TextSpanner.bound-details.left.text = #"XII "
 g16\startTextSpan
 b16 e g e b g\stopTextSpan
 e16 b g d
@@ -1695,7 +1695,7 @@ text markup.
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \clef "treble_8"
-  \override Staff.NoteHead #'style = #'harmonic-mixed
+  \override Staff.NoteHead.style = #'harmonic-mixed
   d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond

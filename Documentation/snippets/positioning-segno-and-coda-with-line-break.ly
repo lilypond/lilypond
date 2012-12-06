@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
@@ -30,14 +30,14 @@ line.
     }
 
     % Set segno sign as rehearsal mark and adjust size if needed
-    % \once \override Score.RehearsalMark #'font-size = #3
+    % \once \override Score.RehearsalMark.font-size = #3
     \mark \markup { \musicglyph #"scripts.segno" }
     \repeat unfold 2 {
       c4 c c c
     }
 
     % Set coda sign as rehearsal mark and adjust size if needed
-    \once \override Score.RehearsalMark #'font-size = #4
+    \once \override Score.RehearsalMark.font-size = #4
     \mark \markup { \musicglyph #"scripts.coda" }
     \repeat unfold 2 {
       c4 c c c
@@ -51,8 +51,8 @@ line.
     \bar "||"
 
     % Set segno sign as rehearsal mark and adjust size if needed
-    \once \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
-    % \once \override Score.RehearsalMark #'font-size = #3
+    \once \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
+    % \once \override Score.RehearsalMark.font-size = #3
     \mark \markup { \musicglyph #"scripts.segno" }
 
     % Here begins the trickery!
@@ -64,13 +64,13 @@ line.
         % text line-aligned
         % ==================
         % Move text to the desired position
-        % \once \override TextScript #'extra-offset = #'( 2 . -3.5 )
+        % \once \override TextScript.extra-offset = #'( 2 . -3.5 )
         % | s1*0^\markup { D.S. al Coda } }
 
         % text center-aligned
         % ====================
         % Move text to the desired position
-        % \once \override TextScript #'extra-offset = #'( 6 . -5.0 )
+        % \once \override TextScript.extra-offset = #'( 6 . -5.0 )
         % | s1*0^\markup { \center-column { D.S. "al Coda" } }
 
         % text and symbols center-aligned
@@ -80,8 +80,8 @@ line.
           s1
           \bar ""
         }
-        \once \override TextScript #'extra-offset = #'( 0 . -3.0 )
-        \once \override TextScript #'word-space = #1.5
+        \once \override TextScript.extra-offset = #'( 0 . -3.0 )
+        \once \override TextScript.word-space = #1.5
         <>^\markup { \center-column { "D.S. al Coda" \line { \musicglyph #"scripts.coda" \musicglyph #"scripts.tenuto" \musicglyph #"scripts.coda"} } }
 
         % Increasing the unfold counter will expand the staff-free space
@@ -99,20 +99,20 @@ line.
    \break
 
    % Show up, you clef and key!
-   \once \override Staff.KeySignature #'break-visibility = #end-of-line-invisible
-   \once \override Staff.Clef #'break-visibility = #end-of-line-invisible
+   \once \override Staff.KeySignature.break-visibility = #end-of-line-invisible
+   \once \override Staff.Clef.break-visibility = #end-of-line-invisible
 
    % Set coda sign as rehearsal mark and adjust size and position
 
    % Put the coda sign ontop of the (treble-)clef dependend on coda's line-position
 
    % Coda NOT on new line, use this:
-   % \once \override Score.RehearsalMark #'extra-offset = #'( -2 . 1.75 )
+   % \once \override Score.RehearsalMark.extra-offset = #'( -2 . 1.75 )
 
    % Coda on new line, use this:
-   \once \override Score.RehearsalMark #'extra-offset = #'( -4.5 . 0 )
+   \once \override Score.RehearsalMark.extra-offset = #'( -4.5 . 0 )
 
-   \once \override Score.RehearsalMark #'font-size = #5
+   \once \override Score.RehearsalMark.font-size = #5
    \mark \markup { \musicglyph #"scripts.coda" }
 
    % The coda

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -23,10 +23,10 @@ Wind headword
   \new StaffGroup <<
     \new Staff \relative c'' {
       \set Staff.instrumentName = "Flauto I,II"
-      \once \override Score.RehearsalMark #'self-alignment-X = #-1
-      \once \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
-      \once \override Score.TimeSignature #'break-align-anchor-alignment = #LEFT
-      \once \override Score.RehearsalMark #'padding = #4
+      \once \override Score.RehearsalMark.self-alignment-X = #-1
+      \once \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
+      \once \override Score.TimeSignature.break-align-anchor-alignment = #LEFT
+      \once \override Score.RehearsalMark.padding = #4
       \mark \markup \large \bold {Moderato assai}
       \key d \major
       \time 2/4

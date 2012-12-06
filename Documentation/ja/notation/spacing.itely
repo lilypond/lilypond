@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @c Translators: Yoshiki Sawada
@@ -35,7 +35,7 @@ staff lines."
 
 Could we add a sentence:
 "Use instead the pair               fontSize = #@var{N}
-            \override StaffSymbol #'staff-space = #(magstep
+            \override StaffSymbol.staff-space = #(magstep
 @var{N})
 inside the Staff context to change the size of the font and the
 distance between
@@ -880,20 +880,20 @@ score で使用すべきシステム数です。@c
 
 @table @code
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
 
 楽譜の後ろ (と次の楽譜の前) に強制的に白紙を挿入します。@c
-デフォルトでは、この値は @code{blank-page-force} よりも小さいため、@c
+デフォルトでは、この値は @code{blank-page-penalty} よりも小さいため、@c
 楽譜の途中ではなく後ろに白紙が挿入されます。
 
-@item blank-last-page-force
-@funindex blank-last-page-force
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
 
 楽譜の最後が奇数ページの場合、楽譜の後ろに白紙を挿入します。
 
-@item blank-page-force
-@funindex blank-page-force
+@item blank-page-penalty
+@funindex blank-page-penalty
 
 楽譜の途中に強制的に白紙を挿入します。@c
 この値は @code{ly:optimal-breaking} では用いられません。@c
@@ -1112,12 +1112,12 @@ increased by one.  Default: @code{#f}.
   indent = 2\cm
   \context @{
     \StaffGroup
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #8
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #8
   @}
   \context @{
     \Voice
-    \override TextScript #'padding = #1
-    \override Glissando #'thickness = #3
+    \override TextScript.padding = #1
+    \override Glissando.thickness = #3
   @}
 @}
 @end example
@@ -1139,8 +1139,8 @@ increased by one.  Default: @code{#f}.
 \layout @{
   \context @{
     \Voice
-    \override TextScript #'color = #magenta
-    \override Glissando #'thickness = #1.5
+    \override TextScript.color = #magenta
+    \override Glissando.thickness = #1.5
   @}
 @}
 @end example
@@ -1159,7 +1159,7 @@ increased by one.  Default: @code{#f}.
 layoutVariable = \layout @{
   \context @{
     \Voice
-    \override NoteHead #'font-size = #4
+    \override NoteHead.font-size = #4
   @}
 @}
 @end example
@@ -1178,7 +1178,7 @@ layoutVariable = \layout @{
   \layoutVariable
   \context @{
     \Voice
-    \override NoteHead #'color = #red
+    \override NoteHead.color = #red
   @}
 @}
 @end example
@@ -1405,11 +1405,11 @@ c4 c c c |
 @end lilypond
 
 同様に、通常は連桁が小節線を跨いでいる場合も、改行は禁止されます。@c
-この振る舞いは、@code{\override Beam #'breakable = ##t} により、@c
+この振る舞いは、@code{\override Beam.breakable = ##t} により、@c
 変更することができます:
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam #'breakable = ##t
+\override Beam.breakable = ##t
 c2. c8[ c | \break
 c8 c] c2. |
 @end lilypond
@@ -1743,8 +1743,8 @@ LilyPond はしばしば明示的な @code{\break} や @code{\pageBreak} を@c
 この振る舞いを上書きするための 2 つのコマンドがあります:
 
 @example
-\override NonMusicalPaperColumn #'line-break-permission = ##f
-\override NonMusicalPaperColumn #'page-break-permission = ##f
+\override NonMusicalPaperColumn.line-break-permission = ##f
+\override NonMusicalPaperColumn.page-break-permission = ##f
 @end example
 
 @code{line-break-permission} が偽に上書きされた場合、@c
@@ -1778,8 +1778,8 @@ music = \relative c'' { c8 c c c }
   \layout {
     \context {
       \Score
-      \override NonMusicalPaperColumn #'line-break-permission = ##f
-      \override NonMusicalPaperColumn #'page-break-permission = ##f
+      \override NonMusicalPaperColumn.line-break-permission = ##f
+      \override NonMusicalPaperColumn.page-break-permission = ##f
     }
   }
 }
@@ -1852,20 +1852,16 @@ music = \relative c'' { c4 c c c }
 \score {
   \new Staff <<
     \new Voice {
-      \overrideProperty "Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 0))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
       s1 * 2 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 35))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 35))
       s1 * 3 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 70))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 70))
       s1 * 6 \break
 
-      \overrideProperty "Score.NonMusicalPaperColumn"
-        #'line-break-system-details #'((Y-offset . 105))
+      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 105))
       s1 * 5 \break
     }
     \new Voice {
@@ -2013,14 +2009,14 @@ music = \relative c'' { c4 c c c }
 #(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
-  \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing = #zero-space
-  \override VerticalAxisGroup #'nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
 }
 staffAffinityDown = \with {
-  \override VerticalAxisGroup #'staff-affinity = #DOWN
+  \override VerticalAxisGroup.staff-affinity = #DOWN
 }
 labelContext =
 #(define-music-function
@@ -2038,13 +2034,13 @@ labelContext =
 			  \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
-    \override BarLine #'stencil = ##f
-    \override DynamicText #'self-alignment-X = #-1
-    \override FretBoard #'X-offset = #1.75
-    \override InstrumentName #'minimum-Y-extent = #'(-2 . 2)
-    \override InstrumentName #'extra-offset = #'(0 . -0.5)
-    \override TextScript #'minimum-Y-extent = #'(-2 . 3)
-    \override TimeSignature #'stencil = ##f
+    \override BarLine.stencil = ##f
+    \override DynamicText.self-alignment-X = #-1
+    \override FretBoard.X-offset = #1.75
+    \override InstrumentName.minimum-Y-extent = #'(-2 . 2)
+    \override InstrumentName.extra-offset = #'(0 . -0.5)
+    \override TextScript.minimum-Y-extent = #'(-2 . 3)
+    \override TimeSignature.stencil = ##f
   }
 }
 
@@ -2107,12 +2103,11 @@ labelContext =
 
 @example
 \new Staff \with @{
-  \override VerticalAxisGroup #'default-staff-staff-spacing
-       #'basic-distance = #10
+  \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
 @} @{ @dots{} @}
 
 \new Staff \with @{
-  \override VerticalAxisGroup #'default-staff-staff-spacing =
+  \override VerticalAxisGroup.default-staff-staff-spacing =
     #'((basic-distance . 10)
        (minimum-distance . 9)
        (padding . 1)
@@ -2127,8 +2122,7 @@ labelContext =
 \layout @{
   \context @{
     \Staff
-    \override VerticalAxisGroup #'default-staff-staff-spacing
-         #'basic-distance = #10
+    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
   @}
 @}
 @end example
@@ -2294,7 +2288,7 @@ labelContext =
 \layout {
   \context {
     \Staff
-    \override VerticalAxisGroup #'default-staff-staff-spacing =
+    \override VerticalAxisGroup.default-staff-staff-spacing =
       #'((basic-distance . 8)
          (minimum-distance . 7)
          (padding . 1))
@@ -2317,7 +2311,7 @@ labelContext =
   % 'padding に負の値を設定することにより、譜を重ねることができます。
   % 'basic-distance が取り得る最小の値は 0 です。
   \new Staff \with {
-    \override VerticalAxisGroup #'default-staff-staff-spacing =
+    \override VerticalAxisGroup.default-staff-staff-spacing =
       #'((basic-distance . 3.5)
          (padding . -10))
   } { \clef bass g2 r | }
@@ -2372,14 +2366,14 @@ labelContext =
 \layout {
   \context {
     \Score
-    \override StaffGrouper #'staff-staff-spacing #'padding = #0
-    \override StaffGrouper #'staff-staff-spacing #'basic-distance = #1
+    \override StaffGrouper.staff-staff-spacing.padding = #0
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #1
   }
 }
 
 <<
   \new PianoStaff \with {
-    \override StaffGrouper #'staffgroup-staff-spacing #'basic-distance = #20
+    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2439,24 +2433,23 @@ labelContext =
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup
-      #'nonstaff-nonstaff-spacing #'stretchability = #1000
+    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
   }
 }
 
 \new StaffGroup
 <<
   \new Staff \with {
-    \override VerticalAxisGroup #'staff-staff-spacing = #'((basic-distance . 30))
+    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
   } { c'1 }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #UP
+    \override VerticalAxisGroup.staff-affinity = #UP
   } \lyricmode { up }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #CENTER
+    \override VerticalAxisGroup.staff-affinity = #CENTER
   } \lyricmode { center }
   \new Lyrics \with {
-    \override VerticalAxisGroup #'staff-affinity = #DOWN
+    \override VerticalAxisGroup.staff-affinity = #DOWN
   } \lyricmode { down }
   \new Staff { c'1 }
 >>
@@ -2522,21 +2515,16 @@ labelContext =
 @code{NonMusicalPaperColumn} を上書きする例をいくつか挙げます:
 
 @example
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20)
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
                                  (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn
-  #'line-break-system-details #'((X-offset . 20)
+\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
                                  (Y-offset . 40)
                                  (alignment-distances . (15)))
 @end example
@@ -2590,14 +2578,11 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 0))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 40))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 80))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 80))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2630,16 +2615,13 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 20)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 20)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 60)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 100)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (15)))
           s1*5 \break
         }
@@ -2673,16 +2655,13 @@ labelContext =
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 0)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0)
                                            (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 60)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
                                            (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty #"Score.NonMusicalPaperColumn"
-            #'line-break-system-details #'((Y-offset . 100)
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
                                            (alignment-distances . (10 30)))
           s1*5 \break
         }
@@ -2759,13 +2738,13 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 @lilypond[quote,ragged-right,relative=2,verbatim]
 c4_"Text"\pp
 r2.
-\once \override TextScript #'outside-staff-priority = #1
+\once \override TextScript.outside-staff-priority = #1
 c4_"Text"\pp % ここでは、テキストが譜の近くに配置されます
 r2.
 % outside-staff-priority に数ではない値を設定することにより、
 % 自動衝突回避を無効にします
-\once \override TextScript #'outside-staff-priority = ##f
-\once \override DynamicLineSpanner #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
+\once \override DynamicLineSpanner.outside-staff-priority = ##f
 c4_"Text"\pp % ここでは、2 つのオブジェクトが衝突します
 @end lilypond
 
@@ -2775,9 +2754,9 @@ c4_"Text"\pp % ここでは、2 つのオブジェクトが衝突します
 
 @c KEEP LY
 @lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript #'outside-staff-padding = #0
+\once \override TextScript.outside-staff-padding = #0
 a'^"このテキストは音符のすぐ近くに配置されます。"
-\once \override TextScript #'outside-staff-padding = #3
+\once \override TextScript.outside-staff-padding = #3
 c^"このテキストは前のテキストから離れた位置に配置されます"
 c^"この手キスとは前にテキストの近くに配置されます"
 @end lilypond
@@ -2801,7 +2780,7 @@ c4
 c''2
 % outside-staff-horizontal-padding を設定することで修正します
 R1
-\once \override TextScript #'outside-staff-horizontal-padding = #1
+\once \override TextScript.outside-staff-horizontal-padding = #1
 c,,4^"Text"
 c4
 c''2
@@ -2920,8 +2899,8 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 {
   c'4 e''4 e'4 b'4 |
   b'4 e''4 b'4 e''4 |
-  \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
-  \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
+  \override Staff.NoteSpacing.stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing.stem-spacing-correction = #1.5
   c'4 e''4 e'4 b'4 |
   b'4 e''4 b'4 e''4 |
 }
@@ -2949,7 +2928,7 @@ Essay on automated music engraving:
 -- 必要に応じて、パディングの値を調整しています。
 
 @example
- \override Score.NonMusicalPaperColumn #'padding = #10
+ \override Score.NonMusicalPaperColumn.padding = #10
 @end example
 
 スペースを減らすための手段はありません。
@@ -3024,8 +3003,7 @@ c16[ c c8]
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }
@@ -3060,7 +3038,7 @@ c16[ c c8]
   \layout {
     \context {
       \Score
-      \override SpacingSpanner #'uniform-stretching = ##t
+      \override SpacingSpanner.uniform-stretching = ##t
     }
   }
 }
@@ -3071,7 +3049,7 @@ c16[ c c8]
 音符にスペースが割り当てられます。
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-\override Score.SpacingSpanner #'strict-note-spacing = ##t
+\override Score.SpacingSpanner.strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
@@ -3158,7 +3136,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
 @item @code{\remove "Separating_line_group_engraver"}
-@item @code{\override PaperColumn #'used = ##t}
+@item @code{\override PaperColumn.used = ##t}
 @end itemize
 
 以下の例では、@c
@@ -3397,7 +3375,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \context {
       \Score
       proportionalNotationDuration = #(ly:make-moment 1 20)
-      \override SpacingSpanner #'uniform-stretching = ##t
+      \override SpacingSpanner.uniform-stretching = ##t
     }
   }
 }
@@ -3504,7 +3482,7 @@ OFF であるかのどちらかであるということです。@c
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
-  \override Score.SpacingSpanner #'strict-note-spacing = ##t
+  \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
   c''8
@@ -3526,11 +3504,11 @@ OFF であるかのどちらかであるということです。@c
 以下のような設定です:
 
 @itemize
-@item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
+@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
 @item @code{tupletFullLength = ##t}
-@item @code{\override Beam #'breakable = ##t}
-@item @code{\override Glissando #'breakable = ##t}
-@item @code{\override TextSpanner #'breakable = ##t}
+@item @code{\override Beam.breakable = ##t}
+@item @code{\override Glissando.breakable = ##t}
+@item @code{\override TextSpanner.breakable = ##t}
 @item @code{\remove "Forbid_line_break_engraver" in the Voice context}
 @end itemize
 
@@ -3690,7 +3668,7 @@ OFF であるかのどちらかであるということです。@c
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
-e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
+e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
 @end lilypond
 
 @item
@@ -3729,8 +3707,7 @@ e4 c g-\tweak #'X-offset #-2.7 -\tweak #'Y-offset #2.5 \f c
   \layout {
     \context {
       \Score
-      \override SpacingSpanner
-        #'common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
     }
   }
 }

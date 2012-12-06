@@ -49,6 +49,7 @@
 #include "lookup.hh"
 #include "main.hh"
 #include "misc.hh"
+#include "note-column.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -141,6 +142,92 @@ Beam::get_beam_count (Grob *me)
   return m;
 }
 
+//------ for whole note chord tremolos
+
+bool
+Beam::whole_note_close_chord_tremolo (Grob *me)
+{
+  if (!scm_is_integer (me->get_property ("gap-count")))
+    return false;
+
+  extract_grob_set (me, "stems", stems);
+  for (vsize i = 0; i < stems.size (); i++)
+    if (Stem::duration_log (stems[i]))
+      return false;
+
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (staff)
+    {
+      Grob *outside_stems[2] = {Stem::extremal_heads (stems[0])[DOWN],
+                                Stem::extremal_heads (stems.back ())[DOWN]};
+
+      Interval lines = Staff_symbol::line_span (staff);
+      for (int i = 0; i < 2; i++)
+        {
+          Real my_pos = Staff_symbol_referencer::get_position (outside_stems[i]);
+          if (my_pos > lines[UP] + 1)
+            return false;
+          else if (my_pos < lines[DOWN] - 1)
+            return false;
+        }
+    }
+
+  return (Staff_symbol_referencer::get_position (Stem::extremal_heads (stems.back ())[DOWN])
+          - Staff_symbol_referencer::get_position (Stem::extremal_heads (stems[0])[DOWN]))
+         < 2;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, calc_beam_gap, 1);
+SCM
+Beam::calc_beam_gap (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  SCM default_value = scm_cons (scm_from_double (0.8), scm_from_double (0.8));
+  if (!whole_note_close_chord_tremolo (me))
+    return default_value;
+
+  Interval left = Note_column::accidental_width
+                    (me->get_bound (RIGHT)->get_parent (X_AXIS));
+
+  if (left.length () > 0.4)
+    return scm_cons (scm_from_double (0.8), scm_from_double (1.3 + left.length ()));
+  else
+    return default_value;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, calc_springs_and_rods, 1);
+SCM
+Beam::calc_springs_and_rods (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  if (!whole_note_close_chord_tremolo (me))
+    return SCM_BOOL_F;
+
+  return scm_call_1 (Spanner::set_spacing_rods_proc, smob);
+}
+
+MAKE_SCHEME_CALLBACK (Beam, calc_minimum_length, 1);
+SCM
+Beam::calc_minimum_length (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  SCM default_value = scm_from_double (0.0);
+
+  if (!whole_note_close_chord_tremolo (me))
+    return SCM_BOOL_F;
+
+  Interval left = Note_column::accidental_width
+                    (me->get_bound (RIGHT)->get_parent (X_AXIS));
+
+  if (left.length () > 0.4)
+    return scm_from_double (left.length () + 4.0);
+  else
+    return default_value;
+}
+
+//------ and everything else
+
 MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, 1);
 SCM
 Beam::calc_normal_stems (SCM smob)
@@ -197,6 +284,18 @@ Beam::calc_direction (SCM smob)
             dir = to_dir (stem->get_property_data ("direction"));
           else
             dir = to_dir (stem->get_property ("default-direction"));
+
+          extract_grob_set (stem, "note-heads", heads);
+          /* default position of Kievan heads with beams is down
+             placing this here avoids warnings downstream */
+          if (heads.size())
+            {
+               if (heads[0]->get_property ("style") == ly_symbol2scm ("kievan"))
+                 {
+                    if (dir == CENTER)
+                      dir = DOWN;
+                 }
+            }
         }
     }
 
@@ -353,7 +452,7 @@ Beam::calc_beam_segments (SCM smob)
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
 
   int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
-  Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
+  Interval gap_lengths = robust_scm2interval (me->get_property ("beam-gap"), Interval (0.0, 0.0));
 
   Position_stem_segments_map stem_segments;
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -509,7 +608,7 @@ Beam::calc_beam_segments (SCM smob)
                   current.horizontal_[event_dir] += event_dir * seg.width_ / 2;
                   if (seg.gapped_)
                     {
-                      current.horizontal_[event_dir] -= event_dir * gap_length;
+                      current.horizontal_[event_dir] -= event_dir * gap_lengths[event_dir];
 
                       if (Stem::is_invisible (seg.stem_))
                         {
@@ -522,7 +621,7 @@ Beam::calc_beam_segments (SCM smob)
                           for (vsize k = 0; k < heads.size (); k++)
                             current.horizontal_[event_dir]
                               = event_dir * min (event_dir * current.horizontal_[event_dir],
-                                                 - gap_length / 2
+                                                 - gap_lengths[event_dir] / 2
                                                  + event_dir
                                                  * heads[k]->extent (commonx,
                                                                      X_AXIS)[-event_dir]);
@@ -541,16 +640,14 @@ Beam::calc_beam_segments (SCM smob)
     }
 
   SCM segments_scm = SCM_EOL;
-  SCM *tail = &segments_scm;
 
-  for (vsize i = 0; i < segments.size (); i++)
+  for (vsize i = segments.size (); i--;)
     {
-      *tail = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
-                                              scm_from_int (segments[i].vertical_count_)),
-                                    scm_cons (ly_symbol2scm ("horizontal"),
-                                              ly_interval2scm (segments[i].horizontal_))),
-                        SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
+      segments_scm = scm_cons (scm_list_2 (scm_cons (ly_symbol2scm ("vertical-count"),
+						     scm_from_int (segments[i].vertical_count_)),
+					   scm_cons (ly_symbol2scm ("horizontal"),
+						     ly_interval2scm (segments[i].horizontal_))),
+			       segments_scm);
     }
 
   return segments_scm;
@@ -848,9 +945,7 @@ Beam::consider_auto_knees (Grob *me)
   if (!scm_is_number (scm))
     return;
 
-  Interval_set gaps;
-
-  gaps.set_full ();
+  vector<Interval> forbidden_intervals;
 
   extract_grob_set (me, "normal-stems", stems);
 
@@ -884,15 +979,17 @@ Beam::consider_auto_knees (Grob *me)
         }
       head_extents_array.push_back (head_extents);
 
-      gaps.remove_interval (head_extents);
+      forbidden_intervals.push_back (head_extents);
     }
 
   Interval max_gap;
   Real max_gap_len = 0.0;
 
-  for (vsize i = gaps.allowed_regions_.size () - 1; i != VPOS; i--)
+  vector<Interval> allowed_regions
+    = Interval_set::interval_union (forbidden_intervals).complement ().intervals ();
+  for (vsize i = allowed_regions.size () - 1; i != VPOS; i--)
     {
-      Interval gap = gaps.allowed_regions_[i];
+      Interval gap = allowed_regions[i];
 
       /*
         the outer gaps are not knees.
@@ -1361,6 +1458,12 @@ Beam::pure_rest_collision_callback (SCM smob,
                     rest_max_pos[UP]
                    ) * ss / 2.0
                - previous;
+
+  // So that ceil below kicks in for rests that would otherwise brush
+  // up against a beam quanted to a ledger line, add a bit of space
+  // between the beam and the rest.
+  shift += (0.01 * beamdir);
+
   /* Always move by a whole number of staff spaces */
   shift = ceil (fabs (shift / ss)) * ss * sign (shift);
 
@@ -1475,6 +1578,7 @@ ADD_INTERFACE (Beam,
                "auto-knee-gap "
                "beamed-stem-shorten "
                "beaming "
+               "beam-gap "
                "beam-segments "
                "beam-thickness "
                "break-overshoot "
@@ -1486,7 +1590,6 @@ ADD_INTERFACE (Beam,
                "damping "
                "details "
                "direction "
-               "gap "
                "gap-count "
                "grow-direction "
                "inspect-quants "

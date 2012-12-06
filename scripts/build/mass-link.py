@@ -5,13 +5,26 @@
 #
 # create hard or symbolic links to SOURCEDIR/FILES in DESTDIR
 #
-# If --prepend-suffix is specified, link to foo.bar will be called fooSUFFIX.bar.
-# Shell wildcards expansion is performed on FILES.
+# If symbolic or hard links are not provided by the operating system,
+# copies will be made instead.  However, if the operating system
+# support symbolic or hard links, then this program expects to
+# operate on a filesystem which supports them too.
+#
+# If --prepend-suffix is specified, link to foo.bar will be called
+# fooSUFFIX.bar.  Shell wildcards expansion is performed on FILES.
+#
+# No check is performed on FILES type; in particular, if FILES
+# expansions contain a directory and hard links are requested,
+# this program may fail non-gracefully.
+#
+# Attempts to make hard links across different filesystems are
+# caught and replaced by copies.
 
 import sys
 import os
 import glob
 import getopt
+import shutil
 
 optlist, args = getopt.getopt (sys.argv[1:], '', ['prepend-suffix='])
 link_type, source_dir, dest_dir = args[0:3]
@@ -36,9 +49,15 @@ else:
     insert_suffix = lambda p: p
 
 if link_type == 'symbolic':
-    link = os.symlink
+    if hasattr (os, 'symlink'):
+        link = os.symlink
+    else:
+        link = shutil.copy
 elif link_type == 'hard':
-    link = os.link
+    if hasattr (os, 'link'):
+        link = os.link
+    else:
+        link = shutil.copy
 else:
     sys.stderr.write(sys.argv[0] + ': ' + link_type + ": wrong argument, expected 'symbolic' or 'hard'\n")
     sys.exit (1)
@@ -59,8 +78,14 @@ destdirs = set ([os.path.dirname (dest) for dest in destfiles])
 
 def force_link (src,dest):
     if os.path.exists (dest):
-        os.system ('rm -f ' + dest)
-    link (src, dest)
+        os.remove (dest)
+    try:
+        link (src, dest)
+    except OSError, e: # can't use "as" because GUB has python 2.4.5.
+        if e.errno == 18:
+            shutil.copy (src, dest)
+        else:
+            raise
     os.utime (dest, None)
 
 map (force_link, sourcefiles, destfiles)

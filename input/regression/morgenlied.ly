@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 manuscriptBreak = { \break }
 
 
@@ -107,11 +107,11 @@ secondVerse = \lyricmode {
     }
 
 pianoRH =  \relative c''' \repeat volta 2 {
-    \accidentalStyle "modern"
+    \accidentalStyle modern
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
-    \once \override DynamicLineSpanner   #'padding =#3
+    \once \override DynamicLineSpanner.padding =#3
     r8 << { s8\> s8\! }  << { fis( g)
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
@@ -128,7 +128,7 @@ pianoRH =  \relative c''' \repeat volta 2 {
 }
 
 pianoLH =  \relative c'' \repeat volta 2 {
-    \accidentalStyle "modern"
+    \accidentalStyle modern
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r
     \clef treble r4 <bes' c>8([ <a c>)] r <f c'> |
@@ -141,7 +141,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
     fis r4 <g b>8( |
     <f c'>4.)
 
-    \once \override Slur  #'height-limit = #1.0
+    \once \override Slur.height-limit = #1.0
 
     <g c>4.( | <a c>4.) <g b,> |
     c,4 r8 g4 r8 |
@@ -155,7 +155,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
     \score {
 	<< \time 6/8
 	   \new Staff <<
-	       \context Staff \accidentalStyle "modern"
+	       \context Staff \accidentalStyle modern
 	       \melody >>
 	   \lyricsto "singer" \new Lyrics \firstVerse
 	   \lyricsto "singer" \new Lyrics \secondVerse
@@ -171,13 +171,13 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	\layout {
 	    \context {
 		\Lyrics
-		\override LyricText #'font-size = #-1
+		\override LyricText.font-size = #-1
 	    }
 	    \context {
 		\Score
-		\override Beam #'beam-thickness = #0.55
-		\override SpacingSpanner #'spacing-increment = #1.0
-		\override Slur #'height-limit = #1.5
+		\override Beam.beam-thickness = #0.55
+		\override SpacingSpanner.spacing-increment = #1.0
+		\override Slur.height-limit = #1.5
 	    }
 	}
 	\midi {

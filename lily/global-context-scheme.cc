@@ -90,8 +90,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   LY_ASSERT_TYPE (unsmob_global_context, ctx, 2);
 
   Music *music = unsmob_music (mus);
-  if (!music
-      || !music->get_length ().to_bool ())
+  if (!music)
     {
       warning (_ ("no music found in score"));
       return SCM_BOOL_F;

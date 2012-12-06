@@ -24,6 +24,8 @@
 #include "directional-element-interface.hh"
 #include "item.hh"
 #include "lookup.hh"
+#include "note-collision.hh"
+#include "note-column.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
@@ -56,7 +58,7 @@ Stem_tremolo::calc_slope (SCM smob)
   else
     /* down stems with flags should have more sloped trems (helps avoid
        flag/stem collisions without making the stem very long) */
-    return scm_from_double ((Stem::duration_log (stem) >= 3 && get_grob_direction (stem) == DOWN)
+    return scm_from_double ((Stem::duration_log (stem) >= 3 && get_grob_direction (me) == DOWN)
                             ? 0.40 : 0.25);
 }
 
@@ -66,12 +68,12 @@ Stem_tremolo::calc_width (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
-  Direction stemdir = get_grob_direction (stem);
+  Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
 
   /* beamed stems and up-stems with flags have shorter tremolos */
-  return scm_from_double (((stemdir == UP && flag) || beam) ? 1.0 : 1.5);
+  return scm_from_double (((dir == UP && flag) || beam) ? 1.0 : 1.5);
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_style, 1)
@@ -80,11 +82,11 @@ Stem_tremolo::calc_style (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
-  Direction stemdir = get_grob_direction (stem);
+  Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
 
-  return ly_symbol2scm (((stemdir == UP && flag) || beam) ? "rectangle" : "default");
+  return ly_symbol2scm (((dir == UP && flag) || beam) ? "rectangle" : "default");
 }
 
 Real
@@ -100,7 +102,7 @@ Stem_tremolo::get_beam_translation (Grob *me)
 }
 
 Stencil
-Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
+Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
@@ -137,7 +139,7 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
   for (int i = 0; i < tremolo_flags; i++)
     {
       Stencil b (a);
-      b.translate_axis (beam_translation * i * stemdir * -1, Y_AXIS);
+      b.translate_axis (beam_translation * i * dir * -1, Y_AXIS);
       mol.add_stencil (b);
     }
   return mol;
@@ -157,9 +159,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
   if (!stem)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
-  Direction stemdir = get_grob_direction (stem);
-  if (stemdir == 0)
-    stemdir = UP;
+  Direction dir = get_grob_direction (me);
 
   Spanner *beam = Stem::get_beam (stem);
 
@@ -168,11 +168,11 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
 
   Interval ph = stem->pure_height (stem, 0, INT_MAX);
   Stem_info si = Stem::get_stem_info (stem);
-  ph[-stemdir] = si.shortest_y_;
+  ph[-dir] = si.shortest_y_;
   int beam_count = Stem::beam_multiplicity (stem).length () + 1;
   Real beam_translation = get_beam_translation (me);
 
-  ph = ph - stemdir * max (beam_count, 1) * beam_translation;
+  ph = ph - dir * max (beam_count, 1) * beam_translation;
   ph = ph - ph.center ();
 
   return ly_interval2scm (ph);
@@ -208,15 +208,13 @@ Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
       return Stencil ();
     }
 
-  Direction stemdir = get_grob_direction (stem);
-  if (!stemdir)
-    stemdir = UP;
+  Direction dir = get_grob_direction (me);
 
   bool whole_note = Stem::duration_log (stem) <= 0;
 
   /* for a whole note, we position relative to the notehead, so we want the
      stencil aligned on the flag closest to the head */
-  Direction stencil_dir = whole_note ? -stemdir : stemdir;
+  Direction stencil_dir = whole_note ? -dir : dir;
   return raw_stencil (me, slope, stencil_dir);
 }
 
@@ -238,6 +236,46 @@ Stem_tremolo::pure_calc_y_offset (SCM smob,
   return scm_from_double (y_offset (me, true));
 }
 
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_direction, 1);
+SCM
+Stem_tremolo::calc_direction (SCM smob)
+{
+  Item *me = unsmob_item (smob);
+
+  Item *stem = unsmob_item (me->get_object ("stem"));
+  if (!stem)
+    return scm_from_int (CENTER);
+
+  Direction stemdir = get_grob_direction (stem);
+
+  vector<int> nhp = Stem::note_head_positions (stem);
+  /*
+   * We re-decide stem-dir if there may be collisions with other
+   * note heads in the staff.
+   */
+  Grob *maybe_nc = stem->get_parent (X_AXIS)->get_parent (X_AXIS);
+  bool whole_note = Stem::duration_log (stem) <= 0;
+  if (whole_note && Note_collision_interface::has_interface (maybe_nc))
+    {
+      Drul_array<bool> avoid_me (false, false);
+      vector<int> all_nhps = Note_collision_interface::note_head_positions (maybe_nc);
+      if (all_nhps[0] < nhp[0])
+        avoid_me[DOWN] = true;
+      if (all_nhps.back () > nhp.back ())
+        avoid_me[UP] = true;
+      if (avoid_me[stemdir])
+        {
+          stemdir = -stemdir;
+          if (avoid_me[stemdir])
+            {
+              me->warning ("Whole-note tremolo may collide with simultaneous notes.");
+              stemdir = -stemdir;
+            }
+        }
+    }
+  return scm_from_int (stemdir);
+}
+
 Real
 Stem_tremolo::y_offset (Grob *me, bool pure)
 {
@@ -245,9 +283,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
   if (!stem)
     return 0.0;
 
-  Direction stemdir = get_grob_direction (stem);
-  if (stemdir == 0)
-    stemdir = UP;
+  Direction dir = get_grob_direction (me);
 
   Spanner *beam = Stem::get_beam (stem);
   Real beam_translation = get_beam_translation (me);
@@ -258,34 +294,34 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
     {
       Interval ph = stem->pure_height (stem, 0, INT_MAX);
       Stem_info si = Stem::get_stem_info (stem);
-      ph[-stemdir] = si.shortest_y_;
+      ph[-dir] = si.shortest_y_;
 
-      return (ph - stemdir * max (beam_count, 1) * beam_translation)[stemdir] - stemdir * 0.5 * me->pure_height (me, 0, INT_MAX).length ();
+      return (ph - dir * max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_height (me, 0, INT_MAX).length ();
     }
 
   Real end_y
     = (pure
-       ? stem->pure_height (stem, 0, INT_MAX)[stemdir]
-       : stem->extent (stem, Y_AXIS)[stemdir])
-      - stemdir * max (beam_count, 1) * beam_translation
+       ? stem->pure_height (stem, 0, INT_MAX)[dir]
+       : stem->extent (stem, Y_AXIS)[dir])
+      - dir * max (beam_count, 1) * beam_translation
       - Stem::beam_end_corrective (stem);
 
   if (!beam && Stem::duration_log (stem) >= 3)
     {
-      end_y -= stemdir * (Stem::duration_log (stem) - 2) * beam_translation;
-      if (stemdir == UP)
-        end_y -= stemdir * beam_translation * 0.5;
+      end_y -= dir * (Stem::duration_log (stem) - 2) * beam_translation;
+      if (dir == UP)
+        end_y -= dir * beam_translation * 0.5;
     }
 
   bool whole_note = Stem::duration_log (stem) <= 0;
-  if (whole_note)
+  if (whole_note || isinf(end_y))
     {
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */
       Real ss = Staff_symbol_referencer::staff_space (me);
       vector<int> nhp = Stem::note_head_positions (stem);
-      Real note_head = (stemdir == UP ? nhp.back () : nhp[0]) * ss / 2;
-      end_y = note_head + stemdir * 1.5;
+      Real note_head = (dir == UP ? nhp.back () : nhp[0]) * ss / 2;
+      end_y = note_head + dir * 1.5;
     }
 
   return end_y;
@@ -308,6 +344,7 @@ ADD_INTERFACE (Stem_tremolo,
                /* properties */
                "beam-thickness "
                "beam-width "
+               "direction "
                "flag-count "
                "length-fraction "
                "stem "

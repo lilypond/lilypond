@@ -61,6 +61,7 @@ normalize (Real x, Real x1, Real x2)
 
 Real directed_round (Real f, Direction d);
 
+Offset get_point_in_y_direction (Offset orig, Real slope, Real dist, Direction dir);
 Real peak_around (Real epsilon, Real threshold, Real x);
 Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
 string camel_case_to_lisp_identifier (string in);

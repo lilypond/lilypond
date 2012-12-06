@@ -282,7 +282,7 @@ the software directly. See @ref{Manually installing lily-git.tcl}.
 
 @item
 Finally, lily-git is always part of the LilyPond source code and is
-located in @file{~/lilypond-git/scripts/auxillar/lily-git.tcl}.
+located in @file{$LILYPOND_GIT/scripts/auxillar/lily-git.tcl}.
 
 @end itemize
 
@@ -311,7 +311,7 @@ lily-git with this information.
 @item
 Click on the @qq{Get source} button.
 
-A directory called @file{lilypond-git/} is now created within
+A directory called @file{$LILYPOND_GIT} is now created within
 your home directory and the complete source code will start to be
 downloaded into it.
 
@@ -328,7 +328,7 @@ minutes -- it could be an intermittant network problem.  If the
 problem persists, please ask for help.}
 
 @item
-Close the lily-git GUI and navigate to the @file{lilypond-git/}
+Close the lily-git GUI and navigate to the @file{$LILYPOND_GIT}
 directory to view and edit the source files.
 
 @end enumerate
@@ -444,7 +444,7 @@ the command-line; see @ref{Uploading a patch for review}.
 hopelessly confused!}
 
 The button labeled @qq{Abort changes -- Reset to origin} will copy
-all changed files to a subdirectory of @file{lilypond-git/} named
+all changed files to a subdirectory of @file{$LILYPOND_GIT} named
 @file{aborted_edits/}, and will reset the repository to the
 current state of the remote repository (at @code{git.sv.gnu.org}).
 
@@ -465,7 +465,7 @@ text.  This should take less than a minute.
 @c we heavily recommend the out-of-tree build; do not change this!
 
 @example
-cd ~/lilypond-git/
+cd $LILYPOND_GIT
 sh autogen.sh --noconfigure
 mkdir -p build/
 cd build/
@@ -481,14 +481,14 @@ building; this can have a non-negligible effect on compilation
 speed.
 
 @example
-cd ~/lilypond-git/build/
+cd $LILYPOND_GIT/build/
 make
 @end example
 
 You may run the compiled @code{lilypond} with:
 
 @example
-cd ~/lilypond-git/build/
+cd $LILYPOND_GIT/build/
 out/bin/lilypond my-file.ly
 @end example
 
@@ -498,7 +498,7 @@ Compiling the documentation is a much more involved process, and
 will likely take 2 to 10 hours.
 
 @example
-cd ~/lilypond-git/build/
+cd $LILYPOND_GIT/build/
 make
 make doc
 @end example
@@ -508,14 +508,14 @@ view the html files by entering the below text; we recommend that
 you bookmark the resulting page:
 
 @example
-firefox ~/lilypond-git/build/out-www/offline-root/index.html
+firefox $LILYPOND_GIT/build/out-www/offline-root/index.html
 @end example
 
 @subsubheading Installing
 
 Don't.  There is no reason to install lilypond within LilyDev.
 All development work can (and should) stay within the
-@file{$HOME/lilypond-git/} directory, and any personal composition
+@file{$LILYPOND_GIT} directory, and any personal composition
 or typesetting work should be done with an official GUB release.
 
 

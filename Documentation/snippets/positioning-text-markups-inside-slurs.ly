@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, tweaks-and-overrides"
@@ -19,7 +19,7 @@ set to false in order to be printed inside slurs.
 
 
 \relative c'' {
-  \override TextScript #'avoid-slur = #'inside
-  \override TextScript #'outside-staff-priority = ##f
+  \override TextScript.avoid-slur = #'inside
+  \override TextScript.outside-staff-priority = ##f
   c2(^\markup { \halign #-10 \natural } d4.) c8
 }

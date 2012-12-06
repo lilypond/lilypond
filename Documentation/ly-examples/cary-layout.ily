@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   indent = #0
@@ -8,18 +8,18 @@
     \Score
 
     proportionalNotationDuration = #(ly:make-moment 1 64)
-    \override Beam #'breakable = ##t
+    \override Beam.breakable = ##t
     autoBeaming = ##f
     tupletFullLength = ##t
-    \override BarNumber #'transparent = ##t
-    \override BarLine #'transparent = ##t
-    \override SpanBar #'transparent = ##t
-    \override Beam #'break-overshoot = #'(-0.5 . 1.0)
-    \override TextScript #'staff-padding = #6
-    \override Glissando #'thickness = #3
-    \override SpacingSpanner #'strict-grace-spacing = ##t
-    \override TupletBracket #'bracket-visibility = ##t
-    \override NoteColumn #'ignore-collision = ##t
+    \override BarNumber.transparent = ##t
+    \override BarLine.transparent = ##t
+    \override SpanBar.transparent = ##t
+    \override Beam.break-overshoot = #'(-0.5 . 1.0)
+    \override TextScript.staff-padding = #6
+    \override Glissando.thickness = #3
+    \override SpacingSpanner.strict-grace-spacing = ##t
+    \override TupletBracket.bracket-visibility = ##t
+    \override NoteColumn.ignore-collision = ##t
   }
 }
 
@@ -74,7 +74,7 @@ beam = #(define-music-function (parser location left right) (number? number?)
 )
 
 fraction = #(define-music-function (parser location music) (ly:music?)
-	#{ \tweak #'text #tuplet-number::calc-fraction-text #music #})
+	#{ \tweak text #tuplet-number::calc-fraction-text #music #})
 
 triangle = #(define-music-function (parser location music) (ly:music?)
 	#{ \once \set shapeNoteStyles = #'#(do do do do do do do) #music #})
@@ -101,4 +101,4 @@ cross = #(define-music-function (parser location music) (ly:music?)
 	#{ \once \set shapeNoteStyles = #'#(cross cross cross cross cross cross cross) #music #})
 
 white = #(define-music-function (parser location music) (ly:music?)
-	#{ \once \override NoteHead #'duration-log = #1 #music #})
+	#{ \once \override NoteHead.duration-log = #1 #music #})

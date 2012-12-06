@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.20
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
@@ -33,8 +33,8 @@ cueWhile =
    (string? string? ly:dir? ly:music?)
    #{
      \cueDuring $instrument #dir {
-       \once \override TextScript #'self-alignment-X = #RIGHT
-       \once \override TextScript #'direction = $dir
+       \once \override TextScript.self-alignment-X = #RIGHT
+       \once \override TextScript.direction = $dir
        <>-\markup { \tiny #name }
        $music
      }

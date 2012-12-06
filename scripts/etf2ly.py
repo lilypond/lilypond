@@ -576,7 +576,7 @@ class Staff:
                     last_time = g.timesig
 
                 if 'start' in g.repeats:
-                    e = e + ' \\bar "|:" ' 
+                    e = e + ' \\bar ".|:" '
 
 
                 # we don't attempt voltas since they fail easily.
@@ -608,7 +608,7 @@ class Staff:
             if g:
                 gap = rat_add (gap, g.length ())
                 if 'stop' in g.repeats:
-                    k = k + ' \\bar ":|" '
+                    k = k + ' \\bar ":|." '
                 
         k = '%sglobal = { %s }\n\n ' % (self.staffid (), k)
         return k

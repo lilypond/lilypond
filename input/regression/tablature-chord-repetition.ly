@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs
@@ -19,7 +19,7 @@ Guitar = \relative c' {
     \new Staff {
       \new Voice {
         \clef "treble_8"
-        \override Voice.StringNumber #'transparent = ##t
+        \override Voice.StringNumber.transparent = ##t
         \Guitar
       }
     }

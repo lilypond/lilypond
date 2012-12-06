@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 #(define (filter-instrument instrument-name tuning-alist)
    (filter (lambda (entry)
@@ -31,7 +31,7 @@ displayInstrumentDefaultTunings =
   {
     \new Staff {
       \textLengthOn
-      \override Score.RehearsalMark #'self-alignment-X = #LEFT
+      \override Score.RehearsalMark.self-alignment-X = #LEFT
 
       \mark \markup {\left-align "Guitar tunings"}
       \clef "treble_8"

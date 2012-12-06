@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "simultaneous-notes, syntax-and-expressions, text"
@@ -65,7 +65,7 @@ musicDown = \relative c'' {
     indent = 6.0\cm
     \context {
       \Score
-      \override SystemStartBar #'collapse-height = #30
+      \override SystemStartBar.collapse-height = #30
     }
   }
 }

@@ -171,6 +171,11 @@ object to a text markup.  Used for chords.")
      (clefGlyph ,string? "Name of the symbol within the music font.")
      (clefOctavation ,integer? "Add this much extra octavation.
 Values of 7 and -7 are common.")
+     (clefOctavationFormatter ,procedure? "A procedure that takes the
+Octavation number as a string and the style as a symbol and returns a markup.")
+     (clefOctavationStyle ,symbol? "Determines the way the octavateEight
+grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
+and @samp{bracketed}.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
@@ -192,6 +197,11 @@ crescendo, i.e., @samp{cresc.}.")
      (cueClefGlyph ,string? "Name of the symbol within the music font.")
      (cueClefOctavation ,integer? "Add this much extra octavation.
 Values of 7 and -7 are common.")
+     (cueClefOctavationFormatter ,procedure? "A procedure that takes the
+Octavation number as a string and the style as a symbol and returns a markup.")
+     (cueClefOctavationStyle ,symbol? "Determines the way the octavateEight
+grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
+and @samp{bracketed}.")
      (cueClefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
@@ -213,7 +223,7 @@ This variable is read by @rinternals{Timing_translator} at
 frets for tablatures and fretboards if no strings are provided in
 the notes for the current moment.")
      (doubleRepeatSegnoType ,string? "Set the default bar line for
-the combinations double repeat with segno. Default is @samp{:|S|:}.")
+the combinations double repeat with segno. Default is @samp{:|.S.|:}.")
      (doubleRepeatType ,string? "Set the default bar line for double
 repeats.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
@@ -231,7 +241,7 @@ the symbol @samp{hihat}) as keys, and a list
 values.")
 
      (endRepeatSegnoType ,string? "Set the default bar line for the
-combinations ending of repeat with segno. Default is @samp{:|S}.")
+combinations ending of repeat with segno. Default is @samp{:|.S}.")
      (endRepeatType ,string? "Set the default bar line for the ending
 of repeats.")
      (explicitClefVisibility ,vector? "@samp{break-visibility}
@@ -485,7 +495,7 @@ part-combining.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
 verse.  Use in @code{Lyrics} context.")
      (startRepeatSegnoType ,string? "Set the default bar line for the
-combinations beginning of repeat with segno. Default is @samp{.S|:}.")
+combinations beginning of repeat with segno. Default is @samp{S.|:}.")
      (startRepeatType ,string? "Set the default bar line for the beginning
 of repeats.")
      (stemLeftBeamCount ,integer? "Specify the number of beams to draw
@@ -576,12 +586,12 @@ of bar line to create.
 Example:
 
 @example
-\\set Staff.whichBar = \"|:\"
+\\set Staff.whichBar = \".|:\"
 @end example
 
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
-are described in @rinternals{bar-line-interface}.")
+are described in @file{scm/bar-line.scm}.")
      )))
 
 

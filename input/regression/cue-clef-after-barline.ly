@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 instrument = \relative c' {
   \repeat unfold 40 { c8 }
@@ -9,8 +9,8 @@ Solo = \relative c' {
   c2 c |
   
   % Change the break-align-orders of the score so that cue-clef comes after bar-line
-  \override Score.BarLine #'space-alist #'cue-clef = #'(minimum-space . 1.0)
-  \override Score.BreakAlignment #'break-align-orders  =
+  \override Score.BarLine.space-alist.cue-clef = #'(minimum-space . 1.0)
+  \override Score.BreakAlignment.break-align-orders  =
     ##(( ;; end-of-line:
          left-edge cue-end-clef ambitus breathing-sign clef staff-bar
          key-cancellation key-signature time-signature cue-clef custos)
@@ -25,8 +25,8 @@ Solo = \relative c' {
   c2 c2 |
   
   % Revert back to default
-  \revert Score.BarLine #'(space-alist cue-clef)
-  \revert Score.BreakAlignment #'break-align-orders
+  \revert Score.BarLine.space-alist.cue-clef
+  \revert Score.BreakAlignment.break-align-orders
   \cueDuringWithClef #"instrQuote" #UP #"bass" { R1 }
   c2 c2 |
 }

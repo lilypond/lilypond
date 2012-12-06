@@ -7,21 +7,21 @@ large on smaller staves."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   ragged-right = ##t
 }
 
 melody = \relative c''' {
-  \override DynamicText  #'extra-offset = #'(0 . 3)
+  \override DynamicText.extra-offset = #'(0 . 3)
   s1-\f c8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
 }
 
 <<
   \new Staff \with {
     fontSize = #-4
-    \override StaffSymbol #'staff-space = #(magstep -4)
+    \override StaffSymbol.staff-space = #(magstep -4)
   } {
     \melody
   }

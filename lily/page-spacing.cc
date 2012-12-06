@@ -155,6 +155,9 @@ Page_spacer::solve ()
     }
 
   Page_spacing_result ret;
+  if (simple_state_.empty ())
+    return ret;
+
   ret.penalty_ = simple_state_.back ().penalty_
                  + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
   ret.system_count_status_ = simple_state_.back ().system_count_status_;

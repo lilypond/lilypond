@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -527,7 +527,7 @@ de Scheme, es decir, todo elemento que comience por un signo@tie{}@code{#}.
 @item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
 @code{\override} y @code{\set}.  Concretamente, hay que usar espacios
 alrededor del punto y el signo igual en instrucciones como
-@code{\override Score . LyricText #'font-size = #5} y antes y después
+@code{\override Score.LyricText.font-size = #5} y antes y después
 de la instrucción completa.
 
 @end itemize
@@ -1415,7 +1415,7 @@ marca puede suprimirse:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" }
     e c4
-    \once \override Score.FootnoteItem #'annotation-line = ##f
+    \once \override Score.FootnoteItem.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }
@@ -1440,11 +1440,11 @@ nota al pie:
   \header { tagline = ##f }
   \relative c'' {
     % footnotes may be added to chord constituents
-    < \footnote #'(-1 . -3) #'Accidental "Another flat" aes
+    < \single\footnote #'(-1 . -3) "Another flat" Accidental aes
       c
-      \footnote #'(-1 . 0.5) #'Accidental "A flat" ees
+      \single\footnote #'(-1 . 0.5) "A flat" Accidental ees
     >2
-    \footnote #'(-1 . 2) #'Stem "A stem" ees2
+    \single\footnote #'(-1 . 2) "A stem" Stem ees2
   }
 }
 @end lilypond
@@ -1483,13 +1483,13 @@ los objetos más inesperados.
   \header { tagline = ##f }
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) #'TimeSignature "Meter change" \default
+    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) #'Stem "Chord stem" \default
+    \footnote #'(1 . -1) "Chord stem" Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) #'BarLine "Bar line" \default
+    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) #'KeySignature "Key change" \default
+    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
     \key c\minor
     q
   }

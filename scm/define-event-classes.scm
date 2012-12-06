@@ -44,9 +44,11 @@
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
     (span-event . (span-dynamic-event beam-event episema-event ligature-event
-			 pedal-event phrasing-slur-event slur-event staff-span-event
-			 text-span-event trill-span-event tremolo-span-event
-			 tuplet-span-event))
+                                      measure-counter-event pedal-event
+                                      phrasing-slur-event slur-event
+                                      staff-span-event text-span-event
+                                      trill-span-event tremolo-span-event
+                                      tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
     (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -406,7 +406,7 @@ manualBeam =
      (parser location beg-end)
      (pair?)
    #@{
-     \once \override Beam #'positions = #beg-end
+     \once \override Beam.positions = #beg-end
    #@})
 
 \relative c' @{
@@ -425,7 +425,7 @@ manualBeam =
      (parser location beg end)
      (number? number?)
    #{
-     \once \override Beam #'positions = #(cons beg end)
+     \once \override Beam.positions = #(cons beg end)
    #})
 
 \relative c' {
@@ -447,14 +447,14 @@ AltOn =
      (parser location mag)
      (number?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
    #})
 
 AltOff = {
-  \revert Stem #'length
-  \revert NoteHead #'font-size
+  \revert Stem.length
+  \revert NoteHead.font-size
 }
 
 \relative c' {
@@ -473,12 +473,12 @@ withAlt =
      (parser location mag music)
      (number? ly:music?)
    #{
-     \override Stem #'length = #(* 7.0 mag)
-     \override NoteHead #'font-size =
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
        #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
      #music
-     \revert Stem #'length
-     \revert NoteHead #'font-size
+     \revert Stem.length
+     \revert NoteHead.font-size
    #})
 
 \relative c' {
@@ -508,7 +508,7 @@ displayBarNum =
      (parser location)
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
-       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
        #@{#@}))
 @end example
 
@@ -1201,13 +1201,13 @@ Eigenschaften (wie Dicke (@code{thickness}), Richtung (@code{direction})
 usw.) können mit @code{\override} auf feste Werte gesetzt werden, etwa:
 
 @example
-\override Stem #'thickness = #2.0
+\override Stem.thickness = #2.0
 @end example
 
 Eigenschaften können auch auf eine Scheme-Prozedur gesetzt werden:
 
 @lilypond[fragment,verbatim,quote,relative=2]
-\override Stem #'thickness = #(lambda (grob)
+\override Stem.thickness = #(lambda (grob)
     (if (= UP (ly:grob-property grob 'direction))
         2.0
         7.0))
@@ -1286,7 +1286,7 @@ mein-callback = #(lambda (grob)
 TODO: das Beispiel für diesen Abschnitt ist nicht gut gewähtl:
 
 @example
-F = -\tweak #'font-size #-3 -\flageolet
+F = -\tweak font-size #-3 -\flageolet
 @end example
 (beachte @samp{-}, was ein Nachereignis anzeigt) funktioniert
 für den geschilderten Zweck sehr gut.  Aber bis der Abschnitt
@@ -1298,7 +1298,7 @@ syntaktische Inflexibilität.  Folgender Code beispielsweise
 ergibt einen Syntaxfehler:
 
 @example
-F = \tweak #'font-size #-3 -\flageolet
+F = \tweak font-size #-3 -\flageolet
 
 \relative c'' @{
   c4^\F c4_\F
@@ -1397,7 +1397,7 @@ neu ausgerichtet wird.
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' {
-  \override Tie #'after-line-breaking =
+  \override Tie.after-line-breaking =
   #my-callback
   c1 ~ \break c2 ~ c
 }
@@ -1420,7 +1420,7 @@ und @code{PaperColumn}.  Sie können mit der
 
 @example
 \overrideProperty
-#"Score.NonMusicalPaperColumn"  % Grob-Bezeichnung
+Score.NonMusicalPaperColumn  % Grob-Bezeichnung
 #'line-break-system-details     % Eigenschaftsbezeichnung
 #'((next-padding . 20))         % Wert
 @end example

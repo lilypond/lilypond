@@ -18,7 +18,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <complex>
+
 #include "misc.hh"
+#include "offset.hh"
 #include "warn.hh"
 
 /*
@@ -93,4 +96,21 @@ camel_case_to_lisp_identifier (string in)
   replace_all (&result, '_', '-');
 
   return result;
+}
+
+Offset
+get_point_in_y_direction (Offset orig, Real slope, Real dist, Direction dir)
+{
+  if (slope == infinity_f)
+    return orig + Offset (dir * dist, 0.0);
+
+  Real x = slope == 0.0 ? 1.0 * dir : 1.0 * sign (slope) * dir;
+  Real y = slope * x;
+  Real angle = atan2 (y, x);
+
+  complex<Real> orig_c (orig[X_AXIS], orig[Y_AXIS]);
+  complex<Real> to_move = polar (dist, angle);
+  complex<Real> res = orig_c + to_move;
+
+  return Offset (real (res), imag (res));
 }

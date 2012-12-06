@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contemporary-notation, expressive-marks, symbols-and-glyphs"
@@ -35,14 +35,14 @@ draw the rectangle over the hairpin.
   <<
     {
       \dynamicUp
-      \override DynamicLineSpanner #'staff-padding = #4
+      \override DynamicLineSpanner.staff-padding = #4
       r2 r16 c'8.\pp r4
     }
     \\
     {
-      \override DynamicLineSpanner #'layer = #0
+      \override DynamicLineSpanner.layer = #0
       des,2\mf\< ~
-      \override TextScript #'layer = #2
+      \override TextScript.layer = #2
       des16_\markup {
         \postscript #"
           1.9 -8 translate

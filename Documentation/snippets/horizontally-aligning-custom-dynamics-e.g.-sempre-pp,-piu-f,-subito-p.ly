@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "correction-wanted, expressive-marks, tweaks-and-overrides, version-specific"
@@ -17,7 +17,7 @@ displayed way after the note it applies to.
 To correctly align the @qq{sempre pp} horizontally, so that it is
 aligned as if it were only the \\pp, there are several approaches:
 
-* Simply use @code{\\once\\override DynamicText #'X-offset = #-9.2}
+* Simply use @code{\\once\\override DynamicText.X-offset = #-9.2}
 before the note with the dynamics to manually shift it to the correct
 position. Drawback: This has to be done manually each time you use that
 dynamic markup... * Add some padding (@code{#:hspace 7.1}) into the
@@ -137,10 +137,10 @@ semppMII =
     \set Staff.instrumentName = \markup \column { Explicit shifting }
     \relative c'' {
       \key es \major
-      \once \override DynamicText #'X-offset = #-9.2
+      \once \override DynamicText.X-offset = #-9.2
       c4\semppK c\p c c
       c4\ff c
-      \once \override DynamicText #'X-offset = #-9.2
+      \once \override DynamicText.X-offset = #-9.2
       c4\semppK c
     }
   >>
@@ -170,7 +170,7 @@ semppMII =
     \relative c'' {
       \key es \major
       % Setting to ##f (false) gives the same result
-      \override DynamicText #'X-offset = #0
+      \override DynamicText.X-offset = #0
       c4\semppMII c\p c c | c\ff c c\semppMII c
     }
   >>

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Modifica dell'output
 @chapter Modifica dell'output
@@ -235,9 +235,9 @@ il colore della testa di nota:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a b c |
 @end lilypond
 
@@ -269,11 +269,11 @@ note al valore predefinito:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\override NoteHead #'color = #green
+\override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b4 c |
 @end lilypond
 
@@ -295,11 +295,11 @@ una singola nota in questo modo:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4 d
-\override NoteHead #'color = #red
+\override NoteHead.color = #red
 e4 f |
-\once \override NoteHead #'color = #green
+\once \override NoteHead.color = #green
 g4 a
-\revert NoteHead #'color
+\revert NoteHead.color
 b c |
 @end lilypond
 
@@ -340,7 +340,7 @@ cosa succede se si usa @code{\once \override}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-\once \override NoteHead #'font-size = #-3
+\once \override NoteHead.font-size = #-3
 <c e g>4
 <c e g>4
 @end lilypond
@@ -366,7 +366,7 @@ di un accordo si cambia in questo modo:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 <c e g>4
-<c \tweak #'font-size #-3 e g>4
+<c \tweak font-size #-3 e g>4
 @end lilypond
 
 Si noti che la sintassi di @code{\tweak} è diversa da quella di
@@ -389,8 +389,8 @@ di articolazioni:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4^"Black"
-  -\tweak #'color #red ^"Red"
-  -\tweak #'color #green _"Green"
+  -\tweak color #red ^"Red"
+  -\tweak color #green _"Green"
 @end lilypond
 
 @noindent
@@ -409,8 +409,8 @@ esplicitamente l'oggetto di formattazione, purché LilyPond riesca a
 seguire la sua origine fino all'evento originale:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental #'color #red   cis4
- \tweak Accidental #'color #green es
+<\tweak Accidental.color #red   cis4
+ \tweak Accidental.color #green es
                                   g>
 @end lilypond
 
@@ -446,9 +446,9 @@ deve essere in rosso.
 @cindex colore, esempio
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak #'direction #up
+\tweak direction #up
 \times 4/3 {
-  \tweak #'color #red
+  \tweak color #red
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
@@ -469,12 +469,11 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
-\once \override TupletNumber
-  #'text = #tuplet-number::calc-fraction-text
+\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c8[ c]
   c8[ c]
-  \once \override TupletNumber #'transparent = ##t
+  \once \override TupletNumber.transparent = ##t
   \times 2/3 { c8[ c c] }
   \times 2/3 { c8[ c c] }
 }
@@ -609,7 +608,7 @@ contesto.  Inizialmente usiamo un valore molto grande per lo
 spessore, per essere sicuri che il comando funzioni:
 
 @example
-\override Slur #'thickness = #5.0
+\override Slur.thickness = #5.0
 @end example
 
 Non dimenticare il @code{#'} che precede il nome della
@@ -629,7 +628,7 @@ prima legatura di portamento e accanto ad essa.}  Facciamolo:
   \time 6/8
   {
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     r4 bes8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -696,7 +695,7 @@ nel modo seguente:
   {
     r4 bes8
     % Aumenta lo spessore solo della legatura che segue
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes8[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -737,10 +736,10 @@ iniziano le legature:
   {
     r4 bes8
     % Aumenta lo spessore solo della legatura che segue
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     bes[( g]) g |
     % Aumenta lo spessore solo della legatura che segue
-    \once \override Slur #'thickness = #5.0
+    \once \override Slur.thickness = #5.0
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -766,11 +765,11 @@ dopo la seconda legatura:
   {
     r4 bes8
     % Aumenta lo spessore di tutte le legature di portamento che seguono da 1.2 a 5.0
-    \override Slur #'thickness = #5.0
+    \override Slur.thickness = #5.0
     bes[( g]) g |
     g8[( es]) es
     % Ripristina lo spessore di tutte le legature di portamento che seguono al valore predefinito 1.2
-    \revert Slur #'thickness
+    \revert Slur.thickness
     d8[( f]) as |
     as8 g
   }
@@ -860,7 +859,7 @@ di testo"}; maggiori informazioni sui simboli e le stringhe si trovano in
 Quindi il comando @code{\override} che rende il testo corsivo è:
 
 @example
-\override LyricText #'font-shape = #'italic
+\override LyricText.font-shape = #'italic
 @end example
 
 @noindent
@@ -884,7 +883,7 @@ in questo modo:
     as8 g
   }
   \addlyrics {
-    \override LyricText #'font-shape = #'italic
+    \override LyricText.font-shape = #'italic
     The man who | feels love's sweet e -- | mo -- tion
   }
 }
@@ -910,7 +909,7 @@ nome dell'oggetto: altrimenti, i due nomi verranno considerati insieme e
 l'interprete non sarà in grado di distinguerli.  Dunque il comando sarà:
 
 @example
-\override Lyrics . LyricText #'font-shape = #'italic
+\override Lyrics.LyricText.font-shape = #'italic
 @end example
 
 @warning{Nel testo bisogna lasciare sempre uno spazio bianco tra l'ultima
@@ -1063,7 +1062,7 @@ implicito, @code{Voice}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override BarLine #'stencil = ##f
+  \override BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1089,7 +1088,7 @@ correggerlo specificando il contesto giusto:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'stencil = ##f
+  \override Staff.BarLine.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1109,7 +1108,7 @@ zero:
 @lilypond[quote,verbatim,relative=2]
 {
   c4 c
-  \once \override NoteHead #'stencil = #point-stencil
+  \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
 @end lilypond
@@ -1138,7 +1137,7 @@ valore del comando @code{\override}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1172,7 +1171,7 @@ Quindi il comando che rende trasparente l'indicazione di tempo è:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'transparent = ##t
+  \override Staff.TimeSignature.transparent = ##t
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1193,7 +1192,7 @@ e impostarla su @code{#f}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1234,7 +1233,7 @@ stanghette scriviamo:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #white
+  \override Staff.BarLine.color = #white
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1270,7 +1269,7 @@ valori interni, @code{x11-color}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(x11-color 'white)
+  \override Staff.BarLine.color = #(x11-color 'white)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1302,7 +1301,7 @@ e per avere il bianco sarà @code{(rgb-color 1 1 1)}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  \override Staff.BarLine.color = #(rgb-color 1 1 1)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1328,12 +1327,12 @@ impostati su diverse tonalità di grigio:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
-  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
-  \override Staff.Clef          #'color = #(x11-color 'grey60)
-  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
-  \override Voice.Stem          #'color = #(x11-color 'grey85)
-  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  \override Staff.StaffSymbol.color = #(x11-color 'grey30)
+  \override Staff.TimeSignature.color = #(x11-color 'grey60)
+  \override Staff.Clef.color = #(x11-color 'grey60)
+  \override Voice.NoteHead.color = #(x11-color 'grey85)
+  \override Voice.Stem.color = #(x11-color 'grey85)
+  \override Staff.BarLine.color = #(x11-color 'grey10)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1406,8 +1405,8 @@ ciascun oggetto su @code{#f}, così:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef #'stencil = ##f
-        \override Staff.TimeSignature #'stencil = ##f
+        \override Staff.Clef.stencil = ##f
+        \override Staff.TimeSignature.stencil = ##f
         { f8 f c }
       }
     >>
@@ -1465,9 +1464,9 @@ Dunque possiamo sostituire l'esempio precedente con
       \new Staff \with {
         alignAboveContext = #"main"
         % Nasconde le chiavi di questo rigo
-        \override Clef #'stencil = ##f
+        \override Clef.stencil = ##f
         % Nasconde le indicazioni di tempo di questo rigo
-        \override TimeSignature #'stencil = ##f
+        \override TimeSignature.stencil = ##f
       }
       { f8 f c }
     >>
@@ -1497,7 +1496,7 @@ tipi di carattere di ogni tipo di oggetto, come le teste di nota
 (@code{NoteHead}) con un comando di questo tipo
 
 @example
-\override NoteHead #'font-size = #-2
+\override NoteHead.font-size = #-2
 @end example
 
 oppure possiamo modificare la dimensione di tutti i tipi di carattere usando
@@ -1530,8 +1529,8 @@ Proviamolo nel nostro esempio dell'ossia:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \override Clef.stencil = ##f
+        \override TimeSignature.stencil = ##f
         % Riduce la dimensione di tutti i tipi di carattere di circa il 24%
         fontSize = #-2
       }
@@ -1605,11 +1604,11 @@ questo modo:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef #'stencil = ##f
-        \override TimeSignature #'stencil = ##f
+        \override Clef.stencil = ##f
+        \override TimeSignature.stencil = ##f
         fontSize = #-2
         % Riduce proporzionalmente la lunghezza dei gambi e la spaziatura tra le linee
-        \override StaffSymbol #'staff-space = #(magstep -2)
+        \override StaffSymbol.staff-space = #(magstep -2)
       }
       { f8 f c }
     >>
@@ -1771,11 +1770,11 @@ con i gambi nuovamente disposti secondo il comportamento predefinito.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a |
-\override Stem #'direction = #DOWN
+\override Stem.direction = #DOWN
 a4 g c a |
-\override Stem #'direction = #UP
+\override Stem.direction = #UP
 a4 g c a |
-\revert Stem #'direction
+\revert Stem.direction
 a4 g c a |
 @end lilypond
 
@@ -1863,9 +1862,9 @@ predefinito e le due battute successive mostrano gli effetti dei valori
 
 @lilypond[quote,verbatim,relative=2]
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #DOWN
+\override Fingering.direction = #DOWN
 c4-5 a-3 f-1 c'-5 |
-\override Fingering #'direction = #UP
+\override Fingering.direction = #UP
 c4-5 a-3 f-1 c'-5 |
 @end lilypond
 
@@ -1967,7 +1966,7 @@ valore predefinito di tale proprietà è @w{@code{-5}}, dunque proviamo
 con @w{@code{-7}}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering #'font-size = #-7
+\override Fingering.font-size = #-7
 \set fingeringOrientations = #'(left)
 <f-2>4
 <c-1 e-2 g-3 b-5>4
@@ -2069,7 +2068,7 @@ questi oggetti.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % Place dynamics above staff
 \dynamicUp
@@ -2119,12 +2118,12 @@ nel contesto @code{Staff}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Imposta i dettagli per l'estensione del testo vocale seguente
-\override TextSpanner #'(bound-details left text)
+\override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
 % Posiziona le indicazione dinamiche sopra il rigo
 \dynamicUp
 % Posiziona l'estensione del segno d'ottava sotto il testo vocale
-\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket.outside-staff-priority = #340
 % Inizia l'estensione del segno d'ottava
 \ottava #1
 c'4 \startTextSpan
@@ -2167,10 +2166,10 @@ esempio che mostra l'effetto dei due metodi:
 @lilypond[quote,verbatim,relative=2]
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 c4(
-\once \override TextScript #'avoid-slur = #'inside
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.avoid-slur = #'inside
+\once \override TextScript.outside-staff-priority = ##f
 c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur #'outside-staff-priority = #500
+\once \override Slur.outside-staff-priority = #500
 c4( c^\markup { \tiny \sharp } d4.) c8 |
 @end lilypond
 
@@ -2190,7 +2189,7 @@ aumentare la priorità di @qq{Testo3} assegnando un valore più alto:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Testo1"
 c2^"Testo2" |
-\once \override TextScript #'outside-staff-priority = #500
+\once \override TextScript.outside-staff-priority = #500
 c2^"Testo3"
 c2^"Testo4" |
 @end lilypond
@@ -2251,12 +2250,12 @@ c,,2^"Testo" c'' |
 R1 |
 
 % Disattiva l'elusione delle collisioni
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 c,,2^"Testo Lungo   " c'' |
 R1 |
 
 % Disattiva l'elusione delle collisioni
-\once \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript.outside-staff-priority = ##f
 \textLengthOn        % e attiva textLengthOn
 c,,2^"Testo Lungo   "  % Gli spazi finali vengono rispettati
 c''2 |
@@ -2334,7 +2333,7 @@ sovrascrivere il valore di @code{extra-spacing-width} e impostarlo su
 comando che lo fa sul testo della dinamica:
 
 @example
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 @end example
 
 @noindent
@@ -2346,7 +2345,7 @@ Vediamo se funziona nell'esempio precedente:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText #'extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(0 . 0)
 a4\f b\mf c\mp b\p |
 @end lilypond
 
@@ -2369,7 +2368,7 @@ funzionare:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Aumenta la larghezza di 1 spazio rigo
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2660,7 +2659,7 @@ note.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
-\override Script #'padding = #3
+\override Script.padding = #3
 b2\fermata
 @end lilypond
 
@@ -2670,11 +2669,11 @@ b2\fermata
 
 @lilypond[quote,fragment,relative=1,verbatim]
 % Questo non funziona, vedi sotto
-\override MetronomeMark #'padding = #3
+\override MetronomeMark.padding = #3
 \tempo 4 = 120
 c1 |
 % Questo funziona
-\override Score.MetronomeMark #'padding = #3
+\override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
 d1 |
 @end lilypond
@@ -2717,15 +2716,13 @@ sesquisharp = \markup { \sesquisharp }
 \relative c'' {
   c4
   % Mostra un triesis (alterazione ascendente di tre quarti di tono) ma lo spazio è troppo stretto
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 c
   % Ecco come migliorare lo spazio
-  \once \override Score.AccidentalPlacement #'right-padding = #0.6
-  \once \override Accidental
-    #'stencil = #ly:text-interface::print
-  \once \override Accidental #'text = #sesquisharp
+  \once \override Score.AccidentalPlacement.right-padding = #0.6
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
   cis4 |
 }
 @end lilypond
@@ -2765,9 +2762,9 @@ preso dalla sezione precedente:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Aumenta la larghezza di 1 unità
-\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Allinea le dinamiche alla base posta 2 unità sopra il rigo
-\override DynamicLineSpanner #'staff-padding = #2
+\override DynamicLineSpanner.staff-padding = #2
 a4\f b\mf c\mp b\p
 @end lilypond
 
@@ -2785,7 +2782,7 @@ destro del numero al punto di riferimento della nota a cui si riferisce:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 \voiceOne
 <a\2>
-\once \override StringNumber #'self-alignment-X = #RIGHT
+\once \override StringNumber.self-alignment-X = #RIGHT
 <a\2>
 @end lilypond
 
@@ -2820,7 +2817,7 @@ rigo; il nuovo valore sarà @w{@code{-8}}.
 <<
   { c4 c c c }
   \\
-  \override MultiMeasureRest #'staff-position = #-8
+  \override MultiMeasureRest.staff-position = #-8
   { R1 }
 >>
 @end lilypond
@@ -2848,7 +2845,7 @@ sinistra e in basso di 1.8 spazi rigo:
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
 f4-5
-\once \override Fingering #'extra-offset = #'(-0.3 . -1.8)
+\once \override Fingering.extra-offset = #'(-0.3 . -1.8)
 f4-5
 @end lilypond
 
@@ -2892,7 +2889,7 @@ risolve anche il problema della forma sgraziata.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
-\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\once \override PhrasingSlur.positions = #'(-4 . -3)
 \acciaccatura e8\( d8 c~ c d c d\)
 @end lilypond
 
@@ -2931,7 +2928,7 @@ centrale a, per esempio, 1:
     { c'1 ~ c'2. e'8 f' }
     \\
     {
-      \override Beam #'positions = #'(-1 . -1)
+      \override Beam.positions = #'(-1 . -1)
       e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
     }
   >>
@@ -2994,13 +2991,13 @@ Ecco il risultato finale:
     \\
     {
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
     \\
     \\
     {
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -3034,7 +3031,7 @@ e le pedalizzazioni.
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3047,7 +3044,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % Reposition the c2 to the right of the merged note
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % Move the c2 out of the main note column
         % so the merge will work
         \shiftOnn
@@ -3059,8 +3056,8 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3237,7 +3234,7 @@ rispetto alla linea centrale del rigo.  Dunque la seguente sovrascrittura
 posizionata proprio prima della prima nota della legatura sposta la legatura
 3.5 mezzi spazi di rigo sopra la linea centrale:
 
-@code{\once \override Tie #'staff-position = #3.5}
+@code{\once \override Tie.staff-position = #3.5}
 
 Questo completa la seconda battuta:
 
@@ -3246,7 +3243,7 @@ Questo completa la seconda battuta:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3326,7 +3323,7 @@ alla fine, ottenendo:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3401,7 +3398,7 @@ interferisca con i due Re.  Applicando queste modifiche abbiamo:
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3473,7 +3470,7 @@ rendiamo il gambo trasparente e spostiamo il Do con la proprietà
 rhMusic = \relative c'' {
   \new Voice {
     r2 c4.\( g8 |
-    \once \override Tie #'staff-position = #3.5
+    \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3487,7 +3484,7 @@ rhMusic = \relative c'' {
         \voiceTwo
         c,8~
         % Riposiziona il c2 a destra della nota unita
-        \once \override NoteColumn #'force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = #1.0
         % Sposta il c2 fuori dalla colonna della nota principale
         % in modo che l'unione di note funzioni
         \shiftOnn
@@ -3499,8 +3496,8 @@ rhMusic = \relative c'' {
         % Il gambo di d2 deve essere in giù per permettere l'unione delle note
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem #'transparent ##t
-        \tweak Flag #'transparent ##t
+        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3584,8 +3581,8 @@ attraversare le voci:
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3600,9 +3597,9 @@ possiamo allungarlo impostando la proprietà
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem #'transparent ##t
-    \tweak Flag #'transparent ##t
-    \tweak Stem #'length #8
+    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
+    \tweak Stem.length #8
     b8~ b\noBeam
   }
 \\
@@ -3639,7 +3636,7 @@ il modo migliore è impostare la proprietà @code{stencil} su
     % Indicazione di tempo visibile
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'transparent = ##t
+    \once \override Score.MetronomeMark.transparent = ##t
     % Indicazione di tempo invisibile per allungare la fermata nel MIDI
     \tempo 4=80
     a4\fermata |
@@ -3662,7 +3659,7 @@ il modo migliore è impostare la proprietà @code{stencil} su
     % Indicazione di tempo visibile
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark #'stencil = ##f
+    \once \override Score.MetronomeMark.stencil = ##f
     % Indicazione di tempo invisibile per allungare la fermata nel MIDI
     \tempo 4=80
     a4\fermata |
@@ -3708,11 +3705,11 @@ le parole stesse non si possono usare variabili semplici.  Come
 alternativa possiamo usare i comandi @code{\override} e @code{\revert}?
 
 @example
-@code{\override Lyrics . LyricText #'font-shape = #'italic}
-@code{\override Lyrics . LyricText #'font-series = #'bold}
+@code{\override Lyrics.LyricText.font-shape = #'italic}
+@code{\override Lyrics.LyricText.font-series = #'bold}
 
-@code{\revert Lyrics . LyricText #'font-shape}
-@code{\revert Lyrics . LyricText #'font-series}
+@code{\revert Lyrics.LyricText.font-shape}
+@code{\revert Lyrics.LyricText.font-series}
 @end example
 
 Anche questi sarebbero molto noiosi da inserire se ci fossero
@@ -3733,13 +3730,13 @@ rapidamente:
 
 @lilypond[quote,verbatim]
 emphasize = {
-  \override Lyrics.LyricText #'font-shape = #'italic
-  \override Lyrics.LyricText #'font-series = #'bold
+  \override Lyrics.LyricText.font-shape = #'italic
+  \override Lyrics.LyricText.font-series = #'bold
 }
 
 normal = {
-  \revert Lyrics.LyricText #'font-shape
-  \revert Lyrics.LyricText #'font-series
+  \revert Lyrics.LyricText.font-shape
+  \revert Lyrics.LyricText.font-series
 }
 
 global = { \key c \major \time 4/4 \partial 4 }
@@ -3923,17 +3920,17 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -3956,17 +3953,17 @@ inst =
 \layout{
   \context {
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context {
     \Staff
-    \override TimeSignature #'style = #'numbered
+    \override TimeSignature.style = #'numbered
   }
   \context {
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -4008,16 +4005,16 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   @}
   \context @{
     \Staff
   @}
   \context @{
     \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   @}
 @}
 @end example
@@ -4041,12 +4038,12 @@ inst =
 
 \layout{
   \context { \Score
-    \override MetronomeMark #'extra-offset = #'(-9 . 0)
-    \override MetronomeMark #'padding = #'3
+    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.padding = #'3
   }
   \context { \Voice
-    \override Glissando #'thickness = #3
-    \override Glissando #'gap = #0.1
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
   }
 }
 
@@ -4168,8 +4165,8 @@ contengono uno o più comandi @code{\override}.  Ad esempio,
 
 @example
 tieDotted = @{
-  \override Tie #'dash-period = #0.75
-  \override Tie #'dash-fraction = #0.1
+  \override Tie.dash-period = #0.75
+  \override Tie.dash-fraction = #0.1
 @}
 @end example
 
@@ -4271,7 +4268,7 @@ note in base alla loro posizione sul rigo.
 
 \relative c' {
   % Fa sì che il colore sia preso dalla procedura color-notehead
-  \override NoteHead #'color = #color-notehead
+  \override NoteHead.color = #color-notehead
   a2 b | c2 d | e2 f | g2 a |
 }
 @end lilypond

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header { texidoc =
 
@@ -12,7 +12,7 @@ not erase previous settings to the Staff context.
   ragged-right= ##t
   \context {
     \Staff
-    \override StaffSymbol #'line-count = 4
+    \override StaffSymbol.line-count = 4
     \consists "Ambitus_engraver"
     \remove "Clef_engraver"
   }

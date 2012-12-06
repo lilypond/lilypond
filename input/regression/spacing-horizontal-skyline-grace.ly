@@ -6,7 +6,7 @@ and the barline do not collide."
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper
 {
@@ -16,7 +16,7 @@ and the barline do not collide."
 \new Staff
 \relative c
 {
-  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print 
+  \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print 
   \time 6/8
   \clef bass
   s2. |

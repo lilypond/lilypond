@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Duraciones
 @section Duraciones
@@ -547,11 +547,11 @@ Sobreescriba las propiedades de disposición @var{whiteout} y
 objetos del pentagrama.
 
 @lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie #'layer = #-2
-\override Staff.TimeSignature #'layer = #-1
-\override Staff.KeySignature #'layer = #-1
-\override Staff.TimeSignature #'whiteout = ##t
-\override Staff.KeySignature #'whiteout = ##t
+\override Tie.layer = #-2
+\override Staff.TimeSignature.layer = #-1
+\override Staff.KeySignature.layer = #-1
+\override Staff.TimeSignature.whiteout = ##t
+\override Staff.KeySignature.whiteout = ##t
 b2 b~
 \time 3/4
 \key a \major
@@ -648,7 +648,7 @@ predefinidas que se muestran aquí:
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
-  \override Staff.TimeSignature #'stencil = ##f
+  \override Staff.TimeSignature.stencil = ##f
   % Print a maxima rest, equal to four breves
   r\maxima
   % Print a longa rest, equal to two breves
@@ -913,10 +913,10 @@ siguiente:}
 
 @lilypond[quote,verbatim,relative=2]
 % This fails, as the wrong object name is specified
-\override TextScript #'padding = #5
+\override TextScript.padding = #5
 R1^"wrong"
 % This is the correct object name to be specified
-\override MultiMeasureRestText #'padding = #5
+\override MultiMeasureRestText.padding = #5
 R1^"right"
 @end lilypond
 
@@ -1519,7 +1519,7 @@ La numeración de compases se continúa al final de la cadencia.
 
 @lilypond[verbatim,relative=2,quote]
 % Show all bar numbers
-\override Score.BarNumber #'break-visibility = #all-visible
+\override Score.BarNumber.break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
 c4 c d8[ d d] f4 g4.
@@ -2600,14 +2600,14 @@ gradualmente.  Las cuatro primeras fusas se aceleran gradualmente,
 mientras que las últimas cuatro fusas están a un tempo constante.
 
 @lilypond[relative=1,verbatim,quote]
-\override Beam #'grow-direction = #LEFT
+\override Beam.grow-direction = #LEFT
 \featherDurations #(ly:make-moment 2 1)
 { c16[ c c c c c c c] }
-\override Beam #'grow-direction = #RIGHT
+\override Beam.grow-direction = #RIGHT
 \featherDurations #(ly:make-moment 2 3)
 { c32[ d e f] }
 % revert to non-feathered beams
-\override Beam #'grow-direction = #'()
+\override Beam.grow-direction = #'()
 { g32[ a b c] }
 @end lilypond
 
@@ -2730,7 +2730,7 @@ f1 \bar "|"
 f1 \bar "."
 g1 \bar "||"
 a1 \bar ".|"
-b1 \bar ".|."
+b1 \bar ".."
 c1 \bar "|.|"
 d1 \bar "|."
 e1
@@ -2740,8 +2740,8 @@ e1
 así como la barra de puntos y la discontinua:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar ":"
-g1 \bar "dashed"
+f1 \bar ";"
+g1 \bar "!"
 a1
 @end lilypond
 
@@ -2749,11 +2749,11 @@ a1
 y cinco tipos de barra de repetición:
 
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "|:"
-g1 \bar ":|:"
+f1 \bar ".|:"
+g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|"
+c1 \bar ":|."
 e1
 @end lilypond
 
@@ -2778,13 +2778,13 @@ c4 c c c
 c4 c c c \break
 \bar "S"
 c4 c c c
-\bar "|S"
+\bar "S-|"
 c4 c c c \break
-\bar "|S"
+\bar "S-|"
 c4 c c c
-\bar "S|"
+\bar "S-S"
 c4 c c c \break
-\bar "S|"
+\bar "S-S"
 c1
 @end lilypond
 
@@ -2803,9 +2803,9 @@ principio de la línea siguiente.
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar "||:"
+\bar ".|:-||"
 c4 c c c \break
-\bar "||:"
+\bar ".|:-||"
 c4 c c c
 @end lilypond
 
@@ -2814,29 +2814,29 @@ existen seis variantes diferentes:
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
-\bar ":|S"
+\bar ":|.S"
 c4 c c c \break
-\bar ":|S"
+\bar ":|.S"
 c4 c c c
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c \break
-\bar ":|S."
+\bar ":|.S-S"
 c4 c c c
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c \break
-\bar "S|:"
+\bar "S.|:-S"
 c4 c c c
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c \break
-\bar ".S|:"
+\bar "S.|:"
 c4 c c c
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c \break
-\bar ":|S|:"
+\bar ":|.S.|:"
 c4 c c c
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c4 c c c \break
-\bar ":|S.|:"
+\bar ":|.S.|:-S"
 c1
 @end lilypond
 
@@ -2939,7 +2939,7 @@ ejemplo siguiente se imprimen los números de compás en todos los
 sitios posibles:
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+\override Score.BarNumber.break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
 % Permit first bar number to be printed
 \bar ""
@@ -3440,8 +3440,8 @@ pentagramas con adornos y sin adornos, por ejemplo
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3452,8 +3452,8 @@ anterior
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  \new Staff { e4 \bar "|:" \grace c16 d2. }
-  \new Staff { c4 \bar "|:" \grace s16 d2. }
+  \new Staff { e4 \bar ".|:" \grace c16 d2. }
+  \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

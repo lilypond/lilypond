@@ -217,7 +217,8 @@ Tuplet_engraver::acknowledge_script (Grob_info inf)
     if (tuplets_[j].bracket_)
       {
         Item *i = dynamic_cast<Item *> (inf.grob ());
-        Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
+        if (!i->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+          Tuplet_bracket::add_script (tuplets_[j].bracket_, i);
       }
 }
 

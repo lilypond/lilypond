@@ -165,66 +165,51 @@ setup_paths (char const *argv0_ptr)
   if (relocate_binary)
     {
       string prefix_directory;
-      if (getenv ("LILYPOND_RELOCATE_PREFIX"))
+      string argv0_abs;
+      if (argv0_filename.is_absolute ())
         {
-          prefix_directory = getenv ("LILYPOND_RELOCATE_PREFIX");
-#ifdef __MINGW32__
-          /* Normalize file name.  */
-          prefix_directory = File_name (prefix_directory).to_string ();
-#endif /* __MINGW32__ */
-
-          prefix_relocation (prefix_directory);
-          string bindir = prefix_directory + "/bin";
-          framework_relocation (bindir);
+          argv0_abs = argv0_filename.to_string ();
+          debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
         }
-      else if (relocate_binary)
+      else if (argv0_filename.dir_.length ())
         {
-          string argv0_abs;
-          if (argv0_filename.is_absolute ())
-            {
-              argv0_abs = argv0_filename.to_string ();
-              debug_output (_f ("Relocation: is absolute: argv0=%s\n", argv0_ptr));
-            }
-          else if (argv0_filename.dir_.length ())
-            {
-              argv0_abs = get_working_directory ()
-                          + "/" + string (argv0_filename.to_string ());
-              debug_output (_f ("Relocation: from cwd: argv0=%s\n", argv0_ptr));
-            }
-          else
-            {
-              /* Find absolute ARGV0 name, using PATH.  */
-              File_path path;
-              path.parse_path (getenv ("PATH"));
+          argv0_abs = get_working_directory ()
+                      + "/" + string (argv0_filename.to_string ());
+          debug_output (_f ("Relocation : from cwd: argv0=%s\n", argv0_ptr));
+        }
+      else
+        {
+          /* Find absolute ARGV0 name, using PATH.  */
+          File_path path;
+          path.parse_path (getenv ("PATH"));
 
 #ifndef __MINGW32__
-              argv0_abs = path.find (argv0_filename.to_string ());
+          argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
-              path.prepend (get_working_directory ());
-              char const *ext[] = {"exe", "", 0 };
-              argv0_abs = path.find (argv0_filename.to_string (), ext);
+          path.prepend (get_working_directory ());
+          char const *ext[] = {"exe", "", 0 };
+          argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
-              debug_output (_f ("Relocation: from PATH=%s\nargv0=%s",
-                                path.to_string ().c_str (), argv0_ptr), true);
+          debug_output (_f ("Relocation: from PATH=%s\nargv0=%s\n",
+                            path.to_string ().c_str (), argv0_ptr), true);
 
-              if (argv0_abs.empty ())
-                programming_error ("cannot find absolute argv0");
-            }
+          if (argv0_abs.empty ())
+            programming_error ("cannot find absolute argv0");
+        }
 
-          string bindir = dir_name (argv0_abs);
-          string argv0_prefix = dir_name (bindir);
-          string compile_prefix = dir_name (dir_name (dir_name (lilypond_datadir)));
-          if (argv0_prefix != compile_prefix)
-            {
-              prefix_relocation (argv0_prefix);
-              prefix_directory = argv0_prefix;
-            }
-          if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-            {
-              framework_relocation (bindir + "/" + FRAMEWORKDIR);
-              prefix_directory = bindir + "/" + FRAMEWORKDIR;
-            }
+      string bindir = dir_name (argv0_abs);
+      string argv0_prefix = dir_name (bindir);
+      string compile_prefix = dir_name (dir_name (dir_name (lilypond_datadir)));
+      if (argv0_prefix != compile_prefix)
+        {
+          prefix_relocation (argv0_prefix);
+          prefix_directory = argv0_prefix;
+        }
+      if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
+        {
+          framework_relocation (bindir + "/" + FRAMEWORKDIR);
+          prefix_directory = bindir + "/" + FRAMEWORKDIR;
         }
 
       lilypond_datadir = prefix_directory

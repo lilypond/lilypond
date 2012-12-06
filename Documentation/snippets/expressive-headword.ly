@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -27,7 +27,7 @@ Expressive headword
 %\layout {
 %   \context {
 %      \Score
-%      \override SpacingSpanner #'base-shortest-duration =
+%      \override SpacingSpanner.base-shortest-duration =
 %         #(ly:make-moment 1 20)
 %   }
 %}
@@ -40,7 +40,7 @@ Expressive headword
       \key g \major
       \time 6/8
       \partial 2
-      \once \override TextScript #'staff-padding = #2
+      \once \override TextScript.staff-padding = #2
       d'8 \staccato
       ^ \markup { \column {
          RONDO

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "staff-notation, workaround"
@@ -38,6 +38,6 @@ example = {
   R1
   R1
 
-  \override Score.MetronomeMark #'extra-spacing-width = #'(0 . 0)
+  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 0)
   \example
 }

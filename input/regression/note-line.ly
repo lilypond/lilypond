@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Note head lines (e.g. glissando)
@@ -17,7 +17,7 @@ sd = { \change Staff = down}
 \context PianoStaff
 <<
   \new Staff = "up"   {
-    \override Glissando #'breakable = ##t
+    \override Glissando.breakable = ##t
     \set PianoStaff.connectArpeggios = ##t
     \showStaffSwitch
     \clef F

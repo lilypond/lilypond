@@ -8,6 +8,7 @@ chant-or-psalms-notation.ly
 creating-blank-staves.ly
 cross-staff-stems.ly
 defining-an-engraver-in-scheme--ambitus-engraver.ly
+displaying-a-whole-grandstaff-system-if-only-one-of-its-staves-is-alive.ly
 engravers-one-by-one.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 nesting-staves.ly

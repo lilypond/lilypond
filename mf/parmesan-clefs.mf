@@ -443,6 +443,7 @@ def draw_brevis (expr exact_center, bwidth, bheight, blinethickness) =
 	penlabels (1, 2, 3);
 enddef;
 
+
 %
 % Draw two brevis notes; the second one shifted down by `shift'.
 % The other parameters are the same as with `draw_brevis'.
@@ -519,87 +520,6 @@ def draw_double_brevis (expr exact_center, bwidth, bheight,
 	unfill pat_in shifted (0, -shift);
 
 	penlabels (1, 2, 3, 4, 5, 6);
-enddef;
-
-
-%
-% Draw three brevis notes; the second one shifted down by `shift',
-% the third one by `2 shift'.
-% The other parameters are the same as with `draw_brevis'.
-%
-def draw_triple_brevis (expr exact_center, bwidth, bheight,
-			     blinethickness, shift) =
-	save brevis_width, brevis_height, linethickness;
-
-	brevis_width# = bwidth;
-	brevis_height# = bheight;
-	linethickness# = blinethickness;
-
-	save beam_width, beam_height;
-	save serif_size, serif_protrude, hole_height;
-
-	beam_width# = 1.4 linethickness#;
-	hole_height# = 3 linethickness#;
-	2 beam_height# + hole_height# = brevis_height#;
-	serif_size# = (hole_height# - linethickness#) / 2;
-	serif_protrude# = 1.5 serif_size#;
-
-	save xoffs, yoffs;
-
-	xoffs# = xpart exact_center;
-	yoffs# = ypart exact_center;
-
-	define_pixels (xoffs, yoffs);
-	define_pixels (brevis_width, brevis_height, linethickness);
-	define_pixels (beam_width, beam_height, serif_size, serif_protrude);
-
-	z1l = (xoffs, yoffs - linethickness);
-	z2r = z1r + serif_size * (1, -1);
-	z3l = z2l + (-serif_size, -serif_protrude);
-
-	penpos1 (beam_width, 0);
-	penpos2 (beam_height, 90);
-	penpos3 (beam_width, 180);
-
-	z7 = z1 shifted (0, -2 shift);
-	z8 = z2 shifted (0, -2 shift);
-	z9 = z3 shifted (0, -2 shift);
-	
-	penpos7 (beam_width, 0);
-	penpos8 (beam_height, 90);
-	penpos9 (beam_width, 180);
-
-	save pat_in, pat_out;
-	path pat_in, pat_out;
-
-	pat_out := z9r{down}
-		   .. z9l{up}
-		   .. z8l{right};
-	pat_out := pat_out
-		   -- reverse pat_out xscaled -1
-				      shifted (2 xoffs + brevis_width, 0);
-	pat_out := pat_out
-		   -- reverse pat_out yscaled -1
-				      shifted (0, -2 yoffs)
-		   -- cycle;
-
-	fill pat_out;
-
-	pat_in := z1r{down}
-		  .. z2r{right};
-	pat_in := pat_in
-		  -- reverse pat_in xscaled -1
-				    shifted (2 xoffs + brevis_width, 0);
-	pat_in := pat_in
-		  -- reverse pat_in yscaled -1
-				    shifted (0, 2 yoffs)
-		  -- cycle;
-
-	unfill pat_in;
-	unfill pat_in shifted (0, -shift);
-	unfill pat_in shifted (0, -2 shift);
-
-	penlabels (1, 2, 3, 7, 8, 9);
 enddef;
 
 
@@ -841,84 +761,82 @@ fet_beginchar ("petrucci c5 clef", "petrucci.c5_change");
 fet_endchar;
 
 
-def draw_mensural_c_clef (expr exact_center, reduction) =
-	% inspired by Ockeghem, "Missa Prolationum", in: MGG, volume
-	% 9, table 94.
-
-	save reduced_il;
+def draw_mensural_c_clef (expr exact_center, reduction, fill_char) =
+	save reduced_il, vert_thick, hor_thick, blot_rad;
 
 	reduced_il# = staff_space# * reduction;
+	vert_thick# = linethickness# * 1.4;
+	hor_thick# = staff_space# * reduction * 0.25;
 
-	define_pixels (reduced_il);
+	blot_rad = blot_diameter / 2;
 
-	draw_triple_brevis (exact_center + (0, 0.5 staff_space#),
-			    2 reduced_il#, 0.8 staff_space#,
-			    0.8 linethickness#, staff_space);
+	define_pixels (reduced_il, vert_thick, hor_thick);
 
-	save half_reduced_il;
+	pickup pencircle scaled blot_diameter;
 
-	half_reduced_il# = staff_space# * sqrt (reduction);
+	penpos1 (vert_thick, 0);
+	penpos2 (vert_thick, 0);
+	penpos3 (hor_thick, 90);
+	penpos4 (hor_thick, 90);
+	penpos5 (hor_thick, 90);
+	penpos6 (hor_thick, 90);
+	penpos7 (vert_thick, 0);
+	penpos8 (hor_thick, 90);
 
-	define_pixels (half_reduced_il);
+	z1l = (0, 0);
+	x2l = 0;
+	top y2 = 2.2 reduced_il;
+	z3 = (vert_thick, 0.75 reduced_il);
+	z4 = z3 + (reduced_il - vert_thick, 0);
+	z5 = z4 + (vert_thick, -0.5 reduced_il);
+	z6 = z5 - (reduced_il, 0);
+	z7 = z4 + (0.5 vert_thick, 0.5 reduced_il);
+	z8 = z5 - (vert_thick, 0);
 
-	set_char_box (0 - xpart exact_center,
-		      2 reduced_il# + xpart exact_center,
-		      2.2 half_reduced_il# + staff_space# -
-			2 ypart exact_center,
-		      2.2 half_reduced_il# + 2 ypart exact_center);
+	save pat, pat_mid;
+	path pat, pat_mid;
 
-	save xoffs, yoffs;
+	pat = z1l
+	      -- z2l{up}
+	      .. z2 + (0, blot_rad)
+	      .. {down}z2r
+	      -- top z3r{down}
+	      .. {right}rt z3r
+	      -- lft z4r{right}
+	      .. {up}top z4r
+	      -- z7l{up}
+	      .. z7 + (0, blot_rad)
+	      .. {down}z7r
+	      -- top z5l{down}
+	      .. {left}lft z5l
+	      -- rt z6l{left}
+	      .. {down}bot z6l
+	      --z1r;
+	pat := pat
+	       -- reverse pat yscaled -1
+	       -- cycle;
+	fill pat;
 
-	xoffs# = xpart exact_center;
-	yoffs# = ypart exact_center;
+	if fill_char:
+		pat_mid = bot z3l{up}
+			  .. {right}rt z3l
+			  -- lft z4l{right}
+			  .. {down}bot z4l
+			  -- top z8r{down}
+			  .. {left}lft z8r
+			  -- rt z6r{left}
+			  .. {up}top z6r
+			  --cycle;
+		unfill pat_mid;
 
-	define_pixels (xoffs, yoffs);
+		pat_mid := pat_mid shifted (0, -reduced_il);
+		unfill pat_mid;
+	fi;
 
-	save ellipse, T;
-	path ellipse;
-	transform T;
+	set_char_box (0, reduced_il# + vert_thick#,
+		      2.2 reduced_il#, 2.2 reduced_il#);
 
-	T := identity xscaled 1.4 linethickness
-		      yscaled blot_diameter;
-	pickup pencircle transformed T;
-	ellipse := fullcircle transformed T;
-
-	lft x11 = lft x13 = xoffs;
-	top y11 = yoffs + 2.2 half_reduced_il;
-	bot y13 = yoffs - 2.2 half_reduced_il - staff_space;
-	rt x15 = rt x17 = xoffs + brevis_width;
-	y15 = yoffs + 1.4 half_reduced_il;
-	y17 = yoffs - 1.4 half_reduced_il - staff_space;
-
-	z12 = z14 yscaled -1 shifted (0, -staff_space);
-	z14 = z9;
-	z16 = z18 yscaled -1 shifted (0, -staff_space);
-	rt z18 = lft z14 shifted (brevis_width, 0);
-
-	penpos12 (1.4 linethickness, 0);
-	penpos14 (1.4 linethickness, 0);
-	penpos16 (1.4 linethickness, 0);
-	penpos18 (1.4 linethickness, 0);
-
-	fill get_subpath (ellipse, up, down, z11)
-	     -- z12l
-	     -- z12r
-	     -- cycle;
-	fill get_subpath (ellipse, down, up, z13)
-	     -- z14r
-	     -- z14l
-	     -- cycle;
-	fill get_subpath (ellipse, up, down, z15)
-	     -- z16l
-	     -- z16r
-	     -- cycle;
-	fill get_subpath (ellipse, down, up, z17)
-	     -- z18r
-	     -- z18l
-	     -- cycle;
-
-	labels (11, 13, 15, 17);
-	penlabels (12, 14, 16, 18);
+	penlabels (1, 2, 3, 4, 5, 6, 7, 8);
 enddef;
 
 
@@ -926,12 +844,25 @@ fet_beginchar ("mensural c clef", "mensural.c");
 	if test = 1:
 		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_mensural_c_clef ((0, 0), 1.0);
+	draw_mensural_c_clef ((0, 0), 1.0, true);
 fet_endchar;
 
 
 fet_beginchar ("mensural c clef", "mensural.c_change");
-	draw_mensural_c_clef ((0, 0), .8);
+	draw_mensural_c_clef ((0, 0), .8, true);
+fet_endchar;
+
+
+fet_beginchar ("black mensural c clef", "blackmensural.c");
+	if test = 1:
+		draw_staff (-1, 3, 0.0);
+	fi;
+	draw_mensural_c_clef ((0, 0), 1.0, false);
+fet_endchar;
+
+
+fet_beginchar ("black mensural c clef", "blackmensural.c_change");
+	draw_mensural_c_clef ((0, 0), 0.8, false);
 fet_endchar;
 
 

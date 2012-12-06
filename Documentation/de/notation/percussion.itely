@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -261,17 +261,17 @@ mus = \drummode {
   << \new DrumStaff \with {
        \remove "Bar_engraver"
        \remove "Time_signature_engraver"
-       \override Stem #'transparent = ##t
-       \override Flag #'transparent = ##t
-       \override Stem #'Y-extent = ##f
+       \override Stem.transparent = ##t
+       \override Flag.transparent = ##t
+       \override Stem.Y-extent = ##f
      } \mus
      \new Lyrics \nam
   >>
   \layout {
     \context {
       \Score
-      \override LyricText #'font-family = #'typewriter
-      \override BarNumber #'transparent =##T
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
     }
   }
 }
@@ -294,16 +294,16 @@ mus = \drummode { timh ssh timl ssl cb s16 }
   \new DrumStaff \with {
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
-    \override Stem #'transparent = ##t
-    \override Flag #'transparent = ##t
-    \override Stem #'Y-extent = ##f
-    \override StaffSymbol #'line-count = #2
-    \override StaffSymbol #'staff-space = #2
-    \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
+    \override Stem.transparent = ##t
+    \override Flag.transparent = ##t
+    \override Stem.Y-extent = ##f
+    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.staff-space = #2
+    \override VerticalAxisGroup.minimum-Y-extent = #'(-3.0 . 4.0)
     drumStyleTable = #timbales-style
   } \mus
   \new Lyrics {
-    \override LyricText #'font-family = #'typewriter
+    \override LyricText.font-family = #'typewriter
     \nam
   }
 >>
@@ -321,16 +321,16 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
     drumStyleTable = #congas-style
-    \override StaffSymbol #'line-count = #2
+    \override StaffSymbol.line-count = #2
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol #'staff-space = #2
-    \override Stem #'transparent = ##t
-    \override Flag #'transparent = ##t
-    \override Stem #'Y-extent = ##f
+    \override StaffSymbol.staff-space = #2
+    \override Stem.transparent = ##t
+    \override Flag.transparent = ##t
+    \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {
-    \override LyricText #'font-family = #'typewriter
+    \override LyricText.font-family = #'typewriter
     \nam
   }
 >>
@@ -347,17 +347,17 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
   \new DrumStaff \with {
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
-    \override StaffSymbol #'line-count = #2
+    \override StaffSymbol.line-count = #2
     drumStyleTable = #bongos-style
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol #'staff-space = #2
-    \override Stem #'transparent = ##t
-    \override Flag #'transparent = ##t
-    \override Stem #'Y-extent = ##f
+    \override StaffSymbol.staff-space = #2
+    \override Stem.transparent = ##t
+    \override Flag.transparent = ##t
+    \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {
-    \override LyricText #'font-family = #'typewriter
+    \override LyricText.font-family = #'typewriter
     \nam
   }
 >>
@@ -374,14 +374,14 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
   \new DrumStaff \with{
     \remove "Bar_engraver"
     drumStyleTable = #percussion-style
-    \override StaffSymbol #'line-count = #1
+    \override StaffSymbol.line-count = #1
     \remove "Time_signature_engraver"
-    \override Stem #'transparent = ##t
-    \override Flag #'transparent = ##t
-    \override Stem #'Y-extent = ##f
+    \override Stem.transparent = ##t
+    \override Flag.transparent = ##t
+    \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {
-    \override LyricText #'font-family = #'typewriter
+    \override LyricText.font-family = #'typewriter
     \nam
   }
 >>
@@ -431,10 +431,10 @@ Zwei Holzblöcke, notiert mit wbh (hoch) und wbl (tief)
 woodstaff = {
   % This defines a staff with only two lines.
   % It also defines the positions of the two lines.
-  \override Staff.StaffSymbol #'line-positions = #'(-2 3)
+  \override Staff.StaffSymbol.line-positions = #'(-2 3)
 
   % This is necessary; if not entered, the barline would be too short!
-  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
 }
 
 \new DrumStaff {
@@ -452,7 +452,7 @@ woodstaff = {
 @end lilypond
 
 In diesem Spezialfalls muss die Länge der Taktlinie mit
-@code{\override Staff.BarLine #'bar-extent #'(von . bis)} angepasst werden.
+@code{\override Staff.BarLine.bar-extent #'(von . bis)} angepasst werden.
 Andernfalls wäre sie zu kurz.  Die Position der beiden Linien muss
 auch definiert werden.
 
@@ -462,8 +462,8 @@ Tamburin, notiert mit @code{tamb}:
 #(define mydrums '((tambourine default #t 0)))
 
 tambustaff = {
-  \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
+  \override Staff.StaffSymbol.line-positions = #'( 0 )
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tambourine"
 }
 
@@ -488,8 +488,8 @@ Noten für Tam-Tam (notiert mit @code{tt}):
 #(define mydrums '((tamtam default #t 0)))
 
 tamtamstaff = {
-  \override Staff.StaffSymbol #'line-positions = #'( 0 )
-  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
+  \override Staff.StaffSymbol.line-positions = #'( 0 )
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Tamtam"
 }
 
@@ -511,9 +511,9 @@ Zwei Glocken, notiert mit @code{cb} (Kuhglocke) und @code{rb}
                    (cowbell  default #t -2)))
 
 bellstaff = {
-  \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
+  \override DrumStaff.StaffSymbol.line-positions = #'(-2 3)
   \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \override Staff.BarLine #'bar-extent = #'(-1.5 . 1.5)
+  \override Staff.BarLine.bar-extent = #'(-1.5 . 1.5)
   \set DrumStaff.instrumentName = #"Different Bells"
 }
 

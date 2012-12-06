@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 
 @node Running lilypond
@@ -968,7 +968,7 @@ colored red, but in fact it results in two staves with the note
 heads remaining the default black in the lower staff.
 
 @lilypond[quote,verbatim,relative=2]
-\override Staff.NoteHead #'color = #red
+\override Staff.NoteHead.color = #red
 \new Staff { a }
 @end lilypond
 
@@ -980,7 +980,7 @@ correct code to color all note heads red is
 
 @lilypond[quote,verbatim,relative=2]
 \new Staff {
-  \override Staff.NoteHead #'color = #red
+  \override Staff.NoteHead.color = #red
   a
 }
 @end lilypond
@@ -1066,7 +1066,7 @@ messages can be avoided by making one of the contexts behave as a
 staff by inserting
 
 @example
-\override VerticalAxisGroup #'staff-affinity = ##f
+\override VerticalAxisGroup.staff-affinity = ##f
 @end example
 
 @noindent

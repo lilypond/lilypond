@@ -4,12 +4,12 @@ across a line break, it gets attached to the end of line."
 }
 
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout {
   \context {
     \Score
-    \override SpacingSpanner #'strict-grace-spacing = ##t
+    \override SpacingSpanner.strict-grace-spacing = ##t
   }
 }
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -168,14 +168,14 @@
 以下のように記述しないでください
 
 @example
-\override Score.LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 @noindent
 以下のように記述してください
 
 @example
-\override Score . LyricText #'font-shape = #'italic
+\override Score.LyricText.font-shape = #'italic
 @end example
 
 句読点、アクセントが付いた文字を持つ歌詞、英語以外の言語の文字、@c
@@ -1046,7 +1046,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Lyrics = "lyrics" \with {
       % 譜の上に配置する歌詞は以下のオーバライドを行う必要があります
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "melody" {
@@ -1079,7 +1079,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     \new Lyrics = "contraltos" \with {
       % 譜の上に配置する歌詞は以下のオーバライドを行う必要があります
       % lyrics above a staff should have this override
-      \override VerticalAxisGroup #'staff-affinity = #DOWN
+      \override VerticalAxisGroup.staff-affinity = #DOWN
     }
     \new Staff {
       \new Voice = "contraltos" {
@@ -1130,7 +1130,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @lilypond[relative=1,verbatim,quote,ragged-right]
 {
   c c c c
-  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
 }
 \addlyrics {
@@ -1156,7 +1156,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace #'minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = #1.0
     }
   }
 }
@@ -1173,7 +1173,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 この機能を無効にすることで、処理をわずかにスピードアップすることができます:
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##f
+\override Score.PaperColumn.keep-inside-line = ##f
 @end example
 
 歌詞が小節線を避けるようにするには、以下を使います:
@@ -1184,7 +1184,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
+      \override BarLine.transparent = ##t
   @}
 @}
 @end example
@@ -1906,7 +1906,7 @@ text = {
         \voiceOne
         \times 2/3 {
           % show associations clearly.
-          \override NoteColumn #'force-hshift = #-3
+          \override NoteColumn.force-hshift = #-3
           f8 f g
         }
       }
@@ -2325,8 +2325,8 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
   \layout {
     \context {
       \Score
-      \override DynamicText #'direction = #UP
-      \override DynamicLineSpanner #'direction = #UP
+      \override DynamicText.direction = #UP
+      \override DynamicLineSpanner.direction = #UP
     }
   }
 }
@@ -2609,7 +2609,7 @@ pianoRH = \relative c'' {
   c4. g8
   % 合図音符の楽器名を、合図音符の直前、かつ譜の上に配置します
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
     \set instrumentCueName = "Flute"
   }
   \cueDuring "flute" #UP { g4 bes4 }
@@ -2654,8 +2654,8 @@ pianoRH = \relative c'' {
   \transposition c'
   % 合図音符の楽器名を譜の下に配置します
   \new CueVoice {
-    \override InstrumentSwitch #'self-alignment-X = #RIGHT
-    \override InstrumentSwitch #'direction = #DOWN
+    \override InstrumentSwitch.self-alignment-X = #RIGHT
+    \override InstrumentSwitch.direction = #DOWN
     \set instrumentCueName = "Clar."
   }
   \cueDuring "clarinet" #DOWN { c4. g8 }
@@ -2790,8 +2790,8 @@ dialogue = \lyricmode {
 \score {
   <<
     \new Lyrics \with {
-      \override LyricText #'font-shape = #'italic
-      \override LyricText #'self-alignment-X = #LEFT
+      \override LyricText.font-shape = #'italic
+      \override LyricText.self-alignment-X = #LEFT
     }
     { \dialogue }
     \new Staff {
@@ -2860,7 +2860,7 @@ dialogue = \lyricmode {
 リズムは単語の音声リズムから取ります。
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem #'transparent = ##t }
+stemOff = { \override Staff.Stem.transparent = ##t }
 
 \relative c' {
   \stemOff
@@ -2953,9 +2953,9 @@ a4 b c2
 \bar "'"
 a4 b c2
 a4 b c2
-\bar ":"
+\bar ";"
 a4 b c2
-\bar "dashed"
+\bar "!"
 a4 b c2
 \bar "||"
 @end lilypond
@@ -2966,23 +2966,23 @@ a4 b c2
 
 @lilypond[verbatim,quote]
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
   \breathe
 }
 
@@ -3098,8 +3098,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner
-          #'base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
         }
         \context {
           \Staff

@@ -5,10 +5,10 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 <<
- \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+ \override Score.SpacingSpanner.strict-grace-spacing = ##t
  \new Staff {
     c'4
     \afterGrace

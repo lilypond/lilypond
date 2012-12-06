@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS=auxiliar build
+SUBDIRS=build
 
 SEXECUTABLES=convert-ly lilypond-book abc2ly etf2ly midi2ly lilypond-invoke-editor musicxml2ly lilysong lilymidi
 

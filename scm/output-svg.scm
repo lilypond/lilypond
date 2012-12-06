@@ -244,7 +244,7 @@
 	   (begin
 	     (set! path (apply dump-path d-attr-value
 					 font-scale
-					 (list (cadr rest) (caddr rest))))
+					 (list (caddr rest) (cadddr rest))))
 	     (set! next-horiz-adv (+ next-horiz-adv
 				     (car rest)))
 	     path))
@@ -263,7 +263,7 @@
 	    ""))))
 
 (define (extract-glyph-info all-glyphs glyph size)
-  (let* ((offsets (list-head glyph 3))
+  (let* ((offsets (list-head glyph 4))
 	 (glyph-name (car (reverse glyph))))
     (apply extract-glyph all-glyphs glyph-name size offsets)))
 
@@ -428,7 +428,7 @@
 (define (embedded-svg string)
   string)
 
-(define (embedded-glyph-string font size cid glyphs)
+(define (embedded-glyph-string pango-font font size cid glyphs)
   (define path "")
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
@@ -444,7 +444,7 @@
   (set! next-horiz-adv 0.0)
   path)
 
-(define (woff-glyph-string font-name size cid? w-x-y-named-glyphs)
+(define (woff-glyph-string pango-font font-name size cid? w-h-x-y-named-glyphs)
   (let* ((name-style (font-name-style font-name))
 	 (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
 					 font-name))
@@ -458,7 +458,7 @@
 	 (font (ly:paper-get-font paper `(((font-family . ,family)
 					   ,(if design-size
 						`(design-size . design-size)))))))
-    (define (glyph-spec w x y g)
+    (define (glyph-spec w h x y g) ; h not used
       (let* ((charcode (ly:font-glyph-name-to-charcode font g))
 	     (char-lookup (format #f "&#~S;" charcode))
 	     (glyph-by-name (eoc 'altglyph `(glyphname . ,g)))
@@ -477,7 +477,7 @@
 	  (string-append glyph-by-name apparently-broken char-lookup)))))
 
     (string-join (map (lambda (x) (apply glyph-spec x))
-		      (reverse w-x-y-named-glyphs)) "\n")))
+		      (reverse w-h-x-y-named-glyphs)) "\n")))
 
 (define glyph-string
   (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))

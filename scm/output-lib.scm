@@ -61,6 +61,81 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
+;; even though kievan noteheads do not have stems, their
+;; invisible stems help with beam placement
+;; this assures that invisible stems for kievan notes are aligned
+;; to the center of kievan noteheads. that is thus where the beams'
+;; x extrema will fall
+(define-public (stem::kievan-offset-callback grob)
+  (let* ((note-heads (ly:grob-object grob 'note-heads))
+         (note-heads-grobs (if (not (null? note-heads))
+                               (ly:grob-array->list note-heads)
+                               '()))
+         (first-note-head (if (not (null? note-heads-grobs))
+                              (car note-heads-grobs)
+                              '()))
+         (note-head-w (if (not (null? first-note-head))
+                          (ly:grob-extent first-note-head first-note-head X)
+                          '(0 . 0))))
+    (interval-center note-head-w)))
+
+
+;; sets position of beams for Kievan notation
+(define-public (beam::get-kievan-positions grob)
+  (let* ((stems (ly:grob-object grob 'stems))
+         (stems-grobs (if (not (null? stems))
+                          (ly:grob-array->list stems)
+                          '()))
+         (first-stem (if (not (null? stems-grobs))
+                         (car stems-grobs)
+                         '()))
+         (note-heads (if (not (null? first-stem))
+                         (ly:grob-object first-stem 'note-heads)
+                         '()))
+         (note-heads-grobs (if (not (null? note-heads))
+                               (ly:grob-array->list note-heads)
+                               '()))
+         (first-note-head (if (not (null? note-heads-grobs))
+                              (car note-heads-grobs)
+                              '()))
+         (next-stem (if (not (null? stems))
+                        (cadr stems-grobs)
+                        '()))
+         (next-note-heads (if (not (null? next-stem))
+                              (ly:grob-object next-stem 'note-heads)
+                              '()))
+         (next-note-heads-grobs (if (not (null? next-note-heads))
+                                    (ly:grob-array->list next-note-heads)
+                                    '()))
+         (next-note-head (if (not (null? next-note-heads-grobs))
+                             (car next-note-heads-grobs)
+                             '()))
+         (left-pos (ly:grob-property first-note-head 'Y-offset))
+         (right-pos (ly:grob-property next-note-head 'Y-offset))
+         (direction (ly:grob-property grob 'direction))
+         (first-nh-height (ly:grob::stencil-height first-note-head))
+         (next-nh-height (ly:grob::stencil-height next-note-head))
+         (left-height (if (= direction DOWN)
+                          (+ (car first-nh-height) 0.75)
+                          (- (cdr first-nh-height) 0.75)))
+         (right-height (if (= direction DOWN)
+                           (+ (car next-nh-height) 0.75)
+                           (- (cdr next-nh-height) 0.75))))
+    (cons (+ left-pos left-height) (+ right-pos right-height))))
+
+(define-public (beam::get-kievan-quantized-positions grob)
+  (let* ((pos (ly:grob-property grob 'positions))
+         (stems (ly:grob-object grob 'stems))
+         (stems-grobs (if (not (null? stems))
+                          (ly:grob-array->list stems)
+                          '())))
+    (for-each
+      (lambda (g)
+        (ly:grob-set-property! g 'stem-begin-position 0)
+        (ly:grob-set-property! g 'length 0))
+      stems-grobs)
+    pos))
+
 ;; calculates each slope of a broken beam individually
 (define-public (beam::place-broken-parts-individually grob)
   (ly:beam::quanting grob '(+inf.0 . -inf.0) #f))
@@ -116,22 +191,6 @@
   (ly:duration-log
    (ly:event-property (event-cause grob) 'duration)))
 
-(define-public (stem::length grob)
-  (let* ((ss (ly:staff-symbol-staff-space grob))
-         (beg (ly:grob-property grob 'stem-begin-position))
-         (beam (ly:grob-object grob 'beam)))
-    (if (null? beam)
-        (abs (- (ly:stem::calc-stem-end-position grob) beg))
-        (begin
-          (ly:programming-error
-            "stem::length called but will not be used for beamed stem.")
-          0.0))))
-
-(define-public (stem::pure-length grob beg end)
-  (let* ((ss (ly:staff-symbol-staff-space grob))
-         (beg (ly:grob-pure-property grob 'stem-begin-position 0 1000)))
-    (abs (- (ly:stem::pure-calc-stem-end-position grob 0 2147483646) beg))))
-
 (define (stem-stub::do-calculations grob)
   (and (ly:grob-property (ly:grob-parent grob X) 'cross-staff)
        (not (ly:grob-property (ly:grob-parent grob X) 'transparent))))
@@ -159,16 +218,15 @@
         (if (interval-empty? (interval-intersection stem_ph my_ph)) #f (coord-translate stem_ph dist)))
       #f))
 
-;; FIXME: NEED TO FIND A BETTER WAY TO HANDLE KIEVAN NOTATION
+(define-public (note-head::calc-kievan-duration-log grob)
+  (min 3
+       (ly:duration-log
+         (ly:event-property (event-cause grob) 'duration))))
+
 (define-public (note-head::calc-duration-log grob)
-  (let ((style (ly:grob-property grob 'style)))
-    (if (and (symbol? style) (string-match "kievan*" (symbol->string style)))
-      (min 3
-        (ly:duration-log
-	(ly:event-property (event-cause grob) 'duration)))
-      (min 2
-	(ly:duration-log
-	(ly:event-property (event-cause grob) 'duration))))))
+  (min 2
+       (ly:duration-log
+         (ly:event-property (event-cause grob) 'duration))))
 
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count
@@ -507,47 +565,31 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; key signature
 
-(define-public (key-signature-interface::alteration-position step alter
-							     c0-position)
-  ;; TODO: memoize - this is mostly constant.
-
-  ;; fes, ges, as and bes typeset in lower octave
-  (define FLAT_TOP_PITCH 2)
-
-  ;; ais and bis typeset in lower octave
-  (define SHARP_TOP_PITCH 4)
-
-  (if (pair? step)
-      (+ (cdr step) (* (car step) 7) c0-position)
-      (let* ((from-bottom-pos (modulo (+ 4 49 c0-position) 7))
-	     (p step)
-	     (c0 (- from-bottom-pos 4)))
-
-	(if
-	 (or (and (< alter 0)
-		  (or (> p FLAT_TOP_PITCH) (> (+ p c0) 4)) (> (+ p c0) 1))
-	     (and (> alter 0)
-		  (or (> p SHARP_TOP_PITCH) (> (+ p c0) 5)) (> (+ p c0) 2)))
-
-	 ;; Typeset below c_position
-	 (set! p (- p 7)))
-
-	;; Provide for the four cases in which there's a glitch
-	;; it's a hack, but probably not worth
-	;; the effort of finding a nicer solution.
-	;; --dl.
-	(cond
-	 ((and (= c0 2) (= p 3) (> alter 0))
-	  (set! p (- p 7)))
-	 ((and (= c0 -3) (= p -1) (> alter 0))
-	  (set! p (+ p 7)))
-	 ((and (= c0 -4) (= p -1) (< alter 0))
-	  (set! p (+ p 7)))
-	 ((and (= c0 -2) (= p -3) (< alter 0))
-	  (set! p (+ p 7))))
-
-	(+ c0 p))))
-
+(define-public (key-signature-interface::alteration-positions
+		entry c0-position grob)
+  (let ((step (car entry))
+	(alter (cdr entry)))
+    (if (pair? step)
+	(list (+ (cdr step) (* (car step) 7) c0-position))
+	(let* ((c-position (modulo c0-position 7))
+	       (positions
+		(if (< alter 0)
+		    ;; See (flat|sharp)-positions in define-grob-properties.scm
+		    (ly:grob-property grob 'flat-positions '(3))
+		    (ly:grob-property grob 'sharp-positions '(3))))
+	       (p (list-ref positions
+			    (if (< c-position (length positions))
+				c-position 0)))
+	       (max-position (if (pair? p) (cdr p) p))
+	       (min-position (if (pair? p) (car p) (- max-position 6)))
+	       (first-position (+ (modulo (- (+ c-position step)
+					     min-position)
+					  7)
+				  min-position)))
+	  (define (prepend x l) (if (> x max-position)
+				    l
+				    (prepend (+ x 7) (cons x l))))
+	  (prepend first-position '())))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; annotations
@@ -573,6 +615,10 @@ and duration-log @var{log}."
 
 (define-public (accidental-interface::calc-alteration grob)
   (ly:pitch-alteration (ly:event-property (event-cause grob) 'pitch)))
+
+(define-public (accidental-interface::glyph-name grob)
+  (assoc-get (ly:grob-property grob 'alteration)
+             standard-alteration-glyph-name-alist))
 
 (define-public cancellation-glyph-name-alist
   '((0 . "accidentals.natural")))

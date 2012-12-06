@@ -25,9 +25,13 @@
 #include "grob-interface.hh"
 #include "skyline.hh"
 
-struct Axis_group_interface
+class Axis_group_interface
 {
+  static Real default_outside_staff_padding_;
+  public
+:
   static SCM generic_group_extent (Grob *me, Axis a);
+  static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
   static Interval pure_group_height (Grob *me, int start, int end);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
@@ -57,7 +61,7 @@ struct Axis_group_interface
   static Interval rest_of_line_pure_height (Grob *me, int, int);
   static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
 
-  static bool has_outside_staff_parent (Grob *me);
+  static Grob *outside_staff_ancestor (Grob *me);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob *> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);

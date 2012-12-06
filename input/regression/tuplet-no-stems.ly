@@ -3,18 +3,18 @@
 }
 
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout{
  \context{
    \TabStaff
-   \override TimeSignature #'stencil = ##f
+   \override TimeSignature.stencil = ##f
  }
  \context{
    \TabVoice
    \remove "Beam_engraver"
    \remove "Stem_engraver"
-   \override TupletBracket #'number-visibility = ##f
+   \override TupletBracket.number-visibility = ##f
  }
 }
 

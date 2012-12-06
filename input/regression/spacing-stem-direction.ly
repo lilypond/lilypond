@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header{
 
@@ -17,11 +17,11 @@ much to correct."
 
 
 \context Voice \relative c {
-  \override Score.PaperColumn #'layer = #1
-  \override Score.PaperColumn #'stencil = #ly:paper-column::print
+  \override Score.PaperColumn.layer = #1
+  \override Score.PaperColumn.stencil = #ly:paper-column::print
 
   %% make sure neutral is down.
-  \override Stem  #'neutral-direction = #down
+  \override Stem.neutral-direction = #down
   \time 16/4  c''4 c c,  c' d, c' e, c' f, c' g c a c b c
 }
 

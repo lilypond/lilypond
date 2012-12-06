@@ -57,16 +57,23 @@
     ("hufnagel-fa1" . ("clefs.hufnagel.fa" -1 0))
     ("hufnagel-fa2" . ("clefs.hufnagel.fa" 1 0))
     ("hufnagel-do-fa" . ("clefs.hufnagel.do.fa" 4 0))
-    ("mensural-c1" . ("clefs.mensural.c" -2 0))
-    ("mensural-c2" . ("clefs.mensural.c" 0 0))
-    ("mensural-c3" . ("clefs.mensural.c" 2 0))
-    ("mensural-c4" . ("clefs.mensural.c" 4 0))
+    ("mensural-c1" . ("clefs.mensural.c" -4 0))
+    ("mensural-c2" . ("clefs.mensural.c" -2 0))
+    ("mensural-c3" . ("clefs.mensural.c" 0 0))
+    ("mensural-c4" . ("clefs.mensural.c" 2 0))
+    ("mensural-c5" . ("clefs.mensural.c" 4 0))
+    ("blackmensural-c1" . ("clefs.blackmensural.c" -4 0))
+    ("blackmensural-c2" . ("clefs.blackmensural.c" -2 0))
+    ("blackmensural-c3" . ("clefs.blackmensural.c" 0 0))
+    ("blackmensural-c4" . ("clefs.blackmensural.c" 2 0))
+    ("blackmensural-c5" . ("clefs.blackmensural.c" 4 0))
     ("mensural-f" . ("clefs.mensural.f" 2 0))
     ("mensural-g" . ("clefs.mensural.g" -2 0))
     ("neomensural-c1" . ("clefs.neomensural.c" -4 0))
     ("neomensural-c2" . ("clefs.neomensural.c" -2 0))
     ("neomensural-c3" . ("clefs.neomensural.c" 0 0))
     ("neomensural-c4" . ("clefs.neomensural.c" 2 0))
+    ("neomensural-c5" . ("clefs.neomensural.c" 4 0))
     ("petrucci-c1" . ("clefs.petrucci.c1" -4 0))
     ("petrucci-c2" . ("clefs.petrucci.c2" -2 0))
     ("petrucci-c3" . ("clefs.petrucci.c3" 0 0))
@@ -97,6 +104,7 @@
     ("clefs.mensural.c" . 0)
     ("clefs.mensural.f" . 4)
     ("clefs.mensural.g" . -4)
+    ("clefs.blackmensural.c" . 0)
     ("clefs.neomensural.c" . 0)
     ("clefs.petrucci.c1" . 0)
     ("clefs.petrucci.c2" . 0)
@@ -116,23 +124,36 @@
   (let ((e '())
 	(c0 0)
 	(oct 0)
-	(match (string-match "^(.*)([_^])([1-9][0-9]*)$" clef-name)))
+	(style 'default)
+	(match (string-match "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$" clef-name)))
     (if match
 	(begin
 	  (set! clef-name (match:substring match 1))
 	  (set! oct
 		(* (if (equal? (match:substring match 2) "^") -1 1)
-		   (- (string->number (match:substring match 3)) 1)))))
+		   (- (string->number (match:substring match 4)) 1)))
+          (set! style
+                (cond ((equal? (match:substring match 3) "(") 'parenthesized)
+                      ((equal? (match:substring match 3) "[") 'bracketed)
+                      (else style)))))
     (set! e (assoc-get clef-name supported-clefs))
     (if e
-	(let* ((musics (map make-prop-set
-			    `(((symbol . clefGlyph) (value . ,(car e)))
-			      ((symbol . middleCClefPosition)
-			       (value . ,(+ oct
-					    (cadr e)
-					    (assoc-get (car e) c0-pitch-alist))))
-			      ((symbol . clefPosition) (value . ,(cadr e)))
-			      ((symbol . clefOctavation) (value . ,(- oct))))))
+	(let* ((prop-list `(((symbol . clefGlyph) (value . ,(car e)))
+                            ((symbol . middleCClefPosition)
+                             (value . ,(+ oct
+                                          (cadr e)
+                                          (assoc-get (car e) c0-pitch-alist))))
+                            ((symbol . clefPosition) (value . ,(cadr e)))
+                            ((symbol . clefOctavation) (value . ,(- oct)))))
+               ;; the clefOctavationStyle property is set only when
+               ;; not 'default to calm display-lily-tests.scm
+               (prop-list (if (eq? style 'default)
+                              prop-list
+                              (append
+                                prop-list
+                                `(((symbol . clefOctavationStyle)
+                                   (value . ,style))))))
+	       (musics (map make-prop-set prop-list))
 	       (recalc-mid-C (make-music 'ApplyContext))
 	       (seq (make-music 'SequentialMusic
 				'elements (append musics (list recalc-mid-C))))
@@ -156,23 +177,34 @@
   (let ((e '())
 	(c0 0)
 	(oct 0)
-	(match (string-match "^(.*)([_^])([1-9][0-9]*)$" clef-name)))
+	(style 'default)
+	(match (string-match "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$" clef-name)))
     (if match
 	(begin
 	  (set! clef-name (match:substring match 1))
 	  (set! oct
 		(* (if (equal? (match:substring match 2) "^") -1 1)
-		   (- (string->number (match:substring match 3)) 1)))))
+		   (- (string->number (match:substring match 4)) 1)))
+          (set! style
+                (cond ((equal? (match:substring match 3) "(") 'parenthesized)
+                      ((equal? (match:substring match 3) "[") 'bracketed)
+                      (else style)))))
     (set! e (assoc-get clef-name supported-clefs))
     (if e
-	(let* ((musics (map make-prop-set
-			    `(((symbol . cueClefGlyph) (value . ,(car e)))
-			      ((symbol . middleCCuePosition)
-			       (value . ,(+ oct
-					    (cadr e)
-					    (assoc-get (car e) c0-pitch-alist))))
-			      ((symbol . cueClefPosition) (value . ,(cadr e)))
-			      ((symbol . cueClefOctavation) (value . ,(- oct))))))
+	(let* ((prop-list `(((symbol . cueClefGlyph) (value . ,(car e)))
+                            ((symbol . middleCCuePosition)
+                             (value . ,(+ oct
+                                          (cadr e)
+                                          (assoc-get (car e) c0-pitch-alist))))
+                            ((symbol . cueClefPosition) (value . ,(cadr e)))
+                            ((symbol . cueClefOctavation) (value . ,(- oct)))))
+               (prop-list (if (eq? style 'default)
+                              prop-list
+                              (append
+                                prop-list
+                                `(((symbol . cueClefOctavationStyle)
+                                   (value . ,style))))))
+	       (musics (map make-prop-set prop-list))
 	       (recalc-mid-C (make-music 'ApplyContext))
 	       (seq (make-music 'SequentialMusic
 				'elements (append musics (list recalc-mid-C))))
@@ -197,7 +229,8 @@
 			`((symbol . cueClefGlyph)
 			  (symbol . middleCCuePosition)
 			  (symbol . cueClefPosition)
-			  (symbol . cueClefOctavation))))
+			  (symbol . cueClefOctavation)
+			  (symbol . cueClefOctavationStyle))))
 	 (recalc-mid-C (make-music 'ApplyContext))
 	 (seq (make-music 'SequentialMusic
 			  'elements (append musics (list recalc-mid-C))))

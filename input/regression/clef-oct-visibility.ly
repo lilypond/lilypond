@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
 
@@ -13,13 +13,13 @@ These settings also need to apply to clefs on new lines."
 
 
 \relative c' {
-  \override Staff.OctavateEight #'break-visibility = #all-invisible
+  \override Staff.OctavateEight.break-visibility = #all-invisible
 
   \clef "treble_8"
   c2 c |
   c c | \break
   c \clef "tenor" c |
-  \revert Staff.OctavateEight #'break-visibility
+  \revert Staff.OctavateEight.break-visibility
   \clef "treble_8"
   c2 c |
   c c | \break

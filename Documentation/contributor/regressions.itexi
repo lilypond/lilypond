@@ -209,7 +209,7 @@ Run @code{make} with current git master without any of your changes.
 
 @item
 Before making changes to the code, establish a baseline for the comparison by
-going to the @file{lilypond-git/build/} directory and running:
+going to the @file{$LILYPOND_GIT/build/} directory and running:
 
 @example
 make test-baseline

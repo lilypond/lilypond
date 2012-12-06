@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
@@ -19,19 +19,19 @@ arbitrary grob.
 
 
 \relative c'' {
-  \override TextScript #'stencil =
+  \override TextScript.stencil =
     #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)
   c'4^"foo"
 
-  \override Stem #'stencil =
+  \override Stem.stencil =
     #(make-stencil-boxer 0.05 0.25 ly:stem::print)
-  \override Score.RehearsalMark  #'stencil =
+  \override Score.RehearsalMark.stencil =
     #(make-stencil-boxer 0.15 0.3 ly:text-interface::print)
   b8
 
-  \revert Stem #'stencil
+  \revert Stem.stencil
 
-  \revert Flag #'stencil
+  \revert Flag.stencil
   c4. c4
   \mark "F"
   c1

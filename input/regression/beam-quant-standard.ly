@@ -8,7 +8,7 @@
 %% FIXME: This file should actually NOT produce any warnings!
 #(ly:set-option 'warning-as-error #f)
 
-\version "2.16.0"
+\version "2.17.6"
 
 \layout  {
   ragged-right = ##t
@@ -53,7 +53,7 @@ primes = \relative c' {
   \filler
 
 %{
-  \once \override Beam #'inspect-quants = #'(2.2 . 2.2)
+  \once \override Beam.inspect-quants = #'(2.2 . 2.2)
   \assertBeamQuant
   a8[ a]
   \filler

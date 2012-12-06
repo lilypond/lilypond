@@ -43,6 +43,83 @@
    (string-downcase
     (car (string-tokenize (utsname:sysname (uname)))))))
 
+(define lilypond-declarations '())
+
+(defmacro-public define-session (name value)
+  "This defines a variable @var{name} with the starting value
+@var{value} that is reinitialized at the start of each session.
+A@tie{}session basically corresponds to one LilyPond file on the
+command line.  The value is recorded at the start of the first session
+after loading all initialization files and before loading the user
+file and is reinstated for all of the following sessions.  This
+happens just by replacing the value, not by copying structures, so you
+should not destructively modify them.  For example, lists defined in
+this manner should be changed within a session only be adding material
+to their front or replacing them altogether, not by modifying parts of
+them.  It is an error to call @code{define-session} after the first
+session has started."
+  (define (add-session-variable name value)
+    (if (ly:undead? lilypond-declarations)
+        (ly:error (_ "define-session used after session start")))
+    (let ((var (make-variable value)))
+      (module-add! (current-module) name var)
+      (set! lilypond-declarations (cons var lilypond-declarations))))
+  `(,add-session-variable ',name ,value))
+
+(defmacro-public define-session-public (name value)
+  "Like @code{define-session}, but also exports @var{name}."
+  `(begin
+     (define-session ,name ,value)
+     (export ,name)))
+
+(define (session-terminate)
+  (if (ly:undead? lilypond-declarations)
+      (for-each
+       (lambda (p) (variable-set! (cadr p) (cddr p)))
+       (ly:get-undead lilypond-declarations))))
+
+(define-public (session-initialize thunk)
+  "Initialize this session.  The first session in a LilyPond run is
+initialized by calling @var{thunk}, then recording the values of all
+variables in the current module as well as those defined with
+@code{define-session}.  Subsequent calls of @code{session-initialize}
+ignore @var{thunk} and instead just reinitialize all recorded
+variables to their value after the initial call of @var{thunk}."
+
+;; We need to save the variables of the current module along with
+;; their values: functions defined in the module might refer to the
+;; variables.
+
+;; The entries in lilypond-declarations consist of a cons* consisting
+;; of symbol, variable, and value.  Variables defined with
+;; define-session have the symbol set to #f.
+
+  (if (ly:undead? lilypond-declarations)
+      (begin
+        (for-each
+         (lambda (p)
+           (let ((var (cadr p))
+                 (val (cddr p)))
+             (variable-set! var val)
+             (if (car p)
+                 (module-add! (current-module) (car p) var))))
+         (ly:get-undead lilypond-declarations)))
+      (begin
+        (thunk)
+        (let ((decl (map! (lambda (v)
+                            (cons* #f v (variable-ref v)))
+                          lilypond-declarations)))
+          (module-for-each
+           (lambda (s v)
+             (let ((val (variable-ref v)))
+               (if (not (ly:lily-parser? val))
+                   (set! decl
+                         (cons
+                          (cons* s v val)
+                          decl)))))
+           (current-module))
+          (set! lilypond-declarations (ly:make-undead decl))))))
+
 (define scheme-options-definitions
   `(
     ;; NAMING: either
@@ -289,7 +366,6 @@ messages into errors.")
 (if (memq (ly:get-option 'backend) music-string-to-path-backends)
     (ly:set-option 'music-strings-to-paths #t))
 
-
 (define-public (ly:load x)
   (let* ((file-name (%search-load-path x)))
     (ly:debug "[~A" file-name)
@@ -420,6 +496,7 @@ messages into errors.")
     "define-grobs.scm"
     "define-grob-interfaces.scm"
     "define-stencil-commands.scm"
+    "scheme-engravers.scm"
     "titling.scm"
     "text.scm"
 
@@ -492,8 +569,6 @@ messages into errors.")
     (,fraction? . "fraction, as pair")
     (,grob-list? . "list of grobs")
     (,index? . "non-negative integer")
-    ;; this is built on cheap-list
-    (,list-or-symbol? . "list or symbol")
     (,markup? . "markup")
     (,markup-command-list? . "markup command list")
     (,markup-list? . "markup list")
@@ -506,7 +581,11 @@ messages into errors.")
     (,rhythmic-location? . "rhythmic location")
     (,scheme? . "any type")
     (,string-or-pair? . "string or pair")
+    (,string-or-music? . "string or music")
     (,string-or-symbol? . "string or symbol")
+    (,symbol-list? . "symbol list")
+    (,symbol-list-or-music? . "symbol list or music")
+    (,symbol-list-or-symbol? . "symbol list or symbol")
     (,void? . "void")
     ))
 
@@ -597,6 +676,10 @@ messages into errors.")
 (define gc-protect-stat-count
   0)
 
+;; Undead objects that should be ignored after the first time round
+(define gc-zombies
+  (make-weak-key-hash-table 0))
+
 (define-public (dump-live-object-stats outfile)
   (for-each (lambda (x)
               (format outfile "~a: ~a\n" (car x) (cdr x)))
@@ -645,7 +728,10 @@ messages into errors.")
           (ly:set-option 'debug-gc-assert-parsed-dead #f)
 	  (for-each
 	   (lambda (x)
-	     (ly:programming-error "Parsed object should be dead: ~a" x))
+	     (if (not (hashq-ref gc-zombies x))
+		 (begin
+		   (ly:programming-error "Parsed object should be dead: ~a" x)
+		   (hashq-set! gc-zombies x #t))))
 	   (ly:parsed-undead-list!))
           (set! stats (gc-live-object-stats))
           (ly:progress "Dumping live object statistics.\n")
@@ -827,6 +913,7 @@ PIDs or the number of the process."
              (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
+         (session-terminate)
          (if start-measurements
              (dump-profile x start-measurements (profile-measurements)))
          (if (ly:get-option 'trace-memory-frequency)
@@ -838,10 +925,13 @@ PIDs or the number of the process."
          (ly:set-option 'debug-gc-assert-parsed-dead #t)
          (gc)
          (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	 (for-each
-	  (lambda (x)
-	    (ly:programming-error "Parsed object should be dead: ~a" x))
-	  (ly:parsed-undead-list!))
+         (for-each
+          (lambda (x)
+            (if (not (hashq-ref gc-zombies x))
+                (begin
+                  (ly:programming-error "Parsed object should be dead: ~a" x)
+                  (hashq-set! gc-zombies x #t))))
+          (ly:parsed-undead-list!))
          (if (ly:get-option 'debug-gc)
              (dump-gc-protects)
              (ly:reset-all-fonts))
@@ -854,8 +944,6 @@ PIDs or the number of the process."
     (if (ly:get-option 'dump-profile)
         (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
     failed))
-
-(define-public lilypond-declarations '())
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed

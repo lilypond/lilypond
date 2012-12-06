@@ -370,9 +370,12 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
   if (next_col)
     description.spring_ = Spaceable_grob::get_spring (col, next_col);
 
-  Grob *end_col = dynamic_cast<Item *> (cols[col_index + 1])->find_prebroken_piece (LEFT);
-  if (end_col)
-    description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
+  if (col_index + 1 < cols.size ())
+    {
+      Grob *end_col = dynamic_cast<Item *> (cols[col_index + 1])->find_prebroken_piece (LEFT);
+      if (end_col)
+        description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
+    }
 
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))

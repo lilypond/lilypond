@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides, vocal-music"
@@ -36,11 +36,11 @@ positioning of lyrics and ossias.
       \new Staff \with {
         alignAboveContext = #"3"
         fontSize = #-2
-        \override StaffSymbol #'staff-space = #(magstep -2)
+        \override StaffSymbol.staff-space = #(magstep -2)
         \remove "Time_signature_engraver"
       } {
         \times 4/6 {
-          \override TextScript #'padding = #3
+          \override TextScript.padding = #3
           c8[^"ossia above" d e d e f]
         }
       }

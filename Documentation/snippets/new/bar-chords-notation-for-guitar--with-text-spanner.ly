@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "chords, fretted-strings"
@@ -34,12 +34,12 @@ bbarre =
                  (cons (make-music 'TextSpanEvent 'span-direction 1)
                        (ly:music-property last-element 'articulations))))))
    #{
-       \once \override TextSpanner #'font-size = #-2
-       \once \override TextSpanner #'font-shape = #'upright
-       \once \override TextSpanner #'staff-padding = #3
-       \once \override TextSpanner #'style = #'line
-       \once \override TextSpanner #'to-barline = ##f
-       \once \override TextSpanner #'bound-details =
+       \once \override TextSpanner.font-size = #-2
+       \once \override TextSpanner.font-shape = #'upright
+       \once \override TextSpanner.staff-padding = #3
+       \once \override TextSpanner.style = #'line
+       \once \override TextSpanner.to-barline = ##f
+       \once \override TextSpanner.bound-details =
             #`((left
                 (text . ,#{ \markup { \draw-line #'( 0 . -.5) } #})
                 (Y . 0)
@@ -51,7 +51,7 @@ bbarre =
                 (padding . 0.25)
                 (attach-dir . 2)))
 %% uncomment this line for make full barred
-       % \once  \override TextSpanner #'bound-details #'left #'text =  \markup { "B" #str }
+       % \once  \override TextSpanner.bound-details.left.text =  \markup { "B" #str }
        $music
    #})
 

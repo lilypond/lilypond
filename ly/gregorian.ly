@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.16.0"
+\version "2.17.6"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -49,86 +49,91 @@ responsum =
 % Declare head prefix shortcuts.
 %
 virga =
-  \once \override NoteHead  #'virga = ##t
+  \once \override NoteHead.virga = ##t
 stropha =
-  \once \override NoteHead  #'stropha = ##t
+  \once \override NoteHead.stropha = ##t
 inclinatum =
-  \once \override NoteHead  #'inclinatum = ##t
+  \once \override NoteHead.inclinatum = ##t
 auctum =
-  \once \override NoteHead  #'auctum = ##t
+  \once \override NoteHead.auctum = ##t
 descendens =
-  \once \override NoteHead  #'descendens = ##t
+  \once \override NoteHead.descendens = ##t
 ascendens =
-  \once \override NoteHead  #'ascendens = ##t
+  \once \override NoteHead.ascendens = ##t
 pes =
-  \once \override NoteHead  #'pes-or-flexa = ##t
+  \once \override NoteHead.pes-or-flexa = ##t
 flexa =
-  \once \override NoteHead  #'pes-or-flexa = ##t
+  \once \override NoteHead.pes-or-flexa = ##t
 oriscus =
-  \once \override NoteHead  #'oriscus = ##t
+  \once \override NoteHead.oriscus = ##t
 quilisma =
-  \once \override NoteHead  #'quilisma = ##t
+  \once \override NoteHead.quilisma = ##t
 deminutum =
-  \once \override NoteHead  #'deminutum = ##t
+  \once \override NoteHead.deminutum = ##t
 linea =
-  \once \override NoteHead  #'linea = ##t
+  \once \override NoteHead.linea = ##t
 cavum =
-  \once \override NoteHead  #'cavum = ##t
+  \once \override NoteHead.cavum = ##t
 
 %
 % Declare divisiones shortcuts.
 %
 virgula = {
-  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rcomma")
-  \once \override BreathingSign  #'font-size = #-2
+  \once \override BreathingSign.text = #(make-musicglyph-markup "scripts.rcomma")
+  \once \override BreathingSign.font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 caesura = {
-  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rvarcomma")
-  \once \override BreathingSign  #'font-size = #-2
+  \once \override BreathingSign.text = #(make-musicglyph-markup "scripts.rvarcomma")
+  \once \override BreathingSign.font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
+  \once \override BreathingSign.Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
+  \once \override BreathingSign.Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign  #'Y-offset = #0
+  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
+  \once \override BreathingSign.Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
-  \once \override BreathingSign  #'extra-spacing-height = #'(-0.5 . 0.5)
+  \once \override BreathingSign.minimum-X-extent = #'(-1.0 . 0.0)
+  \once \override BreathingSign.minimum-Y-extent = #'(-2.5 . 2.5)
 
   \breathe
 }
@@ -221,8 +226,8 @@ ligature = #(define-music-function
 
     \context {
 	\VaticanaStaff
-	 \override StaffSymbol #'color = #red
-	 \override LedgerLineSpanner #'color = #red
+	 \override StaffSymbol.color = #red
+	 \override LedgerLineSpanner.color = #red
     }
     \context {
 	\Score
@@ -245,7 +250,7 @@ ligature = #(define-music-function
 	%%%
 	barAlways = ##f
 
-	\override SpacingSpanner #'packed-spacing = ##t
+	\override SpacingSpanner.packed-spacing = ##t
 
 	%%%
 	%%% TODO: Play around with the following SpacingSpanner
@@ -255,11 +260,11 @@ ligature = #(define-music-function
 	%%% causes tons of "programming error: adding reverse spring,
 	%%% setting to unit" messages.
 	%%%
-	%\override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1 4)
-	%\override SpacingSpanner #'shortest-duration-space = #0
-	%\override SpacingSpanner #'average-spacing-wishes = ##f
-	%\override SpacingSpanner #'spacing-increment = #0.0
-	%\override SpacingSpanner #'uniform-stretching = ##t
+	%\override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 4)
+	%\override SpacingSpanner.shortest-duration-space = #0
+	%\override SpacingSpanner.average-spacing-wishes = ##f
+	%\override SpacingSpanner.spacing-increment = #0.0
+	%\override SpacingSpanner.uniform-stretching = ##t
     }
 }
 
@@ -280,18 +285,18 @@ neumeDemoLayout = \layout {
 	\Staff
 	\remove "Clef_engraver"
 	\remove "Key_engraver"
-	\override StaffSymbol #'transparent = ##t
+	\override StaffSymbol.transparent = ##t
 	\remove "Time_signature_engraver"
 	\remove "Bar_engraver"
-	\override VerticalAxisGroup #'staff-staff-spacing = #'()
+	\override VerticalAxisGroup.staff-staff-spacing = #'()
     }
     \context {
 	\Voice
 	\remove "Ligature_bracket_engraver"
 	\consists "Vaticana_ligature_engraver"
-	\override NoteHead #'style = #'vaticana.punctum
-	\override Stem #'transparent = ##t
-	\override Flag #'transparent = ##t
+	\override NoteHead.style = #'vaticana.punctum
+	\override Stem.transparent = ##t
+	\override Flag.transparent = ##t
     }
 }
 

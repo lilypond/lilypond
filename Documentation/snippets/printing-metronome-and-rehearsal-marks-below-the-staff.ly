@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, rhythms, tweaks-and-overrides"
@@ -23,12 +23,12 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 
 {
   % Metronome marks below the staff
-  \override Score.MetronomeMark #'direction = #DOWN
+  \override Score.MetronomeMark.direction = #DOWN
   \tempo 8. = 120
   c''1
 
   % Rehearsal marks below the staff
-  \override Score.RehearsalMark #'direction = #DOWN
+  \override Score.RehearsalMark.direction = #DOWN
   \mark \default
   c''1
 }

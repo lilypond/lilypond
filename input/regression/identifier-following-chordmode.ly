@@ -10,10 +10,9 @@ modifier."
 \version "2.16.0"
 
 myDisplayMusic =
-#(define-music-function (parser location music)
+#(define-void-function (parser location music)
  (ly:music?)
- (display-scheme-music music (current-error-port))
- (make-music 'SequentialMusic 'void #t))
+ (display-scheme-music music (current-error-port)))
 
 \myDisplayMusic \chordmode { c }
 

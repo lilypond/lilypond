@@ -231,7 +231,8 @@ check_meshing_chords (Grob *me,
 
       /* If possible, don't wipe any heads.  Else, wipe shortest head,
          or head with smallest amount of dots.  Note: when merging
-         different heads, dots on the smaller one disappear. */
+         different heads, dots on the smaller one disappear; and when
+         merging identical heads, dots on the down-stem head disappear */
       Grob *wipe_ball = 0;
       Grob *dot_wipe_head = head_up;
 
@@ -248,7 +249,7 @@ check_meshing_chords (Grob *me,
               wipe_ball = head_up;
             }
           else
-            dot_wipe_head = head_up;
+            dot_wipe_head = head_down;
         }
       else if (down_ball_type > up_ball_type)
         {
@@ -591,6 +592,22 @@ Note_collision_interface::add_column (Grob *me, Grob *ncol)
 {
   ncol->set_property ("X-offset", Grob::x_parent_positioning_proc);
   Axis_group_interface::add_element (me, ncol);
+}
+
+vector<int>
+Note_collision_interface::note_head_positions (Grob *me)
+{
+  vector<int> out;
+  extract_grob_set (me, "elements", elts);
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Grob *stem = unsmob_grob (elts[i]->get_object ("stem")))
+      {
+        vector<int> nhp = Stem::note_head_positions (stem);
+        out.insert (out.end (), nhp.begin (), nhp.end ());
+      }
+
+  vector_sort (out, less<int> ());
+  return out;
 }
 
 ADD_INTERFACE (Note_collision_interface,

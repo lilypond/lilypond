@@ -5,7 +5,7 @@
   run are spaced accordingly. "
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 \paper {  ragged-right = ##t }
 
@@ -20,7 +20,7 @@
   c
   \grace { c8[ c16 d c8]  }
   c
-  \override Score.GraceSpacing #'spacing-increment = #2.0
+  \override Score.GraceSpacing.spacing-increment = #2.0
 
   \grace { c4 c16 d16  }
   c

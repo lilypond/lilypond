@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
@@ -229,7 +229,7 @@ Notation kommen:
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner #'staff-padding = #3.4
+    \once\override DynamicLineSpanner.staff-padding = #3.4
     e''2\p\< d''\>
     c''1\!
   }

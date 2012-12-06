@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -71,7 +71,7 @@ Bass = {
     \context Staff = lower {
       \new Voice {
         \clef bass
-        \accidentalStyle "modern-cautionary"
+        \accidentalStyle modern-cautionary
         <<
           \Tenor
           \Bass
@@ -88,7 +88,7 @@ Bass = {
     }
     \context {
       \Voice
-      \override StanzaNumber #'padding = #1.8
+      \override StanzaNumber.padding = #1.8
     }
   }
 }

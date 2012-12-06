@@ -26,6 +26,7 @@ using namespace std;
 #include <freetype/tttables.h>
 
 #include "dimensions.hh"
+#include "freetype.hh"
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
@@ -213,17 +214,16 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
         }
     }
 
-  FT_UInt idx = FT_UInt (signed_idx);
-  FT_Load_Glyph (face_, idx, FT_LOAD_NO_SCALE);
-
-  FT_Glyph_Metrics m = face_->glyph->metrics;
-  FT_Pos hb = m.horiBearingX;
-  FT_Pos vb = m.horiBearingY;
-  Box b (Interval (Real (-hb), Real (m.width - hb)),
-         Interval (Real (-vb), Real (m.height - vb)));
+  Box b = get_unscaled_indexed_char_dimensions (signed_idx);
 
   b.scale (design_size () / Real (face_->units_per_EM));
   return b;
+}
+
+Real
+Open_type_font::get_units_per_EM () const
+{
+  return face_->units_per_EM;
 }
 
 size_t
@@ -234,6 +234,24 @@ Open_type_font::name_to_index (string nm) const
     return (size_t) idx;
 
   return (size_t) - 1;
+}
+
+Box
+Open_type_font::get_unscaled_indexed_char_dimensions (size_t signed_idx) const
+{
+  return ly_FT_get_unscaled_indexed_char_dimensions (face_, signed_idx);
+}
+
+Box
+Open_type_font::get_glyph_outline_bbox (size_t signed_idx) const
+{
+  return ly_FT_get_glyph_outline_bbox (face_, signed_idx);
+}
+
+SCM
+Open_type_font::get_glyph_outline (size_t signed_idx) const
+{
+  return ly_FT_get_glyph_outline (face_, signed_idx);
 }
 
 size_t

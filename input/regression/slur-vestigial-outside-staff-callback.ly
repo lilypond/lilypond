@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Outside staff callbacks that no longer apply to grobs
@@ -12,7 +12,7 @@ the first and second examples.
 
 \relative c'' {
   \set strokeFingerOrientations = #'(up)
-  \override StrokeFinger #'avoid-slur = #'outside
+  \override StrokeFinger.avoid-slur = #'outside
   \autoBeamOff
   <a-\rightHandFinger #2 >16 b
   <a-\rightHandFinger #2 >16( b)

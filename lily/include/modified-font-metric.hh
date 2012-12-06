@@ -27,6 +27,7 @@ struct Modified_font_metric : public Font_metric
 {
 public:
   Stencil text_stencil (Output_def *output_state, string, bool) const;
+  Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const;

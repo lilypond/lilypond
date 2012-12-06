@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "vocal-music"
@@ -84,15 +84,15 @@ words = \lyricmode {
   \layout {
     \context {
       \Lyrics
-      \override VerticalAxisGroup #'staff-affinity = ##f
-      \override VerticalAxisGroup #'staff-staff-spacing =
+      \override VerticalAxisGroup.staff-affinity = ##f
+      \override VerticalAxisGroup.staff-staff-spacing =
         #'((basic-distance . 0)
 	   (minimum-distance . 2)
 	   (padding . 2))
     }
     \context {
       \Staff
-      \override VerticalAxisGroup #'staff-staff-spacing =
+      \override VerticalAxisGroup.staff-staff-spacing =
         #'((basic-distance . 0)
 	   (minimum-distance . 2)
 	   (padding . 2))

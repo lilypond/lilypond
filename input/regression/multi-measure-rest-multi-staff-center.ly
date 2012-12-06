@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "Though the default spacing for multi-measure rests
@@ -8,7 +8,7 @@ restored by overriding @code{spacing-pair}."
 
 <<
   \new Staff  {
-    \once \override MultiMeasureRest #'spacing-pair =
+    \once \override MultiMeasureRest.spacing-pair =
     #'(break-alignment . staff-bar)
     R1
   }

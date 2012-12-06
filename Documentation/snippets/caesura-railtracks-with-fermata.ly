@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "expressive-marks, symbols-and-glyphs, tweaks-and-overrides"
@@ -22,7 +22,7 @@ pleasing combination of railtracks and fermata.
 \relative c'' {
   c2.
   % construct the symbol
-  \override BreathingSign #'text = \markup {
+  \override BreathingSign.text = \markup {
     \line {
       \musicglyph #"scripts.caesura.curved"
       \translate #'(-1.75 . 1.6)
@@ -31,7 +31,7 @@ pleasing combination of railtracks and fermata.
   }
   \breathe c4
   % set the breathe mark back to normal
-  \revert BreathingSign #'text
+  \revert BreathingSign.text
   c2. \breathe c4
   \bar "|."
 }

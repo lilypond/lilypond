@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "pitches, tweaks-and-overrides"
@@ -28,7 +28,7 @@ or the end.
 } % begin verbatim
 
 \new Staff {
-  \override Score.BreakAlignment #'break-align-orders =
+  \override Score.BreakAlignment.break-align-orders =
     #'#((left-edge ambitus breathing-sign clef staff-bar
                    key-cancellation key-signature time-signature custos)
 

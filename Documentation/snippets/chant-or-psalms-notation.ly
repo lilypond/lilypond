@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.15
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers, specific-notation"
@@ -20,13 +20,13 @@ aren't always the same length.
 
 
 stemOn = {
-  \revert Staff.Stem #'transparent
-  \revert Staff.Flag #'transparent
+  \revert Staff.Stem.transparent
+  \revert Staff.Flag.transparent
 }
 
 stemOff = {
-  \override Staff.Stem #'transparent = ##t
-  \override Staff.Flag #'transparent = ##t
+  \override Staff.Stem.transparent = ##t
+  \override Staff.Flag.transparent = ##t
 }
 
 \score {

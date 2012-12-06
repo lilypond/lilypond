@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 #(ly:expect-warning (_ "Cannot determine neighbors for floating column. "))
 #(ly:expect-warning (_ "Loose column does not have right side to attach to."))
@@ -20,7 +20,7 @@ texidoc = "Even in case of incorrect contexts (eg. shortlived
 %% breaking spacing-wishes links.
 \score {
   \new Staff {
-    \override Score.SpacingSpanner #'strict-note-spacing = ##t
+    \override Score.SpacingSpanner.strict-note-spacing = ##t
     \afterGrace c'4 {c'32 c'32 }
     c'4
   }

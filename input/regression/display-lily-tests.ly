@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -211,13 +211,13 @@ stderr of this run."
 \test ##[ \unset Score . skipBars #]		% PropertyUnset
 \test ##[ \unset autoBeaming #]
 %% Layout properties
-\test ##[ \override Staff . Stem #'thickness = #4.0 #]		% OverrideProperty
-\test ##[ \once \override Beam #'beam-thickness = #0.6 #]
-\test ##[ \revert Staff . Stem #'thickness #]		% RevertProperty
-\test ##[ \revert Beam #'beam-thickness #]
+\test ##[ \override Staff.Stem.thickness = #4.0 #]		% OverrideProperty
+\test ##[ \once \override Beam.beam-thickness = #0.6 #]
+\test ##[ \revert Staff.Stem.thickness #]		% RevertProperty
+\test ##[ \revert Beam.beam-thickness #]
 \test "NOT A BUG" ##[ \oneVoice #]	% resetting a bunch of properties
-\test ##[ \override StaffGrouper #'(staff-staff-spacing basic-distance) = #7 #]    % nested properties
-\test ##[ \revert StaffGrouper #'(staff-staff-spacing basic-distance) #]    % nested properties
+\test ##[ \override StaffGrouper.staff-staff-spacing.basic-distance = #7 #]    % nested properties
+\test ##[ \revert StaffGrouper.staff-staff-spacing.basic-distance #]    % nested properties
 
 %% \applyOutput
 \test ##[ \applyOutput #'Foo #(lambda (arg) (list)) #]
@@ -241,11 +241,11 @@ stderr of this run."
 \test ##[ \ottava #1 #]    % OttavaMusic
 
 %% \tweak
-\test ##[ < \tweak #'duration-log #2 c > #]
-\test ##[ < c \tweak #'transparent ##t e > #]
-\test ##[ < \tweak #'color #'(1.0 0.0 0.0) \tweak #'duration-log #2 c > #]
-\test ##[ c-\tweak #'font-size #3 -> #]
-\test ##[ < \tweak Accidental #'color #'(1.0 0.0 0.0) cis eis g > #]
+\test ##[ < \tweak duration-log #2 c > #]
+\test ##[ < c \tweak transparent ##t e > #]
+\test ##[ < \tweak color #'(1.0 0.0 0.0) \tweak duration-log #2 c > #]
+\test ##[ c-\tweak font-size #3 -> #]
+\test ##[ < \tweak Accidental.color #'(1.0 0.0 0.0) cis eis g > #]
 
 %% end test.
 

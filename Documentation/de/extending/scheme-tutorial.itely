@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -936,7 +936,7 @@ der Alist einen Wert mit Schlüssel und dem Wert zuweist.  Die
 LilyPond-Syntax hierfür ist:
 
 @example
-\override Stem #'thickness = #2.6
+\override Stem.thickness = #2.6
 @end example
 
 Diese Anweisung verändert die Erscheinung der Notenhälse. Der Alist-Eintrag
@@ -968,7 +968,7 @@ Abstands ist die X-Koordinate und der @code{cdr}-Wert die
 Y-Koordinate.
 
 @example
-\override TextScript #'extra-offset = #'(1 . 2)
+\override TextScript.extra-offset = #'(1 . 2)
 @end example
 
 Hierdurch wird das Paar @code{(1 . 2)} mit der Eigenschaft @code{extra-offset}
@@ -1573,7 +1573,7 @@ folgendermaßen:
 
 Wir haben gesehen wie LilyPond-Eingabe massiv beeinflusst
 werden kann, indem Befehle wie etwa
-@code{\override TextScript #'extra-offset = ( 1 . -1)}
+@code{\override TextScript.extra-offset = ( 1 . -1)}
 benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
 mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Übung} und in
 @ruser{Schnittstellen für Programmierer}.
@@ -1589,7 +1589,7 @@ TODO Find a simple example
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
-  \once \override TextScript #'padding = #padding
+  \once \override TextScript.padding = #padding
 #})
 
 \relative c''' {
@@ -1611,7 +1611,7 @@ Es kann auch benutzt werden, um Befehle zu erstellen:
 tempoPadded = #(define-music-function (parser location padding tempotext)
   (number? markup?)
 #{
-  \once \override Score.MetronomeMark #'padding = #padding
+  \once \override Score.MetronomeMark.padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 

@@ -64,12 +64,19 @@ Optimal_page_breaking::solve ()
       best = space_systems_on_best_pages (0, first_page_num);
 
       page_count = best.systems_per_page_.size ();
-      min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
+      if (page_count == 0)
+        {
+          min_sys_count = 0;
+        }
+      else
+        {
+          min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
 
-      if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
-        min_sys_count -= best.systems_per_page_[page_count - 2];
+          if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
+            min_sys_count -= best.systems_per_page_[page_count - 2];
 
-      min_sys_count = max (min_sys_count, (vsize)1);
+          min_sys_count = max (min_sys_count, (vsize)1);
+        }
     }
   else
     {
@@ -103,7 +110,7 @@ Optimal_page_breaking::solve ()
 
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
-  else if (scm_is_integer (forced_page_count))
+  else if (scm_is_integer (forced_page_count) || page_count == 0)
     message (_f ("Fitting music on %d pages...", (int)page_count));
   else
     message (_f ("Fitting music on %d or %d pages...", (int)page_count - 1, (int)page_count));

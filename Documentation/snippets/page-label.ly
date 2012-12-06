@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "spacing"
@@ -55,7 +55,7 @@ in markups.
       \mark "B" \label #'markB
       d2 d
       d2 d
-      \once \override Score.RehearsalMark #'break-visibility =
+      \once \override Score.RehearsalMark.break-visibility =
         #begin-of-line-invisible
       \mark "C" \label #'markC
     }

@@ -203,6 +203,6 @@ private:
   Real combine_demerits (Real force, Real prev_force);
 
   bool calc_subproblem (vsize start, vsize systems, vsize max_break_index);
-  void fill_line_details (Line_details *const, vsize, vsize);
+  void fill_line_details (Line_details *, vsize, vsize);
 };
 #endif /* CONSTRAINED_BREAKING_HH */

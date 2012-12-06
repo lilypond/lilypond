@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc="Some classic examples of broken beams, all taken from
@@ -11,7 +11,7 @@ Scriabin Op. 11, No. 1.
 }
 
 music = \relative c'' {
-  \override Beam #'breakable = ##t
+  \override Beam.breakable = ##t
   r2. f8[ c \break
   e c f,] r8 r4 a'8[ e \break
   g d g,] r8 r4 f'8[ a, \break
@@ -25,19 +25,19 @@ music = \relative c'' {
   f' b d ] r8 r2 |
 }
 
-\markup { "\override Beam #'positions = #beam::place-broken-parts-individually (default)" }
+\markup { "\override Beam.positions = #beam::place-broken-parts-individually (default)" }
 { \music }
 
-\markup { "\override Beam #'positions = #beam::align-with-broken-parts" }
+\markup { "\override Beam.positions = #beam::align-with-broken-parts" }
 \markup { \justify { Returns y-positions at the ends of the beam such that beams align-across-breaks. } }
 {
-  \override Beam #'positions = #beam::align-with-broken-parts
+  \override Beam.positions = #beam::align-with-broken-parts
   \music
 }
 
-\markup { "\override Beam #'positions = #beam::slope-like-broken-parts" }
+\markup { "\override Beam.positions = #beam::slope-like-broken-parts" }
 \markup { \justify { Approximates broken beam positioning in turn-of-the-century Editions Peters scores. } }
 {
-  \override Beam #'positions = #beam::slope-like-broken-parts
+  \override Beam.positions = #beam::slope-like-broken-parts
   \music
 }

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
@@ -22,9 +22,9 @@ the right.  This behaviour can be over-ridden by using the
 
 \new Staff \relative c' <<
   { f2. f4
-    \override Staff.NoteCollision #'prefer-dotted-right = ##f
+    \override Staff.NoteCollision.prefer-dotted-right = ##f
     f2. f4
-    \override Staff.NoteCollision #'prefer-dotted-right = ##t
+    \override Staff.NoteCollision.prefer-dotted-right = ##t
     f2. f4
   }
   \\

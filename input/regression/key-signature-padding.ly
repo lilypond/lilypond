@@ -5,10 +5,10 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 
 {
-  \override Staff.KeySignature #'padding-pairs
+  \override Staff.KeySignature.padding-pairs
     = #'((("accidentals.flat" . "accidentals.sharp.slashslash.stemstemstem") . 0.5))
     \set Staff.keySignature = #`((4 . ,FLAT) (6 . ,THREE-Q-SHARP) (2 . ,SEMI-FLAT))
   e2

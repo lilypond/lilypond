@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "editorial-annotations, really-simple, tweaks-and-overrides"
@@ -26,7 +26,7 @@ staff instead.
   }
 }
 \relative c'' {
-  \once \override HorizontalBracket #'direction = #UP
+  \once \override HorizontalBracket.direction = #UP
   c2\startGroup
   d2\stopGroup
 }

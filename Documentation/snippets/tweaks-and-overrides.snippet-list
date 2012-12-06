@@ -1,3 +1,4 @@
+adding-timing-marks-to-long-glissandi.ly
 adjusting-grace-note-spacing.ly
 altering-the-length-of-beamed-stems.ly
 alternative-bar-numbering.ly
@@ -33,6 +34,7 @@ drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
 dynamics-custom-text-spanner-postfix.ly
 dynamics-text-spanner-postfix.ly
+extending-glissandi-across-repeats.ly
 fine-tuning-pedal-brackets.ly
 forcing-horizontal-shift-of-notes.ly
 fret-diagrams-explained-and-developed.ly
@@ -47,6 +49,7 @@ inserting-a-caesura.ly
 keep-change-clefs-full-sized.ly
 line-arrows.ly
 making-an-object-invisible-with-the-transparent-property.ly
+making-glissandi-breakable.ly
 manually-controlling-beam-positions.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 moving-dotted-notes-in-polyphony.ly

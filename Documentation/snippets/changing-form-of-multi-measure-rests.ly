@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -24,6 +24,6 @@ default number of ten may be changed by overriding the
 \relative c'' {
   \compressFullBarRests
   R1*2 | R1*5 | R1*9
-  \override MultiMeasureRest #'expand-limit = #3
+  \override MultiMeasureRest.expand-limit = #3
   R1*2 | R1*5 | R1*9
 }

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node General input and output
 @chapter General input and output
@@ -493,17 +493,19 @@ However, whitespace should always be used in the following
 circumstances to avoid errors:
 
 @itemize
+
 @item Around every opening and closing curly bracket.
+
 @item After every command or variable, i.e. every item that
 begins with a @code{\} sign.
+
 @item After every item that is to be interpreted as a Scheme
 expression, i.e. every item that begins with a @code{#}@tie{}sign.
+
 @item To separate all elements of a Scheme expression.
-@item In @code{lyricmode} to separate all the terms in both
-@code{\override} and @code{\set} commands.  In particular, spaces
-must be used around the dot and the equals sign in commands like
-@code{\override Score . LyricText #'font-size = #5} and before and
-after the entire command.
+
+@item In @code{lyricmode} before and after @code{\set} and
+@code{\override} commands.
 
 @end itemize
 
@@ -1129,8 +1131,8 @@ provided:
 @headitem  Procedure name           @tab  Condition tested
 
 @item print-page-number-check-first @tab  should this page number be printed?
-@item create-page-number-stencil    @tab  'print-page-numbers true?
-@item print-all-headers             @tab  'print-all-headers true?
+@item create-page-number-stencil    @tab  print-page-numbers true?
+@item print-all-headers             @tab  print-all-headers true?
 @item first-page                    @tab  first page in the book?
 @item (on-page nmbr)                @tab  page number = nmbr?
 @item last-page                     @tab  last page in the book?
@@ -1347,7 +1349,7 @@ suppressed:
     \footnote \markup { \super "$" } #'(0.5 . 1)
       \markup { \super "$" \italic " The second note" }
     e c4
-    \once \override Score.FootnoteItem #'annotation-line = ##f
+    \once \override Score.FootnoteItem.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
   }
@@ -1371,11 +1373,11 @@ is required before the footnote text:
   \header { tagline = ##f }
   \relative c'' {
     % footnotes may be added to chord constituents
-    < \footnote #'(-1 . -3) #'Accidental "Another flat" aes
+    < \single\footnote #'(-1 . -3) "Another flat" Accidental aes
       c
-      \footnote #'(-1 . 0.5) #'Accidental "A flat" ees
+      \single\footnote #'(-1 . 0.5) "A flat" Accidental ees
     >2
-    \footnote #'(-1 . 2) #'Stem "A stem" ees2
+    \single\footnote #'(-1 . 2) "A stem" Stem ees2
   }
 }
 @end lilypond
@@ -1409,13 +1411,13 @@ on unexpected objects.
   \header { tagline = ##f }
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) #'TimeSignature "Meter change" \default
+    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) #'Stem "Chord stem" \default
+    \footnote #'(1 . -1) "Chord stem" Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) #'BarLine "Bar line" \default
+    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) #'KeySignature "Key change" \default
+    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
     \key c\minor
     q
   }
@@ -2567,6 +2569,7 @@ score contains more than 15 staves, MIDI channels will be reused.
 
 @menu
 * Creating MIDI files::
+* MIDI Instruments::
 * MIDI block::
 * What goes into the MIDI output?::
 * Repeats in MIDI::
@@ -2637,33 +2640,6 @@ lilypond … -dmidi-extension=midi lilyFile.ly
 @end example
 
 
-@unnumberedsubsubsec Instrument names
-
-@cindex instrument names
-@funindex Staff.midiInstrument
-
-The MIDI instrument to be used is specified by setting the
-@code{Staff.midiInstrument} property to the instrument name.
-The name should be chosen from the list in @ref{MIDI instruments}.
-
-@example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
-@}
-@end example
-
-@example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
-@}
-@end example
-
-If the selected instrument does not exactly match an instrument from
-the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
-instrument is used.
-
-
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2699,6 +2675,34 @@ single note.
 Not all midi players correctly handle tempo changes in the midi
 output.  Players that are known to work include MS Windows Media
 Player and @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+
+@node MIDI Instruments
+@subsection MIDI Instruments
+
+@cindex instrument names
+@cindex MIDI, instruments
+@funindex Staff.midiInstrument
+
+The MIDI instrument to be used is specified by setting the
+@code{Staff.midiInstrument} property to the instrument name.
+The name should be chosen from the list in @ref{MIDI instruments}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
 
 @node MIDI block
 @subsection MIDI block
@@ -2763,6 +2767,12 @@ within a score block defined with a @code{\score} command.
 
 @c TODO Check grace notes - timing is suspect?
 
+@menu
+* Supported in MIDI::
+* Unsupported in MIDI::
+@end menu
+
+@node Supported in MIDI
 @unnumberedsubsubsec Supported in MIDI
 
 @cindex Pitches in MIDI
@@ -2810,6 +2820,7 @@ above list:
 @end itemize
 
 
+@node Unsupported in MIDI
 @unnumberedsubsubsec Unsupported in MIDI
 
 @c TODO index as above
@@ -2881,6 +2892,14 @@ by default in the Voice context.  It is possible to control the
 overall MIDI volume, the relative volume of dynamic markings and
 the relative volume of different instruments.
 
+@menu
+* Dynamic marks::
+* Overall MIDI volume::
+* Equalizing different instruments (i)::
+* Equalizing different instruments (ii)::
+@end menu
+
+@node Dynamic marks
 @unnumberedsubsubsec Dynamic marks
 
 Dynamic marks are translated to a fixed fraction of the available
@@ -2930,6 +2949,7 @@ redefined, it would be better to use the
 @file{../scm/midi.scm} and the associated table as a model.
 The final example in this section shows how this might be done.
 
+@node Overall MIDI volume
 @unnumberedsubsubsec Overall MIDI volume
 
 The minimum and maximum overall volume of MIDI dynamic markings is
@@ -2982,6 +3002,7 @@ volume is limited to the range 0.2 - 0.5.
 }
 @end lilypond
 
+@node Equalizing different instruments (i)
 @unnumberedsubsubsec Equalizing different instruments (i)
 
 If the minimum and maximum MIDI volume properties are set in
@@ -3029,6 +3050,8 @@ correctly.
 }
 @end lilypond
 
+
+@node Equalizing different instruments (ii)
 @unnumberedsubsubsec Equalizing different instruments (ii)
 
 If the MIDI minimum and maximum volume properties are not set

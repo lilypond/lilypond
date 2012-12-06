@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, rhythms"
@@ -39,7 +39,7 @@ melody = \relative c'' {
   \set Staff.instrumentName = #"Bb Sop."
   \key g \major
   \time #'(3 2 2 3 2 2 2 2 3 2 2) 25/8
-  \override Staff.TimeSignature #'stencil =
+  \override Staff.TimeSignature.stencil =
     #(custom-time-signature "3" "2" "2" "3" "2" "2"
       "2" "2" "3" "2" "2" "8")
   c8 c c d4 c8 c b c b a4 g fis8 e d c b' c d e4-^ fis8 g \break
@@ -50,8 +50,8 @@ melody = \relative c'' {
 }
 
 drum = \new DrumStaff \drummode {
-  \bar "|:" bd4.^\markup { Drums } sn4 bd \bar ":" sn4.
-  bd4 sn \bar ":" bd sn bd4. sn4 bd \bar ":|"
+  \bar ".|:" bd4.^\markup { Drums } sn4 bd \bar ";" sn4.
+  bd4 sn \bar ";" bd sn bd4. sn4 bd \bar ":|."
 }
 
 {

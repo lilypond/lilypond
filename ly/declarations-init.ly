@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.17.6"
 
 %% < 1.8 compatibility switch
 #(ly:set-option 'old-relative)
@@ -54,10 +54,10 @@ bigger = #1
 center = #0
 
 %% FIXME
-%% should also set \override Beam #'breakable, but how to do it "portably"? (ie. also
+%% should also set \override Beam.breakable, but how to do it "portably"? (ie. also
 %% working with lyric sections)
 %%
-%% try \once \override Score.Beam #'breakable = ##t
+%% try \once \override Score.Beam.breakable = ##t
 
 %% rather name \newline, \pageBreak ?
 break = #(make-music 'LineBreakEvent 'break-permission 'force)

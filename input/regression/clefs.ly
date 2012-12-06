@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header{
 
@@ -24,7 +24,7 @@ full size."
   \clef "varbaritone"c'1^"varbaritone" \bar "||"
   \clef "bass"c'1^"bass" \bar "||"
   \clef "subbass"c'1^"subbass" \bar "||"
-  \override Staff.Clef  #'full-size-change = ##t 
+  \override Staff.Clef.full-size-change = ##t 
   \clef "treble" c'1^"full-size-change = #t" \bar "|."
 }
 

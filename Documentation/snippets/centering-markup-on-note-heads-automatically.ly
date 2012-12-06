@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.31
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "text, tweaks-and-overrides, contexts-and-engravers"
@@ -47,15 +47,15 @@ been shifted via @code{force-hshift}.
   \context {
     \Voice
     \consists #Text_align_engraver
-    \override TextScript #'X-offset =
+    \override TextScript.X-offset =
       #ly:self-alignment-interface::aligned-on-x-parent
-    \override TextScript #'self-alignment-X = #CENTER
+    \override TextScript.self-alignment-X = #CENTER
   }
 }
 
 \new Staff <<
   \relative c'' {
-    \override NoteColumn #'force-hshift = #3
+    \override NoteColumn.force-hshift = #3
     c1-\markup { \arrow-head #Y #DOWN ##t }
   }
   \\

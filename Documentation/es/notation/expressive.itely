@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Expresiones
 @section Expresiones
@@ -177,8 +177,8 @@ multicompás (y sólo a un silencio multicompás).  La instrucción
 crea un objeto @code{MultiMeasureRestText}.
 
 @lilypond[verbatim,quote,relative=2]
-\override Script #'color = #red
-\override MultiMeasureRestText #'color = #blue
+\override Script.color = #red
+\override MultiMeasureRestText.color = #blue
 a2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond

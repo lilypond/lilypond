@@ -2,7 +2,7 @@
 {
 texidoc = "switching voices in the middle of the lyrics is possible using @code{lyricsto}."
   }
-\version "2.16.0"
+\version "2.17.6"
 
 <<
   \relative \new Voice = "lahlah" {
@@ -10,7 +10,7 @@ texidoc = "switching voices in the middle of the lyrics is possible using @code{
     <<
       \new Voice = "alternative" {
         \voiceOne
-	\override NoteColumn #'force-hshift = #-3
+	\override NoteColumn.force-hshift = #-3
 	a'4 
       } 
       { \voiceTwo

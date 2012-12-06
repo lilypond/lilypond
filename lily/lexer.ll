@@ -1,4 +1,4 @@
-%{ // -*- mode: c++; c-file-style: "linux" -*-
+%{ // -*- mode: c++; c-file-style: "linux"; indent-tabs-mode: t -*-
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
@@ -86,13 +86,10 @@ SCM lookup_markup_list_command (string s);
 bool is_valid_version (string s);
 
 
-#define start_quote()	\
-	yy_push_state (quote);\
-	yylval.string = new string
-
-#define start_lyric_quote()	\
-	yy_push_state (lyric_quote);\
-	yylval.string = new string
+#define start_quote() do {                      \
+                yy_push_state (quote);          \
+                yylval = SCM_EOL;               \
+        } while (0)
 
 #define yylval (*lexval_)
 
@@ -122,7 +119,6 @@ SCM (* scm_parse_error_handler) (void *);
 %x figures
 %x incl
 %x lyrics
-%x lyric_quote
 %x longcomment
 %x markup
 %x notes
@@ -151,10 +147,6 @@ A		[a-zA-Z\200-\377]
 AA		{A}|_
 N		[0-9]
 ANY_CHAR	(.|\n)
-PUNCT		[][()?!:'`]
-SPECIAL_CHAR		[&@]
-NATIONAL	[\001-\006\021-\027\031\036]
-TEX		{AA}|-|{PUNCT}|{NATIONAL}|{SPECIAL_CHAR}
 WORD		{A}([-_]{A}|{A})*
 COMMAND		\\{WORD}
 
@@ -167,8 +159,7 @@ WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
-LYRICS		({AA}|{TEX})[^0-9 \t\n\r\f]*
-ESCAPED		[nt\\'"]
+ESCAPED		[nt\\''""]
 EXTENDER	__
 HYPHEN		--
 BOM_UTF8	\357\273\277
@@ -189,7 +180,7 @@ BOM_UTF8	\357\273\277
 
   /* produce requested token */
   int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval.scm = scm_cdar (extra_tokens_);
+  yylval = scm_cdar (extra_tokens_);
   extra_tokens_ = scm_cdr (extra_tokens_);
   if (scm_is_null (extra_tokens_))
     yy_pop_state ();
@@ -202,7 +193,7 @@ BOM_UTF8	\357\273\277
 
   /* produce requested token */
   int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval.scm = scm_cdar (extra_tokens_);
+  yylval = scm_cdar (extra_tokens_);
   extra_tokens_ = scm_cdr (extra_tokens_);
   if (scm_is_null (extra_tokens_))
     yy_pop_state ();
@@ -256,7 +247,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,notes,figures>\\sourcefileline{WHITE}*	{
 	yy_push_state (sourcefileline);
 }
-<version>\"[^"]*\"     { /* got the version number */
+<version>\"[^""]*\"     { /* got the version number */
 	string s (YYText_utf8 () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
@@ -265,10 +256,10 @@ BOM_UTF8	\357\273\277
 	SCM top_scope = scm_car (scm_last_pair (scopes_));
 	scm_module_define (top_scope, ly_symbol2scm ("version-seen"), SCM_BOOL_T);
 
-	if (!is_valid_version (s))
+	if (!is_valid_version (s)) {
+                yylval = SCM_UNSPECIFIED;
 		return INVALID;
-
-
+        }
 }
 <sourcefilename>\"[^""]*\"     {
 	string s (YYText_utf8 () + 1);
@@ -321,6 +312,7 @@ BOM_UTF8	\357\273\277
 	if (!is_main_input_)
 	{
 		start_main_input ();
+		main_input_level_ = include_stack_.size ();
 		is_main_input_ = true;
 	}
 	else
@@ -397,16 +389,18 @@ BOM_UTF8	\357\273\277
 <chords,notes,figures>{RESTNAME}/[-_]	|  // pseudo backup rule
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval.scm = scm_from_locale_string (s);
+	yylval = scm_from_locale_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>q/[-_]	| // pseudo backup rule
 <chords,notes,figures>q	{
+        yylval = SCM_UNSPECIFIED;
 	return CHORD_REPETITION;
 }
 
 <chords,notes,figures>R/[-_]	| // pseudo backup rule
 <chords,notes,figures>R		{
+        yylval = SCM_UNSPECIFIED;
 	return MULTI_MEASURE_REST;
 }
 <INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
@@ -425,7 +419,7 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	yylval.scm = sval;
+	yylval = sval;
 	return SCM_TOKEN;
 }
 
@@ -445,36 +439,43 @@ BOM_UTF8	\357\273\277
 	sval = eval_scm (sval, '$');
 
 	int token = scan_scm_id (sval);
-	if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))
+	if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
 		return token;
 }
 
 <INITIAL,notes,lyrics>{ 
 	\<\<	{
+                yylval = SCM_UNSPECIFIED;
 		return DOUBLE_ANGLE_OPEN;
 	}
 	\>\>	{
+                yylval = SCM_UNSPECIFIED;
 		return DOUBLE_ANGLE_CLOSE;
 	}
 }
 
 <INITIAL,notes>{
 	\<	{
+                yylval = SCM_UNSPECIFIED;
 		return ANGLE_OPEN;
 	}
 	\>	{
+                yylval = SCM_UNSPECIFIED;
 		return ANGLE_CLOSE;
 	}
 }
 
 <figures>{
 	_	{
+                yylval = SCM_UNSPECIFIED;
 		return FIGURE_SPACE;
 	}
 	\>		{
+                yylval = SCM_UNSPECIFIED;
 		return FIGURE_CLOSE;
 	}
 	\< 	{
+                yylval = SCM_UNSPECIFIED;
 		return FIGURE_OPEN;
 	}
 }
@@ -490,79 +491,87 @@ BOM_UTF8	\357\273\277
 		return scan_escaped_word (YYText_utf8 () + 1); 
 	}
 	{FRACTION}	{
-		yylval.scm =  scan_fraction (YYText ());
+		yylval =  scan_fraction (YYText ());
 		return FRACTION;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.scm = scm_c_read_string (YYText ());
+		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{E_UNSIGNED}	{
-		yylval.i = String_convert::dec2int (string (YYText () +1));
+		yylval = scm_c_read_string (YYText () + 1);
 		return E_UNSIGNED;
 	}
 }
 
-<quote,lyric_quote>{
+<quote>{
 	\\{ESCAPED}	{
-		*yylval.string += to_string (escaped_char (YYText ()[1]));
+                char c = escaped_char (YYText ()[1]);
+		yylval = scm_cons (scm_from_locale_stringn (&c, 1),
+                                   yylval);
 	}
 	[^\\""]+	{
-		*yylval.string += YYText_utf8 ();
+                yylval = scm_cons (scm_from_locale_string (YYText_utf8 ()),
+                                   yylval);
 	}
 	\"	{
 
 		yy_pop_state ();
 
 		/* yylval is union. Must remember STRING before setting SCM*/
-		string *sp = yylval.string;
-		yylval.scm = ly_string2scm (*sp);
-		delete sp;
+
+                yylval = scm_string_concatenate_reverse (yylval,
+                                                         SCM_UNDEFINED,
+                                                         SCM_UNDEFINED);
+
 		return is_lyric_state () ? LYRICS_STRING : STRING;
 	}
 	\\	{
-		*yylval.string += YYText ();
+                yylval = scm_cons (scm_from_locale_string (YYText ()),
+                                   yylval);
 	}
 }
 
 <lyrics>{
 	\" {
-		start_lyric_quote ();
+		start_quote ();
 	}
 	{FRACTION}	{
-		yylval.scm =  scan_fraction (YYText ());
+		yylval =  scan_fraction (YYText ());
 		return FRACTION;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.scm = scm_c_read_string (YYText ());
+		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	{COMMAND}/[-_]	| // backup rule
 	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
-	{LYRICS} {
+	/* Characters needed to express durations, assignments, barchecks */
+	[*.=|]	{
+                yylval = SCM_UNSPECIFIED;
+		return YYText ()[0];
+	}
+	[^$#{}\"\\ \t\n\r\f0-9]+ {
 		/* ugr. This sux. */
-		string s (YYText_utf8 ()); 
+		string s (YYText_utf8 ());
+                yylval = SCM_UNSPECIFIED;
 		if (s == "__")
-			return yylval.i = EXTENDER;
+			return EXTENDER;
 		if (s == "--")
-			return yylval.i = HYPHEN;
+			return HYPHEN;
 		s = lyric_fudge (s);
-
-		char c = s[s.length () - 1];
-		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
-			here_input ().warning (
-				_ ("Brace found at end of lyric.  Did you forget a space?"));
-		yylval.scm = ly_string2scm (s);
-
+		yylval = ly_string2scm (s);
 
 		return LYRICS_STRING;
 	}
+	/* This should really just cover {} */
 	. {
-		return YYText ()[0]; // LYRICS already catches all multibytes.
+                yylval = SCM_UNSPECIFIED;
+		return YYText ()[0]; // above catches all multibytes.
 	}
 }
 <chords>{
@@ -575,30 +584,36 @@ BOM_UTF8	\357\273\277
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
 	{FRACTION}	{
-		yylval.scm =  scan_fraction (YYText ());
+		yylval =  scan_fraction (YYText ());
 		return FRACTION;
 	}
 	{UNSIGNED}/\/	| // backup rule
 	{UNSIGNED}		{
-		yylval.scm = scm_c_read_string (YYText ());
+		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
 	-  {
+                yylval = SCM_UNSPECIFIED;
 		return CHORD_MINUS;
 	}
 	:  {
+                yylval = SCM_UNSPECIFIED;
 		return CHORD_COLON;
 	}
 	\/\+ {
+                yylval = SCM_UNSPECIFIED;
 		return CHORD_BASS;
 	}
 	\/  {
+                yylval = SCM_UNSPECIFIED;
 		return CHORD_SLASH;
 	}
 	\^  {
+                yylval = SCM_UNSPECIFIED;
 		return CHORD_CARET;
 	}
 	. {
+                yylval = SCM_UNSPECIFIED;
 		return YYText ()[0]; // WORD catches all multibyte.
 	}
 }
@@ -606,6 +621,7 @@ BOM_UTF8	\357\273\277
 
 <markup>{
 	\\score {
+                yylval = SCM_UNSPECIFIED;
 		return SCORE;
 	}
 	{COMMAND}/[-_]	| // backup rule
@@ -639,7 +655,7 @@ BOM_UTF8	\357\273\277
 		// in reverse order, so the first token pushed in the
 		// loop will be EXPECT_NO_MORE_ARGS.
 
-		yylval.scm = scm_car(s);
+		yylval = scm_car(s);
 
 		// yylval now contains the function to call as token
 		// value (for token type MARKUP_FUNCTION or
@@ -659,41 +675,33 @@ BOM_UTF8	\357\273\277
 		}
 		return token_type;
 	}
-	[{}]	{
-		return YYText ()[0];
-	}
 	[^$#{}\"\\ \t\n\r\f]+ {
 		string s (YYText_utf8 ()); 
 
-		char c = s[s.length () - 1];
-		/* brace open is for not confusing dumb tools.  */
-		if (c == '{' ||  c == '}')
-			here_input ().warning (
-				_ ("Brace found at end of markup.  Did you forget a space?"));
-		yylval.scm = ly_string2scm (s);
-
-
+		yylval = ly_string2scm (s);
 		return STRING;
 	}
 	.  {
-		return YYText()[0];  // Above is catchall for multibyte
+                yylval = SCM_UNSPECIFIED;
+		return YYText ()[0];  // Above is catchall for multibyte
 	}
 }
 
 <longcomment><<EOF>> {
 		LexerError (_ ("EOF found inside a comment").c_str ());
 		is_main_input_ = false; // should be safe , can't have \include in --safe.
+                yylval = SCM_UNSPECIFIED;
 		if (!close_input ())
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 
-<<EOF>> { if (is_main_input_)
+<<EOF>> {
+        yylval = SCM_UNSPECIFIED;
+        if (is_main_input_)
 	{
-		/* 2 = init.ly + current file.
-		   > because we're before closing, but is_main_input_ should
-		   reflect after.
- 		*/ 
-		is_main_input_ = include_stack_.size () > 2;
+		is_main_input_ = include_stack_.size () > main_input_level_;
+		if (!is_main_input_)
+			main_input_level_ = 0;
 		if (!close_input () || !is_main_input_)
  	        /* Returns YY_NULL */
 			yyterminate ();
@@ -715,40 +723,41 @@ BOM_UTF8	\357\273\277
 }
 
 {FRACTION}	{
-	yylval.scm =  scan_fraction (YYText ());
+	yylval =  scan_fraction (YYText ());
 	return FRACTION;
 }
 
 -{UNSIGNED}	| // backup rule
 {REAL}		{
-	yylval.scm = scm_c_read_string (YYText ());
+	yylval = scm_c_read_string (YYText ());
 	return REAL;
 }
 
 {UNSIGNED}/\/	| // backup rule
 {UNSIGNED}	{
-	yylval.scm = scm_c_read_string (YYText ());
+	yylval = scm_c_read_string (YYText ());
 	return UNSIGNED;
 }
 
 
 [{}]	{
-
+        yylval = SCM_UNSPECIFIED;
 	return YYText ()[0];
 }
 
 -/\.	| // backup rule
 [*:=]		{
-	char c = YYText ()[0];
-
-	return c;
+        yylval = SCM_UNSPECIFIED;
+	return YYText ()[0];
 }
 
 <INITIAL,notes,figures>.	{
+        yylval = SCM_UNSPECIFIED;
 	return YYText ()[0];
 }
 
 <INITIAL,lyrics,notes,figures>\\. {
+    yylval = SCM_UNSPECIFIED;
     char c = YYText ()[1];
 
     switch (c) {
@@ -781,6 +790,7 @@ BOM_UTF8	\357\273\277
 <*>.[\200-\277]*	{
 	string msg = _f ("invalid character: `%s'", YYText_utf8 ());
 	LexerError (msg.c_str ());
+        yylval = SCM_UNSPECIFIED;
 	return '%';  // Better not return half a utf8 character.
 }
 
@@ -878,7 +888,7 @@ Lily_lexer::pop_state ()
 int
 Lily_lexer::identifier_type (SCM sid)
 {
-	int k = try_special_identifiers (&yylval.scm , sid);
+	int k = try_special_identifiers (&yylval , sid);
 	return k >= 0  ? k : SCM_IDENTIFIER;
 }
 
@@ -890,6 +900,7 @@ Lily_lexer::scan_escaped_word (string str)
 
 //	SCM sym = ly_symbol2scm (str.c_str ());
 
+        yylval = SCM_UNSPECIFIED;
 	int i = lookup_keyword (str);
  	if (i == MARKUP && is_lyric_state ())
  		return LYRIC_MARKUP;
@@ -903,7 +914,7 @@ Lily_lexer::scan_escaped_word (string str)
 	string msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.c_str ());
 
-	yylval.scm = ly_string2scm (str);
+	yylval = ly_string2scm (str);
 
 	return STRING;
 }
@@ -915,7 +926,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 	{
 		int funtype = SCM_FUNCTION;
 
-		yylval.scm = sid;
+		yylval = sid;
 
 		SCM s = get_music_function_signature (sid);
 		SCM cs = scm_car (s);
@@ -961,7 +972,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 		}
 		return funtype;
 	}
-	yylval.scm = sid;
+	yylval = sid;
 	return identifier_type (sid);
 }
 
@@ -975,20 +986,20 @@ Lily_lexer::scan_bare_word (string str)
 			handle = scm_hashq_get_handle (scm_cdar (pitchname_tab_stack_), sym);
 		
 		if (scm_is_pair (handle)) {
-			yylval.scm = scm_cdr (handle);
-			if (unsmob_pitch (yylval.scm)) 
+			yylval = scm_cdr (handle);
+			if (unsmob_pitch (yylval))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-			else if (scm_is_symbol (yylval.scm))
+			else if (scm_is_symbol (yylval))
 			    return DRUM_PITCH;
 		}
 		else if ((YYSTATE == chords)
 		     	&& (handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
-		    yylval.scm = scm_cdr (handle);
+		    yylval = scm_cdr (handle);
 		    return CHORD_MODIFIER;
 		}
 	}
-	yylval.scm = ly_string2scm (str);
+	yylval = ly_string2scm (str);
 	return STRING;
 }
 
@@ -1064,8 +1075,8 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 				switch (extra_token) {
 				case '$':
 					token = scan_scm_id (scm_car (v));
-					if (!scm_is_eq (yylval.scm, SCM_UNSPECIFIED))
-						push_extra_token (token, yylval.scm);
+					if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
+						push_extra_token (token, yylval);
 					break;
 				case '#':
 					push_extra_token (SCM_IDENTIFIER, scm_car (v));

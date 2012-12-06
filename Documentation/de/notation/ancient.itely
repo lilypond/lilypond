@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @c Translators: Till Paala
 
@@ -315,7 +315,7 @@ folgenden Beispiel gezeigt:
     \context {
       \Staff
       \consists "Custos_engraver"
-      \override Custos #'style = #'mensural
+      \override Custos.style = #'mensural
     }
   }
 }
@@ -415,7 +415,7 @@ werden kann. Siehe das folgende Beispiel:
 \score {
   <<
     \new MensuralVoice = "discantus" \transpose c c' {
-      \override Score.BarNumber #'transparent = ##t {
+      \override Score.BarNumber.transparent = ##t {
         c'1\melisma bes a g\melismaEnd
         f\breve
         \[ f1\melisma a c'\breve d'\melismaEnd \]
@@ -473,7 +473,7 @@ Mensuraler C-Schlüssel im historischen Stil
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-c2"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -484,7 +484,7 @@ Mensuraler F-Schlüssel im historischen Stil
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-f"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -495,7 +495,7 @@ Mensuraler G-Schlüssel im historischen Stil
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-g"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -520,7 +520,7 @@ Beispiel den Schlüssel auf der zweiten Linie)
 @tab
 @lilypond[relative=1,notime]
   \clef "petrucci-c2"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -534,7 +534,7 @@ Notenlinien benutzt werden (im Beispiel auf der dritten Linie)
 @tab
 @lilypond[relative=1,notime]
   \clef "petrucci-c2"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -545,7 +545,7 @@ Mensuraler G-Schlüssel im Petrucci-Stil
 @tab
 @lilypond[relative=1,notime]
   \clef "petrucci-g"
-  \override NoteHead #'style = #'mensural
+  \override NoteHead.style = #'mensural
   c
 @end lilypond
 
@@ -635,18 +635,18 @@ unterschiedlichen Stile dargestellt.
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }
 
-  \override Staff.TimeSignature #'style = #'numbered
+  \override Staff.TimeSignature.style = #'numbered
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter numbered }
 
-  \override Staff.TimeSignature #'style = #'mensural
+  \override Staff.TimeSignature.style = #'mensural
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter mensural }
 
-  \override Staff.TimeSignature #'style = #'neomensural
+  \override Staff.TimeSignature.style = #'neomensural
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter neomensural }
-  \override Staff.TimeSignature #'style = #'single-digit
+  \override Staff.TimeSignature.style = #'single-digit
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter single-digit }
 }
@@ -732,13 +732,13 @@ Das folgende Beispiel zeigt den Petrucci-Stil:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
 \autoBeamOff
-\override NoteHead #'style = #'petrucci
+\override NoteHead.style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
-\override NoteHead #'style = #'semipetrucci
+\override NoteHead.style = #'semipetrucci
 a'\breve*5/6
-\override NoteHead #'style = #'blackpetrucci
+\override NoteHead.style = #'blackpetrucci
 a'8*4/3 a'
-\override NoteHead #'style = #'petrucci
+\override NoteHead.style = #'petrucci
 a'\longa
 @end lilypond
 
@@ -764,9 +764,9 @@ werden.  Neben dem Standardstil (@code{default}) ist
 nur (@code{mensural}) unterstützt.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override Flag #'style = #'mensural
-\override Stem #'thickness = #1.0
-\override NoteHead #'style = #'mensural
+\override Flag.style = #'mensural
+\override Stem.thickness = #1.0
+\override NoteHead.style = #'mensural
 \autoBeamOff
 c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
 c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
@@ -816,11 +816,11 @@ Stil:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override Rest #'style = #'classical
+\override Rest.style = #'classical
 r\longa^"classical" r\breve r1 r2 r4 r8 r16 s \break
-\override Rest #'style = #'mensural
+\override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
-\override Rest #'style = #'neomensural
+\override Rest.style = #'neomensural
 r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -874,7 +874,7 @@ Der Stil für Versetzungszeichen und Vorzeichen wird durch die
 also etwa folgendermaßen:
 
 @example
-\override Staff.Accidental #'glyph-name-alist =
+\override Staff.Accidental.glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -992,9 +992,9 @@ Eine Datei kann zum Beispiel so aussehen:
 
 @c @example
 @c \set Score.timing = ##f
-@c \set Score.defaultBarType = "empty"
-@c \override NoteHead #'style = #'neomensural
-@c \override Staff.TimeSignature #'style = #'neomensural
+@c \set Score.defaultBarType = "-"
+@c \override NoteHead.style = #'neomensural
+@c \override Staff.TimeSignature.style = #'neomensural
 @c \clef "petrucci-g"
 @c \[ c'\maxima g \]
 @c \[ d\longa c\breve f e d \]
@@ -1005,14 +1005,14 @@ Eine Datei kann zum Beispiel so aussehen:
 \score {
   \transpose c c' {
     \set Score.timing = ##f
-    \set Score.defaultBarType = "empty"
-    \override NoteHead #'style = #'petrucci
-    \override Staff.TimeSignature #'style = #'mensural
+    \set Score.defaultBarType = "-"
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
     \[ c'\maxima g \]
     \[ d\longa
-       \override NoteHead #'ligature-flexa = ##t
-       \once \override NoteHead #'flexa-width = #3.2
+       \override NoteHead.ligature-flexa = ##t
+       \once \override NoteHead.flexa-width = #3.2
        c\breve f e d \]
     \[ c'\maxima d'\longa \]
     \[ e'1 a g\breve \]
@@ -1034,9 +1034,9 @@ wie folgt ausgegeben:
 @lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
-  \set Score.defaultBarType = "empty"
-  \override NoteHead #'style = #'neomensural
-  \override Staff.TimeSignature #'style = #'neomensural
+  \set Score.defaultBarType = "-"
+  \override NoteHead.style = #'neomensural
+  \override Staff.TimeSignature.style = #'neomensural
   \clef "petrucci-g"
   \[ c'\maxima g \]
   \[ d\longa c\breve f e d \]
@@ -1165,12 +1165,12 @@ Do-Schlüssel der Editio Vaticana
 @code{vaticana-do3}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'vaticana.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
 @end lilypond
@@ -1181,12 +1181,12 @@ Fa-Schlüssel der Editio Vaticana
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'vaticana.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
 @end lilypond
@@ -1198,12 +1198,12 @@ Do-Schlüssel der Editio Medicaea
 @code{medicaea-do3}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'medicaea.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
 @end lilypond
@@ -1214,12 +1214,12 @@ Fa-Schlüssel der Editio Medicaea
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'medicaea.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
 @end lilypond
@@ -1231,12 +1231,12 @@ Hufnagel Do-Schlüssel für den historischen Stil
 @code{hufnagel-do3}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'hufnagel.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
 @end lilypond
@@ -1247,12 +1247,12 @@ Hufnagel Fa-Schlüssel für den historischen Stil
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'line-count = #4
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'hufnagel.punctum
+  \override Staff.StaffSymbol.line-count = #4
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
 @end lilypond
@@ -1263,11 +1263,11 @@ Kombinierter Do/Fa-Hufnagelschlüssel für den historischen Stil
 @code{hufnagel-do-fa}
 @tab
 @lilypond[relative=1,notime]
-  \override Staff.StaffSymbol #'color = #red
-  \override Staff.LedgerLineSpanner #'color = #red
-  \override Voice.Stem #'transparent = ##t
-  \override Voice.Flag #'transparent = ##t
-  \override NoteHead #'style = #'hufnagel.punctum
+  \override Staff.StaffSymbol.color = #red
+  \override Staff.LedgerLineSpanner.color = #red
+  \override Voice.Stem.transparent = ##t
+  \override Voice.Flag.transparent = ##t
+  \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
 @end lilypond
@@ -1326,7 +1326,7 @@ Der Stil für Versetzungs- und Vorzeichen wird von der
 kontrolliert, beispielsweise:
 
 @example
-\override Staff.Accidental #'glyph-name-alist =
+\override Staff.Accidental.glyph-name-alist =
   #alteration-mensural-glyph-name-alist
 @end example
 
@@ -1380,7 +1380,7 @@ sich in der Datei @file{gregorian.ly} auch eine Definition für
 \score {
   <<
     \context VaticanaVoice {
-      \override TextScript  #'padding = #3
+      \override TextScript.padding = #3
       g a g
       s^\markup { "divisio minima" }
       \divisioMinima
@@ -1460,9 +1460,9 @@ Vaticana-Stils zur Verfügung gestellt.
 \include "gregorian.ly"
 \score {
   \new VaticanaVoice {
-    \override TextScript #'font-family = #'typewriter
-    \override TextScript #'font-shape = #'upright
-    \override Script #'padding = #-0.1
+    \override TextScript.font-family = #'typewriter
+    \override TextScript.font-shape = #'upright
+    \override Script.padding = #-0.1
     a\ictus_"ictus " \bar "" \break
     a\circulus_"circulus " \bar "" \break
     a\semicirculus_"semicirculus " \bar "" \break
@@ -2581,7 +2581,7 @@ Er bezeichnet die Position von @code{c}:
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead #'style = #'kievan
+  \override NoteHead.style = #'kievan
   c
 @end lilypond
 
@@ -2613,7 +2613,7 @@ Notenköpfe:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
 \cadenzaOn
-\override NoteHead #'style = #'kievan
+\override NoteHead.style = #'kievan
 b'1 b'2 b'4 b'8 b'\breve b'\longa
 @end lilypond
 
@@ -2648,8 +2648,8 @@ vor allem der Vollständigkeit halber eingesetzt.
 
 @lilypond[quote,relative=1,notime,verbatim]
 \clef "kievan-do"
-\override NoteHead #'style = #'kievan
-\override Accidental #'glyph-name-alist =
+\override NoteHead.style = #'kievan
+\override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis,
 @end lilypond
@@ -2674,7 +2674,7 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "kievan"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead #'style = #'kievan
+  \override NoteHead.style = #'kievan
   c \bar "kievan"
 @end lilypond
 
@@ -2778,14 +2778,14 @@ entfernt:
 In einigen Transkriptionsstilen werden jedoch teilweise
 Hälse eingesetzt, um etwa den Übergang von einem Einton-Rezitativ
 zu einer melodischen Geste anzuzeigen.  In diesem Fall können
-Hälse entweder mit @code{\override Stem #'transparent = ##t}
+Hälse entweder mit @code{\override Stem.transparent = ##t}
 unsichtbar gemacht werden oder mit
-@code{\override Stem #'length = #0} auf die Länge von 0 reduziert
+@code{\override Stem.length = #0} auf die Länge von 0 reduziert
 werden.  Die Hälse müssen dann wieder an den entsprechenden
-Stellen mit @code{\once \override Stem #'transparent = ##f}
+Stellen mit @code{\once \override Stem.transparent = ##f}
 sichtbar gemacht werden (siehe auch Beispiel unten).  Wenn Hälse
 eingesetzt werden, die Fähnchen haben, muss zusätzlich auch noch
-@code{\override Flag #'transparent = ##t} eingestellt werden.
+@code{\override Flag.transparent = ##t} eingestellt werden.
 
 @b{Takt.} Für Gesang ohne Metrum gibt es einige Alternativen.
 
@@ -2802,7 +2802,7 @@ und @code{\CadenzaOff} zu benutzen.
 Um Taktstriche zu entfernen, kann man radikal den @code{Bar_engraver}
 aus dem @code{Staff}-Kontext entfernen.  Wenn man ab und zu
 einen Taktstrich braucht, sollten die Striche nur mit
-@code{\override BarLine #'transparent = ##t} unsichtbar
+@code{\override BarLine.transparent = ##t} unsichtbar
 gemacht werden.
 
 Oft werden Rezitativtöne mit einer Brevis angezeigt.  Der
@@ -2818,9 +2818,9 @@ chant = \relative c' {
 }
 
 verba = \lyricmode {
-  \once \override LyricText #'self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = #-1
   "Noctem quietam et" fi -- nem per -- fec -- tum
-  \once \override LyricText #'self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = #-1
   "concedat nobis Dominus" om -- ni -- po -- tens.
 }
 \score {
@@ -2833,8 +2833,8 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \override Stem #'transparent = ##t
-      \override Flag #'transparent = ##t
+      \override Stem.transparent = ##t
+      \override Flag.transparent = ##t
     }
   }
 }
@@ -2850,13 +2850,13 @@ gemacht):
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
-  c\breve \override NoteHead #'transparent = ##t  c c c c c
-  \revert NoteHead #'transparent
-  \override Stem #'transparent = ##f \stemUp c4 b4 a
-  \override Stem #'transparent = ##t
-  \override Flag #'transparent = ##t c2 c4  \divisioMaior
-  c\breve \override NoteHead #'transparent = ##t c c c c c c c
-  \revert NoteHead #'transparent c4 c f, f \finalis
+  c\breve \override NoteHead.transparent = ##t  c c c c c
+  \revert NoteHead.transparent
+  \override Stem.transparent = ##f \stemUp c4 b4 a
+  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t c2 c4  \divisioMaior
+  c\breve \override NoteHead.transparent = ##t c c c c c c c
+  \revert NoteHead.transparent c4 c f, f \finalis
 }
 
 verba = \lyricmode {
@@ -2873,9 +2873,9 @@ verba = \lyricmode {
     \context {
       \Staff
       \remove "Time_signature_engraver"
-      \override BarLine #'transparent = ##t
-      \override Stem #'transparent = ##t
-      \override Flag #'transparent = ##t
+      \override BarLine.transparent = ##t
+      \override Stem.transparent = ##t
+      \override Flag.transparent = ##t
     }
   }
 }
@@ -2907,7 +2907,7 @@ werden.
 @lilypond[verbatim,quote]
 spiritus = \relative c' {
   \time 1/4
-  \override Lyrics.LyricText #'X-extent  = #'(0 . 3)
+  \override Lyrics.LyricText.X-extent  = #'(0 . 3)
   d4 \times 2/3 { f8 a g } g a a4 g f8 e
   d4 f8 g g8 d f g a g f4 g8 a a4  s
   \times 2/3 { g8 f d } e f g a g4
@@ -2927,12 +2927,12 @@ spirLyr = \lyricmode {
     \context {
       \Staff
       \remove "Time_signature_engraver"
-      \override BarLine #'X-extent = #'(-1 . 1)
-      \override Stem #'transparent = ##t
-      \override Flag #'transparent = ##t
-      \override Beam #'transparent = ##t
-      \override BarLine #'transparent = ##t
-      \override TupletNumber #'transparent = ##t
+      \override BarLine.X-extent = #'(-1 . 1)
+      \override Stem.transparent = ##t
+      \override Flag.transparent = ##t
+      \override Beam.transparent = ##t
+      \override BarLine.transparent = ##t
+      \override TupletNumber.transparent = ##t
     }
   }
 }

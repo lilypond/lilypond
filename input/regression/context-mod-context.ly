@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header  {
 texidoc = "Context modifications can be stored into a variable as a
@@ -9,7 +9,7 @@ texidoc = "Context modifications can be stored into a variable as a
 ctxmod = \with {
   \remove "Time_signature_engraver"
   \consists "Ambitus_engraver"
-  \override StaffSymbol #'line-count = 4
+  \override StaffSymbol.line-count = 4
 }
 
 music = \relative c'' { \key fis \minor c1 d e }
@@ -20,7 +20,7 @@ music = \relative c'' { \key fis \minor c1 d e }
   \layout {
     \context { \Staff
       \ctxmod
-      \override NoteHead #'style = #'petrucci
+      \override NoteHead.style = #'petrucci
     }
   }
 }
@@ -31,8 +31,8 @@ music = \relative c'' { \key fis \minor c1 d e }
   >>
   \layout {
     \context { \Staff
-      \override StaffSymbol #'line-count = 3
-      \override NoteHead #'style = #'petrucci
+      \override StaffSymbol.line-count = 3
+      \override NoteHead.style = #'petrucci
     }
     % Should override the above definitions, but not reset others
     \context { \Staff

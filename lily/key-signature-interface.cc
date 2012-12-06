@@ -58,7 +58,7 @@ Key_signature_interface::print (SCM smob)
     the cancellation signature.
   */
 
-  int last_pos = -1000;
+  Slice pos, overlapping_pos;
   SCM last_glyph_name = SCM_BOOL_F;
   SCM padding_pairs = me->get_property ("padding-pairs");
 
@@ -87,13 +87,17 @@ Key_signature_interface::print (SCM smob)
         me->warning (_ ("alteration not found"));
       else
         {
-          SCM what = scm_caar (s);
+          SCM proc = ly_lily_module_constant ("key-signature-interface::alteration-positions");
 
-          SCM proc = ly_lily_module_constant ("key-signature-interface::alteration-position");
-
-          int pos = scm_to_int (scm_call_3 (proc, what, scm_cdar (s), c0s));
-          acc.translate_axis (pos * inter, Y_AXIS);
-
+          pos.set_empty ();
+          Stencil column;
+          for (SCM pos_list = scm_call_3 (proc, scm_car (s), c0s, smob);
+               scm_is_pair (pos_list); pos_list = scm_cdr (pos_list))
+            {
+              int p = scm_to_int (scm_car (pos_list));
+              pos.add_point (p);
+              column.add_stencil (acc.translated (Offset (0, p * inter)));
+            }
           /*
             The natural sign (unlike flat & sharp)
             has vertical edges on both sides. A little padding is
@@ -106,13 +110,13 @@ Key_signature_interface::print (SCM smob)
           if (scm_is_pair (handle))
             padding = robust_scm2double (scm_cdr (handle), 0.0);
           else if (glyph_name == "accidentals.natural"
-                   && last_pos < pos + 2
-                   && last_pos > pos - 6)
+                   && !intersection (overlapping_pos, pos).is_empty ())
             padding += 0.3;
 
-          mol.add_at_edge (X_AXIS, LEFT, acc, padding);
+          mol.add_at_edge (X_AXIS, LEFT, column, padding);
 
-          last_pos = pos;
+          pos.widen (4);
+          overlapping_pos = pos + 2;
           last_glyph_name = glyph_name_scm;
         }
     }
@@ -129,6 +133,8 @@ ADD_INTERFACE (Key_signature_interface,
                "alteration-alist "
                "c0-position "
                "glyph-name-alist "
+               "flat-positions "
+               "sharp-positions "
                "padding "
                "padding-pairs "
               );

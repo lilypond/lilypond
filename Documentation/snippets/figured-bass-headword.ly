@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "headword"
@@ -88,7 +88,7 @@ extendOff = \bassFigureExtendersOff
     \new FiguredBass \figuremode {
       \set figuredBassAlterationDirection = #RIGHT
       \set figuredBassPlusDirection = #RIGHT
-      \override BassFigureAlignment #'stacking-dir = #DOWN
+      \override BassFigureAlignment.stacking-dir = #DOWN
       s8 |
       s4 <6>4 <_+>4 <6>4 |
       <6 4\+ 2>8 <6>8 <_+> s8 s2 |
@@ -104,9 +104,9 @@ extendOff = \bassFigureExtendersOff
   \layout {
     \context {
       \Score
-      \override RehearsalMark #'break-align-symbols = #'(time-signature)
-      \override RehearsalMark #'self-alignment-X = #LEFT
-      \override TimeSignature #'break-align-anchor-alignment = #LEFT
+      \override RehearsalMark.break-align-symbols = #'(time-signature)
+      \override RehearsalMark.self-alignment-X = #LEFT
+      \override TimeSignature.break-align-anchor-alignment = #LEFT
     }
   }
 }

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 488508ff926c03b14d030ffc255ae19fc3ce1f50
+    Translation of GIT committish: 7612daa5e327fe019d441b9d458f88407dca3936
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,56 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.95!  @emph{11 de agosto de 2012}
+
+Estamos encantados de anunciar el lanzamiento de LilyPond 2.15.95.
+Con esta edición, se congela el desarrollo sobre la versión 2.15 para
+la inminente versión estable 2.16 y queda abierta solamente a
+correcciones de fallos.
+
+Urgimos a todos los usuarios a que prueben esta versión para asegurar
+la máxima calidad de la próxima versión estable.  Si descubre
+cualquier problema, le rogamos nos envíe @ref{Informes de fallos}.
+
+Las funcionaliades nuevas desde la versión 2.14.2 están relacionadas
+en el manual de @qq{Cambios} en la sección de la página web sobre
+@ref{Desarrollo}.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.15.42!  @emph{2 de agosto de 2012}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.15.42.  Esta versión
+contiene el conjunto habitual de correcciones de fallos.
+
+Se recomienda enérgicamente a los usuarios normales que @strong{no}
+utilicen esta versión, sino la 2.14 estable en su lugar.  Tenga en
+cuenta que a causa de algunos bugs críticos, esta versión no es
+candidata al lanzamiento de la próxima versión estable.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading El Informe LilyPond, número 27. @emph{2 de agosto 2012}
+
+Vuelve @emph{El informe LilyPond}, con una interesante incursión en
+las funcionalidades relacionadas con Scheme añadidas recientemente por
+el único desarrollador remunerado de nuestra comunidad, David Kastrup
+(gracias a sus @uref{http://lilypond.org/sponsoring.html, donaciones
+continuas}).  En esta edición también se encuentra una panorámica
+sobre ciertos proyectos poco conocidos colaterales a LilyPond, y
+algunas otras noticias más ligeras.
+
+Acérquese y @uref{http://news.lilynet.net/?The-LilyPond-Report-27,
+lea ya el Informe LilyPond número 27}; ¡todos los comentarios y
+aportaciones serán calurosamente bien recibidos!
+
+@newsEnd
 
 
 @newsItem

@@ -18,6 +18,24 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; clefs
+
+(define-public (clef-octavation-markup oct style)
+  "The octavation sign formatting function.  @var{oct} is supposed to be
+a string holding the octavation number, @var{style} determines the
+way the octavation number is displayed."
+  (let* ((delim (if (symbol? style)
+                    (case style
+                      ((parenthesized) (cons "(" ")"))
+                      ((bracketed) (cons "[" "]"))
+                      (else (cons "" "")))
+                    (cons "" "")))
+         (text (string-concatenate (list (car delim) oct (cdr delim)))))
+
+       (make-vcenter-markup text)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; metronome marks
 
 (define-public (format-metronome-markup event context)
@@ -264,6 +282,12 @@ dot placement entries."
     (length (filter (lambda (x) (not (null? x)))
                     art-list)))
 
+  (define (string-number event)
+    "Get the string-number from @var{event}.  Return @var{#f}
+if no string-number is present."
+    (let ((num (ly:event-property event 'string-number)))
+      (and (integer? num) (positive? num) num)))
+
   (define (determine-frets-and-strings
 	    notes
 	    defined-strings
@@ -306,14 +330,6 @@ if no fingering is present."
 		   (set! finger-found num))))
 	     articulations)
 	finger-found))
-
-    (define (string-number event)
-      "Get the string-number from @var{event}.  Return @var{#f}
-if no string-number is present."
-      (let ((num (ly:event-property event 'string-number)))
-	(if (number? num)
-	  num
-	  #f)))
 
     (define (delete-free-string string)
       (if (number? string)
@@ -378,16 +394,8 @@ the current tuning?"
                   defined-strings defined-fingers))
 
     ;;; body of determine-frets-and-strings
-    (let* ((pitch-alist (apply (lambda (mylist)
-                                 (let ((index -1))
-                                   (map (lambda (note)
-                                          (begin
-                                            (set! index (1+ index))
-                                            (cons (note-pitch note)
-                                                  index)))
-                                        mylist)))
-                               notes '()))
-           (pitches (map note-pitch notes)))
+    (let* ((pitches (map note-pitch notes))
+           (pitch-alist (map cons pitches (iota (length pitches)))))
 
       ;; handle notes with strings assigned and fingering of 0
       (for-each
@@ -509,7 +517,7 @@ chords.  Returns a placement-list."
          (defined-strings (map (lambda (x)
                                  (if (null? x)
                                      x
-                                     (ly:event-property x 'string-number)))
+                                     (or (string-number x) '())))
                                (car specified-info)))
          (defined-fingers (map (lambda (x)
                                  (if (null? x)

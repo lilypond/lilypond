@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is reset on each page.  It uses the symbol-footnotes
@@ -24,7 +24,7 @@ have been reached.
 \markup { h i }
 
 \relative c' {
-\footnote #'(1 . -1) #'NoteHead \markup { j } \default
+\footnote #'(1 . -1) \markup { j } NoteHead
 a b c d }
 
 \pageBreak

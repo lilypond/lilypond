@@ -12,7 +12,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.17.6"
 \layout {
     ragged-right = ##t
 %    #(define debug-slur-scoring #t)
@@ -69,7 +69,7 @@
 	f=''2( d4 f | g c a f | d c f2 | f1) |
     }
 
-%    \override Slur #'eccentricity = #-2
+%    \override Slur.eccentricity = #-2
     c=''8 ( d[ b f d] a'[ c])
 }
 

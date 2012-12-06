@@ -7,11 +7,8 @@ import re
 import os
 import copy
 import shutil
-# TODO: We are using os.popen3, which has been deprecated since python 2.6. The
-# suggested replacement is the Popen function of the subprocess module.
-# Unfortunately, on windows this needs the msvcrt module, which doesn't seem
-# to be available in GUB?!?!?!
-# from subprocess import Popen, PIPE
+import subprocess
+import sys
 
 progress = ly.progress
 warning = ly.warning
@@ -740,10 +737,11 @@ printing diff against existing file." % filename)
 
         debug (_ ("Running through filter `%s'") % cmd, True)
 
-        # TODO: Use Popen once we resolve the problem with msvcrt in Windows:
-        (stdin, stdout, stderr) = os.popen3 (cmd)
-        # p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
-        # (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
+        closefds = True
+        if (sys.platform == "mingw32"):
+            closefds = False
+        p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=closefds)
+        (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
         stdin.write (input)
         status = stdin.close ()
 

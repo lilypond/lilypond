@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Expressive marks
 @section Expressive marks
@@ -167,8 +167,8 @@ to a multi-measure rest (and only a multi-measure rest).  This
 creates a @code{MultiMeasureRestText} object.
 
 @lilypond[verbatim,quote,relative=2]
-\override Script #'color = #red
-\override MultiMeasureRestText #'color = #blue
+\override Script.color = #red
+\override MultiMeasureRestText.color = #blue
 a2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond
@@ -604,6 +604,20 @@ moltoF = #(make-dynamic-script
 }
 @end lilypond
 
+To left-align the dynamic text rather than centering it on a note
+use a @code{\tweak}:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
 Font settings in markup mode are described in
 @ref{Selecting font and font size}.
 
@@ -952,6 +966,11 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
+@cindex tick mark
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-a-tick-as-the-breath-mark-symbol.ly}
+
 @cindex caesura
 @cindex railroad tracks
 
@@ -1093,6 +1112,9 @@ Different styles of glissandi can be created.  For details, see
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
 
 @seealso
 Music Glossary:

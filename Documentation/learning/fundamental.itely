@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.6"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -802,15 +802,15 @@ later sections.
   \\  % Voice two
     {
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'ignore-collision = ##t
+      \once \override NoteColumn.ignore-collision = ##t
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
   \\  % No voice three
   \\  % Voice four
     {
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -852,15 +852,15 @@ not understand.
   \\  % Voice two
     { \voiceTwoStyle
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn #'ignore-collision = ##t
+      \once \override NoteColumn.ignore-collision = ##t
       <ees, c>2
-      \once \override NoteColumn #'force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = #0.5
       des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      \override NoteColumn #'force-hshift = #0
+      \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
     }
   >> |
@@ -2325,7 +2325,7 @@ celloMusic = \relative c {
 
 @seealso
 The starting templates can be found in the @q{Templates} appendix,
-see @ref{Single staff}.
+see @ref{Single staff templates}.
 
 
 @node Four-part SATB vocal score
@@ -2437,8 +2437,8 @@ lower = \relative c, {
 @end lilypond
 
 None of the templates provides this layout exactly.  The nearest is
-@q{SATB vocal score and automatic piano reduction} -- see
-@ref{Vocal ensembles} -- but we need to change the layout and add a piano
+@ref{SATB vocal score and automatic piano reduction} -- but we need
+to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.
@@ -2877,8 +2877,7 @@ so that the values are identical.
         @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
-        \override VerticalAxisGroup
-          #'staff-staff-spacing  #'stretchability = 5
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -2941,8 +2940,7 @@ PedalOrganMusic = \relative c {
         }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
-        \override VerticalAxisGroup
-          #'staff-staff-spacing #'stretchability = 5
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
       } <<
         \keyTime
         \clef "bass"
@@ -3009,7 +3007,7 @@ macros, or user-defined commands) for tweaks:
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-padText = { \once \override TextScript #'padding = #5.0 }
+padText = { \once \override TextScript.padding = #5.0 }
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
@@ -3042,7 +3040,7 @@ the last line.
 violin = \relative c'' @{
   \repeat volta 2 @{
     c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
-    \once \override TextScript #'padding = #5.0
+    \once \override TextScript.padding = #5.0
     c4.^"hi there!" d8 e' f g d |
     c,4.\markup @{
       \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
@@ -3069,7 +3067,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript #'padding = #padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative c''' {

@@ -25,6 +25,8 @@
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
 
+#include <set>
+
 class Grob
 {
 private:
@@ -69,6 +71,12 @@ public:
   DECLARE_SCHEME_CALLBACK (y_parent_positioning, (SCM));
   DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (stencil_width, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (simple_vertical_skylines_from_stencil, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (vertical_skylines_from_stencil, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (vertical_skylines_from_element_stencils, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (simple_horizontal_skylines_from_stencil, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_stencil, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_element_stencils, (SCM smob));
 
   /* R/O access */
   Output_def *layout () const { return layout_; }
@@ -141,17 +149,20 @@ public:
   void fixup_refpoint ();
 
   /* vertical ordering */
+  static bool internal_vertical_less (Grob *g1, Grob *g2, bool pure);
   static Grob *get_root_vertical_alignment (Grob *g);
   static Grob *get_vertical_axis_group (Grob *g);
   static bool vertical_less (Grob *g1, Grob *g2);
   static bool pure_vertical_less (Grob *g1, Grob *g2);
-  static bool internal_vertical_less (Grob *g1, Grob *g2, bool pure);
   static int get_vertical_axis_group_index (Grob *g);
 
+  /* skylines */
   virtual Interval_t<int> spanned_rank_interval () const;
   virtual bool pure_is_visible (int start, int end) const;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
+  static SCM internal_simple_skylines_from_stencil (SCM, Axis);
+  static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
 
 /* smob utilities */
@@ -162,6 +173,7 @@ Item *unsmob_item (SCM);
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
 Grob *common_refpoint_of_array (vector<Grob *> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (set<Grob *> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */

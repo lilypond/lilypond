@@ -54,9 +54,10 @@ private:
 public:
   SCM eval_scm_token (SCM sval) { return eval_scm (sval, '#'); }
   SCM extra_tokens_;
-  YYSTYPE *lexval_;
+  SCM *lexval_;
   Input *lexloc_;
   bool is_main_input_;
+  vsize main_input_level_;
 
   Sources *sources_;
 
@@ -91,7 +92,7 @@ public:
   SCM keyword_list () const;
   SCM lookup_identifier (string s);
   SCM lookup_identifier_symbol (SCM s);
-  void push_extra_token (int token_type, SCM scm = SCM_UNDEFINED);
+  void push_extra_token (int token_type, SCM scm = SCM_UNSPECIFIED);
   void push_chord_state (SCM alist);
   void push_figuredbass_state ();
   void push_lyric_state ();

@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.15.14
-\version "2.16.0"
+%% Note: this file works from version 2.17.6
+\version "2.17.6"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -27,17 +27,17 @@ follows:
   % Multi-measure rests by default are set under the fourth line
   R1
   % They can be moved using an override
-  \override MultiMeasureRest #'staff-position = #-2
+  \override MultiMeasureRest.staff-position = #-2
   R1
-  \override MultiMeasureRest #'staff-position = #0
+  \override MultiMeasureRest.staff-position = #0
   R1
-  \override MultiMeasureRest #'staff-position = #2
+  \override MultiMeasureRest.staff-position = #2
   R1
-  \override MultiMeasureRest #'staff-position = #3
+  \override MultiMeasureRest.staff-position = #3
   R1
-  \override MultiMeasureRest #'staff-position = #6
+  \override MultiMeasureRest.staff-position = #6
   R1
-  \revert MultiMeasureRest #'staff-position
+  \revert MultiMeasureRest.staff-position
   \break
 
   % In two Voices, odd-numbered voices are under the top line
@@ -50,7 +50,7 @@ follows:
   % Separating multi-measure rests in more than two voices
   % requires an override
   << { R1 } \\ { R1 } \\
-     \once \override MultiMeasureRest #'staff-position = #0
+     \once \override MultiMeasureRest.staff-position = #0
      { R1 }
   >>
 
@@ -58,10 +58,10 @@ follows:
   % in all voices to avoid multiple instances being printed
   \compressFullBarRests
   <<
-   \revert MultiMeasureRest #'staff-position
+   \revert MultiMeasureRest.staff-position
     { R1*3 }
     \\
-   \revert MultiMeasureRest #'staff-position
+   \revert MultiMeasureRest.staff-position
     { R1*3 }
   >>
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header {
   texidoc = "
@@ -41,7 +41,7 @@ staffMusic = \new StaffGroup {
   ragged-right = ##t
   \context {
     \Staff
-    \override Beam #'auto-knee-gap = #4.5
+    \override Beam.auto-knee-gap = #4.5
     \RemoveEmptyStaves
   }
 }

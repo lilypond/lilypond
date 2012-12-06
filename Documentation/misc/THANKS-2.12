@@ -1,0 +1,144 @@
+Release 2.12
+************
+
+
+DEVELOPMENT TEAM
+
+Han-Wen Nienhuys   - Core development
+Jan Nieuwenhuizen  - Core development
+Joe Neeman         - Core development
+Graham Percival    - Documentation Editor and Bug Meister
+Valentin Villenave - LSR Editor and Bug Meister
+Mats Bengtsson     - Support Guru
+John Mandereau     - Translation Meister
+
+
+CONTRIBUTORS
+
+Rune Zedeler
+Maximilian Albert
+Milan Zamazal
+Reinhold Kainhofer - musicxml2ly development
+Erlend Aasland
+Stan Sanderson     - Regression Checker
+Neil Puttock
+
+
+GRAND DOCUMENTATION PROJECT
+
+Trevor Daniels     - Assistant Documentation Editor
+Andrew Hawryluk    - NR work
+Carl Sorensen      - NR work
+Eyolf Østrem       - NR work
+Francisco Vila     - NR work
+Jay Hamilton       - NR work
+Jonathan Kulp      - NR work
+Joseph Harfouch    - NR work
+Patrick McCarty    - NR work
+Ralph Palmer       - NR work
+Till Rettig        - NR work
+Kurt Kroon         - Glossary Updates, NR work
+Alard de Boer      - Formatting
+Michael Rasmussen  - Formatting
+Trevor Bača        - Inspirational Headwords
+Reinhold Kainhofer - Technical Aid
+Neil Puttock       - Snippet Editor, Technical Aid
+
+
+TRANSLATORS
+
+Clytie Siddall
+Damien Heurtebise
+Francisco Vila
+Heikki Junes
+Jean-Charles Malahieude
+John Mandereau
+Matthieu Jacquot
+Nicolas Klutchnikoff
+Till Rettig
+Valentin Villenave
+
+
+SPONSORS
+
+Mike Amundsen
+Trevor Bača
+
+
+BUG HUNTERS/SUGGESTIONS
+
+Adam James Wilson
+Alard de Boer
+Alex Rolex
+Andy Haupt
+Arvid Grøtting
+Bertalan Fodor
+Benjamin Drung
+Cameron Horsburgh
+Carl Sorensen
+Christian Hitz
+Christian Herzberg
+David Bobroff
+David Griffel
+Daniel Hulme
+Daniel Johnson
+Dominic Neumann
+Eduardo Vieira
+Frédéric Chiasson
+Georg Dummer
+Georg Romstorfer
+Gilles Thibault
+Hernán J. González
+Hu Haipeng
+Jay Anderson
+James Kilfinger
+Jean-Marie Mouchel
+Jean-Yves Baudais
+Jesús Guillermo Andrade
+Jonathan Henkelman
+Kazuhiro Suzuki
+Kevin Dalley
+Laura Conrad
+Luc Wehli
+Maarten Hijzelendoorn
+Marc Lanoiselée
+Mark Polesky
+Matthieu Jacquot
+Matthijs Frankeno
+Martijn Vromans
+Marnen Laibow-Koser
+Maximilian Albert
+Mirosław Doroszewski
+Mike Coleman
+Neil Puttock
+Nicolas Mayencourt
+Nicolas Sceaux
+Orm Finnendahl
+Peter Budny
+Phillip Kirlin
+Pierre-Emmanuel Brame
+Ralph Palmer
+Renaud Flavigny
+Rick Hansen
+Risto Vääräniemi
+Robin Bannister
+Roland Goretzki
+Rune Zedeler
+Ruud van Silfhout
+Sean Reed
+Steven Weber
+Tomas Sauer
+Thomas Scharkowski
+Trevor Bača
+Vivian Barty-Taylor
+Werner Lemberg
+Wilbert Berendsen
+William Oram
+Yota Moteuchi
+Zack Charter
+Zoltan Selyem
+
+
+#Local variables:
+#coding: utf-8
+#End:

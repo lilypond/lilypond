@@ -120,9 +120,11 @@ Lily_parser::parse_file (string init, string name, string out_name)
      OUT_FILE (unless IN_FILE redefines output file name).  */
 
   SCM mod = lexer_->set_current_scope ();
-  do {
-    do_yyparse ();
-  } while (!lexer_->is_clean ());
+  do
+    {
+      do_yyparse ();
+    }
+  while (!lexer_->is_clean ());
 
   /*
     Don't mix cyclic pointers with weak tables.
@@ -141,7 +143,6 @@ void
 Lily_parser::parse_string (string ly_code)
 {
   lexer_->main_input_name_ = "<string>";
-  lexer_->is_main_input_ = true;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
@@ -159,7 +160,6 @@ Lily_parser::parse_string_expression (string ly_code, string filename,
                                       int line)
 {
   lexer_->main_input_name_ = filename;
-  lexer_->is_main_input_ = true;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
   if (line)
     {
@@ -169,9 +169,7 @@ Lily_parser::parse_string_expression (string ly_code, string filename,
   SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   lexer_->push_extra_token (EMBEDDED_LILY);
-  do_yyparse ();
-  SCM result = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parseStringResult"));
-  // parseStringResult is set in the grammar rule for embedded_lilypond
+  SCM result = do_yyparse ();
 
   lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
   scm_set_current_module (mod);
