@@ -172,7 +172,16 @@ the types of objects and properties from their names.
 
 @cindex tweaking methods
 
-@strong{\override command}
+@menu
+* The \override command::
+* The \revert command::
+* The \once prefix::
+* The \overrideProperty command::
+* The \tweak command::
+@end menu
+
+@node The \override command
+@unnumberedsubsubsec The @code{\override} command
 
 @cindex override command
 @cindex override syntax
@@ -242,7 +251,9 @@ e4 f |
 g4 a b c |
 @end lilypond
 
-@strong{\revert command}
+
+@node The \revert command
+@unnumberedsubsubsec The @code{\revert} command
 
 @cindex revert command
 
@@ -278,7 +289,9 @@ g4 a
 b4 c |
 @end lilypond
 
-@strong{\once prefix}
+
+@node The \once prefix
+@unnumberedsubsubsec The @code{\once} prefix
 
 @funindex \once
 @funindex once
@@ -304,7 +317,9 @@ g4 a
 b c |
 @end lilypond
 
-@strong{\overrideProperty command}
+
+@node The \overrideProperty command
+@unnumberedsubsubsec The @code{\overrideProperty} command
 
 @cindex overrideProperty command
 
@@ -317,7 +332,9 @@ We mention it here for completeness, but for details see
 @rextend{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@strong{\tweak command}
+
+@node The \tweak command
+@unnumberedsubsubsec The @code{\tweak} command
 
 @cindex tweak command
 
@@ -640,7 +657,7 @@ essentials required to make up your own -- but you will
 still need some practice.  This is provided in the examples
 which follow.
 
-@subheading Finding the context
+@subsubsubheading Finding the context
 
 @cindex context, finding
 @cindex context, identifying correct
@@ -661,7 +678,7 @@ lowest level contexts which is implied unambiguously by
 the fact that we are entering notes, we can omit it in this
 location.
 
-@subheading Overriding once only
+@subsubsubheading Overriding once only
 
 @cindex overriding once only
 @cindex once override
@@ -706,7 +723,7 @@ Now only the first slur is made heavier.
 The @code{\once} command can also be used before the @code{\set}
 command.
 
-@subheading Reverting
+@subsubsubheading Reverting
 
 @cindex revert
 @cindex default properties, reverting to
@@ -1002,7 +1019,15 @@ All of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider each of
 these in turn.
 
-@subheading stencil
+@menu
+* The stencil property::
+* The break-visibility property::
+* The transparent property::
+* The color property::
+@end menu
+
+@node The stencil property
+@unnumberedsubsubsec The @code{stencil} property
 
 @cindex stencil property
 
@@ -1081,7 +1106,8 @@ with zero size:
 }
 @end lilypond
 
-@subheading break-visibility
+@node The break-visibility property
+@unnumberedsubsubsec The @code{break-visibility} property
 
 @cindex break-visibility property
 
@@ -1113,7 +1139,8 @@ required, as always, to precede the value itself in the
 
 And we see this too removes all the bar lines.
 
-@subheading transparent
+@node The transparent property
+@unnumberedsubsubsec The @code{transparent} property
 
 @cindex transparent property
 @cindex transparency
@@ -1188,7 +1215,8 @@ removes the object entirely; making the object @code{transparent}
 (which can be done using @code{\hide})
 leaves it where it is, but makes it invisible.
 
-@subheading color
+@node The color property
+@unnumberedsubsubsec The @code{color} property
 
 @cindex color property
 
@@ -1743,6 +1771,14 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
+@menu
+* The direction property::
+* Fingering::
+@end menu
+
+@node The direction property
+@unnumberedsubsubsec The @code{direction} property
+
 @cindex down
 @cindex up
 @cindex center
@@ -1828,6 +1864,7 @@ effect of the other commands (which are implemented using
 @code{\override}) to a single timestep, you can precede them with
 @code{\once} like you would do with explicit overrides.
 
+@node Fingering
 @unnumberedsubsubsec Fingering
 
 @cindex fingering, placement
@@ -1977,6 +2014,20 @@ try @w{@code{-7}}:
 @subsection Outside-staff objects
 
 Outside-staff objects are automatically placed to avoid collisions.
+There are several ways to override the automatic placement if the
+positioning is not optimum.
+
+@menu
+* The outside-staff-priority property::
+* The \textLengthOn command::
+* Dynamics placement::
+* Grob sizing::
+@end menu
+
+
+@node The outside-staff-priority property
+@unnumberedsubsubsec The @code{outside-staff-priority} property
+
 Objects with the lower value of the @code{outside-staff-priority}
 property are placed nearer to the staff, and other outside-staff
 objects are then raised as far as necessary to avoid collisions.
@@ -2186,7 +2237,8 @@ clearly will need to space the notes out horizontally to make more
 room for the text.  This is done using the @code{textLengthOn}
 command.
 
-@subheading \textLengthOn
+@node The \textLengthOn command
+@unnumberedsubsubsec The @code{\textLengthOn} command
 
 @cindex notes, spreading out with text
 
@@ -2244,8 +2296,8 @@ c,,2^"Long Text   "  % Spaces at end are honored
 c''2 |
 @end lilypond
 
-
-@subheading Dynamics
+@node Dynamics placement
+@unnumberedsubsubsec Dynamics placement
 
 @cindex tweaking dynamics placement
 @cindex dynamics, tweaking placement
@@ -2286,7 +2338,8 @@ were able to do this for markup text by using the @code{\textLengthOn}
 command, but there is no equivalent command for dynamic marks.  So we
 shall have to work out how to do this using @code{\override} commands.
 
-@subheading Grob sizing
+@node Grob sizing
+@unnumberedsubsubsec Grob sizing
 
 @cindex grob sizing
 @cindex sizing grobs
@@ -2604,7 +2657,19 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@subheading padding property
+@menu
+* The padding property::
+* The right-padding property::
+* The staff-padding property::
+* The self-alignment-X property::
+* The staff-position property::
+* The extra-offset property::
+* The positions property::
+* The force-hshift property::
+@end menu
+
+@node The padding property
+@unnumberedsubsubsec The @code{padding} property
 
 @cindex padding
 @cindex fixing overlapping notation
@@ -2649,7 +2714,8 @@ their @code{outside-staff-priority}, then that object and all
 objects outside it are moved.
 
 
-@subheading right-padding
+@node The right-padding property
+@unnumberedsubsubsec The @code{right-padding} property
 
 @cindex right-padding property
 
@@ -2692,7 +2758,8 @@ note head by overriding @code{right-padding}.
 
 @noindent
 
-@subheading staff-padding property
+@node The staff-padding property
+@unnumberedsubsubsec The @code{staff-padding} property
 
 @cindex aligning objects on a baseline
 @cindex objects, aligning on a baseline
@@ -2721,7 +2788,8 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading self-alignment-X property
+@node The self-alignment-X property
+@unnumberedsubsubsec The @code{self-alignment-X} property
 
 The following example shows how this can resolve the collision
 of a string fingering object with a note's stem by aligning the
@@ -2737,7 +2805,8 @@ right edge with the reference point of the parent note:
 <a\2>
 @end lilypond
 
-@subheading staff-position property
+@node The staff-position property
+@unnumberedsubsubsec The @code{staff-position} property
 
 @cindex object collision within a staff
 
@@ -2774,7 +2843,8 @@ move it, say, four half-staff spaces down to @w{@code{-8}}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
-@subheading extra-offset property
+@node The extra-offset property
+@unnumberedsubsubsec The @code{extra-offset} property
 
 @cindex positioning objects
 @cindex positioning grobs
@@ -2798,7 +2868,8 @@ f4-5
 @end lilypond
 
 
-@subheading positions property
+@node The positions property
+@unnumberedsubsubsec The @code{positions} property
 
 @cindex controlling tuplets, slurs, phrasing slurs, and beams manually
 @cindex manually controlling tuplets, slurs, phrasing slurs, and beams
@@ -2892,7 +2963,8 @@ Note that the override continues to apply in the first voice of
 the second measure of eighth notes, but not to any of the beams in the
 second voice.
 
-@subheading force-hshift property
+@node The force-hshift property
+@unnumberedsubsubsec The @code{force-hshift property}
 
 We can now see how to apply the final corrections to the Chopin
 example introduced at the end of @ref{I'm hearing Voices}, which
@@ -3489,6 +3561,11 @@ lhMusic = \relative c' {
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
+@menu
+* Tying notes across voices::
+* Simulating a fermata in MIDI::
+@end menu
+
 @cindex transparent property, use of
 @cindex objects, making invisible
 @cindex removing objects
@@ -3497,9 +3574,11 @@ lhMusic = \relative c' {
 @cindex objects, hiding
 @cindex invisible objects
 @cindex objects, invisible
-@cindex tying notes across voices
 
-@subheading Tying notes across voices
+@node Tying notes across voices
+@unnumberedsubsubsec Tying notes across voices
+
+@cindex tying notes across voices
 
 The following example demonstrates how to connect notes in
 different voices using ties.  Normally, only two notes in the
@@ -3575,7 +3654,8 @@ that case, @code{\once} will affect all of those objects while
 @code{\single} will only affect a single one, the one generated by
 the immediately following music expression.
 
-@subheading Simulating a fermata in MIDI
+@node Simulating a fermata in MIDI
+@unnumberedsubsubsec Simulating a fermata in MIDI
 
 @cindex stencil property, use of
 @cindex fermata, implementing in MIDI
@@ -4071,7 +4151,7 @@ distributed with GNU/Linux, or installed under fink or cygwin) or
 compiled it from source, and (b) on which operating system it is
 being used:
 
-@strong{Downloaded from lilypond.org}
+@subsubsubheading Downloaded from lilypond.org
 
 @itemize @bullet
 @item GNU/Linux
@@ -4101,7 +4181,7 @@ Using Windows Explorer, navigate to
 
 @end itemize
 
-@strong{Installed from a package manager or compiled from source}
+@subsubsubheading Installed from a package manager or compiled from source
 
 Navigate to
 @file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where

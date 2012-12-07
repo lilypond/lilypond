@@ -2725,7 +2725,7 @@ addition the @code{line-spanner-interface}.
 
 This interface provides two properties that apply to several spanners.
 
-@strong{@i{The @code{minimum-length} property}}
+@subsubsubheading The @code{minimum-length} property
 
 The minimum length of the spanner is specified by the
 @code{minimum-length} property.  Increasing this usually has the
@@ -2829,7 +2829,7 @@ e8 e e e
 e8 e e e
 @end lilypond
 
-@strong{@i{The @code{to-barline} property}}
+@subsubsubheading The @code{to-barline} property
 
 The second useful property of the @code{spanner-interface} is
 @code{to-barline}.  By default this is true, causing hairpins and
@@ -3223,7 +3223,7 @@ all-invisible to suppress.
 @node Special considerations
 @unnumberedsubsubsec Special considerations
 
-@strong{@emph{Visibility following explicit changes}}
+@subsubsubheading Visibility following explicit changes
 
 @cindex key signature, visibility following explicit change
 @cindex explicitKeySignatureVisibility
@@ -3276,7 +3276,7 @@ f4 g a b
 f4 g a b
 @end lilypond
 
-@strong{@emph{Visibility of cautionary accidentals}}
+@subsubsubheading Visibility of cautionary accidentals
 
 To remove the cautionary accidentals printed at an explicit key
 change, set the Staff context property @code{printKeyCancellation}
@@ -3299,7 +3299,7 @@ to indicate the change of key.
 
 @c TODO Add visibility of cautionary accidentals before notes
 
-@strong{@emph{Automatic bars}}
+@subsubsubheading Automatic bars
 
 @cindex automaticBars
 @cindex bar lines, suppressing
@@ -3315,7 +3315,7 @@ occur only at explicit @code{\bar} commands.
 
 @c TODO Add example
 
-@strong{@emph{Octavated clefs}}
+@subsubsubheading Octavated clefs
 
 @cindex octavated clefs, visibility of
 @cindex visibility of octavated clefs
