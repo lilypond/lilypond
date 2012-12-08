@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ea78e54687b8beb80958e55bcd3ddfbe90ab5967
+    Translation of GIT committish: 00e1520dc9f0b4dabe38da8895d147b07af843b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1418,8 +1418,8 @@ modifiés par @code{\override}.  Parmi ceux-là, les objets
 @example
 \overrideProperty
 Score.NonMusicalPaperColumn  % Nom de l'objet
-#'line-break-system-details     % Nom de la propriété
-#'((next-padding . 20))         % Valeur
+#'line-break-system-details  % Nom de la propriété
+#'((next-padding . 20))      % Valeur
 @end example
 
 Notez toutefois que la commande @code{\override} peut tout de même être
