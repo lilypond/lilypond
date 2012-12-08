@@ -2004,9 +2004,7 @@ property_operation:
 		}
 	}
 	| REVERT revert_arg {
-		$$ = scm_list_3 (ly_symbol2scm ("pop"),
-				 scm_car ($2),
-				 scm_cdr ($2));
+		$$ = scm_cons (ly_symbol2scm ("pop"), $2);
 	}
 	;
 
