@@ -8,13 +8,13 @@
 
 {
   \key c \major
-  \set Staff.shapeNoteStyles = #'#(do re mi fa #f la ti)
+  \set Staff.shapeNoteStyles = ##(do re mi fa #f la ti)
   <<
     { f'4 }
     \\
     { f'4 }
   >>
-  \set Staff.shapeNoteStyles = #'#(do re mi faThin #f la ti)
+  \set Staff.shapeNoteStyles = ##(do re mi faThin #f la ti)
   <<
     { f'4 }
     \\

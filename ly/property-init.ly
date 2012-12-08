@@ -420,22 +420,22 @@ predefinedFretboardsOn =
 
 %% shape note heads
 
-aikenHeads      = \set shapeNoteStyles = #'#(do re miMirror fa sol la ti)
-aikenHeadsMinor = \set shapeNoteStyles = #'#(la ti do re miMirror fa sol)
+aikenHeads      = \set shapeNoteStyles = ##(do re miMirror fa sol la ti)
+aikenHeadsMinor = \set shapeNoteStyles = ##(la ti do re miMirror fa sol)
 funkHeads =
-  \set shapeNoteStyles = #'#(doFunk reFunk miFunk faFunk solFunk laFunk tiFunk)
+  \set shapeNoteStyles = ##(doFunk reFunk miFunk faFunk solFunk laFunk tiFunk)
 funkHeadsMinor =
-  \set shapeNoteStyles = #'#(laFunk tiFunk doFunk reFunk miFunk faFunk solFunk)
-sacredHarpHeads = \set shapeNoteStyles = #'#(fa sol la fa sol la mi)
-sacredHarpHeadsMinor = \set shapeNoteStyles = #'#(la mi fa sol la fa sol)
+  \set shapeNoteStyles = ##(laFunk tiFunk doFunk reFunk miFunk faFunk solFunk)
+sacredHarpHeads = \set shapeNoteStyles = ##(fa sol la fa sol la mi)
+sacredHarpHeadsMinor = \set shapeNoteStyles = ##(la mi fa sol la fa sol)
 southernHarmonyHeads =
-  \set shapeNoteStyles = #'#(faThin sol laThin faThin sol laThin miThin)
+  \set shapeNoteStyles = ##(faThin sol laThin faThin sol laThin miThin)
 southernHarmonyHeadsMinor =
-  \set shapeNoteStyles = #'#(laThin miThin faThin sol laThin faThin sol)
+  \set shapeNoteStyles = ##(laThin miThin faThin sol laThin faThin sol)
 walkerHeads =
-  \set shapeNoteStyles = #'#(doWalker reWalker miWalker faWalker solFunk laWalker tiWalker)
+  \set shapeNoteStyles = ##(doWalker reWalker miWalker faWalker solFunk laWalker tiWalker)
 walkerHeadsMinor =
-  \set shapeNoteStyles = #'#(laWalker tiWalker doWalker reWalker miWalker faWalker solFunk)
+  \set shapeNoteStyles = ##(laWalker tiWalker doWalker reWalker miWalker faWalker solFunk)
 
 
 %% shifts

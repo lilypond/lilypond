@@ -2959,7 +2959,7 @@ line visible}, @code{beginning of line visible}.  In the following
 example bar numbers are printed at all possible places:
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber.break-visibility = #'#(#t #t #t)
+\override Score.BarNumber.break-visibility = ##(#t #t #t)
 \set Score.currentBarNumber = #11
 % Permit first bar number to be printed
 \bar ""

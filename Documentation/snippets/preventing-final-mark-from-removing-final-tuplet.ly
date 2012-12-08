@@ -25,7 +25,7 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
    \times 2/3 { c'16 c'16 c'16 }
-   \override Score.RehearsalMark.break-visibility = #'#(#t #t #t)
+   \override Score.RehearsalMark.break-visibility = ##(#t #t #t)
    \override Score.RehearsalMark.direction = #DOWN
    \override Score.RehearsalMark.self-alignment-X = #RIGHT
 % due to issue 2362 the following line is commented
@@ -43,7 +43,7 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
   \times 2/3 { c'16 c'16 c'16 }
   \times 2/3 { c'16 c'16 c'16 }
   \times 2/3 { c'16 c'16 c'16 }
-  \override Score.RehearsalMark.break-visibility = #'#(#t #t #t)
+  \override Score.RehearsalMark.break-visibility = ##(#t #t #t)
   \override Score.RehearsalMark.direction = #DOWN
   \override Score.RehearsalMark.self-alignment-X = #RIGHT
 % due to issue 2362 the following line is commented

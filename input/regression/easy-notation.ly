@@ -11,6 +11,6 @@ You also get ledger lines, of course."
   f2 e
   f4 e
   
-  \override NoteHead.note-names = #'#("U" "V" "W" "X" "Y" "Z" "z")
+  \override NoteHead.note-names = ##("U" "V" "W" "X" "Y" "Z" "z")
   c2 d4 e
 }

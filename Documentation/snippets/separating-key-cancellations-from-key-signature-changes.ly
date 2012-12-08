@@ -29,7 +29,7 @@ or the end.
 
 \new Staff {
   \override Score.BreakAlignment.break-align-orders =
-    #'#((left-edge ambitus breathing-sign clef staff-bar
+    ##((left-edge ambitus breathing-sign clef staff-bar
                    key-cancellation key-signature time-signature custos)
 
         (left-edge ambitus breathing-sign clef key-cancellation

@@ -3196,7 +3196,7 @@ visibility of bar lines:
 f4 g a b
 f4 g a b
 % Remove bar line at the end of the current line
-\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
+\once \override Score.BarLine.break-visibility = ##(#f #t #t)
 \break
 f4 g a b
 f4 g a b

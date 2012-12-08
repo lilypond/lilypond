@@ -10,7 +10,7 @@ musicWithBarNumberCheck =
   (integer?)
 #{
   \relative c' {
-    \override Score.BarNumber.break-visibility = #'#(#t #t #t)
+    \override Score.BarNumber.break-visibility = ##(#t #t #t)
     \repeat volta 28 {
      c1 |
      c |
