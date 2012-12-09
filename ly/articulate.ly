@@ -376,6 +376,9 @@
     (begin
      (set! (ly:music-property music 'elements) (reverse newelements))
      (cond
+      ((not (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
+		 newelements))
+       actions)
       (ac:inTrill (cons 'trill actions))
       ((and (eq? factor ac:normalFactor) (or ac:inSlur ac:inPhrasingSlur))
        (append actions (list 'articulation  '(1 . 1)) ))
@@ -468,7 +471,7 @@
     ((eq? 'EventChord (ly:music-property music 'name))
      (let loop ((actions (ac:getactions music)))
       (if (null? actions)
-	(if (ly:moment> (ly:music-length music) (make-moment 1 4))
+	(if (ly:moment<? (ly:make-moment 1/4) (ly:music-length music))
 	 (ac:to128  music)
 	 music)
 
