@@ -35,14 +35,21 @@ Property_iterator::process (Moment mom)
 {
   Context *o = get_outlet ();
   Music *m = get_music ();
-  SCM previous_value = o->get_property (m->get_property ("symbol"));
+  bool once = to_boolean (m->get_property ("once"));
+  SCM symbol = m->get_property ("symbol");
+  SCM previous_value = SCM_UNDEFINED;
+  if (once) {
+    Context *w = o->where_defined (symbol, &previous_value);
+    if (o != w)
+      previous_value = SCM_UNDEFINED;
+  }
   send_stream_event (o, "SetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
+                     ly_symbol2scm ("symbol"), symbol,
                      ly_symbol2scm ("value"), m->get_property ("value"));
 
   /* For \once \set install a finalization hook to reset the property to the
    * previous value after the timestep */
-  if (to_boolean (m->get_property ("once")))
+  if (once)
     {
       Global_context *tg = get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,

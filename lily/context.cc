@@ -228,6 +228,12 @@ Context::set_property_from_event (SCM sev)
   if (scm_is_symbol (sym))
     {
       SCM val = ev->get_property ("value");
+
+      if (SCM_UNBNDP (val)) {
+        unset_property (sym);
+        return;
+      }
+          
       bool ok = true;
       if (val != SCM_EOL)
         ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));

@@ -62,7 +62,7 @@ ly_scm_write_string (SCM s)
 SCM
 ly_quote_scm (SCM s)
 {
-  return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
+  return scm_list_2 (ly_symbol2scm ("quote"), s);
 }
 
 string
