@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 95b372c451ea1586db8db66d3d00334382e8e103
+    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -518,7 +518,7 @@ requis pour éviter tout risque d'erreur :
 
 @itemize
 @item
-Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
+Autour d'une accolade, qu'elle soit ouvrante ou fermante ;
 
 @item
 Après chaque commande ou variable, autrement dit tout élément qui
@@ -532,12 +532,8 @@ autrement dit tout élément qui commence par un @code{#} ;
 Pour séparer les éléments d'une expression Scheme ;
 
 @item
-En mode parole -- @code{lyricmode} -- pour séparer les termes des
-commandes @code{\override} et @code{\set}.  Précisons à ce sujet qu'en
-plus d'ajouter une espace avant et après l'intégralité de la commande,
-vous devrez encadrer d'espaces le point et le signe égal qu'elle peut
-contenir, comme dans
-@w{@code{\override Score . LyricText #'font-size = #5}}.
+En mode parole -- @code{lyricmode} -- avant et après les commandes
+@code{\override} et @code{\set}.
 
 @end itemize
 
@@ -1183,8 +1179,8 @@ LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 @headitem  Nom de la procédure      @tab  Condition testée
 
 @item print-page-number-check-first @tab  il faut imprimer ce numéro de page.
-@item create-page-number-stencil    @tab  'print-page-numbers est vrai.
-@item print-all-headers             @tab  'print-all-headers est vrai.
+@item create-page-number-stencil    @tab  print-page-numbers est vrai.
+@item print-all-headers             @tab  print-all-headers est vrai.
 @item first-page                    @tab  c'est la première page du @emph{book}.
 @item (on-page nombre)              @tab  numéro de page = nombre
 @item last-page                     @tab  c'est la dernière page du @emph{book}.
@@ -1309,9 +1305,9 @@ Ses arguments peuvent se définir ainsi :
 @item position
 Lorsque la commande @code{\footnote} s'applique à un élément
 d'interprétation ou un événement rattaché, et uniquement dans ces cas,
-elle doit être précédée d'un indicateur de positionnement (@code{-, _
-ou ^}) de façon à rattacher @var{musique} (avec sa marque) à la note ou
-au silence qui précède.
+elle doit être précédée d'un indicateur de positionnement (@code{-, _}
+ou @code{^}) de façon à rattacher @var{musique} (avec sa marque) à
+la note ou au silence qui précède.
 
 @item marque
 Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
@@ -1363,8 +1359,29 @@ Le moyen le plus simple d'annoter un événement est :
 \footnote @var{décalage} @var{annotation} @var{musique}
 @end example
 
-Ce type de note de bas de page s'attache à un objet de rendu généré par
-l'événement correspondant à @var{musique}.
+Ce type de note de bas de page s'attache à un objet de rendu
+généré directement par l'événement correspondant à @var{musique}.
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . 3) "Une note" a4
+    a4
+    \footnote #'(2 . 2) "Un silence" r4
+    a4
+  }
+}
+@end lilypond
+
+Lorsque l'annotation concerne un événement postérieur ou une
+articulation, la commande @code{\footnote} doit être précédée d'un
+indicateur de position (@code{-, _} ou @code{^}) et suivie de
+l'événement postérieur ou l'articulation comme argument
+@var{musique}.  Dans ce cas, la commande @code{\footnote} peut se
+considérer comme une copie de son dernier argument auquel oon
+attache une annotation.
 
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
@@ -1463,13 +1480,13 @@ ait pas d'erreur quant au positionnement de l'appel de note.
   \header { tagline = ##f }
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) #'TimeSignature "Changement de métrique" \default
+    \footnote #'(-0.5 . -1) "Changement de métrique" Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) #'Stem "Hampe de l'accord" \default
+    \footnote #'(1 . -1) "Hampe de l'accord" Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) #'BarLine "Barre de mesure" \default
+    \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) #'KeySignature "Changement d'armure" \default
+    \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
     \key c\minor
     q
   }
@@ -1505,7 +1522,7 @@ de note est :
 \markup @{ ... \auto-footnote @var{texte} @var{annotation} ... @}
 @end example
 
-Dont les éléments sont :
+Ses les éléments sont :
 
 @table @var
 
@@ -1548,7 +1565,7 @@ de note est :
 \markup @{ ... \footnote @var{appel} @var{annotation} ... @}
 @end example
 
-Dont les éléments sont :
+Ses les éléments sont :
 
 @table @var
 
@@ -1736,12 +1753,12 @@ numéro de page.  Vous pouvez bien entendu personnaliser ces variables :
 
 @verbatim
 \paper {
-  %% Translate the toc title into French:
+  %% Traduit le titre de la table des matières en français :
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% use larger font size
+  %% des fontes un peu plus grandes
   tocItemMarkup = \markup \large \fill-line {
     \fromproperty #'toc:text \fromproperty #'toc:page
   }
@@ -1916,12 +1933,12 @@ Selon l'endroit où @code{relative-includes} est valorisé à @code{#t} ou
 @code{#f}, la commande @code{\include} permettra d'incorporer des
 fichiers contenus dans l'arborescence du répertoire principal et des
 fichiers situés ailleurs.  Si, par exemple, une biblothèque générale
-libA a été créée pour utiliser des sous-fichiers à l'aide de
+libA a été créée pour utiliser des sous-fichiers à l'aide
 d'inclusions dans un fichier catalogue, les clauses @code{\include}
-devront être précédées d'un@code{#(ly:set-option #relative-includes #t)}
-de telle sorte qu'elles soient interprétées correctement lorsque
-rapatriées dans le fichier @file{.ly} principal.  Examinons cela dans
-les faits :
+devront être précédées d'un
+@code{#(ly:set-option #relative-includes #t)}  de telle sorte
+qu'elles soient interprétées correctement lorsque rapatriées dans
+le fichier @file{.ly} principal.  Examinons cela dans les faits :
 
 @example
 libA/
@@ -1969,7 +1986,7 @@ tout en ayant bien dans @file{principal.ly}
 @example
 \include "VI.ly"
 \include "VII.ly"
-... etc
+ etc.
 @end example
 
 Lorsqu'un fichier est voué à être inclus dans nombre de partitions, vous
@@ -1982,7 +1999,7 @@ fichier de définition particulier @file{gregorian.ly}.
 
 Au moment où vous lancez LilyPond, un certain nombre de fichiers se
 retrouvent inclus par défaut ; il suffit d'activer le mode verbeux
-en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
+en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
 verrez ainsi défiler, en plus de nombreuses informations, le nom d'un
 certain nombre de fichiers et de chemins d'accès.  Les fichiers les plus
 important sont mentionnés au chapitre
@@ -2177,7 +2194,7 @@ music = \relative g' {
 }
 @end lilypond
 
-Ce principe de filtrage peut s'appliquer aux articulations, textes etc.
+Ce principe de filtrage peut s'appliquer aux articulations, textes, etc.
 Il suffit de positionner
 
 @example
@@ -2692,6 +2709,7 @@ comportera plus de quinze portées verra le même canal réutilisé.
 
 @menu
 * Création de fichiers MIDI::
+* Instrument MIDI::
 * Le bloc MIDI::
 * Contenu de la sortie MIDI::
 * Répétitions et MIDI::
@@ -2765,34 +2783,6 @@ Vous pouvez aussi le faire en ligne de commande :
 lilypond … -dmidi-extension=midi fichierLily.ly
 @end example
 
-
-@unnumberedsubsubsec Noms d'instrument
-@translationof Instrument names
-
-@cindex instrument, nom d'
-@funindex Staff.midiInstrument
-
-L'instrument MIDI affecté à un canal particulier est déterminé par la
-propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
-instruments répertoriés à l'annexe @ref{Instruments MIDI}.
-
-@example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
-@}
-@end example
-
-@example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
-@}
-@end example
-
-Lorsque l'instrument choisi ne correspond pas exactement à l'une des
-dénominations consacrées, LilyPond le replacera par un piano de concert
-(@code{"acoustic grand"}).
-
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
@@ -2824,6 +2814,35 @@ Certains lecteurs MIDI ne rendent pas correctement les changements de
 tempo.  MS Windows Media Player et 
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity} le font sans
 problème.
+
+@node Instrument MIDI
+@subsection Instrument MIDI
+@translationof MIDI Instruments
+
+@cindex instrument, nom d'
+@cindex MIDI, instruments
+@funindex Staff.midiInstrument
+
+L'instrument MIDI affecté à un canal particulier est déterminé par la
+propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
+instruments répertoriés à l'annexe @ref{Instruments MIDI}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+Lorsque l'instrument choisi ne correspond pas exactement à l'une des
+dénominations consacrées, LilyPond le replacera par un piano de concert
+(@code{"acoustic grand"}).
 
 
 @node Le bloc MIDI
@@ -2901,7 +2920,13 @@ commande @code{\score}.
 
 @c TODO Check grace notes - timing is suspect?
 
+@menu
+* Éléments pris en compte dans le MIDI::
+* Éléments non pris en compte dans le MIDI::
+@end menu
 
+
+@node Éléments pris en compte dans le MIDI
 @unnumberedsubsubsec Éléments pris en compte dans le MIDI
 @translationof Supported in MIDI
 
@@ -2968,6 +2993,7 @@ alors inclus :
 @end itemize
 
 
+@node Éléments non pris en compte dans le MIDI
 @unnumberedsubsubsec Éléments non pris en compte dans le MIDI
 @translationof Unsupported in MIDI
 
@@ -3063,7 +3089,15 @@ par défaut au contexte @code{Voice}.  Vous pouvez contrôler à la fois le
 volume général, celui des indications de nuance ainsi que celui des
 différents instruments.
 
+@menu
+* Indications de nuance::
+* Amplitude du volume en MIDI::
+* Égalisation de plusieurs instruments (i)::
+* Égalisation de plusieurs instruments (ii)::
+@end menu
 
+
+@node Indications de nuance
 @unnumberedsubsubsec Indications de nuance
 @translationof Dynamic marks
 
@@ -3115,6 +3149,7 @@ correspondances, nous vous conseillons d'utiliser la procédure
 Le dernier exemple de cette partie illustre la manière de procéder.
 
 
+@node Amplitude du volume en MIDI
 @unnumberedsubsubsec Amplitude du volume en MIDI
 @translationof Overall MIDI volume
 
@@ -3131,7 +3166,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @end example
 
 Voici comment ajuster les nuances tout en limitant l'amplitude du volume
-entre 0,2 et 0,5 :
+entre 0,2 et 0,5 :
 
 @lilypond[verbatim,quote]
 \score {
@@ -3158,9 +3193,9 @@ entre 0,2 et 0,5 :
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }
@@ -3169,6 +3204,7 @@ entre 0,2 et 0,5 :
 @end lilypond
 
 
+@node Égalisation de plusieurs instruments (i)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (i)
 @translationof Equalizing different instruments (i)
 
@@ -3217,6 +3253,7 @@ indication de nuance.
 @end lilypond
 
 
+@node Égalisation de plusieurs instruments (ii)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (ii)
 @translationof Equalizing different instruments (ii)
 

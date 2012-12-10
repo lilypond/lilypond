@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -449,9 +449,9 @@ sont les suivants :
   @tab c d e f g a b h
 @item @code{english}
   @tab c d e f g a bf b
-@item @code{espanol}
+@item @code{espanol} ou @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano}
+@item @code{italiano} ou @code{français}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -482,9 +482,9 @@ et les suffixes d'altération correspondants :
 @item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @code{espanol}
+@item @code{espanol} ou @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano}
+@item @code{italiano} ou @code{français}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
@@ -1089,6 +1089,8 @@ c2 c
 @cindex transposition et clef
 @cindex clef et transposition
 @cindex octave et clef
+@cindex octaviation optionnelle
+@cindex opotionnelle, octaviation
 @cindex chorale, clef de ténor
 @cindex ténor, clef
 
@@ -1113,6 +1115,19 @@ c2 c
 \clef "F^5"
 c2 c
 @end lilypond
+
+Une indication d'octaviation optionnelle s'obtient en entourant
+l'argument numérique par des parenthèses ou des crochets :
+
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+Les hauteurs seront affichées comme si l'argument numérique
+n'avait pas été encadré de parenthèses ou crochets.
 
 Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
 sujet @ref{Notations anciennes}, @ref{Clefs anciennes},
@@ -1143,6 +1158,21 @@ Référence des propriétés internes :
 @rinternals{Clef},
 @rinternals{OctavateEight},
 @rinternals{clef-interface}.
+
+@knownissues
+L'indicateur d'octaviation attaché à la clef est un objet graphique en
+lui même.  Par voie de conséquence, tout @code{\override} affectant
+l'objet @code{Clef} devra être manuellement répercuté sur l'objet
+@code{OctavateEight}.
+
+@lilypond[fragment,quote,relative=1]
+\new Staff \with {
+  \override OctavateEight.color = #red
+  \override Clef.color = #blue
+}
+
+\clef "treble_8" c4
+@end lilypond
 
 
 @node Armure
@@ -1219,6 +1249,39 @@ f
 fis
 @end lilypond
 
+Rien n'empèche de définir d'autres modes, en listant l'altération
+de chacun des degrés de la gamme en partant du do.
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative c' {
+  \key c\freygish c4 des e f
+  \bar "||" \key d\freygish d es fis g
+}
+@end lilypond
+
+Les altérations à la clef peuvent s'imprimer à des octaves
+différents de leur position traditionnelle ou à plusieurs octaves,
+à l'aide des propriétés @code{flat-positions} et
+@code{sharp-positions} de l'objet @code{KeySignature}.  Les
+entrées fourniees à ces propriétés définissent l'amplitude des
+positions sur la portée où les altérations seront imprimées.  Dans
+le cas où l'entrée est constituée d'une position unique, les
+altérations seront placées à l'intérieur de l'octave finissant à
+cette position sur la portée.
+
+@lilypond[verbatim, quote,relative=0]
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+
+\override Staff.KeySignature.sharp-positions = #'(2)
+\bar "||" \key b\major b fis b2
+@end lilypond
+ 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
@@ -1243,7 +1306,6 @@ Référence des propriétés internes :
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
-@rinternals{key-cancellation-interface},
 @rinternals{key-signature-interface}.
 
 
