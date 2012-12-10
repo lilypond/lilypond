@@ -159,6 +159,36 @@ translations = {
         'Doc tarball for ': 'Tömörített csomag - verzió: ',
         ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
+    'it': {
+        'Source': 'Sorgenti',
+        'Learning': 'Apprendimento',
+        'Music glossary': 'Glossario',
+        'Essay': 'Saggio',
+        'Notation': 'Notazione',
+        'Usage': 'Uso',
+        'Snippets': 'Frammenti',
+        'Web': 'Web',
+        'Changes': 'Cambiamenti',
+        'Extending': 'Estendere',
+        'Internals': 'Funzionamento interno',
+        'Contributor': 'Guida del collaboratore',
+
+# keep the spaces!
+        ' (split HTML)': ' (HTML multipagina)',
+        ' (big HTML)': ' (HTML pagina unica)',
+
+        'Regression tests for ': 'Test di collaudo per ',
+        'PDF of regtests for ': 'PDF dei test di collaudo per ',
+        'abc2ly Regression tests for ': 'Test di collaudo di abc2ly per ',
+        'PDF of abc2ly regtests for ': 'PDF dei test di collaudo di abc2ly per ',
+        'lilypond-book Regression tests for ': 'Test di collaudo di lilypond-book per ',
+        'PDF of lilypond-book regtests for ': 'PDF dei test di collaudo di lilypond-book per ',
+        'MusicXML Regression tests for ': 'Test di collaudo di MusicXML per ',
+        'PDF of MusicXML regtests for ': 'PDF dei test di collaudo di MusicXML per ',
+
+        'Doc tarball for ': 'Archivio della documentazione per ',
+        ' (did not exist in 2.12)': ' (non disponibile per la versione 2.12)',
+        },
     'ja': {
         'Source': 'ソース',
         'Learning': '学習',
