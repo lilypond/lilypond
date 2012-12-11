@@ -1017,13 +1017,24 @@ music:	music_arg
 
 music_embedded:
 	music
+	{
+		if (unsmob_music ($1)->is_mus_type ("post-event")) {
+			parser->parser_error (@1, _ ("unexpected post-event"));
+			$$ = SCM_UNSPECIFIED;
+		}
+	}
 	| embedded_scm
 	{
-		if (unsmob_music ($1)
-		    || scm_is_eq ($1, SCM_UNSPECIFIED))
+		if (scm_is_eq ($1, SCM_UNSPECIFIED))
 			$$ = $1;
-		else
-		{
+		else if (Music *m = unsmob_music ($1)) {
+			if (m->is_mus_type ("post-event")) {
+				parser->parser_error
+					(@1, _ ("unexpected post-event"));
+				$$ = SCM_UNSPECIFIED;
+			} else
+				$$ = $1;
+		} else {
 			@$.warning (_ ("Ignoring non-music expression"));
 			$$ = SCM_UNSPECIFIED;
 		}
