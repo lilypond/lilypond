@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: b93dbb4dd2fe708d0360f190cb4d06fa29bcae53
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -220,7 +220,7 @@ il retourne.
 La syntaxe générale de cette commande est :
 
 @example
-\override @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-rendu} = #@var{valeur}
+\override @var{Contexte}.@var{ObjetDeRendu}.@var{propriété-rendu} = #@var{valeur}
 @end example
 
 @noindent
@@ -241,12 +241,20 @@ mise en forme et l'utilisation de ces commandes, nous nous limiterons à
 n'employer que quelques propriétés et valeurs simples, facilement
 compréhensibles.
 
-Nous ne parlerons dans l'immédiat ni du @code{#'}, qui précède
-toujours la propriété, ni du @code{#}, qui précède toujours la
-valeur.  Ces deux éléments doivent obligatoirement être
-présents sous cette forme.  Voici la commande la plus fréquente
-pour faire des retouches, et pratiquement tout le reste de ce
-chapitre aura pour but montrer, à travers des exemples, comment
+Lilypond reconnaît comme expression primaire les éléments musicaux
+tels que les notes, durées et annotations (les @emph{markups}).
+D'autres expressions de base comme les nombres, chaînes de
+caractères et listes sont gérées en « mode Scheme », mode appelé
+en faisant précéder une valeur par un @samp{#}.  Bien que
+certaines valeurs puissent disposer d'une représentation tout à
+fait valide dans le mode musical de LilyPond, les exemples de ce
+manuel mentionnent un@samp{#} pour plus de clarté.  Pour de plus
+amples informations quant au mode Scheme, consultez
+@rextend{Syntaxe Scheme dans LilyPond}.
+
+La commande @code{\override} est la plus fréquemment utilisée pour
+faire des retouches, et pratiquement tout le reste de ce chapitre
+aura pour but de montrer, à travers des exemples, comment
 l'utiliser.  L'exemple ci-dessous change la couleur des têtes de
 notes :
 
@@ -278,7 +286,7 @@ ont été employés, il ne s'agit pas de la valeur précédente mais bien de
 la valeur par défaut.
 
 @example
-\revert @var{Contexte}.@var{ObjetDeRendu} #'@var{propriété-de-rendu}
+\revert @var{Contexte}.@var{ObjetDeRendu}.@var{propriété-de-rendu}
 @end example
 
 Tout comme pour la commande @code{\override}, la mention du
@@ -403,7 +411,7 @@ pas nécessaire d'insérer un signe égal.  La syntaxe générale
 de la commande @code{\tweak} est donc, tout simplement :
 
 @example
-\tweak #'@var{propriété-de-rendu} #@var{valeur}
+\tweak @var{propriété-de-rendu} #@var{valeur}
 @end example
 
 La commande @code{\tweak} est aussi utilisée quand on veut, dans
@@ -441,7 +449,7 @@ jusqu'à l'événement originel :
 
 Cette forme développée de la commande @code{\tweak} correspond à :
 @example
-\tweak @var{objet-de-rendu} #'@var{propriété-de-rendu} @var{valeur}
+\tweak @var{objet-de-rendu}.@var{propriété-de-rendu} @var{valeur}
 @end example
 
 @cindex nolets imbriqués
@@ -486,8 +494,6 @@ avec la commande @code{\override} :
 @cindex transparence, exemple d'utilisation de la propriété
 @cindex TupletNumber, exemple de dérogation
 
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
@@ -605,7 +611,7 @@ plus simple est de consulter la RPI.
 La page de la RPI sur les liaisons commence par préciser que les objets
 « Liaison » sont créés par le graveur Slur_engraver.  Vient ensuite la
 liste des réglages standard ; vous y trouverez la propriété susceptible
-+de contrôler l'épaisseur des traits de liaison.
+de contrôler l'épaisseur des traits de liaison.
 
 @example
 @code{thickness} (nombre)
@@ -636,8 +642,7 @@ Nous obtenons :
 \override Slur.thickness = #5.0
 @end example
 
-N'oublions pas le @code{#'} qui doit précéder le nom de la propriété et
-le @code{#} qui doit précéder la nouvelle valeur.
+N'oublions pas le @code{#} qui doit précéder la nouvelle valeur.
 
 La dernière question est : @qq{Où placer cette commande ?}
 Tant qu'on n'est pas sûr de soi, la meilleure réponse est @qq{À
@@ -867,7 +872,7 @@ s'y rapportent, parmi lesquels LyricText.
 Nous avons alors sous les yeux tous les réglages des propriétés qui
 contrôlent les polices de caractères, et notamment
 @code{font-shape(symbole)}, où @code{symbole} peut prendre la valeur
-@code{upright}, @code{italics} ou @code{caps}.
+@code{upright}, @code{italic} ou @code{caps}.
 
 Vous remarquerez que @code{font-series} et @code{font-size} figurent
 aussi dans la liste.  La question qui ne manque pas de se poser
@@ -888,19 +893,14 @@ Voyons maintenant si nous sommes en mesure de formuler la commande
 @code{LyricText}, la propriété est @code{font-shape} et la valeur est
 @code{italic}.  Comme auparavant, nous laissons de côté le contexte.
 
-Signalons rapidement -- même si cette remarque est importante -- que,
-puisque les valeurs de @code{font-shape} se présentent sous forme de
-symboles, elles doivent être précédées d'une simple apostrophe,
-@code{'}.  C'est pour cette raison qu'il fallait une apostrophe devant
-@code{thickness} dans l'exemple précédent, et qu'il en faut une devant
-@code{font-shape}.  Ce sont à chaque fois des symboles, qui sont
-interprétés comme tels par LilyPond.  Certains symboles peuvent être des
-noms de propriété, comme @code{thickness} ou @code{font-shape},
-d'autres sont des valeurs à attribuer aux propriétés, comme
-@code{italic}.  À ne pas confondre avec les chaînes de caractères
-libres, qui se présentent comme @code{"un texte libre"} ; pour plus
-de détails sur les symboles et les chaînes de caractères, voir le
-@rextend{Tutoriel Scheme}.
+Signalons rapidement -- même si cette remarque est importante -- que
+certaines valeurs de propriétés se présentent sous forme de
+symboles, comme @code{italic}, et doivent donc être précédées
+d'une simple apostrophe, Ces symboles seront alors interprétés
+comme tels par LilyPond.  À ne pas confondre avec les chaînes de
+caractères libres qui se présentent comme @code{"un texte
+libre"} ; pour plus de détails sur les symboles et les chaînes de
+caractères, voir le @rextend{Tutoriel Scheme}.
 
 Ainsi, la commande @code{\override} pour mettre les paroles en italique
 est :
@@ -937,34 +937,8 @@ comme ceci :
 @noindent
 et voilà les paroles en italiques.
 
-
-@subheading Spécification du contexte en mode lyrique
-@c VO Specifying the context in lyric mode
-
-@cindex contexte, spécification en mode lyrique
-@cindex mode lyrique, spécification de contexte en
-
-Lorsqu'il s'agit de paroles et qu'on cherche à préciser le contexte
-sur le modèle de ce qui a été fait précédemment, la commande échoue.
-Car une syllabe saisie en mode Paroles (@code{lyricmode}) se termine
-obligatoirement par une espace, un saut de ligne ou un nombre.  Tout
-autre caractère compte comme un élément de la syllabe.  C'est pourquoi
-il faut une espace ou un saut de ligne avant le @code{@}} final, pour
-éviter qu'il ne soit assimilé à la dernière syllabe.  De même, il faut
-insérer des espaces de part et d'autre du point, @qq{.}, qui sépare le
-nom de contexte du nom de l'objet, faute de quoi les deux noms seront
-joints et l'interpréteur ne pourra pas les reconnaître.  La formulation
-correcte est donc :
-
-@example
-\override Lyrics.LyricText.font-shape = #'italic
-@end example
-
 @warning{Dans la saisie des paroles, pensez à toujours laisser une
 espace entre la dernière syllabe et l'accolade fermante.}
-
-@warning{Lorsqu'on retouche des paroles, toujours placer des espaces
-autour du point qui sépare le nom de contexte du nom d'objet.}
 
 @seealso
 Manuel d'extension :
@@ -1143,7 +1117,22 @@ mentionnant le bon contexte :
 }
 @end lilypond
 
-Cette fois, les barres de mesure ont disparu.
+Cette fois, les barres de mesure ont disparu.  Désactiver la
+propriété @code{stencil} est une opération tellement fréquente que
+LilyPond dispose d'un raccourci -- @code{\omit} (pour « oublier »)
+-- à cet effet :
+
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Vous remarquerez que l'affectation de la valeur @code{#f} à la propriété
 @code{stencil} déclenchera une erreur dès lors que l'objet en question se
@@ -1173,12 +1162,13 @@ booléens.  Ceux-ci indiquent respectivement si les barres de mesure
 doivent être imprimées ou non à la fin de la ligne, à l'intérieur de la
 ligne et au début de la ligne.  Dans notre cas, nous voulons que toutes
 les barres soient supprimées, si bien que la valeur dont nous avons
-besoin est @code{'#(#f #f #f)}.  Essayons, sans oublier d'ajouter le
+besoin est @code{#(#f #f #f)}.  Essayons, sans oublier d'ajouter le
 contexte @code{Staff}.  Vous remarquerez que, en plus de cette valeur,
-nous ajoutons @code{#'#} devant la parenthèse ouvrante.  Le @code{'#}
-est nécessaire car il fait partie intégrante de la valeur contenant un
-vecteur, et le premier @code{#} est là, comme toujours avec la commande
-@code{\override}, pour introduire la valeur elle-même.
+nous ajoutons @code{##} devant la parenthèse ouvrante.  Un second
+@code{#} est nécessaire car il fait partie intégrante de la valeur
+contenant un vecteur, et le premier @code{#} est là, comme
+toujours avec la commande @code{\override}, pour introduire la
+valeur elle-même.
 
 @cindex BarLine, exemple de dérogation
 @cindex break-visibility exemple d'utilisation de la propriété
@@ -1230,11 +1220,29 @@ pour rendre la métrique transparente est :
 @end lilypond
 
 @noindent
-La métrique a bien disparu mais la commande a laissé un blanc en lieu et
-place du chiffrage.  Ce peut être souhaitable dans le cadre d'un
-exercice, afin que les élèves aient la place pour compléter, mais dans
-d'autres circonstances, ce peut être gênant.  Pour y remédier,
-attribuons plutôt au stencil des métriques la valeur @code{#f} :
+L'utilisation de la propriété @code{transparent} étant
+relativement fréquent, LilyPond dispose d'un raccourci à cet
+effet : @code{\hide} (pour « masquer ».
+
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+La métrique a bien disparu dans les deux cas, mais la commande a
+laissé un blanc en lieu et place du chiffrage.  Ce peut être
+souhaitable dans le cadre d'un exercice, afin que les élèves aient
+la place pour compléter, mais dans d'autres circonstances, ce peut
+être gênant.  Pour y remédier, attribuons plutôt au stencil des
+métriques la valeur @code{#f} :
 
 @cindex TimeSignature, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
@@ -1251,8 +1259,10 @@ attribuons plutôt au stencil des métriques la valeur @code{#f} :
 
 @noindent
 La différence est flagrante : le fait d'attribuer au stencil la
-valeur @code{#f} supprime totalement l'objet, tandis que le fait de le
-rendre @code{transparent} le laisse en place, mais de façon invisible.
+valeur @code{#f} ou grâce à @code{\omit} supprime totalement
+l'objet, tandis que le fait de le rendre @code{transparent} -- ce
+qui s'obtient aussi par la commande @code{\hide} -- le laisse en
+place, mais de façon invisible.
 
 
 @subheading couleur
@@ -1294,12 +1304,12 @@ Pour mettre les barres de mesure en blanc, on écrit :
 @noindent
 et nous constatons que les barres de mesure sont une fois de plus
 invisibles.  Attention : aucune apostrophe ne précède @code{white}
--- il ne s'agit pas d'un symbole mais d'une @strong{fonction}.  Quand on
-l'invoque, elle fournit une liste de valeurs internes requises pour
-changer la couleur en blanc.  Les autres couleurs aussi, dans la
-@qq{liste normale}, sont des fonctions.  Pour en être certain, vous
-pouvez faire l'essai en choisissant une autre fonction de la liste en
-guise de couleur.
+-- il ne s'agit pas d'un symbole mais d'une @strong{variable}.
+Quand on l'invoque, elle fournit une liste de valeurs internes
+requises pour changer la couleur en blanc.  Les autres couleurs
+aussi, dans la @qq{liste normale}, sont des variables.  Pour en
+être certain, vous pouvez faire l'essai en choisissant une autre
+variable de la liste en guise de couleur.
 
 @cindex couleur X11
 @cindex X11, couleurs
@@ -1308,9 +1318,9 @@ guise de couleur.
 
 Le deuxième moyen de changer la couleur consiste à utiliser la deuxième
 @ruser{Liste des couleurs}, dite noms de couleurs X11.  Ceux-ci doivent
-obligatoirement être précédés d'une autre fonction, qui convertit les
-noms de couleurs X11 en une liste de valeurs internes, @code{x11-color},
-comme ceci :
+obligatoirement être précédés d'une fonction, @code{x11-color},
+qui convertit les noms symboliques de couleur X11 en une liste de
+valeurs internes comme ceci :
 
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
@@ -1328,19 +1338,21 @@ comme ceci :
 @noindent
 Vous noterez que, dans ce cas, la fonction @code{x11-color} admet un
 symbole comme argument ; il faut donc placer une apostrophe devant
-le symbole et insérer les deux à l'intérieur de parenthèses.
+le symbole de telle sorte qu'il ne soit pas interprété comme une
+variable, et insérer l'appel à la fonction à l'intérieur de
+parenthèses.
 
 @cindex rgb, couleur
 @cindex couleurs rgb
 
 @funindex rgb-color
 
-Il existe une troisième fonction, écrite pour convertir les valeurs RVB
-en couleurs internes -- la fonction @code{rgb-color}.  Elle comporte
-trois arguments, donnant respectivement l'intensité du rouge, du vert et
-du bleu.  Ces arguments prennent des valeurs comprises entre 0 et 1.
-Ainsi, pour choisir la couleur rouge, la valeur serait
-@code{(rgb-color 1 0 0)} ; pour le blanc, ce serait
+Il existe une autre fonction, chargée elle de convertir les
+valeurs RVB en couleurs internes -- la fonction @code{rgb-color}.
+Elle comporte trois arguments, donnant respectivement l'intensité
+du rouge, du vert et du bleu.  Ces arguments prennent des valeurs
+comprises entre 0 et 1.  Ainsi, pour choisir la couleur rouge, la
+valeur serait @code{(rgb-color 1 0 0)} ; pour le blanc, ce serait
 @code{(rgb-color 1 1 1)} :
 
 @cindex BarLine, exemple de dérogation
@@ -1434,9 +1446,9 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
 
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
-@cindex stencil, exemple d'utilisation de la propriété
 @cindex Clef, exemple de dérogation
 @cindex TimeSignature, exemple de dérogation
+@funindex \omit
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1449,8 +1461,8 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef.stencil = ##f
-        \override Staff.TimeSignature.stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1467,14 +1479,15 @@ d'ossia.
 
 Mais alors, quelle différence y a-t-il à modifier le contexte de portée
 au moyen de @code{\with} ou à modifier les stencils de la clef et de la
-métrique  avec @code{\override} ?  La principale différence est que
-les changements opérés dans une clause @code{\with} sont réalisés au
-moment où le contexte est créé et restent par la suite les valeurs
-@strong{par défaut} aussi longtemps que ce contexte existe, tandis que
-les commandes @code{\set} ou @code{\override} insérées dans la musique
-sont dynamiques -- elles provoquent des changements synchronisés avec un
-point particulier de la musique.  Si les changements sont annulés ou
-désactivés par @code{\unset} ou @code{\revert}, les réglages reprennent
+métrique  avec @code{\override} ou @code{\omit} comme ici ?  La
+principale différence est que les changements opérés dans une
+clause @code{\with} sont réalisés au moment où le contexte est
+créé et restent par la suite les valeurs @strong{par défaut} aussi
+longtemps que ce contexte existe, tandis que les commandes
+@code{\set} ou @code{\override} insérées dans la musique sont
+dynamiques -- elles provoquent des changements synchronisés avec
+un point particulier de la musique.  Si les changements sont annulés ou
+dés activés par @code{\unset} ou @code{\revert}, les réglages reprennent
 leurs valeurs par défaut, c'est-à-dire celles qui ont été fixées dans la
 clause @code{\with}, ou, en l'absence de celle-ci, les valeurs par
 défaut normales.
@@ -1513,6 +1526,32 @@ Remplaçons donc l'exemple ci-dessus par celui-ci :
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
         \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Nous pourrions tout aussi bien utiliser les raccourcis
+@code{\hide} et @code{\omit} pour activer la propriété
+@code{transparent} et désactiver le @code{stencil}, ce qui
+donnerait :
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1575,8 +1614,8 @@ Essayons sur l'exemple d'ossia :
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
@@ -1646,8 +1685,8 @@ augmente, les objets en question.  Voici comment elle s'utilise :
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
@@ -1878,11 +1917,12 @@ signification est précisée.
   @tab Les nolets sont au-dessous/au-dessus des notes
 @end multitable
 
-Attention : ces commandes prédéfinies @strong{ne doivent pas} être
-précédées de @code{\once}.  Pour limiter l'effet à une seule note, il
-faut soit utiliser la commande équivalente @code{\once \override}, soit
-utiliser la commande prédéfinie, suivie, après la note à modifier, de la
-commande @code{\xxxNeutral} correspondante.
+Les variantes @code{\xxxNeutral} et @code{\xxxNormal} de ces
+commandes sont implémentées à l'aide de @code{\revert} ; elles
+@strong{ne doivent pas} être précédées de @code{\once}.  Pour
+limiter les effets des autres commandes prédéfinies (fonctionnant
+à base de @code{\override}) à une seule note, il faut les faire
+précéder d'un @code{\once}, comme pour toute dérogation.
 
 
 @unnumberedsubsubsec Doigtés
@@ -3687,6 +3727,39 @@ réglant la longueur (@code{length}) sur @code{8},
 @end lilypond
 
 
+@funindex \single
+@cindex affinage généré par une dérogation
+
+Nous aurions pu, pour déroger à la transparence d'un objet
+graphique, utiliser le raccourci @code{\omit} que nous avons vu
+plus haut.  L'affinage constitue une opération différente en ceci
+qu'il n'affecte que les propriétés générées par une expression
+musicale unique.  Nous pourrions tout à fait convertir des
+dérogations en affinages à l'aide d'un @code{\single} et ré-écrire
+l'exemple précédent de cette manière :
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+Dans ce cas particulier, la différence avec un @code{\once \hide}
+n'est pas flagrante.  Elle prend cependant toute son importance
+lorsque plusieurs objets de retrouvent au même instant musical --
+comme les têtes des notes d'un accord.  En effet, la présence d'un
+@code{\once} sera répercutée à tous les objets, alors qu'un
+@code{\single} n'affectera, lui, qu'un seul objet, celui généré
+par l'expression musicale qui le suit directement.
+
+
 @subheading Rendu MIDI d'un point d'orgue
 @c VO Simulating a fermata in MIDI
 
@@ -3718,7 +3791,7 @@ Nous montrons ci-dessous le résultat des deux méthodes :
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.transparent = ##t
+    \once \hide Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3740,7 +3813,7 @@ Nous montrons ci-dessous le résultat des deux méthodes :
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.stencil = ##f
+    \once \omit Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |

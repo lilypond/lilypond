@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+    Translation of GIT committish: 95b372c451ea1586db8db66d3d00334382e8e103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1090,11 +1090,34 @@ Les métriques anciennes font l'objet d'un
 
 En plus de déterminer la métrique qui sera imprimée, la commande
 @code{\time} réglera aussi les valeurs par défaut des propriétés
-@code{baseMoment}, @code{beatStructure} et @code{beamExceptions}.
-Les valeurs prédéterminées par défaut de ces différentes propriétés sont
-inscrites dans le fichier @file{scm/time-signature-settings.scm}.  Vous
-pouvez les modifier de la manière suivante :
+@code{baseMoment}, @code{beatStructure} et @code{beamExceptions}
+correspondant à la métrique.  Les valeurs prédéterminées par défaut de
+ces différentes propriétés sont inscrites dans le fichier
+@file{scm/time-signature-settings.scm}.
 
+La valeur par défaut de @code{beatStructure} peut se voir aménagée dès
+la commande @code{\time} à l'aide d'un premier argument :
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff {
+    \relative c' {
+      \time #'(2 2 3) 7/8
+      \repeat unfold 7 { c8 } |
+      \time #'(3 2 2) 7/8
+      \repeat unfold 7 { c8 } |
+    }
+  }
+}
+@end lilypond
+
+Les valeurs par défaut de toutes ces variables associées à la métrique,
+y compris @code{baseMoment} et @code{beamExceptions}, peuvent se définir
+en même temps.  Ces valeurs peuvent se régler indépendamment pour
+différentes métriques.  Les valeurs adaptées ne seront effectives qu'à
+partir du moment où interviendra une commande @code{\time} de la valeur
+de métrique correspondante :
+ 
 @lilypond[quote,verbatim]
 \score {
   \relative c' {
@@ -1115,7 +1138,7 @@ pouvez les modifier de la manière suivante :
 
 @item
 @code{@var{timeSignatureFraction}}, une fraction indiquant la
-métrique,
+métrique pour laquelle ces valeurs doivent s'appliquer,
 
 @item
 @code{@var{baseMomentFraction}}, une fraction comprenant les numérateur
@@ -1231,6 +1254,10 @@ particuliers pour les différentes portées d'un regroupement :
 }
 @end lilypond
 
+Une autre méthode de modification de ces variables liées à la métrique,
+et qui évite sa réimpression au moment du changement, est indiquée à la
+rubrique @ref{Définition des règles de ligature automatique}.
+
 @predefined
 @code{\numericTimeSignature},
 @code{\defaultTimeSignature}.
@@ -1245,8 +1272,12 @@ Glossaire musicologique :
 @rglosnamed{time signature,métrique}.
 
 Manuel de notation :
+@ref{Définition des règles de ligature automatique},
 @ref{Métriques anciennes},
 @ref{Gestion du temps}.
+
+Installed Files:
+@file{scm/time-signature-settings.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -1601,7 +1632,7 @@ que de manière détournée -- modification de l'indicateur de métrique
 et échelonnement de la durée des notes.
 
 
-@subsubheading Métriques différentes et mesures d'égale longueur
+@subsubsubheading Métriques différentes et mesures d'égale longueur
 @c VO Different time signatures with equal-length measures
 
 Il suffit, pour obtenir cette forme de notation, de tout d'abord
@@ -1647,7 +1678,7 @@ les règles de ligature automatique.
 @end lilypond
 
 
-@subsubheading Métriques différentes et mesures de longueur inégale
+@subsubsubheading Métriques différentes et mesures de longueur inégale
 @c VO Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
@@ -1693,8 +1724,8 @@ parviendrez en déplaçant le @code{Timing_translator} et le
 @end lilypond
 
 
-@subsubheading Métriques complexes
-@translationof Compound time signatures
+@subsubsubheading Métriques complexes
+@c VO Compound time signatures
 
 @cindex métrique composite
 @cindex complexe, métrique
@@ -2045,6 +2076,9 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 Lorsque la fonction de ligature automatique est active, le
 positionnement des ligatures dépend des trois propriétés
 @code{baseMoment}, @code{beatStructure} et @code{beamExceptions}.
+Les valeurs par défaut de ces variables peuvent s'adapter, comme indiqué
+ci-après, ou bien carrément être modifiées -- voir @ref{Métrique}.
+
 Dès lors qu'une règle affectant @code{beamExceptions} est définie pour
 la métrique en vigueur, c'est cette règle qui servira à déterminer le
 placement des ligatures.  En l'absence de règle affectant
@@ -2063,7 +2097,7 @@ désactivent par un
 @end example
 
 
-@subsubheading @i{Ligature basée sur @code{baseMoment} et @code{beatStructure}}
+@subsubsubheading @i{Ligature basée sur @code{baseMoment} et @code{beatStructure}}
 @c VO Beaming based on baseMoment and beatStructure
 
 Dans la plupart des cas, une ligature automatique se termine à la fin
@@ -2179,7 +2213,7 @@ rangées par métrique et type de règle, sont répertoriées dans le
 fichier @file{scm/time-signature-settings.scm}.
 
 
-@subsubheading @i{Ligature basée sur @code{beamExceptions}}
+@subsubsubheading @i{Ligature basée sur @code{beamExceptions}}
 @c VO Beaming based on beamExceptions
 
 Les règles spécifiques autres que celles concernant la terminaison des
@@ -2297,7 +2331,7 @@ r4. a8 a a |
 @end lilypond
 
 
-@subsubheading @i{@strong{Principes de la ligature automatique}}
+@subsubsubheading @i{@strong{Principes de la ligature automatique}}
 @c VO How automatic beaming works
 
 Lorsqu'elle est activée, la gestion automatisée des ligatures est
@@ -2362,8 +2396,11 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 {beam-endings-in-score-context.ly}
 
 @seealso
+Manuel de notation :
+@ref{Métrique}.
+
 Fichiers d'initialisation :
-@file{scm/beam-settings.scm}.
+@file{scm/time-signature-settings.scm}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.

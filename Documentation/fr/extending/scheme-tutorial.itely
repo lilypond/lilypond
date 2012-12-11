@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ea78e54687b8beb80958e55bcd3ddfbe90ab5967
+    Translation of GIT committish: 00e1520dc9f0b4dabe38da8895d147b07af843b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -233,7 +233,17 @@ Scheme prend aussi en charge des types de données composites.  LilyPond
 utilise beaucoup les paires, listes, listes associatives et tables de
 hachage.
 
-@subheading Paires
+@menu
+* Paires::
+* Listes::
+* Listes associatives (alists)::
+* Tables de hachage::
+@end menu
+
+
+@node Paires
+@unnumberedsubsubsec Paires
+@translationof Pairs
 
 Le type de donnée composite fondamental est la paire (@code{pair}).
 Comme son nom l'indique, il s'agit de lier deux valeurs, à l'aide de
@@ -290,7 +300,9 @@ Abelson -- voir
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
 
-@subheading Listes
+@node Listes
+@unnumberedsubsubsec Listes
+@translationof Lists
 
 Autre structure de donnée commune en Scheme : la liste (@emph{list}).
 Une liste se définit comme étant vide (représentée par @code{'()}) ou
@@ -322,7 +334,9 @@ d'ailleurs jusqu'à considérer Scheme comme un dialecte du lisp, où
 que toute expression Scheme est une liste.
 
 
-@subheading Listes associatives (alists)
+@node Listes associatives (alists)
+@unnumberedsubsubsec Listes associatives (alists)
+@translationof Association lists (alists)
 
 Il existe un type particulier de liste : la @emph{liste associative} --
 ou @emph{alist}.  Une @emph{alist} permet de stocker des données dans le
@@ -349,7 +363,9 @@ LilyPond recourt abondamment aux @emph{alists} pour stocker des
 propriétés ou autres données.
 
 
-@subheading Tables de hachage
+@node Tables de hachage
+@unnumberedsubsubsec Tables de hachage
+@translationof Hash tables
 
 Il s'agit d'une structure de données à laquelle LilyPond fait parfois
 appel.  Une table de hachage (@emph{hash table}) peut se comparer à une
@@ -530,8 +546,16 @@ Une procédure Scheme est une expression Scheme qui renverra une valeur
 issue de son exécution.  Les procédures Scheme sont capables de
 manipuler des variables qui ne sont pas définies en leur sein.
 
+@menu
+* Définition de procédures::
+* Prédicats::
+* Valeurs de retour::
+@end menu
 
-@subheading Définition de procédures
+
+@node Définition de procédures
+@unnumberedsubsubsec Définition de procédures
+@translationof Defining procedures
 
 En Scheme, on définit une procédure à l'aide de l'instruction
 @code{define} :
@@ -560,7 +584,9 @@ guile> (moyenne 3 12)
 @end lisp
 
 
-@subheading Prédicats
+@node Prédicats
+@unnumberedsubsubsec Prédicats
+@translationof Predicates
 
 Une procédure Scheme chargée de retourner une valeur booléenne s'appelle
 un @qq{prédicat} (@emph{predicate}).  Par convention, plutôt que par
@@ -576,7 +602,9 @@ guile> (moins-de-dix? 15)
 @end lisp
 
 
-@subheading Valeurs de retour
+@node Valeurs de retour
+@unnumberedsubsubsec Valeurs de retour
+@translationof Return values
 
 Une procédure Scheme doit toujours renvoyer une valeur de retour, en
 l'occurrence la valeur de la dernière expression exécutée par cette
@@ -611,7 +639,15 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @subsection Scheme et les conditions
 @translationof Scheme conditionals
 
-@subheading if
+@menu
+* if::
+* cond::
+@end menu
+
+
+@node if
+@unnumberedsubsubsec if
+@translationof if
 
 Scheme dispose d'une procédure @code{if} :
 
@@ -632,7 +668,9 @@ guile> (if (> a b) "a est plus grand que b" "a n'est pas plus grand que b")
 @end lisp
 
 
-@subheading cond
+@node cond
+@unnumberedsubsubsec cond
+@translationof cond
 
 Une autre manière d'introduire une condition en Scheme est d'utiliser
 l'instruction @code{cond} :
@@ -1013,7 +1051,18 @@ pour les autres.  Ainsi, l'objet hampe possède une propriété
 @subsection Variables LilyPond composites
 @translationof LilyPond compound variables
 
-@subheading Décalages (@emph{offsets})
+@menu
+* Décalages (offsets)::
+* Fractions::
+* Étendues (extents)::
+* Propriété en alists::
+* Chaînes d'alist::
+@end menu
+
+
+@node Décalages (offsets)
+@unnumberedsubsubsec Décalages (@emph{offsets})
+@translationof Offsets
 
 Les décalages (@emph{offset}) sur deux axes (coordonnées X et Y) sont
 stockés sous forme de @emph{paires}. Le @code{car} de l'offset
@@ -1034,7 +1083,9 @@ Les procédures permettant de manipuler les offsets sont regroupées dans
 le fichier @file{scm/lily-library.scm}.
 
 
-@subheading Fractions
+@node Fractions
+@unnumberedsubsubsec Fractions
+@translationof Fractions
 
 Les fractions, tel que LilyPond les utilise, sont aussi stockées sous
 forme de @emph{paire}.  Alors que Scheme est tout à fait capable de
@@ -1046,7 +1097,9 @@ en LilyPond correspond à @code{(2 . 4)} en Scheme, et @code{#2/4} en
 LilyPond correspond à @code{1/2} en Scheme.
 
 
-@subheading Étendues (@emph{extents})
+@node Étendues (extents)
+@unnumberedsubsubsec Étendues (@emph{extents})
+@translationof Extents
 
 Les paires permettent aussi de stocker des intervalles qui représentent
 un ensemble de nombres compris entre un minimum (le @code{car}) et un
@@ -1064,7 +1117,9 @@ l'utilisation de ces procédures dans toute la mesure du possible afin
 d'assurer la cohérence du code.
 
 
-@subheading Propriété en @emph{alists}
+@node Propriété en alists
+@unnumberedsubsubsec Propriété en @emph{alists}
+@translationof Property alists
 
 Les propriétés en @emph{alists} sont des structures de données
 particulières à LilyPond.  Il s'agit de listes associatives dont les
@@ -1075,7 +1130,9 @@ Les propriétés LilyPond sont des symboles Scheme, à l'instar de
 @code{'thickness}.
 
 
-@subheading Chaînes d'@emph{alist}
+@node Chaînes d'alist
+@unnumberedsubsubsec Chaînes d'@emph{alist}
+@translationof Alist chains
 
 Une chaîne d'@emph{alist} est une liste contenant les listes
 associatives d'une propriété.

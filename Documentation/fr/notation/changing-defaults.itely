@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: 0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -846,7 +846,7 @@ en définissant directement une propriété de contexte :
 
 @item
 à l'aide d'une commande prédéfinie comme @code{\dynamicUp}, ou bien une
-expression musicale telle que @code{\accidentalStyle "dodecaphonic"} :
+expression musicale telle que @code{\accidentalStyle dodecaphonic} :
 
 @c KEEP LY
 @lilypond[quote,verbatim]
@@ -1513,7 +1513,7 @@ francophones.
 Tous les éléments de notation sont considérés comme des objets
 graphiques (en anglais @emph{Graphical Object}, d'où le diminutif
 @emph{Grob}).  Chaque objet est doté d'un certain nombre de propriétés
-(l'épaisseur du trait, l'orientation,  etc.), et lié à d'autres objets.
+(l'épaisseur du trait, l'orientation, etc.), et lié à d'autres objets.
 Le fonctionnement de ces objets est décrit en détail dans
 @rinternals{grob-interface}.
 
@@ -1801,7 +1801,7 @@ objets graphiques.
 La syntaxe employée pour ce faire est
 
 @example
-\override @var{contexte}.@var{objet} #'@var{propriété} = #@var{valeur}
+\override @var{contexte}.@var{objet}.@var{propriété} = #@var{valeur}
 @end example
 
 Ici @var{objet} est un objet graphique, tel que @code{Stem} (les hampes)
@@ -2081,26 +2081,8 @@ liste Scheme ; on peut les consulter dans le fichier
 @code{\override} est en fait un raccourci :
 
 @example
-\override @var{contexte}.@var{NomObjet} #'@var{propriété} = #@var{valeur}
+\override [@var{contexte}.]@var{NomObjet}.@var{propriété} = #@var{valeur}
 @end example
-
-@noindent
-plus ou moins équivalent à
-
-@c  leave this long line -gp
-@example
-\set @var{contexte}.@var{NomObjet}  =
-  #(cons (cons '@var{propriété} @var{valeur})
-         <valeur antérieure de @var{contexte}.@var{NomObjet}>)
-@end example
-
-La valeur de @var{contexte}.@var{NomObjet} (une liste associative, ou
-@emph{alist}) permet d'initialiser les propriétés des objets un par un.
-Les objets eux-mêmes ont leurs propriétés, dont les noms, dans la
-tradition du langage Scheme, comprennent un trait d'union
-(@code{toto-titi}).  Ces propriétés internes changent constamment au
-cours de la mise en page : en fait, la gravure d'une page n'est autre
-que le calcul de toutes ces propriétés au moyen de fonctions de rappel.
 
 Nous pouvons donc par exemple accroître l'épaisseur des hampes en jouant
 sur la propriété @code{thickness} de l'objet @code{stem} :
@@ -2128,12 +2110,34 @@ celle-ci s'appliquera au contexte le plus bas :
 }
 @end lilypond
 
+Certaines @qq{sous-propriétés} sont parfois contenues dans une
+propriété.  La commande devient alors :
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+ou, pour modifier les extrémités d'un objet à extension :
+
+@example
+\override TextSpanner.bound-details.left.text = #"texte de gauche"
+\override TextSpanner.bound-details.right.text = #"texte de droite"
+@end example
+
 @cindex annulation d'un override
 @cindex override, annulation des effets
 @funindex \revert
 
 Les effets d'un @code{\override} prennent fin à l'aide de l'instruction
-@code{\revert} :
+@code{\revert}.
+
+La syntaxe de la commande @code{\revert} command est :
+
+@example
+\revert [@var{contexte}.]@var{NomObjet}.@var{propriété}
+@end example
+
+Par exemple :
 
 @lilypond[quote,verbatim,relative=2]
 c4
@@ -2205,13 +2209,6 @@ du trait).
 @item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
 @end itemize
 
-Certaines @qq{sous-propriétés} sont parfois contenues dans une
-propriété.  La commande devient alors :
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-
 @cindex documentation exhaustive
 @cindex trouver des objets graphiques
 @cindex objets graphiques, description
@@ -2245,11 +2242,11 @@ L'utilisation d'un @code{\override} pour modifier les propriétés d'un
 objet graphique affectera toutes les instances de l'objet en question au
 sein du contexte, et ce dès son apparition.  Il peut parfois être
 préférable de n'affecter qu'un seul objet en particulier plutôt que tous
-les objets du contexte.  C'est là rôle de l'instruction @code{\tweak},
+les objets du contexte.  C'est là le rôle de l'instruction @code{\tweak},
 dont la syntaxe est :
 
 @example
-\tweak @var{objet-de-rendu} #'@code{objet-propriété} @code{valeur}
+\tweak [@var{objet-de-rendu}.]@code{objet-propriété} @code{valeur}
 @end example
 
 Mention de l'@var{objet-de-rendu} est optionnel.
@@ -2371,8 +2368,9 @@ la mesure où elles seront ultérieurement générées et après les têtes de
 note (objets @code{NoteHead}, plutôt qu'au fil des éléments musicaux
 saisis.
 
-De tels objets créés indirectement peuvent être ajustés que par une
-forme dévelppée de la commande @code{\tweak} :
+De tels objets créés indirectement ne peuvent être ajustés que par une
+forme développée de la commande @code{\tweak}, autrement dit
+lorsque l'objet est explicitement mentionné :
 
 @lilypond[relative=2,verbatim,quote]
 \tweak Stem.color #red
@@ -2700,7 +2698,15 @@ tantôt par la droite, ou être centrées.  La plupart de ces choix peuvent
 dans certains cas, d'imposer l'orientation ou le positionnement des
 éléments.
 
-@strong{Indicateurs de position d'une articulation}
+@menu
+* Indicateurs de position d'une articulation::
+* La propriété direction::
+@end menu
+
+
+@node Indicateurs de position d'une articulation
+@unnumberedsubsubsec Indicateurs de position d'une articulation
+@translationof Articulation direction indicators
 
 Certains positionnements sont opérés par défaut -- toujours au-dessus ou
 toujours en dessous (nuances ou points d'orgue) -- alors que d'autres
@@ -2737,7 +2743,10 @@ c2( c)
 c2^( c)
 @end lilypond
 
-@strong{La propriété @code{direction}}
+
+@node La propriété direction
+@unnumberedsubsubsec La propriété @code{direction}
+@translationof The direction property
 
 Le positionnement ou l'orientation de nombreux objets de rendu sont
 gérés par la propriété @code{direction}.
@@ -2922,9 +2931,15 @@ Tout extenseur dispose de la @code{spanner-interface}.  Quelques uns,
 tout particulièrement ceux chargés de dessiner une ligne droite entre
 deux objets, disposent aussi de la @code{line-spanner-interface}.
 
++@menu
+* Utilisation de spanner-interface::
+* Utilisation de line-spanner-interface::
+@end menu
 
+
+@node Utilisation de spanner-interface
 @unnumberedsubsubsec Utilisation de @code{spanner-interface}
-@translationof Using the @code{spanner-interface}
+@translationof Using the spanner-interface
 
 Cette interface fournit deux propriétés qui s'appliquent à certains
 extenseurs.
@@ -3055,8 +3070,9 @@ affecter @code{#t}) dans le cas d'une liaison d'articulation ou de
 phrasé !
 
 
+@node Utilisation de line-spanner-interface
 @unnumberedsubsubsec Utilisation de @code{line-spanner-interface}
-@translationof Using the @code{line-spanner-interface}
+@translationof Using the line-spanner-interface
 
 Un certain nombre d'objets disposent de la propriété
 @code{line-spanner-interface}, entre autres :
@@ -3846,7 +3862,7 @@ valeur de @code{direction}.
 @unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
 @translationof Using the self-alignment-interface
 
-@emph{Réalignement d'objets horizontalement}
+@subsubsubheading Réalignement d'objets horizontalement
 
 L'alignement horizontal d'un objet disposant de la
 @code{self-alignment-interface} dépend de la valeur de sa propriété
@@ -3882,7 +3898,7 @@ a'
 @end lilypond
 
 
-@emph{Réalignement d'objets verticalement}
+@subsubsubheading Réalignement d'objets verticalement
 
 L'alignement vertical suit le même principe : la propriété
 @code{Y-offset} doit alors engager la procédure
@@ -3903,7 +3919,7 @@ de son parent.  Les valeurs symboliques @code{DOWN}, @code{CENTER} et
 et @code{1}.
 
 
-@emph{Réalignement d'objets sur les deux axes}
+@subsubsubheading Réalignement d'objets sur les deux axes
 
 Définir à la fois @code{X-offset} et @code{Y-offset} permet de réaligner
 un objet sur les deux axes.
@@ -4159,12 +4175,30 @@ Manuel de notation :
 @cindex Bézier, points de contrôle d'une courbe
 @cindex points de contrôle, courbe de Bézier
 
-Les liaisons, qu'elles soient de prolongation, d'articulation ou de
-phrasé, sont dessinées sous la forme de courbes de Bézier de degré
-trois.  Lorsque l'aspect de la liaison automatiquement calculé n'est pas
-satisfaisant,  il peut être modifié manuellement, en fournissant
-explicitement les quatre points de contrôle qui permettront de définir
-cette courbe.
+Les liaisons, qu'elles soient de prolongation (@code{Tie}),
+d'articulation (@code{Slur}), de phrasé (@code{PhrasingSlur}), de
+laisser-vibrer (@code{LaissezVibrerTie} ou de reprise
+(@code{RepeatTie}), sont dessinées sous la forme de courbes de
+Bézier de degré trois.  Lorsque l'aspect de la liaison
+automatiquement calculé n'est pas satisfaisant, il peut être
+modifié manuellement de deux manières différentes :
+
+@enumerate a
+@item
+en spécifiant l'ajustement qui doit être apporté aux points de
+contrôle de la courbe calculée automatiquement, ou
+@item
+en fournissant explicitement les quatre points de contrôle qui
+permettront de définir cette courbe.
+@end enumerate
+
+Ces deux méthodes sont expliquées ci-dessous.  La première
+convient mieux dans le cas d'une légère adaptation de la courbe ;
+la seconde sera plus efficace lorsqu'il s'agira de créer une courbe
+sur une seule et unique note.
+
+@subsubsubheading Courbes de Bézier cubiques
+@c VO  Cubic Bézier curves
 
 Quatre points définissent une courbe de Bézier cubique. Les premier et
 quatrième points sont les points de départ et d'arrivée de la
@@ -4172,10 +4206,19 @@ courbe ; les deux autres points de contrôle -- P1 et P2 -- en
 détermineront l'allure.  La courbe se trace en partant du point P0, en
 se dirigeant vers P1 et en arrivant au point P3 selon la direction
 @w{P2-P3}.  La courbe est à l'intérieur de l'enveloppe convexe des
-points de contrôle.
+points de contrôle.  Tout déplacement (translation, rotation,
+échelonnement) des points de contrôle sera répercuté sur le dessin
+de la courbe.
+
+
+@subsubsubheading Spécification de l'ajustement des points de contrôle
+@c VO Specifying displacements from current control points
 
 Voici par exemple une liaison de prolongation dont l'allure n'est pas
 des plus heureuses, même en optant pour un @code{\tieDown}.
+
+@cindex galbe des liaisons
+@funindex \shape
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -4185,8 +4228,122 @@ des plus heureuses, même en optant pour un @code{\tieDown}.
 >>
 @end lilypond
 
-L'un des moyens d'améliorer cette liaison consiste à modifier
-manuellement ses quatre points de contrôle.
+L'ajustement des points de contrôle de cette liaison de tenue à
+l'aide de @code{\shape} permet d'éviter les collisions.
+
+L'instruction @code{\shape} obéit à la syntaxe
+
+@example
+[-]@code{\shape} @var{déplacements} @var{élément}
+@end example
+
+Ceci aura pour effet de repositionner les points de contrôle de
+@var{élément} des différents montants fournis par
+@var{déplacements}.  L'argument @var{déplacements} est constitué
+d'une liste de paires de nombres ou bien d'une liste de telles
+listes.  Chacun des membres de l'une des paires indique
+l'ajustement de la coordonnée d'un point de contrôle.  Lorsque
+@var{élément} est textuel, il en résulte une dérogation
+particulière appliquée au type d'objet considéré, alors que dans
+le cas d'une expression musicale sera appliqué un affinage
+approprié.
+
+En d'autres termes, la fonction @code{\shape} se comporte soit
+comme un @code{\once \override}, soit comme un @code{\tweak} selon
+que l'argument @var{élément} est un nom d'objet -- tel « Slur »
+-- ou une expression musicale tel un « ( ».  L'argument
+@var{déplacements} spécifie les ajustements à apporter aux quatre
+points de contrôle, sous la forme d'une liste de paires
+@w{@code{(dx . dy)}} dont les valeurs sont exprimées en espace de
+portée ; on utilisera une liste de listes de paires dans le cas où
+la courbe comporte plusieurs segments.
+
+La fonction sera précédée d'un tiret si et seulement si elle doit
+s'appliquer sous forme de @code{\tweak}.
+
+Pour l'exemple qui nous occupe, l'adaptation sous forme
+dérogatoire -- recours à @code{\once\override} -- de la fonction
+@code{\shape}, nous pouvons remonter la liaison d'un demi espace
+de portée :
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e1~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+La liaison est maintenant mieux positionnée ; mais sa partie
+centrale pourrait être un peu plus relevée, en procédant comme
+ci-dessous, cette fois en utilisant la formulation d'affinage
+-- la forme @code{\tweak} :
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+L'adaptation du positionnement horizontal des points de contrôle
+se réalise de la même manière, ce qui permet de gérer le galbe de
+deux courbes débutant au même instant musical :
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+c8(\( a) a'4 e c\)
+\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+c8(\( a) a'4 e c\)
+@end lilypond
+
+La fonction @code{\shape} permet aussi d'adapter les points de
+contrôle d'une courbe qui se prolonge après un saut de ligne.
+Chaque portion de la courbe peut se voir appliquer sa propre liste
+d'ajustements.  Lorsque l'un des segments ne nécessite pas de
+retouche, il suffit de lui fournir une liste vide.  Dans l'exemple
+suivant, le saut de ligne laisse à croire qu'il y a non pas une
+seule mais deux liaisons :
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+Regalber les deux moitiés de la liaison rend plus évident le fait
+qu'elle d'étend par delà le saut de ligne :
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+% () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% if any of the segments does not need to be changed
+\shape #'(
+           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+         ) Slur
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+La présence d'une courbe en S requiert obligatoirement d'ajuster
+manuellement les points de contrôle -- LilyPond n'optera jamais
+automatiquement pour un tel galbe.
+
+@lilypond[verbatim,quote,relative=2]
+c8( e b-> f d' a e-> g)
+\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+c8\( e b-> f d' a e-> g\)
+@end lilypond
+
+@subsubsubheading Déclaration explicite des points de contrôle
+@c VO Specifying control points explicitly
 
 Les coordonnées des points de contrôle sont données en unités d'espace
 de portée.  L'abscisse est relative au point de référence de la note de
@@ -4195,29 +4352,35 @@ de la portée.  Les différentes coordonnées sont entrées sous la forme
 d'une liste de quatre paires de nombres décimaux (ou nombres réels).
 L'une des manières de procéder consiste à tout d'abord estimer les
 coordonnées des deux extrémités puis, par tâtonnement, déterminer les
-deux points intermédiaires.
+deux points intermédiaires.  Gardez à l'esprit que ces valeurs
+pourront devoir être revues si la musique ou sa mise en forme sont
+modifées.
 
-Remarque intéressante au sujet des courbes : une courbe sera
-symétrique si ses points de contrôle sont symétriques.  L'une des
-propriétés avantageuses des courbes de Bézier est que leur
-transformation -- déplacement, rotation ou échelonnement -- est
-réalisable en simplement corrigeant de manière identique ses points de
-contrôle.
+L'une des situation où spécifier explicitement les points de
+contrôle se révèle être tout à fait appropriée est lorsqu'ils se
+réfèrent à une seul et unique note.  L'exemple suivant illustre
+l'un des moyens d'indiquer une liaison qui se prolonge sur les
+alternatives d'une répétition.
 
-Pour l'exemple qui nous occupe, l'adaptation suivante nous permet
-d'obtenir un résultat plutôt satisfaisant.  Notez bien l'endroit où
-cette adaptation est stipulée : juste avant la note de départ de la
-liaison.
-
-@lilypond[verbatim,quote,relative=1]
-<<
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 3 { c4 d( e f }
+\alternative {
+  { g2) d }
   {
-    \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e
+    g2
+    % create a slur and move it to a new position
+    % the <> is just an empty chord to carry the slur termination
+    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+    f,
   }
-\\
-  { r4 <g c,> <g c,> <g c,> }
->>
+  {
+    e'2
+    % create a slur and move it to a new position
+    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+    f,
+  }
+}
 @end lilypond
 
 @knownissues

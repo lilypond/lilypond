@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2720,11 +2720,11 @@ grâce à quelques simples artifices.
 Certaines transcriptions laissent néanmoins apparaître
 occasionnellement des hampes, notamment pour indiquer la transition
 entre un récitatif monodique et une phrase mélodique.  Il suffit en
-pareil cas d'utiliser plutôt @code{\override Stem #'transparent = ##t}
-ou @code{\override Stem #'length = #0} puis, en cas de besoin, recourir
-à une clause @code{\once \override Stem #'transparent = ##f} comme dans
+pareil cas d'utiliser plutôt @code{\override Stem.transparent = ##t}
+ou @code{\override Stem.length = #0} puis, en cas de besoin, recourir
+à une clause @code{\once \override Stem.transparent = ##f} comme dans
 l'exemple ci-dessous.  N'oubliez pas que les crochets aussi doivent
-disparaître, grâce à un @code{\override Flag #'transparent = ##t}.
+disparaître, grâce à un @code{\override Flag.transparent = ##t}.
 
 @b{Temps}.  En matière de chant non mesuré, plusieurs alternatives
 s'offrent à vous.
@@ -2740,7 +2740,7 @@ bons résultats.  On pourrait aussi utiliser @code{\CadenzaOn} et
 
 Rien de plus radical que de supprimer du contexte @code{Staff} le
 @code{Bar_engraver} pour ne pas voir de barre de mesure.  Là aussi, une
-clause @code{\override BarLine #'transparent = ##t} vous permettra d'en
+clause @code{\override BarLine.transparent = ##t} vous permettra d'en
 afficher une au besoin.
 
 Dans de nombreuses transcriptions, le récitatif fait apparaître une

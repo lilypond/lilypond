@@ -1,0 +1,17 @@
+%% Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+
+  texidocfr = "
+Un glissando qui se prolonge sur plusieurs sections @code{\\alternative}
+peut se rappeler à l'aide d'une note d'ornement supplémentaire et
+masquée, à laquelle sera attaché le départ du glissando, ce dans chaque
+bloc @code{\\alternative}.  Cette note d'ornement devrait avoir la même
+hauteur que la note où commençait le glissando originel.  Ceci est géré
+par une fonction musicale qui prendra en argument la hauteur de la note
+d'ornement.
+
+Dans le cadre d'un musicque polyphonique, il ne faudra pas oublier
+d'ajouter une note d'ornement dans toutes les autres voix afin de
+préserver la synchronisation.
+
+"
+  doctitlefr = "Rappel du glissando à l'occasion d'une alternative"

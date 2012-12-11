@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -209,8 +209,8 @@ bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
 
 @funindex \bookpart
 
-Plusieurs pièces seront regroupées dans un même @qq{chapitre} à l'aide
-d'un bloc @code{\bookpart}.  Ces différents @qq{chapitres} sont séparés
+Plusieurs pièces seront regroupées dans un même « chapitre » à l'aide
+d'un bloc @code{\bookpart}.  Ces différents « chapitres » sont séparés
 par un saut de page et peuvent comporter un titre à l'instar de
 l'ouvrage dès lors que vous y insérez un bloc @code{\header}.
 
@@ -383,18 +383,19 @@ Une expression Scheme pure, telle que
 @w{@code{#(ly:set-option 'point-and-click #f)}}.
 
 @item
-Un bloc @code{\header}, dont le contenu sera de portée globale -- ce qui
-est le cas en général pour le titre ou l'auteur entre autres.
+Un bloc @code{\header}, dont le contenu sera valide pour tout le
+fichier.  Il comporte en général les valeurs par défaut des champs de
+titrage, tels le titre ou l'auteur entre autres, communs à tous les
+blocs @code{\book} inclus dans le fichier -- voir
+@ref{Généralités en matière de titrages}.
 
 @item
 Un bloc @code{\score} pour la partition.  Cette partition sera assemblée
 avec les autres partitions se trouvant au même niveau pour composer le
 @code{\book}.  Vous pouvez modifier ce comportement à l'aide de la
-variable @code{toplevel-score-handler} placée en tête.
-@ignore
-@c FIXME - I cannot read "toplevel-score-handler" in scm/lily.scm -jcm
-The default handler is defined in the init file @file{../scm/lily.scm}.
-@end ignore
+variable @code{toplevel-score-handler} placée en tête.  Le gestionnaire
+par défaut est défini dans le fichier d'initialisation
+@file{../scm/lily.scm}.
 
 @item
 Un bloc @code{\book} permet de regrouper naturellement plusieurs
@@ -409,11 +410,8 @@ d'un bloc @code{\book} est aussi nécessaire lorsque vous travaillez sur
 un document lilypond-book qui reprendrait plusieurs @code{\score} ou
 @code{\markup} dans un même extrait.  Vous pouvez modifier ce
 comportement à l'aide de la variable @code{toplevel-book-handler}
-placée en tête.
-@ignore
-@c FIXME - I cannot read "toplevel-book-handler" in scm/lily.scm -jcm
-The default handler is defined in the init file @file{../scm/lily.scm}.
-@end ignore
+placée en tête.  Le gestionnaire par défaut est défini dans le fichier
+d'initialisation @file{../scm/lily.scm}.
 
 @item
 Un bloc @code{\bookpart}.  Un ouvrage peut se découper en plusieurs
@@ -448,11 +446,9 @@ simple expression musicale sera traduit en
 @end example
 
 Vous pouvez modifier ce comportement à l'aide de la variable
-@code{toplevel-music-handler} placée en tête.
-@ignore
-@c FIXME - I cannot read "toplevel-music-handler" in scm/lily.scm -jcm
-The default handler is defined in the init file @file{../scm/lily.scm}.
-@end ignore
+@code{toplevel-music-handler} placée en tête.  Le gestionnaire par
+défaut est défini dans le fichier d'initialisation
+@file{../scm/lily.scm}.
 
 @item
 Du texte sous forme de @emph{markup} comme les paroles d'un couplet
@@ -522,7 +518,7 @@ requis pour éviter tout risque d'erreur :
 
 @itemize
 @item
-Autour d'une accolade, qu'elle soit ouvrant ou fermante ;
+Autour d'une accolade, qu'elle soit ouvrante ou fermante ;
 
 @item
 Après chaque commande ou variable, autrement dit tout élément qui
@@ -536,12 +532,8 @@ autrement dit tout élément qui commence par un @code{#} ;
 Pour séparer les éléments d'une expression Scheme ;
 
 @item
-En mode parole -- @code{lyricmode} -- pour séparer les termes des
-commandes @code{\override} et @code{\set}.  Précisons à ce sujet qu'en
-plus d'ajouter une espace avant et après l'intégralité de la commande,
-vous devrez encadrer d'espaces le point et le signe égal qu'elle peut
-contenir, comme dans
-@w{@code{\override Score . LyricText #'font-size = #5}}.
+En mode parole -- @code{lyricmode} -- avant et après les commandes
+@code{\override} et @code{\set}.
 
 @end itemize
 
@@ -550,6 +542,7 @@ Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
 Manuel de notation :
+@ref{Généralités en matière de titrages},
 @ref{Le bloc \layout}.
 
 
@@ -558,8 +551,8 @@ Manuel de notation :
 @translationof Titles and headers
 
 La plupart de la musique qui est éditée comporte un titre et le nom de
-son compositeur ; certains ouvrages divulguent beaucoup plus
-d'information.
+son compositeur ; certains ouvrages dispensent beaucoup plus
+d'informations.
 
 @menu
 * Création de titres et entête ou pied de page::
@@ -575,56 +568,93 @@ d'information.
 @translationof Creating titles headers and footers
 
 @menu
-* Contenu des blocs de titrage::
-* Mise en forme par défaut des titrages::
+* Généralités en matière de titrages::
+* Mise en forme par défaut des titrages subalternes::
 * Mise en forme par défaut des entête et pied de page::
 @end menu
 
 
-@node Contenu des blocs de titrage
-@unnumberedsubsubsec Contenu des blocs de titrage
-@translationof Title blocks explained
+@node Généralités en matière de titrages
+@unnumberedsubsubsec Généralités en matière de titrages
+@translationof Titles explained
 
-@c TODO: figure out how \bookpart titles work
+Chaque bloc @code{\book} apparaissant dans un même fichier source
+résultera en un fichier indépendant, comme indiqué à la rubrique
+@ref{Structure de fichier}.  Chacun de ces fichiers résultants
+comporte deux endroits où placer des titrages : les @strong{titrages
+de partie} au début de chaque partie (@emph{bookpart}) et les
+@strong{titrages de morceau} avant chaque pièce (@emph{score}).  Tous
+deux peuvent comporter les mêmes champs bien que, par défaut, le titrage
+d'un morceau se limite à @code{piece} et @code{opus}.
 
-Il existe en fait deux types de blocs de titrage : un bloc pour
-contenir le titre principal qui doit apparaître avant le tout premier
-@code{\score} d'un ouvrage, et un autre attaché à chacun des blocs
-@code{\score} qui le composent.  Dans les deux cas, les champs qui
-composent un bloc de titrage se saisissent dans un bloc @code{\header}.
+Les blocs @code{\header} peuvent se placer à quatre endroits différents
+qui formeront une hiérarchie descendante :
 
-Lorsque l'ouvrage ne comporte qu'un seul morceau, le bloc @code{\header}
-peut se placer en dehors ou au sein même du bloc @code{\score}.
+@itemize
 
-Dans le cas où le bloc @code{\header} est défini à l'intérieur du bloc
-@code{\score}, seuls les champs @code{piece} et @code{opus} seront
-imprimés.
+@item
+En tête du fichier source, avant même tout bloc @code{\book},
+@code{\bookpart} ou @code{\score} ;
 
-@lilypond[papersize=a5,quote,verbatim,noragged-right]
-\score {
-  { c'4 }
-  \header {
-    title = "title"  % not printed
-    piece = "piece"
-    opus = "opus"
-  }
-}
-@end lilypond
+@item
+Au sein d'un bloc @code{\book} et en dehors de tout bloc
+@code{\bookpart} ou @code{\score} qu'il contient ;
 
-@funindex print-all-headers
-@noindent
-Vous pouvez modifier ce comportement et imprimer tous les champs d'un
-bloc @code{\header} défini dans un bloc @code{\score} en ajoutant
+@item
+Au sein d'un bloc @code{\bookpart} et en dehors de tout bloc
+@code{\score} qu'il contient ;
 
-@example
-\paper@{
-  print-all-headers = ##t
-@}
-@end example
+@item
+Après l'expression musicale incluse dans un bloc @code{\score}.
+
+@end itemize
+
+La valeur des différents champs sera filtrée en respectant cette
+hiérarchie ; les valeurs persisteront à moins d'être écrasées par une
+autre valeur à un niveau inférieur.  Ainsi :
+
+@itemize
+@item
+Le titre d'une partie découle des champs définis en tête du fichier
+source, modifiés par les champs définis au sein du bloc @code{\book}
+puis par ceux définis au sein du bloc @code{\bookpart}.  Les valeurs qui
+en résulteront permettront d'imprimer les titrages de partie pour cette
+partie.
+
+@item
+Le titre d'un morceau découle des champs définis en tête du fichier
+source, modifiés par les champs définis au sein du bloc @code{\book}
+puis par ceux définis au sein du bloc @code{\bookpart}, et enfin par
+ceux définis au sein du bloc @code{\score}.  Les valeurs qui en
+résulteront permettront d'imprimer les titrages de morceau pour ce
+morceau.  Notez toutefois que, pour un morceau, seuls les champs
+@code{piece} et @code{opus} seront imprimés, à moins d'avoir valorisé
+à @code{#t} la variable @code{print-all-headers} dans la section
+@code{\paper}.
+
+@end itemize
 
 @warning{N'oubliez pas que lorsqu'il est placé à l'intérieur d'un bloc
 @code{@bs{}score}, le bloc @code{@bs{}header} doit impérativement se
 trouver @strong{à la suite} de l'expression musicale.}
+
+Nul n'est besoin de fournir un bloc @code{\header} à chacun des quatre
+niveaux ; on peut se passer aussi bien de l'un d'eux que de tous.  Dans
+la même veine, un fichier source simpliste peut ne pas mentionner de
+bloc @code{\book} ou @code{\bookpart} qui seront alors créés
+implicitement.
+
+Lorsque l'ouvrage ne comporte qu'un seul morceau, le bloc @code{\header}
+devrait prendre place en tête de fichier, de telle sorte que soit produit
+un titrage de partie qui met à disposition tous les champs de titrage.
+
+Lorsque l'ouvrage comporte plusieurs morceaux, différents arrangements
+du bloc @code{\header} permettent d'obtenir différents styles de
+publication musicale.  Par exemple, si la publication comprend plusieurs
+pièces du même compositeur, un bloc @code{\header} placé en tête de
+fichier définira le titre de l'ouvrage et le compositeur, que l'on
+complètera par un bloc @code{\header} dans chaque bloc @code{\score}
+pour définir les champs @code{piece} et @code{opus}, comme ici :
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -658,8 +688,10 @@ trouver @strong{à la suite} de l'expression musicale.}
 }
 @end lilypond
 
-Tous les champs appartenant au titrage principal d'un ouvrage peuvent se
-reporter dans chaque bloc @code{\score} ou être supprimés manuellement :
+Des agencements plus élaborés sont aussi réalisables.  Par exemple, les
+champs appartenant au titrage principal d'un ouvrage peuvent se
+reporter dans chaque bloc @code{\score}, certains étant modifiés voire
+supprimés manuellement :
 
 @c KEEP LY
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
@@ -705,12 +737,13 @@ reporter dans chaque bloc @code{\score} ou être supprimés manuellement :
 @seealso
 Manuel de notation :
 @ref{Structure de fichier},
-@ref{Mise en forme personnalisée des blocs de titrage}.
+@ref{Mise en forme par défaut des titrages subalternes},
+@ref{Mise en forme personnalisée des titrages}.
 
 
-@node Mise en forme par défaut des titrages
-@unnumberedsubsubsec Mise en forme par défaut des titrages
-@translationof Default layout of book and score title blocks
+@node Mise en forme par défaut des titrages subalternes
+@unnumberedsubsubsec Mise en forme par défaut des titrages subalternes
+@translationof Default layout of bookpart and score titles
 
 Voici les différentes variables attachées au bloc @code{\header} :
 
@@ -724,7 +757,7 @@ Voici les différentes variables attachées au bloc @code{\header} :
     subtitle = "Sous-titre"
     subsubtitle = "Sous-sous-titre"
       % Les champs suivants sont répartis sur une même ligne, et
-      % le champ "instrument" apparaîtra sue les pages suivantes
+      % le champ "instrument" apparaîtra sur les pages suivantes
     instrument = \markup \with-color #green "Instrument"
     poet = "Librettiste"
     composer = "Compositeur"
@@ -756,7 +789,7 @@ Voici les différentes variables attachées au bloc @code{\header} :
     { s1 }
     \header {
         % Les champs suivants sont en opposition sur la même ligne
-      piece = "Pièce 3 sue une nouvelle page"
+      piece = "Pièce 3 sur une nouvelle page"
       opus = "Opus 3"
     }
   }
@@ -772,7 +805,7 @@ Le nom de l'instrument sera répété en tête de chaque page.
 @item
 Seuls seront imprimés les champs @code{piece} et @code{opus} inclus dans
 un bloc @code{\score} dès lors que la variable @code{print-all-headers}
-reste désactivée (valeur à @code{##f}).
+reste désactivée (valeur à @code{##f}).
 
 @item
 @c Is the bit about \null markups true? -mp
@@ -787,7 +820,7 @@ Par défaut, @code{scoreTitleMarkup} place les champs @code{piece} et
 @end itemize
 
 Les possibilités de modifier la mise en forme par défaut sont abordées à
-la rubrique @ref{Mise en forme personnalisée des blocs de titrage}.
+la rubrique @ref{Mise en forme personnalisée des titrages}.
 
 @cindex breakbefore
 
@@ -818,7 +851,7 @@ Manuel d'initiation :
 @rlearning{Organisation des fichiers LilyPond}.
 
 Manuel de notation :
-@ref{Mise en forme personnalisée des blocs de titrage},
+@ref{Mise en forme personnalisée des titrages},
 @ref{Structure de fichier}.
 
 Fichiers d'initialisation :
@@ -829,7 +862,7 @@ Fichiers d'initialisation :
 @unnumberedsubsubsec Mise en forme par défaut des entête et pied de page
 @translationof Default layout of headers and footers
 
-Les entête et pied -- @emph{headers} et @emph{footers} -- sont des
+Les entête et pied -- @emph{header} et @emph{footer} -- sont des
 lignes de textes qui apparaissent en haut et en bas de chaque page,
 indépendamment du texte de l'ouvrage.  Ils sont contrôlés par les
 variables suivantes, attachées au bloc @code{\paper} :
@@ -897,14 +930,14 @@ Pour supprimer le @code{tagline}, il suffit de lui assigner la valeur
 
 @node Titrages personnalisés
 @subsection Titrages personnalisés
-@translationof Custom headers footers and titles
+@translationof Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
 * Mise en forme personnalisée des champs de titrage::
-* Mise en forme personnalisée des blocs de titrage::
+* Mise en forme personnalisée des titrages::
 * Mise en forme personnalisée des entête et pied de page::
 @end menu
 
@@ -914,7 +947,7 @@ Pour supprimer le @code{tagline}, il suffit de lui assigner la valeur
 @translationof Custom text formatting for title blocks
 
 Toutes les commandes de mise en forme d'un @code{\markup} permettent de
-personnaliser le texte des entête, pied de page et éléments de titre
+personnaliser le texte des entête, pied de page et éléments de titrage
 contenus dans un bloc @code{\header}.
 
 @lilypond[quote,verbatim,noragged-right]
@@ -932,9 +965,9 @@ Manuel de notation :
 @ref{Mise en forme du texte}.
 
 
-@node Mise en forme personnalisée des blocs de titrage
-@unnumberedsubsubsec Mise en forme personnalisée des blocs de titrage
-@translationof Custom layout for title blocks
+@node Mise en forme personnalisée des titrages
+@unnumberedsubsubsec Mise en forme personnalisée des titrages
+@translationof Custom layout for titles
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -954,7 +987,7 @@ les deux variables suivantes, attachées au bloc @code{\paper} :
 
 Le positionnement des titres, avec les valeurs par défaut de ces
 variables @code{\markup}, est illustré à la rubrique
-@ref{Mise en forme par défaut des titrages}.
+@ref{Mise en forme par défaut des titrages subalternes}.
 
 Voici les réglages par défaut de @code{scoreTitleMarkup}, tels que
 définis dans le fichier @file{ly/titling-init.ly} :
@@ -983,8 +1016,9 @@ Ceci aura donc pour effet de positionner les champs @code{piece} et
 }
 @end lilypond
 
-Voici comment positionner le champ @code{piece}, dont nous modifions
-la taille et la graisse, au centre de cette ligne :
+Voici comment redéfinir le @code{scoreTitleMarkup} de telle sorte que le
+champ @code{piece}, dont nous modifions la taille et la graisse, se
+place au centre de cette ligne :
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -1009,19 +1043,19 @@ la taille et la graisse, au centre de cette ligne :
 }
 @end lilypond
 
-Les champs normalement réservés au bloc de titrage principal seront
-reportés au niveau inférieur dès lors que vous aurez activé
-l'instruction @code{print-all-headers} au sein du bloc @code{\paper}.
-Le principal inconvénient de cette fonction réside dans le fait que les
-champs réservés au bloc @code{\header} principal devront être supprimés
-dans chacun des blocs @code{\score} de votre fichier source -- voir
-@ref{Contenu des blocs de titrage}.
+Les champs normalement absents du @code{\header} d'un bloc @code{\score}
+seront toutefois imprimés dès lors que vous aurez activé l'instruction
+@code{print-all-headers} au sein du bloc @code{\paper}.  Le principal
+inconvénient de cette fonction réside dans le fait que les champs
+dévolus au titrage des parties devront être supprimés dans
+chacun des blocs @code{\score} de votre fichier source -- voir
+@ref{Généralités en matière de titrages}.
 
 Afin d'éviter ce désagrément, ajoutez le champ que vous désirez voir
 apparaître à la définition de @code{scoreTitleMarkup}.  Nous allons,
 dans l'exemple suivant, ajouter au @code{scoreTitleMarkup} le champ
 @code{composer}, normalement associé au @code{bookTitleMarkup} ;
-chaque @code{\score} pourra mentionner un compositeur différent.
+chaque @code{\score} pourra alors mentionner un compositeur différent.
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \book {
@@ -1089,7 +1123,7 @@ faire référence dans la définition du @emph{markup}.
 
 @seealso
 Manuel de notation :
-@ref{Contenu des blocs de titrage}.
+@ref{Généralités en matière de titrages}.
 
 
 @node Mise en forme personnalisée des entête et pied de page
@@ -1114,7 +1148,8 @@ les quatre variables suivantes, attachées au bloc @code{\paper} :
 
 @cindex markup conditionnel
 @cindex condition et markup
-@cindex on-the-fly
+@cindex on-the-fly (à la volée)
+
 @funindex \on-the-fly
 
 L'instruction @code{\on-the-fly} au sein d'un @code{\markup} permet
@@ -1132,7 +1167,7 @@ En voici la syntaxe :
 
 La @var{procédure} est appelée à chaque fois que la commande
 @code{\markup} où elle apparaît est évaluée.  La @var{procédure}
-effectuera un test de conformité particulière et interprètera, autrement
+effectuera un test de conformité particulier et interprètera, autrement
 dit imprimera l'argument @var{markup} si et seulement si cette
 condition est remplie.
 
@@ -1144,10 +1179,10 @@ LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 @headitem  Nom de la procédure      @tab  Condition testée
 
 @item print-page-number-check-first @tab  il faut imprimer ce numéro de page.
-@item create-page-number-stencil    @tab  'print-page-numbers est vrai.
-@item print-all-headers             @tab  'print-all-headers est vrai.
+@item create-page-number-stencil    @tab  print-page-numbers est vrai.
+@item print-all-headers             @tab  print-all-headers est vrai.
 @item first-page                    @tab  c'est la première page du @emph{book}.
-@item (on-page nombre)              @tab  page number = nombre
+@item (on-page nombre)              @tab  numéro de page = nombre
 @item last-page                     @tab  c'est la dernière page du @emph{book}.
 @item not-first-page                @tab  ce n'est la première page du @emph{book}.
 @item part-first-page               @tab  c'est la première page de la partie.
@@ -1157,8 +1192,8 @@ LilyPond dispose d'ores et déjà d'un certain nombre de procédures :
 @end multitable
 @end quotation
 
-L'exemple suivant illustre  la manière de centrer son numéro au bas de
-chaque page.  Il nous faut tout d'abord annuler la définition de
+L'exemple suivant illustre la manière de centrer son numéro au bas de
+chaque page.  Il nous faut tout d'abord annuler les définitions de
 @code{oddHeaderMarkup} et @code{evenHeaderMarkup} à l'aide d'un
 @emph{markup} @code{\null}. Nous redéfinissons ensuite
 @code{oddFooterMarkup} pour qu'il contienne le numéro de page, centré.
@@ -1198,8 +1233,8 @@ teste si la sortie tient sur une page unique.
 
 @seealso
 Manuel de notation :
-@ref{Contenu des blocs de titrage},
-@ref{Mise en forme par défaut des titrages}.
+@ref{Généralités en matière de titrages},
+@ref{Mise en forme par défaut des titrages subalternes}.
 
 fichiers d'initialisation :
 @file{../ly/titling-init.ly}.
@@ -1209,59 +1244,88 @@ fichiers d'initialisation :
 @subsection Notes de bas de page
 @translationof Creating footnotes
 
-LilyPond dispose de deux méthodes pour créer des notes de bas de page,
-l'une automatisée, et l'autre manuelle.
+@cindex bas de page, notes
+@cindex footnotes
+
+Les notes de bas de page sont utiles dans bien des situations.  Dans
+tous les cas, un « appel de note » vient se placer en référence dans te
+texte ou la musique, et le « texte de la note » est reporté en bas de la
+page.
+
+Selon qu'elle est référencée dans une expression musicale ou dans du
+texte indépendant, une note de bas  de page sera créée suivant une
+procédure différente.
 
 @menu
-* Considérations générales en matière de note de bas de page::
-* Notes de bas de page automatiques::
-* Notes de bas de page manuelles::
+* Notes de bas de page dans une expression musicale::
+* Notes de bas de page dans du texte indépendant::
 @end menu
 
 
-@node Considérations générales en matière de note de bas de page
-@unnumberedsubsubsec Considérations générales en matière de note de bas de page
-@translationof Footnotes overview
+@node Notes de bas de page dans une expression musicale
+@unnumberedsubsubsec Notes de bas de page dans une expression musicale
+@translationof Footnotes in music expressions
 
-Il est parfois judicieux, notamment lorsqu'une annotation ou un
-commentaire gênerait la lecture de la partition, de les reporter en bas
-de page.
+@cindex musique et note de bas de page
+@funindex \footnote
 
-Les notes de bas de page automatiques font appel à un compteur
-numérique incrémenté automatiquement ; les notes de bas de page
-manuelles vous laissent le libre choix de l'appel (l'indicateur).  Une
-note de bas de page s'applique comme un @code{\tweak} ; elle peut donc
-s'attacher directement à un objet graphique créé par la plupart des
-éléments musicaux ou événements rattachés.  Lorsque ce n'est pas
-possible, par exemple sur une barre de mesure ou un changement de
-métrique -- l'objet étant alors le résultat d'une modification de
-propriété --, les notes de bas de page peuvent être spécifiées en tant
-qu'événement musical indépendant et affectant tous les objets d'un
-type particulier à un instant particulier.
+@subsubsubheading Généralités sur l'annotation de musique
+@c VO Music footnotes overview
 
-Examinons la forme développée d'une commande de note de bas de page :
+Il existe deux catégories d'annotation concernant une expression
+musicale :
+
+@table @emph
+@item Les annotations événementielles
+se rattachent à des événements particuliers, comme une note individuelle
+ou au sein d'un accord, un élément d'interprétation (ligature, liaison,
+doigté, accent ou nuance) et des paroles.
+
+@item Les annotations temporelles
+se rapportent à un point particulier du déroulement d'un contexte
+musical.  Certaines commandes, telles @code{\time} et @code{\clef}, ne
+reposent pas sur un événement pour la création de l'objet métrique ou
+clef.  Il en va de même pour un accord : sa hampe ou ses crochets ne
+sont créés qu'à la fin d'un moment (plus exactement au travers de l'un
+des événements note qui le composent).  Une annotation temporelle permet
+d'annoter ces objets de rendus sans se référer à un événement.
+
+@end table
+
+Examinons la forme développée d'une commande de note de bas de page,
+qu'elle soit événementielle ou temporelle :
 
 @example
-\footnote @var{marque} @var{décalage} @var{nom-grob} @var{annotation}
-@var{musique}
+[@var{position}] \footnote [@var{marque}] @var{décalage} [@var{nom-grob}] @var{annotation} @var{musique}
 @end example
 
 Ses arguments peuvent se définir ainsi :
 
 @table @var
+@item position
+Lorsque la commande @code{\footnote} s'applique à un élément
+d'interprétation ou un événement rattaché, et uniquement dans ces cas,
+elle doit être précédée d'un indicateur de positionnement (@code{-, _}
+ou @code{^}) de façon à rattacher @var{musique} (avec sa marque) à
+la note ou au silence qui précède.
+
 @item marque
-un @emph{markup} ou une chaîne de caractères identifiant l'annotation
+Un @emph{markup} ou une chaîne de caractères identifiant l'annotation
 tant au niveau de l'appel que de la note qui apparaîtra au bas de la
 page.  L'absence de cet élément -- ou une valeur de @code{\default} --
-incrémentera le compteur.
+incrémentera automatiquement le compteur.  Ce compteur est réinitialisé
+à chaque page comportant une annotation.
 
 @item décalage
-une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
+Une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
 décalage de la marque, en abscisse et en ordonnée, par rapport au point
-de référence.
+de référence.  Des valeurs positives décalent vers la droite ou le
+haut, des valeurs négatives vers la gauche ou le bas ; des valeurs à
+zéro centrent la marque sur le point de référence.  Le décalage
+s'exprime en espace de portée.
 
 @item nom-grob
-le type d'objet à annoter -- @samp{#'Flag} par exemple.  Lorsque cet
+Le type d'objet à annoter -- @samp{#'Flag} par exemple.  Lorsque cet
 élément est spécifié, c'est l'objet en question qui servira de point de
 référence, même s'il trouve son origine non pas directement dans
 l'élément @var{musique} mais dans un objet en résultant.  Son absence ou
@@ -1281,97 +1345,209 @@ rattachée à une expression musicale particulière, mais plutôt à un
 instant précis.  L'argument @var{nom-grob} est alors obligatoire pour
 sélectionner le type d'objet affecté -- @samp{#'TimeSignature} par
 exemple.
+
 @end table
 
-Tout comme pour la commande @code{\tweak}, lorsqu'un @code{\footnote}
-s'applique à un événement rattaché ou à une articulation, il devra être
-précédé d'un @code{-} de telle sorte que l'analyseur syntaxique en
-attache le résultat à la note ou au silence précédant.
+@subsubsubheading Notes de bas de page événementielles
+@c VO Event-based footnotes
 
+@cindex événementielle, note de bas de page
 
-@node Notes de bas de page automatiques
-@unnumberedsubsubsec Notes de bas de page automatiques
-@translationof Automatic footnotes
+Le moyen le plus simple d'annoter un événement est :
 
-@cindex note de bas de page automatique
-@cindex bas de page, note automatique
+@example
+\footnote @var{décalage} @var{annotation} @var{musique}
+@end example
 
-@funindex \footnote
-@funindex footnote
-
-La commande @code{\footnote} permet de générer automatiquement des notes
-de bas de page.  Elle requiert quatre arguments : la position
-@samp{(x . y)} de l'appel de note, le @var{nom-grob} optionnel
-spécifiant l'objet de rendu auquel s'applique le commentaire,
-l'@var{annotation} qui apparaîtra au bas de la page, et enfin la
-@var{musique} à laquelle se rapporte l'annotation.
+Ce type de note de bas de page s'attache à un objet de rendu
+généré directement par l'événement correspondant à @var{musique}.
 
 @c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
+@lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    \footnote #'(0.5 . -2)
-      \markup { La première note }
-    a'4 b8
-    \single\footnote #'(0.5 . 1)
-      \markup { La troisième note } Flag
-    e\noBeam c4 d4
+  \relative c'' {
+    \footnote #'(-1 . 3) "Une note" a4
+    a4
+    \footnote #'(2 . 2) "Un silence" r4
+    a4
   }
 }
 @end lilypond
 
-L'annotation d'un accord suit la même règle :
+Lorsque l'annotation concerne un événement postérieur ou une
+articulation, la commande @code{\footnote} doit être précédée d'un
+indicateur de position (@code{-, _} ou @code{^}) et suivie de
+l'événement postérieur ou l'articulation comme argument
+@var{musique}.  Dans ce cas, la commande @code{\footnote} peut se
+considérer comme une copie de son dernier argument auquel oon
+attache une annotation.
 
 @c KEEP LY
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    a4_\footnote #'(0 . -1) "Une liaison arbitrairement en dessous" (
+    b8^\footnote #'(1 . 0.5) "Une ligature manuelle forcée en haut" [
+    b8 ]
+    c4 )
+    c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+Les appels de note peuvent être personnalisés, et le trait reliant
+l'objet à l'appel supprimé :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    <
-    \footnote #'(1 . -1.25) "Voici un do" c
-    \footnote #'(2 . -0.25) \markup { \italic "Un mi bémol" } es
-    \footnote #'(2 . 3) \markup { \bold "Ceci est un sol" } g
-    >1
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* La première note" }
+    a'4 b8
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " La deuxième note" }
+    e c4
+    \once \override Score.FootnoteItem #'annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Éditorial" } \p
+  }
+}
+@end lilypond
+
+D'autres exemples de personnalisation des appels de note sont donnés à
+la rubrique @ref{Notes de bas de page dans du texte indépendant}.
+
+L'annotation d'un accord dans sa globalité n'est pas réalisable de cette
+manière dans la mesure où un accord ne génère pas d'événement en dehors
+de ses constituants.  Les notes qui le composent peuvent cependant faire
+l'objet d'une annotation.
+
+Lorsque la note de bas de page se réfère à un objet de rendu résultant
+d'un événement -- @code{Accidental} ou @code{Stem} découlent d'un
+@code{NoteHead} --, l'argument additionnel @var{nom-grob} est requis
+avant le texte de l'annotation :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    % footnotes may be added to chord constituents
+    < \single\footnote #'(-1 . -3) "Un autre bémol" Accidental aes
+      c
+      \single\footnote #'(-1 . 0.5) "Un bémol" Accidental ees
+    >2
+    \single\footnote #'(-1 . 2) "Une hampe" Stem ees2
   }
 }
 @end lilypond
 
 @warning{Lorsque plusieurs notes de bas de page se rapportent à un même
-empilement vertical, les notes apparaîtront dans l'ordre vertical des
-appels, autrement dit celui positionné le plus haut en premier, et ainsi
-de suite.}
+empilement vertical, elles sont numérotées et apparaîtront selon
+l'ordre vertical des éléments présentés, autrement dit celui positionné
+le plus haut en premier, non dans leur ordre d'apparition dans le
+fichier source.}
 
-Voici quelques exemples d'objets annotés automatiquement.  Vous pouvez
-constater l'agencement des annotations correspondantes avec le copyright
-et le pied de page.
+@subsubsubheading Notes de bas de page temporelles
+@c VO Time-based footnotes
 
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
+@cindex temporelle, note de bas de page
+
+Les objets de rendu tels que changement de clef ou d'armure tirent leur
+origine dans la modification d'une propriété plutôt que d'un véritable
+événement.  D'autres, comme les barres ou numéros de mesure, dépendent
+directement de la temporisation.  C'est la raison pour laquelle de tels
+objets doivent s'annoter en fonction de leur survenance au fil de la
+musique.  Les notes de bas de page temporelles sont la solution à
+privilégier lorsqu'il s'agit d'annoter les hampes ou ligature affectant
+des accords : bien qu'une telle fonctionnalité puisse s'appliquer à l'un
+des événements constituant l'accord, rien ne laisse présager lequel
+serait le plus adéquat.
+
+Une note de bas de page temporelle s'introduit de la même manière qu'une
+note événementielle, à ceci près que la mention @code{\default}
+remplacera l'argument @var{musique} qui indique l'événement à annoter.
+En matière de note de bas de page temporelle, l'objet de rendu considéré
+devrait toujours être mentionné explicitement, de telle sorte qu'il n'y
+ait pas d'erreur quant au positionnement de l'appel de note.
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
 \book {
-  \header { copyright = \markup { "Copyright 1970" } }
-  \relative c' {
-    a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
-    -\footnote #'(0 . 1.5) \markup { A slur } (
-    b8)-\footnote #'(0 . -2) \markup { Beam } [ e]
-    \single\footnote #'(1 . -1)
-      \markup  { \teeny { This is a stem } } Stem
-    c4
-    \single\footnote #'(0 . 0.5)
-      \markup \italic { A cautionary accidental } AccidentalCautionary
-    \footnote #'(1 . 1) "The note itself"
-    dis?4-\footnote #'(0.5 . -0.5) \markup \italic { Slow Down }
-         _"rit."
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) "Changement de métrique" Staff.TimeSignature
+    \time 3/4
+    \footnote #'(1 . -1) "Hampe de l'accord" Stem
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
+    q q
+    \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
+    \key c\minor
+    q
   }
 }
 @end lilypond
 
-Une note de bas de page affectant un @code{\markup} de haut niveau
-s'introduit par la commande @code{\auto-footnote} : 
+
+@node Notes de bas de page dans du texte indépendant
+@unnumberedsubsubsec Notes de bas de page dans du texte indépendant
+@translationof Footnotes in stand-alone text
+
+@cindex texte indépendant et note de bas de page
+
+De telles notes de bas de page affectent les @emph{markup} extérieurs
+aux expressions musicales.  Il n'est pas nécessaire en pareil cas
+d'indiquer un point de référence par un trait ; l'appel de note vient
+juste s'accoler au @emph{markup} qui fait l'objet de l'annotation.  Les
+appels de note peuvent être gérés automatiquement, auquel cas ils seront
+numériques, ou bien manuellement en fournissant un indicateur
+particulier.
+
+Les notes de bas de page concernant du texte indépendant se gèrent
+différemment selon qu'elles sont automatiques ou manuelles.
+
+
+@subsubsubheading Notes de bas de page automatiques dans du texte
+@c VO Footnotes in stand-alone text with automatic marks
+
+La syntaxe consacrée dans le cas d'une gestion automatique des appels
+de note est :
+
+@example
+\markup @{ ... \auto-footnote @var{texte} @var{annotation} ... @}
+@end example
+
+Ses les éléments sont :
+
+@table @var
+
+@item texte
+le @emph{markup} ou la chaîne de caractères sur lequel porte
+l'annotation ;
+
+@item annotation
+un @emph{markup} ou une chaîne de caractères constituant le texte de
+l'annotation qui sera reportée en bas de page.
+
+@end table
+
+Par exemple :
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \markup { \auto-footnote "A simple tune" \italic "By me" }
+  \markup {
+    "A simple"
+    \auto-footnote "tune" \italic " By me"
+    "is shown below.  It is a"
+    \auto-footnote "recent" \italic " Aug 2012"
+    "composition."
+  }
   \relative c' {
     a'4 b8 e c4 d
   }
@@ -1379,111 +1555,76 @@ s'introduit par la commande @code{\auto-footnote} :
 @end lilypond
 
 
-@node Notes de bas de page manuelles
-@unnumberedsubsubsec Notes de bas de page manuelles
-@translationof Manual footnotes
+@subsubsubheading Notes de bas de page personnalisées dans du texte
+@c VO Footnotes in stand-alone text with custom marks
 
-@cindex note de bas de page manuelle
-@cindex bas de page, note manuelle
+La syntaxe consacrée dans le cas d'une gestion personnalisée des appels
+de note est :
 
-LilyPond permet aussi de créer des notes de bas de page manuelles :
-la commande @code{\footnote} prend alors un argument supplémentaire :
-la @var{marque}, qui contient l'appel qui s'attache à la note ou à
-l'objet référencé.  Contrairement aux notes de bas de page automatiques,
-l'annotation en bas de page ne sera pas précédée de la @var{marque} ;
-l'indicateur  visuel est laissé à l'appréciation de l'utilisateur.
-LilyPond ne s'attache ici qu'à faire apparaître l'annotation au bas de
-la même page.
+@example
+\markup @{ ... \footnote @var{appel} @var{annotation} ... @}
+@end example
 
-La commande @code{\footnote} s'utilise de la même manière que dans le
-cas de notes automatiques.
+Ses les éléments sont :
+
+@table @var
+
+@item appel
+un @emph{markup} ou une chaîne de caractères représentant l'appel de
+note affecté à ce point de référence.  Notez bien que cette marque ne
+sera @strong{pas} reproduite automatiquement avant le texte proprement
+dit de l'annotation.
+
+@item annotation
+un @emph{markup} ou une chaîne de caractères constituant le texte de
+l'annotation qui sera reportée en bas de page, précédé de l'@var{appel}.
+
+@end table
+
+N'importe quel caractère simple tel que @code{*} ou @code{+} peut
+s'utiliser en tant qu'appel de note, comme nous l'avons vu à la rubrique
+@ref{Notes de bas de page dans une expression musicale}.  D'autres
+caractères particuliers sont accessibles sous forme de raccourci -- voir
+la rubrique @ref{Équivalents ASCII} :
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
+  \paper { #(include-special-characters) }
   \header { tagline = ##f }
+  \markup {
+    "A simple tune"
+    \footnote "*" \italic "* By me"
+    "is shown below.  It is a recent"
+    \footnote \super &dagger; \concat {
+      \super &dagger; \italic " Aug 2012"
+    }
+    "composition."
+  }
   \relative c' {
-    \footnote
-          "1" #'(0.5 . -2)
-          \markup { \italic "1. The first note" }
-    a'4
-    b8
-    \footnote
-          \markup { \bold "2" } #'(0.5 . 1)
-          "2. The second note"
-    e
-    c4
-    d-\footnote "3" #'(0.5 . -1) "3. Piano" \p
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
 
-L'annotation d'un accord suit la même règle :
+Un appel de note peut aussi se libeller sous la forme d'un point de code
+unicode -- voir la rubrique @ref{Unicode} :
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
-    <
-    \footnote "1" #'(1 . -1.25) "1. C" c
-    \footnote
-       \markup { \bold "b" } #'(2 . -0.25) "b. E-flat" es
-    \footnote "3" #'(2 . 3) \markup { \italic "iii. G" } g
-    >1
+  \markup {
+    "A simple tune"
+    \footnote \super \char##x00a7 \concat {
+      \super \char##x00a7 \italic " By me"
+    }
+    "is shown below.  It is a recent"
+    \footnote \super \char##x00b6 \concat {
+      \super \char##x00b6 \italic " Aug 2012"
+    }
+    "composition."
   }
-}
-@end lilypond
-
-@warning{Lorsque plusieurs notes de bas de page se rapportent à un même
-empilement vertical, les notes apparaîtront dans l'ordre vertical des
-appels, autrement dit celui positionné le plus haut en premier, et ainsi
-de suite.}
-
-Voici quelques exemples d'objets annotés manuellement.  Vous pouvez
-constater l'agencement des annotations correspondantes avec le copyright
-et le pied de page.
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
   \relative c' {
-    a'4-\footnote
-      \markup { \teeny 1 } #'(-3 . 0)
-      \markup { 1. \bold Forte } \f
-    -\footnote
-      \markup { \teeny b } #'(0 . 1.5)
-      \markup { b. A slur } (
-    b8)-\footnote
-      \markup { \teeny 3 } #'(0 . -2)
-      \markup { 3. Beam } [
-    e]
-    \single\footnote
-      \markup { 4 } #'(1 . -1)
-      \markup  { \bold 4. { This is a stem } } Stem
-    c4
-    \single\footnote
-      \markup \concat \teeny { "sharp (v)" }
-          #'(0 . 0.5)
-      \markup \italic { v. A cautionary accidental } AccidentalCautionary
-    dis?4-\footnote
-      \markup \concat \teeny { "a" } #'(0.5 . -0.5)
-      \markup \italic { a. Slow Down } _"rit."
-    \footnote
-      \markup { \teeny \musicglyph #"rests.4" }
-          #'(1.5 . -0.25)
-      \markup { \null } \breathe
-  }
-}
-@end lilypond
-
-L'annotation manuelle d'un @code{\markup} de haut niveau répond à la
-syntaxe suivante :
-
-@lilypond[verbatim,quote,ragged-right,papersize=a8]
-\book {
-  \header { tagline = ##f }
-  \markup { "A simple tune" \footnote "*" \italic "* By me" }
-  \relative c' {
-    a'4 b8 e c4 d4
+    a'4 b8 e c4 d
   }
 }
 @end lilypond
@@ -1494,10 +1635,11 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Commentaires textuels},
+@ref{Équivalents ASCII},
 @ref{Indications textuelles},
 @ref{Info-bulle},
-@ref{Mise en forme de la page},
-@ref{Titres et entêtes}.
+@ref{Liste des caractères spéciaux},
+@ref{Unicode}.
 
 Référence des propriétés internes :
 @rinternals{FootnoteEvent},
@@ -1506,17 +1648,14 @@ Référence des propriétés internes :
 @rinternals{Footnote_engraver}.
 
 @knownissues
-Un silence multimesures ne peut se voir affecter une note de bas de
-page.
-
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
 l'autre ; elles ne seront jamais présentées à la queue leu leu.
+
+Silence multimesures et ligatures automatiques ne peuvent se voir
+affecter de note de bas de page.
+
 Les notes de bas de page peuvent générer des chevauchements quand elles
 sont trop nombreuses sur une même page.
-
-Dès lors que vous utilisez une commande de note de bas de page manuelle,
-le bloc @code{\paper} doit contenir la mention
-@w{@code{footnote-auto-number = ##f}}.
 
 
 @node Référencement des numéros de page
@@ -1614,12 +1753,12 @@ numéro de page.  Vous pouvez bien entendu personnaliser ces variables :
 
 @verbatim
 \paper {
-  %% Translate the toc title into French:
+  %% Traduit le titre de la table des matières en français :
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% use larger font size
+  %% des fontes un peu plus grandes
   tocItemMarkup = \markup \large \fill-line {
     \fromproperty #'toc:text \fromproperty #'toc:page
   }
@@ -1780,13 +1919,56 @@ pourront, par défaut, être interprétées qu'une fois intégrées dans le
 fichier principal ; leur argument doit donc comporter le chemin
 relativement au fichier principal et non par rapport au fichier dans
 lequel cette inclusion est mentionnée.  Vous pouvez toutefois influer
-sur ce comportement à l'aide de l'option @w{@code{-drelative-includes}}
-en ligne de commande ou en ajoutant une clause
-@code{#(ly:set-option 'relative-includes #t)} en tête du fichier
-principal.  Une fois @code{relative-include} activé, le chemin à suivre
-pour chacune des commandes @code{\include} sera pris relativement au
-fichier qui la contient.  Cette option est vouée à être activée par
+sur ce comportement de manière globale à l'aide de l'option
+@w{@code{-drelative-includes}} en ligne de commande ou en ajoutant une
+clause @code{#(ly:set-option 'relative-includes #t)} en tête du fichier
+principal.
+
+Lorsque @code{relative-include} est valorisé à @code{#t}, le chemin à
+suivre pour chacune des commandes @code{\include} sera pris relativement
+au fichier qui la contient.  Cette option est vouée à être activée par
 défaut dans une future version de LilyPond.
+
+Selon l'endroit où @code{relative-includes} est valorisé à @code{#t} ou
+@code{#f}, la commande @code{\include} permettra d'incorporer des
+fichiers contenus dans l'arborescence du répertoire principal et des
+fichiers situés ailleurs.  Si, par exemple, une biblothèque générale
+libA a été créée pour utiliser des sous-fichiers à l'aide
+d'inclusions dans un fichier catalogue, les clauses @code{\include}
+devront être précédées d'un
+@code{#(ly:set-option #relative-includes #t)}  de telle sorte
+qu'elles soient interprétées correctement lorsque rapatriées dans
+le fichier @file{.ly} principal.  Examinons cela dans les faits :
+
+@example
+libA/
+  libA.ly
+  A1.ly
+  A2.ly
+  ...
+@end example
+
+@noindent
+puis le fichier catalogue, @code{libA.ly}, qui contient
+
+@example
+#(ly:set-option 'relative-includes #t)
+\include "A1.ly"
+\include "A2.ly"
+...
+% retour au réglage par défaut
+#(ly:set-option 'relative-includes #f)
+@end example
+
+Tout fichier @code{.ly} peut désormais consulter l'intégralité de cette
+bibliothèque grâce à un simple
+
+@example
+\include "~/libA/libA.ly"
+@end example
+
+Un positionnement judicieux des commutateurs permet de gérer des
+structures de fichiers plus complexes.
 
 Vous pouvez inclure des fichiers dont vous spécifierez le chemin d'accès
 sur la ligne de commande au moment de lancer la compilation.  L'appel à
@@ -1804,7 +1986,7 @@ tout en ayant bien dans @file{principal.ly}
 @example
 \include "VI.ly"
 \include "VII.ly"
-... etc
+ etc.
 @end example
 
 Lorsqu'un fichier est voué à être inclus dans nombre de partitions, vous
@@ -1817,7 +1999,7 @@ fichier de définition particulier @file{gregorian.ly}.
 
 Au moment où vous lancez LilyPond, un certain nombre de fichiers se
 retrouvent inclus par défaut ; il suffit d'activer le mode verbeux
-en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
+en faisant @w{@code{lilypond --verbose}} pour s'en rendre compte.  Vous
 verrez ainsi défiler, en plus de nombreuses informations, le nom d'un
 certain nombre de fichiers et de chemins d'accès.  Les fichiers les plus
 important sont mentionnés au chapitre
@@ -2012,7 +2194,7 @@ music = \relative g' {
 }
 @end lilypond
 
-Ce principe de filtrage peut s'appliquer aux articulations, textes etc.
+Ce principe de filtrage peut s'appliquer aux articulations, textes, etc.
 Il suffit de positionner
 
 @example
@@ -2527,6 +2709,7 @@ comportera plus de quinze portées verra le même canal réutilisé.
 
 @menu
 * Création de fichiers MIDI::
+* Instrument MIDI::
 * Le bloc MIDI::
 * Contenu de la sortie MIDI::
 * Répétitions et MIDI::
@@ -2600,34 +2783,6 @@ Vous pouvez aussi le faire en ligne de commande :
 lilypond … -dmidi-extension=midi fichierLily.ly
 @end example
 
-
-@unnumberedsubsubsec Noms d'instrument
-@translationof Instrument names
-
-@cindex instrument, nom d'
-@funindex Staff.midiInstrument
-
-L'instrument MIDI affecté à un canal particulier est déterminé par la
-propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
-instruments répertoriés à l'annexe @ref{Instruments MIDI}.
-
-@example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
-@}
-@end example
-
-@example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
-@}
-@end example
-
-Lorsque l'instrument choisi ne correspond pas exactement à l'une des
-dénominations consacrées, LilyPond le replacera par un piano de concert
-(@code{"acoustic grand"}).
-
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
@@ -2659,6 +2814,35 @@ Certains lecteurs MIDI ne rendent pas correctement les changements de
 tempo.  MS Windows Media Player et 
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity} le font sans
 problème.
+
+@node Instrument MIDI
+@subsection Instrument MIDI
+@translationof MIDI Instruments
+
+@cindex instrument, nom d'
+@cindex MIDI, instruments
+@funindex Staff.midiInstrument
+
+L'instrument MIDI affecté à un canal particulier est déterminé par la
+propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
+instruments répertoriés à l'annexe @ref{Instruments MIDI}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+Lorsque l'instrument choisi ne correspond pas exactement à l'une des
+dénominations consacrées, LilyPond le replacera par un piano de concert
+(@code{"acoustic grand"}).
 
 
 @node Le bloc MIDI
@@ -2736,7 +2920,13 @@ commande @code{\score}.
 
 @c TODO Check grace notes - timing is suspect?
 
+@menu
+* Éléments pris en compte dans le MIDI::
+* Éléments non pris en compte dans le MIDI::
+@end menu
 
+
+@node Éléments pris en compte dans le MIDI
 @unnumberedsubsubsec Éléments pris en compte dans le MIDI
 @translationof Supported in MIDI
 
@@ -2803,6 +2993,7 @@ alors inclus :
 @end itemize
 
 
+@node Éléments non pris en compte dans le MIDI
 @unnumberedsubsubsec Éléments non pris en compte dans le MIDI
 @translationof Unsupported in MIDI
 
@@ -2898,7 +3089,15 @@ par défaut au contexte @code{Voice}.  Vous pouvez contrôler à la fois le
 volume général, celui des indications de nuance ainsi que celui des
 différents instruments.
 
+@menu
+* Indications de nuance::
+* Amplitude du volume en MIDI::
+* Égalisation de plusieurs instruments (i)::
+* Égalisation de plusieurs instruments (ii)::
+@end menu
 
+
+@node Indications de nuance
 @unnumberedsubsubsec Indications de nuance
 @translationof Dynamic marks
 
@@ -2950,6 +3149,7 @@ correspondances, nous vous conseillons d'utiliser la procédure
 Le dernier exemple de cette partie illustre la manière de procéder.
 
 
+@node Amplitude du volume en MIDI
 @unnumberedsubsubsec Amplitude du volume en MIDI
 @translationof Overall MIDI volume
 
@@ -2966,7 +3166,7 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
 @end example
 
 Voici comment ajuster les nuances tout en limitant l'amplitude du volume
-entre 0,2 et 0,5 :
+entre 0,2 et 0,5 :
 
 @lilypond[verbatim,quote]
 \score {
@@ -2993,9 +3193,9 @@ entre 0,2 et 0,5 :
   >>
   \layout {}
   \midi {
+    \tempo 2 = 72
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 72 2)
       midiMinimumVolume = #0.2
       midiMaximumVolume = #0.5
     }
@@ -3004,6 +3204,7 @@ entre 0,2 et 0,5 :
 @end lilypond
 
 
+@node Égalisation de plusieurs instruments (i)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (i)
 @translationof Equalizing different instruments (i)
 
@@ -3052,6 +3253,7 @@ indication de nuance.
 @end lilypond
 
 
+@node Égalisation de plusieurs instruments (ii)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (ii)
 @translationof Equalizing different instruments (ii)
 

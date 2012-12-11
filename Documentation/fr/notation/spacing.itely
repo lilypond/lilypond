@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
+    Translation of GIT committish: 95b372c451ea1586db8db66d3d00334382e8e103
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -283,7 +283,7 @@ Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
 @cindex à l'italienne, papier
 
 Le fait d'ajouter l'argument @code{'landscape} à l'instruction
-stipulant le format du papier, permet d'obtenir une présentation à
+stipulant le format du papier permet d'obtenir une présentation à
 l'italienne -- ou paysage si vous préférez -- et donc des lignes plus
 longues.
 
@@ -291,7 +291,19 @@ longues.
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
-C'est bien la feuille qui sera basculée, et non la musique.
+L'inversion des dimensions du papier sans pour autant basculer la
+présentation -- comme pour imprimer sur une carte postale ou créer un
+graphique destiné à inclusion -- s'obtient en ajoutant @samp{landscape}
+au nom du format de papier :
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+Lorsque la taille du papier comporte explicitement @samp{landscape} ou
+@samp{portrait}, la présence d'un argument @code{'landscape} aura pour
+seul effet de modifier l'orientation de l'image et non les dimensions de
+la feuille.
 
 @seealso
 Manuel de notation :
@@ -1518,19 +1530,6 @@ ailleurs :
   @{ @var{et ici la musique@dots{}} @}
 >>
 @end example
-
-@ignore
-Apparemment, je ne vois pas de "snippet" qui corresponde,
-à moins que ce ne soit pour allécher vers la section
-"4.6 Fitting music onto fewer pages" -JCM
-introduit par 2.7.29 et supprimé par 2.13.30
-@c TODO Check this
-A linebreaking configuration can be saved as a @code{.ly} file
-automatically.  This allows vertical alignments to be stretched to
-fit pages in a second formatting run.  This is fairly new and
-complicated.  More details are available in
-@rlsr{Spacing}.
-@end ignore
 
 @predefined
 @funindex \break
@@ -3534,7 +3533,7 @@ réglages en usage dans la notation proportionnelle comme, entre autres,
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove "Forbid_line_break_engraver" (dans un contexte de voix}
+@item @code{\remove "Forbid_line_break_engraver"} (dans un contexte de voix)
 @end itemize
 
 Ces différents réglages permettent un espacement strict des notes
