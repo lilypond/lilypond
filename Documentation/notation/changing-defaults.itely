@@ -3179,8 +3179,7 @@ default setting of this property:
 @item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
 @item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
-@c omit KeyCancellation until it can be explained -td
-@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@item @code{KeyCancellation}     @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
@@ -3276,9 +3275,9 @@ f4 g a b
 f4 g a b
 @end lilypond
 
-@subsubsubheading Visibility of cautionary accidentals
+@subsubsubheading Visibility of cancelling accidentals
 
-To remove the cautionary accidentals printed at an explicit key
+To remove the cancelling accidentals printed at an explicit key
 change, set the Staff context property @code{printKeyCancellation}
 to @code{#f}:
 
@@ -3296,6 +3295,37 @@ f4 g a b
 
 With these overrides only the accidentals before the notes remain
 to indicate the change of key.
+
+Note that when changing the key to C@tie{}major or A@tie{}minor
+the cancelling accidentals would be the @emph{only} indication of
+the key change.  In this case setting @code{printKeyCancellation} to
+@code{#f} has no effect:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.printKeyCancellation = ##f
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+To suppress the cancelling accidentals even when the key is
+changed to C@tie{}major or A@tie{}minor, override
+the visibility of the @code{KeyCancellation} grob instead:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Staff.KeyCancellation.break-visibility = #all-invisible
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
 
 @c TODO Add visibility of cautionary accidentals before notes
 
