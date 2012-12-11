@@ -1281,9 +1281,10 @@ and @code{PaperColumn}.  They can be changed with the
 
 @example
 \overrideProperty
-Score.NonMusicalPaperColumn  % Grob name
-#'line-break-system-details     % Property name
-#'((next-padding . 20))         % Value
+Score.NonMusicalPaperColumn       % Grob name
+  . line-break-system-details     % Property name
+  . next-padding                  % Optional subproperty name
+  #20                             % Value
 @end example
 
 Note, however, that @code{\override}, applied to
