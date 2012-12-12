@@ -3230,8 +3230,10 @@ A rest or multi-measure-rest symbol.
 \\markup {
   \\rest-by-number #3 #2
   \\hspace #2
+  \\rest-by-number #0 #1
+  \\hspace #2
   \\override #'(multi-measure-rest . #t)
-  \\rest-by-number #3 #0
+  \\rest-by-number #0 #0
 }
 @end lilypond"
 
