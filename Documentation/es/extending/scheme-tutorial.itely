@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -225,7 +225,16 @@ También existen tipos de datos compuestos en Scheme.  Entre los tipos
 más usados en la programación de LilyPond se encuentran las parejas,
 las listas, las listas-A y las tablas de hash.
 
-@subheading Parejas
+@menu
+* Parejas::
+* Listas::
+* Listas asociativas (listas-A)::
+* Tablas de hash::
+@end menu
+
+@node Parejas
+@unnumberedsubsubsec Parejas
+@translationof Pairs
 
 El tipo fundacional de datos compuestos de Scheme es la @code{pareja}.
 Como se espera por su nombre, una pareja son dos valores unidos en uno
@@ -282,8 +291,9 @@ Nota: @code{cdr} se pronuncia "could-er", según Sussman y Abelson,
 véase
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
-
-@subheading Listas
+@node Listas
+@unnumberedsubsubsec Listas
+@translationof Lists
 
 Una estructura de datos muy común en Scheme es la @emph{lista}.
 Formalmente, una lista se define como la lista vacía (representada
@@ -314,7 +324,10 @@ considera un dialecto de Lisp, donde @q{lisp} es una abreviatura de
 @q{List Processing} (proceso de listas).  Todas las expresiones de
 Scheme son listas.
 
-@subheading Listas asociativas (listas-A)
+
+@node Listas asociativas (listas-A)
+@unnumberedsubsubsec Listas asociativas (listas-A)
+@translationof Association lists (alists)
 
 Un tipo especial de listas son las @emph{listas asociativas} o
 @emph{listas-A}.  Se puede usar una lista-A para almacenar datos para
@@ -340,7 +353,10 @@ guile>
 Las listas-A se usan mucho en LilyPond para almacenar propiedades y
 otros datos.
 
-@subheading Tablas de hash
+
+@node Tablas de hash
+@unnumberedsubsubsec Tablas de hash
+@translationof Hash tables
 
 Estructuras de datos que se utilizan en LilyPond de forma ocasional.
 Una tabla de hash es similar a una matriz, pero los índices de la
@@ -517,7 +533,15 @@ Los procedimientos de Scheme son expresiones de Scheme ejecutables que
 devuelven un valor resultante de su ejecución.  También pueden
 manipular variables definidas fuera del procedimiento.
 
-@subheading Definir procedimientos
+@menu
+* Definir procedimientos::
+* Predicados::
+* Valores de retorno::
+@end menu
+
+@node Definir procedimientos
+@unnumberedsubsubsec Definir procedimientos
+@translationof Defining procedures
 
 Los procedimientos se definen en Scheme con @code{define}:
 
@@ -543,7 +567,10 @@ guile> (media 3 12)
 15/2
 @end lisp
 
-@subheading Predicados
+
+@node Predicados
+@unnumberedsubsubsec Predicados
+@translationof Predicates
 
 Los procedimientos de Scheme que devuelven valores booleanos se suelen
 llamar @emph{predicados}.  Por convenio (pero no por necesidad),
@@ -557,7 +584,10 @@ guile> (menor-que-diez? 15)
 #f
 @end lisp
 
-@subheading Valores de retorno
+
+@node Valores de retorno
+@unnumberedsubsubsec Valores de retorno
+@translationof Return values
 
 Los procedimientos de Scheme siempre devuelven un valor de retorno,
 que es el valor de la última expresión ejecutada en el procedimiento.
@@ -588,11 +618,19 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 508
 @end lisp
 
+
 @node Condicionales de Scheme
 @subsection Condicionales de Scheme
 @translationof Scheme conditionals
 
-@subheading if
+@menu
+* if::
+* cond::
+@end menu
+
+@node if
+@unnumberedsubsubsec if
+@translationof if
 
 Scheme tiene un procedimiento @code{if}:
 
@@ -613,9 +651,12 @@ guile> (if (> a b) "a es mayor que b" "a no es mayor que b")
 "a no es mayor que b"
 @end lisp
 
-@subheading cond
 
-Otro procedimiento condicional en scheme es @code{cond}:
+@node cond
+@unnumberedsubsubsec cond
+@translationof cond
+
+Otro procedimiento condicional en Scheme es @code{cond}:
 
 @example
 (cond (expresión-de-prueba-1 secuencia-de-expresiones-resultante-1)
@@ -987,7 +1028,18 @@ tiene una propiedad @code{thickness} (grosor), mientras que
 @subsection Variables de LilyPond compuestas
 @translationof LilyPond compound variables
 
-@subheading Desplazamientos
+@menu
+* Desplazamientos::
+* Fracciones::
+* Dimensiones::
+* Listas-A de propiedades::
+* Cadenas de listas-A::
+@end menu
+
+
+@node Desplazamientos
+@unnumberedsubsubsec Desplazamientos
+@translationof Offsets
 
 Los desplazamientos bidimensionales (coordenadas X e Y) se almacenan
 como @emph{parejas}.  El @code{car} del desplazamiento es la
@@ -1005,17 +1057,23 @@ espacio de pentagrama a la derecha, y dos espacios hacia arriba.
 Los procedimientos para trabajar con desplazamientos están en
 @file{scm/lily-library.scm}.
 
+@node Fracciones
+@unnumberedsubsubsec Fracciones
 @subheading Fractions
 
-Fractions as used by LilyPond are again stored as @emph{pairs}, this
-time of unsigned integers.  While Scheme can represent rational numbers
-as a native type, musically @samp{2/4} and @samp{1/2} are not the same,
-and we need to be able to distinguish between them.  Similarly there are
-no negative @q{fractions} in LilyPond's mind.  So @code{2/4} in LilyPond
-means @code{(2 . 4)} in Scheme, and @code{#2/4} in LilyPond means
-@code{1/2} in Scheme.
+Las fracciones tal y como se utilizan por parte de LilyPond
+se almacenan, de nuevo, como @emph{parejas}, esta
+vez de enteros sin signo.  Mientras que Scheme es capaz de representar números racionaes
+como un tipo nativo, musicalmente @samp{2/4} y @samp{1/2} no son lo mismo,
+y necesitamos poder distinguir entre ellos.  De igual forma, no existe el concepto
+de @q{fracciones} negativas en LilyPond.  Así pues, @code{2/4} en LilyPond
+significa @code{(2 . 4)} en Scheme, y @code{#2/4} en LilyPond significa
+@code{1/2} en Scheme.
 
-@subheading Dimensiones
+
+@node Dimensiones
+@unnumberedsubsubsec Dimensiones
+@translationof Extents
 
 Las parejas se usan también para almacenar intervalos, que representan
 un rango de números desde el mínimo (el @code{car}) hasta el máximo
@@ -1030,7 +1088,10 @@ Los procedimientos para trabajar con intervalos están en
 @file{scm/lily-library.scm}.  Se deben usar estos procedimientos
 siempre que sea posible, para asegurar la consistencia del código.
 
-@subheading Listas-A de propiedades
+
+@node Listas-A de propiedades
+@unnumberedsubsubsec Listas-A de propiedades
+@translationog Property alists
 
 Una lista-A de propiedades es una estructura de datos de LilyPond que
 es una lista-A cuyas claves son propiedades y cuyos valores son
@@ -1039,7 +1100,10 @@ expresiones de Scheme que dan el valor deseado de la propiedad.
 Las propiedades de LilyPond son símbolos de Scheme, como por ejemplo
 @code{'thickness}.
 
-@subheading Cadenas de listas-A
+
+@node Cadenas de listas-A
+@unnumberedsubsubsec Cadenas de listas-A
+@translationof Alist chains
 
 Una cadena de listas-A es una lista que contiene listas-A de
 propiedades.
@@ -1580,7 +1644,9 @@ Podemos verificar que esta función musical funciona correctamente:
 @c @transl ationof Tweaking with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar
-profundamente usando instrucciones como @code{\override TextScript.extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
+profundamente usando instrucciones como
+@code{\override TextScript.extra-offset = ( 1 . -1)}.
+Pero tenemos incluso mucho más poder si
 utilizamos Scheme.  Para ver una explicación completa de esto,
 consulte el @ref{Tutorial de Scheme}, y @ruser{Interfaces para programadores}.
 
