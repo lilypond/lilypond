@@ -293,13 +293,6 @@
 	(avoid-slur . inside)
 	(padding . 0.20)
 	(side-relative-direction . ,DOWN)))
-    ("thumb"
-     . (
-	(script-stencil . (feta . ("thumb"  . "thumb")))
-	(avoid-slur . around)
-	(padding . 0.50)
-	(direction . ,UP)
-	(staff-padding . 0.5)))
     ("trill"
      . (
 	(script-stencil . (feta . ("trill" . "trill")))

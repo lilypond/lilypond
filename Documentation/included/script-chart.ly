@@ -50,7 +50,6 @@ This chart shows all articulations, or scripts, that the feta font contains.
     '("upbow"
       "downbow"
       "flageolet"
-      "thumb"
       "snappizzicato"
       "open"
       "halfopen"
