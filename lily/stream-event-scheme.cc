@@ -44,16 +44,13 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
 }
 
 LY_DEFINE (ly_event_property, "ly:event-property",
-           2, 0, 0, (SCM sev, SCM sym),
-           "Get the property @var{sym} of stream event @var{mus}."
-           "  If @var{sym} is undefined, return @code{'()}.")
+           2, 1, 0, (SCM sev, SCM sym, SCM val),
+           "Get the property @var{sym} of stream event @var{sev}."
+           "  If @var{sym} is undefined, return @var{val} or"
+           " @code{'()} if @var{val} is not specified.")
 {
-  LY_ASSERT_TYPE (unsmob_stream_event, sev, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-
-  Stream_event *e = unsmob_stream_event (sev);
-
-  return e->internal_get_property (sym);
+  LY_ASSERT_TYPE (unsmob_stream_event, sev, 1)
+  return ly_prob_property (sev, sym, val);
 }
 
 LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
