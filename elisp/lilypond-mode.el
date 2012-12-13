@@ -286,15 +286,14 @@ in LilyPond-include-path."
 (defun LilyPond-compile-file (command name)
   ;; We maybe should know what we run here (Lily, lilypond, tex)
   ;; and adjust our error-matching regex ?
-  (compile-internal
+  (compilation-start
    (if (eq LilyPond-command-current 'LilyPond-command-master)
        command
      ;; use temporary directory for Commands on Buffer/Region
      ;; hm.. the directory is set twice, first to default-dir
-     (concat "cd " (LilyPond-temp-directory) "; " command))
-   "No more errors" name))
+     (concat "cd " (LilyPond-temp-directory) "; " command))))
 
-;; do we still need this, now that we're using compile-internal?
+;; do we still need this, now that we're using compilation-start?
 (defun LilyPond-save-buffer ()
   "Save buffer and set default command for compiling."
   (interactive)
