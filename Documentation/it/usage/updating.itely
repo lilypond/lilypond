@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 8a23eef94ec7ab83e10646ab3502f2d82b888a03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -128,6 +128,10 @@ convert-ly [@var{opzione}]@dots{} @var{nomefile}@dots{}
 Esistono le seguenti opzioni:
 
 @table @code
+@item -d,--diff-version-update
+aggiorna @code{\version} all'ultima versione oppure, se questa è maggiore, non
+fa niente.
+
 @item -e,--edit
 Applica le conversioni direttamente nel file di input, modificando
 l'originale.
@@ -137,6 +141,14 @@ Imposta la versione da cui convertire.  Se non viene impostata, @command{convert
 la ricaverà dalla stringa @code{\version} presente nel file.
 Esempio: @option{--from=2.10.25}
 
+@item -h, --help
+Mostra la schermata di aiuto.
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+Imposta la verbosità dell'output su @var{loglevel}. I valori possibili, in
+caratteri maiuscoli, sono @code{PROGRESS} (predefinito), @code{NONE},
+@code{WARNING}, @code{ERROR} e @code{DEBUG}.
+
 @item -n,--no-version
 Normalmente @command{convert-ly} aggiunge un indicatore @code{\version}
 nell'output.  Questa opzione lo impedisce.
@@ -144,16 +156,13 @@ nell'output.  Questa opzione lo impedisce.
 @item -s, --show-rules
 Mostra tutte le conversioni conosciute ed esce.
 
-@item --to=@var{to-patchlevel}
-Imposta la versione obiettivo della conversione.  L'impostazione predefinita
-è l'ultima versione disponibile.  Esempio: @option{--to=2.12.2}
+@item -t, --to=@var{to-patchlevel}
+Imposta esplicitamente la versione obiettivo della conversione, altrimenti
+viene usato il valore più recente.
+@example
+convert-ly --to=2.14.1 miofile.ly
+@end example
 
-@item -h, --help
-Mostra la schermata di aiuto.
-
-@item -l @var{loglevel}, --loglevel=@var{loglevel}
-Imposta la verbosità dell'output su @var{loglevel}. I valori possibili sono @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e @code{DEBUG}.
 @end table
 
 Per aggiornare i frammenti LilyPond presenti nei file texinfo, si usa

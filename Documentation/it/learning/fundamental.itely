@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2335,7 +2335,7 @@ musicaVioloncello = \relative c {
 
 @seealso
 I modelli da cui partire si trovano nell'appendice @q{Modelli},
-si veda @ref{Single staff}.
+si veda @ref{Single staff templates}.
 
 
 @node Partitura vocale a quattro parti SATB
@@ -2448,8 +2448,8 @@ lower = \relative c, {
 @end lilypond
 
 Nessun modello fornisce esattamente questo assetto.  Quello più simile
-è @q{Partitura vocale SATB e riduzione automatica per pianoforte} -- si veda @ref{Vocal
-ensembles} -- ma abbiamo bisogno di modificare l'assetto e aggiungere
+è @q{Partitura vocale SATB e riduzione automatica per pianoforte}, ma
+abbiamo bisogno di modificare l'assetto e aggiungere
 un accompagnamento per pianoforte che non sia derivato automaticamente dalle
 parti vocali.  Le variabili che si riferiscono alla musica e alle parole per
 le parti vocali vanno bene, ma dovremo aggiungere le variabili per la

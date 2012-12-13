@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
+    Translation of GIT committish: 6d501730d319a6456acd13870821f0bcad64bf4e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -201,8 +201,7 @@ funziona.
 La sintassi generale di questo comando è:
 
 @example
-\override @var{Contesto}.@var{OggettoDiFormattazione} #'@var{proprietà-formattazione} =
-#@var{valore}
+\override @var{Contesto}.@var{OggettoDiFormattazione}.@var{proprietà-formattazione} = #@var{valore}
 @end example
 
 @noindent
@@ -221,10 +220,15 @@ i loro valori, si veda @ref{Types of properties}; in questa sezione, invece,
 useremo soltanto alcune proprietà e valori di facile comprensione,
 in modo da spiegare il formato e l'uso di questo comando.
 
-Per ora non ti preoccupare del @code{#'}, che deve precedere la
-proprietà di formattazione e del@tie{}@code{#}, che deve precedere
-il valore.  Tali segni vanno presentati esattamente in questa
-forma.  Questo è il comando più usato nelle modifiche e quasi tutto
+Le espressioni fondamentali di LilyPond sono gli elementi musicali come le note,
+le durate e le annotazioni.  Le espressioni basilari come numeri,
+stringhe di testo e liste sono elaborate nella @q{modalità Scheme}, che viene
+invocata inserendo @samp{#} prima del valore.  Sebbene i valori possano
+avere talvolta una valida rappresentazione nella modalità musicale di LilyPond,
+per coerenza questo manuale li farà sempre precedere da @samp{#}.  Per maggiori
+informazioni sulla modalità Scheme, si veda @rextend{LilyPond Scheme syntax}.
+
+@code{\override} è il comando più usato nelle modifiche e quasi tutto
 il resto del capitolo ha lo scopo di mostrare alcuni esempi
 di utilizzo.  Ecco un semplice esempio che mostra come cambiare
 il colore della testa di nota:
@@ -255,7 +259,7 @@ al suo valore predefinito.  Attenzione: non al suo valore precedente (nel caso
 siano stati inseriti vari comandi @code{\override}).  Impiega la seguente sintassi:
 
 @example
-\revert @var{Contesto}.@var{OggettoDiFormmattazione} #'@var{proprietà-formattazione}
+\revert @var{Contesto}.@var{OggettoDiFormmattazione}.@var{proprietà-formattazione}
 @end example
 
 Anche in questo caso, come per il comando @code{\override}, @var{Contesto} di
@@ -377,7 +381,7 @@ input.  Nota anche che non ci devono essere segni di uguale (@code{=}).  Dunque 
 forma semplice del comando @code{\tweak} è
 
 @example
-\tweak #'@var{proprietà-formattazione} #@var{valore}
+\tweak @var{proprietà-formattazione} #@var{valore}
 @end example
 
 Il comando @code{\tweak} serve anche a modificare soltanto una di una serie
@@ -416,7 +420,7 @@ seguire la sua origine fino all'evento originale:
 
 Questa forma estesa del comando @code{\tweak} può essere descritta così
 @example
-\tweak @var{oggetto-formattazione} #'@var{proprietà-formattazione} @var{valore}
+\tweak @var{oggetto-formattazione}.@var{proprietà-formattazione} @var{valore}
 @end example
 
 @cindex gruppi irregolari, annidati
@@ -611,8 +615,7 @@ spessore, per essere sicuri che il comando funzioni:
 \override Slur.thickness = #5.0
 @end example
 
-Non dimenticare il @code{#'} che precede il nome della
-proprietà e il@tie{}@code{#} che precede il nuovo valore!
+Non dimenticare il@tie{}@code{#} che precede il nuovo valore!
 
 L'ultima domanda è: @q{dove va messo questo comando?}  Finché non sei sicuro
 e stai ancora imparando, la risposta migliore è: @q{dentro la musica, prima della
@@ -843,18 +846,12 @@ per rendere il testo corsivo.  L'oggetto è @code{LyricText},
 la proprietà è @code{font-shape} e il valore è
 @code{italic}.  Come in precedenza, ometteremo il contesto.
 
-Per inciso, è importante notare che i valori di @code{font-shape},
-essendo dei simboli, devono essere preceduti da un apostrofo
-singolo, @code{'}.  Questo è il motivo per cui gli apostrofi sono
-necessari prima di @code{thickness} nell'esempio precedente e prima di
-@code{font-shape} in questo esempio.
-Entrambi sono simboli.  I simboli vengono letti internamente da
-LilyPond.  Alcuni sono nomi di proprietà, come @code{thickness} o
-@code{font-shape}, altri sono usati come valori da assegnare alle
-proprietà, come @code{italic}.  Nota che sono diversi dalle
-stringhe di testo arbitrarie, che appaiono nella forma @code{"una stringa
-di testo"}; maggiori informazioni sui simboli e le stringhe si trovano in
-@rextend{Scheme tutorial}.
+Per inciso, è importante notare che alcune proprietà prendono come valori
+dei simboli, ad esempio @code{italic}; in questo caso i valori devono essere
+preceduti da un apostrofo, @code{'}.  I simboli vengono letti internamente da
+LilyPond.  Nota che sono diversi dalle stringhe di testo arbitrarie, che
+appaiono nella forma @code{"una stringa di testo"}; maggiori informazioni sui
+simboli e le stringhe si trovano in @rextend{Scheme tutorial}.
 
 Quindi il comando @code{\override} che rende il testo corsivo è:
 
@@ -892,31 +889,8 @@ in questo modo:
 @noindent
 e tutto il testo è in corsivo.
 
-@subheading Specificare il contesto nella modalità testo (\lyricmode)
-
-@cindex contesto, specifarlo nella modalità testo (\lyricmode)
-@cindex modalità testo (\lyricmode), specificare il contesto
-
-Nel caso del testo, se cerchi di specificare il contesto nel
-formato usato prima, il comando non funzionerà.  Una sillaba
-inserita in modalità testo (lyricmode) può essere terminata da uno
-spazio, una nuova linea o un numero.  Tutti gli altri caratteri vengono
-considerati come parte della sillaba.  Per questo motivo uno spazio o una
-nuova linea devono apparire prima del @code{@}} finale per impedire che esso
-sia incluso nella sillaba finale.  Analogalmente, bisogna inserire degli spazi
-prima e dopo la virgola o il punto, @q{.}, separando il nome del contesto dal
-nome dell'oggetto: altrimenti, i due nomi verranno considerati insieme e
-l'interprete non sarà in grado di distinguerli.  Dunque il comando sarà:
-
-@example
-\override Lyrics.LyricText.font-shape = #'italic
-@end example
-
 @warning{Nel testo bisogna lasciare sempre uno spazio bianco tra l'ultima
 sillaba e la parentesi graffa che chiude il blocco.}
-
-@warning{Nelle sovrascritture (@emph{override}) del testo ci devono essere sempre
-degli spazi intorno al punto tra il nome del contesto e quello dell'oggetto.}
 
 
 @seealso
@@ -1095,7 +1069,20 @@ correggerlo specificando il contesto giusto:
 }
 @end lilypond
 
-Ora le stanghette sono sparite.
+Ora le stanghette sono sparite.  Impostare la proprietà @code{stencil}
+su @code{#f} è un'operazione talmente frequente che è stata creata una
+scorciatoia, @code{\omit}:
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Si noti però che impostare la proprietà @code{stencil} su @code{#f}
 causerà degli errori nel caso in cui le dimensioni dell'oggetto
@@ -1124,11 +1111,11 @@ tre valori booleani.
 Questi valori controllano rispettivamente se le stanghette debbano
 comparire alla fine, in mezzo o all'inizio dei righi.  Dato
 che nel nostro esempio vogliamo sopprimere tutte le stanghette, il valore
-che ci serve è @code{'#(#f #f #f)}.  Proviamo, ricordando di includere
-il contesto @code{Staff}.  Si noti che prima della parentesi di apertura
-abbiamo @code{#'#}.  Il @code{'#} deve far parte del valore perché introduce
-un vettore, mentre il primo@tie{}@code{#} deve precedere, come sempre, il
-valore del comando @code{\override}.
+che ci serve è @code{#(#f #f #f)} (equivalente al nome @code{all-invisible}).
+Proviamo, ricordando di includere il contesto @code{Staff}.  Si noti che prima
+della parentesi di apertura abbiamo @code{##}.  Un @code{#} è necessario
+perché introduce un vettore, mentre il primo@tie{}@code{#} deve precedere, come
+sempre, il valore del comando @code{\override}.
 
 @cindex BarLine, esempio di sovrascrittura
 @cindex proprietà break-visibility, esempio
@@ -1137,7 +1124,7 @@ valore del comando @code{\override}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1179,11 +1166,26 @@ Quindi il comando che rende trasparente l'indicazione di tempo è:
 @end lilypond
 
 @noindent
-L'indicazione di tempo è scomparsa; è rimasto però uno spazio al suo posto.  Magari questo è quello che si
-desidera, ad esempio per creare un esercizio in cui uno studente deve
-riempire degli spazi vuoti.  Ma in altre circostanze ciò può
-non essere gradito.  Per eliminare lo spazio vuoto bisogna usare la proprietà stencil
-e impostarla su @code{#f}:
+Impostare la proprietà @code{transparent} è un'operazione piuttosto
+frequente, perciò è stata creata la scorciatoia @code{\hide}:
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+L'indicazione di tempo è scomparsa; è rimasto però uno spazio al suo posto.  Magari
+questo è quello che si desidera, ad esempio per creare un esercizio in cui uno
+studente deve riempire degli spazi vuoti.  Ma in altre circostanze ciò può
+non essere gradito.  Per eliminare lo spazio vuoto bisogna impostare la
+proprietà stencil su @code{#f}:
 
 @cindex TimeSignature, esempio di sovrascrittura
 @cindex proprietà stencil, esempio
@@ -1192,7 +1194,7 @@ e impostarla su @code{#f}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1200,9 +1202,9 @@ e impostarla su @code{#f}:
 @end lilypond
 
 @noindent
-la differenza è ovvia: se si imposta lo stencil su @code{#f}
-l'oggetto scompare del tutto; se si rende l'oggetto @code{trasparente}
-questo resta dove è, anche se invisibile.
+la differenza è ovvia: se si imposta lo stencil su @code{#f} (possibilmente
+con @code{\omit}) l'oggetto scompare del tutto; se si rende l'oggetto
+@code{trasparente} questo resta dove è, anche se invisibile.
 
 @subheading color
 
@@ -1243,11 +1245,11 @@ stanghette scriviamo:
 @noindent
 e di nuovo vediamo che le stanghette non sono visibili.  Si noti
 che @emph{white} non è preceduto da un apostrofo, perché non
-è un simbolo, ma una @emph{funzione}.  Quando viene chiamata, fornisce
+è un simbolo, ma una @emph{variabile}.  Quando viene esaminata, fornisce
 la lista di valori interni necessari per impostare il colore su
 bianco.  Gli altri colori nella lista normale sono anch'essi
-funzioni.  Per convincerti che funziona potresti provare a
-cambiare il colore e usare una delle altre funzioni presenti
+delle variabili.  Per convincerti che funziona potresti provare a
+cambiare il colore e usare una delle altre variabili presenti
 nella lista.
 
 @cindex color, X11
@@ -1258,9 +1260,9 @@ nella lista.
 
 Il secondo modo per cambiare il colore è attraverso la lista
 di nomi di colori X11 che si trova in @ruser{List of colors}.
-Tuttavia questi colori devono essere preceduti da un'altra
-funzione che converte i nomi di colori X11 nella lista di
-valori interni, @code{x11-color}:
+Questi colori vengono trasformati in valori reali dalla funzione
+@code{x11-color}, che converte i simboli di colore X11 nella lista
+di valori interni:
 
 @cindex BarLine, esempio di sovrascrittura
 @cindex proprietà color, esempio
@@ -1279,7 +1281,8 @@ valori interni, @code{x11-color}:
 @noindent
 Si noti che in questo caso la funzione @code{x11-color} prende
 un simbolo come argomento, dunque il simbolo deve essere preceduto
-da un apostrofo e i due elementi devono essere racchiusi tra parentesi.
+da un apostrofo per impedire che sia considerato una variabile e
+l'intera funzione deve essere racchiusa tra parentesi.
 
 @cindex colori rgb
 @cindex rgb, colori
@@ -1287,7 +1290,7 @@ da un apostrofo e i due elementi devono essere racchiusi tra parentesi.
 
 @funindex rgb-color
 
-Esiste una terza funzione, che converte i valori RGB in colori
+Esiste un'altra funzione, che converte i valori RGB in colori
 interni, la funzione @code{rgb-color}.  Prende tre argomenti
 che specificano l'intensità dei colori rosso, verde e blu.
 I valori vanno da 0 a 1.  Quindi per avere il colore rosso
@@ -1390,7 +1393,7 @@ ciascun oggetto su @code{#f}, così:
 
 @cindex proprietà alignAboveContext, esempio
 @cindex @code{\with}, esempio
-@cindex proprietà stencil, esempio
+@funindex \omit
 @cindex Clef, esempio di sovrascrittura
 @cindex TimeSignature, esempio di sovrascrittura
 
@@ -1405,8 +1408,8 @@ ciascun oggetto su @code{#f}, così:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef.stencil = ##f
-        \override Staff.TimeSignature.stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1422,10 +1425,10 @@ siano applicati al rigo dell'ossia.
 
 Ma qual è la differenza tra modificare il contesto del rigo con
 @code{\with} e modificare la proprietà stencil della chiave e
-del segno di tempo con \override?  La principale differenza è
-che le modifiche inserite in un blocco @code{\with} vengono applicate
-nel momento in cui viene creato il contesto e permangono come valori
-@strong{predefiniti} per la durata di quel contesto, mentre i
+del segno di tempo con @code{\override} o in questo caso @code{\omit}?  La
+principale differenza è che le modifiche inserite in un blocco @code{\with}
+vengono applicate nel momento in cui viene creato il contesto e permangono
+come valori @strong{predefiniti} per la durata di quel contesto, mentre i
 comandi @code{\set} o @code{\override} incorporati nel blocco
 della musica sono dinamici -- le loro modifiche sono sincronizzate
 con un punto preciso della musica.  Se le modifiche sono disattivate o
@@ -1467,6 +1470,30 @@ Dunque possiamo sostituire l'esempio precedente con
         \override Clef.stencil = ##f
         % Nasconde le indicazioni di tempo di questo rigo
         \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Si possono usare anche le scorciatoie @code{\hide} e @code{\omit} per
+impostare la proprietà @code{transparent} e togliere lo @code{stencil}
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Nasconde le chiavi di questo rigo
+        \omit Clef
+        % Nasconde le indicazioni di tempo di questo rigo
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1529,8 +1556,8 @@ Proviamolo nel nostro esempio dell'ossia:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Riduce la dimensione di tutti i tipi di carattere di circa il 24%
         fontSize = #-2
       }
@@ -1604,8 +1631,8 @@ questo modo:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Riduce proporzionalmente la lunghezza dei gambi e la spaziatura tra le linee
         \override StaffSymbol.staff-space = #(magstep -2)
@@ -1833,11 +1860,13 @@ non è ovvio.
   @tab I gruppi irregolare sono sotto/sopra le note
 @end multitable
 
-Si noti che questi comandi predefiniti @strong{non} possono essere
-preceduti da @code{\once}.  Se desideri limitare l'effetto a una
-singola nota, devi usare il comando @code{\once \override} equivalente
-oppure il comando predefinito seguito, dopo la nota in questione, dal
-corrispondente comando @code{\xxxNeutral}.
+
+Le varianti neutral/normal di questi comandi usano @code{\revert} e quindi
+@strong{non} possono essere precedute da @code{\once}.  Se desideri limitare
+l'effetto degli altri comandi (che usano @code{\override}) a un singolo
+momento temporale, devi farli precedere da @code{\once} come faresti con
+delle sovrascritture esplicite.
+
 
 @unnumberedsubsubsec Diteggiatura
 
@@ -3607,6 +3636,36 @@ possiamo allungarlo impostando la proprietà
 >>
 @end lilypond
 
+@funindex \single
+@cindex tweak, generated from override
+Per @emph{sovrascrivere} la trasparenza di un oggetto grafico,
+avremmo potuto usare la scorciatoia @code{\hide}, come spiegato
+in precedenza.  Ma la modifica manuale con @emph{\tweak} è un'operazione
+diversa, che riguarda solo le proprietà generate da una singola espressione
+musicale.  Tuttavia è possibile convertire le sovrascritture in @emph{tweak}
+usando @code{\single}. Questo ci permette di riscrivere l'esempio precedente
+in questo modo
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+In questo caso particolare, la differenza rispetto a @code{\once \hide} non
+è evidente.  La differenza è importante quando ci sono vari oggetti che
+si trovano nello stesso punto del tempo musicale (come le teste delle note
+in un accordo).  In quel caso, @code{\once} avrà effetto su tutti quegli
+oggetti mentre @code{\single} solo su uno, ovvero quello generato
+dall'espressione musicale immediatamente seguente.
+
 @subheading Simulare una corona nel MIDI
 
 @cindex proprietà stencil, uso della
@@ -3636,7 +3695,7 @@ il modo migliore è impostare la proprietà @code{stencil} su
     % Indicazione di tempo visibile
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.transparent = ##t
+    \once \hide Score.MetronomeMark
     % Indicazione di tempo invisibile per allungare la fermata nel MIDI
     \tempo 4=80
     a4\fermata |
@@ -3659,7 +3718,7 @@ il modo migliore è impostare la proprietà @code{stencil} su
     % Indicazione di tempo visibile
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.stencil = ##f
+    \once \omit Score.MetronomeMark
     % Indicazione di tempo invisibile per allungare la fermata nel MIDI
     \tempo 4=80
     a4\fermata |

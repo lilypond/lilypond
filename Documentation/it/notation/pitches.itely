@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 35d565c89b853ed87b1bb2feb59f6ce8bef6263b
+   Translation of GIT committish: 73580a4adff969f66b5c562c6a45b2b92fc6128e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -466,9 +466,9 @@ Le lingue disponibili e i tipi di notazione che definiscono sono:
   @tab c d e f g a b h
 @item @code{english}
   @tab c d e f g a bf b
-@item @code{espanol}
+@item @code{espanol} o @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano}
+@item @code{italiano} o @code{français}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -499,9 +499,9 @@ possono variare a seconda della lingua adottata:
 @item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @code{espanol}
+@item @code{espanol} o @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano}
+@item @code{italiano} o @code{français}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
@@ -553,9 +553,9 @@ non hanno ancora dei nomi per le note speciali.
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
+@item @code{espanol} o @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano}
+@item @code{italiano} o @code{français}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
@@ -1139,6 +1139,7 @@ c2 c
 @cindex chiave traspositrice
 @cindex trasposizione, chiave
 @cindex trasposizione dell'ottava
+@cindex trasposizione opzionale dell'ottava
 @cindex chiave di tenore per coro
 
 Aggiungendo@tie{}@code{_8} o@tie{}@code{^8} al nome della chiave, la sua
@@ -1161,6 +1162,19 @@ c2 c
 \clef "F^5"
 c2 c
 @end lilypond
+
+L'ottavazione opzionale si può ottenere racchiudendo l'argomento numerico
+tra parentesi tonde o quadre:
+
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+Le altezze vengono mostrate come se l'argomento numerico fosse
+inserito senza parentesi.
 
 Alcune chiavi particolari sono descritte in @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures} e @ref{Custom
@@ -1189,6 +1203,20 @@ Guida al funzionamento interno:
 @rinternals{Clef},
 @rinternals{OctavateEight},
 @rinternals{clef-interface}.
+
+@knownissues
+I numeri di ottavazione assegnati alle chiavi sono trattati come oggetti grafici
+separati.  Quindi qualsiasi @code{\override} all'oggetto @var{Clef} dovrà essere
+applicato, con un altro @code{\override}, all'oggetto @var{OctavateEight}.
+
+@lilypond[fragment,quote,relative=1]
+\new Staff \with {
+  \override OctavateEight.color = #red
+  \override Clef.color = #blue
+}
+
+\clef "treble_8" c4
+@end lilypond
 
 
 @node Armatura di chiave
@@ -1262,6 +1290,39 @@ f
 fis
 @end lilypond
 
+Si possono definire ulteriori modi elencando le alterazioni per ogni
+grado della scala quando il modo inizia col Do.
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative c' {
+  \key c\freygish c4 des e f
+  \bar "||" \key d\freygish d es fis g
+}
+@end lilypond
+
+Le alterazioni dell'armatura di chiave possono essere collocate in
+posizioni diverse da quelle tradizionali o anche in più di un'ottava, usando
+le proprietà @code{flat-positions} e @code{sharp-positions}
+di @code{KeySignature}.  I valori di queste proprietà specificano
+l'estensione delle posizioni del rigo in cui potranno comparire
+le alterazioni.  Se viene specificata una sola posizione, le
+alterazioni vengono collocate entro l'ottava che finisce in quella
+posizione del rigo.
+
+@lilypond[verbatim, quote,relative=0]
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+
+\override Staff.KeySignature.sharp-positions = #'(2)
+\bar "||" \key b\major b fis b2
+@end lilypond
+
+
 
 @snippets
 
@@ -1288,7 +1349,6 @@ Guida al funzionamento interno:
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
-@rinternals{key-cancellation-interface},
 @rinternals{key-signature-interface}.
 
 

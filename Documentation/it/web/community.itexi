@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7f8a93a6c044fcbb3c7aeb3aa5cba0c921dc7691
+    Translation of GIT committish: 2f7de62c4aae9fca03fd754a9f44ff02a272eb30
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1159,7 +1159,8 @@ in @ref{Soffitta}}
 @subheading Annunci
 
 Annunci e notizie ordinati per versione:
-@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14}
+@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
@@ -1172,25 +1173,43 @@ Annunci e notizie ordinati per versione:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Elenco descrittivo dei cambiamenti per ogni versione:
-+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
-+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
-+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
-+@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
-+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
-+@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
-+@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
-+@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
-+@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
-+@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
-+@miscLink{NEWS-1.4,v1.4},
-+@miscLink{NEWS-1.2,v1.2}
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
+@uref{http://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS,v2.6},
+@uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS,v2.4},
+@uref{http://lilypond.org/doc/v2.2/Documentation/topdocs/out-www/NEWS,v2.2},
+@uref{http://lilypond.org/doc/v2.0/Documentation/topdocs/out-www/NEWS,v2.0},
+@uref{http://lilypond.org/doc/v1.8/Documentation/topdocs/out-www/NEWS,v1.8},
+@uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
+@miscLink{NEWS-1.4,v1.4},
+@miscLink{NEWS-1.2,v1.2}
+
+@divEnd
+
+@subheading Grazie
+
+Grazie a sviluppatori, collaboratori, cacciatori di bug e a chi ci ha dato
+preziosi suggerimenti
+@miscLink{THANKS-2.16,v2.16},
+@miscLink{THANKS-2.14,v2.14},
+@miscLink{THANKS-2.12,v2.12},
+@miscLink{THANKS-2.10,v2.10},
+@miscLink{THANKS-2.8,v2.8},
+@miscLink{THANKS-2.6,v2.6},
+@miscLink{THANKS-2.4,v2.4},
+@miscLink{THANKS-2.2,v2.2},
+@miscLink{THANKS-2.0,v2.0},
+@miscLink{THANKS-1.8,v1.8}
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Changelog
+@subheading Lista dei cambiamenti
 
-Changelog degli sviluppatori per ogni versione:
+Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
 @miscLink{ChangeLog-2.10,v2.10},
 @miscLink{ChangeLog-2.3,v2.3},
 @miscLink{ChangeLog-2.1,v2.1},
