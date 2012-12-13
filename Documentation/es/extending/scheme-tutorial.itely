@@ -1091,7 +1091,7 @@ siempre que sea posible, para asegurar la consistencia del código.
 
 @node Listas-A de propiedades
 @unnumberedsubsubsec Listas-A de propiedades
-@translationog Property alists
+@translationof Property alists
 
 Una lista-A de propiedades es una estructura de datos de LilyPond que
 es una lista-A cuyas claves son propiedades y cuyos valores son
