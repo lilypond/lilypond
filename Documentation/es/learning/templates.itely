@@ -22,7 +22,7 @@ unas hermosas partituras impresas!
 @menu
 * Pentagrama único::
 * Plantillas de piano::
-* Cuarteto de cuerda::
+* Plantillas de cuarteto de cuerda::
 * Conjuntos vocales::
 * Plantillas orquestales::
 * Plantillas para notación antigua::
@@ -76,9 +76,9 @@ unas hermosas partituras impresas!
 {piano-template-with-centered-lyrics.ly}
 
 
-@node Cuarteto de cuerda
-@appendixsec Cuarteto de cuerda
-@translationof String quartet
+@node Plantillas de cuarteto de cuerda
+@appendixsec Plantillas de cuarteto de cuerda
+@translationof String quartet templates
 
 @appendixsubsec Cuarteto de cuerda simple
 
