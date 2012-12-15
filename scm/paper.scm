@@ -240,50 +240,64 @@
     ))
 
 ;; todo: take dimension arguments.
+(define (lookup-paper-name module name landscape?)
+  "Look up @var{name} and return a number pair of width and height,
+where @var{landscape?} specifies whether the dimensions should be swapped
+unless explicitly overriden in the name."
+  (let* ((swapped?
+	  (cond ((string-suffix? "landscape" name)
+		 (set! name
+		       (string-trim-right (string-drop-right name 9)))
+		 #t)
+		((string-suffix? "portrait" name)
+		 (set! name
+		       (string-trim-right (string-drop-right name 8)))
+		 #f)
+		(else landscape?)))
+	 (is-paper? (module-defined? module 'is-paper))
+	 (entry (and is-paper?
+                     (eval-carefully (assoc-get name paper-alist)
+                                     module
+                                     #f))))
+    (and entry is-paper?
+         (if swapped? (cons (cdr entry) (car entry)) entry))))
 
-(define (set-paper-dimensions m w h)
+(define (set-paper-dimensions m w h landscape?)
   "M is a module (i.e. layout->scope_ )"
   (let*
       ;; page layout - what to do with (printer specific!) margin settings?
-      ((paper-default (eval-carefully
-		       (assoc-get
-		        (ly:get-option 'paper-size)
-			paper-alist
-			#f
-			#t)
-		       m
-		       (cons w h)))
-       ;; Horizontal margins, marked with 'preserve, are stored
+      ((paper-default (or (lookup-paper-name
+                           m (ly:get-option 'paper-size) landscape?)
+                          (cons w h)))
+       ;; Horizontal margins, marked with #t in the cddr, are stored
        ;; in renamed variables because they must not be overwritten.
+       ;; The cadr indicates whether a value is a vertical dimension.
        ;; Output_def::normalize () needs to know
        ;; whether the user set the value or not.
-       (scaleable-values `((("left-margin" . ,w) . preserve)
-			   (("right-margin" . ,w) . preserve)
-			   (("inner-margin" . ,w) . preserve)
-			   (("outer-margin" . ,w) . preserve)
-			   (("binding-offset" . ,w) . '())
-			   (("top-margin" . ,h) . '())
-			   (("bottom-margin" . ,h) . '())
-			   (("indent" . ,w) . '())
-			   (("short-indent" . ,w) . '())))
+       (scaleable-values '(("left-margin" #f . #t)
+			   ("right-margin" #f . #t)
+			   ("inner-margin" #f . #t)
+			   ("outer-margin" #f . #t)
+			   ("binding-offset" #f . #f)
+			   ("top-margin" #t . #f)
+			   ("bottom-margin" #t . #f)
+			   ("indent" #f . #f)
+			   ("short-indent" #f . #f)))
        (scaled-values
 	(map
          (lambda (entry)
            (let ((entry-symbol
 		  (string->symbol
-		   (string-append (caar entry) "-default")))
-		 (orientation (cdar entry)))
-	     (if paper-default
-		 (cons (if (eq? (cdr entry) 'preserve)
-			   (string-append (caar entry) "-default-scaled")
-			   (caar entry))
-		       (round (* orientation
-				 (/ (eval-carefully entry-symbol m 0)
-				    (if (= orientation w)
-					(car paper-default)
-					(cdr paper-default))))))
-		 entry)))
-	 scaleable-values)))
+		   (string-append (car entry) "-default")))
+		 (vertical? (cadr entry)))
+             (cons (if (cddr entry)
+                       (string-append (car entry) "-default-scaled")
+                       (car entry))
+                   (round (* (if vertical? h w)
+                             (/ (eval-carefully entry-symbol m 0)
+                                ((if vertical? cdr car)
+                                 paper-default)))))))
+         scaleable-values)))
 
     (module-define! m 'paper-width w)
     (module-define! m 'paper-height h)
@@ -299,31 +313,13 @@
      scaled-values)))
 
 (define (internal-set-paper-size module name landscape?)
-  (let* ((entry-name name)
-	 (swapped?
-	  (cond ((string-suffix? "landscape" name)
-		 (set! entry-name
-		       (string-trim-right (string-drop-right name 9)))
-		 #t)
-		((string-suffix? "portrait" name)
-		 (set! entry-name
-		       (string-trim-right (string-drop-right name 8)))
-		 #f)
-		(else landscape?)))
-	 (entry (assoc-get entry-name paper-alist))
-	 (is-paper? (module-defined? module 'is-paper))
-	 (mm (eval 'mm module)))
-    (define (swap x)
-      (cons (cdr x) (car x)))
-
+  (let* ((entry (lookup-paper-name module name landscape?))
+         (is-paper? (module-defined? module 'is-paper)))
     (cond
      ((not is-paper?)
       (ly:warning (_ "This is not a \\layout {} object, ~S") module))
      (entry
-      (set! entry (eval entry module))
-      (if swapped?
-	  (set! entry (swap entry)))
-      (set-paper-dimensions module (car entry) (cdr entry))
+      (set-paper-dimensions module (car entry) (cdr entry) landscape?)
       
       (module-define! module 'papersizename name)
       (module-define! module 'landscape
