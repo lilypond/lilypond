@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.8\n"
+"Project-Id-Version: lilypond 2.17.9\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-12-01 17:00+0000\n"
+"POT-Creation-Date: 2012-12-15 16:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1807,7 +1807,7 @@ msgstr ""
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:400
+#: context.cc:406
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
@@ -2779,7 +2779,7 @@ msgstr ""
 msgid "no such internal option: %s"
 msgstr ""
 
-#: property-iterator.cc:93
+#: property-iterator.cc:100
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr ""
@@ -3122,102 +3122,102 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:466 parser.yy:736 parser.yy:803
-#: /home/phil/lilypond-git/lily/parser.yy:466
-#: /home/phil/lilypond-git/lily/parser.yy:736
-#: /home/phil/lilypond-git/lily/parser.yy:803
+#: parser.yy:464 parser.yy:732 parser.yy:799
+#: /home/phil/lilypond-git/lily/parser.yy:464
+#: /home/phil/lilypond-git/lily/parser.yy:732
+#: /home/phil/lilypond-git/lily/parser.yy:799
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:632 parser.yy:1106 /home/phil/lilypond-git/lily/parser.yy:632
-#: /home/phil/lilypond-git/lily/parser.yy:1106
+#: parser.yy:628 parser.yy:1102 /home/phil/lilypond-git/lily/parser.yy:628
+#: /home/phil/lilypond-git/lily/parser.yy:1102
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:838 /home/phil/lilypond-git/lily/parser.yy:838
+#: parser.yy:834 /home/phil/lilypond-git/lily/parser.yy:834
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:854 /home/phil/lilypond-git/lily/parser.yy:854
+#: parser.yy:850 /home/phil/lilypond-git/lily/parser.yy:850
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:878 /home/phil/lilypond-git/lily/parser.yy:878
+#: parser.yy:874 /home/phil/lilypond-git/lily/parser.yy:874
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1031 /home/phil/lilypond-git/lily/parser.yy:1031
+#: parser.yy:1027 /home/phil/lilypond-git/lily/parser.yy:1027
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1042 parser.yy:2352 /home/phil/lilypond-git/lily/parser.yy:1042
-#: /home/phil/lilypond-git/lily/parser.yy:2352
+#: parser.yy:1038 parser.yy:2293 /home/phil/lilypond-git/lily/parser.yy:1038
+#: /home/phil/lilypond-git/lily/parser.yy:2293
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1316 /home/phil/lilypond-git/lily/parser.yy:1316
+#: parser.yy:1306 /home/phil/lilypond-git/lily/parser.yy:1306
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2049 parser.yy:2162 parser.yy:2175 parser.yy:2184
-#: /home/phil/lilypond-git/lily/parser.yy:2049
-#: /home/phil/lilypond-git/lily/parser.yy:2162
-#: /home/phil/lilypond-git/lily/parser.yy:2175
-#: /home/phil/lilypond-git/lily/parser.yy:2184
+#: parser.yy:1997 parser.yy:2108 parser.yy:2121 parser.yy:2130
+#: /home/phil/lilypond-git/lily/parser.yy:1997
+#: /home/phil/lilypond-git/lily/parser.yy:2108
+#: /home/phil/lilypond-git/lily/parser.yy:2121
+#: /home/phil/lilypond-git/lily/parser.yy:2130
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2142 /home/phil/lilypond-git/lily/parser.yy:2142
+#: parser.yy:2088 /home/phil/lilypond-git/lily/parser.yy:2088
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2203 /home/phil/lilypond-git/lily/parser.yy:2203
+#: parser.yy:2149 /home/phil/lilypond-git/lily/parser.yy:2149
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2296 parser.yy:2300 parser.yy:2318
-#: /home/phil/lilypond-git/lily/parser.yy:2296
-#: /home/phil/lilypond-git/lily/parser.yy:2300
-#: /home/phil/lilypond-git/lily/parser.yy:2318
+#: parser.yy:2242 parser.yy:2246 parser.yy:2261
+#: /home/phil/lilypond-git/lily/parser.yy:2242
+#: /home/phil/lilypond-git/lily/parser.yy:2246
+#: /home/phil/lilypond-git/lily/parser.yy:2261
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2461 /home/phil/lilypond-git/lily/parser.yy:2461
+#: parser.yy:2402 /home/phil/lilypond-git/lily/parser.yy:2402
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2557 parser.yy:2562 /home/phil/lilypond-git/lily/parser.yy:2557
-#: /home/phil/lilypond-git/lily/parser.yy:2562
+#: parser.yy:2498 parser.yy:2503 /home/phil/lilypond-git/lily/parser.yy:2498
+#: /home/phil/lilypond-git/lily/parser.yy:2503
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2677 /home/phil/lilypond-git/lily/parser.yy:2677
+#: parser.yy:2618 /home/phil/lilypond-git/lily/parser.yy:2618
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2778 /home/phil/lilypond-git/lily/parser.yy:2778
+#: parser.yy:2713 /home/phil/lilypond-git/lily/parser.yy:2713
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2850 parser.yy:2896 /home/phil/lilypond-git/lily/parser.yy:2850
-#: /home/phil/lilypond-git/lily/parser.yy:2896
+#: parser.yy:2785 parser.yy:2831 /home/phil/lilypond-git/lily/parser.yy:2785
+#: /home/phil/lilypond-git/lily/parser.yy:2831
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2913 /home/phil/lilypond-git/lily/parser.yy:2913
+#: parser.yy:2848 /home/phil/lilypond-git/lily/parser.yy:2848
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3027 /home/phil/lilypond-git/lily/parser.yy:3027
+#: parser.yy:2962 /home/phil/lilypond-git/lily/parser.yy:2962
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3086 /home/phil/lilypond-git/lily/parser.yy:3086
+#: parser.yy:3021 /home/phil/lilypond-git/lily/parser.yy:3021
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3321 /home/phil/lilypond-git/lily/parser.yy:3321
+#: parser.yy:3243 /home/phil/lilypond-git/lily/parser.yy:3243
 msgid "not a markup"
 msgstr ""
 
@@ -3246,52 +3246,52 @@ msgstr ""
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:319 /home/phil/lilypond-git/lily/lexer.ll:318
+#: lexer.ll:319 /home/phil/lilypond-git/lily/lexer.ll:319
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:343 /home/phil/lilypond-git/lily/lexer.ll:342
+#: lexer.ll:343 /home/phil/lilypond-git/lily/lexer.ll:343
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:369 /home/phil/lilypond-git/lily/lexer.ll:368
+#: lexer.ll:369 /home/phil/lilypond-git/lily/lexer.ll:369
 msgid "string expected after \\include"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:379 /home/phil/lilypond-git/lily/lexer.ll:378
+#: lexer.ll:379 /home/phil/lilypond-git/lily/lexer.ll:379
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:691 /home/phil/lilypond-git/lily/lexer.ll:690
+#: lexer.ll:691 /home/phil/lilypond-git/lily/lexer.ll:691
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:791 /home/phil/lilypond-git/lily/lexer.ll:792
+#: lexer.ll:791 /home/phil/lilypond-git/lily/lexer.ll:791
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:914 /home/phil/lilypond-git/lily/lexer.ll:916
+#: lexer.ll:913 /home/phil/lilypond-git/lily/lexer.ll:915
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1197 /home/phil/lilypond-git/lily/lexer.ll:1199
+#: lexer.ll:1196 /home/phil/lilypond-git/lily/lexer.ll:1198
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1241 /home/phil/lilypond-git/lily/lexer.ll:1243
+#: lexer.ll:1240 /home/phil/lilypond-git/lily/lexer.ll:1242
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1242 /home/phil/lilypond-git/lily/lexer.ll:1244
+#: lexer.ll:1241 /home/phil/lilypond-git/lily/lexer.ll:1243
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1248 /home/phil/lilypond-git/lily/lexer.ll:1250
+#: lexer.ll:1247 /home/phil/lilypond-git/lily/lexer.ll:1249
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3374,28 +3374,33 @@ msgstr ""
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-markup-commands.scm:887
+#: define-markup-commands.scm:881
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2614
+#: define-markup-commands.scm:2608
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3040
+#: define-markup-commands.scm:3034
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3041
+#: define-markup-commands.scm:3035
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3194
+#: define-markup-commands.scm:3188
 #, scheme-format
 msgid "not a valid duration string: ~a"
+msgstr ""
+
+#: define-markup-commands.scm:3397
+#, scheme-format
+msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
 #: define-music-types.scm:770
@@ -3532,37 +3537,37 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:305
+#: lily-library.scm:304
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:361
+#: lily-library.scm:359
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:377
+#: lily-library.scm:375
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:904
+#: lily-library.scm:902
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:978
+#: lily-library.scm:976
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1003
+#: lily-library.scm:1001
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1009
+#: lily-library.scm:1007
 msgid "old relative compatibility not used"
 msgstr ""
 
@@ -3796,40 +3801,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:377
+#: translation-functions.scm:375
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:380
+#: translation-functions.scm:378
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:423
+#: translation-functions.scm:421
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:438 translation-functions.scm:450
+#: translation-functions.scm:436 translation-functions.scm:448
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:441
+#: translation-functions.scm:439
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:453
+#: translation-functions.scm:451
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:476
+#: translation-functions.scm:474
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:581
+#: translation-functions.scm:579
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
