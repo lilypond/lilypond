@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 95b372c451ea1586db8db66d3d00334382e8e103
+    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,7 +77,6 @@ c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
-@noindent
 Voici ces mêmes durées sans la fonction de ligature automatique.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
@@ -224,6 +223,7 @@ c4 c \times 2/3 { b4 a g }
 @end lilypond
 
 @cindex crochet de nolet, positionnement
+@cindex nolet, positionnement du crochet
 
 @funindex \tupletUp
 @funindex tupletUp
@@ -416,7 +416,7 @@ liaison d'@strong{articulation} ou de @strong{phrasé}.  Une liaison de
 tenue est un moyen parmi d'autres pour prolonger la durée d'une note,
 tout comme les points.}
 
-Une liaison de tenue s'indique au moyen d'un tilde @code{~}.
+Une liaison de tenue s'indique au moyen d'un tilde (@code{~}).
 
 @lilypond[quote,verbatim,relative=2]
 a2 ~ a
@@ -604,9 +604,9 @@ Référence des propriétés internes :
 Un changement de portée, lorsqu'une liaison de tenue est active, ne
 peut produire une liaison oblique.
 
-Un changement de clé ou d'octave pendant une liaison de tenue produit un
-résultat indéfini.  Dans ces cas là, il est préférable d'utiliser un
-@emph{legato}.
+Un changement de clef ou d'octave pendant une liaison de tenue
+produit un résultat indéfini.  Dans ces cas là, il est préférable
+d'utiliser un @emph{legato}.
 
 
 @node Écriture des silences
@@ -865,7 +865,7 @@ R1*2 |
 @funindex \compressFullBarRests
 @funindex compressFullBarRests
 
-Par défaut, un silence multimesures sera répété sur autant de mesures
+Par défaut, un silence multimesure sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
 surplombé du nombre de mesures vides -- ou @qq{à compter} :
 
@@ -896,7 +896,7 @@ R2.*2 |
 @funindex fermataMarkup
 @funindex MultiMeasureRestText
 
-Vous pouvez aussi ajouter du texte à un silence multimesures en
+Vous pouvez aussi ajouter du texte à un silence multimesure en
 utilisant la syntaxe @w{@var{note}-@code{markup}} (cf.
 @ref{Mise en forme du texte}).  La variable @code{\fermataMarkup} quant
 à elle permet d'ajouter un point d'orgue :
@@ -923,7 +923,7 @@ R1^"pas bon !"
 R1^"ça marche !"
 @end lilypond
 
-Un silence multimesures placé directement après une commande
+Un silence multimesure placé directement après une commande
 @code{\partial} risque fort de perturber le vérificateur de limites et
 numéros de mesure.
 
@@ -985,7 +985,7 @@ Référence des propriétés internes :
 @cindex silences multimesure et doigtés
 
 @knownissues
-Vous ne pouvez pas utiliser de doigtés (par  ex. @code{R1*10-4}) pour
+Vous ne pouvez pas utiliser de doigtés (par ex. @code{R1*10-4}) pour
 positionner des nombres au dessus d'un silence multimesure, le numéro
 de doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
 
@@ -1157,10 +1157,9 @@ comme indiqué à la rubrique
 
 Le contexte auquel doivent s'appliquer les dérogations introduites par
 un @code{\overrideTimeSignatureSettings} doit exister avant l'appel de
-ces réglages.  Autrement dit, vous devrez explicitement mentionner le
-contexte avant que ne survienne l'appel à
-@code{\overrideTimeSignatureSettings} s'il n'y a pas déjà d'élément
-musical.
+ces réglages.  Autrement dit, vous devrez, s'il n'y a pas déjà d'élément
+musical, explicitement mentionner le contexte avant que ne
+survienne l'appel à @code{\overrideTimeSignatureSettings}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1424,10 +1423,10 @@ r4 e8 | a4 c8 b c4 |
 Cette commande @code{\partial @var{durée}} peut aussi s'écrire :
 
 @example
-\set Timing.measurePosition = -@var{durée}
+\set Timing.measurePosition -@var{durée}
 @end example
 
-De fait, @code{\partial 8*3} équivaut à :
+De fait, @code{\partial 8} équivaut à :
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1808,8 +1807,8 @@ fausser l'espacement régulier entre les différentes portées.
 
 On peut convertir automatiquement les notes longues en notes liées.  Il
 suffit pour cela de remplacer le graveur @code{Note_heads_engraver}
-par le graveur @code{Completion_heads_engraver}.  Il en va de la même
-manière pour des silences ; le @code{Completion_rest_engraver} devra
+par le graveur @code{Completion_heads_engraver}.  Il en va de même
+pour des silences ; le @code{Completion_rest_engraver} devra
 alors remplacer le @code{Rest_engraver}.  Dans l'exemple suivant, les
 notes ou silences qui dépassent de la mesure sont divisés et au besoin
 liés.
@@ -2060,7 +2059,7 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 @unnumberedsubsubsec Définition des règles de ligature automatique
 @translationof Setting automatic beam behavior
 
-@cindex ligatures te paroles
+@cindex ligatures et paroles
 @cindex paroles et ligatures
 
 @funindex autoBeaming
@@ -2086,18 +2085,18 @@ placement des ligatures.  En l'absence de règle affectant
 déterminées par les réglages conjoints de @code{baseMoment} et
 @code{beatStructure}.
 
-@code{beamExceptions} dispose par défaut de règles pour les métriques le
-plus courantes ; il est donc impératif de les invalider pour gérer les
-ligatures automatiques à l'aide de @code{baseMoment} et
-@code{beatStructure}.  Les règles de @code{beamExceptions} se
-désactivent par un
+@code{beamExceptions} dispose par défaut de règles pour les
+métriques les plus courantes ; il est donc impératif de les
+invalider pour gérer les ligatures automatiques à l'aide de
+@code{baseMoment} et @code{beatStructure}.  Les règles de
+@code{beamExceptions} se désactivent par un
 
 @example
 \set Timing.beamExceptions = #'()
 @end example
 
 
-@subsubsubheading @i{Ligature basée sur @code{baseMoment} et @code{beatStructure}}
+@subsubsubheading Ligature basée sur @code{baseMoment} et @code{beatStructure}
 @c VO Beaming based on baseMoment and beatStructure
 
 Dans la plupart des cas, une ligature automatique se termine à la fin
@@ -2107,8 +2106,8 @@ La propriété @code{beatStructure} est constituée d'une liste d'éléments
 Scheme qui définit la longueur de chaque pulsation, prenant
 @code{baseMoment} comme unité.  L'unité de base (le @code{baseMoment})
 correspond par défaut à l'inverse du dénominateur de la métrique.
-D'autre part, chaque unité de @code{baseMoment} constitue une seule
-pulsation.
+D'autre part, chaque unité de @code{baseMoment} constitue par
+défaut une seule pulsation.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
@@ -2171,7 +2170,7 @@ ces règles affectent le contexte @code{Staff} :
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
 % rhythm 3-1-1-2
-% Context Voice specified --  does not work correctly
+% Change applied to Voice by default --  does not work correctly
 % Because of autogenerated voices, all beating will
 % be at baseMoment (1 . 8)
 \set beatStructure = #'(3 1 1 2)
@@ -2213,7 +2212,7 @@ rangées par métrique et type de règle, sont répertoriées dans le
 fichier @file{scm/time-signature-settings.scm}.
 
 
-@subsubsubheading @i{Ligature basée sur @code{beamExceptions}}
+@subsubsubheading Ligature basée sur @code{beamExceptions}
 @c VO Beaming based on beamExceptions
 
 Les règles spécifiques autres que celles concernant la terminaison des
@@ -2224,11 +2223,11 @@ ligatures sont gérées par la propriété  @code{beamExceptions}.
 \time 3/16
 \set Timing.beatStructure = #'(2 1)
 \set Timing.beamExceptions =
-  #'(                         ;ouvre de la liste associative
-     (end .                   ;ceci concerne la terminaison des ligatures
-      (                       ;ouvre la liste des points de terminaison
-       ((1 . 32) . (2 2 2))   ;règle pour les triples -- groupées à la double
-      )))                     %referme la liste
+  #'(                       ;ouvre de la liste associative
+     (end .                 ;ceci concerne la terminaison des ligatures
+      (                     ;ouvre la liste des points de terminaison
+       ((1 . 32) . (2 2 2)) ;règle pour les triples -- groupées à la double
+      )))                   %referme la liste
 c16 c c |
 \repeat unfold 6 { c32 } |
 @end lilypond
@@ -2255,7 +2254,7 @@ par exemple @code{(1 . 16)} pour une double croche.
 @var{groupement} est constitué d'une liste Scheme qui indique le
 regroupement à effectuer, en unité de type de ligature.
 
-@warning{La propriété @code{beamExceptions} doit contenir absolument
+@warning{La propriété @code{beamExceptions} doit répertorier absolument
 @strong{toutes} les exceptions.  Il n'est en effet pas possible d'en
 ajouter, modifier ou supprimer @emph{a posteriori}.  Cela peut paraître
 fastidieux, mais toutes les règles de ligature devraient être appréciées
@@ -2331,7 +2330,7 @@ r4. a8 a a |
 @end lilypond
 
 
-@subsubsubheading @i{@strong{Principes de la ligature automatique}}
+@subsubsubheading Principes de la ligature automatique
 @c VO How automatic beaming works
 
 Lorsqu'elle est activée, la gestion automatisée des ligatures est
@@ -2343,7 +2342,7 @@ s'appliquent dans l'ordre suivant de priorité :
 
 @itemize
 @item
-Une ligature explicite -- indiquée par @code{[@dots{}]} -- sera toujours
+une ligature explicite -- indiquée par @code{[@dots{}]} -- sera toujours
 respectée ; sinon
 
 @item
@@ -2477,7 +2476,7 @@ ligature automatiques est abordée au chapitre @ref{Métrique}.
 @funindex [
 
 Dans certaines situations, il peut s'avérer nécessaire de
-supplanter l'algorithme de groupement automatique des notes, par
+supplanter l'algorithme de regroupement automatique des notes, par
 exemple pour prolonger une ligature par-dessus un silence ou une barre
 de mesure, ou bien pour suivre le rythme des paroles plutôt que celui
 des notes.  Le début et la fin de la ligature sont alors indiqués
@@ -2581,7 +2580,7 @@ Référence des propriétés internes :
 Les ligatures en soufflet permettent d'indiquer qu'un petit groupe de
 notes se joue en accélérant ou en ralentissant sans pour autant
 modifier le tempo du morceau.  L'étendue du soufflet s'indique par
-@code{[} et @code{]}, et son orientation est déterminée par la propriété
+@code{[} et @code{]} ; son orientation est déterminée par la propriété
 @code{grow-direction} de l'objet @code{Beam}.
 
 Lorsque la sortie MIDI doit refléter les @emph{ritardando} ou
@@ -2657,7 +2656,7 @@ courts extraits, avec une faible amplitude.
 @funindex bar
 
 Les barres de mesures délimitent les mesures, mais peuvent aussi
-indiquer une reprise. En principe, elles sont insérées automatiquement
+indiquer une reprise.  En principe, elles sont insérées automatiquement
 en respectant la métrique en vigueur.
 
 Il est possible de forcer l'impression d'une barre de mesure spéciale,
@@ -2735,15 +2734,19 @@ a1
 @end lilypond
 
 @noindent
-et de cinq types de barre de reprise :
+et de neuf types de barre de reprise :
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar ".|:"
 g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|."
-e1
+c1 \bar ":.|.:"
+d1 \bar "[|:"
+e1 \bar ":|][|:"
+f1 \bar ":|]"
+g1 \bar ":|."
+a1
 @end lilypond
 
 De plus, une barre de mesure peut s'imprimer sous la forme d'une coche :
@@ -2756,6 +2759,16 @@ On rencontre habituellement ces signes dans le chant grégorien ; nous
 vous invitons dans ce cadre particulier à plutôt utiliser
 @code{\divisioMinima}, comme indiqué au paragraphe @ref{Divisions} du
 chapitre consacré au grégorien.
+
+Lilypond prend en charge la notation kiévienne, qui dispose d'une
+barre de mesure spécifique :
+
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "k"
+@end lilypond
+
+De plus amples détails quant à cette forme de notation sont
+fournis à la rubrique @ref{Typographie de notation kiévienne}.
 
 @cindex segno
 
@@ -2787,7 +2800,7 @@ répéter.  Il est préférable d'indiquer les passages répétés à l'aide des
 différentes commandes de reprise (voir @ref{Répétitions et reprises})
 qui se chargeront d'imprimer le type de barre approprié.
 
-Dans les faits, un @code{"||:"} équivaut à un @code{"|:"} sauf s'il
+Dans les faits, un @code{".|:-||"} équivaut à un @code{".|:"} sauf s'il
 intervient à un saut de ligne : une double barre sera alors
 imprimée en fin de portée, et la barre de reprise au début de la
 nouvelle.
@@ -2801,7 +2814,7 @@ c4 c c c
 @end lilypond
 
 LilyPond dispose de six différents moyens de combiner une barre de
-reprise avec un signe @emph{segno} :
+reprise avec un @emph{segno} :
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
@@ -2833,7 +2846,106 @@ c1
 
 Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
 surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
-@code{\repeat volta}.
+@code{\repeat volta}.
+
+@cindex bar de mesure, personnalisation
+@cindex définition d'une barre de mesure
+
+@funindex \defineBarLine
+@funindex defineBarLine
+
+L'instruction @code{\defineBarLine} permet de définir ses propres
+types de barre de mesure, en respectant la syntaxe :
+
+@example
+\defineBarLine @var{type_de_barre} #'(@var{fin} @var{début} @var{extension})
+@end example
+
+Les variables fournies à @code{\defineBarline} peuvent inclure la
+chîne vide @code{""} qui correspond à une barre invisible, ou bien
+être valorisées à @code{#f} -- ce qui aura pour effet ne
+n'imprimer aucune barre.
+
+Une fois la définition explicitée, la nouvelle barre s'utilise à
+l'aide de @code{\bar} @var{type_de_barre}.
+
+Sont à ce jour disponibles dix éléments différents :
+
+@lilypond[quote,verbatim]
+\defineBarLine ":" #'("" ":" "")
+\defineBarLine "=" #'("=" "" "")
+\defineBarLine "[" #'("" "[" "")
+\defineBarLine "]" #'("]" "" "")
+
+\new Staff {
+  s1 \bar "|"
+  s1 \bar "."
+  s1 \bar "!"
+  s1 \bar ";"
+  s1 \bar ":"
+  s1 \bar "k"
+  s1 \bar "S"
+  s1 \bar "="
+  s1 \bar "["
+  s1 \bar "]"
+  s1 \bar ""
+}
+@end lilypond
+
+Le type @code{"="} fournit un double trait destiné à être utilisé
+en combinaison avec un @emph{segno}.  Nous vous recommandons de
+lui préférer @code{\bar} @var{"||"} pour imprimer une simple
+double barre fine.
+
+Le signe @code{"-"} permet d'annoter un type de barre de mesure
+pour le distinguer lorsqu'il en existe plusieurs ayant la même
+apparence mais au comportement différent en fin de ligne ou en
+matière d'extension.  Ce qui suit le @code{"-"} n'est d'aucune
+utilité dans la construction de la barre.
+
+@lilypond[quote,relative=2,verbatim]
+\defineBarLine "||-dashedSpan" #'("||" "" "!!")
+
+\new StaffGroup <<
+  \new Staff {
+    c1 \bar "||"
+    c1 \bar "||-dashedSpan"
+    c1
+  }
+  \new Staff {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+Par ailleurs, le caractère espace @code{" "} permer de préserver
+de l'espace et ainsi aligner correctement les différents tronçons
+d'une barre d'un seul tenant entre les portées d'un système :
+
+@lilypond[quote,relative=2,verbatim]
+\defineBarLine ":|.-wrong" #'(":|." "" "|.")
+\defineBarLine ":|.-right" #'(":|." "" " |.")
+
+\new StaffGroup <<
+  \new Staff {
+    c1 \bar ":|.-wrong"
+    c1 \bar ":|.-right"
+    c1
+  }
+  \new Staff {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+Si d'autres éléments étaient nécessaires, LilyPond dispose de
+moyens aisés pour les définir.  Pour de plus amples informations
+quant à la manière de modifier ou ajouter des barres de mesure,
+consultez le fichier @file{scm/bar-line.scm}.
 
 Dans une partition comprenant plusieurs portées, la commande @code{\bar}
 placée sur une portée s'applique automatiquement à toutes les portées.
@@ -2880,6 +2992,9 @@ Manuel de notation :
 @ref{Répétitions et reprises},
 @ref{Regroupement de portées}.
 
+Fichiers d'initialisation :
+@file{scm/bar-line.scm}.
+
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
 
@@ -2893,7 +3008,7 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Numéros de mesure
 @translationof Bar numbers
 
-@cindex mesure, numéro de
+@cindex mesure, numérotation
 @cindex numéros de mesure
 
 @funindex currentBarNumber
@@ -3028,11 +3143,11 @@ L'origine du problème est de fait plus évidente.
 @funindex |
 @funindex pipeSymbol
 
-Il est aussi possible d'attribuer une autre valeur au symbole
-@code{|}, en assignant une expression musicale à @code{pipeSymbol}.
-Dans l'exemple suivant, le @code{|} servira à insérer une double barre
-là où il apparaît, au lieu de simplement vérifier que la fin de la
-mesure est atteinte.
+Il est aussi possible d'attribuer une autre valeur au
+symbole @code{|}, en assignant une expression musicale à
+@code{pipeSymbol}.  Dans l'exemple suivant, le @code{|} servira à
+insérer une double barre là où il apparaît, au lieu de simplement
+vérifier que la fin de la mesure est atteinte.
 
 @lilypond[quote,verbatim]
 pipeSymbol = \bar "||"
@@ -3057,7 +3172,7 @@ l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
 
 @noindent
 affiche un avertissement lors du traitement si le numéro de mesure à ce
-point (variable @code{currentBarNumber}) n'est pas 123.
+point (variable @code{currentBarNumber}) n'est pas égal à 123.
 
 @seealso
 Morceaux choisis :
@@ -3376,6 +3491,10 @@ Glossaire musicologique :
 @rglosnamed{acciaccatura,acciacature},
 @rglosnamed{appoggiatura,appogiature}.
 
+Manuel de notation :
+@ref{Changement d'échelle des durées},
+@ref{Barres de ligature manuelles}.
+
 Fichiers d'initialisation :
 @file{ly/grace-init.ly}.
 
@@ -3390,7 +3509,7 @@ Référence des propriétés internes :
 
 @knownissues
 
-@cindex acciaccature, multi-note
+@cindex acciaccature, multinotes
 @cindex note d'ornement, synchronisation
 @cindex synchronisation des notes d'ornement
 
@@ -3498,9 +3617,9 @@ qu'en comporte la cadence, faute de quoi ils démarreraient trop tôt ou
 trop tard.
 
 Les fonctions @code{mmrest-of-length} ou @code{skip-of-length}
-permettent de résoudre ce problème.  Ces fonctions Scheme prennent en
+permettent de pallier ce problème.  Ces fonctions Scheme prennent en
 argument un fragment de musique, et génèrent un @code{\skip} ou un
-silence multimesures d'une durée correspondant à ce fragment.
+silence multimesure d'une durée correspondant à ce fragment.
 
 @lilypond[verbatim,quote]
 MyCadenza = \relative c' {

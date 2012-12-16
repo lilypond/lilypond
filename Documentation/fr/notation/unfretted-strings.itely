@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bdff8baf5bce0c4c456ebbf292ba8fc771e4bd31
+    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,15 +72,15 @@ sont décrites dans @ref{Doigtés}.
 accord, voir @ref{Notes en accords}.  Les précisions pour jouer des accords
 peuvent être ajoutées, comme l'indique @ref{Arpèges}.
 
-@item Un modèle pour quatuor à cordes est disponible à la rubrique
-@rlearning{Quatuor à cordes}.  D'autres informations se trouvent dans les
-exemples de code.
+@item Un squelette de partition est disponible à l'annexe
+@rlearning{Modèles pour quatuor à cordes}.  D'autres informations
+se trouvent dans les exemples de code.
 
 @end itemize
 
 @seealso
 Manuel d'initiation :
-@rlearning{Quatuor à cordes}.
+@rlearning{Modèles pour quatuor à cordes}.
 
 Manuel de notation :
 @ref{Commentaires textuels},
