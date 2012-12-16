@@ -194,8 +194,8 @@ and follow those cross-references for more information.
 @docLinks{Learning, learning,
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningBig, 3 MB,
+  @manualStableLearningPdf, 5 MB}
 
 @divEnd
 
@@ -244,8 +244,8 @@ in the PDF version due to its higher resolution.}
 @docLinks{Essay, essay,
   @ressaynamed{Top,Essay},
   @manualStableEssaySplit,
-  @manualStableEssayBig, 2 MB,
-  @manualStableEssayPdf, 2.5 MB}
+  @manualStableEssayBig, 1 MB,
+  @manualStableEssayPdf, 2 MB}
 
 @divEnd
 
@@ -270,8 +270,8 @@ the English musical terms presented in the glossary.}
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationBig, 9 MB,
+  @manualStableNotationPdf, 35 MB}
 
 @divEnd
 
@@ -295,7 +295,7 @@ attempting any large projects.
   @rprogramnamed{Top,Usage},
   @manualStableUsageSplit,
   @manualStableUsageBig, 400 KB,
-  @manualStableUsagePdf, 600 KB}
+  @manualStableUsagePdf, 650 KB}
 
 @divEnd
 
@@ -325,8 +325,8 @@ linked from the @strong{See also} portion.
 @docLinks{Snippets, snippets,
   @rlsrnamed{Top,Snippets},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig, 1.5 MB,
+  @manualStableSnippetsPdf, 12.5 MB}
 
 @divEnd
 
@@ -400,8 +400,8 @@ reporting, and development.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebBig, 2.5 MB,
+  @manualDevelWebPdf, 3.5 MB}
 
 @divEnd
 
@@ -422,8 +422,8 @@ LilyPond since the previous stable version.
 @docLinks{Changes, changes,
   @rchangesnamed{Top,Changes},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig, 90 KB,
+  @manualStableChangesPdf, 80 KB}
 
 @divEnd
 
@@ -443,8 +443,8 @@ This manual explains how to write extensions to LilyPond.
 @docLinks{Extending, extending,
   @rextendnamed{Top,Extending},
   @manualStableExtendingSplit,
-  @manualStableExtendingBig, 200 KB,
-  @manualStableExtendingPdf, 400 KB}
+  @manualStableExtendingBig, 300 KB,
+  @manualStableExtendingPdf, 500 KB}
 
 @divEnd
 
@@ -475,8 +475,8 @@ generated documentation.
 @docLinks{Internals, internals,
   @rinternalsnamed{Top,Internals},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig, 3 MB,
+  @manualStableInternalsPdf, 4 MB}
 
 @divEnd
 
