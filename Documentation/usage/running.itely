@@ -339,9 +339,14 @@ Show the warranty with which GNU LilyPond comes.  (It comes with
 @table @code
 
 @item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
-This sets the equivalent internal Scheme function to @var{value}.  If a
-@var{value} is not supplied, then the default value is used.  The prefix
-@code{no-} may be added to @var{option-name} to switch @q{off} an
+This sets the equivalent internal Scheme function to @var{value}.
+
+@example
+-dbackend=svg
+@end example
+
+If a @var{value} is not supplied, then the default value is used.  The
+prefix @code{no-} may be added to @var{option-name} to switch @q{off} an
 option, e.g.
 
 @cindex point and click, command line
@@ -376,25 +381,25 @@ result to prevent @q{jaggies} in @code{PNG} images.
 @code{EPS} backend.
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab Select backend.  Postscript files (default) include @code{TTF},
 @code{Type1} and @code{OTF} fonts.  No subsetting of these fonts is
 done.  Using @q{oriental} character sets can lead to very large files.
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab Encapsulated PostScript.  This dumps every page (system) as a
 separate @file{EPS} file, without fonts, and as one collated @file{EPS}
 file with all pages (systems) including fonts.  Used as default by
 @command{lilypond-book}.
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab Do not output a printed score; has the same effect as
 @code{-dno-print-pages}.
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Scalable Vector Graphics.  This creates a single @code{SVG} file,
 without embedded fonts, for every page of output.  It is recommended to
 install the Century Schoolbook fonts, included with your LilyPond
@@ -406,7 +411,7 @@ agent. There is also an option @code{svg-woff} (below) for use of woff
 font files in the SVG backend.
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab Dump of the raw, internal Scheme-based drawing commands.
 
 @item @code{check-internal-types}
