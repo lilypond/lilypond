@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
+    Translation of GIT committish: cb05c492cb84afc6704934fee31e62ebed217900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -132,29 +132,19 @@ convert-ly [@var{option}]@dots{} @var{fichier}@dots{}
 Vous pouvez utiliser les options :
 
 @table @code
+@item -d, --diff-version-update
+actualise la valeur de @code{\version} à la plus récente,
+uniquement si elle est supérieure à celle du fichier.
+
 @item -e,--edit
 pour éditer directement le fichier d'origine.
 
-@item -f,--from=@var{from-patchlevel}
+@item -f, --from=@var{from-patchlevel}
 pour définir le numéro de version à partir duquel vous voulez effectuer
 les conversions.  Lorsque cette option n'est pas activée,
 @command{convert-ly} tentera de le déterminer sur la foi de la mention
 de @code{\version} contenue dans le fichier.  Cette option s'utilise
 sous la forme : @code{--from=2.10.25}
-
-@item -n,--no-version
-Normalement, @command{convert-ly} ajoutera une indication de
-@code{\version} à votre fichier s'il n'en comporte pas.  Cette option
-permet de passer outre.
-
-@item -s, --show-rules
-pour afficher les conversions applicables.
-
-@item --to=@var{to-patchlevel}
-pour n'appliquer les conversions que jusqu'à une version déterminée.  Il
-s'agit par défaut de la dernière version disponible.  Cette option
-s'utilise sous la forme : @code{--to=2.12.2}
-
 
 @item -h, --help
 visualiser l'aide et quitter.
@@ -164,6 +154,22 @@ pour régler le degré de verbosité à @var{loglevel}.  Les différentes
 valeurs sont @code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS}
 (par défaut) et @code{DEBUG}.
 
+@item -n, --no-version
+Normalement, @command{convert-ly} ajoutera une indication de
+@code{\version} à votre fichier s'il n'en comporte pas.  Cette option
+permet de passer outre.
+
+@item -s, --show-rules
+pour afficher les conversions applicables.
+
+@item -t, --to=@var{to-patchlevel}
+pour n'appliquer les conversions que jusqu'à une version déterminée.  Il
+s'agit par défaut de la dernière version disponible.
+
+@example
+convert-ly --to=2.14.1 monfichier.ly
+@end example
+ 
 @end table
 
 Lorsqu'il s'agit de fragments inclus dans un fichier texinfo, il
