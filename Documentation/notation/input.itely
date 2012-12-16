@@ -1222,30 +1222,36 @@ Footnotes in music expressions fall into two categories:
 
 @table @emph
 @item Event-based footnotes
-are attached to a particular event.  Examples
-for such events are single notes, notes inside a chord, articulations
-(like beams, slurs, fingering indications, accents, dynamics) and
-lyrics.
+are attached to a particular event.  Examples for such events are
+single notes, articulations (like fingering indications, accents,
+dynamics), and post-events (like slurs and manual beams).  The
+general form for event-based footnotes is as follows:
+
+@example
+[@var{direction}] \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
+@end example
 
 @item Time-based footnotes
-are bound to a particular point of time in a
-musical context.  Some commands like @code{\time} and @code{\clef}
-don't actually use events for creating objects like time signatures
-and clefs.  Neither does a chord create an event of its own: its
-stem or flag is created at the end of a time step (nominally through
-one of the note events inside).  A time-based footnote allows
-annotating such layout objects without referring to an event.
+are bound to a particular point of time in a musical context.  Some
+commands like @code{\time} and @code{\clef} don't actually use events
+for creating objects like time signatures and clefs.  Neither does a
+chord create an event of its own: its stem or flag is created at the
+end of a time step (nominally through one of the note events inside).
+Exactly which of a chord's multiple note events will be deemed the
+root cause of a stem or flag is undefined.  So for annotating those,
+time-based footnotes are preferable as well.
+
+A time-based footnote allows such layout objects to be annotated
+without referring to an event.  The general form for Time-based
+footnotes is:
+
+@example
+\footnote [@var{mark}] @var{offset} @var{footnote} [@var{Context}].@var{GrobName}
+@end example
 
 @end table
 
-The full form of a footnote command for both Event- and Time-based
-footnotes is
-
-@example
-[@var{direction}] \footnote [@var{mark}] @var{offset} [@var{grob-name}] @var{footnote} @var{music}
-@end example
-
-The elements are:
+The elements for both forms are:
 
 @table @var
 
@@ -1270,24 +1276,24 @@ object where the mark should be placed.  Positive values of the
 offsets are taken from the right/top edge, negative values from the
 left/bottom edge and zero implies the mark is centered on the edge.
 
-@item grob-name
-specifies a type of grob to mark (like @samp{#'Flag}).  If it is
-given, a grob of that type associated with the referenced @var{music}
-will be used as the reference point.  It can be omitted (or replaced
-with @code{\default}) if the footnote mark is to be attached to the
-directly created grob in @var{music}.
+@item Context
+is the context in which the grob being footnoted is created.  It
+may be omitted if the grob is in a bottom context, e.g. a
+@code{Voice} context.
+ 
+@item GrobName
+specifies a type of grob to mark (like @samp{Flag}).  If it is
+specified, the footnote is not attached to a music expression in
+particular, but rather to all grobs of the type specified which
+occur at that moment of musical time.
 
 @item footnote
 is the markup or string specifying the footnote text to use at the
 bottom of the page.
 
 @item music
-is the music event or chord constituent or post-event that is being
-annotated.  While it cannot be omitted, it can be replaced by
-@code{\default} in which case the footnote is not attached to a music
-expression in particular, but rather to a moment of time.  It is
-mandatory in this case to use the @var{grob-name} argument for
-selecting an affected grob type, like @samp{#'TimeSignature}.
+is the music event or post-event or articulation
+that is being annotated.
 
 @end table
 
@@ -1295,14 +1301,12 @@ selecting an affected grob type, like @samp{#'TimeSignature}.
 
 @cindex footnotes, event-based
 
-The simplest form of event-based footnotes is just
+A footnote may be attached to a layout object directly caused
+by the event corresponding to @var{music} with the syntax:
 
 @example
-\footnote @var{offset} @var{footnote} @var{music}
+\footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
 @end example
-
-This kind of footnote is attached to a layout object directly caused
-by the event corresponding to @var{music}.
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
@@ -1317,11 +1321,16 @@ by the event corresponding to @var{music}.
 @end lilypond
 
 If the footnote is to be attached to a post-event or articulation
-the @code{\footnote} command must be preceded by a direction
+the @code{\footnote} command @emph{must} be preceded by a direction
 indicator, @code{-, _, ^}, and followed by the post-event or
 articulation to be annotated as the @var{music} argument.  In this
 form the @code{\footnote} can be considered to be simply a copy of
-its last argument with a footnote mark attached to it.
+its last argument with a footnote mark attached to it.  The syntax
+is:
+
+@example
+@var{direction} \footnote [@var{mark}] @var{offset} @var{footnote} @var{music}
+@end example
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
@@ -1336,62 +1345,72 @@ its last argument with a footnote mark attached to it.
 }
 @end lilypond
 
-Custom marks can be used as alternatives to numerical marks, and the
-annotation line joining the marked object to the mark can be
-suppressed:
+@subsubsubheading Time-based footnotes
 
-@lilypond[quote,verbatim,papersize=a8landscape]
-\book {
-  \header { tagline = ##f }
-  \relative c' {
-    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
-    a'4 b8
-    \footnote \markup { \super "$" } #'(0.5 . 1)
-      \markup { \super "$" \italic " The second note" }
-    e c4
-    \once \override Score.FootnoteItem.annotation-line = ##f
-    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
-      \markup { \super "+" \italic " Editorial" } \p
-  }
-}
-@end lilypond
-
-More examples of custom marks are shown in
-@ref{Footnotes in stand-alone text}.
-
-Marking an entire chord in this manner is not possible since a
-chord does not produce an event separate from that of its chord
-constituents, but the constituents themselves can be marked.
+@cindex footnotes, time-based
 
 If the layout object being footmarked is @emph{indirectly} caused by
 an event (like an @code{Accidental} or @code{Stem} caused by a
-@code{NoteHead}), an additional symbol argument, the @var{grob-name},
-is required before the footnote text:
+@code{NoteHead} event), the @var{GrobName} of the layout object
+is required after the footnote text instead of @var{music}:
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c'' {
-    % footnotes may be added to chord constituents
-    < \single\footnote #'(-1 . -3) "Another flat" Accidental aes
-      c
-      \single\footnote #'(-1 . 0.5) "A flat" Accidental ees
+    \footnote #'(-1 . -3) "A flat" Accidental
+    aes4 c
+    \footnote #'(-1 . 0.5) "Another flat" Accidental
+    ees
+    \footnote #'(1 . -2) "A stem" Stem
+    aes
+  }
+}
+@end lilypond
+
+Note, however, that when a GrobName is specified, a footnote
+will be attached to all grobs of that type at the current time step:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote #'(-1 . 3) "A flat" Accidental
+    <ees ges bes>4
+    \footnote #'(2 . 0.5) "Articulation" Script
+    c'->-.
+  }
+}
+@end lilypond
+
+A chord constituent can be given an individual footnote.  A
+@code{NoteHead} is the (only) grob directly caused from a chord
+constituent, so an Event-based footnote command should be used to
+add a footnote to a @code{NoteHead} within a chord.  All other
+grobs within a chord are indirectly caused and should be footnoted
+with a Time-based footnote command, prefixed with @code{\single}:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    < \footnote #'(1 . -2) "An A" a
+      \single \footnote #'(-1 . -1) "A sharp" Accidental
+      cis
+      \single \footnote #'(0.5 . 0.5) "A flat" Accidental
+      ees fis
     >2
-    \single\footnote #'(-1 . 2) "A stem" Stem ees2
   }
 }
 @end lilypond
 
 @warning {When footnotes are attached to several musical elements at
-the same musical moment, the footnotes are numbered from the higher
-to the lower elements as they appear in the printed output, not in
-the order in which they are written in the input stream.}
+the same musical moment, as they are in the example above, the
+footnotes are numbered from the higher to the lower elements as they
+appear in the printed output, not in the order in which they are
+written in the input stream.}
 
-@subsubsubheading Time-based footnotes
-
-@cindex footnotes, time-based
-
-Layout objects like clefs and key change signatures are mostly caused
+Layout objects like clefs and key-change signatures are mostly caused
 as a consequence of changed properties rather than actual events.
 Others, like bar lines and bar numbers, are a direct consequence of
 timing.  For this reason, footnotes on such objects have to be based
@@ -1400,11 +1419,10 @@ when marking features like stems and beams on @emph{chords}: while
 such per-chord features are nominally assigned to @emph{one} event
 inside the chord, relying on a particular choice would be imprudent.
 
-A time-based footnote is written in the same manner as an event-based
-footnote, except that @code{\default} is used in place of music
-indicating an event.  The layout object in question should always be
-explicitly specified for time-based footnotes to avoid getting marks
-on unexpected objects.
+The layout object in question must always be explicitly specified
+for time-based footnotes, and the appropriate context must be
+specified if the grob is created in a context other than the bottom
+context.
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
@@ -1423,6 +1441,29 @@ on unexpected objects.
   }
 }
 @end lilypond
+
+Custom marks can be used as alternatives to numerical marks, and the
+annotation line joining the marked object to the mark can be
+suppressed:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" } a'4
+    b8
+    \footnote \markup { \super "$" } #'(0.5 . 1)
+      \markup { \super "$" \italic " The second note" } e
+    c4
+    \once \override Score.FootnoteItem.annotation-line = ##f
+    b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
+      \markup { \super "+" \italic " Editorial" } \p
+  }
+}
+@end lilypond
+
+More examples of custom marks are shown in
+@ref{Footnotes in stand-alone text}.
 
 
 @node Footnotes in stand-alone text
@@ -1566,12 +1607,14 @@ Internals Reference:
 @rinternals{Footnote_engraver}.
 
 @knownissues
-Multiple footnotes for the same page can only be stacked, one on top
-of the other; they cannot be printed on the same line.
+Multiple footnotes for the same page can only be stacked, one above
+the other; they cannot be printed on the same line.
 
 Footnotes cannot be attached to @code{MultiMeasureRests} or
-automatic beams and footnote marks may collide with staves,
-@code{\markup} objects, other footnote marks and annotation lines.
+automatic beams or lyrics.
+
+Footnote marks may collide with staves, @code{\markup} objects, other
+footnote marks and annotation lines.
 
 
 @node Reference to page numbers
