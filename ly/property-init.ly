@@ -555,10 +555,13 @@ showSplitTiedTabNotes = {
 textLengthOn = {
   \override TextScript.extra-spacing-width = #'(0 . 0)
   \override TextScript.extra-spacing-height = #'(-inf.0 . +inf.0)
+  \override TextScript.outside-staff-horizontal-padding = #0
 }
+
 textLengthOff = {
   \override TextScript.extra-spacing-width = #'(+inf.0 . -inf.0)
   \override TextScript.extra-spacing-height = #'(0 . 0)
+  \revert TextScript.outside-staff-horizontal-padding
 }
 
 
