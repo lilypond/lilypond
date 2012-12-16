@@ -2494,7 +2494,7 @@ indicate each change.
      (middleCPosition . 6)
      (clefPosition . 2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "voice aahs"))
+     (midiInstrument . "choir aahs"))
 
 \relative c' {
   \instrumentSwitch "kaspar"
