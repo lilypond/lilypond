@@ -58,7 +58,6 @@ Appendices
 
 * Notation manual tables::         Tables and charts.
 * Cheat sheet::                    Summary of LilyPond syntax.
-* LilyPond grammar::               Syntax diagram for LilyPond parser.
 * GNU Free Documentation License:: License of this document.
 * LilyPond command index::
 * LilyPond index::
@@ -82,16 +81,6 @@ Appendices
 
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
-
-
-
-@node LilyPond grammar
-@appendix LilyPond grammar
-
-This appendix contains a description of the LilyPond grammar, as
-output from the parser.
-
-@verbatiminclude ly-grammar.txt
 
 
 @include fdl.itexi

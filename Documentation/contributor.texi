@@ -66,6 +66,7 @@ Copyright @copyright{} 2007--2012 by the authors.
 
 Appendices
 
+* LilyPond grammar::
 * GNU Free Documentation License:: License of this document.
 @end menu
 
@@ -91,7 +92,14 @@ Appendices
 @include contributor/feta-font.itexi
 @include contributor/administration.itexi
 
+@node LilyPond grammar
+@appendix LilyPond grammar
+
+This appendix contains a description of the LilyPond grammar, as
+output from the parser.
+
+@verbatiminclude ly-grammar.txt
+
 @include fdl.itexi
 
 @bye
-

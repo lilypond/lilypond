@@ -660,7 +660,7 @@ Now LilyPond's input is structured into tokens and expressions, much
 like human language is structured into words and sentences.  LilyPond
 has a lexer that recognizes tokens (literal numbers, strings, Scheme
 elements, pitches and so on), and a parser that understands the syntax,
-@ruser{LilyPond grammar}.  Once it knows that a particular syntax rule
+@rcontrib{LilyPond grammar}.  Once it knows that a particular syntax rule
 applies, it executes actions associated with it.
 
 The hash mark@tie{}@code{#} method of embedding Scheme is a natural fit
