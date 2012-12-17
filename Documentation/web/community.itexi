@@ -7,6 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -53,6 +54,9 @@ discussing LilyPond.
 @item
 @ref{Authors}: the people who made LilyPond what it is today.
 
+@item
+@ref{Acknowledgements}: projects and institutions that support LilyPond
+
 @end itemize
 @divEnd
 
@@ -85,6 +89,7 @@ discussing LilyPond.
 * Development::
 * GSoC 2012::
 * Authors::
+* Acknowledgements::
 * Publications::
 * Old news::
 * Attic::
@@ -1112,6 +1117,16 @@ any patch which introduced extra warnings.
 @divEnd
 @divEnd
 
+@node Acknowledgements
+@unnumberedsec Acknowledgements
+
+@divClass{column-center-top}
+@subheading Acknowledgements
+
+@divClass{keep-bullets}
+@acknowledgementsCurrent
+@divEnd
+@divEnd
 
 
 @node Publications
