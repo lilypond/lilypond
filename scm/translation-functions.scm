@@ -346,8 +346,7 @@ if no fingering is present."
 	  #t
 	  (map (lambda (specced-fret)
 		 (or (eq? 0 specced-fret)
-		     (and (not restrain-open-strings)
-		     (eq? 0 fret))
+		     (eq? 0 fret)
 		     (>= maximum-stretch (abs (- fret specced-fret)))))
 	       specified-frets))))
 
