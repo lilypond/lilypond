@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,39 +18,53 @@ Esta sección del manual contiene plantillas con la partitura de LilyPond
 ya preparada.  Sólo tiene que escribir las notas, lanzar LilyPond y ¡disfrutar de
 unas hermosas partituras impresas!
 
-@c bad node name for ancient notation to avoid conflict
+
 @menu
-* Pentagrama único::
+* Plantillas de pentagrama único::
 * Plantillas de piano::
 * Plantillas de cuarteto de cuerda::
-* Conjuntos vocales::
+* Plantillas de conjuntos vocales::
 * Plantillas orquestales::
 * Plantillas para notación antigua::
 * Otras plantillas::
 @end menu
 
 
-@node Pentagrama único
-@appendixsec Pentagrama único
-@translationof Single staff
+@node Plantillas de pentagrama único
+@appendixsec Plantillas de pentagrama único
+@translationof Single staff templates
 
+@menu
+* Sólo notas::
+* Notas y letra::
+* Notas y acordes::
+* Notas letra y acordes::
+@end menu
+
+@node Sólo notas
 @appendixsubsec Sólo notas
+@translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
-
+@node Notas y letra
 @appendixsubsec Notas y letra
+@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
+@node Notas y acordes
 @appendixsubsec Notas y acordes
+@translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
-@appendixsubsec Notas, letra y acordes.
+@node Notas letra y acordes
+@appendixsubsec Notas, letra y acordes
+@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
@@ -60,17 +74,29 @@ unas hermosas partituras impresas!
 @appendixsec Plantillas de piano
 @translationof Piano templates
 
+@menu
+* Piano solo::
+* Piano y melodía con letra::
+* Piano con letra centrada::
+@end menu
+
+@node Piano solo
 @appendixsubsec Piano solo
+@translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
+@node Piano y melodía con letra
 @appendixsubsec Piano y melodía con letra
+@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
+@node Piano con letra centrada
 @appendixsubsec Piano con letra centrada
+@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
@@ -80,52 +106,85 @@ unas hermosas partituras impresas!
 @appendixsec Plantillas de cuarteto de cuerda
 @translationof String quartet templates
 
+@menu
+* Cuarteto de cuerda simple::
+* Particellas de cuarteto de cuerda::
+@end menu
+
+@node Cuarteto de cuerda simple
 @appendixsubsec Cuarteto de cuerda simple
+@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
+@node Particellas de cuarteto de cuerda
 @appendixsubsec Particellas de cuarteto de cuerda
+@translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
-@node Conjuntos vocales
-@appendixsec Conjuntos vocales
-@translationof Vocal ensembles
+@node Plantillas de conjuntos vocales
+@appendixsec Plantillas de conjuntos vocales
+@translationof Vocal ensembles templates
 
+@menu
+* Partitura vocal SATB::
+* Partitura vocal SATB y reducción para piano automática::
+* SATB con contextos alineados::
+* SATB sobre cuatro pentagramas::
+* Estrofas a solo y estribillo a dos voces::
+* Melodías de himnos::
+* Salmos::
+@end menu
+
+@node Partitura vocal SATB
 @appendixsubsec Partitura vocal SATB
+@translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
+@node Partitura vocal SATB y reducción para piano automática
 @appendixsubsec Partitura vocal SATB y reducción para piano automática
+@translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
+@node SATB con contextos alineados
 @appendixsubsec SATB con contextos alineados
+@translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+@node SATB sobre cuatro pentagramas
 @appendixsubsec SATB sobre cuatro pentagramas
+@translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
+@node Estrofas a solo y estribillo a dos voces
 @appendixsubsec Estrofas a solo y estribillo a dos voces
+@translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
+@node Melodías de himnos
 @appendixsubsec Melodías de himnos
+@translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
+@node Salmos
 @appendixsubsec Salmos
+@translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
@@ -135,23 +194,38 @@ unas hermosas partituras impresas!
 @appendixsec Plantillas orquestales
 @translationof Orchestral templates
 
+@menu
+* Orquesta::
+@end menu
+
+@node Orquesta, coro y piano
 @appendixsubsec Orquesta, coro y piano
+@translationof Orchestra choir and piano
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
-@c bad node name to avoid node name conflict
 @node Plantillas para notación antigua
 @appendixsec Plantillas para notación antigua
 @translationof Ancient notation templates
 
+@menu
+* Transcripción de música mensural::
+* Plantilla para transcripción de canto gregoriano::
+@end menu
+
+@node Transcripción de música mensural
 @appendixsubsec Transcripción de música mensural
+@translationof Transcription of mensural music
 
 @c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
+@node Plantilla para transcripción de canto gregoriano
 @appendixsubsec Plantilla para transcripción de canto gregoriano
+@translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-gregorian-music.ly}
@@ -161,6 +235,11 @@ unas hermosas partituras impresas!
 @appendixsec Otras plantillas
 @translationof Other templates
 
+@menu
+* Combo de jazz::
+@end menu
+
+@node Combo de jazz
 @appendixsubsec Combo de jazz
 @translationof Jazz combo
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2435,7 +2435,7 @@ celloMusic = \relative c {
 
 @seealso
 Las plantillas de inicio se pueden encontrar en el apéndice
-@q{Templates}, véase @ref{Pentagrama único}.
+@q{Plantillas}, véase @ref{Plantillas de pentagrama único}.
 
 
 @node Partitura vocal a cuatro voces SATB
@@ -2545,8 +2545,8 @@ lower = \relative c, {
 @end lilypond
 
 Ninguna de las plantillas proporciona esta disposición con exactitud.
-La más parecida es @q{partitura vocal SATB y reducción de piano
-automática} (véase @ref{Conjuntos vocales}), pero necesitamos cambiar la
+La más parecida es @ref{Partitura vocal SATB y reducción para piano automática},
+pero necesitamos cambiar la
 disposición y añadir un acompañamiento de piano que no esté derivado
 automáticamente de las partes vocales.  Las variables que contienen la
 música y la letra de las partes vocales es adecuada, pero tendremos
