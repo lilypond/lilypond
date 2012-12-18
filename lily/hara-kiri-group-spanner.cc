@@ -134,8 +134,12 @@ void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  int left = sp->get_bound (LEFT)->get_column ()->get_rank ();
-  int right = sp->get_bound (RIGHT)->get_column ()->get_rank ();
+  int left = 0;
+  int right = INT_MAX;
+  if (Item *l = sp->get_bound (LEFT))
+    left = l->get_column ()->get_rank ();
+  if (Item *r = sp->get_bound (RIGHT))
+    right = r->get_column ()->get_rank ();
   if (!request_suicide (me, left, right))
     return;
 
