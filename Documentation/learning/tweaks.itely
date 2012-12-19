@@ -3855,7 +3855,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #{ ^\markup \bold \box #string #})
+   #{ <>^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3888,7 +3888,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #@{ ^\markup \bold \box #string #@})
+   #@{ <>^\markup \bold \box #string #@})
 @end example
 
 We will refer to this file using the @code{\include} command near
@@ -3926,7 +3926,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #{ ^\markup \bold \box #string #})
+   #{ <>^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -3961,7 +3961,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #@{ ^\markup \bold \box #string #@})
+   #@{ <>^\markup \bold \box #string #@})
 
 \layout@{
   \context @{
@@ -3994,7 +3994,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #{ ^\markup \bold \box #string #})
+   #{ <>^\markup \bold \box #string #})
 
 \layout{
   \context {
@@ -4045,7 +4045,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #@{ ^\markup \bold \box #string #@})
+   #@{ <>^\markup \bold \box #string #@})
 
 #(set-global-staff-size 23)
 
@@ -4079,7 +4079,7 @@ inst =
 #(define-music-function
      (parser location string)
      (string?)
-   #{ ^\markup \bold \box #string #})
+   #{ <>^\markup \bold \box #string #})
 
 #(set-global-staff-size 23)
 
