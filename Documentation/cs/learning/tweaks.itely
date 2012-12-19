@@ -4019,20 +4019,18 @@ erklärt in @ref{Pokročilá ladění se Scheme,,pokročilých laděních se Sch
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+ #(make-dynamic-script
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+    #{ <>^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -4057,20 +4055,18 @@ wir sie also:
 @example
 %%% in Datei "definitions.ily" speichern
 mpdolce =
-#(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+ #(make-dynamic-script
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+	#@{ <>^\markup \bold \box #string #@})
 @end example
 
 Diese Datei wir mit dem @code{\include}-Befehl ziemlich weit oben
@@ -4097,20 +4093,18 @@ Noten (in der Datei @file{music.ly}).
 
 @lilypond[quote,ragged-right]
 mpdolce =
-#(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+ #(make-dynamic-script
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ <>^\markup \bold \box #string #})
 
 \relative c'' {
   \tempo 4=50
@@ -4136,19 +4130,17 @@ wir also in @qq{4/4}.
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ <>^\markup \bold \box #string #@})
 
 \layout@{
   \context @{
@@ -4171,19 +4163,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ <>^\markup \bold \box #string #})
 
 \layout{
   \context {
@@ -4223,19 +4213,17 @@ global geändert.
 %%%  definitions.ily
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #@{ \markup @{ \hspace #0
+               \translate #'(5 . 0)
+               \line @{ \dynamic "mp"
+                       \text \italic "dolce" @} @}
+  #@})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #@{ <>^\markup \bold \box #string #@})
 
 #(set-global-staff-size 23)
 
@@ -4259,19 +4247,17 @@ inst =
 @lilypond[quote,ragged-right]
 mpdolce =
 #(make-dynamic-script
-  (markup #:hspace 0
-          #:translate '(5 . 0)
-          #:line (#:dynamic "mp"
-                  #:text #:italic "dolce")))
+  #{ \markup { \hspace #0
+               \translate #'(5 . 0)
+               \line { \dynamic "mp"
+                       \text \italic "dolce" } }
+  #})
 
 inst =
 #(define-music-function
      (parser location string)
      (string?)
-   (make-music
-    'TextScriptEvent
-    'direction UP
-    'text (markup #:bold (#:box string))))
+   #{ <>^\markup \bold \box #string #})
 
 #(set-global-staff-size 23)
 
