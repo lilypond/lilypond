@@ -129,6 +129,10 @@ tweaks-handleiding.
 @itemize
 
 @item
+@ref{Alles}:
+vorige stabiele versies en huidige als gecomprimeerd archief.
+
+@item
 @ref{Vertaald}:
 status van de vertaling voor niet-Engelstaligen.
 

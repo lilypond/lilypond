@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 @ignore
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -172,7 +172,16 @@ the types of objects and properties from their names.
 
 @cindex tweaking methods
 
-@strong{\override command}
+@menu
+* The \override command::
+* The \revert command::
+* The \once prefix::
+* The \overrideProperty command::
+* The \tweak command::
+@end menu
+
+@node The \override command
+@unnumberedsubsubsec The @code{\override} command
 
 @cindex override command
 @cindex override syntax
@@ -197,8 +206,7 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @var{Context}.@var{LayoutObject} #'@var{layout-property} =
-#@var{value}
+\override @var{Context}.@var{LayoutObject}.@var{layout-property} = #@var{value}
 @end example
 
 @noindent
@@ -206,25 +214,31 @@ This will set the property with the name @var{layout-property} of the
 layout object with the name @var{LayoutObject}, which is a member of
 the @var{Context} context, to the value @var{value}.
 
-The @var{Context} can be omitted (and usually is) when the
+The @var{Context} may be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
 level contexts, i.e., @code{Voice}, @code{ChordNames} or
 @code{Lyrics}, and we shall omit it in many of the following
 examples.  We shall see later when it must be specified.
 
 Later sections deal comprehensively with properties and their
-values, see @ref{Types of properties}.  But in this section we shall 
+values, see @ref{Types of properties}.  But in this section we shall
 use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
-For now, don't worry about the @code{#'}, which must precede the
-layout property, and the@tie{}@code{#}, which must precede the value.
-These must always be present in exactly this form.  This is the
-most common command used in tweaking, and most of the rest of
-this chapter will be directed to presenting examples of how it is
-used.  Here is a simple example to change the color of the
-note head:
+LilyPond's primary expressions are musical items like notes,
+durations, and markups.  More basic expressions like numbers,
+strings, and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  Although the
+values may sometimes have a valid representation in LilyPond's
+musical mode, this manual will always use @samp{#} for their
+entry for the sake of consistency.  For more information about
+Scheme mode, see @rextend{LilyPond Scheme syntax}.
+
+@code{\override} is the most common command used in tweaking, and
+most of the rest of this chapter will be directed to presenting
+examples of how it is used.  Here is a simple example to change the
+color of the note head:
 
 @cindex color property, example
 @cindex NoteHead, example of overriding
@@ -237,7 +251,9 @@ e4 f |
 g4 a b c |
 @end lilypond
 
-@strong{\revert command}
+
+@node The \revert command
+@unnumberedsubsubsec The @code{\revert} command
 
 @cindex revert command
 
@@ -252,7 +268,7 @@ value; note, not its previous value if several @code{\override}
 commands have been issued.
 
 @example
-\revert @var{Context}.@var{LayoutObject} #'@var{layout-property}
+\revert @var{Context}.@var{LayoutObject}.@var{layout-property}
 @end example
 
 Again, just like @var{Context} in the @code{\override} command,
@@ -273,7 +289,9 @@ g4 a
 b4 c |
 @end lilypond
 
-@strong{\once prefix}
+
+@node The \once prefix
+@unnumberedsubsubsec The @code{\once} prefix
 
 @funindex \once
 @funindex once
@@ -299,7 +317,9 @@ g4 a
 b c |
 @end lilypond
 
-@strong{\overrideProperty command}
+
+@node The \overrideProperty command
+@unnumberedsubsubsec The @code{\overrideProperty} command
 
 @cindex overrideProperty command
 
@@ -312,7 +332,9 @@ We mention it here for completeness, but for details see
 @rextend{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@strong{\tweak command}
+
+@node The \tweak command
+@unnumberedsubsubsec The @code{\tweak} command
 
 @cindex tweak command
 
@@ -371,7 +393,7 @@ also that an equals sign should not be present.  So the simple form
 of the @code{\tweak} command is
 
 @example
-\tweak #'@var{layout-property} #@var{value}
+\tweak @var{layout-property} #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -404,12 +426,13 @@ the original event:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <\tweak Accidental.color #red   cis4
  \tweak Accidental.color #green es
-                                  g>
+ g>
 @end lilypond
 
 This long form of the @code{\tweak} command can be described as
+
 @example
-\tweak @var{layout-object} #'@var{layout-property} @var{value}
+\tweak @var{layout-object}.@var{layout-property} @var{value}
 @end example
 
 @cindex tuplets, nested
@@ -455,8 +478,6 @@ appearance may be modified in the usual way with
 @cindex transparent property, example
 @cindex TupletNumber, example of overriding
 
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
@@ -599,8 +620,7 @@ at first, so we can be sure the command is working.  We get:
 \override Slur.thickness = #5.0
 @end example
 
-Don't forget the @code{#'} preceding the
-property name and a@tie{}@code{#} preceding the new value!
+Don't forget the@tie{}@code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -637,7 +657,7 @@ essentials required to make up your own -- but you will
 still need some practice.  This is provided in the examples
 which follow.
 
-@subheading Finding the context
+@subsubsubheading Finding the context
 
 @cindex context, finding
 @cindex context, identifying correct
@@ -658,7 +678,7 @@ lowest level contexts which is implied unambiguously by
 the fact that we are entering notes, we can omit it in this
 location.
 
-@subheading Overriding once only
+@subsubsubheading Overriding once only
 
 @cindex overriding once only
 @cindex once override
@@ -703,7 +723,7 @@ Now only the first slur is made heavier.
 The @code{\once} command can also be used before the @code{\set}
 command.
 
-@subheading Reverting
+@subsubsubheading Reverting
 
 @cindex revert
 @cindex default properties, reverting to
@@ -831,17 +851,12 @@ to change the lyrics to italics.  The object is @code{LyricText},
 the property is @code{font-shape} and the value is
 @code{italic}.  As before, we'll omit the context.
 
-As an aside, although it is an important one, note that because the
-values of @code{font-shape} are symbols they must be introduced with a
-single apostrophe, @code{'}.  That is why apostrophes are needed
-before @code{thickness} in the earlier example and @code{font-shape}.
-These are both symbols too.  Symbols are then read internally by
-LilyPond.  Some of them are the names of properties, like
-@code{thickness} or @code{font-shape}, others are used as values that
-can be given to properties, like @code{italic}.  Note the distinction
-from arbitrary text strings, which would appear as @code{"a text
-string"}; for more details about symbols and strings, see
-@rextend{Scheme tutorial}.
+As an aside, although it is an important one, note that some
+properties take values that are symbols, like @code{italic}, and
+must be preceded by an apostrophe, @code{'}.  Symbols are then
+read internally by LilyPond.  Note the distinction from arbitrary
+text strings, which would appear as @code{"a text string"}; for
+more details about symbols and strings, see @rextend{Scheme tutorial}.
 
 So we see that the @code{\override} command needed to print the lyrics
 in italics is:
@@ -878,32 +893,8 @@ like so:
 @noindent
 and the lyrics are all printed in italics.
 
-@subheading Specifying the context in lyric mode
-
-@cindex context, specifying in lyric mode
-@cindex lyric mode, specifying context
-
-In the case of lyrics, if you try specifying the context in the
-format given earlier the command will fail.  A syllable
-entered in lyricmode is terminated by either a space,
-a newline or a digit.  All other characters are included
-as part of the syllable.  For this reason a space or newline
-must appear before the terminating @code{@}} to prevent it being
-included as part of the final syllable.  Similarly,
-spaces must be inserted before and after the
-period or dot, @q{.}, separating the context name from the
-object name, as otherwise the two names are run together and
-the interpreter cannot recognize them.  So the command should be:
-
-@example
-\override Lyrics.LyricText.font-shape = #'italic
-@end example
-
 @warning{In lyrics always leave whitespace between the final
 syllable and the terminating brace.}
-
-@warning{In overrides in lyrics always place spaces around
-the dot between the context name and the object name.}
 
 
 @seealso
@@ -923,7 +914,10 @@ property name in the IR.  Here is a list of the types you may
 need, together with the rules for that type, and some examples.
 You must always add a hash symbol, @code{#}, of course,
 to the front of these values when they are entered in the
-@code{\override} command.
+@code{\override} command, even if the value itself already
+starts with@tie{}@code{#}.  We only give examples for constants
+here: if you want to compute a value using Scheme, see
+@rextend{Calculations in Scheme}.
 
 @multitable @columnfractions .2 .45 .35
 @headitem Property type
@@ -933,32 +927,33 @@ to the front of these values when they are entered in the
   @tab Either True or False, represented by #t or #f
   @tab @code{#t}, @code{#f}
 @item Dimension (in staff space)
-  @tab A positive decimal number (in units of staff space)
+  @tab A decimal number (in units of staff space)
   @tab @code{2.5}, @code{0.34}
 @item Direction
-  @tab A valid direction constant or its numerical equivalent (decimal
-values between -1 and 1 are allowed)
+  @tab A valid direction constant or its numerical equivalent
+  (@code{0} or @code{CENTER} indicate a neutral direction)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @w{@code{-1}}
 @item Integer
-  @tab A positive whole number
-  @tab @code{3}, @code{1}
+  @tab A whole number
+  @tab @code{3}, @code{-1}
 @item List
-  @tab A set of values separated by spaces, enclosed in parentheses
-and preceded by an apostrophe
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+  @tab A sequence of constants or symbols separated by spaces, enclosed
+  in parentheses
+and preceded by an apostrophe (quote mark)
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
        @code{'(1.0 0.25 0.5)}
 @item Markup
   @tab Any valid markup
-  @tab @code{\markup @{ \italic "cresc." @}}
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
 @item Moment
   @tab A fraction of a whole note constructed with the
 make-moment function
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Number
-  @tab Any positive or negative decimal value
-  @tab @code{3.5}, @w{@code{-2.45}}
+  @tab Any positive or negative, possibly decimal, value
+  @tab @code{3}, @w{@code{-2.45}}
 @item Pair (of numbers)
   @tab Two numbers separated by a @q{space . space} and enclosed
 in brackets preceded by an apostrophe
@@ -972,9 +967,9 @@ preceded by an apostrophe
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
-  @tab A list of three items enclosed in parentheses and preceded
-by apostrophe-hash, @code{'#}.
-  @tab @code{'#(#t #t #f)}
+  @tab Constants
+  enclosed in @code{#(}@dots{}@code{)}.
+  @tab @code{#(#t #t #f)}
 @end multitable
 
 
@@ -1028,7 +1023,15 @@ All of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider each of
 these in turn.
 
-@subheading stencil
+@menu
+* The stencil property::
+* The break-visibility property::
+* The transparent property::
+* The color property::
+@end menu
+
+@node The stencil property
+@unnumberedsubsubsec The @code{stencil} property
 
 @cindex stencil property
 
@@ -1076,7 +1079,20 @@ it by adding the correct context:
 }
 @end lilypond
 
-Now the bar lines have vanished.
+Now the bar lines have vanished.  Setting the @code{stencil}
+property to @code{#f} is such a frequent operation that there is a
+shorthand for it called @code{\omit}:
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Note, though, that setting the @code{stencil} property to @code{#f}
 will cause errors when the dimensions of the object are required for
@@ -1094,7 +1110,8 @@ with zero size:
 }
 @end lilypond
 
-@subheading break-visibility
+@node The break-visibility property
+@unnumberedsubsubsec The @code{break-visibility} property
 
 @cindex break-visibility property
 
@@ -1103,10 +1120,11 @@ We see from the @code{BarLine} properties in the IR that the
 These control respectively whether bar lines are printed at the end of
 a line, in the middle of lines, and at the beginning of lines.  For
 our example we want all bar lines to be suppressed, so the value we
-need is @code{'#(#f #f #f)}.  Let's try that, remembering to include
+need is @code{#(#f #f #f)} (also available
+under the name @code{all-invisible}).  Let's try that, remembering to include
 the @code{Staff} context.  Note also that in writing this value we
-have @code{#'#} before the opening bracket.  The @code{'#} is required
-as part of the value to introduce a vector, and the first@tie{}@code{#} is
+have @code{##} before the opening parenthesis.  One @code{#} is required
+as part of vector constant syntax, and the first@tie{}@code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 
@@ -1116,7 +1134,7 @@ required, as always, to precede the value itself in the
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1125,7 +1143,8 @@ required, as always, to precede the value itself in the
 
 And we see this too removes all the bar lines.
 
-@subheading transparent
+@node The transparent property
+@unnumberedsubsubsec The @code{transparent} property
 
 @cindex transparent property
 @cindex transparency
@@ -1156,7 +1175,24 @@ transparent is:
 @end lilypond
 
 @noindent
-The time signature is gone, but this command leaves a gap where
+Again, setting the @code{transparent} property is a rather
+frequent operation, so we have a shorthand for it called
+@code{\hide}:
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+In either case, the time signature is gone, but this command
+leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
 an exercise for the student to fill it in, but in other
 circumstances a gap might be undesirable.  To remove it, the
@@ -1169,7 +1205,7 @@ instead:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1178,10 +1214,13 @@ instead:
 
 @noindent
 and the difference is obvious: setting the stencil to @code{#f}
+(possibly via @code{\omit})
 removes the object entirely; making the object @code{transparent}
+(which can be done using @code{\hide})
 leaves it where it is, but makes it invisible.
 
-@subheading color
+@node The color property
+@unnumberedsubsubsec The @code{color} property
 
 @cindex color property
 
@@ -1220,11 +1259,11 @@ we write:
 @noindent
 and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
-a symbol, but a @emph{function}.  When called, it provides
+a symbol, but a @emph{variable}.  When evaluated, it provides
 the list of internal values required to set the color to
-white.  The other colors in the normal list are functions
+white.  The other colors in the normal list are variables
 too.  To convince yourself this is working you might like
-to change the color to one of the other functions in the
+to change the color to one of the other variables in the
 list.
 
 @cindex color, X11
@@ -1234,9 +1273,9 @@ list.
 
 The second way of changing the color is to use the list of
 X11 color names in the second list in @ruser{List of colors}.
-However, these must be preceded by another function, which
-converts X11 color names into the list of internal values,
-@code{x11-color}, like this:
+However, these are mapped to the actual values by the function
+@code{x11-color} which
+converts X11 color symbols into the list of internal values like this:
 
 @cindex BarLine, example of overriding
 @cindex color property, example
@@ -1254,14 +1293,15 @@ converts X11 color names into the list of internal values,
 @noindent
 Note that in this case the function @code{x11-color} takes
 a symbol as an argument, so the symbol must be preceded by
-an apostrophe and the two enclosed in brackets.
+an apostrophe to keep it from being evaluated as a variable, and
+the whole function call has to be enclosed in parentheses.
 
 @cindex rgb colors
 @cindex color, rgb
 
 @funindex rgb-color
 
-There is yet a third function, one which converts RGB values into
+There is another function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
 three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
@@ -1360,7 +1400,7 @@ we simply set the stencil of each to @code{#f}, as follows:
 
 @cindex alignAboveContext property, example
 @cindex @code{\with}, example
-@cindex stencil property, example
+@funindex \omit
 @cindex Clef, example of overriding
 @cindex TimeSignature, example of overriding
 
@@ -1375,8 +1415,8 @@ we simply set the stencil of each to @code{#f}, as follows:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef.stencil = ##f
-        \override Staff.TimeSignature.stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1392,7 +1432,9 @@ to the ossia staff.
 
 But what is the difference between modifying the staff context by
 using @code{\with} and modifying the stencils of the clef and the
-time signature with \override?  The main difference is that
+time signature with @code{\override}, or in this case
+@code{\omit}?
+The main difference is that
 changes made in a @code{\with} clause are made at the time the
 context is created, and remain in force as the @strong{default}
 values for the duration of that context, whereas
@@ -1438,6 +1480,31 @@ So we could replace the example above with
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
         \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+It turns out that we can also employ the shorthands @code{\hide}
+and @code{\omit} for setting the @code{transparent} property and
+clearing the @code{stencil} here, leading to the result
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1498,8 +1565,8 @@ Let's try it in our ossia example:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
@@ -1564,8 +1631,8 @@ objects in proportion.  It is used like this:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
@@ -1708,6 +1775,14 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
+@menu
+* The direction property::
+* Fingering::
+@end menu
+
+@node The direction property
+@unnumberedsubsubsec The @code{direction} property
+
 @cindex down
 @cindex up
 @cindex center
@@ -1786,13 +1861,14 @@ the commonest.  The meaning of each is stated where it is not obvious.
   @tab Tuplets are below/above notes
 @end multitable
 
-Note that these predefined commands may @strong{not} be
+The neutral/normal variants of these commands are implemented
+using @code{\revert} and may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
-effect to a single note you must either use the equivalent
-@code{\once \override} command or use the predefined command
-followed after the affected note by the corresponding
-@code{\xxxNeutral} command.
+effect of the other commands (which are implemented using
+@code{\override}) to a single timestep, you can precede them with
+@code{\once} like you would do with explicit overrides.
 
+@node Fingering
 @unnumberedsubsubsec Fingering
 
 @cindex fingering, placement
@@ -1942,6 +2018,20 @@ try @w{@code{-7}}:
 @subsection Outside-staff objects
 
 Outside-staff objects are automatically placed to avoid collisions.
+There are several ways to override the automatic placement if the
+positioning is not optimum.
+
+@menu
+* The outside-staff-priority property::
+* The \textLengthOn command::
+* Dynamics placement::
+* Grob sizing::
+@end menu
+
+
+@node The outside-staff-priority property
+@unnumberedsubsubsec The @code{outside-staff-priority} property
+
 Objects with the lower value of the @code{outside-staff-priority}
 property are placed nearer to the staff, and other outside-staff
 objects are then raised as far as necessary to avoid collisions.
@@ -2151,7 +2241,8 @@ clearly will need to space the notes out horizontally to make more
 room for the text.  This is done using the @code{textLengthOn}
 command.
 
-@subheading \textLengthOn
+@node The \textLengthOn command
+@unnumberedsubsubsec The @code{\textLengthOn} command
 
 @cindex notes, spreading out with text
 
@@ -2209,8 +2300,8 @@ c,,2^"Long Text   "  % Spaces at end are honored
 c''2 |
 @end lilypond
 
-
-@subheading Dynamics
+@node Dynamics placement
+@unnumberedsubsubsec Dynamics placement
 
 @cindex tweaking dynamics placement
 @cindex dynamics, tweaking placement
@@ -2251,7 +2342,8 @@ were able to do this for markup text by using the @code{\textLengthOn}
 command, but there is no equivalent command for dynamic marks.  So we
 shall have to work out how to do this using @code{\override} commands.
 
-@subheading Grob sizing
+@node Grob sizing
+@unnumberedsubsubsec Grob sizing
 
 @cindex grob sizing
 @cindex sizing grobs
@@ -2569,7 +2661,19 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@subheading padding property
+@menu
+* The padding property::
+* The right-padding property::
+* The staff-padding property::
+* The self-alignment-X property::
+* The staff-position property::
+* The extra-offset property::
+* The positions property::
+* The force-hshift property::
+@end menu
+
+@node The padding property
+@unnumberedsubsubsec The @code{padding} property
 
 @cindex padding
 @cindex fixing overlapping notation
@@ -2614,7 +2718,8 @@ their @code{outside-staff-priority}, then that object and all
 objects outside it are moved.
 
 
-@subheading right-padding
+@node The right-padding property
+@unnumberedsubsubsec The @code{right-padding} property
 
 @cindex right-padding property
 
@@ -2657,7 +2762,8 @@ note head by overriding @code{right-padding}.
 
 @noindent
 
-@subheading staff-padding property
+@node The staff-padding property
+@unnumberedsubsubsec The @code{staff-padding} property
 
 @cindex aligning objects on a baseline
 @cindex objects, aligning on a baseline
@@ -2686,7 +2792,8 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading self-alignment-X property
+@node The self-alignment-X property
+@unnumberedsubsubsec The @code{self-alignment-X} property
 
 The following example shows how this can resolve the collision
 of a string fingering object with a note's stem by aligning the
@@ -2702,7 +2809,8 @@ right edge with the reference point of the parent note:
 <a\2>
 @end lilypond
 
-@subheading staff-position property
+@node The staff-position property
+@unnumberedsubsubsec The @code{staff-position} property
 
 @cindex object collision within a staff
 
@@ -2739,7 +2847,8 @@ move it, say, four half-staff spaces down to @w{@code{-8}}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
-@subheading extra-offset property
+@node The extra-offset property
+@unnumberedsubsubsec The @code{extra-offset} property
 
 @cindex positioning objects
 @cindex positioning grobs
@@ -2763,7 +2872,8 @@ f4-5
 @end lilypond
 
 
-@subheading positions property
+@node The positions property
+@unnumberedsubsubsec The @code{positions} property
 
 @cindex controlling tuplets, slurs, phrasing slurs, and beams manually
 @cindex manually controlling tuplets, slurs, phrasing slurs, and beams
@@ -2772,39 +2882,38 @@ f4-5
 @cindex phrasing slurs, controlling manually
 @cindex beams, controlling manually
 
-The @code{positions} property allows the position and slope of
-tuplets, slurs, phrasing slurs and beams to be controlled manually.
-Here's an example which has an ugly phrasing slur due to its trying to
-avoid the slur on the acciaccatura.
+The @code{positions} property allows the vertical position and hence
+the slope of tuplets, slurs, phrasing slurs and beams to be controlled
+manually.
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4 \acciaccatura e8\( d8 c~ c d c d\)
+Here's an example in which the phrasing slur and slur collide:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+a8 \( ( a'16 ) a \)
 @end lilypond
-
-@noindent
-We could simply move the phrasing slur above the notes, and this
-would be the preferred solution:
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\phrasingSlurUp
-\acciaccatura e8\( d8 c~ c d c d\)
-@end lilypond
-
-@noindent
-But if there were some reason why this could not be done the
-other alternative would be to move the left end of the phrasing
-slur down a little using the @code{positions} property.  This
-also resolves the rather nasty shape.
 
 @cindex PhrasingSlur, example of overriding
 @cindex positions property, example
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\once \override PhrasingSlur.positions = #'(-4 . -3)
-\acciaccatura e8\( d8 c~ c d c d\)
+@noindent
+One possibility would be to move the two ends of the phrasing slur
+higher.  We can try setting the left end to 2.5 staff-spaces above the
+centre line and the right end to 4.5 above, and LilyPond will
+select the phrasing slur from the candidates it has found with its
+end points closest to these:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\once \override PhrasingSlur.positions = #'(2.5 . 4.5)
+a8 \( ( a'16 ) a \)
 @end lilypond
+
+This is an improvement, but why not lower the right end of the slur
+a little?  If you try it you'll find it can't be done in this way.
+That's because there are no candidate slurs lower than the one
+already selected, and in this case the @code{positions} property has
+no effect.  However, ties, slurs and phrasing slurs @emph{can} be
+positioned and shaped very precisely when necessary.  To learn how to
+do this, see @ruser{Modifying ties and slurs}.
 
 Here's a further example.  We see that the beams
 collide with the ties:
@@ -2857,7 +2966,8 @@ Note that the override continues to apply in the first voice of
 the second measure of eighth notes, but not to any of the beams in the
 second voice.
 
-@subheading force-hshift property
+@node The force-hshift property
+@unnumberedsubsubsec The @code{force-hshift property}
 
 We can now see how to apply the final corrections to the Chopin
 example introduced at the end of @ref{I'm hearing Voices}, which
@@ -3454,6 +3564,11 @@ lhMusic = \relative c' {
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
+@menu
+* Tying notes across voices::
+* Simulating a fermata in MIDI::
+@end menu
+
 @cindex transparent property, use of
 @cindex objects, making invisible
 @cindex removing objects
@@ -3462,9 +3577,11 @@ lhMusic = \relative c' {
 @cindex objects, hiding
 @cindex invisible objects
 @cindex objects, invisible
-@cindex tying notes across voices
 
-@subheading Tying notes across voices
+@node Tying notes across voices
+@unnumberedsubsubsec Tying notes across voices
+
+@cindex tying notes across voices
 
 The following example demonstrates how to connect notes in
 different voices using ties.  Normally, only two notes in the
@@ -3511,7 +3628,37 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
-@subheading Simulating a fermata in MIDI
+@funindex \single
+@cindex tweak, generated from override
+Now for @emph{overriding} the transparency of a graphical object,
+we could have used the shorthand @code{\hide} as explained above.
+Tweaking is a different operation, affecting only properties
+generated from a single music expression.  It turns out that we
+can convert overrides into tweaks using @code{\single}, making it
+possible to rewrite the above example as
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+In this particular case, the difference to @code{\once \hide} is
+not apparent.  It is important when there are several objects at
+the same point in musical time (like noteheads in a chord).  In
+that case, @code{\once} will affect all of those objects while
+@code{\single} will only affect a single one, the one generated by
+the immediately following music expression.
+
+@node Simulating a fermata in MIDI
+@unnumberedsubsubsec Simulating a fermata in MIDI
 
 @cindex stencil property, use of
 @cindex fermata, implementing in MIDI
@@ -3541,7 +3688,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.transparent = ##t
+    \once \hide Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -3563,7 +3710,7 @@ We show here the effect of the two methods:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.stencil = ##f
+    \once \omit Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |
@@ -4007,7 +4154,7 @@ distributed with GNU/Linux, or installed under fink or cygwin) or
 compiled it from source, and (b) on which operating system it is
 being used:
 
-@strong{Downloaded from lilypond.org}
+@subsubsubheading Downloaded from lilypond.org
 
 @itemize @bullet
 @item GNU/Linux
@@ -4037,7 +4184,7 @@ Using Windows Explorer, navigate to
 
 @end itemize
 
-@strong{Installed from a package manager or compiled from source}
+@subsubsubheading Installed from a package manager or compiled from source
 
 Navigate to
 @file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where

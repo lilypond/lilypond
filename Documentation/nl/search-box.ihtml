@@ -1,9 +1,17 @@
 <!--
-    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 -->
+
+<!--
+we depend on an external entity here, which we cannot control.  Suppose
+we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+For some time, Google won't have the new location in its index, so the
+search would get nothing.  It would be better to keep "v2.15" in the
+search for a while and have a redirection from "v2.15" to "v2.17".
++-->
 
 <form action="http://google.com/search"
       method="get"
