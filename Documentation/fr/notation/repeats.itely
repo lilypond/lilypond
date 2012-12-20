@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -298,6 +298,7 @@ Glossaire musicologique :
 Manuel de notation :
 @ref{Barres de mesure},
 @ref{Modification des greffons de contexte},
+@ref{Modification des liaisons},
 @ref{Gestion du temps}.
 
 Morceaux choisis :
@@ -314,13 +315,31 @@ Référence des propriétés internes :
 @cindex reprises imbriquées
 @cindex imbrication de reprises
 @cindex numéro de mesure et reprises
-@cindex reprise et liaison
-@cindex liaison et reprise
+@cindex reprises et liaison
+@cindex liaison et reprises
+@cindex glissando et reprises
+@cindex reprises et glissando
 
 L'extension d'une liaison à partir d'un bloc @code{\repeat} sur un bloc
 @code{\alternative} n'est possible que pour la première alternative.
+L'aspect visuel d'une liaison se continuant dans les autres
+alternatives, peut être simulée à l'aide de la commande
+@code{\repeatTie} lorsqu'elle s'arrête sur sa première note --
+méthode qui cependant ne fonctionne pas pour un @code{TabStaff}.
+D'autres moyens existent pour indiquer la prolongation d'une
+liaison sur des alternatives, y compris dans un @code{TabStaff},
+en suivant les préceptes donnés à la rubrique
+@ref{Modification des liaisons}.
+
 Selon le même principe, une liaison ne saurait partir de la fin d'une
 alternative pour se terminer au début de la reprise.
+
+L'extension d'un glissando à partir d'un bloc @code{\repeat} sur
+un bloc @code{\alternative} n'est possible que pour la première
+alternative.  L'aspect visuel d'un glissando se continuant dans
+les autres alternatives peut être simulé à l'aide d'un glissando
+partant d'une note d'ornement supplémentaire et masquée.  Un
+exemple se trouve à la rubrique @ref{Glissando}.
 
 Le développement, à l'aide de la commande @code{\unfoldRepeats}, d'une
 répétition qui commence sur une mesure incomplète et contient un bloc

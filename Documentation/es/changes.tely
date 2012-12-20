@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: cced43289cf170305e6e6517180659a1c4fa91db
+    Translation of GIT committish: 1429773f3c8a2e559ba7acc71c58786326bcdcbc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,64 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+La instrucción @code{\clef} contempla un cambio opcional de octava:
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+@item
+Se ha hecho que la sintaxis de LilyPond de palabras separadas por
+puntos @code{Voice.Accidental} sea intercambiable con
+@code{#'(Voice Accidental)}, una lista de Scheme de símbolos.
+Como resultado, código del estilo de
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+ahora es equivalente a
+@example
+\override Voice.TextSpanner bound-details.left.text = "rit."
+@end example
+o incluso a
+@example
+\override #'(Voice TextSpanner) bound-details.left.text = "rit."
+@end example
+
+@item
+La ruta a un grob y a una propiedad de un grob ya no requieren que
+se especifiquen como dos argumentos distintos a instrucciones como
+@samp{\override} y @code{\revert}, permitiendo la sintaxis
+siguiente:
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+Dado que las funciones musicales complementarias como
+@samp{\overrideProperty} no contemplan formas con y sin espacios
+de separación al mismo tiempo, la utillización de una sola ruta
+con puntos es ahora la forma de preferencia.  La especificación
+separada de la ruta de un grob y de la propiedad del grob,
+contemplada aún por parte de @samp{\override} y de @samp{\revert}
+por motivos de compatibilidad, se considera ahora obsoleta.
+
+@item
+Debido a que dos palabras se aceptan ahora como símbolos que son
+argumentos de función, las interfaces de @samp{\accidentalStyle},
+@samp{\alterBroken}, @samp{\footnote} y @samp{\tweak} han tenido
+que ser rediseñadas allí donde estaban implicados símbolos que
+eran argumentos opcionales.  Compruebe la documentación de la
+función respectiva para ver los detalles.
+
+@item
+Varias instrucciones aceptan ahora listas de símbolos
+(introducidas convenientemente como palabras separadas por puntos)
+para diversos tipos de argumentos.  Entre ellos se encuentran
+@samp{\accidentalStyle}, @samp{\alterBroken}, @samp{\footnote},
+@samp{\hide}, @samp{\omit}, @samp{\overrideProperty},
+@samp{\shape} y @samp{\tweak}.
 
 @item
 Se ha modificado la interfaz de usuario de las líneas divisorias.

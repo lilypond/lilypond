@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6da27f9b294c385ff8fc75876e152d67f0b4794e
+    Translation of GIT committish: 6d501730d319a6456acd13870821f0bcad64bf4e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -207,7 +207,7 @@ modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @var{Contexto}.@var{ObjetoDePresentación}  #'@var{propiedad-de-presentación} =
+\override @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación} =
 #@var{valor}
 @end example
 
@@ -229,9 +229,17 @@ usaremos sólo unas cuantas propiedades y valores
 sencillos que sean fáciles de entender, para ilustrar el formato
 y la utilización de estas instrucciones.
 
-Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
-propiedad de presentación, y el@tie{}@code{#}, que debe preceder al valor.
-Deben estar presentes siempre y de esa forma exacta.  Es la
+Las expresiones principales de LilyPond son elementos musicales
+como notas, duraciones y elementos de marcado.  Las expresiones
+más básicas como números, cadenas de caracteres y listas se
+procesan en el @q{modo de Scheme}, que se invoca por medio del
+prefijo @samp{#} escrito antes del valor.  Aunque los valores
+pueden tener a veces una representación válida en el modo de
+música de LilyPond, este manual utiliza siempre @samp{#} para la
+escritura, por coherencia.  Para ver más información acerca del
+modo de Scheme, consulte @rextend{Sintaxis del Scheme de LilyPond}.
+
+@code{\override} es la
 instrucción de uso más común dentro del trucaje, y durante la mayor
 parte del resto de este capítulo presentaremos ejemplos de cómo se
 usa.  A continuación hay un ejemplo sencillo para cambiar el color de
@@ -263,7 +271,7 @@ valor predeterminado original; observe que no es a su valor previo si
 se han utilizado varias instrucciones @code{\override}.
 
 @example
-\revert @var{Contexto}.@var{ObjetoDePresentación} #'@var{propiedad-de-presentación}
+\revert @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación}
 @end example
 
 Una vez más, igual que @var{Contexto} dentro de la instrucción
@@ -389,7 +397,7 @@ Observe también que no debe haber un signo igual. Así que la sintaxis
 de la instrucción @code{\tweak} en su forma sencilla es:
 
 @example
-\tweak #'@var{propiedad-de-presentación} #@var{valor}
+\tweak @var{propiedad-de-presentación} #@var{valor}
 @end example
 
 Una instrucción @code{\tweak} también se puede usar para modificar
@@ -424,13 +432,13 @@ el evento original:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <\tweak Accidental.color #red   cis4
  \tweak Accidental.color #green es
-                                  g>
+ g>
 @end lilypond
 
 Esta forma extensa de la instrucción @code{\tweak} se puede describir
 como
 @example
-\tweak @var{layout-object} #'@var{layout-property} @var{value}
+\tweak @var{objeto-de-presentación}.@var{propiedad-de-presentación} @var{valor}
 @end example
 
 @cindex grupos especiales anidados
@@ -477,8 +485,6 @@ se puede modificar de la forma usual mediante instrucciones
 @cindex transparent, propiedad, ejemplo
 @cindex TupletNumber, ejemplo de sobreescritura
 
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
@@ -542,7 +548,6 @@ con tan sólo algo de práctica.
 @cindex sobreescritura, ejemplo de
 @cindex Referencia de Funcionamiento Interno, ejemplo de utilización
 @cindex @code{\addlyrics}, ejemplo
-
 
 Utilicemos un ejemplo concreto con un sencillo fragmento de música
 real:
@@ -882,18 +887,13 @@ cambiar la letra a cursiva.  El objeto es @code{LyricText}, la
 propiedad es @code{font-shape} y el valor es @code{italic}.  Igual que
 antes, omitiremos el contexto.
 
-Como nota aparte, aunque una nota importante, observe que a causa de
-que los valores de @code{font-shape} son símbolos, deben ir precedidos
-de un apóstrofo, @code{'}.  Esa es la razón por la que se necesitan
-apóstrofos antes de @code{thickness} en el ejemplo anterior y en
-@code{font-shape}.  Los dos son también símbolos.  Los símbolos son
-nombres especiales que son conocidos por LilyPond internamente.
-Algunos de ellos son nombres de propiedades, como @code{thickness} o
-@code{font-shape}, otros se utilizan como valores que se les puede dar
-a las propiedades, como @code{italic}.  Observe la distinción entre
-esto y las cadenas de texto arbitrarias, que aparecerían
-entrecomilladas como @code{"a text string"}.  Para ver más detalles
-relacionados con los símbolos y las cadenas, consulte
+Como nota aparte, aunque es importante, observe que ciertas
+propiedades toman valores que son símbolos, como @code{italic}, y
+deben ir precedidos de un apóstrofo, @code{'}.  Los símbolos se
+leen a continuación internamente por parte de LilyPond.  Tenga en
+cuenta la diferencia con las cadenas de texto arbitrarias, que
+aparecerían como @code{"una cadena de texto"}; para ver más
+detalles sobre los símbolos y las cadenas, consulte
 @rextend{Tutorial de Scheme}.
 
 Así pues, la instrucción @code{\override} necesaria para imprimir la
@@ -931,33 +931,8 @@ de esta forma:
 @noindent
 y toda la letra se imprime en cursiva.
 
-@subheading Especificación del contexto en modo letra
-
-@cindex contexto, especificación en modo letra
-@cindex letra, modo, especificar el contexto en
-
-En el caso de la letra, si intenta especificar el contexto en el
-formato que acabamos de dar, la instrucción no funcionará.  Una
-sílaba escrita en el modo letra, «lyricmode» termina en un espacio, un
-salto de línea o un dígito.  Cualquier otro carácter se incluye como
-parte de la sílaba.  Por esta razón, un espacio o salto de línea debe
-aparecer antes del último símbolo @code{@}} para evitar que se incluya
-como parte de la sílaba final.  De forma similar, se deben insertar
-espacios antes y después del punto, @q{.}, separando el nombre del
-contexto del nombre del objeto, pues en caso contrario los dos nombres
-se juntarán y el intérprete no podrá reconocerlos.  Así pues, la
-instrucción será:
-
-@example
-\override Lyrics.LyricText.font-shape = #'italic
-@end example
-
 @warning{Dentro de la letra, deje siempre espacios entre la sílaba
 final y la llave de cierre.}
-
-@warning{En las sobreescrituras con override dentro de la letra,
-escriba siempre espacios antes y después del punto que separa el
-nombre del contexto y el nombre del objeto.}
 
 
 @seealso
@@ -1136,7 +1111,21 @@ intentar corregirlo escribiendo el contexto correcto:
 }
 @end lilypond
 
-Ahora las barras de compás han desaparecido.
+Ahora las barras de compás han desaparecido.  La operación de
+fijar la propiedad @code{stencil} al valor @code{#f} es tan
+frecuente que existe una abreviatura para ella, llamada
+@code{\omit} (omitir):
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
 
 Sin embargo, observe que el establecimiento de la propiedad
 @code{stencil} al valor @code{#f} produce errores cuando las se
@@ -1158,18 +1147,20 @@ que establece el sello a un objeto con tamaño nulo:
 
 @cindex break-visibility, propiedad
 
-Vemos en las propiedades de @code{BarLine} que aparecen en el RFI que
-la propiedad @code{break-visibility} requiere un vector de tres
-valores booleanos.  Controlan respectivamente si las barras de compás
-se imprimen al final de una línea, en mitad de una línea, y al
-principio de las líneas.  Para nuestro ejemplo, queremos que todas las
-barras de compás se supriman, por lo que el valor que necesitamos es
-@code{'#(#f #f #f)}.  Vamos a probarlo, recordando incluir el contexto
-de @code{Staff}.  Observe también que al escribir este valor tenemos
-@code{#'#} antes del paréntesis de apertura.  Se necesita @code{'#}
-como parte del valor para introducir un vector, y el primer símbolo de
-almohadilla@tie{}@code{#} se necesita, como siempre, para preceder el valor
-en sí dentro de la instrucción @code{\override}.
+Vemos en las propiedades de @code{BarLine} que aparecen en el RFI
+que la propiedad @code{break-visibility} requiere un vector de
+tres valores booleanos.  Controlan respectivamente si las barras
+de compás se imprimen al final de una línea, en mitad de una
+línea, y al principio de las líneas.  Para nuestro ejemplo,
+queremos que todas las barras de compás se supriman, por lo que el
+valor que necesitamos es @code{#(#f #f #f)} (disponible también
+bajo el nombre @code{all-invisible}, todas invisibles).  Vamos a
+probarlo, recordando incluir el contexto de @code{Staff}.  Observe
+también que al escribir este valor tenemos @code{##} antes del
+paréntesis de apertura.  Se necesita un @code{#} como parte de la
+sintaxis de las contantes vectoriales, y el primer símbolo de
+almohadilla@tie{}@code{#} se necesita, como siempre, para preceder
+el valor en sí dentro de la instrucción @code{\override}.
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex break-visibility, propiedad, ejemplo
@@ -1177,7 +1168,7 @@ en sí dentro de la instrucción @code{\override}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine.break-visibility = #'#(#f #f #f)
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1219,11 +1210,28 @@ a la indicación de compás es:
 @end lilypond
 
 @noindent
-El compás ya no está, pero esta instrucción deja una separación en el
-lugar donde antes estaba la indicación de compás.  Quizá esto es lo
-que queremos para un ejercicio en que el alumno deba escribirlo, pero
-en otras circunstancias esta separación podría no ser deseable.  En
-vez de eso, para quitarla, el stencil o «sello» de la indicación de
+Una vez más, el establecimiento de la propiedad @code{transparent}
+es una operación bastante frecuente, de modo que tenemos una
+abreviatura llamada @code{\hide} (ocultar):
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+En ninguno de los dos casos aparece ya la indicación de compás,
+pero esta instrucción deja una separación en el lugar donde antes
+estaba la indicación de compás.  Quizá esto es lo que queremos
+para un ejercicio en que el alumno deba escribirlo, pero en otras
+circunstancias esta separación podría no ser deseable.  En vez de
+eso, para quitarla, el stencil o «sello» de la indicación de
 compás se debe establecer al valor @code{#f}:
 
 @cindex TimeSignature, ejemplo de sobreescritura
@@ -1232,7 +1240,7 @@ compás se debe establecer al valor @code{#f}:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
@@ -1240,9 +1248,11 @@ compás se debe establecer al valor @code{#f}:
 @end lilypond
 
 @noindent
-y la diferencia es obvia: al establecer el sello al valor @code{#f}
-quitamos el objeto por completo; al hacer el objeto @code{transparent}
-lo dejamos donde está, pero lo hacemos invisible.
+y la diferencia es obvia: al establecer el sello al valor
+@code{#f} (posiblemente por medio de @code{\omit}) quitamos el
+objeto por completo; al hacer el objeto @code{transparent} (lo que
+puede hacerse utilizando @code{\hide}) lo dejamos donde está, pero
+lo hacemos invisible.
 
 @subheading color
 
@@ -1283,22 +1293,23 @@ poner las líneas divisorias de color blanco, escribimos:
 @noindent
 y de nuevo podemos comprobar que las barras de compás no son visibles.
 Observe que @emph{white} no viene precedido de un apóstrofo: no es un
-símbolo, sino una @emph{función}.  Cuando se invoca, proporciona la
+símbolo, sino una @emph{variable}.  Cuando se evalúa, proporciona la
 lista de valores internos que se requieren para establecer el color a
-blanco.  Los otros colores de la lista normal también son funciones.
+blanco.  Los otros colores de la lista normal también son variables.
 Para convencerse de que esto funciona, quizá quiera cambiar el color a
-una de las otras funciones de la lista.
+una de las otras variables de la lista.
 
 @cindex colores de X11
 @cindex X11, colores de
 
 @funindex x11-color
 
-La segunda forma de cambiar el color es utilizar la lista de nombres
-de colores de X11 que aparecen en la segunda lista de @ruser{Lista de
-colores}.  Sin embargo, éstos deben ir precedidos de otra función, que
-convierte los nombres de colores de X11 en la lista de valores
-internos, @code{x11-color}, de la siguiente manera:
+La segunda forma de cambiar el color es utilizar la lista de
+nombres de colores de X11 que aparecen en la segunda lista de
+@ruser{Lista de colores}.  De todas formas, se hacen corresponder
+a los valores reales por medio de la función @code{x11-color} que
+convierte los símbolos de color de X11 en la lista de valores
+internos como éstos:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex color, propiedad, ejemplo
@@ -1314,16 +1325,18 @@ internos, @code{x11-color}, de la siguiente manera:
 @end lilypond
 
 @noindent
-Observe que en este caso la función @code{x11-color} toma un símbolo
-como argumento, así que el símbolo debe ir precedido de un apóstrofo y
-los dos deben ir entre paréntesis.
+Observe que en este caso la función @code{x11-color} toma un
+símbolo como argumento, así que el símbolo debe ir precedido de un
+apóstrofo para evitar que resulte evaluado como si fuera una
+variable, y toda la llamada a la función se debe encerrar entre
+paréntesis.
 
 @cindex rgb, colores
 @cindex color, rgb
 
 @funindex rgb-color
 
-Aún hay una tercera función, que convierte valores RGB en colores
+Aún existe otra función, que convierte valores RGB en colores
 internos: la función @code{rgb-color}.  Toma tres argumentos que dan
 las intensidades de rojo, verde y azul.  Cada uno de ellos puede tomar
 valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
@@ -1423,7 +1436,7 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
 
 @cindex alignAboveContext, propiedad, ejemplo
 @cindex @code{\with}, ejemplo
-@cindex stencil, propiedad, ejemplo
+@funindex \omit
 @cindex Clef, ejemplo de sobreescritura
 @cindex TimeSignature, ejemplo de sobreescritura
 
@@ -1438,8 +1451,8 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
         alignAboveContext = #"main"
       }
       {
-        \override Staff.Clef.stencil = ##f
-        \override Staff.TimeSignature.stencil = ##f
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
         { f8 f c }
       }
     >>
@@ -1455,7 +1468,8 @@ se aplican al pentagrama de ossia.
 
 Pero ¿cuál es la diferencia entre modificar el contexto de pentagrama
 usando @code{\with} y modificar los sellos de clave y de compás con
-\override?  La diferencia principal es que los cambios que se realizan
+\override, o en este caso
+@code{\omit}?  La diferencia principal es que los cambios que se realizan
 en una cláusula @code{\with} se hacen en el momento en que se crea el
 contexto, y permanecen activos como valores @strong{predeterminados}
 durante toda la duración de dicho contexto, mientras que las
@@ -1503,6 +1517,32 @@ Así pues, podemos reemplazar el ejemplo anterior con
         \override Clef.stencil = ##f
         % Don't print time signatures in this staff
         \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Resulta que también podemos emplear aquí las abreviaturas
+@code{\hide} y @code{\omit} para fijar la propiedad
+@code{transparent} y borrar el @code{stencil}, lo que conduce al
+resultado siguiente:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
       }
       { f8 f c }
     >>
@@ -1569,8 +1609,8 @@ Vamos a probarlo en nuestro ejemplo del ossia:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         % Reduce all font sizes by ~24%
         fontSize = #-2
       }
@@ -1638,8 +1678,8 @@ siguiente forma:
       { f8 c c }
       \new Staff \with {
         alignAboveContext = #"main"
-        \override Clef.stencil = ##f
-        \override TimeSignature.stencil = ##f
+        \omit Clef
+        \omit TimeSignature
         fontSize = #-2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
@@ -1881,11 +1921,13 @@ menciona el significado de cada una allí donde no es obvio.
   @tab Los grupos especiales están debajo o encima de las notas
 @end multitable
 
-Observe que estas instrucciones predefinidas @strong{no} pueden ir
-precedidas de @code{\once}.  Si quiere limitar el efecto a una sola
-nota, deberá elegir entre usar la instrucción @code{\once \override}
-equivalente, o usar la instrucción predefinida, seguida después de la
-nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
+Las variantes neutras o normales de estas instrucciones están
+implementadas usando @code{\revert} y @strong{no} pueden ir
+precedidas de @code{\once}.  Si quiere limitar el efecto de las
+otras instrucciones (que están implementadas usando
+@code{\override}) a un solo paso de tiempo, puede precederla de
+@code{\once} de la misma forma en que lo haría con las
+sobreescrituras explícitas.
 
 @unnumberedsubsubsec Digitaciones
 
@@ -2056,14 +2098,14 @@ objetos fuera-del-pentagrama más comunes.
 @cindex objetos de extensión
 
 Observe los nombres algo inusuales de algunos de los objetos: los
-objetos de extensión se cearn automáticamente para controlar el
+objetos de extensión se crean automáticamente para controlar el
 posicionamiento vertical de los grobs que (quizá) comienzan y terminan
 en distintos momentos musicales, de manera que cualquier modificación
 a la prioridad @code{outside-staff-priority} del grob subyacente no
 tiene ningún efecto.  Por ejemplo, cambiar la
 @code{outside-staff-priority} del objeto de regulador @code{Hairpin}
 no tiene efecto sobre la posición vertical de los reguladores: en
-lugar de eso, tenemos que cambar la @code{outside-staff-priority} del
+lugar de eso, tenemos que cambiar la @code{outside-staff-priority} del
 objeto asociado @code{DynamicLineSpanner}.  Esta sobreescritura se
 debe escribir al comienzo del objeto de extensión, que podría incluir
 varios reguladores o matices dinámicos encadenados.
@@ -3671,6 +3713,37 @@ valor de longitud @code{length} a @code{8},
 >>
 @end lilypond
 
+@funindex \single
+@cindex tweak, generado a partir de una sobreescritura
+Ahora bien, para la @emph{sobreescritura} de la transparencia de
+un objeto gráfico, podríamos haber usado la abreviatura
+@code{\hide} como se explicó anteriormente.  El trucaje mediante
+@qq{tweak} es una operación diferente que afecta solamente a las
+propiedades generadas a partir de una sola expresión musical.
+Resulta que podemos convertir los overrides o sobreescrituras en
+tweaks o trucajes utilizando @code{\single}, haciendo posible
+volver a escribir el ejemplo anterior como
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ b\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+En este caso particular, la diferencia con @code{\once \hide} no
+es muy apreciable.  Es importante cuando existen varios objetos en
+el mismo punto del tiempo musical (como las notas de un acorde).
+En tal caso, @code{\once} afecta a todos los objetos, mientras que
+@code{\single} solo afecta a uno, aquél que se genera por parte de
+la expresión musical que le sigue inmediatamente.
+
 @subheading Simulación de un calderón en el MIDI
 
 @cindex sello, uso de la propiedad
@@ -3702,7 +3775,7 @@ los dos métodos:
     % Visible tempo marking
     \tempo 4=120
     a4 a a
-    \once \override Score.MetronomeMark.transparent = ##t
+    \once \hide Score.MetronomeMark
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a4\fermata |

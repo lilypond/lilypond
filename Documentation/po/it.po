@@ -1,27 +1,28 @@
 # translation of LilyPond documentation to Italian
 # Copyright (C) 2009--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
+# Federico Bruni <fedelogy@gmail.com>, 2009, 2012.
 #
-# Federico Bruni <brunology@gmx.com>, 2009.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-27 13:12+0100\n"
-"PO-Revision-Date: 2009-11-04 HO:MI+ZONE\n"
-"Last-Translator: Federico Bruni <brunology@gmx.com>\n"
-"Language-Team: Italiano\n"
+"PO-Revision-Date: 2012-12-11 23:05+0100\n"
+"Last-Translator: Federico Bruni <fedelogy@gmail.com>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: postprocess_html.py:55
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
+"Questa pagina documenta %(package_name)s-%(package_version)s (%(branch_str)s)."
 
 #: postprocess_html.py:57
 #, python-format
@@ -33,7 +34,7 @@ msgstr ""
 #: postprocess_html.py:69
 #, python-format
 msgid "Other languages: %s."
-msgstr ""
+msgstr "Altre lingue: %s."
 
 #: postprocess_html.py:70
 #, python-format
@@ -42,11 +43,11 @@ msgstr ""
 
 #: postprocess_html.py:330
 msgid "stable-branch"
-msgstr ""
+msgstr "ramo stabile"
 
 #: postprocess_html.py:332
 msgid "development-branch"
-msgstr ""
+msgstr "ramo di sviluppo"
 
 #: translations-status.py:72
 msgid "Section titles"
@@ -55,65 +56,65 @@ msgstr ""
 #: translations-status.py:73
 #, python-format
 msgid "Last updated %s"
-msgstr ""
+msgstr "Ultimo aggiornamento %s"
 
 #: translations-status.py:74
 msgid "Translators"
-msgstr ""
+msgstr "Traduttori"
 
 #: translations-status.py:74
 msgid "Translation checkers"
-msgstr ""
+msgstr "Revisori"
 
 #: translations-status.py:75
 msgid "Translated"
-msgstr ""
+msgstr "Tradotto"
 
 #: translations-status.py:75
 msgid "Up to date"
-msgstr ""
+msgstr "Aggiornato"
 
 #: translations-status.py:76
 msgid "Other info"
-msgstr ""
+msgstr "Altre informazioni"
 
 #: translations-status.py:78
 msgid "no"
-msgstr ""
+msgstr "no"
 
 #: translations-status.py:79
 msgid "not translated"
-msgstr ""
+msgstr "non tradotto"
 
 #: translations-status.py:81
 #, python-format
 msgid "partially (%(p)d %%)"
-msgstr ""
+msgstr "parzialmente (%(p)d %%)"
 
 #: translations-status.py:83
 #, python-format
 msgid "partially translated (%(p)d %%)"
-msgstr ""
+msgstr "tradotto parzialmente (%(p)d %%)"
 
 #: translations-status.py:84 translations-status.py:86
 msgid "yes"
-msgstr ""
+msgstr "sì"
 
 #: translations-status.py:85
 msgid "translated"
-msgstr ""
+msgstr "tradotto"
 
 #: translations-status.py:86 translations-status.py:87
 msgid "up to date"
-msgstr ""
+msgstr "aggiornato"
 
 #: translations-status.py:88
 msgid "partially"
-msgstr ""
+msgstr "parzialmente"
 
 #: translations-status.py:89
 msgid "partially up to date"
-msgstr ""
+msgstr "parzialmente aggiornato"
 
 #: translations-status.py:90
 msgid "N/A"

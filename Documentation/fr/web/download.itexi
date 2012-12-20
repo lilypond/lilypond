@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: 8412347e61620a30085b38760d8a319649257226
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -453,7 +453,7 @@ protégés par le droit d’auteur.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Pour Windows ME, NT, 2000, XP, Vista, et Windows 7.
+Pour Windows ME, NT, 2000, XP, Vista, Windows 7 et 8.
 
 @end itemize
 

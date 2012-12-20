@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -69,13 +69,15 @@ Las dobles cuerdas se indican normalmente escribiendo un acorde, véase
 la interpretación de acordes, véase @ref{Arpegio}.
 
 @item
-Hay una plantilla para cuarteto de cuerda en @rlearning{Cuarteto de cuerda}.  Otras se muestran en la sección de fragmentos de código.
+Hay plantillas para cuarteto de cuerda en
+@rlearning{Plantillas de cuarteto de cuerda}.
+Otras se muestran en la sección de fragmentos de código.
 
 @end itemize
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Cuarteto de cuerda}.
+@rlearning{Platillas de cuarteto de cuerda}.
 
 Referencia de la notación:
 @ref{Guiones de texto},

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 4239aa2369f74d8e8622c2235154e9f064c394f7
+    Translation of GIT committish: faccc61cfaccb530834aec0ea08e27f29729f511
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -440,7 +440,7 @@ Si riconoscono il copyright e i marchi di tutti i loghi e le immagini dei prodot
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Per Windows 2000, XP, Vista, e Windows 7.
+Per Windows 2000, XP, Vista, Windows 7 e 8.
 
 @end itemize
 
@@ -450,10 +450,10 @@ Per Windows 2000, XP, Vista, e Windows 7.
 
 @item
 Trova il file scaricato e clicca due volte su di esso per avviare
-l'installer. Segui le istruzioni fornite dall'installer;
+il programma di installazione. Segui le istruzioni fornite dal programma.
 Ti consigliamo di lasciare tutte le opzioni di installazione attivate e
 e di usare il percorso di installazione predefinito. Clicca sul bottone @q{Finito}
-quando l'installer è terminato. LilyPond è ora installato.
+quando la procedura di installazione è terminata. LilyPond è ora installato.
 
 @end enumerate
 
