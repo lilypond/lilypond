@@ -120,6 +120,7 @@ SCM (* scm_parse_error_handler) (void *);
 %x incl
 %x lyrics
 %x longcomment
+%x maininput
 %x markup
 %x notes
 %x quote
@@ -314,6 +315,9 @@ BOM_UTF8	\357\273\277
 		start_main_input ();
 		main_input_level_ = include_stack_.size ();
 		is_main_input_ = true;
+		int state = YYSTATE;
+		yy_push_state (maininput);
+		yy_push_state (state);
 	}
 	else
 		error (_ ("\\maininput not allowed outside init files"));
@@ -689,11 +693,13 @@ BOM_UTF8	\357\273\277
 
 <longcomment><<EOF>> {
 		LexerError (_ ("EOF found inside a comment").c_str ());
-		is_main_input_ = false; // should be safe , can't have \include in --safe.
-                yylval = SCM_UNSPECIFIED;
-		if (!close_input ())
-		  yyterminate (); // can't move this, since it actually rets a YY_NULL
+		yy_pop_state ();
 	}
+
+<quote><<EOF>> {
+	LexerError (_ ("EOF found inside string").c_str ());
+	yy_pop_state ();
+}
 
 <<EOF>> {
         yylval = SCM_UNSPECIFIED;
@@ -701,7 +707,18 @@ BOM_UTF8	\357\273\277
 	{
 		is_main_input_ = include_stack_.size () > main_input_level_;
 		if (!is_main_input_)
+		{
 			main_input_level_ = 0;
+			pop_state ();
+			if (YYSTATE != maininput)
+			{
+				LexerError (_ ("Unfinished main input").c_str ());
+				do {
+					pop_state ();
+				} while (YYSTATE != maininput);
+			}
+			pop_state ();
+		}
 		if (!close_input () || !is_main_input_)
  	        /* Returns YY_NULL */
 			yyterminate ();
@@ -709,6 +726,13 @@ BOM_UTF8	\357\273\277
 	else if (!close_input ())
  	        /* Returns YY_NULL */
  	  	yyterminate ();
+}
+
+<maininput>. {
+	while (include_stack_.size () > main_input_level_
+	       && close_input ())
+		;
+	yyterminate ();
 }
 
 <INITIAL>{
