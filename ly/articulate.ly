@@ -92,6 +92,7 @@
 \version "2.16.0"
 
 #(use-modules (srfi srfi-1))
+#(use-modules (srfi srfi-11))
 #(use-modules (ice-9 debug))
 #(use-modules (scm display-lily))
 
@@ -443,6 +444,42 @@
 	     (- rc (length ealtl))
 	     (lambda (i) (list (ly:music-deep-copy body) (ly:music-deep-copy (car ealtl)))))
 	    (map (lambda (alt) (list (ly:music-deep-copy body) alt))))))))))
+     ((EventChord)
+      (let-values
+       (((trem evl)
+	 (partition (lambda (v) (eq? (ly:music-property v 'name) 'TremoloEvent))
+	  (ly:music-property m 'elements))))
+       (if (null? trem)
+	m
+	(let*
+	 ((tremtype (ly:music-property (car trem) 'tremolo-type))
+	  (tremtype-log (1- (integer-length tremtype)))
+	  (durev (find (lambda (v) (not (null? (ly:music-property v 'duration)))) evl))
+	  (totaldur (if durev (ly:music-property durev 'duration) (ly:make-duration tremtype-log 0 1)))
+	  (tgt-nrep (* (/ (ash 1 tremtype-log) (ash 1 (ly:duration-log totaldur)))
+		       (/ (1- (ash 2 (ly:duration-dot-count totaldur)))
+			  (ash 1 (ly:duration-dot-count totaldur)))))
+	  (eff-nrep (max (truncate tgt-nrep) 1))
+	  (tremdur (ly:make-duration tremtype-log 0
+		    (* (/ tgt-nrep eff-nrep) (ly:duration-scale totaldur)))))
+	 (or (and (= eff-nrep tgt-nrep) (= (ash 1 tremtype-log) tremtype))
+	  (ly:warning (_ "non-integer tremolo ~a:~a")
+	   (duration->lily-string
+	    (ly:make-duration
+	     (ly:duration-log totaldur)
+	     (ly:duration-dot-count totaldur)
+	     1)
+	    #:force-duration #t
+	    #:time-scale 1)
+	   tremtype))
+	 (for-each
+	  (lambda (v)
+	   (or (null? (ly:music-property v 'duration))
+	    (set! (ly:music-property v 'duration) tremdur)))
+	  evl)
+	 (set! (ly:music-property m 'elements) evl)
+	 (make-sequential-music
+	  (list-tabulate eff-nrep (lambda (i) (ly:music-deep-copy m))))))))
      ((MultiMeasureRestMusic)
       (make-sequential-music
        (list
@@ -828,7 +865,7 @@ articulate = #(define-music-function (parser location music)
 		(lambda ()
 		 (music-map
 		  ac:articulate-chord
-		  (event-chord-wrap! (ac:unfoldMusic music) parser)))
+		  (ac:unfoldMusic (event-chord-wrap! music parser))))
 		(lambda ()
 		 (or (= ac:stealForward 0)
 		  (begin
