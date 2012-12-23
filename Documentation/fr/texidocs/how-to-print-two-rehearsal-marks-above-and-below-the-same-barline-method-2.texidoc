@@ -1,10 +1,10 @@
-%% Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
-Cette méthode permet d'imprimer deux marques-repères -- l'un au-dessus de
-la portée et l'autre en dessous -- à l'aide de deux voix séparées.  Le
-graveur de repères est ensuite déplacé dans chacune des voix, sans quoi
-aucun repère ne sera imprimé.  Enfin, chaque voix se voit attribuer un
-positionnement pour les repères.
+Cette méthode permet d'imprimer deux marques-repères -- l'une
+au-dessus de la portée et l'autre en dessous -- à l'aide de deux
+voix séparées.  Le graveur de repères est ensuite déplacé dans
+chacune des voix, sans quoi aucun repère ne sera imprimé.  Enfin,
+chaque voix se voit attribuer un positionnement pour les repères.
 
 Cette méthode, bien que plus complexe que la première, apporte plus de
 flexibilité dans l'ajustement individuel des deux composants du repère.

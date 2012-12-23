@@ -1,8 +1,8 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 De nos jours, il peut arriver que la note d'arrivée d'un glissando soit
 absente de la partition.  Pour ce faire, il vous faudra utiliser une
-cadence et @qq{masquer} la note d'arrivée.
+cadence et « masquer » la note d'arrivée.
 
 "
   doctitlefr = "Glissando contemporain"

@@ -1,8 +1,8 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Grâce à la puissance des outils préconfigurés tels que la fonction
 @code{\\drummode} et le contexte @code{DrumStaff}, la saisie de
-parties pour percussions est extrêmement simplifiée@tie{}: chaque
+parties pour percussions est extrêmement simplifiée : chaque
 composant d'une batterie trouve sa place sur une portée dédiée (avec une
 clef spécifique) et les têtes de note sont spécifiques à chaque élément.
 Il est également possible d'affecter un symbole particulier à chaque

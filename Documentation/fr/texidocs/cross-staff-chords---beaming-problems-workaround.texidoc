@@ -1,11 +1,11 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Il est parfois préférable d'utiliser les hampes de la portée supérieure
 pour créer des accords distribués, afin d'éviter tout risque de
 collision au niveau des ligatures automatiques.  Dans l'exemple suivant,
 le fait de partir des hampes de la portée inférieure aurait rendu
 nécessaire l'adaptation du détecteur de collision des ligatures, par une
-clause @code{\\override Staff.Beam #'collision-voice-only = ##t}, afin
+clause @code{\\override Staff.Beam.collision-voice-only = ##t}, afin
 qu'il ne tienne pas compte des collisions entre portées.
 
 "
