@@ -284,7 +284,7 @@ $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
 # of internals every time.  however, this triggers
 # compilation during install, which is a bad thing (tm).
 
-$(outdir)/internals.texi: $(LILYPOND_BINARY)
+$(outdir)/internals.texi: $(LILYPOND_BINARY) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
 	cd $(outdir) && $(buildscript-dir)/run-and-check "$(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation" "generate-documentation.log"
 
 ###############################################
