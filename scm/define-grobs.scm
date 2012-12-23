@@ -585,7 +585,7 @@
         (color . ,(grob::inherit-parent-property
                    X 'color))
         (self-alignment-X . ,CENTER)
-        (staff-padding . 0.2)
+        (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
         (X-offset . ,(ly:make-simple-closure
                       `(,+
@@ -1671,7 +1671,7 @@
         (outside-staff-priority . 400)
         (padding . 0.5)
         (shorten-pair . (0.0 . -0.6))
-        (staff-padding . 1.0)
+        (staff-padding . 2.0)
         (stencil . ,ly:ottava-bracket::print)
         (style . dashed-line)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)

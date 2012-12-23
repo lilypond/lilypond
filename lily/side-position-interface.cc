@@ -360,8 +360,8 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     }
 
   /*
-    Maintain a minimum distance to the staff. This is similar to side
-    position with padding, but it will put adjoining objects on a row if
+    Ensure 'staff-padding' from my refpoint to the staff.  This is similar to
+    side-position with padding, but it will put adjoining objects on a row if
     stuff sticks out of the staff a little.
   */
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
@@ -404,7 +404,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Real staff_position = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Interval staff_extent = staff->maybe_pure_extent (staff, a, pure, start, end);
           Real diff = (dir * staff_extent[dir] + staff_padding
-                       - dir * (total_off + iv[-dir])
+                       - dir * total_off
                        + dir * (staff_position - parent_position));
           total_off += dir * max (diff, 0.0);
         }
