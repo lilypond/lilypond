@@ -71,6 +71,16 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
+  if (!staffline_)
+    return;
+  if (i.grob ()->name () == "VerticalAxisGroup") {
+    i.grob ()->programming_error ("duplicate axis group");
+    if (staffline_->is_live ())
+      staffline_->suicide ();
+    staffline_ = 0;
+    elts_.clear ();
+    return;
+  }
   elts_.push_back (i.grob ());
 }
 
