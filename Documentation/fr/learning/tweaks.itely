@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b93dbb4dd2fe708d0360f190cb4d06fa29bcae53
+    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -193,8 +193,18 @@ propriété en fonction de son nom.
 @cindex retouches, méthodologie
 @cindex méthodes de retouche
 
+@menu
+* La commande \override::
+* La commande \revert::
+* Le préfixe \once::
+* La commande \overrideProperty::
+* La commande \tweak::
+@end menu
 
-@strong{La commande \override}
+
+@node La commande \override
+@unnumberedsubsubsec La commande @code{\override}
+@translationof The \override command
 
 @cindex override, commande
 @cindex override, syntaxe
@@ -270,7 +280,9 @@ g4 a b c |
 @end lilypond
 
 
-@strong{La commande \revert}
+@node La commande \revert
+@unnumberedsubsubsec La commande @code{\revert}
+@translationof The \revert command
 
 @cindex revert, commande
 
@@ -308,7 +320,9 @@ b4 c |
 @end lilypond
 
 
-@strong{Le préfixe \once}
+@node Le préfixe \once
+@unnumberedsubsubsec Le préfixe @code{\once}
+@translationof The \once prefix
 
 @funindex \once
 @funindex once
@@ -335,7 +349,10 @@ g4 a
 b c |
 @end lilypond
 
-@strong{La commande \overrideProperty}
+
+@node La commande \overrideProperty
+@unnumberedsubsubsec La commande @code{\overrideProperty}
+@translationof The \overrideProperty command
 
 @cindex overrideProperty, commande
 
@@ -350,7 +367,9 @@ ici par souci d'exhaustivité ; pour le détail, voir
 @c Maybe explain in a later iteration  -td
 
 
-@strong{La commande \tweak}
+@node La commande \tweak
+@unnumberedsubsubsec La commande @code{\tweak}
+@translationof The \tweak command
 
 @cindex tweak, commande
 
@@ -680,7 +699,7 @@ commandes -- mais il faut encore s'exercer.  Les exemples
 suivants sont là dans cette intention.
 
 
-@subheading Détermination du contexte adéquat
+@subsubsubheading Détermination du contexte adéquat
 @c VO Finding the context
 
 @cindex contexte, détermination du
@@ -702,7 +721,7 @@ niveau, qu'il est activé sans ambiguïté par le fait que l'on est
 en train de saisir des notes, on peut ici ne pas le mentionner.
 
 
-@subheading Redéfinition pour une seule occurrence
+@subsubsubheading Redéfinition pour une seule occurrence
 @c VO Overriding once only
 
 @cindex dérogation pour une seule fois
@@ -751,7 +770,7 @@ La commande @code{\once} peut aussi être utilisée devant la commande
 @code{\set}.
 
 
-@subheading Rétablissement
+@subsubsubheading Rétablissement
 @c VO Reverting
 
 @cindex revert
@@ -958,8 +977,12 @@ règles liées à ce type.  Le type de propriété est toujours donné entre
 parenthèses après le nom de propriété dans la RPI.  Voici une liste des
 différents types de propriétés, avec les règles qui les régissent et
 quelques exemples d'utilisation.  Il faut, bien sûr, toujours ajouter un
-symbole @emph{hash}, @code{#}, devant ces valeurs lors de la saisie de
-la commande @code{\override}.
+symbole @emph{hash} (@code{#}) devant ces valeurs lors de la saisie de
+la commande @code{\override}, ce même si cette valeur comporte
+déjà un @code{#} en premier caractère.  Les exemples ici présentés
+ne sont que de simples illustrations ; l'utilisation de Scheme
+pour obtenir des valeurs fait l'objet de la rubrique
+@rextend{Scheme et les calculs}.
 
 @multitable @columnfractions .2 .45 .35
 @headitem Type de propriété
@@ -970,29 +993,29 @@ la commande @code{\override}.
        sous la forme @code{#t} ou @code{#f}
   @tab @code{#t}, @code{#f}
 @item Dimension (en espaces de portée)
-  @tab Un nombre positif décimal (en unités de lignes de portée)
+  @tab Un nombre décimal (en unités de lignes de portée)
   @tab @code{2.5}, @code{0.34}
 @item Direction
-  @tab Une direction valide ou son équivalent numérique (valeur décimale
-  comprise entre -1 et 1 seulement)
-  @tab @code{LEFT}, @code{CENTER}, @code{UP}, @code{1}, @code{-1}
+  @tab Une direction valide ou son équivalent numérique (@code{0}
+  ou @code{CENTER} indiquent une position neutre)
+  @tab @code{LEFT}, @code{CENTER}, @code{UP}, @code{1}, @w{@code{-1}}
 @item Entier (@emph{Integer} en anglais)
-  @tab Un nombre entier positif
-  @tab @code{3}, @code{1}
+  @tab Un nombre entier
+  @tab @code{3}, @code{-1}
 @item Liste
-  @tab Plusieurs valeurs séparées par une espace, encadrées par des
-  parenthèses et précédées par une apostrophe
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+  @tab Une séquence de constantes ou symboles séparés par une
+  espace, encadrées par des parenthèses et précédées par une apostrophe
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
        @code{'(1.0 0.25 0.5)}
 @item Markup (ou étiquette)
   @tab Toute commande @code{\markup} valide
-  @tab @code{\markup @{ \italic "cresc." @}}
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
 @item Durée (@emph{Moment} en anglais)
   @tab Une durée de note construite avec la fonction make-moment
-  @tab @code{(ly:make-moment 1 4)}, @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)}, @code{(ly:make-moment 3/8)}
 @item Nombre
-  @tab Une valeur décimale positive ou négative
-  @tab @code{3.5}, @code{-2.45}
+  @tab Une valeur positive ou négative, qui peut être décimale
+  @tab @code{3}, @w{@code{-2.45}}
 @item Paire (de nombres)
   @tab Deux nombres séparées par @qq{espace point espace}, encadrés
 par des parenthèses et précédés par une apostrophe
@@ -1005,8 +1028,7 @@ par des parenthèses et précédés par une apostrophe
   @tab Un processus, ou @code{#f} pour empêcher toute action
   @tab @code{bend::print}, @code{ly:text-interface::print}, @code{#f}
 @item Vecteur
-  @tab Une liste de trois éléments encadrés par des parenthèses et
-  précédés par apostrophe-hash, @code{'#}
+  @tab Des constantes encadrés par @code{#(}@dots{}@code{)}
   @tab @code{'#(#t #t #f)}
 @end multitable
 
@@ -1066,9 +1088,17 @@ L'objet @code{BarLine} est également lié à plusieurs interfaces, dont la
 mesure -- et de beaucoup d'autres objets, bien sûr.  Examinons chacune
 d'elles tour à tour.
 
+@menu
+* La propriété stencil::
+* La propriété break-visibility::
+* La propriété transparent::
+* La propriété color::
+@end menu
 
-@subheading stencil
-@c VO stencil
+
+@node La propriété stencil
+@unnumberedsubsubsec La propriété @code{stencil}
+@translationof The stencil property
 
 @cindex stencil, propriété
 
@@ -1151,8 +1181,9 @@ zéro :
 @end lilypond
 
 
-@subheading visibilité des barres (break-visibility)
-@c VO break-visibility
+@node La propriété break-visibility
+@unnumberedsubsubsec La propriété @code{break-visibility}
+@translationof The break-visibility property
 
 @cindex break-visibility, propriété
 
@@ -1187,8 +1218,9 @@ Comme on peut le constater, cette solution-là aussi supprime les barres
 de mesure.
 
 
-@subheading transparence
-@c VO transparent
+@node La propriété transparent
+@unnumberedsubsubsec La propriété @code{transparent}
+@translationof The transparent property
 
 @cindex transparent, propriété
 @cindex transparence
@@ -1265,8 +1297,9 @@ qui s'obtient aussi par la commande @code{\hide} -- le laisse en
 place, mais de façon invisible.
 
 
-@subheading couleur
-@c VO color
+@node La propriété color
+@unnumberedsubsubsec La propriété @code{color}
+@translationof The color property
 
 @cindex color, propriété
 
@@ -1835,6 +1868,17 @@ les crochets, peuvent se décaler vers la gauche ou vers la droite selon
 qu'ils pointent vers le haut ou vers le bas.  Ce comportement est géré
 automatiquement dès lors que @code{direction} est activé.
 
+
+@menu
+* La propriété direction::
+* Doigtés::
+@end menu
+
+
+@node La propriété direction
+@unnumberedsubsubsec La propriété @code{direction}
+@translationof The direction property
+
 @cindex down
 @cindex up
 @cindex center
@@ -1925,8 +1969,9 @@ limiter les effets des autres commandes prédéfinies (fonctionnant
 précéder d'un @code{\once}, comme pour toute dérogation.
 
 
+@node Doigtés
 @unnumberedsubsubsec Doigtés
-@c VO Fingering
+@translationof Fingering
 
 @cindex doigtés, positionnement
 @cindex doigtés, accords
@@ -2049,7 +2094,7 @@ Voici quelques exemples :
 Si les indications de doigtés paraissent un peu serrées, on peut
 toujours réduire la taille de police (@code{font-size}).  La valeur
 par défaut donnée dans la RPI à la page de l'objet
-@code{Fingering} étant @code{-5}, essayons @code{-7} :
+@code{Fingering} étant @code{-5}, essayons @w{@code{-7}} :
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Fingering.font-size = #-7
@@ -2076,16 +2121,33 @@ par défaut donnée dans la RPI à la page de l'objet
 @translationof Outside-staff objects
 
 Les objets extérieurs à la portée sont placés automatiquement de façon à
-éviter les collisions.  Les objets avec la plus petite valeur de la
-propriété @code{outside-staff-priority} sont placés au plus près de la
-portée, tandis que les autres sont écartés autant qu'il faut pour éviter
-les collisions.  La @code{outside-staff-priority} est définie dans la
-@code{grob-interface} ; elle est donc une propriété commune à tous
-les objets de rendu.  Par défaut, elle est réglée sur @code{#f} pour
-tous les objets de la portée, et porte une valeur numérique appropriée à
-chacun des objets extérieurs à la portée, à mesure qu'ils sont créés.
-Le tableau suivant montre la valeur numérique par défaut pour
-quelques-uns des objets extérieurs à la portée les plus courant.
+éviter les collisions.  Il est toutefois possible, grâce à
+différentes méthodes, de rectifier un positionnement automatique
+qui se révèlerait ne pas être optimal.
+
+@menu
+* La propriété outside-staff-priority::
+* La commande \textLengthOn::
+* Positionnement des nuances::
+* Dimensionnement des objets graphiques::
+@end menu
+
+
+@node La propriété outside-staff-priority
+@unnumberedsubsubsec La propriété @code{outside-staff-priority}
+@translationof The outside-staff-priority property
+
+Les objets avec la plus petite valeur de la propriété
+@code{outside-staff-priority} sont placés au plus près de la
+portée, tandis que les autres sont écartés autant qu'il faut pour
+éviter les collisions.  La @code{outside-staff-priority} est
+définie dans la @code{grob-interface} ; elle est donc une
+propriété commune à tous les objets de rendu.  Par défaut, elle
+est réglée sur @code{#f} pour tous les objets de la portée, et
+porte une valeur numérique appropriée à chacun des objets
+extérieurs à la portée, à mesure qu'ils sont créés.  Le tableau
+suivant montre la valeur numérique par défaut pour quelques-uns
+des objets extérieurs à la portée les plus courant.
 
 @cindex spanners
 @cindex bandeaux
@@ -2294,7 +2356,9 @@ notes pour laisser plus de place au texte.  C'est possible grâce à la
 commande @code{textLengthOn}.
 
 
-@subheading \textLengthOn
+@node La commande \textLengthOn
+@unnumberedsubsubsec La commande @code{\textLengthOn}
+@translationof The \textLengthOn command
 
 @cindex notes, répartition selon le texte
 
@@ -2357,8 +2421,9 @@ c''2 |
 @end lilypond
 
 
-@subheading Nuances
-@c VO Dynamics
+@node Positionnement des nuances
+@unnumberedsubsubsec Positionnement des nuances
+@translationof Dynamics placement
 
 @cindex modification du positionnement des nuances
 @cindex nuances, modification du positionnement
@@ -2399,8 +2464,9 @@ pas d'équivalent pour les indications de nuance.  Il nous faut donc
 chercher à faire cela avec la commande @code{\override}.
 
 
-@subheading Dimensionnement des objets graphiques
-@c VO Grob sizing
+@node Dimensionnement des objets graphiques
+@unnumberedsubsubsec Dimensionnement des objets graphiques
+@translationof Grob sizing
 
 @cindex grob, dimensionnement
 @cindex dimensionnement des grobs
@@ -2744,9 +2810,21 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
 Voyons maintenant comment les propriétés décrites dans la section
 précédente peuvent nous aider à résoudre les collisions.
 
+@menu
+* La propriété padding::
+* La propriété right-padding::
+* La propriété staff-padding::
+* La propriété self-alignment-X::
+* La propriété staff-position::
+* La propriété extra-offset::
+* La propriété positions::
+* La propriété force-hshift::
+@end menu
 
-@subheading la propriété padding
-@c VO padding property
+
+@node La propriété padding
+@unnumberedsubsubsec La propriété @code{padding}
+@translationof The padding property
 
 @cindex décalage (padding)
 @cindex résolution des chevauchements de notation
@@ -2791,8 +2869,9 @@ fait partie d'un ensemble d'objets positionnés en fonction de leur
 les autres objets du groupe.
 
 
-@subheading la propriété right-padding
-@c VO right-padding
+@node La propriété right-padding
+@unnumberedsubsubsec La propriété @code{right-padding}
+@translationof The right-padding property
 
 @cindex right-padding, propriété
 
@@ -2834,11 +2913,10 @@ la propriété @code{text} de @code{Accidental}, déclaré comme étant un
 signe sesqui-dièse.  Celui-ci est ensuite repoussé devant la tête de
 note par la retouche de @code{right-padding}.
 
-@noindent
 
-
-@subheading la propriété staff-padding
-@c VO staff-padding property
+@node La propriété staff-padding
+@unnumberedsubsubsec La propriété @code{staff-padding}
+@translationof The staff-padding property
 
 @cindex alignement d'objets sur une ligne de base
 @cindex objets, alignement sur une ligne de base
@@ -2869,8 +2947,9 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading la propriété self-alignment-X
-@c VO self-alignment-X property
+@node La propriété self-alignment-X
+@unnumberedsubsubsec La propriété @code{self-alignment-X}
+@translationof The self-alignment-X property
 
 L'exemple suivant montre comment résoudre une collision entre une
 indication de corde et une hampe, en alignant le coin droit sur le point
@@ -2887,8 +2966,9 @@ de référence de la note parente :
 @end lilypond
 
 
-@subheading la propriété staff-position
-@c VO staff-position property
+@node La propriété staff-position
+@unnumberedsubsubsec La propriété @code{staff-position}
+@translationof The staff-position property
 
 @cindex collision d'objets à l'intérieur d'une portée
 
@@ -2929,8 +3009,9 @@ car la ligne supplémentaire au-dessus du silence est insérée
 automatiquement.
 
 
-@subheading la propriété extra-offset
-@c VO extra-offset property
+@node La propriété extra-offset
+@unnumberedsubsubsec La propriété @code{extra-offset}
+@translationof The extra-offset property
 
 @cindex positionnement des objets
 @cindex positionnement des grobs
@@ -2955,8 +3036,9 @@ f4-5
 @end lilypond
 
 
-@subheading la propriété positions
-@c VO positions property
+@node La propriété positions
+@unnumberedsubsubsec La propriété @code{positions}
+@translationof The positions property
 
 @cindex contrôle des nolets, liaisons, phrasés et ligatures
 @cindex gestion manuelle des nolets, liaisons, phrasés et ligatures
@@ -2967,39 +3049,38 @@ f4-5
 
 La propriété @code{positions} permet de contrôler manuellement la
 position et l'inclinaison des nolets, coulés, liaisons de phrasé et
-barres de ligature.  Voici un exemple avec une horrible liaison de
-phrasé -- horrible pour avoir tenté de contourner la liaison de
-l'acciaccature.
+barres de ligature.
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4 \acciaccatura e8\( d8 c~ c d c d\)
+Voici un exemple où la liaison de phrasé recouvre la liaison
+d'articulation :
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+a8 \( ( a'16 ) a \)
 @end lilypond
-
-@noindent
-Nous pourrions tout simplement déplacer la liaison de phrasé au-dessus
-des notes, et ce serait la meilleure solution :
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\phrasingSlurUp
-\acciaccatura e8\( d8 c~ c d c d\)
-@end lilypond
-
-@noindent
-Mais si, pour une quelconque raison, cette solution n'était pas
-envisageable, l'autre solution consiste à déplacer légèrement vers le
-bas l'extrémité gauche de la liaison de phrasé, grâce à la propriété
-@code{positions}.  Cela corrige en même temps la forme plutôt
-disgracieuse de la liaison.
 
 @cindex PhrasingSlur, exemple de dérogation
 @cindex positions, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\once \override PhrasingSlur.positions = #'(-4 . -3)
-\acciaccatura e8\( d8 c~ c d c d\)
+@noindent
+Nous pourrions envisager de remonter quelque peu les extrémités
+de la liaison de phrasé.  Commençons par repositionner l'extrémité
+gauche à 2,5 espaces de portée au-dessus de la ligne médiane, et
+la droite à 4,5 ; LilyPond choisira la courbe dont les extrémités
+seront les plus approchantes de celle déterminées :
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\once \override PhrasingSlur.positions = #'(2.5 . 4.5)
+a8 \( ( a'16 ) a \)
 @end lilypond
+
+C'est déjà mieux, mais ne pourrait-on pas maintenant abaisser un
+peu l'extrémité droite de la liaison d'articulation ?  Vous
+constaterez qu'il n'est pas possible d'y arriver, tout simplement
+parce qu'il n'y a pas de meilleur candidat ; la propriété
+@code{positions} n'est alors d'aucune utilité.  Les liaisons,
+aussi bien de tenue que d'articulation ou de phrasé, peuvent se
+positionner et se dessiner tout en finesse lorsque nécessaire --
+voir à ce sujet @ruser{Modification des liaisons}.
 
 Voici un autre exemple. Comme nous pouvons le constater, les barres de
 ligature chevauchent les liaisons de tenue :
@@ -3053,8 +3134,9 @@ second bloc de croches de la première voix mais qu'il ne s'applique
 à aucune mesure de la deuxième voix.
 
 
-@subheading la propriété force-hshift
-@c VO force-hshift property
+@node La propriété force-hshift
+@unnumberedsubsubsec La propriété @code{force-hshift}
+@translationof The force-hshift property
 
 Maintenant, nous sommes prêts à appliquer les dernières corrections à
 l'exemple de Chopin présenté à la fin de @ref{J'entends des Voix}, que
@@ -3666,6 +3748,11 @@ lhMusic = \relative c' {
 @subsection Autres utilisations des retouches
 @translationof Other uses for tweaks
 
+@menu
+* Liaison entre plusieurs voix::
+* Rendu MIDI d'un point d'orgue::
+@end menu
+
 @cindex transparent, utilisation de la propriété
 @cindex création d'objet invisible
 @cindex suppression d'objets
@@ -3677,8 +3764,9 @@ lhMusic = \relative c' {
 @cindex liaison de tenue avec changement de voix
 
 
-@subheading Liaison entre plusieurs voix
-@c VO Tying notes across voices
+@node Liaison entre plusieurs voix
+@unnumberedsubsubsec Liaison entre plusieurs voix
+@translationof Tying notes across voices
 
 Voici un exemple qui montre comment créer une liaison de
 prolongation entre des notes appartenant à des voix différentes.  En
@@ -3760,8 +3848,9 @@ comme les têtes des notes d'un accord.  En effet, la présence d'un
 par l'expression musicale qui le suit directement.
 
 
-@subheading Rendu MIDI d'un point d'orgue
-@c VO Simulating a fermata in MIDI
+@node Rendu MIDI d'un point d'orgue
+@unnumberedsubsubsec Rendu MIDI d'un point d'orgue
+@translationof Simulating a fermata in MIDI
 
 @cindex stencil, utilisation de la propriété
 @cindex point d'orgue, rendu en MIDI
@@ -4273,7 +4362,7 @@ encore vous l'avez compilé directement à partir des sources ; et
 (b) du système d'exploitation sur lequel il tourne.
 
 
-@strong{Téléchargé depuis lilypond.org}
+@subsubsubheading Téléchargé depuis lilypond.org
 
 @itemize @bullet
 @item GNU/Linux
@@ -4303,8 +4392,7 @@ Dans l'Explorateur Windows, voir
 @end itemize
 
 
-@strong{Installé par un gestionnaire de paquetages ou compilé d'après
-les sources}
+@subsubsubheading Installé par un gestionnaire de paquetages ou compilé d'après les sources
 
 @code{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, où
 @var{PREFIX} est déterminé par votre gestionnaire de paquetages ou par

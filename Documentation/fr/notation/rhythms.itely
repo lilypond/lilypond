@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
+    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3043,7 +3043,7 @@ visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 numéros de mesure :
 
 @lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber.break-visibility = #'#(#t #t #t)
+\override Score.BarNumber.break-visibility = ##(#t #t #t)
 \set Score.currentBarNumber = #11
 % Permit first bar number to be printed
 \bar ""

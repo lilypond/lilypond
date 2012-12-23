@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1277,9 +1277,14 @@ musicale :
 
 @table @emph
 @item Les annotations événementielles
-se rattachent à des événements particuliers, comme une note individuelle
-ou au sein d'un accord, un élément d'interprétation (ligature, liaison,
-doigté, accent ou nuance) et des paroles.
+se rattachent à des événements particuliers, comme une note individuelle,
+un élément d'interprétation (doigté, accent ou nuance) ou des événements
+postérieurs (liaison, ligature manuelle).  Une note de bas de page
+événementielle se libelle généralement sous la forme :
+
+@example
+[@var{position}] \footnote [@var{marque}] @var{décalage} @var{annotation} @var{musique}
+@end example
 
 @item Les annotations temporelles
 se rapportent à un point particulier du déroulement d'un contexte
@@ -1287,19 +1292,24 @@ musical.  Certaines commandes, telles @code{\time} et @code{\clef}, ne
 reposent pas sur un événement pour la création de l'objet métrique ou
 clef.  Il en va de même pour un accord : sa hampe ou ses crochets ne
 sont créés qu'à la fin d'un moment (plus exactement au travers de l'un
-des événements note qui le composent).  Une annotation temporelle permet
-d'annoter ces objets de rendus sans se référer à un événement.
+des événements note qui le composent).  Il n'est pas possible de
+connaître assurément lequel des événements note d'un accord est
+plus particulièrement à l'origine de la hampe ou du crochet.  Il
+est donc plus aisé, pour de tels éléments, d'utiliser des
+annotations temporelles.
+
+Une annotation temporelle permet d'annoter des objets de rendus
+sans se référer à un événement.  Elle se libelle généralement sous
+la forme :
+
+@example
+\footnote [@var{marque}] @var{décalage} @var{annotation} [@var{Contexte}.]@var{nom-grob}
+@end example
 
 @end table
 
-Examinons la forme développée d'une commande de note de bas de page,
-qu'elle soit événementielle ou temporelle :
-
-@example
-[@var{position}] \footnote [@var{marque}] @var{décalage} [@var{nom-grob}] @var{annotation} @var{musique}
-@end example
-
-Ses arguments peuvent se définir ainsi :
+Les arguments, quelle que soit la catégorie d'annotation, peuvent se
+définir ainsi :
 
 @table @var
 @item position
@@ -1324,13 +1334,17 @@ haut, des valeurs négatives vers la gauche ou le bas ; des valeurs à
 zéro centrent la marque sur le point de référence.  Le décalage
 s'exprime en espace de portée.
 
+@item Contexte
+Le contexte auquel appartient l'objet à annoter.  Cet argument
+peut être omis dès lors qu'il s'agit d'un contexte de bas niveau
+tel que @code{Voice}.
+ 
 @item nom-grob
-Le type d'objet à annoter -- @samp{#'Flag} par exemple.  Lorsque cet
+Le type d'objet à annoter -- @samp{Flag} par exemple.  Lorsque cet
 élément est spécifié, c'est l'objet en question qui servira de point de
 référence, même s'il trouve son origine non pas directement dans
-l'élément @var{musique} mais dans un objet en résultant.  Son absence ou
-une valeur de @code{\default} ne permet d'annoter que des objets
-directement créés.
+une expression musicale mais dans tout objet du type spécifié
+intervenant à cet instant précis de la partition.
 
 @item annotation
 un @emph{markup} ou une chaîne de caractères qui sera reporté au bas de
@@ -1339,28 +1353,23 @@ la page.
 @item musique
 l'élément qui fait l'objet du commentaire, qu'il s'agisse d'un
 événement musical, de l'un des constituants d'un accord ou d'un
-événement rattaché.  Bien qu'il ne puisse être omis, il peut être
-remplacé par @code{\default}, auquel cas l'annotation ne sera pas
-rattachée à une expression musicale particulière, mais plutôt à un
-instant précis.  L'argument @var{nom-grob} est alors obligatoire pour
-sélectionner le type d'objet affecté -- @samp{#'TimeSignature} par
-exemple.
+événement rattaché.
 
 @end table
+
 
 @subsubsubheading Notes de bas de page événementielles
 @c VO Event-based footnotes
 
 @cindex événementielle, note de bas de page
 
-Le moyen le plus simple d'annoter un événement est :
-
-@example
-\footnote @var{décalage} @var{annotation} @var{musique}
-@end example
-
 Ce type de note de bas de page s'attache à un objet de rendu
 généré directement par l'événement correspondant à @var{musique}.
+Il répond à la syntaxe :
+
+@example
+\footnote [@var{décalage}] @var{décalage} @var{annotation} @var{musique}
+@end example
 
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
@@ -1376,12 +1385,16 @@ généré directement par l'événement correspondant à @var{musique}.
 @end lilypond
 
 Lorsque l'annotation concerne un événement postérieur ou une
-articulation, la commande @code{\footnote} doit être précédée d'un
-indicateur de position (@code{-, _} ou @code{^}) et suivie de
-l'événement postérieur ou l'articulation comme argument
+articulation, la commande @code{\footnote} @strong{doit} être
+précédée d'un indicateur de position (@code{-, _} ou @code{^}) et
+suivie de l'événement postérieur ou l'articulation comme argument
 @var{musique}.  Dans ce cas, la commande @code{\footnote} peut se
 considérer comme une copie de son dernier argument auquel oon
-attache une annotation.
+attache une annotation.  La syntaxe consacrée est :
+
+@example
+@var{position} \footnote [@var{marque}] @var{décalage} @var{annotation} @var{musique}
+@end example
 
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
@@ -1393,6 +1406,115 @@ attache une annotation.
     b8 ]
     c4 )
     c-\footnote #'(1 . 1) "Tenuto" --
+  }
+}
+@end lilypond
+
+Les appels de note peuvent être personnalisés, et le trait reliant
+l'objet à l'appel supprimé :
+
+
+@subsubsubheading Notes de bas de page temporelles
+@c VO Time-based footnotes
+
+@cindex temporelle, note de bas de page
+
+Lorsque la note de bas de page se réfère à un objet de rendu résultant
+d'un événement -- @code{Accidental} ou @code{Stem} découlent d'un
+@code{NoteHead} --, l'argument @var{nom-grob} de l'objet en question est
+requis après le texte de l'annotation, en lieu et place de
+@var{musique} :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . -3) "Un bémol" Accidental
+    aes4 c
+    \footnote #'(-1 . 0.5) "Un autre bémol" Accidental
+    ees
+    \footnote #'(1 . -2) "Une hampe" Stem
+    aes
+  }
+}
+@end lilypond
+
+Notez bien que, lorsque @var{nom-grob} est spécifié, tous les objets de
+ce type qui se trouvent à ce même instant se verront attacher une
+annotation :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote #'(-1 . 3) "Un bémol" Accidental
+    <ees ges bes>4
+    \footnote #'(2 . 0.5) "Une articulation" Script
+    c'->-.
+  }
+}
+@end lilypond
+
+L'un des constituants d'un accord peut individuellement se voir attribuer
+une annotation.  Une tête de note (@code{NoteHead}) est le (seul) objet
+directement généré par un constituant d'accord ; elle peut donc être
+affectée d'une annotation événementielle.  Tous les autres objets
+constituant un accord sont générés indirectment ; ils ne pourront faire
+l'objet que d'une annotation temporelle, préfixée d'un @code{\single} :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    < \footnote #'(1 . -2) "Un la" a
+      \single \footnote #'(-1 . -1) "Un dièse" Accidental
+      cis
+      \single \footnote #'(0.5 . 0.5) "Un bémol" Accidental
+      ees fis
+    >2
+  }
+}
+@end lilypond
+
+@warning{Lorsque plusieurs notes de bas de page se rapportent à un même
+empilement vertical comme ci-dessus, elles sont numérotées et
+apparaîtront selon l'ordre vertical des éléments présentés, autrement dit
+celui positionné le plus haut en premier, non dans leur ordre
+d'apparition dans le fichier source.}
+
+Les objets de rendu tels que changement de clef ou d'armure tirent leur
+origine dans la modification d'une propriété plutôt que d'un véritable
+événement.  D'autres, comme les barres ou numéros de mesure, dépendent
+directement de la temporisation.  C'est la raison pour laquelle de tels
+objets doivent s'annoter en fonction de leur survenance au fil de la
+musique.  Les notes de bas de page temporelles sont la solution à
+privilégier lorsqu'il s'agit d'annoter les hampes ou ligatures affectant
+des accords : bien qu'une telle fonctionnalité puisse s'appliquer à l'un
+des événements constituant l'accord, rien ne laisse présager lequel
+serait le plus approprié.
+
+En matière de note de bas de page temporelle, l'objet de rendu considéré
+doit toujours être mentionné explicitement, ainsi que le contexte si
+l'objet est créé dans un autre contexte que celui du plus bas niveau.
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) "Changement de métrique" Staff.TimeSignature
+    \time 3/4
+    \footnote #'(1 . -1) "Hampe de l'accord" Stem
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
+    q q
+    \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
+    \key c\minor
+    q
   }
 }
 @end lilypond
@@ -1419,79 +1541,6 @@ l'objet à l'appel supprimé :
 
 D'autres exemples de personnalisation des appels de note sont donnés à
 la rubrique @ref{Notes de bas de page dans du texte indépendant}.
-
-L'annotation d'un accord dans sa globalité n'est pas réalisable de cette
-manière dans la mesure où un accord ne génère pas d'événement en dehors
-de ses constituants.  Les notes qui le composent peuvent cependant faire
-l'objet d'une annotation.
-
-Lorsque la note de bas de page se réfère à un objet de rendu résultant
-d'un événement -- @code{Accidental} ou @code{Stem} découlent d'un
-@code{NoteHead} --, l'argument additionnel @var{nom-grob} est requis
-avant le texte de l'annotation :
-
-@c KEEP LY
-@lilypond[quote,verbatim,papersize=a8landscape]
-\book {
-  \header { tagline = ##f }
-  \relative c'' {
-    % footnotes may be added to chord constituents
-    < \single\footnote #'(-1 . -3) "Un autre bémol" Accidental aes
-      c
-      \single\footnote #'(-1 . 0.5) "Un bémol" Accidental ees
-    >2
-    \single\footnote #'(-1 . 2) "Une hampe" Stem ees2
-  }
-}
-@end lilypond
-
-@warning{Lorsque plusieurs notes de bas de page se rapportent à un même
-empilement vertical, elles sont numérotées et apparaîtront selon
-l'ordre vertical des éléments présentés, autrement dit celui positionné
-le plus haut en premier, non dans leur ordre d'apparition dans le
-fichier source.}
-
-@subsubsubheading Notes de bas de page temporelles
-@c VO Time-based footnotes
-
-@cindex temporelle, note de bas de page
-
-Les objets de rendu tels que changement de clef ou d'armure tirent leur
-origine dans la modification d'une propriété plutôt que d'un véritable
-événement.  D'autres, comme les barres ou numéros de mesure, dépendent
-directement de la temporisation.  C'est la raison pour laquelle de tels
-objets doivent s'annoter en fonction de leur survenance au fil de la
-musique.  Les notes de bas de page temporelles sont la solution à
-privilégier lorsqu'il s'agit d'annoter les hampes ou ligature affectant
-des accords : bien qu'une telle fonctionnalité puisse s'appliquer à l'un
-des événements constituant l'accord, rien ne laisse présager lequel
-serait le plus adéquat.
-
-Une note de bas de page temporelle s'introduit de la même manière qu'une
-note événementielle, à ceci près que la mention @code{\default}
-remplacera l'argument @var{musique} qui indique l'événement à annoter.
-En matière de note de bas de page temporelle, l'objet de rendu considéré
-devrait toujours être mentionné explicitement, de telle sorte qu'il n'y
-ait pas d'erreur quant au positionnement de l'appel de note.
-
-@c KEEP LY
-@lilypond[quote,verbatim,papersize=a8landscape]
-\book {
-  \header { tagline = ##f }
-  \relative c'' {
-    r1 |
-    \footnote #'(-0.5 . -1) "Changement de métrique" Staff.TimeSignature
-    \time 3/4
-    \footnote #'(1 . -1) "Hampe de l'accord" Stem
-    <c e g>4 q q
-    \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
-    q q
-    \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
-    \key c\minor
-    q
-  }
-}
-@end lilypond
 
 
 @node Notes de bas de page dans du texte indépendant
@@ -1651,8 +1700,8 @@ Référence des propriétés internes :
 Les notes de bas de page ne peuvent que s'empiler l'une au-dessus de
 l'autre ; elles ne seront jamais présentées à la queue leu leu.
 
-Silence multimesures et ligatures automatiques ne peuvent se voir
-affecter de note de bas de page.
+Silences multimesures, ligatures automatiques et paroles ne peuvent se
+voir affecter de note de bas de page.
 
 Les notes de bas de page peuvent générer des chevauchements quand elles
 sont trop nombreuses sur une même page.
