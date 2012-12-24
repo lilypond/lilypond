@@ -226,6 +226,10 @@ transpose_mutable (SCM alist, Pitch delta)
               transposed = transposed.normalized ();
             }
 
+          if (prop == ly_symbol2scm ("tonic"))
+            transposed = Pitch (-1, transposed.get_notename (),
+                                transposed.get_alteration ());
+
           new_val = transposed.smobbed_copy ();
         }
       else if (prop == ly_symbol2scm ("element"))
