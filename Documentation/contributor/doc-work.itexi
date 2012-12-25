@@ -146,20 +146,42 @@ Please prepare a formal git patch.
 
 @end enumerate
 
+@subheading Contributions that contain examples using overrides
+
+Examples that use overrides, tweaks, customer Scheme functions etc. are
+(with very few exceptions) not included in the main text of the manuals;
+as there would be far too many, equally useful, candidates.
+
+The correct way is to submit your example, with appropriate explanatory
+text and tags, to the LilyPond Snippet Repository (LSR).  Snippets that
+have the @qq{docs} tag can then be easily added as a
+@emph{selected snippet} in the documentation.  It will also appear
+automatically in the Snippets lists.  See @ref{Introduction to LSR}.
+
+Snippets that @emph{don't} have the @qq{docs} tage will still be
+searchable and viewable within the LSR, but will be not be included in
+the Snippets list or be able to be included as part of the main
+documentation.
+
+Generally, any new snippets that have the @qq{docs} tag are more
+carefully checked for syntax and formatting.
+
+@subheading Announcing your snippet
+
 Once you have followed these guidelines, please send a message to
 lilypond-devel with your documentation submissions.  Unfortunately
-there is a strict “no top-posting” check on the mailing list; to avoid
+there is a strict @q{no top-posting} check on the mailing list; to avoid
 this, add:
 
-> I'm not top posting.
+@code{> I'm not top posting}
 
-(you must include the > ) to the top of your documentation
-addition.
+(you must include the > ) to the top of your documentation addition.
 
-We may edit your suggestion for spelling, grammar, or style, and
-we may not place the material exactly where you suggested, but if
-you give us some material to work with, we can improve the manual
-much faster.  Thanks for your interest!
+We may edit your suggestion for spelling, grammar, or style, and we may
+not place the material exactly where you suggested, but if you give us
+some material to work with, we can improve the manual much faster.
+
+Thanks for your interest!
 
 
 @node Texinfo introduction and usage policy
