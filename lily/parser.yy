@@ -3053,6 +3053,8 @@ lyric_element:
 
 lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
 		if (scm_is_pair ($3))
 			unsmob_music ($$)->set_property
