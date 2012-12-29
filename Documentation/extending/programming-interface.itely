@@ -1028,19 +1028,18 @@ current bar number on the standard output during the compile:
 @cindex calling code on layout objects
 @funindex \applyOutput
 
-
 The most versatile way of tuning an object is @code{\applyOutput} which
 works by inserting an event into the specified context
 (@rinternals{ApplyOutputEvent}).  Its syntax is
 @example
-\applyOutput @var{context} @var{proc}
+\applyOutput @var{Context} @var{proc}
 @end example
 
 @noindent
 where @code{@var{proc}} is a Scheme function, taking three arguments.
 
 When interpreted, the function @code{@var{proc}} is called for
-every layout object found in the context @code{@var{context}} at
+every layout object found in the context @code{@var{Context}} at
 the current time step, with the following arguments:
 @itemize
 @item the layout object itself,
@@ -1068,6 +1067,14 @@ note-heads on the center-line and next to it:
   a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
+
+To have @var{function} interpreted at the @code{Score} or @code{Staff}
+level use these forms
+
+@example
+\applyOutput #'Score #@var{function}
+\applyOutput #'Staff #@var{function}
+@end example
 
 
 @node Callback functions
