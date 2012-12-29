@@ -229,7 +229,7 @@ with magnification @var{mag} of the string @var{text}."
               (if (> fretval maxfret) (set! maxfret fretval))
               (if (< fretval minfret) (set! minfret fretval))
               (updatemax (cdr fret-list)))))
-      (if (> maxfret my-fret-count)
+      (if (or (> maxfret my-fret-count) (> capo-fret 1))
           (set! fret-range
                 (cons minfret
                       (let ((upfret (- (+ minfret my-fret-count) 1)))
