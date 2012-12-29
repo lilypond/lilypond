@@ -395,19 +395,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
     return ok;
 
   if (!scm_is_symbol (sym))
-#if 0
     return false;
-#else
-    /*
-      This is used for autoBeamSettings.
-
-      TODO: deprecate the use of \override and \revert for
-      autoBeamSettings?
-
-      or use a symbol autoBeamSettingS?
-    */
-    return true;
-#endif
 
   SCM type = scm_object_property (sym, type_symbol);
 
