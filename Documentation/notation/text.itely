@@ -1501,8 +1501,9 @@ Snippets:
 
 It is possible to change the fonts to be used as the default fonts in
 the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
-specifying them, in that order, as shown in the example below.  For an
-explanation of fonts, see @ref{Fonts explained}.
+specifying them, in that order, as shown in the example below, which
+automatically scales the fonts with the value set for the global staff
+size.  For an explanation of fonts, see @ref{Fonts explained}.
 
 @cindex font families, setting
 @cindex fonts, changing for entire document
@@ -1511,12 +1512,11 @@ explanation of fonts, see @ref{Fonts explained}.
 
 @lilypond[verbatim,quote]
 \paper  {
-  myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ myStaffSize 20)))
+                           (/ (* staff-height pt) 2)))
 }
 
 \relative c'{
