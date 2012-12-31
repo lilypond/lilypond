@@ -130,16 +130,11 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   if (!score_def)
     return SCM_BOOL_F;
 
-  score_def = score_def->clone ();
-  SCM prot = score_def->unprotect ();
-
-  /* TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
-     itself. */
+  score_def = scale_output_def (score_def, output_scale (od));
   score_def->parent_ = od;
 
-  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
+  SCM context = ly_run_translator (sc->get_music (), score_def->unprotect ());
   SCM output = ly_format_output (context);
 
-  scm_remember_upto_here_1 (prot);
   return output;
 }
