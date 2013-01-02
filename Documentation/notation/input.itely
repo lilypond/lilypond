@@ -1320,6 +1320,22 @@ by the event corresponding to @var{music} with the syntax:
 }
 @end lilypond
 
+Marking a @emph{whole} chord with an event-based footnote is not
+possible: a chord, even one containing just a single note, does
+not produce an actual event of its own.  However, individual
+notes @emph{inside} of the chord can be marked:
+
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(2 . 3) "Does not work" <a-3>2
+    <\footnote #'(-2 . -3) "Does work" a-3>4
+    <a-3 \footnote #'(3 . 1/2) "Also works" c-5>4
+  }
+}
+@end lilypond
+
 If the footnote is to be attached to a post-event or articulation
 the @code{\footnote} command @emph{must} be preceded by a direction
 indicator, @code{-, _, ^}, and followed by the post-event or
@@ -1383,12 +1399,17 @@ will be attached to all grobs of that type at the current time step:
 }
 @end lilypond
 
-A chord constituent can be given an individual footnote.  A
-@code{NoteHead} is the (only) grob directly caused from a chord
-constituent, so an Event-based footnote command should be used to
-add a footnote to a @code{NoteHead} within a chord.  All other
-grobs within a chord are indirectly caused and should be footnoted
-with a Time-based footnote command, prefixed with @code{\single}:
+A note inside of a chord can be given an individual (event-based)
+footnote.  A @samp{NoteHead} is the only grob directly caused
+from a chord note, so an event-based footnote command is
+@emph{only} suitable for adding a footnote to the @samp{NoteHead}
+within a chord.  All other chord note grobs are indirectly caused.
+The @code{\footnote} command itself offers no syntax for
+specifying @emph{both} a particular grob type @emph{as well as} a
+particular event to attach to.  However, one can use a time-based
+@code{\footnote} command for specifying the grob type, and then
+prefix this command with @code{\single} in order to have it
+applied to just the following event:
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
