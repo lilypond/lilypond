@@ -79,6 +79,42 @@
         (ly:moment-main-denominator moment)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; durations
+
+(define-public (duration-log-factor lognum)
+"Given a logarithmic duration number, return the length of the duration,
+as a number of whole notes."
+  (or (and (exact? lognum) (integer? lognum))
+    (scm-error 'wrong-type-arg "duration-log-factor" "Not an integer: ~S" (list lognum) #f))
+  (if (<= lognum 0)
+    (ash 1 (- lognum))
+    (/ (ash 1 lognum))))
+
+(define-public (duration-dot-factor dotcount)
+"Given a count of the dots used to extend a musical duration, return
+the numeric factor by which they increase the duration."
+  (or (and (exact? dotcount) (integer? dotcount) (>= dotcount 0))
+    (scm-error 'wrong-type-arg "duration-dot-factor" "Not a count: ~S" (list dotcount) #f))
+  (- 2 (/ (ash 1 dotcount))))
+
+(define-public (duration-length dur)
+"Return the overall length of a duration, as a number of whole notes.
+(Not to be confused with ly:duration-length, which returns a less-useful
+moment object.)"
+  (ly:moment-main (ly:duration-length dur)))
+
+(define-public (duration-visual dur)
+"Given a duration object, return the visual part of the duration (base
+note length and dot count), in the form of a duration object with
+non-visual scale factor 1."
+  (ly:make-duration (ly:duration-log dur) (ly:duration-dot-count dur) 1))
+
+(define-public (duration-visual-length dur)
+"Given a duration object, return the length of the visual part of the
+duration (base note length and dot count), as a number of whole notes."
+  (duration-length (duration-visual dur)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
 (define-public (average x . lst)
   (/ (+ x (apply + lst)) (1+ (length lst))))

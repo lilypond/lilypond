@@ -456,21 +456,13 @@
 	  (tremtype-log (1- (integer-length tremtype)))
 	  (durev (find (lambda (v) (not (null? (ly:music-property v 'duration)))) evl))
 	  (totaldur (if durev (ly:music-property durev 'duration) (ly:make-duration tremtype-log 0 1)))
-	  (tgt-nrep (* (/ (ash 1 tremtype-log) (ash 1 (ly:duration-log totaldur)))
-		       (/ (1- (ash 2 (ly:duration-dot-count totaldur)))
-			  (ash 1 (ly:duration-dot-count totaldur)))))
+	  (tgt-nrep (/ (duration-visual-length totaldur) (duration-log-factor tremtype-log)))
 	  (eff-nrep (max (truncate tgt-nrep) 1))
 	  (tremdur (ly:make-duration tremtype-log 0
 		    (* (/ tgt-nrep eff-nrep) (ly:duration-scale totaldur)))))
 	 (or (and (= eff-nrep tgt-nrep) (= (ash 1 tremtype-log) tremtype))
 	  (ly:warning (_ "non-integer tremolo ~a:~a")
-	   (duration->lily-string
-	    (ly:make-duration
-	     (ly:duration-log totaldur)
-	     (ly:duration-dot-count totaldur)
-	     1)
-	    #:force-duration #t
-	    #:time-scale 1)
+	   (duration->lily-string (duration-visual totaldur) #:force-duration #t #:time-scale 1)
 	   tremtype))
 	 (for-each
 	  (lambda (v)
