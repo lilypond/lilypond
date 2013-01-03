@@ -1,10 +1,10 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}.  Plus sa valeur numérique est faible, plus le
 symbole sera proche de la note. Dans l'exemple suivant, l'objet
 @code{TextScript} -- le dièse -- a d'abord la propriété la
-plus basse, et il est donc placé plus près de la note@tie{}; ensuite
+plus basse, et il est donc placé au plus près de la note ; ensuite
 c'est l'objet @code{Script} -- le mordant -- qui a la propriété la plus
 basse, et il se place alors sous le dièse.  Lorsque deux objets ont la
 même priorité, c'est l'ordre dans lequel ils sont indiqués qui

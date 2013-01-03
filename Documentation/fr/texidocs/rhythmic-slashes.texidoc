@@ -1,8 +1,8 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Il arrive, dans une feuille de chant « simple », que les notes soient
 remplacées par une « pulsation » et que la structure de la chanson soit
-indiquées par les accords au-dessus des mesures.  Ceci peut être utile
+indiquée par les accords au-dessus des mesures.  Ceci peut être utile
 lorsque l'on crée ou retranscrit la structure d'une chanson, ainsi que
 pour donner au guitariste et musiciens de jazz une pseudo partition.  Le
 fonctionnement standard d'un @code{\\repeat percent} n'est pas ici

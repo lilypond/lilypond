@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: nl; fill-column: 60 -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -470,7 +470,7 @@ kunnen we samen onze doelen bereiken met een fractie van de
 individuele inzet.
 
 @item
-Geef-cultuur: de Vrije Software (of @qq{Open Source})
+@qq{Geef-cultuur}: de Vrije Software
 beweging heeft veel geweldige software projecten opgeleverd,
 zoals @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox}, en
@@ -479,7 +479,7 @@ ze van deze projecten geprofiteerd hebben, willen sommige
 ontwikkelaars iets @qq{terug doen} voor de community.
 
 @item
-Werkervaring: bijdragen aan open-source projecten is een
+Werkervaring: bijdragen aan vrije software projecten is een
 mooie manier om te oefenen met programmeren, het schrijven
 van documentatie, het vertalen van documentatie, of
 ontwerpen.  Deze ervaring heeft sommige ontwikkelaars zelfs
@@ -538,14 +538,40 @@ uitvoeringen.  Enkele hoogtepunten:
 @divClass{keep-bullets}
 @itemize
 
+Mussorgskys @emph{Schilderijententoonstelling}, geherorchestreerd en
+onder leiding van @uref{http://www.aurelienbello.com/,Aurélien Bello} met
+de @uref{http://www.junge-philharmonie-brandenburg.de/,
+Junge Philharmonie Brandenburg}
+op 10 okt 2011 en opnieuw op 15-16 apr 2012.
+
 @item
-@emph{Affaire étrangère}, een opera van
-@uref{http://valentin.villenave.net/,Valentin Villenave}
-op een frans libretto van
-@uref{http://nl.wikipedia.org/wiki/Lewis_Trondheim, Lewis
-Trondheim}, premiëre op 1 februari, 2009 in
-@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
-Montpellier}, Frankrijk.
+@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, componist en
+dirigent.  Onder zijn vele recente werken onder andere; @emph{Gaat uw weg},
+uitgevoerd door de @uref{http://www.saltlakechoralartists.org/,
+Salt Lake Choral Artists} in maart 2012; De
+@emph{Juist buiten bereik suite} uitgevoerd
+door het
+@uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
+Chrysalis Duo} ; @emph{thrafsmata} uitgevoerd in juli 2011 door het
+@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
+New Music Ensemble}.
+
+
+@item
+@emph{Anonieme student compliment of klacht}, door
+@uref{http://www.mikesolomon.org, Mike Solomon}, winnaar gekozen uit
+172 inzendingen uit 22 landen van de
+@uref{http://leftcoastensemble.org/contest, 2011 Linker Kust Compositie Wedstrijd}.
+Andere werken onder andere, Norman (1 jaar) voor solo klarinet, uitgevoerd op het
+@uref{http://emu.music.ufl.edu/fems_concerts.html, Universiteit van Florida}
+Electroacoustisch Muziek Festival (FEMF), oktober 2010.
+
+@item
+Een moderne editie van het @emph{Serenata Erminia} door Alessandro Scarlatti,
+bewerkt door Thomas Griffin, Musicoloog (Rome, Italië).  Uitgevoerd op 22
+oktober 2010 in het Galleria of the Palazzo Zevallos Stigliano, Napels,
+Italië.  @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
+ter gelegenheid van de 350ste verjaardag van de componist.
 
 @item
 @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury
@@ -559,6 +585,15 @@ Aricie} in St. James's Church in Manhattan, 8 mei 2009, door
 Frederick Renz met zijn ensemble
 @uref{http://www.earlymusicny.org/, Early Music New York}
 (gravure door Nicolas Sceaux).
+
+@item
+@emph{Affaire étrangère}, een opera van
+@uref{http://valentin.villenave.net/,Valentin Villenave}
+op een frans libretto van
+@uref{http://nl.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+Trondheim}, premiëre op 1 februari, 2009 in
+@uref{http://www.orchestre-montpellier.com/, L'Opéra National de
+Montpellier}, Frankrijk.
 
 @end itemize
 @divEnd
@@ -988,7 +1023,7 @@ commando's worden ingevoerd met een backslash.
 @imageFloat{text-input-1-output,png,center}
 
 Verplaatsingen worden gevormd met verschillende benamingen:
-voeg @code{-is} toe voor een kruis en @code{-es} voor een
+voeg @w{@code{-is}} toe voor een kruis en @w{@code{-es}} voor een
 mol.  LilyPond bepaalt zelf waar de toevallige tekens
 geplaatst worden.
 
@@ -1048,6 +1083,31 @@ Verdere informatie is beschikbaar in
 @ref{Handleidingen}.
 
 @subsubheading Omgevingen voor eenvoudiger bewerken
+
+@ignore
+GNU policy forbids us from linking to non-Free software, so don't
+add such links.
+
+In particular, don't link to:
+- the LilyPond bundle for TextMate (a commercial editor for MacOS).
+
+@end ignore
+
+@divClass{column-center-top}
+@subheading Tunefl
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.tunefl.com}
+
+Met tunefl kun je partituren direct online zetten,
+zonder LilyPond op je computer te installeren.  Het is
+mogelijk om alle functies van het programma te proberen
+in een eenvoudige web interface.
+@divEnd
 
 @imageClickable{lilykde-screenshot-small,png,
   (klik om te vergroten),lilykde-screenshot,png,right}
@@ -1113,12 +1173,10 @@ point-and-click ondersteuning.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi is een muziek- en teksteditor speciaal voor
-LilyPond met een ingebouwde PDF-viewer, een krachtige
-partituur wizard en vele bewerkingsfuncties.  Het is
-gebaseerd op de KDE4 bibliotheken en draait momenteel op
-alle soorten Linux en andere UNIX-achtige operating
-systemen.
+Frescobaldi is een LilyPond bladmuziek-editor.  Krachtig,
+lichtgewicht en gemakkelijk te gebruiken en met ingebouwde
+PDF viewer.  Het draait op alle belangrijke platformen
+(GNU/Linux, Mac OS X en Windows).
 
 @divEnd
 
@@ -1155,6 +1213,14 @@ gehighlight in het tekstvenster.
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
+
+@uref{http://elysium.thsoft.hu}
+
+Elysium is een LilyPond-omgeving (IDE) voor Eclipse met een
+geïntegreerd beeld voor broncode en partituur naast elkaar.
+Het heeft snelle visuele en auditieve terugkoppeling zonder
+te hoeven schakelen, en heeft veel wizard-gebaseerde
+sjablonen.
 
 @uref{http://www.gnu.org/software/emacs/}
 
@@ -1194,17 +1260,6 @@ van de uitbreidingen die beschikbaar zijn op:
 @uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
 @end example
 
-@sourceimage{logo-macosx,,,}
-Er is een LilyPond bundel voor TextMate, een commerciële editor for MacOS.
-Die kan je installeren met:
-
-@example
-mkdir -p /Library/Application\ Support/TextMate/Bundles
-cd /Library/Application\ Support/TextMate/Bundles
-git clone http://github.com/textmate/lilypond.tmbundle.git
-
-@end example
-
 @divEnd
 
 
@@ -1214,20 +1269,22 @@ git clone http://github.com/textmate/lilypond.tmbundle.git
 @subsubheading Score, tab en MIDI-editors:
 
 @itemize
-@item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, een audio en
-MIDI-sequencer, die tevens een partituur-editor voor het editen
-van enkelvoudige notenbalken heeft.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-een partituur editor gebaseerd op de @uref{http://cairographics.org, Cairo}
-bibliotheek en heeft experimentele LilyPond export.
+@uref{http://canorus.org,Canorus}, een partituur-editor, kan
+ook exporteren naar LilyPond, maar is nog beta-software.
+Testers zijn welkom.
+
 
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, een
-multi-track tablatuur-editor en -speler, heeft een
-partituur-beeld en tab-beeld en kan exporteren naar LilyPond.
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} is een GNU/Linux programma
+dat een @uref{http://www.gvox.com/,Encore} muziek partituur omzet naar LilyPond.
+
+@item
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} is een Go gereedschap dat
+@uref{http://www.gvox.com/,Encore}-bestanden omzet naar LilyPond.  Het is gemaakt, gebruik makend van
+Felipe Castro's onderzoek en reverse engineering door middel van het veranderen van bestaande .enc-bestanden
+en die in te laden met de 4.55 demoversie.
 
 @item
 @uref{http://musescore.org,MuseScore}, een partituur-editor,
@@ -1235,19 +1292,33 @@ heeft onvolledige LilyPond-export maar wordt actief
 ontwikkeld.
 
 @item
-@uref{http://canorus.org,Canorus}, een partituur-editor, kan
-ook exporteren naar LilyPond, maar is nog beta-software.
-Testers zijn welkom.
-
-@item
-@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
-een realtime monofonische MIDI naar LilyPond-vertaler.
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+een partituur editor gebaseerd op de @uref{http://cairographics.org, Cairo}
+bibliotheek en heeft experimentele LilyPond export.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} een a C#-programma dat een
 @uref{http://www.noteworthysoftware.com/, NoteWorthy}-lied naar
 LilyPond converteert.
+
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple} is
+een programma dat helpt bij het maken van partituren en partijen, en heeft een modus voor het samenvoegen van
+verschillende muzikale werken in een enkele partituur of partij.
+
+@item
+@uref{http://www.rosegardenmusic.com,Rosegarden}, een audio en
+MIDI-sequencer, die tevens een partituur-editor voor het editen
+van enkelvoudige notenbalken heeft.
+
+@item
+@uref{http://www.volny.cz/smilauer/rumor/rumor.html,Rumor},
+een realtime monofonische MIDI naar LilyPond-vertaler.
+
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, een
+multi-track tablatuur-editor en -speler, heeft een
+partituur-beeld en tab-beeld en kan exporteren naar LilyPond.
 
 @end itemize
 

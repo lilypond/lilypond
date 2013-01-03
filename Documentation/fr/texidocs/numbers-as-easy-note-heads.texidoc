@@ -1,10 +1,11 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
-En mode @qq{easy play}, les têtes de note utilisent la propriété
+En mode « easy play », les têtes de note utilisent la propriété
 @code{note-names} attachée à l'objet @code{NoteHead} pour déterminer ce
 qui apparaîtra dans la tête.  Intervenir sur cette propriété permet
 d'imprimer un chiffre correspondant au degré dans la gamme.
 
 La création d'un graveur dédié permet de traiter toutes les notes.
+
 "
-  doctitlefr = "Easy play -- chiffre en lieu et place des lettres"
+  doctitlefr = "Easy play -- chiffres en lieu et place des lettres"

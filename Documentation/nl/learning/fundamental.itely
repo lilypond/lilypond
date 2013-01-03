@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 
 @ignore
-    Translation of GIT committish: 66dd932f6519b7913400a838c5efbc5407e06cd8
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -603,10 +603,10 @@ In fact, a Voice layer or context is the only one which can contain
 music.  If a Voice context is not explicitly declared one is created
 automatically, as we saw at the beginning of this chapter.  Some
 instruments such as an Oboe can play only one note at a time.  Music
-written for such instruments is monophonic and requires just a single
-voice.  Instruments which can play more than one note at a time like
-the piano will often require multiple voices to encode the different
-concurrent notes and rhythms they are capable of playing.
+written for such instruments requires just a single voice.  Instruments
+which can play more than one note at a time like the piano will often
+require multiple voices to encode the different concurrent notes and
+rhythms they are capable of playing.
 
 A single voice can contain many notes in a chord, of course,
 so when exactly are multiple voices needed?  Look first at
@@ -641,7 +641,7 @@ The fragments must also be separated with double backward slashes,
 @code{\\}, to place them in separate voices.  Without these, the
 notes would be entered into a single voice, which would usually
 cause errors.  This technique is particularly suited to pieces of
-music which are largely monophonic with occasional short sections
+music which are largely homophonic with occasional short sections
 of polyphony.
 
 Here's how we split the chords above into two voices and add both
@@ -697,8 +697,11 @@ used to encode three or more voices by adding more back-slash
 separators.
 
 The Voice contexts bear the names @code{"1"}, @code{"2"}, etc.
-In each of these contexts, the vertical direction of slurs,
-stems, ties, dynamics etc., is set appropriately.
+The first contexts set the @emph{outer} voices, the highest
+voice in context @code{"1"} and the lowest voice in context
+@code{"2"}.  The inner voices go in contexts @code{"3"} and
+@code{"4"}.  In each of these contexts, the vertical direction
+of slurs, stems, ties, dynamics etc., is set appropriately.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -822,15 +825,18 @@ later sections.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn.ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn.force-hshift = #0.5
+      des2
+    }
   \\  % No voice three
   \\  % Voice four
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
+      \override NoteColumn.force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -870,16 +876,17 @@ not understand.
     }
   \\  % Voice two
     { \voiceTwoStyle
-      aes2 f4 fes
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn.ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn.force-hshift = #0.5
+      des2
     }
   \\  % No Voice three (we want stems down)
   \\  % Voice four
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.force-hshift = #0
-      <ees c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
+      \override NoteColumn.force-hshift = #0
+      aes'2 f4 fes
     }
   >> |
   <c ees aes c>1 |
@@ -896,7 +903,7 @@ enter the music of the first bar in three voices:
 \new Staff \relative c'' {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -921,29 +928,29 @@ adding another pair of @code{\\}.
   <<  % Voice one
     { c2 aes4. bes8 }
   \\  % Voice two
-    { aes2 f4 fes }
+    { <ees, c>2 des }
   \\  % Omit Voice three
   \\  % Voice four
-    { <ees c>2 des }
+    { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
 @end lilypond
 
 @noindent
-We see that this fixes the stem direction, but exposes a problem
-sometimes encountered with multiple voices -- the stems of the notes
-in one voice can collide with the note heads in other voices.  In
-laying out the notes, LilyPond allows the notes or chords from two
-voices to occupy the same vertical note column provided the stems are
-in opposite directions, but the notes from the third and fourth voices
-are displaced, if necessary, to avoid the note heads colliding.  This
-usually works well, but in this example the notes of the lowest voice
-are clearly not well placed by default.  LilyPond provides several ways
-to adjust the horizontal placing of notes.  We are not quite ready yet
-to see how to correct this, so we shall leave this problem until a
+We see that this fixes the stem direction, but the horizontal
+placement of notes is not what we want.  LilyPond shifts the
+inner notes when they or their stems would collide with outer
+voices, but this is not appropriate for piano music.  In other
+situations, the shifts LilyPond applies might fail to clear
+the collisions.  LilyPond provides several ways to adjust the
+horizontal placing of notes.  We are not quite ready yet to see
+how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in
 @ref{Fixing overlapping notation}.
+
+@warning{Lyrics, spanners (such as slurs, ties, hairpins etc.) cannot be
+created @q{across} voices.}
 
 
 @seealso
@@ -968,7 +975,7 @@ Notation Reference: @ruser{Multiple voices}.
 
 Voice contexts can also be created manually
 inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne} ... @code{\voiceFour} to indicate the required
+@code{\voiceOne} @dots{} @code{\voiceFour} to indicate the required
 directions of stems, slurs, etc.  In longer scores this method
 is clearer, as it permits the voices to be separated and to be
 given more descriptive names.
@@ -1045,22 +1052,21 @@ markup, ties, slurs, and dynamics:
 }
 @end lilypond
 
-Now let's look at three different ways to notate the same passage
-of polyphonic music, each of which is advantageous in different
+Now let's look at three different ways to notate the same passage of
+polyphonic music, each of which is advantageous in different
 circumstances, using the example from the previous section.
 
-An expression that appears directly inside a @code{<< >>} belongs
-to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
-construct).  This is useful when extra voices appear while the
-main voice is playing.  Here is a more correct rendition of our
-example.  The red diamond-shaped notes
-demonstrate that the main melody is now in a single voice context,
+An expression that appears directly inside a @code{<< >>} belongs to the
+main voice (but, note, @strong{not} in a @code{<< \\ >>} construct).
+This is useful when extra voices appear while the main voice is playing.
+Here is a more correct rendition of our example.  The red diamond-shaped
+notes demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % This section is homophonic
   c16^( d e f
   % Start simultaneous section of three voices
   <<
@@ -1787,11 +1793,11 @@ So this turns off extra naturals in one staff:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1802,11 +1808,11 @@ and this turns them off in all staves:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    ais2 aes
+    aeses2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
-    ais2 aes
+    aeses2 aes
   }
 >>
 @end lilypond
@@ -1877,12 +1883,12 @@ like this:
 <<
   \new Staff {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
     \relative c'' {
-      gis4 ges aes ais
+      gisis4 gis aeses aes
     }
   }
 >>
@@ -1920,7 +1926,7 @@ throughout the @code{\score} or @code{\book} block in which the
 \score {
   \new Staff {
     \relative c'' {
-      cis4 e d ces
+      cisis4 e d cis
     }
   }
   \layout {
@@ -1940,12 +1946,12 @@ within the score:
   <<
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
     \new Staff {
       \relative c'' {
-        gis4 ges aes ais
+        gisis4 gis aeses aes
       }
     }
   >>
@@ -2344,7 +2350,7 @@ celloMusic = \relative c {
 
 @seealso
 The starting templates can be found in the @q{Templates} appendix,
-see @ref{Single staff}.
+see @ref{Single staff templates}.
 
 
 @node Four-part SATB vocal score
@@ -2456,8 +2462,8 @@ lower = \relative c, {
 @end lilypond
 
 None of the templates provides this layout exactly.  The nearest is
-@q{SATB vocal score and automatic piano reduction} -- see
-@ref{Vocal ensembles} -- but we need to change the layout and add a piano
+@ref{SATB vocal score and automatic piano reduction} -- but we need
+to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.
@@ -2936,7 +2942,7 @@ ManualOneVoiceTwoMusic = \relative c' {
 }
 ManualTwoMusic = \relative c' {
   c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
+  f16 ees f d g aes g f ees d ees8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
   r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
@@ -3086,7 +3092,7 @@ padText =
      (parser location padding)
      (number?)
    #{
-     \once \override TextScript.padding = $padding
+     \once \override TextScript.padding = #padding
    #})
 
 \relative c''' {
@@ -3231,4 +3237,6 @@ leading to
   }
 >>
 @end lilypond
+
+
 

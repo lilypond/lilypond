@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+  texidocfr = "
+L'instruction @code{\\autochange} est opérationnelle y compris en
+présence de voix multiples.
+
+"
+  doctitlefr = "Utilisation d'autochange avec plus d'une voix"

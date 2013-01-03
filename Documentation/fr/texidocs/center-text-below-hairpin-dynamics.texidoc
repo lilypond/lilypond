@@ -1,7 +1,7 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 La fonction comprise dans l'extrait suivant permet d'ajouter du texte
--- comme @qq{molto} o @qq{poco} -- en dessous d'un soufflet de
+-- comme @qq{molto} ou @qq{poco} -- en dessous d'un soufflet de
 (de)crescendo.  Cet exemple présente aussi comment, à l'aide de code
 Scheme, influencer la manière dont un objet est normalement imprimé.
 

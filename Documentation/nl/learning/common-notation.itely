@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 
 @ignore
-    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -220,7 +220,7 @@ aes4 c b c
 Als het bovenstaand voorbeeld verwarrend is, ga dan eens na:
 als je piano aan het spelen was, welke toets zou je
 aanslaan?  Als je een zwarte aan zou slaan, dan @emph{moet}
-je @code{-is} of @code{-es} aan de notenaam toevoegen!
+je @w{@code{-is}} of @w{@code{-es}} aan de notenaam toevoegen!
 
 Het expliciet toevoegen van alle verplaatsingen vergt
 misschien een klein beetje extra inspanning tijdens het
@@ -928,7 +928,8 @@ worden geplaatst buiten de hoekige haken.
 
 @lilypond[verbatim,quote,relative=2]
 r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>] <c e g>\>[ <c f a> <c f a> <c e g>]\! |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>\>[ <c f a> <c f a> <c e g>]\! |
 r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
@@ -1428,7 +1429,7 @@ staat gewoonlijk direct onder het versienummer.
 
 Als het bestand wordt verwerkt, worden titel en componist en
 opus boven de muziek geprint.  Meer informatie over titels
-staat in @ruser{Creating titles}.
+staat in @ruser{Creating titles headers and footers}.
 
 
 @node Absolute notenamen

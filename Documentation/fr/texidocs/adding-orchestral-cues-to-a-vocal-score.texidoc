@@ -1,9 +1,9 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
 multiplie, vous pourriez avoir intérêt à créer votre propre fonction
 pour gérer ces repères.  La fonction musicale @code{\\cueWhile} prend
-quatre arguments@tie{}: la musique d'où provient la citation, telle que
+quatre arguments : la musique d'où provient la citation, telle que
 définie par @code{\\addQuote}, le nom qui sera mentionné en regard de
 cette citation, son positionnement -- @code{UP} ou @code{DOWN} selon
 qu'il sera attribué à @code{\\voiceOne} et placé au-dessus ou

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Le code ci-dessous permet, de façon détournée, d'afficher un compteur de
 mesures à l'aide d'une répétition en pourcent rendue transparente.

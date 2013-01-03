@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; fill-column: 60 -*-
 @ignore
-    Translation of GIT committish: 6908517be0826a3386264cd6d26d742b18e3a227
+    Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,7 +52,7 @@ eerst de informatie over onze @ref{Tekstinvoer}.}
 @c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux en FreeBSD)}
+@ref{Unix, Unix (GNU/Linux en FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -245,17 +245,17 @@ distributie voor het upgraden naar deze versies.
 @item
 @sourceimage{logo-fedora,,,}
 @uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.1}
+Fedora: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-ubuntu,,,}
 @uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.12.3}
+Ubuntu: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-slackware,,,}
 @uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.1}
+Slackware: LilyPond 2.14.2}
 
 @item
 @sourceimage{logo-debian,,,}
@@ -307,7 +307,6 @@ acknowledged.
 Voor MacOS 10.4 of nieuwer, met Intel-processors (als je
 twijfelt, gebruik deze).
 
-MacOS X 10.7 Lion wordt nog niet ondersteund.
 
 @item
 @sourceimage{logo-macosx,,,}
@@ -315,7 +314,6 @@ MacOS X 10.7 Lion wordt nog niet ondersteund.
 Voor MacOS 10.4 of nieuwer, met G3- en G4-processors (oudere
 Apple computers).
 
-MacOS X 10.7 Lion wordt nog niet ondersteund.
 
 @end itemize
 
@@ -365,6 +363,7 @@ Maak een bestand genaamd @command{lilypond} met als inhoud
 
 @divClass{h-scroll-auto}
 @example
+#! /bin/bash
 exec @var{MAP}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd
@@ -455,7 +454,7 @@ acknowledged.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Voor Windows 2000, XP, Vista, en Windows 7.
+Voor Windows 2000, XP, Vista, Windows 7 en 8.
 
 @end itemize
 

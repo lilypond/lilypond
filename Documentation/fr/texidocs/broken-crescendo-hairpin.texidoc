@@ -1,4 +1,4 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
 Une portion d'un soufflet de crescendo peut être rendue invisible.
 Il suffit pour cela de dessiner un rectangle par dessus cette partie, ce
@@ -6,10 +6,10 @@ qui aura pour effet de la rendre invisible.  Le rectangle est défini par
 un @emph{markup} contenant du code PostScript.
 
 La taille et le positionnement de ce @emph{markup} sont ajustables grâce
-à certaiins composants du code PostScript@tie{}: le nombre précédant
-@code{setgray} donnera du gris s'il est inérieur à@tie{}1@tie{}; les
+à certains composants du code PostScript : le nombre précédant
+@code{setgray} donnera du gris s'il est inférieur à 1 ; les
 deux nombres précédant @code{scale} définissent la largeur et la hauteur
-du rectangle@tie{}; les deux nombres précédant @code{translate}
+du rectangle ; les deux nombres précédant @code{translate}
 modifient le point d'ancrage (en abscisse et en ordonnée) du rectangle.
 
 Le soufflet doit se trouver à un niveau inférieur à celui du @emph{markup}

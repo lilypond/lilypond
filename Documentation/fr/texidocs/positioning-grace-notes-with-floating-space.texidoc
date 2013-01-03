@@ -1,6 +1,6 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
   texidocfr = "
-Lorsqu'est activée la propriété @code{'strict-grace-spacing},
+Lorsqu'est activée la propriété @code{strict-grace-spacing},
 l'espacement des notes d'ornement se fera de manière « élastique ».
 Autrement dit, elles seront décollées de leur note de rattachement :
 LilyPond commence par espacer les notes normales, puis les ornements
