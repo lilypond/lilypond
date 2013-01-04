@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.16.1\n"
+"Project-Id-Version: lilypond 2.16.2\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2012-11-09 14:19+0000\n"
+"POT-Creation-Date: 2013-01-04 13:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1555,15 +1555,15 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: website_post.py:123
+#: website_post.py:125
 msgid "English"
 msgstr ""
 
-#: website_post.py:126
+#: website_post.py:128
 msgid "Other languages"
 msgstr ""
 
-#: website_post.py:127
+#: website_post.py:129
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr ""
@@ -3152,85 +3152,85 @@ msgstr ""
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:218 /home/phil/lilypond-git/lily/lexer.ll:209
+#: lexer.ll:218 /home/phil/lilypond-git/lily/lexer.ll:218
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:221 /home/phil/lilypond-git/lily/lexer.ll:212
+#: lexer.ll:221 /home/phil/lilypond-git/lily/lexer.ll:221
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:279 /home/phil/lilypond-git/lily/lexer.ll:270
+#: lexer.ll:279 /home/phil/lilypond-git/lily/lexer.ll:279
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:296 /home/phil/lilypond-git/lily/lexer.ll:287
+#: lexer.ll:296 /home/phil/lilypond-git/lily/lexer.ll:296
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:300 /home/phil/lilypond-git/lily/lexer.ll:291
+#: lexer.ll:300 /home/phil/lilypond-git/lily/lexer.ll:300
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:304 /home/phil/lilypond-git/lily/lexer.ll:295
+#: lexer.ll:304 /home/phil/lilypond-git/lily/lexer.ll:304
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:327 /home/phil/lilypond-git/lily/lexer.ll:318
+#: lexer.ll:327 /home/phil/lilypond-git/lily/lexer.ll:327
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:351 /home/phil/lilypond-git/lily/lexer.ll:342
+#: lexer.ll:351 /home/phil/lilypond-git/lily/lexer.ll:351
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:377 /home/phil/lilypond-git/lily/lexer.ll:368
+#: lexer.ll:377 /home/phil/lilypond-git/lily/lexer.ll:377
 msgid "string expected after \\include"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:387 /home/phil/lilypond-git/lily/lexer.ll:378
+#: lexer.ll:387 /home/phil/lilypond-git/lily/lexer.ll:387
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:558
+#: lexer.ll:558 /home/phil/lilypond-git/lily/lexer.ll:558
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:672
+#: lexer.ll:672 /home/phil/lilypond-git/lily/lexer.ll:672
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:684 /home/phil/lilypond-git/lily/lexer.ll:690
+#: lexer.ll:684 /home/phil/lilypond-git/lily/lexer.ll:684
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:782 /home/phil/lilypond-git/lily/lexer.ll:792
+#: lexer.ll:782 /home/phil/lilypond-git/lily/lexer.ll:782
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:903 /home/phil/lilypond-git/lily/lexer.ll:916
+#: lexer.ll:903 /home/phil/lilypond-git/lily/lexer.ll:904
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1186 /home/phil/lilypond-git/lily/lexer.ll:1199
+#: lexer.ll:1186 /home/phil/lilypond-git/lily/lexer.ll:1187
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1230 /home/phil/lilypond-git/lily/lexer.ll:1243
+#: lexer.ll:1230 /home/phil/lilypond-git/lily/lexer.ll:1231
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1231 /home/phil/lilypond-git/lily/lexer.ll:1244
+#: lexer.ll:1231 /home/phil/lilypond-git/lily/lexer.ll:1232
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1237 /home/phil/lilypond-git/lily/lexer.ll:1250
+#: lexer.ll:1237 /home/phil/lilypond-git/lily/lexer.ll:1238
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
