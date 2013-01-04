@@ -271,8 +271,7 @@
 }
 
 \context {
-  \type "Performer_group"
-  \consists "Note_performer"
+  \Voice
   \name ChordNameVoice
 }
 
