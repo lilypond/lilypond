@@ -53,19 +53,19 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (fingering);
 
 private:
-  SCM last_fret_notes_;
+  SCM last_placements_;
 };
 
 void
 Fretboard_engraver::derived_mark () const
 {
-  scm_gc_mark (last_fret_notes_);
+  scm_gc_mark (last_placements_);
 }
 
 Fretboard_engraver::Fretboard_engraver ()
 {
   fret_board_ = 0;
-  last_fret_notes_ = SCM_EOL;
+  last_placements_ = SCM_BOOL_F;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, note);
@@ -111,11 +111,12 @@ Fretboard_engraver::process_music ()
                 scm_list_2 (tab_strings, fingers),
                 fret_board_->self_scm ());
   SCM changes = get_property ("chordChanges");
-  if (to_boolean (changes) && scm_is_pair (last_fret_notes_)
-      && ly_is_equal (last_fret_notes_, fret_notes))
+  SCM placements = fret_board_->get_property ("dot-placement-list");
+  if (to_boolean (changes)
+      && ly_is_equal (last_placements_, placements))
     fret_board_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
-  last_fret_notes_ = fret_notes;
+  last_placements_ = placements;
 }
 
 void
