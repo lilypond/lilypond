@@ -307,7 +307,7 @@ note like this:
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 c4 d
 \override NoteHead.color = #red
 e4 f |
@@ -316,6 +316,23 @@ g4 a
 \revert NoteHead.color
 b c |
 @end lilypond
+
+The @code{\once} prefix may also be used in front of many
+predefined commands to limit their effect to one musical moment:
+
+@lilypond[quote,verbatim,relative=1]
+c4 d
+\once \stemDown
+e4 f |
+g4 a
+\once \hideNotes
+b c |
+@end lilypond
+
+However, predefined commands of the form @code{\...Neutral},
+@code{\...Off} and @code{\un...} use @code{\revert} internally rather
+than @code{\override} so prefixing these with @code{\once} has no
+effect.
 
 
 @node The \overrideProperty command
@@ -2265,9 +2282,9 @@ c2^"Text4" |
 @end lilypond
 
 The command to revert to the default behavior is
-@code{\textLengthOff}.  Remember @code{\once} only works with
-@code{\override}, @code{\set}, @code{\revert} or @code{\unset},
-so cannot be used with @code{\textLengthOn}.
+@code{\textLengthOff}.  Alternatively, @code{\once} may be used
+with @code{\textLengthOn} if the effect is to be limited to just a
+single musical moment.
 
 @cindex markup text, allowing collisions
 
