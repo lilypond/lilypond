@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: f199e875f7a7beb0afd17eae2038819baab767ff
+    Translation of GIT committish: a81765842577dd2418fa41514f682d468a5ad483
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -539,6 +539,18 @@ mentionnons que quelques-uns.
 @itemize
 
 @item
+Pour sa thèse de doctorat,
+@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto
+Casel} a réalisé une édition critique du @emph{Enea nel Lazio
+(1760)} de Tommaso Traetta, opéra sur un libret de Vittorio Amedeo
+Cigna-Santi, en quatre parties :
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_,
+première},
+@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, deuxième},
+@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, troisième},
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième}.
+
+@item
 Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
 Aurélien Bello} a donné plusieurs représentations, entre octobre 2011 et
 avril 2012, des @emph{Tableaux d'une exposition} de Mussorgsky à la tête
@@ -559,7 +571,7 @@ New Music Ensemble}.
 @item
 @emph{Anonymous Student Compliment or Complaint} a permis à
 @uref{http://www.mikesolomon.org, Mike Solomon} de gagner le 
-@uref{http://leftcoastensemble.org/contest, Concours de composition de
+@uref{http://leftcoastensemble.org, Concours de composition de
 la côte Est 2011}, regroupant 172 participants de 22 nationalités.
 Parmi ses autres œuvres, nous citerons Norman (un an) pour clarinette
 solo, donnée en octobre 2010 à l'occasion du Festival de musique
@@ -576,8 +588,8 @@ Stigliano à Naples lors des célébrations organisées pour le
 
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
-Texas, par @uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury
-Baroque}, avec un matériel gravé par 
+Texas, par @uref{http://www.mercurybaroque.org/, Mercury Baroque},
+avec un matériel gravé par
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
 
 @item
@@ -585,7 +597,8 @@ Des passages instrumentaux @emph{d'Hippolyte et Aricie} de Rameau ont
 été joués le 8 mai 2009 en l'église Saint-James de Manhattan, par
 Frederick Renz et son ensemble
 @uref{http://www.earlymusicny.org/, Early Music New York}, avec des
-partitions gravées par Nicolas Sceaux.
+partitions gravées par
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
 
 @item
 @emph{Affaire Étrangère}, un opéra de
@@ -1206,8 +1219,7 @@ un grand nombre de langages de programmation et de documents.  C'est un
 développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui
 offre quelques fonctionnalités spécifiques pour travailler avec des
 fichiers source LilyPond.  L'un des développeurs a même écrit un mode
-majeur pour Emacs,
-@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}.
+majeur pour Emacs, @uref{https://github.com/nsceaux/lyqi,lyqi}.
 
 
 @uref{http://www.vim.org}

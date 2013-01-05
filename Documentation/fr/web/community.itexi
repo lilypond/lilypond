@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @ignore
-    Translation of GIT committish: 8412347e61620a30085b38760d8a319649257226
+    Translation of GIT committish: a81765842577dd2418fa41514f682d468a5ad483
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,7 @@
 @c Translation checkers: 
 
 
+@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -60,6 +61,9 @@ concernées.
 @ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
 aujourd'hui.
 
+@item
+@ref{Remerciements} : projets et institutions soutenant LilyPond
+
 @end itemize
 @divEnd
 
@@ -94,6 +98,7 @@ aux cours des versions précédentes.
 * Développement::
 * GSoC 2012::
 * Auteurs::
+* Remerciements::
 * Publications::
 * Archives::
 * Grenier::
@@ -1179,6 +1184,18 @@ superflus.
 @divEnd
 @divEnd
 
+
+
+@node Remerciements
+@unnumberedsec Remerciements
+
+@divClass{column-center-top}
+@subheading Remerciements
+
+@divClass{keep-bullets}
+@acknowledgementsCurrent
+@divEnd
+@divEnd
 
 
 @node Publications
