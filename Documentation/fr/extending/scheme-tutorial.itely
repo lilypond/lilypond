@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 00e1520dc9f0b4dabe38da8895d147b07af843b8
+    Translation of GIT committish: d1eb959d5c774b5b81bf74436350efa5976498af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -727,7 +727,8 @@ expressions, tout comme le langage humain est structuré en mots et
 phrases.  LilyPond dispose d'un analyseur lexical (appelé @emph{lexer})
 qui sait identifier les jetons -- nombres, chaînes, éléments Scheme,
 hauteurs etc. -- ainsi que d'un analyseur syntaxique (appelé
-@emph{parser}) -- voir l'annexe @ruser{Grammaire de LilyPond}.  Dès lors
+@emph{parser}) -- voir 
+@rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Dès lors
 que le programme sait quelle règle grammaticale particulière doit
 s'appliquer, il exécute les consignes qui lui sont associées.
 
