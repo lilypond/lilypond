@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: 11ed968a1245413a224674d833c32b9765a5b28f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2464,7 +2464,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 @menu
 * Contextes de notation kiévienne::
 * Clefs kiéviennes::
-* Têtes de note kiéviennes::
+* Notes kiéviennes::
 * Altérations kiéviennes::
 * Barre de mesure kiévienne::
 @end menu
@@ -2522,7 +2522,7 @@ La notation kiévienne n'utilise qu'une seule clef -- la clef
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
+  \kievanOn
   c
 @end lilypond
 
@@ -2535,15 +2535,18 @@ Manuel de notation :
 @ref{Clef}.
 
 
-@node Têtes de note kiéviennes
-@unnumberedsubsubsec Têtes de note kiéviennes
-@translationof Kievan note heads
+@node Notes kiéviennes
+@unnumberedsubsubsec Notes kiéviennes
+@translationof Kievan notes
 
 @cindex kiéviennnes, têtes de note
 
-La notation kiévienne requiert l'utilisation du style de tête de note
-approprié.  Vous devrez affecter @code{kievan} à la propriété
-@code{style} de l'objet @code{NoteHead}.
+La notation kiévienne requiert l'utilisation d'un style de tête de
+note particulier et la désactivation des hampes et crochets
+classiques.  La fonction @code{\kievanOn} se charge d'affecter à
+les propriétés adéquates aux têtes de note, hampes et crochets.
+Un simple @code{\kievanOff} permet de retrouver le comportement
+par défaut de LilyPond.
 
 En notation kiévienne, la note finale d'une pièce apparaît souvent sous
 la forme d'une @code{\longa}.  L'indication d'un récitatif -- plusieurs
@@ -2554,8 +2557,10 @@ kiéviennes :
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
 \cadenzaOn
-\override NoteHead.style = #'kievan
+\kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
+\kievanOff
+b'2
 @end lilypond
 
 @seealso
@@ -2590,7 +2595,6 @@ anciens.
 
 @lilypond[quote,relative=1,notime,verbatim]
 \clef "kievan-do"
-\override NoteHead.style = #'kievan
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis,
@@ -2616,8 +2620,8 @@ décoration qui fait office de barre finale.  Elle s'obtient à l'aide
 d'un @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
+  \kievanOn
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
   c \bar "k"
 @end lilypond
 

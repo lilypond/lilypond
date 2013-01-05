@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0
+    Translation of GIT committish: 11ed968a1245413a224674d833c32b9765a5b28f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1628,11 +1628,11 @@ concluante, le fichier est déclaré invalide ; un message approprié est
 alors émis.  Les différents regroupements syntaxiques ainsi que les
 règles de construction des regroupements relatifs à la grammaire de
 LilyPond sont définis dans le fichier @file{lily/parser.yy} et présentés
-selon la forme de Backus-Naur (BNF) à l'annexe
-@ref{Grammaire de LilyPond}.  Ce fichier est utilisé par le 
-générateur de @emph{parser} Bison lors de la construction du programme.
-Partie intégrante des sources, il n'est pas distribué avec les
-programmes binaires de LilyPond.
+selon la forme de Backus-Naur (BNF) à la rubrique
+@rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Ce
+fichier est utilisé par le générateur de @emph{parser} Bison lors
+de la construction du programme. Partie intégrante des sources, il
+n'est pas distribué avec les programmes binaires de LilyPond.
 
 
 @node variable de l'analyseur grammatical
