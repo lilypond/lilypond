@@ -9,6 +9,14 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.16.2 released!  @emph{January 4, 2013}
+
+We are happy to announce the release of LilyPond 2.16.2. This release is mainly
+to correct a problem with lilypond-book running on Windows. We recommend that
+only people requiring this functionality upgrade to this version.
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.17.9 released!  @emph{December 15, 2012}
 
 We are happy to announce the release of LilyPond 2.17.9.  This
