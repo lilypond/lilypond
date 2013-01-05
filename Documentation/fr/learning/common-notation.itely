@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
+   Translation of GIT committish: 3bad1130cea3a64b2592e1bfd44fbd5f0a9a98ee
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1016,11 +1016,6 @@ séparant chaque syllable par une espace :
   }
 >>
 @end lilypond
-
-@warning{Il est primordial de séparer l'accolade fermant les
-paroles de la dernière syllabe -- par une espace ou un saut de ligne --
-au risque de voir apparaître une
-@rprogram{Erreur renvoyant à ../ly/init.ly}.}
 
 Notez les doubles chevrons @w{@code{<< ... >>}} encadrant
 toute la pièce ; ils indiquent simplement que la musique et les

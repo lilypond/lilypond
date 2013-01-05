@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b93dbb4dd2fe708d0360f190cb4d06fa29bcae53
+    Translation of GIT committish: 3bad1130cea3a64b2592e1bfd44fbd5f0a9a98ee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -114,6 +114,11 @@ de lancer LilyPond, et d'aprécier le résultat.
 @appendixsec Modèles pour quatuor à cordes
 @translationof String quartet templates
 
+
+@menu
+* Quatuor à cordes simple::
+* Parties pour quatuor à cordes::
+@end menu
 
 @node Quatuor à cordes simple
 @appendixsubsec Quatuor à cordes simple
