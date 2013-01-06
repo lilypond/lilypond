@@ -3,7 +3,7 @@
 
   texidoc = "
 Rests should not keep staves alive when
-@code{\RemoveEmptyStaffContext} is active.  The
+@code{\\RemoveEmptyStaffContext} is active.  The
 following example should have only one staff.
 "
 

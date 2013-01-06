@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "
-@code{\laissezVibrer} ties should also work on individual notes of a chord.
+@code{\\laissezVibrer} ties should also work on individual notes of a chord.
 " }
 
 \relative c' {

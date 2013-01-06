@@ -1,7 +1,7 @@
 
 \header {
   texidoc ="If the part-combiner shows two separate voices, multi-measure rests
-  are supposed to use the same settings as @code{\voiceOnce} and @code{\voiceTwo}.
+  are supposed to use the same settings as @code{\\voiceOnce} and @code{\\voiceTwo}.
 "
 }
 
