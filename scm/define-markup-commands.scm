@@ -139,6 +139,147 @@ A simple line.
         (y (cdr dest)))
     (make-line-stencil th 0 0 x y)))
 
+(define-markup-command (draw-dashed-line layout props dest)
+  (number-pair?)
+  #:category graphic
+  #:properties ((thickness 1)
+                (on 1)
+                (off 1)
+                (phase 0)
+                (full-length #t))
+  "
+@cindex drawing dashed lines within text
+
+A dashed line.
+
+If @code{full-length} is set to #t (default) the dashed-line extends to the
+whole length given by @var{dest}, without white space at beginning or end.
+@code{off} will then be altered to fit.
+To insist on the given (or default) values of @code{on}, @code{off} use
+@code{\\override #'(full-length . #f)}
+Manual settings for @code{on},@code{off} and @code{phase} are possible.
+@lilypond[verbatim,quote]
+\\markup {
+  \\draw-dashed-line #'(5.1 . 2.3)
+  \\override #'(on . 0.3)
+  \\override #'(off . 0.5)
+  \\draw-dashed-line #'(5.1 . 2.3)
+}
+@end lilypond"
+  (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+         ;; Calculate the thickness to be used.
+         (th (* line-thickness thickness))
+         (half-thick (/ th 2))
+         ;; Get the extensions in x- and y-direction.
+         (x (car dest))
+         (y (cdr dest))
+         ;; Calculate the length of the dashed line.
+         (line-length (sqrt (+ (expt x 2) (expt y 2)))))
+
+    (if (and full-length (not (= (+ on off) 0)))
+        (begin
+          ;; Add double-thickness to avoid overlapping.
+          (set! off (+ (* 2 th) off))
+          (let* (;; Make a guess how often the off/on-pair should be printed
+                 ;; after the initial `on´.
+                 ;; Assume a minimum of 1 to avoid division by zero.
+                 (guess (max 1 (round (/ (- line-length on) (+ off on)))))
+                 ;; Not sure about the value or why corr is necessary at all,
+                 ;; but it seems to be necessary.
+                 (corr (if (= on 0)
+                           (/ line-thickness 10)
+                           0))
+                 ;; Calculate a new value for off to fit the
+                 ;; line-length.
+                 (new-off (/ (- line-length corr (* (1+ guess) on)) guess))
+                 )
+              (cond
+
+              ;; Settings for (= on 0). Resulting in a dotted line.
+
+                    ;; If line-length isn't shorter than `th´, change the given
+                    ;; value for `off´ to fit the line-length.
+                    ((and (= on 0) (< th line-length))
+                      (set! off new-off))
+
+                    ;; If the line-length is shorter than `th´, it makes no
+                    ;; sense to adjust `off´. The rounded edges of the lines
+                    ;; would prevent any nice output.
+                    ;; Do nothing.
+                    ;; This will result in a single dot for very short lines.
+                    ((and (= on 0) (>= th line-length))
+                      #f)
+
+              ;; Settings for (not (= on 0)). Resulting in a dashed line.
+
+                    ;; If line-length isn't shorter than one go of on-off-on,
+                    ;; change the given value for `off´ to fit the line-length.
+                    ((< (+ (* 2 on) off) line-length)
+                      (set! off new-off))
+                    ;; If the line-length is too short, but greater than
+                    ;; (* 4 th) set on/off to (/ line-length 3)
+                    ((< (* 4 th) line-length)
+                      (set! on (/ line-length 3))
+                      (set! off (/ line-length 3)))
+                    ;; If the line-length is shorter than (* 4 th), it makes
+                    ;; no sense trying to adjust on/off. The rounded edges of
+                    ;; the lines would prevent any nice output.
+                    ;; Simply set `on´ to line-length.
+                    (else
+                      (set! on line-length))))))
+
+    ;; If `on´ or `off´ is negative, or the sum of `on' and `off' equals zero a
+    ;; ghostscript-error occurs while calling
+    ;; (ly:make-stencil (list 'dashed-line th on off x y phase) x-ext y-ext)
+    ;; Better be paranoid.
+    (if (or (= (+ on off) 0)
+            (negative? on)
+            (negative? off))
+        (begin
+          (ly:warning "Can't print a line - setting on/off to default")
+          (set! on 1)
+          (set! off 1)))
+
+    ;; To give the lines produced by \draw-line and \draw-dashed-line the same
+    ;; length, half-thick has to be added to the stencil-extensions.
+    (ly:make-stencil
+      (list 'dashed-line th on off x y phase)
+        (interval-widen (ordered-cons 0 x) half-thick)
+        (interval-widen (ordered-cons 0 y) half-thick))))
+
+(define-markup-command (draw-dotted-line layout props dest)
+  (number-pair?)
+  #:category graphic
+  #:properties ((thickness 1)
+                (off 1)
+                (phase 0))
+  "
+@cindex drawing dotted lines within text
+
+A dotted line.
+
+The dotted-line always extends to the whole length given by @var{dest}, without
+white space at beginning or end.
+Manual settings for @code{off} are possible to get larger or smaller space
+between the dots.
+The given (or default) value of @code{off} will be altered to fit the
+line-length.
+@lilypond[verbatim,quote]
+\\markup {
+  \\draw-dotted-line #'(5.1 . 2.3)
+  \\override #'(thickness . 2)
+  \\override #'(off . 0.2)
+  \\draw-dotted-line #'(5.1 . 2.3)
+}
+@end lilypond"
+
+  (let ((new-props (prepend-alist-chain 'on 0
+                     (prepend-alist-chain 'full-length #t props))))
+
+  (interpret-markup layout
+                    new-props
+                    (markup #:draw-dashed-line dest))))
+
 (define-markup-command (draw-hline layout props)
   ()
   #:category graphic
