@@ -48,7 +48,7 @@
 ;;;     ((1 . 8) . (3 3 2))
 ;;;     will cause all primary beams to be broken at 3/8, 6/8, and 8/8.
 ;;;
-;;;     ((1. 32) . (16 8 4 4))
+;;;     ((1 . 32) . (16 8 4 4))
 ;;;     will cause all 1/32, 1/64, and 1/128 beams to be broken at 1/2, 3/4,
 ;;;     7/8, and 8/8.
 ;;;
