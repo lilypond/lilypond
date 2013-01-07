@@ -62,6 +62,38 @@ which scares away people.
 @end ignore
 
 @item
+Introducing two new markup-commands; @code{\draw-dashed-line} and
+@code{\draw-dotted-line}.
+
+@noindent
+The dashed-line extends to the whole length given by @var{dest}, if
+@code{full-length} is set to @code{#t} (this is the default) without any
+space at the beginning or end.  @code{off} will then be altered to fit.
+To insist on the given (or default) values of @code{on}, @code{off} use
+@code{\override #'(full-length . #f)}.  Manual settings for @code{on},
+@code{off} and @code{phase} are possible.
+
+@noindent
+The dotted-line always extends to the whole length given by @var{dest},
+without any space at the beginning or end.  Manual settings for
+@code{off} are possible to get larger or smaller space between the dots.
+The given (or default) value of @code{off} will be altered to fit the
+line-length.
+
+@lilypond[verbatim,quote]
+\markup {
+  \draw-dashed-line #'(5.1 . 2.3)
+  \override #'(on . 0.3)
+  \override #'(off . 0.5)
+  \draw-dashed-line #'(5.1 . 2.3)
+  \draw-dotted-line #'(5.1 . 2.3)
+  \override #'(thickness . 2)
+  \override #'(off . 0.2)
+  \draw-dotted-line #'(5.1 . 2.3)
+}
+@end lilypond
+
+@item
 Starting with version@tie{}2.17.10, error messages or the
 @code{textedit} @acronym{URI} used for point-and-click
 functionality specify column numbers starting with@tie{}1 rather
