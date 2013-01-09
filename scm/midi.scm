@@ -23,7 +23,7 @@
 ;; this is broken: we should not ever export variables from Scheme.
 
 ;; define factor of total volume per dynamic marking
-(define-public absolute-volume-alist '())
+(define-session-public absolute-volume-alist '())
 (set! absolute-volume-alist
       (append
        '(
@@ -47,7 +47,7 @@
   (assoc-get s absolute-volume-alist))
 
 ;; define factors of total volume of minimum and maximum volume
-(define-public instrument-equalizer-alist '())
+(define-session-public instrument-equalizer-alist '())
 (set! instrument-equalizer-alist
       (append
        '(
