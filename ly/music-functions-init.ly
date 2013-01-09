@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.6"
+\version "2.17.11"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1341,6 +1341,45 @@ transposition =
     (make-property-set 'instrumentTransposition
                        (ly:pitch-negate pitch))
     'Staff))
+
+tuplet =
+#(define-music-function (parser location ratio tuplet-span music)
+   (fraction? (ly:duration? '()) ly:music?)
+   (_i "Scale the given @var{music} to tuplets.  @var{ratio} is a
+fraction that specifies how many notes are played in place of the
+nominal value: it will be @samp{3/2} for triplets, namely three notes
+being played in place of two.  If the optional duration
+@var{tuplet-span} is specified, it is used instead of
+@code{tupletSpannerDuration} for grouping the tuplets.
+For example,
+@example
+\\tuplet 3/2 4 @{ c8 c c c c c @}
+@end example
+will result in two groups of three tuplets, each group lasting for a
+quarter note.")
+   (make-music 'TimeScaledMusic
+               'element (ly:music-compress
+                         music
+                         (ly:make-moment (cdr ratio) (car ratio)))
+               'numerator (cdr ratio)
+               'denominator (car ratio)
+               'duration tuplet-span))
+
+tupletSpan =
+#(define-music-function (parser location tuplet-span)
+   ((ly:duration?))
+   (_i "Set @code{tupletSpannerDuration}, the length into which
+@code{\\tuplet} without an explicit @samp{tuplet-span} argument of its
+own will group its tuplets, to the duration @var{tuplet-span}.  To
+revert to the default of not subdividing the contents of a @code{\\tuplet}
+command without explicit @samp{tuplet-span}, use
+@example
+\\tupletSpan \\default
+@end example
+")
+   (if tuplet-span
+       #{ \set tupletSpannerDuration = #(ly:duration-length tuplet-span) #}
+       #{ \unset tupletSpannerDuration #}))
 
 tweak =
 #(define-music-function (parser location prop value item)
