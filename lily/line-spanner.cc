@@ -189,7 +189,9 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
         }
       else
         {
-          y = me->get_bound (dir)->extent (common_y, Y_AXIS).center ();
+          Interval ii = me->get_bound (dir)->extent (common_y, Y_AXIS);
+          if (!ii.is_empty())
+            y = ii.center ();
           details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
         }
 

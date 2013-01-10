@@ -1080,7 +1080,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Context layout order},
-@ref{Creating contexts}.
+@ref{Creating and referencing contexts}.
 
 
 @node Placing syllables horizontally

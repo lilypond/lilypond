@@ -50,10 +50,12 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "pointer-group-interface.hh"
 #include "lily-guile.hh"
 #include "real.hh"
+#include "rest.hh"
 #include "stencil.hh"
 #include "string-convert.hh"
 #include "skyline.hh"
 #include "skyline-pair.hh"
+#include "spanner.hh"
 using namespace std;
 
 Real QUANTIZATION_UNIT = 0.2;
@@ -192,12 +194,11 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   do
     {
       Offset inter_l = get_point_in_y_direction (left, perpendicular_slope (slope), thick / 2, d);
-      Offset inter_r = get_point_in_y_direction (right, perpendicular_slope (slope), thick / 2, d);//printf ("O %4.4f %4.4f\n", inter_l[X_AXIS], inter_r[X_AXIS]);printf ("TRANNY %4.4f %4.4f %4.4f %4.4f %4.4f %4.4f\n", trans.xx, trans.xy, trans.yx, trans.yy, trans.x0, trans.y0);
+      Offset inter_r = get_point_in_y_direction (right, perpendicular_slope (slope), thick / 2, d);
       pango_matrix_transform_point (&trans, &inter_l[X_AXIS], &inter_l[Y_AXIS]);
       pango_matrix_transform_point (&trans, &inter_r[X_AXIS], &inter_r[Y_AXIS]);
       if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
         {
-          //printf ("OO %4.4f %4.4f\n", inter_l[X_AXIS], inter_r[X_AXIS]);
           Box b;
           b.add_point (inter_l);
           b.add_point (inter_r);
@@ -964,38 +965,73 @@ stencil_traverser (PangoMatrix trans, SCM expr)
 }
 
 SCM
-Grob::internal_simple_skylines_from_stencil (SCM smob, Axis a)
+Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool pure, int beg, int end, bool ignore_x, bool ignore_y)
 {
-  Grob *me = unsmob_grob (smob);
-
-  if (to_boolean (me->get_property ("cross-staff")))
-    return Skyline_pair ().smobbed_copy ();
-
-  extract_grob_set (me, "elements", elts);
-  if (elts.size ())
-    return internal_skylines_from_element_stencils (smob, a);
-
-  Stencil *s = unsmob_stencil (me->get_property ("stencil"));
-  if (!s)
-    return Skyline_pair ().smobbed_copy ();
-
   vector<Box> boxes;
-  boxes.push_back (Box (s->extent (X_AXIS), s->extent (Y_AXIS)));
+  // we don't know how far spanners stretch along the X axis before
+  // line breaking. better have them take up the whole thing
+  Interval xex = ignore_x
+                 ? Interval (-infinity_f, infinity_f)
+                 : me->extent (me, X_AXIS);
+
+  // If we're looking at the x exent of a cross staff grob, it could be
+  // very early on in the computation process.  We won't know its height
+  // until way later, so we give a brute force approximation.
+  Interval yex = ignore_y
+                 ? Interval (-infinity_f, infinity_f)
+                 : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
+
+  // In horizontal spacing, there are grobs like SystemStartBracket
+  // that take up no vertical spcae.  So, if the y extent is empty,
+  // we use the entire Y extent ot make the X a sort of horizontal wall.
+  // Ditto for vertical spacing and grobs like BassFigureAlginmentPositioning.
+  if (a == Y_AXIS && yex.is_empty ())
+    yex.set_full ();
+
+  if (a == X_AXIS && xex.is_empty ())
+    xex.set_full ();
+
+  if (xex.is_empty () || yex.is_empty ())
+    return Skyline_pair ().smobbed_copy ();
+
+  boxes.push_back (Box (xex, yex));
   return Skyline_pair (boxes, a).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_stencil, 1);
+MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents, 3);
 SCM
-Grob::simple_vertical_skylines_from_stencil (SCM smob)
+Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
-  return internal_simple_skylines_from_stencil (smob, X_AXIS);
+  Grob *me = unsmob_grob (smob);
+  int beg = robust_scm2int (begscm, 0);
+  int end = robust_scm2int (endscm, INT_MAX);
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, dynamic_cast<Spanner *> (me), false);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_stencil, 1);
+MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents, 1);
 SCM
-Grob::simple_horizontal_skylines_from_stencil (SCM smob)
+Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
-  return internal_simple_skylines_from_stencil (smob, Y_AXIS);
+  Grob *me = unsmob_grob (smob);
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0, 0, false, false);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents, 3);
+SCM
+Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
+{
+  Grob *me = unsmob_grob (smob);
+  int beg = robust_scm2int (begscm, 0);
+  int end = robust_scm2int (endscm, INT_MAX);
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (me->get_property ("cross-staff")));
+}
+
+MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
+SCM
+Grob::simple_horizontal_skylines_from_extents (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
 }
 
 SCM

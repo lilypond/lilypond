@@ -36,6 +36,6 @@ optional list of @var{event-types} such as @code{#'(articulation-event)}."
 tabChordRepetition =
 #(define-void-function (parser location) ()
    (_i "Include the string and fingering information in a chord repetition.
-This function is deprecated; try using @code{\tabChordRepeats} instead.")
+This function is deprecated; try using @code{\\tabChordRepeats} instead.")
    (ly:parser-define! parser '$chord-repeat-events
 		      '(string-number-event fingering-event)))

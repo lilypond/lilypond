@@ -81,9 +81,9 @@ Grob::Grob (SCM basicprops)
   if (get_property_data ("Y-extent") == SCM_EOL)
     set_property ("Y-extent", Grob::stencil_height_proc);
   if (get_property_data ("vertical-skylines") == SCM_EOL)
-    set_property ("vertical-skylines", Grob::simple_vertical_skylines_from_stencil_proc);
+    set_property ("vertical-skylines", Grob::simple_vertical_skylines_from_extents_proc);
   if (get_property_data ("horizontal-skylines") == SCM_EOL)
-    set_property ("horizontal-skylines", Grob::simple_horizontal_skylines_from_stencil_proc);
+    set_property ("horizontal-skylines", Grob::simple_horizontal_skylines_from_extents_proc);
 }
 
 Grob::Grob (Grob const &s)
@@ -485,6 +485,9 @@ Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
   SCM iv_scm = get_pure_property ("Y-extent", start, end);
+  // TODO: Why is this Interval (0,0)
+  // Shouldn't it just be an empty interval?
+  // 0,0 puts an arbitrary point at 0,0 which will influence spacing
   Interval iv = robust_scm2interval (iv_scm, Interval (0, 0));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 

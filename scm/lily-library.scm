@@ -411,17 +411,11 @@ bookoutput function"
 (define-public (first-member members lst)
   "Return first successful member (of member) from @var{members} in
 @var{lst}."
-  (if (null? members)
-      #f
-      (let ((m (member (car members) lst)))
-	(if m m (first-member (cdr members) lst)))))
+  (any (lambda (m) (member m lst)) members))
 
 (define-public (first-assoc keys lst)
   "Return first successful assoc of key from @var{keys} in @var{lst}."
-  (if (null? keys)
-      #f
-      (let ((k (assoc (car keys) lst)))
-	(if k k (first-assoc (cdr keys) lst)))))
+  (any (lambda (k) (assoc k lst)) keys))
 
 (define-public (flatten-alist alist)
   (if (null? alist)
@@ -477,30 +471,23 @@ For example:
 ;; hash
 
 (define-public (hash-table->alist t)
-  (hash-fold (lambda (k v acc) (acons  k v  acc))
-	     '() t))
+  (hash-fold acons '() t))
 
 ;; todo: code dup with C++.
 (define-safe-public (alist->hash-table lst)
   "Convert alist to table"
   (let ((m (make-hash-table (length lst))))
-    (map (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)
+    (for-each (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)
     m))
 
 ;;;;;;;;;;;;;;;;
 ;; list
 
 (define (functional-or . rest)
-  (if (pair? rest)
-      (or (car rest)
-	   (apply functional-or (cdr rest)))
-      #f))
+  (any identity rest))
 
 (define (functional-and . rest)
-  (if (pair? rest)
-      (and (car rest)
-	   (apply functional-and (cdr rest)))
-      #t))
+  (every identity rest))
 
 (define (split-list lst n)
   "Split LST in N equal sized parts"
@@ -518,14 +505,7 @@ For example:
   (helper lst (make-vector n '()) (1- n)))
 
 (define (list-element-index lst x)
-  (define (helper todo k)
-    (cond
-     ((null? todo) #f)
-     ((equal? (car todo) x) k)
-     (else
-      (helper (cdr todo) (1+ k)))))
-
-  (helper lst 0))
+  (list-index (lambda (m) (equal? m x))))
 
 (define-public (count-list lst)
   "Given @var{lst} as @code{(E1 E2 .. )}, return
@@ -696,6 +676,15 @@ right (@var{dir}=+1)."
 
 (define-public (reverse-interval iv)
   (cons (cdr iv) (car iv)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; boolean
+
+(define (lily-and a b)
+  (and a b))
+
+(define (lily-or a b)
+  (or a b))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; coordinates

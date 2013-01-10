@@ -41,6 +41,7 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (fingering);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (flag);
 
 private:
   void make_script (Direction, Stream_event *, int);
@@ -55,6 +56,13 @@ Fingering_engraver::listen_fingering (Stream_event *ev)
 
 void
 Fingering_engraver::acknowledge_stem (Grob_info inf)
+{
+  for (vsize i = 0; i < fingerings_.size (); i++)
+    Side_position_interface::add_support (fingerings_[i], inf.grob ());
+}
+
+void
+Fingering_engraver::acknowledge_flag (Grob_info inf)
 {
   for (vsize i = 0; i < fingerings_.size (); i++)
     Side_position_interface::add_support (fingerings_[i], inf.grob ());
@@ -139,6 +147,7 @@ Fingering_engraver::Fingering_engraver ()
 
 ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Fingering_engraver, stem);
+ADD_ACKNOWLEDGER (Fingering_engraver, flag);
 
 ADD_TRANSLATOR (Fingering_engraver,
                 /* doc */

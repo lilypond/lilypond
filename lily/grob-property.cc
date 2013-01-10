@@ -170,7 +170,7 @@ Grob::internal_get_property (SCM sym) const
     {
       programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
                                     ly_symbol2string (sym).c_str (),
-                                    name ().c_str ()));
+                                    name ().c_str ()));//assert (1==0);
       if (debug_property_callbacks)
         {
           message ("backtrace: ");

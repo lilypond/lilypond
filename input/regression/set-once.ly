@@ -2,7 +2,7 @@
 
 \header {
 
-  texidoc = "@code{\once \set} should change a context property value for just one timestep
+  texidoc = "@code{\\once \\set} should change a context property value for just one timestep
 and then return to the previous value."
 
 }

@@ -1,11 +1,11 @@
 
-\version "2.17.6"
+\version "2.17.10"
 \header {
 
   texidoc = "It is possible to associate
 fingerings uniquely with notes. This makes it possible to add
-horizontal fingerings to notes. Fingering clears stems and flags
-if @code{'add-stem-support} is set.
+horizontal fingerings to notes. Fingering defaults to not clearing
+flags and stems unless there is a collision or a beam.
 "
 
 }

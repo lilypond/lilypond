@@ -59,7 +59,7 @@ This section describes what contexts are, and how to modify them.
 
 @menu
 * Contexts explained::
-* Creating contexts::
+* Creating and referencing contexts::
 * Keeping contexts alive::
 * Modifying context plug-ins::
 * Changing context default settings::
@@ -268,145 +268,216 @@ context.
 
 @end ignore
 
-@node Creating contexts
-@subsection Creating contexts
-
-@c TODO more complete descriptions rather than learning style
-
-For scores with only one voice and one staff, contexts are
-created automatically.  For more complex scores, it is necessary to
-create them by hand.  There are three commands that do this.
-
-@itemize
-
-@item
-The easiest command is @code{\new}, and it also the quickest to type.
-It is prepended to a music expression, for example
+@node Creating and referencing contexts
+@subsection Creating and referencing contexts
 
 @funindex \new
-@cindex new contexts
-@cindex Context, creating
-
-@example
-\new @var{type} @var{music expression}
-@end example
-
-@noindent
-where @var{type} is a context name (like @code{Staff} or
-@code{Voice}).  This command creates a new context, and starts
-interpreting the @var{music expression} with that.
-
-A practical application of @code{\new} is a score with many
-staves.  Each part that should be on its own staff, is preceded with
-@code{\new Staff}.
-
-@lilypond[quote,verbatim,relative=2,ragged-right]
-<<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
->>
-@end lilypond
-
-The @code{\new} command may also give a name to the context,
-
-@example
-\new @var{type} = @var{id} @var{music}
-@end example
-However, this user specified name is only used if there is no other
-context already earlier with the same name.
-
-
 @funindex \context
+@cindex new contexts
+@cindex referencing contexts
+@cindex Contexts, creating and referencing
 
-@item
-Like @code{\new}, the @code{\context} command also directs a music
-expression to a context object, but gives the context an explicit name.  The
-syntax is
-
-@example
-\context @var{type} = @var{id} @var{music}
-@end example
-
-This form will search for an existing context of type @var{type}
-called @var{id}.  If that context does not exist yet, a new
-context with the specified name is created.  This is useful if
-the context is referred to later on.  For example, when
-setting lyrics the melody is in a named context
+LilyPond will create lower-level contexts automatically if a music
+expression is encountered before a suitable context exists, but this
+is usually successful only for simple scores or music fragments like
+the ones in the documentation.  For more complex scores it is
+advisable to specify all contexts explicitly with either the
+@code{\new} or @code{\context} command.  The syntax of
+these two commands is very similar:
 
 @example
-\context Voice = "@b{tenor}" @var{music}
+[\new | \context] @var{Context} [ = @var{name}] [@var{music-expression}]
 @end example
 
 @noindent
-so the texts can be properly aligned to its notes,
+where either @code{\new} or @code{\context} may be specified.
+@var{Context} is the type of context which is to be created,
+@var{name} is an optional name to be given to the particular context
+being created and @var{music-expression} is a single music expression
+that is to be interpreted by the engravers and performers in this
+context.
 
-@example
-\new Lyrics \lyricsto "@b{tenor}" @var{lyrics}
-@end example
+The @code{\new} prefix without a name is commonly used to create
+scores with many staves:
 
-@noindent
-
-Another possible use of named contexts is funneling two different
-music expressions into one context.  In the following example,
-articulations and notes are entered separately,
-
-@example
-music = @{ c4 c4 @}
-arts = @{ s4-. s4-> @}
-@end example
-
-They are combined by sending both to the same @code{Voice} context,
-
-@example
+@lilypond[quote,verbatim,relative=2]
 <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
->>
-@end example
-@lilypond[quote,ragged-right]
-music = { c4 c4 }
-arts = { s4-. s4-> }
-\relative c'' <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
+  \new Staff {
+    % leave the Voice context to be created implicitly
+    c4 c
+  }
+  \new Staff {
+    d4 d
+  }
 >>
 @end lilypond
 
-With this mechanism, it is possible to define an Urtext (original
-edition), with the option to put several distinct articulations on the
-same notes.
+@noindent
+and to place several voices into one staff:
 
-@cindex creating contexts
-
-@item
-The third command for creating contexts is
-@example
-\context @var{type} @var{music}
-@end example
-
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
 
 @noindent
-This is similar to @code{\context} with @code{= @var{id}}, but matches
-any context of type @var{type}, regardless of its given name.
+@code{\new} should always be used to specify unnamed contexts.
 
-This variant is used with music expressions that can be interpreted at
-several levels.  For example, the @code{\applyOutput} command (see
-@rextend{Running a function on all layout objects}).  Without an explicit
-@code{\context}, it is usually applied to @code{Voice}
+The difference between @code{\new} and @code{\context} is in the
+action taken:
+
+@itemize
+@item
+@code{\new} with or without a name will always create a fresh,
+distinct, context, even if one with the same name already exists:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice = "A" {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice = "A" {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
+
+@item
+@code{\context} with a name specified will create a distinct context
+only if a context of the same type with the same name in the same
+context hierarchy does not already exist.  Otherwise it will be taken
+as a reference to that previously created context, and its music
+expression will be passed to that context for interpretation.
+
+One application of named contexts is in separating the score layout
+from the musical content.  Either of these two forms is valid:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \new Voice = "one" {
+        \voiceOne
+      }
+      \new Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \context Voice = "one" {
+        \voiceOne
+      }
+      \context Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@noindent
+Alternatively, variables may be employed to similar effect.  See
+@rlearning{Organizing pieces with variables}.
+
+@item
+
+@code{\context} with no name will match the first of any previously
+created contexts of the same type in the same context heirarchy,
+even one that has been given a name, and its music expression will be
+passed to that context for interpretation.  This form is rarely
+useful.  However, @code{\context} with no name and no music expression
+is used to set the context in which a Scheme procedure specified with
+@code{\applyContext} is executed:
 
 @example
-\applyOutput #'@var{context} #@var{function}   % apply to Voice
-@end example
-
-To have it interpreted at the @code{Score} or @code{Staff} level use
-these forms
-
-@example
-\applyOutput #'Score #@var{function}
-\applyOutput #'Staff #@var{function}
+\new Staff \relative c' @{
+  c1
+  \context Timing
+  \applyContext #(lambda (ctx)
+                   (newline)
+                   (display (ly:context-current-moment ctx)))
+  c1
+@}
 @end example
 
 @end itemize
+
+A context must be named if it is to be referenced later, for example
+when lyrics are associated with music:
+
+@example
+\new Voice = "tenor" @var{music}
+...
+\new Lyrics \lyricsto "tenor" @var{lyrics}
+@end example
+
+@noindent
+For details of associating lyrics with music see
+@ref{Automatic syllable durations}.
+
+The properties of all contexts of a particular type can be modified
+in a @code{\layout} block (with a different syntax), see
+@ref{Changing all contexts of the same type}.  This construct also
+provides a means of keeping layout instructions separate from the
+musical content.  If a single context is to be modified, a @code{\with}
+block must be used, see @ref{Changing just one specific context}.
+
+@seealso
+
+Learning Manual:
+@rlearning{Organizing pieces with variables}.
+
+Notation Reference:
+@ref{Changing just one specific context},
+@ref{Automatic syllable durations}.
+
 
 @node Keeping contexts alive
 @subsection Keeping contexts alive

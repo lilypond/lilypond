@@ -91,13 +91,6 @@ execute_override_property (Context *context,
 
   SCM target_alist = scm_car (current_context_val);
 
-  /*
-    If the car is a list, the property path comes from a nested override
-    using list syntax inside a \context block
-  */
-  if (scm_is_pair (scm_car (grob_property_path)))
-    grob_property_path = scm_car (grob_property_path);
-
   SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
@@ -249,6 +242,8 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
         tg->set_property (scm_car (entry), scm_cadr (entry));
       else if (type == ly_symbol2scm ("apply"))
 	scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
+      else if (type == ly_symbol2scm ("unset"))
+        tg->unset_property (scm_car (entry));
     }
 }
 

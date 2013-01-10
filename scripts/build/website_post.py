@@ -75,7 +75,6 @@ exclude_manuals = [
 
 ###### Actual program
 
-me = sys.argv[0]
 dir = sys.argv[1]
 
 os.chdir(dir)
@@ -119,6 +118,7 @@ def makeFooter (filename, currentLang):
 %(browser_language)s
 </p>
 '''
+    me = sys.argv[0]
     def link (lang):
         str = '''<a href="%(file_name)s">%(language_name)s</a>'''
         file_name = addLangExt (filename, lang, 'html')

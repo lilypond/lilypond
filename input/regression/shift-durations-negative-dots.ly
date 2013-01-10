@@ -3,7 +3,7 @@
 \header {
 
   texidoc = "
-  @code{\shiftDurations} can use negative dot values without causing
+  @code{\\shiftDurations} can use negative dot values without causing
   a crash.
   "
 }

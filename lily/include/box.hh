@@ -21,6 +21,7 @@ public:
   Interval operator [] (Axis a) const;
   Interval &operator [] (Axis a);
   Real area () const;
+  bool is_empty () const;
 
   Offset center () const;
 
@@ -32,6 +33,7 @@ public:
   void widen (Real x, Real y);
   void scale (Real r);
   void unite (Box b);
+  void intersect (Box b);
   void print ();
   Box ();
   Box (Interval ix, Interval iy);

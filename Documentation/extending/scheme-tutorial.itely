@@ -1341,7 +1341,7 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @subsection Adding articulation to notes (example)
 
 The easy way to add articulation to notes is to merge two music
-expressions into one context, as explained in @ruser{Creating contexts}.
+expressions into one context.
 However, suppose that we want to write a music function that does this.
 This will have the additional advantage that we can use that music
 function to add an articulation (like a fingering instruction) to a

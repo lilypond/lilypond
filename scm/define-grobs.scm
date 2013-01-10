@@ -83,7 +83,6 @@
 	(side-axis . ,Y)
 	(staff-padding . 0.25)
 	(stencil . ,ly:accidental-interface::print)
-	(use-skylines . #t)
 	(X-extent . ,ly:accidental-interface::width)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
@@ -249,6 +248,9 @@
 	(font-family . roman)
 	(font-size . -2)
 	(non-musical . #t)
+	;; w/o padding, bars numbers are not positioned over the staff as
+	;; they are slightly to the left. so we add just a bit.
+	(horizon-padding . 0.05)
 	(outside-staff-priority . 100)
 	(padding . 1.0)
 	(self-alignment-X . ,RIGHT)
@@ -611,6 +613,7 @@
 			(next-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.5))))
 	(stencil . ,ly:clef::print)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -760,7 +763,6 @@
 	(slur-padding . 0.3)
 	(staff-padding . 0.1)
 	(vertical-skylines . ,ly:grob::vertical-skylines-from-element-stencils)
-	(use-skylines . #t)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -793,7 +795,6 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Item)
-		 (object-callbacks . ((X-colliding-grobs . ,ly:self-alignment-interface::x-colliding-grobs)))
 		 (interfaces . (dynamic-interface
 				dynamic-text-interface
 				font-interface
@@ -882,7 +883,7 @@
      . (
 
 	;; sync with TextScript (?)
-
+	(add-stem-support . ,only-if-beamed)
 	(avoid-slur . around)
 	(cross-staff . ,script-or-side-position-cross-staff)
 	(direction . ,ly:script-interface::calc-direction)
@@ -1244,6 +1245,7 @@
 	;; ugh.  A ligature bracket is totally different from
 	;; a tuplet bracket.
 
+	(bracket-visibility . #t)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(direction . ,UP)
 	(edge-height . (0.7 . 0.7))
@@ -1410,6 +1412,7 @@
 	(thick-thickness . 6.6)
 	;; See Wanske pp. 125
 	(usable-duration-logs . ,(iota 4 -3))
+	(Y-extent . ,ly:multi-measure-rest::height)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
@@ -1436,6 +1439,7 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-centered-on-y-parent)))))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				multi-measure-interface
@@ -1458,6 +1462,7 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				multi-measure-interface
@@ -1511,6 +1516,7 @@
      . (
 	(axes . (,X ,Y))
 	(bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
+	(cross-staff . ,ly:axis-group-interface::cross-staff)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(skyline-vertical-padding . 0.15)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -1581,6 +1587,7 @@
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::centered-on-x-parent)))))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				octavate-eight-interface
@@ -1795,6 +1802,7 @@
 	(X-extent . ,ly:rest::width)
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
+	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				rest-interface
@@ -1824,7 +1832,6 @@
 	(staff-padding . 0.25)
 
 	(stencil . ,ly:script-interface::print)
-	(use-skylines . #t)
 	(vertical-skylines . ,ly:grob::vertical-skylines-from-stencil)
 	(X-offset . ,script-interface::calc-x-offset)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -1884,6 +1891,7 @@
     (SostenutoPedalLineSpanner
      . (
 	(axes . (,Y))
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 	(direction . ,DOWN)
 	(minimum-space . 1.0)
 	(outside-staff-priority . 1000)
@@ -2127,6 +2135,7 @@
     (SustainPedalLineSpanner
      . (
 	(axes . (,Y))
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 	(direction . ,DOWN)
 	(minimum-space . 1.0)
 	(outside-staff-priority . 1000)
@@ -2269,7 +2278,7 @@
 	(outside-staff-priority . 450)
 
 	;; sync with Fingering ?
-	(padding . 0.5)
+	(padding . 0.3)
 
 	(script-priority . 200)
 	(side-axis . ,Y)
@@ -2523,6 +2532,7 @@
     (UnaCordaPedalLineSpanner
      . (
 	(axes . (,Y))
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 	(direction . ,DOWN)
 	(minimum-space . 1.0)
 	(outside-staff-priority . 1000)
@@ -2776,7 +2786,13 @@
     (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
     (,ly:beam::rest-collision-callback . ,ly:beam::pure-rest-collision-callback)
     (,ly:flag::calc-y-offset . ,ly:flag::pure-calc-y-offset)
+    (,ly:grob::horizontal-skylines-from-stencil . ,ly:grob::pure-simple-horizontal-skylines-from-extents)
+    (,ly:grob::horizontal-skylines-from-element-stencils . ,ly:grob::pure-simple-horizontal-skylines-from-extents)
+    (,ly:grob::simple-horizontal-skylines-from-extents . ,ly:grob::pure-simple-horizontal-skylines-from-extents)
+    (,ly:grob::simple-vertical-skylines-from-extents . ,ly:grob::pure-simple-vertical-skylines-from-extents)
     (,ly:grob::stencil-height . ,pure-stencil-height)
+    (,ly:grob::vertical-skylines-from-stencil . ,ly:grob::pure-simple-vertical-skylines-from-extents)
+    (,ly:grob::vertical-skylines-from-element-stencils . ,ly:grob::pure-simple-vertical-skylines-from-extents)
     (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
     (,ly:rest-collision::force-shift-callback-rest . ,pure-chain-offset-callback)
     (,ly:rest::height . ,ly:rest::pure-height)
@@ -2793,8 +2809,10 @@
 
 (define pure-functions
   (list
+   ly:accidental-interface::horizontal-skylines
    parenthesize-elements
    laissez-vibrer::print
+   ly:multi-measure-rest::height
    ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))

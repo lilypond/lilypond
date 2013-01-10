@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "
-A @code{\Voice} should be able to contain both an @code{Ambitus_engraver}
+A @code{\\Voice} should be able to contain both an @code{Ambitus_engraver}
 and a @code{Mensural_ligature_engraver} without segfaulting.
   "
 }

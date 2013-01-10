@@ -10,8 +10,10 @@ or at the beginning of a new line."
 myChords = \chordmode {
   c1 c1 \break
   c1 c1 \break
+  c2 c4 c4 \break
   \set chordChanges = ##t
   c1 c1 \break
+  c2 c4 c4 \break
 }
 
 <<

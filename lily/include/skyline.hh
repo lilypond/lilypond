@@ -92,6 +92,7 @@ public:
   Real max_height_position () const;
   Real left () const;
   Real right () const;
+  Direction direction () const;
   void set_minimum_height (Real height);
   void clear ();
   bool is_empty () const;

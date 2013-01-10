@@ -380,6 +380,15 @@ Notation Reference:
 Snippets:
 @rlsr{Rhythms}.
 
+@knownissues
+The calculation of the position within a measure must take into
+account all the scaling factors applied to the notes within that
+measure and any fractional carry-out from earlier measures.  This
+calculation is carried out using rational numbers.  If an intermediate
+numerator or denominator in that calculation exceeds 2^30 the
+execution and typesetting will stop at that point without indicating
+an error.
+
 
 @node Ties
 @unnumberedsubsubsec Ties

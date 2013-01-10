@@ -19,7 +19,7 @@
 */
 
 #include "interval-minefield.hh"
-#include "grob.hh"
+
 Interval_minefield::Interval_minefield (Interval feasible_placements, Real bulk)
 {
   feasible_placements_ = feasible_placements;

@@ -937,11 +937,6 @@ separating each syllable with a space.
 >>
 @end lilypond
 
-@warning{It is essential that the final syllable is separated from
-the terminating curly bracket by a space or a newline, or it will be
-assumed to be part of the syllable, giving rise to an obscure
-error, see @rprogram{Apparent error in ../ly/init.ly}.}
-
 Note the double angle brackets @w{@code{<< ... >>}} around the
 whole piece to show that the music and lyrics are to occur at the
 same time.

@@ -69,7 +69,7 @@ grouping staves.
 
 @notation{Staves} (singular: @notation{staff}) are created with
 the @code{\new} or @code{\context} commands.  For details, see
-@ref{Creating contexts}.
+@ref{Creating and referencing contexts}.
 
 The basic staff context is @code{Staff}:
 
@@ -124,7 +124,7 @@ Music Glossary:
 @rglos{staves}.
 
 Notation Reference:
-@ref{Creating contexts},
+@ref{Creating and referencing contexts},
 @ref{Percussion staves},
 @ref{Showing melody rhythms},
 @ref{Default tablatures},

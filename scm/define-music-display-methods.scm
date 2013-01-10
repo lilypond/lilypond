@@ -199,7 +199,7 @@ expression."
   (markup->lily-string (ly:music-property event 'text)))
 
 (define-post-event-display-method BendAfterEvent (event parser) #f
-  (format #f "\\bendAfter #~a" (ly:music-property event 'delta-step)))
+  (format #f "\\bendAfter #~a " (ly:music-property event 'delta-step)))
 
 (define-post-event-display-method HarmonicEvent (event parser) #f "\\harmonic")
 (define-post-event-display-method GlissandoEvent (event parser) #f "\\glissando")
@@ -208,7 +208,7 @@ expression."
   (format #f "\\~a" (ly:music-property event 'text)))
 
 (define-post-event-display-method StrokeFingerEvent (event parser) #f
-  (format #f "\\rightHandFinger #~a" (ly:music-property event 'digit)))
+  (format #f "\\rightHandFinger #~a " (ly:music-property event 'digit)))
 
 (define-span-event-display-method BeamEvent (event parser) #f "[" "]")
 (define-span-event-display-method SlurEvent (event parser) #f "(" ")")

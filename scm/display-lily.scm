@@ -82,13 +82,21 @@ display method will be called."
 (define* (tweaks->lily-string expr #:optional (post-event? #f))
   (format #f "~{~a ~}"
           (map (lambda (tweak)
-                 (format #f "~a\\tweak ~a #~a"
-                         (if post-event? "-" "")
-			 (if (pair? (car tweak))
-			     (format #f "~a.~a"
-				     (caar tweak) (cdar tweak))
-			     (format #f "~a" (car tweak)))
-                         (scheme-expr->lily-string (cdr tweak))))
+                 (let ((addr (car tweak))
+                       (val (cdr tweak)))
+                   (format #f "~a\\tweak ~a #~a"
+                           (if post-event? "-" "")
+                           (cond
+                            ((symbol? addr)
+                             (format #f "~a" addr))
+                            ((symbol? (cdr addr))
+                             (format #f "~a.~a" (car addr) (cdr addr)))
+                            (else
+                             (format #f "~{~a~^.~}"
+                                     (if (symbol? (car addr))
+                                         addr
+                                         (cdr addr)))))
+                           (scheme-expr->lily-string val))))
                (ly:music-property expr 'tweaks))))
 
 (define-public (music->lily-string expr parser)

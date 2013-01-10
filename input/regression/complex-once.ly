@@ -1,7 +1,7 @@
 \version "2.16.0"
 
 \header{
-  texidoc= "This tests @code{\once} applied to multiple property operations."
+  texidoc= "This tests @code{\\once} applied to multiple property operations."
 }
 
 \relative c' {

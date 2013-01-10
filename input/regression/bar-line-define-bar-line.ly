@@ -1,6 +1,6 @@
 \version "2.17.5"
 
-\header { texidoc = "New bar line styles can be defined by @code{\defineBarLine}."
+\header { texidoc = "New bar line styles can be defined by @code{\\defineBarLine}."
         }
 
 \paper { ragged-right = ##t }

@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.10"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -17,7 +17,7 @@ Nastiest piece of competition at
 http://www.orphee.com/comparison/study.html, see
 http://www.orphee.com/comparison/gray.pdf
 
-Lines that contain tweaks (10 currently, not counting reverts) are
+Lines that contain tweaks (3 currently, not counting reverts) are
 marked with %tweak
 
 possibly more impressive to render without tweaks?
@@ -98,10 +98,6 @@ trebleTwo = \new Voice \relative c''{
     <e, gis, e d!>2
     | %5
     s8 cis4. d4
-    % fair to count as one tweak?
-    \override Fingering.add-stem-support = ##t %tweak
-    \override Fingering.padding = #0.15
-    \override Fingering.slur-padding = #0.1
     <cis e,>8[( <d,_3 b'_1>
     | %6
     <cis_1 a'_2>)] cis'4. d4

@@ -524,8 +524,8 @@ aligned across staves.
 
 You cannot explicitly instantiate a @code{Score} context (since it
 is not contained in any other context).  It is instantiated
-automatically when an output definition (a @code{\score} or
-@code{\layout} block) is processed."
+automatically when an output definition (a @code{\\score} or
+@code{\\layout} block) is processed."
 
   \consists "Paper_column_engraver"
   \consists "Repeat_acknowledge_engraver"
