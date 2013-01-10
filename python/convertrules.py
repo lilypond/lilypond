@@ -3481,6 +3481,37 @@ def conv (str):
                   path_replace, str)
     return str
 
+@rule ((2, 17, 11), r"\times -> \tuplet, \set tupletSpannerDuration -> \tupletSpan")
+def conv(str):
+    def sub_dur (m):
+        num = int (m.group (1))
+        den = int (m.group (2))
+
+# if den is no power of 2, don't even try to use an unscaled duration
+        if (den & (den - 1)) != 0 :
+            return (r"\tupletSpan 1*%d/%d" % (num, den))
+
+        if den >= 4 and num == 7 :
+            return (r"\tupletSpan %d.." % (den/4))
+
+        if den >= 2 and num == 3 :
+            return (r"\tupletSpan %d." % (den/2))
+
+        if num == 1 :
+            return (r"\tupletSpan %d" % den)
+
+        return (r"\tupletSpan 1*%d/%d" % (num, den))
+
+    str = re.sub (r"\\set\s+tupletSpannerDuration\s*=\s*" +
+                  r"#\(ly:make-moment\s+([0-9]+)\s+([0-9]+)\s*\)",
+                  sub_dur, str)
+    str = re.sub (r"\\unset tupletSpannerDuration",
+                  r"\\tupletSpan \\default", str)
+    str = re.sub (r"\\times(\s*)([0-9]+)/([0-9]+)",
+                  r"\\tuplet\1\3/\2", str)
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
