@@ -1244,6 +1244,7 @@
 	;; ugh.  A ligature bracket is totally different from
 	;; a tuplet bracket.
 
+	(bracket-visibility . #t)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(direction . ,UP)
 	(edge-height . (0.7 . 0.7))
