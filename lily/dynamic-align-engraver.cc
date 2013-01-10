@@ -34,7 +34,8 @@
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
-  DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (dynamic);
   DECLARE_ACKNOWLEDGER (footnote_spanner);
   DECLARE_END_ACKNOWLEDGER (dynamic);
@@ -64,7 +65,8 @@ Dynamic_align_engraver::Dynamic_align_engraver ()
 }
 
 ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
-ADD_ACKNOWLEDGER (Dynamic_align_engraver, note_column);
+ADD_ACKNOWLEDGER (Dynamic_align_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Dynamic_align_engraver, stem);
 ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
 ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 
@@ -107,7 +109,13 @@ Dynamic_align_engraver::acknowledge_footnote_spanner (Grob_info info)
 }
 
 void
-Dynamic_align_engraver::acknowledge_note_column (Grob_info info)
+Dynamic_align_engraver::acknowledge_rhythmic_head (Grob_info info)
+{
+  support_.push_back (info.grob ());
+}
+
+void
+Dynamic_align_engraver::acknowledge_stem (Grob_info info)
 {
   support_.push_back (info.grob ());
 }

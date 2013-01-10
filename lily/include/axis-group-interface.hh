@@ -34,6 +34,7 @@ class Axis_group_interface
   static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
   static Interval pure_group_height (Grob *me, int start, int end);
+  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM smob));
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));
@@ -62,7 +63,7 @@ class Axis_group_interface
   static Interval part_of_line_pure_height (Grob *me, bool begin, int, int);
 
   static Grob *outside_staff_ancestor (Grob *me);
-  static Skyline_pair skyline_spacing (Grob *me, vector<Grob *> elements);
+  static Skyline_pair skyline_spacing (Grob *me);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);

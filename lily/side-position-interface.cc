@@ -32,6 +32,8 @@ using namespace std;
 #include "directional-element-interface.hh"
 #include "grob.hh"
 #include "grob-array.hh"
+#include "international.hh"
+#include "item.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "note-head.hh"
@@ -51,35 +53,13 @@ Side_position_interface::add_support (Grob *me, Grob *e)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-SCM
-finish_offset (Grob *me, Direction dir, Real total_off, Real *current_offset)
+void
+Side_position_interface::recursive_add_support (Grob *me, Grob *e)
 {
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
-  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0);
-
-  if (minimum_space >= 0
-      && dir
-      && total_off * dir < minimum_space)
-    total_off = minimum_space * dir;
-
-  if (current_offset)
-    total_off = dir * max (dir * total_off,
-                           dir * (*current_offset));
-
-  /* FIXME: 1000 should relate to paper size.  */
-  if (fabs (total_off) > 1000)
-    {
-      string msg
-        = String_convert::form_string ("Improbable offset for grob %s: %f",
-                                       me->name ().c_str (), total_off);
-
-      programming_error (msg);
-      if (strict_infinity_checking)
-        scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
-    }
-
-  return scm_from_double (total_off);
+  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
+  extract_grob_set (e, "side-support-elements", sse);
+  for (vsize i = 0; i < sse.size (); i++)
+    recursive_add_support (me, sse[i]);
 }
 
 set<Grob *>
@@ -110,244 +90,6 @@ get_support_set (Grob *me)
   return support;
 }
 
-/* Put the element next to the support, optionally taking in
-   account the extent of the support.
-
-   Does not take into account the extent of ME.
-*/
-SCM
-Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents,
-                                                bool include_my_extent,
-                                                bool pure, int start, int end,
-                                                Real *current_offset)
-{
-  set<Grob *> support = get_support_set (me);
-
-  Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
-  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  bool include_staff
-    = staff_symbol
-      && a == Y_AXIS
-      && scm_is_number (me->get_property ("staff-padding"))
-      && !to_boolean (me->get_property ("quantize-position"));
-
-  Interval dim;
-  Interval staff_extents;
-  if (include_staff)
-    {
-      common = staff_symbol->common_refpoint (common, Y_AXIS);
-      staff_extents = staff_symbol->maybe_pure_extent (common, Y_AXIS, pure, start, end);
-
-      if (include_staff)
-        dim.unite (staff_extents);
-    }
-
-  Direction dir = get_grob_direction (me);
-
-  set<Grob *>::iterator it;
-
-  for (it = support.begin (); it != support.end (); it++)
-    {
-      Grob *e = *it;
-
-      // In the case of a stem, we will find a note head as well
-      // ignoring the stem solves cyclic dependencies if the stem is
-      // attached to a cross-staff beam.
-      if (a == Y_AXIS
-          && Stem::has_interface (e)
-          && dir == - get_grob_direction (e))
-        continue;
-
-      if (e)
-        {
-          if (use_extents)
-            dim.unite (e->maybe_pure_extent (common, a, pure, start, end));
-          else
-            {
-              Real x = e->maybe_pure_coordinate (common, a, pure, start, end);
-              dim.unite (Interval (x, x));
-            }
-        }
-    }
-
-  if (dim.is_empty ())
-    dim = Interval (0, 0);
-
-  Real off = me->get_parent (a)->maybe_pure_coordinate (common, a, pure, start, end);
-
-  Real total_off = dim.linear_combination (dir) - off;
-  if (include_my_extent)
-    {
-      Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
-      if (!iv.is_empty ())
-        {
-          if (!dir)
-            {
-              programming_error ("direction unknown, but aligned-side wanted");
-              dir = DOWN;
-            }
-          total_off += -iv[-dir];
-        }
-    }
-
-  return finish_offset (me, dir, total_off, current_offset);
-}
-
-SCM
-Side_position_interface::skyline_side_position (Grob *me, Axis a,
-                                                bool pure, int start, int end,
-                                                Real *current_offset)
-{
-  set<Grob *> support = get_support_set (me);
-
-  Grob *common[2];
-  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-    common[ax] = common_refpoint_of_array (support, ax == a ? me->get_parent (ax) : me, ax);
-
-  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  Direction dir = get_grob_direction (me);
-
-  Skyline my_dim;
-  Skyline_pair *sp = Skyline_pair::unsmob (me->get_property ("vertical-skylines"));
-  if (sp && a == Y_AXIS && !pure)
-    {
-      Skyline_pair copy = Skyline_pair (*sp);
-      copy.shift (me->relative_coordinate (common[X_AXIS], X_AXIS));
-      copy.raise (me->get_parent (Y_AXIS)->relative_coordinate (common[Y_AXIS], Y_AXIS));
-      my_dim = copy[-dir];
-    }
-  else
-    {
-      Box off;
-      for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-        {
-          if (ax == a)
-            off[ax] = me->get_parent (ax)->maybe_pure_coordinate (common[ax], ax, pure, start, end)
-                      + me->maybe_pure_extent (me, ax, pure, start, end);
-          else
-            off[ax] = me->maybe_pure_extent (common[ax], ax, pure, start, end);
-        }
-
-      if (off[X_AXIS].is_empty () || off[Y_AXIS].is_empty ())
-        return scm_from_double (0.0);
-
-      my_dim = Skyline (off, other_axis (a), -dir);
-    }
-  bool include_staff
-    = staff_symbol
-      && a == Y_AXIS
-      && scm_is_number (me->get_property ("staff-padding"))
-      && !to_boolean (me->get_property ("quantize-position"));
-
-  vector<Box> boxes;
-  vector<Skyline_pair> skyps;
-  Real min_h = dir == LEFT ? infinity_f : -infinity_f;
-  set<Grob *>::iterator it;
-
-  map<Grob *, vector<Grob *> > note_column_map; // for parts of a note column
-  for (it = support.begin (); it != support.end (); it++)
-    {
-      Grob *e = *it;
-
-      // In the case of a stem, we will find a note head as well
-      // ignoring the stem solves cyclic dependencies if the stem is
-      // attached to a cross-staff beam.
-      if (a == Y_AXIS
-          && Stem::has_interface (e)
-          && dir == - get_grob_direction (e))
-        continue;
-
-      if (e)
-        {
-           if (Note_column::has_interface (e->get_parent (X_AXIS))
-               && to_boolean (me->get_property ("add-stem-support")))
-             {
-               note_column_map[e->get_parent (X_AXIS)].push_back (e);
-               continue;
-             }
-
-           Skyline_pair *sp = Skyline_pair::unsmob (e->get_property ("vertical-skylines"));
-           if (sp && a == Y_AXIS && !pure)
-             {
-               Skyline_pair copy = Skyline_pair (*sp);
-               copy.shift (e->relative_coordinate (common[X_AXIS], X_AXIS));
-               copy.raise (e->relative_coordinate (common[Y_AXIS], Y_AXIS));
-               skyps.push_back (copy);
-               continue;
-             }
-           Box b;
-           for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-             b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
-
-           if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
-             continue;
-
-           boxes.push_back (b);
-           min_h = minmax (dir, b[a][-dir], min_h);
-        }
-    }
-
-  // this loop ensures that parts of a note column will be in the same box
-  // pushes scripts and such over stems instead of just over heads
-  for (map<Grob *, vector<Grob *> >::iterator i = note_column_map.begin (); i != note_column_map.end (); i++)
-    {
-      Box big;
-      for (vsize j = 0; j < (*i).second.size (); j++)
-        {
-          Grob *e = (*i).second[j];
-          Box b;
-          for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
-            b[ax] = e->maybe_pure_extent (common[ax], ax, pure, start, end);
-
-          if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
-            continue;
-
-          big.unite (b);
-        }
-      if (!big[X_AXIS].is_empty () && !big[Y_AXIS].is_empty ())
-        boxes.push_back (big);
-    }
-
-  Skyline dim (boxes, other_axis (a), dir);
-  if (skyps.size ())
-    {
-      Skyline_pair merged (skyps);
-      dim.merge (merged[dir]);
-    }
-  if (!boxes.size ())
-    dim.set_minimum_height (0.0);
-  else
-    dim.set_minimum_height (min_h);
-
-  if (include_staff)
-    {
-      Interval staff_extents;
-      common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
-      staff_extents = staff_symbol->maybe_pure_extent (common[Y_AXIS], Y_AXIS, pure, start, end);
-      dim.set_minimum_height (minmax (dir, min_h, staff_extents[dir]));
-    }
-
-  Real dist = dim.distance (my_dim, 0.1); // 0.1 m4g1c value...fix...
-  Real total_off = !isinf (dist) ? dir * dist : 0.0;
-
-  return finish_offset (me, dir, total_off, current_offset);
-}
-
-MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1);
-SCM
-Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
-{
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, false, 0, 0, 0);
-}
-
-MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_on_support_refpoints, 3);
-SCM
-Side_position_interface::pure_y_aligned_on_support_refpoints (SCM smob, SCM start, SCM end)
-{
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false,
-                                true, scm_to_int (start), scm_to_int (end), 0);
-}
-
 /*
   Position next to support, taking into account my own dimensions and padding.
 */
@@ -362,14 +104,25 @@ axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM c
       current_off_ptr = &r;
     }
 
-  return Side_position_interface::aligned_side (unsmob_grob (smob), a, pure, start, end, current_off_ptr);
+  Grob *me = unsmob_grob (smob);
+  // We will only ever want widths of spanners after line breaking
+  // so we can set pure to false
+  if (dynamic_cast<Spanner *> (me) && a == X_AXIS)
+    pure = false;
+
+  return Side_position_interface::aligned_side (me, a, pure, start, end, current_off_ptr);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side, 2, 1, "");
 SCM
 Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
 {
-  return axis_aligned_side_helper (smob, X_AXIS, false, 0, 0, current_off);
+  // Because horizontal skylines need vertical heights, we'd trigger
+  // unpure calculations too soon if this were called before line breaking.
+  // So, we always use pure heights.  Given that horizontal skylines are
+  // almost always used before line breaking anyway, this doesn't cause
+  // problems.
+  return axis_aligned_side_helper (smob, X_AXIS, true, 0, 0, current_off);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side, 2, 1, "");
@@ -395,25 +148,224 @@ Side_position_interface::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "side-support-elements", elts);
+// Commented out because of cross staff issues
+// Direction for cross staff stems depends on the spacing of staves,
+// which depends on the inclusion of cross-staff side position grobs,
+// which need the direction for positioning.  So the get_grob_direction call
+// may lead to circular dependencies.
+// #if 0
+  Direction my_dir = get_grob_direction (me) ;
 
+  // if a cross-staff grob is pointing in a different direction than
+  // that of an aligning element, we assume that the alignment
+  // of said element will not be influenced the cross-staffitude
+  // of the grob and thus we do not mark the aligning element
+  // as cross-staff
+  for (vsize i = 0; i < elts.size (); i++)
+    if (to_boolean (elts[i]->get_property ("cross-staff"))
+         && my_dir == get_grob_direction (elts[i]))
+      return SCM_BOOL_T;
+//#endif
+#if 0
   for (vsize i = 0; i < elts.size (); i++)
     if (to_boolean (elts[i]->get_property ("cross-staff")))
       return SCM_BOOL_T;
+#endif
+  Grob *myvag = Grob::get_vertical_axis_group (me);
+  for (vsize i = 0; i < elts.size (); i++)
+    if (myvag != Grob::get_vertical_axis_group (elts[i]))
+      return SCM_BOOL_T;
 
-  Grob *common = common_refpoint_of_array (elts, me->get_parent (Y_AXIS), Y_AXIS);
-  return scm_from_bool (common != me->get_parent (Y_AXIS));
+  return SCM_BOOL_F;
 }
+
+// long function - each stage is clearly marked
 
 SCM
 Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end,
                                        Real *current_off)
-{
+{//printf (" %s\n", me->name ().c_str ());
   Direction dir = get_grob_direction (me);
-  bool skyline = to_boolean (me->get_property ("use-skylines"));
 
-  Real o = scm_to_double (skyline && !pure
-                          ? skyline_side_position (me, a, pure, start, end, current_off)
-                          : general_side_position (me, a, true, true, pure, start, end, current_off));
+  set<Grob *> support = get_support_set (me);
+
+  Grob *common[2];
+  for (Axis ax = X_AXIS; ax < NO_AXES; incr (ax))
+    common[ax] = common_refpoint_of_array (support,
+                                           (ax == a
+                                           ? me->get_parent (ax)
+                                           : me),
+                                           ax);
+
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
+
+  bool include_staff
+    = staff_symbol
+      && a == Y_AXIS
+      && scm_is_number (me->get_property ("staff-padding"))
+      && !to_boolean (me->get_property ("quantize-position"));
+
+  if (include_staff)
+    common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
+
+  Skyline my_dim;
+  Skyline_pair *skyp = Skyline_pair::unsmob (
+                         me->get_maybe_pure_property (a == X_AXIS
+                                                      ? "horizontal-skylines"
+                                                      : "vertical-skylines",
+                                                      pure,
+                                                      start,
+                                                      end));
+  if (skyp)
+    {
+      // for spanner pure heights, we don't know horizontal spacing,
+      // so a spanner can never have a meaningful x coordiante
+      // we just give it the parents' coordinate because its
+      // skyline will likely be of infinite width anyway
+      // and we don't want to prematurely trigger H spacing
+      Real xc = a == X_AXIS || (pure && dynamic_cast<Spanner *> (me))
+                ? me->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)
+                : me->relative_coordinate (common[X_AXIS], X_AXIS);
+      // same here, for X_AXIS spacing, if it's happening, it should only be
+      // before line breaking.  because there is no thing as "pure" x spacing,
+      // we assume that it is all pure
+      Real yc = a == X_AXIS
+                ? me->pure_relative_y_coordinate (common[Y_AXIS], start, end)
+                : me->get_parent (Y_AXIS)->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
+      Skyline_pair copy = Skyline_pair (*skyp);
+      copy.shift (a == X_AXIS ? yc : xc);
+      copy.raise (a == X_AXIS ? xc : yc);
+      my_dim = copy[-dir];
+    }
+  else
+    me->warning ("cannot find skylines - strange alignment will follow");
+
+
+  vector<Box> boxes;
+  vector<Skyline_pair> skyps;
+  set<Grob *>::iterator it;
+  Real max_raise = -dir * infinity_f;
+  bool aligns_to_cross_staff = false;
+
+  for (it = support.begin (); it != support.end (); it++)
+    {
+      Grob *e = *it;
+//printf ("    %s\n", e->name ().c_str ());
+      // In the case of a stem, we will find a note head as well
+      // ignoring the stem solves cyclic dependencies if the stem is
+      // attached to a cross-staff beam.
+      if (a == Y_AXIS
+          && Stem::has_interface (e)
+          && dir == - get_grob_direction (e))
+        continue;
+
+      if (e)
+        {
+
+           bool cross_staff = to_boolean (e->get_property ("cross-staff"));
+
+           Skyline_pair *sp = Skyline_pair::unsmob
+             (e->get_maybe_pure_property (a == X_AXIS
+                                          ? "horizontal-skylines"
+                                          : "vertical-skylines",
+                                          pure || cross_staff,
+                                          start,
+                                          end));
+
+           aligns_to_cross_staff |= cross_staff;
+           if (sp)
+             {
+               Real xc = pure && dynamic_cast<Spanner *> (e)
+                         ? e->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)
+                         : e->relative_coordinate (common[X_AXIS], X_AXIS);
+               // same logic as above
+               // we assume horizontal spacing is always pure
+               Real yc = a == X_AXIS
+                         ? e->pure_relative_y_coordinate (common[Y_AXIS], start, end)
+                         : e->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
+               Skyline_pair copy = Skyline_pair (*sp);
+               if (a == Y_AXIS
+                   && Stem::has_interface (e)
+                   && to_boolean (me->get_property ("add-stem-support")))
+                 copy[dir].set_minimum_height (copy[dir].max_height ());
+               copy.shift (a == X_AXIS ? yc : xc);
+               copy.raise (a == X_AXIS ? xc : yc);
+               max_raise = minmax (dir, max_raise, a == X_AXIS ? xc : yc);
+               skyps.push_back (copy);
+             }
+           else { /* no warning*/ }
+        }
+    }
+
+  Skyline dim (boxes, other_axis (a), dir);
+  if (skyps.size ())
+    {
+      Skyline_pair merged (skyps);
+      dim.merge (merged[dir]);
+    }
+
+  if (include_staff)
+    {
+      Interval staff_extents;
+      common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
+      staff_extents = staff_symbol->maybe_pure_extent (common[Y_AXIS], Y_AXIS, pure, start, end);
+      dim.set_minimum_height (staff_extents[dir]);
+    }
+
+  // this seems kinda kludgy, as there is no apparent logic to it
+  // however, it is a holdover from the previous code and
+  // necessary for the InstrumentName grob
+  // TODO: find a better way to deal with this...
+  if (dim.is_empty ())
+    {
+      dim = Skyline (dim.direction ());
+      dim.set_minimum_height (0.0);
+    }
+
+  // Ditto - seems kludgy, but this time logic of SystemStartBrackets
+  if (my_dim.is_empty ())
+    {
+      my_dim = Skyline (my_dim.direction ());
+      my_dim.set_minimum_height (isinf (max_raise) ? 0.0 : max_raise);
+    }
+
+  // Many cross-staff grobs do not have good height estimations.
+  // We give the grob the best chance of not colliding by shifting
+  // it to the maximum height in the case of cross-staff alignment.
+  // This means, in other words, that the old way things were done
+  // (using boxes instead of skylines) is just reactivated for
+  // alignment to cross-staff grobs.
+  if (aligns_to_cross_staff)
+    dim.set_minimum_height (dim.max_height ());
+
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real dist = dim.distance (my_dim, robust_scm2double (me->get_property ("horizon-padding"), 0.0));
+  Real total_off = !isinf (dist) ? dir * dist : 0.0;
+
+  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0.0);
+
+  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
+
+  if (minimum_space >= 0
+      && dir
+      && total_off * dir < minimum_space)
+    total_off = minimum_space * dir;
+
+  if (current_off)
+    total_off = dir * max (dir * total_off,
+                           dir * (*current_off));
+
+  /* FIXME: 1000 should relate to paper size.  */
+  if (fabs (total_off) > 1000)
+    {
+      string msg
+        = String_convert::form_string ("Improbable offset for grob %s: %f",
+                                       me->name ().c_str (), total_off);
+
+      programming_error (msg);
+      if (strict_infinity_checking)
+        scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
+    }
 
   /*
     Maintain a minimum distance to the staff. This is similar to side
@@ -429,7 +381,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Real my_off = me->get_parent (Y_AXIS)->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Real staff_off = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Real ss = Staff_symbol::staff_space (staff);
-          Real position = 2 * (my_off + o - staff_off) / ss;
+          Real position = 2 * (my_off + total_off - staff_off) / ss;
           Real rounded = directed_round (position, dir);
           Grob *head = me->get_parent (X_AXIS);
 
@@ -441,9 +393,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
                   && abs (Staff_symbol_referencer::get_position (head)) > abs (position)))
             {
-              o += (rounded - position) * 0.5 * ss;
+              total_off += (rounded - position) * 0.5 * ss;
               if (Staff_symbol_referencer::on_line (me, int (rounded)))
-                o += dir * 0.5 * ss;
+                total_off += dir * 0.5 * ss;
             }
         }
       else if (scm_is_number (me->get_property ("staff-padding")) && dir)
@@ -460,12 +412,12 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Real staff_position = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Interval staff_extent = staff->maybe_pure_extent (staff, a, pure, start, end);
           Real diff = (dir * staff_extent[dir] + staff_padding
-                       - dir * (o + iv[-dir])
+                       - dir * (total_off + iv[-dir])
                        + dir * (staff_position - parent_position));
-          o += dir * max (diff, 0.0);
+          total_off += dir * max (diff, 0.0);
         }
     }
-  return scm_from_double (o);
+  return scm_from_double (total_off);
 }
 
 void
@@ -552,6 +504,7 @@ ADD_INTERFACE (Side_position_interface,
                "add-stem-support "
                "direction "
                "minimum-space "
+               "horizon-padding "
                "padding "
                "quantize-position "
                "side-axis "

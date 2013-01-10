@@ -19,6 +19,7 @@
 
 #include "grob.hh"
 #include "fingering-column.hh"
+#include "box-quarantine.hh"
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
@@ -26,18 +27,36 @@
 
 #include <map>
 
+// The sorting algorithm may not preserve the order of the
+// original fingerings. We use Fingering_position_info to retain
+// this order.
+
+struct Fingering_position_info {
+  Box box_;
+  vsize idx_;
+  Fingering_position_info (Box, vsize);
+};
+
+Fingering_position_info::Fingering_position_info (Box box, vsize idx)
+  : box_ (box), idx_ (idx)
+{
+}
+
+bool
+fingering_position_less (Fingering_position_info fpi0, Fingering_position_info fpi1)
+{
+  return Interval::left_less (fpi0.box_[Y_AXIS], fpi1.box_[Y_AXIS]);
+}
+
 MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done, 1);
 SCM
 Fingering_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
   if (!me->is_live ())
     return SCM_BOOL_T;
 
   map<Grob *, bool> shifted;
-
-  Real ss = Staff_symbol_referencer::staff_space (me);
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
@@ -49,63 +68,39 @@ Fingering_column::calc_positioning_done (SCM smob)
       return SCM_BOOL_T;
     }
 
-  // order the fingerings from bottom to top
   vector<Grob *> fingerings;
   for (vsize i = 0; i < const_fingerings.size (); i++)
     fingerings.push_back (const_fingerings[i]);
 
-  vector_sort (fingerings, pure_position_less);
 
   Grob *common[2] = {common_refpoint_of_array (fingerings, me, X_AXIS),
                      common_refpoint_of_array (fingerings, me, Y_AXIS)};
 
+  Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
+  Box_quarantine bq (padding, Y_AXIS);
+  vector<Fingering_position_info> origs;
   for (vsize i = 0; i < fingerings.size (); i++)
-    fingerings[i]->translate_axis (-fingerings[i]->extent (common[Y_AXIS], Y_AXIS).length () / 2, Y_AXIS);
+    {
+      Interval x_ext = fingerings[i]->extent (common[X_AXIS], X_AXIS);
+      // center on Y parent
+      fingerings[i]->translate_axis (-fingerings[i]->extent (fingerings[i], Y_AXIS).length () / 2.0, Y_AXIS);
+      Interval y_ext = fingerings[i]->extent (fingerings[i], Y_AXIS)
+                       + fingerings[i]->get_parent (Y_AXIS)
+                         ->relative_coordinate (common[Y_AXIS], Y_AXIS);
+      origs.push_back(Fingering_position_info (Box (x_ext, y_ext), i));
+    }
 
-  for (vsize i = min (fingerings.size () - 1, fingerings.size () / 2 + 1); i >= 1; i--)
-    for (vsize j = i; j--;)
-      {
-        Interval ex_i = fingerings[i]->extent (common[X_AXIS], X_AXIS);
-        Interval ex_j = fingerings[j]->extent (common[X_AXIS], X_AXIS);
-        Interval ey_i = fingerings[i]->extent (common[Y_AXIS], Y_AXIS);
-        Interval ey_j = fingerings[j]->extent (common[Y_AXIS], Y_AXIS);
-        Real tval = min (0.0, (ey_i[DOWN] - ey_j[UP] - padding) / 2);
-        if (tval != 0.0 && !intersection (ex_i, ex_j).is_empty ())
-          {
-            if (shifted[fingerings[i]] || shifted[fingerings[j]])
-              fingerings[j]->translate_axis (tval * 2, Y_AXIS);
-            else
-              {
-                fingerings[i]->translate_axis (-tval, Y_AXIS);
-                fingerings[j]->translate_axis (tval, Y_AXIS);
-              }
-            shifted[fingerings[i]] = true;
-            shifted[fingerings[j]] = true;
-          }
-      }
+  // order the fingerings from bottom to top
+  vector_sort (origs, fingering_position_less);
 
-  for (vsize i = fingerings.size () / 2 - 1; i < fingerings.size () - 1; i++)
-    for (vsize j = i + 1; j < fingerings.size (); j++)
-      {
-        Interval ex_i = fingerings[i]->extent (common[X_AXIS], X_AXIS);
-        Interval ex_j = fingerings[j]->extent (common[X_AXIS], X_AXIS);
-        Interval ey_i = fingerings[i]->extent (common[Y_AXIS], Y_AXIS);
-        Interval ey_j = fingerings[j]->extent (common[Y_AXIS], Y_AXIS);
-        Real tval = max (0.0, (ey_i[UP] - ey_j[DOWN] + padding) / 2);
-        if (tval != 0.0 && !intersection (ex_i, ex_j).is_empty ())
-          {
-            if (shifted[fingerings[i]] || shifted[fingerings[j]])
-              fingerings[j]->translate_axis (tval * 2, Y_AXIS);
-            else
-              {
-                fingerings[i]->translate_axis (-tval, Y_AXIS);
-                fingerings[j]->translate_axis (tval, Y_AXIS);
-              }
-            shifted[fingerings[i]] = true;
-            shifted[fingerings[j]] = true;
-          }
-      }
+  for (vsize i = 0; i < origs.size (); i++)
+    bq.add_box_to_quarantine (Box (origs[i].box_));
 
+  bq.solve ();
+  vector<Box> news (bq.quarantined_boxes ());
+
+  for (vsize i = 0; i < origs.size (); i++)
+    fingerings[origs[i].idx_]->translate_axis (news[i][Y_AXIS][DOWN] - origs[i].box_[Y_AXIS][DOWN], Y_AXIS);
 
   return SCM_BOOL_T;
 }

@@ -115,6 +115,21 @@ Multi_measure_rest::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, 1);
+SCM
+Multi_measure_rest::height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Spanner *sp = dynamic_cast<Spanner *> (me);
+
+  Real space = 1000000; // something very large...
+
+  Stencil mol;
+  mol.add_stencil (symbol_stencil (me, space));
+
+  return ly_interval2scm (mol.extent (Y_AXIS));
+}
+
 int
 calc_closest_duration_log (Grob *me, double duration, bool force_round_up, bool paranoid)
 {

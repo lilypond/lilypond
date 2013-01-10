@@ -128,6 +128,8 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
       if (!e->get_parent (X_AXIS)
           && Side_position_interface::get_axis (e) == Y_AXIS)
         e->set_parent (inf.grob (), X_AXIS);
+
+      Side_position_interface::add_support (e, inf.grob ());
     }
 }
 

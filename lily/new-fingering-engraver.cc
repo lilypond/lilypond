@@ -194,7 +194,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
                                           vector<Finger_tuple> *scripts)
 {
   for (vsize i = 0; i < scripts->size (); i++)
-    if (stem_ && to_boolean (scripts->at (i).script_->get_property ("add-stem-support")))
+    if (stem_)
       {
         Side_position_interface::add_support (scripts->at (i).script_, stem_);
         if (Grob *flag = unsmob_grob (stem_->get_object ("flag")))

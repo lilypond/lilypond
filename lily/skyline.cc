@@ -213,6 +213,7 @@ Skyline::normalize ()
 {
   bool last_empty = false;
   list<Building>::iterator i;
+
   for (i = buildings_.begin (); i != buildings_.end (); i++)
     {
       if (last_empty && i->y_intercept_ == -infinity_f)
@@ -330,11 +331,13 @@ single_skyline (Building b, list<Building> *const ret)
 {
   if (b.end_ > b.start_ + EPS)
     {
-      ret->push_back (Building (-infinity_f, -infinity_f,
-                                -infinity_f, b.start_));
+      if (b.start_ != -infinity_f)
+        ret->push_back (Building (-infinity_f, -infinity_f,
+                                  -infinity_f, b.start_));
       ret->push_back (b);
-      ret->push_back (Building (b.end_, -infinity_f,
-                                -infinity_f, infinity_f));
+      if (b.end_ != infinity_f)
+        ret->push_back (Building (b.end_, -infinity_f,
+                                  -infinity_f, infinity_f));
     }
   else
     {
@@ -553,6 +556,7 @@ Skyline::Skyline (Box const &b, Axis horizon_axis, Direction sky)
   sky_ = sky;
   Building front (b, horizon_axis, sky);
   single_skyline (front, &buildings_);
+  normalize ();
 }
 
 void
@@ -764,6 +768,12 @@ Skyline::max_height () const
     }
 
   return sky_ * ret;
+}
+
+Direction
+Skyline::direction () const
+{
+  return sky_;
 }
 
 Real

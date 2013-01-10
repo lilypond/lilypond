@@ -28,6 +28,7 @@ class Multi_measure_rest
 public:
   DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static void add_column (Grob *, Item *);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));

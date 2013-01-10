@@ -156,7 +156,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
                 use it as a support for the current grob
               */
               if (!scm_is_number (last_outside_staff))
-                Side_position_interface::add_support (g, last);
+                Side_position_interface::recursive_add_support (g, last);
               /*
                 if outside_staff_priority is missing or is equal to original
                 outside_staff_priority of previous grob, set new

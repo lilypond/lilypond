@@ -1,8 +1,9 @@
-\version "2.17.6"
+\version "2.17.10"
 
 \header {
   texidoc = "Horizontal @code{Fingering} grobs that collide do not intersect.
-Non-intersecting @code{Fingering} grobs are left alone.
+Non-intersecting @code{Fingering} grobs are left alone. This is managed
+by the @code{FingeringColumn} grob.
 "
 }
 

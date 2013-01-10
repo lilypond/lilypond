@@ -51,6 +51,13 @@ Box::set_empty ()
   interval_a_[Y_AXIS].set_empty ();
 }
 
+bool
+Box::is_empty () const
+{
+  return interval_a_[X_AXIS].is_empty ()
+         || interval_a_[Y_AXIS].is_empty ();
+}
+
 Box::Box (Interval ix, Interval iy)
 {
   x () = ix;
@@ -95,6 +102,13 @@ Box::widen (Real x, Real y)
 {
   interval_a_[X_AXIS].widen (x);
   interval_a_[Y_AXIS].widen (y);
+}
+
+void
+Box::intersect (Box b)
+{
+  interval_a_[X_AXIS].intersect (b[X_AXIS]);
+  interval_a_[Y_AXIS].intersect (b[Y_AXIS]);
 }
 
 // for debugging

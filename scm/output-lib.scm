@@ -51,6 +51,14 @@
      ((ly:grob? cause) (event-cause cause))
      (else #f))))
 
+(define-public (non-event-cause grob)
+  (let ((cause (ly:grob-property  grob 'cause)))
+
+    (cond
+     ((ly:stream-event? cause) (non-event-cause cause))
+     ((ly:grob? cause) cause)
+     (else #f))))
+
 (define-public (grob-interpret-markup grob text)
   (let* ((layout (ly:grob-layout grob))
 	 (defs (ly:output-def-lookup layout 'text-font-defaults))
@@ -183,6 +191,17 @@
    (ly:script-interface::calc-cross-staff g)
    (ly:side-position-interface::calc-cross-staff g)))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; side-position stuff
+
+(define-public (only-if-beamed g)
+  (reduce lily-or
+          #f
+          (map (lambda (x)
+                 (ly:grob? (ly:grob-object x 'beam)))
+               (ly:grob-array->list (ly:grob-object g
+                                                    'side-support-elements)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
@@ -925,6 +944,9 @@ between the two text elements."
 
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
+
+(define-public ((grob::calc-property-by-non-event-cause prop) grob)
+  (ly:grob-property (non-event-cause grob) prop))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
