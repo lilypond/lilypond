@@ -226,16 +226,10 @@ BOM_UTF8	\357\273\277
   "%{"	{
 	yy_push_state (longcomment);
   }
-  %[^{\n\r][^\n\r]*[\n\r]	{
+  %[^{\n\r][^\n\r]*[\n\r]?	{
 	  (void) YYText_utf8 ();
   }
-  %[^{\n\r]	{ // backup rule
-	  (void) YYText_utf8 ();
-  }
-  %[\n\r]	{
-  }
-  %[^{\n\r][^\n\r]*	{
-	  (void) YYText_utf8 ();
+  %[\n\r]?	{
   }
   {WHITE}+ 	{
 
