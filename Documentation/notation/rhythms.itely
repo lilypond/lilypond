@@ -3511,19 +3511,19 @@ error will be generated.  Either make the grace notes shorter in
 duration, for example:
 
 @example
-\acciaccatura @{ c'8[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
 becomes:
 
 @example
-\acciaccatura @{ c'16[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
 Or explicitly change the musical duration:
 
 @example
-\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
+c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 See @ref{Scaling durations}.
