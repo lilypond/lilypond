@@ -30,8 +30,8 @@ maneras.
 @section Apuntar y pulsar
 @translationof Point and click
 
-Point and click adds links to pdf documents for certain music
-elements.
+La característica @q{Point and click} (apuntar y pulsar) añade
+enlaces a los documentos PDF para ciertos elementos musicales.
 
 @menu
 * Habilitar la opción de apuntar y pulsar::

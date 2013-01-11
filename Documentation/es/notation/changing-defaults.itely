@@ -2463,11 +2463,12 @@ Se activa con la instrucción @code{\figuremode} y hace que el código
 de entrada se interprete con la sintaxis del bajo cifrado, véase
 @ref{Introducir el bajo cifrado}.
 
-El modo de cifrase también se activa con la instrucción
-@code{\figures}.  También crea un contexto de @code{FiguredBass} nuevo
-y hace que el código que viene a continuación se interprete con la
-sintaxis del bajo cifrado y se imprima como símbolos de bajo cifrado
-dentro del contexto @code{FiguredBass}, véase @ref{Introducción al bajo cifrado}.
+El modo de cifras también se activa con la instrucción
+@code{\figures}.  También crea un contexto de @code{FiguredBass}
+nuevo y hace que el código que viene a continuación se interprete
+con la sintaxis del bajo cifrado y se imprima como símbolos de
+bajo cifrado dentro del contexto @code{FiguredBass}, véase
+@ref{Introducción al bajo cifrado}.
 
 @strong{Modos de traste y tablatura}
 
