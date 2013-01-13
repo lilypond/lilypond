@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -398,6 +398,15 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
+
+@knownissues
+Le calcul de la position au sein d'une mesure doit prendre en
+considération tous les facteurs d'échelonnement appliqués aux
+notes de cette mesure ainsi que tous les reliquats des mesures
+précédentes.  Ce calcul utilise des nombres rationnels.  Dès lors
+qu'un calcul recontrera un numérateur ou dénominateur
+intermédiaire d'une valeur supérieure à 2^30, LilyPond s'arrêtera
+à ce point précis sans pour autant signaler d'erreur.
 
 
 @node Liaisons de prolongation

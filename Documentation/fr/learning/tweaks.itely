@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -309,7 +309,7 @@ couleur des deux dernières notes à leur valeur par défaut :
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 c4 d
 \override NoteHead.color = #red
 e4 f |
@@ -348,6 +348,24 @@ g4 a
 \revert NoteHead.color
 b c |
 @end lilypond
+
+Le préfixe @code{\once} peut s'utiliser avec de nombreuses
+commandes prédéfinies pour en limiter les effets à un seul instant
+musical :
+
+@lilypond[quote,verbatim,relative=1]
+c4 d
+\once \stemDown
+e4 f |
+g4 a
+\once \hideNotes
+b c |
+@end lilypond
+
+Les commandes prédéfinies de la forme @code{\...Neutral},
+@code{\...Off} et @code{\un...} font appel, en interne, à une
+instruction @code{\revert} plutôt que @code{\override} ; les
+préfixer d'un @code{\once} est donc sans effet.
 
 
 @node La commande \overrideProperty
@@ -2382,10 +2400,9 @@ c2^"Text4" |
 @end lilypond
 
 La commande qui permet de revenir au comportement par défaut est
-@code{\textLengthOff}.  Rappelez-vous que @code{\once} ne
-fonctionne qu'avec @code{\override}, @code{\set}, @code{\revert} ou
-@code{\unset}, et donc ne peut pas être utilisé avec
-@code{\textLengthOn}.
+@code{\textLengthOff}.  Alternativement, lorsque l'instruction
+@code{\textLengthOn} se limite à un seul instant musical, vous
+pouvez la préfixer d'un @code{\once}.
 
 @cindex étiquette de texte et collision
 

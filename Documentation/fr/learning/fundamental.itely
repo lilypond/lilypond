@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b93dbb4dd2fe708d0360f190cb4d06fa29bcae53
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1596,7 +1596,7 @@ référer à ce contexte particulier.
 
 @seealso
 Manuel de notation :
-@ruser{Création d'un contexte}.
+@ruser{Création et référencement d'un contexte}.
 
 
 @node Tout savoir sur les graveurs

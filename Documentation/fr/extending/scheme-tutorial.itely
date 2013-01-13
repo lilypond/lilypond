@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d1eb959d5c774b5b81bf74436350efa5976498af
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1480,8 +1480,7 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @translationof Adding articulation to notes (example)
 
 Le moyen d'ajouter une articulation à des notes consiste à fusionner
-deux expressions musicales en un même contexte, comme nous l'avons vu à
-la rubrique @ruser{Création d'un contexte}.  L'option de réaliser
+deux expressions musicales en un même contexte.  L'option de réaliser
 nous-mêmes une fonction musicale à cette fin nous offre l'avantage de
 pouvoir alors ajouter une articulation, telle qu'une instruction de
 doigté, individuellement à l'une des notes d'un accord, ce qui est

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1569,8 +1569,10 @@ Morceaux choisis :
 Vous pouvez tout à fait préférer un autre jeu de polices par défaut que
 celui de LilyPond.  Il vous faudra alors spécifier les différentes
 familles, en respectant l'ordre @emph{roman}, @emph{sans empattement} et
-@emph{monospace}, comme dans l'exemple suivant.  Pour plus
-d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
+@emph{monospace}, comme dans l'exemple suivant ; ces fontes seront
+automatiquement mises à l'échelle de la taille globale des
+portées.  Pour plus d'explications sur les fontes, relisez
+@ref{Tout savoir sur les fontes}.
 
 @cindex polices, choix par défaut
 @cindex fontes, choix par défaut
@@ -1579,12 +1581,11 @@ d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 
 @lilypond[verbatim,quote]
 \paper  {
-  myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ myStaffSize 20)))
+                           (/ (* staff-height pt) 2)))
 }
 
 \relative c'{

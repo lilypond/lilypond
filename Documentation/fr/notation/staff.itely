@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -78,7 +78,7 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 Les @notation{portées} -- en anglais @emph{staff} (@emph{staves}
 au pluriel) -- sont créées à l'aide des commandes @code{\new} ou
 @code{\context}.  Pour de plus amples détails, consultez
-@ref{Création d'un contexte}.
+@ref{Création et référencement d'un contexte}.
 
 Le contexte de portée standard s'appelle @code{Staff} :
 
@@ -138,7 +138,7 @@ Glossaire musicologique :
 @rglosnamed{staves,portées}.
 
 Manuel de notation :
-@ref{Création d'un contexte},
+@ref{Création et référencement d'un contexte},
 @ref{Portées de percussion},
 @ref{Gravure de lignes rythmiques},
 @ref{Tablatures par défaut},

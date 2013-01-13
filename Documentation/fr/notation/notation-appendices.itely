@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 11ed968a1245413a224674d833c32b9765a5b28f
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1201,7 +1201,7 @@ Voici les différents styles de tête de note disponibles.
 
 
 @node Commandes pour markup
-@appendixsec Commandes pour markup
+@appendixsec Commandes pour @emph{markup}
 @translationof Text markup commands
 
 Les commandes suivantes peuvent être utilisées dans un bloc
@@ -1211,7 +1211,7 @@ Les commandes suivantes peuvent être utilisées dans un bloc
 
 
 @node Commandes pour liste de markups
-@appendixsec Commandes pour liste de markups
+@appendixsec Commandes pour liste de @emph{markups}
 @translationof Text markup list commands
 
 Les commandes suivantes peuvent être utilisées dans un
