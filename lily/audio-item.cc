@@ -67,6 +67,25 @@ Audio_note::tie_to (Audio_note *t, Moment skip)
   length_mom_ = 0;
 }
 
+string
+Audio_note::to_string () const
+{
+  string s = "#<Audio_note pitch ";
+  s += pitch_.to_string();
+  s += " len ";
+  s += length_mom_.to_string();
+  if (tied_)
+    {
+      s += " tied to " + tied_->to_string();
+    }
+  if (tie_event_)
+    {
+      s += " tie_event";
+    }
+  s += ">";
+  return s;
+}
+
 Audio_key::Audio_key (int acc, bool major)
 {
   accidentals_ = acc;
