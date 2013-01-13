@@ -58,13 +58,20 @@ void
 Audio_note::tie_to (Audio_note *t, Moment skip)
 {
   tied_ = t;
-  Audio_note *first = t;
-  while (first->tied_)
-    first = first->tied_;
+  Audio_note *first = tie_head();
   // Add the skip to the tied note and the length of the appended note
   // to the full duration of the tie...
   first->length_mom_ += skip + length_mom_;
   length_mom_ = 0;
+}
+
+Audio_note *
+Audio_note::tie_head ()
+{
+  Audio_note *first = this;
+  while (first->tied_)
+    first = first->tied_;
+  return first;
 }
 
 string
