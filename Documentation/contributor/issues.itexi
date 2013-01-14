@@ -830,10 +830,117 @@ separate person handling this task.}
 For contributors/developers: follow the steps in
 @ref{Commits and patches}, and @ref{Pushing to staging}.
 
+@ignore
 For people doing maintenance tasks: git-cl is adding issues, James
 is testing them, Colin is selecting them for countdowns, and
 Patchy is merging from staging to master.  In the coming weeks,
 these tasks will be more and more automated.
+@end ignore
+
+@subheading Patch cycle
+
+@itemize
+
+@item
+Patches get added to the tracker and to Rietveld by the @qq{git-cl} tool, with
+a status of @qq{patch-new}.
+
+@item
+The automated tester, Patchy, verifies that the patch can be applied
+to current master.  By default, it checks that the patch allows @code{make}
+and @code{make test} to complete successfully.  It can also be configured to
+check that @code{make doc} is successful. If it passes, Patchy changes the
+status to @qq{patch-review} and emails the developer list.  If the patch
+fails, Patchy sets it to @qq{patch-needs_work} and notifies the developer list.
+
+@item
+The Patch Handler reviews the tracker periodically, to list patches
+which have been on review for at least 24 hours. The list is found at
+
+@smallexample
+@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch%20patch=review&sort=modified+patch&colspec=ID%20Type%20Status%20Priority%20Owner%20Patch%20Summary%20Modified}
+@end smallexample
+
+@item
+For each patch, the Handler reviews any discussion on the tracker
+and on Rietveld, to determine whether the patch can go forward.  If
+there is any indication that a developer thinks the patch is not
+ready, the Handler marks it @qq{patch-needs_work} and makes a comment
+regarding the reason, referring to the Rietveld item if needed.
+
+@item
+Patches with explicit approval, or at least no negative comment, can
+be updated to @qq{patch-countdown}.  When saving the tracker item,
+clear the @qq{send email} box to prevent sending notification for
+each patch.
+
+@item
+The Patch Handler sends an email to the developer list, with a fixed
+subject line, to enable filtering by email clients:
+
+@example
+PATCH: Countdown to 20130113
+@end example
+
+The text of the email sets the deadline for this countdown batch.  At
+present, batches are done on Tuesday, Thursday and Sunday evenings.
+
+The body of the email lists the patches grouped by patch type, and for
+each patch, shows the tracker issue number and title, with a link to
+the Rietveld item.  Copying the information from the website and pasting
+into the email gives a hyperlinked version of the information.
+
+@smallexample
+
+For 20:00 MST Tuesday January 8:
+
+Crash:
+    Issue 2990: \RemoveEmptyStaves in StaffGroup context crashes - R 7069044
+
+Defect:
+    Issue 677: \score markup confuses paper settings - R 7028045
+    Issue 3050: displayLilyMusic produced erroneous code for rightHandFinger arguments - R 7032045
+
+Documentation:
+    Issue 2952: Upgrade documentation of \once - R 7031053
+    Issue 3044: Dual license the files under mf/ using OFL. - R 6970046
+    Issue 3084: [DOC]Add "Known issue" in NR 1.2.1 about Scaling durations with rational numbers - R 7071044
+
+Enhancement:
+    Issue 3061: make \articulate handle colon-type tremolos - R 7033045
+    Issue 3082: Patch: Let ChordNameVoice use the same performers as Voice - R 7054043
+    Issue 3083: Patch: Chord change detection in fretboards should depend on placements, not notes - R 7062043
+    Issue 2983: assertion failed with \glissando - R 6625078
+
+
+Cheers,
+Colin
+
+@end smallexample
+
+@item
+On the scheduled countdown day, the Patch Handler reviews the
+previous list of patches on countdown, with the same procedure and
+criteria as before.  Patches with no controversy can be set to
+@qq{patch-push} with a courtesy message added to the comment block.
+
+@item
+Roughly at six month intervals, the Patch Handler can list the
+patches which have been set to @qq{patch-needs-work} and send the
+results to the developer list for review.  In most cases, these
+patches should be marked @qq{patch-abandoned} but this should come
+from the developer if possible.
+
+@item
+As in most organisations of unpaid volunteers, fixed procedures are
+useful in as much as they get the job done.  In our community, there
+is room for senior developers to bypass normal patch handling flows,
+particularly now that the testing of patches is largely automated.
+Similarly, the minimum age of 24 hours can reasonably be waived if
+the patch is minor and from an experienced developer.
+
+
+@end itemize
 
 @ignore
 There is a single Patch Meister, and a number of Patch Helpers
