@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d47930b56be83c6433a577cb574daee43aa96a84
+    Translation of GIT committish: 8f3dfc850e8e16723c4d9d00c848b5393dc16330
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -626,6 +626,20 @@ moltoF = #(make-dynamic-script
 }
 @end lilypond
 
+Para alinear el texto del matiz dinámico a la izquierda en lugar
+de centrarlo sobre una nota, utilice un @code{\tweak}:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
 Los ajustes para las fuentes tipográficas en el modo de marcado se
 describen en @ref{Seleccionar la tipografía y su tamaño}.
 
@@ -992,7 +1006,13 @@ detalles, consulte @ref{Divisiones}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {changing-the-breath-mark-symbol.ly}
 
+@cindex marca de pulso
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-a-tick-as-the-breath-mark-symbol.ly}
+
 @cindex caesura
+@cindex cesura
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {inserting-a-caesura.ly}
@@ -1138,6 +1158,9 @@ consulte @ref{Estilos de línea}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
 
 @seealso
 Glosario musical:

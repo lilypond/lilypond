@@ -64,7 +64,7 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 
 @menu
 * Explicación de los contextos::
-* Crear contextos::
+* Crear y referenciar contextos::
 * Mantener vivos los contextos::
 * Modificar los complementos (plug-ins) de contexto::
 * Cambiar los valores por omisión de los contextos::
@@ -239,9 +239,9 @@ Normalmente se deja que se cree implícitamente.
 Tipografía nombres de acordes.
 
 
-@node Crear contextos
-@subsection Crear contextos
-@translationof Creating contexts
+@node Crear y referenciar contextos
+@subsection Crear y referenciar contextos
+@translationof Creating and referencing contexts
 
 @c TODO more complete descriptions rather than learning style
 

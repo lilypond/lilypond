@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1620,7 +1620,7 @@ Hemos visto esto en la sección acerca de la letra, en @ref{Voces y música voca
 
 @seealso
 Referencia de la notación:
-@ruser{Crear contextos}.
+@ruser{Crear y referenciar contextos}.
 
 
 @node Explicación de los grabadores

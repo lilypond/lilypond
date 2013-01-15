@@ -385,9 +385,6 @@ ties = \relative c' {
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
-@cindex deslizamientos en notación de tablatura
-@cindex tablatura y deslizamientos
-@cindex glissandos de acordes
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -472,8 +469,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
+@cindex deslizamientos en notación de tablatura
+@cindex tablatura y deslizamientos
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
+
+@cindex glissandos en acordes
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
@@ -1046,7 +1048,7 @@ bajo del diagrama de posición.
         (place-fret 1 3 3)
       )
     }
-    <c e g c' e'>1^\markup {
+    <c g c' e' g'>1^\markup {
       \fret-diagram-verbose #'(
         (capo 3)
         (mute 6)

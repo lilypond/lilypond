@@ -71,7 +71,7 @@ y grupos de ellos.
 
 Las @notation{pautas} y los @notation{pentagramas} o pautas de cinco
 líneas se crean con las instrucciones @code{\new} o @code{\context}.
-Para ver más detalles, consulte @ref{Crear contextos}.
+Para ver más detalles, consulte @ref{Crear y referenciar contextos}.
 
 El contexto básico de pentagrama es @code{Staff}:
 
@@ -127,7 +127,7 @@ Glosario musical:
 @rglos{staves}.
 
 Referencia de la notación:
-@ref{Crear contextos},
+@ref{Crear y referenciar contextos},
 @ref{Pautas de percusión},
 @ref{Mostrar los ritmos de la melodía},
 @ref{Tablaturas predeterminadas},
