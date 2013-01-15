@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 2936a7a6c5bca895dfd5725ab2422ad1c6b3ff11
+    Translation of GIT committish: aaaa4778b2147f4a67164f09c04fcd4b0fb313f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -526,6 +526,18 @@ actuaciones por todo el mundo.  Algunos titulares:
 @itemize
 
 @item
+Una edición crítuca de la serie de óperas @emph{Enea nel Lazio (1760)},
+de Tommaso Traetta, con libreto de
+Vittorio Amedeo Cigna-Santi, en cuatro partes:
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primera parte}
+@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Segunda parte}
+@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Tercera parte}
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Cuarta parte}
+Creada por
+@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+para su tesis de doctorado.
+
+@item
 Los @emph{Cuadros de una exposición} de Mussorgsky, reorquestados y
 dirigidos por @uref{http://www.aurelienbello.com/,Aurélien Bello} con
 la orquesta @uref{http://www.junge-philharmonie-brandenburg.de/, Junge
@@ -548,7 +560,7 @@ Pittsburgh New Music Ensemble}.
 @emph{Anonymous Student Compliment or Complaint}, de
 @uref{http://www.mikesolomon.org, Mike Solomon}, ganador de entre 172
 participantes procedentes de 22 países del
-@uref{http://leftcoastensemble.org/contest, concurso de composición
+@uref{http://leftcoastensemble.org, concurso de composición
 Left Coast de 2011}.  Entre otras obras están: Norman (age 1) para
 clarinete solo, interpretada en el festival de música electroacústica
 (FEMF) de la @uref{http://emu.music.ufl.edu/fems_concerts.html, Universidad
@@ -564,7 +576,7 @@ años del nacimiento del compositor.
 
 @item
 La interpretación de
-@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque} de
+@uref{http://www.mercurybaroque.org, Mercury Baroque} de
 @emph{Armide} de Lully, 15 y 16 de mayo de 2009, en Houston, Texas
 (tipografía de @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
@@ -572,7 +584,8 @@ La interpretación de
 Extractos instrumentales de @emph{Hippolyte et Aricie} de Rameau en la
 iglesia de St. James en Manhattan, el 8 de mayo de 2009, por Frederick
 Renz y su conjunto @uref{http://www.earlymusicny.org/, Early Music New
-York} (realización tipográfica de Nicolas Sceaux).
+York} (realización tipográfica de
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
 @item
 @emph{Affaire Étrangère}, ópera de
@@ -1097,6 +1110,22 @@ In particular, don't link to:
 
 @end ignore
 
+@divClass{column-center-top}
+@subheading Tunefl
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.tunefl.com}
+
+Con tunefl se pueden componer tipográficamente las partituras de
+forma directa en línea sin necesidad de instalar lilypond
+localmente.  Permite probar todas las capacidades del programa
+usando una interfaz web cómoda.
+
+@divEnd
 
 @divClass{column-center-top}
 @subheading LilyPondTool
@@ -1174,16 +1203,24 @@ el programa.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@uref{http://elysium.thsoft.hu}
+
+Elysium es un entorno integrado de desarrollo para Ecplipse, con
+una vista integrada frente a frente para la fuente y la partitura.
+Include realimentación visual rápida e intuitiva sin tener que
+alternar entre contextos, y trae muchas plantillas conducidas por
+asistentes.
+
 @uref{http://www.gnu.org/software/emacs/}
 
-Emacs es un editor de texto con funcionalidades avanzadas para muchos
-lenguajes de programación.  Emacs es un editor ampliamente expansible y
-se puede usar como un entorno integrado de desarrollo.  Existe un
-@q{modo de lilypond} que ofrece las definiciones del lenguaje para
-trabajar sobre archivos fuente de LilyPond.
-Asimismo, uno de nuestros desarrolladores ha escrito
-@uref{http://nicolas.sceaux.free.fr/ lilypond/lyqi.html,lyqi}, un modo
-principal de Emacs.
+Emacs es un editor de texto con funcionalidades avanzadas para
+muchos lenguajes de programación.  Emacs es un editor ampliamente
+expansible y se puede usar como un entorno integrado de
+desarrollo.  Existe un @q{modo de lilypond} que ofrece las
+definiciones del lenguaje para trabajar sobre archivos fuente de
+LilyPond.  Un desarrollador ha escrito
+@uref{https://github.com/nsceaux/lyqi,lyqi}, un modo principal de
+Emacs.
 
 @uref{http://www.vim.org}
 
@@ -1225,10 +1262,17 @@ pero aún es un programa en fase beta, se agradecen las pruebas por
 parte de los usuarios.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
-un editor de partitura basado en la biblioteca
-@uref{http://www.cairographics.org,Cairo},
-contempla de forma experimental la exportación a LilyPond.
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} es un programa
+para GNU/Linux que convierte una partitura musical de
+@uref{http://www.gvox.com/,Encore} en una de LilyPond.
+
+@item
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} es una
+herramienta de Go que convierte archivos de
+@uref{http://www.gvox.com/,Encore} a LilyPond. Se creó utilizando
+la investigación y la ingeniería inversa por medio de la
+modificación puntual de archivos .enc y cargándolos con la versión
+de demostración 4.55.
 
 @item
 @uref{http://www.musescore.org,MuseScore}, un editor de partituras,
@@ -1236,16 +1280,22 @@ tiene exportación incompleta de LilyPond
 pero se está desarrollando de forma activa.
 
 @item
-@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY} es un programa en C# que convierte una canción de
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+un editor de partitura basado en la biblioteca
+@uref{http://www.cairographics.org,Cairo},
+contempla de forma experimental la exportación a LilyPond.
+
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY}
+es un programa en C# que convierte una canción de
 @c @uref{http://www.noteworthysoftware.com/, NoteWorthy}
 NoteWorthy composer en LilyPond.
 
 @item
-@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
-Ripple} is a program that helps create scores and parts, including a
-mode for mixing different musical works together in a single score or
-part.
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
+es un programa que ayuda en la creación de partituras y
+particellas, y que incluye un modo para entremezclar distintas
+obras musicales en una sola partitura o particella.
 
 @item
 @uref{http://www.rosegardenmusic.com,Rosegarden}, un secuenciador MIDI

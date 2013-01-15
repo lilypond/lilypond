@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 4239aa2369f74d8e8622c2235154e9f064c394f7
+    Translation of GIT committish: faccc61cfaccb530834aec0ea08e27f29729f511
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -447,7 +447,7 @@ e imágenes de productos.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Para Windows 2000, XP, Vista y Windows 7.
+Para Windows 2000, XP, Vista, Windows 7 y 8.
 
 @end itemize
 
