@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: d285959ee448ddd2ba74fb2b179f76d711e201a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1007,12 +1007,6 @@ cada sílaba mediante un espacio.
   }
 >>
 @end lilypond
-
-@warning{Es
-esencial que la última sílaba esté separada de la llave de cierre por
-un silencio o línea en blanco, pues en caso contrario se tomará como
-parte de la sílaba, dando lugar a un extraño error, véase
-@rprogram{Apparent error in ../ly/init.ly}.}
 
 Observe los
 ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
