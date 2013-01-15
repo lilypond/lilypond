@@ -708,7 +708,7 @@ elementos y expresiones, de forma parecida a cómo el lenguaje humano
 se estructura en palabras y frases.  LilyPond tiene un analizador
 léxico que reconoce elementos indivisibles (números literales, cadenas
 de texto, elementos de Scheme, nombres de nota, etc.), y un analizador
-sintáctico que entiende la sintaxis, la @ruser{Gramática de LilyPond}.
+que entiende la sintaxis, la Gramática de LilyPond (@rcontrib{LilyPond grammar}).
 Una vez que sabe que se aplica una regla sintáctica concreta, ejecuta
 las acciones asociadas con ella.
 
@@ -1450,8 +1450,8 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @translationof Adding articulation to notes (example)
 
 La manera fácil de añadir articulación a las notas es mezclar dos
-expresiones musicales en un solo contexto, como se explica en
-@ruser{Crear contextos}.  Sin embargo, supongamos que queremos
+expresiones musicales en un solo contexto.
+Sin embargo, supongamos que queremos
 escribir una función musical que lo haga.  Esto tiene la ventaja
 adicional de que podemos usar esa función musical para añadir una
 articulación (como una instrucción de digitación) a una nota única

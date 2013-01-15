@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: a9a451e2316c2e94815e33d51eb42eaae3649384
+    Translation of GIT committish: 00cd4ff0b8dc4978344ba966bec06ddbc445f7e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1637,7 +1637,7 @@ mensaje de error adecuado.  Las agrupaciones sintácticas y las reglas
 para construir estas agrupaciones a partir de sus elementos
 constituyentes para la sintaxis de LilyPond están definidas en
 @file{lily/parser.yy} y se muestran en la forma normal de Backus (BNF)
-dentro de @ref{Gramática de LilyPond}.  Este archivo se usa para
+dentro de @rcontrib{LilyPond grammar}.  Este archivo se usa para
 construir el analizador sintáctico durante la compilación del programa
 por parte del generador de analizadores sintácticos, Bison.  Es parte
 del código fuente y no se incluye dentro de la instalación binaria de

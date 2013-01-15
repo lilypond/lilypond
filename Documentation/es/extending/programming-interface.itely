@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1132,14 +1132,14 @@ funciona insertando un evento dentro del contexto especificado
 (@rinternals{ApplyOutputEvent}).  Su sintaxis es
 
 @example
-\applyOutput @var{contexto} @var{proc}
+\applyOutput @var{Contexto} @var{proc}
 @end example
 
 @noindent
 donde @code{@var{proc}} es una función de Scheme que toma tres argumentos.
 
 Al interpretarse, la función @code{@var{proc}} se llama para cada objeto de
-presentación que se encuentra en el contexto @code{@var{contexto}}
+presentación que se encuentra en el contexto @code{@var{Contexto}}
 en el tiempo actual, con los siguientes argumentos:
 
 @itemize
@@ -1168,6 +1168,14 @@ cabezas de las notas que están sobre la línea central y junto a ella:
   a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
+
+Para que @var{función} se interprete en los niveles de @code{Score} o de @code{Staff}
+utilice estas formas:
+
+@example
+\applyOutput #'Score #@var{función}
+\applyOutput #'Staff #@var{función}
+@end example
 
 
 @node Funciones de callback
@@ -1385,9 +1393,10 @@ razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
 
 @example
 \overrideProperty
-Score.NonMusicalPaperColumn  % Nombre del grob
-#'line-break-system-details     % Nombre de la propiedad
-#'((next-padding . 20))         % Valor
+Score.NonMusicalPaperColumn      % Nombre del grob
+  . line-break-system-details    % Nombre de la propiedad
+  . next-padding                 % Nombre de la subpropiedad, opcional
+  #20                            % Valor
 @end example
 
 Observe, sin embargo, que @code{\override}, aplicado a
