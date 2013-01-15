@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 44011e382e91f43fb6752b3fbbf8d8984131a565
+    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -162,26 +162,6 @@ rodeadas por espacios:
 
 @example
 \lyricmode @{ la la la @}
-@end example
-
-@cindex sobreescrituras en el modo de letra
-@funindex \property dentro de \lyricmode
-
-De forma similar, en el modo de letra, un punto ortográfico se
-incluirá dentro de la secuencia alfabética a la que sigue.  Como
-consecuencia, se deben insertar espacios antes y después del punto
-dentro de las instrucciones @code{\override}.  @emph{No} escriba lo
-siguiente:
-
-@example
-\override Score.LyricText.font-shape = #'italic
-@end example
-
-@noindent
-sino lo siguiente:
-
-@example
-\override Score.LyricText.font-shape = #'italic
 @end example
 
 Los signos de puntuación, las letras con caracteres acentuados o de
@@ -1119,8 +1099,8 @@ ejemplo del segundo método:
 @end lilypond
 
 Es posible generar otras combinaciones de letra y pautas mediante la
-elaboración de los ejemplos anteriores, o examinando las plantillas de
-@rlearning{Conjuntos vocales} del manual de aprendizaje.
+elaboración de los ejemplos anteriores, o examinando las plantillas del
+Manual de Aprendizaje, véase @rlearning{Plantillas de conjuntos vocales}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1128,7 +1108,7 @@ elaboración de los ejemplos anteriores, o examinando las plantillas de
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Conjuntos vocales}.
+@rlearning{Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
 @ref{Orden de disposición de los contextos},
@@ -2253,8 +2233,8 @@ SATB}.
 
 @item
 También en el Manual de aprendizaje hay varias plantillas adecuadas
-para diversos estilos de música coral, véase @rlearning{Conjuntos
-vocales}.
+para diversos estilos de música coral, véase
+@rlearning{Plantillas de conjuntos vocales}.
 
 @item
 Para ver más información acerca de @code{ChoirStaff} y
@@ -2281,7 +2261,7 @@ la parte grave hacia abajo.  Para hacerlo, utilice @code{\voiceOne} y
 @seealso
 Manual de aprendizaje:
 @rlearning{Partitura vocal a cuatro voces SATB},
-@rlearning{Conjuntos vocales}.
+@rlearning{Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
 @ref{Orden de disposición de los contextos},
@@ -2600,7 +2580,7 @@ usar @code{\instrumentSwitch} para indicar cada uno de los cambios.
      (middleCPosition . 6)
      (clefPosition . 2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "voice aahs"))
+     (midiInstrument . "choir aahs"))
 
 \relative c' {
   \instrumentSwitch "kaspar"
@@ -3187,7 +3167,7 @@ duraciones de las notas.
 @seealso
 Manual de aprendizaje:
 @rlearning{Visibilidad y color de los objetos},
-@rlearning{Conjuntos vocales}.
+@rlearning{Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
 @ref{Notación antigua},
@@ -3350,11 +3330,12 @@ El uso del marcado para centrar texto y para disponer las líneas en
 columnas se describe en @ref{Formatear el texto}.
 
 Casi todos estos elementos se muestran en uno u otro de los dos versos
-en la plantilla, véase @qq{Salmos} en @rlearning{Conjuntos vocales}.
+en la plantilla, véase @rlearning{Salmos}.
 
 @seealso
 Manual de aprendizaje:
-@rlearning{Conjuntos vocales}.
+@rlearning{Salmos},
+@rlearning{Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
 @ref{Tipografías},
