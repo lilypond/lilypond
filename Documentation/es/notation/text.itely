@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: fea0441e6d856d653aebcdb8d293e45bdec7844c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1555,7 +1555,9 @@ Fragmentos de código:
 Se pueden cambiar las fuentes tipográficas que se usan como
 tipografías predeterminadas en las familias @emph{romana},
 @emph{sans-serif} y @emph{monoespaciada}, especificándolas en este
-orden como se ve en el ejemplo de abajo.  Para leer más explicaciones
+orden como se ve en el ejemplo de abajo, que escala las tipografías
+automáticamente con el valor fijado para el tamaño global del pentagrama.
+Para leer más explicaciones
 sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipográficas}.
 
 @cindex fuente, establecer la familia de
@@ -1565,12 +1567,11 @@ sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipog
 
 @lilypond[verbatim,quote]
 \paper  {
-  myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ myStaffSize 20)))
+                           (/ (* staff-height pt) 2)))
 }
 
 \relative c'{
