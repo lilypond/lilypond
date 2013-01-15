@@ -16,17 +16,17 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Thu May 31 09:12:39 UTC 2012
+@emph{Ultimo aggiornamento Tue Jan 15 12:01:06 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Manuale di apprendimento di LilyPond
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traduttori
+@tab Revisori
+@tab Tradotto
+@tab Aggiornato
+@tab Altre informazioni
 @item
 Section titles
 @*
@@ -37,21 +37,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -64,21 +64,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -91,102 +91,129 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Notazione comunemente utilizzata
 @*
-4187
+4145
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 3 Concetti fondamentali
 @*
-11130
+11126
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
+@end ifnothtml
+@tab pre-GDP
+@item
+4 Modifica dell'output
+@*
+15858
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">parzialmente (53 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+parzialmente (53 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">parzialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 A Modelli
 @*
-219
+372
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -196,36 +223,36 @@ yes
 
 @headitem
 Guida alla Notazione di LilyPond
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traduttori
+@tab Revisori
+@tab Tradotto
+@tab Aggiornato
+@tab Altre informazioni
 @item
 Section titles
 @*
-355
+326
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #33ff21">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -238,21 +265,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -265,48 +292,48 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 1.1 Altezze
 @*
-4530
+4882
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -316,11 +343,11 @@ yes
 
 @headitem
 LilyPond: manuale d'uso del programma
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traduttori
+@tab Revisori
+@tab Tradotto
+@tab Aggiornato
+@tab Altre informazioni
 @item
 Section titles
 @*
@@ -331,21 +358,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -358,75 +385,75 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 1 Eseguire @command{lilypond}
 @*
-4615
+4410
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Aggiornare i file con @command{convert-ly}
 @*
-1209
+1234
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -439,48 +466,48 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 4 Programmi esterni
 @*
-2390
+2394
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -493,21 +520,21 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -517,11 +544,11 @@ yes
 
 @headitem
 LilyPond -- Notazione musicale per tutti
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traduttori
+@tab Revisori
+@tab Tradotto
+@tab Aggiornato
+@tab Altre informazioni
 @item
 Section titles
 @*
@@ -532,21 +559,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -559,129 +586,129 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 Introduzione
 @*
-4753
+4883
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 Download
 @*
-1211
+1197
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
 Manuali
 @*
-1214
+1284
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #47ff24">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 Comunità
 @*
-3006
+3054
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #dfef77">parzialmente (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+parzialmente (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable
