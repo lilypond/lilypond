@@ -1949,7 +1949,7 @@ c16 c8
 @cindex beams, with melismata
 
 @warning{If beams are used to indicate melismata in songs, then
-automatic beaming should be switched off with @code{\autoBeamOff}
+automatic beaming should be switched off with @code{@bs{}autoBeamOff}
 and the beams indicated manually.  Using @code{@bs{}partcombine} with
 @code{@bs{}autoBeamOff} can produce unintended results.  See the
 snippets for more information.}
@@ -2032,13 +2032,18 @@ below, or alternatively the default values themselves may be changed
 as explained in @ref{Time signature}.
 
 If a @code{beamExceptions} rule is defined for the time signature in
-force, that rule is used to determine the beam placement.  If no
-@code{beamExceptions} rule is defined for the time signature in force,
-the beam placement is determined by the settings of @code{baseMoment}
-and @code{beatStructure}.
+force, that rule alone is used to determine the beam placement; the
+values of @code{baseMoment} and @code{beatStructure} are ignored.
+
+If no @code{beamExceptions} rule is defined for the time signature
+in force, the beam placement is determined by the values of
+@code{baseMoment} and @code{beatStructure}.
+
+
+@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
 
 By default, @code{beamExceptions} rules are defined for most common
-time signatures, so the @code{beamException} rules must be disabled
+time signatures, so the @code{beamExceptions} rules must be disabled
 if automatic beaming is to be based on @code{baseMoment} and
 @code{beatStructure}.  The @code{beamExceptions} rules are disabled
 by
@@ -2047,39 +2052,33 @@ by
 \set Timing.beamExceptions = #'()
 @end example
 
-
-@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
-
-In most instances, automatic beams will end at the end of a beat.
-The ending points for beats are determined by the context properties
-@code{baseMoment} and @code{beatStructure}.  @code{beatStructure}
-is a scheme list that defines the length of each beat in the measure
-in units of @code{baseMoment}.  By default, @code{baseMoment} is
-one over the denominator of the time signature.  By default,
-each unit of length @code{baseMoment} is a single beat.
+When @code{beamExceptions} is set to @code{#'()}, either due to an
+explicit setting or because no @code{beamExceptions} rules are defined
+internally for the time signature in force, the ending points for
+beams are on beats as specified by the context properties
+@code{baseMoment} and @code{beatStructure}.  @code{beatStructure} is
+a scheme list that defines the length of each beat in the measure in
+units of @code{baseMoment}.  By default, @code{baseMoment} is one
+over the denominator of the time signature.  By default, each unit of
+length @code{baseMoment} is a single beat.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c16^"default" c c c c |
+% beamExceptions are unlikely to be defined for 5/16 time,
+% but let's disable them anyway to be sure
+\set Timing.beamExceptions = #'()
 \set Timing.beatStructure = #'(2 3)
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
 @end lilypond
 
-If a common time signature is being used, @code{beamExceptions}
-@emph{must} be disabled to enable @code{beatStructure} to work.
-The @code{\set Timing.beamExceptions = #'()} command can always
-be included if beaming is being determined by @code{beatStructure}.
-
 @lilypond[quote,relative=2,verbatim]
 \time 4/4
 a8^"default" a a a a a a a
-
-\set Timing.baseMoment = #(ly:make-moment 1 4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"no change" a a a a a a a
-
+% Disable beamExceptions because they are definitely
+% defined for 4/4 time
 \set Timing.beamExceptions = #'()
 \set Timing.baseMoment = #(ly:make-moment 1 4)
 \set Timing.beatStructure = #'(1 1 1 1)
@@ -2093,6 +2092,7 @@ enclosing context will apply.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
+  % No need to disable beamExceptions as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2136,6 +2136,7 @@ compatible with the new value of @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
+% No need to disable beamExceptions as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1 16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
@@ -2244,7 +2245,7 @@ reset @code{beamExceptions}.
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
+% This will beam (1 1 1) due to default baseMoment and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a8}
 @end lilypond
@@ -2284,7 +2285,7 @@ beams may end, otherwise
 
 @item
 if a beam-ending rule is defined in @code{beamExceptions}
-for a longer beam-type, use it to determined the valid places
+for a longer beam-type, use it to determine the valid places
 where beams may end, otherwise
 
 @item
