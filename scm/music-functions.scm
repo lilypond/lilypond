@@ -1869,6 +1869,40 @@ yourself."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
 
+(defmacro-public make-relative (pitches last-pitch music)
+  "The list of pitch-carrying variables in @var{pitches} is used as a
+sequence for creating relativable music from @var{music}.
+The variables in @var{pitches} are, when considered inside of
+@code{\\relative}, all considered to be specifications to the preceding
+variable.  The first variable is relative to the preceding musical
+context, and @var{last-pitch} specifies the pitch passed as relative
+base onto the following musical context."
+
+  ;; pitch and music generator might be stored instead in music
+  ;; properties, and it might make sense to create a music type of its
+  ;; own for this kind of construct rather than using
+  ;; RelativeOctaveMusic
+  (define ((make-relative::to-relative-callback pitches p->m p->p) music pitch)
+    (let* ((chord (make-event-chord
+                   (map
+                    (lambda (p)
+                      (make-music 'NoteEvent
+                                  'pitch p))
+                    pitches)))
+           (pitchout (begin
+                       (ly:make-music-relative! chord pitch)
+                       (event-chord-pitches chord))))
+      (set! (ly:music-property music 'element)
+            (apply p->m pitchout))
+      (apply p->p pitchout)))
+  `(make-music 'RelativeOctaveMusic
+               'to-relative-callback
+               (,make-relative::to-relative-callback
+                (list ,@pitches)
+                (lambda ,pitches ,music)
+                (lambda ,pitches ,last-pitch))
+               'element ,music))
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The following functions are all associated with the crossStaff
 ;  function
