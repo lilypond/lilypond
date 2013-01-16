@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6ed88961376f5b129a41114a198342e2e5c2fb82
+    Translation of GIT committish: 7dcc7dfa751c70e17784c2aa6fa301e880b56a77
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,51 +18,60 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.3!  @emph{23 de septiembre de 2012}
+@subsubheading ¡Lanzado LilyPond 2.16.2!  @emph{4 de enero 2013}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.3.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-Se recomienda enérgicamente a los usuarios normales que
-@strong{no} utilicen esta versión, sino la 2.16 estable en su
-lugar.
-
+Nos complace anunciar el lanzamiento de LilyPond 2.16.2.  Este
+lanzamiento se realiza principalmente para corregir un problema
+con lilypond-book en Windows.  Recomendamos que actualicen a esta
+versión solamente aquellos que necesiten esta funcionalidad.
 
 @newsEnd
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.2!  @emph{10 de septiembre de 2012}
+@subsubheading ¡Lanzado LilyPond 2.17.9!  @emph{15 de diciembre de 2012}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.2.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-Se recomienda enérgicamente a los usuarios normales que
-@strong{no} utilicen esta versión, sino la 2.16 estable en su
-lugar.
+Nos complace anunciar el lanzamiento de LilyPond 2.17.9.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.16.
 
 @newsEnd
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.1!  @emph{28 de agosto de 2012}
+@subsubheading El Informe LilyPond, número 28. @emph{12 de noviembre de 2012}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.1.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-Se recomienda enérgicamente a los usuarios normales que
-@strong{no} utilicen esta versión, sino la 2.16 estable en su
-lugar.
+La @uref{http://news.lilynet.net/?The-LilyPond-Report-28, edición
+de octubre del @emph{Informe LilyPond}} se centra en el
+@uref{http://news.lilynet.net/?LilyPond-meeting-in-Waltrop,
+encuentro de usuarios y desarrolladores de LilyPond} en Waltrop
+(Alemania), el mes de agosto pasado.  Por supuesto que también hay
+noticias de LilyPond producidas a raíz del lanzamiento de las
+versiones 2.16.0 y 2.17.0 que se produjeron en dicho lugar.
 
+También incluyen dos informes financieros mensuales por parte de
+David Kastrup cuyo trabajo en LilyPond está
+@uref{http://news.lilynet.net/?The-LilyPond-Report-24#an_urgent_request_for_funding,
+exclusivamente pagado} por las donaciones de otros desarrolladores
+y usuarios (¡gracias!), y un informe acerca de las experiencias
+con @uref{http://scorio.com, un servicio web de tipografía
+musical} que utiliza LilyPond internamente.
+
+Acérquese y @uref{http://news.lilynet.net/?The-LilyPond-Report-28,
+lea ya el Informe LilyPond número 28}; ¡todos los comentarios y
+aportaciones serán calurosamente bien recibidos!
 @newsEnd
-
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.0!  @emph{26 de agosto de 2012}
+@subsubheading ¡Lanzado LilyPond 2.16.1!  @emph{9 de noviembre de 2012}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.0.  Esta
-versión contiene el conjunto habitual de correcciones de fallos.
-Se recomienda enérgicamente a los usuarios normales que
-@strong{no} utilicen esta versión, sino la 2.16 estable en su
-lugar.
-
+Nos complace anunciar el lanzamiento de LilyPond 2.16.1. Contiene
+cierto número de actualizaciones sobre la anterior versión
+estable, y no debería causar problemas. Recomendamos a todos que
+actualicen a esta versión.
 @newsEnd
-
 
 @newsItem
 @subsubheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
