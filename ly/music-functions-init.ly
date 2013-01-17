@@ -344,10 +344,8 @@ without the need of a specific end spanner.")
 				  (extract-typed-music music 'span-event)))
 	  (stop-span-evs
 	   (map (lambda (m)
-		  (let ((c (music-clone m)))
-		    (set! (ly:music-property c 'span-direction) STOP)
-		    c))
-		start-span-evs))
+		  (music-clone m 'span-direction STOP))
+                start-span-evs))
 	  (end-ev-chord (make-music 'EventChord
 				    'elements stop-span-evs))
 	  (total (make-music 'SequentialMusic
