@@ -843,17 +843,37 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 (define-public (music-has-type music type)
   (memq type (ly:music-property music 'types)))
 
-(define-public (music-clone music)
-  (define (alist->args alist acc)
-    (if (null? alist)
-	acc
-	(alist->args (cdr alist)
-		     (cons (caar alist) (cons (cdar alist) acc)))))
-
-  (apply
-   make-music
-   (ly:music-property music 'name)
-   (alist->args (ly:music-mutable-properties music) '())))
+(define-public (music-clone music . music-properties)
+  "Clone @var{music} and set properties according to
+@var{music-properties}, a list of alternating property symbols and
+values:
+@example\n(music-clone start-span 'span-direction STOP)
+@end example
+Only properties that are not overriden by @var{music-properties} are
+actually fully cloned."
+  (let ((old-props (list-copy (ly:music-mutable-properties music)))
+        (new-props '())
+        (m (ly:make-music (ly:prob-immutable-properties music))))
+    (define (set-props mus-props)
+      (if (and (not (null? mus-props))
+               (not (null? (cdr mus-props))))
+          (begin
+            (set! old-props (assq-remove! old-props (car mus-props)))
+            (set! new-props
+                  (assq-set! new-props
+                             (car mus-props) (cadr mus-props)))
+            (set-props (cddr mus-props)))))
+    (set-props music-properties)
+    (for-each
+     (lambda (pair)
+       (set! (ly:music-property m (car pair))
+             (ly:music-deep-copy (cdr pair))))
+     old-props)
+    (for-each
+     (lambda (pair)
+       (set! (ly:music-property m (car pair)) (cdr pair)))
+     new-props)
+    m))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
