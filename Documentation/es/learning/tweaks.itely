@@ -1109,10 +1109,10 @@ supuesto, por extensión, también la de muchos otros objetos de
 presentación).  Vamos a considerar cada uno de ellos por orden.
 
 @menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
+* La propiedad stencil (sello)::
+* La propiedad break-visibility (visibilidad en el salto)::
+* La propiedad transparent (transparente)::
+* La propiedad color::
 @end menu
 
 @node La propiedad stencil (sello)
@@ -1899,7 +1899,7 @@ hacia abajo.  Esto se controla automáticamente cuando está establecida
 la propiedad @code{direction}.
 
 @menu
-* The direction property::
+* La propiedad direction (dirección)::
 * Digitaciones::
 @end menu
 
@@ -2161,10 +2161,10 @@ las colisiones.  Existen varias formas de sobreescribir la colocación
 automática si el posicionado no resulta óptimo.
 
 @menu
-* The outside-staff-priority property::
-* The \textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
+* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::
+* La instrucción \textLengthOn::
+* Posicionamiento de los matices dinámicos::
+* Escalado de un «Grob»::
 @end menu
 
 
@@ -2846,14 +2846,14 @@ en la sección anterior, para resolver problemas de notación que se
 superpone.
 
 @menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
+* La propiedad padding (relleno)::
+* La propiedadhe right-padding (relleno por la derecha)::
+* La propiedad staff-padding (relleno de pentagrama)::
+* La propiedad self-alignment-X (auto-alineación en X)::
+* La propiedad staff-position (posición en el pentagrama)::
+* La propiedad extra-offset (desplazamiento adicional)::
+* La propiedad positions (posiciones)::
+* La propiedad force-hshift (forzar desplazamiento horizontal)::
 @end menu
 
 @node La propiedad padding (relleno)
@@ -3781,8 +3781,8 @@ lhMusic = \relative c' {
 @translationof Other uses for tweaks
 
 @menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
+* Unir notas entre voces distintas::
+* Simulación de un calderón en el MIDI::
 @end menu
 
 @cindex transparent, uso de la propiedad
