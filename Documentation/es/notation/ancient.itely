@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 44011e382e91f43fb6752b3fbbf8d8984131a565
+    Translation of GIT committish: 4c4c59acd68533e6ce152a13707027443f387897
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,6 +9,7 @@
 @end ignore
 
 @c \version "2.17.6"
+
 
 @node Notación antigua
 @section Notación antigua
@@ -21,6 +22,7 @@
 @cindex hufnagel
 @cindex Petrucci
 @cindex mensural
+
 
 @menu
 * Panorámica de los estilos contemplados::
@@ -2461,7 +2463,7 @@ arbitrario.
 @menu
 * Contextos del canto kievano::
 * Claves del canto kievano::
-* Cabeza de las notas kievanas::
+* Notas del canto kievano::
 * Alteraciones accidentales del canto kievano::
 * Líneas divisorias del canto kievano::
 @end menu
@@ -2517,7 +2519,7 @@ Tse-fa-ut).  Se utiliza para indicar la posición del Do:
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
+  \kievanOn
   c
 @end lilypond
 
@@ -2529,16 +2531,19 @@ Glosario musical:
 Referencia de la notación:
 @ref{Clave}.
 
-@node Cabeza de las notas kievanas
-@unnumberedsubsubsec Cabeza de las notas kievanas
-@translationof Kievan note heads
+@node Notas del canto kievano
+@unnumberedsubsubsec Notas del canto kievano
+@translationof Kievan notes
 
 @cindex cabezas de nota antiguas
 
 Para la notación cuadrada del canto kievano, debe escogerse el estilo
-apropiado para la forma de la cabeza de las notas.  Se consigue
-mediante el establecimiento de la propiedad @code{style} del objeto
-@code{NoteHead} al valor @code{kievan}.
+apropiado para la forma de la cabeza de las notas y se deben suprimir
+los corchetes y las plicas.  Esto se consigue mediante una llamada a
+la función @code{\kievanOn}, que establece las propiedades adecuadas
+para la cabeza, plica y corchete de las notas.  Una vez que las notas
+de estilo kievano ya no se necesiten, pueden revertirse estas
+propiedades llamando a la función @code{\kievanOff}.
 
 La nota final del canto kievano, que suele ir al final de una pieza
 musical, puede seleccionarse estableciendo la duración al valor
@@ -2551,8 +2556,10 @@ notas del canto kievano:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
 \cadenzaOn
-\override NoteHead.style = #'kievan
+\kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
+\kievanOff
+b'2
 @end lilypond
 
 @seealso
@@ -2587,7 +2594,6 @@ antiguos.  Se ha incluido principalmente a efectos de compatibilidad.
 
 @lilypond[quote,relative=1,notime,verbatim]
 \clef "kievan-do"
-\override NoteHead.style = #'kievan
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis,
@@ -2612,8 +2618,8 @@ notación kievana, que puede denominarse como «doble barra final del
 canto kievano».  Se puede invocar como @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
+  \kievanOn
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
   c \bar "k"
 @end lilypond
 
