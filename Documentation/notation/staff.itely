@@ -508,9 +508,9 @@ also have their own ledger lines.
 { f'4 a, d, f, }
 @end lilypond
 
-Legder lines can also be made to appear inside the staff where custom
+Ledger lines can also be made to appear inside the staff where custom
 staff lines are required.  The example shows the default position of
-ledger lines when the explicit @code{legder-position} is and is not set.
+ledger lines when the explicit @code{ledger-position} is and is not set.
 The @code{stopStaff} is needed in the example to revert the
 @code{\override} for the whole @code{StaffSymbol}.
 
