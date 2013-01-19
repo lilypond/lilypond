@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 9e263dce9237347a6e55fcc8662829474e077b3c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -362,8 +362,13 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @table @code
 
 @item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
-Establece la función de Scheme interna equivalente a @var{valor}.  Si
-no se proporciona ningún @var{valor}, se usa el valor predeterminado.
+Establece la función de Scheme interna equivalente a @var{valor}.
+
+@example
+-dbackend=svg
+@end example
+
+Si no se proporciona ningún @var{valor}, se usa el valor predeterminado.
 Para desactivar una opción se puede anteponer @code{no-} a la
 @var{variable}, p.ej.:
 
@@ -400,7 +405,7 @@ escala del resultado para así evitar @q{escaleras} en las imágenes
 @q{back-end} @code{EPS}.
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab Seleccionar un @q{back-end}.  Los archivos (la opción predeterminada)
 incluyen las fuentes tipográficas @code{TTF}, @code{Type1} y
 @code{OTF}.  No se hace ningún subconjunto de estas fuentes.  El uso
@@ -408,7 +413,7 @@ de conjuntos de caracteres @q{orientales} puede dar lugar a archivos
 muy grandes.
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab PostScript encapsulado.  Vuelca cada página o sistema como un archivo
 @file{EPS} distinto, sin fuentes tipográficas, y como un archivo
 @file{EPS} encuadernado con todas las páginas o sistemas que incluye
@@ -416,12 +421,12 @@ las fuentes.  Utilizado como opción predeterminada por parte de
 @command{lilypond-book}.
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab No producir ninguna partitura impresa a la salida; tiene el mismo
 efecto que @code{-dno-print-pages}.
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Grácifos vectoriales escalables.  Crea un solo archivo @code{SVG}, sin
 fuentes tipográficas incrustadas, por cada página de salida.  Se
 recomienda instalar las fuentes Century Schoolbook, incluidas con la
@@ -434,7 +439,7 @@ opción @code{svg-woff} (véase más abajo) para usar los archivos de
 fuente woff en el @q{back-end} SVG.
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab Volcado de las instrucciones de dibujo internas basadas en Scheme, en
 bruto.
 
@@ -983,7 +988,6 @@ se han visto y comprendido, se manejan sin problema.
 @menu
 * La música se sale de la página::
 * Aparece un pentagrama de más::
-* Error aparente en ../ly/init.ly::
 * Mensaje de error Unbound variable %::
 * Mensaje de error FT_Get_Glyph_Name::
 * Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
@@ -1079,38 +1083,6 @@ explícitamente:
   }
 }
 @end lilypond
-
-
-@node Error aparente en ../ly/init.ly
-@unnumberedsubsec Error aparente en @code{../ly/init.ly}
-@translationof Apparent error in ../ly/init.ly
-
-Pueden aparecer varios mensajes de error extraños acerca de errores de
-sintaxis en @file{../ly/init.ly} si el archivo de entrada no está
-correctamente formado, por ejemplo si no contiene llaves o comillas
-correctamente emparejados.
-
-El error más común es la falta de una llave de cierre, (@code{@}}), al
-final de un bloque @code{score}.  Aquí la solución es obvia: compruebe
-que el bloque @code{score} está correctamente cerrado.  La estructura
-correcta de un archivo de entrada está descrita en @rlearning{Cómo
-funcionan los archivos de entrada de LilyPond}.  Usando un editor que
-resalte automáticamente las llaves correspondientes es de mucha ayuda
-para evitar estos errores.
-
-Una segunda causa frecuente es la falta de un espacio entre la última
-sílaba de un bloque lyrics (de letra) y la llave de cierre,
-(@code{@}}).  Sin esta separación, se considera que la llave forma
-parte de la sílaba.  Siempre se aconseja asegurarse de que hay
-espacios antes y después de @emph{todas} las llaves.  Para conocer la
-importancia de este asunto al utilizar letras de canciones, consulte
-@ruser{Introducir la letra}.
-
-Este mensaje de error también puede aparecer si se omiten las comillas
-de terminación (@code{"}).  En este caso, un mensaje de error
-adicional debería indicar un número de línea cercano al de aquella
-donde está el error.  Las comillas desbalanceadas estarán por lo
-general una o dos líneas por encima.
 
 
 @node Mensaje de error Unbound variable %
