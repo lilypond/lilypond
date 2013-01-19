@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1141313811fa104882b882085f1a7c80fee69f91
+    Translation of GIT committish: a46782b6db53f55c0ce494f5ca001e187b81e4e1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -392,6 +392,15 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Rhythms}.
 
+@knownissues
+El cálculo de la posición dentro de un compás sdebe tener en
+cuenta todos los factores de escalado que se han aplicado a las
+notas dentro de ese compás, y cualquier acarreo fraccionado desde
+los compases anteriores.  Este cálculo se efectúa utilizando
+números racionales.  Si un numerador o denominador intermedio en
+dicho proceso de cálculo sobrepasa la cantidad de 2^30, la
+ejecución y el tipografiado se detendrán en ese punto sin indicar
+ningún error.
 
 @node Ligaduras de unión
 @unnumberedsubsubsec Ligaduras de unión
@@ -2746,15 +2755,19 @@ a1
 @end lilypond
 
 @noindent
-y cinco tipos de barra de repetición:
+y nueve tipos de barra de repetición:
 
 @lilypond[quote,relative=1,verbatim]
 f1 \bar ".|:"
 g1 \bar ":..:"
 a1 \bar ":|.|:"
 b1 \bar ":|.:"
-c1 \bar ":|."
-e1
+c1 \bar ":.|.:"
+d1 \bar "[|:"
+e1 \bar ":|][|:"
+f1 \bar ":|]"
+g1 \bar ":|."
+a1
 @end lilypond
 
 Además se puede imprimir una línea divisoria como una marca corta:
@@ -2765,6 +2778,14 @@ Sin embargo, dado que las mencionadas marcas se utilizan usualmente en
 el canto gregoriano, es preferible en este caso utilizar
 @code{\divisioMinima}, que se describe en la sección @ref{Divisiones}
 dentro de Canto gregoriano.
+
+LilyPond contempla la notación del canto kievano y ofrece una
+línea divisoria especial kievana:
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "k"
+@end lilypond
+Pueden verse más detalles de esta notación explicados en
+@ref{Tipografiado del canto kievano en notación cuadrada}.
 
 @cindex segno
 
@@ -2796,7 +2817,7 @@ LilyPond.  Las secciones repetidas se introducen mejor utilizando las
 diversas instrucciones de repetición (véase @ref{Repeticiones}), que
 imprimen automáticamente las barras correspondientes.
 
-Además se puede especificar @code{"||:"}, que equivale a @code{"|:"}
+Además se puede especificar @code{".|:-||"}, que equivale a @code{".|:"}
 excepto en los saltos de línea, en que produce una doble barra al
 final de la línea y una repetición izquierda (de comienzo) al
 principio de la línea siguiente.
@@ -2844,6 +2865,103 @@ Además, existe una instrucción @code{\inStaffSegno} que crea un
 símbolo de segno, situado en colaboración con la instrucción
 @code{\repeat volta}.
 
+@funindex \defineBarLine
+@funindex defineBarLine
+@cindex compás, definir líneas de
+@cindex definir líneas de compás
+
+Se pueden definir tipos nuevos de líneas divisorias con
+@code{\defineBarLine}:
+
+@example
+\defineBarLine @var{tipo_de_barra} #'(@var{final} @var{comienzo} @var{extensión})
+@end example
+
+Las variables de @code{\defineBarline} pueden incluir la cadena de
+caracteres @q{vacía} @code{""}, que equivale a imprimir una línea
+divisoria invisible.  También se puede establecer al valor falso
+@code{#f} que no imprime línea divisoria alguna.
+
+Después de la definición, la nueva línea divisoria se puede
+utilizar mediante @code{\bar} @var{tipo_de_barra}.
+
+Actualmente están disponibles diez elementos de barra de compás:
+
+@lilypond[quote,verbatim]
+\defineBarLine ":" #'("" ":" "")
+\defineBarLine "=" #'("=" "" "")
+\defineBarLine "[" #'("" "[" "")
+\defineBarLine "]" #'("]" "" "")
+
+\new Staff {
+  s1 \bar "|"
+  s1 \bar "."
+  s1 \bar "!"
+  s1 \bar ";"
+  s1 \bar ":"
+  s1 \bar "k"
+  s1 \bar "S"
+  s1 \bar "="
+  s1 \bar "["
+  s1 \bar "]"
+  s1 \bar ""
+}
+@end lilypond
+
+La línea divisoria @code{"="} proporciona la barra de doble
+extensión, usada en combinación con el símbolo de segno.  No lo
+use como una doble línea divisoria fina aislada; para ello es
+preferible @code{\bar} @var{"||"}.
+
+El signo @code{"-"} inicia anotaciones a las barras de compás, que
+son útiles para distinguir entre aquellas que tienen idéntica
+apariencia pero distinto comportamiento en los saltos de línea y/o
+diferentes barras de extensión.  La parque que sigue al signo
+@code{"-"} no se usa para construir la barra de compás.
+
+@lilypond[quote,relative=2,verbatim]
+\defineBarLine "||-dashedSpan" #'("||" "" "!!")
+
+\new StaffGroup <<
+  \new Staff {
+    c1 \bar "||"
+    c1 \bar "||-dashedSpan"
+    c1
+  }
+  \new Staff {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+Además, el carácter del espacio en blanco @code{" "} sirve como
+contenedor para definir barras de extensión correctamente
+alineadas a las barras principales:
+
+@lilypond[quote,relative=2,verbatim]
+\defineBarLine ":|.-wrong" #'(":|." "" "|.")
+\defineBarLine ":|.-right" #'(":|." "" " |.")
+
+\new StaffGroup <<
+  \new Staff {
+    c1 \bar ":|.-wrong"
+    c1 \bar ":|.-right"
+    c1
+  }
+  \new Staff {
+    c1
+    c1
+    c1
+  }
+>>
+@end lilypond
+
+Si se necesitan elementos adicionales, LilyPond provee una forma
+sencilla de definirlos.  Para ver más información sobre cómo
+modificar o añadir barras de compás, consulte el archivo
+@file{scm/bar-line.scm}.
 
 En las partituras con muchos pentagramas, una instrucción @code{\bar}
 en uno de ellos se aplica automáticamente a todos los demás.  Las
@@ -2867,7 +2985,6 @@ líneas resultantes se conectan entre los distintos pentagramas de un
 @cindex predeterminada, línea divisoria, cambiar
 @cindex línea divisoria predeterminada, cambiar
 
-@snippets
 @funindex whichBar
 @funindex defaultBarType
 @funindex \bar
@@ -2889,6 +3006,9 @@ Referencia de la notación:
 @ref{Saltos de línea},
 @ref{Repeticiones},
 @ref{Agrupar pentagramas}.
+
+Archivos instalados:
+@file{scm/bar-line.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
