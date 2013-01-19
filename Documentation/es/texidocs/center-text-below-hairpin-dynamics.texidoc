@@ -1,9 +1,12 @@
 %% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
 Este ejemplo proporciona una función para tipografiar un regulador con
-texto por debajo, como @qq{molto} o @qq{poco}. El ejemplo ilustra
-también cómo modificar la manera en que se imprime normalmente un
-objeto, utilizando código de Scheme.
+texto por debajo, como @qq{molto} o @qq{poco}.  El texto añadido
+cambia la dirección de acuerdo con la del regulador.  El objeto
+Hairpin está alineado con DynamicText.
+
+El ejemplo ilustra también cómo modificar la manera en que se imprime
+normalmente un objeto, utilizando código de Scheme.
 
 "
   doctitlees = "Centrar texto debajo de un regulador"
