@@ -704,9 +704,9 @@ Los tamaños de página se definen en el archivo @file{scm/paper.scm}
 (74 x 52 mm)
 @end table
 
-
-@node Instrumentos MIDI
-@appendixsec Instrumentos MIDI
+@c lowercase to avoid duplicate node. FV
+@node instrumentos MIDI
+@appendixsec instrumentos MIDI
 @translationof MIDI instruments
 
 A continuación figura una lista con los nombres que se pueden utilizar

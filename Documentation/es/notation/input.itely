@@ -2909,7 +2909,7 @@ Windows y @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 El instrumento MIDI que se quiere utilizar se establece fijando la
 propiedad @code{Staff.midiInstrument} al nombre del instrumento.
 El nombre se debe elegir de entre los que están en la lista que
-aparece en @ref{Instrumentos MIDI}.
+aparece en @ref{instrumentos MIDI}.
 
 @example
 \new Staff @{
