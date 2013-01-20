@@ -3481,7 +3481,9 @@ def conv (str):
                   path_replace, str)
     return str
 
-@rule ((2, 17, 11), r"\times -> \tuplet, \set tupletSpannerDuration -> \tupletSpan")
+@rule ((2, 17, 11), r"""\times -> \tuplet, \set tupletSpannerDuration -> \tupletSpan
+(ly:make-moment 1 4) -> (ly:make-moment 1/4)
+(ly:make-duration 0 0 1 2) -> (ly:make-duration 0 0 1/2)""")
 def conv(str):
     def sub_dur (m):
         num = int (m.group (1))
@@ -3509,8 +3511,14 @@ def conv(str):
                   r"\\tupletSpan \\default", str)
     str = re.sub (r"\\times(\s*)([0-9]+)/([0-9]+)",
                   r"\\tuplet\1\3/\2", str)
-    return str
 
+    str = re.sub (r"(\(ly:make-moment\s+-?[0-9]+)\s+([1-9][0-9]*\))",
+                  r"\1/\2", str)
+    str = re.sub (r"(\(ly:make-moment\s+-?[0-9]+)\s+([0-9]+\s+-?[0-9]+)\s([0-9]+\))",
+                  r"\1/\2/\3", str)
+    str = re.sub (r"(\(ly:make-duration\s+-?[0-9]+\s+[0-9]+\s+[0-9]+)\s+([0-9]+\))",
+                  r"\1/\2", str)
+    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
