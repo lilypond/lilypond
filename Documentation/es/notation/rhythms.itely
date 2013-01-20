@@ -2087,17 +2087,17 @@ barra nueva.
 @funindex set
 
 Cuando está habilitado el barrado automático, la colocación de las
-barras automñaticas viene determinada por tres propiedades de
+barras automáticas viene determinada por tres propiedades de
 contexto: @code{baseMoment}, @code{beatStructure} y
-@code{beamExceptions}.  Los valores predeterminados de estas variables
-se pueden sobreescribir como se describe más abajo, o de forma
-alternativa los propios valores predeterminados se pueden cambiar como
-se explica en @ref{Indicación de compás}.
+@code{beamExceptions}.  Los valores predeterminados de estas
+variables se pueden sobreescribir como se describe más abajo, o de
+forma alternativa los propios valores predeterminados se pueden
+cambiar como se explica en @ref{Indicación de compás}.
 
-Si hay definida una regla de
-@code{beamExceptions} para el compás en curso, se usa dicha regla para
-determinar la colocación de las barras.  Si no está definida ninguna
-regla de @code{beamExceptions} para el tipo de compás en curso, la
+Si hay definida una regla de @code{beamExceptions} para el compás
+en curso, se usa dicha regla para determinar la colocación de las
+barras.  Si no está definida ninguna regla de
+@code{beamExceptions} para el tipo de compás en curso, la
 colocación de las barras está determinada por los ajustes de
 @code{baseMoment} y @code{beatStructure}.
 
