@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.6"
 
 \header{
   texidoc="
@@ -58,7 +58,7 @@ mus = \relative f' {
 } }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-2 0 2 4)
+  \override StaffSymbol.line-positions = #'(-2 0 2 4)
   \remove Bar_engraver
 } {
   \context Voice \with {
@@ -68,7 +68,7 @@ mus = \relative f' {
 } }
 
 \new Staff \with {
-  \override StaffSymbol #'line-count = #6
+  \override StaffSymbol.line-count = #6
   \remove Bar_engraver
 } {
   \context Voice \with {
@@ -78,7 +78,7 @@ mus = \relative f' {
 } }
 
 \new Staff \with {
-  \override StaffSymbol #'line-count = #2
+  \override StaffSymbol.line-count = #2
   \remove Bar_engraver
 } {
   \context Voice \with {
@@ -88,7 +88,7 @@ mus = \relative f' {
 } }
 
 \new Staff \with {
-  \override StaffSymbol #'line-positions = #'(-4 -2 2 5)
+  \override StaffSymbol.line-positions = #'(-4 -2 2 5)
   \remove Bar_engraver
 } {
   \context Voice \with {
