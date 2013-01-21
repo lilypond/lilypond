@@ -2132,7 +2132,7 @@ c16^"(2+3)" c c c c |
 c16^"(3+2)" c c c c |
 @end lilypond
 
-Si es está utilizando una indicación de compás común, @emph{se debe}
+Si se está utilizando una indicación de compás común, @emph{se debe}
 desactivar @code{beamExceptions} para habilitar el funcionamiento de
 @code{beatStructure}.  Siempre se puede incluir la instrucción
 @code{\set Timing.beamExceptions = #'()} si el barrado está
