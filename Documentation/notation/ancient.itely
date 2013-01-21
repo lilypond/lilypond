@@ -170,7 +170,6 @@ Music Glossary:
 * Pre-defined contexts::
 * Ligatures::
 * Custodes::
-* Figured bass support::
 @end menu
 
 
@@ -344,21 +343,6 @@ Snippets:
 
 Internals Reference:
 @rinternals{Custos}.
-
-
-@node Figured bass support
-@unnumberedsubsubsec Figured bass support
-
-There is limited support for figured bass notation from the
-Baroque period; see @ref{Figured bass}.
-
-@seealso
-Music Glossary:
-@rglos{figured bass}.
-
-Notation Reference:
-@ref{Figured bass}.
-
 
 @node Typesetting mensural music
 @subsection Typesetting mensural music
