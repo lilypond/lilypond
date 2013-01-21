@@ -1,19 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Russian translation for Lilypond.
+# Copyright (C) 2006 Free Software Foundation, Inc.
+# August S. Sigov <august@infran.ru>, 2006
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: lilypond 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2006-12-23 16:16+0100\n"
-"Last-Translator: August S.Sigov <august@infran.ru>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"Last-Translator: August S. Sigov <august@infran.ru>\n"
+"Language-Team: Russian <gnu@mx.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: convertrules.py:12
 #, python-format

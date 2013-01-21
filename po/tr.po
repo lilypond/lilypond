@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.3.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-24 10:40+0100\n"
+"POT-Creation-Date: 2004-10-09 03:01+0200\n"
 "PO-Revision-Date: 2005-03-14 04:59+0200\n"
 "Last-Translator: Olcay Yıldırım <olcayyildirim2003@yahoo.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -16,1000 +16,1124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: convertrules.py:12
-#, python-format
-msgid "Not smart enough to convert %s"
-msgstr ""
+#: lilylib.py:62
+msgid "lilylib module"
+msgstr "lilylib birimi"
 
-#: convertrules.py:13
-msgid "Please refer to the manual for details, and update manually."
-msgstr ""
+#: lilylib.py:65 lilypond-book.py:91 lilypond-latex.py:109 midi2ly.py:100
+#: mup2ly.py:75 ps2png.py:40 main.cc:131 lily/main.cc:131
+msgid "print this help"
+msgstr "bu yardımı yazdır"
 
-#: convertrules.py:14
-#, python-format
-msgid "%s has been replaced by %s"
-msgstr ""
-
-#: convertrules.py:2398
-msgid "LilyPond source must be UTF-8"
-msgstr ""
-
-#: convertrules.py:2401
-msgid "Try the texstrings backend"
-msgstr ""
-
-#: convertrules.py:2404
-#, python-format
-msgid "Do something like: %s"
-msgstr ""
-
-#: convertrules.py:2407
-msgid "Or save as UTF-8 in your editor"
-msgstr ""
-
-#: fontextract.py:26
-#, fuzzy, python-format
-msgid "Scanning %s"
-msgstr "uyarı: %s"
-
-#: fontextract.py:71
-#, python-format
-msgid "Extracted %s"
-msgstr ""
-
-#: fontextract.py:86
-#, python-format
-msgid "Writing fonts to %s"
-msgstr ""
-
-#: lilylib.py:85 lilylib.py:136
-#, python-format
-msgid "Invoking `%s'"
-msgstr "`%s' çağrılıyor"
-
-#: lilylib.py:87 lilylib.py:138
-#, python-format
-msgid "Running %s..."
-msgstr "%s çalıştırılıyor..."
-
-#: lilylib.py:203
-#, fuzzy, python-format
-msgid "Usage: %s"
-msgstr "uyarı: %s"
-
-#: abc2ly.py:1349 convert-ly.py:80 lilypond-book.py:125 midi2ly.py:869
-#, fuzzy, python-format
-msgid "%s [OPTION]... FILE"
-msgstr "Kullanım: %s (SEÇENEKLER)... DOSYA"
-
-#: abc2ly.py:1351
-#, python-format
-msgid ""
-"abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input."
-msgstr ""
-
-#: abc2ly.py:1355 etf2ly.py:1200 midi2ly.py:885
-msgid "write output to FILE"
-msgstr "çıktıyı DOSYAya yaz"
-
-#: abc2ly.py:1357
-msgid "be strict about succes"
-msgstr ""
-
-#: abc2ly.py:1359
-msgid "preserve ABC's notion of beams"
-msgstr ""
-
-#: abc2ly.py:1361 convert-ly.py:112 etf2ly.py:1208 lilypond-book.py:168
-#: midi2ly.py:911 musicxml2ly.py:505
-#, fuzzy
-msgid "Report bugs via"
-msgstr ""
-"Yazılım hatalarını %s adresine,\n"
-"çeviri hatalarını <gnu-tr@belgeler.org> adresine bildirin."
-
-#: convert-ly.py:41
-msgid ""
-"Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version."
-msgstr ""
-
-#: convert-ly.py:43 lilypond-book.py:73
-#, fuzzy
-msgid "Examples:"
-msgstr "Örnek:"
-
-#: convert-ly.py:56 lilypond-book.py:98 warn.cc:48 input.cc:90
-#, c-format, python-format
-msgid "warning: %s"
-msgstr "uyarı: %s"
-
-#: convert-ly.py:59 lilypond-book.py:101 warn.cc:54 input.cc:96 input.cc:104
-#, c-format, python-format
-msgid "error: %s"
-msgstr "hata: %s"
-
-#: convert-ly.py:75 etf2ly.py:1190 lilypond-book.py:121 midi2ly.py:98
-msgid "Distributed under terms of the GNU General Public License."
-msgstr "GNU Genel Kamu Lisansı şartları uyarınca dağıtılır."
-
-#: convert-ly.py:76 etf2ly.py:1191 lilypond-book.py:122 midi2ly.py:99
-msgid "It comes with NO WARRANTY."
-msgstr "HİÇBİR GARANTİ  ile gelmez."
-
-#: convert-ly.py:86 convert-ly.py:106
-msgid "VERSION"
-msgstr ""
-
-#: convert-ly.py:88
-msgid "start from VERSION [default: \\version found in file]"
-msgstr ""
-
-#: convert-ly.py:91
-msgid "edit in place"
-msgstr ""
-
-#: convert-ly.py:94
-msgid "do not add \\version command if missing"
-msgstr ""
-
-#: convert-ly.py:100
-msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
-msgstr ""
-
-#: convert-ly.py:105
-msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
-msgstr ""
-
-#: convert-ly.py:153
-msgid "Applying conversion: "
-msgstr ""
-
-#: convert-ly.py:166
-msgid "Error while converting"
-msgstr ""
-
-#: convert-ly.py:168
-msgid "Stopping at last succesful rule"
-msgstr ""
-
-#: convert-ly.py:190
-#, fuzzy, python-format
-msgid "Processing `%s'... "
-msgstr "`%s' işleniyor..."
-
-#: convert-ly.py:277 relocate.cc:360 source-file.cc:54
-#, c-format, python-format
-msgid "cannot open file: `%s'"
-msgstr "dosya açılamıyor: `%s'"
-
-#: convert-ly.py:284
-#, fuzzy, python-format
-msgid "cannot determine version for `%s'.  Skipping"
-msgstr "%s için biçem saptanamıyor"
-
-#: etf2ly.py:1196
-#, fuzzy, python-format
-msgid "%s [OPTION]... ETF-FILE"
-msgstr "Kullanım: %s (SEÇENEKLER)... DOSYA"
-
-#: etf2ly.py:1198
-msgid ""
-"Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
-"file."
-msgstr ""
-
-#: etf2ly.py:1201 midi2ly.py:886 musicxml2ly.py:498 main.cc:172 main.cc:178
-msgid "FILE"
-msgstr "DOSYA"
-
-#: etf2ly.py:1203 lilypond-book.py:165 midi2ly.py:899 main.cc:185
-msgid "show warranty and copyright"
-msgstr "garantiyi ve telif hakkını göster"
-
-#  # FIXME
-#  # do -P or -p by default?
-#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#: lilypond-book.py:71
-#, fuzzy
-msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
-msgstr ""
-"LilyPond'un küçük parçalarını karma HTML, LaTeX ya da texinfo belgesinde işle"
-
-#: lilypond-book.py:78
-msgid "BOOK"
-msgstr ""
-
-#: lilypond-book.py:87
-#, python-format
-msgid "Exiting (%d)..."
-msgstr "Mevcut (%d)..."
-
-#: lilypond-book.py:119
+#: lilylib.py:112 midi2ly.py:136 mup2ly.py:130
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr "Telif hakkı (c) %s tarafından"
 
-#: lilypond-book.py:129
-msgid "FILTER"
-msgstr "SÜZGEÇ"
+#: lilylib.py:116 midi2ly.py:141 mup2ly.py:135
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "GNU Genel Kamu Lisansı şartları uyarınca dağıtılır."
 
-#: lilypond-book.py:132
-msgid "pipe snippets through FILTER [convert-ly -n -]"
-msgstr "küçük parçaları [convert-ly -n -] SÜZGEÇi aracılığıyla borular"
+#: lilylib.py:118 midi2ly.py:142 mup2ly.py:136
+msgid "It comes with NO WARRANTY."
+msgstr "HİÇBİR GARANTİ  ile gelmez."
 
-#: lilypond-book.py:135
-#, fuzzy
-msgid ""
-"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
-msgstr "EXT (texi [öntanımlı], texi-html, latex, html) çıktı biçemini kullan"
+#: lilylib.py:125 warn.cc:24
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "uyarı: %s"
 
-#: lilypond-book.py:138
-msgid "add DIR to include path"
-msgstr "içerim yollarına DIR'ı (DİZİN) ekle"
+#: lilylib.py:128 warn.cc:30
+#, c-format, python-format
+msgid "error: %s"
+msgstr "hata: %s"
 
-#: lilypond-book.py:139 lilypond-book.py:144 main.cc:171
-msgid "DIR"
-msgstr "DIR (DİZİN)"
+#: lilylib.py:132
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "Mevcut (%d)..."
 
-#: lilypond-book.py:143
-msgid "write output to DIR"
-msgstr "çıktıyı DIR'a (DİZİN) yaz"
+#: lilylib.py:192 midi2ly.py:223 mup2ly.py:219
+#, python-format
+msgid "Usage: %s [OPTIONS]... FILE"
+msgstr "Kullanım: %s (SEÇENEKLER)... DOSYA"
 
-#: lilypond-book.py:147
-msgid "COMMAND"
-msgstr "KOMUT"
+#: lilylib.py:196 midi2ly.py:227 mup2ly.py:223 main.cc:200 lily/main.cc:200
+#, c-format
+msgid "Options:"
+msgstr "Seçenekler:"
 
-#: lilypond-book.py:148
-msgid "process ly_files using COMMAND FILE..."
-msgstr "KOMUT DOSYASInı kullanarak ly_files'ı işle..."
-
-#: lilypond-book.py:154
-msgid "Create PDF files for use with PDFTeX"
+#: lilylib.py:200 midi2ly.py:231 mup2ly.py:227 main.cc:204 lily/main.cc:204
+#, c-format, python-format
+msgid "Report bugs to %s."
 msgstr ""
+"Yazılım hatalarını %s adresine,\n"
+"çeviri hatalarını <gnu-tr@belgeler.org> adresine bildirin."
 
-#: lilypond-book.py:157
-msgid ""
-"extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
-"must use this with dvips -h INPUT.psfonts"
-msgstr ""
-
-#: lilypond-book.py:160 midi2ly.py:896 musicxml2ly.py:489 main.cc:184
-msgid "be verbose"
-msgstr "daha fazla bilgi ver"
-
-#: lilypond-book.py:773
+#: lilylib.py:220
 #, python-format
-msgid "file not found: %s"
-msgstr "dosya bulunamadı: %s"
+msgid "Binary %s has version %s, looking for version %s"
+msgstr " %s ikilisi,  %s sürümünde, %s sürümü aranıyor"
 
-#: lilypond-book.py:1004
-#, fuzzy, python-format
-msgid "deprecated ly-option used: %s=%s"
-msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
-
-#: lilypond-book.py:1007
-#, fuzzy, python-format
-msgid "compatibility mode translation: %s=%s"
-msgstr "uyumluluk kipi çevirisi: %s"
-
-#: lilypond-book.py:1011
+#: lilylib.py:254
 #, python-format
-msgid "deprecated ly-option used: %s"
-msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
+msgid "Opening pipe `%s'"
+msgstr "`%s' veri yolu açılıyor"
 
-#: lilypond-book.py:1014
-#, python-format
-msgid "compatibility mode translation: %s"
-msgstr "uyumluluk kipi çevirisi: %s"
-
-#: lilypond-book.py:1033
-#, python-format
-msgid "ignoring unknown ly option: %s"
-msgstr "bilinmeyen ly seçeneği yok sayılıyor: %s"
-
-#: lilypond-book.py:1388
-#, python-format
-msgid "Opening filter `%s'"
-msgstr "`%s' süzgeci açılıyor"
-
-#: lilypond-book.py:1405
+#: lilylib.py:269 lilypond-book.py:812
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' başarısız (%d)"
 
-#: lilypond-book.py:1406
+#: lilylib.py:274 lilylib.py:333 lilypond-book.py:813 lilypond-latex.py:466
 msgid "The error log is as follows:"
 msgstr "Hata günlüğü aşağıdaki gibidir:"
 
-#: lilypond-book.py:1476
-msgid "cannot find \\begin{document} in LaTeX document"
+#: lilylib.py:305 midi2ly.py:259 mup2ly.py:255
+#, python-format
+msgid "Invoking `%s'"
+msgstr "`%s' çağrılıyor"
+
+#: lilylib.py:307
+#, python-format
+msgid "Running %s..."
+msgstr "%s çalıştırılıyor..."
+
+#: lilylib.py:326
+#, python-format
+msgid "`%s' failed (%s)"
+msgstr "`%s' başarısız (%s)"
+
+#: lilylib.py:329 midi2ly.py:265 mup2ly.py:263
+msgid "(ignored)"
+msgstr "(yok sayıldı)"
+
+#: lilylib.py:347 midi2ly.py:275 mup2ly.py:273
+#, python-format
+msgid "Cleaning %s..."
+msgstr "%s temizleniyor..."
+
+#: lilylib.py:518
+msgid "Removing output file"
+msgstr "Çıktı dosyası kaldırılıyor"
+
+#: lilypond-book.py:76
+msgid ""
+"Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.\n"
+"Example usage:\n"
+"\n"
+"   lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
+"   lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
+"   lilypond-book --process='lilypond -I include' BOOK\n"
+"\n"
 msgstr ""
+"LilyPond'un küçük  parçalarını karma HTML, LaTeX ya da texinfo belgelerinde\n"
+"çalıştırır. \n"
+" Örnek kullanım:\n"
+"\n"
+"    lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" KİTAP\n"
+"    lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\"KİTAP\n"
+"    lilypond-book --process='lilypond -I include' KİTAP\n"
+"\n"
 
-#: lilypond-book.py:1586
-msgid "Writing snippets..."
-msgstr "Küçük parçalar yazılıyor..."
+#  Bug in option parser: --output=foe is taken as an abbreviation
+#  for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#: lilypond-book.py:89 main.cc:130 lily/main.cc:130
+msgid "EXT"
+msgstr "EXT"
 
-#: lilypond-book.py:1591
-msgid "Processing..."
-msgstr "İşleniyor..."
+#: lilypond-book.py:89
+msgid "use output format EXT (texi [default], texi-html, latex, html)"
+msgstr "EXT (texi [öntanımlı], texi-html, latex, html) çıktı biçemini kullan"
 
-#: lilypond-book.py:1595
-msgid "All snippets are up to date..."
-msgstr "Bütün küçük parçalar güncellenmiştir..."
+#: lilypond-book.py:90
+msgid "FILTER"
+msgstr "SÜZGEÇ"
 
-#: lilypond-book.py:1605
-#, fuzzy, python-format
+#: lilypond-book.py:90
+msgid "pipe snippets through FILTER [convert-ly -n -]"
+msgstr "küçük parçaları [convert-ly -n -] SÜZGEÇi aracılığıyla borular"
+
+#: lilypond-book.py:92 lilypond-book.py:94 lilypond-latex.py:114 main.cc:133
+#: lily/main.cc:133
+msgid "DIR"
+msgstr "DIR (DİZİN)"
+
+#: lilypond-book.py:92
+msgid "add DIR to include path"
+msgstr "içerim yollarına DIR'ı (DİZİN) ekle"
+
+#: lilypond-book.py:93
+msgid "COMMAND"
+msgstr "KOMUT"
+
+#: lilypond-book.py:93
+msgid "process ly_files using COMMAND FILE..."
+msgstr "KOMUT DOSYASInı kullanarak ly_files'ı işle..."
+
+#: lilypond-book.py:94
+msgid "write output to DIR"
+msgstr "çıktıyı DIR'a (DİZİN) yaz"
+
+#: lilypond-book.py:95 lilypond-latex.py:133 midi2ly.py:105 mup2ly.py:78
+#: ps2png.py:41 main.cc:145 lily/main.cc:145
+msgid "be verbose"
+msgstr "daha fazla bilgi ver"
+
+#: lilypond-book.py:96
+msgid "print version information"
+msgstr "sürüm bilgisini yazdır"
+
+#: lilypond-book.py:97 lilypond-latex.py:135 midi2ly.py:107 mup2ly.py:80
+#: main.cc:146 lily/main.cc:146
+msgid "show warranty and copyright"
+msgstr "garantiyi ve telif hakkını göster"
+
+#: lilypond-book.py:400
+#, python-format
+msgid "deprecated ly-option used: %s"
+msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
+
+#: lilypond-book.py:401
+#, python-format
+msgid "compatibility mode translation: %s"
+msgstr "uyumluluk kipi çevirisi: %s"
+
+#: lilypond-book.py:423
+#, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr "bilinmeyen ly seçeneği yok sayılıyor: %s"
+
+#: lilypond-book.py:480
+#, python-format
+msgid "file not found: %s"
+msgstr "dosya bulunamadı: %s"
+
+#: lilypond-book.py:795
+#, python-format
+msgid "Opening filter `%s'"
+msgstr "`%s' süzgeci açılıyor"
+
+#: lilypond-book.py:913
+#, python-format
 msgid "cannot determine format for: %s"
 msgstr "%s için biçem saptanamıyor"
 
-#: lilypond-book.py:1616
-#, fuzzy, python-format
-msgid "%s is up to date."
-msgstr "Bütün küçük parçalar güncellenmiştir..."
-
-#: lilypond-book.py:1622
-#, python-format
-msgid "Writing `%s'..."
-msgstr "`%s' yazılıyor..."
-
-#: lilypond-book.py:1677
+#: lilypond-book.py:954
 msgid "Output would overwrite input file; use --output."
 msgstr "Çıktı girdi dosyasının üzerine yazılacak; --output'u kullan."
 
-#: lilypond-book.py:1681
+#: lilypond-book.py:961
 #, python-format
 msgid "Reading %s..."
 msgstr "%s okunuyor..."
 
-#: lilypond-book.py:1700
+#: lilypond-book.py:975
 msgid "Dissecting..."
 msgstr "Açımlanıyor..."
 
-#: lilypond-book.py:1716
+#: lilypond-book.py:1006
+msgid "Writing snippets..."
+msgstr "Küçük parçalar yazılıyor..."
+
+#: lilypond-book.py:1011
+msgid "Processing..."
+msgstr "İşleniyor..."
+
+#: lilypond-book.py:1014
+msgid "All snippets are up to date..."
+msgstr "Bütün küçük parçalar güncellenmiştir..."
+
+#: lilypond-book.py:1017
 #, python-format
 msgid "Compiling %s..."
 msgstr "%s derleniyor..."
 
-#: lilypond-book.py:1725
+#: lilypond-book.py:1025
 #, python-format
 msgid "Processing include: %s"
 msgstr "İçerim işleniyor: %s"
 
-#: lilypond-book.py:1739
-#, fuzzy, python-format
-msgid "Removing `%s'"
-msgstr "`%s' çağrılıyor"
+#: lilypond-book.py:1041 lilypond-latex.py:576 midi2ly.py:1017 ps2png.py:51
+#, python-format
+msgid "getopt says: `%s'"
+msgstr "getopt çıktısı: `%s'"
 
-#: lilypond-book.py:1815
-#, fuzzy, python-format
-msgid "Writing fonts to %s..."
-msgstr "`%s' yazılıyor..."
+#  # FIXME
+#  # do -P or -p by default?
+#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#. # FIXME
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: lilypond-latex.py:104
+msgid "Run LilyPond, generate printable document."
+msgstr "LilyPond'u çalıştır, yazdırılabilir belge üret."
 
-#: lilypond-book.py:1830
-msgid "option --psfonts not used"
+#: lilypond-latex.py:110
+msgid "use LaTeX for formatting"
+msgstr "biçemleme için LaTeX kullanır"
+
+#: lilypond-latex.py:111
+msgid "print even more output"
+msgstr "daha da fazla çıktı yazdır"
+
+#: lilypond-latex.py:112 lilypond-latex.py:123 midi2ly.py:102 main.cc:134
+#: main.cc:136 lily/main.cc:134 lily/main.cc:136
+msgid "FILE"
+msgstr "DOSYA"
+
+#: lilypond-latex.py:112
+msgid "find pfa fonts used in FILE"
+msgstr "DOSYAda kullanılan pfa yazı tiplerini bul"
+
+#: lilypond-latex.py:114
+msgid "add DIR to LilyPond's search path"
+msgstr "DIR'ı (DİZİN) LilyPond'un arama yoluna ekle"
+
+#: lilypond-latex.py:116
+#, python-format
+msgid "keep all output, output to directory %s.dir"
+msgstr "bütün çıktıyı sakla, çıktıyı %s dizinine yönlendir"
+
+#. junkme?
+#: lilypond-latex.py:119
+msgid "don't run LilyPond"
+msgstr "LilyPond'u çalıştırma"
+
+#. junkme?
+#: lilypond-latex.py:121 main.cc:135 lily/main.cc:135
+msgid "produce MIDI output only"
+msgstr "sadece MIDI çıktısı üret"
+
+#: lilypond-latex.py:123 midi2ly.py:102 mup2ly.py:76 main.cc:136
+#: lily/main.cc:136
+msgid "write output to FILE"
+msgstr "çıktıyı DOSYAya yaz"
+
+#: lilypond-latex.py:124 ps2png.py:42
+msgid "RES"
+msgstr "RES"
+
+#: lilypond-latex.py:125 ps2png.py:43
+msgid "set the resolution of the preview to RES"
+msgstr "önizlemenin çözünürlüğünü RES'e ayarla"
+
+#: lilypond-latex.py:126
+msgid "generate PDF output"
+msgstr "PDF çıktısı üret"
+
+#: lilypond-latex.py:127
+msgid "generate PostScript output"
+msgstr "PostScript çıktısı üret"
+
+#: lilypond-latex.py:128
+msgid "generate PNG page images"
+msgstr "PNG sayfa görüntülerini  üret"
+
+#: lilypond-latex.py:129
+msgid "make a picture of the first system"
+msgstr "ilk sistemin bir resmini yap"
+
+#: lilypond-latex.py:130
+msgid "generate PS.GZ"
+msgstr "PS.GZ üret"
+
+#: lilypond-latex.py:131
+msgid "run in safe-mode"
+msgstr "emniyetli kipte çalıştır"
+
+#: lilypond-latex.py:132
+msgid "KEY=VAL"
+msgstr "KEY=VAL"
+
+#: lilypond-latex.py:132
+msgid "change global setting KEY to VAL"
+msgstr "genel ayar KEY'e VAL değerini ata"
+
+#: lilypond-latex.py:134 midi2ly.py:106 mup2ly.py:79 main.cc:144
+#: lily/main.cc:144
+msgid "print version number"
+msgstr "sürüm numarasını yazdır"
+
+#: lilypond-latex.py:203
+#, python-format
+msgid "no such setting: `%s'"
+msgstr "böyle bir ayar yok: `%s'"
+
+#: lilypond-latex.py:247
+#, python-format
+msgid "LilyPond crashed (signal %d)."
+msgstr "LilyPond çöktü (%d sinyali)."
+
+#: lilypond-latex.py:248
+msgid "Please submit a bug report to bug-lilypond@gnu.org"
+msgstr "Lütfen bug-lilypond@gnu.org adresine bir yazılım hatası raporu gönderin"
+
+#: lilypond-latex.py:255
+#, python-format
+msgid "LilyPond failed on input file %s (exit status %d)"
+msgstr "LilyPond %s girdi dosyasında başarısız oldu (çıkış durumu %d)"
+
+#: lilypond-latex.py:259
+#, python-format
+msgid "LilyPond failed on an input file (exit status %d)"
+msgstr "LilyPond bir girdi dosyasında başarısız oldu (çıkış durumu %d)"
+
+#: lilypond-latex.py:260
+msgid "Continuing..."
+msgstr "Devam ediliyor..."
+
+#: lilypond-latex.py:270
+#, python-format
+msgid "Analyzing %s..."
+msgstr "%s çözümleniyor..."
+
+#: lilypond-latex.py:324
+#, python-format
+msgid "no LilyPond output found for `%s'"
+msgstr "`%s' için hiçbir LilyPond çıktısı bulunamadı"
+
+#: lilypond-latex.py:465
+msgid "LaTeX failed on the output file."
+msgstr "LaTeX çıktı dosyasında başarısız oldu."
+
+#: lilypond-latex.py:513
+msgid ""
+"Trying create PDF, but no PFA fonts found.\n"
+"Using bitmap fonts instead. This will look bad."
 msgstr ""
+"PDF oluşturulmaya çalışılıyor, ancak hiçbir PFA yazı tipi bulunamadı. \n"
+"Bunun yerine bitmap yazı tipi kullanılıyor. Bu kötü görünecek."
 
-#: lilypond-book.py:1831
-msgid "processing with dvips will have no fonts"
+#  no ps header?
+#. no ps header?
+#: lilypond-latex.py:556
+#, python-format
+msgid "not a PostScript file: `%s'"
+msgstr "bir PostScript dosyası değil: `%s'"
+
+#: lilypond-latex.py:666
+msgid "pseudo filter"
+msgstr "sahte süzgeç"
+
+#: lilypond-latex.py:669
+msgid "pseudo filter only for single input file"
+msgstr "sadece tek girdi dosyası için sahte süzgeç"
+
+#: lilypond-latex.py:674
+msgid "no files specified on command line"
+msgstr "komut satırında hiçbir dosya belirtilmedi"
+
+#: lilypond-latex.py:706
+#, python-format
+msgid "filename should not contain spaces: `%s'"
+msgstr "dosyaadı boşluk içermemeli: `%s'"
+
+#: lilypond-latex.py:744
+msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr ""
+"LilyPond'un çalıştırılması başarısız. İzlemek için\n"
+"--verbose seçeneği ile yeniden çalıştırın."
 
-#: lilypond-book.py:1834
-msgid "DVIPS usage:"
+#: lilypond-latex.py:786
+msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr ""
+"PS dosyası oluşturulamadı. İzlemek için\n"
+"--verbose seçeneği ile yeniden çalıştırın."
 
-#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
+#: lilypond-latex.py:815
+#, python-format
+msgid "%s output to <stdout>..."
+msgstr "%s çıktısı <stdout>a..."
+
+#: lilypond-latex.py:820 includable-lexer.cc:57 kpath.cc:134 lily-guile.cc:89
+#: lily-parser.cc:275 lily/includable-lexer.cc:57 lily/kpath.cc:134
+#: lily/lily-guile.cc:89 lily/lily-parser.cc:275
+#, c-format, python-format
+msgid "can't find file: `%s'"
+msgstr "dosya bulunamıyor: `%s'"
+
+#: lilypond-latex.py:843
+#, python-format
+msgid "%s output to %s..."
+msgstr "%s çıktısı %s'ye..."
+
+#: lilypond-latex.py:846
+#, python-format
+msgid "can't find file: `%s.%s'"
+msgstr "dosya bulunamıyor: `%s.%s'"
+
+#  temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#  original_dir = os.getcwd ()
+#  keep_temp_dir_p = 0
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. original_dir = os.getcwd ()
+#. keep_temp_dir_p = 0
+#: midi2ly.py:94
+msgid "Convert MIDI to LilyPond source."
+msgstr "MIDI'yi LilyPond kaynağına dönüştür."
+
+#: midi2ly.py:97
+msgid "print absolute pitches"
+msgstr "kesin sesleri yazdır"
+
+#: midi2ly.py:98 midi2ly.py:103
+msgid "DUR"
+msgstr "DUR"
+
+#: midi2ly.py:98
+msgid "quantise note durations on DUR"
+msgstr "DUR üzerindeki nota sürelerini rakamlandır"
+
+#: midi2ly.py:99
+msgid "print explicit durations"
+msgstr "belirtilmiş süreler yazdır"
+
+#: midi2ly.py:101
+msgid "ALT[:MINOR]"
+msgstr "ALT[:MINOR]"
+
+#: midi2ly.py:101
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "anahtarı ayarla: ALT=+sharps (diyezler) veya -flats (bemoller); MINOR=1"
+
+#: midi2ly.py:103
+msgid "quantise note starts on DUR"
+msgstr "DUR üzerindeki nota başlangıçlarını rakamlandır"
+
+#: midi2ly.py:104
+msgid "DUR*NUM/DEN"
+msgstr "DUR*NUM/DEN"
+
+#: midi2ly.py:104
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "DUR*NUM/DEN tuplet sürelerine izin ver"
+
+#: midi2ly.py:108
+msgid "treat every text as a lyric"
+msgstr "her metne şarkı sözü muamelesi yap"
+
+#: midi2ly.py:149 mup2ly.py:143 input.cc:88 lily/input.cc:88
 msgid "warning: "
 msgstr "uyarı:"
 
-#: midi2ly.py:109 midi2ly.py:924
+#: midi2ly.py:164 midi2ly.py:1017 midi2ly.py:1082 mup2ly.py:146 mup2ly.py:160
+#: input.cc:93 lily/input.cc:93
 msgid "error: "
 msgstr "hata: "
 
-#: midi2ly.py:110
+#: midi2ly.py:165 mup2ly.py:161
 msgid "Exiting ... "
 msgstr "Mevcut ..."
 
-#: midi2ly.py:857
+#: midi2ly.py:263 mup2ly.py:260
+#, python-format
+msgid "command exited with value %d"
+msgstr "komut %d değeriyle sonlandı"
+
+#: midi2ly.py:1001
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "`%s' çıktısı`%s'ye..."
 
-#: midi2ly.py:871 musicxml2ly.py:485
-#, fuzzy, python-format
-msgid "Convert %s to LilyPond input."
-msgstr "mup'ı Lilypond kaynağına dönüştür."
-
-#: midi2ly.py:875
-msgid "print absolute pitches"
-msgstr "kesin sesleri yazdır"
-
-#: midi2ly.py:877 midi2ly.py:889
-msgid "DUR"
-msgstr "DUR"
-
-#: midi2ly.py:878
-msgid "quantise note durations on DUR"
-msgstr "DUR üzerindeki nota sürelerini rakamlandır"
-
-#: midi2ly.py:881
-msgid "print explicit durations"
-msgstr "belirtilmiş süreler yazdır"
-
-#: midi2ly.py:882
-msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr ""
-"anahtarı ayarla: ALT=+sharps (diyezler) veya -flats (bemoller); MINOR=1"
-
-#: midi2ly.py:883
-msgid "ALT[:MINOR]"
-msgstr "ALT[:MINOR]"
-
-#: midi2ly.py:888
-msgid "quantise note starts on DUR"
-msgstr "DUR üzerindeki nota başlangıçlarını rakamlandır"
-
-#: midi2ly.py:891
-msgid "DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN"
-
-#: midi2ly.py:894
-msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN tuplet sürelerine izin ver"
-
-#: midi2ly.py:902
-msgid "treat every text as a lyric"
-msgstr "her metne şarkı sözü muamelesi yap"
-
-#: midi2ly.py:905
-#, fuzzy
-msgid "Examples"
+#: midi2ly.py:1032
+msgid "Example:"
 msgstr "Örnek:"
 
-#: midi2ly.py:925
+#: midi2ly.py:1082
 msgid "no files specified on command line."
 msgstr "komut satırında hiçbir dosya belirtilmedi."
 
-#: musicxml2ly.py:473
-msgid "musicxml2ly FILE.xml"
-msgstr ""
+#: mup2ly.py:70
+msgid "Convert mup to LilyPond source."
+msgstr "mup'ı Lilypond kaynağına dönüştür."
 
-#: musicxml2ly.py:476
-#, fuzzy, python-format
-msgid ""
-"This program is free software.  It is covered by the GNU General Public\n"
-"License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
-"information."
-msgstr ""
-"Bu program serbest yazılımdır. GNU Genel Kamu Lisansı tarafından\n"
-"korunmakta olan bu yazılımı belli şartlar altında değiştirebilir\n"
-"ve/veya kopyalarını dağıtabilirsiniz.  Daha fazla\n"
-"bilgi için 'lilypond --warranty' komutunu çalıştırın.\n"
+#: mup2ly.py:73
+msgid "debug"
+msgstr "hata ayıklama"
 
-#: musicxml2ly.py:495
-msgid "Use lxml.etree; uses less memory and cpu time."
-msgstr ""
+#: mup2ly.py:74
+msgid "define macro NAME [optional expansion EXP]"
+msgstr "makro ADını [seçimli genişletme EXP] tanımla"
 
-#: musicxml2ly.py:503
-#, fuzzy
-msgid "set output filename to FILE"
-msgstr "çıktıyı DOSYAya yaz"
+#: mup2ly.py:77
+msgid "only pre-process"
+msgstr "sadece önişleme yap"
 
-#: getopt-long.cc:140
+#: mup2ly.py:1075
+#, python-format
+msgid "no such context: %s"
+msgstr "böyle bir bağlam yok: %s"
+
+#: mup2ly.py:1299
+#, python-format
+msgid "Processing `%s'..."
+msgstr "`%s' işleniyor..."
+
+#: mup2ly.py:1318
+#, python-format
+msgid "Writing `%s'..."
+msgstr "`%s' yazılıyor..."
+
+#. ugr.
+#: ps2png.py:35
+msgid "Convert PostScript to PNG image."
+msgstr "PostScript'i PNG grafiğine dönüştürür."
+
+#. # FIXME: silly message containing %d
+#: ps2png.py:71
+#, python-format
+msgid "Wrote `%s'"
+msgstr "`%s' yazıldı"
+
+#: getopt-long.cc:146
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "`%s' seçeneği bir argüman gerektirir"
 
-#: getopt-long.cc:144
-#, fuzzy, c-format
-msgid "option `%s' does not allow an argument"
+#: getopt-long.cc:150
+#, c-format
+msgid "option `%s' doesn't allow an argument"
 msgstr "`%s' seçeneği argüman kabul etmez"
 
-#: getopt-long.cc:148
+#: getopt-long.cc:154
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "tanınmayan seçenek: `%s'"
 
-#: getopt-long.cc:154
+#: getopt-long.cc:161
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "`%s' seçeneğine `%s' geçersiz argümanı"
 
-#: warn.cc:68 grob.cc:559 input.cc:82
+#: warn.cc:43
 #, c-format
 msgid "programming error: %s"
 msgstr "programlama hatası: %s"
 
-#: warn.cc:69 input.cc:83
-#, fuzzy
-msgid "continuing, cross fingers"
+#: warn.cc:44
+msgid "Continuing; crossing fingers"
 msgstr "Devam ediliyor; parmaklar çaprazlanıyor"
 
-#: accidental-engraver.cc:240
-#, fuzzy, c-format
-msgid "accidental typesetting list must begin with context-name: %s"
+#: accidental-engraver.cc:194 lily/accidental-engraver.cc:201
+#: lily/accidental-engraver.cc:243
+#, c-format
+msgid "Accidental typesetting list must begin with context-name: %s"
 msgstr "Rastlantı dizme listesi context-name (bağlam adı) ile başlamalıdır: %s"
 
-#: accidental-engraver.cc:268
+#: accidental-engraver.cc:222 lily/accidental-engraver.cc:229
+#: lily/accidental-engraver.cc:271
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr "bilinmeyen rastlantı yok sayılıyor: %s"
 
-#: accidental-engraver.cc:284
+#: accidental-engraver.cc:239 lily/accidental-engraver.cc:246
+#: lily/accidental-engraver.cc:288
 #, c-format
-msgid "pair or context-name expected for accidental rule, found %s"
-msgstr ""
+msgid "Accidental rule must be pair or context-name; Found %s"
+msgstr "Raslantı kuralı çift ya da bağlam-adı olmak zorundadır; %s bulundu"
 
-#: accidental.cc:243 key-signature-interface.cc:133
+#: accidental.cc:221 key-signature-interface.cc:137 lily/accidental.cc:221
+#: lily/key-signature-interface.cc:137 lily/accidental.cc:222
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "rastlantısal `%s' bulunamadı"
 
-#: align-interface.cc:222
-msgid ""
-"vertical alignment called before line-breaking.\n"
-"Only do cross-staff spanners with PianoStaff."
-msgstr ""
-
-#: align-interface.cc:329
-msgid "tried to get a translation for something that is no child of mine"
-msgstr ""
-
-#: all-font-metrics.cc:173
+#: afm.cc:143 lily/afm.cc:143
 #, c-format
-msgid "cannot find font: `%s'"
+msgid "Error parsing AFM file: `%s'"
+msgstr "AFM dosyasının ayrıştırılmasında hata: `%s' "
+
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#: all-font-metrics.cc:95 lily/all-font-metrics.cc:95
+#, c-format
+msgid "checksum mismatch for font file: `%s'"
+msgstr "yazı tipi dosyası için hatalı sağlama toplamı: `%s' "
+
+#: all-font-metrics.cc:97 lily/all-font-metrics.cc:97
+#, c-format
+msgid "does not match: `%s'"
+msgstr "eşleşmiyor: `%s'"
+
+#: all-font-metrics.cc:103 lily/all-font-metrics.cc:103
+msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
+msgstr ".afm dosyalarınrın hepsini yeniden kurgula, ve .pk ve .tfm dosyalarının hepsini kaldır."
+
+#: all-font-metrics.cc:105 lily/all-font-metrics.cc:105
+msgid "Rerun with -V to show font paths."
+msgstr "Yazı tipi yollarını göstermek için -V ile yeniden çalıştır. "
+
+#: all-font-metrics.cc:107 lily/all-font-metrics.cc:107
+msgid "A script for removing font-files is delivered with the source-code:"
+msgstr "Yazı tipi-dosyalarının kaldırılması için kaynak-kodu ile birlikte bir betik verildi:"
+
+#: all-font-metrics.cc:184 lily/all-font-metrics.cc:184
+#, c-format
+msgid "can't find font: `%s'"
 msgstr "yazı tipi bulunamıyor: `%s'"
 
-#: apply-context-iterator.cc:31
-msgid "\\applycontext argument is not a procedure"
-msgstr "\\applycontext (uygulamabağlamı) argümanı bir işlev değil"
+#: all-font-metrics.cc:185 lily/all-font-metrics.cc:185
+msgid "Loading default font"
+msgstr "Öntanımlı yazı tipi yükleniyor "
 
-#: auto-change-iterator.cc:63 change-iterator.cc:61
-#, fuzzy, c-format
-msgid "cannot change, already in translator: %s"
-msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#: axis-group-engraver.cc:78
-msgid "Axis_group_engraver: vertical group already has a parent"
-msgstr ""
-
-#: axis-group-engraver.cc:79
-msgid "are there two Axis_group_engravers?"
-msgstr ""
-
-#: axis-group-engraver.cc:80
-msgid "removing this vertical group"
-msgstr ""
-
-#: axis-group-interface.cc:96
-msgid "tried to calculate pure-height at a non-breakpoint"
-msgstr ""
-
-#: axis-group-interface.cc:370
-msgid "an outside-staff object should have a direction, defaulting to up"
-msgstr ""
-
-#: axis-group-interface.cc:383
+#: all-font-metrics.cc:200 lily/all-font-metrics.cc:200
 #, c-format
-msgid "outside-staff object %s has an empty extent"
-msgstr ""
+msgid "can't find default font: `%s'"
+msgstr "öntanımlı yazı tipi bulunamıyor: `%s'"
 
-#: bar-check-iterator.cc:73
-#, c-format
-msgid "barcheck failed at: %s"
-msgstr "çubukdenetimi başarısız oldu: %s"
-
-#: beam-engraver.cc:128
-msgid "already have a beam"
-msgstr "zaten bir ışın var"
-
-#: beam-engraver.cc:196
-msgid "unterminated beam"
-msgstr "sonlandırılmamış ışın"
-
-#: beam-engraver.cc:238 chord-tremolo-engraver.cc:134
-msgid "stem must have Rhythmic structure"
-msgstr "gövdenin Rhythmic yapısı olmalı"
-
-#: beam-engraver.cc:246
-#, fuzzy
-msgid "stem does not fit in beam"
-msgstr "gövde ışınla uyumlu değil"
-
-#: beam-engraver.cc:247
-msgid "beam was started here"
-msgstr "ışın burada başlatıldı"
-
-#: beam-quanting.cc:307
-#, fuzzy
-msgid "no feasible beam position"
-msgstr "Hiçbir uygulanabilir satır bölünmesi bulunamadı"
-
-#: beam.cc:144
-#, fuzzy
-msgid "removing beam with no stems"
-msgstr "ikiden az gövdesi olan ışın kaldırılıyor"
-
-#: beam.cc:1007
-msgid "no viable initial configuration found: may not find good beam slope"
-msgstr ""
-"hiçbir geçerli başlangıç yapılandırması bulunamadı: uygun ışın eğimi "
-"bulunamayabilir"
-
-#: break-alignment-interface.cc:208
-#, c-format
-msgid "No spacing entry from %s to `%s'"
-msgstr "%s'den `%sy'e kadar hiçbir boşluk girişi yok"
-
-#: change-iterator.cc:23
-#, c-format
-msgid "cannot change `%s' to `%s'"
-msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#. FIXME: constant error message.
-#: change-iterator.cc:82
-#, fuzzy
-msgid "cannot find context to switch to"
-msgstr "`%s'nin bağlamı bulunamıyor"
-
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#: change-iterator.cc:91
-#, fuzzy, c-format
-msgid "not changing to same context type: %s"
-msgstr "böyle bir bağlam yok: %s"
-
-#. FIXME: uncomprehensable message
-#: change-iterator.cc:95
-msgid "none of these in my family"
-msgstr "bunların hiçbiri ailemde yok"
-
-#: chord-tremolo-engraver.cc:88
-#, fuzzy
-msgid "No tremolo to end"
-msgstr "Bitirmek için volta anahtarı yok"
-
-#: chord-tremolo-engraver.cc:110
-msgid "unterminated chord tremolo"
-msgstr "sonlandırılmamış akort tremolosu"
-
-#: chord-tremolo-iterator.cc:33
-#, c-format
-msgid "expect 2 elements for chord tremolo, found %d"
-msgstr ""
-
-#: clef.cc:54
-#, c-format
-msgid "clef `%s' not found"
-msgstr "`%s' anahtarı bulunamadı"
-
-#: cluster.cc:110
-#, c-format
-msgid "unknown cluster style `%s'"
-msgstr "bilinmeyen küme tarzı `%s'"
-
-#: cluster.cc:135
-msgid "junking empty cluster"
-msgstr ""
-
-#: coherent-ligature-engraver.cc:100
-#, fuzzy, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr ""
-"Tutarlı_bağ_nakkaş: boşluk bırakma artışı 0,01'e ayarlanıyor\n"
-"(spacing-increment=0.01): ptr=%ul"
-
-#. if we get to here, just put everything on one line
-#: constrained-breaking.cc:176 constrained-breaking.cc:193
-msgid "cannot find line breaking that satisfies constraints"
-msgstr ""
-
-#: context-def.cc:130
-#, fuzzy, c-format
-msgid "program has no such type: `%s'"
-msgstr "Programın böyle bir türü yok: `%s'"
-
-#: context-property.cc:76
-msgid "need symbol arguments for \\override and \\revert"
-msgstr ""
-
-#: context.cc:151
-#, fuzzy, c-format
-msgid "cannot find or create new `%s'"
-msgstr "`%2$s' adlı`%1$s' bulunamıyor ya da oluşturulamıyor"
-
-#: context.cc:213
-#, fuzzy, c-format
-msgid "cannot find or create `%s' called `%s'"
-msgstr "`%2$s' adlı`%1$s' bulunamıyor ya da oluşturulamıyor"
-
-#: context.cc:276
-#, c-format
-msgid "Invalid CreateContext event: Cannot create %s context"
-msgstr ""
-
-#: context.cc:388
-#, c-format
-msgid "cannot find or create: `%s'"
-msgstr "bulunamıyor ya da oluşturulamıyor: `%s'"
-
-#: custos.cc:77
-#, c-format
-msgid "custos `%s' not found"
-msgstr "`%s'nin custosu bulunamadı"
-
-#: dispatcher.cc:71
-msgid "Event class should be a symbol"
-msgstr ""
-
-#: dispatcher.cc:78
-#, fuzzy, c-format
-msgid "Unknown event class %s"
-msgstr "Bilinmeyen arabirim `%s'"
-
-#: dots.cc:38
-#, fuzzy, c-format
-msgid "dot `%s' not found"
-msgstr "`%s' durağı bulunamadı"
-
-#: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "cannot find start of (de)crescendo"
-msgstr "(de)kreşendonun başlangıcı bulunamıyor"
-
-#: dynamic-engraver.cc:195
-msgid "already have a decrescendo"
-msgstr "zaten bir dekreşendo var"
-
-#: dynamic-engraver.cc:197
-msgid "already have a crescendo"
-msgstr "zaten bir kreşendo var"
-
-#: dynamic-engraver.cc:200
-#, fuzzy
-msgid "cresc starts here"
-msgstr "Cresc buradan başlatıldı"
-
-#: dynamic-engraver.cc:323
-msgid "unterminated (de)crescendo"
-msgstr "sonlandırılmamış (de)kreşendo"
-
-#: extender-engraver.cc:131 extender-engraver.cc:140
-msgid "unterminated extender"
-msgstr "sonlandırılmamış genişletici"
-
-#: font-config.cc:28
-msgid "Initializing FontConfig..."
-msgstr ""
-
-#: font-config.cc:44
-#, c-format
-msgid "Rebuilding FontConfig cache %s, this may take a while..."
-msgstr ""
-
-#: font-config.cc:55
-#, fuzzy, c-format
-msgid "failed adding font directory: %s"
-msgstr "dosya bulunamadı: %s"
-
-#: font-config.cc:57
-#, c-format
-msgid "adding font directory: %s"
-msgstr ""
-
-#: general-scheme.cc:160
-msgid "infinity or NaN encountered while converting Real number"
-msgstr ""
-
-#: general-scheme.cc:161
-msgid "setting to zero"
-msgstr ""
-
-#: glissando-engraver.cc:92
-#, fuzzy
-msgid "unterminated glissando"
-msgstr "Sonlandırılmamaış glissando."
-
-#: global-context-scheme.cc:91 global-context-scheme.cc:107
-#, fuzzy
-msgid "no music found in score"
-msgstr "Bir çizgide müziğe ihtiyaç duyar"
-
-#: global-context-scheme.cc:97
-msgid "Interpreting music... "
-msgstr "Müzik yorumlanıyor..."
-
-#: global-context-scheme.cc:120
-#, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr "geçen zaman: %.2f saniye"
-
-#: gregorian-ligature-engraver.cc:59
-#, c-format
-msgid "\\%s ignored"
-msgstr "\\%s yok sayıldı"
-
-#: gregorian-ligature-engraver.cc:64
-#, c-format
-msgid "implied \\%s added"
-msgstr "örtük \\%s eklendi"
-
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:212
-#, fuzzy
-msgid "cannot apply `\\~' on first head of ligature"
-msgstr "bağın başlangıcı bulunamıyor"
-
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:224
-msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr ""
-
-#: grob-interface.cc:57
-#, c-format
-msgid "Unknown interface `%s'"
-msgstr "Bilinmeyen arabirim `%s'"
-
-#: grob-interface.cc:68
-#, c-format
-msgid "Grob `%s' has no interface for property `%s'"
-msgstr ""
-
-#: grob.cc:253
-msgid "Infinity or NaN encountered"
-msgstr ""
-
-#: hairpin.cc:183
-msgid "decrescendo too small"
-msgstr "dekreşendo çok küçük"
-
-#: horizontal-bracket-engraver.cc:59
-#, fuzzy
-msgid "do not have that many brackets"
-msgstr "O kadar çok köşeli ayraç yok"
-
-#: horizontal-bracket-engraver.cc:68
-#, fuzzy
-msgid "conflicting note group events"
-msgstr "Uyuşmayan nota grubu olayları."
-
-#: hyphen-engraver.cc:93
-msgid "removing unterminated hyphen"
-msgstr "sonlandırılmamış kısa çizgi kaldırılıyor"
-
-#: hyphen-engraver.cc:107
-msgid "unterminated hyphen; removing"
-msgstr "sonlandırılmamış kısa çizgi; kaldırılıyor"
-
-#: includable-lexer.cc:53
-msgid "include files are not allowed in safe mode"
-msgstr "güvenli kipte dosyaların içerilmesine izin verilmiyor"
-
-#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
-#, c-format
-msgid "cannot find file: `%s'"
-msgstr "dosya bulunamıyor: `%s'"
-
-#: includable-lexer.cc:62 lily-parser-scheme.cc:107
+#: all-font-metrics.cc:201 includable-lexer.cc:59 lily-parser.cc:268
+#: lily/all-font-metrics.cc:201 lily/includable-lexer.cc:59
+#: lily/lily-parser.cc:268
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(arama yolu: `%s')"
 
-#: input.cc:112 source-file.cc:168 source-file.cc:183
+#: all-font-metrics.cc:202 lily/all-font-metrics.cc:202
+msgid "Giving up"
+msgstr "Vazgeçiliyor"
+
+#: apply-context-iterator.cc:35 lily/apply-context-iterator.cc:35
+msgid "\\applycontext argument is not a procedure"
+msgstr "\\applycontext (uygulamabağlamı) argümanı bir işlev değil"
+
+#: auto-change-iterator.cc:67 change-iterator.cc:61
+#: lily/auto-change-iterator.cc:67 lily/change-iterator.cc:61
+msgid "Can't switch translators, I'm there already"
+msgstr "Çevirmenler değiştirilemiyor, zaten oradayım"
+
+#: axis-group-engraver.cc:117 lily/axis-group-engraver.cc:117
+msgid ""
+"Axis_group_engraver: vertical group already has a parent.\n"
+"Do you have two Axis_group_engravers?\n"
+"Killing this vertical group."
+msgstr ""
+
+#: bar-check-iterator.cc:68 lily/bar-check-iterator.cc:68
+#, c-format
+msgid "barcheck failed at: %s"
+msgstr "çubukdenetimi başarısız oldu: %s"
+
+#: beam-engraver.cc:139 lily/beam-engraver.cc:139
+msgid "already have a beam"
+msgstr "zaten bir ışın var"
+
+#: beam-engraver.cc:211 lily/beam-engraver.cc:211
+msgid "unterminated beam"
+msgstr "sonlandırılmamış ışın"
+
+#: beam-engraver.cc:244 chord-tremolo-engraver.cc:174
+#: lily/beam-engraver.cc:244 lily/chord-tremolo-engraver.cc:174
+msgid "stem must have Rhythmic structure"
+msgstr "gövdenin Rhythmic yapısı olmalı"
+
+#: beam-engraver.cc:258 lily/beam-engraver.cc:258
+msgid "stem doesn't fit in beam"
+msgstr "gövde ışınla uyumlu değil"
+
+#: beam-engraver.cc:259 lily/beam-engraver.cc:259
+msgid "beam was started here"
+msgstr "ışın burada başlatıldı"
+
+#: beam.cc:149 lily/beam.cc:149 lily/beam.cc:150
+msgid "beam has less than two visible stems"
+msgstr "ışının ikiden az gövdesi var"
+
+#: beam.cc:154 lily/beam.cc:154 lily/beam.cc:155
+msgid "removing beam with less than two stems"
+msgstr "ikiden az gövdesi olan ışın kaldırılıyor"
+
+#: beam.cc:1038 lily/beam.cc:1038 lily/beam.cc:1063 lily/beam.cc:1065
+#: lily/beam.cc:1007
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "hiçbir geçerli başlangıç yapılandırması bulunamadı: uygun ışın eğimi bulunamayabilir"
+
+#: break-align-interface.cc:214 lily/break-align-interface.cc:214
+#, c-format
+msgid "No spacing entry from %s to `%s'"
+msgstr "%s'den `%sy'e kadar hiçbir boşluk girişi yok"
+
+#: change-iterator.cc:22 lily/change-iterator.cc:22
+#, c-format
+msgid "can't change `%s' to `%s'"
+msgstr "`%s' `%s'ye dönüştürülemiyor "
+
+#  We could change the current translator's id, but that would make
+#  errors hard to catch
+#  last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#: change-iterator.cc:93 lily/change-iterator.cc:93
+msgid "I'm one myself"
+msgstr "Ben tek başımayım"
+
+#: change-iterator.cc:96 lily/change-iterator.cc:96
+msgid "none of these in my family"
+msgstr "bunların hiçbiri ailemde yok"
+
+#: chord-tremolo-engraver.cc:100 lily/chord-tremolo-engraver.cc:100
+#, c-format
+msgid "Chord tremolo with %d elements. Must have two elements."
+msgstr "%d öğeli akort tremolosu. İki öğesi olmalı."
+
+#: chord-tremolo-engraver.cc:140 lily/chord-tremolo-engraver.cc:140
+msgid "unterminated chord tremolo"
+msgstr "sonlandırılmamış akort tremolosu"
+
+#: chord-tremolo-iterator.cc:64 lily/chord-tremolo-iterator.cc:64
+msgid "no one to print a tremolos"
+msgstr "bir tremolo yazdıracak kimse yok"
+
+#: clef.cc:64 lily/clef.cc:64
+#, c-format
+msgid "clef `%s' not found"
+msgstr "`%s' anahtarı bulunamadı"
+
+#: cluster.cc:123 lily/cluster.cc:123
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr "bilinmeyen küme tarzı `%s'"
+
+#: coherent-ligature-engraver.cc:84 lily/coherent-ligature-engraver.cc:84
+#, c-format
+msgid "gotcha: ptr=%ul"
+msgstr "hata: ptr=%ul"
+
+#: coherent-ligature-engraver.cc:96 lily/coherent-ligature-engraver.cc:96
+#, c-format
+msgid "distance=%f"
+msgstr "uzaklık=%f"
+
+#: coherent-ligature-engraver.cc:139 lily/coherent-ligature-engraver.cc:139
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr=%ul"
+msgstr ""
+"Tutarlı_bağ_nakkaş: boşluk bırakma artışı 0,01'e ayarlanıyor\n"
+"(spacing-increment=0.01): ptr=%ul"
+
+#: context-def.cc:111 lily/context-def.cc:111
+#, c-format
+msgid "Program has no such type: `%s'"
+msgstr "Programın böyle bir türü yok: `%s'"
+
+#: context-def.cc:285 lily/context-def.cc:286
+#, c-format
+msgid "can't find: `%s'"
+msgstr "bulunamıyor: `%s'"
+
+#: context.cc:164 lily/context.cc:164 lily/context.cc:163
+#, c-format
+msgid "Cannot find or create `%s' called `%s'"
+msgstr "`%2$s' adlı`%1$s' bulunamıyor ya da oluşturulamıyor"
+
+#: context.cc:201 lily/context.cc:201 lily/context.cc:200
+#, c-format
+msgid "can't find or create: `%s'"
+msgstr "bulunamıyor ya da oluşturulamıyor: `%s'"
+
+#: custos.cc:85 lily/custos.cc:85
+#, c-format
+msgid "custos `%s' not found"
+msgstr "`%s'nin custosu bulunamadı"
+
+#: dimensions.cc:13 lily/dimensions.cc:13
+msgid "NaN"
+msgstr "NaN"
+
+#: dynamic-engraver.cc:186 span-dynamic-performer.cc:86
+#: lily/dynamic-engraver.cc:186 lily/span-dynamic-performer.cc:86
+#: lily/dynamic-engraver.cc:185
+msgid "can't find start of (de)crescendo"
+msgstr "(de)kreşendonun başlangıcı bulunamıyor"
+
+#: dynamic-engraver.cc:196 lily/dynamic-engraver.cc:196
+#: lily/dynamic-engraver.cc:195
+msgid "already have a decrescendo"
+msgstr "zaten bir dekreşendo var"
+
+#: dynamic-engraver.cc:198 lily/dynamic-engraver.cc:198
+#: lily/dynamic-engraver.cc:197
+msgid "already have a crescendo"
+msgstr "zaten bir kreşendo var"
+
+#: dynamic-engraver.cc:201 lily/dynamic-engraver.cc:201
+#: lily/dynamic-engraver.cc:200
+msgid "Cresc started here"
+msgstr "Cresc buradan başlatıldı"
+
+#: dynamic-engraver.cc:307 lily/dynamic-engraver.cc:317
+#: lily/dynamic-engraver.cc:321
+msgid "unterminated (de)crescendo"
+msgstr "sonlandırılmamış (de)kreşendo"
+
+#: event-chord-iterator.cc:56 output-property-music-iterator.cc:29
+#: lily/event-chord-iterator.cc:56 lily/output-property-music-iterator.cc:29
+#, c-format
+msgid "Junking event: `%s'"
+msgstr "Kullanılmayan olay: `%s'"
+
+#: event.cc:49 lily/event.cc:49 lily/music.cc:184
+#, c-format
+msgid "Transposition by %s makes alteration larger than two"
+msgstr "%s ile transpozisyon ikiden büyük değişikliğe yol açar"
+
+#: event.cc:72 lily/event.cc:72 lily/event.cc:50
+#, c-format
+msgid "octave check failed; expected %s, found: %s"
+msgstr "oktav denetimi başarısız; beklenen %s, elde edilen: %s"
+
+#: extender-engraver.cc:141 extender-engraver.cc:150
+#: lily/extender-engraver.cc:141 lily/extender-engraver.cc:150
+#: lily/extender-engraver.cc:140 lily/extender-engraver.cc:149
+msgid "unterminated extender"
+msgstr "sonlandırılmamış genişletici"
+
+#: folded-repeat-iterator.cc:65 lily/folded-repeat-iterator.cc:65
+msgid "no one to print a repeat brace"
+msgstr "bir tekrar ayracını yazdıracak kimse yok"
+
+#: glissando-engraver.cc:100 lily/glissando-engraver.cc:100
+msgid "Unterminated glissando."
+msgstr "Sonlandırılmamaış glissando."
+
+#: global-context.cc:150 lily/global-context.cc:150 lily/global-context.cc:157
+#, c-format
+msgid "can't find `%s' context"
+msgstr "`%s'nin bağlamı bulunamıyor"
+
+#: gourlay-breaking.cc:199 lily/gourlay-breaking.cc:199
+#, c-format
+msgid "Optimal demerits: %f"
+msgstr "İdeal kusurlar: %f"
+
+#: gourlay-breaking.cc:204 lily/gourlay-breaking.cc:204
+msgid "No feasible line breaking found"
+msgstr "Hiçbir uygulanabilir satır bölünmesi bulunamadı"
+
+#: gregorian-ligature-engraver.cc:59 lily/gregorian-ligature-engraver.cc:59
+#, c-format
+msgid "\\%s ignored"
+msgstr "\\%s yok sayıldı"
+
+#: gregorian-ligature-engraver.cc:64 lily/gregorian-ligature-engraver.cc:64
+#, c-format
+msgid "implied \\%s added"
+msgstr "örtük \\%s eklendi"
+
+#: grob-interface.cc:73 lily/grob-interface.cc:73
+#, c-format
+msgid "Unknown interface `%s'"
+msgstr "Bilinmeyen arabirim `%s'"
+
+#: grob-interface.cc:84 lily/grob-interface.cc:84
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
+msgstr ""
+
+#: hairpin.cc:92 lily/hairpin.cc:107 lily/hairpin.cc:106
+msgid "decrescendo too small"
+msgstr "dekreşendo çok küçük"
+
+#: hairpin.cc:93 lily/hairpin.cc:108 lily/hairpin.cc:107
+msgid "crescendo too small"
+msgstr "kreşendo çok küçük"
+
+#: horizontal-bracket-engraver.cc:57 lily/horizontal-bracket-engraver.cc:57
+msgid "Don't have that many brackets."
+msgstr "O kadar çok köşeli ayraç yok"
+
+#: horizontal-bracket-engraver.cc:66 lily/horizontal-bracket-engraver.cc:66
+msgid "Conflicting note group events."
+msgstr "Uyuşmayan nota grubu olayları."
+
+#: hyphen-engraver.cc:96 lily/hyphen-engraver.cc:96
+msgid "removing unterminated hyphen"
+msgstr "sonlandırılmamış kısa çizgi kaldırılıyor"
+
+#: hyphen-engraver.cc:109 lily/hyphen-engraver.cc:109
+msgid "unterminated hyphen; removing"
+msgstr "sonlandırılmamış kısa çizgi; kaldırılıyor"
+
+#: includable-lexer.cc:50 lily/includable-lexer.cc:50
+msgid "include files are not allowed"
+msgstr "dosyaların içerilmesine izin verilmiyor"
+
+#: input.cc:99 lily/input.cc:99
+msgid "non fatal error: "
+msgstr "hiçbir onulmaz hata yok: "
+
+#: input.cc:107 source-file.cc:135 source-file.cc:228 lily/input.cc:107
+#: lily/source-file.cc:135 lily/source-file.cc:228
 msgid "position unknown"
 msgstr "konum bilinmiyor"
 
-#: ligature-engraver.cc:93
-msgid "cannot find start of ligature"
+#: key-performer.cc:90 lily/key-performer.cc:90
+msgid "FIXME: key change merge"
+msgstr "FIXME: anahtar değişim birleşimi"
+
+#: kpath.cc:83 lily/kpath.cc:83
+#, c-format
+msgid "kpathsea can not find TFM file: `%s'"
+msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
+
+#: kpath.cc:129 lily/kpath.cc:129
+#, c-format
+msgid "kpathsea can not find file: `%s'"
+msgstr "kpathsea dosyayı bulamıyor: `%s'"
+
+#: ligature-engraver.cc:152 lily/ligature-engraver.cc:152
+msgid "can't find start of ligature"
 msgstr "bağın başlangıcı bulunamıyor"
 
-#: ligature-engraver.cc:98
+#: ligature-engraver.cc:158 lily/ligature-engraver.cc:158
 msgid "no right bound"
 msgstr "hiçbir doğru bağ yok"
 
-#: ligature-engraver.cc:120
+#: ligature-engraver.cc:184 lily/ligature-engraver.cc:184
 msgid "already have a ligature"
 msgstr "zaten bir bağ var"
 
-#: ligature-engraver.cc:129
+#: ligature-engraver.cc:200 lily/ligature-engraver.cc:200
 msgid "no left bound"
 msgstr "arta kalan bağ yok"
 
-#: ligature-engraver.cc:173
+#: ligature-engraver.cc:256 lily/ligature-engraver.cc:256
 msgid "unterminated ligature"
 msgstr "sonlandırılmamış bağ"
 
-#: ligature-engraver.cc:202
+#: ligature-engraver.cc:280 lily/ligature-engraver.cc:280
 msgid "ignoring rest: ligature may not contain rest"
 msgstr "gerisini yok sayıyor: bağ gerisini içermeyebilir"
 
-#: ligature-engraver.cc:203
+#: ligature-engraver.cc:281 lily/ligature-engraver.cc:281
 msgid "ligature was started here"
 msgstr "bağ buradan başlatıldı"
 
-#: lily-guile.cc:92
+#: lily-guile.cc:91 lily/lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(yolu yükle: `%s')"
 
-#: lily-guile.cc:518
-#, fuzzy, c-format
-msgid "cannot find property type-check for `%s' (%s)."
+#: lily-guile.cc:559 lily/lily-guile.cc:559 lily/lily-guile.cc:575
+#, c-format
+msgid "Can't find property type-check for `%s' (%s)."
 msgstr "`%s' (%s) için nitelik tür-denetimi bulunamıyor."
 
-#: lily-guile.cc:521
-#, fuzzy
-msgid "perhaps a typing error?"
+#: lily-guile.cc:562 lily/lily-guile.cc:562 lily/lily-guile.cc:578
+msgid "Perhaps you made a typing error?"
 msgstr "Galiba bir daktilo hatası yaptınız?"
 
-#: lily-guile.cc:527
-#, fuzzy
-msgid "doing assignment anyway"
+#: lily-guile.cc:568 lily/lily-guile.cc:568 lily/lily-guile.cc:584
+msgid "Doing assignment anyway."
 msgstr "Görev yine de yapılıyor."
 
-#: lily-guile.cc:539
-#, fuzzy, c-format
-msgid "type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr ""
-"`%s'  için yapılan tür denetimi başarısız oldu; `%s'nin değeri `%s' türünden "
-"olmalı"
+#: lily-guile.cc:582 lily/lily-guile.cc:582 lily/lily-guile.cc:598
+#, c-format
+msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "`%s'  için yapılan tür denetimi başarısız oldu; `%s'nin değeri `%s' türünden olmalı"
 
-#: lily-lexer.cc:254
-#, fuzzy, c-format
-msgid "identifier name is a keyword: `%s'"
+#: lily-lexer.cc:220 lily/lily-lexer.cc:220 lily/lily-lexer.cc:224
+#, c-format
+msgid "Identifier name is a keyword: `%s'"
 msgstr "Tanıtıcı adı bir anahtar kelime: `%s' "
 
-#: lily-lexer.cc:269
+#: lily-lexer.cc:237 lily/lily-lexer.cc:237 lily/lily-lexer.cc:241
 #, c-format
 msgid "error at EOF: %s"
 msgstr "EOF'ta hata: %s"
 
-#: lily-parser-scheme.cc:29
-#, fuzzy, c-format
-msgid "deprecated function called: %s"
-msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
-
-#: lily-parser-scheme.cc:88
-#, fuzzy, c-format
-msgid "Changing working directory to: `%s'"
-msgstr "dosya bulunamadı: %s"
-
-#: lily-parser-scheme.cc:106
-#, c-format
-msgid "cannot find init file: `%s'"
-msgstr "init dosyası bulunamıyor: `%s'"
-
-#: lily-parser-scheme.cc:125
-#, fuzzy, c-format
-msgid "Processing `%s'"
-msgstr "`%s' işleniyor..."
-
-#: lily-parser.cc:99
+#: lily-parser.cc:97 lily/lily-parser.cc:97
 msgid "Parsing..."
 msgstr "Ayrıştırılıyor..."
 
-#: lily-parser.cc:127
-#, fuzzy
-msgid "braces do not match"
+#: lily-parser.cc:110 lily-parser.cc:143 lily/lily-parser.cc:110
+#: lily/lily-parser.cc:143
+msgid "Braces don't match"
 msgstr "Ayraçlar eşleşmiyor"
 
-#: lyric-combine-music-iterator.cc:291
+#: lily-parser.cc:267 lily/lily-parser.cc:267
 #, c-format
-msgid "cannot find Voice `%s'"
-msgstr "`%s' Sesi bulunamıyor"
+msgid "can't find init file: `%s'"
+msgstr "init dosyası bulunamıyor: `%s'"
 
-#: main.cc:116
-#, fuzzy, c-format
+#: lily-parser.cc:284 lily/lily-parser.cc:284
+#, c-format
+msgid "Now processing `%s'"
+msgstr "`%s' şu an işleniyor"
+
+#: main.cc:91 lily/main.cc:91
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
 "License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"under certain conditions.  Invoke as `lilypond --warranty' for more\n"
 "information.\n"
 msgstr ""
 "Bu program serbest yazılımdır. GNU Genel Kamu Lisansı tarafından\n"
@@ -1017,8 +1141,7 @@ msgstr ""
 "ve/veya kopyalarını dağıtabilirsiniz.  Daha fazla\n"
 "bilgi için 'lilypond --warranty' komutunu çalıştırın.\n"
 
-#: main.cc:122
-#, fuzzy
+#: main.cc:97 lily/main.cc:97
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1029,13 +1152,12 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
 "General Public License for more details.\n"
 "\n"
-"    You should have received a copy of the\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
 "GNU General Public License along with this program; if not, write to\n"
 "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
-"    Bu yazılım, serbest yazılımdır; bu yazılımı yeniden dağıtabilir ve/ya "
-"da\n"
+"    Bu yazılım, serbest yazılımdır; bu yazılımı yeniden dağıtabilir ve/ya da\n"
 "Free Software Foundation tarafından basılan GNU Genel Kamu Lisansı 2. sürüm\n"
 "şartları altında değiştirebilirsiniz. \n"
 "\n"
@@ -1049,130 +1171,63 @@ msgstr ""
 "Free Software Foundation, Inc., 59 Temple Place - 330Suite \n"
 "Boston, MA 02111 - 1307 , USA adresine yazın. \n"
 
-#: main.cc:153
-msgid "BACK"
-msgstr ""
-
-#: main.cc:153
-msgid ""
-"use backend BACK (eps, gnome, ps [default],\n"
-"scm, svg, tex, texstr)"
-msgstr ""
-
-#: main.cc:155
-#, fuzzy
-msgid "SYM[=VAL]"
-msgstr "KEY=VAL"
-
-#: main.cc:156
-msgid ""
-"set Scheme option SYM to VAL (default: #t)\n"
-"Use -dhelp for help."
-msgstr ""
-
-#: main.cc:159
+#: main.cc:126 lily/main.cc:126
 msgid "EXPR"
 msgstr "EXPR"
 
-#: main.cc:159
-msgid "evaluate scheme code"
+#: main.cc:127 lily/main.cc:127
+msgid "set options, use -e '(ly:option-usage)' for help"
+msgstr "seçenekleri ayarlar, yardım için -e '(ly:option-usage)' seçeneğini kullanır"
+
+#: main.cc:130 lily/main.cc:130
+msgid "select back-end to use"
 msgstr ""
 
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#: main.cc:162
-msgid "FORMATs"
-msgstr ""
-
-#: main.cc:162
-msgid "dump FORMAT,...  Also as separate options:"
-msgstr ""
-
-#: main.cc:163
-#, fuzzy
-msgid "generate DVI (tex backend only)"
-msgstr "PDF üretir (öntanımlı)"
-
-#: main.cc:164
-msgid "generate PDF (default)"
-msgstr "PDF üretir (öntanımlı)"
-
-#: main.cc:165
-msgid "generate PNG"
-msgstr "PNG üretir"
-
-#: main.cc:166
-msgid "generate PostScript"
-msgstr "PostScript üretir"
-
-#: main.cc:167
-msgid "generate TeX (tex backend only)"
-msgstr ""
-
-#: main.cc:168
-msgid "show this help and exit"
-msgstr ""
-
-#: main.cc:169
+#: main.cc:132 lily/main.cc:132
 msgid "FIELD"
 msgstr "ALAN"
 
-#: main.cc:169
-#, fuzzy
-msgid ""
-"dump header field FIELD to file\n"
-"named BASENAME.FIELD"
+#: main.cc:132 lily/main.cc:132
+msgid "write header field to BASENAME.FIELD"
 msgstr "başlık alanını TEMELAD.ALANa yaz"
 
-#: main.cc:171
+#: main.cc:133 lily/main.cc:133
 msgid "add DIR to search path"
 msgstr "arama yoluna DİZİN'i ekle"
 
-#: main.cc:172
+#: main.cc:134 lily/main.cc:134
 msgid "use FILE as init file"
 msgstr "DOSYAyı init dosyası olarak kullanır"
 
-#: main.cc:174
-msgid "USER,GROUP,JAIL,DIR"
-msgstr ""
+#: main.cc:137 lily/main.cc:137
+msgid "generate a preview"
+msgstr "önizleme üretir"
 
-#: main.cc:174
-msgid ""
-"chroot to JAIL, become USER:GROUP\n"
-"and cd into DIR"
-msgstr ""
+#: main.cc:138 lily/main.cc:138
+msgid "generate PNG"
+msgstr "PNG üretir"
 
-#: main.cc:177
-#, fuzzy
-msgid "do not generate printed output"
-msgstr "PostScript çıktısı üretme"
+#: main.cc:139 lily/main.cc:139
+msgid "generate PostScript"
+msgstr "PostScript üretir"
 
-#: main.cc:178
-#, fuzzy
-msgid "write output to FILE (suffix will be added)"
-msgstr "çıktıyı DOSYAya yaz"
+#: main.cc:140 lily/main.cc:140
+msgid "generate DVI"
+msgstr "DVI üretir"
 
-#: main.cc:179
-#, fuzzy
-msgid "generate a preview of the first system"
-msgstr "ilk sistemin bir resmini yap"
+#: main.cc:141 lily/main.cc:141
+msgid "generate PDF (default)"
+msgstr "PDF üretir (öntanımlı)"
 
-#: main.cc:180
-msgid "relocate using directory of lilypond program"
-msgstr ""
+#: main.cc:142 lily/main.cc:142
+msgid "generate TeX"
+msgstr "TeX üretir"
 
-#: main.cc:181
-msgid ""
-"disallow unsafe Scheme and PostScript\n"
-"operations"
-msgstr ""
+#: main.cc:143 lily/main.cc:143
+msgid "run in safe mode"
+msgstr "emniyetli kipte çalıştır"
 
-#: main.cc:183
-#, fuzzy
-msgid "show version number and exit"
-msgstr "sürüm numarasını yazdır"
-
-#: main.cc:224
+#: main.cc:166 lily/main.cc:166
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1183,551 +1238,471 @@ msgstr ""
 
 #  No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:251
-#, fuzzy, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:192 lily/main.cc:192
+#, c-format
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Kullanım: %s [SEÇENEKLER]... DOSYA..."
 
-#: main.cc:253
+#: main.cc:194 lily/main.cc:194
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Müziği diz ve/ya da DOSYAdan MIDIyi üret."
 
-#: main.cc:255
+#: main.cc:196 lily/main.cc:196
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond güzel müzik notasyonları üretir."
 
-#: main.cc:257
+#: main.cc:198 lily/main.cc:198
 #, c-format
 msgid "For more information, see %s"
 msgstr "Daha fazla bilgi için, %s'e bakın"
 
-#: main.cc:259
+#: main.cc:410 lily/main.cc:410 lily/main.cc:412
 #, c-format
-msgid "Options:"
-msgstr "Seçenekler:"
+msgid "This option is for developers only."
+msgstr "Bu seçenek sadece  geliştiriciler içindir."
 
-#: main.cc:263
-#, fuzzy, c-format
-msgid "Report bugs via %s"
-msgstr ""
-"Yazılım hatalarını %s adresine,\n"
-"çeviri hatalarını <gnu-tr@belgeler.org> adresine bildirin."
-
-#: main.cc:309
-#, fuzzy, c-format
-msgid "expected %d arguments with jail, found: %u"
-msgstr "Piano pedalları için 3 dizgeye ihtiyaç duyar. Hiç pedal yapılmadı."
-
-#: main.cc:323
-#, fuzzy, c-format
-msgid "no such user: %s"
-msgstr "böyle bir ayar yok: `%s'"
-
-#: main.cc:325
+#: main.cc:411 lily/main.cc:411 lily/main.cc:413
 #, c-format
-msgid "cannot get user id from user name: %s: %s"
-msgstr ""
+msgid "Read the sources for more information."
+msgstr "Daha fazla bilgi için kaynakları okuyun."
 
-#: main.cc:340
-#, fuzzy, c-format
-msgid "no such group: %s"
-msgstr "böyle bir bağlam yok: %s"
-
-#: main.cc:342
-#, fuzzy, c-format
-msgid "cannot get group id from group name: %s: %s"
-msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#: main.cc:350
-#, c-format
-msgid "cannot chroot to: %s: %s"
-msgstr ""
-
-#: main.cc:357
-#, fuzzy, c-format
-msgid "cannot change group id to: %d: %s"
-msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#: main.cc:363
-#, fuzzy, c-format
-msgid "cannot change user id to: %d: %s"
-msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#: main.cc:369
-#, c-format
-msgid "cannot change working directory to: %s: %s"
-msgstr ""
-
-#: main.cc:415
-#, c-format
-msgid "Evaluating %s"
-msgstr ""
-
-#: main.cc:645
-#, c-format
-msgid "exception caught: %s"
-msgstr ""
-
-#. FIXME: constant error message.
-#: mark-engraver.cc:154
-msgid "rehearsalMark must have integer value"
-msgstr ""
-
-#: mark-engraver.cc:160
-msgid "mark label must be a markup object"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:85
-msgid "ligature with less than 2 heads -> skipping"
-msgstr "2 taneden az kafalı bağ -> atlanıyor"
-
-#: mensural-ligature-engraver.cc:112
-#, fuzzy
-msgid "cannot determine pitch of ligature primitive -> skipping"
-msgstr "ilkel bağın perdesi saptanamıyor -> atlanıyor"
-
-#: mensural-ligature-engraver.cc:126
-#, fuzzy
-msgid "single note ligature - skipping"
-msgstr "bağ içinde ana duruş -> atlanıyor"
-
-#: mensural-ligature-engraver.cc:138
-msgid "prime interval within ligature -> skipping"
-msgstr "bağ içinde ana duruş -> atlanıyor"
-
-#: mensural-ligature-engraver.cc:150
-#, fuzzy
-msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "mensural bağ: süre L, B, S' den hiçbiri değil -> atlanıyor"
-
-#: mensural-ligature-engraver.cc:198
-msgid "semibrevis must be followed by another one -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:209
-msgid ""
-"semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:236
-msgid ""
-"invalid ligatura ending:\n"
-"when the last note is a descending brevis,\n"
-"the penultimate note must be another one,\n"
-"or the ligatura must be LB or SSB"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:356
+#: mensural-ligature-engraver.cc:248 mensural-ligature-engraver.cc:383
+#: lily/mensural-ligature-engraver.cc:248
+#: lily/mensural-ligature-engraver.cc:383
 msgid "unexpected case fall-through"
 msgstr "beklenmedik durum başarısızlığı"
 
-#: mensural-ligature.cc:141
-#, fuzzy
-msgid "Mensural_ligature: unexpected case fall-through"
+#: mensural-ligature-engraver.cc:259 lily/mensural-ligature-engraver.cc:259
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "2 taneden az kafalı bağ -> atlanıyor"
+
+#: mensural-ligature-engraver.cc:279 lily/mensural-ligature-engraver.cc:279
+msgid "can not determine pitch of ligature primitive -> skipping"
+msgstr "ilkel bağın perdesi saptanamıyor -> atlanıyor"
+
+#: mensural-ligature-engraver.cc:302 lily/mensural-ligature-engraver.cc:302
+msgid "prime interval within ligature -> skipping"
+msgstr "bağ içinde ana duruş -> atlanıyor"
+
+#: mensural-ligature-engraver.cc:312 lily/mensural-ligature-engraver.cc:312
+msgid "mensural ligature: duration none of L, B, S -> skipping"
+msgstr "mensural bağ: süre L, B, S' den hiçbiri değil -> atlanıyor"
+
+#: mensural-ligature.cc:161 lily/mensural-ligature.cc:161
+msgid "Mensural_ligature:unexpected case fall-through"
 msgstr "Mensural_bağ:beklenmedik durum başarısızlığı"
 
-#: mensural-ligature.cc:192
-#, fuzzy
-msgid "Mensural_ligature: (join_right == 0)"
+#: mensural-ligature.cc:171 lily/mensural-ligature.cc:171
+msgid "Mensural_ligature: (join_left == 0)"
 msgstr "Mensural_bağ: [katılma_sol == 0]"
 
-#: midi-item.cc:152
+#: midi-item.cc:153 lily/midi-item.cc:153
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "böyle bir MIDI aracı yok: `%s'"
 
-#: midi-item.cc:285
-#, fuzzy, c-format
-msgid "experimental: temporarily fine tuning (of %d cents) a channel."
+#: midi-item.cc:257 lily/midi-item.cc:257
+msgid "silly pitch"
+msgstr "saçma perde"
+
+#: midi-item.cc:273 lily/midi-item.cc:273
+#, c-format
+msgid "Experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "Deneysel: geçici olarak bir kanala ince akort yapılıyor (%d cents)."
 
-#: midi-stream.cc:28
-#, fuzzy, c-format
-msgid "cannot open for write: %s: %s"
-msgstr "dosya açılamıyor: `%s'"
-
-#: midi-stream.cc:44
-#, fuzzy, c-format
-msgid "cannot write to file: `%s'"
+#: midi-stream.cc:40 lily/midi-stream.cc:40
+#, c-format
+msgid "could not write file: `%s'"
 msgstr "dosya yazılamıyor. `%s'"
 
-#: music-iterator.cc:171
-msgid "Sending non-event to context"
-msgstr ""
+#  music for the softenon children?
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#: new-fingering-engraver.cc:155 lily/new-fingering-engraver.cc:155
+msgid "music for the martians."
+msgstr "merihliler için müzik."
 
-#: music.cc:141
-#, fuzzy, c-format
-msgid "octave check failed; expected \"%s\", found: \"%s\""
-msgstr "oktav denetimi başarısız; beklenen %s, elde edilen: %s"
+#: new-fingering-engraver.cc:235 lily/new-fingering-engraver.cc:235
+msgid "Fingerings are also not down?! Putting them down anyway."
+msgstr "Parmaklaçalmalar da yüklenmedi?! Yine de yükleniyor."
 
-#: music.cc:207
-#, fuzzy, c-format
-msgid "transposition by %s makes alteration larger than double"
-msgstr "%s ile transpozisyon ikiden büyük değişikliğe yol açar"
+#: new-lyric-combine-music-iterator.cc:245
+#: lily/new-lyric-combine-music-iterator.cc:245
+#, c-format
+msgid "cannot find Voice `%s'"
+msgstr "`%s' Sesi bulunamıyor"
 
-#: new-fingering-engraver.cc:96
-msgid "cannot add text scripts to individual note heads"
-msgstr ""
-
-#: new-fingering-engraver.cc:239
-msgid "no placement found for fingerings"
-msgstr ""
-
-#: new-fingering-engraver.cc:240
-msgid "placing below"
-msgstr ""
-
-#: note-collision.cc:457
-#, fuzzy
-msgid "ignoring too many clashing note columns"
+#: note-collision.cc:413 lily/note-collision.cc:413
+msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Çatışan notasütunları çok fazla. Yok sayılıyor."
 
-#: note-column.cc:124
-msgid "cannot have note heads and rests together on a stem"
-msgstr ""
-
-#: note-head.cc:63
-#, fuzzy, c-format
-msgid "none of note heads `%s' or `%s' found"
+#: note-head.cc:45 lily/note-head.cc:45
+#, c-format
+msgid "note head `%s' not found"
 msgstr "'%s'nin nota kafası bulunamadı"
 
-#: note-heads-engraver.cc:61
-msgid "NoteEvent without pitch"
-msgstr ""
-
-#: open-type-font.cc:33
-#, fuzzy, c-format
-msgid "cannot allocate %lu bytes"
-msgstr "dosya açılamıyor: `%s'"
-
-#: open-type-font.cc:37
-#, fuzzy, c-format
-msgid "cannot load font table: %s"
-msgstr "yazı tipi bulunamıyor: `%s'"
-
-#: open-type-font.cc:98
+#: paper-outputter.cc:116 lily/paper-outputter.cc:116
 #, c-format
-msgid "unsupported font format: %s"
-msgstr ""
+msgid "Paper output to `%s'..."
+msgstr "Kağıt çıktısı `%s'ye..."
 
-#: open-type-font.cc:100
-#, c-format
-msgid "unknown error: %d reading font file: %s"
-msgstr ""
-
-#: open-type-font.cc:173 open-type-font.cc:297
-#, c-format
-msgid "FT_Get_Glyph_Name() returned error: %u"
-msgstr ""
-
-#: page-turn-page-breaking.cc:205
-msgid ""
-"cannot fit the first page turn onto a single page.  Consider setting first-"
-"page-number to an even number."
-msgstr ""
-
-#: page-turn-page-breaking.cc:218
-#, c-format
-msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr ""
-
-#: page-turn-page-breaking.cc:236 paper-score.cc:154
-msgid "Drawing systems..."
-msgstr ""
-
-#: pango-font.cc:181
-#, c-format
-msgid ""
-"Glyph has no name, but font supports glyph naming.\n"
-"Skipping glyph U+%0X, file %s"
-msgstr ""
-
-#  no ps header?
-#: pango-font.cc:224
-#, fuzzy, c-format
-msgid "no PostScript font name for font `%s'"
-msgstr "bir PostScript dosyası değil: `%s'"
-
-#: pango-font.cc:272
-msgid "FreeType face has no PostScript font name"
-msgstr ""
-
-#: paper-outputter-scheme.cc:33
-#, fuzzy, c-format
-msgid "Layout output to `%s'..."
-msgstr "`%s' çıktısı`%s'ye..."
-
-#: paper-score.cc:105
-msgid "Calculating line breaks..."
-msgstr "Satır bölünmeleri sayılıyor..."
-
-#: paper-score.cc:118
+#: paper-score.cc:68 lily/paper-score.cc:68
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr "Öğe sayısı %d (anahtarlar %d)"
 
-#: paper-score.cc:122
+#: paper-score.cc:72 lily/paper-score.cc:72
 msgid "Preprocessing graphical objects..."
 msgstr "Grafik nesneler önişleme tabi tutuluyor..."
 
-#: parse-scm.cc:83
+#: parse-scm.cc:77 lily/parse-scm.cc:77 lily/parse-scm.cc:84
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GULIE burada başlayan ifadede bir hata olduğunu bildiriyor"
 
-#: percent-repeat-engraver.cc:200
+#: percent-repeat-engraver.cc:110 lily/percent-repeat-engraver.cc:110
+msgid "Don't know how to handle a percent repeat of this length."
+msgstr "Bu uzunluktaki bir yüzde tekrarıyla nasıl baş edeceğini bilmiyor."
+
+#: percent-repeat-engraver.cc:170 lily/percent-repeat-engraver.cc:170
 msgid "unterminated percent repeat"
 msgstr "sonlandırılmamaış yüzde tekrarı"
 
-#: performance.cc:45
-#, fuzzy
-msgid "Track..."
+#: percent-repeat-iterator.cc:53 lily/percent-repeat-iterator.cc:53
+msgid "no one to print a percent"
+msgstr "bir yüzde yazdıracak kimse yok"
+
+#: performance.cc:50 lily/performance.cc:50
+msgid "Track ... "
 msgstr "İz... "
 
-#: performance.cc:74
-msgid "MIDI channel wrapped around"
-msgstr ""
+#: performance.cc:93 lily/performance.cc:93
+msgid "Creator: "
+msgstr "Oluşturucu: "
 
-#: performance.cc:75
-msgid "remapping modulo 16"
-msgstr ""
+#: performance.cc:113 lily/performance.cc:113
+msgid "at "
+msgstr "-de"
 
-#: performance.cc:103
+#: performance.cc:167 lily/performance.cc:167
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "MIDI çıktısı `%s'ye..."
 
-#: phrasing-slur-engraver.cc:146
-msgid "unterminated phrasing slur"
-msgstr "sonlandırılmamış, melodiyi ayrıştırarak çalan ses kaydırma imi"
+#: phrasing-slur-engraver.cc:99 slur-engraver.cc:114
+#: lily/phrasing-slur-engraver.cc:99 lily/slur-engraver.cc:114
+msgid "unterminated slur"
+msgstr "sonlandırılmamış ses kaydırma imi"
 
-#: piano-pedal-engraver.cc:286
-#, fuzzy, c-format
-msgid "expect 3 strings for piano pedals, found: %ld"
+#: piano-pedal-engraver.cc:237 lily/piano-pedal-engraver.cc:237
+msgid "Need 3 strings for piano pedals. No pedal made. "
 msgstr "Piano pedalları için 3 dizgeye ihtiyaç duyar. Hiç pedal yapılmadı."
 
-#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
-#: piano-pedal-performer.cc:93
+#: piano-pedal-engraver.cc:252 piano-pedal-engraver.cc:267
+#: piano-pedal-performer.cc:82 lily/piano-pedal-engraver.cc:252
+#: lily/piano-pedal-engraver.cc:267 lily/piano-pedal-performer.cc:82
 #, c-format
-msgid "cannot find start of piano pedal: `%s'"
+msgid "can't find start of piano pedal: `%s'"
 msgstr "piano pedalının başlangıcı bulunamıyor: `%s'"
 
-#: piano-pedal-engraver.cc:347
+#: piano-pedal-engraver.cc:318 lily/piano-pedal-engraver.cc:318
 #, c-format
-msgid "cannot find start of piano pedal bracket: `%s'"
+msgid "can't find start of piano pedal bracket: `%s'"
 msgstr "piyano pedalı köşeli ayracının başlangıcı bulunamıyor: '%s'"
 
-#: program-option.cc:205
-#, fuzzy, c-format
-msgid "no such internal option: %s"
-msgstr "Bilinmeyen iç seçenek: %s"
-
-#: property-iterator.cc:74
-#, fuzzy, c-format
-msgid "not a grob name, `%s'"
+#: property-iterator.cc:94 lily/property-iterator.cc:94
+#, c-format
+msgid "Not a grob name, `%s'."
 msgstr "Bir grob adı değil, '%s'."
 
-#: relative-octave-check.cc:38
+#: quote-iterator.cc:108 lily/quote-iterator.cc:124 lily/quote-iterator.cc:125
+msgid "No events found for \\quote"
+msgstr ""
+
+#: quote-iterator.cc:183 lily/quote-iterator.cc:199 lily/quote-iterator.cc:204
+#, c-format
+msgid "In quotation: junking event %s"
+msgstr "Tırnak içinde: kullanılmayan olay %s"
+
+#: relative-octave-check.cc:25 lily/relative-octave-check.cc:25
 msgid "Failed octave check, got: "
 msgstr "Oktav denetimi başarısız, alındı: "
 
-#: relocate.cc:44
-#, fuzzy, c-format
-msgid "Setting %s to %s"
-msgstr "`%s' yazılıyor..."
+#: rest-collision.cc:132 lily/rest-collision.cc:132
+msgid "rest direction not set.  Cannot resolve collision."
+msgstr "durak yönü ayarlı değil. Çatışma çözülemiyor."
 
-#: relocate.cc:59
-#, fuzzy, c-format
-msgid "no such file: %s for %s"
-msgstr "böyle bir bağlam yok: %s"
-
-#: relocate.cc:69 relocate.cc:87
-#, fuzzy, c-format
-msgid "no such directory: %s for %s"
-msgstr "böyle bir bağlam yok: %s"
-
-#: relocate.cc:79
-#, c-format
-msgid "%s=%s (prepend)\n"
-msgstr ""
-
-#: relocate.cc:99
-#, c-format
-msgid "Relocation: compile prefix=%s, new prefix=%s"
-msgstr ""
-
-#: relocate.cc:129
-#, c-format
-msgid "Relocation: framework_prefix=%s"
-msgstr ""
-
-#: relocate.cc:169
-#, c-format
-msgid "Relocation: is absolute: argv0=%s"
-msgstr ""
-
-#: relocate.cc:176
-#, c-format
-msgid "Relocation: from cwd: argv0=%s"
-msgstr ""
-
-#: relocate.cc:185
-#, c-format
-msgid ""
-"Relocation: from PATH=%s\n"
-"argv0=%s"
-msgstr ""
-
-#: relocate.cc:354
-#, fuzzy, c-format
-msgid "Relocation file: %s"
-msgstr "dosya açılamıyor: `%s'"
-
-#: relocate.cc:390
-#, c-format
-msgid "Unknown relocation command %s"
-msgstr ""
-
-#: rest-collision.cc:151
-msgid "cannot resolve rest collision: rest direction not set"
-msgstr ""
-
-#: rest-collision.cc:165 rest-collision.cc:210
+#: rest-collision.cc:144 rest-collision.cc:187 lily/rest-collision.cc:144
+#: lily/rest-collision.cc:187
 msgid "too many colliding rests"
 msgstr "çatışan duraklar çok fazla"
 
-#: rest.cc:144
+#: rest.cc:136 lily/rest.cc:136
 #, c-format
 msgid "rest `%s' not found"
 msgstr "`%s' durağı bulunamadı"
 
-#: score-engraver.cc:67
-#, fuzzy, c-format
-msgid "cannot find `%s'"
+#: scm-option.cc:56 lily/scm-option.cc:56
+#, c-format
+msgid "lilypond -e EXPR means:"
+msgstr "lilypond -e EXPR anlamı:"
+
+#: scm-option.cc:58 lily/scm-option.cc:58
+#, c-format
+msgid "  Evalute the Scheme EXPR before parsing any .ly files."
+msgstr "  Herhangi bir .ly dosyasını ayrıştırmadan önce Scheme EXPR işlenir."
+
+#: scm-option.cc:60 lily/scm-option.cc:60
+#, c-format
+msgid "  Multiple -e options may be given, they will be evaluated sequentially."
+msgstr "  Çok sayıda -e seçeneği verilebilir, bunlar sırayla değerlendirilir."
+
+#: scm-option.cc:62 lily/scm-option.cc:62
+#, c-format
+msgid "  The function ly:set-option allows for access to some internal variables."
+msgstr ""
+"  ly-set-option (seçenek ayarla) işlevi bazı iç değişkenlere erişime izin\n"
+"  verir."
+
+#: scm-option.cc:64 lily/scm-option.cc:64
+#, c-format
+msgid "Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\""
+msgstr "Kullanım: lilypond-bin -e \"(ly:set-option SEMBOL DEĞER)\""
+
+#: scm-option.cc:66 lily/scm-option.cc:66
+#, c-format
+msgid "Use help as  SYMBOL to get online help."
+msgstr ""
+
+#: scm-option.cc:132 scm-option.cc:160 lily/scm-option.cc:132
+#: lily/scm-option.cc:160
+#, c-format
+msgid "No such internal option: %s"
+msgstr "Bilinmeyen iç seçenek: %s"
+
+#: score-engraver.cc:103 score-engraver.cc:108 lily/score-engraver.cc:103
+#: lily/score-engraver.cc:108
+#, c-format
+msgid "can't find `%s'"
 msgstr "`%s' bulunamıyor"
 
-#: score-engraver.cc:69
-#, fuzzy
-msgid "Music font has not been installed properly."
+#: score-engraver.cc:104 lily/score-engraver.cc:104
+msgid "Music font has not been installed properly.  Aborting"
 msgstr "Müzik yazıtipi uygun biçimde yüklenmedi.  Durduruluyor"
 
-#: score-engraver.cc:71
-#, fuzzy, c-format
-msgid "Search path `%s'"
-msgstr "(arama yolu: `%s')"
-
-#: score-engraver.cc:73
-msgid "Aborting"
+#: score-engraver.cc:109 lily/score-engraver.cc:109
+#, c-format
+msgid "Install the ec-mftraced package from %s. Aborting"
 msgstr ""
 
-#: score.cc:225
-#, fuzzy
-msgid "already have music in score"
+#: score.cc:100 score.cc:126 lily/score.cc:100 lily/score.cc:126
+#: lily/score.cc:102 lily/score.cc:128
+msgid "Need music in a score"
+msgstr "Bir çizgide müziğe ihtiyaç duyar"
+
+#: score.cc:116 lily/score.cc:116 lily/score.cc:118
+msgid "Interpreting music... "
+msgstr "Müzik yorumlanıyor..."
+
+#: score.cc:137 lily/score.cc:137 lily/score.cc:139
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "geçen zaman: %.2f saniye"
+
+#: score.cc:312 lily/score.cc:312 lily/score.cc:322
+msgid "Already have music in score"
 msgstr "Notada zaten müzik var"
 
-#: score.cc:226
-msgid "this is the previous music"
-msgstr ""
-
-#: score.cc:231
-msgid "errors found, ignoring music expression"
+#: score.cc:313 lily/score.cc:313 lily/score.cc:323
+msgid "This is the previous music"
 msgstr ""
 
 #. FIXME:
-#: script-engraver.cc:102
-#, fuzzy
-msgid "do not know how to interpret articulation: "
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#: script-engraver.cc:102 lily/script-engraver.cc:102
+msgid "Do not know how to interpret articulation: "
 msgstr "Sesletimin nasıl yorumlanacağı bilinmiyor: "
 
-#: script-engraver.cc:103
-#, fuzzy
-msgid "scheme encoding: "
+#: script-engraver.cc:103 lily/script-engraver.cc:103
+msgid "Scheme encoding: "
 msgstr "Program kodlaması: "
 
-#: simple-spacer.cc:375
+#  this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#: separation-item.cc:53 separation-item.cc:97 lily/separation-item.cc:53
+#: lily/separation-item.cc:97
+msgid "Separation_item:  I've been drinking too much"
+msgstr "Ayırma_öğe: Çok fazla içmişim"
+
+#: simple-spacer.cc:489 lily/simple-spacer.cc:489 lily/simple-spacer.cc:484
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "%d sütunu ve sonraki sütun arasında kaynak yok."
 
-#: slur-engraver.cc:83 tuplet-engraver.cc:75
-#, c-format
-msgid "direction of %s invalid: %d"
-msgstr ""
-
-#: slur-engraver.cc:157
-msgid "unterminated slur"
-msgstr "sonlandırılmamış ses kaydırma imi"
-
-#: slur-engraver.cc:166
+#: slur-engraver.cc:124 lily/slur-engraver.cc:124
 #, fuzzy
-msgid "cannot end slur"
-msgstr "bulunamıyor: `%s'"
+msgid "No slur to end"
+msgstr "Bitirmek için volta anahtarı yok"
 
-#: source-file.cc:74
+#: source-file.cc:50 lily/source-file.cc:50
 #, c-format
-msgid "expected to read %d characters, got %d"
-msgstr ""
+msgid "can't open file: `%s'"
+msgstr "dosya açılamıyor: `%s'"
 
-#: staff-symbol-engraver.cc:62
-msgid "staff-span event has no direction"
-msgstr ""
+#: source-file.cc:63 lily/source-file.cc:63
+#, c-format
+msgid "Huh?  Got %d, expected %d characters"
+msgstr "Ha? %2$d karakter beklenirken, %1$d alındı"
 
-#: stem-engraver.cc:92
+#: spacing-spanner.cc:388 lily/spacing-spanner.cc:388
+#, c-format
+msgid "Global shortest duration is %s"
+msgstr "En kısa genel süre %sdir"
+
+#: stem-engraver.cc:88 lily/stem-engraver.cc:88
 msgid "tremolo duration is too long"
 msgstr "tremolo süresi fazla uzun"
 
 #. FIXME:
-#: stem-engraver.cc:129
-#, fuzzy, c-format
-msgid "adding note head to incompatible stem (type = %d)"
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#: stem-engraver.cc:125 lily/stem-engraver.cc:125
+#, c-format
+msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "uyuşmayan [tür= %d] köküne nota kafası ekleniyor"
 
-#: stem-engraver.cc:131
-msgid "maybe input should specify polyphonic voices"
-msgstr ""
+#: stem-engraver.cc:127 lily/stem-engraver.cc:127
+msgid "Don't you want polyphonic voices instead?"
+msgstr "Bunun yerine polifonik sesler istemez misiniz?"
 
-#: stem.cc:105
-#, fuzzy
-msgid "weird stem size, check for narrow beams"
+#: stem.cc:126 lily/stem.cc:126
+msgid "Weird stem size; check for narrow beams"
 msgstr "Garip kök boyutu; dar ışınları denetler"
 
-#: stem.cc:641
+#: stem.cc:575 lily/stem.cc:575 lily/stem.cc:574
 #, c-format
 msgid "flag `%s' not found"
 msgstr "`%s' bayrağı bulunamadı"
 
-#: stem.cc:652
+#: stem.cc:586 lily/stem.cc:586 lily/stem.cc:585
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "'%s'nin bayrak vuruşu bulunamadı "
 
-#: system.cc:180
+#: system.cc:134 lily/system.cc:134
 #, c-format
 msgid "Element count %d."
 msgstr "Öğe sayısı %d."
 
-#: system.cc:276
+#: system.cc:272 lily/system.cc:272
 #, c-format
 msgid "Grob count %d"
 msgstr "Grob sayısı %d"
 
-#: text-spanner-engraver.cc:61
-msgid "cannot find start of text spanner"
+#: system.cc:286 lily/system.cc:286
+msgid "Calculating line breaks..."
+msgstr "Satır bölünmeleri sayılıyor..."
+
+#: text-spanner-engraver.cc:63 lily/text-spanner-engraver.cc:63
+msgid "can't find start of text spanner"
 msgstr "metin anahtarının başlangıcı bulunamıyor"
 
-#: text-spanner-engraver.cc:73
+#: text-spanner-engraver.cc:77 lily/text-spanner-engraver.cc:77
 msgid "already have a text spanner"
 msgstr "zaten bir metin anahtarı var"
 
-#: text-spanner-engraver.cc:133
+#: text-spanner-engraver.cc:139 lily/text-spanner-engraver.cc:139
 msgid "unterminated text spanner"
 msgstr "sonlandırılmamış metin anahtarı"
 
-#: tie-engraver.cc:264
+#  Not using ngettext's plural feature here, as this message is
+#  more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#: tfm-reader.cc:108 lily/tfm-reader.cc:108
+#, c-format
+msgid "TFM header of `%s' has only %u word (s)"
+msgstr "'%s'nin TFM kafasının sadece %u kelimesi var [s]"
+
+#: tfm-reader.cc:142 lily/tfm-reader.cc:142
+#, c-format
+msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
+msgstr "%s: TFM dosyası %u değiştirgeye sahip ve bu başa çıkabileceğim %u'dan fazla."
+
+#: tfm.cc:73 lily/tfm.cc:73
+#, c-format
+msgid "can't find ascii character: %d"
+msgstr "ascii karakteri bulunamıyor: %d"
+
+#: tie-engraver.cc:165 lily/tie-engraver.cc:173
 msgid "lonely tie"
 msgstr "yalnız bağ"
+
+#: time-scaled-music-iterator.cc:24 lily/time-scaled-music-iterator.cc:24
+msgid "no one to print a tuplet start bracket"
+msgstr "bir tuplet başlangıç köşeli ayracı yazdıracak kimse yok"
 
 #  Todo: should make typecheck?
 #  OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
@@ -1736,1067 +1711,273 @@ msgstr "yalnız bağ"
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:64
-#, fuzzy, c-format
-msgid "strange time signature found: %d/%d"
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:57 lily/time-signature-engraver.cc:57
+#, c-format
+msgid "Found strange time signature %d/%d."
 msgstr "garip zaman imzası bulundu %d/%d."
 
 #  If there is no such symbol, we default to the numbered style.
 #  (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:83
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:91 lily/time-signature.cc:91
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
-msgstr ""
-"'%s'nin zaman imza işareti bulunamadı: numaralı biçime yeniden dönülüyor "
+msgstr "'%s'nin zaman imza işareti bulunamadı: numaralı biçime yeniden dönülüyor "
 
-#: translator-ctors.cc:52
+#: translator-ctors.cc:53 lily/translator-ctors.cc:53
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "bilinmeyen çevirmen: `%s'"
 
-#: translator-group.cc:151
-#, c-format
-msgid "cannot find: `%s'"
-msgstr "bulunamıyor: `%s'"
-
-#: translator.cc:332
-#, c-format
-msgid "Two simultaneous %s events, junking this one"
-msgstr ""
-
-#: translator.cc:333
-#, c-format
-msgid "Previous %s event here"
-msgstr ""
-
-#: trill-spanner-engraver.cc:68
+#: trill-spanner-engraver.cc:71 lily/trill-spanner-engraver.cc:71
 #, fuzzy
-msgid "cannot find start of trill spanner"
+msgid "can't find start of trill spanner"
 msgstr "metin anahtarının başlangıcı bulunamıyor"
 
-#: trill-spanner-engraver.cc:80
+#: trill-spanner-engraver.cc:85 lily/trill-spanner-engraver.cc:85
 #, fuzzy
 msgid "already have a trill spanner"
 msgstr "zaten bir metin anahtarı var"
 
-#: vaticana-ligature-engraver.cc:388
-#, c-format
-msgid ""
-"ignored prefix (es) `%s' of this head according to restrictions of the "
-"selected ligature style"
-msgstr ""
-"seçilen bağ biçiminin kısıtlamalarına göre bu kafanın [es] '%s' öneki yok "
-"sayıldı"
+#: trill-spanner-engraver.cc:145 lily/trill-spanner-engraver.cc:145
+#, fuzzy
+msgid "unterminated trill spanner"
+msgstr "sonlandırılmamış metin anahtarı"
 
-#: vaticana-ligature-engraver.cc:714
-#, fuzzy, c-format
-msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
+#: tuplet-bracket.cc:448 lily/tuplet-bracket.cc:447
+msgid "Killing tuplet bracket across linebreak."
+msgstr "Satırkesmesi boyunca tuplet köşeli ayracı yok ediliyor."
+
+#: vaticana-ligature-engraver.cc:342 lily/vaticana-ligature-engraver.cc:342
+#, c-format
+msgid "ignored prefix (es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "seçilen bağ biçiminin kısıtlamalarına göre bu kafanın [es] '%s' öneki yok sayıldı"
+
+#: vaticana-ligature-engraver.cc:572 lily/vaticana-ligature-engraver.cc:572
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
 msgstr "Vaticana_bağ_nakkaş: ayar boşlukbırakma-artırma = %f': ptr=%ul"
 
-#: vaticana-ligature.cc:84
-msgid "flexa-height undefined; assuming 0"
-msgstr ""
-
-#: vaticana-ligature.cc:89
+#: vaticana-ligature.cc:92 lily/vaticana-ligature.cc:92
 msgid "ascending vaticana style flexa"
 msgstr "vaticana biçimini flexaya yükseltiyor"
 
-#: vaticana-ligature.cc:177
+#: vaticana-ligature.cc:181 lily/vaticana-ligature.cc:181
 msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr "Vaticana_bağ: sıfır bağlantı [delta_perde == 0]"
 
-#. fixme: be more verbose.
-#: volta-engraver.cc:144
-#, fuzzy
-msgid "cannot end volta spanner"
-msgstr "metin anahtarının başlangıcı bulunamıyor"
+#: volta-engraver.cc:141 lily/volta-engraver.cc:141
+msgid "No volta spanner to end"
+msgstr "Bitirmek için volta anahtarı yok"
 
-#: volta-engraver.cc:154
-#, fuzzy
-msgid "already have a volta spanner, ending that one prematurely"
+#: volta-engraver.cc:152 lily/volta-engraver.cc:152
+msgid "Already have a volta spanner.  Stopping that one prematurely."
 msgstr "Zaten bir volta anahtarı var. Vakitsiz durduruluyor."
 
-#: volta-engraver.cc:158
-#, fuzzy
-msgid "also already have an ended spanner"
-msgstr "zaten bir metin anahtarı var"
+#: volta-engraver.cc:156 lily/volta-engraver.cc:156
+msgid "Also have a stopped spanner.  Giving up."
+msgstr "Durdurulmuş anahtarı da var. Vazgeçiliyor."
 
-#: volta-engraver.cc:159
-#, fuzzy
-msgid "giving up"
-msgstr "Vazgeçiliyor"
+#: parser.yy:79
+msgid "Tag must be symbol or list of symbols."
+msgstr "Biçim imi sembol ya da sembol listesi olmalı."
 
-#: parser.yy:702
-msgid "\\paper cannot be used in \\score, use \\layout instead"
+#: parser.yy:534
+msgid "Identifier should have alphabetic characters only"
+msgstr "Tanıtıcı yalnızca alfabetik karakterlerden oluşmalıdır"
+
+#: parser.yy:707
+msgid "Need \\bookpaper for bookpaper block."
 msgstr ""
 
-#: parser.yy:726
-msgid "need \\paper for paper block"
+#: parser.yy:844
+msgid "More alternatives than repeats.  Junking excess alternatives."
+msgstr "Tekrarlardan çok seçenek. Kullanılmayan fazla seşenekler. "
+
+#: parser.yy:1016
+#, c-format
+msgid "Argument %d failed typecheck"
 msgstr ""
 
-#: parser.yy:1172
+#: parser.yy:1032
+msgid "Music head function should return Music object."
+msgstr ""
+
+#: parser.yy:1278
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1475
-#, fuzzy
-msgid "second argument must be pitch list"
+#: parser.yy:1639
+msgid "Second argument must be pitch list."
 msgstr "İkinci argüman perde listesi olmalı."
 
-#: parser.yy:1502 parser.yy:1507 parser.yy:1972
-#, fuzzy
-msgid "have to be in Lyric mode for lyrics"
+#: parser.yy:1676 parser.yy:1681 parser.yy:2210
+msgid "Have to be in Lyric mode for lyrics"
 msgstr "Güfteler için Lyric kipinde olunmalı"
 
-#: parser.yy:1604
-#, fuzzy
-msgid "expecting string as script definition"
+#: parser.yy:1766
+msgid "Expecting string as script definition"
 msgstr "Betik tanımı olarak dizge bekleniyor"
 
-#: parser.yy:1759 parser.yy:1809
+#: parser.yy:1975 parser.yy:2025
 #, c-format
 msgid "not a duration: %d"
 msgstr "bir süre değil: %d"
 
-#: parser.yy:1926
-#, fuzzy
-msgid "have to be in Note mode for notes"
+#: parser.yy:2120
+msgid "Have to be in Note mode for notes"
 msgstr "Notalar için Nota kipinde olmalıdır"
 
-#: parser.yy:1987
-#, fuzzy
-msgid "have to be in Chord mode for chords"
+#: parser.yy:2225
+msgid "Have to be in Chord mode for chords"
 msgstr "Akortlar için Akort kipinde olmalıdır"
 
-#: lexer.ll:176
-msgid "stray UTF-8 BOM encountered"
+#: parser.yy:2377
+msgid "need integer number arg"
+msgstr "tamsayı  arga ihtiyaç duyar"
+
+#: parser.yy:2520
+msgid "Suspect duration found following this beam"
+msgstr "Bu ışının devamında tahmini süre bulundu"
+
+#: lexer.ll:194
+#, c-format
+msgid "input renamed to: `%s'"
+msgstr "girdi `%s' olarak yenden adlandırıldı"
+
+#: lexer.ll:202
+msgid "No quoted string found after \\encoding"
 msgstr ""
 
-#: lexer.ll:180
-msgid "Skipping UTF-8 BOM"
+#: lexer.ll:206
+msgid "No quoted string found after \\version"
 msgstr ""
 
-#: lexer.ll:235
-#, fuzzy, c-format
-msgid "Renaming input to: `%s'"
-msgstr "`%s' veri yolu açılıyor"
-
-#: lexer.ll:252
-msgid "quoted string expected after \\version"
+#: lexer.ll:210
+msgid "No quoted string found after \\renameinput"
 msgstr ""
 
-#: lexer.ll:256
-msgid "quoted string expected after \\sourcefilename"
-msgstr ""
-
-#: lexer.ll:260
-msgid "integer expected after \\sourcefileline"
-msgstr ""
-
-#: lexer.ll:273
+#: lexer.ll:223
 msgid "EOF found inside a comment"
 msgstr "EOF bir açıklamanın içinde bulundu"
 
-#: lexer.ll:288
+#: lexer.ll:238
 msgid "\\maininput not allowed outside init files"
 msgstr "\\anagirdi init dosyları dışında kabul edilmez"
 
-#: lexer.ll:312
+#: lexer.ll:264
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "yanlış ya da tanımlanmamış tanıtıcı: `%s' "
 
+#  backup rule
 #. backup rule
-#: lexer.ll:321
-msgid "end quote missing"
-msgstr ""
+#: lexer.ll:273
+msgid "Missing end quote"
+msgstr "Sondaki tırnak işareti eksik"
 
-#: lexer.ll:466
+#: lexer.ll:436
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Şarkı sözü sonunda ayraç bulundu. Bir boşluk mu unuttunuz?"
 
-#: lexer.ll:559
+#: lexer.ll:541
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Biçimlemenin sonunda ayraç bulundu. Bir boşluk bırakmayı mı unuttunuz?"
 
-#: lexer.ll:659
+#: lexer.ll:630
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "geçersiz karakter: `%c'"
 
-#: lexer.ll:774 lexer.ll:775
+#: lexer.ll:716 lexer.ll:717
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "bilinmeyen kaçmış dizge: '\\%s'"
 
-#: lexer.ll:880 lexer.ll:881
+#: lexer.ll:814 lexer.ll:815
 #, c-format
-msgid "file too old: %s (oldest supported: %s)"
-msgstr ""
+msgid "Incorrect lilypond version: %s (%s, %s)"
+msgstr "Hatalı lilypond sürümü: %s (%s, %s)"
 
-#: lexer.ll:881 lexer.ll:882
-#, fuzzy
-msgid "consider updating the input with the convert-ly script"
+#: lexer.ll:815 lexer.ll:816
+msgid "Consider updating the input with the convert-ly script"
 msgstr "Girdiyi convert-ly betiği ile güncellemeyi dikkate alınız"
 
-#: lexer.ll:887 lexer.ll:888
-#, c-format
-msgid "program too old: %s (file requires: %s)"
-msgstr ""
-
-#: backend-library.scm:19 lily.scm:599 ps-to-png.scm:82
-#, scheme-format
-msgid "Invoking `~a'..."
-msgstr "`~a' çağrılıyor..."
-
-#: backend-library.scm:24
-#, fuzzy, scheme-format
-msgid "`~a' failed (~a)"
-msgstr "`%s' başarısız (%d)"
-
-#: backend-library.scm:95 framework-tex.scm:343 framework-tex.scm:368
-#, scheme-format
+#: lily.scm:574
+#, lisp-format
 msgid "Converting to `~a'..."
 msgstr "`~a'ya değiştiriliyor..."
 
-#: backend-library.scm:108
-#, fuzzy, scheme-format
-msgid "Converting to ~a..."
-msgstr "`~a'ya değiştiriliyor..."
+#: lily.scm:596
+#, lisp-format
+msgid "Invoking `~a'..."
+msgstr "`~a' çağrılıyor..."
 
-#: backend-library.scm:145
-#, scheme-format
-msgid "Writing header field `~a' to `~a'..."
+#: lily.scm:614
+msgid "error: failed files: "
 msgstr ""
 
-#: define-context-properties.scm:20 define-grob-properties.scm:10
-#: define-music-properties.scm:10
-#, scheme-format
-msgid "symbol ~S redefined"
+#: lily/includable-lexer.cc:50
+msgid "include files are not allowed in safe mode"
+msgstr "güvenli kipte dosyaların içerilmesine izin verilmiyor"
+
+#: lily/phrasing-slur-engraver.cc:116
+msgid "unterminated phrasing slur"
+msgstr "sonlandırılmamış, melodiyi ayrıştırarak çalan ses kaydırma imi"
+
+#: lily/score.cc:328
+msgid "Error found in this music expression. Ignoring it"
 msgstr ""
-
-#: define-event-classes.scm:119
-#, scheme-format
-msgid "event class ~A seems to be unused"
-msgstr ""
-
-#. should be programming-error
-#: define-event-classes.scm:125
-#, scheme-format
-msgid "translator listens to nonexisting event class ~A"
-msgstr ""
-
-#: define-markup-commands.scm:255
-msgid "no systems found in \\score markup, does it have a \\layout block?"
-msgstr ""
-
-#: define-markup-commands.scm:1297
-#, fuzzy, scheme-format
-msgid "not a valid duration string: ~a"
-msgstr "bir süre değil: %d"
-
-#: define-music-types.scm:751
-#, scheme-format
-msgid "symbol expected: ~S"
-msgstr ""
-
-#: define-music-types.scm:754
-#, fuzzy, scheme-format
-msgid "cannot find music object: ~S"
-msgstr "Müzik bulunamıyor"
-
-#: define-music-types.scm:774
-#, fuzzy, scheme-format
-msgid "unknown repeat type `~S'"
-msgstr "bilinmeyen küme tarzı `%s'"
-
-#: define-music-types.scm:775
-msgid "See music-types.scm for supported repeats"
-msgstr ""
-
-#: document-backend.scm:91
-#, scheme-format
-msgid "pair expected in doc ~s"
-msgstr ""
-
-#: document-backend.scm:135
-#, fuzzy, scheme-format
-msgid "cannot find interface for property: ~S"
-msgstr "öntanımlı yazı tipi bulunamıyor: `%s'"
-
-#: document-backend.scm:145
-#, fuzzy, scheme-format
-msgid "unknown Grob interface: ~S"
-msgstr "Bilinmeyen arabirim `%s'"
-
-#: documentation-lib.scm:45
-#, fuzzy, scheme-format
-msgid "Processing ~S..."
-msgstr "İşleniyor..."
-
-#: documentation-lib.scm:150
-#, fuzzy, scheme-format
-msgid "Writing ~S..."
-msgstr "`%s' yazılıyor..."
-
-#: documentation-lib.scm:172
-#, fuzzy, scheme-format
-msgid "cannot find description for property ~S (~S)"
-msgstr "öntanımlı yazı tipi bulunamıyor: `%s'"
-
-#: framework-eps.scm:91 framework-eps.scm:92
-#, fuzzy, scheme-format
-msgid "Writing ~a..."
-msgstr "`%s' yazılıyor..."
-
-#: framework-ps.scm:279
-#, scheme-format
-msgid "cannot embed ~S=~S"
-msgstr ""
-
-#: framework-ps.scm:332
-#, scheme-format
-msgid "cannot extract file matching ~a from ~a"
-msgstr ""
-
-#: framework-ps.scm:349
-#, fuzzy, scheme-format
-msgid "do not know how to embed ~S=~S"
-msgstr "Sesletimin nasıl yorumlanacağı bilinmiyor: "
-
-#: framework-ps.scm:380
-#, fuzzy, scheme-format
-msgid "do not know how to embed font ~s ~s ~s"
-msgstr "Sesletimin nasıl yorumlanacağı bilinmiyor: "
-
-#: framework-ps.scm:729
-#, scheme-format
-msgid "cannot convert <stdout> to ~S"
-msgstr ""
-
-#: framework-ps.scm:748 framework-ps.scm:751
-#, scheme-format
-msgid "cannot generate ~S using the postscript back-end"
-msgstr ""
-
-#: framework-ps.scm:758
-msgid ""
-"\n"
-"The PostScript backend does not support the 'classic'\n"
-"framework. Use the EPS backend instead,\n"
-"\n"
-"  lilypond -b eps <file>\n"
-"\n"
-"or remove the lilypond-book specific settings from the input.\n"
-msgstr ""
-
-#: framework-tex.scm:360
-#, fuzzy, scheme-format
-msgid "TeX file name must not contain whitespace: `~a'"
-msgstr "dosyaadı boşluk içermemeli: `%s'"
-
-#: layout-beam.scm:29
-#, scheme-format
-msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
-msgstr ""
-
-#: layout-beam.scm:46
-#, scheme-format
-msgid "Error in beam quanting.  Expected ~S 0, found ~S."
-msgstr ""
-
-#: layout-page-layout.scm:357
-#, fuzzy
-msgid "Calculating page breaks..."
-msgstr "Satır bölünmeleri sayılıyor..."
-
-#: lily-library.scm:593
-#, fuzzy, scheme-format
-msgid "unknown unit: ~S"
-msgstr "bilinmeyen çevirmen: `%s'"
-
-#: lily-library.scm:626
-#, scheme-format
-msgid "no \\version statement found, please add~afor future compatibility"
-msgstr ""
-
-#: lily-library.scm:633
-msgid "old relative compatibility not used"
-msgstr ""
-
-#: lily.scm:144
-#, fuzzy, scheme-format
-msgid "cannot find: ~A"
-msgstr "bulunamıyor: `%s'"
-
-#: lily.scm:209
-#, scheme-format
-msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr ""
-
-#: lily.scm:525 lily.scm:589
-#, scheme-format
-msgid "failed files: ~S"
-msgstr ""
-
-#: lily.scm:579
-#, fuzzy, scheme-format
-msgid "Redirecting output to ~a..."
-msgstr "bağımlılıklar `%s'ye çıktılanıyor..."
-
-#: ly-syntax-constructors.scm:40
-msgid "Music head function must return Music object"
-msgstr ""
-
-#: ly-syntax-constructors.scm:136
-#, scheme-format
-msgid "Invalid property operation ~a"
-msgstr ""
-
-#: markup.scm:123
-#, scheme-format
-msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-msgstr ""
-
-#: markup.scm:129
-#, scheme-format
-msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
-msgstr ""
-
-#: music-functions.scm:213
-#, fuzzy
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr "Tekrarlardan çok seçenek. Kullanılmayan fazla seşenekler. "
-
-#: music-functions.scm:232
-#, scheme-format
-msgid "expecting 2 elements for chord tremolo, found ~a"
-msgstr ""
-
-#: music-functions.scm:538
-#, scheme-format
-msgid "music expected: ~S"
-msgstr ""
-
-#. FIXME: uncomprehensable message
-#: music-functions.scm:589
-#, scheme-format
-msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
-msgstr ""
-
-#: music-functions.scm:748
-#, fuzzy, scheme-format
-msgid "cannot find quoted music: `~S'"
-msgstr "Müzik bulunamıyor"
-
-#: music-functions.scm:942
-#, fuzzy, scheme-format
-msgid "unknown accidental style: ~S"
-msgstr "bilinmeyen rastlantı yok sayılıyor: %s"
-
-#: output-ps.scm:315
-msgid "utf-8-string encountered in PS backend"
-msgstr ""
-
-#: output-svg.scm:42
-#, scheme-format
-msgid "undefined: ~S"
-msgstr ""
-
-#: output-svg.scm:132
-#, scheme-format
-msgid "cannot decypher Pango description: ~a"
-msgstr ""
-
-#  How to shut up this warning, when Voice_devnull_engraver has
-#  eaten start event?
-#: output-tex.scm:98
-#, fuzzy, scheme-format
-msgid "cannot find ~a in ~a"
-msgstr "ses kaydırma iminin başlangıcı bulunamıyor"
-
-#: paper.scm:69
-msgid "Not in toplevel scope"
-msgstr ""
-
-#: paper.scm:117
-#, scheme-format
-msgid "This is not a \\layout {} object, ~S"
-msgstr ""
-
-#: paper.scm:129
-#, scheme-format
-msgid "Unknown papersize: ~a"
-msgstr ""
-
-#. TODO: should raise (generic) exception with throw, and catch
-#. that in parse-scm.cc
-#: paper.scm:144
-msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
-msgstr ""
-
-#: parser-clef.scm:126
-#, fuzzy, scheme-format
-msgid "unknown clef type `~a'"
-msgstr "bilinmeyen küme tarzı `%s'"
-
-#: parser-clef.scm:127
-msgid "see scm/clef.scm for supported clefs"
-msgstr ""
-
-#: ps-to-png.scm:88
-#, fuzzy, scheme-format
-msgid "~a exited with status: ~S"
-msgstr "komut %d değeriyle sonlandı"
-
-#: to-xml.scm:190
-#, fuzzy, scheme-format
-msgid "assertion failed: ~S"
-msgstr "LaTeX başarısız oldu."
-
-#~ msgid "silly pitch"
-#~ msgstr "saçma perde"
-
-#, fuzzy
-#~ msgid "show warranty"
-#~ msgstr "garantiyi ve telif hakkını göster"
-
-#, fuzzy
-#~ msgid ""
-#~ "Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.\n"
-#~ "\n"
-#~ "Example usage:\n"
-#~ "\n"
-#~ " lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
-#~ " lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
-#~ " lilypond-book --process='lilypond -I include' BOOK\n"
-#~ msgstr ""
-#~ "LilyPond'un küçük  parçalarını karma HTML, LaTeX ya da texinfo "
-#~ "belgelerinde\n"
-#~ "çalıştırır. \n"
-#~ " Örnek kullanım:\n"
-#~ "\n"
-#~ "    lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" KİTAP\n"
-#~ "    lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -"
-#~ "\"KİTAP\n"
-#~ "    lilypond-book --process='lilypond -I include' KİTAP\n"
-#~ "\n"
-
-#  temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-#  original_dir = os.getcwd ()
-#  keep_temp_dir_p = 0
-#~ msgid "Convert MIDI to LilyPond source."
-#~ msgstr "MIDI'yi LilyPond kaynağına dönüştür."
-
-#, fuzzy
-#~ msgid "example"
-#~ msgstr "Örnek:"
-
-#, fuzzy
-#~ msgid "loading default font"
-#~ msgstr "Öntanımlı yazı tipi yükleniyor "
-
-#~ msgid "cannot find default font: `%s'"
-#~ msgstr "öntanımlı yazı tipi bulunamıyor: `%s'"
-
-#~ msgid "crescendo too small"
-#~ msgstr "kreşendo çok küçük"
-
-#~ msgid "print this help"
-#~ msgstr "bu yardımı yazdır"
-
-#, fuzzy
-#~ msgid "cannot open file %s"
-#~ msgstr "dosya açılamıyor: `%s'"
-
-#~ msgid "Incorrect lilypond version: %s (%s, %s)"
-#~ msgstr "Hatalı lilypond sürümü: %s (%s, %s)"
-
-#~ msgid "no one to print a tremolos"
-#~ msgstr "bir tremolo yazdıracak kimse yok"
-
-#~ msgid "gotcha: ptr=%ul"
-#~ msgstr "hata: ptr=%ul"
-
-#~ msgid "distance=%f"
-#~ msgstr "uzaklık=%f"
-
-#, fuzzy
-#~ msgid "junking event: `%s'"
-#~ msgstr "Kullanılmayan olay: `%s'"
-
-#~ msgid "no one to print a repeat brace"
-#~ msgstr "bir tekrar ayracını yazdıracak kimse yok"
-
-#~ msgid "cannot find `%s' context"
-#~ msgstr "`%s'nin bağlamı bulunamıyor"
-
-#~ msgid "Optimal demerits: %f"
-#~ msgstr "İdeal kusurlar: %f"
-
-#, fuzzy
-#~ msgid "no feasible line breaking found"
-#~ msgstr "Hiçbir uygulanabilir satır bölünmesi bulunamadı"
-
-#  music for the softenon children?
-#~ msgid "music for the martians."
-#~ msgstr "merihliler için müzik."
-
-#~ msgid "no one to print a percent"
-#~ msgstr "bir yüzde yazdıracak kimse yok"
-
-#~ msgid "Creator: "
-#~ msgstr "Oluşturucu: "
-
-#~ msgid "at "
-#~ msgstr "-de"
-
-#, fuzzy
-#~ msgid "in quotation: junking event %s"
-#~ msgstr "Tırnak içinde: kullanılmayan olay %s"
-
-#~ msgid "Global shortest duration is %s"
-#~ msgstr "En kısa genel süre %sdir"
-
-#  Not using ngettext's plural feature here, as this message is
-#  more of a programming error.
-#~ msgid "TFM header of `%s' has only %u word (s)"
-#~ msgstr "'%s'nin TFM kafasının sadece %u kelimesi var [s]"
-
-#~ msgid ""
-#~ "%s: TFM file has %u parameters, which is more than the %u I can handle"
-#~ msgstr ""
-#~ "%s: TFM dosyası %u değiştirgeye sahip ve bu başa çıkabileceğim %u'dan "
-#~ "fazla."
-
-#~ msgid "cannot find ascii character: %d"
-#~ msgstr "ascii karakteri bulunamıyor: %d"
-
-#~ msgid "no one to print a tuplet start bracket"
-#~ msgstr "bir tuplet başlangıç köşeli ayracı yazdıracak kimse yok"
-
-#, fuzzy
-#~ msgid "unterminated trill spanner"
-#~ msgstr "sonlandırılmamış metin anahtarı"
-
-#, fuzzy
-#~ msgid "identifier should have alphabetic characters only"
-#~ msgstr "Tanıtıcı yalnızca alfabetik karakterlerden oluşmalıdır"
-
-#, fuzzy
-#~ msgid "more alternatives than repeats"
-#~ msgstr "Tekrarlardan çok seçenek. Kullanılmayan fazla seşenekler. "
-
-#, fuzzy
-#~ msgid "cannot find signature for music function"
-#~ msgstr "`%s'nin bağlamı bulunamıyor"
-
-#~ msgid "lilylib module"
-#~ msgstr "lilylib birimi"
-
-#~ msgid "Binary %s has version %s, looking for version %s"
-#~ msgstr " %s ikilisi,  %s sürümünde, %s sürümü aranıyor"
-
-#~ msgid "Opening pipe `%s'"
-#~ msgstr "`%s' veri yolu açılıyor"
-
-#~ msgid "`%s' failed (%s)"
-#~ msgstr "`%s' başarısız (%s)"
-
-#~ msgid "(ignored)"
-#~ msgstr "(yok sayıldı)"
-
-#~ msgid "Cleaning %s..."
-#~ msgstr "%s temizleniyor..."
-
-#  No version number or newline here.  It confuses help2man.
-#, fuzzy
-#~ msgid "Usage: %s [OPTION]... [FILE]..."
-#~ msgstr "Kullanım: %s [SEÇENEKLER]... DOSYA..."
-
-#, fuzzy
-#~ msgid "%s: skipping: `%s'"
-#~ msgstr "böyle bir ayar yok: `%s'"
-
-#~ msgid "print version information"
-#~ msgstr "sürüm bilgisini yazdır"
-
-#~ msgid "getopt says: `%s'"
-#~ msgstr "getopt çıktısı: `%s'"
-
-#, fuzzy
-#~ msgid "Command failed: `%s' (status %d)"
-#~ msgstr "LilyPond %s girdi dosyasında başarısız oldu (çıkış durumu %d)"
-
-#~ msgid "command exited with value %d"
-#~ msgstr "komut %d değeriyle sonlandı"
-
-#~ msgid "debug"
-#~ msgstr "hata ayıklama"
-
-#~ msgid "define macro NAME [optional expansion EXP]"
-#~ msgstr "makro ADını [seçimli genişletme EXP] tanımla"
-
-#~ msgid "only pre-process"
-#~ msgstr "sadece önişleme yap"
-
-#~ msgid "no such context: %s"
-#~ msgstr "böyle bir bağlam yok: %s"
-
-#~ msgid "Processing `%s'..."
-#~ msgstr "`%s' işleniyor..."
-
-#~ msgid "Convert PostScript to PNG image."
-#~ msgstr "PostScript'i PNG grafiğine dönüştürür."
-
-#~ msgid "RES"
-#~ msgstr "RES"
-
-#~ msgid "set the resolution of the preview to RES"
-#~ msgstr "önizlemenin çözünürlüğünü RES'e ayarla"
-
-#~ msgid "Wrote `%s'"
-#~ msgstr "`%s' yazıldı"
-
-#, fuzzy
-#~ msgid "cannot dlopen: %s: %s"
-#~ msgstr "dosya açılamıyor: `%s'"
-
-#, fuzzy
-#~ msgid "install package: %s or %s"
-#~ msgstr "`%s' `%s'ye dönüştürülemiyor "
-
-#, fuzzy
-#~ msgid "parsing AFM file: `%s'"
-#~ msgstr "AFM dosyasının ayrıştırılmasında hata: `%s' "
-
-#~ msgid "checksum mismatch for font file: `%s'"
-#~ msgstr "yazı tipi dosyası için hatalı sağlama toplamı: `%s' "
-
-#~ msgid "does not match: `%s'"
-#~ msgstr "eşleşmiyor: `%s'"
-
-#~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-#~ msgstr ""
-#~ ".afm dosyalarınrın hepsini yeniden kurgula, ve .pk ve .tfm dosyalarının "
-#~ "hepsini kaldır."
-
-#~ msgid "Rerun with -V to show font paths."
-#~ msgstr "Yazı tipi yollarını göstermek için -V ile yeniden çalıştır. "
-
-#~ msgid "A script for removing font-files is delivered with the source-code:"
-#~ msgstr ""
-#~ "Yazı tipi-dosyalarının kaldırılması için kaynak-kodu ile birlikte bir "
-#~ "betik verildi:"
-
-#~ msgid "beam has less than two visible stems"
-#~ msgstr "ışının ikiden az gövdesi var"
-
-#~ msgid "run in safe mode"
-#~ msgstr "emniyetli kipte çalıştır"
-
-#, fuzzy
-#~ msgid "cannot handle a percent repeat of length: %s"
-#~ msgstr "Bu uzunluktaki bir yüzde tekrarıyla nasıl baş edeceğini bilmiyor."
-
-#~ msgid "rest direction not set.  Cannot resolve collision."
-#~ msgstr "durak yönü ayarlı değil. Çatışma çözülemiyor."
-
-#~ msgid "lilypond -e EXPR means:"
-#~ msgstr "lilypond -e EXPR anlamı:"
-
-#~ msgid "  Evalute the Scheme EXPR before parsing any .ly files."
-#~ msgstr ""
-#~ "  Herhangi bir .ly dosyasını ayrıştırmadan önce Scheme EXPR işlenir."
-
-#~ msgid ""
-#~ "  Multiple -e options may be given, they will be evaluated sequentially."
-#~ msgstr ""
-#~ "  Çok sayıda -e seçeneği verilebilir, bunlar sırayla değerlendirilir."
-
-#~ msgid ""
-#~ "  The function ly:set-option allows for access to some internal variables."
-#~ msgstr ""
-#~ "  ly-set-option (seçenek ayarla) işlevi bazı iç değişkenlere erişime "
-#~ "izin\n"
-#~ "  verir."
-
-#, fuzzy
-#~ msgid "Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\""
-#~ msgstr "Kullanım: lilypond-bin -e \"(ly:set-option SEMBOL DEĞER)\""
-
-#  this shouldnnot happen, but let's continue anyway.
-#~ msgid "Separation_item:  I've been drinking too much"
-#~ msgstr "Ayırma_öğe: Çok fazla içmişim"
-
-#, fuzzy
-#~ msgid "removing tuplet bracket across linebreak"
-#~ msgstr "Satırkesmesi boyunca tuplet köşeli ayracı yok ediliyor."
-
-#, fuzzy
-#~ msgid "tag must be symbol or list of symbols"
-#~ msgstr "Biçim imi sembol ya da sembol listesi olmalı."
-
-#~ msgid "need integer number arg"
-#~ msgstr "tamsayı  arga ihtiyaç duyar"
-
-#, fuzzy
-#~ msgid "suspect duration in beam: %s"
-#~ msgstr "Bu ışının devamında tahmini süre bulundu"
-
-#, fuzzy
-#~ msgid "syntax error: cannot back up"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "Reading a token: "
-#~ msgstr "`%s' veri yolu açılıyor"
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s or %s"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s or %s or %s"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "syntax error; also memory exhausted"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "syntax error"
-#~ msgstr "hiçbir onulmaz hata yok: "
-
-#, fuzzy
-#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
-#~ msgstr "yazı tipi bulunamıyor: `%s'"
-
-#, fuzzy
-#~ msgid "unknown bar glyph: `~S'"
-#~ msgstr "bilinmeyen küme tarzı `%s'"
-
-#, fuzzy
-#~ msgid "Writing output file."
-#~ msgstr "Çıktı dosyası kaldırılıyor"
-
-#~ msgid "Second argument must be pitch list."
-#~ msgstr "İkinci argüman perde listesi olmalı."
-
-#~ msgid "Have to be in Lyric mode for lyrics"
-#~ msgstr "Güfteler için Lyric kipinde olunmalı"
-
-#~ msgid "Expecting string as script definition"
-#~ msgstr "Betik tanımı olarak dizge bekleniyor"
-
-#~ msgid "Have to be in Note mode for notes"
-#~ msgstr "Notalar için Nota kipinde olmalıdır"
-
-#~ msgid "Have to be in Chord mode for chords"
-#~ msgstr "Akortlar için Akort kipinde olmalıdır"
-
-#, fuzzy
-#~ msgid "programming error: "
-#~ msgstr "programlama hatası: %s"
-
-#, fuzzy
-#~ msgid "Programming error: "
-#~ msgstr "programlama hatası: %s"
-
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Çevirmenler değiştirilemiyor, zaten oradayım"
-
-#~ msgid "Accidental rule must be pair or context-name; Found %s"
-#~ msgstr "Raslantı kuralı çift ya da bağlam-adı olmak zorundadır; %s bulundu"
-
-#  We could change the current translator's id, but that would make
-#  errors hard to catch
-#  last->translator_id_string_  = get_change ()->change_to_id_string_;
-#~ msgid "I'm one myself"
-#~ msgstr "Ben tek başımayım"
-
-#~ msgid "Chord tremolo with %d elements. Must have two elements."
-#~ msgstr "%d öğeli akort tremolosu. İki öğesi olmalı."
-
-#~ msgid "Fingerings are also not down?! Putting them down anyway."
-#~ msgstr "Parmaklaçalmalar da yüklenmedi?! Yine de yükleniyor."
-
-#~ msgid "Huh?  Got %d, expected %d characters"
-#~ msgstr "Ha? %2$d karakter beklenirken, %1$d alındı"
-
-#~ msgid "Donnot you want polyphonic voices instead?"
-#~ msgstr "Bunun yerine polifonik sesler istemez misiniz?"
-
-#~ msgid "No volta spanner to end"
-#~ msgstr "Bitirmek için volta anahtarı yok"
-
-#~ msgid "Also have a stopped spanner.  Giving up."
-#~ msgstr "Durdurulmuş anahtarı da var. Vazgeçiliyor."
-
-#  backup rule
-#~ msgid "Missing end quote"
-#~ msgstr "Sondaki tırnak işareti eksik"
-
-#  Bug in option parser: --output=foe is taken as an abbreviation
-#  for --output-format.
-#~ msgid "EXT"
-#~ msgstr "EXT"
-
-#  # FIXME
-#  # do -P or -p by default?
-#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#~ msgid "Run LilyPond, generate printable document."
-#~ msgstr "LilyPond'u çalıştır, yazdırılabilir belge üret."
-
-#~ msgid "use LaTeX for formatting"
-#~ msgstr "biçemleme için LaTeX kullanır"
-
-#~ msgid "print even more output"
-#~ msgstr "daha da fazla çıktı yazdır"
-
-#~ msgid "find pfa fonts used in FILE"
-#~ msgstr "DOSYAda kullanılan pfa yazı tiplerini bul"
-
-#~ msgid "add DIR to LilyPond's search path"
-#~ msgstr "DIR'ı (DİZİN) LilyPond'un arama yoluna ekle"
-
-#~ msgid "keep all output, output to directory %s.dir"
-#~ msgstr "bütün çıktıyı sakla, çıktıyı %s dizinine yönlendir"
-
-#~ msgid "do not run LilyPond"
-#~ msgstr "LilyPond'u çalıştırma"
-
-#~ msgid "produce MIDI output only"
-#~ msgstr "sadece MIDI çıktısı üret"
-
-#~ msgid "generate PDF output"
-#~ msgstr "PDF çıktısı üret"
-
-#~ msgid "generate PostScript output"
-#~ msgstr "PostScript çıktısı üret"
-
-#~ msgid "generate PNG page images"
-#~ msgstr "PNG sayfa görüntülerini  üret"
-
-#~ msgid "generate PS.GZ"
-#~ msgstr "PS.GZ üret"
-
-#~ msgid "run in safe-mode"
-#~ msgstr "emniyetli kipte çalıştır"
-
-#~ msgid "change global setting KEY to VAL"
-#~ msgstr "genel ayar KEY'e VAL değerini ata"
-
-#~ msgid "LilyPond crashed (signal %d)."
-#~ msgstr "LilyPond çöktü (%d sinyali)."
-
-#~ msgid "Please submit a bug report to bug-lilypond@gnu.org"
-#~ msgstr ""
-#~ "Lütfen bug-lilypond@gnu.org adresine bir yazılım hatası raporu gönderin"
-
-#~ msgid "LilyPond failed on an input file (exit status %d)"
-#~ msgstr "LilyPond bir girdi dosyasında başarısız oldu (çıkış durumu %d)"
-
-#~ msgid "Continuing..."
-#~ msgstr "Devam ediliyor..."
-
-#~ msgid "Analyzing %s..."
-#~ msgstr "%s çözümleniyor..."
-
-#~ msgid "no LilyPond output found for `%s'"
-#~ msgstr "`%s' için hiçbir LilyPond çıktısı bulunamadı"
-
-#~ msgid "LaTeX failed on the output file."
-#~ msgstr "LaTeX çıktı dosyasında başarısız oldu."
-
-#~ msgid ""
-#~ "Trying create PDF, but no PFA fonts found.\n"
-#~ "Using bitmap fonts instead. This will look bad."
-#~ msgstr ""
-#~ "PDF oluşturulmaya çalışılıyor, ancak hiçbir PFA yazı tipi bulunamadı. \n"
-#~ "Bunun yerine bitmap yazı tipi kullanılıyor. Bu kötü görünecek."
-
-#~ msgid "pseudo filter"
-#~ msgstr "sahte süzgeç"
-
-#~ msgid "pseudo filter only for single input file"
-#~ msgstr "sadece tek girdi dosyası için sahte süzgeç"
-
-#~ msgid "no files specified on command line"
-#~ msgstr "komut satırında hiçbir dosya belirtilmedi"
-
-#~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "LilyPond'un çalıştırılması başarısız. İzlemek için\n"
-#~ "--verbose seçeneği ile yeniden çalıştırın."
-
-#~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "PS dosyası oluşturulamadı. İzlemek için\n"
-#~ "--verbose seçeneği ile yeniden çalıştırın."
-
-#~ msgid "%s output to <stdout>..."
-#~ msgstr "%s çıktısı <stdout>a..."
-
-#~ msgid "%s output to %s..."
-#~ msgstr "%s çıktısı %s'ye..."
-
-#~ msgid "cannot find file: `%s.%s'"
-#~ msgstr "dosya bulunamıyor: `%s.%s'"
-
-#~ msgid "NaN"
-#~ msgstr "NaN"
-
-#~ msgid "include files are not allowed"
-#~ msgstr "dosyaların içerilmesine izin verilmiyor"
-
-#~ msgid "FIXME: key change merge"
-#~ msgstr "FIXME: anahtar değişim birleşimi"
-
-#~ msgid "kpathsea can not find TFM file: `%s'"
-#~ msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
-
-#~ msgid "kpathsea can not find file: `%s'"
-#~ msgstr "kpathsea dosyayı bulamıyor: `%s'"
-
-#~ msgid "Now processing `%s'"
-#~ msgstr "`%s' şu an işleniyor"
-
-#~ msgid "set options, use -e '(ly:option-usage)' for help"
-#~ msgstr ""
-#~ "seçenekleri ayarlar, yardım için -e '(ly:option-usage)' seçeneğini "
-#~ "kullanır"
-
-#~ msgid "generate a preview"
-#~ msgstr "önizleme üretir"
-
-#~ msgid "generate DVI"
-#~ msgstr "DVI üretir"
-
-#~ msgid "generate TeX"
-#~ msgstr "TeX üretir"
-
-#~ msgid "This option is for developers only."
-#~ msgstr "Bu seçenek sadece  geliştiriciler içindir."
-
-#~ msgid "Read the sources for more information."
-#~ msgstr "Daha fazla bilgi için kaynakları okuyun."
-
-#~ msgid "Paper output to `%s'..."
-#~ msgstr "Kağıt çıktısı `%s'ye..."
-
-#~ msgid "input renamed to: `%s'"
-#~ msgstr "girdi `%s' olarak yenden adlandırıldı"
 
 #~ msgid "write Makefile dependencies for every input file"
 #~ msgstr "her girdi dosyası için Makefile bağımlılıklarını yaz"
@@ -2806,6 +1987,9 @@ msgstr "LaTeX başarısız oldu."
 
 #~ msgid "do not generate PDF output"
 #~ msgstr "PDF çıktısı üretme"
+
+#~ msgid "do not generate PostScript output"
+#~ msgstr "PostScript çıktısı üretme"
 
 #~ msgid "use pdflatex to generate PDF output"
 #~ msgstr "PDF çıktısı üretmek için pdflatex'i kullan"
@@ -2821,6 +2005,15 @@ msgstr "LaTeX başarısız oldu."
 #~ "LaTeX'in çalıştırılması başarısız. İzlemek için\n"
 #~ "--verbose seçeneği ile yeniden çalıştırın."
 
+#~ msgid "dependencies output to `%s'..."
+#~ msgstr "bağımlılıklar `%s'ye çıktılanıyor..."
+
+#  # FIXME
+#  # do -P or -p by default?
+#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#~ msgid "Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document"
+#~ msgstr "LilyPond'un küçük parçalarını karma HTML, LaTeX ya da texinfo belgesinde işle"
+
 #~ msgid "DIM"
 #~ msgstr "DIM"
 
@@ -2828,9 +2021,7 @@ msgstr "LaTeX başarısız oldu."
 #~ msgstr "müzik için öntanımlı  yazı tipi. DIM'in uygun olduğu varsayılıyor "
 
 #~ msgid "deprecated, use --default-music-fontsize"
-#~ msgstr ""
-#~ "uygun görülmedi, --default-music-fontsize (öntanımlı müzik yazıtipi) "
-#~ "kullanın"
+#~ msgstr "uygun görülmedi, --default-music-fontsize (öntanımlı müzik yazıtipi) kullanın"
 
 #~ msgid "OPT"
 #~ msgstr "OPT"
@@ -2838,16 +2029,11 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "pass OPT quoted to the lilypond command line"
 #~ msgstr "lilypond komut satırına aktarılmış OPT'u geçir"
 
-#~ msgid ""
-#~ "force fontsize for all inline lilypond. DIM is assumed to be in points"
-#~ msgstr ""
-#~ "bütün satıriçi lilypond için yazı tipini kullan. DIM'in uygun olduğu "
-#~ "varsayılıyor."
+#~ msgid "force fontsize for all inline lilypond. DIM is assumed to be in points"
+#~ msgstr "bütün satıriçi lilypond için yazı tipini kullan. DIM'in uygun olduğu varsayılıyor."
 
 #~ msgid "deprecated, use --force-music-fontsize"
-#~ msgstr ""
-#~ "uygun görülmedi, --force-music-fontsize (müzik yazı tipi boyunu kullan) "
-#~ "kullanın"
+#~ msgstr "uygun görülmedi, --force-music-fontsize (müzik yazı tipi boyunu kullan) kullanın"
 
 #~ msgid "include path"
 #~ msgstr "yolu içer"
@@ -2861,10 +2047,10 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "prepend PREF before each -M dependency"
 #~ msgstr "her bir -M bağımlılığının başına PREF ekle"
 
-#~ msgid "do not run lilypond"
+#~ msgid "don't run lilypond"
 #~ msgstr "lilypond'u çalıştırma"
 
-#~ msgid "do not generate pictures"
+#~ msgid "don't generate pictures"
 #~ msgstr "resim üretme"
 
 #~ msgid "strip all lilypond blocks from output"
@@ -2876,8 +2062,10 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "where to place generated files"
 #~ msgstr "üretilmiş dosyaların konulacağı yer"
 
-#~ msgid ""
-#~ "round filled box horizontal extent smaller than blot; decreasing blot"
+#~ msgid "LaTeX failed."
+#~ msgstr "LaTeX başarısız oldu."
+
+#~ msgid "round filled box horizontal extent smaller than blot; decreasing blot"
 #~ msgstr "yuvarlak dolu kutu lekeden küçük yatay genişlik; leke azaltılıyor "
 
 #~ msgid "round filled box vertical extent smaller than blot; decreasing blot"
@@ -2892,9 +2080,8 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "prepend DIR to dependencies"
 #~ msgstr "bağımlılıkların başına DİZİN ekle"
 
-#~ msgid "cannot find start of phrasing slur"
-#~ msgstr ""
-#~ "melodiyi ayrıştırarak çalan ses kaydırma iminin başlangıcı bulunamıyor"
+#~ msgid "can't find start of phrasing slur"
+#~ msgstr "melodiyi ayrıştırarak çalan ses kaydırma iminin başlangıcı bulunamıyor"
 
 #~ msgid "Where SYMBOL VAL pair is any of:"
 #~ msgstr "SEMBOL DEĞER çiftinin şunlardan biri olduğu yerde:"
@@ -2902,8 +2089,16 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "unbound spanner `%s'"
 #~ msgstr "`%s' bağsız anahtarı"
 
+#  How to shut up this warning, when Voice_devnull_engraver has
+#  eaten start event?
+#~ msgid "can't find start of slur"
+#~ msgstr "ses kaydırma iminin başlangıcı bulunamıyor"
+
 #~ msgid "#<spring smob d= %f>"
 #~ msgstr "#<yay smob d= %f>"
 
 #~ msgid "\\apply takes function argument"
 #~ msgstr "\\uygulama argüman işlevi alır"
+
+#~ msgid "Can't find music"
+#~ msgstr "Müzik bulunamıyor"

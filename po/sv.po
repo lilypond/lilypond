@@ -5,832 +5,1483 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.7.26\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-24 10:40+0100\n"
-"PO-Revision-Date: 2006-12-23 16:16+0100\n"
+"POT-Creation-Date: 2003-07-18 14:45+0200\n"
+"PO-Revision-Date: 2003-08-23 13:30+0200\n"
 "Last-Translator: Martin Norbäck <d95mback@dtek.chalmers.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: convertrules.py:12
-#, python-format
-msgid "Not smart enough to convert %s"
-msgstr ""
+#. this is where special info is often stored
+#. ###############################################################
+#. lilylib.py -- options and stuff
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. ##  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
+#. ##  replace:\1ly.\2 (
+#. ## subst: \(help_summary\|keep_temp_dir_p\|option_definitions\|original_dir\|program_name\|pseudo_filter_p\|temp_dir\|verbose_p\)
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. lilylib globals
+#: lilylib.py:60
+msgid "lilylib module"
+msgstr "lilylib-modul"
 
-#: convertrules.py:13
-msgid "Please refer to the manual for details, and update manually."
-msgstr ""
+# förklaring av flaggan -h
+#: lilylib.py:63 lilypond-book.py:131 ly2dvi.py:128 midi2ly.py:100
+#: mup2ly.py:75 main.cc:111
+msgid "this help"
+msgstr "denna hjälp"
 
-#: convertrules.py:14
-#, python-format
-msgid "%s has been replaced by %s"
-msgstr ""
+#. ###############################################################
+#. Handle bug in Python 1.6-2.1
+#.
+#. there are recursion limits for some patterns in Python 1.6 til 2.1.
+#. fix this by importing pre instead. Fix by Mats.
+#. Attempt to fix problems with limited stack size set by Python!
+#. Sets unlimited stack size. Note that the resource module only
+#. is available on UNIX.
+#: lilylib.py:114 midi2ly.py:136 mup2ly.py:130 main.cc:188 main.cc:200
+#, c-format, python-format
+msgid "Copyright (c) %s by"
+msgstr "Copyright © %s av"
 
-#: convertrules.py:2398
-msgid "LilyPond source must be UTF-8"
-msgstr ""
+#: lilylib.py:114
+msgid " 1998--2003"
+msgstr " 1998-2003"
 
-#: convertrules.py:2401
-msgid "Try the texstrings backend"
-msgstr ""
-
-#: convertrules.py:2404
-#, python-format
-msgid "Do something like: %s"
-msgstr ""
-
-#: convertrules.py:2407
-msgid "Or save as UTF-8 in your editor"
-msgstr ""
-
-#: fontextract.py:26
-#, fuzzy, python-format
-msgid "Scanning %s"
-msgstr "varning: %s\n"
-
-#: fontextract.py:71
-#, python-format
-msgid "Extracted %s"
-msgstr ""
-
-#: fontextract.py:86
-#, fuzzy, python-format
-msgid "Writing fonts to %s"
-msgstr "kan inte skapa katalog: \"%s\""
-
-#: lilylib.py:85 lilylib.py:136
-#, python-format
-msgid "Invoking `%s'"
-msgstr "Startar \"%s\""
-
-#: lilylib.py:87 lilylib.py:138
-#, python-format
-msgid "Running %s..."
-msgstr "Kör %s..."
-
-#: lilylib.py:203
-#, fuzzy, python-format
-msgid "Usage: %s"
-msgstr "varning: %s\n"
-
-#: abc2ly.py:1349 convert-ly.py:80 lilypond-book.py:125 midi2ly.py:869
-#, fuzzy, python-format
-msgid "%s [OPTION]... FILE"
-msgstr "Användning: %s [FLAGGA]... FIL"
-
-#: abc2ly.py:1351
-#, python-format
-msgid ""
-"abc2ly converts ABC music files (see\n"
-"%s) to LilyPond input."
-msgstr ""
-
-#: abc2ly.py:1355 etf2ly.py:1200 midi2ly.py:885
-msgid "write output to FILE"
-msgstr "skriv utdata till FIL"
-
-#: abc2ly.py:1357
-msgid "be strict about succes"
-msgstr ""
-
-#: abc2ly.py:1359
-msgid "preserve ABC's notion of beams"
-msgstr ""
-
-#: abc2ly.py:1361 convert-ly.py:112 etf2ly.py:1208 lilypond-book.py:168
-#: midi2ly.py:911 musicxml2ly.py:505
-#, fuzzy
-msgid "Report bugs via"
-msgstr ""
-"Rapportera programfel till %s\n"
-"Rapportera fel i översättningen till <sv@li.org>"
-
-#: convert-ly.py:41
-msgid ""
-"Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version."
-msgstr ""
-
-#: convert-ly.py:43 lilypond-book.py:73
-#, fuzzy
-msgid "Examples:"
-msgstr "Exempel:"
-
-#: convert-ly.py:56 lilypond-book.py:98 warn.cc:48 input.cc:90
-#, fuzzy, c-format, python-format
-msgid "warning: %s"
-msgstr "varning: %s\n"
-
-#: convert-ly.py:59 lilypond-book.py:101 warn.cc:54 input.cc:96 input.cc:104
-#, fuzzy, c-format, python-format
-msgid "error: %s"
-msgstr "fel: %s\n"
-
-#: convert-ly.py:75 etf2ly.py:1190 lilypond-book.py:121 midi2ly.py:98
+#: lilylib.py:118
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "Distribueras under GNU General Public License."
 
-#: convert-ly.py:76 etf2ly.py:1191 lilypond-book.py:122 midi2ly.py:99
+#: lilylib.py:120
 msgid "It comes with NO WARRANTY."
 msgstr "INGEN GARANTI ges för programmet."
 
-#: convert-ly.py:86 convert-ly.py:106
-msgid "VERSION"
-msgstr ""
+#: lilylib.py:127 midi2ly.py:150 mup2ly.py:144 input.cc:88
+msgid "warning: "
+msgstr "varning: "
 
-#: convert-ly.py:88
-msgid "start from VERSION [default: \\version found in file]"
-msgstr ""
+#. lots of midi files use plain text for lyric events
+#. FIXME: read from stdin when files[0] = '-'
+#: lilylib.py:130 midi2ly.py:165 midi2ly.py:1018 midi2ly.py:1083 mup2ly.py:147
+#: mup2ly.py:161 input.cc:93
+msgid "error: "
+msgstr "fel: "
 
-#: convert-ly.py:91
-msgid "edit in place"
-msgstr ""
-
-#: convert-ly.py:94
-msgid "do not add \\version command if missing"
-msgstr ""
-
-#: convert-ly.py:100
-msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
-msgstr ""
-
-#: convert-ly.py:105
-msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
-msgstr ""
-
-#: convert-ly.py:153
-msgid "Applying conversion: "
-msgstr ""
-
-#: convert-ly.py:166
-msgid "Error while converting"
-msgstr ""
-
-#: convert-ly.py:168
-msgid "Stopping at last succesful rule"
-msgstr ""
-
-#: convert-ly.py:190
-#, fuzzy, python-format
-msgid "Processing `%s'... "
-msgstr "Behandlar \"%s\"..."
-
-#: convert-ly.py:277 relocate.cc:360 source-file.cc:54
-#, c-format, python-format
-msgid "cannot open file: `%s'"
-msgstr "kan inte öppna fil: \"%s\""
-
-#: convert-ly.py:284
-#, fuzzy, python-format
-msgid "cannot determine version for `%s'.  Skipping"
-msgstr "kan inte hitta standardtypsnitt: \"%s\""
-
-#: etf2ly.py:1196
-#, fuzzy, python-format
-msgid "%s [OPTION]... ETF-FILE"
-msgstr "Användning: %s [FLAGGA]... FIL"
-
-#: etf2ly.py:1198
-msgid ""
-"Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
-"file."
-msgstr ""
-
-#: etf2ly.py:1201 midi2ly.py:886 musicxml2ly.py:498 main.cc:172 main.cc:178
-msgid "FILE"
-msgstr "FIL"
-
-#: etf2ly.py:1203 lilypond-book.py:165 midi2ly.py:899 main.cc:185
-msgid "show warranty and copyright"
-msgstr "visa garanti och copyright"
-
-#: lilypond-book.py:71
-#, fuzzy
-msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
-msgstr ""
-"Bearbeta LilyPond-stycken i ett hybriddokument i html, LaTex eller texinfo"
-
-#: lilypond-book.py:78
-msgid "BOOK"
-msgstr ""
-
-#: lilypond-book.py:87
+#: lilylib.py:134
 #, python-format
 msgid "Exiting (%d)..."
 msgstr "Avslutar (%d)... "
 
-#: lilypond-book.py:119
+#: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Copyright (c) %s by"
-msgstr "Copyright © %s av"
+msgid "Usage: %s [OPTION]... FILE"
+msgstr "Användning: %s [FLAGGA]... FIL"
 
-#: lilypond-book.py:129
-#, fuzzy
-msgid "FILTER"
-msgstr "FIL"
+#: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
+msgid "Options:"
+msgstr "Flaggor:"
 
-#: lilypond-book.py:132
-msgid "pipe snippets through FILTER [convert-ly -n -]"
+#: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
+#, c-format, python-format
+msgid "Report bugs to %s"
 msgstr ""
+"Rapportera programfel till %s\n"
+"Rapportera fel i översättningen till <sv@li.org>"
 
-#: lilypond-book.py:135
-#, fuzzy
-msgid ""
-"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
-msgstr "använd utdataformat FMT (texi [standard], texi-html, latex, html)"
-
-#: lilypond-book.py:138
-#, fuzzy
-msgid "add DIR to include path"
-msgstr "lägg till KATALOG till sökvägen"
-
-#: lilypond-book.py:139 lilypond-book.py:144 main.cc:171
-msgid "DIR"
-msgstr "KATALOG"
-
-#: lilypond-book.py:143
-#, fuzzy
-msgid "write output to DIR"
-msgstr "skriv utdata till FIL"
-
-#: lilypond-book.py:147
-msgid "COMMAND"
-msgstr ""
-
-#: lilypond-book.py:148
-msgid "process ly_files using COMMAND FILE..."
-msgstr ""
-
-#: lilypond-book.py:154
-msgid "Create PDF files for use with PDFTeX"
-msgstr ""
-
-#: lilypond-book.py:157
-msgid ""
-"extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
-"must use this with dvips -h INPUT.psfonts"
-msgstr ""
-
-#: lilypond-book.py:160 midi2ly.py:896 musicxml2ly.py:489 main.cc:184
-msgid "be verbose"
-msgstr "var utförlig"
-
-#: lilypond-book.py:773
-#, fuzzy, python-format
-msgid "file not found: %s"
-msgstr "klav \"%s\" hittades inte"
-
-#: lilypond-book.py:1004
+#: lilylib.py:228
 #, python-format
-msgid "deprecated ly-option used: %s=%s"
-msgstr ""
-
-#: lilypond-book.py:1007
-#, python-format
-msgid "compatibility mode translation: %s=%s"
-msgstr ""
-
-#: lilypond-book.py:1011
-#, python-format
-msgid "deprecated ly-option used: %s"
-msgstr ""
-
-#: lilypond-book.py:1014
-#, python-format
-msgid "compatibility mode translation: %s"
-msgstr ""
-
-#: lilypond-book.py:1033
-#, python-format
-msgid "ignoring unknown ly option: %s"
-msgstr ""
-
-#: lilypond-book.py:1388
-#, fuzzy, python-format
-msgid "Opening filter `%s'"
+msgid "Opening pipe `%s'"
 msgstr "Öppnar rör \"%s\"..."
 
-#: lilypond-book.py:1405
+#. successful pipe close returns 'None'
+#: lilylib.py:240
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "\"%s\" misslyckades (%d)"
 
-#: lilypond-book.py:1406
+#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 ly2dvi.py:512
 msgid "The error log is as follows:"
 msgstr "Felloggen är följande:"
 
-#: lilypond-book.py:1476
-msgid "cannot find \\begin{document} in LaTeX document"
-msgstr ""
-
-#: lilypond-book.py:1586
-#, fuzzy
-msgid "Writing snippets..."
-msgstr "Skriver \"%s\"..."
-
-#: lilypond-book.py:1591
-#, fuzzy
-msgid "Processing..."
-msgstr "Behandlar..."
-
-#: lilypond-book.py:1595
-#, fuzzy
-msgid "All snippets are up to date..."
-msgstr "lugn, %s är senaste versionen"
-
-#: lilypond-book.py:1605
-#, fuzzy, python-format
-msgid "cannot determine format for: %s"
-msgstr "kan inte hitta standardtypsnitt: \"%s\""
-
-#: lilypond-book.py:1616
-#, fuzzy, python-format
-msgid "%s is up to date."
-msgstr "lugn, %s är senaste versionen"
-
-#: lilypond-book.py:1622
+#: lilylib.py:262 midi2ly.py:260 mup2ly.py:256
 #, python-format
-msgid "Writing `%s'..."
-msgstr "Skriver \"%s\"..."
-
-#: lilypond-book.py:1677
-msgid "Output would overwrite input file; use --output."
-msgstr ""
-
-# här är det fråga om rensning av en temporärkatalog
-#: lilypond-book.py:1681
-#, fuzzy, python-format
-msgid "Reading %s..."
-msgstr "Rensar %s..."
-
-#: lilypond-book.py:1700
-#, fuzzy
-msgid "Dissecting..."
-msgstr "Listar \"%s\"..."
-
-# här är det fråga om rensning av en temporärkatalog
-#: lilypond-book.py:1716
-#, fuzzy, python-format
-msgid "Compiling %s..."
-msgstr "Rensar %s..."
-
-#: lilypond-book.py:1725
-#, fuzzy, python-format
-msgid "Processing include: %s"
-msgstr "Behandlar \"%s\"..."
-
-#: lilypond-book.py:1739
-#, fuzzy, python-format
-msgid "Removing `%s'"
+msgid "Invoking `%s'"
 msgstr "Startar \"%s\""
 
-#: lilypond-book.py:1815
-#, fuzzy, python-format
-msgid "Writing fonts to %s..."
-msgstr "kan inte skapa katalog: \"%s\""
+#: lilylib.py:264
+#, python-format
+msgid "Running %s..."
+msgstr "Kör %s..."
 
-#: lilypond-book.py:1830
-msgid "option --psfonts not used"
+#: lilylib.py:282
+#, python-format
+msgid "`%s' failed (%s)"
+msgstr "\"%s\" misslyckades (%s)"
+
+#: lilylib.py:285 midi2ly.py:266 mup2ly.py:264
+msgid "(ignored)"
+msgstr "(ignorerat)"
+
+# här är det fråga om rensning av en temporärkatalog
+#: lilylib.py:299 midi2ly.py:276 mup2ly.py:274
+#, python-format
+msgid "Cleaning %s..."
+msgstr "Rensar %s..."
+
+#. Duh.  Python style portable: cp *.EXT OUTDIR
+#. system ('cp *.%s %s' % (ext, outdir), 1)
+#. Python < 1.5.2 compatibility
+#.
+#. On most platforms, this is equivalent to
+#. `normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+#. tex needs lots of memory, more than it gets by default on Debian
+#. TODO: * prevent multiple addition.
+#. * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+#. as these take prevalence over $TEXMF
+#. and thus may break tex run?
+#. $TEXMF is special, previous value is already taken care of
+#. # -sOutputFile does not work with bbox?
+#. # todo:
+#. # have better algorithm for deciding when to crop page,
+#. # and when to show full page
+#: lilylib.py:458
+msgid "Removing output file"
+msgstr "Tar bort utdatafilen"
+
+#. !@PYTHON@
+#. once upon a rainy monday afternoon.
+#.
+#. ...
+#.
+#. (not finished.)
+#. ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
+#.
+#. Enhancements  (Roy R. Rankin)
+#.
+#. Header section moved to top of lilypond file
+#. handle treble, treble-8, alto, and bass clef
+#. Handle voices (V: headers) with clef and part names, multiple voices
+#. Handle w: lyrics with multiple verses
+#. Handle key mode names for minor, major, phrygian, ionian, locrian, aeolian,
+#. mixolydian, lydian, dorian
+#. Handle part names from V: header
+#. Tuplets handling fixed up
+#. Lines starting with |: not discarded as header lines
+#. Multiple T: and C: header entries handled
+#. Accidental maintained until next bar check
+#. Silent rests supported
+#. articulations fermata, upbow, downbow, ltoe, accent, tenuto supported
+#. Chord strings([-^]"string") can contain a '#'
+#. Header fields enclosed by [] in notes string processed
+#. W: words output after tune as abc2ps does it (they failed before)
+#. Enhancements (Laura Conrad)
+#.
+#. Barring now preserved between ABC and lilypond
+#. the default placement for text in abc is above the staff.
+#. %%LY now supported.
+#. \breve and \longa supported.
+#. M:none doesn't crash lily.
+#. Limitations
+#.
+#. Multiple tunes in single file not supported
+#. Blank T: header lines should write score and open a new score
+#. Not all header fields supported
+#. ABC line breaks are ignored
+#. Block comments generate error and are ignored
+#. Postscript commands are ignored
+#. lyrics not resynchronized by line breaks (lyrics must fully match notes)
+#. %%LY slyrics can't be directly before a w: line.
+#. ???
+#. TODO:
+#.
+#. Convert to new chord styles.
+#.
+#. UNDEF -> None
+#.
+#. uGUHGUHGHGUGH
+#. UGH
+#. treble8 is used by abctab2ps; -8va is used by barfly,
+#. and by my patch to abc2ps. If there's ever a standard
+#. about this we'll support that.
+#. find keywork
+#. assume that Q takes the form "Q:1/4=120"
+#. There are other possibilities, but they are deprecated
+#. outf.write ("\t\t\\consists Staff_margin_engraver\n")
+#. pitch manipulation. Tuples are (name, alteration).
+#. 0 is (central) C. Alteration -1 is a flat, Alteration +1 is a sharp
+#. pitch in semitones.
+#. abc to lilypond key mode names
+#. semitone shifts for key mode names
+#. latex does not like naked #'s
+#. latex does not like naked "'s
+#. break lyrics to words and put "'s around words containing numbers and '"'s
+#. escape "
+#. _ causes probs inside ""
+#. _ to ' _ '
+#. split words with -
+#. unless \-
+#. ~ to space('_')
+#. * to to space
+#. latex does not like naked #'s
+#. put numbers and " and ( into quoted string
+#. insure space between lines
+#. title
+#. strip trailing blanks
+#. Meter
+#. KEY
+#. seperate clef info
+#. there may or may not be a space
+#. between the key letter and the mode
+#. ugh.
+#. ugh.
+#. Notes
+#. Origin
+#. Reference Number
+#. Area
+#. History
+#. Book
+#. Composer
+#. Default note length
+#. Voice
+#. Words
+#. vocals
+#. tempo
+#. we use in this order specified accidental, active accidental for bar,
+#. active accidental for key
+#. (num /  den)  / defaultlen < 1/base
+#. return (str, num,den,dots)
+#. ignore slide
+#. ignore roll
+#. s7m2 input doesnt care about spaces
+#.
+#. remember accidental for rest of bar
+#.
+#. get accidental set in this bar or UNDEF if not set
+#. WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
+#. failed; not a note!
+#. escape '#'s
+#.
+#. |] thin-thick double bar line
+#. || thin-thin double bar line
+#. [| thick-thin double bar line
+#. :| left repeat
+#. |: right repeat
+#. :: left-right repeat
+#. |1 volta 1
+#. |2 volta 2
+#. first try the longer one
+#. bracket escape
+#. the nobarlines option is necessary for an abc to lilypond translator for
+#. exactly the same reason abc2midi needs it: abc requires the user to enter
+#. the note that will be printed, and MIDI and lilypond expect entry of the
+#. pitch that will be played.
+#.
+#. In standard 19th century musical notation, the algorithm for translating
+#. between printed note and pitch involves using the barlines to determine
+#. the scope of the accidentals.
+#.
+#. Since ABC is frequently used for music in styles that do not use this
+#. convention, such as most music written before 1700, or ethnic music in
+#. non-western scales, it is necessary to be able to tell a translator that
+#. the barlines should not affect its interpretation of the pitch.
+#. write other kinds of appending  if we ever need them.
+#. add comments to current voice
+#. Try nibbling characters off until the line doesn't change.
+#. dump_global (outf)
+#. !@PYTHON@
+#.
+#. convert-ly.py -- Update old LilyPond input files (fix name?)
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. TODO
+#. use -f and -t for -s output
+#. NEWS
+#. 0.2
+#. - rewrite in python
+#. Did we ever have \mudela-version?  I doubt it.
+#. lilypond_version_re_str = '\\\\version *\"(.*)\"'
+#. ###########################
+#. need new a namespace
+#. raise FatalConversionError()
+#. need new a namespace
+#. harmful to current .lys
+#. str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
+#. raise FatalConversionError()
+#. raise FatalConversionError()
+#. raise FatalConversionError()
+#. TODO: lots of other syntax change should be done here as well
+#. Ugh, but meaning of \stemup changed too
+#. maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
+#. I don't know exactly when these happened...
+#. ugh, we loose context setting here...
+#. (lacks capitalisation slur -> Slur)
+#. # dynamic..
+#. TODO: add lots of these
+#. ugh
+#. old fix
+#. Make sure groups of more than one ; have space before
+#. them, so that non of them gets removed by next rule
+#. Only remove ; that are not after spaces, # or ;
+#. Otherwise  we interfere with Scheme comments,
+#. which is badbadbad.
+#. 40 ?
+#. ###############################
+#. END OF CONVERSIONS
+#. ###############################
+#. !@PYTHON@
+#. info mostly taken from looking at files. See also
+#. http://lilypond.org/wiki/?EnigmaTransportFormat
+#. This supports
+#.
+#. * notes
+#. * rests
+#. * ties
+#. * slurs
+#. * lyrics
+#. * articulation
+#. * grace notes
+#. * tuplets
+#.
+#. todo:
+#. * slur/stem directions
+#. * voices (2nd half of frame?)
+#. * more intelligent lyrics
+#. * beams (better use autobeam?)
+#. * more robust: try entertainer.etf (freenote)
+#. * dynamics
+#. * empty measures (eg. twopt03.etf from freenote)
+#.
+#. uGUHGUHGHGUGH
+#. notename 0 == central C
+#. represent pitches as (notename, alteration), relative to C-major scale
+#. a fifth up
+#. should cache this.
+#. flag1 isn't all that interesting.
+#. 3: '>',
+#. 18: '\arpeggio' ,
+#. do grace notes.
+#. ugh.
+#. we don't attempt voltas since they fail easily.
+#. and g.repeat_bar == '|:' or g.repeat_bar == ':|:' or g.bracket:
+#. 4 layers.
+#. let's not do this: this really confuses when eE happens to be before  a ^text.
+#. if last_tag and last_indices:
+#. etf_file_dict[last_tag][last_indices].append (l)
+#. # do it
+#. staff-spec
+#. should use \addlyrics ?
+#. !@PYTHON@
+#. vim: set noexpandtab:
+#. This is was the idea for handling of comments:
+#. Multiline comments, @ignore .. @end ignore is scanned for
+#. in read_doc_file, and the chunks are marked as 'ignore', so
+#. lilypond-book will not touch them any more. The content of the
+#. chunks are written to the output file. Also 'include' and 'input'
+#. regex has to check if they are commented out.
+#.
+#. Then it is scanned for 'lilypond', 'lilypond-file' and 'lilypond-block'.
+#. These three regex's has to check if they are on a commented line,
+#. % for latex, @c for texinfo.
+#.
+#. Then lines that are commented out with % (latex) and @c (Texinfo)
+#. are put into chunks marked 'ignore'. This cannot be done before
+#. searching for the lilypond-blocks because % is also the comment character
+#. for lilypond.
+#.
+#. The the rest of the rexeces are searched for. They don't have to test
+#. if they are on a commented out line.
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. if __name__ == '__main__':
+#. lilylib globals
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. urg
+#. # FIXME
+#. # ly2dvi: silly name?
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: lilypond-book.py:120
+msgid "Process LilyPond snippets in hybrid html, LaTeX or texinfo document"
+msgstr "Bearbeta LilyPond-stycken i ett hybriddokument i html, LaTex eller texinfo"
+
+#. another bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format
+#: lilypond-book.py:125 main.cc:110
+msgid "EXT"
+msgstr "FMT"
+
+#: lilypond-book.py:125
+msgid "use output format EXT (texi [default], texi-html, latex, html)"
+msgstr "använd utdataformat FMT (texi [standard], texi-html, latex, html)"
+
+#: lilypond-book.py:126 lilypond-book.py:127 lilypond-book.py:129
+#: lilypond-book.py:130
+msgid "DIM"
+msgstr "DIM"
+
+#: lilypond-book.py:126
+msgid "default fontsize for music.  DIM is assumed to be in points"
+msgstr "standardtypsnittsstorlek för musik. DIM anges i punkter"
+
+#: lilypond-book.py:127
+msgid "deprecated, use --default-music-fontsize"
+msgstr "föråldrad, använd --default-music-fontsize"
+
+#: lilypond-book.py:128
+msgid "OPT"
+msgstr "OPT"
+
+#: lilypond-book.py:128
+msgid "pass OPT quoted to the lilypond command line"
+msgstr "skicka OPT till lilyponds kommandorad"
+
+#: lilypond-book.py:129
+msgid "force fontsize for all inline lilypond. DIM is assumed be to in points"
+msgstr "tvinga typsnittsstorlek för all inbäddad lilypond. DIM anger i punkter"
+
+#: lilypond-book.py:130
+msgid "deprecated, use --force-music-fontsize"
+msgstr "föråldrad, använd --force-music-fontsize"
+
+#: lilypond-book.py:132 ly2dvi.py:130 main.cc:113 main.cc:118
+msgid "DIR"
+msgstr "KATALOG"
+
+#: lilypond-book.py:132
+msgid "include path"
+msgstr "sökväg för inkluderade filer"
+
+#: lilypond-book.py:133
+msgid "write dependencies"
+msgstr "skriv beroenden"
+
+#: lilypond-book.py:134
+msgid "PREF"
+msgstr "PREF"
+
+#: lilypond-book.py:134
+msgid "prepend PREF before each -M dependency"
+msgstr "lägg till PREF före varje beroende angett med -M"
+
+#: lilypond-book.py:135
+msgid "don't run lilypond"
+msgstr "kör inte lilypond"
+
+#: lilypond-book.py:136
+msgid "don't generate pictures"
+msgstr "skapa inte bilder"
+
+#: lilypond-book.py:137
+msgid "strip all lilypond blocks from output"
+msgstr "ta bort alla lilypond-block från utdata"
+
+#: lilypond-book.py:138 lilypond-book.py:139 ly2dvi.py:135 ly2dvi.py:136
+#: midi2ly.py:102 main.cc:114 main.cc:117
+msgid "FILE"
+msgstr "FIL"
+
+#: lilypond-book.py:138
+msgid "filename main output file"
+msgstr "filnamn på huvudutdatafilen"
+
+#: lilypond-book.py:139
+msgid "where to place generated files"
+msgstr "var genererade filer ska läggas"
+
+#: lilypond-book.py:140 ly2dvi.py:137
+msgid "RES"
+msgstr "RES"
+
+#: lilypond-book.py:141 ly2dvi.py:138
+msgid "set the resolution of the preview to RES"
+msgstr "sätt resolutionen för förhandsgranskningen till RES"
+
+# Förklaring till --verbose (borde vara längre)
+#: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
+msgid "verbose"
+msgstr "utförlig utdata"
+
+#: lilypond-book.py:143
+msgid "print version information"
+msgstr "visa versionsinformation"
+
+#: lilypond-book.py:144 ly2dvi.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
+msgid "show warranty and copyright"
+msgstr "visa garanti och copyright"
+
+#. format specific strings, ie. regex-es for input, and % strings for output
+#. global variables
+#. lilypond_binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
+#. only use installed binary  when we're installed too.
+#. only use installed binary  when we're installed too.
+#. ###############################################################
+#. Dimension handling for LaTeX.
+#.
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#: lilypond-book.py:230
+msgid "LaTeX failed."
+msgstr "LaTeX misslyckades."
+
+#. URG see ly2dvi
+#. Convert numeric values, with or without specific dimension, to floats.
+#. Keep other strings
+#. ###############################################################
+#. How to output various structures.
+#. # maybe <hr> ?
+#. Verbatim text is always finished with \n.  FIXME: For HTML,
+#. this newline should be removed.
+#. Verbatim text is always finished with \n.  FIXME: For HTML,
+#. this newline should be removed.
+#. # Ugh we need to differentiate on origin:
+#. # lilypond-block origin wants an extra <p>, but
+#. # inline music doesn't.
+#. # possibly other center options?
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. do some tweaking: @ is needed in some ps stuff.
+#.
+#. ugh, the <p> below breaks inline images...
+#. clumsy workaround for python 2.2 pre bug.
+#. ###############################################################
+#. Recognize special sequences in the input
+#. Warning: This uses extended regular expressions.  Tread with care.
+#.
+#. legenda
+#.
+#. (?P<name>regex) -- assign result of REGEX to NAME
+#. *? -- match non-greedily.
+#. (?m) -- multiline regex: make ^ and $ match at each line
+#. (?s) -- make the dot match all characters including newline
+#. why do we have distinction between @mbinclude and @include?
+#. # we'd like to catch and reraise a more
+#. # detailed error, but alas, the exceptions
+#. # changed across the 1.5/2.1 boundary.
+#. ughUGH not original options
+#. First we want to scan the \documentclass line
+#. it should be the first non-comment line.
+#. The only thing we really need to know about the \documentclass line
+#. is if there are one or two columns to begin with.
+#. Then we add everything before \begin{document} to
+#. paperguru.m_document_preamble so that we can later write this header
+#. to a temporary file in find_latex_dims() to find textwidth.
+#. this is not bulletproof..., it checks the first 10 chunks
+#. newchunks.extend (func (m))
+#. python 1.5 compatible:
+#. we have to check for verbatim before doing include,
+#. because we don't want to include files that are mentioned
+#. inside a verbatim environment
+#. ugh fix input
+#. # Hmm, we should hash only lilypond source, and skip the
+#. # %options are ...
+#. # comment line
+#. # todo: include path, but strip
+#. # first part of the path.
+#. format == 'html'
+#. ugh rename
+#. Count sections/chapters.
+#. # TODO: do something like
+#. # this for texinfo/latex as well ?
+#. ugh
+#. fixme: be sys-independent.
+#.
+#. Ugh, fixing up dependencies for .tex generation
+#.
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#. # There used to be code to write .tex dependencies, but
+#. # that is silly: lilypond-book has its own dependency scheme
+#. # to ensure that all lily-XXX.tex files are there
+#. # TODO: put file name in front of texidoc.
+#. #
+#. # what's this? Docme --hwn
+#. #
+#. #docme: why global?
+#. Do It.
+#. should chmod -w
+#: lilypond-book.py:1557 ly2dvi.py:673 midi2ly.py:1018
+#, python-format
+msgid "getopt says: `%s'"
+msgstr "getopt säger: \"%s\""
+
+#. HACK
+#. status = os.system ('lilypond -w')
+#: lilypond-book.py:1630 ly2dvi.py:777
+msgid "no files specified on command line"
+msgstr "inga filer angivna på kommandoraden"
+
+#.
+#. Petr, ik zou willen dat ik iets zinvoller deed,
+#. maar wat ik kan ik doen, het verandert toch niets?
+#. --hwn 20/aug/99
+#. !@PYTHON@
+#.
+#. ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+#. document
+#. Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. This is the third incarnation of ly2dvi.
+#.
+#. Earlier incarnations of ly2dvi were written by
+#. Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
+#. Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
+#.
+#. Note: gettext work best if we use ' for docstrings and "
+#. for gettextable strings.
+#. --> DO NOT USE ''' for docstrings.
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. if __name__ == '__main__':
+#. lilylib globals
+#. # FIXME
+#. # ly2dvi: silly name?
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: ly2dvi.py:121
+msgid "Run LilyPond, add titles, generate printable document"
+msgstr "Kör LilyPond, lägg till titlar, skapa utskrivbart dokument"
+
+#: ly2dvi.py:127 main.cc:115
+msgid "write Makefile dependencies for every input file"
+msgstr "skriv Makefile-beroenden för varje indatafil"
+
+#: ly2dvi.py:129
+msgid "print even more output"
+msgstr "skriv ännu mer utdata"
+
+#: ly2dvi.py:130
+msgid "add DIR to LilyPond's search path"
+msgstr "lägg till KATALOG till LilyPonds sökväg"
+
+# %s är programmets namn
+#: ly2dvi.py:132
+#, python-format
+msgid "keep all output, output to directory %s.dir"
+msgstr "behåll all utdata, utdata till katalogen %s.dir"
+
+#: ly2dvi.py:133
+msgid "don't run LilyPond"
+msgstr "kör inte LilyPond"
+
+#: ly2dvi.py:134 main.cc:116
+msgid "produce MIDI output only"
+msgstr "skapa enbart MIDI-utdata"
+
+#: ly2dvi.py:135 midi2ly.py:102
+msgid "write ouput to FILE"
+msgstr "skriv utdata till FIL"
+
+#: ly2dvi.py:136
+msgid "find pfa fonts used in FILE"
+msgstr "hitta pfa-typsnitt som används i FIL"
+
+#: ly2dvi.py:139
+msgid "generate PostScript output"
+msgstr "skapa PostScript-utdata"
+
+#: ly2dvi.py:140
+msgid "generate PNG page images"
+msgstr "skapa PNG-sidbilder"
+
+#: ly2dvi.py:141
+msgid "generate PS.GZ"
+msgstr "skapa PS.GZ"
+
+#: ly2dvi.py:142
+msgid "generate PDF output"
+msgstr "skapa PDF-utdata"
+
+#: ly2dvi.py:143
+msgid "use pdflatex to generate a PDF output"
+msgstr "använd pdflatex för att generera PDF-utdata"
+
+#. FIXME: preview, picture; to indicate creation of a PNG?
+#: ly2dvi.py:145
+msgid "make a picture of the first system"
+msgstr "skapa en bild av det första systemet"
+
+#: ly2dvi.py:146
+msgid "make HTML file with links to all output"
+msgstr "skapa en HTML-fil som länkar till all utdata"
+
+#: ly2dvi.py:147
+msgid "KEY=VAL"
+msgstr "NYCKEL=VÄRDE"
+
+#: ly2dvi.py:147
+msgid "change global setting KEY to VAL"
+msgstr "ändra global inställning NYCKEL till VÄRDE"
+
+#: ly2dvi.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
+msgid "print version number"
+msgstr "visa versionsnummer"
+
+#. other globals
+#. Pdftex support
+#. # yuk.
+#. lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
+#. only use installed binary  when we're installed too.
+#. init to empty; values here take precedence over values in the file
+#. # TODO: change name.
+#. for geometry v3
+#. Output formats that ly2dvi should create
+#. what a name.
+#. ly.warning (_ ("invalid value: %s") % `val`)
+#. ly.warning (_ ("invalid value: %s") % `val`)
+#: ly2dvi.py:232
+#, python-format
+msgid "no such setting: `%s'"
+msgstr "inställningen finns inte: \"%s\""
+
+#. 2 == user interrupt.
+#: ly2dvi.py:274
+#, python-format
+msgid "LilyPond crashed (signal %d)."
+msgstr "LilyPond kraschade (signal %d)."
+
+#: ly2dvi.py:275
+msgid "Please submit a bug report to bug-lilypond@gnu.org"
+msgstr "Skicka en buggrapport till bug-lilypond@gnu.org"
+
+#: ly2dvi.py:281
+#, python-format
+msgid "LilyPond failed on input file %s (exit status %d)"
+msgstr "LilyPond misslyckades på indatafilen \"%s\" (slutstatus %d)"
+
+#: ly2dvi.py:284
+#, python-format
+msgid "LilyPond failed on an input file (exit status %d)"
+msgstr "LilyPond misslyckades på en indatafil (slutstatus %d)"
+
+#: ly2dvi.py:285
+msgid "Continuing..."
+msgstr "Fortsätter..."
+
+#. urg
+#: ly2dvi.py:296
+#, python-format
+msgid "Analyzing %s..."
+msgstr "Analyserar %s..."
+
+#. search only the first 10k
+#: ly2dvi.py:354
+#, python-format
+msgid "no LilyPond output found for `%s'"
+msgstr "ingen LilyPond-utdata funnen för \"%s\""
+
+#. The final \n seems important here. It ensures that the footers and taglines end up on the right page.
+#. TODO: should set textheight (enlarge) depending on papersize.
+#: ly2dvi.py:397
+#, python-format
+msgid "invalid value: `%s'"
+msgstr "ogiltigt värde: \"%s\""
+
+#. set sane geometry width (a4-width) for linewidth = -1.
+#. who the hell is 597 ?
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#: ly2dvi.py:511
+msgid "LaTeX failed on the output file."
+msgstr "LaTeX misslyckades på utdatafilen."
+
+#. make a preview by rendering only the 1st line
+#. of each score
+#: ly2dvi.py:568
+msgid ""
+"Trying create PDF, but no PFA fonts found.\n"
+"Using bitmap fonts instead. This will look bad."
 msgstr ""
+"Försöker skapa PDF, men inga PFA-typsnitt hittades.\n"
+"Använder punkttypsnitt istället. Det kommer att se dåligt ut."
 
-#: lilypond-book.py:1831
-msgid "processing with dvips will have no fonts"
-msgstr ""
+#. ugh. Different targets?
+#. Added as functionality to ly2dvi, because ly2dvi may well need to do this
+#. in future too.
+#. no ps header?
+#: ly2dvi.py:615
+#, python-format
+msgid "not a PostScript file: `%s'"
+msgstr "inte en PostScript-fil: \"%s\""
 
-#: lilypond-book.py:1834
-msgid "DVIPS usage:"
-msgstr ""
+#. todo
+#: ly2dvi.py:660
+#, python-format
+msgid "Writing HTML menu `%s'"
+msgstr "Skriver HTML-meny \"%s\""
 
-#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
-msgid "warning: "
-msgstr "varning: "
+#. signal programming error
+#. Don't convert input files to abspath, rather prepend '.' to include
+#. path.
+#. As a neat trick, add directory part of first input file
+#. to include path.  That way you can do without the clumsy -I in:
+#. ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
+#: ly2dvi.py:769
+msgid "pseudo filter"
+msgstr "pseudofilter"
 
-#: midi2ly.py:109 midi2ly.py:924
-msgid "error: "
-msgstr "fel: "
+#: ly2dvi.py:772
+msgid "pseudo filter only for single input file"
+msgstr "pseudofilter bara för enstaka indatafil"
 
-#: midi2ly.py:110
-msgid "Exiting ... "
-msgstr "Avslutar... "
+#. Ugh, maybe make a setup () function
+#. hmmm. Wish I'd 've written comments when I wrote this.
+#. now it looks complicated.
+#: ly2dvi.py:806
+#, python-format
+msgid "filename should not contain spaces: `%s'"
+msgstr "filnamnet får inte innehålla mellanslag: \"%s\""
+
+#. to be sure, add tmpdir *in front* of inclusion path.
+#. os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
+#. We catch all exceptions, because we need to do stuff at exit:
+#. * copy any successfully generated stuff from tempdir and
+#. notify user of that
+#. * cleanout tempdir
+#. ## ARGH. This also catches python programming errors.
+#. ## this should only catch lilypond nonzero exit  status
+#. ## --hwn
+#. TODO: friendly message about LilyPond setup/failing?
+#.
+#: ly2dvi.py:845
+msgid "Running LilyPond failed. Rerun with --verbose for a trace."
+msgstr "Misslyckades med att köra LilyPond. Kör igen med --verbose för spår."
+
+#. Our LilyPond pseudo filter always outputs to 'lelie'
+#. have subsequent stages and use 'lelie' output.
+#. unless: add --tex, or --latex?
+#. TODO: friendly message about TeX/LaTeX setup,
+#. trying to run tex/latex by hand
+#: ly2dvi.py:886
+msgid "Failed to make PS file. Rerun with --verbose for a trace."
+msgstr "Misslyckades med att skapa PS-fil. Kör med --verbose för spår."
+
+#. unless: add --tex, or --latex?
+#. TODO: friendly message about TeX/LaTeX setup,
+#. trying to run tex/latex by hand
+#: ly2dvi.py:916
+msgid "Running LaTeX falied. Rerun with --verbose for a trace."
+msgstr "Misslyckades med att köra LaTeX. Kör med --verbose för spår."
+
+# här är det fråga om skrivning till en fil
+#. add DEP to targets?
+#: ly2dvi.py:926 input-file-results.cc:68
+#, c-format, python-format
+msgid "dependencies output to `%s'..."
+msgstr "beroenden skrivna till \"%s\"..."
 
 # här är det fråga om skrivning till en fil (första parametern är t.ex
 # DVI, LATEX, MIDI, TEX)
-#: midi2ly.py:857
+#: ly2dvi.py:937
+#, python-format
+msgid "%s output to <stdout>..."
+msgstr "%s skrivet till <stdout>..."
+
+#: ly2dvi.py:942 ly2dvi.py:968 includable-lexer.cc:57
+#: input-file-results.cc:191 input-file-results.cc:197 lily-guile.cc:86
+#, c-format, python-format
+msgid "can't find file: `%s'"
+msgstr "kan inte hitta fil: \"%s\""
+
+# här är det fråga om skrivning till en fil (första parametern är t.ex
+# DVI, LATEX, MIDI, TEX)
+#. Hmm, if this were a function, we could call it the except: clauses
+#: ly2dvi.py:965
+#, python-format
+msgid "%s output to %s..."
+msgstr "%s skrivet till \"%s\"..."
+
+#. !@PYTHON@
+#.
+#. midi2ly.py -- LilyPond midi import script
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. ###############################################################
+#. Users of python modules should include this snippet.
+#.
+#. This soon to be removed for: import lilypond.lilylib as ly
+#. ###############################################################
+#. ###############################################################
+#. ############### CONSTANTS
+#. ###############################################################
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. original_dir = os.getcwd ()
+#. keep_temp_dir_p = 0
+#: midi2ly.py:94
+msgid "Convert MIDI to LilyPond source"
+msgstr "Konvertera MIDI till LilyPond"
+
+#: midi2ly.py:97
+msgid "print absolute pitches"
+msgstr "skriv absoluta tonhöjder"
+
+#: midi2ly.py:98 midi2ly.py:103
+msgid "DUR"
+msgstr "LÄNGD"
+
+#: midi2ly.py:98
+msgid "quantise note durations on DUR"
+msgstr "kvantisera notlängder med LÄNGD"
+
+#: midi2ly.py:99
+msgid "print explicit durations"
+msgstr "skriv explicita notlängder"
+
+#: midi2ly.py:101
+msgid "ALT[:MINOR]"
+msgstr "TON[:MOLL]"
+
+#: midi2ly.py:101
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "sätt tonart: TON=+höjningar|-sänkningar; MOLL=1"
+
+#: midi2ly.py:103
+msgid "quantise note starts on DUR"
+msgstr "kvantiser notstarter på LÄNGD"
+
+#: midi2ly.py:104
+msgid "DUR*NUM/DEN"
+msgstr "LÄNGD*TÄL/NÄM"
+
+#: midi2ly.py:104
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "tillåt tupellängder LÄNGD*TÄL/DEN"
+
+#: midi2ly.py:108
+msgid "treat every text as a lyric"
+msgstr "tolka all text som lyrik"
+
+#: midi2ly.py:136 mup2ly.py:130
+msgid " 2001--2003"
+msgstr " 2001-2003"
+
+#: midi2ly.py:141 mup2ly.py:135
+msgid ""
+"\n"
+"Distributed under terms of the GNU General Public License. It comes with\n"
+"NO WARRANTY."
+msgstr ""
+"\n"
+"Distribueras under GNU General Public License.\n"
+"INGEN GARANTI ges för programmet."
+
+#: midi2ly.py:166 mup2ly.py:162
+msgid "Exiting ... "
+msgstr "Avslutar... "
+
+#: midi2ly.py:264 mup2ly.py:261
+#, python-format
+msgid "command exited with value %d"
+msgstr "kommandot avslutade med värde %d"
+
+# här är det fråga om skrivning till en fil (första parametern är t.ex
+# DVI, LATEX, MIDI, TEX)
+#. ###############################################################
+#. END Library
+#. ###############################################################
+#. hmm
+#. major scale: do-do
+#. minor scale: la-la  (= + 5) '''
+#. By tradition, all scales now consist of a sequence
+#. of 7 notes each with a distinct name, from amongst
+#. a b c d e f g.  But, minor scales have a wide
+#. second interval at the top - the 'leading note' is
+#. sharped. (Why? it just works that way! Anything
+#. else doesn't sound as good and isn't as flexible at
+#. saying things. In medieval times, scales only had 6
+#. notes to avoid this problem - the hexachords.)
+#. So, the d minor scale is d e f g a b-flat c-sharp d
+#. - using d-flat for the leading note would skip the
+#. name c and duplicate the name d.  Why isn't c-sharp
+#. put in the key signature? Tradition. (It's also
+#. supposedly based on the Pythagorean theory of the
+#. cycle of fifths, but that really only applies to
+#. major scales...)  Anyway, g minor is g a b-flat c d
+#. e-flat f-sharp g, and all the other flat minor keys
+#. end up with a natural leading note. And there you
+#. have it.
+#. John Sankey <bf250@freenet.carleton.ca>
+#.
+#. Let's also do a-minor: a b c d e f gis a
+#.
+#. --jcn
+#. as -> gis
+#. des -> cis
+#. ges -> fis
+#. g -> fisis
+#. d -> cisis
+#. a -> gisis
+#. b -> ces
+#. e -> fes
+#. f -> eis
+#. c -> bis
+#. # FIXME: compile fix --jcn
+#. TODO: move space
+#. fis cis gis dis ais eis bis
+#. bes es as des ges ces fes
+#. urg, we should be sure that we're in a lyrics staff
+#. all include ALL_NOTES_OFF
+#. ugh, must set key while parsing
+#. because Note init uses key
+#. Better do Note.calc () at dump time?
+#. last_lyric.clocks = t - last_time
+#. hmm
+#. urg, this will barf at meter changes
+#. urg LilyPond doesn't start at c4, but
+#. remembers from previous tracks!
+#. reference_note = Note (clocks_per_4, 4*12, 0)
+#. must be in \notes mode for parsing \skip
+#: midi2ly.py:1002
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "%s skrivet till \"%s\"..."
 
-#: midi2ly.py:871 musicxml2ly.py:485
-#, fuzzy, python-format
-msgid "Convert %s to LilyPond input."
-msgstr "Konvertera mup till LilyPond"
-
-#: midi2ly.py:875
-msgid "print absolute pitches"
-msgstr "skriv absoluta tonhöjder"
-
-#: midi2ly.py:877 midi2ly.py:889
-msgid "DUR"
-msgstr "LÄNGD"
-
-#: midi2ly.py:878
-msgid "quantise note durations on DUR"
-msgstr "kvantisera notlängder med LÄNGD"
-
-#: midi2ly.py:881
-msgid "print explicit durations"
-msgstr "skriv explicita notlängder"
-
-#: midi2ly.py:882
-msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "sätt tonart: TON=+höjningar|-sänkningar; MOLL=1"
-
-#: midi2ly.py:883
-msgid "ALT[:MINOR]"
-msgstr "TON[:MOLL]"
-
-#: midi2ly.py:888
-msgid "quantise note starts on DUR"
-msgstr "kvantiser notstarter på LÄNGD"
-
-#: midi2ly.py:891
-msgid "DUR*NUM/DEN"
-msgstr "LÄNGD*TÄL/NÄM"
-
-#: midi2ly.py:894
-msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "tillåt tupellängder LÄNGD*TÄL/DEN"
-
-#: midi2ly.py:902
-msgid "treat every text as a lyric"
-msgstr "tolka all text som lyrik"
-
-#: midi2ly.py:905
-#, fuzzy
-msgid "Examples"
+#: midi2ly.py:1033
+msgid "Example:"
 msgstr "Exempel:"
 
-#: midi2ly.py:925
+#: midi2ly.py:1083
 msgid "no files specified on command line."
 msgstr "inga filer angivna på kommandoraden."
 
-#: musicxml2ly.py:473
-msgid "musicxml2ly FILE.xml"
-msgstr ""
+#. !@PYTHON@
+#. mup2ly.py -- mup input converter
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c) 2001
+#. if set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#: mup2ly.py:70
+msgid "Convert mup to LilyPond source"
+msgstr "Konvertera mup till LilyPond"
 
-#: musicxml2ly.py:476
-#, fuzzy, python-format
-msgid ""
-"This program is free software.  It is covered by the GNU General Public\n"
-"License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
-"information."
-msgstr ""
-"Det här är fri programvara. Den täcks av \"GNU General Public License\",\n"
-"och du får ändra och/eller distribuera kopior av den under vissa\n"
-"villkor. Kör \"%s --warranty\" för mer information.\n"
+#: mup2ly.py:73
+msgid "debug"
+msgstr "felsökningsutdata"
 
-#: musicxml2ly.py:495
-msgid "Use lxml.etree; uses less memory and cpu time."
-msgstr ""
+#: mup2ly.py:74
+msgid "define macro NAME [optional expansion EXP]"
+msgstr "definiera makro NAME [valfri makroersättning EXP]"
 
-#: musicxml2ly.py:503
-#, fuzzy
-msgid "set output filename to FILE"
+#: mup2ly.py:76 main.cc:117
+msgid "write output to FILE"
 msgstr "skriv utdata till FIL"
 
-#: getopt-long.cc:140
+#: mup2ly.py:77
+msgid "only pre-process"
+msgstr "förbehandla enbart"
+
+#. Duh.  Python style portable: cp *.EXT OUTDIR
+#. system ('cp *.%s %s' % (ext, outdir), 1)
+#. Python < 1.5.2 compatibility
+#.
+#. On most platforms, this is equivalent to
+#. `normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+#. if set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. ###############################################################
+#. END Library
+#.
+#. PMX cut and paste
+#.
+#. if not self.entries:
+#. #return '\n'
+#. #ugh ugh
+#. return '\n%s = {}\n\n' % self.idstring ()
+#. ugh
+#. def set_clef (self, letter):
+#. clstr = clef_table[letter]
+#. self.voices[0].add_nonchord (Clef (clstr))
+#. urg
+#. maybe use import copy?
+#. for i in self.pitches:
+#. ch.pitches.append (i)
+#. for i in self.scripts:
+#. ch.scripts.append (i)
+#. http://www.arkkra.com/doc/uguide/contexts.html
+#. #self.current_staffs = []
+#. duh
+#. FIXME: 1?
+#. FIXME: does key play any role in this?
+#. ch = self.current_voices[0].last_chord ()
+#. ch.basic_duration = self.current_voices[0].last_chord ().basic_duration
+#. ugh
+#. ch = self.current_voices[0].last_chord ()
+#. `;' is not a separator, chords end with ';'
+#. mup resets default duration and pitch each bar
+#. ugh: these (and lots more) should also be parsed in
+#. context staff.  we should have a class Staff_properties
+#. and parse/set all those.
+#. shortcut: set to official mup maximum (duh)
+#. self.set_staffs (40)
+#: mup2ly.py:1076
+#, python-format
+msgid "no such context: %s"
+msgstr "omgivning finns inte: %s"
+
+#. hmm
+#. dig this: mup allows ifdefs inside macro bodies
+#. don't do nested multi-line defines
+#. duh: mup is strictly line-based, except for `define',
+#. which is `@' terminated and may span several lines
+#. don't define new macros in unactive areas
+#. To support nested multi-line define's
+#. process_function and macro_name, macro_body
+#. should become lists (stacks)
+#. The mup manual is undetermined on this
+#. and I haven't seen examples doing it.
+#.
+#. don't do nested multi-line define's
+#. writes to stdout for help2man
+#. don't call
+#. identify ()
+#. sys.stdout.flush ()
+#. handy emacs testing
+#. if not files:
+#. files = ['template.mup']
+#: mup2ly.py:1300
+#, python-format
+msgid "Processing `%s'..."
+msgstr "Behandlar \"%s\"..."
+
+#: mup2ly.py:1319
+#, python-format
+msgid "Writing `%s'..."
+msgstr "Skriver \"%s\"..."
+
+#: getopt-long.cc:146
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "flaggan \"%s\" kräver ett argument"
 
-#: getopt-long.cc:144
-#, fuzzy, c-format
-msgid "option `%s' does not allow an argument"
+#: getopt-long.cc:150
+#, c-format
+msgid "option `%s' doesn't allow an argument"
 msgstr "flaggan \"%s\" tillåter inget argument"
 
-#: getopt-long.cc:148
+#: getopt-long.cc:154
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "okänd flagga: \"%s\""
 
-#: getopt-long.cc:154
+#: getopt-long.cc:161
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "ogiltigt argument \"%s\" till flaggan \"%s\""
 
-#: warn.cc:68 grob.cc:559 input.cc:82
-#, fuzzy, c-format
-msgid "programming error: %s"
-msgstr "programmeringsfel: "
-
-#: warn.cc:69 input.cc:83
-msgid "continuing, cross fingers"
-msgstr ""
-
-#: accidental-engraver.cc:240
-#, fuzzy, c-format
-msgid "accidental typesetting list must begin with context-name: %s"
-msgstr "Lista av höjningar/säkningar måste börja med context-name: %s"
-
-#: accidental-engraver.cc:268
+#: warn.cc:25
 #, c-format
-msgid "ignoring unknown accidental: %s"
-msgstr ""
+msgid "warning: %s\n"
+msgstr "varning: %s\n"
 
-#: accidental-engraver.cc:284
+#: warn.cc:31
 #, c-format
-msgid "pair or context-name expected for accidental rule, found %s"
-msgstr ""
+msgid "error: %s\n"
+msgstr "fel: %s\n"
 
-#: accidental.cc:243 key-signature-interface.cc:133
+#: warn.cc:44
+#, c-format
+msgid "programming error: %s (Continuing; cross thumbs)\n"
+msgstr " programmeringsfel: %s (Fortsätter, håll tummarna)\n"
+
+#: accidental.cc:202 key-signature-interface.cc:137
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "höjning/säkning \"%s\" hittades inte"
 
-#: align-interface.cc:222
-msgid ""
-"vertical alignment called before line-breaking.\n"
-"Only do cross-staff spanners with PianoStaff."
-msgstr ""
-
-#: align-interface.cc:329
-msgid "tried to get a translation for something that is no child of mine"
-msgstr ""
-
-#: all-font-metrics.cc:173
+#: accidental-engraver.cc:171 new-accidental-engraver.cc:238
 #, c-format
-msgid "cannot find font: `%s'"
+msgid "Accidental typesetting list must begin with context-name: %s"
+msgstr "Lista av höjningar/säkningar måste börja med context-name: %s"
+
+#: accidental-engraver.cc:196 new-accidental-engraver.cc:263
+#, c-format
+msgid "unknown accidental typesetting: %s. Ignored"
+msgstr "okänd typsättning av höjning/sänkning: %s. Ignorered"
+
+#: accidental-engraver.cc:212 new-accidental-engraver.cc:279
+#, c-format
+msgid "Symbol is not a parent context: %s. Ignored"
+msgstr "Symbol är inte en föräldraomgivning: %s. Ignoreread"
+
+#: accidental-engraver.cc:215 new-accidental-engraver.cc:282
+#, c-format
+msgid "Accidental typesetting must be pair or context-name: %s"
+msgstr "Typsättning av höjning/sänkning måste vara par eller context-name: %s"
+
+#: afm.cc:66
+#, c-format
+msgid "can't find character number: %d"
+msgstr "kan inte hitta teckennummer: %d"
+
+#: afm.cc:81
+#, c-format
+msgid "can't find character called: `%s'"
+msgstr "kan inte hitta tecken som heter: \"%s\""
+
+#: afm.cc:142
+#, c-format
+msgid "Error parsing AFM file: `%s'"
+msgstr "Fel vid tolkning av AFM-fil: \"%s\""
+
+#: all-font-metrics.cc:95
+#, c-format
+msgid "checksum mismatch for font file: `%s'"
+msgstr "felaktig checksumma för typsnittsfil: \"%s\""
+
+#: all-font-metrics.cc:97
+#, c-format
+msgid "does not match: `%s'"
+msgstr "matchar inte: \"%s\""
+
+#: all-font-metrics.cc:102
+msgid " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths."
+msgstr " Bygg om alla .afm-filer, och ta bort alla .pk- och .tfm-filer. Kör igen med -V för att visa typsnittssökvägar."
+
+#: all-font-metrics.cc:103
+msgid ""
+"A script for removing font-files is delivered with the source-code,\n"
+"in buildscripts/clean-fonts.sh"
+msgstr ""
+"Ett skript för att ta bort typsnittsfiler levereras med källkoden,\n"
+"i buildscripts/clean-fonts.sh"
+
+#: all-font-metrics.cc:169
+#, c-format
+msgid "can't find font: `%s'"
 msgstr "kan inte hitta typsnitt: \"%s\""
 
-#: apply-context-iterator.cc:31
-msgid "\\applycontext argument is not a procedure"
-msgstr ""
+#: all-font-metrics.cc:170
+msgid "Loading default font"
+msgstr "Läser in standardtypsnitt"
 
-#: auto-change-iterator.cc:63 change-iterator.cc:61
-#, fuzzy, c-format
-msgid "cannot change, already in translator: %s"
-msgstr "kan inte ändra \"%s\" till \"%s\""
-
-#: axis-group-engraver.cc:78
-msgid "Axis_group_engraver: vertical group already has a parent"
-msgstr ""
-
-#: axis-group-engraver.cc:79
-msgid "are there two Axis_group_engravers?"
-msgstr ""
-
-#: axis-group-engraver.cc:80
-msgid "removing this vertical group"
-msgstr ""
-
-#: axis-group-interface.cc:96
-msgid "tried to calculate pure-height at a non-breakpoint"
-msgstr ""
-
-#: axis-group-interface.cc:370
-msgid "an outside-staff object should have a direction, defaulting to up"
-msgstr ""
-
-#: axis-group-interface.cc:383
+#: all-font-metrics.cc:185
 #, c-format
-msgid "outside-staff object %s has an empty extent"
-msgstr ""
+msgid "can't find default font: `%s'"
+msgstr "kan inte hitta standardtypsnitt: \"%s\""
 
-#: bar-check-iterator.cc:73
+#: all-font-metrics.cc:186 includable-lexer.cc:59 input-file-results.cc:192
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(sökväg: \"%s\")"
+
+#: all-font-metrics.cc:187
+msgid "Giving up"
+msgstr "Ger upp"
+
+#: auto-change-iterator.cc:43 change-iterator.cc:60
+#: part-combine-music-iterator.cc:120
+msgid "Can't switch translators, I'm there already"
+msgstr "Kan inte byta översättare, jag är redan där"
+
+#: bar-check-iterator.cc:51
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "taktkontroll misslyckades vid: %s"
 
-#: beam-engraver.cc:128
+#: beam.cc:146
+msgid "beam has less than two visible stems"
+msgstr "balk har mindre än två synliga skaft"
+
+#: beam.cc:151
+msgid "Beam has less than two stems. Removing beam."
+msgstr "Balk har mindre än två skaft. Tar bort balk."
+
+#: beam.cc:976
+msgid "Not sure that we can find a nice beam slope (no viable initial configuration found)."
+msgstr "Inte säker på att vi kan hitta en bra balklutning (ingen passande initialkonfiguration funnen)."
+
+#: beam-engraver.cc:176
 msgid "already have a beam"
 msgstr "har redan en balk"
 
-#: beam-engraver.cc:196
+#: beam-engraver.cc:259
 msgid "unterminated beam"
 msgstr "oavslutad balk"
 
-#: beam-engraver.cc:238 chord-tremolo-engraver.cc:134
+#: beam-engraver.cc:292 chord-tremolo-engraver.cc:197
 msgid "stem must have Rhythmic structure"
 msgstr "skaft måste ha en rytmisk struktur"
 
-#: beam-engraver.cc:246
-#, fuzzy
-msgid "stem does not fit in beam"
+#: beam-engraver.cc:306
+msgid "stem doesn't fit in beam"
 msgstr "skaftet passar inte i balken"
 
-#: beam-engraver.cc:247
+#: beam-engraver.cc:307
 msgid "beam was started here"
 msgstr "balken startade här"
 
-#: beam-quanting.cc:307
-#, fuzzy
-msgid "no feasible beam position"
-msgstr "Ingen lämplig radbrytning hittades"
-
-#: beam.cc:144
-#, fuzzy
-msgid "removing beam with no stems"
-msgstr "balk har mindre än två synliga skaft"
-
-#: beam.cc:1007
-msgid "no viable initial configuration found: may not find good beam slope"
-msgstr ""
-
-#: break-alignment-interface.cc:208
+#: break-align-interface.cc:173
 #, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr "Ingen avståndsdata från %s till \"%s\""
 
-#: change-iterator.cc:23
-#, fuzzy, c-format
-msgid "cannot change `%s' to `%s'"
+#: change-iterator.cc:22
+#, c-format
+msgid "can't change `%s' to `%s'"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
-#. FIXME: constant error message.
-#: change-iterator.cc:82
-#, fuzzy
-msgid "cannot find context to switch to"
-msgstr "kan inte hitta omgivningen \"%s\""
-
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
 #.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#: change-iterator.cc:91
-#, fuzzy, c-format
-msgid "not changing to same context type: %s"
-msgstr "omgivning finns inte: %s"
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#: change-iterator.cc:79
+msgid "I'm one myself"
+msgstr "Jag är en själv"
 
-#. FIXME: uncomprehensable message
-#: change-iterator.cc:95
+#: change-iterator.cc:82
 msgid "none of these in my family"
 msgstr "ingen av dessa i min familj"
 
-#: chord-tremolo-engraver.cc:88
-#, fuzzy
-msgid "No tremolo to end"
-msgstr "Ingen reprisbryggare till slutet"
+#: chord-tremolo-engraver.cc:98
+#, c-format
+msgid "Chord tremolo with %d elements. Must have two elements."
+msgstr "Ackordtremolo med %d element. Måste ha två element."
 
-#: chord-tremolo-engraver.cc:110
+#: chord-tremolo-engraver.cc:157
 msgid "unterminated chord tremolo"
 msgstr "icke avslutat ackordtremolo"
 
-#: chord-tremolo-iterator.cc:33
-#, c-format
-msgid "expect 2 elements for chord tremolo, found %d"
-msgstr ""
+#: chord-tremolo-iterator.cc:69
+msgid "no one to print a tremolos"
+msgstr "det finns ingen som kan skriva tremolon"
 
-#: clef.cc:54
+#: clef.cc:64
 #, c-format
 msgid "clef `%s' not found"
 msgstr "klav \"%s\" hittades inte"
 
-#: cluster.cc:110
+#: cluster.cc:131
 #, c-format
 msgid "unknown cluster style `%s'"
 msgstr "okänd klusterstil: \"%s\""
 
-#: cluster.cc:135
-msgid "junking empty cluster"
-msgstr ""
-
-#: coherent-ligature-engraver.cc:100
-#, fuzzy, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr ""
-"Coherent_ligature_engraver: sätter \"spacing-increment = 0.01\": ptr=%ul"
-
-#. if we get to here, just put everything on one line
-#: constrained-breaking.cc:176 constrained-breaking.cc:193
-#, fuzzy
-msgid "cannot find line breaking that satisfies constraints"
-msgstr "kunde inte hitta något typsnitt som uppfyller "
-
-#: context-def.cc:130
-#, fuzzy, c-format
-msgid "program has no such type: `%s'"
-msgstr "Programmet har ingen sådan typ"
-
-#: context-property.cc:76
-msgid "need symbol arguments for \\override and \\revert"
-msgstr ""
-
-#: context.cc:151
-#, fuzzy, c-format
-msgid "cannot find or create new `%s'"
-msgstr "kan inte hitta eller skapa: \"%s\""
-
-#: context.cc:213
-#, fuzzy, c-format
-msgid "cannot find or create `%s' called `%s'"
-msgstr "kan inte hitta eller skapa \"%s\" kallad \"%s\""
-
-#: context.cc:276
+#: coherent-ligature-engraver.cc:84
 #, c-format
-msgid "Invalid CreateContext event: Cannot create %s context"
-msgstr ""
+msgid "gotcha: ptr=%ul"
+msgstr "fick dig: ptr=%ul"
 
-#: context.cc:388
+#: coherent-ligature-engraver.cc:96
 #, c-format
-msgid "cannot find or create: `%s'"
-msgstr "kan inte hitta eller skapa: \"%s\""
+msgid "distance=%f"
+msgstr "avstånd=%f"
 
-#: custos.cc:77
+#: coherent-ligature-engraver.cc:139
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr=%ul"
+msgstr "Coherent_ligature_engraver: sätter \"spacing-increment = 0.01\": ptr=%ul"
+
+#: custos.cc:92
 #, c-format
 msgid "custos `%s' not found"
 msgstr "custos \"%s\" hittades inte"
 
-#: dispatcher.cc:71
-msgid "Event class should be a symbol"
-msgstr ""
+#: dimensions.cc:13
+msgid "NaN"
+msgstr "-"
 
-#: dispatcher.cc:78
-#, fuzzy, c-format
-msgid "Unknown event class %s"
-msgstr "okänd klusterstil: \"%s\""
-
-#: dots.cc:38
-#, fuzzy, c-format
-msgid "dot `%s' not found"
-msgstr "paus \"%s\" hittades inte, "
-
-#: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "cannot find start of (de)crescendo"
+#: dynamic-engraver.cc:204 span-dynamic-performer.cc:82
+msgid "can't find start of (de)crescendo"
 msgstr "kan inte hitta start på crescendo/diminuendo"
 
-#: dynamic-engraver.cc:195
-msgid "already have a decrescendo"
-msgstr "har redan ett diminuendo"
-
-#: dynamic-engraver.cc:197
+#: dynamic-engraver.cc:216
 msgid "already have a crescendo"
 msgstr "har redan ett crescendo"
 
-#: dynamic-engraver.cc:200
-#, fuzzy
-msgid "cresc starts here"
+#: dynamic-engraver.cc:217
+msgid "already have a decrescendo"
+msgstr "har redan ett diminuendo"
+
+#: dynamic-engraver.cc:220
+msgid "Cresc started here"
 msgstr "Cresc startade här"
 
 #: dynamic-engraver.cc:323
 msgid "unterminated (de)crescendo"
 msgstr "oavslutat crescendo/diminuendo"
 
-#: extender-engraver.cc:131 extender-engraver.cc:140
+#: event.cc:49
+#, c-format
+msgid "Transposition by %s makes alteration larger than two"
+msgstr "Transponering med %s gör ändring större än två"
+
+#: event-chord-iterator.cc:76 output-property-music-iterator.cc:27
+#, c-format
+msgid "Junking event: `%s'"
+msgstr "Slänger händelse: \"%s\""
+
+#: extender-engraver.cc:94
 msgid "unterminated extender"
 msgstr "oavslutad utökare"
 
-#: font-config.cc:28
-msgid "Initializing FontConfig..."
-msgstr ""
+#: extender-engraver.cc:106
+msgid "Nothing to connect extender to on the left.  Ignoring extender event."
+msgstr "Det finns inget att koppla utökaren mot till vänster. Ignorerar utökarhändelse."
 
-#: font-config.cc:44
-#, c-format
-msgid "Rebuilding FontConfig cache %s, this may take a while..."
-msgstr ""
+#: folded-repeat-iterator.cc:88
+msgid "no one to print a repeat brace"
+msgstr "det finns ingen som kan skriva ett repristecken"
 
-#: font-config.cc:55
-#, fuzzy, c-format
-msgid "failed adding font directory: %s"
-msgstr "kan inte skapa katalog: \"%s\""
+#: font-interface.cc:239
+msgid "couldn't find any font satisfying "
+msgstr "kunde inte hitta något typsnitt som uppfyller "
 
-#: font-config.cc:57
-#, fuzzy, c-format
-msgid "adding font directory: %s"
-msgstr "kan inte skapa katalog: \"%s\""
-
-#: general-scheme.cc:160
-msgid "infinity or NaN encountered while converting Real number"
-msgstr ""
-
-#: general-scheme.cc:161
-msgid "setting to zero"
-msgstr ""
-
-#: glissando-engraver.cc:92
-#, fuzzy
-msgid "unterminated glissando"
+#: glissando-engraver.cc:100
+msgid "Unterminated glissando."
 msgstr "Oavslutat glissando."
 
-#: global-context-scheme.cc:91 global-context-scheme.cc:107
-#, fuzzy
-msgid "no music found in score"
-msgstr "Behöver musik i partitur"
-
-#: global-context-scheme.cc:97
-#, fuzzy
-msgid "Interpreting music... "
-msgstr "Tolkar musik..."
-
-#: global-context-scheme.cc:120
+#: gourlay-breaking.cc:188
 #, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr "tidsåtgång: %.2f sekunder"
+msgid "Optimal demerits: %f"
+msgstr "Optimal demerit: %f"
+
+#: gourlay-breaking.cc:193
+msgid "No feasible line breaking found"
+msgstr "Ingen lämplig radbrytning hittades"
 
 #: gregorian-ligature-engraver.cc:59
 #, c-format
@@ -842,186 +1493,216 @@ msgstr "\\%s ignorerat"
 msgid "implied \\%s added"
 msgstr "implicit \\%s tillagt"
 
-#. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:212
-#, fuzzy
-msgid "cannot apply `\\~' on first head of ligature"
-msgstr "kan inte hitta start på ligatur"
-
-#. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:224
-msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr ""
-
-#: grob-interface.cc:57
-#, fuzzy, c-format
-msgid "Unknown interface `%s'"
-msgstr "okänd klusterstil: \"%s\""
-
-#: grob-interface.cc:68
+#.
+#. Todo: do something sensible. The grob-pq-engraver is not water
+#. tight, and stuff like tupletSpannerDuration confuses it.
+#.
+#: grob-pq-engraver.cc:130
 #, c-format
-msgid "Grob `%s' has no interface for property `%s'"
+msgid ""
+"Skipped something?\n"
+"Grob %s ended before I expected it to end."
 msgstr ""
+"Skippade något?\n"
+"Grob %s slutade innan jag förväntade det."
 
-#: grob.cc:253
-msgid "Infinity or NaN encountered"
-msgstr ""
-
-#: hairpin.cc:183
+#: hairpin.cc:98
 msgid "decrescendo too small"
 msgstr "diminuendo för litet"
 
-#: horizontal-bracket-engraver.cc:59
-#, fuzzy
-msgid "do not have that many brackets"
+#: hairpin.cc:99
+msgid "crescendo too small"
+msgstr "crescendo för litet"
+
+#: horizontal-bracket-engraver.cc:64
+msgid "Don't have that many brackets."
 msgstr "Har inte så många klamrar"
 
-#: horizontal-bracket-engraver.cc:68
-#, fuzzy
-msgid "conflicting note group events"
+#: horizontal-bracket-engraver.cc:73
+msgid "Conflicting note group events."
 msgstr "Motsägande notgrupphändelser."
 
-#: hyphen-engraver.cc:93
-#, fuzzy
-msgid "removing unterminated hyphen"
+#: hyphen-engraver.cc:87
+msgid "unterminated hyphen"
 msgstr "oavslutat bindestreck"
 
-#: hyphen-engraver.cc:107
-#, fuzzy
-msgid "unterminated hyphen; removing"
-msgstr "oavslutat bindestreck"
+#: hyphen-engraver.cc:99
+msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen event."
+msgstr "Det finns inget att koppla bindestrecket mot till vänster.  Ignorerar bindestreckshändelse."
 
-#: includable-lexer.cc:53
-msgid "include files are not allowed in safe mode"
-msgstr ""
+#: input.cc:99
+msgid "non fatal error: "
+msgstr "icke-fatalt fel: "
 
-#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
-#, c-format
-msgid "cannot find file: `%s'"
-msgstr "kan inte hitta fil: \"%s\""
-
-#: includable-lexer.cc:62 lily-parser-scheme.cc:107
-#, c-format
-msgid "(search path: `%s')"
-msgstr "(sökväg: \"%s\")"
-
-#: input.cc:112 source-file.cc:168 source-file.cc:183
+#: input.cc:107 source-file.cc:146 source-file.cc:239
 msgid "position unknown"
 msgstr "okänd position"
 
-#: ligature-engraver.cc:93
-msgid "cannot find start of ligature"
+#: input-file-results.cc:72 source-file.cc:54 streams.cc:38
+#, c-format
+msgid "can't open file: `%s'"
+msgstr "kan inte öppna fil: \"%s\""
+
+#: input-file-results.cc:132
+msgid "Score contains errors; will not process it"
+msgstr "Partitur innehåller fel; kommer inte behandla det"
+
+#: input-file-results.cc:172
+#, c-format
+msgid "Now processing: `%s'"
+msgstr "Behandlar nu: \"%s\""
+
+#: key-performer.cc:96
+msgid "FIXME: key change merge"
+msgstr "FIXA: tonartsbytessammanslagning"
+
+#: kpath.cc:76
+#, c-format
+msgid "Kpathsea couldn't find TFM file `%s'"
+msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
+
+#: ligature-engraver.cc:159
+msgid "can't find start of ligature"
 msgstr "kan inte hitta start på ligatur"
 
-#: ligature-engraver.cc:98
+#: ligature-engraver.cc:165
 msgid "no right bound"
 msgstr "ingen högergräns"
 
-#: ligature-engraver.cc:120
+#: ligature-engraver.cc:191
 msgid "already have a ligature"
 msgstr "har redan en ligatur"
 
-#: ligature-engraver.cc:129
+#: ligature-engraver.cc:207
 msgid "no left bound"
 msgstr "ingen vänstergräns"
 
-#: ligature-engraver.cc:173
+#: ligature-engraver.cc:258
 msgid "unterminated ligature"
 msgstr "oavslutad ligatur"
 
-#: ligature-engraver.cc:202
-#, fuzzy
-msgid "ignoring rest: ligature may not contain rest"
+#: ligature-engraver.cc:282
+msgid "ligature may not contain rest; ignoring rest"
 msgstr "ligatur får inte innehålla paus; ignorerar paus"
 
-#: ligature-engraver.cc:203
+#: ligature-engraver.cc:283
 msgid "ligature was started here"
 msgstr "ligaturen startade här"
 
-#: lily-guile.cc:92
+#: lily-guile.cc:88
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(inläsningssökväg: \"%s\""
 
-#: lily-guile.cc:518
-#, fuzzy, c-format
-msgid "cannot find property type-check for `%s' (%s)."
+#: lily-guile.cc:576
+#, c-format
+msgid "Can't find property type-check for `%s' (%s)."
 msgstr "Kan inte hitta egenskapstypkontroll för \"%s\" (%s)"
 
-#: lily-guile.cc:521
-#, fuzzy
-msgid "perhaps a typing error?"
+#: lily-guile.cc:579
+msgid "Perhaps you made a typing error?"
 msgstr "Kanske har du gjort ett skrivfel?"
 
-#: lily-guile.cc:527
-#, fuzzy
-msgid "doing assignment anyway"
+#: lily-guile.cc:585
+msgid "Doing assignment anyway."
 msgstr "Gör tilldelningen ändå."
 
-#: lily-guile.cc:539
-#, fuzzy, c-format
-msgid "type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr ""
-"Typkontroll för \"%s\" misslyckades. Värde \"%s\" måste ha typen \"%s\""
-
-#: lily-lexer.cc:254
-#, fuzzy, c-format
-msgid "identifier name is a keyword: `%s'"
-msgstr "Identifierarnamn är ett nyckelord: \"%s\""
-
-#: lily-lexer.cc:269
+#: lily-guile.cc:599
 #, c-format
-msgid "error at EOF: %s"
-msgstr "fel vid filslut: %s"
+msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "Typkontroll för \"%s\" misslyckades. Värde \"%s\" måste ha typen \"%s\""
 
-#: lily-parser-scheme.cc:29
-#, fuzzy, c-format
-msgid "deprecated function called: %s"
-msgstr "kan inte hitta tecken som heter: \"%s\""
+#: lookup.cc:173
+msgid "round filled box horizontal extent smaller than blot; decreasing blot"
+msgstr "horisontell utbredning för rund fylld box mindre än blot; minskar blot"
 
-#: lily-parser-scheme.cc:88
-#, fuzzy, c-format
-msgid "Changing working directory to: `%s'"
-msgstr "kan inte skapa katalog: \"%s\""
+#: lookup.cc:178
+msgid "round filled box vertical extent smaller than blot; decreasing blot"
+msgstr "vertikal utbredning för rund fylld box mindre än blot; minskar blot"
 
-#: lily-parser-scheme.cc:106
-#, fuzzy, c-format
-msgid "cannot find init file: `%s'"
-msgstr "kan inte hitta fil: \"%s\""
+#: lyric-phrasing-engraver.cc:311
+msgid "lyrics found without any matching notehead"
+msgstr "sångtext hittad utan något matchande nothuvud"
 
-#: lily-parser-scheme.cc:125
-#, fuzzy, c-format
-msgid "Processing `%s'"
-msgstr "Behandlar \"%s\"..."
+#: lyric-phrasing-engraver.cc:317
+msgid "Huh? Melismatic note found to have associated lyrics."
+msgstr "Öh? Melismatisk not har tillhörande sångtext."
 
-#: lily-parser.cc:99
-msgid "Parsing..."
-msgstr "Tolkar..."
+#: main.cc:106
+msgid "EXPR"
+msgstr "UTTR"
 
-#: lily-parser.cc:127
-#, fuzzy
-msgid "braces do not match"
-msgstr "Krullparenteser matchar inte"
+#: main.cc:107
+msgid "set options, use -e '(ly-option-usage)' for help"
+msgstr "sätt inställningar, använd -e '(ly-option-usage)' för hjälp"
 
-#: lyric-combine-music-iterator.cc:291
-#, fuzzy, c-format
-msgid "cannot find Voice `%s'"
-msgstr "kan inte hitta fil: \"%s\""
+#: main.cc:110
+msgid "use output format EXT"
+msgstr "använd utdataformat FMT"
 
-#: main.cc:116
-#, fuzzy, c-format
+#: main.cc:112
+msgid "FIELD"
+msgstr "FÄLT"
+
+#: main.cc:112
+msgid "write header field to BASENAME.FIELD"
+msgstr "skriv rubrikfält till BASNAMN.FÄLT"
+
+#: main.cc:113
+msgid "add DIR to search path"
+msgstr "lägg till KATALOG till sökvägen"
+
+#: main.cc:114
+msgid "use FILE as init file"
+msgstr "använd FIL som init-fil"
+
+#: main.cc:118
+msgid "prepend DIR to dependencies"
+msgstr "lägg till KATALOG efter beroenden"
+
+#.
+#. should audit again.
+#.
+#: main.cc:123
+msgid "inhibit file output naming and exporting"
+msgstr "hindra namngivning av filutdata och exportering"
+
+#. No version number or newline here. It confuses help2man.
+#: main.cc:155
+#, c-format
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "Användning: %s [FLAGGA]... FIL..."
+
+#: main.cc:157
+msgid "Typeset music and or play MIDI from FILE"
+msgstr "Typsätt musik och/eller spela MIDI från FIL"
+
+#: main.cc:160
 msgid ""
-"This program is free software.  It is covered by the GNU General Public\n"
-"License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `%s --warranty' for more\n"
-"information.\n"
+"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
+"using a high level description file as input.  LilyPond is part of \n"
+"the GNU Project.\n"
+msgstr ""
+"LilyPond är en musiktypsättare. Den producerar vackra noter från en\n"
+"högnivåbeskrivning av musiken i en fil. LilyPond är en del av\n"
+"GNU-projektet.\n"
+
+#: main.cc:182
+#, c-format
+msgid ""
+"This is free software.  It is covered by the GNU General Public License,\n"
+"and you are welcome to change it and/or distribute copies of it under\n"
+"certain conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
 "Det här är fri programvara. Den täcks av \"GNU General Public License\",\n"
 "och du får ändra och/eller distribuera kopior av den under vissa\n"
 "villkor. Kör \"%s --warranty\" för mer information.\n"
 
-#: main.cc:122
-#, fuzzy
+#: main.cc:198
+msgid "GNU LilyPond -- The music typesetter"
+msgstr "GNU Lilypond -- Musiktypsättaren"
+
+#: main.cc:206
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1032,10 +1713,10 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
 "General Public License for more details.\n"
 "\n"
-"    You should have received a copy of the\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
 "GNU General Public License along with this program; if not, write to\n"
-"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-"Boston, MA 02111-1307, USA.\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,\n"
+"USA.\n"
 msgstr ""
 "Detta program är fri programvara. Du kan distribuera det och/eller\n"
 "modifiera det under villkoren i GNU General Public License version 2\n"
@@ -1050,1956 +1731,598 @@ msgstr ""
 "detta program. Om inte, skriv till Free Software Foundation, Inc.,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: main.cc:153
-msgid "BACK"
-msgstr ""
-
-#: main.cc:153
-msgid ""
-"use backend BACK (eps, gnome, ps [default],\n"
-"scm, svg, tex, texstr)"
-msgstr ""
-
-#: main.cc:155
-#, fuzzy
-msgid "SYM[=VAL]"
-msgstr "NYCKEL=VÄRDE"
-
-#: main.cc:156
-msgid ""
-"set Scheme option SYM to VAL (default: #t)\n"
-"Use -dhelp for help."
-msgstr ""
-
-#: main.cc:159
-msgid "EXPR"
-msgstr "UTTR"
-
-#: main.cc:159
-#, fuzzy
-msgid "evaluate scheme code"
-msgstr "Kan inte evaluera Scheme i säkert läge"
-
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#: main.cc:162
-msgid "FORMATs"
-msgstr ""
-
-#: main.cc:162
-msgid "dump FORMAT,...  Also as separate options:"
-msgstr ""
-
-#: main.cc:163
-#, fuzzy
-msgid "generate DVI (tex backend only)"
-msgstr "skapa PDF-utdata"
-
-#: main.cc:164
-#, fuzzy
-msgid "generate PDF (default)"
-msgstr "skapa PDF-utdata"
-
-#: main.cc:165
-#, fuzzy
-msgid "generate PNG"
-msgstr "skapa PS.GZ"
-
-#: main.cc:166
-#, fuzzy
-msgid "generate PostScript"
-msgstr "skapa PostScript-utdata"
-
-#: main.cc:167
-msgid "generate TeX (tex backend only)"
-msgstr ""
-
-#: main.cc:168
-msgid "show this help and exit"
-msgstr ""
-
-#: main.cc:169
-msgid "FIELD"
-msgstr "FÄLT"
-
-#: main.cc:169
-#, fuzzy
-msgid ""
-"dump header field FIELD to file\n"
-"named BASENAME.FIELD"
-msgstr "skriv rubrikfält till BASNAMN.FÄLT"
-
-#: main.cc:171
-msgid "add DIR to search path"
-msgstr "lägg till KATALOG till sökvägen"
-
-#: main.cc:172
-msgid "use FILE as init file"
-msgstr "använd FIL som init-fil"
-
-#: main.cc:174
-msgid "USER,GROUP,JAIL,DIR"
-msgstr ""
-
-#: main.cc:174
-msgid ""
-"chroot to JAIL, become USER:GROUP\n"
-"and cd into DIR"
-msgstr ""
-
-#: main.cc:177
-#, fuzzy
-msgid "do not generate printed output"
-msgstr "skapa PostScript-utdata"
-
-#: main.cc:178
-#, fuzzy
-msgid "write output to FILE (suffix will be added)"
-msgstr "skriv utdata till FIL"
-
-#: main.cc:179
-#, fuzzy
-msgid "generate a preview of the first system"
-msgstr "skapa en bild av det första systemet"
-
-#: main.cc:180
-msgid "relocate using directory of lilypond program"
-msgstr ""
-
-#: main.cc:181
-msgid ""
-"disallow unsafe Scheme and PostScript\n"
-"operations"
-msgstr ""
-
-#: main.cc:183
-#, fuzzy
-msgid "show version number and exit"
-msgstr "visa versionsnummer"
-
-#: main.cc:224
-#, fuzzy, c-format
-msgid ""
-"Copyright (c) %s by\n"
-"%s  and others."
-msgstr "Copyright © %s av"
-
-#. No version number or newline here.  It confuses help2man.
-#: main.cc:251
+#: mensural-ligature.cc:153
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
-msgstr "Användning: %s [FLAGGA]... FIL..."
+msgid "Mensural_ligature:thickness undefined on flexa %d; assuming 1.4"
+msgstr "Menural_ligature:thickness odefinierad för flexa %d; antar 1.4"
 
-#: main.cc:253
-#, fuzzy, c-format
-msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "Typsätt musik och/eller spela MIDI från FIL"
-
-#: main.cc:255
+#: mensural-ligature.cc:169
 #, c-format
-msgid "LilyPond produces beautiful music notation."
-msgstr ""
+msgid "Mensural_ligature:delta-pitch undefined on flexa %d; assuming 0"
+msgstr "Menural_ligature:delta-pitch odefinierad för flexa %d; antar 0"
 
-#: main.cc:257
+#: mensural-ligature.cc:182
 #, c-format
-msgid "For more information, see %s"
-msgstr ""
+msgid "Mensural_ligature:flexa-width undefined on flexa %d; assuming 2.0"
+msgstr "Menural_ligature:flexa-width odefinierad för flexa %d; antar 2.0"
 
-#: main.cc:259
-#, c-format
-msgid "Options:"
-msgstr "Flaggor:"
+#: mensural-ligature.cc:215
+msgid "Mensural_ligature:unexpected case fall-through"
+msgstr "Menural_ligature:föll igenom case oväntat"
 
-#: main.cc:263
-#, fuzzy, c-format
-msgid "Report bugs via %s"
-msgstr ""
-"Rapportera programfel till %s\n"
-"Rapportera fel i översättningen till <sv@li.org>"
+#: mensural-ligature.cc:225
+msgid "Mensural_ligature: (join_left == 0)"
+msgstr "Mensural_ligature: (join_left == 0)"
 
-#: main.cc:309
-#, c-format
-msgid "expected %d arguments with jail, found: %u"
-msgstr ""
-
-#: main.cc:323
-#, fuzzy, c-format
-msgid "no such user: %s"
-msgstr "inställningen finns inte: \"%s\""
-
-#: main.cc:325
-#, c-format
-msgid "cannot get user id from user name: %s: %s"
-msgstr ""
-
-#: main.cc:340
-#, fuzzy, c-format
-msgid "no such group: %s"
-msgstr "omgivning finns inte: %s"
-
-#: main.cc:342
-#, fuzzy, c-format
-msgid "cannot get group id from group name: %s: %s"
-msgstr "kan inte ändra \"%s\" till \"%s\""
-
-#: main.cc:350
-#, fuzzy, c-format
-msgid "cannot chroot to: %s: %s"
-msgstr "kan inte skapa katalog: \"%s\""
-
-#: main.cc:357
-#, fuzzy, c-format
-msgid "cannot change group id to: %d: %s"
-msgstr "kan inte ändra \"%s\" till \"%s\""
-
-#: main.cc:363
-#, fuzzy, c-format
-msgid "cannot change user id to: %d: %s"
-msgstr "kan inte ändra \"%s\" till \"%s\""
-
-#: main.cc:369
-#, fuzzy, c-format
-msgid "cannot change working directory to: %s: %s"
-msgstr "kan inte skapa katalog: \"%s\""
-
-#: main.cc:415
-#, c-format
-msgid "Evaluating %s"
-msgstr ""
-
-#: main.cc:645
-#, c-format
-msgid "exception caught: %s"
-msgstr ""
-
-#. FIXME: constant error message.
-#: mark-engraver.cc:154
-msgid "rehearsalMark must have integer value"
-msgstr ""
-
-#: mark-engraver.cc:160
-msgid "mark label must be a markup object"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:85
-msgid "ligature with less than 2 heads -> skipping"
-msgstr "ligature med mindre än 2 huvuden -> skippar"
-
-#: mensural-ligature-engraver.cc:112
-#, fuzzy
-msgid "cannot determine pitch of ligature primitive -> skipping"
-msgstr "kan inte bestämma tonhöjd för ligaturprimitiv -> skippar"
-
-#: mensural-ligature-engraver.cc:126
-#, fuzzy
-msgid "single note ligature - skipping"
-msgstr "primintervall inom ligatur -> skippar"
-
-#: mensural-ligature-engraver.cc:138
-msgid "prime interval within ligature -> skipping"
-msgstr "primintervall inom ligatur -> skippar"
-
-#: mensural-ligature-engraver.cc:150
-#, fuzzy
-msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "mensural ligature: längd ingen av L, B, S -> skippar"
-
-#: mensural-ligature-engraver.cc:198
-msgid "semibrevis must be followed by another one -> skipping"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:209
-msgid ""
-"semibreves can only appear at the beginning of a ligature,\n"
-"and there may be only zero or two of them"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:236
-msgid ""
-"invalid ligatura ending:\n"
-"when the last note is a descending brevis,\n"
-"the penultimate note must be another one,\n"
-"or the ligatura must be LB or SSB"
-msgstr ""
-
-#: mensural-ligature-engraver.cc:356
+#: mensural-ligature-engraver.cc:248 mensural-ligature-engraver.cc:397
 msgid "unexpected case fall-through"
 msgstr "föll igenom case oväntat"
 
-#: mensural-ligature.cc:141
-#, fuzzy
-msgid "Mensural_ligature: unexpected case fall-through"
-msgstr "Menural_ligature:föll igenom case oväntat"
+#: mensural-ligature-engraver.cc:259
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "ligature med mindre än 2 huvuden -> skippar"
 
-#: mensural-ligature.cc:192
-#, fuzzy
-msgid "Mensural_ligature: (join_right == 0)"
-msgstr "Mensural_ligature: (join_left == 0)"
+#: mensural-ligature-engraver.cc:279
+msgid "can not determine pitch of ligature primitive -> skipping"
+msgstr "kan inte bestämma tonhöjd för ligaturprimitiv -> skippar"
 
-#: midi-item.cc:152
-#, fuzzy, c-format
-msgid "no such MIDI instrument: `%s'"
+#: mensural-ligature-engraver.cc:302
+msgid "prime interval within ligature -> skipping"
+msgstr "primintervall inom ligatur -> skippar"
+
+#: mensural-ligature-engraver.cc:312
+msgid "mensural ligature: duration none of L, B, S -> skipping"
+msgstr "mensural ligature: längd ingen av L, B, S -> skippar"
+
+#: midi-item.cc:148
+#, c-format
+msgid "no such instrument: `%s'"
 msgstr "instrumentet finns inte: \"%s\""
 
-#: midi-item.cc:285
+#: midi-item.cc:238
+msgid "silly duration"
+msgstr "tokig längd"
+
+#: midi-item.cc:251
+msgid "silly pitch"
+msgstr "tokig ton"
+
+#: music-output-def.cc:111
 #, c-format
-msgid "experimental: temporarily fine tuning (of %d cents) a channel."
-msgstr ""
+msgid "can't find `%s' context"
+msgstr "kan inte hitta omgivningen \"%s\""
 
-#: midi-stream.cc:28
-#, fuzzy, c-format
-msgid "cannot open for write: %s: %s"
-msgstr "kan inte öppna fil: \"%s\""
-
-#: midi-stream.cc:44
-#, fuzzy, c-format
-msgid "cannot write to file: `%s'"
-msgstr "kan inte öppna fil: \"%s\""
-
-#: music-iterator.cc:171
-msgid "Sending non-event to context"
-msgstr ""
-
-#: music.cc:141
+#: my-lily-lexer.cc:169
 #, c-format
-msgid "octave check failed; expected \"%s\", found: \"%s\""
-msgstr ""
+msgid "Identifier name is a keyword: `%s'"
+msgstr "Identifierarnamn är ett nyckelord: \"%s\""
 
-#: music.cc:207
-#, fuzzy, c-format
-msgid "transposition by %s makes alteration larger than double"
-msgstr "Transponering med %s gör ändring större än två"
+#: my-lily-lexer.cc:191
+#, c-format
+msgid "error at EOF: %s"
+msgstr "fel vid filslut: %s"
 
-#: new-fingering-engraver.cc:96
-msgid "cannot add text scripts to individual note heads"
-msgstr ""
+#: my-lily-parser.cc:44
+msgid "Parsing..."
+msgstr "Tolkar..."
 
-#: new-fingering-engraver.cc:239
-msgid "no placement found for fingerings"
-msgstr ""
+#: my-lily-parser.cc:54
+msgid "Braces don't match"
+msgstr "Krullparenteser matchar inte"
 
-#: new-fingering-engraver.cc:240
-msgid "placing below"
-msgstr ""
+#.
+#. music for the softenon children?
+#.
+#: new-fingering-engraver.cc:143
+msgid "music for the martians."
+msgstr "musik för marsianerna."
 
-#: note-collision.cc:457
-#, fuzzy
-msgid "ignoring too many clashing note columns"
+#: new-tie-engraver.cc:166 tie-engraver.cc:217
+msgid "lonely tie"
+msgstr "ensam båge"
+
+#: note-collision.cc:340
+msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "För många krockande notkolumner. Ignorerar dem."
 
-#: note-column.cc:124
-msgid "cannot have note heads and rests together on a stem"
-msgstr ""
-
-#: note-head.cc:63
-#, fuzzy, c-format
-msgid "none of note heads `%s' or `%s' found"
+#: note-head.cc:127
+#, c-format
+msgid "note head `%s' not found"
 msgstr "nothuvud \"%s\" ej funnet"
 
-#: note-heads-engraver.cc:61
-msgid "NoteEvent without pitch"
-msgstr ""
-
-#: open-type-font.cc:33
-#, fuzzy, c-format
-msgid "cannot allocate %lu bytes"
-msgstr "kan inte öppna fil: \"%s\""
-
-#: open-type-font.cc:37
-#, fuzzy, c-format
-msgid "cannot load font table: %s"
-msgstr "kan inte hitta typsnitt: \"%s\""
-
-#: open-type-font.cc:98
+#: paper-def.cc:96
 #, c-format
-msgid "unsupported font format: %s"
-msgstr ""
+msgid "paper output to `%s'..."
+msgstr "pappersutdata till \"%s\"..."
 
-#: open-type-font.cc:100
-#, c-format
-msgid "unknown error: %d reading font file: %s"
-msgstr ""
-
-#: open-type-font.cc:173 open-type-font.cc:297
-#, c-format
-msgid "FT_Get_Glyph_Name() returned error: %u"
-msgstr ""
-
-#: page-turn-page-breaking.cc:205
-msgid ""
-"cannot fit the first page turn onto a single page.  Consider setting first-"
-"page-number to an even number."
-msgstr ""
-
-#: page-turn-page-breaking.cc:218
-#, c-format
-msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr ""
-
-#: page-turn-page-breaking.cc:236 paper-score.cc:154
-#, fuzzy
-msgid "Drawing systems..."
-msgstr "Skapar stämmor..."
-
-#: pango-font.cc:181
-#, c-format
-msgid ""
-"Glyph has no name, but font supports glyph naming.\n"
-"Skipping glyph U+%0X, file %s"
-msgstr ""
-
-#: pango-font.cc:224
-#, fuzzy, c-format
-msgid "no PostScript font name for font `%s'"
-msgstr "inte en PostScript-fil: \"%s\""
-
-#: pango-font.cc:272
-msgid "FreeType face has no PostScript font name"
-msgstr ""
-
-#: paper-outputter-scheme.cc:33
-#, fuzzy, c-format
-msgid "Layout output to `%s'..."
-msgstr "LY-utdata till \"%s\"..."
-
-#: paper-score.cc:105
-msgid "Calculating line breaks..."
-msgstr "Beräknar radbrytningar..."
-
-#: paper-score.cc:118
+#: paper-score.cc:78
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr "Elementantal %d (bryggare %d) "
 
-#: paper-score.cc:122
+#: paper-score.cc:83
 msgid "Preprocessing graphical objects..."
 msgstr "Förbehandlar grafiska objekt..."
 
-#: parse-scm.cc:83
-#, fuzzy
-msgid "GUILE signaled an error for the expression beginning here"
+#: paper-score.cc:116
+msgid "Outputting Score, defined at: "
+msgstr "Matar ut partitur, definierade vid: "
+
+#: parse-scm.cc:79
+msgid "GUILE signaled an error for the expression begining here"
 msgstr "GUILE gave ett fel för uttrycket som börjar här"
 
-#: percent-repeat-engraver.cc:200
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#: part-combine-music-iterator.cc:139
+#, c-format
+msgid "I'm one myself: `%s'"
+msgstr "Jag är en själv: \"%s\""
+
+#: part-combine-music-iterator.cc:142
+#, c-format
+msgid "none of these in my family: `%s'"
+msgstr "ingen av dessa i min familj: \"%s\""
+
+#: percent-repeat-engraver.cc:109
+msgid "Don't know how to handle a percent repeat of this length."
+msgstr "Vet inte hur en procentrepris av denna längd ska hanteras."
+
+#: percent-repeat-engraver.cc:163
 msgid "unterminated percent repeat"
 msgstr "oavslutad procentrepris"
 
-#: performance.cc:45
-#, fuzzy
-msgid "Track..."
+#: percent-repeat-iterator.cc:65
+msgid "no one to print a percent"
+msgstr "det finns ingen som kan skriva procent"
+
+#: performance.cc:51
+msgid "Track ... "
 msgstr "Spår... "
 
-#: performance.cc:74
-msgid "MIDI channel wrapped around"
-msgstr ""
-
-#: performance.cc:75
-msgid "remapping modulo 16"
-msgstr ""
+#: performance.cc:83
+msgid "Creator: "
+msgstr "Skapare: "
 
 #: performance.cc:103
+msgid "at "
+msgstr "vid "
+
+#: performance.cc:114
+#, c-format
+msgid "from musical definition: %s"
+msgstr "från musikdefinition: %s"
+
+#: performance.cc:169
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "MIDI-utdata till \"%s\"..."
 
-#: phrasing-slur-engraver.cc:146
+#: phrasing-slur-engraver.cc:123
 msgid "unterminated phrasing slur"
 msgstr "oavslutad fraseringsbåge"
 
-#: piano-pedal-engraver.cc:286
-#, c-format
-msgid "expect 3 strings for piano pedals, found: %ld"
-msgstr ""
+#: phrasing-slur-engraver.cc:141
+msgid "can't find start of phrasing slur"
+msgstr "kan inte hitta start på fraseringsbåge"
 
-#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
-#: piano-pedal-performer.cc:93
+#: piano-pedal-engraver.cc:235 piano-pedal-engraver.cc:250
+#: piano-pedal-engraver.cc:305 piano-pedal-performer.cc:82
 #, c-format
-msgid "cannot find start of piano pedal: `%s'"
+msgid "can't find start of piano pedal: `%s'"
 msgstr "kan inte hitta start på pianopedal: \"%s\""
 
-#: piano-pedal-engraver.cc:347
-#, fuzzy, c-format
-msgid "cannot find start of piano pedal bracket: `%s'"
-msgstr "kan inte hitta start på pianopedal: \"%s\""
+#: piano-pedal-engraver.cc:410
+msgid "unterminated pedal bracket"
+msgstr "oavslutad pedalklammer"
 
-#: program-option.cc:205
-#, fuzzy, c-format
-msgid "no such internal option: %s"
-msgstr "Okänd internt alternativ!"
-
-#: property-iterator.cc:74
-#, fuzzy, c-format
-msgid "not a grob name, `%s'"
+#: property-iterator.cc:97
+#, c-format
+msgid "Not a grob name, `%s'."
 msgstr "Inte ett grob-namn, \"%s\"."
 
-#: relative-octave-check.cc:38
-msgid "Failed octave check, got: "
-msgstr ""
-
-#: relocate.cc:44
-#, fuzzy, c-format
-msgid "Setting %s to %s"
-msgstr "kan inte skapa katalog: \"%s\""
-
-#: relocate.cc:59
-#, fuzzy, c-format
-msgid "no such file: %s for %s"
-msgstr "omgivning finns inte: %s"
-
-#: relocate.cc:69 relocate.cc:87
-#, fuzzy, c-format
-msgid "no such directory: %s for %s"
-msgstr "omgivning finns inte: %s"
-
-#: relocate.cc:79
+#: rest.cc:139
 #, c-format
-msgid "%s=%s (prepend)\n"
-msgstr ""
+msgid "rest `%s' not found, "
+msgstr "paus \"%s\" hittades inte, "
 
-#: relocate.cc:99
-#, c-format
-msgid "Relocation: compile prefix=%s, new prefix=%s"
-msgstr ""
-
-#: relocate.cc:129
-#, c-format
-msgid "Relocation: framework_prefix=%s"
-msgstr ""
-
-#: relocate.cc:169
-#, c-format
-msgid "Relocation: is absolute: argv0=%s"
-msgstr ""
-
-#: relocate.cc:176
-#, c-format
-msgid "Relocation: from cwd: argv0=%s"
-msgstr ""
-
-#: relocate.cc:185
-#, c-format
-msgid ""
-"Relocation: from PATH=%s\n"
-"argv0=%s"
-msgstr ""
-
-#: relocate.cc:354
-#, fuzzy, c-format
-msgid "Relocation file: %s"
-msgstr "kan inte öppna fil: \"%s\""
-
-#: relocate.cc:390
-#, c-format
-msgid "Unknown relocation command %s"
-msgstr ""
-
-#: rest-collision.cc:151
-msgid "cannot resolve rest collision: rest direction not set"
-msgstr ""
-
-#: rest-collision.cc:165 rest-collision.cc:210
+#: rest-collision.cc:199
 msgid "too many colliding rests"
 msgstr "för många krockande pauser"
 
-#: rest.cc:144
-#, fuzzy, c-format
-msgid "rest `%s' not found"
-msgstr "paus \"%s\" hittades inte, "
+#: scm-option.cc:45
+msgid "lilypond -e EXPR means:"
+msgstr "lilypond -e UTTR betyder:"
 
-#: score-engraver.cc:67
-#, fuzzy, c-format
-msgid "cannot find `%s'"
-msgstr "kan inte hitta \"%s\""
+#: scm-option.cc:47
+msgid "  Evalute the Scheme EXPR before parsing any .ly files."
+msgstr "  Evaluera Scheme-uttrycket UTTR innan någon .ly-fil läses in."
 
-#: score-engraver.cc:69
-#, fuzzy
-msgid "Music font has not been installed properly."
-msgstr "Typsnitten är inte korrekt installerade. Avbryter"
+#: scm-option.cc:49
+msgid "  Multiple -e options may be given, they will be evaluated sequentially."
+msgstr "  Flera -e kan ges, de kommer att evalueras i tur och ordning."
 
-#: score-engraver.cc:71
-#, fuzzy, c-format
-msgid "Search path `%s'"
-msgstr "(sökväg: \"%s\")"
+#: scm-option.cc:51
+msgid "  The function ly-set-option allows for access to some internal variables."
+msgstr "  Funktionen ly-set-option ger åtkomst till några interna variabler."
 
-#: score-engraver.cc:73
-msgid "Aborting"
-msgstr ""
+#: scm-option.cc:53
+msgid "Usage: lilypond -e \"(ly-set-option SYMBOL VAL)\""
+msgstr "Användning: lilpond -e \"(ly-set-option SYMBOL VÄRDE)\""
 
-#: score.cc:225
-#, fuzzy
-msgid "already have music in score"
+#: scm-option.cc:55
+msgid "Where SYMBOL VAL pair is any of:"
+msgstr "Där paret SYMBOL VÄRDE är något av:"
+
+#: scm-option.cc:128
+msgid "Unknown internal option!"
+msgstr "Okänd internt alternativ!"
+
+#: score.cc:85
+msgid "Interpreting music..."
+msgstr "Tolkar musik..."
+
+#: score.cc:97
+msgid "Need music in a score"
 msgstr "Behöver musik i partitur"
 
-#: score.cc:226
-msgid "this is the previous music"
-msgstr ""
-
-#: score.cc:231
-#, fuzzy
-msgid "errors found, ignoring music expression"
+#. should we? hampers debugging.
+#: score.cc:111
+msgid "Errors found/*, not processing score*/"
 msgstr "Fel funna/*, behandlar inte partitur*/"
 
-#. FIXME:
-#: script-engraver.cc:102
-#, fuzzy
-msgid "do not know how to interpret articulation: "
+#: score.cc:118
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "tidsåtgång: %.2f sekunder"
+
+#: score-engraver.cc:99
+#, c-format
+msgid "can't find `%s'"
+msgstr "kan inte hitta \"%s\""
+
+#: score-engraver.cc:100
+msgid "Fonts have not been installed properly.  Aborting"
+msgstr "Typsnitten är inte korrekt installerade. Avbryter"
+
+#: score-engraver.cc:205
+#, c-format
+msgid "unbound spanner `%s'"
+msgstr "obunden bryggare \"%s\""
+
+#: script-engraver.cc:90
+#, c-format
+msgid "Don't know how to interpret articulation `%s'"
 msgstr "Kan inte tolka artikulering \"%s\""
 
-#: script-engraver.cc:103
-#, fuzzy
-msgid "scheme encoding: "
-msgstr "Scheme-alternativ:"
+#. this shouldn't happen, but let's continue anyway.
+#: separation-item.cc:53 separation-item.cc:101
+msgid "Separation_item:  I've been drinking too much"
+msgstr "Separation_item: Jag har druckit för mycket"
 
-#: simple-spacer.cc:375
+#: simple-spacer.cc:248
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "Ingen fjäder mellan kolumn %d och nästa"
 
-#: slur-engraver.cc:83 tuplet-engraver.cc:75
-#, c-format
-msgid "direction of %s invalid: %d"
-msgstr ""
-
-#: slur-engraver.cc:157
+#: slur-engraver.cc:141
 msgid "unterminated slur"
 msgstr "oavslutad båge"
 
-#: slur-engraver.cc:166
-#, fuzzy
-msgid "cannot end slur"
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#: slur-engraver.cc:159
+msgid "can't find start of slur"
 msgstr "kan inte hitta start på båge"
 
-#: source-file.cc:74
+#: source-file.cc:67
 #, c-format
-msgid "expected to read %d characters, got %d"
-msgstr ""
+msgid "Huh?  Got %d, expected %d characters"
+msgstr "Öh? Fick %d, väntade %d tecken"
 
-#: staff-symbol-engraver.cc:62
-msgid "staff-span event has no direction"
-msgstr ""
+#: spacing-spanner.cc:379
+#, c-format
+msgid "Global shortest duration is %s\n"
+msgstr "Globalt kortaste längd är %s\n"
 
-#: stem-engraver.cc:92
-msgid "tremolo duration is too long"
-msgstr "tremololängd är för lång"
+#: spring-smob.cc:32
+#, c-format
+msgid "#<spring smob d= %f>"
+msgstr "#<spring smob d= %f>"
 
-#. FIXME:
-#: stem-engraver.cc:129
-#, fuzzy, c-format
-msgid "adding note head to incompatible stem (type = %d)"
-msgstr "Lägger till nothuvud till inkompatibel båge (typ = %d)"
+#: staff-symbol.cc:61
+msgid "staff symbol: indentation yields beyond end of line"
+msgstr "staff symbol: indentering ger vika innan radslut"
 
-#: stem-engraver.cc:131
-msgid "maybe input should specify polyphonic voices"
-msgstr ""
-
-#: stem.cc:105
-#, fuzzy
-msgid "weird stem size, check for narrow beams"
+#: stem.cc:118
+msgid "Weird stem size; check for narrow beams"
 msgstr "Konstig skaftstorlek; kolla efter smala balkar"
 
-#: stem.cc:641
+#: stem.cc:611
 #, c-format
 msgid "flag `%s' not found"
 msgstr "flaggan \"%s\" hittades ej"
 
-#: stem.cc:652
+#: stem.cc:624
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "flaggstrecket \"%s\" hittades inte"
 
-#: system.cc:180
+#: stem-engraver.cc:96
+msgid "tremolo duration is too long"
+msgstr "tremololängd är för lång"
+
+#: stem-engraver.cc:124
+#, c-format
+msgid "Adding note head to incompatible stem (type = %d)"
+msgstr "Lägger till nothuvud till inkompatibel båge (typ = %d)"
+
+#: stem-engraver.cc:125
+msgid "Don't you want polyphonic voices instead?"
+msgstr "Vill du ha polyfoniska stämmor istället?"
+
+#: streams.cc:34
+#, c-format
+msgid "can't create directory: `%s'"
+msgstr "kan inte skapa katalog: \"%s\""
+
+#: streams.cc:48
+msgid "Error syncing file (disk full?)"
+msgstr "Fel vid synkning av fil (disken full?)"
+
+#: system.cc:125
 #, c-format
 msgid "Element count %d."
 msgstr "Elementantal %d."
 
-#: system.cc:276
-#, fuzzy, c-format
-msgid "Grob count %d"
+#: system.cc:372
+#, c-format
+msgid "Grob count %d "
 msgstr "Elementantal %d "
 
-#: text-spanner-engraver.cc:61
-msgid "cannot find start of text spanner"
+#: system.cc:386
+msgid "Calculating line breaks..."
+msgstr "Beräknar radbrytningar..."
+
+#: text-spanner-engraver.cc:81
+msgid "can't find start of text spanner"
 msgstr "kan inte hitta start på textbryggare"
 
-#: text-spanner-engraver.cc:73
+#: text-spanner-engraver.cc:95
 msgid "already have a text spanner"
 msgstr "har redan en textbryggare"
 
-#: text-spanner-engraver.cc:133
+#: text-spanner-engraver.cc:164
 msgid "unterminated text spanner"
 msgstr "oavslutad textbryggare"
 
-#: tie-engraver.cc:264
-msgid "lonely tie"
-msgstr "ensam båge"
+#: tfm.cc:83
+#, c-format
+msgid "can't find ascii character: %d"
+msgstr "kan inte hitta ASCII-tecken: %d"
+
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#: tfm-reader.cc:108
+#, c-format
+msgid "TFM header of `%s' has only %u word (s)"
+msgstr "TFM-rubrik i \"%s\" har bara %u ord"
+
+#: tfm-reader.cc:142
+#, c-format
+msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
+msgstr "%s: TFM-fil har %u parametrar, vilket är mer än de %u jag kan hantera"
+
+#: tie-performer.cc:159
+msgid "No ties were created!"
+msgstr "Inga bågar skapades!"
+
+#: time-scaled-music-iterator.cc:25
+msgid "no one to print a tuplet start bracket"
+msgstr "det finns ingen som kan skriva en starthake för tupel"
+
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:87
+#, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr "tidssignatursymbol \"%s\" hittades inte: återgår till numrerad stil"
 
 #.
 #. Todo: should make typecheck?
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:64
-#, fuzzy, c-format
-msgid "strange time signature found: %d/%d"
+#: time-signature-engraver.cc:57
+#, c-format
+msgid "Found strange time signature %d/%d."
 msgstr "Hittade underlig tidssignatur %d/%d"
 
-#. If there is no such symbol, we default to the numbered style.
-#. (Here really with a warning!)
-#: time-signature.cc:83
-#, c-format
-msgid "time signature symbol `%s' not found; reverting to numbered style"
-msgstr "tidssignatursymbol \"%s\" hittades inte: återgår till numrerad stil"
-
-#: translator-ctors.cc:52
+#: translator-ctors.cc:53
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "okänd översättare: \"%s\""
 
-#: translator-group.cc:151
+#: translator-def.cc:105
+msgid "Program has no such type"
+msgstr "Programmet har ingen sådan typ"
+
+#: translator-def.cc:111
 #, c-format
-msgid "cannot find: `%s'"
+msgid "Already contains: `%s'"
+msgstr "Innehåller redan: \"%s\""
+
+#: translator-def.cc:112
+#, c-format
+msgid "Not adding translator: `%s'"
+msgstr "Lägger inte till översättare: \"%s\""
+
+#: translator-def.cc:229
+#, c-format
+msgid "can't find: `%s'"
 msgstr "kan inte hitta: \"%s\""
 
-#: translator.cc:332
+#: translator-group.cc:158
 #, c-format
-msgid "Two simultaneous %s events, junking this one"
-msgstr ""
+msgid "can't find or create `%s' called `%s'"
+msgstr "kan inte hitta eller skapa \"%s\" kallad \"%s\""
 
-#: translator.cc:333
+#: translator-group.cc:230
 #, c-format
-msgid "Previous %s event here"
-msgstr ""
+msgid "can't find or create: `%s'"
+msgstr "kan inte hitta eller skapa: \"%s\""
 
-#: trill-spanner-engraver.cc:68
-#, fuzzy
-msgid "cannot find start of trill spanner"
-msgstr "kan inte hitta start på textbryggare"
-
-#: trill-spanner-engraver.cc:80
-#, fuzzy
-msgid "already have a trill spanner"
-msgstr "har redan en textbryggare"
-
-#: vaticana-ligature-engraver.cc:388
-#, c-format
-msgid ""
-"ignored prefix (es) `%s' of this head according to restrictions of the "
-"selected ligature style"
-msgstr ""
-
-#: vaticana-ligature-engraver.cc:714
-#, fuzzy, c-format
-msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr "Vaticana_ligature_engraver: sätter `spacing-increment = %f': ptr=%ul"
-
-#: vaticana-ligature.cc:84
-#, fuzzy
-msgid "flexa-height undefined; assuming 0"
-msgstr "Vaticana_ligature:x-offset odefinierad; antar 0.0"
-
-#: vaticana-ligature.cc:89
+#: vaticana-ligature.cc:49
 msgid "ascending vaticana style flexa"
 msgstr "ökande vatikan-stil-flexa"
 
-#: vaticana-ligature.cc:177
-#, fuzzy
-msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+#: vaticana-ligature.cc:219
+msgid "Vaticana_ligature:thickness undefined; assuming 1.4"
+msgstr "Vaticana_ligature:thickness odefinierad; antar 1.4"
+
+#: vaticana-ligature.cc:233
+msgid "Vaticana_ligature:x-offset undefined; assuming 0.0"
+msgstr "Vaticana_ligature:x-offset odefinierad; antar 0.0"
+
+#: vaticana-ligature.cc:258
+msgid "Vaticana_ligature: (delta_pitch == 0)"
 msgstr "Vaticana_ligature: (delta_pitch == 0)"
 
-#. fixme: be more verbose.
-#: volta-engraver.cc:144
-#, fuzzy
-msgid "cannot end volta spanner"
-msgstr "kan inte hitta start på textbryggare"
+#: vaticana-ligature.cc:271
+msgid "Vaticana_ligature:delta-pitch -> ignoring join"
+msgstr "Vaticana_ligature:delta_pitch -> ignorerar join"
 
-#: volta-engraver.cc:154
-#, fuzzy
-msgid "already have a volta spanner, ending that one prematurely"
+#: vaticana-ligature-engraver.cc:477
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
+msgstr "Vaticana_ligature_engraver: sätter `spacing-increment = %f': ptr=%ul"
+
+#: volta-engraver.cc:112
+msgid "No volta spanner to end"
+msgstr "Ingen reprisbryggare till slutet"
+
+#: volta-engraver.cc:123
+msgid "Already have a volta spanner.  Stopping that one prematurely."
 msgstr "Har redan en reprisbryggare. Stoppar den tidigare."
 
-#: volta-engraver.cc:158
-#, fuzzy
-msgid "also already have an ended spanner"
-msgstr "har redan en textbryggare"
+#: volta-engraver.cc:127
+msgid "Also have a stopped spanner.  Giving up."
+msgstr "Har också en stoppad bryggare. Ger upp."
 
-#: volta-engraver.cc:159
-#, fuzzy
-msgid "giving up"
-msgstr "Ger upp"
+#: parser.yy:480
+msgid "Identifier should have alphabetic characters only"
+msgstr "Identifierare ska bara innehålla alfabetiska tecken"
 
-#: parser.yy:702
-msgid "\\paper cannot be used in \\score, use \\layout instead"
+#: parser.yy:779
+msgid "More alternatives than repeats.  Junking excess alternatives."
+msgstr "Fler alternativ än repriser. Slänger överblivna alternativ."
+
+#: parser.yy:861 parser.yy:868
+msgid "pplycontext takes function argument"
 msgstr ""
 
-#: parser.yy:726
-msgid "need \\paper for paper block"
-msgstr ""
-
-#: parser.yy:1172
-msgid "Grob name should be alphanumeric"
-msgstr ""
-
-#: parser.yy:1475
-#, fuzzy
-msgid "second argument must be pitch list"
+#: parser.yy:877
+msgid "Second argument must be a symbol"
 msgstr "Andra argumentet måste vara en symbol"
 
-#: parser.yy:1502 parser.yy:1507 parser.yy:1972
-#, fuzzy
-msgid "have to be in Lyric mode for lyrics"
-msgstr "Måste vara i textläge (Lyric mode) för sångtext"
+#: parser.yy:882
+msgid "First argument must be a procedure taking one argument"
+msgstr "Första argumentet måste vara en procedur som tar 1 argument"
 
-#: parser.yy:1604
-#, fuzzy
-msgid "expecting string as script definition"
+#: parser.yy:1009
+msgid "pply takes function argument"
+msgstr ""
+
+#: parser.yy:1501
+msgid "Expecting string as script definition"
 msgstr "Väntade sträng som skriptdefinition"
 
-#: parser.yy:1759 parser.yy:1809
+#: parser.yy:1598
+msgid "Expecting musical-pitch value"
+msgstr "Väntade notvärde"
+
+#: parser.yy:1609
+msgid "Must have duration object"
+msgstr "Måste ha längdobjekt"
+
+#: parser.yy:1618 parser.yy:1626
+msgid "Have to be in Lyric mode for lyrics"
+msgstr "Måste vara i textläge (Lyric mode) för sångtext"
+
+#: parser.yy:1798 parser.yy:1853
 #, c-format
 msgid "not a duration: %d"
 msgstr "inte en längd: %d"
 
-#: parser.yy:1926
-#, fuzzy
-msgid "have to be in Note mode for notes"
+#: parser.yy:1949
+msgid "Have to be in Note mode for notes"
 msgstr "Måste vara i notläge (Note mode) för noter"
 
-#: parser.yy:1987
-#, fuzzy
-msgid "have to be in Chord mode for chords"
+#: parser.yy:2032
+msgid "Have to be in Chord mode for chords"
 msgstr "Måste vara i ackordläge (Chord mode) för ackord"
 
-#: lexer.ll:176
-msgid "stray UTF-8 BOM encountered"
-msgstr ""
+#: parser.yy:2171
+msgid "need integer number arg"
+msgstr "behöver heltalsargument"
 
-#: lexer.ll:180
-msgid "Skipping UTF-8 BOM"
-msgstr ""
+#: parser.yy:2316
+msgid "Suspect duration found following this beam"
+msgstr "Misstänkt längd hittad efter denna balk"
 
-#: lexer.ll:235
-#, fuzzy, c-format
-msgid "Renaming input to: `%s'"
-msgstr "Öppnar rör \"%s\"..."
-
-#: lexer.ll:252
-msgid "quoted string expected after \\version"
-msgstr ""
-
-#: lexer.ll:256
-msgid "quoted string expected after \\sourcefilename"
-msgstr ""
-
-#: lexer.ll:260
-msgid "integer expected after \\sourcefileline"
-msgstr ""
-
-#: lexer.ll:273
+#: lexer.ll:186
 msgid "EOF found inside a comment"
 msgstr "filslut hittat inuti en kommentar"
 
-#: lexer.ll:288
-#, fuzzy
-msgid "\\maininput not allowed outside init files"
+#: lexer.ll:200
+msgid "\\maininput disallowed outside init files"
 msgstr "\\maininput förbjudet utanför init-filer"
 
-#: lexer.ll:312
+#: lexer.ll:224
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "felaktig eller odefinierad identifierare: \"%s\""
 
 #. backup rule
-#: lexer.ll:321
-msgid "end quote missing"
-msgstr ""
+#: lexer.ll:233
+msgid "Missing end quote"
+msgstr "Saknat slutcitationstecken"
 
-#: lexer.ll:466
+#. backup rule
+#: lexer.ll:255 lexer.ll:259
+msgid "white expected"
+msgstr "väntade tomrum"
+
+#: lexer.ll:268
+msgid "Can't evaluate Scheme in safe mode"
+msgstr "Kan inte evaluera Scheme i säkert läge"
+
+#: lexer.ll:397 lexer.ll:487
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Krullparentes funnen i slutet på sångtext. Glömde du ett mellanslag?"
 
-#: lexer.ll:559
-#, fuzzy
-msgid "Brace found at end of markup.  Did you forget a space?"
-msgstr "Krullparentes funnen i slutet på sångtext. Glömde du ett mellanslag?"
-
-#: lexer.ll:659
+#: lexer.ll:574
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "ogiltigt tecken: \"%c\""
 
-#: lexer.ll:774 lexer.ll:775
+#: lexer.ll:651
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "okänd \"escaped\" sträng: \"\\%s\""
 
-#: lexer.ll:880 lexer.ll:881
+#: lexer.ll:742
 #, c-format
-msgid "file too old: %s (oldest supported: %s)"
-msgstr ""
+msgid "Incorrect lilypond version: %s (%s, %s)"
+msgstr "Felaktig lilypond-version: %s (%s, %s)"
 
-#: lexer.ll:881 lexer.ll:882
-#, fuzzy
-msgid "consider updating the input with the convert-ly script"
+#: lexer.ll:743
+msgid "Consider updating the input with the convert-ly script"
 msgstr "Fundera på att uppdatera indata med skriptet \"convert-ly\""
-
-#: lexer.ll:887 lexer.ll:888
-#, c-format
-msgid "program too old: %s (file requires: %s)"
-msgstr ""
-
-#: backend-library.scm:19 lily.scm:599 ps-to-png.scm:82
-#, fuzzy, scheme-format
-msgid "Invoking `~a'..."
-msgstr "Startar \"%s\""
-
-#: backend-library.scm:24
-#, fuzzy, scheme-format
-msgid "`~a' failed (~a)"
-msgstr "\"%s\" misslyckades (%d)"
-
-#: backend-library.scm:95 framework-tex.scm:343 framework-tex.scm:368
-#, fuzzy, scheme-format
-msgid "Converting to `~a'..."
-msgstr "Skriver \"%s\"..."
-
-#: backend-library.scm:108
-#, fuzzy, scheme-format
-msgid "Converting to ~a..."
-msgstr "Skriver \"%s\"..."
-
-#: backend-library.scm:145
-#, fuzzy, scheme-format
-msgid "Writing header field `~a' to `~a'..."
-msgstr "skriver rubrikfält \"%s\" till \"%s\"..."
-
-#: define-context-properties.scm:20 define-grob-properties.scm:10
-#: define-music-properties.scm:10
-#, scheme-format
-msgid "symbol ~S redefined"
-msgstr ""
-
-#: define-event-classes.scm:119
-#, scheme-format
-msgid "event class ~A seems to be unused"
-msgstr ""
-
-#. should be programming-error
-#: define-event-classes.scm:125
-#, scheme-format
-msgid "translator listens to nonexisting event class ~A"
-msgstr ""
-
-#: define-markup-commands.scm:255
-msgid "no systems found in \\score markup, does it have a \\layout block?"
-msgstr ""
-
-#: define-markup-commands.scm:1297
-#, fuzzy, scheme-format
-msgid "not a valid duration string: ~a"
-msgstr "inte en längd: %d"
-
-#: define-music-types.scm:751
-#, scheme-format
-msgid "symbol expected: ~S"
-msgstr ""
-
-#: define-music-types.scm:754
-#, fuzzy, scheme-format
-msgid "cannot find music object: ~S"
-msgstr "kan inte hitta omgivningen \"%s\""
-
-#: define-music-types.scm:774
-#, fuzzy, scheme-format
-msgid "unknown repeat type `~S'"
-msgstr "okänd klusterstil: \"%s\""
-
-#: define-music-types.scm:775
-msgid "See music-types.scm for supported repeats"
-msgstr ""
-
-#: document-backend.scm:91
-#, scheme-format
-msgid "pair expected in doc ~s"
-msgstr ""
-
-#: document-backend.scm:135
-#, fuzzy, scheme-format
-msgid "cannot find interface for property: ~S"
-msgstr "kan inte hitta teckennummer: %d"
-
-#: document-backend.scm:145
-#, fuzzy, scheme-format
-msgid "unknown Grob interface: ~S"
-msgstr "okänd klusterstil: \"%s\""
-
-#: documentation-lib.scm:45
-#, fuzzy, scheme-format
-msgid "Processing ~S..."
-msgstr "Behandlar..."
-
-#: documentation-lib.scm:150
-#, fuzzy, scheme-format
-msgid "Writing ~S..."
-msgstr "Skriver \"%s\"..."
-
-#: documentation-lib.scm:172
-#, fuzzy, scheme-format
-msgid "cannot find description for property ~S (~S)"
-msgstr "kan inte hitta teckennummer: %d"
-
-#: framework-eps.scm:91 framework-eps.scm:92
-#, fuzzy, scheme-format
-msgid "Writing ~a..."
-msgstr "Skriver \"%s\"..."
-
-#: framework-ps.scm:279
-#, scheme-format
-msgid "cannot embed ~S=~S"
-msgstr ""
-
-#: framework-ps.scm:332
-#, scheme-format
-msgid "cannot extract file matching ~a from ~a"
-msgstr ""
-
-#: framework-ps.scm:349
-#, scheme-format
-msgid "do not know how to embed ~S=~S"
-msgstr ""
-
-#: framework-ps.scm:380
-#, fuzzy, scheme-format
-msgid "do not know how to embed font ~s ~s ~s"
-msgstr "Kan inte tolka artikulering \"%s\""
-
-#: framework-ps.scm:729
-#, scheme-format
-msgid "cannot convert <stdout> to ~S"
-msgstr ""
-
-#: framework-ps.scm:748 framework-ps.scm:751
-#, scheme-format
-msgid "cannot generate ~S using the postscript back-end"
-msgstr ""
-
-#: framework-ps.scm:758
-msgid ""
-"\n"
-"The PostScript backend does not support the 'classic'\n"
-"framework. Use the EPS backend instead,\n"
-"\n"
-"  lilypond -b eps <file>\n"
-"\n"
-"or remove the lilypond-book specific settings from the input.\n"
-msgstr ""
-
-#: framework-tex.scm:360
-#, fuzzy, scheme-format
-msgid "TeX file name must not contain whitespace: `~a'"
-msgstr "filnamnet får inte innehålla mellanslag: \"%s\""
-
-#: layout-beam.scm:29
-#, scheme-format
-msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
-msgstr ""
-
-#: layout-beam.scm:46
-#, scheme-format
-msgid "Error in beam quanting.  Expected ~S 0, found ~S."
-msgstr ""
-
-#: layout-page-layout.scm:357
-#, fuzzy
-msgid "Calculating page breaks..."
-msgstr "Beräknar radbrytningar..."
-
-#: lily-library.scm:593
-#, fuzzy, scheme-format
-msgid "unknown unit: ~S"
-msgstr "okänd översättare: \"%s\""
-
-#: lily-library.scm:626
-#, scheme-format
-msgid "no \\version statement found, please add~afor future compatibility"
-msgstr ""
-
-#: lily-library.scm:633
-msgid "old relative compatibility not used"
-msgstr ""
-
-#: lily.scm:144
-#, fuzzy, scheme-format
-msgid "cannot find: ~A"
-msgstr "kan inte hitta: \"%s\""
-
-#: lily.scm:209
-#, scheme-format
-msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr ""
-
-#: lily.scm:525 lily.scm:589
-#, scheme-format
-msgid "failed files: ~S"
-msgstr ""
-
-# här är det fråga om skrivning till en fil
-#: lily.scm:579
-#, fuzzy, scheme-format
-msgid "Redirecting output to ~a..."
-msgstr "beroenden skrivna till \"%s\"..."
-
-#: ly-syntax-constructors.scm:40
-msgid "Music head function must return Music object"
-msgstr ""
-
-#: ly-syntax-constructors.scm:136
-#, scheme-format
-msgid "Invalid property operation ~a"
-msgstr ""
-
-#: markup.scm:123
-#, scheme-format
-msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-msgstr ""
-
-#: markup.scm:129
-#, scheme-format
-msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
-msgstr ""
-
-#: music-functions.scm:213
-#, fuzzy
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr "Fler alternativ än repriser. Slänger överblivna alternativ."
-
-#: music-functions.scm:232
-#, scheme-format
-msgid "expecting 2 elements for chord tremolo, found ~a"
-msgstr ""
-
-#: music-functions.scm:538
-#, fuzzy, scheme-format
-msgid "music expected: ~S"
-msgstr "väntade tomrum"
-
-#. FIXME: uncomprehensable message
-#: music-functions.scm:589
-#, scheme-format
-msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
-msgstr ""
-
-#: music-functions.scm:748
-#, fuzzy, scheme-format
-msgid "cannot find quoted music: `~S'"
-msgstr "kan inte hitta typsnitt: \"%s\""
-
-#: music-functions.scm:942
-#, fuzzy, scheme-format
-msgid "unknown accidental style: ~S"
-msgstr "okänd typsättning av höjning/sänkning: %s. Ignorered"
-
-#: output-ps.scm:315
-msgid "utf-8-string encountered in PS backend"
-msgstr ""
-
-#: output-svg.scm:42
-#, scheme-format
-msgid "undefined: ~S"
-msgstr ""
-
-#: output-svg.scm:132
-#, scheme-format
-msgid "cannot decypher Pango description: ~a"
-msgstr ""
-
-#: output-tex.scm:98
-#, fuzzy, scheme-format
-msgid "cannot find ~a in ~a"
-msgstr "kan inte hitta start på balk"
-
-#: paper.scm:69
-msgid "Not in toplevel scope"
-msgstr ""
-
-#: paper.scm:117
-#, scheme-format
-msgid "This is not a \\layout {} object, ~S"
-msgstr ""
-
-#: paper.scm:129
-#, scheme-format
-msgid "Unknown papersize: ~a"
-msgstr ""
-
-#. TODO: should raise (generic) exception with throw, and catch
-#. that in parse-scm.cc
-#: paper.scm:144
-msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
-msgstr ""
-
-#: parser-clef.scm:126
-#, fuzzy, scheme-format
-msgid "unknown clef type `~a'"
-msgstr "okänd klusterstil: \"%s\""
-
-#: parser-clef.scm:127
-msgid "see scm/clef.scm for supported clefs"
-msgstr ""
-
-#: ps-to-png.scm:88
-#, fuzzy, scheme-format
-msgid "~a exited with status: ~S"
-msgstr "kommandot avslutade med värde %d"
-
-#: to-xml.scm:190
-#, fuzzy, scheme-format
-msgid "assertion failed: ~S"
-msgstr "LaTeX misslyckades."
-
-#, fuzzy
-#~ msgid "show warranty"
-#~ msgstr "visa garanti och copyright"
-
-#, fuzzy
-#~ msgid "Convert MIDI to LilyPond source."
-#~ msgstr "Konvertera MIDI till LilyPond"
-
-#, fuzzy
-#~ msgid "example"
-#~ msgstr "Exempel:"
-
-#, fuzzy
-#~ msgid "loading default font"
-#~ msgstr "Läser in standardtypsnitt"
-
-#~ msgid "cannot find default font: `%s'"
-#~ msgstr "kan inte hitta standardtypsnitt: \"%s\""
-
-#~ msgid "crescendo too small"
-#~ msgstr "crescendo för litet"
-
-# förklaring av flaggan -h
-#, fuzzy
-#~ msgid "print this help"
-#~ msgstr "denna hjälp"
-
-#~ msgid "silly pitch"
-#~ msgstr "tokig ton"
-
-#, fuzzy
-#~ msgid "cannot open file %s"
-#~ msgstr "kan inte öppna fil: \"%s\""
-
-#~ msgid "Incorrect lilypond version: %s (%s, %s)"
-#~ msgstr "Felaktig lilypond-version: %s (%s, %s)"
-
-#~ msgid "no one to print a tremolos"
-#~ msgstr "det finns ingen som kan skriva tremolon"
-
-#, fuzzy
-#~ msgid "gotcha: ptr=%ul"
-#~ msgstr "fick dig: ptr=%ul"
-
-#, fuzzy
-#~ msgid "distance undefined, assuming 0.1"
-#~ msgstr "Vaticana_ligature:x-offset odefinierad; antar 0.0"
-
-#, fuzzy
-#~ msgid "distance=%f"
-#~ msgstr "avstånd=%f"
-
-#, fuzzy
-#~ msgid "junking event: `%s'"
-#~ msgstr "Slänger händelse: \"%s\""
-
-#~ msgid "no one to print a repeat brace"
-#~ msgstr "det finns ingen som kan skriva ett repristecken"
-
-#~ msgid "cannot find `%s' context"
-#~ msgstr "kan inte hitta omgivningen \"%s\""
-
-#~ msgid "Optimal demerits: %f"
-#~ msgstr "Optimal demerit: %f"
-
-#, fuzzy
-#~ msgid "no feasible line breaking found"
-#~ msgstr "Ingen lämplig radbrytning hittades"
-
-#~ msgid "music for the martians."
-#~ msgstr "musik för marsianerna."
-
-#~ msgid "no one to print a percent"
-#~ msgstr "det finns ingen som kan skriva procent"
-
-#~ msgid "Creator: "
-#~ msgstr "Skapare: "
-
-#~ msgid "at "
-#~ msgstr "vid "
-
-#, fuzzy
-#~ msgid "in quotation: junking event %s"
-#~ msgstr "Slänger händelse: \"%s\""
-
-#, fuzzy
-#~ msgid "Global shortest duration is %s"
-#~ msgstr "Globalt kortaste längd är %s\n"
-
-#~ msgid "TFM header of `%s' has only %u word (s)"
-#~ msgstr "TFM-rubrik i \"%s\" har bara %u ord"
-
-#~ msgid ""
-#~ "%s: TFM file has %u parameters, which is more than the %u I can handle"
-#~ msgstr ""
-#~ "%s: TFM-fil har %u parametrar, vilket är mer än de %u jag kan hantera"
-
-#~ msgid "cannot find ascii character: %d"
-#~ msgstr "kan inte hitta ASCII-tecken: %d"
-
-#~ msgid "no one to print a tuplet start bracket"
-#~ msgstr "det finns ingen som kan skriva en starthake för tupel"
-
-#, fuzzy
-#~ msgid "unterminated trill spanner"
-#~ msgstr "oavslutad textbryggare"
-
-#, fuzzy
-#~ msgid "identifier should have alphabetic characters only"
-#~ msgstr "Identifierare ska bara innehålla alfabetiska tecken"
-
-#, fuzzy
-#~ msgid "more alternatives than repeats"
-#~ msgstr "Fler alternativ än repriser. Slänger överblivna alternativ."
-
-#, fuzzy
-#~ msgid "cannot find signature for music function"
-#~ msgstr "kan inte hitta omgivningen \"%s\""
-
-#~ msgid "lilylib module"
-#~ msgstr "lilylib-modul"
-
-#~ msgid "Opening pipe `%s'"
-#~ msgstr "Öppnar rör \"%s\"..."
-
-#~ msgid "`%s' failed (%s)"
-#~ msgstr "\"%s\" misslyckades (%s)"
-
-#~ msgid "(ignored)"
-#~ msgstr "(ignorerat)"
-
-# här är det fråga om rensning av en temporärkatalog
-#~ msgid "Cleaning %s..."
-#~ msgstr "Rensar %s..."
-
-#, fuzzy
-#~ msgid "Usage: %s [OPTION]... [FILE]..."
-#~ msgstr "Användning: %s [FLAGGA]... FIL..."
-
-#, fuzzy
-#~ msgid "%s: skipping: `%s'"
-#~ msgstr "inställningen finns inte: \"%s\""
-
-#~ msgid "print version information"
-#~ msgstr "visa versionsinformation"
-
-#~ msgid "getopt says: `%s'"
-#~ msgstr "getopt säger: \"%s\""
-
-#, fuzzy
-#~ msgid "Command failed: `%s' (status %d)"
-#~ msgstr "LilyPond misslyckades på indatafilen \"%s\" (slutstatus %d)"
-
-#~ msgid "command exited with value %d"
-#~ msgstr "kommandot avslutade med värde %d"
-
-#~ msgid "debug"
-#~ msgstr "felsökningsutdata"
-
-#~ msgid "define macro NAME [optional expansion EXP]"
-#~ msgstr "definiera makro NAME [valfri makroersättning EXP]"
-
-#~ msgid "only pre-process"
-#~ msgstr "förbehandla enbart"
-
-#~ msgid "no such context: %s"
-#~ msgstr "omgivning finns inte: %s"
-
-#~ msgid "Processing `%s'..."
-#~ msgstr "Behandlar \"%s\"..."
-
-#~ msgid "RES"
-#~ msgstr "RES"
-
-#~ msgid "set the resolution of the preview to RES"
-#~ msgstr "sätt resolutionen för förhandsgranskningen till RES"
-
-#, fuzzy
-#~ msgid "Wrote `%s'"
-#~ msgstr "Skriver \"%s\"..."
-
-#, fuzzy
-#~ msgid "cannot dlopen: %s: %s"
-#~ msgstr "kan inte öppna fil: \"%s\""
-
-#, fuzzy
-#~ msgid "install package: %s or %s"
-#~ msgstr "kan inte ändra \"%s\" till \"%s\""
-
-#, fuzzy
-#~ msgid "parsing AFM file: `%s'"
-#~ msgstr "Fel vid tolkning av AFM-fil: \"%s\""
-
-#~ msgid "checksum mismatch for font file: `%s'"
-#~ msgstr "felaktig checksumma för typsnittsfil: \"%s\""
-
-#~ msgid "does not match: `%s'"
-#~ msgstr "matchar inte: \"%s\""
-
-#, fuzzy
-#~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-#~ msgstr ""
-#~ " Bygg om alla .afm-filer, och ta bort alla .pk- och .tfm-filer. Kör igen "
-#~ "med -V för att visa typsnittssökvägar."
-
-#, fuzzy
-#~ msgid "A script for removing font-files is delivered with the source-code:"
-#~ msgstr ""
-#~ "Ett skript för att ta bort typsnittsfiler levereras med källkoden,\n"
-#~ "i buildscripts/clean-fonts.sh"
-
-#~ msgid "beam has less than two visible stems"
-#~ msgstr "balk har mindre än två synliga skaft"
-
-#, fuzzy
-#~ msgid "adding lilypond directory: %s"
-#~ msgstr "kan inte skapa katalog: \"%s\""
-
-#, fuzzy
-#~ msgid "cannot handle a percent repeat of length: %s"
-#~ msgstr "Vet inte hur en procentrepris av denna längd ska hanteras."
-
-#~ msgid "lilypond -e EXPR means:"
-#~ msgstr "lilypond -e UTTR betyder:"
-
-#~ msgid "  Evalute the Scheme EXPR before parsing any .ly files."
-#~ msgstr "  Evaluera Scheme-uttrycket UTTR innan någon .ly-fil läses in."
-
-#~ msgid ""
-#~ "  Multiple -e options may be given, they will be evaluated sequentially."
-#~ msgstr "  Flera -e kan ges, de kommer att evalueras i tur och ordning."
-
-#, fuzzy
-#~ msgid ""
-#~ "  The function ly:set-option allows for access to some internal variables."
-#~ msgstr ""
-#~ "  Funktionen ly-set-option ger åtkomst till några interna variabler."
-
-#, fuzzy
-#~ msgid "Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\""
-#~ msgstr "Användning: lilpond -e \"(ly-set-option SYMBOL VÄRDE)\""
-
-#~ msgid "Separation_item:  I've been drinking too much"
-#~ msgstr "Separation_item: Jag har druckit för mycket"
-
-#~ msgid "need integer number arg"
-#~ msgstr "behöver heltalsargument"
-
-#, fuzzy
-#~ msgid "suspect duration in beam: %s"
-#~ msgstr "Misstänkt längd hittad efter denna balk"
-
-#, fuzzy
-#~ msgid "syntax error: cannot back up"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "Stack now"
-#~ msgstr "spår "
-
-#, fuzzy
-#~ msgid "Reading a token: "
-#~ msgstr "Öppnar rör \"%s\"..."
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s or %s"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "syntax error, unexpected %s, expecting %s or %s or %s"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "syntax error; also memory exhausted"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "syntax error"
-#~ msgstr "icke-fatalt fel: "
-
-#, fuzzy
-#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
-#~ msgstr "kan inte hitta typsnitt: \"%s\""
-
-#, fuzzy
-#~ msgid "unknown bar glyph: `~S'"
-#~ msgstr "okänd klusterstil: \"%s\""
-
-#, fuzzy
-#~ msgid "Extracting fonts to %s..."
-#~ msgstr "kan inte skapa katalog: \"%s\""
-
-#, fuzzy
-#~ msgid "Writing %s..."
-#~ msgstr "Skriver \"%s\"..."
-
-#, fuzzy
-#~ msgid "Writing output file."
-#~ msgstr "Tar bort utdatafilen"
-
-#, fuzzy
-#~ msgid "Second argument must be pitch list."
-#~ msgstr "Andra argumentet måste vara en symbol"
-
-#~ msgid "Have to be in Lyric mode for lyrics"
-#~ msgstr "Måste vara i textläge (Lyric mode) för sångtext"
-
-#~ msgid "Expecting string as script definition"
-#~ msgstr "Väntade sträng som skriptdefinition"
-
-#~ msgid "Have to be in Note mode for notes"
-#~ msgstr "Måste vara i notläge (Note mode) för noter"
-
-#~ msgid "Have to be in Chord mode for chords"
-#~ msgstr "Måste vara i ackordläge (Chord mode) för ackord"
-
-#, fuzzy
-#~ msgid "programming error: "
-#~ msgstr "programmeringsfel: "
-
-#, fuzzy
-#~ msgid "Programming error: "
-#~ msgstr "programmeringsfel: "
-
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Kan inte byta översättare, jag är redan där"
-
-#, fuzzy
-#~ msgid "Accidental rule must be pair or context-name; Found %s"
-#~ msgstr ""
-#~ "Typsättning av höjning/sänkning måste vara par eller context-name: %s"
-
-#~ msgid "I'm one myself"
-#~ msgstr "Jag är en själv"
-
-#~ msgid "Chord tremolo with %d elements. Must have two elements."
-#~ msgstr "Ackordtremolo med %d element. Måste ha två element."
-
-#~ msgid "Huh?  Got %d, expected %d characters"
-#~ msgstr "Öh? Fick %d, väntade %d tecken"
-
-#~ msgid "Donnot you want polyphonic voices instead?"
-#~ msgstr "Vill du ha polyfoniska stämmor istället?"
-
-#~ msgid "No volta spanner to end"
-#~ msgstr "Ingen reprisbryggare till slutet"
-
-#~ msgid "Also have a stopped spanner.  Giving up."
-#~ msgstr "Har också en stoppad bryggare. Ger upp."
-
-#~ msgid "Missing end quote"
-#~ msgstr "Saknat slutcitationstecken"
-
-#~ msgid "EXT"
-#~ msgstr "FMT"
-
-#~ msgid "FIXME: key change merge"
-#~ msgstr "FIXA: tonartsbytessammanslagning"
-
-#, fuzzy
-#~ msgid "kpathsea cannot find %s file: `%s'"
-#~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
-
-#, fuzzy
-#~ msgid "kpathsea cannot find file: `%s'"
-#~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
-
-#, fuzzy
-#~ msgid "set option, use -e '(ly:option-usage)' for help"
-#~ msgstr "sätt inställningar, använd -e '(ly-option-usage)' för hjälp"
-
-#, fuzzy
-#~ msgid "EXTs"
-#~ msgstr "FMT"
-
-#, fuzzy
-#~ msgid "generate a preview"
-#~ msgstr "skapa PNG-sidbilder"
-
-#, fuzzy
-#~ msgid "do not generate full pages"
-#~ msgstr "skapa inte bilder"
-
-#, fuzzy
-#~ msgid "generate DVI"
-#~ msgstr "skapa PS.GZ"
-
-#, fuzzy
-#~ msgid "generate TeX"
-#~ msgstr "skapa PS.GZ"
-
-#, fuzzy
-#~ msgid "kpathsea can not find %s file: `%s'"
-#~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
-
-#, fuzzy
-#~ msgid "kpathsea can not find AFM file `%s'"
-#~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
-
-#, fuzzy
-#~ msgid "kpathsea can not find TFM file: `%s'"
-#~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
-
-#, fuzzy
-#~ msgid "Converting to `~a.ps'..."
-#~ msgstr "Skriver \"%s\"..."
-
-#, fuzzy
-#~ msgid "Run LilyPond, generate printable document."
-#~ msgstr "Kör LilyPond, lägg till titlar, skapa utskrivbart dokument"
-
-#~ msgid "print even more output"
-#~ msgstr "skriv ännu mer utdata"
-
-#~ msgid "find pfa fonts used in FILE"
-#~ msgstr "hitta pfa-typsnitt som används i FIL"
-
-#~ msgid "add DIR to LilyPond's search path"
-#~ msgstr "lägg till KATALOG till LilyPonds sökväg"
-
-# %s är programmets namn
-#~ msgid "keep all output, output to directory %s.dir"
-#~ msgstr "behåll all utdata, utdata till katalogen %s.dir"
-
-#~ msgid "do not run LilyPond"
-#~ msgstr "kör inte LilyPond"
-
-#~ msgid "produce MIDI output only"
-#~ msgstr "skapa enbart MIDI-utdata"
-
-#~ msgid "generate PDF output"
-#~ msgstr "skapa PDF-utdata"
-
-#~ msgid "generate PNG page images"
-#~ msgstr "skapa PNG-sidbilder"
-
-#~ msgid "generate PS.GZ"
-#~ msgstr "skapa PS.GZ"
-
-#~ msgid "change global setting KEY to VAL"
-#~ msgstr "ändra global inställning NYCKEL till VÄRDE"
-
-#~ msgid "LilyPond crashed (signal %d)."
-#~ msgstr "LilyPond kraschade (signal %d)."
-
-#~ msgid "Please submit a bug report to bug-lilypond@gnu.org"
-#~ msgstr "Skicka en buggrapport till bug-lilypond@gnu.org"
-
-#~ msgid "LilyPond failed on an input file (exit status %d)"
-#~ msgstr "LilyPond misslyckades på en indatafil (slutstatus %d)"
-
-#~ msgid "Continuing..."
-#~ msgstr "Fortsätter..."
-
-#~ msgid "Analyzing %s..."
-#~ msgstr "Analyserar %s..."
-
-#~ msgid "no LilyPond output found for `%s'"
-#~ msgstr "ingen LilyPond-utdata funnen för \"%s\""
-
-#~ msgid "LaTeX failed on the output file."
-#~ msgstr "LaTeX misslyckades på utdatafilen."
-
-#~ msgid ""
-#~ "Trying create PDF, but no PFA fonts found.\n"
-#~ "Using bitmap fonts instead. This will look bad."
-#~ msgstr ""
-#~ "Försöker skapa PDF, men inga PFA-typsnitt hittades.\n"
-#~ "Använder punkttypsnitt istället. Det kommer att se dåligt ut."
-
-#~ msgid "pseudo filter"
-#~ msgstr "pseudofilter"
-
-#~ msgid "pseudo filter only for single input file"
-#~ msgstr "pseudofilter bara för enstaka indatafil"
-
-#~ msgid "no files specified on command line"
-#~ msgstr "inga filer angivna på kommandoraden"
-
-#~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-#~ msgstr ""
-#~ "Misslyckades med att köra LilyPond. Kör igen med --verbose för spår."
-
-#~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
-#~ msgstr "Misslyckades med att skapa PS-fil. Kör med --verbose för spår."
-
-# här är det fråga om skrivning till en fil (första parametern är t.ex
-# DVI, LATEX, MIDI, TEX)
-#~ msgid "%s output to <stdout>..."
-#~ msgstr "%s skrivet till <stdout>..."
-
-# här är det fråga om skrivning till en fil (första parametern är t.ex
-# DVI, LATEX, MIDI, TEX)
-#~ msgid "%s output to %s..."
-#~ msgstr "%s skrivet till \"%s\"..."
-
-#, fuzzy
-#~ msgid "cannot find file: `%s.%s'"
-#~ msgstr "kan inte hitta fil: \"%s\""
-
-#~ msgid " 1998--2005"
-#~ msgstr " 1998-2003"
-
-#~ msgid "DIM"
-#~ msgstr "DIM"
-
-#~ msgid "default fontsize for music.  DIM is assumed to be in points"
-#~ msgstr "standardtypsnittsstorlek för musik. DIM anges i punkter"
-
-#~ msgid "deprecated, use --default-music-fontsize"
-#~ msgstr "föråldrad, använd --default-music-fontsize"
-
-#~ msgid "OPT"
-#~ msgstr "OPT"
-
-#~ msgid "pass OPT quoted to the lilypond command line"
-#~ msgstr "skicka OPT till lilyponds kommandorad"
-
-#~ msgid ""
-#~ "force fontsize for all inline lilypond. DIM is assumed be to in points"
-#~ msgstr ""
-#~ "tvinga typsnittsstorlek för all inbäddad lilypond. DIM anger i punkter"
-
-#~ msgid "deprecated, use --force-music-fontsize"
-#~ msgstr "föråldrad, använd --force-music-fontsize"
-
-#~ msgid "include path"
-#~ msgstr "sökväg för inkluderade filer"
-
-#~ msgid "write dependencies"
-#~ msgstr "skriv beroenden"
-
-#~ msgid "PREF"
-#~ msgstr "PREF"
-
-#~ msgid "prepend PREF before each -M dependency"
-#~ msgstr "lägg till PREF före varje beroende angett med -M"
-
-#~ msgid "do not run lilypond"
-#~ msgstr "kör inte lilypond"
-
-#~ msgid "strip all lilypond blocks from output"
-#~ msgstr "ta bort alla lilypond-block från utdata"
-
-#~ msgid "filename main output file"
-#~ msgstr "filnamn på huvudutdatafilen"
-
-#~ msgid "where to place generated files"
-#~ msgstr "var genererade filer ska läggas"
-
-# Förklaring till --verbose (borde vara längre)
-#~ msgid "verbose"
-#~ msgstr "utförlig utdata"
-
-#~ msgid "write Makefile dependencies for every input file"
-#~ msgstr "skriv Makefile-beroenden för varje indatafil"
-
-#~ msgid "write ouput to FILE"
-#~ msgstr "skriv utdata till FIL"
-
-#~ msgid "use pdflatex to generate a PDF output"
-#~ msgstr "använd pdflatex för att generera PDF-utdata"
-
-#~ msgid "make HTML file with links to all output"
-#~ msgstr "skapa en HTML-fil som länkar till all utdata"
-
-#~ msgid "invalid value: `%s'"
-#~ msgstr "ogiltigt värde: \"%s\""
-
-#~ msgid "Writing HTML menu `%s'"
-#~ msgstr "Skriver HTML-meny \"%s\""
-
-#~ msgid "Running LaTeX falied. Rerun with --verbose for a trace."
-#~ msgstr "Misslyckades med att köra LaTeX. Kör med --verbose för spår."
-
-#~ msgid " 2001--2003"
-#~ msgstr " 2001-2003"
-
-#~ msgid ""
-#~ "\n"
-#~ "Distributed under terms of the GNU General Public License. It comes with\n"
-#~ "NO WARRANTY."
-#~ msgstr ""
-#~ "\n"
-#~ "Distribueras under GNU General Public License.\n"
-#~ "INGEN GARANTI ges för programmet."
-
-#~ msgid "programming error: %s (Continuing; cross thumbs)\n"
-#~ msgstr " programmeringsfel: %s (Fortsätter, håll tummarna)\n"
-
-#~ msgid "Symbol is not a parent context: %s. Ignored"
-#~ msgstr "Symbol är inte en föräldraomgivning: %s. Ignoreread"
-
-#~ msgid "Beam has less than two stems. Removing beam."
-#~ msgstr "Balk har mindre än två skaft. Tar bort balk."
-
-#~ msgid ""
-#~ "Not sure that we can find a nice beam slope (no viable initial "
-#~ "configuration found)."
-#~ msgstr ""
-#~ "Inte säker på att vi kan hitta en bra balklutning (ingen passande "
-#~ "initialkonfiguration funnen)."
-
-#~ msgid "NaN"
-#~ msgstr "-"
-
-#~ msgid ""
-#~ "Nothing to connect extender to on the left.  Ignoring extender event."
-#~ msgstr ""
-#~ "Det finns inget att koppla utökaren mot till vänster. Ignorerar "
-#~ "utökarhändelse."
-
-#~ msgid ""
-#~ "Skipped something?\n"
-#~ "Grob %s ended before I expected it to end."
-#~ msgstr ""
-#~ "Skippade något?\n"
-#~ "Grob %s slutade innan jag förväntade det."
-
-#~ msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen event."
-#~ msgstr ""
-#~ "Det finns inget att koppla bindestrecket mot till vänster.  Ignorerar "
-#~ "bindestreckshändelse."
-
-#~ msgid "Score contains errors; will not process it"
-#~ msgstr "Partitur innehåller fel; kommer inte behandla det"
-
-#~ msgid "Now processing: `%s'"
-#~ msgstr "Behandlar nu: \"%s\""
-
-#~ msgid ""
-#~ "round filled box horizontal extent smaller than blot; decreasing blot"
-#~ msgstr ""
-#~ "horisontell utbredning för rund fylld box mindre än blot; minskar blot"
-
-#~ msgid "round filled box vertical extent smaller than blot; decreasing blot"
-#~ msgstr "vertikal utbredning för rund fylld box mindre än blot; minskar blot"
-
-#~ msgid "lyrics found without any matching notehead"
-#~ msgstr "sångtext hittad utan något matchande nothuvud"
-
-#~ msgid "Huh? Melismatic note found to have associated lyrics."
-#~ msgstr "Öh? Melismatisk not har tillhörande sångtext."
-
-#~ msgid "use output format EXT"
-#~ msgstr "använd utdataformat FMT"
-
-#~ msgid "prepend DIR to dependencies"
-#~ msgstr "lägg till KATALOG efter beroenden"
-
-#~ msgid "inhibit file output naming and exporting"
-#~ msgstr "hindra namngivning av filutdata och exportering"
-
-#~ msgid ""
-#~ "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
-#~ "using a high level description file as input.  LilyPond is part of \n"
-#~ "the GNU Project.\n"
-#~ msgstr ""
-#~ "LilyPond är en musiktypsättare. Den producerar vackra noter från en\n"
-#~ "högnivåbeskrivning av musiken i en fil. LilyPond är en del av\n"
-#~ "GNU-projektet.\n"
-
-#~ msgid "GNU LilyPond -- The music typesetter"
-#~ msgstr "GNU Lilypond -- Musiktypsättaren"
-
-#~ msgid "Mensural_ligature:thickness undefined on flexa %d; assuming 1.4"
-#~ msgstr "Menural_ligature:thickness odefinierad för flexa %d; antar 1.4"
-
-#~ msgid "Mensural_ligature:delta-pitch undefined on flexa %d; assuming 0"
-#~ msgstr "Menural_ligature:delta-pitch odefinierad för flexa %d; antar 0"
-
-#~ msgid "Mensural_ligature:flexa-width undefined on flexa %d; assuming 2.0"
-#~ msgstr "Menural_ligature:flexa-width odefinierad för flexa %d; antar 2.0"
-
-#~ msgid "silly duration"
-#~ msgstr "tokig längd"
-
-#~ msgid "paper output to `%s'..."
-#~ msgstr "pappersutdata till \"%s\"..."
-
-#~ msgid "Outputting Score, defined at: "
-#~ msgstr "Matar ut partitur, definierade vid: "
-
-#~ msgid "I'm one myself: `%s'"
-#~ msgstr "Jag är en själv: \"%s\""
-
-#~ msgid "none of these in my family: `%s'"
-#~ msgstr "ingen av dessa i min familj: \"%s\""
-
-#~ msgid "from musical definition: %s"
-#~ msgstr "från musikdefinition: %s"
-
-#~ msgid "cannot find start of phrasing slur"
-#~ msgstr "kan inte hitta start på fraseringsbåge"
-
-#~ msgid "unterminated pedal bracket"
-#~ msgstr "oavslutad pedalklammer"
-
-#~ msgid "Where SYMBOL VAL pair is any of:"
-#~ msgstr "Där paret SYMBOL VÄRDE är något av:"
-
-#~ msgid "unbound spanner `%s'"
-#~ msgstr "obunden bryggare \"%s\""
-
-#~ msgid "#<spring smob d= %f>"
-#~ msgstr "#<spring smob d= %f>"
-
-#~ msgid "staff symbol: indentation yields beyond end of line"
-#~ msgstr "staff symbol: indentering ger vika innan radslut"
-
-#~ msgid "Error syncing file (disk full?)"
-#~ msgstr "Fel vid synkning av fil (disken full?)"
-
-#~ msgid "No ties were created!"
-#~ msgstr "Inga bågar skapades!"
-
-#~ msgid "Already contains: `%s'"
-#~ msgstr "Innehåller redan: \"%s\""
-
-#~ msgid "Not adding translator: `%s'"
-#~ msgstr "Lägger inte till översättare: \"%s\""
-
-#~ msgid "Vaticana_ligature:thickness undefined; assuming 1.4"
-#~ msgstr "Vaticana_ligature:thickness odefinierad; antar 1.4"
-
-#~ msgid "Vaticana_ligature:delta-pitch -> ignoring join"
-#~ msgstr "Vaticana_ligature:delta_pitch -> ignorerar join"
-
-#~ msgid "First argument must be a procedure taking one argument"
-#~ msgstr "Första argumentet måste vara en procedur som tar 1 argument"
-
-#~ msgid "Expecting musical-pitch value"
-#~ msgstr "Väntade notvärde"
-
-#~ msgid "Must have duration object"
-#~ msgstr "Måste ha längdobjekt"
 
 #~ msgid "Generate .dvi with LaTeX for LilyPond"
 #~ msgstr "Generera .dvi med LaTeX för LilyPond"
@@ -3044,8 +2367,14 @@ msgstr "LaTeX misslyckades."
 #~ msgid "fetch and build URL [%s]"
 #~ msgstr "hämta och bygg URL [%s]"
 
+#~ msgid "Listing `%s'..."
+#~ msgstr "Listar \"%s\"..."
+
 #~ msgid "latest is: %s"
 #~ msgstr "senaste är: %s"
+
+#~ msgid "relax, %s is up to date"
+#~ msgstr "lugn, %s är senaste versionen"
 
 #~ msgid "Fetching `%s'..."
 #~ msgstr "Hämtar \"%s\"..."
@@ -3057,11 +2386,17 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "EOF i en sträng"
 
 # det handlar om mmap här
-#~ msgid "cannot map file"
+#~ msgid "can't map file"
 #~ msgstr "kan inte göra \"mmap\" på filen"
 
 #~ msgid "<stdin>"
 #~ msgstr "<stdin>"
+
+#~ msgid "programming error: "
+#~ msgstr "programmeringsfel: "
+
+#~ msgid "can't find start of beam"
+#~ msgstr "kan inte hitta start på balk"
 
 #~ msgid "weird beam vertical offset"
 #~ msgstr "underligt vertikalt avstånd för balk"
@@ -3106,6 +2441,9 @@ msgstr "LaTeX misslyckades."
 #~ msgid "ly_music_name (): Not a music expression"
 #~ msgstr "ly_music_name (): Inte ett musikuttryck"
 
+#~ msgid "writing header field `%s' to `%s'..."
+#~ msgstr "skriver rubrikfält \"%s\" till \"%s\"..."
+
 #~ msgid "Pitch arguments out of range"
 #~ msgstr "Tonargument utanför intervallet"
 
@@ -3122,6 +2460,9 @@ msgstr "LaTeX misslyckades."
 #~ msgid "too many notes for rest collision"
 #~ msgstr "för många toner för pauskrock"
 
+#~ msgid "Scheme options:"
+#~ msgstr "Scheme-alternativ:"
+
 #~ msgid "Putting slur over rest.  Ignoring."
 #~ msgstr "Sätter båge över paus. Ignorerar."
 
@@ -3131,12 +2472,8 @@ msgstr "LaTeX misslyckades."
 #~ msgid "Text_spanner too small"
 #~ msgstr "Textbryggare för liten"
 
-#~ msgid ""
-#~ "Cannot find property type-check for `%s'.  Perhaps you made a typing "
-#~ "error? Doing assignment anyway."
-#~ msgstr ""
-#~ "Kan inte hitta egenskapstypkontroll för \"%s\". Kanske har du gjort ett "
-#~ "typfel? Gör tilldelning i alla fall."
+#~ msgid "Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway."
+#~ msgstr "Kan inte hitta egenskapstypkontroll för \"%s\". Kanske har du gjort ett typfel? Gör tilldelning i alla fall."
 
 #~ msgid "ly-get-trans-property: expecting a Translator_group argument"
 #~ msgstr "ly-get-trans-property: väntade ett Translator_group-argument"
@@ -3144,7 +2481,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "Expecting %d arguments"
 #~ msgstr "Väntade %d argument"
 
-#~ msgid "Cannot specify direction for this request"
+#~ msgid "Can't specify direction for this request"
 #~ msgstr "Kan inte ange riktning för denna förfrågan"
 
 #~ msgid "Oldest supported input version: %s"
@@ -3153,8 +2490,20 @@ msgstr "LaTeX misslyckades."
 #~ msgid "#32 in quarter: %d"
 #~ msgstr "#32 i fjärdedel: %d"
 
+#~ msgid "LY output to `%s'..."
+#~ msgstr "LY-utdata till \"%s\"..."
+
 #~ msgid "track %d:"
 #~ msgstr "spår %d:"
+
+#~ msgid "Processing..."
+#~ msgstr "Behandlar..."
+
+#~ msgid "Creating voices..."
+#~ msgstr "Skapar stämmor..."
+
+#~ msgid "track "
+#~ msgstr "spår "
 
 #~ msgid "NOT Filtering tempo..."
 #~ msgstr "Filtrerar INTE tempo..."
@@ -3194,7 +2543,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "enable debugging output"
 #~ msgstr "slå på felsökningsutdata"
 
-#~ msgid "do not output tuplets, double dots or rests, smallest is 32"
+#~ msgid "don't output tuplets, double dots or rests, smallest is 32"
 #~ msgstr "mata inte ut tupler, dubbelpunkteringar eller pauser, minsta är 32"
 
 #~ msgid "set FILE as default output"
@@ -3203,14 +2552,17 @@ msgstr "LaTeX misslyckades."
 #~ msgid "be quiet"
 #~ msgstr "var tyst"
 
-#~ msgid "do not output rests or skips"
+#~ msgid "don't output rests or skips"
 #~ msgstr "mata inte ut pauser eller hopp"
 
 #~ msgid "set smallest duration"
 #~ msgstr "ställ in minsta längd"
 
-#~ msgid "do not timestamp the output"
+#~ msgid "don't timestamp the output"
 #~ msgstr "tidsstämpla inte utdata"
+
+#~ msgid "be verbose"
+#~ msgstr "var utförlig"
 
 #~ msgid "assume no double dotted notes"
 #~ msgstr "anta inga dubbelpunkterade noter"
@@ -3251,7 +2603,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "invalid number of tracks"
 #~ msgstr "ogiltigt antal spår"
 
-#~ msgid "cannot handle non-metrical time"
+#~ msgid "can't handle non-metrical time"
 #~ msgstr "kan inte hantera icke-metrisk tid"
 
 #~ msgid "Junking note-end event: channel = %d, pitch = %d"
