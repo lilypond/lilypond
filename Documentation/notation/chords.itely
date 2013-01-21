@@ -1162,31 +1162,3 @@ the bass line.
   }
 >>
 @end lilypond
-
-When using extender lines, adjacent figures with the same number in
-a different figure location can cause the figure positions to invert.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    \bassFigureExtendersOn
-    <6 5>4 <5\! 4> < 5 _!> <6>
-  }
->>
-@end lilypond
-
-To avoid this problem, simply turn on extenders after the figure that
-begins the extender line and turn them off at the end of the extender line.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    <6 5>4 <5 4>
-    \bassFigureExtendersOn
-    < 5 _!>4 <6>
-    \bassFigureExtendersOff
-  }
->>
-@end lilypond
