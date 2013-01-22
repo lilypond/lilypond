@@ -51,14 +51,6 @@
      ((ly:grob? cause) (event-cause cause))
      (else #f))))
 
-(define-public (non-event-cause grob)
-  (let ((cause (ly:grob-property  grob 'cause)))
-
-    (cond
-     ((ly:stream-event? cause) (non-event-cause cause))
-     ((ly:grob? cause) cause)
-     (else #f))))
-
 (define-public (grob-interpret-markup grob text)
   (let* ((layout (ly:grob-layout grob))
 	 (defs (ly:output-def-lookup layout 'text-font-defaults))
