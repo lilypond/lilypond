@@ -170,7 +170,6 @@ Music Glossary:
 * Pre-defined contexts::
 * Ligatures::
 * Custodes::
-* Figured bass support::
 @end menu
 
 
@@ -345,21 +344,6 @@ Snippets:
 Internals Reference:
 @rinternals{Custos}.
 
-
-@node Figured bass support
-@unnumberedsubsubsec Figured bass support
-
-There is limited support for figured bass notation from the
-Baroque period; see @ref{Figured bass}.
-
-@seealso
-Music Glossary:
-@rglos{figured bass}.
-
-Notation Reference:
-@ref{Figured bass}.
-
-
 @node Typesetting mensural music
 @subsection Typesetting mensural music
 
@@ -422,8 +406,8 @@ The following table shows all mensural clefs that are supported via
 the @code{\clef} command.  Some of the clefs use the same glyph,
 but differ only with respect to the line they are printed on.  In
 such cases, a trailing number in the name is used to enumerate
-these clefs, numbered from the lowest to the highest line.  Still,
-you can manually force a clef glyph to be typeset on an arbitrary
+these clefs, numbered from the lowest to the highest line.
+You can manually force a clef glyph to be typeset on an arbitrary
 line, as described in @ref{Clef}.  The note printed to the right
 side of each clef in the example column denotes the @code{c'} with
 respect to that clef.
@@ -443,12 +427,13 @@ beams, depending on which staff line it is printed.
 mensural C clef
 @tab
 @code{mensural-c1}, @code{mensural-c2},@*
-@code{mensural-c3}, @code{mensural-c4}
+@code{mensural-c3}, @code{mensural-c4},@*
+@code{mensural-c5}
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -459,7 +444,7 @@ mensural F clef
 @lilypond[relative=1,notime]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -470,7 +455,20 @@ mensural G clef
 @lilypond[relative=1,notime]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
+@end lilypond
+
+@item
+black mensural C clef
+@tab
+@code{blackmensural-c1}, @code{blackmensural-c2},@*
+@code{blackmensural-c3}, @code{blackmensural-c4},@*
+@code{blackmensural-c5}
+@tab
+@lilypond[relative=1,notime]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'mensural
+  c1
 @end lilypond
 
 @item
@@ -480,7 +478,7 @@ neomensural C clef
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
 @lilypond[relative=1,notime]
-  \clef "neomensural-c2" c
+  \clef "neomensural-c2" c1
 @end lilypond
 
 @item
@@ -494,7 +492,7 @@ petrucci style C clefs, for use on different staff lines
 @lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -507,7 +505,7 @@ petrucci style F clefs, for use on different staff lines
 @lilypond[relative=1,notime]
   \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -518,7 +516,7 @@ petrucci style G clef
 @lilypond[relative=1,notime]
   \clef "petrucci-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 @end multitable
 

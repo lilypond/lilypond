@@ -1,14 +1,14 @@
 # Vietnamese translation for Lilypond.
-# Copyright © 2009 Free Software Foundation, Inc.
+# Copyright © 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
-# Clytie Siddall <clytie@riverland.net.au>, 2007-2009.
+# Clytie Siddall <clytie@riverland.net.au>, 2007-2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.12.0\n"
+"Project-Id-Version: lilypond 2.13.7\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2008-12-20 11:58+0100\n"
-"PO-Revision-Date: 2009-01-27 00:20+1030\n"
+"PO-Revision-Date: 2010-03-07 18:59+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1073,12 +1073,12 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2012 by\n"
+"Copyright (c) 2005--2009 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Tác quyền © năm 2005--2008 của\n"
+"Tác quyền © năm 2005--2009 của\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
