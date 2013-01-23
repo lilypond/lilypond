@@ -13,6 +13,7 @@ global _;_=ly._
 progress = ly.progress
 warning = ly.warning
 error = ly.error
+debug = ly.debug_output
 
 # Recognize special sequences in the input.
 #
@@ -186,9 +187,10 @@ def get_latex_textwidth (source, global_options):
     tmp_handle.close ()
 
     progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
-              % (global_options.latex_program, tmpfile));
-    cmd = '%s %s' % (global_options.latex_program, tmpfile);
-    ly.debug_output ("Executing: %s\n" % cmd);
+              % (global_options.latex_program, tmpfile))
+    cmd = 'TEXINPUTS=%s:$TEXINPUTS %s %s' \
+        % (global_options.input_dir, global_options.latex_program, tmpfile)
+    debug ("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
 

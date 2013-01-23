@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\input{include/def.tex}
+
+\begin{document}
+
+If the include file in the preamble is not available,
+the automatic line width detection would fail and the
+snippet below would have only one bar per line.
+
+\begin{lilypond}
+\relative c' {
+  a d a c e d a c
+  f g d e a d a c
+}
+\end{lilypond}
+
+Brought to you by \signature.
+
+\end{document}
