@@ -85,6 +85,7 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
   \consists "Cue_clef_engraver"
+  \consists "Fingering_column_engraver"
 
   localKeySignature = #'()
   createSpacing = ##t
@@ -259,7 +260,6 @@ multiple voices on the same staff."
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
-  \consists "Fingering_column_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Note_spacing_engraver"
   \consists "Spanner_break_forbid_engraver"
