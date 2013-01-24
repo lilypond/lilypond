@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: 8c414087ca083dbc3cf789c2cf6f85c23b2f56cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3592,19 +3592,19 @@ durée de la note qui précède, vous déclencheriez une erreur du type
 petites notes.  Par exemple,
 
 @example
-\acciaccatura @{ c'8[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
 deviendrait :
 
 @example
-\acciaccatura @{ c'16[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
 ou bien modifier explicitement l'échelle des durées :
 
 @example
-\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
+c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Voir @ref{Changement d'échelle des durées}.

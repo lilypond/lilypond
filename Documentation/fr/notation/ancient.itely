@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 11ed968a1245413a224674d833c32b9765a5b28f
+    Translation of GIT committish: 8c414087ca083dbc3cf789c2cf6f85c23b2f56cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -179,7 +179,6 @@ Glossaire musicologique :
 * Contextes prédéfinis::
 * Ligatures::
 * Guidons::
-* Prise en charge de la basse figurée::
 @end menu
 
 
@@ -357,22 +356,6 @@ Morceaux choisis :
 @rlsrnamed{Ancient notation, Musiques anciennes}.
 
 
-@node Prise en charge de la basse figurée
-@unnumberedsubsubsec Prise en charge de la basse figurée
-@translationof Figured bass support
-
-LilyPond gère partiellement la représentation de basses chiffrées,
-typiques de l'époque baroque, mais également employées de nos jours en
-harmonie et en analyse -- voir la rubrique @ref{Basse chiffrée}.
-
-@seealso
-Glossaire musicologique :
-@rglosnamed{figured bass,Basse figurée}.
-
-Manuel de notation :
-@ref{Basse chiffrée}.
-
-
 @node Typographie de musique ancienne
 @subsection Typographie de musique ancienne
 @translationof Typesetting mensural music
@@ -443,9 +426,9 @@ Le tableau suivant présente les différentes clés anciennes que vous
 pouvez sélectionner avec la commande @code{\clef}.  Certaines de ces
 clés utilisent le même glyphe, attaché à l'une ou l'autre des lignes
 de la portée.  Le chiffre porté en suffixe permet alors de les
-différencier.  Vous pouvez néanmoins forcer le positionnement du
-glyphe sur une ligne, comme expliqué à la section @ref{Clefs}.  Dans la
-colonne exemple, la note suivant la clé est un do médium.
+différencier.  Vous pouvez forcer le positionnement du glyphe sur une
+ligne, comme expliqué à la section @ref{Clefs}.  Dans la colonne
+exemple, la note suivant la clé est un do médium. 
 
 Les clés d'ut de Petrucci avaient une hampe gauche différente selon
 leur ligne de rattachement.
@@ -462,12 +445,13 @@ leur ligne de rattachement.
 Clef d'ut, style mensural historique
 @tab
 @code{mensural-c1}, @code{mensural-c2},@*
-@code{mensural-c3}, @code{mensural-c4}
+@code{mensural-c3}, @code{mensural-c4},@*
+@code{mensural-c5}
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -478,7 +462,7 @@ Clef de fa, style mensural historique
 @lilypond[relative=1,notime]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -489,7 +473,20 @@ Clef de sol, style mensural historique
 @lilypond[relative=1,notime]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
+@end lilypond
+
+@item
+Clef d'ut, style mensural noirci
+@tab
+@code{blackmensural-c1}, @code{blackmensural-c2},@*
+@code{blackmensural-c3}, @code{blackmensural-c4},@*
+@code{blackmensural-c5}
+@tab
+@lilypond[relative=1,notime]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'mensural
+  c1
 @end lilypond
 
 @item
@@ -499,7 +496,7 @@ Clef d'ut, style mensural moderne
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
 @lilypond[relative=1,notime]
-  \clef "neomensural-c2" c
+  \clef "neomensural-c2" c1
 @end lilypond
 
 @item
@@ -513,7 +510,7 @@ lignes (clef d'ut seconde pour l'exemple)
 @lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -526,7 +523,7 @@ lignes (clef de fa troisième pour l'exemple)
 @lilypond[relative=1,notime]
   \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -537,7 +534,7 @@ Clef de sol, style mensural Petrucci
 @lilypond[relative=1,notime]
   \clef "petrucci-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 @end multitable
 
