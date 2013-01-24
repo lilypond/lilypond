@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: fc775edde841898c6be91326bd7319047843ef41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1204,35 +1204,6 @@ en la línea del bajo.
     % The extenders are incorrect here, even though the timing is the same
     <6 4->4 <6 4->4
     <5>8. r16 <6>8 <6\! 5->
-  }
->>
-@end lilypond
-
-Si se usan líneas extensoras, las cifras adyacentes con el mismo
-número en distinta colocación puede hacer que se inviertan las
-posiciones de las cifras.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    \bassFigureExtendersOn
-    <6 5>4 <5\! 4> < 5 _!> <6>
-  }
->>
-@end lilypond
-
-Para evitar este problema, sencillamente habilite los extensores
-después de la cifra y quítelos al final de la línea extensora.
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    <6 5>4 <5 4>
-    \bassFigureExtendersOn
-    < 5 _!>4 <6>
-    \bassFigureExtendersOff
   }
 >>
 @end lilypond

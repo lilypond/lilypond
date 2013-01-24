@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 4c4c59acd68533e6ce152a13707027443f387897
+    Translation of GIT committish: 00efa880d2b7632c88864f7bf2e6f46cc225867e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -178,7 +178,6 @@ Glosario musical:
 * Contextos predefinidos::
 * Ligaduras::
 * Custos::
-* Soporte para bajo cifrado::
 @end menu
 
 
@@ -353,22 +352,6 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
-
-@node Soporte para bajo cifrado
-@unnumberedsubsubsec Soporte para bajo cifrado
-@translationof Figured bass support
-
-Está contemplada de forma limitada la notación de bajo cifrado
-barroco: véase @ref{Bajo cifrado}.
-
-@seealso
-Glosario musical:
-@rglos{figured bass}.
-
-Referencia de la notación:
-@ref{Bajo cifrado}.
-
-
 @node Tipografiar música mensural
 @subsection Tipografiar música mensural
 @translationof Typesetting mensural music
@@ -436,7 +419,7 @@ contempladas a través de la instrucción @code{\clef}.  Algunas de las
 claves usan el mismo glifo, pero se diferencian sólo en la línea en
 que se imprimen.  En tales casos, se usa un número añadido al nombre
 para enumerar dichas claves, numerado desde la línea inferior hasta la
-superior.  Aún así, puede forzar manualmente que se escriba un glifo
+superior.  Puede forzar manualmente que se escriba un glifo
 de clave sobre una línea arbitraria, como se encuentra descrito en
 @ref{Clave}.  La nota impresa a la derecha de cada clave en la columna
 de los ejemplos denota la situación del Do central (@code{c'}) con
@@ -458,7 +441,8 @@ pauta en que se imprimían.
 clave de Do, mensural
 @tab
 @code{mensural-c1}, @code{mensural-c2},@*
-@code{mensural-c3}, @code{mensural-c4}
+@code{mensural-c3}, @code{mensural-c4},@*
+@code{mensural-c5}
 @tab
 @lilypond[relative=1,notime]
   \clef "mensural-c2"
@@ -474,7 +458,7 @@ clave de Fa, mensural
 @lilypond[relative=1,notime]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -485,7 +469,20 @@ clave de Sol, mensural
 @lilypond[relative=1,notime]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
+@end lilypond
+
+@item
+clave de Do, mensural negra
+@tab
+@code{blackmensural-c1}, @code{blackmensural-c2},@*
+@code{blackmensural-c3}, @code{blackmensural-c4},@*
+@code{blackmensural-c5}
+@tab
+@lilypond[relative=1,notime]
+  \clef "blackmensural-c2"
+  \override NoteHead.style = #'mensural
+  c1
 @end lilypond
 
 @item
@@ -495,7 +492,7 @@ clave de Do, neomensural
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
 @lilypond[relative=1,notime]
-  \clef "neomensural-c2" c
+  \clef "neomensural-c2" c1
 @end lilypond
 
 @item
@@ -509,7 +506,7 @@ de la pauta (el ejemplo muestra la clave de Do en segunda)
 @lilypond[relative=1,notime]
   \clef "petrucci-c2"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -523,7 +520,7 @@ distintas líneas de la pauta
 @lilypond[relative=1,notime]
   \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 
 @item
@@ -534,7 +531,7 @@ clave de Sol en el estilo de Petrucci
 @lilypond[relative=1,notime]
   \clef "petrucci-g"
   \override NoteHead.style = #'mensural
-  c
+  c1
 @end lilypond
 @end multitable
 

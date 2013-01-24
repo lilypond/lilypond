@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a46782b6db53f55c0ce494f5ca001e187b81e4e1
+    Translation of GIT committish: 7404fd9d0d16a12b5f065268f5a6196024496aca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3618,19 +3618,19 @@ primer lugar, puede hacer más corta la duración de las notas de
 adorno, por ejemplo:
 
 @example
-\acciaccatura @{ c'8[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
 se convierte en:
 
 @example
-\acciaccatura @{ c'16[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
 Otra opción es cambiar explícitamente la duración musical:
 
 @example
-\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
+c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Véase @ref{Escalar las duraciones}.
