@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
+    Translation of GIT committish: 8328cbc8d443bf66309e7d321f2ae636d59a25b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -527,7 +527,7 @@ propias líneas adicionales.
 También puede hacerse que las líneas adicionales aparezcan dentro del
 pentagrama allí donde se requieren líneas de pauta personalizadas.  El
 ejemplo muestra la posición predeterminada de las líneas adicionales
-cuando el valor de posición explícito @code{legder-position} se ha
+cuando el valor de posición explícito @code{ledger-position} se ha
 fijado o no.  La instrucción @code{stopStaff} se necesita en el
 ejemplo para revertir la instrucción de sobreescritura
 @code{\override} para todo el @code{StaffSymbol} (el símbolo de
