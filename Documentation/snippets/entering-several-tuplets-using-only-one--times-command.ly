@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms, syntax-and-expressions"
@@ -29,6 +29,6 @@ information about @code{ly:make-moment}.
 
 \relative c' {
   \time 2/4
-  \set tupletSpannerDuration = #(ly:make-moment 1 4)
-  \times 2/3 { c8 c c c c c }
+  \tupletSpan 4
+  \tuplet 3/2 { c8 c c c c c }
 }

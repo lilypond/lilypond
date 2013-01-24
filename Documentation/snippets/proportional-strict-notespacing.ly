@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides"
@@ -27,7 +27,7 @@ the note that occurs at the same time. This may cause collisions.
     c2 \grace { c16[ c16] } c2
   }
   \new Staff {
-    c2 \times 2/3 { c8 \clef bass cis,, c } c4
+    c2 \tuplet 3/2 { c8 \clef bass cis,, c } c4
     c1
   }
 >>

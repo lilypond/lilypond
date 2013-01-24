@@ -7,7 +7,7 @@ large on smaller staves."
 
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \layout {
   ragged-right = ##t
@@ -15,7 +15,7 @@ large on smaller staves."
 
 melody = \relative c''' {
   \override DynamicText.extra-offset = #'(0 . 3)
-  s1-\f c8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
+  s1-\f c8[(\< r a g]) e[ r d( <f a>])\! \tuplet 3/2 { d4 d d }
 }
 
 <<

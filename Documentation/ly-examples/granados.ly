@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,8 +33,8 @@ global = {
 upperVoiceOne = \relative c'' {
   \voiceOne
   \override TupletBracket.transparent = ##t
-  <aes f'>8\([ \times 4/5{g'32( aes g f g]) }
-    <es aes>8[ \times 4/5{<d bes'>32( c' bes aes bes]) }
+  <aes f'>8\([ \tuplet 5/4{g'32( aes g f g]) }
+    <es aes>8[ \tuplet 5/4{<d bes'>32( c' bes aes bes]) }
     <es, aes es'>8 <d fis b d>\) | % end m. 1
   %--------------------------------------------------%
   <c g' c>4\( \voiceTwo <bes es bes'\arpeggio>\)
@@ -42,11 +42,11 @@ upperVoiceOne = \relative c'' {
   %--------------------------------------------------%
   \noBreak
   \voiceOne
-  <f aes d f>8\([ \times 4/5{<g g'>32( aes' g f g]) }
+  <f aes d f>8\([ \tuplet 5/4{<g g'>32( aes' g f g]) }
   \set subdivideBeams = ##t
   \set baseMoment = #(ly:make-moment 1 8)
   \set beatStructure = #'(2 2 2)
-  <aes, aes'>16 <c f> \times 4/5{ bes'32( c bes aes bes]) }
+  <aes, aes'>16 <c f> \tuplet 5/4{ bes'32( c bes aes bes]) }
   \set subdivideBeams = ##f
   \ottava #1 <es es'>16 <f f'> <d d'> \appoggiatura f8 <es es'>16\)
 }

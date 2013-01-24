@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -553,10 +553,10 @@ fracción.  Los tresillos hacen que las notas ocupen 2/3 de su duración
 expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Notas de adorno
@@ -1332,7 +1332,7 @@ para acortar el código si una sección musical se repite muchas veces.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-tresilloA = \times 2/3 { c,8 e g }
+tresilloA = \tuplet 3/2 { c,8 e g }
 compasA = { \tresilloA \tresilloA \tresilloA \tresilloA }
 
 \relative c'' {

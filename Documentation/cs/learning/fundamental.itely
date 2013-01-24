@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 @c Translators: Pavel Fric
 
 @node Základní pojmy
@@ -619,10 +619,10 @@ oblouček, který začíná u trioly (řádky 3 a 4).
 
 @lilypond[quote,verbatim,ragged-right]
 {
-r16[ g \times 2/3 { r16 e'8] }
-g16( a \times 2/3 { b16 d) e' }
-g8[( a \times 2/3 { b8 d') e'~] } |
-\times 4/5 { e'32\( a b d' e' } a'4.\)
+r16[ g \tuplet 3/2 { r16 e'8] }
+g16( a \tuplet 3/2 { b16 d) e' }
+g8[( a \tuplet 3/2 { b8 d') e'~] } |
+\tuplet 5/4 { e'32\( a b d' e' } a'4.\)
 }
 @end lilypond
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms"
@@ -22,9 +22,9 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
 \new Staff {
    \set tupletFullLength = ##t
    \time 1/8
-   \times 2/3 { c'16 c'16 c'16 }
-   \times 2/3 { c'16 c'16 c'16 }
-   \times 2/3 { c'16 c'16 c'16 }
+   \tuplet 3/2 { c'16 c'16 c'16 }
+   \tuplet 3/2 { c'16 c'16 c'16 }
+   \tuplet 3/2 { c'16 c'16 c'16 }
    \override Score.RehearsalMark.break-visibility = ##(#t #t #t)
    \override Score.RehearsalMark.direction = #DOWN
    \override Score.RehearsalMark.self-alignment-X = #RIGHT
@@ -40,9 +40,9 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
   \override TupletBracket.full-length-to-extent = ##f
 
   \time 1/8
-  \times 2/3 { c'16 c'16 c'16 }
-  \times 2/3 { c'16 c'16 c'16 }
-  \times 2/3 { c'16 c'16 c'16 }
+  \tuplet 3/2 { c'16 c'16 c'16 }
+  \tuplet 3/2 { c'16 c'16 c'16 }
+  \tuplet 3/2 { c'16 c'16 c'16 }
   \override Score.RehearsalMark.break-visibility = ##(#t #t #t)
   \override Score.RehearsalMark.direction = #DOWN
   \override Score.RehearsalMark.self-alignment-X = #RIGHT

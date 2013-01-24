@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Duraciones
 @section Duraciones
@@ -214,8 +214,8 @@ que 3 notas tienen el valor de 2, por tanto las notas duran 2/3 de su
 valor escrito:
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex grupos de valoración especial, colocación del corchete
@@ -234,7 +234,7 @@ Los grupos pueden anidarse unos dentro de otros:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 La modificación de los grupos especiales anidados que comienzan en el
@@ -1687,7 +1687,7 @@ de barrado automático.
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "
@@ -15,6 +15,6 @@ Completion heads may be used with tuplets (and compressed music) too.
 }
 
 \context Staff \relative c'' {
-  \set tupletSpannerDuration = #(ly:make-moment 1 1)
-  \times 2/3 { g1 g g }
+  \tupletSpan 1
+  \tuplet 3/2 { g1 g g }
 }

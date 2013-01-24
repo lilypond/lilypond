@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 
 @c Translators: Yoshiki Sawada
@@ -1398,7 +1398,7 @@ c4 c c c |
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -3023,14 +3023,14 @@ c16[ c c8]
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3153,7 +3153,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3183,7 +3183,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3234,7 +3234,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3252,7 +3252,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3270,7 +3270,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3303,12 +3303,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3329,12 +3329,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3361,12 +3361,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }

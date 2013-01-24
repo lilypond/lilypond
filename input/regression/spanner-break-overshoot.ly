@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   texidoc = "The @code{break-overshoot} property sets the amount that
@@ -14,5 +14,5 @@ prefatory matter."
   \override TupletBracket.break-overshoot = #'(1.0 . 2.0)
   \override TupletBracket.bracket-visibility = ##t
   \override Beam.breakable = ##t
-  c2.. \times 2/3 { c8.[ \break c8.] }
+  c2.. \tuplet 3/2 { c8.[ \break c8.] }
 }

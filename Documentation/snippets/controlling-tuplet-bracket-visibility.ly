@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -23,9 +23,9 @@ bracket), @code{#f} (never print a bracket) or @code{#'if-no-beam}
 
 
 music = \relative c'' {
-  \times 2/3 { c16[ d e } f8]
-  \times 2/3 { c8 d e }
-  \times 2/3 { c4 d e }
+  \tuplet 3/2 { c16[ d e } f8]
+  \tuplet 3/2 { c8 d e }
+  \tuplet 3/2 { c4 d e }
 }
 
 \new Voice {

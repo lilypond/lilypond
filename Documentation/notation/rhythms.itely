@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Rhythms
 @section Rhythms
@@ -204,8 +204,8 @@ tuplet is the triplet in which 3 notes have the duration of 2, so
 the notes are 2/3 of their written length.
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex tuplet bracket placement
@@ -224,7 +224,7 @@ Tuplets may be nested:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 Modifying nested tuplets which begin at the same musical moment
@@ -1636,7 +1636,7 @@ affect the autobeaming rules.
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>

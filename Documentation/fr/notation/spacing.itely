@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -1505,7 +1505,7 @@ forcés doivent être saisis au sein d'une expression polyphonique :
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -3117,14 +3117,14 @@ s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3252,7 +3252,7 @@ classique et justifiée à gauche.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3281,7 +3281,7 @@ définissant la propriété @code{proportionalNotationDuration}.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3332,7 +3332,7 @@ une durée de référence élevée produira une musique resserrée.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3350,7 +3350,7 @@ une durée de référence élevée produira une musique resserrée.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3368,7 +3368,7 @@ une durée de référence élevée produira une musique resserrée.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3402,12 +3402,12 @@ ajoutons lui une portée incluant un autre type de nolet.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3428,12 +3428,12 @@ les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3459,12 +3459,12 @@ allons activer le @code{uniform-stretching}, propriété attachée au
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }

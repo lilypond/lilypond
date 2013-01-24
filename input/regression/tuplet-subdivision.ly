@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
 
@@ -12,6 +12,6 @@ Subdivision works properly for tuplets
   \set baseMoment = #(ly:make-moment 1 8)
   \set beatStructure = #'(2 2 2 2)
   \repeat unfold 8 {
-    \times 2/3 { c16 e d }
+    \tuplet 3/2 { c16 e d }
   }
 }

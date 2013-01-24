@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, really-cool, rhythms"
@@ -79,12 +79,12 @@ Bassklarinette = \new Staff \with {
     \bar "|"
     \time 2/4
     \tupletUp
-    \times 2/3 { ees''4 r4 d''4 ~ }
+    \tuplet 3/2 { ees''4 r4 d''4 ~ }
 
     \bar "|"
     \time 3/8
     \tupletUp
-    \times 3/4 { d''4 r4 }
+    \tuplet 4/3 { d''4 r4 }
 
     \bar "|"
     \time 2/4

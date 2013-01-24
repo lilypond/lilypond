@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header{ texidoc = "As default, tablature staves show only the fret numbers, because
                     in most situations, they are combined with normal staves.
@@ -18,7 +18,7 @@ tabstuff = {
   \ottava #1
   r4 d'4 r8 e |
   \ottava #0
-  \times 3/4 { b,4 c \glissando d\5 \glissando c } |
+  \tuplet 4/3 { b,4 c \glissando d\5 \glissando c } |
   c4. d-_( |
   e\varcoda-> )
   \override TextSpanner.bound-details.left.text = "rit." f\startTextSpan |

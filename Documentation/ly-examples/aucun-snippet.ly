@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 \include "example-header.ily"
 
 \paper {
@@ -187,9 +187,9 @@ triplumNotes = \relative c' {
   f8 f4 e8 d c f f f | % 1
 	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter
-	e8 c4 \scaleDurations 3/2 {	\times 4/5{e16[ d e d e]} } e8 f4 | % 2
+	e8 c4 \scaleDurations 3/2 {	\tuplet 5/4{e16[ d e d e]} } e8 f4 | % 2
   g2. ~ g4. | % 3
-	f8 d4 f4. \scaleDurations 3/2 { \times 4/6{ g16[ f e f e f]}} % 4
+	f8 d4 f4. \scaleDurations 3/2 { \tuplet 6/4{ g16[ f e f e f]}} % 4
 	g8 g4 g4. e4. | % 5
 	fis8 d4 e8\startGroup g4\stopGroup f8[ e d] | % 6
 	c2. r4. | % 7

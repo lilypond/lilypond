@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "Tuplet number position is correct when slurs and scripts
@@ -10,5 +10,5 @@ are present.
 {
   R1 |
   \break
-  \times 2/3 { e8(-> e e) }
+  \tuplet 3/2 { e8(-> e e) }
 }

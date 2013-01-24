@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 \header {
 
   texidoc = "Tuplet numbers' outside staff priority can be
@@ -8,9 +8,9 @@ set."
 
 \relative c'' {
   \override TupletBracket.avoid-scripts = ##f
-  \times 2/3 { a8\trill a\trill a\trill }
+  \tuplet 3/2 { a8\trill a\trill a\trill }
   \override TupletNumber.outside-staff-priority = #1
-  \times 2/3 { a8\trill a\trill a\trill }
+  \tuplet 3/2 { a8\trill a\trill a\trill }
   \override Script.outside-staff-priority = #2
-  \times 2/3 { a8\trill a\trill a\trill }
+  \tuplet 3/2 { a8\trill a\trill a\trill }
 }

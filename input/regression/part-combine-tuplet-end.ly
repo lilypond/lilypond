@@ -5,14 +5,14 @@ even after a switch, a tuplet ends correctly."
   
 }
 
-\version "2.16.0"
+\version "2.17.11"
 
 \new Staff <<
   \partcombine
   \relative c'' {
     r2
-    \times 2/3 { g8[ g g] }
-    \times 2/3 { g[ g g] } g1
+    \tuplet 3/2 { g8[ g g] }
+    \tuplet 3/2 { g[ g g] } g1
   }
   \relative c'' { R1 g1 }
 >>

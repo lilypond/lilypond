@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -178,9 +178,9 @@ stderr of this run."
 \test ##[ { \change Staff = "up" { c d } } #]		% ContextChange
 
 %% Tuplets
-\test ##[ \times 2/3 { c8 d e } #]				% TimeScaledMusic
-\test ##[ \times 4/6 { c16 d e f g a } #]
-\test ##[ \times 2/3 { c d e \times 2/5 { f e d2 d4 } c } #]
+\test ##[ \tuplet 3/2 { c8 d e } #]				% TimeScaledMusic
+\test ##[ \tuplet 6/4 { c16 d e f g a } #]
+\test ##[ \tuplet 3/2 { c d e \tuplet 5/2 { f e d2 d4 } c } #]
 %}
 %% \relative and \tranpose
 \test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic

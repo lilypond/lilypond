@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @ignore
 GDP TODO list
@@ -1393,7 +1393,7 @@ with the music:
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -2921,14 +2921,14 @@ property can only be changed at the beginning of a score,
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3042,7 +3042,7 @@ spacing with ragged-right turned on.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3071,7 +3071,7 @@ setting.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3119,7 +3119,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3137,7 +3137,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3155,7 +3155,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3187,12 +3187,12 @@ tuplet.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3211,12 +3211,12 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3242,12 +3242,12 @@ turn on @code{uniform-stretching}, which is a property of
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }

@@ -8,7 +8,7 @@
 
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \paper {
   ragged-right = ##t  
@@ -23,7 +23,7 @@
 					  (markup #:fontsize 6
 					     #:arrow-head X LEFT #f)
 					  (markup #:arrow-head X RIGHT #f))
-  \times 11/19 {
+  \tuplet 19/11 {
     c4 c4 c4 c4
     \bar "-" \break
     c4 c4 c4 c4

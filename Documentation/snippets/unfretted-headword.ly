@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "headword"
@@ -163,16 +163,16 @@ ViolinSolo = \relative c' {
   \time 4/4
   \stemUp
   \tupletDown
-  \times 2/3 { d4 ^\markup \colmark { \quatre \db \accel } d d }
-  \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d }
+  \tuplet 3/2 { d4 ^\markup \colmark { \quatre \db \accel } d d }
+  \tuplet 3/2 { d4 ^\markup \colmark { " " \db " " \sulp } d d }
 
 
 
   %% Measure 5
   \time 5/4
-  \tupletbp \times 2/3 { d8 \mf \< ^\markup \colmark { \quatre \db \norm } d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db \sulp } d _\open d }
-  \tupletbp \times 2/3 { d16 ^\markup \colmark { " " \db \norm } d _\open d d d _\open d }
+  \tupletbp \tuplet 3/2 { d8 \mf \< ^\markup \colmark { \quatre \db \norm } d _\open d }
+  \tupletbp \tuplet 3/2 { d8 ^\markup \colmark { " " \db \sulp } d _\open d }
+  \tupletbp \tuplet 3/2 { d16 ^\markup \colmark { " " \db \norm } d _\open d d d _\open d }
   d2 \ff ^\markup \colmark { " " \pvib } \>
 
 
@@ -187,11 +187,11 @@ ViolinSolo = \relative c' {
 
   %% Measure 7
   \time 7/4
-  \tupletbp \times 2/3 { d16 ^\markup \colmark { \quatre } d _\open d d d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db } d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db " " \sulp } d _\open d }
-  \times 2/3 { d4 ^\markup \colmark { \quatre \db \ritar \norm } d d }
-  \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d \ppp ~ }
+  \tupletbp \tuplet 3/2 { d16 ^\markup \colmark { \quatre } d _\open d d d _\open d }
+  \tupletbp \tuplet 3/2 { d8 ^\markup \colmark { " " \db } d _\open d }
+  \tupletbp \tuplet 3/2 { d8 ^\markup \colmark { " " \db " " \sulp } d _\open d }
+  \tuplet 3/2 { d4 ^\markup \colmark { \quatre \db \ritar \norm } d d }
+  \tuplet 3/2 { d4 ^\markup \colmark { " " \db " " \sulp } d d \ppp ~ }
 
 
   %% Measure 8

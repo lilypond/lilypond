@@ -5,7 +5,7 @@
 start of the next non-tuplet note.  "
 
 }
-\version "2.17.6"
+\version "2.17.11"
 
 \paper { ragged-right = ##t
 indent = 0.0 }
@@ -17,12 +17,12 @@ indent = 0.0 }
 {
   \set tupletFullLength = ##t
   c4
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c \bar "-" \break c] }
-  << \times 2/3 { c8[ c c]  }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c \bar "-" \break c] }
+  << \tuplet 3/2 { c8[ c c]  }
      { s4*5/6 \bar "-" \break } >>
   c4
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
   
   \bar "|." \key c\minor
 }

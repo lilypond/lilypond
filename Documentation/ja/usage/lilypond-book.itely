@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @c Translators: Yoshiki Sawada
 
@@ -95,7 +95,7 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 
 \begin{lilypond}
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -157,7 +157,7 @@ Texinfo で処理されるため、上記の例とはレイアウトが少し異
 
 @lilypond
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 

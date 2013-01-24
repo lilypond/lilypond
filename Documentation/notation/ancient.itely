@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 
 @node Ancient notation
@@ -2779,9 +2779,9 @@ adjustments are necessary, this can be easily done with
 spiritus = \relative c' {
   \time 1/4
   \override Lyrics.LyricText.X-extent  = #'(0 . 3)
-  d4 \times 2/3 { f8 a g } g a a4 g f8 e
+  d4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
   d4 f8 g g8 d f g a g f4 g8 a a4  s
-  \times 2/3 { g8 f d } e f g a g4
+  \tuplet 3/2 { g8 f d } e f g a g4
 }
 
 spirLyr = \lyricmode {

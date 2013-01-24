@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \paper {
   ragged-right = ##t
@@ -17,12 +17,12 @@ even across multiple staves."
 }
 
 voice = {
-  \times 2/3 { b8 \change Staff=I c' d' }
-  \times 2/3 { d' c' \change Staff=II b }
-  \times 2/3 { \change Staff=III c,
+  \tuplet 3/2 { b8 \change Staff=I c' d' }
+  \tuplet 3/2 { d' c' \change Staff=II b }
+  \tuplet 3/2 { \change Staff=III c,
                \change Staff=II b
                \change Staff=I c' }
-  \times 2/3 { c'[ \change Staff=II b] c }
+  \tuplet 3/2 { c'[ \change Staff=II b] c }
 }
 
 \score {

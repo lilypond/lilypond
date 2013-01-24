@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @node Elemi kottaírás
 @chapter Elemi kottaírás
@@ -452,10 +452,10 @@ a @notation{triolák} lejegyzett hosszúságuk 2/3 részéig szólnak, így trio
 2/3 kell, hogy legyen a tört értéke.
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Előkék
@@ -1151,7 +1151,7 @@ változóra.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-triolaA = \times 2/3 { c,8 e g }
+triolaA = \tuplet 3/2 { c,8 e g }
 ütemA = { \triolaA \triolaA \triolaA \triolaA }
 
 \relative c'' {

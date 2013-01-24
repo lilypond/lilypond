@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
 
@@ -9,7 +9,7 @@
 }
 
 foo = \relative c' {
-  \times 2/3 { c4 c c } \times 2/3 { c4 c c }
+  \tuplet 3/2 { c4 c c } \tuplet 3/2 { c4 c c }
 }
 
 \addQuote "foo" { \foo }

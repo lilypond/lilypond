@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "really-simple, rhythms"
@@ -30,11 +30,11 @@ modify what material they cover.
   % ...to cover all items up to the next note
   \set tupletFullLengthNote = ##t
   \time 2/4
-  \times 2/3 { c4 c c }
+  \tuplet 3/2 { c4 c c }
   % ...or to cover just whitespace
   \set tupletFullLengthNote = ##f
   \time 4/4
-  \times 4/5 { c4 c1 }
+  \tuplet 5/4 { c4 c1 }
   \time 3/4
   c2.
 }

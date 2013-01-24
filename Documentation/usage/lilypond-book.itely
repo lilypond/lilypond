@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -86,7 +86,7 @@ For example,
 
 \begin{lilypond}
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -145,7 +145,7 @@ For example,
 
 @lilypond
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 

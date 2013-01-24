@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms"
@@ -21,10 +21,10 @@ be printed, or the tuplet number may be suppressed altogether.
 
 
 \relative c'' {
-  \times 2/3 { c8 c c }
-  \times 2/3 { c8 c c }
+  \tuplet 3/2 { c8 c c }
+  \tuplet 3/2 { c8 c c }
   \override TupletNumber.text = #tuplet-number::calc-fraction-text
-  \times 2/3 { c8 c c }
+  \tuplet 3/2 { c8 c c }
   \override TupletNumber.stencil = ##f
-  \times 2/3 { c8 c c }
+  \tuplet 3/2 { c8 c c }
 }
