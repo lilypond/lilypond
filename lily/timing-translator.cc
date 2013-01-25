@@ -22,6 +22,7 @@
 #include "warn.hh"
 #include "translator-group.hh"
 #include "global-context.hh"
+#include "moment.hh"
 
 void
 Timing_translator::stop_translation_timestep ()
@@ -66,16 +67,80 @@ Timing_translator::initialize ()
   context ()->set_property ("currentBarNumber", barnumber);
   context ()->set_property ("internalBarNumber", barnumber);
 
-  context ()->set_property ("timeSignatureFraction",
-                            timing->get_property ("timeSignatureFraction"));
+  SCM timeSignatureFraction = timing->get_property ("timeSignatureFraction");
+
+  if (!scm_is_pair (timeSignatureFraction))
+    {
+      programming_error ("missing timeSignatureFraction");
+      timeSignatureFraction = scm_cons (scm_from_int (4), scm_from_int (4));
+    }
+  context ()->set_property ("timeSignatureFraction", timeSignatureFraction);
+
+  SCM measureLength = timing->get_property ("measureLength");
+
+  if (!unsmob_moment (measureLength))
+    {
+      measureLength =
+        Moment (ly_scm2rational
+                (scm_divide (scm_car (timeSignatureFraction),
+                             scm_cdr (timeSignatureFraction)))).smobbed_copy ();
+    }
+  context ()->set_property ("measureLength", measureLength);
+
   /*
     Do not init measurePosition; this should be done from global
     context.
   */
-  context ()->set_property ("measureLength",
-                            timing->get_property ("measureLength"));
-  context ()->set_property ("baseMoment",
-                            timing->get_property ("baseMoment"));
+
+  SCM timeSignatureSettings = timing->get_property ("timeSignatureSettings");
+  if (!scm_is_pair (timeSignatureSettings))
+    {
+      programming_error ("missing timeSignatureSettings");
+      // A memoized constant is not the prettiest thing as a fallback
+      // since it does not track changes of the variable.  However,
+      // this is still better than nothing, and we already complained
+      // via a programming_error
+      timeSignatureSettings = ly_lily_module_constant ("default-time-signature-settings");
+    }
+  context ()->set_property ("timeSignatureSettings", timeSignatureSettings);
+
+  SCM beamExceptions = timing->get_property ("beamExceptions");
+  if (!scm_is_pair (beamExceptions))
+    {
+      beamExceptions =
+        scm_call_2 (ly_lily_module_constant ("beam-exceptions"),
+                    timeSignatureFraction,
+                    timeSignatureSettings);
+    }
+  context ()->set_property ("beamExceptions", beamExceptions);
+
+  SCM baseMoment = timing->get_property ("baseMoment");
+  if (!unsmob_moment (baseMoment))
+    {
+      baseMoment =
+        Moment (ly_scm2rational
+                (scm_call_2 (ly_lily_module_constant ("base-length"),
+                             timeSignatureFraction,
+                             timeSignatureSettings))).smobbed_copy ();
+    }
+  context ()->set_property ("baseMoment", baseMoment);
+
+  SCM beatStructure = timing->get_property ("beatStructure");
+  if (!scm_is_pair (beatStructure))
+    {
+      beatStructure =
+        scm_call_3 (ly_lily_module_constant ("beat-structure"),
+                    ly_rational2scm (unsmob_moment (baseMoment)->main_part_),
+                    timeSignatureFraction,
+                    timeSignatureSettings);
+    }
+  context ()->set_property ("beatStructure", beatStructure);
+
+  context ()->set_property ("beamHalfMeasure",
+                            timing->get_property ("beamHalfMeasure"));
+
+  context ()->set_property ("autoBeaming",
+                            timing->get_property ("autoBeaming"));
 }
 
 Rational
