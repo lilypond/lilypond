@@ -1012,8 +1012,8 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
   @tab @code{\markup @{ \italic "cresc." @}}
 @item Moment
   @tab make-moment 関数で構築される全音符の分数
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Number
   @tab 正または負の小数
   @tab @code{3.5}, @w{@code{-2.45}}

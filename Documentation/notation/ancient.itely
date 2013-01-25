@@ -635,7 +635,7 @@ example, the ratio of 1@tie{}breve = 3@tie{}semibreves
 (@emph{tempus perfectum}) can be made by hand, by setting
 
 @example
-breveTP = #(ly:make-duration -1 0 3 2)
+breveTP = #(ly:make-duration -1 0 3/2)
 @dots{}
 @{ c\breveTP f1 @}
 @end example

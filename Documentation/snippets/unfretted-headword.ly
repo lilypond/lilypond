@@ -178,7 +178,7 @@ ViolinSolo = \relative c' {
 
   %% Measure 6
   \time 5/8
-  \once \override Beam.grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2 3)
+  \once \override Beam.grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2/3)
   { d16 \staccato
     [ d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato]
   }

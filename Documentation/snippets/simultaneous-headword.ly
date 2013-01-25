@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "headword"
@@ -29,7 +29,7 @@ Simultaneous notes
   \context {
     \Score
     \override SpacingSpanner.base-shortest-duration =
-    #(ly:make-moment 1 18)
+    #(ly:make-moment 1/18)
     \override NonMusicalPaperColumn.line-break-system-details =
     #'((alignment-distances . (12)))
   }

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -58,7 +58,7 @@ this snippet.
     \context {
       \Staff
       \consists "Grid_point_engraver"
-      gridInterval = #(ly:make-moment 1 8)
+      gridInterval = #(ly:make-moment 1/8)
       % set line length and positioning:
       % two staff spaces above center line on hidden staff
       % to four spaces below center line on visible staff

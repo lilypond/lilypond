@@ -1402,7 +1402,7 @@ So @code{\partial 8} becomes:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1434,7 +1434,7 @@ occur, so use @code{\set Timing.measurePosition} instead.
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -2080,7 +2080,7 @@ a8^"default" a a a a a a a
 % Disable beamExceptions because they are definitely
 % defined for 4/4 time
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"changed" a a a a a a a
 @end lilypond
@@ -2137,7 +2137,7 @@ compatible with the new value of @code{baseMoment}.
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
 % No need to disable beamExceptions as they are not defined for 5/8 time
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2228,7 +2228,7 @@ if @code{beamExceptions} is not reset.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
 \repeat unfold 8 {c8} |
@@ -2364,7 +2364,7 @@ in only one staff.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \repeat unfold 6 { a8 }
   }
@@ -2535,10 +2535,10 @@ the last four 32nd notes are at a constant tempo.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % revert to non-feathered beams
 \override Beam.grow-direction = #'()
@@ -3634,11 +3634,11 @@ The next bar line then falls at 9/8 rather than 5/4.
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

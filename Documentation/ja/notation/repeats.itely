@@ -236,11 +236,11 @@ g1 |
 \alternative {
   {
     f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3 4)
+    \set Timing.measureLength = #(ly:make-moment 3/4)
     g4 g g  % optional bar check is allowed here
   }
   {
-    \set Timing.measureLength = #(ly:make-moment 4 4)
+    \set Timing.measureLength = #(ly:make-moment 4/4)
     a2 a |
   }
 }

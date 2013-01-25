@@ -1048,8 +1048,8 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 @item Moment
   @tab Ein Bruch einer ganzen Note, mit der make-moment-Funktion
   konstruiert
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Zahl
   @tab Eine beliebige positive oder negative Dezimalzahl
   @tab @code{3.5}, @code{-2.45}

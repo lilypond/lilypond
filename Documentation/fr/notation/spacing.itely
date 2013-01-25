@@ -1740,7 +1740,7 @@ la manière suivante :
   a4 b c d |
   R1 | % une tourne peut se placer ici
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
   R1 | % il ne peut pas y avoir de tourne ici
   a4 b r2 |
   R1*2 | % une tourne peut se placer ici
@@ -3098,7 +3098,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3289,7 +3289,7 @@ définissant la propriété @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3316,8 +3316,8 @@ prend deux arguments : un numérateur et un dénominateur qui
 représentent une fraction de ronde.  L'appel de
 @w{@code{(ly:make-moment 1 20)}} produit donc une durée de référence
 égale à un vingtième de ronde.  Vous pourriez tout aussi bien  utiliser
-@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)} ou
-@code{(ly:make-moment 3 97)}.
+@code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)} ou
+@code{(ly:make-moment 3/97)}.
 
 Se pose alors le problème de fournir la juste durée de référence à
 @code{proportionalNotationDuration}.  Il faut en l'occurrence procéder par
@@ -3340,7 +3340,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 8)
+      proportionalNotationDuration = #(ly:make-moment 1/8)
     }
   }
 }
@@ -3358,7 +3358,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 16)
+      proportionalNotationDuration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3376,7 +3376,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 32)
+      proportionalNotationDuration = #(ly:make-moment 1/32)
     }
   }
 }
@@ -3441,7 +3441,7 @@ les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3472,7 +3472,7 @@ allons activer le @code{uniform-stretching}, propriété attachée au
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3566,7 +3566,7 @@ les deux portées suivantes :
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   c''8
   c''8
   c''8
@@ -3576,7 +3576,7 @@ les deux portées suivantes :
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
@@ -3801,7 +3801,7 @@ valeur plus longue -- donnera un effet @qq{resserré} à la musique :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
     }
   }
 }

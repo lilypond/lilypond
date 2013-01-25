@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 #(define (filter-instrument instrument-name tuning-alist)
    (filter (lambda (entry)
@@ -16,7 +16,7 @@
 				   'text (symbol->string tuning-symbol))
 		       (map (lambda (pitch)
 			      (make-music 'NoteEvent
-					  'duration (ly:make-duration 0 0 1 1)
+					  'duration (ly:make-duration 0 0 1/1)
 					  'pitch pitch))
 			    pitches)))))
 

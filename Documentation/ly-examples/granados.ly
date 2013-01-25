@@ -44,7 +44,7 @@ upperVoiceOne = \relative c'' {
   \voiceOne
   <f aes d f>8\([ \tuplet 5/4{<g g'>32( aes' g f g]) }
   \set subdivideBeams = ##t
-  \set baseMoment = #(ly:make-moment 1 8)
+  \set baseMoment = #(ly:make-moment 1/8)
   \set beatStructure = #'(2 2 2)
   <aes, aes'>16 <c f> \tuplet 5/4{ bes'32( c bes aes bes]) }
   \set subdivideBeams = ##f
@@ -89,7 +89,7 @@ lowerVoiceOne = \relative c, {
   bes8 \csm \stemDown <bes'' c es>8 s2
   \csl \stemUp
   \set subdivideBeams = ##t
-  \set baseMoment = #(ly:make-moment 1 16)
+  \set baseMoment = #(ly:make-moment 1/16)
   \set beatStructure = #'(4 4 4)
   s8 \hideNotes \slurUp \stemDown
     es,,64( bes'' s64 \unHideNotes \stemUp g64[ bes c d c]) s2

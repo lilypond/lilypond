@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
 
@@ -19,7 +19,7 @@ informations from top- and booklevel stack correctly."
           (let* ((scmpitch (ly:make-pitch 0 pitch 0))
                  (music (make-music 'EventChord
                           'elements (list (make-music 'NoteEvent
-                                            'duration (ly:make-duration 2 0 1 1)
+                                            'duration (ly:make-duration 2 0 1/1)
                                             'pitch scmpitch))))
                  (score (scorify-music music parser))
                  (layout (ly:output-def-clone $defaultlayout))

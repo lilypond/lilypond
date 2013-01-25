@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.17.6"
+\version "2.17.11"
 
 skips =
 {
@@ -39,7 +39,7 @@ skips =
   \context {
     \RhythmicStaff
     \consists "Grid_point_engraver"
-    gridInterval = #(ly:make-moment 1 8)
+    gridInterval = #(ly:make-moment 1/8)
     \override BarLine.bar-extent = #'(-0.025 . 0.025)
   }
   \context {

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "headword"
@@ -27,7 +27,7 @@ Rhythms headword
   \context {
     \Score
     \override SpacingSpanner.base-shortest-duration =
-      #(ly:make-moment 1 40)
+      #(ly:make-moment 1/40)
       %\override SpacingSpanner.strict-grace-spacing = ##t
   }
 }

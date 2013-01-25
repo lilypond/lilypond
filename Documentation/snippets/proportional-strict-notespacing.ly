@@ -21,7 +21,7 @@ the note that occurs at the same time. This may cause collisions.
 
 \relative c'' <<
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \new Staff {
     c8[ c \clef alto c c \grace { d16 } c8 c] c4
     c2 \grace { c16[ c16] } c2

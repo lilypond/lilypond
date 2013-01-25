@@ -89,7 +89,7 @@
 %  * Add Mordents (reported by Patrick Karl)
 %
 
-\version "2.16.0"
+\version "2.17.11"
 
 #(use-modules (srfi srfi-1))
 #(use-modules (srfi srfi-11))
@@ -115,12 +115,12 @@
 
 % How much to slow down for a rall. or a poco rall.
 % (or speed up for accel or poco accel)
-#(define ac:rallFactor (ly:make-moment 60 100)) % 40% slowdown
-#(define ac:pocoRallFactor (ly:make-moment 90 100)) % 10% slowdown
+#(define ac:rallFactor (ly:make-moment 60/100)) % 40% slowdown
+#(define ac:pocoRallFactor (ly:make-moment 90/100)) % 10% slowdown
 
 % The absolute time for a twiddle in a trill, in minutes.
 % Start with 1/4 seconds == 1/240 minutes
-#(define ac:maxTwiddleTime (ly:make-moment 1 240))
+#(define ac:maxTwiddleTime (ly:make-moment 1/240))
 
 % How long ordinary grace notes should be relative to their notated
 % duration.  9/40 is LilyPond's built-in behaviour for MIDI output
@@ -160,12 +160,12 @@
                 (cons 6 0))))
 
 
-#(define ac:currentTempo (ly:make-moment 15 1)) % 4 = 60, measured wholes per minute
+#(define ac:currentTempo (ly:make-moment 15/1)) % 4 = 60, measured wholes per minute
 #(define ac:lastTempo ac:currentTempo) % for 'a tempo' or 'tempo I'
 
 % The duration of the current note.  Start at a crotchet
 % for no good reason.
-#(define ac:currentDuration (ly:make-duration 2 0 1 1))
+#(define ac:currentDuration (ly:make-duration 2 0 1/1))
 
 % Amount of musical time (in whole notes) that we need to steal from the
 % next events seen.
@@ -352,7 +352,7 @@
     pre-t
     (let loop ((len (ly:music-length music)))
      (if (ly:moment<? t len)
-      (loop (ly:moment-mul len (ly:make-moment 1 2)))
+      (loop (ly:moment-mul len (ly:make-moment 1/2)))
       len)))))
 
 
@@ -362,11 +362,11 @@
 #(define (ac:trill music)
   " Replace music with time-compressed repeats of the music,
     maybe accelerating if the length is longer than a crotchet "
-  (let* ((hemisemidur (ly:make-duration 5 0 1 1))
+  (let* ((hemisemidur (ly:make-duration 5 0 1/1))
 	 (orig-len  (ly:music-length music))
 	 (t (ac:twiddletime music))
 	 (uppernote '())
-	 (note_moment (ly:moment-mul t (ly:make-moment 1 2)))
+	 (note_moment (ly:moment-mul t (ly:make-moment 1/2)))
 	 (c1 (ly:moment-div orig-len note_moment))
 	 (c2 (inexact->exact
 	      (round (/ (ly:moment-main-numerator c1)
@@ -411,7 +411,7 @@
 	  'metronome-count
 	  tempo
 	  'tempo-unit
-	  (ly:make-duration 0 0 1 1))
+	  (ly:make-duration 0 0 1/1))
     (context-spec-music
     (make-property-set 'tempoWholesPerMinute  tempo) 'Score))))
 
@@ -688,12 +688,12 @@
 	; We implement as a half-shake.
 	(let*
 	 ((totallength (ly:music-length music))
-	  (newlen (ly:moment-sub totallength (ly:make-moment 3 32)))
+	  (newlen (ly:moment-sub totallength (ly:make-moment 3/32)))
 	  (newdur (ly:make-duration
 		   0 0
 		   (ly:moment-main-numerator newlen)
 		   (ly:moment-main-denominator newlen)))
-	  (gracedur (ly:make-duration 5 0 1 1))
+	  (gracedur (ly:make-duration 5 0 1/1))
 	  (gracenote (ly:music-deep-copy music))
 	  (abovenote (ly:music-deep-copy music))
 	  (mainnote (ly:music-deep-copy music))
@@ -726,7 +726,7 @@
 	 ((totaldur (ly:music-property
 		(car (ly:music-property music 'elements)) 'duration))
 	  (dur (ly:duration-length totaldur))
-	  (newlen (ly:moment-sub dur (ly:make-moment 2 32)))
+	  (newlen (ly:moment-sub dur (ly:make-moment 2/32)))
 	  (newdur (ly:make-duration
 		0 0
 		   (ly:moment-main-numerator newlen)
@@ -740,7 +740,7 @@
 	  (music-map (lambda (n)
 	   (if (eq? 'NoteEvent (ly:music-property n 'name))
 	    (set! (ly:music-property n 'duration)
-	     (ly:make-duration 5 0 1 1)))
+	     (ly:make-duration 5 0 1/1)))
 		      n)
 	   mordent)
 	  (music-map (lambda (n)
@@ -906,10 +906,10 @@ appoggiatura =
 	 (main-orig-len (ly:music-length main))
 	 (numerator (ly:moment-main-numerator maindur))
 	 (factor (if (eq? (remainder numerator 3) 0)
-		  (ly:make-moment 1 3) (ly:make-moment 1 2))))
+		  (ly:make-moment 1/3) (ly:make-moment 1/2))))
    (ly:music-compress grace
     (ly:moment-mul factor (ly:moment-div main-orig-len grace-orig-len)))
-   (ly:music-compress main (ly:moment-sub (ly:make-moment 1 1) factor))
+   (ly:music-compress main (ly:moment-sub (ly:make-moment 1/1) factor))
 
     (set! (ly:music-property grace 'elements)
      (append (ly:music-property grace 'elements)

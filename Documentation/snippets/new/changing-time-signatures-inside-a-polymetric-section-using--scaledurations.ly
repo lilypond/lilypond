@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "workaround, contexts-and-engravers, contemporary-notation, rhythms"
@@ -24,10 +24,10 @@
   \new Staff {
     \scaleDurations 8/5 {
       \time 6/8
-      \set Timing.measureLength = #(ly:make-moment 6 5)
+      \set Timing.measureLength = #(ly:make-moment 6/5)
       b8 b b b b b
       \time 2/4
-      \set Timing.measureLength = #(ly:make-moment 4 5)
+      \set Timing.measureLength = #(ly:make-moment 4/5)
       b4 b
     }
   }

@@ -1439,7 +1439,7 @@ De fait, @code{\partial 8} équivaut à :
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1473,7 +1473,7 @@ s'afficher, voire des problèmes inopinés surgir.  Utilisez plutôt
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -2136,12 +2136,12 @@ tout moment, avant de déterminer les ligatures par @code{beatStructure}.
 \time 4/4
 a8^"default" a a a a a a a
 
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"no change" a a a a a a a
 
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"changed" a a a a a a a
 @end lilypond
@@ -2197,7 +2197,7 @@ valeur de @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2300,7 +2300,7 @@ de cette dérogation.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
 \repeat unfold 8 {c8} |
@@ -2439,7 +2439,7 @@ métrique que dans une seule portée.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a8 }
@@ -2612,10 +2612,10 @@ quatre dernières gardent un tempo régulier.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % revert to non-feathered beams
 \override Beam.grow-direction = #'()
@@ -3714,11 +3714,11 @@ La barre de mesure suivante tombera donc à 9/8 et non à 5/8.
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

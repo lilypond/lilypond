@@ -12,7 +12,7 @@ to the distance for the given duration."
 
 \relative c''
 <<
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \new Staff { c8[ c c c c c]  c4 c2 r2 }
   \new Staff { c2  \tuplet 3/2 { c8 c c } c4 c1 }
 >>

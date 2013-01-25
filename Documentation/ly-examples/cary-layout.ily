@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.17.11"
 
 \layout {
   indent = #0
@@ -7,7 +7,7 @@
   \context {
     \Score
 
-    proportionalNotationDuration = #(ly:make-moment 1 64)
+    proportionalNotationDuration = #(ly:make-moment 1/64)
     \override Beam.breakable = ##t
     autoBeaming = ##f
     tupletFullLength = ##t

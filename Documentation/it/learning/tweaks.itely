@@ -942,8 +942,8 @@ preceduto da un apostrofo
 @item Moment
   @tab Una frazione di una nota intera costruita con la
 funzione make-moment
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Number
   @tab Qualsiasi valore decimale positivo o negativo
   @tab @code{3.5}, @w{@code{-2.45}}

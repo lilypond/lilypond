@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Scheme tutorial
 @chapter Scheme tutorial
@@ -1127,7 +1127,7 @@ will display
                   'text
                   "f"))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 0 0))))
 @end example
@@ -1162,7 +1162,7 @@ A bit of reformatting makes the above information easier to read:
 			       (make-music 'AbsoluteDynamicEvent
 				 'text
 				 "f"))
-	       'duration (ly:make-duration 2 0 1 1)
+	       'duration (ly:make-duration 2 0 1/1)
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
@@ -1194,7 +1194,7 @@ someNote = c'
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 0 0))
 @end example
@@ -1212,7 +1212,7 @@ someNote = <c'>
   (list (make-music
           'NoteEvent
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 0 0))))
 @end example
@@ -1230,7 +1230,7 @@ expression.
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 0 0))
 @end example
@@ -1281,7 +1281,7 @@ representation of the desired result.
                   'span-direction
                   -1))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 5 0))
         (make-music
@@ -1292,7 +1292,7 @@ representation of the desired result.
                   'span-direction
                   1))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 5 0))))
 @end example
@@ -1309,7 +1309,7 @@ Now we examine the input,
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 5 0))))
 @end example
@@ -1375,7 +1375,7 @@ Scheme.  We begin by examining our input and desired output,
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch -1 0 0))))
 =====
@@ -1390,7 +1390,7 @@ Scheme.  We begin by examining our input and desired output,
           'articulation-type
           "accent"))
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch -1 0 0))
 @end example
