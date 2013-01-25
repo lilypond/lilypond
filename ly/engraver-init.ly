@@ -621,16 +621,13 @@ automatically when an output definition (a @code{\\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
+%% Other Timing variables are derived and set by the Timing_translator
+%% at initialization time by calling the functions in
+%% scm/time-signature-settings.scm
+
   timeSignatureSettings = #default-time-signature-settings
   timeSignatureFraction = 4/4
 
-%% These defaults should be the same as the rules established in
-%%   scm/time-signature-settings.scm for 4/4 time
-  measureLength = #(ly:make-moment 4/4)
-  baseMoment = #(ly:make-moment 1/4)
-  beatStructure = #'(1 1 1 1)
-  beamExceptions = #'((end . (((1 . 8) . (4 4))
-                              ((1 . 12) . (3 3 3 3)))))
   beamHalfMeasure = ##t
 
   autoBeaming = ##t
