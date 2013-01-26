@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, really-cool, rhythms"
@@ -43,7 +43,7 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
     \remove "Bar_number_engraver"
     \override SpacingSpanner.uniform-stretching = ##t
     \override SpacingSpanner.strict-note-spacing = ##t
-    proportionalNotationDuration = #(ly:make-moment 1 64)
+    proportionalNotationDuration = #(ly:make-moment 1/64)
   }
   \context {
     \Staff
@@ -79,12 +79,12 @@ Bassklarinette = \new Staff \with {
     \bar "|"
     \time 2/4
     \tupletUp
-    \times 2/3 { ees''4 r4 d''4 ~ }
+    \tuplet 3/2 { ees''4 r4 d''4 ~ }
 
     \bar "|"
     \time 3/8
     \tupletUp
-    \times 3/4 { d''4 r4 }
+    \tuplet 4/3 { d''4 r4 }
 
     \bar "|"
     \time 2/4

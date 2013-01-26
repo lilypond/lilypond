@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 24f9636ac779b4c0de197f60bf4f922c16be5ec4
+   Translation of GIT committish: a81765842577dd2418fa41514f682d468a5ad483
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -40,7 +40,7 @@
 @itemize
 
 @item
-@ref{Entrée sous forme de texte}@tie{}:
+@ref{Entrée sous forme de texte} :
 LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
 vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord
 ceci@tie{}!
@@ -101,11 +101,11 @@ courts extraits, trucs, modèles et autres exemples.
 @itemize
 
 @item
-@ref{FAQ}@tie{}:
+@ref{FAQ} :
 la Foire Aux Questions.
 
 @item
-@ref{Web}@tie{}:
+@ref{Web} :
 ce document.
 @details{Web}
 
@@ -136,27 +136,42 @@ particulier pour élaborer des retouches.
 @itemize
 
 @item
-@ref{Tous}@tie{}:
+@ref{Tous} :
 liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
 @item
-@ref{Traductions}@tie{}:
+@ref{Traductions} :
 état des traductions pour les lecteurs non anglophones.
 
 @item
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}@tie{}:
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository} :
 user-created examples, hints and tips.
 
 @item
-@ref{Développement}@tie{}:
+@ref{Développement} :
 manuels pour la version de développement.
 
 @item
-@ref{FDL}@tie{}:
+@ref{FDL} :
 ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 
 @end itemize
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Format des manuels
+
+Les manuels de LilyPond sont disponibles sous différents formats :
+HTML multifichiers, fichier monolithique HTML ou PDF.@*
+Le HTML découpé en plusieurs fichiers est tout à fait adapté à une
+consultation en ligne.  Les formats HTML en fichier unique --
+certains ont une taille conséquente -- contiennent l'intégralité
+d'un manuel sur une seule page.  Les exemplaires PDF sont plutôt
+destinés au téléchargement pour consultation hors ligne.  Ces
+trois formats sont accessibles en suivant le lien @code{détail
+de@dots{}} de chacun des manuels.
 
 @divEnd
 
@@ -200,8 +215,8 @@ simple quelques concepts clés.  Il est conseillé de lire ces chapitres
 de manière linéaire.
 
 Dans ce manuel se trouve à chaque section un paragraphe @strong{Voir
-aussi} contenant des références vers d'autres sections@tie{}: il est
-conseillé de ne pas les suivre en première lecture@tie{}; lorsque vous
+aussi} contenant des références vers d'autres sections : il est
+conseillé de ne pas les suivre en première lecture ; lorsque vous
 aurez lu l'ensemble du manuel d'initiation, vous pourrez en relisant
 certaines sections suivre ces références pour approfondir certains
 aspects.
@@ -212,8 +227,8 @@ aspects.
 @docLinks{Initiation, learning,
   @rlearningnamed{Top,Initiation},
   @manualStableLearningSplit-fr,
-  @manualStableLearningBig-fr, 1.5 MB,
-  @manualStableLearningPdf-fr, 3 MB}
+  @manualStableLearningBig-fr, @w{3 MB},
+  @manualStableLearningPdf-fr, @w{5 MB}}
 
 @divEnd
 
@@ -238,8 +253,8 @@ documentation.
 @docLinks{Glossaire musical, music-glossary,
   @rglosnamed{Top,Glossaire musical},
   @manualStableGlossarySplit,
-  @manualStableGlossaryBig, 1 MB,
-  @manualStableGlossaryPdf, 1.5 MB}
+  @manualStableGlossaryBig, @w{1 MB},
+  @manualStableGlossaryPdf, @w{1,5 MB}}
 
 @divEnd
 
@@ -267,8 +282,8 @@ haute résolution.}
 @docLinks{Essai, essay,
   @ressaynamed{Top,Essai},
   @manualStableEssaySplit-fr,
-  @manualStableEssayBig-fr, 2 MB,
-  @manualStableEssayPdf-fr, 2.5 MB}
+  @manualStableEssayBig-fr, @w{1 MB},
+  @manualStableEssayPdf-fr, @w{2 MB}}
 
 @divEnd
 
@@ -296,8 +311,8 @@ glossaire.}
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit-fr,
-  @manualStableNotationBig-fr, 7 MB,
-  @manualStableNotationPdf-fr, 18 MB}
+  @manualStableNotationBig-fr, @w{9 MB},
+  @manualStableNotationPdf-fr, @w{35 MB}}
 
 @divEnd
 
@@ -310,8 +325,8 @@ glossaire.}
 @subheading Manuel d'utilisation des programmes
 
 Ce manuel explique l'exécution des programmes et l'intégration de
-partitions LilyPond dans d'autres programmes, et suggère des @qq{bonnes
-pratiques} pour une utilisation plus efficace.  Sa lecture est
+partitions LilyPond dans d'autres programmes, et suggère des « bonnes
+pratiques » pour une utilisation plus efficace.  Sa lecture est
 recommandée avant d'aborder de grands projets.
 
 @divEnd
@@ -321,8 +336,8 @@ recommandée avant d'aborder de grands projets.
 @docLinks{Utilisation des programmes, usage,
   @rprogramnamed{Top,Utilisation des programmes},
   @manualStableUsageSplit-fr,
-  @manualStableUsageBig-fr, 400 KB,
-  @manualStableUsagePdf-fr, 600 KB}
+  @manualStableUsageBig-fr, @w{400 KB},
+  @manualStableUsagePdf-fr, @w{650 KB}}
 
 @divEnd
 
@@ -343,7 +358,7 @@ Notez bien que cette annexe n'est en aucune manière un miroir ou même
 une partie du LSR.  Dans la mesure où le LSR repose sur une version
 stable de LilyPond, les exemples illustrant des fonctionnalités
 introduites dans la dernière version de développement ne peuvent y
-figurer@tie{}; c'est pourquoi vous les trouverez dans le répertoire
+figurer ; c'est pourquoi vous les trouverez dans le répertoire
 @file{Documentation/snippets/new/} des sources de LilyPond.
 
 La liste des exemples correspondant à chacun des sous-chapitres du
@@ -356,8 +371,8 @@ manuel de notation est accessible par des liens dans le paragraphe
 @docLinks{Morceaux choisis, snippets,
   @rlsrnamed{Top, Morceaux choisis},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig, @w{1,5 MB},
+  @manualStableSnippetsPdf, @w{12,5 MB}}
 
 @divEnd
 
@@ -369,22 +384,22 @@ manuel de notation est accessible par des liens dans le paragraphe
 @divClass{column-center-top}
 @subheading Foire aux questions
 
-@subsubheading Où sont la vue graphique, les menus et barres d'outils ?
+@subsubheading Où sont la vue graphique, les menus et barres d'outils ?
 
 LilyPond demande que la musique soit écrite comme du texte.  Lisez la
 partie à propos de l'@ref{Entrée sous forme de texte}.
 
 
-@subsubheading La documentation est si longue !  Dois-je vraiment la lire ?
+@subsubheading La documentation est si longue !  Dois-je vraiment la lire ?
 
 Vous devez lire le @ref{Initiation,manuel d'initiation}.  Pour le reste
 de la documentation, vous n'avez besoin de lire que ce qui est en
 rapport avec la notation musicale que vous voulez produire.
 
 
-@subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
+@subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
 
-C'est vous qui voyez@tie{}; les raisons pour lesquelles vous souhaitez
+C'est vous qui voyez ; les raisons pour lesquelles vous souhaitez
 utiliser LilyPond se trouvent peut-être dans l'@ref{Introduction}.
 
 @divEnd
@@ -392,12 +407,12 @@ utiliser LilyPond se trouvent peut-être dans l'@ref{Introduction}.
 @divClass{column-center-bottom}
 @subheading Questions d'utilisation
 
-@subsubheading Quelque chose ne fonctionne pas !  Comment je le répare ?
+@subsubheading Quelque chose ne fonctionne pas !  Comment je le répare ?
 
 C'est expliqué dans @rprogram{Résolution de problèmes}.
 
 
-@subsubheading Pourquoi changez-vous la syntaxe ?
+@subsubheading Pourquoi changez-vous la syntaxe ?
 
 C'est expliqué dans @rprogram{LilyPond est une langue vivante}.
 
@@ -433,8 +448,8 @@ rapports de bogues et le développement.
 @docLinks{Web, web,
   @ref{Top,Web},
   @manualStableWebSplit-fr,
-  @manualStableWebBig-fr, 1 MB,
-  @manualStableWebPdf-fr, 2 MB}
+  @manualStableWebBig-fr, @w{2,5 MB},
+  @manualStableWebPdf-fr, @w{3,5 MB}}
 
 @divEnd
 
@@ -456,8 +471,8 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 @docLinks{Nouveautés, changes,
   @rchcangesnamed{Top,Nouveautés},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig, @w{90 KB},
+  @manualStableChangesPdf, @w{80 KB}}
 
 @divEnd
 
@@ -469,8 +484,8 @@ nouvelles fonctionnalités de LilyPond depuis la dernière version stable.
 @divClass{column-left-top}
 @subheading Extension des fonctionnalités de LilyPond
 
-Ce manuel (non traduit à ce jour) vous donnera des pistes en matière de
-programmation avancée d’ajustements et retouches dans LilyPond.
+Ce manuel vous donnera des pistes en matière de programmation
+avancée d’ajustements et retouches dans LilyPond.
 
 @divEnd
 
@@ -479,8 +494,8 @@ programmation avancée d’ajustements et retouches dans LilyPond.
 @docLinks{Extension, extending,
   @rextendnamed{Top,Extension},
   @manualStableExtendingSplit-fr,
-  @manualStableExtendingBig-fr, 200 KB,
-  @manualStableExtendingPdf-fr, 400 KB}
+  @manualStableExtendingBig-fr, @w{300 KB},
+  @manualStableExtendingPdf-fr, @w{500 KB}}
 
 @divEnd
 
@@ -495,11 +510,12 @@ programmation avancée d’ajustements et retouches dans LilyPond.
 C'est un ensemble de pages étroitement liées entre elles, qui documente
 les moindres petits détails de chaque classe, objet et fonction de
 LilyPond.  Cette documentation est produite directement à partir des
-définitions de formatage du code source.
+définitions de formatage du code source.  Elle n'est à ce jour
+disponible qu'en anglais.
 
 Presque toutes les fonctions de formatage utilisées en interne sont
 directement disponibles pour l'utilisateur.  Par exemple, toutes les
-variables qui contrôlent les épaisseurs, les distances etc., peuvent
+variables qui contrôlent les épaisseurs, les distances, etc. peuvent
 être modifiées dans les fichiers d'entrée.  Il y a un grand nombre
 d'options de formatage, et elles sont toutes décrites dans ce document.
 Chaque section du manuel de notation a un paragraphe @b{Voir aussi}, qui
@@ -512,8 +528,8 @@ renvoie à la documentation générée automatiquement.
 @docLinks{Référence des propriétés internes, internals,
   @rinternalsnamed{Top,Référence des propriétés internes},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig, @w{3 MB},
+  @manualStableInternalsPdf, @w{4 MB}}
 
 @divEnd
 
@@ -560,6 +576,9 @@ l'adresse @uref{http://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+LilyPond 2.14 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 LilyPond 2.12 Documentation}

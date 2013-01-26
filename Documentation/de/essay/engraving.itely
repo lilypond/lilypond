@@ -9,7 +9,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Till Paala
 
@@ -1154,14 +1154,14 @@ Beispiel heranzieht:
     \new Voice = "I" \relative c''' {
       \time 3/4
       \voiceOne
-      \times 6/7 { g8 g g g g g g }
+      \tuplet 7/6 { g8 g g g g g g }
       \oneVoice
       r4 <b,, fis' g bes> r4\fermata
     }
     \new Voice = "II" \relative c' {
       \voiceTwo
       c4
-      \times 4/5 {
+      \tuplet 5/4 {
         <c ees>8 f g
         \change Staff = "LH" \oneVoice
         \stemUp g,( c}
@@ -1615,7 +1615,7 @@ nächste Beispiel zeigt einige etwas exotischere Konstruktionen:
         \set followVoice = ##t
         c'''32([ b''16 a''16 gis''16 g''32)]
       } \\ {
-        s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+        s4 \tuplet 3/2 { d'16[ f' g'] } as'32[ b''32 e'' d'']
       } \\ {
         s4 \autoBeamOff d''8.. f''32
       } \\ {

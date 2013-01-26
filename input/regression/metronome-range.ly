@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "
@@ -11,7 +11,7 @@ printed with an en-dash character, separated by thin-spaces.
   \tempo 4 = 66 ~ 72
   c1 | c
   $(make-event-chord (list (make-music 'TempoChangeEvent
-                                        'tempo-unit (ly:make-duration 2 0 1 1)
+                                        'tempo-unit (ly:make-duration 2 0 1/1)
                                         'metronome-count (cons 124 132))))
   c1 | c
 }

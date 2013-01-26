@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: dcddb2c1a9126b5987ab04b62c867c5f4524881d
+    Translation of GIT committish: 35d50e2609b995f7593a48c478b7993933b653d7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Instrumentos de cuerda con trastes
 @section Instrumentos de cuerda con trastes
@@ -385,9 +385,6 @@ ties = \relative c' {
 
 @cindex armónicos en tablatura
 @cindex tablatura y armónicos
-@cindex deslizamientos en notación de tablatura
-@cindex tablatura y deslizamientos
-@cindex glissandos de acordes
 @funindex \harmonic
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
@@ -472,8 +469,13 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {fretted-string-harmonics-in-tablature.ly}
 
+@cindex deslizamientos en notación de tablatura
+@cindex tablatura y deslizamientos
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {slides-in-tablature.ly}
+
+@cindex glissandos en acordes
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
@@ -1046,7 +1048,7 @@ bajo del diagrama de posición.
         (place-fret 1 3 3)
       )
     }
-    <c e g c' e'>1^\markup {
+    <c g c' e' g'>1^\markup {
       \fret-diagram-verbose #'(
         (capo 3)
         (mute 6)
@@ -1763,7 +1765,7 @@ music = \relative c' {
   < b\3 \deadNote d\2 b'\1 >
   < c\3 \deadNote e\2 c'\1 >
   \deadNotesOn
-  \times 2/3 { g8 b e }
+  \tuplet 3/2 { g8 b e }
   \deadNotesOff
   < a,\3 c\2 e\1 >1
 }

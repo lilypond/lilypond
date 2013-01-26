@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: d285959ee448ddd2ba74fb2b179f76d711e201a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -553,10 +553,10 @@ fracción.  Los tresillos hacen que las notas ocupen 2/3 de su duración
 expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Notas de adorno
@@ -1008,12 +1008,6 @@ cada sílaba mediante un espacio.
 >>
 @end lilypond
 
-@warning{Es
-esencial que la última sílaba esté separada de la llave de cierre por
-un silencio o línea en blanco, pues en caso contrario se tomará como
-parte de la sílaba, dando lugar a un extraño error, véase
-@rprogram{Apparent error in ../ly/init.ly}.}
-
 Observe los
 ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
 para expresar que la música y la letra han de suceder al mismo tiempo.
@@ -1338,7 +1332,7 @@ para acortar el código si una sección musical se repite muchas veces.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-tresilloA = \times 2/3 { c,8 e g }
+tresilloA = \tuplet 3/2 { c,8 e g }
 compasA = { \tresilloA \tresilloA \tresilloA \tresilloA }
 
 \relative c'' {

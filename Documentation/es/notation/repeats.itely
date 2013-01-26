@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 784e1e7a6b4b5c086a54267aa2d1e34e5aaa254c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @node Repeticiones
 @section Repeticiones
@@ -237,11 +237,11 @@ primero.
 \alternative {
   {
     f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3 4)
+    \set Timing.measureLength = #(ly:make-moment 3/4)
     g4 g g  % optional bar check is allowed here
   }
   {
-    \set Timing.measureLength = #(ly:make-moment 4 4)
+    \set Timing.measureLength = #(ly:make-moment 4/4)
     a2 a |
   }
 }
@@ -312,6 +312,7 @@ Glosario musical:
 Referencia de la notación:
 @ref{Barras de compás},
 @ref{Modificar los complementos (plug-ins) de contexto},
+@ref{Modificación de ligaduras de unión y de expresión},
 @ref{Gestión del tiempo}.
 
 Fragmentos de código:
@@ -332,14 +333,36 @@ Referencia de funcionamiento interno:
 @cindex números de compás y repeticiones
 @cindex tiempo, repeticiones y contador de
 @cindex compás, repeticiones y números de
-@cindex repetición y ligadura de expresión
+@cindex repeticiones y ligadura de expresión
 @cindex ligaduras de expresión y repeticiones
+@cindex glissandi y repeticiones
+@cindex repeticiones y glissandi
 
-Las ligaduras de expresión que abarcan desde un bloque @code{\repeat}
-hasta un bloque @code{\alternative} sólo funcionan para la casilla de
-primera vez.  Asimismo, no es posible hacer que las ligaduras de
-expresión se replieguen desde el final de una alternativa hasta el
-comienzo de la repetición.
+Las ligaduras de expresión que abarcan desde un bloque
+@code{\repeat} hasta un bloque @code{\alternative} sólo funcionan
+para la casilla de primera vez.  La apariencia visual de una
+ligadura de expresión que se continúa introduciéndose en otras
+casillas de repetición puede simularse con @code{\repeatTie} si la
+ligadura se extiende hasta una sola nota dentro de la casilla de
+repetición, aunque este método no funciona en @code{TabStaff}.
+Otros métodos que pueden venir bien para indicar ligaduras que se
+continúan por encima de varias notas en las casillas de
+repetición, y que también funcionan en contextos de tablatura
+@code{TabStaff}, están explicados en
+@ref{Modificación de ligaduras de unión y de expresión}.
+
+Asimismo, no es posible hacer que las ligaduras de expresión se
+replieguen desde el final de una alternativa hasta el comienzo de
+la repetición.
+
+Los glissandos que se extienden desde un bloque @code{\repeat}
+hasta un bloque @code{\alternative} solamente funcionan para la
+casilla de primera vez.  Se puede indicar la apariencia visual de
+un glissando que se continúa hasta el interior de otras casillas
+de repetición mediante la codificación de un glissando que empieza
+en una nota de adorno oculta.  Para ver un ejemplo, consulte
+@qq{Extender los glissandos sobre las repeticiones} bajo el
+epígrafe Fragmentos de código seleccionados, en @ref{Glissando}.
 
 Si una repetición que comienza con un compás incompleto tiene un
 bloque @code{\alternative} que contiene modificaciones a la propiedad
@@ -680,7 +703,7 @@ duraciones mezcladas utilizan un símbolo de porcentaje doble.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 4 { c8. <d f>16 }
-\repeat percent 2 { \times 2/3 { r8 c d } e4 }
+\repeat percent 2 { \tuplet 3/2 { r8 c d } e4 }
 @end lilypond
 
 @snippets

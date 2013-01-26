@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Die Ausgabe verändern
 @chapter Die Ausgabe verändern
@@ -488,11 +488,11 @@ gesetzt wird.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak direction #up
-\times 4/3 {
+\tuplet 3/4 {
   \tweak color #red
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -510,14 +510,14 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c] }
+\tuplet 3/2 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\times 2/3 {
+\tuplet 3/2 {
   c8[ c]
   c8[ c]
   \once \override TupletNumber.transparent = ##t
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -1070,8 +1070,8 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
 @item Moment
   @tab Ein Bruch einer ganzen Note, mit der make-moment-Funktion
   konstruiert
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Zahl
   @tab Eine beliebige positive oder negative Dezimalzahl
   @tab @code{3.5}, @w{@code{-2.45}}

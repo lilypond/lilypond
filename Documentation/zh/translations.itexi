@@ -16,22 +16,24 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Thu May 31 09:12:39 UTC 2012
+@emph{最近更新 Tue Jan 15 12:01:06 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-LilyPond -- 每一个人的五线谱
+LilyPond -- 人人的乐谱软件
 @tab 翻译者
-@tab 校对
+@tab 翻译校对
 @tab 已翻译
 @tab 最新
-@tab 其它信息
+@tab 其他信息
 @item
-段标题
+章节标题
 @*
 616
 @tab Ben Luo
+@*
+Anthony Fok
 @tab 
 @tab 
 @ifhtml
@@ -47,18 +49,20 @@ LilyPond -- 每一个人的五线谱
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">部分地</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分地
+是
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 LilyPond --- \TITLE\
 @*
 1139
 @tab Ben Luo
+@*
+Anthony Fok
 @tab 
 @tab 
 @ifhtml
@@ -74,18 +78,20 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 简介
 @*
-4753
-@tab 
+4883
+@tab Ben Luo
+@*
+Anthony Fok
 @tab 
 @tab 
 @ifhtml
@@ -98,12 +104,23 @@ LilyPond --- \TITLE\
 是
 @end ifnothtml
 @tab 
-@tab pre-GDP
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">不适用</span>
+@end html
+@end ifhtml
+@ifnothtml
+不适用
+@end ifnothtml
+@tab GDP 前
 @item
 下载
 @*
-1211
+1197
 @tab Ben Luo
+@*
+Anthony Fok
 @tab 
 @tab 
 @ifhtml
@@ -119,19 +136,19 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">部分地</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分地
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 手册
 @*
-1214
+1284
 @tab Ben Luo
-@tab 
+@tab Anthony Fok
 @tab 
 @ifhtml
 
@@ -146,30 +163,41 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">部分地</span>
+<span style="background-color: #47ff24">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分地
+部分
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 社区
 @*
-3006
-@tab 
+3054
+@tab Ben Luo
+@*
+Anthony Fok
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (96 %)</span>
+<span style="background-color: #dfef77">部分 (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (96 %)
+部分 (97 %)
 @end ifnothtml
 @tab 
-@tab pre-GDP
+@ifhtml
+
+@html
+<span style="background-color: #d587ff">不适用</span>
+@end html
+@end ifhtml
+@ifnothtml
+不适用
+@end ifnothtml
+@tab GDP 前
 @end multitable
 

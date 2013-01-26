@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 00e1520dc9f0b4dabe38da8895d147b07af843b8
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -727,7 +727,8 @@ expressions, tout comme le langage humain est structuré en mots et
 phrases.  LilyPond dispose d'un analyseur lexical (appelé @emph{lexer})
 qui sait identifier les jetons -- nombres, chaînes, éléments Scheme,
 hauteurs etc. -- ainsi que d'un analyseur syntaxique (appelé
-@emph{parser}) -- voir l'annexe @ruser{Grammaire de LilyPond}.  Dès lors
+@emph{parser}) -- voir 
+@rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Dès lors
 que le programme sait quelle règle grammaticale particulière doit
 s'appliquer, il exécute les consignes qui lui sont associées.
 
@@ -1257,7 +1258,7 @@ affichera
                   'text
                   "f"))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 0 0))))
 @end example
@@ -1292,7 +1293,7 @@ L'information sera encore plus lisible après un peu de mise en forme :
 			       (make-music 'AbsoluteDynamicEvent
 				 'text
 				 "f"))
-	       'duration (ly:make-duration 2 0 1 1)
+	       'duration (ly:make-duration 2 0 1/1)
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
@@ -1328,7 +1329,7 @@ someNote = c'
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 0 0))
 @end example
@@ -1347,7 +1348,7 @@ someNote = <c'>
   (list (make-music
           'NoteEvent
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 0 0))))
 @end example
@@ -1364,7 +1365,7 @@ pour afficher la représentation en Scheme d'une expression musicale :
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 0 0))
 @end example
@@ -1417,7 +1418,7 @@ comment le résultat est représenté en interne.
                   'span-direction
                   -1))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 5 0))
         (make-music
@@ -1428,7 +1429,7 @@ comment le résultat est représenté en interne.
                   'span-direction
                   1))
           'duration
-          (ly:make-duration 2 0 1 1)
+          (ly:make-duration 2 0 1/1)
           'pitch
           (ly:make-pitch 0 5 0))))
 @end example
@@ -1445,7 +1446,7 @@ Examinons à présent la saisie :
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch 0 5 0))))
 @end example
@@ -1479,8 +1480,7 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @translationof Adding articulation to notes (example)
 
 Le moyen d'ajouter une articulation à des notes consiste à fusionner
-deux expressions musicales en un même contexte, comme nous l'avons vu à
-la rubrique @ruser{Création d'un contexte}.  L'option de réaliser
+deux expressions musicales en un même contexte.  L'option de réaliser
 nous-mêmes une fonction musicale à cette fin nous offre l'avantage de
 pouvoir alors ajouter une articulation, telle qu'une instruction de
 doigté, individuellement à l'une des notes d'un accord, ce qui est
@@ -1514,7 +1514,7 @@ le résultat auquel nous désirons aboutir :
 (make-music
   'NoteEvent
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch -1 0 0))))
 =====
@@ -1529,7 +1529,7 @@ le résultat auquel nous désirons aboutir :
           'articulation-type
           "accent"))
   'duration
-  (ly:make-duration 2 0 1 1)
+  (ly:make-duration 2 0 1/1)
   'pitch
   (ly:make-pitch -1 0 0))
 @end example

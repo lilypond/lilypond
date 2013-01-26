@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, stylesheet, version-specific"
@@ -148,7 +148,7 @@ part = \relative c' {
   r4
 
   \tupletOff
-  \times 4/5 {
+  \tuplet 5/4 {
     <a e' a cis e>16^\xUp
     \headsOff
     <a e' a cis e>^\aUp
@@ -161,7 +161,7 @@ part = \relative c' {
   r4
 
   \tupletsOff
-  \times 2/3 {
+  \tuplet 3/2 {
     <a e' a cis e>8^\pDown
     \headsOff
     <a e' a cis e>^\xUp
@@ -169,7 +169,7 @@ part = \relative c' {
     \headsOn
   }
 
-  \times 2/3 {
+  \tuplet 3/2 {
     <a e' a cis e>8^\pDown
     \headsOff
     <a e' a cis e>^\xUp
@@ -177,14 +177,14 @@ part = \relative c' {
     \headsOn
   }
 
-  \times 2/3 {
+  \tuplet 3/2 {
     <a e' a cis e>8^\pDown
     \headsOff
     <a e' a cis e>^\xUp
     <a e' a cis e>^\iUp
     \headsOn
   }
-  \times 2/3 {
+  \tuplet 3/2 {
     <a e' a cis e>8^\pDown
     \headsOff
     <a e' a cis e>^\xUp
@@ -194,22 +194,22 @@ part = \relative c' {
 
   \tupletsOff
   \override Beam.positions = #'(2 . 2)
-  \times 2/3 {
+  \tuplet 3/2 {
     a8^\markup{ \small p }
     <e' a>^\strokeUpGolpe
     <e a>^\strokeDown
   }
-  \times 2/3 {
+  \tuplet 3/2 {
     a,8^\markup{ \small p }
     <e' a>^\strokeUpGolpe
     <e a>^\strokeDown
   }
-  \times 2/3 {
+  \tuplet 3/2 {
     a,8^\markup{ \small p }
     <e' a>^\strokeUpGolpe
     <e a>^\strokeDown
   }
-  \times 2/3 {
+  \tuplet 3/2 {
     a,8^\markup{ \small p }
     <e' a>^\strokeUpGolpe
     <e a>^\strokeDown

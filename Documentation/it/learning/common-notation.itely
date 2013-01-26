@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -523,10 +523,10 @@ Le terzine fanno sì che le note occupino 2/3 della loro durata, quindi
 una @notation{terzina} ha 2/3 come frazione:
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Abbellimenti
@@ -1277,7 +1277,7 @@ un'altra variabile successiva, dando la possibilità di accorciare l'input se
 una sezione della musica viene ripetuta molte volte.
 
 @lilypond[verbatim,quote]
-tripletA = \times 2/3 { c,8 e g }
+tripletA = \tuplet 3/2 { c,8 e g }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
 \relative c'' {

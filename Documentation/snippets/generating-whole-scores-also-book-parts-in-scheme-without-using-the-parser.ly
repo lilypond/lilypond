@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "automatic-notation, really-cool, scheme-language"
@@ -78,7 +78,7 @@ modified to inser all collected scores so far to the book.
         (lambda (parser)
           (let* ((music (make-music 'EventChord
                           'elements (list (make-music 'NoteEvent
-                                            'duration (ly:make-duration 2 0 1 1)
+                                            'duration (ly:make-duration 2 0 1/1)
                                             'pitch (ly:make-pitch 0 pitch 0)))))
                  (score (scorify-music music parser))
                  (layout (ly:output-def-clone $defaultlayout))

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -1384,12 +1384,30 @@ Il répond à la syntaxe :
 }
 @end lilypond
 
+Un accord @emph{dans son intégralité} ne peut pas faire l'objet
+d'une note de bas de page événementielle : un accord, même s'il ne
+contient qu'une seule et unique note, ne génère aucun événement en
+propre.  Une des notes @emph{au sein} de l'accord peut toutefois
+se voir attribuer une annotation :
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(2 . 3) "Résultat non probant" <a-3>2
+    <\footnote #'(-2 . -3) "Résultat probant" a-3>4
+    <a-3 \footnote #'(3 . 1/2) "Tout aussi probant" c-5>4
+  }
+}
+@end lilypond
+
 Lorsque l'annotation concerne un événement postérieur ou une
 articulation, la commande @code{\footnote} @strong{doit} être
 précédée d'un indicateur de position (@code{-, _} ou @code{^}) et
 suivie de l'événement postérieur ou l'articulation comme argument
 @var{musique}.  Dans ce cas, la commande @code{\footnote} peut se
-considérer comme une copie de son dernier argument auquel oon
+considérer comme une copie de son dernier argument auquel on
 attache une annotation.  La syntaxe consacrée est :
 
 @example
@@ -1457,12 +1475,16 @@ annotation :
 }
 @end lilypond
 
-L'un des constituants d'un accord peut individuellement se voir attribuer
-une annotation.  Une tête de note (@code{NoteHead}) est le (seul) objet
-directement généré par un constituant d'accord ; elle peut donc être
-affectée d'une annotation événementielle.  Tous les autres objets
-constituant un accord sont générés indirectment ; ils ne pourront faire
-l'objet que d'une annotation temporelle, préfixée d'un @code{\single} :
+Une note incluse dans un accord peut individuellement se voir attribuer
+une annotation événementielle.  Une tête de note (@code{NoteHead}) est
+le @emph{seul} objet directement généré par un constituant d'accord ;
+elle peut donc être affectée d'une annotation événementielle.  Tous les
+autres objets constituant un accord sont générés indirectement.  La
+commande @code{\footnote} ne dispose pas d'une syntaxe permettant de
+spécifier @emph{à la fois} un type d'objet @emph{et} un événement
+particulier auquel s'attacher.  De tels objets pourront toutefois faire
+l'objet d'une annotation temporelle, préfixée d'un @code{\single} afin
+d'annoter l'événement directement consécutif :
 
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
@@ -2924,7 +2946,7 @@ Par exemple, indiquer 90 à la noire pointée est équivalent à spécifier
 270 croches à la minute :
 
 @example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
+tempoWholesPerMinute = #(ly:make-moment 270/8)
 @end example
 
 @cindex MIDI et définition de contexte

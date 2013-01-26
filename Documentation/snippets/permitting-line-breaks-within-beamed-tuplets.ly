@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms, version-specific"
@@ -30,9 +30,9 @@ tuplets have to be beamed manually.
 }
 \relative c'' {
   a8
-  \repeat unfold 5 { \times 2/3 { c[ b a] } }
+  \repeat unfold 5 { \tuplet 3/2 { c[ b a] } }
   % Insert a manual line break within a tuplet
-  \times 2/3 { c[ b \bar "" \break a] }
-  \repeat unfold 5 { \times 2/3 { c[ b a] } }
+  \tuplet 3/2 { c[ b \bar "" \break a] }
+  \repeat unfold 5 { \tuplet 3/2 { c[ b a] } }
   c8
 }

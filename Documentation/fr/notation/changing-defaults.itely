@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 0
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -63,11 +63,11 @@ symboles, en Scheme.}
 @section Contextes d'interprétation
 @translationof Interpretation contexts
 
-Cette section traite des contextes.
+Nous allons voir ici ce que sont les contextes et comment les modifier.
 
 @menu
 * Tout savoir sur les contextes::
-* Création d'un contexte::
+* Création et référencement d'un contexte::
 * Conservation d'un contexte::
 * Modification des greffons de contexte::
 * Modification des réglages par défaut d'un contexte::
@@ -104,14 +104,10 @@ Référence des propriétés internes :
 I knew it would... And leaving out some of them is perfectly fine
 with me.
 I do think that a list like this, with the main contexts and a
-brief
-description of  what they do (perhaps also with a note about what
-default
-behavior is associated with each of them, but this may be
-unmanageable),
-should be there, and then we could simply list the remaining ones
-without
-further explanation and with links to the IR.
+brief description of  what they do (perhaps also with a note about what
+default behavior is associated with each of them, but this may be
+unmanageable), should be there, and then we could simply list the
+remaining ones without further explanation and with links to the IR.
 @end ignore
 
 @c TODO Improve layout, order and consistency of wording -td
@@ -294,152 +290,217 @@ context.
 @end ignore
 
 
-@node Création d'un contexte
-@subsection Création d'un contexte
-@translationof Creating contexts
+@node Création et référencement d'un contexte
+@subsection Création et référencement d'un contexte
+@translationof Creating and referencing contexts
 
-@c TODO more complete descriptions rather than learning style
-
-Lorsqu'une partition ne comporte qu'une portée avec une seule voix, les
-contextes sont créés automatiquement.  Dès que la structure s'étoffe, il
-devient nécessaire de les créer explicitement, en suivant l'une des
-trois méthodes suivantes :
-
-@itemize
-
-@item
-La commande la plus simple à utiliser est @code{\new} ; c'est aussi
-la plus courte.  Elle se place juste avant une expression musicale et se
-libelle ainsi :
+@cindex contexte, création
+@cindex contexte, référencement
 
 @funindex \new
-@cindex nouveau contexte
-@cindex contexte, création
-
-@example
-\new @var{type} @var{expression_musicale}
-@end example
-
-@noindent
-où @var{type} est le nom d'un contexte (par ex. @code{Staff} ou
-@code{Voice}).  Cette commande crée un nouveau contexte et y interprète
-le contenu de l'@var{expression_musicale}.
-
-C'est ce qui se passe lorsqu'une partition comporte plusieurs portées :
-chaque partie qui doit apparaître sur une portée spécifique est précédée
-d'un @code{\new Staff}.
-
-@lilypond[quote,verbatim,relative=2,ragged-right]
-<<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
->>
-@end lilypond
-
-La commande @code{\new} vous permet aussi d'attribuer un nom au
-contexte que vous créez.
-
-@example
-\new @var{type} = @var{nom} @var{musique}
-@end example
-Le nom que vous spécifiez ne pourra être utilisé que s'il n'a pas déjà
-été attribué à un autre contexte.
-
 @funindex \context
-@item
-Tout comme @code{\new}, la commande @code{\context} affectera une
-expression musicale à un objet contextuel ; elle lui attribuera de
-surcroît un nom.  La commande @code{\context} s'emploie de la façon
-suivante :
+
+LilyPond crée automatiquement des contextes de bas niveau lorsque
+l'expression musicale intervient avant qu'un contexte adéquat n'existe,
+ce qui peut être pratique dans le cadre d'une partition simple ou de
+courts fragments tels ceux inclus dans cette documentation. Dès que la
+structure s'étoffe, il devient nécessaire de créer explicitement tous
+les contextes, à l'aide des commandes @code{\new} ou @code{\context}.
+Leur syntaxe est très similaire :
 
 @example
-\context @var{type} = @var{nom} @var{musique}
-@end example
-
-LilyPond va dans un premier temps vérifier l'existence d'un contexte du
-type @var{type} appelé @var{nom}.  En l'absence d'un tel contexte,
-LilyPond crée un nouveau contexte du nom que vous avez spécifié.  Cette
-procédure est tout à fait pertinente lorsque vous faites appel à ce
-contexte particulier par la suite.  Prenons le cas d'un chant :
-nous commençons par nommer la ligne mélodique,
-
-@example
-\context Voice = "@b{tenor}" @var{musique}
+[\new | \context] @var{Contexte} [ = @var{nom}] [@var{musique}]
 @end example
 
 @noindent
-de telle sorte que le texte s'aligne correctement sur les notes :
+où peuvent intervenir aussi bien @code{\new} que @code{\context}.
+Le @var{Contexte} est le nom du contexte à créer, qui éventuellement
+s'appellera plus particulièrement @var{nom} ; il contient l'expression
+musicale unique @var{musique} qui devra être interprétée dans ce
+contexte par les graveurs ou exécutants.
 
-@example
-\new Lyrics \lyricsto "@b{tenor}" @var{paroles}
-@end example
+Le préfixe @code{\new} non suivi d'un nom s'utilise principalement pour
+créer une partition avec plusieurs portées :
 
-@noindent
-
-L'une des autres utilisations de contextes explicitement nommés consiste
-à fusionner deux expressions musicales dans un même contexte.  Dans
-l'exemple qui suit, notes et articulations sont saisies indépendamment.
-
-@example
-music = @{ c4 c4 @}
-arts = @{ s4-. s4-> @}
-@end example
-
-Elles sont ensuite fusionnées par affectation au même contexte
-@code{Voice} :
-
-@example
+@lilypond[quote,verbatim,relative=2]
 <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
->>
-@end example
-@lilypond[quote,ragged-right]
-music = { c4 c4 }
-arts = { s4-. s4-> }
-\relative c'' <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
+  \new Staff {
+    % leave the Voice context to be created implicitly
+    c4 c
+  }
+  \new Staff {
+    d4 d
+  }
 >>
 @end lilypond
 
-Grâce à ce mécanisme, vous pouvez tout à fait générer une version
-@qq{Urtext} (édition originale) et optionnellement ajouter distinctement
-des articulations à ces mêmes notes.
+@noindent
+et pour regrouper des voix sur une même portée :
 
-@cindex création de contextes
-
-@item
-Voici une troisième manière de créer un contexte :
-
-@example
-\context @var{type} @var{musique}
-@end example
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
 
 @noindent
-Très comparable à une déclaration @code{\context = @var{nom}},
-cette méthode permet de s'affranchir du type de contexte.
+@code{\new} est à priviliégier lorsque les contextes ne sont pas nommés.
 
-Cette variante s'utilise lorsque les expression musicales peuvent être
-interprétées à différents niveaux, comme par exemple lorsque intervient
-la commande @code{\applyOutput} -- pour de plus amples détails, voir
-@rextend{Application d'une fonction à tous les objets de mise en forme}.
-En l'absence de @code{\context} explicite, LilyPond considère qu'il
-s'agit de @code{Voice}.
+La différence entre les commandes @code{\new} et @code{\context} se
+situe au niveau de leurs effets :
+
+@itemize
+@item
+La commande @code{\new}, suivie ou non d'un nom, crée un tout
+nouveau contexte même s'il en existe déjà un portant le même nom :
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice = "A" {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice = "A" {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
+
+@item
+La commande @code{\context} avec nommage créera un contexte distinct
+uniquement dans le cas où ne préexiste aucun contexte du même nom dans
+la même hiérarchie de contextes.  Dans le cas contraire, il servira de
+référence au contexte précédemment créé, et son expression musicale sera
+transmise dans ce contexte pour interprétation.
+
+Cette procédure est tout à fait pertinente lorsque l'on sépare mise en
+forme de la partition et contenu musical.  Les deux formulations
+ci-après sont tout à fait valides :
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \new Voice = "one" {
+        \voiceOne
+      }
+      \new Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \context Voice = "one" {
+        \voiceOne
+      }
+      \context Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@noindent
+Par ailleurs, le recours à des variables produira les mêmes effets --
+voir @rlearning{Organisation du code source avec des variables}.
+
+@item
+La commande @code{\context} utilisée sans nommage recherchera le premier
+de tous les contextes du même type précédemment créés dans la même
+hiérarchie de contextes ; l'expression musicale lui sera alors transmise
+pour interprétation.  Bien que rarement utilisée, cette formulation de
+@code{\context} sans nommage ni expression musicale permet de définir le
+contexte dans lequel une procédure Scheme comportant une clause
+@code{\applyContext} devra s'exécuter.
 
 @example
-\applyOutput #'@var{contexte} #@var{fonction}   % s'applique à Voice
-@end example
-
-Vous devrez respecter ces formulations si la fonction doit
-s'interpréter au niveau @code{Score} ou @code{Staff} :
-
-@example
-\applyOutput #'Score #@var{fonction}
-\applyOutput #'Staff #@var{fonction}
+\new Staff \relative c' @{
+  c1
+  \context Timing
+  \applyContext #(lambda (ctx)
+                   (newline)
+                   (display (ly:context-current-moment ctx)))
+  c1
+@}
 @end example
 
 @end itemize
+
+Un contexte auquel il est ultérieurement fait référence doit
+impérativement être nommé.  C'est le cas par exemple lorsque des paroles
+sont associées à de la musique :
+
+@example
+\new Voice = "tenor" @var{musique}
+...
+\new Lyrics \lyricsto "tenor" @var{paroles}
+@end example
+
+@noindent
+L'association de paroles à de la musique est abordée en détails à la
+rubrique @ref{Durée automatique des syllabes}.
+
+Les propriétés de tous les contextes d'un même type se modifient au sein
+d'un bloc @code{\layout}, selon une syntaxe différente -- voir
+@ref{Modification de tous les contextes d'un même type}.  Une telle
+construction permet de séparer mise en forme et contenu musical.
+Lorsque un seul contexte requiert une adaptation, mieux vaut recourir à
+un bloc @code{\with} -- voir
+@ref{Modification d'un contexte particulier}.
+
+@seealso
+
+Manuel d'initiation :
+@rlearning{Organisation du code source avec des variables}.
+
+Manuel de notation :
+@ref{Modification d'un contexte particulier},
+@ref{Durée automatique des syllabes}.
 
 
 @node Conservation d'un contexte
@@ -870,7 +931,7 @@ expression musicale telle que @code{\accidentalStyle dodecaphonic} :
 
 @item
 à l'aide d'une variable personnalisée contenant un bloc @code{\with} :
-pour de plus amples iformations sur le bloc @code{\with}, voir
+pour de plus amples informations sur le bloc @code{\with}, voir
 @ref{Modification d'un contexte particulier}.
 
 @c KEEP LY
@@ -934,7 +995,7 @@ musical.
 
 Dans le cas d'un contexte pris individuellement, ses propriétés se
 modifient à l'aide d'un bloc @code{\with}.  Toutes les autres instances
-de contexte appartenant au même type seront affectés des réglages
+de contexte appartenant au même type seront affectées des réglages
 prédéfinis par LilyPond, modifiés le cas échéant par un bloc
 @code{\layout}.  Le bloc @code{\with} se place directement à la suite de
 la commande @code{\new} @var{type-de-contexte}.
@@ -1170,7 +1231,7 @@ squashedPosition = #0
 @end example
 
 Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes
-créées par le @rinternals{Note_heads_engraver}, et les @qq{écrase} pour
+créées par le @rinternals{Note_heads_engraver}, et les « écrase » pour
 qu'elles aient toutes la même position verticale, définie par
 @code{squashedPosition} : ici il s'agit de la valeur @code{0},
 c'est-à-dire la ligne du milieu.
@@ -1273,18 +1334,18 @@ Les contextes viennent en principe se positionner selon leur ordre
 d'apparition dans le fichier source.  Lorsque plusieurs contextes sont
 imbriqués, le contexte englobant supportera les différents contextes
 mentionnés dans le fichier source, à la stricte condition qu'ils soient
-dûment @qq{agréés}.  Les contextes imbriqués qui ne font pas partie de
-la @qq{liste d'agréments} du contexte englobant se retrouveront en
+dûment « agréés ».  Les contextes imbriqués qui ne font pas partie de
+la « liste d'agréments » du contexte englobant se retrouveront en
 dessous de celui-ci au lieu d'y être imbriqués.
 
-La liste des @qq{agréments} d'un contexte se gère à l'aide des
+La liste des « agréments » d'un contexte se gère à l'aide des
 instructions @code{\accepts} et @code{\denies} -- @code{\accepts} pour
 ajouter un contexte à la liste, et @code{\denies} pour retirer
 l'agrément.  Il est par exemple peu conventionnel que les accords nommés
-apparaissent dans un contexte @code{Staff} ; autrement dit, le
-contexte @code{ChordNames} ne fait pas partie de la @qq{liste
-d'agréments} du contexte @code{Staff} par défaut.  Néanmoins, et s'il
-devait en être ainsi, vous pourriez le spécifier.
+apparaissent dans un contexte @code{Staff} ; autrement dit, le contexte
+@code{ChordNames} ne fait pas partie de la « liste d'agréments » du
+contexte @code{Staff} par défaut.  Néanmoins, et s'il devait en être
+ainsi, vous pourriez le spécifier.
 
 @lilypond[verbatim,quote]
 \score {
@@ -1314,7 +1375,7 @@ L'instruction @code{\denies} permet, lorsqu'un nouveau contexte reprend
 les définitions d'un contexte existant, d'en ajuster les composantes.
 C'est par exemple le cas du contexte @code{VaticanaStaff}, réplique du
 contexte @code{Staff} au sein duquel le contexte @code{VaticanaVoice} se
-substitue au contexte @code{Voice} dans la @qq{liste d'agrément}.
+substitue au contexte @code{Voice} dans la « liste d'agrément ».
 
 Gardez à l'esprit que, face à une instruction qui ne s'appliquerait à
 aucun contexte déjà existant, LilyPond créera un nouveau contexte
@@ -1340,11 +1401,11 @@ autres contextes existants.  Le repositionner au-dessus du contexte
 
 Il en va de même pour les contextes temporaires de paroles au sein d'un
 système à plusieurs portées comme un @code{ChoirStaff} lorsque, par
-exemple, un couplet supplémentaire apparaît à l'occasion d'une
-reprise.  Ce contexte de paroles temporaire se place par défaut sous les
-portées inférieures.  Lui adjoindre une instruction
-@code{alignBelowContext} dès son initialisation permet de l'accoler au
-contexte de paroles (nommé) qui contient le premier couplet.
+exemple, un couplet supplémentaire apparaît à l'occasion d'une reprise.
+Ce contexte de paroles temporaire se place par défaut sous les portées
+inférieures.  Lui adjoindre une instruction @code{alignBelowContext} dès
+son initialisation permet de l'accoler au contexte de paroles (nommé)
+qui contient le premier couplet.
 
 Des exemples de repositionnement de contexte temporaire sont disponibles
 aux rubriques @rlearning{Expressions musicales imbriquées},
@@ -1509,6 +1570,7 @@ francophones.
 @cindex interfaces de rendu
 @cindex rendu, interfaces de
 @cindex objets graphiques
+@cindex grob
 
 Tous les éléments de notation sont considérés comme des objets
 graphiques (en anglais @emph{Graphical Object}, d'où le diminutif

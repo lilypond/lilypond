@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "fretted-strings"
@@ -108,7 +108,7 @@ primeros = {
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
     }
   }
   \midi { }

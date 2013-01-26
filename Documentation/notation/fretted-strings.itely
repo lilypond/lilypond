@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -1709,7 +1709,7 @@ music = \relative c' {
   < b\3 \deadNote d\2 b'\1 >
   < c\3 \deadNote e\2 c'\1 >
   \deadNotesOn
-  \times 2/3 { g8 b e }
+  \tuplet 3/2 { g8 b e }
   \deadNotesOff
   < a,\3 c\2 e\1 >1
 }

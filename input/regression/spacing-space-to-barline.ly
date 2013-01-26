@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   texidoc = "When space-to-barline is false, we measure the space between the note and the
@@ -9,7 +9,7 @@ the start of the barline."
 \paper {ragged-right = ##t}
 
 {
-  \override Score.SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 16)
+  \override Score.SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/16)
   c'2 \clef bass c'2 \clef treble
   \override NoteSpacing.space-to-barline = ##f
   c'2 \clef bass c'2 \clef treble

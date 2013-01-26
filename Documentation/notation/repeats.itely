@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @node Repeats
 @section Repeats
@@ -225,11 +225,11 @@ at the start of each alternative, except the first.
 \alternative {
   {
     f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3 4)
+    \set Timing.measureLength = #(ly:make-moment 3/4)
     g4 g g  % optional bar check is allowed here
   }
   {
-    \set Timing.measureLength = #(ly:make-moment 4 4)
+    \set Timing.measureLength = #(ly:make-moment 4/4)
     a2 a |
   }
 }
@@ -660,7 +660,7 @@ use a double-percent symbol.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 4 { c8. <d f>16 }
-\repeat percent 2 { \times 2/3 { r8 c d } e4 }
+\repeat percent 2 { \tuplet 3/2 { r8 c d } e4 }
 @end lilypond
 
 @snippets

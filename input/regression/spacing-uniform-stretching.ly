@@ -6,7 +6,7 @@
 
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \relative c''
 <<
@@ -15,7 +15,7 @@
     c16[ c c c c c c c c c16]
   }
   \new Staff {
-    \times 6/7 { c16 c c cis c c c }
+    \tuplet 7/6 { c16 c c cis c c c }
     c8[ c32 c32 c16]
     
   }

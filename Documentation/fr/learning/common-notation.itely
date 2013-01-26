@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
+   Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -26,7 +26,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
@@ -566,10 +566,10 @@ deux tiers de la durée de leur notation réelle, cette fraction est
 donc de 2/3 pour les triolets :
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 
@@ -1017,11 +1017,6 @@ séparant chaque syllable par une espace :
 >>
 @end lilypond
 
-@warning{Il est primordial de séparer l'accolade fermant les
-paroles de la dernière syllabe -- par une espace ou un saut de ligne --
-au risque de voir apparaître une
-@rprogram{Erreur renvoyant à ../ly/init.ly}.}
-
 Notez les doubles chevrons @w{@code{<< ... >>}} encadrant
 toute la pièce ; ils indiquent simplement que la musique et les
 paroles se produisent en même temps.
@@ -1337,7 +1332,7 @@ exemple, cela peut servir à saisir un motif qu'une seule fois, même
 s'il se répète un grand nombre de fois dans la pièce.
 
 @lilypond[verbatim,quote]
-tripletA = \times 2/3 { c,8 e g }
+tripletA = \tuplet 3/2 { c,8 e g }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
 \relative c'' {

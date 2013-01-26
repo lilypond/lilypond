@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.17.6"
+\version "2.17.11"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -260,7 +260,7 @@ ligature = #(define-music-function
 	%%% causes tons of "programming error: adding reverse spring,
 	%%% setting to unit" messages.
 	%%%
-	%\override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 4)
+	%\override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/4)
 	%\override SpacingSpanner.shortest-duration-space = #0
 	%\override SpacingSpanner.average-spacing-wishes = ##f
 	%\override SpacingSpanner.spacing-increment = #0.0

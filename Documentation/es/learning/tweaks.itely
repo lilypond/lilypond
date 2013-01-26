@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6d501730d319a6456acd13870821f0bcad64bf4e
+    Translation of GIT committish: 0619c6dfd6d2a744e70fc0b3f97a8b9adfc5d987
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Trucar la salida
 @chapter Trucar la salida
@@ -184,6 +184,18 @@ a partir de sus nombres.
 
 @strong{La instrucción \override}
 
+@menu
+* La instrucción \override::
+* La instrucción \revert::
+* El prefijo \once::
+* La instrucción \overrideProperty::
+* The \tweak command::
+@end menu
+
+@node La instrucción \override
+@unnumberedsubsubsec La instrucción @code{\override}
+@translationof The \override command
+
 @cindex override, instrucción
 @cindex override (sobreescritura), sintaxis de
 
@@ -256,7 +268,10 @@ e4 f |
 g4 a b c |
 @end lilypond
 
-@strong{La instrucción \revert}
+
+@node La instrucción \revert
+@unnumberedsubsubsec La instrucción @code{\revert}
+@translationof The \revert command
 
 @cindex revert, instrucción
 
@@ -293,7 +308,10 @@ g4 a
 b4 c |
 @end lilypond
 
-@strong{El prefijo \once}
+
+@node El prefijo \once
+@unnumberedsubsubsec El prefijo @code{\once}
+@translationof The \once prefix
 
 @funindex \once
 @funindex once
@@ -310,7 +328,7 @@ podemos cambiar el color de una sola nota de la siguiente manera:
 @cindex color, propiedad, ejemplo
 @cindex NoteHead, ejemplo de sobreescritura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,verbatim,relative=1]
 c4 d
 \override NoteHead.color = #red
 e4 f |
@@ -320,7 +338,28 @@ g4 a
 b c |
 @end lilypond
 
-@strong{La instrucción \overrideProperty}
+El prefijo @code{\once} también se puede usar delante de muchas
+instrucciones predefinidas para limitar su efecto a un solo momento
+musical:
+
+@lilypond[quote,verbatim,relative=1]
+c4 d
+\once \stemDown
+e4 f |
+g4 a
+\once \hideNotes
+b c |
+@end lilypond
+
+Sin embargo, las instrucciones predefinidas de la forma
+@code{\...Neutral}, @code{\...Off} y @code{\un...} utilizan
+internamente @code{\revert} en vez de @code{\override}, por lo que
+añadir @code{\once} como prefijo aquí no tiene ningún efecto.
+
+
+@node La instrucción \overrideProperty
+@unnumberedsubsubsec La instrucción @code{\overrideProperty}
+@translationof The \overrideProperty command
 
 @cindex overrideProperty, instrucción
 
@@ -333,7 +372,9 @@ mencionamos aquí con un propósito de exhaustividad, pero para ver más
 detalles consulte @rextend{Trucos difíciles}.
 @c Maybe explain in a later iteration  -td
 
-@strong{La instrucción \tweak}
+
+@node The \tweak command
+@unnumberedsubsubsec The @code{\tweak} command
 
 @cindex tweak, instrucción
 
@@ -468,11 +509,11 @@ tresillo corto.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak direction #up
-\times 4/3 {
+\tuplet 3/4 {
   \tweak color #red
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -486,14 +527,14 @@ se puede modificar de la forma usual mediante instrucciones
 @cindex TupletNumber, ejemplo de sobreescritura
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c] }
+\tuplet 3/2 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\times 2/3 {
+\tuplet 3/2 {
   c8[ c]
   c8[ c]
   \once \override TupletNumber.transparent = ##t
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -678,7 +719,7 @@ necesita para hacerlo por sí mismo (aunque aún necesita algo de
 práctica).  La cual vendrá proporcionada por los ejemplos que vienen a
 continuación.
 
-@subheading Búsqueda del contexto
+@subsubsubheading Búsqueda del contexto
 
 @cindex contexto, encontrar
 @cindex contexto, buscar el, correcto
@@ -701,7 +742,7 @@ contextos de más bajo nivel que se encuentra implícito sin ambigüedad
 por el hecho de que estamos escribiendo notas, podemos omitirlo en
 este lugar concreto.
 
-@subheading Sobreescritura por una sola vez
+@subsubsubheading Sobreescritura por una sola vez
 
 @cindex sobreescritura por una sola vez
 @cindex once override
@@ -748,7 +789,7 @@ Hemos hecho que ahora solamente la primera ligadura sea más gruesa.
 La instrucción o prefijo @code{\once} también se puede usar antes de
 la instrucción @code{\set}.
 
-@subheading Recuperación del ajuste
+@subsubsubheading Recuperación del ajuste
 
 @cindex revertir
 @cindex predeterminadas, recuperar las propiedades
@@ -954,7 +995,10 @@ después del nombre de la propiedad en el RFI.  He aquí una lista de
 los tipos que podrá necesitar, junto con las reglas de dicho tipo, y
 algunos ejemplos.  Debe escribir siempre un símbolo de almohadilla,
 @code{#}, por supuesto, delante de estos valores cuando se introducen
-en la instrucción @code{\override}.
+en la instrucción @code{\override}, incluso si el propio valor ya
+comienza por@tie{}@code{#}.  Solamente ofrecemos aquí ejemplos para
+constantes; si quiere calcular un valor usando Scheme, consulte
+@rextend{Cálculos en Scheme}.
 
 @multitable @columnfractions .2 .45 .35
 @headitem Tipo de propiedad
@@ -964,29 +1008,32 @@ en la instrucción @code{\override}.
   @tab Verdadero o Falso, representado por #t o #f
   @tab @code{#t}, @code{#f}
 @item Dimensión (en espacios de pentagrama)
-  @tab Un número decimal positivo (en unidades de espacios de pentagrama)
+  @tab Un número decimal (en unidades de espacios de pentagrama)
   @tab @code{2.5}, @code{0.34}
 @item Dirección
-  @tab Una constante válida de dirección o su equivalente numérico (se permiten valores decimales entre -1 y 1)
+  @tab Una constante válida de dirección o su equivalente numérico
+  (@code{0} o @code{CENTER} indican una dirección neutra)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @w{@code{-1}}
 @item Entero
   @tab Un número entero positivo
-  @tab @code{3}, @code{1}
+  @tab @code{3}, @code{-1}
 @item Lista
-  @tab Un conjunto de valores separados por espacios, encerrado entre paréntesis y precedido de un apóstrofo
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+  @tab Una secuencia de constantes o símbolos separados por espacios,
+  encerrado entre paréntesis
+  y precedido de un apóstrofo o comilla simple
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
        @code{'(1.0 0.25 0.5)}
 @item Marcado
   @tab Cualquier elemento válido de marcado de texto
-  @tab @code{\markup @{ \italic "cresc." @}}
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"gaita"}
 @item Momento
   @tab Una fracción de redonda construida con la función make-moment
-  @tab @code{(ly:make-moment 1 4)},
-       @code{(ly:make-moment 3 8)}
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
 @item Número
-  @tab Cualquier valor decimal positivo o negativo
-  @tab @code{3.5}, @w{@code{-2.45}}
+  @tab Cualquier valor positivo o negativo, posiblemente decimal
+  @tab @code{3}, @w{@code{-2.45}}
 @item Pareja (de números)
   @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
@@ -998,8 +1045,9 @@ en la instrucción @code{\override}.
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
-  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de apóstrofo-almohadilla, @code{'#}.
-  @tab @code{'#(#t #t #f)}
+  @tab Constantes
+  encerradas entre @code{#(}@dots{}@code{)}.
+  @tab @code{#(#t #t #f)}
 @end multitable
 
 
@@ -1060,7 +1108,16 @@ ellas pueden afectar la visibilidad de las barras de compás (y, por
 supuesto, por extensión, también la de muchos otros objetos de
 presentación).  Vamos a considerar cada uno de ellos por orden.
 
-@subheading stencil (sello)
+@menu
+* La propiedad stencil (sello)::
+* La propiedad break-visibility (visibilidad en el salto)::
+* La propiedad transparent (transparente)::
+* La propiedad color::
+@end menu
+
+@node La propiedad stencil (sello)
+@unnumberedsubsubsec La propiedad @code{stencil} (sello)
+@translationof The stencil property
 
 @cindex stencil (sello), propiedad
 
@@ -1143,7 +1200,9 @@ que establece el sello a un objeto con tamaño nulo:
 }
 @end lilypond
 
-@subheading break-visibility (visibilidad en el salto)
+@node La propiedad break-visibility (visibilidad en el salto)
+@unnumberedsubsubsec The @code{break-visibility} (visibilidad en el salto)
+@translationof The break-visibility property
 
 @cindex break-visibility, propiedad
 
@@ -1177,7 +1236,9 @@ el valor en sí dentro de la instrucción @code{\override}.
 
 Y podemos ver que esto también quita todas las líneas divisorias.
 
-@subheading transparent (transparente)
+@node La propiedad transparent (transparente)
+@unnumberedsubsubsec La propiedad @code{transparent} (transparente)
+@translationof The transparent property
 
 @cindex transparent, propiedad
 @cindex transparencia
@@ -1254,7 +1315,9 @@ objeto por completo; al hacer el objeto @code{transparent} (lo que
 puede hacerse utilizando @code{\hide}) lo dejamos donde está, pero
 lo hacemos invisible.
 
-@subheading color
+@node La propiedad color
+@unnumberedsubsubsec La propiedad @code{color}
+@translationof The color property
 
 @cindex color, propiedad
 
@@ -1835,6 +1898,15 @@ mueven a la derecha o a la izquierda cuando apuntan hacia arriba o
 hacia abajo.  Esto se controla automáticamente cuando está establecida
 la propiedad @code{direction}.
 
+@menu
+* La propiedad direction (dirección)::
+* Digitaciones::
+@end menu
+
+@node La propiedad direction (dirección)
+@unnumberedsubsubsec La propiedad @code{direction} (dirección)
+@translationof The direction property
+
 @cindex abajo
 @cindex arriba
 @cindex centro
@@ -1929,7 +2001,9 @@ otras instrucciones (que están implementadas usando
 @code{\once} de la misma forma en que lo haría con las
 sobreescrituras explícitas.
 
+@node Digitaciones
 @unnumberedsubsubsec Digitaciones
+@translationof Fingering
 
 @cindex digitación, colocación
 @cindex digitación de acordes
@@ -2081,6 +2155,22 @@ objeto @code{Fingering} del RFI que es @w{@code{-5}}, así que probaremos
 @node Objetos fuera del pentagrama
 @subsection Objetos fuera del pentagrama
 @translationof Outside-staff objects
+
+Los objetos fuera-del-pentagrama se sitúan automáticamente para evitar
+las colisiones.  Existen varias formas de sobreescribir la colocación
+automática si el posicionado no resulta óptimo.
+
+@menu
+* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::
+* La instrucción \textLengthOn::
+* Posicionamiento de los matices dinámicos::
+* Escalado de un «Grob»::
+@end menu
+
+
+@node La propiedad outside-staff-priority (prioridad fuera del pentagrama)
+@unnumberedsubsubsec La propiedad @code{outside-staff-priority} (prioridad fuera del pentagrama)
+@translationof The outside-staff-priority property
 
 Los objetos fuera-del-pentagrama se colocan automáticamente para
 evitar las colisiones.  Los objetos que tienen el valor más bajo de la
@@ -2300,7 +2390,9 @@ necesitar claramente espaciar las notas en sentido horizontal para
 hacer sitio para el texto.  Esto se hace empleando la instrucción
 @code{textLengthOn}.
 
-@subheading \textLengthOn
+@node La instrucción \textLengthOn
+@unnumberedsubsubsec La instrucción @code{\textLengthOn}
+@translationof The \textLengthOn command
 
 @cindex notas, espaciar junto al texto
 
@@ -2324,9 +2416,9 @@ c2^"Text4" |
 @end lilypond
 
 La instrucción para volver al comportamiento predeterminado es
-@code{\textLengthOff}.  Recuerde que @code{\once} funciona solamente
-con @code{\override}, @code{\set}, @code{\revert} o @code{\unset}, así
-que no se puede usar con @code{\textLengthOn}.
+@code{\textLengthOff}.  De forma alternativa, se puede usar
+@code{\once} con @code{\textLengthOn} si el efecto se ha de limitar a
+un solo momento musical.
 
 @cindex marcado, texto de, permitir las colisiones en
 
@@ -2360,8 +2452,9 @@ c,,2^"Long Text   "  % Spaces at end are honored
 c''2 |
 @end lilypond
 
-
-@subheading Matices dinámicos
+@node Posicionamiento de los matices dinámicos
+@unnumberedsubsubsec Posicionamiento de los matices dinámicos
+@translationof Dynamics placement
 
 @cindex trucar la colocación de los matices
 @cindex dinámica, trucar la colocación de las indicaciones de
@@ -2405,7 +2498,9 @@ una instrucción equivalente para las indicaciones de matiz dinámico.
 Por tanto, tendremos que averiguar cómo hacerlo utilizando
 instrucciones @code{\override}.
 
-@subheading Escalado de un «Grob»
+@node Escalado de un «Grob»
+@unnumberedsubsubsec Escalado de un «Grob»
+@translationof Grob sizing
 
 @cindex grob, cambio de tamaño de un
 @cindex escala de los grobs
@@ -2750,7 +2845,20 @@ Veamos ahora cómo pueden ser de ayuda las propiedades que hemos visto
 en la sección anterior, para resolver problemas de notación que se
 superpone.
 
-@subheading la propiedad padding (relleno)
+@menu
+* La propiedad padding (relleno)::
+* La propiedadhe right-padding (relleno por la derecha)::
+* La propiedad staff-padding (relleno de pentagrama)::
+* La propiedad self-alignment-X (auto-alineación en X)::
+* La propiedad staff-position (posición en el pentagrama)::
+* La propiedad extra-offset (desplazamiento adicional)::
+* La propiedad positions (posiciones)::
+* La propiedad force-hshift (forzar desplazamiento horizontal)::
+@end menu
+
+@node La propiedad padding (relleno)
+@unnumberedsubsubsec La propiedad @code{padding} (relleno)
+@translationof The padding property
 
 @cindex relleno
 @cindex arreglar notación que se superpone
@@ -2796,7 +2904,9 @@ entonces ese objeto se moverá, y también todos los que están por fuera
 de él.
 
 
-@subheading right-padding (relleno por la derecha)
+@node La propiedadhe right-padding (relleno por la derecha)
+@unnumberedsubsubsec La propiedad @code{right-padding} (relleno por la derecha)
+@translationof The right-padding property
 
 @cindex right-padding, propiedad
 
@@ -2842,7 +2952,9 @@ sobreescribiendo @code{right-padding}.
 
 @noindent
 
-@subheading la propiedad staff-padding (relleno de pentagrama)
+@node La propiedad staff-padding (relleno de pentagrama)
+@unnumberedsubsubsec La propiedad @code{staff-padding} (relleno de pentagrama)
+@translationof The staff-padding property
 
 @cindex alineación de objetos sobre la línea base
 @cindex objetos, alineación sobre la línea base
@@ -2872,7 +2984,9 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 
-@subheading la propiedad self-alignment-X (auto-alineación en X)
+@node La propiedad self-alignment-X (auto-alineación en X)
+@unnumberedsubsubsec La propiedad @code{self-alignment-X} (auto-alineación en X)
+@translationof The self-alignment-X property
 
 El ejemplo siguiente muestra cómo esto puede resolver la colisión
 entre un objeto de digitación de cuerda y la plica de una nota
@@ -2889,7 +3003,9 @@ de la nota «padre»:
 <a\2>
 @end lilypond
 
-@subheading la propiedad staff-position (posición en el pentagrama)
+@node La propiedad staff-position (posición en el pentagrama)
+@unnumberedsubsubsec La propiedad @code{staff-position} (posición en el pentagrama)
+@translationof The staff-position property
 
 @cindex objeto, colisión dentro del pentagrama
 
@@ -2927,7 +3043,9 @@ cuatro semi-espacios de pentagrama, al valor @w{@code{-8}}.
 Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
 la línea adicional por encima del silencio se inserta automáticamente.
 
-@subheading la propiedad extra-offset (desplazamiento adicional)
+@node La propiedad extra-offset (desplazamiento adicional)
+@unnumberedsubsubsec La propiedad @code{extra-offset} (desplazamiento adicional)
+@translationof The extra-offset property
 
 @cindex posicionar objetos
 @cindex posicionar grobs
@@ -2940,7 +3058,7 @@ posicionamiento de un objeto tanto vertical como horizontalmente.
 En el ejemplo siguiente, la segunda digitación se desplaza ligeramente
 a la izquierda, y 1.8 espacios de pentagrama hacia abajo:
 
-@cindex Fingering, ejemplo de sobreescritura
+@cindex fingering (digitación), ejemplo de sobreescritura
 @cindex extra-offset, propiedad, ejemplo
 
 @lilypond[quote,fragment,relative=1,verbatim]
@@ -2951,7 +3069,9 @@ f4-5
 @end lilypond
 
 
-@subheading la propiedad positions (posiciones)
+@node La propiedad positions (posiciones)
+@unnumberedsubsubsec La propiedad @code{positions} (posiciones)
+@translationof The positions property
 
 @cindex controlar manualmente grupos especiales, ligaduras y barras
 @cindex manual, control, de grupos especiales, ligaduras y barras
@@ -2961,39 +3081,41 @@ f4-5
 @cindex barras de corchea, control manual
 
 La propiedad @code{positions} permite controlar manualmente la
-posición e inclinación de los tresillos, ligaduras de expresión y de
-fraseo, y barras de corchea.  He aquí un ejemplo que tiene una fea
-ligadura de fraseo debido a que intenta evitar la ligadura de
-expresión que está sobre la acciaccatura.
+posición vertical y de ahí también la inclinación de los tresillos,
+ligaduras de expresión y de fraseo, y barras de corchea.
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4 \acciaccatura e8\( d8 c~ c d c d\)
+He aquí un ejemplo en el que las ligaduras de fraseo y de expresión
+chocan entre sí:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+a8 \( ( a'16 ) a \)
 @end lilypond
-
-@noindent
-Simplemente podemos mover la ligadura de fraseo por encima de las
-notas, y de hecho ésta será la solución preferida:
 
 @cindex PhrasingSlur, ejemplo de sobreescritura
 @cindex positions, propiedad, ejemplo
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\phrasingSlurUp
-\acciaccatura e8\( d8 c~ c d c d\)
-@end lilypond
-
 @noindent
-Pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
-sería mover el extremo izquierdo de la ligadura de fraseo un poco
-hacia abajo usando la propiedad @code{positions}.  Esto también
-resuelve la forma algo indecente de la ligadura.
+Una posibilidad sería mover los dos extremos de la ligadura de fraseo
+hacia arriba.  Podemos tratar de establecer el extremo izquierdo a 2.5
+espacios de pentagrama por encima de la tercera línea y el extremo
+derecho a 4.5 también hacia arriba, y LilyPond seleccionaría la
+ligadura de fraseo de entre las candidatas que ha encontrado con sus
+extremos más cercanos a éstos:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\once \override PhrasingSlur.positions = #'(-4 . -3)
-\acciaccatura e8\( d8 c~ c d c d\)
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\once \override PhrasingSlur.positions = #'(2.5 . 4.5)
+a8 \( ( a'16 ) a \)
 @end lilypond
+
+Esto supone una mejora, pero ¿por qué no bajar un poco el extremo
+derecho de la ligadura de expresión?  Si lo probamos, veremos que no
+se puede hacer así.  Ello es a causa de que no existen ligaduras de
+expresión candidatas que estén más bajas que la que ya se ha
+seleccionado, y en este caso la propiedad @code{positions} no tiene
+ningún efecto.  Sin embargo, las ligaduras de unión, expresión y
+fraseo @emph{se pueden} colocar y conformar de manera muy exacta
+cuando se necesita.  Para aprender la manera de hacerlo, consulte
+@ruser{Modificación de ligaduras de unión y de expresión}.
 
 Presentamos otro ejemplo.  Vemos que la barra
 choca con las ligaduras:
@@ -3046,7 +3168,9 @@ Observe que la sobreescritura sigue aplicándose en la primera voz del
 segundo compás de corcheas, pero no a ninguna de las barras de la
 segunda voz.
 
-@subheading la propiedad force-hshift (forzar desplazamiento horizontal)
+@node La propiedad force-hshift (forzar desplazamiento horizontal)
+@unnumberedsubsubsec La propiedad @code{force-hshift} (forzar desplazamiento horizontal)
+@translationof The force-hshift property
 
 Ahora podremos ver cómo aplicar las correcciones finales al ejemplo de
 Chopin que presentamos al final de @ref{Oigo voces}, que
@@ -3656,6 +3780,11 @@ lhMusic = \relative c' {
 @subsection Otras aplicaciones de los trucos
 @translationof Other uses for tweaks
 
+@menu
+* Unir notas entre voces distintas::
+* Simulación de un calderón en el MIDI::
+@end menu
+
 @cindex transparent, uso de la propiedad
 @cindex objetos, hace invisibles
 @cindex eliminar objetos
@@ -3664,9 +3793,12 @@ lhMusic = \relative c' {
 @cindex ocultar objetos
 @cindex invisibles, objetos
 @cindex objetos invisibles
-@cindex ligar notas entre voces distintas
 
-@subheading Ligar notas entre voces distintas
+@node Unir notas entre voces distintas
+@unnumberedsubsubsec Unir notas entre voces distintas
+@translationof Tying notes across voices
+
+@cindex ligar notas entre voces distintas
 
 El ejemplo siguiente muestra cómo conectar notas que están en
 distintas voces utilizando ligaduras de unión.  Normalmente sólo se
@@ -3744,7 +3876,9 @@ En tal caso, @code{\once} afecta a todos los objetos, mientras que
 @code{\single} solo afecta a uno, aquél que se genera por parte de
 la expresión musical que le sigue inmediatamente.
 
-@subheading Simulación de un calderón en el MIDI
+@node Simulación de un calderón en el MIDI
+@unnumberedsubsubsec Simulación de un calderón en el MIDI
+@translationof Simulating a fermata in MIDI
 
 @cindex sello, uso de la propiedad
 @cindex fermata, realización en MIDI
@@ -4255,8 +4389,7 @@ un gestor de paquetes (es decir, distribuido con GNU/Linux, o instalado
 bajo fink o cygwin) o fue compilado a partir de la fuente, y (b) de
 qué sistema operativo está utilizando:
 
-
-@strong{Descargado de lilypond.org}
+@subsubsubheading Descargado de lilypond.org
 
 @itemize @bullet
 @item GNU/Linux
@@ -4287,7 +4420,7 @@ Mediante el Explorador de Windows, diríjase a
 
 @end itemize
 
-@strong{Instalado mediante un gestor de paquetes o compilado a partir de la fuente}
+@subsubsubheading Instalado mediante un gestor de paquetes o compilado a partir de la fuente
 
 Diríjase a
 @file{@var{PREFIJO}/share/lilypond/@var{X.Y.Z}/}, donde @var{PREFIJO}

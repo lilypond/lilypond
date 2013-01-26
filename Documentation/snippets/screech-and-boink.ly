@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "headword"
@@ -41,7 +41,7 @@ Random complex notation
           c'''32([ b''16 a''16 gis''16 g''32)]
         }
         \\
-        { s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d''] }
+        { s4 \tuplet 3/2 { d'16[ f' g'] } as'32[ b''32 e'' d''] }
         \\
         { s4 \autoBeamOff d''8.. f''32  }
         \\

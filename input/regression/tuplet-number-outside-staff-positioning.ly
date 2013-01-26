@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
 
@@ -13,5 +13,5 @@ positioned above them.
 \relative c'' {
    \override TupletBracket.outside-staff-priority = #1
    \override TupletNumber.font-size = #5
-   \times 2/3 { a4\trill a\trill^"foo" a\trill }
+   \tuplet 3/2 { a4\trill a\trill^"foo" a\trill }
 }

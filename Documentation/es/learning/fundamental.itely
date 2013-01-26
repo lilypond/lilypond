@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 
 @node Conceptos fundamentales
@@ -574,10 +574,10 @@ unión que atraviesa dos grupos especiales, y una ligadura de fraseo
 que sale del interior de un grupo especial (líneas 3 y 4).
 
 @lilypond[quote,verbatim,ragged-right,relative=1]
-r16[ g \times 2/3 { r16 e'8] }
-g,16( a \times 2/3 { b16 d) e }
-g,8[( a \times 2/3 { b8 d) e~] } |
-\times 4/5 { e32\( a, b d e } a4.\)
+r16[ g \tuplet 3/2 { r16 e'8] }
+g,16( a \tuplet 3/2 { b16 d) e }
+g,8[( a \tuplet 3/2 { b8 d) e~] } |
+\tuplet 5/4 { e32\( a, b d e } a4.\)
 @end lilypond
 
 
@@ -1620,7 +1620,7 @@ Hemos visto esto en la sección acerca de la letra, en @ref{Voces y música voca
 
 @seealso
 Referencia de la notación:
-@ruser{Crear contextos}.
+@ruser{Crear y referenciar contextos}.
 
 
 @node Explicación de los grabadores

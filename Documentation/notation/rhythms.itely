@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Rhythms
 @section Rhythms
@@ -204,8 +204,8 @@ tuplet is the triplet in which 3 notes have the duration of 2, so
 the notes are 2/3 of their written length.
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex tuplet bracket placement
@@ -224,7 +224,7 @@ Tuplets may be nested:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 Modifying nested tuplets which begin at the same musical moment
@@ -1402,7 +1402,7 @@ So @code{\partial 8} becomes:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1434,7 +1434,7 @@ occur, so use @code{\set Timing.measurePosition} instead.
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -1636,7 +1636,7 @@ affect the autobeaming rules.
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>
@@ -1949,7 +1949,7 @@ c16 c8
 @cindex beams, with melismata
 
 @warning{If beams are used to indicate melismata in songs, then
-automatic beaming should be switched off with @code{\autoBeamOff}
+automatic beaming should be switched off with @code{@bs{}autoBeamOff}
 and the beams indicated manually.  Using @code{@bs{}partcombine} with
 @code{@bs{}autoBeamOff} can produce unintended results.  See the
 snippets for more information.}
@@ -2032,13 +2032,18 @@ below, or alternatively the default values themselves may be changed
 as explained in @ref{Time signature}.
 
 If a @code{beamExceptions} rule is defined for the time signature in
-force, that rule is used to determine the beam placement.  If no
-@code{beamExceptions} rule is defined for the time signature in force,
-the beam placement is determined by the settings of @code{baseMoment}
-and @code{beatStructure}.
+force, that rule alone is used to determine the beam placement; the
+values of @code{baseMoment} and @code{beatStructure} are ignored.
+
+If no @code{beamExceptions} rule is defined for the time signature
+in force, the beam placement is determined by the values of
+@code{baseMoment} and @code{beatStructure}.
+
+
+@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
 
 By default, @code{beamExceptions} rules are defined for most common
-time signatures, so the @code{beamException} rules must be disabled
+time signatures, so the @code{beamExceptions} rules must be disabled
 if automatic beaming is to be based on @code{baseMoment} and
 @code{beatStructure}.  The @code{beamExceptions} rules are disabled
 by
@@ -2047,41 +2052,35 @@ by
 \set Timing.beamExceptions = #'()
 @end example
 
-
-@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
-
-In most instances, automatic beams will end at the end of a beat.
-The ending points for beats are determined by the context properties
-@code{baseMoment} and @code{beatStructure}.  @code{beatStructure}
-is a scheme list that defines the length of each beat in the measure
-in units of @code{baseMoment}.  By default, @code{baseMoment} is
-one over the denominator of the time signature.  By default,
-each unit of length @code{baseMoment} is a single beat.
+When @code{beamExceptions} is set to @code{#'()}, either due to an
+explicit setting or because no @code{beamExceptions} rules are defined
+internally for the time signature in force, the ending points for
+beams are on beats as specified by the context properties
+@code{baseMoment} and @code{beatStructure}.  @code{beatStructure} is
+a scheme list that defines the length of each beat in the measure in
+units of @code{baseMoment}.  By default, @code{baseMoment} is one
+over the denominator of the time signature.  By default, each unit of
+length @code{baseMoment} is a single beat.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c16^"default" c c c c |
+% beamExceptions are unlikely to be defined for 5/16 time,
+% but let's disable them anyway to be sure
+\set Timing.beamExceptions = #'()
 \set Timing.beatStructure = #'(2 3)
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
 @end lilypond
 
-If a common time signature is being used, @code{beamExceptions}
-@emph{must} be disabled to enable @code{beatStructure} to work.
-The @code{\set Timing.beamExceptions = #'()} command can always
-be included if beaming is being determined by @code{beatStructure}.
-
 @lilypond[quote,relative=2,verbatim]
 \time 4/4
 a8^"default" a a a a a a a
-
-\set Timing.baseMoment = #(ly:make-moment 1 4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"no change" a a a a a a a
-
+% Disable beamExceptions because they are definitely
+% defined for 4/4 time
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"changed" a a a a a a a
 @end lilypond
@@ -2093,6 +2092,7 @@ enclosing context will apply.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
+  % No need to disable beamExceptions as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2136,7 +2136,8 @@ compatible with the new value of @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+% No need to disable beamExceptions as they are not defined for 5/8 time
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2227,7 +2228,7 @@ if @code{beamExceptions} is not reset.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
 \repeat unfold 8 {c8} |
@@ -2244,7 +2245,7 @@ reset @code{beamExceptions}.
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
+% This will beam (1 1 1) due to default baseMoment and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a8}
 @end lilypond
@@ -2284,7 +2285,7 @@ beams may end, otherwise
 
 @item
 if a beam-ending rule is defined in @code{beamExceptions}
-for a longer beam-type, use it to determined the valid places
+for a longer beam-type, use it to determine the valid places
 where beams may end, otherwise
 
 @item
@@ -2363,7 +2364,7 @@ in only one staff.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \repeat unfold 6 { a8 }
   }
@@ -2534,10 +2535,10 @@ the last four 32nd notes are at a constant tempo.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % revert to non-feathered beams
 \override Beam.grow-direction = #'()
@@ -3633,11 +3634,11 @@ The next bar line then falls at 9/8 rather than 5/4.
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

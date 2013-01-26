@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ba92a1755026936bebe14a6c8ff6d2cfc704eeb1
+    Translation of GIT committish: 799d9e5ab487eb45de64c0347fd096b48680a3f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -518,17 +518,22 @@ legibilidad.  Sin embargo, los espacios se deben utilizar siempre para
 evitar errores, en las siguientes situaciones:
 
 @itemize
-@item Alrededor de todas y cada una de las llaves curvas de apertura y cierre.
-@item A continuación de las instrucciones y variables, es decir, todos los elementos
-que comienzan con un signo @code{\} de barra invertida.
-@item A continuación de todo elemento que se deba interpretar como expresión
-de Scheme, es decir, todo elemento que comience por un signo@tie{}@code{#}.
+
+@item Alrededor de todas y cada una de las llaves curvas
+de apertura y cierre.
+
+@item A continuación de las instrucciones y variables, es decir,
+todos los elementos que comienzan con un signo @code{\} de barra
+invertida.
+
+@item A continuación de todo elemento que se deba interpretar
+como expresión de Scheme, es decir, todo elemento que comience por
+un signo@tie{}@code{#}.
+
 @item Para separar los elementos de una expresión de Scheme.
-@item Dentro de @code{lyricmode} para separar todos los términos de las instrucciones
-@code{\override} y @code{\set}.  Concretamente, hay que usar espacios
-alrededor del punto y el signo igual en instrucciones como
-@code{\override Score.LyricText.font-size = #5} y antes y después
-de la instrucción completa.
+
+@item Dentro de @code{lyricmode} antes y después de las instrucciones
+@code{\set} y @code{\override}.
 
 @end itemize
 
@@ -1194,8 +1199,8 @@ comprobación de diversas condiciones:
 @headitem  Nombre del procedimiento @tab  Condición que se comprueba
 
 @item print-page-number-check-first @tab  ¿debería imprimirse esta página?
-@item create-page-number-stencil    @tab  ¿es 'print-page-numbers verdadero?
-@item print-all-headers             @tab  ¿es 'print-all-headers verdadero?
+@item create-page-number-stencil    @tab  ¿es print-page-numbers verdadero?
+@item print-all-headers             @tab  ¿es print-all-headers verdadero?
 @item first-page                    @tab  ¿es la primera página del libro?
 @item (on-page nmbr)                @tab  ¿es el número de página = nmbr?
 @item last-page                     @tab  ¿es la última página del libro?
@@ -1284,9 +1289,14 @@ categorías:
 @table @emph
 @item Notas al pie basadas en eventos
 Se adjuntan a un evento en particular.  Son ejemplos de tales eventos
-las notas sueltas, notas dentro de un acorde, articulaciones (como
-barras, ligaduras de expresión, indicaciones de digitación, acentos,
-indicaciones dinámicas) y letra de las canciones.
+las notas sueltas, las articulaciones (como indicaciones de digitación,
+acentos, indicaciones dinámicas) y los post-eventos (como las ligaduras de expresión
+y las barras de corchea manuales).  La forma general de las notas
+al pie basadas en eventos es como sigue:
+
+@example
+[@var{dirección}] \footnote [@var{marca}] @var{desplazamiento} @var{texto-de-la-nota} @var{música}
+@end example
 
 @item Notas al pie basadas en tiempo
 Se ligan a un punto temporal determinado, dentro de un contexto
@@ -1298,16 +1308,17 @@ a través de uno de los eventos de nota que contiene).  Una nota al pie
 basada en tiempo permite anotar tales objetos de presentación sin
 referirse a ningún evento.
 
-@end table
-
-La forma completa de una instrucción de nota al pie tanto para las
-notas al pie basadas en eventos como para las basadas en tiempo, es:
+Una nota al pie basada en tiempo permite que tales objetos de
+presentación se puedan anotar sin hacer referencia a un evento.
+La forma general para las notas al pie basadas en tiempo es:
 
 @example
-[@var{dirección}] \footnote [@var{marca}] @var{desplazamiento} [@var{nombre-del-grob}] @var{texto-de-la-nota} @var{música}
+\footnote [@var{marca}] @var{desplazamiento} @var{texto-de-la-nota} [@var{Contexto}].@var{Nombre-del-Grob}
 @end example
 
-Los elementos son como sigue:
+@end table
+
+Los elementos para las dos formas son como sigue:
 
 @table @var
 
@@ -1334,25 +1345,24 @@ valores de desplazamiento positivos se toman a partir del borde
 superior derecho, los valores negativos a partir del borde inferior
 izquierdo y cero implica que la marca se centra sobre el borde.
 
-@item nombre-del-grob
-especifica un tipo de grob que marcar (como @samp{#'Flag} para el
-corchete).  Si se da, se usa como punto de referencia un grob de ese
-tipo asociado con la @var{música} referenciada.  Se puede omitir (o
-sustituirse con @code{\default}) si se desea que la marca de nota al
-pie se adjunte al grob directamente creado dentro de @var{música}.
+@item Contexto
+es el contexto en que se crea el grob que recibe la nota al pie.
+Se puede omitir si el grob está en un contexto del nivel inferior,
+p.ej un contexto @code{Voice}.
+
+@item Nombre-del-Grob
+especifica un tipo de grob que marcar (como @samp{Flag} para el
+corchete).  Si se da, la nota al pie no se adjunta a una expresión
+musical en particular, sino a todos los grobs del tipo
+especificado que ocurren en dicho momento de tiempo musical.
 
 @item texto-de-la-nota
 es el elemento de marccado o cadena de caracteres que especifica el
 texto de la nota al pie que utilizar en la parte baja de la página.
 
 @item música
-es el evento musical o componente de un acorde o post-evento que se
-está anotando.  Aunque no se puede omitir, se puede sustituir por
-@code{\default} en cuyo caso la nota al pie no se adjunta a ninguna
-expresión en particular, sino más bien a un momento de tiempo.  Es
-obligatorio en este caso utilizar el argumento @var{nombre-del-grob}
-para seleccionar un tipo de grob afectado, como por ejemplo
-@samp{#'TimeSignature}.
+es el evento musical, post-evento o articulación que se
+está anotando.
 
 @end table
 
@@ -1360,41 +1370,64 @@ para seleccionar un tipo de grob afectado, como por ejemplo
 
 @cindex Notas al pie, basadas en eventos
 
-La forma más simple de una nota al pie basada en eventos es
-sencillamente
+Una nota al pie se adjunta a un objeto de presentación causado
+directamente por el evento que corresponde a @var{música}, con la
+sintaxis siguiente:
 
 @example
-\footnote @var{desplazamiento} @var{texto-de-la-nota} @var{música}
+\footnote [@var{marca}] @var{desplazamiento} @var{texto-de-la-nota} @var{música}
 @end example
 
-Este tipo de nota al pie se adjunta a un objeto de presentación
-causado directamente por el evento que corresponde a @var{música}.
-
+@c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c'' {
-    \footnote #'(-1 . 3) "A note" a4
+    \footnote #'(-1 . 3) "Una nota" a4
     a4
-    \footnote #'(2 . 2) "A rest" r4
+    \footnote #'(2 . 2) "Un silencio" r4
     a4
   }
 }
 @end lilypond
 
-Si se desea que la nota al pie se adjunte a un post-evento o
-articulación, la instrucción @code{\footnote} debe ir precedida por un
-indicador de dirección, @code{-, _, ^}, y seguida por el post-evento o
-articulación que se desea anotar como argumento @var{música}.  En esta
-forma, la @code{\footnote} se puede considerar como una simple copia
-de su último argumento con una marca de nota al pie adjunta.
+No es posible marcar un acrode @emph{completo} con una nota al pie
+basada en evento: un acorde, incluso aquel que contiene una sola
+nota, no produce un verdadero evento por sí mismo.  Sin embargo,
+las notas individuales que están @emph{dentro} del acorde sí se
+pueden marcar:
 
+@c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c'' {
-    a4_\footnote #'(0 . -1) "A slur forced down" (
-    b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
+    \footnote #'(2 . 3) "No funciona" <a-3>2
+    <\footnote #'(-2 . -3) "Funciona" a-3>4
+    <a-3 \footnote #'(3 . 1/2) "También funciona" c-5>4
+  }
+}
+@end lilypond
+
+Si se desea que la nota al pie se adjunte a un post-evento o
+articulación, la instrucción @code{\footnote} @emph{debe} ir
+precedida por un indicador de dirección, @code{-, _, ^}, y seguida
+por el post-evento o articulación que se desea anotar como
+argumento @var{música}.  En esta forma, la @code{\footnote} se
+puede considerar como una simple copia de su último argumento con
+una marca de nota al pie adjunta.  La sintaxis es:
+
+@example
+@var{dirección} \footnote [@var{marca}] @var{desplazamiento} @var{texto-de-la-nota} @var{música}
+@end example
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    a4_\footnote #'(0 . -1) "Ligadura forzada hacia abajo" (
+    b8^\footnote #'(1 . 0.5) "Barra manual forzada hacia arriba" [
     b8 ]
     c4 )
     c-\footnote #'(1 . 1) "Tenuto" --
@@ -1402,19 +1435,134 @@ de su último argumento con una marca de nota al pie adjunta.
 }
 @end lilypond
 
-Se pueden usar marcas personalizadas como altenativas a las marcas
-numéricas, y la línea de anotación que une el objeto marcado con la
-marca puede suprimirse:
+@subsubsubheading notas al pie basadas en tiempo
 
+@cindex notas al pie, basadas en tiempo
+
+Si el objeto de presentación que recibe la nota al pie está
+causado @emph{indirectamente} por un evento (como un objeto
+@code{Accidental}, alteración, o @code{Stem}, plica, causados por
+un evento @code{NoteHead}, cabeza de nota), el nombre del grob
+@var{GrobName} del objeto de presentación es necesario después del
+texto de la nota al pie, en lugar de @var{música}:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    \footnote #'(-1 . -3) "Un bemol" Accidental
+    aes4 c
+    \footnote #'(-1 . 0.5) "Otro bemol" Accidental
+    ees
+    \footnote #'(1 . -2) "Una plica" Stem
+    aes
+  }
+}
+@end lilypond
+
+Sin embargo, observe que cuando se especifica el nombre de un
+grob, se adjunta una nota al pie a todos los grobs de ese tipo
+dentro del instante de tiempo actual:
+
+@c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
   \relative c' {
-    \footnote "*" #'(0.5 . -2) \markup { \italic "* The first note" }
-    a'4 b8
+    \footnote #'(-1 . 3) "Un bemol" Accidental
+    <ees ges bes>4
+    \footnote #'(2 . 0.5) "Articulación" Script
+    c'->-.
+  }
+}
+@end lilypond
+
+Una nota dentro de un acorde puede recibir una nota al pie
+individual, basada en evento.  El único grob causado directamente
+por una nota de un acorde es @samp{NoteHead}, por lo que la
+instrucción de nota al pie basada en evento @emph{solamente} es
+apta para añadir una nota al pie a la @samp{NoteHead} dentro de un
+acorde.  Todos los demás grobs de notas de acorde están causados
+indirectamente. La propia instrucción @code{\footnote} no ofrece
+ninguna sintaxis para especificar al mismo tiempo un tipo concreto
+de grob @emph{y también} un evento concreto al que adjuntar la
+nota.  Sin embargo, se puede usat una instrucción @code{\footnote}
+basada en tiempo para especificar el tipo de grob, y luego añadir
+la instrucción @code{\single} como prefijo, con el objeto de que
+se aplique solamente al evento siguiente:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    < \footnote #'(1 . -2) "An A" a
+      \single \footnote #'(-1 . -1) "Un sostenido" Accidental
+      cis
+      \single \footnote #'(0.5 . 0.5) "Un bemol" Accidental
+      ees fis
+    >2
+  }
+}
+@end lilypond
+
+@warning {Cuando las notas al pie se adjuntan a varios elementos musicales que
+están dentro del mismo momento musical, como ocurre en el ejemplo
+anterior, las notas al pie se numeran desde los elementos más
+altos a los más bajos tal y como aparecen en la salida impresa, no
+en el orden en que se escriben en el flujo de entrada.}
+
+Los objetos de presentación como las claves y las armaduras de
+cambio de tonalidad están, más bien, causadas por propiedades que
+cambian, y no por eventos.  Otros, como las líneas divisorias y
+los números de compás, son una consecuencia directa del paso del
+tiempo.  Por esta razón, las notas al pie sobre tales objetos
+tienen que basarse en su tiempo musical.  Las notas al pie basadas
+en tiempo so preferibles también cuando se marcan cosas como las
+plicas y las barras de corchea en @emph{acordes}: dado que estas
+funcionalidades de cada acorde individual están asignadas
+normalmente a @emph{un solo} evento dentro del acorde, sería
+imprudente descansar en una elección particular.
+
+En las notas al pie basadas en tiempo, siempre se debe especificar
+explícitamente el objeto de presentación en cuestión, y si el grob
+se crea dentro de un contexto distinto al de nivel más bajo, debe
+especificarse el contexto apropiado.
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c'' {
+    r1 |
+    \footnote #'(-0.5 . -1) "Cambio de compás" Staff.TimeSignature
+    \time 3/4
+    \footnote #'(1 . -1) "Plica de acorde" Stem
+    <c e g>4 q q
+    \footnote #'(-0.5 . 1) "Línea divisoria" Staff.BarLine
+    q q
+    \footnote #'(0.5 . -1) "Cambio de tonalidad" Staff.KeySignature
+    \key c\minor
+    q
+  }
+}
+@end lilypond
+
+Se pueden usar marcas personalizadas como alternativas a las
+marcas numéricas, y se puede suprimir la línea de anotación que
+une el objeto marcado con su marca:
+
+@c KEEP LY
+@lilypond[quote,verbatim,papersize=a8landscape]
+\book {
+  \header { tagline = ##f }
+  \relative c' {
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* La primera nota" } a'4
+    b8
     \footnote \markup { \super "$" } #'(0.5 . 1)
-      \markup { \super "$" \italic " The second note" }
-    e c4
+      \markup { \super "$" \italic " La segunda nota" } e
+    c4
     \once \override Score.FootnoteItem.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
       \markup { \super "+" \italic " Editorial" } \p
@@ -1422,79 +1570,8 @@ marca puede suprimirse:
 }
 @end lilypond
 
-Se pueden ver más ejemplos de marcas personalizadas en
+Se muestran más ejemplos de marcas personalizadas en
 @ref{Notas al pie en texto independiente}.
-
-No es posible hacer un acorde completo de esta forma porque un acorde
-no produce un evento distinto al de las notas que lo componen, pero
-las propias notas que lo componen sí se pueden marcar.
-
-Si el objeto de presentación que se está anotando está causado
-@emph{indirectly} por un evento (como una alteración accidental o una
-plica causados por una cabeza de nota), se requiere un argumento
-adicional de símbolo, el @var{nombre-del-grob}, antes del texto de la
-nota al pie:
-
-@lilypond[quote,verbatim,papersize=a8landscape]
-\book {
-  \header { tagline = ##f }
-  \relative c'' {
-    % footnotes may be added to chord constituents
-    < \single\footnote #'(-1 . -3) "Another flat" Accidental aes
-      c
-      \single\footnote #'(-1 . 0.5) "A flat" Accidental ees
-    >2
-    \single\footnote #'(-1 . 2) "A stem" Stem ees2
-  }
-}
-@end lilypond
-
-@warning {Cuando las notas al pie se adjuntan a varios elementos musicales que
-están dentro del mismo momento musical, las notas al pie se numeran
-desde los elementos más altos a los más bajos tal y como aparecen en
-la salida impresa, no en el orden en que se escriben en el flujo de
-entrada.}
-
-@subsubsubheading Notas al pie basadas en tiempo
-
-@cindex Notas al pie, basadas en tiempo
-
-Los objetos de presentación como las claves y las armaduras de
-tonalidad están producidas mayormente como consecuencia de propiedades
-cambiadas, más que como verdaderos eventos.  Otros, como las líneas
-divisorias y los números de compás, son una consecuencia directa de la
-cuenta de tiempo.  Por este motivo, las notas al pie basadas en estos
-objetos tienen que estar basadas en su cuenta de tiempo musical.  Las
-notas al pie basadas en tiempo son preferibles también cuando se están
-creando funcionalidades como plicas y barras dentro de @emph{acordes}:
-mientras que tales funcionalidades por cada acorde se asignan
-normalmente a @emph{un} evento dentro del acorde, confiar en una
-elección en particular sería imprudente.
-
-Una nota al pie basada en tiempo se escribe de la misma manera que con
-una nota al pie basada en evento, excepto que se usa @code{\default}
-en lugar de la música que indica un evento.  El objeto de presentación
-en cuestión debería siempre especificarse explícitamente para las
-notas al pie basadas en tiempo para evitar acabar teniendo marcas en
-los objetos más inesperados.
-
-@lilypond[quote,verbatim,papersize=a8landscape]
-\book {
-  \header { tagline = ##f }
-  \relative c'' {
-    r1 |
-    \footnote #'(-0.5 . -1) "Meter change" Staff.TimeSignature
-    \time 3/4
-    \footnote #'(1 . -1) "Chord stem" Stem
-    <c e g>4 q q
-    \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
-    q q
-    \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
-    \key c\minor
-    q
-  }
-}
-@end lilypond
 
 
 @node Notas al pie en texto independiente
@@ -1649,9 +1726,12 @@ Varias notas al pie en la misma página solo pueden ir apiladas unas
 sobre otras; no se pueden imprimir en la misma línea.
 
 Las notas al pie no se pueden adjuntar a @code{MultiMeasureRests}
-(silencios multicompás) o a barras de corchea automáticas y las notas
-al pie pueden colisionar con las pautas, objetos @code{\markup}, otras
-marcas de notas al pie y líneas de anotación.
+(silencios multicompás), a barras de corchea automáticas ni a la
+letra de las canciones.
+
+Las notas al pie pueden colisionar con las pautas, objetos
+@code{\markup}, otras marcas de notas al pie y líneas de
+anotación.
 
 
 @node Referencia a números de página
@@ -1665,6 +1745,7 @@ dentro de un elemento de marcado, para obtener el número de la página
 en la que se sitúa el punto señalizado, usando la instrucción de
 marcado @code{\page-ref}.
 
+@c KEEP LY
 @lilypond[verbatim,papersize=a8landscape]
 \header { tagline = ##f }
 \book {
@@ -1676,8 +1757,8 @@ marcado @code{\page-ref}.
       c'1
     }
   }
-  \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
-  \markup { Mark A is on page \page-ref #'markA "0" "?" }
+  \markup { La primera partitura comienza en la página \page-ref #'firstScore "0" "?" }
+  \markup { La marca A está en la página \page-ref #'markA "0" "?" }
 }
 @end lilypond
 
@@ -2706,6 +2787,7 @@ canales MIDI se reutilizarán.
 
 @menu
 * Crear archivos MIDI::
+* Instrumentos MIDI::
 * El bloque MIDI::
 * ¿Qué sale por el MIDI?::
 * Repeticiones y MIDI::
@@ -2713,7 +2795,6 @@ canales MIDI se reutilizarán.
 * Percusión en MIDI::
 * El script Articulate::
 @end menu
-
 
 @node Crear archivos MIDI
 @subsection Crear archivos MIDI
@@ -2773,39 +2854,13 @@ superior del archivo de entrada, antes del inicio de cualquier bloque
 La línea anterior establece la extensión predeterminada para los
 archivos MIDI a @code{.midi}.
 
-De forma alternativa, esta opción se puede también proporcionar en la
-línea de órdenes:
+De forma alternativa, esta opción se puede también proporcionar en
+la línea de órdenes:
 
 @example
 lilypond … -dmidi-extension=midi archivoLily.ly
 @end example
 
-
-@unnumberedsubsubsec Nombres de instrumentos
-
-@cindex instrumento, nombres de
-@funindex Staff.midiInstrument
-
-El nombre del instrumento MIDI se establece mediante la propiedad
-@code{Staff.midiInstrument}.  El nombre del instrumento se debe elegir
-de entre los que están en la lista que aparece en @ref{Instrumentos MIDI}.
-
-@example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
-@}
-@end example
-
-@example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
-@}
-@end example
-
-Si el instrumento elegido no coincide exactamente con uno de los
-instrumentos de la lista de instrumentos MIDI, se usará el instrumento
-Piano de Cola (@code{"acoustic grand"}).
 
 @snippets
 
@@ -2839,11 +2894,39 @@ Los cambios del volumen MIDI sólo tienen lugar al principio de la
 nota, por lo que los crescendi y decrescendi no pueden afectar al
 volumen de una sola nota.
 
-No todos los reproductores de MIDI manejar adecuadamente los cambios de
-tempo de la salida MIDI.  Entre los reproductores que se sabe que
-funcionan se encuentran el Reproductor de Medios de MS Windows y
-@uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+No todos los reproductores de MIDI manejan adecuadamente los
+cambios de tempo de la salida MIDI.  Entre los reproductores que
+se sabe que funcionan se encuentran el Reproductor de Medios de MS
+Windows y @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
+@node Instrumentos MIDI
+@subsection Instrumentos MIDI
+@translationof MIDI Instruments
+
+@cindex instrumento, nombres de
+@funindex Staff.midiInstrument
+
+El instrumento MIDI que se quiere utilizar se establece fijando la
+propiedad @code{Staff.midiInstrument} al nombre del instrumento.
+El nombre se debe elegir de entre los que están en la lista que
+aparece en @ref{instrumentos MIDI}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = #"glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = #"cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+Si el instrumento elegido no coincide exactamente con uno de los
+instrumentos de la lista de instrumentos MIDI, se usará el
+instrumento Piano de Cola (@code{"acoustic grand"}).
 
 @node El bloque MIDI
 @subsection El bloque MIDI
@@ -2911,7 +2994,14 @@ dentro de un bloque de partitura definido con una instrucción
 @subsection ¿Qué sale por el MIDI?
 @translationof What goes into the MIDI output?
 
+@menu
+* Contemplado en el MIDI::
+* No contemplado en el MIDI::
+@end menu
+
+@node Contemplado en el MIDI
 @unnumberedsubsubsec Contemplado en el MIDI
+@translationof Supported in MIDI
 
 @cindex alturas en MIDI
 @cindex MIDI, alturas
@@ -2957,7 +3047,9 @@ una serie de elementos:
 @end itemize
 
 
+@node No contemplado en el MIDI
 @unnumberedsubsubsec No contemplado en el MIDI
+@translationof Unsupported in MIDI
 
 @c TODO index as above
 
@@ -3034,29 +3126,39 @@ contexto Voice.  Es posible controlar el volumen MIDI general, el
 volumen relativo de los matices dinámicos y el volumen relativo de los
 distintos instrumentos.
 
-@unnumberedsubsubsec Indicaciones dinámicas
+@menu
+* Indicaciones dinámicas::
+* Volumen maestro MIDI::
+* Balance entre instrumentos (i)::
+* Balance entre instrumentos (ii)::
+@end menu
 
-Los matices o indicaciones de dinámica se traducen a una fracción fija
-del rango de volumen MIDI disponible.  Las fracciones predeterminadas
-se extienden desde 0.25 para @notation{ppppp} hasta 0.95 para
-@notation{fffff}.  El conjunto de indicaciones dinámicas y las
-fracciones asociadas pueden verse en @file{../scm/midi.scm}, véase
-@rlearning{Otras fuentes de información}.  Este conjunto de fracciones
-se puede cambiar o extender proporcionando una función que toma como
-argumento una indicación dinámica y devuelve la fracción requerida, y
+@node Indicaciones dinámicas
+@unnumberedsubsubsec Indicaciones dinámicas
+@translationof Dynamic marks
+
+Los matices o indicaciones de dinámica se traducen a una fracción
+fija del rango de volumen MIDI disponible.  Las fracciones
+predeterminadas se extienden desde 0.25 para @notation{ppppp}
+hasta 0.95 para @notation{fffff}.  El conjunto de indicaciones
+dinámicas y las fracciones asociadas pueden verse en
+@file{../scm/midi.scm}, véase @rlearning{Otras fuentes de
+información}.  Este conjunto de fracciones se puede cambiar o
+extender proporcionando una función que toma como argumento una
+indicación dinámica y devuelve la fracción requerida, y
 estableciendo @code{Score.dynamicAbsoluteVolumeFunction} a esta
 función.
 
 Por ejemplo, si se requiere una indicación dinámica
 @notation{rinforzando}, @code{\rfz}, ésta no tiene ningún efecto
 predeterminado sobre el volumen MIDI, pues no está incluida en el
-conjunto predeterminado.  De igual manera, si se define una indicación
-dinámica nueva con @code{make-dynamic-script}, ésta tampoco estará
-incluida en el conjunto predeterminado.  El ejemplo siguiente muestra
-cómo hay que añadir el volumen MIDI para estas indicaciones dinámicas.
-La función Scheme establece la fracción a 0.9 si se encuentra una
-indicación dinámica rfz, y en caso contrario llama a la función
-predeterminada.
+conjunto predeterminado.  De igual manera, si se define una
+indicación dinámica nueva con @code{make-dynamic-script}, ésta
+tampoco estará incluida en el conjunto predeterminado.  El ejemplo
+siguiente muestra cómo hay que añadir el volumen MIDI para estas
+indicaciones dinámicas.  La función Scheme establece la fracción a
+0.9 si se encuentra una indicación dinámica rfz, y en caso
+contrario llama a la función predeterminada.
 
 @lilypond[verbatim,quote]
 #(define (myDynamics dynamic)
@@ -3085,23 +3187,26 @@ fracciones, sería mejor usar el procedimiento
 @file{../scm/midi.scm} y la tabla asociada como modelo.  El último
 ejemplo de esta sección muestra cómo se puede hacer esto.
 
+@node Volumen maestro MIDI
 @unnumberedsubsubsec Volumen maestro MIDI
+@translationof Overall MIDI volume
 
-El volumen general máximo y mínimo de las indicaciones dinámicas de
-MIDI se controla estableciendo valores para las propiedades
+El volumen general máximo y mínimo de las indicaciones dinámicas
+de MIDI se controla estableciendo valores para las propiedades
 @code{midiMinimumVolume} y @code{midiMaximumVolume} en el nivel de
 @code{Score}.  Estas propiedades tienen efecto solamente sobre las
-indicaciones dinámicas, por ello si queremos que tengan validez desde
-el comienzo de la partitura, se debe colocar allí una indicación de
-dinámica.  La fracción que corresponde a cada indicación dinámica se
-modifica con esta fórmula:
+indicaciones dinámicas, por ello si queremos que tengan validez
+desde el comienzo de la partitura, se debe colocar allí una
+indicación de dinámica.  La fracción que corresponde a cada
+indicación dinámica se modifica con esta fórmula:
 
 @example
 midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fracción
 @end example
 
-En el ejemplo siguiente, el rango de intensidad dinámica del volumen
-general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
+En el ejemplo siguiente, el rango de intensidad dinámica del
+volumen general MIDI está limitado al intervalo desde 0.2 hasta
+0.5.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3138,17 +3243,19 @@ general MIDI está limitado al intervalo desde 0.2 hasta 0.5.
 }
 @end lilypond
 
+@node Balance entre instrumentos (i)
 @unnumberedsubsubsec Balance entre instrumentos (i)
+@translationof Equalizing different instruments (i)
 
-Si las propiedades de volumen MIDI máximo y mínimo están establecidas
-en el contexto @code{Staff} se pueden controlar los volúmenes
-relativos de los instrumentos MIDI.  Esto proporciona un ecualizador
-de instrumentos básico que puede realzar significativamente la calidad
-de la salida MIDI.
+Si las propiedades de volumen MIDI máximo y mínimo están
+establecidas en el contexto @code{Staff} se pueden controlar los
+volúmenes relativos de los instrumentos MIDI.  Esto proporciona un
+ecualizador de instrumentos básico que puede realzar
+significativamente la calidad de la salida MIDI.
 
-En este ejemplo se reduce el volumen del clarinete con relación al de
-la flauta.  Debe haber una indicación dinámica en la primera nota de
-cada instrumento para que esto funcione correctamente.
+En este ejemplo se reduce el volumen del clarinete con relación al
+de la flauta.  Debe haber una indicación dinámica en la primera
+nota de cada instrumento para que esto funcione correctamente.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3184,28 +3291,33 @@ cada instrumento para que esto funcione correctamente.
 }
 @end lilypond
 
+
+@node Balance entre instrumentos (ii)
 @unnumberedsubsubsec Balance entre instrumentos (ii)
+@translationof Equalizing different instruments (ii)
 
 Si las propiedades de volumen MIDI máximo y mínimo no están
-establecidas, de forma predeterminada LilyPond aplica un pequeño grado
-de ecualización a algunos instrumentos.  Los instrumentos y la
-ecualización que se aplica se muestra en la tabla
+establecidas, de forma predeterminada LilyPond aplica un pequeño
+grado de ecualización a algunos instrumentos.  Los instrumentos y
+la ecualización que se aplica se muestra en la tabla
 @notation{instrument-equalizer-alist} en @file{../scm/midi.scm}.
 
-El ecualizador básico predeterminado se puede sustituir estableciendo
-@code{instrumentEqualizer} en el contexto @code{Score} a un
-procedimiento Scheme nuevo que acepte el nombre de un instrumento MIDI
-como único argumento y devuelva un par de fracciones que dan los
-volúmenes máximo y mínimo que se aplican a dicho instrumento.  Esta
-sustitución se hace de la misma forma que mostramos para restablecer
-la fracción de volumen absoluto @code{dynamicAbsoluteVolumeFunction}
-al comienzo de esta sección.  El ecualizador predeterminado,
+El ecualizador básico predeterminado se puede sustituir
+estableciendo @code{instrumentEqualizer} en el contexto
+@code{Score} a un procedimiento Scheme nuevo que acepte el nombre
+de un instrumento MIDI como único argumento y devuelva un par de
+fracciones que dan los volúmenes máximo y mínimo que se aplican a
+dicho instrumento.  Esta sustitución se hace de la misma forma que
+mostramos para restablecer la fracción de volumen absoluto
+@code{dynamicAbsoluteVolumeFunction} al comienzo de esta sección.
+El ecualizador predeterminado,
 @notation{default-instrument-equalizer}, en
 @file{../scm/midi.scm}, muestra cómo se puede escribir tal
 procedimiento.
 
-El ejemplo siguiente establece los volúmenes relativos de la flauta y
-del clarinete a los mismos valores que el ejemplo anterior.
+El ejemplo siguiente establece los volúmenes relativos de la
+flauta y del clarinete a los mismos valores que el ejemplo
+anterior.
 
 @lilypond[verbatim,quote]
 #(define my-instrument-equalizer-alist '())
@@ -3287,27 +3399,28 @@ copied out and compiled to test microtones in your MIDI player.
 @subsection Percusión en MIDI
 @translationof Percussion in MIDI
 
-La notación de los instrumentos de percusión se realiza normalmente en
-un contexto @code{DrumStaff} y cuando se hace de esta forma se les da
-salida correctamente por el canal MIDI@tie{}10, pero ciertos
-instrumentos de percusión de altura determinada, como el xilófono,
-marimba, vibráfono, timbales, etc., se tratan como instrumentos
-@qq{normales} y la música para estos instrumentos se debe introducir
-en contextos de @code{Staff} normales, no en un contexto
-@code{DrumStaff}, para obtener la salida MIDI correcta.
+La notación de los instrumentos de percusión se realiza
+normalmente en un contexto @code{DrumStaff} y cuando se hace de
+esta forma se les da salida correctamente por el canal
+MIDI@tie{}10, pero ciertos instrumentos de percusión de altura
+determinada, como el xilófono, marimba, vibráfono, timbales, etc.,
+se tratan como instrumentos @qq{normales} y la música para estos
+instrumentos se debe introducir en contextos de @code{Staff}
+normales, no en un contexto @code{DrumStaff}, para obtener la
+salida MIDI correcta.
 
 Ciertos sonidos de altura indeterminada que están incluidos en el
 estándar General MIDI, como el tom melódico, el tambor taiko, los
 tambores sintéticos, etc., no se pueden acceder a través del canal
-MIDI@tie{}10, por lo que la notación para dichos instrumentos se debe
-introducir también en un contexto normal de @code{Staff}, utilizando
-las alturas normales adecuadas.
+MIDI@tie{}10, por lo que la notación para dichos instrumentos se
+debe introducir también en un contexto normal de @code{Staff},
+utilizando las alturas normales adecuadas.
 
 Muchos instrumentos de percusión no están incluidos dentro del
-estándar General MIDI, p.ej. las castañuelas.  El método más
-fácil (aunque no satisfactorio) de producir una salida MIDI al
-escribir para estos instrumentos es sustituirlos por el sonido más
-parecido del conjunto estándar.
+estándar General MIDI, p.ej. las castañuelas.  El método más fácil
+(aunque no satisfactorio) de producir una salida MIDI al escribir
+para estos instrumentos es sustituirlos por el sonido más parecido
+del conjunto estándar.
 
 @c TODO Expand with examples, and any other issues
 
@@ -3322,16 +3435,16 @@ golpe lateral de baqueta (@emph{sidestick}).
 @subsection El script Articulate
 @translationof The Articulate script
 
-Es posible obtener una salida MIDI más real si se utiliza el script
-Articulate.  Éste trata de tener en cuenta las articulaciones
-(ligaduras de expresión, picados, etc), mediante la sustitución de las
-notas con secuencias musicales de silencios y notas escaladas en el
-tiempo de forma apropiada.  También trata de desplegar los trinos,
-grupetos circulares, etc. y responder a las indicaciones de
-rallentando y accelerando.
+Es posible obtener una salida MIDI más real si se utiliza el
+script Articulate.  Éste trata de tener en cuenta las
+articulaciones (ligaduras de expresión, picados, etc), mediante la
+sustitución de las notas con secuencias musicales de silencios y
+notas escaladas en el tiempo de forma apropiada.  También trata de
+desplegar los trinos, grupetos circulares, etc. y responder a las
+indicaciones de rallentando y accelerando.
 
-Para utilizar el script Articulate, tenemos que incluirlo al principio
-de nuestro archivo de entrada:
+Para utilizar el script Articulate, tenemos que incluirlo al
+principio de nuestro archivo de entrada:
 
 @example
 \include "articulate.ly"
@@ -3345,14 +3458,14 @@ y en la sección @code{\score}, hacer lo siguiente:
 >>
 @end example
 
-Después de alterar el código de entrada de esta manera el resultado
-visual se altera profundamente, pero el bloque @code{\midi} estándar
-produce un archivo MIDI mejorado.
+Después de alterar el código de entrada de esta manera el
+resultado visual se altera profundamente, pero el bloque
+@code{\midi} estándar produce un archivo MIDI mejorado.
 
-Si bien no es esencial para que funcione el script Articulate, podemos
-insertar la instrucción @code{\unfoldRepeats} según aparece en el
-ejemplo anterior, dado que habilita la ejecución de abreviaturas tales
-como los @notation{trinos}.
+Si bien no es esencial para que funcione el script Articulate,
+podemos insertar la instrucción @code{\unfoldRepeats} según
+aparece en el ejemplo anterior, dado que habilita la ejecución de
+abreviaturas tales como los @notation{trinos}.
 
 @knownissues
 
@@ -3364,9 +3477,8 @@ Articulate acorta los acordes, y ciertos fragmentos de música
 @section Extraer información musical
 @translationof Extracting musical information
 
-Además de crear un resultado visual y MIDI,
-LilyPond es capaz de presentar información
-musical en forma de texto.
+Además de crear un resultado visual y MIDI, LilyPond es capaz de
+presentar información musical en forma de texto.
 
 @menu
 * Impresión del código de notación de LilyPond::
@@ -3380,10 +3492,10 @@ musical en forma de texto.
 @translationof Displaying LilyPond notation
 
 @funindex \displayLilyMusic
-La impresión textual de una expresión musical en notación de LilyPond
-puede hacerse con la función musical @code{\displayLilyMusic}.
-Para ver el resultado, lo más usual es llamar a LilyPond
-mediante la línea de órdenes.  Por ejemplo,
+La impresión textual de una expresión musical en notación de
+LilyPond puede hacerse con la función musical
+@code{\displayLilyMusic}.  Para ver el resultado, lo más usual es
+llamar a LilyPond mediante la línea de órdenes.  Por ejemplo,
 
 @example
 @{
@@ -3397,11 +3509,11 @@ imprime lo siguiente:
 @{ a,4 cis e fis g @}
 @end example
 
-De forma predeterminada, LilyPond imprime estos mensajes en la consola
-junto al resto de los mensajes de la compilación de LilyPond.
-Para discernir entre estos mensajes y
-guardar el resultado de @code{\display@{MATERIAL@}}, redireccione la
-salida hacia un archivo.
+De forma predeterminada, LilyPond imprime estos mensajes en la
+consola junto al resto de los mensajes de la compilación de
+LilyPond.  Para discernir entre estos mensajes y guardar el
+resultado de @code{\display@{MATERIAL@}}, redireccione la salida
+hacia un archivo.
 
 @example
 lilypond archivo.ly >resultado.txt
@@ -3420,18 +3532,19 @@ Véase @rextend{Presentación de las expresiones musicales}.
 @translationof Saving music events to a file
 
 Los eventos musicales se pueden guardar en un archivo pentagrama a
-pentagrama mediante la inclusión de un archivo en nuestra partitura
-principal.
+pentagrama mediante la inclusión de un archivo en nuestra
+partitura principal.
 
 @example
 \include "event-listener.ly"
 @end example
 
 De esta forma se crean uno o más archivos llamados
-@file{FILENAME-STAFFNAME.notes} ó @file{FILENAME-unnamed-staff.notes}
-para cada pentagrama.  Observe que si tiene más de un pentagrama sin
-nombre, los eventos de todos los pentagramas se mezclarán entre sí
-dentro del mismo archivo.  El resultado tiene el aspecto siguiente:
+@file{FILENAME-STAFFNAME.notes} ó
+@file{FILENAME-unnamed-staff.notes} para cada pentagrama.  Observe
+que si tiene más de un pentagrama sin nombre, los eventos de todos
+los pentagramas se mezclarán entre sí dentro del mismo archivo.
+El resultado tiene el aspecto siguiente:
 
 @example
 0.000   note     57       4   p-c 2 12
@@ -3444,22 +3557,22 @@ dentro del mismo archivo.  El resultado tiene el aspecto siguiente:
 @end example
 
 La sintaxis consiste en una línea delimitada por caracteres de
-tabulación, con dos campos fijos en cada línea seguidos de parámetros
-opcionales.
+tabulación, con dos campos fijos en cada línea seguidos de
+parámetros opcionales.
 
 @example
 @var{tiempo}  @var{tipo}  @var{...parámetros...}
 @end example
 
-Esta información se puede leer fácilmente por parte de otros programas
-como guiones de Python, y pueden ser muy útiles para aquellos
-investigadores que desean realizar un análisis musical o hacer
-experimientos de reproducción con LilyPond.
+Esta información se puede leer fácilmente por parte de otros
+programas como guiones de Python, y pueden ser muy útiles para
+aquellos investigadores que desean realizar un análisis musical o
+hacer experimientos de reproducción con LilyPond.
 
 @knownissues
 No todos los eventos musicales de lilypond están contemplados por
 @file{event-listener.ly}.  Se pretende que sea una @qq{prueba de
 concepto} bien realizada.  Si algunos eventos que quiere ver no
-aparecen incluidos, copie @file{event-listener.ly} en su carpeta de
-lilypond y modifique el archivo de forma que produzca la información
-que desea.
+aparecen incluidos, copie @file{event-listener.ly} en su carpeta
+de lilypond y modifique el archivo de forma que produzca la
+información que desea.

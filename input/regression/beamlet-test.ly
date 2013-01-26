@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "
@@ -8,29 +8,29 @@ broken beat units.  This should work in tuplets as well as in ordinary time.
 }
 
 \relative c'' {
-    \times 2/3 {
+    \tuplet 3/2 {
       c8. c16 c8
     }
-   \times 2/3 {
+   \tuplet 3/2 {
       c8 c16 c8.
     }
-  \times 4/5 {
+  \tuplet 5/4 {
     c8[ c8. c16 c8 c8]
   }
-  \times 4/5 {
+  \tuplet 5/4 {
     c8[ c8 c16 c8. c8]
   }
-  \times 4/5 {
+  \tuplet 5/4 {
     c8 c16 c8. c8 c8
   }
-  \times 4/5 {
+  \tuplet 5/4 {
     c8 c8 c8. c16 c8
   }
   c8.[ c16 c8 c8]
   c8[ c16 c8. c8]
   c8[ c8. c16 c8]
   c8.[ c16 c8. c16]
-  \times 4/5 { c8 [ c16 c8 c16 c8 c8 ] }
-  \times 4/5 { a8 a32 a8 a16. a8 a8 }
+  \tuplet 5/4 { c8 [ c16 c8 c16 c8 c8 ] }
+  \tuplet 5/4 { a8 a32 a8 a16. a8 a8 }
 }
 

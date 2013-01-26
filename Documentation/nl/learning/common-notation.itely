@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -556,10 +556,10 @@ maakt dat de noten 2/3 van hun lengte duren, dus een
 @notation{triool} heeft als fractie 2/3
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Versieringen
@@ -1364,7 +1364,7 @@ compacter in te voeren.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-trioolA = \times 2/3 { c,8 e g }
+trioolA = \tuplet 3/2 { c,8 e g }
 maatA = { \trioolA \trioolA \trioolA \trioolA }
 
 \relative c'' {

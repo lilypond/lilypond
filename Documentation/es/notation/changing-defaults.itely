@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 44011e382e91f43fb6752b3fbbf8d8984131a565
+Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -64,7 +64,7 @@ Esta sección explica qué son los contextos y cómo modificarlos.
 
 @menu
 * Explicación de los contextos::
-* Crear contextos::
+* Crear y referenciar contextos::
 * Mantener vivos los contextos::
 * Modificar los complementos (plug-ins) de contexto::
 * Cambiar los valores por omisión de los contextos::
@@ -239,150 +239,223 @@ Normalmente se deja que se cree implícitamente.
 Tipografía nombres de acordes.
 
 
-@node Crear contextos
-@subsection Crear contextos
-@translationof Creating contexts
-
-@c TODO more complete descriptions rather than learning style
-
-Para partituras que sólo tienen una voz y un pentagrama, los contextos
-se crean automáticamente.  Para partituras más complejas, es necesario
-crearlos a mano.  Existen tres instrucciones que hacen esto.
-
-@itemize
-
-@item
-La instrucción más fácil es @code{\new}, y es también la más rápida de
-escribir.  Se antepone a una expresión musical, por ejemplo
+@node Crear y referenciar contextos
+@subsection Crear y referenciar contextos
+@translationof Creating and referencing contexts
 
 @funindex \new
-@cindex nuevos, contextos
-@cindex Contexto, creación de
-
-@example
-\new @var{tipo} @var{expresión_musical}
-@end example
-
-@noindent
-donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
-@code{Voice}).  Esta instrucción crea un contexto nuevo, y empieza a
-interpretar la @var{expresión_musical} con él.
-
-Una aplicación práctica de @code{\new} es una partitura con muchos
-pentagramas.  Cada parte que debe ir en su propio pentagrama, va
-precedida de @code{\new Staff}.
-
-@lilypond[quote,verbatim,relative=2,ragged-right]
-<<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
->>
-@end lilypond
-
-La instrucción @code{\new} puede también dar nombre al contexto,
-
-@example
-\new @var{tipo} = @var{identificador} @var{música}
-@end example
-Sin embargo, este nombre especificado por el usuario sólo se utiliza
-si no hay ya otro contexto anterior con el mismo nombre.
-
-
 @funindex \context
+@cindex nuevos contextos
+@cindex contextos, creación y referenciación de
+@cindex referenciar contextos
 
-@item
-Como @code{\new}, la instrucción @code{\context} también dirige una
-expresión musical a un objeto de contexto, pero da al contexto un
-nombre explícito.  La sintaxis es
-
-@example
-\context @var{tipo} = @var{identificador} @var{música}
-@end example
-
-En esta forma, la instrucción buscará un contexto existente del
-@var{tipo} especificado que tenga el nombre @var{identificador}.  Si
-ese contexto aún no existe, se crea un contexto nuevo con el nombre
-especificado.  Esto es útil si nos vamos a referir más tarde al
-contexto.  Por ejemplo, cuando se escribe la letra, la melodía está
-dentro de un contexto con nombre
+LilyPond crea automáticamente contextos de nifel inferior si se
+encuentra una expresión musical antes de que exista un contexto
+adecuado, pero normalmente esto sólo funciona bien para partituras
+sencillas o fragmentos musicales como los que aparecen en la
+documentación.  Para partituras más complejas, se recomienda
+especificar explícitamente todos los contextos con las
+instrucciones @code{\new} o @code{\context}.  La sintaxis de estas
+dos instrucciones es muy similar:
 
 @example
-\context Voice = "@b{tenor}" @var{música}
+[\new | \context] @var{Contexto} [ = @var{nombre}] [@var{expresión_musical}]
 @end example
 
 @noindent
-de forma que los textos se puedan alinear correctamente con sus notas,
+donde se puede especificar @code{\new} o @code{\context}.
+@var{Contexto} es el tipo de contexto que se desea crear,
+@var{nombre} es un nombre opcional que se da al contexto concreto
+que se está creando, y @var{expresión_musical} es una sola
+expresión musical que será interpretada por los complementos
+grabadores y reproductores dentro de este contexto.
 
-@example
-\new Lyrics \lyricsto "@b{tenor}" @var{letra}
-@end example
+El prefijo @code{\new} sin ningún nombre se usa con frecuencia
+para crear partituras con muchos pentagramas:
 
-@noindent
-
-Otro uso posible de los contextos con nombre es la fusión de dos
-expresiones musicales distintas en un solo contexto.  En el siguiente
-ejemplo, se introducen por separado las articulaciones y las notas:
-
-@example
-musica = @{ c4 c4 @}
-decoracion = @{ s4-. s4-> @}
-@end example
-
-se combinan enviando los dos al mismo contexto @code{Voice},
-
-@example
+@lilypond[quote,verbatim,relative=2]
 <<
-  \new Staff \context Voice = "A" \musica
-  \context Voice = "A" \decoracion
->>
-@end example
-@lilypond[quote,ragged-right]
-music = { c4 c4 }
-arts = { s4-. s4-> }
-\relative c'' <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
+  \new Staff {
+    % leave the Voice context to be created implicitly
+    c4 c
+  }
+  \new Staff {
+    d4 d
+  }
 >>
 @end lilypond
 
-Con este mecanismo, es posible definir un @qq{urtext} (una edición
-original), con la posibilidad de poner articulaciones distintas sobre
-las mismas notas.
+@noindent
+y para introducir varias voces dentro de un solo pentagrama:
 
-@cindex crear contextos
-
-@item
-La tercera instrucción para crear contextos es
-@example
-\context @var{tipo} @var{música}
-@end example
-
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
 
 @noindent
-Esto es similar a @code{\context} con @code{= @var{identificador}},
-pero se corresponde con cualquier contexto del tipo @var{tipo}, sin
-importar qué nombre se le ha dado.
+@code{\new} debería usarse siempre para especificar contextos sin
+nombre.
 
-Esta variante se usa con expresiones musicales que se pueden
-interpretar en varios niveles.  Por ejemplo, la instrucción
-@code{\applyOutput} (véase
-@rextend{Ejecutar una función sobre todos los objetos de la presentación}).
-Sin una instrucción @code{\context}
-explícita, normalmente se aplicaría a @code{Voice}
+La diferencia entre @code{\new} y @code{\context} se encuentra en
+la acción que se realiza:
+
+@itemize
+@item
+@code{\new} con un nombre o sin él, siempre crea un contexto nuevo
+y distinto, incluso si ya existe un contexto con el mismo nombre:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice = "A" {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice = "A" {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
+
+@item
+@code{\context} con un nombre especificado, crea un contexto nuevo
+solamente si no existe ya un contexto del mismo tipo y con el
+mismo nombre, dentro de la misma jerarquía de contextos.  En caso
+contrario, se toma como referencia a dicho contexto creado
+previamente, y su expresión musical se pasa a este contexto para
+su interpretación.
+
+Una aplicación de los contextos con nombre es la separación entre
+la disposición de la partitura y el contenido musical.  Son
+válidas culaquiera de las dos formas siguientes:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \new Voice = "one" {
+        \voiceOne
+      }
+      \new Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % score layout
+    \new Staff <<
+      \context Voice = "one" {
+        \voiceOne
+      }
+      \context Voice = "two" {
+        \voiceTwo
+      }
+    >>
+
+    % musical content
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
+
+@noindent
+De manera alternativa, se pueden utilizar variables con un efecto
+similar. Véase @rlearning{Organizar las piezas mediante variables}.
+
+@item
+
+@code{\context} sin ningún nombre corresponderá con el primer
+contexto que se encuentre entre los creados previamente que sean
+del mismo tipo dentro de la misma jerarquía de contextos, incluso
+si tiene nombre, y su expresión musical se pasará a dicho contexto
+para su interpretación.  Esta forma rara vez es útil.  Sin
+embargo, @code{\context} sin nombre y sin expresión musical se usa
+para establecer el contexto en que se ejecuta un procedimiento de
+Scheme especificado con @code{\applyContext}:
 
 @example
-\applyOutput #'@var{contexto} #@var{función}   % aplicar al contexto Voice
-@end example
-
-Para que se interprete dentro de los niveles de @code{Score} o
-@code{Staff}, utilice las siguientes formas:
-
-@example
-\applyOutput #'Score #@var{función}
-\applyOutput #'Staff #@var{función}
+\new Staff \relative c' @{
+  c1
+  \context Timing
+  \applyContext #(lambda (ctx)
+                   (newline)
+                   (display (ly:context-current-moment ctx)))
+  c1
+@}
 @end example
 
 @end itemize
+
+Un contexto debe tener un nombre si se va a hacer referencia a él
+más tarde, por ejemplo cuando se asocia la letra con la música:
+
+@example
+\new Voice = "tenor" @var{música}
+...
+\new Lyrics \lyricsto "tenor" @var{letra}
+@end example
+
+@noindent
+Para ver más detalles sobre la asociación de letra y música,
+consulte @ref{Duración automática de las sílabas}.
+
+Las propiedades de todos los contextos de un tipo en particular se
+pueden modificar dentro de un bloque @code{\layout} (con una
+sintaxis diferente), véase @ref{Cambiar todos los contextos del mismo tipo}.
+
+Esta construcción también ofrece una forma de mantener las
+instrucciones de disposición separadas del contenido musical.  Si
+se va a modificar un solo contexto, debe usarse un bloque
+@code{\with}, véase @ref{Cambiar solamente un contexto determinado}.
+
+@seealso
+
+Manual de aprendizaje:
+@rlearning{Organizar las piezas mediante variables}.
+
+Referencia de la notación:
+@ref{Cambiar solamente un contexto determinado},
+@ref{Duración automática de las sílabas}.
 
 
 @node Mantener vivos los contextos
@@ -1037,7 +1110,6 @@ contexto de @code{Voice} partiendo de cero.  Será parecido a
 barra inclinada.  Se puede usar para indicar improvisación en piezas
 de jazz,
 
-@c KEEP LY
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
@@ -1058,7 +1130,7 @@ de jazz,
 
 \relative c'' {
   a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
-   c4 c^"desvístete" c_"mientras tocas :)" c }
+   c4 c^"undress" c_"while playing :)" c }
   a1
 }
 @end lilypond
@@ -1915,29 +1987,11 @@ de lista asociativa.  Consulte @file{scm/define-grobs.scm} para
 ver los ajustes de cada descripción de grob.  Las descripciones de
 grob se modifican con @code{\override}.
 
-@code{\override} es en realidad una forma abreviada;
+La sintaxis de la instrucción @code{\override} es
 
 @example
-\override @var{contexto}.@var{NombreDelGrob} #'@var{propiedad} = #@var{valor}
+\override [@var{contexto}.]@var{NombreDelGrob}.@var{propiedad} = #@var{valor}
 @end example
-
-@noindent
-equivale más o menos a
-
-@c  leave this long line -gp
-@example
-\set @var{contexto}.@var{NombreDelGrob}  =
-  #(cons (cons '@var{propiedad} @var{valor})
-         <valor anterior de @var{contexto}.@var{NombreDelGrob}>)
-@end example
-
-El valor de @code{contexto}.@code{NombreDelGrob} (la lista-A) se
-utiliza para inicializar las propiedades de los grobs individuales.
-Los grobs tienen propiedades, denominadas en el estilo de Scheme, con
-@code{palabras-con-guiones}.  Los valores de las propiedades de grob
-cambian durante el proceso de formateo: éste se realiza básicamente
-calculando las propiedades utilizando funciones de @q{callback}
-(pasadas como parámetro).
 
 Por ejemplo, podemos aumentar el grosor de la plica de una figura
 sobreescribiendo la propiedad @code{thickness} (grosor) del objeto
@@ -1966,12 +2020,36 @@ Si no se ha especificado ningún contexto en la instrucción
 }
 @end lilypond
 
+Algunas opciones susceptibles de trucaje, se llaman
+@q{subpropiedades} y residen dentro de las propiedades.  Para
+efectura trujajes sobre ellas, utilice instrucciones de la forma
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+o para modificar los extremos de los objetos extensos, utilice una
+forma como las siguientes:
+
+@example
+\override TextSpanner.bound-details.left.text = #"left text"
+\override TextSpanner.bound-details.right.text = #"right text"
+@end example
+
 @funindex \revert
 @cindex reversión de sobreescrituras
 @cindex sobreescrituras, reversión de
 
 El efecto de una instrucción de sobreescritura @code{\override} se
-puede deshacer con @code{\revert}:
+puede deshacer con @code{\revert}.
+
+La sintaxis de la instrucción @code{\revert} es
+
+@example
+\revert [@var{Contexto}.]@var{NombreDelGrob}.@var{propiedad}
+@end example
+
+Por ejemplo,
 
 @lilypond[quote,verbatim,relative=2]
 c4
@@ -2041,14 +2119,6 @@ Para construir este truco debemos determinar los siguientes datos:
 @item un valor adecuado: aquí @code{3.0}.
 @end itemize
 
-Ciertas opciones ajustables se denominan @q{subpropiedades} y residen
-en el interior de las propiedades normales.  Para modificarlas utilice
-instrucciones de la forma
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-
 @cindex documentación interna
 @cindex buscar objetos gráficos
 @cindex gráficos, descripción de los objetos
@@ -2087,7 +2157,7 @@ a todos los grobs del contexto afectado.  Esto se consigue con la
 instrucción @code{\tweak}, que tiene la sintaxis siguiente:
 
 @example
-\tweak @var{objeto-de-presentación} #'@var{propiedad-del-grob} @var{valor}
+\tweak [@var{objeto-de-presentación}.]@var{propiedad-del-grob} @var{valor}
 @end example
 
 Es opcional especificar el @var{objeto-de-presentación}.  La
@@ -2114,7 +2184,7 @@ por ejemplo
 
 
 
-Pero el uso principal de la instrucción @code{\tweak} es modificar
+El uso principal de la instrucción @code{\tweak} es modificar
 solamente uno de varios elementos de notación que dan comienzo en el
 mismo momento musical, como las notas de un acorde, o corchetes de
 tresillo que empiezan al mismo tiempo.
@@ -2211,8 +2281,9 @@ parte de objetos de presentación @code{NoteHead}
 más que por elementos musicales del
 flujo de entrada.
 
-Tales objetos de presencaión creados indirectamente se pueden trucar
-usando la forma explícita de la instrucción @code{\tweak}:
+Tales objetos de presentación creados indirectamente se pueden trucar
+usando la forma de la instrucción @code{\tweak} en que el nombre
+del grob se especifica de forma explícita:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak Stem.color #red
@@ -2463,11 +2534,12 @@ Se activa con la instrucción @code{\figuremode} y hace que el código
 de entrada se interprete con la sintaxis del bajo cifrado, véase
 @ref{Introducir el bajo cifrado}.
 
-El modo de cifrase también se activa con la instrucción
-@code{\figures}.  También crea un contexto de @code{FiguredBass} nuevo
-y hace que el código que viene a continuación se interprete con la
-sintaxis del bajo cifrado y se imprima como símbolos de bajo cifrado
-dentro del contexto @code{FiguredBass}, véase @ref{Introducción al bajo cifrado}.
+El modo de cifras también se activa con la instrucción
+@code{\figures}.  También crea un contexto de @code{FiguredBass}
+nuevo y hace que el código que viene a continuación se interprete
+con la sintaxis del bajo cifrado y se imprima como símbolos de
+bajo cifrado dentro del contexto @code{FiguredBass}, véase
+@ref{Introducción al bajo cifrado}.
 
 @strong{Modos de traste y tablatura}
 
@@ -2542,7 +2614,14 @@ o centrado; etc.  La mayoría de estas elecciones pueden dejarse que
 LilyPond las determine automáticamente, pero en ciertos casos puede
 ser deseable forzar una dirección o colocación concreta.
 
-@strong{Acciones predeterminadas}
+@menu
+* Indicadores de dirección de las articulaciones::
+* La propiedad de dirección::
+@end menu
+
+@node Indicadores de dirección de las articulaciones
+@unnumberedsubsubsec Indicadores de dirección de las articulaciones
+@translationof Articulation direction indicators
 
 De forma predeterminada algunas direcciones siempre son hacia arriba o
 siempre hacia abajo (p. ej. los matices o el calderón), mientras que
@@ -2578,7 +2657,9 @@ c2( c)
 c2^( c)
 @end lilypond
 
-@strong{La propiedad de dirección}
+@node La propiedad de dirección
+@unnumberedsubsubsec La propiedad de dirección
+@translationof The direction property
 
 La posición o dirección de muchos objetos de presentación está
 controlada por la propiedad @code{direction}.
@@ -2752,20 +2833,27 @@ Todos los objetos de extensión contemplan el interface
 una línea recta entre los dos objetos, contemplan también el interface
 @code{line-spanner-interface}.
 
+@menu
+* Uso del spanner-interface::
+* Uso del line-spanner-interface::
+@end menu
+
+@node Uso del spanner-interface
 @unnumberedsubsubsec Uso del @code{spanner-interface}
+@translationof Using the spanner-interface
 
 Este interface proporciona dos propiedades que se aplican a varios
 extensores.
 
-@strong{@i{La propiedad @code{minimum-length}}}
+@subsubsubheading La propiedad @code{minimum-length} (longitud mínima)
 
-La longitud mínima del objeto de extensión se especifica a través de
-la propiedad @code{minimum-length}.  Su aumento suele producir el
-efecto necesario de aumentar el espaciado de las notas entre los dos
-puntos extremos.  Sin embargo, esta sobreescritura no tiene ningún
-efecto sobre muchos extensores, pues su longitud está determinada por
-otras consideraciones.  Más abajo se muestran algunos ejemplos de
-dónde es efectiva.
+La longitud mínima del objeto de extensión se especifica a través
+de la propiedad @code{minimum-length}.  Su aumento suele producir
+el efecto necesario de aumentar el espaciado de las notas entre
+los dos puntos extremos.  Sin embargo, esta sobreescritura no
+tiene ningún efecto sobre muchos extensores, pues su longitud está
+determinada por otras consideraciones.  Más abajo se muestran
+algunos ejemplos de dónde es efectiva.
 
 @ignore
 Works for:
@@ -2863,7 +2951,7 @@ e8 e e e
 e8 e e e
 @end lilypond
 
-@strong{@i{The @code{to-barline} property}}
+@subsubsubheading La propiedad @code{to-barline}
 
 La segunda propiedad útil del @code{spanner-interface} es
 @code{to-barline}.  De forma predeterminada tiene el valor cierto,
@@ -2884,7 +2972,9 @@ su establecimiento a @code{#t} no tienen ningún efecto sobre las
 ligaduras de expresión o de fraseo, o sobre otros extensores para los
 que terminar en la barra de compás no tendría ningún significado.
 
+@node Uso del line-spanner-interface
 @unnumberedsubsubsec Uso del @code{line-spanner-interface}
+@translationof Using the line-spanner-interface
 
 Entre los objetos que contemplan el interface
 @code{line-spanner-interface} se encuentran
@@ -3228,8 +3318,7 @@ de presentación de interés que resultan afectados por
 @item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
 @item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
-@c omit KeyCancellation until it can be explained -td
-@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@item @code{KeyCancellation}     @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
@@ -3246,7 +3335,7 @@ controlar la visibilidad de las líneas divisorias:
 f4 g a b
 f4 g a b
 % Remove bar line at the end of the current line
-\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
+\once \override Score.BarLine.break-visibility = ##(#f #t #t)
 \break
 f4 g a b
 f4 g a b
@@ -3274,7 +3363,7 @@ imprimirlas y all-invisible para suprimirlas.
 @unnumberedsubsubsec Consideraciones especiales
 @translationof Special considerations
 
-@strong{@emph{Visibilidad después de un cambio explícito}}
+@subsubsubheading Visibilidad después de un cambio explícito
 
 @cindex armadura, visibilidad después de un cambio explícito
 @cindex explicitKeySignatureVisibility
@@ -3328,9 +3417,9 @@ f4 g a b
 f4 g a b
 @end lilypond
 
-@strong{@emph{Visibilidad de las alteraciones de precaución}}
+@subsubsubheading Visibilidad de las alteraciones de precaución
 
-Para eliminar las alteraciones de precaución que se imprimen en un
+Para eliminar las alteraciones de cancelación que se imprimen en un
 cambio de tonalidad explícito, establezca la propiedad
 @code{printKeyCancellation} del contexto Staff a @code{#f}:
 
@@ -3349,9 +3438,41 @@ f4 g a b
 Con estas sobreescrituras solamente permanecen las alteraciones
 accidentales delante de las notas para indicar el cambio de tonalidad.
 
+Observe que al modificar la tonalidad a Do@tie{}mayor o
+La@tie{}menor, las alteraciones de cancelación serían @emph{la
+única} indicación del cambio de armadura.  En este caso, el
+establecimiento de @code{printKeyCancellation} al valor @code{#f}
+no tiene ningún efecto:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.printKeyCancellation = ##f
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+En lugar de ello, para suprimir las alteraciones de cancelación
+aún cuando la armadura cambia a Do@tie{}mayor o a La@tie{}menor,
+sobreescriba la visibilidad del grob @code{KeyCancellation}:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Staff.KeyCancellation.break-visibility = #all-invisible
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
 @c TODO Add visibility of cautionary accidentals before notes
 
-@strong{@emph{Automatic bars}}
+@subsubsubheading Líneas divisorias automáticas
 
 @cindex automaticBars
 @cindex líneas divisorias, eliminación
@@ -3369,7 +3490,7 @@ explícitas.
 
 @c TODO Add example
 
-@strong{@emph{Octavated clefs}}
+@subsubsubheading Claves octavadas
 
 @cindex octavadas, visibilidad de las claves
 @cindex visibilidad de las claves octavadas
@@ -3685,7 +3806,7 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 @unnumberedsubsubsec Uso del @code{self-alignment-interface}
 @translationof Using the self-alignment-interface
 
-@emph{Auto-alineación horizontal de los objetos}
+@subsubsubheading Auto-alineación horizontal de los objetos
 
 La alineación horizontal de un objeto que contempla el interface
 @code{self-alignment-interface} está controlada por el valor de la
@@ -3720,7 +3841,7 @@ a'
 ^"aligned further to the right"
 @end lilypond
 
-@emph{Auto-alineación vertical de los objetos}
+@subsubsubheading Auto-alineación vertical de los objetos
 
 Los objetos se pueden alinear verticalmente en una forma análoga a la
 alineación horizontal si la propiedad @code{Y-offset} está establecida
@@ -3995,27 +4116,55 @@ Referencia de la notación:
 @cindex Bézier, curvas de, puntos de control
 @cindex puntos de control en curvas de Bézier
 
-Las ligaduras de unión, de expresión y de fraseo se trazan como curvas
-de Bézier de tercer orden.  Si la forma de la ligadura calculada
-automáticamente no resulta óptima, se puede modificar su forma
-manualmente mediante la especificación explícita de los cuatro puntos
-de control necesarios para definir una curva de Bézier de tercer
-orden.
+Las ligaduras de unión (@code{Tie}s), de expresión (@code{Slur}s),
+de fraseo (@code{PhrasingSlur}s), de dejar vibrar
+(@code{LaissezVibrerTie}s) y de repetición (@code{RepeatTie}s) se
+trazan como curvas de Bézier de tercer orden.  Si la forma de la
+ligadura calculada automáticamente no resulta óptima, se puede
+modificar su forma manualmente de dos formas:
 
-Las curvas Bézier de tercer orden o cúbicas están definidas por cuatro
-puntos de control.  El primer y cuarto puntos de control son
-exactamente los puntos extremos de comienzo y de final de la curva.
-Los dos puntos de control intermedios definen la forma.  Se pueden
-encontrar en la web animaciones que muestran cómo se traza la curva,
-pero la descripción siguiente puede ser de ayuda.  La curva comienza a
-partir del primer punto de control dirigiéndose directamente hacia el
-segundo, curvándose progresivamente para dirigirse hacia el tercero y
-continuando la curva hacia el cuarto, llegando a éste en viaje directo
-desde el tercer punto de control.  La curva está contenida enteramente
+@enumerate a
+@item
+mediante la especificación de los desplazamientos que se quieren
+realizar sobre los puntos de control de la curva de Bézier
+calculada automáticamente, o bien
+
+@item
+mediante la especificación explícita de las posiciones de los
+cuatro puntos de control que se requieren para definir la curva
+deseada.
+@end enumerate
+
+A continuación se explican ambos métodos.  El primer método es más
+adecuado cuando solo se requieren ligeros ajustes de la curva; el
+segundo puede ser mejor para crear curvas que tienen relación con
+una única nota.
+
+@subsubsubheading Curvas de Bézier cúbicas
+
+Las curvas Bézier de tercer orden o cúbicas están definidas por
+cuatro puntos de control.  El primer y cuarto puntos de control
+son exactamente los puntos extremos de comienzo y de final de la
+curva.  Los dos puntos de control intermedios definen la forma.
+Se pueden encontrar en la web animaciones que muestran cómo se
+traza la curva, pero la descripción siguiente puede ser de ayuda.
+La curva comienza a partir del primer punto de control
+dirigiéndose directamente hacia el segundo, curvándose
+progresivamente para dirigirse hacia el tercero y continuando la
+curva hacia el cuarto, llegando a éste en viaje directo desde el
+tercer punto de control.  La curva está contenida enteramente
 dentro del cuadrilátero definido por los cuatro puntos de control.
+Todas las traslaciones, rotaciones y escalado de los puntos de
+control producen exactamente las mismas operaciones sobre la
+curva.
 
-He aquí un ejemplo de un caso en que la ligadura no es óptima, y donde
-@code{\tieDown} no sirve de ayuda.
+@subsubsubheading Especificar desplazamientos a partir de los puntos de control actuales
+
+@cindex conformar ligaduras
+@funindex \shape
+
+En este ejemplo, la colocación automática de la ligadura no
+resulta óptima, y @code{\tieDown} no es la solución.
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -4025,48 +4174,169 @@ He aquí un ejemplo de un caso en que la ligadura no es óptima, y donde
 >>
 @end lilypond
 
-Una forma de mejorar esta ligadura es modificar manualmente sus puntos
-de control como sigue.
+El ajuste de los puntos de control de la ligadura mediante la
+instrucción @code{\shape} permite evitar las colisiones.
 
-Las coordenadas de los puntos de control de Bézier se especifican en
-unidades de espacios de pentagrama.  La coordenada@tie{}X está en
-relación con el punto de referencia de la nota a la que está unida la
-ligadura, y la coordenada@tie{}Y está en relación con la línea central
-del pentagrama.  Las coordenadas se introducen como una lista de
-cuatro parejas de números decimales (reales).  Un enfoque es estimar
-las coordenadas de los dos puntos extremos, y luego tratar de adivinar
-los dos puntos intermedios.  Los valores óptimos se encuentran por
-ensayo y error.
+La sintaxis de @code{\shape} es:
 
-Es útil recordar que una curva simétrica necesita puntos de control
-simétricos, y que las curvas de Bézier tienen la útil propiedad de que
-las transformaciones de la curva tales como la traslación, rotación y
-escalado se pueden obtener aplicando la misma transformación a los
-puntos de control de la curva.
+@example
+[-]@code{\shape} @var{desplazamientos} @var{elemento}
+@end example
 
-Para el ejemplo anterior, la sobreescritura siguiente da una ligadura
-satisfactoria.  Observe la colocación: debe ir inmediatamente antes de
-la nota a la que se asigna el comienzo de la ligadura de expresión o
-de unión.
+Esta instrucción recoloca los puntos de control de @var{elemento}
+en las cantidades dadas por @var{desplazamientos}.  El argumento
+@var{desplazamientos} es una lista de parejas de números o una
+lista de tales listas.  Cada elemento de una pareja representa el
+desplazamiento de una de las coordenadas de un punto de control.
+Si el @var{elemento} es una cadena de caracteres, el resultado es
+@code{\once\override} para el tipo de grob especificado.  Si
+@var{elemento} es una expresión musical, el resultado es la misma
+expresión musical con la consiguiente modificación aplicada.
+
+En otras palabras, la función @code{\shape} puede actuar como una
+instrucción @code{\once\override} o como una instrucción
+@code{\tweak} dependiendo de si el argumento @var{elemento} es el
+nombre de un grob, como @qq{Slur}, o una expresión musical, como
+@qq{(}.  El argumento @var{desplazamientos} especifica los
+desplazamientos de los cuatro puntos de control como una lista de
+cuatro parejas de valores (dx . dy) en unidades de espacios de
+pentagrama (o una lista de tales listas si la curva tiene más de
+un segmento).
+
+El guión precedente se exige si, y sólo si, se usa la forma
+@code{\tweak}.
+
+Así, usando el mismo ejemplo de arriba y la forma
+@code{\once\override} de la instrucción @code{\shape}, lo
+siguiente tiene el efecto de elevar la ligadura de unión en la
+mitad de un espacio de pentagrama:
 
 @lilypond[verbatim,quote,relative=1]
 <<
   {
-    \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e1~ e
   }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
 @end lilypond
 
+Este posicionamiento de la ligadura de unión es mejor, pero quizá
+debería elevarse más en la parte central.  El ejemplo siguiente
+hace esto, esta vez usando la forma alternativa @code{\tweak}:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Los cambios en las posiciones horizontales de los puntos de
+control se pueden hacer de la misma forma, y dos curvas distintas
+que dan comienzo en el mismo momento musical se pueden conformar
+también:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+c8(\( a) a'4 e c\)
+\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+c8(\( a) a'4 e c\)
+@end lilypond
+
+La función @code{\shape} también puede desplazar los puntos de
+control de las curvas que se extienden atravesando saltos de
+línea.  Cada pieza de la curva dividida puede recibir su propia
+lista de desplazamientos.  Si no se necesita hacer cambios a uno
+de los segmentos en particular, se puede usar una lista vacía como
+contenedor.  En este ejemplo, el salto de línea hace que la única
+ligadura de expresión aparezca como si fueran dos:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+Los cambios en la forma de las dos mitades de la ligadura de
+expresión deja más claro que la ligadura continúa más allá del
+salto de línea:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+% () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
+% if any of the segments does not need to be changed
+\shape #'(
+           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+         ) Slur
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+En una curva en forma de «S» siempre es necesario ajustar
+manualmente los puntos de control: LilyPond nunca escoge tales
+formas automáticamente.
+
+@lilypond[verbatim,quote,relative=2]
+c8( e b-> f d' a e-> g)
+\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+c8\( e b-> f d' a e-> g\)
+@end lilypond
+
+@subsubsubheading Especificar los puntos de control explícitamente
+
+Las coordenadas de los puntos de contro de Bézier se especifican
+en unidades de espacios de pentagrama.  La coordenada@tie{}X es
+relativa al punto de referencia al que se adjunta la ligadura, y
+la coordenada@tie{}Y es relativa a la línea central del
+pentagrama.  Las coordenadas se especifican como una lista de
+cuatro parejas de números decimales (reales).  Un enfoque consiste
+en estimar las coordenadas de los dos extremos, y después adivinar
+los dos puntos intermedios.  Los valores óptimos se encuentran
+después por ensayo y error.  Tenga en cuenta que estos valores
+podrían requerir un ajuste manual si se hace posteriormente
+cualquier cambio manual a la música o a la disposición.
+
+Una situación en la que es preferible especificar los puntos de
+control explícitamente a especificar los desplazamientos es cuando
+se necesita especificarlos de forma relativa a una nota única.  A
+continuación presentamos un ejemplo de esto.  Muestra una forma de
+indicar una ligadura que se extiende hacia el interior de las
+casillas de primera y segunda vez de una repetición.
+
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 3 { c4 d( e f }
+\alternative {
+  { g2) d }
+  {
+    g2
+    % create a slur and move it to a new position
+    % the <> is just an empty chord to carry the slur termination
+    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+    f,
+  }
+  {
+    e'2
+    % create a slur and move it to a new position
+    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+    f,
+  }
+}
+@end lilypond
+
 @knownissues
 No es posible modificar la forma de las ligaduras de unión o de
-expresión cambiando la propiedad @code{control-points} si hay más de
-una en el mismo momento musical, ni siquiera usando la instrucción
-@code{\tweak}.  Sin embargo, se puede sobreescribir la propiedad
-@code{tie-configuration} de @code{TieColumn} para fijar la línea de
-inicio y la dirección según se requiera.
+expresión cambiando la propiedad @code{control-points} si hay más
+de una en el mismo momento musical, ni siquiera usando la
+instrucción @code{\tweak}.  Sin embargo, se puede sobreescribir la
+propiedad @code{tie-configuration} de @code{TieColumn} para fijar
+la línea de inicio y la dirección según se requiera.
 
 @seealso
 Referencia de funcionamiento interno:

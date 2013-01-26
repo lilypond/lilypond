@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   
@@ -13,8 +13,8 @@ the beams should be subdivided every 1/8.
 }
 
 \relative c' {
-    \set tupletSpannerDuration = #(ly:make-moment 1 4)
-    \set baseMoment = #(ly:make-moment 1 8)
+    \tupletSpan 4
+    \set baseMoment = #(ly:make-moment 1/8)
     \set subdivideBeams = ##t
-    \times 4/6 { \repeat unfold 24 { c16 } }
+    \tuplet 6/4 { \repeat unfold 24 { c16 } }
 }

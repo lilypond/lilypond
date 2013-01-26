@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @ignore
 GDP TODO list
@@ -1393,7 +1393,7 @@ with the music:
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1607,7 +1607,7 @@ the section.
 The @code{Page_turn_engraver} reads the context property
 @code{minimumPageTurnLength} to determine how long a note-free section must
 be before a page turn is considered.  The default value for
-@code{minimumPageTurnLength} is @code{(ly:make-moment 1 1)}.  If you want
+@code{minimumPageTurnLength} is @code{(ly:make-moment 1/1)}.  If you want
 to disable page turns, you can set it to something very large.
 
 @example
@@ -1616,7 +1616,7 @@ to disable page turns, you can set it to something very large.
   a4 b c d |
   R1 | % a page turn will be allowed here
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
   R1 | % a page turn will not be allowed here
   a4 b r2 |
   R1*2 | % a page turn will be allowed here
@@ -2902,7 +2902,7 @@ than @code{1 16}.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -2921,14 +2921,14 @@ property can only be changed at the beginning of a score,
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3042,7 +3042,7 @@ spacing with ragged-right turned on.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3071,7 +3071,7 @@ setting.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3079,7 +3079,7 @@ setting.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3102,10 +3102,10 @@ The @code{proportionalNotationDuration} setting takes a single argument,
 which is the reference duration against that all music will be spaced.
 The LilyPond Scheme function @code{make-moment} takes two arguments
 -- a numerator and denominator which together express some fraction of
-a whole note.  The call @code{(ly:make-moment 1 20)} therefore produces
+a whole note.  The call @code{(ly:make-moment 1/20)} therefore produces
 a reference duration of a twentieth note.  Values such as
-@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)}, and
-@code{(ly:make-moment 3 97)} are all possible as well.
+@code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)}, and
+@code{(ly:make-moment 3/97)} are all possible as well.
 
 How do we select the right reference duration to pass to
 @code{proportionalNotationDuration}?  Usually by a process of trial
@@ -3119,7 +3119,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3127,7 +3127,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 8)
+      proportionalNotationDuration = #(ly:make-moment 1/8)
     }
   }
 }
@@ -3137,7 +3137,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3145,7 +3145,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 16)
+      proportionalNotationDuration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3155,7 +3155,7 @@ larger reference durations space music tightly.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3163,7 +3163,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 32)
+      proportionalNotationDuration = #(ly:make-moment 1/32)
     }
   }
 }
@@ -3187,12 +3187,12 @@ tuplet.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3211,12 +3211,12 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3224,7 +3224,7 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3242,12 +3242,12 @@ turn on @code{uniform-stretching}, which is a property of
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3255,7 +3255,7 @@ turn on @code{uniform-stretching}, which is a property of
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3344,7 +3344,7 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   c''8
   c''8
   c''8
@@ -3354,7 +3354,7 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
@@ -3568,7 +3568,7 @@ duration longer, a @q{squeezing} effect occurs:
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
     }
   }
 }

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -1101,7 +1101,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Ordonnancement des contextes},
-@ref{Création d'un contexte}.
+@ref{Création et référencement d'un contexte}.
 
 
 @node Positionnement horizontal des syllabes
@@ -1906,7 +1906,7 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
     <<
       \new Voice = "alternative" {
         \voiceOne
-        \times 2/3 {
+        \tuplet 3/2 {
           % show associations clearly.
           \override NoteColumn.force-hshift = #-3
           f8 f g
@@ -2574,7 +2574,7 @@ définition d'un @qq{instrument} pour chacun des rôles en question :
      (middleCPosition . 1)
      (clefPosition . -2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
-     (midiInstrument . "voice Oohs"))
+     (midiInstrument . "voice oohs"))
 
 \addInstrumentDefinition #"melchior"
   #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
@@ -2584,7 +2584,7 @@ définition d'un @qq{instrument} pour chacun des rôles en question :
      (middleCPosition . 6)
      (clefPosition . 2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "voice Aahs"))
+     (midiInstrument . "choir aahs"))
 
 \relative c' {
   \instrumentSwitch "kaspar"
@@ -3142,7 +3142,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
         }
         \context {
           \Staff

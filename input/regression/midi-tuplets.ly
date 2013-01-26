@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 \header {
 texidoc = "
 
@@ -21,11 +21,11 @@ Midi2ly tuplet test.
 
     a1 a2 a2. a4 a4. a8 a8. a16 a16. a32 a32. a64
 
-    \times 2/3 { b4 b4 b4 }
-    \times 3/5 { b4 b4 b4 b4 b4 }
+    \tuplet 3/2 { b4 b4 b4 }
+    \tuplet 5/3 { b4 b4 b4 b4 b4 }
 
-    \times 2/3 { c8 c8 c8 }
-    \times 3/5 { c8 c8 c8 c8 c8 }
+    \tuplet 3/2 { c8 c8 c8 }
+    \tuplet 5/3 { c8 c8 c8 c8 c8 }
 
   }
   \layout { }  

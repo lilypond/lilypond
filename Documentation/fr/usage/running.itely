@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: cb05c492cb84afc6704934fee31e62ebed217900
+    Translation of GIT committish: d1eb959d5c774b5b81bf74436350efa5976498af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -363,9 +363,15 @@ est livré @strong{SANS GARANTIE} !
 
 @item -d@var{[nom-option]}=@var{[valeur]},--define-default=@var{[nom-option]}=@var{[valeur]}
 Affecte la valeur Scheme @var{valeur} à l'option interne
-@var{nom-option} du programme.  En l'absence de @var{valeur}, le
-programme utilisera @var{#t}. Préfixer @var{nom-option} d'un @code{no-}
-vous permet de désactiver une option.  Ainsi,
+@var{nom-option} du programme.
+
+@example
+-dbackend=svg
+@end example
+
+En l'absence de @var{valeur}, le programme utilisera @var{#t}.
+Préfixer @var{nom-option} d'un @code{no-} vous permet de
+désactiver une option.  Ainsi,
 
 @cindex point and click, ligne de commande
 @cindex pointer-cliquer, ligne de commande
@@ -402,7 +408,7 @@ images @code{PNG}.
 pour le moteur de rendu @code{EPS}.
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab Détermine le format de sortie à utiliser par le moteur de
 traitement.  Les fichiers PostScript (format par défaut) incluent les
 fontes @code{TTF}, @code{Type1} et @code{OTF}, et aucune substitution ne
@@ -410,7 +416,7 @@ sera opérée pour ces fontes.  Si vous utilisez des jeux de caractères
 orientaux, le fichier aura vite fait d'atteindre une taille conséquente.
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab Génère du PostScript encapsulé.  Chaque page (système) fera l'objet
 d'un fichier @file{EPS} particulier, sans fontes, auquel sera associé un
 fichier @file{EPS} qui, lui, contiendra toutes les pages (systèmes) et
@@ -418,12 +424,12 @@ les fontes.  Notez qu'il s'agit du mode que @command{lilypond-book}
 utilise par défaut.
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab Ne génère aucun fichier imprimable.  Cette option est équivalente à
 @code{-dno-print-pages}.
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Génère du@emph{Scalable Vector Graphics}.  Cette option permet de
 créer un fichier @code{SVG} par page, sans incorporation des fontes.
 Nous vous recommandons d'installer les fontes Century Schoolbook
@@ -435,7 +441,7 @@ Les fichiers @code{SVG} alors générés devraient être lisibles par votre
 permet d'utiliser les fontes @code{woff} avec le moteur @code{SVG}.
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab Recopie littéralement les commandes Scheme internes de formatage.
 
 @item @code{check-internal-types}
@@ -999,7 +1005,6 @@ facilement.
 @menu
 * La musique déborde de la page::
 * Apparition d'une portée supplémentaire::
-* Erreur renvoyant à ../ly/init.ly::
 * Message d'erreur Unbound variable %::
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
@@ -1093,41 +1098,8 @@ La manière adéquate de procéder consiste à inverser les commandes
 @end lilypond
 
 
-@node Erreur renvoyant à ../ly/init.ly
-@unnumberedsubsec Erreur renvoyant à @code{../ly/init.ly}
-@translationof Apparent error in ../ly/init.ly
-
-Certains messages d'erreur relatifs à une erreur de syntaxe dans le
-fichier @file{../ly/init.ly} peuvent survenir lorsque le fichier est mal
-formaté.  Cela se produit notamment lors d'un défaut de parité de
-bornages ou de guillemets.
-
-L'erreur la plus courante est la simple omission d'une accolade
-fermante (@code{@}}) à la fin du bloc @code{Score}.  La solution est
-évidente en pareil cas : il suffit de vérifier que le bloc
-@code{Score} est bien clôturé.  La structure des fichiers LilyPond est
-abordée plus en détails au chapitre
-@rlearning{Organisation des fichiers LilyPond}.  C'est la raison pour
-laquelle nous vous invitons à utiliser un éditeur de texte qui prenne en
-charge le contrôle de parité des parenthèses, crochets et accolades afin
-de vous éviter de telles erreurs.
-
-Autre erreur courante, l'absence d'espace entre la dernière syllabe et
-l'accolade (@code{@}}) clôturant un bloc de paroles.  Lorsqu'il n'y a
-pas séparation, l'accolade est considérée comme faisant partie
-intégrante de la syllabe.  C'est la raison pour laquelle nous vous
-invitons à insérer une espace avant et après @strong{chaque} accolade.
-D'autres informations à ce sujets sont mentionnées au chapitre
-@ruser{Saisie des paroles}.
-
-Lorsqu'il s'agit d'un guillemet fermant (@code{"}) omis, le message
-d'erreur devrait vous indiquer un numéro de ligne avoisinant.  L'erreur
-se situe la plupart du temps une ou deux lignes au-dessus de celle
-indiquée.
-@c Match quote character "
-
 @node Message d'erreur Unbound variable %
-@unnumberedsubsec Message d'erreur Unbound variable %
+@unnumberedsubsec Message d'erreur @code{Unbound variable %}
 @translationof Error message Unbound variable %
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
@@ -1141,7 +1113,7 @@ les commentaires s'introduisent par un point-virgule (@code{;}).
 
 
 @node Message d'erreur FT_Get_Glyph_Name
-@unnumberedsubsec Message d'erreur FT_Get_Glyph_Name
+@unnumberedsubsec Message d'erreur @code{FT_Get_Glyph_Name}
 @translationof Error message FT_Get_Glyph_Name
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
@@ -1152,7 +1124,7 @@ UTF-8.  Pour plus de détails, reportez-vous au chapitre
 
 
 @node staff-affinities devraient aller en ordre décroissant
-@unnumberedsubsec staff-affinities devraient aller en ordre décroissant
+@unnumberedsubsec @emph{staff-affinities} devraient aller en ordre décroissant
 @translationof Warning staff affinities should only decrease
 
 Cet avertissement est émis lorsque la partition ne comporte pas de

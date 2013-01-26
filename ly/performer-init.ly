@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.17.11"
 
 %%
 %% setup for Request->Element conversion.
@@ -198,7 +198,7 @@
   midiChannelMapping = #'staff
 
   %% quarter = 60
-  tempoWholesPerMinute = #(ly:make-moment 15 1)
+  tempoWholesPerMinute = #(ly:make-moment 15/1)
 
   \accepts Staff
   \accepts DrumStaff
@@ -234,8 +234,8 @@
 
 %% These defaults should be the same as the rules established in
 %%   scm/time-signature-settings.scm for 4/4 time
-  measureLength = #(ly:make-moment 4 4)
-  baseMoment = #(ly:make-moment 1  4)
+  measureLength = #(ly:make-moment 4/4)
+  baseMoment = #(ly:make-moment 1/4)
 
   \consists "Timing_translator"
 

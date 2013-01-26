@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Till Paala
 
@@ -617,7 +617,7 @@ den Linien festgesetzt.
   \context {
     \Staff
     \consists "Grid_point_engraver"
-    gridInterval = #(ly:make-moment 1 4)
+    gridInterval = #(ly:make-moment 1/4)
   }
   \context {
     \Score

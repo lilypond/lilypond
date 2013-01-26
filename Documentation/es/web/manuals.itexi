@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: c7175b7e8387655964d9c9a975e9789fe581043c
+    Translation of GIT committish: 673a3c376246f030f524d3eb3680b6d902c51ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -148,6 +148,20 @@ Libre de GNU.
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading Manual formats
+
+En general, los manuales de LilyPond manuals están en tres
+formatos: HTML seccionado, HTML monolítico y PDF.  El HTML
+seccionado es adecuado para la lectua en línea.  El HTML
+monolítico (algunos pueden ser muy grandes) contiene todo el
+manual en una sola página.  El PDF está disponible para su
+descarga y para usarlo fuera de línea.  Para obtener cada uno de
+los tres formatos, siga los enlaces con el texto @code{detalles
+de} y a continuación el nombre del manual.
+
+@divEnd
+
 @divEnd
 
 
@@ -200,8 +214,8 @@ información.
 @docLinks{Aprendizaje, learning,
   @rlearningnamed{Top,Aprendizaje},
   @manualStableLearningSplit-es,
-  @manualStableLearningBig-es, 1.5 MB,
-  @manualStableLearningPdf-es, 3 MB}
+  @manualStableLearningBig-es, 3 MB,
+  @manualStableLearningPdf-es, 5 MB}
 
 @divEnd
 
@@ -252,8 +266,8 @@ versión en formato PDF a causa de su mayor resolución.}
 @docLinks{Ensayo, essay,
   @ressaynamed{Top,Ensayo},
   @manualStableEssaySplit-es,
-  @manualStableEssayBig-es, 2 MB,
-  @manualStableEssayPdf-es, 2.5 MB}
+  @manualStableEssayBig-es, 1 MB,
+  @manualStableEssayPdf-es, 2 MB}
 
 @divEnd
 
@@ -280,8 +294,8 @@ presentan en el Glosario Musical.}
 @docLinks{Notación, notation,
   @rusernamed{Top,Notación},
   @manualStableNotationSplit-es,
-  @manualStableNotationBig-es, 7 MB,
-  @manualStableNotationPdf-es, 18 MB}
+  @manualStableNotationBig-es, 9 MB,
+  @manualStableNotationPdf-es, 35 MB}
 
 @divEnd
 
@@ -306,7 +320,7 @@ su lectura antes de afrontar proyectos grandes.
   @rprogramnamed{Top,Utilización},
   @manualStableUsageSplit-es,
   @manualStableUsageBig-es, 400 KB,
-  @manualStableUsagePdf-es, 600 KB}
+  @manualStableUsagePdf-es, 650 KB}
 
 @divEnd
 
@@ -341,8 +355,8 @@ también}.
 @docLinks{Fragmentos, snippets,
   @rlsrnamed{Top,Fragmentos},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig, 1.5 MB,
+  @manualStableSnippetsPdf, 12.5 MB}
 
 @divEnd
 
@@ -418,8 +432,8 @@ informar de los fallos, y desarrollo.
 @docLinksBare{Web, web,
   @ref{Arriba,Web},
   @manualDevelWebSplit-es,
-  @manualDevelWebBig-es, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebBig-es, 2.5 MB,
+  @manualDevelWebPdf, 3.5 MB}
 
 @divEnd
 
@@ -441,8 +455,8 @@ producidas en LilyPond a partir de la version estable anterior.
 @docLinks{Cambios, changes,
   @rchangesnamed{Top,Cambios},
   @manualStableChangesSplit-es,
-  @manualStableChangesBig-es, 6 KB,
-  @manualStableChangesPdf-es, 200 KB}
+  @manualStableChangesBig-es, 90 KB,
+  @manualStableChangesPdf-es, 80 KB}
 
 @divEnd
 
@@ -463,8 +477,8 @@ Este manual explica cómo escribir extensiones de LilyPond.
 @docLinks{Extender, extending,
   @rextendnamed{Top,Extender},
   @manualStableExtendingSplit-es,
-  @manualStableExtendingBig-es, 200 KB,
-  @manualStableExtendingPdf-es, 400 KB}
+  @manualStableExtendingBig-es, 300 KB,
+  @manualStableExtendingPdf-es, 500 KB}
 
 @divEnd
 
@@ -496,8 +510,8 @@ se refiere a la documentación generada.
 @docLinks{Funcionamiento interno, internals,
   @rinternalsnamed{Top,Funcionamiento interno},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig, 3 MB,
+  @manualStableInternalsPdf, 4 MB}
 
 @divEnd
 
@@ -545,11 +559,11 @@ sólo están disponibles en @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+LilyPond 2.14 Documentation}
+
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 Documentación de LilyPond 2.12}
-
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
-Documentación de LilyPond 2.11}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
 Documentación de LilyPond 2.10}

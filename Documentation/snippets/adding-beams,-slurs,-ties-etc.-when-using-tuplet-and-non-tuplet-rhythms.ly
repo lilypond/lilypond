@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "expressive-marks, rhythms"
@@ -26,9 +26,9 @@ sections (enclosed within curly braces).
 
 
 {
-  r16[ g16 \times 2/3 { r16 e'8] }
-  g16( a \times 2/3 { b d e') }
-  g8[( a \times 2/3 { b d') e'] ~ }
+  r16[ g16 \tuplet 3/2 { r16 e'8] }
+  g16( a \tuplet 3/2 { b d e') }
+  g8[( a \tuplet 3/2 { b d') e'] ~ }
   \time 2/4
-  \times 4/5 { e'32\( a b d' e' } a'4.\)
+  \tuplet 5/4 { e'32\( a b d' e' } a'4.\)
 }

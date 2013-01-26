@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0adf505f3902db683c1ba3c8c5f7caf2534b80e
+    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1149,7 +1149,7 @@ commande @code{\applyOutput}.  Celle-ci va insérer un événement
 (@rinternals{ApplyOutputEvent}) dans le contexte spécifié.  Elle répond
 à la syntaxe
 @example
-\applyOutput @var{contexte} @var{procédure}
+\applyOutput @var{Contexte} @var{procédure}
 @end example
 
 @noindent
@@ -1157,7 +1157,7 @@ où @code{@var{procédure}} est une fonction Scheme à trois arguments.
 
 Lors de l'interprétation de cette commande, la fonction
 @code{@var{procédure}} est appelée pout tout objet de rendu appartenant
-au contexte @code{@var{contexte}} à cet instant précis, avec les
+au contexte @code{@var{Contexte}} à cet instant précis, avec les
 arguments suivants :
 @itemize
 @item l'objet de rendu en lui-même,
@@ -1184,6 +1184,15 @@ trouvant sur la ligne médiane ou bien directement à son contact.
   a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
+
+La @var{procédure} sera interprétée au niveau @code{Score}
+(partition) ou @code{Staff} dès lors que vous utiliserez l'une des
+syntaxes
+
+@example
+\applyOutput #'Score #@var{procédure}
+\applyOutput #'Staff #@var{procédure}
+@end example
 
 
 @node Fonctions de rappel

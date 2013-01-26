@@ -126,12 +126,17 @@ Tuplet_iterator::process (Moment m)
 void
 Tuplet_iterator::construct_children ()
 {
-  spanner_duration_ = music_get_length ();
+  if (Duration *d = unsmob_duration (get_music ()->get_property ("duration")))
+    spanner_duration_ = d->get_length ();
+  else
+    {
+      spanner_duration_ = music_get_length ();
 
-  Moment *mp
-    = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
-  if (mp)
-    spanner_duration_ = min (mp->main_part_, spanner_duration_);
+      Moment *mp
+        = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
+      if (mp)
+        spanner_duration_ = min (mp->main_part_, spanner_duration_);
+    }
 
   Music_wrapper_iterator::construct_children ();
 
