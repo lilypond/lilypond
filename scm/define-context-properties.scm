@@ -44,6 +44,9 @@
 
      ;; TODO FIXME
 
+     (accidentalGrouping ,symbol? "If set to @code{'voice}, accidentals
+on the same note in different octaves may be horizontally staggered
+if in different voices.")
      (aDueText ,markup? "Text to print at a unisono passage.")
      (additionalPitchPrefix ,string? "Text with which to prefix
 additional pitches within a chord name.")

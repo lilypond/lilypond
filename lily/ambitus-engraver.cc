@@ -197,7 +197,7 @@ Ambitus_engraver::finalize ()
           Separation_item::add_conditional_item (heads_[d],
                                                  accidental_placement);
           Accidental_placement::add_accidental (accidental_placement,
-                                                accidentals_[d]);
+                                                accidentals_[d], false, 0);
           Pointer_group_interface::add_grob (ambitus_,
                                              ly_symbol2scm ("note-heads"),
                                              heads_[d]);

@@ -27,7 +27,7 @@ class Accidental_placement
 {
 public:
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element));
-  static void add_accidental (Grob *, Grob *);
+  static void add_accidental (Grob *, Grob *, bool, long);
 
   static vector<Grob *> get_relevant_accidentals (vector<Grob *> const &elts, Grob *left);
   static void split_accidentals (Grob *accs,
