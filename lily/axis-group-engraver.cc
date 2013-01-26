@@ -17,9 +17,10 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "axis-group-engraver.hh"
+#include "engraver.hh"
 
 #include "axis-group-interface.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "pointer-group-interface.hh"
 #include "context.hh"
 #include "international.hh"
@@ -28,10 +29,42 @@
 
 #include "translator.icc"
 
+/**
+   Put stuff in a Spanner with an Axis_group_interface.
+   Use as last element of a context.
+*/
+class Axis_group_engraver : public Engraver
+{
+protected:
+  Spanner *staffline_;
+  SCM interesting_;
+  vector<Grob *> elts_;
+  void process_music ();
+  virtual void finalize ();
+  DECLARE_ACKNOWLEDGER (grob);
+  void process_acknowledged ();
+  virtual Spanner *get_spanner ();
+  virtual void add_element (Grob *);
+  virtual bool must_be_last () const;
+  virtual void derived_mark () const;
+
+public:
+  TRANSLATOR_DECLARATIONS (Axis_group_engraver);
+};
+
+
 Axis_group_engraver::Axis_group_engraver ()
 {
   staffline_ = 0;
+  interesting_ = SCM_EOL;
 }
+
+void
+Axis_group_engraver::derived_mark () const
+{
+  scm_gc_mark (interesting_);
+}
+
 
 bool
 Axis_group_engraver::must_be_last () const
@@ -48,6 +81,7 @@ Axis_group_engraver::process_music ()
       Grob *it = unsmob_grob (get_property ("currentCommandColumn"));
       staffline_->set_bound (LEFT, it);
     }
+  interesting_ = get_property ("keepAliveInterfaces");
 }
 
 Spanner *
@@ -82,6 +116,15 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
     return;
   }
   elts_.push_back (i.grob ());
+
+  if (staffline_ && to_boolean(staffline_->get_property("remove-empty")))
+    {
+      for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
+        {
+          if (i.grob ()->internal_has_interface (scm_car (s)))
+            Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+        }
+    }
 }
 
 /*
@@ -131,7 +174,8 @@ ADD_TRANSLATOR (Axis_group_engraver,
                 "VerticalAxisGroup ",
 
                 /* read */
-                "currentCommandColumn ",
+                "currentCommandColumn "
+                "keepAliveInterfaces ",
 
                 /* write */
                 ""

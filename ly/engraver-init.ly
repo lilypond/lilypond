@@ -37,7 +37,7 @@
 
   \consists "Fretboard_engraver"
   \consists "Output_property_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
@@ -441,7 +441,7 @@ printing of a single line of lyrics."
   \consists "Stanza_number_engraver"
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
   \consists "Pure_from_neighbor_engraver"
   searchForVoice = ##f
   %% explicitly set instrument, so it is not inherited from the parent
@@ -503,8 +503,9 @@ printing of a single line of lyrics."
   \consists "Output_property_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Chord_name_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
 %  \consists "Note_spacing_engraver"
+
   \override VerticalAxisGroup.remove-first = ##t
   \override VerticalAxisGroup.remove-empty = ##t
   \override VerticalAxisGroup.staff-affinity = #DOWN
@@ -767,7 +768,7 @@ automatically when an output definition (a @code{\\score} or
 
   \consists "Figured_bass_engraver"
   \consists "Separating_line_group_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup.remove-empty = ##t
   \override VerticalAxisGroup.remove-first = ##t

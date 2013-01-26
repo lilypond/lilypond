@@ -19,14 +19,6 @@
 \version "2.17.6"
 
 RemoveEmptyStaves = \with {
-  \remove "Axis_group_engraver"
-  % If RemoveEmptyStaves is called twice, two
-  % Hara_kiri_engravers would be added, which leads to a
-  % warning.
-  % This code makes sure that no previous Hara_kiri_engraver
-  % is left before adding a new one.
-  \remove "Hara_kiri_engraver"
-  \consists "Hara_kiri_engraver"
   \override VerticalAxisGroup.remove-empty = ##t
   \description "Remove staves which are considered to be empty according
 to the list of interfaces set by @code{keepAliveInterfaces}."
