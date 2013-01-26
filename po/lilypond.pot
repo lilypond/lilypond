@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.10\n"
+"Project-Id-Version: lilypond 2.17.11\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-01-12 14:13+0000\n"
+"POT-Creation-Date: 2013-01-26 16:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -888,12 +888,12 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1395 convert-ly.py:91 etf2ly.py:1208 lilypond-book.py:231
-#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:138
+#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:181
 msgid "show version number and exit"
 msgstr ""
 
 #: abc2ly.py:1398 convert-ly.py:95 etf2ly.py:1204 lilypond-book.py:140
-#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:117
+#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:160
 msgid "show this help and exit"
 msgstr ""
 
@@ -918,7 +918,7 @@ msgstr ""
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
 #: abc2ly.py:1413 convert-ly.py:149 etf2ly.py:1218 lilypond-book.py:258
-#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:249
+#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:315
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -969,7 +969,7 @@ msgid ""
 msgstr ""
 
 #: convert-ly.py:110 lilypond-book.py:163 lilypond-book.py:181
-#: musicxml2ly.py:2629 main.cc:131
+#: musicxml2ly.py:2629 main.cc:174
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -997,7 +997,7 @@ msgid "convert to VERSION [default: %s]"
 msgstr ""
 
 #: convert-ly.py:144 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
-#: main.cc:140
+#: main.cc:183
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -1056,7 +1056,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1210 midi2ly.py:1067 midi2ly.py:1072 musicxml2ly.py:2659
-#: main.cc:123 main.cc:135
+#: main.cc:166 main.cc:178
 msgid "FILE"
 msgstr ""
 
@@ -1096,7 +1096,7 @@ msgid "add DIR to include path"
 msgstr ""
 
 #: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
-#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:122
+#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:165
 msgid "DIR"
 msgstr ""
 
@@ -1682,15 +1682,15 @@ msgstr ""
 msgid "cannot change, already in translator: %s"
 msgstr ""
 
-#: axis-group-engraver.cc:104
+#: axis-group-engraver.cc:147
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:105
+#: axis-group-engraver.cc:148
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:106
+#: axis-group-engraver.cc:149
 msgid "removing this vertical group"
 msgstr ""
 
@@ -2160,7 +2160,7 @@ msgstr ""
 msgid "Lyric syllable does not have note.  Use \\lyricsto or associatedVoice."
 msgstr ""
 
-#: main.cc:70
+#: main.cc:104
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -2169,7 +2169,7 @@ msgid ""
 "information.\n"
 msgstr ""
 
-#: main.cc:76
+#: main.cc:110
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License as \n"
@@ -2187,98 +2187,98 @@ msgid ""
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:148
 msgid "SYM[=VAL]"
 msgstr ""
 
-#: main.cc:106
+#: main.cc:149
 msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
 msgstr ""
 
-#: main.cc:110
+#: main.cc:153
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:153
 msgid "evaluate scheme code"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:113
+#: main.cc:156
 msgid "FORMATs"
 msgstr ""
 
-#: main.cc:113
+#: main.cc:156
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr ""
 
-#: main.cc:114
+#: main.cc:157
 msgid "generate PDF (default)"
 msgstr ""
 
-#: main.cc:115
+#: main.cc:158
 msgid "generate PNG"
 msgstr ""
 
-#: main.cc:116
+#: main.cc:159
 msgid "generate PostScript"
 msgstr ""
 
-#: main.cc:119
+#: main.cc:162
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:119
+#: main.cc:162
 msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:122
+#: main.cc:165
 msgid "add DIR to search path"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:166
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:126
+#: main.cc:169
 msgid "USER, GROUP, JAIL, DIR"
 msgstr ""
 
-#: main.cc:126
+#: main.cc:169
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:174
 msgid ""
 "print log messages according to LOGLEVEL.  Possible values are:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG."
 msgstr ""
 
-#: main.cc:135
+#: main.cc:178
 msgid "write output to FILE (suffix will be added)"
 msgstr ""
 
-#: main.cc:136
+#: main.cc:179
 msgid "relocate using directory of lilypond program"
 msgstr ""
 
-#: main.cc:137
+#: main.cc:180
 msgid "no progress, only error messages (equivalent to loglevel=ERROR)"
 msgstr ""
 
-#: main.cc:139
+#: main.cc:182
 msgid "be verbose (equivalent to loglevel=DEBUG)"
 msgstr ""
 
 #. Do not update the copyright years here, run `make grand-replace'
-#: main.cc:206
+#: main.cc:261
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2286,74 +2286,74 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:233
+#: main.cc:299
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:235
+#: main.cc:301
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:237
+#: main.cc:303
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:239
+#: main.cc:305
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:241
+#: main.cc:307
 msgid "Options:"
 msgstr ""
 
-#: main.cc:295
+#: main.cc:374
 #, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr ""
 
-#: main.cc:309
+#: main.cc:388
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:311
+#: main.cc:390
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:326
+#: main.cc:405
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:328
+#: main.cc:407
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:336
+#: main.cc:415
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:343
+#: main.cc:422
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:349
+#: main.cc:428
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:355
+#: main.cc:434
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:601
+#: main.cc:805
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -3218,76 +3218,76 @@ msgstr ""
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:271
+#: lexer.ll:265
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:288
+#: lexer.ll:282
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:292
+#: lexer.ll:286
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:296
+#: lexer.ll:290
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:323
+#: lexer.ll:317
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:347
+#: lexer.ll:341
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:373
+#: lexer.ll:367
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:383
+#: lexer.ll:377
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:695
+#: lexer.ll:689
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:700
+#: lexer.ll:694
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:715
+#: lexer.ll:709
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:815
+#: lexer.ll:809
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:937
+#: lexer.ll:931
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1220
+#: lexer.ll:1214
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1264
+#: lexer.ll:1258
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1265
+#: lexer.ll:1259
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1271
+#: lexer.ll:1265
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3533,37 +3533,37 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:304
+#: lily-library.scm:340
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:359
+#: lily-library.scm:395
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:375
+#: lily-library.scm:411
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:891
+#: lily-library.scm:927
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:965
+#: lily-library.scm:1001
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:990
+#: lily-library.scm:1026
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:996
+#: lily-library.scm:1032
 msgid "old relative compatibility not used"
 msgstr ""
 
@@ -3696,25 +3696,25 @@ msgstr ""
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1118
+#: music-functions.scm:1138
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1256
+#: music-functions.scm:1276
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1316
+#: music-functions.scm:1336
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1317
+#: music-functions.scm:1337
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1662
+#: music-functions.scm:1682
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
@@ -3797,40 +3797,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:375
+#: translation-functions.scm:374
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:378
+#: translation-functions.scm:377
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:421
+#: translation-functions.scm:420
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:436 translation-functions.scm:448
+#: translation-functions.scm:435 translation-functions.scm:447
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:439
+#: translation-functions.scm:438
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:451
+#: translation-functions.scm:450
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:474
+#: translation-functions.scm:473
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:579
+#: translation-functions.scm:578
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
