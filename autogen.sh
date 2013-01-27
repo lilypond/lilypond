@@ -7,7 +7,7 @@ case $1 in
     --noconf*) NOCONFIGURE=true;;
 esac
 
-for i in $srcdir/configure.in #`find $srcdir -name configure.in -print`
+for i in $srcdir/configure.ac #`find $srcdir -name configure.ac -print`
 do 
   dir=`dirname $i`
   echo processing $dir

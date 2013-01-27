@@ -1,4 +1,4 @@
-dnl configure.in   -*-shell-script-*-
+dnl configure.ac   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.60)
