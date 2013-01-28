@@ -496,16 +496,17 @@ c2 d |
 @cindex tuplets
 @cindex triplets
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Music Glossary: @rglos{note value}, @rglos{triplet}.
 
-@notation{Tuplets} are made with the @code{\times} keyword.  It
+@notation{Tuplets} are made with the @code{\tuplet} keyword.  It
 takes two arguments: a fraction and a piece of music.  The
-duration of the piece of music is multiplied by the fraction.
-Triplets make notes occupy 2/3 of their notated duration, so a
-@notation{triplet} has 2/3 as its fraction
+fraction is the number of tuplet notes over the number 
+of notes normally filling the same duration.
+For triplets, there are three notes instead of two, so
+@notation{triplets} have 3/2 as their fraction.
 
 @lilypond[verbatim,quote,relative=2]
 \tuplet 3/2 { f8 g a }

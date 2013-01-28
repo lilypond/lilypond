@@ -1267,8 +1267,7 @@ convert-ly updates.
 @item
 other than that, everything is on the table.  Is it a problem to
 have the tagline inside \header?  What should the default behavior
-of \include be?  When we abolish \times, do we move to \tuplet 3:2
-or \tuplet 2/3 or what (for typical triplets in 4/4 time)?
+of \include be?
 
 @item
 we need to get standards for command names.  This will help users

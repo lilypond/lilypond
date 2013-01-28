@@ -186,26 +186,38 @@ rests from 128th to maxima (8 x whole) may be printed.
 @cindex tuplets
 @cindex triplets
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
-Tuplets are made from a music expression by multiplying all the
-durations with a fraction:
+Tuplets are made from a music expression with the @code{\tuplet}
+command, multiplying the speed of the music expression by a
+fraction:
 
 @example
-\times @var{fraction} @{ @var{music} @}
+\tuplet @var{fraction} @{ @var{music} @}
 @end example
 
 @noindent
-The duration of @code{@var{music}} will be multiplied by the
-fraction.  The fraction's denominator will be printed over or
+The fraction's numerator will be printed over or
 under the notes, optionally with a bracket.  The most common
-tuplet is the triplet in which 3 notes have the duration of 2, so
-the notes are 2/3 of their written length.
+tuplets are triplets: 3@tie{}notes sound within the duration
+normally allowed for@tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 b b }
 c4 c \tuplet 3/2 { b4 a g }
+@end lilypond
+
+@cindex tuplet grouping
+@noindent
+When entering long passages of tuplets, having to write a separate
+@code{\tuplet} command for each group is inconvenient.  It is
+possible to specify the duration of one tuplet group directly
+before the music in order to have the tuplets grouped
+automatically:
+
+@lilypond[quote,verbatim,relative=2]
+g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @end lilypond
 
 @cindex tuplet bracket placement
@@ -296,7 +308,7 @@ Internals Reference:
 @knownissues
 Grace notes may be placed within tuplet brackets, @emph{except}
 when a staff begins with a grace note followed by a tuplet.  In this
-particular case, the grace note must be placed before the @code{\times}
+particular case, the grace note must be placed before the @code{\tuplet}
 command to avoid errors.
 
 @cindex tempo marks within tuplet brackets
@@ -1594,8 +1606,8 @@ Explicitly create a @code{Voice} context when starting a piece with
 @funindex timeSignatureFraction
 @funindex \scaleDurations
 @funindex scaleDurations
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Polymetric notation is supported explicitly or by manually modifying the
 visible time signature symbol and/or scaling note durations.
