@@ -1333,12 +1333,14 @@
         (outside-staff-padding . 0.5)
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
+	(side-axis . ,Y)
         (staff-padding . 0.5)
         (stencil . ,measure-counter-stencil)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 measure-counter-interface
                                 self-alignment-interface
+				side-position-interface
                                 text-interface))))))
 
     (MeasureGrouping
