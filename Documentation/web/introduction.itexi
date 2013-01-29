@@ -1202,7 +1202,7 @@ using the extensions available at:
 @itemize
 
 @item
-@uref{http://www.jezra.net/projects/bwwtolily,bwwtolilly} attempts to
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} attempts to
 convert a @code{.bww} or @code{.bmw} file to LilyPond.  While not all of
 the embellishments may get converted properly (this is especially true
 with piobaireachd), the program will list them.
