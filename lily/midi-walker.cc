@@ -178,7 +178,8 @@ void
 Midi_walker::process ()
 {
   Audio_item *audio = items_[index_];
-  do_stop_notes (audio->audio_column_->ticks ());
+  Audio_column *col = audio->get_column ();
+  do_stop_notes (col->ticks ());
 
   if (Midi_item *midi = get_midi (audio))
     {

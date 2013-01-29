@@ -86,15 +86,18 @@ Note_performer::process_music ()
           notes_.push_back (p);
 
           /*
-            shorten previous note.
+            Shorten previous note. If it was part of a tie, shorten
+            the first note in the tie.
            */
           if (now_mom ().grace_part_)
             {
               if (last_start_.grace_part_ == Rational (0))
                 {
                   for (vsize i = 0; i < last_notes_.size (); i++)
-                    last_notes_[i]->length_mom_ += Moment (0,
-                                                           now_mom ().grace_part_);
+                    {
+                      Audio_note *tie_head = last_notes_[i]->tie_head ();
+                      tie_head->length_mom_ += Moment (0, now_mom ().grace_part_);
+                    }
                 }
             }
         }
