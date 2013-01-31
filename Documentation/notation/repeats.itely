@@ -391,7 +391,7 @@ layout of repeats.  Its value is a Scheme list of repeat commands.
 
 @table @code
 @item start-repeat
-Print a @code{|:} bar line.
+Print a @code{.|:} bar line.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -404,7 +404,7 @@ As per standard engraving practice, repeat signs are not printed
 at the beginning of a piece.
 
 @item end-repeat
-Print a @code{:|} bar line:
+Print a @code{:|.} bar line:
 
 @lilypond[verbatim,quote,relative=2]
 c1
