@@ -3204,12 +3204,16 @@ A feta brace in point size @var{size}, rotated 180 degrees.
   (number? number? number?)
   #:category music
   #:properties ((font-size 0)
-		(style '()))
+                (flag-style '())
+                (style '()))
   "
 @cindex notes within text by log and dot-count
 
-Construct a note symbol, with stem.  By using fractional values for
+Construct a note symbol, with stem and flag.  By using fractional values for
 @var{dir}, longer or shorter stems can be obtained.
+Supports all note-head-styles.
+Supported flag-styles are @code{default}, @code{old-straight-flag} and
+@code{modern-straight-flag}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3220,56 +3224,120 @@ Construct a note symbol, with stem.  By using fractional values for
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-	   (format #f "noteheads.~a~a" dir-name
-		   (if (and (symbol? style)
-			    (not (equal? 'default style)))
-		       (select-head-glyph style (min log 2))
-		       (min log 2))))
-	 (list (if (= dir UP) "u" "d")
-	       "s")))
+                   (format #f "noteheads.~a~a" dir-name
+                                   (if (and (symbol? style)
+                                            (not (equal? 'default style)))
+                                       (select-head-glyph style (min log 2))
+                                       (min log 2))))
+                 (list (if (= dir UP) "u" "d")
+                       "s")))
 
   (define (get-glyph-name font cands)
     (if (null? cands)
-	""
-	(if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
-	    (get-glyph-name font (cdr cands))
-	    (car cands))))
+                ""
+                (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
+                    (get-glyph-name font (cdr cands))
+                    (car cands))))
+
+  (define (buildflags flag-stencil remain curr-stencil spacing)
+     ;; Function to recursively create a stencil with @code{remain} flags
+     ;; from the single-flag stencil @code{curr-stencil}, which is already
+     ;; translated to the position of the previous flag position.
+     ;;
+     ;; Copy and paste from /scm/flag-styles.scm
+    (if (> remain 0)
+        (let* ((translated-stencil
+                 (ly:stencil-translate-axis curr-stencil spacing Y))
+               (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
+          (buildflags new-stencil (- remain 1) translated-stencil spacing))
+        flag-stencil))
+
+  (define (straight-flag-mrkp flag-thickness flag-spacing
+                                upflag-angle upflag-length
+                                downflag-angle downflag-length
+                                dir)
+  ;; Create a stencil for a straight flag.  @var{flag-thickness} and
+  ;; @var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
+  ;; @var{downflag-angle} are given in degrees, and @var{upflag-length} and
+  ;; @var{downflag-length} are given in staff spaces.
+  ;;
+  ;; All lengths are scaled according to the font size of the note.
+  ;;
+  ;; From /scm/flag-styles.scm, modified to fit here.
+
+      (let* ((stem-up (> dir 0))
+             ; scale with the note size
+             (factor (magstep font-size))
+             (stem-thickness (* factor 0.1))
+             (line-thickness (ly:output-def-lookup layout 'line-thickness))
+             (half-stem-thickness (/ (* stem-thickness line-thickness) 2))
+             (raw-length (if stem-up upflag-length downflag-length))
+             (angle (if stem-up upflag-angle downflag-angle))
+             (flag-length (+ (* raw-length factor) half-stem-thickness))
+             (flag-end (polar->rectangular flag-length angle))
+             (thickness (* flag-thickness factor))
+             (thickness-offset (cons 0 (* -1 thickness dir)))
+             (spacing (* -1 flag-spacing factor dir))
+             (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
+             ; The points of a round-filled-polygon need to be given in
+             ; clockwise order, otherwise the polygon will be enlarged by
+             ; blot-size*2!
+             (points (if stem-up (list start flag-end
+                                       (offset-add flag-end thickness-offset)
+                                       (offset-add start thickness-offset))
+                                 (list start
+                                       (offset-add start thickness-offset)
+                                       (offset-add flag-end thickness-offset)
+                                       flag-end)))
+             (stencil (ly:round-filled-polygon points half-stem-thickness))
+             ; Log for 1/8 is 3, so we need to subtract 3
+             (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
+        flag-stencil))
 
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-					       props)))
-	 (size-factor (magstep font-size))
-         (stem-length (* size-factor (max 3 (- log 1))))
+                                                 props)))
+         (size-factor (magstep font-size))
+         (blot (ly:output-def-lookup layout 'blot-diameter))
          (head-glyph-name
-	  (let ((result (get-glyph-name font (get-glyph-name-candidates
-					      (sign dir) log style))))
-	    (if (string-null? result)
-		;; If no glyph name can be found, select default heads.  Though
-		;; this usually means an unsupported style has been chosen, it
-		;; also prevents unrelated 'style settings from other grobs
-		;; (e.g., TextSpanner and TimeSignature) leaking into markup.
-		(get-glyph-name font (get-glyph-name-candidates
-				      (sign dir) log 'default))
-		result)))
+           (let ((result (get-glyph-name font
+                           (get-glyph-name-candidates
+                             (sign dir) log style))))
+             (if (string-null? result)
+                 ;; If no glyph name can be found, select default heads.
+                 ;; Though this usually means an unsupported style has been
+                 ;; chosen, it also prevents unrelated 'style settings from
+                 ;; other grobs (e.g., TextSpanner and TimeSignature) leaking
+                 ;; into markup.
+                 (get-glyph-name font
+                   (get-glyph-name-candidates
+                     (sign dir) log 'default))
+                 result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
-	 (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
-         (stem-thickness (* size-factor 0.13))
+         (ancient-flags? (or (eq? style 'mensural) (eq? style 'neomensural)))
+         (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
+         (stem-length (* size-factor (max 3 (- log 1))))
+         ;; With ancient-flags we want a tighter stem
+         (stem-thickness (* size-factor (if ancient-flags? 0.1 0.13)))
          (stemy (* dir stem-length))
          (attach-off (cons (interval-index
-			    (ly:stencil-extent head-glyph X)
-			    (* (sign dir) (car attach-indices)))
-			   (* (sign dir) ; fixme, this is inconsistent between X & Y.
-			      (interval-index
-			       (ly:stencil-extent head-glyph Y)
-			       (cdr attach-indices)))))
+                             (ly:stencil-extent head-glyph X)
+                             (* (sign dir) (car attach-indices)))
+                           ; fixme, this is inconsistent between X & Y.
+                           (* (sign dir)
+                              (interval-index
+                               (ly:stencil-extent head-glyph Y)
+                               (cdr attach-indices)))))
+         ;; For a tighter stem (with ancient-flags) the stem-width has to be
+         ;; adjusted.
+         (stem-X-corr (if ancient-flags? (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
-			  (ly:round-filled-box
-			   (ordered-cons (car attach-off)
-					 (+ (car attach-off)
-					    (* (- (sign dir)) stem-thickness)))
-			   (cons (min stemy (cdr attach-off))
-				 (max stemy (cdr attach-off)))
-			   (/ stem-thickness 3))))
-
+                          (ly:round-filled-box
+                            (ordered-cons (+ stem-X-corr (car attach-off))
+                                  (+ stem-X-corr (car attach-off)
+                                     (* (- (sign dir)) stem-thickness)))
+                            (cons (min stemy (cdr attach-off))
+                                  (max stemy (cdr attach-off)))
+                            (/ stem-thickness 3))))
          (dot (ly:font-get-glyph font "dots.dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
@@ -3278,22 +3346,45 @@ Construct a note symbol, with stem.  By using fractional values for
                                   (ly:stencil-translate-axis
                                    dot (* 2 x dotwid) X))
                                 (iota dot-count)))))
+         ;; Straight-flags. Values taken from /scm/flag-style.scm
+         (modern-straight-flag (straight-flag-mrkp 0.55 1 -18 1.1 22 1.2 dir))
+         (old-straight-flag (straight-flag-mrkp 0.55 1 -45 1.2 45 1.4 dir))
+         ;; Calculate a corrective to avoid a gap between
+         ;; straight-flags and the stem.
+         (flag-style-Y-corr (if (or (eq? flag-style 'modern-straight-flag)
+                                    (eq? flag-style 'old-straight-flag))
+                                (/ blot 10 (* -1 dir))
+                                0))
          (flaggl (and (> log 2)
                       (ly:stencil-translate
-                       (ly:font-get-glyph font
-					  (string-append "flags."
-							 (if (> dir 0) "u" "d")
-							 (number->string log)))
-                       (cons (+ (car attach-off) (if (< dir 0)
-						     stem-thickness 0))
-			     stemy)))))
+                        (cond ((eq? flag-style 'modern-straight-flag)
+                               modern-straight-flag)
+                              ((eq? flag-style 'old-straight-flag)
+                               old-straight-flag)
+                              (else
+                               (ly:font-get-glyph font
+                                 (format #f (if ancient-flags?
+                                                "flags.mensural~a2~a"
+                                                "flags.~a~a")
+                                            (if (> dir 0) "u" "d")
+                                            log))))
+                        (cons (+ (car attach-off)
+                                 ;; For tighter stems (with ancient-flags) the
+                                 ;; flag has to be adjusted different.
+                                 (if (and (not ancient-flags?) (< dir 0))
+                                     stem-thickness
+                                     0))
+                              (+ stemy flag-style-Y-corr))))))
 
     ;; If there is a flag on an upstem and the stem is short, move the dots
     ;; to avoid the flag.  16th notes get a special case because their flags
     ;; hang lower than any other flags.
+    ;; Not with ancient flags or straight-flags.
     (if (and dots (> dir 0) (> log 2)
-	     (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
-	(set! dots (ly:stencil-translate-axis dots 0.5 X)))
+                     (or (eq? flag-style 'default) (null? flag-style))
+                     (not ancient-flags?)
+                     (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
+                (set! dots (ly:stencil-translate-axis dots 0.5 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
@@ -3302,11 +3393,11 @@ Construct a note symbol, with stem.  By using fractional values for
     (if (ly:stencil? dots)
         (set! stem-glyph
               (ly:stencil-add
-               (ly:stencil-translate-axis
-		dots
-		(+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
-		X)
-               stem-glyph)))
+                (ly:stencil-translate-axis
+                  dots
+                  (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
+                  X)
+                stem-glyph)))
     stem-glyph))
 
 (define-public log2
@@ -3317,7 +3408,7 @@ Construct a note symbol, with stem.  By using fractional values for
   "Parse the `duration-string', e.g. ''4..'' or ''breve.'',
 and return a (log dots) list."
   (let ((match (regexp-exec (make-regexp "(breve|longa|maxima|[0-9]+)(\\.*)")
-			    duration-string)))
+                            duration-string)))
     (if (and match (string=? duration-string (match:substring match 0)))
         (let ((len (match:substring match 1))
               (dots (match:substring match 2)))
