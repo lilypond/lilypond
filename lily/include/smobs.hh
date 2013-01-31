@@ -40,9 +40,23 @@
   Simple smobs are created by adding the
   DECLARE_SIMPLE_SMOBS(Classname) to the declaration
 
+  A simple smob is only optionally under the reign of the GUILE
+  garbage collector: its usual life time is that of a normal C++
+  object.  While a smobbed_copy () is fully under control of the
+  garbage collector and will have its mark_smob function called during
+  garbage collection, an automatic variable of this type will not have
+  mark_smob called, but rather have its memory image in the call stack
+  scanned for contained non-immediate SCM values.  Anything requiring
+  more complex mark_smob behavior is not suitable for a simple smob.
+
+  When you create a smobbed_copy, the _copy_ is fully managed by the
+  GUILE memory system.  As a corollary, multiple smobbed_copy calls
+  yield multiple GUILE objects generally not eq? to each other.
+
   2. Complex smobs are objects that have an identity. These objects
   carry this identity in the form of a self_scm () method, which is a
-  SCM pointer to the object itself.
+  SCM pointer to the object itself.  Complex smobs are always under
+  control of the GUILE memory system.
 
   The constructor for a complex smob should have 3 steps:
 
