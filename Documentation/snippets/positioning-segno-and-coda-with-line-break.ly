@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
@@ -65,13 +65,13 @@ line.
         % ==================
         % Move text to the desired position
         % \once \override TextScript.extra-offset = #'( 2 . -3.5 )
-        % | s1*0^\markup { D.S. al Coda } }
+        % | <>^\markup { D.S. al Coda } }
 
         % text center-aligned
         % ====================
         % Move text to the desired position
         % \once \override TextScript.extra-offset = #'( 6 . -5.0 )
-        % | s1*0^\markup { \center-column { D.S. "al Coda" } }
+        % | <>^\markup { \center-column { D.S. "al Coda" } }
 
         % text and symbols center-aligned
         % ===============================
