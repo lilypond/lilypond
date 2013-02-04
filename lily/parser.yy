@@ -194,7 +194,9 @@ while (0)
 
 %{
 
-#define MY_MAKE_MUSIC(x, spot)  make_music_with_input (ly_symbol2scm (x), spot)
+#define MY_MAKE_MUSIC(x, spot) \
+	make_music_with_input (ly_symbol2scm (x), \
+			       parser->lexer_->override_input (spot))
 
 /* ES TODO:
 - Don't use lily module, create a new module instead.
@@ -203,12 +205,12 @@ while (0)
 #define LOWLEVEL_MAKE_SYNTAX(proc, args)	\
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
-#define MAKE_SYNTAX(name, location, ...)	\
-  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), make_input (location) , ##__VA_ARGS__, SCM_UNDEFINED))
+#define MAKE_SYNTAX(name, location, ...)				\
+	LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), make_input (parser->lexer_->override_input (location)), ##__VA_ARGS__, SCM_UNDEFINED))
 #define START_MAKE_SYNTAX(name, ...)					\
 	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
-	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (parser->self_scm (), make_input (location), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
+	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (parser->self_scm (), make_input (parser->lexer_->override_input (location)), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -3422,7 +3424,8 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		mus = mus->clone ();
 		*destination = mus->self_scm ();
 		unsmob_music (*destination)->
-			set_property ("origin", make_input (last_input_));
+			set_property ("origin",
+				      make_input (override_input (last_input_)));
 
 		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();

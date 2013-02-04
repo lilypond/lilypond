@@ -20,6 +20,7 @@
 #(note-names-language parser default-language)
 
 #(ly:set-option 'old-relative #f)
+#(define location #f)
 #(define toplevel-scores (list))
 #(define toplevel-bookparts (list))
 #(define $defaultheader #f)

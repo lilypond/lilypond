@@ -54,7 +54,8 @@ public:
   bool ignore_version_b_;
 
   Lily_parser (Sources *sources);
-  Lily_parser (Lily_parser const &, SCM closures = SCM_EOL);
+  Lily_parser (Lily_parser const &, SCM closures = SCM_EOL,
+               SCM location = SCM_BOOL_F);
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 

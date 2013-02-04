@@ -146,11 +146,12 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 }
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
-           1, 1, 0, (SCM parser_smob, SCM closures),
+           1, 2, 0, (SCM parser_smob, SCM closures, SCM location),
            "Return a clone of @var{parser-smob}.  An association list"
            " of port positions to closures can be specified in @var{closures}"
            " in order to have @code{$} and @code{#} interpreted in their original"
-           " lexical environment.")
+           " lexical environment.  If @var{location} is a valid location,"
+           " it becomes the source of all music expressions inside.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -158,7 +159,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
     closures = SCM_EOL;
   else
     LY_ASSERT_TYPE (ly_is_list, closures, 2);
-  Lily_parser *clone = new Lily_parser (*parser, closures);
+  Lily_parser *clone = new Lily_parser (*parser, closures, location);
 
   return clone->unprotect ();
 }

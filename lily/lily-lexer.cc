@@ -106,7 +106,8 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
 }
 
-Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
+Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
+                        SCM override_input)
   : Includable_lexer ()
 {
   parser_ = parser;
@@ -122,6 +123,8 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   main_input_level_ = 0;
 
   extra_tokens_ = SCM_EOL;
+  if (unsmob_input (override_input))
+    override_input_ = *unsmob_input (override_input);
 
   smobify_self ();
 
@@ -333,6 +336,13 @@ Input
 Lily_lexer::here_input () const
 {
   return Input (*lexloc_);
+}
+
+Input const &
+Lily_lexer::override_input (Input const &in) const
+{
+  return override_input_.get_source_file ()
+    ? override_input_ : in;
 }
 
 void
