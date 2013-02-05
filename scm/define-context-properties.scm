@@ -330,11 +330,10 @@ of numbers for the loudness range of the instrument.")
      (instrumentName ,markup? "The name to print left of a staff.  The
 @code{instrumentName} property labels the staff in the first system, and
 the @code{shortInstrumentName} property labels following lines.")
-     ;; the definition is reversed wrt traditional transposition
-     ;; otherwise \transpose { \transposition .. } won't work
      (instrumentTransposition ,ly:pitch? "Define the transposition of
-the instrument.  Its value is the pitch that sounds like middle@tie{}C.
-This is used to transpose the MIDI output, and @code{\\quote}s.")
+the instrument. Its value is the pitch that sounds when the instrument
+plays written middle C.  This is used to transpose the MIDI output,
+and @code{\\quote}s.")
      (internalBarNumber ,integer? "Contains the current barnumber.
 This property is used for internal timekeeping, among others by the
 @code{Accidental_engraver}.")

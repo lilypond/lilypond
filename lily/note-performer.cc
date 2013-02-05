@@ -80,7 +80,7 @@ Note_performer::process_music ()
           Moment len = get_event_length (n, now_mom ());
 
           Audio_note *p = new Audio_note (*pitp, len,
-                                          tie_event, transposing.negated ());
+                                          tie_event, transposing);
           Audio_element_info info (p, n);
           announce_element (info);
           notes_.push_back (p);
