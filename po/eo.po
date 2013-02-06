@@ -33,11 +33,11 @@ msgstr "ne eblas trovi \\begin{document} en dokumento LaTeX"
 #: book_latex.py:188
 #, python-format
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
-msgstr "Aplikado de '%s' al la dosiero '%s' por detekti originalajn paĝ-agordojn.\n"
+msgstr "Aplikado de '%s' al la dosiero '%s' por detekti apriorajn paĝ-agordojn.\n"
 
 #: book_latex.py:209 book_texinfo.py:228
 msgid "Unable to auto-detect default settings:\n"
-msgstr "Ne eblas mem detekti originalajn agordojn:\n"
+msgstr "Ne eblas aŭtomate detekti apriorajn agordojn:\n"
 
 #: book_latex.py:221 book_texinfo.py:240
 #, python-format
@@ -45,23 +45,23 @@ msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
 msgstr ""
-"Ne eblas mem detekti originalajn agordojn:\n"
+"Ne eblas aŭtomate detekti apriorajn agordojn:\n"
 "%s"
 
 #: book_snippets.py:406
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
-msgstr "evitinda ly-elektilo estis uzata: %s=%s"
+msgstr "evitinda ly-modifilo estis uzata: %s=%s"
 
 #: book_snippets.py:408
 #, python-format
 msgid "compatibility mode translation: %s=%s"
-msgstr "tradukado je kongrua reĝimo: %s=%s"
+msgstr "kongru-reĝima traduko: %s=%s"
 
 #: book_snippets.py:411
 #, python-format
 msgid "deprecated ly-option used: %s"
-msgstr "evitinda ly-elektilo estis uzata: %s"
+msgstr "evitinda ly-modifilo estis uzata: %s"
 
 #: book_snippets.py:413
 #, python-format
@@ -71,7 +71,7 @@ msgstr "tradukado je kongrua reĝimo: %s"
 #: book_snippets.py:530
 #, python-format
 msgid "ignoring unknown ly option: %s"
-msgstr "preterpaso de nekonata ly-elektilo: %s"
+msgstr "preterpaso de nekonata ly-modifilo: %s"
 
 #: book_snippets.py:621
 #, python-format
@@ -81,7 +81,7 @@ msgstr "Mankantaj dosieroj: %s"
 #: book_snippets.py:651
 #, python-format
 msgid "Could not overwrite file %s"
-msgstr "Ne eblis reskribi sur dosiero: %s"
+msgstr "Ne eblis anstataŭigi la dosieron %s"
 
 #: book_snippets.py:738
 #, python-format
@@ -126,7 +126,7 @@ msgstr ""
 #: book_texinfo.py:206
 #, python-format
 msgid "Running texi2pdf on file %s to detect default page settings.\n"
-msgstr "Aplikado de texi2pdf al la dosiero %s por detekti originalajn paĝ-agordojn.\n"
+msgstr "Aplikado de texi2pdf al la dosiero %s por detekti apriorajn paĝ-agordojn.\n"
 
 #: convertrules.py:12
 #, python-format
@@ -135,12 +135,12 @@ msgstr "Ne sufiĉe lerta por konverti %s."
 
 #: convertrules.py:13
 msgid "Please refer to the manual for details, and update manually."
-msgstr "Bonvolu iri al la gvidlibro por pli da detaloj, kaj ĝisdatigu malaŭtomate."
+msgstr "Bonvole konsultu la gvidlibron por pli da detaloj, kaj ĝisdatigu malaŭtomate."
 
 #: convertrules.py:14
 #, python-format
 msgid "%s has been replaced by %s"
-msgstr "%s estis anstataŭigata per %s"
+msgstr "%s estas anstataŭigita per %s"
 
 #: convertrules.py:24 lilylib.py:136 warn.cc:223
 #, c-format, python-format
@@ -216,11 +216,11 @@ msgstr "identigilaj nomoj: %s"
 
 #: convertrules.py:548
 msgid "point-and-click argument changed to procedure."
-msgstr "argumento 'point-and-click' ŝanĝis al 'procedure'."
+msgstr "argumento 'point-and-click' ŝanĝis al proceduro."
 
 #: convertrules.py:590
 msgid "semicolons removed"
-msgstr "komo-punktoj estis forigataj"
+msgstr "komo-punktoj estas forigitaj"
 
 #. 40 ?
 #: convertrules.py:633
@@ -273,7 +273,7 @@ msgstr "Permuti < > kaj << >>"
 
 #: convertrules.py:1316
 msgid "attempting automatic \\figures conversion.  Check results!"
-msgstr "provado aŭtomate konverti \\figures.  Kontrolu la rezultojn!"
+msgstr "ni provas aŭtomatan konverton de \\figures.  Kontrolu la rezultojn!"
 
 #: convertrules.py:1362
 msgid "Use Scheme code to construct arbitrary note events."
@@ -422,7 +422,7 @@ msgstr "Provu la internan interfacon 'texstrings'"
 #: convertrules.py:2100
 #, python-format
 msgid "Do something like: %s"
-msgstr "Faru ion simila al: %s"
+msgstr "Faru ion similan al: %s"
 
 #: convertrules.py:2103
 msgid "Or save as UTF-8 in your editor"
@@ -867,7 +867,7 @@ msgstr "Procezado de %s.ly"
 #: lilylib.py:194 lilylib.py:255
 #, python-format
 msgid "Invoking `%s'"
-msgstr "Alvokado de '%s'"
+msgstr "Alvoko de '%s'"
 
 #: lilylib.py:196 lilylib.py:257
 #, python-format
@@ -881,7 +881,7 @@ msgstr "Uzado: %s"
 
 #: musicexp.py:224 musicexp.py:229
 msgid "Language does not support microtones contained in the piece"
-msgstr "La lingvo de subtenas la mikrotonojn en la muziko"
+msgstr "La lingvo ne subtenas la mikrotonojn en la muziko"
 
 #: musicexp.py:491
 msgid "Tuplet brackets of curved shape are not correctly implemented"
@@ -934,7 +934,7 @@ msgstr "Ne eblas trovi instrumenton por ID=%s\n"
 #: abc2ly.py:1386 convert-ly.py:84 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
-msgstr "%s [ELEKTILO]... DOSIERO"
+msgstr "%s [MODIFILO]... DOSIERO"
 
 #: abc2ly.py:1387
 #, python-format
@@ -969,7 +969,7 @@ msgstr "konservi la nocion de vostligoj de ABC"
 
 #: abc2ly.py:1410
 msgid "suppress progress messages"
-msgstr "forigi mesaĝojn pri progreso"
+msgstr "formeti mesaĝojn pri progreso"
 
 #. Translators, please translate this string as
 #. "Report bugs in English via %s",
@@ -979,7 +979,7 @@ msgstr "forigi mesaĝojn pri progreso"
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:249
 #, c-format, python-format
 msgid "Report bugs via %s"
-msgstr "Raportu misojn per %s (angle)"
+msgstr "Raportu program-misojn per %s (angle)"
 
 #: convert-ly.py:46
 msgid ""
@@ -1016,7 +1016,7 @@ msgstr "VERSIO"
 
 #: convert-ly.py:101
 msgid "start from VERSION [default: \\version found in file]"
-msgstr "komenci el VERSIO [apriore: \\version estis trovata en dosiero]"
+msgstr "komenci el VERSIO [aprioras \\version, trovita en la dosiero]"
 
 #: convert-ly.py:104
 msgid "edit in place"
@@ -1024,7 +1024,7 @@ msgstr "redakti surloke"
 
 #: convert-ly.py:108 lilypond-book.py:179 musicxml2ly.py:2627
 msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"
-msgstr "Printi protokolajn mesaĝojn laŭ PROTOKOLNIVELO (NONE, ERROR, WARNING, PROGRESS (apriore), DEBUG)"
+msgstr "Montri protokolajn mesaĝojn laŭ PROTOKOLNIVELO (NONE, ERROR, WARNING, PROGRESS (apriore), DEBUG)"
 
 #: convert-ly.py:110 lilypond-book.py:163 lilypond-book.py:181
 #: musicxml2ly.py:2629 main.cc:131
@@ -1042,7 +1042,7 @@ msgstr "perforte ĝisdatigi la numeron de \\version al %s"
 
 #: convert-ly.py:128
 msgid "only update \\version number if file is modified"
-msgstr "nur ĝisdatigi la numeron de \version se la dosiero estas modifita"
+msgstr "nur ĝisdatigi la numeron de \\version se la dosiero estas modifita"
 
 #: convert-ly.py:134
 #, python-format
@@ -1105,7 +1105,7 @@ msgstr[1] "Okazis %d eraroj."
 #: etf2ly.py:1197
 #, python-format
 msgid "%s [OPTION]... ETF-FILE"
-msgstr "%s [ELEKTILO]... ETF-DOSIERO"
+msgstr "%s [MODIFILO]... ETF-DOSIERO"
 
 #: etf2ly.py:1198
 msgid ""
@@ -1139,7 +1139,7 @@ msgstr "FILTRO"
 
 #: lilypond-book.py:130
 msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
-msgstr "dukti kodaĵojn tra FILTRO [apriore: convert-ly -n -]"
+msgstr "dukti kodaĵojn tra FILTRO [apriore: 'convert-ly -n -']"
 
 #: lilypond-book.py:134
 msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
@@ -1151,7 +1151,7 @@ msgstr "FORMO"
 
 #: lilypond-book.py:142
 msgid "add DIR to include path"
-msgstr "aldoni UJO al la inkluziva vojo"
+msgstr "aldoni UJOn al la inkluziva vojo"
 
 #: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
 #: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:122
@@ -1160,11 +1160,11 @@ msgstr "UJO"
 
 #: lilypond-book.py:148
 msgid "format Texinfo output so that Info will look for images of music in DIR"
-msgstr "strukturigi eligon Texinfo tiel ke Info serĉos bildojn de muziko en UJO"
+msgstr "strukturigi eligon de Texinfo tiel ke Info serĉos bildojn de muziko en UJO"
 
 #: lilypond-book.py:155
 msgid "PAD"
-msgstr "SHOV"
+msgstr "ŜOVO"
 
 #: lilypond-book.py:157
 msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
@@ -1180,7 +1180,7 @@ msgstr "skribi dosierojn lily-XXX al UJO, ligi al la dosierujo de --output"
 
 #: lilypond-book.py:173
 msgid "Load the additional python PACKAGE (containing e.g. a custom output format)"
-msgstr "Ŝargi je la kroma PAKO de python (enhavanta ekz. propran elig-formon)"
+msgstr "Ŝargi je la kroma PAKO de python (enhavanta ekz. personigitan elig-formon)"
 
 #: lilypond-book.py:174
 msgid "PACKAGE"
@@ -1228,7 +1228,7 @@ msgid ""
 "case --pdf option is set instead of pdflatex"
 msgstr ""
 "lanĉi la programon PROG anstataŭ latex, aŭ okaze\n"
-"de elektilo --pdf estos uzata, anstataŭ pdflatex"
+"de modifilo --pdf estos uzata, anstataŭ pdflatex"
 
 #: lilypond-book.py:241 lilypond-book.py:246
 msgid "PROG"
@@ -1325,7 +1325,7 @@ msgstr "eraro: "
 
 #: midi2ly.py:94
 msgid "Exiting... "
-msgstr "Elirado... "
+msgstr "Ni haltas... "
 
 #: midi2ly.py:835
 msgid "found more than 5 voices on a staff, expect bad output"
@@ -1347,11 +1347,11 @@ msgstr "printi absolutajn tonaltojn"
 
 #: midi2ly.py:1052 midi2ly.py:1080
 msgid "DUR"
-msgstr "DUR"
+msgstr "DAŬ"
 
 #: midi2ly.py:1053
 msgid "quantise note durations on DUR"
-msgstr "proksimigi noto-daŭroj per DUR"
+msgstr "proksimigi noto-daŭroj per DAŬ"
 
 #: midi2ly.py:1056
 msgid "debug printing"
@@ -1379,11 +1379,11 @@ msgstr "antaŭvido de la unuaj 4 mezuroj"
 
 #: midi2ly.py:1078
 msgid "suppress progress messages and warnings about excess voices"
-msgstr "forigi mesaĝojn pri progreso kaj avertojn pri troaj voĉoj"
+msgstr "formeti mesaĝojn pri progreso kaj avertojn pri troaj voĉoj"
 
 #: midi2ly.py:1079
 msgid "quantise note starts on DUR"
-msgstr "proksimigi noto-komencojn je DUR"
+msgstr "proksimigi noto-komencojn je DAŬ"
 
 #: midi2ly.py:1083
 msgid "use s instead of r for rests"
@@ -1391,11 +1391,11 @@ msgstr "uzi s anstataŭ r por paŭzoj"
 
 #: midi2ly.py:1085
 msgid "DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN"
+msgstr "DAŬ*NUM/DEN"
 
 #: midi2ly.py:1088
 msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "ebligi opigajn daŭrojn DUR*NUM/DEN"
+msgstr "ebligi opigajn daŭrojn DAŬ*NUM/DEN"
 
 #: midi2ly.py:1098
 msgid "treat every text as a lyric"
@@ -1518,7 +1518,7 @@ msgstr "Konvertado al esprimoj de LilyPond..."
 
 #: musicxml2ly.py:2564
 msgid "musicxml2ly [OPTION]... FILE.xml"
-msgstr "musicxml2ly [ELEKTILO]... DOSIERO.xml"
+msgstr "musicxml2ly [MODIFILO]... DOSIERO.xml"
 
 #: musicxml2ly.py:2566
 msgid ""
@@ -1558,11 +1558,11 @@ msgstr "konverti tonaltojn en absoluta reĝimo"
 
 #: musicxml2ly.py:2622
 msgid "LANG"
-msgstr "LINGVO"
+msgstr "LING"
 
 #: musicxml2ly.py:2624
 msgid "use LANG for pitch names, e.g. 'deutsch' for note names in German"
-msgstr "uzi LANG por tonalt-nomoj, ekz. 'deutsch' por not-nomoj en la germana"
+msgstr "uzi LING por tonalt-nomoj, ekz. 'deutsch' por not-nomoj en la germana"
 
 #: musicxml2ly.py:2638
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
@@ -1637,22 +1637,22 @@ msgstr "Pri <a href=\"%s\">aŭtomata elekto de lingvo</a>."
 #: getopt-long.cc:153
 #, c-format
 msgid "option `%s' requires an argument"
-msgstr "la elektilo '%s' postulas argumenton"
+msgstr "la modifilo '%s' postulas argumenton"
 
 #: getopt-long.cc:157
 #, c-format
 msgid "option `%s' does not allow an argument"
-msgstr "la elektilo '%s' ne permesas argumenton"
+msgstr "la modifilo '%s' ne permesas argumenton"
 
 #: getopt-long.cc:161
 #, c-format
 msgid "unrecognized option: `%s'"
-msgstr "nerekonata elektilo: '%s'"
+msgstr "nerekonata modifilo: '%s'"
 
 #: getopt-long.cc:167
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
-msgstr "malvalida argumento '%s' por la elektilo '%s'"
+msgstr "malvalida argumento '%s' por la modifilo '%s'"
 
 #: warn.cc:56
 #, c-format
@@ -2263,7 +2263,7 @@ msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
 msgstr ""
-"difini elektilon Scheme SIM al VAL (apriore: *t).\n"
+"difini modifilon Scheme SIM al VAL (apriore: *t).\n"
 "Uzu -dhelp por ricevi helpon."
 
 #: main.cc:110
@@ -2282,7 +2282,7 @@ msgstr "FORMOj"
 
 #: main.cc:113
 msgid "dump FORMAT,...  Also as separate options:"
-msgstr "ŝuti FORMOn,...  Ankaŭ kiel apartaj elektebloj:"
+msgstr "ŝuti FORMOn,...  Ankaŭ kiel apartaj modifiloj:"
 
 #: main.cc:114
 msgid "generate PDF (default)"
@@ -2366,7 +2366,7 @@ msgstr ""
 #: main.cc:233
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
-msgstr "Uzado: %s [ELEKTILO]... DOSIERO..."
+msgstr "Uzado: %s [MODIFILO]... DOSIERO..."
 
 #: main.cc:235
 msgid "Typeset music and/or produce MIDI from FILE."
@@ -2383,7 +2383,7 @@ msgstr "Por pli da informo, vidu %s"
 
 #: main.cc:241
 msgid "Options:"
-msgstr "Elektebloj:"
+msgstr "Modifiloj:"
 
 #: main.cc:295
 #, c-format
@@ -2759,12 +2759,12 @@ msgstr "Tiparo FreeType ne havas tiparnomon PostScript"
 #: paper-book.cc:214
 #, c-format
 msgid "program option -dprint-pages not supported by backend `%s'"
-msgstr "programa elektilo -dprint-pages ne estas subtenata de la intern-interfaco '%s'"
+msgstr "programa modifilo -dprint-pages ne estas subtenata de la intern-interfaco '%s'"
 
 #: paper-book.cc:233
 #, c-format
 msgid "program option -dpreview not supported by backend `%s'"
-msgstr "programa elektilo -dpreview ne estas subtenata de la intern-interfaco '%s'"
+msgstr "programa modifilo -dpreview ne estas subtenata de la intern-interfaco '%s'"
 
 #: paper-column-engraver.cc:261
 msgid "forced break was overridden by some other event, should you be using bar checks?"
@@ -2848,7 +2848,7 @@ msgstr "ne eblas trovi la komencon de piano-pedala krampo: '%s'"
 #: program-option-scheme.cc:235
 #, c-format
 msgid "no such internal option: %s"
-msgstr "neniu tia interna elektilo: %s"
+msgstr "neniu tia interna modifilo: %s"
 
 #: property-iterator.cc:100
 #, c-format
