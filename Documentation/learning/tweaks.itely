@@ -3983,7 +3983,7 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   @}
   \context @{
@@ -4016,7 +4016,7 @@ inst =
 \layout{
   \context {
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   }
   \context {
@@ -4069,7 +4069,7 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   @}
   \context @{
@@ -4102,7 +4102,7 @@ inst =
 
 \layout{
   \context { \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   }
   \context { \Voice
