@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.11\n"
+"Project-Id-Version: lilypond 2.17.12\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-01-26 16:11+0000\n"
+"POT-Creation-Date: 2013-02-08 17:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1802,12 +1802,12 @@ msgstr ""
 msgid "cannot find or create new `%s'"
 msgstr ""
 
-#: context.cc:207
+#: context.cc:228
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:406
+#: context.cc:427
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
