@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fcec8015634fd7665b8df57b630994ba4919b12c
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,38 +23,52 @@
 音符を付け加えて、LilyPond を実行してください。@c
 あとは美しく譜刻された楽譜をお楽しみください！
 
-@c bad node name for ancient notation to avoid conflict
 @menu
-* 単一の譜表::
+* 単一譜テンプレート::
 * ピアノ テンプレート::
-* 弦楽四重奏::
-* 合唱::
+* 弦楽四重奏テンプレート::
+* 合唱テンプレート::
 * オーケストラ テンプレート::
 * 古代の記譜法テンプレート::
 * その他のテンプレート::
 @end menu
 
 
-@node 単一の譜表
-@appendixsec 単一の譜表
-@translationof Single staff
+@node 単一譜テンプレート
+@appendixsec 単一譜テンプレート
+@translationof Single staff templates
 
+@menu
+* 音符のみ::
+* 音符と歌詞::
+* 音符とコード::
+* 音符、歌詞それにコード::
+@end menu
+
+@node 音符のみ
 @appendixsubsec 音符のみ
+@translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
+@node 音符と歌詞
 @appendixsubsec 音符と歌詞
+@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
+@node 音符とコード
 @appendixsubsec 音符とコード
+@translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
+@node 音符、歌詞それにコード
 @appendixsubsec 音符、歌詞それにコード
+@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes,-lyrics,-and-chords.ly}
@@ -64,74 +78,117 @@
 @appendixsec ピアノ テンプレート
 @translationof Piano templates
 
+@menu
+* ソロ ピアノ::
+* ピアノと歌詞を持つ旋律::
+* 歌詞が中央に配置されたピアノ譜::
+@end menu
+
+@node ソロ ピアノ
 @appendixsubsec ソロ ピアノ
+@translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-simple.ly}
 
+@node ピアノと歌詞を持つ旋律
 @appendixsubsec ピアノと歌詞を持つ旋律
+@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-melody-and-lyrics.ly}
 
+@node 歌詞が中央に配置されたピアノ譜
 @appendixsubsec 歌詞が中央に配置されたピアノ譜
+@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {piano-template-with-centered-lyrics.ly}
 
 
-@node 弦楽四重奏
-@appendixsec 弦楽四重奏
-@translationof String quartet
+@node 弦楽四重奏テンプレート
+@appendixsec 弦楽四重奏テンプレート
+@translationof String quartet templates
 
+@menu
+* 弦楽四重奏::
+* 弦楽四重奏パート::
+@end menu
+
+@node 弦楽四重奏
 @appendixsubsec 弦楽四重奏
+@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-simple.ly}
 
+@node 弦楽四重奏パート
 @appendixsubsec 弦楽四重奏パート
+@translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {string-quartet-template-with-separate-parts.ly}
 
 
-@node 合唱
-@appendixsec 合唱
-@translationof Vocal ensembles
+@node 合唱テンプレート
+@appendixsec 合唱テンプレート
+@translationof Vocal ensembles templates
 
+@menu
+* SATB ボーカル譜::
+* SATB ボーカル譜と自動ピアノ譜::
+* 整列されたコンテキストを持つ SATB::
+* 4 つの譜に配置された SATB::
+* ソロと 2 パートのリフレイン::
+* 賛美歌::
+* 聖歌::
+@end menu
+
+@node SATB ボーカル譜
 @appendixsubsec SATB ボーカル譜
+@translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template.ly}
 
+@node SATB ボーカル譜と自動ピアノ譜
 @appendixsubsec SATB ボーカル譜と自動ピアノ譜
+@translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
+@node 整列されたコンテキストを持つ SATB
 @appendixsubsec 整列されたコンテキストを持つ SATB
+@translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
+@node 4 つの譜に配置された SATB
 @appendixsubsec 4 つの譜に配置された SATB
+@translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {satb-choir-template---four-staves.ly}
 
+@node ソロと 2 パートのリフレイン
 @appendixsubsec ソロと 2 パートのリフレイン
+@translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {vocal-ensemble-template-with-verse-and-refrain.ly}
 
+@node 賛美歌
 @appendixsubsec 賛美歌
-@c Hymn tunes
+@translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {hymn-template.ly}
 
+@node 聖歌
 @appendixsubsec 聖歌
-@c Psalms
+@translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {anglican-psalm-template.ly}
@@ -141,21 +198,34 @@
 @appendixsec オーケストラ テンプレート
 @translationof Orchestral templates
 
+@menu
+* オーケストラ、合唱それにピアノ::
+@end menu
+
+@node オーケストラ、合唱それにピアノ
 @appendixsubsec オーケストラ、合唱それにピアノ
+@translationof Orchestra choir and piano
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {orchestra,-choir-and-piano-template.ly}
 
 
-@c bad node name to avoid node name conflict
 @node 古代の記譜法テンプレート
 @appendixsec 古代の記譜法テンプレート
 @translationof Ancient notation templates
 
+@menu
+* Transcription of mensural music::
+* Gregorian transcription template::
+@end menu
+
+@node Transcription of mensural music
 @appendixsubsec Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
+@node Gregorian transcription template
 @appendixsubsec Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
@@ -166,7 +236,13 @@
 @appendixsec その他のテンプレート
 @translationof Other templates
 
+@menu
+* ジャズ バンド::
+@end menu
+
+@node ジャズ バンド
 @appendixsubsec ジャズ バンド
+@translationof Jazz combo
 
 @c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]

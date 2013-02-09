@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 3c62ac104645533873bba800f7b0f371089f535a
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -134,10 +134,13 @@ Windows ユーザはこれらのコマンドを @q{コマンド プロンプト}
 convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 @end example
 
-
 以下のオプションを与えることができます:
 
 @table @code
+@item -d,--diff-version-update
+@code{\version} を最新に更新します。最新バージョンよりも大きい場合は@c
+何もしません。
+
 @item -e,--edit
 入力ファイルに直接変換を適用して、それをその場で変更します。
 
@@ -148,6 +151,14 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 @code{version} 文字列を基に推測します。@c
 例: @option{--from=2.10.25}
 
+@item -h, --help
+ヘルプ (使い方) を表示します。
+
+@item -l @var{loglevel}, --loglevel=@var{loglevel}
+出力の饒舌さを @var{loglevel} にセットします。@c
+取り得る値は、大文字で、@code{PROGRESS} (デフォルト), @code{NONE},
+@code{WARNING}, @code{ERROR}, それに @code{DEBUG} です。
+
 @item -n,--no-version
 通常、@command{convert-ly} は @code{\version} インジケータを@c
 出力に付け加えます。@c
@@ -156,18 +167,13 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 @item -s, --show-rules
 すべての変換を表示して、終了します。
 
-@item --to=@var{to-patchlevel}
-変換先のバージョンをセットします。@c
-デフォルトは利用可能な最新バージョンです。@c
-例: @option{--to=2.12.2}
+@item -t, --to=@var{to-patchlevel}
+変換先のバージョンを明示してセットします。@c
+明示されない場合は、デフォルトで最新バージョンにセットします。
 
-@item -h, --help
-使用方法についてのヘルプを表示します。
-
-@item -l @var{loglevel}, --loglevel=@var{loglevel}
-出力の饒舌さを @var{loglevel} にセットします。@c
-取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
-@code{PROGRESS} (デフォルト), それに @code{DEBUG} です。
+@example
+convert-ly --to=2.14.1 myfile.ly
+@end example
 
 @end table
 

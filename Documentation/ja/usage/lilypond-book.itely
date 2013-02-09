@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -188,6 +188,7 @@ c'4 f16
 @end lilypond
 
 @page
+
 
 @node 楽譜とテキストを統合する
 @section 楽譜とテキストを統合する
@@ -1164,6 +1165,7 @@ LilyPond ブロックの最初の @code{\score} だけが処理されます。
 そうしないと、@qq{Output would overwrite input file} のようなエラー
 メッセージが表示されて、終了します。
 
+
 @node lilypond-book テンプレート
 @section lilypond-book テンプレート
 @translationof lilypond-book templates
@@ -1206,7 +1208,6 @@ LilyPond 断片を Texinfo に組み込むことができます。@c
 \input texinfo @c -*-texinfo-*-
 @@node Top
 @@top
-@translationof Top
 
 Texinfo テキスト
 
@@ -1424,4 +1425,4 @@ LaTeX ファイルのヘッダ中に以下を記述します:
 @translationof Alternative methods of mixing text and music
 
 @command{lilypond-book} を使わずにテキストと楽譜を組み合わせる方法を
-@ref{LilyPond output in other programs} で説明しています。.
+@ref{LilyPond output in other programs} で説明しています。

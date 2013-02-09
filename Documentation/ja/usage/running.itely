@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -364,10 +364,15 @@ GNU LilyPond の保証責任を表示します。@c
 @table @code
 
 @item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
-これは相当する内部 Scheme 関数に @var{value} をセットします。@c
+これは内部 Scheme 関数に @var{value} をセットします。@c
+
+@example
+-dbackend=svg
+@end example
+
 @var{value} が提供されない場合、デフォルト値が使われます。@c
-@var{option-name} に接頭辞 @code{no-} を付けてオプションを @q{off} に@c
-することができます。例えば、
+例えば、@var{option-name} に接頭辞 @code{no-} を付けると、そのオプションは
+@q{off} なります
 
 @cindex point and click, command line (コマンド ラインでポイント＆クリックを指定する)
 
@@ -401,25 +406,25 @@ GNU LilyPond の保証責任を表示します。@c
 @code{.count} ファイルを作成します。
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab バックエンドを選択します。Postscript ファイル (デフォルト) は@c
 @code{TTF}, @code{Type1}, それに @code{OTF} フォントを内包します。@c
 フォントのサブセットは作成されません。@c
 @q{東洋} の文字セットを用いるとファイルが非常に大きくなる可能性があります。
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab Encapsulated PostScript。これはフォントを持たないページ (段) 毎の
 @file{EPS} ファイルと、フォントを内包するすべてのページ (段) を 1 つに@c
 まとめた @file{EPS} ファイルを吐き出します。@c
 @command{lilypond-book} はデフォルトでこのオプションを使用します。
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab 楽譜を出力しません。@code{-dno-print-pages} と同じ効果を持ちます。
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Scalable Vector Graphics。これはページ毎に埋め込みフォントを持たない
 @code{SVG} ファイルを作成します。@c
 最適な描画を得るために、Century Schoolbook フォントをインストールすること@c
@@ -432,7 +437,7 @@ SVG バックエンドの中で woff フォント ファイルを使うための
 @code{svg-woff} (この表の下にあります) もあります。
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab 内部的な Scheme ベースの描画コマンドを吐き出します。
 
 @c 未訳
@@ -767,7 +772,7 @@ CPU とメモリ使用を制限すべきです。
 LilyPond を chroot jail 環境で実行させるようサーバをセットアップすることは@c
 複雑な作業です。@c
 以下にステップをリスト アップします。@c
-各ステップの中にある例は Ubuntu Linux 用であり、@c
+各ステップの中にある例は Ubuntu GNU/Linux 用であり、@c
 @code{sudo} の使用が必要となるかもしれません。
 
 @itemize
@@ -977,7 +982,6 @@ test.ly:2:19: error: not a duration: 5
 @menu
 * 楽譜がページからはみ出る::
 * 余計な譜が表示される::
-* 見かけ上 ../ly/init.ly のエラーとなる::
 * エラー メッセージ Unbound variable %::
 * エラー メッセージ FT_Get_Glyph_Name::
 * 警告 -- Warning staff affinities should only decrease::
@@ -1069,33 +1073,6 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
   }
 }
 @end lilypond
-
-
-@node 見かけ上 ../ly/init.ly のエラーとなる
-@unnumberedsubsec 見かけ上 @code{../ly/init.ly} のエラーとなる
-@translationof Apparent error in @code{../ly/init.ly}
-
-入力ファイルが正しく構成されていないと、@c
-@file{../ly/init.ly} に構文エラーがあるという@c
-様々な原因のはっきりしないエラー メッセージが表示されます。@c
-例えば、括弧やクォート記号の数が一致していない場合に@c
-このようなエラーが発生します。
-
-最も一般的なエラーは @code{score} ブロックの終わりに括弧が見当たらない
-(missing brace, (@code{@}})) というエラーです。@c
-この場合の解決方法は明らかです:
-@code{score} ブロックが正しく閉じられているかチェックしてください。@c
-入力ファイルの正しい構造は @rlearning{LilyPond 入力ファイルの仕組み}
-で記述されています。@c
-括弧の一致を自動的にハイライトするエディタを使うと、@c
-そのようなエラーを防ぐのに役立ちます。
-
-次に一般的なエラーの原因は、歌詞ブロックの最後の音節と閉じ括弧 (@code{@}})
-の間に空白が無いために発生します。@c
-空白が無ければ、この閉じ括弧は音節の一部と見なされます。@c
-常に @emph{すべての} 括弧の前後に空白を入れることをお勧めします。@c
-歌詞を用いる場合にこのことが重要になります。@c
-@ruser{Entering lyrics} を参照してください。
 
 
 @node エラー メッセージ Unbound variable %

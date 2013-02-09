@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1618,7 +1618,7 @@ score ブロックは単一の音楽表記とそれに関連する出力定義
 
 
 @seealso
-記譜法リファレンス: @ruser{Creating contexts}
+記譜法リファレンス: @ruser{Creating and referencing contexts}
 
 
 @node エングラーバの説明
@@ -2434,7 +2434,7 @@ celloMusic = \relative c {
 
 @seealso
 開始点となるテンプレートは付録 @q{テンプレート} で見つけることができます。@c
-@ref{単一の譜表} を参照してください。
+@ref{Single staff templates} を参照してください。
 
 
 @node 4 パート SATB ボーカル譜
@@ -2546,9 +2546,9 @@ lower = \relative c, {
 @end lilypond
 
 このレイアウトをそのまま提供するテンプレートはありません。@c
-最も近いのは @q{SATB ボーカル譜と自動ピアノ伴奏譜} -- @ref{合唱} を@c
-参照してください -- ですが、レイアウトを変更して、ボーカル パートから@c
-自動的に生成されたものではないピアノ伴奏譜を付け加える必要があります。@c
+最も近いのは @ref{SATB vocal score and automatic piano reduction}
+ですが、レイアウトを変更して、ボーカル パートから自動的に生成されたものでは@c
+ないピアノ伴奏譜を付け加える必要があります。@c
 ボーカル パートのための音楽と歌詞を保持している変数はそのまま使えますが、@c
 ピアノ伴奏譜のための変数を付け加える必要があります。
 
@@ -3025,7 +3025,7 @@ ManualOneVoiceTwoMusic = \relative c' {
 }
 ManualTwoMusic = \relative c' {
   c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f16 ees f d g aes g f ees d e8~ ees16 f ees d |
+  f16 ees f d g aes g f ees d ees8~ ees16 f ees d |
 }
 PedalOrganMusic = \relative c {
   r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
