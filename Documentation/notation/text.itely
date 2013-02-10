@@ -1166,11 +1166,7 @@ in markup mode:
 
 @lilypond[quote,verbatim,relative=1]
 g1 bes
-ees-\markup {
-  \finger 4
-  \tied-lyric #"~"
-  \finger 1
-}
+ees\finger \markup \tied-lyric #"4~1"
 fis_\markup { \dynamic rf }
 bes^\markup {
   \beam #8 #0.1 #0.5

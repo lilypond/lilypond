@@ -154,10 +154,10 @@ Fingering instructions can be entered using
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Markup texts may be used for finger changes.
+Markup texts or strings may be used for finger changes.
 
 @lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
+c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 @end lilypond
 
 @cindex thumb-script
