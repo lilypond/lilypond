@@ -211,10 +211,6 @@ Internals Reference:
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
 
-@knownissues
-By default, numbers greater than 9 are not supported using
-@samp{@var{note}-@var{digit}}.
-
 
 @node Hidden notes
 @unnumberedsubsubsec Hidden notes
