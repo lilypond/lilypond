@@ -1110,7 +1110,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @seealso
 学習マニュアル:
-@rlearning{Vocal ensembles}
+@rlearning{Vocal ensembles templates}
 
 記譜法リファレンス:
 @ref{Context layout order},
@@ -2237,7 +2237,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @seealso
 学習マニュアル:
 @rlearning{Four-part SATB vocal score},
-@rlearning{Vocal ensembles}
+@rlearning{Vocal ensembles templates}
 
 記譜法リファレンス:
 @ref{Context layout order},
