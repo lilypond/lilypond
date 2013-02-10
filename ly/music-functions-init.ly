@@ -379,6 +379,15 @@ featherDurations=
 
      argument))
 
+finger =
+#(define-event-function (parser location finger) (number-or-markup?)
+   (_i "Apply @var{finger} as a fingering indication.")
+
+   (make-music
+            'FingeringEvent
+            (if (number? finger) 'digit 'text)
+            finger))
+
 footnote =
 #(define-music-function (parser location mark offset footnote item)
    ((markup?) number-pair? markup? symbol-list-or-music?)
