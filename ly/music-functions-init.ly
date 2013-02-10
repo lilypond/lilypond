@@ -1061,13 +1061,12 @@ for time signatures of @var{time-signature}.")
    (revert-time-signature-setting time-signature))
 
 rightHandFinger =
-#(define-event-function (parser location finger) (number-or-string?)
+#(define-event-function (parser location finger) (number-or-markup?)
    (_i "Apply @var{finger} as a fingering indication.")
 
    (make-music
             'StrokeFingerEvent
-            'origin location
-            (if (string? finger) 'text 'digit)
+            (if (number? finger) 'digit 'text)
             finger))
 
 scaleDurations =
