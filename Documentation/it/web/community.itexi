@@ -775,11 +775,11 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduzione
 @item
-@docLinkSplit{Learning,learning,@manualDevelLearningSplit}
+@docLinkSplit{Learning,learning,@manualDevelLearningSplit-it}
 @tab
-@docLinkBig{Learning,learning,@manualDevelLearningBig}
+@docLinkBig{Learning,learning,@manualDevelLearningBig-it}
 @tab
-@docLinkPdf{Learning,learning,@manualDevelLearningPdf}
+@docLinkPdf{Learning,learning,@manualDevelLearningPdf-it}
 
 @item
 @docLinkSplit{Glossary,music-glossary,@manualDevelGlossarySplit}
@@ -789,27 +789,27 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @docLinkPdf{Glossary,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@docLinkSplit{Essay,essay,@manualDevelEssaySplit-it}
 @tab
-@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@docLinkBig{Essay,essay,@manualDevelEssayBig-it}
 @tab
-@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@docLinkPdf{Essay,essay,@manualDevelEssayPdf-it}
 
 @headitem Regolare
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit-it}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@docLinkBig{Notation,notation,@manualDevelNotationBig-it}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf-it}
 
 @item
-@docLinkSplit{Usage,usage,@manualDevelUsageSplit}
+@docLinkSplit{Usage,usage,@manualDevelUsageSplit-it}
 @tab
-@docLinkBig{Usage,usage,@manualDevelUsageBig}
+@docLinkBig{Usage,usage,@manualDevelUsageBig-it}
 @tab
-@docLinkPdf{Usage,usage,@manualDevelUsagePdf}
+@docLinkPdf{Usage,usage,@manualDevelUsagePdf-it}
 
 @item
 @docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
@@ -821,11 +821,11 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @headitem Saltuario
 
 @item
-@docLinkSplit{Web,web,@manualDevelWebSplit}
+@docLinkSplit{Web,web,@manualDevelWebSplit-it}
 @tab
-@docLinkBig{Web,web,@manualDevelWebBig}
+@docLinkBig{Web,web,@manualDevelWebBig-it}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualDevelWebPdf-it}
 
 @item
 @docLinkSplit{Changes,changes,@manualDevelChangesSplit}

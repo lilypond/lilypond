@@ -548,9 +548,9 @@ stálý, napsali jsme příručku pro vývojářské práce
 
 @docLinksBare{Příručka pro vývojářské práce, přispěvatel,
   @rcontribnamed{Top,Příručka pro vývojářské práce},
-  @manualDevelContributorSplit-cs,
-  @manualDevelContributorBig-cs, 500 kB,
-  @manualDevelContributorPdf-cs, 2.8 MB}
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 
 @divEnd
 
@@ -649,41 +649,41 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 @docLinkPdf{Lernen,learning,@manualDevelLearningPdf-cs}
 
 @item
-@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit-cs}
+@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit}
 @tab
-@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig-cs}
+@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig}
 @tab
-@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf-cs}
+@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit-cs}
+@docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit}
 @tab
-@docLinkBig{Aufsatz,essay,@manualDevelEssayBig-cs}
+@docLinkBig{Aufsatz,essay,@manualDevelEssayBig}
 @tab
-@docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf-cs}
+@docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf}
 
 @headitem Často používané příručky
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit-cs}
+@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig-cs}
+@docLinkBig{Notation,notation,@manualDevelNotationBig}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf-cs}
+@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
 
 @item
-@docLinkSplit{Benutzung,usage,@manualDevelUsageSplit-cs}
+@docLinkSplit{Benutzung,usage,@manualDevelUsageSplit}
 @tab
-@docLinkBig{Benutzung,usage,@manualDevelUsageBig-cs}
+@docLinkBig{Benutzung,usage,@manualDevelUsageBig}
 @tab
-@docLinkPdf{Benutzung,usage,@manualDevelUsagePdf-cs}
+@docLinkPdf{Benutzung,usage,@manualDevelUsagePdf}
 
 @item
-@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit-cs}
+@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit}
 @tab
-@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig-cs}
+@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
 @tab
-@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf-cs}
+@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
 
 
 @headitem Zřídka používané příručky
@@ -696,25 +696,25 @@ příručky se nacházejí na @url{http://lilypond.org}.}
 @docLinkPdf{Webseite,web,@manualDevelWebPdf-cs}
 
 @item
-@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit-cs}
+@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit}
 @tab
-@docLinkBig{Veränderungen,changes,@manualDevelChangesBig-cs}
+@docLinkBig{Veränderungen,changes,@manualDevelChangesBig}
 @tab
-@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf-cs}
+@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf}
 
 @item
-@docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit-cs}
+@docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit}
 @tab
-@docLinkBig{Erweitern,extending,@manualDevelExtendingBig-cs}
+@docLinkBig{Erweitern,extending,@manualDevelExtendingBig}
 @tab
-@docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf-cs}
+@docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf}
 
 @item
-@docLinkSplit{Interna,internals,@manualDevelInternalsSplit-cs}
+@docLinkSplit{Interna,internals,@manualDevelInternalsSplit}
 @tab
-@docLinkBig{Interna,internals,@manualDevelInternalsBig-cs}
+@docLinkBig{Interna,internals,@manualDevelInternalsBig}
 @tab
-@docLinkPdf{Interna,internals,@manualDevelInternalsPdf-cs}
+@docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
 
 @ifset web_version
 @headitem Ke stažení
