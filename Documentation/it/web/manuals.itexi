@@ -67,7 +67,7 @@ informazioni sull'incisione realizzata dal computer.
 
 @itemize
 
-@item @ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Notazione}}
+@item @ifWebLinks{@manualStableNotationSplitNoName-it,@rusernamed{Top,Notazione}}
 guida alla sintassi.
 @details{Notazione}
 
@@ -190,9 +190,9 @@ e seguire questi riferimenti incrociati per maggiori informazioni.
 
 @docLinks{Apprendimento, learning,
   @rlearningnamed{Top,Apprendimento},
-  @manualStableLearningSplit,
-  @manualStableLearningBig, 1.5 MB,
-  @manualStableLearningPdf, 3 MB}
+  @manualStableLearningSplit-it,
+  @manualStableLearningBig-it, 1.5 MB,
+  @manualStableLearningPdf-it, 3 MB}
 
 @divEnd
 
@@ -269,9 +269,9 @@ musicali inglesi presentati nel Glossario.}
 
 @docLinks{Notazione, notation,
   @rusernamed{Top,Notazione},
-  @manualStableNotationSplit,
-  @manualStableNotationBig, 7 MB,
-  @manualStableNotationPdf, 18 MB}
+  @manualStableNotationSplit-it,
+  @manualStableNotationBig-it, 7 MB,
+  @manualStableNotationPdf-it, 18 MB}
 
 @divEnd
 
@@ -294,9 +294,9 @@ intraprendere un progetto impegnativo.
 
 @docLinks{Uso, usage,
   @rprogramnamed{Top,Uso},
-  @manualStableUsageSplit,
-  @manualStableUsageBig, 400 KB,
-  @manualStableUsagePdf, 600 KB}
+  @manualStableUsageSplit-it,
+  @manualStableUsageBig-it, 400 KB,
+  @manualStableUsagePdf-it, 600 KB}
 
 @divEnd
 
@@ -403,9 +403,9 @@ di bug e lo sviluppo.
 
 @docLinksBare{Web, web,
   @ref{Top,Web},
-  @manualDevelWebSplit,
-  @manualDevelWebBig, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebSplit-it,
+  @manualDevelWebBig-it, 1 MB,
+  @manualDevelWebPdf-it, 2 MB}
 
 @divEnd
 
@@ -531,11 +531,11 @@ I pacchetti scaricabili sono disponibili presso @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.it.html,
+Documentazione di LilyPond 2.14}
+
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 Documentazione di LilyPond 2.12}
-
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
-Documentazione di LilyPond 2.11}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
 Documentazione di LilyPond 2.10}

@@ -577,10 +577,10 @@ l'adresse @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.fr.html,
 LilyPond 2.14 Documentation}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.fr.html,
 LilyPond 2.12 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,

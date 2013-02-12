@@ -47,13 +47,13 @@ Bevezetés a LilyPond használatába lépésről lépésre.
 @details{Tankönyv}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName-hu,@rglosnamed{Top,Fogalomtár}}
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Fogalomtár}}
 @emph{(opcionális)}
 Zenei fogalmak gyűjteménye több nyelven.
 @details{Fogalomtár}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName-hu,@ressaynamed{Top,Esszé}}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Esszé}}
 @emph{(opcionális)}
 Háttérinformáció a kottaszedés folyamatáról és a 19. századi kottaszedés
 esztétikai elveiről.
@@ -69,7 +69,7 @@ esztétikai elveiről.
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName-hu,@rusernamed{Top,Kottaírás}}
+@ifWebLinks{@manualStableNotationSplitNoName,@rusernamed{Top,Kottaírás}}
 A dokumentáció törzsanyaga; részletesen bemutatja a különböző kottaelemek
 beviteli módját.
 @details{Kottaírás}
@@ -81,7 +81,7 @@ rendszerek közötti különbségekre.
 @details{Használat}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName-hu,@rlsrnamed{Top,Kódrészletek}}
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Kódrészletek}}
 Hasznos példák, tippek, trükkök.
 @details{Kódrészletek}
 
@@ -104,17 +104,17 @@ Gyakran Ismételt Kérdések.
 A weboldal.
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName-hu,@rchangesnamed{Top,Változások}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Változások}}
 A legutóbbi verzióváltás óta történt változások.
 @details{Változások}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName-hu,@rextendnamed{Top,Bővítés}}
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Bővítés}}
 A LilyPond képességeinek kiterjesztése.
 @details{Bővítés}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName-hu,@rinternalsnamed{Top,Belső működés}}
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Belső működés}}
 A LilyPond belső szerkezetének referenciája. A kimenet finomhangolásához
 szükséges.
 @details{Belső működés}
@@ -221,9 +221,9 @@ megfelelőjére vagy kíváncsi, érdemes megnézni a fogalomtárban.
 
 @docLinks{Fogalomtár, music-glossary,
   @rglosnamed{Top,Fogalomtár},
-  @manualStableGlossarySplit-hu,
-  @manualStableGlossaryBig-hu, 1 MB,
-  @manualStableGlossaryPdf-hu, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -247,9 +247,9 @@ majd felületesen bemutatja a LilyPond szedési technikáit,
 
 @docLinks{Esszé, essay,
   @ressaynamed{Top,Esszé},
-  @manualStableEssaySplit-hu,
-  @manualStableEssayBig-hu, 2 MB,
-  @manualStableEssayPdf-hu, 2.5 MB}
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
 @divEnd
 
@@ -273,9 +273,9 @@ megfelelőjét, melyek a @ref{Fogalomtár}ban vannak leírva.}
 
 @docLinks{Kottaírás, notation,
   @rusernamed{Top,Kottaírás},
-  @manualStableNotationSplit-hu,
-  @manualStableNotationBig-hu, 7 MB,
-  @manualStableNotationPdf-hu, 18 MB}
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
 @divEnd
 
@@ -324,9 +324,9 @@ A kottaírás kézikönyvének megfelelő szakaszaiban is találhatóak ilyenek 
 
 @docLinks{Kódrészletek, snippets,
   @rlsrnamed{Top,Kódrészletek},
-  @manualStableSnippetsSplit-hu,
-  @manualStableSnippetsBig-hu, 2.5 MB,
-  @manualStableSnippetsPdf-hu, 8 MB}
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 2.5 MB,
+  @manualStableSnippetsPdf, 8 MB}
 
 @divEnd
 
@@ -419,9 +419,9 @@ az előző stabil verzió óta.
 
 @docLinks{Változások, changes,
   @rchangesnamed{Top,Változások},
-  @manualStableChangesSplit-hu,
-  @manualStableChangesBig-hu, 6 KB,
-  @manualStableChangesPdf-hu, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 
@@ -441,9 +441,9 @@ Scheme nyelven írt bővítményekkel.
 
 @docLinks{Bővítés, extending,
   @rextendnamed{Top,Bővítés},
-  @manualStableExtendingSplit-hu,
-  @manualStableExtendingBig-hu, 200 KB,
-  @manualStableExtendingPdf-hu, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
 @divEnd
 
@@ -465,9 +465,9 @@ formázni, ebben a listában érdemes megkeresni az adott tulajdonság nevét.
 
 @docLinks{Belső működés, internals,
   @rinternalsnamed{Top,Belső működés},
-  @manualStableInternalsSplit-hu,
-  @manualStableInternalsBig-hu, 2.5 MB,
-  @manualStableInternalsPdf-hu, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 
@@ -513,6 +513,9 @@ A csomagok letölthetőek a @uref{http://lilypond.org} weboldalról.
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
+2.14}
 
 @item @uref{http://lilypond.org/doc/v2.12/Documentation/,
 2.12}

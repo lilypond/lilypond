@@ -559,10 +559,10 @@ sólo están disponibles en @uref{http://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
-LilyPond 2.14 Documentation}
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.es.html,
+Documentación de LilyPond 2.14}
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.es.html,
 Documentación de LilyPond 2.12}
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
