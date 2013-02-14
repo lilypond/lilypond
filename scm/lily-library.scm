@@ -697,15 +697,6 @@ right (@var{dir}=+1)."
   (cons (cdr iv) (car iv)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; boolean
-
-(define (lily-and a b)
-  (and a b))
-
-(define (lily-or a b)
-  (or a b))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; coordinates
 
 (define coord-x car)

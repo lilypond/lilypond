@@ -188,12 +188,8 @@
 ;; side-position stuff
 
 (define-public (only-if-beamed g)
-  (reduce lily-or
-          #f
-          (map (lambda (x)
-                 (ly:grob? (ly:grob-object x 'beam)))
-               (ly:grob-array->list (ly:grob-object g
-                                                    'side-support-elements)))))
+  (any (lambda (x) (ly:grob? (ly:grob-object x 'beam)))
+       (ly:grob-array->list (ly:grob-object g 'side-support-elements))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
