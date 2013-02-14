@@ -133,8 +133,6 @@ For chord inversions, this is negative.")
      (ops ,scheme? "The operations to apply during the creation of a
 context.")
      (origin ,ly:input-location? "Where was this piece of music defined?")
-     (original-chord ,ly:music? "Original chord of a repeated chord.
-Used by repeated chords in \\relative mode, to determine the first note octave")
      (ottava-number ,integer? "The octavation for @code{\\ottava}.")
 
      (page-break-permission ,symbol? "When the music is at top-level,
