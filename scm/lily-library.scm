@@ -541,19 +541,12 @@ For example:
   (helper lst (make-vector n '()) (1- n)))
 
 (define (list-element-index lst x)
-  (list-index (lambda (m) (equal? m x))))
+  (list-index (lambda (m) (equal? m x)) lst))
 
 (define-public (count-list lst)
   "Given @var{lst} as @code{(E1 E2 .. )}, return
 @code{((E1 . 1) (E2 . 2) ... )}."
-
-  (define (helper l acc count)
-    (if (pair? l)
-	(helper (cdr l) (cons (cons (car l) count) acc) (1+ count))
-	acc))
-
-
-  (reverse (helper lst '() 1)))
+  (map cons lst (iota (length lst) 1)))
 
 (define-public (list-join lst intermediate)
   "Put @var{intermediate} between all elts of @var{lst}."
