@@ -66,7 +66,7 @@ program using the output of this function to interpret grace notes
 however they want (half duration, quarter duration?  before beat,
 after beat?  etc.)."
    (if
-       (eq? 0 (ly:moment-grace-numerator moment))
+       (zero? (ly:moment-grace-numerator moment))
        (ly:format "~a" (format-moment moment))
        ;; grace notes have a negative numerator, so no "-" necessary
        (ly:format

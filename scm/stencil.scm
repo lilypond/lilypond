@@ -381,7 +381,7 @@ defined by @code{fill}."
        (reduce min +inf.0 (map caadr x))
        (reduce max -inf.0 (map cadadr x))))
     (map (lambda (x)
-	   (if (eq? (length x) 8)
+	   (if (= (length x) 8)
 	       (apply bezier-min-max x)
 	       (apply line-min-max x)))
 	 (map (lambda (x y)
@@ -403,7 +403,7 @@ respectively."
 	 ;; modify pointlist to scale the coordinates
 	 (path (map (lambda (x)
 		      (apply
-			(if (eq? 6 (length x))
+			(if (= 6 (length x))
 			    (lambda (x1 x2 x3 x4 x5 x6)
 			      (list 'curveto
 				    (* x1 x-scale)

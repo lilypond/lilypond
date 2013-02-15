@@ -898,7 +898,7 @@ samplePath =
 	 (new-commands (map (lambda (x)
 			      (cond
 				;; for rmoveto, rlineto
-				((and (relative? x) (eq? 3 (length x)))
+				((and (relative? x) (= 3 (length x)))
 				 (let ((cp (cons
 					     (+ (car current-point)
 						(second x))
@@ -908,7 +908,7 @@ samplePath =
 				   (list (car cp)
 					 (cdr cp))))
 				;; for rcurveto
-				((and (relative? x) (eq? 7 (length x)))
+				((and (relative? x) (= 7 (length x)))
 				 (let* ((old-cp current-point)
 					(cp (cons
 					      (+ (car old-cp)
@@ -923,12 +923,12 @@ samplePath =
 					 (car cp)
 					 (cdr cp))))
 				;; for moveto, lineto
-				((eq? 3 (length x))
+				((= 3 (length x))
 				 (set-point (cons (second x)
 						  (third x)))
 				 (drop x 1))
 				;; for curveto
-				((eq? 7 (length x))
+				((= 7 (length x))
 				 (set-point (cons (sixth x)
 						  (seventh x)))
 				 (drop x 1))

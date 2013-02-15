@@ -345,8 +345,8 @@ if no fingering is present."
 	    (and x y))
 	  #t
 	  (map (lambda (specced-fret)
-		 (or (eq? 0 specced-fret)
-		     (eq? 0 fret)
+		 (or (zero? specced-fret)
+		     (zero? fret)
 		     (>= maximum-stretch (abs (- fret specced-fret)))))
 	       specified-frets))))
 
@@ -355,7 +355,7 @@ if no fingering is present."
 notes?"
       (let* ((fret (calc-fret pitch string tuning)))
 	(and (or (and (not restrain-open-strings)
-		      (eq? fret 0))
+		      (zero? fret))
 		 (>= fret minimum-fret))
 	     (integer? fret)
 	     (close-enough fret))))
@@ -364,7 +364,7 @@ notes?"
       "Is @var{pitch} and open-string note on @var{string}, given
 the current tuning?"
       (let* ((fret (calc-fret pitch string tuning)))
-	(eq? fret 0)))
+	(zero? fret)))
 
     (define (set-fret! pitch-entry string finger)
       (let ((this-fret (calc-fret (car pitch-entry)
@@ -400,7 +400,7 @@ the current tuning?"
       (for-each
         (lambda (pitch-entry string-fret-finger)
 	  (let* ((string (list-ref string-fret-finger 0))
-                 (finger (if (eq? (length string-fret-finger) 3)
+                 (finger (if (= (length string-fret-finger) 3)
                              (list-ref string-fret-finger 2)
                              '()))
                  (pitch (car pitch-entry))
@@ -408,8 +408,8 @@ the current tuning?"
 	          	    #f
 		            finger)))
 	    (if (or (not (null? string))
-		    (eq? digit 0))
-	        (if (eq? digit 0)
+		    (eqv? digit 0))
+	        (if (eqv? digit 0)
                     ;; here we handle fingers of 0 -- open strings
 	            (let ((fit-string
 		            (find (lambda (string)
@@ -458,7 +458,7 @@ the current tuning?"
 	(let* ((string-fret-finger (list-ref string-fret-fingers
                                              (cdr pitch-entry)))
                (string (list-ref string-fret-finger 0))
-               (finger (if (eq? (length string-fret-finger) 3)
+               (finger (if (= (length string-fret-finger) 3)
                            (list-ref string-fret-finger 2)
                            '()))
                (pitch (car pitch-entry))
