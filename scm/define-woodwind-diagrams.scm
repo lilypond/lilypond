@@ -76,30 +76,17 @@ returns @samp{1/3}."
   "Returns true if x is the square of a value in input-list."
   (pair? (memv (inexact->exact (sqrt x)) input-list)))
 
-(define (satisfies-function? function input-list)
-  "Returns true if an element in @code{input-list} is true
-   when @code{function} is applied to it.
-   For example:
-   @code{guile> (satisfies-function? null? '((1 2) ()))}
-   @code{#t}
-   @code{guile> (satisfies-function? null? '((1 2) (3)))}
-   @code{#f}"
-  (if (null?  input-list)
-    #f
-    (or (function (car input-list))
-      (satisfies-function? function (cdr input-list)))))
-
 (define (true-entry? input-list)
   "Is there a true entry in @code{input-list}?"
-  (satisfies-function? identity input-list))
+  (any identity input-list))
 
 (define (entry-greater-than-x? input-list x)
   "Is there an entry greater than @code{x} in @code{input-list}?"
-  (satisfies-function? (lambda (y) (> y x)) input-list))
+  (any (lambda (y) (> y x)) input-list))
 
 (define (n-true-entries input-list)
   "Returns number of true entries in @code{input-list}."
-  (reduce + 0 (map (lambda (x) (if x 1 0)) input-list)))
+  (count identity input-list))
 
 (define (bezier-head-for-stencil bezier cut-point)
   "Prepares a split-bezier to be used in a connected path stencil."

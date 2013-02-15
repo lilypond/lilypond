@@ -806,7 +806,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
     (if (ly:music? e)
 	(set! (ly:music-property m 'element)  (voicify-music e)))
     (if (and (equal? (ly:music-property m 'name) 'SimultaneousMusic)
-	     (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
+	     (any music-separator? es))
 	(set! m (context-spec-music (voicify-chord m) 'Staff)))
     m))
 

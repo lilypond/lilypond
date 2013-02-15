@@ -338,17 +338,11 @@ if no fingering is present."
 
     (define (close-enough fret)
       "Decide if @var{fret} is acceptable, given the already used frets."
-      (if (null? specified-frets)
-	#t
-	(reduce
-	  (lambda (x y)
-	    (and x y))
-	  #t
-	  (map (lambda (specced-fret)
-		 (or (zero? specced-fret)
-		     (zero? fret)
-		     (>= maximum-stretch (abs (- fret specced-fret)))))
-	       specified-frets))))
+      (every (lambda (specced-fret)
+               (or (zero? specced-fret)
+                   (zero? fret)
+                   (>= maximum-stretch (abs (- fret specced-fret)))))
+             specified-frets))
 
     (define (string-qualifies string pitch)
       "Can @var{pitch} be played on @var{string}, given already placed

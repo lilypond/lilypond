@@ -284,8 +284,7 @@ work than classifying the pitches."
                  (= 7 (pitch-step main-name))
                  (is-natural-alteration? main-name)
                  (pair? (remove-uptil-step 7 alterations))
-                 (reduce (lambda (x y) (and x y)) #t
-                         (map is-natural-alteration? alterations)))
+                 (every is-natural-alteration? alterations))
                 (begin
                   (set! main-name (last alterations))
                   (set! alterations '())))

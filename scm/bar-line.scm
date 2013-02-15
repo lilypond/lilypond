@@ -327,34 +327,28 @@ is not used within the routine."
                                            line-pos) <))
                                (gap-to-find (/ (+ dot-y-length line-thickness)
                                                (/ staff-space 2)))
-                               (first (car folded-staff))
-                               (found #f))
+                               (first (car folded-staff)))
 
                           ;; find the first space big enough
                           ;; to hold a dot and a staff line
                           ;; (a space in the folded staff may be
                           ;; narrower but can't be wider than the
                           ;; corresponding original spaces)
-                          (reduce (lambda (x y) (if (and (> (- x y) gap-to-find)
-                                                         (not found))
-                                                    (begin
-                                                      (set! found #t)
-                                                      (set! dist (+ x y))))
-                                          x)
-                                  ""
-                                  folded-staff)
+                          (set! dist
+                                (or
+                                 (any (lambda (x y)
+                                        (and (> (- y x) gap-to-find)
+                                             (+ x y)))
+                                      folded-staff (cdr folded-staff))
+                                 (if (< gap-to-find first)
+                                     ;; there's a central space big
+                                     ;; enough to hold both dots
+                                     first
 
-                          (if (not found)
-                              (set! dist (if (< gap-to-find first)
-                                             ;; there's a central space big
-                                             ;; enough to hold both dots
-                                             first
-
-                                             ;; dots should go outside
-                                             (+ (* 2 (car
-                                                      (reverse folded-staff)))
-                                                (/ (* 4 dot-y-length)
-                                                   staff-space))))))))))))
+                                     ;; dots should go outside
+                                     (+ (* 2 (last folded-staff))
+                                        (/ (* 4 dot-y-length)
+                                           staff-space))))))))))))
         (set! staff-space 1.0))
 
     (let* ((stencil empty-stencil)
