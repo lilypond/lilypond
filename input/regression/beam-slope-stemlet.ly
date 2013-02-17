@@ -6,7 +6,7 @@ as invisible stems."
 
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \layout {
   ragged-right = ##t
@@ -14,9 +14,9 @@ as invisible stems."
 }
 
 \relative c' {
-  \times 2/3 {r8[ c' g']}
+  \tuplet 3/2 {r8[ c' g']}
   \override Stem.stemlet-length = #0.5
-  \times 2/3 {r8[ c, g']}
+  \tuplet 3/2 {r8[ c, g']}
 }
 
 

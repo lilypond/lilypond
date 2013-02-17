@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.17.11"
 \header{
   
   texidoc="
@@ -20,16 +20,16 @@ direction as the bracket. The endings can be adjusted with
 
 
 \context Voice \relative c'' {
-  \times 2/3 { a8 b c }
-  \times 2/3 { r8  b[ f] }
+  \tuplet 3/2 { a8 b c }
+  \tuplet 3/2 { r8  b[ f] }
   \override TupletBracket.bracket-flare = #'(0.5 . 0.5)
-  \times 2/3 { r8 b r8 }
+  \tuplet 3/2 { r8 b r8 }
   c4 |
   
-  \times 3/4 { c4 c4 c4 c4 } c4 | 
+  \tuplet 4/3 { c4 c4 c4 c4 } c4 | 
   
   \time 6/8
-  \times 6/9 { c8 c c c c c c c c }
+  \tuplet 9/6 { c8 c c c c c c c c }
 
 }
 

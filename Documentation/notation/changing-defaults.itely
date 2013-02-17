@@ -1964,13 +1964,13 @@ Translation @expansion{} Tunable context properties.
 Internals Reference:
 @rinternals{Tunable context properties}.
 
-@cindex grob properties
-@cindex properties, grob
-@funindex \override
-
 
 @node The override command
 @subsection The @code{\override} command
+
+@cindex grob properties
+@cindex properties, grob
+@funindex \override
 
 There is a special type of context property: the grob
 description.  Grob descriptions are named in @code{StudlyCaps}
@@ -4213,15 +4213,15 @@ required.
 Internals Reference:
 @rinternals{TieColumn}.
 
+
+@node Unpure-pure containers
+@subsection Unpure-pure containers
+
 @cindex Scheme, pure containers
 @cindex Scheme, unpure containers
 @cindex pure containers, Scheme
 @cindex unpure containers, Scheme
 @cindex horizontal spacing, overriding
-
-
-@node Unpure-pure containers
-@subsection Unpure-pure containers
 
 Unpure-pure containers are useful for overriding @emph{Y-axis} spacing
 calculations - specifically @code{Y-offset} and @code{Y-extent} - with a

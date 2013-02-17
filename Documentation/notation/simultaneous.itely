@@ -1049,7 +1049,7 @@ not designed to work with lyrics; such that when one of the voices is
 explicitly named in order to attach lyrics to it, the partcombiner will
 stop working.
 
-@code{\partcombine...} functions cannot be placed inside a @code{\times}
+@code{\partcombine...} functions cannot be placed inside a @code{\tuplet}
 or @code{\relative} block.
 
 If @code{printPartCombineTexts} is set and the two voices play the same

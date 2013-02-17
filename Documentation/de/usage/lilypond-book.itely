@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @c Translators: Reinhold Kainhofer
 @c Translation checkers: Till Paala
@@ -96,7 +96,7 @@ kombinieren. Zum Beispiel:
 
 \begin{lilypond}
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -157,7 +157,7 @@ kombinieren. Zum Beispiel:
 
 @lilypond
 \relative c' {
-  c2 e2 \times 2/3 { f8 a b } a2 e4
+  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 

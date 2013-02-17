@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 
 @c Translators: Yoshiki Sawada
@@ -1398,7 +1398,7 @@ c4 c c c |
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1641,7 +1641,7 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 コンテキスト プロパティ @code{minimumPageTurnLength} を読み込んで、@c
 どれくらい音符が無いセクションが続いたらページめくりを考慮するかを決定します。@c
 @code{minimumPageTurnLength} のデフォルト値は
-@code{(ly:make-moment 1 1)} です。@c
+@code{(ly:make-moment 1/1)} です。@c
 ページめくりを不可にしたいのならば、@c
 @code{minimumPageTurnLength} に非常に大きな値をセットします。
 
@@ -1651,7 +1651,7 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
   a4 b c d |
   R1 | % ここでページめくりが許可されます
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
   R1 | % ここではページめくりは許可されません
   a4 b r2 |
   R1*2 | % ここでページめくりが許可されます
@@ -3003,7 +3003,7 @@ c16[ c c8]
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3023,14 +3023,14 @@ c16[ c c8]
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3153,7 +3153,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3183,7 +3183,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3191,7 +3191,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3216,10 +3216,10 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
 これはすべての音楽要素へのスペースに関係する参照演奏時間です。@c
 LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
 -- 全音符の分数を表す分子と分母です。@c
-それゆえ、@code{(ly:make-moment 1 20)} という呼び出しは、@c
+それゆえ、@code{(ly:make-moment 1/20)} という呼び出しは、@c
 20 分音符の参照演奏時間となります。@c
-@code{(ly:make-moment 1 16)}, @code{(ly:make-moment 1 8)}, それに
-@code{(ly:make-moment 3 97)} という値はすべてとり得る値です。
+@code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)}, それに
+@code{(ly:make-moment 3/97)} という値はすべてとり得る値です。
 
 では、どのように @code{proportionalNotationDuration} に渡す@c
 適切な参照演奏時間を決めるのでしょうか？@c
@@ -3234,7 +3234,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3242,7 +3242,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 8)
+      proportionalNotationDuration = #(ly:make-moment 1/8)
     }
   }
 }
@@ -3252,7 +3252,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3260,7 +3260,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 16)
+      proportionalNotationDuration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3270,7 +3270,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3278,7 +3278,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 32)
+      proportionalNotationDuration = #(ly:make-moment 1/32)
     }
   }
 }
@@ -3303,12 +3303,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3329,12 +3329,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3342,7 +3342,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3361,12 +3361,12 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3374,7 +3374,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3471,7 +3471,7 @@ OFF であるかのどちらかであるということです。@c
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   c''8
   c''8
   c''8
@@ -3481,7 +3481,7 @@ OFF であるかのどちらかであるということです。@c
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
@@ -3707,7 +3707,7 @@ e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
     }
   }
 }

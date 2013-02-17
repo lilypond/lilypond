@@ -44,6 +44,9 @@
 
      ;; TODO FIXME
 
+     (accidentalGrouping ,symbol? "If set to @code{'voice}, accidentals
+on the same note in different octaves may be horizontally staggered
+if in different voices.")
      (aDueText ,markup? "Text to print at a unisono passage.")
      (additionalPitchPrefix ,string? "Text with which to prefix
 additional pitches within a chord name.")
@@ -634,7 +637,6 @@ proceeding to next time step.  This is an internal variable.")
 
      (graceSettings ,list? "Overrides for grace notes.  This property
 should be manipulated through the @code{add-grace-property} function.")
-
 
      (hasStaffSpacing ,boolean? "True if the current
 @code{CommandColumn} contains items that will affect spacing.")

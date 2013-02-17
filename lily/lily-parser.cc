@@ -53,7 +53,7 @@ Lily_parser::Lily_parser (Sources *sources)
   lexer_->unprotect ();
 }
 
-Lily_parser::Lily_parser (Lily_parser const &src, SCM closures)
+Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
 {
   lexer_ = 0;
   sources_ = src.sources_;
@@ -65,10 +65,9 @@ Lily_parser::Lily_parser (Lily_parser const &src, SCM closures)
   smobify_self ();
   if (src.lexer_)
     {
-      lexer_ = new Lily_lexer (*src.lexer_, this);
+      lexer_ = new Lily_lexer (*src.lexer_, this, location);
+      lexer_->unprotect ();
     }
-
-  lexer_->unprotect ();
 }
 
 Lily_parser::~Lily_parser ()

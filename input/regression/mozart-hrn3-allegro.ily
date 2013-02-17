@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 \include "mozart-hrn3-defs.ily"
 
 allegro = \relative c' {
@@ -130,19 +130,19 @@ allegro = \relative c' {
   c4) r r2
   R1 |
   \mark "H"
-  \times 2/3 { c8[ b a ] }
-  \times 2/3 { g[ a b] }
-  \times 2/3 { c[ d e] }
-  \times 2/3 { f[ e d] } |
-  \times 2/3 { c[ b a ] }
-  \times 2/3 { g[ a b] }
-  \times 2/3 { c[ d e] }
-  \times 2/3 { f[ e d] }|
-  c4 \times 2/3 { r8 g'[( e)]} c4
-  \times 2/3 { r8 e[ ( c)]} |
-  g4 \times 2/3 { r8  c8[( g)] }
-  \times 2/3 { e[ ( g) e-. ] }
-  \times 2/3 { c[ ( e) c-.] }|
+  \tuplet 3/2 { c8[ b a ] }
+  \tuplet 3/2 { g[ a b] }
+  \tuplet 3/2 { c[ d e] }
+  \tuplet 3/2 { f[ e d] } |
+  \tuplet 3/2 { c[ b a ] }
+  \tuplet 3/2 { g[ a b] }
+  \tuplet 3/2 { c[ d e] }
+  \tuplet 3/2 { f[ e d] }|
+  c4 \tuplet 3/2 { r8 g'[( e)]} c4
+  \tuplet 3/2 { r8 e[ ( c)]} |
+  g4 \tuplet 3/2 { r8  c8[( g)] }
+  \tuplet 3/2 { e[ ( g) e-. ] }
+  \tuplet 3/2 { c[ ( e) c-.] }|
   g4 r8 g'\f a[ b c d]|
   \afterGrace d1_(\trill { c16[ d] }
   c4) r r2

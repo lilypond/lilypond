@@ -6,7 +6,7 @@
   
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \paper {
   ragged-right = ##t
@@ -18,7 +18,7 @@
 % a linear decrease instead?
 %
 
-\featherDurations #(ly:make-moment 3 4) \relative c'' {
+\featherDurations #(ly:make-moment 3/4) \relative c'' {
   \override Beam.grow-direction = #LEFT
   c16[
     c c c

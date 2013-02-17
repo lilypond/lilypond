@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "pitches, really-cool, scheme-language"
@@ -29,7 +29,7 @@ get different random note patterns, just change this number.
                   (make-event-chord
                    (list
                     (make-music 'NoteEvent
-                                'duration (ly:make-duration 2 0 1 1)
+                                'duration (ly:make-duration 2 0 1/1)
                                 'pitch (ly:make-pitch
                                         (quotient idx 7)
                                         (remainder idx 7)

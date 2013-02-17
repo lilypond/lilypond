@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.6"
+\version "2.17.11"
 
 \context {
   \name "Global"
@@ -37,7 +37,7 @@
 
   \consists "Fretboard_engraver"
   \consists "Output_property_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
@@ -85,6 +85,7 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
   \consists "Cue_clef_engraver"
+  \consists "Fingering_column_engraver"
 
   localKeySignature = #'()
   createSpacing = ##t
@@ -259,7 +260,6 @@ multiple voices on the same staff."
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
-  \consists "Fingering_column_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Note_spacing_engraver"
   \consists "Spanner_break_forbid_engraver"
@@ -441,7 +441,7 @@ printing of a single line of lyrics."
   \consists "Stanza_number_engraver"
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
   \consists "Pure_from_neighbor_engraver"
   searchForVoice = ##f
   %% explicitly set instrument, so it is not inherited from the parent
@@ -503,8 +503,9 @@ printing of a single line of lyrics."
   \consists "Output_property_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Chord_name_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
 %  \consists "Note_spacing_engraver"
+
   \override VerticalAxisGroup.remove-first = ##t
   \override VerticalAxisGroup.remove-empty = ##t
   \override VerticalAxisGroup.staff-affinity = #DOWN
@@ -620,16 +621,13 @@ automatically when an output definition (a @code{\\score} or
 
   repeatCountVisibility = #all-repeat-counts-visible
 
+%% Other Timing variables are derived and set by the Timing_translator
+%% at initialization time by calling the functions in
+%% scm/time-signature-settings.scm
+
   timeSignatureSettings = #default-time-signature-settings
   timeSignatureFraction = 4/4
 
-%% These defaults should be the same as the rules established in
-%%   scm/time-signature-settings.scm for 4/4 time
-  measureLength = #(ly:make-moment 4 4)
-  baseMoment = #(ly:make-moment 1  4)
-  beatStructure = #'(1 1 1 1)
-  beamExceptions = #'((end . (((1 . 8) . (4 4))
-                              ((1 . 12) . (3 3 3 3)))))
   beamHalfMeasure = ##t
 
   autoBeaming = ##t
@@ -767,7 +765,7 @@ automatically when an output definition (a @code{\\score} or
 
   \consists "Figured_bass_engraver"
   \consists "Separating_line_group_engraver"
-  \consists "Hara_kiri_engraver"
+  \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup.remove-empty = ##t
   \override VerticalAxisGroup.remove-first = ##t

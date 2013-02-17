@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms"
@@ -34,12 +34,12 @@ in this snippet. Also, when @code{baseMoment} is changed,
   c32[ c c c c c c c]
 
   % Set beam sub-group length to an eighth note
-  \set baseMoment = #(ly:make-moment 1 8)
+  \set baseMoment = #(ly:make-moment 1/8)
   \set beatStructure = #'(2 2 2 2)
   c32[ c c c c c c c]
 
   % Set beam sub-group length to a sixteenth note
-  \set baseMoment = #(ly:make-moment 1 16)
+  \set baseMoment = #(ly:make-moment 1/16)
   \set beatStructure = #'(4 4 4 4)
   c32[ c c c c c c c]
 }

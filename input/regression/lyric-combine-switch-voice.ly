@@ -5,7 +5,7 @@ if the switch occurs together with context instantiation."
 
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 <<
   \relative \new Voice = "lahlah" {
@@ -14,7 +14,7 @@ if the switch occurs together with context instantiation."
     <<
       \new Voice = "alternative" {
         \voiceOne
-        \times 2/3 {
+        \tuplet 3/2 {
 	  %% show associations clearly.
           \override NoteColumn.force-hshift = #-3
           r8 f g

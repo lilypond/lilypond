@@ -1202,8 +1202,14 @@ using the extensions available at:
 @itemize
 
 @item
-@uref{http://www.canorus.org,Canorus}, a score editor, can also export to
-LilyPond, but is still beta-software. Testers are welcome, though.
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} attempts to
+convert a @code{.bww} or @code{.bmw} file to LilyPond.  While not all of
+the embellishments may get converted properly (this is especially true
+with piobaireachd), the program will list them.
+
+@item
+@uref{http://www.canorus.org,Canorus}, a score editor, can also export
+to LilyPond, but is still beta-software. Testers are welcome, though.
 
 @item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} is a GNU/Linux program
@@ -1211,42 +1217,41 @@ which converts an @uref{http://www.gvox.com/,Encore} music score into
 a LilyPond one.
 
 @item
-@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} is a Go tool that converts
-@uref{http://www.gvox.com/,Encore} files to LilyPond. It was created using
-Felipe Castro's research and reverse engineering by tweaking existing .enc files
-and loading them using the 4.55 demo version.
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} is a Go tool that
+converts @uref{http://www.gvox.com/,Encore} files to LilyPond.  It was
+created using Felipe Castro's research and reverse engineering by
+tweaking existing .enc files and loading them using the 4.55 demo
+version.
 
 @item
-@uref{http://www.musescore.org,MuseScore}, a score editor, has incomplete
-LilyPond export but is being actively developed.
+@uref{http://www.musescore.org,MuseScore}, a score editor, has
+incomplete LilyPond export but is being actively developed.
 
 @item
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}, a
-score editor based on the @uref{http://www.cairographics.org,Cairo} library,
-has experimental support for exporting to LilyPond.
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+a score editor based on the @uref{http://www.cairographics.org,Cairo}
+library, it has experimental support for exporting to LilyPond.
 
 @item
-@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY} is
-a C# program which converts a
-@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
-NoteWorthy composer song into LilyPond.
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY}
+is a C# program which converts a NoteWorthy composer song into LilyPond.
 
 @item
-@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple} is
-a program that helps create scores and parts, including a mode for mixing
-different musical works together in a single score or part.
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
+is a program that helps create scores and parts, including a mode for
+mixing different musical works together in a single score or part.
 
 @item
-@uref{http://www.rosegardenmusic.com,Rosegarden}, an audio and MIDI sequencer,
-which also has a score editor for single-staff editing.
+@uref{http://www.rosegardenmusic.com,Rosegarden}, an audio and MIDI
+sequencer, which also has a score editor for single-staff editing.
 
 @item
-@uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic MIDI to
-LilyPond converter.
+@uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic
+MIDI-to-LilyPond converter.
 
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, a multitrack tablature editor
-and player, includes a score viewer and can export to LilyPond.
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, a multitrack tablature
+editor and player, includes a score viewer and can export to LilyPond.
 
 @end itemize
 
@@ -1256,18 +1261,19 @@ and player, includes a score viewer and can export to LilyPond.
 
 @item
 @uref{http://www.projectabjad.org/,Abjad}, a
-@uref{http://www.python.org/,Python} API for Formalized Score
-Control designed to help composers build up complex pieces of
-LilyPond notation in an iterative and incremental way.
+@uref{http://www.python.org/,Python} API for Formalized Score Control
+designed to help composers build up complex pieces of LilyPond notation
+in an iterative and incremental way.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, a LISP library
-to generate music notation from computer music software
-environments.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic) is a
+music notation tool for computer music composers.  It is written in the
+Lisp programming language, and has been tested in a variety of
+interpreters.  A C++ port is also available.
 
 @item
-@uref{http://strasheela.sourceforge.net,Strasheela}, an
-environment built on top of the
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
+an environment built on top of the
 @uref{http://www.mozart-oz.org/, Mozart/Oz} constraint programming
 language.
 
@@ -1282,12 +1288,12 @@ language.
 
 @item
 @uref{http://lilykde.googlecode.com/,LilyKDE} has been replaced by
-@uref{http://www.frescobaldi.org/,Frescobaldi}, and exists as
-LilyKDE3 for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
+@uref{http://www.frescobaldi.org/,Frescobaldi}, and exists as LilyKDE3
+for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 @item
 @uref{http://noteedit.berlios.de,NoteEdit}, which imported
-@uref{http://www.musicxml.com/xml.html,MusicXML}, has been forked
+@uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked
 into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.

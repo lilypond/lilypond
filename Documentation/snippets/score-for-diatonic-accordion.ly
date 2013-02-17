@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
-\version "2.17.6"
+%% Note: this file works from version 2.17.11
+\version "2.17.11"
 
 \header {
   lsrtags = "template, real-music, specific-notation"
@@ -158,7 +158,7 @@ AccordionTab= { \dynamicUp
   \context {
     \Staff
     \consists "Grid_point_engraver"
-    gridInterval = #(ly:make-moment 4 4) % 4/4 - tact. How many beats per bar
+    gridInterval = #(ly:make-moment 4/4) % 4/4 - tact. How many beats per bar
     % The following line has to be adjusted O-F-T-E-N.
     \override GridPoint.Y-extent = #'(-2 . -21)
   }

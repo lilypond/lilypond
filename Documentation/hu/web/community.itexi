@@ -569,111 +569,6 @@ fejlesztői verziót ajánljuk:
 @end quotation
 
 
-@subheading Dokumentáció
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Tankönyv:
-
-@manualDevelLearningSplit-hu
-@* @manualDevelLearningBig-hu
-@* @manualDevelLearningPdf-hu
-
-@item
-Fogalomtár:
-
-@manualDevelGlossarySplit-hu
-
-@manualDevelGlossaryBig-hu
-
-@manualDevelGlossaryPdf-hu
-
-@item
-Esszé:
-
-@manualDevelEssaySplit-hu
-
-@manualDevelEssayBig-hu
-
-@manualDevelEssayPdf-hu
-
-
-@c separate introduction, regular, infrequent manuals
-@smallspace
-
-@item
-Kottaírás:
-
-@manualDevelNotationSplit-hu
-
-@manualDevelNotationBig-hu
-
-@manualDevelNotationPdf-hu
-
-@item
-Használat:
-
-@manualDevelUsageSplit-hu
-
-@manualDevelUsageBig-hu
-
-@manualDevelUsagePdf-hu
-
-@item
-Kódrészletek:
-
-@manualDevelSnippetsSplit-hu
-
-@manualDevelSnippetsBig-hu
-
-@manualDevelSnippetsPdf-hu
-
-
-@c separate introduction, regular, infrequent manuals
-@smallspace
-
-@item
-Web:
-
-@manualDevelWebSplit-hu
-
-@manualDevelWebBig-hu
-
-@manualDevelWebPdf-hu
-
-@item
-Változások:
-
-@manualDevelChangesSplit-hu
-
-@manualDevelChangesBig-hu
-
-@manualDevelChangesPdf-hu
-
-@item
-Bővítés:
-
-@manualDevelExtendingSplit-hu
-
-@manualDevelExtendingBig-hu
-
-@manualDevelExtendingPdf-hu
-
-@item
-Belső működés:
-
-@manualDevelInternalsSplit-hu
-
-@manualDevelInternalsBig-hu
-
-@manualDevelInternalsPdf-hu
-
-@end itemize
-@divEnd
-@divEnd
-
 @divClass{column-right-top}
 @subheading Útmutató közreműködőknek
 
@@ -688,9 +583,9 @@ olvashatsz.}
 
 @docLinksBare{Útmutató közreműködőknek, contributor,
   @rcontribnamed{Top,Útmutató közreműködőknek},
-  @manualDevelContributorSplit-hu,
-  @manualDevelContributorBig-hu, 500 kB,
-  @manualDevelContributorPdf-hu, 2.8 MB}
+  @manualDevelContributorSplit,
+  @manualDevelContributorBig, 500 kB,
+  @manualDevelContributorPdf, 2.8 MB}
 @divEnd
 
 
@@ -761,6 +656,97 @@ A lilypond-book tesztjei.
 Archívum}
 
 @end itemize
+
+@divEnd
+@divEnd
+
+@subheading Dokumentáció
+
+@divClass{normal-table}
+@multitable @columnfractions .3 .3 .3
+@headitem Introduction
+@item
+@docLinkSplit{Tankönyv,learning,@manualDevelLearningSplit-hu}
+@tab
+@docLinkBig{Tankönyv,learning,@manualDevelLearningBig-hu}
+@tab
+@docLinkPdf{Tankönyv,learning,@manualDevelLearningPdf-hu}
+
+@item
+@docLinkSplit{Fogalomtár,music-glossary,@manualDevelGlossarySplit}
+@tab
+@docLinkBig{Fogalomtár,music-glossary,@manualDevelGlossaryBig}
+@tab
+@docLinkPdf{Fogalomtár,music-glossary,@manualDevelGlossaryPdf}
+
+@item
+@docLinkSplit{Esszé,essay,@manualDevelEssaySplit}
+@tab
+@docLinkBig{Esszé,essay,@manualDevelEssayBig}
+@tab
+@docLinkPdf{Esszé,essay,@manualDevelEssayPdf}
+
+@headitem Regular
+
+@item
+@docLinkSplit{Kottaírás,notation,@manualDevelNotationSplit}
+@tab
+@docLinkBig{Kottaírás,notation,@manualDevelNotationBig}
+@tab
+@docLinkPdf{Kottaírás,notation,@manualDevelNotationPdf}
+
+@item
+@docLinkSplit{Használat,usage,@manualDevelUsageSplit-hu}
+@tab
+@docLinkBig{Használat,usage,@manualDevelUsageBig-hu}
+@tab
+@docLinkPdf{Használat,usage,@manualDevelUsagePdf-hu}
+
+@item
+@docLinkSplit{Kódrészletek,snippets,@manualDevelSnippetsSplit}
+@tab
+@docLinkBig{Kódrészletek,snippets,@manualDevelSnippetsBig}
+@tab
+@docLinkPdf{Kódrészletek,snippets,@manualDevelSnippetsPdf}
+
+@headitem Infrequent
+
+@item
+@docLinkSplit{Web,web,@manualDevelWebSplit-hu}
+@tab
+@docLinkBig{Web,web,@manualDevelWebBig-hu}
+@tab
+@docLinkPdf{Web,web,@manualDevelWebPdf-hu}
+
+@item
+@docLinkSplit{Változások,changes,@manualDevelChangesSplit}
+@tab
+@docLinkBig{Változások,changes,@manualDevelChangesBig}
+@tab
+@docLinkPdf{Változások,changes,@manualDevelChangesPdf}
+
+@item
+@docLinkSplit{Bővítés,extending,@manualDevelExtendingSplit}
+@tab
+@docLinkBig{Bővítés,extending,@manualDevelExtendingBig}
+@tab
+@docLinkPdf{Bővítés,extending,@manualDevelExtendingPdf}
+
+@item
+@docLinkSplit{működés,internals,@manualDevelInternalsSplit}
+@tab
+@docLinkBig{működés,internals,@manualDevelInternalsBig}
+@tab
+@docLinkPdf{működés,internals,@manualDevelInternalsPdf}
+
+@ifset web_version
+@headitem Downloadable
+
+@item
+@doctarballDevel
+@end ifset
+
+@end multitable
 
 @divEnd
 @divEnd

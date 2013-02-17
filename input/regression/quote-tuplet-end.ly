@@ -3,12 +3,12 @@
   texidoc  ="Tuplet bracket ends properly when quoting."
 }
 
-\version "2.16.0"
+\version "2.17.11"
 
 \paper { ragged-right = ##t }
 
 \addQuote x {
-   \times 2/3 { a'8 a' a' } a'4 a'2 |
+   \tuplet 3/2 { a'8 a' a' } a'4 a'2 |
 }
 
 \new Staff <<

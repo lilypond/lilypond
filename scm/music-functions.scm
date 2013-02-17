@@ -806,7 +806,7 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
     (if (ly:music? e)
 	(set! (ly:music-property m 'element)  (voicify-music e)))
     (if (and (equal? (ly:music-property m 'name) 'SimultaneousMusic)
-	     (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
+	     (any music-separator? es))
 	(set! m (context-spec-music (voicify-chord m) 'Staff)))
     m))
 
@@ -843,17 +843,37 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
 (define-public (music-has-type music type)
   (memq type (ly:music-property music 'types)))
 
-(define-public (music-clone music)
-  (define (alist->args alist acc)
-    (if (null? alist)
-	acc
-	(alist->args (cdr alist)
-		     (cons (caar alist) (cons (cdar alist) acc)))))
-
-  (apply
-   make-music
-   (ly:music-property music 'name)
-   (alist->args (ly:music-mutable-properties music) '())))
+(define-public (music-clone music . music-properties)
+  "Clone @var{music} and set properties according to
+@var{music-properties}, a list of alternating property symbols and
+values:
+@example\n(music-clone start-span 'span-direction STOP)
+@end example
+Only properties that are not overriden by @var{music-properties} are
+actually fully cloned."
+  (let ((old-props (list-copy (ly:music-mutable-properties music)))
+        (new-props '())
+        (m (ly:make-music (ly:prob-immutable-properties music))))
+    (define (set-props mus-props)
+      (if (and (not (null? mus-props))
+               (not (null? (cdr mus-props))))
+          (begin
+            (set! old-props (assq-remove! old-props (car mus-props)))
+            (set! new-props
+                  (assq-set! new-props
+                             (car mus-props) (cadr mus-props)))
+            (set-props (cddr mus-props)))))
+    (set-props music-properties)
+    (for-each
+     (lambda (pair)
+       (set! (ly:music-property m (car pair))
+             (ly:music-deep-copy (cdr pair))))
+     old-props)
+    (for-each
+     (lambda (pair)
+       (set! (ly:music-property m (car pair)) (cdr pair)))
+     new-props)
+    m))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
@@ -1849,6 +1869,40 @@ yourself."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
 
+(defmacro-public make-relative (pitches last-pitch music)
+  "The list of pitch-carrying variables in @var{pitches} is used as a
+sequence for creating relativable music from @var{music}.
+The variables in @var{pitches} are, when considered inside of
+@code{\\relative}, all considered to be specifications to the preceding
+variable.  The first variable is relative to the preceding musical
+context, and @var{last-pitch} specifies the pitch passed as relative
+base onto the following musical context."
+
+  ;; pitch and music generator might be stored instead in music
+  ;; properties, and it might make sense to create a music type of its
+  ;; own for this kind of construct rather than using
+  ;; RelativeOctaveMusic
+  (define ((make-relative::to-relative-callback pitches p->m p->p) music pitch)
+    (let* ((chord (make-event-chord
+                   (map
+                    (lambda (p)
+                      (make-music 'NoteEvent
+                                  'pitch p))
+                    pitches)))
+           (pitchout (begin
+                       (ly:make-music-relative! chord pitch)
+                       (event-chord-pitches chord))))
+      (set! (ly:music-property music 'element)
+            (apply p->m pitchout))
+      (apply p->p pitchout)))
+  `(make-music 'RelativeOctaveMusic
+               'to-relative-callback
+               (,make-relative::to-relative-callback
+                (list ,@pitches)
+                (lambda ,pitches ,music)
+                (lambda ,pitches ,last-pitch))
+               'element ,music))
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The following functions are all associated with the crossStaff
 ;  function

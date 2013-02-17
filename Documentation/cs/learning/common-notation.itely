@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:
@@ -525,10 +525,10 @@ V jedné triole trvají noty 2/3 jejich zapsané délky,
 takže triola má 2/3 jako svůj zlomek:
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Ozdoby
@@ -1343,7 +1343,7 @@ v souboru vytvořily novou proměnnou. Tím se dá písemná práce
 ulehčit, když se skupiny not často opakují.
 
 @lilypond[verbatim,quote]
-tripletA = \times 2/3 { c,8 e g }
+tripletA = \tuplet 3/2 { c,8 e g }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
 \relative c'' {

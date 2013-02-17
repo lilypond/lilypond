@@ -50,6 +50,7 @@ private:
   SCM scopes_;
   SCM start_module_;
   int hidden_state_;
+  Input override_input_;
   SCM eval_scm (SCM, char extra_token = 0);
 public:
   SCM eval_scm_token (SCM sval) { return eval_scm (sval, '#'); }
@@ -69,7 +70,7 @@ public:
   Input last_input_;
 
   Lily_lexer (Sources *, Lily_parser *);
-  Lily_lexer (Lily_lexer const &, Lily_parser *);
+  Lily_lexer (Lily_lexer const &, Lily_parser *, SCM);
   int yylex ();
 
   void add_lexed_char (int);
@@ -77,6 +78,7 @@ public:
   void prepare_for_next_token ();
   int try_special_identifiers (SCM *, SCM);
   Input here_input () const;
+  Input const &override_input (Input const &) const;
 
   void add_scope (SCM);
   SCM set_current_scope ();

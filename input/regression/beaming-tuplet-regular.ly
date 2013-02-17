@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
 
@@ -8,7 +8,7 @@ Beams in a completed tuplet should be continuous.
 }
 
 {
-  \times 2/3 {b16 b b} b8 b8 \times 2/3 {b16 b b}
-  \times 1/3 {b16 b b} b8. b \times 1/3 {b16 b b}
+  \tuplet 3/2 {b16 b b} b8 b8 \tuplet 3/2 {b16 b b}
+  \tuplet 3/1 {b16 b b} b8. b \tuplet 3/1 {b16 b b}
 }
 

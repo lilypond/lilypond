@@ -86,6 +86,8 @@ public:
 
   // with tieWaitForNote, there might be a skip between the tied notes!
   void tie_to (Audio_note *, Moment skip = 0);
+  Audio_note *tie_head ();
+  virtual string to_string () const;
 
   Pitch pitch_;
   Moment length_mom_;

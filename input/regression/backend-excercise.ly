@@ -2,7 +2,7 @@
   texidoc = "Exercise all output functions"
 }
 
-\version "2.17.6"
+\version "2.17.11"
 
 \paper { ragged-right = ##t }
 
@@ -11,7 +11,7 @@
     \new Staff
       {
 	\ottava #1
-	\times 2/3 { c8[\< f]( f''\!) }
+	\tuplet 3/2 { c8[\< f]( f''\!) }
 	\ottava #0
 	<f,, \5>4
 

@@ -1,5 +1,5 @@
 dnl aclocal.m4   -*-shell-script-*-
-dnl StepMake subroutines for configure.in
+dnl StepMake subroutines for configure.ac
 
 
 ### mostly interal macros
@@ -140,7 +140,7 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION_UNSUPPORTED, [
     fi
 ])
 
-### Macros to build configure.in
+### Macros to build configure.ac
 
 
 AC_DEFUN(STEPMAKE_BIBTEX2HTML, [

@@ -43,10 +43,10 @@ In this manner, the most natural enharmonic notes are chosen.
          ;; for historical reasons
          (n (ly:pitch-notename p)))
      (cond
-      ((and (> a 1) (or (eq? n 6) (eq? n 2)))
+      ((and (> a 1) (or (= n 6) (= n 2)))
        (set! a (- a 2))
        (set! n (+ n 1)))
-      ((and (< a -1) (or (eq? n 0) (eq? n 3)))
+      ((and (< a -1) (or (= n 0) (= n 3)))
        (set! a (+ a 2))
        (set! n (- n 1))))
      (cond

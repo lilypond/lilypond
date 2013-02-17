@@ -376,6 +376,7 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
 	(types . (general-music layout-instruction-event
 		  override-property-event))
 	(iterator-ctor . ,ly:push-property-iterator::constructor)
+	(untransposable . #t)
 	))
 
     (PageBreakEvent
@@ -442,6 +443,7 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
 Syntax: @code{\\set @var{context}.@var{prop} = @var{scheme-val}}")
 	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-iterator::constructor)
+	(untransposable . #t)
 	))
 
     (PropertyUnset

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Duraciones
 @section Duraciones
@@ -214,8 +214,8 @@ que 3 notas tienen el valor de 2, por tanto las notas duran 2/3 de su
 valor escrito:
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex grupos de valoración especial, colocación del corchete
@@ -234,7 +234,7 @@ Los grupos pueden anidarse unos dentro de otros:
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 La modificación de los grupos especiales anidados que comienzan en el
@@ -1442,7 +1442,7 @@ Así, @code{\partial 8} se convierte en:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1476,7 +1476,7 @@ advertencias o efectos desagradables, en este caso utilice en su lugar
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -1687,7 +1687,7 @@ de barrado automático.
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>
@@ -2142,12 +2142,12 @@ determinado por @code{beatStructure}.
 \time 4/4
 a8^"default" a a a a a a a
 
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"no change" a a a a a a a
 
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"changed" a a a a a a a
 @end lilypond
@@ -2202,7 +2202,7 @@ el nuevo valor de @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2297,7 +2297,7 @@ ajuste @code{beatStructure} si no se reinicia @code{beamExceptions}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
 \repeat unfold 8 {c8} |
@@ -2435,7 +2435,7 @@ la indicación de compás en un pentagrama solamente.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \repeat unfold 6 { a8 }
   }
@@ -2610,10 +2610,10 @@ mientras que las últimas cuatro fusas están a un tempo constante.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % revert to non-feathered beams
 \override Beam.grow-direction = #'()
@@ -3743,11 +3743,11 @@ divisoria cae en 9/8 en vez de hacerlo en 5/4.
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

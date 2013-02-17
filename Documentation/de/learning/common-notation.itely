@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.17.11"
 
 @ignore
 Tutorial guidelines:
@@ -534,10 +534,10 @@ In einer Triole dauern die Noten 2/3 ihrer normalen Länge,
 also hat eine Triole 2/3 als Bruch:
 
 @lilypond[verbatim,quote,relative=2]
-\times 2/3 { f8 g a }
-\times 2/3 { c8 r c }
-\times 2/3 { f,8 g16[ a g a] }
-\times 2/3 { d4 a8 }
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
 @end lilypond
 
 @subheading Verzierungen
@@ -1340,7 +1340,7 @@ werden, wenn Notengruppen sich oft wiederholen.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-trioleA = \times 2/3 { c,8 e g }
+trioleA = \tuplet 3/2 { c,8 e g }
 TaktA = { \trioleA \trioleA \trioleA \trioleA }
 
 \relative c'' {

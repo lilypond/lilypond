@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @ignore
 GDP TODO list
@@ -1499,7 +1499,7 @@ paralelo con la música:
   \remove "Forbid_line_break_engraver"
 } \relative c'' {
   <<
-    { c2. \times 2/3 { c4 c c } c2. | }
+    { c2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1728,7 +1728,7 @@ El grabador @code{Page_turn_engraver} lee la propiedad de contexto
 @code{minimumPageTurnLength} para determinar qué longitud debe tener
 una sección sin notas antes de que se considere la posibilidad de un
 paso de página.  El valor predeterminado para
-@code{minimumPageTurnLength} es @code{(ly:make-moment 1 1)}.  Si
+@code{minimumPageTurnLength} es @code{(ly:make-moment 1/1)}.  Si
 quiere inhabilitar las vueltas de página, puede establecerlo a algún
 valor muy grande.
 
@@ -1738,7 +1738,7 @@ valor muy grande.
   a4 b c d |
   R1 | % aquí se permite un salto de página
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
   R1 | % aquí no se permite un salto de página
   a4 b r2 |
   R1*2 | % aquí se permite un salto de página
@@ -3085,7 +3085,7 @@ que @code{ly:make-moment} construye una duración, por lo que @code{1
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 16)
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3103,14 +3103,14 @@ puede cambiarse al principio de la partitura:
 \score {
   <<
     \new Staff {
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
       c8 c8 c8 c8
     }
     \new Staff {
       c8 c8 c8 c8
-      \times 4/5 {
+      \tuplet 5/4 {
         c8 c8 c8 c8 c8
       }
     }
@@ -3230,7 +3230,7 @@ espaciado clásico sin justificación por la derecha.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3260,7 +3260,7 @@ ajuste @code{proportionalNotationDuration}.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3268,7 +3268,7 @@ ajuste @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3293,11 +3293,11 @@ argumento, que es la duración de referencia contra el que se aplica el
 espaciado de toda la música.  La función Scheme de LilyPond
 @code{make-moment} acepta dos argumentos: un numerador y un
 denominador que, juntos, expresan una cierta fracción de redonda.  La
-llamada @code{(ly:make-moment 1 20)}, por tanto, produce una duración
+llamada @code{(ly:make-moment 1/20)}, por tanto, produce una duración
 de referencia de una nota de un veinteavo de redonda (semicorcheas de
 cinquillo).  Son también posibles valores como
-@code{(ly:make-moment 1 16)},
-@code{(ly:make-moment 1 8)} y @code{(ly:make-moment 3 97)}.
+@code{(ly:make-moment 1/16)},
+@code{(ly:make-moment 1/8)} y @code{(ly:make-moment 3/97)}.
 
 ¿Cómo seleccionamos la duración correcta de referencia para pasarla a
 @code{proportionalNotationDuration}?  Normalmente mediante un proceso
@@ -3312,7 +3312,7 @@ más largas aplican un espaciado más apretado.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3320,7 +3320,7 @@ más largas aplican un espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 8)
+      proportionalNotationDuration = #(ly:make-moment 1/8)
     }
   }
 }
@@ -3330,7 +3330,7 @@ más largas aplican un espaciado más apretado.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3338,7 +3338,7 @@ más largas aplican un espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 16)
+      proportionalNotationDuration = #(ly:make-moment 1/16)
     }
   }
 }
@@ -3348,7 +3348,7 @@ más largas aplican un espaciado más apretado.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
@@ -3356,7 +3356,7 @@ más largas aplican un espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 32)
+      proportionalNotationDuration = #(ly:make-moment 1/32)
     }
   }
 }
@@ -3383,12 +3383,12 @@ diferente de grupo especial.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3409,12 +3409,12 @@ soluciona.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3422,7 +3422,7 @@ soluciona.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
     }
   }
 }
@@ -3440,12 +3440,12 @@ propiedad de @code{SpacingSpanner}.
     \new RhythmicStaff {
       c'2
       c'16 c'16 c'16 c'16
-      \times 4/5 {
+      \tuplet 5/4 {
         c'16 c'16 c'16 c'16 c'16
       }
     }
     \new RhythmicStaff {
-      \times 8/9 {
+      \tuplet 9/8 {
         c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
       }
     }
@@ -3453,7 +3453,7 @@ propiedad de @code{SpacingSpanner}.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1 20)
+      proportionalNotationDuration = #(ly:make-moment 1/20)
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3548,7 +3548,7 @@ Compare las dos partituras siguientes:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   c''8
   c''8
   c''8
@@ -3558,7 +3558,7 @@ Compare las dos partituras siguientes:
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8
@@ -3783,7 +3783,7 @@ duración se produce un efecto de @q{apretujamiento}:
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 2)
+      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
     }
   }
 }

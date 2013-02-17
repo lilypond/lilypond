@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -212,8 +212,8 @@ a4 b c4. b8 a4. b4.. c8.
 そのため、3 連符で指定する分数は 2/3 です。
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex tuplet bracket placement (連符囲みの配置)
@@ -232,7 +232,7 @@ c4 c \times 2/3 { b4 a g }
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 ネストされた連符の演奏開始点が同時である場合に、それらの連符を変更するには
@@ -1391,7 +1391,7 @@ r4 e8 | a4 c8 b c4 |
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1427,7 +1427,7 @@ e8 | a4 c8 b c4 |
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -1647,7 +1647,7 @@ c8 c c
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>
@@ -2116,7 +2116,7 @@ c16^"(3+2)" c c c c |
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2203,7 +2203,7 @@ c16 c c |
 @c KEEP LY
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % 以下は beamExceptions のため、(3 3 2) の連桁にはなりません
 \repeat unfold 8 {c8} |
@@ -2339,7 +2339,7 @@ r4. a8 a a |
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \repeat unfold 6 { a8 }
   }
@@ -2510,10 +2510,10 @@ ritardando (徐々に緩やかに) や accelerando (次第に速く) を@c
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % revert to non-feathered beams
 \override Beam.grow-direction = #'()
@@ -3528,11 +3528,11 @@ MyCadenza = \relative c' {
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

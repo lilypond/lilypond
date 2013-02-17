@@ -140,7 +140,7 @@
     (list 'unquote `(ly:make-moment
 		     ,(ly:moment-main-numerator e)
 		     ,(ly:moment-main-denominator e)
-		     . ,(if (eq? 0 (ly:moment-grace-numerator e))
+		     . ,(if (zero? (ly:moment-grace-numerator e))
 			    '()
 			    (list (ly:moment-grace-numerator e)
 				  (ly:moment-grace-denominator e))))))

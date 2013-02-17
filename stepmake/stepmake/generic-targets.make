@@ -95,7 +95,7 @@ $(outdir)/version.hh: $(depth)/VERSION $(config_make) $(top-src-dir)/scripts/bui
 $(outdir)/config.hh: $(config_h)
 	cp -p $< $@
 
-configure: configure.in aclocal.m4
+configure: configure.ac aclocal.m4
 	NOCONFIGURE=yes $(src-depth)/autogen.sh
 	chmod +x configure
 

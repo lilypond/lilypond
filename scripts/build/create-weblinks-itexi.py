@@ -38,6 +38,35 @@ done
 '''
 
 translations = {
+    'cs': {
+        'Source': 'Source',
+        'Learning': 'Učení',
+        'Music glossary': 'Slovníček',
+        'Essay': 'Článek',
+        'Notation': 'Notový zápis',
+        'Usage': 'Používání',
+        'Snippets': 'Úryvky',
+        'Web': 'Web',
+        'Changes': 'Změny',
+
+        'Extending': 'Rozšíření',
+        'Internals': 'Vnitřnosti',
+        'Contributor': 'Vývojářské',
+
+        ' (split HTML)': ' (rozdělené HTML)',
+        ' (big HTML)': ' (velké HTML)',
+
+        'Regression tests for ': 'Zkoušky regresí ',
+        'PDF of regtests for ': 'PDF zkoušky regresí ',
+        'abc2ly Regression tests for ': 'abc2ly zkoušky regresí ',
+        'PDF of abc2ly regtests for ': 'PDF abc2ly zkoušky regresí ',
+        'lilypond-book Regression tests for ': 'lilypond-book zkoušky regresí ',
+        'PDF of lilypond-book regtests for ': 'PDF lilypond-book zkoušky regresí ',
+        'MusicXML Regression tests for ': 'MusicXML zkoušky regresí ',
+        'PDF of MusicXML regtests for ': 'PDF MusicXML zkoušky regresí ',
+
+        'Doc tarball for ': 'Doc tarball for ',
+        },
     'de': {
         'Source': 'Quellen',
         'Learning': 'Einführung',
@@ -66,7 +95,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF der MusicXML Regressionstests für ',
 
         'Doc tarball for ': 'Dokumentation tar-gepackt für ',
-        ' (did not exist in 2.12)': ' (nicht existent in 2.12)',
         },
     'es': {
         'Source': 'Código fuente',
@@ -97,7 +125,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'Pruebas de MusicXML en PDF para ',
 
         'Doc tarball for ': 'Tarball de la documentación para ',
-        ' (did not exist in 2.12)': ' (no existía en la versión 2.12)',
      },
     'fr': {
         'Source': 'Sources',
@@ -128,7 +155,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF des tests de régression de MusicXML pour ',
 
         'Doc tarball for ': 'Archive de la documentation pour ',
-        ' (did not exist in 2.12)': ' (non disponible pour la version 2.12)',
         },
     'hu': {
         'Source': 'Forrás',
@@ -157,7 +183,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF formátumban - verzió: ',
 
         'Doc tarball for ': 'Tömörített csomag - verzió: ',
-        ' (did not exist in 2.12)': ' (nem létezett a 2.12-es verzióban)',
         },
     'it': {
         'Source': 'Sorgenti',
@@ -187,7 +212,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'PDF dei test di collaudo di MusicXML per ',
 
         'Doc tarball for ': 'Archivio della documentazione per ',
-        ' (did not exist in 2.12)': ' (non disponibile per la versione 2.12)',
         },
     'ja': {
         'Source': 'ソース',
@@ -219,7 +243,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'MusicXML 回帰テスト (PDF 版) バージョン ',
 
         'Doc tarball for ': 'ドキュメント アーカイブ バージョン ',
-        ' (did not exist in 2.12)': ' (バージョン 2.12 には存在しません)',
 
         },
     'nl': {
@@ -251,7 +274,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'MusicXML regressietesten voor ',
 
         'Doc tarball for ': 'Tarball met documentation voor ',
-        ' (did not exist in 2.12)': ' (bestond nog niet in 2.12)',
      },
     'zh': {
         'Source': '源码',
@@ -282,7 +304,6 @@ translations = {
         'PDF of MusicXML regtests for ': 'MusicXML 的 PDF 回归测试 ',
 
         'Doc tarball for ': '为文档压缩包',
-        ' (did not exist in 2.12)': ' (在 2.12 中不存在)',
         },
     }
 
@@ -416,29 +437,7 @@ def translateNameToUrl(manual, version):
     ver_minor = ver_split[0] + '.' + ver_split[1]
     url = depth + "doc/v" + ver_minor + "/Documentation/"
 
-    if (ver_minor == '2.12'):
-        if (manual=='learning'):
-            return url+'user/lilypond-learning'
-        elif (manual=='internals'):
-            return url+'user/lilypond-internals'
-        elif (manual=='notation'):
-            return url+'user/lilypond'
-        elif (manual=='usage'):
-            return url+'user/lilypond-program'
-        elif (manual=='snippets'):
-            return url+'../input/lsr/lilypond-snippets'
-        elif (manual=='changes'):
-            return url+'topdocs/NEWS.html'
-        elif (manual=='music-glossary'):
-            return url+'user/music-glossary'
-        elif (manual=='essay'):
-            return url+'user/lilypond-learning/Background.html'
-        elif (manual=='extending'):
-            return url+'user/lilypond/Interfaces-for-programmers.html'
-        else:
-            return ''
-    else:
-        return url+manual
+    return url+manual
 
 def addLang(url, lang):
     if lang:
@@ -464,25 +463,6 @@ def make_manual_links(name, version, lang):
             manual = 'Music glossary'
         url = translateNameToUrl(m, version)
 
-        if (url == ''):
-            # can't have a comma here due to texinfo
-            make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
-                "http://lilypond.org",
-                mshort+getTrans(" (did not exist in 2.12)",lang))
-            make_ver_link(macroLang("manual"+name+mshort+'Split',lang),
-                "http://lilypond.org",
-                mshort+getTrans(" (did not exist in 2.12)",lang))
-            make_ver_link(macroLang("manual"+name+mshort+'Big',lang),
-                "http://lilypond.org",
-                mshort+getTrans(" (did not exist in 2.12)",lang))
-            make_ver_link(macroLang("manual"+name+mshort+'SplitNoName',lang),
-                "http://lilypond.org",
-                mshort+getTrans(" (did not exist in 2.12)",lang))
-            continue
-        # this is stupid and I shouldn't have bothered trying
-        # to support the 2.12 docs and it will be deleted once
-        # 2.14 is out and the website won't be visible to users
-        # until 2.14 is out.  -gp
         if (url.endswith('.html')):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf',lang),
                       addLang(url, lang),
@@ -553,7 +533,7 @@ def make_doctarball_links(name, version, lang):
         url, getTrans("Doc tarball for ", lang)+version)
 
 print "@c This file was autogenerated"
-print "@c     from: VERSION"
+print "@c     from: %s" % VERSION
 print "@c     by:   %s" % sys.argv[0]
 print ""
 print "@c ************************ Download binaries ************"

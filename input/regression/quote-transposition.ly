@@ -5,8 +5,7 @@
     texidoc = "Quotations take into account the transposition of both
 source and target.  In this example, all instruments play sounding
 central C, the target is a instrument in F.  The target part may be
-@code{\\transpose}d.  In this case, all the pitches (including the
-quoted ones) will transposed as well.  "
+@code{\\transpose}d.  The quoted pitches will stay unchanged."
 
 }
 

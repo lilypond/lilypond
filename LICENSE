@@ -22,13 +22,20 @@ The following exceptions apply:
   * It does not apply to ly/articulate.ly, which is only licensed
     under the GPL version 3 (not any later versions).
 
-  * If you create a document which uses fonts included in LilyPond,
-    and embed this font or unaltered portions of this font into the
-    document, then this font does not by itself cause the resulting
-    document to be covered by the GNU General Public License.  This
-    exception does not however invalidate any other reasons why the
-    document might be covered by the GNU General Public License.
-    If you modify one or more of the fonts, you may extend this
-    exception to your version of the fonts but you are not obliged
-    to do so.  If you do not wish to do so, delete this exception
-    statement from your version.
+  * The files under mf/ form a font, and this font is dual-licensed
+    under the GPL+Font exception and the SIL Open Font License (OFL).
+    A copy of the OFL is in the file LICENSE.OFL.
+
+    The font exception for the GPL stipulates the following exception:
+
+      If you create a document which uses fonts included in LilyPond,
+      and embed this font or unaltered portions of this font into the
+      document, then this font does not by itself cause the resulting
+      document to be covered by the GNU General Public License.  This
+      exception does not however invalidate any other reasons why the
+      document might be covered by the GNU General Public License.
+      If you modify one or more of the fonts, you may extend this
+      exception to your version of the fonts but you are not obliged
+      to do so.  If you do not wish to do so, delete this exception
+      statement from your version.
+

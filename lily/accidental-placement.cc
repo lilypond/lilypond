@@ -47,7 +47,7 @@ accidental_pitch (Grob *acc)
 }
 
 void
-Accidental_placement::add_accidental (Grob *me, Grob *a)
+Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long context_hash)
 {
   Pitch *p = accidental_pitch (a);
   if (!p)
@@ -55,11 +55,12 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 
   a->set_parent (me, X_AXIS);
   a->set_property ("X-offset", Grob::x_parent_positioning_proc);
-  int n = p->get_notename ();
+  long n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");
-  SCM key = scm_from_int (n);
-  SCM entry = scm_assq (key, accs);
+  SCM key = scm_cons (scm_from_int (n), scm_from_long  (stagger ? context_hash : 1));
+  // assoc because we're dealing with pairs
+  SCM entry = scm_assoc (key, accs);
   if (entry == SCM_BOOL_F)
     entry = SCM_EOL;
   else
@@ -67,7 +68,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 
   entry = scm_cons (a->self_scm (), entry);
 
-  accs = scm_assq_set_x (accs, key, entry);
+  accs = scm_assoc_set_x (accs, key, entry);
 
   me->set_object ("accidental-grobs", accs);
 }
@@ -129,6 +130,11 @@ Real ape_priority (Accidental_placement_entry const *a)
 bool ape_less (Accidental_placement_entry *const &a,
                Accidental_placement_entry *const &b)
 {
+  vsize size_a = a->grobs_.size ();
+  vsize size_b = b->grobs_.size ();
+  if (size_a != size_b)
+    return size_b < size_a;
+
   return ape_priority (a) < ape_priority (b);
 }
 
@@ -181,23 +187,42 @@ stagger_apes (vector<Accidental_placement_entry *> *apes)
   vector<Accidental_placement_entry *> asc = *apes;
 
   vector_sort (asc, &ape_less);
+  // we do the staggering below based on size
+  // this ensures that if a placement has 4 entries, it will
+  // always be closer to the NoteColumn than a placement with 1
+  // this allows accidentals to be on-average closer to notes
+  // while still preserving octave alignment
+  vector<vector<Accidental_placement_entry *> > ascs;
+
+  vsize sz = INT_MAX;
+  for (vsize i = 0; i < asc.size (); i++)
+    {
+      vsize my_sz = asc[i]->grobs_.size ();
+      if (sz != my_sz)
+        ascs.push_back (vector<Accidental_placement_entry *> ());
+      ascs.back ().push_back (asc[i]);
+      sz = my_sz;
+    }
 
   apes->clear ();
 
-  int parity = 1;
-  for (vsize i = 0; i < asc.size ();)
+  for (vsize i = 0; i < ascs.size (); i++)
     {
-      Accidental_placement_entry *a = 0;
-      if (parity)
+      int parity = 1;
+      for (vsize j = 0; j < ascs[i].size ();)
         {
-          a = asc.back ();
-          asc.pop_back ();
-        }
-      else
-        a = asc[i++];
+          Accidental_placement_entry *a = 0;
+          if (parity)
+            {
+              a = ascs[i].back ();
+              ascs[i].pop_back ();
+            }
+          else
+            a = ascs[i][j++];
 
-      apes->push_back (a);
-      parity = !parity;
+          apes->push_back (a);
+          parity = !parity;
+        }
     }
 
   reverse (*apes);

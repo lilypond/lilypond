@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -478,11 +478,11 @@ printed in red on the first short tuplet bracket.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak direction #up
-\times 4/3 {
+\tuplet 3/4 {
   \tweak color #red
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -496,14 +496,14 @@ appearance may be modified in the usual way with
 @cindex TupletNumber, example of overriding
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c] }
+\tuplet 3/2 { c8[ c c] }
 \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\times 2/3 {
+\tuplet 3/2 {
   c8[ c]
   c8[ c]
   \once \override TupletNumber.transparent = ##t
-  \times 2/3 { c8[ c c] }
-  \times 2/3 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
 }
 @end lilypond
 
@@ -3983,7 +3983,7 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   @}
   \context @{
@@ -4016,7 +4016,7 @@ inst =
 \layout{
   \context {
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   }
   \context {
@@ -4069,7 +4069,7 @@ inst =
 \layout@{
   \context @{
     \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   @}
   \context @{
@@ -4102,7 +4102,7 @@ inst =
 
 \layout{
   \context { \Score
-    \override MetronomeMark.extra-offset = #'(-9 . 0)
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
     \override MetronomeMark.padding = #'3
   }
   \context { \Voice

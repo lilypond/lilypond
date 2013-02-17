@@ -15,7 +15,6 @@ chapter.}
 * Doc build::
 * Website build::
 * Building an Ubuntu distro::
-* Building GUB::
 @end menu
 
 
@@ -1511,68 +1510,3 @@ Test iso by installing in VM and repeating steps above for
 getting source files and building lp and docs.
 
 @end enumerate
-
-@node Building GUB
-@section Building GUB
-
-GUB - the Grand Unified Builder - is used to build the release
-versions of LilyPond.  For background information, see
-@ref{Grand Unified Builder (GUB)}.  The simplest way to set up a
-GUB build environment is to use a virtual machine with LilyDev
-(@ref{LilyDev}).  Follow the instructions on that page to set this
-up.  Make sure that your virtual machine has enough disk space -
-a GUB installation takes over 30 GBytes of disk space, and if you
-allocate too little, it will fail during the setting up stage and
-you will have to start again.  64 GBytes should be sufficient.
-
-While GUB is being built, any interruptions are likely to make it
-almost impossible to restart.  If at all possible, leave the build
-to continue uniterrupted.
-
-Download GUB and start the set up:
-
-@example
-git clone git://github.com/gperciva/gub/gub.git
-cd gub
-make bootstrap
-@end example
-
-This downloads and installs a number of packages.  You may find
-some fail during download and you will need to download them
-manually.  For example, the perl archive.  If this happens,
-download it from
-@uref{http://www.cpan.org/src/5.0/perl-5.10.0.tar.gz}, saving the
-archive to @file{gub/downloads/perl/}.  Continue the set up with:
-
-@example
-make bootstrap
-@end example
-
-Once this has completed successfully, you can build the LilyPond
-release package.  However, this uses an archived version of the
-regression tests, so it is better to download this first.
-Download the test output from lilypond.org:
-
-@smallexample
-@uref{http://lilypond.org/download/binaries/test-output/lilypond-2.15.33-1.test-output.tar.bz2}
-@end smallexample
-
-Copy the tarball into @file{gub/regtests/}, and tell the build
-system that you have done this:
-
-@example
-touch regtests/ignore
-@end example
-
-Now start the GUB build:
-
-@example
-make lilypond
-@end example
-
-That's it.  This will build LilyPond from current master.  To build
-the current unstable release, run:
-
-@example
-make LILYPOND_BRANCH=release/unstable lilypond
-@end example

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "pitches, real-music, really-cool, scheme-language"
@@ -17,7 +17,7 @@ Planets.
 rhythm =
 #(define-music-function (parser location p) (ly:pitch?)
    "Make the rhythm in Mars (the Planets) at the given pitch"
-  #{ \times 2/3 { $p 8 $p $p } $p 4 $p $p 8 $p $p 4 #})
+  #{ \tuplet 3/2 { $p 8 $p $p } $p 4 $p $p 8 $p $p 4 #})
 
 \new Staff {
   \time 5/4

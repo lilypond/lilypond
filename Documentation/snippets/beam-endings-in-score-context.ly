@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   lsrtags = "rhythms"
@@ -22,7 +22,7 @@ levels:
 \relative c'' {
   \time 5/4
   % Set default beaming for all staves
-  \set Score.baseMoment = #(ly:make-moment 1 8)
+  \set Score.baseMoment = #(ly:make-moment 1/8)
   \set Score.beatStructure = #'(3 4 3)
   <<
     \new Staff {

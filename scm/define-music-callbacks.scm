@@ -92,11 +92,11 @@ to be used by the sequential-iterator"
                 (lambda (context)
                   (let* ((time-signature-settings
                           (ly:context-property context 'timeSignatureSettings))
-                         (my-base-fraction
-                           (base-fraction fraction time-signature-settings))
+                         (my-base-length
+                           (base-length fraction time-signature-settings))
                          (my-beat-structure
                            (if (null? structure)
-                               (beat-structure my-base-fraction
+                               (beat-structure my-base-length
                                                fraction
                                                time-signature-settings)
                                structure))
@@ -106,7 +106,7 @@ to be used by the sequential-iterator"
                      (ly:context-set-property!
                        context 'timeSignatureFraction fraction)
                      (ly:context-set-property!
-                       context 'baseMoment (fraction->moment my-base-fraction))
+                       context 'baseMoment (ly:make-moment my-base-length))
                      (ly:context-set-property!
                        context 'beatStructure my-beat-structure)
                      (ly:context-set-property!

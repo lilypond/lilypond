@@ -42,11 +42,14 @@ can deal with embedded Scheme expressions starting with @code{$}
 and@w{ }@code{#}.
 
 It extracts the Lilypond code block and generates a call to the
-LilyPond @code{parser} which is executed at runtime to interpret the
-LilyPond code block.  Any embedded Scheme expression is executed in
-the lexical environment of the Lilypond code block, so you have access
-to local variables and function parameters at the point the Lilypond
-code block is written.
+LilyPond @code{parser} which is executed at runtime to interpret
+the LilyPond code block.  Any embedded Scheme expression is
+executed in the lexical environment of the Lilypond code block, so
+you have access to local variables and function parameters at the
+point the Lilypond code block is written.  If @code{location}
+refers to a valid input location (which it usually does inside of
+music/@/scheme functions), all music generated inside the code
+block has its @samp{origin} set to @code{location}.
 
 A LilyPond code block may contain anything that you can use on the right
 side of an assignment.  In addition, an empty LilyPond block corresponds

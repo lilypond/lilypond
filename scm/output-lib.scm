@@ -872,24 +872,21 @@ and duration-log @var{log}."
 ;; fingering
 
 (define-public (fingering::calc-text grob)
-  (let* ((event (event-cause grob))
-	 (digit (ly:event-property event 'digit)))
-
-    (number->string digit 10)))
+  (let ((event (event-cause grob)))
+    (or (ly:event-property event 'text #f)
+        (number->string (ly:event-property event 'digit) 10))))
 
 (define-public (string-number::calc-text grob)
-  (let ((digit (ly:event-property (event-cause grob) 'string-number)))
-
-    (number->string digit 10)))
+  (let ((event (event-cause grob)))
+    (or (ly:event-property event 'text #f)
+        (number->string (ly:event-property event 'string-number) 10))))
 
 (define-public (stroke-finger::calc-text grob)
-  (let* ((digit (ly:event-property (event-cause grob) 'digit))
-	 (text (ly:event-property (event-cause grob) 'text)))
-
-    (if (string? text)
-	text
+  (let ((event (event-cause grob)))
+    (or (ly:event-property event 'text #f)
 	(vector-ref (ly:grob-property grob 'digit-names)
-		    (1- (max (min 5 digit) 1))))))
+		    (1- (max 1
+                             (min 5 (ly:event-property event 'digit))))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -661,6 +661,10 @@ Otherwise, return #f."
 (define-display-method TimeScaledMusic (times parser)
   (let* ((num (ly:music-property times 'numerator))
 	 (den (ly:music-property times 'denominator))
+         (span (ly:music-property times 'duration #f))
+         ;; need to format before changing time scale
+         (formatted-span
+          (and span (duration->lily-string span #:force-duration #t)))
 	 (scale (/ num den))
 	 (dur (*previous-duration*))
 	 (time-scale (*time-scale*)))
@@ -672,9 +676,10 @@ Otherwise, return #f."
 				      (* (ly:duration-scale dur)
 					 scale)))
 		   (*time-scale* (* time-scale scale)))
-      (format #f "\\times ~a/~a ~a"
-	      num
+      (format #f "\\tuplet ~a/~a ~@[~a ~]~a"
 	      den
+	      num
+              formatted-span
 	      (music->lily-string (ly:music-property times 'element) parser)))))
 
 (define-display-method RelativeOctaveMusic (m parser)

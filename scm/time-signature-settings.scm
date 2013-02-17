@@ -180,26 +180,25 @@
                              beat-structure
                              beam-exceptions)
   (list
-    (cons 'baseMoment base-fraction)
+    (cons 'baseMoment (if (pair? base-fraction)
+                          (/ (car base-fraction) (cdr base-fraction))
+                          base-fraction))
     (cons 'beatStructure beat-structure)
     (cons 'beamExceptions beam-exceptions)))
 
-(define-public (base-fraction time-signature time-signature-settings)
-  "Get @code{baseMoment} fraction value for @var{time-signature} from
+(define-public (base-length time-signature time-signature-settings)
+  "Get @code{baseMoment} rational value for @var{time-signature} from
 @var{time-signature-settings}."
    (let ((return-value (get-setting 'baseMoment
                                     time-signature
                                     time-signature-settings)))
      (if (null? return-value)
-         (cons 1 (cdr time-signature))
+         (/ (cdr time-signature))
          return-value)))
 
-(define-public (beat-structure base-fraction time-signature time-signature-settings)
-  "Get @code{beatStructure} value in @var{base-fraction} units
+(define-public (beat-structure base-length time-signature time-signature-settings)
+  "Get @code{beatStructure} value in @var{base-length} units
 for @var{time-signature} from @var{time-signature-settings}."
-  (define (fraction-divide numerator denominator)
-    (/ (* (car numerator) (cdr denominator))
-       (* (cdr numerator) (car denominator))))
 
   (let ((return-value (get-setting 'beatStructure
                                    time-signature
@@ -211,9 +210,10 @@ for @var{time-signature} from @var{time-signature-settings}."
                                     (zero? (remainder numerator 3)))
                                3
                                1))
-               (beat-length (cons (* group-size (car base-fraction))
-                                  (cdr base-fraction)))
-               (beat-count (fraction-divide time-signature beat-length)))
+               (beat-count (/ (car time-signature)
+                              (cdr time-signature)
+                              base-length
+                              group-size)))
           (if (integer? beat-count)
               (make-list beat-count group-size)
               '()))

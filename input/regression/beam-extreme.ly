@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.17.11"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -23,7 +23,7 @@ extreme = \relative c'' {
 
   %%%%%%%
   \stemNeutral
-  \times 2/3{ d16[ fis' d,]} \times 2/3{ cis[ g'' cis,,]}
+  \tuplet 3/2{ d16[ fis' d,]} \tuplet 3/2{ cis[ g'' cis,,]}
   a'16 cis a, g''' % Used to give a nice beam directed upwards.
   \stemNeutral
 

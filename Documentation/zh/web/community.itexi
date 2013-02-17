@@ -834,11 +834,11 @@ manuals can be found at @url{http://lilypond.org}}
 @headitem Infrequent
 
 @item
-@docLinkSplit{Web,web,@manualDevelWebSplit}
+@docLinkSplit{Web,web,@manualDevelWebSplit-zh}
 @tab
-@docLinkBig{Web,web,@manualDevelWebBig}
+@docLinkBig{Web,web,@manualDevelWebBig-zh}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualDevelWebPdf-zh}
 
 @item
 @docLinkSplit{Changes,changes,@manualDevelChangesSplit}

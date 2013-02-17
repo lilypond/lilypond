@@ -46,9 +46,8 @@ staccatissimo = #(make-articulation "staccatissimo")
 staccato = #(make-articulation "staccato")
 stopped = #(make-articulation "stopped")
 tenuto = #(make-articulation "tenuto")
-thumb = \tweak text \markup \scale #(cons (magstep 5) (magstep 5))
-                            \musicglyph #"scripts.thumb"
-        #(make-music 'FingeringEvent)
+thumb = \finger \markup \scale #(cons (magstep 5) (magstep 5))
+                        \musicglyph #"scripts.thumb"
 trill = #(make-articulation "trill")
 turn = #(make-articulation "turn")
 upbow = #(make-articulation "upbow")

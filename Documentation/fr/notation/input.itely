@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -2946,7 +2946,7 @@ Par exemple, indiquer 90 à la noire pointée est équivalent à spécifier
 270 croches à la minute :
 
 @example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
+tempoWholesPerMinute = #(ly:make-moment 270/8)
 @end example
 
 @cindex MIDI et définition de contexte

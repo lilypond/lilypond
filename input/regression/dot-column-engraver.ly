@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "Dot Columns are engraved in the Staff by default,
@@ -9,7 +9,7 @@ and these dots avoid notes in other voices."
 
 music = \relative c'' { \time 3/4 << {
   <d f g>4. c c b g f a <a b> a <a' b>
-} \\ \times 1/2 {
+} \\ \tuplet 2/1 {
   <f, g b>2. a-- <a b> <g a>-. a2. a-- a a b <a b> \bar "|."
 } >> }
 

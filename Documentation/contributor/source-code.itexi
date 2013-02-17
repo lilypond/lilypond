@@ -1291,19 +1291,27 @@ use any email address for your google account when you sign up.
 
 @item
 Move into the top source directory and then configure @command{git
-cl} with the following commands.  If you do not understand any
-question, just answer with a newline (CR).
+cl} with the following commands:
 
 @example
 cd $LILYPOND_GIT
 git cl config
 @end example
 
+For the @qq{Rietveld server} question, the default value
+(@qq{codereview.appspot.com}) should be accepted by
+answering with a newline (CR).
+
 The @qq{CC list} question should be answered with:
 
 @example
 lilypond-devel@@gnu.org
 @end example
+
+The @qq{Tree status URL} value should be left blank.  So should
+the @qq{ViewVC URL} value, since it is used by @command{git cl
+dcommit} which is only for repositories which use @command{git
+svn} (LilyPond doesn't).
 
 @end enumerate
 

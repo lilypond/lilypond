@@ -223,9 +223,9 @@ vzít si na pomoc tento slovníček.
 
 @docLinks{Slovníček, music-glossary,
   @rglosnamed{Top,Slovníček},
-  @manualStableGlossarySplit-cs,
-  @manualStableGlossaryBig-cs, 1 MB,
-  @manualStableGlossaryPdf-cs, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -252,9 +252,9 @@ rozlišení.}
 
 @docLinks{Článek, essay,
   @ressaynamed{Top,Článek},
-  @manualStableEssaySplit-cs,
-  @manualStableEssayBig-cs, 2 MB,
-  @manualStableEssayPdf-cs, 2.5 MB}
+  @manualStableEssaySplit,
+  @manualStableEssayBig, 2 MB,
+  @manualStableEssayPdf, 2.5 MB}
 
 @divEnd
 
@@ -279,9 +279,9 @@ pojmosloví (podívejte se do slovníčku).}
 
 @docLinks{Notový zápis, notation,
   @rusernamed{Top,Notový zápis},
-  @manualStableNotationSplit-cs,
-  @manualStableNotationBig-cs, 7 MB,
-  @manualStableNotationPdf-cs, 18 MB}
+  @manualStableNotationSplit,
+  @manualStableNotationBig, 7 MB,
+  @manualStableNotationPdf, 18 MB}
 
 @divEnd
 
@@ -304,9 +304,9 @@ tento dokument přečíst, dříve než si člověk začne myslet na větší pr
 
 @docLinks{Používání, usage,
   @rprogramnamed{Top,Používání},
-  @manualStableUsageSplit-cs,
-  @manualStableUsageBig-cs, 300 KB,
-  @manualStableUsagePdf-cs, 400 KB}
+  @manualStableUsageSplit,
+  @manualStableUsageBig, 300 KB,
+  @manualStableUsagePdf, 400 KB}
 
 @divEnd
 
@@ -442,9 +442,9 @@ vlastností v LilyPondu od předchozí stálé verze.
 
 @docLinks{Změny, changes,
   @rchangesnamed{Top,Změny},
-  @manualStableChangesSplit-cs,
-  @manualStableChangesBig-cs, 6 KB,
-  @manualStableChangesPdf-cs, 200 KB}
+  @manualStableChangesSplit,
+  @manualStableChangesBig, 6 KB,
+  @manualStableChangesPdf, 200 KB}
 
 @divEnd
 
@@ -464,9 +464,9 @@ V této knize se vysvětluje, jak se pro LilyPond píší rozšíření.
 
 @docLinks{Rozšíření, extending,
   @rextendnamed{Top,Rozšíření},
-  @manualStableExtendingSplit-cs,
-  @manualStableExtendingBig-cs, 200 KB,
-  @manualStableExtendingPdf-cs, 400 KB}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig, 200 KB,
+  @manualStableExtendingPdf, 400 KB}
 
 @divEnd
 
@@ -498,9 +498,9 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 
 @docLinks{Vnitřnosti, internals,
   @rinternalsnamed{Top,Vnitřnosti},
-  @manualStableInternalsSplit-cs,
-  @manualStableInternalsBig-cs, 2.5 MB,
-  @manualStableInternalsPdf-cs, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 
@@ -521,7 +521,7 @@ dokumentu.  Každá část doporučení k notovému zápisu má také část
 @unnumberedsec Vše
 @translationof All
 
-@divClass{column-center-bottom}
+@divClass{column-left-top}
 @subheading Verze ke stažení
 
 @ifclear web_version
@@ -548,17 +548,17 @@ přes @uref{http://lilypond.org}.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.de.html,
+LilyPond 2.14 Dokumentation} (německy)
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.de.html,
 LilyPond 2.12 Dokumentation} (německy)
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
-LilyPond 2.11 Dokumentation} (německy)
-
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
-LilyPond 2.10 Dokumentation} (německy)
+LilyPond 2.10 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v2.8/Documentation/,
-LilyPond 2.8 Dokumentation} (německy)
+LilyPond 2.8 Dokumentation} (anglicky)
 
 @item @uref{http://lilypond.org/doc/v2.6/Documentation/,
 LilyPond 2.6 Dokumentation} (anglicky)

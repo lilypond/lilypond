@@ -141,16 +141,8 @@
 into a @code{MultiMeasureTextEvent}."
 
   (if (memq 'script-event (ly:music-property music 'types))
-      (let* ((location (ly:music-property music 'origin))
-	     (dir (ly:music-property music 'direction))
-	     (tags (ly:music-property music 'tags))
-	     (p (make-music 'MultiMeasureTextEvent
-			    'origin location
-			    'tags tags
-			    'text (ly:music-property music 'text))))
-	(if (ly:dir? dir)
-	    (set! (ly:music-property p 'direction) dir))
-	p)
+      (apply make-music 'MultiMeasureTextEvent
+	     (flatten-alist (ly:music-mutable-properties music)))
       music))
 
 (define-ly-syntax (multi-measure-rest parser location duration articulations)

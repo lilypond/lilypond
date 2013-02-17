@@ -3,7 +3,7 @@
 }
 
 
-\version "2.17.6"
+\version "2.17.11"
 
 \layout{
  \context{
@@ -19,7 +19,7 @@
 }
 
 partition = {
-    \times 2/3 { f8 g a }
+    \tuplet 3/2 { f8 g a }
 }
 
 

@@ -329,7 +329,11 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
                                        a->self_scm ());
-  Accidental_placement::add_accidental (accidental_placement_, a);
+
+  Accidental_placement::add_accidental
+    (accidental_placement_, a,
+     get_property ("accidentalGrouping") == ly_symbol2scm ("voice"),
+     (long) trans);
 
   note_head->set_object ("accidental-grob", a->self_scm ());
 
@@ -525,6 +529,7 @@ ADD_TRANSLATOR (Accidental_engraver,
                 "internalBarNumber "
                 "extraNatural "
                 "harmonicAccidentals "
+                "accidentalGrouping "
                 "keySignature "
                 "localKeySignature ",
 

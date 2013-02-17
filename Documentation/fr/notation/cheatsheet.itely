@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude
@@ -230,12 +230,12 @@ f8 c2 d e
 @end lilypond
 
 
-@item @code{\times 2/3 @{f g a@}}
+@item @code{\tuplet 3/2 @{f g a@}}
 @tab triolets
 @tab
 @lilypond[relative=1]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
-\times 2/3 { f8 g a }
+\tuplet 3/2 { f8 g a }
 @end lilypond
 
 

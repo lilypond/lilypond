@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   texidoc ="@cindex Feta scripts
@@ -98,7 +98,7 @@ This chart shows all articulations, or scripts, that the feta font contains.
        (list (make-music
                'NoteEvent
                'duration
-               (ly:make-duration 2 0 1 1)
+               (ly:make-duration 2 0 1/1)
                'pitch
                (ly:make-pitch 0 0 0))
              (make-music
@@ -129,7 +129,7 @@ This chart shows all articulations, or scripts, that the feta font contains.
       (list (make-music
               'LyricEvent
               'duration
-              (ly:make-duration 2 0 1 1)
+              (ly:make-duration 2 0 1/1)
               'text
               script))))
 

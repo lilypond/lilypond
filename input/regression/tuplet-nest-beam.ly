@@ -5,13 +5,13 @@
   
 }
 
-\version "2.16.0"
+\version "2.17.11"
 \paper{
   ragged-right=##t
 }
 
 {
-  \times 4/7 {
-    \times 4/5 { c'8 d' e' f' g' } a' b' c''
+  \tuplet 7/4 {
+    \tuplet 5/4 { c'8 d' e' f' g' } a' b' c''
   }
 }

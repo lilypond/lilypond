@@ -3756,7 +3756,6 @@ msgstr "Neplatná operace vlastnosti ~a"
 #~ msgid "setbeatGrouping. Use baseMoment and beatStructure.\n"
 #~ msgstr "setbeatGrouping. Použít baseMoment a beatStructure.\n"
 
-#~| msgid "Usage: %s"
 #~ msgid "success: %s"
 #~ msgstr "Úspěch: %s"
 
@@ -3802,7 +3801,6 @@ msgstr "Neplatná operace vlastnosti ~a"
 #~ msgid "second argument must be pitch list"
 #~ msgstr "Druhý argument musí být seznam výšek tónů"
 
-#~| msgid "warning: "
 #~ msgid "warning:"
 #~ msgstr "Varování:"
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.11"
 
 @c Translators: Till Paala
 
@@ -1925,7 +1925,7 @@ unterschiedlichen Melodien auszurichten.  Das wird mit der
     <<
       \new Voice = "alternative" {
         \voiceOne
-        \times 2/3 {
+        \tuplet 3/2 {
           % show associations clearly.
           \override NoteColumn.force-hshift = #-3
           f8 f g
@@ -3120,7 +3120,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
         }
         \context {
           \Staff

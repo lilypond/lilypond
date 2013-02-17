@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.11"
 \header {
 
   texidoc = "In combination with a beam, the bracket of the tuplet
@@ -10,8 +10,8 @@ the bracket."
 \layout { ragged-right= ##t }
 
 \context Voice\relative c'' {
-  \times 2/3 { r  c8[ c8] }
-  \times 2/3 {  c8[ c c] }
-  \times 2/3 {  c16[ c16]  c8[ c8] }
+  \tuplet 3/2 { r  c8[ c8] }
+  \tuplet 3/2 {  c8[ c c] }
+  \tuplet 3/2 {  c16[ c16]  c8[ c8] }
 }
 

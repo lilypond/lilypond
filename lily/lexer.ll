@@ -314,7 +314,7 @@ BOM_UTF8	\357\273\277
 		yy_push_state (state);
 	}
 	else
-		error (_ ("\\maininput not allowed outside init files"));
+		LexerError (_ ("\\maininput not allowed outside init files").c_str ());
 }
 
 <INITIAL,chords,lyrics,figures,notes>\\include           {
@@ -374,8 +374,8 @@ BOM_UTF8	\357\273\277
 }
 
 <incl,version,sourcefilename>\"[^""]*   { // backup rule
-	error (_ ("end quote missing"));
-	exit (1);
+	LexerError (_ ("end quote missing").c_str ());
+	yy_pop_state ();
 }
 
     /* Flex picks the longest matching pattern including trailing

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides, workaround"
@@ -16,12 +16,12 @@ aligned to a common reference point, regardless of their actual extent.
 This way, every element will be vertically aligned, thus producing a
 more pleasing output.
 
-The same idea is used to align the text scripts along their baseline.
+The same idea, together with \\textLengthOn, is used to align the text
+scripts along their baseline.
 
 "
   doctitle = "Vertically aligned dynamics and textscripts"
 } % begin verbatim
-
 
 music = \relative c' {
   a'2\p b\f
@@ -34,6 +34,7 @@ music = \relative c' {
   \break
   \override DynamicLineSpanner.staff-padding = #2.0
   \override DynamicLineSpanner.Y-extent = #'(-1.5 . 1.5)
+  \textLengthOn
   \override TextScript.Y-extent = #'(-1.5 . 1.5)
   \music
 }

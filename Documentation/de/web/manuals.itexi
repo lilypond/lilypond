@@ -229,9 +229,9 @@ es sich sehr, dieses Glossar zu Hilfe zu ziehen.
 
 @docLinks{Glossar, music-glossary,
   @rglosnamed{Top,Glossar},
-  @manualStableGlossarySplit-de,
-  @manualStableGlossaryBig-de, 1 MB,
-  @manualStableGlossaryPdf-de, 1.5 MB}
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
 
 @divEnd
 
@@ -506,9 +506,9 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
-  @manualStableInternalsSplit-de,
-  @manualStableInternalsBig-de, 2.5 MB,
-  @manualStableInternalsPdf-de, 2.8 MB}
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 2.5 MB,
+  @manualStableInternalsPdf, 2.8 MB}
 
 @divEnd
 
@@ -529,7 +529,7 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @unnumberedsec Alles
 @translationof All
 
-@divClass{column-center-bottom}
+@divClass{column-left-top}
 @subheading Versionen zum Herunterladen
 
 @ifclear web_version
@@ -556,11 +556,11 @@ erhältlich.
 @divClass{keep-bullets}
 @itemize
 
-@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
-LilyPond 2.12 Dokumentation} (auf deutsch)
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.de.html,
+LilyPond 2.14 Dokumentation} (auf deutsch)
 
-@item @uref{http://lilypond.org/doc/v2.11/Documentation/,
-LilyPond 2.11 Dokumentation} (auf deutsch)
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/index.de.html,
+LilyPond 2.12 Dokumentation} (auf deutsch)
 
 @item @uref{http://lilypond.org/doc/v2.10/Documentation/,
 LilyPond 2.10 Dokumentation} (auf englisch)

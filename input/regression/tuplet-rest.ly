@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.11"
 \header {
 
   texidoc = "Tuplets may contain rests. "
@@ -9,14 +9,14 @@
 
 \context Voice  \relative c'' {
   \time 2/4
-  \times 2/3 { r c,,, c''' }
-  \times 2/3 { r c c  }
-  \times 2/3 { r c r }
-  \times 2/3 { r r r }
-  \times 2/3 { r c e }
-  \times 2/3 { c r e }
-  \times 2/3 { r c g }
-  \times 2/3 { c r g }
+  \tuplet 3/2 { r c,,, c''' }
+  \tuplet 3/2 { r c c  }
+  \tuplet 3/2 { r c r }
+  \tuplet 3/2 { r r r }
+  \tuplet 3/2 { r c e }
+  \tuplet 3/2 { c r e }
+  \tuplet 3/2 { r c g }
+  \tuplet 3/2 { c r g }
 }
 
 

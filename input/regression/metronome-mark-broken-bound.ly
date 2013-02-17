@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.11"
 
 \header {
 texidoc = "A @code{MetronomeMark}, @code{RehearsalMark} and @code{BarNumber}
@@ -20,7 +20,7 @@ should not effect the starting point of spanners.
    \override Beam.breakable = ##t
    \override Glissando.breakable = ##t
 
-   \ottava #1 \times 1/1 { e'8\<\startTextSpan\startTrillSpan\glissando
+   \ottava #1 \tuplet 1/1 { e'8\<\startTextSpan\startTrillSpan\glissando
      [ \override NoteColumn.glissando-skip = ##t\repeat unfold 22 e'8
        \revert NoteColumn.glissando-skip e'8\!\stopTextSpan\stopTrillSpan ] } |
  }

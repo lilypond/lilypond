@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.11"
 
 \header {
   texidoc = "The direction of tuplet brackets is the direction
@@ -8,13 +8,13 @@ to UP.
 }
 
 \relative c'' {
-  \times 2/3 { r r r }
-  \times 2/3 { r c r }
-  \times 2/3 { r a r }
-  \times 2/3 { c' f,, r }
-  \times 2/3 { f, c'' r }
-  \times 2/3 { a a c }
-  \times 2/3 { c c a }
-  \times 2/3 { a a a }
-  \times 2/3 { c c c }
+  \tuplet 3/2 { r r r }
+  \tuplet 3/2 { r c r }
+  \tuplet 3/2 { r a r }
+  \tuplet 3/2 { c' f,, r }
+  \tuplet 3/2 { f, c'' r }
+  \tuplet 3/2 { a a c }
+  \tuplet 3/2 { c c a }
+  \tuplet 3/2 { a a a }
+  \tuplet 3/2 { c c c }
 }

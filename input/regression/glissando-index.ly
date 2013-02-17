@@ -7,6 +7,6 @@
 \relative c' {
   \once \override Voice.Glissando.style =
     #(lambda (grob)
-       (if (eq? 1 (ly:grob-property grob 'glissando-index)) 'zigzag 'default))
+       (if (= 1 (ly:grob-property grob 'glissando-index)) 'zigzag 'default))
   <d f a>1 \glissando s1 <f a c>
 }
