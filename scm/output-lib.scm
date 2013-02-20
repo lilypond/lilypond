@@ -58,6 +58,16 @@
 
     (ly:text-interface::interpret-markup layout props text)))
 
+;; Using this as a callback for a grob's Y-extent promises
+;; that the grob's stencil does not depend on line-spacing.
+;; We use this promise to figure the space required by Clefs
+;; and such at the note-spacing stage.
+
+(define-public grob::all-heights-from-stencil
+  (ly:make-unpure-pure-container
+    ly:grob::stencil-height
+    (lambda (grob start end) (ly:grob::stencil-height grob))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
