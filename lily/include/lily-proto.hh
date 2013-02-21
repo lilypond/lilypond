@@ -198,8 +198,7 @@ class Translator_group;
 class Transposed_music;
 class yyFlexLexer;
 
-typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *,
-                                                           Grob_info);
-typedef void (*Translator_void_method_ptr) (Translator *);
+typedef void (Engraver::*Engraver_void_function_engraver_grob_info) (Grob_info);
+typedef void (Translator::*Translator_void_method_ptr) ();
 
 #endif /* LILY_PROTO_HH */
