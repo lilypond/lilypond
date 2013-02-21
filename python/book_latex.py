@@ -166,12 +166,13 @@ LATEX_INSPECTION_DOCUMENT = r'''
 
 # Do we need anything else besides `textwidth'?
 def get_latex_textwidth (source, global_options):
+    # default value
+    textwidth = 550.0
+
     m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
     if m == None:
         warning (_ ("cannot find \\begin{document} in LaTeX document"))
-
-        ## what's a sensible default?
-        return 550.0
+        return textwidth
 
     preamble = source[:m.start (0)]
     latex_document = LATEX_INSPECTION_DOCUMENT % {'preamble': preamble}
@@ -239,12 +240,22 @@ def get_latex_textwidth (source, global_options):
     if m:
         columnsep = float (m.group (1))
 
-    textwidth = 0
     m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
     if m:
         textwidth = float (m.group (1))
-        if columns:
-            textwidth = (textwidth - columnsep) / columns
+    else:
+        warning (_ ("cannot detect textwidth from LaTeX"))
+        return textwidth
+
+    debug ('Detected values:')
+    debug ('  columns = %s' % columns)
+    debug ('  columnsep = %s' % columnsep)
+    debug ('  textwidth = %s' % textwidth)
+
+    if m and columns:
+        textwidth = (textwidth - columnsep) / columns
+        debug ('Adjusted value:')
+        debug ('  textwidth = %s' % textwidth)
 
     return textwidth
 
