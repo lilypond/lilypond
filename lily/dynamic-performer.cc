@@ -162,6 +162,18 @@ Dynamic_performer::process_music ()
       announce_element (info);
     }
 
+  if (!last_volume_initialized_)
+    {
+      absolute_ = new Audio_dynamic ();
+
+      last_volume_
+	= absolute_->volume_ = equalize_volume (0.71); // Backward compatible
+      last_volume_initialized_ = true;
+
+      Audio_element_info info (absolute_, script_event_);
+      announce_element (info);
+    }
+
   if (span_dynamic_)
     span_dynamic_->add_absolute (absolute_);
 
