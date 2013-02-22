@@ -1199,6 +1199,14 @@
 				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
 
+    (KievanLigature
+     . (
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
+	(stencil . ,ly:kievan-ligature::print)
+	(padding . 0.5)
+	(meta . ((class . Spanner)
+		 (interfaces . (font-interface
+				kievan-ligature-interface))))))
 
    (LaissezVibrerTie
      . (

@@ -40,9 +40,9 @@
  *
  * - delegate actual creation of ligature to concrete subclass,
  *
- * - collect all accidentals that occur within the ligature and put
- * them at the left side of the ligature (TODO; see function
- * collect_accidentals ()),
+ * - except in Kievan notation, collect all accidentals that occur
+ * within the ligature and put them at the left side of the ligature
+ * (TODO; see function collect_accidentals ()),
  *
  * - collapse superflous space after each ligature (TODO).
  *
@@ -135,6 +135,9 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *,
                                                  vector<Grob_info> const &)
 {
   /* TODO */
+  /* NOTE: if implementing such a function, note that in Kievan notation,
+   * the B-flat accidental should not be "collected", but rather prints
+   * immediately before the note head as usual. */
 }
 
 void
