@@ -36,6 +36,7 @@ class Dimension_cache
   friend class Grob;
 
   Dimension_cache (Dimension_cache const &);
+  Dimension_cache & operator = (Dimension_cache const &d);
   ~Dimension_cache ();
   Dimension_cache ();
 };

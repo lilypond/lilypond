@@ -30,6 +30,16 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
   extent_ = d.extent_ ? new Interval (*d.extent_) : 0;
 }
 
+Dimension_cache &
+Dimension_cache::operator = (Dimension_cache const &d)
+{
+  clear ();
+  offset_ = d.offset_ ? new Real (*d.offset_) : 0;
+  parent_ = d.parent_;
+  extent_ = d.extent_ ? new Interval (*d.extent_) : 0;
+  return *this;
+}
+
 Dimension_cache::Dimension_cache ()
 {
   init ();
