@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+   Translation of GIT committish: f2f69f47b5f1d21488d06ea1a608811f43f0c5ff
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -552,18 +552,18 @@ c2 d |
 @cindex nolets
 @cindex triolets
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Glossaire musicologique : @rglosnamed{note value,valeur d'une note},
 @rglosnamed{triplet,triolet}.
 
-Les @notation{nolets} sont créés avec la commande @code{\times}, qui
-prend deux arguments : une fraction et une expression musicale.  La
-durée des notes de l'expression musicale est multipliée par la
-fraction.  Par exemple les notes d'un @notation{triolet} durent les
-deux tiers de la durée de leur notation réelle, cette fraction est
-donc de 2/3 pour les triolets :
+Les @notation{nolets} sont créés avec la commande @code{\tuplet}, qui
+prend deux arguments : une fraction et une expression musicale. La
+fraction représente le nombre de notes du nolet à inscrire dans la durée
+normalement attribuée à un certain nombre de notes de même valeur. Dans
+le cas de triolets, par exemple, trois notes recouvrent la même durée
+que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 
 @lilypond[verbatim,quote,relative=2]
 \tuplet 3/2 { f8 g a }
@@ -742,12 +742,12 @@ mais pas au @code{c''} de la commande @code{@bs{}relative} de départ.}
 
 @subheading Expressions musicales simultanées -- une seule portée
 
-Pour déterminer le nombre de portées, LilyPond regarde le début
-de la première expression.  Si c'est une seule note, une seule portée
-est produite ; si c'est une expression simultanée, plusieurs
-portées sont produites.  Nous avons dans l'exemple ci-dessous une
-expression complexe ; dans la mesure où elle débute par une note
-seule, elle sera produite sur une unique portée.
+Pour déterminer le nombre de portées, LilyPond regarde le début de la
+première expression.  Si c'est une seule note, une seule portée est
+produite ; si c'est une expression simultanée, plusieurs portées sont
+produites.  Nous avons dans l'exemple ci-dessous une expression
+complexe ; dans la mesure où elle débute par une note seule, elle sera
+produite sur une unique portée.
 
 @lilypond[verbatim,quote]
 \relative c'' {

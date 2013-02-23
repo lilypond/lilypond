@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: f2f69f47b5f1d21488d06ea1a608811f43f0c5ff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,14 +35,14 @@ partitions complexes de même qualité.
 @section Organisation des fichiers LilyPond
 @translationof How LilyPond input files work
 
-La mise en forme des fichiers d'entrée de LilyPond est vraiment
-peu astreignante, afin d'offrir assez de souplesse aux utilisateurs
-expérimentés pour qu'ils puissent organiser leurs fichiers comme
-ils l'entendent.  Cependant, les nouveaux utilisateurs peuvent parfois
-se perdre en raison de cette souplesse.  Cette section présente
-sommairement l'organisation du code LilyPond, en privilégiant
-la simplicité au détriment de certains détails.  Vous trouverez une
-description plus complète dans @ruser{Structure de fichier}.
+La mise en forme des fichiers d'entrée de LilyPond est vraiment peu
+astreignante, afin d'offrir assez de souplesse aux utilisateurs
+expérimentés pour qu'ils puissent organiser leurs fichiers comme ils
+l'entendent.  Cependant, les nouveaux utilisateurs peuvent parfois se
+perdre en raison de cette souplesse. Cette section présente sommairement
+l'organisation du code LilyPond, en privilégiant la simplicité au
+détriment de certains détails. Vous trouverez une description plus
+complète dans @ruser{Structure de fichier}.
 
 @menu
 * Introduction à la structure de fichier LilyPond::
