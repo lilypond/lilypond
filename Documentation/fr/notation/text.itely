@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1216,11 +1216,7 @@ notation :
 
 @lilypond[quote,verbatim,relative=1]
 g1 bes
-ees-\markup {
-  \finger 4
-  \tied-lyric #"~"
-  \finger 1
-}
+ees\finger \markup \tied-lyric #"4~1"
 fis_\markup { \dynamic rf }
 bes^\markup {
   \beam #8 #0.1 #0.5
@@ -1585,7 +1581,7 @@ portées.  Pour plus d'explications sur les fontes, relisez
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ (* staff-height pt) 2)))
+                           (/ staff-height pt 20)))
 }
 
 \relative c'{

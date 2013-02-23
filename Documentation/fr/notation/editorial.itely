@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -169,7 +169,7 @@ textuelle (commande @code{\markup}) de doigté
 (commande @code{\finger}).
 
 @lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
+c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 @end lilypond
 
 @cindex pouce, doigté
@@ -222,10 +222,6 @@ Référence des propriétés internes :
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
-
-@knownissues
-La syntaxe @samp{@var{note}-@var{digit}} ne prend pas en charge, par
-défaut, les chiffres supérieurs à 9.
 
 
 @node Dictée à trous
