@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: 0cde75024b6f1210b059c48b624e1026836c96aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,7 +53,11 @@ temps réel l'interprétation de ce bloc de code LilyPond.  Toute
 expression Scheme imbriquée est exécutée dans l'environnement lexical du
 bloc de code LilyPond, de telle sorte que vous avez accès aux variables
 locales et aux paramètres de la fonction au moment même où le bloc de
-code LilyPond est écrit.
+code LilyPond est écrit.  Lorsque l'@code{emplacement} fait référence à
+un endroit valide dans la source -- ce qui est en général le cas au sein
+de fonctions musicales ou Scheme --, toute la musique générée au sein de
+ce bloc de code voit son @code{origine} établie à cet
+@code{emplacement}.
 
 Un bloc de code LilyPond peut contenir tout ce que vous pourriez mettre
 à droite de l'assignation.  Par ailleurs, un bloc LilyPond vide
