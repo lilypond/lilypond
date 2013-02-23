@@ -1,15 +1,15 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
   texidocfr = "
 Lorsque du texte est attaché à un silence multimesure, il sera centré
 dans la mesure, au-dessus ou en dessous de la portée.  Afin d'étirer la
 mesure dans le cas ou ce texte est relativement long, il suffit
-d'insérer un silence invisible auquel on attache le texte en question,
+d'insérer un accord vide auquel on attache le texte en question,
 avant le silence multimesure.
 
-Rappelez-vous qu'un silence invisible génère une barre de mesure.  Le
-texte attaché à ce silence invisible sera alors aligné sur la gauche de
-là où serait positionnée la note.  Cependant, si la taille de la mesure
-est déterminée par la longueur du texte, il apparaîtra comme centré.
+Le texte attaché à silence invisible sera aligné sur la gauche de
+là où serait positionnée la note dans la mesure.  Cependant, si la
+taille de la mesure est déterminée par la longueur du texte, il
+apparaîtra comme centré.
 
 "
   doctitlefr = "Ajout de texte à un silence multimesure"

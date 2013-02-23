@@ -1,11 +1,11 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la croche
 ne sont pas subdivisées par défaut.  Autrement dit, tous les traits de
 ligature (deux ou plus) seront continus.  Ce comportement peut être
 modifié afin de diviser la ligature en sous-groupes grâce à la propriété
 @code{subdivideBeams}.  Lorsqu'elle est activée, les ligatures seront
-subdivisées selon un intervalle défini par @code{baseMoment}@tie{}; il n'y
+subdivisées selon un intervalle défini par @code{baseMoment} ; il n'y
 aura alors plus qu'un seul trait de ligature entre chaque sous-groupe.
 Par défaut, @code{baseMoment} fixe la valeur de référence par rapport à
 la métrique en vigueur.  Il faudra donc lui fournir, à l'aide de la

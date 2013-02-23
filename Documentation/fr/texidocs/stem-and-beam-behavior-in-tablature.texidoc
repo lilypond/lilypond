@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
   texidocfr = "
 La direction des hampes se gère dans les tablatures tout comme en
-notation traditionnelle.  Les ligatures peuvent être mises à l'horizontale
-comme le montre cet exemple.
+notation traditionnelle.  Les ligatures peuvent être mises à
+l'horizontale comme le montre cet exemple.
 
 "
   doctitlefr = "Hampes et ligatures en mode tablature"

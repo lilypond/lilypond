@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
   texidocfr = "
 Lorsque l'on transcrit de la musique mensurale, un @emph{incipit} permet
 d'indiquer la tonalité et le tempo d'origine.  Si les musiciens sont de
 nos jours habitués aux barres de mesure qui présentent la structure
 rythmique d'une œuvre, elles n'étaient pas en vigueur à l'époque où ces
-pièces ont été composées, d'autant plus que la @qq{métrique} pouvait
+pièces ont été composées, d'autant plus que la « métrique » pouvait
 changer au fil des notes.  Un compromis consiste à imprimer des barres
 entre les portées plutôt que sur chacune d'elles.
 

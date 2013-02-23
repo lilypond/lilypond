@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+%% Translation of GIT committish: 0
   texidocfr = "
 Certains objets graphiques ne sont accessibles que par le biais d'un
 @emph{callback} à partir d'un autre @code{grob}.  Ils sont normalement
@@ -7,7 +7,7 @@ listés dans les « @emph{layout objects} » au sein de la section
 @code{ly:grob-object} permet d'accéder à ces objets.
 
 Voici plusieurs moyens d'accéder aux objets par un @emph{callback} sur
-@code{NoteHead}.  D'autres biais sont naturellement possible ;
+@code{NoteHead}.  D'autres biais sont naturellement possibles ;
 @code{NoteHead} a cependant l'avantage incontestable d'être utilisé
 implicitement par la commande @code{\\tweak}.
 

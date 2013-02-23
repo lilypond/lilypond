@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
   texidocfr = "
 L'apparence du chiffre est déterminée par la propriété @code{text} dans
 @code{TupletNumber}.  La valeur par défaut imprime seulement le
-dénominateur, mais si elle est définie par la fonction
+numérateur, mais si elle est définie par la fonction
 @code{tuplet-number::calc-fraction-text}, la fraction entière
 @var{num}:@var{den} sera imprimée à la place.
 
