@@ -21,6 +21,11 @@ RewriteRule "^/?(.*)$"     "https://%1/$1" [R=301,L,NE]
 RewriteCond %{HTTP_USER_AGENT} httrack [NC]
 RewriteRule ^.*/source/.*$ /please-respect-robots.txt.html [L]
 
+# Redirect from /website to root
+# We use THE_REQUEST here in order to prevent redirect loops
+RewriteCond %{THE_REQUEST} /website/
+RewriteRule ^website/(.*)$ /$1 [R=301,L]
+
 # Deny rogue crawler
 RewriteCond %{HTTP_USER_AGENT} ^(.*)AhrefsBot(.*) [NC]
 RewriteRule .* - [F,L]
