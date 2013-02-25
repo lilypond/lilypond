@@ -60,6 +60,7 @@ Dot_column::calc_positioning_done (SCM smob)
     = extract_grob_array (me, "dots");
 
   vector<Grob *> main_heads;
+  vector<Interval> allowed_y_positions;
   Real ss = 0;
 
   Grob *commonx = me;
@@ -73,7 +74,35 @@ Dot_column::calc_positioning_done (SCM smob)
           commonx = stem->common_refpoint (commonx, X_AXIS);
 
           if (Stem::first_head (stem) == n)
-            main_heads.push_back (n);
+            {
+              main_heads.push_back (n);
+
+              // Get vertical interval of the chord's notehead positions.
+              // We widen this interval since dots always sit between staff
+              // lines.  Be careful to make it work also for unusual
+              // overrides of `NoteHead.Y-offset'.
+              //
+              // Possible solutions to improve this code (namely, to handle
+              // the `staff-position' property also) -- in case there is
+              // ever the desire or necessity to do so -- can be found in
+              // the Rietveld comments at
+              //
+              //   https://codereview.appspot.com/7319049
+
+              Interval hp = Stem::head_positions (stem);
+
+              int top = int (ceil (hp[UP]));
+              if (Staff_symbol_referencer::on_line (stem, top))
+                top += 1;
+              hp[UP] = top;
+
+              int bottom = int (floor (hp[DOWN]));
+              if (Staff_symbol_referencer::on_line (stem, bottom))
+                bottom -= 1;
+              hp[DOWN] = bottom;
+
+              allowed_y_positions.push_back (hp);
+            }
         }
     }
 
@@ -194,6 +223,45 @@ Dot_column::calc_positioning_done (SCM smob)
 
   problem.register_configuration (cfg);
 
+  // If in a chord, remove dots which have vertical positions above or below
+  // the topmost or bottommost note, respectively ([Gould], p. 56).
+  // Note that a dot configuration can contain more than a single chord or
+  // rest (the latter gets ignored).
+  //
+  // The dot positioning algorithm vertically shifts dots; it thus can
+  // happen that, say, a dot of the upper voice's chord is positioned
+  // beneath a note head of the lower voice's chord, while the dots of the
+  // lower voice's chord are shifted down even more.  We thus check all
+  // vertical ranges for valid positions and not only the range of the dot's
+  // parent chord.
+  //
+  // Do nothing if there is either no staff line, or no note head, or the
+  // `chord-dots' property not set.
+  Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
+  vsize num_positions = allowed_y_positions.size ();
+  bool chord_dots = to_boolean (me->get_property ("chord-dots"));
+
+  if (st && num_positions && chord_dots)
+    {
+      for (Dot_configuration::const_iterator i (cfg.begin ());
+           i != cfg.end (); i++)
+        {
+          vsize j;
+
+          for (j = 0; j < num_positions; j++)
+            if (allowed_y_positions[j].contains (i->first))
+              break;
+
+          if (j == num_positions)
+            {
+              Grob *dot = i->second.dot_;
+              Grob *n = dot->get_parent (Y_AXIS);
+              if (n && Note_head::has_interface (n))
+                dot->suicide ();
+            }
+        }
+    }
+
   for (Dot_configuration::const_iterator i (cfg.begin ());
        i != cfg.end (); i++)
     {
@@ -236,9 +304,10 @@ ADD_INTERFACE (Dot_column,
                " dots so they do not clash with staff lines.",
 
                /* properties */
-               "dots "
-               "positioning-done "
+               "chord-dots "
                "direction "
+               "dots "
                "note-collision "
+               "positioning-done "
               );
 

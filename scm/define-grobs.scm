@@ -686,6 +686,7 @@
     (DotColumn
      . (
 	(axes . (,X))
+	(chord-dots . #t)
 	(direction . ,RIGHT)
 	(positioning-done . ,ly:dot-column::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
