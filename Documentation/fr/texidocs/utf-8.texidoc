@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 12f852529e722daf4aa5946115f73dc88cf5b05c
+  texidocfr = "
+Différents éléments textuels peuvent s'ajouter à la notation, comme des
+titres ou des paroles, dès lors qu'ils sont encodés en UTF-8, grâce à un
+moteur de rendu reposant sur Pango. Selon les fontes disponibles
+devraient apparaître quatre lignes de texte : en bulgare (en
+cyrillique), en hébreux, en japonais et en portugais.
+
+"
+  doctitlefr = "UTF-8"
