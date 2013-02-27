@@ -18,5 +18,7 @@ it should always show up in the output-distance testing. "
   ragged-right = ##f
 }
 
-\relative c' { c4 d f8_\f[ g-.] }
+\new PianoStaff << \new Staff \relative c' { c4 d f8_\f[ g-.] r4 }
+		   \new Staff { \clef "bass" R1 }
+		>>
 
