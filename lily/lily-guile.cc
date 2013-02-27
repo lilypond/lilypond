@@ -365,6 +365,7 @@ ly_deep_copy (SCM src)
           SCM si = scm_from_int (i);
           scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
         }
+      return nv;
     }
   return src;
 }
