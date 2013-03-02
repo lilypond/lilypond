@@ -458,6 +458,7 @@ messages into errors.")
     "define-note-names.scm"
     "c++.scm"
     "chord-entry.scm"
+    "skyline.scm"
     "stencil.scm"
     "define-markup-commands.scm"
     "markup.scm"
