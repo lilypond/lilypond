@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -60,7 +60,7 @@
 他の記譜要素を管楽器に適用することができます:
 
 @itemize
-@item 多くの管楽器は移調楽器です。@ref{楽器の移調} を参照してください。
+@item 多くの管楽器は移調楽器です。@ref{Instrument transpositions} を参照してください。
 @item スライド グリッサンドはトロンボーンの特徴ですが、@c
 他の管楽器でもキーやバルブのグリッサンドを演奏できます。@c
 @ref{グリッサンド} を参照してください。

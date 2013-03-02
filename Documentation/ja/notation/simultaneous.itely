@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -399,7 +399,7 @@ warning: ignoring too many clashing note columns
 @funindex \oneVoice
 @funindex oneVoice
 
-@strong{@i{明示的にボイスをインスタンス化する}}
+@subsubsubheading 明示的にボイスをインスタンス化する
 
 単一の譜の中に複数の独立したボイスを配置するのに必要とされる基本的な構造が@c
 以下の例で示されています:
@@ -423,7 +423,7 @@ warning: ignoring too many clashing note columns
 向きに戻します。
 
 @c passage: 楽節
-@strong{@i{一時的に多声となる楽節 (passage)}}
+@subsubsubheading 一時的に多声となる楽節 (passage)
 
 一時的に多声となる楽節は以下のような構成で作成することができます:
 
@@ -468,7 +468,7 @@ warning: ignoring too many clashing note columns
 ここで、@code{\voiceOne} と @code{\voiceTwo} コマンドはそれぞれのボイスの@c
 設定を定義するために必要とされています。
 
-@strong{@i{2 重バックスラッシュ構造}}
+@subsubsubheading 2 重バックスラッシュ構造
 
 @code{<< @{...@} \\ @{...@} >>} 構造
 -- この中では 2 つ (あるいはそれ以上) の表記が
@@ -514,7 +514,7 @@ warning: ignoring too many clashing note columns
 @rlearning{ボイスを明示的にインスタンス化する} で説明されているように、@c
 明示的に @code{Voice} コンテキストを作成しておくと賢明です。
 
-@strong{@i{ボイスの順序}}
+@subsubsubheading Voice の順序
 
 入力ファイルの中にある複数のボイスを譜刻する時、以下の順序で譜刻されます:
 
@@ -554,7 +554,7 @@ etc.
 @warning{歌詞、スパナ (スラー、タイ、強弱のヘアピン等) はボイスを @q{跨ぐ}
 ことはできません。}
 
-@strong{@i{同一のリズム}}
+@subsubsubheading 同一のリズム
 
 同じリズムを持ち、並行して進行する音楽を譜刻するという特殊なケースでは、@c
 並行する音楽を単一の @code{Voice} の中に組み込み、@c
@@ -1075,8 +1075,8 @@ instrumentTwo = \relative c' {
 歌詞を処理するようには設計されていません。@c
 ボイスに歌詞が付けられている場合、パート結合は処理を停止します。
 
-@code{\partcombine} 関数を @code{\times} ブロックや @code{\relative} ブロック@c
-の中に置くことはできません。
+@code{\partcombine...} 関数を @code{\tuplet} ブロックや @code{\relative}
+ブロックの中に置くことはできません。
 
 @code{printPartCombineTexts} がセットされていて、ある小節で 2 つのボイスの@c
 音符が同じである場合、@c

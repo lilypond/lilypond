@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -620,6 +620,20 @@ moltoF = #(make-dynamic-script
 }
 @end lilypond
 
+強弱記号を音符に中央揃えさせるのではなく、左揃えさせるには、@c
+@code{\tweak} を使います:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
 マークアップ モードでのフォント設定は
 @ref{Selecting font and font size} で記述されています。
 
@@ -976,6 +990,12 @@ divisiones (ディビジョン: 区切り) がサポートされています。@
 {changing-the-breath-mark-symbol.ly}
 
 @c 未訳
+@cindex tick mark
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-a-tick-as-the-breath-mark-symbol.ly}
+
+@c 未訳
 @cindex caesura
 @cindex railroad tracks
 
@@ -1057,21 +1077,71 @@ c2\bendAfter #-8
 @funindex \glissando
 @funindex glissando
 
-@notation{グリッサンド} は音符に @code{\glissando} を付けることによって@c
-作成されます:
+@notation{グリッサンド} は音符の後に @code{\glissando} を付けることに@c
+よって作成されます:
 
 @lilypond[verbatim,quote,relative=2]
 g2\glissando g'
 c2\glissando c,
+\afterGrace f,1\glissando f'16
+@end lilypond
+
+グリッサンドは譜を跨いで音符を結ぶことができます:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "right" {
+    e'''2\glissando
+    \change Staff = "left"
+    a,,4\glissando
+    \change Staff = "right"
+    b''8 r |
+  }
+  \new Staff = "left" {
+    \clef bass
+    s1
+  }
+>>
+@end lilypond
+
+グリッサンドは和音の中にある音符を結ぶことができます。@c
+2 つの和音の音符を平行に 1 対 1 で結ぶのではない場合、
+@code{\glissandoMap} を設定することで、結び方を定義する必要があります。@c
+和音の音符は入力ファイル @file{.ly} で出現する順に 0, 1, @dots{} と@c
+番号が付きます。
+
+@lilypond[verbatim,quote,relative=2]
+<c, e>1\glissando g' |
+<c, e>1\glissando |
+<g' b> |
+\break
+\set glissandoMap = #'((0 . 1) (1 . 0))
+<c, g'>1\glissando |
+<d a'> |
+\set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
+c1\glissando |
+<d f a> |
+\set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
+<f d a'>1\glissando |
+<c c'> |
 @end lilypond
 
 異なるスタイルのグリッサンドを作成することもできます。@c
 詳細は @ref{Line styles} を参照してください。
 
-@snippets
 
+@snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {contemporary-glissando.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-timing-marks-to-long-glissandi.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-glissandi-breakable.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
 
 @seealso
 音楽用語集:

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1182,49 +1182,6 @@ example, the vertical spacing of the figures may be set with
     % タイミングは同じですが、継続線は正しく機能しません
     <6 4->4 <6 4->4
     <5>8. r16 <6>8 <6\! 5->
-  }
->>
-@end lilypond
-
-@c 保留
-継続線を用いた場合、@c
-通奏低音内での位置が異なる同じ番号の通奏低音が隣接すると、@c
-位置が反転する可能性があります。
-(訳者: 2 つ目の音符の通奏低音で 4 と 5 が入れ替わる例を示したいのだと@c
-思いますが、うまくいっていないようです。@c
-解決の例もコマンドの位置が違うと思います。)
-
-@ignore
-When using extender lines, adjacent figures with the same number in
-a different figure location can cause the figure positions to invert.
-@end ignore
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    \bassFigureExtendersOn
-    <6 5>4 <5\! 4> < 5 _!> <6>
-  }
->>
-@end lilypond
-
-この問題を回避するには、継続線を始める通奏低音の後で継続線を On にして、@c
-継続線の終わりで Off にします。
-
-@ignore
-To avoid this problem, simply turn on extenders after the figure that
-begins the extender line and turn them off at the end of the extender line.
-@end ignore
-
-@lilypond[verbatim,ragged-right,quote,relative=1]
-<<
-  { fis4 g g, e' }
-  \figures {
-    <6 5>4 <5 4>
-    \bassFigureExtendersOn
-    < 5 _!>4 <6>
-    \bassFigureExtendersOff
   }
 >>
 @end lilypond

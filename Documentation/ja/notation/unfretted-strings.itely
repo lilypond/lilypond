@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,14 +70,14 @@ orchestral strings.
 和音を弾く方向を付け加えることもできます
 -- @ref{Arpeggio} を参照してください。
 
-@item @rlearning{String quartet} に弦楽四重奏のテンプレートがあります。@c
-他の例はコード断片集で示されています。
+@item 弦楽四重奏のためのテンプレートが @rlearning{String quartet templates}
+にあります。他の例はコード断片集で示されています。
 
 @end itemize
 
 @seealso
 学習マニュアル:
-@rlearning{String quartet}
+@rlearning{String quartet templates}
 
 記譜法リファレンス:
 @ref{Text scripts},

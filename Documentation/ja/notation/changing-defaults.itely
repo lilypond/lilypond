@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,7 +68,7 @@ Scheme の要素は、@code{.ly} の中で、@c
 
 @menu
 * コンテキストの説明::
-* コンテキストを作成する::
+* コンテキストを作成して参照する::
 * コンテキストを残しておく::
 * コンテキストのプラグインを変更する::
 * コンテキストのデフォルト設定を変更する::
@@ -286,152 +286,225 @@ context.
 
 @end ignore
 
-@node コンテキストを作成する
-@subsection コンテキストを作成する
-@translationof Creating contexts
 
-@c TODO more complete descriptions rather than learning style
-
-ボイスと譜が 1 つだけの楽譜では、コンテキストは自動的に作成されます。@c
-もっと複雑な楽譜では、手動でコンテキストを作成する必要があります。@c
-コンテキスを作成するために 3 つのコマンドがあります。
-
-@itemize
-
-@item
-もっとも簡単なコマンドは @code{\new} であり、@c
-もっとも素早く入力できるコマンドでもあります。@c
-このコマンドは音楽表記の前に置きます。例えば、以下のように:
+@node コンテキストを作成して参照する
+@subsection コンテキストを作成して参照する
+@translationof Creating and referencing contexts
 
 @funindex \new
+@funindex \context
 @cindex new contexts (新しいコンテキスト)
-@cindex Context, creating (コンテキストを作成する)
+@cindex referencing contexts (コンテキストを参照する)
+@cindex Contexts, creating and referencing (コンテキストを作成して参照する)
+
+LilyPond は、適切なコンテキストが存在しないうちに音楽表記に遭遇すると、@c
+自動的に下位コンテキストを作成します。@c
+しかしながら、通常これは、シンプルな楽譜やドキュメントの中の楽譜断片@c
+のような単純な場合にしかうまくいきません。@c
+もっと複雑な楽譜の場合、すべてのコンテキストを @code{\new} コマンドや
+@code{\context} コマンドを用いて明示的に指定することをお勧めします。@c
+これら 2 つのコマンドの構文はほとんど同じです:
 
 @example
-\new @var{type} @var{music expression}
+[\new | \context] @var{Context} [ = @var{name}] [@var{music-expression}]
 @end example
 
 @noindent
-ここで、@var{type} はコンテキスト名 (@code{Staff} や @code{Voice} など) です。@c
-このコマンドは新しいコンテキストを作成し、@c
-そのコンテキストに付属する @var{音楽表記} の解釈を開始します。
+ここで、@code{\new} と @code{\context} のどちらかを使用します。@c
+@var{Context} は作成するコンテキストのタイプであり、@var{name} は@c
+作成されるコンテキストにオプションで付けることができる名前であり、@c
+@var{music-expression} はこのコンテキストのエングラーバとパフォーマに@c
+よって処理される単一の音楽表記です。
 
-@code{\new} の実際的な使用例には、多くの譜を持つ楽譜があります。@c
-それぞれの譜に配置される各パートの前に @code{\new Staff} を記述します。
+コンテキスト名を持たない @code{\new} コマンドは一般的に複数の譜を持つ
+score を作成するのに用いられます:
 
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+@c KEEP LY
+@lilypond[quote,verbatim,relative=2]
 <<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
+  \new Staff {
+    % 暗黙的に Voice コンテキストが作成されます
+    c4 c
+  }
+  \new Staff {
+    d4 d
+  }
 >>
 @end lilypond
 
-@code{\new} コマンドは、コンテキストに名前を与えることもできます:
+@noindent
+そして、1 つの譜に複数のボイスが配置されます:
 
-@example
-\new @var{type} = @var{id} @var{music}
-@end example
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
 
-しかしながら、ユーザが指定したコンテキスト名は、
-そのコンテキスト以前に同じ名前を与えられたコンテキストが無い場合にのみ、@c
-使用できます。
+@noindent
 
+@c 保留（意味のない文？）
+@c @code{\new} should always be used to specify unnamed contexts.
 
-@funindex \context
+@code{\new} と @code{\context} は動作が異なります:
+
+@itemize
+@item
+@code{\new} はコンテキスト名を持っているか、いないかにかかわらず、@c
+例え同じ名前を持つコンテキストが存在していたとしても、常に全く新たな@c
+コンテキストを作成します:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff <<
+    \new Voice = "A" {
+      \voiceOne
+      c8 c c4 c c
+    }
+    \new Voice = "A" {
+      \voiceTwo
+      g4 g g g
+    }
+  >>
+>>
+@end lilypond
 
 @item
-@code{\new} と同様に、@c
-@code{\context} コマンドも音楽表記をコンテキスト オブジェクトに代入します。@c
-しかしながら、このコマンドはコンテキストに明示的に名前を与えます。@c
-構文は以下の通りです:
+コンテキスト名を持つ @code{\context} は、階層、名前、それにタイプが@c
+同じコンテキストが存在しない場合にのみ、新たなコンテキスを作成します。@c
+存在する場合、@code{\context} はすでに作成されているコンテキストへの@c
+参照となり、音楽表記はそのコンテキストに渡されて処理されます。
 
-@example
-\context @var{type} = @var{id} @var{music}
-@end example
+名前を持つコンテキストの用途の 1 つとして、楽譜レイアウトと音楽コンテンツ@c
+を分離させることができます。@c
+以下の 2 つの形式はどちらも有効です:
 
-この構文は @var{id} という名前の @var{type} タイプのコンテキストが@c
-すで存在していないか検索します。@c
-コンテキストがまだ存在していなければ、@c
-指定された名前を持つコンテキストが新たに作成されます。@c
-これは、コンテキストを後で参照する場合に有用です。@c
-例えば、以下のように名前を付けられたメロディ:
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % 楽譜レイアウト
+    \new Staff <<
+      \new Voice = "one" {
+        \voiceOne
+      }
+      \new Voice = "two" {
+        \voiceTwo
+      }
+    >>
 
-@example
-\context Voice = "@b{tenor}" @var{music}
-@end example
+    % 音楽コンテンツ
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
 
-@noindent
-に、以下のように歌詞を設定すると、テキストは適切に音符に揃えられます:
+@c KEEP LY
+@lilypond[quote,verbatim]
+\score {
+  <<
+    % 楽譜レイアウト
+    \new Staff <<
+      \context Voice = "one" {
+        \voiceOne
+      }
+      \context Voice = "two" {
+        \voiceTwo
+      }
+    >>
 
-@example
-\new Lyrics \lyricsto "@b{tenor}" @var{lyrics}
-@end example
-
-@noindent
+    % 音楽コンテンツ
+    \context Voice = "one" {
+      \relative c'' {
+        c4 c c c
+      }
+    }
+    \context Voice = "two" {
+      \relative c'' {
+        g8 g g4 g g
+      }
+    }
+  >>
+}
+@end lilypond
 
 名前付きコンテキストの他の使用例として、2 つの音楽表記をつなげて
 1 つのコンテキストにすることができます。@c
 以下の例では、アーティキュレーションと音符は別々に入力されています:
-
-@example
-music = @{ c4 c4 @}
-arts = @{ s4-. s4-> @}
-@end example
-
-これらを同じ @code{Voice} コンテキストに送ることによって@c
-組み合わせることができます:
-
-@example
-<<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
->>
-@end example
-@lilypond[quote,ragged-right]
-music = { c4 c4 }
-arts = { s4-. s4-> }
-\relative c'' <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
->>
-@end lilypond
-
-このメカニズムを用いることで、原典版 (オリジナル版) を定義し、@c
-オプションとしてそれに異なるアーティキュレーションを付けることができます。
-
-@cindex creating contexts (コンテキストを作成する)
+@noindent
+変数を用いても同じことができます。@c
+@rlearning{Organizing pieces with variables} を参照してください。
 
 @item
-コンテキストを作成する 3 つ目のコマンドは以下の通りです:
+コンテキスト名を持たない @code{\context} は、階層とタイプが一致する@c
+コンテキストのうち最初に作成されたものに適用され
+(例えそのコンテキストが名前を持っていたとしても適用されます)、@c
+音楽表記はそのコンテキストに渡されて処理されます。@c
+この形式が有用なことは稀です。@c
+しかしながら、コンテキスト名と音楽表記を持たない @code{\context}
+は、コンテキスト内で @code{\applyContext} で記述した Scheme
+プロシージャを実行させるのに用いられます:
 
 @example
-\context @var{type} @var{music}
-@end example
-
-@noindent
-これは @code{= @var{id}} を持つ @code{\context} に似ていますが、@c
-タイプ @var{type} のすべてのコンテキストに適用されます
--- そのコンテキストに与えられた名前とは関係なく適用されます。@c
-
-この構文の変形版は、@c
-異なる階層で解釈される可能性がある音楽表記に対して使用されます。@c
-例えば、@code{\applyOutput} コマンド
-(@rextend{Running a function on all layout objects} を参照してください)
-です。@c
-明示的に @code{\context} を指定しなければ、通常は @code{Voice} に適用されます。
-
-@example
-\applyOutput #'@var{context} #@var{function}   % Voice に適用されます
-@end example
-
-@code{Score} レベルや @code{Staff} レベルで解釈させるには、以下のようにします:
-
-@example
-\applyOutput #'Score #@var{function}
-\applyOutput #'Staff #@var{function}
+\new Staff \relative c' @{
+  c1
+  \context Timing
+  \applyContext #(lambda (ctx)
+                   (newline)
+                   (display (ly:context-current-moment ctx)))
+  c1
+@}
 @end example
 
 @end itemize
+
+後で参照するコンテキストには名前を付ける必要があります。@c
+例えば、歌詞を音楽に関連付けるような場合です:
+
+@example
+\new Voice = "tenor" @var{music}
+...
+\new Lyrics \lyricsto "tenor" @var{lyrics}
+@end example
+
+@noindent
+歌詞を音楽に関連付ける方法についての詳細は
+@ref{Automatic syllable durations} を参照してください。
+
+ある特定のタイプのすべてのコンテキストのプロパティを @code{\layout}
+ブロックで変更することができます (構文は異なります)
+-- @ref{Changing all contexts of the same type} を参照してください。@c
+この構造でもレイアウトを音楽コンテンツから分離させることができます。@c
+単一のコンテキストを変更するのであれば、@code{\with} ブロックを用いる@c
+必要があります -- @ref{Changing just one specific context} を参照@c
+してください。
+
+@seealso
+
+学習マニュアル:
+@rlearning{Organizing pieces with variables}
+
+記譜法リファレンス:
+@ref{Changing just one specific context},
+@ref{Automatic syllable durations}
 
 
 @node コンテキストを残しておく
@@ -1817,7 +1890,7 @@ when the object is created.  In this example,
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur.thickness = #3.0
 c8[( c
-\override Beam.thickness = #0.6
+\override Beam.beam-thickness = #0.6
 c8 c])
 @end lilypond
 
@@ -2014,14 +2087,14 @@ Translation @expansion{} Tunable context properties.
 内部リファレンス:
 @rinternals{Tunable context properties}
 
-@cindex grob properties (グラフィカル オブジェクト プロパティ)
-@cindex properties, grob (グラフィカル オブジェクト プロパティ)
-@funindex \override
-
 
 @node override コマンド
 @subsection @code{\override} コマンド
 @translationof The override command
+
+@cindex grob properties (グラフィカル オブジェクト プロパティ)
+@cindex properties, grob (グラフィカル オブジェクト プロパティ)
+@funindex \override
 
 特殊なタイプのコンテキスト プロパティがあります:
 グラフィカル オブジェクト記述です。@c
@@ -2033,30 +2106,11 @@ Translation @expansion{} Tunable context properties.
 @file{scm/define-grobs.scm} を参照してください。@c
 各グラフィカル オブジェクト記述は @code{\override} を用いて変更します。
 
-@code{\override} は、実際のところ、簡略化した記述です。
+@code{\override} コマンドの構文は以下の通りです:
 
 @example
-\override @var{context}.@var{GrobName} #'@var{property} = #@var{value}
+\override [@var{context}.]@var{GrobName}.@var{property} = #@var{value}
 @end example
-
-@noindent
-これは、以下と等価です:
-
-@c  leave this long line -gp
-@example
-\set @var{context}.@var{GrobName}  =
-  #(cons (cons '@var{property} @var{value})
-         <previous value of @var{context}.@var{GrobName}>)
-@end example
-
-@code{context}.@code{GrobName} (alist) の値は、@c
-個々のグラフィカル オブジェクトのプロパティを初期化するために使用されます。@c
-グラフィカル オブジェクトは、Scheme スタイルの名前
-(小文字の単語を @code{-} でつないだもの) のプロパティを持ちます。@c
-グラフィカル オブジェクト プロパティの値は、@c
-フォーマット処理の間ずっと変更されています:
-基本的に、フォーマット処理は、@c
-コールバック関数を用いてプロパティを計算することに他なりません。@c
 
 例えば、@code{Stem} オブジェクトの @code{thickness} プロパティを@c
 オーバライドすることによって、符幹の太さを太くすることができます:
@@ -2067,8 +2121,8 @@ c4 c
 c4 c
 @end lilypond
 
-If no context is specified in an @code{\override}, the bottom
-context is used:
+@code{\override} でコンテキストが指定されていない場合、その下にある@c
+コンテキストに適用されます:
 
 @lilypond[quote,verbatim,relative=2]
 { \override Staff.Stem.thickness = #3.0
@@ -2084,11 +2138,34 @@ context is used:
 }
 @end lilypond
 
+調整可能なオプションには @q{サブプロパティ} があり、これはプロパティの@c
+内部に存在します。@c
+これを調整するには、以下のような形式のコマンドを用います:
+
+@example
+\override Stem.details.beamed-lengths = #'(4 4 3)
+@end example
+
+また、スパナの端を変更するには、以下のようにします:
+
+@example
+\override TextSpanner.bound-details.left.text = #"left text"
+\override TextSpanner.bound-details.right.text = #"right text"
+@end example
+
 @funindex \revert
 @cindex reverting overrides (オーバライドを元に戻す)
 @cindex overrides, reverting (オーバライドを元に戻す)
 
-@code{\override} の効果は、@code{\revert} によって元に戻すことができます:
+@code{\override} の効果は、@code{\revert} によって元に戻すことができます。
+
+@code{\revert} の構文は以下の通りです:
+
+@example
+\revert [@var{context}.]@var{GrobName}.@var{property}
+@end example
+
+例を示します:
 
 @lilypond[quote,verbatim,relative=2]
 c4
@@ -2157,13 +2234,6 @@ To construct this tweak we must determine these bits of information:
 @item a sensible value: here @code{3.0}.
 @end itemize
 
-Some tweakable options are called @q{subproperties} and reside inside
-properties.  To tweak those, use commands in the form
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-
 @cindex internal documentation
 @cindex finding graphical objects
 @cindex graphical object descriptions
@@ -2201,7 +2271,7 @@ and the program reference.
 @code{\tweak} コマンドは以下のような構文を持ちます:
 
 @example
-\tweak @var{layout-object} #'@var{grob-property} @var{value}
+\tweak [@var{layout-object}.]@var{grob-property} @var{value}
 @end example
 
 @code{layout-object} の指定はオプションです。@c
@@ -2228,7 +2298,7 @@ For example:
 
 
 
-But the main use of the @code{\tweak} command is to modify just
+The main use of the @code{\tweak} command is to modify just
 one of a number of notation elements which start at the same musical
 moment, like the notes of a chord, or tuplet brackets which start
 at the same time.
@@ -2325,8 +2395,9 @@ c-\tweak thickness #5 ( d e f)
 のではなく、後になって @code{NoteHead} レイアウト オブジェクトによって@c
 生成されるからです。
 
-そのような直接作成されないレイアウト オブジェクトは、明示的な形式の
-@code{\tweak} コマンドを用いることで調整することができます:
+そのような直接作成されないレイアウト オブジェクトは、グラフィカル
+オブジェクト名を明示的に指定した @code{\tweak} コマンドを用いることで@c
+調整することができます:
 
 @lilypond[relative=2,verbatim,quote]
 \tweak Stem.color #red
@@ -2649,7 +2720,14 @@ property (modified with @code{\set}) was created.
 これらの選択のほとんどは LilyPond によって自動的に決定されますが、@c
 強制的に向きや配置を指定することが望ましい場合もあります。
 
-@strong{アーティキュレーションの方向指示子}
+@menu
+* アーティキュレーションの方向指示子::
+* 方向プロパティ::
+@end menu
+
+@node アーティキュレーションの方向指示子
+@unnumberedsubsubsec アーティキュレーションの方向指示子
+@translationof Articulation direction indicators
 
 デフォルトでは、アーティキュレーションのいくつかの向きは常に上または下に@c
 なっています (例えば、強弱記号やフェルマータ)。@c
@@ -2684,7 +2762,9 @@ c2( c)
 c2^( c)
 @end lilypond
 
-@strong{方向プロパティ}
+@node 方向プロパティ
+@unnumberedsubsubsec 方向プロパティ
+@translationof The direction property
 
 多くのレイアウト オブジェクトの位置や向きは、@c
 @code{direction} プロパティによって制御されます。
@@ -2772,7 +2852,7 @@ LilyPond における距離には 2 つのタイプがあります: 絶対距離
 値の後ろに @code{\staff-space} を付けることにより、
 比率で指定することもできます (次の段落を参照してください)。@c
 ページ レイアウトについての詳細は、@c
-@ref{ページ レイアウト} に記述されています。
+@ref{Page layout} に記述されています。
 
 相対距離は常に譜スペースを単位として指定されます
  -- 稀に、半譜スペースが使用されます。@c
@@ -2808,7 +2888,7 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 @rlearning{オブジェクトの長さと太さ}
 
 記譜法リファレンス:
-@ref{ページ レイアウト},
+@ref{Page layout},
 @ref{譜サイズを設定する}
 
 
@@ -2869,12 +2949,19 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 いくつかのスパナ -- 2 つのオブジェクトの間に直線を描くもの -- は、さらに、@c
 @code{line-spanner-interface} をサポートします。
 
+@menu
+* spanner-interface を使用する::
+* line-spanner-interface を使用する::
+@end menu
+
+@node spanner-interface を使用する
 @unnumberedsubsubsec @code{spanner-interface} を使用する
+@translationof Using the spanner-interface
 
 このインターフェイスは、@c
 いくつかのスパナに適用される 2 つのプロパティを提供します。
 
-@strong{@i{@code{minimum-length} プロパティ}}
+@subsubsubheading The @code{minimum-length} プロパティ
 
 スパナの最短の長さは、@code{minimum-length} プロパティによって指定されます。@c
 通常、このプロパティを増加させると、@c
@@ -2986,7 +3073,7 @@ e8 e e e
 e8 e e e
 @end lilypond
 
-@strong{@i{@code{to-barline} プロパティ}}
+@subsubsubheading The @code{to-barline} プロパティ
 
 @code{spanner-interface} の 2 番目に有用なプロパティは
 @code{to-barline} です。@c
@@ -3006,7 +3093,9 @@ a \< a a a a \! a a a
 あるいは小節線で終了させることに意味が無い他のスパナに対して、@c
 このプロパティを @code{#t} に設定しても効果がありません。
 
+@node line-spanner-interface を使用する
 @unnumberedsubsubsec @code{line-spanner-interface} を使用する
+@translationof Using the line-spanner-interface
 
 @code{line-spanner-interface} をサポートするオブジェクトには@c
 以下のものがあります:
@@ -3352,8 +3441,7 @@ a1
 @item @code{Clef}                @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{Custos}              @tab @code{Staff}          @tab @code{end-of-line-visible}
 @item @code{DoublePercentRepeat} @tab @code{Voice}          @tab @code{begin-of-line-invisible}
-@c omit KeyCancellation until it can be explained -td
-@c @item @code{KeyCancellation}  @tab ??             @tab @code{begin-of-line-invisible}
+@item @code{KeyCancellation}     @tab @code{Staff}          @tab @code{begin-of-line-invisible}
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
@@ -3399,7 +3487,7 @@ f4 g a b
 @unnumberedsubsubsec 特別な考慮を必要とするもの
 @translationof Special considerations
 
-@strong{@emph{明示的な変更の後の可視性}}
+@subsubsubheading 明示的な変更の後の可視性
 
 @cindex key signature, visibility following explicit change (明示的な変更の後の調号の可視性)
 @cindex explicitKeySignatureVisibility
@@ -3409,7 +3497,7 @@ f4 g a b
 @code{break-visibility} プロパティが調号の可視性と音部記号の変更を@c
 制御するのは、行の先頭 -- つまり、改行の後 -- においてだけです。@c
 行の途中や終わりでの明示的な調の変更や音部記号の変更の後に出現する@c
-調合や音部記号の可視性には効果を持ちません。@c
+調号や音部記号の可視性には効果を持ちません。@c
 以下の例では、@code{all-invisible} がセットされていますが、@c
 B フラット メジャーへの明示的な変更の後に出現する調号は可視のままです。
 
@@ -3453,9 +3541,9 @@ f4 g a b
 f4 g a b
 @end lilypond
 
-@strong{@emph{忠告の臨時記号の可視性}}
+@subsubsubheading 前の調をキャンセルする臨時記号の可視性
 
-明示的な調の変更で描画される忠告の臨時記号を削除するには、@c
+明示的な調の変更で描画される前の調をキャンセルする臨時記号を削除するには、@c
 @code{Staff} コンテキスト プロパティ @code{printKeyCancellation} に
 @code{#f} をセットします:
 
@@ -3473,9 +3561,41 @@ f4 g a b
 
 このオーバライドによって、調の変更を示す臨時記号だけが残ります。
 
+調を C@tie{}メジャーや A@tie{}マイナーに変更する時、前の調をキャンセル@c
+する臨時記号は前の調のキャンセルしている @emph{だけ} であることに@c
+注意してください。@c
+そのようなケースでは、@code{printKeyCancellation} を @code{#f} に@c
+設定しても効果はありません:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\set Staff.printKeyCancellation = ##f
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
+調を C@tie{}メジャーや A@tie{}マイナーに変更する場合に、@c
+前の調をキャンセルする臨時記号を消すには、@code{KeyCancellation}
+グラフィカル オブジェクトの可視性をオーバライドします:
+
+@lilypond[quote,verbatim,relative=1,ragged-right]
+\key g \major
+f4 g a b
+\set Staff.explicitKeySignatureVisibility = #all-invisible
+\override Staff.KeyCancellation.break-visibility = #all-invisible
+\key c \major
+f4 g a b \break
+f4 g a b
+f4 g a b
+@end lilypond
+
 @c TODO Add visibility of cautionary accidentals before notes
 
-@strong{@emph{自動小節線}}
+@subsubsubheading 自動小節線
 
 @cindex automaticBars
 @cindex bar lines, suppressing (小節線を消す)
@@ -3493,7 +3613,7 @@ f4 g a b
 
 @c TODO Add example
 
-@strong{@emph{オクターブ移調付きの音部記号}}
+@subsubsubheading オクターブ移調付きの音部記号
 
 @cindex octavated clefs, visibility of (オクターブ移調付きの音部記号の可視性)
 @cindex visibility of octavated clefs (オクターブ移調付きの音部記号の可視性)
@@ -3801,7 +3921,7 @@ a
 @unnumberedsubsubsec @code{self-alignment-interface} を使用する
 @translationof Using the @code{self-alignment-interface}
 
-@emph{オブジェクトを自動的に水平方向に揃える}
+@subsubsubheading オブジェクトを自動的に水平方向に揃える
 
 @code{self-alignment-interface} をサポートするオブジェクトの水平方向の揃えは、@c
 @code{self-alignment-X} プロパティの値によって制御され、@c
@@ -3837,7 +3957,7 @@ a'
 ^"aligned further to the right"
 @end lilypond
 
-@emph{オブジェクトを自動的に垂直方向に揃える}
+@subsubsubheading オブジェクトを自動的に垂直方向に揃える
 
 オブジェクトの @code{Y-offset} プロパティに
 @code{ly:self-alignment-interface::y-aligned-on-self} がセットされていれば、@c
@@ -3857,7 +3977,7 @@ a'
 記号 @code{DOWN}, @code{CENTER}, それに @code{UP} は@c
 それぞれ @w{@code{-1}, @code{0}, それに @code{1}} に対応します。
 
-@emph{オブジェクトを自動的に両方向に揃える}
+@subsubsubheading オブジェクトを自動的に両方向に揃える
 
 @code{X-offset} と @code{Y-offset} の両方の設定を行うことで、@c
 オブジェクトの水平方向と垂直方向の揃えを同時に行うことができます。
@@ -4115,10 +4235,24 @@ Feta フォントに含まれる任意の図柄を提供することができま
 @cindex Bézier curves (ベジエ曲線)
 @cindex Bézier control points (ベジエ曲線の制御ポイント)
 
-タイ、スラー、それにフレージング スラーは 3 次のベジエ曲線として描かれます。@c
-自動的に算出されるタイあるいはスラーの形状が最適ではない場合、@c
-3 次ベジエ曲線を定義するのに必要な 4 つの制御ポイントを@c
-明示的に指定することによって、形状を変更することができます。
+@code{Tie}, @code{Slur}, @code{PhrasingSlur}, @code{LaissezVibrerTie},
+それに @code{RepeatTie} はすべて 3 次のベジエ曲線として描かれます。@c
+自動的に算出されるタイやスラーの形状が最適ではない場合、以下の 2 つの@c
+方法を用いて手動で形状を変更することができます:@c
+
+@enumerate a
+@item
+自動的に算出されるベジエ曲線の制御ポイントの移動させる
+
+@item
+求める曲線を定義するのに必要な 4 つの制御ポイントの位置を明示的に指定する
+@end enumerate
+
+2 つの方法について以下で説明します。@c
+曲線の調節がわずかであれば、最初の方法が適しています。@c
+2 番目の方法は単一の音符に関連付けられる曲線を作り出す場合に適しています。
+
+@subsubsubheading 3 次ベジエ曲線
 
 3 次あるいは 3 乗のベジエ曲線は、4 つの制御ポイントによって定義されます。@c
 1 番目と 4 番目の制御ポイントは曲線の始点と終点になります。@c
@@ -4130,10 +4264,16 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 徐々に 3 番目の制御ポイントの方へ向きを変えながら
 4 番目の制御ポイントの方へ向かい続け、@c
 3 番目の制御ポイントから 4 番目の制御ポイントに到達します。@c
-ベジエ曲線は 4 つの制御ポイントからなる四角形の中に納まります。
+ベジエ曲線は 4 つの制御ポイントからなる四角形の中に納まります。@c
+制御ポイントの平行移動、回転、伸縮はすべて同じ操作です。
 
-ここで、@c
-タイが最適化されず、@code{\tieDown} が役に立たないケースを例として挙げます。
+@subsubsubheading 制御ポイントを移動させる
+
+@cindex shaping slurs and ties (スラーとタイの形状)
+@funindex \shape
+
+以下の例では、タイの自動配置が最適ではなく、@code{\tieDown} も役に@c
+立ちません。
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -4143,38 +4283,145 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 >>
 @end lilypond
 
-以下のようにタイの制御ポイントを手動で変更することにより、@c
-このタイの形状を改善することができます。
+@code{\shape} でタイの制御ポイントを調節することで衝突を避けることが@c
+できます。
 
-ベジエ制御ポイントの座標は譜スペースを単位として指定されます。@c
-X@tie{}座標はそのタイあるいはスラーを取り付けられる音符の参照ポイントからの@c
-相対座標であり、Y@tie{}座標は譜の中央線からの相対座標です。@c
-制御ポイント座標は 10 進数 (実数) のペアを 4 つ持つリストとして設定されます。@c
-最適な制御ポイントを決定するための手順は、
-2 つの終点の座標を見積もり、それから 2 つの中間ポイントを推測することで、@c
-制御ポイントの座標を決定します。@c
-最適値はトライ＆エラーで見つけ出します。
+@code{\shape} の構文は以下の通りです:
 
-左右対称の曲線にするには制御ポイントを左右対称に配置する必要があるということを@c
-覚えておくと役に立ちます。@c
-また、ベジエ曲線の制御ポイントに平行移動、回転、それに拡大縮小などの変換を@c
-適用することにより、@c
-その曲線を変換できるという特性があるとも覚えておいてください。
+@example
+[-]@code{\shape} @var{displacements} @var{item}
+@end example
 
-上記の実例として、以下の例のオーバライドで満足のいくタイが得られています。@c
-オーバライドを配置する場所
--- タイ (あるいはスラー) が開始する音符の直前に配置する必要があります --
-に注意してください。
+これは @var{item} の制御ポイントを @var{displacements} だけ移動させます。@c
+引数 @var{displacements} は数のペアのリスト、あるいはそのようなリストの@c
+リストです。@c
+ペアの要素は制御ポイントの座標の移動量を表しています。@c
+@var{item} が文字列の場合、指定されたグラフィカル オブジェクト タイプ@c
+に @code{\once \override} で適用されます。@c
+@var{item} が音楽表記の場合、その音楽表記に調節が適用されます。
+
+言い換えると、@code{\shape} 関数は、引数 @var{item} が @qq{Slur}
+のようなグラフィカル オブジェクト名であるか @qq{(} のような音楽表記@c
+であるかによって、@code{\once \override} コマンドあるいは @code{\tweak}
+コマンドのどちらにでもなり得ます。@c
+引数 @var{displacements} は 4 つの (dx . dy) ペアのリストで 4 つの@c
+制御ポイントの移動を指定します -- 値の単位は譜スペースです。
+(曲線が複数のセグメントを持つ場合、引数 @var{displacements} は 4 つの@c
+ペアを持つリストのリストになります。)
+
+@code{\tweak} 形式で用いる場合にのみ、先頭にハイフン @code{-} を付ける@c
+必要があｒます。
+
+それでは、上記の例に @code{\once \override} 形式の @code{\shape} を@c
+使ってタイを 0.5 譜スペースだけ上に移動させてみましょう:
 
 @lilypond[verbatim,quote,relative=1]
 <<
   {
-    \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-     e1 ~ e
+    \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
+    e1~ e
   }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
+@end lilypond
+
+タイの位置は改善されましたが、中央部分をもっと持ち上げるべきです。@c
+以下の例で @code{\tweak} 形式でそれを行っています:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  {
+    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+  }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+同じ方法で制御ポイントを水平方向に移動させることもできて、同じ音楽@c
+タイミングで発生する 2 つの曲線をうまく配置することができます:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+c8(\( a) a'4 e c\)
+\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+c8(\( a) a'4 e c\)
+@end lilypond
+
+@code{\shape} 関数は改行を跨ぐ曲線の制御ポイントを移動させることも@c
+できます。@c
+分割される曲線それぞれにリストを与えて制御ポイントを移動させます。@c
+片方の曲線は変更する必要がない場合、空のリストを渡します。@c
+以下の例では、1 つのスラーが改行で 2 つに分割されています:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+分割されたスラーの形状を変更することで、改行を跨いで続くスラーである@c
+ことがわかりやすくなります:
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right,relative=1]
+% 片方のスラーを変更する必要がない場合、
+% () を ((0 . 0) (0 . 0) (0 . 0) (0 . 0)) の短縮形として使うことができます
+\shape #'(
+           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+         ) Slur
+c4( f g c
+\break
+d,4 c' f, c)
+@end lilypond
+
+S 字曲線が求められた場合は、常に制御ポイントを手動で調節する必要があります
+--- LilyPond が自動的にそのような形状を選択することはありません。
+
+@lilypond[verbatim,quote,relative=2]
+c8( e b-> f d' a e-> g)
+\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+c8\( e b-> f d' a e-> g\)
+@end lilypond
+
+@subsubsubheading 制御ポイントの位置を明示的に指定する
+
+ベジエ曲線の制御ポイントの座標を指定します -- 単位は譜スペースです。@c
+X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポイントからの@c
+相対位置で、X@tie{}座標は譜の中央線からの相対位置です。@c
+制御ポイントの座標をリストで指定します -- リストは数のペアを 4 つ持ちます。@c
+両端の座標を推測して、それから 2 つ中間点の座標を推測します。@c
+最適値はトライ＆エラーで見つけます。@c
+音楽やレイアウトに変更が加えられた場合、手動で値を調節する必要がある@c
+ということに注意してください。
+
+制御ポイントを移動させるよりも、位置を明示的に指定する方が望ましい@c
+シチュエーションの 1 つは、単一の音符に関連付けられる曲線の場合です。@c
+ここで、そのような例を示します。@c
+繰り返しの差し替え部分まで延びるスラーを表示する方法を示しています。
+
+@c KEEP LY
+@lilypond[verbatim,quote,relative=2]
+c1
+\repeat volta 3 { c4 d( e f }
+\alternative {
+  { g2) d }
+  {
+    g2
+    % スラーを作成して、新しい位置に移動させます
+    % <> はスラーを終わらせるための空の和音です
+    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+    f,
+  }
+  {
+    e'2
+    % スラーを作成して、新しい位置に移動させます
+    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+    f,
+  }
+}
 @end lilypond
 
 @knownissues
@@ -4189,16 +4436,16 @@ X@tie{}座標はそのタイあるいはスラーを取り付けられる音符�
 内部リファレンス:
 @rinternals{TieColumn}
 
+
+@node unpure-pure コンテナ
+@subsection unpure-pure コンテナ
+@translationof Unpure-pure containers
+
 @cindex Scheme, pure containers (Scheme pure コンテナ)
 @cindex Scheme, unpure containers (Scheme unpure コンテナ)
 @cindex pure containers, Scheme (Scheme pure コンテナ)
 @cindex unpure containers, Scheme (Scheme unpure コンテナ)
 @cindex horizontal spacing, overriding (水平方向のスペースを上書きする)
-
-
-@node unpure-pure コンテナ
-@subsection unpure-pure コンテナ
-@translationof Unpure-pure containers
 
 unpure-pure コンテナは @emph{Y-axis} スペース - 特に @code{Y-offset} と
 @code{Y-extent} - の算出を文字 (つまり、数字やペア) ではなく、Scheme 関数で@c

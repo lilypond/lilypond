@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: dadabdfc4537ef85adb9159d46eda5a0ff180835
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -56,7 +56,6 @@ Copyright @copyright{} 1999--2012 by 著作者一同
 
 * Notation manual tables::      表と図
 * カンニング ペーパー::     LilyPond 構文についての要約
-* LilyPond 文法::          LilyPond 構文解析プログラムのための構文ダイアグラム
 * GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond コマンド インデックス::
 * LilyPond インデックス::
@@ -69,7 +68,6 @@ Copyright @copyright{} 1999--2012 by 著作者一同
 
 * 記譜法マニュアル表::      表と図
 * カンニング ペーパー::     LilyPond 構文についての要約
-* LilyPond 文法::           LilyPond 構文解析プログラムのための構文ダイアグラム
 * GNU Free Documentation License:: このドキュメントの使用許諾書
 * LilyPond コマンド インデックス::
 * LilyPond インデックス::
@@ -91,16 +89,6 @@ Copyright @copyright{} 1999--2012 by 著作者一同
 
 @include notation/notation-appendices.itely
 @include notation/cheatsheet.itely
-
-
-
-@node LilyPond 文法
-@appendix LilyPond 文法
-@translationof LilyPond grammar
-
-この付録は、構文解析プログラムからの出力である、LilyPond 文法についての記述です。
-
-@verbatiminclude ly-grammar.txt
 
 
 @include fdl.itexi

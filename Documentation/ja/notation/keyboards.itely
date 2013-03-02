@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -436,6 +436,9 @@
 
 @lilypondfile[verbatim,quote]
 {cross-staff-stems.ly}
+
+このエングラーバは、名前をダブル クォートで囲っても指定することが@c
+できませんが、名前の前にハッシュ記号 @code{#} を置くことで指定できます。
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]

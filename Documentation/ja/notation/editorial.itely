@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -165,7 +165,7 @@ c4.-> d8---3
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-指の変更のためにマークアップ テキストが使用されることもあります。
+指の変更のためにマークアップ テキストや文字列が使用されることもあります。
 
 @lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 e-3
@@ -174,7 +174,7 @@ c4-1 d-2 f-4 e-3
 指の入れ替えのためにマークアップ テキストを使うこともできます。
 
 @lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
+c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 @end lilypond
 
 @cindex thumb-script (サム-スクリプト)
@@ -229,10 +229,6 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}
-
-@knownissues
-デフォルトでは、@samp{@var{note}-@var{digit}} は 9 よりも大きな数は@c
-サポートしません。
 
 
 @node 隠された音符
@@ -290,7 +286,7 @@ e8(\p f g a)--
 Notation Reference:
 @ref{不可視の休符},
 @ref{Visibility of objects},
-@ref{譜を隠す}
+@ref{Hiding staves}
 
 コード断片集:
 @rlsr{Editorial annotations}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -63,22 +63,22 @@
 
 @item
 たいていの声楽では歌詞として記述されたテキストを用います。@c
-この記譜法についての導入部は @rlearning{簡単な歌曲を作成する} にあります。
+この記譜法についての導入部は @rlearning{Setting simple songs} にあります。
 
 @item
 声楽はたいてい歌詞や他のテキスト要素 (配役の名前等) のために@c
 @code{markup} モードの使用を必要とします。@c
-@code{markup} モードの構文は @ref{テキスト マークアップの導入部} で@c
+@code{markup} モードの構文は @ref{Text markup introduction} で@c
 説明しています。
 
 @item
 声楽譜の最初に @notation{音域} (ambitus) が追加されることがあります。@c
-音域について @ref{音域} で説明しています。
+音域について @ref{Ambitus} で説明しています。
 
 @item
 デフォルトでは強弱記号は譜の下に配置されます。@c
 しかしながら、たいていの合唱の楽譜では、@c
-@ref{合唱のための楽譜レイアウト} で説明しているように、@c
+@ref{Score layouts for choral} で説明しているように、@c
 強弱記号は歌詞を避けるために譜の上に配置されます。
 
 @end itemize
@@ -133,8 +133,8 @@
 -- 上記の例のように歌詞の各音節の演奏時間を指定するか、@c
 @code{\addlyrics} または @code{\lyricsto} を用いて@c
 歌詞を自動的に旋律や他のボイスに揃えさせるかのどちらかです。@c
-前者は @ref{歌詞音節の手動演奏時間} で説明します。@c
-後者は @ref{歌詞音節の自動演奏時間} で説明します。
+前者は @ref{Manual syllable durations} で説明します。@c
+後者は @ref{Automatic syllable durations} で説明します。
 
 歌詞の単語または音節はアルファベット
 (さらに他のいくつかの文字 -- 以下を読んでください) で始まり、@c
@@ -157,25 +157,6 @@
 
 @example
 \lyricmode @{ lah lah lah @}
-@end example
-
-@cindex overrides in lyric mode (歌詞モードでのオーバライド)
-@funindex \override in \lyricmode
-
-同様に、歌詞モードではピリオドは前のアルファベットの並びに含まれてしまいます。@c
-このため、@code{\override} コマンドのピリオドの前後に@c
-空白を挿入する必要があります。@c
-以下のように記述しないでください
-
-@example
-\override Score.LyricText.font-shape = #'italic
-@end example
-
-@noindent
-以下のように記述してください
-
-@example
-\override Score.LyricText.font-shape = #'italic
 @end example
 
 句読点、アクセントが付いた文字を持つ歌詞、英語以外の言語の文字、@c
@@ -214,7 +195,7 @@
 
 歌詞の中で @code{\markup} を用いることで、@c
 歌詞の体裁を様々に制御することができます。@c
-多くのオプションの説明は、@ref{テキストをフォーマットする} を参照してください。
+多くのオプションの説明は、@ref{Formatting text} を参照してください。
 
 @snippets
 
@@ -223,14 +204,14 @@
 
 @seealso
 学習マニュアル:
-@rlearning{歌曲}
+@rlearning{Songs}
 
 記譜法リファレンス:
-@ref{歌詞音節の自動演奏時間},
-@ref{フォント},
-@ref{テキストをフォーマットする},
-@ref{入力モード},
-@ref{歌詞音節の手動演奏時間},
+@ref{Automatic syllable durations},
+@ref{Fonts},
+@ref{Formatting text},
+@ref{Input modes},
+@ref{Manual syllable durations},
 @ref{Special characters}
 
 内部リファレンス:
@@ -251,7 +232,7 @@
 @funindex \lyricsto
 
 歌詞はコンテキスト @code{Lyrics} の中で解釈されることで譜刻されます。@c
-@ref{コンテキストの説明} を参照してください。
+@ref{Contexts explained} を参照してください。
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
@@ -266,7 +247,7 @@
 プロパティ @code{associatedVoice} を設定することにより、@c
 他のボイスあるいは (特殊な状況ですが) 関連付けされた旋律から@c
 歌詞の音節の演奏時間を取ることで、歌詞を自動的に揃えることができます。@c
-詳細は @ref{歌詞音節の自動演奏時間} を参照してください。
+詳細は @ref{Automatic syllable durations} を参照してください。
 
 @c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
@@ -302,7 +283,7 @@
 歌詞の 2 番は歌詞を揃えるボイスを切り替える方法を示しています。@c
 この方法は、歌詞の 1 番と 2 番で音符への単語の揃え方が異なり、@c
 単語を揃えるべき音符がすべてボイス コンテキストの中にある場合に有用です。@c
-詳細は @ref{歌詞の節} を参照してください。
+詳細は @ref{Stanzas} を参照してください。
 
 @item
 歌詞を @code{¥lyricmode} で入力し、音節の演奏時間を明示的に示すことで、@c
@@ -334,13 +315,13 @@
 歌詞の 2 番は音符とは全く独立して単語を揃える方法を示しています。@c
 この方法は、歌詞の 1 番と 2 番で音符への単語の揃え方が異なり、@c
 単語を揃えるべき音符がボイス コンテキストから得られない場合に有用です。@c
-詳細は @ref{歌詞音節の手動演奏時間} を参照してください。@c
+詳細は @ref{Manual syllable durations} を参照してください。@c
 このテクニックは譜の上に会話をセットする場合にも有用です
--- これの例は @ref{音楽の中での会話} を参照してください。
+-- これの例は @ref{Dialogue over music} を参照してください。
 
 この方法で入力した音符はデフォルトでは音符に左揃えされますが、@c
 関連付されたボイスが存在する場合はそれを指定することで中央揃えされます。@c
-詳細は @ref{歌詞音節の手動演奏時間} を参照してください。
+詳細は @ref{Manual syllable durations} を参照してください。
 
 @end itemize
 
@@ -389,12 +370,12 @@
 
 3 つの方法のいずれでも、単語の音節の間にハイフンを描き、@c
 単語の後ろに延長線を描くことができます。@c
-詳細は @ref{延長線とハイフン} を参照してください。
+詳細は @ref{Extenders and hyphens} を参照してください。
 
 歌詞を揃える @code{Voice} コンテキストが @qq{消滅} してはいけません。@c
 さもないと、その後の歌詞は失われてしまいます。@c
 ボイスは何もすることが無くなると消滅する可能性があります
--- @ref{コンテキストを残しておく} を参照してください。
+-- @ref{Keeping contexts alive} を参照してください。
 
 @subheading @code{\lyricsto} を用いる
 
@@ -425,7 +406,7 @@
 @code{¥lyricsto} コマンドは自動的に歌詞モードを呼び出すため、@c
 @code{¥lyricmode} の記述は省略できます。@c
 デフォルトでは、歌詞は音符の下に配置されます。@c
-配置場所を変更する方法は @ref{歌詞の垂直方向の配置} を参照してください。
+配置場所を変更する方法は @ref{Placing lyrics vertically} を参照してください。
 
 @subheading @code{\addlyrics} を用いる
 
@@ -579,7 +560,7 @@
 @end lilypond
 
 このテクニックは、譜の上に会話を書く場合に有用です
--- @ref{音楽の中での会話} を参照してください。
+-- @ref{Dialogue over music} を参照してください。
 
 歌詞を音符に中央揃えさせるには、@c
 @code{associatedVoice} に音符を保持しているボイス コンテキストをセットします。@c
@@ -706,7 +687,7 @@
 
 @item
 自動連桁を off にして、手動で連桁を付けられた音符はメリスマと見なされます。@c
-@ref{自動連桁の振る舞いを設定する} を参照してください。
+@ref{Setting automatic beam behavior} を参照してください。
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -790,7 +771,7 @@
 
 代替手段として、@code{ignoreMelismata} に真をセットすることで@c
 すべてのメリスマを無視することができます。@c
-@ref{リズムが異なる歌詞の節} を参照してください。
+@ref{Stanzas with different rhythms} を参照してください。
 
 @code{melismaBusyProperties} がアクティブになっているパッセージの中で@c
 メリスマを使う必要がある場合、@c
@@ -1100,9 +1081,9 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 }
 @end lilypond
 
-他の歌詞と譜の組み合わせは、上記の例に磨きをかけるか、@c
-学習マニュアルの @rlearning{合唱} テンプレートを吟味することによって@c
-作り出すことができます。
+他の歌詞と譜の組み合わせは、上記の例に磨きをかけるか、学習マニュアルの@c
+中にあるテンプレート -- @rlearning{Vocal ensembles templates} を参照して@c
+ください -- を吟味することによって作り出すことができます。
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1114,7 +1095,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 記譜法リファレンス:
 @ref{Context layout order},
-@ref{Creating contexts}
+@ref{Creating and referencing contexts}
 
 
 @node 歌詞の水平方向の配置
@@ -1200,7 +1181,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @subheading 1 回の繰り返し
 
 @emph{音楽} の繰り返しは別の場所で説明しています
--- @ref{繰り返し} を参照してください。@c
+-- @ref{Repeats} を参照してください。@c
 このセクションでは、@c
 歌詞を繰り返しのある音楽に追加する方法について説明します。
 
@@ -2105,27 +2086,29 @@ text = \lyricmode {
 @itemize
 
 @item
-譜レイアウトを構築する際は、@ref{譜を表示する} を参照してください。
+譜レイアウトを構築する際は、@ref{Displaying staves} を参照してください。
 
 @item
-ピアノ譜を記述する際は、@ref{キーボードと他の複数譜の楽器} を参照してください。
+ピアノ譜を記述する際は、@ref{Keyboard and other multi-staff instruments}
+を参照してください。
 
 @item
-旋律に沿って歌詞を記述する際は、@ref{声楽で共通の記譜法} を参照してください。
+旋律に沿って歌詞を記述する際は、@ref{Common notation for vocal music}
+を参照してください。
 
 @item
-歌詞を配置する際は、@ref{歌詞の垂直方向の配置} を参照してください。
+歌詞を配置する際は、@ref{Placing lyrics vertically} を参照してください。
 
 @item
-歌詞の節を入力する際は、@ref{歌詞の節} を参照してください。
+歌詞の節を入力する際は、@ref{Stanzas} を参照してください。
 
 @item
 しばしば、歌曲は譜の上にコード ネームを付けて譜刻されます。@c
-これは、@ref{和音を表示する} で説明しています。
+これは、@ref{Displaying chords} で説明しています。
 
 @item
 ギター伴奏や他のフレット楽器による伴奏の和音のフレット ダイアグラムを@c
-譜刻する際は、@ref{フレットのある弦楽器で共通の記譜法} の
+譜刻する際は、@ref{Common notation for fretted strings} の
 @qq{フレット ダイアグラム マークアップ} を参照してください。
 
 @end itemize
@@ -2152,7 +2135,7 @@ text = \lyricmode {
 
 ボーカル パートと @q{和音モード} を組み合わせることによって、@c
 リード譜を譜刻することができます。@c
-和音モードの構文についての説明は @ref{和音記譜法} にあります。
+和音モードの構文についての説明は @ref{Chord notation} にあります。
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2205,27 +2188,27 @@ text = \lyricmode {
 @item
 SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜の導入部は@c
 学習マニュアルにあります。@c
-@rlearning{4 パート SATB ボーカル譜} を参照してください。
+@rlearning{Four-part SATB vocal score} を参照してください。
 
 @item
 学習マニュアルには、@c
 様々なスタイルの合唱に適したいくつかのテンプレートもあります。@c
-@rlearning{合唱} を参照してください。
+@rlearning{Vocal ensembles templates} を参照してください。
 
 @item
 @code{ChoirStaff} と @code{PianoStaff} についての情報は、@c
-@ref{譜をグループ化する} を参照してください。
+@ref{Grouping staves} を参照してください。
 
 @item
 セイクリッド ハープや動揺の記譜法で用いられるシェイプ符頭について、@c
-@ref{シェイプ符頭} で説明しています。
+@ref{Shape note heads} で説明しています。
 
 @item
 2 つのボーカル パートが 1 つの譜を共有する場合、@c
 上のパートの符幹、タイ、スラー等は上向きになり、@c
 下のパートは下向きになります。@c
 これを実現するには、@code{\voiceOne} と @code{\voiceTwo} を用います。@c
-@ref{単一譜の多声} を参照してください。
+@ref{Single-staff polyphony} を参照してください。
 
 @end itemize
 
@@ -2271,18 +2254,18 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @item
 グローバル譜サイズを変更することで、@c
 楽譜の要素全体のサイズを変更することができます。@c
-@ref{譜サイズを設定する} を参照してください。
+@ref{Setting the staff size} を参照してください。
 
 @item
 システム、譜、それに歌詞の間隔はすべて独立して調節することができます。@c
-@ref{垂直方向のスペース} を参照してください。
+@ref{Vertical spacing} を参照してください。
 
 @item
 垂直方向のレイアウト変数の値を表示することで、@c
 垂直方向のスペースを調節する手助けとすることができます。@c
 少ないページに音楽を収めるための方法として、@c
-レイアウト変数の表示と他の事柄を @ref{音楽を少ないページに収める} で@c
-説明しています。
+レイアウト変数の表示と他の事柄を @ref{Fitting music onto fewer pages}
+で説明しています。
 
 @item
 ページ毎のシステム数を 1 から 2 に変更した場合、@c
@@ -2292,7 +2275,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 
 @item
 他のページ フォーマット プロパティについての詳細は
-@ref{ページ レイアウト} を参照してください。
+@ref{Page layout} を参照してください。
 
 @end itemize
 
@@ -2424,20 +2407,21 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 
 @item
 指揮譜は多くのグループ化された譜と歌詞を保持します。@c
-譜をグループ化する方法は @ref{譜をグループ化する} で説明しています。@c
-譜のグループをネストする方法は @ref{ネストされた譜グループ} を参照してください。
+譜をグループ化する方法は @ref{Grouping staves} で説明しています。@c
+譜のグループをネストする方法は @ref{Nested staff groups} を参照してください。
 
 @item
 指揮譜とボーカル譜では、空の譜の譜刻を抑制することがあります。@c
 そのような @qq{Frenched score} を作成する方法は
-@ref{譜を隠す} を参照してください。
+@ref{Hiding staves} を参照してください。
 
 @item
 オーケストラ パートを記述する方法は
-@ref{パートを記述する} でカバーしています。@c
+@ref{Writing parts} でカバーしています。@c
 オーケストラの楽器編成によっては、@c
 専門的な記譜法の他のセクションも関係するかもしれません。@c
-多くの楽器は移調楽器です -- @ref{楽器の移調} を参照してください。
+多くの楽器は移調楽器です -- @ref{Instrument transpositions}
+を参照してください。
 
 @item
 ページのシステム数をページ毎に変える場合、@c
@@ -2446,13 +2430,13 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 
 @item
 他のページ フォーマット プロパティの詳細は
-@ref{ページ レイアウト} を参照してください。
+@ref{Page layout} を参照してください。
 
 @item
 台詞の合図、舞台指示、それに脚注を挿入することができます
--- @ref{Creating footnotes} と @ref{テキスト} を参照してください。@c
+-- @ref{Creating footnotes} と @ref{Text} を参照してください。@c
 2 つの @code{\score} の間に独立したセクションとして詳細な舞台指示を@c
-追加することもできます -- @ref{独立したテキスト} を参照してください。
+追加することもできます -- @ref{Separate text} を参照してください。
 
 @end itemize
 
@@ -2553,7 +2537,7 @@ c c c
      (middleCPosition . 6)
      (clefPosition . 2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "voice aahs"))
+     (midiInstrument . "choir aahs"))
 
 \relative c' {
   \instrumentSwitch "kaspar"
@@ -2591,7 +2575,7 @@ LilyPond の拡張:
 これはフルの指揮譜を使用できない場合に、指揮者の助けとなります。
 
 合図を挿入する基本的な仕組みはメインのテキストで完全に説明しています
--- @ref{他のボイスを引用する} と @ref{テキストをフォーマットする} を@c
+-- @ref{Quoting other voices} と @ref{Formatting text} を@c
 参照してください。@c
 しかしながら、多くの合図を挿入する必要がある場合
 -- 例えば、ボーカル譜のピアノ伴奏に楽器名を入れる場合、@c
@@ -2694,11 +2678,11 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 @rglos{cue-notes}
 
 記譜法リファレンス:
-@ref{オブジェクトを揃える},
-@ref{向きと配置},
-@ref{合図音符をフォーマットする},
-@ref{他のボイスを引用する},
-@ref{音楽関数を使用する}
+@ref{Aligning objects},
+@ref{Direction and placement},
+@ref{Formatting cue notes},
+@ref{Quoting other voices},
+@ref{Using music functions}
 
 コード断片集:
 @rlsr{Vocal music}
@@ -2726,7 +2710,7 @@ pianoLH = \relative c { c4 <c' e> e, <g c> }
 
 @q{parlato} や @q{Sprechgesang} などのエフェクトは、@c
 演者にピッチを持たずに、しかしながらリズムを持ちながら話すことを要求します。@c
-これは、@ref{特殊な符頭} で示すように、×の符頭で記譜します。
+これは、@ref{Special note heads} で示すように、×の符頭で記譜します。
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
 @c add "showing the rhythm of a melody" snip
@@ -2805,8 +2789,8 @@ dialogue = \lyricmode {
 
 @seealso
 記譜法リファレンス:
-@ref{歌詞音節の手動演奏時間},
-@ref{テキスト}
+@ref{Manual syllable durations},
+@ref{Text}
 
 内部リファレンス:
 @rinternals{LyricText}
@@ -3098,7 +3082,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1 2)
         }
         \context {
           \Staff
@@ -3127,17 +3111,16 @@ global = {
 
 @seealso
 学習マニュアル:
-@rlearning{オブジェクトの可視性と色},
-@rlearning{合唱}
+@rlearning{Visibility and color of objects},
+@rlearning{Vocal ensembles templates}
 
 記譜法リファレンス:
 @ref{Ancient notation},
-@ref{小節線},
-@ref{コンテキストのプラグインを変更する},
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
 @ref{Typesetting Gregorian chant},
-@ref{無韻律の音楽},
-@ref{オブジェクトの可視性}
-
+@ref{Unmetered music},
+@ref{Visibility of objects}
 
 @node 賛美歌を配置する
 @unnumberedsubsubsec 賛美歌を配置する
@@ -3285,18 +3268,19 @@ tick = \markup {
 
 マークアップを使用してテキストを中央に配置し、@c
 テキスト行をいくつかの列に配列する方法は、@c
-@ref{テキストをフォーマットする} で説明しています。
+@ref{Formatting text} で説明しています。
 
 これらの要素のほとんどをテンプレートの歌詞で示しています。@c
-@rlearning{合唱} の中の @qq{賛美歌} を参照してください。
+@rlearning{Psalms} を参照してください。
 
 @seealso
 学習マニュアル:
-@rlearning{合唱}
+@rlearning{Psalms},
+@rlearning{Vocal ensembles templates}
 
 記譜法リファレンス:
 @ref{Fonts},
-@ref{テキストをフォーマットする}
+@ref{Formatting text}
 
 
 @node 賛美歌での部分小節

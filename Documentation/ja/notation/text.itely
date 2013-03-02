@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: 6647daf0d6c8459d2b52bfc3a2a40bad4672fc7a
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1206,11 +1206,7 @@ a1_\markup {
 
 @lilypond[quote,verbatim,relative=1]
 g1 bes
-ees-\markup {
-  \finger 4
-  \tied-lyric #"~"
-  \finger 1
-}
+ees\finger \markup \tied-lyric #"4~1"
 fis_\markup { \dynamic rf }
 bes^\markup {
   \beam #8 #0.1 #0.5
@@ -1559,6 +1555,8 @@ lilypond -dshow-available-fonts x
 以下の例で示す方法に従ってフォント ファミリを指定することにより、@c
 @emph{roman}, @emph{sans} それに @emph{typewriter} フォント ファミリ@c
 として使用されるデフォルト フォントを変更することができます。@c
+この例ではグローバル譜サイズにセットされた値で自動的にフォントのサイズを@c
+伸縮しています。@c
 フォントについての説明は、@ref{フォントの説明} を参照してください。
 
 @cindex font families, setting (フォント ファミリを設定する)
@@ -1568,12 +1566,11 @@ lilypond -dshow-available-fonts x
 
 @lilypond[verbatim,quote]
 \paper  {
-  myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ myStaffSize 20)))
+                          (/ staff-height pt 20)))
 }
 
 \relative c'{

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -75,7 +75,7 @@
 
 @notation{stave: 譜} (@notation{staff}: 譜 (表) の単称) は
 @code{\new} コマンドや @code{\context} コマンドで作成されます。@c
-詳細は @ref{Creating contexts} を参照してください。
+詳細は @ref{Creating and referencing contexts} を参照してください。
 
 基本的な譜コンテキストは @code{Staff} です:
 
@@ -132,7 +132,7 @@
 @rglos{staves}
 
 記譜法リファレンス:
-@ref{Creating contexts},
+@ref{Creating and referencing contexts},
 @ref{Percussion staves},
 @ref{Showing melody rhythms},
 @ref{Default tablatures},
@@ -474,7 +474,7 @@ f'4 d \stopStaff
 
 新しい譜線に対応して、@c
 音部記号とミドル C の位置を調節する必要があるかもしれません。@c
-@ref{音部記号} を参照してください。
+@ref{Clef} を参照してください。
 
 譜線の太さを変えることができます。@c
 デフォルトでは、加線 (訳者注: ledger line, 譜の上下に突き出た符頭と符幹に@c
@@ -520,7 +520,7 @@ f'4 d \stopStaff
 
 譜の内部に加線を表示させることもできます。@c
 この場合、譜線のカスタマイズが必要です。@c
-以下の例は明示的に @code{legder-position} をセットしない場合とした場合の@c
+以下の例は明示的に @code{ledger-position} をセットしない場合とした場合の@c
 加線のデフォルト位置を示しています。@c
 以下の例で、@code{StaffSymbol} 全体に対する @code{\override} を元に戻すには@c
 @code{\stopStaff} を行う必要があります。
@@ -673,7 +673,7 @@ d4 e f g
 @c そのようなケースでは、空白休符を使用する必要はまったくありません:
 @c @code{\startStaff} と @code{\stopStaff} が必要であるだけです。@c
 @code{\RemoveEmptyStaffContext} についての更なる情報は、@c
-@ref{譜を隠す} を参照してください。
+@ref{Hiding staves} を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -800,7 +800,7 @@ d4 e f g
 @noindent
 譜に対してオッシア セクションを作成するために、@c
 @code{\RemoveEmptyStaffContext} を用いることもできます。@c
-詳細は @ref{オッシア譜} を参照してください。
+詳細は @ref{Ossia staves} を参照してください。
 
 @cindex hiding ancient staves (古代譜を隠す)
 @cindex hiding rhythmic staves (リズム譜を隠す)
@@ -933,8 +933,9 @@ d4 e f g
   { f2 g4 f }
   \new Staff \with {
     instrumentName = \markup {
-      \center-column { "Clarinet" }
-      \line { "in B" \smaller \flat }
+      \center-column { "Clarinet"
+        \line { "in B" \smaller \flat }
+      }
     }
   }
   { c4 b c2 }
@@ -946,7 +947,7 @@ d4 e f g
 
 しかしながら、楽器名が長い場合、@code{indent} 設定と @code{short-indent}
 設定の値を増やさない限り、譜グループの中にある楽器名は中央揃えされません。@c
-これらの設定についての詳細は @ref{シフトとインデントのための \paper 変数}
+これらの設定についての詳細は @ref{\paper variables for shifts and indents}
 を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
@@ -982,7 +983,7 @@ d4 e f g
 楽器名を他のコンテキスト (@code{ChordNames} や @code{FiguredBass} など)
 に付け加えるには、
 そのコンテキストに @code{Instrument_name_engraver} を追加する必要があります。@c
-詳細は @ref{コンテキストのプラグインを変更する} を参照してください。
+詳細は @ref{Modifying context plug-ins} を参照してください。
 
 @cindex instrument names, changing (楽器名を変更する)
 @cindex changing instrument names (楽器名を変更する)
@@ -1198,7 +1199,7 @@ oboeNotes = \relative c'' {
 @end lilypond
 
 引用にもタグを付けることができます。@c
-@ref{タグを使用する} を参照してください。
+@ref{Using tags} を参照してください。
 
 @seealso
 記譜法リファレンス:
@@ -1296,7 +1297,7 @@ d,,4 r a r
 用いることができます。@c
 これらのコマンドは @code{\quoteDuring} を特殊化したものです。@c
 @code{\quoteDuring} については、@c
-前のセクションの @ref{他のボイスを引用する} を参照してください。
+前のセクションの @ref{Quoting other voices} を参照してください。
 
 構文は以下の通りです:
 
@@ -1483,7 +1484,7 @@ bassClarinetNotes = \relative c' {
 合図に関連する他のマークアップ
 -- 音部変更と引用元の楽器を識別するラベルなど --
 にはタグを付けて楽譜に含めるかどうかを選択することができます。@c
-@ref{タグを使用する} を参照してください。
+@ref{Using tags} を参照してください。
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative c'' {

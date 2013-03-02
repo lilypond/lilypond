@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -473,9 +473,9 @@ LilyPond の記号はいかなる標準にも準拠しません。
   @tab c d e f g a b h
 @item @code{english}
   @tab c d e f g a bf b
-@item @code{espanol}
+@item @code{espanol} または @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano}
+@item @code{italiano} または @code{français}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -505,9 +505,9 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @item @code{english}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item @code{espanol}
+@item @code{espanol} または @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano}
+@item @code{italiano} または @code{français}
   @tab -d @tab -b @tab -dd @tab -bb
 @item @code{norsk}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
@@ -561,9 +561,9 @@ a2 as e es a ases e eses
   @tab -ih @tab -eh @tab -isih @tab -eseh
 @item @code{english}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item @code{espanol}
+@item @code{espanol} または @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano}
+@item @code{italiano} または @code{français}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
@@ -919,7 +919,7 @@ music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 
 @warning{与えられた音階の中に無い音符は、移調されません。}
 
-@subsubheading 様式的な移調
+@subsubsubheading 様式的な移調
 
 @cindex modal transposition (様式的な移調)
 @cindex transposition, modal (様式的な移調)
@@ -974,7 +974,7 @@ motif = \relative c' { c8 d e f g a b c }
 }
 @end lilypond
 
-@subsubheading 様式的な反転
+@subsubsubheading 様式的な反転
 
 @cindex modal inversion (様式的な反転)
 @cindex inversion, modal (様式的な反転)
@@ -1147,8 +1147,10 @@ c2 c
 
 @cindex transposing clefs (音部を移調する)
 @cindex clef, transposing (音部を移調する)
-@cindex オクターブ移調 (octave transposition)
+@cindex octave transposition (オクターブ移調)
 @c 未訳
+@cindex optional octave transposition
+@cindex octave transposition, optional
 @cindex choral tenor clef
 @cindex tenor clef, choral
 
@@ -1172,6 +1174,18 @@ c2 c
 \clef "F^5"
 c2 c
 @end lilypond
+
+数字の引数を括弧や角括弧で囲むことで、オプションのオクターブを@c
+表示させることができます:
+
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+ピッチは数字の引数が括弧で囲まれていない場合と同じです。
 
 特殊な音部記号については @ref{Mensural clefs},
 @ref{Gregorian clefs}, @ref{Default tablatures}, それに
@@ -1201,6 +1215,22 @@ c2 c
 @rinternals{Clef},
 @rinternals{OctavateEight},
 @rinternals{clef-interface}
+
+@knownissues
+音部記号に付けるオクターブ移動の数字は、個別のグラフィカル オブジェクト@c
+として扱われます。@c
+このため、@var{Clef} に適用される @code{\override} は、@c
+別の @code{\override} で @var{OctavateEight} グラフィカル オブジェクトに@c
+適用する必要があります。
+
+@lilypond[fragment,quote,relative=1]
+\new Staff \with {
+  \override OctavateEight.color = #red
+  \override Clef.color = #blue
+}
+
+\clef "treble_8" c4
+@end lilypond
 
 
 @node 調号
@@ -1277,6 +1307,37 @@ f
 fis
 @end lilypond
 
+新たにモードを定義することができます
+-- モードが C で始まる場合、C で始まる音階の各ステップに対する@c
+変更記号をリスト アップします。
+
+@lilypond[verbatim,quote]
+freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
+    (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
+
+\relative c' {
+  \key c\freygish c4 des e f
+  \bar "||" \key d\freygish d es fis g
+}
+@end lilypond
+
+@code{KeySignature} のプロパティ @code{flat-positions} と
+@code{sharp-positions} を用いて、調号の臨時記号を通常とは異なる@c
+オクターブに表示させたり、複数のオクターブに表示させることができます。@c
+これらのプロパティに渡される値は、臨時記号を表示させる譜ポジションの@c
+範囲を指定します。@c
+1 つの値だけを渡した場合、その譜ポジションで終了するオクターブの範囲@c
+に臨時記号が配置されます。
+
+@lilypond[verbatim, quote,relative=0]
+\override Staff.KeySignature.flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
+\clef bass \key es\major es g bes d
+\clef treble \bar "||" \key es\major es g bes d
+
+\override Staff.KeySignature.sharp-positions = #'(2)
+\bar "||" \key b\major b fis b2
+@end lilypond
 
 @snippets
 
@@ -1303,7 +1364,6 @@ fis
 @rinternals{Key_performer},
 @rinternals{KeyCancellation},
 @rinternals{KeySignature},
-@rinternals{key-cancellation-interface},
 @rinternals{key-signature-interface}
 
 
@@ -1700,7 +1760,6 @@ musicB = {
 
 @funindex modern
 
-@c ここから L221
 この規則は 20 世紀の一般的な臨時記号の付け方と一致します:
 この規則はいくつかの余分なナチュラル記号を省略します
 -- 伝統的にダブル シャープの後のシャープに前置されるナチュラル記号と、@c

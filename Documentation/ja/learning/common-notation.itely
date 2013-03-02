@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -530,16 +530,16 @@ c2 d |
 @cindex tuplets (連符)
 @cindex triplets (3 連符)
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 音楽用語集: @rglos{note value}, @rglos{triplet}
 
-@notation{連符} は @code{\times} キーワードによって作成されます。@c
+@notation{連符} は @code{\tuplet} キーワードによって作成されます。@c
 これは 2 つの引数をとります: 分数と楽譜の断片です。@c
-楽譜の断片の演奏時間と分数が乗算されます。@c
-3 連符は表記された演奏時間の 2/3 の長さなので、@notation{3 連符} は@c
-分数として 2/3 を持ちます。
+分数の分母は通常の音符の数で、分子は連符の音符の数です。@c
+3 連符は 2 つの音符の代わりに 3 つの音符を演奏しますので、@notation{連符}
+の分数は 3/2 となります。
 
 @lilypond[verbatim,quote,relative=2]
 \tuplet 3/2 { f8 g a }

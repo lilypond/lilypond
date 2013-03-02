@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: cc3b9e1430f4cc9c54da7252e504f3d274a7ea17
+    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -310,6 +310,7 @@ c1
 記譜法リファレンス:
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
+@ref{Modifying ties and slurs},
 @ref{Time administration}
 
 コード断片集:
@@ -329,13 +330,29 @@ c1
 @cindex repeat and measure number (繰り返しと小節番号)
 @cindex timing information and repeats (タイミング情報と繰り返し)
 @cindex measure number and repeats (小節番号と繰り返し)
-@cindex repeat and slur (繰り返しとスラー)
-@cindex slur and repeat (スラーと繰り返し)
+@cindex repeats and slur (繰り返しとスラー)
+@cindex slur and repeats (スラーと繰り返し)
+@cindex glissandi and repeats (グリッサンドと繰り返し)
+@cindex repeats and glissandi (繰り返しとグリッサンド)
 
 @code{\repeat} ブロックから @code{\alternative} ブロックまで続くスラーは、@c
 最初の入れ替え部分に対してのみ機能します。@c
-さらに、スラーは入れ替え部分の終わりから繰り返しの先頭までをカバーすることは@c
+他の入れ替え部分に対して見た目上、スラーを伸ばすには @code{\repeatTie} を@c
+使います。
+しかしながら、この手法はスラーが 1 本の場合のみ可能であり、@code{TabStaff}
+では機能しません。@c
+複数のスラーを入れ替え部分に伸ばし、@code{TabStaff} コンテキストでも機能@c
+する手法は @ref{Modifying ties and slurs} で示しています。
+
+さらに、入れ替え部分の最後から繰り返しの開始点までスラーで結ぶことも@c
 できません。
+
+@code{\repeat} ブロックから @code{\alternative} ブロックまで続く@c
+グリッサンドは最初の入れ替え部分に対してのみ機能します。@c
+他の入れ替え部分に対して見た目上、グリッサンドを伸ばすには、見えない装飾@c
+音符から始まるグリッサンドのコードを記述します。@c
+例として、@ref{Glissando} の楽譜断片集にある
+@qq{繰り返しを跨いでグリッサンドを延長する} を参照してください。
 
 不完全な小節で始まる繰り返しが @code{measureLength} プロパティの変更を行う@c
 @code{\alternative} ブロックを持つ場合、@c
@@ -400,7 +417,7 @@ c1
 標準の譜刻習慣に従い、楽曲の先頭では繰り返し記号は譜刻されません。
 
 @item end-repeat
-@code{:|} 小節線を譜刻します。
+@code{:|.} 小節線を譜刻します。
 
 @lilypond[verbatim,quote,relative=2]
 c1
