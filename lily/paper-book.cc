@@ -204,11 +204,11 @@ Paper_book::output (SCM output_channel)
       if (framework != SCM_BOOL_F)
         {
           SCM func = scm_variable_ref (framework);
-          scm_apply_0 (func, scm_list_n (output_channel,
-                                         self_scm (),
-                                         scopes,
-                                         dump_fields (),
-                                         SCM_UNDEFINED));
+          scm_call_4 (func,
+                      output_channel,
+                      self_scm (),
+                      scopes,
+                      dump_fields ());
         }
       else
         warning (_f ("program option -dprint-pages not supported by backend `%s'",
@@ -223,11 +223,11 @@ Paper_book::output (SCM output_channel)
       if (framework != SCM_BOOL_F)
         {
           SCM func = scm_variable_ref (framework);
-          scm_apply_0 (func, scm_list_n (output_channel,
-                                         self_scm (),
-                                         scopes,
-                                         dump_fields (),
-                                         SCM_UNDEFINED));
+          scm_call_4 (func,
+                      output_channel,
+                      self_scm (),
+                      scopes,
+                      dump_fields ());
         }
       else
         warning (_f ("program option -dpreview not supported by backend `%s'",
@@ -273,12 +273,11 @@ Paper_book::classic_output (SCM output)
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);
-  scm_apply_0 (func, scm_list_n (output,
-                                 self_scm (),
-                                 scopes,
-                                 dump_fields (),
-                                 SCM_UNDEFINED));
-
+  scm_call_4 (func,
+              output,
+              self_scm (),
+              scopes,
+              dump_fields ());
   progress_indication ("\n");
 }
 
@@ -646,24 +645,25 @@ Paper_book::pages ()
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
-          pages_ = scm_append_x (scm_list_2 (pages_, pbookpart->pages ()));
+          pages_ = scm_cons (pbookpart->pages (), pages_);
+      pages_ = scm_append (scm_reverse_x (pages_, SCM_EOL));
     }
   else if (scm_is_pair (scores_))
     {
       SCM page_breaking = paper_->c_variable ("page-breaking");
-      pages_ = scm_apply_0 (page_breaking, scm_list_1 (self_scm ()));
+      pages_ = scm_call_1 (page_breaking, self_scm ());
 
       // Create all the page stencils.
       SCM page_module = scm_c_resolve_module ("scm page");
       SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
       page_stencil = scm_variable_ref (page_stencil);
       for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
-        scm_apply_1 (page_stencil, scm_car (pages), SCM_EOL);
+        scm_call_1 (page_stencil, scm_car (pages));
 
       // Perform any user-supplied post-processing.
       SCM post_process = paper_->c_variable ("page-post-process");
       if (ly_is_procedure (post_process))
-        scm_apply_2 (post_process, paper_->self_scm (), pages_, SCM_EOL);
+        scm_call_2 (post_process, paper_->self_scm (), pages_);
 
       /* set systems_ from the pages */
       if (systems_ == SCM_BOOL_F)
@@ -673,8 +673,9 @@ Paper_book::pages ()
             {
               Prob *page = unsmob_prob (scm_car (p));
               SCM systems = page->get_property ("lines");
-              systems_ = scm_append (scm_list_2 (systems_, systems));
+              systems_ = scm_cons (systems, systems_);
             }
+          systems_ = scm_append (scm_reverse_x (systems_, SCM_EOL));
         }
     }
   return pages_;
