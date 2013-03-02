@@ -172,6 +172,41 @@ was equivalent to @code{\transposition f'}.  Now it stays
 equivalent to @code{\transposition bes'}.
 
 @item
+When checknig for collisions, LilyPond no longer treats objects as
+rectangles.  Instead, the actual shape of objects is approximated
+using an integral-like approach.  This generally results in more
+even and snug positioning of objects and systems:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+Previously, the above snippet looked like this:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\override Hairpin #'vertical-skylines = #'()
+\override DynamicText #'vertical-skylines = #'()
+\override TextScript #'vertical-skylines = #'()
+\override Score.MetronomeMark #'vertical-skylines = #'()
+\override Staff.Clef #'vertical-skylines = #'()
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+Affected objects include @code{Accidentals}, @code{Beams}, @code{Clefs},
+@code{Dynamics}, @code{FiguredBass}, @code{Flags}, @code{Glissandos},
+@code{Lyrics}, @code{MetronomeMarks}, @code{OttavaBrackets},
+@code{Pedals}, @code{RehearsalMarks}, @code{Rests}, @code{Scripts},
+@code{TextScripts}, @code{Ties}, @code{Tuplets} and @code{VoltaBrackets}.
+
+@item
 Tuplets are now created with the @code{\tuplet} command, which
 takes a fraction @code{@var{t}/@var{n}} to specify that @var{t}
 notes are played in the time usually allowed for @var{n}. One
