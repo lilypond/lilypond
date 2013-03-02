@@ -3144,7 +3144,7 @@ a8 \( ( a'16 ) a \)
 ボイス 2 の連桁にはまったく適用されていないということに注意してください。
 
 @node force-hshift プロパティ
-@unnumberedsubsubsec @code{force-hshift プロパティ
+@unnumberedsubsubsec @code{force-hshift} プロパティ
 @translationof The force-hshift property
 
 今や、@ref{私はボイスを聴いている} の最後で挙げた Chopin の例に@c
