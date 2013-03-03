@@ -968,7 +968,9 @@ samplePath =
   "
 @cindex inserting music into text
 
-Inline an image of music.
+Inline an image of music.  The reference point (usually the middle
+staff line) of the lowest staff in the top system is placed on the
+baseline.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1014,10 +1016,18 @@ Inline an image of music.
   (let ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
-	(stack-stencils Y DOWN baseline-skip
-			(map paper-system-stencil
-			     (vector->list
-			      (ly:paper-score-paper-systems output))))
+        (let ((paper-systems
+               (vector->list
+                (ly:paper-score-paper-systems output))))
+          (if (pair? paper-systems)
+              ;; shift such that the refpoint of the bottom staff of
+              ;; the first system is the baseline of the score
+              (ly:stencil-translate-axis
+               (stack-stencils Y DOWN baseline-skip
+                               (map paper-system-stencil paper-systems))
+               (- (car (paper-system-staff-extents (car paper-systems))))
+               Y)
+              empty-stencil))
 	(begin
 	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
 	  empty-stencil))))
