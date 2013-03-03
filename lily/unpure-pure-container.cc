@@ -98,18 +98,20 @@ print_unpure_pure_container (SCM s, SCM port, scm_print_state *)
 {
   scm_puts ("#<unpure-pure-container ", port);
   scm_display (unpure_pure_container_unpure_part (s), port);
-  scm_puts (" ", port);
-  scm_display (unpure_pure_container_pure_part (s), port);
+  if (!SCM_UNBNDP (SCM_SMOB_OBJECT_2 (s)))
+    {
+      scm_puts (" ", port);
+      scm_display (unpure_pure_container_pure_part (s), port);
+    }
   scm_puts (" >", port);
   return 1;
 }
 
 SCM
-pure_mark (SCM pure)
+pure_mark (SCM smob)
 {
-  scm_gc_mark (unpure_pure_container_unpure_part (pure));
-  scm_gc_mark (unpure_pure_container_pure_part (pure));
-  return pure;
+  scm_gc_mark (SCM_SMOB_OBJECT (smob));
+  return SCM_SMOB_OBJECT_2 (smob);
 }
 
 // Function signature has two fixed arguments so that dropping two
