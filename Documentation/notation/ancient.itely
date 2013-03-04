@@ -2416,6 +2416,7 @@ with head prefixes in arbitrary order.
 * Kievan notes::
 * Kievan accidentals::
 * Kievan bar line::
+* Kievan melismata::
 @end menu
 
 @node Kievan contexts
@@ -2568,6 +2569,63 @@ It can be invoked as @code{\bar "k"}.
 @seealso
 @ref{Bars},
 @ref{The Feta font}
+
+@node Kievan melismata
+@unnumberedsubsubsec Kievan melismata
+
+@cindex Ligatures
+
+Notes within a Kievan melisma are usually placed close to each other
+and the melismata separated by whitespace. This is done to allow
+the chanter to quickly identify the melodic structures of Znamenny
+chant. In LilyPond, melismata are treated as ligatures and the
+spacing is implemented by the @code{Kievan_ligature_engraver}.
+
+When the @code{KievanVoice} and @code{KievanStaff} contexts are used,
+the @code{Kievan_ligature_engraver} is enabled by default. In other
+contexts, it can be invoked by replacing the @code{Ligature_bracket_engraver}
+with the @code{Kievan_ligature_engraver} in the layout block:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Ligature_bracket_engraver"
+    \consists "Kievan_ligature_engraver"
+  @}
+@}
+@end example
+
+The spacing between the notes within a Kievan ligature can be controlled
+by setting the @code{padding} property of the @code{KievanLigature}.
+
+The following example demonstrates the use of Kievan ligatures:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Га -- врі -- и -- лу
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{ligature}.
+
+Notation Reference:
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}.
+
+@knownissues
+Horizontal spacing of ligatures is poor.
 
 @node Working with ancient music---scenarios and solutions
 @subsection Working with ancient music---scenarios and solutions
