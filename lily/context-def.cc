@@ -316,6 +316,7 @@ Context_def::instantiate (SCM ops)
   context->definition_mods_ = ops;
   context->aliases_ = context_aliases_;
   context->accepts_list_ = get_accepted (ops);
+  context->default_child_ = get_default_child (ops);
 
   return context;
 }
@@ -342,6 +343,10 @@ Context_def::to_alist () const
                             get_translator_names (SCM_EOL)), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), get_accepted (SCM_EOL)),
+                  ell);
+  if (scm_is_symbol (default_child_))
+    ell = scm_acons (ly_symbol2scm ("default-child"), default_child_, ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), get_accepted (SCM_EOL)),
                   ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("property-ops"), property_ops_),
@@ -381,7 +386,7 @@ bool
 Context_def::is_alias (SCM sym) const
 {
   if (scm_is_eq (sym, ly_symbol2scm ("Bottom")))
-    return !scm_is_pair (get_accepted (SCM_EOL));
+    return !scm_is_symbol (get_default_child (SCM_EOL));
 
   if (scm_is_eq (sym, get_context_name ()))
     return true;

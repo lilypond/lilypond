@@ -55,6 +55,7 @@ protected:
   SCM properties_scm_;
   SCM context_list_;
   SCM accepts_list_;
+  SCM default_child_;
   SCM aliases_;
   Translator_group *implementation_;
   string id_string_;

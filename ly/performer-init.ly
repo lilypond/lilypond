@@ -35,6 +35,7 @@
 \context {
   \name Global
   \accepts Score
+  \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Cannot be tuned."
   EventClasses = #all-event-classes
 }
@@ -267,6 +268,7 @@
   \type "Performer_group"
   \consists "Staff_performer"
   \accepts ChordNameVoice
+  \defaultchild ChordNameVoice
   \name ChordNames
 }
 

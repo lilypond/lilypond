@@ -58,7 +58,8 @@ Global_context::Global_context (Output_def *o)
   for (; scm_is_pair (p); p = scm_cdr (p))
     scm_hashq_set_x (ancestor_lookup_, scm_caar (p), scm_car (p));
 
-  accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));
+  default_child_ = ly_symbol2scm ("Score");
+  accepts_list_ = scm_list_1 (default_child_);
 }
 
 Output_def *
