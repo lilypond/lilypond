@@ -394,6 +394,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
+  // If undefined, some internal function caused it...should never happen.
+  assert (val != SCM_UNDEFINED);
   if (!scm_is_symbol (sym))
     return false;
 

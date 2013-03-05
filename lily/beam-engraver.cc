@@ -30,6 +30,7 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "stem.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -243,7 +244,10 @@ Beam_engraver::acknowledge_rest (Grob_info info)
   if (beam_
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
     chain_offset_callback (info.grob (),
-                           Beam::rest_collision_callback_proc, Y_AXIS);
+                           ly_make_unpure_pure_container
+                             (Beam::rest_collision_callback_proc,
+                              Beam::pure_rest_collision_callback_proc),
+                           Y_AXIS);
 }
 
 void

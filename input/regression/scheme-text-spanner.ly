@@ -126,7 +126,7 @@ start and stop.")
          grob
          (if (eq? axis X)
              ly:side-position-interface::x-aligned-side
-             ly:side-position-interface::y-aligned-side)
+             side-position-interface::y-aligned-side)
          (axis-offset-symbol axis)))))
 
 schemeTextSpannerEngraver =

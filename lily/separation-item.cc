@@ -150,10 +150,19 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval extra_height = robust_scm2interval (elts[i]->get_property ("extra-spacing-height"),
                                                    Interval (0.0, 0.0));
 
-      x[LEFT] += extra_width[LEFT];
-      x[RIGHT] += extra_width[RIGHT];
-      y[DOWN] += extra_height[DOWN];
-      y[UP] += extra_height[UP];
+      // The conventional empty extent is (+inf.0 . -inf.0)
+      //  but (-inf.0 . +inf.0) is used as extra-spacing-height
+      //  on items that must not overlap other note-columns.
+      // If these two uses of inf combine, leave the empty extent.
+
+      if (!isinf (x[LEFT]))
+        x[LEFT] += extra_width[LEFT];
+      if (!isinf (x[RIGHT]))
+        x[RIGHT] += extra_width[RIGHT];
+      if (!isinf (y[DOWN]))
+        y[DOWN] += extra_height[DOWN];
+      if (!isinf (y[UP]))
+        y[UP] += extra_height[UP];
 
       if (!x.is_empty () && !y.is_empty ())
         out.push_back (Box (x, y));

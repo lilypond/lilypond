@@ -46,9 +46,7 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver ()
 void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
-  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
-  if (!Pure_from_neighbor_interface::has_interface (i.item ())
-      && to_boolean (scm_call_1 (pure_relevant_p, i.item ()->self_scm ())))
+  if (!Pure_from_neighbor_interface::has_interface (i.item ()))
     pure_relevants_.push_back (i.item ());
 }
 

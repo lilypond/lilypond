@@ -914,21 +914,19 @@ System::calc_pure_relevant_grobs (SCM smob)
 
   extract_grob_set (me, "elements", elts);
   vector<Grob *> relevant_grobs;
-  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); ++i)
     {
       if (!Axis_group_interface::has_interface (elts[i]))
         {
-          if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-            relevant_grobs.push_back (elts[i]);
+          relevant_grobs.push_back (elts[i]);
 
           if (Item *it = dynamic_cast<Item *> (elts[i]))
             {
               for (LEFT_and_RIGHT (d))
                 {
                   Item *piece = it->find_prebroken_piece (d);
-                  if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+                  if (piece && piece->is_live ())
                     relevant_grobs.push_back (piece);
                 }
             }

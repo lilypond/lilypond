@@ -40,6 +40,7 @@
 #include "warn.hh"
 #include "slur-scoring.hh"
 #include "separation-item.hh"
+#include "unpure-pure-container.hh"
 #include "international.hh"
 
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
@@ -421,7 +422,10 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
     {
       if (slur)
         {
-          chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
+          chain_offset_callback (e,
+                                 ly_make_unpure_pure_container (outside_slur_callback_proc,
+                                                                pure_outside_slur_callback_proc),
+                                 Y_AXIS);
           chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm ("cross-staff"));
           e->set_object ("slur", slur->self_scm ());
         }
