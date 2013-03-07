@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d285959ee448ddd2ba74fb2b179f76d711e201a5
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -526,8 +526,8 @@ Glosario musical:
 @rglos{anacrusis}.
 
 Una @notation{anacrusa} se introduce con la palabra clave
-@code{\partial}.  Va seguida de una duración: @code{\partial 4} es una
-anacrusa de negra y @code{\partial 8} de corchea.
+@code{\partial}.  Va seguida de una duración: @code{\partial 4} es
+una anacrusa de negra y @code{\partial 8} de corchea.
 
 @lilypond[verbatim,quote,relative=2]
 \partial 8 f8 |
@@ -539,18 +539,19 @@ c2 d |
 @cindex grupos especiales
 @cindex tresillos
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Glosario musical:
 @rglos{note value},
 @rglos{triplet}.
 
-Los grupos especiales como los tresillos se hacen con la palabra clave
-@code{\times}.  Requiere dos argumentos: una fracción y un fragmento
-de música.  La duración del fragmento de música se multiplica por la
-fracción.  Los tresillos hacen que las notas ocupen 2/3 de su duración
-expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
+Los grupos especiales como los tresillos se hacen con la palabra
+clave @code{\tuplet}.  Requiere dos argumentos: una fracción y un
+fragmento de música.  La fracción es el número de notas del grupo
+partido por el número de notas que normalmente ocupan la misma
+duración.  Para los tresillos hay tres notas en el espacio de dos,
+de manera que los @notation{tresillos} tienen una fracción de 3/2.
 
 @lilypond[verbatim,quote,relative=2]
 \tuplet 3/2 { f8 g a }
