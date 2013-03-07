@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
+Translation of GIT committish: 1cc9797da3a85c8984123bb0947955a13cb4d712
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1970,14 +1970,13 @@ usuario.
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
 
-@cindex grob, propiedades de
-@cindex propiedades de grob
-@funindex \override
-
-
 @node La instrucción override
 @subsection La instrucción @code{\override}
 @translationof The override command
+
+@cindex grob, propiedades de
+@cindex propiedades de grob
+@funindex \override
 
 Existe un tipo especial de propiedad de contexto: la descripción de
 los grobs.  Las decscripciones de los grobs reciben un nombre en
@@ -4342,16 +4341,16 @@ la línea de inicio y la dirección según se requiera.
 Referencia de funcionamiento interno:
 @rinternals{TieColumn}.
 
+
+@node Contenedores unpure-pure
+@subsection Contenedores unpure-pure
+@translationof Unpure-pure containers
+
 @cindex Scheme, contenedores puros
 @cindex Scheme, contenedores no-puros
 @cindex puros, contenedores de Scheme
 @cindex no-puros: contenedores de Scheme
 @cindex horizontal, sobreescribir el espaciado
-
-
-@node Contenedores unpure-pure
-@subsection Contenedores unpure-pure
-@translationof Unpure-pure containers
 
 Los contenedores @q{unpure-pure} (pura y no pura) son útiles para la
 sobreescritura de los cálculos del espaciado en el @emph{eje Y}

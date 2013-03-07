@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 784e1e7a6b4b5c086a54267aa2d1e34e5aaa254c
+    Translation of GIT committish: a713d376200adcb6eda27c8667eceb52116de341
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -416,7 +416,7 @@ instrucciones de repetición.
 
 @table @code
 @item start-repeat
-Imprimir una barra de compás @code{|:}
+Imprimir una barra de compás @code{.|:}
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -429,7 +429,7 @@ En la práctica habitual del grabado no se imprimen signos de
 repetición al principio de la pieza.
 
 @item @code{end-repeat}
-Imprimir una barra de compás @code{:|}
+Imprimir una barra de compás @code{:|.}
 
 @lilypond[verbatim,quote,relative=2]
 c1

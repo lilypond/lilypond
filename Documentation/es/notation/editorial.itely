@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: 95652cfaebacdc267c3360123b55254c45223433
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -161,10 +161,10 @@ Las instrucciones de digitación se pueden introducir usando
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Para los cambios de dedo se pueden usar elementos de marcado de texto.
+Para los cambios de dedo se pueden usar elementos de marcado de texto o de cadenas de caracteres.
 
 @lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
+c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 @end lilypond
 
 @cindex thumb-script
@@ -217,10 +217,6 @@ Referencia de funcionamiento interno:
 @rinternals{Fingering_engraver},
 @rinternals{New_fingering_engraver},
 @rinternals{Fingering}.
-
-@knownissues
-Por omisión, los números mayores de 9 no están coontemplados si se
-utiliza @samp{@var{nota}-@var{dígito}}.
 
 
 @node Notas ocultas
