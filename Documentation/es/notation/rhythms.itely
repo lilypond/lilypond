@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7404fd9d0d16a12b5f065268f5a6196024496aca
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -196,26 +196,38 @@ garrapatea (128) hasta el de máxima (8 redondas).
 @cindex grupos especiales
 @cindex tresillos
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
-Los grupos especiales se obtienen a partir de una expresión musical
-multiplicando todas las duraciones por una fracción:
+Los grupos especiales se obtienen a partir de una expresión
+musical con la instrucción @code{\tuplet}, multiplicando la
+rapidez de la expresión musical por una fracción:
 
 @example
-\times @var{fracción} @{ @var{música} @}
+\tuplet @var{fracción} @{ @var{música} @}
 @end example
 
 @noindent
-La duración de @code{@var{música}} se multiplica por la fracción.  El
-denominador de la fracción se imprime sobre las notas, opcionalmente
-con un corchete.  El grupo especial más común es el tresillo, en el
-que 3 notas tienen el valor de 2, por tanto las notas duran 2/3 de su
-valor escrito:
+El nomerador de la fracción se imprime encima o debajo de las
+notas, opcionalmente con un corchete.  El grupo especial más común
+es el tresillo, en el que 3@tie{}notas tienen el valor que
+normalmente tienen@tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 b b }
 c4 c \tuplet 3/2 { b4 a g }
+@end lilypond
+
+@cindex agrupación de grupes especiales
+@noindent
+Si se están escribiendo pasajes con muchos grupos de valoración
+especial, resulta fastidioso tener que escribir una instrucción
+@code{\tuplet} distinta para cada grupo.  Es posible especificar
+la duración de un conjunto de grupos directamente antes de la
+música para que así se agrupen automáticamente:
+
+@lilypond[quote,verbatim,relative=2]
+g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @end lilypond
 
 @cindex grupos de valoración especial, colocación del corchete
@@ -305,7 +317,7 @@ Las notas de adorno se pueden escribir dentro de los corchetes de
 grupo especial, @emph{excepto} cuando un pentagrama comienza por una
 nota de adorno seguida de un grupo de valoración especial.  En este
 caso concreto, se debe poner la nota de adorno antes de la instrucción
-@code{\times} para evitar errores.
+@code{\tuplet} para evitar errores.
 
 @cindex indicaciones de tempo dentro de corchetes de grupo especial
 
@@ -1643,8 +1655,8 @@ ocurrir algunos errores extraños.
 @funindex timeSignatureFraction
 @funindex \scaleDurations
 @funindex scaleDurations
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Está contemplada la notación polimétrica, ya sea explícitamente o
 mediante la modificación manual de la indicación visible del compás y/o el
@@ -2009,7 +2021,7 @@ c16 c8
 
 @warning{Si se usan barras para indicar los melismas de las canciones,
 entonces se debe desactivar el barrado automático con
-@code{\autoBeamOff} e indicar las barras manualmente.
+@code{@bs{}autoBeamOff} e indicar las barras manualmente.
 La utilización de @code{@bs{}partcombine} con
 @code{@bs{}autoBeamOff} puede producir resultados no deseados.  Véanse
 los fragmentos de código para mayor información.}
@@ -2096,56 +2108,56 @@ cambiar como se explica en @ref{Indicación de compás}.
 
 Si hay definida una regla de @code{beamExceptions} para el compás
 en curso, se usa dicha regla para determinar la colocación de las
-barras.  Si no está definida ninguna regla de
+barras; se ignoran los valores de @code{baseMoment} y
+@code{beatStructure}.
+
+Si no está definida ninguna regla de
 @code{beamExceptions} para el tipo de compás en curso, la
-colocación de las barras está determinada por los ajustes de
+colocación de las barras está determinada por los valores de
 @code{baseMoment} y @code{beatStructure}.
+
+@subsubsubheading Barrado basado en @code{baseMoment} y @code{beatStructure}
 
 De forma predeterminada, las reglas de @code{beamExceptions} están
 definidas para los compases más comunes, y así las reglas de
-@code{beamException} se deben desactivar si pretendemos que el barrado
-automático esté basado en @code{baseMoment} y @code{beatStructure}.
-Las reglas de @code{beamExceptions} se desactivan mediante
+@code{beamExceptions} se deben desactivar si pretendemos que el
+barrado automático esté basado en @code{baseMoment} y
+@code{beatStructure}.  Las reglas de @code{beamExceptions} se
+desactivan mediante
 
 @example
 \set Timing.beamExceptions = #'()
 @end example
 
-
-@subsubsubheading Barrado basado en @code{baseMoment} y @code{beatStructure}
-
-En la mayor parte de los casos, las barras automáticas terminan al
-final de un pulso.  Los puntos finales de las barras vienen
-determinados por las propiedades de contexto @code{baseMoment} y
-@code{beatStructure}.  @code{beatStructure} es una lista de Scheme que
-define la longitud de cada pulso dentro del compás en unidades de
-@code{baseMoment}.  De forma predeterminada, @code{baseMoment} es una
-unidad más que el denominador del compás.  De forma predeterminada
-también, cada unidad de longitud @code{baseMoment} es un único pulso.
+Cuando el valor de @code{beamExceptions} se ha fijado a
+@code{#'()}, ya sea debido a un ajuste explícito o a causa de que
+no hay ninguna regla de @code{beamExceptions} definida
+internamente para el compás actual, los puntos finales de las
+barras están en los pulsos según viene determinado por las
+propiedades de contexto @code{baseMoment} y @code{beatStructure}.
+@code{beatStructure} es una lista de Scheme que define la longitud
+de cada pulso dentro del compás en unidades de @code{baseMoment}.
+De forma predeterminada, @code{baseMoment} es una unidad más que
+el denominador del compás.  De forma predeterminada también, cada
+unidad de longitud @code{baseMoment} es un único pulso.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c16^"default" c c c c |
+% beamExceptions are unlikely to be defined for 5/16 time,
+% but let's disable them anyway to be sure
+\set Timing.beamExceptions = #'()
 \set Timing.beatStructure = #'(2 3)
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
 @end lilypond
 
-Si se está utilizando una indicación de compás común, @emph{se debe}
-desactivar @code{beamExceptions} para habilitar el funcionamiento de
-@code{beatStructure}.  Siempre se puede incluir la instrucción
-@code{\set Timing.beamExceptions = #'()} si el barrado está
-determinado por @code{beatStructure}.
-
 @lilypond[quote,relative=2,verbatim]
 \time 4/4
 a8^"default" a a a a a a a
-
-\set Timing.baseMoment = #(ly:make-moment 1/4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"no change" a a a a a a a
-
+% Disable beamExceptions because they are definitely
+% defined for 4/4 time
 \set Timing.beamExceptions = #'()
 \set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
@@ -2159,6 +2171,7 @@ más bajo, se aplican los ajustes del contexto circundante.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
+  % No need to disable beamExceptions as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2202,6 +2215,7 @@ el nuevo valor de @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
+% No need to disable beamExceptions as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
@@ -2315,7 +2329,7 @@ las corcheas en 3/4 mediante una barra en cada parte, reinicie
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a8} |
-% This will beam (1 1 1) due to beatLength
+% This will beam (1 1 1) due to default baseMoment and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a8}
 @end lilypond

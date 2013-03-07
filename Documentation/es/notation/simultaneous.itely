@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1084,7 +1084,7 @@ nombre para aplicarle una letra, el combinador de partes
 deja de funcionar.
 
 Las funciones @code{\partcombine...} no se pueden escribir dentro
-de los bloques @code{\times} ni @code{\relative}.
+de los bloques @code{\tuplet} ni @code{\relative}.
 
 Si @code{printPartCombineTexts} está establecido y las dos voces
 tocan y terminan las mismas notas en el mismo compás,

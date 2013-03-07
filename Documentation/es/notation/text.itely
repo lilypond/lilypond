@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: fea0441e6d856d653aebcdb8d293e45bdec7844c
+    Translation of GIT committish: a2431d97866b1042f133ca76dbcb1f70f89bf360
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1204,11 +1204,7 @@ marcado:
 
 @lilypond[quote,verbatim,relative=1]
 g1 bes
-ees-\markup {
-  \finger 4
-  \tied-lyric #"~"
-  \finger 1
-}
+ees\finger \markup \tied-lyric #"4~1"
 fis_\markup { \dynamic rf }
 bes^\markup {
   \beam #8 #0.1 #0.5
@@ -1571,7 +1567,7 @@ sobre las fuentes tipográficas, consulte @ref{Explicación de las fuentes tipog
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-                           (/ (* staff-height pt) 2)))
+                          (/ staff-height pt 20)))
 }
 
 \relative c'{
