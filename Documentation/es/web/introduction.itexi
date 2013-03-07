@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: aaaa4778b2147f4a67164f09c04fcd4b0fb313f9
+    Translation of GIT committish: 1b15a2096770f0393c799097afa4a2dcf28ed213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1256,10 +1256,16 @@ del editor, utilizando las extensiones que están disponibles en:
 @itemize
 
 @item
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} trata de
+convertir un archivo @code{.bww} o @code{.bmw} a LilyPond.  Aunque
+no todos los ornamentos se convierten adecuadamente (lo que es
+cierto especialmente con piobaireachd), el programa imprime una
+lista de ellos.
+
+@item
 @uref{http://www.canorus.org,Canorus}, un editor de partituras,
-también puede exportar a LilyPond,
-pero aún es un programa en fase beta, se agradecen las pruebas por
-parte de los usuarios.
+también puede exportar a LilyPond, pero aún es un programa en fase
+beta, se agradecen las pruebas por parte de los usuarios.
 
 @item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} es un programa
@@ -1287,9 +1293,8 @@ contempla de forma experimental la exportación a LilyPond.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY}
-es un programa en C# que convierte una canción de
-@c @uref{http://www.noteworthysoftware.com/, NoteWorthy}
-NoteWorthy composer en LilyPond.
+es un programa en C# que convierte una canción de NoteWorthy
+Composer en LilyPond.
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
@@ -1325,13 +1330,15 @@ a construir fragmentos complejos de notación de LilyPond
 de una forma iterativa e incremental.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, una
-biblioteca de LISP para generar notación musical a partir
-de entornos de software musical.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic)
+es una herramienta de notación musical para compositores de música
+por ordenador.  Está escrito en el lenguaje Lisp, y se ha probado
+con varios intérpretes.  También está disponible una versión
+trasladada al lenguaje C++.
 
 @item
-@uref{http://strasheela.sourceforge.net,Strasheela}, un entorno
-construido sobre el lenguaje de restricciones
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
+un entorno construido sobre el lenguaje de restricciones
 @uref{http://www.mozart-oz.org/, Mozart/Oz}.
 
 
@@ -1351,7 +1358,7 @@ para KDE 3.5 y como lilypond-KDE4 para KDE 4.1 solamente.
 
 @item
 @uref{http://noteedit.berlios.de,NoteEdit}, que importaba
-@uref{http://www.musicxml.com/xml.html,MusicXML}, se ha escindido en
+@uref{http://www.makemusic.com/musicxml,MusicXML}, se ha escindido en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 y @uref{http://canorus.org,Canorus}.
 

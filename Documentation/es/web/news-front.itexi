@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0faf1f5b31469c760a6ad24cc980b32e4e5275d2
+    Translation of GIT committish: fc5ab957efa72a9790dab507693946cb06e703a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,9 +18,9 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.10!  @emph{12 de enero de 2013}
+@subsubheading ¡Lanzado LilyPond 2.17.12!  @emph{8 de febrero de 2013}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.10.  Esta
+Nos complace anunciar el lanzamiento de LilyPond 2.17.12.  Esta
 versión contiene el conjunto habitual de correcciones de fallos y
 ampliación de las funcionalidades, y contiene trabajos en
 desarrollo.  Tendrá acceso a las últimas posibilidades, pero
@@ -37,19 +37,6 @@ Nos complace anunciar el lanzamiento de LilyPond 2.16.2.  Este
 lanzamiento se realiza principalmente para corregir un problema
 con lilypond-book en Windows.  Recomendamos que actualicen a esta
 versión solamente aquellos que necesiten esta funcionalidad.
-
-@newsEnd
-
-@newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.9!  @emph{15 de diciembre de 2012}
-
-Nos complace anunciar el lanzamiento de LilyPond 2.17.9.  Esta
-versión contiene el conjunto habitual de correcciones de fallos y
-ampliación de las funcionalidades, y contiene trabajos en
-desarrollo.  Tendrá acceso a las últimas posibilidades, pero
-algunas podrían estar incompletas, y podría encontrar fallos y
-finalizaciones abruptas.  Si necesita una versión estable de
-LilyPond, nuestro consejo es que utilice la versión 2.16.
 
 @newsEnd
 
