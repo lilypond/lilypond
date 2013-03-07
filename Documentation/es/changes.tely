@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 031d7e70b553ea0b8319a33063cf49dd3c683187
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,21 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Ahora los grupos de valoración especial se crean mediante la
+instrucción @code{\tuplet}, que toma una fracción
+@code{@var{t}/@var{n}} para especificar que se tocan @var{t} notas
+en el tiempo en que habitualmente se permite un número de
+@var{n}. Una sola instrucción @code{\tuplet} puede crear varios
+grupos especiales si su duración se inserta después de la
+fracción.
+@lilypond[quote,verbatim,relative=2]
+\tuplet 3/2 { c8 d e } \tuplet 3/2 { f e d } c2
+\tuplet 3/2 4 { c8 d e f e d } c2
+@end lilypond
+La instrucción @code{\times} con el orden de la fracción invertido
+@code{@var{n}/@var{t}} aún está disponible.
 
 @item
 Se introducen dos instrucciones nuevas de marcado:

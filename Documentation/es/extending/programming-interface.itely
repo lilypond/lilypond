@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: d409c67cbbdebe840220c17f796544a8a9dd193e
+    Translation of GIT committish: b24aaf5d1e10c5ea055043ce6b2c3d50d2a9c943
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -44,12 +44,17 @@ incorporar bloques de código de LilyPond y pueda ocuparse de las
 expresiones de Scheme incrustadas que comienzan por @code{$} y@w{ }@code{#}.
 
 Extrae el bloque de código de LilyPond y genera una llamada al
-@code{parser} o analizador sintáctico de LilyPond, que corre en tiempo
-de ejecución para interpretar el bloque de código de LilyPond.
-Cualquier expresión de Scheme que se halle incrustada se ejecuta en el
-entorno léxico del bloque de código de LilyPond, de manera que tenemos
-acceso a las variables locales y a los parámetros de función en el
-punto en que se encuentra escrito el bloque de código de LilyPond.
+@code{parser} o analizador sintáctico de LilyPond, que corre en
+tiempo de ejecución para interpretar el bloque de código de
+LilyPond.  Cualquier expresión de Scheme que se halle incrustada
+se ejecuta en el entorno léxico del bloque de código de LilyPond,
+de manera que tenemos acceso a las variables locales y a los
+parámetros de función en el punto en que se encuentra escrito el
+bloque de código de LilyPond.  Si @code{location} se refiere a una
+posición de entrada válida (como lo hace normalmente dentro de las
+funciones musicales o de Scheme), toda la música generada dentro
+del bloque de código tiene su @samp{origin} establecido a
+@code{location}.
 
 Un bloque de código de LilyPond puede contener cualquier cosa que
 podríamos utilizar en la parte derecha de una asignación.  Además, un
