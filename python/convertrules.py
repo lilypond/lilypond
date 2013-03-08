@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # (setq py-indent-offset 4)
 
 
@@ -3520,12 +3521,30 @@ def conv(str):
                   r"\1/\2", str)
     return str
 
-@rule((2, 17, 15), r"#(ly:set-option 'old-relative)")
+@rule((2, 17, 15), r"""#(ly:set-option 'old-relative)
+\relative -> \relative c'""")
 def conv(str):
     if re.search (r"[#$]\(ly:set-option\s+'old-relative", str):
         stderr_write (NOT_SMART % "#(ly:set-option 'old-relative)")
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ();
+    # If the file contains a language switch to a language where the
+    # name of c is not "c", we can't reliably know which parts of the
+    # file will need "c" and which need "do".
+    m = re.search (r'\\language\s(?!\s*#?"(?:nederlands|deutsch|english|norsk|suomi|svenska))"', str)
+    if m:
+        # Heuristic: if there is a non-commented { before the language
+        # selection, we can't be sure.
+        # Also if there is any selection of a non-do language.
+        if (re.search ("^[^%\n]*\\{", m.string[:m.start()], re.M)
+            or re.search ('\\language\s(?!\s*#?"(?:catalan|espanol|español|italiano|français|portugues|vlaams))"', str)):
+            do = "$(ly:make-pitch 0 0)"
+        else:
+            do = "do'"
+    else:
+        do = "c'"
+    str = re.sub (r"(\\relative)(\s+(\{|[\\<]))",
+                  r"\1 " + do + r"\2", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

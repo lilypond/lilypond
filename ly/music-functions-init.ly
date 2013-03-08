@@ -1024,8 +1024,8 @@ usually contains spacers or multi-measure rests.")
 
 relative =
 #(define-music-function (parser location pitch music)
-   ((ly:pitch? (ly:make-pitch 0 0 0)) ly:music?)
-   (_i "Make @var{music} relative to @var{pitch} (default @code{c'}).")
+   (ly:pitch? ly:music?)
+   (_i "Make @var{music} relative to @var{pitch}.")
    (ly:make-music-relative! music pitch)
    (make-music 'RelativeOctaveMusic
 	       'element music))
