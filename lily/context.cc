@@ -86,6 +86,7 @@ Context::Context ()
   implementation_ = 0;
   properties_scm_ = SCM_EOL;
   accepts_list_ = SCM_EOL;
+  default_child_ = SCM_EOL;
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
   definition_mods_ = SCM_EOL;
@@ -401,9 +402,7 @@ Context::create_context (Context_def *cdef,
 SCM
 Context::default_child_context_name () const
 {
-  return scm_is_pair (accepts_list_)
-         ? scm_car (accepts_list_)
-         : SCM_EOL;
+  return default_child_;
 }
 
 bool
@@ -492,10 +491,9 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
 bool
 Context::is_alias (SCM sym) const
 {
-  if (sym == ly_symbol2scm ("Bottom")
-      && !scm_is_pair (accepts_list_))
-    return true;
-  if (sym == unsmob_context_def (definition_)->get_context_name ())
+  if (scm_is_eq (sym, ly_symbol2scm ("Bottom")))
+    return is_bottom_context ();
+  if (scm_is_eq (sym, context_name_symbol ()))
     return true;
 
   return scm_c_memq (sym, aliases_) != SCM_BOOL_F;
@@ -687,6 +685,7 @@ Context::mark_smob (SCM sm)
   scm_gc_mark (me->definition_mods_);
   scm_gc_mark (me->properties_scm_);
   scm_gc_mark (me->accepts_list_);
+  scm_gc_mark (me->default_child_);
 
   if (me->implementation_)
     scm_gc_mark (me->implementation_->self_scm ());

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2013 Aleksandr Andreev <aleksandr.andreev@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,29 +17,16 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DIMENSION_CACHE_HH
-#define DIMENSION_CACHE_HH
+#ifndef KIEVAN_LIGATURE_HH
+#define KIEVAN_LIGATURE_HH
 
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
-/*
-  XY offset/refpoint/extent structure.
-*/
-class Dimension_cache
+struct Kievan_ligature
 {
-  Interval *extent_;
-  Real *offset_;
-  Grob *parent_;
-  void init ();
-  void clear ();
-
-  friend class Grob;
-
-  Dimension_cache (Dimension_cache const &);
-  Dimension_cache & operator = (Dimension_cache const &d);
-  ~Dimension_cache ();
-  Dimension_cache ();
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_GROB_INTERFACE ();
 };
 
-#endif /* DIMENSION_CACHE_HH */
-
+#endif /* KIEVAN_LIGATURE_HH */

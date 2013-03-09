@@ -32,7 +32,7 @@ Engraver_dispatch_list::apply (Grob_info gi)
       if (e.engraver_ == origin)
         continue;
 
-      (*e.function_) (e.engraver_, gi);
+      (e.engraver_->*e.function_) (gi);
     }
 }
 

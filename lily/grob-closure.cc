@@ -1,5 +1,6 @@
 #include "grob.hh"
 #include "simple-closure.hh"
+#include "unpure-pure-container.hh"
 
 SCM
 axis_offset_symbol (Axis a)
@@ -38,7 +39,7 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
       return;
     }
 
-  if (ly_is_procedure (data))
+  if (ly_is_procedure (data) || is_unpure_pure_container (data))
     data = ly_make_simple_closure (scm_list_1 (data));
   else if (is_simple_closure (data))
     data = simple_closure_expression (data);
@@ -66,7 +67,7 @@ chain_callback (Grob *g, SCM proc, SCM sym)
 {
   SCM data = g->get_property_data (sym);
 
-  if (ly_is_procedure (data))
+  if (ly_is_procedure (data) || is_unpure_pure_container (data))
     data = ly_make_simple_closure (scm_list_1 (data));
   else if (is_simple_closure (data))
     data = simple_closure_expression (data);

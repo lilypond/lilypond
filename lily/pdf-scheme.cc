@@ -36,10 +36,25 @@ LY_DEFINE (ly_encode_string_for_pdf, "ly:encode-string-for-pdf",
   char const *charset = "UTF-8"; // Input is ALWAYS UTF-8!
   gsize bytes_written = 0;
 
+#if 0
+
   /* First, try to convert to ISO-8859-1 (no encodings required). This will
    * fail, if the string contains accented characters, so we do not check
    * for errors. */
   g = g_convert (p, -1, "ISO-8859-1", charset, 0, &bytes_written, 0);
+
+#else
+
+  /* In contrast to the above comment, we do _not_ try full ISO-8859-1
+   * since a number of Ghostscript versions fail to properly convert
+   * this into PDF.  UTF-16BE, in contrast, works better with recent
+   * versions of Ghostscript.
+   */
+
+  g = g_convert (p, -1, "ASCII", charset, 0, &bytes_written, 0);
+
+#endif
+
   /* If that fails, we have to resolve to full UTF-16BE */
   if (!g)
     {

@@ -932,3 +932,12 @@ Skyline::get_height (SCM skyline_scm, SCM x_scm)
   Real x = robust_scm2double (x_scm, 0.0);
   return scm_from_double (Skyline::unsmob (skyline_scm)->height (x));
 }
+
+LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
+           1, 0, 0, (SCM sky),
+           "Return whether @var{sky} is empty.")
+{
+  Skyline *s = Skyline::unsmob (sky);
+  LY_ASSERT_SMOB (Skyline, sky, 1);
+  return scm_from_bool (s->is_empty ());
+}

@@ -18,6 +18,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "simple-closure.hh"
+#include "unpure-pure-container.hh"
 
 #include "grob.hh"
 
@@ -64,27 +65,34 @@ evaluate_with_simple_closure (SCM delayed_argument,
   if (is_simple_closure (expr))
     {
       SCM inside = simple_closure_expression (expr);
+      SCM proc = is_unpure_pure_container (scm_car (inside))
+               ? (pure ? scm_car (inside) : unpure_pure_container_unpure_part (scm_car (inside)))
+               : scm_car (inside);
       SCM args = scm_cons (delayed_argument,
                            evaluate_args (delayed_argument, scm_cdr (inside),
                                           pure, start, end));
       if (scm_cdr (args) == SCM_UNSPECIFIED)
         return SCM_UNSPECIFIED;
       if (pure)
-        return call_pure_function (scm_car (inside), args, start, end);
-      return scm_apply_0 (scm_car (inside), args);
+        return call_pure_function (proc, args, start, end);
+      return scm_apply_0 (proc, args);
     }
   else if (!scm_is_pair (expr))
     return expr;
   else if (scm_car (expr) == ly_symbol2scm ("quote"))
     return scm_cadr (expr);
-  else if (ly_is_procedure (scm_car (expr)))
+  else if (is_unpure_pure_container (scm_car (expr))
+           || ly_is_procedure (scm_car (expr)))
     {
+      SCM proc = is_unpure_pure_container (scm_car (expr))
+               ? (pure ? scm_car (expr) : unpure_pure_container_unpure_part (scm_car (expr)))
+               : scm_car (expr);
       SCM args = evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end);
       if (args == SCM_UNSPECIFIED)
         return SCM_UNSPECIFIED;
       if (pure)
-        return call_pure_function (scm_car (expr), args, start, end);
-      return scm_apply_0 (scm_car (expr), args);
+        return call_pure_function (proc, args, start, end);
+      return scm_apply_0 (proc, args);
     }
   else
     // ugh. deviation from standard. Should print error?

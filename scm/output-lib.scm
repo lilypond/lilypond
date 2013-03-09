@@ -58,6 +58,54 @@
 
     (ly:text-interface::interpret-markup layout props text)))
 
+(define-public (grob::unpure-Y-extent-from-stencil pure-function)
+  "The unpure height will come from a stencil whereas the pure
+   height will come from @code{pure-function}."
+  (ly:make-unpure-pure-container ly:grob::stencil-height pure-function))
+
+(define-public grob::unpure-horizontal-skylines-from-stencil
+  (ly:make-unpure-pure-container
+    ly:grob::horizontal-skylines-from-stencil
+    ly:grob::pure-simple-horizontal-skylines-from-extents))
+
+(define-public grob::always-horizontal-skylines-from-stencil
+  (ly:make-unpure-pure-container
+    ly:grob::horizontal-skylines-from-stencil))
+
+(define-public grob::unpure-vertical-skylines-from-stencil
+  (ly:make-unpure-pure-container
+    ly:grob::vertical-skylines-from-stencil
+    ly:grob::pure-simple-vertical-skylines-from-extents))
+
+(define-public grob::always-vertical-skylines-from-stencil
+  (ly:make-unpure-pure-container
+    ly:grob::vertical-skylines-from-stencil))
+
+(define-public grob::always-vertical-skylines-from-element-stencils
+  (ly:make-unpure-pure-container
+    ly:grob::vertical-skylines-from-element-stencils
+    ly:grob::pure-vertical-skylines-from-element-stencils))
+
+(define-public grob::always-horizontal-skylines-from-element-stencils
+  (ly:make-unpure-pure-container
+    ly:grob::horizontal-skylines-from-element-stencils
+    ly:grob::pure-horizontal-skylines-from-element-stencils))
+
+;; Sometimes, in horizontal spacing, we want grobs to block other grobs.
+;; They thus need to have a non-empty height.  We give them a point height
+;; so that, minimally, they block grobs directly to the right of them.
+;; Often this is complimented by an extra-spacing-height.
+;; We don't, however, want these grobs to factor into vertical spacing
+;; decisions, so we make their unpure height #f.
+
+;; Using this as a callback for a grob's Y-extent promises
+;; that the grob's stencil does not depend on line-spacing.
+;; We use this promise to figure the space required by Clefs
+;; and such at the note-spacing stage.
+
+(define-public grob::always-Y-extent-from-stencil
+  (ly:make-unpure-pure-container ly:grob::stencil-height))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
@@ -188,12 +236,27 @@
 ;; side-position stuff
 
 (define-public (only-if-beamed g)
-  (reduce lily-or
-          #f
-          (map (lambda (x)
-                 (ly:grob? (ly:grob-object x 'beam)))
-               (ly:grob-array->list (ly:grob-object g
-                                                    'side-support-elements)))))
+  (any (lambda (x) (ly:grob? (ly:grob-object x 'beam)))
+       (ly:grob-array->list (ly:grob-object g 'side-support-elements))))
+
+(define-public side-position-interface::y-aligned-side
+  (ly:make-unpure-pure-container
+    ly:side-position-interface::y-aligned-side
+    ly:side-position-interface::pure-y-aligned-side))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; self-alignment stuff
+
+(define-public self-alignment-interface::y-aligned-on-self
+  (ly:make-unpure-pure-container
+    ly:self-alignment-interface::y-aligned-on-self
+    ly:self-alignment-interface::pure-y-aligned-on-self))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; staff symbol
+
+(define staff-symbol-referencer::callback
+  (ly:make-unpure-pure-container ly:staff-symbol-referencer::callback))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
@@ -451,6 +514,27 @@ and duration-log @var{log}."
                               10000000))))
     (coord-operation - from-neighbors height)))
 
+;; If there are neighbors, we place the height at their midpoint
+;; to avoid protrusion of this pure height out of the vertical
+;; axis group on either side.  This will minimize the impact of the
+;; grob on pure minimum translations.
+
+;; TODO - there is a double call to axis-group-interface::pure-height
+;; here and then in the extra-spacing-height function above. Can/should this
+;; be rolled into one?
+(define-public (pure-from-neighbor-interface::pure-height grob beg end)
+  (let* ((height (ly:axis-group-interface::pure-height
+                  grob
+                  0
+                  10000000))
+         (c (interval-center height)))
+    (if (interval-empty? height) empty-interval (cons c c))))
+
+;; Minimizes the impact of the height on vertical spacing while allowing
+;; it to appear in horizontal skylines of paper columns if necessary.
+(define-public pure-from-neighbor-interface::unobtrusive-height
+  (ly:make-unpure-pure-container #f pure-from-neighbor-interface::pure-height))
+
 (define-public (pure-from-neighbor-interface::account-for-span-bar grob)
   (let* ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
          (hsb (ly:grob-property grob 'has-span-bar))
@@ -631,6 +715,11 @@ and duration-log @var{log}."
   (assoc-get (ly:grob-property grob 'alteration)
              standard-alteration-glyph-name-alist))
 
+(define-public accidental-interface::height
+  (ly:make-unpure-pure-container
+    ly:accidental-interface::height
+    ly:accidental-interface::pure-height))
+
 (define-public cancellation-glyph-name-alist
   '((0 . "accidentals.natural")))
 
@@ -768,6 +857,15 @@ and duration-log @var{log}."
       (- y-center (ly:grob-relative-coordinate me y-ref Y))))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; offset callbacks
+
+(define-public (pure-chain-offset-callback grob start end prev-offset)
+  "Sometimes, a chained offset callback is unpure and there is
+   no way to write a pure function that estimates its behavior.
+   In this case, we use a pure equivalent that will simply pass
+   the previous calculated offset value."
+  prev-offset)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -949,6 +1047,14 @@ between the two text elements."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; slurs
+
+(define-public slur::height
+  (ly:make-unpure-pure-container
+    ly:slur::height
+    ly:slur::pure-height))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scripts
 
 (define-public (script-interface::calc-x-offset grob)
@@ -1064,6 +1170,14 @@ between the two text elements."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; axis group interface
+
+(define-public axis-group-interface::height
+  (ly:make-unpure-pure-container
+    ly:axis-group-interface::height
+    ly:axis-group-interface::pure-height))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ambitus
 
 (define-public (ambitus::print grob)
@@ -1105,3 +1219,13 @@ between the two text elements."
 (define-public (laissez-vibrer::print grob)
  (ly:tie::print grob))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; volta-bracket
+
+(define-public (volta-bracket-interface::pure-height grob start end)
+  (let ((edge-height (ly:grob-property grob 'edge-height)))
+    (if (number-pair? edge-height)
+	(let ((smaller (min (car edge-height) (cdr edge-height)))
+	      (larger (max (car edge-height) (cdr edge-height))))
+	  (interval-union '(0 . 0) (cons smaller larger)))
+	'(0 . 0))))

@@ -144,27 +144,23 @@ duration (base note length and dot count), as a number of whole notes."
 
 (define-public (collect-music-aux score-handler parser music)
   (define (music-property symbol)
-    (let ((value (ly:music-property music symbol)))
-      (if (not (null? value))
-	  value
-	  #f)))
+    (ly:music-property music symbol #f))
   (cond ((music-property 'page-marker)
 	 ;; a page marker: set page break/turn permissions or label
-	 (begin
-	   (let ((label (music-property 'page-label)))
-	     (if (symbol? label)
-		 (score-handler (ly:make-page-label-marker label))))
-	   (for-each (lambda (symbol)
-		       (let ((permission (music-property symbol)))
-			 (if (symbol? permission)
-			     (score-handler
-			      (ly:make-page-permission-marker symbol
-							      (if (eqv? 'forbid permission)
-								  '()
-								  permission))))))
-		     (list 'line-break-permission 'page-break-permission
-			   'page-turn-permission))))
-	((not (music-property 'void))
+         (let ((label (music-property 'page-label)))
+           (if (symbol? label)
+               (score-handler (ly:make-page-label-marker label))))
+         (for-each (lambda (symbol)
+                     (let ((permission (music-property symbol)))
+                       (if (symbol? permission)
+                           (score-handler
+                            (ly:make-page-permission-marker symbol
+                                                            (if (eq? 'forbid permission)
+                                                                '()
+                                                                permission))))))
+                   '(line-break-permission page-break-permission
+                                           page-turn-permission)))
+        ((not (music-property 'void))
 	 ;; a regular music expression: make a score with this music
 	 ;; void music is discarded
 	 (score-handler (scorify-music music parser)))))
@@ -185,21 +181,16 @@ duration (base note length and dot count), as a number of whole notes."
 
 (define-public (scorify-music music parser)
   "Preprocess @var{music}."
-
-  (for-each (lambda (func)
-	      (set! music (func music parser)))
-	    toplevel-music-functions)
-
-  (ly:make-score music))
-
+  (ly:make-score
+   (fold (lambda (f m) (f m parser)) 
+         music
+         toplevel-music-functions)))
 
 (define (get-current-filename parser book)
   "return any suffix value for output filename allowing for settings by
 calls to bookOutputName function"
-  (let ((book-filename (paper-variable parser book 'output-filename)))
-    (if (not book-filename)
-	(ly:parser-output-name parser)
-	book-filename)))
+  (or (paper-variable parser book 'output-filename)
+      (ly:parser-output-name parser)))
 
 (define (get-current-suffix parser book)
   "return any suffix value for output filename allowing for settings by calls to
@@ -591,28 +582,27 @@ for comparisons."
   "Split LST into two lists at the first element that returns #f for
   (PRED previous_element element).  Return the two parts as a pair.
   Example: (split-at-predicate < '(1 2 3 2 1)) ==> ((1 2 3) . (2 1))"
-  (if (null? lst)
-      (list lst)
-      (let ((i (list-index (lambda (x y) (not (pred x y)))
-			   lst
-			   (cdr lst))))
-        (if i
-            (cons (take lst (1+ i)) (drop lst (1+ i)))
-            (list lst)))))
+  (let ((i (and (pair? lst)
+                (list-index (lambda (x y) (not (pred x y)))
+                            lst
+                            (cdr lst)))))
+    (if i
+        (call-with-values
+            (lambda () (split-at lst (1+ i)))
+          cons)
+        (list lst))))
 
 (define-public (split-list-by-separator lst pred)
   "Split @var{lst} at each element that satisfies @var{pred}, and return
 the parts (with the separators removed) as a list of lists.  For example,
 executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
 @samp{((a) (b c) (d))}."
-  (let loop ((result '()) (lst lst))
-    (if (and lst (not (null? lst)))
-        (loop
-          (append result
-                  (list (take-while (lambda (x) (not (pred x))) lst)))
-          (let ((tail (find-tail pred lst)))
-            (if tail (cdr tail) #f)))
-       result)))
+  (call-with-values (lambda () (break pred lst))
+    (lambda (head tail)
+      (cons head
+            (if (null? tail)
+                tail
+                (split-list-by-separator (cdr tail) pred))))))
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
@@ -705,15 +695,6 @@ right (@var{dir}=+1)."
 
 (define-public (reverse-interval iv)
   (cons (cdr iv) (car iv)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; boolean
-
-(define (lily-and a b)
-  (and a b))
-
-(define (lily-or a b)
-  (or a b))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; coordinates

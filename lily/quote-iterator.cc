@@ -237,11 +237,21 @@ Quote_iterator::process (Moment m)
       Pitch *quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*
-        The pitch that sounds like central C
+        The pitch that sounds when written central C is played.
       */
+      Pitch temp_pitch;
       Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
         me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+      else
+        {
+          // We are not going to win a beauty contest with this one,
+          // but it is slated for replacement and touches little code.
+          // quoted-transposition currently has a different sign
+          // convention than instrumentTransposition
+          temp_pitch = me_pitch->negated ();
+          me_pitch = &temp_pitch;
+        }
       SCM cid = get_music ()->get_property ("quoted-context-id");
       bool is_cue = scm_is_string (cid) && (ly_scm2string (cid) == "cue");
 
@@ -263,7 +273,7 @@ Quote_iterator::process (Moment m)
                   if (me_pitch)
                     mp = *me_pitch;
 
-                  Pitch diff = pitch_interval (qp, mp);
+                  Pitch diff = pitch_interval (mp, qp);
                   ev = ev->clone ();
                   ev->make_transposable ();
 

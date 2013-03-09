@@ -195,8 +195,10 @@ a piece in mensural style.
 @unnumberedsubsubsec Bottom-level contexts - voices
 
 Voice-level contexts initialise certain properties and start
-appropriate engravers.  Being bottom-level contexts, they cannot
-contain other contexts.
+appropriate engravers.  A bottom-level context is one without
+@code{defaultchild}.  While it is possible to let it
+accept/@/contain subcontexts, they can only be created and entered
+explicitly.
 
 @strong{@emph{Voice}}
 

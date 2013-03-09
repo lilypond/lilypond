@@ -258,6 +258,9 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
           && !has_interface (g))
         continue;
 
+      if (!g->is_live ())
+        continue;
+
       bool outside_staff = scm_is_number (g->get_property ("outside-staff-priority"));
       Real padding = robust_scm2double (g->get_property ("outside-staff-padding"), get_default_outside_staff_padding ());
 
@@ -493,20 +496,20 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, string grob_s
   extract_grob_set (me, grob_set_name.c_str (), elts);
 
   vector<Grob *> relevant_grobs;
-  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); i++)
     {
-      if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-        relevant_grobs.push_back (elts[i]);
-
-      if (Item *it = dynamic_cast<Item *> (elts[i]))
+      if (elts[i] && elts[i]->is_live ())
         {
-          for (LEFT_and_RIGHT (d))
+          relevant_grobs.push_back (elts[i]);
+          if (Item *it = dynamic_cast<Item *> (elts[i]))
             {
-              Item *piece = it->find_prebroken_piece (d);
-              if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
-                relevant_grobs.push_back (piece);
+              for (LEFT_and_RIGHT (d))
+                {
+                  Item *piece = it->find_prebroken_piece (d);
+                  if (piece && piece->is_live ())
+                    relevant_grobs.push_back (piece);
+                }
             }
         }
     }
@@ -573,7 +576,7 @@ Axis_group_interface::pure_group_height (Grob *me, int start, int end)
       programming_error ("no pure Y common refpoint");
       return Interval ();
     }
-  Real my_coord = me->relative_coordinate (common, Y_AXIS);
+  Real my_coord = me->pure_relative_y_coordinate (common, start, end);
   Interval r (relative_pure_height (me, start, end));
 
   return r - my_coord;

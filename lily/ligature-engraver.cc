@@ -44,9 +44,14 @@
  * produce a single connected graphical object of fixed width,
  * consisting of noteheads and other primitives.  Space may be
  * inserted only after each ligature, if necessary, but in no case
- * between the primitives of the ligature.  Accidentals have to be put
+ * between the primitives of the ligature. The same approach is
+ * used for Kievan notation ligatures, or, rather melismas.
+ * Though these are not single connected objects, they behave much
+ * in the same way and have a fixed, small amount of space between
+ * noteheads. Except in Kievan "ligatures", accidentals have to be put
  * to the left of the ligature, and not to the left of individual
- * noteheads.  Class Coherent_ligature_engraver is the common
+ * noteheads. In Kievan ligatures, the B-flat may be part of the
+ * ligature itself. Class Coherent_ligature_engraver is the common
  * superclass for all of these engravers.
  *
  * The second category is for engravers that are relaxed in the sense

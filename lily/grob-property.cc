@@ -181,6 +181,7 @@ Grob::internal_get_property (SCM sym) const
 
   if (is_unpure_pure_container (val))
     val = unpure_pure_container_unpure_part (val);
+
   if (ly_is_procedure (val)
       || is_simple_closure (val))
     {
@@ -321,9 +322,35 @@ Grob::internal_has_interface (SCM k)
 SCM
 call_pure_function (SCM unpure, SCM args, int start, int end)
 {
-  SCM scm_call_pure_function = ly_lily_module_constant ("call-pure-function");
+  if (is_unpure_pure_container (unpure))
+    {
+      SCM pure = unpure_pure_container_pure_part (unpure);
 
-  return scm_apply_0 (scm_call_pure_function,
-                      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
+      if (is_simple_closure (pure))
+        {
+          SCM expr = simple_closure_expression (pure);
+          return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);
+        }
+
+      if (ly_is_procedure (pure))
+        return scm_apply_0 (pure,
+                            scm_append (scm_list_2 (scm_list_3 (scm_car (args),
+                                                                scm_from_int (start),
+                                                                scm_from_int (end)),
+                                                    scm_cdr (args))));
+
+      return pure;
+    }
+
+  if (is_simple_closure (unpure))
+    {
+      SCM expr = simple_closure_expression (unpure);
+      return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);
+    }
+
+  if (!ly_is_procedure (unpure))
+    return unpure;
+
+  return SCM_BOOL_F;
 }
 

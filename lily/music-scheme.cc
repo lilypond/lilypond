@@ -114,18 +114,30 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
 
 LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
            1, 0, 0, (SCM m),
-           "Copy @var{m} and all sub expressions of@tie{}@var{m}.")
+           "Copy @var{m} and all sub expressions of@tie{}@var{m}."
+           " @var{m} may be an arbitrary type; cons cells and music"
+           " are copied recursively.")
 {
-  SCM copy = m;
   if (unsmob_music (m))
+      return unsmob_music (m)->clone ()->unprotect ();
+  if (scm_is_pair (m))
     {
-      Music *mcopy = unsmob_music (m)->clone ();
-      copy = mcopy->unprotect ();
+      SCM copy = SCM_EOL;
+      do
+        {
+          copy = scm_cons (ly_music_deep_copy (scm_car (m)), copy);
+          m = scm_cdr (m);
+        }
+      while (scm_is_pair (m));
+      // Oh, come on, GUILE.  Why do you require the second argument
+      // of scm_reverse_x to be a proper list?  That makes no sense.
+      // return scm_reverse_x (copy, ly_music_deep_copy (m));
+      SCM last_cons = copy;
+      copy = scm_reverse_x (copy, SCM_EOL);
+      scm_set_cdr_x (last_cons, ly_music_deep_copy (m));
+      return copy;
     }
-  else if (scm_is_pair (m))
-    copy = scm_cons (ly_music_deep_copy (scm_car (m)),
-                     ly_music_deep_copy (scm_cdr (m)));
-  return copy;
+  return m;
 }
 
 LY_DEFINE (ly_music_transpose, "ly:music-transpose",

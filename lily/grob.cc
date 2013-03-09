@@ -36,6 +36,7 @@
 #include "stencil.hh"
 #include "stream-event.hh"
 #include "system.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
@@ -79,21 +80,30 @@ Grob::Grob (SCM basicprops)
   if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
   if (get_property_data ("Y-extent") == SCM_EOL)
-    set_property ("Y-extent", Grob::stencil_height_proc);
+    set_property ("Y-extent",
+                  ly_make_unpure_pure_container (Grob::stencil_height_proc,
+                                                 Grob::pure_stencil_height_proc));
   if (get_property_data ("vertical-skylines") == SCM_EOL)
-    set_property ("vertical-skylines", Grob::simple_vertical_skylines_from_extents_proc);
+    set_property ("vertical-skylines",
+                  ly_make_unpure_pure_container (Grob::simple_vertical_skylines_from_extents_proc,
+                                                 Grob::pure_simple_vertical_skylines_from_extents_proc));
   if (get_property_data ("horizontal-skylines") == SCM_EOL)
-    set_property ("horizontal-skylines", Grob::simple_horizontal_skylines_from_extents_proc);
+    set_property ("horizontal-skylines",
+                  ly_make_unpure_pure_container (Grob::simple_horizontal_skylines_from_extents_proc,
+                                                 Grob::pure_simple_horizontal_skylines_from_extents_proc));
 }
 
 Grob::Grob (Grob const &s)
-  : dim_cache_ (s.dim_cache_)
 {
   original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
+
+  for (Axis a = X_AXIS; a < NO_AXES; incr (a))
+      dim_cache_ [a] = s.dim_cache_ [a];
+
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
 
@@ -485,10 +495,7 @@ Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
   SCM iv_scm = get_pure_property ("Y-extent", start, end);
-  // TODO: Why is this Interval (0,0)
-  // Shouldn't it just be an empty interval?
-  // 0,0 puts an arbitrary point at 0,0 which will influence spacing
-  Interval iv = robust_scm2interval (iv_scm, Interval (0, 0));
+  Interval iv = robust_scm2interval (iv_scm, Interval ());
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
@@ -852,6 +859,18 @@ Grob::stencil_height (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   return grob_stencil_extent (me, Y_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, 3);
+SCM
+Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
+{
+  Grob *me = unsmob_grob (smob);
+  if (unsmob_stencil (me->get_property_data ("stencil")))
+    return grob_stencil_extent (me, Y_AXIS);
+
+  return ly_interval2scm (Interval ());
+
 }
 
 MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);

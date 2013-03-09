@@ -173,6 +173,9 @@ when a spanner is broken at a line break.")
 ;;
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
+     (chord-dots ,boolean? "If set, remove dots which the
+@code{DotColumn} algorithm would vertically position too far away from
+note heads.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the

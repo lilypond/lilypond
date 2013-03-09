@@ -1088,9 +1088,8 @@ Grob::horizontal_skylines_from_stencil (SCM smob)
 }
 
 SCM
-Grob::internal_skylines_from_element_stencils (SCM smob, Axis a)
+Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end)
 {
-  Grob *me = unsmob_grob (smob);
 
   extract_grob_set (me, "elements", elts);
   vector<Real> x_pos;
@@ -1100,14 +1099,15 @@ Grob::internal_skylines_from_element_stencils (SCM smob, Axis a)
   for (vsize i = 0; i < elts.size (); i++)
     {
       x_pos.push_back (elts[i]->relative_coordinate (x_common, X_AXIS));
-      y_pos.push_back (elts[i]->relative_coordinate (y_common, Y_AXIS));
+      y_pos.push_back (elts[i]->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end));
     }
   Real my_x = me->relative_coordinate (x_common, X_AXIS);
-  Real my_y = me->relative_coordinate (y_common, Y_AXIS);
+  Real my_y = me->maybe_pure_coordinate (y_common, Y_AXIS, pure, beg, end);
+
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = Skyline_pair::unsmob (elts[i]->get_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines"));
+      Skyline_pair *skyp = Skyline_pair::unsmob (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
       if (skyp)
         {
           /*
@@ -1141,12 +1141,34 @@ MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_element_stencils, 1);
 SCM
 Grob::vertical_skylines_from_element_stencils (SCM smob)
 {
-  return internal_skylines_from_element_stencils (smob, X_AXIS);
+  Grob *me = unsmob_grob (smob);
+  return internal_skylines_from_element_stencils (me, X_AXIS, false, 0, INT_MAX);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils, 1);
 SCM
 Grob::horizontal_skylines_from_element_stencils (SCM smob)
 {
-  return internal_skylines_from_element_stencils (smob, Y_AXIS);
+  Grob *me = unsmob_grob (smob);
+  return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0, INT_MAX);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils, 3);
+SCM
+Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+{
+  Grob *me = unsmob_grob (smob);
+  int beg = robust_scm2int (beg_scm, 0);
+  int end = robust_scm2int (end_scm, 0);
+  return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils, 3);
+SCM
+Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
+{
+  Grob *me = unsmob_grob (smob);
+  int beg = robust_scm2int (beg_scm, 0);
+  int end = robust_scm2int (end_scm, 0);
+  return internal_skylines_from_element_stencils (me, Y_AXIS, true, beg, end);
 }

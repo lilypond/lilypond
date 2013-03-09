@@ -355,8 +355,23 @@ SCM
 ly_deep_copy (SCM src)
 {
   if (scm_is_pair (src))
-    return scm_cons (ly_deep_copy (scm_car (src)), ly_deep_copy (scm_cdr (src)));
-  else if (scm_is_vector (src))
+    {
+      SCM res = SCM_EOL;
+      do
+        {
+          res = scm_cons (ly_deep_copy (scm_car (src)), res);
+          src = scm_cdr (src);
+        }
+      while (scm_is_pair (src));
+      // Oh, come on, GUILE.  Why do you require the second argument
+      // of scm_reverse_x to be a proper list?  That makes no sense.
+      // return scm_reverse_x (res, ly_deep_copy (src));
+      SCM last_cons = res;
+      res = scm_reverse_x (res, SCM_EOL);
+      scm_set_cdr_x (last_cons, ly_deep_copy (src));
+      return res;
+    }
+  if (scm_is_vector (src))
     {
       int len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
@@ -365,6 +380,7 @@ ly_deep_copy (SCM src)
           SCM si = scm_from_int (i);
           scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
         }
+      return nv;
     }
   return src;
 }
@@ -394,6 +410,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
+  // If undefined, some internal function caused it...should never happen.
+  assert (val != SCM_UNDEFINED);
   if (!scm_is_symbol (sym))
     return false;
 

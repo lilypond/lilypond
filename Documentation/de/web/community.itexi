@@ -301,33 +301,37 @@ Betroffen einbezieht.
 @divClass{column-center-top}
 @subheading Was sind @qq{Minimalbeispiele}?
 
-Ein Minimalbeispiel ist ein Beispiel, von dem @strong{nichts} mehr entfernt
-werden kann.
+Ein Minimalbeispiel ist eine vollständige Quelldatei, die
+@strong{nicht} mehr weiter reduziert werden kann, ohne dass das
+illustrierte Problem verschwindet.  Es sollten keine Warnungen und
+Fehlermeldungen produziert werden, die nicht mit dem Problem im
+Zusammenhang stehen.
+
 @divEnd
 
 @divClass{column-left-bottom}
-@subheading Warum sollte ich so etwas tun?
+@subheading Warum sollte ich Minimalbeispiele erstellen?
 
 @divClass{keep-bullets}
 @itemize
 
 @item
 Je einfacher ein Beispiel ist, um so schneller können mögliche
-Hilfeleistende es verstehen und Ihnen helfen.
+Hilfeleistende das Beispiel untersuchen, das auftretende Problem
+einkreisen und Ihnen helfen.
 
 @item
-Ein kleines Beispiel zeigt, dass Sie sich zuerst Mühe gegeben
-haben, das Problem selber zu lösen.  Wenn Leute große Abschnitte
-an Code einschicken, sieht es so aus, dass sie sich auch nicht
-interessieren, ob ihnen geholfen wird oder nicht.
+Die effiziente Analyse eines Problems erfordert ohnehin eine
+Reduktion auf das wesentliche.  Kippen Sie umfangreiches Material
+in der Liste ab, so scheint Ihnen die Lösung Ihres Problems keine
+eigene Mühe wert.
 
 @item
-Ein Minimalbeispiel zu erstellen hilft Ihnen zu verstehen,
-was vorgeht.  Viele falsche Problemberichte können vermieden werden,
-wenn man versucht, erst einmal ein Minimalbeispiel zu erstellen.
-Wenn Sie einen @qq{Bug} in Ihrem Minimalbeispiel nicht reproduzieren
-können, was das Problem wohl eher zu geringes Verständnis von
-LilyPond, nicht jedoch ein Fehler.
+Ein Minimalbeispiel zu erstellen hilft Ihnen zu verstehen, was
+vorgeht.  Viele Problemberichte erübrigen sich schon während der
+Erstellung eines Minimalbeispiels.  Ist ein @qq{Bug} mit einem
+bestimmten Minimalbeispiel nicht reproduzierbar, ist es
+wahrscheinlich, daß er andere Ursachen als vermutet hat.
 
 @end itemize
 @divEnd

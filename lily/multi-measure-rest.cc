@@ -120,7 +120,6 @@ SCM
 Multi_measure_rest::height (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Real space = 1000000; // something very large...
 

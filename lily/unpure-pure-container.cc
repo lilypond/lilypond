@@ -22,6 +22,9 @@
 #include "grob.hh"
 
 static scm_t_bits unpure_pure_container_tag;
+static scm_t_bits unpure_pure_call_tag;
+// Used for rerouting a function of (grob start end) to one of
+// (grob)
 
 bool
 is_unpure_pure_container (SCM s)
@@ -33,14 +36,21 @@ SCM
 unpure_pure_container_unpure_part (SCM smob)
 {
   LY_ASSERT_TYPE (is_unpure_pure_container, smob, 1);
-  return (SCM) SCM_CELL_WORD_1 (smob);
+  return SCM_SMOB_OBJECT (smob);
 }
 
 SCM
 unpure_pure_container_pure_part (SCM smob)
 {
   LY_ASSERT_TYPE (is_unpure_pure_container, smob, 1);
-  return (SCM) SCM_CELL_WORD_2 (smob);
+  SCM res = SCM_SMOB_OBJECT_2 (smob);
+
+  if (!SCM_UNBNDP (res))
+    return res;
+
+  SCM_NEWSMOB (res, unpure_pure_call_tag,
+               SCM_UNPACK (unpure_pure_container_unpure_part (smob)));
+  return res;
 }
 
 LY_DEFINE (ly_unpure_pure_container_p, "ly:unpure-pure-container?",
@@ -54,11 +64,13 @@ LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container",
            1, 1, 0, (SCM unpure, SCM pure),
            "Make an unpure-pure container.  @var{unpure} should be an unpure"
            " expression, and @var{pure} should be a pure expression.  If @var{pure}"
-           " is ommitted, the value of @var{unpure} will be used twice.")
+           " is omitted, the value of @var{unpure} will be used twice,"
+           " except that a callback is given two extra arguments"
+           " that are ignored for the sake of pure calculations.")
 {
   SCM z;
 
-  if (pure == SCM_UNDEFINED)
+  if (SCM_UNBNDP (pure) && !ly_is_procedure (unpure))
     pure = unpure;
 
   SCM_NEWSMOB2 (z, unpure_pure_container_tag, SCM_UNPACK (unpure), SCM_UNPACK (pure));
@@ -86,25 +98,46 @@ print_unpure_pure_container (SCM s, SCM port, scm_print_state *)
 {
   scm_puts ("#<unpure-pure-container ", port);
   scm_display (unpure_pure_container_unpure_part (s), port);
-  scm_puts (" ", port);
-  scm_display (unpure_pure_container_pure_part (s), port);
+  if (!SCM_UNBNDP (SCM_SMOB_OBJECT_2 (s)))
+    {
+      scm_puts (" ", port);
+      scm_display (unpure_pure_container_pure_part (s), port);
+    }
   scm_puts (" >", port);
   return 1;
 }
 
 SCM
-pure_mark (SCM pure)
+pure_mark (SCM smob)
 {
-  scm_gc_mark (unpure_pure_container_unpure_part (pure));
-  scm_gc_mark (unpure_pure_container_pure_part (pure));
-  return pure;
+  scm_gc_mark (SCM_SMOB_OBJECT (smob));
+  return SCM_SMOB_OBJECT_2 (smob);
 }
+
+// Function signature has two fixed arguments so that dropping two
+// will always work: if we have fewer to start with, it will trigger
+// wrong-number-of-args in a sensible location rather than making
+// drop-right barf.
+
+SCM
+apply_unpure_pure (SCM clo, SCM arg1, SCM arg2, SCM rest)
+{  
+  return scm_apply_0 (SCM_SMOB_OBJECT (clo),
+                      scm_call_2 (ly_lily_module_constant ("drop-right"),
+                                  scm_cons2 (arg1, arg2, rest),
+                                  scm_from_int (2)));
+}
+  
 
 void init_unpure_pure_container ()
 {
   unpure_pure_container_tag = scm_make_smob_type ("unpure-pure-container", 0);
   scm_set_smob_mark (unpure_pure_container_tag, pure_mark);
   scm_set_smob_print (unpure_pure_container_tag, print_unpure_pure_container);
+  unpure_pure_call_tag = scm_make_smob_type ("unpure-pure-call", 0);
+  scm_set_smob_mark (unpure_pure_call_tag, scm_markcdr);
+  scm_set_smob_apply (unpure_pure_call_tag,
+                      (SCM (*)()) apply_unpure_pure, 2, 0, 1);
 };
 
 ADD_SCM_INIT_FUNC (unpure_pure_container, init_unpure_pure_container);

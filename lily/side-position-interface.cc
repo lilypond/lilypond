@@ -46,6 +46,7 @@ using namespace std;
 #include "string-convert.hh"
 #include "system.hh"
 #include "warn.hh"
+#include "unpure-pure-container.hh"
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -184,7 +185,7 @@ Side_position_interface::calc_cross_staff (SCM smob)
 SCM
 Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end,
                                        Real *current_off)
-{//printf (" %s\n", me->name ().c_str ());
+{
   Direction dir = get_grob_direction (me);
 
   set<Grob *> support = get_support_set (me);
@@ -198,12 +199,13 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                            ax);
 
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
+  bool quantize_position = to_boolean (me->get_maybe_pure_property ("quantize-position", pure, start, end));
 
   bool include_staff
     = staff_symbol
       && a == Y_AXIS
-      && scm_is_number (me->get_property ("staff-padding"))
-      && !to_boolean (me->get_property ("quantize-position"));
+      && scm_is_number (me->get_maybe_pure_property ("staff-padding", pure, start, end))
+      && !quantize_position;
 
   if (include_staff)
     common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
@@ -250,7 +252,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   for (it = support.begin (); it != support.end (); it++)
     {
       Grob *e = *it;
-//printf ("    %s\n", e->name ().c_str ());
+
       // In the case of a stem, we will find a note head as well
       // ignoring the stem solves cyclic dependencies if the stem is
       // attached to a cross-staff beam.
@@ -286,7 +288,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                Skyline_pair copy = Skyline_pair (*sp);
                if (a == Y_AXIS
                    && Stem::has_interface (e)
-                   && to_boolean (me->get_property ("add-stem-support")))
+                   && to_boolean (me->get_maybe_pure_property ("add-stem-support", pure, start, end)))
                  copy[dir].set_minimum_height (copy[dir].max_height ());
                copy.shift (a == X_AXIS ? yc : xc);
                copy.raise (a == X_AXIS ? xc : yc);
@@ -339,12 +341,12 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     dim.set_minimum_height (dim.max_height ());
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real dist = dim.distance (my_dim, robust_scm2double (me->get_property ("horizon-padding"), 0.0));
+  Real dist = dim.distance (my_dim, robust_scm2double (me->get_maybe_pure_property ("horizon-padding", pure, start, end), 0.0));
   Real total_off = !isinf (dist) ? dir * dist : 0.0;
 
-  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0.0);
+  total_off += dir * ss * robust_scm2double (me->get_maybe_pure_property ("padding", pure, start, end), 0.0);
 
-  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
+  Real minimum_space = ss * robust_scm2double (me->get_maybe_pure_property ("minimum-space", pure, start, end), -1);
 
   if (minimum_space >= 0
       && dir
@@ -375,7 +377,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   if (staff && a == Y_AXIS)
     {
-      if (to_boolean (me->get_property ("quantize-position")))
+      if (quantize_position)
         {
           Grob *common = me->common_refpoint (staff, Y_AXIS);
           Real my_off = me->get_parent (Y_AXIS)->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
@@ -398,13 +400,13 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                 total_off += dir * 0.5 * ss;
             }
         }
-      else if (scm_is_number (me->get_property ("staff-padding")) && dir)
+      else if (scm_is_number (me->get_maybe_pure_property ("staff-padding", pure, start, end)) && dir)
         {
           Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
 
           Real staff_padding
             = Staff_symbol_referencer::staff_space (me)
-              * scm_to_double (me->get_property ("staff-padding"));
+              * scm_to_double (me->get_maybe_pure_property ("staff-padding", pure, start, end));
 
           Grob *parent = me->get_parent (Y_AXIS);
           Grob *common = me->common_refpoint (staff, Y_AXIS);
@@ -429,7 +431,7 @@ Side_position_interface::set_axis (Grob *me, Axis a)
       chain_offset_callback (me,
                              (a == X_AXIS)
                              ? x_aligned_side_proc
-                             : y_aligned_side_proc,
+                             : ly_make_unpure_pure_container (y_aligned_side_proc, pure_y_aligned_side_proc),
                              a);
     }
 }

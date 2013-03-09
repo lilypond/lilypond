@@ -33,6 +33,7 @@ protected:
   DECLARE_ACKNOWLEDGER (slur);
   TRANSLATOR_DECLARATIONS (Melody_engraver);
   void stop_translation_timestep ();
+  void process_acknowledged ();
   void process_music ();
 };
 
@@ -49,8 +50,12 @@ Melody_engraver::process_music ()
     melody_item_ = 0;
 }
 
+/*
+  Used to be in stop_translation_timestep, but grobs can't
+  be created here.
+*/
 void
-Melody_engraver::stop_translation_timestep ()
+Melody_engraver::process_acknowledged ()
 {
   if (stem_
       && !is_direction (stem_->get_property_data ("neutral-direction")))
@@ -66,6 +71,11 @@ Melody_engraver::stop_translation_timestep ()
           Melody_spanner::add_stem (melody_item_, stem_);
         }
     }
+}
+
+void
+Melody_engraver::stop_translation_timestep ()
+{
   stem_ = 0;
 }
 

@@ -25,6 +25,7 @@
 #include "paper-score.hh"
 #include "simple-closure.hh"
 #include "system.hh"
+#include "unpure-pure-container.hh"
 #include "warn.hh"              // error ()
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
@@ -450,7 +451,7 @@ LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
   Grob *gr = unsmob_grob (grob);
 
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_procedure, proc, 2);
+  SCM_ASSERT_TYPE (ly_is_procedure (proc) || is_unpure_pure_container (proc), proc, SCM_ARG2, __FUNCTION__, "procedure or unpure pure container");
   LY_ASSERT_TYPE (ly_is_symbol, sym, 3);
 
   chain_callback (gr, proc, sym);

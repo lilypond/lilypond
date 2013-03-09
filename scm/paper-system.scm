@@ -226,7 +226,7 @@
 	 (horizon-padding (and
 			   (ly:grob? grob)
 			   (ly:grob-property grob 'skyline-horizontal-padding 0)))
-	 (padding-annotation (if next-system
+	 (padding-annotation (if (skyline-pair-and-non-empty? next-system)
 				 (annotate-padding
 				   (- system-Y) system-X skyline (paper-system-extent system X)
 				   (- next-system-Y) next-system-X next-skyline (paper-system-extent next-system X)

@@ -43,7 +43,7 @@ struct Translator_method_binding
   void invoke ()
   {
     if (method_)
-      (*method_) (translator_);
+      (translator_->*method_) ();
   }
 };
 

@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.12\n"
+"Project-Id-Version: lilypond 2.17.13\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-02-08 17:02+0000\n"
+"POT-Creation-Date: 2013-02-23 16:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2041,31 +2041,31 @@ msgstr ""
 msgid "alteration not found"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:104
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:109
 msgid "cannot find start of ligature"
 msgstr ""
 
-#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:131
+#: ligature-bracket-engraver.cc:85 ligature-engraver.cc:136
 msgid "already have a ligature"
 msgstr ""
 
-#: ligature-engraver.cc:109
+#: ligature-engraver.cc:114
 msgid "no right bound"
 msgstr ""
 
-#: ligature-engraver.cc:140
+#: ligature-engraver.cc:145
 msgid "no left bound"
 msgstr ""
 
-#: ligature-engraver.cc:184
+#: ligature-engraver.cc:189
 msgid "unterminated ligature"
 msgstr ""
 
-#: ligature-engraver.cc:211
+#: ligature-engraver.cc:216
 msgid "ignoring rest: ligature may not contain rest"
 msgstr ""
 
-#: ligature-engraver.cc:212
+#: ligature-engraver.cc:217
 msgid "ligature was started here"
 msgstr ""
 
@@ -2092,16 +2092,16 @@ msgstr ""
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:246
+#: lily-lexer.cc:249
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:273
+#: lily-lexer.cc:276
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:294 lily-lexer.cc:307
+#: lily-lexer.cc:297 lily-lexer.cc:310
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2126,19 +2126,19 @@ msgstr ""
 msgid "Processing `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:208
+#: lily-parser-scheme.cc:209
 msgid ""
 "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser-scheme.cc:239
+#: lily-parser-scheme.cc:240
 msgid ""
 "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:108
+#: lily-parser.cc:107
 msgid "Parsing..."
 msgstr ""
 
@@ -2436,12 +2436,12 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr ""
 
-#: multi-measure-rest.cc:153
+#: multi-measure-rest.cc:152
 msgid ""
 "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr ""
 
-#: multi-measure-rest.cc:343
+#: multi-measure-rest.cc:342
 msgid "Using naive multi measure rest spacing."
 msgstr ""
 
@@ -3121,92 +3121,92 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:464 parser.yy:732 parser.yy:799
+#: parser.yy:466 parser.yy:734 parser.yy:801
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:628 parser.yy:1113
+#: parser.yy:630 parser.yy:1115
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:834
+#: parser.yy:836
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:850
+#: parser.yy:852
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:874
+#: parser.yy:876
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1022 parser.yy:1033
+#: parser.yy:1024 parser.yy:1035
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1038
+#: parser.yy:1040
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1049 parser.yy:2304
+#: parser.yy:1051 parser.yy:2306
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1317
+#: parser.yy:1319
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2008 parser.yy:2119 parser.yy:2132 parser.yy:2141
+#: parser.yy:2010 parser.yy:2121 parser.yy:2134 parser.yy:2143
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2099
+#: parser.yy:2101
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2160
+#: parser.yy:2162
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2253 parser.yy:2257 parser.yy:2272
+#: parser.yy:2255 parser.yy:2259 parser.yy:2274
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2413
+#: parser.yy:2415
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2509 parser.yy:2514 parser.yy:3057
+#: parser.yy:2511 parser.yy:2516 parser.yy:3059
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2629
+#: parser.yy:2631
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2724
+#: parser.yy:2726
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2796 parser.yy:2842
+#: parser.yy:2798 parser.yy:2844
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2859
+#: parser.yy:2861
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:2973
+#: parser.yy:2975
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3032
+#: parser.yy:3034
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3256
+#: parser.yy:3258
 msgid "not a markup"
 msgstr ""
 
@@ -3349,7 +3349,7 @@ msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:808
+#: bar-line.scm:802
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -3389,32 +3389,32 @@ msgstr ""
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3329
+#: define-markup-commands.scm:3420
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3540
+#: define-markup-commands.scm:3631
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:770
+#: define-music-types.scm:772
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:773
+#: define-music-types.scm:775
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:792
+#: define-music-types.scm:794
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:793
+#: define-music-types.scm:795
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
@@ -3533,37 +3533,37 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:340
+#: lily-library.scm:331
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:395
+#: lily-library.scm:386
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:411
+#: lily-library.scm:402
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:927
+#: lily-library.scm:901
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1001
+#: lily-library.scm:975
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1026
+#: lily-library.scm:1000
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1032
+#: lily-library.scm:1006
 msgid "old relative compatibility not used"
 msgstr ""
 
@@ -3584,37 +3584,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:794
+#: lily.scm:795
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:795
+#: lily.scm:796
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:857
+#: lily.scm:858
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:860
+#: lily.scm:861
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:882 lily.scm:971
+#: lily.scm:883 lily.scm:972
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:962
+#: lily.scm:963
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:981 ps-to-png.scm:66
+#: lily.scm:982 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3629,7 +3629,7 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:188
+#: ly-syntax-constructors.scm:180
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
@@ -3768,17 +3768,17 @@ msgstr ""
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
-#: parser-clef.scm:164 parser-clef.scm:215
+#: parser-clef.scm:164
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr ""
 
-#: parser-clef.scm:165 parser-clef.scm:216
+#: parser-clef.scm:165
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr ""
 
-#: parser-ly-from-scheme.scm:73
+#: parser-ly-from-scheme.scm:74
 msgid "error in #{ ... #}"
 msgstr ""
 
@@ -3797,40 +3797,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:374
+#: translation-functions.scm:368
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:377
+#: translation-functions.scm:371
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:420
+#: translation-functions.scm:414
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:435 translation-functions.scm:447
+#: translation-functions.scm:429 translation-functions.scm:441
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:438
+#: translation-functions.scm:432
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:450
+#: translation-functions.scm:444
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:473
+#: translation-functions.scm:467
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:578
+#: translation-functions.scm:572
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"

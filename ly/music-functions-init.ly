@@ -438,9 +438,7 @@ harmonics played on a fretted instrument by touching the strings at @var{fret}."
   #{
     \set harmonicDots = ##t
     \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (number->string fret))
-    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
-                                       (lambda (grob start end)
-                                               (ly:grob::stencil-height grob)))
+    \temporary \override NoteHead.Y-extent = #grob::always-Y-extent-from-stencil
     \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     #(make-harmonic
@@ -1339,6 +1337,8 @@ as a first or second voice.")
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir
+               ;; following is inverse of instrumentTransposition for
+               ;; historical reasons
 	       'quoted-transposition pitch))
 
 transposition =
@@ -1346,8 +1346,7 @@ transposition =
    (_i "Set instrument transposition")
 
    (context-spec-music
-    (make-property-set 'instrumentTransposition
-                       (ly:pitch-negate pitch))
+    (make-property-set 'instrumentTransposition pitch)
     'Staff))
 
 tuplet =

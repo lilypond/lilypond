@@ -1139,6 +1139,9 @@ accommodated for typesetting a piece in Petrucci style."
  \description "Same as @code{Voice} context, except that it is
 accommodated for typesetting a piece in Kievan style."
 
+  \remove "Ligature_bracket_engraver"
+  \consists "Kievan_ligature_engraver"
+
  %% Set glyph styles.
  \override NoteHead.style = #'kievan
  \override Stem.X-offset = #stem::kievan-offset-callback
