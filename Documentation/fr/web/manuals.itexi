@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: a81765842577dd2418fa41514f682d468a5ad483
+   Translation of GIT committish: c66c7bc1b97947e74978c20ffbf55f2c6e2c4d97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -146,7 +146,7 @@ versions.
 
 @item
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository} :
-user-created examples, hints and tips.
+collection d'exemples, trucs et astuces élaborés par des utilisateurs.
 
 @item
 @ref{Développement} :
@@ -163,15 +163,14 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 @divClass{column-center-bottom}
 @subheading Format des manuels
 
-Les manuels de LilyPond sont disponibles sous différents formats :
-HTML multifichiers, fichier monolithique HTML ou PDF.@*
+Les manuels de LilyPond sont disponibles sous différents formats : HTML
+multifichiers, fichier monolithique HTML ou PDF.@*
 Le HTML découpé en plusieurs fichiers est tout à fait adapté à une
-consultation en ligne.  Les formats HTML en fichier unique --
-certains ont une taille conséquente -- contiennent l'intégralité
-d'un manuel sur une seule page.  Les exemplaires PDF sont plutôt
-destinés au téléchargement pour consultation hors ligne.  Ces
-trois formats sont accessibles en suivant le lien @code{détail
-de@dots{}} de chacun des manuels.
+consultation en ligne. Les formats HTML en fichier unique -- certains
+ont une taille conséquente -- contiennent l'intégralité d'un manuel sur
+une seule page. Les exemplaires PDF sont plutôt destinés au
+téléchargement pour consultation hors ligne. Ces trois formats sont
+accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
 
 @divEnd
 
@@ -301,7 +300,7 @@ concepts exposés dans le manuel d'initiation.
 
 @warning{L'utilisation optimale du manuel de notation requiert une
 familiarité avec les concepts et fonctions de base exposés dans le
-manuel de notation, ainsi que les concepts musicaux exposés dans le
+manuel d'initiation, ainsi que les concepts musicaux exposés dans le
 glossaire.}
 
 @divEnd
@@ -387,7 +386,7 @@ manuel de notation est accessible par des liens dans le paragraphe
 @subsubheading Où sont la vue graphique, les menus et barres d'outils ?
 
 LilyPond demande que la musique soit écrite comme du texte.  Lisez la
-partie à propos de l'@ref{Entrée sous forme de texte}.
+partie intitulée @ref{Entrée sous forme de texte}.
 
 
 @subsubheading La documentation est si longue !  Dois-je vraiment la lire ?
@@ -400,7 +399,7 @@ rapport avec la notation musicale que vous voulez produire.
 @subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
 
 C'est vous qui voyez ; les raisons pour lesquelles vous souhaitez
-utiliser LilyPond se trouvent peut-être dans l'@ref{Introduction}.
+utiliser LilyPond se trouvent peut-être dans notre @ref{Introduction}.
 
 @divEnd
 

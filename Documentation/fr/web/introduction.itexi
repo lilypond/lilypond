@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 23108a9515e7f76b44fac0b323afb169d708bfa1
+    Translation of GIT committish: c66c7bc1b97947e74978c20ffbf55f2c6e2c4d97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -338,7 +338,7 @@ couleurs ont été ajoutés pour plus de visibilité.
 @newsItem
 @subsubheading Musique vocale
 
-LilyPond excelle dans la gravure de toutes sortes de musique vocale, du
+LilyPond excelle dans la gravure de toute sorte de musique vocale, du
 chant sacré à l'opéra.  Voici un motet médiéval qui présente quelques
 particularités.  La voix de ténor est écrite dans une métrique
 différente de celle des autres voix, mais doit tout de même se
@@ -405,7 +405,7 @@ communauté de passionnés.  Ce logiciel est distribué selon la
 @ref{FDL, Licence Libre de Documentation GNU FDL}, accordant à tous la
 liberté de le corriger, le modifier et étendre ses fonctionnalités.  La
 gravure musicale de qualité ne devrait pas vous coûter des centaines
-d'euros dépensés pour acheter une licence de logiciel !
+d'euros dépensés pour acheter une licence d'utilisation d'un logiciel !
 @divEnd
 
 
@@ -560,7 +560,7 @@ Cigna-Santi, en quatre parties :
 première},
 @uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, deuxième},
 @uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, troisième},
-@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième}.
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième partie}.
 
 @item
 Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
@@ -583,11 +583,11 @@ New Music Ensemble}.
 @item
 @emph{Anonymous Student Compliment or Complaint} a permis à
 @uref{http://www.mikesolomon.org, Mike Solomon} de gagner le 
-@uref{http://leftcoastensemble.org, Concours de composition de
-la côte Est 2011}, regroupant 172 participants de 22 nationalités.
-Parmi ses autres œuvres, nous citerons Norman (un an) pour clarinette
-solo, donnée en octobre 2010 à l'occasion du Festival de musique
-électro-acoustique (FEMF) de
+@uref{http://leftcoastensemble.org, Concours de composition de la côte Est 2011},
+regroupant 172 participants de 22 nationalités.  Parmi ses autres
+œuvres, nous citerons @emph{Norman (un an)} pour clarinette solo, donnée
+en octobre 2010 à l'occasion du Festival de musique électro-acoustique
+(FEMF) de
 @uref{http://emu.music.ufl.edu/fems_concerts.html, l'Université de Floride}.
 
 @item
@@ -1142,7 +1142,7 @@ C'est le cas, en particulier, pour :
 
 tunefl vous permet de saisir en ligne vos partitions sans avoir
 préalablement installé LilyPond sur votre oridnateur.  Vous pouvez ainsi
-tester touts les fonctionnalités du programme dans une interface web.
+tester toutes les fonctionnalités du programme dans une interface web.
 
 @divEnd
 

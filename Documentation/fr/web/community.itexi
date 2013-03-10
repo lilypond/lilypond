@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
+@c This file is part of web.texi
 @ignore
-    Translation of GIT committish: a81765842577dd2418fa41514f682d468a5ad483
+    Translation of GIT committish: c66c7bc1b97947e74978c20ffbf55f2c6e2c4d97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -926,7 +927,7 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @subheading Le Google Summer of Code
 
 Le Google Summer of Code est un programme global qui rémunère des
-étudiants durant la période estivale, pour teavailler au profit de
+étudiants durant la période estivale, pour travailler au profit de
 projets @emph{open source}.
 
 L'équipe LilyPond considère qu'il s'agit là d'une excellente opportunité
@@ -1231,7 +1232,7 @@ superflus.
 @translationof Old news
 
 @divClass{heading-center}
-@warning{Le vieilles annonces et informations de version sont rangées au
+@warning{Les vieilles annonces et informations de version sont rangées au
 @rwebnamed{Grenier,grenier}.}
 @divEnd
 
@@ -1282,8 +1283,7 @@ Liste descriptive des évolutions, par version :
 @subheading Remerciements
 
 Tous nos remerciements aux développeurs, contributeurs, chasseurs
-de bogue et à ceux qui nous ont fait parts de leurs suggestions
-pour
+de bogue et à ceux qui nous ont fait part de leurs suggestions pour
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
 @miscLink{THANKS-2.12,v2.12},
