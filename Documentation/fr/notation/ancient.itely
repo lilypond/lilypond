@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: 598fd6adddb2286a94b3ee1ede548700715abc12
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2464,6 +2464,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 * Notes kiéviennes::
 * Altérations kiéviennes::
 * Barre de mesure kiévienne::
+* Mélismes kiéviens::
 @end menu
 
 
@@ -2626,6 +2627,65 @@ d'un @code{\bar "k"}.
 @ref{Barres de mesure},
 @ref{La fonte Feta}
 
+@node Mélismes kiéviens
+@unnumberedsubsubsec Mélismes kiéviens
+@translationof Kievan melismata
+
+@cindex ligatures
+
+Les notes formant un mélisme kiévien sont habituellement rapprochées les
+unes des autres, les mélismes étant espacés les uns des autres.  Ceci
+permet au chantre d'identifier aisément les structures mélodiques d'un
+chant @emph{Znamenny}.  Les mélismes sont traites par LilyPond comme des
+ligatures dont l'espacement est géré par le
+@code{Kievan_ligature_engraver}.
+
+Le @code{Kievan_ligature_engraver} est activé par défaut pour les
+contextes @code{KievanVoice} et @code{KievanStaff}.  Pour les autres
+contextes, il s'active au sein d'un bloc @code{layout} dans lequel est
+désactivé le @code{Ligature_bracket_engraver}.
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Ligature_bracket_engraver"
+    \consists "Kievan_ligature_engraver"
+  @}
+@}
+@end example
+
+L'espacement des notes d'une ligature kiévienne se gère à l'aide de la
+propriété @code{padding} de @code{KievanLigature}.
+
+Voici comment générer des ligatures en notation kiévienne :
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Га -- врі -- и -- лу
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glossaire musicologique :
+@rglos{ligature}.
+
+Manuel de notation :
+@ref{Ligatures},
+@ref{Ligatures mensurales},
+@ref{Neumes et ligatures grégoriennes}.
+
+@knownissues
+L'espacement des ligatures n'est pas des meilleurs.
+ 
 
 @node Réédition de musique ancienne
 @subsection Réédition de musique ancienne
