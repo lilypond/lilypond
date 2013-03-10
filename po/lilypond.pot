@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.13\n"
+"Project-Id-Version: lilypond 2.17.14\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-02-23 16:12+0000\n"
+"POT-Creation-Date: 2013-03-10 16:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1694,12 +1694,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:701
+#: axis-group-interface.cc:704
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:771
+#: axis-group-interface.cc:774
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -1708,23 +1708,23 @@ msgstr ""
 msgid "barcheck failed at: %s"
 msgstr ""
 
-#: beam-engraver.cc:147
+#: beam-engraver.cc:148
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:230
+#: beam-engraver.cc:231
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:266 chord-tremolo-engraver.cc:149
+#: beam-engraver.cc:270 chord-tremolo-engraver.cc:149
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:277
+#: beam-engraver.cc:281
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:278
+#: beam-engraver.cc:282
 msgid "beam was started here"
 msgstr ""
 
@@ -1797,17 +1797,17 @@ msgstr ""
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
-#: context.cc:149
+#: context.cc:150
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr ""
 
-#: context.cc:228
+#: context.cc:229
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:427
+#: context.cc:426
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
@@ -1985,7 +1985,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:478
+#: grob.cc:488
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2074,20 +2074,20 @@ msgstr ""
 msgid "(load path: `%s')"
 msgstr ""
 
-#: lily-guile.cc:404
+#: lily-guile.cc:422
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:407
+#: lily-guile.cc:425
 msgid "perhaps a typing error?"
 msgstr ""
 
-#: lily-guile.cc:414
+#: lily-guile.cc:432
 msgid "doing assignment anyway"
 msgstr ""
 
-#: lily-guile.cc:426
+#: lily-guile.cc:444
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -2466,7 +2466,7 @@ msgid ""
 "defaulting to hairpin."
 msgstr ""
 
-#: new-dynamic-engraver.cc:233
+#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:119
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2721,7 +2721,7 @@ msgstr ""
 msgid "trying to use \\partial after the start of a piece"
 msgstr ""
 
-#: pdf-scheme.cc:50
+#: pdf-scheme.cc:65
 #, c-format
 msgid "Conversion of string `%s' to UTF-16be failed: %s"
 msgstr ""
@@ -2737,25 +2737,6 @@ msgstr ""
 #: performance.cc:82
 #, c-format
 msgid "MIDI output to `%s'..."
-msgstr ""
-
-#: phrasing-slur-engraver.cc:101 slur-engraver.cc:102
-#, c-format
-msgid "direction of %s invalid: %d"
-msgstr ""
-
-#: phrasing-slur-engraver.cc:175
-msgid "unterminated phrasing slur"
-msgstr ""
-
-#: phrasing-slur-engraver.cc:210
-msgid "cannot end phrasing slur"
-msgstr ""
-
-#. We already have an old slur, so give a warning
-#. and completely ignore the new slur.
-#: phrasing-slur-engraver.cc:230
-msgid "already have phrasing slur"
 msgstr ""
 
 #: piano-pedal-engraver.cc:279
@@ -2866,11 +2847,11 @@ msgstr ""
 msgid "rhythmic head is not part of a rhythmic column"
 msgstr ""
 
-#: rest-collision.cc:146
+#: rest-collision.cc:150
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:157 rest-collision.cc:266
+#: rest-collision.cc:161 rest-collision.cc:270
 msgid "too many colliding rests"
 msgstr ""
 
@@ -2922,21 +2903,29 @@ msgstr ""
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
-#: slur-engraver.cc:176
-msgid "unterminated slur"
-msgstr ""
-
-#: slur-engraver.cc:211
-msgid "cannot end slur"
+#: slur-proto-engraver.cc:51
+#, c-format
+msgid "direction of %s invalid: %d"
 msgstr ""
 
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-engraver.cc:231
-msgid "already have slur"
+#: slur-proto-engraver.cc:166
+#, c-format
+msgid "already have %s"
 msgstr ""
 
-#: slur.cc:430
+#: slur-proto-engraver.cc:183
+#, c-format
+msgid "%s without a cause"
+msgstr ""
+
+#: slur-proto-engraver.cc:244
+#, c-format
+msgid "cannot end %s"
+msgstr ""
+
+#: slur.cc:434
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3370,31 +3359,31 @@ msgstr ""
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-markup-commands.scm:1022
+#: define-markup-commands.scm:986
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2749
+#: define-markup-commands.scm:2768
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3175
+#: define-markup-commands.scm:3194
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3176
+#: define-markup-commands.scm:3195
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3420
+#: define-markup-commands.scm:3439
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3631
+#: define-markup-commands.scm:3650
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3584,37 +3573,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:795
+#: lily.scm:796
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:796
+#: lily.scm:797
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:858
+#: lily.scm:859
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:861
+#: lily.scm:862
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:883 lily.scm:972
+#: lily.scm:884 lily.scm:973
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:963
+#: lily.scm:964
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:982 ps-to-png.scm:66
+#: lily.scm:983 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
