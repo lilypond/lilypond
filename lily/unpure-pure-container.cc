@@ -137,7 +137,7 @@ void init_unpure_pure_container ()
   unpure_pure_call_tag = scm_make_smob_type ("unpure-pure-call", 0);
   scm_set_smob_mark (unpure_pure_call_tag, scm_markcdr);
   scm_set_smob_apply (unpure_pure_call_tag,
-                      (SCM (*)()) apply_unpure_pure, 2, 0, 1);
+                      (scm_t_subr) apply_unpure_pure, 2, 0, 1);
 };
 
 ADD_SCM_INIT_FUNC (unpure_pure_container, init_unpure_pure_container);
