@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: fc5ab957efa72a9790dab507693946cb06e703a5
+    Translation of GIT committish: f05860757249e2ce03ac8a000f8ded60e8c39ba4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,19 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+@newsItem
+@subsubheading ¡Lanzado LilyPond 2.17.12!  @emph{8 de febrero de 2013}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.17.12.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.16.
+
+@newsEnd
 
 @newsItem
 @subsubheading ¡Lanzado LilyPond 2.17.11!  @emph{26 de enero de 2013}
