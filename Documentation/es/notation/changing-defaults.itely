@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 1cc9797da3a85c8984123bb0947955a13cb4d712
+Translation of GIT committish: 91aeca2562af49ff24110e923d5196bebd95f372
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -186,9 +186,12 @@ piezas en estilo mensural.
 @unnumberedsubsubsec Contextos del nivel más bajo. Voces
 @translationof Bottom-level contexts - voices
 
-Los contextos del mismo nivel que Voice dan un valor inicial a ciertas
-propiedades e inician los grabadores correspondientes.  Siendo
-contextos del nivel más bajo, no pueden contener a otros contextos.
+Los contextos del mismo nivel que Voice dan un valor inicial a
+ciertas propiedades e inician los grabadores correspondientes.  Un
+contexto del nivel más bajo es aquel que no tiene un contexto
+descendiente predeterminado @code{defaultchild}.  Aunque es
+posible hacer que pueda aceptar o contener subcontextos, éstos
+solo se pueden crear e introducir de forma explícita.
 
 @strong{@emph{Voice}}
 

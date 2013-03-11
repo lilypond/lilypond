@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
+    Translation of GIT committish: d596cd22ee8ffaf8ab46736e5fa2d067bcd92cad
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,30 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se ha invertido el significado de @code{instrumentTransposition}.
+Después de
+@example
+\set instrumentTransposition = #@{ b #@}
+@end example
+una nota escrita @code{c'} ahora suena como @code{b}.
+Anteriormente era a la inversa.  Esperamos que este cambio y el
+siguiente hagan más sencillo el tratamiento de los instrumentos
+transpositores.
+
+@item
+La música generada por las instrucciones @code{\set} y
+@code{\override} ya no resulta afectada por la instrucción
+@code{\transpose}.  La consecuencia más importante es que
+@code{\transpose} transporta la altura tonal sonora o de concierto
+y la que se imprime en la misma medida incluso aunque la música
+que se transporta contenga @code{\transposition}.  Anteriormente,
+@example
+\transpose c' f' \transposition bes'
+@end example
+era equivalente a @code{\transposition f'}.  Ahora se mantiene
+como equivalente a @code{\transposition bes'}.
 
 @item
 Ahora los grupos de valoración especial se crean mediante la

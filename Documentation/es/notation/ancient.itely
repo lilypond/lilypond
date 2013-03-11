@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: cccd2bf82ebfb55b6423346037fa4d2793fc4c3b
+    Translation of GIT committish: ef06638dee8d9c3175edd6f1ae543a05e0e68c9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2463,6 +2463,7 @@ arbitrario.
 * Notas del canto kievano::
 * Alteraciones accidentales del canto kievano::
 * Líneas divisorias del canto kievano::
+* Melismas del canto kievano::
 @end menu
 
 @node Contextos del canto kievano
@@ -2623,6 +2624,70 @@ canto kievano».  Se puede invocar como @code{\bar "k"}.
 @seealso
 @ref{Barras de compás},
 @ref{La tipografía Feta}.
+
+@node Melismas del canto kievano
+@unnumberedsubsubsec Melismas del canto kievano
+@translationof Kievan melismata
+
+@cindex ligaduras
+
+Las notas que están dentro de un melisma del canto kievano se
+suelen colocar a poca distancia entre sí y cada melisma está
+separado de los demás por un espacio vacío.  Esto se hace para
+permitir al cantor la identificación rápida de las estructuras
+melódicas del canto Znamenny.  En LilyPond, los melismas se tratan
+como ligaduras y el especiado está implementado por el grabador
+@code{Kievan_ligature_engraver}.
+
+Cuando se usan los contextos @code{KievanVoice} y
+@code{KievanStaff}, se habilita el grabador
+@code{Kievan_ligature_engraver} de forma predeterminada.  En otros
+contextos, se puede invocar sustituyendo el grabador
+@code{Ligature_bracket_engraver} por
+@code{Kievan_ligature_engraver} en el bloque layout:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove "Ligature_bracket_engraver"
+    \consists "Kievan_ligature_engraver"
+  @}
+@}
+@end example
+
+El espaciado entre las notas que están dentro de una misma
+ligadura kievana puede controlatse estableciendo la propiedad
+@code{padding} de @code{KievanLigature}.
+
+El ejemplo siguiente muestra el uso de las ligaduras del canto
+kievano:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new KievanVoice = "melody" \transpose c c' {
+      \cadenzaOn
+	e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
+    }
+    \new Lyrics \lyricsto "melody" {
+      Га -- врі -- и -- лу
+    }
+  >>
+}
+@end lilypond
+
+@seealso
+Glosario musical:
+@rglos{ligature}.
+
+Referencia de la notación:
+@ref{Ligaduras mensurales blancas},
+@ref{Ligaduras de neumas cuadrados gregorianos},
+@ref{Ligaduras}.
+
+@knownissues
+El espaciado horizontal de las ligaduras es mediocre.
 
 @node Trabajar con música antigua - escenarios y soluciones
 @subsection Trabajar con música antigua - escenarios y soluciones

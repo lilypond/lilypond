@@ -1,18 +1,17 @@
 %% Translation of GIT committish: 5cc4e758f0d8b01600a39faced769883cca6995a
- doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
+ doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\tuplet"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
 cada grupo de valoración especial contenido dentro del corchete que
-aparece después de @code{\\times}.  Así, se pueden escribir muchos
-tresillos seguidos dentro de una sola expresión @code{\\times},
+aparece después de @code{\\tuplet}.  Así, se pueden escribir muchos
+tresillos seguidos dentro de una sola expresión @code{\\tuplet},
 ahorrando trabajo de teclado.
 
-En el ejemplo se muestran dos tresillos, aunque se ha escrito
-@code{\\times} una sola vez.
-
-
-Para ver más inforamción sobre @code{make-moment}, véase la sección
-correspondiente del manual de Referencia de la Notación.
+Existen varias maneras de fijar el valor de
+@code{tupletSpannerDuration}.  La instrucción @code{\\tupletSpan} lo
+establece a una duración dada, y lo borra cuando se especifica
+@code{\\default} en lugar de una duración.  Otra forma es utilizar un
+argumento opcional con @code{\\tuplet}.
 
 "
 

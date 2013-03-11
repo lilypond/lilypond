@@ -7,8 +7,8 @@ referencia común, independientemente de sus dimensiones.  De esta
 manera, todos los elementos estarán alineados verticalmente,
 produciendo así un resultado más satisfactorio.
 
-Se usa una idea similar para alinear las inscripciones de texto a lo
-largo de su línea de base.
+Se usa una idea similar junto a \\textLengthOn para alinear las
+inscripciones de texto a lo largo de su línea de base.
 
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
