@@ -3438,10 +3438,6 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (Music *mus = unsmob_music (sid)) {
 		mus = mus->clone ();
 		*destination = mus->self_scm ();
-		unsmob_music (*destination)->
-			set_property ("origin",
-				      make_input (override_input (last_input_)));
-
 		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;

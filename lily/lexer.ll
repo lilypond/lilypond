@@ -925,6 +925,11 @@ Lily_lexer::scan_escaped_word (string str)
 		return i;
 
 	SCM sid = lookup_identifier (str);
+	if (Music *m = unsmob_music (sid))
+	{
+		m->set_spot (override_input (last_input_));
+	}
+
 	if (sid != SCM_UNDEFINED)
 		return scan_scm_id (sid);
 
@@ -1084,25 +1089,38 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 		sval = scm_struct_ref (sval, SCM_INUM0);
 
 		if (scm_is_pair (sval)) {
-			for (SCM v = scm_reverse (scm_cdr (sval));
-			     scm_is_pair (v);
-			     v = scm_cdr (v))
+			for (SCM p = scm_reverse (scm_cdr (sval));
+			     scm_is_pair (p);
+			     p = scm_cdr (p))
 			{
+				SCM v = scm_car (p);
+				if (Music *m = unsmob_music (v))
+				{
+					if (!unsmob_input (m->get_property ("origin")))
+						m->set_spot (override_input (last_input_));
+				}
+					
 				int token;
 				switch (extra_token) {
 				case '$':
-					token = scan_scm_id (scm_car (v));
+					token = scan_scm_id (v);
 					if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
 						push_extra_token (token, yylval);
 					break;
 				case '#':
-					push_extra_token (SCM_IDENTIFIER, scm_car (v));
+					push_extra_token (SCM_IDENTIFIER, v);
 					break;
 				}
 			}
 			sval = scm_car (sval);
 		} else
 			sval = SCM_UNSPECIFIED;
+	}
+
+	if (Music *m = unsmob_music (sval))
+	{
+		if (!unsmob_input (m->get_property ("origin")))
+			m->set_spot (override_input (last_input_));
 	}
 
 	return sval;
