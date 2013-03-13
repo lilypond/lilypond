@@ -1032,9 +1032,23 @@ usually contains spacers or multi-measure rests.")
 
 relative =
 #(define-music-function (parser location pitch music)
-   (ly:pitch? ly:music?)
-   (_i "Make @var{music} relative to @var{pitch}.")
-   (ly:make-music-relative! music pitch)
+   ((ly:pitch?) ly:music?)
+   (_i "Make @var{music} relative to @var{pitch}.  If @var{pitch} is
+omitted, the first note in @var{music} is given in absolute pitch.")
+   ;; When \relative has no clear decision (can only happen with
+   ;; scales with an even number of steps), it goes down (see
+   ;; pitch.cc).  The following formula puts out f for both the normal
+   ;; 7-step scale as well as for a "shortened" scale missing the
+   ;; final b.  In either case, a first note of c will end up as c,
+   ;; namely pitch (-1, 0, 0).
+   (ly:make-music-relative! music
+                            (or pitch
+                                (ly:make-pitch
+                                 -1
+                                 (quotient
+                                  ;; size of current scale:
+                                  (ly:pitch-steps (ly:make-pitch 1 0))
+                                  2))))
    (make-music 'RelativeOctaveMusic
 	       'element music))
 
