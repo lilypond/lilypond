@@ -143,8 +143,27 @@ octaves.
 @item
 The pitch of the first note is relative to
 @code{@var{startpitch}}.  @code{@var{startpitch}} is specified in
-absolute octave mode, and it is recommended that it be a octave of
-@code{c}.
+absolute octave mode.  Which choices are meaningful?
+
+@table @asis
+@item an octave of @code{c}
+Identifying middle C with @code{c'} is quite basic, so finding
+octaves of @code{c} tends to be straightforward.  If your music
+starts with @code{gis} above @code{c'''}, you'd write something
+like @code{\relative c''' @{ gis' @dots{} @}}
+
+@item an octave of the first note inside
+Writing @code{\relative gis''' @{ gis @dots{} @}} makes it easy to
+determine the absolute pitch of the first note inside.
+
+@item no explicit starting pitch
+This (namely writing @code{\relative @{ gis''' @dots{} @}}) can be
+viewed as a compact version of the previous option: the first note
+inside is written in absolute pitch itself.  This happens to be
+equivalent to choosing @code{f} as the reference pitch.
+@end table
+
+The documentation will usually employ the first option.
 @end itemize
 
 Here is the relative mode shown in action:
