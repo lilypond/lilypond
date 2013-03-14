@@ -35,33 +35,6 @@ Repeated_music::alternatives (Music *me)
   return me->get_property ("elements");
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music, relative_callback, 2);
-SCM
-Repeated_music::relative_callback (SCM music, SCM pitch)
-{
-  Pitch p = *unsmob_pitch (pitch);
-  Music *me = unsmob_music (music);
-  if (lily_1_8_relative)
-    {
-      Music *body = unsmob_music (me->get_property ("element"));
-      if (body)
-        p = body->to_relative_octave (p);
-
-      Pitch last = p;
-      SCM alternatives = me->get_property ("elements");
-
-      for (SCM s = alternatives; scm_is_pair (s); s = scm_cdr (s))
-        {
-          lily_1_8_compatibility_used = true;
-          unsmob_music (scm_car (s))->to_relative_octave (p);
-        }
-
-      return last.smobbed_copy ();
-    }
-  else
-    return me->generic_to_relative_octave (p).smobbed_copy ();
-}
-
 Moment
 Repeated_music::alternatives_get_length (Music *me, bool fold)
 {

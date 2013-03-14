@@ -209,9 +209,6 @@ file to given string.")
     (music-strings-to-paths #f
 "Convert text strings to paths when glyphs belong
 to a music font.")
-    (old-relative #f
-"Make \\relative mode for simultaneous music work
-similar to chord syntax.")
     (point-and-click #t
 "Add point & click links to PDF output.")
     (paper-size "a4"

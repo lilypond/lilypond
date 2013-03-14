@@ -999,8 +999,3 @@ print a warning and set an optional @var{default}."
     (ly:format "~a:1" input-file-name)
     (_ "no \\version statement found, please add~afor future compatibility")
     (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
-
-(define-public (old-relative-not-used-message input-file-name)
-  (ly:warning-located
-    (ly:format "~a:1" input-file-name)
-    (_ "old relative compatibility not used")))

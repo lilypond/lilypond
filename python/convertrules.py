@@ -3520,6 +3520,14 @@ def conv(str):
                   r"\1/\2", str)
     return str
 
+@rule((2, 17, 15), r"#(ly:set-option 'old-relative)")
+def conv(str):
+    if re.search (r"[#$]\(ly:set-option\s+'old-relative", str):
+        stderr_write (NOT_SMART % "#(ly:set-option 'old-relative)")
+        stderr_write (UPDATE_MANUALLY)
+        raise FatalConversionError ();
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

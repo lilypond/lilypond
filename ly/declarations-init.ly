@@ -18,9 +18,6 @@
 
 \version "2.17.6"
 
-%% < 1.8 compatibility switch
-#(ly:set-option 'old-relative)
-
 %% named durations
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0)

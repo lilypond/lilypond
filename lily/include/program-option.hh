@@ -22,8 +22,6 @@
 #include "lily-guile.hh"
 
 /* options */
-extern bool lily_1_8_relative;
-extern bool lily_1_8_compatibility_used;
 
 SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
