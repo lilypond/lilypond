@@ -1083,8 +1083,18 @@ void *p = v.data ();
 
 
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
-    # ugh
-    STEPMAKE_PROGS(KPSEWHICH, kpsewhich, OPTIONAL)
+    STEPMAKE_PROGS(KPSEWHICH, kpsewhich, $1)
+
+    AC_MSG_CHECKING(for metapost required files)
+    if test "$MFPLAIN_MP" = ""; then
+        MFPLAIN_MP=`kpsewhich -format=mp mfplain`
+    fi
+    if test "$MFPLAIN_MP" = ""; then
+        AC_MSG_RESULT(no)
+        STEPMAKE_ADD_ENTRY($1,['metapost CTAN package (texlive-metapost)'])
+    else
+        AC_MSG_RESULT(yes)
+    fi
 ])
 
 AC_DEFUN(STEPMAKE_TEXMF, [
