@@ -72,10 +72,10 @@ Syntax: @w{@var{note}@code{-\\arpeggio}}")
     (ArticulationEvent
      . ((description . "Add an articulation marking to a note.
 
-Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
-(@code{^} for up or @code{_} for down), or LilyPond's choice
-(no direction specified), and where @code{y} is an articulation
-(such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
+Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction\
+\n(@code{^} for up or @code{_} for down), or LilyPond's choice\
+\n(no direction specified), and where @code{y} is an articulation\
+\n(such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
 See the Notation Reference for details.")
 	(types . (general-music post-event event articulation-event script-event))
 	))
