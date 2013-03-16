@@ -1,8 +1,10 @@
 adding-volta-brackets-to-additional-staves.ly
+centered-measure-numbers.ly
 cross-staff-tremolos.ly
 engraving-tremolos-with-floating-beams.ly
 isolated-percent-repeats.ly
 measure-counter.ly
+numbering-groups-of-measures.ly
 percent-repeat-count-visibility.ly
 percent-repeat-counter.ly
 positioning-segno-and-coda-with-line-break.ly
