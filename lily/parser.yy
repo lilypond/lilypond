@@ -2490,8 +2490,10 @@ post_events:
 		$$ = SCM_EOL;
 	}
 	| post_events post_event {
-		unsmob_music ($2)->set_spot (@2);
-		$$ = scm_cons ($2, $$);
+		if (unsmob_music ($2)) {
+			unsmob_music ($2)->set_spot (@2);
+			$$ = scm_cons ($2, $$);
+		}
 	}
 	;
 
@@ -2501,7 +2503,10 @@ post_event_nofinger:
 	}
 	| script_dir music_function_call_closed {
 		$$ = $2;
-		if (!SCM_UNBNDP ($1))
+		if (!unsmob_music ($2)->is_mus_type ("post-event")) {
+			parser->parser_error (@2, _ ("post-event expected"));
+			$$ = SCM_UNSPECIFIED;
+		} else if (!SCM_UNBNDP ($1))
 		{
 			unsmob_music ($$)->set_property ("direction", $1);
 		}
