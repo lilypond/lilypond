@@ -39,7 +39,7 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
 
     (AnnotateOutputEvent
      . ((description . "Print an annotation of an output element.")
-	(types . (general-music event annotate-output-event))
+	(types . (general-music event annotate-output-event post-event))
 	))
 
     (ApplyContext
