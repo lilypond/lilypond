@@ -437,6 +437,12 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
 	(types . (general-music post-event span-event event phrasing-slur-event))
 	))
 
+    (PostEvents
+     . ((description . "Container for several postevents.
+
+This can be used to package several events into a single one.  Should not be seen outside of the parser.")
+        (types . (post-event post-event-wrapper))))
+
     (PropertySet
      . ((description . "Set a context property.
 

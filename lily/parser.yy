@@ -596,7 +596,28 @@ identifier_init:
 	| output_def
 	| context_def_spec_block
 	| music_assign
-	| post_event_nofinger
+	| post_event_nofinger post_events
+	{
+		$$ = scm_reverse_x ($2, SCM_EOL);
+		if (Music *m = unsmob_music ($1))
+		{
+			if (m->is_mus_type ("post-event-wrapper"))
+				$$ = scm_append
+					(scm_list_2 (m->get_property ("elements"),
+						     $$));
+			else
+				$$ = scm_cons ($1, $$);
+		}
+		if (scm_is_pair ($$)
+		    && scm_is_null (scm_cdr ($$)))
+			$$ = scm_car ($$);
+		else
+		{
+			Music * m = MY_MAKE_MUSIC ("PostEvents", @$);
+			m->set_property ("elements", $$);
+			$$ = m->unprotect ();
+		}
+	}
 	| number_expression
 	| FRACTION
 	| string
@@ -2490,9 +2511,21 @@ post_events:
 		$$ = SCM_EOL;
 	}
 	| post_events post_event {
-		if (unsmob_music ($2)) {
-			unsmob_music ($2)->set_spot (@2);
-			$$ = scm_cons ($2, $$);
+		$$ = $1;
+		if (Music *m = unsmob_music ($2))
+		{
+			if (m->is_mus_type ("post-event-wrapper"))
+			{
+				for (SCM p = m->get_property ("elements");
+				     scm_is_pair (p);
+				     p = scm_cdr (p))
+				{
+					$$ = scm_cons (scm_car (p), $$);
+				}
+			} else {
+				m->set_spot (@2);
+				$$ = scm_cons ($2, $$);
+			}
 		}
 	}
 	;
