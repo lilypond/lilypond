@@ -30,7 +30,6 @@ correspondence between harmonic functions and note head styles.
   doctitle = "Applying note head styles depending on the step of the scale"
 } % begin verbatim
 
-
 fragment = {
   \key c \major
   c2 d
@@ -42,7 +41,7 @@ fragment = {
 \new Staff {
   \transpose c d
   \relative c' {
-    \set shapeNoteStyles = #'#(do re mi fa
+    \set shapeNoteStyles = ##(do re mi fa
                                #f la ti)
     \fragment
   }
@@ -50,7 +49,7 @@ fragment = {
   \break
 
   \relative c' {
-    \set shapeNoteStyles = #'#(cross triangle fa #f
+    \set shapeNoteStyles = ##(cross triangle fa #f
                                mensural xcircle diamond)
     \fragment
   }

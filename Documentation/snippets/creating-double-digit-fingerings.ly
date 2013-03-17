@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.13"
+\version "2.17.11"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, scheme-language, staff-notation, tweaks-and-overrides"
@@ -27,6 +27,11 @@ ten =
 fifty =
 #(make-music 'FingeringEvent
              'digit 50)
+
+finger =
+#(define-music-function (parser location digit) (integer?)
+   (make-music 'FingeringEvent
+               'digit digit))
 
 #(define (calc-finger-without-warning grob)
    (let* ((event (event-cause grob))

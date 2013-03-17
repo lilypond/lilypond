@@ -37,5 +37,6 @@ time-signature-in-parentheses.ly
 tweaking-clef-properties.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-autochange-with-more-than-one-voice.ly
+vertical-aligned-staffgroups-without-connecting-systemstartbar.ly
 volta-below-chords.ly
 volta-multi-staff.ly

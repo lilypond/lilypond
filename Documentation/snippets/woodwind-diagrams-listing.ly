@@ -22,6 +22,17 @@ defined in LilyPond.
   c1^
   \markup {
     \center-column {
+      'tin-whistle
+      " "
+       \woodwind-diagram
+                  #'tin-whistle
+                  #'()
+    }
+  }
+
+  c1^
+  \markup {
+    \center-column {
       'piccolo
       " "
        \woodwind-diagram
