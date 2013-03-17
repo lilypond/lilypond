@@ -182,11 +182,9 @@ Lyric_engraver::stop_translation_timestep ()
                                      get_property ("lyricMelismaAlignment"));
             }
           else
-            {
-              text_->warning (_ ("Lyric syllable does not have note."
-                                 "  Use \\lyricsto or associatedVoice."));
-              text_->set_property ("X-offset", scm_from_int (0));
-            }
+            text_->warning (_ ("Aligning lyric syllables to notes was requested,"
+                               " but there are no notes in the specified context."
+                               " Syllable will be attached to a PaperColumn instead."));
         }
 
       last_text_ = text_;

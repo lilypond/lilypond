@@ -132,10 +132,17 @@ SCM
 Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 {
   Grob *him = me->get_parent (a);
+  Interval he;
   if (Paper_column::has_interface (him))
-    return scm_from_double (0.0);
-
-  Interval he = him->extent (him, a);
+      /*
+        PaperColumn extents aren't reliable (they depend on size and alignment
+        of PaperColumn's children), so we align on NoteColumn instead.
+        This happens e.g. for lyrics without associatedVoice.
+      */
+    he = Paper_column::get_interface_extent
+              (him, ly_symbol2scm ("note-column-interface"), a);
+  else
+    he = him->extent (him, a);
 
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
             : ly_symbol2scm ("self-alignment-Y");

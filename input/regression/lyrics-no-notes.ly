@@ -1,7 +1,6 @@
 \header {
-  texidoc ="Lyric syllables without note attachment are not
-centered.  Centering may cause unintended effects when the
-paper column is very wide."
+  texidoc ="Lyric syllables without note attachment are
+aligned correctly even if the paper column is very wide."
 }
  
 \layout{ ragged-right = ##t }
@@ -21,7 +20,7 @@ paper column is very wide."
   \new Lyrics \lyricmode {
     \skip 8
     \skip 8
-    x8
+    xx8
     x8
   }
 >>

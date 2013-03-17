@@ -219,6 +219,23 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
 }
 
 /*
+  Loop through elements of a PaperColumn, find all grobs implementing specified
+  interface and return their combined extent.
+*/
+Interval
+Paper_column::get_interface_extent (Grob *column, SCM interface, Axis a)
+{
+  Interval extent = Interval (0, 0);
+  extract_grob_set (column, "elements", elts);
+
+  for (vsize i = 0; i < elts.size (); i++)
+    if (elts[i]->internal_has_interface (interface))
+      extent.unite (robust_relative_extent (elts[i], elts[i], a));
+
+  return extent;
+}
+
+/*
   Print a:
   - vertical line,
   - the rank number,
