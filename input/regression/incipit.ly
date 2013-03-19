@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.10"
 
 \header {
   texidoc = "Incipits can be printed using an @code{InstrumentName}
@@ -37,13 +37,10 @@ grob."
                                'MensuralStaff)
                               (ly:grob-property grob 'music))))
                 (score (ly:make-score music))
-                (mm (ly:output-def-lookup layout 'mm))
                 (indent (ly:output-def-lookup layout 'indent))
-                (incipit-width (ly:output-def-lookup layout 'incipit-width))
-                (scaled-incipit-width (if (number? incipit-width)
-                                          (* incipit-width mm)
-                                          (* indent 0.5))))
-           (ly:output-def-set-variable! layout 'indent (- indent scaled-incipit-width))
+                (incipit-width (ly:output-def-lookup layout 'incipit-width
+		 (* indent 0.5))))
+           (ly:output-def-set-variable! layout 'indent (- indent incipit-width))
            (ly:output-def-set-variable! layout 'line-width indent)
            (ly:output-def-set-variable! layout 'ragged-right #f)
            (ly:score-add-output-def! score layout)
