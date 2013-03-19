@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
-\version "2.17.6"
+%% Note: this file works from version 2.17.10
+\version "2.17.10"
 
 \header {
   lsrtags = "staff-notation, ancient-notation, really-cool"
@@ -45,7 +45,7 @@ incipit =
 				% escaping lexical closure and evaluating
 				% everything respective to (current-module).
 	                             #(primitive-eval
-                                       '(or (false-if-exception (- indent (* mm incipit-width)))
+                                       '(or (false-if-exception (- indent incipit-width))
 					    (* 0.5 indent)))
 			             ragged-right = ##f
 			             ragged-last = ##f
