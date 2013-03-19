@@ -87,7 +87,10 @@ class time_signature_formatter (formatter):
      return str (val2)   # TODO
 class key_signature_formatter (formatter):
    def format_vals (self, val1, val2):
-     return str (val2)   # TODO
+       key_names = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
+       key = (((ord(val2[0])+128)%256)-128) + ord(val2[1])*3 + 1;
+       return (key_names[key%7] + (key/7) * "is" + (-(key/7)) * "es"
+               + " " + ['major','minor'][ord(val2[1])])
 class channel_formatter (formatter):
    def __init__ (self, txt, ch):
      formatter.__init__ (self, txt)
