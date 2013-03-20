@@ -465,10 +465,9 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
   (bold (raise 4 (italic markup2)))
   (bold (raise 4 (italic markup3))))
 "
-  (map-in-order (lambda (arg)
-                  (let ((result arg))
-                    (for-each (lambda (cmd)
-                                (set! result (append cmd (list result))))
-                              commands)
-                    result))
-                markups))
+  (map (lambda (arg)
+         (fold
+          (lambda (cmd prev) (append cmd (list prev)))
+          arg
+          commands))
+       markups))
