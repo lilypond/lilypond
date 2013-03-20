@@ -48,15 +48,16 @@ Example:
 (define-public interpret-markup ly:text-interface::interpret-markup)
 
 (define-public (interpret-markup-list layout props markup-list)
-  (let ((stencils (list)))
-    (for-each (lambda (m)
-                (set! stencils
-                      (if (markup-command-list? m)
-                          (append! (reverse! (apply (car m) layout props (cdr m)))
-                                   stencils)
-                          (cons (interpret-markup layout props m) stencils))))
-              markup-list)
-    (reverse! stencils)))
+  ;; This relies on the markup list returned by a markup list command
+  ;; to be modifiable
+  (reverse!
+   (fold
+    (lambda (m prev)
+      (if (markup-command-list? m)
+          (reverse! (apply (car m) layout props (cdr m)) prev)
+          (cons (interpret-markup layout props m) prev)))
+    '()
+    markup-list)))
 
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
