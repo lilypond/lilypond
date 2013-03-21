@@ -62,6 +62,7 @@
      . (
 	(script-stencil . (feta . ("downbow" . "downbow")))
 	(padding . 0.20)
+	(skyline-horizontal-padding . 0.20)
 	(avoid-slur . around)
 	(direction . ,UP)
 	(script-priority . 150)))
@@ -268,6 +269,7 @@
 	(quantize-position . #t)
 	(script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
 	(padding . 0.20)
+	(skyline-horizontal-padding . 0.10)
 	(side-relative-direction . ,DOWN)))
     ("staccato"
      . (
@@ -277,6 +279,7 @@
 	(avoid-slur . inside)
 	(toward-stem-shift . 0.5)
 	(padding . 0.20)
+	(skyline-horizontal-padding . 0.10)
 	(script-priority . -100)))
     ("stopped"
      . (

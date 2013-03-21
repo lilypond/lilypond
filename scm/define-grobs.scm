@@ -804,6 +804,7 @@
 	(direction . ,DOWN)
 	(minimum-space . 1.2)
 	(outside-staff-priority . 250)
+	(outside-staff-padding . 0.6)
 	(padding . 0.6)
 	(side-axis . ,Y)
 	(slur-padding . 0.3)
@@ -885,6 +886,7 @@
 	(minimum-Y-extent . (-1 . 1))
 
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(skyline-horizontal-padding . 0.2)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:line-spanner::print)
 	(style . dashed-line)
@@ -1527,6 +1529,7 @@
 	(outside-staff-priority . 450)
 	(padding . 0.2)
 	(self-alignment-X . ,CENTER)
+	(skyline-horizontal-padding . 0.2)
 	(staff-padding . 0.25)
 	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
