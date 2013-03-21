@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.15"
 
 \header {
 
@@ -6,7 +6,7 @@
 and then return to the previous value."
 
 }
-\relative {
+\relative c' {
   \set fingeringOrientations = #'(left)
   <e-1>1 |
   \once \set fingeringOrientations = #'(right)

@@ -6,11 +6,11 @@ collisions can be combined."
 
 }
 
-\version "2.16.0"
+\version "2.17.15"
 
 \layout { ragged-right=##t }
 
-\new Staff \relative
+\new Staff \relative c'
 <<
   {  s8 f4 } \\
   {  <f, a>8[ r <a d>] }

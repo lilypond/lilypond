@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.15"
 \header {
   texidoc = "Manual beams do not collide with notes."
 }
@@ -8,7 +8,7 @@
   indent = #0.0
 }
 
-\relative \new Staff {
+\relative c' \new Staff {
 
   <<
     \new Voice {
@@ -45,14 +45,14 @@
   
   <<
      \new Voice {
-       \repeat unfold 8 \relative {
+       \repeat unfold 8 \relative c' {
 	 \voiceOne
 	 c8[
 	 \voiceTwo
 	 c'']
        }
      }
-     \new Voice \relative {
+     \new Voice \relative c' {
        \voiceFour
        s8 f 
        s8 g
@@ -67,7 +67,7 @@
   \break
    <<
      \new Voice {
-       \repeat unfold 8 \relative {
+       \repeat unfold 8 \relative c' {
 	 \voiceOne
 
 	 %% We must use a wider interval, otherwise the beam will be
@@ -77,7 +77,7 @@
 	 c'']
        }
      }
-     \new Voice \relative {
+     \new Voice \relative c' {
        \voiceFour
        \autoBeamOff
        \stemUp f' \stemDown f,

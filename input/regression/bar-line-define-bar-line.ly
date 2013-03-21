@@ -1,4 +1,4 @@
-\version "2.17.5"
+\version "2.17.15"
 
 \header { texidoc = "New bar line styles can be defined by @code{\\defineBarLine}."
         }
@@ -8,7 +8,7 @@
 \defineBarLine "[|;" #'("|" "[|;" " |")
 \defineBarLine ";|]" #'(";|]" "" " |")
 
-\relative \new StaffGroup <<
+\relative c' \new StaffGroup <<
   \new Staff {
     c4 c \bar "[|;" c c \bar ";|]" \break
     c4 c \bar ";|]" c c \bar "[|;" \break

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.15"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -438,7 +438,7 @@ longues doivent s'aligner sur les subdivisions de la mesure, comme ici :
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative {
+\relative c' {
   r8^"oui" c8 ~ c2 r4 |
   r8^"non" c2 ~ c8 r4
 }

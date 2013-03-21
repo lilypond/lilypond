@@ -5,14 +5,14 @@ starts and ends on a full dash. "
 
 }
 
-\version "2.17.6"
+\version "2.17.15"
 
 \layout {
   indent = 0.0\mm
   ragged-right = ##T
 }
 
-\relative <<
+\relative c' <<
   \new Staff {
     \crescTextCresc
     c1_\< c c1\!

@@ -4,12 +4,12 @@
   texidoc = "Dynamics avoid collision with slur."
 }
 
-\version "2.16.0"
+\version "2.17.15"
 \layout {
   indent = 0\mm
   ragged-right = ##t
 }
-\relative
+\relative c'
 {
   b( b f'\p b,)
 

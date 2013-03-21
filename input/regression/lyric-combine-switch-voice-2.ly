@@ -2,10 +2,10 @@
 {
 texidoc = "switching voices in the middle of the lyrics is possible using @code{lyricsto}."
   }
-\version "2.17.6"
+\version "2.17.15"
 
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     c4
     <<
       \new Voice = "alternative" {
