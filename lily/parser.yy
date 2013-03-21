@@ -3277,8 +3277,10 @@ markup_top:
 	simple_markup_list {
 		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
 	}
-	| markup_head_1_list simple_markup	{
-		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
+	| markup_head_1_list simple_markup
+	{
+		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;
@@ -3336,8 +3338,8 @@ markup_score:
 
 markup_composed_list:
 	markup_head_1_list markup_braced_list {
-		$$ = scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, $2);
-
+		$$ = MAKE_SYNTAX ("composed-markup-list",
+				  @2, $1, $2);
 	}
 	;
 
@@ -3415,9 +3417,10 @@ simple_markup:
 	;
 
 markup:
-	markup_head_1_list simple_markup	{
-		SCM mapper = ly_lily_module_constant ("map-markup-command-list");
-		$$ = scm_car (scm_call_2 (mapper, $1, scm_list_1 ($2)));
+	markup_head_1_list simple_markup
+	{
+		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;

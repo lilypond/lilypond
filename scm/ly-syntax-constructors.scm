@@ -164,6 +164,29 @@ into a @code{MultiMeasureTextEvent}."
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))
 
+(define-ly-syntax (composed-markup-list parser location commands markups)
+;; `markups' being a list of markups, eg (markup1 markup2 markup3),
+;; and `commands' a list of commands with their scheme arguments, in reverse order,
+;; eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
+;;  ((bold (raise 4 (italic markup1)))
+;;   (bold (raise 4 (italic markup2)))
+;;   (bold (raise 4 (italic markup3))))
+
+  (map (lambda (arg)
+         (fold
+          (lambda (cmd prev) (append cmd (list prev)))
+          arg
+          commands))
+       (if (every markup? markups)
+           markups
+           (begin
+             (ly:parser-error parser
+                              (format #f
+                                      (_ "uncomposable markup list elements ~a")
+                                      (remove markup? markups))
+                              location)
+             (filter markup? markups)))))
+
 (define-ly-syntax (property-operation parser location ctx music-type symbol . args)
   (let* ((props (case music-type
 		  ((PropertySet) (list 'value (car args)))
