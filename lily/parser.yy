@@ -3306,7 +3306,11 @@ simple_markup_list:
 	markup_composed_list {
 		$$ = $1;
 	}
-	| markup_braced_list {
+	| markup_uncomposed_list
+	;
+
+markup_uncomposed_list:
+	markup_braced_list {
 		$$ = $1;
 	}
 	| markup_command_list {
@@ -3337,7 +3341,7 @@ markup_score:
 	;
 
 markup_composed_list:
-	markup_head_1_list markup_braced_list {
+	markup_head_1_list markup_uncomposed_list {
 		$$ = MAKE_SYNTAX ("composed-markup-list",
 				  @2, $1, $2);
 	}
