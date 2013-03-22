@@ -18,7 +18,7 @@
 ;; TODO: use separate module for syntax
 ;; constructors. Also create wrapper around the constructor?
 (defmacro define-ly-syntax (args . body)
-  `(define-public ,args ,(cons 'begin body)))
+  `(define-public ,args ,@body))
 
 ;; A ly-syntax constructor takes two extra parameters, parser and
 ;; location. These are mainly used for reporting errors and
@@ -172,20 +172,24 @@ into a @code{MultiMeasureTextEvent}."
 ;;   (bold (raise 4 (italic markup2)))
 ;;   (bold (raise 4 (italic markup3))))
 
-  (map (lambda (arg)
-         (fold
-          (lambda (cmd prev) (append cmd (list prev)))
-          arg
-          commands))
-       (if (every markup? markups)
-           markups
-           (begin
-             (ly:parser-error parser
-                              (format #f
-                                      (_ "uncomposable markup list elements ~a")
-                                      (remove markup? markups))
-                              location)
-             (filter markup? markups)))))
+  (define (compose arg)
+    (fold
+     (lambda (cmd prev) (append cmd (list prev)))
+     arg
+     commands))
+  (let loop ((markups markups) (completed '()))
+    (cond ((null? markups) (reverse! completed))
+          ((markup? (car markups))
+           (loop (cdr markups)
+                 (cons (compose (car markups)) completed)))
+          (else
+           (call-with-values
+               (lambda () (break! markup? markups))
+             (lambda (complex rest)
+               (loop rest
+                     (reverse!
+                      (make-map-markup-commands-markup-list
+                       compose complex) completed))))))))
 
 (define-ly-syntax (property-operation parser location ctx music-type symbol . args)
   (let* ((props (case music-type
