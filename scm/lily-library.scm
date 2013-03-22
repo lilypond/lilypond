@@ -57,6 +57,8 @@
 (define-safe-public DOUBLE-SHARP 1)
 (define-safe-public SEMI-TONE 1/2)
 
+(define-safe-public INFINITY-INT 1000000)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
 

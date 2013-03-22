@@ -91,13 +91,6 @@
     ly:grob::horizontal-skylines-from-element-stencils
     ly:grob::pure-horizontal-skylines-from-element-stencils))
 
-;; Sometimes, in horizontal spacing, we want grobs to block other grobs.
-;; They thus need to have a non-empty height.  We give them a point height
-;; so that, minimally, they block grobs directly to the right of them.
-;; Often this is complimented by an extra-spacing-height.
-;; We don't, however, want these grobs to factor into vertical spacing
-;; decisions, so we make their unpure height #f.
-
 ;; Using this as a callback for a grob's Y-extent promises
 ;; that the grob's stencil does not depend on line-spacing.
 ;; We use this promise to figure the space required by Clefs
@@ -283,8 +276,8 @@
   (if (stem-stub::do-calculations grob)
       (let* ((dad (ly:grob-parent grob X))
              (refp (ly:grob-common-refpoint grob dad Y))
-             (stem_ph (ly:grob-pure-height dad refp 0 1000000))
-             (my_ph (ly:grob-pure-height grob refp 0 1000000))
+             (stem_ph (ly:grob-pure-height dad refp 0 INFINITY-INT))
+             (my_ph (ly:grob-pure-height grob refp 0 INFINITY-INT))
              ;; only account for distance if stem is on different staff than stub
              (dist (if (grob::has-interface refp 'hara-kiri-group-spanner-interface)
                        0
@@ -505,13 +498,13 @@ and duration-log @var{log}."
       (cons -0.1 0.1)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height grob)
-  (let* ((height (ly:grob-pure-height grob grob 0 10000000))
+  (let* ((height (ly:grob-pure-height grob grob 0 INFINITY-INT))
          (from-neighbors (interval-union
                             height
                             (ly:axis-group-interface::pure-height
                               grob
                               0
-                              10000000))))
+                              INFINITY-INT))))
     (coord-operation - from-neighbors height)))
 
 ;; If there are neighbors, we place the height at their midpoint
@@ -526,13 +519,13 @@ and duration-log @var{log}."
   (let* ((height (ly:axis-group-interface::pure-height
                   grob
                   0
-                  10000000))
+                  INFINITY-INT))
          (c (interval-center height)))
     (if (interval-empty? height) empty-interval (cons c c))))
 
 ;; Minimizes the impact of the height on vertical spacing while allowing
 ;; it to appear in horizontal skylines of paper columns if necessary.
-(define-public pure-from-neighbor-interface::unobtrusive-height
+(define-public pure-from-neighbor-interface::height-if-pure
   (ly:make-unpure-pure-container #f pure-from-neighbor-interface::pure-height))
 
 (define-public (pure-from-neighbor-interface::account-for-span-bar grob)
@@ -915,8 +908,7 @@ and duration-log @var{log}."
 			    (ly:grob-relative-coordinate spanner common-y Y)))
 		      (interval-end
 		       (ly:grob-robust-relative-extent dots common X))
-		      ;; TODO: use real infinity constant.
-		      -10000))))
+		      (- INFINITY-INT)))))
 	 (right-x (max (- (interval-start
 			   (ly:grob-robust-relative-extent right-span common X))
 			  padding)

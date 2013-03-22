@@ -1994,7 +1994,7 @@
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
 	; we want this to be ignored, so empty, but the extra spacing height
 	; should preserve the span bar's presence for horizontal spacing
-	(Y-extent . ,pure-from-neighbor-interface::unobtrusive-height)
+	(Y-extent . ,pure-from-neighbor-interface::height-if-pure)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
 				      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
