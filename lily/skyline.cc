@@ -54,6 +54,25 @@
    a DOWN skyline with an UP skyline, we need to flip the DOWN skyline first.
    This means that the merging routine doesn't need to be aware of direction,
    but the distance routine does.
+
+   Be careful about numerical accuracy. When dealing with extremely small values,
+   computation errors may arise due to the use of floating point arithmetic.
+   For example, if left and right have equal values to start with, in C++
+   they may not receive the same value after
+
+   left = left*factor + offset;
+   right = right*factor + offset;
+
+   Which is very unfortunate. Maybe using GCC compiler options to disallow
+   extended precision for intermediate results and/or the choice to store
+   intermediates with less than full precision would retain some kind of
+   deterministic behavior that way.
+
+   Anyway, it seems that accepting extremely narrow building in skylines
+   doesn't cause accuracy problems to us, so we allow arbitrarily small buildings.
+   However, as Keith pointed out, problems may appear if more than one operation
+   is done before storing the result, and/or there are different code paths
+   for doing the operations to the different ends of an interval.
 */
 
 static void
