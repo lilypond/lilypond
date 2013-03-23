@@ -443,7 +443,7 @@
 	    (list-tabulate
 	     (- rc (length ealtl))
 	     (lambda (i) (list (ly:music-deep-copy body) (ly:music-deep-copy (car ealtl)))))
-	    (map (lambda (alt) (list (ly:music-deep-copy body) alt))))))))))
+	    (map (lambda (alt) (list (ly:music-deep-copy body) alt)) ealtl))))))))
      ((EventChord)
       (let-values
        (((trem evl)
