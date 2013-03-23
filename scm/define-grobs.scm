@@ -292,6 +292,7 @@
 	(padding . 0.2)
 	(positioning-done . ,ly:align-interface::align-to-minimum-distances)
 	(stacking-dir . ,DOWN)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -307,6 +308,7 @@
 	(padding . 0.5)
 	(side-axis . ,Y)
 	(staff-padding . 1.0)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,axis-group-interface::height)
 	(Y-offset . ,side-position-interface::y-aligned-side)
 	(meta . ((class . Spanner)
@@ -335,6 +337,7 @@
 	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(axes . (,Y))
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,axis-group-interface::height)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -2233,6 +2236,7 @@
 	(collapse-height . 5.0)
 	(direction . ,LEFT)
 
+	(cross-staff . #t)
 	;; ugh--hardcoded.
 	(padding . -0.1)  ;; bar must cover rounded ending of staff line.
 	(stencil . ,ly:system-start-delimiter::print)
@@ -2249,6 +2253,7 @@
 	(collapse-height . 5.0)
 	(direction . ,LEFT)
 	(font-encoding . fetaBraces)
+	(cross-staff . #t)
 	(padding . 0.3)
 	(stencil . ,ly:system-start-delimiter::print)
 	(style . brace)
@@ -2263,6 +2268,7 @@
      . (
 	(collapse-height . 5.0)
 	(direction . ,LEFT)
+	(cross-staff . #t)
 	(padding . 0.8)
 	(stencil . ,ly:system-start-delimiter::print)
 	(style . bracket)
@@ -2277,6 +2283,7 @@
     (SystemStartSquare
      . (
 	(direction . ,LEFT)
+	(cross-staff . #t)
 	(stencil . ,ly:system-start-delimiter::print)
 	(style . line-bracket)
 	(thickness . 1.0)

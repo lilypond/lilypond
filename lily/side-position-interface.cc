@@ -324,13 +324,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       dim.set_minimum_height (0.0);
     }
 
-  // Ditto - seems kludgy, but this time logic of SystemStartBrackets
-  if (my_dim.is_empty ())
-    {
-      my_dim = Skyline (my_dim.direction ());
-      my_dim.set_minimum_height (isinf (max_raise) ? 0.0 : max_raise);
-    }
-
   // Many cross-staff grobs do not have good height estimations.
   // We give the grob the best chance of not colliding by shifting
   // it to the maximum height in the case of cross-staff alignment.

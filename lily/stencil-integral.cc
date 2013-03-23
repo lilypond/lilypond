@@ -981,16 +981,6 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a, bool p
                  ? Interval (-infinity_f, infinity_f)
                  : me->maybe_pure_extent (me, Y_AXIS, pure, beg, end);
 
-  // In horizontal spacing, there are grobs like SystemStartBracket
-  // that take up no vertical spcae.  So, if the y extent is empty,
-  // we use the entire Y extent ot make the X a sort of horizontal wall.
-  // Ditto for vertical spacing and grobs like BassFigureAlginmentPositioning.
-  if (a == Y_AXIS && yex.is_empty ())
-    yex.set_full ();
-
-  if (a == X_AXIS && xex.is_empty ())
-    xex.set_full ();
-
   if (xex.is_empty () || yex.is_empty ())
     return Skyline_pair ().smobbed_copy ();
 
@@ -1005,6 +995,8 @@ Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM ends
   Grob *me = unsmob_grob (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
+  // We cannot measure the width of a spanner before line breaking,
+  // so we assume that the width is infinite.
   return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, dynamic_cast<Spanner *> (me), false);
 }
 
@@ -1023,6 +1015,9 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM en
   Grob *me = unsmob_grob (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
+  // If the grob is cross staff, we cannot measure its Y-extent before
+  // wayyyy downstream (after spacing of axis groups is done).
+  // Thus, we assume that the Y extent is infinite for cross staff grobs.
   return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, true, beg, end, false, to_boolean (me->get_property ("cross-staff")));
 }
 
@@ -1031,6 +1026,7 @@ SCM
 Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  // See comment in function above.
   return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
 }
 
