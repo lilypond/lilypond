@@ -1307,9 +1307,13 @@ equivalent to @code{\"fi\"}.
 
   (interpret-markup layout
                     (prepend-alist-chain 'word-space 0 props)
-                    (make-line-markup (if (markup-command-list? args)
-					  args
-					  (concat-string-args args)))))
+                    (make-line-markup
+                     (make-override-lines-markup-list
+                      (cons 'word-space
+                            (chain-assoc-get 'word-space props))
+                      (if (markup-command-list? args)
+                          args
+                          (concat-string-args args))))))
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
