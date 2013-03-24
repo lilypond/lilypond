@@ -31,6 +31,14 @@
 
 %% TODO: using define-music-function in a .scm causes crash.
 
+absolute =
+#(define-music-function (parser location music)
+   (ly:music?)
+   (_i "Make @var{music} absolute.  This does not actually change the
+music itself but rather hides it from surrounding @code{\\relative}
+commands.")
+   (make-music 'RelativeOctaveMusic 'element music))
+
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic
    (_i "Create an acciaccatura from the following music expression"))
