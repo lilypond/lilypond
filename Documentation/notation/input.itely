@@ -2085,13 +2085,16 @@ to tagged music is as follows:
 @headitem Filter
   @tab Result
 @item
-Tagged music preceded by @code{\keepWithTag #'@var{name}}
-  @tab Untagged music and music tagged with @var{name} is included;
-       music tagged with any other tag name is excluded.
+Tagged music preceded by @code{\keepWithTag #'@var{name}} or
+       @code{\keepWithTag #'(@var{name1} @var{name2}@dots{})}
+@tab Untagged music and music tagged with any of the given tag
+     names is included; 
+     music tagged with any other tag name is excluded.
 @item
-Tagged music preceded by @code{\removeWithTag #'@var{name}}
-@tab Untagged music and music tagged with any tag name other than
-     @var{name} is included; music tagged with @var{name} is
+Tagged music preceded by @code{\removeWithTag #'@var{name}} or
+       @code{\removeWithTag #'(@var{name1} @var{name2}@dots{})}
+@tab Untagged music and music not tagged with any of the given tag names
+     is included; music tagged with any of the given tag names is
      excluded.
 @item
 Tagged music not preceded by either @code{\keepWithTag} or
@@ -2162,12 +2165,13 @@ c1-\tag #'warn ^"Watch!"
 @end example
 
 Multiple tags may be placed on expressions with multiple
-@code{\tag} entries:
+@code{\tag} entries, or by combining multiple tags into one symbol
+list:
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
   \tag #'a \tag #'both { a4 a a a }
-  \tag #'b \tag #'both { b4 b b b }
+  \tag #'(b both) { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -2177,7 +2181,9 @@ music = \relative c'' {
 @end lilypond
 
 Multiple @code{\removeWithTag} filters may be applied to a single
-music expression to remove several differently named tagged sections:
+music expression to remove several differently named tagged
+sections.  Alternatively, you can use a single
+@code{\removeWithTag} with a list of tags.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -2190,6 +2196,8 @@ music = \relative c'' {
 \removeWithTag #'B
 \removeWithTag #'C
 \music
+\removeWithTag #'(B C)
+\music
 }
 @end lilypond
 
@@ -2197,6 +2205,9 @@ Two or more @code{\keepWithTag} filters applied to a single music
 expression will cause @emph{all} tagged sections to be removed, as
 the first filter will remove all tagged sections except the one
 named, and the second filter will remove even that tagged section.
+Usually you would rather want to use a single @code{\keepWithTag}
+command with a list of multiple tags: this will only remove tagged
+sections not given in @emph{any} of the tags.
 
 Sometimes you want to splice some music at a particular place in an
 existing music expression.  You can use @code{\pushToTag} and
