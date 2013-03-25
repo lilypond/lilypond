@@ -143,7 +143,7 @@ book last one."
    empty-stencil))
 
 #(define (print-page-number-check-first layout props arg)
-  (if (or (not (part-first-page? layout props))
+  (if (or (not (book-first-page? layout props))
           (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
    (create-page-number-stencil layout props arg)
    empty-stencil))
@@ -169,12 +169,12 @@ evenHeaderMarkup = \markup
 oddFooterMarkup = \markup {
   \column {
     \fill-line {
-      %% Copyright header field only on first page.
+      %% Copyright header field only on first page in each bookpart.
       \on-the-fly #part-first-page \fromproperty #'header:copyright
     }
     \fill-line {
-      %% Tagline header field only on last page.
-      \on-the-fly #part-last-page \fromproperty #'header:tagline
+      %% Tagline header field only on last page in the book.
+      \on-the-fly #last-page \fromproperty #'header:tagline
     }
   }
 }
