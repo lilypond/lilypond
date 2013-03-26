@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.15"
 
 
 @c Translators: Yoshiki Sawada
@@ -2231,7 +2231,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c'  {
   c2 d e f g f e
 }
 \addlyrics { \bulgarian }

@@ -177,25 +177,8 @@ Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob_music (music);
   Pitch p = *unsmob_pitch (pitch);
-
-  SCM elts = me->get_property ("elements");
-  SCM copied = SCM_EOL;
-  if (lily_1_8_relative)
-    copied = ly_music_deep_copy (elts);
-
-  Pitch retval = music_list_to_relative (elts, p, false);
-
-  if (lily_1_8_relative)
-    {
-
-      Pitch retval_1_8 = music_list_to_relative (copied, p, true);
-      if (retval_1_8 != retval)
-        lily_1_8_compatibility_used = true;
-
-      retval = retval_1_8;
-    }
-
-  return retval.smobbed_copy ();
+  return music_list_to_relative (me->get_property ("elements"),
+                                 p, false).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback, 2);

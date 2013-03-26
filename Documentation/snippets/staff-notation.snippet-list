@@ -5,6 +5,7 @@ adding-indicators-to-staves-which-get-split-after-a-break.ly
 adding-orchestral-cues-to-a-vocal-score.ly
 adding-timing-marks-to-long-glissandi.ly
 alternative-bar-numbering.ly
+centered-measure-numbers.ly
 changing-the-number-of-lines-in-a-staff.ly
 changing-the-staff-size.ly
 creating-blank-staves.ly
@@ -25,6 +26,7 @@ measure-counter.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 nesting-staves.ly
 non-traditional-key-signatures.ly
+numbering-groups-of-measures.ly
 orchestra,-choir-and-piano-template.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice-with-transposition.ly
@@ -37,5 +39,6 @@ time-signature-in-parentheses.ly
 tweaking-clef-properties.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-autochange-with-more-than-one-voice.ly
+vertical-aligned-staffgroups-without-connecting-systemstartbar.ly
 volta-below-chords.ly
 volta-multi-staff.ly

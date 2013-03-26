@@ -19,7 +19,6 @@
 
 #(note-names-language parser default-language)
 
-#(ly:set-option 'old-relative #f)
 #(define location #f)
 #(define toplevel-scores (list))
 #(define toplevel-bookparts (list))
@@ -47,11 +46,6 @@ $(if (ly:get-option 'include-settings)
 %%
 %% Above and below comments compensate for the parser's look-ahead.
 %%
-
-#(if (and (ly:get-option 'old-relative)
-      (defined? 'input-file-name)
-      (not (ly:get-option 'old-relative-used)))
-  (old-relative-not-used-message input-file-name))%% there is a problem at the end of the input file
 
 #(if (and (not version-seen)
       (defined? 'input-file-name))

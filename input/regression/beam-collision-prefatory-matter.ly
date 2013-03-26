@@ -8,9 +8,9 @@
 %  debug-beam-scoring = ##t
 }
 
-\version "2.16.0"
+\version "2.17.15"
 
-\relative {
+\relative c' {
   \time 2/4
   c8[ \clef "bass" e,, ]
   r8

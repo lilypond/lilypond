@@ -238,8 +238,22 @@ defined by @code{fill}."
 (define-public
   (make-partial-ellipse-stencil
     x-radius y-radius start-angle end-angle thick connect fill)
-
+  "Create an elliptical arc
+@var{x-radius} is the X radius of the arc.
+@var{y-radius} is the Y radius of the arc.
+@var{start-angle} is the starting angle of the arc in degrees.
+@var{end-angle} is the ending angle of the arc in degrees.
+@var{thick} is the thickness of the line.
+@var{connect} is a boolean flag indicating if the end should
+be connected to the start by a line.
+@var{fill} is a boolean flag indicating if the shape should be filled."
   (define (make-radius-list x-radius y-radius)
+    "Makes a list of angle/radius pairs at intervals of PI/2 for
+the partial ellipse until 7*PI/2.  For example, in pseudo-code:
+> (make-radius-list 2 3)
+((0.0 . 2) (PI/2 . 3) (PI . -2) (3*PI/2 . -3)
+(2*PI . 2) (5*PI/2 . 3) (3*PI . -2) (7*PI/2 . -3))
+"
     (apply append
            (map (lambda (adder)
                   (map (lambda (quadrant)
@@ -253,6 +267,16 @@ defined by @code{fill}."
 
   (define
     (insert-in-ordered-list ordering-function value inlist cutl? cutr?)
+    "Insert @var{value} in ordered list @var{inlist}. If @var{cutl?}, we
+cut away any parts of @var{inlist} before @var{value}. @var{cutr?} works
+the same way but for the right side. For example:
+> (insert-in-ordered-list < 4 '(1 2 3 6 7) #f #f)
+'(1 2 3 4 6 7)
+> (insert-in-ordered-list < 4 '(1 2 3 6 7) #t #f)
+'(4 6 7)
+> (insert-in-ordered-list < 4 '(1 2 3 6 7) #f #t)
+'(1 2 3 4)
+"
     (define
       (helper ordering-function value left-list right-list cutl? cutr?)
       (if (null? right-list)
@@ -279,24 +303,45 @@ defined by @code{fill}."
   (define (ordering-function-2 a b) (car<= a b))
 
   (define (min-max-crawler min-max side l)
+    "Apply function @var{side} to each member of list and
+then reduce using @var{min-max}:
+> (min-max-crawler min car '((0 . 3) (-1 . 4) (1 . 2)))
+-1
+> (min-max-crawler min cdr '((0 . 3) (-1 . 4) (1 . 2)))
+2
+"
     (reduce min-max
             (if (eq? min-max min) 100000 -100000)
             (map (lambda (x) (side x)) l)))
 
   (let*
-      ((x-out-radius (+ x-radius (/ thick 2.0)))
+      (;; the outside limit of the x-radius
+       (x-out-radius (+ x-radius (/ thick 2.0)))
+       ;; the outside limit of the y-radius
        (y-out-radius (+ y-radius (/ thick 2.0)))
+       ;; end angle to radians
        (new-end-angle (angle-0-2pi (degrees->radians end-angle)))
+       ;; length of the radius at the end angle
        (end-radius (ellipse-radius x-out-radius y-out-radius new-end-angle))
+       ;; start angle to radians
        (new-start-angle (angle-0-2pi (degrees->radians start-angle)))
+       ;; length of the radius at the start angle
        (start-radius (ellipse-radius x-out-radius y-out-radius new-start-angle))
+       ;; points that the arc passes through at 90 degree intervals
        (radius-list (make-radius-list x-out-radius y-out-radius))
+       ;; rectangular coordinates of arc endpoint
        (rectangular-end-radius (polar->rectangular end-radius end-angle))
+       ;; rectangular coordinates of arc begin point
        (rectangular-start-radius (polar->rectangular start-radius start-angle))
+       ;; we want the end angle to always be bigger than the start angle
+       ;; so we redefine it here just in case it is less
        (new-end-angle
          (if (<= new-end-angle new-start-angle)
              (+ TWO-PI new-end-angle)
              new-end-angle))
+       ;; all the points that may be extrema of the arc
+       ;; this is the 90 degree points plus the beginning and end points
+       ;; we use this to calculate extents
        (possible-extrema
          (insert-in-ordered-list
            ordering-function-2
@@ -319,6 +364,9 @@ defined by @code{fill}."
         thick
         connect
         fill)
+      ; we know the extrema points by crawling through the
+      ; list of possible extrema and finding the min and max
+      ; for x and y
       (cons (min-max-crawler min cadr possible-extrema)
             (min-max-crawler max cadr possible-extrema))
       (cons (min-max-crawler min cddr possible-extrema)

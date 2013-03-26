@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.15"
 \header{
 texidoc="
 Key signatures may appear on key changes, even without a barline.  
@@ -15,7 +15,7 @@ are created also on a clef change.
     ragged-right = ##T
 }
 
-\relative
+\relative c'
 {
     \set Staff.createKeyOnClefChange = ##t  
     \key bes \major c2

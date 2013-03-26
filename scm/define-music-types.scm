@@ -39,7 +39,7 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
 
     (AnnotateOutputEvent
      . ((description . "Print an annotation of an output element.")
-	(types . (general-music event annotate-output-event))
+	(types . (general-music event annotate-output-event post-event))
 	))
 
     (ApplyContext
@@ -72,10 +72,10 @@ Syntax: @w{@var{note}@code{-\\arpeggio}}")
     (ArticulationEvent
      . ((description . "Add an articulation marking to a note.
 
-Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
-(@code{^} for up or @code{_} for down), or LilyPond's choice
-(no direction specified), and where @code{y} is an articulation
-(such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
+Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction\
+\n(@code{^} for up or @code{_} for down), or LilyPond's choice\
+\n(no direction specified), and where @code{y} is an articulation\
+\n(such as @w{@code{-.}}, @w{@code{->}}, @code{\\tenuto}, @code{\\downbow}).
 See the Notation Reference for details.")
 	(types . (general-music post-event event articulation-event script-event))
 	))
@@ -436,6 +436,12 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
         (spanner-id . "")
 	(types . (general-music post-event span-event event phrasing-slur-event))
 	))
+
+    (PostEvents
+     . ((description . "Container for several postevents.
+
+This can be used to package several events into a single one.  Should not be seen outside of the parser.")
+        (types . (post-event post-event-wrapper))))
 
     (PropertySet
      . ((description . "Set a context property.

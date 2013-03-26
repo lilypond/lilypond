@@ -5,10 +5,10 @@ if the switch occurs together with context instantiation."
 
 }
 
-\version "2.17.11"
+\version "2.17.15"
 
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<

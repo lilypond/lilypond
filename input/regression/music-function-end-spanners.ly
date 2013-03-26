@@ -6,11 +6,11 @@ end span events at the end of a note."
   
 }
 
-\version "2.17.6"
+\version "2.17.15"
 \paper{
   ragged-right = ##T
 }
-\relative
+\relative c'
 << {   c'4 c c c }
    \\
    {

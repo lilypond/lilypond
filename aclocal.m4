@@ -304,9 +304,6 @@ AC_DEFUN(STEPMAKE_GXXCODEGENBUG, [
 
 
 AC_DEFUN(STEPMAKE_DATADIR, [
-    if test "$datadir" = "\${prefix}/share"; then
-	    datadir='${prefix}/share'
-    fi
     presome=${prefix}
     if test "$prefix" = "NONE"; then
 	presome=${ac_default_prefix}
@@ -314,7 +311,7 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     
     build_package_datadir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/share/$package
     
-    DATADIR=`echo ${datadir} | sed "s!\\\${datarootdir}!${prefix}/share!"`
+    DATADIR=`echo ${datadir} | sed "s!\\\${datarootdir}!${presome}/share!"`
     DATADIR=`echo ${DATADIR} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
@@ -327,11 +324,14 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 
 ## ugh: cut & paste programming from datadir. 
 AC_DEFUN(STEPMAKE_LIBDIR, [
-
-    if test "$libdir" = "\${exec_prefix}/lib"; then
- 	libdir='${exec_prefix}/lib'
+    presome=${exec_prefix}
+    if test "$presome" = "NONE"; then
+	    presome=${prefix}
     fi
-    presome=$exec_prefix
+    if test "$presome" = "NONE"; then
+	    presome=${ac_default_prefix}
+    fi
+
     build_package_libdir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/lib/$package
     
     LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
@@ -1083,8 +1083,18 @@ void *p = v.data ();
 
 
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
-    # ugh
-    STEPMAKE_PROGS(KPSEWHICH, kpsewhich, OPTIONAL)
+    STEPMAKE_PROGS(KPSEWHICH, kpsewhich, $1)
+
+    AC_MSG_CHECKING(for metapost required files)
+    if test "$MFPLAIN_MP" = ""; then
+        MFPLAIN_MP=`kpsewhich -format=mp mfplain`
+    fi
+    if test "$MFPLAIN_MP" = ""; then
+        AC_MSG_RESULT(no)
+        STEPMAKE_ADD_ENTRY($1,['metapost CTAN package (texlive-metapost)'])
+    else
+        AC_MSG_RESULT(yes)
+    fi
 ])
 
 AC_DEFUN(STEPMAKE_TEXMF, [

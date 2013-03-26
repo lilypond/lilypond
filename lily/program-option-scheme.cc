@@ -37,11 +37,6 @@ bool debug_page_breaking_scoring;
 bool music_strings_to_paths;
 bool relative_includes;
 
-/*
-  Backwards compatibility.
-*/
-bool lily_1_8_relative = false;
-bool lily_1_8_compatibility_used = false;
 bool profile_property_accesses = false;
 /*
   crash if internally the wrong type is used for a grob property.
@@ -83,13 +78,6 @@ internal_set_option (SCM var,
   else if (varstr == "safe")
     {
       be_safe_global = valbool;
-      val = val_scm_bool;
-    }
-  else if (varstr == "old-relative")
-    {
-      lily_1_8_relative = valbool;
-      /* Needs to be reset for each file that uses this option. */
-      lily_1_8_compatibility_used = valbool;
       val = val_scm_bool;
     }
   else if (varstr == "strict-infinity-checking")

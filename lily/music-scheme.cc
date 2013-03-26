@@ -182,8 +182,6 @@ LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
   Pitch start = *unsmob_pitch (pitch);
   Music *m = unsmob_music (music);
   Pitch last = m->to_relative_octave (start);
-  if (lily_1_8_relative)
-    m->set_property ("last-pitch", last.smobbed_copy ());
 
   return last.smobbed_copy ();
 }

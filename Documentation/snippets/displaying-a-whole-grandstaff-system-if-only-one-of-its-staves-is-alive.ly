@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.15"
 
 \header {
   lsrtags = "contexts-and-engravers"
@@ -36,7 +36,7 @@ the second violin is also displayed.
       \new Staff = "Staff_flute" \with {
         instrumentName = "Flute"
         shortInstrumentName = "Fl"}
-        \relative { \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break }
+        \relative c' { \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break }
       }
     >>
     \new StaffGroup = "StaffGroup_Strings"
@@ -54,7 +54,7 @@ the second violin is also displayed.
           instrumentName = "Violin II"
           shortInstrumentName = "Vi II"
         }
-        \relative { e1 \repeat unfold 8 { s1 } }
+        \relative c' { e1 \repeat unfold 8 { s1 } }
       >>
       \new Staff = "Staff_cello" \with {
         instrumentName = "Cello"

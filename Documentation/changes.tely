@@ -62,6 +62,13 @@ which scares away people.
 @end ignore
 
 @item
+The @samp{-d old-relative} option has been removed.  Not actually
+accessible from the command line any more, its remaining use was
+for interpretating @code{\relative} in LilyPond files converted
+automatically from version@tie{}1.8 or older.  It is unclear how
+much of this was actually still operative.
+
+@item
 The meaning of @code{instrumentTransposition} has been reversed.
 After
 @example

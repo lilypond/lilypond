@@ -328,10 +328,14 @@ unless explicitly overriden in the name."
       (ly:warning (_ "Unknown paper size: ~a") name)))))
 
 (define-safe-public (set-default-paper-size name . rest)
-  (internal-set-paper-size
-   (ly:output-def-scope (eval '$defaultpaper (current-module)))
-   name
-   (memq 'landscape rest)))
+  (let* ((pap (module-ref (current-module) '$defaultpaper))
+         (new-paper (ly:output-def-clone pap))
+         (new-scope (ly:output-def-scope new-paper)))
+    (internal-set-paper-size
+     new-scope
+     name
+     (memq 'landscape rest))
+    (module-set! (current-module) '$defaultpaper new-paper)))
 
 (define-public (set-paper-size name . rest)
   (if (module-defined? (current-module) 'is-paper)

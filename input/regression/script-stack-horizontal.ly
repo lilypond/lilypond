@@ -8,13 +8,13 @@ The scripts should not be folded under the time signature.
 "
   
 }
-\version "2.16.0"
+\version "2.17.15"
 
 \paper {
   ragged-right = ##t
 }
 
-\relative 
+\relative c' 
 {
   \set stringNumberOrientations = #'(left) 
   \set fingeringOrientations = #'(left) 

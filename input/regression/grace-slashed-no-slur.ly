@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.15"
 
 \header
 {
@@ -6,6 +6,6 @@
   when the grace note is tied to the next note.
 "
 }
-\relative {
+\relative c' {
   \slashedGrace c16~ c1
 }

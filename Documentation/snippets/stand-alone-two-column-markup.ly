@@ -17,7 +17,6 @@ Stand-alone text may be arranged in several columns using
   doctitle = "Stand-alone two-column markup"
 } % begin verbatim
 
-
 \markup {
   \fill-line {
     \hspace #1
@@ -30,13 +29,13 @@ Stand-alone text may be arranged in several columns using
       \line { Amen. }
     }
     \hspace #2
-    \column {
-      \line { \italic { O sacred feast } }
-      \line { \italic { in which Christ is received, } }
-      \line { \italic { the memory of His Passion is renewed, } }
-      \line { \italic { the mind is filled with grace, } }
-      \line { \italic { and a pledge of future glory is given to us. } }
-      \line { \italic { Amen. } }
+    \column \italic {
+      \line { O sacred feast }
+      \line { in which Christ is received, }
+      \line { the memory of His Passion is renewed, }
+      \line { the mind is filled with grace, }
+      \line { and a pledge of future glory is given to us. }
+      \line { Amen. }
     }
     \hspace #1
   }

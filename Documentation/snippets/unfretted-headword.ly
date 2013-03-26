@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.17.15"
 
 \header {
   lsrtags = "headword"
@@ -216,7 +216,7 @@ ViolinSolo = \relative c' {
 \score {
 
   <<
-    \relative <<
+    \relative c' <<
       \new Staff \ViolinSolo
     >>
 

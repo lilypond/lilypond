@@ -854,7 +854,7 @@ status to @qq{patch-review} and emails the developer list.  If the patch
 fails, Patchy sets it to @qq{patch-needs_work} and notifies the developer list.
 
 @item
-The Patch Handler reviews the tracker periodically, to list patches
+The Patch Meister reviews the tracker periodically, to list patches
 which have been on review for at least 24 hours. The list is found at
 
 @smallexample
@@ -875,7 +875,7 @@ clear the @qq{send email} box to prevent sending notification for
 each patch.
 
 @item
-The Patch Handler sends an email to the developer list, with a fixed
+The Patch Meister sends an email to the developer list, with a fixed
 subject line, to enable filtering by email clients:
 
 @example
@@ -919,13 +919,13 @@ Colin
 @end smallexample
 
 @item
-On the scheduled countdown day, the Patch Handler reviews the
+On the scheduled countdown day, the Patch Meister reviews the
 previous list of patches on countdown, with the same procedure and
 criteria as before.  Patches with no controversy can be set to
 @qq{patch-push} with a courtesy message added to the comment block.
 
 @item
-Roughly at six month intervals, the Patch Handler can list the
+Roughly at six month intervals, the Patch Meister can list the
 patches which have been set to @qq{patch-needs-work} and send the
 results to the developer list for review.  In most cases, these
 patches should be marked @qq{patch-abandoned} but this should come

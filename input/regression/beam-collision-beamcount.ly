@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.15"
 \header {
   texidoc = "Manual beams do not collide with notes."
 }
@@ -8,7 +8,7 @@
   indent = #0.0
 }
 
-\relative \new Staff {
+\relative c' \new Staff {
 
   <<
     \new Voice {

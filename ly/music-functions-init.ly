@@ -178,14 +178,16 @@ balloonGrobText =
    (symbol? number-pair? markup?)
    (_i "Attach @var{text} to @var{grob-name} at offset @var{offset}
  (use like @code{\\once})")
-   (make-music 'AnnotateOutputEvent
-	       'symbol grob-name
-	       'X-offset (car offset)
-	       'Y-offset (cdr offset)
-	       'text text))
+   (make-event-chord
+    (list
+     (make-music 'AnnotateOutputEvent
+                 'symbol grob-name
+                 'X-offset (car offset)
+                 'Y-offset (cdr offset)
+                 'text text))))
 
 balloonText =
-#(define-music-function (parser location offset text) (number-pair? markup?)
+#(define-event-function (parser location offset text) (number-pair? markup?)
    (_i "Attach @var{text} at @var{offset} (use like @code{\\tweak})")
    (make-music 'AnnotateOutputEvent
 	       'X-offset (car offset)
@@ -1022,8 +1024,8 @@ usually contains spacers or multi-measure rests.")
 
 relative =
 #(define-music-function (parser location pitch music)
-   ((ly:pitch? (ly:make-pitch 0 0 0)) ly:music?)
-   (_i "Make @var{music} relative to @var{pitch} (default @code{c'}).")
+   (ly:pitch? ly:music?)
+   (_i "Make @var{music} relative to @var{pitch}.")
    (ly:make-music-relative! music pitch)
    (make-music 'RelativeOctaveMusic
 	       'element music))

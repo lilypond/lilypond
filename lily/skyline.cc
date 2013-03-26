@@ -54,11 +54,26 @@
    a DOWN skyline with an UP skyline, we need to flip the DOWN skyline first.
    This means that the merging routine doesn't need to be aware of direction,
    but the distance routine does.
-*/
 
-/* If we start including very thin buildings, numerical accuracy errors can
-   arise. Therefore, we ignore all buildings that are less than epsilon wide. */
-#define EPS 1e-5
+   Be careful about numerical accuracy. When dealing with extremely small values,
+   computation errors may arise due to the use of floating point arithmetic.
+   For example, if left and right have equal values to start with, in C++
+   they may not receive the same value after
+
+   left = left*factor + offset;
+   right = right*factor + offset;
+
+   Which is very unfortunate. Maybe using GCC compiler options to disallow
+   extended precision for intermediate results and/or the choice to store
+   intermediates with less than full precision would retain some kind of
+   deterministic behavior that way.
+
+   Anyway, it seems that accepting extremely narrow building in skylines
+   doesn't cause accuracy problems to us, so we allow arbitrarily small buildings.
+   However, as Keith pointed out, problems may appear if more than one operation
+   is done before storing the result, and/or there are different code paths
+   for doing the operations to the different ends of an interval.
+*/
 
 static void
 print_buildings (list<Building> const &b)
@@ -301,8 +316,7 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
           break;
         }
 
-      /* only include buildings wider than epsilon */
-      if (end > x + EPS)
+      if (end >= x)
         {
           b.leading_part (end);
           b.start_ = last_end;
@@ -329,20 +343,15 @@ empty_skyline (list<Building> *const ret)
 static void
 single_skyline (Building b, list<Building> *const ret)
 {
-  if (b.end_ > b.start_ + EPS)
-    {
-      if (b.start_ != -infinity_f)
-        ret->push_back (Building (-infinity_f, -infinity_f,
-                                  -infinity_f, b.start_));
-      ret->push_back (b);
-      if (b.end_ != infinity_f)
-        ret->push_back (Building (b.end_, -infinity_f,
-                                  -infinity_f, infinity_f));
-    }
-  else
-    {
-      empty_skyline (ret);
-    }
+  assert (b.end_ >= b.start_);
+
+  if (b.start_ != -infinity_f)
+    ret->push_back (Building (-infinity_f, -infinity_f,
+                              -infinity_f, b.start_));
+  ret->push_back (b);
+  if (b.end_ != infinity_f)
+    ret->push_back (Building (b.end_, -infinity_f,
+                              -infinity_f, infinity_f));
 }
 
 /* remove a non-overlapping set of boxes from BOXES and build a skyline
@@ -377,7 +386,7 @@ non_overlapping_skyline (list<Building> *const buildings)
           continue;
         }
 
-      if (x1 > last_end + EPS)
+      if (x1 >= last_end)
         result.push_back (Building (last_end, -infinity_f, -infinity_f, x1));
 
       result.push_back (*i);
@@ -476,20 +485,16 @@ Skyline::Skyline (Direction sky)
 /*
   Build skyline from a set of boxes.
 
-  Boxes should have fatness in the horizon_axis, otherwise they are ignored.
+  Boxes should be non-empty on both axes.  Otherwise, they will be ignored
  */
 Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
 {
   list<Building> buildings;
   sky_ = sky;
 
-  Axis vert_axis = other_axis (horizon_axis);
   for (vsize i = 0; i < boxes.size (); i++)
-    {
-      Interval iv = boxes[i][horizon_axis];
-      if (iv.length () > EPS && !boxes[i][vert_axis].is_empty ())
-        buildings.push_front (Building (boxes[i], horizon_axis, sky));
-    }
+    if (!boxes[i].is_empty ())
+      buildings.push_front (Building (boxes[i], horizon_axis, sky));
 
   buildings_ = internal_build_skyline (&buildings);
   normalize ();
@@ -498,7 +503,8 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
 /*
   build skyline from a set of line segments.
 
-  Buildings should have fatness in the horizon_axis, otherwise they are ignored.
+  Segments can be articulated from left to right or right to left.
+  In the case of the latter, they will be stored internally as left to right.
  */
 Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis, Direction sky)
 {
@@ -518,7 +524,7 @@ Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis
       Real y1 = left[other_axis (horizon_axis)] * sky;
       Real y2 = right[other_axis (horizon_axis)] * sky;
 
-      if (x1 + EPS < x2)
+      if (x1 <= x2)
         buildings.push_back (Building (x1, y1, y2, x2));
     }
 
@@ -594,8 +600,7 @@ Skyline::insert (Box const &b, Axis a)
     }
 
   /* do the same filtering as in Skyline (vector<Box> const&, etc.) */
-  Interval iv = b[a];
-  if (iv.length () <= EPS || b[other_axis (a)].is_empty ())
+  if (b.is_empty ())
     return;
 
   my_bld.splice (my_bld.begin (), buildings_);
@@ -654,6 +659,12 @@ Skyline::internal_distance (Skyline const &other, Real horizon_padding, Real *to
 Skyline
 Skyline::padded (Real horizon_padding) const
 {
+  if (horizon_padding < 0.0)
+    warning ("Cannot have negative horizon padding.  Junking.");
+
+  if (horizon_padding <= 0.0)
+    return *this;
+
   list<Building> pad_buildings;
   for (list<Building>::const_iterator i = buildings_.begin (); i != buildings_.end (); ++i)
     {
