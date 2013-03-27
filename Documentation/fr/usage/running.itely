@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d1eb959d5c774b5b81bf74436350efa5976498af
+    Translation of GIT committish: ce43b953f70e2b7b36e11f3cb2bb0f179fc3b1a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -577,11 +577,6 @@ donnée en argument.
 @tab @code{#f}
 @tab Convertit les chaînes textuelles en chemins lorsque les glyphes
 font partie d'une fonte musicale.
-
-@item @code{old-relative}
-@tab @code{#f}
-@tab Affecte au mode @code{\relative} le même comportement pour de la
-musique simultanée que celui d'une syntaxe d'accords.
 
 @cindex paper-size, ligne de commande
 @item @code{paper-size}

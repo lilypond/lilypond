@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 598fd6adddb2286a94b3ee1ede548700715abc12
+    Translation of GIT committish: ce43b953f70e2b7b36e11f3cb2bb0f179fc3b1a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -231,7 +231,7 @@ spécifique.  Par défaut, le graveur @code{LigatureBracket} place un
 simple crochet au dessus de la ligature :
 
 @lilypond[quote,ragged-right,verbatim]
-\transpose c c' {
+\relative c'' {
   \[ g c a f d' \]
   a g f
   \[ e f a g \]
@@ -389,13 +389,13 @@ lancer dans la saisie de votre chant comme ci-après :
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new MensuralVoice = "discantus" \transpose c c' {
+    \new MensuralVoice = "discantus" \relative c' {
       \override Score.BarNumber.transparent = ##t {
         c'1\melisma bes a g\melismaEnd
         f\breve
-        \[ f1\melisma a c'\breve d'\melismaEnd \]
-        c'\longa
-        c'\breve\melisma a1 g1\melismaEnd
+        \[ f1\melisma a c\breve d\melismaEnd \]
+        c\longa
+        c\breve\melisma a1 g1\melismaEnd
         fis\longa^\signumcongruentiae
       }
     }
@@ -934,8 +934,8 @@ peut tout à fait faire l'objet d'un raccourci :
 ficta = { \once \set suggestAccidentals = ##t }
 \score { \relative c''
   \new MensuralVoice  {
-	\once \set suggestAccidentals = ##t
-  bes4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+    \once \set suggestAccidentals = ##t
+    bes4 a2 g2 \ficta fis8 \ficta e! fis2 g1
   }
 }
 @end lilypond
@@ -1002,7 +1002,7 @@ Par exemple,
 @c @end example
 @lilypond[quote,ragged-right,verbatim]
 \score {
-  \transpose c c' {
+  \relative c' {
     \set Score.timing = ##f
     \set Score.defaultBarType = "-"
     \override NoteHead.style = #'petrucci
@@ -1013,8 +1013,8 @@ Par exemple,
        \override NoteHead.ligature-flexa = ##t
        \once \override NoteHead.flexa-width = #3.2
        c\breve f e d \]
-    \[ c'\maxima d'\longa \]
-    \[ e'1 a g\breve \]
+    \[ c\maxima d\longa \]
+    \[ e1 a g\breve \]
   }
   \layout {
     \context {
@@ -1030,7 +1030,7 @@ Si on ne remplace pas le @code{Ligature_bracket_engraver}
 par le @code{Mensural_ligature_engraver}, on obtient
 
 @lilypond[quote,ragged-right]
-\transpose c c' {
+\relative c' {
   \set Score.timing = ##f
   \set Score.defaultBarType = "-"
   \override NoteHead.style = #'petrucci
@@ -1041,8 +1041,8 @@ par le @code{Mensural_ligature_engraver}, on obtient
      \override NoteHead.ligature-flexa = ##t
      \once \override NoteHead.flexa-width = #3.2
      c\breve f e d \]
-  \[ c'\maxima d'\longa \]
-  \[ e'1 a g\breve \]
+  \[ c\maxima d\longa \]
+  \[ e1 a g\breve \]
 }
 @end lilypond
 
@@ -1685,7 +1685,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum
     \[ b \]
   }
@@ -1699,7 +1699,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum
     \[ \cavum b \]
   }
@@ -1713,7 +1713,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum
     \[ \linea b \]
   }
@@ -1728,7 +1728,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum Auctum Ascendens
     \[ \auctum \ascendens b \]
   }
@@ -1743,7 +1743,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum Auctum Descendens
     \[ \auctum \descendens b \]
   }
@@ -1758,7 +1758,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum Inclinatum
     \[ \inclinatum b \]
   }
@@ -1773,7 +1773,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum Inclinatum Auctum
     \[ \inclinatum \auctum b \]
   }
@@ -1788,7 +1788,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Punctum Inclinatum Parvum
     \[ \inclinatum \deminutum b \]
   }
@@ -1803,7 +1803,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Virga
     \[ \virga b \]
   }
@@ -1824,7 +1824,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Clivis vel Flexa
     \[ b \flexa g \]
   }
@@ -1839,7 +1839,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Clivis Aucta Descendens
     \[ b \flexa \auctum \descendens g \]
   }
@@ -1853,7 +1853,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Clivis Aucta Ascendens
     \[ b \flexa \auctum \ascendens g \]
   }
@@ -1868,7 +1868,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Cephalicus
     \[ b \flexa \deminutum g \]
   }
@@ -1883,7 +1883,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Podatus vel Pes
     \[ g \pes b \]
   }
@@ -1898,8 +1898,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Pes Auctus Descendens
+  \relative c' {
+    % Pes Auctus Descendens
     \[ g \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
@@ -1913,7 +1913,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Pes Auctus Ascendens
     \[ g \pes \auctum \ascendens b \]
   }
@@ -1928,8 +1928,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Epiphonus
+  \relative c' {
+    % Epiphonus
     \[ g \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
@@ -1943,7 +1943,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Pes Initio Debilis
     \[ \deminutum g \pes b \]
   }
@@ -1958,7 +1958,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Pes Auctus Descendens Initio Debilis
     \[ \deminutum g \pes \auctum \descendens b \]
   }
@@ -1980,7 +1980,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Torculus
     \[ a \pes b \flexa g \]
   }
@@ -1995,8 +1995,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Torculus Auctus Descendens
+  \relative c' {
+    % Torculus Auctus Descendens
     \[ a \pes b \flexa \auctum \descendens g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2010,8 +2010,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Torculus Deminutus
+  \relative c' {
+    % Torculus Deminutus
     \[ a \pes b \flexa \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2025,8 +2025,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Torculus Initio Debilis
+  \relative c' {
+    % Torculus Initio Debilis
     \[ \deminutum a \pes b \flexa g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2040,8 +2040,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Torculus Auctus Descendens Initio Debilis
+  \relative c' {
+    % Torculus Auctus Descendens Initio Debilis
     \[ \deminutum a \pes b \flexa \auctum \descendens g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2055,8 +2055,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Torculus Deminutus Initio Debilis
+  \relative c' {
+    % Torculus Deminutus Initio Debilis
     \[ \deminutum a \pes b \flexa \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2070,7 +2070,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Porrectus
     \[ a \flexa g \pes b \]
   }
@@ -2085,8 +2085,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Porrectus Auctus Descendens
+  \relative c' {
+    % Porrectus Auctus Descendens
     \[ a \flexa g \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
@@ -2100,8 +2100,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Porrectus Deminutus
+  \relative c' {
+    % Porrectus Deminutus
     \[ a \flexa g \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
@@ -2115,7 +2115,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Climacus
     \[ \virga b \inclinatum a \inclinatum g \]
   }
@@ -2130,8 +2130,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Climacus Auctus
+  \relative c' {
+    % Climacus Auctus
     \[ \virga b \inclinatum a \inclinatum \auctum g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2145,8 +2145,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Climacus Deminutus
+  \relative c' {
+    % Climacus Deminutus
     \[ \virga b \inclinatum a \inclinatum \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
@@ -2160,7 +2160,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Scandicus
     \[ g \pes a \virga b \]
   }
@@ -2175,8 +2175,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Scandicus Auctus Descendens
+  \relative c' {
+    % Scandicus Auctus Descendens
     \[ g \pes a \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
@@ -2190,8 +2190,8 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
-	% Scandicus Deminutus
+  \relative c' {
+    % Scandicus Deminutus
     \[ g \pes a \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
@@ -2212,7 +2212,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Quilisma
     \[ g \pes \quilisma a \pes b \]
   }
@@ -2227,7 +2227,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Quilisma Pes Auctus Descendens
     \[ g \quilisma a \pes \auctum \descendens b \]
   }
@@ -2242,7 +2242,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Oriscus
     \[ \oriscus b \]
   }
@@ -2257,7 +2257,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Pes Quassus
     \[ \oriscus g \pes \virga b \]
   }
@@ -2272,7 +2272,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Pes Quassus Auctus Descendens
     \[ \oriscus g \pes \auctum \descendens b \]
   }
@@ -2287,7 +2287,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Salicus
     \[ g \oriscus a \pes \virga b \]
   }
@@ -2302,7 +2302,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Salicus Auctus Descendens
     \[ g \oriscus a \pes \auctum \descendens b \]
   }
@@ -2317,7 +2317,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Stropha
     \[ \stropha b \]
   }
@@ -2332,7 +2332,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Stropha Aucta
     \[ \stropha \auctum b \]
   }
@@ -2347,7 +2347,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Bistropha
     \[ \stropha b \stropha b \]
   }
@@ -2362,7 +2362,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Tristropha
     \[ \stropha b \stropha b \stropha b \]
   }
@@ -2377,7 +2377,7 @@ LilyPond}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \transpose c c' {
+  \relative c' {
     % Trigonus
     \[ \stropha b \stropha b \stropha a \]
   }
@@ -2485,7 +2485,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new KievanVoice = "melody" \transpose c c' {
+    \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
 	c4 c c c c2 b,\longa
 	\bar "k"
@@ -2663,7 +2663,7 @@ Voici comment générer des ligatures en notation kiévienne :
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new KievanVoice = "melody" \transpose c c' {
+    \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
 	e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \bar "k"
     }
