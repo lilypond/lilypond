@@ -843,6 +843,7 @@
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (X-align-on-main-noteheads . #t)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,(scale-by-font-size -0.6)) ; center on an 'm'
         (meta . ((class . Item)
@@ -1397,6 +1398,7 @@
         (word-space . 0.6)
         (skyline-horizontal-padding . 0.1)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-align-on-main-noteheads . #t)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)

@@ -175,7 +175,7 @@ Lyric_engraver::stop_translation_timestep ()
 
           if (head)
             {
-              text_->set_parent (head, X_AXIS);
+              text_->set_parent (head->get_parent(X_AXIS), X_AXIS);
               if (melisma_busy (voice)
                   && !to_boolean (get_property ("ignoreMelismata")))
                 text_->set_property ("self-alignment-X",

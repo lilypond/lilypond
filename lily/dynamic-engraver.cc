@@ -261,11 +261,11 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
     {
       extract_grob_set (info.grob (), "note-heads", heads);
       /*
-        Spacing constraints may require dynamics to be aligned on rests,
+        Spacing constraints may require dynamics to be attached to rests,
         so check for a rest if this note column has no note heads.
       */
       Grob *x_parent = (heads.size ()
-                        ? heads[0]
+                        ? info.grob ()
                         : unsmob_grob (info.grob ()->get_object ("rest")));
       if (x_parent)
         script_->set_parent (x_parent, X_AXIS);

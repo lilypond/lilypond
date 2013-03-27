@@ -1023,6 +1023,8 @@ texts.")
 ;;;
 ;;; x
 ;;;
+     (X-align-on-main-noteheads ,boolean? "If true, this grob will
+ignore suspended noteheads when aligning itself on NoteColumn.")
      (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (X-offset ,number? "The horizontal amount that this object is

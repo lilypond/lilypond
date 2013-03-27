@@ -157,6 +157,26 @@ Note_column::first_head (Grob *me)
 }
 
 /*
+  Return extent of the noteheads in the "main column",
+  i.e. excluding any suspended noteheads.
+*/
+Interval
+Note_column::calc_main_heads_extent (Grob *me)
+{
+  if (get_stem (me))
+    return first_head (me)->extent (me, X_AXIS);
+  else
+    {
+      // no stems => no suspended noteheads.
+      extract_grob_set (me, "note-heads", heads);
+      if (heads.size())
+        return heads[0]->extent (me, X_AXIS);
+      else
+        return Interval (0, 0);
+    }
+}
+
+/*
   Return the first AccidentalPlacement grob that we find in a note-head.
 */
 Grob *

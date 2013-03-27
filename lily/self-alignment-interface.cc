@@ -114,7 +114,13 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
     he = Paper_column::get_interface_extent
               (him, ly_symbol2scm ("note-column-interface"), a);
   else
-    he = him->extent (him, a);
+    {
+      if (ly_scm2bool(me->internal_get_property (ly_symbol2scm ("X-align-on-main-noteheads")))
+          && Note_column::has_interface (him))
+        he = Note_column::calc_main_heads_extent(him);
+      else
+        he = him->extent (him, a);
+    }
 
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
             : ly_symbol2scm ("self-alignment-Y");
@@ -169,4 +175,5 @@ ADD_INTERFACE (Self_alignment_interface,
                /* properties */
                "self-alignment-X "
                "self-alignment-Y "
+               "X-align-on-main-noteheads "
               );
