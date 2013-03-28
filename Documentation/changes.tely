@@ -62,6 +62,17 @@ which scares away people.
 @end ignore
 
 @item
+Horizontal space is allowed for tempo and rehearsal marks,
+so that these marks do not overlap each other.
+A new command @code{\markLengthOff} turns this feature off.
+@lilypond[quote,relative=0]
+\compressFullBarRests
+\tempo "Molto vivace" c''2 c'
+\mark\default
+\tempo "Meno mosso" R1*16
+@end lilypond
+
+@item
 When @code{\relative} is used without an explicit reference pitch,
 the reference pitch now is the middle of the first octave, making
 the first entered pitch indistinguishable from absolute pitch.

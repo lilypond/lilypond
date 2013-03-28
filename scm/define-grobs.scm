@@ -1418,15 +1418,16 @@
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
-	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 1000)
-	(padding . 0.8)
+	(outside-staff-padding . 0.5)
 	(side-axis . ,Y)
 	(skyline-horizontal-padding . 0.2)
 	(stencil . ,ly:text-interface::print)
 	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-	(Y-offset . ,side-position-interface::y-aligned-side)
+	(Y-offset . ,(ly:make-unpure-pure-container
+                       side-position-interface::y-aligned-side
+                       outside-staff::pure-Y-offset))
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -1786,12 +1787,11 @@
 	(break-align-symbols . (staff-bar key-signature clef))
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
-	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-size . 2)
 	(non-musical . #t)
 	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 1500)
-	(padding . 0.8)
+	(outside-staff-padding . 0.5)
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:text-interface::print)
 	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
@@ -1801,7 +1801,9 @@
 			  (list ly:break-alignable-interface::self-align-callback))
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
-	(Y-offset . ,side-position-interface::y-aligned-side)
+	(Y-offset . ,(ly:make-unpure-pure-container
+                       side-position-interface::y-aligned-side
+                       outside-staff::pure-Y-offset))
 	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
