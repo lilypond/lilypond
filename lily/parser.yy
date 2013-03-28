@@ -2066,6 +2066,13 @@ property_operation:
 // \revert Accidental.color
 
 revert_arg:
+	revert_arg_backup BACKUP symbol_list_arg
+	{
+		$$ = $3;
+	}
+	;
+
+revert_arg_backup:
 	revert_arg_part
 	{
 		if (scm_is_null ($1)
@@ -2074,20 +2081,16 @@ revert_arg:
 		else
 			MYBACKUP (SYMBOL_LIST, scm_reverse_x ($1, SCM_EOL), @1);
 	}
-	| revert_arg BACKUP symbol_list_arg
-	{
-		$$ = $3;
-	}
 	;
 
 // revert_arg_part delivers results in reverse
 revert_arg_part:
 	symbol_list_part
-	| revert_arg BACKUP SCM_ARG '.' symbol_list_part
+	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($5, $3));
 	}
-	| revert_arg BACKUP SCM_ARG symbol_list_part
+	| revert_arg_backup BACKUP SCM_ARG symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($4, $3));
 	}		
