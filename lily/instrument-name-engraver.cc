@@ -160,14 +160,14 @@ Instrument_name_engraver::stop_spanner ()
 
   for (vsize i = 0; i < axis_groups_.size (); i++)
     Pointer_group_interface::add_grob (text_spanner_,
-                                       ly_symbol2scm ("elements"),
+                                       ly_symbol2scm ("system-start-text-alignment-elements"),
                                        axis_groups_[i]);
 
   text_spanner_->set_bound (RIGHT,
                             unsmob_grob (get_property ("currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_,
-                                        ly_symbol2scm ("elements"),
+                                        ly_symbol2scm ("system-start-text-alignment-elements"),
                                         false);
 
   text_spanner_ = 0;

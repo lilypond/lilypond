@@ -1147,6 +1147,20 @@ and draws the stencil based on its coordinates.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; stanza-number
+
+(define-public (stanza-number::calc-x-offset grob)
+  "We want @code{StanzaNumbers} to side-align to lyrics.
+Sometimes, however, this is not possible, as the lyrics
+they align to are hara-kiri'd. In this case, we self-align
+them to the right and tack on any padding."
+  (if (null? (ly:grob-object grob 'side-support-elements))
+      (+ (ly:self-alignment-interface::x-aligned-on-self grob)
+         (* (ly:grob-property grob 'direction LEFT)
+            (ly:grob-property grob 'padding 0.0)))
+      (ly:side-position-interface::x-aligned-side grob)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; instrument names
 
 (define-public (system-start-text::print grob)
@@ -1177,6 +1191,8 @@ and draws the stencil based on its coordinates.
 	 (common (ly:grob-common-refpoint-of-array system elements X))
 	 (total-ext empty-interval)
 	 (align-x (ly:grob-property grob 'self-alignment-X 0))
+         (my-padding (ly:grob-property grob 'padding 0))
+         (ss (ly:staff-symbol-staff-space grob))
 	 (padding (min 0 (- (interval-length my-extent) indent)))
 	 (right-padding (- padding
 			   (/ (* padding (1+ align-x)) 2))))
@@ -1195,14 +1211,15 @@ and draws the stencil based on its coordinates.
 	    (unite-delims (1- l)))))
 
     (+
-     (ly:side-position-interface::x-aligned-side grob)
+     (- (interval-length my-extent))
+     (* -1 my-padding ss)
      right-padding
      (- (interval-length total-ext)))))
 
 (define-public (system-start-text::calc-y-offset grob)
 
   (define (live-elements-list me)
-    (let ((elements (ly:grob-object me 'elements)))
+    (let ((elements (ly:grob-object me 'system-start-text-alignment-elements)))
 
       (filter! grob::is-live?
                (ly:grob-array->list elements))))

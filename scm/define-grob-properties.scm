@@ -1174,6 +1174,8 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
      (stem ,ly:grob? "A pointer to a @code{Stem} object.")
      (stems ,ly:grob-array? "An array of stem objects.")
+     (system-start-text-alignment-elements ,ly:grob-array? "Elements
+used to align system start text.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
      (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")
