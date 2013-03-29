@@ -857,7 +857,7 @@
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,(scale-by-font-size -0.6)) ; center on an 'm'
         (meta . ((class . Item)
                  (interfaces . (dynamic-interface

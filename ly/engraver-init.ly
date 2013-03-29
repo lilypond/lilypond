@@ -420,13 +420,6 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \override DynamicLineSpanner.outside-staff-priority = ##f
   \override DynamicText.outside-staff-priority = ##f
   \override Hairpin.outside-staff-priority = ##f
-  \override DynamicText.X-offset =
-  #(ly:make-simple-closure
-    `(,+
-      ,(ly:make-simple-closure
-         (list ly:self-alignment-interface::centered-on-note-columns))
-      ,(ly:make-simple-closure
-        (list ly:self-alignment-interface::x-aligned-on-self))))
 
   \description "Holds a single line of dynamics, which will be
 centered between the staves surrounding this context."
