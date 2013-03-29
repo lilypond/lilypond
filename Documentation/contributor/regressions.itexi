@@ -7,6 +7,7 @@
 * Precompiled regression tests::
 * Compiling regression tests::
 * Regtest comparison::
+* Pixel-based regtest comparison::
 * Finding the cause of a regression::
 * Memory and coverage tests::
 * MusicXML tests::
@@ -297,6 +298,58 @@ and want to do regtests comparison for all of them, you can
 @code{make} and @code{make check} it, then switch to another branch,
 @code{make test-clean}, @code{make} and @code{make check} it without doing
 @code{make test-baseline} again.}
+
+@node Pixel-based regtest comparison
+@section Pixel-based regtest comparison
+
+As an alternative to the @code{make test} method for regtest checking (which
+relies upon @code{.signature} files created by a LilyPond run and which describe
+the placing of grobs) there is a script which compares the output of two
+LilyPond versions pixel-by-pixel.  To use this, start by checking out the
+version of LilyPond you want to use as a baseline, and run @code{make}.  Then,
+do the following:
+
+@example
+cd $LILYPOND_GIT/scripts/auxiliar/
+./make-regtest-pngs.sh -j9 -o
+@end example
+
+The @code{-j9} option tells the script to use 9 CPUs to create the
+images - change this to your own CPU count+1.  @code{-o} means this is the "old"
+version.  This will create images of all the regtests in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/old-regtest-results/
+@end example
+
+Now checkout the version you want to compare with the baseline.  Run
+@code{make} again to recreate the LilyPond binary.  Then, do the following:
+
+@example
+cd $LILYPOND_GIT/scripts/auxiliar/
+./make-regtest-pngs.sh -j9 -n
+@end example
+
+The @code{-n} option tells the script to make a "new" version of the
+images.  They are created in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/new-regtest-results/
+@end example
+
+Once the new images have been created, the script compares the old images with
+the new ones pixel-by-pixel and prints a list of the different images to the
+terminal, together with a count of how many differences were found.  The
+results of the checks are in
+
+@example
+$LILYPOND_BUILD_DIR/out-png-check/regtest-diffs/
+@end example
+
+To check for differences, browse that directory with an image
+viewer.  Differences are shown in red.  Be aware that some images with complex
+fonts or spacing annotations always display a few minor differences.  These can
+safely be ignored.
 
 
 @node Finding the cause of a regression
