@@ -555,6 +555,16 @@ GNU/Linux distributions),
 export LILYPOND_WEB_MEDIA_GIT=$HOME/dir/of/lilypond-extra/
 @end example
 
+Be aware that @code{lilypond-extra} is the definitive source for some binary
+files - in particular PDF versions of papers concerning LilyPond.  To add
+further PDFs of this sort, all that is necessary is to add the PDF to
+@code{lilypond-extra} and then add a reference to it in the documentation.  The
+file will then be copied to the website when @code{make website} is run.
+
+However, pictures that are also used in the documentation build are mastered in
+the main git repository.  If any of these is changed, it should be updated in
+git, and then the updates copied to @code{lilypond-extra}.
+
 @node Grand Unified Builder (GUB)
 @unnumberedsubsubsec Grand Unified Builder (GUB)
 
