@@ -314,6 +314,16 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       dim.set_minimum_height (staff_extents[dir]);
     }
 
+  // this seems kinda kludgy, as there is no apparent logic to it
+  // however, it is a holdover from the previous code and
+  // necessary for the InstrumentName grob
+  // TODO: find a better way to deal with this...
+  if (dim.is_empty ())
+    {
+      dim = Skyline (dim.direction ());
+      dim.set_minimum_height (0.0);
+    }
+
   // Many cross-staff grobs do not have good height estimations.
   // We give the grob the best chance of not colliding by shifting
   // it to the maximum height in the case of cross-staff alignment.

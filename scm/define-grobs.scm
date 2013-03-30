@@ -2039,14 +2039,12 @@
 	(direction . ,LEFT)
 	(font-series . bold)
 	(padding . 1.0)
-	(self-alignment-X . ,RIGHT)
 	(side-axis . ,X)
 	(stencil . ,ly:text-interface::print)
-	(X-offset . ,stanza-number::calc-x-offset)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
-				self-alignment-interface
 				side-position-interface
 				stanza-number-interface
 				text-interface))))))

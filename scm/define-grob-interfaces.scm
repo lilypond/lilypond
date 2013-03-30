@@ -264,8 +264,7 @@ interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'system-start-text-interface
  "Text in front of the system."
- '(system-start-text-alignment-elements long-text
-   padding self-alignment-X self-alignment-Y text))
+ '(long-text self-alignment-X self-alignment-Y text))
 
 (ly:add-interface
  'tab-note-head-interface
