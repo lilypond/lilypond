@@ -314,10 +314,21 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       dim.set_minimum_height (staff_extents[dir]);
     }
 
-  // this seems kinda kludgy, as there is no apparent logic to it
-  // however, it is a holdover from the previous code and
-  // necessary for the InstrumentName grob
-  // TODO: find a better way to deal with this...
+  // Sometimes, we want to side position for grobs but they
+  // don't position against anything.  Some cases where this is true:
+  //   - StanzaNumber if the supporting lyrics are hara-kiri'd
+  //     SystemStartBracket
+  //     InstrumentName
+  // In all these cases, we set the height of the support to 0.
+  // This becomes then like the self-alignment-interface with the
+  // caveat that there is padding added.
+  // TODO: if there is a grob that never has side-support-elements
+  // (like InstrumentName), why are we using this function? Isn't it
+  // overkill? A function like self-alignment-interface with padding
+  // works just fine.
+  // One could even imagine the two interfaces merged, as the only
+  // difference is that in self-alignment-interface we align on the parent
+  // where as here we align on a group of grobs.
   if (dim.is_empty ())
     {
       dim = Skyline (dim.direction ());
