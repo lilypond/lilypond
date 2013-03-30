@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.14\n"
+"Project-Id-Version: lilypond 2.17.15\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-03-10 16:43+0000\n"
+"POT-Creation-Date: 2013-03-30 16:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,162 +123,162 @@ msgstr ""
 msgid "Running texi2pdf on file %s to detect default page settings.\n"
 msgstr ""
 
-#: convertrules.py:12
+#: convertrules.py:13
 #, python-format
 msgid "Not smart enough to convert %s."
 msgstr ""
 
-#: convertrules.py:13
+#: convertrules.py:14
 msgid "Please refer to the manual for details, and update manually."
 msgstr ""
 
-#: convertrules.py:14
+#: convertrules.py:15
 #, python-format
 msgid "%s has been replaced by %s"
 msgstr ""
 
-#: convertrules.py:24 lilylib.py:136 warn.cc:223
+#: convertrules.py:25 lilylib.py:136 warn.cc:223
 #, c-format, python-format
 msgid "warning: %s"
 msgstr ""
 
-#: convertrules.py:49 convertrules.py:94
+#: convertrules.py:50 convertrules.py:95
 msgid "\\header { key = concat + with + operator }"
 msgstr ""
 
-#: convertrules.py:56
+#: convertrules.py:57
 #, python-format
 msgid "deprecated %s"
 msgstr ""
 
-#: convertrules.py:65
+#: convertrules.py:66
 msgid "deprecated \\textstyle, new \\key syntax"
 msgstr ""
 
-#: convertrules.py:81 convertrules.py:1855 convertrules.py:2031
-#: convertrules.py:2174 convertrules.py:2505 convertrules.py:2800
-#: convertrules.py:3150 convertrules.py:3384
+#: convertrules.py:82 convertrules.py:1856 convertrules.py:2032
+#: convertrules.py:2175 convertrules.py:2506 convertrules.py:2801
+#: convertrules.py:3151 convertrules.py:3385
 msgid "bump version for release"
 msgstr ""
 
-#: convertrules.py:97
+#: convertrules.py:98
 msgid "new \\header format"
 msgstr ""
 
-#: convertrules.py:124
+#: convertrules.py:125
 msgid "\\translator syntax"
 msgstr ""
 
-#: convertrules.py:175
+#: convertrules.py:176
 msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
 msgstr ""
 
-#: convertrules.py:205 convertrules.py:678 convertrules.py:1350
-#: convertrules.py:2317
+#: convertrules.py:206 convertrules.py:679 convertrules.py:1351
+#: convertrules.py:2318
 #, python-format
 msgid "deprecate %s"
 msgstr ""
 
-#: convertrules.py:279
+#: convertrules.py:280
 #, python-format
 msgid "deprecate %s "
 msgstr ""
 
-#: convertrules.py:305
+#: convertrules.py:306
 msgid "new \\notenames format"
 msgstr ""
 
-#: convertrules.py:321
+#: convertrules.py:322
 msgid "new tremolo format"
 msgstr ""
 
-#: convertrules.py:325
+#: convertrules.py:326
 msgid "Staff_margin_engraver deprecated, use Instrument_name_engraver"
 msgstr ""
 
-#: convertrules.py:376
+#: convertrules.py:377
 msgid "change property definition case (eg. onevoice -> oneVoice)"
 msgstr ""
 
-#: convertrules.py:437
+#: convertrules.py:438
 msgid "new \\textscript markup text"
 msgstr ""
 
-#: convertrules.py:509
+#: convertrules.py:510
 #, python-format
 msgid "identifier names: %s"
 msgstr ""
 
-#: convertrules.py:548
+#: convertrules.py:549
 msgid "point-and-click argument changed to procedure."
 msgstr ""
 
-#: convertrules.py:590
+#: convertrules.py:591
 msgid "semicolons removed"
 msgstr ""
 
 #. 40 ?
-#: convertrules.py:633
+#: convertrules.py:634
 #, python-format
 msgid "%s property names"
 msgstr ""
 
-#: convertrules.py:703
+#: convertrules.py:704
 msgid "automaticMelismata turned on by default"
 msgstr ""
 
-#: convertrules.py:708
+#: convertrules.py:709
 msgid "automaticMelismata is turned on by default since 1.5.67."
 msgstr ""
 
-#: convertrules.py:942 convertrules.py:1635 convertrules.py:1889
-#: convertrules.py:2134
+#: convertrules.py:943 convertrules.py:1636 convertrules.py:1890
+#: convertrules.py:2135
 #, python-format
 msgid "remove %s"
 msgstr ""
 
-#: convertrules.py:977 convertrules.py:980
+#: convertrules.py:978 convertrules.py:981
 msgid "cluster syntax"
 msgstr ""
 
-#: convertrules.py:987
+#: convertrules.py:988
 msgid "new Pedal style syntax"
 msgstr ""
 
-#: convertrules.py:1246
+#: convertrules.py:1247
 msgid ""
 "New relative mode,\n"
 "Postfix articulations, new text markup syntax, new chord syntax."
 msgstr ""
 
-#: convertrules.py:1259
+#: convertrules.py:1260
 msgid "Remove - before articulation"
 msgstr ""
 
-#: convertrules.py:1294
+#: convertrules.py:1295
 #, python-format
 msgid "%s misspelling"
 msgstr ""
 
-#: convertrules.py:1313
+#: convertrules.py:1314
 msgid "Swap < > and << >>"
 msgstr ""
 
-#: convertrules.py:1316
+#: convertrules.py:1317
 msgid "attempting automatic \\figures conversion.  Check results!"
 msgstr ""
 
-#: convertrules.py:1362
+#: convertrules.py:1363
 msgid "Use Scheme code to construct arbitrary note events."
 msgstr ""
 
-#: convertrules.py:1369
+#: convertrules.py:1370
 msgid ""
 "use symbolic constants for alterations,\n"
 "remove \\outputproperty, move ly:verbose into ly:get-option"
 msgstr ""
 
-#: convertrules.py:1394
+#: convertrules.py:1395
 #, python-format
 msgid ""
 "\\outputproperty found,\n"
@@ -290,7 +290,7 @@ msgid ""
 "as a substitution text."
 msgstr ""
 
-#: convertrules.py:1406
+#: convertrules.py:1407
 msgid ""
 "The alteration field of Scheme pitches was multiplied by 2\n"
 "to support quarter tone accidentals.  You must update the following "
@@ -300,70 +300,70 @@ msgid ""
 "* keySignature settings made with \\property\n"
 msgstr ""
 
-#: convertrules.py:1449
+#: convertrules.py:1450
 msgid "removal of automaticMelismata; use melismaBusyProperties instead."
 msgstr ""
 
-#: convertrules.py:1556
+#: convertrules.py:1557
 msgid "\\partcombine syntax change to \\newpartcombine"
 msgstr ""
 
-#: convertrules.py:1581
+#: convertrules.py:1582
 msgid ""
 "Drum notation changes, Removing \\chordmodifiers, \\notenames.\n"
 "Harmonic notes. Thread context removed. Lyrics context removed."
 msgstr ""
 
-#: convertrules.py:1585
+#: convertrules.py:1586
 msgid "Drums found. Enclose drum notes in \\drummode"
 msgstr ""
 
-#: convertrules.py:1596 convertrules.py:1603 convertrules.py:1614
+#: convertrules.py:1597 convertrules.py:1604 convertrules.py:1615
 #, python-format
 msgid ""
 "\n"
 "%s found. Check file manually!\n"
 msgstr ""
 
-#: convertrules.py:1596
+#: convertrules.py:1597
 msgid "Drum notation"
 msgstr ""
 
-#: convertrules.py:1655
+#: convertrules.py:1656
 msgid "new syntax for property settings:"
 msgstr ""
 
-#: convertrules.py:1681
+#: convertrules.py:1682
 msgid "Property setting syntax in \\translator{ }"
 msgstr ""
 
-#: convertrules.py:1720
+#: convertrules.py:1721
 msgid "Scheme grob function renaming"
 msgstr ""
 
-#: convertrules.py:1731 convertrules.py:2138 convertrules.py:2142
-#: convertrules.py:2708
+#: convertrules.py:1732 convertrules.py:2139 convertrules.py:2143
+#: convertrules.py:2709
 #, python-format
 msgid "Use %s\n"
 msgstr ""
 
-#: convertrules.py:1747
+#: convertrules.py:1748
 msgid "More Scheme function renaming"
 msgstr ""
 
-#: convertrules.py:1871
+#: convertrules.py:1872
 msgid ""
 "Page layout has been changed, using paper size and margins.\n"
 "textheight is no longer used.\n"
 msgstr ""
 
-#: convertrules.py:1957
+#: convertrules.py:1958
 msgid ""
 "\\foo -> \\foomode (for chords, notes, etc.)\n"
 "fold \\new FooContext \\foomode into \\foo."
 msgstr ""
 
-#: convertrules.py:1995
+#: convertrules.py:1996
 msgid ""
 "staff size should be changed at top-level\n"
 "with\n"
@@ -372,79 +372,79 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:2015
+#: convertrules.py:2016
 msgid "regularize other identifiers"
 msgstr ""
 
-#: convertrules.py:2083
+#: convertrules.py:2084
 msgid "\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click"
 msgstr ""
 
-#: convertrules.py:2094
+#: convertrules.py:2095
 msgid "LilyPond source must be UTF-8"
 msgstr ""
 
-#: convertrules.py:2097
+#: convertrules.py:2098
 msgid "Try the texstrings backend"
 msgstr ""
 
-#: convertrules.py:2100
+#: convertrules.py:2101
 #, python-format
 msgid "Do something like: %s"
 msgstr ""
 
-#: convertrules.py:2103
+#: convertrules.py:2104
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convertrules.py:2153
+#: convertrules.py:2154
 msgid "warn about auto beam settings"
 msgstr ""
 
-#: convertrules.py:2157
+#: convertrules.py:2158
 msgid "auto beam settings"
 msgstr ""
 
-#: convertrules.py:2158
+#: convertrules.py:2159
 msgid ""
 "\n"
 "Auto beam settings must now specify each interesting moment in a measure\n"
 "explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
 msgstr ""
 
-#: convertrules.py:2271
+#: convertrules.py:2272
 msgid "verticalAlignmentChildCallback has been deprecated"
 msgstr ""
 
-#: convertrules.py:2276
+#: convertrules.py:2277
 msgid "Remove callbacks property, deprecate XY-extent-callback."
 msgstr ""
 
-#: convertrules.py:2297
+#: convertrules.py:2298
 msgid "Use grob closures iso. XY-offset-callbacks."
 msgstr ""
 
-#: convertrules.py:2359
+#: convertrules.py:2360
 msgid "foobar -> foo-bar for \\paper, \\layout"
 msgstr ""
 
-#: convertrules.py:2469
+#: convertrules.py:2470
 msgid "deprecate \\tempo in \\midi"
 msgstr ""
 
-#: convertrules.py:2522
+#: convertrules.py:2523
 msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
 msgstr ""
 
-#: convertrules.py:2535
+#: convertrules.py:2536
 msgid "Rename accidental glyphs, use glyph-name-alist."
 msgstr ""
 
-#: convertrules.py:2590
+#: convertrules.py:2591
 msgid "edge-text settings for TextSpanner"
 msgstr ""
 
-#: convertrules.py:2591
+#: convertrules.py:2592
 #, python-format
 msgid ""
 "Use\n"
@@ -452,124 +452,124 @@ msgid ""
 "%s"
 msgstr ""
 
-#: convertrules.py:2624
+#: convertrules.py:2625
 msgid "Use the `alignment-offsets' sub-property of\n"
 msgstr ""
 
-#: convertrules.py:2625
+#: convertrules.py:2626
 msgid "NonMusicalPaperColumn #'line-break-system-details\n"
 msgstr ""
 
-#: convertrules.py:2626
+#: convertrules.py:2627
 msgid "to set fixed distances between staves.\n"
 msgstr ""
 
-#: convertrules.py:2638
+#: convertrules.py:2639
 msgid "Use #'style not #'dash-fraction to select solid/dashed lines."
 msgstr ""
 
-#: convertrules.py:2644
+#: convertrules.py:2645
 msgid "all settings related to dashed lines"
 msgstr ""
 
-#: convertrules.py:2645
+#: convertrules.py:2646
 msgid "Use \\override ... #'style = #'line for solid lines and\n"
 msgstr ""
 
-#: convertrules.py:2646
+#: convertrules.py:2647
 msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
 msgstr ""
 
-#: convertrules.py:2682
+#: convertrules.py:2683
 msgid ""
 "metronomeMarkFormatter uses text markup as second argument,\n"
 "fret diagram properties moved to fret-diagram-details."
 msgstr ""
 
-#: convertrules.py:2688
+#: convertrules.py:2689
 msgid "metronomeMarkFormatter got an additional text argument.\n"
 msgstr ""
 
-#: convertrules.py:2689
+#: convertrules.py:2690
 #, python-format
 msgid ""
 "The function assigned to Score.metronomeMarkFunction now uses the signature\n"
 "%s"
 msgstr ""
 
-#: convertrules.py:2707
+#: convertrules.py:2708
 #, python-format
 msgid "%s in fret-diagram properties"
 msgstr ""
 
-#: convertrules.py:2751
+#: convertrules.py:2752
 msgid "\\put-adjacent argument order"
 msgstr ""
 
-#: convertrules.py:2752
+#: convertrules.py:2753
 msgid "Axis and direction now come before markups:\n"
 msgstr ""
 
-#: convertrules.py:2753
+#: convertrules.py:2754
 msgid "\\put-adjacent axis dir markup markup."
 msgstr ""
 
-#: convertrules.py:2784
+#: convertrules.py:2785
 msgid "re-definition of InnerStaffGroup"
 msgstr ""
 
-#: convertrules.py:2789
+#: convertrules.py:2790
 msgid "re-definition of InnerChoirStaff"
 msgstr ""
 
-#: convertrules.py:2799
+#: convertrules.py:2800
 msgid "Syntax changes for \\addChordShape and \\chord-shape"
 msgstr ""
 
-#: convertrules.py:2804
+#: convertrules.py:2805
 msgid "stringTuning must be added to addChordShape call.\n"
 msgstr ""
 
-#: convertrules.py:2809
+#: convertrules.py:2810
 msgid "stringTuning must be added to chord-shape call.\n"
 msgstr ""
 
-#: convertrules.py:2815
+#: convertrules.py:2816
 msgid "Remove oldaddlyrics"
 msgstr ""
 
-#: convertrules.py:2819
+#: convertrules.py:2820
 msgid ""
 "oldaddlyrics is no longer supported. \n"
 "         Use addlyrics or lyrsicsto instead.\n"
 msgstr ""
 
-#: convertrules.py:2825
+#: convertrules.py:2826
 msgid ""
 "keySignature property not reversed any more\n"
 "MIDI 47: orchestral strings -> orchestral harp"
 msgstr ""
 
-#: convertrules.py:2830
+#: convertrules.py:2831
 msgid "The alist for Staff.keySignature is no longer in reversed order.\n"
 msgstr ""
 
-#: convertrules.py:2836
+#: convertrules.py:2837
 msgid ""
 "\\bar \".\" now produces a thick barline\n"
 "ly:hairpin::after-line-breaking -> ly:spanner::kill-zero-spanned-time\n"
 "Dash parameters for slurs and ties are now in dash-definition"
 msgstr ""
 
-#: convertrules.py:2842
+#: convertrules.py:2843
 msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr ""
 
-#: convertrules.py:2848
+#: convertrules.py:2849
 msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
 msgstr ""
 
-#: convertrules.py:2853
+#: convertrules.py:2854
 msgid ""
 "Autobeaming rules have changed.  override-auto-beam-setting and\n"
 "revert-auto-beam-setting have been eliminated.\n"
@@ -584,27 +584,27 @@ msgid ""
 "template replaced by new `Dynamics' context."
 msgstr ""
 
-#: convertrules.py:2867
+#: convertrules.py:2868
 msgid "    Autobeam settings are now overriden with \\overrideBeamSettings.\n"
 msgstr ""
 
-#: convertrules.py:2872
+#: convertrules.py:2873
 msgid "    Autobeam settings are now reverted with \\revertBeamSettings.\n"
 msgstr ""
 
-#: convertrules.py:2878
+#: convertrules.py:2879
 msgid ""
 "    beatGrouping with a specified context must now be accomplished with\n"
 "   \\overrideBeamSettings.\n"
 msgstr ""
 
-#: convertrules.py:2884
+#: convertrules.py:2885
 msgid ""
 "alignment-offsets has been changed to alignment-distances: you must now "
 "specify the distances between staves rather than the offset of staves.\n"
 msgstr ""
 
-#: convertrules.py:2895
+#: convertrules.py:2896
 msgid ""
 "Remove obsolete engravers/translators: Note_swallow_translator,\n"
 "Rest_swallow_translator, Skip_event_swallow_translator, Swallow_engraver,\n"
@@ -612,47 +612,47 @@ msgid ""
 "New vertical spacing variables."
 msgstr ""
 
-#: convertrules.py:2926
+#: convertrules.py:2927
 msgid ""
 "Vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"
 msgstr ""
 
-#: convertrules.py:2932
+#: convertrules.py:2933
 msgid "Unify fetaNumber and fetaDynamic encodings"
 msgstr ""
 
-#: convertrules.py:2937
+#: convertrules.py:2938
 msgid "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
 msgstr ""
 
-#: convertrules.py:2948
+#: convertrules.py:2949
 msgid "\\cresc etc. are now postfix operators"
 msgstr ""
 
-#: convertrules.py:2960
+#: convertrules.py:2961
 msgid ""
 "Eliminate beamSettings, beatLength, \\setBeatGrouping, "
 "\\overrideBeamSettings and \\revertBeamSettings.\n"
 "\"accordion.accEtcbase\" -> \"accordion.etcbass\""
 msgstr ""
 
-#: convertrules.py:2978
+#: convertrules.py:2979
 msgid "Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"
 msgstr ""
 
-#: convertrules.py:2982
+#: convertrules.py:2983
 msgid "Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"
 msgstr ""
 
-#: convertrules.py:2986
+#: convertrules.py:2987
 msgid "Use baseMoment, beatStructure, and beamExceptions.\n"
 msgstr ""
 
-#: convertrules.py:2990 convertrules.py:2994
+#: convertrules.py:2991 convertrules.py:2995
 msgid "Use baseMoment and beatStructure.\n"
 msgstr ""
 
-#: convertrules.py:2999
+#: convertrules.py:3000
 msgid ""
 "Woodwind diagrams: Move size, thickness, and graphic from argument list to "
 "properties.\n"
@@ -660,114 +660,114 @@ msgid ""
 "instead."
 msgstr ""
 
-#: convertrules.py:3004
+#: convertrules.py:3005
 msgid ""
 "Move size, thickness, and graphic to properties.  Argument should be just "
 "the key list.\n"
 msgstr ""
 
-#: convertrules.py:3012
+#: convertrules.py:3013
 msgid ""
 "Rename vertical spacing variables.\n"
 "Add fretboard-table argument to savePredefinedFretboard."
 msgstr ""
 
-#: convertrules.py:3030
+#: convertrules.py:3031
 msgid "Rename vertical spacing grob properties."
 msgstr ""
 
-#: convertrules.py:3046
+#: convertrules.py:3047
 msgid "Remove \\paper variables head-separation and foot-separation."
 msgstr ""
 
-#: convertrules.py:3050
+#: convertrules.py:3051
 msgid "Adjust settings for top-system-spacing instead.\n"
 msgstr ""
 
-#: convertrules.py:3054
+#: convertrules.py:3055
 msgid "Adjust settings for last-bottom-spacing instead.\n"
 msgstr ""
 
-#: convertrules.py:3060
+#: convertrules.py:3061
 msgid ""
 "Rename space to basic-distance in various spacing alists.\n"
 "Remove HarmonicParenthesesItem grob."
 msgstr ""
 
-#: convertrules.py:3067
+#: convertrules.py:3068
 msgid "HarmonicParenthesesItem has been eliminated.\n"
 msgstr ""
 
-#: convertrules.py:3068
+#: convertrules.py:3069
 msgid "Harmonic parentheses are part of the TabNoteHead grob.\n"
 msgstr ""
 
-#: convertrules.py:3073
+#: convertrules.py:3074
 msgid ""
 "Remove context from overrideTimeSignatureSettings and "
 "revertTimeSignatureSettings.\n"
 msgstr ""
 
-#: convertrules.py:3080
+#: convertrules.py:3081
 msgid ""
 "Change stringTunings from a list of semitones to a list of pitches.\n"
 "Change tenor and baritone ukulele names in string tunings.\n"
 "Generate messages for manual conversion of vertical spacing if required."
 msgstr ""
 
-#: convertrules.py:3123
+#: convertrules.py:3124
 msgid "Vertical spacing changes might affect user-defined contexts."
 msgstr ""
 
-#: convertrules.py:3129
+#: convertrules.py:3130
 msgid "Replace bar-size with bar-extent."
 msgstr ""
 
-#: convertrules.py:3141
+#: convertrules.py:3142
 msgid "Woodwind diagrams: Changes to the clarinet diagram."
 msgstr ""
 
-#: convertrules.py:3145
+#: convertrules.py:3146
 msgid "Clarinet fingering changed to reflect actual anatomy of instrument.\n"
 msgstr ""
 
-#: convertrules.py:3155
+#: convertrules.py:3156
 msgid "Handling of non-automatic footnotes."
 msgstr ""
 
-#: convertrules.py:3159
+#: convertrules.py:3160
 msgid ""
 "If you are using non-automatic footnotes, make sure to set footnote-auto-"
 "numbering = ##f in the paper block.\n"
 msgstr ""
 
-#: convertrules.py:3164
+#: convertrules.py:3165
 msgid "Change in internal property for MultiMeasureRest"
 msgstr ""
 
-#: convertrules.py:3168
+#: convertrules.py:3169
 msgid ""
 "This internal property has been replaced by round-up-to-longer-rest, round-"
 "up-exceptions and usable-duration-logs.\n"
 msgstr ""
 
-#: convertrules.py:3173
+#: convertrules.py:3174
 msgid ""
 "Creation of a Flag grob and moving of certain Stem properties to this grob"
 msgstr ""
 
-#: convertrules.py:3209
+#: convertrules.py:3210
 msgid ""
 "consistent-broken-slope is now handled through the positions callback.\n"
 msgstr ""
 
-#: convertrules.py:3210
+#: convertrules.py:3211
 msgid ""
 "input/regression/beam-broken-classic.ly shows how broken beams are now "
 "handled.\n"
 msgstr ""
 
-#: convertrules.py:3368
+#: convertrules.py:3369
 msgid "beamExceptions controls whole-measure beaming."
 msgstr ""
 
@@ -2755,7 +2755,7 @@ msgstr ""
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
-#: program-option-scheme.cc:235
+#: program-option-scheme.cc:223
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -3110,92 +3110,96 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:466 parser.yy:734 parser.yy:801
+#: parser.yy:466 parser.yy:755 parser.yy:822
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:630 parser.yy:1115
+#: parser.yy:651 parser.yy:1136
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:836
+#: parser.yy:857
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:852
+#: parser.yy:873
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:876
+#: parser.yy:897
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1024 parser.yy:1035
+#: parser.yy:1045 parser.yy:1056
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1040
+#: parser.yy:1061
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1051 parser.yy:2306
+#: parser.yy:1072 parser.yy:2327
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1319
+#: parser.yy:1340
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2010 parser.yy:2121 parser.yy:2134 parser.yy:2143
+#: parser.yy:2031 parser.yy:2142 parser.yy:2155 parser.yy:2164
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2101
+#: parser.yy:2122
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2162
+#: parser.yy:2183
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2255 parser.yy:2259 parser.yy:2274
+#: parser.yy:2276 parser.yy:2280 parser.yy:2295
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2415
+#: parser.yy:2436
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2511 parser.yy:2516 parser.yy:3059
+#: parser.yy:2540
+msgid "post-event expected"
+msgstr ""
+
+#: parser.yy:2549 parser.yy:2554 parser.yy:3097
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2631
+#: parser.yy:2669
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2726
+#: parser.yy:2764
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2798 parser.yy:2844
+#: parser.yy:2836 parser.yy:2882
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2861
+#: parser.yy:2899
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:2975
+#: parser.yy:3013
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3034
+#: parser.yy:3072
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3258
+#: parser.yy:3296
 msgid "not a markup"
 msgstr ""
 
@@ -3258,25 +3262,25 @@ msgstr ""
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:931
+#: lexer.ll:936
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1214
+#: lexer.ll:1232
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1258
+#: lexer.ll:1276
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1259
+#: lexer.ll:1277
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1265
+#: lexer.ll:1283
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3313,32 +3317,32 @@ msgstr ""
 msgid "missing stencil expression `~S'"
 msgstr ""
 
-#: bar-line.scm:140
+#: bar-line.scm:133
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:168
+#: bar-line.scm:161
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:176
+#: bar-line.scm:169
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:237
+#: bar-line.scm:230
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:802
+#: bar-line.scm:795
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -3388,22 +3392,22 @@ msgstr ""
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:772
+#: define-music-types.scm:778
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:775
+#: define-music-types.scm:781
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:794
+#: define-music-types.scm:800
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:795
+#: define-music-types.scm:801
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
@@ -3522,88 +3526,84 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:331
+#: lily-library.scm:333
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:386
+#: lily-library.scm:388
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:402
+#: lily-library.scm:404
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:901
+#: lily-library.scm:903
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:975
+#: lily-library.scm:977
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1000
+#: lily-library.scm:1002
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr ""
-
-#: lily-library.scm:1006
-msgid "old relative compatibility not used"
 msgstr ""
 
 #: lily.scm:63
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:311
+#: lily.scm:308
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:314
+#: lily.scm:311
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:373
+#: lily.scm:370
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:796
+#: lily.scm:793
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:797
+#: lily.scm:794
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:859
+#: lily.scm:856
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:862
+#: lily.scm:859
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:884 lily.scm:973
+#: lily.scm:881 lily.scm:970
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:964
+#: lily.scm:961
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:983 ps-to-png.scm:66
+#: lily.scm:980 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3753,7 +3753,7 @@ msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:343
+#: paper.scm:347
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
