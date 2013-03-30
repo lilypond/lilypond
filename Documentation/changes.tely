@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+When @code{\relative} is used without an explicit reference pitch,
+the reference pitch now is the middle of the first octave, making
+the first entered pitch indistinguishable from absolute pitch.
+Previously, omitting the reference pitch would have lead to a
+default of @code{c'}.  Since that choice was somewhat arbitrary,
+recommended usage was to always specify the reference pitch.
+
+@item
 A new command @code{\single} can be used for converting a property
 override into a tweak to be applied on a single music expression:
 
