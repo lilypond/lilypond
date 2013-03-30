@@ -62,6 +62,57 @@ which scares away people.
 @end ignore
 
 @item
+A new command @code{\single} can be used for converting a property
+override into a tweak to be applied on a single music expression:
+
+@lilypond[quote,verbatim,relative=2]
+<a \single\voiceTwoStyle e' a>1
+@end lilypond
+
+@item
+Two ways of letting graphical objects not appear in the output are
+overriding its @code{transparent} property with @code{#t}
+(retaining the original spacing) or overriding its @code{stencil}
+property with @code{#f} (not using any space at all).  Those two
+operations now have the shorthands @code{\hide} and @code{\omit},
+respectively.  They can either be given a music expression to
+tweak, or the name of a graphical object for which an override
+should be created (for specifying both, use @code{\single} on the
+override form):
+
+@lilypond[quote,verbatim]
+\new Staff \with { \omit Clef }
+\relative c'' <a e' \hide a>1
+@end lilypond
+
+@item
+A new command @code{\temporary} can be applied to overrides in
+order to not have them replace previous property settings.  If a
+@code{\revert} is applied to the same property subsequently, the
+previous setting reappears:
+
+@lilypond[quote,verbatim,relative=2]
+\override NoteHead.color = #red c4
+\override NoteHead.color = #green d
+\revert NoteHead.color e2
+\override NoteHead.color = #red c4
+\temporary\override NoteHead.color = #green d
+\revert NoteHead.color e
+\revert NoteHead.color c
+@end lilypond
+
+This is mainly useful for writing music functions that need to
+have some property changed just for the duration of the function.
+
+@item
+@code{\tag}, @code{\removeWithTag}, and @code{\keepWithTag} can
+now accept a list of symbols rather than just a single symbol for
+marking, removing, and keeping music with any of multiple tags.
+This is particularly important for @code{\keepWithTag} since one
+cannot achieve the same effect by using multiple consecutive
+@code{\keepWithTag} commands.
+
+@item
 The @samp{-d old-relative} option has been removed.  Not actually
 accessible from the command line any more, its remaining use was
 for interpretating @code{\relative} in LilyPond files converted
