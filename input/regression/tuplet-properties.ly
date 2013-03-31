@@ -21,7 +21,7 @@ for instance, bracketed (B) and non-bracketed (NB).
 
   \tupletUp
   \override TupletNumber.stencil = ##f
-  \tuplet 3/2 { c8^""^""^"up, no digit" c[ c] }
+  \tuplet 3/2 { c8^"up, no digit" c[ c] }
   \revert TupletNumber.stencil
 
   \override TupletBracket.bracket-visibility = ##t
@@ -32,7 +32,7 @@ for instance, bracketed (B) and non-bracketed (NB).
   \revert TupletBracket.shorten-pair
 
   \override TupletBracket.bracket-flare = #'(0.5 . 0.5)
-  \tuplet 3/2 { b^""^""^"angled edges" b b }
+  \tuplet 3/2 { b^"angled edges" b b }
   \tupletNeutral
   \tuplet 3/2 { b b b }
 }

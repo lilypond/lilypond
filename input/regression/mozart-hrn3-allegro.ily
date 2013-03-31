@@ -121,7 +121,7 @@ allegro = \relative c' {
   dis[( e)] r e-. e[( f)] r f-. |
   g4-.\f e-. c-. bes-. |
   g-.\ff e-. c-. r |
-  a'2 ~  a8[_""_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c] d[( e d e)]
+  a'2 ~  a8[_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c] d[( e d e)]
 
   f4. ( d8)  f8[ ( d) f d]
   c[ (e] g2) \appoggiatura f16

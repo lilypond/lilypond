@@ -18,5 +18,5 @@ Different text styles are used for various purposes.
 	    d-4_\markup { \italic "cantabile"  } }
 	{  e }  } \acciaccatura { c16 }
 
-    f4\ff^""^\markup  { \large "Largo" } \mark "B" g 
+    f4\ff^\markup  { \large "Largo" } \mark "B" g
 }
