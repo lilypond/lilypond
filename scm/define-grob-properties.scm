@@ -830,6 +830,8 @@ slashes in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
+     (snap-radius ,number? "The maximum distance between two objects that
+will cause them to snap to alignment along an axis.")
      (space-alist ,list? "A table that specifies distances between
 prefatory items, like clef and time-signature.  The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}

@@ -29,6 +29,8 @@ struct Fingering_column
   static void add_fingering (Grob *, Grob *);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_GROB_INTERFACE ();
+  static void do_x_positioning (Grob *me);
+  static void do_y_positioning (Grob *me);
 };
 
 #endif /* FINGERING_COLUMN_HH */

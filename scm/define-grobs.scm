@@ -932,6 +932,7 @@
      . (
 	(padding . 0.2)
 	(positioning-done . ,ly:fingering-column::calc-positioning-done)
+	(snap-radius . 0.3)
 	(meta . ((class . Item)
 		 (interfaces . (fingering-column-interface))))))
 

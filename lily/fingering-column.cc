@@ -17,12 +17,33 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "directional-element-interface.hh"
 #include "grob.hh"
 #include "fingering-column.hh"
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "paper-column.hh"
+
+#define EPS 1e-5
+
+struct Fingering_and_offset
+{
+  Grob *fingering_;
+  Real offset_;
+  Fingering_and_offset (Grob *fingering, Real offset);
+};
+
+Fingering_and_offset::Fingering_and_offset (Grob *fingering, Real offset) :
+  fingering_ (fingering), offset_ (offset)
+{
+}
+
+bool
+fingering_and_offset_less (Fingering_and_offset fo0, Fingering_and_offset fo1)
+{
+  return fo0.offset_ < fo1.offset_;
+}
 
 MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done, 1);
 SCM
@@ -34,12 +55,21 @@ Fingering_column::calc_positioning_done (SCM smob)
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
+  do_y_positioning (me);
+  do_x_positioning (me);
+
+  return SCM_BOOL_T;
+}
+
+void
+Fingering_column::do_y_positioning (Grob *me)
+{
   extract_grob_set (me, "fingerings", const_fingerings);
 
   if (const_fingerings.size () < 2)
     {
       me->programming_error ("This FingeringColumn should have never been created.");
-      return SCM_BOOL_T;
+      return;
     }
 
   vector<Grob *> fingerings;
@@ -86,8 +116,40 @@ Fingering_column::calc_positioning_done (SCM smob)
 
   for (vsize i = 0; i < fingerings.size (); i++)
     fingerings[i]->translate_axis(shift[i], Y_AXIS);
+}
 
- return SCM_BOOL_T;
+void
+Fingering_column::do_x_positioning (Grob *me)
+{
+  extract_grob_set (me, "fingerings", fingerings);
+  if (!fingerings.size ())
+    return;
+
+  Grob *common_x = common_refpoint_of_array (fingerings, me, X_AXIS);
+
+  Real snap = robust_scm2double (me->get_property ("snap-radius"), 0.3);
+  vector<Fingering_and_offset> fos;
+
+  for (vsize i = 0; i < fingerings.size (); i++)
+    fos.push_back (Fingering_and_offset (fingerings[i], fingerings[i]->relative_coordinate (common_x, X_AXIS)));
+
+  vector_sort (fos, fingering_and_offset_less);
+  Direction dir = get_grob_direction (fingerings[0]);
+  if (dir == RIGHT)
+    reverse (fos);
+
+  Real prev = infinity_f * dir;
+  for (vsize i = 0; i < fos.size (); i++)
+    {
+      if ((fabs (fos[i].offset_ - prev) < snap)
+                && (fabs (fos[i].offset_ - prev) > EPS))
+        fos[i].offset_ = prev;
+
+      prev = fos[i].offset_;
+    }
+
+  for (vsize i = 0; i < fos.size (); i++)
+    fos[i].fingering_->translate_axis (fos[i].offset_ - fos[i].fingering_->relative_coordinate (common_x, X_AXIS), X_AXIS);
 }
 
 void
@@ -100,9 +162,11 @@ Fingering_column::add_fingering (Grob *fc, Grob *f)
 
 ADD_INTERFACE (Fingering_column,
                "Makes sure that fingerings placed laterally"
-               " do not collide.",
+               " do not collide and that they are flush if"
+               " necessary.",
 
                /* properties */
                "padding "
                "positioning-done "
+               "snap-radius "
               );
