@@ -78,6 +78,8 @@ session has started."
        (lambda (p) (variable-set! (cadr p) (cddr p)))
        (ly:get-undead lilypond-declarations))))
 
+(define lilypond-interfaces #f)
+
 (define-public (session-initialize thunk)
   "Initialize this session.  The first session in a LilyPond run is
 initialized by calling @var{thunk}, then recording the values of all
@@ -96,6 +98,7 @@ variables to their value after the initial call of @var{thunk}."
 
   (if (ly:undead? lilypond-declarations)
       (begin
+        (module-use-interfaces! (current-module) (reverse lilypond-interfaces))
         (for-each
          (lambda (p)
            (let ((var (cadr p))
@@ -106,6 +109,9 @@ variables to their value after the initial call of @var{thunk}."
          (ly:get-undead lilypond-declarations)))
       (begin
         (thunk)
+        (set! lilypond-interfaces
+              (filter (lambda (m) (eq? 'interface (module-kind m)))
+                      (module-uses (current-module))))
         (let ((decl (map! (lambda (v)
                             (cons* #f v (variable-ref v)))
                           lilypond-declarations)))
