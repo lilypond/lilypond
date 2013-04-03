@@ -44,6 +44,12 @@
     (car (string-tokenize (utsname:sysname (uname)))))))
 
 (define lilypond-declarations '())
+(define after-session-hook (make-hook))
+
+(define-public (call-after-session thunk)
+  (if (ly:undead? lilypond-declarations)
+      (ly:error (_ "call-after-session used after session start")))
+  (add-hook! after-session-hook thunk #t))
 
 (defmacro-public define-session (name value)
   "This defines a variable @var{name} with the starting value
@@ -74,9 +80,11 @@ session has started."
 
 (define (session-terminate)
   (if (ly:undead? lilypond-declarations)
-      (for-each
-       (lambda (p) (variable-set! (cadr p) (cddr p)))
-       (ly:get-undead lilypond-declarations))))
+      (begin
+        (for-each
+         (lambda (p) (variable-set! (cadr p) (cddr p)))
+         (ly:get-undead lilypond-declarations))
+        (run-hook after-session-hook))))
 
 (define lilypond-interfaces #f)
 
