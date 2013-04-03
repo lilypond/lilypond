@@ -38,6 +38,10 @@ maxima = #(ly:make-duration -3 0)
 
 #(define default-fret-table (make-hash-table 101))
 #(define chord-shape-table (make-hash-table 29))
+#(call-after-session
+  (lambda ()
+   (hash-clear! default-fret-table)
+   (hash-clear! chord-shape-table)))
 
 % declarations for standard directions
 left = #-1
@@ -96,6 +100,9 @@ repeatTie = #(make-music 'RepeatTieEvent)
 
 %% MAKE-HASH-TABLE in GUILE 1.6 takes mandatory size parameter.
 #(define musicQuotes (make-hash-table 29))
+#(call-after-session
+  (lambda ()
+   (hash-clear! musicQuotes)))
 
 #(define toplevel-book-handler print-book-with-defaults)
 #(define toplevel-bookpart-handler collect-bookpart-for-book)
