@@ -179,6 +179,8 @@ on each chord to the height of the chord plus
 @code{chord-dots-limit} staff-positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
+     (clef-alignments ,list? "An alist of parent-alignments
+that should be used for clef modifiers with various clefs")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start

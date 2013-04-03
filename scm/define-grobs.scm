@@ -573,11 +573,14 @@
      . (
         (break-visibility . ,(grob::inherit-parent-property
                               X 'break-visibility))
+        (clef-alignments . ((G . (-0.2 . 0.1))
+                            (F . (-0.3 . -0.2))
+                            (C . (0 . 0))))
         (color . ,(grob::inherit-parent-property
                    X 'color))
         (font-shape . italic)
         (font-size . -4)
-        (parent-alignment-X . ,CENTER)
+        (parent-alignment-X . ,ly:clef-modifier::calc-parent-alignment)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
