@@ -288,17 +288,17 @@ and @file{eightminiatures-Nocturne.pdf} by adding a
 \book @{
   \bookOutputSuffix "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -309,17 +309,17 @@ by using @code{\bookOutputName} declarations
 \book @{
   \bookOutputName "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
