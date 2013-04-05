@@ -30,17 +30,16 @@
 global = {
    \key c \minor
    \time 4/4
+   \tempo Largo
    \accidentalStyle default
 }
 
 halsup = {
-  \stemUp
-  \tieUp
+  \voiceOne
 }
 
 halsdown = {
-  \stemDown
-  \tieDown
+  \voiceTwo
 }
 
 staffup = {
@@ -56,7 +55,7 @@ sopran = {
       \global
       \halsup
       \repeat volta 2 {
-         g4^\markup { \hspace #-4 \large "Largo" } g f es
+         g4 g f es
          d2 c\fermata
          g'4 g a h
          c2 h\fermata
