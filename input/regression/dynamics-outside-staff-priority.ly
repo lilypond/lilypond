@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.17.16"
 
 \header {
   texidoc = "@code{DynamicText}, @code{DynamicLineSpanner}, and

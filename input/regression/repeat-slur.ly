@@ -1,4 +1,4 @@
-\version "2.17.14"
+\version "2.17.16"
 
 \header {
   texidoc = "Slurs are automatically broken at repeats.
