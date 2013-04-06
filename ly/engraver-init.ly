@@ -414,6 +414,9 @@ a collection of staves, with a bracket in front and spanning bar lines."
        (padding . 0.5))
   \override TextScript.font-shape = #'italic
   \override DynamicLineSpanner.Y-offset = #0
+  \override DynamicLineSpanner.outside-staff-priority = ##f
+  \override DynamicText.outside-staff-priority = ##f
+  \override Hairpin.outside-staff-priority = ##f
   \override DynamicText.X-offset =
   #(ly:make-simple-closure
     `(,+
