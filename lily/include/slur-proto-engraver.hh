@@ -38,6 +38,7 @@ protected:
   vector<Grob *> slurs_;
   vector<Grob *> end_slurs_;
   vector<Grob_info> objects_to_acknowledge_;
+  Stream_event *break_slur_;
   const char* double_property_name_;
   const char* grob_name_;
   const char* object_name_;
@@ -53,6 +54,7 @@ protected:
   DECLARE_ACKNOWLEDGER (tuplet_number);
 
   void internal_listen_slur (Stream_event *ev);
+  void internal_listen_break_slur (Stream_event *ev);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
@@ -60,6 +62,7 @@ protected:
   bool can_create_slur (string, vsize, vsize *, Stream_event *);
   void create_slur (string spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken);
   bool try_to_end (Stream_event *ev);
+  void break_slurs ();
 
   virtual void set_melisma (bool);
   virtual void finalize ();

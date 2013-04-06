@@ -429,6 +429,26 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'footnote-text footnote)))
      #{ \tweak footnote-music #mus #item #}))
 
+free =
+#(define-music-function (parser location music) (ly:music?)
+  (_i "@var{event} should start a free spanner.")
+  (let ((name (ly:music-property music 'name)))
+    (cond
+      ((eq? name 'SlurEvent)
+       (make-music 'BreakSlurEvent
+                   'span-direction (ly:music-property music 'span-direction)
+                   'direction (ly:music-property music 'direction)
+                   'spanner-id (ly:music-property music 'spanner-id)))
+      ((eq? name 'PhrasingSlurEvent)
+       (make-music 'BreakPhrasingSlurEvent
+                   'span-direction (ly:music-property music 'span-direction)
+                   'direction (ly:music-property music 'direction)
+                   'spanner-id (ly:music-property music 'spanner-id)))
+      (else
+        (begin
+          (ly:music-warning music (_ "not a breakable event"))
+        music)))))
+
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))

@@ -522,6 +522,7 @@ ADD_INTERFACE (Spanner,
                " point of the spanner.",
 
                /* properties */
+               "other-half "
                "normalized-endpoints "
                "minimum-length "
                "spanner-broken "

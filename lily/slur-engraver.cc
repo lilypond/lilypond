@@ -37,6 +37,7 @@ class Slur_engraver : public Slur_proto_engraver
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (slur);
+  DECLARE_TRANSLATOR_LISTENER (break_slur);
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);
@@ -45,6 +46,7 @@ public:
 Slur_engraver::Slur_engraver () :
   Slur_proto_engraver ("doubleSlurs", "Slur", "slur", "slur-event")
 {
+  break_slur_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
@@ -52,6 +54,13 @@ void
 Slur_engraver::listen_slur (Stream_event *ev)
 {
   internal_listen_slur (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, break_slur);
+void
+Slur_engraver::listen_break_slur (Stream_event *ev)
+{
+  internal_listen_break_slur (ev);
 }
 
 void

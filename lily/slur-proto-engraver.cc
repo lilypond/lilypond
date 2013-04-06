@@ -53,6 +53,22 @@ Slur_proto_engraver::internal_listen_slur (Stream_event *ev)
 }
 
 void
+Slur_proto_engraver::internal_listen_break_slur (Stream_event *ev)
+{
+  // if break_slur_ is set, we only keep events with direction
+  if (break_slur_
+      && robust_scm2dir (ev->get_property ("span-direction"), CENTER))
+    break_slur_ = ev;
+  else if (!break_slur_)
+    break_slur_ = ev;
+  else if (break_slur_
+           && robust_scm2dir (break_slur_->get_property ("span-direction"), CENTER)
+           && robust_scm2dir (ev->get_property ("span-direction"), CENTER))
+    ev->origin ()->warning (_f ("cannot set break slur with two directions"));
+}
+
+
+void
 Slur_proto_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *e = info.grob ();
@@ -136,16 +152,20 @@ Slur_proto_engraver::create_slur (string spanner_id, Stream_event *ev_cause, Gro
   slurs_.push_back (slur);
   if (double_property_name_
       && to_boolean (get_property (double_property_name_)))
-  {
-    set_grob_direction (slur, DOWN);
-    slur = make_spanner (grob_name_, cause);
-    slur->set_property ("spanner-id", ly_string2scm (spanner_id));
-    set_grob_direction (slur, UP);
-    if (left_broken)
-      slur->set_bound (LEFT, ccc);
-    slurs_.push_back (slur);
-  }
-
+    {
+      set_grob_direction (slur, DOWN);
+      slur = make_spanner (grob_name_, cause);
+      slur->set_property ("spanner-id", ly_string2scm (spanner_id));
+      set_grob_direction (slur, UP);
+      if (left_broken)
+        slur->set_bound (LEFT, ccc);
+      slurs_.push_back (slur);
+    }
+  else if (g_cause && Slur::has_interface (g_cause) && left_broken)
+    {
+      g_cause->set_object ("other-half", slur->self_scm ());
+      slur->set_object ("other-half", g_cause->self_scm ());
+    }
 }
 
 bool
@@ -225,8 +245,43 @@ Slur_proto_engraver::try_to_end (Stream_event *ev)
 }
 
 void
+Slur_proto_engraver::break_slurs ()
+{
+  for (vsize i = slurs_.size (); i--;)
+    {
+      Grob *ccc = unsmob_grob (get_property ("currentCommandColumn"));
+      Spanner *s = dynamic_cast<Spanner *> (slurs_[i]);
+      s->set_bound (RIGHT, ccc);
+      announce_end_grob (s, SCM_EOL);
+      slurs_.erase (slurs_.begin () + i);
+      SCM maybe_dir = s->get_property_data ("direction");
+      Direction dir = is_direction (maybe_dir)
+                      ? robust_scm2dir (maybe_dir, CENTER)
+                      : CENTER;
+      create_slur (robust_scm2string (s->get_property ("spanner-id"), ""),
+                   0, s, dir, true);
+    }
+}
+
+void
 Slur_proto_engraver::process_music ()
 {
+  // break slurs that span over this column
+  // if break_slur_'s direction is center
+  if (break_slur_
+      && robust_scm2dir (break_slur_->get_property ("span-direction"), CENTER) == CENTER
+      && unsmob_grob (get_property ("currentCommandColumn")))
+    break_slurs ();
+
+  // create broken slurs starting at this column if break_slur_ is left
+  vsize old_slurs = slurs_.size ();
+  if (break_slur_
+      && robust_scm2dir (break_slur_->get_property ("span-direction"), CENTER) == LEFT
+      && can_create_slur ("", old_slurs, 0, break_slur_))
+    create_slur ("", break_slur_, 0,
+                 robust_scm2dir (break_slur_->get_property ("direction"), CENTER),
+                 true);
+
   for (vsize i = 0; i < stop_events_.size (); i++)
     {
       string id = robust_scm2string (stop_events_[i]->get_property ("spanner-id"), "");
@@ -243,17 +298,21 @@ Slur_proto_engraver::process_music ()
       else
         stop_events_[i]->origin ()->warning (_f ("cannot end %s", object_name_));
     }
+  old_slurs = slurs_.size ();
 
-  vsize old_slurs = slurs_.size ();
   for (vsize i = start_events_.size (); i--;)
     {
       Stream_event *ev = start_events_[i];
       string id = robust_scm2string (ev->get_property ("spanner-id"), "");
       Direction updown = to_dir (ev->get_property ("direction"));
-
       if (can_create_slur (id, old_slurs, &i, ev))
         create_slur (id, ev, 0, updown, false);
     }
+
+  // if BreakSlurEvent with span-dir right, we end here
+  if (break_slur_
+      && robust_scm2dir (break_slur_->get_property ("span-direction"), CENTER) == RIGHT)
+    (void) try_to_end (break_slur_);
 
   set_melisma (slurs_.size ());
 }
@@ -281,6 +340,11 @@ Slur_proto_engraver::stop_translation_timestep ()
       Spanner *s = dynamic_cast<Spanner *> (end_slurs_[i]);
       if (!s->get_bound (RIGHT))
         s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+      // if BreakSlurEvent with span-dir right,
+      // we set right bound to current command column
+      if (break_slur_
+          && robust_scm2dir (break_slur_->get_property ("span-direction"), CENTER) == RIGHT)
+        s->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
       announce_end_grob (s, SCM_EOL);
     }
 
@@ -291,6 +355,7 @@ Slur_proto_engraver::stop_translation_timestep ()
   end_slurs_.clear ();
   start_events_.clear ();
   stop_events_.clear ();
+  break_slur_ = 0;
 }
 
 // no ADD_ACKNOWLEDGER / ADD_TRANSLATOR macro calls
