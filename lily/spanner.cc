@@ -385,6 +385,23 @@ Spanner::set_spacing_rods (SCM smob)
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
       r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
       r.add_to_cols ();
+
+      /*
+        We do not know yet if the spanner is going to have a bound that is
+        broken. To account for this uncertainty, we add the rod twice:
+        once for the central column (see above) and once for the left column
+        (see below). As end_rods_ are never used when rods_ are used and vice
+        versa, this rod will only be accessed once for each spacing
+        configuraiton before line breaking. Then, as a grob never exists in
+        both unbroken and broken forms after line breaking, only one of these
+        two rods will be in the column vector used for spacing in
+        simple-spacer.cc get_line_confugration.
+      */
+      if (Item *left_pbp = sp->get_bound (RIGHT)->find_prebroken_piece (LEFT))
+        {
+          r.item_drul_[RIGHT] = left_pbp;
+          r.add_to_cols ();
+        }
     }
 
   return SCM_UNSPECIFIED;
