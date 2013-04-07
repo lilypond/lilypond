@@ -1,0 +1,31 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+La funzione @code{\\autoBeamOff}, se usata insieme a
+@code{\\partcombine}, può essere difficile da comprendere.
+
+È preferibile usare invece
+
+
+@code{\\set Staff.autoBeaming = ##f}
+
+
+per assicurarsi che la disposizione delle travature sia disabilitata
+per tutto il rigo.
+
+
+@code{\\partcombine} funziona con 3 voci -- gambo in su singolo,
+gambo in giù singolo, gambo in su unito.
+
+
+L'uso di @code{\\autoBeamOff} all'interno del primo argomento di partcombine
+ha effetto sulla voce che è attiva al momento in cui la funzione viene elaborata,
+ovvero sul gambo in su singolo o sul gambo in giù unito. L'uso di @code{\\autoBeamOff}
+nel secondo argomento avrà effetto sulla voce che ha il gambo in giù singolo.
+
+
+Per poter usare @code{\\autoBeamOff} per impedire tutte le disposizioni automatiche
+delle travature, se usato con @code{\\partcombine}, è necessario richiamare
+tre volte la funzione @code{\\autoBeamOff}.
+
+"
+  doctitleit = "Partcombine e autoBeamOff"

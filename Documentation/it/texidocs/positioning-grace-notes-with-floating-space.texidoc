@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Se si imposta la proprietà @code{'strict-grace-spacing}, le colonne musicali
+degli abbellimenti 'fluttuano', ovvero si scollegano dalle note normali:
+prima vengono spaziate le note normali, poi le colonne musicali degli
+abbellimenti vengono messe a sinistra delle colonne delle note principali.
+
+"
+  doctitleit = "Posizionare gli abbellimenti con dello spazio fluttuante"

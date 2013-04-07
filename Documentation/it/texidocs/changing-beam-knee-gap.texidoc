@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Le travature angolari vengono inserite automaticamente quando viene
+rilevata un'ampia distanza tra le teste di nota.  Questo comportamento
+può essere regolato attraverso la proprietà @code{auto-knee-gap}.  Viene
+disegnata una travatura angolare se la distanza è più grande del valore
+di @code{auto-knee-gap} più la larghezza della travatura (che dipende dalla
+durata delle note e dall'inclinazione della travatura).  Il valore predefinito
+di @code{auto-knee-gap} è 5.5 spazi rigo.
+
+"
+  doctitleit = "Modificare la distanza delle travature angolari"

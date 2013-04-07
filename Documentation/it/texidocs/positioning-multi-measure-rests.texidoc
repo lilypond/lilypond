@@ -1,0 +1,10 @@
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
+  texidocit = "
+Diversamente dalle pause normali, non esiste un comando predefinito per
+cambiare la posizione sul rigo di un simbolo di pausa multipla di qualsiasi
+tipo connettendolo a una nota.  Tuttavia, nella musica polifonica le pause
+multiple nelle voci dispari e pari sono separate verticalmente. Il posizionamento
+delle pause multiple si controlla nel modo seguente:
+
+"
+  doctitleit = "Posizionamento delle pause multiple"

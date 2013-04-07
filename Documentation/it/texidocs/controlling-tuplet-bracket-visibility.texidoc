@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Il comportamento predefinito relativo alla visibilità della parentesi quadra
+del gruppo irregolare è di mostrare una parentesi a meno che non ci sia
+una travatura della stessa lunghezza del gruppo.  Per controllare la
+visibilità di tale parentesi, si imposta la proprietà @code{'bracket-visibility}
+su @code{#t} (mostra sempre la parentesi), @code{#f} (non mostrare mai la
+parentesi) o @code{#'if-no-beam} (mostra la parentesi solo se non c'è una
+travatura).
+
+"
+  doctitleit = "Controllare la visibilità della parentesi del gruppo irregolare"

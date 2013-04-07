@@ -1,0 +1,29 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+È possibile ottenere delle code su note sole e delle punte all'estremità
+della travatura con una combinazione di @code{stemLeftBeamCount},
+@code{stemRightBeamCount} e una coppia di indicatori della travatura @code{[]}.
+
+Per ottenere delle code che siano rivolte a destra, si usano la coppia di indicatori
+@code{[]} e si imposta @code{stemLeftBeamCount} a zero (vedi Example 1).
+
+Per ottenere delle code che siano rivolte a sinistra, si imposta invece
+@code{stemRightBeamCount} (Example 2).
+
+Perché le punte alla fine di un gruppo di note unite da travatura siano rivolte
+a destra, si imposta @code{stemRightBeamCount} su un valore positivo. Perché le
+punte all'inizio di un gruppo di note unite da travatura siano rivolte a sinistra,
+si imposta invece @code{stemLeftBeamCount} (Example 3).
+
+Talvolta, ad esempio per una nota solitaria circondata da pause, ha senso
+avere una coda che punti sia a destra che a sinistra. Lo si può fare con
+una coppia di indicatori di travatura @code{[]} da soli (Example 4).
+
+(Nota che @code{\\set stemLeftBeamCount} è sempre equivalente a
+@code{\\once \\set}.  In altre parole, le impostazioni che definiscono
+il conteggio delle travature non @qq{permangono}, quindi la coppia di code
+attaccate al @code{c'16[]} solitario nell'ultimo esempio non hanno nulla a
+che fare con l'impostazione @code{\\set} di due note prima.)
+
+"
+  doctitleit = "Code e punte delle travature"

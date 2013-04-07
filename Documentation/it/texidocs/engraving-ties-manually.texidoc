@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Le legature di valore possono essere disegnate a mano cambiando la proprietà @code{tie-configuration}
+dell'oggetto @code{TieColumn}. Il primo numero indica la distanza dal centro
+del rigo nell'unità di metà spazio rigo, mentre il secondo numero indica
+la direzione (1 = su, -1 = giù).
+
+"
+  doctitleit = "Disegnare manualmente le legature di valore"

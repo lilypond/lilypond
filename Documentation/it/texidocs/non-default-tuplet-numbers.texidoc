@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+LilyPond fornisce anche funzioni di formattazione che permettono di creare
+numeri di gruppi irregolari diversi dalla frazione vera e propria, così come
+di aggiungere un valore di nota al numero o alla frazione di un gruppo
+irregolare.
+
+"
+  doctitleit = "Numeri non predefiniti per i gruppi irregolari"

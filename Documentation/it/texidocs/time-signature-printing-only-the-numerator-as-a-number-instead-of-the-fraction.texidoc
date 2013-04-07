@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Talvolta un'indicazione di tempo non deve mostrare la frazione intera (ad esempio
+7/4), ma solo il numeratore (7 in questo caso). Si può fare facilmente con
+@code{\\override Staff.TimeSignature.style = #'single-digit},
+che cambia lo stile in modo permanente. Con @code{\\revert
+Staff.TimeSignature.style}, questa impostazione può essere annullata. Per
+applicare lo stile a cifra singola (@code{single-digit}) a una sola indicazione
+di tempo, si usa il comando @code{\\override} preceduto da @code{\\once}.
+
+"
+  doctitleit = "Indicazione di tempo che mostra solo il numeratore (invece della frazione)"

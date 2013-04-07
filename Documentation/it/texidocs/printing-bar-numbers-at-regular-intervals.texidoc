@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+I numeri di battuta possono essere resi visbili a intervalli regolari
+attraverso la proprietà @code{barNumberVisibility}. In questo esempio
+vengono mostrati ogni due misure eccetto alla fine della linea.
+
+"
+  doctitleit = "Mostrare i numeri di battuta a intervalli regolari"

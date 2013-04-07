@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+Il testo a margine di una pausa multipla viene centrato sopra o sotto
+di essa.  Se il testo è lungo, la misura non si espanderà.  Per espandere
+la pausa multipla in modo che si allinei col testo, conviene usare una pausa
+spaziatrice con del testo attaccato prima della pausa multipla.
+
+Si noti che la pausa spaziatrice determina l'inserimento di una stanghetta.  Il
+testo così attaccato a una nota spaziatrice viene allineato a sinistra della
+posizione in cui la nota sarebbe posta nella misura, ma se la lunghezza della
+misura è determinata dalla lunghezza del testo, il testo verrà centrato.
+
+"
+  doctitleit = "Testo a margine delle pause multiple"

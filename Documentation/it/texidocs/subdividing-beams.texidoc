@@ -1,0 +1,20 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+Le travature di note consecutive di un sedicesimo (o più brevi) non
+vengono suddivise, ovvero le tre (o più) travature si allungano, senza
+spezzarsi, su interi gruppi di note.  Questo comportamento può essere
+modificato in modo da suddividere le travature in sottogruppi attraverso
+la proprietà @code{subdivideBeams}.
+Se impostata, le travature multiple verranno suddivise a intervalli
+definiti dal valore attuale di @code{baseMoment}, riducendo le travature
+multiple a una sola travatura che collega i sottogruppi.  Si noti che
+@code{baseMoment}, se non impostata esplicitamente, equivale a uno fratto
+il denominatore dell'attuale indicazione di tempo.  Deve quindi essere
+impostata su una frazione che stabilisca la durata del sottogruppo di
+travature; lo si può fare usando la funzione @code{ly:make-moment}, come
+è mostrato in questo frammento di codice.  Inoltre quando @code{baseMoment}
+cambia, anche @code{beatStructure} deve essere modificato per accordarsi
+con @code{baseMoment}:
+
+"
+  doctitleit = "Suddividere le travature"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+  texidocit = "
+Questo esempio artificioso mostra come permettere interruzioni del rigo sia
+manuali che automatiche all'interno di un gruppo irregolare con travature.
+Si noti che le travature di questi gruppi irregolari fuori dal ritmo devono
+essere disposte manualmente.
+
+"
+  doctitleit = "Consentire l'interruzione del rigo all'interno di gruppi irregolari con travature"

@@ -17,7 +17,7 @@ Questo capitolo spiega come creare la notazione musicale.
 
 @menu
 * Altezze::            Scrittura e aspetto delle altezze delle note.
-* Rhythms::            Writing and displaying the durations of notes.
+* Ritmi::              Scrittura e aspetto delle durate delle note.
 * Expressive marks::   Adding expression to notes.
 * Repeats::            Repeat music.
 * Simultaneous notes:: More than one note at once.

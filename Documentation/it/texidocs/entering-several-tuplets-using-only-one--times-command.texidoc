@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+La proprietà @code{tupletSpannerDuration} imposta la durata di ognuno dei
+gruppi irregolari compresi tra parentesi dopo il comando @code{\\times}.
+In questo modo si possono inserire molti gruppi irregolari consecutivi
+all'interno di una singola espressione @code{\\times}, risparmiando così
+tempo e spazio.
+
+Nell'esempio seguente compaiono due terzine, anche se @code{\\times} è
+stato inserito una sola volta.
+
+
+Si consiglia la lettura delle sezioni rilevanti della Guida alla notazione
+per avere maggiori informazioni su @code{ly:make-moment}.
+
+"
+  doctitleit = "Inserire vari gruppi irregolari usando una sola volta il comando \\times"
