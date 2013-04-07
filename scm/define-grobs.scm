@@ -727,6 +727,7 @@
     (DotColumn
      . (
         (axes . (,X))
+        (chord-dots-limit . 3)
         (direction . ,RIGHT)
         (positioning-done . ,ly:dot-column::calc-positioning-done)
         (X-extent . ,ly:axis-group-interface::width)

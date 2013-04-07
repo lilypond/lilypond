@@ -59,7 +59,7 @@ Dot_column::calc_positioning_done (SCM smob)
   vector<Grob *> dots
     = extract_grob_array (me, "dots");
 
-  vector<Grob *> main_heads;
+  vector<Grob *> parent_stems;
   Real ss = 0;
 
   Grob *commonx = me;
@@ -73,7 +73,7 @@ Dot_column::calc_positioning_done (SCM smob)
           commonx = stem->common_refpoint (commonx, X_AXIS);
 
           if (Stem::first_head (stem) == n)
-            main_heads.push_back (n);
+            parent_stems.push_back (stem);
         }
     }
 
@@ -83,8 +83,8 @@ Dot_column::calc_positioning_done (SCM smob)
   extract_grob_set (me, "side-support-elements", support);
 
   Interval base_x;
-  for (vsize i = 0; i < main_heads.size (); i++)
-    base_x.unite (main_heads[i]->extent (commonx, X_AXIS));
+  for (vsize i = 0; i < parent_stems.size (); i++)
+    base_x.unite (Stem::first_head (parent_stems[i])->extent (commonx, X_AXIS));
 
   for (vsize i = 0; i < support.size (); i++)
     {
@@ -152,6 +152,36 @@ Dot_column::calc_positioning_done (SCM smob)
     we instead must use their pure Y positions.
   */
   vector_sort (dots, pure_position_less);
+
+  SCM chord_dots_limit = me->get_property ("chord-dots-limit");
+  if (scm_is_number (chord_dots_limit))
+    {
+      // Sort dots by stem, then check for dots above the limit for each stem
+      vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
+      for (vsize i = 0; i < dots.size (); i++)
+        if (Grob *stem = unsmob_grob (dots[i]->get_parent (Y_AXIS)
+                                      -> get_object ("stem")))
+          for (vsize j = 0; j < parent_stems.size (); j++)
+            if (stem == parent_stems[j])
+              {
+                dots_each_stem[j].push_back (dots[i]);
+                break;
+              }
+      for (vsize j = 0; j < parent_stems.size (); j++)
+        {
+          Interval chord = Stem::head_positions (parent_stems[j]);
+          int total_room = ((int) chord.length () + 2
+                            + scm_to_int (chord_dots_limit)) / 2;
+          int total_dots = dots_each_stem[j].size ();
+          // remove excessive dots from the ends of the stem
+          for (int first_dot = 0; total_dots > total_room; total_dots--)
+            if (0 == (total_dots - total_room) % 2)
+              dots_each_stem[j][first_dot++]->suicide ();
+            else
+              dots_each_stem[j][first_dot + total_dots - 1]->suicide ();
+        }
+    }
+
   for (vsize i = dots.size (); i--;)
     {
       if (!dots[i]->is_live ())
@@ -236,6 +266,7 @@ ADD_INTERFACE (Dot_column,
                " dots so they do not clash with staff lines.",
 
                /* properties */
+               "chord-dots-limit "
                "dots "
                "positioning-done "
                "direction "

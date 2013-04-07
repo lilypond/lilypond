@@ -170,6 +170,9 @@ when a spanner is broken at a line break.")
 ;;;
 ;;; c
 ;;;
+     (chord-dots-limit ,integer? "Limits the column of dots
+on each chord to the height of the chord plus
+@code{chord-dots-limit} staff-positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
