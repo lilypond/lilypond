@@ -1313,9 +1313,23 @@ another, but the required nesting differs.  For example, the
 with the @code{VaticanaVoice} context substituted for the @code{Voice}
 context in the @qq{accepts} list.
 
-Note that a context will be silently created implicitly if a command
-is encountered when there is no suitable context available to
-contain it.  This can give rise to unexpected new staves or scores.
+@cindex contexts, implicit
+@cindex implicit contexts
+@funindex \defaultchild
+
+Note that a context will be silently created implicitly if a
+command is encountered when there is no suitable context available
+to contain it.
+
+Within a context definition, the type of subcontext to be
+implicitly created is specified using @code{\defaultchild}.  A
+number of music events require a @samp{Bottom} context: when such
+an event is encountered, subcontexts are created recursively until
+reaching a context with no @samp{defaultchild} setting.
+
+Implicit context creation can at times give rise to unexpected new
+staves or scores.  Using @code{\new} to create contexts explicitly
+avoids those problems.
 
 @cindex alignAboveContext
 @cindex alignBelowContext
