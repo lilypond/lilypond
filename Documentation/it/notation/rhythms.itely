@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c31ee4f97786151cdc92d2d45e2b759eb54cd5fd
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -189,26 +189,37 @@ centoventottesimo fino alla maxima (otto volte una semibreve).
 @cindex gruppi irregolari
 @cindex terzine
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
-I gruppi irregolari si ottengono moltiplicando tutte le durate di un'espressione
-musicale per una certa frazione:
+I gruppi irregolari sono costituiti da un'espressione musicale
+introdotta dal comando @code{\tuplet}, che moltiplica la velocità
+dell'espressione musicale per una frazione:
 
 @example
-\times @var{frazione} @{ @var{musica} @}
+\tuplet @var{frazione} @{ @var{musica} @}
 @end example
 
 @noindent
-La durata di @code{@var{musica}} sarà moltiplicata per la
-frazione.  Il denominatore della frazione apparirà sopra o
-sotto le note, eventualmente con una parentesi quadra.  Il gruppo irregolare
-più comune è la terzina, in cui 3 note hanno la durata di 2, ovvero la
-durata delle note corrisponde a 2/3 della loro lunghezza.
+Il numeratore della frazione apparirà sopra o sotto le note, eventualmente con una parentesi quadra.  Il gruppo irregolare
+più comune è la terzina, in cui 3@tie{}note hanno la durata
+di @tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
-a2 \times 2/3 { b4 b b }
-c4 c \times 2/3 { b4 a g }
+a2 \tuplet 3/2 { b4 b b }
+c4 c \tuplet 3/2 { b4 a g }
+@end lilypond
+
+@cindex raggruppamento dei gruppi irregolari
+@cindex gruppi irregolari, raggruppamento
+@noindent
+In caso di lunghi passaggi di gruppi irregolari, dover scrivere
+un comando @code{\tuplet} per ogni gruppo è scomodo.  È possibile
+specificare direttamente la durata di un gruppo irregolare prima
+della musica per far sì che i gruppi siano suddivisi automaticamente:
+
+@lilypond[quote,verbatim,relative=2]
+g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @end lilypond
 
 @cindex posizionamento della parentesi quadra del gruppo irregolare
@@ -228,7 +239,7 @@ o sotto il rigo, come spiegato dettagliatamente in @ref{Direction and placement}
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4
+c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
 La modifica di gruppi irregolari annidati che iniziano nello stesso momento
@@ -304,7 +315,7 @@ Guida al funzionamento interno:
 Gli abbellimenti si possono inserire dentro le parentesi del gruppo
 irregolare, @emph{eccetto} quando un rigo inizia con un abbellimento
 seguito da un gruppo irregolare.  In questo caso particolare, l'abbellimento
-deve essere inserito prima del comando @code{\times} per evitare errori.
+deve essere inserito prima del comando @code{\tuplet} per evitare errori.
 
 @cindex segni di tempo all'interno delle parentesi di un gruppo irregolare
 
@@ -386,6 +397,15 @@ Guida alla notazione:
 
 Frammenti di codice:
 @rlsr{Rhythms}.
+
+@knownissues
+Il calcolo della posizione in una misura deve considerare tutti i
+fattori di dimensionamento applicati alle note di quella misura
+e gli esigui residui delle misure precedenti.  Questo calcolo
+viene fatto con numeri razionali. Se un numeratore o un denominatore
+intermedi in quel calcolo eccedono di 2^30, l'esecuzione e la
+composizione tipografica si arresteranno in quel punto senza
+indicare un errore.
 
 
 @node Legature di valore
@@ -1399,7 +1419,7 @@ Quindi @code{\partial 8} diventa:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1 8)
+\set Timing.measurePosition = #(ly:make-moment -1/8)
 e8 | a4 c8 b c4 |
 @end lilypond
 
@@ -1432,7 +1452,7 @@ usare @code{\set Timing.measurePosition} al suo posto.
 \time 6/8
 \partial 8
 e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1 4)
+\set Timing.measurePosition = #(ly:make-moment -1/4)
 r8 e,8 | a4 c8 b[ c b] |
 @end lilypond
 
@@ -1600,8 +1620,8 @@ brano con @code{\cadenzaOn}, altrimenti potrebbero verificarsi errori inattesi.
 @funindex timeSignatureFraction
 @funindex \scaleDurations
 @funindex scaleDurations
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 La notazione polimetrica è supportata esplicitamente o tramite la modifica
 manuale del simbolo d'indicazione di tempo (e la trasformazione della durata
@@ -1643,7 +1663,7 @@ durate influenzerà le regole della disposizione automatica delle travature.
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c \times 2/3 { c8[ c c] } c4
+      c4. c \tuplet 3/2 { c8[ c c] } c4
     }
   }
 >>
@@ -1919,7 +1939,7 @@ Guida al funzionamento interno:
 * Travature automatiche::
 * Impostare il comportamento della travatura automatica::
 * Travature manuali::
-* Feathered beams::
+* Travature convergenti/divergenti::
 @end menu
 
 @node Travature automatiche
@@ -1961,7 +1981,7 @@ c16 c8
 @cindex travature, con melismi
 
 @warning{Se si usano le travature per indicare i melismi nelle canzoni, occorre
-disabilitare la disposizione automatica delle travature con @code{\autoBeamOff}
+disabilitare la disposizione automatica delle travature con @code{\@bs{}autoBeamOff}
 e le travature devono essere indicate manualmente.  L'uso di @code{@bs{}partcombine}
 insieme a @code{@bs{}autoBeamOff} può produrre risultati inattesi.  Si vedano i
 frammenti di codice per avere maggiori informazioni.}
@@ -2043,11 +2063,15 @@ I valori predefiniti di queste variabili possono essere sovrascritti, come
 vedremo tra breve, oppure si possono cambiare i valori predefiniti stessi,
 come è spiegato in @ref{Time signature}.
 
-Se è definita una regola @code{beamExceptions} per l'indicazione di tempo
-corrente, è quella regola a determinare la disposizione delle travature.  Se non
-è definita alcuna regola @code{beamExceptions} per l'indicazione di tempo
-corrente, la disposizione delle travature è determinata dalle impostazioni di
-@code{baseMoment} e @code{beatStructure}.
+Se è definita una regola @code{beamExceptions} per l'indicazione di
+tempo corrente, è quella regola soltanto a determinare la
+disposizione delle travature; i valori di @code{baseMoment} e
+@code{beatStructure} vengono ignorati.  Se non è definita
+alcuna regola @code{beamExceptions} per l'indicazione di tempo
+corrente, la disposizione delle travature è determinata dai
+valori di @code{baseMoment} e @code{beatStructure}.
+
+@subsubsubheading Disposizione delle travature basata su @code{baseMoment} e @code{beatStructure}
 
 Dato che le indicazioni di tempo più comuni hanno delle regole @code{beamExceptions}
 già definite, occorre disabilitarle se la disposizione automatica deve basarsi
@@ -2058,41 +2082,37 @@ disabilitano con questo comando
 \set Timing.beamExceptions = #'()
 @end example
 
-
-@subsubsubheading Disposizione delle travature con @code{baseMoment} e @code{beatStructure}
-
-Nella maggior parte dei casi, le travature automatiche terminano alla fine
-di un battito.  Le estremità dei battiti sono determinate dalle proprietà
-di contesto @code{baseMoment} e @code{beatStructure}.  @code{beatStructure}
-è una lista @emph{scheme} che definisce la lunghezza di ogni battito nella
-misura in unità di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
-è uno fratto il denominatore dell'indicazione di tempo e ogni unità di @code{baseMoment}
-corrisponde a un singolo battito.
+Quando @code{beamExceptions} è impostato su @code{#'()}, o per
+impostazione esplicita o perché non sono state definite internamente
+le @code{beamExceptions} per l'indicazione di tempo corrente, le
+estremità delle travature si trovano sui battiti come specificato
+dalle proprietà di contesto @code{baseMoment} e
+@code{beatStructure}.  @code{beatStructure} è una lista @emph{scheme}
+che definisce la lunghezza di ogni battito nella misura in unità
+di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
+è uno fratto il denominatore dell'indicazione di tempo e ogni unità
+di @code{baseMoment} corrisponde a un singolo battito.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
-c16^"default" c c c c |
+c16^"predefinito" c c c c |
+% È improbabile che per un tempo di 5/16 sia stata definita beamExceptions,
+% ma disabilitiamola lo stesso per sicurezza
+\set Timing.beamExceptions = #'()
 \set Timing.beatStructure = #'(2 3)
 c16^"(2+3)" c c c c |
 \set Timing.beatStructure = #'(3 2)
 c16^"(3+2)" c c c c |
 @end lilypond
 
-Se si usa un'indicazione di tempo comune, le regole @code{beamExceptions}
-@emph{devono} essere disabilitate per far sì che @code{beatStructure} funzioni.
-Il comando @code{\set Timing.beamExceptions = #'()} può e deve essere incluso
-se la disposizione delle travature è regolata da @code{beatStructure}.
 
 @lilypond[quote,relative=2,verbatim]
 \time 4/4
 a8^"predefinito" a a a a a a a
-
-\set Timing.baseMoment = #(ly:make-moment 1 4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"non cambia" a a a a a a a
-
+% Disabilita beamExceptions perché è senz'altro definita
+% per il tempo 4/4
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1 4)
+\set Timing.baseMoment = #(ly:make-moment 1/4)
 \set Timing.beatStructure = #'(1 1 1 1)
 a8^"cambiato" a a a a a a a
 @end lilypond
@@ -2105,6 +2125,8 @@ contiene.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
+  % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 7/8
+
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2147,7 +2169,8 @@ compatibile col nuovo valore di @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = #(ly:make-moment 1 16)
+% Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 5/8
+\set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2240,7 +2263,7 @@ se @code{beamExceptions} non viene annullato.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1 8)
+\set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % Le travature non saranno raggruppate in (3 3 2) a causa di beamExceptions
 \repeat unfold 8 {c8} |
@@ -2256,7 +2279,7 @@ un'unica travatura.  Per raggrupparle sul battito, azzera @code{beamExceptions}.
 \time 3/4
 % il comportamento predefinito è un gruppo di (6) a causa di beamExceptions
 \repeat unfold 6 {a8} |
-% Le travature saranno raggruppate in (1 1 1) a causa di beatLength
+% Le travature saranno raggruppate in (1 1 1) a causa dei valori predefiniti di baseMoment e beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a8}
 @end lilypond
@@ -2375,7 +2398,7 @@ un solo rigo.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1 8)
+    \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \repeat unfold 6 { a8 }
   }
@@ -2511,27 +2534,27 @@ Guida al funzionamento interno:
 @rinternals{Stem_engraver}.
 
 
-@node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@node Travature convergenti/divergenti
+@unnumberedsubsubsec Travature convergenti/divergenti
 @translationof Feathered beams
 
-@cindex beams, feathered
-@cindex feathered beams
+@cindex convergenti/divergenti, travature
+@cindex travature convergenti o divergenti
 
 @funindex \featherDurations
 @funindex featherDurations
 @funindex grow-direction
 
-Feathered beams servono a indicare che un piccolo gruppo di note
-deve essere suonato a un tempo crescente (o decrescente), senza
-cambiare il tempo complessivo del brano.  L'estensionde del
-feathered beam deve essere indicato a mano con @code{[} e
-@code{]}, e il beam feathering si attiva specificando la
-direzione della proprietà @code{Beam} di @code{grow-direction}.
+Le travature convergenti o divergenti servono a indicare che un
+piccolo gruppo di note deve essere suonato a un tempo crescente
+(o decrescente), senza cambiare il tempo complessivo del brano.  L'estensione
+della travatura convergente o divergente deve essere indicato a mano
+con @code{[} e @code{]}; questo tipo di travatura si attiva specificando
+la direzione della proprietà @code{Beam} di @code{grow-direction}.
 
 Se la disposizione delle note e il suono del file MIDI devono riflettere
-il @emph{ritardando} o l'@emph{accelerando} indicati da
-feathered beam, le note devono essere raggruppate in un'espressione
+il @emph{ritardando} o l'@emph{accelerando} indicati dalla travatura
+convergente/divergente, le note devono essere raggruppate in un'espressione
 musicale delimitata da parentesi graffe e preceduta dal comando
 @code{featherDurations}, che specifica il rapporto tra le durate
 delle prime e delle ultime note del gruppo.
@@ -2549,10 +2572,10 @@ le ultime quattro hanno un tempo costante.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2 1)
+\featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
 \override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2 3)
+\featherDurations #(ly:make-moment 2/3)
 { c32[ d e f] }
 % ripristina le travature normali
 \override Beam.grow-direction = #'()
@@ -3524,19 +3547,19 @@ durata della nota che li precede, verrà generato l'errore
 abbellimenti, ad esempio:
 
 @example
-\acciaccatura @{ c'8[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
 diventa:
 
 @example
-\acciaccatura @{ c'16[ d' e' f' g'] @}
+c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
 Oppure si cambia esplicitamente la durata musicale:
 
 @example
-\acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
+c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
 Vedi @ref{Scaling durations}.
@@ -3647,11 +3670,11 @@ Quindi la stanghetta successiva si troverà a 9/8 invece che a 5/4.
 
 @lilypond[quote,verbatim]
 \new Voice \relative c' {
-  \set Timing.measureLength = #(ly:make-moment 5 4)
+  \set Timing.measureLength = #(ly:make-moment 5/4)
   c1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5 8)
+  \set Timing.measurePosition = #(ly:make-moment 5/8)
   b4 b b8 |
   c4 c1 |
 }

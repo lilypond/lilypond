@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
   texidocit = "
-Di norma compare sulla parentesi del gruppo irregolare solo il numeratore del
-numero del gruppo irregolare, ovvero il denominatore dell'argomento del comando
-@code{\\times}. Ma è possibile mostrare la frazione num:den del numero del
-gruppo irregolare oppure nascondere del tutto il numero.
+Di norma compare sulla parentesi del gruppo irregolare solo il
+numeratore del numero del gruppo irregolare. Ma è possibile
+mostrare la frazione num:den del numero del gruppo irregolare
+oppure nascondere del tutto il numero.
 
 "
   doctitleit = "Modifica del numero del gruppo irregolare"

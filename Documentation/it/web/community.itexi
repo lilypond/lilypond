@@ -1,12 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 2f7de62c4aae9fca03fd754a9f44ff02a272eb30
+    Translation of GIT committish: 5d83b53ee321d8890d792191032b1fe352577517
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -54,6 +55,9 @@ quando si discute di LilyPond.
 @item
 @ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
 
+@item
+@ref{Riconoscimenti}: progetti e istituzioni che supportano LilyPond
+
 @end itemize
 @divEnd
 
@@ -86,6 +90,7 @@ quando si discute di LilyPond.
 * Sviluppo::
 * GSoC 2012::
 * Autori::
+* Riconoscimenti::
 * Pubblicazioni::
 * Notizie vecchie::
 * Soffitta::
@@ -1105,6 +1110,19 @@ patch che introduca avvisi ulteriori.
 
 @translationsPrevious
 
+@divEnd
+@divEnd
+
+
+@node Riconoscimenti
+@unnumberedsec Riconoscimenti
+@translationof Acknowledgements
+
+@divClass{column-center-top}
+@subheading Riconoscimenti
+
+@divClass{keep-bullets}
+@acknowledgementsCurrent
 @divEnd
 @divEnd
 

@@ -65,8 +65,8 @@ il file.  L'esperienza personale insegna come sia frustrante cercare di ricordar
 quale versione di LilyPond si usava alcuni anni prima!  @command{convert-ly}
 richiede che si dichiari la versione di LilyPond utilizzata.
 
-@item @strong{Includi i controlli}: @ruser{Bar and bar number checks},
-@ruser{Octave checks}.  Includendo i controlli ogni tanto, se fai
+@item @strong{Includi i controlli}: @ruser{Controlli di battuta e del numero di battuta},
+@ruser{Controlli di ottava}.  Includendo i controlli ogni tanto, se fai
 un errore lo puoi individuare più rapidamente.  Cosa si intende per
 @q{ogni tanto}?  Dipende dalla complessità della musica.  Se la musica
 è molto semplice, anche solo una volta o due.  Se la musica è molto
@@ -96,7 +96,7 @@ al momento di rimetter mano alla musica.
 
 @item @strong{Separa le modifiche manuali (tweak)} dalle definizioni
 musicali.  Vedi @rlearning{Ridurre l'input grazie a variabili e funzioni}, e
-@rlearning{Style sheets}.
+@rlearning{Fogli di stile}.
 
 @end itemize
 

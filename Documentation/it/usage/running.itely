@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+    Translation of GIT committish: 543dc9db58da5e3acaf72dae2478933742fa6e90
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -341,9 +341,15 @@ con @strong{NESSUNA GARANZIA}!)
 @table @code
 
 @item -d@var{[nome-opzione]}=@var{[valore]},--define-default=@var{[nome-opzione]}=@var{[valore]}
-Imposta l'equivalente funzione interna di Scheme su @var{valore}.  Se non
-viene specificato un @var{valore}, viene usato il valore predefinito.  Per disabilitare
-un'opzione, si può usare il prefisso @code{no-} prima di @var{nome-opzione}, ad esempio
+Imposta l'equivalente funzione interna di Scheme su @var{valore}.
+
+@example
+-dbackend=svg
+@end example
+
+Se non viene specificato un @var{valore}, viene usato il valore
+predefinito.  Per disabilitare un'opzione, si può usare il
+prefisso @code{no-} prima di @var{nome-opzione}, ad esempio
 
 @cindex punta e clicca, linea di comando
 
@@ -377,26 +383,26 @@ il risultato per evitare gli @q{artefatti} nelle immagini @code{PNG}.
 @code{EPS}.
 
 @item @code{backend}
-@tab @code{'ps}
+@tab @code{ps}
 @tab Seleziona il backend.  I file Postscript (predefinito) includono i tipi di
 carattere @code{TTF}, @code{Type1} e @code{OTF}.  Non vengono inclusi i sottoinsiemi
 di questi tipi.  Se si usa un set di caratteri @q{orientali}, si possono ottenere
 file di grosse dimensioni.
 
 @item
-@tab @code{'eps}
+@tab @code{eps}
 @tab Encapsulated PostScript.  Invia ogni pagina (sistema) in un file
 @file{EPS} separato, senza font, e in un unico file @file{EPS} con
 tutte le pagine (sistemi) inclusi i font.  Questa è la modalità
 predefinita di @command{lilypond-book}.
 
 @item
-@tab @code{'null}
+@tab @code{null}
 @tab non produce la stampa della partitura; ha lo stesso
 effetto di @code{-dno-print-pages}.
 
 @item
-@tab @code{'svg}
+@tab @code{svg}
 @tab Scalable Vector Graphics.  Crea un singolo file SVG, senza font
 incorporati, per ogni pagina dell'output.  Si raccomanda di installare i
 font Century Schoolbook, inclusi nell'installazione di LilyPond, per una
@@ -407,7 +413,7 @@ editor SVG o user agent.  C'è anche un'opzione @code{svg-woff} (sotto) per
 poter usare i file di font woff nel backend SVG.
 
 @item
-@tab @code{'scm}
+@tab @code{scm}
 @tab Estrae i comandi di disegno grezzi e interni, basati su Scheme.
 
 @item @code{check-internal-types}
@@ -536,11 +542,6 @@ null markup instead.
 @tab @code{#f}
 @tab Converte le stringhe di testo in percorsi quando i glifi appartengono a
 un font musicale.
-
-@item @code{old-relative}
-@tab @code{#f}
-@tab Fa sì che il modo @code{\relative} per la musica simultanea funzioni in
-modo simile alla sintassi degli accordi.
 
 @item @code{paper-size}
 @tab @code{\"a4\"}
@@ -931,7 +932,6 @@ comprese, è facile gestirle.
 @menu
 * La musica esce dalla pagina::
 * Appare un rigo in più::
-* Errore apparente in ../ly/init.ly::
 * Messaggio di errore Unbound variable %::
 * Messaggio di errore FT_Get_Glyph_Name::
 * Avvertimento sul fatto che le affinità del rigo devono solo diminuire::
@@ -957,11 +957,12 @@ linea, portando a una linea di musica estremamente compressa o
 a musica che esce dalla pagina.}
 
 La durata errata può essere trovata facilmente se si usano i controlli di
-battuta, si veda @ruser{Bar and bar number checks}.
+battuta, si veda @ruser{Controlli di battuta e del numero di battuta}.
 
 Se si vuole davvero ottenere una serie di tali misure sovrapposte
 bisogna inserire una barra di divisione invisibile nel punto in cui
-si desidera l'interruzione di linea.  Per i dettagli si veda @ruser{Bar lines}.
+si desidera l'interruzione di linea.  Per i dettagli si veda
+@ruser{Stanghette}.
 
 
 @node Appare un rigo in più
@@ -1020,35 +1021,6 @@ Per correggere il problema basta istanziare esplicitamente il contesto
 }
 @end lilypond
 
-
-@node Errore apparente in ../ly/init.ly
-@unnumberedsubsec Errore apparente in @code{../ly/init.ly}
-@translationof Apparent error in ../ly/init.ly
-
-Possono apparire diversi strani messaggi di errore relativi a errori di
-sintassi in @file{../ly/init.ly} se il file di input non ha una forma corretta,
-ad esempio se contiene delle parentesi o delle virgolette non chiuse
-correttamente.
-
-L'errore più comune è la mancanza di una parentesi graffa, (@code{@}}), alla fine
-di un blocco @code{score}.  In questo caso la soluzione è ovvia: controlla
-che il blocco @code{score} sia chiuso correttamente.  La struttura corretta
-di un file di input è descritta in @rlearning{Come funzionano i file di input di LilyPond}.
-Per evitare questi errori conviene usare un editor che evidenzi automaticamente
-le parentesi e le graffe corrispondenti.
-
-Un'altra causa frequente di errore è la mancanza di uno spazio tra l'ultima
-sillaba di un blocco di testo (lyrics) e la parentesi graffa che chiude il
-blocco, (@code{@}}).  Senza questa separazione, la graffa viene considerata
-come parte della sillaba.  Si consiglia di assicurarsi sempre che ci sia
-uno spazio prima e dopo @emph{ogni} parentesi graffa.  Per comprendere l'importanza
-di questo quando si usa il testo, si veda @ruser{Entering lyrics}.
-
-Questo messaggio di errore può apparire anche nel caso in cui sia omessa la
-virgoletta di chiusura, (@code{"}).  In questo caso il messaggio di errore
-@c keep "-matching straight in fancy editors
-dovrebbe dare un numero di riga vicino alla riga sbagliata.  La virgoletta
-non chiusa sarà solitamente una o due righe sopra.
 
 @node Messaggio di errore Unbound variable %
 @unnumberedsubsec Messaggio di errore Unbound variable %

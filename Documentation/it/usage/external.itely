@@ -268,7 +268,7 @@ filetype on
 @noindent
 Se LilyPond non è installato nella directory @file{/usr/local/},
 modifica il percorso in modo adeguato.  Questo argomento è trattato in
-@rlearning{Other sources of information}.
+@rlearning{Altre fonti di informazione}.
 
 
 @node Altri editor
@@ -278,7 +278,7 @@ modifica il percorso in modo adeguato.  Questo argomento è trattato in
 Altri editor (sia testuali che grafici) supportano LilyPond, ma i loro
 specifici file di configurazione non sono distribuiti insieme a
 LilyPond.  Consulta la documentazione di questi programmi per maggiori
-informazioni.  Questi editor sono elencati in @rweb{Easier editing}.
+informazioni.  Questi editor sono elencati in @rweb{Editing facilitato}.
 
 
 @node Conversione da altri formati

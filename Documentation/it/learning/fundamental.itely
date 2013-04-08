@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -503,7 +503,7 @@ diversi tipi di parentesi e di costrutti in parentesi.
 
 A questi dovremmo aggiungere altri costrutti che generano linee tra
 e lungo le note: legature di valore (contrassegnate dal tilde, @code{~}),
-i gruppi irregolari scritti in questa forma @code{\times x/y @{..@}}, e
+i gruppi irregolari scritti in questa forma @code{\tuplet x/y @{..@}}, e
 gli abbellimenti, indicati con @code{\grace@{..@}}.
 
 Fuori da LilyPond, l'uso convenzionale delle parentesi esige che i diversi
@@ -1553,7 +1553,7 @@ nella sezione sul testo, si veda @ref{Voci e musica vocale}.
 
 
 @seealso
-Guida alla notazione: @ruser{Creating contexts}.
+Guida alla notazione: @ruser{Creating and referencing contexts}.
 
 
 @node Gli incisori

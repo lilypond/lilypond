@@ -1,12 +1,11 @@
-%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
   texidocit = "
 Il testo a margine di una pausa multipla viene centrato sopra o sotto
 di essa.  Se il testo è lungo, la misura non si espanderà.  Per espandere
-la pausa multipla in modo che si allinei col testo, conviene usare una pausa
-spaziatrice con del testo attaccato prima della pausa multipla.
+la pausa multipla in modo che si allinei col testo, conviene usare un accordo
+vuoto con del testo attaccato prima della pausa multipla.
 
-Si noti che la pausa spaziatrice determina l'inserimento di una stanghetta.  Il
-testo così attaccato a una nota spaziatrice viene allineato a sinistra della
+Il testo così attaccato a una nota spaziatrice viene allineato a sinistra della
 posizione in cui la nota sarebbe posta nella misura, ma se la lunghezza della
 misura è determinata dalla lunghezza del testo, il testo verrà centrato.
 

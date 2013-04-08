@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6cb3cdbe1895fd9cb466fa8b6338c1420065cb79
+    Translation of GIT committish: 1b15a2096770f0393c799097afa4a2dcf28ed213
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -498,6 +498,18 @@ In evidenza:
 @itemize
 
 @item
+Un'edizione critica di @emph{Enea nel Lazio (1760)} di Tommaso
+Traetta, opera seria con libretto di Vittorio Amedeo Cigna-Santi, in
+quattro parti:
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Parte prima}
+@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Parte seconda}
+@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Parte terza}
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Parte quarta}
+Creata da
+@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+per la sua tesi di dottorato.
+
+@item
 @emph{Pictures at an exhibition} di Mussorgsky, riorchestrata e diretta
 da @uref{http://www.aurelienbello.com/,Aurélien Bello} con
 la @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
@@ -517,7 +529,7 @@ New Music Ensemble}.
 @item
 @emph{Anonymous Student Compliment or Complaint}, di
 @uref{http://www.mikesolomon.org, Mike Solomon}, che ha vinto il
-@uref{http://leftcoastensemble.org/contest, Left Coast Composition Contest del 2011},
+@uref{http://leftcoastensemble.org, Left Coast Composition Contest del 2011},
 a cui hanno partecipato 172 opere provenienti da 22 paesi.
 Altre opere comprendono Norman (age 1) per clarinetto solo, eseguita all'Electroacoustic
 Music Festival (FEMF) della @uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida}
@@ -532,7 +544,7 @@ per celebrare il 350° compleanno del compositore.
 
 @item
 Esecuzione dell' @emph{Armide} di Lully da parte della
-@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque},
+@uref{http://www.mercurybaroque.org, Mercury Baroque},
 15-16 Maggio 2009, a Houston, Texas (spartiti realizzati da
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
@@ -540,7 +552,8 @@ Esecuzione dell' @emph{Armide} di Lully da parte della
 Brani strumentali dall' @emph{Hippolyte et Aricie} di Rameau presso
 la St. James's Church a Manhattan, 8 Maggio 2009, di Frederick Renz
 e il suo complesso @uref{http://www.earlymusicny.org/, Early Music
-New York} (spartiti realizzati da Nicolas Sceaux).
+New York} (spartiti realizzati da
+@uref{http://nicolas.sceaux.free.fr/,Nicolas Sceaux}).
 
 @item
 @emph{Affaire étrangère}, un opera di
@@ -1154,9 +1167,9 @@ Emacs è un editor di testo che ha la capacità di comprendere molti
 diversi linguaggi informatici.  Emacs è un editor molto estendibile
 e può essere usato come ambiente di sviluppo integrato (IDE).
 C'è una @q{modalità lilypond} che fornisce le definizioni del
-linguaggio per poter lavorare con i file sorgente di Lilypond.  Uno dei nostri
-sviluppatori ha scritto
-@uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi}, una
+linguaggio per poter lavorare con i file sorgente di Lilypond.
+Uno sviluppatore ha scritto
+@uref{https://github.com/nsceaux/lyqi,lyqi}, una
 modalità primaria di Emacs.
 
 @uref{http://www.vim.org}
@@ -1195,6 +1208,13 @@ usando le estensioni disponibili presso:
 @itemize
 
 @item
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} tenta
+di convertire un file @code{.bww} o @code{.bmw} in formato
+LilyPond.  Anche se non tutti gli abbellimenti verranno
+convertiti correttamente (questo vale soprattutto per i
+piobaireachd), il programma li elenca.
+
+@item
 @uref{http://www.canorus.org,Canorus}, un editor di partiture, può anche
 esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
 che vogliono provarlo sono benvenuti.
@@ -1223,7 +1243,6 @@ l'esportazione in formato LilyPond.
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
 NW2LY} è un programma scritto in C# che converte una canzone di NoteWorthy
-@c @uref{http://www.noteworthysoftware.com/,NoteWorthy}
 in formato LilyPond.
 
 @item
@@ -1257,12 +1276,14 @@ Control progettata per aiutare i compositori a costruire pezzi complessi
 di notazione LilyPond in modo iterativo e incrementale.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, una libreria LISP per
-generare notazione musicale da ambienti software per la musica prodotta
-da computer.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic)
+è uno strumento di notazione musicale per compositori di
+musica elettronica.  È scritto nel linguaggio di programmazione
+LISP ed è stato testato su vari interpreti.  È disponibile
+anche un port in C++.
 
 @item
-@uref{http://strasheela.sourceforge.net,Strasheela}, un
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}, un
 ambiente costruito sul linguaggio di programmazione a vincoli
 @uref{http://www.mozart-oz.org/, Mozart/Oz}.
 @end itemize
@@ -1282,7 +1303,7 @@ LilyKDE3 per KDE 3.5 e lilypond-KDE4 per KDE 4.1.
 
 @item
 @uref{http://noteedit.berlios.de,NoteEdit}, che importava
-@uref{http://www.musicxml.com/xml.html,MusicXML}, è stato "forkato"
+@uref{http://www.makemusic.com/musicxml,MusicXML}, è stato "forkato"
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 e @uref{http://canorus.org,Canorus}.

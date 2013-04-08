@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -510,17 +510,18 @@ c2 d |
 @cindex gruppi irregolari
 @cindex terzine
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Glossario musicale: @rglosnamed{note value,durata},
 @rglosnamed{triplet,gruppo irregolare}.
 
 I @notation{gruppi irregolari} vengono preceduti dalla parola chiave
-@code{\times}.  Questa richiede due argomenti: una frazione e un frammento
-di musica.  La durata del frammento viene moltiplicata per la frazione.
-Le terzine fanno sì che le note occupino 2/3 della loro durata, quindi
-una @notation{terzina} ha 2/3 come frazione:
+@code{\tuplet}.  Questa richiede due argomenti: una frazione e un frammento
+di musica.  La frazione ha come numeratore il numero di note del
+gruppo irregolare e come denominatore il numero di note che normalmente
+occupa la stessa durata.  Per le terzine ci sono tre note invece di
+due, quindi una @notation{terzina} ha 3/2 come frazione:
 
 @lilypond[verbatim,quote,relative=2]
 \tuplet 3/2 { f8 g a }
@@ -959,10 +960,6 @@ separando ogni sillaba con uno spazio.
 >>
 @end lilypond
 
-@warning{È fondamentale che l'ultima sillaba sia separata dalla parentesi
-graffa di chiusura con uno spazio o una nuova linea, altrimenti si presumerà
-che sia parte della sillaba, e questo causerà un errore poco
-chiaro, vedi @rprogram{Apparent error in ../ly/init.ly}.}
 
 Si notino le doppie parentesi ad angolo @w{@code{<< ... >>}} che circondano
 l'intero brano per indicare che la musica e il testo devono trovarsi
