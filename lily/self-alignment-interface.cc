@@ -107,13 +107,6 @@ Self_alignment_interface::centered_on_y_parent (SCM smob)
   return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_centered_on_y_parent, 1);
-SCM
-Self_alignment_interface::x_centered_on_y_parent (SCM smob)
-{
-  return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), X_AXIS);
-}
-
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_x_parent (SCM smob)

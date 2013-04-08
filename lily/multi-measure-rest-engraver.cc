@@ -146,6 +146,7 @@ Multi_measure_rest_engraver::process_music ()
         {
           Side_position_interface::add_support (numbers_[i], mmrest_);
           numbers_[i]->set_parent (mmrest_, Y_AXIS);
+          numbers_[i]->set_parent (mmrest_, X_AXIS);
         }
 
       start_measure_
