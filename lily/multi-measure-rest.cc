@@ -32,6 +32,7 @@
 #include "separation-item.hh"
 #include "spacing-options.hh"
 #include "spanner.hh"
+#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "system.hh"
 #include "text-interface.hh"
@@ -225,10 +226,8 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
     {
       if (mdl == 0 && me->get_property ("staff-position") == SCM_EOL)
         {
-          if (Staff_symbol_referencer::on_staff_line (me, 2))
-            me->set_property ("staff-position", scm_from_int (2));
-          else if (Staff_symbol_referencer::on_staff_line (me, 3))
-            me->set_property ("staff-position", scm_from_int (3));
+          Real pos = Rest::staff_position_internal (me, mdl, 0);
+          me->set_property ("staff-position", scm_from_double (pos));
         }
 
       Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));

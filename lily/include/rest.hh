@@ -31,6 +31,8 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE ();
   static string glyph_name (Grob *, int, string, bool);
+  static Real staff_position_internal (Grob *, int /* duration_log */,
+                                       int /* dir */);
   static SCM brew_internal_stencil (Grob *, bool);
   static SCM generic_extent_callback (Grob *, Axis);
   static void translate (Grob *me, int dy);

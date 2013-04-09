@@ -39,19 +39,28 @@ Rest::y_offset_callback (SCM smob)
   int duration_log = scm_to_int (me->get_property ("duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
+  return scm_from_double (ss * 0.5 * Rest::staff_position_internal (me, duration_log, get_grob_direction (me)));
+}
+
+Real
+Rest::staff_position_internal (Grob *me, int duration_log, int dir)
+{
+  if (!me)
+    return 0;
+
   bool position_override = scm_is_number (me->get_property ("staff-position"));
-  Real amount;
+  Real pos;
 
   if (position_override)
     {
-      amount
-        = robust_scm2double (me->get_property ("staff-position"), 0) * 0.5 * ss;
+      pos
+        = robust_scm2double (me->get_property ("staff-position"), 0);
 
       /*
         semibreve rests are positioned one staff line off
       */
       if (duration_log == 0)
-        amount += ss;
+        return pos + 2;
 
       /*
         trust the client on good positioning;
@@ -59,37 +68,75 @@ Rest::y_offset_callback (SCM smob)
         to be properly aligned to staff lines,
         but custom rest shapes may not need that sort of care.
       */
+
+      return pos;
+    }
+
+  pos = 4 * dir;
+
+  if (duration_log > 1)
+    /* Only half notes or longer want alignment with staff lines */
+    return pos;
+      
+  /*
+    We need a staff symbol for actually aligning anything
+  */
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (!staff)
+    return pos;
+
+  std::vector<Real> linepos = Staff_symbol::line_positions (staff);
+
+  if (linepos.empty ())
+    return pos;
+      
+  std::sort (linepos.begin (), linepos.end ());
+          
+  if (duration_log == 0)
+    {
+      /*
+        lower voice semibreve rests generally hang a line lower
+      */
+
+      if (dir < 0)
+        pos -= 2;
+
+      /*
+        make a semibreve rest hang from the next available line,
+        except when there is none.
+      */
+      
+      std::vector<Real>::const_iterator it
+        = std::upper_bound (linepos.begin (), linepos.end (), pos);
+      if (it != linepos.end ())
+        pos = *it;
+      else
+        pos = linepos.back ();
     }
   else
     {
-      int pos = 4 * get_grob_direction (me);
-
-      /*
-        make a semibreve rest hang from the next line,
-        except for a single line staff
-      */
-      if (duration_log == 0 && Staff_symbol_referencer::line_count (me) > 1)
-        pos += 2;
-
-      /*
-        make sure rest is aligned to a staff line
-      */
-      if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
-        {
-          std::vector<Real> linepos = Staff_symbol::line_positions (staff);
-          std::sort (linepos.begin (), linepos.end ());
-          std::vector<Real>::const_iterator it
-            = std::lower_bound (linepos.begin (), linepos.end (), pos);
-          if (it != linepos.end ())
-            {
-              pos = (int)ceil (*it);
-            }
-        }
-
-      amount = ss * 0.5 * pos;
+      std::vector<Real>::const_iterator it
+        = std::upper_bound (linepos.begin (), linepos.end (), pos);
+      if (it != linepos.begin ())
+        --it;
+      pos = *it;
     }
 
-  return scm_from_double (amount);
+  /* Finished for neutral position */
+  if (!dir)
+    return pos;
+
+  /* If we have a voiced position, make sure that it's on the
+     proper side of neutral before using it.  If it isn't, we fall
+     back to a constant offset from neutral position.
+  */
+
+  Real neutral = staff_position_internal (me, duration_log, 0);
+
+  if (dir * (pos - neutral) > 0)
+    return pos;
+
+  return neutral + 4 * dir;
 }
 
 /* A rest might lie under a beam, in which case it should be cross-staff if
