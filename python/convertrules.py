@@ -3547,6 +3547,19 @@ def conv(str):
                   r"\1 " + do + r"\2", str)
     return str
 
+@rule ((2, 17, 18),
+    "Rename OctavateEight to ClefModifier, rename related properties.")
+def conv(str):
+    str = re.sub ('OctavateEight',               'ClefModifier',                   str)
+    str = re.sub ('octavate-eight-interface',    'clef-modifier-interface',        str)
+    str = re.sub ('clefOctavation',              'clefTransposition',              str)
+    str = re.sub ('clefOctavationFormatter',     'clefTranspositionFormatter',     str)
+    str = re.sub ('clefOctavationStyle',         'clefTranspositionStyle',         str)
+    str = re.sub ('cueClefOctavation',           'cueClefTransposition',           str)
+    str = re.sub ('cueClefOctavationFormatter',  'cueClefTranspositionFormatter',  str)
+    str = re.sub ('cueClefOctavationStyle',      'cueClefTranspositionStyle',      str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

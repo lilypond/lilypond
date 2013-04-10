@@ -373,11 +373,11 @@
 	(clip-edges . #t)
 	(collision-interfaces . (beam-interface
 				 clef-interface
+				 clef-modifier-interface
 				 flag-interface
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
-				 octavate-eight-interface
 				 stem-interface
 				 time-signature-interface))
 	(cross-staff . ,ly:beam::calc-cross-staff)
@@ -565,6 +565,31 @@
 				font-interface
 				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
+
+    (ClefModifier
+     . (
+	(break-visibility . ,(grob::inherit-parent-property
+                              X 'break-visibility))
+	(font-shape . italic)
+	(font-size . -4)
+	(self-alignment-X . ,CENTER)
+	(staff-padding . 0.2)
+	(stencil . ,ly:text-interface::print)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::centered-on-x-parent)))))
+	(Y-offset . ,side-position-interface::y-aligned-side)
+	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+	(Y-extent . ,grob::always-Y-extent-from-stencil)
+	(meta . ((class . Item)
+		 (interfaces . (clef-modifier-interface
+				font-interface
+				self-alignment-interface
+				side-position-interface
+				text-interface))))))
 
     (ClusterSpanner
      . (
@@ -1621,32 +1646,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (note-spacing-interface
 				spacing-interface))))))
-
-
-    (OctavateEight
-     . (
-	(break-visibility . ,(grob::inherit-parent-property
-                              X 'break-visibility))
-	(font-shape . italic)
-	(font-size . -4)
-	(self-alignment-X . ,CENTER)
-	(staff-padding . 0.2)
-	(stencil . ,ly:text-interface::print)
-	(X-offset . ,(ly:make-simple-closure
-		      `(,+
-			,(ly:make-simple-closure
-			  (list ly:self-alignment-interface::x-aligned-on-self))
-			,(ly:make-simple-closure
-			  (list ly:self-alignment-interface::centered-on-x-parent)))))
-	(Y-offset . ,side-position-interface::y-aligned-side)
-	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-	(Y-extent . ,grob::always-Y-extent-from-stencil)
-	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				octavate-eight-interface
-				self-alignment-interface
-				side-position-interface
-				text-interface))))))
 
     (OttavaBracket
      . (

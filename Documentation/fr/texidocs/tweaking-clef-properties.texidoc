@@ -2,7 +2,7 @@
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
 @code{clefPosition} -- qui contrôle la position verticale de la clef --
-@code{middleCPosition} et @code{clefOctavation}.  Une clef est imprimée
+@code{middleCPosition} et @code{clefTransposition}.  Une clef est imprimée
 lorsque l'une de ces propriétés, hormis @code{middleCPosition}, est
 modifiée.  Les exemples suivant font apparaître des possibilités de
 réglage manuel de ces propriétés.
@@ -11,7 +11,7 @@ Modifier le glyphe, la position de la clef ou son octaviation ne
 changera pas la position des notes ; il faut pour y parvenir
 modifier aussi la position du do médium.  Le positionnement est relatif
 à la ligne médiane, un nombre positif faisant monter, chaque ligne ou
-interligne comptant pour 1.  La valeur de @code{clefOctavation}
+interligne comptant pour 1.  La valeur de @code{clefTransposition}
 devrait être de 7, -7, 15 ou -15, bien que rien n'empêche de lui
 affecter une autre valeur.
 

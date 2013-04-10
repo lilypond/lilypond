@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 
 @node Conceptos fundamentales
@@ -1879,7 +1879,7 @@ y esto los desactivará en todos los pentagramas:
 >>
 @end lilypond
 
-Como un ejemplo más, si se establece @code{clefOctavation} dentro del
+Como un ejemplo más, si se establece @code{clefTransposition} dentro del
 contexto de @code{Score}, éste cambia inmediatamente el valor de la
 octavación en todos los pentagramas en curso y establece un nuevo
 valor predeterminado que se aplicará a todos los pentagramas.

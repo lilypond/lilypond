@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -1851,7 +1851,7 @@ et pour toutes les portées :
 >>
 @end lilypond
 
-Autre exemple, si la propriété @code{clefOctavation} est déterminée au
+Autre exemple, si la propriété @code{clefTransposition} est déterminée au
 niveau du contexte @code{Score}, elle modifiera la valeur de l'octave en
 cours pour toutes les portées actives ; cette valeur sera considérée
 comme étant la nouvelle valeur par défaut pour toutes les portées à

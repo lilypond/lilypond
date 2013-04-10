@@ -613,8 +613,8 @@ automatically when an output definition (a @code{\\score} or
   endRepeatType = #":|."
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
-  clefOctavationFormatter = #clef-octavation-markup
-  cueClefOctavationFormatter = #clef-octavation-markup
+  clefTranspositionFormatter = #clef-transposition-markup
+  cueClefTranspositionFormatter = #clef-transposition-markup
   automaticBars = ##t
 
   explicitClefVisibility = #all-visible
@@ -970,7 +970,7 @@ of Editio Vaticana."
   middleCPosition = #1
   middleCClefPosition = #1
   clefPosition = #1
-  clefOctavation = #0
+  clefTransposition = #0
 
   %% Select vaticana style font.
   \override KeySignature.glyph-name-alist = #alteration-vaticana-glyph-name-alist
@@ -1063,7 +1063,7 @@ accommodated for typesetting a piece in mensural style."
   middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
-  clefOctavation = #0
+  clefTransposition = #0
 
   %% Select mensural style font.
   \override TimeSignature.style = #'mensural
@@ -1122,7 +1122,7 @@ accommodated for typesetting a piece in Petrucci style."
   middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
-  clefOctavation = #0
+  clefTransposition = #0
 
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
@@ -1181,7 +1181,7 @@ accommodated for typesetting a piece in Kievan style."
  middleCClefPosition = #0
  middleCPosition = #0
  clefPosition = #0
- clefOctavation = #0
+ clefTransposition = #0
 
  %% Accidentals are valid only once (if the following note is different)
  extraNatural = ##f

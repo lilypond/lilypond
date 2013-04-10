@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 
 @node Pitches
@@ -1222,18 +1222,18 @@ Snippets:
 Internals Reference:
 @rinternals{Clef_engraver},
 @rinternals{Clef},
-@rinternals{OctavateEight},
+@rinternals{ClefModifier},
 @rinternals{clef-interface}.
 
 @knownissues
 Ottavation numbers attached to clefs are treated as separate grobs.  So
 any @code{\override} done to the @var{Clef} will also need to be
-applied, as a separate @code{\override}, to the @var{OctavateEight}
+applied, as a separate @code{\override}, to the @var{ClefModifier}
 grob.
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override OctavateEight.color = #red
+  \override ClefModifier.color = #red
   \override Clef.color = #blue
 }
 

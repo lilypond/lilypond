@@ -1,7 +1,7 @@
 \version "2.16.0"
 
 \header {
-  texidoc = "Octavation for clefs for cue notes."
+  texidoc = "Transposition for clefs for cue notes."
 }
 
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }

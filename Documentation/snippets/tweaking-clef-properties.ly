@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.17.18"
 
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
@@ -13,7 +13,7 @@
 The command @code{\\clef \"treble_8\"} is equivalent to setting
 @code{clefGlyph}, @code{clefPosition} (which controls the vertical
 position of the clef), @code{middleCPosition} and
-@code{clefOctavation}. A clef is printed when any of the properties
+@code{clefTransposition}. A clef is printed when any of the properties
 except @code{middleCPosition} are changed.
 
 
@@ -22,7 +22,7 @@ octavation does not in itself change the position of subsequent notes
 on the staff: the position of middle C must also be specified to do
 this. The positional parameters are relative to the staff center line,
 positive numbers displacing upwards, counting one for each line and
-space. The @code{clefOctavation} value would normally be set to 7, -7,
+space. The @code{clefTransposition} value would normally be set to 7, -7,
 15 or -15, but other values are valid.
 
 
@@ -62,12 +62,12 @@ line, they do not.
   % The standard choral tenor clef
   \set Staff.clefGlyph = #"clefs.G"
   \set Staff.clefPosition = #-2
-  \set Staff.clefOctavation = #-7
+  \set Staff.clefTransposition = #-7
   \set Staff.middleCPosition = #1
   c'1
   % A non-standard clef
   \set Staff.clefPosition = #0
-  \set Staff.clefOctavation = #0
+  \set Staff.clefTransposition = #0
   \set Staff.middleCPosition = #-4
   c'1 \break
 
@@ -81,9 +81,9 @@ line, they do not.
   c'1
   \set Staff.clefGlyph = #"clefs.C"
   c'1
-  \set Staff.clefOctavation = #7
+  \set Staff.clefTransposition = #7
   c'1
-  \set Staff.clefOctavation = #0
+  \set Staff.clefTransposition = #0
   \set Staff.clefPosition = #0
   c'1
 

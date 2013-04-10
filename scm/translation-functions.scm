@@ -20,10 +20,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clefs
 
-(define-public (clef-octavation-markup oct style)
-  "The octavation sign formatting function.  @var{oct} is supposed to be
-a string holding the octavation number, @var{style} determines the
-way the octavation number is displayed."
+(define-public (clef-transposition-markup oct style)
+  "The transposition sign formatting function.  @var{oct} is supposed to be
+a string holding the transposition number, @var{style} determines the
+way the transposition number is displayed."
   (let* ((delim (if (symbol? style)
                     (case style
                       ((parenthesized) (cons "(" ")"))

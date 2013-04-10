@@ -43,11 +43,11 @@ protected:
   virtual void derived_mark () const;
 private:
   Item *clef_;
-  Item *octavate_;
+  Item *modifier_;
 
   SCM prev_glyph_;
   SCM prev_cpos_;
-  SCM prev_octavation_;
+  SCM prev_transposition_;
   void create_clef ();
   void set_glyph ();
   void inspect_clef_properties ();
@@ -56,7 +56,7 @@ private:
 void
 Clef_engraver::derived_mark () const
 {
-  scm_gc_mark (prev_octavation_);
+  scm_gc_mark (prev_transposition_);
   scm_gc_mark (prev_cpos_);
   scm_gc_mark (prev_glyph_);
 }
@@ -64,12 +64,12 @@ Clef_engraver::derived_mark () const
 Clef_engraver::Clef_engraver ()
 {
   clef_ = 0;
-  octavate_ = 0;
+  modifier_ = 0;
 
   /*
     will trigger a clef at the start since #f != ' ()
   */
-  prev_octavation_ = prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
+  prev_transposition_ = prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
 void
@@ -107,21 +107,21 @@ Clef_engraver::create_clef ()
       if (scm_is_number (cpos))
         clef_->set_property ("staff-position", cpos);
 
-      SCM oct = get_property ("clefOctavation");
-      if (scm_is_number (oct) && scm_to_int (oct))
+      SCM transp = get_property ("clefTransposition");
+      if (scm_is_number (transp) && scm_to_int (transp))
         {
-          Item *g = make_item ("OctavateEight", SCM_EOL);
+          Item *g = make_item ("ClefModifier", SCM_EOL);
 
-          int abs_oct = scm_to_int (oct);
-          int dir = sign (abs_oct);
-          abs_oct = abs (abs_oct) + 1;
+          int abs_transp = scm_to_int (transp);
+          int dir = sign (abs_transp);
+          abs_transp = abs (abs_transp) + 1;
 
-          SCM txt = scm_number_to_string (scm_from_int (abs_oct),
+          SCM txt = scm_number_to_string (scm_from_int (abs_transp),
                                           scm_from_int (10));
 
-          SCM style = get_property ("clefOctavationStyle");
+          SCM style = get_property ("clefTranspositionStyle");
 
-          SCM formatter = get_property ("clefOctavationFormatter");
+          SCM formatter = get_property ("clefTranspositionFormatter");
           if (ly_is_procedure (formatter))
             g->set_property ("text", scm_call_2 (formatter, txt, style));
 
@@ -130,7 +130,7 @@ Clef_engraver::create_clef ()
           g->set_parent (clef_, Y_AXIS);
           g->set_parent (clef_, X_AXIS);
           g->set_property ("direction", scm_from_int (dir));
-          octavate_ = g;
+          modifier_ = g;
         }
     }
 }
@@ -153,13 +153,13 @@ Clef_engraver::inspect_clef_properties ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");
-  SCM octavation = get_property ("clefOctavation");
+  SCM transposition = get_property ("clefTransposition");
   SCM force_clef = get_property ("forceClef");
 
   if (clefpos == SCM_EOL
       || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
+      || scm_equal_p (transposition, prev_transposition_) == SCM_BOOL_F
       || to_boolean (force_clef))
     {
       apply_on_children (context (),
@@ -174,7 +174,7 @@ Clef_engraver::inspect_clef_properties ()
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
-      prev_octavation_ = octavation;
+      prev_transposition_ = transposition;
     }
 
   if (to_boolean (force_clef))
@@ -199,7 +199,7 @@ Clef_engraver::stop_translation_timestep ()
 
       clef_ = 0;
 
-      octavate_ = 0;
+      modifier_ = 0;
     }
 }
 
@@ -210,12 +210,12 @@ ADD_TRANSLATOR (Clef_engraver,
 
                 /* create */
                 "Clef "
-                "OctavateEight ",
+                "ClefModifier ",
 
                 /* read */
                 "clefGlyph "
-                "clefOctavation "
-                "clefOctavationStyle "
+                "clefTransposition "
+                "clefTranspositionStyle "
                 "clefPosition "
                 "explicitClefVisibility "
                 "forceClef ",

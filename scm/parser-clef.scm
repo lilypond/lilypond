@@ -16,10 +16,10 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; (name . (glyph clef-position octavation))
+;; (name . (glyph clef-position transposition))
 ;;
-;; -- the name clefOctavation is misleading. The value 7 is 1 octave,
-;; not 7 Octaves.
+;; -- the name clefTransposition is a bit misleading. Value 7 means
+;; a transposition of an octave, not a seventh.
 (define-public supported-clefs
   '(("treble" . ("clefs.G" -2 0))
     ("violin" . ("clefs.G" -2 0))
@@ -144,14 +144,14 @@
                                           (cadr e)
                                           (assoc-get (car e) c0-pitch-alist))))
                             ((symbol . clefPosition) (value . ,(cadr e)))
-                            ((symbol . clefOctavation) (value . ,(- oct)))))
-               ;; the clefOctavationStyle property is set only when
+                            ((symbol . clefTransposition) (value . ,(- oct)))))
+               ;; the clefTranspositionStyle property is set only when
                ;; not 'default to calm display-lily-tests.scm
                (prop-list (if (eq? style 'default)
                               prop-list
                               (append
                                 prop-list
-                                `(((symbol . clefOctavationStyle)
+                                `(((symbol . clefTranspositionStyle)
                                    (value . ,style))))))
 	       (musics (map make-prop-set prop-list))
 	       (recalc-mid-C (make-music 'ApplyContext))
@@ -174,8 +174,8 @@
     '((clefGlyph . cueClefGlyph)
       (middleCClefPosition . middleCCuePosition)
       (clefPosition . cueClefPosition)
-      (clefOctavation . cueClefOctavation)
-      (clefOctavationStyle . cueClefOctavationStyle)))
+      (clefTransposition . cueClefTransposition)
+      (clefTranspositionStyle . cueClefTranspositionStyle)))
   (let ((clef (make-clef-set clef-name)))
     (for-each
      (lambda (m)
@@ -196,10 +196,10 @@
    (make-cue-clef-set "treble_(8)")))
 
 ;; a function to add new clefs at runtime
-(define-public (add-new-clef clef-name clef-glyph clef-position octavation c0-position)
+(define-public (add-new-clef clef-name clef-glyph clef-position transposition c0-position)
   "Append the entries for a clef symbol to supported clefs and
 @code{c0-pitch-alist}."
   (set! supported-clefs
-        (acons clef-name (list clef-glyph clef-position octavation) supported-clefs))
+        (acons clef-name (list clef-glyph clef-position transposition) supported-clefs))
   (set! c0-pitch-alist
         (acons clef-glyph c0-position c0-pitch-alist)))

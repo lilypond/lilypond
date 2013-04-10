@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -3445,7 +3445,7 @@ a1
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3480,7 +3480,7 @@ f4 g a b
 描画するには @code{begin-of-line-invisible} を用い、@c
 描画しないのなら @code{all-invisible} を用います。
 @item Key signature -- 以下を参照してください
-@item OctavateEight -- 以下を参照してください
+@item ClefModifier -- 以下を参照してください
 @end itemize
 
 @node 特別な考慮を必要とするもの
@@ -3615,16 +3615,16 @@ f4 g a b
 
 @subsubsubheading オクターブ移調付きの音部記号
 
-@cindex octavated clefs, visibility of (オクターブ移調付きの音部記号の可視性)
-@cindex visibility of octavated clefs (オクターブ移調付きの音部記号の可視性)
-@cindex clefs, visibility of octavation (オクターブ移調付きの音部記号の可視性)
+@cindex transposed clefs, visibility of (オクターブ移調付きの音部記号の可視性)
+@cindex visibility of transposed clefs (オクターブ移調付きの音部記号の可視性)
+@cindex clefs, visibility of transposition (オクターブ移調付きの音部記号の可視性)
 
 オクターブ移調付きの音部記号上の小さなオクターブ記号は
-@code{OctavateEight} レイアウト オブジェクトによって作り出されます。@c
+@code{ClefModifier} レイアウト オブジェクトによって作り出されます。@c
 このオブジェクトの可視性は
 @code{Clef} オブジェクトの可視性とは独立して制御されます。@c
 そのため、各行の先頭においてそのような音部記号を完全に消そうとするなら、@c
-@code{Clef} オブジェクトと @code{OctavateEight} オブジェクトの両方に対して@c
+@code{Clef} オブジェクトと @code{ClefModifier} オブジェクトの両方に対して@c
 必要な @code{break-visibility} のオーバライドを行う必要があります。
 
 明示的な音部記号の変更では、@c

@@ -8,7 +8,7 @@ Translation of GIT committish: 91aeca2562af49ff24110e923d5196bebd95f372
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -3324,7 +3324,7 @@ de presentación de interés que resultan afectados por
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3357,7 +3357,7 @@ línea a no ser que su valor establecido sea distinto de 1.
 se suprimen por completo.  Utilice begin-of line-invisible para
 imprimirlas y all-invisible para suprimirlas.
 @item Armadura: véase más abajo
-@item OctavateEight: véase más abajo
+@item ClefModifier: véase más abajo
 @end itemize
 
 
@@ -3499,11 +3499,11 @@ explícitas.
 @cindex claves, visibilidad de la octavación
 
 El pequeño símbolo de octava sobre las claves en octava alta o baja se
-produce por parte del objeto @code{OctavateEight}.  Su visibilidad se
+produce por parte del objeto @code{ClefModifier}.  Su visibilidad se
 hereda automáticamente de la del objeto @code{Clef}, así que no es
 necesario aplicar las sobreescrituras correspondientes
 @code{break-visibility} a los objetos
-@code{OctavateEight} para suprimir los símbolos de octavación
+@code{ClefModifier} para suprimir los símbolos de octavación
 para las claves invisibles.
 
 Para los cambios de clave explícitos, la propiedad

@@ -172,11 +172,12 @@ symbol and the prefix of a chord name.")
      (chordRootNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for chords.")
      (clefGlyph ,string? "Name of the symbol within the music font.")
-     (clefOctavation ,integer? "Add this much extra octavation.
+     (clefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
-     (clefOctavationFormatter ,procedure? "A procedure that takes the
-Octavation number as a string and the style as a symbol and returns a markup.")
-     (clefOctavationStyle ,symbol? "Determines the way the octavateEight
+     (clefTranspositionFormatter ,procedure? "A procedure that takes the
+Transposition number as a string and the style as a symbol and returns a
+markup.")
+     (clefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
      (clefPosition ,number? "Where should the center of the clef
@@ -198,11 +199,12 @@ a hairpin crescendo is used.")
      (crescendoText ,markup? "The text to print at start of non-hairpin
 crescendo, i.e., @samp{cresc.}.")
      (cueClefGlyph ,string? "Name of the symbol within the music font.")
-     (cueClefOctavation ,integer? "Add this much extra octavation.
+     (cueClefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
-     (cueClefOctavationFormatter ,procedure? "A procedure that takes the
-Octavation number as a string and the style as a symbol and returns a markup.")
-     (cueClefOctavationStyle ,symbol? "Determines the way the octavateEight
+     (cueClefTranspositionFormatter ,procedure? "A procedure that
+takes the Transposition number as a string and the style as a symbol
+and returns a markup.")
+     (cueClefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
      (cueClefPosition ,number? "Where should the center of the clef

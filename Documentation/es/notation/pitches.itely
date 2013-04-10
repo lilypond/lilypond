@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 
 @node Alturas
@@ -1209,19 +1209,19 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Clef_engraver},
 @rinternals{Clef},
-@rinternals{OctavateEight},
+@rinternals{ClefModifier},
 @rinternals{clef-interface}.
 
 @knownissues
 Los números de octavación adjuntos a las claves se tratan como
 grobs distintos.  Así pues, cualquier @code{\override}
 (sobreescritura) efectuada al objeto @var{Clef} deberá aplicarse
-también al grob @var{OctavateEight} como un @code{\override}
+también al grob @var{ClefModifier} como un @code{\override}
 diferente.
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override OctavateEight.color = #red
+  \override ClefModifier.color = #red
   \override Clef.color = #blue
 }
 

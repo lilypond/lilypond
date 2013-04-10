@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -1792,9 +1792,9 @@ and this turns them off in all staves:
 >>
 @end lilypond
 
-As another example, if @code{clefOctavation} is set in
+As another example, if @code{clefTransposition} is set in
 the @code{Score} context this immediately changes the value
-of the octavation in all current staves and sets a new default
+of the transposition in all current staves and sets a new default
 value which will be applied to all staves.
 
 The opposite command, @code{\unset}, effectively removes the

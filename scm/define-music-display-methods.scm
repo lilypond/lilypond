@@ -956,8 +956,8 @@ Otherwise, return @code{#f}."
 								 value ?clef-position
 								 symbol 'clefPosition)
 							  (music 'PropertySet
-								 value ?clef-octavation
-								 symbol 'clefOctavation)
+								 value ?clef-transposition
+								 symbol 'clefTransposition)
 							  (music 'ApplyContext
 								 procedure ly:set-middle-C!)))))
     (let ((clef-name (assoc-get (list ?clef-glyph ?clef-position 0)
@@ -965,12 +965,12 @@ Otherwise, return @code{#f}."
       (if clef-name
 	  (format #f "\\clef \"~a~{~a~a~}\"~a"
 		  clef-name
-		  (cond ((= 0 ?clef-octavation)
+		  (cond ((= 0 ?clef-transposition)
 			 (list "" ""))
-			((> ?clef-octavation 0)
-			 (list "^" (1+ ?clef-octavation)))
+			((> ?clef-transposition 0)
+			 (list "^" (1+ ?clef-transposition)))
 			(else
-			 (list "_" (- 1 ?clef-octavation))))
+			 (list "_" (- 1 ?clef-transposition))))
 		  (new-line->lily-string))
 	  #f))))
 

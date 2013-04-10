@@ -4,7 +4,7 @@
 Der Befehl @code{\\clef \"treble_8\"} ist gleichbedeutend mit einem
 expliziten Setzen der Eigenschaften von @code{clefGlyph},
 @code{clefPosition} (welche die vertikale Position des Schlüssels bestimmt),
-@code{middleCPosition} und @code{clefOctavation}.  Ein Schlüssel wird
+@code{middleCPosition} und @code{clefTransposition}.  Ein Schlüssel wird
 ausgegeben, wenn eine der Eigenschaften außer @code{middleCPosition} sich
 ändert.
 
@@ -14,7 +14,7 @@ auf dem System: das geschieht nur, wenn auch die Position des
 eingestrichenen@tie{}C (middleCPosition) angegeben wird.  Die
 Positionsparameter sind relativ zur Mittellinie des Systems, dabei versetzen
 positive Zahlen die Position nach oben, jeweils eine Zahl für jede Linie
-plus Zwischenraum.  Der @code{clefOctavation}-Wert ist normalerweise auf 7,
+plus Zwischenraum.  Der @code{clefTransposition}-Wert ist normalerweise auf 7,
 -7, 15 oder -15 gesetzt, aber auch andere Werte sind gültig.
 
 Wenn ein Schlüsselwechsel an einem Zeilenwechsel geschieht, wird das neue

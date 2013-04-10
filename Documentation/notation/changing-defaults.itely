@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -3283,7 +3283,7 @@ default setting of this property:
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3316,7 +3316,7 @@ line unless it is set to be different from 1.
 suppressed.  Use begin-of line-invisible to print and
 all-invisible to suppress.
 @item Key signature -- see below
-@item OctavateEight -- see below
+@item ClefModifier -- see below
 @end itemize
 
 @node Special considerations
@@ -3445,20 +3445,20 @@ occur only at explicit @code{\bar} commands.
 
 @c TODO Add example
 
-@subsubsubheading Octavated clefs
+@subsubsubheading Transposed clefs
 
-@cindex octavated clefs, visibility of
-@cindex visibility of octavated clefs
-@cindex clefs, visibility of octavation
+@cindex transposed clefs, visibility of
+@cindex visibility of transposed clefs
+@cindex clefs, visibility of transposition
 
-The small octavation symbol on octavated clefs is produced by the
-@code{OctavateEight} layout object.  Its visibility is automatically
+The small transposition symbol on transposed clefs is produced by the
+@code{ClefModifier} layout object.  Its visibility is automatically
 inherited from the @code{Clef} object, so it is not necessary to apply
-any required @code{break-visibility} overrides to the @code{OctavateEight} 
-layout objects to suppress octavation symbols for invisible clefs.
+any required @code{break-visibility} overrides to the @code{ClefModifier}
+layout objects to suppress transposition symbols for invisible clefs.
 
 For explicit clef changes, the @code{explicitClefVisibility}
-property controls both the clef symbol and any octavation symbol
+property controls both the clef symbol and any transposition symbol
 associated with it.
 
 @seealso

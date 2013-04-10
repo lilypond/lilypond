@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @c Translators: Till Paala
 
@@ -3328,7 +3328,7 @@ jeweiligen Standardeinstellungen der Eigenschaft:
 @item @code{KeySignature} (Tonart)       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{OctavateEight} (Oktavierungs-Acht)      @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier} (Oktavierungs-Acht)      @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark} (Übungszeichen)      @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature} (Taktart)      @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3485,10 +3485,10 @@ auftreten.
 @cindex Schlüssel, Sichtbarkeit der Oktavierung
 
 Das kleine Oktavierungssymbol von oktavierten Notenschlüsseln
-wird durch das @code{OctavateEight}-Layout-Objekt erstellt.
+wird durch das @code{ClefModifier}-Layout-Objekt erstellt.
 Seine Sichtbarkeit wird automatisch vom @code{Clef}-Objekt
 geerbt, sodass Veränderungen von @code{break-visibility}
-des @code{OctavateEight}-Layout-Objekts nicht auch noch
+des @code{ClefModifier}-Layout-Objekts nicht auch noch
 für unsichtbare Schlüssel zusätzlich vorgenommen werden müssen.
 
 Bei expliziten Schlüsseländerungn kontrolliert die
