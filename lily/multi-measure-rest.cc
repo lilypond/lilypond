@@ -19,6 +19,7 @@
 
 #include "multi-measure-rest.hh"
 
+#include "directional-element-interface.hh"
 #include "duration.hh"
 #include "font-interface.hh"
 #include "international.hh"
@@ -222,14 +223,16 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Font_metric *musfont = Font_interface::get_default_font (me);
   int mdl = calc_measure_duration_log (me, true);
 
+  if (me->get_property ("staff-position") == SCM_EOL)
+    {
+      int dir = get_grob_direction (me);
+      Real pos = Rest::staff_position_internal (me, mdl, dir);
+      me->set_property ("staff-position", scm_from_double (pos));
+    }
+
   if (measure_count == 1)
     {
-      if (mdl == 0 && me->get_property ("staff-position") == SCM_EOL)
-        {
-          Real pos = Rest::staff_position_internal (me, mdl, 0);
-          me->set_property ("staff-position", scm_from_double (pos));
-        }
-
+ 
       Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
