@@ -223,17 +223,16 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Font_metric *musfont = Font_interface::get_default_font (me);
   int mdl = calc_measure_duration_log (me, true);
 
-  if (me->get_property ("staff-position") == SCM_EOL)
-    {
-      int dir = get_grob_direction (me);
-      Real pos = Rest::staff_position_internal (me, mdl, dir);
-      me->set_property ("staff-position", scm_from_double (pos));
-    }
-
   if (measure_count == 1)
     {
+      if (me->get_property ("staff-position") == SCM_EOL)
+        {
+          int dir = get_grob_direction (me);
+          Real pos = Rest::staff_position_internal (me, mdl, dir);
+          me->set_property ("staff-position", scm_from_double (pos));
+        }
  
-      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true));
+      Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true, 0.0));
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
       return s;
@@ -282,6 +281,22 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
   Real symbols_width = 0.0;
   double total_duration = measure_count * pow (2.0, -calc_measure_duration_log (me, true));
 
+  SCM staff_position = me->get_property ("staff-position");
+
+  if (!scm_is_number (staff_position))
+    {
+      // Staff position is somewhat icky regarding its definition for
+      // compatibility reasons.  It is intended to be the baseline of
+      // a breve rest.  However, when the staff space is more than
+      // single space (like with tablature), it looks better if all
+      // rests are actually hanging.  So staff position, in reality,
+      // is the semi-breve position - 2.  Everything else is
+      // calculated from there.
+      int dir = get_grob_direction (me);
+      Real pos = Rest::staff_position_internal (me, 0, dir);
+      me->set_property ("staff-position", scm_from_double (pos - 2));
+    }
+
   while (total_duration > 0)
     {
       int dl = calc_closest_duration_log (me, total_duration, false, true);
@@ -289,11 +304,16 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 
       total_duration -= duration;
 
-      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true));
+      Stencil r = musfont->find_by_name (Rest::glyph_name (me, dl, "", true, 2));
+
+      Real staff_space = Staff_symbol_referencer::staff_space (me);
       if (dl == 0)
         {
-          Real staff_space = Staff_symbol_referencer::staff_space (me);
           r.translate_axis (staff_space, Y_AXIS);
+        }
+      else
+        {
+          r.translate_axis (staff_space-r.extent (Y_AXIS).at (UP), Y_AXIS);
         }
       symbols_width += r.extent (X_AXIS).length ();
       mols = scm_cons (r.smobbed_copy (), mols);

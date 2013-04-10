@@ -159,13 +159,14 @@ Rest::calc_cross_staff (SCM smob)
   make this function easily usable in C++
 */
 string
-Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers)
+Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers,
+                  Real offset)
 {
   bool is_ledgered = false;
   if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
     {
-      int const pos = int (Staff_symbol_referencer::get_position (me));
-
+      int const pos = int (Staff_symbol_referencer::get_position (me)
+                           + offset);
       /*
         half rests need ledger if not lying on a staff line,
         whole rests need ledger if not hanging from a staff line,
@@ -233,7 +234,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
   string style = robust_symbol2string (me->get_property ("style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  string font_char = glyph_name (me, durlog, style, ledgered);
+  string font_char = glyph_name (me, durlog, style, ledgered, 0.0);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.c_str ()));
