@@ -72,11 +72,17 @@ bind def
   b4_Inc_state restore
 } bind def
 
-/stroke_and_fill {
+/stroke_and_fill? {
+    {
 	gsave
 		stroke
 	grestore
 	fill
+    }
+    {
+	stroke
+    }
+    ifelse
 } bind def
 
 /vector_add { % x1 y1 x2 y2 vector_add x1+x2 y1+y2
@@ -131,11 +137,7 @@ bind def
 	rmoveto % x(0) y(0)
 	{ polygon_x polygon_y vector_add lineto } repeat % n times
 	closepath
-	{ %fill?
-		stroke_and_fill
-	}{
-		stroke
-	} ifelse
+	stroke_and_fill?
 } bind def
 
 /draw_circle % filled? radius thickness draw_circle
@@ -145,9 +147,7 @@ bind def
 	3 2 roll	% f? x0 y0 r
 	dup 0 rmoveto
 	0 360 arc closepath
-		{ stroke_and_fill }
-		{ stroke }
-	ifelse
+	stroke_and_fill?
 } bind def
 
 /draw_ellipse % filled? x-radius y-radius thickness draw_ellipse
@@ -159,9 +159,7 @@ bind def
   1 0 rmoveto
   1 0 360  arc closepath
   savematrix setmatrix
-             { stroke_and_fill}
-             { stroke }
-  ifelse
+  stroke_and_fill?
 } bind def
 
 /draw_partial_ellipse % filled connect x-radius y-radius startangle endangle thickness draw_partial_ellipse
@@ -200,7 +198,7 @@ bind def
   connect {
     startangle cos startangle sin moveto endangle cos endangle sin lineto }
     if
-  savematrix setmatrix filled { stroke_and_fill } { stroke } ifelse
+  savematrix setmatrix filled stroke_and_fill?
   grestore
 } bind def
 
