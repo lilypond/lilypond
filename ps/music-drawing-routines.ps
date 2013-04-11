@@ -75,7 +75,8 @@ bind def
 /stroke_and_fill? {
     {
 	gsave
-		stroke
+	    false setstrokeadjust
+	    stroke
 	grestore
 	fill
     }
@@ -96,30 +97,97 @@ bind def
 
 /draw_round_box % width height x y blot
 {
-        dup
-	0.0 gt {
-		setlinewidth % w h x y
-		rmoveto % w h
-		2 copy 0 ne exch 0 ne and
+    0 max setlinewidth
+    matrix currentmatrix 5 1 roll
+    currentpoint translate newpath translate
+    2 copy 0 min exch 0 min exch translate
+    abs exch abs exch
+    currentlinewidth 0 eq
+    { % straight corners
+	2 copy 2 mul gt
+	{ % horizontal
+	    0 1 index 2 div moveto
+	    setlinewidth
+	    0 rlineto
+	    0 setlinecap
+	    stroke
+	}
+	{
+	    2 copy exch 2 mul gt
+	    { % vertical
+		1 index 2 div 0 moveto
+		exch setlinewidth
+		0 exch rlineto
+		0 setlinecap
+		stroke
+	    }
+	    {
+		0 0 4 2 roll rectfill
+	    }
+	    ifelse
+	}
+	ifelse
+    }
+    { % rounded corners
+	2 copy 0 eq exch 0 eq or
+	{ % line shape
+	    0 0 moveto
+	    rlineto
+	    1 setlinecap
+	    stroke
+	    0 setlinecap
+	}
+	{ % full shape
+	    currentlinewidth 2 div
+	    0 0 2 index 180 270 arc
+	    2 index 0 2 index 270 360 arc
+	    3 copy 0 90 arc
+	    0 2 index 3 -1 roll 90 180 arc
+	    closepath
+	    2 copy 2 mul gt
+	    { % horizontal
+		2 copy add currentlinewidth add 10 add % large enough
+		0 1 index neg moveto
+		2 index 1 index neg lineto
+		2 index 1 index lineto
+		0 exch lineto closepath
+		gsave clip newpath
+		0 1 index 2 div moveto
+		currentlinewidth add setlinewidth
+		0 rlineto
+		2 setlinecap
+		stroke
+		grestore
+	    }
+	    {
+		2 copy exch 2 mul gt
+		{ % vertical
+		    2 copy add currentlinewidth add 10 add % large enough
+		    dup neg 0 moveto
+		    dup 0 lineto
+		    dup 2 index lineto
+		    neg 1 index lineto closepath
+		    gsave clip newpath
+		    1 index 2 div 0 moveto
+		    exch currentlinewidth add setlinewidth
+		    0 exch rlineto
+		    2 setlinecap
+		    stroke
+		    grestore
+		}
 		{
-		    0 setlinecap
-		    1 setlinejoin
-		    currentpoint % w h x1 y1
-		    4 2 roll % x1 y1 w h
-		    4 copy
-		    rectfill
-		    rectstroke
-		} {
-		    1 setlinecap
-		    rlineto stroke
-		} ifelse
-	} {
-		pop % w h x y
-		rmoveto % w h
-		currentpoint % w h x1 y1
-		4 2 roll % x1 y1 w h
-		rectfill
-	} ifelse
+		    pop pop
+		    fill
+		}
+		ifelse
+	    }
+	    ifelse
+	    newpath
+	}
+	ifelse
+    }
+    ifelse
+    setmatrix
 } bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
@@ -206,7 +274,6 @@ bind def
 {
 	setlinewidth % dx dy x1 y1
 	1 setlinecap
-	1 setlinejoin
 	rmoveto % dx dy
 	rlineto
 	stroke
@@ -215,7 +282,6 @@ bind def
 /draw_dashed_line % dx dy thickness dashpattern offset draw_dashed_line
 {
 	1 setlinecap
-	1 setlinejoin
 	setdash % dx dy thickness
 	setlinewidth %dx dy
 	rlineto
