@@ -1,4 +1,4 @@
-%!PS-Adobe-1.0: music-drawing-routines.ps
+%!PS-Adobe-2.0
 %
 % Functions for direct and embedded PostScript
 
@@ -63,12 +63,7 @@ bind def
     0 setgray 0 setlinecap % Prepare graphics state
     1 setlinewidth 0 setlinejoin
     10 setmiterlimit [ ] 0 setdash newpath
-    /languagelevel where % If level not equal to 1 then
-    {pop languagelevel % set strokeadjust and
-    1 ne % overprint to their defaults.
-      {false setstrokeadjust false setoverprint
-      } if
-    } if
+    false setstrokeadjust false setoverprint
 } bind def
 
 /EndEPSF { %def
