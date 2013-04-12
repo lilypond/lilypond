@@ -55,24 +55,16 @@
    This means that the merging routine doesn't need to be aware of direction,
    but the distance routine does.
 
-   Be careful about numerical accuracy. When dealing with extremely small values,
-   computation errors may arise due to the use of floating point arithmetic.
-   For example, if left and right have equal values to start with, in C++
-   they may not receive the same value after
-
-   left = left*factor + offset;
-   right = right*factor + offset;
-
-   Which is very unfortunate. Maybe using GCC compiler options to disallow
-   extended precision for intermediate results and/or the choice to store
-   intermediates with less than full precision would retain some kind of
-   deterministic behavior that way.
-
-   Anyway, it seems that accepting extremely narrow building in skylines
-   doesn't cause accuracy problems to us, so we allow arbitrarily small buildings.
-   However, as Keith pointed out, problems may appear if more than one operation
-   is done before storing the result, and/or there are different code paths
-   for doing the operations to the different ends of an interval.
+   From 2007 through 2012, buildings of width less than EPS were discarded,
+   citing numerical accuracy concerns.  We remember that floating point
+   comparisons of nearly-equal values can be affected by rounding error.
+   Also, some target machines use the x87 floating point unit, which provides
+   extended precision for intermediate results held in registers. On this type
+   of hardware comparisons such as
+     double c = 1.0/3.0; boolean compare = (c == 1.0/3.0)
+   could go either way because the 1.0/3.0 is allowed to be kept
+   higher precision than the variable 'c'.
+   Alert to these considerations, we now accept buildings of zero-width.
 */
 
 static void
@@ -386,7 +378,8 @@ non_overlapping_skyline (list<Building> *const buildings)
           continue;
         }
 
-      if (x1 >= last_end)
+      // Insert empty Buildings into any gaps. (TODO: is this needed? -KOH)
+      if (x1 > last_end)
         result.push_back (Building (last_end, -infinity_f, -infinity_f, x1));
 
       result.push_back (*i);
