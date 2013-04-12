@@ -25,6 +25,10 @@
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 
+(define-public (number-pair-list? x)
+  (and (list? x)
+       (every number-pair? x)))
+
 (define-public (fraction? x)
   (and (pair? x)
        (index? (car x)) (index? (cdr x))))

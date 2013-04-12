@@ -2081,3 +2081,95 @@ Broken measures are numbered in parentheses."
                     (cdr break-alignment-L-ext))))
            X)))
     num))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The following are used by the \offset function
+
+(define (find-value-to-offset prop self alist)
+  "Return the first value of the property @var{prop} in the property alist
+@var{alist} @em{after} having found @var{self}."
+  (let ((segment (member (cons prop self) alist)))
+    (if (not segment)
+        (assoc-get prop alist)
+        (assoc-get prop (cdr segment)))))
+
+(define (offset-multiple-types arg offsets)
+  "Displace @var{arg} by @var{offsets} if @var{arg} is a number, a
+number pair, or a list of number pairs.  If @var{offsets} is an empty
+list or if there is a type-mismatch, @var{arg} will be returned."
+  (cond
+    ((and (number? arg) (number? offsets))
+     (+ arg offsets))
+    ((and (number-pair? arg)
+          (or (number? offsets)
+              (number-pair? offsets)))
+     (coord-translate arg offsets))
+    ((and (number-pair-list? arg) (number-pair-list? offsets))
+     (map
+       (lambda (x y) (coord-translate x y))
+       arg offsets))
+    (else arg)))
+
+(define-public (offsetter property offsets)
+  "Apply @var{offsets} to the default values of @var{property} of @var{grob}.
+Offsets are restricted to immutable properties and values of type @code{number},
+@code{number-pair}, or @code{number-pair-list}."
+  (define (self grob)
+    (let* ((immutable (ly:grob-basic-properties grob))
+           ; We need to search the basic-properties alist for our property to
+           ; obtain values to offset.  Our search is complicated by the fact that
+           ; calling the music function `offset' as an override conses a pair to
+           ; the head of the alist.  This pair must be discounted.  The closure it
+           ; contains is named `self' so it can be easily recognized.  If `offset'
+           ; is called as a tweak, the basic-property alist is unaffected.
+           (target (find-value-to-offset property self immutable))
+           ; if target is a procedure, we need to apply it to our grob to calculate
+           ; values to offset.
+           (vals
+             (if (procedure? target)
+                 (target grob)
+                 target))
+           (can-type-be-offset?
+             (or (number? vals)
+                 (number-pair? vals)
+                 (number-pair-list? vals))))
+
+      (if can-type-be-offset?
+          ; '(+inf.0 . -inf.0) would offset to itself.  This will be confusing to a
+          ; user unaware of the default value of the property, so issue a warning.
+          (if (equal? empty-interval vals)
+              (ly:warning "default '~a of ~a is ~a and can't be offset"
+                property grob vals)
+              (let* ((orig (ly:grob-original grob))
+                     (siblings
+                       (if (ly:spanner? grob)
+                           (ly:spanner-broken-into orig)
+                           '()))
+                     (total-found (length siblings))
+                     ; Since there is some flexibility in input syntax,
+                     ; structure of `offsets' is normalized.
+                     (offsets
+                       (if (or (not (pair? offsets))
+                               (number-pair? offsets)
+                               (and (number-pair-list? offsets)
+                                    (number-pair-list? vals)))
+                           (list offsets)
+                           offsets)))
+
+                (define (helper sibs offs)
+                  ; apply offsets to the siblings of broken spanners
+                  (if (pair? offs)
+                      (if (eq? (car sibs) grob)
+                          (offset-multiple-types vals (car offs))
+                          (helper (cdr sibs) (cdr offs)))
+                      vals))
+
+                (if (>= total-found 2)
+                    (helper siblings offsets)
+                    (offset-multiple-types vals (car offsets)))))
+
+              (begin
+                (ly:warning "the property '~a of ~a cannot be offset" property grob)
+                vals))))
+    ; return the closure named `self'
+    self)

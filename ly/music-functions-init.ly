@@ -694,6 +694,26 @@ octaveCheck =
    (make-music 'RelativeOctaveCheck
                'pitch pitch))
 
+offset =
+#(define-music-function (parser location property offsets item)
+  (symbol-list-or-symbol? scheme? symbol-list-or-music?)
+   (_i "Offset the default value of @var{property} of @var{item} by
+@var{offsets}.  If @var{item} is a string, the result is
+@code{\\override} for the specified grob type.  If @var{item} is
+a music expression, the result is the same music expression with an
+appropriate tweak applied.")
+  (if (ly:music? item)
+      #{ \tweak #property #(offsetter property offsets) #item #}
+      (if (check-grob-path item parser location
+                                #:default 'Bottom
+                                #:min 2
+                                #:max 2)
+          #{
+            \override #item . #property =
+              #(offsetter property offsets)
+          #}
+          (make-music 'Music))))
+
 omit =
 #(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
