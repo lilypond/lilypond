@@ -2242,16 +2242,14 @@ Notation Reference:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
 
-@ignore
-@c This warning is more general than this placement implies.
-@c Rests are not merged whether or not they come from tagged sections.
-@c Should be deleted?  -td
-
 @knownissues
-Multiple rests are not merged if you create a score with more
-than one tagged section at the same place.
-
-@end ignore
+Calling @code{\relative} on a music expression obtained by filtering
+music through @code{\keepWithTag} or @code{\removeWithTag} might cause
+the octave relations to change, as only the pitches actually
+remaining in the filtered expression will be considered.  Applying
+@code{\relative} first, before @code{\keepWithTag} or
+@code{\removeWithTag}, avoids this danger as @code{\relative} then
+acts on all the pitches as-input.
 
 
 @node Using global settings
