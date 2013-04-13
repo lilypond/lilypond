@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.15\n"
+"Project-Id-Version: lilypond 2.17.16\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-03-30 16:27+0000\n"
+"POT-Creation-Date: 2013-04-13 14:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2466,7 +2466,7 @@ msgid ""
 "defaulting to hairpin."
 msgstr ""
 
-#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:119
+#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:135
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2908,24 +2908,28 @@ msgstr ""
 msgid "direction of %s invalid: %d"
 msgstr ""
 
+#: slur-proto-engraver.cc:67
+msgid "cannot set break slur with two directions"
+msgstr ""
+
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-proto-engraver.cc:166
+#: slur-proto-engraver.cc:186
 #, c-format
 msgid "already have %s"
 msgstr ""
 
-#: slur-proto-engraver.cc:183
+#: slur-proto-engraver.cc:203
 #, c-format
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-proto-engraver.cc:244
+#: slur-proto-engraver.cc:299
 #, c-format
 msgid "cannot end %s"
 msgstr ""
 
-#: slur.cc:434
+#: slur.cc:441
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -2971,13 +2975,13 @@ msgid "Grob count %d"
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:131
+#: text-interface.cc:129
 #, c-format
 msgid "Cyclic markup detected: %s"
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:144
+#: text-interface.cc:142
 #, c-format
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr ""
@@ -3114,7 +3118,7 @@ msgstr ""
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:651 parser.yy:1136
+#: parser.yy:651 parser.yy:1150
 msgid "not a context mod"
 msgstr ""
 
@@ -3130,76 +3134,76 @@ msgstr ""
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1045 parser.yy:1056
+#: parser.yy:1045 parser.yy:1067
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1061
+#: parser.yy:1075
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1072 parser.yy:2327
+#: parser.yy:1086 parser.yy:2344
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1340
+#: parser.yy:1354
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2031 parser.yy:2142 parser.yy:2155 parser.yy:2164
+#: parser.yy:2045 parser.yy:2159 parser.yy:2172 parser.yy:2181
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2122
+#: parser.yy:2139
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2183
+#: parser.yy:2200
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2276 parser.yy:2280 parser.yy:2295
+#: parser.yy:2293 parser.yy:2297 parser.yy:2312
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2436
+#: parser.yy:2453
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2540
+#: parser.yy:2557
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2549 parser.yy:2554 parser.yy:3097
+#: parser.yy:2566 parser.yy:2571 parser.yy:3114
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2669
+#: parser.yy:2686
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2764
+#: parser.yy:2781
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2836 parser.yy:2882
+#: parser.yy:2853 parser.yy:2899
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2899
+#: parser.yy:2916
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3013
+#: parser.yy:3030
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3072
+#: parser.yy:3089
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3296
+#: parser.yy:3315
 msgid "not a markup"
 msgstr ""
 
@@ -3358,7 +3362,7 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:69
+#: define-event-classes.scm:70
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
@@ -3367,47 +3371,47 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2768
+#: define-markup-commands.scm:2772
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3194
+#: define-markup-commands.scm:3198
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3195
+#: define-markup-commands.scm:3199
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3439
+#: define-markup-commands.scm:3443
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3650
+#: define-markup-commands.scm:3654
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:778
+#: define-music-types.scm:788
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:781
+#: define-music-types.scm:791
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:800
+#: define-music-types.scm:810
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:801
+#: define-music-types.scm:811
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
@@ -3556,54 +3560,58 @@ msgstr ""
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily.scm:63
+#: lily.scm:75
+msgid "call-after-session used after session start"
+msgstr ""
+
+#: lily.scm:93
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:308
+#: lily.scm:346
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:311
+#: lily.scm:349
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:370
+#: lily.scm:408
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:793
+#: lily.scm:831
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:794
+#: lily.scm:832
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:856
+#: lily.scm:894
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:859
+#: lily.scm:897
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:881 lily.scm:970
+#: lily.scm:919 lily.scm:1008
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:961
+#: lily.scm:999
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:980 ps-to-png.scm:66
+#: lily.scm:1018 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3618,7 +3626,7 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:180
+#: ly-syntax-constructors.scm:207
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
