@@ -1095,7 +1095,7 @@ Notation Reference:
 @funindex \denies
 @funindex denies
 
-Specific contexts, like @code{Staff} and @code{Voice}, are made of
+Specific contexts, like @code{Staff} and @code{Voice}, are made from
 simple building blocks.  It is possible to create new types of
 contexts with different combinations of engraver plug-ins.
 
@@ -1150,33 +1150,36 @@ First it is necessary to define a name for the new context:
 \name ImproVoice
 @end example
 
-Since it is similar to the @code{Voice}, we want commands that work
-on (existing) @code{Voice}s to remain working.  This is achieved by
-giving the new context an alias @code{Voice},
+Since it is similar to the @code{Voice} context, we want commands that
+work in (existing) @code{Voice} contexts to continue working.  This is
+achieved by giving the new context an alias of @code{Voice},
 
 @example
 \alias Voice
 @end example
 
 The context will print notes and instructive texts, so we need to add
-the engravers which provide this functionality,
+the engravers which provide this functionality, plus the engraver which
+groups notes, stems and rests which occur at the same musical moment
+into columns,
 
 @example
 \consists "Note_heads_engraver"
 \consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
 @end example
 
-but we only need this on the center line,
+The note heads should all be placed on the center line,
 
 @example
 \consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
-The @rinternals{Pitch_squash_engraver} modifies note heads (created
-by @rinternals{Note_heads_engraver}) and sets their vertical
-position to the value of @code{squashedPosition}, in this case@tie{}@code{0},
-the center line.
+The @code{Pitch_squash_engraver} modifies note heads (created
+by the @code{Note_heads_engraver}) and sets their vertical
+position to the value of @code{squashedPosition}, in this
+case@tie{}@code{0}, the center line.
 
 The notes look like a slash, and have no stem,
 
@@ -1202,6 +1205,7 @@ Put together, we get
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
@@ -1212,10 +1216,10 @@ Put together, we get
 @end example
 
 @funindex \accepts
-Contexts form hierarchies.  We want to hang the @code{ImproVoice}
-under @code{Staff}, just like normal @code{Voice}s.  Therefore, we
-modify the @code{Staff} definition with the @code{\accepts}
-command,
+Contexts form hierarchies.  We want to place the @code{ImproVoice}
+context within the @code{Staff} context, just like normal @code{Voice}
+contexts.  Therefore, we modify the @code{Staff} definition with the
+@code{\accepts} command,
 
 @example
 \context @{
@@ -1256,6 +1260,15 @@ Then the output at the start of this subsection can be entered as
   a1
 @}
 @end example
+
+@seealso
+
+Internals Reference:
+@rinternals{Engraver_group},
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}.
 
 
 @node Context layout order
