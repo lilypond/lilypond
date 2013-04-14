@@ -3572,7 +3572,7 @@ lhMusic = \relative c' {
 
 @menu
 * Other uses for tweaks::
-* Using variables for tweaks::
+* Using variables for layout adjustments::
 * Style sheets::
 * Other sources of information::
 * Advanced tweaks with Scheme::
@@ -3751,12 +3751,13 @@ second (with the stencil removed) does not.
 Music Glossary:
 @rglos{system}.
 
-@node Using variables for tweaks
-@subsection Using variables for tweaks
+@node Using variables for layout adjustments
+@subsection Using variables for layout adjustments
 
-@cindex variables, using for tweaks
-@cindex using variables for tweaks
-@cindex tweaks, using variables for
+@cindex variables, using for overrides
+@cindex overrides, using variables for
+@cindex adjustments, using variables for
+@cindex layout adjustments, using variables for
 
 Override commands are often long and tedious to type, and they
 have to be absolutely correct.  If the same overrides are to be

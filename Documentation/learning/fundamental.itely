@@ -749,7 +749,7 @@ used here) reverts the style back to the default.
 We shall see later how commands like these may be created by the
 user.
 See @ref{Visibility and color of objects} and
-@ref{Using variables for tweaks}.
+@ref{Using variables for layout adjustments}.
 
 @cindex polyphony and relative note entry
 @cindex relative note entry and polyphony
