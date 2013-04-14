@@ -683,7 +683,7 @@ Since one does not crescendo @emph{to} nothing, it is not correct to use
 @section alla breve
 
 ES: alla breve,
-I: ?,
+I: alla breve,
 F: alla breve, à la brève,
 D: Allabreve, alla breve
 NL: ?,
@@ -1998,7 +1998,7 @@ Another name for @ref{common time}.
 @section Common Practice Period
 
 ES: ?,
-I: ?,
+I: Periodo di pratica comune,
 F: ?,
 D: Kunstmusik,
 NL: ?,
@@ -2089,7 +2089,7 @@ A meter that includes a triplet subdivision within the beat, such as
 @section compound time
 
 ES: compás compuesto, compás de amalgama (def. 2),
-I: ?,
+I: tempo misto,
 F: temps composé,
 D: zusammengesetzte Taktart,
 NL: ?,
@@ -2865,7 +2865,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 @section divisio
 
 ES: división,
-I: ?,
+I: divisio,
 F: ?,
 D: Divisio,
 NL: ?,
@@ -2900,7 +2900,7 @@ No cross-references.
 @section doit
 
 ES: elevación [de tono],
-I: ?,
+I: portamento indeterminato verso l'alto/l'acuto,
 F: saut,
 D: Glissando zu unbestimmter Tonhöhe,
 NL: ?,
@@ -3099,7 +3099,7 @@ FI: kaksoisylennysmerkki.
 @section double time signature
 
 ES: compás polimétrico,
-I: ?,
+I: indicazione di tempo doppia/polimetrica,
 F: ?,
 D: zusammengesetzte Taktart,
 NL: ?,
@@ -3519,7 +3519,7 @@ Double Bass).
 @section fall
 
 ES: caída [de tono],
-I: ?,
+I: portamento indeterminato verso il basso/il grave,
 F: chute,
 D: Glissando zu unbestimmter Tonhöhe nach unten,
 NL: ?,
@@ -3538,7 +3538,7 @@ Indicator for a indeterminately falling pitch bend.  Compare with
 @section feathered beam
 
 ES: barra progresiva,
-I: ?,
+I: travatura convergente/divergente,
 F: ligature en soufflet, lien de croches en soufflet,
 D: gespreizter Balken,
 NL: ?,
@@ -3702,7 +3702,7 @@ g64-"64th" s8
 @section flageolet
 
 ES: armónico,
-I: ?,
+I: armonico,
 F: flageolet,
 D: Flageolett,
 NL: ?,
@@ -3795,7 +3795,7 @@ FI: kvartti.
 @section Frenched score
 
 ES: partitura a la francesa,
-I: ?,
+I: partitura senza i righi vuoti,
 F: ?,
 D: Orchesterpartitur ohne leere Systeme,
 NL: ?,
@@ -3820,7 +3820,7 @@ you may wish to procure a copy of their style manual.
 @section Frenched staff
 
 ES: pentagrama a la francesa,
-I: ?,
+I: rigo temporaneo,
 F: ?,
 D: zeitweiliges Notensystem,
 NL: ?,
@@ -4319,7 +4319,7 @@ the same rhythm (more or less).  In contrast to @emph{polyphony}.
 @section hymn meter
 
 ES: ?,
-I: ?,
+I: metrica dell'inno,
 F: ?,
 D: Silbenanzahl,
 NL: ?,
@@ -4360,7 +4360,7 @@ No cross-references.
 @section incomplete dominant seventh chord
 
 ES: ?,
-I: ?,
+I: accordo di settima dominante incompleto,
 F: ?,
 D: verkürzter Dominantseptakkord,
 NL: ?,
@@ -4714,7 +4714,7 @@ notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
 @section ligature
 
 ES: ligadura,
-I: ?,
+I: ligatura,
 F: ligature,
 DE: Ligatur,
 NL: ?,
@@ -4837,7 +4837,7 @@ g\longa g\breve
 @section lyric tie
 
 ES: ligadura de letra,
-I: ?,
+I: legatura del testo,
 F: ligature de mots,
 D: Textbindung,
 NL: ?,
@@ -5096,7 +5096,7 @@ TODO: add to definition (including summary info on proportional notation)
 @c TODO: add languages
 
 ES: signo de mensuración,
-I: ?,
+I: indicazione mensurale,
 F: signe de mensuration,
 D: Mensurzeichen,
 NL: ?,
@@ -5702,7 +5702,7 @@ FI: palautusmerkki.
 @c TODO: add definition.
 
 ES: tonos vecinos,
-I: ?,
+I: nota di volta,
 F: tons voisins,
 D: ?,
 NL: ?,
@@ -7110,7 +7110,7 @@ TODO: Where else could I refer the reader?
 @section simple meter
 
 ES: compás simple, compás de subdivisión binaria,
-I: ?,
+I: tempo semplice,
 F: mesure binaire,
 D: grader Takt,
 NL: ?,
