@@ -296,9 +296,10 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
     def input_fullname (self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
         if ly.search_exe_path ('kpsewhich'):
-            return os.popen ('kpsewhich ' + input_filename).read()[:-1]
-        else:
-            return BookBase.BookOutputFormat.input_fullname (self, input_filename)
+            trial = os.popen ('kpsewhich ' + input_filename).read()[:-1]
+            if trial:
+                return trial
+        return BookBase.BookOutputFormat.input_fullname (self, input_filename)
 
     def process_chunks (self, chunks):
         for c in chunks:
