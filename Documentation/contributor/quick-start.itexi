@@ -45,7 +45,7 @@ For those interested, the LilyDev remix is currently based on a 32bit
 version of 10.04 LTS Ubuntu (Lucid Lynx).
 
 @warning{Apart from installing and configuring LilyDev in VirtualBox,
-the rest of the chapter on assumes that you are comfortable using the
+the rest of the chapter assumes that you are comfortable using the
 command-line.  While this chapter is intended for users who may have
 never created a patch or compiled software before, experienced
 developers (who prefer to use their own development environment) may
@@ -93,7 +93,7 @@ Download Virtualbox from here:
 @end example
 
 @warning{In virtualization terminology, the operating system where
-Virtualbox is installed, is the known as the @strong{host}.  LilyDev
+Virtualbox is installed is known as the @strong{host}.  LilyDev
 will be installed @q{inside} Virtualbox as a @strong{guest}.}
 
 @item
