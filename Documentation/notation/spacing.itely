@@ -2840,12 +2840,18 @@ No work-around exists for decreasing the amount of space.
 @node New spacing area
 @subsection New spacing area
 
+@funindex \newSpacingSection
+@cindex new spacing area
+@cindex spacing area, new
+@cindex notes, spacing horizontally
+
 New sections with different spacing parameters can be started with
 @code{newSpacingSection}.  This is useful when there are
 sections with a different notions of long and short notes.
 
 In the following example, the time signature change introduces a new
-section, and hence the 16ths notes are spaced wider.
+section, and hence the 16ths notes are automatically spaced slightly
+wider.
 
 @lilypond[relative=1,verbatim,quote]
 \time 2/4
@@ -2857,8 +2863,25 @@ c16[ c c8]
 @end lilypond
 
 The @code{\newSpacingSection} command creates a new
-@code{SpacingSpanner} object, and hence new @code{\override}s
-may be used in that location.
+@code{SpacingSpanner} object at that musical moment.
+If the automatic spacing adjustments do not give the required spacing,
+manual @code{\override}s may be applied to its properties.  These must
+be applied at the same musical moment as the @code{\newSpacingSection}
+command itself.  They will then affect the spacing of all the following
+music until the properties are changed in a new spacing section, for
+example,
+
+@lilypond[relative=1,verbatim,quote]
+\time 4/16
+c16[ c c8]
+\newSpacingSection
+\override Score.SpacingSpanner.spacing-increment = #2
+c16[ c c8]
+\newSpacingSection
+\revert Score.SpacingSpanner.spacing-increment
+c16[ c c8]
+@end lilypond
+
 
 @seealso
 Snippets:
