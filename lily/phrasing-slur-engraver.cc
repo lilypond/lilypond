@@ -35,7 +35,6 @@ class Phrasing_slur_engraver : public Slur_proto_engraver
 {
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
-  DECLARE_TRANSLATOR_LISTENER (break_phrasing_slur);
   DECLARE_ACKNOWLEDGER (slur);
 
 public:
@@ -45,7 +44,6 @@ public:
 Phrasing_slur_engraver::Phrasing_slur_engraver () :
   Slur_proto_engraver (0, "PhrasingSlur", "phrasing slur", "phrasing-slur-event")
 {
-  break_slur_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
@@ -53,13 +51,6 @@ void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
   internal_listen_slur (ev);
-}
-
-IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, break_phrasing_slur);
-void
-Phrasing_slur_engraver::listen_break_phrasing_slur (Stream_event *ev)
-{
-  internal_listen_break_slur (ev);
 }
 
 void

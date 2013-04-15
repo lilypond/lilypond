@@ -110,7 +110,3 @@ sostenutoOff = #(make-span-event 'SostenutoEvent STOP)
 newSpacingSection = #(make-event-chord (list (make-music 'SpacingSectionEvent)))
 
 breakDynamicSpan = #(make-music 'BreakDynamicSpanEvent)
-
-breakSlur = #(make-music 'BreakSlurEvent)
-
-breakPhrasingSlur = #(make-music 'BreakPhrasingSlurEvent)

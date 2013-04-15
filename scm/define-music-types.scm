@@ -118,16 +118,6 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
 	(types . (general-music post-event break-span-event break-dynamic-span-event event))
 	))
 
-    (BreakPhrasingSlurEvent
-     . ((description . "End a phrasing slur here.")
-	(types . (general-music break-span-event break-phrasing-slur-event event))
-	))
-
-    (BreakSlurEvent
-     . ((description . "End a slur here.")
-	(types . (general-music break-span-event break-slur-event event))
-	))
-
     (BendAfterEvent
      . ((description . "A drop/@/fall/@/doit jazz articulation.")
 	(types . (general-music post-event bend-after-event event))))

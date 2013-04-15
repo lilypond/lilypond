@@ -50,8 +50,7 @@
                                       trill-span-event tremolo-span-event
                                       tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
-    (break-span-event . (break-dynamic-span-event break-slur-event
-                                                  break-phrasing-slur-event ))
+    (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
     (rhythmic-event . (lyric-event melodic-event multi-measure-rest-event
 				   double-percent-event percent-event

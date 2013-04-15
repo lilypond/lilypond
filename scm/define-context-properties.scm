@@ -669,7 +669,6 @@ is not set")
 used by the @code{Script_engraver} for typesetting note-superscripts
 and subscripts.  See @file{scm/@/script.scm} for more information.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
-     (slurOverRepeat ,boolean? "A slur should be drawn over a repeat.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
 
 

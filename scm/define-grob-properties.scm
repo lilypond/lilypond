@@ -1135,8 +1135,6 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
-     (other-half ,ly:grob? "The other half a broken spanner. For example,
-a slur that breaks at a repeat stores its other half here.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
      (potential-X-colliding-grobs ,ly:grob-array? "Grobs that can potentially

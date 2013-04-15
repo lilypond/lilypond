@@ -48,14 +48,7 @@ SCM
 Slur::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  vector<Grob *> encompasses;
-  extract_grob_set (me, "note-columns", ro_encompasses);
-  encompasses.insert (encompasses.end (), ro_encompasses.begin (), ro_encompasses.end ());
-  if (Grob *other_half = unsmob_grob (me->get_object ("other-half")))
-    {
-      extract_grob_set (other_half, "note-columns", oh_encompasses);
-      encompasses.insert (encompasses.end (), oh_encompasses.begin (), oh_encompasses.end ());
-    }
+  extract_grob_set (me, "note-columns", encompasses);
 
   if (encompasses.empty ())
     {

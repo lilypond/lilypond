@@ -87,20 +87,6 @@ void
 Volta_repeat_iterator::next_element (bool side_effect)
 {
   done_count_++;
-  if (done_count_ > 1
-      && done_count_ <= alt_count_
-      && !to_boolean (get_outlet ()->get_property ("slurOverRepeat")))
-    {
-      SCM ev_scm = scm_call_1 (ly_lily_module_constant ("make-music"),
-                               ly_symbol2scm ("BreakSlurEvent"));
-      Music *ev = unsmob_music (ev_scm);
-      ev->send_to_context (get_outlet ());
-
-      ev_scm = scm_call_1 (ly_lily_module_constant ("make-music"),
-                           ly_symbol2scm ("BreakPhrasingSlurEvent"));
-      ev = unsmob_music (ev_scm);
-      ev->send_to_context (get_outlet ());
-    }
 
   Sequential_iterator::next_element (side_effect);
 
