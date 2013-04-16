@@ -447,11 +447,12 @@ f'4 d \stopStaff
 \startStaff g, e |
 @end lilypond
 
-The position of each the staff lines can also be altered.  The values
-used are @emph{half} staff line spaces and the new position is relative
-to the normal center line.  A single staff line is printed for every
-value entered so that the number of staff lines, as well as their
-position in the staff, can be changed with a single override.
+The position of each staff line can also be altered.  A list of
+numbers sets each line's position.  @code{0} corresponds to the normal
+center line, and the normal line positions are
+@code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.  A single staff line is
+printed for every value entered so that the number of staff lines, as
+well as their position, can be changed with a single override.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
@@ -462,8 +463,12 @@ f'4 d \stopStaff
 \startStaff g, e
 @end lilypond
 
-The clef position and the position of middle C may need to be adjusted
-accordingly to fit the new lines.  See @ref{Clef}.
+To preserve typical stem directions (in the bottom half of the staff
+stems point up, in the top half they point down), align the center
+line (or space) of the customized staff with the position of the
+normal center line (0).  The clef position and the position of
+middle@tie{}C may need to be adjusted accordingly to fit the new
+lines.  See @ref{Clef}.
 
 Staff line thickness can be altered.  Ledger lines and note stems, by
 default, are also affected.
@@ -511,7 +516,7 @@ also have their own ledger lines.
 Ledger lines can also be made to appear inside the staff where custom
 staff lines are required.  The example shows the default position of
 ledger lines when the explicit @code{ledger-position} is and is not set.
-The @code{stopStaff} is needed in the example to revert the
+The @code{\stopStaff} is needed in the example to revert the
 @code{\override} for the whole @code{StaffSymbol}.
 
 @lilypond[fragment,quote,relative=1]
