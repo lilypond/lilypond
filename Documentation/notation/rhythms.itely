@@ -1404,13 +1404,13 @@ The @var{duration} can be any value less than a full measure:
 r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-The @code{\partial @var{duration}} can also be written as;
+@code{\partial @var{duration}} can also be written as:
 
 @example
 \set Timing.measurePosition -@var{duration}
 @end example
 
-So @code{\partial 8} becomes:
+So the first example above could be written:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1418,11 +1418,12 @@ So @code{\partial 8} becomes:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-The property @code{measurePosition} contains a rational number
-indicating how much of the measure has passed at this point.  Note
-that this is set to a negative number by the @code{\partial} command:
-i.e., @code{\partial 4} is internally translated to @w{@code{-4}},
-meaning @qq{there is a quarter note left in the measure.}
+The property @code{measurePosition} contains a rational number, which
+is usually positive and indicates how much of the measure has passed
+at this point.  The @code{\partial @var{duration}} command sets it to
+a negative number, when it has a different meaning: it then says that
+the current (first) bar will be @emph{preceded} by a bar 0 (the partial
+bar) with a duration given by @var{duration}.
 
 @seealso
 Music Glossary:
