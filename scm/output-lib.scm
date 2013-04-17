@@ -1099,6 +1099,19 @@ and draws the stencil based on its coordinates.
 (define-public ((grob::calc-property-by-non-event-cause prop) grob)
   (ly:grob-property (non-event-cause grob) prop))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; general inheritance
+
+(define-public ((grob::inherit-parent-property axis property . default) grob)
+  "@var{grob} callback generator for inheriting a @var{property} from
+an @var{axis} parent, defaulting to @var{default} if there is no
+parent or the parent has no setting."
+  (let ((parent (ly:grob-parent grob axis)))
+    (cond
+     ((ly:grob? parent)
+      (apply ly:grob-property parent property default))
+     ((pair? default) (car default))
+     (else '()))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards
