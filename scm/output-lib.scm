@@ -478,13 +478,6 @@ and duration-log @var{log}."
 (define-public center-visible          #(#f #t #f))
 (define-public end-of-line-visible     #(#t #f #f))
 (define-public all-invisible           #(#f #f #f))
-(define-public (inherit-x-parent-visibility grob)
-  (let ((parent (ly:grob-parent grob X)))
-    (ly:grob-property parent 'break-visibility all-invisible)))
-(define-public (inherit-y-parent-visibility grob)
-  (let ((parent (ly:grob-parent grob X)))
-    (ly:grob-property parent 'break-visibility)))
-
 
 (define-public spanbar-begin-of-line-invisible #(#t #f #f))
 

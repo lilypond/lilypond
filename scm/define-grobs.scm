@@ -953,7 +953,8 @@
 	(annotation-balloon . #f)
 	(annotation-line . #t)
 	(automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
-	(break-visibility . ,inherit-y-parent-visibility)
+	(break-visibility . ,(grob::inherit-parent-property
+                              X 'break-visibility))
 	(footnote . #t)
 	(footnote-text . ,(grob::calc-property-by-copy 'footnote-text))
 	(stencil . ,ly:balloon-interface::print)
@@ -1619,7 +1620,8 @@
 
     (OctavateEight
      . (
-	(break-visibility . ,inherit-x-parent-visibility)
+	(break-visibility . ,(grob::inherit-parent-property
+                              X 'break-visibility))
 	(font-shape . italic)
 	(font-size . -4)
 	(self-alignment-X . ,CENTER)
