@@ -21,10 +21,11 @@
 
 #include "engraver.hh"
 #include "arpeggio.hh"
+#include "item.hh"
 #include "pointer-group-interface.hh"
+#include "separation-item.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "item.hh"
 
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
@@ -35,6 +36,7 @@ class Span_arpeggio_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
   DECLARE_ACKNOWLEDGER (arpeggio);
+  DECLARE_ACKNOWLEDGER (note_column);
 
 protected:
   void process_acknowledged ();
@@ -43,6 +45,7 @@ protected:
 private:
   Item *span_arpeggio_;
   vector<Grob *> arpeggios_;
+  vector<Grob *> note_columns_;
 };
 
 Span_arpeggio_engraver::Span_arpeggio_engraver ()
@@ -55,6 +58,12 @@ Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
   if (info.origin_contexts (this).size ()) // huh? what's this test for?
     arpeggios_.push_back (info.grob ());
+}
+
+void
+Span_arpeggio_engraver::acknowledge_note_column (Grob_info info)
+{
+  note_columns_.push_back (info.grob ());
 }
 
 void
@@ -72,6 +81,12 @@ Span_arpeggio_engraver::process_acknowledged ()
     {
       span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
       span_arpeggio_->set_property ("cross-staff", SCM_BOOL_T);
+    }
+  if (span_arpeggio_)
+    {
+      for (vsize i = 0; i < note_columns_.size (); i++)
+        Separation_item::add_conditional_item (note_columns_[i], span_arpeggio_);
+      note_columns_.clear ();
     }
 }
 
@@ -107,11 +122,13 @@ Span_arpeggio_engraver::stop_translation_timestep ()
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();
+  note_columns_.clear ();
 }
 
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
+ADD_ACKNOWLEDGER (Span_arpeggio_engraver, note_column);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
                 /* doc */
                 "Make arpeggios that span multiple staves.",

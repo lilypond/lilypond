@@ -104,10 +104,13 @@ Separation_item::calc_skylines (SCM smob)
   return sp.smobbed_copy ();
 }
 
-/* if left is non-NULL, get the boxes corresponding to the
-   conditional-elements (conditioned on the grob LEFT). This
-   sounds more general than it is: conditional-elements are
-   always accidentals attached to a tied note.
+/*
+   If left is non-NULL, get the boxes corresponding to the
+   conditional-elements (conditioned on the grob LEFT).
+   Conditional elements are, for now, arpeggios and accidental
+   placements.  Based on the left grob, the accidentals will
+   be printed or not, so we filter using
+   Accidental_placement::get_relevant_accidentals.
 */
 vector<Box>
 Separation_item::boxes (Grob *me, Grob *left)
@@ -121,7 +124,19 @@ Separation_item::boxes (Grob *me, Grob *left)
   vector<Grob *> elts;
 
   if (left)
-    elts = Accidental_placement::get_relevant_accidentals (read_only_elts, left);
+    {
+      vector<Grob *> accidental_elts;
+      vector<Grob *> other_elts; // for now only arpeggios
+      for (vsize i = 0; i < read_only_elts.size (); i++)
+        {
+          if (Accidental_placement::has_interface (read_only_elts[i]))
+            accidental_elts.push_back (read_only_elts[i]);
+          else
+            other_elts.push_back (read_only_elts[i]);
+        }
+      elts = Accidental_placement::get_relevant_accidentals (accidental_elts, left);
+      elts.insert (elts.end (), other_elts.begin (), other_elts.end ());
+    }
   else
     elts = read_only_elts;
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.17"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
@@ -8,6 +8,7 @@ texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
   \context{
     \Staff
     connectArpeggios = ##t
+    \consists "Span_arpeggio_engraver"
   }
 }
 
@@ -17,4 +18,5 @@ texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
   <fis'' g d a>\arpeggio
   <fis, g d a>\arpeggio
   <fis'' g d a>\arpeggio
+  << { <e' a>\arpeggio } \\ { <g cis>\arpeggio } >>
 }

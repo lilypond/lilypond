@@ -19,14 +19,15 @@
 
 #include "engraver.hh"
 
-#include "pointer-group-interface.hh"
 #include "arpeggio.hh"
-#include "stem.hh"
-#include "rhythmic-head.hh"
-#include "side-position-interface.hh"
-#include "stream-event.hh"
-#include "note-column.hh"
 #include "item.hh"
+#include "note-column.hh"
+#include "pointer-group-interface.hh"
+#include "rhythmic-head.hh"
+#include "separation-item.hh"
+#include "side-position-interface.hh"
+#include "stem.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -37,6 +38,8 @@ public:
 
   void acknowledge_stem (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_note_column (Grob_info);
+
 protected:
   void process_music ();
   void stop_translation_timestep ();
@@ -84,6 +87,13 @@ Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
 }
 
 void
+Arpeggio_engraver::acknowledge_note_column (Grob_info info)
+{
+  if (arpeggio_)
+    Separation_item::add_conditional_item (info.grob (), arpeggio_);
+}
+
+void
 Arpeggio_engraver::process_music ()
 {
   if (arpeggio_event_)
@@ -101,6 +111,7 @@ Arpeggio_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
 ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
 
 ADD_TRANSLATOR (Arpeggio_engraver,
                 /* doc */

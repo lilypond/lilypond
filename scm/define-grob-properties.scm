@@ -1062,7 +1062,6 @@ constructed from a whole number of squiggles.")
 dynamic spanners.")
      (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
-     (arpeggio ,ly:grob? "A pointer to an @code{Arpeggio} object.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
