@@ -1096,9 +1096,6 @@ and draws the stencil based on its coordinates.
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
 
-(define-public ((grob::calc-property-by-non-event-cause prop) grob)
-  (ly:grob-property (non-event-cause grob) prop))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general inheritance
 
