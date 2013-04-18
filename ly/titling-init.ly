@@ -59,7 +59,7 @@ bookTitleMarkup = \markup {
 }
 
 scoreTitleMarkup = \markup { \column {
-  \on-the-fly #print-all-headers { \bookTitleMarkup \hspace #1 }
+  \on-the-fly \print-all-headers { \bookTitleMarkup \hspace #1 }
   \fill-line {
     \fromproperty #'header:piece
     \fromproperty #'header:opus

@@ -952,7 +952,7 @@ The default settings for @code{scoreTitleMarkup} as defined in
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1112,7 +1112,7 @@ markup conditionally to header and footer text defined within the
 @example
 @code{variable} = @code{\markup} @{
   ...
-  @code{\on-the-fly}  #@var{procedure}  @var{markup}
+  @code{\on-the-fly}  \@var{procedure}  @var{markup}
   ...
 @}
 @end example
@@ -1160,7 +1160,7 @@ same layout by defining it as @code{\oddFooterMarkup}:
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly #print-page-number-check-first
+        \on-the-fly \print-page-number-check-first
         \fromproperty #'page:page-number-string
       }
     }
@@ -1176,8 +1176,8 @@ Several @code{\on-the-fly} conditions can be combined with an
 @q{and} operation, for example,
 
 @example
-  @code{\on-the-fly #first-page}
-  @code{\on-the-fly #last-page}
+  @code{\on-the-fly \first-page}
+  @code{\on-the-fly \last-page}
   @code{@{ \markup ... \fromproperty #'header: ... @}}
 @end example
 
