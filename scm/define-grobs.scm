@@ -1995,7 +1995,8 @@
 
     (SpanBarStub
      . (
-        (X-extent . ,grob::x-parent-width)
+        (X-extent . ,(grob::inherit-parent-property
+                      X 'X-extent))
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
 	; we want this to be ignored, so empty, but the extra spacing height
 	; should preserve the span bar's presence for horizontal spacing
