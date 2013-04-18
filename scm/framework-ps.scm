@@ -97,7 +97,6 @@
         "")
     "%%EndPageSetup\n"
     "\n"
-    "true setstrokeadjust\n"
     "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
