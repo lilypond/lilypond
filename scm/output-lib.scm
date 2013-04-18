@@ -479,9 +479,6 @@ and duration-log @var{log}."
 (define-public end-of-line-visible     #(#t #f #f))
 (define-public all-invisible           #(#f #f #f))
 
-(define-public spanbar-begin-of-line-invisible #(#t #f #f))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines
 
