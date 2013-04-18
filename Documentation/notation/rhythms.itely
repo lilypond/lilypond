@@ -417,10 +417,12 @@ indicate articulation, or @emph{phrasing slurs}, which indicate
 musical phrasing.  A tie is just a way of extending a note
 duration, similar to the augmentation dot.}
 
-A tie is entered using the tilde symbol (@code{~}).
+A tie is entered by appending a tilde symbol (@code{~}) to the first
+of each pair of notes being tied.  This indicates that the note
+should be tied to the following note, which must be at the same pitch.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2~ a4~ a16 r r8
 @end lilypond
 
 Ties are used either when the note crosses a bar line, or when
@@ -429,8 +431,8 @@ used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c8 ~ c2 r4 |
-  r8^"not" c2 ~ c8 r4
+  r8 c~ c2 r4 |
+  r8^"not" c2~ c8 r4
 }
 @end lilypond
 
@@ -444,11 +446,11 @@ ties them across bar lines.
 
 When a tie is applied to a chord, all note heads whose pitches
 match are connected.  When no note heads match, no ties will be
-created.  Chords may be partially tied by placing the tie inside
+created.  Chords may be partially tied by placing the ties inside
 the chord.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g> ~ <c e g>
+<c e g>~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -464,7 +466,7 @@ When a second alternative of a repeat starts with a tied note, you
 have to specify the repeated tie as follows:
 
 @lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2 ~ }
+\repeat volta 2 { c g <c e>2~ }
 \alternative {
   % First alternative: following note is tied normally
   { <c e>2. r4 }
@@ -496,7 +498,7 @@ be entered as follows:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Ties may be manually placed above or below the staff; see
+Ties may be made to curve up or down manually; see
 @ref{Direction and placement}.
 
 @cindex ties, appearance
@@ -517,26 +519,26 @@ dashed.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2~ c
 \tieDashed
-c2 ~ c
+c2~ c
 \tieHalfDashed
-c2 ~ c
+c2~ c
 \tieHalfSolid
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Custom dash patterns can be specified:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2~ c
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Dash pattern definitions for ties have the same structure as dash
