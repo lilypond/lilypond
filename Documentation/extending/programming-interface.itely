@@ -18,7 +18,7 @@ not familiar with Scheme, you may wish to read our
 @ref{Scheme tutorial}.
 
 @menu
-* Lilypond code blocks::
+* LilyPond code blocks::
 * Scheme functions::
 * Music functions::
 * Event functions::
@@ -29,32 +29,65 @@ not familiar with Scheme, you may wish to read our
 * Difficult tweaks::
 @end menu
 
-@node Lilypond code blocks
-@section Lilypond code blocks
+@node LilyPond code blocks
+@section LilyPond code blocks
 
-Lilypond code blocks look like
+@cindex LilyPond code blocks
+@cindex code blocks, LilyPond
+@funindex #@{ @dots{} #@}
+@funindex $
+@funindex #
+
+Creating music expressions in Scheme can be tedious, as they are
+heavily nested and the resulting Scheme code is large. For some
+simple tasks this can be avoided by using LilyPond code blocks,
+which enable common LilyPond syntax to be used within Scheme.
+
+LilyPond code blocks look like
+
 @example
-  #@{ @var{Lilypond code} #@}
+  #@{ @var{LilyPond code} #@}
 @end example
-They can be used anywhere where you can write Scheme code: the Scheme
-reader actually is changed for accommodating LilyPond code blocks and
-can deal with embedded Scheme expressions starting with @code{$}
-and@w{ }@code{#}.
 
-It extracts the Lilypond code block and generates a call to the
-LilyPond @code{parser} which is executed at runtime to interpret
-the LilyPond code block.  Any embedded Scheme expression is
-executed in the lexical environment of the Lilypond code block, so
-you have access to local variables and function parameters at the
-point the Lilypond code block is written.  If @code{location}
-refers to a valid input location (which it usually does inside of
-music/@/scheme functions), all music generated inside the code
-block has its @samp{origin} set to @code{location}.
+Here is a trivial example:
 
-A LilyPond code block may contain anything that you can use on the right
-side of an assignment.  In addition, an empty LilyPond block corresponds
-to a void music expression, and a LilyPond block containing multiple
-music events gets turned into a sequential music expression.
+@lilypond[verbatim,quote]
+ritpp = #(define-event-function (parser location) ()
+  #{ ^"rit." \pp #}
+)
+
+{ c'4 e'4\ritpp g'2 }
+@end lilypond
+
+LilyPond code blocks can be used anywhere where you can write Scheme
+code.  The Scheme reader actually is changed for accommodating
+LilyPond code blocks and can deal with embedded Scheme expressions
+starting with @code{$} and@w{ }@code{#}.
+
+@cindex parser (function argument)
+@cindex location
+
+The reader extracts the LilyPond code block and generates a runtime
+call to the LilyPond @code{parser} to interpret the LilyPond code.
+Scheme expressions embedded in the LilyPond code are evaluated in the
+lexical environment of the LilyPond code block, so all local variables
+and function parameters available at the point the LilyPond code block
+is written may be accessed.  Variables defined in other Scheme modules,
+like the modules containing @code{\header} and @code{\layout} blocks,
+are not accessible as Scheme variables, i.e. prefixed
+with@tie{}@code{#}, but they are accessible as LilyPond variables, i.e.
+prefixed with@tie{}@code{\}.
+
+If @code{location} (see @ref{Scheme functions}) refers to a valid
+input location (which it usually does inside of music/@/Scheme
+functions), all music generated inside the code block has its
+@samp{origin} set to @code{location}.
+
+A LilyPond code block may contain anything that you can use on the
+right side of an assignment.  In addition, an empty LilyPond block
+corresponds to a void music expression, and a LilyPond block
+containing multiple music events gets turned into a sequential music
+expression.
 
 @node Scheme functions
 @section Scheme functions
@@ -95,6 +128,11 @@ where
 @tab needs to be literally @code{parser} in order to give LilyPond code
 blocks (@code{#@{}@dots{}@code{#@}}) access to the parser.
 
+@item @code{location}
+@tab needs to be literally @code{location} in order to provide access
+to the input location object, which is used to provide error messages
+with file names and line numbers.
+
 @item @code{@var{argN}}
 @tab @var{n}th argument
 
@@ -118,13 +156,13 @@ are copied while setting @code{origin} to the @code{location} parameter.
 @tab A sequence of Scheme forms evaluated in order, the last one being
 used as the return value of the scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
-(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in @ref{Lilypond
-code blocks}.  Within LilyPond code blocks, use @code{#} to reference
-function arguments (eg., @samp{#arg1}) or to start an inline Scheme
-expression containing function arguments (eg., @w{@samp{#(cons arg1
-arg2)}}).  Where normal Scheme expressions using @code{#} don't do the
-trick, you might need to revert to immediate Scheme expressions using
-@code{$}, for example as @samp{$music}.
+(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in
+@ref{LilyPond code blocks}.  Within LilyPond code blocks, use @code{#}
+to reference function arguments (eg., @samp{#arg1}) or to start an
+inline Scheme expression containing function arguments (eg.,
+@w{@samp{#(cons arg1 arg2)}}).  Where normal Scheme expressions using
+@code{#} don't do the trick, you might need to revert to immediate
+Scheme expressions using @code{$}, for example as @samp{$music}.
 
 If your function returns a music expression, it is given a useful value
 of @code{origin}.
@@ -136,27 +174,27 @@ can't recognize the arguments reliably otherwise.  Currently these are
 @code{ly:pitch?} and @code{ly:duration?}.
 
 Suitability of arguments for all other predicates is determined by
-actually calling the predicate after Lilypond has already converted them
+actually calling the predicate after LilyPond has already converted them
 into a Scheme expression.  As a consequence, the argument can be
 specified in Scheme syntax if desired (introduced with @code{#} or as
-the result of calling a scheme function), but Lilypond will also convert
-a number of Lilypond constructs into Scheme before actually checking the
+the result of calling a scheme function), but LilyPond will also convert
+a number of LilyPond constructs into Scheme before actually checking the
 predicate on them.  Currently, those include music, postevents, simple
 strings (with or without quotes), numbers, full markups and markup
 lists, score, book, bookpart, context definition and output definition
 blocks.
 
 For some kinds of expression (like most music not enclosed in braces)
-Lilypond needs to look further than the expression itself in order to
+LilyPond needs to look further than the expression itself in order to
 determine its end.  If such an expression were considered for an
-optional argument by evaluating its predicate, Lilypond would not be
+optional argument by evaluating its predicate, LilyPond would not be
 able to ``backup'' when it decides the expression does not fit the
 parameter.  So some forms of music might need to be enclosed in braces
-to make them acceptable to Lilypond.  There are also some other
-ambiguities that Lilypond sorts out by checking with predicate
+to make them acceptable to LilyPond.  There are also some other
+ambiguities that LilyPond sorts out by checking with predicate
 functions: is @samp{-3} a fingering postevent or a negative number?  Is
 @code{"a" 4} in lyric mode a string followed by a number, or a lyric
-event of duration @code{4}?  Lilypond decides by asking the predicates.
+event of duration @code{4}?  LilyPond decides by asking the predicates.
 That means that you should avoid permissive predicates like
 @code{scheme?} if you have a particular use in mind instead of a general
 purpose function.
@@ -181,7 +219,7 @@ Scheme functions can be called pretty much anywhere where a Scheme
 expression starting with @code{#} can be written.  You call a scheme
 function by writing its name preceded by @code{\}, followed by its
 arguments.  Once an optional argument predicate does not match an
-argument, Lilypond skips this and all following optional arguments,
+argument, LilyPond skips this and all following optional arguments,
 replacing them with their specified default, and @q{backs up} the
 argument that did not match to the place of the next mandatory argument.
 Since the backed up argument needs to go somewhere, optional arguments
@@ -217,12 +255,12 @@ functions for either concept and just discard the returned value
 result).  This is clever but error-prone: most C compilers nowadays
 offer warnings for various non-``void'' expressions being discarded.
 For many functions executing an action, the Scheme standards declare the
-return value to be unspecified.  Lilypond's Scheme interpreter Guile has
+return value to be unspecified.  LilyPond's Scheme interpreter Guile has
 a unique value @code{*unspecified*} that it usually (such when using
 @code{set!} directly on a variable) but unfortunately not consistently
 returns in such cases.
 
-Defining a Lilypond function with @code{define-void-function} makes
+Defining a LilyPond function with @code{define-void-function} makes
 sure that this special value (the only value satisfying the predicate
 @code{void?}) will be returned.
 
@@ -244,7 +282,7 @@ prefixing it with @code{\void}:
 \void #(hashq-set! some-table some-key some-value)
 @end example
 
-That way, you can be sure that Lilypond will not assign meaning to the
+That way, you can be sure that LilyPond will not assign meaning to the
 returned value regardless of where it encounters it.  This will also
 work for music functions such as @code{\displayMusic}.
 
@@ -285,7 +323,7 @@ function =
 
 @noindent
 quite in analogy to @ref{Scheme function definitions}.  More often than
-not, @var{body} will be a @ref{Lilypond code blocks, Lilypond code block}.
+not, @var{body} will be a @ref{LilyPond code blocks, LilyPond code block}.
 
 For a list of available type predicates, see
 @ruser{Predefined type predicates}.
