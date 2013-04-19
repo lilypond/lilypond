@@ -70,8 +70,8 @@ or stretched.
 
 Two types of blocks can contain layout settings:
 @code{\paper @{@dots{}@}} and @code{\layout @{@dots{}@}}.  The
-@code{\paper} block contains page layout settings that are
-expected to be the same for all scores in a book, such as the
+@code{\paper} block contains page layout settings that are expected
+to be the same for all scores in a book or bookpart, such as the
 paper height, or whether to print page numbers, etc.  See
 @ref{Page layout}.  The @code{\layout} block contains score layout
 settings, such as the number of systems to use, or the space
@@ -106,9 +106,36 @@ block.
 @node The \paper block
 @subsection The @code{\paper} block
 
-The @code{\paper} block can appear within a @code{\book} block,
-but not within a @code{\score} block.  Settings in a @code{\paper}
-block apply to the entire book, which may include multiple scores.
+@code{\paper} blocks may be placed in three different places to form
+a descending hierarchy of @code{\paper} blocks:
+
+@itemize
+
+@item
+At the top of the input file, before all @code{\book},
+@code{\bookpart}, and @code{\score} blocks.
+
+@item
+Within a @code{\book} block but outside all the @code{\bookpart} and
+@code{\score} blocks within that book.
+
+@item
+Within a @code{\bookpart} block but outside all @code{\score} blocks
+within that bookpart.
+
+@end itemize
+
+A @code{\paper} block cannot be placed within a @code{\score} block.
+
+The values of the fields filter down this hierarchy, with the values
+set higher in the hierarchy persisting unless they are over-ridden
+by a value set lower in the hierarchy.
+
+Several @code{\paper} blocks can appear at each of the levels, for
+example as parts of several @code{\include}d files.  If so, the
+fields at each level are merged, with values encountered last taking
+precedence if duplicated fields appear.
+
 Settings that can appear in a @code{\paper} block include:
 
 @itemize
