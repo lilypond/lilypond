@@ -18,7 +18,7 @@
 ;; TODO: use separate module for syntax
 ;; constructors. Also create wrapper around the constructor?
 (defmacro define-ly-syntax (args . body)
-  `(define-public ,args ,(cons 'begin body)))
+  `(define-public ,args ,@body))
 
 ;; A ly-syntax constructor takes two extra parameters, parser and
 ;; location. These are mainly used for reporting errors and
@@ -163,6 +163,33 @@ into a @code{MultiMeasureTextEvent}."
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))
+
+(define-ly-syntax (composed-markup-list parser location commands markups)
+;; `markups' being a list of markups, eg (markup1 markup2 markup3),
+;; and `commands' a list of commands with their scheme arguments, in reverse order,
+;; eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
+;;  ((bold (raise 4 (italic markup1)))
+;;   (bold (raise 4 (italic markup2)))
+;;   (bold (raise 4 (italic markup3))))
+
+  (define (compose arg)
+    (fold
+     (lambda (cmd prev) (append cmd (list prev)))
+     arg
+     commands))
+  (let loop ((markups markups) (completed '()))
+    (cond ((null? markups) (reverse! completed))
+          ((markup? (car markups))
+           (loop (cdr markups)
+                 (cons (compose (car markups)) completed)))
+          (else
+           (call-with-values
+               (lambda () (break! markup? markups))
+             (lambda (complex rest)
+               (loop rest
+                     (reverse!
+                      (make-map-markup-commands-markup-list
+                       compose complex) completed))))))))
 
 (define-ly-syntax (property-operation parser location ctx music-type symbol . args)
   (let* ((props (case music-type

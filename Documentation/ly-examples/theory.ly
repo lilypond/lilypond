@@ -2,12 +2,12 @@
 \include "example-header.ily"
 
 #(ly:set-option 'point-and-click #f)
+#(set-global-staff-size 24)
 
 global = {
     \time 4/4
     \numericTimeSignature
     \key c \major
-    #(set-global-staff-size 24)
 }
 
 cf = \relative c {

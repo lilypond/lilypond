@@ -231,7 +231,6 @@ multiple voices on the same staff."
   \consists "Note_heads_engraver"
   \consists "Dots_engraver"
   \consists "Rest_engraver"
-  \consists "Tweak_engraver"
 
   %% switch on to make stem directions interpolate for the
   %% center line.
@@ -404,7 +403,6 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \consists "Text_spanner_engraver"
   \consists "Font_size_engraver"
   \consists "Axis_group_engraver"
-  \consists "Tweak_engraver"
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalUnaCordaStrings = #'("una corda" "" "tre corde")
@@ -414,6 +412,9 @@ a collection of staves, with a bracket in front and spanning bar lines."
        (padding . 0.5))
   \override TextScript.font-shape = #'italic
   \override DynamicLineSpanner.Y-offset = #0
+  \override DynamicLineSpanner.outside-staff-priority = ##f
+  \override DynamicText.outside-staff-priority = ##f
+  \override Hairpin.outside-staff-priority = ##f
   \override DynamicText.X-offset =
   #(ly:make-simple-closure
     `(,+
@@ -437,7 +438,6 @@ printing of a single line of lyrics."
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
-  \consists "Tweak_engraver"
   \consists "Stanza_number_engraver"
   \consists "Instrument_name_engraver"
   \consists "Font_size_engraver"
@@ -545,6 +545,7 @@ automatically when an output definition (a @code{\\score} or
   \consists "Timing_translator"
   \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
+  \consists "Tweak_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Mark_engraver"
   \consists "Volta_engraver"

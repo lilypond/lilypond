@@ -481,8 +481,8 @@
 			       clef
 			       key-cancellation
 			       key-signature
-			       staff-bar
 			       time-signature
+			       staff-bar
 			       cue-clef
 			       custos)))
 	(non-musical . #t)
@@ -691,7 +691,6 @@
     (DotColumn
      . (
 	(axes . (,X))
-	(chord-dots . #t)
 	(direction . ,RIGHT)
 	(positioning-done . ,ly:dot-column::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -932,6 +931,7 @@
      . (
 	(padding . 0.2)
 	(positioning-done . ,ly:fingering-column::calc-positioning-done)
+	(snap-radius . 0.3)
 	(meta . ((class . Item)
 		 (interfaces . (fingering-column-interface))))))
 
@@ -2453,7 +2453,7 @@
 			(cue-clef . (extra-space . 1.5))
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
-			(staff-bar . (minimum-space . 2.0))))
+			(staff-bar . (extra-space . 1.0))))
 	(stencil . ,ly:time-signature::print)
 	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(style . C)

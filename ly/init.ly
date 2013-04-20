@@ -29,9 +29,6 @@
 #(define expect-error #f)
 #(define output-empty-score-list #f)
 #(define output-suffix #f)
-#(hash-clear! default-fret-table)
-#(hash-clear! chord-shape-table)
-#(hash-clear! musicQuotes)
 
 #(use-modules (scm clip-region))
 #(use-modules (srfi srfi-1))

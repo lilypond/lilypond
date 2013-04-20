@@ -58,13 +58,13 @@ chordsline = {
 
 \score {
   <<
-    \context ChordNames {
+    \new ChordNames {
       \chordsline
     }
-    \context FretBoards {
+    \new FretBoards {
       \chordsline
     }
-    \context Staff {
+    \new Staff {
       \chordsline
     }
   >>

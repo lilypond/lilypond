@@ -2984,7 +2984,7 @@ the second measure of eighth notes, but not to any of the beams in the
 second voice.
 
 @node The force-hshift property
-@unnumberedsubsubsec The @code{force-hshift property}
+@unnumberedsubsubsec The @code{force-hshift} property
 
 We can now see how to apply the final corrections to the Chopin
 example introduced at the end of @ref{I'm hearing Voices}, which

@@ -102,8 +102,8 @@ Page_spacing::account_for_footnotes (Line_details const &line)
              : 0.0))
          +
          (footnote_height
-          - (has_footnotes_
-             ? breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
+          + (has_footnotes_
+             ? - breaker_->footnote_padding () + breaker_->footnote_footer_padding ()
              : 0.0));
 }
 

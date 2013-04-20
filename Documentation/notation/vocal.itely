@@ -1628,6 +1628,18 @@ attaching lyrics to those specific contexts:
 }
 @end lilypond
 
+It is common in choral music to have a voice part split for
+several measures.  The @code{<< @{@dots{}@} \\ @{@dots{}@} >>}
+construct, where the two (or more) musical expressions are
+separated by double backslashes, might seem the proper way to
+set the split voices.  This construct, however, will assign
+@strong{all} the expressions within it to @strong{NEW Voice
+contexts} which will result in @emph{no lyrics} being set for
+them since the lyrics will be set to the original voice context
+-- not, typically, what one wants.  The temporary polyphonic
+passage is the proper construct to use, see section
+@emph{Temporary polyphonic passages} in @ref{Single-staff polyphony}.
+
 
 @node Stanzas
 @subsection Stanzas
@@ -2177,6 +2189,11 @@ When two vocal parts share a staff the stems, ties, slurs, etc., of
 the higher part will be directed up and those of the lower part
 down.  To do this, use @code{\voiceOne} and @code{\voiceTwo}.  See
 @ref{Single-staff polyphony}.
+
+@item
+When a vocal part temporarily splits, you should use
+@emph{Temporary polyphonic passages}
+(see @ref{Single-staff polyphony}).
 
 @end itemize
 

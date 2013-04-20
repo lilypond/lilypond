@@ -34,7 +34,6 @@ public:
   static bool shift_less (Grob *const &, Grob *const &);
   static Direction dir (Grob *me);
   static Grob *accidentals (Grob *me);
-  static Grob *arpeggio (Grob *me);
   static Slice head_positions_interval (Grob *me);
   static Grob *first_head (Grob *me);
   static Grob *get_rest (Grob *me);

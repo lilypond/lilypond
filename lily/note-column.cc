@@ -221,12 +221,6 @@ Note_column::dot_column (Grob *me)
   return 0;
 }
 
-Grob *
-Note_column::arpeggio (Grob *me)
-{
-  return unsmob_grob (me->get_object ("arpeggio"));
-}
-
 /* If a note-column contains a cross-staff stem then
    nc->extent (Y_AXIS, refp) will not consider the extent of the stem.
    If you want the extent of the stem to be included (and you are safe
@@ -245,7 +239,6 @@ ADD_INTERFACE (Note_column,
                "Stem and noteheads combined.",
 
                /* properties */
-               "arpeggio "
                "force-hshift "
                "horizontal-shift "
                "ignore-collision "

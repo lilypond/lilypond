@@ -61,14 +61,14 @@ chordsline = {
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordsline
   }
-  \context FretBoards {
+  \new FretBoards {
     \set Staff.stringTunings = #ukulele-tuning
     \chordsline
   }
-  \context Staff {
+  \new Staff {
     \chordsline
   }
 >>

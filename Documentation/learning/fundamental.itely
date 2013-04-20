@@ -57,7 +57,7 @@ A basic example of a LilyPond input file is
 \header @{ @}
 
 \score @{
-  @var{...compound music expression...}  % all the music goes here!
+  @var{ @dots{} compound music expression @dots{} }  % all the music goes here!
   \layout @{ @}
   \midi @{ @}
 @}
@@ -133,13 +133,13 @@ note to a huge compound expression like
 @example
 @{
   \new StaffGroup <<
-    @var{...insert the whole score of a Wagner opera in here...}
+    @var{ @dots{} insert the whole score of a Wagner opera in here @dots{} }
   >>
 @}
 @end example
 
 @noindent
-Since everything is inside @code{@{ ... @}}, it counts
+Since everything is inside @code{@{ @dots{} @}}, it counts
 as one music expression.
 
 As we saw previously, the @code{\score} block can contain other
@@ -301,12 +301,12 @@ Here we have given names to the staves -- @qq{singer} and
 to cultivate so that you can see at a glance what each stave is
 for.
 
-Remember that we use @code{<< ... >>} instead of @code{@{ ... @}} to
+Remember that we use @code{<< @dots{} >>} instead of @code{@{ @dots{} @}} to
 show simultaneous music.  This causes the vocal part and piano part
-to appear one above the other in the score.  The @code{<< ... >>}
+to appear one above the other in the score.  The @code{<< @dots{} >>}
 construct would not be necessary for the Singer staff in the example
 above if it were going to contain only one sequential music
-expression, but @code{<< ... >>} rather than braces is necessary if
+expression, but @code{<< @dots{} >>} rather than braces is necessary if
 the music in the Staff is to contain two or more simultaneous
 expressions, e.g. two simultaneous Voices, or a Voice with lyrics.
 We're going to have a voice with lyrics, so angle brackets are
@@ -484,27 +484,27 @@ constructs.
 @multitable @columnfractions .3 .7
 @headitem Bracket Type
   @tab Function
-@item @code{@{ .. @}}
+@item @code{@{ @dots{} @}}
   @tab Encloses a sequential segment of music
-@item @code{< .. >}
+@item @code{< @dots{} >}
   @tab Encloses the notes of a chord
-@item @code{<< .. >>}
+@item @code{<< @dots{} >>}
   @tab Encloses simultaneous music expressions
-@item @code{( .. )}
+@item @code{( @dots{} )}
   @tab Marks the start and end of a slur
-@item @code{\( .. \)}
+@item @code{\( @dots{} \)}
   @tab Marks the start and end of a phrasing slur
-@item @code{[ .. ]}
+@item @code{[ @dots{} ]}
   @tab Marks the start and end of a manual beam
 @end multitable
 
 To these we should add other constructs which generate lines
 between or across notes: ties (marked by a tilde, @code{~}),
-tuplets written as @code{\times x/y @{..@}}, and grace notes
-written as @code{\grace@{..@}}.
+tuplets written as @code{\tuplet x/y @{ @dots{} @}}, and grace notes
+written as @code{\grace @{ @dots{} @}}.
 
 Outside LilyPond, the conventional use of brackets requires the
-different types to be properly nested, like this, @code{<< [ @{ ( .. )
+different types to be properly nested, like this, @code{<< [ @{ ( @dots{} )
 @} ] >>}, with the closing brackets being encountered in exactly the
 opposite order to the opening brackets.  This @strong{is} a
 requirement for the three types of bracket described by the word
@@ -593,7 +593,7 @@ this example of four chords:
 @end lilypond
 
 This can be expressed using just the single angle bracket chord
-symbols, @code{< ... >}, and for this just a single voice is
+symbols, @code{< @dots{} >}, and for this just a single voice is
 needed.  But suppose the F-sharp were actually an eighth-note
 followed by an eighth-note G, a passing note on the way to the A?
 Now we have two notes which start at the same time but have
@@ -610,8 +610,8 @@ Let us see how this is done in LilyPond input syntax.
 @funindex \\
 
 The easiest way to enter fragments with more than one voice on a
-staff is to enter each voice as a sequence (with @code{@{...@}}),
-and combine them simultaneously with angle brackets, @code{<<...>>}.
+staff is to enter each voice as a sequence (with @code{@{ @dots{} @}}),
+and combine them simultaneously with angle brackets, @code{<< @dots{} >>}.
 The fragments must also be separated with double backward slashes,
 @code{\\}, to place them in separate voices.  Without these, the
 notes would be entered into a single voice, which would usually
@@ -689,7 +689,7 @@ of slurs, stems, ties, dynamics etc., is set appropriately.
 @end lilypond
 
 These voices are all separate from the main voice that contains
-the notes just outside the @code{<< .. >>} construct.  Let's call
+the notes just outside the @code{<< @dots{} >>} construct.  Let's call
 this the @emph{simultaneous construct}.  Slurs and ties may only
 connect notes within the same voice, so slurs and ties cannot go
 into or out of a simultaneous construct.  Conversely,
@@ -775,13 +775,13 @@ voices are widely separated, is to place a @code{\relative}
 command at the start of each voice:
 
 @example
-\relative c' @{ noteA ... @}
+\relative c' @{ noteA @dots{} @}
 <<
-  \relative c'' @{ < noteB noteC > ... @}
+  \relative c'' @{ < noteB noteC > @dots{} @}
 \\
-  \relative g' @{ noteD ... @}
+  \relative g' @{ noteD @dots{} @}
 >>
-\relative c' @{ noteE ... @}
+\relative c' @{ noteE @dots{} @}
 @end example
 
 Let us finally analyze the voices in a more complex piece of music.
@@ -1842,7 +1842,7 @@ The default value of context properties may be set at the time the
 context is created.  Sometimes this is a clearer way of setting a
 property value if it is to remain fixed for the duration of
 the context.  When a context is created with a @code{\new}
-command it may be followed immediately by a @code{\with @{ .. @}}
+command it may be followed immediately by a @code{\with @{ @dots{} @}}
 block in which the default property values are set.  For example,
 if we wish to suppress the printing of extra naturals for the
 duration of a staff we would write:
@@ -2778,12 +2778,12 @@ see what errors it generates.
 @end example
 
 It is not necessary to use the simultaneous construct
-@code{<< .. >>} for the manual two staff and the pedal organ staff,
+@code{<< @dots{} >>} for the manual two staff and the pedal organ staff,
 since they contain only one music expression, but it does no harm,
 and always using angle brackets after @code{\new Staff} is a good
 habit to cultivate in case there are multiple voices.  The opposite
 is true for Voices: these should habitually be followed by braces
-@code{@{ .. @}} in case your music is coded in several variables
+@code{@{ @dots{} @}} in case your music is coded in several variables
 which need to run consecutively.
 
 Let's add this structure to the score block, and adjust the indenting.

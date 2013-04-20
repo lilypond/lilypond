@@ -1,7 +1,5 @@
 \version "2.17.6"
 
-#(set-global-staff-size 22.45)
-
 #(define (glissando::calc-extra-dy grob)
    (let* ((original (ly:grob-original grob))
           (left-bound (ly:spanner-bound original LEFT))
@@ -13,11 +11,6 @@
               (= (ly:pitch-notename left-pitch) (ly:pitch-notename right-pitch)))
          (- (ly:pitch-alteration right-pitch) (ly:pitch-alteration left-pitch))
          0 )))
-
-\paper {
-  indent= #0
-  line-width= #180
-}
 
 upper= \relative c' {
   \time 4/4
@@ -43,7 +36,7 @@ lower= \relative c {
 }
 
 \score {
-  \new StaffGroup <<
+  \new StaffGroup \with {instrumentName = #"Guitar" } <<
     \new Staff = "guitar" <<
       \context Voice = "upper guitar" {
         \clef "G_8" \voiceOne

@@ -43,7 +43,37 @@
    (string-downcase
     (car (string-tokenize (utsname:sysname (uname)))))))
 
+;;
+;; Session-handling variables and procedures.
+;;
+;;  A "session" corresponds to one .ly file processed on a LilyPond
+;;  command line.  Every session gets to see a reasonably fresh state
+;;  of LilyPond and should work independently from previous files.
+;;
+;;  Session management relies on cooperation, namely the user not
+;;  trying to change variables and data structures internal to
+;;  LilyPond.  It is not proof against in-place modification of data
+;;  structures (as they are just reinitialized with the original
+;;  identities), and it is not proof against tampering with internals.
+;;
+;;  As a consequence, session management is not sufficient for
+;;  separating multiple independent .ly files in "-dsafe" mode: you
+;;  should give each its own LilyPond process when reliable separation
+;;  is mandatory.
+;;
+;;  For standard tasks and programming practices, multiple sessions in
+;;  the same LilyPond job should work reasonably independently and
+;;  without "bleed-over" while still loading and compiling the
+;;  relevant .scm and .ly files only once.
+;;
+
 (define lilypond-declarations '())
+(define after-session-hook (make-hook))
+
+(define-public (call-after-session thunk)
+  (if (ly:undead? lilypond-declarations)
+      (ly:error (_ "call-after-session used after session start")))
+  (add-hook! after-session-hook thunk #t))
 
 (defmacro-public define-session (name value)
   "This defines a variable @var{name} with the starting value
@@ -74,9 +104,13 @@ session has started."
 
 (define (session-terminate)
   (if (ly:undead? lilypond-declarations)
-      (for-each
-       (lambda (p) (variable-set! (cadr p) (cddr p)))
-       (ly:get-undead lilypond-declarations))))
+      (begin
+        (for-each
+         (lambda (p) (variable-set! (cadr p) (cddr p)))
+         (ly:get-undead lilypond-declarations))
+        (run-hook after-session-hook))))
+
+(define lilypond-interfaces #f)
 
 (define-public (session-initialize thunk)
   "Initialize this session.  The first session in a LilyPond run is
@@ -96,6 +130,7 @@ variables to their value after the initial call of @var{thunk}."
 
   (if (ly:undead? lilypond-declarations)
       (begin
+        (module-use-interfaces! (current-module) (reverse lilypond-interfaces))
         (for-each
          (lambda (p)
            (let ((var (cadr p))
@@ -106,6 +141,9 @@ variables to their value after the initial call of @var{thunk}."
          (ly:get-undead lilypond-declarations)))
       (begin
         (thunk)
+        (set! lilypond-interfaces
+              (filter (lambda (m) (eq? 'interface (module-kind m)))
+                      (module-uses (current-module))))
         (let ((decl (map! (lambda (v)
                             (cons* #f v (variable-ref v)))
                           lilypond-declarations)))

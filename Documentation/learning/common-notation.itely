@@ -669,8 +669,8 @@ different amount of space.  LilyPond does not care how much (or
 little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
-@warning{each note is relative to the previous note in
-the input, not relative to the @code{c''} in the initial
+@warning{each note is relative to the previous note in the input,
+only the first is relative to the @code{c''} in the initial
 @code{@bs{}relative} command.}
 
 
@@ -1326,14 +1326,13 @@ above the music.  More information on titling can be found in
 @cindex absolute note names
 
 So far we have always used @code{\relative} to define pitches.
-This is the easiest way to enter most music, but another way of
-defining pitches exists: absolute mode.
+This is usually the fastest way to enter most music.  Without
+@code{\relative}, pitches are interpreted in absolute mode.
 
-If you omit the @code{\relative}, LilyPond treats all pitches as
-absolute values.  A @code{c'} will always mean middle C, a
-@code{b} will always mean the note one step below middle C, and a
-@code{g,} will always mean the note on the bottom staff of the
-bass clef.
+In this mode, LilyPond treats all pitches as absolute values.  A
+@code{c'} will always mean middle C, a @code{b} will always mean
+the note one step below middle C, and a @code{g,} will always mean
+the note on the bottom staff of the bass clef.
 
 @lilypond[verbatim,quote]
 {
@@ -1393,9 +1392,25 @@ to find.
 
 However, absolute mode is useful for music which has large
 intervals, and is extremely useful for computer-generated LilyPond
-files.
+files.  When cutting and pasting melody fragments, absolute mode
+preserves the original octave.
 
+Sometimes music is arranged in more complex ways.  If you are
+using @code{\relative} inside of @code{\relative}, the outer and
+inner relative sections are independent:
 
+@lilypond[verbatim,quote]
+\relative c { c'4 \relative c'' { f g } c }
+@end lilypond
+
+@funindex \absolute
+If you are using absolute music inside of relative, you'll need to
+mark the absolute music explicitly with @code{\absolute} to stop
+it from becoming part of the relative music:
+
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
 
 @node After the tutorial
 @subsection After the tutorial

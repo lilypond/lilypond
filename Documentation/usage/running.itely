@@ -923,6 +923,7 @@ are easily handled.
 * Error message Unbound variable %::
 * Error message FT_Get_Glyph_Name::
 * Warning staff affinities should only decrease::
+* Error message unexpected \new::
 @end menu
 
 @node Music runs off the page
@@ -1043,3 +1044,53 @@ staff by inserting
 @noindent
 at its start.  For details, see @qq{Spacing of non-staff lines} in
 @ruser{Flexible vertical spacing within systems}.
+
+
+@node Error message unexpected \new
+@unnumberedsubsec Error message unexpected @code{\new}
+
+A @code{\score} block must contain a @emph{single} music expression.
+If instead it contains several @code{\new Staff},
+@code{\new StaffGroup} or similar contexts introduced with @code{\new}
+without them being enclosed in either curly brackets,
+@code{@{ @dots{} @}}, or double angle brackets, @code{<< @dots{} >>},
+like this:
+
+@example
+\score @{
+  % Invalid! Generates error: syntax error, unexpected \new
+  \new Staff @{ @dots{} @}
+  \new Staff @{ @dots{} @}
+@}
+@end example
+
+@noindent
+the error message will be produced.
+
+To avoid the error, enclose all the @code{\new} statements in
+curly or double angle brackets.
+
+Using curly brackets will introduce the @code{\new} statements
+sequentially:
+
+@lilypond[quote,verbatim]
+\score {
+  {
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  }
+}
+@end lilypond
+
+@noindent
+but more likely you should be using double angle brackets so the new
+staves are introduced in parallel, i.e. simultaneously:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  >>
+}
+@end lilypond

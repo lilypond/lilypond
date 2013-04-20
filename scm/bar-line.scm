@@ -68,13 +68,6 @@ Pad the string with @code{annotation-char}s to the length of the
 
         blot-diameter))
 
-(define (layout-line-thickness grob)
-  "Get the line thickness of the @var{grob}'s corresponding layout."
-  (let* ((layout (ly:grob-layout grob))
-         (line-thickness (ly:output-def-lookup layout 'line-thickness)))
-
-        line-thickness))
-
 (define (staff-symbol-line-count staff)
   "Get or compute the number of lines of staff @var{staff}."
   (let ((line-count 0))

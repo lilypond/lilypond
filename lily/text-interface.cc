@@ -109,12 +109,10 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
     return interpret_string (layout_smob, props, markup);
-  else if (scm_is_pair (markup))
+  else if (is_markup (markup))
     {
       SCM func = scm_car (markup);
       SCM args = scm_cdr (markup);
-      if (!is_markup (markup))
-        programming_error ("markup head has no markup signature");
 
       /* Use a hare/tortoise algorithm to detect whether we are in a cycle,
        * i.e. whether we have already encountered the same markup in the
@@ -177,11 +175,14 @@ Text_interface::print (SCM grob)
 bool
 Text_interface::is_markup (SCM x)
 {
-  return (scm_is_string (x)
-          || (scm_is_pair (x)
-              && SCM_BOOL_F
-              != scm_object_property (scm_car (x),
-                                      ly_symbol2scm ("markup-signature"))));
+  return scm_is_string (x)
+    || (scm_is_pair (x)
+        && scm_is_true
+        (scm_object_property (scm_car (x),
+                              ly_symbol2scm ("markup-signature")))
+        && scm_is_false
+        (scm_object_property (scm_car (x),
+                              ly_symbol2scm ("markup-list-command"))));
 }
 
 bool

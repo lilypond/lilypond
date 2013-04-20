@@ -14,7 +14,7 @@ the following systems, respectively."
   \new StaffGroup <<
     \new Staff {
       \override Staff.InstrumentName.self-alignment-X = #LEFT
-      \set Staff . instrumentName = \markup \column {
+      \set Staff . instrumentName = \markup \left-column {
 	"Left aligned" "instrument name"
       }
       \set Staff . shortInstrumentName = "Left"
@@ -30,7 +30,7 @@ the following systems, respectively."
     }
     \new Staff {
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
-      \set Staff . instrumentName = \markup \column \right-align {
+      \set Staff . instrumentName = \markup \right-column {
 	"Right aligned" "instrument name"
       }
       \set Staff . shortInstrumentName = "Right"

@@ -27,8 +27,8 @@ harmonies = \chordmode {
 }
 
 text = \lyricmode {
-  My eyes are dim, I can -- not see,
-  I have not brought my specs with me!
+  My eyes are __ dim, I can -- not see,
+  I have not __ brought my specs with me!
 }
 
 \score {

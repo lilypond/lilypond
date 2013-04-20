@@ -1046,20 +1046,34 @@ music_embedded:
 			$$ = SCM_UNSPECIFIED;
 		}
 	}
-	| embedded_scm
+	| music_embedded_backup BACKUP SCM_ARG
+	{
+		$$ = $3;
+	}
+	| music_embedded_backup BACKUP lyric_element_music
+	{
+		$$ = $3;
+	}
+	;
+
+music_embedded_backup:
+	embedded_scm_closed
 	{
 		if (scm_is_eq ($1, SCM_UNSPECIFIED))
-			$$ = $1;
+			MYBACKUP (SCM_ARG, $1, @1);
 		else if (Music *m = unsmob_music ($1)) {
 			if (m->is_mus_type ("post-event")) {
 				parser->parser_error
 					(@1, _ ("unexpected post-event"));
-				$$ = SCM_UNSPECIFIED;
+				MYBACKUP (SCM_ARG, SCM_UNSPECIFIED, @1);
 			} else
-				$$ = $1;
-		} else {
+				MYBACKUP (SCM_ARG, $1, @1);
+		} else if (parser->lexer_->is_lyric_state ()
+			   && Text_interface::is_markup ($1))
+			MYBACKUP (LYRIC_ELEMENT, $1, @1);
+		else {
 			@$.warning (_ ("Ignoring non-music expression"));
-			$$ = SCM_UNSPECIFIED;
+			MYBACKUP (SCM_ARG, SCM_UNSPECIFIED, @1);
 		}
 	}
 	;
@@ -2066,6 +2080,13 @@ property_operation:
 // \revert Accidental.color
 
 revert_arg:
+	revert_arg_backup BACKUP symbol_list_arg
+	{
+		$$ = $3;
+	}
+	;
+
+revert_arg_backup:
 	revert_arg_part
 	{
 		if (scm_is_null ($1)
@@ -2074,20 +2095,16 @@ revert_arg:
 		else
 			MYBACKUP (SYMBOL_LIST, scm_reverse_x ($1, SCM_EOL), @1);
 	}
-	| revert_arg BACKUP symbol_list_arg
-	{
-		$$ = $3;
-	}
 	;
 
 // revert_arg_part delivers results in reverse
 revert_arg_part:
 	symbol_list_part
-	| revert_arg BACKUP SCM_ARG '.' symbol_list_part
+	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($5, $3));
 	}
-	| revert_arg BACKUP SCM_ARG symbol_list_part
+	| revert_arg_backup BACKUP SCM_ARG symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($4, $3));
 	}		
@@ -3277,8 +3294,10 @@ markup_top:
 	simple_markup_list {
 		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
 	}
-	| markup_head_1_list simple_markup	{
-		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
+	| markup_head_1_list simple_markup
+	{
+		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;
@@ -3304,7 +3323,11 @@ simple_markup_list:
 	markup_composed_list {
 		$$ = $1;
 	}
-	| markup_braced_list {
+	| markup_uncomposed_list
+	;
+
+markup_uncomposed_list:
+	markup_braced_list {
 		$$ = $1;
 	}
 	| markup_command_list {
@@ -3335,9 +3358,9 @@ markup_score:
 	;
 
 markup_composed_list:
-	markup_head_1_list markup_braced_list {
-		$$ = scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, $2);
-
+	markup_head_1_list markup_uncomposed_list {
+		$$ = MAKE_SYNTAX ("composed-markup-list",
+				  @2, $1, $2);
 	}
 	;
 
@@ -3415,9 +3438,10 @@ simple_markup:
 	;
 
 markup:
-	markup_head_1_list simple_markup	{
-		SCM mapper = ly_lily_module_constant ("map-markup-command-list");
-		$$ = scm_car (scm_call_2 (mapper, $1, scm_list_1 ($2)));
+	markup_head_1_list simple_markup
+	{
+		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;

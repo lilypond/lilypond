@@ -1307,9 +1307,13 @@ equivalent to @code{\"fi\"}.
 
   (interpret-markup layout
                     (prepend-alist-chain 'word-space 0 props)
-                    (make-line-markup (if (markup-command-list? args)
-					  args
-					  (concat-string-args args)))))
+                    (make-line-markup
+                     (make-override-lines-markup-list
+                      (cons 'word-space
+                            (chain-assoc-get 'word-space props))
+                      (if (markup-command-list? args)
+                          args
+                          (concat-string-args args))))))
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
@@ -4273,3 +4277,40 @@ where @var{X} is the number of staff spaces."
   (pair? markup-list?)
   "Like @code{\\override}, for markup lists."
   (interpret-markup-list layout (cons (list new-prop) props) args))
+
+(define-markup-list-command (map-markup-commands layout props compose args)
+  (procedure? markup-list?)
+  "This applies the function @var{compose} to every markup in
+@var{args} (including elements of markup list command calls) in order
+to produce a new markup list.  Since the return value from a markup
+list command call is not a markup list but rather a list of stencils,
+this requires passing those stencils off as the results of individual
+markup calls.  That way, the results should work out as long as no
+markups rely on side effects."
+  (let ((key (make-symbol "key")))
+    (catch
+     key
+     (lambda ()
+       ;; if `compose' does not actually interpret its markup
+       ;; argument, we still need to return a list of stencils,
+       ;; created from the single returned stencil
+       (list
+        (interpret-markup layout props
+                          (compose
+                           (make-on-the-fly-markup
+                            (lambda (layout props m)
+                              ;; here all effects of `compose' on the
+                              ;; properties should be visible, so we
+                              ;; call interpret-markup-list at this
+                              ;; point of time and harvest its
+                              ;; stencils
+                              (throw key
+                                     (interpret-markup-list
+                                      layout props args)))
+                            (make-null-markup))))))
+     (lambda (key stencils)
+       (map
+        (lambda (sten)
+          (interpret-markup layout props
+                            (compose (make-stencil-markup sten))))
+        stencils)))))

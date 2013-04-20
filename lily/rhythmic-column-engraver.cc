@@ -57,7 +57,6 @@ class Rhythmic_column_engraver : public Engraver
   Grob *stem_;
   Grob *flag_;
   Grob *note_column_;
-  Grob *arpeggio_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
@@ -65,7 +64,6 @@ protected:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (flag);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (arpeggio);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -76,7 +74,6 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
   stem_ = 0;
   flag_ = 0;
   note_column_ = 0;
-  arpeggio_ = 0;
 }
 
 void
@@ -103,13 +100,11 @@ Rhythmic_column_engraver::process_acknowledged ()
           stem_ = 0;
         }
 
-      if (arpeggio_)
-        {
-          Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), arpeggio_);
-          note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
-        }
       if (flag_)
-        Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), flag_);
+        {
+          Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), flag_);
+          flag_ = 0;
+        }
     }
 }
 
@@ -132,24 +127,16 @@ Rhythmic_column_engraver::acknowledge_rhythmic_head (Grob_info i)
 }
 
 void
-Rhythmic_column_engraver::acknowledge_arpeggio (Grob_info i)
-{
-  arpeggio_ = i.grob ();
-}
-
-void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
   note_column_ = 0;
   stem_ = 0;
-  arpeggio_ = 0;
   flag_ = 0;
 }
 
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, arpeggio);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
                 /* doc */

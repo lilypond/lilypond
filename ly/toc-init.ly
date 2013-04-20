@@ -7,6 +7,7 @@
   #f)
 
 #(let ((toc-item-list (list)))
+   (call-after-session (lambda () (set! toc-item-list '())))
    (set! add-toc-item!
 	 (lambda (markup-symbol text)
 	   (let ((label (gensym "toc")))

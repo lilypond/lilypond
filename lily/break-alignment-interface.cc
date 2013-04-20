@@ -26,7 +26,6 @@
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
-#include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
 

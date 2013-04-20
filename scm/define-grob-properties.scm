@@ -173,9 +173,6 @@ when a spanner is broken at a line break.")
 ;;
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
-     (chord-dots ,boolean? "If set, remove dots which the
-@code{DotColumn} algorithm would vertically position too far away from
-note heads.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
@@ -830,6 +827,8 @@ slashes in percent repeat glyphs.  Larger values bring the two
 elements closer together.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
+     (snap-radius ,number? "The maximum distance between two objects that
+will cause them to snap to alignment along an axis.")
      (space-alist ,list? "A table that specifies distances between
 prefatory items, like clef and time-signature.  The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
@@ -1063,7 +1062,6 @@ constructed from a whole number of squiggles.")
 dynamic spanners.")
      (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
-     (arpeggio ,ly:grob? "A pointer to an @code{Arpeggio} object.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 

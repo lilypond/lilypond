@@ -99,6 +99,13 @@
 (define-public grob::always-Y-extent-from-stencil
   (ly:make-unpure-pure-container ly:grob::stencil-height))
 
+(define-public (layout-line-thickness grob)
+  "Get the line thickness of the @var{grob}'s corresponding layout."
+  (let* ((layout (ly:grob-layout grob))
+         (line-thickness (ly:output-def-lookup layout 'line-thickness)))
+
+        line-thickness))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
@@ -1008,6 +1015,71 @@ between the two text elements."
 					     '(bound-details left padding)
 					     (+ my-padding script-padding)))))))
 
+(define-public ((elbowed-hairpin coords mirrored?) grob)
+  "Create hairpin based on a list of @var{coords} in @code{(cons x y)}
+form.  @code{x} is the portion of the width consumed for a given line
+and @code{y} is the portion of the height.  For example,
+@code{'((0.3 . 0.7) (0.8 . 0.9) (1.0 . 1.0))} means that at the point
+where the hairpin has consumed 30% of its width, it must
+be at 70% of its height.  Once it is to 80% width, it
+must be at 90% height.  It finishes at
+100% width and 100% height.  @var{mirrored?} indicates if the hairpin
+is mirrored over the Y-axis or if just the upper part is drawn.
+Returns a function that accepts a hairpin grob as an argument
+and draws the stencil based on its coordinates.
+@lilypond[verbatim,quote]
+#(define simple-hairpin
+  (elbowed-hairpin '((1.0 . 1.0)) #t))
+
+\\relative c' {
+  \\override Hairpin #'stencil = #simple-hairpin
+  a\\p\\< a a a\\f
+}
+@end lilypond
+"
+  (define (pair-to-list pair)
+    (list (car pair) (cdr pair)))
+  (define (normalize-coords goods x y)
+    (map
+      (lambda (coord)
+        (cons (* x (car coord)) (* y (cdr coord))))
+      goods))
+  (define (my-c-p-s points thick decresc?)
+    (make-connected-path-stencil
+      points
+      thick
+      (if decresc? -1.0 1.0)
+      1.0
+      #f
+      #f))
+  ; outer let to trigger suicide
+  (let ((sten (ly:hairpin::print grob)))
+    (if (grob::is-live? grob)
+      (let* ((decresc? (eq? (ly:grob-property grob 'grow-direction) LEFT))
+             (thick (ly:grob-property grob 'thickness 0.1))
+             (thick (* thick (layout-line-thickness grob)))
+             (xex (ly:stencil-extent sten X))
+             (lenx (interval-length xex))
+             (yex (ly:stencil-extent sten Y))
+             (leny (interval-length yex))
+             (xtrans (+ (car xex) (if decresc? lenx 0)))
+             (ytrans (car yex))
+             (uplist (map pair-to-list
+                          (normalize-coords coords lenx (/ leny 2))))
+             (downlist (map pair-to-list
+                            (normalize-coords coords lenx (/ leny -2)))))
+      (ly:stencil-translate
+        (ly:stencil-add
+          (my-c-p-s uplist thick decresc?)
+          (if mirrored? (my-c-p-s downlist thick decresc?) empty-stencil))
+        (cons xtrans ytrans)))
+      '())))
+
+(define-public flared-hairpin
+  (elbowed-hairpin '((0.95 . 0.4) (1.0 . 1.0)) #t))
+
+(define-public constante-hairpin
+  (elbowed-hairpin '((1.0 . 0.0) (1.0 . 1.0)) #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lyrics
