@@ -1406,6 +1406,9 @@ a2 b
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
+
 @seealso
 Music Glossary:
 @rglos{octavation}.
