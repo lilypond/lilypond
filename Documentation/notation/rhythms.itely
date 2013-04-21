@@ -1509,15 +1509,20 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-A new bar is never started within a cadenza, even if one or more
-@code{\bar} commands are inserted within it.  Therefore, reminder
-accidentals will need to be added manually.  See @ref{Accidentals}.
+Inserting a @code{\bar} command within a cadenza does not start a new
+measure, even if a bar line is printed.  So any accidentals -- which
+are usually assumed to remain in force until the end of the measure --
+will still be valid after the bar line printed by @code{\bar}.  If
+subsequent accidentals should be printed, forced accidentals or
+reminder accidentals need to be inserted manually, see
+@ref{Accidentals}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 cis4 d cis d
 \bar "|"
+% First cis is printed without alteration even if it's after a \bar
 cis4 d cis! d
 \cadenzaOff
 \bar "|"
