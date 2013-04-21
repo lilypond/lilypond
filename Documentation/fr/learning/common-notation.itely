@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: f2f69f47b5f1d21488d06ea1a608811f43f0c5ff
+   Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -736,8 +736,9 @@ avec un nombre d'espaces différent.  LilyPond se moque -- ou presque
 -- de l'espace qu'il peut y avoir ou non au début d'une ligne, mais
 un code bien indenté est bien plus lisible par des humains.
 
-@warning{La hauteur de chaque note saisie est relative à la précédente,
-mais pas au @code{c''} de la commande @code{@bs{}relative} de départ.}
+@warning{La hauteur de chaque note saisie est relative à la précédente ;
+seule la première première note verra sa hauteur déterminée relativement
+au au @code{c''} de la commande @code{@bs{}relative} de départ.}
 
 
 @subheading Expressions musicales simultanées -- une seule portée
@@ -1482,7 +1483,26 @@ difficile à dénicher.
 
 Cependant, le mode de hauteurs absolues reste utile pour les musiques
 où les intervalles sont étendus, et plus encore pour les fichiers
-LilyPond créés par des programmes.
+LilyPond créés par des programmes.  Recopier des fragments en hauteurs
+absolues permet d'en préserver les octaves.
+
+La musiqeu peut être agencée de manière plutôt complexe.  Dans le cas
+d'une imbrication de commandes @code{\relative}, chacune des sections
+est indépendante de l'autre :
+ 
+@lilypond[verbatim,quote]
+\relative c { c'4 \relative c'' { f g } c }
+@end lilypond
+
+@funindex \absolute
+
+Des hauteurs absolues peuvent tout à fait se trouver au sein d'un bloc
+en mode relatif, dès lors qu'une commande @code{\absolute} exclut
+explicitement de la musique relative le fragment en question :
+
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
 
 
 @node Après le tutoriel

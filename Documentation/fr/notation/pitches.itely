@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -144,11 +144,33 @@ Ces signes de changement d'octave peuvent être multipliés.  Par exemple,
 @code{''} ou @code{,,} ajouteront une octave supplémentaire.
 
 @item
-Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
-départ peut être spécifiée, et agira dès lors comme si elle précédait la
-première note de @var{expression_musicale}.  Nous vous recommandons de
-faire référence à un do (@code{c}).
+La première hauteur de @code{@var{expression_musicale}} est
+déterminée relativement à @code{@var{hauteur_de_référence}}.
+Cette @code{@var{hauteur_de_référence}} s'exprime en octave
+absolue ; plusieurs options s'offrent à vous :
 
+@table @asis
+@item une octave de do (@code{c})
+Un @code{c'} identifiant le do placé entre les portées d'un piano,
+il est de fait aisé de déterminer d'autres octaves de @code{c}.
+Pour une musique qui commencerait par un sol dièse (@code{gis}) au
+dessus du do suraigu (@code{c'''}), vous écririez quelque chose
+comme @code{\relative c''' @{ gis' @dots{} @}}
+
+@item une octave de la première note de l'expression
+Écrire @code{\relative gis''' @{ gis @dots{} @}} permet de
+déterminer facilement la hauteur absolue de la première note de
+l'expression.
+
+@item pas de hauteur de référence explicite
+Ceci (écrire @code{\relative @{ gis''' @dots{} @}}) peut se voir
+comme une version abrégée de l'option précédente : la première
+note de l'expression est écrite en octave absolue.  Cette option
+est équivalente à prendre un @code{f} comme hauteur de référence.
+@end table
+
+La documentation de LilyPond utilise en règle générale la première
+option.
 @end itemize
 
 Voici le mode @code{\relative} en action.

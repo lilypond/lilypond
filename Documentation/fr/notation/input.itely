@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -304,17 +304,17 @@ de chaque bloc @code{\book}.
 \book @{
   \bookOutputSuffix "Romance"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Menuet"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -325,17 +325,17 @@ le nom du fichier généré pour un bloc @code{\book} :
 \book @{
   \bookOutputName "Romance"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Menuet"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -2203,14 +2203,18 @@ manière suivante :
   @tab Résultat
 
 @item
-Musique balisée précédée de @code{\keepWithTag #'@var{nom}}
- @tab Musique non balisée et musique balisée par @var{nom} seront
- incluses ; la musique balisée autrement est exclue.
+Musique balisée précédée de @code{\keepWithTag #'@var{nom}} ou
+       @code{\keepWithTag #'(@var{nom1} @var{nom2}@dots{})}
+@tab Musique non balisée et musique balisée par l'un des noms de
+       balise fournis seront incluses ; la musique balisée
+       autrement est exclue.
 
 @item
-Musique balisée précédée de @code{\removeWithTag #'@var{nom}}
- @tab Musique non balisée et fragments appelés autrement que @var{nom}
- seront inclus ; la musique balisée par @var{nom} est exclue.
+Musique balisée précédée de @code{\removeWithTag #'@var{nom}} ou
+       @code{\removeWithTag #'(@var{nom1} @var{nom2}@dots{})}
+@tab Musique non balisée et fragments appelés autrement que par
+       l'un des noms fournis seront inclus ; la musique balisée
+       par autre chose que les noms mentionnés est exclue. 
 
 @item
 Musique balisée non précédée de @code{\keepWithTag} ou
@@ -2265,7 +2269,7 @@ music = \relative g' {
 }
 @end lilypond
 
-Ce principe de filtrage peut s'appliquer aux articulations, textes, etc.
+Ce principe de filtrage peut s'appliquer aux articulations, textes, etc.
 Il suffit de positionner
 
 @example
@@ -2285,12 +2289,13 @@ Ceci définira une note avec une indication conditionnelle de doigté ou
 un texte.
 
 Vous pouvez baliser différemment la même expression musicale en
-saisissant plusieurs @code{\tag} :
+saisissant plusieurs @code{\tag} ou bien en combinant plusieurs
+balises dans une liste :
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
   \tag #'a \tag #'both { a4 a a a }
-  \tag #'b \tag #'both { b4 b b b }
+  \tag #'(b both) { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -2300,7 +2305,9 @@ music = \relative c'' {
 @end lilypond
 
 L'application concomitante de plusieurs filtres @code{\removeWithTag} à
-la même expression musicale permet d'exclure plusieurs balisages :
+la même expression musicale permet d'exclure plusieurs balisages.
+Une liste fournie en argument à un unique @code{\removeWithTag}
+produira le même effet :
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -2313,6 +2320,8 @@ music = \relative c'' {
 \removeWithTag #'B
 \removeWithTag #'C
 \music
+\removeWithTag #'(B C)
+\music
 }
 @end lilypond
 
@@ -2320,6 +2329,10 @@ L'application de plus d'un filtre @code{\keepWithTag} à la même
 expression musicale aboutit à l'exclusion de @b{tous} les balisages.
 En effet, si le premier filtre exclut tous les autres balisages,
 l'application du second exclura les effets du premier.
+L'utilisation d'une unique commande @code{\keepWithTag} avec une
+liste de balises est en pareil cas des plus pertinente : seront
+exclus tous les fragments non concernés par l'une quelconque des
+balises mentionnées.
 
 Il peut arriver que vous ayez besoin de raccorder quelque chose en un
 point particulier d'une expression musicale.  Les commandes
@@ -2355,17 +2368,15 @@ Manuel de notation :
 @ref{Regroupement automatique de parties},
 @ref{Insertion de fichiers LilyPond}.
 
-
-@ignore
-@c This warning is more general than this placement implies.
-@c Rests are not merged whether or not they come from tagged sections.
-@c Should be deleted?  -td
-
 @knownissues
-Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
-si vous imprimez une partition avec les deux sections balisées.
-
-@end ignore
+L'application d'un @code{\relative} à une expression musicale
+obtenue par filtrage à l'aide de @code{\keepWithTag} ou
+@code{\removeWithTag} peut générer des changements d'octave,
+puisque seules les hauteurs récupérées dans ce filtre seront
+prises en considération.  Une instruction @code{\relative} qui
+précède les commandes @code{\keepWithTag} ou
+@code{\removeWithTag} permet d'éviter ce risque, dans la mesure où
+elle viendra « recaler » ces hauteurs récupérées.
 
 
 @node Globalisation des réglages

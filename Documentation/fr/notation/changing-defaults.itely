@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 598fd6adddb2286a94b3ee1ede548700715abc12
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1379,10 +1379,25 @@ C'est par exemple le cas du contexte @code{VaticanaStaff}, réplique du
 contexte @code{Staff} au sein duquel le contexte @code{VaticanaVoice} se
 substitue au contexte @code{Voice} dans la « liste d'agrément ».
 
+@cindex contextes implicites
+@cindex implicites, contextes
+@funindex \defaultchild
+
 Gardez à l'esprit que, face à une instruction qui ne s'appliquerait à
 aucun contexte déjà existant, LilyPond créera un nouveau contexte
-implicite.  Ceci peut engendrer une nouvelle portée ou une autre
-partition.
+implicite.
+
+Lors de la définition d'un contexte, les types de contextes
+sous-jascents susceptibles d'être créés implicitement sont spécifiés à
+l'aide d'une commande @code{\defaultchild}. Un certain nombre
+d'événements musicaux requièrent un contexte de plus bas niveau ; face à
+un tel événement, LilyPond crée autant de « sous-contextes » que
+nécessaire, jusqu'au contexte ne comportant aucun @emph{defaultchild}.
+
+La création implicite de contexte peut donc finir par engendrer de
+manière intempestive une nouvelle portée ou une autre partition.
+L'utilisation d'une instruction @code{\new} pour créer explicitement des
+contextes permet d'éviter ces problèmes.
 
 @cindex alignAboveContext
 @cindex alignBelowContext

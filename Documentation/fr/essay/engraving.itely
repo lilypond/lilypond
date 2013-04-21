@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 23108a9515e7f76b44fac0b323afb169d708bfa1
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1258,6 +1258,7 @@ crée les têtes de notes :
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1291,6 +1292,7 @@ représentant les lignes de portée :
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1323,6 +1325,7 @@ la hauteur à laquelle doit être placée chaque tête de note :
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1352,6 +1355,7 @@ et, enfin, les hampes et leurs crochets sont gérés par le
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }

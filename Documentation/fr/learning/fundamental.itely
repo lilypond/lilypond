@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f2f69f47b5f1d21488d06ea1a608811f43f0c5ff
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -65,7 +65,7 @@ Un fichier d'entrée LilyPond ressemble à :
 \version @w{"@version{}"}
 \header @{ @}
 \score @{
-  @var{...expression musicale composite...}  % c'est là qu'est la musique !
+  @var{ @dots{} expression musicale composite @dots{} }  % c'est là qu'est la musique !
   \layout @{ @}
   \midi @{ @}
 @}
@@ -145,7 +145,7 @@ quoi, d'une note isolée à un gigantesque
 @example
 @{
   \new StaffGroup <<
-    @var{...collez ici la partition complète d'un opéra de Wagner...}
+    @var{ @dots{} collez ici la partition complète d'un opéra de Wagner@dots{} }
   >>
 @}
 @end example
@@ -509,33 +509,33 @@ une liste des différents types de crochet :
 @multitable @columnfractions .3 .7
 @headitem Type de crochet
   @tab Fonction
-@item @code{@{ .. @}}
+@item @code{@{ @dots{} @}}
   @tab Délimite un segment de musique séquentielle
-@item @code{< .. >}
+@item @code{< @dots{} >}
   @tab Délimite les notes d'un accord
-@item @code{<< .. >>}
+@item @code{<< @dots{} >>}
   @tab Délimite des sections simultanées
-@item @code{( .. )}
+@item @code{( @dots{} )}
   @tab Marque le début et la fin d'une liaison
-@item @code{\( .. \)}
+@item @code{\( @dots{} \)}
   @tab Marque le début et la fin d'une liaison de phrasé
-@item @code{[ .. ]}
+@item @code{[ @dots{} ]}
   @tab Marque le début et la fin d'une ligature manuelle
 @end multitable
 
 D'autres constructions permettent d'obtenir des lignes regroupant ou en
 travers des notes :  les liaisons de prolongation indiquées par un tilde
-(@code{~}), les marques de nolet avec @code{\times x/y @{..@}}, ou
-encore les notes d'ornement avec @code{\grace@{..@}}.
+(@code{~}), les marques de nolet avec @code{\times x/y @{ @dots{} @}},
+ou encore les notes d'ornement avec @code{\grace@{ @dots{} @}}.
 
 En dehors de LilyPond, l'imbrication correcte de différents types de
 crochets exige un strict respect des conventions, telles que
-@code{<< [ @{ ( .. ) @} ] >>}, où les marques de fermeture interviennent
-obligatoirement dans l'ordre exactement inverse à celles d'ouverture.
-Ceci @strong{doit} être rigoureusement respecté pour les trois types de
-crochets utilisés pour @strong{délimiter} comme l'indique le tableau
-ci-dessus.  Une telle rigueur dans l'imbrication n'est @strong{pas}
-requise pour les types de crochets dont la fonction est de
+@code{<< [ @{ ( @dots{} ) @} ] >>}, où les marques de fermeture
+interviennent obligatoirement dans l'ordre exactement inverse à celles
+d'ouverture.  Ceci @strong{doit} être rigoureusement respecté pour les
+trois types de crochets utilisés pour @strong{délimiter} comme l'indique
+le tableau ci-dessus.  Une telle rigueur dans l'imbrication n'est
+@strong{pas} requise pour les types de crochets dont la fonction est de
 @strong{marquer}, selon le tableau ci-dessus, lorsqu'il sont utilisés en
 combinaison avec des liaisons de prolongation ou des nolets.  En effet,
 il ne s'agit pas de crochets ayant pour fonction de borner quelque
@@ -638,8 +638,8 @@ Voyons comment cela se pratique selon la grammaire de LilyPond.
 
 Le plus sûr moyen de saisir un fragment où plusieurs voix cohabitent
 sur la même portée, consiste à saisir chacune des voix séquentiellement
-(avec @code{@{...@}}), puis à les combiner en simultané à l'aide de
-doubles chevrons gauche/droite, @code{<<...>>}.  Les fragments
+(avec @code{@{ @dots{} @}}), puis à les combiner en simultané à l'aide
+de doubles chevrons gauche/droite, @code{<< @dots{} >>}.  Les fragments
 devront être séparés par une double oblique inversée, @code{\\}, pour
 les affecter à des voix séparées.  Dans le cas contraire, les notes
 seraient toutes affectées à une même voix, ce qui pourrait générer des
@@ -715,7 +715,7 @@ automatiquement.
 @end lilypond
 
 Ces voix sont séparées de la voix principale, laquelle contient les
-notes en dehors de la construction @code{<<...>>} -- que nous
+notes en dehors de la construction @code{<< @dots{} >>} -- que nous
 appellerons @emph{construction simultanée}.  Les liaisons, de
 prolongation ou non, ne peuvent relier des notes que si elles
 appartiennent à la même voix ; elles ne peuvent ni pénétrer une
@@ -800,13 +800,13 @@ des différentes voix sont espacées, consiste à placer une commande
 @code{\relative} au début de chacune des voix :
 
 @example
-\relative c' @{ noteA ... @}
+\relative c' @{ noteA @dots{} @}
 <<
-  \relative c'' @{ < noteB noteC > ... @}
+  \relative c'' @{ < noteB noteC > @dots{} @}
 \\
-  \relative g' @{ noteD ... @}
+  \relative g' @{ noteD @dots{} @}
 >>
-\relative c' @{ noteE ... @}
+\relative c' @{ noteE @dots{} @}
 @end example
 
 Pour finir, analysons le principe d'utilisation des voix dans une pièce
@@ -1907,7 +1907,7 @@ création de ce contexte.  Ceci constitue parfois une façon plus claire
 de spécifier les valeurs d'une propriété pour la durée de vie du
 contexte.  Lorsque vous créez un contexte à l'aide de la commande
 @code{\new}, vous pouvez la faire suivre immédiatement d'un bloc
-@code{\with @{ .. @}} qui contiendra les réglages des différentes
+@code{\with @{ @dots{} @}} qui contiendra les réglages des différentes
 propriétés.  Ainsi, si nous voulions par exemple annuler l'impression
 des bécarres supplémentaires sur la durée d'une portée, nous
 écririons :
@@ -2853,15 +2853,15 @@ de le compiler, pour voir de quoi il retourne.
 >>
 @end example
 
-La construction en simultané -- @code{<<...>>} -- n'est pas strictement
-obligatoire pour les portées manuel deux et pédalier, qui ne contiennent
-chacune qu'une seule expression musicale ; mais cela ne mange pas de
-pain, et c'est une bonne habitude que de toujours encadrer par des
-doubles chevrons gauche/droite ce qui suit une commande
+La construction en simultané -- @code{<< @dots{} >>} -- n'est pas
+strictement obligatoire pour les portées manuel deux et pédalier, qui ne
+contiennent chacune qu'une seule expression musicale ; mais cela ne
+mange pas de pain, et c'est une bonne habitude que de toujours encadrer
+par des doubles chevrons gauche/droite ce qui suit une commande
 @code{\new Staff} au cas où il y aurait plusieurs voix.  Il en va
 autrement pour les contextes @code{Voice} : ils doivent être toujours
-suivis d'accolades --  @code{@{...@}} --  au cas où vous auriez employé
-plusieurs variables qui doivent intervenir consécutivement.
+suivis d'accolades --  @code{@{ @dots{} @}} --  au cas où vous auriez
+employé plusieurs variables qui doivent intervenir consécutivement.
 
 Ajoutons donc cette structure au bloc @code{\score}, tout en fignolant
 l'indentation.  Nous en profitons pour ajouter les clefs appropriées,

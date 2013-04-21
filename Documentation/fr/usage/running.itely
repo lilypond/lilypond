@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ce43b953f70e2b7b36e11f3cb2bb0f179fc3b1a3
+    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1003,6 +1003,7 @@ facilement.
 * Message d'erreur Unbound variable %::
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
+* Message d'erreur unexpected \new::
 @end menu
 
 
@@ -1136,3 +1137,54 @@ une portée, à l'aide de l'instruction
 que vous insérerez dès sa création.  Pour plus d'information,
 reportez-vous à la rubrique
 @ruser{Espacement des lignes rattachées à des portées}.
+
+
+@node Message d'erreur unexpected \new
+@unnumberedsubsec Message d'erreur unexpected @code{\new}
+@translationof Error message unexpected \new
+
+Un bloc @code{\score} ne peut contenir qu'@strong{une seule} expression
+musicale. Si, par contre, il comporte plusieurs @code{\new Staff},
+@code{\new StaffGroup} ou autres contextes introduits par une commande
+@code{\new} qui ne seraient pas bornés par des accolades
+@code{@{ @dots{} @}} ou des doubles chevrons @code{<< @dots{} >>} comme
+ici :
+
+@example
+\score @{
+  % Invalide ! Génère l'erreur : syntax error, unexpected \new
+  % en français : erreur de syntaxe : \new inattendu
+  \new Staff @{ @dots{} @}
+  \new Staff @{ @dots{} @}
+@}
+@end example
+
+@noindent
+vous obtiendrez ce message d'erreur.
+
+Cette erreur sera évitée dès lors que toutes les instances de
+@code{\new} sont bornées par des accolades ou des doubles chevrons.
+
+Des accolades placeront ces clauses @code{\new} en séquence :
+
+@lilypond[quote,verbatim]
+\score {
+  {
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  }
+}
+@end lilypond
+
+@noindent
+alors que des doubles chevrons les placeront en parallèle ; autrement
+dit, LilyPond les traitera simultanément :
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  >>
+}
+@end lilypond
