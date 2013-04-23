@@ -62,6 +62,20 @@ which scares away people.
 @end ignore
 
 @item
+The PostScript functionality of stroke adjustment is no longer
+applied automatically but left to the discretion of the PostScript
+device (by default, Ghostscript uses it for resolutions up to
+150dpi when generating raster images).  When it is enabled, a more
+complex drawing algorithm designed to benefit from stroke
+adjustment is employed mostly for stems and bar lines.
+
+Stroke adjustment can be forced by specifying the command line
+option @samp{-dstrokeadjust} to LilyPond.  When generating
+@code{PDF} files, this will usually result in markedly better
+looking @code{PDF} previews but significantly larger file size.
+Print quality at high resolutions will be unaffected.
+
+@item
 There is now a new context type called @code{NullVoice} which, while not
 appearing in the printed output, can be used to align lyrics.  This can
 be particularly convenient when used in parallel with a
