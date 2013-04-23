@@ -138,51 +138,58 @@ bind def
 	    0 setlinecap
 	}
 	{ % full shape
-	    currentlinewidth 2 div
-	    0 0 2 index 180 270 arc
-	    2 index 0 2 index 270 360 arc
-	    3 copy 0 90 arc
-	    0 2 index 3 -1 roll 90 180 arc
-	    closepath
-	    2 copy 2 mul gt
-	    { % horizontal
-		2 copy add currentlinewidth add 10 add % large enough
-		0 1 index neg moveto
-		2 index 1 index neg lineto
-		2 index 1 index lineto
-		0 exch lineto closepath
-		gsave clip newpath
-		0 1 index 2 div moveto
-		currentlinewidth add setlinewidth
-		0 rlineto
-		2 setlinecap
-		stroke
-		grestore
-	    }
-	    {
-		2 copy exch 2 mul gt
-		{ % vertical
+	    currentstrokeadjust {
+		currentlinewidth 2 div
+		0 0 2 index 180 270 arc
+		2 index 0 2 index 270 360 arc
+		3 copy 0 90 arc
+		0 2 index 3 -1 roll 90 180 arc
+		closepath
+		2 copy 2 mul gt
+		{ % horizontal
 		    2 copy add currentlinewidth add 10 add % large enough
-		    dup neg 0 moveto
-		    dup 0 lineto
-		    dup 2 index lineto
-		    neg 1 index lineto closepath
+		    0 1 index neg moveto
+		    2 index 1 index neg lineto
+		    2 index 1 index lineto
+		    0 exch lineto closepath
 		    gsave clip newpath
-		    1 index 2 div 0 moveto
-		    exch currentlinewidth add setlinewidth
-		    0 exch rlineto
+		    0 1 index 2 div moveto
+		    currentlinewidth add setlinewidth
+		    0 rlineto
 		    2 setlinecap
 		    stroke
 		    grestore
 		}
 		{
-		    pop pop
-		    fill
+		    2 copy exch 2 mul gt
+		    { % vertical
+			2 copy add currentlinewidth add 10 add % large enough
+			dup neg 0 moveto
+			dup 0 lineto
+			dup 2 index lineto
+			neg 1 index lineto closepath
+			gsave clip newpath
+			1 index 2 div 0 moveto
+			exch currentlinewidth add setlinewidth
+			0 exch rlineto
+			2 setlinecap
+			stroke
+			grestore
+		    }
+		    {
+			pop pop
+			fill
+		    }
+		    ifelse
 		}
 		ifelse
+		newpath
+	    }
+	    {
+		1 setlinejoin
+		0 0 4 2 roll 4 copy rectstroke rectfill
 	    }
 	    ifelse
-	    newpath
 	}
 	ifelse
     }
