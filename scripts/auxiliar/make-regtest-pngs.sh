@@ -9,15 +9,21 @@
 #
 #    ./make-regtest-pngs.sh -j9
 #
+#   -p uses GNU parallel with the given job count in order to also
+#   parallelize the conversion of PDF files to bitmaps when using -g
+#   or -d.  No attempt is made to parallelize the bitmap comparisons
+#   since their memory requirements may be prohibitive.
+#
 #   -o means build an old regtest set - the PNGs go in the old-regtest-results
 #   directory
 #
 #   -n means build a new regtest set - the PNGs go in the new-regtest-results
 #   directory
 #
-#   -p uses PDF and the poppler library via pdftocairo for generating bitmaps,
-#   simulating the output for Evince and other previewers using poppler.
-#   pdftocairo may be contained in the poppler-utils package.
+#   -c uses PDF and the poppler library via pdftocairo for generating
+#   bitmaps, simulating the output for Evince and other previewers
+#   using poppler.  pdftocairo may be contained in the poppler-utils
+#   package.
 #
 #   -r can be used for specifying a rendering resolution.  This
 #   defaults to 101 for poppler and 300 for Ghostscript from PDF.
@@ -27,34 +33,26 @@
 #   use a resolution appropriate for print.  Antialiasing is not enabled.
 #
 #   -d changes the Ghostscript device used for creating PNG files
-#   (usually png16m, but with -g you might prefer fewer colors for size
-#   reasons, like png16).
+#   (usually png16m for direct PNG creation and pngmono for printer simulation)
 
 cpu_count=${CPU_COUNT:-1}
 backend_opt='--png ${resolution:+=-dresolution=$resolution} ${gsdevice:+=-dpixmap-format=$gsdevice}'
 resolution=
 gsdevice=
+use_parallel=n
 
-png_generate()
-{
-    :
-}
-
-while getopts "j:onpr:g" opts; do
+while getopts "j:oncr:gpd:" opts; do
     case $opts in j)
             cpu_count=$OPTARG;;
 	
 	o)
             file_loc="old-regtest-results";;
 
-	p)
+	c)
 	    backend_opt="--pdf"
 	    png_generate()
 	    {
-		for i
-		do pdftocairo -png -r ${resolution:-101} -q "$i" &&
-		    rm "$i"
-		done
+		$1 pdftocairo -png -r ${resolution:-101} -q "$2"
 	    };;
 
 	n)
@@ -67,15 +65,15 @@ while getopts "j:onpr:g" opts; do
 	    backend_opt="--pdf"
 	    png_generate()
 	    {
-		for i
-		do
-		    gs -sDEVICE=${gsdevice:-png16m} -q -dNOPAUSE \
-			-r${resolution:-300} -dNOPLATFONTS \
-			-dTextAlphaBits=1 -dGraphicsAlphaBits=1 \
-			-sOutputFile="${i%.pdf}-%d.png" "$i" -c quit &&
-		    rm "$i"
-		done
+		$1 gs -sDEVICE=${gsdevice:-pngmono} -q -dNOPAUSE \
+		    -r${resolution:-300} -dNOPLATFONTS \
+		    -dTextAlphaBits=1 -dGraphicsAlphaBits=1 \
+		    -sOutputFile="${2%.pdf}-%d.png" "$2" -c quit
 	    };;
+	p)
+	    use_parallel=y;;
+	d)
+	    gsdevice=$OPTARG;;
     esac
 done
 
@@ -91,7 +89,22 @@ ls $LILYPOND_GIT/input/regression/*.ly > dir.txt
 $LILYPOND_BUILD_DIR/out/bin/lilypond $(eval echo $backend_opt) --relocate \
     -dinclude-settings=$LILYPOND_GIT/scripts/auxiliar/NoTagline.ly \
     -djob-count=$cpu_count -dread-file-list "dir.txt"
-png_generate *.pdf
+if [ "$backend_opt" = "--pdf" ]
+then
+    if [ $use_parallel = y ]
+    then
+	for i in *.pdf
+	do
+	    png_generate echo $i
+	done | parallel -j $cpu_count
+	rm *.pdf
+    else
+	for i in *.pdf
+	do
+	    png_generate "" $i && rm "$i"
+	done
+    fi
+fi
 rm -rf dir.txt
 rm -rf *.log
 
