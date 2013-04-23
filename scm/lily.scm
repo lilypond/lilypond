@@ -330,6 +330,12 @@ floating point exceptions.")
      #t
      "Don't use directories from input files while
 constructing output file names.")
+    (strokeadjust
+     #f
+     "Set the PostScript strokeadjust operator explicitly.
+This employs different drawing primitives, resulting in
+large PDF file size increases but often markedly better
+PDF previews.")
     (svg-woff
      #f
      "Use woff font files in SVG backend.")

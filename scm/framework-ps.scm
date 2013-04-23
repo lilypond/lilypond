@@ -84,7 +84,9 @@
    "/output-scale "
    (number->string (ly:output-def-lookup layout 'output-scale)) " def\n"
    (output-entry "page-height" 'paper-height)
-   (output-entry "page-width" 'paper-width)))
+   (output-entry "page-width" 'paper-width)
+   (if (ly:get-option 'strokeadjust) "true setstrokeadjust\n" "")
+   ))
 
 (define (dump-page outputter page page-number page-count landscape?)
   (ly:outputter-dump-string
