@@ -90,7 +90,7 @@ a list of @var{paddings}."
     (set! stil
 	  (ly:stencil-combine-at-edge stil (other-axis axis) 1 rb padding))
     (set! stil
-	  (ly:stencil-combine-at-edge lb (other-axis axis) 1 stil padding))
+	  (ly:stencil-combine-at-edge stil (other-axis axis) -1 lb padding))
     stil))
 
 (define (make-parenthesis-stencil
@@ -166,7 +166,7 @@ the more angular the shape of the parenthesis."
 	      y-extent half-thickness (- width) angularity))
 	 (rp (make-parenthesis-stencil
 	      y-extent half-thickness width angularity)))
-    (set! stencil (ly:stencil-combine-at-edge lp X RIGHT stencil padding))
+    (set! stencil (ly:stencil-combine-at-edge stencil X LEFT lp padding))
     (set! stencil (ly:stencil-combine-at-edge stencil X RIGHT rp padding))
     stencil))
 
