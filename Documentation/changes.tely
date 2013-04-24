@@ -73,6 +73,16 @@ A new command @code{\markLengthOff} turns this feature off.
 @end lilypond
 
 @item
+There is a new @code{\absolute} command explicitly marking music
+as being entered in absolute pitch.  While this has been the
+default previously, an explicit @code{\absolute} also prevents
+reinterpretation when the passage is placed inside of
+@code{\relative}:
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
+
+@item
 When @code{\relative} is used without an explicit reference pitch,
 the reference pitch now is the middle of the first octave, making
 the first entered pitch indistinguishable from absolute pitch.

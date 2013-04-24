@@ -87,6 +87,18 @@ octave.
 }
 @end lilypond
 
+@funindex absolute
+@funindex \absolute
+Music can be marked explicitly as being in absolute octave
+notation by preceding it with @code{\absolute}:
+
+@example
+\absolute @var{musicexpr}
+@end example
+
+will be interpreted in absolute octave entry mode regardless of
+the context it appears in.
+
 @seealso
 Music Glossary:
 @rglos{Pitch names}.
@@ -107,13 +119,13 @@ Snippets:
 @funindex relative
 @funindex \relative
 
-When octaves are specified in absolute mode it is easy to
-accidentally put a pitch in the wrong octave.  Relative octave
-mode reduces these errors since most of the time it is not
-necessary to indicate any octaves at all.  Furthermore, in
-absolute mode a single mistake may be difficult to spot, while in
-relative mode a single error puts the rest of the piece off by one
-octave.
+Absolute octave entry requires specifying the octave for every
+single note.  Relative octave entry, in contrast, specifies each
+octave in relation to the last note: changing one note's octave
+will affect all of the following notes.
+
+Relative note mode has to be entered explicitly using the
+@code{\relative} command:
 
 @example
 \relative @var{startpitch} @var{musicexpr}
