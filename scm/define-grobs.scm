@@ -1421,6 +1421,7 @@
 	(outside-staff-priority . 1000)
 	(padding . 0.8)
 	(side-axis . ,Y)
+	(skyline-horizontal-padding . 0.2)
 	(stencil . ,ly:text-interface::print)
 	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
 	(Y-offset . ,side-position-interface::y-aligned-side)
