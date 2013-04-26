@@ -4416,7 +4416,7 @@ The addition of such two intervals forms an octave.
 % Fifth
   < g des' >^"dim"
   < g d' >^"per"
-  < g dis >^"aug"
+  < g dis' >^"aug"
 % Sixth
   < gis es' >^"dim"
   < g! es' >^"min"
