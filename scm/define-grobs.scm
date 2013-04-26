@@ -539,6 +539,7 @@
      . (
 	(avoid-slur . inside)
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-anchor-alignment . ,RIGHT)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
@@ -1180,6 +1181,7 @@
      . (
 	(avoid-slur . inside)
 	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-anchor-alignment . ,RIGHT)
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
@@ -1433,7 +1435,7 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,LEFT)
 	(break-align-symbols . (time-signature))
-	(non-break-align-symbols . (multi-measure-rest-interface))
+	(non-break-align-symbols . (paper-column-interface))
 	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
@@ -1781,7 +1783,7 @@
      . (
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(baseline-skip . 2)
-	(break-align-symbols . (staff-bar clef))
+	(break-align-symbols . (staff-bar key-signature clef))
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
 	(extra-spacing-width . (+inf.0 . -inf.0))

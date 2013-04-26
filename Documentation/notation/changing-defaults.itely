@@ -3844,11 +3844,11 @@ objects other than bar lines.  These objects include @code{ambitus},
 @code{left-edge}, @code{key-cancellation}, @code{key-signature}, and
 @code{time-signature}.
 
-By default, rehearsal marks and bar numbers will be horizontally
-centered above the object:
+Each type of object has its own default reference point, to which
+rehearsal marks are aligned:
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
@@ -3881,13 +3881,13 @@ line is invisible the object is aligned to the place where the bar
 line would be.
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Key Signature
+% The rehearsal mark will be aligned to the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
@@ -3909,20 +3909,20 @@ can be changed, as shown in the following example.  In a score with
 multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the Key Signature
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% The RehearsalMark will be centered above the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
 e1
-% The RehearsalMark will be aligned with the right edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
 e1

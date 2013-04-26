@@ -25,11 +25,13 @@ and @code{flat-positions}." }
   \clef bass
   \key cis \major cis \key ces \major  ces
   \break R1
-  \tempo "B-sharp on top"
+  \override Score.RehearsalMark.self-alignment-X = #LEFT
+  \override Score.RehearsalMark.font-size = #0
+  \mark "B-sharp on top"
   \override Staff.KeySignature.sharp-positions = #'(6 0 1 2 3 4 5)
   \override Staff.KeyCancellation.sharp-positions = #'(6 0 1 2 3 4 5)
   \key cis \major R
-  \tempo "Flats throughout the staff"
+  \mark "Flats throughout the staff"
   \override Staff.KeySignature.flat-positions = #'((-5 . 5))
   \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
   \key ces \major R
