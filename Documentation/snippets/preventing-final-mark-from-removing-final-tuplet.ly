@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.17.15"
 
 \header {
   lsrtags = "rhythms"
@@ -17,6 +17,8 @@ tuplet marking.  This can be overcome by setting @code{TupletBracket
 "
   doctitle = "Preventing final mark from removing final tuplet"
 } % begin verbatim
+
+\markup \vspace #1 %% workaround for LSR-problem
 
 \new Staff {
    \set tupletFullLength = ##t
