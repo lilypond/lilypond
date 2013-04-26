@@ -16,7 +16,7 @@
 
 @node Signes d'interprétation
 @section Signes d'interprétation
-10@translationof Expressive marks
+@translationof Expressive marks
 
 @lilypondfile[quote]{expressive-headword.ly}
 
