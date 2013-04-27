@@ -66,13 +66,9 @@ Stencil::extent (Axis a) const
 
 bool
 Stencil::is_empty () const
-/* If only one of X- or Y-extent is empty; such a stencil can be useful
- * for backspacing, as with \hspace #-2, so we do not consider it empty.
- */
 {
   return (expr_ == SCM_EOL
-          || (dim_[X_AXIS].is_empty ()
-              && dim_[Y_AXIS].is_empty ()));
+          || dim_.is_empty ());
 }
 
 SCM

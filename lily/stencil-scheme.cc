@@ -180,7 +180,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
            "@item\n"
            "The vertical and horizontal extents of the object, given as"
            " pairs.  If an extent is unspecified (or if you use"
-           " @code{(1000 . -1000)} as its value), it is taken to be empty.\n"
+           " @code{empty-interval} as its value), it is taken to be empty.\n"
            "@end enumerate\n")
 {
   SCM_ASSERT_TYPE (!scm_is_pair (expr)
