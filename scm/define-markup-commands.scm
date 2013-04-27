@@ -111,7 +111,8 @@
 ;; utility functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
+(define-public empty-stencil (ly:make-stencil '()
+                                              empty-interval empty-interval))
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
