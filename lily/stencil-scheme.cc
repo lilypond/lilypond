@@ -84,12 +84,17 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
 }
 
 LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
-           1, 0, 0, (SCM stil),
-           "Return whether @var{stil} is empty.")
+           1, 1, 0, (SCM stil, SCM axis),
+           "Return whether @var{stil} is empty.  If an optional"
+           " @var{axis} is supplied, the emptiness check is"
+           " restricted to that axis.")
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  return scm_from_bool (s->is_empty ());
+  if (SCM_UNBNDP (axis))
+    return scm_from_bool (s->is_empty ());
+  LY_ASSERT_TYPE (is_axis, axis, 2);
+  return scm_from_bool (s->is_empty (Axis (scm_to_int (axis))));
 }
 
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
