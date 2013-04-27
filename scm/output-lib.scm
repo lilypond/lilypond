@@ -26,9 +26,6 @@
 (define-public (grob::is-live? grob)
   (pair? (ly:grob-basic-properties grob)))
 
-(define-public (grob::x-parent-width grob)
-  (ly:grob-property (ly:grob-parent grob X) 'X-extent))
-
 (define-public (make-stencil-boxer thickness padding callback)
   "Return function that adds a box around the grob passed as argument."
   (lambda (grob)
@@ -478,16 +475,6 @@ and duration-log @var{log}."
 (define-public center-visible          #(#f #t #f))
 (define-public end-of-line-visible     #(#t #f #f))
 (define-public all-invisible           #(#f #f #f))
-(define-public (inherit-x-parent-visibility grob)
-  (let ((parent (ly:grob-parent grob X)))
-    (ly:grob-property parent 'break-visibility all-invisible)))
-(define-public (inherit-y-parent-visibility grob)
-  (let ((parent (ly:grob-parent grob X)))
-    (ly:grob-property parent 'break-visibility)))
-
-
-(define-public spanbar-begin-of-line-invisible #(#t #f #f))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines
@@ -867,6 +854,14 @@ and duration-log @var{log}."
    the previous calculated offset value."
   prev-offset)
 
+(define-public (outside-staff::pure-Y-offset grob start end)
+  "Initial vertical placement of items such as tempo and
+   rehearsal marks, for use in note-spacing."
+   (* (+ (ly:staff-symbol-staff-radius grob)
+         (ly:grob-property grob 'outside-staff-padding 0.0)
+         1.0)
+      (ly:grob-property grob 'direction CENTER)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
@@ -1096,9 +1091,19 @@ and draws the stencil based on its coordinates.
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
 
-(define-public ((grob::calc-property-by-non-event-cause prop) grob)
-  (ly:grob-property (non-event-cause grob) prop))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; general inheritance
 
+(define-public ((grob::inherit-parent-property axis property . default) grob)
+  "@var{grob} callback generator for inheriting a @var{property} from
+an @var{axis} parent, defaulting to @var{default} if there is no
+parent or the parent has no setting."
+  (let ((parent (ly:grob-parent grob axis)))
+    (cond
+     ((ly:grob? parent)
+      (apply ly:grob-property parent property default))
+     ((pair? default) (car default))
+     (else '()))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards

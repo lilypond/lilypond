@@ -13,6 +13,7 @@ global _;_=ly._
 progress = ly.progress
 warning = ly.warning
 error = ly.error
+debug = ly.debug_output
 
 # Recognize special sequences in the input.
 #
@@ -165,12 +166,13 @@ LATEX_INSPECTION_DOCUMENT = r'''
 
 # Do we need anything else besides `textwidth'?
 def get_latex_textwidth (source, global_options):
+    # default value
+    textwidth = 550.0
+
     m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
     if m == None:
         warning (_ ("cannot find \\begin{document} in LaTeX document"))
-
-        ## what's a sensible default?
-        return 550.0
+        return textwidth
 
     preamble = source[:m.start (0)]
     latex_document = LATEX_INSPECTION_DOCUMENT % {'preamble': preamble}
@@ -186,9 +188,10 @@ def get_latex_textwidth (source, global_options):
     tmp_handle.close ()
 
     progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
-              % (global_options.latex_program, tmpfile));
-    cmd = '%s %s' % (global_options.latex_program, tmpfile);
-    ly.debug_output ("Executing: %s\n" % cmd);
+              % (global_options.latex_program, tmpfile))
+    cmd = 'TEXINPUTS=%s:$TEXINPUTS %s %s' \
+        % (global_options.input_dir, global_options.latex_program, tmpfile)
+    debug ("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
 
@@ -237,12 +240,22 @@ def get_latex_textwidth (source, global_options):
     if m:
         columnsep = float (m.group (1))
 
-    textwidth = 0
     m = re.search ('textwidth=([0-9.]+)pt', parameter_string)
     if m:
         textwidth = float (m.group (1))
-        if columns:
-            textwidth = (textwidth - columnsep) / columns
+    else:
+        warning (_ ("cannot detect textwidth from LaTeX"))
+        return textwidth
+
+    debug ('Detected values:')
+    debug ('  columns = %s' % columns)
+    debug ('  columnsep = %s' % columnsep)
+    debug ('  textwidth = %s' % textwidth)
+
+    if m and columns:
+        textwidth = (textwidth - columnsep) / columns
+        debug ('Adjusted value:')
+        debug ('  textwidth = %s' % textwidth)
 
     return textwidth
 
@@ -283,9 +296,10 @@ class BookLatexOutputFormat (BookBase.BookOutputFormat):
     def input_fullname (self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
         if ly.search_exe_path ('kpsewhich'):
-            return os.popen ('kpsewhich ' + input_filename).read()[:-1]
-        else:
-            return BookBase.BookOutputFormat.input_fullname (self, input_filename)
+            trial = os.popen ('kpsewhich ' + input_filename).read()[:-1]
+            if trial:
+                return trial
+        return BookBase.BookOutputFormat.input_fullname (self, input_filename)
 
     def process_chunks (self, chunks):
         for c in chunks:

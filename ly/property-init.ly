@@ -564,6 +564,15 @@ textLengthOff = {
   \revert TextScript.outside-staff-horizontal-padding
 }
 
+markLengthOn = {
+  \override Score.MetronomeMark.extra-spacing-width = #'(-0.5 . 0.5)
+  \override Score.RehearsalMark.extra-spacing-width = #'(-0.5 . 0.5)
+}
+
+markLengthOff = {
+  \override Score.MetronomeMark.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override Score.RehearsalMark.extra-spacing-width = #'(+inf.0 . -inf.0)
+}
 
 %% text spanners
 

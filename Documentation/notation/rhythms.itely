@@ -417,10 +417,12 @@ indicate articulation, or @emph{phrasing slurs}, which indicate
 musical phrasing.  A tie is just a way of extending a note
 duration, similar to the augmentation dot.}
 
-A tie is entered using the tilde symbol (@code{~}).
+A tie is entered by appending a tilde symbol (@code{~}) to the first
+of each pair of notes being tied.  This indicates that the note
+should be tied to the following note, which must be at the same pitch.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2~ a4~ a16 r r8
 @end lilypond
 
 Ties are used either when the note crosses a bar line, or when
@@ -429,8 +431,8 @@ used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c8 ~ c2 r4 |
-  r8^"not" c2 ~ c8 r4
+  r8 c~ c2 r4 |
+  r8^"not" c2~ c8 r4
 }
 @end lilypond
 
@@ -444,11 +446,11 @@ ties them across bar lines.
 
 When a tie is applied to a chord, all note heads whose pitches
 match are connected.  When no note heads match, no ties will be
-created.  Chords may be partially tied by placing the tie inside
+created.  Chords may be partially tied by placing the ties inside
 the chord.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g> ~ <c e g>
+<c e g>~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -464,7 +466,7 @@ When a second alternative of a repeat starts with a tied note, you
 have to specify the repeated tie as follows:
 
 @lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2 ~ }
+\repeat volta 2 { c g <c e>2~ }
 \alternative {
   % First alternative: following note is tied normally
   { <c e>2. r4 }
@@ -496,7 +498,7 @@ be entered as follows:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Ties may be manually placed above or below the staff; see
+Ties may be made to curve up or down manually; see
 @ref{Direction and placement}.
 
 @cindex ties, appearance
@@ -517,26 +519,26 @@ dashed.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2~ c
 \tieDashed
-c2 ~ c
+c2~ c
 \tieHalfDashed
-c2 ~ c
+c2~ c
 \tieHalfSolid
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Custom dash patterns can be specified:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2~ c
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Dash pattern definitions for ties have the same structure as dash
@@ -1331,6 +1333,24 @@ written by including an empty string in the input:
 d4 g e c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+When tempo indications follow each other closely in the music,
+such as in a part for an instrument with long periods of rests,
+the measures are stretched horizontally so that the tempo indications
+do not overlap.  The commands @code{\markLengthOn} and
+@code{\markLengthOff} control this behavior.
+
+@lilypond[quote,relative=0]
+\compressFullBarRests
+\tempo "Molto vivace"
+R1*12
+\tempo "Meno mosso"
+R1*16
+@end lilypond
 
 @snippets
 
@@ -1404,13 +1424,13 @@ The @var{duration} can be any value less than a full measure:
 r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-The @code{\partial @var{duration}} can also be written as;
+@code{\partial @var{duration}} can also be written as:
 
 @example
 \set Timing.measurePosition -@var{duration}
 @end example
 
-So @code{\partial 8} becomes:
+So the first example above could be written:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1418,11 +1438,12 @@ So @code{\partial 8} becomes:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-The property @code{measurePosition} contains a rational number
-indicating how much of the measure has passed at this point.  Note
-that this is set to a negative number by the @code{\partial} command:
-i.e., @code{\partial 4} is internally translated to @w{@code{-4}},
-meaning @qq{there is a quarter note left in the measure.}
+The property @code{measurePosition} contains a rational number, which
+is usually positive and indicates how much of the measure has passed
+at this point.  The @code{\partial @var{duration}} command sets it to
+a negative number, when it has a different meaning: it then says that
+the current (first) bar will be @emph{preceded} by a bar 0 (the partial
+bar) with a duration given by @var{duration}.
 
 @seealso
 Music Glossary:
@@ -1506,15 +1527,20 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-A new bar is never started within a cadenza, even if one or more
-@code{\bar} commands are inserted within it.  Therefore, reminder
-accidentals will need to be added manually.  See @ref{Accidentals}.
+Inserting a @code{\bar} command within a cadenza does not start a new
+measure, even if a bar line is printed.  So any accidentals -- which
+are usually assumed to remain in force until the end of the measure --
+will still be valid after the bar line printed by @code{\bar}.  If
+subsequent accidentals should be printed, forced accidentals or
+reminder accidentals need to be inserted manually, see
+@ref{Accidentals}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 cis4 d cis d
 \bar "|"
+% First cis is printed without alteration even if it's after a \bar
 cis4 d cis! d
 \cadenzaOff
 \bar "|"

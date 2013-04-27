@@ -544,10 +544,12 @@ def do_file (input_filename, included=False):
         in_handle = file (input_fullname)
 
     if input_filename == '-':
+        global_options.input_dir = os.getcwd ()
         input_base = 'stdin'
     elif included:
         input_base = os.path.splitext (input_filename)[0]
     else:
+        global_options.input_dir = os.path.split (input_absname)[0]
         input_base = os.path.basename (
             os.path.splitext (input_filename)[0])
 

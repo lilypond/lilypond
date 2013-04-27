@@ -1472,21 +1472,34 @@ playing in unison.
 @end lilypond
 
 The @code{\transposition} may be changed during a piece.  For
-example, a clarinetist may switch from an A clarinet to a B-flat
-clarinet.
+example, a clarinetist may be required to switch from an A clarinet
+to a B-flat clarinet.
 
-@lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = #"Cl (A)"
-\key a \major
-\transposition a
-c d e f
-\textLengthOn
-<>^\markup { Switch to B\flat clarinet }
-R1
-
-\key bes \major
-\transposition bes
-c2 g
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  \key f\major
+  \cueDuring #"clarinet" #DOWN {
+    R1 _\markup\tiny "clarinet"
+    c4 f e d
+    R1 _\markup\tiny "clarinet"
+  }
+}
+clarinet = \relative c'' {
+  \key aes \major
+  \transposition a
+  aes4 bes c des
+  R1^\markup { muta in B\flat }
+  \key g \major
+  \transposition bes
+  d2 g,
+}
+\addQuote "clarinet" \clarinet
+<<
+  \new Staff \with { instrumentName = #"Flute" }
+    \flute
+  \new Staff \with { instrumentName = #"Cl (A)" }
+    \clarinet
+>>
 @end lilypond
 
 @seealso
