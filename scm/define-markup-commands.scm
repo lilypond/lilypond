@@ -693,7 +693,6 @@ Create a box of the same height as the space in the current font."
 (define-markup-command (hspace layout props amount)
   (number?)
   #:category align
-  #:properties ((word-space))
   "
 @cindex creating horizontal spaces in text
 
@@ -708,8 +707,7 @@ Create an invisible object taking up horizontal space @var{amount}.
   three
 }
 @end lilypond"
-  (let ((corrected-space (- amount word-space)))
-    (ly:make-stencil "" (cons 0 corrected-space) '(0 . 0))))
+  (ly:make-stencil "" (cons 0 amount) empty-interval))
 
 (define-markup-command (vspace layout props amount)
  (number?)
@@ -732,7 +730,7 @@ of @var{amount} multiplied by 3.
 }
 @end lilypond"
   (let ((amount (* amount 3.0)))
-    (ly:make-stencil "" (cons 0 0) (cons 0 amount))))
+    (ly:make-stencil "" empty-interval (cons 0 amount))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
