@@ -67,33 +67,20 @@ a list of @var{padding}."
 
 (define-public (stack-lines dir padding baseline stils)
   "Stack vertically with a baseline skip."
-  (define result empty-stencil)
-  (define last-y #f)
-  (do
-      ((last-stencil #f (car p))
-       (p stils (cdr p)))
-
-      ((null? p))
-
-    (if (number? last-y)
-	(begin
-	  (let* ((dy (max (+ (* dir (interval-bound (ly:stencil-extent last-stencil Y) dir))
-			     padding
-			     (* (- dir) (interval-bound (ly:stencil-extent (car p) Y) (- dir))))
-			  baseline))
-		 (y (+ last-y  (* dir dy))))
-
-
-
-	    (set! result
-		  (ly:stencil-add result (ly:stencil-translate-axis (car p) y Y)))
-	    (set! last-y y)))
-	(begin
-	  (set! last-y 0)
-	  (set! result (car p)))))
-
-  result)
-
+  (reduce-right
+   (lambda (next back) (ly:stencil-stack next Y dir back padding baseline))
+   empty-stencil
+   (map
+    (lambda (s)
+      ;; X-empty stencils may add vertical space.  A stencil that is
+      ;; merely Y-empty counts as horizontal spacing.  Since we want
+      ;; those to register as lines of their own (is this a good
+      ;; idea?), we make them a separately visible line.
+      (if (and (ly:stencil-empty? s Y)
+               (not (ly:stencil-empty? s X)))
+          (ly:make-stencil (ly:stencil-expr s) (ly:stencil-extent s X) '(0 . 0))
+          s))
+    stils)))
 
 (define-public (bracketify-stencil stil axis thick protrusion padding)
   "Add brackets around @var{stil}, producing a new stencil."
