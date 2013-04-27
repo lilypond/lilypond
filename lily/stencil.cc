@@ -259,22 +259,46 @@ Stencil::align_to (Axis a, Real x)
 }
 
 /*  See scheme Function.  */
+
+// Any stencil that is empty in the orthogonal axis is spacing.
+// Spacing is not subjected to the max (0) rule and can thus be
+// negative.
+
 void
 Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
 {
-  Interval my_extent = dim_[a];
-  Interval i (s.extent (a));
-  Real his_extent;
-  if (i.is_empty ())
-    {
-      programming_error ("Stencil::add_at_edge: adding empty stencil.");
-      his_extent = 0.0;
-    }
-  else
-    his_extent = i[-d];
+  // Material that is empty in the axis of reference has only limited
+  // usefulness for combining.  We still retain as much information as
+  // available since there may be uses like setting page links or
+  // background color or watermarks.
 
-  Real offset = (my_extent.is_empty () ? 0.0 : my_extent[d] - his_extent)
-                + d * padding;
+  if (is_empty (a))
+    {
+      add_stencil (s);
+      return;
+    }
+
+  Interval first_extent = extent (a);
+
+  if (s.is_empty (a))
+    {
+      Stencil toadd (s);
+      toadd.translate_axis (first_extent[d], a);
+      add_stencil (toadd);
+      return;
+    }
+
+  Interval next_extent = s.extent (a);
+
+  bool first_is_spacing = is_empty (other_axis (a));
+  bool next_is_spacing = s.is_empty (other_axis (a));
+
+  Real offset = first_extent[d] - next_extent[-d];
+
+  if (!(first_is_spacing || next_is_spacing))
+    {
+      offset += d * padding;
+    }
 
   Stencil toadd (s);
   toadd.translate_axis (offset, a);
