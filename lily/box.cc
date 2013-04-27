@@ -23,7 +23,8 @@ void
 Box::translate (Offset o)
 {
   for (Axis i = X_AXIS; i < NO_AXES; incr (i))
-    interval_a_[i] += o[i];
+    if (!is_empty (i))
+      interval_a_[i] += o[i];
 }
 
 void
