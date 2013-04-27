@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.16\n"
+"Project-Id-Version: lilypond 2.17.17\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-04-13 14:20+0100\n"
+"POT-Creation-Date: 2013-04-27 13:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,24 +27,28 @@ msgstr ""
 msgid "Output function not implemented"
 msgstr ""
 
-#: book_latex.py:170
+#: book_latex.py:174
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: book_latex.py:188
+#: book_latex.py:190
 #, python-format
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:209 book_texinfo.py:228
+#: book_latex.py:212 book_texinfo.py:228
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:221 book_texinfo.py:240
+#: book_latex.py:224 book_texinfo.py:240
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
+msgstr ""
+
+#: book_latex.py:247
+msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
 #: book_snippets.py:406
@@ -1215,47 +1219,47 @@ msgstr ""
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:570
+#: lilypond-book.py:572
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:574
+#: lilypond-book.py:576
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:581
+#: lilypond-book.py:583
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:592
+#: lilypond-book.py:594
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:600
+#: lilypond-book.py:602
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:611
+#: lilypond-book.py:613
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:704
+#: lilypond-book.py:706
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:708
+#: lilypond-book.py:710
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:711
+#: lilypond-book.py:713
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
@@ -2466,7 +2470,7 @@ msgid ""
 "defaulting to hairpin."
 msgstr ""
 
-#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:135
+#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:119
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2693,7 +2697,7 @@ msgstr ""
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-column-engraver.cc:261
+#: paper-column-engraver.cc:263
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -2908,28 +2912,24 @@ msgstr ""
 msgid "direction of %s invalid: %d"
 msgstr ""
 
-#: slur-proto-engraver.cc:67
-msgid "cannot set break slur with two directions"
-msgstr ""
-
 #. We already have an old slur, so give a warning
 #. and completely ignore the new slur.
-#: slur-proto-engraver.cc:186
+#: slur-proto-engraver.cc:166
 #, c-format
 msgid "already have %s"
 msgstr ""
 
-#: slur-proto-engraver.cc:203
+#: slur-proto-engraver.cc:183
 #, c-format
 msgid "%s without a cause"
 msgstr ""
 
-#: slur-proto-engraver.cc:299
+#: slur-proto-engraver.cc:244
 #, c-format
 msgid "cannot end %s"
 msgstr ""
 
-#: slur.cc:441
+#: slur.cc:434
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3362,7 +3362,7 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:70
+#: define-event-classes.scm:69
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
@@ -3396,22 +3396,22 @@ msgstr ""
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:788
+#: define-music-types.scm:778
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:791
+#: define-music-types.scm:781
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:810
+#: define-music-types.scm:800
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:811
+#: define-music-types.scm:801
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
