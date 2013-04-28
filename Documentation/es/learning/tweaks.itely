@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 0f6397c6fb10d919c6fd006d89bd5cb614f858c6
+    Translation of GIT committish: b6f94447415dded7c6e146b41b6139fe76cb84c4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2419,6 +2419,9 @@ La instrucción para volver al comportamiento predeterminado es
 @code{\textLengthOff}.  De forma alternativa, se puede usar
 @code{\once} con @code{\textLengthOn} si el efecto se ha de limitar a
 un solo momento musical.
+The corresponding spacing behavior for rehearsal marks and tempo
+indications is independently controlled with the commands
+@code{\markLengthOn} and @code{\markLengthOff}.
 
 @cindex marcado, texto de, permitir las colisiones en
 
@@ -3770,7 +3773,7 @@ lhMusic = \relative c' {
 
 @menu
 * Otras aplicaciones de los trucos::
-* Uso de variables para los trucos::
+* Uso de variables para los ajustes de disposición::
 * Hojas de estilo::
 * Otras fuentes de información::
 * Trucos avanzados con Scheme::
@@ -3955,14 +3958,14 @@ sigue, mientras que la segunda (con el sello suprimido) no lo hace.
 Glosario musical:
 @rglos{system}.
 
-
-@node Uso de variables para los trucos
-@subsection Uso de variables para los trucos
+@node Uso de variables para los ajustes de disposición
+@subsection Uso de variables para los ajustes de disposición
 @translationof Using variables for tweaks
 
-@cindex variables, uso de, para trucos
-@cindex usar variables para hacer trucos
-@cindex trucos, usar variables para hacer
+@cindex variables, usar para sobreescrituras
+@cindex sobreescrituras, usar variablas para
+@cindex ajustes, usar variables para
+@cindex ajustes de disposición, usar variables para hacer
 
 Las instrucciones de sobreescritura son con frecuencia largas y
 tediosas de escribir, y se tienen que escribir de forma absolutamente

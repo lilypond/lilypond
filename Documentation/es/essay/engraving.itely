@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: b7ccc0d276f6f011b4351b3279b102585b309723
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1248,6 +1248,7 @@ las notas, el grabador @code{Note_heads_engraver}.
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1281,6 +1282,7 @@ A continuación, un grabador del pentagrama, el
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1313,6 +1315,7 @@ referencia para el pentagrama:
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
@@ -1341,6 +1344,7 @@ y el grabador de las plicas @code{Stem_engraver} añade las plicas.
       \remove "Phrasing_slur_engraver"
       \remove "Slur_engraver"
       \remove "Script_engraver"
+      \remove "New_fingering_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
     }
