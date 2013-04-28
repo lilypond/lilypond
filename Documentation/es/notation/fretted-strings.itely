@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: 25580682a08194862532dc53636148fb52de94c2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -327,11 +327,11 @@ ties = \relative c' {
 \score {
   <<
     \new StaffGroup  <<
-      \context Staff {
+      \new Staff {
         \clef "treble_8"
         \ties
       }
-      \context TabStaff {
+      \new TabStaff {
         \ties
       }
     >>
@@ -366,11 +366,11 @@ ties = \relative c' {
 \score {
   <<
     \new StaffGroup  <<
-      \context Staff {
+      \new Staff {
         \clef "treble_8"
         \ties
       }
-      \context TabStaff {
+      \new TabStaff {
       \hideSplitTiedTabNotes
         \ties
       }
@@ -750,12 +750,12 @@ y cuerdas mudas (que no se tocan).
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"6-x;5-3;4-2;3-o;2-1;1-o;"
@@ -774,12 +774,12 @@ la cadena de marcado del diagrama de trastes.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
      \chordmode {
        f1 g
      }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram #"c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
@@ -802,12 +802,12 @@ se puede cambiar en la cadena de marcado @code{fret-diagram}.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
      \chordmode {
        f1 g
      }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram #"s:1.5;c:6-1-1;6-1;5-3;4-3;3-2;2-1;1-1;"
@@ -825,12 +825,12 @@ la cadena de marcado del diagrama.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       a1
     }
   }
-  \context Staff {
+  \new Staff {
     % An 'A' chord for ukulele
     a'1^\markup {
       \fret-diagram #"w:4;4-2-2;3-1-1;2-o;1-o;"
@@ -845,12 +845,12 @@ marcado del diagrama.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"f:1;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
@@ -867,12 +867,12 @@ de marcado @code{fret-diagram}.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
@@ -899,12 +899,12 @@ aire y números de traste.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-terse #"x;3;2;o;1;o;"
@@ -921,12 +921,12 @@ Se pueden incluir números de cejilla en la cadena de marcado escueta
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       f1 g
     }
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1^\markup {
       \fret-diagram-terse #"1-(;3;3;2;1;1-);"
@@ -944,12 +944,12 @@ escueta @code{fret-diagram-terse}
 @c Need to use override to enable fingerings to show this -- can we do so?
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context Staff {
+  \new Staff {
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     \clef "treble_8"
     <c e g c' e'>1^\markup {
@@ -978,12 +978,12 @@ colocación un elemento sobre el diagrama de trastes.
 
 @lilypond[quote, verbatim]
 <<
-    \context ChordNames {
+    \new ChordNames {
       \chordmode {
         c1 d:m
       }
     }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1^\markup {
       \fret-diagram-verbose #'(
@@ -1019,12 +1019,12 @@ bajo del diagrama de posición.
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
-    \context ChordNames {
+    \new ChordNames {
       \chordmode {
         f1 g c
       }
     }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     \override Voice.TextScript.fret-diagram-details.finger-code = #'below-string
     <f, c f a c' f'>1^\markup {
@@ -1158,7 +1158,7 @@ en una tabla de búsqueda:
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
-\context FretBoards {
+\new FretBoards {
   \chordmode {
     c1 d
   }
@@ -1218,7 +1218,7 @@ bien usando el modo de acordes (véase
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
-\context FretBoards {
+\new FretBoards {
   \chordmode { c1 }
   <c' e' g'>1
 }
@@ -1244,10 +1244,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1272,10 +1272,10 @@ mychordlist = {
   \transpose c e { \mychords }
 }
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychordlist
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychordlist
   }
 >>
@@ -1302,10 +1302,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1337,10 +1337,10 @@ mychords = \chordmode {
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1365,10 +1365,10 @@ mychords = \chordmode {
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1416,10 +1416,10 @@ mychords = \chordmode{
 }
 
 <<
-  \context ChordNames {
+  \new ChordNames {
     \mychords
   }
-  \context FretBoards {
+  \new FretBoards {
     \mychords
   }
 >>
@@ -1483,16 +1483,16 @@ cuerdas y los trastes que se pueden usar para tocar las notas.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       f1 g
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <f, c f a c' f'>1
     <g,\6 b, d g b g'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1
     <g, b, d g b' g'>1
@@ -1518,19 +1518,19 @@ con instrucciones predefinidas:
                         #guitar-tuning
                         #"x;3-1-(;5-2;5-3;5-4;3-1-1-);"
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 c c
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <c e g c' e'>1
     \predefinedFretboardsOff
     <c e g c' e'>1
     \predefinedFretboardsOn
     <c e g c' e'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1
     <c e g c' e'>1
@@ -1556,16 +1556,16 @@ FretBoard.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       c1 d:m
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <c-3 e-2 g c'-1 e'>1
     <d a-2 d'-3 f'-1>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <c e g c' e'>1
     <d a d' f'>1
@@ -1580,17 +1580,17 @@ contexto FretBoard se puede fijar con la propiedad @code{minimumFret}.
 
 @lilypond[quote, verbatim]
 <<
-  \context ChordNames {
+  \new ChordNames {
     \chordmode {
       d1:m d:m
     }
   }
-  \context FretBoards {
+  \new FretBoards {
     <d a d' f'>1
     \set FretBoards.minimumFret = #5
     <d a d' f'>1
   }
-  \context Staff {
+  \new Staff {
     \clef "treble_8"
     <d a d' f'>1
     <d a d' f'>1

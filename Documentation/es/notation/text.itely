@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a2431d97866b1042f133ca76dbcb1f70f89bf360
+    Translation of GIT committish: b6f94447415dded7c6e146b41b6139fe76cb84c4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -286,8 +286,18 @@ c1 c
 c  c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+@predefined
+@code{\markLengthOn},
+@code{\markLengthOff}.
+@endpredefined
 
 @snippets
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line.ly}
 
