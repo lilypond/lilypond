@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
+    Translation of GIT committish: e674b7637b08e5d2638d232ba3d7c8420c9d1b6f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -727,8 +727,8 @@ márgenes distintos dentro del código de LilyPond, de esta forma, lo
 hace mucho más fácil de leer por nosotros los seres humanos.
 
 @warning{Cada nota se entiende relativa a la nota anterior de la
-entrada, no relativa a la @code{c''} dentro de la instrucción inicial
-@code{@bs{}\relative}.}
+entrada, solamente la primera es relativa a la @code{c''} dentro de
+la instrucción inicial @code{@bs{}\relative}.}
 
 
 @subheading Expresiones musicales simultáneas: un solo pentagrama
@@ -1412,11 +1412,10 @@ en @ruser{Crear títulos encabezamientos y pies de página}.
 @cindex absolutos, nombres de nota
 
 Hasta el momento siempre hemos utilizado @code{\relative} para definir
-las alturas.  Ésta es la forma más sencilla de escribir la mayor parte
-de la música, pero existe otra forma de definir las alturas: el modo
-absoluto.
+las alturas.  Ésta es normalmente la forma más rápida de escribir la mayor parte
+de la música.  Sin @code{\relative}, las alturas se interpretan en modo absoluto.
 
-Si omite el @code{\relative}, LilyPond tratará todas las alturas como
+En este modo, LilyPond tratará todas las alturas como
 valores absolutos.  Una @code{c'} significará siembre un Do central,
 una @code{b} significará siempre la nota inmediatamente por debajo del
 Do central, y una @code{g,} significará siempre la nota que se coloca
@@ -1481,9 +1480,27 @@ de localizar.
 
 Sin embargo, el modo absoluto es útil para escribir música que
 contenga intervalos grandes, y será extremadamente útil para hacer
-archivos de LilyPond generados por ordenador.
+archivos de LilyPond generados por ordenador.  Cuando se copian y
+pegan fragmentos melódicos, el modo absoluto preserva la octava
+del material original.
 
+A veces la música se dispone de formas más complejas.  Si está
+usando @code{\relative} dentro de @code{\relative}, las secciones
+relativas externa e interna son independientes:
 
+@lilypond[verbatim,quote]
+\relative c { c'4 \relative c'' { f g } c }
+@end lilypond
+
+@funindex \absolute
+Si está usando música absoluta dentro de un bloque de música
+relativa, tendrá que marcar la música absoluta explícitamente con
+la instrucción @code{\absolute} para evitar que se incorpore a la
+música relativa:
+
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
 
 @node Más allá del tutorial
 @subsection Más allá del tutorial

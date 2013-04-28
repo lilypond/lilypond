@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d596cd22ee8ffaf8ab46736e5fa2d067bcd92cad
+    Translation of GIT committish: b6f94447415dded7c6e146b41b6139fe76cb84c4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,93 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Se reserva espacio horizontal para las indicaciones de tempo y las
+marcas de ensayo, de forma que no se superpongan. La instrucción
+nueva @code{\markLengthOff} desactiva esta funcionalidad.
+@lilypond[quote,relative=0]
+\compressFullBarRests
+\tempo "Molto vivace" c''2 c'
+\mark\default
+\tempo "Meno mosso" R1*16
+@end lilypond
+
+@item
+Cuando se utiliza @code{\relative} sin emplear como referencia una
+altura explícita, se toma como referencia el centro de la primera
+octava, haciendo que no se pueda distinguir si la primera nota que
+se introduce es relativa o absoluta.  Anteriormente, la omisión de
+una altura de referencia habría llevado a una altura
+predeterminada de @code{c'} (el Do central).  Dado que la
+mencionada elección es, hasta cierto punto, arbitraria, la forma
+de uso recomendada es que se especifique siempre una altura de
+referencia.
+
+@item
+Se puede usar la nueva instrucción @code{\single} para convertir
+la sobreescritura de una propiedad en un truco que se aplica a una
+expresión musical única:
+
+@lilypond[quote,verbatim,relative=2]
+<a \single\voiceTwoStyle e' a>1
+@end lilypond
+
+@item
+Dos maneras de hacer que los objetos gráficos no aparezcan en la
+salida son: sobreescribir su propiedad @code{transparent} con un
+valor verdadero @code{#t} (reteniendo el espaciado original), o
+sobreescribiendo su propiedad @code{stencil} o sello con un valor
+falso @code{#f} (que no ocupa ningún espacio).  Estas dos
+operaciones tienen ahora las formas cortas @code{\hide} (ocultar)
+y @code{\omit} (omitir), respectivamente.  A estas instrucciones
+puede dárseles una expresión musical sobre la que efectuar el
+trucaje, o bien el nombre de un objeto gráfico para el que se debe
+crear la sobreescritura (para especificar los dos, utilice
+@code{\single} sobre la instrucción en forma de sobreescritura):
+
+@lilypond[quote,verbatim]
+\new Staff \with { \omit Clef }
+\relative c'' <a e' \hide a>1
+@end lilypond
+
+@item
+Se puede aplicar la nueva instrucción @code{\temporary} a las
+sobreescrituras para hacer que no sustituyan a los ajustes de
+propiedad previos.  Si se aplica una instrucción de reversión
+@code{\revert} a la misma propiedad varias veces seguidas, el
+ajuste anterior reaparece:
+
+@lilypond[quote,verbatim,relative=2]
+\override NoteHead.color = #red c4
+\override NoteHead.color = #green d
+\revert NoteHead.color e2
+\override NoteHead.color = #red c4
+\temporary\override NoteHead.color = #green d
+\revert NoteHead.color e
+\revert NoteHead.color c
+@end lilypond
+
+Esto tiene utilidad principalmente para la escritura de funciones
+musicales que se desea que tengan alguna propiedad modificada
+solamente por un tiempo igual a la duración de la función.
+
+@item
+Las instrucciones @code{\tag}, @code{\removeWithTag} y
+@code{\keepWithTag} ahora admiten una lista de símbolos en lugar
+de un solo símbolo para marcar, eliminar y seleccionar música que
+esté etiquetada con una cualquiera de la lista de etiquetas.  Esto
+es de especial importancia para @code{\keepWithTag} porque no es
+posible conseguir el mismo efecto usando varias instrucciones
+@code{\keepWithTag} consecutivas.
+
+@item
+La opción @samp{-d old-relative} se ha eliminado.  Ya no está
+accesible a través de la línea de órdenes; la utilidad que aún
+conservaba era la interpretación de @code{\relative} en archivos
+de LilyPond convertidos automáticamente de las versiones@tie{}1.8
+o anteriores.  No está claro cuántas de tales versiones estaban
+aún en funcionamiento.
 
 @item
 Se ha invertido el significado de @code{instrumentTransposition}.
