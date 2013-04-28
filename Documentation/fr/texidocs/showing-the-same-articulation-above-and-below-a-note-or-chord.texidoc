@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 LilyPond ne permet pas, par défaut, qu'une même articulation (accent,
 flageolet, point d'orgue, etc.) se retrouve à la fois au-dessus et
@@ -12,7 +12,7 @@ l'articulation relativement à la tête de note comme dans le cas du
 flageolet ci-dessous.  L'imitation du traitement d'un script
 externe à un accord requérant un @code{add-stem-support}, demande
 de libeller la note comme étant un accord et d'ajouter les
-articulations au sein de la construction @code{<...>}.  Un simple
+articulations au sein de la construction @code{<@dots{}>}.  Un simple
 amendement permettra de rectifier le positionnement habituel en
 surplomb : @code{<c-\\tweak direction #DOWN-\\fermata^\\fermata>}
 

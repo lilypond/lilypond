@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidoc = "
 Lorsque des notes simultanées appartenant à des voix différentes ont la
 même orientation de hampe et qu'aucun décalage n'a été appliqué ou qu'il
@@ -7,7 +7,7 @@ many clashing note columns} » (trop d'empilements de notes se
 chevauchent. On fera au mieux).  On peut s'exonérer de cet avertissement
 en activant la propriété @code{ignore-collision} de l'objet
 @code{NoteColumn}.  Notez bien que ceci n'aura pas pour seul effet de
-supprimer les avertissement ; les routines de résolution de collisions
+supprimer les avertissements ; les routines de résolution de collision
 sont par la même occasion désactivées, ce qui peut engendrer certains
 désagréments si vous en abusez.
 

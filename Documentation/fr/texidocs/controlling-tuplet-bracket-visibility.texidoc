@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Selon la tradition, les crochets indicateurs de nolet sont toujours
 imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
@@ -10,4 +10,3 @@ affichage : déterminée à @code{#t}, ils seront toujours imprimés ;
 
 "
   doctitlefr = "Contrôle de l'impression des crochets de nolet"
-

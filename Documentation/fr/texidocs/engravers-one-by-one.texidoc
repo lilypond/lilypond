@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Pour appréhender la notation, nous l'avons disséquée en éléments
 simples : chaque type de symbole est géré par un module différent.
@@ -18,9 +18,9 @@ est appelé à son tour, dans l'ordre suivant :
 -- altérations, barres de mesure, métrique et armure.
 
 Les graveurs se regroupent.  Par exemple, têtes de note, liaisons,
-ligature etc. forment un contexte de voix (@code{Voice}).  Les graveurs
-chargés de la métrique, des altérations, des barres de mesure etc.
-forment un contexte de portée (@code{Staff}).
+ligature, etc. forment un contexte de voix (@code{Voice}).  Les
+graveurs chargés de la métrique, des altérations, des barres de
+mesure, etc. forment un contexte de portée (@code{Staff}).
 
 "
   doctitlefr = "Les graveurs un par un"

@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Cette méthode permet d'imprimer deux marques-repères l'une au-dessus de
-l'autre. Le repère inférieur est décalé sous la portée, puis s'insère
+l'autre.  Le repère inférieur est décalé sous la portée, puis s'insère
 au-dessus de lui un espace pour positionner le repère supérieur
 au-dessus de la portée.
 
@@ -9,9 +9,9 @@ L'ajustement des valeurs de @code{extra-offset} et @code{baseline-skip}
 permet d'accroître ou réduire globalement l'espace entre le repère et la
 portée.
 
-La capacité de pratiquement tout type de glyphe ou chaîne de caractère à
-faire l'objet d'un repère les rend capable de venir se centrer au-dessus
-ou en dessous d'une barre de mesure.
+La capacité de pratiquement tout type de glyphe ou chaîne de caractères
+à faire l'objet d'un repère les rend capable de venir se centrer
+au-dessus ou en dessous d'une barre de mesure.
 
 L'adjonction de la propriété @code{break-visibility}, comme dans le
 troisième cas, permet de placer un double repère en fin de ligne.

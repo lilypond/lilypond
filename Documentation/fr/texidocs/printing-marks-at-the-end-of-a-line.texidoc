@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
-Les indications textuelles peuvent être imprimées à la fin d'une ligne
+Les indications de repère peuvent être imprimées à la fin d'une ligne
 plutôt qu'en tête de la suivante.  L'alignement sur la barre de mesure
 devra alors s'effectuer par l'extrémité droite de l'indication.
 
 "
-  doctitlefr = "Indication textuelle en fin de ligne"
+  doctitlefr = "Indication d'un repère en fin de ligne"

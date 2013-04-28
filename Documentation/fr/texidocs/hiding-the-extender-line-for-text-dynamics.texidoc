@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Les crescendos et decrescendos indiqués textuellement -- tels que
 @emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
@@ -6,4 +6,3 @@ leur étendue.  On peut empêcher l'impression de ces pointillés.
 
 "
   doctitlefr = "Masquage de l'extension des nuances textuelles"
-

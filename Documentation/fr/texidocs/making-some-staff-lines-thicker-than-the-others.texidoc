@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Vous pourriez avoir envie, dans un but pédagogique, de rendre certaines
 lignes d'une portée plus épaisses que les autres, comme la ligne médiane,
@@ -9,4 +9,3 @@ l'objet @code{StaffSymbol}.
 
 "
   doctitlefr = "Empâtement de certaines lignes d'une portée"
-

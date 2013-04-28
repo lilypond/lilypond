@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 Cet exemple peu académique démontre comment il est possible d'insérer un
-saut de ligne dans un nolet portant une ligature. Ces ligatures doivent
+saut de ligne dans un nolet portant une ligature.  Ces ligatures doivent
 toutefois être explicites.
 
 "

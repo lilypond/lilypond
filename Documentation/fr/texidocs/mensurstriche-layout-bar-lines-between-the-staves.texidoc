@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 En musique mensurale, les barres de mesure ne traversent pas les
 portées.  Pour obtenir ce résultat avec un @code{StaffGroup} plutôt
@@ -7,4 +7,3 @@ qu'en utilisant un @code{ChoirStaff}, il faudra rendre
 
 "
   doctitlefr = "Présentation à l'ancienne (barres de mesure entre les portées)"
-

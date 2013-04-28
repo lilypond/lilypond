@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
   texidocfr = "
 L'outil de combinaison de parties (la commande @code{\\partcombine})
 permet d'avoir deux parties différentes sur une même portée.  LilyPond
@@ -17,4 +17,3 @@ supplémentaire, et avec @code{\\partcombine} commentée.
 
 "
   doctitlefr = "Combinaison de deux parties sur une même portée"
-
