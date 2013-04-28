@@ -251,7 +251,7 @@ Stencil::set_empty (bool e)
 void
 Stencil::align_to (Axis a, Real x)
 {
-  if (is_empty ())
+  if (is_empty (a))
     return;
 
   Interval i (extent (a));
