@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2402,7 +2402,10 @@ c2^"Text4" |
 La commande qui permet de revenir au comportement par défaut est
 @code{\textLengthOff}.  Alternativement, lorsque l'instruction
 @code{\textLengthOn} se limite à un seul instant musical, vous
-pouvez la préfixer d'un @code{\once}.
+pouvez la préfixer d'un @code{\once}.@*
+LilyPond dispose de commandes équivalentes et dévolues au
+traitement des repères et indications de tempo :
+@code{\markLengthOn} et @code{\markLengthOff}.
 
 @cindex étiquette de texte et collision
 
@@ -3947,7 +3950,7 @@ Glossaire musicologique :
 
 @node Utilisation de variables dans les retouches
 @subsection Utilisation de variables dans les retouches
-@translationof Using variables for tweaks
+@translationof Using variables for layout adjustments
 
 @cindex variables, utilisation dans les retouches
 @cindex utilisation de variables dans les retouches

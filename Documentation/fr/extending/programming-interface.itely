@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0cde75024b6f1210b059c48b624e1026836c96aa
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -36,16 +36,45 @@ connaissez rien de Scheme, vous en aurez un aperçu au travers de notre
 
 @node Blocs de code LilyPond
 @section Blocs de code LilyPond
-@translationof Lilypond code blocks
+@translationof LilyPond code blocks
+
+@cindex code, blocs LilyPond
+@cindex LilyPond, bloc de code
+
+@funindex #@{ @dots{} #@}
+@funindex $
+@funindex #
+
+L'utilisation de Scheme pour créer des expressions musicales peut
+s'avérer ardue, principalement à cause des imbrications et de la
+longueur du code Scheme qui en résulte.  Dans le cas de tâches
+simples, on peut toutefois contourner une partie du problème en
+utilisant des blocs de code LilyPond, ce qui autorise la syntaxe
+habituelle de LilyPond au sein même de Scheme.
 
 Les blocs de code LilyPond ressemblent à
+
 @example
   #@{ @var{du code LilyPond} #@}
 @end example
-Ils peuvent s'utiliser partout où vous pouvez écrire du code Scheme.
-Le lecteur Scheme est en fait quelque peu adapté pour accepter des blocs
-de code LilyPond ; il est capable de traiter des expressions Scheme
-intégrées débutant par @code{$} ou @code{#}.
+
+En voici un exemple basique :
+
+@lilypond[verbatim,quote]
+ritpp = #(define-event-function (parser location) ()
+  #{ ^"rit." \pp #}
+)
+
+{ c'4 e'4\ritpp g'2 }
+@end lilypond
+
+Les blocs de code LilyPond peuvent s'utiliser partout où vous pouvez
+écrire du code Scheme.  Le lecteur Scheme est en fait quelque peu adapté
+pour accepter des blocs de code LilyPond ; il est capable de traiter des
+expressions Scheme intégrées débutant par @code{$} ou @code{#}.
+
+@cindex parser (fonction argument)
+@cindex location
 
 Le lecteur Scheme extrait le bloc de code LilyPond et déclenche un appel
 à l'analyseur grammatical de LilyPond (le @code{parser}) qui réalise en
@@ -53,11 +82,17 @@ temps réel l'interprétation de ce bloc de code LilyPond.  Toute
 expression Scheme imbriquée est exécutée dans l'environnement lexical du
 bloc de code LilyPond, de telle sorte que vous avez accès aux variables
 locales et aux paramètres de la fonction au moment même où le bloc de
-code LilyPond est écrit.  Lorsque l'@code{emplacement} fait référence à
-un endroit valide dans la source -- ce qui est en général le cas au sein
-de fonctions musicales ou Scheme --, toute la musique générée au sein de
-ce bloc de code voit son @code{origine} établie à cet
-@code{emplacement}.
+code LilyPond est écrit.  Les variables définies dans d'autres modules
+Scheme, tels ceux contenant les blocs @code{\header} ou @code{\layout},
+ne sont pas accessibles en tant que variables Scheme (préfixées par
+un @code{#}) mais en tant que variables LilyPond (préfixées par
+un @code{\}).
+
+Lorsque l'emplacement (@code{location} -- voir @ref{Fonctions Scheme})
+fait référence à un endroit valide dans la source -- ce qui est en
+général le cas au sein de fonctions musicales ou Scheme --, toute la
+musique générée au sein de ce bloc de code voit son @code{origine}
+établie à cet @emph{emplacement}.
 
 Un bloc de code LilyPond peut contenir tout ce que vous pourriez mettre
 à droite de l'assignation.  Par ailleurs, un bloc LilyPond vide
@@ -112,6 +147,11 @@ où
 l'analyseur grammatical puisse accéder aux blocs de code LilyPond
 (@code{#@{}@dots{}@code{#@}}).
 
+@item @code{location}
+@tab doit être littéralement @code{location}, de telle sorte que soit
+accessible l'emplacement de l'objet dans la source, aux fins de
+transmettre aux messages d'erreur les fichier et numéro de ligne.
+
 @item @code{@var{argN}}
 @tab @var{n}ième argument
 
@@ -139,14 +179,14 @@ définition de @code{origin} vers le paramètre @code{location}.
 @tab une séquence de formules Scheme évaluées dans l'ordre, la dernière
 servant de valeur de retour de la fonction. Il peut contenir des blocs
 de code LilyPond, enchâssés dans des accolades et @emph{hashes} --
-@w{@code{#@{@dots{}#@}}}  -- comme indiqué à la rubrique
+@w{@code{#@{@dots{}#@}}} -- comme indiqué à la rubrique
 @ref{Blocs de code LilyPond}.  Au sein d'un bloc de code LilyPond, un
 @code{#} permet de référencer des arguments de la fonction -- tel
 @samp{#arg1} -- ou d'ouvrir une expression Scheme contenant les
 arguments de la fonction -- par exemple @w{@samp{#(cons arg1 arg2)}}.
 Dans le cas où une expression Scheme introduite par @code{#} ne vous
 permet pas de parvenir à vos fins, vous pourriez devoir revenir à une
-expression Scheme @qq{immédiate} à l'aide d'un @code{$}, comme
+expression Scheme « immédiate » à l'aide d'un @code{$}, comme
 @samp{$music}.
 
 Lorsque votre fonction retourne une expression musicale, lui est

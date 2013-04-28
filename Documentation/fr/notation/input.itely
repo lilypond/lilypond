@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -580,11 +580,19 @@ d'informations.
 
 Chaque bloc @code{\book} apparaissant dans un même fichier source
 résultera en un fichier indépendant, comme indiqué à la rubrique
-@ref{Structure de fichier}.  Chacun de ces fichiers résultants
-comporte deux endroits où placer des titrages : les @strong{titrages
-de partie} au début de chaque partie (@emph{bookpart}) et les
-@strong{titrages de morceau} avant chaque pièce (@emph{score}).  Tous
-deux peuvent comporter les mêmes champs bien que, par défaut, le titrage
+@ref{Structure de fichier}. Chacun de ces fichiers résultants comporte
+trois endroits où placer des titrages : le @strong{titrage de l'ouvrage}
+au début de chaque recueil (@emph{book}), les @strong{titrages de
+partie} au début de chaque partie (@emph{bookpart}) et les
+@strong{titrages de morceau} avant chaque pièce (@emph{score}).
+
+La valeur des champs de titrage @code{title} (le titre) et
+@code{composer} (le compositeur) se définissent dans des blocs
+@code{\header} -- la syntaxe appropriée et la liste des différents
+champs disponibles par défaut sont à la section
+@ref{Mise en forme par défaut des titrages subalternes}.
+Les titrages d'un ouvrage, de ses parties ou des morceaux qu'il contient
+peuvent tous comporter les même champs bien que, par défaut, le titrage
 d'un morceau se limite à @code{piece} et @code{opus}.
 
 Les blocs @code{\header} peuvent se placer à quatre endroits différents
@@ -614,6 +622,14 @@ hiérarchie ; les valeurs persisteront à moins d'être écrasées par une
 autre valeur à un niveau inférieur.  Ainsi :
 
 @itemize
+@item
+Le titre d'un ouvrage découle des champs définis en tête de fichier
+source, modifiés par les champs définis au sein du bloc @code{\book}.
+Les champs résultants serviront à affecter un titre de recueil à
+l'ouvrage, si tant est que quoi que ce soit génère une page au début de
+cet ouvrage, avant la première partie -- un simple saut de page forcé
+(@code{\pageBreak}) suffit.
+
 @item
 Le titre d'une partie découle des champs définis en tête du fichier
 source, modifiés par les champs définis au sein du bloc @code{\book}
@@ -824,6 +840,12 @@ la rubrique @ref{Mise en forme personnalisée des titrages}.
 
 @cindex breakbefore
 
+Un bloc @code{\book} qui commencerait directement par un bloc
+@code{\bookpart} ne verra pas ses titrages apparaître puisqu'il n'y a
+aucune page où imprimer le titre.  Si toutefois le titre de l'ouvrage
+est requis, le bloc @code{\book} devra commencer par un @emph{markup} ou
+une commande @code{\pageBreak}.
+
 La variable @code{breakbefore} activée dans un bloc @code{\header} situé
 dans un bloc @code{\score} force le saut de page avant le morceau
 contenu dans ce @code{\score}.  Vous pourrez ainsi séparer le titre
@@ -994,7 +1016,7 @@ définis dans le fichier @file{ly/titling-init.ly} :
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1160,7 +1182,7 @@ En voici la syntaxe :
 @example
 @code{variable} = @code{\markup} @{
   ...
-  @code{\on-the-fly} #@var{procédure} @var{markup}
+  @code{\on-the-fly} \@var{procédure} @var{markup}
   ...
 @}
 @end example
@@ -1208,7 +1230,7 @@ Enfin, nous appliquons le même paramétrage au @code{\oddFooterMarkup}.
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly #print-page-number-check-first
+        \on-the-fly \print-page-number-check-first
         \fromproperty #'page:page-number-string
       }
     }
@@ -1224,8 +1246,8 @@ Plusieurs conditions @code{\on-the-fly} mentionnées l'une à la suite de
 l'autre se cumulent.  Ainsi, par exemple,
 
 @example
-  @code{\on-the-fly #first-page}
-  @code{\on-the-fly #last-page}
+  @code{\on-the-fly \first-page}
+  @code{\on-the-fly \last-page}
   @code{@{ \markup ... \fromproperty #'header: ... @}}
 @end example
 

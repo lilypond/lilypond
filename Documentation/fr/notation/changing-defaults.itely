@@ -1,6 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
 @ignore
-    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1207,36 +1208,37 @@ Tout d'abord, il convient de donner un nom à notre nouveau contexte :
 \name ImproVoice
 @end example
 
-Comme il est très semblable à @code{Voice}, nous souhaitons que
-toutes les commandes associées au @code{Voice} déjà existant restent
-valables.  D'où nécessité de la commande @code{\alias}, qui va
-l'associer au contexte @code{Voice} :
+Comme il est très semblable à un contexte @code{Voice}, nous
+souhaitons que toutes les commandes associées au @code{Voice} déjà
+existant restent valables.  D'où nécessité de la commande
+@code{\alias}, qui va l'associer au contexte @code{Voice} :
 
 @example
 \alias Voice
 @end example
 
 Ce contexte doit pouvoir imprimer des notes et des indications
-textuelles ; on ajoute donc les graveurs appropriés :
+textuelles ; on ajoute donc les graveurs appropriés ainsi que celui
+dévolu au regroupement sous forme de colonne des notes, hampes et
+silences qui interviennent au même moment musical :
 
 @example
 \consists "Note_heads_engraver"
 \consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
 @end example
 
-Cependant, on veut que les notes s'affichent toutes au centre de
-la portée :
+Toutes les notes devraient s'afficher au centre de la portée :
 
 @example
 \consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
-Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes
-créées par le @rinternals{Note_heads_engraver}, et les « écrase » pour
-qu'elles aient toutes la même position verticale, définie par
-@code{squashedPosition} : ici il s'agit de la valeur @code{0},
-c'est-à-dire la ligne du milieu.
+Le graveur @code{Pitch_squash_engraver} intercepte les notes créées par
+le @code{Note_heads_engraver}, et les « écrase » pour qu'elles aient
+toutes la même position verticale, définie par @code{squashedPosition} :
+ici il s'agit de la valeur @code{0}, c'est-à-dire la ligne du milieu.
 
 On veut que les notes aient la forme d'une barre oblique, sans
 aucune hampe :
@@ -1263,6 +1265,7 @@ Récapitulons ; on se retrouve avec le bloc suivant :
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
@@ -1277,7 +1280,7 @@ Récapitulons ; on se retrouve avec le bloc suivant :
 Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
 @code{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
 contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
-Nous allons donc modifier le contexte @code{Staff},
+Nous allons donc modifier la définition du contexte @code{Staff},
 au moyen de la commande @code{\accepts} :
 
 @example
@@ -1321,6 +1324,15 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
   a1
 @}
 @end example
+
+@seealso
+
+Référence des propriétés internes :
+@rinternals{Engraver_group},
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}.
 
 
 @node Ordonnancement des contextes
@@ -4059,11 +4071,11 @@ nous citerons @code{ambitus}, @code{breathing-sign}, @code{clef},
 @code{custos}, @code{staff-bar}, @code{left-edge},
 @code{key-cancellation}, @code{key-signature}, et @code{time-signature}.
 
-Ces indications et numéros de mesure sont par défaut centrés
-horizontalement au-dessus de l'objet :
+Chaque objet possède son propre point de référence par défaut, sur
+lequel viendra s'aligner les indications de repère :
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
@@ -4096,13 +4108,13 @@ l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
 de mesure est invisible, à l'endroit même où la barre prendrait place.
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Key Signature
+% The rehearsal mark will be aligned to the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
@@ -4124,20 +4136,20 @@ comme l'illustre l'exemple suivant.  Toutefois, si la partition comporte
 plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the Key Signature
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% The RehearsalMark will be centered above the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
 e1
-% The RehearsalMark will be aligned with the right edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
 e1

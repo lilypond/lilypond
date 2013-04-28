@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -436,10 +436,14 @@ liaison d'@strong{articulation} ou de @strong{phrasé}.  Une liaison de
 tenue est un moyen parmi d'autres pour prolonger la durée d'une note,
 tout comme les points.}
 
-Une liaison de tenue s'indique au moyen d'un tilde (@code{~}).
+
+Une liaison de tenue s'indique au moyen d'un tilde (@code{~}) qui
+vient s'adjoindre à la première note de chacune des paires de
+notes à lier.  Ceci indique que la note en question sera liée à la
+suivante, qui doit être de la même hauteur.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2~ a4~ a16 r r8
 @end lilypond
 
 Les liaisons de tenue sont utilisées soit lorsque la note dépasse de la
@@ -450,8 +454,8 @@ longues doivent s'aligner sur les subdivisions de la mesure, comme ici :
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative c' {
-  r8^"oui" c8 ~ c2 r4 |
-  r8^"non" c2 ~ c8 r4
+  r8^"oui" c8~ c2 r4 |
+  r8^"non" c2~ c8 r4
 }
 @end lilypond
 
@@ -471,7 +475,7 @@ partiellement deux accords, en mettant les liaisons à l'intérieur des
 accords.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g> ~ <c e g>
+<c e g>~ <c e g>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -487,7 +491,7 @@ Lorsqu'une mesure @qq{de seconde fois} après une reprise commence sur
 une note liée, la liaison doit être répétée, comme ici :
 
 @lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2 ~ }
+\repeat volta 2 { c g <c e>2~ }
 \alternative {
   % First alternative: following note is tied normally
   { <c e>2. r4 }
@@ -501,7 +505,7 @@ une note liée, la liaison doit être répétée, comme ici :
 @funindex \laissezVibrer
 @funindex laissezVibrer
 
-Les liaisons @qq{Laissez vibrer} (@notation{L.v.}) sont utilisées pour
+Les liaisons « Laissez vibrer » (@notation{L.v.}) sont utilisées pour
 le piano, la harpe et certains instruments de percussion.  Elles
 indiquent à l'instrumentiste de laisser sonner la note ou l'accord au
 lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
@@ -520,7 +524,7 @@ lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 @funindex tieNeutral
 
 Le positionnement vertical des liaisons de prolongation peut être affiné
--- voir à ce sujet les @qq{commandes prédéfinies} et, pour de plus
+-- voir à ce sujet les « commandes prédéfinies » et, pour de plus
 amples détails, @ref{Direction et positionnement}.
 
 @cindex liaison de prolongation, apparence
@@ -539,26 +543,26 @@ continue, discontinue ou pointillée.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2~ c
 \tieDashed
-c2 ~ c
+c2~ c
 \tieHalfDashed
-c2 ~ c
+c2~ c
 \tieHalfSolid
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Il est même possible d'en personnaliser l'allure :
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2~ c
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Que ce soit pour une tenue ou un phrasé, le motif d'une ligne
@@ -1367,6 +1371,26 @@ parenthèses l'indication numérique :
 d4 g e c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+Lorsque plusieurs indications de tempo se suivent tout en étant
+rapprochées l'une de l'autre, comme dans le cas d'une partie où
+l'instrumentiste a de longs moments de silence, les mesures
+s'étirent de telle sorte que ces indications ne se chevauchent
+pas.  Ce comportement se gère à l'aide des commandes
+@code{\markLengthOn} et @code{\markLengthOff}.
+
+@lilypond[quote,relative=0]
+\compressFullBarRests
+\tempo "Molto vivace"
+R1*12
+\tempo "Meno mosso"
+R1*16
+@end lilypond
+
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
@@ -1446,7 +1470,7 @@ Cette commande @code{\partial @var{durée}} peut aussi s'écrire :
 \set Timing.measurePosition -@var{durée}
 @end example
 
-De fait, @code{\partial 8} équivaut à :
+De fait, le premier exemple pourrait s'écrire :
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1454,11 +1478,12 @@ De fait, @code{\partial 8} équivaut à :
 e8 | a4 c8 b c4 |
 @end lilypond
 
-La propriété @code{measurePosition} contient un nombre rationnel qui
-indique, à ce point précis, où l'on en est de la mesure.  Notez qu'il
-s'agit du résultat d'une soustraction ; @code{\partial 4}
-signifie, pour le programme : @qq{Dans cette mesure, il reste juste
-une noire}.
+La propriété @code{measurePosition} contient un nombre rationnel
+généralement positif et qui indique, à ce point précis, où l'on en
+est de la mesure.  La commande @code{\partial @var{durée}} le
+transforme en nombre négatif pour lui attribuer un autre sens : la
+mesure courante (la première) est précédée d'une mesure 0
+(l'anacrouse) dont la longueur est donnée par @var{durée}.
 
 @seealso
 Glossaire musicologique :
@@ -1540,14 +1565,20 @@ d4 e d c
 
 Une cadence représente un fragment détaché de la notion de mesure, en
 dépit des différentes commandes @code{\bar} qu'il pourra comporter.
-Ceci a pour conséquence que toute altération supplémentaire par rapport
-à l'armure devra être rappelée manuellement -- voir @ref{Altérations}.
+L'insertion d'une commande @code{\bar} dans une cadence n'entame
+pas de nouvelle mesure, même si une barre est imprimée.  Ceci a
+pour conséquence que toute altération supplémentaire par rapport à
+l'armure -- normalement en vigueur jusqu'à la fin de la mesure --
+sera valide même après une barre insérée grâce à une instruction
+@code{\bar}.  Toute altération ultérieure devra donc être rappelée
+manuellement -- voir @ref{Altérations}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 cis4 d cis d
 \bar "|"
+% First cis is printed without alteration even if it's after a \bar
 cis4 d cis! d
 \cadenzaOff
 \bar "|"

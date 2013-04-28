@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,7 +70,7 @@ occupation de l'espace, tant horizontalement que verticalement.
 Les réglages qui influencent la mise en forme se placent dans deux blocs
 différents.  Le bloc @w{@code{\paper @{@dots{}@}}} étudié à la rubrique
 @ref{Mise en forme de la page} contient les réglages applicables à
-l'intégralité du document -- à toutes les partitions d'un ouvrage --
+toutes les partitions d'une partie ou de l'intégralité d'un ouvrage --
 tels que format du papier, impression ou non des numéros de page, etc.
 Quant au bloc @w{@code{\layout @{@dots{}@}}}, qui fait l'objet de la
 rubrique @ref{Mise en forme de la partition}, il détermine la mise en
@@ -120,11 +120,38 @@ pages attachées au bloc @code{\paper}.
 @subsection Le bloc @code{\paper}
 @translationof The \paper block
 
-Un bloc @code{\paper} peut apparaître au sein d'un bloc @code{\book}.
-Les réglages effectués à l'aide du bloc @code{\paper} s'appliqueront à
-l'intégralité d'un ouvrage, qui peut comporter plusieurs partitions (des
-blocs @emph{score}) ; il ne doit donc en aucun cas se trouver dans un
-bloc @code{\score}.  Peuvent apparaître dans un bloc @code{\paper} :
+Des blocs @code{\paper} peuvent apparaître à trois différents endroits
+et former ainsi une hiérarchie :
+
+@itemize
+
+@item
+En début de fichier source, avant même tout bloc @code{\book},
+@code{\bookpart} ou @code{\score}.
+
+@item
+Au sein d'un bloc @code{\book} et indépendamment de tout bloc
+@code{\bookpart} ou @code{\score} qu'il pourrait contenir.
+
+@item
+Au sein d'un bloc @code{\bookpart}, mais en dehors de tout bloc
+@code{\score}.
+
+@end itemize
+
+Un bloc @code{\paper} ne doit donc en aucun cas prendre place au sein
+d'un bloc @code{\score}.
+
+Les valeurs des différents champs seront filtrées en respectant cette
+hiérarchie ; les valeuers définies le plus haut persisteront à moins
+d'être remplacées à un niveau hiérarchique inférieur.
+
+Plusieurs blocs @code{\paper} peuvent cohabiter à un même niveau,
+notamment en raison de la présence d'inclusion de fichiers.  Dans une
+telle éventualité, les champs sont regroupés par niveau, la dernière
+valeur rencontrée ayant préséance en cas de doublon.
+
+Peuvent apparaître dans un bloc @code{\paper} :
 
 @itemize
 
@@ -3033,6 +3060,10 @@ Il n'y a aucun moyen de diminuer l'espacement.
 @subsection Changement d'espacement en cours de partition
 @translationof New spacing area
 
+@cindex espacement, modification en cours de partition
+@cindex notes, espacement horizontal
+@funindex \newSpacingSection
+
 Il arrive, au cours d'un même mouvement, qu'une nouvelle partie modifie
 substantiellement la notion de valeur brève et valeur longue. La
 commande @code{newSpacingSection} permet alors de réinitialiser les
@@ -3040,7 +3071,7 @@ paramètres d'espacement.
 
 Dans l'exemple qui suit, le changement de métrique marque le début
 d'une nouvelle partie ; remarquez comme les doubles-croches sont
-alors plus espacées :
+alors automatiquent un peu plus espacées :
 
 @lilypond[relative,verbatim,quote]
 \time 2/4
@@ -3052,8 +3083,23 @@ c16[ c c8]
 @end lilypond
 
 La commande @code{\newSpacingSection} crée un nouvel objet
-@code{SpacingSpanner}, ce qui permet d'appliquer de nouveaux
-@code{\override}s à partir de ce point.
+@code{SpacingSpanner} à cet instant musical.  Si toutefois les
+ajustements apportés à l'espacement automatique ne se révélent pas
+satisfaisants, ils peuvent s'adapter à l'aide d'@code{\override}s.  Ces
+amendements doivent intervenir au même moment que la commande
+@code{\newSpacingSection} ; ils produiront leurs effets jusqu'à ce
+qu'ils soient à nouveau modifiés par une nouvelle section, comme ici :
+
+@lilypond[relative=1,verbatim,quote]
+\time 4/16
+c16[ c c8]
+\newSpacingSection
+\override Score.SpacingSpanner.spacing-increment = #2
+c16[ c c8]
+\newSpacingSection
+\revert Score.SpacingSpanner.spacing-increment
+c16[ c c8]
+@end lilypond
 
 @seealso
 Morceaux choisis :

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8c414087ca083dbc3cf789c2cf6f85c23b2f56cd
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -469,11 +469,12 @@ f'4 d \stopStaff
 @end lilypond
 
 Le positionnement de chacune des lignes de la portée est modifiable.
-Les valeurs s'expriment en @emph{demi} espace de portée, et la nouvelle
-position est déterminée par rapport à la ligne médiane.  Une ligne sera
-donc imprimée pour chaque valeur exprimée ; le nombre de lignes,
-ainsi que leur position dans la portée, peut donc se modifier à l'aide
-d'une seule commande.
+Une liste de nombres détermine le positionnement de chaque ligne.
+Le @code{0} correspond à la ligne médiane d'une portée habituelle, pour
+laquelle la liste est donc @code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.
+Une ligne sera donc imprimée pour chaque valeur exprimée ; le nombre de
+lignes, ainsi que leur position dans la portée, peut donc se modifier à
+l'aide d'une seule commande.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
@@ -484,9 +485,14 @@ f'4 d \stopStaff
 \startStaff g, e
 @end lilypond
 
-La position de la clef et celle du do médium demanderont parfois un
-ajustement afin d'être en phase avec cette nouvelle portée.  Pour plus
-d'explications, reportez-vous aux exemples du chapitre @ref{Clefs}.
+Afin de préserver l'orientation habituelle des hampes -- ascendantes
+dans la partie inférieure de la portée, descendantes dans la partie
+supérieure -- la ligne (ou l'interligne) centrale de la portée
+personnalisée devra être en phase avec avec la ligne médiane d'une
+portée classique (0).  La position de la clef et celle du do médium
+demanderont parfois un ajustement afin d'être en phase avec cette
+nouvelle portée.  Pour plus d'explications, reportez-vous aux exemples
+du chapitre @ref{Clefs}.
 
 Lorsque vous modifierez l'épaisseur des lignes, gardez à l'esprit que
 les lignes supplémentaires et les hampes seront aussi modifiées.
@@ -537,7 +543,7 @@ Des lignes supplémentaires peuvent apparaître y compris au sein d'une
 portée, notamment lorsque vous l'avez personnalisée.  L'exemple suivant
 illustre deux cas de figure quant au positionnement des lignes
 supplémentaires selon que la propriété @code{legder-position} est
-définie explicitement ou non.  La présence du @code{stopStaff} est ici
+définie explicitement ou non.  La présence du @code{\stopStaff} est ici
 rendue nécessaire pour annuler les effets de la commande
 @code{\override} qui s'applique à l'intégralité du @code{StaffSymbol}.
 

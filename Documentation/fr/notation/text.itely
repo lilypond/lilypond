@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -288,6 +288,16 @@ c1 c
 \mark "assai" \break
 c  c
 @end lilypond
+
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+@predefined
+@code{\markLengthOn},
+@code{\markLengthOff}.
+@endpredefined
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
