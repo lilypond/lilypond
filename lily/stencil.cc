@@ -71,6 +71,12 @@ Stencil::is_empty () const
           || dim_.is_empty ());
 }
 
+bool
+Stencil::is_empty (Axis a) const
+{
+  return dim_.is_empty (a);
+}
+
 SCM
 Stencil::expr () const
 {

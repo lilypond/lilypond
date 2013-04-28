@@ -84,6 +84,7 @@ public:
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
+  bool is_empty (Axis) const;
   Stencil in_color (Real r, Real g, Real b) const;
   static SCM skylines_from_stencil (SCM, Real, Axis);
 };
