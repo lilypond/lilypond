@@ -169,7 +169,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
-  Real x = 0.7;
+  Real x = robust_scm2double (me->get_property ("protrusion"), 0.4);
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
   mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
@@ -227,9 +227,10 @@ ADD_INTERFACE (Arpeggio,
 
                /* properties */
                "arpeggio-direction "
+               "dash-definition " // TODO: make apply to non-slur arpeggios
                "positions "
+               "protrusion "
                "script-priority " // TODO: make around-note-interface
                "stems "
-               "dash-definition " // TODO: make apply to non-slur arpeggios
               );
 

@@ -169,6 +169,7 @@
 	(direction . ,LEFT)
 	(padding . 0.5)
 	(positions . ,ly:arpeggio::calc-positions)
+	(protrusion . 0.4)
 	(script-priority . 0)
 	(side-axis . ,X)
 	(staff-position . 0.0)

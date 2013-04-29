@@ -734,6 +734,8 @@ positions are requested, the closest one is taken.")
      (prefer-dotted-right ,boolean? "For note collisions, prefer to
 shift dotted up-note to the right, rather than shifting just the
 dot.")
+     (protrusion ,number? "In an arpeggio bracket, the length of the
+horizontal edges.")
 
 ;;
 ;; r
