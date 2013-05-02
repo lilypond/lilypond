@@ -25,7 +25,7 @@
 \paper {
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table of Contents" \null }
-    \hspace #1
+    \null
   }
   tocItemMarkup = \markup \fill-line {
     \fromproperty #'toc:text \fromproperty #'toc:page
