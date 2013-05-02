@@ -3175,7 +3175,7 @@ def conv (str):
 def conv (str):
     str = re.sub (r"Stem\s+#'flag-style", r"Flag #'style", str)
     str = re.sub (r"Stem\s+#'stroke-style", r"Flag #'stroke-style", str)
-    str = re.sub (r"Stem\s+#'flag", r"Flag #'print", str)
+    str = re.sub (r"Stem\s+#'flag", r"Flag #'stencil", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\override\s+Stem\s+#'transparent\s*=\s*##t", r"\g<1>\\override Stem #'transparent = ##t\g<1>\\override Flag #'transparent = ##t", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\revert\s*Stem\s+#'transparent", r"\g<1>\\revert Stem #'transparent\g<1>\\revert Flag #'transparent", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\override\s+Stem\s+#'stencil\s*=\s*##f", r"\g<1>\\override Stem #'stencil = ##f\g<1>\\override Flag #'stencil = ##f", str)
