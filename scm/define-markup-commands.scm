@@ -1321,14 +1321,26 @@ equivalent to @code{\"fi\"}.
                     ;; justify only stretches lines.
 		    (* 0.7 base-space)
 		    base-space))
+  (define (stencil-space stencil line-start)
+    (if (ly:stencil-empty? stencil X)
+        0
+        (cdr (ly:stencil-extent
+              (ly:stencil-stack (if line-start
+                                    empty-stencil
+                                    point-stencil)
+                                X RIGHT stencil)
+              X))))
   (define (take-list width space stencils
 		     accumulator accumulated-width)
     "Return (head-list . tail) pair, with head-list fitting into width"
     (if (null? stencils)
 	(cons accumulator stencils)
 	(let* ((first (car stencils))
-               (first-wid (cdr (ly:stencil-extent (car stencils) X)))
-               (newwid (+ space first-wid accumulated-width)))
+               (first-wid (stencil-space first (null? accumulator)))
+               (newwid (+ (if (or (ly:stencil-empty? first Y)
+                                  (ly:stencil-empty? first X))
+                              0 space)
+                          first-wid accumulated-width)))
 	  (if (or (null? accumulator)
                   (< newwid width))
               (take-list width space
@@ -1342,17 +1354,20 @@ equivalent to @code{\"fi\"}.
                                   '() 0.0))
 	   (line-stencils (car line-break))
 	   (space-left (- line-width
-                          (apply + (map (lambda (x) (cdr (ly:stencil-extent x X)))
-                                        line-stencils))))
+                          (stencil-space
+                           (stack-stencil-line 0 line-stencils)
+                           #t)))
+           (line-words (count (lambda (s) (not (or (ly:stencil-empty? s Y)
+                                                   (ly:stencil-empty? s X))))
+                              line-stencils))
 	   (line-word-space (cond ((not justify) space)
                                   ;; don't stretch last line of paragraph.
                                   ;; hmmm . bug - will overstretch the last line in some case.
                                   ((null? (cdr line-break))
                                    base-space)
-                                  ((null? line-stencils) 0.0)
-                                  ((null? (cdr line-stencils)) 0.0)
-                                  (else (/ space-left (1- (length line-stencils))))))
-	   (line (stack-stencil-line line-word-space
+                                  ((< line-words 2) space)
+                                  (else (/ space-left (1- line-words)))))
+           (line (stack-stencil-line line-word-space
                                      (if (= text-dir RIGHT)
                                          (reverse line-stencils)
                                          line-stencils))))
@@ -1374,8 +1389,7 @@ equivalent to @code{\"fi\"}.
 		(word-space)
 		(text-direction RIGHT))
   "Internal markup list command used to define @code{\\justify} and @code{\\wordwrap}."
-  (wordwrap-stencils (remove ly:stencil-empty?
-                             (interpret-markup-list layout props args))
+  (wordwrap-stencils (interpret-markup-list layout props args)
                      justify
                      word-space
                      (or line-width
@@ -1445,10 +1459,9 @@ the line width, where @var{X} is the number of staff spaces.
                                para-strings))
          (para-lines (map (lambda (words)
                             (let* ((stencils
-                                    (remove ly:stencil-empty?
-                                            (map (lambda (x)
-                                                   (interpret-markup layout props x))
-                                                 words))))
+                                    (map (lambda (x)
+                                           (interpret-markup layout props x))
+                                         words)))
                               (wordwrap-stencils stencils
                                                  justify word-space
                                                  line-width text-direction)))
