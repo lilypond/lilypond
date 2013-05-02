@@ -1,4 +1,3 @@
-
 \version "2.17.6"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
@@ -16,16 +15,13 @@ parens are also not seen by accidentals.
    "Construct a function that will do CALLBACK and add parentheses.
 Example usage:
 
-  \\property NoteHead \\override #'print-function
-		   =
-		      #(parenthesize-callback ly:note-head::print)
-		    
-"
-
+  \\override NoteHead.stencil
+  =
+  #(parenthesize-callback ly:note-head::print)"
    
    (define (parenthesize-stencil grob)
      "This function adds parentheses to the original callback for
-GROB.  The dimensions of the stencil is not affected.
+GROB.  It does not affect the dimensions of the stencil.
 "
      
      (let* ((fn (ly:grob-default-font grob))
@@ -34,14 +30,14 @@ GROB.  The dimensions of the stencil is not affected.
 	    (subject (callback grob))
 
 	    ; remember old size
-	    (subject-dim-x (ly:stencil-extent subject 0))
-	    (subject-dim-y (ly:stencil-extent subject 1)))
+	    (subject-dim-x (ly:stencil-extent subject X))
+	    (subject-dim-y (ly:stencil-extent subject Y)))
 
         ;; add parens
         (set! subject
 	     (ly:stencil-combine-at-edge 
-	      (ly:stencil-combine-at-edge subject 0 1 pclose 0.2)
-	      0 -1 popen  0.2))
+	      (ly:stencil-combine-at-edge subject X RIGHT pclose 0.2)
+	      X LEFT popen  0.2))
 
 	; revert old size.
        (ly:make-stencil
