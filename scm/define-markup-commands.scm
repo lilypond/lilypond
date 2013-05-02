@@ -1369,69 +1369,93 @@ equivalent to @code{\"fi\"}.
   "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
-                    (* 0.7 base-space)
-                    base-space))
-  (define (stencil-space stencil line-start)
-    (if (ly:stencil-empty? stencil X)
-        0
-        (cdr (ly:stencil-extent
-              (ly:stencil-stack (if line-start
-                                    empty-stencil
-                                    point-stencil)
-                                X RIGHT stencil)
-              X))))
-  (define (take-list width space stencils
-                     accumulator accumulated-width)
-    "Return (head-list . tail) pair, with head-list fitting into width"
-    (if (null? stencils)
-        (cons accumulator stencils)
-        (let* ((first (car stencils))
-               (first-wid (stencil-space first (null? accumulator)))
-               (newwid (+ (if (or (ly:stencil-empty? first Y)
-                                  (ly:stencil-empty? first X))
-                              0 space)
-                          first-wid accumulated-width)))
-          (if (or (null? accumulator)
-                  (< newwid width))
-              (take-list width space
-                         (cdr stencils)
-                         (cons first accumulator)
-                         newwid)
-              (cons accumulator stencils)))))
-  (let loop ((lines '())
-             (todo stencils))
-    (let* ((line-break (take-list line-width space todo
-                                  '() 0.0))
-           (line-stencils (car line-break))
-           (space-left (- line-width
-                          (stencil-space
-                           (stack-stencil-line 0 line-stencils)
-                           #t)))
-           (line-words (count (lambda (s) (not (or (ly:stencil-empty? s Y)
-                                                   (ly:stencil-empty? s X))))
-                              line-stencils))
-           (line-word-space (cond ((not justify) space)
-                                  ;; don't stretch last line of paragraph.
-                                  ;; hmmm . bug - will overstretch the last line in some case.
-                                  ((null? (cdr line-break))
-                                   base-space)
-                                  ((< line-words 2) space)
-                                  (else (/ space-left (1- line-words)))))
-           (line (stack-stencil-line line-word-space
-                                     (if (= text-dir RIGHT)
-                                         (reverse line-stencils)
-                                         line-stencils))))
-      (if (pair? (cdr line-break))
-          (loop (cons line lines)
-                (cdr line-break))
-          (begin
-            (if (= text-dir LEFT)
-                (set! line
-                      (ly:stencil-translate-axis
-                       line
-                       (- line-width (interval-end (ly:stencil-extent line X)))
-                       X)))
-            (reverse (cons line lines)))))))
+		    (* 0.7 base-space)
+		    base-space))
+  (define (stencil-len s)
+    (interval-end (ly:stencil-extent s X)))
+  (define (maybe-shift line)
+    (if (= text-dir LEFT)
+        (ly:stencil-translate-axis
+         line
+         (- line-width (stencil-len line))
+         X)
+        line))
+  (if (null? stencils)
+      '()
+      (let loop ((lines '())
+                 (todo stencils))
+        (let word-loop
+            ((line (first todo))
+             (todo (cdr todo))
+             (word-list (list (first todo))))
+          (cond
+           ((pair? todo)
+            (let ((new (if (= text-dir LEFT)
+                           (ly:stencil-stack (car todo) X RIGHT line space)
+                           (ly:stencil-stack line X RIGHT (car todo) space))))
+              (cond
+               ((<= (stencil-len new) line-width)
+                (word-loop new (cdr todo)
+                           (cons (car todo) word-list)))
+               (justify
+                (let* ((word-list
+                        ;; This depends on stencil stacking being
+                        ;; associative so that stacking
+                        ;; left-to-right and right-to-left leads to
+                        ;; the same result
+                        (if (= text-dir LEFT)
+                            word-list
+                            (reverse! word-list)))
+                       (len (stencil-len line))
+                       (stretch (- line-width len))
+                       (spaces
+                        (- (stencil-len
+                            (stack-stencils X RIGHT (1+ space) word-list))
+                           len)))
+                  (if (zero? spaces)
+                      ;; Uh oh, nothing to fill.
+                      (loop (cons (maybe-shift line) lines) todo)
+                      (loop (cons
+                             (stack-stencils X RIGHT
+                                             (+ space (/ stretch spaces))
+                                             word-list)
+                             lines)
+                            todo))))
+               (else ;; not justify
+                (loop (cons (maybe-shift line) lines) todo)))))
+           ;; todo is null
+           (justify
+            ;; Now we have the last line assembled with space
+            ;; which is compressed.  We want to use the
+            ;; uncompressed version instead if it fits, and the
+            ;; justified version if it doesn't.
+            (let* ((word-list
+                    ;; This depends on stencil stacking being
+                    ;; associative so that stacking
+                    ;; left-to-right and right-to-left leads to
+                    ;; the same result
+                    (if (= text-dir LEFT)
+                        word-list
+                        (reverse! word-list)))
+                   (big-line (stack-stencils X RIGHT base-space word-list))
+                   (big-len (stencil-len big-line))
+                   (len (stencil-len line)))
+              (reverse! lines
+                        (list
+                         (if (> big-len line-width)
+                             (stack-stencils X RIGHT
+                                             (/
+                                              (+
+                                               (* (- big-len line-width)
+                                                  space)
+                                               (* (- line-width len)
+                                                  base-space))
+                                              (- big-len len))
+                                             word-list)
+                             (maybe-shift big-line))))))
+           (else ;; not justify
+            (reverse! lines (list (maybe-shift line)))))))))
+
 
 (define-markup-list-command (wordwrap-internal layout props justify args)
   (boolean? markup-list?)
