@@ -666,21 +666,18 @@ Otherwise, return #f."
          (formatted-span
           (and span (duration->lily-string span #:force-duration #t)))
 	 (scale (/ num den))
-	 (dur (*previous-duration*))
 	 (time-scale (*time-scale*)))
-
-    (parameterize ((*force-line-break* #f)
-		   (*previous-duration*
-		    (ly:make-duration (ly:duration-log dur)
-				      (ly:duration-dot-count dur)
-				      (* (ly:duration-scale dur)
-					 scale)))
-		   (*time-scale* (* time-scale scale)))
-      (format #f "\\tuplet ~a/~a ~@[~a ~]~a"
-	      den
-	      num
-              formatted-span
-	      (music->lily-string (ly:music-property times 'element) parser)))))
+    (*previous-duration* #f)
+    (let ((result
+           (parameterize ((*force-line-break* #f)
+                          (*time-scale* (* time-scale scale)))
+             (format #f "\\tuplet ~a/~a ~@[~a ~]~a"
+                     den
+                     num
+                     formatted-span
+                     (music->lily-string (ly:music-property times 'element) parser)))))
+      (*previous-duration* #f)
+      result)))
 
 (define-display-method RelativeOctaveMusic (m parser)
   (music->lily-string (ly:music-property m 'element) parser))
