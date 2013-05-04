@@ -563,6 +563,20 @@ textLengthOff = {
   \override TextScript.extra-spacing-height = #'(0 . 0)
 }
 
+markLengthOn = {
+  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 1.0)
+  \override Score.RehearsalMark.extra-spacing-width = #'(-0.5 . 0.5)
+  % Raise as much as four staff-spaces before pushing notecolumns right
+  \override Score.MetronomeMark.extra-spacing-height = #'(4 . 4)
+  \override Score.RehearsalMark.extra-spacing-height = #'(4 . 4)
+}
+
+markLengthOff = {
+  \override Score.MetronomeMark.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override Score.RehearsalMark.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \revert Score.MetronomeMark.extra-spacing-height
+  \revert Score.RehearsalMark.extra-spacing-height
+}
 
 %% text spanners
 

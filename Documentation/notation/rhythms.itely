@@ -1333,6 +1333,26 @@ written by including an empty string in the input:
 d4 g e c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+In a part for an instrument with long periods of rests,
+tempo indications sometimes follow each other closely.
+The command @code{\markLengthOn} provides extra horizontal space
+to prevent tempo indications from overlapping, and @code{\markLengthOff}
+restores the default behavior of ignoring tempo marks
+for horizontal spacing.
+
+@lilypond[quote,relative=0]
+\compressFullBarRests
+\markLengthOn
+\tempo "Molto vivace"
+R1*12
+\tempo "Meno mosso"
+R1*16
+@end lilypond
 
 @snippets
 
