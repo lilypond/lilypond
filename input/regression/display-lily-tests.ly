@@ -180,8 +180,8 @@ stderr of this run."
 %% Tuplets
 \test ##[ \tuplet 3/2 { c8 d e } #]				% TimeScaledMusic
 \test ##[ \tuplet 6/4 { c16 d e f g a } #]
-\test ##[ \tuplet 3/2 { c d e \tuplet 5/2 { f e d2 d4 } c } #]
-\test ##[ \tuplet 3/2 2 { c d e \tuplet 5/2 2 { f e d2 d4 } c } #]
+\test ##[ \tuplet 3/2 { c4 d e \tuplet 5/2 { f4 e d2 d4 } c4 } #]
+\test ##[ \tuplet 3/2 2 { c4 d e \tuplet 5/2 2 { f4 e d2 d4 } c4 } #]
 
 %% \relative and \tranpose
 \test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic
