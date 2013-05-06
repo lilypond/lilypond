@@ -853,6 +853,9 @@ Page_layout_problem::find_system_offsets ()
                 }
               else // ! is_spaceable
                 {
+                  if (staff->extent (staff, Y_AXIS).is_empty ())
+                    continue;
+
                   if (loose_lines.empty ())
                     loose_lines.push_back (last_spaceable_line);
 
