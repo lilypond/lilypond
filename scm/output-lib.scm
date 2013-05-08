@@ -1288,6 +1288,12 @@ parent or the parent has no setting."
 (define-public (laissez-vibrer::print grob)
  (ly:tie::print grob))
 
+(define-public (semi-tie::calc-cross-staff grob)
+  (let* ((note-head (ly:grob-object grob 'note-head))
+         (stem (ly:grob-object note-head 'stem)))
+    (and (ly:grob? stem)
+         (ly:grob-property stem 'cross-staff #f))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; volta-bracket
 

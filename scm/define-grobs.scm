@@ -1221,6 +1221,7 @@
    (LaissezVibrerTie
      . (
 	(control-points . ,ly:semi-tie::calc-control-points)
+	(cross-staff . ,semi-tie::calc-cross-staff)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(direction . ,ly:tie::calc-direction)
@@ -1827,6 +1828,7 @@
 
     (RepeatTie
      . (
+	(cross-staff . ,semi-tie::calc-cross-staff)
 	(control-points . ,ly:semi-tie::calc-control-points)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
