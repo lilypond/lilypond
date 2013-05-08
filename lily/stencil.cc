@@ -205,7 +205,24 @@ Stencil::scale (Real x, Real y)
 void
 Stencil::add_stencil (Stencil const &s)
 {
-  expr_ = scm_list_3 (ly_symbol2scm ("combine-stencil"), s.expr_, expr_);
+  SCM cs = ly_symbol2scm ("combine-stencil");
+  if (scm_is_pair (expr_)
+      && scm_is_eq (cs, scm_car (expr_)))
+    {
+      if (scm_is_pair (s.expr_)
+          && scm_is_eq (cs, scm_car (s.expr_)))
+        expr_ = scm_append (scm_list_2 (s.expr_, scm_cdr (expr_)));
+      else
+        expr_ = scm_cons2 (cs, s.expr_, scm_cdr (expr_));
+    }
+  else
+    {
+      if (scm_is_pair (s.expr_)
+          && scm_is_eq (cs, scm_car (s.expr_)))
+        expr_ = scm_append (scm_list_2 (s.expr_, scm_list_1 (expr_)));
+      else
+        expr_ = scm_list_3 (cs, s.expr_, expr_);
+    }
   dim_.unite (s.dim_);
 }
 
