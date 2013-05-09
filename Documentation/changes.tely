@@ -177,7 +177,7 @@ was equivalent to @code{\transposition f'}.  Now it stays
 equivalent to @code{\transposition bes'}.
 
 @item
-When checknig for collisions, LilyPond no longer treats objects as
+When checking for collisions, LilyPond no longer treats objects as
 rectangles.  Instead, the actual shape of objects is approximated
 using an integral-like approach.  This generally results in more
 even and snug positioning of objects and systems:
