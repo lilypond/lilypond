@@ -2601,11 +2601,11 @@ Here are a few sample bars of music set in Gonville:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,15cm,,}
 
 Here are a few sample bars of music set in LilyPond's Feta font:
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,15cm,,}
 
 @subsubheading Installation Instructions for MacOS
 
