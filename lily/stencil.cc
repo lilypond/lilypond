@@ -270,7 +270,7 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
   // Material that is empty in the axis of reference has only limited
   // usefulness for combining.  We still retain as much information as
   // available since there may be uses like setting page links or
-  // background color or watermarks.
+  // background color or watermarks, and off-axis extents.
 
   if (is_empty (a))
     {
@@ -283,6 +283,7 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
   if (s.is_empty (a))
     {
       Stencil toadd (s);
+      // translation does not affect axis-empty extent box.
       toadd.translate_axis (first_extent[d], a);
       add_stencil (toadd);
       return;
@@ -304,6 +305,108 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
   toadd.translate_axis (offset, a);
   add_stencil (toadd);
 }
+
+// Stencil::stack is mainly used for assembling lines or columns
+// of stencils.  For the most common case of adding at the right, the
+// reference point of the added stencil is usually placed at the right
+// edge of the current one, unless the added stencil has a negative
+// left extent in which case its left edge is placed at the right edge
+// of the current one.
+//
+// Spacing is special in that it is applied without padding.  Spacing
+// at the right edge shifts the right edge accordingly.
+//
+// For spacing at the left edge, there are several approaches.  In
+// order to get to predictable behavior, we want to have at least a
+// continuous approach.  An obvious idea is to do a "translate" by the
+// appropriate amount.  Doing that while retaining the nominal left
+// edge seems like the most straightforward way.
+
+void
+Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindist)
+{
+  // Material that is empty in the axis of reference can't be sensibly
+  // stacked.  We just revert to add_at_edge behavior then.
+
+  if (is_empty (a))
+    {
+      Stencil toadd (s);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      return;
+    }
+
+  Interval first_extent = extent (a);
+
+  if (s.is_empty (a))
+    {
+      Stencil toadd (s);
+      toadd.translate_axis (first_extent[d], a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      return;
+    }
+
+  Interval next_extent = s.extent (a);
+
+  // It is somewhat tedious to special-case all spacing, but it turns
+  // out that not doing so makes it astonishingly hard to make the
+  // code do the correct thing.
+
+  // If first is spacing, we translate second accordingly without
+  // letting this affect its backward edge.
+  if (is_empty (other_axis (a)))
+    {
+      Stencil toadd (s);
+      Real offset = d * first_extent.delta ();
+      toadd.translate_axis (offset, a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      dim_[a][-d] = next_extent[-d];
+      dim_[a][d] = next_extent[d] + offset;
+      return;
+    }
+
+  // If next is spacing, similar action:
+  if (s.is_empty (other_axis (a)))
+    {
+      Stencil toadd (s);
+      Real offset = first_extent [d];
+      toadd.translate_axis (offset, a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      dim_[a][-d] = first_extent[-d];
+      dim_[a][d] = first_extent[d] + d * next_extent.delta ();
+      return;
+    }
+
+
+  Real offset = first_extent[d];
+
+  // If the added stencil has a backwardly protruding edge, we make
+  // room for it when combining.
+
+  if (d * next_extent [-d] < 0)
+    offset -= next_extent [-d];
+
+  offset += d * padding;
+
+  if (offset * d < mindist)
+    offset = d * mindist;
+
+  Stencil toadd (s);
+  toadd.translate_axis (offset, a);
+  toadd.add_stencil (*this);
+  expr_ = toadd.expr ();
+  dim_ = toadd.extent_box ();
+  dim_[a][-d] = first_extent [-d];
+  dim_[a][d] = next_extent [d] + offset;
+}
+
 
 Stencil
 Stencil::in_color (Real r, Real g, Real b) const

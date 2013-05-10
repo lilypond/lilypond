@@ -136,6 +136,57 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   return result.smobbed_copy ();
 }
 
+LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
+           4, 2, 0, (SCM first, SCM axis, SCM direction,
+                     SCM second,
+                     SCM padding,
+                     SCM mindist),
+           "Construct a stencil by stacking @var{second} next to @var{first}."
+           "  @var{axis} can be 0 (x-axis) or@tie{}1 (y-axis)."
+           "  @var{direction} can be -1 (left or down) or@tie{}1 (right or"
+           " up).  The stencils are juxtaposed with @var{padding} as extra"
+           " space.  @var{first} and @var{second} may also be @code{'()} or"
+           " @code{#f}.  As opposed to @code{ly:stencil-combine-at-edge},"
+           " metrics are suited for successively accumulating lines of"
+           " stencils.  Also, @var{second} stencil is drawn last.\n\n"
+           "If @var{mindist} is specified, reference points are placed"
+           " apart at least by this distance.  If either of the stencils"
+           " is spacing, @var{padding} and @var{mindist} do not apply.")
+{
+  Stencil *s1 = unsmob_stencil (first);
+  Stencil *s2 = unsmob_stencil (second);
+  Stencil result;
+
+  SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first == SCM_EOL,
+                   first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
+  SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second == SCM_EOL,
+                   second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
+  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_direction, direction, 3);
+
+  Real p = 0.0;
+  if (padding != SCM_UNDEFINED)
+    {
+      LY_ASSERT_TYPE (scm_is_number, padding, 5);
+      p = scm_to_double (padding);
+    }
+  Real d = -infinity_f;
+  if (!SCM_UNBNDP (mindist))
+    {
+      LY_ASSERT_TYPE (scm_is_number, mindist, 6);
+      d = scm_to_double (mindist);
+    }
+
+  if (s1)
+    result = *s1;
+
+  if (s2)
+    result.stack (Axis (scm_to_int (axis)),
+                  Direction (scm_to_int (direction)), *s2, p, d);
+
+  return result.smobbed_copy ();
+}
+
 LY_DEFINE (ly_stencil_add, "ly:stencil-add",
            0, 0, 1, (SCM args),
            "Combine stencils.  Takes any number of arguments.")

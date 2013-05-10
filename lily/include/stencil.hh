@@ -71,6 +71,7 @@ public:
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
+  void stack (Axis a, Direction d, const Stencil &m, Real padding, Real mindist);
   void add_stencil (Stencil const &m);
   void translate (Offset);
   Stencil translated (Offset) const;
