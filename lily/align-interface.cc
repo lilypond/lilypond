@@ -61,24 +61,24 @@ Align_interface::align_to_ideal_distances (SCM smob)
   return SCM_BOOL_T;
 }
 
-/* for each grob, find its upper and lower skylines. If the extent is
+/* for each grob, find its upper and lower skylines. If the grob has
+   an empty extent, delete it from the list instead. If the extent is
    non-empty but there is no skyline available (or pure is true), just
    create a flat skyline from the bounding box */
 // TODO(jneem): the pure and non-pure parts seem to share very little
 // code. Split them into 2 functions, perhaps?
 static void
 get_skylines (Grob *me,
-              vector<Grob *> const &elements,
+              vector<Grob *> *const elements,
               Axis a,
               bool pure, int start, int end,
-              vector<Skyline_pair> *ret,
-              vector<bool> const *skip_elt)
+              vector<Skyline_pair> *const ret)
 {
-  Grob *other_common = common_refpoint_of_array (elements, me, other_axis (a));
+  Grob *other_common = common_refpoint_of_array (*elements, me, other_axis (a));
 
-  for (vsize i = elements.size (); i--;)
+  for (vsize i = elements->size (); i--;)
     {
-      Grob *g = elements[i];
+      Grob *g = (*elements)[i];
       Skyline_pair skylines;
 
       if (!pure)
@@ -95,7 +95,7 @@ get_skylines (Grob *me,
           Real offset = g->relative_coordinate (other_common, other_axis (a));
           skylines.shift (offset);
         }
-      else if (!(*skip_elt)[i])
+      else
         {
           assert (a == Y_AXIS);
           Interval extent = g->pure_height (g, start, end);
@@ -111,7 +111,8 @@ get_skylines (Grob *me,
           // of the system. This way, the tall treble clefs are only compared with the treble
           // clefs of the other staff and they will be ignored if the staff above is, for example,
           // lyrics.
-          if (Axis_group_interface::has_interface (g))
+          if (Axis_group_interface::has_interface (g)
+              && !Hara_kiri_group_spanner::request_suicide (g, start, end))
             {
               extent = Axis_group_interface::rest_of_line_pure_height (g, start, end);
               Interval begin_of_line_extent = Axis_group_interface::begin_of_line_pure_height (g, start);
@@ -133,10 +134,10 @@ get_skylines (Grob *me,
             }
         }
 
-      // even if the skyline is empty, we want to push it back
-      // the heap because we will use things like system-system-distance
-      // to account for its presence
-      ret->push_back (skylines);
+      if (skylines.is_empty ())
+        elements->erase (elements->begin () + i);
+      else
+        ret->push_back (skylines);
     }
   reverse (*ret);
 }
@@ -176,7 +177,7 @@ Align_interface::get_minimum_translations_without_min_dist (Grob *me,
 //   else centered dynamics will break when there is a fixed alignment).
 vector<Real>
 Align_interface::internal_get_minimum_translations (Grob *me,
-                                                    vector<Grob *> const &elems,
+                                                    vector<Grob *> const &all_grobs,
                                                     Axis a,
                                                     bool include_fixed_spacing,
                                                     bool pure, int start, int end)
@@ -203,18 +204,10 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
                                            DOWN);
+  vector<Grob *> elems (all_grobs); // writable copy
   vector<Skyline_pair> skylines;
-  vector<bool> skip_elt;
-  // only add to skip elt if pure
-  // if not pure, no dead element should be in the list
-  for (vsize i = 0; i < elems.size (); i++)
-    {
-      if (!pure && !elems[i]->is_live ())
-        elems[i]->programming_error ("I should be dead by now...");
-      skip_elt.push_back (pure && Hara_kiri_group_spanner::request_suicide (elems[i], start, end));
-    }
 
-  get_skylines (me, elems, a, pure, start, end, &skylines, &skip_elt);
+  get_skylines (me, &elems, a, pure, start, end, &skylines);
 
   Real where = 0;
   Real default_padding = robust_scm2double (me->get_property ("padding"), 0.0);
@@ -226,11 +219,6 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   int spaceable_count = 0;
   for (vsize j = 0; j < elems.size (); j++)
     {
-      // This means that it will be suicided later downstream, so we
-      // skip it so that its padding is not added in.
-      if (pure && skip_elt[j])
-        continue;
-
       Real dy = 0;
       Real padding = default_padding;
 
@@ -296,18 +284,13 @@ Align_interface::internal_get_minimum_translations (Grob *me,
   // So far, we've computed the translates for all the non-empty elements.
   // Here, we set the translates for the empty elements: an empty element
   // gets the same translation as the last non-empty element before it.
-  vector<Grob *> non_empty_elems;
-  for (vsize i = 0; i < elems.size (); i++)
-    if (!skip_elt[i])
-      non_empty_elems.push_back (elems[i]);
-
   vector<Real> all_translates;
   if (!translates.empty ())
     {
       Real w = translates[0];
-      for (vsize i = 0, j = 0; j < elems.size (); j++)
+      for (vsize i = 0, j = 0; j < all_grobs.size (); j++)
         {
-          if (i < non_empty_elems.size () && elems[j] == non_empty_elems[i])
+          if (i < elems.size () && all_grobs[j] == elems[i])
             w = translates[i++];
           all_translates.push_back (w);
         }
