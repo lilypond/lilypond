@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.17\n"
+"Project-Id-Version: lilypond 2.17.18\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-04-27 13:15+0100\n"
+"POT-Creation-Date: 2013-05-11 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2440,12 +2440,12 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr ""
 
-#: multi-measure-rest.cc:152
+#: multi-measure-rest.cc:154
 msgid ""
 "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr ""
 
-#: multi-measure-rest.cc:342
+#: multi-measure-rest.cc:364
 msgid "Using naive multi measure rest spacing."
 msgstr ""
 
@@ -2859,7 +2859,7 @@ msgstr ""
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:192
+#: rest.cc:240
 #, c-format
 msgid "rest `%s' not found"
 msgstr ""
@@ -3684,63 +3684,58 @@ msgstr ""
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:765
+#: music-functions.scm:766
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:800
+#: music-functions.scm:801
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1138
+#: music-functions.scm:1139
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1276
+#: music-functions.scm:1277
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1336
+#: music-functions.scm:1337
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1337
+#: music-functions.scm:1338
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1682
+#: music-functions.scm:1683
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: output-ps.scm:278 output-svg.scm:524
+#: output-ps.scm:278 output-svg.scm:514
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:283 output-svg.scm:530
+#: output-ps.scm:283 output-svg.scm:520
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
 
-#: output-svg.scm:47
-#, scheme-format
-msgid "undefined: ~S"
-msgstr ""
-
-#: output-svg.scm:157
+#: output-svg.scm:148
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
-#: output-svg.scm:237
+#: output-svg.scm:228
 msgid "Glyph must have a unicode value"
 msgstr ""
 
-#: output-svg.scm:289 output-svg.scm:299
+#: output-svg.scm:280 output-svg.scm:290
 #, scheme-format
 msgid "cannot find SVG font ~S"
 msgstr ""
