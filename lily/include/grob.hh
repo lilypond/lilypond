@@ -176,6 +176,9 @@ DECLARE_UNSMOB (Grob, grob);
 Spanner *unsmob_spanner (SCM);
 Item *unsmob_item (SCM);
 
+/* unification */
+void uniquify (vector <Grob *> &);
+
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
 Grob *common_refpoint_of_array (vector<Grob *> const &, Grob *, Axis a);
