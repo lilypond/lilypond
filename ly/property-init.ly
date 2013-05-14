@@ -563,15 +563,6 @@ textLengthOff = {
   \override TextScript.extra-spacing-height = #'(0 . 0)
 }
 
-markLengthOn = {
-  \override Score.MetronomeMark.extra-spacing-width = #'(-0.5 . 0.5)
-  \override Score.RehearsalMark.extra-spacing-width = #'(-0.5 . 0.5)
-}
-
-markLengthOff = {
-  \override Score.MetronomeMark.extra-spacing-width = #'(+inf.0 . -inf.0)
-  \override Score.RehearsalMark.extra-spacing-width = #'(+inf.0 . -inf.0)
-}
 
 %% text spanners
 

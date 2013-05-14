@@ -67,17 +67,6 @@ Related context properties were renamed from @code{xxxOctavationyyy}
 to @code{xxxTranspositionyyy}.
 
 @item
-Horizontal space is allowed for tempo and rehearsal marks,
-so that these marks do not overlap each other.
-A new command @code{\markLengthOff} turns this feature off.
-@lilypond[quote,relative=0]
-\compressFullBarRests
-\tempo "Molto vivace" c''2 c'
-\mark\default
-\tempo "Meno mosso" R1*16
-@end lilypond
-
-@item
 There is a new @code{\absolute} command explicitly marking music
 as being entered in absolute pitch.  While this has been the
 default previously, an explicit @code{\absolute} also prevents

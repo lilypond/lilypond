@@ -854,14 +854,6 @@ and duration-log @var{log}."
    the previous calculated offset value."
   prev-offset)
 
-(define-public (outside-staff::pure-Y-offset grob start end)
-  "Initial vertical placement of items such as tempo and
-   rehearsal marks, for use in note-spacing."
-   (* (+ (ly:staff-symbol-staff-radius grob)
-         (ly:grob-property grob 'outside-staff-padding 0.0)
-         1.0)
-      (ly:grob-property grob 'direction CENTER)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 

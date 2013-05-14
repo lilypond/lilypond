@@ -90,7 +90,6 @@
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##f
-  \markLengthOff
 
   %% explicitly set instrument, so we don't get
   %% weird effects when doing instrument names for
@@ -173,7 +172,6 @@ contained staves are not connected vertically."
   \override BarLine.bar-extent = #'(-2 . 2)
   \override VoltaBracket.staff-padding = #3
   \override StaffSymbol.line-count = #1
-  \markLengthOff
 
   \override Stem.neutral-direction = #UP
   \override Beam.neutral-direction = #UP
@@ -706,7 +704,6 @@ automatically when an output definition (a @code{\\score} or
 %%
   figuredBassFormatter = #format-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
-  \markLengthOn
 
 
   %% See also make-voice-props-set

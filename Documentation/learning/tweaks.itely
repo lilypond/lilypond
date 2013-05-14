@@ -2285,9 +2285,6 @@ The command to revert to the default behavior is
 @code{\textLengthOff}.  Alternatively, @code{\once} may be used
 with @code{\textLengthOn} if the effect is to be limited to just a
 single musical moment.
-The corresponding spacing behavior for rehearsal marks and tempo
-indications is independently controlled with the commands
-@code{\markLengthOn} and @code{\markLengthOff}.
 
 @cindex markup text, allowing collisions
 

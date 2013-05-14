@@ -268,15 +268,6 @@ c1 c
 c  c
 @end lilypond
 
-@funindex \markLengthOn
-@funindex markLengthOn
-@funindex \markLengthOff
-@funindex markLengthOff
-
-@predefined
-@code{\markLengthOn},
-@code{\markLengthOff}.
-@endpredefined
 
 @snippets
 
