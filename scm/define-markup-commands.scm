@@ -1266,9 +1266,7 @@ determines the space between markups in @var{args}.
   (let ((stencils (interpret-markup-list layout props args)))
     (if (= text-direction LEFT)
         (set! stencils (reverse stencils)))
-    (stack-stencil-line
-     word-space
-     (remove ly:stencil-empty? stencils))))
+    (stack-stencil-line word-space stencils)))
 
 (define-markup-command (concat layout props args)
   (markup-list?)
@@ -1639,8 +1637,7 @@ in @var{args}.
 }
 @end lilypond"
   (let ((arg-stencils (interpret-markup-list layout props args)))
-    (stack-lines -1 0.0 baseline-skip
-                 (remove ly:stencil-empty? arg-stencils))))
+    (stack-lines -1 0.0 baseline-skip arg-stencils)))
 
 (define-markup-command (dir-column layout props args)
   (markup-list?)
