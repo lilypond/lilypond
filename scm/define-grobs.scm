@@ -577,6 +577,10 @@
                               X 'break-visibility))
 	(font-shape . italic)
 	(font-size . -4)
+        (transparent . ,(grob::inherit-parent-property
+                         X 'transparent))
+        (color . ,(grob::inherit-parent-property
+                   X 'color))
 	(self-alignment-X . ,CENTER)
 	(staff-padding . 0.2)
 	(stencil . ,ly:text-interface::print)
