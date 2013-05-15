@@ -107,11 +107,26 @@ For Xpdf on UNIX, the following should be present in
 urlCommand     "lilypond-invoke-editor %s"
 @end example
 
+If you are using Ubuntu, it is likely that the version of Xpdf
+installed with your system crashes on every PDF file: this state
+has been persisting for several years and is due to library
+mismatches.  Your best bet is to install a current @samp{xpdf}
+package and the corresponding @samp{libpoppler} package from
+Debian instead.  Once you have tested that this works, you might
+want to use
+@example
+sudo apt-mark hold xpdf
+@end example
+@noindent
+in order to keep Ubuntu from overwriting it with the next
+@q{update} of its crashing package.
+
 @node Using GNOME 2 for point and click
 @unnumberedsubsubsec Using GNOME 2
 
-For using GNOME 2, the magic invocation for telling the system
-about the @samp{textedit:} URI is
+For using GNOME 2 (and PDF viewers integrated with it), the magic
+invocation for telling the system about the @samp{textedit:} URI
+is
 @example
 gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
 gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
