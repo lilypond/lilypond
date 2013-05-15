@@ -263,16 +263,15 @@ hideNotes = {
   \override Dots.transparent = ##t
   \override NoteHead.transparent = ##t
   \override NoteHead.no-ledgers = ##t
+  % assume that any Beam inherits transparency from its parent Stem
   \override Stem.transparent = ##t
   \override Flag.transparent = ##t
-  \override Beam.transparent = ##t
   \override Accidental.transparent = ##t
   \override Rest.transparent = ##t
   \override TabNoteHead.transparent = ##t
 }
 unHideNotes = {
   \revert Accidental.transparent
-  \revert Beam.transparent
   \revert Stem.transparent
   \revert Flag.transparent
   \revert NoteHead.transparent

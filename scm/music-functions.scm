@@ -1945,7 +1945,7 @@ base onto the following musical context."
                 (blot (ly:output-def-lookup layout 'blot-diameter)))
            ; Hide spanned stems
            (map (lambda (st)
-                  (set! (ly:grob-property st 'transparent) #t))
+                  (set! (ly:grob-property st 'stencil) #f))
              stems)
            ; Draw a nice looking stem with rounded corners
            (ly:round-filled-box (ly:grob-extent root root X) yextent blot))

@@ -409,6 +409,8 @@
 	(positions . ,beam::place-broken-parts-individually)
 	(springs-and-rods . ,ly:beam::calc-springs-and-rods)
 	(X-positions . ,ly:beam::calc-x-positions)
+        (transparent . ,(grob::inherit-parent-property
+                         X 'transparent))
 
 	;; this is a hack to set stem lengths, if positions is set.
 	(quantized-positions . ,ly:beam::set-stem-lengths)
