@@ -192,6 +192,7 @@
 	(text . ,(grob::calc-property-by-copy 'text))
 	(X-offset . ,(grob::calc-property-by-copy 'X-offset))
 	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset))
+	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (balloon-interface
 				font-interface
