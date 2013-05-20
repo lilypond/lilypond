@@ -149,29 +149,32 @@ Side_position_interface::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "side-support-elements", elts);
-// Commented out because of cross staff issues
-// Direction for cross staff stems depends on the spacing of staves,
-// which depends on the inclusion of cross-staff side position grobs,
-// which need the direction for positioning.  So the get_grob_direction call
-// may lead to circular dependencies.
-// #if 0
+
   Direction my_dir = get_grob_direction (me) ;
 
-  // if a cross-staff grob is pointing in a different direction than
-  // that of an aligning element, we assume that the alignment
-  // of said element will not be influenced the cross-staffitude
-  // of the grob and thus we do not mark the aligning element
-  // as cross-staff
   for (vsize i = 0; i < elts.size (); i++)
-    if (to_boolean (elts[i]->get_property ("cross-staff"))
-         && my_dir == get_grob_direction (elts[i]))
-      return SCM_BOOL_T;
-//#endif
-#if 0
-  for (vsize i = 0; i < elts.size (); i++)
-    if (to_boolean (elts[i]->get_property ("cross-staff")))
-      return SCM_BOOL_T;
-#endif
+    {
+      /*
+        If 'me' is placed relative to any cross-staff element with a
+        'direction callback defined, the placement of 'me' is likely
+        to depend on staff-spacing, thus 'me' should be considered
+        cross-staff.
+      */
+      if (to_boolean (elts[i]->get_property ("cross-staff"))
+           && !is_direction (elts[i]->get_property_data ("direction")))
+        return SCM_BOOL_T;
+
+      /*
+        If elts[i] is cross-staff and is pointing in the same
+        direction as 'me', we assume that the alignment
+        of 'me' is influenced the cross-staffitude of elts[i]
+        and thus we mark 'me' as cross-staff.
+      */
+      if (to_boolean (elts[i]->get_property ("cross-staff"))
+           && my_dir == get_grob_direction (elts[i]))
+        return SCM_BOOL_T;
+    }
+
   Grob *myvag = Grob::get_vertical_axis_group (me);
   for (vsize i = 0; i < elts.size (); i++)
     if (myvag != Grob::get_vertical_axis_group (elts[i]))
@@ -256,6 +259,18 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       // In the case of a stem, we will find a note head as well
       // ignoring the stem solves cyclic dependencies if the stem is
       // attached to a cross-staff beam.
+      bool cross_staff = to_boolean (e->get_property ("cross-staff"));
+
+      // avoid cyclic dependency for direction
+      if (a == Y_AXIS
+          && pure
+          && Stem::has_interface (e)
+          && cross_staff
+          && !is_direction (e->get_property_data ("direction")))
+        continue;
+
+      // avoid unnecessary stem look up (if pointing away, it is not
+      // supporting anything)
       if (a == Y_AXIS
           && Stem::has_interface (e)
           && dir == - get_grob_direction (e))
@@ -264,7 +279,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       if (e)
         {
 
-           bool cross_staff = to_boolean (e->get_property ("cross-staff"));
 
            Skyline_pair *sp = Skyline_pair::unsmob
              (e->get_maybe_pure_property (a == X_AXIS
