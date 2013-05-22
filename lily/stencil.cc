@@ -176,9 +176,10 @@ Stencil::translate (Offset o)
       incr (a);
     }
 
-  expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
-                      ly_offset2scm (o),
-                      expr_, SCM_UNDEFINED);
+  if (!scm_is_null (expr_))
+    expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
+                        ly_offset2scm (o),
+                        expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
 }
@@ -206,7 +207,11 @@ void
 Stencil::add_stencil (Stencil const &s)
 {
   SCM cs = ly_symbol2scm ("combine-stencil");
-  if (scm_is_pair (expr_)
+  if (scm_is_null (expr_))
+    expr_ = s.expr_;
+  else if (scm_is_null (s.expr_))
+    ;
+  else if (scm_is_pair (expr_)
       && scm_is_eq (cs, scm_car (expr_)))
     {
       if (scm_is_pair (s.expr_)
