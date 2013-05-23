@@ -572,7 +572,7 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   last_column_ = 0;
   force_ = 0;
   Stencil *st = unsmob_stencil (pb->get_property ("stencil"));
-  Interval stencil_extent = st->is_empty () ? Interval (0, 0)
+  Interval stencil_extent = st->is_empty (Y_AXIS) ? Interval (0, 0)
     : st->extent (Y_AXIS);
   shape_ = Line_shape (stencil_extent, stencil_extent); // pretend it goes all the way across
   tallness_ = 0;
