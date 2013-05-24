@@ -2132,7 +2132,8 @@ enclosing context will apply.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
-  % No need to disable beamExceptions as they are not defined for 7/8 time
+  % No need to disable beamExceptions
+  % as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2176,7 +2177,8 @@ compatible with the new value of @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-% No need to disable beamExceptions as they are not defined for 5/8 time
+% No need to disable beamExceptions
+% as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
