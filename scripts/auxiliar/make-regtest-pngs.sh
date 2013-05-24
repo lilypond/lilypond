@@ -34,6 +34,9 @@
 #
 #   -d changes the Ghostscript device used for creating PNG files
 #   (usually png16m for direct PNG creation and pngmono for printer simulation)
+#
+#   if any filenames follow, those are the tests to run.  In absence
+#   of any filenames, the contents of input/regression are used.
 
 cpu_count=${CPU_COUNT:-1}
 backend_opt='--png ${resolution:+=-dresolution=$resolution} ${gsdevice:+=-dpixmap-format=$gsdevice}'
@@ -77,6 +80,8 @@ while getopts "j:oncr:gpd:" opts; do
     esac
 done
 
+shift $((OPTIND-1))
+
 if [ -z "$file_loc" ]; then
     echo "Must specify old (-o) or new (-n) regtest PNG creation on command line"
     exit 1
@@ -84,8 +89,23 @@ fi
 
 rm -rf $LILYPOND_BUILD_DIR/out-png-check/$file_loc
 mkdir -p $LILYPOND_BUILD_DIR/out-png-check/$file_loc
+OLDPWD="$PWD"
 cd $LILYPOND_BUILD_DIR/out-png-check/$file_loc
-ls $LILYPOND_GIT/input/regression/*.ly > dir.txt
+if [ "$*" = "" ]
+then
+    ls $LILYPOND_GIT/input/regression/*.ly > dir.txt
+else
+    : > dir.txt
+    for i
+    do
+	case "$i" in /*)
+		echo "$i" >> dir.txt;;
+	    *)
+		echo "$OLDPWD/$i" >> dir.txt
+	esac
+    done
+fi
+
 $LILYPOND_BUILD_DIR/out/bin/lilypond $(eval echo $backend_opt) --relocate \
     -dinclude-settings=$LILYPOND_GIT/scripts/auxiliar/NoTagline.ly \
     -djob-count=$cpu_count -dread-file-list "dir.txt"
@@ -115,7 +135,7 @@ if [ -n "$do_compare" ]; then
     diff_count=0
     for filename in new-regtest-results/*.png; do
         trimFile=$(basename $filename)
-        if [ -e old-regtest-results/$trimFile ]; then
+        if [ -e "old-regtest-results/$trimFile" ]; then
             convert new-regtest-results/$trimFile -level 50%  NewTest.png
             convert old-regtest-results/$trimFile -level 50%  OldTest.png
             difference=$(compare -metric AE NewTest.png OldTest.png null: 2>&1 )
