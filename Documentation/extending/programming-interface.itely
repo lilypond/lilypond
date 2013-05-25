@@ -459,7 +459,7 @@ music containing overrides will have a net effect of zero.
 Here is an example of a music function which makes use of this.
 The use of @code{\temporary} ensures the values of the
 @code{cross-staff} and @code{style} properties are restored on exit
-to whatever values they had when the @code{cross-staff} function was
+to whatever values they had when the @code{crossStaff} function was
 called.  Without @code{\temporary} the default values would have been
 set on exit.
 
