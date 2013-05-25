@@ -97,12 +97,23 @@ git merge origin/master
 make -C $LILYPOND_BUILD_DIR po-replace
 mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
 gedit Documentation/web/news-front.itexi Documentation/web/news.itexi
+gedit VERSION
 @end example
+
+@itemize
+@item
+VERSION_DEVEL = the current development version (previous VERSION_DEVEL + 0.01)
+
+@item
+VERSION_STABLE = the current stable version (probably no change here)
+
+@end itemize
 
 @item
 Commit, push, switch back to master (or wherever else):
 
 @example
+git commit -m "Release: bump VERSION_DEVEL." VERSION
 git commit -m "PO: update template." po/lilypond.pot
 git commit -m "Release: update news." Documentation/web/
 git push origin HEAD:release/unstable
@@ -144,14 +155,16 @@ make LILYPOND_BRANCH=release/unstable lilypond
 or something like:
 
 @example
-make LILYPOND_BRANCH=stable/2.12 lilypond
+make LILYPOND_BRANCH=stable/2.16 lilypond
 @end example
 
-@item Check the regtest comparison in @file{uploads/webtest/} for
+@item
+Check the regtest comparison in @file{uploads/webtest/} for
 any unintentional breakage.  More info in
 @ref{Precompiled regression tests}.
 
-@item If any work was done on GUB since the last release, upload
+@item
+If any work was done on GUB since the last release, upload
 binaries to a temporary location, ask for feedback, and wait a day
 or two in case there's any major problems.
 
@@ -171,8 +184,6 @@ or two in case there's any major problems.
 test-lily/rsync-lily-doc.py
 test-lily/rsync-test.py
 @end example
-
-@code{graham} owns v2.13; @code{han-wen} owns v2.12.
 
 @item Upload GUB by running:
 
@@ -198,7 +209,8 @@ make lilypond-upload \
 
 @enumerate
 
-@item Update the current staging branch with the current news:
+@item
+Update the current staging branch with the current news:
 
 @example
 git fetch
@@ -206,26 +218,20 @@ git checkout origin/staging
 git merge origin/release/unstable
 @end example
 
-@item Update @file{VERSION} in lilypond git and upload changes:
+@item
+Update @file{VERSION} in lilypond git and upload changes:
 
 @example
-vi VERSION
+gedit VERSION
 @end example
 
 @itemize
 @item
 VERSION = what you just did +0.0.1
-
-@item
-DEVEL_VERSION = what you just did (i.e. is now online)
-
-@item
-STABLE_VERSION = what's online (probably no change here)
-
 @end itemize
 
 @example
-git commit -m "Release: bump version." VERSION
+git commit -m "Release: bump VERSION." VERSION
 git push origin HEAD:staging
 @end example
 
@@ -239,21 +245,6 @@ If the push fails with a message like
 it means that somebody else updated the staging branch while you were
 preparing your change.  In that case, you need to restart the Post
 Release process.  Otherwise, proceed:
-
-@item (for now) do a @code{make doc} and manually upload:
-
-@example
-### upload-lily-web-media.sh
-#!/bin/sh
-BUILD_DIR=$HOME/src/build-lilypond
-
-PICS=$BUILD_DIR/Documentation/pictures/out-www/
-EXAMPLES=$BUILD_DIR/Documentation/ly-examples/out-www/
-
-cd $BUILD_DIR
-rsync -a $PICS graham@@lilypond.org:media/pictures
-rsync -a $EXAMPLES graham@@lilypond.org:media/ly-examples
-@end example
 
 @item Wait a few hours for the website to update.
 
