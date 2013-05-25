@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.19"
 
 @node Música vocal
 @section Música vocal
@@ -2056,7 +2056,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \vspace #0.1 % adds vertical spacing between verses
+      \combine \null \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "3."
         \column {
           "This is verse three."
@@ -2072,7 +2072,7 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \vspace #0.1 % adds vertical spacing between verses
+      \combine \null \vspace #0.1 % adds vertical spacing between verses
       \line { \bold "5."
         \column {
           "This is verse five."

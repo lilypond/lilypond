@@ -1,4 +1,4 @@
-\version "2.17.12"
+\version "2.17.19"
 
 \header {
   texidoc = "@code{\\note-by-number} and @code{\\note} support
@@ -37,7 +37,7 @@ all note head styles and straight flags."
 
 \markup {
   \column {
-    \vspace #1
+    \combine \null \vspace #1
     \underline "Note-head-styles:"
     \override #'(baseline-skip . 6)
     \show-note-styles #styles-list
@@ -46,7 +46,7 @@ all note head styles and straight flags."
 
 \markup {
   \column {
-    \vspace #1
+    \combine \null \vspace #1
     \underline "Modern-straight-flag:"
     \override #'(flag-style . modern-straight-flag)
     \show-note-styles #'(default)
@@ -55,7 +55,7 @@ all note head styles and straight flags."
 
 \markup {
   \column {
-    \vspace #1
+    \combine \null \vspace #1
     \underline "Old-straight-flag:"
     \override #'(flag-style . old-straight-flag)
     \show-note-styles #'(default)
