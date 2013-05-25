@@ -791,7 +791,8 @@ voz tres a círculos verdes con aspas, y la voz cuatro (que no se
 utiliza aquí) a aspas color magenta.  @code{\voiceNeutralStyle} (que
 tampoco se usa aquí) devuelve todo al estilo predeterminado.  Veremos
 más adelante cómo el usuario puede crear instrucciones como éstas.
-Véase @ref{Visibilidad y color de los objetos} y @ref{Uso de variables para los trucos}.
+Véase @ref{Visibilidad y color de los objetos} y
+@ref{Uso de variables para los ajustes de disposición}.
 
 @cindex polifonía y modo relativo
 @cindex relativo, modo, polifonía y
