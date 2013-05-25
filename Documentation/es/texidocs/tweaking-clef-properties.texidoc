@@ -4,7 +4,7 @@
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
 @code{clefGlyph}, @code{clefPosition} (que controla la posición
 vertical de la clave), @code{middleCPosition} y
-@code{clefOctavation}.  Se imprime una clave cada vez que se
+@code{clefTransposition}.  Se imprime una clave cada vez que se
 modifica cualquiera de las propiedades excepto
 @code{middleCPosition}.
 
@@ -14,7 +14,7 @@ notas del pentagrama: para hacer esto también se debe especificar
 la posición del Do central.  Los parámetros posicionales están en
 relación con la tercera línea del pentagrama, los números
 positivos desplazan hacia arriba, contando una unidad por cada
-línea y espacio.  El valor de @code{clefOctavation} se
+línea y espacio.  El valor de @code{clefTransposition} se
 establecería normalmente a 7, -7, 15 or -15, pero son válidos
 otros valores.
 

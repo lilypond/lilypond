@@ -17,7 +17,6 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (scm output-svg))
-(define this-module (current-module))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
@@ -38,14 +37,6 @@
 (define format ergonomic-simple-format)
 
 (define lily-unit-length 1.7573)
-
-(define (dispatch expr)
-  (let ((keyword (car expr)))
-    (cond ((eq? keyword 'some-func) "")
-	  (else (if (module-defined? this-module keyword)
-		    (apply (eval keyword this-module) (cdr expr))
-		    (begin (ly:warning (_ "undefined: ~S") keyword)
-			   ""))))))
 
 ;; Helper functions
 (define-public (attributes attributes-alist)
@@ -330,8 +321,7 @@
 ;;;
 
 (define (char font i)
-  (dispatch
-   `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
+  (fontify font (entity 'tspan (char->entity (integer->char i)))))
 
 (define (circle radius thick is-filled)
   (entity
@@ -486,7 +476,7 @@
   "")
 
 (define (named-glyph font name)
-  (dispatch `(fontify ,font ,name)))
+  (fontify font name))
 
 (define (no-origin)
   "")
@@ -613,7 +603,7 @@
 	     x y))
 
 (define (text font string)
-  (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
+  (fontify font (entity 'tspan (string->entities string))))
 
 (define (url-link url x y)
   (string-append
@@ -632,5 +622,5 @@
   (let ((escaped-string (string-regexp-substitute
 			  "<" "&lt;"
 			  (string-regexp-substitute "&" "&amp;" string))))
-    (dispatch `(fontify ,pango-font-description
-			,(entity 'tspan escaped-string)))))
+    (fontify pango-font-description
+             (entity 'tspan escaped-string))))

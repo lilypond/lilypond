@@ -169,6 +169,7 @@
 	(direction . ,LEFT)
 	(padding . 0.5)
 	(positions . ,ly:arpeggio::calc-positions)
+	(protrusion . 0.4)
 	(script-priority . 0)
 	(side-axis . ,X)
 	(staff-position . 0.0)
@@ -373,11 +374,11 @@
 	(clip-edges . #t)
 	(collision-interfaces . (beam-interface
 				 clef-interface
+				 clef-modifier-interface
 				 flag-interface
 				 inline-accidental-interface
 				 key-signature-interface
 				 note-head-interface
-				 octavate-eight-interface
 				 stem-interface
 				 time-signature-interface))
 	(cross-staff . ,ly:beam::calc-cross-staff)
@@ -408,6 +409,8 @@
 	(positions . ,beam::place-broken-parts-individually)
 	(springs-and-rods . ,ly:beam::calc-springs-and-rods)
 	(X-positions . ,ly:beam::calc-x-positions)
+        (transparent . ,(grob::inherit-parent-property
+                         X 'transparent))
 
 	;; this is a hack to set stem lengths, if positions is set.
 	(quantized-positions . ,ly:beam::set-stem-lengths)
@@ -565,6 +568,31 @@
 				font-interface
 				pure-from-neighbor-interface
 				staff-symbol-referencer-interface))))))
+
+    (ClefModifier
+     . (
+	(break-visibility . ,(grob::inherit-parent-property
+                              X 'break-visibility))
+	(font-shape . italic)
+	(font-size . -4)
+	(self-alignment-X . ,CENTER)
+	(staff-padding . 0.2)
+	(stencil . ,ly:text-interface::print)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::centered-on-x-parent)))))
+	(Y-offset . ,side-position-interface::y-aligned-side)
+	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+	(Y-extent . ,grob::always-Y-extent-from-stencil)
+	(meta . ((class . Item)
+		 (interfaces . (clef-modifier-interface
+				font-interface
+				self-alignment-interface
+				side-position-interface
+				text-interface))))))
 
     (ClusterSpanner
      . (
@@ -778,6 +806,7 @@
 	(direction . ,DOWN)
 	(minimum-space . 1.2)
 	(outside-staff-priority . 250)
+	(outside-staff-padding . 0.6)
 	(padding . 0.6)
 	(side-axis . ,Y)
 	(slur-padding . 0.3)
@@ -859,6 +888,7 @@
 	(minimum-Y-extent . (-1 . 1))
 
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(skyline-horizontal-padding . 0.2)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:line-spanner::print)
 	(style . dashed-line)
@@ -1221,6 +1251,7 @@
    (LaissezVibrerTie
      . (
 	(control-points . ,ly:semi-tie::calc-control-points)
+	(cross-staff . ,semi-tie::calc-cross-staff)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(direction . ,ly:tie::calc-direction)
@@ -1418,16 +1449,14 @@
 	(after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
-	(outside-staff-horizontal-padding . 0.12)
+	(extra-spacing-width . (+inf.0 . -inf.0))
+	(outside-staff-horizontal-padding . 0.2)
 	(outside-staff-priority . 1000)
-	(outside-staff-padding . 0.5)
+	(padding . 0.8)
 	(side-axis . ,Y)
-	(skyline-horizontal-padding . 0.2)
 	(stencil . ,ly:text-interface::print)
 	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-	(Y-offset . ,(ly:make-unpure-pure-container
-                       side-position-interface::y-aligned-side
-                       outside-staff::pure-Y-offset))
+	(Y-offset . ,side-position-interface::y-aligned-side)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -1500,6 +1529,7 @@
 	(outside-staff-priority . 450)
 	(padding . 0.2)
 	(self-alignment-X . ,CENTER)
+	(skyline-horizontal-padding . 0.2)
 	(staff-padding . 0.25)
 	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
@@ -1620,32 +1650,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (note-spacing-interface
 				spacing-interface))))))
-
-
-    (OctavateEight
-     . (
-	(break-visibility . ,(grob::inherit-parent-property
-                              X 'break-visibility))
-	(font-shape . italic)
-	(font-size . -4)
-	(self-alignment-X . ,CENTER)
-	(staff-padding . 0.2)
-	(stencil . ,ly:text-interface::print)
-	(X-offset . ,(ly:make-simple-closure
-		      `(,+
-			,(ly:make-simple-closure
-			  (list ly:self-alignment-interface::x-aligned-on-self))
-			,(ly:make-simple-closure
-			  (list ly:self-alignment-interface::centered-on-x-parent)))))
-	(Y-offset . ,side-position-interface::y-aligned-side)
-	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-	(Y-extent . ,grob::always-Y-extent-from-stencil)
-	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				octavate-eight-interface
-				self-alignment-interface
-				side-position-interface
-				text-interface))))))
 
     (OttavaBracket
      . (
@@ -1787,11 +1791,12 @@
 	(break-align-symbols . (staff-bar key-signature clef))
 	(break-visibility . ,end-of-line-invisible)
 	(direction . ,UP)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(font-size . 2)
 	(non-musical . #t)
 	(outside-staff-horizontal-padding . 0.12)
 	(outside-staff-priority . 1500)
-	(outside-staff-padding . 0.5)
+	(padding . 0.8)
 	(self-alignment-X . ,CENTER)
 	(stencil . ,ly:text-interface::print)
 	(vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
@@ -1801,9 +1806,7 @@
 			  (list ly:break-alignable-interface::self-align-callback))
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
-	(Y-offset . ,(ly:make-unpure-pure-container
-                       side-position-interface::y-aligned-side
-                       outside-staff::pure-Y-offset))
+	(Y-offset . ,side-position-interface::y-aligned-side)
 	(Y-extent . ,grob::always-Y-extent-from-stencil)
 	(meta . ((class . Item)
 		 (interfaces . (break-alignable-interface
@@ -1827,6 +1830,7 @@
 
     (RepeatTie
      . (
+	(cross-staff . ,semi-tie::calc-cross-staff)
 	(control-points . ,ly:semi-tie::calc-control-points)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))

@@ -932,13 +932,10 @@ in module @var{module}.  In that case evaluate, otherwise
 print a warning and set an optional @var{default}."
   (let* ((unavailable? (lambda (sym)
                          (not (module-defined? module sym))))
-	 (sym-unavailable (if (pair? symbol)
-	                      (filter
-			        unavailable?
-			        (filter symbol? (flatten-list symbol)))
-			      (if (unavailable? symbol)
-			           #t
-				   '()))))
+	 (sym-unavailable
+          (filter
+           unavailable?
+           (filter symbol? (flatten-list symbol)))))
     (if (null? sym-unavailable)
         (eval symbol module)
         (let* ((def (and (pair? default) (car default))))

@@ -342,9 +342,8 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
   for (vsize i = ret.size (); i--;)
     if (Grob *s = Rhythmic_head::get_stem (ret[i]))
       ret.push_back (s);
-
-  vector_sort (ret, less<Grob *> ());
-  uniq (ret);
+  
+  uniquify (ret);
   return ret;
 }
 

@@ -2,8 +2,8 @@
 
 \header {
 
-  texidoc="Octavate symbols may be parenthesized or bracketed by using
-parentheses or brackets in the command string."
+  texidoc="Clef transposition symbols may be parenthesized or
+bracketed by using parentheses or brackets in the command string."
 
 }
 \score {

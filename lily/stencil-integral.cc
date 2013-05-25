@@ -289,7 +289,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &bui
   int quantization = max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
   do
     {
-      for (vsize i = 0; i < 1 + quantization; i++)
+      for (vsize i = 0; i < 1 + (vsize) quantization; i++)
         {
           Real ang = linear_map (start, end, 0, quantization, i);
           complex<Real> coord = polar (1.0, ang);
@@ -452,7 +452,7 @@ make_draw_bezier_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
       Offset first = get_point_in_y_direction (curve.control_[0], perpendicular_slope (curve.slope_at_point (0.0)), th / 2, d);
       pango_matrix_transform_point (&trans, &first[X_AXIS], &first[Y_AXIS]);
       points[d].push_back (first);
-      for (vsize i = 1; i < quantization; i++)
+      for (vsize i = 1; i < (vsize) quantization; i++)
         {
           Real pt = (i * 1.0) / quantization;
           Offset inter = get_point_in_y_direction (curve.curve_point (pt), perpendicular_slope (curve.slope_at_point (pt)), th / 2, d);
@@ -947,7 +947,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
       return stencil_traverser (trans, scm_caddr (expr));
     }
   else if (scm_car (expr) == ly_symbol2scm ("delay-stencil-evaluation"))
-    return stencil_traverser (trans, scm_force (scm_cadr (expr)));
+    // should not use the place-holder text, but no need for the warning below
+    return vector<Transform_matrix_and_expression> ();
   else if (scm_car (expr) == ly_symbol2scm ("grob-cause"))
     return stencil_traverser (trans, scm_caddr (expr));
   else if (scm_car (expr) == ly_symbol2scm ("color"))

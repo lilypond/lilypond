@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -2587,7 +2587,7 @@ définition d'un @qq{instrument} pour chacun des rôles en question :
   #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
      (shortInstrumentName . "Kas.")
      (clefGlyph . "clefs.G")
-     (clefOctavation . -7)
+     (clefTransposition . -7)
      (middleCPosition . 1)
      (clefPosition . -2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
@@ -2597,7 +2597,7 @@ définition d'un @qq{instrument} pour chacun des rôles en question :
   #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
      (shortInstrumentName . "Mel.")
      (clefGlyph . "clefs.F")
-     (clefOctavation . 0)
+     (clefTransposition . 0)
      (middleCPosition . 6)
      (clefPosition . 2)
      (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))

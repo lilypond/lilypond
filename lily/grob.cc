@@ -972,3 +972,50 @@ Grob::check_cross_staff (Grob *commony)
   return false;
 }
 
+static
+bool
+indirect_less (Grob **a, Grob **b)
+{
+  // Use original order as tie breaker.  That gives us a stable sort
+  // at the lower price tag of an unstable one, and we want a stable
+  // sort in order to reliably retain the first instance of a grob
+  // pointer.
+  return *a < *b || (*a == *b && a < b);
+}
+
+static
+bool
+indirect_eq (Grob **a, Grob **b)
+{
+  return *a == *b;
+}
+
+static
+bool
+direct_less (Grob **a, Grob **b)
+{
+  return a < b;
+}
+
+// uniquify uniquifies on the memory addresses of the Grobs, but then
+// uses the original order.  This makes results independent from the
+// memory allocation of Grobs.
+
+void
+uniquify (vector <Grob *> & grobs)
+{
+  vector <Grob **> vec (grobs.size ());
+  for (vsize i = 0; i < grobs.size (); i++)
+    vec[i] = &grobs[i];
+  vector_sort (vec, indirect_less);
+  vec.erase (unique (vec.begin (), vec.end (), indirect_eq), vec.end ());
+  vector_sort (vec, direct_less);
+
+  // Since the output is a sorted copy of the input with some elements
+  // removed, we can fill in the vector in-place if we do it starting
+  // from the front.
+  for (vsize i = 0; i < vec.size (); i++)
+    grobs[i] = *vec[i];
+  grobs.erase (grobs.begin () + vec.size (), grobs.end ());
+  return;
+}

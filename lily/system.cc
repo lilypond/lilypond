@@ -548,8 +548,7 @@ System::post_processing ()
      anyway. */
 
   vector<Grob *> all_elts_sorted (all_elements_->array ());
-  vector_sort (all_elts_sorted, std::less<Grob *> ());
-  uniq (all_elts_sorted);
+  uniquify (all_elts_sorted);
   this->get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
     {

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -3506,7 +3506,7 @@ ces réglages par défaut.
 @item @code{KeySignature}        @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @c omit LeftEdge until it can be explained -td
 @c @item @code{LeftEdge}         @tab @code{Score}          @tab @code{center-invisible}
-@item @code{OctavateEight}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
+@item @code{ClefModifier}       @tab @code{Staff}          @tab @code{begin-of-line-visible}
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
@@ -3648,9 +3648,9 @@ intervenir qu'à l'occasion d'un @code{\bar} explicite.
 @cindex clef, visibilité de l'octaviation
 
 L'indication d'octaviation d'une clef est produite par l'objet de rendu
-@code{OctavateEight}.  Sa visibilité étant gérée par héritage direct de
+@code{ClefModifier}.  Sa visibilité étant gérée par héritage direct de
 l'objet @code{Clef}, nul n'est besoin de forcer un quelconque
-@code{break-visibility} au niveau des objets @code{OctavateEight} pour
+@code{break-visibility} au niveau des objets @code{ClefModifier} pour
 éliminer une indication d'octaviation lorsque la clef est invisible.
 
 Lors d'un changement explicite de clef, la propriété

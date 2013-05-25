@@ -10,7 +10,6 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 \version "2.17.6"
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
-#(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -35,7 +34,7 @@ modernAccidentals = {
 melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
   \time 6/8
   \autoBeamOff
-  << s2.^\markup {  \larger { \hspace #-3.0 Lieblich, etwas geschwind } }
+  << s2.^\markup {  \larger \line { \hspace #-3.1 Lieblich, etwas geschwind } }
      R2.
   >>
   r4 r8 c4 g8 |

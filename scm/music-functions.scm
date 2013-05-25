@@ -491,6 +491,7 @@ in @var{grob}."
     Fingering
     LaissezVibrerTie
     LigatureBracket
+    MultiMeasureRest
     PhrasingSlur
     RepeatTie
     Rest
@@ -526,8 +527,8 @@ in @var{grob}."
 			  (Voice Fingering font-size -8)
 			  (Voice StringNumber font-size -8)))
 
-     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
+     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))))))
+
 
 (define-safe-public (make-voice-props-override n)
   (make-sequential-music
@@ -1944,7 +1945,7 @@ base onto the following musical context."
                 (blot (ly:output-def-lookup layout 'blot-diameter)))
            ; Hide spanned stems
            (map (lambda (st)
-                  (set! (ly:grob-property st 'transparent) #t))
+                  (set! (ly:grob-property st 'stencil) #f))
              stems)
            ; Draw a nice looking stem with rounded corners
            (ly:round-filled-box (ly:grob-extent root root X) yextent blot))

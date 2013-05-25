@@ -1,8 +1,8 @@
 \version "2.17.7"
 
 \header {
-  texidoc = "Optional octavation for clefs for cue notes is
-supported by using parentheses or brackets around the octavation number."
+  texidoc = "Optional transposition for clefs for cue notes is supported
+by using parentheses or brackets around the transposition number."
 }
 
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }

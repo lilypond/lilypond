@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1873,7 +1873,7 @@ LilyPond 入力ファイルに対する特別なサポートを持つ@c
 >>
 @end lilypond
 
-他の例としては、@code{clefOctavation} が @code{Score} コンテキストに@c
+他の例としては、@code{clefTransposition} が @code{Score} コンテキストに@c
 セットされた場合、直ちにすべての譜でのオクターブの値を変更し、すべての譜に@c
 適用される新しいデフォルト値をセットします。
 

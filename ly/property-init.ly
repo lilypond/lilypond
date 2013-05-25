@@ -263,16 +263,15 @@ hideNotes = {
   \override Dots.transparent = ##t
   \override NoteHead.transparent = ##t
   \override NoteHead.no-ledgers = ##t
+  % assume that any Beam inherits transparency from its parent Stem
   \override Stem.transparent = ##t
   \override Flag.transparent = ##t
-  \override Beam.transparent = ##t
   \override Accidental.transparent = ##t
   \override Rest.transparent = ##t
   \override TabNoteHead.transparent = ##t
 }
 unHideNotes = {
   \revert Accidental.transparent
-  \revert Beam.transparent
   \revert Stem.transparent
   \revert Flag.transparent
   \revert NoteHead.transparent
@@ -553,25 +552,29 @@ showSplitTiedTabNotes = {
 %% text length
 
 textLengthOn = {
-  \override TextScript.extra-spacing-width = #'(0 . 0)
+  % 0.4 staff-space between adjacent texts
+  \override TextScript.extra-spacing-width = #'(-0.0 . 0.4)
   \override TextScript.extra-spacing-height = #'(-inf.0 . +inf.0)
-  \override TextScript.outside-staff-horizontal-padding = #0
 }
 
 textLengthOff = {
   \override TextScript.extra-spacing-width = #'(+inf.0 . -inf.0)
   \override TextScript.extra-spacing-height = #'(0 . 0)
-  \revert TextScript.outside-staff-horizontal-padding
 }
 
 markLengthOn = {
-  \override Score.MetronomeMark.extra-spacing-width = #'(-0.5 . 0.5)
+  \override Score.MetronomeMark.extra-spacing-width = #'(0 . 1.0)
   \override Score.RehearsalMark.extra-spacing-width = #'(-0.5 . 0.5)
+  % Raise as much as four staff-spaces before pushing notecolumns right
+  \override Score.MetronomeMark.extra-spacing-height = #'(4 . 4)
+  \override Score.RehearsalMark.extra-spacing-height = #'(4 . 4)
 }
 
 markLengthOff = {
   \override Score.MetronomeMark.extra-spacing-width = #'(+inf.0 . -inf.0)
   \override Score.RehearsalMark.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \revert Score.MetronomeMark.extra-spacing-height
+  \revert Score.RehearsalMark.extra-spacing-height
 }
 
 %% text spanners

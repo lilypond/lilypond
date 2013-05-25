@@ -472,6 +472,16 @@ items such as text scripts, text spanners, and piano pedal marks.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
 
+@cindex Ferneyhough hairpins
+@cindex hairpins, Ferneyhough
+@cindex flared hairpins
+@cindex hairpins, flared
+@cindex constante hairpins
+@cindex hairpins, constante
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
 

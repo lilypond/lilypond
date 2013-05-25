@@ -46,22 +46,22 @@ protected:
   virtual void derived_mark () const;
 private:
   Item *clef_;
-  Item *octavate_;
+  Item *modifier_;
 
   SCM prev_glyph_;
   SCM prev_cpos_;
-  SCM prev_octavation_;
+  SCM prev_transposition_;
   void create_clef ();
   void create_end_clef ();
   void set_glyph ();
   void inspect_clef_properties ();
-  void create_octavate_eight (SCM oct);
+  void create_clef_modifier (SCM oct);
 };
 
 void
 Cue_clef_engraver::derived_mark () const
 {
-  scm_gc_mark (prev_octavation_);
+  scm_gc_mark (prev_transposition_);
   scm_gc_mark (prev_cpos_);
   scm_gc_mark (prev_glyph_);
 }
@@ -69,9 +69,9 @@ Cue_clef_engraver::derived_mark () const
 Cue_clef_engraver::Cue_clef_engraver ()
 {
   clef_ = 0;
-  octavate_ = 0;
+  modifier_ = 0;
 
-  prev_octavation_ = prev_cpos_ = prev_glyph_ = SCM_EOL;
+  prev_transposition_ = prev_cpos_ = prev_glyph_ = SCM_EOL;
 }
 
 void
@@ -100,22 +100,22 @@ Cue_clef_engraver::acknowledge_bar_line (Grob_info info)
 }
 
 void
-Cue_clef_engraver::create_octavate_eight (SCM oct)
+Cue_clef_engraver::create_clef_modifier (SCM transp)
 {
-  if (scm_is_number (oct) && scm_to_int (oct))
+  if (scm_is_number (transp) && scm_to_int (transp))
     {
-      Item *g = make_item ("OctavateEight", SCM_EOL);
+      Item *g = make_item ("ClefModifier", SCM_EOL);
 
-      int abs_oct = scm_to_int (oct);
-      int dir = sign (abs_oct);
-      abs_oct = abs (abs_oct) + 1;
+      int abs_transp = scm_to_int (transp);
+      int dir = sign (abs_transp);
+      abs_transp = abs (abs_transp) + 1;
 
-      SCM txt = scm_number_to_string (scm_from_int (abs_oct),
+      SCM txt = scm_number_to_string (scm_from_int (abs_transp),
                                       scm_from_int (10));
 
-      SCM style = get_property ("cueClefOctavationStyle");
+      SCM style = get_property ("cueClefTranspositionStyle");
 
-      SCM formatter = get_property ("cueClefOctavationFormatter");
+      SCM formatter = get_property ("cueClefTranspositionFormatter");
       if (ly_is_procedure (formatter))
         g->set_property ("text", scm_call_2 (formatter, txt, style));
 
@@ -124,7 +124,7 @@ Cue_clef_engraver::create_octavate_eight (SCM oct)
       g->set_parent (clef_, Y_AXIS);
       g->set_parent (clef_, X_AXIS);
       g->set_property ("direction", scm_from_int (dir));
-      octavate_ = g;
+      modifier_ = g;
     }
 }
 
@@ -140,7 +140,7 @@ Cue_clef_engraver::create_clef ()
       if (scm_is_number (cpos))
         clef_->set_property ("staff-position", cpos);
 
-      create_octavate_eight (get_property ("cueClefOctavation"));
+      create_clef_modifier (get_property ("cueClefTransposition"));
     }
 }
 
@@ -154,7 +154,7 @@ Cue_clef_engraver::create_end_clef ()
       if (scm_is_number (cpos))
         clef_->set_property ("staff-position", cpos);
 
-      create_octavate_eight (get_property ("clefOctavation"));
+      create_clef_modifier (get_property ("clefTransposition"));
     }
 }
 
@@ -169,11 +169,11 @@ Cue_clef_engraver::inspect_clef_properties ()
 {
   SCM glyph = get_property ("cueClefGlyph");
   SCM clefpos = get_property ("cueClefPosition");
-  SCM octavation = get_property ("cueClefOctavation");
+  SCM transposition = get_property ("cueClefTransposition");
 
   if (scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F)
+      || scm_equal_p (transposition, prev_transposition_) == SCM_BOOL_F)
     {
       set_glyph ();
       if (scm_is_string (glyph))
@@ -187,7 +187,7 @@ Cue_clef_engraver::inspect_clef_properties ()
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
-      prev_octavation_ = octavation;
+      prev_transposition_ = transposition;
     }
 
 }
@@ -205,7 +205,7 @@ Cue_clef_engraver::stop_translation_timestep ()
         clef_->set_property ("break-visibility", vis);
 
       clef_ = 0;
-      octavate_ = 0;
+      modifier_ = 0;
     }
 }
 
@@ -217,16 +217,16 @@ ADD_TRANSLATOR (Cue_clef_engraver,
                 /* create */
                 "CueClef "
                 "CueEndClef "
-                "OctavateEight ",
+                "ClefModifier ",
 
                 /* read */
                 "cueClefGlyph "
-                "cueClefOctavation "
-                "cueClefOctavationStyle "
+                "cueClefTransposition "
+                "cueClefTranspositionStyle "
                 "cueClefPosition "
                 "explicitCueClefVisibility "
                 "middleCCuePosition "
-                "clefOctavation ",
+                "clefTransposition ",
 
                 /* write */
                 ""

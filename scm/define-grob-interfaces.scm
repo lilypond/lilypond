@@ -65,6 +65,13 @@ found in @file{scm/bar-line.scm}.
  '(thickness delta-position))
 
 (ly:add-interface
+ 'clef-modifier-interface
+  "The number describing transposition of the clef, placed below
+or above clef sign. Usually this is 8 (octave transposition)
+or 15 (two octaves), but LilyPond allows any integer here."
+  '())
+
+(ly:add-interface
  'dynamic-interface
  "Any kind of loudness sign."
  '())
@@ -188,14 +195,6 @@ accidentals)."
  'note-name-interface
  "Note names."
  '())
-
-(ly:add-interface
- 'octavate-eight-interface
-  "Interface that permits the nominal identification of the octavian
-annotation that multiplies by two the freqency of the pitches present
-in a given staff were they played on a clef that lacked said octavian
-annotation."
-  '())
 
 (ly:add-interface
  'only-prebreak-interface

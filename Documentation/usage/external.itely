@@ -26,39 +26,29 @@ LilyPond can interact with other programs in various ways.
 
 @node Point and click
 @section Point and click
-
-Point and click adds links to pdf documents for certain music
-elements.
-
-@menu
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
-
-@node Enabling point and click
-@unnumberedsubsec Enabling point and click
-
 @cindex point and click
 
 Point and click lets you find notes in the input by clicking on them
 in the PDF viewer.  This makes it easier to find input that causes
 some error in the sheet music.
 
-When this functionality is active, LilyPond adds hyperlinks to the PDF
-file.  These hyperlinks are sent to the web-browser, which opens a
-text-editor with the cursor in the right place.
+@menu
+* Configuring the system for point and click::
+* Enabling point and click::
+* Selective point-and-click::
+@end menu
+
+@node Configuring the system for point and click
+@subsection Configuring the system
+
+When this functionality is active, LilyPond adds hyperlinks to the
+PDF file.  These hyperlinks are sent to a @q{URI helper} or a
+web-browser, which opens a text-editor with the cursor in the
+right place.
 
 To make this chain work, you should configure your PDF viewer to
 follow hyperlinks using the @file{lilypond-invoke-editor} script
 supplied with LilyPond.
-
-For Xpdf on UNIX, the following should be present in
-@file{xpdfrc}.  On UNIX, this file is found either in
-@file{/etc/xpdfrc} or as @file{$HOME/.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
 
 The program @file{lilypond-invoke-editor} is a small helper
 program.  It will invoke an editor for the special @code{textedit}
@@ -98,7 +88,124 @@ for @code{LYEDITOR} is equivalent to the standard emacsclient
 invocation.
 
 
+@menu
+* Using Xpdf for point and click::
+* Using GNOME 2 for point and click::
+* Using GNOME 3 for point and click::
+* Extra configuration for Evince::
+@end menu
+
+@node Using Xpdf for point and click
+@unnumberedsubsubsec Using Xpdf
+@cindex Xpdf
+
+For Xpdf on UNIX, the following should be present in
+@file{xpdfrc}.  On UNIX, this file is found either in
+@file{/etc/xpdfrc} or as @file{$HOME/.xpdfrc}.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+If you are using Ubuntu, it is likely that the version of Xpdf
+installed with your system crashes on every PDF file: this state
+has been persisting for several years and is due to library
+mismatches.  Your best bet is to install a current @samp{xpdf}
+package and the corresponding @samp{libpoppler} package from
+Debian instead.  Once you have tested that this works, you might
+want to use
+@example
+sudo apt-mark hold xpdf
+@end example
+@noindent
+in order to keep Ubuntu from overwriting it with the next
+@q{update} of its crashing package.
+
+@node Using GNOME 2 for point and click
+@unnumberedsubsubsec Using GNOME 2
+
+For using GNOME 2 (and PDF viewers integrated with it), the magic
+invocation for telling the system about the @samp{textedit:} URI
+is
+@example
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end example
+
+After that invocation,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+should call @file{lilypond-invoke-editor} for opening files.
+
+@node Using GNOME 3 for point and click
+@unnumberedsubsubsec Using GNOME 3
+
+In GNOME 3, URIs are handled by the @q{gvfs} layer rather than by
+@q{gconf}.  Create a file in a local directory such as @file{/tmp}
+that is called @file{lilypond-invoke-editor.desktop} and has the contents
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+and then execute the commands
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+After that invocation,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+should call @file{lilypond-invoke-editor} for opening files.
+
+@node Extra configuration for Evince
+@unnumberedsubsubsec Extra configuration for Evince
+@cindex Evince
+
+If @code{gnome-open} works, but Evince still refuses to open point
+and click links due to denied permissions, you might need to
+change the Apparmor profile of Evince which controls the kind of
+actions Evince is allowed to perform.
+
+For Ubuntu, the process is to edit the file
+@file{/etc/apparmor.d/local/usr.bin.evince} and append the
+following lines:
+@example
+# For Textedit links
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+After adding these lines, call
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+Now Evince should be able to open point and click links.  It is
+likely that similar configurations will work for other viewers.
+
+@node Enabling point and click
+@unnumberedsubsec Enabling point and click
 @cindex file size, output
+
+Point and click functionality is enabled by default when creating
+PDF files.
 
 The point and click links enlarge the output files significantly.  For
 reducing the size of PDF and PS files, point and click may be switched

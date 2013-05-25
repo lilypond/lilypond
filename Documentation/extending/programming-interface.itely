@@ -427,6 +427,55 @@ manualBeam =
 }
 @end lilypond
 
+@funindex \temporary
+@cindex temporary overrides
+@cindex overrides, temporary
+@cindex properties, popping previous value
+
+Properties are maintained conceptually using one stack per property
+per grob per context.  Music functions may need to override one or
+several properties for the duration of the function, restoring them
+to their previous value before exiting.  However, normal overrides
+pop and discard the top of the current property stack before
+pushing to it, so the previous value of the property is lost when it
+is overridden.  When the previous value must be preserved, prefix the
+@code{\override} command with @code{\temporary}, like this:
+
+@example
+\temporary \override @dots{}
+@end example
+
+The use of @code{\temporary} causes the (usually set) @code{pop-first}
+property in the override to be cleared, so the previous value is not
+popped off the property stack before pushing the new value onto it.
+When a subsequent @code{\revert} pops off the temporarily overriden
+value, the previous value will re-emerge.
+
+In other words, calling @code{\temporary \override} and @code{\revert}
+in succession on the same property will have a net effect of zero.
+Similarly, pairing @code{\temporary} and @code{\undo} on the same
+music containing overrides will have a net effect of zero.
+
+Here is an example of a music function which makes use of this.
+The use of @code{\temporary} ensures the values of the
+@code{cross-staff} and @code{style} properties are restored on exit
+to whatever values they had when the @code{cross-staff} function was
+called.  Without @code{\temporary} the default values would have been
+set on exit.
+
+@example
+crossStaff =
+#(define-music-function (parser location notes) (ly:music?)
+  (_i "Create cross-staff stems")
+  #@{
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
+  #notes
+  \revert Stem.cross-staff
+  \revert Flag.style
+#@})
+@end example
+
 
 @node Mathematics in functions
 @subsection Mathematics in functions

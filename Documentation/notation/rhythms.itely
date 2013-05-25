@@ -1338,14 +1338,16 @@ d4 g e c
 @funindex \markLengthOff
 @funindex markLengthOff
 
-When tempo indications follow each other closely in the music,
-such as in a part for an instrument with long periods of rests,
-the measures are stretched horizontally so that the tempo indications
-do not overlap.  The commands @code{\markLengthOn} and
-@code{\markLengthOff} control this behavior.
+In a part for an instrument with long periods of rests,
+tempo indications sometimes follow each other closely.
+The command @code{\markLengthOn} provides extra horizontal space
+to prevent tempo indications from overlapping, and @code{\markLengthOff}
+restores the default behavior of ignoring tempo marks
+for horizontal spacing.
 
 @lilypond[quote,relative=0]
 \compressFullBarRests
+\markLengthOn
 \tempo "Molto vivace"
 R1*12
 \tempo "Meno mosso"
@@ -2130,7 +2132,8 @@ enclosing context will apply.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
-  % No need to disable beamExceptions as they are not defined for 7/8 time
+  % No need to disable beamExceptions
+  % as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2174,7 +2177,8 @@ compatible with the new value of @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-% No need to disable beamExceptions as they are not defined for 5/8 time
+% No need to disable beamExceptions
+% as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }

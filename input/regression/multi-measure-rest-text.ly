@@ -13,8 +13,7 @@ measures stretch to accommodate wide texts.
 
 }
 
-\layout { ragged-right = ##t }
-{
+\book { \score { {
   \time 3/4
   \set Score.skipBars = ##t
   R2._\markup { \center-column { \musicglyph  #"scripts.dfermata" \roman "Ad lib"  }  }
@@ -28,3 +27,5 @@ measures stretch to accommodate wide texts.
   R2.^"very very very very very very long text"
   c'2.
 }
+  \layout { ragged-right = ##t }
+}}

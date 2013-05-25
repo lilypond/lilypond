@@ -4080,7 +4080,7 @@ when @var{label} is not found."
 		       (gap (- (interval-length x-ext)
 			       (interval-length (ly:stencil-extent page-stencil X)))))
 		  (interpret-markup layout props
-				    (markup #:concat (#:hspace gap page-markup)))))))
+				    (markup #:hspace gap page-markup))))))
      x-ext
      y-ext)))
 

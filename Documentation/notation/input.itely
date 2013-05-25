@@ -2601,11 +2601,11 @@ Here are a few sample bars of music set in Gonville:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,15cm,,}
 
 Here are a few sample bars of music set in LilyPond's Feta font:
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,15cm,,}
 
 @subsubheading Installation Instructions for MacOS
 
@@ -3040,11 +3040,10 @@ The final example in this section shows how this might be done.
 
 The minimum and maximum overall volume of MIDI dynamic markings is
 controlled by setting the properties @code{midiMinimumVolume} and
-@code{midiMaximumVolume} at the @code{Score} level.  These
-properties have an effect only on dynamic marks, so if they
-are to apply from the start of the score a dynamic mark must be
-placed there.  The fraction corresponding to each dynamic mark is
-modified with this formula
+@code{midiMaximumVolume} at the @code{Score} level.  These properties
+have an effect only at the start of a voice and on dynamic marks.  The
+fraction corresponding to each dynamic mark is modified with this
+formula
 
 @example
 midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
@@ -3098,9 +3097,7 @@ equalizer, which can enhance the quality of the MIDI output
 remarkably.
 
 In this example the volume of the clarinet is reduced relative
-to the volume of the flute.  There must be a dynamic
-mark on the first note of each instrument for this to work
-correctly.
+to the volume of the flute.
 
 @lilypond[verbatim,quote]
 \score {

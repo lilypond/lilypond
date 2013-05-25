@@ -2,8 +2,8 @@
 
 \header {
 
-  texidoc="Octavate symbols should be correctly positioned close to
-the parent clef."
+  texidoc="Transposition symbols should be correctly positioned
+close to the parent clef."
 
 }
 \score {

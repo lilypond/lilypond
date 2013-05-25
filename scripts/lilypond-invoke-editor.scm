@@ -89,7 +89,7 @@ Options:
 	  uri))
 
 (define (is-textedit-uri? uri)
-  (string-match "^textedit://" uri))
+  (string-match "^textedit:" uri))
   
   
 (define (dissect-uri uri)

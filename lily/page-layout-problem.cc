@@ -161,8 +161,10 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
     in duplicated work, either by making this process less complicated or (preferably)
     by passing its results downstream.
   */
-  vector<SCM> footnote_number_markups; // Holds the numbering markups.
-  vector<Stencil> footnote_number_stencils; // Holds translated versions of the stencilized numbering markups.
+
+  // find the maximum X_AXIS length
+  Real max_length = -infinity_f;
+
   for (vsize i = 0; i < fn_count; i++)
     {
       if (fn_grobs[i])
@@ -172,42 +174,39 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
             (void) scm_call_1 (assertion_function, scm_from_int (counter));
         }
       SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
-      Stencil *s = unsmob_stencil (Text_interface::interpret_markup (layout, props, markup));
-      if (!s)
+      SCM stencil = Text_interface::interpret_markup (layout, props, markup);
+      Stencil *st = unsmob_stencil (stencil);
+      if (!st)
         {
           programming_error ("Your numbering function needs to return a stencil.");
-          footnote_number_markups.push_back (SCM_EOL);
-          footnote_number_stencils.push_back (Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL));
+          markup = SCM_EOL;
+          stencil = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL).smobbed_copy ();
+          st = unsmob_stencil (stencil);
         }
-      else
-        {
-          footnote_number_markups.push_back (markup);
-          footnote_number_stencils.push_back (*s);
-        }
+      in_text_numbers = scm_cons (markup, in_text_numbers);
+      numbers = scm_cons (stencil, numbers);
+
+      if (!st->extent (X_AXIS).is_empty ())
+        max_length = max (max_length, st->extent (X_AXIS)[RIGHT]);
+
       counter++;
     }
 
-  // find the maximum X_AXIS length
-  Real max_length = -infinity_f;
-  for (vsize i = 0; i < fn_count; i++)
-    max_length = max (max_length, footnote_number_stencils[i].extent (X_AXIS).length ());
+  in_text_numbers = scm_reverse_x (in_text_numbers, SCM_EOL);
+  numbers = scm_reverse_x (numbers, SCM_EOL);
 
   /*
     translate each stencil such that it attains the correct maximum length and bundle the
     footnotes into a scheme object.
   */
 
-  for (vsize i = 0; i < fn_count; i++)
+  for (SCM p = numbers; scm_is_pair (p); p = scm_cdr (p))
     {
-      in_text_numbers = scm_cons (footnote_number_markups[i], in_text_numbers);
-      footnote_number_stencils[i].translate_axis ((max_length
-                                                   - footnote_number_stencils[i].extent (X_AXIS).length ()),
-                                                  X_AXIS);
-      numbers = scm_cons (footnote_number_stencils[i].smobbed_copy (), numbers);
+      Stencil *st = unsmob_stencil (scm_car (p));
+      if (!st->extent (X_AXIS).is_empty ())
+        st->translate_axis ((max_length - st->extent (X_AXIS)[RIGHT]),
+                            X_AXIS);
     }
-
-  in_text_numbers = scm_reverse_x (in_text_numbers, SCM_EOL);
-  numbers = scm_reverse_x (numbers, SCM_EOL);
 
   // build the footnotes
 
@@ -853,6 +852,9 @@ Page_layout_problem::find_system_offsets ()
                 }
               else // ! is_spaceable
                 {
+                  if (staff->extent (staff, Y_AXIS).is_empty ())
+                    continue;
+
                   if (loose_lines.empty ())
                     loose_lines.push_back (last_spaceable_line);
 

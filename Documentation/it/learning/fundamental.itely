@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 
 @node Concetti fondamentali
 @chapter Concetti fondamentali
@@ -1799,7 +1799,7 @@ e in questo modo si disattiva in tutti i righi:
 >>
 @end lilypond
 
-Un altro esempio: se la proprietà @code{clefOctavation} viene posta
+Un altro esempio: se la proprietà @code{clefTransposition} viene posta
 nel contesto @code{Score}, cambia immediatamente il valore
 dell'ottavazione in tutti i righi presenti e imposta un nuovo
 valore predefinito che sarà applicato a tutti i righi.

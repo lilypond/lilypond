@@ -3175,7 +3175,7 @@ def conv (str):
 def conv (str):
     str = re.sub (r"Stem\s+#'flag-style", r"Flag #'style", str)
     str = re.sub (r"Stem\s+#'stroke-style", r"Flag #'stroke-style", str)
-    str = re.sub (r"Stem\s+#'flag", r"Flag #'print", str)
+    str = re.sub (r"Stem\s+#'flag", r"Flag #'stencil", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\override\s+Stem\s+#'transparent\s*=\s*##t", r"\g<1>\\override Stem #'transparent = ##t\g<1>\\override Flag #'transparent = ##t", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\revert\s*Stem\s+#'transparent", r"\g<1>\\revert Stem #'transparent\g<1>\\revert Flag #'transparent", str)
     str = re.sub (r"(\s+(?:\\once\s*)?)\\override\s+Stem\s+#'stencil\s*=\s*##f", r"\g<1>\\override Stem #'stencil = ##f\g<1>\\override Flag #'stencil = ##f", str)
@@ -3545,6 +3545,19 @@ def conv(str):
         do = "c'"
     str = re.sub (r"(\\relative)(\s+(\{|[\\<]))",
                   r"\1 " + do + r"\2", str)
+    return str
+
+@rule ((2, 17, 18),
+    "Rename OctavateEight to ClefModifier, rename related properties.")
+def conv(str):
+    str = re.sub ('OctavateEight',               'ClefModifier',                   str)
+    str = re.sub ('octavate-eight-interface',    'clef-modifier-interface',        str)
+    str = re.sub ('clefOctavation',              'clefTransposition',              str)
+    str = re.sub ('clefOctavationFormatter',     'clefTranspositionFormatter',     str)
+    str = re.sub ('clefOctavationStyle',         'clefTranspositionStyle',         str)
+    str = re.sub ('cueClefOctavation',           'cueClefTransposition',           str)
+    str = re.sub ('cueClefOctavationFormatter',  'cueClefTranspositionFormatter',  str)
+    str = re.sub ('cueClefOctavationStyle',      'cueClefTranspositionStyle',      str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

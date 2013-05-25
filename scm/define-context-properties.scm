@@ -132,7 +132,38 @@ number, measure position, and alternative number and returns a markup
 of the bar number to print.")
      (barNumberVisibility ,procedure? "A procedure that takes a bar
 number and a measure position and returns whether the corresponding
-bar number should be printed.")
+bar number should be printed.  Note that the actual print-out of
+bar numbers is controlled with the @code{break-visibility} property.
+
+The following procedures are predefined:
+
+@table @code
+@item all-bar-numbers-visible
+Enable bar numbers for all bars, including the first one and broken
+bars (which get bar numbers in parentheses).
+
+@item first-bar-number-invisible
+Enable bar numbers for all bars (including broken bars) except the
+first one.  If the first bar is broken, it doesn't get a bar number
+either.
+
+@item first-bar-number-invisible-save-broken-bars
+Enable bar numbers for all bars (including broken bars) except the
+first one.  A broken first bar gets a bar number.
+
+@item first-bar-number-invisible-and-no-parenthesized-bar-numbers
+Enable bar numbers for all bars except the first bar and broken bars.
+This is the default.
+
+@item (every-nth-bar-number-visible @var{n})
+Assuming @var{n} is value@tie{}2, for example, this enables bar numbers
+for bars 2, 4, 6, etc.
+
+@item (modulo-bar-number-visible @var{n} @var{m})
+If bar numbers 1, 4, 7, etc., should be enabled, @var{n}@tie{}(the modulo)
+must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
+@end table")
+
      (baseMoment ,ly:moment? "Smallest unit of time that will stand on its
 own as a subdivided section.")
      (bassFigureFormatFunction ,procedure? "A procedure that is
@@ -172,11 +203,12 @@ symbol and the prefix of a chord name.")
      (chordRootNamer ,procedure? "A function that converts from a pitch
 object to a text markup.  Used for chords.")
      (clefGlyph ,string? "Name of the symbol within the music font.")
-     (clefOctavation ,integer? "Add this much extra octavation.
+     (clefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
-     (clefOctavationFormatter ,procedure? "A procedure that takes the
-Octavation number as a string and the style as a symbol and returns a markup.")
-     (clefOctavationStyle ,symbol? "Determines the way the octavateEight
+     (clefTranspositionFormatter ,procedure? "A procedure that takes the
+Transposition number as a string and the style as a symbol and returns a
+markup.")
+     (clefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
      (clefPosition ,number? "Where should the center of the clef
@@ -198,11 +230,12 @@ a hairpin crescendo is used.")
      (crescendoText ,markup? "The text to print at start of non-hairpin
 crescendo, i.e., @samp{cresc.}.")
      (cueClefGlyph ,string? "Name of the symbol within the music font.")
-     (cueClefOctavation ,integer? "Add this much extra octavation.
+     (cueClefTransposition ,integer? "Add this much extra transposition.
 Values of 7 and -7 are common.")
-     (cueClefOctavationFormatter ,procedure? "A procedure that takes the
-Octavation number as a string and the style as a symbol and returns a markup.")
-     (cueClefOctavationStyle ,symbol? "Determines the way the octavateEight
+     (cueClefTranspositionFormatter ,procedure? "A procedure that
+takes the Transposition number as a string and the style as a symbol
+and returns a markup.")
+     (cueClefTranspositionStyle ,symbol? "Determines the way the ClefModifier
 grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
 and @samp{bracketed}.")
      (cueClefPosition ,number? "Where should the center of the clef

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.18"
 @c Translators: Till Paala, Reinhold Kainhofer
 
 @node Grundbegriffe
@@ -1975,7 +1975,7 @@ während das dazu dient, sie in allen Systemen auszuschalten:
 >>
 @end lilypond
 
-Ein anderes Beispiel ist die Eigenschaft @code{clefOctavation}:
+Ein anderes Beispiel ist die Eigenschaft @code{clefTransposition}:
 wenn sie im @code{Score}-Kontext gesetzt wird, ändert sich sofort
 der Wert der Oktavierung in allen aktuellen Systemen und wird
 auf einen neuen Wert gesetzt, der sich auf alle Systeme auswirkt.

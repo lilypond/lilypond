@@ -1,5 +1,6 @@
 \header {
-    texidoc = "Lyrics are not lowered despite the presence of an octavation 8."
+    texidoc = "Lyrics are not lowered despite the presence of
+a clef transposition (8 below the clef)."
 }
 
 \version "2.16.0"

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 @c Translators: Till Paala
 
@@ -1230,7 +1230,7 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{Clef_engraver},
 @rinternals{Clef},
-@rinternals{OctavateEight},
+@rinternals{ClefModifier},
 @rinternals{clef-interface}.
 
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.18"
 
 
 @node Pitches
@@ -87,6 +87,18 @@ octave.
 }
 @end lilypond
 
+@funindex absolute
+@funindex \absolute
+Music can be marked explicitly as being in absolute octave
+notation by preceding it with @code{\absolute}:
+
+@example
+\absolute @var{musicexpr}
+@end example
+
+will be interpreted in absolute octave entry mode regardless of
+the context it appears in.
+
 @seealso
 Music Glossary:
 @rglos{Pitch names}.
@@ -107,13 +119,13 @@ Snippets:
 @funindex relative
 @funindex \relative
 
-When octaves are specified in absolute mode it is easy to
-accidentally put a pitch in the wrong octave.  Relative octave
-mode reduces these errors since most of the time it is not
-necessary to indicate any octaves at all.  Furthermore, in
-absolute mode a single mistake may be difficult to spot, while in
-relative mode a single error puts the rest of the piece off by one
-octave.
+Absolute octave entry requires specifying the octave for every
+single note.  Relative octave entry, in contrast, specifies each
+octave in relation to the last note: changing one note's octave
+will affect all of the following notes.
+
+Relative note mode has to be entered explicitly using the
+@code{\relative} command:
 
 @example
 \relative @var{startpitch} @var{musicexpr}
@@ -1210,18 +1222,18 @@ Snippets:
 Internals Reference:
 @rinternals{Clef_engraver},
 @rinternals{Clef},
-@rinternals{OctavateEight},
+@rinternals{ClefModifier},
 @rinternals{clef-interface}.
 
 @knownissues
 Ottavation numbers attached to clefs are treated as separate grobs.  So
 any @code{\override} done to the @var{Clef} will also need to be
-applied, as a separate @code{\override}, to the @var{OctavateEight}
+applied, as a separate @code{\override}, to the @var{ClefModifier}
 grob.
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override OctavateEight.color = #red
+  \override ClefModifier.color = #red
   \override Clef.color = #blue
 }
 
@@ -1393,6 +1405,9 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
 
 @seealso
 Music Glossary:
