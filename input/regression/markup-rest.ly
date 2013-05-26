@@ -1,4 +1,4 @@
-\version "2.17.9"
+\version "2.17.19"
 
 \header {
   texidoc = "The rest markup function works for a variety of style, dot and
@@ -81,10 +81,10 @@ showMultiMeasureRests =
            semipetrucci
            kievan)))))
 
-\markup \column { \bold "Simple Rests" \vspace #0.1 }
+\markup \column { \bold "Simple Rests" \combine \null \vspace #0.1 }
 
 \showSimpleRest #"."
 
-\markup \column { \vspace #0.1 \bold "MultiMeasureRests" \vspace #0.1 }
+\markup \column { \combine \null \vspace #0.1 \bold "MultiMeasureRests" \combine \null \vspace #0.1 }
 
 \showMultiMeasureRests

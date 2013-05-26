@@ -11,7 +11,7 @@
   ragged-last-bottom = ##f
 
   oddHeaderMarkup = \markup  {
-    \override #'(baseline-skip . 1)
+    \override #'(baseline-skip . 2.5)
     \center-column {
       \box \fill-line { \teeny " " " " }
       \on-the-fly #first-page "first-page-header-text"
@@ -24,7 +24,7 @@
   evenHeaderMarkup = \oddHeaderMarkup
 
   oddFooterMarkup = \markup \fill-line {
-    \override #'(baseline-skip . 0.5)
+    \override #'(baseline-skip . 1)
     \center-column {
 	\on-the-fly #first-page "first-page-footer-text"
 	\on-the-fly #last-page "last-page-footer-text"

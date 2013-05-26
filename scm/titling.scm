@@ -100,4 +100,4 @@ with `header:'."
 
     (if (markup? markup)
 	(interpret-markup layout props markup)
-	(ly:make-stencil '() '(1 . -1) '(1 . -1)))))
+        empty-stencil)))

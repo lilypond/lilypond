@@ -63,21 +63,11 @@ Example:
   (cons (acons key val (car chain)) (cdr chain)))
 
 (define-public (stack-stencil-line space stencils)
-  "Adjoin a list of STENCILS along the X axis, leaving SPACE between the
-   end of each stencil and the reference point of the following stencil."
-  (if (and (pair? stencils)
-           (ly:stencil? (car stencils)))
-
-      (if (and (pair? (cdr stencils))
-               (ly:stencil? (cadr stencils)))
-          (let* ((tail (stack-stencil-line space (cdr stencils)))
-                 (head (car stencils))
-                 (xoff (+ space (interval-end (ly:stencil-extent head X)))))
-            (ly:stencil-add head
-                            (ly:stencil-translate-axis tail xoff X)))
-          (car stencils))
-      (ly:make-stencil '() '(0 . 0) '(0 . 0))))
-
+  "Adjoin a list of @var{stencils} along the X axis, leaving
+@var{space} between the end of each stencil and the beginning of the
+following stencil.  Stencils with empty Y extent are not given
+@var{space} before them and don't avoid overlapping other stencils."
+  (stack-stencils X RIGHT space (filter ly:stencil? stencils)))
 
 ;;; convert a full markup object to an approximate pure string representation
 

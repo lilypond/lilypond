@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.19"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
@@ -338,7 +338,7 @@ chromaticBach =
         \header {
                 title = \markup
                            \column {
-                             \vspace #1
+                             \combine \null \vspace #1
                              "Exercise: Improve the given choral"
                              " "
                             }

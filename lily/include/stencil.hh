@@ -71,6 +71,7 @@ public:
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
+  void stack (Axis a, Direction d, const Stencil &m, Real padding, Real mindist);
   void add_stencil (Stencil const &m);
   void translate (Offset);
   Stencil translated (Offset) const;
@@ -84,6 +85,7 @@ public:
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
+  bool is_empty (Axis) const;
   Stencil in_color (Real r, Real g, Real b) const;
   static SCM skylines_from_stencil (SCM, Real, Axis);
 };

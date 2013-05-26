@@ -19,8 +19,6 @@ myFretDiagram =
 
 \markup \override #'(fret-diagram-details . ((finger-code . below-string))) {
   \myFretDiagram
-  \hspace #4
   \override #'(size . 1.5) \myFretDiagram
-  \hspace #8
   \override #'(size . 3) \myFretDiagram
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.19"
 \header {
   texidoc = "
   A list of special character ASCII aliases can be easily included.
@@ -21,7 +21,7 @@
   \italic \justify {
     &numero;2 &ndash; &OE;dipe&hellip;
   }
-  \vspace #0.5
+  \combine \null \vspace #0.5
   \bold "Lyric example:"
 }
 \new Lyrics \lyricmode {
