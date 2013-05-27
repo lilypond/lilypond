@@ -43,6 +43,7 @@ modifying-default-values-for-articulation-shorthand-notation.ly
 moving-slur-positions-vertically.ly
 positioning-arpeggios.ly
 positioning-text-markups-inside-slurs.ly
+printing-hairpins-in-various-styles.ly
 printing-hairpins-using-al-niente-notation.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 setting-hairpin-behavior-at-bar-lines.ly
