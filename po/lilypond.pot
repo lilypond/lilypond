@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.18\n"
+"Project-Id-Version: lilypond 2.17.19\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-05-11 16:02+0100\n"
+"POT-Creation-Date: 2013-05-26 16:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2601,27 +2601,27 @@ msgid ""
 "values"
 msgstr ""
 
-#: page-layout-problem.cc:403
+#: page-layout-problem.cc:402
 msgid ""
 "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr ""
 
-#: page-layout-problem.cc:732
+#: page-layout-problem.cc:731
 msgid ""
 "cannot fit music on page: ragged-spacing was requested, but page was "
 "compressed"
 msgstr ""
 
-#: page-layout-problem.cc:735
+#: page-layout-problem.cc:734
 #, c-format
 msgid "cannot fit music on page: overflow is %f"
 msgstr ""
 
-#: page-layout-problem.cc:737
+#: page-layout-problem.cc:736
 msgid "compressing music to fit"
 msgstr ""
 
-#: page-layout-problem.cc:1197
+#: page-layout-problem.cc:1199
 msgid "staff-affinities should only decrease"
 msgstr ""
 
@@ -3367,31 +3367,31 @@ msgstr ""
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-markup-commands.scm:986
+#: define-markup-commands.scm:985
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2772
+#: define-markup-commands.scm:2781
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3198
+#: define-markup-commands.scm:3207
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3199
+#: define-markup-commands.scm:3208
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3443
+#: define-markup-commands.scm:3452
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3654
+#: define-markup-commands.scm:3663
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3550,12 +3550,12 @@ msgid ""
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:977
+#: lily-library.scm:974
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1002
+#: lily-library.scm:999
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
