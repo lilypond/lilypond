@@ -171,7 +171,6 @@
 \context {
   \Voice
   \name TabVoice
-  autoBeaming = ##f  % needed for consistent melismata with engravers
 }
 
 \context {
@@ -186,6 +185,7 @@
   \alias Staff
   \accepts TabVoice
   \defaultchild TabVoice
+  autoBeaming = ##f  % needed for consistent melismata with engravers
 }
 
 \context {

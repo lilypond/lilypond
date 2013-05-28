@@ -800,6 +800,51 @@ context."
 
   \description "Context for drawing notes in a Tab staff."
 
+  %% No accidental in tablature !
+  \remove "Accidental_engraver"
+}
+
+\context {
+  \Staff
+  \alias "Staff"
+  \name "TabStaff"
+  \denies "Voice"
+  \consists "Tab_staff_symbol_engraver"
+
+  \description "Context for generating tablature. It accepts only @code{TabVoice}
+contexts and handles the line spacing, the tablature clef etc. properly."
+
+  \accepts "TabVoice"
+  \defaultchild "TabVoice"
+
+  %% 6 strings, bigger spacing
+  \override StaffSymbol.staff-space = #1.5
+
+  %% Don't draw stems over the tablature figures !
+  \override Stem.avoid-note-head = ##t
+
+  %% No accidental in tablature !
+  \remove "Accidental_engraver"
+  \remove "Key_engraver"
+
+  \remove "Ottava_spanner_engraver"
+  %% the clef handler
+  \override Clef.stencil = #clef::print-modern-tab-if-set
+  %% no time signature
+  \override TimeSignature.stencil = ##f
+  %% no arpeggios
+  \override Arpeggio.stencil = ##f
+  %% we ignore collision warnings that may occur due to
+  %% stem overlapping, because we have no stems ;-)
+  \override NoteColumn.ignore-collision = ##t
+  %% Special "TAB" clef
+  clefGlyph = #"clefs.tab"
+  clefPosition = #0
+  %% Change string if note results in negative fret number
+  handleNegativeFrets = #'recalculate
+  %% Allow open strings even if minimumFret is set
+  restrainOpenStrings = ##f
+
   %% TabStaff increase the staff-space, which in turn
   %% increases beam thickness and spacing; beams are
   %% too big. We have to adjust the beam settings:
@@ -814,8 +859,6 @@ context."
                                                (/ 1 (ly:staff-symbol-staff-space grob)))
   \override StemTremolo.beam-width = #stem-tremolo::calc-tab-width
 
-  %% No accidental in tablature !
-  \remove "Accidental_engraver"
   %% make the Stems as short as possible to minimize their influence
   %% on the slur::calc-control-points routine
   \override Stem.no-stem-extend = ##t
@@ -866,48 +909,6 @@ context."
   %% dead notes
   \override TabNoteHead.glyph-name = #tab-note-head::calc-glyph-name
   \override TabNoteHead.stencil = #tab-note-head::whiteout-if-style-set
-}
-
-\context {
-  \Staff
-  \alias "Staff"
-  \name "TabStaff"
-  \denies "Voice"
-  \consists "Tab_staff_symbol_engraver"
-
-  \description "Context for generating tablature. It accepts only @code{TabVoice}
-contexts and handles the line spacing, the tablature clef etc. properly."
-
-  \accepts "TabVoice"
-  \defaultchild "TabVoice"
-
-  %% 6 strings, bigger spacing
-  \override StaffSymbol.staff-space = #1.5
-
-  %% Don't draw stems over the tablature figures !
-  \override Stem.avoid-note-head = ##t
-
-  %% No accidental in tablature !
-  \remove "Accidental_engraver"
-  \remove "Key_engraver"
-
-  \remove "Ottava_spanner_engraver"
-  %% the clef handler
-  \override Clef.stencil = #clef::print-modern-tab-if-set
-  %% no time signature
-  \override TimeSignature.stencil = ##f
-  %% no arpeggios
-  \override Arpeggio.stencil = ##f
-  %% we ignore collision warnings that may occur due to
-  %% stem overlapping, because we have no stems ;-)
-  \override NoteColumn.ignore-collision = ##t
-  %% Special "TAB" clef
-  clefGlyph = #"clefs.tab"
-  clefPosition = #0
-  %% Change string if note results in negative fret number
-  handleNegativeFrets = #'recalculate
-  %% Allow open strings even if minimumFret is set
-  restrainOpenStrings = ##f
 }
 
 \context {
