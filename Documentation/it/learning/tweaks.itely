@@ -89,7 +89,7 @@ del contesto di quel rigo.  Analogalmente, ci sono oggetti che hanno
 le proprietà di tutti gli altri contesti, come  gli oggetti @code{Voice},
 gli oggetti @code{Score}, gli oggetti @code{Lyrics} e gli oggetti che
 rappresentano tutti gli elementi della notazione, come le stanghette,
-le teste di nota, le legature di valore, i segni di dinamica, etc.  A ogni
+le teste di nota, le legature di valore, le dinamiche, etc.  A ogni
 oggetto corrisponde un relativo insieme di valori di proprietà.
 
 Alcuni tipi di oggetto hanno dei nomi speciali.  Gli oggetti che rappresentano
@@ -1561,7 +1561,7 @@ Infine arriviamo a modificare la dimensione degli oggetti di formattazione.
 
 Alcuni oggetti di formattazione sono dei glifi scelti da un tipo di
 carattere.  Ad esempio le teste di nota, le alterazioni, le annotazioni,
-le chiavi, le indicazioni di tempo, la dinamica, il testo vocale.  La loro dimensione
+le chiavi, le indicazioni di tempo, le dinamiche, il testo vocale.  La loro dimensione
 varia se si modifica la proprietà @code{font-size}, come vedremo a
 breve.  Altri oggetti di formattazione come le legature di portamento e
 di valore -- in generale, tutti gli oggetti estensori (@emph{spanner}) -- vengono
@@ -2094,7 +2094,7 @@ se questa non è ottimale.
 @menu
 * La proprietà outside-staff-priority::
 * Il comando \textLengthOn::
-* Posizionamento della dinamica::
+* Posizionamento delle dinamiche::
 * Dimensione dei grob::
 @end menu
 
@@ -2378,12 +2378,12 @@ c''2 |
 @end lilypond
 
 
-@node Posizionamento della dinamica
-@unnumberedsubsubsec Posizionamento della dinamica
+@node Posizionamento delle dinamiche
+@unnumberedsubsubsec Posizionamento delle dinamiche
 @translationof Dynamics placement
 
-@cindex modificare il posizionamento della dinamica
-@cindex dinamica, modificare il posizionamento
+@cindex modificare il posizionamento delle dinamiche
+@cindex dinamiche, modificare il posizionamento
 
 Le indicazioni dinamiche sono di norma poste sotto il
 rigo, ma possono essere collocati al di sopra del pentagramma col comando @code{\dynamicUp}.

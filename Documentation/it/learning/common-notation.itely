@@ -56,7 +56,7 @@ un solo pentagramma.
 * Controlli di battuta::
 * Alterazioni e armature di chiave::
 * Legature di valore e di portamento::
-* Articolazione e dinamica::
+* Articolazione e dinamiche::
 * Aggiungere il testo::
 * Code automatiche e manuali::
 * Comandi di tempo avanzati::
@@ -302,8 +302,8 @@ Guida alla notazione:
 @ruser{Phrasing slurs}.
 
 
-@node Articolazione e dinamica
-@subsection Articolazione e dinamica
+@node Articolazione e dinamiche
+@subsection Articolazione e dinamiche
 @translationof Articulation and dynamics
 
 @subheading Articolazioni
@@ -349,9 +349,9 @@ meglio lasciare che sia LilyPond a determinare le direzioni delle articolazioni.
 c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dinamica
+@subheading Dinamiche
 
-@cindex dinamica
+@cindex dinamiche
 @cindex decrescendo
 @cindex crescendo
 
@@ -368,7 +368,7 @@ c4_-^1 d^. f^4_2-> e^-_+
 @funindex \!
 @funindex !
 
-Glossario musicale: @rglosnamed{dynamics,dinamica}, @rglos{crescendo},
+Glossario musicale: @rglosnamed{dynamics,dinamiche}, @rglos{crescendo},
 @rglos{decrescendo}.
 
 I segni di @notation{dinamica} si ottengono aggiungendo alla nota
@@ -1453,4 +1453,3 @@ Se non lo hai già fatto, @emph{ti consigliamo} di leggere
 ed è quindi utile per i nuovi utenti, che spesso non sanno dove cercare
 aiuto.  Se dedichi cinque  minuti all'attenta lettura di quella sezione,
 potresti risparmiarti ore di frustrazione sprecate a guardare in posti sbagliati!
-
