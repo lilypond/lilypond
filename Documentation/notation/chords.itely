@@ -1077,13 +1077,13 @@ figures is adjusted automatically.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Staff = myStaff
+  \new Staff = "myStaff"
   \figuremode {
     <4>4 <10 6>8 s8
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = myStaff
+  \context Staff = "myStaff"
   {
     \clef bass
     c4 c'8 r8 c4 c'
@@ -1097,14 +1097,14 @@ or below the staff.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Staff = myStaff
+  \new Staff = "myStaff"
   \figuremode {
     <4>4 <10 6>8 s8
     \bassFigureStaffAlignmentDown
     <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
-  \context Staff = myStaff
+  \context Staff = "myStaff"
   {
     \clef bass
     c4 c'8 r8 c4 c'
