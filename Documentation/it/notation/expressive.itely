@@ -1,0 +1,1374 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 8f3dfc850e8e16723c4d9d00c848b5393dc16330
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.17.6"
+
+@node Segni di espressione
+@section Segni di espressione
+@translationof Expressive marks
+
+@lilypondfile[quote]{expressive-headword.ly}
+
+Questa sezione elenca vari segni di espressione che si possono
+usare in una partitura.
+
+@menu
+* Segni di espressione collegati alle note::
+* Segni di espressione in forma di curva::
+* Segni di espressione in forma di linea::
+@end menu
+
+
+@node Segni di espressione collegati alle note
+@subsection Segni di espressione collegati alle note
+@translationof Expressive marks attached to notes
+
+Questa sezione spiega come creare segni di espressione che siano
+collegati alle note: articolazioni, abbellimenti e dinamiche.
+Sono trattati anche i metodi per creare nuovi segni di dinamica.
+
+@menu
+* Articolazioni e abbellimenti::
+* Dinamiche::
+* Nuovi segni di dinamica::
+@end menu
+
+@node Articolazioni e abbellimenti
+@unnumberedsubsubsec Articolazioni e abbellimenti
+@translationof Articulations and ornamentations
+
+@cindex articolazioni
+@cindex abbellimenti
+@cindex script
+@cindex espressivo
+@cindex corona
+@cindex arcata in su
+@cindex arcata in giù
+@cindex segni del pedale
+@cindex segni del pedale dell'organo
+@cindex organo, segni del pedale
+@cindex pedale, segni
+@cindex gruppetto (\turn)
+@cindex aperto (\open)
+@cindex chiuso (\stopped)
+@cindex armonico (\flageolet)
+@cindex gruppetto rovesciato (\reverseturn)
+@cindex trillo (\trill)
+@cindex mordente superiore (\prall)
+@cindex mordente inferiore (\mordent)
+@cindex doppio mordente (\prallprall)
+@cindex doppio mordente (\prallmordent)
+@cindex mordente superiore, su
+@cindex mordente superiore, giù
+@cindex mordente inferiore, su
+@cindex mordente inferiore, giù
+@cindex segno del pollice (\thumb)
+@cindex pollice, segno del (\thumb)
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+@funindex \accent
+@funindex \marcato
+@funindex \staccatissimo
+@funindex \espressivo
+@funindex \staccato
+@funindex \tenuto
+@funindex \portato
+@funindex \upbow
+@funindex \downbow
+@funindex \flageolet
+@funindex \thumb
+@funindex \lheel
+@funindex \rheel
+@funindex \ltoe
+@funindex \rtoe
+@funindex \open
+@funindex \halfopen
+@funindex \stopped
+@funindex \snappizzicato
+@funindex \turn
+@funindex \reverseturn
+@funindex \trill
+@funindex \prall
+@funindex \mordent
+@funindex \prallprall
+@funindex \prallmordent
+@funindex \upprall
+@funindex \downprall
+@funindex \upmordent
+@funindex \downmordent
+@funindex \pralldown
+@funindex \prallup
+@funindex \lineprall
+@funindex \signumcongruentiae
+@funindex \shortfermata
+@funindex \fermata
+@funindex \longfermata
+@funindex \verylongfermata
+@funindex \fermataMarkup
+@funindex \segno
+@funindex \coda
+@funindex \varcoda
+
+
+@funindex -
+
+Una varietà di simboli che rappresentano articolazioni, ornamenti e altre
+indicazioni di esecuzione possono essere attaccati a una nota con questa
+sintassi:
+
+@example
+@var{nota}\@var{nome}
+@end example
+
+I valori possibili per @code{@var{nome}} sono elencati in
+@ref{List of articulations}.  Ad esempio:
+
+@lilypond[verbatim,quote,relative=2]
+c4\staccato c\mordent b2\turn
+c1\fermata
+@end lilypond
+
+@cindex marcato
+@cindex tenuto
+@cindex staccatissimo
+@cindex accento
+@cindex staccato
+@cindex portato
+
+Alcune di queste articolazioni hanno delle abbreviazioni che semplificano
+l'inserimento.  Le abbreviazioni sono attaccate al nome della nota e la
+loro sintassi è composta da un trattino @code{-} seguito da un simbolo
+che indica l'articolazione.  Esistono abbreviazioni predefinite per
+@notation{marcato}, @notation{chiuso}, @notation{tenuto}, @notation{staccatissimo},
+@notation{accento}, @notation{staccato} e @notation{portato}.
+L'output corrispondente è:
+
+@lilypond[verbatim,quote,relative=2]
+c4-^ c-+ c-- c-|
+c4-> c-. c2-_
+@end lilypond
+
+Le regole per il posizionamento predefinito delle articolazioni sono
+definite in @file{scm/script.scm}.  Articolazioni e ornamenti possono
+essere posizionati manualmente sopra o sotto il rigo; si veda
+@ref{Direction and placement}.
+
+Le articolazioni sono oggetti @code{Script}.  Le loro proprietà sono
+descritte in dettaglio in @rinternals{Script}.
+
+Le articolazioni possono essere attaccate alle pause e alle note ma
+non alle pause multiple.  Esiste un comando speciale predefinito,
+@code{\fermataMarkup}, che permette di attaccare un segno di corona
+a una pausa multipla (e soltanto ad essa).  Questo crea un oggetto
+@code{MultiMeasureRestText}.
+
+@lilypond[verbatim,quote,relative=2]
+\override Script.color = #red
+\override MultiMeasureRestText.color = #blue
+a2\fermata r\fermata
+R1\fermataMarkup
+@end lilypond
+
+Oltre alle articolazioni, si possono attaccare alle note anche il testo
+tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Text scripts}.
+
+Maggiori informazioni sull'ordine degli oggetti Script e TextScript
+collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{modifying-default-values-for-articulation-shorthand-notation.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{controlling-the-vertical-ordering-of-scripts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-a-delayed-turn.ly}
+
+@seealso
+Glossario Musicale:
+@rglos{tenuto},
+@rglosnamed{accent,accento},
+@rglos{staccato},
+@rglos{portato}.
+
+Manuale di apprendimento:
+@rlearning{Posizionamento degli oggetti}.
+
+Guida alla notazione:
+@ref{Text scripts},
+@ref{Direction and placement},
+@ref{List of articulations},
+@ref{Trills}.
+
+File installati:
+@file{scm/script.scm}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{Script},
+@rinternals{TextScript}.
+
+
+@node Dinamiche
+@unnumberedsubsubsec Dinamiche
+@translationof Dynamics
+
+@cindex dinamiche
+@cindex dinamiche assolute
+
+@funindex \ppppp
+@funindex ppppp
+@funindex \pppp
+@funindex pppp
+@funindex \ppp
+@funindex ppp
+@funindex \pp
+@funindex pp
+@funindex \p
+@funindex p
+@funindex \mp
+@funindex mp
+@funindex \mf
+@funindex mf
+@funindex \f
+@funindex f
+@funindex \ff
+@funindex ff
+@funindex \fff
+@funindex fff
+@funindex \ffff
+@funindex ffff
+@funindex \fffff
+@funindex fffff
+@funindex \fp
+@funindex fp
+@funindex \sf
+@funindex sf
+@funindex \sff
+@funindex sff
+@funindex \sp
+@funindex sp
+@funindex \spp
+@funindex spp
+@funindex \sfz
+@funindex sfz
+@funindex \rfz
+@funindex rfz
+
+I segni di dinamica assoluta si indicano con un comando che segue una
+nota, come ad esempio @code{c4\ff}.  I segni di dinamica disponibili
+sono @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
+@code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
+@code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\sp}, @code{\spp}, @code{\sfz} e @code{\rfz}.  I segni di
+dinamica possono essere posizionati manualmente sopra o sotto il
+rigo, come è spiegato in dettaglio in @ref{Direction and placement}.
+
+@lilypond[verbatim,quote,relative=2]
+c2\ppp c\mp
+c2\rfz c^\mf
+c2_\spp c^\ff
+@end lilypond
+
+@cindex forcella
+@cindex crescendo
+@cindex decrescendo
+@cindex diminuendo
+
+@funindex \<
+@funindex \>
+@funindex \!
+@funindex \cr
+@funindex cr
+@funindex \decr
+@funindex decr
+
+Un segno di @notation{crescendo} inizia con @code{\<} e termina
+con @code{\!}, un segno di dinamica assoluta o un ulteriore segno
+di crescendo o decrescendo.  Un segno di @notation{decrescendo} inizia
+con @code{\>} termina nello stesso modo, ovvero con @code{\!}, un segno
+di dinamica assoluta oppure un altro segno di crescendo o decrescendo.
+Si possono usare @code{\cr} e @code{\decr} al posto di @code{\<} e
+@code{\>}.  Le @notation{forcelle} vengono create con questa notazione.
+
+@lilypond[verbatim,quote,relative=2]
+c2\< c\!
+d2\< d\f
+e2\< e\>
+f2\> f\!
+e2\> e\mp
+d2\> d\>
+c1\!
+@end lilypond
+
+Una forcella che termina con @code{\!} si estenderà fino al margine
+destro della nota a cui è assegnato @code{\!}.  Nel caso in cui sia
+terminata con l'inizio di un altro segno di @notation{crescendo} o
+@notation{decrescendo}, si estenderà fino al centro della nota a
+cui è assegnato il successivo @code{\<} o @code{\>}.  La forcella
+successiva partirà dal margine destro della stessa nota invece che
+dal margine sinistro, come accade quando si termina con @code{\!}.
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@end lilypond
+
+Le forcelle terminate con segni di dinamica assoluta invece che da
+@code{\!} avranno un aspetto simile.  Tuttavia, la lunghezza della
+dinamica assoluta stessa può cambiare il punto in cui finisce la
+forcella precedente.
+
+@lilypond[verbatim,quote,relative=2]
+c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+@end lilypond
+
+@cindex segni di dinamica multipli su una nota
+@cindex segni di dinamica, più di un segno su una nota
+
+Occorre usare le pause spaziatrici per attaccare più di un segno a
+una nota.  Questo è utile soprattutto quando si aggiunge un
+@notation{crescendo} e un @notation{decrescendo} alla stessa nota:
+
+@lilypond[verbatim,quote,relative=2]
+c4\< c\! d\> e\!
+<< f1 { s4 s4\< s4\> s4\! } >>
+@end lilypond
+
+@cindex espressivo
+@cindex articolazione "espressivo"
+
+@funindex \espressivo
+@funindex espressivo
+
+Il comando @code{\espressivo} permette di indicare un crescendo e
+un decrescendo sulla stessa nota.  Tuttavia, si tenga presente che
+viene implementato come articolazione, non come dinamica.
+
+@lilypond[verbatim,quote,relative=2]
+c2 b4 a
+g1\espressivo
+@end lilypond
+
+@funindex \cresc
+@funindex cresc
+@funindex \decresc
+@funindex decresc
+@funindex \dim
+@funindex dim
+
+I segni di crescendo testuali iniziano con @code{\cresc}, quelli di
+decrescendo con @code{\decresc} o @code{\dim}.
+Le linee di estensione vengono aggiunte automaticamente.
+
+@lilypond[verbatim,quote,relative=2]
+g8\cresc a b c b c d e\mf |
+f8\decresc e d c e\> d c b |
+a1\dim ~ |
+a2. r4\! |
+@end lilypond
+
+@funindex \crescTextCresc
+@funindex crescTextCresc
+@funindex \dimTextDecresc
+@funindex dimTextDecresc
+@funindex \dimTextDecr
+@funindex dimTextDecr
+@funindex \dimTextDim
+@funindex dimTextDim
+@funindex \crescHairpin
+@funindex crescHairpin
+@funindex \dimHairpin
+@funindex dimHairpin
+
+I segni testuali per i cambi di dinamica possono sostituire anche le forcelle:
+@lilypond[verbatim,quote,relative=2]
+\crescTextCresc
+c4\< d e f\! |
+\dimTextDecresc
+g4\> e d c\! |
+\dimTextDecr
+e4\> d c b\! |
+\dimTextDim
+d4\> c b a\! |
+\crescHairpin
+\dimHairpin
+c4\< d\! e\> d\! |
+@end lilypond
+
+
+Per creare nuovi segni di dinamica assoluta o del testo da allineare
+alle dinamiche, si veda @ref{New dynamic marks}.
+
+@cindex dinamiche, posizionamento verticale
+@cindex posizionamento verticale delle dinamiche
+
+@funindex DynamicLineSpanner
+
+Il posizionamento verticale della dinamica è gestito da
+@rinternals{DynamicLineSpanner}.
+
+@funindex \dynamicUp
+@funindex dynamicUp
+@funindex \dynamicDown
+@funindex dynamicDown
+@funindex \dynamicNeutral
+@funindex dynamicNeutral
+
+Esiste un contesto @code{Dynamics} che permette di comporre i segni di
+dinamica sulla loro linea orizzontale.  Si usano le pause spaziatrici
+per  indicare il tempo  (le note in un contesto @code{Dynamics} occupano
+anche il tempo musicale, ma non appaiono nel rigo).
+Il contesto @code{Dynamics} può contenere altri elementi utili come
+segni testuali, estensori del testo e segni di pedale del pianoforte.
+
+@lilypond[verbatim,quote]
+<<
+  \new Staff \relative c' {
+    c2 d4 e |
+    c4 e e,2 |
+    g'4 a g a |
+    c1 |
+  }
+  \new Dynamics {
+    s1\< |
+    s1\f |
+    s2\dim s2-"rit." |
+    s1\p |
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\dynamicUp},
+@code{\dynamicDown},
+@code{\dynamicNeutral},
+@code{\crescTextCresc},
+@code{\dimTextDim},
+@code{\dimTextDecr},
+@code{\dimTextDecresc},
+@code{\crescHairpin},
+@code{\dimHairpin}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{setting-hairpin-behavior-at-bar-lines.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{setting-the-minimum-length-of-hairpins.ly}
+
+@cindex al niente
+@cindex niente, al
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-using-al-niente-notation.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{vertically-aligned-dynamics-and-textscripts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hiding-the-extender-line-for-text-dynamics.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-text-and-spanner-styles-for-text-dynamics.ly}
+
+@seealso
+Glossario Musicale:
+@rglos{al niente},
+@rglos{crescendo},
+@rglos{decrescendo},
+@rglosnamed{hairpin,forcella}.
+Manuale di apprendimento:
+@rlearning{Articolazione e dinamiche}.
+
+Guida alla notazione:
+@ref{Direction and placement},
+@ref{New dynamic marks},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{DynamicText},
+@rinternals{Hairpin},
+@rinternals{DynamicLineSpanner},
+@rinternals{Dynamics}.
+
+
+@node Nuovi segni di dinamica
+@unnumberedsubsubsec Nuovi segni di dinamica
+@translationof New dynamic marks
+
+@cindex segni di dinamica nuovi
+@cindex dinamica, nuovi segni di
+
+Il modo più semplice per creare indicazioni dinamiche è usare
+gli oggetti @code{\markup}.
+
+@lilypond[verbatim,quote]
+moltoF = \markup { molto \dynamic f }
+
+\relative c' {
+  <d e>16_\moltoF <d e>
+  <d e>2..
+}
+@end lilypond
+
+@cindex dynamics, editorial
+@cindex dynamics, parenthesis
+@cindex editorial dynamics
+@funindex \bracket
+@funindex bracket
+@funindex \dynamic
+@funindex dynamic
+
+In modalità markup, si possono creare dinamiche editoriali (racchiuse tra
+parentesi normali o quadrate).  La sintassi della modalità markup è
+descritta in @ref{Formatting text}.
+
+@lilypond[verbatim,quote]
+roundF = \markup {
+    \center-align \concat { \bold { \italic ( }
+           \dynamic f \bold { \italic ) } } }
+boxF = \markup { \bracket { \dynamic f } }
+\relative c' {
+  c1_\roundF
+  c1_\boxF
+}
+@end lilypond
+
+@cindex make-dynamic-script
+@funindex make-dynamic-script
+
+Segni di dinamica semplici e centrati si creano facilmente con la
+funzione @code{make-dynamic-script}.
+
+@lilypond[verbatim,quote]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+In generale, @code{make-dynamic-script} prende come argomento qualsiasi
+oggetto markup.  Il tipo di carattere per la dinamica contiene solo i
+caretteri @code{f,m,p,r,s} e @code{z}; dunque se si desidera un'indicazione
+dinamica che contenga testo semplice e simboli di punteggiatura, occorre
+usare dei comandi markup che ripristinino la famiglia e la codifica del tipo
+di carattere per il testo normale, ad esempio @code{\normal-text}.  Il
+vantaggio nell'uso di @code{make-dynamic-script} al posto di un normale
+markup è l'allineamento verticale degli oggetti markup e delle forcelle
+collegate alla stessa testa di nota.
+
+@lilypond[verbatim,quote]
+roundF = \markup { \center-align \concat {
+           \normal-text { \bold { \italic ( } }
+           \dynamic f
+           \normal-text { \bold { \italic ) } } } }
+boxF = \markup { \bracket { \dynamic f } }
+mfEspress = \markup { \center-align \line {
+              \hspace #3.7 mf \normal-text \italic espress. } }
+roundFdynamic = #(make-dynamic-script roundF)
+boxFdynamic = #(make-dynamic-script boxF)
+mfEspressDynamic = #(make-dynamic-script mfEspress)
+\relative c' {
+  c4_\roundFdynamic\< d e f
+  g,1~_\boxFdynamic\>
+  g1
+  g'1~\mfEspressDynamic
+  g1
+}
+@end lilypond
+
+Si può  usare anche la forma Scheme della modalità markup.  La sintassi
+è spiegata in @rextend{Markup construction in Scheme}.
+
+@lilypond[verbatim,quote]
+moltoF = #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF
+}
+@end lilypond
+
+Per allineare a sinistra il testo di dinamica invece di centrarlo su una
+nota, si usa un @code{\tweak}:
+
+@lilypond[verbatim,quote]
+moltoF = \tweak DynamicText.self-alignment-X #LEFT
+         #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF <d e>1
+}
+@end lilypond
+
+Le impostazioni dei tipi di carattere in modalità markup sono descritti in
+@ref{Selecting font and font size}.
+
+@seealso
+Guida alla notazione:
+@ref{Formatting text},
+@ref{Selecting font and font size},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
+
+Extending LilyPond:
+@rextend{Markup construction in Scheme}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+
+@node Segni di espressione in forma di curva
+@subsection Segni di espressione in forma di curva
+@translationof Expressive marks as curves
+
+Questa sezione spiega come creare vari segni di espressione che hanno
+forma curva: legature di portamento, legature di frase, respiri, portamenti
+indeterminati verso il basso o verso l'alto.
+
+@menu
+* Legature di portamento::
+* Legature di frase::
+* Respiri::
+* Portamenti indeterminati verso il basso e verso l'alto::
+@end menu
+
+@node Legature di portamento
+@unnumberedsubsubsec Legature di portamento
+@translationof Slurs
+
+@cindex legature di portamento
+
+Le @notation{legature di portamento} si inseriscono con delle parentesi:
+
+@warning{Nella musica polifonica, una legatura di portamento deve
+terminare nella stessa voce in cui è iniziata.}
+
+@lilypond[verbatim,quote,relative=2]
+f4( g a) a8 b(
+a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+@cindex legature di portamento, posizionamento manuale
+@cindex legature di portamento, sotto le note
+@cindex legature di portamento, sopra le note
+@funindex \slurDown
+@funindex slurDown
+@funindex \slurNeutral
+@funindex slurNeutral
+
+Le legature di portamento possono essere posizionate manualmente sopra o
+sotto il rigo, come è spiegato in @ref{Direction and placement}.
+
+@cindex legatura di frase
+@cindex legature di portamento multiple
+@cindex legature di portamento simultanee
+
+Legature di portamento simultanee o sovrapposte non sono permesse, ma si
+può usare una legatura di frase per sovrapporre le legature.  Questo permette
+di creare contemporaneamente due legature di portamento.  Maggiori dettagli
+si trovano in @ref{Phrasing slurs}.
+
+@cindex legature di portamento, stile
+@cindex legatura di portamento continua
+@cindex legatura di portamento puntata
+@cindex legatura di portamento tratteggiata
+@cindex stile, legatura di portamento
+@funindex \slurDashed
+@funindex slurDashed
+@funindex \slurDotted
+@funindex slurDotted
+@funindex \slurSolid
+@funindex slurSolid
+
+Le legature di portamento possono essere continue, puntate o tratteggiate.  Lo
+stile predefinito è quello continuo:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashed
+g4( e c2)
+\slurDotted
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurHalfDashed
+@funindex slurHalfDashed
+@funindex \slurHalfSolid
+@funindex slurHalfSolid
+@cindex legatura di portamento, metà tratteggiata e metà continua
+
+Le legature di portamento possono essere anche semitratteggiate (half-dashed),
+ovvero la prima metà tratteggiata, la seconda continua; oppure semicontinue
+(half-solid), ovvero la prima metà continua e la seconda metà tratteggiata:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurHalfDashed
+g4( e c2)
+\slurHalfSolid
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+@funindex \slurDashPattern
+@funindex slurDashPattern
+@cindex legatura di portamento, definizione del modello di tratteggio
+
+Si possono definire modelli di tratteggio personalizzati per le legature di
+portamento:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashPattern #0.7 #0.75
+g4( e c2)
+\slurDashPattern #0.5 #2.0
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+
+
+@funindex \slurUp
+@funindex slurUp
+
+
+@predefined
+@code{\slurUp},
+@code{\slurDown},
+@code{\slurNeutral},
+@code{\slurDashed},
+@code{\slurDotted},
+@code{\slurHalfDashed},
+@code{\slurHalfSolid},
+@code{\slurDashPattern},
+@code{\slurSolid}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-double-slurs-for-legato-chords.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{positioning-text-markups-inside-slurs.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-slurs-with-complex-dash-structure.ly}
+
+@seealso
+Glossario Musicale:
+@rglosnamed{slur,legatura di portamento}.
+
+Manuale di apprendimento:
+@rlearning{Sul non annidamento di parentesi e legature di valore}.
+
+Guida alla notazione:
+@ref{Direction and placement},
+@ref{Phrasing slurs}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{Slur}.
+
+
+@node Legature di frase
+@unnumberedsubsubsec Legature di frase
+@translationof Phrasing slurs
+
+@cindex legature di frase
+@cindex frase, legature di
+@funindex \(
+@funindex \)
+
+Le @notation{legature di frase}, che indicano una frase musicale, si
+scrivono con i comandi @code{\(} e @code{\)}:
+
+@lilypond[verbatim,quote,relative=2]
+c4\( d( e) f(
+e2) d\)
+@end lilypond
+
+@funindex \phrasingSlurUp
+@funindex phrasingSlurUp
+@funindex \phrasingSlurDown
+@funindex phrasingSlurDown
+@funindex \phrasingSlurNeutral
+@funindex phrasingSlurNeutral
+
+A livello tipografico, una legatura di frase si comporta in modo quasi
+identico a una normale legatura di portamento.  Tuttavia, sono trattate
+come oggetti diversi; ad esempio, @code{\slurUp} non ha effetto su una
+legatura di frase.  Le legature di frase possono essere posizionate
+sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
+
+@cindex legature di frase simultanee
+@cindex legature di frase multiple
+@cindex legatura di portamento, fraseggio simultaneo
+@cindex legatura di portamento, fraseggio multiplo
+
+Legature di frase simultanee o sovrapposte non sono permesse.
+
+@funindex phrasingSlurDashed
+@funindex \phrasingSlurDashed
+@funindex \phrasingSlurDotted
+@funindex phrasingSlurDotted
+@funindex \phrasingSlurSolid
+@funindex phrasingSlurSolid
+@cindex phrasing slur, dashed
+@cindex dashed phrasing slur
+@cindex phrasing slur, dotted
+@cindex dotted phrasing slurs
+@cindex slur, dashed phrasing
+@cindex slur, dotted phrasing
+
+Le legature di frase possono essere continue, puntate o tratteggiate.  Lo stile
+predefinito è quello continuo:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashed
+g4\( e c2\)
+\phrasingSlurDotted
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfDashed
+@funindex \phrasingSlurHalfSolid
+@funindex phrasingSlurHalfSolid
+@cindex legatura di frase, metà continua e metà tratteggiata
+@cindex legatura di portamento, fraseggio metà continuo e metà tratteggiato
+
+Le legature di frase possono essere anche semitratteggiate (la prima metà
+tratteggiata, la seconda metà continua) o semicontinue (la prima metà
+continua, la seconda metà tratteggiata):
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurHalfDashed
+g4\( e c2\)
+\phrasingSlurHalfSolid
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+@funindex \phrasingSlurDashPattern
+@funindex phrasingSlurDashPattern
+@cindex legatura di frase, definizione dei modelli di tratteggio
+@cindex legatura di portamento, fraseggio, definizione dei modelli di tratteggio
+@cindex legatura di portamento, definizione dei modelli di tratteggio  per il fraseggio
+
+Si possono definire modelli di tratteggio personalizzati anche per le legature di frase:
+
+@lilypond[verbatim,quote,relative=1]
+c4\( e g2\)
+\phrasingSlurDashPattern #0.7 #0.75
+g4\( e c2\)
+\phrasingSlurDashPattern #0.5 #2.0
+c4\( e g2\)
+\phrasingSlurSolid
+g4\( e c2\)
+@end lilypond
+
+Le definizioni dei modelli di tratteggio per le legature di frase hanno
+la stessa  struttura di quelle per le legature di portamento.  Per maggiori
+informazioni sui modelli complessi di tratteggio si consultino i frammenti
+in @ref{Slurs}.
+
+@predefined
+@code{\phrasingSlurUp},
+@code{\phrasingSlurDown},
+@code{\phrasingSlurNeutral},
+@code{\phrasingSlurDashed},
+@code{\phrasingSlurDotted},
+@code{\phrasingSlurHalfDashed},
+@code{\phrasingSlurHalfSolid},
+@code{\phrasingSlurDashPattern},
+@code{\phrasingSlurSolid}.
+@endpredefined
+
+@seealso
+Manuale di apprendimento:
+@rlearning{Sul non annidamento di parentesi e legature di valore}.
+
+Guida alla notazione:
+@ref{Direction and placement},
+@ref{Slurs}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{PhrasingSlur}.
+
+
+@node Respiri
+@unnumberedsubsubsec Respiri
+@translationof Breath marks
+
+@cindex respiri
+@cindex segno di pausa
+@funindex \breathe
+@funindex breathe
+
+I respiri si inseriscono col comando @code{\breathe}:
+
+@lilypond[verbatim,quote,relative=2]
+c2. \breathe d4
+@end lilypond
+
+Un respiro termina una travatura automatica; per evitare questo
+comportamento, si veda @ref{Manual beams}.
+
+@lilypond[verbatim,quote,relative=2]
+c8 \breathe d e f g2
+@end lilypond
+
+È supportata la divisio, indicatore del respiro nella musica
+antica.  Maggiori dettagli in @ref{Divisiones}.
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{changing-the-breath-mark-symbol.ly}
+
+@cindex segno di spunta
+@cindex spunta, segno di
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{using-a-tick-as-the-breath-mark-symbol.ly}
+
+@cindex cesura
+@cindex binari ferroviari
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{inserting-a-caesura.ly}
+
+@seealso
+Glossario Musicale:
+@rglosnamed{caesura,cesura}.
+
+Guida alla notazione:
+@ref{Divisiones}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{BreathingEvent},
+@rinternals{BreathingSign},
+@rinternals{Breathing_sign_engraver}.
+
+
+@node Portamenti indeterminati verso il basso e verso l'alto
+@unnumberedsubsubsec Portamenti indeterminati verso il basso e verso l'alto
+@translationof Falls and doits
+
+@cindex portamenti indeterminati verso il basso e verso l'alto
+@funindex \bendAfter
+@funindex bendAfter
+
+I @notation{portamenti indeterminati verso il basso e verso l'alto} possono
+essere aggiunti alle note col comando @code{\bendAfter}.  La direzione del
+portamento è indicata con un più o un meno (su o giù).   Il numero indica
+l'intervallo per cui il portamento si estenderà @emph{oltre} la nota principale.
+
+@lilypond[verbatim,quote,relative=2]
+c2\bendAfter #+4
+c2\bendAfter #-4
+c2\bendAfter #+6.5
+c2\bendAfter #-6.5
+c2\bendAfter #+8
+c2\bendAfter #-8
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adjusting-the-shape-of-falls-and-doits.ly}
+
+@seealso
+Glossario Musicale:
+@rglosnamed{fall,portamento indeterminato verso il basso},
+@rglosnamed{doit,portamento indeterminato verso l'alto}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+
+@node Segni di espressione in forma di linea
+@subsection Segni di espressione in forma di linea
+@translationof Expressive marks as lines
+
+Questa sezione spiega come creare vari segni di espressione che seguono
+una traiettoria lineare: glissandi, arpeggi e trilli.
+
+@menu
+* Glissando::
+* Arpeggio::
+* Trilli::
+@end menu
+
+@node Glissando
+@unnumberedsubsubsec Glissando
+
+@cindex glissando
+@funindex \glissando
+@funindex glissando
+
+Un @notation{glissando} si crea attaccando @code{\glissando}
+a una nota:
+
+@lilypond[verbatim,quote,relative=2]
+g2\glissando g'
+c2\glissando c,
+\afterGrace f,1\glissando f'16
+@end lilypond
+
+Un glissando può collegare note appartenenti a righi diversi:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "right" {
+    e'''2\glissando
+    \change Staff = "left"
+    a,,4\glissando
+    \change Staff = "right"
+    b''8 r |
+  }
+  \new Staff = "left" {
+    \clef bass
+    s1
+  }
+>>
+@end lilypond
+
+Un glissando può collegare le note negli accordi.  Se è necessario qualcosa
+di diverso dal normale abbinamento uno a uno delle note, si possono definire
+le connessioni tra le note attraverso @code{\glissandoMap}, dove le note
+di un accordo sono numerate a partire da zero nell'ordine in cui appaiono
+nel file di input @file{.ly}.
+
+@lilypond[verbatim,quote,relative=2]
+<c, e>1\glissando g' |
+<c, e>1\glissando |
+<g' b> |
+\break
+\set glissandoMap = #'((0 . 1) (1 . 0))
+<c, g'>1\glissando |
+<d a'> |
+\set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
+c1\glissando |
+<d f a> |
+\set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
+<f d a'>1\glissando |
+<c c'> |
+@end lilypond
+
+Si possono avere vari stili di glissando.  Maggiori dettagli in @ref{Line styles}.
+
+
+@snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{contemporary-glissando.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-timing-marks-to-long-glissandi.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{making-glissandi-breakable.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{extending-glissandi-across-repeats.ly}
+
+@seealso
+Glossario Musicale:
+@rglos{glissando}.
+
+Guida alla notazione:
+@ref{Line styles}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{Glissando}.
+
+@knownissues
+Non è supportato il testo lungo la linea del glissando (ad esempio @notation{gliss.}).
+
+
+@node Arpeggio
+@unnumberedsubsubsec Arpeggio
+
+@cindex arpeggio
+@cindex arpeggio spezzato
+@cindex spezzato, arpeggio
+
+@funindex \arpeggio
+@funindex arpeggio
+@funindex \arpeggioArrowUp
+@funindex arpeggioArrowUp
+@funindex \arpeggioArrowDown
+@funindex arpeggioArrowDown
+@funindex \arpeggioNormal
+@funindex arpeggioNormal
+
+Un @notation{arpeggio} su un accordo (detto anche accordo spezzato)
+si ottiene aggiungendo @code{\arpeggio} all'accordo:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>1\arpeggio
+@end lilypond
+
+Si possono scrivere vari tipi di arpeggio.
+@code{\arpeggioNormal} ripristina l'arpeggio normale:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>2\arpeggio
+
+\arpeggioArrowUp
+<c e g c>2\arpeggio
+
+\arpeggioArrowDown
+<c e g c>2\arpeggio
+
+\arpeggioNormal
+<c e g c>2\arpeggio
+@end lilypond
+
+@cindex arpeggio, simboli speciali
+@cindex simboli speciali di arpeggio
+
+@funindex \arpeggioBracket
+@funindex arpeggioBracket
+@funindex \arpeggioParenthesis
+@funindex arpeggioParenthesis
+@funindex \arpeggioParenthesisDashed
+@funindex arpeggioParenthesisDashed
+
+Si possono creare simboli di arpeggio speciali @emph{in forma di parentesi}:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>2
+
+\arpeggioBracket
+<c e g c>2\arpeggio
+
+\arpeggioParenthesis
+<c e g c>2\arpeggio
+
+\arpeggioParenthesisDashed
+<c e g c>2\arpeggio
+
+\arpeggioNormal
+<c e g c>2\arpeggio
+@end lilypond
+
+Le proprietà del tratteggio della parentesi dell'arpeggio sono regolate
+dalla proprietà @code{'dash-details}, descritta in @ref{Slurs}.
+
+Gli arpeggi possono essere scritti in modo esplicito con le legature di
+valore.  Per maggiori dettagli si veda @ref{Ties}.
+
+
+@predefined
+@code{\arpeggio},
+@code{\arpeggioArrowUp},
+@code{\arpeggioArrowDown},
+@code{\arpeggioNormal},
+@code{\arpeggioBracket},
+@code{\arpeggioParenthesis}
+@code{\arpeggioParenthesisDashed}.
+@endpredefined
+
+
+@snippets
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-a-piano-staff.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-cross-staff-arpeggios-in-other-contexts.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{creating-arpeggios-across-notes-in-different-voices.ly}
+
+@seealso
+Glossario Musicale:
+@rglos{arpeggio}.
+
+Guida alla notazione:
+@ref{Slurs},
+@ref{Ties}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{Arpeggio},
+@rinternals{Slur},
+@rinternals{PianoStaff}.
+
+@knownissues
+@cindex arpeggio attraverso il rigo, stile della parentesi
+@cindex parentesi, stile nell'arpeggio attraverso il rigo
+
+Non è possibile avere arpeggi connessi e non connessi in un
+@code{PianoStaff} nello stesso momento temporale.
+
+L'arpeggio in forma di parentesi non funziona negli arpeggi che attraversano i righi.
+
+
+@node Trilli
+@unnumberedsubsubsec Trilli
+@translationof Trills
+
+@cindex trilli
+
+@funindex \trill
+@funindex trill
+@funindex \startTrillSpan
+@funindex startTrillSpan
+@funindex \stopTrillSpan
+@funindex stopTrillSpan
+
+Trilli brevi senza la linea di estensione si ottengono col comando
+@code{\trill}; si veda @ref{Articulations and ornamentations}.
+
+Trilli più lunghi con la linea di estensione si ottengono con
+@code{\startTrillSpan} e @code{\stopTrillSpan}:
+
+@lilypond[verbatim,quote,relative=2]
+d1\startTrillSpan
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+Un estensore del trillo che va a capo ricomincerà esattamente sopra la
+prima nota della nuova riga.
+
+@lilypond[ragged-right,verbatim,quote,relative=2]
+d1\startTrillSpan
+\break
+d1
+c2\stopTrillSpan
+r2
+@end lilypond
+
+Trilli consecutivi funzionano senza dover esplicitare i comandi
+@code{\stopTrillSpan}, perché il trillo successivo diventerà
+automaticamente il limite destro di quello precedente.
+
+@lilypond[verbatim,quote,relative=2]
+d1\startTrillSpan
+d1
+b1\startTrillSpan
+d2\stopTrillSpan
+r2
+@end lilypond
+
+I trilli possono essere anche combinati con le note di abbellimento.  La sintassi
+di questo costrutto e il metodo per posizionare in modo preciso gli abbellimenti
+sono descritti in @ref{Grace notes}.
+
+@lilypond[verbatim,quote,relative=2]
+d1~\afterGrace
+d1\startTrillSpan { c32[ d]\stopTrillSpan }
+c2 r2
+@end lilypond
+
+@cindex trilli con altezza
+@cindex trilli con notina
+@funindex \pitchedTrill
+@funindex pitchedTrill
+
+I trilli che richiedono una nota ausiliaria avente un'altezza esplicita si
+ottengono col comando @code{\pitchedTrill}.  Il primo argomento è la  nota
+principale e il secondo è la nota @emph{trillata}, che appare come una testa
+di nota senza gambo e racchiusa tra parentesi.
+
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+d2\startTrillSpan fis
+d2
+c2\stopTrillSpan
+r2
+@end lilypond
+
+@cindex trilli con notina e alterazione
+@cindex trilli con alterazione
+
+Alterazioni successive della stessa nota nella stessa misura devono essere
+aggiunte manualmente.  Apparirà solo l'alterazione del primo trillo con
+notina in una misura.
+
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan cis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis
+eis4\stopTrillSpan
+\pitchedTrill
+eis4\startTrillSpan fis!
+eis4\stopTrillSpan
+@end lilypond
+
+@predefined
+@code{\startTrillSpan},
+@code{\stopTrillSpan}.
+@endpredefined
+
+@seealso
+Glossario Musicale:
+@rglosnamed{trill,trillo}.
+
+Guida alla notazione:
+@ref{Articulations and ornamentations},
+@ref{Grace notes}.
+
+Frammenti:
+@rlsr{Expressive marks}.
+
+Guida al funzionamento interno:
+@rinternals{TrillSpanner}.

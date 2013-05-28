@@ -1,0 +1,12 @@
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
+  texidocit = "
+I battiti saltati nei glissandi molto lunghi vengono talvolta segnalati
+con delle indicazioni di tempo, che consistono solitamente in dei gambi
+privi di teste di nota.  Questi gambi possono essere usati anche per
+contenere segni di espressione intermedi.
+
+Se i gambi non si allineano bene al glissando, può essere necessario
+riposizionarli leggermente.
+
+"
+  doctitleit = "Aggiungere i segni di tempo per i glissandi lunghi"

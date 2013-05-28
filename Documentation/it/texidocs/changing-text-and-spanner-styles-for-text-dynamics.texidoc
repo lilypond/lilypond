@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidocit = "
+Il testo usato per i crescendo e i decrescendo può essere cambiato
+modificando le proprietà di contesto @code{crescendoText} e
+@code{decrescendoText}.
+
+Lo stile della linea dell'estensore può essere cambiato modificando la
+proprietà @code{'style} di @code{DynamicTextSpanner}.  Il valore predefinito
+è @code{'dashed-line}; gli altri valori possibili sono @code{'line},
+@code{'dotted-line} e @code{'none}.
+
+"
+  doctitleit = "Nascondere la linea di estensione per le dinamiche testuali"

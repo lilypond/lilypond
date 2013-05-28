@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidocit = "
+Creare un gruppetto ritardato, dove la nota più bassa del gruppetto usa
+l'alterazione, richiede vari \override.  La proprietà
+@code{outside-staff-priority} deve essere impostata su @code{#f}, perché
+altrimenti questa avrebbe la precedenza sulla proprietà @code{avoid-slur}.  Il
+valore di @code{halign} serve a posizionare il gruppo orizzontalmente.
+
+"
+  doctitleit = "Creare un gruppetto ritardato"

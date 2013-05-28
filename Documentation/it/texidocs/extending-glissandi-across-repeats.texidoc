@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 784e1e7a6b4b5c086a54267aa2d1e34e5aaa254c
+  texidocit = "
+Un glissando che si estende in vari blocchi @code{\\alternative} può
+essere simulato aggiungendo all'inizio di ogni blocco @code{\\alternative}
+una nota di abbellimento nascosta da cui inizia un glissando.  La nota di
+abbellimento deve avere la stessa altezza della nota da cui parte il
+glissando iniziale.  In questo frammento si usa una funzione musicale
+che prende come argomento l'altezza  della nota di abbellimento.
+
+Attenzione: nella musica polifonica la nota di abbellimento deve avere una nota
+di abbellimento corrispondente in tutte le altre voci.
+
+"
+  doctitleit = "Estendere i glissandi sulle volte delle ripetizioni"

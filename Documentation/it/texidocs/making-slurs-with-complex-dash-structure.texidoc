@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidocit = "
+Le legature di portamento possono avere schemi di tratteggio complessi
+definendo la proprietà @code{dash-definition}.  @code{dash-definition} è
+una lista di @code{dash-elements}.  Un @code{dash-element} è una lista
+di parametri che definiscono il comportamento del tratteggio per un
+segmento della legatura.
+
+La legatura di portamento è definita come il parametro t della curva di
+bezier che va da 0 sul margine sinistro della legatura fino a 1 su quello
+destro.  @code{dash-element}  è una lista di @code{(inizio-t fine-t frazione-trattino
+punto-trattino)}.  La regione della legatura di portamento che va da @code{inizio-t} a
+@code{fine-t} avrà una frazione @code{frazione-trattino} di ogni
+@code{punto-trattino} nero.  @code{punto-trattino} viene definito in spazi
+rigo.  @code{frazione-trattino} è impostato su 1 per una legatura di portamento
+continua.
+
+"
+  doctitleit = "Legature di portamento con complesse strutture di tratteggio"

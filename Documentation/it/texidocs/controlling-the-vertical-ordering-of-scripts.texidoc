@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidocit = "
+L'ordine verticale degli script è determinato dalla proprietà
+@code{'script-priority}. Più il numero è piccolo, più sarà posto
+vicino alla nota. In questo esempio, il simbolo di diesis (oggetto
+@code{TextScript}) ha prima la priorità più bassa, dunque è posto più
+in basso nel primo esempio. Nel secondo, il trillo (oggetto @code{Script}) ha
+la priorità più bassa, quindi si trova all'interno. Quando due oggetti hanno
+la stessa  priorità, l'ordine in cui sono inseriti determina quale viene
+prima.
+
+"
+  doctitleit = "Controllo dell'ordine verticale degli script"

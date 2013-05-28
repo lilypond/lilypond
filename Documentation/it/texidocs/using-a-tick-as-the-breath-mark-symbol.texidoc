@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidocit = "
+La musica vocale e per fiati usa frequentemente il segno di spunta come segno
+di respiro.  Questo indica un respiro che sottrae un po' di tempo alla nota
+precedente invece di prendere una piccola pausa, indicata dal segno di
+respiro rappresentato dalla virgola.  Il segno può essere spostato un po'
+su per allontanarlo dal rigo.
+
+"
+  doctitleit = "Usare un segno di spunta come simbolo di respiro"
