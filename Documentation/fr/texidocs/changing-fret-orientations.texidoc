@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 3d43c56b561eeba159249b4b1415a4dfe8a5b3da
+%% Translation of GIT committish: 66b40b7590b34f8133195b8e41aad413d49e9192
   texidocfr = "
 Les diagrammes de fret peuvent s'orienter de trois manières différentes.
 Ils s'aligneront par défaut sur la corde du haut ou le sommet du fret.
 
 "
   doctitlefr = "Orientation des diagrammes de fret"
-

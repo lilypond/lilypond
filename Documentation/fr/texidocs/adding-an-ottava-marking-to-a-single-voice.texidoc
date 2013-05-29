@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 66b40b7590b34f8133195b8e41aad413d49e9192
+  texidocfr = "
+Lorsque plusieurs voix cohabitent sur une même portée, déterminer
+l'octaviation d'une voix affectera la position des notes de toutes les
+voix, jusqu'à la fin du crochet d'octaviation. Si l'octaviation ne doit
+s'appliquer qu'à une seule voix, les positionnements du do central
+(propriété @code{middleCPosition}) et du crochet d'octaviation peuvent
+s'indiquer explicitement. Dans l'exemple suivant, le @code{middleCPosition}
+qui a normalement une valeur de 6 en clef de fa -- soit six crans au-dessus
+de la ligne médiane -- est déterminé à 7 crans au-dessus (une octave) pour
+la durée de l'@emph{ottava}.
+
+"
+  doctitlefr = "Ajout d'une indication d'octave pour une seule voix"

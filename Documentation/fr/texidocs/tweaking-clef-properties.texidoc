@@ -1,14 +1,15 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: 66b40b7590b34f8133195b8e41aad413d49e9192
   texidocfr = "
-La commande @code{\\clef \"treble_8\"} équivaut à définir @code{clefGlyph},
-@code{clefPosition} -- qui contrôle la position verticale de la clef --
-@code{middleCPosition} et @code{clefTransposition}.  Une clef est imprimée
-lorsque l'une de ces propriétés, hormis @code{middleCPosition}, est
-modifiée.  Les exemples suivant font apparaître des possibilités de
-réglage manuel de ces propriétés.
+La commande @code{\\clef \"treble_8\"} équivaut à définir
+@code{clefGlyph}, @code{clefPosition} -- qui contrôle la position
+verticale de la clef -- @code{middleCPosition} et
+@code{clefTransposition}.  Une clef est imprimée lorsque l'une de ces
+propriétés, hormis @code{middleCPosition}, est modifiée.  Les exemples
+suivant font apparaître des possibilités de réglage manuel de ces
+propriétés.
 
 Modifier le glyphe, la position de la clef ou son octaviation ne
-changera pas la position des notes ; il faut pour y parvenir
+changeront pas la position des notes ; il faut pour y parvenir
 modifier aussi la position du do médium.  Le positionnement est relatif
 à la ligne médiane, un nombre positif faisant monter, chaque ligne ou
 interligne comptant pour 1.  La valeur de @code{clefTransposition}
