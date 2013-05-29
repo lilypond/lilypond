@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2757,11 +2757,11 @@ Voici quelques mesures utilisant la police Gonville :
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,15cm,,}
 
 Et ces même mesures avec la police de LilyPond, Feta :
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,15cm,,}
 
 
 @subsubheading Instructions d'installation pour MacOS
@@ -3260,7 +3260,7 @@ Le dernier exemple de cette partie illustre la manière de procéder.
 Les valeurs extrêmes du volume MIDI des nuances se contrôlent à l'aide
 des propriétés @code{midiMinimumVolume} et @code{midiMaximumVolume} qui
 agissent au niveau @code{Score}.  Ces propriétés sont effectives dès
-lors qu'une nuance est indiquée ; une nuance de départ est donc
+lors qu'une nuance est indiquée ; une nuance de départ explicite est donc
 requise pour que le volume soit ajusté dès le début de la partition.
 Vous pouvez alors modifier la fraction correspondant à chaque nuance à
 l'aide de la formule

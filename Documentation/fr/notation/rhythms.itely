@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1376,15 +1376,18 @@ d4 g e c
 @funindex \markLengthOff
 @funindex markLengthOff
 
-Lorsque plusieurs indications de tempo se suivent tout en étant
-rapprochées l'une de l'autre, comme dans le cas d'une partie où
-l'instrumentiste a de longs moments de silence, les mesures
-s'étirent de telle sorte que ces indications ne se chevauchent
-pas.  Ce comportement se gère à l'aide des commandes
-@code{\markLengthOn} et @code{\markLengthOff}.
+Dans le cas d'une partie où l'instrumentiste a de longs moments de
+silence, les indications de tempo peuvent être fort rapprochées
+l'une de l'autre.  L'instruction @code{\markLengthOn} permet de
+préserver suffisamment d'espace horizontal de telle sorte que ces
+indications ne se chevauchent ; l'instruction
+@code{\markLengthOff} restaure le comportement par défaut qui
+ignore les indications de tempo dans les calculs d'espacement
+horizontal.
 
 @lilypond[quote,relative=0]
 \compressFullBarRests
+\markLengthOn
 \tempo "Molto vivace"
 R1*12
 \tempo "Meno mosso"
@@ -2194,7 +2197,8 @@ supérieur s'appliqueront.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
-  % No need to disable beamExceptions as they are not defined for 7/8 time
+  % No need to disable beamExceptions
+  % as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2238,7 +2242,8 @@ valeur de @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-% No need to disable beamExceptions as they are not defined for 5/8 time
+% No need to disable beamExceptions
+% as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }

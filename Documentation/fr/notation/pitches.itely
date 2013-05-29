@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,6 +94,19 @@ chaque @code{,} baisse la note d'une octave.
 }
 @end lilypond
 
+@funindex absolute
+@funindex \absolute
+
+Une musique peut être déclarée explicitement comme étant en notation
+absolue à l'aide de la commande @code{\absolute} :
+
+@example
+\absolute @var{expression_musicale}
+@end example
+
+sera interprété en mode d'octaves absolues quel que soit le contexte où
+elle apparait.
+
 @seealso
 Glossaire musicologique :
 @rglosnamed{Pitch names,Noms des notes}.
@@ -113,12 +126,14 @@ Morceaux choisis :
 @funindex \relative
 @funindex relative
 
-On spécifie les octaves en ajoutant @code{'} ou @code{,} aux
-noms de hauteur.  En recopiant de la musique, on a vite fait de mettre
-une note à la mauvaise octave ; ce genre d'erreur est difficile à
-retrouver.  Le mode d'écriture en octave relative prévient ces erreurs
-dans la mesure où elles deviennent beaucoup plus évidentes : une
-seule erreur décale le reste de la pièce à une mauvaise octave.
+Le mode d'écriture en octave absolue requiert d'indiquer l'octave de
+chaque note.  Pour le mode d'écriture en octave relative, par contre,
+l'octave d'une note est déterminée par rapport à la note précédente :
+modifier l'octave d'une note aura des répercussions sur toutes les notes
+à venir.
+
+Une musique peut être déclarée explicitement comme étant en notation
+relative à l'aide de la commande @code{\relative} :
 
 @example
 \relative @var{hauteur_de_référence} @var{expression_musicale}
@@ -1366,6 +1381,9 @@ a2 b
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
 
 @seealso
 Glossaire musicologique :

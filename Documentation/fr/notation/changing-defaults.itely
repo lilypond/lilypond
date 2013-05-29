@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3540,7 +3540,7 @@ ligne, à moins d'être différent de 1.
 aucune.  Vous devrez utiliser @code{begin-of-line-invisible} pour les
 voir et @code{all-invisible} pour les masquer.
 @item Armure -- voir ci-après.
-@item Indication d'octaviation -- voir ci-après.
+@item Modificateur de clef -- voir ci-après.
 @end itemize
 
 
@@ -3548,7 +3548,7 @@ voir et @code{all-invisible} pour les masquer.
 @unnumberedsubsubsec Considérations spécifiques
 @translationof Special considerations
 
-@strong{@emph{Visibilité après changement explicite}}
+@subsubsubheading Visibilité après changement explicite
 
 @cindex armure, visibilité après changement explicite
 @cindex explicitKeySignatureVisibility
@@ -3600,7 +3600,7 @@ f4 g a b
 f4 g a b
 @end lilypond
 
-@strong{@emph{Visibilité des altérations de précaution}}
+@subsubsubheading Visibilité des altérations de précaution
 
 L'impression d'altérations de précaution au moment d'un changement
 explicite de tonalité sera annulée dès lors que vous aurez désactivé la
@@ -3623,7 +3623,7 @@ permettront d'indiquer le changement de tonalité.
 
 @c TODO Add visibility of cautionary accidentals before notes
 
-@strong{@emph{Barres de mesure automatiques}}
+@subsubsubheading Barres de mesure automatiques
 
 @cindex automaticBars
 @cindex barres de mesure, suppression
@@ -3641,21 +3641,23 @@ intervenir qu'à l'occasion d'un @code{\bar} explicite.
 
 @c TODO Add example
 
-@strong{@emph{Clefs octaviées}}
+@subsubsubheading Clefs transposées
 
-@cindex octaviation, visibilité de la clef
-@cindex visibilité d'un clef octaviée
-@cindex clef, visibilité de l'octaviation
+@cindex octaviation
+@cindex clef transposée, visibilité
+@cindex visibilité d'une clef transposée
+@cindex clef, visibilité de la transposition
 
-L'indication d'octaviation d'une clef est produite par l'objet de rendu
-@code{ClefModifier}.  Sa visibilité étant gérée par héritage direct de
-l'objet @code{Clef}, nul n'est besoin de forcer un quelconque
-@code{break-visibility} au niveau des objets @code{ClefModifier} pour
-éliminer une indication d'octaviation lorsque la clef est invisible.
+L'indication de transposition d'une clef est produite par l'objet
+de rendu @code{ClefModifier}.  Sa visibilité étant gérée par
+héritage direct de l'objet @code{Clef}, nul n'est besoin de forcer
+un quelconque @code{break-visibility} au niveau des objets
+@code{ClefModifier} pour éliminer une indication de transposition
+lorsque la clef est invisible.
 
 Lors d'un changement explicite de clef, la propriété
 @code{explicitClefVisibility} gère à la fois le symbole de la clef et
-l'indication d'octaviation qui lui est attachée.
+l'indication de transposition qui lui est attachée.
 
 @seealso
 Manuel d'initiation :
@@ -4048,7 +4050,7 @@ example shows the difference:
 
 
 @ignore
-@c unnumberedsubsubsec Utilisation de @code{centered-on-parent}
+@unnumberedsubsubsec Utilisation de @code{centered-on-parent}
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further

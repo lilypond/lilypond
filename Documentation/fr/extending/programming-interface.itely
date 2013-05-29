@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -491,6 +491,58 @@ manualBeam =
   \manualBeam #3 #6 c8 d e f
 }
 @end lilypond
+
+@funindex \temporary
+@cindex temporaire, dérogation (override)
+@cindex dérogation temporaire (override)
+@cindex propriétés, retour à la valeur précédente
+
+L'entretien des propriétés peut se voir comme un empilement par
+propriété par objet par contexte.  Les fonctions musicales peuvent
+nécessiter des dérogatoins pour une ou plusieurs propriétés pour la
+durée de la fonction, puis de revenir aux valeurs précédentes avant de
+quitter.  Néanmoins, une dérogation normale va retirer de la pile -- ou
+dépiler -- et supprimer le sommet de la pile de la propriété avant
+d'y ajouter quoi que ce soit -- ou empiler -- ; la valeur précédente de
+la propriété est de fait perdue.  Lorsque la valeur antérieure doit être
+préservée, l'instruction @code{\override} devra être préfixée d'un
+@code{\temporary}, comme ceci :
+
+@example
+\temporary \override @dots{}
+@end example
+
+L'utilisation d'un @code{\temporary} a pour effet d'effacer la propriété
+@code{pop-first} (@emph{commence par dépiler} normalement activée) de la
+dérogation ; la valeur antérieure ne sera alors pas supprimée de la pile
+de la propriété avant d'y empiler la nouvelle valeur.  Lorsqu'un
+@code{\revert} viendra par la suite supprimer la valeur dérogatoire
+temporaire, réapparaitra la valeur antérieure.
+
+En d'autres termes, un @code{\revert} qui suit un @code{\temporary
+\override} pour la même propriété n'apporte rien.  Ce principe est aussi
+valable pour une couple @code{\temporary} et @code{\undo} sur la même
+musique contenant des dérogations.
+
+Voici un exemple de fonction musicale utilisant cette fonctionnalité.
+La présence du @code{\temporary} permet de s'assurer qu'en sortant de la
+fonction, les propriétés @code{cross-staff} et @code{style} retrouveront
+les valeurs qu'elles avaient que ne soit appelée la fonction
+@code{crossStaff}.  En l'absence de @code{\temporary}, ces propriétés
+auraient retrouvé leurs valeurs par défaut à la sortie de la fonction.
+
+@example
+crossStaff =
+#(define-music-function (parser location notes) (ly:music?)
+  (_i "Create cross-staff stems")
+  #@{
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
+  #notes
+  \revert Stem.cross-staff
+  \revert Flag.style
+#@})
+@end example
 
 
 @node De l'usage des mathématiques dans les fonctions

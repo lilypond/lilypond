@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -475,6 +475,16 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
+
+@cindex Ferneyhough, soufflets
+@cindex soufflets Ferneyhough
+@cindex ouvert, soufflet
+@cindex soufflet ouvert
+@cindex plat, soufflet
+@cindex soufflet plat
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}

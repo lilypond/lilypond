@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,19 +32,6 @@ manières.
 @section Pointer-cliquer
 @translationof Point and click
 
-Le pointer-cliquer ajoute des liens au sein des documents PDF, pour
-certains événements musicaux.
-
-@menu
-* Activation du pointer-cliquer::
-* Pointer-cliquer sélectif::
-@end menu
-
-
-@node Activation du pointer-cliquer
-@unnumberedsubsec Activation du pointer-cliquer
-@translationof Enabling point and click
-
 @cindex pointer-cliquer
 @cindex point and click
 
@@ -53,23 +40,27 @@ directement dans le fichier source, à la note que l'on pointe dans le
 visionneur de PDF.  Ceci facilite grandement le repérage des erreurs à
 partir du fichier imprimable.
 
+
+@menu
+* Configuration du système pour le pointer-cliquer::
+* Activation du pointer-cliquer::
+* Pointer-cliquer sélectif::
+@end menu
+
+
+@node Configuration du système pour le pointer-cliquer
+@subsection Configuration du système
+@translationof Configuring the system for point and click
+
 Lorsque cette fonctionnalité est active, LilyPond ajoute des hyperliens
-au fichier PDF.  Ces liens sont transmis au navigateur internet qui se
-charge d'ouvrir un éditeur de texte à l'endroit même où le curseur
-pointe.
+au fichier PDF.  Ces liens sont transmis à un « URI helper » ou au
+navigateur internet, qui se charge d'ouvrir un éditeur de texte à
+l'endroit même où le curseur pointe.
 
 Afin que cette chaîne de traitement soit pleinement opérationnelle, il
 faut configurer votre visionneur de PDF de façon à ce qu'il suive les
 liens grâce au script @file{lilypond-invoke-editor} fourni avec
 LilyPond.
-
-Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans
-le fichier @file{xpdfrc} -- soit @file{/etc/xpdfrc}, soit dans votre
-répertoire personnel @file{.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
 
 @file{lilypond-invoke-editor} est un petit programme assistant.  Il
 se charge d'appeler un éditeur pour les identifiants de ressource
@@ -110,9 +101,149 @@ emacsclient --no-wait +%(line)s:%(column)s %(file)s
 en variable d'environnement @code{LYEDITOR} revient au lancement d'un
 client emacs standard.
 
+@menu
+* Utilisation du pointer-cliquer avec Xpdf::
+* Utilisation du pointer-cliquer avec GNOME 2::
+* Utilisation du pointer-cliquer avec GNOME 3::
+* Configuration spécifique à Evince::
+@end menu
+
+
+@node Utilisation du pointer-cliquer avec Xpdf
+@unnumberedsubsubsec Utilisation avec Xpdf
+@translationof Using Xpdf for point and click
+
+@cindex Xpdf
+
+Pour Xpdf, sous UNIX, vous devrez insérer la ligne suivante dans
+le fichier @file{xpdfrc} -- soit @file{/etc/xpdfrc}, soit dans votre
+répertoire personnel @file{$HOME/.xpdfrc}.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Dans un environnement Ubuntu, il est fort probable que la version de
+Xpdf installée avec le système plante à l'ouverture de tout fichier PDF
+-- c'est un problème connu et persistant depuis plusieurs années et dû à
+des incohérences de bibliothèques.  La solution consiste alors à
+installer une version à jour des paquetages @samp{xpdf} et
+@samp{libpoppler} directement à partir de Debian.  Une fois assuré que
+tout fonctionne correctement, la commande
+
+@example
+sudo apt-mark hold xpdf
+@end example
+
+@noindent
+permet d'empêcher Ubuntu de le remplacer par un paquetage défectueux à
+la prochaine « mise à jour ».
+
+
+@node Utilisation du pointer-cliquer avec GNOME 2
+@unnumberedsubsubsec Utilisation avec GNOME 2
+@translationof Using GNOME 2 for point and click
+
+En ce qui concerne l'environnement GNOME 2 et les lecteur de PDF
+associés, la succession de commandes suivante permet de régler le
+système pour la gestion des URI par @samp{textedit:}
+
+@example
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end example
+
+Après ces invocations,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
+
+
+@node Utilisation du pointer-cliquer avec GNOME 3
+@unnumberedsubsubsec Utilisation avec GNOME 3
+@translationof Using GNOME 3 for point and click
+
+En ce qui concerne l'environnement GNOME 3, les URI soont gérés par la
+surcouche « gvfs » au lieu de « gconf ».  Il faut donc créer un fichier
+dans un répertoire local tel que @file{/tmp}, que 'lon appelera
+@file{lilypond-invoke-editor.desktop}. Il devra avoir le contenu
+suivant :
+
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+
+pour exécuter les commandes
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+Après cette invocation,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+
+@noindent
+devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
+
+
+@node Configuration spécifique à Evince
+@unnumberedsubsubsec Configuration spécifique à Evince
+@translationof Extra configuration for Evince
+
+@cindex Evince
+
+Il se peut que, bien que @code{gnome-open} soit fonctionnel, Evince
+refuse d'ouvir les liens pointer-cliquer pour des raisons
+d'autorisation.  S'impose alors une modification du profil
+@code{Apparmor} d'Evince ; c'est lui qui contrôle le type d'action
+qu'Evince est autorisé à réaliser.
+
+Sur une distribution Ubuntu, cela consiste à éditer le fichier
+@file{/etc/apparmor.d/local/usr.bin.evince} et lui ajouter les lignes
+suivantes :
+
+@example
+# Pour les liens Textedit
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+puis lancer la commande
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+Evince devrait alors être en mesure d'ouvrir les liens pointer-cliquer.
+Une telle configuration devrait être fonctionnelle pour d'autres
+visionneurs.
+
+
+@node Activation du pointer-cliquer
+@unnumberedsubsec Activation du pointer-cliquer
+@translationof Enabling point and click
 
 @cindex ficher de sortie, taille
 @cindex taille du ficher de sortie
+
+La fonctionnalité de « pointer-cliquer » est activée par défaut pour ce
+qui est des fichiers PDF.
 
 L'option pointer-cliquer accroît la taille des fichiers de manière
 significative.  Afin de réduire la taille des fichiers PDF et PS, il est

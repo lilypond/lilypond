@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 58aaa226bb22be92f59fec8da680d135666222cc
+    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1851,11 +1851,11 @@ et pour toutes les portées :
 >>
 @end lilypond
 
-Autre exemple, si la propriété @code{clefTransposition} est déterminée au
-niveau du contexte @code{Score}, elle modifiera la valeur de l'octave en
-cours pour toutes les portées actives ; cette valeur sera considérée
-comme étant la nouvelle valeur par défaut pour toutes les portées à
-venir.
+Autre exemple, si la propriété @code{clefTransposition} est déterminée
+au niveau du contexte @code{Score}, elle modifiera la valeur de la
+transposition en cours pour toutes les portées actives ; cette valeur
+sera considérée comme étant la nouvelle valeur par défaut pour toutes
+les portées à venir.
 
 La commande opposée, @code{\unset}, efface la propriété du contexte ; la
 plupart des propriétés reviennent de ce fait à leur valeur par défaut.
