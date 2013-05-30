@@ -42,20 +42,21 @@ the following pedal should be circled (indicating a change)
 The function also checks if the string has the typical form of three
 pedals, then the divider and then the remaining four pedals.  If not it
 prints out a warning.  However, in any case, it will also print each symbol
-in the order as given.  This means you can place the divider (even multiple
-dividers) anywhere you want, but you'll have to live with the warnings.
+in the order as given.  This means you can place the divider
+(even multiple dividers) anywhere you want, but you'll have to live with the warnings.
 
 The appearance of the diagram can be tweaked inter alia using the size property
 of the TextScript grob (@code{\\override Voice.TextScript #'size = #0.3}) for
 the overall, the thickness property
 (@code{\\override Voice.TextScript #'thickness = #3}) for the line thickness of
-the horizontal line and the divider.  The remaining configuration (box sizes,
-offsets and spaces) is done by the harp-pedal-details  list of properties
+the horizontal line and the divider.  The remaining configuration
+(box sizes, offsets and spaces) is done by the harp-pedal-details list of properties
 (@code{\\override Voice.TextScript #'harp-pedal-details #'box-width = #1}).
-It contains the following settings: @code{box-offset} (vertical shift of the
-box center for up/down pedals), @code{box-width}, @code{box-height},
-@code{space-before-divider} (the spacing between two boxes before the
-divider) and @code{space-after-divider} (box spacing after the divider).
+It contains the following settings: @code{box-offset}
+(vertical shift of the box center for up/down pedals),
+@code{box-width}, @code{box-height}, @code{space-before-divider}
+(the spacing between two boxes before the divider) and
+@code{space-after-divider} (box spacing after the divider).
 
 @lilypond[verbatim,quote]
 \\markup \\harp-pedal #\"^-v|--ov^\"
@@ -96,27 +97,27 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                         (stencil (make-filled-box-stencil
                                    (box-x-dimensions prev-x p space)
                                    (box-y-dimensions prev-x p space)))
-                        (pedal-stencil 
-                          (if circled 
-                              (oval-stencil stencil circle-thickness 
+                        (pedal-stencil
+                          (if circled
+                              (oval-stencil stencil circle-thickness
                                             circle-x-padding circle-y-padding)
                               stencil))
                         (new-prev-x (+ prev-x space box-width)))
-                    (process-pedal (cdr remaining) new-prev-x 
+                    (process-pedal (cdr remaining) new-prev-x
                                    (cons pedal-stencil stencils) #f space)))
               ((#\|)  ; Divider line
                   (let* ((xpos (+ prev-x space))
                          (stencil (divider-stencil xpos))
                          (new-prev-x (+ prev-x space)))
-                    (process-pedal (cdr remaining) new-prev-x 
-                                   (cons stencil stencils) 
+                    (process-pedal (cdr remaining) new-prev-x
+                                   (cons stencil stencils)
                                    circled spaceafterdivider)))
               ((#\o)  ; Next pedal should be circled
                   (process-pedal (cdr remaining) prev-x stencils #t space))
               (else
-                  (ly:warning "Unhandled entry in harp-pedal: ~a" 
+                  (ly:warning "Unhandled entry in harp-pedal: ~a"
                               (car remaining))
-                  (process-pedal (cdr remaining) 
+                  (process-pedal (cdr remaining)
                                  prev-x stencils circled space))))))
         (final-x (car result))
         (stencils (cdr result)))

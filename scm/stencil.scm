@@ -176,8 +176,8 @@ the more angular the shape of the parenthesis."
         (yext (cons (min starty endy) (max starty endy))))
     (ly:make-stencil
       (list 'draw-line width startx starty endx endy)
-      ; Since the line has rounded edges, we have to / can safely add half the
-      ; width to all coordinates!
+      ;; Since the line has rounded edges, we have to / can safely add half the
+      ;; width to all coordinates!
       (interval-widen xext (/ width 2))
       (interval-widen yext (/ width 2)))))
 
@@ -350,9 +350,9 @@ then reduce using @var{min-max}:
         thick
         connect
         fill)
-      ; we know the extrema points by crawling through the
-      ; list of possible extrema and finding the min and max
-      ; for x and y
+      ;; we know the extrema points by crawling through the
+      ;; list of possible extrema and finding the min and max
+      ;; for x and y
       (cons (min-max-crawler min cadr possible-extrema)
             (min-max-crawler max cadr possible-extrema))
       (cons (min-max-crawler min cddr possible-extrema)
@@ -557,12 +557,12 @@ producing a new stencil."
 	 (y-ext (ly:stencil-extent stencil Y))
          (x-length (+ (interval-length x-ext) x-padding thickness))
          (y-length (+ (interval-length y-ext) y-padding thickness))
-         ;(aspect-ratio (/ x-length y-length))
+         ;; (aspect-ratio (/ x-length y-length))
          (x-radius (* 0.707 x-length) )
          (y-radius (* 0.707 y-length) )
-	 ;(diameter (max (- (cdr x-ext) (car x-ext))
-	 ;		(- (cdr y-ext) (car y-ext))))
-	 ;(radius (+ (/ diameter 2) padding thickness))
+	 ;; (diameter (max (- (cdr x-ext) (car x-ext))
+	 ;;  		(- (cdr y-ext) (car y-ext))))
+	 ;; radius (+ (/ diameter 2) padding thickness))
 	 (ellipse (make-ellipse-stencil x-radius y-radius thickness #f)))
 
     (ly:stencil-add
@@ -773,8 +773,8 @@ with optional arrows of @code{max-size} on start and end controlled by
 		   0))
        (scaled-bbox
 	(map (lambda (x) (* factor x)) bbox))
-       ; We need to shift the whole eps to (0,0), otherwise it will appear
-       ; displaced in lilypond (displacement will depend on the scaling!)
+       ;; We need to shift the whole eps to (0,0), otherwise it will appear
+       ;; displaced in lilypond (displacement will depend on the scaling!)
        (translate-string (ly:format "~a ~a translate" (- (list-ref bbox 0)) (- (list-ref bbox 1))))
        (clip-rect-string (ly:format
 			  "~a ~a ~a ~a rectclip"
@@ -807,8 +807,8 @@ BeginEPSF
 EndEPSF
 grestore
 "))
-	 ; Stencil starts at (0,0), since we have shifted the eps, and its
-         ; size is exactly the size of the scaled bounding box
+	 ;; Stencil starts at (0,0), since we have shifted the eps, and its
+         ;; size is exactly the size of the scaled bounding box
 	 (cons 0 (- (list-ref scaled-bbox 2) (list-ref scaled-bbox 0)))
 	 (cons 0 (- (list-ref scaled-bbox 3) (list-ref scaled-bbox 1))))
 

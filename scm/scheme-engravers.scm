@@ -56,33 +56,33 @@ successive measures, and boundaries are shared by adjoining spanners."
         (let ((col (ly:context-property context 'currentCommandColumn))
               (now (ly:context-property context 'measurePosition))
               (current-bar (ly:context-property context 'currentBarNumber)))
-          ; If the counter has been started, make sure we're in a new bar
-          ; before finishing a count-spanner and starting a new one.
-          ; Since we consider all CommandColumns encountered, we need this
-          ; check so that a count-spanner is not created for each pair.
+          ;; If the counter has been started, make sure we're in a new bar
+          ;; before finishing a count-spanner and starting a new one.
+          ;; Since we consider all CommandColumns encountered, we need this
+          ;; check so that a count-spanner is not created for each pair.
           (if (and (ly:grob? count-spanner)
                    (> current-bar last-measure-seen))
               (set! new-measure? #t))
           (if new-measure?
               (begin
-                ; Check if we have the first column of the measure.
-                ; The possibility of initial grace notes is considered.
+                ;; Check if we have the first column of the measure.
+                ;; The possibility of initial grace notes is considered.
                 (if (moment<=? now ZERO-MOMENT)
                     (begin
-                      ; If we have the first column, finish the previous
-                      ; counter-spanner (if there is one).
+                      ;; If we have the first column, finish the previous
+                      ;; counter-spanner (if there is one).
                       (if (ly:grob? count-spanner)
                           (begin
                             (ly:spanner-set-bound! count-spanner RIGHT col)
                             (ly:pointer-group-interface::add-grob count-spanner 'columns col)
                             (ly:engraver-announce-end-grob trans count-spanner col)
                             (set! count-spanner '())))
-                      ; if count is over, reset variables
+                      ;; if count is over, reset variables
                       (if stop?
                           (begin
                             (set! elapsed 0)
                             (set! stop? #f)))
-                      ; if count is in progress, begin a counter object
+                      ;; if count is in progress, begin a counter object
                       (if go?
                           (let* ((c (ly:engraver-make-grob trans 'MeasureCounter col))
                                  (counter (ly:grob-property c 'count-from)))

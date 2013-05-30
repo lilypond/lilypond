@@ -94,7 +94,7 @@ returns @samp{1/3}."
 
 ;; Translators for keys
 
-; Translates a "normal" key (open, closed, trill)
+;; Translates a "normal" key (open, closed, trill)
 (define (key-fill-translate fill)
   (cond
     ((= fill 1) #f)
@@ -102,27 +102,27 @@ returns @samp{1/3}."
     ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
     ((= fill (assoc-get 'F HOLE-FILL-LIST)) #t)))
 
-; Similar to above, but trans vs opaque doesn't matter
+;; Similar to above, but trans vs opaque doesn't matter
 (define (text-fill-translate fill)
   (cond
     ((< fill 3) 1.0)
     ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
     ((= fill (assoc-get 'F HOLE-FILL-LIST)) 0.0)))
 
-; Emits a list for the central-column-hole maker
-; (not-full?, 1-quarter-full?, 1-half-full?, 3-quarters-full?, full?)
-; Multiple values, such as (#t #f #f #t #f), mean a trill between
-; not-full and 3-quarters-full
+;; Emits a list for the central-column-hole maker
+;; (not-full?, 1-quarter-full?, 1-half-full?, 3-quarters-full?, full?)
+;; Multiple values, such as (#t #f #f #t #f), mean a trill between
+;; not-full and 3-quarters-full
 (define (process-fill-value fill)
   (let* ((avals (list-tail (assoc-values HOLE-FILL-LIST) 1)))
   (append `(,(or (< fill 3) (is-square? fill avals)))
     (map (lambda (x) (= 0 (remainder fill x))) avals))))
 
-; Color a stencil gray
+;; Color a stencil gray
 (define (gray-colorize stencil)
   (apply ly:stencil-in-color (cons stencil (x11-color 'grey))))
 
-; A connected path stencil that is surrounded by proc
+;; A connected path stencil that is surrounded by proc
 (define (rich-path-stencil ls x-stretch y-stretch proc)
   (lambda (radius thick fill layout props)
     (let*
@@ -147,11 +147,11 @@ returns @samp{1/3}."
            layout
            props))))))
 
-; A connected path stencil without a surrounding proc
+;; A connected path stencil without a surrounding proc
 (define (standard-path-stencil ls x-stretch y-stretch)
   (rich-path-stencil ls x-stretch y-stretch identity))
 
-; An ellipse stencil that is surrounded by a proc
+;; An ellipse stencil that is surrounded by a proc
 (define (rich-pe-stencil x-stretch y-stretch start end proc)
   (lambda (radius thick fill layout props)
     (let*
@@ -199,14 +199,14 @@ returns @samp{1/3}."
           layout
           props))))))
 
-; An ellipse stencil without a surrounding proc
+;; An ellipse stencil without a surrounding proc
 (define (standard-e-stencil x-stretch y-stretch)
   (rich-e-stencil x-stretch y-stretch identity))
 
-; Translates all possible representations of symbol.
-; If simple? then the only representations are open, closed, and trill.
-; Otherwise, there can be various levels of "closure" on the holes
-; ring? allows for a ring around the holes as well
+;; Translates all possible representations of symbol.
+;; If simple? then the only representations are open, closed, and trill.
+;; Otherwise, there can be various levels of "closure" on the holes
+;; ring? allows for a ring around the holes as well
 (define (make-symbol-alist symbol simple? ring?)
   (filter (lambda (x)
             (not
@@ -243,7 +243,7 @@ returns @samp{1/3}."
 
 ;;; Commands for text layout
 
-; Draws a circle around markup if (= trigger 0.5)
+;; Draws a circle around markup if (= trigger 0.5)
 (define-markup-command
   (conditional-circle-markup layout props trigger in-markup)
   (number? markup?)
@@ -252,7 +252,7 @@ returns @samp{1/3}."
       (markup #:circle (markup in-markup))
       (markup in-markup))))
 
-; Makes a list of named-keys
+;; Makes a list of named-keys
 (define (make-name-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
@@ -283,7 +283,7 @@ returns @samp{1/3}."
            (markup #:null)))
          input-list key-list))
 
-; Makes a list of number-keys
+;; Makes a list of number-keys
 (define (make-number-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
@@ -295,7 +295,7 @@ returns @samp{1/3}."
        input-list
        key-list))
 
-; Creates a named-key list with a certain alignment
+;; Creates a named-key list with a certain alignment
 (define (aligned-text-stencil-function dir hv)
   (lambda (key-name-list radius fill-list layout props)
     (interpret-markup
@@ -329,11 +329,11 @@ returns @samp{1/3}."
                 key-name-list
                 (* radius 8)))))))))
 
-; Utility function for the left-hand keys
+;; Utility function for the left-hand keys
 (define lh-woodwind-text-stencil
   (aligned-text-stencil-function LEFT #t))
 
-; Utility function for the right-hand keys
+;; Utility function for the right-hand keys
 (define rh-woodwind-text-stencil
   (aligned-text-stencil-function RIGHT #t))
 
@@ -389,17 +389,17 @@ returns @samp{1/3}."
 
 ;;; General drawing commands
 
-; Used all the time for a dividing line
+;; Used all the time for a dividing line
 (define (midline-stencil radius thick fill layout props)
   (make-line-stencil (* thick 2) (* -0.80 radius) 0 (* 0.80 radius) 0))
 
 (define (long-midline-stencil radius thick fill layout props)
   (make-line-stencil (* thick 2) (* -5.75 radius) 0 (* 0.75 radius) 0))
 
-; Used all the time for a small, between-hole key
+;; Used all the time for a small, between-hole key
 (define little-elliptical-key-stencil (standard-e-stencil 0.75 0.2))
 
-; Used for several upper keys in the clarinet and sax
+;; Used for several upper keys in the clarinet and sax
 (define (upper-key-stencil tailw tailh bodyw bodyh)
   (let*
    ((xmove (lambda (x) (+ tailw (+ 0.2 (* bodyw (- x 0.2))))))
@@ -426,9 +426,9 @@ returns @samp{1/3}."
     1.0
     1.0)))
 
-; Utility function for the column-hole maker.
-; Returns the left and right degrees for the drawing of a given
-; fill level (1-quarter, 1-half, etc...)
+;; Utility function for the column-hole maker.
+;; Returns the left and right degrees for the drawing of a given
+;; fill level (1-quarter, 1-half, etc...)
 (define (degree-first-true fill-list left? reverse?)
   (define (dfl-crawler fill-list os-list left?)
     (if (car fill-list)
@@ -440,7 +440,7 @@ returns @samp{1/3}."
       '((0 . 0) (215 . 325) (180 . 0) (145 . 35) (90 . 90)))
     left?))
 
-; Gets the position of the first (or last if reverse?) element of a list.
+;; Gets the position of the first (or last if reverse?) element of a list.
 (define (position-true-endpoint in-list reverse?)
   (define (pte-crawler in-list n)
     (if (car in-list)
@@ -450,8 +450,8 @@ returns @samp{1/3}."
     (if reverse? (length in-list) 0)
     (pte-crawler ((if reverse? reverse identity) in-list) 0)))
 
-; Huge, kind-of-ugly maker of a circle in a column.
-; I think this is the clearest way to write it, though...
+;; Huge, kind-of-ugly maker of a circle in a column.
+;; I think this is the clearest way to write it, though...
 
 (define (column-circle-stencil radius thick fill layout props)
   (let* ((fill-list (process-fill-value fill)))
@@ -512,7 +512,7 @@ returns @samp{1/3}."
   (lambda (radius thick fill layout props)
     (column-circle-stencil (* radius scaler) thick fill layout props)))
 
-; A stencil for ring-column circles that combines two of the above
+;; A stencil for ring-column circles that combines two of the above
 (define (ring-column-circle-stencil radius thick fill layout props)
   (if (= 0 (remainder fill (assoc-get 'R HOLE-FILL-LIST)))
     (ly:stencil-add
@@ -829,15 +829,15 @@ returns @samp{1/3}."
 
 (define clarinet-rh-b-key-stencil little-elliptical-key-stencil)
 
-; cl low-rh values
+;; cl low-rh values
 (define CL-RH-HAIR 0.09)
 (define CL-RH-H-STRETCH 2.7)
 (define CL-RH-V-STRETCH 0.9)
 
-; TODO
-; there is some unnecessary information duplication here.
-; need a way to control all of the below stencils so that if one
-; changes, all change...
+;; TODO
+;; there is some unnecessary information duplication here.
+;; need a way to control all of the below stencils so that if one
+;; changes, all change...
 
 (define clarinet-rh-fis-key-stencil
   (standard-path-stencil

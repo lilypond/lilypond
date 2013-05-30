@@ -1642,9 +1642,9 @@
 
 ;; Assembly functions
 
-; Scans a bank for name.
-; for example, '(left-hand . bes) will return bes in the left-hand
-; of a given bank
+;; Scans a bank for name.
+;; for example, '(left-hand . bes) will return bes in the left-hand
+;; of a given bank
 (define (get-key name bank)
   (assoc-get (cdr name) (assoc-get (car name) bank)))
 

@@ -72,7 +72,7 @@ All lengths are scaled according to the font size of the note."
            (dir (ly:grob-property stem-grob 'direction))
            (stem-up (eqv? dir UP))
            (layout (ly:grob-layout grob))
-           ; scale with the note size (e.g. for grace notes)
+           ;; scale with the note size (e.g. for grace notes)
            (factor (magstep (ly:grob-property grob 'font-size 0)))
            (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -85,8 +85,8 @@ All lengths are scaled according to the font size of the note."
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir ))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           ; The points of a round-filled-polygon need to be given in clockwise
-           ; order, otherwise the polygon will be enlarged by blot-size*2!
+           ;; The points of a round-filled-polygon need to be given in clockwise
+           ;; order, otherwise the polygon will be enlarged by blot-size*2!
            (points (if stem-up (list start flag-end
                                      (offset-add flag-end thickness-offset)
                                      (offset-add start thickness-offset))
@@ -95,7 +95,7 @@ All lengths are scaled according to the font size of the note."
                                      (offset-add flag-end thickness-offset)
                                      flag-end)))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
-           ; Log for 1/8 is 3, so we need to subtract 3
+           ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflag stencil (- log 3) stencil spacing))
            (stroke-style (ly:grob-property grob 'stroke-style)))
     (if (equal? stroke-style "grace")
@@ -124,12 +124,12 @@ flags are both 45 degrees."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-; NOTE: By default, lilypond uses the C++ method Flag::stencil
-; (ly:flag::stencil is the corresponding Scheme interface) to generate the
-; flag stencil. The following functions are simply a reimplementation in
-; Scheme, so that one has that functionality available in Scheme, if one
-; wants to write a flag style, which modifies one of the standard flags
-; by some stencil operations.
+;; NOTE: By default, lilypond uses the C++ method Flag::stencil
+;; (ly:flag::stencil is the corresponding Scheme interface) to generate the
+;; flag stencil. The following functions are simply a reimplementation in
+;; Scheme, so that one has that functionality available in Scheme, if one
+;; wants to write a flag style, which modifies one of the standard flags
+;; by some stencil operations.
 
 
 (define-public (add-stroke-glyph stencil grob dir stroke-style flag-style)
@@ -137,7 +137,7 @@ flags are both 45 degrees."
 flag stencil."
   (if (not (string? stroke-style))
     stencil
-    ; Otherwise: look up the stroke glyph and combine it with the flag
+    ;; Otherwise: look up the stroke glyph and combine it with the flag
     (let* ((stem-grob (ly:grob-parent grob X))
            (font-char (string-append "flags." flag-style dir stroke-style))
            (alt-font-char (string-append "flags." dir stroke-style))
@@ -196,7 +196,7 @@ a flag always touches a staff line."
                                                                Y)
                                                d)
                                              (/ 2 ss)))))
-         ; For some reason the stem-end is a real instead of an integer...
+         ;; For some reason the stem-end is a real instead of an integer...
          (dir-modifier (if (ly:position-on-line? stem-grob stem-end) "1" "0"))
          (modifier (if adjust dir-modifier "2")))
     (create-glyph-flag "mensural" modifier grob)))

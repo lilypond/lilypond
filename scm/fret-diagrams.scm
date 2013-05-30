@@ -15,10 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;
-;  Utility functions
-;
-;
+;;  Utility functions
 
 (define (string-x-extent start-point end-point)
   "Return the x-extent of a string that goes from start-point
@@ -130,20 +127,18 @@ found."
   (helper key alist-list
           (if (pair? default) (car default) #f)))
 
-;
-;  Conversions between fret/string coordinate system and x-y coordinate
-;  system.
-;
-;  Fret coordinates are measured down the fretboard from the nut,
-;   starting at 0.
-;
-; String coordinates are measured from the lowest string, starting at 0.
-;
-; The x-y origin is at the intersection of the nut and the lowest string.
-;
-; X coordinates are positive to the right.
-; Y coordinates are positive up.
-;
+;;  Conversions between fret/string coordinate system and x-y coordinate
+;;  system.
+;;
+;;  Fret coordinates are measured down the fretboard from the nut,
+;;   starting at 0.
+;;
+;; String coordinates are measured from the lowest string, starting at 0.
+;;
+;; The x-y origin is at the intersection of the nut and the lowest string.
+;;
+;; X coordinates are positive to the right.
+;; Y coordinates are positive up.
 
 (define (negate-extent extent)
   "Return the extent in an axis opposite to the axis of @code{extent}."
@@ -159,7 +154,7 @@ direction."
          (negate-extent (ly:stencil-extent stencil X)))
         (else
          (negate-extent (ly:stencil-extent stencil Y))))
-        ; else -- eq? fretboard-axis 'string
+        ;; else -- eq? fretboard-axis 'string
   (cond ((eq? orientation 'landscape)
          (ly:stencil-extent stencil Y))
         ((eq? orientation 'opposing-landscape)
@@ -178,9 +173,7 @@ in the @code{fretboard-axis} direction."
 (define (string-thickness string thickness-factor)
   (expt (1+ thickness-factor) (1- string)))
 
-;
-;  Functions that create stencils used in the fret diagram
-;
+;;  Functions that create stencils used in the fret diagram
 
 (define (sans-serif-stencil layout props mag text)
   "Create a stencil in sans-serif font based on @var{layout} and @var{props}
@@ -191,12 +184,7 @@ with magnification @var{mag} of the string @var{text}."
            (prepend-alist-chain 'font-family 'sans props))))
     (interpret-markup layout my-props text)))
 
-;;
-;;
 ;;  markup commands and associated functions
-;;
-;;
-;;
 
 (define (fret-parse-marking-list marking-list my-fret-count)
  "Parse a fret-diagram-verbose marking list into component sublists"
@@ -235,7 +223,7 @@ with magnification @var{mag} of the string @var{text}."
                       (let ((upfret (- (+ minfret my-fret-count) 1)))
                         (if (> maxfret upfret) maxfret upfret)))))
       (set! capo-fret (1+ (- capo-fret minfret)))
-      ; subtract fret from dots
+      ;; subtract fret from dots
       (set! dot-list (subtract-base-fret (- (car fret-range) 1) dot-list)))
     (acons 'fret-range fret-range
            (acons 'barre-list barre-list
@@ -246,46 +234,46 @@ with magnification @var{mag} of the string @var{text}."
 (define (make-fret-diagram layout props marking-list)
   "Make a fret diagram markup"
   (let* (
-         ; note: here we get items from props that are needed in this routine,
-         ; or that are needed in more than one of the procedures
-         ; called from this routine.  If they're only used in one of the
-         ; sub-procedure, they're obtained in that procedure
+         ;; note: here we get items from props that are needed in this routine,
+         ;; or that are needed in more than one of the procedures
+         ;; called from this routine.  If they're only used in one of the
+         ;; sub-procedure, they're obtained in that procedure
          (size (chain-assoc-get 'size props 1.0)) ; needed for everything
-         ;TODO -- get string-count directly from length of stringTunings;
-         ;         from FretBoard engraver, but not from markup call
+         ;;TODO -- get string-count directly from length of stringTunings;
+         ;;         from FretBoard engraver, but not from markup call
          (details (merge-details 'fret-diagram-details props '()))
          (string-count
-           (assoc-get 'string-count details 6)) ; needed for everything
+           (assoc-get 'string-count details 6)) ;; needed for everything
          (my-fret-count
-           (assoc-get 'fret-count details 4)) ; needed for everything
+           (assoc-get 'fret-count details 4)) ;; needed for everything
          (orientation
-           (assoc-get 'orientation details 'normal)) ; needed for everything
+           (assoc-get 'orientation details 'normal)) ;; needed for everything
          (finger-code
            (assoc-get
-             'finger-code details 'none)) ; needed for draw-dots and draw-barre
+             'finger-code details 'none)) ;; needed for draw-dots and draw-barre
          (default-dot-radius
-           (if (eq? finger-code 'in-dot) 0.425 0.25)) ; bigger dots if labeled
+           (if (eq? finger-code 'in-dot) 0.425 0.25)) ;; bigger dots if labeled
          (default-dot-position
            (if (eq? finger-code 'in-dot)
                (- 0.95 default-dot-radius)
                0.6)) ; move up to make room for bigger dot if labeled
          (dot-radius
            (assoc-get
-             'dot-radius details default-dot-radius))  ; needed for draw-dots
-                                                       ; and draw-barre
+             'dot-radius details default-dot-radius))
+             ;; needed for draw-dots and draw-barre
          (dot-position
            (assoc-get
-             'dot-position details default-dot-position)) ; needed for
-                                                    ; draw-dots and draw-barre
+             'dot-position details default-dot-position))
+             ;; needed for draw-dots and draw-barre
          (th
            (* (ly:output-def-lookup layout 'line-thickness)
-              (chain-assoc-get 'thickness props 0.5))) ; needed for draw-frets
-                                                       ; and draw-strings
+              (chain-assoc-get 'thickness props 0.5)))
+              ;; needed for draw-frets and draw-strings
          (sth (* size th))
          (thickness-factor (assoc-get 'string-thickness-factor details 0))
          (alignment
-           (chain-assoc-get 'align-dir props -0.4)) ; needed only here
-         (xo-padding (assoc-get 'xo-padding details 0.2)) ; needed only here
+           (chain-assoc-get 'align-dir props -0.4)) ;; needed only here
+         (xo-padding (assoc-get 'xo-padding details 0.2)) ;; needed only here
          (parameters (fret-parse-marking-list marking-list my-fret-count))
          (capo-fret (assoc-get 'capo-fret parameters 0))
          (dot-list (assoc-get 'dot-list parameters))
@@ -296,7 +284,7 @@ with magnification @var{mag} of the string @var{text}."
          (barre-type
            (assoc-get 'barre-type details 'curved))
          (fret-diagram-stencil '()))
-    ;
+
     ;;  Here are the fret diagram helper functions that depend on the
     ;;  fret diagram parameters.  The functions are here because the
     ;;  diagram parameters are part of the lexical scope here.
@@ -355,10 +343,11 @@ baseline at fret coordinate @var{base}, a height of
            (right-lower-control-point
              (stencil-coordinates
                bottom-control-point-height cp-right-width)))
-      ; order of bezier control points is:
-      ;    left cp low, right cp low, right end low, left end low
-      ;    right cp high, left cp high, left end high, right end high.
-      ;
+
+      ;; order of bezier control points is:
+      ;;    left cp low, right cp low, right end low, left end low
+      ;;   right cp high, left cp high, left end high, right end high.
+
       (list left-lower-control-point
             right-lower-control-point
             right-end-point
@@ -746,9 +735,7 @@ at @var{fret}."
                   (- label-outside-diagram)
                   (+ (* size (1- string-count)) label-outside-diagram))))))
 
-
-              ; Here is the body of make-fret-diagram
-              ;
+              ;; Here is the body of make-fret-diagram
 
     (set! fret-diagram-stencil
       (ly:stencil-add (draw-strings) (draw-frets)))
@@ -867,7 +854,7 @@ a fret-indication list with the appropriate values"
                                (list 'open (string->number (car this-list)))
                                output-list)))))))
            (parse-item (cdr myitems)))))
-   ;  add the modified details
+   ;; add the modified details
    (set! props
          (prepend-alist-chain 'fret-diagram-details details props))
    `(,props . ,output-list))) ;ugh -- hard-coded spell -- procedure better
@@ -879,7 +866,7 @@ return a pair containing:
 @var{props}, modified to include the string-count determined by the
 definition-string, and
 a fret-indication list with the appropriate values"
-;TODO -- change syntax to fret\string-finger
+;; TODO -- change syntax to fret\string-finger
 
   (let* ((details (merge-details 'fret-diagram-details props '()))
          (barre-start-list '())

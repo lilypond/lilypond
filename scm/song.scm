@@ -45,7 +45,7 @@
 ;; The resulting base octave is sum of *base-octave* and
 ;; *base-octave-shift*.  This is done to work around a Festival bug
 ;; causing Festival to segfault or produce invalid pitch on higher pitches.
-;(define *base-octave-shift* -2)
+;; (define *base-octave-shift* -2)
 (define *base-octave-shift* (make-parameter 0))
 
 ;; The coeficient by which the notes just before \breath are shortened.

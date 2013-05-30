@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-; for define-safe-public when byte-compiling using Guile V2
+;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
 (define-public (construct-chord-elements root duration modifications)
@@ -231,7 +231,7 @@ DURATION, and INVERSION."
   (map (lambda (n)
 	 (define (nca x)
 	   (if (= x 7) FLAT 0))
-	 
+
 	 (if (>= n 8)
 	     (ly:make-pitch 1 (- n 8) (nca n))
 	     (ly:make-pitch 0 (- n 1) (nca n))))

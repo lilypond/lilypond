@@ -16,10 +16,10 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-; for take, drop, take-while, list-index, and find-tail:
+;; for take, drop, take-while, list-index, and find-tail:
 (use-modules (srfi srfi-1))
 
-; for define-safe-public when byte-compiling using Guile V2
+;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,7 +184,7 @@ duration (base note length and dot count), as a number of whole notes."
 (define-public (scorify-music music parser)
   "Preprocess @var{music}."
   (ly:make-score
-   (fold (lambda (f m) (f m parser)) 
+   (fold (lambda (f m) (f m parser))
          music
          toplevel-music-functions)))
 

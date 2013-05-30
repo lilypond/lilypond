@@ -169,73 +169,100 @@ variables to their value after the initial call of @var{thunk}."
     ;; be longer than 48 characters per line.
 
     (anti-alias-factor 1
-"Render at higher resolution (using given factor)
-and scale down result to prevent jaggies in
+"Render at higher resolution
+(using given factor) and scale down result to prevent jaggies in
 PNG images.")
-    (aux-files #t
+    (aux-files
+      #t
 "Create .tex, .texi, .count files in the
 EPS backend.")
-    (backend ps
+    (backend
+      ps
 "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'socket, 'svg.")
-    (check-internal-types #f
+    (check-internal-types
+      #f
 "Check every property assignment for types.")
-    (clip-systems #f
+    (clip-systems
+      #f
 "Generate cut-out snippets of a score.")
-    (datadir #f
+    (datadir
+      #f
 "LilyPond prefix for data files (read-only).")
-    (debug-gc #f
+    (debug-gc
+      #f
 "Dump memory debugging statistics.")
-    (debug-gc-assert-parsed-dead #f
+    (debug-gc-assert-parsed-dead
+      #f
 "For memory debugging: Ensure that all
 references to parsed objects are dead.  This is
 an internal option, and is switched on
 automatically for `-ddebug-gc'.")
-    (debug-lexer #f
+    (debug-lexer
+      #f
 "Debug the flex lexer.")
-    (debug-page-breaking-scoring #f
+    (debug-page-breaking-scoring
+      #f
 "Dump scores for many different page breaking
 configurations.")
-    (debug-parser #f
+    (debug-parser
+      #f
 "Debug the bison parser.")
-    (debug-property-callbacks #f
+    (debug-property-callbacks
+      #f
 "Debug cyclic callback chains.")
-    (debug-skylines #f
+    (debug-skylines
+      #f
 "Debug skylines.")
-    (delete-intermediate-files #t
+    (delete-intermediate-files
+      #t
 "Delete unusable, intermediate PostScript files.")
-    (dump-profile #f
+    (dump-profile
+      #f
 "Dump memory and time information for each file.")
-    (dump-cpu-profile #f
+    (dump-cpu-profile
+      #f
 "Dump timing information (system-dependent).")
-    (dump-signatures #f
+    (dump-signatures
+      #f
 "Dump output signatures of each system.  Used for
 regression testing.")
-    (eps-box-padding #f
+    (eps-box-padding
+      #f
 "Pad left edge of the output EPS bounding box by
 given amount (in mm).")
-    (gs-load-fonts #f
+    (gs-load-fonts
+      #f
 "Load fonts via Ghostscript.")
-    (gs-load-lily-fonts #f
+    (gs-load-lily-fonts
+      #f
 "Load only LilyPond fonts via Ghostscript.")
-    (gui #f
+    (gui
+      #f
 "Run LilyPond from a GUI and redirect stderr to
 a log file.")
-    (help #f
+    (help
+      #f
 "Show this help.")
-    (include-book-title-preview #t
+    (include-book-title-preview
+      #t
 "Include book titles in preview images.")
-    (include-eps-fonts #t
+    (include-eps-fonts
+      #t
 "Include fonts in separate-system EPS files.")
-    (include-settings #f
+    (include-settings
+      #f
 "Include file for global settings, included before the score is processed.")
-    (job-count #f
+    (job-count
+      #f
 "Process in parallel, using the given number of
 jobs.")
-    (log-file #f
+    (log-file
+      #f
 "If string FOO is given as argument, redirect
 output to log file `FOO.log'.")
-    (max-markup-depth 1024
+    (max-markup-depth
+      1024
 "Maximum depth for the markup tree. If a markup has more levels,
 assume it will not terminate on its own, print a warning and return a
 null markup instead.")
@@ -244,60 +271,80 @@ null markup instead.")
                          "midi")
 "Set the default file extension for MIDI output
 file to given string.")
-    (music-strings-to-paths #f
+    (music-strings-to-paths
+      #f
 "Convert text strings to paths when glyphs belong
 to a music font.")
-    (point-and-click #t
+    (point-and-click
+      #t
 "Add point & click links to PDF output.")
-    (paper-size "a4"
+    (paper-size
+      "a4"
 "Set default paper size.")
-    (pixmap-format "png16m"
+    (pixmap-format
+      "png16m"
 "Set GhostScript's output format for pixel images.")
-    (preview #f
+    (preview
+      #f
 "Create preview images also.")
-    (print-pages #t
+    (print-pages
+      #t
 "Print pages in the normal way.")
-    (protected-scheme-parsing #t
+    (protected-scheme-parsing
+      #t
 "Continue when errors in inline scheme are caught
 in the parser.  If #f, halt on errors and print
 a stack trace.")
-    (profile-property-accesses #f
+    (profile-property-accesses
+      #f
 "Keep statistics of get_property() calls.")
-    (resolution 101
+    (resolution
+      101
 "Set resolution for generating PNG pixmaps to
 given value (in dpi).")
-    (read-file-list #f
+    (read-file-list
+      #f
 "Specify name of a file which contains a list of
 input files to be processed.")
-    (relative-includes #f
+    (relative-includes
+      #f
 "When processing an \\include command, look for
 the included file relative to the current file
 (instead of the root file)")
-    (safe #f
+    (safe
+      #f
 "Run in safer mode.")
-    (separate-log-files #f
+    (separate-log-files
+      #f
 "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
 `FILE2.log', ...")
-    (show-available-fonts #f
+    (show-available-fonts
+      #f
 "List available font names.")
-    (strict-infinity-checking #f
+    (strict-infinity-checking
+      #f
 "Force a crash on encountering Inf and NaN
 floating point exceptions.")
-    (strip-output-dir #t
+    (strip-output-dir
+      #t
 "Don't use directories from input files while
 constructing output file names.")
-    (svg-woff #f
+    (svg-woff
+      #f
 "Use woff font files in SVG backend.")
-    (trace-memory-frequency #f
+    (trace-memory-frequency
+      #f
 "Record Scheme cell usage this many times per
 second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
-    (trace-scheme-coverage #f
+    (trace-scheme-coverage
+      #f
 "Record coverage of Scheme files in `FILE.cov'.")
     (verbose ,(ly:verbose-output?)
 "Verbose output, i.e. loglevel at least DEBUG (read-only).")
-    (warning-as-error #f
+    (warning-as-error
+      #f
 "Change all warning and programming_error
 messages into errors.")
     ))

@@ -57,11 +57,11 @@
                              "@var{" (car x) "} ("  (cadr x) ")" ))
                 (zip arg-names  sig-type-names))
            " " )))
-    
+
     (string-append
      "\n\n@item @code{\\" c-name "} " signature-str
      "\n@funindex \\" c-name "\n"
-     "\n@cindex \\" c-name "\n"    
+     "\n@cindex \\" c-name "\n"
      (if (string? doc-str)
          doc-str
          "")
@@ -74,11 +74,12 @@
 
 (define (markup-function<? a b)
   (ly:string-ci<? (symbol->string (procedure-name a)) (symbol->string (procedure-name b))))
- 
+
 (define (markup-category-doc-node category)
   (let* ((category-string (symbol->string category))
-         (category-name (string-capitalize (regexp-substitute/global #f
-                                        "-" category-string 'pre " " 'post)))
+         (category-name (string-capitalize
+                          (regexp-substitute/global
+                            #f "-" category-string 'pre " " 'post)))
         (markup-functions (hash-fold (lambda (markup-function dummy functions)
 				       (cons markup-function functions))
 				     '()

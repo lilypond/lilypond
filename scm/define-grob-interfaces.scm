@@ -34,7 +34,9 @@ note)."
 (ly:add-interface
  'ambitus-interface
  "The line between note heads for a pitch range."
- '(gap note-heads thickness))
+ '(gap
+   note-heads
+   thickness))
 
 (ly:add-interface
  'bar-line-interface
@@ -46,8 +48,17 @@ The list of allowed glyphs and predefined bar lines can be
 found in @file{scm/bar-line.scm}.
 
 @code{gap} is used for the gaps in dashed bar lines."
- '(allow-span-bar bar-extent gap glyph glyph-name has-span-bar
-   hair-thickness kern rounded thin-kern thick-thickness))
+ '(allow-span-bar
+   bar-extent
+   gap
+   glyph
+   glyph-name
+   hair-thickness
+   has-span-bar
+   kern
+   rounded
+   thin-kern
+   thick-thickness))
 
 (ly:add-interface
  'bass-figure-interface
@@ -62,7 +73,8 @@ found in @file{scm/bar-line.scm}.
 (ly:add-interface
  'bend-after-interface
  "A doit or drop."
- '(thickness delta-position))
+ '(delta-position
+   thickness))
 
 (ly:add-interface
  'clef-modifier-interface
@@ -112,12 +124,16 @@ or 15 (two octaves), but LilyPond allows any integer here."
 (ly:add-interface
  'footnote-spanner-interface
  "Make a footnote spanner."
- '(footnote-text spanner-placement))
+ '(footnote-text
+   spanner-placement))
 
 (ly:add-interface
  'fret-diagram-interface
  "A fret diagram"
- '(align-dir fret-diagram-details size dot-placement-list
+ '(align-dir
+   dot-placement-list
+   fret-diagram-details
+   size
    thickness))
 
 (ly:add-interface
@@ -128,7 +144,8 @@ or 15 (two octaves), but LilyPond allows any integer here."
 (ly:add-interface
  'grace-spacing-interface
  "Keep track of durations in a run of grace notes."
- '(columns common-shortest-duration))
+ '(columns
+   common-shortest-duration))
 
 (ly:add-interface
  'inline-accidental-interface
@@ -179,7 +196,8 @@ accidentals)."
 (ly:add-interface
  'measure-counter-interface
  "A counter for numbering measures."
- '(columns count-from))
+ '(columns
+   count-from))
 
 (ly:add-interface
  'metronome-mark-interface
@@ -204,12 +222,16 @@ accidentals)."
 (ly:add-interface
  'parentheses-interface
  "Parentheses for other objects."
- '(padding stencils))
+ '(padding
+   stencils))
 
 (ly:add-interface
  'percent-repeat-interface
  "Beat, Double and single measure repeats."
- '(dot-negative-kern slash-negative-kern slope thickness))
+ '(dot-negative-kern
+   slash-negative-kern
+   slope
+   thickness))
 
 (ly:add-interface
  'piano-pedal-interface
@@ -235,15 +257,20 @@ interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'spacing-options-interface
  "Supports setting of spacing variables."
- '(spacing-increment shortest-duration-space))
+ '(spacing-increment
+   shortest-duration-space))
 
 (ly:add-interface
  'span-bar-interface
  "A bar line that is spanned between other barlines.
   This interface is used for bar lines that connect different
   staves."
- '(glyph-name elements pure-Y-common pure-relevant-grobs
-   pure-relevant-items pure-relevant-spanners))
+ '(glyph-name
+   elements
+   pure-Y-common
+   pure-relevant-grobs
+   pure-relevant-items
+   pure-relevant-spanners))
 
 (ly:add-interface
  'stanza-number-interface
@@ -263,7 +290,10 @@ interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'system-start-text-interface
  "Text in front of the system."
- '(long-text self-alignment-X self-alignment-Y text))
+ '(long-text
+   self-alignment-X
+   self-alignment-Y
+   text))
 
 (ly:add-interface
  'tab-note-head-interface

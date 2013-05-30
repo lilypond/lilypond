@@ -22,40 +22,44 @@
 (define event-classes
   '((() . (StreamEvent))
     (StreamEvent .
-		 (RemoveContext ChangeParent Override Revert UnsetProperty
-				SetProperty music-event OldMusicEvent CreateContext Prepare
-				OneTimeStep Finish))
-    (music-event . (annotate-output-event footnote-event
-		    arpeggio-event breathing-event extender-event span-event
-      rhythmic-event dynamic-event break-event label-event percent-event
-      key-change-event string-number-event stroke-finger-event tie-event
-      part-combine-event part-combine-force-event
-      beam-forbid-event script-event tempo-change-event
-      tremolo-event bend-after-event fingering-event glissando-event
-      harmonic-event hyphen-event laissez-vibrer-event mark-event
-      multi-measure-text-event note-grouping-event
-      pes-or-flexa-event repeat-tie-event spacing-section-event
-      layout-instruction-event completize-extender-event break-span-event
-      alternative-event))
+		 (RemoveContext
+		  ChangeParent Override Revert UnsetProperty SetProperty
+		  music-event OldMusicEvent CreateContext Prepare
+		  OneTimeStep Finish))
+    (music-event . (annotate-output-event
+                    footnote-event arpeggio-event breathing-event
+                    extender-event span-event rhythmic-event dynamic-event
+                    break-event label-event percent-event key-change-event
+                    string-number-event stroke-finger-event tie-event
+                    part-combine-event part-combine-force-event
+                    beam-forbid-event script-event tempo-change-event
+                    tremolo-event bend-after-event fingering-event
+                    glissando-event harmonic-event hyphen-event
+                    laissez-vibrer-event mark-event multi-measure-text-event
+                    note-grouping-event pes-or-flexa-event repeat-tie-event
+                    spacing-section-event layout-instruction-event
+                    completize-extender-event break-span-event alternative-event))
 
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
-    (span-event . (span-dynamic-event beam-event episema-event ligature-event
-                                      measure-counter-event pedal-event
-                                      phrasing-slur-event slur-event
-                                      staff-span-event text-span-event
-                                      trill-span-event tremolo-span-event
-                                      tuplet-span-event))
+    (span-event . (span-dynamic-event
+                   beam-event episema-event ligature-event
+                   measure-counter-event pedal-event
+                   phrasing-slur-event slur-event
+                   staff-span-event text-span-event
+                   trill-span-event tremolo-span-event
+                   tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
     (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
-    (rhythmic-event . (lyric-event melodic-event multi-measure-rest-event
-				   double-percent-event percent-event
-				   repeat-slash-event rest-event
-				   skip-event bass-figure-event))
+    (rhythmic-event . (lyric-event
+                       melodic-event multi-measure-rest-event
+		       double-percent-event percent-event
+		       repeat-slash-event rest-event
+		       skip-event bass-figure-event))
     (melodic-event . (cluster-note-event note-event))
     (() . (Announcement))
     (Announcement . (AnnounceNewContext))

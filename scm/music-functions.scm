@@ -16,7 +16,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-; for define-safe-public when byte-compiling using Guile V2
+;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
 (use-modules (ice-9 optargs))
@@ -1903,10 +1903,10 @@ base onto the following musical context."
                 (lambda ,pitches ,music)
                 (lambda ,pitches ,last-pitch))
                'element ,music))
-    
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; The following functions are all associated with the crossStaff
-;  function
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The following functions are all associated with the crossStaff
+;;  function
 
 (define (close-enough? x y)
   "Values are close enough to ignore the difference"
@@ -1920,13 +1920,13 @@ base onto the following musical context."
 
 (define ((stem-connectable? ref root) stem)
   "Check if the stem is connectable to the root"
-  ; The root is always connectable to itself
+  ;; The root is always connectable to itself
   (or (eq? root stem)
       (and
-      ; Horizontal positions of the stems must be almost the same
+      ;; Horizontal positions of the stems must be almost the same
         (close-enough? (car (ly:grob-extent root ref X))
           (car (ly:grob-extent stem ref X)))
-        ; The stem must be in the direction away from the root's notehead
+        ;; The stem must be in the direction away from the root's notehead
         (positive? (* (ly:grob-property root 'direction)
                      (- (car (ly:grob-extent stem ref Y))
                        (car (ly:grob-extent root ref Y))))))))
@@ -1943,13 +1943,13 @@ base onto the following musical context."
                 (yextent (extent-combine yextents))
                 (layout (ly:grob-layout root))
                 (blot (ly:output-def-lookup layout 'blot-diameter)))
-           ; Hide spanned stems
+           ;; Hide spanned stems
            (map (lambda (st)
                   (set! (ly:grob-property st 'stencil) #f))
              stems)
-           ; Draw a nice looking stem with rounded corners
+           ;; Draw a nice looking stem with rounded corners
            (ly:round-filled-box (ly:grob-extent root root X) yextent blot))
-         ; Nothing to connect, don't draw the span
+         ;; Nothing to connect, don't draw the span
          #f)))
 
 (define ((make-stem-span! stems trans) root)
@@ -1957,7 +1957,7 @@ base onto the following musical context."
   (let ((span (ly:engraver-make-grob trans 'Stem '())))
     (ly:grob-set-parent! span X root)
     (set! (ly:grob-object span 'stems) stems)
-    ; Suppress positioning, the stem code is confused by this weird stem
+    ;; Suppress positioning, the stem code is confused by this weird stem
     (set! (ly:grob-property span 'X-offset) 0)
     (set! (ly:grob-property span 'stencil) stem-span-stencil)))
 
@@ -1974,8 +1974,8 @@ other stems just because of that."
 
 (define (make-stem-spans! ctx stems trans)
   "Create stem spans for cross-staff stems"
-  ; Cannot do extensive checks here, just make sure there are at least
-  ; two stems at this musical moment
+  ;; Cannot do extensive checks here, just make sure there are at least
+  ;; two stems at this musical moment
   (if (<= 2 (length stems))
     (let ((roots (filter stem-is-root? stems)))
     (map (make-stem-span! stems trans) roots))))
@@ -1984,11 +1984,11 @@ other stems just because of that."
   "Connect cross-staff stems to the stems above in the system"
   (let ((stems '()))
     (make-engraver
-      ; Record all stems for the given moment
+      ;; Record all stems for the given moment
       (acknowledgers
         ((stem-interface trans grob source)
         (set! stems (cons grob stems))))
-      ; Process stems and reset the stem list to empty
+      ;; Process stems and reset the stem list to empty
       ((process-acknowledged trans)
         (make-stem-spans! ctx stems trans)
         (set! stems '())))))
@@ -2026,8 +2026,8 @@ Broken measures are numbered in parentheses."
          (siblings (ly:spanner-broken-into orig)) ; have we been split?
          (bounds (ly:grob-array->list (ly:grob-object grob 'columns)))
          (refp (ly:grob-system grob))
-         ; we use the first and/or last NonMusicalPaperColumn grob(s) of
-         ; a system in the event that a MeasureCounter spanner is broken
+         ;; we use the first and/or last NonMusicalPaperColumn grob(s) of
+         ;; a system in the event that a MeasureCounter spanner is broken
          (all-cols (ly:grob-array->list (ly:grob-object refp 'columns)))
          (all-cols
            (filter
