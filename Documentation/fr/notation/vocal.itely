@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+    Translation of GIT committish: 2dcd186b192e3e99184d5587dc449949699c68c6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2065,7 +2065,8 @@ text = \lyricmode {
           "Je me suis fait sécher..."
         }
       }
-      \combine \null \vspace #0.1 % ajout d'espace vertical entre les couplets
+      % ajout d'espace vertical entre les couplets
+      \combine \null \vspace #0.1
       \line { \bold "3."
         \column {
           "Chante, rossignol, chante,"
@@ -2081,7 +2082,8 @@ text = \lyricmode {
           "Sans l'avoir mérité..."
         }
       }
-      \combine \null \vspace #0.1 % ajout d'espace vertical entre les couplets
+      % ajout d'espace vertical entre les couplets
+      \combine \null \vspace #0.1
       \line { \bold "5."
         \column {
           "Je voudrais que la rose"

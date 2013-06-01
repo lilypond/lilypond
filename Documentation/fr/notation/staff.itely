@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: 2dcd186b192e3e99184d5587dc449949699c68c6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -547,7 +547,7 @@ définie explicitement ou non.  La présence du @code{\stopStaff} est ici
 rendue nécessaire pour annuler les effets de la commande
 @code{\override} qui s'applique à l'intégralité du @code{StaffSymbol}.
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[verbatim,quote,relative=1]
 \override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
 d4 e f g
 \stopStaff
@@ -630,7 +630,7 @@ L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
 lorsqu'il y a un nombre restreint d'ossias.
 
 @lilypond[verbatim,quote]
-\new Staff = main \relative c'' {
+\new Staff = "main" \relative c'' {
   c4 b d c
   <<
     { c4 b d c }
@@ -659,7 +659,7 @@ procéder, bien plus que dans l'exemple suivant.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \override Clef.transparent = ##t
     fontSize = #-3
@@ -672,7 +672,7 @@ procéder, bien plus que dans l'exemple suivant.
     c4 b c2
     <<
       { e4 f e2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff e4 g8 f e2 \stopStaff
       }
     >>
@@ -680,7 +680,7 @@ procéder, bien plus que dans l'exemple suivant.
     c4 b c2
     <<
       { g4 a g2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff g4 e8 f g2 \stopStaff
       }
     >>
@@ -698,7 +698,7 @@ début de ligne.  Pour plus d'information au sujet de la commande
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \override Clef.transparent = ##t
     fontSize = #-3
