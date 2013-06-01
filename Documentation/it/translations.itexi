@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Tue Jan 15 12:01:06 UTC 2013
+@emph{Ultimo aggiornamento Sat Jun  1 07:04:04 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ sì
 @item
 2 Notazione comunemente utilizzata
 @*
-4145
+4218
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -128,17 +128,17 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 3 Concetti fondamentali
 @*
-11126
+11144
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -155,38 +155,38 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 4 Modifica dell'output
 @*
-15858
+15885
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (53 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (53 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -248,11 +248,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -312,7 +312,61 @@ sì
 @item
 1.1 Altezze
 @*
-4882
+5023
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #2cff20">parzialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parzialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1.2 Ritmi
+@*
+6961
+@tab Federico Bruni
+@tab Luca Rossetto Casel
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #25fe1f">parzialmente</span>
+@end html
+@end ifhtml
+@ifnothtml
+parzialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1.3 Segni di espressione
+@*
+1793
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -405,24 +459,24 @@ sì
 @item
 1 Eseguire @command{lilypond}
 @*
-4410
+4526
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #25fe1f">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -486,28 +540,28 @@ sì
 @item
 4 Programmi esterni
 @*
-2394
+2805
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #dfef77">parzialmente (87 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente (87 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #68ff28">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -606,7 +660,7 @@ sì
 @item
 Introduzione
 @*
-4883
+4937
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -623,11 +677,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -677,11 +731,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parzialmente</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente
+sì
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -694,11 +748,11 @@ Comunità
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parzialmente (97 %)</span>
+<span style="background-color: #1fff1f">sì</span>
 @end html
 @end ifhtml
 @ifnothtml
-parzialmente (97 %)
+sì
 @end ifnothtml
 @tab 
 @ifhtml

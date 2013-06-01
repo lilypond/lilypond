@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Tue Jan 15 12:01:06 UTC 2013
+@emph{Dernière mise à jour Sat Jun  1 07:04:04 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -210,7 +210,7 @@ oui
 @item
 1 Tutoriel Scheme
 @*
-6281
+6271
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -237,7 +237,7 @@ oui
 @item
 2 Interfaces pour programmeurs
 @*
-5274
+5714
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -371,7 +371,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4145
+4218
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -406,7 +406,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11126
+11144
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -435,7 +435,7 @@ oui
 @item
 4 Retouche de partition
 @*
-15858
+15885
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -594,7 +594,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-4882
+5023
 @tab Frédéric Chiasson
 @tab Valentin Villenave
 @*
@@ -623,7 +623,7 @@ oui
 @item
 1.2 Rythme
 @*
-6811
+6961
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -751,7 +751,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-2418
+2457
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -770,17 +770,17 @@ oui
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">oui</span>
+<span style="background-color: #25fe1f">partiellement</span>
 @end html
 @end ifhtml
 @ifnothtml
-oui
+partiellement
 @end ifnothtml
 @tab pré-GDP
 @item
 1.7 Annotations éditoriales
 @*
-951
+953
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -807,7 +807,7 @@ oui
 @item
 1.8 Texte
 @*
-2742
+2754
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -865,7 +865,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-4788
+4891
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1043,7 +1043,7 @@ oui
 @item
 2.7 Notation des accords
 @*
-2022
+1973
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1101,7 +1101,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5250
+5386
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1157,7 +1157,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-10184
+10388
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1186,7 +1186,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-12022
+12195
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1215,7 +1215,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-13962
+14084
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1370,7 +1370,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-4410
+4526
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1451,7 +1451,7 @@ oui
 @item
 4 Programmes externes
 @*
-2394
+2805
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1577,7 +1577,7 @@ oui
 @item
 Introduction
 @*
-4883
+4937
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude

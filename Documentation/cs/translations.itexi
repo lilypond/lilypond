@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Tue Jan 15 12:01:06 UTC 2013
+@emph{Naposledy obnoveno Sat Jun  1 07:04:04 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ ano
 @item
 2 Běžný notový zápis
 @*
-4145
+4218
 @tab Pavel Fric
 @tab 
 @tab 
@@ -128,7 +128,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">částečně</span>
+<span style="background-color: #39ff22">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ ano
 @item
 3 Základní pojmy
 @*
-11126
+11144
 @tab Pavel Fric
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">částečně</span>
+<span style="background-color: #40fe23">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-15858
+15885
 @tab Pavel Fric
 @tab 
 @tab 
@@ -182,7 +182,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">částečně</span>
+<span style="background-color: #91ff2e">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-4883
+4937
 @tab Pavel Fric
 @tab 
 @tab 

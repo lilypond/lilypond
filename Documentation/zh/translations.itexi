@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Tue Jan 15 12:01:06 UTC 2013
+@emph{最近更新 Sat Jun  1 07:04:04 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -88,7 +88,7 @@ Anthony Fok
 @item
 简介
 @*
-4883
+4937
 @tab Ben Luo
 @*
 Anthony Fok
