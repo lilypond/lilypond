@@ -284,7 +284,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
              (e->get_maybe_pure_property (a == X_AXIS
                                           ? "horizontal-skylines"
                                           : "vertical-skylines",
-                                          pure,
+                                          pure || cross_staff,
                                           start,
                                           end));
 
