@@ -46,7 +46,7 @@
       (make-line-markup (list empty-markup))
       (conditional-kern-before
        (alteration->text-accidental-markup alteration)
-       (= alteration FLAT) 0.2)))
+       (= alteration FLAT) 0.094725)))
 
 (define (accidental->markup-italian alteration)
   "Return accidental markup for ALTERATION, for use after an italian chord root name."
@@ -54,7 +54,7 @@
       (make-hspace-markup 0.2)
       (make-line-markup
        (list
-        (make-hspace-markup (if (= alteration FLAT) 0.7 0.5))
+        (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
 	(make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
 	(make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
 	))))

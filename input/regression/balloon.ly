@@ -15,6 +15,12 @@ with lines and explanatory text added."
     \relative c'  {
       \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
       <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
+      \balloonLengthOn
+      \balloonGrobText #'Rest #'(-1 . -2) \markup{ "Rest" }
+      r
+      \balloonLengthOff
+      \balloonGrobText #'Script #'(-1 . -1) \markup{ "Accent" }
+      c4->
     }
   }
 

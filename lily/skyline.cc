@@ -486,7 +486,8 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
   sky_ = sky;
 
   for (vsize i = 0; i < boxes.size (); i++)
-    if (!boxes[i].is_empty ())
+    if (!boxes[i].is_empty (X_AXIS)
+        && !boxes[i].is_empty (Y_AXIS))
       buildings.push_front (Building (boxes[i], horizon_axis, sky));
 
   buildings_ = internal_build_skyline (&buildings);
@@ -553,9 +554,12 @@ Skyline::Skyline (vector<Skyline_pair> const &skypairs, Direction sky)
 Skyline::Skyline (Box const &b, Axis horizon_axis, Direction sky)
 {
   sky_ = sky;
-  Building front (b, horizon_axis, sky);
-  single_skyline (front, &buildings_);
-  normalize ();
+  if (!b.is_empty (X_AXIS) && !b.is_empty (Y_AXIS))
+    {
+      Building front (b, horizon_axis, sky);
+      single_skyline (front, &buildings_);
+      normalize ();
+    }
 }
 
 void
@@ -593,7 +597,7 @@ Skyline::insert (Box const &b, Axis a)
     }
 
   /* do the same filtering as in Skyline (vector<Box> const&, etc.) */
-  if (b.is_empty ())
+  if (b.is_empty (X_AXIS) || b.is_empty (Y_AXIS))
     return;
 
   my_bld.splice (my_bld.begin (), buildings_);

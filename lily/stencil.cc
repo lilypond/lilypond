@@ -66,13 +66,15 @@ Stencil::extent (Axis a) const
 
 bool
 Stencil::is_empty () const
-/* If only one of X- or Y-extent is empty; such a stencil can be useful
- * for backspacing, as with \hspace #-2, so we do not consider it empty.
- */
 {
   return (expr_ == SCM_EOL
-          || (dim_[X_AXIS].is_empty ()
-              && dim_[Y_AXIS].is_empty ()));
+          || dim_.is_empty ());
+}
+
+bool
+Stencil::is_empty (Axis a) const
+{
+  return dim_.is_empty (a);
 }
 
 SCM
@@ -176,9 +178,10 @@ Stencil::translate (Offset o)
       incr (a);
     }
 
-  expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
-                      ly_offset2scm (o),
-                      expr_, SCM_UNDEFINED);
+  if (!scm_is_null (expr_))
+    expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
+                        ly_offset2scm (o),
+                        expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
 }
@@ -206,7 +209,11 @@ void
 Stencil::add_stencil (Stencil const &s)
 {
   SCM cs = ly_symbol2scm ("combine-stencil");
-  if (scm_is_pair (expr_)
+  if (scm_is_null (expr_))
+    expr_ = s.expr_;
+  else if (scm_is_null (s.expr_))
+    ;
+  else if (scm_is_pair (expr_)
       && scm_is_eq (cs, scm_car (expr_)))
     {
       if (scm_is_pair (s.expr_)
@@ -244,7 +251,7 @@ Stencil::set_empty (bool e)
 void
 Stencil::align_to (Axis a, Real x)
 {
-  if (is_empty ())
+  if (is_empty (a))
     return;
 
   Interval i (extent (a));
@@ -252,27 +259,154 @@ Stencil::align_to (Axis a, Real x)
 }
 
 /*  See scheme Function.  */
+
+// Any stencil that is empty in the orthogonal axis is spacing.
+// Spacing is not subjected to the max (0) rule and can thus be
+// negative.
+
 void
 Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
 {
-  Interval my_extent = dim_[a];
-  Interval i (s.extent (a));
-  Real his_extent;
-  if (i.is_empty ())
-    {
-      programming_error ("Stencil::add_at_edge: adding empty stencil.");
-      his_extent = 0.0;
-    }
-  else
-    his_extent = i[-d];
+  // Material that is empty in the axis of reference has only limited
+  // usefulness for combining.  We still retain as much information as
+  // available since there may be uses like setting page links or
+  // background color or watermarks, and off-axis extents.
 
-  Real offset = (my_extent.is_empty () ? 0.0 : my_extent[d] - his_extent)
-                + d * padding;
+  if (is_empty (a))
+    {
+      add_stencil (s);
+      return;
+    }
+
+  Interval first_extent = extent (a);
+
+  if (s.is_empty (a))
+    {
+      Stencil toadd (s);
+      // translation does not affect axis-empty extent box.
+      toadd.translate_axis (first_extent[d], a);
+      add_stencil (toadd);
+      return;
+    }
+
+  Interval next_extent = s.extent (a);
+
+  bool first_is_spacing = is_empty (other_axis (a));
+  bool next_is_spacing = s.is_empty (other_axis (a));
+
+  Real offset = first_extent[d] - next_extent[-d];
+
+  if (!(first_is_spacing || next_is_spacing))
+    {
+      offset += d * padding;
+    }
 
   Stencil toadd (s);
   toadd.translate_axis (offset, a);
   add_stencil (toadd);
 }
+
+// Stencil::stack is mainly used for assembling lines or columns
+// of stencils.  For the most common case of adding at the right, the
+// reference point of the added stencil is usually placed at the right
+// edge of the current one, unless the added stencil has a negative
+// left extent in which case its left edge is placed at the right edge
+// of the current one.
+//
+// Spacing is special in that it is applied without padding.  Spacing
+// at the right edge shifts the right edge accordingly.
+//
+// For spacing at the left edge, there are several approaches.  In
+// order to get to predictable behavior, we want to have at least a
+// continuous approach.  An obvious idea is to do a "translate" by the
+// appropriate amount.  Doing that while retaining the nominal left
+// edge seems like the most straightforward way.
+
+void
+Stencil::stack (Axis a, Direction d, Stencil const &s, Real padding, Real mindist)
+{
+  // Material that is empty in the axis of reference can't be sensibly
+  // stacked.  We just revert to add_at_edge behavior then.
+
+  if (is_empty (a))
+    {
+      Stencil toadd (s);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      return;
+    }
+
+  Interval first_extent = extent (a);
+
+  if (s.is_empty (a))
+    {
+      Stencil toadd (s);
+      toadd.translate_axis (first_extent[d], a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      return;
+    }
+
+  Interval next_extent = s.extent (a);
+
+  // It is somewhat tedious to special-case all spacing, but it turns
+  // out that not doing so makes it astonishingly hard to make the
+  // code do the correct thing.
+
+  // If first is spacing, we translate second accordingly without
+  // letting this affect its backward edge.
+  if (is_empty (other_axis (a)))
+    {
+      Stencil toadd (s);
+      Real offset = d * first_extent.delta ();
+      toadd.translate_axis (offset, a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      dim_[a][-d] = next_extent[-d];
+      dim_[a][d] = next_extent[d] + offset;
+      return;
+    }
+
+  // If next is spacing, similar action:
+  if (s.is_empty (other_axis (a)))
+    {
+      Stencil toadd (s);
+      Real offset = first_extent [d];
+      toadd.translate_axis (offset, a);
+      toadd.add_stencil (*this);
+      expr_ = toadd.expr ();
+      dim_ = toadd.extent_box ();
+      dim_[a][-d] = first_extent[-d];
+      dim_[a][d] = first_extent[d] + d * next_extent.delta ();
+      return;
+    }
+
+
+  Real offset = first_extent[d];
+
+  // If the added stencil has a backwardly protruding edge, we make
+  // room for it when combining.
+
+  if (d * next_extent [-d] < 0)
+    offset -= next_extent [-d];
+
+  offset += d * padding;
+
+  if (offset * d < mindist)
+    offset = d * mindist;
+
+  Stencil toadd (s);
+  toadd.translate_axis (offset, a);
+  toadd.add_stencil (*this);
+  expr_ = toadd.expr ();
+  dim_ = toadd.extent_box ();
+  dim_[a][-d] = first_extent [-d];
+  dim_[a][d] = next_extent [d] + offset;
+}
+
 
 Stencil
 Stencil::in_color (Real r, Real g, Real b) const

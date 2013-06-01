@@ -3560,6 +3560,27 @@ def conv(str):
     str = re.sub ('cueClefOctavationStyle',      'cueClefTranspositionStyle',      str)
     return str
 
+@rule((2, 17, 19), r"\column { \vspace #2 } -> \column { \combine \null \vspace #2 }")
+def conv(str):
+    def vspace_replace(m):
+
+# vspace now always adds space and does not, for example, change the
+# impact of either baselineskip or descenders on the line above.
+#
+# We can't simulate the old behavior in a simpler manner.  A command
+# of its own is not really warranted since this behavior combines
+# badly enough with other spacing considerations (like baselineskip
+# and descenders) as to make it not all that useful.  So this
+# conversion rule is here more for compatibility's sake rather than
+# preserving desirable behavior.
+
+        str = re.sub (r"(\\\\?)vspace(\s)", r"\1combine \1null \1vspace\2", m.group(0))
+        return str
+
+    str = re.sub (r"\\(?:left-|right-|center-|)column\s*\{" + brace_matcher (20) + r"\}",
+                  vspace_replace, str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

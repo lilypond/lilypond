@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.19"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -2065,7 +2065,7 @@ text = \lyricmode {
           "Je me suis fait sécher..."
         }
       }
-      \vspace #0.1 % ajout d'espace vertical entre les couplets
+      \combine \null \vspace #0.1 % ajout d'espace vertical entre les couplets
       \line { \bold "3."
         \column {
           "Chante, rossignol, chante,"
@@ -2081,7 +2081,7 @@ text = \lyricmode {
           "Sans l'avoir mérité..."
         }
       }
-      \vspace #0.1 % ajout d'espace vertical entre les couplets
+      \combine \null \vspace #0.1 % ajout d'espace vertical entre les couplets
       \line { \bold "5."
         \column {
           "Je voudrais que la rose"

@@ -17,12 +17,14 @@ page should be horizontally stretched.
 
 \paper {
   #(define page-breaking ly:optimal-breaking)
-  page-spacing-weight = #10
+  page-spacing-weight = #100 % default is 10
   ragged-last-bottom = ##t
 }
 
 \relative c' {
+  <>_"this page stretched horizontally"
   \repeat unfold 5 {a b c d} \pageBreak
+  <>_"this page with natural spacing"
   \repeat unfold 5 {a b c d}
 }
 

@@ -23,7 +23,8 @@ void
 Box::translate (Offset o)
 {
   for (Axis i = X_AXIS; i < NO_AXES; incr (i))
-    interval_a_[i] += o[i];
+    if (!is_empty (i))
+      interval_a_[i] += o[i];
 }
 
 void
@@ -54,8 +55,16 @@ Box::set_empty ()
 bool
 Box::is_empty () const
 {
-  return interval_a_[X_AXIS].is_empty ()
-         || interval_a_[Y_AXIS].is_empty ();
+  return is_empty (X_AXIS) && is_empty (Y_AXIS);
+}
+
+bool
+Box::is_empty (Axis a) const
+{
+  Interval empty;
+  empty.set_empty ();
+  return interval_a_[a][LEFT] == empty[LEFT]
+    && interval_a_[a][RIGHT] == empty[RIGHT];
 }
 
 Box::Box (Interval ix, Interval iy)

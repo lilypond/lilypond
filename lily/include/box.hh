@@ -22,6 +22,7 @@ public:
   Interval &operator [] (Axis a);
   Real area () const;
   bool is_empty () const;
+  bool is_empty (Axis a) const;
 
   Offset center () const;
 
