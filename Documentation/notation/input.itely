@@ -51,7 +51,7 @@ delimited by curly brackets:
 
 @example
 \score @{
-...
+  @dots{}
 @}
 @end example
 
@@ -98,7 +98,7 @@ are music expressions:
 
 Comments are one exception to this general rule.  (For others see
 @ref{File structure}.)  Both single-line comments and comments
-delimited by @code{%@{ .. %@}} may be placed anywhere within an
+delimited by @code{%@{ @dots{} %@}} may be placed anywhere within an
 input file.  They may be placed inside or outside a @code{\score}
 block, and inside or outside the single music expression within a
 @code{\score} block.
@@ -133,7 +133,7 @@ movements.  Each movement is entered with a @code{\score} block,
 
 @example
 \score @{
-  @var{..music..}
+  @var{@dots{}music@dots{}}
 @}
 @end example
 
@@ -141,7 +141,7 @@ and texts are entered with a @code{\markup} block,
 
 @example
 \markup @{
-  @var{..text..}
+  @var{@dots{}text@dots{}}
 @}
 @end example
 
@@ -152,13 +152,13 @@ will normally be typeset in the form of a single output file.
 
 @example
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 \markup @{
-  @var{..}
+  @var{@dots{}}
 @}
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 @end example
 
@@ -182,10 +182,10 @@ the top of the file is inserted.
   \header @{ piece = "Romanze" @}
 @}
 \markup @{
-   ..text of second verse..
+   @dots{}text of second verse@dots{}
 @}
 \markup @{
-   ..text of third verse..
+   @dots{}text of third verse@dots{}
 @}
 \score @{
   @dots{}
@@ -481,7 +481,7 @@ be entered:
 A single-line comment, introduced by a leading @code{%} sign.
 
 @item
-A multi-line comment delimited by @code{%@{ .. %@}}.
+A multi-line comment delimited by @code{%@{ @dots{} %@}}.
 
 @end itemize
 
@@ -1124,9 +1124,9 @@ markup conditionally to header and footer text defined within the
 
 @example
 @code{variable} = @code{\markup} @{
-  ...
+  @dots{}
   @code{\on-the-fly}  \@var{procedure}  @var{markup}
-  ...
+  @dots{}
 @}
 @end example
 
@@ -1191,7 +1191,7 @@ Several @code{\on-the-fly} conditions can be combined with an
 @example
   @code{\on-the-fly \first-page}
   @code{\on-the-fly \last-page}
-  @code{@{ \markup ... \fromproperty #'header: ... @}}
+  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
 determines if the output is a single page.
@@ -1519,7 +1519,7 @@ created in different ways.
 The syntax of a footnote in stand-alone text with automatic marks is
 
 @example
-\markup @{ ... \auto-footnote @var{text} @var{footnote} ... @}
+\markup @{ @dots{} \auto-footnote @var{text} @var{footnote} @dots{} @}
 @end example
 
 The elements are:
@@ -1558,7 +1558,7 @@ For example:
 The syntax of a footnote in stand-alone text with custom marks is
 
 @example
-\markup @{ ... \footnote @var{mark} @var{footnote} ... @}
+\markup @{ @dots{} \footnote @var{mark} @var{footnote} @dots{} @}
 @end example
 
 The elements are:
@@ -1885,7 +1885,7 @@ subdirectory called @file{parts} within the current directory, use
 @example
 \include "parts/VI.ly"
 \include "parts/VII.ly"
-... etc
+@dots{} etc
 @end example
 
 Files which are to be included can also contain @code{\include}
@@ -1919,7 +1919,7 @@ libA/
   libA.ly
   A1.ly
   A2.ly
-  ...
+  @dots{}
 @end example
 
 @noindent
@@ -1929,7 +1929,7 @@ then the entry file, @code{libA.ly}, will contain
 #(ly:set-option 'relative-includes #t)
 \include "A1.ly"
 \include "A2.ly"
-...
+@dots{}
 % return to default setting
 #(ly:set-option 'relative-includes #f)
 @end example
@@ -1959,7 +1959,7 @@ and in main.ly write
 @example
 \include "VI.ly"
 \include "VII.ly"
-... etc
+@dots{} etc
 @end example
 
 Files which are to be included in many scores may be placed in
@@ -2542,7 +2542,7 @@ the last few measures.  This is achieved by putting
 
 @verbatim
 showLastLength = R1*5
-\score { ... }
+\score { @dots{} }
 @end verbatim
 
 @noindent
@@ -2672,7 +2672,7 @@ To create a MIDI output file from a LilyPond input file, add a
 
 @example
 \score @{
-  @var{...music...}
+  @var{@dots{}music@dots{}}
   \midi @{ @}
 @}
 @end example
@@ -2684,7 +2684,7 @@ present.
 
 @example
 \score @{
-  @var{...music...}
+  @var{@dots{}music@dots{}}
   \midi @{ @}
   \layout @{ @}
 @}
@@ -2776,13 +2776,13 @@ The name should be chosen from the list in @ref{MIDI instruments}.
 @example
 \new Staff @{
   \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
+  @var{@dots{}notes@dots{}}
 @}
 @end example
 
 @example
 \new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
+  @var{@dots{}notes@dots{}}
 @}
 @end example
 
@@ -2804,7 +2804,7 @@ indication to be printed:
 
 @example
 \score @{
-  @var{...music...}
+  @var{@dots{}music@dots{}}
   \midi @{
     \tempo 4 = 72
   @}
@@ -2830,7 +2830,7 @@ from the MIDI output, insert the following lines in the
 
 @example
 \midi @{
-  ...
+  @dots{}
   \context @{
     \Voice
     \remove "Dynamic_performer"
@@ -2961,12 +2961,12 @@ and percent repeats).  For example,
 
 @example
 \score @{
-  @var{..music..}
-  \layout @{ .. @}
+  @var{@dots{}music@dots{}}
+  \layout @{ @dots{} @}
 @}
 \score @{
-  \unfoldRepeats @var{..music..}
-  \midi @{ .. @}
+  \unfoldRepeats @var{@dots{}music@dots{}}
+  \midi @{ @dots{} @}
 @}
 @end example
 
@@ -3282,7 +3282,7 @@ and in the @code{\score} section do
 
 @example
 \unfoldRepeats \articulate <<
-	all the rest of the score...
+	all the rest of the score@dots{}
 >>
 @end example
 
@@ -3394,7 +3394,7 @@ The syntax is a tab-delimited line, with two fixed fields on each
 line followed by optional parameters.
 
 @example
-@var{time}  @var{type}  @var{...params...}
+@var{time}  @var{type}  @var{@dots{}params@dots{}}
 @end example
 
 This information can easily be read into other programs such as

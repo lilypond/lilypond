@@ -255,7 +255,7 @@ be collected and printed in front of it.
 
 The syntax still uses the deprecated infix style
 @code{\[ music expr \]}.  For consistency reasons, it will eventually
-be changed to postfix style @code{note\[ ... note\]}.
+be changed to postfix style @code{note\[ @dots{} note\]}.
 
 @c Alternatively, the file
 @c @file{gregorian-init.ly} can be included; it provides a scheme
@@ -1505,7 +1505,7 @@ A note name without any qualifiers will produce a @emph{punctum}.
 All other neumes, including the single-note neumes with a
 different shape such as the @emph{virga}, are in principle
 considered as ligatures and should therefore be placed
-between @code{\[...\]}.
+between @code{\[@dots{}\]}.
 @c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
 @c equivalent.
 
@@ -2703,7 +2703,7 @@ the @code{Stem_engraver} from the Voice context:
 
 @example
 \layout @{
-  ...
+  @dots{}
   \context @{
     \Voice
       \remove "Stem_engraver"

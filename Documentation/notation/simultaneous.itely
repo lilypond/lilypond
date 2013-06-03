@@ -414,8 +414,8 @@ A temporary polyphonic passage can be created with the following
 construct:
 
 @example
-<< @{ \voiceOne ... @}
-  \new Voice @{ \voiceTwo ... @}
+<< @{ \voiceOne @dots{} @}
+  \new Voice @{ \voiceTwo @dots{} @}
 >> \oneVoice
 @end example
 
@@ -457,7 +457,7 @@ required to define the settings of each voice.
 
 @subsubsubheading The double backslash construct
 
-The @code{<< @{...@} \\ @{...@} >>} construct, where the two (or
+The @code{<< @{@dots{}@} \\ @{@dots{}@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
 differently to the similar construct without the double backslashes:
 @emph{all} the expressions within this construct are assigned
@@ -963,7 +963,7 @@ the @code{\partcombine} function considers each note separately. In this
 case the @code{\partcombine} function can be overriden with the
 following commands:
 
-Commands ending in @code{...Once} apply only to the next note in the
+Commands ending in @code{@dots{}Once} apply only to the next note in the
 music expression.
 
 @itemize
@@ -1044,12 +1044,12 @@ Internals Reference:
 @rinternals{Voice}.
 
 @knownissues
-All @code{\partcombine...} functions can only accept two voices and are
+All @code{\partcombine@dots{}} functions can only accept two voices and are
 not designed to work with lyrics; such that when one of the voices is
 explicitly named in order to attach lyrics to it, the partcombiner will
 stop working.
 
-@code{\partcombine...} functions cannot be placed inside a @code{\tuplet}
+@code{\partcombine@dots{}} functions cannot be placed inside a @code{\tuplet}
 or @code{\relative} block.
 
 If @code{printPartCombineTexts} is set and the two voices play the same
