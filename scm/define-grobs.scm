@@ -976,6 +976,10 @@
      . (
 	(glyph-name . ,ly:flag::glyph-name)
 	(stencil . ,ly:flag::print)
+        (transparent . ,(grob::inherit-parent-property
+                         X 'transparent))
+        (color . ,(grob::inherit-parent-property
+                   X 'color))
 	(X-extent . ,ly:flag::width)
 	(X-offset . ,ly:flag::calc-x-offset)
 	(Y-offset . ,(ly:make-unpure-pure-container ly:flag::calc-y-offset ly:flag::pure-calc-y-offset))
