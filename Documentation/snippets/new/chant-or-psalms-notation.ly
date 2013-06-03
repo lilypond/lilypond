@@ -11,15 +11,8 @@ aren't always the same length.
   doctitle = "Chant or psalms notation"
 }
 
-stemOn = {
-  \revert Staff.Stem.transparent
-  \revert Staff.Flag.transparent
-}
-
-stemOff = {
-  \override Staff.Stem.transparent = ##t
-  \override Staff.Flag.transparent = ##t
-}
+stemOff = \hide Staff.Stem
+stemOn  = \undo \stemOff
 
 \score {
   \new Staff \with { \remove "Time_signature_engraver" }
