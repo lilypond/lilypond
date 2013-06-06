@@ -34,7 +34,7 @@ struct Building
 {
   Real start_;
   Real end_;
-  Real y_intercept_;
+  Real start_height_;
   Real slope_;
 
   void precompute (Real start, Real start_height, Real end_height, Real end);
@@ -46,7 +46,6 @@ struct Building
   Real intersection_x (Building const &other) const;
   void leading_part (Real chop);
   bool conceals (Building const &other, Real x) const;
-  Real shift_to_intersect (Real x, Real y) const;
 };
 
 class Skyline
