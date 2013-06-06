@@ -318,6 +318,7 @@ ADD_TRANSLATOR (Completion_heads_engraver,
                 "TieColumn ",
 
                 /* read */
+                "completionUnit "
                 "measureLength "
                 "measurePosition "
                 "middleCPosition "
