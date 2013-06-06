@@ -119,7 +119,7 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
   if (unit)
     {
       Rational const now_unit = e->main_part_ / unit->main_part_;
-      if (now_unit.den() > 1)
+      if (now_unit.den () > 1)
         {
           /*
             within a unit - go to the end of that
@@ -178,19 +178,17 @@ Completion_rest_engraver::process_music ()
     return;
 
   Duration rest_dur;
-  Duration appearance;
   Duration *orig = 0;
   if (left_to_do_)
     {
       /*
-        rest that rest_dur may be strictly less than left_to_do_
+        note that rest_dur may be strictly less than left_to_do_
         (say, if left_to_do_ == 5/8)
       */
       if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
         rest_dur = Duration (left_to_do_, false);
       else
         rest_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
-      appearance = Duration (left_to_do_, false);
     }
   else
     {
