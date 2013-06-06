@@ -78,13 +78,13 @@
 (define (markup-category-doc-node category)
   (let* ((category-string (symbol->string category))
          (category-name (string-capitalize
-                          (regexp-substitute/global
-                            #f "-" category-string 'pre " " 'post)))
-        (markup-functions (hash-fold (lambda (markup-function dummy functions)
-				       (cons markup-function functions))
-				     '()
-				     (hashq-ref markup-functions-by-category
-						category))))
+                         (regexp-substitute/global
+                          #f "-" category-string 'pre " " 'post)))
+         (markup-functions (hash-fold (lambda (markup-function dummy functions)
+                                        (cons markup-function functions))
+                                      '()
+                                      (hashq-ref markup-functions-by-category
+                                                 category))))
     (make <texi-node>
       #:appendix #t
       #:name category-name
@@ -118,12 +118,12 @@
   (string-append
    "@table @asis"
    (apply string-append
-	  (map doc-markup-function
-	       (sort (hash-fold (lambda (markup-list-function dummy functions)
-				  (cons markup-list-function functions))
-				'()
-				markup-list-functions)
-		     markup-function<?)))
+          (map doc-markup-function
+               (sort (hash-fold (lambda (markup-list-function dummy functions)
+                                  (cons markup-list-function functions))
+                                '()
+                                markup-list-functions)
+                     markup-function<?)))
    "\n@end table"))
 
 

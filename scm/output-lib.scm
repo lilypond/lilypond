@@ -38,7 +38,7 @@
 
 (define-public (print-circled-text-callback grob)
   (grob-interpret-markup grob (make-circle-markup
-			       (ly:grob-property grob 'text))))
+                               (ly:grob-property grob 'text))))
 
 (define-public (event-cause grob)
   (let ((cause (ly:grob-property  grob 'cause)))
@@ -50,8 +50,8 @@
 
 (define-public (grob-interpret-markup grob text)
   (let* ((layout (ly:grob-layout grob))
-	 (defs (ly:output-def-lookup layout 'text-font-defaults))
-	 (props (ly:grob-alist-chain grob defs)))
+         (defs (ly:output-def-lookup layout 'text-font-defaults))
+         (props (ly:grob-alist-chain grob defs)))
 
     (ly:text-interface::interpret-markup layout props text)))
 
@@ -62,31 +62,31 @@
 
 (define-public grob::unpure-horizontal-skylines-from-stencil
   (ly:make-unpure-pure-container
-    ly:grob::horizontal-skylines-from-stencil
-    ly:grob::pure-simple-horizontal-skylines-from-extents))
+   ly:grob::horizontal-skylines-from-stencil
+   ly:grob::pure-simple-horizontal-skylines-from-extents))
 
 (define-public grob::always-horizontal-skylines-from-stencil
   (ly:make-unpure-pure-container
-    ly:grob::horizontal-skylines-from-stencil))
+   ly:grob::horizontal-skylines-from-stencil))
 
 (define-public grob::unpure-vertical-skylines-from-stencil
   (ly:make-unpure-pure-container
-    ly:grob::vertical-skylines-from-stencil
-    ly:grob::pure-simple-vertical-skylines-from-extents))
+   ly:grob::vertical-skylines-from-stencil
+   ly:grob::pure-simple-vertical-skylines-from-extents))
 
 (define-public grob::always-vertical-skylines-from-stencil
   (ly:make-unpure-pure-container
-    ly:grob::vertical-skylines-from-stencil))
+   ly:grob::vertical-skylines-from-stencil))
 
 (define-public grob::always-vertical-skylines-from-element-stencils
   (ly:make-unpure-pure-container
-    ly:grob::vertical-skylines-from-element-stencils
-    ly:grob::pure-vertical-skylines-from-element-stencils))
+   ly:grob::vertical-skylines-from-element-stencils
+   ly:grob::pure-vertical-skylines-from-element-stencils))
 
 (define-public grob::always-horizontal-skylines-from-element-stencils
   (ly:make-unpure-pure-container
-    ly:grob::horizontal-skylines-from-element-stencils
-    ly:grob::pure-horizontal-skylines-from-element-stencils))
+   ly:grob::horizontal-skylines-from-element-stencils
+   ly:grob::pure-horizontal-skylines-from-element-stencils))
 
 ;; Using this as a callback for a grob's Y-extent promises
 ;; that the grob's stencil does not depend on line-spacing.
@@ -101,7 +101,7 @@
   (let* ((layout (ly:grob-layout grob))
          (line-thickness (ly:output-def-lookup layout 'line-thickness)))
 
-        line-thickness))
+    line-thickness))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
@@ -175,10 +175,10 @@
                           (ly:grob-array->list stems)
                           '())))
     (for-each
-      (lambda (g)
-        (ly:grob-set-property! g 'stem-begin-position 0)
-        (ly:grob-set-property! g 'length 0))
-      stems-grobs)
+     (lambda (g)
+       (ly:grob-set-property! g 'stem-begin-position 0)
+       (ly:grob-set-property! g 'length 0))
+     stems-grobs)
     pos))
 
 ;; calculates each slope of a broken beam individually
@@ -214,10 +214,10 @@
                            quant2))
                (factor (/ (atan (abs slope1)) PI-OVER-TWO))
                (base (cons-map
-                       (lambda (x)
-                         (+ (* (x quant1) (- 1 factor))
-                            (* (x quant2) factor)))
-                       (cons car cdr))))
+                      (lambda (x)
+                        (+ (* (x quant1) (- 1 factor))
+                           (* (x quant2) factor)))
+                      (cons car cdr))))
           (ly:beam::quanting grob base #f)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -238,16 +238,16 @@
 
 (define-public side-position-interface::y-aligned-side
   (ly:make-unpure-pure-container
-    ly:side-position-interface::y-aligned-side
-    ly:side-position-interface::pure-y-aligned-side))
+   ly:side-position-interface::y-aligned-side
+   ly:side-position-interface::pure-y-aligned-side))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; self-alignment stuff
 
 (define-public self-alignment-interface::y-aligned-on-self
   (ly:make-unpure-pure-container
-    ly:self-alignment-interface::y-aligned-on-self
-    ly:self-alignment-interface::pure-y-aligned-on-self))
+   ly:self-alignment-interface::y-aligned-on-self
+   ly:self-alignment-interface::pure-y-aligned-on-self))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
@@ -292,12 +292,12 @@
 (define-public (note-head::calc-kievan-duration-log grob)
   (min 3
        (ly:duration-log
-         (ly:event-property (event-cause grob) 'duration))))
+        (ly:event-property (event-cause grob) 'duration))))
 
 (define-public (note-head::calc-duration-log grob)
   (min 2
        (ly:duration-log
-         (ly:event-property (event-cause grob) 'duration))))
+        (ly:event-property (event-cause grob) 'duration))))
 
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count
@@ -305,11 +305,11 @@
 
 (define-public (dots::calc-staff-position grob)
   (let* ((head (ly:grob-parent grob Y))
-	 (log (ly:grob-property head 'duration-log)))
+         (log (ly:grob-property head 'duration-log)))
 
     (cond
      ((or (not (grob::has-interface head 'rest-interface))
-	  (not (integer? log))) 0)
+          (not (integer? log))) 0)
      ((= log 7) 4)
      ((> log 4) 3)
      ((= log 0) -1)
@@ -331,87 +331,87 @@ and duration-log @var{log}."
     ((harmonic) "0harmonic")
     ((harmonic-black) "2harmonic")
     ((harmonic-mixed) (if (<= log 1) "0harmonic"
-			  "2harmonic"))
+                          "2harmonic"))
     ((baroque)
      ;; Oops, I actually would not call this "baroque", but, for
      ;; backwards compatibility to 1.4, this is supposed to take
      ;; brevis, longa and maxima from the neo-mensural font and all
      ;; other note heads from the default font.  -- jr
      (if (< log 0)
-	 (string-append (number->string log) "neomensural")
-	 (number->string log)))
+         (string-append (number->string log) "neomensural")
+         (number->string log)))
     ((altdefault)
      ;; Like default, but brevis is drawn with double vertical lines
      (if (= log -1)
-	 (string-append (number->string log) "double")
-	 (number->string log)))
+         (string-append (number->string log) "double")
+         (number->string log)))
     ((mensural)
      (string-append (number->string log) (symbol->string style)))
     ((petrucci)
      (if (< log 0)
-	 (string-append (number->string log) "mensural")
-	 (string-append (number->string log) (symbol->string style))))
+         (string-append (number->string log) "mensural")
+         (string-append (number->string log) (symbol->string style))))
     ((blackpetrucci)
      (if (< log 0)
-	 (string-append (number->string log) "blackmensural")
-	 (string-append (number->string log) (symbol->string style))))
+         (string-append (number->string log) "blackmensural")
+         (string-append (number->string log) (symbol->string style))))
     ((semipetrucci)
      (if (< log 0)
-	 (string-append (number->string log) "semimensural")
-	 (string-append (number->string log) "petrucci")))
+         (string-append (number->string log) "semimensural")
+         (string-append (number->string log) "petrucci")))
     ((neomensural)
      (string-append (number->string log) (symbol->string style)))
     ((kievan)
      (string-append (number->string log) "kievan"))
     (else
      (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
-	 (symbol->string style)
-	 (string-append (number->string (max 0 log))
-			(symbol->string style))))))
+         (symbol->string style)
+         (string-append (number->string (max 0 log))
+                        (symbol->string style))))))
 
 (define-public (note-head::calc-glyph-name grob)
   (let* ((style (ly:grob-property grob 'style))
-	 (log (if (string-match "kievan*" (symbol->string style))
-		  (min 3 (ly:grob-property grob 'duration-log))
-		  (min 2 (ly:grob-property grob 'duration-log)))))
+         (log (if (string-match "kievan*" (symbol->string style))
+                  (min 3 (ly:grob-property grob 'duration-log))
+                  (min 2 (ly:grob-property grob 'duration-log)))))
     (select-head-glyph style log)))
 
 (define-public (note-head::brew-ez-stencil grob)
   (let* ((log (ly:grob-property grob 'duration-log))
-	 (pitch (ly:event-property (event-cause grob) 'pitch))
-	 (pitch-index (ly:pitch-notename pitch))
-	 (note-names (ly:grob-property grob 'note-names))
-	 (pitch-string (if (and (vector? note-names)
-				(> (vector-length note-names) pitch-index))
-			   (vector-ref note-names pitch-index)
-			   (string
-			    (integer->char
-			     (+ (modulo (+ pitch-index 2) 7)
-				(char->integer #\A))))))
-	 (staff-space (ly:staff-symbol-staff-space grob))
-	 (line-thickness (ly:staff-symbol-line-thickness grob))
-	 (stem (ly:grob-object grob 'stem))
-	 (stem-thickness (* (if (ly:grob? stem)
-				(ly:grob-property stem 'thickness)
-				1.3)
-			    line-thickness))
-	 (radius (/ (+ staff-space line-thickness) 2))
-	 (letter (markup #:center-align #:vcenter pitch-string))
-	 (filled-circle (markup #:draw-circle radius 0 #t)))
+         (pitch (ly:event-property (event-cause grob) 'pitch))
+         (pitch-index (ly:pitch-notename pitch))
+         (note-names (ly:grob-property grob 'note-names))
+         (pitch-string (if (and (vector? note-names)
+                                (> (vector-length note-names) pitch-index))
+                           (vector-ref note-names pitch-index)
+                           (string
+                            (integer->char
+                             (+ (modulo (+ pitch-index 2) 7)
+                                (char->integer #\A))))))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (line-thickness (ly:staff-symbol-line-thickness grob))
+         (stem (ly:grob-object grob 'stem))
+         (stem-thickness (* (if (ly:grob? stem)
+                                (ly:grob-property stem 'thickness)
+                                1.3)
+                            line-thickness))
+         (radius (/ (+ staff-space line-thickness) 2))
+         (letter (markup #:center-align #:vcenter pitch-string))
+         (filled-circle (markup #:draw-circle radius 0 #t)))
 
     (ly:stencil-translate-axis
      (grob-interpret-markup
       grob
       (if (>= log 2)
-	  (make-combine-markup
-	   filled-circle
-	   (make-with-color-markup white letter))
-	  (make-combine-markup
-	   (make-combine-markup
-	    filled-circle
-	    (make-with-color-markup white (make-draw-circle-markup
-					   (- radius stem-thickness) 0 #t)))
-	   letter)))
+          (make-combine-markup
+           filled-circle
+           (make-with-color-markup white letter))
+          (make-combine-markup
+           (make-combine-markup
+            filled-circle
+            (make-with-color-markup white (make-draw-circle-markup
+                                           (- radius stem-thickness) 0 #t)))
+           letter)))
      radius X)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -455,14 +455,14 @@ and duration-log @var{log}."
 
 (define-public (rhythmic-location->file-string a)
   (ly:format "~a.~a.~a"
-	     (car a)
-	     (ly:moment-main-numerator (cdr a))
-	     (ly:moment-main-denominator (cdr a))))
+             (car a)
+             (ly:moment-main-numerator (cdr a))
+             (ly:moment-main-denominator (cdr a))))
 
 (define-public (rhythmic-location->string a)
   (ly:format "bar ~a ~a"
-	     (car a)
-	     (ly:moment->string (cdr a))))
+             (car a)
+             (ly:moment->string (cdr a))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility
@@ -483,7 +483,7 @@ and duration-log @var{log}."
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."
   (if (and (ly:item? g)
-	   (equal? (ly:item-break-dir g) RIGHT))
+           (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
 
 (define-public (pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line grob)
@@ -494,11 +494,11 @@ and duration-log @var{log}."
 (define-public (pure-from-neighbor-interface::extra-spacing-height grob)
   (let* ((height (ly:grob-pure-height grob grob 0 INFINITY-INT))
          (from-neighbors (interval-union
-                            height
-                            (ly:axis-group-interface::pure-height
-                              grob
-                              0
-                              INFINITY-INT))))
+                          height
+                          (ly:axis-group-interface::pure-height
+                           grob
+                           0
+                           INFINITY-INT))))
     (coord-operation - from-neighbors height)))
 
 ;; If there are neighbors, we place the height at their midpoint
@@ -528,7 +528,7 @@ and duration-log @var{log}."
          (ii (interval-intersection esh (cons -1.01 1.01))))
     (if (pair? hsb)
         (cons (car (if (and (car hsb)
-                       (ly:grob-property grob 'allow-span-bar))
+                            (ly:grob-property grob 'allow-span-bar))
                        esh ii))
               (cdr (if (cdr hsb) esh ii)))
         ii)))
@@ -537,8 +537,8 @@ and duration-log @var{log}."
   (let ((esh (pure-from-neighbor-interface::extra-spacing-height grob))
         (to-staff (coord-operation -
                                    (interval-widen
-                                     '(0 . 0)
-                                     (ly:staff-symbol-staff-radius grob))
+                                    '(0 . 0)
+                                    (ly:staff-symbol-staff-radius grob))
                                    (ly:grob::stencil-height grob))))
     (interval-union esh to-staff)))
 
@@ -556,8 +556,8 @@ and duration-log @var{log}."
   (let ((ev (event-cause grob)))
 
     (format #f "~a:~a"
-	    (ly:event-property ev 'denominator)
-	    (ly:event-property ev 'numerator))))
+            (ly:event-property ev 'denominator)
+            (ly:event-property ev 'numerator))))
 
 ;; a formatter function, which is simply a wrapper around an existing
 ;; tuplet formatter function. It takes the value returned by the given
@@ -566,21 +566,21 @@ and duration-log @var{log}."
   (let ((txt (if function (function grob) #f)))
 
     (if txt
-	(markup txt #:fontsize -5 #:note note UP)
-	(markup #:fontsize -5 #:note note UP))))
+        (markup txt #:fontsize -5 #:note note UP)
+        (markup #:fontsize -5 #:note note UP))))
 
 ;; Print a tuplet denominator with a different number than the one derived from
 ;; the actual tuplet fraction
 (define-public ((tuplet-number::non-default-tuplet-denominator-text denominator)
-		grob)
+                grob)
   (number->string (if denominator
-		      denominator
-		      (ly:event-property (event-cause grob) 'denominator))))
+                      denominator
+                      (ly:event-property (event-cause grob) 'denominator))))
 
 ;; Print a tuplet fraction with different numbers than the ones derived from
 ;; the actual tuplet fraction
 (define-public ((tuplet-number::non-default-tuplet-fraction-text
-		 denominator numerator) grob)
+                 denominator numerator) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
@@ -590,7 +590,7 @@ and duration-log @var{log}."
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
 (define-public ((tuplet-number::fraction-with-notes
-		 denominatornote numeratornote) grob)
+                 denominatornote numeratornote) grob)
   (let* ((ev (event-cause grob))
          (denominator (ly:event-property ev 'denominator))
          (numerator (ly:event-property ev 'numerator)))
@@ -601,17 +601,17 @@ and duration-log @var{log}."
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
 (define-public ((tuplet-number::non-default-fraction-with-notes
-		 denominator denominatornote numerator numeratornote) grob)
+                 denominator denominatornote numerator numeratornote) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
     (make-concat-markup (list
-			 (make-simple-markup (format #f "~a" den))
-			 (markup #:fontsize -5 #:note denominatornote UP)
-			 (make-simple-markup " : ")
-			 (make-simple-markup (format #f "~a" num))
-			 (markup #:fontsize -5 #:note numeratornote UP)))))
+                         (make-simple-markup (format #f "~a" den))
+                         (markup #:fontsize -5 #:note denominatornote UP)
+                         (make-simple-markup " : ")
+                         (make-simple-markup (format #f "~a" num))
+                         (markup #:fontsize -5 #:note numeratornote UP)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -625,7 +625,7 @@ and duration-log @var{log}."
 
 (define-public (rgb-color r g b) (list r g b))
 
-; predefined colors
+                                        ; predefined colors
 (define-public black       '(0.0 0.0 0.0))
 (define-public white       '(1.0 1.0 1.0))
 (define-public red         '(1.0 0.0 0.0))
@@ -648,30 +648,30 @@ and duration-log @var{log}."
 ;; key signature
 
 (define-public (key-signature-interface::alteration-positions
-		entry c0-position grob)
+                entry c0-position grob)
   (let ((step (car entry))
-	(alter (cdr entry)))
+        (alter (cdr entry)))
     (if (pair? step)
-	(list (+ (cdr step) (* (car step) 7) c0-position))
-	(let* ((c-position (modulo c0-position 7))
-	       (positions
-		(if (< alter 0)
-		    ;; See (flat|sharp)-positions in define-grob-properties.scm
-		    (ly:grob-property grob 'flat-positions '(3))
-		    (ly:grob-property grob 'sharp-positions '(3))))
-	       (p (list-ref positions
-			    (if (< c-position (length positions))
-				c-position 0)))
-	       (max-position (if (pair? p) (cdr p) p))
-	       (min-position (if (pair? p) (car p) (- max-position 6)))
-	       (first-position (+ (modulo (- (+ c-position step)
-					     min-position)
-					  7)
-				  min-position)))
-	  (define (prepend x l) (if (> x max-position)
-				    l
-				    (prepend (+ x 7) (cons x l))))
-	  (prepend first-position '())))))
+        (list (+ (cdr step) (* (car step) 7) c0-position))
+        (let* ((c-position (modulo c0-position 7))
+               (positions
+                (if (< alter 0)
+                    ;; See (flat|sharp)-positions in define-grob-properties.scm
+                    (ly:grob-property grob 'flat-positions '(3))
+                    (ly:grob-property grob 'sharp-positions '(3))))
+               (p (list-ref positions
+                            (if (< c-position (length positions))
+                                c-position 0)))
+               (max-position (if (pair? p) (cdr p) p))
+               (min-position (if (pair? p) (car p) (- max-position 6)))
+               (first-position (+ (modulo (- (+ c-position step)
+                                             min-position)
+                                          7)
+                                  min-position)))
+          (define (prepend x l) (if (> x max-position)
+                                    l
+                                    (prepend (+ x 7) (cons x l))))
+          (prepend first-position '())))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; annotations
@@ -688,9 +688,9 @@ and duration-log @var{log}."
                 idx
                 (- n 1))))
   (markup #:tiny (helper '("*" "†" "‡" "§" "¶")
-                          ""
-                          (remainder int 5)
-                          (+ 1 (quotient int 5)))))
+                         ""
+                         (remainder int 5)
+                         (+ 1 (quotient int 5)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals
@@ -704,8 +704,8 @@ and duration-log @var{log}."
 
 (define-public accidental-interface::height
   (ly:make-unpure-pure-container
-    ly:accidental-interface::height
-    ly:accidental-interface::pure-height))
+   ly:accidental-interface::height
+   ly:accidental-interface::pure-height))
 
 (define-public cancellation-glyph-name-alist
   '((0 . "accidentals.natural")))
@@ -763,8 +763,8 @@ and duration-log @var{log}."
     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-kievan-glyph-name-alist
- '((-1/2 . "accidentals.kievanM1")
-   (1/2 . "accidentals.kievan1")))
+  '((-1/2 . "accidentals.kievanM1")
+    (1/2 . "accidentals.kievan1")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; * Pitch Trill Heads
@@ -772,8 +772,8 @@ and duration-log @var{log}."
 
 (define-public (parentheses-item::calc-parenthesis-stencils grob)
   (let* ((font (ly:grob-default-font grob))
-	 (lp (ly:font-get-glyph font "accidentals.leftparen"))
-	 (rp (ly:font-get-glyph font "accidentals.rightparen")))
+         (lp (ly:font-get-glyph font "accidentals.leftparen"))
+         (rp (ly:font-get-glyph font "accidentals.rightparen")))
 
     (list lp rp)))
 
@@ -784,26 +784,26 @@ and duration-log @var{log}."
          (width 0.5) ; should it be a property?
          (angularity 1.5)  ; makes angle brackets
          (white-padding 0.1) ; should it be a property?
-	 (lp (ly:stencil-aligned-to
-                 (ly:stencil-aligned-to
-                   (make-parenthesis-stencil y-extent
-                                             half-thickness
-                                             (- width)
-                                             angularity)
-                   Y CENTER)
-                 X RIGHT))
+         (lp (ly:stencil-aligned-to
+              (ly:stencil-aligned-to
+               (make-parenthesis-stencil y-extent
+                                         half-thickness
+                                         (- width)
+                                         angularity)
+               Y CENTER)
+              X RIGHT))
          (lp-x-extent
-           (interval-widen (ly:stencil-extent lp X) white-padding))
-	 (rp (ly:stencil-aligned-to
-                 (ly:stencil-aligned-to
-                   (make-parenthesis-stencil y-extent
-                                             half-thickness
-                                             width
-                                             angularity)
-                   Y CENTER)
-                 X LEFT))
-          (rp-x-extent
-            (interval-widen (ly:stencil-extent rp X) white-padding)))
+          (interval-widen (ly:stencil-extent lp X) white-padding))
+         (rp (ly:stencil-aligned-to
+              (ly:stencil-aligned-to
+               (make-parenthesis-stencil y-extent
+                                         half-thickness
+                                         width
+                                         angularity)
+               Y CENTER)
+              X LEFT))
+         (rp-x-extent
+          (interval-widen (ly:stencil-extent rp X) white-padding)))
     (set! lp (ly:make-stencil (ly:stencil-expr lp)
                               lp-x-extent
                               (ly:stencil-extent lp Y)))
@@ -815,14 +815,14 @@ and duration-log @var{log}."
 
 (define (parenthesize-elements grob . rest)
   (let* ((refp (if (null? rest)
-		   grob
-		   (car rest)))
-	 (elts (ly:grob-object grob 'elements))
-	 (x-ext (ly:relative-group-extent elts refp X))
-	 (stencils (ly:grob-property grob 'stencils))
-	 (lp (car stencils))
-	 (rp (cadr stencils))
-	 (padding (ly:grob-property grob 'padding 0.1)))
+                   grob
+                   (car rest)))
+         (elts (ly:grob-object grob 'elements))
+         (x-ext (ly:relative-group-extent elts refp X))
+         (stencils (ly:grob-property grob 'stencils))
+         (lp (car stencils))
+         (rp (cadr stencils))
+         (padding (ly:grob-property grob 'padding 0.1)))
 
     (ly:stencil-add
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
@@ -831,11 +831,11 @@ and duration-log @var{log}."
 
 (define-public (parentheses-item::print me)
   (let* ((elts (ly:grob-object me 'elements))
-	 (y-ref (ly:grob-common-refpoint-of-array me elts Y))
-	 (x-ref (ly:grob-common-refpoint-of-array me elts X))
-	 (stencil (parenthesize-elements me x-ref))
-	 (elt-y-ext (ly:relative-group-extent elts y-ref Y))
-	 (y-center (interval-center elt-y-ext)))
+         (y-ref (ly:grob-common-refpoint-of-array me elts Y))
+         (x-ref (ly:grob-common-refpoint-of-array me elts X))
+         (stencil (parenthesize-elements me x-ref))
+         (elt-y-ext (ly:relative-group-extent elts y-ref Y))
+         (y-center (interval-center elt-y-ext)))
 
     (ly:stencil-translate
      stencil
@@ -874,57 +874,57 @@ and duration-log @var{log}."
     (< (abs (- a b)) 0.01))
 
   (let* ((delta-y (* 0.5 (ly:grob-property spanner 'delta-position)))
-	 (left-span (ly:spanner-bound spanner LEFT))
-	 (dots (if (and (grob::has-interface left-span 'note-head-interface)
-			(ly:grob? (ly:grob-object left-span 'dot)))
-		   (ly:grob-object left-span 'dot) #f))
+         (left-span (ly:spanner-bound spanner LEFT))
+         (dots (if (and (grob::has-interface left-span 'note-head-interface)
+                        (ly:grob? (ly:grob-object left-span 'dot)))
+                   (ly:grob-object left-span 'dot) #f))
 
-	 (right-span (ly:spanner-bound spanner RIGHT))
-	 (thickness (* (ly:grob-property spanner 'thickness)
-		       (ly:output-def-lookup (ly:grob-layout spanner)
-					     'line-thickness)))
-	 (padding (ly:grob-property spanner 'padding 0.5))
-	 (common (ly:grob-common-refpoint right-span
-					  (ly:grob-common-refpoint spanner
-								   left-span X)
-					  X))
-	 (common-y (ly:grob-common-refpoint spanner left-span Y))
-	 (minimum-length (ly:grob-property spanner 'minimum-length 0.5))
+         (right-span (ly:spanner-bound spanner RIGHT))
+         (thickness (* (ly:grob-property spanner 'thickness)
+                       (ly:output-def-lookup (ly:grob-layout spanner)
+                                             'line-thickness)))
+         (padding (ly:grob-property spanner 'padding 0.5))
+         (common (ly:grob-common-refpoint right-span
+                                          (ly:grob-common-refpoint spanner
+                                                                   left-span X)
+                                          X))
+         (common-y (ly:grob-common-refpoint spanner left-span Y))
+         (minimum-length (ly:grob-property spanner 'minimum-length 0.5))
 
-	 (left-x (+ padding
-		    (max
-		     (interval-end (ly:grob-robust-relative-extent
-				    left-span common X))
-		     (if
-		      (and dots
-			   (close
-			    (ly:grob-relative-coordinate dots common-y Y)
-			    (ly:grob-relative-coordinate spanner common-y Y)))
-		      (interval-end
-		       (ly:grob-robust-relative-extent dots common X))
-		      (- INFINITY-INT)))))
-	 (right-x (max (- (interval-start
-			   (ly:grob-robust-relative-extent right-span common X))
-			  padding)
-		       (+ left-x minimum-length)))
-	 (self-x (ly:grob-relative-coordinate spanner common X))
-	 (dx (- right-x left-x))
-	 (exp (list 'path thickness
-		    `(quote
-		      (rmoveto
-		       ,(- left-x self-x) 0
+         (left-x (+ padding
+                    (max
+                     (interval-end (ly:grob-robust-relative-extent
+                                    left-span common X))
+                     (if
+                      (and dots
+                           (close
+                            (ly:grob-relative-coordinate dots common-y Y)
+                            (ly:grob-relative-coordinate spanner common-y Y)))
+                      (interval-end
+                       (ly:grob-robust-relative-extent dots common X))
+                      (- INFINITY-INT)))))
+         (right-x (max (- (interval-start
+                           (ly:grob-robust-relative-extent right-span common X))
+                          padding)
+                       (+ left-x minimum-length)))
+         (self-x (ly:grob-relative-coordinate spanner common X))
+         (dx (- right-x left-x))
+         (exp (list 'path thickness
+                    `(quote
+                      (rmoveto
+                       ,(- left-x self-x) 0
 
-		       rcurveto
-		       ,(/ dx 3)
-		       0
-		       ,dx ,(* 0.66 delta-y)
-		       ,dx ,delta-y)))))
+                       rcurveto
+                       ,(/ dx 3)
+                       0
+                       ,dx ,(* 0.66 delta-y)
+                       ,dx ,delta-y)))))
 
     (ly:make-stencil
      exp
      (cons (- left-x self-x) (- right-x self-x))
      (cons (min 0 delta-y)
-	   (max 0 delta-y)))))
+           (max 0 delta-y)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -932,24 +932,24 @@ and duration-log @var{log}."
 
 (define-public (grace-spacing::calc-shortest-duration grob)
   (let* ((cols (ly:grob-object grob 'columns))
-	 (get-difference
-	  (lambda (idx)
-	    (ly:moment-sub (ly:grob-property
-			    (ly:grob-array-ref cols (1+ idx)) 'when)
-			   (ly:grob-property
-			    (ly:grob-array-ref cols idx) 'when))))
+         (get-difference
+          (lambda (idx)
+            (ly:moment-sub (ly:grob-property
+                            (ly:grob-array-ref cols (1+ idx)) 'when)
+                           (ly:grob-property
+                            (ly:grob-array-ref cols idx) 'when))))
 
-	 (moment-min (lambda (x y)
-		       (cond
-			((and x y)
-			 (if (ly:moment<? x y)
-			     x
-			     y))
-			(x x)
-			(y y)))))
+         (moment-min (lambda (x y)
+                       (cond
+                        ((and x y)
+                         (if (ly:moment<? x y)
+                             x
+                             y))
+                        (x x)
+                        (y y)))))
 
     (fold moment-min #f (map get-difference
-			     (iota (1- (ly:grob-array-length cols)))))))
+                             (iota (1- (ly:grob-array-length cols)))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -968,8 +968,8 @@ and duration-log @var{log}."
 (define-public (stroke-finger::calc-text grob)
   (let ((event (event-cause grob)))
     (or (ly:event-property event 'text #f)
-	(vector-ref (ly:grob-property grob 'digit-names)
-		    (1- (max 1
+        (vector-ref (ly:grob-property grob 'digit-names)
+                    (1- (max 1
                              (min 5 (ly:event-property event 'digit))))))))
 
 
@@ -989,18 +989,18 @@ changing @code{'attach-dir} and @code{'padding}.  Reads the
 between the two text elements."
   (let ((left-bound (ly:spanner-bound grob LEFT)))
     (if (grob::has-interface left-bound 'dynamic-text-interface)
-	(let* ((details (ly:grob-property grob 'bound-details))
-	       (left-details (ly:assoc-get 'left details))
-	       (my-padding (ly:assoc-get 'padding left-details))
-	       (script-padding (ly:grob-property left-bound 'right-padding 0)))
+        (let* ((details (ly:grob-property grob 'bound-details))
+               (left-details (ly:assoc-get 'left details))
+               (my-padding (ly:assoc-get 'padding left-details))
+               (script-padding (ly:grob-property left-bound 'right-padding 0)))
 
-	  (and (number? my-padding)
-	       (ly:grob-set-nested-property! grob
-					     '(bound-details left attach-dir)
-					     RIGHT)
-	       (ly:grob-set-nested-property! grob
-					     '(bound-details left padding)
-					     (+ my-padding script-padding)))))))
+          (and (number? my-padding)
+               (ly:grob-set-nested-property! grob
+                                             '(bound-details left attach-dir)
+                                             RIGHT)
+               (ly:grob-set-nested-property! grob
+                                             '(bound-details left padding)
+                                             (+ my-padding script-padding)))))))
 
 (define-public ((elbowed-hairpin coords mirrored?) grob)
   "Create hairpin based on a list of @var{coords} in @code{(cons x y)}
@@ -1028,39 +1028,39 @@ and draws the stencil based on its coordinates.
     (list (car pair) (cdr pair)))
   (define (normalize-coords goods x y)
     (map
-      (lambda (coord)
-        (cons (* x (car coord)) (* y (cdr coord))))
-      goods))
+     (lambda (coord)
+       (cons (* x (car coord)) (* y (cdr coord))))
+     goods))
   (define (my-c-p-s points thick decresc?)
     (make-connected-path-stencil
-      points
-      thick
-      (if decresc? -1.0 1.0)
-      1.0
-      #f
-      #f))
-  ; outer let to trigger suicide
+     points
+     thick
+     (if decresc? -1.0 1.0)
+     1.0
+     #f
+     #f))
+                                        ; outer let to trigger suicide
   (let ((sten (ly:hairpin::print grob)))
     (if (grob::is-live? grob)
-      (let* ((decresc? (eq? (ly:grob-property grob 'grow-direction) LEFT))
-             (thick (ly:grob-property grob 'thickness 0.1))
-             (thick (* thick (layout-line-thickness grob)))
-             (xex (ly:stencil-extent sten X))
-             (lenx (interval-length xex))
-             (yex (ly:stencil-extent sten Y))
-             (leny (interval-length yex))
-             (xtrans (+ (car xex) (if decresc? lenx 0)))
-             (ytrans (car yex))
-             (uplist (map pair-to-list
-                          (normalize-coords coords lenx (/ leny 2))))
-             (downlist (map pair-to-list
-                            (normalize-coords coords lenx (/ leny -2)))))
-      (ly:stencil-translate
-        (ly:stencil-add
-          (my-c-p-s uplist thick decresc?)
-          (if mirrored? (my-c-p-s downlist thick decresc?) empty-stencil))
-        (cons xtrans ytrans)))
-      '())))
+        (let* ((decresc? (eq? (ly:grob-property grob 'grow-direction) LEFT))
+               (thick (ly:grob-property grob 'thickness 0.1))
+               (thick (* thick (layout-line-thickness grob)))
+               (xex (ly:stencil-extent sten X))
+               (lenx (interval-length xex))
+               (yex (ly:stencil-extent sten Y))
+               (leny (interval-length yex))
+               (xtrans (+ (car xex) (if decresc? lenx 0)))
+               (ytrans (car yex))
+               (uplist (map pair-to-list
+                            (normalize-coords coords lenx (/ leny 2))))
+               (downlist (map pair-to-list
+                              (normalize-coords coords lenx (/ leny -2)))))
+          (ly:stencil-translate
+           (ly:stencil-add
+            (my-c-p-s uplist thick decresc?)
+            (if mirrored? (my-c-p-s downlist thick decresc?) empty-stencil))
+           (cons xtrans ytrans)))
+        '())))
 
 (define-public flared-hairpin
   (elbowed-hairpin '((0.95 . 0.4) (1.0 . 1.0)) #t))
@@ -1077,8 +1077,8 @@ and draws the stencil based on its coordinates.
   (let ((text (ly:grob-property grob 'text)))
 
     (grob-interpret-markup grob (if (string? text)
-				    (make-tied-lyric-markup text)
-				    text))))
+                                    (make-tied-lyric-markup text)
+                                    text))))
 
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
@@ -1112,8 +1112,8 @@ parent or the parent has no setting."
 
 (define-public slur::height
   (ly:make-unpure-pure-container
-    ly:slur::height
-    ly:slur::pure-height))
+   ly:slur::height
+   ly:slur::pure-height))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scripts
@@ -1121,10 +1121,10 @@ parent or the parent has no setting."
 (define-public (script-interface::calc-x-offset grob)
   (ly:grob-property grob 'positioning-done)
   (let* ((shift (ly:grob-property grob 'toward-stem-shift 0.0))
-	 (note-head-location
-	  (ly:self-alignment-interface::centered-on-x-parent grob))
-	 (note-head-grob (ly:grob-parent grob X))
-	 (stem-grob (ly:grob-object note-head-grob 'stem)))
+         (note-head-location
+          (ly:self-alignment-interface::centered-on-x-parent grob))
+         (note-head-grob (ly:grob-parent grob X))
+         (stem-grob (ly:grob-object note-head-grob 'stem)))
 
     (+ note-head-location
        ;; If the property 'toward-stem-shift is defined and the script
@@ -1132,15 +1132,15 @@ parent or the parent has no setting."
        ;; Since scripts can also be over skips, we need to check whether
        ;; the grob has a stem at all.
        (if (ly:grob? stem-grob)
-	   (let ((dir1 (ly:grob-property grob 'direction))
-		 (dir2 (ly:grob-property stem-grob 'direction)))
-	     (if (equal? dir1 dir2)
-		 (let* ((common-refp (ly:grob-common-refpoint grob stem-grob X))
-			(stem-location
-			 (ly:grob-relative-coordinate stem-grob common-refp X)))
-		   (* shift (- stem-location note-head-location)))
-		 0.0))
-	   0.0))))
+           (let ((dir1 (ly:grob-property grob 'direction))
+                 (dir2 (ly:grob-property stem-grob 'direction)))
+             (if (equal? dir1 dir2)
+                 (let* ((common-refp (ly:grob-common-refpoint grob stem-grob X))
+                        (stem-location
+                         (ly:grob-relative-coordinate stem-grob common-refp X)))
+                   (* shift (- stem-location note-head-location)))
+                 0.0))
+           0.0))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1148,48 +1148,48 @@ parent or the parent has no setting."
 
 (define-public (system-start-text::print grob)
   (let* ((left-bound (ly:spanner-bound grob LEFT))
-	 (left-mom (ly:grob-property left-bound 'when))
-	 (name (if (moment<=? left-mom ZERO-MOMENT)
-		   (ly:grob-property grob 'long-text)
-		   (ly:grob-property grob 'text))))
+         (left-mom (ly:grob-property left-bound 'when))
+         (name (if (moment<=? left-mom ZERO-MOMENT)
+                   (ly:grob-property grob 'long-text)
+                   (ly:grob-property grob 'text))))
 
     (if (and (markup? name)
-	     (!= (ly:item-break-dir left-bound) CENTER))
+             (!= (ly:item-break-dir left-bound) CENTER))
 
-	(grob-interpret-markup grob name)
-	(ly:grob-suicide! grob))))
+        (grob-interpret-markup grob name)
+        (ly:grob-suicide! grob))))
 
 (define-public (system-start-text::calc-x-offset grob)
   (let* ((left-bound (ly:spanner-bound grob LEFT))
-	 (left-mom (ly:grob-property left-bound 'when))
-	 (layout (ly:grob-layout grob))
-	 (indent (ly:output-def-lookup layout
-				       (if (moment<=? left-mom ZERO-MOMENT)
-					   'indent
-					   'short-indent)
-				       0.0))
-	 (system (ly:grob-system grob))
-	 (my-extent (ly:grob-extent grob system X))
-	 (elements (ly:grob-object system 'elements))
-	 (common (ly:grob-common-refpoint-of-array system elements X))
-	 (total-ext empty-interval)
-	 (align-x (ly:grob-property grob 'self-alignment-X 0))
-	 (padding (min 0 (- (interval-length my-extent) indent)))
-	 (right-padding (- padding
-			   (/ (* padding (1+ align-x)) 2))))
+         (left-mom (ly:grob-property left-bound 'when))
+         (layout (ly:grob-layout grob))
+         (indent (ly:output-def-lookup layout
+                                       (if (moment<=? left-mom ZERO-MOMENT)
+                                           'indent
+                                           'short-indent)
+                                       0.0))
+         (system (ly:grob-system grob))
+         (my-extent (ly:grob-extent grob system X))
+         (elements (ly:grob-object system 'elements))
+         (common (ly:grob-common-refpoint-of-array system elements X))
+         (total-ext empty-interval)
+         (align-x (ly:grob-property grob 'self-alignment-X 0))
+         (padding (min 0 (- (interval-length my-extent) indent)))
+         (right-padding (- padding
+                           (/ (* padding (1+ align-x)) 2))))
 
     ;; compensate for the variation in delimiter extents by
     ;; calculating an X-offset correction based on united extents
     ;; of all delimiters in this system
     (let unite-delims ((l (ly:grob-array-length elements)))
       (if (> l 0)
-	  (let ((elt (ly:grob-array-ref elements (1- l))))
+          (let ((elt (ly:grob-array-ref elements (1- l))))
 
-	    (if (grob::has-interface elt 'system-start-delimiter-interface)
-		(let ((dims (ly:grob-extent elt common X)))
-		  (if (interval-sane? dims)
-		      (set! total-ext (interval-union total-ext dims)))))
-	    (unite-delims (1- l)))))
+            (if (grob::has-interface elt 'system-start-delimiter-interface)
+                (let ((dims (ly:grob-extent elt common X)))
+                  (if (interval-sane? dims)
+                      (set! total-ext (interval-union total-ext dims)))))
+            (unite-delims (1- l)))))
 
     (+
      (ly:side-position-interface::x-aligned-side grob)
@@ -1205,25 +1205,25 @@ parent or the parent has no setting."
                (ly:grob-array->list elements))))
 
   (let* ((left-bound (ly:spanner-bound grob LEFT))
-	 (live-elts (live-elements-list grob))
-	 (system (ly:grob-system grob))
-	 (extent empty-interval))
+         (live-elts (live-elements-list grob))
+         (system (ly:grob-system grob))
+         (extent empty-interval))
 
     (if (and (pair? live-elts)
-	     (interval-sane? (ly:grob-extent grob system Y)))
-	(let get-extent ((lst live-elts))
-	  (if (pair? lst)
-	      (let ((axis-group (car lst)))
+             (interval-sane? (ly:grob-extent grob system Y)))
+        (let get-extent ((lst live-elts))
+          (if (pair? lst)
+              (let ((axis-group (car lst)))
 
-		(if (and (ly:spanner? axis-group)
-			 (equal? (ly:spanner-bound axis-group LEFT)
-				 left-bound))
-		    (set! extent (add-point extent
-					    (ly:grob-relative-coordinate
-					     axis-group system Y))))
-		(get-extent (cdr lst)))))
-	;; no live axis group(s) for this instrument name -> remove from system
-	(ly:grob-suicide! grob))
+                (if (and (ly:spanner? axis-group)
+                         (equal? (ly:spanner-bound axis-group LEFT)
+                                 left-bound))
+                    (set! extent (add-point extent
+                                            (ly:grob-relative-coordinate
+                                             axis-group system Y))))
+                (get-extent (cdr lst)))))
+        ;; no live axis group(s) for this instrument name -> remove from system
+        (ly:grob-suicide! grob))
 
     (+
      (ly:self-alignment-interface::y-aligned-on-self grob)
@@ -1235,8 +1235,8 @@ parent or the parent has no setting."
 
 (define-public axis-group-interface::height
   (ly:make-unpure-pure-container
-    ly:axis-group-interface::height
-    ly:axis-group-interface::pure-height))
+   ly:axis-group-interface::height
+   ly:axis-group-interface::pure-height))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ambitus
@@ -1245,32 +1245,32 @@ parent or the parent has no setting."
   (let ((heads (ly:grob-object grob 'note-heads)))
 
     (if (and (ly:grob-array? heads)
-	     (= (ly:grob-array-length heads) 2))
-	(let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
-	       (head-down (ly:grob-array-ref heads 0))
-	       (head-up (ly:grob-array-ref heads 1))
-	       (gap (ly:grob-property grob 'gap 0.35))
-	       (point-min (+ (interval-end (ly:grob-extent head-down common Y))
-			     gap))
-	       (point-max (- (interval-start (ly:grob-extent head-up common Y))
-			     gap)))
+             (= (ly:grob-array-length heads) 2))
+        (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
+               (head-down (ly:grob-array-ref heads 0))
+               (head-up (ly:grob-array-ref heads 1))
+               (gap (ly:grob-property grob 'gap 0.35))
+               (point-min (+ (interval-end (ly:grob-extent head-down common Y))
+                             gap))
+               (point-max (- (interval-start (ly:grob-extent head-up common Y))
+                             gap)))
 
-	  (if (< point-min point-max)
-	      (let* ((layout (ly:grob-layout grob))
-		     (line-thick (ly:output-def-lookup layout 'line-thickness))
-		     (blot (ly:output-def-lookup layout 'blot-diameter))
-		     (grob-thick (ly:grob-property grob 'thickness 2))
-		     (width (* line-thick grob-thick))
-		     (x-ext (symmetric-interval (/ width 2)))
-		     (y-ext (cons point-min point-max))
-		     (line (ly:round-filled-box x-ext y-ext blot))
-		     (y-coord (ly:grob-relative-coordinate grob common Y)))
+          (if (< point-min point-max)
+              (let* ((layout (ly:grob-layout grob))
+                     (line-thick (ly:output-def-lookup layout 'line-thickness))
+                     (blot (ly:output-def-lookup layout 'blot-diameter))
+                     (grob-thick (ly:grob-property grob 'thickness 2))
+                     (width (* line-thick grob-thick))
+                     (x-ext (symmetric-interval (/ width 2)))
+                     (y-ext (cons point-min point-max))
+                     (line (ly:round-filled-box x-ext y-ext blot))
+                     (y-coord (ly:grob-relative-coordinate grob common Y)))
 
-		(ly:stencil-translate-axis line (- y-coord) Y))
-	      empty-stencil))
-	(begin
-	  (ly:grob-suicide! grob)
-	  (list)))))
+                (ly:stencil-translate-axis line (- y-coord) Y))
+              empty-stencil))
+        (begin
+          (ly:grob-suicide! grob)
+          (list)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  laissez-vibrer tie
@@ -1278,7 +1278,7 @@ parent or the parent has no setting."
 ;;  needed so we can make laissez-vibrer a pure print
 ;;
 (define-public (laissez-vibrer::print grob)
- (ly:tie::print grob))
+  (ly:tie::print grob))
 
 (define-public (semi-tie::calc-cross-staff grob)
   (let* ((note-head (ly:grob-object grob 'note-head))
@@ -1292,7 +1292,7 @@ parent or the parent has no setting."
 (define-public (volta-bracket-interface::pure-height grob start end)
   (let ((edge-height (ly:grob-property grob 'edge-height)))
     (if (number-pair? edge-height)
-	(let ((smaller (min (car edge-height) (cdr edge-height)))
-	      (larger (max (car edge-height) (cdr edge-height))))
-	  (interval-union '(0 . 0) (cons smaller larger)))
-	'(0 . 0))))
+        (let ((smaller (min (car edge-height) (cdr edge-height)))
+              (larger (max (car edge-height) (cdr edge-height))))
+          (interval-union '(0 . 0) (cons smaller larger)))
+        '(0 . 0))))

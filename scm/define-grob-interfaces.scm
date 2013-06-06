@@ -78,10 +78,10 @@ found in @file{scm/bar-line.scm}.
 
 (ly:add-interface
  'clef-modifier-interface
-  "The number describing transposition of the clef, placed below
+ "The number describing transposition of the clef, placed below
 or above clef sign. Usually this is 8 (octave transposition)
 or 15 (two octaves), but LilyPond allows any integer here."
-  '())
+ '())
 
 (ly:add-interface
  'dynamic-interface
@@ -137,9 +137,9 @@ or 15 (two octaves), but LilyPond allows any integer here."
    thickness))
 
 (ly:add-interface
-  'glissando-interface
-  "A glissando."
-  '(glissando-index))
+ 'glissando-interface
+ "A glissando."
+ '(glissando-index))
 
 (ly:add-interface
  'grace-spacing-interface

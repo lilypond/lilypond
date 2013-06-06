@@ -34,10 +34,10 @@ are provided in @var{function-list}.
 Example: Executing @samp{(function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))}
 returns @samp{1/3}."
   (if (null? function-list)
-    arg
-    (function-chain
-      (apply (caar function-list) (append `(,arg) (cdar function-list)))
-      (cdr function-list))))
+      arg
+      (function-chain
+       (apply (caar function-list) (append `(,arg) (cdar function-list)))
+       (cdr function-list))))
 
 (define (rotunda-map function inlist rotunda)
   "Like map, but with a rotating last argument to function.
@@ -46,12 +46,12 @@ returns @samp{1/3}."
    @code{(2 -8 4 -6)}"
   (define (rotunda-map-chain function inlist outlist rotunda)
     (if (null? inlist)
-      outlist
-     (rotunda-map-chain
-       function
-       (cdr inlist)
-       (append outlist (list (function (car inlist) (car rotunda))))
-       (append (cdr rotunda) (list (car rotunda))))))
+        outlist
+        (rotunda-map-chain
+         function
+         (cdr inlist)
+         (append outlist (list (function (car inlist) (car rotunda))))
+         (append (cdr rotunda) (list (car rotunda))))))
   (rotunda-map-chain function inlist '() rotunda))
 
 (define (assoc-keys alist)
@@ -68,9 +68,9 @@ returns @samp{1/3}."
    @code{(get-slope-offset '(1 . 2) '(3 . -5.1))}
    @code{(-3.55 . 5.55)}"
   (let*
-    ((slope (/ (- (cdr p1) (cdr p2)) (- (car p1) (car p2))))
-    (offset (- (cdr p1) (* slope (car p1)))))
-   `(,slope . ,offset)))
+      ((slope (/ (- (cdr p1) (cdr p2)) (- (car p1) (car p2))))
+       (offset (- (cdr p1) (* slope (car p1)))))
+    `(,slope . ,offset)))
 
 (define (is-square? x input-list)
   "Returns true if x is the square of a value in input-list."
@@ -97,17 +97,17 @@ returns @samp{1/3}."
 ;; Translates a "normal" key (open, closed, trill)
 (define (key-fill-translate fill)
   (cond
-    ((= fill 1) #f)
-    ((= fill 2) #f)
-    ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
-    ((= fill (assoc-get 'F HOLE-FILL-LIST)) #t)))
+   ((= fill 1) #f)
+   ((= fill 2) #f)
+   ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
+   ((= fill (assoc-get 'F HOLE-FILL-LIST)) #t)))
 
 ;; Similar to above, but trans vs opaque doesn't matter
 (define (text-fill-translate fill)
   (cond
-    ((< fill 3) 1.0)
-    ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
-    ((= fill (assoc-get 'F HOLE-FILL-LIST)) 0.0)))
+   ((< fill 3) 1.0)
+   ((= fill (expt (assoc-get 'F HOLE-FILL-LIST) 2)) 0.5)
+   ((= fill (assoc-get 'F HOLE-FILL-LIST)) 0.0)))
 
 ;; Emits a list for the central-column-hole maker
 ;; (not-full?, 1-quarter-full?, 1-half-full?, 3-quarters-full?, full?)
@@ -115,8 +115,8 @@ returns @samp{1/3}."
 ;; not-full and 3-quarters-full
 (define (process-fill-value fill)
   (let* ((avals (list-tail (assoc-values HOLE-FILL-LIST) 1)))
-  (append `(,(or (< fill 3) (is-square? fill avals)))
-    (map (lambda (x) (= 0 (remainder fill x))) avals))))
+    (append `(,(or (< fill 3) (is-square? fill avals)))
+            (map (lambda (x) (= 0 (remainder fill x))) avals))))
 
 ;; Color a stencil gray
 (define (gray-colorize stencil)
@@ -126,26 +126,26 @@ returns @samp{1/3}."
 (define (rich-path-stencil ls x-stretch y-stretch proc)
   (lambda (radius thick fill layout props)
     (let*
-      ((fill-translate (key-fill-translate fill))
-       (gray? (eqv? fill-translate 0.5)))
-     (ly:stencil-add
-      ((if gray? gray-colorize identity)
-      (proc
-        (make-connected-path-stencil
-        ls
-        thick
-        (* x-stretch radius)
-        (* y-stretch radius)
-        #f
-        (if gray? #t fill-translate))))
-      (if (not gray?)
-          empty-stencil
-          ((rich-path-stencil ls x-stretch y-stretch proc)
-           radius
-           thick
-           1
-           layout
-           props))))))
+        ((fill-translate (key-fill-translate fill))
+         (gray? (eqv? fill-translate 0.5)))
+      (ly:stencil-add
+       ((if gray? gray-colorize identity)
+        (proc
+         (make-connected-path-stencil
+          ls
+          thick
+          (* x-stretch radius)
+          (* y-stretch radius)
+          #f
+          (if gray? #t fill-translate))))
+       (if (not gray?)
+           empty-stencil
+           ((rich-path-stencil ls x-stretch y-stretch proc)
+            radius
+            thick
+            1
+            layout
+            props))))))
 
 ;; A connected path stencil without a surrounding proc
 (define (standard-path-stencil ls x-stretch y-stretch)
@@ -155,49 +155,49 @@ returns @samp{1/3}."
 (define (rich-pe-stencil x-stretch y-stretch start end proc)
   (lambda (radius thick fill layout props)
     (let*
-      ((fill-translate (key-fill-translate fill))
-       (gray? (eqv? fill-translate 0.5)))
-     (ly:stencil-add
-      ((if gray? gray-colorize identity)
-      (proc
-        (make-partial-ellipse-stencil
-        (* x-stretch radius)
-        (* y-stretch radius)
-        start
-        end
-        thick
-        #t
-        (if gray? #t fill-translate))))
-      (if (not gray?)
-          empty-stencil
-          ((rich-pe-stencil x-stretch y-stretch start end proc)
-           radius
-           thick
-           1
-           layout
-           props))))))
+        ((fill-translate (key-fill-translate fill))
+         (gray? (eqv? fill-translate 0.5)))
+      (ly:stencil-add
+       ((if gray? gray-colorize identity)
+        (proc
+         (make-partial-ellipse-stencil
+          (* x-stretch radius)
+          (* y-stretch radius)
+          start
+          end
+          thick
+          #t
+          (if gray? #t fill-translate))))
+       (if (not gray?)
+           empty-stencil
+           ((rich-pe-stencil x-stretch y-stretch start end proc)
+            radius
+            thick
+            1
+            layout
+            props))))))
 
 (define (rich-e-stencil x-stretch y-stretch proc)
   (lambda (radius thick fill layout props)
     (let*
-      ((fill-translate (key-fill-translate fill))
-       (gray? (eqv? fill-translate 0.5)))
-     (ly:stencil-add
-      ((if gray? gray-colorize identity)
-      (proc
-        (make-ellipse-stencil
+        ((fill-translate (key-fill-translate fill))
+         (gray? (eqv? fill-translate 0.5)))
+      (ly:stencil-add
+       ((if gray? gray-colorize identity)
+        (proc
+         (make-ellipse-stencil
           (* x-stretch radius)
           (* y-stretch radius)
           thick
           (if gray? #t fill-translate))))
-      (if (not gray?)
-        empty-stencil
-        ((rich-e-stencil x-stretch y-stretch proc)
-          radius
-          thick
-          1
-          layout
-          props))))))
+       (if (not gray?)
+           empty-stencil
+           ((rich-e-stencil x-stretch y-stretch proc)
+            radius
+            thick
+            1
+            layout
+            props))))))
 
 ;; An ellipse stencil without a surrounding proc
 (define (standard-e-stencil x-stretch y-stretch)
@@ -210,36 +210,36 @@ returns @samp{1/3}."
 (define (make-symbol-alist symbol simple? ring?)
   (filter (lambda (x)
             (not
-              (equal?
-                x
-                `(,(symbol-concatenate symbol 'T 'F) .
-                 ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))))
+             (equal?
+              x
+              `(,(symbol-concatenate symbol 'T 'F) .
+                ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))))
           (append
-            `((,symbol . ,(assoc-get 'F HOLE-FILL-LIST))
-              (,(symbol-concatenate symbol 'T) .
-               ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))
-            (if simple?
-                '()
-                (apply append
-                  (map (lambda (x)
-                         (append
-                           `((,(symbol-concatenate symbol (car x) 'T)
-                              . ,(expt (cdr x) 2))
-                             (,(symbol-concatenate symbol 'T (car x))
-                              . ,(* (cdr x) (assoc-get 'F HOLE-FILL-LIST)))
-                             (,(symbol-concatenate symbol (car x))
-                              . ,(cdr x)))
-                             (apply append
-                               (map (lambda (y)
-                                      (map (lambda (a b)
-                                             `(,(symbol-concatenate symbol
-                                                                    (car a)
-                                                                    'T
-                                                                    (car b))
-                                               . ,(* (cdr a) (cdr b))))
-                                           `(,x ,y) `(,y ,x)))
-                                    (cdr (member x HOLE-FILL-LIST))))))
-                       (if ring? HOLE-FILL-LIST (cdr HOLE-FILL-LIST))))))))
+           `((,symbol . ,(assoc-get 'F HOLE-FILL-LIST))
+             (,(symbol-concatenate symbol 'T) .
+              ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))
+           (if simple?
+               '()
+               (apply append
+                      (map (lambda (x)
+                             (append
+                              `((,(symbol-concatenate symbol (car x) 'T)
+                                 . ,(expt (cdr x) 2))
+                                (,(symbol-concatenate symbol 'T (car x))
+                                 . ,(* (cdr x) (assoc-get 'F HOLE-FILL-LIST)))
+                                (,(symbol-concatenate symbol (car x))
+                                 . ,(cdr x)))
+                              (apply append
+                                     (map (lambda (y)
+                                            (map (lambda (a b)
+                                                   `(,(symbol-concatenate symbol
+                                                                          (car a)
+                                                                          'T
+                                                                          (car b))
+                                                     . ,(* (cdr a) (cdr b))))
+                                                 `(,x ,y) `(,y ,x)))
+                                          (cdr (member x HOLE-FILL-LIST))))))
+                           (if ring? HOLE-FILL-LIST (cdr HOLE-FILL-LIST))))))))
 
 ;;; Commands for text layout
 
@@ -248,50 +248,50 @@ returns @samp{1/3}."
   (conditional-circle-markup layout props trigger in-markup)
   (number? markup?)
   (interpret-markup layout props
-    (if (eqv? trigger 0.5)
-      (markup #:circle (markup in-markup))
-      (markup in-markup))))
+                    (if (eqv? trigger 0.5)
+                        (markup #:circle (markup in-markup))
+                        (markup in-markup))))
 
 ;; Makes a list of named-keys
 (define (make-name-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-           (markup #:conditional-circle-markup
-             x
-             (make-concat-markup
-               (list
-                 (markup #:abs-fontsize font-size (car y))
-                 (if (and (< x 1) (cdr y))
-                   (if (eqv? (cdr y) 1)
-                     (markup
-                       #:abs-fontsize
-                       font-size
-                       #:raise
-                       1
-                       #:fontsize
-                       -2
-                       #:sharp)
-                     (markup
-                       #:abs-fontsize
-                       font-size
-                       #:raise
-                       1
-                       #:fontsize
-                       -2
-                       #:flat))
-                 (markup #:null)))))
-           (markup #:null)))
-         input-list key-list))
+             (markup #:conditional-circle-markup
+                     x
+                     (make-concat-markup
+                      (list
+                       (markup #:abs-fontsize font-size (car y))
+                       (if (and (< x 1) (cdr y))
+                           (if (eqv? (cdr y) 1)
+                               (markup
+                                #:abs-fontsize
+                                font-size
+                                #:raise
+                                1
+                                #:fontsize
+                                -2
+                                #:sharp)
+                               (markup
+                                #:abs-fontsize
+                                font-size
+                                #:raise
+                                1
+                                #:fontsize
+                                -2
+                                #:flat))
+                           (markup #:null)))))
+             (markup #:null)))
+       input-list key-list))
 
 ;; Makes a list of number-keys
 (define (make-number-keylist input-list key-list font-size)
   (map (lambda (x y)
          (if (< x 1)
-           (markup
-             #:conditional-circle-markup
-             x
-             (markup #:abs-fontsize font-size #:number y))
-           (markup #:null)))
+             (markup
+              #:conditional-circle-markup
+              x
+              (markup #:abs-fontsize font-size #:number y))
+             (markup #:null)))
        input-list
        key-list))
 
@@ -299,35 +299,35 @@ returns @samp{1/3}."
 (define (aligned-text-stencil-function dir hv)
   (lambda (key-name-list radius fill-list layout props)
     (interpret-markup
-      layout
-      props
-      (make-general-align-markup
-        X
-        dir
-        ((if hv make-concat-markup make-center-column-markup)
-          (make-name-keylist
-            (map text-fill-translate fill-list)
-            key-name-list
-            (* 12 radius)))))))
+     layout
+     props
+     (make-general-align-markup
+      X
+      dir
+      ((if hv make-concat-markup make-center-column-markup)
+       (make-name-keylist
+        (map text-fill-translate fill-list)
+        key-name-list
+        (* 12 radius)))))))
 
 (define number-column-stencil
   (lambda (key-name-list radius fill-list layout props)
     (interpret-markup
-      layout
-      props
+     layout
+     props
+     (make-general-align-markup
+      Y
+      CENTER
       (make-general-align-markup
-        Y
-        CENTER
-        (make-general-align-markup
-          X
-          RIGHT
-          (make-override-markup
-            '(baseline-skip . 0)
-            (make-column-markup
-              (make-number-keylist
-                (map text-fill-translate fill-list)
-                key-name-list
-                (* radius 8)))))))))
+       X
+       RIGHT
+       (make-override-markup
+        '(baseline-skip . 0)
+        (make-column-markup
+         (make-number-keylist
+          (map text-fill-translate fill-list)
+          key-name-list
+          (* radius 8)))))))))
 
 ;; Utility function for the left-hand keys
 (define lh-woodwind-text-stencil
@@ -344,17 +344,17 @@ returns @samp{1/3}."
 
 (define (rich-group-draw-rule alist target-part change-part)
   (if
-    (entry-greater-than-x?
-      (map (lambda (key) (assoc-get key alist)) target-part) 3)
-    (map-selected-alist-keys (lambda (x) (if (= x 0) 1 x)) change-part alist)
-    alist))
+   (entry-greater-than-x?
+    (map (lambda (key) (assoc-get key alist)) target-part) 3)
+   (map-selected-alist-keys (lambda (x) (if (= x 0) 1 x)) change-part alist)
+   alist))
 
 (define (bassoon-midline-rule alist target-part)
   (if
-    (entry-greater-than-x?
-      (map (lambda (key) (assoc-get key alist)) target-part) 0)
-    (map-selected-alist-keys (lambda (x) 1) '((hidden . long-midline)) alist)
-    (map-selected-alist-keys (lambda (x) 1) '((hidden . midline)) alist)))
+   (entry-greater-than-x?
+    (map (lambda (key) (assoc-get key alist)) target-part) 0)
+   (map-selected-alist-keys (lambda (x) 1) '((hidden . long-midline)) alist)
+   (map-selected-alist-keys (lambda (x) 1) '((hidden . midline)) alist)))
 
 (define (group-draw-rule alist target-part)
   (rich-group-draw-rule alist target-part target-part))
@@ -364,28 +364,28 @@ returns @samp{1/3}."
 
 (define (apply-group-draw-rule-series alist target-part-list)
   (if (null? target-part-list)
-    alist
-    (apply-group-draw-rule-series
-      (group-draw-rule alist (car target-part-list))
-      (cdr target-part-list))))
+      alist
+      (apply-group-draw-rule-series
+       (group-draw-rule alist (car target-part-list))
+       (cdr target-part-list))))
 
 ;; Extra-offset rules
 
 (define (rich-group-extra-offset-rule alist target-part change-part eos)
   (if
-    (entry-greater-than-x?
-      (map (lambda (key) (assoc-get key alist)) target-part) 0)
-    (map-selected-alist-keys (lambda (x) eos) change-part alist)
-    alist))
+   (entry-greater-than-x?
+    (map (lambda (key) (assoc-get key alist)) target-part) 0)
+   (map-selected-alist-keys (lambda (x) eos) change-part alist)
+   alist))
 
 (define (group-extra-offset-rule alist target-part eos)
   (rich-group-extra-offset-rule alist target-part target-part eos))
 
 (define (uniform-extra-offset-rule alist eos)
   (map-selected-alist-keys
-    (lambda (x) (if (pair? x) x eos))
-    (assoc-keys alist)
-    alist))
+   (lambda (x) (if (pair? x) x eos))
+   (assoc-keys alist)
+   alist))
 
 ;;; General drawing commands
 
@@ -402,29 +402,29 @@ returns @samp{1/3}."
 ;; Used for several upper keys in the clarinet and sax
 (define (upper-key-stencil tailw tailh bodyw bodyh)
   (let*
-   ((xmove (lambda (x) (+ tailw (+ 0.2 (* bodyw (- x 0.2))))))
-    (ymove (lambda (x) (+ (- tailh) (+ -0.05 (* bodyh (+ x 0.05)))))))
-  (standard-path-stencil
-    `((,(xmove 0.7)
-       ,(ymove -0.2)
-       ,(xmove 1.0)
-       ,(ymove -1.0)
-       ,(xmove 0.5)
-       ,(ymove -1.0))
-      (,(xmove 0.2)
-       ,(ymove -1.0)
-       ,(xmove 0.2)
-       ,(ymove -0.2)
-       ,(xmove 0.3)
-       ,(ymove -0.1))
-      (,(+ 0.2 tailw)
-       ,(- -0.05 tailh)
-       ,(+ 0.1 (/ tailw 2))
-       ,(- -0.025 (/ tailh 2))
-       0.0
-       0.0))
-    1.0
-    1.0)))
+      ((xmove (lambda (x) (+ tailw (+ 0.2 (* bodyw (- x 0.2))))))
+       (ymove (lambda (x) (+ (- tailh) (+ -0.05 (* bodyh (+ x 0.05)))))))
+    (standard-path-stencil
+     `((,(xmove 0.7)
+        ,(ymove -0.2)
+        ,(xmove 1.0)
+        ,(ymove -1.0)
+        ,(xmove 0.5)
+        ,(ymove -1.0))
+       (,(xmove 0.2)
+        ,(ymove -1.0)
+        ,(xmove 0.2)
+        ,(ymove -0.2)
+        ,(xmove 0.3)
+        ,(ymove -0.1))
+       (,(+ 0.2 tailw)
+        ,(- -0.05 tailh)
+        ,(+ 0.1 (/ tailw 2))
+        ,(- -0.025 (/ tailh 2))
+        0.0
+        0.0))
+     1.0
+     1.0)))
 
 ;; Utility function for the column-hole maker.
 ;; Returns the left and right degrees for the drawing of a given
@@ -432,23 +432,23 @@ returns @samp{1/3}."
 (define (degree-first-true fill-list left? reverse?)
   (define (dfl-crawler fill-list os-list left?)
     (if (car fill-list)
-      ((if left? car cdr) (car os-list))
-      (dfl-crawler (cdr fill-list) (cdr os-list) left?)))
+        ((if left? car cdr) (car os-list))
+        (dfl-crawler (cdr fill-list) (cdr os-list) left?)))
   (dfl-crawler
-    ((if reverse? reverse identity) fill-list)
-    ((if reverse? reverse identity)
-      '((0 . 0) (215 . 325) (180 . 0) (145 . 35) (90 . 90)))
-    left?))
+   ((if reverse? reverse identity) fill-list)
+   ((if reverse? reverse identity)
+    '((0 . 0) (215 . 325) (180 . 0) (145 . 35) (90 . 90)))
+   left?))
 
 ;; Gets the position of the first (or last if reverse?) element of a list.
 (define (position-true-endpoint in-list reverse?)
   (define (pte-crawler in-list n)
     (if (car in-list)
-      n
-      (pte-crawler (cdr in-list) (+ n 1))))
+        n
+        (pte-crawler (cdr in-list) (+ n 1))))
   ((if reverse? - +)
-    (if reverse? (length in-list) 0)
-    (pte-crawler ((if reverse? reverse identity) in-list) 0)))
+   (if reverse? (length in-list) 0)
+   (pte-crawler ((if reverse? reverse identity) in-list) 0)))
 
 ;; Huge, kind-of-ugly maker of a circle in a column.
 ;; I think this is the clearest way to write it, though...
@@ -456,57 +456,57 @@ returns @samp{1/3}."
 (define (column-circle-stencil radius thick fill layout props)
   (let* ((fill-list (process-fill-value fill)))
     (cond
-      ((and
-        (list-ref fill-list 0)
-        (not (true-entry? (list-tail fill-list 1)))) ; is it empty?
-       ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
-      ((and
-        (list-ref fill-list 4)
-        (not (true-entry? (list-head fill-list 4)))) ; is it full?
-       ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
-      ((and
-        (list-ref fill-list 0)
-        (list-ref fill-list 4)) ; is it a trill between empty and full?
-       ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
-      (else  ;If none of these, it is partially full.
-        (ly:stencil-add
-          ((rich-pe-stencil 1.0 1.0 0 360 identity)
-            radius
-            thick
-            (if (list-ref fill-list 4)
-              (expt (assoc-get 'F HOLE-FILL-LIST) 2)
-              1)
-            layout
-            props)
-          ((rich-pe-stencil
-            1.0
-            1.0
-            (degree-first-true fill-list #t #t)
-            (degree-first-true fill-list #f #t)
-            identity)
-            radius
-            thick
-            (if
-              (true-entry?
-                (list-head fill-list (position-true-endpoint fill-list #t)))
-              (expt (assoc-get 'F HOLE-FILL-LIST) 2)
-              (assoc-get 'F HOLE-FILL-LIST))
-            layout
-            props)
-          (if
-            (= 2 (n-true-entries (list-tail fill-list 1))) ; trill?
-            ((rich-pe-stencil
-              1.0
-              1.0
-              (degree-first-true fill-list #t #f)
-              (degree-first-true fill-list #f #f)
-              identity)
-              radius
-              thick
-              (assoc-get 'F HOLE-FILL-LIST)
-              layout
-              props)
-            empty-stencil))))))
+     ((and
+       (list-ref fill-list 0)
+       (not (true-entry? (list-tail fill-list 1)))) ; is it empty?
+      ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
+     ((and
+       (list-ref fill-list 4)
+       (not (true-entry? (list-head fill-list 4)))) ; is it full?
+      ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
+     ((and
+       (list-ref fill-list 0)
+       (list-ref fill-list 4)) ; is it a trill between empty and full?
+      ((standard-e-stencil 1.0 1.0) radius thick fill layout props))
+     (else  ;If none of these, it is partially full.
+      (ly:stencil-add
+       ((rich-pe-stencil 1.0 1.0 0 360 identity)
+        radius
+        thick
+        (if (list-ref fill-list 4)
+            (expt (assoc-get 'F HOLE-FILL-LIST) 2)
+            1)
+        layout
+        props)
+       ((rich-pe-stencil
+         1.0
+         1.0
+         (degree-first-true fill-list #t #t)
+         (degree-first-true fill-list #f #t)
+         identity)
+        radius
+        thick
+        (if
+         (true-entry?
+          (list-head fill-list (position-true-endpoint fill-list #t)))
+         (expt (assoc-get 'F HOLE-FILL-LIST) 2)
+         (assoc-get 'F HOLE-FILL-LIST))
+        layout
+        props)
+       (if
+        (= 2 (n-true-entries (list-tail fill-list 1))) ; trill?
+        ((rich-pe-stencil
+          1.0
+          1.0
+          (degree-first-true fill-list #t #f)
+          (degree-first-true fill-list #f #f)
+          identity)
+         radius
+         thick
+         (assoc-get 'F HOLE-FILL-LIST)
+         layout
+         props)
+        empty-stencil))))))
 
 (define (variable-column-circle-stencil scaler)
   (lambda (radius thick fill layout props)
@@ -515,62 +515,62 @@ returns @samp{1/3}."
 ;; A stencil for ring-column circles that combines two of the above
 (define (ring-column-circle-stencil radius thick fill layout props)
   (if (= 0 (remainder fill (assoc-get 'R HOLE-FILL-LIST)))
-    (ly:stencil-add
-      ((if
-        (= fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
-        gray-colorize
-        identity)
+      (ly:stencil-add
+       ((if
+         (= fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
+         gray-colorize
+         identity)
         ((standard-e-stencil
-            (* (+ (- 1.0 (* 2 thick)) (/ thick 2)))
-            (* (+ (- 1.0 (* 2 thick)) (/ thick 2))))
-          radius
-          (* (* 4 radius) thick)
-          1
-          layout
-          props))
-      ((standard-e-stencil 1.0 1.0) radius thick 1 layout props)
-      (column-circle-stencil
+          (* (+ (- 1.0 (* 2 thick)) (/ thick 2)))
+          (* (+ (- 1.0 (* 2 thick)) (/ thick 2))))
+         radius
+         (* (* 4 radius) thick)
+         1
+         layout
+         props))
+       ((standard-e-stencil 1.0 1.0) radius thick 1 layout props)
+       (column-circle-stencil
         (+ (* (- 1.0 (* 4 thick)) radius) (/ thick 2))
         thick
         (*
-          (if (= 0 (remainder fill (assoc-get 'F HOLE-FILL-LIST)))
-            (assoc-get 'F HOLE-FILL-LIST)
-            1)
-          (if (= fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
-            (/ fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
-            (/ fill (assoc-get 'R HOLE-FILL-LIST))))
+         (if (= 0 (remainder fill (assoc-get 'F HOLE-FILL-LIST)))
+             (assoc-get 'F HOLE-FILL-LIST)
+             1)
+         (if (= fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
+             (/ fill (expt (assoc-get 'R HOLE-FILL-LIST) 2))
+             (/ fill (assoc-get 'R HOLE-FILL-LIST))))
         layout
         props))
-    (column-circle-stencil radius thick fill layout props)))
+      (column-circle-stencil radius thick fill layout props)))
 
 ;;; Flute family stencils
 
 (define flute-lh-b-key-stencil
   (standard-path-stencil
-    '((0 1.3)
-      (0 1.625 -0.125 1.75 -0.25 1.75)
-      (-0.55 1.75 -0.55 0.95 -0.25 0.7)
-      (0 0.4 0 0.125 0 0))
-    2
-    1.55))
+   '((0 1.3)
+     (0 1.625 -0.125 1.75 -0.25 1.75)
+     (-0.55 1.75 -0.55 0.95 -0.25 0.7)
+     (0 0.4 0 0.125 0 0))
+   2
+   1.55))
 
 (define flute-lh-bes-key-stencil
   (standard-path-stencil
-    '((0 1.3)
-      (0 1.625 -0.125 1.75 -0.25 1.75)
-      (-0.55 1.75 -0.55 0.95 -0.25 0.7)
-      (0 0.4 0 0.125 0 0))
-    2.0
-    1.3))
+   '((0 1.3)
+     (0 1.625 -0.125 1.75 -0.25 1.75)
+     (-0.55 1.75 -0.55 0.95 -0.25 0.7)
+     (0 0.4 0 0.125 0 0))
+   2.0
+   1.3))
 
 (define (flute-lh-gis-rh-bes-key-stencil deg)
   (rich-path-stencil
-    '((0.1 0.1 0.2 0.4 0.3 0.6)
-      (0.3 1.0 0.8 1.0 0.8 0.7)
-      (0.8 0.3 0.5 0.3 0 0))
-    1.0
-    1.0
-    (lambda (stencil) (ly:stencil-rotate stencil deg 0 0))))
+   '((0.1 0.1 0.2 0.4 0.3 0.6)
+     (0.3 1.0 0.8 1.0 0.8 0.7)
+     (0.8 0.3 0.5 0.3 0 0))
+   1.0
+   1.0
+   (lambda (stencil) (ly:stencil-rotate stencil deg 0 0))))
 
 (define flute-lh-gis-key-stencil (flute-lh-gis-rh-bes-key-stencil 0))
 
@@ -582,97 +582,97 @@ returns @samp{1/3}."
 
 (define flute-rh-ees-key-stencil
   (standard-path-stencil
-    '((0.8 0) (1.1 0 1.1 0.75 0.7 0.75) (0.5 0.75) (0.15 0.75 0.1 0.2 0 0))
-    -2.38
-    1.4))
+   '((0.8 0) (1.1 0 1.1 0.75 0.7 0.75) (0.5 0.75) (0.15 0.75 0.1 0.2 0 0))
+   -2.38
+   1.4))
 
 (define (piccolo-rh-x-key-stencil radius thick fill layout props)
   (interpret-markup
-    layout
-    props
-    (make-general-align-markup
-      Y
-      DOWN
-      (make-concat-markup
-        (make-name-keylist
-          `(,(text-fill-translate fill))
-          '(("X" . #f))
-          (* 9 radius))))))
+   layout
+   props
+   (make-general-align-markup
+    Y
+    DOWN
+    (make-concat-markup
+     (make-name-keylist
+      `(,(text-fill-translate fill))
+      '(("X" . #f))
+      (* 9 radius))))))
 
 (define flute-lower-row-stretch 1.4)
 
 (define flute-rh-cis-key-stencil
   (standard-path-stencil
-    '((0 0.75) (-0.8 0.75 -0.8 0 0 0))
-    flute-lower-row-stretch
-    flute-lower-row-stretch))
+   '((0 0.75) (-0.8 0.75 -0.8 0 0 0))
+   flute-lower-row-stretch
+   flute-lower-row-stretch))
 
 (define flute-rh-c-key-stencil
   (standard-path-stencil
-    '((0 0.75) (0.4 0.75) (0.4 0) (0 0))
-    flute-lower-row-stretch
-    flute-lower-row-stretch))
+   '((0 0.75) (0.4 0.75) (0.4 0) (0 0))
+   flute-lower-row-stretch
+   flute-lower-row-stretch))
 
 (define flute-rh-b-key-stencil
   (standard-path-stencil
-    '((0 0.75) (0.25 0.75) (0.25 0) (0 0))
-    flute-lower-row-stretch
-    flute-lower-row-stretch))
+   '((0 0.75) (0.25 0.75) (0.25 0) (0 0))
+   flute-lower-row-stretch
+   flute-lower-row-stretch))
 
 (define flute-rh-gz-key-stencil
   (rich-path-stencil
-      '((0.1 0.1 0.4 0.2 0.6 0.3)
-        (1.0 0.3 1.0 0.8 0.7 0.8)
-        (0.3 0.8 0.3 0.5 0 0))
-      flute-lower-row-stretch
-      flute-lower-row-stretch
-      (lambda (stencil) (ly:stencil-rotate stencil 160 0 0))))
+   '((0.1 0.1 0.4 0.2 0.6 0.3)
+     (1.0 0.3 1.0 0.8 0.7 0.8)
+     (0.3 0.8 0.3 0.5 0 0))
+   flute-lower-row-stretch
+   flute-lower-row-stretch
+   (lambda (stencil) (ly:stencil-rotate stencil 160 0 0))))
 
 ;;; Shared oboe/clarinet stencils
 
 (define (oboe-lh-gis-lh-low-b-key-stencil gis?)
   (let*
-    ((x 1.2)
-     (y 0.4)
-     (scaling-factor 1.7)
-     (up-part
-       (car
+      ((x 1.2)
+       (y 0.4)
+       (scaling-factor 1.7)
+       (up-part
+        (car
          (split-bezier
-           `((0.0 . 0.0) (0.0 . ,y) (,x . ,y) (,x . 0.0))
-           0.8)))
-     (down-part
-       (cdr
+          `((0.0 . 0.0) (0.0 . ,y) (,x . ,y) (,x . 0.0))
+          0.8)))
+       (down-part
+        (cdr
          (split-bezier
-           `((,x . 0.0) (,x . ,(- y)) (0.0 . ,(- y)) (0.0 . 0.0))
-           0.2))))
+          `((,x . 0.0) (,x . ,(- y)) (0.0 . ,(- y)) (0.0 . 0.0))
+          0.2))))
     (if gis?
-      (standard-path-stencil
-        (append
+        (standard-path-stencil
+         (append
           (append
-            `((0.25 ,(/ y -2) 0.75 ,(/ y -2) 1.0 0.0))
-            (map (lambda (l)
-                   (flatten-list
-                     (map (lambda (x)
-                            (coord-translate
-                              (coord-rotate x (atan (/ y (* 2 0.25))))
-                              '(1.0 . 0)))
-                          l)))
-                 `(((0 . ,y) (,x . ,y) (,x . 0))
-                   ((,x . ,(- y)) (0 . ,(- y)) (0 . 0)))))
+           `((0.25 ,(/ y -2) 0.75 ,(/ y -2) 1.0 0.0))
+           (map (lambda (l)
+                  (flatten-list
+                   (map (lambda (x)
+                          (coord-translate
+                           (coord-rotate x (atan (/ y (* 2 0.25))))
+                           '(1.0 . 0)))
+                        l)))
+                `(((0 . ,y) (,x . ,y) (,x . 0))
+                  ((,x . ,(- y)) (0 . ,(- y)) (0 . 0)))))
           `((0.75 ,(/ y -2) 0.25 ,(/ y -2) 0.0 0.0)))
-        scaling-factor
-        scaling-factor)
-      (standard-path-stencil
-        (map (lambda (l)
-               (flatten-list
+         scaling-factor
+         scaling-factor)
+        (standard-path-stencil
+         (map (lambda (l)
+                (flatten-list
                  (map (lambda (x)
                         (coord-rotate x (atan (/ y (* 2 0.25)))))
                       l)))
-             `(,(list-tail up-part 1)
-               ,(list-head down-part 1)
-               ,(list-tail down-part 1)))
-        (- scaling-factor)
-        (- scaling-factor)))))
+              `(,(list-tail up-part 1)
+                ,(list-head down-part 1)
+                ,(list-tail down-part 1)))
+         (- scaling-factor)
+         (- scaling-factor)))))
 
 (define oboe-lh-gis-key-stencil (oboe-lh-gis-lh-low-b-key-stencil #t))
 
@@ -680,13 +680,13 @@ returns @samp{1/3}."
 
 (define (oboe-lh-ees-lh-bes-key-stencil ees?)
   (standard-path-stencil
-    `((0 1.5)
-      (0 1.625 -0.125 1.75 -0.25 1.75)
-      (-0.5 1.75 -0.5 0.816 -0.25 0.5)
-      (0 0.25 0 0.125 0 0)
-      (0 ,(if ees? -0.6 -0.3)))
-    (* (if ees? -1.0 1.0) -1.8)
-    1.8))
+   `((0 1.5)
+     (0 1.625 -0.125 1.75 -0.25 1.75)
+     (-0.5 1.75 -0.5 0.816 -0.25 0.5)
+     (0 0.25 0 0.125 0 0)
+     (0 ,(if ees? -0.6 -0.3)))
+   (* (if ees? -1.0 1.0) -1.8)
+   1.8))
 
 (define oboe-lh-ees-key-stencil (oboe-lh-ees-lh-bes-key-stencil #t))
 
@@ -697,13 +697,13 @@ returns @samp{1/3}."
 (define (oboe-lh-octave-key-stencil long?)
   (let* ((h (if long? 1.4 1.2)))
     (standard-path-stencil
-    `((-0.4 0 -0.4 1.0 -0.1 1.0)
-      (-0.1 ,h)
-      (0.1 ,h)
-      (0.1 1.0)
-      (0.4 1.0 0.4 0 0 0))
-    2.0
-    2.0)))
+     `((-0.4 0 -0.4 1.0 -0.1 1.0)
+       (-0.1 ,h)
+       (0.1 ,h)
+       (0.1 1.0)
+       (0.4 1.0 0.4 0 0 0))
+     2.0
+     2.0)))
 
 (define oboe-lh-I-key-stencil (oboe-lh-octave-key-stencil #f))
 
@@ -729,13 +729,13 @@ returns @samp{1/3}."
 
 (define (oboe-rh-c-rh-ees-key-stencil c?)
   (rich-path-stencil
-    '((1.0 0.0 1.0 0.70 1.5 0.70)
-      (2.25 0.70 2.25 -0.4 1.5 -0.4)
-      (1.0 -0.4 1.0 0 0 0)
-      (-0.15 0))
-    2.0
-    1.4
-    (lambda (stencil) (ly:stencil-rotate stencil (if c? 170 180) 0 0))))
+   '((1.0 0.0 1.0 0.70 1.5 0.70)
+     (2.25 0.70 2.25 -0.4 1.5 -0.4)
+     (1.0 -0.4 1.0 0 0 0)
+     (-0.15 0))
+   2.0
+   1.4
+   (lambda (stencil) (ly:stencil-rotate stencil (if c? 170 180) 0 0))))
 
 (define oboe-rh-banana-key-stencil oboe-rh-gis-key-stencil)
 
@@ -743,12 +743,12 @@ returns @samp{1/3}."
 
 (define oboe-rh-cis-key-stencil
   (rich-path-stencil
-    '((0.6 0.0 0.6 0.50 1.25 0.50)
-      (2.25 0.50 2.25 -0.4 1.25 -0.4)
-      (0.6 -0.4 0.6 0 0 0))
-    -0.9
-    1.0
-    (lambda (stencil) (ly:stencil-rotate stencil 0 0 0))))
+   '((0.6 0.0 0.6 0.50 1.25 0.50)
+     (2.25 0.50 2.25 -0.4 1.25 -0.4)
+     (0.6 -0.4 0.6 0 0 0))
+   -0.9
+   1.0
+   (lambda (stencil) (ly:stencil-rotate stencil 0 0 0))))
 
 (define oboe-rh-ees-key-stencil (oboe-rh-c-rh-ees-key-stencil #f))
 
@@ -759,22 +759,22 @@ returns @samp{1/3}."
 
 (define clarinet-lh-R-key-stencil
   (let* ((halfbase (cos (/ PI 10)))
-    (height (*
-      halfbase
-      (/ (sin (/ (* 4 PI) 10)) (cos (/ (* 4 PI) 10))))))
-   (standard-path-stencil
-      `(
-        (0 ,(/ -4.0 3.0) -2.0 ,(/ -4.0 3.0) -2.0 0.0)
-        (-1.5 ,(* 0.5 height) -1.25 ,(* 0.75 height) -1.0 ,height)
-        (-0.75 ,(* 0.75 height) -0.5 ,(* 0.5 height) 0.0 0.0))
-      0.9
-      0.9)))
+         (height (*
+                  halfbase
+                  (/ (sin (/ (* 4 PI) 10)) (cos (/ (* 4 PI) 10))))))
+    (standard-path-stencil
+     `(
+       (0 ,(/ -4.0 3.0) -2.0 ,(/ -4.0 3.0) -2.0 0.0)
+       (-1.5 ,(* 0.5 height) -1.25 ,(* 0.75 height) -1.0 ,height)
+       (-0.75 ,(* 0.75 height) -0.5 ,(* 0.5 height) 0.0 0.0))
+     0.9
+     0.9)))
 
 (define (clarinet-lh-a-key-stencil radius thick fill layout props)
   (let* ((width 0.4) (height 0.75) (linelen 0.45))
-  (ly:stencil-add
-    ((standard-e-stencil width height) radius thick fill layout props)
-    (ly:stencil-translate
+    (ly:stencil-add
+     ((standard-e-stencil width height) radius thick fill layout props)
+     (ly:stencil-translate
       (make-line-stencil thick 0 0 0 (* linelen radius))
       (cons 0 (* height radius))))))
 
@@ -794,30 +794,30 @@ returns @samp{1/3}."
 
 (define clarinet-rh-low-c-key-stencil
   (standard-path-stencil
-    '((0.0 1.5)
-      (0.0 2.5 -1.0 2.5 -1.0 0.75)
-      (-1.0 0.1 0.0 0.25 0.0 0.3)
-      (0.0 0.0))
-    0.8
-    0.8))
+   '((0.0 1.5)
+     (0.0 2.5 -1.0 2.5 -1.0 0.75)
+     (-1.0 0.1 0.0 0.25 0.0 0.3)
+     (0.0 0.0))
+   0.8
+   0.8))
 
 (define clarinet-rh-low-cis-key-stencil
   (standard-path-stencil
-    '((0.0 1.17)
-      (0.0 1.67 -1.0 1.67 -1.0 0.92)
-      (-1.0 0.47 0.0 0.52 0.0 0.62)
-      (0.0 0.0))
-    0.8
-    0.8))
+   '((0.0 1.17)
+     (0.0 1.67 -1.0 1.67 -1.0 0.92)
+     (-1.0 0.47 0.0 0.52 0.0 0.62)
+     (0.0 0.0))
+   0.8
+   0.8))
 
 (define clarinet-rh-low-d-key-stencil
   (standard-path-stencil
-    '((0.0 1.05)
-      (0.0 1.55 -1.0 1.55 -1.0 0.8)
-      (-1.0 0.35 0.0 0.4 0.0 0.5)
-      (0.0 0.0))
-    0.8
-    0.8))
+   '((0.0 1.05)
+     (0.0 1.55 -1.0 1.55 -1.0 0.8)
+     (-1.0 0.35 0.0 0.4 0.0 0.5)
+     (0.0 0.0))
+   0.8
+   0.8))
 
 (define clarinet-rh-one-key-stencil (standard-e-stencil 0.5 0.25))
 
@@ -841,52 +841,52 @@ returns @samp{1/3}."
 
 (define clarinet-rh-fis-key-stencil
   (standard-path-stencil
-    `(,(bezier-head-for-stencil
-        '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
-        0.5)
-      ,(bezier-head-for-stencil
-        '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
-        0.5)
-      (1.0 1.0 0.0 1.0 0.0 0.0))
-      CL-RH-H-STRETCH
-      CL-RH-V-STRETCH))
+   `(,(bezier-head-for-stencil
+       '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
+       0.5)
+     ,(bezier-head-for-stencil
+       '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
+       0.5)
+     (1.0 1.0 0.0 1.0 0.0 0.0))
+   CL-RH-H-STRETCH
+   CL-RH-V-STRETCH))
 
 (define clarinet-rh-gis-key-stencil
   (standard-path-stencil
-    '((0.0 1.0 1.0 1.0 1.0 0.0) (1.0 -1.0 0.0 -1.0 0.0 0.0))
-    CL-RH-H-STRETCH
-    CL-RH-V-STRETCH))
+   '((0.0 1.0 1.0 1.0 1.0 0.0) (1.0 -1.0 0.0 -1.0 0.0 0.0))
+   CL-RH-H-STRETCH
+   CL-RH-V-STRETCH))
 
 (define clarinet-rh-e-key-stencil
   (standard-path-stencil
-    `(,(bezier-head-for-stencil
-        '((0.0 .  0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
-        0.5)
-      ,(bezier-head-for-stencil
-        '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
-        0.5)
-      ,(bezier-head-for-stencil
-        `((1.0 . 0.0) (,(/ 1 3) . 0.0) (,(/ 1 3) . 1.5) (1.0 .  1.5))
-        0.5)
-       ,(bezier-head-for-stencil
-        `((0.5 . 0.75) (,(/ -1 6) . 0.75) (,(/ -1 6) . -0.75) (0.5 . -0.75))
-        0.5))
-    CL-RH-H-STRETCH
-    CL-RH-V-STRETCH))
+   `(,(bezier-head-for-stencil
+       '((0.0 .  0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
+       0.5)
+     ,(bezier-head-for-stencil
+       '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
+       0.5)
+     ,(bezier-head-for-stencil
+       `((1.0 . 0.0) (,(/ 1 3) . 0.0) (,(/ 1 3) . 1.5) (1.0 .  1.5))
+       0.5)
+     ,(bezier-head-for-stencil
+       `((0.5 . 0.75) (,(/ -1 6) . 0.75) (,(/ -1 6) . -0.75) (0.5 . -0.75))
+       0.5))
+   CL-RH-H-STRETCH
+   CL-RH-V-STRETCH))
 
 (define clarinet-rh-f-key-stencil clarinet-rh-gis-key-stencil)
 
 (define bass-clarinet-rh-ees-key-stencil
   (standard-path-stencil
-    `(,(bezier-head-for-stencil
-        '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
-        0.5)
-      ,(bezier-head-for-stencil
-        '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
-        0.5)
-      (1.0 1.0 0.0 1.0 0.0 0.0))
-    CL-RH-H-STRETCH
-    (- CL-RH-V-STRETCH)))
+   `(,(bezier-head-for-stencil
+       '((0.0 . 0.0) (0.0 . -1.0) (1.0 . -1.0) (1.0 . 0.0))
+       0.5)
+     ,(bezier-head-for-stencil
+       '((0.5 . -0.75) (0.5 . 0.25) (1.5 . 0.25) (1.5 . -0.75))
+       0.5)
+     (1.0 1.0 0.0 1.0 0.0 0.0))
+   CL-RH-H-STRETCH
+   (- CL-RH-V-STRETCH)))
 
 (define low-bass-clarinet-rh-ees-key-stencil clarinet-rh-e-key-stencil)
 
@@ -908,21 +908,21 @@ returns @samp{1/3}."
 
 (define saxophone-lh-gis-key-stencil
   (standard-path-stencil
-    '((0.0 0.4)
-      (0.0 0.8 3.0 0.8 3.0 0.4)
-      (3.0 0.0)
-      (3.0 -0.4 0.0 -0.4 0.0 0.0))
-    0.8
-    0.8))
+   '((0.0 0.4)
+     (0.0 0.8 3.0 0.8 3.0 0.4)
+     (3.0 0.0)
+     (3.0 -0.4 0.0 -0.4 0.0 0.0))
+   0.8
+   0.8))
 
 (define (saxophone-lh-b-cis-key-stencil flip?)
   (standard-path-stencil
-    '((0.0 1.0)
-      (0.4 1.0 0.8 0.9 1.35 0.8)
-      (1.35 0.0)
-      (0.0 0.0))
-    (* (if flip? -1 1) 0.8)
-    0.8))
+   '((0.0 1.0)
+     (0.4 1.0 0.8 0.9 1.35 0.8)
+     (1.35 0.0)
+     (0.0 0.0))
+   (* (if flip? -1 1) 0.8)
+   0.8))
 
 (define saxophone-lh-cis-key-stencil (saxophone-lh-b-cis-key-stencil #t))
 
@@ -930,27 +930,27 @@ returns @samp{1/3}."
 
 (define saxophone-lh-low-bes-key-stencil
   (standard-path-stencil
-    '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
-    0.8
-    0.8))
+   '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
+   0.8
+   0.8))
 
 (define (saxophone-rh-side-key-stencil width height)
   (standard-path-stencil
-    `((0.0 ,height)
-    (0.05 ,(+ height 0.05) 0.1 ,(+ height 0.1) 0.15 ,(+ height 0.15))
-    (,(- width 0.15) ,(+ height 0.15))
-    (,(- width 0.1)
-     ,(+ height 0.1)
-     ,(- width 0.05)
-     ,(+ height 0.05)
-     ,width
-     ,height)
-    (,width 0.0)
-    (,(- width 0.05) -0.05 ,(- width 0.1) -0.1 ,(- width 0.15) -0.15)
-    (0.15 -0.15)
-    (0.1 -0.1 0.05 -0.05 0.0 0.0))
-    1.0
-    1.0))
+   `((0.0 ,height)
+     (0.05 ,(+ height 0.05) 0.1 ,(+ height 0.1) 0.15 ,(+ height 0.15))
+     (,(- width 0.15) ,(+ height 0.15))
+     (,(- width 0.1)
+      ,(+ height 0.1)
+      ,(- width 0.05)
+      ,(+ height 0.05)
+      ,width
+      ,height)
+     (,width 0.0)
+     (,(- width 0.05) -0.05 ,(- width 0.1) -0.1 ,(- width 0.15) -0.15)
+     (0.15 -0.15)
+     (0.1 -0.1 0.05 -0.05 0.0 0.0))
+   1.0
+   1.0))
 
 (define saxophone-rh-e-key-stencil (saxophone-rh-side-key-stencil 0.9 1.2))
 
@@ -960,18 +960,18 @@ returns @samp{1/3}."
 
 (define saxophone-rh-high-fis-key-stencil
   (standard-path-stencil
-    (append
-      '((0.0 1.0) (0.0 1.4 0.6 1.4 0.6 1.0) (0.6 0.0))
-      (map (lambda (l)
-             (flatten-list
-               (map (lambda (x)
-                      (coord-rotate x (atan (* -1 (/ PI 6)))))
-                    l)))
-           '(((0.6 . -1.0))
-             ((0.6 . -1.4) (0.0 . -1.4) (0.0 . -1.0))
-             ((0.0 . 0.0)))))
-       0.75
-       0.75))
+   (append
+    '((0.0 1.0) (0.0 1.4 0.6 1.4 0.6 1.0) (0.6 0.0))
+    (map (lambda (l)
+           (flatten-list
+            (map (lambda (x)
+                   (coord-rotate x (atan (* -1 (/ PI 6)))))
+                 l)))
+         '(((0.6 . -1.0))
+           ((0.6 . -1.4) (0.0 . -1.4) (0.0 . -1.0))
+           ((0.0 . 0.0)))))
+   0.75
+   0.75))
 
 (define saxophone-rh-fis-key-stencil (standard-e-stencil 1.0 0.5))
 
@@ -979,112 +979,112 @@ returns @samp{1/3}."
 
 (define saxophone-rh-low-c-key-stencil
   (standard-path-stencil
-    '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
-    0.8
-    0.8))
+   '((3.0 0.0) (3.0 -1.5 0.0 -1.5 0.0 0.0))
+   0.8
+   0.8))
 
 (define (saxophone-lh-low-a-key-stencil radius thick fill layout props)
   (interpret-markup
-    layout
-    props
-    (make-general-align-markup
-      Y
-      DOWN
-      (make-concat-markup
-        (make-name-keylist
-          `(,(text-fill-translate fill))
-          '(("lowA" . #f))
-          (* 9 radius))))))
+   layout
+   props
+   (make-general-align-markup
+    Y
+    DOWN
+    (make-concat-markup
+     (make-name-keylist
+      `(,(text-fill-translate fill))
+      '(("lowA" . #f))
+      (* 9 radius))))))
 
 ;;; Bassoon family stencils
 
 (define (bassoon-bend-info-maker height gap cut)
   (let* (
-    (first-bezier
-      (flatten-list
-        (car
-          (split-bezier
-            `((0.0 . ,(+ height gap))
-             (0.0 . ,(+ height (+ gap 1.0)))
-             (1.0 . ,(+ height (+ gap 2.0)))
-             (2.0 . ,(+ height (+ gap 2.0))))
-             cut))))
-    (second-bezier
-      (flatten-list
-        (reverse
-          (car
+         (first-bezier
+          (flatten-list
+           (car
             (split-bezier
+             `((0.0 . ,(+ height gap))
+               (0.0 . ,(+ height (+ gap 1.0)))
+               (1.0 . ,(+ height (+ gap 2.0)))
+               (2.0 . ,(+ height (+ gap 2.0))))
+             cut))))
+         (second-bezier
+          (flatten-list
+           (reverse
+            (car
+             (split-bezier
               `((1.0 . ,height)
-               (1.0 . ,(+ 0.5 height))
-               (1.5 . ,(+ 1.0 height))
-               (2.0 . ,(+ 1.0 height)))
+                (1.0 . ,(+ 0.5 height))
+                (1.5 . ,(+ 1.0 height))
+                (2.0 . ,(+ 1.0 height)))
               cut)))))
-    (slope-offset1
-      (get-slope-offset
-        `(,(list-ref first-bezier 4) . ,(list-ref first-bezier 5))
-        `(,(list-ref first-bezier 6) . ,(list-ref first-bezier 7))))
-    (slope-offset2
-      (get-slope-offset
-        `(,(list-ref second-bezier 0) . ,(list-ref second-bezier 1))
-        `(,(list-ref second-bezier 2) . ,(list-ref second-bezier 3)))))
-   (list first-bezier second-bezier slope-offset1 slope-offset2)))
+         (slope-offset1
+          (get-slope-offset
+           `(,(list-ref first-bezier 4) . ,(list-ref first-bezier 5))
+           `(,(list-ref first-bezier 6) . ,(list-ref first-bezier 7))))
+         (slope-offset2
+          (get-slope-offset
+           `(,(list-ref second-bezier 0) . ,(list-ref second-bezier 1))
+           `(,(list-ref second-bezier 2) . ,(list-ref second-bezier 3)))))
+    (list first-bezier second-bezier slope-offset1 slope-offset2)))
 
 (define
   (make-tilted-portion
-    first-bezier
-    second-bezier
-    slope-offset1
-    slope-offset2
-    keylen
-    bezier?)
+   first-bezier
+   second-bezier
+   slope-offset1
+   slope-offset2
+   keylen
+   bezier?)
   (append
-    `((,(+ keylen (list-ref first-bezier 6))
-     ,(+
+   `((,(+ keylen (list-ref first-bezier 6))
+      ,(+
         (*
+         (car slope-offset1)
+         (+ keylen (list-ref first-bezier 6))) (cdr slope-offset1))))
+   ((if bezier? (lambda (x) `(,(apply append x))) identity)
+    `((,(+ (+ keylen 1.75) (list-ref first-bezier 6))
+       ,(+
+         (*
           (car slope-offset1)
-          (+ keylen (list-ref first-bezier 6))) (cdr slope-offset1))))
-    ((if bezier? (lambda (x) `(,(apply append x))) identity)
-     `((,(+ (+ keylen 1.75) (list-ref first-bezier 6))
+          (+ (+ keylen 1.75) (list-ref first-bezier 6)))
+         (cdr slope-offset1)))
+      (,(+ (+ keylen 1.75) (list-ref second-bezier 0))
        ,(+
-          (*
-            (car slope-offset1)
-            (+ (+ keylen 1.75) (list-ref first-bezier 6)))
-          (cdr slope-offset1)))
-       (,(+ (+ keylen 1.75) (list-ref second-bezier 0))
+         (*
+          (car slope-offset2)
+          (+ (+ keylen 1.75) (list-ref second-bezier 0)))
+         (cdr slope-offset2)))
+      (,(+ keylen (list-ref second-bezier 0))
        ,(+
-          (*
-            (car slope-offset2)
-            (+ (+ keylen 1.75) (list-ref second-bezier 0)))
-          (cdr slope-offset2)))
-       (,(+ keylen (list-ref second-bezier 0))
-        ,(+
-          (* (car slope-offset2)  (+ keylen (list-ref second-bezier 0)))
-          (cdr slope-offset2)))))
-    `(,(list-head second-bezier 2))))
+         (* (car slope-offset2)  (+ keylen (list-ref second-bezier 0)))
+         (cdr slope-offset2)))))
+   `(,(list-head second-bezier 2))))
 
 (define (rich-bassoon-uber-key-stencil height gap cut keylen d1 d2 proc bezier?)
   (let* ((info-list (bassoon-bend-info-maker height gap cut))
-   (first-bezier (car info-list))
-   (second-bezier (cadr info-list))
-   (slope-offset1 (caddr info-list))
-   (slope-offset2 (cadddr info-list)))
-  (rich-path-stencil
-    (append
+         (first-bezier (car info-list))
+         (second-bezier (cadr info-list))
+         (slope-offset1 (caddr info-list))
+         (slope-offset2 (cadddr info-list)))
+    (rich-path-stencil
+     (append
       `((0.0 ,(+ height gap))
-      ,(list-tail first-bezier 2))
+        ,(list-tail first-bezier 2))
       (make-tilted-portion
-        first-bezier
-        second-bezier
-        slope-offset1
-        slope-offset2
-        keylen
-        bezier?)
+       first-bezier
+       second-bezier
+       slope-offset1
+       slope-offset2
+       keylen
+       bezier?)
       `(,(list-tail second-bezier 2)
-      (1.0 0.0)
-      (0.0 0.0)))
-    d1
-    d2
-    proc)))
+        (1.0 0.0)
+        (0.0 0.0)))
+     d1
+     d2
+     proc)))
 
 (define (bassoon-uber-key-stencil height gap cut keylen d1 d2)
   (rich-bassoon-uber-key-stencil height gap cut keylen d1 d2 identity #t))
@@ -1097,15 +1097,15 @@ returns @samp{1/3}."
 
 (define bassoon-lh-ees-key-stencil
   (rich-e-stencil
-    1.2
-    0.6
+   1.2
+   0.6
    (lambda (stencil) (ly:stencil-rotate stencil 30 0 0))))
 
 (define bassoon-lh-cis-key-stencil
   (rich-e-stencil
-    1.0
-    0.5
-    (lambda (stencil) (ly:stencil-rotate stencil 30 0 0))))
+   1.0
+   0.5
+   (lambda (stencil) (ly:stencil-rotate stencil 30 0 0))))
 
 (define bassoon-lh-lbes-key-stencil
   (bassoon-uber-key-stencil 1.0 0.5 0.7 0.5 0.6 -0.6))
@@ -1118,40 +1118,40 @@ returns @samp{1/3}."
 
 (define bassoon-lh-ld-key-stencil
   (standard-path-stencil
-    '((-0.8 4.0 1.4 4.0 0.6 0.0)
-      (0.5 -0.5 0.5 -0.8 0.6 -1.0)
-      (0.7 -1.2 0.8 -1.3 0.8 -1.8)
-      (0.5 -1.8)
-      (0.5 -1.4 0.4 -1.2 0.3 -1.1)
-      (0.2 -1.0 0.1 -0.5 0.0 0.0))
-    1.0
-    1.0))
+   '((-0.8 4.0 1.4 4.0 0.6 0.0)
+     (0.5 -0.5 0.5 -0.8 0.6 -1.0)
+     (0.7 -1.2 0.8 -1.3 0.8 -1.8)
+     (0.5 -1.8)
+     (0.5 -1.4 0.4 -1.2 0.3 -1.1)
+     (0.2 -1.0 0.1 -0.5 0.0 0.0))
+   1.0
+   1.0))
 
 (define bassoon-lh-d-flick-key-stencil
   (let ((height 3.0))
     (standard-path-stencil
-      `((0.0 ,height)
+     `((0.0 ,height)
        (0.2 ,(+ height 1.6) 0.8 ,(+ height 1.8) 1.0 ,(+ height 1.8))
        (1.4 ,(+ height 1.8) 1.9 ,(+ height 1.3) 1.9 ,(+ height 1.0))
        (1.9 ,(+ height 0.7) 1.0 ,(+ height 0.4) 0.8 ,(+ height 0.3))
        (0.6 ,(+ height 0.2) 0.4 ,(+ height 0.1) 0.4 ,(- height 0.1))
        (0.4 0.0)
        (0.0 0.0))
-      -1.0
-      -1.0)))
+     -1.0
+     -1.0)))
 
 (define bassoon-lh-c-flick-key-stencil
   (let ((height 3.0))
     (standard-path-stencil
-      `((0.0 ,height)
-         (0.0 ,(+ height 1.6) 0.4 ,(+ height 1.8) 0.5 ,(+ height 1.8))
-         (0.7 ,(+ height 1.8) 0.9 ,(+ height 1.3) 0.9 ,(+ height 1.0))
-         (0.9 ,(+ height 0.5) 0.7 ,(+ height 0.4) 0.6 ,(+ height 0.3))
-         (0.5 ,(+ height 0.2) 0.4 ,(+ height 0.1) 0.4 ,(- height 0.1))
-         (0.4 0.0)
-         (0.0 0.0))
-      -1.0
-      -1.0)))
+     `((0.0 ,height)
+       (0.0 ,(+ height 1.6) 0.4 ,(+ height 1.8) 0.5 ,(+ height 1.8))
+       (0.7 ,(+ height 1.8) 0.9 ,(+ height 1.3) 0.9 ,(+ height 1.0))
+       (0.9 ,(+ height 0.5) 0.7 ,(+ height 0.4) 0.6 ,(+ height 0.3))
+       (0.5 ,(+ height 0.2) 0.4 ,(+ height 0.1) 0.4 ,(- height 0.1))
+       (0.4 0.0)
+       (0.0 0.0))
+     -1.0
+     -1.0)))
 
 (define bassoon-lh-a-flick-key-stencil
   (bassoon-uber-key-stencil 5.0 1.0 0.3 0.6 -0.5 -0.5))
@@ -1163,14 +1163,14 @@ returns @samp{1/3}."
 
 (define bassoon-rh-cis-key-stencil
   (rich-bassoon-uber-key-stencil
-    1.1
-    1.5
-    0.9
-    0.3
-    0.5
-    0.5
-    (lambda (stencil) (ly:stencil-rotate stencil -76 0 0))
-    #t))
+   1.1
+   1.5
+   0.9
+   0.3
+   0.5
+   0.5
+   (lambda (stencil) (ly:stencil-rotate stencil -76 0 0))
+   #t))
 
 (define bassoon-rh-bes-key-stencil little-elliptical-key-stencil)
 
@@ -1179,29 +1179,29 @@ returns @samp{1/3}."
 
 (define bassoon-rh-f-key-stencil
   (let* ((height 0.5) (gap 1.0) (cut 0.8) (keylen 1.5)
-    (info-list (bassoon-bend-info-maker height gap cut))
-    (first-bezier (car info-list))
-    (second-bezier (cadr info-list))
-    (slope-offset1 (caddr info-list))
-    (slope-offset2 (cadddr info-list)))
-  (standard-path-stencil
-    (append
+         (info-list (bassoon-bend-info-maker height gap cut))
+         (first-bezier (car info-list))
+         (second-bezier (cadr info-list))
+         (slope-offset1 (caddr info-list))
+         (slope-offset2 (cadddr info-list)))
+    (standard-path-stencil
+     (append
       (map
-        (lambda (l)
-          (rotunda-map
-            -
-            l
-            (list-tail first-bezier 6)))
-        (make-tilted-portion
-          first-bezier
-          second-bezier
-          slope-offset1
-          slope-offset2
-          keylen
-          #t))
+       (lambda (l)
+         (rotunda-map
+          -
+          l
+          (list-tail first-bezier 6)))
+       (make-tilted-portion
+        first-bezier
+        second-bezier
+        slope-offset1
+        slope-offset2
+        keylen
+        #t))
       '((0.0 0.0)))
-    -0.7
-    0.7)))
+     -0.7
+     0.7)))
 
 (define bassoon-rh-gis-key-stencil
   (bassoon-uber-key-stencil 0.3 1.0 0.8 1.0 -0.7 0.7))

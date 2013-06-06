@@ -36,9 +36,9 @@
       ;; FIXME: how are default/preferred editors specified on
       ;; different platforms?
       (case PLATFORM
-	((windows) "lilypad")
-	(else
-	 "emacs"))))
+        ((windows) "lilypad")
+        (else
+         "emacs"))))
 
 (define editor-command-template-alist
   '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
@@ -53,12 +53,12 @@
 (define (get-command-template alist editor)
   (define (get-command-template-helper)
     (if (null? alist)
-	(if (string-match "%\\(file\\)s" editor)
-	    editor
-	    (string-append editor " %(file)s"))
-	(if (string-match (caar alist) editor)
-	    (cdar alist)
-	    (get-command-template (cdr alist) editor))))
+        (if (string-match "%\\(file\\)s" editor)
+            editor
+            (string-append editor " %(file)s"))
+        (if (string-match (caar alist) editor)
+            (cdar alist)
+            (get-command-template (cdr alist) editor))))
   (if (string-match "%\\(file\\)s" editor)
       editor
       (get-command-template-helper)))
@@ -67,18 +67,18 @@
   (regexp-substitute/global #f re string 'pre sub 'post))
 
 (define (slashify x)
- (if (string-index x #\/)
-     x
-     (re-sub "\\\\" "/" x)))
+  (if (string-index x #\/)
+      x
+      (re-sub "\\\\" "/" x)))
 
 (define-public (get-editor-command file-name line char column)
   (let* ((editor (get-editor))
-	 (template (get-command-template editor-command-template-alist editor))
-	 (command
-	  (re-sub "%\\(file\\)s" (format #f "~S" file-name)
-		  (re-sub "%\\(line\\)s" (format #f "~a" line)
-			  (re-sub "%\\(char\\)s" (format #f "~a" char)
-				  (re-sub
-				   "%\\(column\\)s" (format #f "~a" column)
-				   (slashify template)))))))
+         (template (get-command-template editor-command-template-alist editor))
+         (command
+          (re-sub "%\\(file\\)s" (format #f "~S" file-name)
+                  (re-sub "%\\(line\\)s" (format #f "~a" line)
+                          (re-sub "%\\(char\\)s" (format #f "~a" char)
+                                  (re-sub
+                                   "%\\(column\\)s" (format #f "~a" column)
+                                   (slashify template)))))))
     command))

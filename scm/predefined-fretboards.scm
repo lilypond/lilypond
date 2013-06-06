@@ -19,40 +19,40 @@
 (define-public (parse-terse-string terse-definition)
   "Parse a @code{fret-diagram-terse} definition string @var{terse-definition}
 and return a marking list, which can be used with a fretboard grob."
-   (cdr (fret-parse-terse-definition-string (list '()) terse-definition)))
+  (cdr (fret-parse-terse-definition-string (list '()) terse-definition)))
 
 (define-public (get-chord-shape shape-code tuning base-chord-shapes)
   "Return the chord shape associated with @var{shape-code} and
 @var{tuning} in the hash-table @var{base-chord-shapes}."
   (let ((hash-handle (hash-get-handle base-chord-shapes
-                                       (cons shape-code tuning))))
-     (if hash-handle
-         (cdr hash-handle)
-         '())))
+                                      (cons shape-code tuning))))
+    (if hash-handle
+        (cdr hash-handle)
+        '())))
 
 (define-public (offset-fret fret-offset diagram-definition)
   "Add @var{fret-offset} to each fret indication in
 @var{diagram-definition} and return the resulting verbose
 @code{fret-diagram-definition}."
-   (let ((verbose-definition 
-           (if (string? diagram-definition)
-               (parse-terse-string diagram-definition)
-               diagram-definition)))
-     (map (lambda(item) 
-            (let ((code (car item)))
-              (cond
-                ((eq? code 'barre)
-                  (list-set! item 3
-                     (+ fret-offset (list-ref item 3)))
-                  item)
-                ((eq? code 'capo)
-                  (list-set! item 1
-                     (+ fret-offset (list-ref item 1)))
-                  item)
-                ((eq? code 'place-fret)
-                  (list-set! item 2
-                     (+ fret-offset (list-ref item 2)))
-                  item)
-                (else item))))
-            verbose-definition)))
+  (let ((verbose-definition
+         (if (string? diagram-definition)
+             (parse-terse-string diagram-definition)
+             diagram-definition)))
+    (map (lambda(item)
+           (let ((code (car item)))
+             (cond
+              ((eq? code 'barre)
+               (list-set! item 3
+                          (+ fret-offset (list-ref item 3)))
+               item)
+              ((eq? code 'capo)
+               (list-set! item 1
+                          (+ fret-offset (list-ref item 1)))
+               item)
+              ((eq? code 'place-fret)
+               (list-set! item 2
+                          (+ fret-offset (list-ref item 2)))
+               item)
+              (else item))))
+         verbose-definition)))
 

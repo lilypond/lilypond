@@ -35,8 +35,8 @@
   (make-smaller-markup
    (make-raise-markup
     (if (= alteration FLAT)
-	0.3
-	0.6)
+        0.3
+        0.6)
     (make-musicglyph-markup
      (assoc-get alteration standard-alteration-glyph-name-alist "")))))
 
@@ -55,9 +55,9 @@
       (make-line-markup
        (list
         (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
-	(make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
-	(make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
-	))))
+        (make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
+        (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
+        ))))
 
 (define-public (note-name->markup pitch lowercase?)
   "Return pitch markup for @var{pitch}."
@@ -73,38 +73,38 @@
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
 (define-safe-public ((chord-name->german-markup B-instead-of-Bb)
-		     pitch lowercase?)
+                     pitch lowercase?)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
    Otherwise semi-german names (with Bb and below keeping the british names)
 "
   (let* ((name (ly:pitch-notename pitch))
          (alt-semitones  (pitch-alteration-semitones pitch))
-	 (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
-		  (cons 7 (+ (if B-instead-of-Bb 1 0) alt-semitones))
-		  (cons name alt-semitones))))
+         (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
+                  (cons 7 (+ (if B-instead-of-Bb 1 0) alt-semitones))
+                  (cons name alt-semitones))))
     (make-line-markup
      (list
       (make-simple-markup
        (conditional-string-downcase
-		(vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a))
-		lowercase?))
+        (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a))
+        lowercase?))
       (make-normal-size-super-markup
        (accidental->markup (/ (cdr n-a) 2)))))))
 
 (define-safe-public (note-name->german-markup pitch lowercase?)
   (let* ((name (ly:pitch-notename pitch))
-	 (alt-semitones (pitch-alteration-semitones pitch))
-	 (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
-		  (cons 7 (+ 1 alt-semitones))
-		  (cons name alt-semitones))))
+         (alt-semitones (pitch-alteration-semitones pitch))
+         (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
+                  (cons 7 (+ 1 alt-semitones))
+                  (cons name alt-semitones))))
     (make-line-markup
      (list
       (string-append
        (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
-	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
+           (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
+           (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 (define-public ((chord-name->italian-markup re-with-eacute) pitch lowercase?)
   "Return pitch markup for @var{pitch}, using Italian/@/French note names.
@@ -117,12 +117,12 @@ pitch@tie{}D instead of `re'."
      (list
       (make-simple-markup
        (conditional-string-downcase
-		(vector-ref
-		 (if re-with-eacute
-		     #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
-		     #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
-		 name)
-		lowercase?))
+        (vector-ref
+         (if re-with-eacute
+             #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
+             #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
+         name)
+        lowercase?))
       (accidental->markup-italian alt)
       ))))
 
@@ -136,29 +136,29 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 
   (define (chord-to-exception-entry m)
     (let* ((elts (ly:music-property m 'elements))
-	   (omit-root (and (pair? rest) (car rest)))
-	   (pitches (map (lambda (x) (ly:music-property x 'pitch))
-			 (filter
-			  (lambda (y) (memq 'note-event
-					    (ly:music-property y 'types)))
-			  elts)))
-	   (sorted (sort pitches ly:pitch<?))
-	   (root (car sorted))
+           (omit-root (and (pair? rest) (car rest)))
+           (pitches (map (lambda (x) (ly:music-property x 'pitch))
+                         (filter
+                          (lambda (y) (memq 'note-event
+                                            (ly:music-property y 'types)))
+                          elts)))
+           (sorted (sort pitches ly:pitch<?))
+           (root (car sorted))
 
-	   ;; ugh?
-	   ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
-	   ;; FIXME.  This results in #<Pitch c> ...,
-	   ;; but that is what we need because default octave for
-	   ;; \chords has changed to c' too?
-	   (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
-	   (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
-	   (texts (map (lambda (x) (ly:music-property x 'text))
-		       (filter
-			(lambda (y) (memq 'text-script-event
-					  (ly:music-property y 'types)))
-			elts)))
+           ;; ugh?
+           ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
+           ;; FIXME.  This results in #<Pitch c> ...,
+           ;; but that is what we need because default octave for
+           ;; \chords has changed to c' too?
+           (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
+           (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
+           (texts (map (lambda (x) (ly:music-property x 'text))
+                       (filter
+                        (lambda (y) (memq 'text-script-event
+                                          (ly:music-property y 'types)))
+                        elts)))
 
-	   (text (if (null? texts) #f (if omit-root (car texts) texts))))
+           (text (if (null? texts) #f (if omit-root (car texts) texts))))
       (cons (if omit-root (cdr normalized) normalized) text)))
 
   (define (is-event-chord? m)
@@ -167,6 +167,6 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
      (not (equal? ZERO-MOMENT (ly:music-length m)))))
 
   (let* ((elts (filter is-event-chord? (ly:music-property seq 'elements)))
-	 (alist (map chord-to-exception-entry elts)))
+         (alist (map chord-to-exception-entry elts)))
     (filter (lambda (x) (cdr x)) alist)))
 

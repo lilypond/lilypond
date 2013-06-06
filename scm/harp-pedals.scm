@@ -20,8 +20,8 @@
 (define-markup-command (harp-pedal layout props definition-string) (string?)
   #:category instrument-specific-markup ; markup type for the documentation!
   #:properties ((size 1.2)
-		(harp-pedal-details '())
-		(thickness 0.5))
+                (harp-pedal-details '())
+                (thickness 0.5))
   "Make a harp pedal diagram.
 
 Possible elements in @var{definition-string}:
@@ -132,15 +132,15 @@ It contains the following settings: @code{box-offset}
 
 ;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
 (define (harp-pedals-parse-string definition-string)
- "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
+  "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
   (map (lambda (c)
-    (case c
-      ((#\^) 1)
-      ((#\v) -1)
-      ((#\-) 0)
-      ((#\| #\o) c)
-      (else c)))
-    (string->list definition-string)))
+         (case c
+           ((#\^) 1)
+           ((#\v) -1)
+           ((#\-) 0)
+           ((#\| #\o) c)
+           (else c)))
+       (string->list definition-string)))
 
 
 ;; Analyze the pedal-list: Return (pedalcount . (divider positions))
@@ -149,23 +149,23 @@ It contains the following settings: @code{box-offset}
               (pedalcount 0)
               (dividerpositions '()))
     (if (null? pedals)
-      (cons pedalcount (reverse dividerpositions))
+        (cons pedalcount (reverse dividerpositions))
 
-      (case (car pedals)
-        ((-1 0 1) (check (cdr pedals) (+ pedalcount 1) dividerpositions))
-        ((#\|)    (check (cdr pedals) pedalcount (cons pedalcount dividerpositions)))
-        (else     (check (cdr pedals) pedalcount dividerpositions))))))
+        (case (car pedals)
+          ((-1 0 1) (check (cdr pedals) (+ pedalcount 1) dividerpositions))
+          ((#\|)    (check (cdr pedals) pedalcount (cons pedalcount dividerpositions)))
+          (else     (check (cdr pedals) pedalcount dividerpositions))))))
 
 
 ;; Sanity checks, spit out warning if pedal-list violates the conventions
 (define (harp-pedal-check pedal-list)
   "Perform some sanity checks for harp pedals (7 pedals, divider after third)"
   (let ((info (harp-pedal-info pedal-list)))
-    ; 7 pedals:
+                                        ; 7 pedals:
     (if (not (equal? (car info) 7))
-      (ly:warning "Harp pedal diagram contains ~a pedals rather than the usual 7." (car info)))
-    ; One divider after third pedal:
+        (ly:warning "Harp pedal diagram contains ~a pedals rather than the usual 7." (car info)))
+                                        ; One divider after third pedal:
     (if (null? (cdr info))
-      (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
-      (if (not (equal? (cdr info) '(3)))
-        (ly:warning "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal." (cdr info))))))
+        (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
+        (if (not (equal? (cdr info) '(3)))
+            (ly:warning "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal." (cdr info))))))

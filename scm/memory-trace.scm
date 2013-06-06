@@ -2,7 +2,7 @@
 
 (define-module (scm memory-trace))
 (use-modules (lily)
-	     (ice-9 format))
+             (ice-9 format))
 
 (define-public (mtrace:start-trace freq)
   (set! usecond-interval (inexact->exact (/ 1000000 freq)))
@@ -26,41 +26,41 @@
 (define usecond-interval 100000)
 (define (arg-procedure args)
   (if (and (pair? args)
-	   (pair? (cdr args))
-	   (pair? (cadr args)))
+           (pair? (cdr args))
+           (pair? (cadr args)))
       (caadr args) #f))
 (define last-count 0)
 (define (record-stack key continuation . args)
   (if (eq? (current-thread) trace-thread)
       #t ;; do nothing.
       (let*
-	  ((cells (assoc-get 'total-cells-allocated (gc-stats)))
-	   (proc (arg-procedure args))
-	   (time (tms:utime (times)))
-	   (stack (extract-trace continuation)))
-	
-	(set! busy-tracing #t)
-	(trap-disable 'traps)
-	(trap-disable 'enter-frame)
+          ((cells (assoc-get 'total-cells-allocated (gc-stats)))
+           (proc (arg-procedure args))
+           (time (tms:utime (times)))
+           (stack (extract-trace continuation)))
 
-	(set! trace-count (1+ trace-count))
- 	(ly:progress "<~a: ~a/~a>\n"
-		     trace-count
-		     (- time start-time)
-		     (- cells last-count))
+        (set! busy-tracing #t)
+        (trap-disable 'traps)
+        (trap-disable 'enter-frame)
 
-	(set! last-count cells)
-	(set! trace-points
-	      (cons (list
-		     (cons 'cells cells)
-		     (cons 'proc proc)
-		     (cons 'stack stack)
-		     (cons 'time time)
-		     )
-		    
-		    trace-points))
+        (set! trace-count (1+ trace-count))
+        (ly:progress "<~a: ~a/~a>\n"
+                     trace-count
+                     (- time start-time)
+                     (- cells last-count))
 
-	(set! busy-tracing #f))))
+        (set! last-count cells)
+        (set! trace-points
+              (cons (list
+                     (cons 'cells cells)
+                     (cons 'proc proc)
+                     (cons 'stack stack)
+                     (cons 'time time)
+                     )
+
+                    trace-points))
+
+        (set! busy-tracing #f))))
 
 (define (start-install-tracepoint)
   (set! trace-thread (current-thread))
@@ -69,17 +69,17 @@
   (set! trace-count 0)
   (set! start-memory (assoc-get 'total-cells-allocated (gc-stats)))
   (set! start-time (tms:utime (times)))
-  
+
   (install-tracepoint))
 
 (define (install-tracepoint)
   (if busy-tracing
       (display "last trace not finished yet\n" (current-error-port))
       (begin
-	(trap-set! enter-frame-handler record-stack)
-	(trap-enable 'enter-frame)
-	(trap-enable 'traps)))
-  
+        (trap-set! enter-frame-handler record-stack)
+        (trap-enable 'enter-frame)
+        (trap-enable 'traps)))
+
   (usleep usecond-interval)
   (if continue-tracing
       (install-tracepoint)))
@@ -95,33 +95,33 @@
        )
 
     (ly:progress "Memory statistics to ~a and ~a..."
-		 stacks-name graph-name)
+                 stacks-name graph-name)
     (format graph-out "# memory trace with ~a points\n" (length trace-points))
     (for-each
      (lambda (r)
        (let*
-	   ((mem (- (assoc-get 'cells r) start-memory))
-	    (proc (assoc-get 'proc r))
-	    (stack (assoc-get 'stack r))
-	    (time (- (assoc-get 'time r) start-time)))
-	 
-	 (format graph-out "~a ~a\n" time mem)
-	 (if stack
-	     (begin
-	       (format stacks-out "~5a t = ~5a - delta-mem: ~15a - ~a\n" i
-		       time
-		       (- mem last-mem) proc)
-	       (do
-		   ((j 0 (1+ j))
-		    (stack (assoc-get 'stack r) stack))
-		   ((>= j (vector-length stack)))
-		 
-		 (format stacks-out "\t~a\n"
-			 (vector-ref stack j)))))
-	 
-	 (set! i (1+ i))
-	 (set! last-mem mem)
-	 ))
+           ((mem (- (assoc-get 'cells r) start-memory))
+            (proc (assoc-get 'proc r))
+            (stack (assoc-get 'stack r))
+            (time (- (assoc-get 'time r) start-time)))
+
+         (format graph-out "~a ~a\n" time mem)
+         (if stack
+             (begin
+               (format stacks-out "~5a t = ~5a - delta-mem: ~15a - ~a\n" i
+                       time
+                       (- mem last-mem) proc)
+               (do
+                   ((j 0 (1+ j))
+                    (stack (assoc-get 'stack r) stack))
+                   ((>= j (vector-length stack)))
+
+                 (format stacks-out "\t~a\n"
+                         (vector-ref stack j)))))
+
+         (set! i (1+ i))
+         (set! last-mem mem)
+         ))
      (reverse trace-points))))
 
 
@@ -140,20 +140,20 @@
        (trace (make-vector depth #f)))
 
     (do
-	((i 0 (1+ i)))
-	((>= i depth))
+        ((i 0 (1+ i)))
+        ((>= i depth))
 
       (vector-set!
        trace i
        (let*
-	   ((source (frame-source (stack-ref stack i))))
+           ((source (frame-source (stack-ref stack i))))
 
-	   (and source
-		(cons (source-property source 'filename)
-		      (source-property source 'line))))))
+         (and source
+              (cons (source-property source 'filename)
+                    (source-property source 'line))))))
 
     trace))
 
 
-       
-       
+
+
