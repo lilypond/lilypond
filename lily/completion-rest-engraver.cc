@@ -36,6 +36,7 @@ using namespace std;
 #include "stream-event.hh"
 #include "tie.hh"
 #include "warn.hh"
+#include "misc.hh"
 
 #include "translator.icc"
 
@@ -48,7 +49,7 @@ using namespace std;
   Every time process_music () is called and there are rest events, we
   figure out how long the rest to typeset should be. It should be no
   longer than what's specified, than what is left to do and it should
-  not cross barlines.
+  not cross barlines or sub-bar units.
 
   We copy the events into scratch rest events, to make sure that we get
   all durations exactly right.
@@ -65,7 +66,7 @@ class Completion_rest_engraver : public Engraver
   Rational do_nothing_until_;
   Rational factor_;
 
-  Moment next_barline_moment ();
+  Moment next_moment (Rational const &);
   Item *make_rest (Stream_event *);
 
 public:
@@ -100,10 +101,10 @@ Completion_rest_engraver::listen_rest (Stream_event *ev)
 }
 
 /*
-  The duration _until_ the next barline.
+  The duration _until_ the next barline or completion unit
 */
 Moment
-Completion_rest_engraver::next_barline_moment ()
+Completion_rest_engraver::next_moment (Rational const &note_len)
 {
   Moment *e = unsmob_moment (get_property ("measurePosition"));
   Moment *l = unsmob_moment (get_property ("measureLength"));
@@ -112,7 +113,40 @@ Completion_rest_engraver::next_barline_moment ()
       return Moment (0, 0);
     }
 
-  return (*l - *e);
+  Moment result = *l - *e;
+  Moment const *unit = unsmob_moment (get_property ("completionUnit"));
+
+  if (unit)
+    {
+      Rational const now_unit = e->main_part_ / unit->main_part_;
+      if (now_unit.den() > 1)
+        {
+          /*
+            within a unit - go to the end of that
+          */
+          result = unit->main_part_
+            * (Rational (1) - (now_unit - now_unit.trunc_rat ()));
+        }
+      else
+        {
+          /*
+            at the beginning of a unit:
+            take a power-of-two number of units, but not more than required,
+            since then the Duration constructor destroys the unit structure
+          */
+          if (note_len < result.main_part_)
+            result.main_part_ = note_len;
+          Rational const step_unit = result.main_part_ / unit->main_part_;
+          if (step_unit.den () < step_unit.num ())
+            {
+              int const log2
+                = intlog2 (int (step_unit.num () / step_unit.den ()));
+              result.main_part_ = unit->main_part_ * Rational (1 << log2);
+            }
+        }
+    }
+
+  return result;
 }
 
 Item *
@@ -165,10 +199,10 @@ Completion_rest_engraver::process_music ()
       factor_ = rest_dur.factor ();
       left_to_do_ = orig->get_length ();
     }
-  Moment nb = next_barline_moment ();
+  Moment nb = next_moment (rest_dur.get_length ());
   if (nb.main_part_ && nb < rest_dur.get_length ())
     {
-      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
+      if (factor_.denominator () == 1 && factor_.numerator () > 1)
         rest_dur = Duration (nb.main_part_, false);
       else
         rest_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
@@ -240,6 +274,7 @@ ADD_TRANSLATOR (Completion_rest_engraver,
                 "Rest ",
 
                 /* read */
+                "completionUnit "
                 "middleCPosition "
                 "measurePosition "
                 "measureLength ",
