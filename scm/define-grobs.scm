@@ -2258,14 +2258,12 @@
         (collapse-height . 5.0)
         (direction . ,LEFT)
 
-        (cross-staff . #t)
         ;; ugh--hardcoded.
         (padding . -0.1)  ;; bar must cover rounded ending of staff line.
         (stencil . ,ly:system-start-delimiter::print)
         (style . bar-line)
         (thickness . 1.6)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (side-position-interface
                                 system-start-delimiter-interface))))))
@@ -2275,12 +2273,10 @@
         (collapse-height . 5.0)
         (direction . ,LEFT)
         (font-encoding . fetaBraces)
-        (cross-staff . #t)
         (padding . 0.3)
         (stencil . ,ly:system-start-delimiter::print)
         (style . brace)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
@@ -2290,13 +2286,11 @@
      . (
         (collapse-height . 5.0)
         (direction . ,LEFT)
-        (cross-staff . #t)
         (padding . 0.8)
         (stencil . ,ly:system-start-delimiter::print)
         (style . bracket)
         (thickness . 0.45)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
@@ -2305,12 +2299,10 @@
     (SystemStartSquare
      . (
         (direction . ,LEFT)
-        (cross-staff . #t)
         (stencil . ,ly:system-start-delimiter::print)
         (style . line-bracket)
         (thickness . 1.0)
         (X-offset . ,ly:side-position-interface::x-aligned-side)
-        (Y-extent . #f)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 side-position-interface
