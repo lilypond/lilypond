@@ -32,15 +32,15 @@
 (define-module (scm framework-svg))
 
 (use-modules
- (guile)
- (lily)
- (scm page)
- (scm paper-system)
- (scm output-svg)
- (srfi srfi-1)
- (srfi srfi-2)
- (srfi srfi-13)
- (ice-9 regex))
+  (guile)
+  (lily)
+  (scm page)
+  (scm paper-system)
+  (scm output-svg)
+  (srfi srfi-1)
+  (srfi srfi-2)
+  (srfi srfi-13)
+  (ice-9 regex))
 
 (define format ergonomic-simple-format)
 
@@ -52,8 +52,8 @@
       `(width . ,(ly:format "~2fmm" (first rest)))
       `(height . ,(ly:format "~2fmm" (second rest)))
       `(viewBox . ,(ly:format "~4f ~4f ~4f ~4f"
-                              (third rest) (fourth rest)
-                              (fifth rest) (sixth rest)))))
+			      (third rest) (fourth rest)
+			      (fifth rest) (sixth rest)))))
 
 (define (svg-end)
   (ec 'svg))
@@ -61,40 +61,40 @@
 (define (mkdirs dir-name mode)
   (let loop ((dir-name (string-split dir-name #\/)) (root ""))
     (if (pair? dir-name)
-        (let ((dir (string-append root (car dir-name))))
-          (if (not (file-exists? dir))
-              (mkdir dir mode))
-          (loop (cdr dir-name) (string-append dir "/"))))))
-
+	(let ((dir (string-append root (car dir-name))))
+	  (if (not (file-exists? dir))
+	      (mkdir dir mode))
+	  (loop (cdr dir-name) (string-append dir "/"))))))
+   
 (define output-dir #f)
 
 (define (svg-define-font font font-name scaling)
   (let* ((base-file-name (basename (if (list? font) (pango-pf-file-name font)
-                                       (ly:font-file-name font)) ".otf"))
-         (woff-file-name (string-regexp-substitute "([.]otf)?$" ".woff"
-                                                   base-file-name))
-         (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
-         (url (string-append output-dir "/fonts/" (lilypond-version) "/"
-                             (basename woff-file-name)))
-         (lower-name (string-downcase font-name)))
+				       (ly:font-file-name font)) ".otf"))
+	 (woff-file-name (string-regexp-substitute "([.]otf)?$" ".woff"
+						    base-file-name))
+	 (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
+	 (url (string-append output-dir "/fonts/" (lilypond-version) "/"
+			     (basename woff-file-name)))
+	 (lower-name (string-downcase font-name)))
     (if (file-exists? woff-file)
-        (begin
-          (if (not (file-exists? url))
-              (begin
-                (ly:message (_ "Updating font into: ~a") url)
-                (mkdirs (string-append output-dir "/" (dirname url)) #o700)
-                (copy-file woff-file url)
-                (ly:progress "\n")))
-          (ly:format
-           "@font-face {
+	(begin
+	  (if (not (file-exists? url))
+	      (begin
+		(ly:message (_ "Updating font into: ~a") url)
+		(mkdirs (string-append output-dir "/" (dirname url)) #o700)
+		(copy-file woff-file url)
+		(ly:progress "\n")))
+	  (ly:format
+	   "@font-face {
 font-family: '~a';
 font-weight: normal;
 font-style: normal;
 src: url('~a');
 }
 "
-           font-name url))
-        "")))
+	   font-name url))
+	"")))
 
 (define (woff-header paper dir)
   "TODO:
@@ -115,57 +115,57 @@ src: url('~a');
 
 (define (dump-page paper filename page page-number page-count)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
-         (dump (lambda (str) (display str (ly:outputter-port outputter))))
-         (lookup (lambda (x) (ly:output-def-lookup paper x)))
-         (unit-length (lookup 'output-scale))
-         (output-scale (* lily-unit->mm-factor unit-length))
-         (device-width (lookup 'paper-width))
-         (device-height (lookup 'paper-height))
-         (page-width (* output-scale device-width))
-         (page-height (* output-scale device-height)))
+	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
+	 (lookup (lambda (x) (ly:output-def-lookup paper x)))
+	 (unit-length (lookup 'output-scale))
+	 (output-scale (* lily-unit->mm-factor unit-length))
+	 (device-width (lookup 'paper-width))
+	 (device-height (lookup 'paper-height))
+	 (page-width (* output-scale device-width))
+	 (page-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (module-define! (ly:outputter-module outputter) 'paper paper))
+	(module-define! (ly:outputter-module outputter) 'paper paper))
     (dump (svg-begin page-width page-height
-                     0 0 device-width device-height))
+		     0 0 device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (module-remove! (ly:outputter-module outputter) 'paper))
+	(module-remove! (ly:outputter-module outputter) 'paper))
     (if (ly:get-option 'svg-woff)
-        (dump (woff-header paper (dirname filename))))
+	(dump (woff-header paper (dirname filename))))
     (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
     (ly:outputter-output-scheme outputter
-                                `(begin (set! lily-unit-length ,unit-length)
-                                        ""))
+				`(begin (set! lily-unit-length ,unit-length)
+					""))
     (ly:outputter-dump-stencil outputter page)
     (dump (svg-end))
     (ly:outputter-close outputter)))
 
 (define (dump-preview paper stencil filename)
   (let* ((outputter (ly:make-paper-outputter (open-file filename "wb") 'svg))
-         (dump (lambda (str) (display str (ly:outputter-port outputter))))
-         (lookup (lambda (x) (ly:output-def-lookup paper x)))
-         (unit-length (lookup 'output-scale))
-         (x-extent (ly:stencil-extent stencil X))
-         (y-extent (ly:stencil-extent stencil Y))
-         (left-x (car x-extent))
-         (top-y (cdr y-extent))
-         (device-width (interval-length x-extent))
-         (device-height (interval-length y-extent))
-         (output-scale (* lily-unit->mm-factor unit-length))
-         (svg-width (* output-scale device-width))
-         (svg-height (* output-scale device-height)))
+	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
+	 (lookup (lambda (x) (ly:output-def-lookup paper x)))
+	 (unit-length (lookup 'output-scale))
+	 (x-extent (ly:stencil-extent stencil X))
+	 (y-extent (ly:stencil-extent stencil Y))
+	 (left-x (car x-extent))
+	 (top-y (cdr y-extent))
+	 (device-width (interval-length x-extent))
+	 (device-height (interval-length y-extent))
+	 (output-scale (* lily-unit->mm-factor unit-length))
+	 (svg-width (* output-scale device-width))
+	 (svg-height (* output-scale device-height)))
 
     (if (ly:get-option 'svg-woff)
-        (module-define! (ly:outputter-module outputter) 'paper paper))
+	(module-define! (ly:outputter-module outputter) 'paper paper))
     (dump (svg-begin svg-width svg-height
-                     left-x (- top-y) device-width device-height))
+		     left-x (- top-y) device-width device-height))
     (if (ly:get-option 'svg-woff)
-        (module-remove! (ly:outputter-module outputter) 'paper))
+	(module-remove! (ly:outputter-module outputter) 'paper))
     (if (ly:get-option 'svg-woff)
-        (dump (woff-header paper (dirname filename))))
+	(dump (woff-header paper (dirname filename))))
     (ly:outputter-output-scheme outputter
-                                `(begin (set! lily-unit-length ,unit-length)
-                                        ""))
+				`(begin (set! lily-unit-length ,unit-length)
+					""))
     (ly:outputter-dump-stencil outputter stencil)
     (dump (svg-end))
     (ly:outputter-close outputter)))
@@ -173,27 +173,27 @@ src: url('~a');
 
 (define (output-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
-         (page-stencils (map page-stencil (ly:paper-book-pages book)))
-         (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
-         (page-count (length page-stencils))
-         (filename "")
-         (file-suffix (lambda (num)
-                        (if (= page-count 1) "" (format #f "-page-~a" num)))))
+	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
+	 (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
+	 (page-count (length page-stencils))
+	 (filename "")
+	 (file-suffix (lambda (num)
+			(if (= page-count 1) "" (format #f "-page-~a" num)))))
     (for-each
-     (lambda (page)
-       (set! page-number (1+ page-number))
-       (set! filename (format #f "~a~a.svg"
-                              basename
-                              (file-suffix page-number)))
-       (dump-page paper filename page page-number page-count))
-     page-stencils)))
+      (lambda (page)
+	(set! page-number (1+ page-number))
+	(set! filename (format #f "~a~a.svg"
+			       basename
+			       (file-suffix page-number)))
+	(dump-page paper filename page page-number page-count))
+      page-stencils)))
 
 (define (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
-         (systems (relevant-book-systems book))
-         (to-dump-systems (relevant-dump-systems systems)))
+	 (systems (relevant-book-systems book))
+	 (to-dump-systems (relevant-dump-systems systems)))
     (dump-preview paper
-                  (stack-stencils Y DOWN 0.0
-                                  (map paper-system-stencil
-                                       (reverse to-dump-systems)))
-                  (format #f "~a.preview.svg" basename))))
+		  (stack-stencils Y DOWN 0.0
+				  (map paper-system-stencil
+				       (reverse to-dump-systems)))
+		  (format #f "~a.preview.svg" basename))))

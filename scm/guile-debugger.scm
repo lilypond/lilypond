@@ -31,45 +31,45 @@
   #:use-module (ice-9 debugging ice-9-debugger-extensions)
   #:use-module (ice-9 readline)
   #:export (set-break!
-            clear-break!
-            set-trace-call!
-            clear-trace-call!
-            set-trace-subtree!
-            clear-trace-subtree!
-            debug-help))
+	    clear-break!
+	    set-trace-call!
+	    clear-trace-call!
+	    set-trace-subtree!
+	    clear-trace-subtree!
+	    debug-help))
 
 (define (set-break! proc)
   (install-trap (make <procedure-trap>
-                  #:procedure proc
-                  #:behaviour debug-trap)))
+		  #:procedure proc
+		  #:behaviour debug-trap)))
 (define (clear-break! proc)
   (uninstall-trap (make <procedure-trap>
-                    #:procedure proc
-                    #:behaviour debug-trap)))
+		    #:procedure proc
+		    #:behaviour debug-trap)))
 
 
 (define (set-trace-call! proc)
   (install-trap (make <procedure-trap>
-                  #:procedure proc
-                  #:behaviour (list trace-trap
-                                    trace-at-exit))))
+		  #:procedure proc
+		  #:behaviour (list trace-trap
+				    trace-at-exit))))
 (define (clear-trace-call! proc)
   (uninstall-trap (make <procedure-trap>
-                    #:procedure proc
-                    #:behaviour (list trace-trap
-                                      trace-at-exit))))
+		    #:procedure proc
+		    #:behaviour (list trace-trap
+				      trace-at-exit))))
 
 (define (set-trace-subtree! proc)
   (install-trap (make <procedure-trap>
-                  #:procedure proc
-                  #:behaviour (list trace-trap
-                                    trace-until-exit))))
+		  #:procedure proc
+		  #:behaviour (list trace-trap
+				    trace-until-exit))))
 
 (define (clear-trace-subtree! proc)
   (uninstall-trap (make <procedure-trap>
-                    #:procedure proc
-                    #:behaviour (list trace-trap
-                                      trace-until-exit))))
+		    #:procedure proc
+		    #:behaviour (list trace-trap
+				      trace-until-exit))))
 
 (define (debug-help )
   (display "\nYou may add the following commands as debugging statements in your source file\n")

@@ -15,38 +15,38 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-                                        ; for define-safe-public when byte-compiling using Guile V2
+; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
-                  '(blot-diameter
-                    bottom-margin
-                    cm
-                    footnote-footer-padding
-                    footnote-padding
-                    horizontal-shift
-                    in
-                    indent
-                    inner-margin
-                    inner-margin-default-scaled
-                    ledger-line-thickness
-                    left-margin
+		  '(blot-diameter
+		    bottom-margin
+		    cm
+		    footnote-footer-padding
+		    footnote-padding
+		    horizontal-shift
+		    in
+		    indent
+		    inner-margin
+		    inner-margin-default-scaled
+		    ledger-line-thickness
+		    left-margin
                     left-margin-default-scaled
-                    line-thickness
-                    line-width
-                    mm
-                    outer-margin
-                    outer-margin-default-scaled
-                    paper-height
-                    paper-width
-                    pt
-                    right-margin
+		    line-thickness
+		    line-width
+		    mm
+		    outer-margin
+		    outer-margin-default-scaled
+		    paper-height
+		    paper-width
+		    pt
+		    right-margin
                     right-margin-default-scaled
-                    short-indent
-                    staff-height
-                    staff-space
-                    top-margin)))
+		    short-indent
+		    staff-height
+		    staff-space
+		    top-margin)))
 
 (define (calc-line-thickness staff-space pt)
   ;; linear interpolation.
@@ -70,7 +70,7 @@
        (ss (/ staff-height 4))
        (factor (/ staff-height (* 20 pt)))
        (setm! (lambda (sym val)
-                (module-define! module sym val))))
+		(module-define! module sym val))))
 
     ;; Synchronized with the `text-font-size'
     ;; binding in add-pango-fonts (see font.scm).
@@ -104,23 +104,23 @@
 (define-safe-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((current-mod (current-module))
-         (parser (eval 'parser current-mod))
-         (pap (ly:parser-lookup parser '$defaultpaper))
-         (in-layout? (or (module-defined? current-mod 'is-paper)
-                         (module-defined? current-mod 'is-layout)))
+	 (parser (eval 'parser current-mod))
+	 (pap (ly:parser-lookup parser '$defaultpaper))
+	 (in-layout? (or (module-defined? current-mod 'is-paper)
+			 (module-defined? current-mod 'is-layout)))
 
-         ;; maybe not necessary.
-         ;; but let's be paranoid. Maybe someone still refers to the
-         ;; old one.
-         (new-paper (ly:output-def-clone pap))
+	 ;; maybe not necessary.
+	 ;; but let's be paranoid. Maybe someone still refers to the
+	 ;; old one.
+	 (new-paper (ly:output-def-clone pap))
 
-         (new-scope (ly:output-def-scope new-paper)))
+	 (new-scope (ly:output-def-scope new-paper)))
 
     (if in-layout?
-        (ly:warning (_ "set-global-staff-size: not in toplevel scope")))
+	(ly:warning (_ "set-global-staff-size: not in toplevel scope")))
 
     (layout-set-absolute-staff-size-in-module new-scope
-                                              (* sz (eval 'pt new-scope)))
+					      (* sz (eval 'pt new-scope)))
     (module-define! current-mod '$defaultpaper new-paper)))
 
 (define-public paper-alist
@@ -245,17 +245,17 @@
 where @var{landscape?} specifies whether the dimensions should be swapped
 unless explicitly overriden in the name."
   (let* ((swapped?
-          (cond ((string-suffix? "landscape" name)
-                 (set! name
-                       (string-trim-right (string-drop-right name 9)))
-                 #t)
-                ((string-suffix? "portrait" name)
-                 (set! name
-                       (string-trim-right (string-drop-right name 8)))
-                 #f)
-                (else landscape?)))
-         (is-paper? (module-defined? module 'is-paper))
-         (entry (and is-paper?
+	  (cond ((string-suffix? "landscape" name)
+		 (set! name
+		       (string-trim-right (string-drop-right name 9)))
+		 #t)
+		((string-suffix? "portrait" name)
+		 (set! name
+		       (string-trim-right (string-drop-right name 8)))
+		 #f)
+		(else landscape?)))
+	 (is-paper? (module-defined? module 'is-paper))
+	 (entry (and is-paper?
                      (eval-carefully (assoc-get name paper-alist)
                                      module
                                      #f))))
@@ -275,21 +275,21 @@ unless explicitly overriden in the name."
        ;; Output_def::normalize () needs to know
        ;; whether the user set the value or not.
        (scaleable-values '(("left-margin" #f . #t)
-                           ("right-margin" #f . #t)
-                           ("inner-margin" #f . #t)
-                           ("outer-margin" #f . #t)
-                           ("binding-offset" #f . #f)
-                           ("top-margin" #t . #f)
-                           ("bottom-margin" #t . #f)
-                           ("indent" #f . #f)
-                           ("short-indent" #f . #f)))
+			   ("right-margin" #f . #t)
+			   ("inner-margin" #f . #t)
+			   ("outer-margin" #f . #t)
+			   ("binding-offset" #f . #f)
+			   ("top-margin" #t . #f)
+			   ("bottom-margin" #t . #f)
+			   ("indent" #f . #f)
+			   ("short-indent" #f . #f)))
        (scaled-values
-        (map
+	(map
          (lambda (entry)
            (let ((entry-symbol
-                  (string->symbol
-                   (string-append (car entry) "-default")))
-                 (vertical? (cadr entry)))
+		  (string->symbol
+		   (string-append (car entry) "-default")))
+		 (vertical? (cadr entry)))
              (cons (if (cddr entry)
                        (string-append (car entry) "-default-scaled")
                        (car entry))
@@ -308,8 +308,8 @@ unless explicitly overriden in the name."
     (for-each
      (lambda (value)
        (let ((value-symbol (string->symbol (car value)))
-             (number (cdr value)))
-         (module-define! m value-symbol number)))
+	     (number (cdr value)))
+	 (module-define! m value-symbol number)))
      scaled-values)))
 
 (define (internal-set-paper-size module name landscape?)
@@ -320,10 +320,10 @@ unless explicitly overriden in the name."
       (ly:warning (_ "This is not a \\layout {} object, ~S") module))
      (entry
       (set-paper-dimensions module (car entry) (cdr entry) landscape?)
-
+      
       (module-define! module 'papersizename name)
       (module-define! module 'landscape
-                      (if landscape? #t #f)))
+		      (if landscape? #t #f)))
      (else
       (ly:warning (_ "Unknown paper size: ~a") name)))))
 
@@ -340,7 +340,7 @@ unless explicitly overriden in the name."
 (define-public (set-paper-size name . rest)
   (if (module-defined? (current-module) 'is-paper)
       (internal-set-paper-size (current-module) name
-                               (memq 'landscape rest))
+			       (memq 'landscape rest))
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
@@ -349,19 +349,19 @@ unless explicitly overriden in the name."
 (define-public (scale-layout paper scale)
   "Return a clone of the paper, scaled by the given scale factor."
   (let* ((new-paper (ly:output-def-clone paper))
-         (dim-vars (ly:output-def-lookup paper 'dimension-variables))
-         (old-scope (ly:output-def-scope paper))
-         (scope (ly:output-def-scope new-paper)))
+	 (dim-vars (ly:output-def-lookup paper 'dimension-variables))
+	 (old-scope (ly:output-def-scope paper))
+	 (scope (ly:output-def-scope new-paper)))
 
     (for-each
      (lambda (v)
        (let* ((var (module-variable old-scope v))
-              (val (if (variable? var) (variable-ref var) #f)))
+	      (val (if (variable? var) (variable-ref var) #f)))
 
-         (if (number? val)
-             (module-define! scope v (/ val scale))
-             ;; Cannot warn for non-numbers, eg. for paper-width, paper-height.
-             )))
+	 (if (number? val)
+	     (module-define! scope v (/ val scale))
+	     ;; Cannot warn for non-numbers, eg. for paper-width, paper-height.
+	     )))
      dim-vars)
     ;; Mark the clone.
     (ly:output-def-set-variable! new-paper 'cloned #t)

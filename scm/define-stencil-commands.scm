@@ -70,5 +70,5 @@ are used internally in @file{lily/@/stencil-interpret.cc}."
     ))
 
 (map ly:register-stencil-expression
-     (append (ly:all-stencil-commands)
-             (ly:all-output-backend-commands)))
+  (append (ly:all-stencil-commands)
+	  (ly:all-output-backend-commands)))

@@ -72,72 +72,72 @@ following stencil.  Stencils with empty Y extent are not given
 ;;; convert a full markup object to an approximate pure string representation
 
 (define-public (markup->string m . argscopes)
-  (let* ((scopes (if (pair? argscopes) (car argscopes) '())))
-    ;; markup commands with one markup argument, formatting ignored
-    (define markups-first-argument '(list
-                                     bold-markup box-markup caps-markup dynamic-markup finger-markup
-                                     fontCaps-markup huge-markup italic-markup large-markup larger-markup
-                                     medium-markup normal-size-sub-markup normal-size-super-markup
-                                     normal-text-markup normalsize-markup number-markup roman-markup
-                                     sans-markup simple-markup small-markup smallCaps-markup smaller-markup
-                                     sub-markup super-markup teeny-markup text-markup tiny-markup
-                                     typewriter-markup underline-markup upright-markup bracket-markup
-                                     circle-markup hbracket-markup parenthesize-markup rounded-box-markup
+(let* ((scopes (if (pair? argscopes) (car argscopes) '())))
+  ;; markup commands with one markup argument, formatting ignored
+  (define markups-first-argument '(list
+                                   bold-markup box-markup caps-markup dynamic-markup finger-markup
+                                   fontCaps-markup huge-markup italic-markup large-markup larger-markup
+                                   medium-markup normal-size-sub-markup normal-size-super-markup
+                                   normal-text-markup normalsize-markup number-markup roman-markup
+                                   sans-markup simple-markup small-markup smallCaps-markup smaller-markup
+                                   sub-markup super-markup teeny-markup text-markup tiny-markup
+                                   typewriter-markup underline-markup upright-markup bracket-markup
+                                   circle-markup hbracket-markup parenthesize-markup rounded-box-markup
 
-                                     center-align-markup center-column-markup column-markup dir-column-markup
-                                     fill-line-markup justify-markup justify-string-markup left-align-markup
-                                     left-column-markup line-markup right-align-markup right-column-markup
-                                     vcenter-markup wordwrap-markup wordwrap-string-markup ))
+                                   center-align-markup center-column-markup column-markup dir-column-markup
+                                   fill-line-markup justify-markup justify-string-markup left-align-markup
+                                   left-column-markup line-markup right-align-markup right-column-markup
+                                   vcenter-markup wordwrap-markup wordwrap-string-markup ))
 
-    ;; markup commands with markup as second argument, first argument
-    ;; specifies some formatting and is ignored
-    (define markups-second-argument '(list
-                                      abs-fontsize-markup fontsize-markup magnify-markup lower-markup
-                                      pad-around-markup pad-markup-markup pad-x-markup raise-markup
-                                      halign-markup hcenter-in-markup rotate-markup translate-markup
-                                      translate-scaled-markup with-url-markup scale-markup ))
+  ;; markup commands with markup as second argument, first argument
+  ;; specifies some formatting and is ignored
+  (define markups-second-argument '(list
+                                    abs-fontsize-markup fontsize-markup magnify-markup lower-markup
+                                    pad-around-markup pad-markup-markup pad-x-markup raise-markup
+                                    halign-markup hcenter-in-markup rotate-markup translate-markup
+                                    translate-scaled-markup with-url-markup scale-markup ))
 
-    ;; helper functions to handle string cons like string lists
-    (define (markup-cons->string-cons c scopes)
-      (if (not (pair? c)) (markup->string c scopes)
-          (cons (markup->string (car c) scopes) (markup-cons->string-cons (cdr c) scopes))))
-    (define (string-cons-join c)
-      (if (not (pair? c)) c
-          (string-join (list (car c) (string-cons-join (cdr c))) "")))
+  ;; helper functions to handle string cons like string lists
+  (define (markup-cons->string-cons c scopes)
+    (if (not (pair? c)) (markup->string c scopes)
+        (cons (markup->string (car c) scopes) (markup-cons->string-cons (cdr c) scopes))))
+  (define (string-cons-join c)
+    (if (not (pair? c)) c
+        (string-join (list (car c) (string-cons-join (cdr c))) "")))
 
-    (cond
-     ((string? m) m)
-     ((null? m) "")
-     ((not (pair? m)) "")
+  (cond
+   ((string? m) m)
+   ((null? m) "")
+   ((not (pair? m)) "")
 
-     ;; handle \concat (string-join without spaces)
-     ((and (pair? m) (equal? (car m) concat-markup))
-      (string-cons-join (markup-cons->string-cons (cadr m) scopes)) )
+   ;; handle \concat (string-join without spaces)
+   ((and (pair? m) (equal? (car m) concat-markup))
+    (string-cons-join (markup-cons->string-cons (cadr m) scopes)) )
 
-     ;; markup functions with the markup as first arg
-     ((member (car m) (primitive-eval markups-first-argument))
-      (markup->string (cadr m) scopes))
+   ;; markup functions with the markup as first arg
+   ((member (car m) (primitive-eval markups-first-argument))
+    (markup->string (cadr m) scopes))
 
-     ;; markup functions with markup as second arg
-     ((member (car m) (primitive-eval markups-second-argument))
-      (markup->string (cddr m) scopes))
+   ;; markup functions with markup as second arg
+   ((member (car m) (primitive-eval markups-second-argument))
+    (markup->string (cddr m) scopes))
 
-     ;; fromproperty-markup reads property values from the header block:
-     ((equal? (car m) fromproperty-markup)
-      (let* ((varname (symbol->string (cadr m)))
-             ;; cut off the header: prefix from the variable name:
-             (newvarname (if (string-prefix? "header:" varname) (substring varname 7) varname))
-             (var (string->symbol newvarname))
-             (mod (make-module 1)))
-        ;; Prevent loops by temporarily clearing the variable we have just looked up
-        (module-define! mod var "")
-        (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
+   ;; fromproperty-markup reads property values from the header block:
+   ((equal? (car m) fromproperty-markup)
+    (let* ((varname (symbol->string (cadr m)))
+           ;; cut off the header: prefix from the variable name:
+           (newvarname (if (string-prefix? "header:" varname) (substring varname 7) varname))
+           (var (string->symbol newvarname))
+           (mod (make-module 1)))
+      ;; Prevent loops by temporarily clearing the variable we have just looked up
+      (module-define! mod var "")
+      (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
 
-     ;; ignore all other markup functions
-     ((markup-function? (car m)) "")
+   ;; ignore all other markup functions
+   ((markup-function? (car m)) "")
 
-     ;; handle markup lists
-     ((list? m)
-      (string-join (map (lambda (mm) (markup->string mm scopes)) m) " "))
+   ;; handle markup lists
+   ((list? m)
+    (string-join (map (lambda (mm) (markup->string mm scopes)) m) " "))
 
-     (else "ERROR, unable to extract string from markup"))))
+   (else "ERROR, unable to extract string from markup"))))

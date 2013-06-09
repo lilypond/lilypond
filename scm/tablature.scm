@@ -42,7 +42,7 @@
 
 ;; define sans serif-style tab-Clefs as a markup:
 (define-markup-command (customTabClef
-                        layout props num-strings staff-space)
+                                layout props num-strings staff-space)
   (integer? number?)
   #:category music
   "Draw a tab clef sans-serif style."
@@ -67,8 +67,8 @@
         ;; if it is "moderntab", we'll draw it
         (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
                (line-count (if (ly:grob? staff-symbol)
-                               (ly:grob-property staff-symbol 'line-count)
-                               0))
+			       (ly:grob-property staff-symbol 'line-count)
+			       0))
                (staff-space (ly:staff-symbol-staff-space grob)))
 
           (grob-interpret-markup grob (make-customTabClef-markup line-count
@@ -142,10 +142,10 @@
                   ;; tab note head is visible
                   (if tab-note-head-parenthesized
                       (begin
-                        (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+			(ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
                         (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
                   ;; tab note head is invisible
-                  (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
+                 (ly:grob-set-property! tied-tab-note-head 'transparent #t)))
 
             ;; tie is not split
             (ly:grob-set-property! tied-tab-note-head 'transparent #t)))))
@@ -169,14 +169,14 @@
                (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
                (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
 
-          (if tab-note-head-visible
-              ;; tab note head is visible
-              (if tab-note-head-parenthesized
-                  (begin
-                    (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-                    (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
-              ;; tab note head is invisible
-              (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
+        (if tab-note-head-visible
+            ;; tab note head is visible
+            (if tab-note-head-parenthesized
+                (begin
+                  (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
+                  (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
+            ;; tab note head is invisible
+            (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
 
 ;; the slurs should not be too far apart from the corresponding fret number, so
 ;; we move the slur towards the TabNoteHeads; moreover, if the left fret number is
@@ -196,7 +196,7 @@
                                          (* staff-space
                                             (ly:grob-property grob 'direction)
                                             0.35))))
-                              control-points)))
+                             control-points)))
 
     (ly:grob-set-property! grob 'control-points new-control-points)
     (ly:slur::print grob)))
@@ -231,48 +231,48 @@
   (define (is-harmonic? grob)
     (let ((arts (ly:event-property (event-cause grob) 'articulations)))
       (or (pair? (filter (lambda (a)
-                           (ly:in-event-class? a 'harmonic-event))
-                         arts))
-          (eq? (ly:grob-property grob 'style) 'harmonic))))
+			   (ly:in-event-class? a 'harmonic-event))
+			  arts))
+	  (eq? (ly:grob-property grob 'style) 'harmonic))))
 
   (let* ((cautionary (ly:grob-property grob 'display-cautionary #f))
-         (details (ly:grob-property grob 'details '()))
-         (harmonic-props (assoc-get 'harmonic-properties details '()))
-         (harmonic-angularity (assoc-get 'angularity harmonic-props 2))
-         (harmonic-half-thick (assoc-get 'half-thickness harmonic-props 0.075))
-         (harmonic-padding (assoc-get 'padding harmonic-props 0))
-         (harmonic-proc (assoc-get 'procedure harmonic-props parenthesize-stencil))
-         (harmonic-width (assoc-get 'width harmonic-props 0.25))
-         (cautionary-props (assoc-get 'cautionary-properties details '()))
-         (cautionary-angularity (assoc-get 'angularity cautionary-props 2))
-         (cautionary-half-thick (assoc-get 'half-thickness cautionary-props 0.075))
-         (cautionary-padding (assoc-get 'padding cautionary-props 0))
-         (cautionary-proc (assoc-get 'procedure cautionary-props parenthesize-stencil))
-         (cautionary-width (assoc-get 'width cautionary-props 0.25))
+	 (details (ly:grob-property grob 'details '()))
+	 (harmonic-props (assoc-get 'harmonic-properties details '()))
+	 (harmonic-angularity (assoc-get 'angularity harmonic-props 2))
+	 (harmonic-half-thick (assoc-get 'half-thickness harmonic-props 0.075))
+	 (harmonic-padding (assoc-get 'padding harmonic-props 0))
+	 (harmonic-proc (assoc-get 'procedure harmonic-props parenthesize-stencil))
+	 (harmonic-width (assoc-get 'width harmonic-props 0.25))
+	 (cautionary-props (assoc-get 'cautionary-properties details '()))
+	 (cautionary-angularity (assoc-get 'angularity cautionary-props 2))
+	 (cautionary-half-thick (assoc-get 'half-thickness cautionary-props 0.075))
+	 (cautionary-padding (assoc-get 'padding cautionary-props 0))
+	 (cautionary-proc (assoc-get 'procedure cautionary-props parenthesize-stencil))
+	 (cautionary-width (assoc-get 'width cautionary-props 0.25))
          (output-grob (ly:text-interface::print grob))
-         (ref-grob (grob-interpret-markup grob "8"))
-         (offset-factor (assoc-get 'head-offset details 3/5))
-         (column-offset (* offset-factor
-                           (interval-length
-                            (ly:stencil-extent
-                             (grob-interpret-markup grob "8")
-                             X)))))
+	 (ref-grob (grob-interpret-markup grob "8"))
+	 (offset-factor (assoc-get 'head-offset details 3/5))
+	 (column-offset (* offset-factor
+			   (interval-length
+			     (ly:stencil-extent
+			       (grob-interpret-markup grob "8")
+			       X)))))
 
     (if (is-harmonic? grob)
         (set! output-grob (harmonic-proc output-grob
-                                         harmonic-half-thick
-                                         harmonic-width
-                                         harmonic-angularity
-                                         harmonic-padding)))
+				         harmonic-half-thick
+				         harmonic-width
+				         harmonic-angularity
+				         harmonic-padding)))
     (if cautionary
         (set! output-grob (cautionary-proc output-grob
-                                           cautionary-half-thick
-                                           cautionary-width
-                                           cautionary-angularity
-                                           cautionary-padding)))
+					   cautionary-half-thick
+					   cautionary-width
+					   cautionary-angularity
+					   cautionary-padding)))
     (ly:stencil-translate-axis (centered-stencil output-grob)
-                               column-offset
-                               X)))
+			       column-offset
+			       X)))
 
 ;; Harmonic definitions
 
@@ -290,13 +290,13 @@
   ;; According to the arithmetic sum, the position of m/n is at 1/2*(n-2)(n-1)+(m-1)
   ;; if we start counting from zero
   (vector 12
-          7   19
-          5   12    24
-          4    9    16   28
-          3    7    12   19    31
-          2.7  5.8  9.7  14.7  21.7  33.7
-          2.3  5    8    12    17    24    36
-          2    4.4  7    10    14    19    26  38 ))
+           7   19
+           5   12    24
+           4    9    16   28
+           3    7    12   19    31
+           2.7  5.8  9.7  14.7  21.7  33.7
+           2.3  5    8    12    17    24    36
+           2    4.4  7    10    14    19    26  38 ))
 
 (define partial-pitch
   (vector '(0 0 0)
@@ -332,25 +332,25 @@
                       (- den 1)
                       1/2)
                    nom -1)))
-    (number->string (vector-ref node-positions index))))
+     (number->string (vector-ref node-positions index))))
 
 (define-public (ratio->pitch ratio)
   "Calculate a pitch given @var{ratio} for the harmonic."
   (let* ((partial (1- (denominator ratio)))
          (pitch (vector-ref partial-pitch partial)))
 
-    (ly:make-pitch (first pitch)
-                   (second pitch)
-                   (third pitch))))
+  (ly:make-pitch (first pitch)
+                 (second pitch)
+                 (third pitch))))
 
 (define-public (fret->pitch fret)
   "Calculate a pitch given @var{fret} for the harmonic."
   (let* ((partial (assoc-get fret fret-partials 0))
          (pitch (vector-ref partial-pitch partial)))
 
-    (ly:make-pitch (first pitch)
-                   (second pitch)
-                   (third pitch))))
+  (ly:make-pitch (first pitch)
+                 (second pitch)
+                 (third pitch))))
 
 (define-public (calc-harmonic-pitch pitch music)
   "Calculate the harmonic pitches in @var{music} given
@@ -359,29 +359,29 @@
         (e (ly:music-property music 'element))
         (p (ly:music-property music 'pitch)))
     (cond
-     ((pair? es)
-      (ly:music-set-property! music 'elements
-                              (map (lambda (x) (calc-harmonic-pitch pitch x)) es)))
-     ((ly:music? e)
-      (ly:music-set-property! music 'element (calc-harmonic-pitch pitch e)))
-     ((ly:pitch? p)
-      (begin
-        (set! p (ly:pitch-transpose p pitch))
-        (ly:music-set-property! music 'pitch p))))
+      ((pair? es)
+       (ly:music-set-property! music 'elements
+                               (map (lambda (x) (calc-harmonic-pitch pitch x)) es)))
+      ((ly:music? e)
+       (ly:music-set-property! music 'element (calc-harmonic-pitch pitch e)))
+      ((ly:pitch? p)
+       (begin
+         (set! p (ly:pitch-transpose p pitch))
+         (ly:music-set-property! music 'pitch p))))
     music))
 
 (define-public (make-harmonic mus)
   "Convert music variable @var{mus} to harmonics."
   (let ((elts (ly:music-property mus 'elements))
         (elt (ly:music-property mus 'element)))
-    (cond
-     ((pair? elts)
-      (map make-harmonic elts))
-     ((ly:music? elt)
-      (make-harmonic elt))
-     ((music-is-of-type? mus 'note-event)
-      (set! (ly:music-property mus 'articulations)
-            (append
-             (ly:music-property mus 'articulations)
-             (list (make-music 'HarmonicEvent))))))
-    mus))
+       (cond
+        ((pair? elts)
+         (map make-harmonic elts))
+        ((ly:music? elt)
+         (make-harmonic elt))
+        ((music-is-of-type? mus 'note-event)
+         (set! (ly:music-property mus 'articulations)
+               (append
+                 (ly:music-property mus 'articulations)
+                 (list (make-music 'HarmonicEvent))))))
+       mus))

@@ -17,8 +17,8 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-modules (oop goops)
-             (srfi srfi-13)
-             (srfi srfi-1))
+	     (srfi srfi-13)
+	     (srfi srfi-1))
 
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
@@ -47,10 +47,10 @@
     (node-text node)
     "\n\n"
     (if (pair? (node-children node))
-        (texi-menu
-         (map (lambda (x) (menu-entry x))
-              (node-children node)))
-        ""))
+	(texi-menu
+	 (map (lambda (x) (menu-entry x))
+	      (node-children node)))
+	""))
    port)
   (map (lambda (x) (dump-node x port (+ 1 level)))
        (node-children node)))
@@ -71,21 +71,21 @@
 
 (define (texi-section-command level)
   (assoc-get level '(
-                     ;; Hmm, texinfo doesn't have ``part''
-                     (0 . "@top")
-                     (1 . "@chapter")
-                     (2 . "@section")
-                     (3 . "@subsection")
-                     (4 . "@unnumberedsubsubsec")
-                     (5 . "@unnumberedsubsubsec"))))
+		     ;; Hmm, texinfo doesn't have ``part''
+		     (0 . "@top")
+		     (1 . "@chapter")
+		     (2 . "@section")
+		     (3 . "@subsection")
+		     (4 . "@unnumberedsubsubsec")
+		     (5 . "@unnumberedsubsubsec"))))
 
 (define (texi-appendix-section-command level)
   (assoc-get level '((0 . "@top")
-                     (1 . "@appendix")
-                     (2 . "@appendixsec")
-                     (3 . "@appendixsubsec")
-                     (4 . "@appendixsubsubsec")
-                     (5 . "@appendixsubsubsec"))))
+		     (1 . "@appendix")
+		     (2 . "@appendixsec")
+		     (3 . "@appendixsubsec")
+		     (4 . "@appendixsubsubsec")
+		     (5 . "@appendixsubsubsec"))))
 
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string."
@@ -109,25 +109,25 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."
   (let ((maxwid
-         (apply max (map (lambda (x) (string-length (car x))) items-alist))))
+	 (apply max (map (lambda (x) (string-length (car x))) items-alist))))
 
     (string-append
      "\n@menu"
      (apply string-append
-            (map (lambda (x)
-                   (string-append
-                    (string-pad-right
-                     (string-append "\n* " (car x) ":: ")
-                     (+ maxwid 8))
-                    (cdr x)))
-                 items-alist))
+	    (map (lambda (x)
+		   (string-append
+		    (string-pad-right
+		     (string-append "\n* " (car x) ":: ")
+		     (+ maxwid 8))
+		    (cdr x)))
+		 items-alist))
      "\n@end menu\n"
      ;; Menus don't appear in html, so we make a list ourselves
      "\n@ignore\n"
      "\n@ifhtml\n"
      (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
-                                  items-alist)
-                             #t)
+				  items-alist)
+			     #t)
      "\n@end ifhtml\n"
      "\n@end ignore\n")))
 
@@ -195,27 +195,27 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 with init values from ALIST (1st optional argument)
 "
   (let* ((name (symbol->string sym))
-         (alist (if (pair? rest) (car rest) '()))
-         (type?-name (string->symbol
-                      (string-append (symbol->string where) "-type?")))
-         (doc-name (string->symbol
-                    (string-append (symbol->string where) "-doc")))
-         (type (object-property sym type?-name))
-         (typename (verify-type-name where sym type))
-         (desc (object-property sym doc-name))
-         (init-value (assoc-get sym alist)))
+	 (alist (if (pair? rest) (car rest) '()))
+	 (type?-name (string->symbol
+		      (string-append (symbol->string where) "-type?")))
+	 (doc-name (string->symbol
+		    (string-append (symbol->string where) "-doc")))
+	 (type (object-property sym type?-name))
+	 (typename (verify-type-name where sym type))
+	 (desc (object-property sym doc-name))
+	 (init-value (assoc-get sym alist)))
 
     (if (eq? desc #f)
-        (ly:error (_ "cannot find description for property ~S (~S)") sym where))
+	(ly:error (_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
      (string-append "@code{" name "} "
-                    "(" typename ")"
-                    (if init-value
-                        (string-append
-                         ":\n\n"
-                         (scm->texi init-value)
-                         "\n\n")
-                        ""))
+		    "(" typename ")"
+		    (if init-value
+			(string-append
+			 ":\n\n"
+			 (scm->texi init-value)
+			 "\n\n")
+			""))
      desc)))
 

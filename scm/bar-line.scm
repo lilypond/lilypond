@@ -35,12 +35,12 @@ and the dimensions of the extent into account."
                    (let ((blot-diameter (layout-blot-diameter grob))
                          (height (interval-length extent)))
 
-                     (cond ((< thickness blot-diameter) thickness)
-                           ((< height blot-diameter) height)
-                           (else blot-diameter)))
+                        (cond ((< thickness blot-diameter) thickness)
+                              ((< height blot-diameter) height)
+                              (else blot-diameter)))
                    0)))
 
-    blot))
+        blot))
 
 (define (get-span-glyph bar-glyph)
   "Get the corresponding span glyph from the @code{span-glyph-bar-alist}.
@@ -48,12 +48,12 @@ Pad the string with @code{annotation-char}s to the length of the
 @var{bar-glyph} string."
   (let ((span-glyph (assoc-get bar-glyph span-bar-glyph-alist bar-glyph)))
 
-    (if (string? span-glyph)
-        (set! span-glyph (string-pad-right
+       (if (string? span-glyph)
+           (set! span-glyph (string-pad-right
                           span-glyph
                           (string-length bar-glyph)
                           replacement-char)))
-    span-glyph))
+       span-glyph))
 
 (define (get-staff-symbol grob)
   "Return the staff symbol corresponding to Grob @var{grob}."
@@ -66,51 +66,51 @@ Pad the string with @code{annotation-char}s to the length of the
   (let* ((layout (ly:grob-layout grob))
          (blot-diameter (ly:output-def-lookup layout 'blot-diameter)))
 
-    blot-diameter))
+        blot-diameter))
 
 (define (staff-symbol-line-count staff)
   "Get or compute the number of lines of staff @var{staff}."
   (let ((line-count 0))
 
-    (if (ly:grob? staff)
-        (let ((line-pos (ly:grob-property staff 'line-positions '())))
+       (if (ly:grob? staff)
+           (let ((line-pos (ly:grob-property staff 'line-positions '())))
 
-          (set! line-count (if (pair? line-pos)
-                               (length line-pos)
-                               (ly:grob-property staff 'line-count 0)))))
+                (set! line-count (if (pair? line-pos)
+                                     (length line-pos)
+                                     (ly:grob-property staff 'line-count 0)))))
 
-    line-count))
+         line-count))
 
 (define (staff-symbol-line-span grob)
   (let ((line-pos (ly:grob-property grob 'line-positions '()))
         (iv (cons 0.0 0.0)))
 
-    (if (pair? line-pos)
-        (begin
-          (set! iv (cons (car line-pos) (car line-pos)))
-          (map (lambda (x)
-                 (set! iv (cons (min (car iv) x)
-                                (max (cdr iv) x))))
-               (cdr line-pos)))
+       (if (pair? line-pos)
+           (begin
+             (set! iv (cons (car line-pos) (car line-pos)))
+             (map (lambda (x)
+                    (set! iv (cons (min (car iv) x)
+                                   (max (cdr iv) x))))
+                  (cdr line-pos)))
 
-        (let ((line-count (ly:grob-property grob 'line-count 0)))
+           (let ((line-count (ly:grob-property grob 'line-count 0)))
 
-          (set! iv (cons (- 1 line-count)
-                         (- line-count 1)))))
-    iv))
+                (set! iv (cons (- 1 line-count)
+                               (- line-count 1)))))
+       iv))
 
 (define (staff-symbol-line-positions grob)
   "Get or compute the @code{'line-positions} list from @var{grob}."
   (let ((line-pos (ly:grob-property grob 'line-positions '())))
 
-    (if (not (pair? line-pos))
-        (let* ((line-count (ly:grob-property grob 'line-count 0))
-               (height (- line-count 1.0)))
+       (if (not (pair? line-pos))
+           (let* ((line-count (ly:grob-property grob 'line-count 0))
+                  (height (- line-count 1.0)))
 
-          (set! line-pos (map (lambda (x)
-                                (- height (* x 2)))
-                              (iota line-count)))))
-    line-pos))
+                 (set! line-pos (map (lambda (x)
+                                             (- height (* x 2)))
+                                     (iota line-count)))))
+       line-pos))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; internal helper functions
@@ -128,46 +128,46 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
   (let ((proc (assoc-get glyph bar-glyph-print-procedures))
         (stencil empty-stencil))
 
-    (if (procedure? proc)
-        (set! stencil (proc grob extent))
-        (ly:warning (_ "Bar glyph ~a not known. Ignoring.") glyph))
-    stencil))
+       (if (procedure? proc)
+           (set! stencil (proc grob extent))
+           (ly:warning (_ "Bar glyph ~a not known. Ignoring.") glyph))
+       stencil))
 
 (define (string->string-list str)
   "Convert a string into a list of strings with length 1.
 @code{"aBc"} will be converted to @code{("a" "B" "c")}.
 An empty string will be converted to a list containing @code{""}."
-(if (and (string? str)
-         (not (zero? (string-length str))))
-    (map (lambda (s)
-           (string s))
-         (string->list str))
-    (list "")))
+  (if (and (string? str)
+           (not (zero? (string-length str))))
+      (map (lambda (s)
+                   (string s))
+           (string->list str))
+      (list "")))
 
 (define (strip-string-annotation str)
   "Strip annotations starting with and including the
 annotation char from string @var{str}."
   (let ((pos (string-index str annotation-char)))
 
-    (if pos
-        (substring str 0 pos)
-        str)))
+       (if pos
+           (substring str 0 pos)
+           str)))
 
 (define (check-for-annotation str)
   "Check whether the annotation char is present in string @var{str}."
   (if (string? str)
       (if (string-index str annotation-char)
           (ly:warning
-           (_ "Annotation '~a' is allowed in the first argument of a bar line definition only.")
-           str))))
+            (_ "Annotation '~a' is allowed in the first argument of a bar line definition only.")
+            str))))
 
 (define (check-for-replacement str)
   "Check whether the replacement char is present in string @var{str}."
   (if (string? str)
       (if (string-index str replacement-char)
           (ly:warning
-           (_ "Replacement '~a' is allowed in the last argument of a bar line definition only.")
-           str))))
+            (_ "Replacement '~a' is allowed in the last argument of a bar line definition only.")
+            str))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; functions used by external routines
@@ -179,18 +179,18 @@ annotation char from string @var{str}."
          (last-pos (1- (length sorted-elts)))
          (idx 0))
 
-    (map (lambda (g)
-           (ly:grob-set-property!
-            g
-            'has-span-bar
-            (cons (if (eq? idx last-pos)
-                      #f
-                      grob)
-                  (if (zero? idx)
-                      #f
-                      grob)))
-           (set! idx (1+ idx)))
-         sorted-elts)))
+        (map (lambda (g)
+                     (ly:grob-set-property!
+                       g
+                       'has-span-bar
+                       (cons (if (eq? idx last-pos)
+                                 #f
+                                 grob)
+                             (if (zero? idx)
+                                 #f
+                                 grob)))
+                      (set! idx (1+ idx)))
+             sorted-elts)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line break decisions.
@@ -227,10 +227,10 @@ is not used within the routine."
   (if (or (not (string? glyph))
           (> (string-length glyph) 1))
       (ly:warning
-       (_ "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character.")
-       glyph)
+        (_ "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character.")
+        glyph)
       (set! bar-glyph-print-procedures
-            (acons glyph proc bar-glyph-print-procedures))))
+        (acons glyph proc bar-glyph-print-procedures))))
 
 (define-session bar-glyph-print-procedures `())
 
@@ -253,9 +253,9 @@ is not used within the routine."
          (blot (calc-blot thickness extent grob))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
 
-    (ly:round-filled-box (cons 0 thickness)
-                         extent
-                         blot)))
+        (ly:round-filled-box (cons 0 thickness)
+                             extent
+                             blot)))
 
 (define (make-thick-bar-line grob extent)
   "Draw a thick bar line."
@@ -265,9 +265,9 @@ is not used within the routine."
          (blot (calc-blot thickness extent grob))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
 
-    (ly:round-filled-box (cons 0 thickness)
-                         extent
-                         blot)))
+        (ly:round-filled-box (cons 0 thickness)
+                             extent
+                             blot)))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
@@ -276,9 +276,9 @@ is not used within the routine."
          (height (interval-end extent))
          (blot (calc-blot staff-line-thickness extent grob)))
 
-    (ly:round-filled-box (cons 0 staff-line-thickness)
-                         (cons (- height half-staff) (+ height half-staff))
-                         blot)))
+        (ly:round-filled-box (cons 0 staff-line-thickness)
+                             (cons (- height half-staff) (+ height half-staff))
+                             blot)))
 
 (define (make-colon-bar-line grob extent)
   "Draw repeat dots."
@@ -366,19 +366,19 @@ is not used within the routine."
                       (- 0.5 correction))))
          (counting (interval-length (cons i e)))
          (stil-list (map
-                     (lambda (x)
-                       (ly:stencil-translate-axis
-                        dot (+ x correction) Y))
-                     (iota counting i 1))))
+                      (lambda (x)
+                              (ly:stencil-translate-axis
+                                dot (+ x correction) Y))
+                      (iota counting i 1))))
 
-    (define (add-stencils! stil l)
-      (if (null? l)
-          stil
-          (if (null? (cdr l))
-              (ly:stencil-add stil (car l))
-              (add-stencils! (ly:stencil-add stil (car l)) (cdr l)))))
+        (define (add-stencils! stil l)
+          (if (null? l)
+              stil
+              (if (null? (cdr l))
+                  (ly:stencil-add stil (car l))
+                  (add-stencils! (ly:stencil-add stil (car l)) (cdr l)))))
 
-    (add-stencils! empty-stencil stil-list)))
+        (add-stencils! empty-stencil stil-list)))
 
 (define (make-dashed-bar-line grob extent)
   "Draw a dashed bar line."
@@ -391,48 +391,48 @@ is not used within the routine."
          (dash-size (- 1.0 (ly:grob-property grob 'gap 0.3)))
          (line-count (staff-symbol-line-count staff-symbol)))
 
-    (if (< (abs (+ line-thickness
-                   (* (1- line-count) staff-space)
-                   (- height)))
-           0.1)
-        (let ((blot (layout-blot-diameter grob))
-              (half-space (/ staff-space 2.0))
-              (half-thick (/ line-thickness 2.0))
-              (stencil empty-stencil))
+        (if (< (abs (+ line-thickness
+                       (* (1- line-count) staff-space)
+                       (- height)))
+               0.1)
+            (let ((blot (layout-blot-diameter grob))
+                  (half-space (/ staff-space 2.0))
+                  (half-thick (/ line-thickness 2.0))
+                  (stencil empty-stencil))
 
-          (map (lambda (i)
-                 (let ((top-y (min (* (+ i dash-size) half-space)
-                                   (+ (* (1- line-count) half-space)
-                                      half-thick)))
-                       (bot-y (max (* (- i dash-size) half-space)
-                                   (- 0 (* (1- line-count) half-space)
-                                      half-thick))))
+                 (map (lambda (i)
+                      (let ((top-y (min (* (+ i dash-size) half-space)
+                                        (+ (* (1- line-count) half-space)
+                                           half-thick)))
+                            (bot-y (max (* (- i dash-size) half-space)
+                                        (- 0 (* (1- line-count) half-space)
+                                           half-thick))))
 
-                   (set! stencil
-                         (ly:stencil-add
-                          stencil
-                          (ly:round-filled-box (cons 0 thickness)
-                                               (cons bot-y top-y)
-                                               blot)))))
-               (iota line-count (1- line-count) (- 2)))
-          stencil)
-        (let* ((dashes (/ height staff-space))
-               (total-dash-size (/ height dashes))
-               (factor (/ (- dash-size thickness) staff-space))
-               (stencil (ly:stencil-translate-axis
-                         (ly:make-stencil (list 'dashed-line
-                                                thickness
-                                                (* factor total-dash-size)
-                                                (* (- 1 factor) total-dash-size)
-                                                0
-                                                height
-                                                (* factor total-dash-size 0.5))
-                                          (cons (/ thickness -2) (/ thickness 2))
-                                          (cons 0 height))
-                         (interval-start extent)
-                         Y)))
+                           (set! stencil
+                                 (ly:stencil-add
+                                   stencil
+                                   (ly:round-filled-box (cons 0 thickness)
+                                                        (cons bot-y top-y)
+                                                        blot)))))
+                      (iota line-count (1- line-count) (- 2)))
+            stencil)
+            (let* ((dashes (/ height staff-space))
+                   (total-dash-size (/ height dashes))
+                   (factor (/ (- dash-size thickness) staff-space))
+                   (stencil (ly:stencil-translate-axis
+                              (ly:make-stencil (list 'dashed-line
+                                                     thickness
+                                                     (* factor total-dash-size)
+                                                     (* (- 1 factor) total-dash-size)
+                                                     0
+                                                     height
+                                                     (* factor total-dash-size 0.5))
+                                               (cons (/ thickness -2) (/ thickness 2))
+                                               (cons 0 height))
+                            (interval-start extent)
+                            Y)))
 
-          (ly:stencil-translate-axis stencil (/ thickness 2) X)))))
+                 (ly:stencil-translate-axis stencil (/ thickness 2) X)))))
 
 
 (define ((make-segno-bar-line show-segno) grob extent)
@@ -443,37 +443,37 @@ draws the span bar variant, i.e. without the segno sign."
          (thinkern (* (ly:grob-property grob 'thin-kern 1) line-thickness))
          (thin-stil (make-simple-bar-line grob extent))
          (double-line-stil (ly:stencil-combine-at-edge
-                            thin-stil
-                            X
-                            LEFT
-                            thin-stil
-                            thinkern))
+                             thin-stil
+                             X
+                             LEFT
+                             thin-stil
+                             thinkern))
          (segno (ly:font-get-glyph (ly:grob-default-font grob)
                                    "scripts.varsegno"))
          (stencil (ly:stencil-add
-                   (if show-segno
-                       segno
-                       (ly:make-stencil
-                        ""
-                        (ly:stencil-extent segno X)
-                        (cons 0 0)))
-                   (ly:stencil-translate-axis
-                    double-line-stil
-                    (* 1/2 thinkern)
-                    X))))
+                    (if show-segno
+                        segno
+                        (ly:make-stencil
+                          ""
+                          (ly:stencil-extent segno X)
+                          (cons 0 0)))
+                    (ly:stencil-translate-axis
+                      double-line-stil
+                      (* 1/2 thinkern)
+                      X))))
 
-    stencil))
+       stencil))
 
 (define (make-kievan-bar-line grob extent)
   "Draw a kievan bar line."
   (let* ((font (ly:grob-default-font grob))
          (stencil (stencil-whiteout
-                   (ly:font-get-glyph font "scripts.barline.kievan"))))
+                    (ly:font-get-glyph font "scripts.barline.kievan"))))
 
-    ;; the kievan bar line has no staff lines underneath,
-    ;; so we whiteout them and move the grob to a higher layer
-    (ly:grob-set-property! grob 'layer 1)
-    stencil))
+        ;; the kievan bar line has no staff lines underneath,
+        ;; so we whiteout them and move the grob to a higher layer
+        (ly:grob-set-property! grob 'layer 1)
+        stencil))
 
 (define ((make-bracket-bar-line dir) grob extent)
   "Draw a bracket-style bar line. If @var{dir} is set to @code{LEFT}, the
@@ -489,20 +489,20 @@ opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
                                        (cons 0 0)
                                        (ly:stencil-extent brackettips-up Y)))
          (tip-down-stil (ly:make-stencil (ly:stencil-expr brackettips-down)
-                                         (cons 0 0)
-                                         (ly:stencil-extent brackettips-down Y)))
+                                       (cons 0 0)
+                                       (ly:stencil-extent brackettips-down Y)))
          (stencil (ly:stencil-add
-                   thick-stil
-                   (ly:stencil-translate-axis tip-up-stil
-                                              (interval-end extent)
-                                              Y)
-                   (ly:stencil-translate-axis tip-down-stil
-                                              (interval-start extent)
-                                              Y))))
+                    thick-stil
+                    (ly:stencil-translate-axis tip-up-stil
+                                               (interval-end extent)
+                                               Y)
+                    (ly:stencil-translate-axis tip-down-stil
+                                               (interval-start extent)
+                                               Y))))
 
-    (if (eq? dir LEFT)
-        stencil
-        (ly:stencil-scale stencil -1 1))))
+        (if (eq? dir LEFT)
+            stencil
+            (ly:stencil-scale stencil -1 1))))
 
 (define ((make-spacer-bar-line glyph) grob extent)
   "Draw an invisible bar line which has the same dimensions as the one
@@ -510,7 +510,7 @@ drawn by the procedure associated with glyph @var{glyph}."
   (let* ((stil (glyph->stencil glyph grob extent))
          (stil-x-extent (ly:stencil-extent stil X)))
 
-    (ly:make-stencil "" stil-x-extent extent)))
+        (ly:make-stencil "" stil-x-extent extent)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar line callbacks
@@ -519,36 +519,36 @@ drawn by the procedure associated with glyph @var{glyph}."
   (let ((staff-symbol (get-staff-symbol grob))
         (staff-extent (cons 0 0)))
 
-    (if (ly:grob? staff-symbol)
-        (let ((bar-line-color (ly:grob-property grob 'color))
-              (staff-color (ly:grob-property staff-symbol 'color))
-              (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2))
-              (staff-space (ly:staff-symbol-staff-space grob)))
+       (if (ly:grob? staff-symbol)
+           (let ((bar-line-color (ly:grob-property grob 'color))
+                 (staff-color (ly:grob-property staff-symbol 'color))
+                 (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2))
+                 (staff-space (ly:staff-symbol-staff-space grob)))
 
-          (set! staff-extent (ly:staff-symbol::height staff-symbol))
+                (set! staff-extent (ly:staff-symbol::height staff-symbol))
 
-          (if (zero? staff-space)
-              (set! staff-space 1.0))
+                (if (zero? staff-space)
+                    (set! staff-space 1.0))
 
-          (if (< (interval-length staff-extent) staff-space)
-              ;; staff is too small (perhaps consists of a single line);
-              ;; extend the bar line to make it visible
-              (set! staff-extent
-                    (interval-widen staff-extent staff-space))
-              ;; Due to rounding problems, bar lines extending to the outermost edges
-              ;; of the staff lines appear wrongly in on-screen display
-              ;; (and, to a lesser extent, in print) - they stick out a pixel.
-              ;; The solution is to extend bar lines only to the middle
-              ;; of the staff line - unless they have different colors,
-              ;; when it would be undesirable.
-              ;;
-              ;; This reduction should not influence whether the bar is to be
-              ;; expanded later, so length is not updated on purpose.
-              (if (eq? bar-line-color staff-color)
-                  (set! staff-extent
-                        (interval-widen staff-extent
-                                        (- half-staff-line-thickness)))))))
-    staff-extent))
+                (if (< (interval-length staff-extent) staff-space)
+                    ;; staff is too small (perhaps consists of a single line);
+                    ;; extend the bar line to make it visible
+                    (set! staff-extent
+                          (interval-widen staff-extent staff-space))
+                    ;; Due to rounding problems, bar lines extending to the outermost edges
+                    ;; of the staff lines appear wrongly in on-screen display
+                    ;; (and, to a lesser extent, in print) - they stick out a pixel.
+                    ;; The solution is to extend bar lines only to the middle
+                    ;; of the staff line - unless they have different colors,
+                    ;; when it would be undesirable.
+                    ;;
+                    ;; This reduction should not influence whether the bar is to be
+                    ;; expanded later, so length is not updated on purpose.
+                    (if (eq? bar-line-color staff-color)
+                        (set! staff-extent
+                              (interval-widen staff-extent
+                                              (- half-staff-line-thickness)))))))
+       staff-extent))
 
 ;; this function may come in handy when defining new bar line glyphs, so
 ;; we make it public.
@@ -559,23 +559,23 @@ drawn by the procedure associated with glyph @var{glyph}."
   (let ((staff-symbol (get-staff-symbol grob))
         (has-span-bar (ly:grob-property grob 'has-span-bar #f)))
 
-    (if (and (ly:grob? staff-symbol)
-             (pair? has-span-bar))
-        (let ((bar-line-color (ly:grob-property grob 'color))
-              (staff-color (ly:grob-property staff-symbol 'color))
-              (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2)))
-          (if (eq? bar-line-color staff-color)
-              ;; if the colors are equal, ly:bar-line::calc-bar-extent has
-              ;; shortened the bar line extent by a half-staff-line-thickness
-              ;; this is reverted on the interval bounds where span bars appear:
-              (begin
-                (and (ly:grob? (car has-span-bar))
-                     (set! extent (cons (- (car extent) half-staff-line-thickness)
-                                        (cdr extent))))
-                (and (ly:grob? (cdr has-span-bar))
-                     (set! extent (cons (car extent)
-                                        (+ (cdr extent) half-staff-line-thickness))))))))
-    extent))
+       (if (and (ly:grob? staff-symbol)
+                (pair? has-span-bar))
+           (let ((bar-line-color (ly:grob-property grob 'color))
+                 (staff-color (ly:grob-property staff-symbol 'color))
+                 (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2)))
+                (if (eq? bar-line-color staff-color)
+                    ;; if the colors are equal, ly:bar-line::calc-bar-extent has
+                    ;; shortened the bar line extent by a half-staff-line-thickness
+                    ;; this is reverted on the interval bounds where span bars appear:
+                    (begin
+                      (and (ly:grob? (car has-span-bar))
+                           (set! extent (cons (- (car extent) half-staff-line-thickness)
+                                              (cdr extent))))
+                      (and (ly:grob? (cdr has-span-bar))
+                           (set! extent (cons (car extent)
+                                              (+ (cdr extent) half-staff-line-thickness))))))))
+   extent))
 
 (define (bar-line::bar-y-extent grob refpoint)
   "Compute the y-extent of the bar line relative to @var{refpoint}."
@@ -583,24 +583,24 @@ drawn by the procedure associated with glyph @var{glyph}."
          (rel-y (ly:grob-relative-coordinate grob refpoint Y))
          (y-extent (coord-translate extent rel-y)))
 
-    y-extent))
+        y-extent))
 
 (define-public (ly:bar-line::print grob)
   "The print routine for bar lines."
   (let ((glyph-name (ly:grob-property grob 'glyph-name))
         (extent (ly:grob-property grob 'bar-extent '(0 . 0))))
 
-    (if (and glyph-name
-             (> (interval-length extent) 0))
-        (bar-line::compound-bar-line grob glyph-name extent)
-        #f)))
+       (if (and glyph-name
+                (> (interval-length extent) 0))
+           (bar-line::compound-bar-line grob glyph-name extent)
+           #f)))
 
 (define-public (bar-line::compound-bar-line grob bar-glyph extent)
   "Build the bar line stencil."
   (let* ((line-thickness (layout-line-thickness grob))
          (kern (* (ly:grob-property grob 'kern 1) line-thickness))
          (bar-glyph-list (string->string-list
-                          (strip-string-annotation bar-glyph)))
+                           (strip-string-annotation bar-glyph)))
          (span-glyph (get-span-glyph bar-glyph))
          (span-glyph-list (string->string-list span-glyph))
          (neg-stencil empty-stencil)
@@ -608,53 +608,53 @@ drawn by the procedure associated with glyph @var{glyph}."
          (is-first-neg-stencil #t)
          (is-first-stencil #t))
 
-    ;; We build up two separate stencils first:
-    ;; (1) the neg-stencil is built from all glyphs that have
-    ;;     a replacement-char in the span bar
-    ;; (2) the main stencil is built from all remaining glyphs
-    ;;
-    ;; Afterwards the neg-stencil is attached left to the
-    ;; stencil; this ensures that the main stencil starts
-    ;; at x = 0.
-    ;;
-    ;; For both routines holds:
-    ;; we stack the stencils obtained by the corresponding
-    ;; single glyphs with spacing 'kern' except for the
-    ;; first stencil
-    ;; (Thanks to Harm who came up with this idea!)
-    (for-each (lambda (bar span)
-                (if (and (string=? span (string replacement-char))
-                         is-first-stencil)
-                    (begin
-                      (set! neg-stencil
-                            (ly:stencil-combine-at-edge
-                             neg-stencil
-                             X
-                             RIGHT
-                             (glyph->stencil bar grob extent)
-                             (if is-first-neg-stencil 0 kern)))
-                      (set! is-first-neg-stencil #f))
-                    (begin
-                      (set! stencil
-                            (ly:stencil-combine-at-edge
-                             stencil
-                             X
-                             RIGHT
-                             (glyph->stencil bar grob extent)
-                             (if is-first-stencil 0 kern)))
-                      (set! is-first-stencil #f))))
-              bar-glyph-list span-glyph-list)
-    ;; if we have a non-empty neg-stencil,
-    ;; we attach it to the left side of the stencil
-    (and (not is-first-neg-stencil)
-         (set! stencil
-               (ly:stencil-combine-at-edge
-                stencil
-                X
-                LEFT
-                neg-stencil
-                kern)))
-    stencil))
+        ;; We build up two separate stencils first:
+        ;; (1) the neg-stencil is built from all glyphs that have
+        ;;     a replacement-char in the span bar
+        ;; (2) the main stencil is built from all remaining glyphs
+        ;;
+        ;; Afterwards the neg-stencil is attached left to the
+        ;; stencil; this ensures that the main stencil starts
+        ;; at x = 0.
+        ;;
+        ;; For both routines holds:
+        ;; we stack the stencils obtained by the corresponding
+        ;; single glyphs with spacing 'kern' except for the
+        ;; first stencil
+        ;; (Thanks to Harm who came up with this idea!)
+        (for-each (lambda (bar span)
+                          (if (and (string=? span (string replacement-char))
+                                   is-first-stencil)
+                              (begin
+                                (set! neg-stencil
+                                      (ly:stencil-combine-at-edge
+                                        neg-stencil
+                                        X
+                                        RIGHT
+                                        (glyph->stencil bar grob extent)
+                                        (if is-first-neg-stencil 0 kern)))
+                                (set! is-first-neg-stencil #f))
+                              (begin
+                                (set! stencil
+                                      (ly:stencil-combine-at-edge
+                                        stencil
+                                        X
+                                        RIGHT
+                                        (glyph->stencil bar grob extent)
+                                        (if is-first-stencil 0 kern)))
+                                (set! is-first-stencil #f))))
+                  bar-glyph-list span-glyph-list)
+        ;; if we have a non-empty neg-stencil,
+        ;; we attach it to the left side of the stencil
+        (and (not is-first-neg-stencil)
+             (set! stencil
+                   (ly:stencil-combine-at-edge
+                     stencil
+                     X
+                     LEFT
+                     neg-stencil
+                     kern)))
+        stencil))
 
 (define-public (ly:bar-line::calc-anchor grob)
   "Calculate the anchor position of a bar line. The anchor is used for
@@ -665,22 +665,22 @@ the correct placement of bar numbers etc."
          (x-extent (ly:grob-extent grob grob X))
          (anchor 0.0))
 
-    (and (> (interval-length x-extent) 0)
-         (if (or (= (length bar-glyph-list) 1)
-                 (string=? bar-glyph span-glyph)
-                 (string=? span-glyph ""))
-             ;; We use the x-extent of the stencil if either
-             ;; - we have a single bar-glyph
-             ;; - bar-glyph and span-glyph are identical
-             ;; - we have no span-glyph
-             (set! anchor (interval-center x-extent))
-             ;; If the conditions above do not hold,the anchor is the
-             ;; center of the corresponding span bar stencil extent
-             (set! anchor (interval-center
-                           (ly:stencil-extent
-                            (span-bar::compound-bar-line grob bar-glyph dummy-extent)
-                            X)))))
-    anchor))
+        (and (> (interval-length x-extent) 0)
+             (if (or (= (length bar-glyph-list) 1)
+                     (string=? bar-glyph span-glyph)
+                     (string=? span-glyph ""))
+                 ;; We use the x-extent of the stencil if either
+                 ;; - we have a single bar-glyph
+                 ;; - bar-glyph and span-glyph are identical
+                 ;; - we have no span-glyph
+                 (set! anchor (interval-center x-extent))
+                 ;; If the conditions above do not hold,the anchor is the
+                 ;; center of the corresponding span bar stencil extent
+                 (set! anchor (interval-center
+                                (ly:stencil-extent
+                                  (span-bar::compound-bar-line grob bar-glyph dummy-extent)
+                                  X)))))
+         anchor))
 
 (define-public (bar-line::calc-glyph-name grob)
   "Determine the @code{glyph-name} of the bar line depending on the
@@ -692,9 +692,9 @@ line break status."
                          glyph
                          (if (and result
                                   (string? (index-cell result dir)))
-                             (index-cell result dir)
-                             #f))))
-    glyph-name))
+                            (index-cell result dir)
+                            #f))))
+        glyph-name))
 
 (define-public (bar-line::calc-break-visibility grob)
   "Calculate the visibility of a bar line at line breaks."
@@ -716,85 +716,85 @@ The corresponding SpanBar glyph is computed within
          (pos (1- (ly:grob-array-length elts)))
          (glyph-name '()))
 
-    (while (and (eq? glyph-name '())
-                (> pos -1))
-           (begin (set! glyph-name
-                        (ly:grob-property (ly:grob-array-ref elts pos)
-                                          'glyph-name))
-                  (set! pos (1- pos))))
-    (if (eq? glyph-name '())
-        (begin (ly:grob-suicide! grob)
-               (set! glyph-name "")))
-    glyph-name))
+        (while (and (eq? glyph-name '())
+                    (> pos -1))
+               (begin (set! glyph-name
+                            (ly:grob-property (ly:grob-array-ref elts pos)
+                                              'glyph-name))
+                      (set! pos (1- pos))))
+         (if (eq? glyph-name '())
+             (begin (ly:grob-suicide! grob)
+                    (set! glyph-name "")))
+        glyph-name))
 
 (define-public (ly:span-bar::width grob)
   "Compute the width of the SpanBar stencil."
   (let ((width (cons 0 0)))
 
-    (if (grob::is-live? grob)
-        (let* ((glyph-name (ly:grob-property grob 'glyph-name))
-               (stencil (span-bar::compound-bar-line grob
-                                                     glyph-name
-                                                     dummy-extent)))
+       (if (grob::is-live? grob)
+           (let* ((glyph-name (ly:grob-property grob 'glyph-name))
+                  (stencil (span-bar::compound-bar-line grob
+                                                        glyph-name
+                                                        dummy-extent)))
 
-          (set! width (ly:stencil-extent stencil X))))
-    width))
+                 (set! width (ly:stencil-extent stencil X))))
+       width))
 
 (define-public (ly:span-bar::before-line-breaking grob)
   "A dummy callback that kills the Grob @var{grob} if it contains
 no elements."
   (let ((elts (ly:grob-object grob 'elements)))
 
-    (if (zero? (ly:grob-array-length elts))
-        (ly:grob-suicide! grob))))
+       (if (zero? (ly:grob-array-length elts))
+           (ly:grob-suicide! grob))))
 
 (define-public (span-bar::compound-bar-line grob bar-glyph extent)
   "Build the stencil of the span bar."
   (let* ((line-thickness (layout-line-thickness grob))
          (kern (* (ly:grob-property grob 'kern 1) line-thickness))
          (bar-glyph-list (string->string-list
-                          (strip-string-annotation bar-glyph)))
+                           (strip-string-annotation bar-glyph)))
          (span-glyph (assoc-get bar-glyph span-bar-glyph-alist 'undefined))
          (stencil empty-stencil))
 
-    (if (string? span-glyph)
-        (let ((span-glyph-list (string->string-list span-glyph))
-              (is-first-stencil #t))
+        (if (string? span-glyph)
+            (let ((span-glyph-list (string->string-list span-glyph))
+                  (is-first-stencil #t))
 
-          (for-each (lambda (bar span)
-                      ;; the stencil stack routine is similar to the one
-                      ;; used in bar-line::compound-bar-line, but here,
-                      ;; leading replacement-chars are discarded.
-                      (if (not (and (string=? span (string replacement-char))
-                                    is-first-stencil))
-                          (begin
-                            (set! stencil
-                                  (ly:stencil-combine-at-edge
-                                   stencil
-                                   X
-                                   RIGHT
-                                   ;; if the current glyph is the replacement-char,
-                                   ;; we take the corresponding glyph from the
-                                   ;; bar-glyph-list and insert an empty stencil
-                                   ;; with the appropriate width.
-                                   ;; (this method would fail if the bar-glyph-list
-                                   ;; were shorter than the span-glyph-list,
-                                   ;; but this makes hardly any sense from a
-                                   ;; typographical point of view
-                                   (if (string=? span (string replacement-char))
-                                       ((make-spacer-bar-line bar) grob extent)
-                                       (glyph->stencil span grob extent))
-                                   (if is-first-stencil 0 kern)))
-                            (set! is-first-stencil #f))))
-                    bar-glyph-list span-glyph-list))
-        ;; if span-glyph is not a string, it may be #f or 'undefined;
-        ;; the latter signals that the span bar for the current bar-glyph
-        ;; is undefined, so we raise a warning.
-        (if (eq? span-glyph 'undefined)
-            (ly:warning
-             (_ "No span bar glyph defined for bar glyph '~a'; ignoring.")
-             bar-glyph)))
-    stencil))
+                 (for-each (lambda (bar span)
+                           ;; the stencil stack routine is similar to the one
+                           ;; used in bar-line::compound-bar-line, but here,
+                           ;; leading replacement-chars are discarded.
+                           (if (not (and (string=? span (string replacement-char))
+                                         is-first-stencil))
+                               (begin
+                                 (set! stencil
+                                       (ly:stencil-combine-at-edge
+                                         stencil
+                                         X
+                                         RIGHT
+                                         ;; if the current glyph is the replacement-char,
+                                         ;; we take the corresponding glyph from the
+                                         ;; bar-glyph-list and insert an empty stencil
+                                         ;; with the appropriate width.
+                                         ;; (this method would fail if the bar-glyph-list
+                                         ;; were shorter than the span-glyph-list,
+                                         ;; but this makes hardly any sense from a
+                                         ;; typographical point of view
+                                         (if (string=? span (string replacement-char))
+                                             ((make-spacer-bar-line bar) grob extent)
+                                             (glyph->stencil span grob extent))
+                                         (if is-first-stencil 0 kern)))
+                                 (set! is-first-stencil #f))))
+                   bar-glyph-list span-glyph-list))
+            ;; if span-glyph is not a string, it may be #f or 'undefined;
+            ;; the latter signals that the span bar for the current bar-glyph
+            ;; is undefined, so we raise a warning.
+            (if (eq? span-glyph 'undefined)
+                (ly:warning
+                  (_ "No span bar glyph defined for bar glyph '~a'; ignoring.")
+                  bar-glyph)))
+        stencil))
 
 ;; The method used in the following routine depends on bar_engraver
 ;; not being removed from staff context.  If bar_engraver is removed,
@@ -815,72 +815,72 @@ no elements."
          (bar-glyph (ly:grob-property grob 'glyph-name))
          (span-bar empty-stencil))
 
-    (if (string? bar-glyph)
-        (let ((extents '())
-              (make-span-bars '())
-              (model-bar #f))
+        (if (string? bar-glyph)
+            (let ((extents '())
+                  (make-span-bars '())
+                  (model-bar #f))
 
-          ;; we compute the extents of each system and store them
-          ;; in a list; dito for the 'allow-span-bar property.
-          ;; model-bar takes the bar grob, if given.
-          (map (lambda (bar)
-                 (let ((ext (bar-line::bar-y-extent bar refp))
-                       (staff-symbol (ly:grob-object bar 'staff-symbol)))
+                 ;; we compute the extents of each system and store them
+                 ;; in a list; dito for the 'allow-span-bar property.
+                 ;; model-bar takes the bar grob, if given.
+                 (map (lambda (bar)
+                      (let ((ext (bar-line::bar-y-extent bar refp))
+                            (staff-symbol (ly:grob-object bar 'staff-symbol)))
 
-                   (if (ly:grob? staff-symbol)
-                       (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
+                           (if (ly:grob? staff-symbol)
+                               (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
 
-                         (set! ext (interval-union ext refp-extent))
+                                    (set! ext (interval-union ext refp-extent))
 
-                         (if (> (interval-length ext) 0)
-                             (begin
-                               (set! extents (append extents (list ext)))
-                               (set! model-bar bar)
-                               (set! make-span-bars
-                                     (append make-span-bars
-                                             (list (ly:grob-property
-                                                    bar
-                                                    'allow-span-bar
-                                                    #t))))))))))
-               elts)
-          ;; if there is no bar grob, we use the callback argument
-          (if (not model-bar)
-              (set! model-bar grob))
-          ;; we discard the first entry in make-span-bars,
-          ;; because its corresponding bar line is the
-          ;; uppermost and therefore not connected to
-          ;; another bar line
-          (if (pair? make-span-bars)
-              (set! make-span-bars (cdr make-span-bars)))
-          ;; the span bar reaches from the lower end of the upper staff
-          ;; to the upper end of the lower staff - when allow-span-bar is #t
-          (reduce (lambda (curr prev)
-                    (let ((span-extent (cons 0 0))
-                          (allow-span-bar (car make-span-bars)))
+                                    (if (> (interval-length ext) 0)
+                                        (begin
+                                          (set! extents (append extents (list ext)))
+                                          (set! model-bar bar)
+                                          (set! make-span-bars
+                                            (append make-span-bars
+                                                    (list (ly:grob-property
+                                                            bar
+                                                            'allow-span-bar
+                                                            #t))))))))))
+                     elts)
+                 ;; if there is no bar grob, we use the callback argument
+                 (if (not model-bar)
+                     (set! model-bar grob))
+                 ;; we discard the first entry in make-span-bars,
+                 ;; because its corresponding bar line is the
+                 ;; uppermost and therefore not connected to
+                 ;; another bar line
+                 (if (pair? make-span-bars)
+                     (set! make-span-bars (cdr make-span-bars)))
+                 ;; the span bar reaches from the lower end of the upper staff
+                 ;; to the upper end of the lower staff - when allow-span-bar is #t
+                 (reduce (lambda (curr prev)
+                                 (let ((span-extent (cons 0 0))
+                                       (allow-span-bar (car make-span-bars)))
 
-                      (set! make-span-bars (cdr make-span-bars))
-                      (if (> (interval-length prev) 0)
-                          (begin
-                            (set! span-extent (cons (cdr prev)
-                                                    (car curr)))
-                            ;; draw the span bar only when the staff lines
-                            ;; don't overlap and allow-span-bar is #t:
-                            (and (> (interval-length span-extent) 0)
-                                 allow-span-bar
-                                 (set! span-bar
-                                       (ly:stencil-add
-                                        span-bar
-                                        (span-bar::compound-bar-line
-                                         model-bar
-                                         bar-glyph
-                                         span-extent))))))
-                      curr))
-                  "" extents)
-          (set! span-bar (ly:stencil-translate-axis
-                          span-bar
-                          (- (ly:grob-relative-coordinate grob refp Y))
-                          Y))))
-    span-bar))
+                                      (set! make-span-bars (cdr make-span-bars))
+                                      (if (> (interval-length prev) 0)
+                                          (begin
+                                            (set! span-extent (cons (cdr prev)
+                                                                    (car curr)))
+                                            ;; draw the span bar only when the staff lines
+                                            ;; don't overlap and allow-span-bar is #t:
+                                            (and (> (interval-length span-extent) 0)
+                                                 allow-span-bar
+                                                 (set! span-bar
+                                                       (ly:stencil-add
+                                                         span-bar
+                                                         (span-bar::compound-bar-line
+                                                           model-bar
+                                                           bar-glyph
+                                                           span-extent))))))
+                                      curr))
+                         "" extents)
+                 (set! span-bar (ly:stencil-translate-axis
+                                  span-bar
+                                  (- (ly:grob-relative-coordinate grob refp Y))
+                                  Y))))
+        span-bar))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; volta bracket functions
@@ -892,7 +892,7 @@ no elements."
             (append volta-bracket-allow-volta-hook-list
                     (list bar-glyph)))
       (ly:warning (_ ("Volta hook bar line must be a string; ignoring '~a'.")
-                     bar-glyph))))
+                  bar-glyph))))
 
 (define-session volta-bracket-allow-volta-hook-list '())
 
@@ -926,8 +926,8 @@ of the volta brackets relative to the bar lines."
          ;; is the last entry with the same vag-index, so we transform the array to a list,
          ;; reverse it and search for suitable entries:
          (filtered-grobs (filter (lambda (e)
-                                   (eq? (ly:grob-get-vertical-axis-group-index e)
-                                        vag-index))
+                                         (eq? (ly:grob-get-vertical-axis-group-index e)
+                                              vag-index))
                                  (reverse (ly:grob-array->list bar-array))))
          ;; we need the first one (if any)
          (right-bar-line (if (pair? filtered-grobs)
@@ -946,44 +946,44 @@ of the volta brackets relative to the bar lines."
          (right-bar-broken (or (null? right-bar-line)
                                (not (zero? (ly:item-break-dir right-bar-line)))))
          (left-span-stencil-extent (ly:stencil-extent
-                                    (span-bar::compound-bar-line
-                                     left-bar-line
-                                     left-bar-glyph-name
-                                     dummy-extent)
-                                    X))
-         (right-span-stencil-extent (ly:stencil-extent
                                      (span-bar::compound-bar-line
-                                      right-bar-line
-                                      right-bar-glyph-name
-                                      dummy-extent)
+                                       left-bar-line
+                                       left-bar-glyph-name
+                                       dummy-extent)
                                      X))
+         (right-span-stencil-extent (ly:stencil-extent
+                                      (span-bar::compound-bar-line
+                                        right-bar-line
+                                        right-bar-glyph-name
+                                        dummy-extent)
+                                      X))
          (left-shorten 0.0)
          (right-shorten 0.0))
 
-    ;; since "empty" intervals may look like (1.0 . -1.0), we use the
-    ;; min/max functions to make sure that the placement is not corrupted
-    ;; in case of empty bar lines
-    (set! left-shorten
-          (if left-bar-broken
-              (- (max 0 (interval-end left-span-stencil-extent))
-                 (max 0 (interval-end (ly:stencil-extent
-                                       (bar-line::compound-bar-line
-                                        left-bar-line
-                                        left-bar-glyph-name
-                                        dummy-extent)
-                                       X)))
-                 volta-half-line-thickness)
-              (- (max 0 (interval-end left-span-stencil-extent))
-                 volta-half-line-thickness)))
+        ;; since "empty" intervals may look like (1.0 . -1.0), we use the
+        ;; min/max functions to make sure that the placement is not corrupted
+        ;; in case of empty bar lines
+        (set! left-shorten
+              (if left-bar-broken
+                  (- (max 0 (interval-end left-span-stencil-extent))
+                     (max 0 (interval-end (ly:stencil-extent
+                                            (bar-line::compound-bar-line
+                                              left-bar-line
+                                              left-bar-glyph-name
+                                              dummy-extent)
+                                            X)))
+                     volta-half-line-thickness)
+                  (- (max 0 (interval-end left-span-stencil-extent))
+                     volta-half-line-thickness)))
 
-    (set! right-shorten
-          (if right-bar-broken
-              (+ (- (max 0 (interval-end right-span-stencil-extent)))
-                 volta-half-line-thickness)
-              (- (min 0 (interval-start right-span-stencil-extent))
-                 volta-half-line-thickness)))
+        (set! right-shorten
+              (if right-bar-broken
+                  (+ (- (max 0 (interval-end right-span-stencil-extent)))
+                     volta-half-line-thickness)
+                  (- (min 0 (interval-start right-span-stencil-extent))
+                     volta-half-line-thickness)))
 
-    (cons left-shorten right-shorten)))
+  (cons left-shorten right-shorten)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; predefined bar glyph print procedures

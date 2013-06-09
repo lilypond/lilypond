@@ -50,13 +50,13 @@
                 (ending-moments (cdr group-list) new-start base-moment)))))
 
   (define (larger-setting test-beam sorted-alist)
-    (if (null? sorted-alist)
-        '()
-        (let* ((first-key (caar sorted-alist))
-               (first-moment (fraction->moment first-key)))
-          (if (moment<=? test-beam first-moment)
-              (car sorted-alist)
-              (larger-setting test-beam (cdr sorted-alist))))))
+   (if (null? sorted-alist)
+       '()
+       (let* ((first-key (caar sorted-alist))
+              (first-moment (fraction->moment first-key)))
+         (if (moment<=? test-beam first-moment)
+             (car sorted-alist)
+             (larger-setting test-beam (cdr sorted-alist))))))
 
   (define (beat-end? moment beat-structure)
     (pair? (member moment beat-structure)))  ;; member returns a list if found, not #t
@@ -71,7 +71,7 @@
       (let* ((base-moment (get 'baseMoment (ly:make-moment 1 4)))
              (measure-length (get 'measureLength (ly:make-moment 1 1)))
              (time-signature-fraction
-              (get 'timeSignatureFraction '(4 . 4)))
+               (get 'timeSignatureFraction '(4 . 4)))
              (beat-structure (get 'beatStructure '(1 1 1 1)))
              (beat-endings (ending-moments beat-structure 0 base-moment))
              (exceptions (sort (assoc-get 'end
@@ -82,8 +82,8 @@
              (beam-half-measure (get 'beamHalfMeasure #t))
              (type (moment->fraction test-beam))
              (non-grace (ly:make-moment
-                         (ly:moment-main-numerator measure-pos)
-                         (ly:moment-main-denominator measure-pos)))
+                          (ly:moment-main-numerator measure-pos)
+                          (ly:moment-main-denominator measure-pos)))
              (pos (if (ly:moment<? non-grace ZERO-MOMENT)
                       (ly:moment-add measure-length non-grace)
                       non-grace))
@@ -98,15 +98,15 @@
                                       (car default-rule)
                                       '()))
              (exception-grouping (if (null? type-grouping)
-                                     default-grouping
-                                     type-grouping))
+                                default-grouping
+                                type-grouping))
              (grouping-moment (if (null? type-grouping)
                                   (fraction->moment default-beat-length)
                                   test-beam))
              (exception-moments (ending-moments
-                                 exception-grouping 0 grouping-moment)))
+                                  exception-grouping 0 grouping-moment)))
 
-        (if (= dir START)
+	(if (= dir START)
             ;; Start rules -- #t if beam is allowed to start
             (or beam-half-measure ;; Start anywhere, but option for mid-measure
                 (not (equal? (ly:moment-add pos pos) measure-length))

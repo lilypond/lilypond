@@ -43,7 +43,7 @@
   (make <Font-tree-leaf> #:default-size size #:size-vector size-font-vector))
 
 (define (make-font-tree-node
-         qualifier default)
+	 qualifier default)
   (make <Font-tree-node>
     #:qualifier qualifier
     #:default default
@@ -52,11 +52,11 @@
 (define-method (display (leaf <Font-tree-leaf>) port)
   (map (lambda (x) (display x port))
        (list
-        "#<Font-size-family:\n"
-        (slot-ref leaf 'default-size)
-        (slot-ref leaf 'size-vector)
-        "#>"
-        )))
+	"#<Font-size-family:\n"
+	(slot-ref leaf 'default-size)
+	(slot-ref leaf 'size-vector)
+	"#>"
+	)))
 
 (define-method (display (node <Font-tree-node>) port)
   (map
@@ -84,10 +84,10 @@
 
   (define (make-node fprops size-family)
     (if (null? fprops)
-        (make-font-tree-leaf (car size-family) (cdr size-family))
-        (let* ((qual (next-qualifier default-qualifier-order fprops)))
-          (make-font-tree-node qual
-                               (assoc-get qual fprops)))))
+	(make-font-tree-leaf (car size-family) (cdr size-family))
+	(let* ((qual (next-qualifier default-qualifier-order fprops)))
+	  (make-font-tree-node qual
+			       (assoc-get qual fprops)))))
 
   (define (next-qualifier order props)
     (cond
@@ -97,34 +97,34 @@
      ((null? order) (caar props))
      (else
       (if (assoc-get (car order) props)
-          (car order)
-          (next-qualifier (cdr order) props)))))
+	  (car order)
+	  (next-qualifier (cdr order) props)))))
 
   (let* ((q (font-qualifier node))
-         (d (font-default node))
-         (v (assoc-get q fprops d))
-         (new-fprops (assoc-delete q fprops))
-         (child (hashq-ref (slot-ref node 'children)
-                           v #f)))
+	 (d (font-default node))
+	 (v (assoc-get q fprops d))
+	 (new-fprops (assoc-delete q fprops))
+	 (child (hashq-ref (slot-ref node 'children)
+			   v #f)))
     (if (not child)
-        (begin
-          (set! child (make-node new-fprops size-family))
-          (hashq-set! (slot-ref node 'children) v child)))
+	(begin
+	  (set! child (make-node new-fprops size-family))
+	  (hashq-set! (slot-ref node 'children) v child)))
     (if (pair? new-fprops)
-        (add-font child new-fprops size-family))))
+	(add-font child new-fprops size-family))))
 
 (define-method (add-font (node <Font-tree-leaf>) fprops size-family)
   (throw "must add to node, not leaf"))
 
 (define-method (g-lookup-font (node <Font-tree-node>) alist-chain)
   (let* ((qual (font-qualifier node))
-         (def (font-default node))
-         (val (chain-assoc-get qual alist-chain def))
-         (desired-child (hashq-ref (font-children node) val)))
+	 (def (font-default node))
+	 (val (chain-assoc-get qual alist-chain def))
+	 (desired-child (hashq-ref (font-children node) val)))
 
     (if desired-child
-        (g-lookup-font desired-child alist-chain)
-        (g-lookup-font (hashq-ref (font-children node) def) alist-chain))))
+	(g-lookup-font desired-child alist-chain)
+	(g-lookup-font (hashq-ref (font-children node) def) alist-chain))))
 
 (define-method (g-lookup-font (node <Font-tree-leaf>) alist-chain)
   node)
@@ -176,32 +176,32 @@ used.  This is used to select the proper design size for the text fonts.
   (for-each
    (lambda (x)
      (add-font node
-               (list (cons 'font-encoding (car x))
-                     (cons 'font-family family))
-               (cons (* factor (cadr x))
-                     (caddr x))))
-
+	       (list (cons 'font-encoding (car x))
+		     (cons 'font-family family))
+	       (cons (* factor (cadr x))
+		     (caddr x))))
+   
    `((fetaText ,(ly:pt 20.0)
-               ,(list->vector
-                 (map (lambda (tup)
-                        (cons (ly:pt (cdr tup))
-                              (format #f "~a-~a ~a"
-                                      name
-                                      (car tup)
-                                      (ly:pt (cdr tup)))))
-                      design-size-alist)))
+	       ,(list->vector
+		 (map (lambda (tup)
+			(cons (ly:pt (cdr tup))
+			      (format #f "~a-~a ~a"
+				      name
+				      (car tup)
+				      (ly:pt (cdr tup)))))
+		      design-size-alist)))
      (fetaMusic ,(ly:pt 20.0)
-                ,(list->vector
-                  (map (lambda (size-tup)
-                         (delay (ly:system-font-load
-                                 (format #f "~a-~a" name (car size-tup)))))
-                       design-size-alist
-                       )))
+		,(list->vector
+		  (map (lambda (size-tup)
+			 (delay (ly:system-font-load
+				 (format #f "~a-~a" name (car size-tup)))))
+		       design-size-alist
+		       )))
      (fetaBraces ,(ly:pt 20.0)
-                 #(,(delay (ly:system-font-load
-                            (format #f "~a-brace" name)))))
+		 #(,(delay (ly:system-font-load
+			    (format #f "~a-brace" name)))))
      )))
-
+		 
 (define-public (add-pango-fonts node lily-family family factor)
   ;; Synchronized with the `text-font-size' variable in
   ;; layout-set-absolute-staff-size-in-module (see paper.scm).
@@ -209,19 +209,19 @@ used.  This is used to select the proper design size for the text fonts.
 
   (define (add-node shape series)
     (add-font node
-              `((font-family . ,lily-family)
-                (font-shape . ,shape)
-                (font-series . ,series)
-                (font-encoding . latin1) ;; ugh.
-                )
-              `(,text-font-size
-                . #(,(cons
-                      (ly:pt 12)
-                      (ly:make-pango-description-string
-                       `(((font-family . ,family)
-                          (font-series . ,series)
-                          (font-shape . ,shape)))
-                       (ly:pt 12)))))))
+	      `((font-family . ,lily-family)
+		(font-shape . ,shape)
+		(font-series . ,series)
+		(font-encoding . latin1) ;; ugh.
+		)
+	      `(,text-font-size
+		. #(,(cons
+		     (ly:pt 12)
+		     (ly:make-pango-description-string
+		       `(((font-family . ,family)
+			  (font-series . ,series)
+			  (font-shape . ,shape)))
+		       (ly:pt 12)))))))
 
   (add-node 'upright 'normal)
   (add-node 'caps 'normal)
@@ -239,8 +239,8 @@ used.  This is used to select the proper design size for the text fonts.
 
 (define-public (make-century-schoolbook-tree factor)
   (make-pango-font-tree
-   "Century Schoolbook L"
-   "sans-serif" "monospace" factor))
+    "Century Schoolbook L"
+    "sans-serif" "monospace" factor))
 
 (define-public all-text-font-encodings
   '(latin1))

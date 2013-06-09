@@ -1,7 +1,7 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
 ;;;; (c) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
-;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ way the transposition number is displayed."
                     (cons "" "")))
          (text (string-concatenate (list (car delim) oct (cdr delim)))))
 
-    (make-vcenter-markup text)))
+       (make-vcenter-markup text)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -40,55 +40,55 @@ way the transposition number is displayed."
 
 (define-public (format-metronome-markup event context)
   (let ((hide-note (ly:context-property context 'tempoHideNote #f))
-        (text (ly:event-property event 'text))
-        (dur (ly:event-property event 'tempo-unit))
-        (count (ly:event-property event 'metronome-count)))
+	(text (ly:event-property event 'text))
+	(dur (ly:event-property event 'tempo-unit))
+	(count (ly:event-property event 'metronome-count)))
 
     (metronome-markup text dur count hide-note)))
 
 (define-public (metronome-markup text dur count hide-note)
   (let* ((note-mark (if (and (not hide-note) (ly:duration? dur))
-                        (make-smaller-markup
-                         (make-note-by-number-markup (ly:duration-log dur)
-                                                     (ly:duration-dot-count dur)
-                                                     1))
-                        #f))
-         (count-markup (cond ((number? count)
-                              (if (> count 0)
-                                  (make-simple-markup (number->string count))
-                                  #f))
-                             ((pair? count)
-                              (make-concat-markup
-                               (list
-                                (make-simple-markup (number->string (car count)))
-                                (make-simple-markup " ")
-                                (make-simple-markup "–")
-                                (make-simple-markup " ")
-                                (make-simple-markup (number->string (cdr count))))))
-                             (else #f)))
+			(make-smaller-markup
+			 (make-note-by-number-markup (ly:duration-log dur)
+						     (ly:duration-dot-count dur)
+						     1))
+			#f))
+	 (count-markup (cond ((number? count)
+			      (if (> count 0)
+				  (make-simple-markup (number->string count))
+				  #f))
+			     ((pair? count)
+			      (make-concat-markup
+			       (list
+				(make-simple-markup (number->string (car count)))
+				(make-simple-markup " ")
+				(make-simple-markup "–")
+				(make-simple-markup " ")
+				(make-simple-markup (number->string (cdr count))))))
+			     (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
-                          (make-concat-markup
-                           (list
-                            (make-general-align-markup Y DOWN note-mark)
-                            (make-simple-markup " ")
-                            (make-simple-markup "=")
-                            (make-simple-markup " ")
-                            count-markup))
-                          #f))
+			  (make-concat-markup
+			   (list
+			    (make-general-align-markup Y DOWN note-mark)
+			    (make-simple-markup " ")
+			    (make-simple-markup "=")
+			    (make-simple-markup " ")
+			    count-markup))
+			  #f))
          (text-markup (if (not (null? text))
-                          (make-bold-markup text)
-                          #f)))
+			  (make-bold-markup text)
+			  #f)))
     (if text-markup
-        (if (and note-markup (not hide-note))
-            (make-line-markup (list text-markup
-                                    (make-concat-markup
-                                     (list (make-simple-markup "(")
-                                           note-markup
-                                           (make-simple-markup ")")))))
-            (make-line-markup (list text-markup)))
-        (if note-markup
-            (make-line-markup (list note-markup))
-            (make-null-markup)))))
+	(if (and note-markup (not hide-note))
+	    (make-line-markup (list text-markup
+				    (make-concat-markup
+				     (list (make-simple-markup "(")
+					   note-markup
+					   (make-simple-markup ")")))))
+	    (make-line-markup (list text-markup)))
+	(if note-markup
+	    (make-line-markup (list note-markup))
+	    (make-null-markup)))))
 
 (define-public (format-mark-alphabet mark context)
   (make-bold-markup (make-markalphabet-markup (1- mark))))
@@ -107,7 +107,7 @@ way the transposition number is displayed."
 
 (define-public (format-mark-barnumbers mark context)
   (make-bold-markup (number->string (ly:context-property context
-                                                         'currentBarNumber))))
+							 'currentBarNumber))))
 
 (define-public (format-mark-box-letters mark context)
   (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))
@@ -123,13 +123,13 @@ way the transposition number is displayed."
 
 (define-public (format-mark-box-barnumbers mark context)
   (make-bold-markup (make-box-markup
-                     (number->string (ly:context-property context
-                                                          'currentBarNumber)))))
+		     (number->string (ly:context-property context
+							  'currentBarNumber)))))
 
 (define-public (format-mark-circle-barnumbers mark context)
   (make-bold-markup (make-circle-markup
-                     (number->string (ly:context-property context
-                                                          'currentBarNumber)))))
+		     (number->string (ly:context-property context
+							  'currentBarNumber)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -137,79 +137,79 @@ way the transposition number is displayed."
 
 (define-public (format-bass-figure figure event context)
   (let* ((fig (ly:event-property event 'figure))
-         (fig-markup (if (number? figure)
+	 (fig-markup (if (number? figure)
 
-                         ;; this is not very elegant, but center-aligning
-                         ;; all digits is problematic with other markups,
-                         ;; and shows problems in the (lack of) overshoot
-                         ;; of feta-alphabet glyphs.
-                         ((if (<= 10 figure)
-                              (lambda (y) (make-translate-scaled-markup
-                                           (cons -0.7 0) y))
-                              identity)
+			 ;; this is not very elegant, but center-aligning
+			 ;; all digits is problematic with other markups,
+			 ;; and shows problems in the (lack of) overshoot
+			 ;; of feta-alphabet glyphs.
+			 ((if (<= 10 figure)
+			      (lambda (y) (make-translate-scaled-markup
+					   (cons -0.7 0) y))
+			      identity)
 
-                          (cond
-                           ((eq? #t (ly:event-property event 'diminished))
-                            (markup #:slashed-digit figure))
-                           ((eq? #t (ly:event-property event 'augmented-slash))
-                            (markup #:backslashed-digit figure))
-                           (else (markup #:number (number->string figure 10)))))
-                         #f))
+			  (cond
+			   ((eq? #t (ly:event-property event 'diminished))
+			    (markup #:slashed-digit figure))
+			   ((eq? #t (ly:event-property event 'augmented-slash))
+			    (markup #:backslashed-digit figure))
+			   (else (markup #:number (number->string figure 10)))))
+			 #f))
 
-         (alt (ly:event-property event 'alteration))
-         (alt-markup
-          (if (number? alt)
-              (markup
-               #:general-align Y DOWN #:fontsize
-               (if (not (= alt DOUBLE-SHARP))
-                   -2 2)
-               (alteration->text-accidental-markup alt))
-              #f))
+	 (alt (ly:event-property event 'alteration))
+	 (alt-markup
+	  (if (number? alt)
+	      (markup
+	       #:general-align Y DOWN #:fontsize
+	       (if (not (= alt DOUBLE-SHARP))
+		   -2 2)
+	       (alteration->text-accidental-markup alt))
+	      #f))
 
-         (plus-markup (if (eq? #t (ly:event-property event 'augmented))
-                          (markup #:number "+")
-                          #f))
+	 (plus-markup (if (eq? #t (ly:event-property event 'augmented))
+			  (markup #:number "+")
+			  #f))
 
-         (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
-         (plus-dir (ly:context-property context 'figuredBassPlusDirection)))
+	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
+	 (plus-dir (ly:context-property context 'figuredBassPlusDirection)))
 
     (if (and (not fig-markup) alt-markup)
-        (begin
-          (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
-          (set! alt-markup #f)))
+	(begin
+	  (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
+	  (set! alt-markup #f)))
 
 
     ;; hmm, how to get figures centered between note, and
     ;; lone accidentals too?
 
     ;;    (if (markup? fig-markup)
-    ;;  (set!
-    ;;   fig-markup (markup #:translate (cons 1.0 0)
-    ;;                      #:center-align fig-markup)))
+    ;;	(set!
+    ;;	 fig-markup (markup #:translate (cons 1.0 0)
+    ;;			    #:center-align fig-markup)))
 
     (if alt-markup
-        (set! fig-markup
-              (markup #:put-adjacent
-                      X (if (number? alt-dir)
-                            alt-dir
-                            LEFT)
-                      fig-markup
-                      #:pad-x 0.2 alt-markup)))
+	(set! fig-markup
+	      (markup #:put-adjacent
+		      X (if (number? alt-dir)
+			    alt-dir
+			    LEFT)
+		      fig-markup
+		      #:pad-x 0.2 alt-markup)))
 
     (if plus-markup
-        (set! fig-markup
-              (if fig-markup
-                  (markup #:put-adjacent
-                          X (if (number? plus-dir)
-                                plus-dir
-                                LEFT)
-                          fig-markup
-                          #:pad-x 0.2 plus-markup)
-                  plus-markup)))
+	(set! fig-markup
+	      (if fig-markup
+		  (markup #:put-adjacent
+			  X (if (number? plus-dir)
+				plus-dir
+				LEFT)
+			  fig-markup
+			  #:pad-x 0.2 plus-markup)
+		  plus-markup)))
 
     (if (markup? fig-markup)
-        (markup #:fontsize -2 fig-markup)
-        empty-markup)))
+	(markup #:fontsize -2 fig-markup)
+	empty-markup)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -219,12 +219,12 @@ way the transposition number is displayed."
   "Convert @var{placement-list} into a fretboard @var{grob}."
 
   (let* ((tunings (ly:context-property context 'stringTunings))
-         (my-string-count (length tunings))
-         (details (ly:grob-property grob 'fret-diagram-details)))
+	 (my-string-count (length tunings))
+	 (details (ly:grob-property grob 'fret-diagram-details)))
 
     ;; Add string-count from string-tunings to fret-diagram-details.
     (set! (ly:grob-property grob 'fret-diagram-details)
-          (acons 'string-count my-string-count details))
+            (acons 'string-count my-string-count details))
     ;; Create the dot-placement list for the grob
     (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
 
@@ -251,21 +251,21 @@ be returned."
 dot placement entries."
     (let* ((placements (list->vector
                         (map (lambda (x) (list 'mute  x))
-                             (iota string-count 1)))))
+		             (iota string-count 1)))))
 
       (for-each (lambda (sf)
-                  (let* ((string (car sf))
-                         (fret (cadr sf))
-                         (finger (caddr sf)))
-                    (vector-set!
-                     placements
-                     (1- string)
-                     (if (= 0 fret)
-                         (list 'open string)
-                         (if finger
-                             (list 'place-fret string fret finger)
-                             (list 'place-fret string fret))))))
-                string-frets)
+		  (let* ((string (car sf))
+			 (fret (cadr sf))
+			 (finger (caddr sf)))
+		    (vector-set!
+                      placements
+		      (1- string)
+		      (if (= 0 fret)
+                          (list 'open string)
+			  (if finger
+			      (list 'place-fret string fret finger)
+			      (list 'place-fret string fret))))))
+		string-frets)
       (vector->list placements)))
 
   (define (placement-list->string-frets placement-list)
@@ -289,12 +289,12 @@ if no string-number is present."
       (and (integer? num) (positive? num) num)))
 
   (define (determine-frets-and-strings
-           notes
-           defined-strings
-           defined-fingers
-           minimum-fret
-           maximum-stretch
-           tuning)
+	    notes
+	    defined-strings
+	    defined-fingers
+	    minimum-fret
+	    maximum-stretch
+	    tuning)
     "Determine the frets and strings used to play the notes in
 @var{notes}, given @var{defined-strings} and @var{defined-fingers}
 along with @var{minimum-fret}, @var{maximum-stretch}, and
@@ -302,8 +302,8 @@ along with @var{minimum-fret}, @var{maximum-stretch}, and
 
 
     (define restrain-open-strings (ly:context-property context
-                                                       'restrainOpenStrings
-                                                       #f))
+						       'restrainOpenStrings
+					               #f))
     (define specified-frets '())
     (define free-strings (iota (length tuning) 1))
 
@@ -320,21 +320,21 @@ along with @var{minimum-fret}, @var{maximum-stretch}, and
       "Get the fingering from @var{ev}.  Return @var{#f}
 if no fingering is present."
       (let* ((articulations (ly:event-property ev 'articulations))
-             (finger-found #f))
-        (map (lambda (art)
-               (let* ((num (ly:event-property art 'digit)))
+	     (finger-found #f))
+	(map (lambda (art)
+	       (let* ((num (ly:event-property art 'digit)))
 
-                 (if (and (ly:in-event-class? art 'fingering-event)
-                          (number? num)
-                          (> num 0))
-                     (set! finger-found num))))
-             articulations)
-        finger-found))
+		 (if (and (ly:in-event-class? art 'fingering-event)
+			  (number? num)
+			  (> num 0))
+		   (set! finger-found num))))
+	     articulations)
+	finger-found))
 
     (define (delete-free-string string)
       (if (number? string)
-          (set! free-strings
-                (delete string free-strings))))
+	(set! free-strings
+	  (delete string free-strings))))
 
     (define (close-enough fret)
       "Decide if @var{fret} is acceptable, given the already used frets."
@@ -348,29 +348,29 @@ if no fingering is present."
       "Can @var{pitch} be played on @var{string}, given already placed
 notes?"
       (let* ((fret (calc-fret pitch string tuning)))
-        (and (or (and (not restrain-open-strings)
-                      (zero? fret))
-                 (>= fret minimum-fret))
-             (integer? fret)
-             (close-enough fret))))
+	(and (or (and (not restrain-open-strings)
+		      (zero? fret))
+		 (>= fret minimum-fret))
+	     (integer? fret)
+	     (close-enough fret))))
 
     (define (open-string string pitch)
       "Is @var{pitch} and open-string note on @var{string}, given
 the current tuning?"
       (let* ((fret (calc-fret pitch string tuning)))
-        (zero? fret)))
+	(zero? fret)))
 
     (define (set-fret! pitch-entry string finger)
       (let ((this-fret (calc-fret (car pitch-entry)
-                                  string
-                                  tuning)))
-        (if (< this-fret 0)
-            (ly:warning (_ "Negative fret for pitch ~a on string ~a")
-                        (car pitch-entry) string)
-            (if (not (integer? this-fret))
-                (ly:warning (_ "Missing fret for pitch ~a on string ~a")
-                            (car pitch-entry) string)))
-        (delete-free-string string)
+				  string
+				  tuning)))
+	(if (< this-fret 0)
+	  (ly:warning (_ "Negative fret for pitch ~a on string ~a")
+		      (car pitch-entry) string)
+	  (if (not (integer? this-fret))
+	      (ly:warning (_ "Missing fret for pitch ~a on string ~a")
+			  (car pitch-entry) string)))
+	(delete-free-string string)
         (set! specified-frets (cons this-fret specified-frets))
         (list-set! string-fret-fingers
                    (cdr pitch-entry)
@@ -380,11 +380,11 @@ the current tuning?"
       (list-set! string-fret-fingers note-index (list #f #t)))
 
     (define string-fret-fingers
-      (map (lambda (string finger)
-             (if (null? finger)
-                 (list string #f)
-                 (list string #f finger)))
-           defined-strings defined-fingers))
+             (map (lambda (string finger)
+                    (if (null? finger)
+                        (list string #f)
+                        (list string #f finger)))
+                  defined-strings defined-fingers))
 
     ;;; body of determine-frets-and-strings
     (let* ((pitches (map note-pitch notes))
@@ -392,87 +392,87 @@ the current tuning?"
 
       ;; handle notes with strings assigned and fingering of 0
       (for-each
-       (lambda (pitch-entry string-fret-finger)
-         (let* ((string (list-ref string-fret-finger 0))
-                (finger (if (= (length string-fret-finger) 3)
-                            (list-ref string-fret-finger 2)
-                            '()))
-                (pitch (car pitch-entry))
-                (digit (if (null? finger)
-                           #f
-                           finger)))
-           (if (or (not (null? string))
-                   (eqv? digit 0))
-               (if (eqv? digit 0)
-                   ;; here we handle fingers of 0 -- open strings
-                   (let ((fit-string
-                          (find (lambda (string)
-                                  (open-string string pitch))
-                                free-strings)))
-                     (if fit-string
-                         (set-fret! pitch-entry fit-string #f)
-                         (ly:warning (_ "No open string for pitch ~a")
-                                     pitch)))
-                   ;; here we handle assigned strings
-                   (let ((this-fret
-                          (calc-fret pitch string tuning))
-                         (handle-negative
-                          (ly:context-property context
-                                               'handleNegativeFrets
-                                               'recalculate)))
-                     (cond ((or (and (>= this-fret 0) (integer? this-fret))
-                                (eq? handle-negative 'include))
-                            (set-fret! pitch-entry string finger))
-                           ((eq? handle-negative 'recalculate)
-                            (begin
-                              (ly:warning
-                               (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
-                               string
-                               pitch)
-                              (ly:warning (_ "Ignoring string request and recalculating."))
-                              (list-set! string-fret-fingers
-                                         (cdr pitch-entry)
-                                         (if (null? finger)
-                                             (list '() #f)
-                                             (list '() #f finger)))))
-                           ((eq? handle-negative 'ignore)
-                            (begin
-                              (ly:warning
-                               (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
-                               string
-                               pitch)
-                              (ly:warning (_ "Ignoring note in tablature."))
-                              (kill-note! string-fret-fingers
-                                          (cdr pitch-entry))))))))))
-       pitch-alist string-fret-fingers)
-      ;; handle notes without strings assigned -- sorted by pitch, so
-      ;; we need to use the alist to have the note number available
-      (for-each
-       (lambda (pitch-entry)
-         (let* ((string-fret-finger (list-ref string-fret-fingers
-                                              (cdr pitch-entry)))
-                (string (list-ref string-fret-finger 0))
-                (finger (if (= (length string-fret-finger) 3)
-                            (list-ref string-fret-finger 2)
-                            '()))
-                (pitch (car pitch-entry))
-                (fit-string
-                 (find (lambda (string)
-                         (string-qualifies string pitch))
-                       free-strings)))
-           (if (not (list-ref string-fret-finger 1))
-               (if fit-string
-                   (set-fret! pitch-entry fit-string finger)
-                   (begin
-                     (ly:warning (_ "No string for pitch ~a (given frets ~a)")
-                                 pitch
-                                 specified-frets)
-                     (kill-note! string-fret-fingers
-                                 (cdr pitch-entry)))))))
-       (sort pitch-alist (lambda (pitch-entry-a pitch-entry-b)
-                           (ly:pitch<? (car pitch-entry-b)
-                                       (car pitch-entry-a)))))
-      string-fret-fingers)) ;; end of determine-frets-and-strings
+        (lambda (pitch-entry string-fret-finger)
+	  (let* ((string (list-ref string-fret-finger 0))
+                 (finger (if (= (length string-fret-finger) 3)
+                             (list-ref string-fret-finger 2)
+                             '()))
+                 (pitch (car pitch-entry))
+                 (digit (if (null? finger)
+	          	    #f
+		            finger)))
+	    (if (or (not (null? string))
+		    (eqv? digit 0))
+	        (if (eqv? digit 0)
+                    ;; here we handle fingers of 0 -- open strings
+	            (let ((fit-string
+		            (find (lambda (string)
+			            (open-string string pitch))
+			          free-strings)))
+		      (if fit-string
+                          (set-fret! pitch-entry fit-string #f)
+		          (ly:warning (_ "No open string for pitch ~a")
+				      pitch)))
+                    ;; here we handle assigned strings
+	            (let ((this-fret
+                            (calc-fret pitch string tuning))
+		          (handle-negative
+		            (ly:context-property context
+					         'handleNegativeFrets
+					         'recalculate)))
+		      (cond ((or (and (>= this-fret 0) (integer? this-fret))
+			         (eq? handle-negative 'include))
+                             (set-fret! pitch-entry string finger))
+		            ((eq? handle-negative 'recalculate)
+			     (begin
+                               (ly:warning
+                                 (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                                 string
+                                 pitch)
+			       (ly:warning (_ "Ignoring string request and recalculating."))
+                               (list-set! string-fret-fingers
+                                          (cdr pitch-entry)
+                                          (if (null? finger)
+                                              (list '() #f)
+                                              (list '() #f finger)))))
+		            ((eq? handle-negative 'ignore)
+			     (begin
+                               (ly:warning
+                                 (_ "Requested string for pitch requires negative fret: string ~a pitch ~a")
+                                 string
+                                 pitch)
+			       (ly:warning (_ "Ignoring note in tablature."))
+                               (kill-note! string-fret-fingers
+                                           (cdr pitch-entry))))))))))
+        pitch-alist string-fret-fingers)
+    ;; handle notes without strings assigned -- sorted by pitch, so
+    ;; we need to use the alist to have the note number available
+    (for-each
+      (lambda (pitch-entry)
+	(let* ((string-fret-finger (list-ref string-fret-fingers
+                                             (cdr pitch-entry)))
+               (string (list-ref string-fret-finger 0))
+               (finger (if (= (length string-fret-finger) 3)
+                           (list-ref string-fret-finger 2)
+                           '()))
+               (pitch (car pitch-entry))
+               (fit-string
+	         (find (lambda (string)
+	        	 (string-qualifies string pitch))
+		       free-strings)))
+          (if (not (list-ref string-fret-finger 1))
+	      (if fit-string
+                  (set-fret! pitch-entry fit-string finger)
+	          (begin
+                    (ly:warning (_ "No string for pitch ~a (given frets ~a)")
+		                pitch
+                                specified-frets)
+                    (kill-note! string-fret-fingers
+                                (cdr pitch-entry)))))))
+      (sort pitch-alist (lambda (pitch-entry-a pitch-entry-b)
+                          (ly:pitch<? (car pitch-entry-b)
+                                      (car pitch-entry-a)))))
+    string-fret-fingers)) ;; end of determine-frets-and-strings
 
   (define (get-predefined-fretboard predefined-fret-table tuning pitches)
     "Search through @var{predefined-fret-table} looking for a predefined
@@ -482,31 +482,31 @@ chords.  Returns a placement-list."
 
     (define (get-fretboard key)
       (let ((hash-handle
-             (hash-get-handle predefined-fret-table key)))
-        (if hash-handle
-            (cdr hash-handle)  ; return table entry
-            '())))
+	     (hash-get-handle predefined-fret-table key)))
+	(if hash-handle
+	    (cdr hash-handle)  ; return table entry
+	    '())))
 
     ;; body of get-predefined-fretboard
     (let ((test-fretboard (get-fretboard (cons tuning pitches))))
       (if (not (null? test-fretboard))
-          test-fretboard
-          (let ((test-fretboard
-                 (get-fretboard
-                  (cons tuning (map (lambda (x) (shift-octave x 1)) pitches)))))
-            (if (not (null? test-fretboard))
-                test-fretboard
-                (get-fretboard
-                 (cons tuning (map (lambda (x) (shift-octave x -1))
-                                   pitches))))))))
+	  test-fretboard
+	  (let ((test-fretboard
+		 (get-fretboard
+		  (cons tuning (map (lambda (x) (shift-octave x 1)) pitches)))))
+	    (if (not (null? test-fretboard))
+		test-fretboard
+		(get-fretboard
+		 (cons tuning (map (lambda (x) (shift-octave x -1))
+				   pitches))))))))
 
   ;; body of determine-frets
   (let* ((predefined-fret-table
-          (ly:context-property context 'predefinedDiagramTable))
+	  (ly:context-property context 'predefinedDiagramTable))
          (tunings (ly:context-property context 'stringTunings))
          (string-count (length tunings))
          (grob (if (null? rest) '() (car rest)))
-         (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
+	 (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
          (defined-strings (map (lambda (x)
                                  (if (null? x)
                                      x
@@ -529,26 +529,26 @@ chords.  Returns a placement-list."
                tunings
                pitches)
               '())))
-    (if (null? predefined-fretboard)
-        (let ((string-frets
-               (determine-frets-and-strings
-                notes
-                strings-used
-                defined-fingers
-                (ly:context-property context 'minimumFret 0)
-                (ly:context-property context 'maximumFretStretch 4)
-                tunings)))
-          (if (null? grob)
-              string-frets
-              (create-fretboard
-               context grob (string-frets->placement-list
-                             (filter (lambda (entry)
-                                       (car entry))
-                                     string-frets)
-                             string-count))))
-        (if (null? grob)
-            (placement-list->string-frets predefined-fretboard)
-            (create-fretboard context grob predefined-fretboard)))))
+     (if (null? predefined-fretboard)
+         (let ((string-frets
+                (determine-frets-and-strings
+                 notes
+                 strings-used
+                 defined-fingers
+                 (ly:context-property context 'minimumFret 0)
+                 (ly:context-property context 'maximumFretStretch 4)
+                 tunings)))
+            (if (null? grob)
+                string-frets
+                (create-fretboard
+                 context grob (string-frets->placement-list
+                                (filter (lambda (entry)
+                                          (car entry))
+                                        string-frets)
+                                string-count))))
+         (if (null? grob)
+             (placement-list->string-frets predefined-fretboard)
+             (create-fretboard context grob predefined-fretboard)))))
 
 
 
@@ -561,24 +561,24 @@ chords.  Returns a placement-list."
 ;; The fret letter is taken from 'fretLabels if present
 (define-public (fret-letter-tablature-format
                 context string-number fret-number)
-  (let ((labels (ly:context-property context 'fretLabels)))
-    (make-vcenter-markup
-     (cond
-      ((= 0 (length labels))
-       (string (integer->char (+ fret-number (char->integer #\a)))))
-      ((and (<= 0 fret-number) (< fret-number (length labels)))
-       (list-ref labels fret-number))
-      (else
-       (ly:warning (_ "No label for fret ~a (on string ~a);
+ (let ((labels (ly:context-property context 'fretLabels)))
+  (make-vcenter-markup
+   (cond
+    ((= 0 (length labels))
+     (string (integer->char (+ fret-number (char->integer #\a)))))
+    ((and (<= 0 fret-number) (< fret-number (length labels)))
+     (list-ref labels fret-number))
+    (else
+     (ly:warning (_ "No label for fret ~a (on string ~a);
 only ~a fret labels provided")
-                   fret-number string-number (length labels))
-       ".")))))
+                fret-number string-number (length labels))
+     ".")))))
 
 ;; Display the fret number as a number
 (define-public (fret-number-tablature-format
                 context string-number fret-number)
   (make-vcenter-markup
-   (format #f "~a" fret-number)))
+    (format #f "~a" fret-number)))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
@@ -588,11 +588,11 @@ only ~a fret labels provided")
 ;; We solve this by defining a new fret-number-tablature function:
 (define-public (fret-number-tablature-format-banjo
                 context string-number fret-number)
-  (make-vcenter-markup
-   (number->string (cond
-                    ((and (> fret-number 0) (= string-number 5))
-                     (+ fret-number 5))
-                    (else fret-number)))))
+ (make-vcenter-markup
+  (number->string (cond
+                   ((and (> fret-number 0) (= string-number 5))
+                    (+ fret-number 5))
+                   (else fret-number)))))
 
 ;;  Tab note head staff position functions
 ;;
@@ -601,13 +601,13 @@ only ~a fret labels provided")
 ;;  lines
 
 (define-public (tablature-position-on-lines context string-number)
-  (let* ((string-tunings (ly:context-property context 'stringTunings))
-         (string-count (length string-tunings))
-         (string-one-topmost (ly:context-property context 'stringOneTopmost))
-         (staff-line (- (* 2 string-number) string-count 1)))
-    (if string-one-topmost
-        (- staff-line)
-        staff-line)))
+ (let* ((string-tunings (ly:context-property context 'stringTunings))
+        (string-count (length string-tunings))
+        (string-one-topmost (ly:context-property context 'stringOneTopmost))
+        (staff-line (- (* 2 string-number) string-count 1)))
+  (if string-one-topmost
+      (- staff-line)
+      staff-line)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers
@@ -621,7 +621,7 @@ only ~a fret labels provided")
 (define-public ((set-bar-number-visibility n) tr)
   (let ((bn (ly:context-property tr 'currentBarNumber)))
     (ly:context-set-property! tr 'barNumberVisibility
-                              (modulo-bar-number-visible n (modulo bn n)))))
+			      (modulo-bar-number-visible n (modulo bn n)))))
 
 (define-public (first-bar-number-invisible barnum mp)
   (> barnum 1))
@@ -641,14 +641,14 @@ only ~a fret labels provided")
         (cons (+ alt-number (- (expt 26 pow) an)) (1- pow))))
   (define (make-letter so-far an pow)
     (if (< pow 0)
-        so-far
-        (let ((pos (modulo (quotient an (expt 26 pow)) 26)))
-          (make-letter (string-append so-far
-                                      (substring "abcdefghijklmnopqrstuvwxyz"
-                                                 pos
-                                                 (1+ pos)))
-                       an
-                       (1- pow)))))
+      so-far
+      (let ((pos (modulo (quotient an (expt 26 pow)) 26)))
+        (make-letter (string-append so-far
+                                    (substring "abcdefghijklmnopqrstuvwxyz"
+                                               pos
+                                               (1+ pos)))
+                   an
+                   (1- pow)))))
   (let* ((number-and-power (get-number-and-power 0 0))
          (begin-measure (= 0 (ly:moment-main-numerator measure-pos)))
          (maybe-open-parenthesis (if begin-measure "" "("))
@@ -699,10 +699,10 @@ event classes, and @code{acknowledgers} and @code{end-acknowledgers}
 with the subordinate symbols being interfaces."
   (let loop ((forms forms))
     (if (cheap-list? forms)
-        `(list
-          ,@(map (lambda (form)
-                   (if (pair? (car form))
-                       `(cons ',(caar form) (lambda ,(cdar form) ,@(cdr form)))
-                       `(cons ',(car form) ,(loop (cdr form)))))
-                 forms))
-        forms)))
+	`(list
+	  ,@(map (lambda (form)
+		   (if (pair? (car form))
+		       `(cons ',(caar form) (lambda ,(cdar form) ,@(cdr form)))
+		       `(cons ',(car form) ,(loop (cdr form)))))
+		 forms))
+	forms)))

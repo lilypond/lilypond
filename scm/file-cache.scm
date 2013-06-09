@@ -22,7 +22,7 @@
       ((contents (hash-ref cache-hash-tab filename #f)))
 
     (if (not (string? contents))
-        (begin
-          (set! contents (ly:gulp-file filename))
-          (hash-set! cache-hash-tab filename contents)))
+	(begin
+	  (set! contents (ly:gulp-file filename))
+	  (hash-set! cache-hash-tab filename contents)))
     contents))

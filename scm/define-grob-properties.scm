@@ -31,9 +31,9 @@
      (apply define-grob-property x))
 
    `(
-     ;;
-     ;; a
-     ;;
+;;
+;; a
+;;
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
@@ -79,9 +79,9 @@ and @code{around} behave like @code{ignore}.")
 grobs, this should contain only one number.")
 
 
-     ;;
-     ;; b
-     ;;
+;;
+;; b
+;;
      (bar-extent ,number-pair? "The Y-extent of the actual bar line.
 This may differ from @code{Y-extent} because it does not include the
 dots in a repeat bar line.")
@@ -168,9 +168,9 @@ stick out of its bounds?")
      (broken-bound-padding ,number? "The amount of padding to insert
 when a spanner is broken at a line break.")
 
-     ;;
-     ;; c
-     ;;
+;;
+;; c
+;;
      (c0-position ,integer? "An integer indicating the position of
 middle@tie{}C.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
@@ -205,9 +205,9 @@ this should list the control points of a third-order B@'ezier curve.")
 receives this number.  The following measures are numbered in
 increments from this initial value.")
 
-     ;;
-     ;; d
-     ;;
+;;
+;; d
+;;
      (damping ,number? "Amount of beam slope damping.")
      (dash-definition ,pair? "List of @code{dash-elements} defining the
 dash structure.  Each @code{dash-element} has a starting t value,
@@ -248,9 +248,9 @@ elements closer together.")
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
 
-     ;;
-     ;; e
-     ;;
+;;
+;; e
+;;
      (eccentricity ,number? "How asymmetrical to make a slur.
 Positive means move the center to the right.")
      (edge-height ,pair? "A pair of numbers specifying the heights of
@@ -282,9 +282,9 @@ item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
 
 
-     ;;
-     ;; f
-     ;;
+;;
+;; f
+;;
      (flag-count ,number? "The number of tremolo beams.")
      (flat-positions ,list? "Flats in key signatures are placed
 within the specified ranges of staff-positions.  The general form
@@ -423,9 +423,9 @@ read from the NonMusicalPaperColumn that begins the measure.")
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
 
-     ;;
-     ;; g
-     ;;
+;;
+;; g
+;;
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
      (glissando-skip ,boolean? "Should this @code{NoteHead} be skipped
@@ -446,9 +446,9 @@ etc. are already taken.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
 
 
-     ;;
-     ;; h
-     ;;
+;;
+;; h
+;;
      (hair-thickness ,number? "Thickness of the thin line in a bar
 line.")
      (harp-pedal-details ,list? "An alist of detailed grob properties
@@ -499,9 +499,9 @@ of @code{NoteColumn}s for horizontal shifting.  This is used by
 left and one to the right of this grob.")
 
 
-     ;;
-     ;; i
-     ;;
+;;
+;; i
+;;
      (id ,string? "An id string for the grob.  Depending on the typestting
 backend being used, this id will be assigned to a group containing all of
 the stencils that comprise a given grob.  For example, in the svg backend,
@@ -518,9 +518,9 @@ configuration to this index, and print the respective scores.")
 slur quants to this position, and print the respective scores.")
 
 
-     ;;
-     ;; k
-     ;;
+;;
+;; k
+;;
      (keep-inside-line ,boolean? "If set, this column cannot have
 objects sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add.  For
@@ -531,9 +531,9 @@ correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
 
-     ;;
-     ;; l
-     ;;
+;;
+;; l
+;;
      (labels ,list? "List of labels (symbols) placed on a column.")
      (layer ,integer? "An integer which determines the order of printing
 objects.  Objects with the lowest value of layer are drawn first, then
@@ -572,9 +572,9 @@ contour.")
      (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
 
 
-     ;;
-     ;; m
-     ;;
+;;
+;; m
+;;
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem.  Further beams are typeset as beamlets.")
      (max-stretch ,number? "The maximum amount that this
@@ -615,9 +615,9 @@ X@tie{}dimension, measured in @code{staff-space} units.")
 Y@tie{}dimension, measured in @code{staff-space} units.")
 
 
-     ;;
-     ;; n
-     ;;
+;;
+;; n
+;;
      (neutral-direction ,ly:dir? "Which direction to take in the
 center of the staff.")
      (neutral-position ,number? "Position (in half staff spaces) where
@@ -668,9 +668,9 @@ between 0 and 1.")
 easy-notation note heads.")
 
 
-     ;;
-     ;; o
-     ;;
+;;
+;; o
+;;
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object
@@ -702,9 +702,9 @@ of a potential collision, the grob with the smaller
 @code{outside-staff-priority} is closer to the staff.")
 
 
-     ;;
-     ;; p
-     ;;
+;;
+;; p
+;;
      (packed-spacing ,boolean? "If set, the notes are spaced as
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
@@ -737,9 +737,9 @@ dot.")
      (protrusion ,number? "In an arpeggio bracket, the length of the
 horizontal edges.")
 
-     ;;
-     ;; r
-     ;;
+;;
+;; r
+;;
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
@@ -767,9 +767,9 @@ rest when the length of a measure is between two values of
 in a 3/2 measure.")
 
 
-     ;;
-     ;; s
-     ;;
+;;
+;; s
+;;
      (same-direction-correction ,number? "Optical correction amount
 for stems that are placed in tight configurations.  This amount is
 used for stems with the same direction to compensate for note head to
@@ -945,11 +945,11 @@ typeset.  Valid choices depend on the @code{stencil} callback reading
 this property.")
 
 
-     ;;
-     ;; t
-     ;;
+;;
+;; t
+;;
      (text ,markup? "Text markup.  See @ruser{Formatting text}.")
-     ;;FIXME -- Should both be the same?
+;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
 should use @code{LEFT}.")
@@ -970,7 +970,7 @@ line just before it would otherwise stop.")
      (toward-stem-shift ,number? "Amount by which scripts are shifted
 toward the stem if their direction coincides with the stem direction.
 @code{0.0} means keep the default position (centered on the note
-                                                     head), @code{1.0} means centered on the stem.  Interpolated values are
+head), @code{1.0} means centered on the stem.  Interpolated values are
 possible.")
      (transparent ,boolean? "This makes the grob invisible.")
 
@@ -1001,7 +1001,7 @@ one below this grob.")
 happen?")
      (whiteout ,boolean? "If true, the grob is printed over a white
 background to white-out underlying material, if the grob is visible.
-Usually #f by default.")
+ Usually #f by default.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (word-space ,ly:dimension? "Space to insert between words in

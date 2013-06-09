@@ -25,95 +25,95 @@
 ;; properly sort all grobs, properties, and interfaces
 ;; within the all-grob-descriptions alist
 (map
- (lambda (x)
-   (let* ((props      (assoc-ref all-grob-descriptions (car x)))
-          (meta       (assoc-ref props 'meta))
-          (interfaces (assoc-ref meta 'interfaces)))
-     (set! all-grob-descriptions
-           (sort (assoc-set! all-grob-descriptions (car x)
-                             (sort-grob-properties
-                              (assoc-set! props 'meta
-                                          (assoc-set! meta 'interfaces
-                                                      (sort interfaces ly:symbol-ci<?)))))
-                 ly:alist-ci<?))))
- all-grob-descriptions)
+  (lambda (x)
+    (let* ((props      (assoc-ref all-grob-descriptions (car x)))
+           (meta       (assoc-ref props 'meta))
+           (interfaces (assoc-ref meta 'interfaces)))
+      (set! all-grob-descriptions
+        (sort (assoc-set! all-grob-descriptions (car x)
+               (sort-grob-properties
+                (assoc-set! props 'meta
+                 (assoc-set! meta 'interfaces
+                  (sort interfaces ly:symbol-ci<?)))))
+              ly:alist-ci<?))))
+  all-grob-descriptions)
 
 (define (interface-doc-string interface grob-description)
   (let* ((name (car interface))
-         (desc (cadr interface))
-         (props (caddr interface))
-         (docfunc (lambda (pr)
-                    (property->texi
-                     'backend pr grob-description)))
-         (iprops (filter (lambda (x) (object-property x 'backend-internal))
-                         props))
-         (uprops (filter
-                  (lambda (x) (not (object-property x 'backend-internal)))
-                  props))
-         (user-propdocs (map docfunc uprops))
-         (internal-propdocs (map docfunc iprops)))
+	 (desc (cadr interface))
+	 (props (caddr interface))
+	 (docfunc (lambda (pr)
+		    (property->texi
+		     'backend pr grob-description)))
+	 (iprops (filter (lambda (x) (object-property x 'backend-internal))
+			 props))
+	 (uprops (filter
+		  (lambda (x) (not (object-property x 'backend-internal)))
+		  props))
+	 (user-propdocs (map docfunc uprops))
+	 (internal-propdocs (map docfunc iprops)))
 
     (string-append
      desc
 
      (if (pair? uprops)
-         (string-append
-          "\n\n@subsubheading User settable properties:\n"
-          (description-list->texi user-propdocs #t))
-         "")
+	 (string-append
+	  "\n\n@subsubheading User settable properties:\n"
+	  (description-list->texi user-propdocs #t))
+	 "")
 
      (if (pair? iprops)
-         (string-append
-          "\n\n@subsubheading Internal properties:\n"
-          (description-list->texi internal-propdocs #t))
-         ""))))
+	 (string-append
+	  "\n\n@subsubheading Internal properties:\n"
+	  (description-list->texi internal-propdocs #t))
+	 ""))))
 
 (define iface->grob-table (make-hash-table 61))
 ;; extract ifaces, and put grob into the hash table.
 (map
  (lambda (x)
    (let* ((meta (assoc-get 'meta (cdr x)))
-          (ifaces (assoc-get 'interfaces meta)))
+	  (ifaces (assoc-get 'interfaces meta)))
 
      (map (lambda (iface)
-            (hashq-set!
-             iface->grob-table iface
-             (cons (car x)
-                   (hashq-ref iface->grob-table iface '()))))
-          ifaces)))
+	    (hashq-set!
+	     iface->grob-table iface
+	     (cons (car x)
+		   (hashq-ref iface->grob-table iface '()))))
+	  ifaces)))
  all-grob-descriptions)
 
 ;; First level Interface description
 (define (interface-doc interface)
   (let* ((name (symbol->string (car interface)))
-         (interface-list (human-listify
-                          (map ref-ify
-                               (sort
-                                (map symbol->string
-                                     (hashq-ref iface->grob-table
-                                                (car interface)
-                                                '()))
-                                ly:string-ci<?)))))
+	 (interface-list (human-listify
+			  (map ref-ify
+			       (sort
+				(map symbol->string
+				     (hashq-ref iface->grob-table
+						(car interface)
+						'()))
+				ly:string-ci<?)))))
     (make <texi-node>
       #:name name
       #:text (string-append
-              (interface-doc-string (cdr interface) '())
-              "\n\n"
-              "This grob interface "
-              (if (equal? interface-list "none")
-                  "is not used in any graphical object"
-                  (string-append
-                   "is used in the following graphical object(s): "
-                   interface-list))
-              "."))))
+	      (interface-doc-string (cdr interface) '())
+	      "\n\n"
+	      "This grob interface "
+	      (if (equal? interface-list "none")
+		  "is not used in any graphical object"
+		  (string-append
+		   "is used in the following graphical object(s): "
+		   interface-list))
+	      "."))))
 
 (define (grob-alist->texi alist)
   (let* ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))
-                         (map car alist))))
+			 (map car alist))))
 
     (description-list->texi
      (map (lambda (y) (property->texi 'backend y alist))
-          uprops)
+	  uprops)
      #t)))
 
 (define (grob-doc description)
@@ -121,26 +121,26 @@
 node."
 
   (let* ((meta (assoc-get 'meta description))
-         (name (assoc-get 'name meta))
-         ;;       (bla (display name))
-         (ifaces (map lookup-interface (assoc-get 'interfaces meta)))
-         (ifacedoc (map ref-ify
-                        (sort
-                         (map (lambda (iface)
-                                (if (pair? iface)
-                                    (symbol->string (car iface))
-                                    (ly:error (_ "pair expected in doc ~s") name)))
-                              ifaces)
-                         ly:string-ci<?)))
-         (engravers (filter
-                     (lambda (x) (engraver-makes-grob? name x))
-                     all-engravers-list))
-         (namestr (symbol->string name))
-         (engraver-names (map symbol->string
-                              (map ly:translator-name engravers)))
-         (engraver-list (human-listify
-                         (map ref-ify
-                              (map engraver-name engraver-names)))))
+	 (name (assoc-get 'name meta))
+	 ;;       (bla (display name))
+	 (ifaces (map lookup-interface (assoc-get 'interfaces meta)))
+	 (ifacedoc (map ref-ify
+			(sort
+			 (map (lambda (iface)
+				(if (pair? iface)
+				    (symbol->string (car iface))
+				    (ly:error (_ "pair expected in doc ~s") name)))
+			      ifaces)
+			 ly:string-ci<?)))
+	 (engravers (filter
+		     (lambda (x) (engraver-makes-grob? name x))
+		     all-engravers-list))
+	 (namestr (symbol->string name))
+	 (engraver-names (map symbol->string
+			      (map ly:translator-name engravers)))
+	 (engraver-list (human-listify
+			 (map ref-ify
+			      (map engraver-name engraver-names)))))
 
     (make <texi-node>
       #:name namestr
@@ -148,10 +148,10 @@ node."
       (string-append
        namestr " objects "
        (if (equal? engraver-list "none")
-           "are not created by any engraver"
-           (string-append
-            "are created by: "
-            engraver-list))
+	   "are not created by any engraver"
+	   (string-append
+	    "are created by: "
+	    engraver-list))
        "."
 
        "\n\nStandard settings:\n\n"
@@ -174,7 +174,7 @@ node."
    '() (ly:all-grob-interfaces)))
 
 (set! interface-description-alist
-      (sort interface-description-alist ly:alist-ci<?))
+  (sort interface-description-alist ly:alist-ci<?))
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
@@ -186,7 +186,7 @@ node."
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
       (ly:error (string-append "define-grob-properties.scm: "
-                               (_ "cannot find interface for property: ~S")) prop)))
+		(_ "cannot find interface for property: ~S")) prop)))
 
 (map check-dangling-properties all-backend-properties)
 
@@ -195,8 +195,8 @@ node."
 (define (lookup-interface name)
   (let* ((entry (hashq-ref (ly:all-grob-interfaces) name #f)))
     (if entry
-        entry
-        (ly:error (_ "unknown Grob interface: ~S") name))))
+	entry
+	(ly:error (_ "unknown Grob interface: ~S") name))))
 
 (define (all-interfaces-doc)
   (make <texi-node>
@@ -207,9 +207,9 @@ node."
 
 (define (backend-properties-doc-string lst)
   (let* ((ps (sort (map symbol->string lst) ly:string-ci<?))
-         (descs (map (lambda (prop)
-                       (property->texi 'backend (string->symbol prop) '())) ps))
-         (texi (description-list->texi descs #f)))
+	 (descs (map (lambda (prop)
+		       (property->texi 'backend (string->symbol prop) '())) ps))
+	 (texi (description-list->texi descs #f)))
     texi))
 
 ;;(dump-node (grob-doc (cdadr all-grob-descriptions)) (current-output-port) 0 )

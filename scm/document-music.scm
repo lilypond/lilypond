@@ -24,40 +24,40 @@
     #:desc "All music properties, including descriptions."
     #:text
     (let* ((ps (sort (map symbol->string all-music-properties) ly:string-ci<?))
-           (descs (map (lambda (prop)
-                         (property->texi 'music (string->symbol prop)))
-                       ps))
-           (texi (description-list->texi descs #f)))
+	   (descs (map (lambda (prop)
+			 (property->texi 'music (string->symbol prop)))
+		       ps))
+	   (texi (description-list->texi descs #f)))
       texi)))
 
 (define music-types->names (make-hash-table 61))
 (filter-map (lambda (entry)
-              (let* ((class (ly:camel-case->lisp-identifier (car entry)))
-                     (classes (ly:make-event-class doc-context class)))
-                (if classes
-                    (map
-                     (lambda (cl)
-                       (hashq-set! music-types->names cl
-                                   (cons (car entry)
-                                         (hashq-ref music-types->names cl '()))))
-                     classes)
-                    #f)))
-
-            music-descriptions)
+	      (let* ((class (ly:camel-case->lisp-identifier (car entry)))
+		     (classes (ly:make-event-class doc-context class)))
+		(if classes
+		    (map
+		     (lambda (cl)
+		       (hashq-set! music-types->names cl
+				   (cons (car entry)
+					 (hashq-ref music-types->names cl '()))))
+		     classes)
+		    #f)))
+	
+	    music-descriptions)
 
 (define (strip-description x)
   (cons (symbol->string (car x))
-        ""))
+	""))
 
 (define (music-type-doc entry)
   (let* ((accept-list (human-listify
-                       (map ref-ify
-                            (map symbol->string
-                                 (map ly:translator-name
-                                      (filter
-                                       (lambda (x)
-                                         (engraver-accepts-music-type? (car entry) x))
-                                       all-engravers-list)))))))
+		       (map ref-ify
+			    (map symbol->string
+				 (map ly:translator-name
+				      (filter
+				       (lambda (x)
+					 (engraver-accepts-music-type? (car entry) x))
+				       all-engravers-list)))))))
     (make <texi-node>
       #:name (symbol->string (car entry))
       #:text
@@ -66,16 +66,16 @@
        (symbol->string (car entry))
        "} is in music objects of type "
        (human-listify
-        (map ref-ify (sort (map symbol->string (cdr entry))
-                           ly:string-ci<?)))
+	(map ref-ify (sort (map symbol->string (cdr entry))
+	                   ly:string-ci<?)))
        "."
 
        "\n\n"
        (if (equal? accept-list "none")
-           "Not accepted by any engraver or performer"
-           (string-append
-            "Accepted by: "
-            accept-list))
+	   "Not accepted by any engraver or performer"
+	   (string-append
+	    "Accepted by: "
+	    accept-list))
        "."))))
 
 (define (music-types-doc)
@@ -83,40 +83,40 @@
     #:name "Music classes"
     #:children
     (map music-type-doc
-         (sort
-          (hash-table->alist music-types->names) ly:alist-ci<?))))
+	 (sort
+	  (hash-table->alist music-types->names) ly:alist-ci<?))))
 
 (define (music-doc-str obj)
   (let* ((namesym  (car obj))
-         (props (cdr obj))
-         (class (ly:camel-case->lisp-identifier namesym))
-         (classes (ly:make-event-class doc-context class))
-         (accept-list (if classes
-                          (human-listify
-                           (map ref-ify
-                                (map symbol->string
-                                     (map ly:translator-name
-                                          (filter
-                                           (lambda (x)
-                                             (engraver-accepts-music-types? classes x))
-                                           all-engravers-list)))))
-                          ""))
-         (event-texi (if classes
-                         (string-append
-                          "\n\nEvent classes:\n"
-                          (human-listify
-                           (map ref-ify (sort (map symbol->string classes)
-                                              ly:string-ci<?)))
-                          "."
+	 (props (cdr obj))
+	 (class (ly:camel-case->lisp-identifier namesym))
+	 (classes (ly:make-event-class doc-context class))
+	 (accept-list (if classes
+			  (human-listify
+			   (map ref-ify
+				(map symbol->string
+				     (map ly:translator-name
+					  (filter
+					   (lambda (x)
+					     (engraver-accepts-music-types? classes x))
+					   all-engravers-list)))))
+			  ""))
+	 (event-texi (if classes
+			 (string-append
+			  "\n\nEvent classes:\n"
+			  (human-listify
+			   (map ref-ify (sort (map symbol->string classes)
+					      ly:string-ci<?)))
+			  "."
 
-                          "\n\n"
-                          (if (equal? accept-list "none")
-                              "Not accepted by any engraver or performer"
-                              (string-append
-                               "Accepted by: "
-                               accept-list))
-                          ".")
-                         "")))
+			  "\n\n"
+			  (if (equal? accept-list "none")
+			      "Not accepted by any engraver or performer"
+			      (string-append
+			       "Accepted by: "
+			       accept-list))
+			  ".")
+			 "")))
 
     (string-append
      (object-property namesym 'music-description)

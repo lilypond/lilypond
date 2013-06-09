@@ -23,15 +23,15 @@
 
 ;;; set by framework-gnome.scm
 (define paper #f)
-
+  
 (use-modules
- (guile)
- (ice-9 regex)
- (ice-9 format)
- (ice-9 optargs)
- (lily)
- (srfi srfi-1)
- (srfi srfi-13))
+  (guile)
+  (ice-9 regex)
+  (ice-9 format)
+  (ice-9 optargs)
+  (lily)
+  (srfi srfi-1)
+  (srfi srfi-13))
 
 (define fancy-format format)
 (define format ergonomic-simple-format)
@@ -41,13 +41,13 @@
 ;; Helper functions
 (define-public (attributes attributes-alist)
   (apply string-append
-         (map (lambda (x)
-                (let ((attr (car x))
-                      (value (cdr x)))
-                  (if (number? value)
-                      (set! value (ly:format "~4f" value)))
-                  (format #f " ~s=\"~a\"" attr value)))
-              attributes-alist)))
+	 (map (lambda (x)
+		(let ((attr (car x))
+		      (value (cdr x)))
+		  (if (number? value)
+		      (set! value (ly:format "~4f" value)))
+		  (format #f " ~s=\"~a\"" attr value)))
+	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
   "o = open"
@@ -74,7 +74,7 @@
   (if (equal? string "")
       (apply eoc entity attributes-alist)
       (string-append
-       (apply eo (cons entity attributes-alist)) string (ec entity))))
+	(apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
   (ly:format "~4f ~4f" (car o) (- (cdr o))))
@@ -82,21 +82,21 @@
 (define (number-list->point lst)
   (define (helper lst)
     (if (null? lst)
-        '()
-        (cons (format #f "~S ~S" (car lst) (- (cadr lst)))
-              (helper (cddr lst)))))
+	'()
+	(cons (format #f "~S ~S" (car lst) (- (cadr lst)))
+	      (helper (cddr lst)))))
 
   (string-join (helper lst) " "))
 
 
 (define (svg-bezier lst close)
   (let* ((c0 (car (list-tail lst 3)))
-         (c123 (list-head lst 3)))
+	 (c123 (list-head lst 3)))
     (string-append
-     (if (not close) "M" "L")
-     (offset->point c0)
-     "C" (string-join (map offset->point c123) " ")
-     (if (not close) "" "z"))))
+      (if (not close) "M" "L")
+      (offset->point c0)
+      "C" (string-join (map offset->point c123) " ")
+      (if (not close) "" "z"))))
 
 (define (sqr x)
   (* x x))
@@ -109,7 +109,7 @@
 
 (define (string->entities string)
   (apply string-append
-         (map (lambda (x) (char->entity x)) (string->list string))))
+	 (map (lambda (x) (char->entity x)) (string->list string))))
 
 (define svg-element-regexp
   (make-regexp "^(<[a-z]+) ?(.*>)"))
@@ -128,24 +128,24 @@
   (define (set-attribute attr val)
     (set! alist (assoc-set! alist attr val)))
   (let* ((match-1 (regexp-exec pango-description-regexp-comma str))
-         (match-2 (regexp-exec pango-description-regexp-nocomma str))
-         (match (if match-1 match-1 match-2)))
+	 (match-2 (regexp-exec pango-description-regexp-nocomma str))
+	 (match (if match-1 match-1 match-2)))
 
     (if (regexp-match? match)
-        (begin
-          (set-attribute 'font-family (match:prefix match))
-          (if (string? (match:substring match 1))
-              (set-attribute 'font-weight "bold"))
-          (if (string? (match:substring match 2))
-              (set-attribute 'font-style "italic"))
-          (if (string? (match:substring match 3))
-              (set-attribute 'font-variant "small-caps"))
-          (set-attribute 'font-size
-                         (/ (string->number (match:substring match 4))
-                            lily-unit-length))
-          (set-attribute 'text-anchor "start")
-          (set-attribute 'fill "currentColor"))
-        (ly:warning (_ "cannot decypher Pango description: ~a") str))
+	(begin
+	  (set-attribute 'font-family (match:prefix match))
+	  (if (string? (match:substring match 1))
+	      (set-attribute 'font-weight "bold"))
+	  (if (string? (match:substring match 2))
+	      (set-attribute 'font-style "italic"))
+	  (if (string? (match:substring match 3))
+	      (set-attribute 'font-variant "small-caps"))
+	  (set-attribute 'font-size
+			 (/ (string->number (match:substring match 4))
+			    lily-unit-length))
+	  (set-attribute 'text-anchor "start")
+	  (set-attribute 'fill "currentColor"))
+	(ly:warning (_ "cannot decypher Pango description: ~a") str))
 
     (apply entity 'text expr (reverse! alist))))
 
@@ -155,21 +155,21 @@
     (set! alist (assoc-set! alist attr val)))
   (if (not (null? rest))
       (let* ((dx (car rest))
-             (dy (cadr rest))
-             (total-x (+ dx next-horiz-adv)))
-        (if (or (not (zero? total-x))
-                (not (zero? dy)))
-            (let ((x (ly:format "~4f" total-x))
-                  (y (ly:format "~4f" dy)))
-              (set-attribute 'transform
-                             (string-append
-                              "translate(" x ", " y ") "
-                              "scale(" scale ", -" scale ")")))
-            (set-attribute 'transform
-                           (string-append
-                            "scale(" scale ", -" scale ")"))))
+	     (dy (cadr rest))
+	     (total-x (+ dx next-horiz-adv)))
+	(if (or (not (zero? total-x))
+		(not (zero? dy)))
+	    (let ((x (ly:format "~4f" total-x))
+		  (y (ly:format "~4f" dy)))
+	      (set-attribute 'transform
+			     (string-append
+			       "translate(" x ", " y ") "
+			       "scale(" scale ", -" scale ")")))
+	    (set-attribute 'transform
+			   (string-append
+			     "scale(" scale ", -" scale ")"))))
       (set-attribute 'transform (string-append
-                                 "scale(" scale ", -" scale ")")))
+				  "scale(" scale ", -" scale ")")))
 
   (set-attribute 'd path)
   (set-attribute 'fill "currentColor")
@@ -201,112 +201,112 @@
 ;;
 (define (glyph-element-regexp name)
   (make-regexp (string-append "<glyph"
-                              "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
-                              "[[:space:]]+glyph-name=\"("
-                              name
-                              ")\""
-                              "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
-                              "([[:space:]]+)?"
-                              "/>")))
+			      "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
+			      "[[:space:]]+glyph-name=\"("
+			      name
+			      ")\""
+			      "(([[:space:]]+[-a-z]+=\"[^\"]*\")+)?"
+			      "([[:space:]]+)?"
+			      "/>")))
 
 (define (extract-glyph all-glyphs name size . rest)
   (let* ((new-name (regexp-quote name))
-         (regexp (regexp-exec (glyph-element-regexp new-name) all-glyphs))
-         (glyph (match:substring regexp))
-         (unicode-attr (regexp-exec glyph-unicode-value-regexp glyph))
-         (unicode-attr-value (match:substring unicode-attr 1))
-         (unicode-attr? (regexp-match? unicode-attr))
-         (d-attr (regexp-exec glyph-path-regexp glyph))
-         (d-attr-value "")
-         (d-attr? (regexp-match? d-attr))
-         ;; TODO: not urgent, but do not hardcode this value
-         (units-per-em 1000)
-         (font-scale (ly:format "~4f" (/ size units-per-em)))
-         (path ""))
+	 (regexp (regexp-exec (glyph-element-regexp new-name) all-glyphs))
+	 (glyph (match:substring regexp))
+	 (unicode-attr (regexp-exec glyph-unicode-value-regexp glyph))
+	 (unicode-attr-value (match:substring unicode-attr 1))
+	 (unicode-attr? (regexp-match? unicode-attr))
+	 (d-attr (regexp-exec glyph-path-regexp glyph))
+	 (d-attr-value "")
+	 (d-attr? (regexp-match? d-attr))
+	 ;; TODO: not urgent, but do not hardcode this value
+	 (units-per-em 1000)
+	 (font-scale (ly:format "~4f" (/ size units-per-em)))
+	 (path ""))
 
     (if (and unicode-attr? (not unicode-attr-value))
-        (ly:warning (_ "Glyph must have a unicode value")))
+	(ly:warning (_ "Glyph must have a unicode value")))
 
     (if d-attr? (set! d-attr-value (match:substring d-attr 1)))
 
     (cond (
-           ;; Glyph-strings with path data
-           (and d-attr? (not (null? rest)))
-           (begin
-             (set! path (apply dump-path d-attr-value
-                               font-scale
-                               (list (caddr rest) (cadddr rest))))
-             (set! next-horiz-adv (+ next-horiz-adv
-                                     (car rest)))
-             path))
-          ;; Glyph-strings without path data ("space")
-          ((and (not d-attr?) (not (null? rest)))
-           (begin
-             (set! next-horiz-adv (+ next-horiz-adv
-                                     (car rest)))
-             ""))
-          ;; Font smobs with path data
-          ((and d-attr? (null? rest))
-           (set! path (dump-path d-attr-value font-scale))
-           path)
-          ;; Font smobs without path data ("space")
-          (else
-           ""))))
+	   ;; Glyph-strings with path data
+	   (and d-attr? (not (null? rest)))
+	   (begin
+	     (set! path (apply dump-path d-attr-value
+					 font-scale
+					 (list (caddr rest) (cadddr rest))))
+	     (set! next-horiz-adv (+ next-horiz-adv
+				     (car rest)))
+	     path))
+	  ;; Glyph-strings without path data ("space")
+	  ((and (not d-attr?) (not (null? rest)))
+	   (begin
+	     (set! next-horiz-adv (+ next-horiz-adv
+				     (car rest)))
+	     ""))
+	  ;; Font smobs with path data
+	  ((and d-attr? (null? rest))
+	    (set! path (dump-path d-attr-value font-scale))
+	    path)
+	  ;; Font smobs without path data ("space")
+	  (else
+	    ""))))
 
 (define (extract-glyph-info all-glyphs glyph size)
   (let* ((offsets (list-head glyph 4))
-         (glyph-name (car (reverse glyph))))
+	 (glyph-name (car (reverse glyph))))
     (apply extract-glyph all-glyphs glyph-name size offsets)))
 
 (define (svg-defs svg-font)
   (let ((start (string-contains svg-font "<defs>"))
-        (end (string-contains svg-font "</defs>")))
+	(end (string-contains svg-font "</defs>")))
     (substring svg-font (+ start 7) (- end 1))))
 
 (define (cache-font svg-font size glyph)
   (let ((all-glyphs (svg-defs (cached-file-contents svg-font))))
     (if (list? glyph)
-        (extract-glyph-info all-glyphs glyph size)
-        (extract-glyph all-glyphs glyph size))))
+	(extract-glyph-info all-glyphs glyph size)
+	(extract-glyph all-glyphs glyph size))))
 
 
 (define (music-string-to-path font size glyph)
   (let* ((name-style (font-name-style font))
-         (scaled-size (/ size lily-unit-length))
-         (font-file (ly:find-file (string-append name-style ".svg"))))
+	 (scaled-size (/ size lily-unit-length))
+	 (font-file (ly:find-file (string-append name-style ".svg"))))
 
     (if font-file
-        (cache-font font-file scaled-size glyph)
-        (ly:warning (_ "cannot find SVG font ~S") font-file))))
+	(cache-font font-file scaled-size glyph)
+	(ly:warning (_ "cannot find SVG font ~S") font-file))))
 
 
 (define (font-smob-to-path font glyph)
   (let* ((name-style (font-name-style font))
-         (scaled-size (modified-font-metric-font-scaling font))
-         (font-file (ly:find-file (string-append name-style ".svg"))))
+	 (scaled-size (modified-font-metric-font-scaling font))
+	 (font-file (ly:find-file (string-append name-style ".svg"))))
 
     (if font-file
-        (cache-font font-file scaled-size glyph)
-        (ly:warning (_ "cannot find SVG font ~S") font-file))))
+	(cache-font font-file scaled-size glyph)
+	(ly:warning (_ "cannot find SVG font ~S") font-file))))
 
 (define (woff-font-smob-to-text font expr)
   (let* ((name-style (font-name-style font))
-         (scaled-size (modified-font-metric-font-scaling font))
-         (font-file (ly:find-file (string-append name-style ".woff")))
-         (charcode (ly:font-glyph-name-to-charcode font expr))
-         (char-lookup (format #f "&#~S;" charcode))
-         (glyph-by-name (eoc 'altglyph `(glyphname . ,expr)))
-         (apparently-broken
-          (comment "FIXME: how to select glyph by name, altglyph is broken?"))
-         (text (string-regexp-substitute "\n" ""
-                                         (string-append glyph-by-name apparently-broken char-lookup))))
-    (define alist '())
-    (define (set-attribute attr val)
-      (set! alist (assoc-set! alist attr val)))
-    (set-attribute 'font-family name-style)
-    (set-attribute 'font-size scaled-size)
-    (apply entity 'text text (reverse! alist))))
-
+	 (scaled-size (modified-font-metric-font-scaling font))
+	 (font-file (ly:find-file (string-append name-style ".woff")))
+	 (charcode (ly:font-glyph-name-to-charcode font expr))
+	 (char-lookup (format #f "&#~S;" charcode))
+	 (glyph-by-name (eoc 'altglyph `(glyphname . ,expr)))
+	 (apparently-broken
+	  (comment "FIXME: how to select glyph by name, altglyph is broken?"))
+	 (text (string-regexp-substitute "\n" ""
+		(string-append glyph-by-name apparently-broken char-lookup))))
+  (define alist '())
+  (define (set-attribute attr val)
+    (set! alist (assoc-set! alist attr val)))
+  (set-attribute 'font-family name-style)
+  (set-attribute 'font-size scaled-size)
+  (apply entity 'text text (reverse! alist))))
+  
 (define font-smob-to-text
   (if (not (ly:get-option 'svg-woff))
       font-smob-to-path woff-font-smob-to-text))
@@ -325,41 +325,41 @@
 
 (define (circle radius thick is-filled)
   (entity
-   'circle ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(r . ,radius)))
+    'circle ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(fill . ,(if is-filled "currentColor" "none"))
+    `(stroke . "currentColor")
+    `(stroke-width . ,thick)
+    `(r . ,radius)))
 
 (define (dashed-line thick on off dx dy phase)
   (draw-line thick 0 0 dx dy
-             `(stroke-dasharray . ,(format #f "~a,~a" on off))))
+	     `(stroke-dasharray . ,(format #f "~a,~a" on off))))
 
 (define (draw-line thick x1 y1 x2 y2 . alist)
   (apply entity 'line ""
-         (append
-          `((stroke-linejoin . "round")
-            (stroke-linecap . "round")
-            (stroke-width . ,thick)
-            (stroke . "currentColor")
-            (x1 . ,x1)
-            (y1 . ,(- y1))
-            (x2 . ,x2)
-            (y2 . ,(- y2)))
-          alist)))
+	 (append
+	   `((stroke-linejoin . "round")
+	     (stroke-linecap . "round")
+	     (stroke-width . ,thick)
+	     (stroke . "currentColor")
+	     (x1 . ,x1)
+	     (y1 . ,(- y1))
+	     (x2 . ,x2)
+	     (y2 . ,(- y2)))
+	   alist)))
 
 (define (ellipse x-radius y-radius thick is-filled)
   (entity
-   'ellipse ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "currentColor" "none"))
-   `(stroke . "currentColor")
-   `(stroke-width . ,thick)
-   `(rx . ,x-radius)
-   `(ry . ,y-radius)))
+    'ellipse ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(fill . ,(if is-filled "currentColor" "none"))
+    `(stroke . "currentColor")
+    `(stroke-width . ,thick)
+    `(rx . ,x-radius)
+    `(ry . ,y-radius)))
 
 (define (partial-ellipse x-radius y-radius start-angle end-angle thick connect fill)
   (define (make-ellipse-radius x-radius y-radius angle)
@@ -369,38 +369,38 @@
                 (* (* x-radius x-radius)
                    (* (sin angle) (sin angle)))))))
   (let*
-      ((new-start-angle (* PI-OVER-180 (angle-0-360 start-angle)))
-       (start-radius (make-ellipse-radius x-radius y-radius new-start-angle))
-       (new-end-angle (* PI-OVER-180 (angle-0-360 end-angle)))
-       (end-radius (make-ellipse-radius x-radius y-radius new-end-angle))
-       (epsilon 1.5e-3)
-       (x-end (- (* end-radius (cos new-end-angle))
-                 (* start-radius (cos new-start-angle))))
-       (y-end (- (* end-radius (sin new-end-angle))
-                 (* start-radius (sin new-start-angle)))))
-    (if (and (< (abs x-end) epsilon) (< (abs y-end) epsilon))
-        (entity
-         'ellipse ""
-         `(fill . ,(if fill "currentColor" "none"))
-         `(stroke . "currentColor")
-         `(stroke-width . ,thick)
-         '(stroke-linejoin . "round")
-         '(stroke-linecap . "round")
-         '(cx . 0)
-         '(cy . 0)
-         `(rx . ,x-radius)
-         `(ry . ,y-radius))
-        (entity
-         'path ""
-         `(fill . ,(if fill "currentColor" "none"))
-         `(stroke . "currentColor")
-         `(stroke-width . ,thick)
-         '(stroke-linejoin . "round")
-         '(stroke-linecap . "round")
-         (cons
-          'd
-          (string-append
-           (ly:format
+    ((new-start-angle (* PI-OVER-180 (angle-0-360 start-angle)))
+     (start-radius (make-ellipse-radius x-radius y-radius new-start-angle))
+     (new-end-angle (* PI-OVER-180 (angle-0-360 end-angle)))
+     (end-radius (make-ellipse-radius x-radius y-radius new-end-angle))
+     (epsilon 1.5e-3)
+     (x-end (- (* end-radius (cos new-end-angle))
+               (* start-radius (cos new-start-angle))))
+     (y-end (- (* end-radius (sin new-end-angle))
+               (* start-radius (sin new-start-angle)))))
+   (if (and (< (abs x-end) epsilon) (< (abs y-end) epsilon))
+    (entity
+      'ellipse ""
+      `(fill . ,(if fill "currentColor" "none"))
+      `(stroke . "currentColor")
+      `(stroke-width . ,thick)
+      '(stroke-linejoin . "round")
+      '(stroke-linecap . "round")
+      '(cx . 0)
+      '(cy . 0)
+      `(rx . ,x-radius)
+      `(ry . ,y-radius))
+    (entity
+      'path ""
+      `(fill . ,(if fill "currentColor" "none"))
+      `(stroke . "currentColor")
+      `(stroke-width . ,thick)
+      '(stroke-linejoin . "round")
+      '(stroke-linecap . "round")
+      (cons
+        'd
+        (string-append
+          (ly:format
             "M~4f ~4fA~4f ~4f 0 ~4f 0 ~4f ~4f"
             (* start-radius (cos new-start-angle))
             (- (* start-radius (sin new-start-angle)))
@@ -409,11 +409,11 @@
             (if (> 0 (- new-start-angle new-end-angle)) 0 1)
             (* end-radius (cos new-end-angle))
             (- (* end-radius (sin new-end-angle))))
-           (if connect
-               (ly:format "L~4f,~4f"
-                          (* start-radius (cos new-start-angle))
-                          (- (* start-radius (sin new-start-angle))))
-               "")))))))
+            (if connect
+                (ly:format "L~4f,~4f"
+                           (* start-radius (cos new-start-angle))
+                           (- (* start-radius (sin new-start-angle))))
+                "")))))))
 
 (define (embedded-svg string)
   string)
@@ -423,51 +423,51 @@
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
       (begin
-        (set! path
-              (string-append (eo 'g)
-                             (string-join
-                              (map (lambda (x)
-                                     (music-string-to-path font size x))
-                                   glyphs)
-                              "\n")
-                             (ec 'g)))))
+	(set! path
+	      (string-append (eo 'g)
+			     (string-join
+			       (map (lambda (x)
+				      (music-string-to-path font size x))
+				    glyphs)
+			       "\n")
+			     (ec 'g)))))
   (set! next-horiz-adv 0.0)
   path)
 
 (define (woff-glyph-string pango-font font-name size cid? w-h-x-y-named-glyphs)
   (let* ((name-style (font-name-style font-name))
-         (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
-                                         font-name))
-         (family (if (regexp-match? family-designsize)
-                     (match:substring family-designsize 1)
-                     font-name))
-         (design-size (if (regexp-match? family-designsize)
-                          (match:substring family-designsize 2)
-                          #f))
-         (scaled-size (/ size lily-unit-length))
-         (font (ly:paper-get-font paper `(((font-family . ,family)
-                                           ,(if design-size
-                                                `(design-size . design-size)))))))
+	 (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
+					 font-name))
+	 (family (if (regexp-match? family-designsize)
+		     (match:substring family-designsize 1)
+		     font-name))
+	 (design-size (if (regexp-match? family-designsize)
+			  (match:substring family-designsize 2)
+			  #f))
+	 (scaled-size (/ size lily-unit-length))
+	 (font (ly:paper-get-font paper `(((font-family . ,family)
+					   ,(if design-size
+						`(design-size . design-size)))))))
     (define (glyph-spec w h x y g) ; h not used
       (let* ((charcode (ly:font-glyph-name-to-charcode font g))
-             (char-lookup (format #f "&#~S;" charcode))
-             (glyph-by-name (eoc 'altglyph `(glyphname . ,g)))
-             (apparently-broken
-              (comment "XFIXME: how to select glyph by name, altglyph is broken?")))
-        ;; what is W?
-        (ly:format
-         "<text~a font-family=\"~a\" font-size=\"~a\">~a</text>"
-         (if (or (> (abs x) 0.00001)
-                 (> (abs y) 0.00001))
-             (ly:format " transform=\"translate(~4f,~4f)\"" x y)
-             " ")
-         name-style scaled-size
-         (string-regexp-substitute
-          "\n" ""
-          (string-append glyph-by-name apparently-broken char-lookup)))))
+	     (char-lookup (format #f "&#~S;" charcode))
+	     (glyph-by-name (eoc 'altglyph `(glyphname . ,g)))
+	     (apparently-broken
+	      (comment "XFIXME: how to select glyph by name, altglyph is broken?")))
+	;; what is W?
+	(ly:format
+	 "<text~a font-family=\"~a\" font-size=\"~a\">~a</text>"
+	 (if (or (> (abs x) 0.00001)
+		 (> (abs y) 0.00001))
+	     (ly:format " transform=\"translate(~4f,~4f)\"" x y)
+	     " ")
+	 name-style scaled-size
+	 (string-regexp-substitute
+	  "\n" ""
+	  (string-append glyph-by-name apparently-broken char-lookup)))))
 
     (string-join (map (lambda (x) (apply glyph-spec x))
-                      (reverse w-h-x-y-named-glyphs)) "\n")))
+		      (reverse w-h-x-y-named-glyphs)) "\n")))
 
 (define glyph-string
   (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))
@@ -484,83 +484,83 @@
 (define* (path thick commands #:optional (cap 'round) (join 'round) (fill? #f))
   (define (convert-path-exps exps)
     (if (pair? exps)
-        (let*
-            ((head (car exps))
-             (rest (cdr exps))
-             (arity
-              (cond ((memq head '(rmoveto rlineto lineto moveto)) 2)
-                    ((memq head '(rcurveto curveto)) 6)
-                    ((eq? head 'closepath) 0)
-                    (else 1)))
-             (args (take rest arity))
-             (svg-head (assoc-get head
-                                  '((rmoveto . m)
-                                    (rcurveto . c)
-                                    (curveto . C)
-                                    (moveto . M)
-                                    (lineto . L)
-                                    (rlineto . l)
-                                    (closepath . z))
-                                  "")))
+	(let*
+	  ((head (car exps))
+	   (rest (cdr exps))
+	   (arity
+	     (cond ((memq head '(rmoveto rlineto lineto moveto)) 2)
+		   ((memq head '(rcurveto curveto)) 6)
+		   ((eq? head 'closepath) 0)
+		   (else 1)))
+	   (args (take rest arity))
+	   (svg-head (assoc-get head
+				'((rmoveto . m)
+				  (rcurveto . c)
+				  (curveto . C)
+				  (moveto . M)
+				  (lineto . L)
+				  (rlineto . l)
+				  (closepath . z))
+				"")))
 
-          (cons (format #f "~a~a" svg-head (number-list->point args))
-                (convert-path-exps (drop rest arity))))
-        '()))
+	  (cons (format #f "~a~a" svg-head (number-list->point args))
+		(convert-path-exps (drop rest arity))))
+	'()))
 
   (let* ((line-cap-styles '(butt round square))
-         (line-join-styles '(miter round bevel))
-         (cap-style (if (not (memv cap line-cap-styles))
-                        (begin
-                          (ly:warning (_ "unknown line-cap-style: ~S")
-                                      (symbol->string cap))
-                          'round)
-                        cap))
-         (join-style (if (not (memv join line-join-styles))
-                         (begin
-                           (ly:warning (_ "unknown line-join-style: ~S")
-                                       (symbol->string join))
-                           'round)
-                         join)))
+	 (line-join-styles '(miter round bevel))
+	 (cap-style (if (not (memv cap line-cap-styles))
+			(begin
+			  (ly:warning (_ "unknown line-cap-style: ~S")
+				      (symbol->string cap))
+			  'round)
+			cap))
+	 (join-style (if (not (memv join line-join-styles))
+			 (begin
+			   (ly:warning (_ "unknown line-join-style: ~S")
+				       (symbol->string join))
+			   'round)
+			 join)))
     (entity 'path ""
-            `(stroke-width . ,thick)
-            `(stroke-linejoin . ,(symbol->string join-style))
-            `(stroke-linecap . ,(symbol->string cap-style))
-            '(stroke . "currentColor")
-            `(fill . ,(if fill? "currentColor" "none"))
-            `(d . ,(apply string-append (convert-path-exps commands))))))
+	    `(stroke-width . ,thick)
+	    `(stroke-linejoin . ,(symbol->string join-style))
+	    `(stroke-linecap . ,(symbol->string cap-style))
+	    '(stroke . "currentColor")
+	    `(fill . ,(if fill? "currentColor" "none"))
+	    `(d . ,(apply string-append (convert-path-exps commands))))))
 
 (define (placebox x y expr)
   (if (string-null? expr)
       ""
       (let*
-          ((normal-element (regexp-exec svg-element-regexp expr))
-           (scaled-element (regexp-exec scaled-element-regexp expr))
-           (scaled? (if scaled-element #t #f))
-           (match (if scaled? scaled-element normal-element))
-           (string1 (match:substring match 1))
-           (string2 (match:substring match 2)))
+	((normal-element (regexp-exec svg-element-regexp expr))
+	 (scaled-element (regexp-exec scaled-element-regexp expr))
+	 (scaled? (if scaled-element #t #f))
+	 (match (if scaled? scaled-element normal-element))
+	 (string1 (match:substring match 1))
+	 (string2 (match:substring match 2)))
 
-        (if scaled?
-            (string-append string1
-                           (ly:format "translate(~4f, ~4f) " x (- y))
-                           string2
-                           "\n")
-            (string-append string1
-                           (ly:format " transform=\"translate(~4f, ~4f)\" "
-                                      x (- y))
-                           string2
-                           "\n")))))
+	(if scaled?
+	    (string-append string1
+			   (ly:format "translate(~4f, ~4f) " x (- y))
+			   string2
+			   "\n")
+	    (string-append string1
+			   (ly:format " transform=\"translate(~4f, ~4f)\" "
+				      x (- y))
+			   string2
+			   "\n")))))
 
 (define (polygon coords blot-diameter is-filled)
   (entity
-   'polygon ""
-   '(stroke-linejoin . "round")
-   '(stroke-linecap . "round")
-   `(stroke-width . ,blot-diameter)
-   `(fill . ,(if is-filled "currentColor" "none"))
-   '(stroke . "currentColor")
-   `(points . ,(string-join
-                (map offset->point (ly:list->offsets '() coords))))))
+    'polygon ""
+    '(stroke-linejoin . "round")
+    '(stroke-linecap . "round")
+    `(stroke-width . ,blot-diameter)
+    `(fill . ,(if is-filled "currentColor" "none"))
+    '(stroke . "currentColor")
+    `(points . ,(string-join
+		  (map offset->point (ly:list->offsets '() coords))))))
 
 (define (resetcolor)
   "</g>\n")
@@ -573,34 +573,34 @@
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity
-   'rect ""
-   ;; The stroke will stick out.  To use stroke,
-   ;; the stroke-width must be subtracted from all other dimensions.
-   ;;'(stroke-linejoin . "round")
-   ;;'(stroke-linecap . "round")
-   ;;`(stroke-width . ,blot)
-   ;;'(stroke . "red")
-   ;;'(fill . "orange")
+    'rect ""
+    ;; The stroke will stick out.  To use stroke,
+    ;; the stroke-width must be subtracted from all other dimensions.
+    ;;'(stroke-linejoin . "round")
+    ;;'(stroke-linecap . "round")
+    ;;`(stroke-width . ,blot)
+    ;;'(stroke . "red")
+    ;;'(fill . "orange")
 
-   `(x . ,(- breapth))
-   `(y . ,(- height))
-   `(width . ,(+ breapth width))
-   `(height . ,(+ depth height))
-   `(ry . ,(/ blot-diameter 2))
-   '(fill . "currentColor")))
+    `(x . ,(- breapth))
+    `(y . ,(- height))
+    `(width . ,(+ breapth width))
+    `(height . ,(+ depth height))
+    `(ry . ,(/ blot-diameter 2))
+    '(fill . "currentColor")))
 
 (define (setcolor r g b)
   (format #f "<g color=\"rgb(~a%, ~a%, ~a%)\">\n"
-          (* 100 r) (* 100 g) (* 100 b)))
+	  (* 100 r) (* 100 g) (* 100 b)))
 
 ;; rotate around given point
 (define (setrotation ang x y)
   (ly:format "<g transform=\"rotate(~4f, ~4f, ~4f)\">\n"
-             (- ang) x (- y)))
+	     (- ang) x (- y)))
 
 (define (setscale x y)
   (ly:format "<g transform=\"scale(~4f, ~4f)\">\n"
-             x y))
+	     x y))
 
 (define (text font string)
   (fontify font (entity 'tspan (string->entities string))))
@@ -609,18 +609,18 @@
   (string-append
    (eo 'a `(xlink:href . ,url))
    (eoc 'rect
-        `(x . ,(car x))
-        `(y . ,(car y))
-        `(width . ,(- (cdr x) (car x)))
-        `(height . ,(- (cdr y) (car y)))
-        '(fill . "none")
-        '(stroke . "none")
-        '(stroke-width . "0.0"))
+	`(x . ,(car x))
+	`(y . ,(car y))
+	`(width . ,(- (cdr x) (car x)))
+	`(height . ,(- (cdr y) (car y)))
+	'(fill . "none")
+	'(stroke . "none")
+	'(stroke-width . "0.0"))
    (ec 'a)))
 
 (define (utf-8-string pango-font-description string)
   (let ((escaped-string (string-regexp-substitute
-                         "<" "&lt;"
-                         (string-regexp-substitute "&" "&amp;" string))))
+			  "<" "&lt;"
+			  (string-regexp-substitute "&" "&amp;" string))))
     (fontify pango-font-description
              (entity 'tspan escaped-string))))

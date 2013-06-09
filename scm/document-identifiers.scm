@@ -23,32 +23,32 @@
        (music-func (cdr music-func-pair))
        (func (ly:music-function-extract music-func))
        (arg-names
-        (map symbol->string
-             (cddr (cadr (procedure-source func)))))
+	(map symbol->string
+	     (cddr (cadr (procedure-source func)))))
        (doc (procedure-documentation func))
        (sign (ly:music-function-signature music-func))
        (type-names (map (lambda (pred)
-                          (if (pair? pred)
-                              (format #f "[~a]" (type-name (car pred)))
-                              (format #f "(~a)" (type-name pred))))
-                        sign))
+			  (if (pair? pred)
+			      (format #f "[~a]" (type-name (car pred)))
+			      (format #f "(~a)" (type-name pred))))
+			sign))
        (signature-str
-        (string-join
-         (map (lambda (arg type) (format #f "@var{~a} ~a" arg type))
-              arg-names (cdr type-names)))))
+	(string-join
+	 (map (lambda (arg type) (format #f "@var{~a} ~a" arg type))
+	      arg-names (cdr type-names)))))
     (format #f
-            "@item @code{~a} ~a ~a~a
+     "@item @code{~a} ~a ~a~a
 @funindex ~a
 ~a
 "
-            name-sym (car type-names)
-            (if (equal? "" signature-str) "" " - ") signature-str
-            name-sym
-            (if doc
-                doc
-                (begin
-                  (ly:warning "music function `~a' not documented." name-sym)
-                  "(undocumented; fixme)")))))
+     name-sym (car type-names)
+     (if (equal? "" signature-str) "" " - ") signature-str
+     name-sym
+     (if doc
+         doc
+         (begin
+           (ly:warning "music function `~a' not documented." name-sym)
+           "(undocumented; fixme)")))))
 
 
 (define (document-object obj-pair)
@@ -60,16 +60,16 @@
 
 (define-public (identifiers-doc-string)
   (format #f
-          "@table @asis
+   "@table @asis
 ~a
 @end table
 "
-          (string-join
-           (filter
-            identity
-            (map
-             document-object
-             (sort
-              (ly:module->alist (current-module))
-              identifier<?)))
-           "")))
+   (string-join
+    (filter
+     identity
+     (map
+      document-object
+      (sort
+       (ly:module->alist (current-module))
+       identifier<?)))
+    "")))

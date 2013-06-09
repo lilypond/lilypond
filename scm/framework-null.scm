@@ -5,16 +5,16 @@
   )
 
 (use-modules (ice-9 regex)
-             (ice-9 string-fun)
-             (guile)
-             (srfi srfi-1)
-             (ice-9 pretty-print)
-             (srfi srfi-13)
-             (lily))
+	     (ice-9 string-fun)
+	     (guile)
+	     (srfi srfi-1)
+	     (ice-9 pretty-print)
+	     (srfi srfi-13)
+	     (lily))
 
 (define-public (output-framework channel book scopes fields)
 
-
+  
   #t)
 
 (define-public output-classic-framework output-framework)

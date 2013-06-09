@@ -98,8 +98,8 @@
   (if (null? alist)
       "Unknown type"
       (if (apply (caar alist) obj)
-          (cdar alist)
-          (match-predicate obj (cdr alist)))))
+	  (cdar alist)
+	  (match-predicate obj (cdr alist)))))
 
 (define-public (object-type obj)
   (match-predicate obj type-p-name-alist))

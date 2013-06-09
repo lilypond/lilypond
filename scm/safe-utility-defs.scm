@@ -19,12 +19,12 @@
 ;;;      Author Ian Hulin
 ;;;      Date   16 October 2011
 ;;;
-
+ 
 (define-module (scm safe-utility-defs)
-  #:use-module (ice-9 optargs)
-  #:export (safe-objects)
-  #:export-syntax (define-safe-public)
-  #:re-export-syntax (define*-public))
+#:use-module (ice-9 optargs)
+#:export (safe-objects)
+#:export-syntax (define-safe-public)
+#:re-export-syntax (define*-public))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility

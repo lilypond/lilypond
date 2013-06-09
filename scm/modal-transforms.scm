@@ -48,11 +48,11 @@ pitches as members of a scale.
 
      (else
       (list-ref scale
-                (modulo
-                 (+ (index pitch scale)
-                    (- (index to-pitch scale)
-                       (index from-pitch scale)))
-                 (length scale)))))))
+		(modulo
+		 (+ (index pitch scale)
+		    (- (index to-pitch scale)
+		       (index from-pitch scale)))
+		 (length scale)))))))
 
 (define (inverter-factory scale)
   "Returns an inverter for the specified @var{scale}.
@@ -81,11 +81,11 @@ arbitrary items and pitches as members of a scale.
 
      (else
       (list-ref scale
-                (modulo
-                 (+ (index to-pitch scale)
-                    (- (index around-pitch scale)
-                       (index pitch scale)))
-                 (length scale)))))))
+		(modulo
+		 (+ (index to-pitch scale)
+		    (- (index around-pitch scale)
+		       (index pitch scale)))
+		 (length scale)))))))
 
 (define (replicate-modify lis n mod-proc)
   "Apply @code{(mod-proc lis n)} to each element of a list and
@@ -112,8 +112,8 @@ a single pitch as its argument and return a new pitch.  These are
 LilyPond scheme pitches, e.g. @code{(ly:make-pitch 0 2 0)}
 "
   (let ((elements (ly:music-property music 'elements))
-        (element (ly:music-property music 'element))
-        (pitch (ly:music-property music 'pitch)))
+	(element (ly:music-property music 'element))
+	(pitch (ly:music-property music 'pitch)))
 
     (cond
      ((ly:pitch? pitch)
@@ -135,8 +135,8 @@ Typically used to construct a scale for input to transposer-factory
 "
 
   (let ((elements (ly:music-property music 'elements))
-        (element (ly:music-property music 'element))
-        (pitch (ly:music-property music 'pitch)))
+	(element (ly:music-property music 'element))
+	(pitch (ly:music-property music 'pitch)))
 
     (cond
      ((ly:pitch? pitch)
@@ -159,10 +159,10 @@ Typically used to construct a scale for input to transposer-factory
     (lambda (lis n)
       (map
        (lambda (i)
-         (ly:make-pitch
-          (+ (- n 6) (ly:pitch-octave i))
-          (ly:pitch-notename i)
-          (ly:pitch-alteration i)))
+	 (ly:make-pitch
+	  (+ (- n 6) (ly:pitch-octave i))
+	  (ly:pitch-notename i)
+	  (ly:pitch-alteration i)))
        lis)))
 
   (let ((scale (make-scale music)))
@@ -215,11 +215,11 @@ Typically used to construct a scale for input to transposer-factory
 and transposes from @var{around} to @var{to}."
   (let ((p (ly:music-property music 'pitch)))
     (if (ly:pitch? p)
-        (ly:music-set-property!
-         music 'pitch
-         (ly:pitch-transpose to (ly:pitch-diff around p))))
+	(ly:music-set-property!
+	 music 'pitch
+	 (ly:pitch-transpose to (ly:pitch-diff around p))))
     music))
 
 (define-public (music-invert around to music)
   "Applies pitch-invert to all pitches in @var{music}."
-  (music-map (lambda (x) (pitch-invert around to x)) music))
+     (music-map (lambda (x) (pitch-invert around to x)) music))

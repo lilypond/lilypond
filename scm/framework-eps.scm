@@ -20,15 +20,15 @@
 ;;; this is still too big a mess.
 
 (use-modules (ice-9 regex)
-             (ice-9 string-fun)
-             (guile)
-             (scm framework-ps)
-             (scm paper-system)
-             (scm page)
-             (scm output-ps)
-             (srfi srfi-1)
-             (srfi srfi-13)
-             (lily))
+	     (ice-9 string-fun)
+	     (guile)
+	     (scm framework-ps)
+	     (scm paper-system)
+	     (scm page)
+	     (scm output-ps)
+	     (srfi srfi-1)
+	     (srfi srfi-13)
+	     (lily))
 
 (define format
   ergonomic-simple-format)
@@ -42,18 +42,18 @@ stencil so that LaTeX's \\includegraphics command doesn't modify the
 alignment."
   (define left
     (if (pair? stencils)
-        (apply min
-               (map (lambda (stc)
-                      (interval-start (ly:stencil-extent stc X)))
-                    stencils))
-        0.0))
+	(apply min
+	       (map (lambda (stc)
+		      (interval-start (ly:stencil-extent stc X)))
+		    stencils))
+	0.0))
 
   (map (lambda (stil)
-         (ly:make-stencil
-          (ly:stencil-expr stil)
-          (cons left
-                (cdr (ly:stencil-extent stil X)))
-          (ly:stencil-extent stil Y)))
+	 (ly:make-stencil
+	  (ly:stencil-expr stil)
+	  (cons left
+		(cdr (ly:stencil-extent stil X)))
+	  (ly:stencil-extent stil Y)))
        stencils))
 
 (define (dump-stencils-as-EPSes stencils book basename)
@@ -62,7 +62,7 @@ alignment."
 
   (define paper
     (ly:paper-book-paper book))
-
+    
   (define create-aux-files
     (ly:get-option 'aux-files))
 
@@ -73,86 +73,86 @@ alignment."
   (define (dump-counted-stencil stencil-count-pair)
     "Return EPS filename."
     (let* ((stencil (car stencil-count-pair))
-           (number (cdr stencil-count-pair))
-           (name (format #f "~a-~a" basename number)))
+	   (number (cdr stencil-count-pair))
+	   (name (format #f "~a-~a" basename number)))
       (dump-stencil-as-EPS paper stencil name
-                           (ly:get-option 'include-eps-fonts))
+			   (ly:get-option 'include-eps-fonts))
       (string-append name ".eps")))
 
   ;; main body
-  ;; First, create the output, then if necessary, individual staves and
+  ;; First, create the output, then if necessary, individual staves and 
   ;; finally write some auxiliary files if desired
   (dump-infinite-stack-EPS stencils)
   (postprocess-output book framework-eps-module
-                      (format #f "~a.eps" basename) (ly:output-formats))
+			(format #f "~a.eps" basename) (ly:output-formats))
 
   ;; individual staves (*-1.eps etc.); only print if more than one stencil
   ;; Otherwise the .eps and the -1.eps file will be identical and waste space
   ;; Also always create if aux-files=##t
   (if (or create-aux-files (< 1 (length stencils)))
-      (let* ((widened-stencils (widen-left-stencil-edges stencils))
-             (counted-systems  (count-list widened-stencils))
-             (eps-files (map dump-counted-stencil counted-systems)))
-        (if do-pdf
-            ;; par-for-each: a bit faster ...
-            (for-each (lambda (y) (postscript->pdf 0 0 y))
-                      eps-files))))
+    (let* ((widened-stencils (widen-left-stencil-edges stencils))
+	   (counted-systems  (count-list widened-stencils))
+	   (eps-files (map dump-counted-stencil counted-systems)))
+      (if do-pdf
+	  ;; par-for-each: a bit faster ...
+	  (for-each (lambda (y) (postscript->pdf 0 0 y))
+		    eps-files))))
 
   ;; Now, write some aux files if requested: .texi, .tex and .count
   ;; for direct inclusion into latex and texinfo
   (if create-aux-files
-      (let* ((write-file (lambda (str-port ext)
-                           (if create-aux-files
-                               (let* ((name (format #f "~a-systems.~a" basename ext))
-                                      (port (open-output-file name)))
-                                 (ly:message (_ "Writing ~a...") name)
-                                 (display (get-output-string str-port) port)
-                                 (close-output-port port)))))
-             (tex-system-port (open-output-string))
-             (texi-system-port (open-output-string))
-             (count-system-port (open-output-string)))
-        (for-each (lambda (c)
-                    (if (< 0 c)
-                        (format tex-system-port
-                                "\\ifx\\betweenLilyPondSystem \\undefined
+    (let* ((write-file (lambda (str-port ext)
+			 (if create-aux-files
+		           (let* ((name (format #f "~a-systems.~a" basename ext))
+			          (port (open-output-file name)))
+			     (ly:message (_ "Writing ~a...") name)
+			     (display (get-output-string str-port) port)
+			     (close-output-port port)))))
+	   (tex-system-port (open-output-string))
+	   (texi-system-port (open-output-string))
+	   (count-system-port (open-output-string)))
+      (for-each (lambda (c)
+		  (if (< 0 c)
+		      (format tex-system-port
+			        "\\ifx\\betweenLilyPondSystem \\undefined
   \\linebreak
 \\else
   \\expandafter\\betweenLilyPondSystem{~a}%
 \\fi
 " c))
-                    (format tex-system-port "\\includegraphics{~a-~a}%\n"
-                            basename (1+ c))
-                    (format texi-system-port "@image{~a-~a}\n"
-                            basename (1+ c)))
-                  (iota (length stencils)))
-        (display "@c eof\n" texi-system-port)
-        (display "% eof\n" tex-system-port)
-        (format count-system-port "~a" (length stencils))
-        (write-file texi-system-port "texi")
-        (write-file tex-system-port "tex")
-        ;; do this as the last action so we know the rest is complete if
-        ;; this file is present.
-        (write-file count-system-port "count"))))
+		  (format tex-system-port "\\includegraphics{~a-~a}%\n"
+				   basename (1+ c))
+		  (format texi-system-port "@image{~a-~a}\n"
+				   basename (1+ c)))
+	        (iota (length stencils)))
+      (display "@c eof\n" texi-system-port)
+      (display "% eof\n" tex-system-port)
+      (format count-system-port "~a" (length stencils))
+      (write-file texi-system-port "texi")
+      (write-file tex-system-port "tex")
+      ;; do this as the last action so we know the rest is complete if
+      ;; this file is present.
+      (write-file count-system-port "count"))))
 
 (define-public (output-classic-framework basename book scopes fields)
   (output-scopes scopes fields basename)
   (if (ly:get-option 'dump-signatures)
       (write-system-signatures basename (ly:paper-book-systems book) 1))
   (dump-stencils-as-EPSes (map paper-system-stencil
-                               (ly:paper-book-systems book))
-                          book
-                          basename))
+			       (ly:paper-book-systems book))
+			  book
+			  basename))
 
 (define-public (output-framework basename book scopes fields)
   (output-scopes scopes fields basename)
   (if (ly:get-option 'clip-systems)
       (clip-system-EPSes basename book))
   (dump-stencils-as-EPSes (map page-stencil
-                               (ly:paper-book-pages book))
-                          book
-                          basename))
+			       (ly:paper-book-pages book))
+			  book
+			  basename))
 
-                                        ; redefine to imports from framework-ps
+; redefine to imports from framework-ps
 (define convert-to-pdf
   convert-to-pdf)
 

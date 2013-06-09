@@ -35,9 +35,9 @@
 ;; report errors.
 (defmacro define-ly-syntax-simple (args . body)
   `(define-public ,(cons* (car args)
-                          'parser
-                          'location
-                          (cdr args))
+			  'parser
+			  'location
+			  (cdr args))
      (let ((m ,(cons 'begin body)))
        (set! (ly:music-property m 'origin) location)
        m)))
@@ -51,29 +51,29 @@
 ;; fallback.
 (define-ly-syntax (music-function parser loc fun args . rest)
   (let* ((sig (ly:music-function-signature fun))
-         (pred (if (pair? (car sig)) (caar sig) (car sig)))
-         (good (proper-list? args))
-         (m (and good (apply (ly:music-function-extract fun)
-                             parser loc (reverse! args rest)))))
+	 (pred (if (pair? (car sig)) (caar sig) (car sig)))
+	 (good (proper-list? args))
+	 (m (and good (apply (ly:music-function-extract fun)
+			     parser loc (reverse! args rest)))))
     (if (and good (pred m))
-        (begin
-          (if (ly:music? m)
-              (set! (ly:music-property m 'origin) loc))
-          m)
-        (begin
-          (if good
-              (ly:parser-error parser
-                               (format #f (_ "~a function cannot return ~a")
-                                       (type-name pred) m)
-                               loc))
-          (and (pair? (car sig)) (cdar sig))))))
+	(begin
+	  (if (ly:music? m)
+	      (set! (ly:music-property m 'origin) loc))
+	  m)
+	(begin
+	  (if good
+	      (ly:parser-error parser
+			       (format #f (_ "~a function cannot return ~a")
+				       (type-name pred) m)
+			       loc))
+	  (and (pair? (car sig)) (cdar sig))))))
 
 (define-ly-syntax (argument-error parser location n pred arg)
   (ly:parser-error
    parser
    (format #f
-           (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-           n (type-name pred) arg)
+	   (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+	   n (type-name pred) arg)
    location))
 
 (define-ly-syntax-simple (void-music)
@@ -87,16 +87,16 @@
 
 (define-ly-syntax-simple (event-chord mlist)
   (make-music 'EventChord
-              'elements mlist))
+	      'elements mlist))
 
 (define-ly-syntax-simple (unrelativable-music mus)
   (make-music 'UnrelativableMusic
-              'element mus))
+	      'element mus))
 
 (define-ly-syntax-simple (context-change type id)
   (make-music 'ContextChange
-              'change-to-type type
-              'change-to-id id))
+	      'change-to-type type
+	      'change-to-id id))
 
 (define-ly-syntax-simple (voice-separator)
   (make-music 'VoiceSeparator))
@@ -106,32 +106,32 @@
 
 (define-ly-syntax (tempo parser location text . rest)
   (let* ((unit (and (pair? rest)
-                    (car rest)))
-         (count (and unit
-                     (cadr rest)))
-         (range-tempo? (pair? count))
-         (tempo-change (make-music 'TempoChangeEvent
-                                   'origin location
-                                   'text text
-                                   'tempo-unit unit
-                                   'metronome-count count))
-         (tempo-set
-          (and unit
-               (context-spec-music
-                (make-property-set 'tempoWholesPerMinute
-                                   (ly:moment-mul
-                                    (ly:make-moment
-                                     (if range-tempo?
-                                         (round (/ (+ (car count) (cdr count))
-                                                   2))
-                                         count)
-                                     1)
-                                    (ly:duration-length unit)))
-                'Score))))
+		    (car rest)))
+	 (count (and unit
+		     (cadr rest)))
+	 (range-tempo? (pair? count))
+	 (tempo-change (make-music 'TempoChangeEvent
+				   'origin location
+				   'text text
+				   'tempo-unit unit
+				   'metronome-count count))
+	 (tempo-set
+	  (and unit
+	       (context-spec-music
+		(make-property-set 'tempoWholesPerMinute
+				   (ly:moment-mul
+				    (ly:make-moment
+				     (if range-tempo?
+					 (round (/ (+ (car count) (cdr count))
+						   2))
+					 count)
+				     1)
+				    (ly:duration-length unit)))
+		'Score))))
 
     (if tempo-set
-        (make-sequential-music (list tempo-change tempo-set))
-        tempo-change)))
+	(make-sequential-music (list tempo-change tempo-set))
+	tempo-change)))
 
 (define-ly-syntax-simple (repeat type num body alts)
   (make-repeat type num body alts))
@@ -142,35 +142,35 @@ into a @code{MultiMeasureTextEvent}."
 
   (if (memq 'script-event (ly:music-property music 'types))
       (apply make-music 'MultiMeasureTextEvent
-             (flatten-alist (ly:music-mutable-properties music)))
+	     (flatten-alist (ly:music-mutable-properties music)))
       music))
 
 (define-ly-syntax (multi-measure-rest parser location duration articulations)
   (make-music 'MultiMeasureRestMusic
-              'articulations (map script-to-mmrest-text articulations)
-              'duration duration
-              'origin location))
+	      'articulations (map script-to-mmrest-text articulations)
+	      'duration duration
+	      'origin location))
 
 (define-ly-syntax (repetition-chord parser location duration articulations)
   (make-music 'EventChord
-              'duration duration
-              'elements articulations
-              'origin location))
+	      'duration duration
+	      'elements articulations
+	      'origin location))
 
 (define-ly-syntax-simple (context-specification type id ops create-new mus)
   (let* ((type-sym (if (symbol? type) type (string->symbol type)))
-         (csm (context-spec-music mus type-sym id)))
+	 (csm (context-spec-music mus type-sym id)))
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))
 
 (define-ly-syntax (composed-markup-list parser location commands markups)
-  ;; `markups' being a list of markups, eg (markup1 markup2 markup3),
-  ;; and `commands' a list of commands with their scheme arguments, in reverse order,
-  ;; eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
-  ;;  ((bold (raise 4 (italic markup1)))
-  ;;   (bold (raise 4 (italic markup2)))
-  ;;   (bold (raise 4 (italic markup3))))
+;; `markups' being a list of markups, eg (markup1 markup2 markup3),
+;; and `commands' a list of commands with their scheme arguments, in reverse order,
+;; eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
+;;  ((bold (raise 4 (italic markup1)))
+;;   (bold (raise 4 (italic markup2)))
+;;   (bold (raise 4 (italic markup3))))
 
   (define (compose arg)
     (fold
@@ -193,37 +193,37 @@ into a @code{MultiMeasureTextEvent}."
 
 (define-ly-syntax (property-operation parser location ctx music-type symbol . args)
   (let* ((props (case music-type
-                  ((PropertySet) (list 'value (car args)))
-                  ((PropertyUnset) '())
-                  ((OverrideProperty) (list 'grob-value (car args)
-                                            'grob-property-path (if (list? (cadr args))
-                                                                    (cadr args)
-                                                                    (cdr args))
-                                            'pop-first #t))
-                  ((RevertProperty)
-                   (if (list? (car args))
-                       (list 'grob-property-path (car args))
-                       (list 'grob-property-path args)))
-                  (else (ly:error (_ "Invalid property operation ~a") music-type))))
-         (m (apply make-music music-type
-                   'symbol symbol
-                   'origin location
-                   props)))
+		  ((PropertySet) (list 'value (car args)))
+		  ((PropertyUnset) '())
+		  ((OverrideProperty) (list 'grob-value (car args)
+					    'grob-property-path (if (list? (cadr args))
+								    (cadr args)
+								    (cdr args))
+					    'pop-first #t))
+		  ((RevertProperty)
+		   (if (list? (car args))
+		       (list 'grob-property-path (car args))
+		       (list 'grob-property-path args)))
+		  (else (ly:error (_ "Invalid property operation ~a") music-type))))
+	 (m (apply make-music music-type
+		   'symbol symbol
+		   'origin location
+		   props)))
     (make-music 'ContextSpeccedMusic
-                'element m
-                'context-type ctx
-                'origin location)))
+		'element m
+		'context-type ctx
+		'origin location)))
 
 ;; TODO: It seems that this function rarely returns anything useful.
 (define (get-first-context-id type mus)
   "Find the name of a ContextSpeccedMusic with given type"
   (let ((id (ly:music-property mus 'context-id)))
     (if (and (eq? (ly:music-property mus 'type) 'ContextSpeccedMusic)
-             (eq? (ly:music-property mus 'context-type) type)
-             (string? id)
-             (not (string-null? id)))
-        id
-        '())))
+	     (eq? (ly:music-property mus 'context-type) type)
+	     (string? id)
+	     (not (string-null? id)))
+	id
+	'())))
 
 (define unique-counter -1)
 (define (get-next-unique-voice-name)
@@ -238,34 +238,34 @@ into a @code{MultiMeasureTextEvent}."
   ;; to signal to the Extender_engraver that any pending extender should
   ;; be completed if the lyrics end before the associated voice.
   (append! (ly:music-property music 'elements)
-           (list (make-music 'CompletizeExtenderEvent)))
+	   (list (make-music 'CompletizeExtenderEvent)))
   (make-music 'LyricCombineMusic
-              'element music
-              'associated-context sync
-              'origin loc))
+	      'element music
+	      'associated-context sync
+	      'origin loc))
 
 (define-ly-syntax (lyric-combine parser location voice music)
   (lyric-combine-music voice music location))
 
 (define-ly-syntax (add-lyrics parser location music addlyrics-list)
   (let* ((existing-voice-name (get-first-context-id 'Voice music))
-         (voice-name (if (string? existing-voice-name)
-                         existing-voice-name
-                         (get-next-unique-voice-name)))
-         (voice (if (string? existing-voice-name)
-                    (music)
-                    (make-music 'ContextSpeccedMusic
-                                'element music
-                                'context-type 'Voice
-                                'context-id voice-name
-                                'origin (ly:music-property music 'origin))))
-         (lyricstos (map (lambda (mus)
-                           (let* ((loc (ly:music-property mus 'origin))
-                                  (lyr (lyric-combine-music voice-name mus loc)))
-                             (make-music 'ContextSpeccedMusic
-                                         'create-new #t
-                                         'context-type 'Lyrics
-                                         'element lyr
-                                         'origin loc)))
-                         addlyrics-list)))
+	 (voice-name (if (string? existing-voice-name)
+			 existing-voice-name
+			 (get-next-unique-voice-name)))
+	 (voice (if (string? existing-voice-name)
+		    (music)
+		    (make-music 'ContextSpeccedMusic
+				'element music
+				'context-type 'Voice
+				'context-id voice-name
+				'origin (ly:music-property music 'origin))))
+	 (lyricstos (map (lambda (mus)
+			   (let* ((loc (ly:music-property mus 'origin))
+				  (lyr (lyric-combine-music voice-name mus loc)))
+			     (make-music 'ContextSpeccedMusic
+					 'create-new #t
+					 'context-type 'Lyrics
+					 'element lyr
+					 'origin loc)))
+			 addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))

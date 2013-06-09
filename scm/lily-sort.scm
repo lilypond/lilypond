@@ -68,14 +68,14 @@
           ((null? a) (cons #f (car b)))
           ((null? b) (cons (car a) #f))
           ((not ((if ci char-ci=? char=?) (car a) (car b)))
-           (cons (car a) (car b)))
+              (cons (car a) (car b)))
           (else (find-mismatch (cdr a) (cdr b))))))
 
 (define (ly:string-generic-<? a b ci)
   (let ((mismatch (first-diff-chars a b ci)))
     (cond ((and mismatch (car mismatch) (cdr mismatch))
-           ((if ci ly:char-ci<? ly:char<?)
-            (car mismatch) (cdr mismatch)))
+             ((if ci ly:char-ci<? ly:char<?)
+                   (car mismatch) (cdr mismatch)))
           ((and mismatch (cdr mismatch)) #t)
           (else #f))))
 

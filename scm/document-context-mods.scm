@@ -73,8 +73,8 @@
 "
      name-sym
      name-sym
-     (if (pair? docstring)
-         (cadar docstring)
+     (if (pair? docstring) 
+         (cadar docstring) 
          (begin
            (ly:warning "context modification `~a' not documented." name-sym)
            "(undocumented; fixme)"))

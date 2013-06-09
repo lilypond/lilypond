@@ -139,26 +139,26 @@
 (define (tempo->beats music)
   (let* ((tempo-spec (find-child-named music 'SequentialMusic))
          (tempo (cond
-                 (tempo-spec
-                  (let ((tempo-event (find-child-named tempo-spec
-                                                       'TempoChangeEvent)))
-                    (and tempo-event
-                         (let ((count (ly:music-property tempo-event
-                                                         'metronome-count)))
-                           (* (if (pair? count)
-                                  (round (/ (+ (car count) (cdr count)) 2))
-                                  count)
-                              (duration->number
-                               (ly:music-property tempo-event 'tempo-unit)))))))
-                 (else
+		 (tempo-spec
+		  (let ((tempo-event (find-child-named tempo-spec
+						       'TempoChangeEvent)))
+		    (and tempo-event
+			 (let ((count (ly:music-property tempo-event
+							 'metronome-count)))
+			   (* (if (pair? count)
+				  (round (/ (+ (car count) (cdr count)) 2))
+				  count)
+			      (duration->number
+			       (ly:music-property tempo-event 'tempo-unit)))))))
+		 (else
                   (format #t "Programming error (tempo->beats): ~a~%"
-                          tempo-spec)))))
+			  tempo-spec)))))
     (debug-enable 'backtrace)
     (and tempo
-         (set! *default-tempo* (property-value
-                                (find-child tempo-spec (lambda (elt)
-                                                         (music-property? elt 'tempoWholesPerMinute)))))
-         (round (* tempo (expt 2 (+ 2 (*base-octave-shift*))))))))
+	 (set! *default-tempo* (property-value
+				(find-child tempo-spec (lambda (elt)
+							 (music-property? elt 'tempoWholesPerMinute)))))
+	 (round (* tempo (expt 2 (+ 2 (*base-octave-shift*))))))))
 
 (defstruct music-context
   music
@@ -173,8 +173,8 @@
        (cond
         ((music-name? music* 'LyricCombineMusic)
          (push! (make-music-context #:music music*
-                                    #:context (ly:music-property music* 'associated-context))
-                music-context-list)
+                                              #:context (ly:music-property music* 'associated-context))
+                     music-context-list)
          #t)
         ((and (music-name? music* 'ContextSpeccedMusic)
               (music-property-value? music* 'context-type 'Lyrics)
@@ -182,7 +182,7 @@
          (let ((name-node (find-child music* (lambda (node) (music-property? node 'associatedVoice)))))
            (if name-node
                (push! (make-music-context #:music music* #:context (property-value name-node))
-                      music-context-list)))
+                           music-context-list)))
          #t)
         (else
          #f))))
@@ -214,12 +214,12 @@
         ((music-name? music '(EventChord LyricEvent))
          (let ((lyric-event (find-child-named music 'LyricEvent)))
            (push! (make-lyrics
-                   #:text (ly:music-property lyric-event 'text)
-                   #:duration (* (duration->number (ly:music-property lyric-event 'duration)) 4)
-                   #:unfinished (and (not (*syllabify*)) (find-child-named music 'HyphenEvent))
-                   #:ignore-melismata ignore-melismata
-                   #:context current-voice)
-                  lyrics-list))
+                        #:text (ly:music-property lyric-event 'text)
+                        #:duration (* (duration->number (ly:music-property lyric-event 'duration)) 4)
+                        #:unfinished (and (not (*syllabify*)) (find-child-named music 'HyphenEvent))
+                        #:ignore-melismata ignore-melismata
+                        #:context current-voice)
+                       lyrics-list))
          ;; LilyPond delays applying settings
          (set! ignore-melismata next-ignore-melismata)
          (set! current-voice next-current-voice)
@@ -227,9 +227,9 @@
         ;; skipping
         ((music-name? music 'SkipMusic)
          (push! (make-skip
-                 #:duration (* (duration->number (ly:music-property music 'duration)) 4)
-                 #:context current-voice)
-                lyrics-list)
+                      #:duration (* (duration->number (ly:music-property music 'duration)) 4)
+                      #:context current-voice)
+                     lyrics-list)
          #t)
         ;; parameter change
         ((music-property? music 'ignoreMelismata)
@@ -261,7 +261,7 @@
 (defstruct score-notes
   note/rest-list ; list of note and rest instances
   (verse-block-list '()) ; lyrics attached to notes -- multiple elements are
-                                        ; possible for multiple stanzas
+                         ; possible for multiple stanzas
   )
 
 (defstruct note
@@ -295,10 +295,10 @@
          (let ((context (ly:music-property music 'context-id))
                (children (music-elements music)))
            (add! (make-score-voice #:context (debug "Changing context" context)
-                                   #:elements (append-map (lambda (elt)
-                                                            (get-notes* elt autobeaming))
-                                                          children))
-                 result-list))
+                                             #:elements (append-map (lambda (elt)
+                                                                      (get-notes* elt autobeaming))
+                                                                    children))
+                      result-list))
          #t)
         ;; timing change
         ((music-property? music 'timeSignatureFraction)
@@ -317,10 +317,10 @@
          (let ((repeat-count (ly:music-property music 'repeat-count))
                (children (music-elements music)))
            (add! (make-score-repetice #:count repeat-count
-                                      #:elements (append-map
-                                                  (lambda (elt) (get-notes* elt autobeaming))
-                                                  children))
-                 result-list))
+                                                #:elements (append-map
+                                                            (lambda (elt) (get-notes* elt autobeaming))
+                                                            children))
+                      result-list))
          #t)
         ;; a note or rest
         ((or (music-name? music 'EventChord)
@@ -350,7 +350,7 @@
                                               events))))
                (set! in-slur (+ in-slur slur-start (- slur-end)))
                (let ((note-spec (make-note #:pitch pitch #:duration duration #:joined in-slur
-                                           #:origin (ly:music-property note 'origin)))
+                                                #:origin (ly:music-property note 'origin)))
                      (last-result (and (not (null? result-list)) (last result-list))))
                  (set! last-note-spec note-spec)
                  (if (and last-result
@@ -363,29 +363,29 @@
              (debug "Rest" rest)
              (let* ((duration (* (duration->number (ly:music-property rest 'duration)) 4))
                     (rest-spec (make-rest #:duration duration
-                                          #:origin (ly:music-property rest 'origin)))
+                                               #:origin (ly:music-property rest 'origin)))
                     (last-result (and (not (null? result-list)) (last result-list))))
                (if (and last-result
                         (score-notes? last-result))
                    (set-score-notes-note/rest-list! last-result
-                                                    (append (score-notes-note/rest-list last-result)
-                                                            (list rest-spec)))
+                                                         (append (score-notes-note/rest-list last-result)
+                                                                 (list rest-spec)))
                    (add! (make-score-notes #:note/rest-list (list rest-spec)) result-list))))))
-         (filter
-          (lambda (m)
-            (not (music-name? m '(RestEvent
-                                  NoteEvent
-                                  LyricEvent
-                                  MultiMeasureRestEvent))))
-          (ly:music-property music 'elements)))
-        ((music-name? music '(RestEvent
-                              NoteEvent
-                              LyricEvent
-                              MultiMeasureRestEvent))
-         (make-music 'EventChord
-                     'elements
-                     (cons music
-                           (ly:music-property music 'articulations))))
+	 (filter
+	  (lambda (m)
+	    (not (music-name? m '(RestEvent
+				  NoteEvent
+				  LyricEvent
+				  MultiMeasureRestEvent))))
+	  (ly:music-property music 'elements)))
+	((music-name? music '(RestEvent
+			      NoteEvent
+			      LyricEvent
+			      MultiMeasureRestEvent))
+	 (make-music 'EventChord
+		     'elements
+		     (cons music
+			   (ly:music-property music 'articulations))))
         ;; autobeaming change
         ((music-property? music 'autoBeaming)
          (set! autobeaming (property-value music))
@@ -396,21 +396,21 @@
            (set! in-slur (+ in-slur change))
            (if last-note-spec
                (set-note-joined! last-note-spec (+ (note-joined last-note-spec) change))))
-         #t)
+	 #t)
         ;; tempo change
         ((music-property? music 'tempoWholesPerMinute)
          (set! *tempo-compression* (ly:moment-div *default-tempo* (property-value music)))
-         #t)
+	 #t)
         ;; breathe
         ((music-name? music 'BreathingEvent)
          (if last-note-spec
              (let* ((note-duration (note-duration last-note-spec))
                     (rest-spec (make-rest #:duration (* note-duration (- 1 (*breathe-shortage*)))
-                                          #:origin (ly:music-property music 'origin))))
+                                               #:origin (ly:music-property music 'origin))))
                (set-note-duration! last-note-spec (* note-duration (*breathe-shortage*)))
                (add! (make-score-notes #:note/rest-list (list rest-spec)) result-list))
              (warning music "\\\\breathe without previous note known"))
-         #t)
+	 #t)
         ;; anything else
         (else
          #f))))
@@ -503,12 +503,12 @@
         (let ((new-context (score-voice-context score)))
           (if (equal? new-context lyrics-context)
               (insert-lyrics*! lyrics/skip-list
-                               (append (score-voice-elements score)
-                                       (if (null? (cdr score-list))
-                                           '()
-                                           (list (make-score-voice #:context context
-                                                                   #:elements (cdr score-list)))))
-                               new-context)
+                                    (append (score-voice-elements score)
+                                            (if (null? (cdr score-list))
+                                                '()
+                                                (list (make-score-voice #:context context
+                                                                             #:elements (cdr score-list)))))
+                                    new-context)
               (insert-lyrics*! lyrics/skip-list (cdr score-list) context))))
        ((score-choice? score)
         (let* ((lists* (score-choice-lists score))
@@ -519,32 +519,32 @@
                (score* #f))
           (while (and (not score*)
                       (not (null? lists)))
-                 (set! score* (find-lyrics-score (car lists) lyrics-context allow-default))
-                 (set! lists (cdr lists))
-                 (if (not score*)
-                     (set! n (+ n 1)))
-                 (if (and (null? lists)
-                          (not allow-default)
-                          (equal? lyrics-context context))
-                     (begin
-                       (set! allow-default #t)
-                       (set! n 0)
-                       (set! lists (score-choice-lists score)))))
+            (set! score* (find-lyrics-score (car lists) lyrics-context allow-default))
+            (set! lists (cdr lists))
+            (if (not score*)
+                (set! n (+ n 1)))
+            (if (and (null? lists)
+                     (not allow-default)
+                     (equal? lyrics-context context))
+                (begin
+                  (set! allow-default #t)
+                  (set! n 0)
+                  (set! lists (score-choice-lists score)))))
           (debug "Selected score" score*)
           (if (and score*
                    (>= n n-assigned))
               (begin
                 (if (> n n-assigned)
                     (receive (assigned-elts unassigned-elts) (split-at lists* n-assigned)
-                             (set-score-choice-lists! score (append assigned-elts
-                                                                    (list (list-ref lists* n))
-                                                                    (take unassigned-elts (- n n-assigned))
-                                                                    lists))))
+                      (set-score-choice-lists! score (append assigned-elts
+                                                                  (list (list-ref lists* n))
+                                                                  (take unassigned-elts (- n n-assigned))
+                                                                  lists))))
                 (set-score-choice-n-assigned! score (+ n-assigned 1))))
           (insert-lyrics*! lyrics/skip-list (append (if score* (list score*) '()) (cdr score-list)) context)))
        ((score-repetice? score)
         (insert-lyrics*! lyrics/skip-list
-                         (append (score-repetice-elements score) (cdr score-list)) context))
+                              (append (score-repetice-elements score) (cdr score-list)) context))
        ((score-notes? score)
         ;; This is the only part which actually attaches the processed lyrics.
         ;; The subsequent calls return verses which we collect into a verse block.
@@ -563,66 +563,66 @@
         (unfinished-verse #f)
         (verse-list '()))
     (while (not (null? note-list))
-           (if (null? lyrics/skip-list)
-               (let ((final-rests '()))
-                 (while (and (not (null? note-list))
-                             (rest? (car note-list)))
-                        (push! (car note-list) final-rests)
-                        (set! note-list (cdr note-list)))
-                 (if (not (null? final-rests))
-                     (set! verse-list (append verse-list
-                                              (list (make-verse #:text ""
+      (if (null? lyrics/skip-list)
+          (let ((final-rests '()))
+            (while (and (not (null? note-list))
+                        (rest? (car note-list)))
+              (push! (car note-list) final-rests)
+              (set! note-list (cdr note-list)))
+            (if (not (null? final-rests))
+                (set! verse-list (append verse-list
+                                         (list (make-verse #:text ""
                                                                 #:notelist/rests (reverse! final-rests))))))
-                 (if (not (null? note-list))
-                     (begin
-                       (warning (car note-list) "Missing lyrics: ~a ~a" context note-list)
-                       (set! note-list '()))))
-               (let ((lyrics/skip (car lyrics/skip-list)))
-                 (receive (notelist/rest note-list*) (if (lyrics? lyrics/skip)
-                                                         (consume-lyrics-notes lyrics/skip note-list context)
-                                                         (consume-skip-notes lyrics/skip note-list context))
-                          (debug "Consumed notes" (list lyrics/skip notelist/rest))
-                          (set! note-list note-list*)
-                          (cond
-                           ((null? notelist/rest)
-                            #f)
-                           ;; Lyrics
-                           ((and (lyrics? lyrics/skip)
-                                 unfinished-verse)
-                            (set-verse-text!
-                             unfinished-verse
-                             (string-append (verse-text unfinished-verse) (lyrics-text lyrics/skip)))
-                            (set-verse-notelist/rests!
-                             unfinished-verse
-                             (append (verse-notelist/rests unfinished-verse) (list notelist/rest)))
-                            (if (not (lyrics-unfinished lyrics/skip))
-                                (set! unfinished-verse #f)))
-                           ((lyrics? lyrics/skip)
-                            (let ((verse (make-verse #:text (if (rest? notelist/rest)
-                                                                ""
-                                                                (lyrics-text lyrics/skip))
-                                                     #:notelist/rests (list notelist/rest))))
-                              (add! verse verse-list)
-                              (set! unfinished-verse (if (lyrics-unfinished lyrics/skip) verse #f))))
-                           ;; Skip
-                           ((skip? lyrics/skip)
-                            (cond
-                             ((rest? notelist/rest)
-                              (if (null? verse-list)
-                                  (set! verse-list (list (make-verse #:text ""
-                                                                     #:notelist/rests (list notelist/rest))))
-                                  (let ((last-verse (last verse-list)))
-                                    (set-verse-notelist/rests!
-                                     last-verse
-                                     (append (verse-notelist/rests last-verse) (list notelist/rest))))))
-                             ((pair? notelist/rest)
-                              (add! (make-verse #:text (*skip-word*) #:notelist/rests (list notelist/rest))
-                                    verse-list))
-                             (else
-                              (error "Unreachable branch reached")))
-                            (set! unfinished-verse #f)))
-                          (if (not (rest? notelist/rest))
-                              (set! lyrics/skip-list (cdr lyrics/skip-list)))))))
+            (if (not (null? note-list))
+                (begin
+                  (warning (car note-list) "Missing lyrics: ~a ~a" context note-list)
+                  (set! note-list '()))))
+          (let ((lyrics/skip (car lyrics/skip-list)))
+            (receive (notelist/rest note-list*) (if (lyrics? lyrics/skip)
+                                                    (consume-lyrics-notes lyrics/skip note-list context)
+                                                    (consume-skip-notes lyrics/skip note-list context))
+              (debug "Consumed notes" (list lyrics/skip notelist/rest))
+              (set! note-list note-list*)
+              (cond
+               ((null? notelist/rest)
+                #f)
+               ;; Lyrics
+               ((and (lyrics? lyrics/skip)
+                     unfinished-verse)
+                (set-verse-text!
+                 unfinished-verse
+                 (string-append (verse-text unfinished-verse) (lyrics-text lyrics/skip)))
+                (set-verse-notelist/rests!
+                 unfinished-verse
+                 (append (verse-notelist/rests unfinished-verse) (list notelist/rest)))
+                (if (not (lyrics-unfinished lyrics/skip))
+                    (set! unfinished-verse #f)))
+               ((lyrics? lyrics/skip)
+                (let ((verse (make-verse #:text (if (rest? notelist/rest)
+                                                         ""
+                                                         (lyrics-text lyrics/skip))
+                                              #:notelist/rests (list notelist/rest))))
+                  (add! verse verse-list)
+                  (set! unfinished-verse (if (lyrics-unfinished lyrics/skip) verse #f))))
+               ;; Skip
+               ((skip? lyrics/skip)
+                (cond
+                 ((rest? notelist/rest)
+                  (if (null? verse-list)
+                      (set! verse-list (list (make-verse #:text ""
+                                                              #:notelist/rests (list notelist/rest))))
+                      (let ((last-verse (last verse-list)))
+                        (set-verse-notelist/rests!
+                         last-verse
+                         (append (verse-notelist/rests last-verse) (list notelist/rest))))))
+                 ((pair? notelist/rest)
+                  (add! (make-verse #:text (*skip-word*) #:notelist/rests (list notelist/rest))
+                             verse-list))
+                 (else
+                  (error "Unreachable branch reached")))
+                (set! unfinished-verse #f)))
+              (if (not (rest? notelist/rest))
+                  (set! lyrics/skip-list (cdr lyrics/skip-list)))))))
     (if unfinished-verse
         (set-verse-unfinished! unfinished-verse #t))
     (set-score-notes-verse-block-list!
@@ -642,13 +642,13 @@
             (consumed '()))
         (while (and join
                     (not (null? note-list)))
-               (let ((note (car note-list)))
-                 (push! note consumed)
-                 (let ((note-slur (note-joined note)))
-                   (if (< note-slur 0)
-                       (warning note "Slur underrun"))
-                   (set! join (and (not ignore-melismata) (> note-slur 0)))))
-               (set! note-list (cdr note-list)))
+          (let ((note (car note-list)))
+            (push! note consumed)
+            (let ((note-slur (note-joined note)))
+              (if (< note-slur 0)
+                  (warning note "Slur underrun"))
+              (set! join (and (not ignore-melismata) (> note-slur 0)))))
+          (set! note-list (cdr note-list)))
         (if join
             (warning (safe-car (if (null? note-list) consumed note-list))
                      "Unfinished slur: ~a ~a" context consumed))
@@ -662,19 +662,19 @@
         (consumed '()))
     (while (and (> duration epsilon)
                 (not (null? note-list)))
-           (let ((note (car note-list)))
-             (assert (note? note))
-             (push! note consumed)
-             (set! duration (- duration (note-duration note))))
-           (set! note-list (cdr note-list)))
+      (let ((note (car note-list)))
+        (assert (note? note))
+        (push! note consumed)
+        (set! duration (- duration (note-duration note))))
+      (set! note-list (cdr note-list)))
     (set! consumed (reverse! consumed))
     (cond
      ((> duration epsilon)
       (warning (if (null? note-list) (safe-last consumed) (safe-car note-list))
-               "Excessive skip: ~a ~a ~a ~a" context skip duration consumed))
+                    "Excessive skip: ~a ~a ~a ~a" context skip duration consumed))
      ((< duration (- epsilon))
       (warning (if (null? note-list) (safe-last consumed) (safe-car note-list))
-               "Skip misalignment: ~a ~a ~a ~a" context skip duration consumed)))
+                    "Skip misalignment: ~a ~a ~a ~a" context skip duration consumed)))
     (values (if (*skip-word*)
                 consumed
                 '())
@@ -694,8 +694,8 @@
                              (score-choice-lists score)))))
    ((score-repetice? score)
     (list (make-repeated-blocks #:count (score-repetice-count score)
-                                #:block-list (append-map extract-verse-blocks
-                                                         (score-repetice-elements score)))))
+                                     #:block-list (append-map extract-verse-blocks
+                                                              (score-repetice-elements score)))))
    ((score-notes? score)
     (list (make-parallel-blocks #:block-list (score-notes-verse-block-list score))))
    (else
@@ -709,20 +709,20 @@
   (debug "Final score list" score-list)
   (let ((verse-block-list (debug "Verse blocks" (append-map extract-verse-blocks score-list))))
     (letrec ((combine (lambda (lst-1 lst-2)
-                        (debug "Combining lists" (list lst-1 lst-2))
-                        (if (null? lst-2)
-                            lst-1
-                            (let ((diff (- (length lst-1) (length lst-2))))
-                              (if (< diff 0)
-                                  (let ((last-elt (last lst-1)))
-                                    (while (< diff 0)
-                                           (add! last-elt lst-1)
-                                           (set! diff (+ diff 1))))
-                                  (let ((last-elt (last lst-2)))
-                                    (while (> diff 0)
-                                           (add! last-elt lst-2)
-                                           (set! diff (- diff 1)))))
-                              (debug "Combined" (map append lst-1 lst-2))))))
+                         (debug "Combining lists" (list lst-1 lst-2))
+                         (if (null? lst-2)
+                             lst-1
+                             (let ((diff (- (length lst-1) (length lst-2))))
+                               (if (< diff 0)
+                                   (let ((last-elt (last lst-1)))
+                                     (while (< diff 0)
+                                       (add! last-elt lst-1)
+                                       (set! diff (+ diff 1))))
+                                   (let ((last-elt (last lst-2)))
+                                     (while (> diff 0)
+                                       (add! last-elt lst-2)
+                                       (set! diff (- diff 1)))))
+                               (debug "Combined" (map append lst-1 lst-2))))))
              (expand* (lambda (block)
                         (cond
                          ((parallel-blocks? block)
@@ -736,13 +736,13 @@
                                 (expanded (expand (repeated-blocks-block-list block)))
                                 (expanded* '()))
                             (while (not (null? expanded))
-                                   (let ((count* count)
-                                         (item '()))
-                                     (while (and (> count* 0) (not (null? expanded)))
-                                            (set! item (append item (car expanded)))
-                                            (set! expanded (cdr expanded))
-                                            (set! count* (- count* 1)))
-                                     (push! item expanded*)))
+                              (let ((count* count)
+                                    (item '()))
+                                (while (and (> count* 0) (not (null? expanded)))
+                                  (set! item (append item (car expanded)))
+                                  (set! expanded (cdr expanded))
+                                  (set! count* (- count* 1)))
+                                (push! item expanded*)))
                             (reverse expanded*)))
                          (else
                           (list (list block))))))
@@ -751,7 +751,7 @@
                        (if (null? block-list)
                            '()
                            (debug "Expanded" (combine (expand* (car block-list))
-                                                      (expand (cdr block-list)))))))
+                                                           (expand (cdr block-list)))))))
              (merge (lambda (verse-list)
                       (cond
                        ((null? verse-list)
@@ -760,15 +760,15 @@
                         (let ((verse-1 (first verse-list))
                               (verse-2 (second verse-list)))
                           (merge (cons (make-verse #:text (string-append (verse-text verse-1)
-                                                                         (verse-text verse-2))
-                                                   #:notelist/rests (append (verse-notelist/rests verse-1)
-                                                                            (verse-notelist/rests verse-2))
-                                                   #:unfinished (verse-unfinished verse-2))
+                                                                              (verse-text verse-2))
+                                                        #:notelist/rests (append (verse-notelist/rests verse-1)
+                                                                                 (verse-notelist/rests verse-2))
+                                                        #:unfinished (verse-unfinished verse-2))
                                        (cddr verse-list)))))
                        (else
                         (cons (car verse-list) (merge (cdr verse-list))))))))
       (debug "Final verses" (merge (append-map (lambda (lst) (append-map verse-block-verse-list lst))
-                                               (expand verse-block-list)))))))
+                                                    (expand verse-block-list)))))))
 
 (define (handle-music music)
   ;; Returns list of verses.
@@ -791,7 +791,7 @@
 
 
 (define festival-note-mapping '((0 "C") (1 "C#") (2 "D") (3 "D#") (4 "E") (5 "F") (6 "F#")
-                                (7 "G") (8 "G#") (9 "A") (10 "A#") (11 "B")))
+                                     (7 "G") (8 "G#") (9 "A") (10 "A#") (11 "B")))
 (define (festival-pitch pitch)
   (let* ((semitones (ly:pitch-semitones pitch))
          (octave (inexact->exact (floor (/ semitones 12))))
@@ -815,17 +815,17 @@
                 (let ((text (verse-text verse))
                       (note/rest-list (verse-notelist/rests verse)))
                   (receive (rest-list note-listlist) (partition rest? note/rest-list)
-                           (debug "Rest list" rest-list)
-                           (debug "Note list" note-listlist)
-                           (if (not (null? rest-list))
-                               (set! rest-dur (+ rest-dur (apply + (map rest-duration rest-list)))))
-                           (if (not (null? note-listlist))
-                               (begin
-                                 (if (> rest-dur 0)
-                                     (begin
-                                       (write-rest-element port rest-dur)
-                                       (set! rest-dur 0)))
-                                 (write-lyrics-element port text note-listlist))))))
+                    (debug "Rest list" rest-list)
+                    (debug "Note list" note-listlist)
+                    (if (not (null? rest-list))
+                        (set! rest-dur (+ rest-dur (apply + (map rest-duration rest-list)))))
+                    (if (not (null? note-listlist))
+                        (begin
+                          (if (> rest-dur 0)
+                              (begin
+                                (write-rest-element port rest-dur)
+                                (set! rest-dur 0)))
+                          (write-lyrics-element port text note-listlist))))))
               (handle-music music))
     (if (> rest-dur 0)
         (write-rest-element port rest-dur))))
