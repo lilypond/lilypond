@@ -42,21 +42,23 @@ the following pedal should be circled (indicating a change)
 The function also checks if the string has the typical form of three
 pedals, then the divider and then the remaining four pedals.  If not it
 prints out a warning.  However, in any case, it will also print each symbol
-in the order as given.  This means you can place the divider
-(even multiple dividers) anywhere you want, but you'll have to live with the warnings.
+in the order as given.  This means you can place the divider (even
+multiple dividers) anywhere you want, but you'll have to live with the
+warnings.
 
 The appearance of the diagram can be tweaked inter alia using the size property
 of the TextScript grob (@code{\\override Voice.TextScript #'size = #0.3}) for
-the overall, the thickness property
-(@code{\\override Voice.TextScript #'thickness = #3}) for the line thickness of
-the horizontal line and the divider.  The remaining configuration
-(box sizes, offsets and spaces) is done by the harp-pedal-details list of properties
-(@code{\\override Voice.TextScript #'harp-pedal-details #'box-width = #1}).
-It contains the following settings: @code{box-offset}
-(vertical shift of the box center for up/down pedals),
-@code{box-width}, @code{box-height}, @code{space-before-divider}
-(the spacing between two boxes before the divider) and
-@code{space-after-divider} (box spacing after the divider).
+the overall, the thickness property (@code{\\override Voice.TextScript
+#'thickness = #3}) for the line thickness of
+the horizontal line and the divider.  The remaining configuration (box
+sizes, offsets and spaces) is done by the harp-pedal-details list of
+properties (@code{\\override Voice.TextScript #'harp-pedal-details
+#'box-width = #1}).
+It contains the following settings: @code{box-offset} (vertical shift
+of the box center for up/down pedals), @code{box-width},
+@code{box-height}, @code{space-before-divider} (the spacing between
+two boxes before the divider) and @code{space-after-divider} (box
+spacing after the divider).
 
 @lilypond[verbatim,quote]
 \\markup \\harp-pedal #\"^-v|--ov^\"

@@ -286,8 +286,8 @@ function for clef changes.")
 function for cue clef changes.")
      (explicitKeySignatureVisibility ,vector? "@samp{break-visibility}
 function for explicit key changes.  @samp{\\override} of the
-@code{break-visibility} property will set the visibility for normal
-(i.e., at the start of the line) key signatures.")
+@code{break-visibility} property will set the visibility for
+normal (i.e., at the start of the line) key signatures.")
      (extendersOverRests ,boolean? "Whether to continue extenders as
 they cross a rest.")
      (extraNatural ,boolean? "Whether to typeset an extra natural sign
@@ -359,9 +359,9 @@ the default time signature.")
 @rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another
 instrument is to be taken.")
-     (instrumentEqualizer ,procedure? "A function taking a string
-(instrument name), and returning a @code{(@var{min} . @var{max})} pair
-of numbers for the loudness range of the instrument.")
+     (instrumentEqualizer ,procedure? "A function taking a
+string (instrument name), and returning a @code{(@var{min} . @var{max})}
+pair of numbers for the loudness range of the instrument.")
      (instrumentName ,markup? "The name to print left of a staff.  The
 @code{instrumentName} property labels the staff in the first system, and
 the @code{shortInstrumentName} property labels following lines.")

@@ -196,8 +196,8 @@ annotation char from string @var{str}."
 ;; Line break decisions.
 
 (define-public (define-bar-line bar-glyph eol-glyph bol-glyph span-glyph)
-  "Define a bar glyph @var{bar-glyph} and its substitute at the end of a line
-(@var{eol-glyph}), at the beginning of a new line (@var{bol-glyph})
+  "Define a bar glyph @var{bar-glyph} and its substitute at the end of
+a line (@var{eol-glyph}), at the beginning of a new line (@var{bol-glyph})
 and as a span bar (@var{span-glyph}) respectively."
   ;; the last argument may not include annotations
   (check-for-annotation span-glyph)

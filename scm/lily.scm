@@ -169,8 +169,8 @@ variables to their value after the initial call of @var{thunk}."
     ;; be longer than 48 characters per line.
 
     (anti-alias-factor 1
-"Render at higher resolution
-(using given factor) and scale down result to prevent jaggies in
+"Render at higher resolution (using given factor)
+and scale down result to prevent jaggies in
 PNG images.")
     (aux-files
       #t
@@ -309,8 +309,8 @@ input files to be processed.")
     (relative-includes
       #f
 "When processing an \\include command, look for
-the included file relative to the current file
-(instead of the root file)")
+the included file relative to the current file\
+\n(instead of the root file)")
     (safe
       #f
 "Run in safer mode.")

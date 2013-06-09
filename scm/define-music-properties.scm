@@ -41,10 +41,10 @@ TODO: Consider making type into symbol.")
 		    "Articulation events specifically for this note.")
      (associated-context ,string? "Name of the Voice context associated with
 this @code{\\lyricsto} section.")
-     (augmented ,boolean? "This figure is for an augmented figured bass
-(with @code{+} sign).")
-     (augmented-slash ,boolean? "This figure is for an augmented figured bass
-(back-slashed number).")
+     (augmented ,boolean? "This figure is for an augmented figured
+bass (with @code{+} sign).")
+     (augmented-slash ,boolean? "This figure is for an augmented
+figured bass (back-slashed number).")
      (automatically-numbered ,boolean? "Should a footnote be automatically
 numbered?")
      (autosplit-end ,boolean? "Duration of event was truncated by automatic
@@ -179,8 +179,8 @@ If zero, signals a beat containing varying durations.")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (span-type ,symbol? "What kind of dynamic spanner should be created?
 Options are @code{'text} and @code{'hairpin}.")
-     (span-text ,markup? "The displayed text for dynamic text spanners
-(e.g., cresc.)")
+     (span-text ,markup? "The displayed text for dynamic text
+spanners (e.g., cresc.)")
      (spanner-id ,string? "Identifier to distinguish concurrent spanners.")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length

@@ -961,8 +961,8 @@ should use @code{LEFT}.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
-space and @var{dir} indicates the direction of the tie
-(@code{1}=>up, @w{@code{-1}}=>down, @code{0}=>center).  A non-pair entry
+space and @var{dir} indicates the direction of the tie (@code{1}=>up,
+@w{@code{-1}}=>down, @code{0}=>center).  A non-pair entry
 in the list causes the corresponding tie to be formatted
 automatically.")
      (to-barline ,boolean? "If true, the spanner will stop at the bar

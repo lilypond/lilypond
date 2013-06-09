@@ -236,9 +236,9 @@ be connected to the start by a line.
   (define (make-radius-list x-radius y-radius)
     "Makes a list of angle/radius pairs at intervals of PI/2 for
 the partial ellipse until 7*PI/2.  For example, in pseudo-code:
-> (make-radius-list 2 3)
-((0.0 . 2) (PI/2 . 3) (PI . -2) (3*PI/2 . -3)
-(2*PI . 2) (5*PI/2 . 3) (3*PI . -2) (7*PI/2 . -3))
+> (make-radius-list 2 3)\
+\n((0.0 . 2) (PI/2 . 3) (PI . -2) (3*PI/2 . -3)\
+\n(2*PI . 2) (5*PI/2 . 3) (3*PI . -2) (7*PI/2 . -3))
 "
     (apply append
            (map (lambda (adder)

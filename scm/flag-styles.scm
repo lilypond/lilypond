@@ -33,8 +33,8 @@
                                     offset length thickness stroke-thickness)
   "Add the stroke for acciaccatura to the given flag stencil.
 The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)'
-and ends at `(0, vertical-center-of-flag-end) -
-(flag-x-width/2, flag-x-width + flag-thickness)'.  Here `length' is the
+and ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2,
+flag-x-width + flag-thickness)'.  Here `length' is the
 whole length, while `flag-x-width' is just the x-extent and thus depends on
 the angle!  Other combinations don't look as good.
 

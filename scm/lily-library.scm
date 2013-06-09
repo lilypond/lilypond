@@ -100,9 +100,9 @@ the numeric factor by which they increase the duration."
   (- 2 (/ (ash 1 dotcount))))
 
 (define-public (duration-length dur)
-"Return the overall length of a duration, as a number of whole notes.
-(Not to be confused with ly:duration-length, which returns a less-useful
-moment object.)"
+"Return the overall length of a duration, as a number of whole
+notes.  (Not to be confused with ly:duration-length, which returns a
+less-useful moment object.)"
   (ly:moment-main (ly:duration-length dur)))
 
 (define-public (duration-visual dur)

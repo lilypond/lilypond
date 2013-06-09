@@ -3005,8 +3005,8 @@ format require the prefix @code{#x}.
 (define-markup-command (markletter layout props num)
   (integer?)
   #:category other
-  "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
-(skipping letter@tie{}I), and continue with double letters.
+  "Make a markup letter for @var{num}.  The letters start with A
+to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
 
 @lilypond[verbatim,quote]
 \\markup {
