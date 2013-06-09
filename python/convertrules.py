@@ -3581,6 +3581,16 @@ def conv(str):
                   vspace_replace, str)
     return str
 
+@rule((2, 17, 20), _(r"Flag.transparent and Flag.color inherit from Stem"))
+def conv(str):
+    str = re.sub (r"(((?:\\once\s*)?)\\override\s+((?:\w+\.)?)Stem\.(transparent|color)\s*=\s*(#\S+))\s+\2\\override\s+\3Flag\.\4\s*=\s*\5",
+                  r"\1", str)
+    str = re.sub (r"(((?:\\once\s*)?)\\revert\s+((?:\w+\.)?)Stem\.(transparent|color))\s+\2\\revert\s+\3Flag\.\4",
+                  r"\1", str)
+    str = re.sub (r"(\\tweak\s+((?:\w+\.)?)Stem\.(transparent|color)\s+(#\S+))\s+\\tweak\s+\2Flag\.\3\s+\4",
+                  r"\1", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
