@@ -135,8 +135,8 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
 
 (define (string->string-list str)
   "Convert a string into a list of strings with length 1.
-@code{"aBc"} will be converted to @code{("a" "B" "c")}.
-An empty string will be converted to a list containing @code{""}."
+@code{\"aBc\"} will be converted to @code{(\"a\" \"B\" \"c\")}.
+An empty string will be converted to a list containing @code{\"\"}."
   (if (and (string? str)
            (not (zero? (string-length str))))
       (map (lambda (s)
