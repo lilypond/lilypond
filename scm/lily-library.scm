@@ -424,7 +424,7 @@ bookoutput function"
             (symbol->string (car y))))
 
 (define (map-alist-vals func list)
-  "map FUNC over the vals of  LIST, leaving the keys."
+  "map FUNC over the vals of LIST, leaving the keys."
   (if (null?  list)
       '()
       (cons (cons  (caar list) (func (cdar list)))

@@ -76,7 +76,7 @@ Entry point for the parser."
             (else (interpret-removals chord mods))))
 
     (define (pitch-octavated-strictly-below p root)
-      "return P, but octavated, so it is below  ROOT"
+      "return P, but octavated, so it is below ROOT"
       (ly:make-pitch (+ (ly:pitch-octave root)
                         (if (> (ly:pitch-notename root)
                                (ly:pitch-notename p))
