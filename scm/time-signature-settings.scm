@@ -313,10 +313,10 @@ a fresh copy of the list-head is made."
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
       (make-number-markup
-        (make-left-column-markup (list
-          (make-center-column-markup (list
-            (make-line-markup (insert-markups nums "+"))
-            den))))))))
+        (make-left-column-markup
+         (list (make-center-column-markup
+                (list (make-line-markup (insert-markups nums "+"))
+                      den))))))))
 
 (define (format-complex-compound-time time-sig)
   (make-override-markup '(baseline-skip . 0)
