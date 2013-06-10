@@ -147,7 +147,7 @@ command.  There is no protection against circular definitions.
                                         ((not (null? (cdr prop-spec)))
                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
                                         (else
-                                          `(list ',(car prop-spec)))))
+                                         `(list ',(car prop-spec)))))
                                 (if (pair? args)
                                     properties
                                     (list)))))
@@ -197,7 +197,7 @@ interpreted, returns a list of stencils instead of a single one"
                                         ((not (null? (cdr prop-spec)))
                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
                                         (else
-                                          `(list ',(car prop-spec)))))
+                                         `(list ',(car prop-spec)))))
                                 (if (pair? args)
                                     properties
                                     (list)))))
@@ -384,10 +384,10 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
                       (set! args (cons `(list ,@(compile-all-markup-expressions (car rest))) args))
                       (set! rest (cdr rest)))
                      (else
-                       ;; pick up one arg in `rest'
-                       (receive (a r) (compile-markup-arg rest)
-                                (set! args (cons a args))
-                                (set! rest r))))))))
+                      ;; pick up one arg in `rest'
+                      (receive (a r) (compile-markup-arg rest)
+                               (set! args (cons a args))
+                               (set! rest r))))))))
         ((and (pair? expr)
               (pair? (car expr))
               (keyword? (caar expr)))
@@ -398,9 +398,9 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
               (string? (car expr))) ;; expr === ("string" ...)
          (values `(make-simple-markup ,(car expr)) (cdr expr)))
         (else
-          ;; expr === (symbol ...) or ((funcall ...) ...)
-          (values (car expr)
-                  (cdr expr)))))
+         ;; expr === (symbol ...) or ((funcall ...) ...)
+         (values (car expr)
+                 (cdr expr)))))
 
 (define (compile-all-markup-args expr)
   "Transform `expr' into markup arguments"

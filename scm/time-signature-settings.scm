@@ -71,7 +71,7 @@
     ;; in 2/2 time:
     ;;   use defaults, but end beams with 32nd notes each 1 4 beat
     ((2 . 2) .
-             ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8))))))))
+     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8))))))))
 
     ;; in 2/4, 2/8 and 2/16 time:
     ;;   use defaults, so no entries are necessary
@@ -80,7 +80,7 @@
     ;;   use defaults, but end beams with 32nd notes and higher each 1 4 beat
 
     ((3 . 2) .
-             ((beamExceptions . ((end .  (((1 . 32) . (8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end .  (((1 . 32) . (8 8 8 8 8 8))))))))
 
     ;; in 3 4 time:
     ;;   use defaults, but combine all beats into a unit if possible
@@ -89,8 +89,8 @@
     ;;   in order to avoid beaming every beam type for the entire measure, we set
     ;;   triplets back to every beat.
     ((3 . 4) .
-             ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
-                                         ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
+     ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
+                                 ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 3 8  time:
     ;;   beam entire measure together
@@ -102,7 +102,7 @@
     ;; in 4 2 time:
     ;;   use defaults, but end beams with 16th notes or finer each 1 4 beat
     ((4 . 2) .
-             ((beamExceptions . ((end . (((1 . 16) . (4 4 4 4 4 4 4 4))))))))
+     ((beamExceptions . ((end . (((1 . 16) . (4 4 4 4 4 4 4 4))))))))
 
     ;; in 4 4 (common) time:
     ;;   use defaults, but combine beats 1,2 and 3,4 if only 8th notes
@@ -110,8 +110,8 @@
     ;;         ly/engraver-init.ly where the default time signature is set
     ;;         are set
     ((4 . 4) .
-             ((beamExceptions . ((end . (((1 . 8) . (4 4))  ; 1/8 notes half measure
-                                         ((1 . 12) . (3 3 3 3)))))))) ;Anything shorter by beat
+     ((beamExceptions . ((end . (((1 . 8) . (4 4))  ; 1/8 notes half measure
+                                 ((1 . 12) . (3 3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 4/8 time:
     ;;   combine beats 1 and 2, so beam in 2
@@ -123,7 +123,7 @@
     ;; in 6 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1/4 beat
     ((6 . 4) .
-             ((beamExceptions . ((end .  (((1 . 16) . (4 4 4 4 4 4))))))))
+     ((beamExceptions . ((end .  (((1 . 16) . (4 4 4 4 4 4))))))))
 
     ;; in 6 8 time:
     ;;   use defaults, so no entries necessary
@@ -134,7 +134,7 @@
     ;; in 9 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1 4 beat
     ((9 . 4) .
-             ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8))))))))
 
     ;; in 9 8 time
     ;;   use defaults, so no entries necessary
@@ -145,7 +145,7 @@
     ;; in 12 4 time:
     ;;   use defaults, but end beams with 32nd or finer notes each 1 4 beat
     ((12 . 4) .
-              ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
 
     ;; in 12 8 time:
     ;;   use defaults, so no entries necessary
@@ -156,12 +156,12 @@
     ;; in 5 8 time:
     ;;   default: group (3 2)
     ((5 . 8) .
-             ((beatStructure . (3 2))))
+     ((beatStructure . (3 2))))
 
     ;; in 8 8 time:
     ;;   default: group (3 3 2)
     ((8 . 8) .
-             ((beatStructure . (3 3 2))))
+     ((beatStructure . (3 3 2))))
 
     ))  ; end of alist definition
 
@@ -173,28 +173,28 @@
   "Get setting @code{my-symbol} for @code{time-signature} from
 @code{time-signature-settings}."
   (let ((my-time-signature-settings
-          (assoc-get time-signature time-signature-settings '())))
-   (assoc-get my-symbol my-time-signature-settings '())))
+         (assoc-get time-signature time-signature-settings '())))
+    (assoc-get my-symbol my-time-signature-settings '())))
 
 (define-public (make-setting base-fraction
                              beat-structure
                              beam-exceptions)
   (list
-    (cons 'baseMoment (if (pair? base-fraction)
-                          (/ (car base-fraction) (cdr base-fraction))
-                          base-fraction))
-    (cons 'beatStructure beat-structure)
-    (cons 'beamExceptions beam-exceptions)))
+   (cons 'baseMoment (if (pair? base-fraction)
+                         (/ (car base-fraction) (cdr base-fraction))
+                         base-fraction))
+   (cons 'beatStructure beat-structure)
+   (cons 'beamExceptions beam-exceptions)))
 
 (define-public (base-length time-signature time-signature-settings)
   "Get @code{baseMoment} rational value for @var{time-signature} from
 @var{time-signature-settings}."
-   (let ((return-value (get-setting 'baseMoment
-                                    time-signature
-                                    time-signature-settings)))
-     (if (null? return-value)
-         (/ (cdr time-signature))
-         return-value)))
+  (let ((return-value (get-setting 'baseMoment
+                                   time-signature
+                                   time-signature-settings)))
+    (if (null? return-value)
+        (/ (cdr time-signature))
+        return-value)))
 
 (define-public (beat-structure base-length time-signature time-signature-settings)
   "Get @code{beatStructure} value in @var{base-length} units
@@ -223,7 +223,7 @@ for @var{time-signature} from @var{time-signature-settings}."
 (define-public (beam-exceptions time-signature time-signature-settings)
   "Get @code{beamExceptions} value for @var{time-signature} from
 @var{time-signature-settings}."
-   (get-setting 'beamExceptions time-signature time-signature-settings))
+  (get-setting 'beamExceptions time-signature time-signature-settings))
 
 
 ;;; Functions for overriding time-signature settings
@@ -233,10 +233,10 @@ for @var{time-signature} from @var{time-signature-settings}."
   "Like the C++ code that executes \\override, but without type
 checking."
   (begin
-     (ly:context-set-property!
-       context
-       property
-       (cons (cons setting value) (ly:context-property context property)))))
+    (ly:context-set-property!
+     context
+     property
+     (cons (cons setting value) (ly:context-property context property)))))
 
 (define (revert-property-setting context property setting)
   "Like the C++ code that executes \revert, but without type
@@ -246,50 +246,50 @@ checking."
     "Count the number of entries in alist with a key of
 ENTRY-KEY."
     (cond
-      ((null? alist) 0)
-      ((equal? (caar alist) entry-key)
-         (+ 1 (entry-count (cdr alist) entry-key)))
-      (else (entry-count (cdr alist) entry-key))))
+     ((null? alist) 0)
+     ((equal? (caar alist) entry-key)
+      (+ 1 (entry-count (cdr alist) entry-key)))
+     (else (entry-count (cdr alist) entry-key))))
 
   (define (revert-member alist entry-key)
     "Return ALIST, with the first entry having a key of
 ENTRY-KEY removed.  ALIST is not modified, instead
 a fresh copy of the list-head is made."
     (cond
-      ((null? alist) '())
-      ((equal? (caar alist) entry-key) (cdr alist))
-      (else (cons (car alist)
-                  (revert-member (cdr alist) entry-key)))))
+     ((null? alist) '())
+     ((equal? (caar alist) entry-key) (cdr alist))
+     (else (cons (car alist)
+                 (revert-member (cdr alist) entry-key)))))
 
   ;; body of revert-property-setting
   (let ((current-value (ly:context-property context property)))
     (if (> (entry-count current-value setting) 0)
         (ly:context-set-property!
-          context
-          property
-          (revert-member current-value setting)))))
+         context
+         property
+         (revert-member current-value setting)))))
 
 (define-public (override-time-signature-setting time-signature setting)
   "Override the time signature settings for the context in
 @var{time-signature}, with the new setting alist @var{setting}."
-    (context-spec-music
-      (make-apply-context
-        (lambda (c) (override-property-setting
-                      c
-                      'timeSignatureSettings
-                      time-signature
-                      setting)))
-      'Timing))
+  (context-spec-music
+   (make-apply-context
+    (lambda (c) (override-property-setting
+                 c
+                 'timeSignatureSettings
+                 time-signature
+                 setting)))
+   'Timing))
 
 (define-public (revert-time-signature-setting time-signature)
   (context-spec-music
-    (make-apply-context
-      (lambda (c)
-        (revert-property-setting
-          c
-          'timeSignatureSettings
-          time-signature)))
-    'Timing))
+   (make-apply-context
+    (lambda (c)
+      (revert-property-setting
+       c
+       'timeSignatureSettings
+       time-signature)))
+   'Timing))
 
 
 
@@ -312,24 +312,24 @@ a fresh copy of the list-head is made."
          (den (car revargs))
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
-      (make-number-markup
-        (make-left-column-markup
-         (list (make-center-column-markup
-                (list (make-line-markup (insert-markups nums "+"))
-                      den))))))))
+                          (make-number-markup
+                           (make-left-column-markup
+                            (list (make-center-column-markup
+                                   (list (make-line-markup (insert-markups nums "+"))
+                                         den))))))))
 
 (define (format-complex-compound-time time-sig)
   (make-override-markup '(baseline-skip . 0)
-    (make-number-markup
-      (make-line-markup
-        (insert-markups (map format-time-fraction time-sig)
-                        (make-vcenter-markup "+"))))))
+                        (make-number-markup
+                         (make-line-markup
+                          (insert-markups (map format-time-fraction time-sig)
+                                          (make-vcenter-markup "+"))))))
 
 (define-public (format-compound-time time-sig)
   (cond
-    ((not (pair? time-sig)) (null-markup))
-    ((pair? (car time-sig)) (format-complex-compound-time time-sig))
-    (else (format-time-fraction time-sig))))
+   ((not (pair? time-sig)) (null-markup))
+   ((pair? (car time-sig)) (format-complex-compound-time time-sig))
+   (else (format-time-fraction time-sig))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,9 +350,9 @@ a fresh copy of the list-head is made."
 
 (define-public (calculate-compound-measure-length time-sig)
   (cond
-    ((not (pair? time-sig)) (ly:make-moment 4 4))
-    ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
-    (else (calculate-time-fraction time-sig))))
+   ((not (pair? time-sig)) (ly:make-moment 4 4))
+   ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
+   (else (calculate-time-fraction time-sig))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -363,10 +363,10 @@ a fresh copy of the list-head is made."
 
 (define-public (calculate-compound-base-beat time-sig)
   (ly:make-moment 1
-    (cond
-      ((not (pair? time-sig)) 4)
-      ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
-      (else (calculate-compound-base-beat-full (list time-sig))))))
+                  (cond
+                   ((not (pair? time-sig)) 4)
+                   ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
+                   (else (calculate-compound-base-beat-full (list time-sig))))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -386,6 +386,6 @@ a fresh copy of the list-head is made."
 
 (define-public (calculate-compound-beat-grouping time-sig)
   (cond
-    ((not (pair? time-sig)) '(2 . 2))
-    ((pair? (car time-sig)) (beat-grouping-internal time-sig))
-    (else (beat-grouping-internal (list time-sig)))))
+   ((not (pair? time-sig)) '(2 . 2))
+   ((pair? (car time-sig)) (beat-grouping-internal time-sig))
+   (else (beat-grouping-internal (list time-sig)))))

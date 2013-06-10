@@ -194,40 +194,40 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
                  ;; line-length.
                  (new-off (/ (- line-length corr (* (1+ guess) on)) guess))
                  )
-              (cond
+            (cond
 
-              ;; Settings for (= on 0). Resulting in a dotted line.
+             ;; Settings for (= on 0). Resulting in a dotted line.
 
-                    ;; If line-length isn't shorter than `th´, change the given
-                    ;; value for `off´ to fit the line-length.
-                    ((and (= on 0) (< th line-length))
-                      (set! off new-off))
+             ;; If line-length isn't shorter than `th´, change the given
+             ;; value for `off´ to fit the line-length.
+             ((and (= on 0) (< th line-length))
+              (set! off new-off))
 
-                    ;; If the line-length is shorter than `th´, it makes no
-                    ;; sense to adjust `off´. The rounded edges of the lines
-                    ;; would prevent any nice output.
-                    ;; Do nothing.
-                    ;; This will result in a single dot for very short lines.
-                    ((and (= on 0) (>= th line-length))
-                      #f)
+             ;; If the line-length is shorter than `th´, it makes no
+             ;; sense to adjust `off´. The rounded edges of the lines
+             ;; would prevent any nice output.
+             ;; Do nothing.
+             ;; This will result in a single dot for very short lines.
+             ((and (= on 0) (>= th line-length))
+              #f)
 
-              ;; Settings for (not (= on 0)). Resulting in a dashed line.
+             ;; Settings for (not (= on 0)). Resulting in a dashed line.
 
-                    ;; If line-length isn't shorter than one go of on-off-on,
-                    ;; change the given value for `off´ to fit the line-length.
-                    ((< (+ (* 2 on) off) line-length)
-                      (set! off new-off))
-                    ;; If the line-length is too short, but greater than
-                    ;; (* 4 th) set on/off to (/ line-length 3)
-                    ((< (* 4 th) line-length)
-                      (set! on (/ line-length 3))
-                      (set! off (/ line-length 3)))
-                    ;; If the line-length is shorter than (* 4 th), it makes
-                    ;; no sense trying to adjust on/off. The rounded edges of
-                    ;; the lines would prevent any nice output.
-                    ;; Simply set `on´ to line-length.
-                    (else
-                      (set! on line-length))))))
+             ;; If line-length isn't shorter than one go of on-off-on,
+             ;; change the given value for `off´ to fit the line-length.
+             ((< (+ (* 2 on) off) line-length)
+              (set! off new-off))
+             ;; If the line-length is too short, but greater than
+             ;; (* 4 th) set on/off to (/ line-length 3)
+             ((< (* 4 th) line-length)
+              (set! on (/ line-length 3))
+              (set! off (/ line-length 3)))
+             ;; If the line-length is shorter than (* 4 th), it makes
+             ;; no sense trying to adjust on/off. The rounded edges of
+             ;; the lines would prevent any nice output.
+             ;; Simply set `on´ to line-length.
+             (else
+              (set! on line-length))))))
 
     ;; If `on´ or `off´ is negative, or the sum of `on' and `off' equals zero a
     ;; ghostscript-error occurs while calling
@@ -244,9 +244,9 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
     ;; To give the lines produced by \draw-line and \draw-dashed-line the same
     ;; length, half-thick has to be added to the stencil-extensions.
     (ly:make-stencil
-      (list 'dashed-line th on off x y phase)
-        (interval-widen (ordered-cons 0 x) half-thick)
-        (interval-widen (ordered-cons 0 y) half-thick))))
+     (list 'dashed-line th on off x y phase)
+     (interval-widen (ordered-cons 0 x) half-thick)
+     (interval-widen (ordered-cons 0 y) half-thick))))
 
 (define-markup-command (draw-dotted-line layout props dest)
   (number-pair?)
@@ -275,11 +275,11 @@ line-length.
 @end lilypond"
 
   (let ((new-props (prepend-alist-chain 'on 0
-                     (prepend-alist-chain 'full-length #t props))))
+                                        (prepend-alist-chain 'full-length #t props))))
 
-  (interpret-markup layout
-                    new-props
-                    (markup #:draw-dashed-line dest))))
+    (interpret-markup layout
+                      new-props
+                      (markup #:draw-dashed-line dest))))
 
 (define-markup-command (draw-hline layout props)
   ()
@@ -304,8 +304,8 @@ controls what fraction of the page is taken up.
   (interpret-markup layout
                     props
                     (markup #:draw-line (cons (* line-width
-                                                  span-factor)
-                                               0))))
+                                                 span-factor)
+                                              0))))
 
 (define-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)
@@ -329,8 +329,8 @@ optionally filled.
   (boolean?)
   #:category graphic
   #:properties ((thickness 0.1)
-		(font-size 0)
-		(baseline-skip 2))
+                (font-size 0)
+                (baseline-skip 2))
   "
 @cindex drawing triangles within text
 
@@ -349,8 +349,8 @@ A triangle, either filled or empty.
                      ,ex 0.0
                      ,(* 0.5 ex)
                      ,(* 0.86 ex))
-           ,thickness
-           ,filled)
+               ,thickness
+               ,filled)
      (cons 0 ex)
      (cons 0 (* .86 ex)))))
 
@@ -358,8 +358,8 @@ A triangle, either filled or empty.
   (markup?)
   #:category graphic
   #:properties ((thickness 1)
-		(font-size 0)
-		(circle-padding 0.2))
+                (font-size 0)
+                (circle-padding 0.2))
   "
 @cindex circling text
 
@@ -376,8 +376,8 @@ thickness and padding around the markup.
 @end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
-         (pad (* (magstep font-size) circle-padding))
-         (m (interpret-markup layout props arg)))
+        (pad (* (magstep font-size) circle-padding))
+        (m (interpret-markup layout props arg)))
     (circle-stencil m th pad)))
 
 (define-markup-command (with-url layout props url arg)
@@ -399,10 +399,10 @@ the PDF backend.
 }
 @end lilypond"
   (let* ((stil (interpret-markup layout props arg))
-	 (xextent (ly:stencil-extent stil X))
-	 (yextent (ly:stencil-extent stil Y))
-	 (old-expr (ly:stencil-expr stil))
-	 (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
+         (xextent (ly:stencil-extent stil X))
+         (yextent (ly:stencil-extent stil Y))
+         (old-expr (ly:stencil-expr stil))
+         (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
 
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
@@ -421,10 +421,10 @@ in the PDF backend.
 }
 @end lilypond"
   (let* ((stil (interpret-markup layout props arg))
-	 (xextent (ly:stencil-extent stil X))
-	 (yextent (ly:stencil-extent stil Y))
-	 (old-expr (ly:stencil-expr stil))
-	 (link-expr (list 'page-link page-number `(quote ,xextent) `(quote ,yextent))))
+         (xextent (ly:stencil-extent stil X))
+         (yextent (ly:stencil-extent stil Y))
+         (old-expr (ly:stencil-expr stil))
+         (link-expr (list 'page-link page-number `(quote ,xextent) `(quote ,yextent))))
 
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
@@ -457,7 +457,7 @@ only works in the PDF backend.
                        (link-expr (list 'page-link page-number
                                         `(quote ,x-ext) `(quote ,y-ext))))
                   (ly:stencil-add (ly:make-stencil link-expr x-ext y-ext)
-arg-stencil)))))
+                                  arg-stencil)))))
      x-ext
      y-ext)))
 
@@ -475,20 +475,20 @@ Create a beam with the specified parameters.
 }
 @end lilypond"
   (let* ((y (* slope width))
-	 (yext (cons (min 0 y) (max 0 y)))
-	 (half (/ thickness 2)))
+         (yext (cons (min 0 y) (max 0 y)))
+         (half (/ thickness 2)))
 
     (ly:make-stencil
      `(polygon ',(list
-		  0 (/ thickness -2)
-		    width (+ (* width slope)  (/ thickness -2))
-		    width (+ (* width slope)  (/ thickness 2))
-		    0 (/ thickness 2))
-	       ,(ly:output-def-lookup layout 'blot-diameter)
-	       #t)
+                  0 (/ thickness -2)
+                  width (+ (* width slope)  (/ thickness -2))
+                  width (+ (* width slope)  (/ thickness 2))
+                  0 (/ thickness 2))
+               ,(ly:output-def-lookup layout 'blot-diameter)
+               #t)
      (cons 0 width)
      (cons (+ (- half) (car yext))
-	   (+ half (cdr yext))))))
+           (+ half (cdr yext))))))
 
 (define-markup-command (underline layout props arg)
   (markup?)
@@ -524,8 +524,8 @@ thickness, and @code{offset} to determine line y-offset.
   (markup?)
   #:category font
   #:properties ((thickness 1)
-		(font-size 0)
-		(box-padding 0.2))
+                (font-size 0)
+                (box-padding 0.2))
   "
 @cindex enclosing text within a box
 
@@ -578,9 +578,9 @@ circle of diameter@tie{}0 (i.e., sharp corners).
   (markup?)
   #:category graphic
   #:properties ((thickness 1)
-		(corner-radius 1)
-		(font-size 0)
-		(box-padding 0.5))
+                (corner-radius 1)
+                (font-size 0)
+                (box-padding 0.5))
   "@cindex enclosing text in a box with rounded corners
    @cindex drawing boxes with rounded corners around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
@@ -686,9 +686,9 @@ Add space around a markup object.
 Create a box of the same height as the space in the current font."
   (let ((m (ly:text-interface::interpret-markup layout props " ")))
     (ly:make-stencil (ly:stencil-expr m)
-		     '(0 . 0)
-		     (ly:stencil-extent m X)
-		     )))
+                     '(0 . 0)
+                     (ly:stencil-extent m X)
+                     )))
 
 (define-markup-command (hspace layout props amount)
   (number?)
@@ -710,9 +710,9 @@ Create an invisible object taking up horizontal space @var{amount}.
   (ly:make-stencil "" (cons 0 amount) empty-interval))
 
 (define-markup-command (vspace layout props amount)
- (number?)
- #:category align
- "
+  (number?)
+  #:category align
+  "
 @cindex creating vertical spaces in text
 
 Create an invisible object taking up vertical space
@@ -761,11 +761,11 @@ Use a stencil as markup.
       ((match (regexp-exec bbox-regexp string)))
 
     (if match
-	(map (lambda (x)
-	       (string->number (match:substring match x)))
-	     (cdr (iota 5)))
+        (map (lambda (x)
+               (string->number (match:substring match x)))
+             (cdr (iota 5)))
 
-	#f)))
+        #f)))
 
 (define-markup-command (epsfile layout props axis size file-name)
   (number? number? string?)
@@ -820,20 +820,20 @@ rings = \\markup {
   ;; FIXME
   (ly:make-stencil
    (list 'embedded-ps
-	 (format #f "
+         (format #f "
 gsave currentpoint translate
 0.1 setlinewidth
  ~a
 grestore
 "
-		 str))
+                 str))
    '(0 . 0) '(0 . 0)))
 
 (define-markup-command (path layout props thickness commands) (number? list?)
   #:category graphic
   #:properties ((line-cap-style 'round)
-		(line-join-style 'round)
-		(filled #f))
+                (line-join-style 'round)
+                (filled #f))
   "
 @cindex paths, drawing
 @cindex drawing paths
@@ -888,77 +888,77 @@ samplePath =
 }
 @end lilypond"
   (let* ((half-thickness (/ thickness 2))
-	 (current-point '(0 . 0))
-	 (set-point (lambda (lst) (set! current-point lst)))
-	 (relative? (lambda (x)
-		      (string-prefix? "r" (symbol->string (car x)))))
-	 ;; For calculating extents, we want to modify the command
-	 ;; list so that all coordinates are absolute.
-	 (new-commands (map (lambda (x)
-			      (cond
-				;; for rmoveto, rlineto
-				((and (relative? x) (= 3 (length x)))
-				 (let ((cp (cons
-					     (+ (car current-point)
-						(second x))
-					     (+ (cdr current-point)
-						(third x)))))
-				   (set-point cp)
-				   (list (car cp)
-					 (cdr cp))))
-				;; for rcurveto
-				((and (relative? x) (= 7 (length x)))
-				 (let* ((old-cp current-point)
-					(cp (cons
-					      (+ (car old-cp)
-						 (sixth x))
-					      (+ (cdr old-cp)
-						 (seventh x)))))
-				   (set-point cp)
-				   (list (+ (car old-cp) (second x))
-					 (+ (cdr old-cp) (third x))
-					 (+ (car old-cp) (fourth x))
-					 (+ (cdr old-cp) (fifth x))
-					 (car cp)
-					 (cdr cp))))
-				;; for moveto, lineto
-				((= 3 (length x))
-				 (set-point (cons (second x)
-						  (third x)))
-				 (drop x 1))
-				;; for curveto
-				((= 7 (length x))
-				 (set-point (cons (sixth x)
-						  (seventh x)))
-				 (drop x 1))
-				;; keep closepath for filtering;
-				;; see `without-closepath'.
-				(else x)))
-			    commands))
-	 ;; path-min-max does not accept 0-arg lists,
-	 ;; and since closepath does not affect extents, filter
-	 ;; out those commands here.
-	 (without-closepath (filter (lambda (x)
-				      (not (equal? 'closepath (car x))))
-				    new-commands))
-	 (extents (path-min-max
-		    ;; set the origin to the first moveto
-		    (list (list-ref (car without-closepath) 0)
-			  (list-ref (car without-closepath) 1))
-		    without-closepath))
-	 (X-extent (cons (list-ref extents 0) (list-ref extents 1)))
-	 (Y-extent (cons (list-ref extents 2) (list-ref extents 3)))
-	 (command-list (fold-right append '() commands)))
+         (current-point '(0 . 0))
+         (set-point (lambda (lst) (set! current-point lst)))
+         (relative? (lambda (x)
+                      (string-prefix? "r" (symbol->string (car x)))))
+         ;; For calculating extents, we want to modify the command
+         ;; list so that all coordinates are absolute.
+         (new-commands (map (lambda (x)
+                              (cond
+                               ;; for rmoveto, rlineto
+                               ((and (relative? x) (= 3 (length x)))
+                                (let ((cp (cons
+                                           (+ (car current-point)
+                                              (second x))
+                                           (+ (cdr current-point)
+                                              (third x)))))
+                                  (set-point cp)
+                                  (list (car cp)
+                                        (cdr cp))))
+                               ;; for rcurveto
+                               ((and (relative? x) (= 7 (length x)))
+                                (let* ((old-cp current-point)
+                                       (cp (cons
+                                            (+ (car old-cp)
+                                               (sixth x))
+                                            (+ (cdr old-cp)
+                                               (seventh x)))))
+                                  (set-point cp)
+                                  (list (+ (car old-cp) (second x))
+                                        (+ (cdr old-cp) (third x))
+                                        (+ (car old-cp) (fourth x))
+                                        (+ (cdr old-cp) (fifth x))
+                                        (car cp)
+                                        (cdr cp))))
+                               ;; for moveto, lineto
+                               ((= 3 (length x))
+                                (set-point (cons (second x)
+                                                 (third x)))
+                                (drop x 1))
+                               ;; for curveto
+                               ((= 7 (length x))
+                                (set-point (cons (sixth x)
+                                                 (seventh x)))
+                                (drop x 1))
+                               ;; keep closepath for filtering;
+                               ;; see `without-closepath'.
+                               (else x)))
+                            commands))
+         ;; path-min-max does not accept 0-arg lists,
+         ;; and since closepath does not affect extents, filter
+         ;; out those commands here.
+         (without-closepath (filter (lambda (x)
+                                      (not (equal? 'closepath (car x))))
+                                    new-commands))
+         (extents (path-min-max
+                   ;; set the origin to the first moveto
+                   (list (list-ref (car without-closepath) 0)
+                         (list-ref (car without-closepath) 1))
+                   without-closepath))
+         (X-extent (cons (list-ref extents 0) (list-ref extents 1)))
+         (Y-extent (cons (list-ref extents 2) (list-ref extents 3)))
+         (command-list (fold-right append '() commands)))
 
     ;; account for line thickness
     (set! X-extent (interval-widen X-extent half-thickness))
     (set! Y-extent (interval-widen Y-extent half-thickness))
 
     (ly:make-stencil
-      `(path ,thickness `(,@',command-list)
-	     ',line-cap-style ',line-join-style ,filled)
-      X-extent
-      Y-extent)))
+     `(path ,thickness `(,@',command-list)
+            ',line-cap-style ',line-join-style ,filled)
+     X-extent
+     Y-extent)))
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)
@@ -981,8 +981,8 @@ be split across pages."
             (- (car (paper-system-staff-extents paper-system)))
             Y))
          (vector->list (ly:paper-score-paper-systems output)))
-	(begin
-	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
+        (begin
+          (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
           '()))))
 
 (define-markup-command (score layout props score)
@@ -1099,12 +1099,12 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
   (define (replace-ties tie str)
     (if (string-contains str "~")
         (let*
-          ((half-space (/ word-space 2))
-           (parts (string-split str #\~))
-           (tie-str (markup #:hspace half-space
-                            #:musicglyph tie
-                            #:hspace half-space))
-           (joined  (list-join parts tie-str)))
+            ((half-space (/ word-space 2))
+             (parts (string-split str #\~))
+             (tie-str (markup #:hspace half-space
+                              #:musicglyph tie
+                              #:hspace half-space))
+             (joined  (list-join parts tie-str)))
           (make-concat-markup joined))
         str))
 
@@ -1115,16 +1115,16 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
     (let ((match (match-short str)))
       (if (not match)
           (make-concat-markup (list
-            mkp
-            (replace-ties "ties.lyric.default" str)))
+                               mkp
+                               (replace-ties "ties.lyric.default" str)))
           (let ((new-str (match:suffix match))
                 (new-mkp (make-concat-markup (list
-                          mkp
-                          (replace-ties "ties.lyric.default"
-                                        (match:prefix match))
-                          (replace-ties "ties.lyric.short"
-                                        (match:substring match))))))
-              (replace-short new-str new-mkp)))))
+                                              mkp
+                                              (replace-ties "ties.lyric.default"
+                                                            (match:prefix match))
+                                              (replace-ties "ties.lyric.short"
+                                                            (match:substring match))))))
+            (replace-short new-str new-mkp)))))
 
   (interpret-markup layout
                     props
@@ -1151,12 +1151,12 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
    ((= (length text-widths) word-count)
     (cons
      (- (- (/ line-width (1- word-count)) (car text-widths))
-	(/ (car (cdr text-widths)) 2))
+        (/ (car (cdr text-widths)) 2))
      (get-fill-space word-count line-width word-space (cdr text-widths))))
    ;; special case last padding
    ((= (length text-widths) 2)
     (list (- (/ line-width (1- word-count))
-	     (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
+             (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
    (else
     (let ((default-padding
             (- (/ line-width (1- word-count))
@@ -1252,7 +1252,7 @@ If there are no arguments, return an empty stencil.
   (markup-list?)
   #:category align
   #:properties ((word-space)
-		(text-direction RIGHT))
+                (text-direction RIGHT))
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between markups in @var{args}.
 
@@ -1293,12 +1293,12 @@ equivalent to @code{\"fi\"}.
     (fold-right (lambda (arg result-list)
                   (let ((result (if (pair? result-list)
                                     (car result-list)
-                                  '())))
+                                    '())))
                     (if (and (pair? arg) (eqv? (car arg) simple-markup))
-                      (set! arg (cadr arg)))
+                        (set! arg (cadr arg)))
                     (if (and (string? result) (string? arg))
                         (cons (string-append arg result) (cdr result-list))
-                      (cons arg result-list))))
+                        (cons arg result-list))))
                 '()
                 arg-list))
 
@@ -1313,12 +1313,12 @@ equivalent to @code{\"fi\"}.
                           (concat-string-args args))))))
 
 (define (wordwrap-stencils stencils
-			   justify base-space line-width text-dir)
+                           justify base-space line-width text-dir)
   "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
-		    (* 0.7 base-space)
-		    base-space))
+                    (* 0.7 base-space)
+                    base-space))
   (define (stencil-space stencil line-start)
     (if (ly:stencil-empty? stencil X)
         0
@@ -1329,17 +1329,17 @@ equivalent to @code{\"fi\"}.
                                 X RIGHT stencil)
               X))))
   (define (take-list width space stencils
-		     accumulator accumulated-width)
+                     accumulator accumulated-width)
     "Return (head-list . tail) pair, with head-list fitting into width"
     (if (null? stencils)
-	(cons accumulator stencils)
-	(let* ((first (car stencils))
+        (cons accumulator stencils)
+        (let* ((first (car stencils))
                (first-wid (stencil-space first (null? accumulator)))
                (newwid (+ (if (or (ly:stencil-empty? first Y)
                                   (ly:stencil-empty? first X))
                               0 space)
                           first-wid accumulated-width)))
-	  (if (or (null? accumulator)
+          (if (or (null? accumulator)
                   (< newwid width))
               (take-list width space
                          (cdr stencils)
@@ -1350,15 +1350,15 @@ equivalent to @code{\"fi\"}.
              (todo stencils))
     (let* ((line-break (take-list line-width space todo
                                   '() 0.0))
-	   (line-stencils (car line-break))
-	   (space-left (- line-width
+           (line-stencils (car line-break))
+           (space-left (- line-width
                           (stencil-space
                            (stack-stencil-line 0 line-stencils)
                            #t)))
            (line-words (count (lambda (s) (not (or (ly:stencil-empty? s Y)
                                                    (ly:stencil-empty? s X))))
                               line-stencils))
-	   (line-word-space (cond ((not justify) space)
+           (line-word-space (cond ((not justify) space)
                                   ;; don't stretch last line of paragraph.
                                   ;; hmmm . bug - will overstretch the last line in some case.
                                   ((null? (cdr line-break))
@@ -1384,8 +1384,8 @@ equivalent to @code{\"fi\"}.
 (define-markup-list-command (wordwrap-internal layout props justify args)
   (boolean? markup-list?)
   #:properties ((line-width #f)
-		(word-space)
-		(text-direction RIGHT))
+                (word-space)
+                (text-direction RIGHT))
   "Internal markup list command used to define @code{\\justify} and @code{\\wordwrap}."
   (wordwrap-stencils (interpret-markup-list layout props args)
                      justify
@@ -1398,7 +1398,7 @@ equivalent to @code{\"fi\"}.
   (markup-list?)
   #:category align
   #:properties ((baseline-skip)
-		wordwrap-internal-markup-list)
+                wordwrap-internal-markup-list)
   "
 @cindex justifying text
 
@@ -1423,7 +1423,7 @@ Use @code{\\override #'(line-width . @var{X})} to set the line width;
   (markup-list?)
   #:category align
   #:properties ((baseline-skip)
-		wordwrap-internal-markup-list)
+                wordwrap-internal-markup-list)
   "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
 the line width, where @var{X} is the number of staff spaces.
 
@@ -1438,13 +1438,13 @@ the line width, where @var{X} is the number of staff spaces.
 }
 @end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
-	       (wordwrap-internal-markup-list layout props #f args)))
+               (wordwrap-internal-markup-list layout props #f args)))
 
 (define-markup-list-command (wordwrap-string-internal layout props justify arg)
   (boolean? string?)
   #:properties ((line-width)
-		(word-space)
-		(text-direction RIGHT))
+                (word-space)
+                (text-direction RIGHT))
   "Internal markup list command used to define @code{\\justify-string} and
 @code{\\wordwrap-string}."
   (let* ((para-strings (regexp-split
@@ -1470,7 +1470,7 @@ the line width, where @var{X} is the number of staff spaces.
   (string?)
   #:category align
   #:properties ((baseline-skip)
-		wordwrap-string-internal-markup-list)
+                wordwrap-string-internal-markup-list)
   "Wordwrap a string.  Paragraphs may be separated with double newlines.
 
 @lilypond[verbatim,quote]
@@ -1496,7 +1496,7 @@ the line width, where @var{X} is the number of staff spaces.
   (string?)
   #:category align
   #:properties ((baseline-skip)
-		wordwrap-string-internal-markup-list)
+                wordwrap-string-internal-markup-list)
   "Justify a string.  Paragraphs may be separated with double newlines
 
 @lilypond[verbatim,quote]
@@ -1610,7 +1610,7 @@ curly braces as an argument; the follow example will not compile:
 }
 @end lilypond"
   (let* ((s1 (interpret-markup layout props arg1))
-	 (s2 (interpret-markup layout props arg2)))
+         (s2 (interpret-markup layout props arg2)))
     (ly:stencil-add s1 s2)))
 
 ;;
@@ -1643,7 +1643,7 @@ in @var{args}.
   (markup-list?)
   #:category align
   #:properties ((direction)
-		(baseline-skip))
+                (baseline-skip))
   "
 @cindex changing direction of text columns
 
@@ -1706,7 +1706,7 @@ Put @code{args} in a centered column.
   (markup-list?)
   #:category align
   #:properties ((baseline-skip))
- "
+  "
 @cindex text columns, left-aligned
 
 Put @code{args} in a left-aligned column.
@@ -1726,7 +1726,7 @@ Put @code{args} in a left-aligned column.
   (markup-list?)
   #:category align
   #:properties ((baseline-skip))
- "
+  "
 @cindex text columns, right-aligned
 
 Put @code{args} in a right-aligned column.
@@ -2091,8 +2091,8 @@ returns an empty markup.
 @var{procedure} should take a single argument."
   (let ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
     (set-object-property! anonymous-with-signature
-			  'markup-signature
-			  (list markup?))
+                          'markup-signature
+                          (list markup?))
     (interpret-markup layout props (list anonymous-with-signature arg))))
 
 (define-markup-command (footnote layout props mkup note)
@@ -2109,14 +2109,14 @@ returns an empty markup.
 @end lilypond
 The footnote will not be annotated automatically."
   (ly:stencil-combine-at-edge
-    (interpret-markup layout props mkup)
-    X
-    RIGHT
-    (ly:make-stencil
-      `(footnote (gensym "footnote") #f ,(interpret-markup layout props note))
-      '(0 . 0)
-      '(0 . 0))
-    0.0))
+   (interpret-markup layout props mkup)
+   X
+   RIGHT
+   (ly:make-stencil
+    `(footnote (gensym "footnote") #f ,(interpret-markup layout props note))
+    '(0 . 0)
+    '(0 . 0))
+   0.0))
 
 (define-markup-command (auto-footnote layout props mkup note)
   (markup? markup?)
@@ -2137,49 +2137,49 @@ The footnote will be annotated automatically."
          (footnote-hash (gensym "footnote"))
          (stencil-seed 0)
          (gauge-stencil (interpret-markup
+                         layout
+                         props
+                         ((ly:output-def-lookup
                            layout
-                           props
-                           ((ly:output-def-lookup
-                               layout
-                               'footnote-numbering-function)
-                              stencil-seed)))
+                           'footnote-numbering-function)
+                          stencil-seed)))
          (x-ext (ly:stencil-extent gauge-stencil X))
-	 (y-ext (ly:stencil-extent gauge-stencil Y))
+         (y-ext (ly:stencil-extent gauge-stencil Y))
          (footnote-number
-           `(delay-stencil-evaluation
-              ,(delay
-                (ly:stencil-expr
-                  (let* ((table
-                          (ly:output-def-lookup layout
-                                                'number-footnote-table))
-                         (footnote-stencil (if (list? table)
-                                               (assoc-get footnote-hash
-                                                          table)
-                                               empty-stencil))
-                         (footnote-stencil (if (ly:stencil? footnote-stencil)
-                                               footnote-stencil
-                                               (begin
-                                                 (ly:programming-error
-"Cannot find correct footnote for a markup object.")
-                                                 empty-stencil)))
-                         (gap (- (interval-length x-ext)
-                                 (interval-length
-                                   (ly:stencil-extent footnote-stencil X))))
-                         (y-trans (- (+ (cdr y-ext)
-                                        raise)
-                                     (cdr (ly:stencil-extent footnote-stencil
-                                                             Y)))))
-                    (ly:stencil-translate footnote-stencil
-                                          (cons gap y-trans)))))))
+          `(delay-stencil-evaluation
+            ,(delay
+               (ly:stencil-expr
+                (let* ((table
+                        (ly:output-def-lookup layout
+                                              'number-footnote-table))
+                       (footnote-stencil (if (list? table)
+                                             (assoc-get footnote-hash
+                                                        table)
+                                             empty-stencil))
+                       (footnote-stencil (if (ly:stencil? footnote-stencil)
+                                             footnote-stencil
+                                             (begin
+                                               (ly:programming-error
+                                                "Cannot find correct footnote for a markup object.")
+                                               empty-stencil)))
+                       (gap (- (interval-length x-ext)
+                               (interval-length
+                                (ly:stencil-extent footnote-stencil X))))
+                       (y-trans (- (+ (cdr y-ext)
+                                      raise)
+                                   (cdr (ly:stencil-extent footnote-stencil
+                                                           Y)))))
+                  (ly:stencil-translate footnote-stencil
+                                        (cons gap y-trans)))))))
          (main-stencil (ly:stencil-combine-at-edge
-                         markup-stencil
-                         X
-                         RIGHT
-                         (ly:make-stencil footnote-number x-ext y-ext)
-                         padding)))
-  (ly:stencil-add
-    main-stencil
-    (ly:make-stencil
+                        markup-stencil
+                        X
+                        RIGHT
+                        (ly:make-stencil footnote-number x-ext y-ext)
+                        padding)))
+    (ly:stencil-add
+     main-stencil
+     (ly:make-stencil
       `(footnote ,footnote-hash #t ,(interpret-markup layout props note))
       '(0 . 0)
       '(0 . 0)))))
@@ -2260,7 +2260,7 @@ may be any property supported by @rinternals{font-interface},
 }
 @end lilypond"
   (interpret-markup layout props
-   `(,fontsize-markup -1 ,arg)))
+                    `(,fontsize-markup -1 ,arg)))
 
 (define-markup-command (larger layout props arg)
   (markup?)
@@ -2276,7 +2276,7 @@ may be any property supported by @rinternals{font-interface},
 }
 @end lilypond"
   (interpret-markup layout props
-   `(,fontsize-markup 1 ,arg)))
+                    `(,fontsize-markup 1 ,arg)))
 
 (define-markup-command (finger layout props arg)
   (markup?)
@@ -2314,21 +2314,21 @@ Adjusts @code{baseline-skip} and @code{word-space} accordingly.
          (ref-word-space (chain-assoc-get 'word-space text-props 0.6))
          (ref-baseline (chain-assoc-get 'baseline-skip text-props 3))
          (magnification (/ size ref-size)))
-     (interpret-markup
-      layout
-      (cons
-       `((baseline-skip . ,(* magnification ref-baseline))
-         (word-space . ,(* magnification ref-word-space))
-         (font-size . ,(magnification->font-size magnification)))
-       props)
-      arg)))
+    (interpret-markup
+     layout
+     (cons
+      `((baseline-skip . ,(* magnification ref-baseline))
+        (word-space . ,(* magnification ref-word-space))
+        (font-size . ,(magnification->font-size magnification)))
+      props)
+     arg)))
 
 (define-markup-command (fontsize layout props increment arg)
   (number? markup?)
   #:category font
   #:properties ((font-size 0)
-		(word-space 1)
-		(baseline-skip 2))
+                (word-space 1)
+                (baseline-skip 2))
   "Add @var{increment} to the font-size.  Adjusts @code{baseline-skip}
 accordingly.
 
@@ -2570,33 +2570,33 @@ Note: @code{\\smallCaps} does not support accented characters.
   (define (char-list->markup chars lower)
     (let ((final-string (string-upcase (reverse-list->string chars))))
       (if lower
-	  (markup #:fontsize -2 final-string)
-	  final-string)))
+          (markup #:fontsize -2 final-string)
+          final-string)))
   (define (make-small-caps rest-chars currents current-is-lower prev-result)
     (if (null? rest-chars)
-	(make-concat-markup
-	  (reverse! (cons (char-list->markup currents current-is-lower)
-			  prev-result)))
-	(let* ((ch (car rest-chars))
-	       (is-lower (char-lower-case? ch)))
-	  (if (or (and current-is-lower is-lower)
-		  (and (not current-is-lower) (not is-lower)))
-	      (make-small-caps (cdr rest-chars)
-			       (cons ch currents)
-			       is-lower
-			       prev-result)
-	      (make-small-caps (cdr rest-chars)
-			       (list ch)
-			       is-lower
-			       (if (null? currents)
-				   prev-result
-				   (cons (char-list->markup
-					    currents current-is-lower)
-					 prev-result)))))))
+        (make-concat-markup
+         (reverse! (cons (char-list->markup currents current-is-lower)
+                         prev-result)))
+        (let* ((ch (car rest-chars))
+               (is-lower (char-lower-case? ch)))
+          (if (or (and current-is-lower is-lower)
+                  (and (not current-is-lower) (not is-lower)))
+              (make-small-caps (cdr rest-chars)
+                               (cons ch currents)
+                               is-lower
+                               prev-result)
+              (make-small-caps (cdr rest-chars)
+                               (list ch)
+                               is-lower
+                               (if (null? currents)
+                                   prev-result
+                                   (cons (char-list->markup
+                                          currents current-is-lower)
+                                         prev-result)))))))
   (interpret-markup layout props
-    (if (string? arg)
-	(make-small-caps (string->list arg) (list) #f (list))
-	arg)))
+                    (if (string? arg)
+                        (make-small-caps (string->list arg) (list) #f (list))
+                        arg)))
 
 (define-markup-command (caps layout props arg)
   (markup?)
@@ -2650,7 +2650,7 @@ done in a different font.  The recommended font for this is bold and italic.
 
   ;; ugh - latin1
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
-		    arg))
+                    arg))
 
 (define-markup-command (italic layout props arg)
   (markup?)
@@ -2724,7 +2724,7 @@ of @code{italic}.
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-series 'medium props)
-		    arg))
+                    arg))
 
 (define-markup-command (normal-text layout props arg)
   (markup?)
@@ -2748,8 +2748,8 @@ normal text font, no matter what font was used earlier.
   ;; ugh - latin1
   (interpret-markup layout
                     (cons '((font-family . roman) (font-shape . upright)
-			    (font-series . medium) (font-encoding . latin1))
-			  props)
+                            (font-series . medium) (font-encoding . latin1))
+                          props)
                     arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2772,13 +2772,13 @@ the possible glyphs.
 }
 @end lilypond"
   (let* ((font (ly:paper-get-font layout
-				  (cons '((font-encoding . fetaMusic)
-					  (font-name . #f))
+                                  (cons '((font-encoding . fetaMusic)
+                                          (font-name . #f))
 
-						 props)))
-	 (glyph (ly:font-get-glyph font glyph-name)))
+                                        props)))
+         (glyph (ly:font-get-glyph font glyph-name)))
     (if (null? (ly:stencil-expr glyph))
-	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
+        (ly:warning (_ "Cannot find glyph ~a") glyph-name))
 
     glyph))
 
@@ -2912,8 +2912,8 @@ Draw @var{arg} in color specified by @var{color}.
 @end lilypond"
   (let ((stil (interpret-markup layout props arg)))
     (ly:make-stencil (list 'color color (ly:stencil-expr stil))
-		     (ly:stencil-extent stil X)
-		     (ly:stencil-extent stil Y))))
+                     (ly:stencil-extent stil X)
+                     (ly:stencil-extent stil Y))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
@@ -2939,14 +2939,14 @@ Use the filled head if @var{filled} is specified.
 @end lilypond"
   (let*
       ((name (format #f "arrowheads.~a.~a~a"
-		     (if filled
-			 "close"
-			 "open")
-		     axis
-		     dir)))
+                     (if filled
+                         "close"
+                         "open")
+                     axis
+                     dir)))
     (ly:font-get-glyph
      (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-				     props))
+                                     props))
      name)))
 
 (define-markup-command (lookup layout props glyph-name)
@@ -2965,7 +2965,7 @@ Use the filled head if @var{filled} is specified.
 }
 @end lilypond"
   (ly:font-get-glyph (ly:paper-get-font layout props)
-		     glyph-name))
+                     glyph-name))
 
 (define-markup-command (char layout props num)
   (integer?)
@@ -2991,16 +2991,16 @@ format require the prefix @code{#x}.
                (integer->char (+ i (char->integer #\A)))))
 
 (define number->mark-alphabet-vector (list->vector
-  (map (lambda (i) (integer->char (+ i (char->integer #\A)))) (iota 26))))
+                                      (map (lambda (i) (integer->char (+ i (char->integer #\A)))) (iota 26))))
 
 (define (number->markletter-string vec n)
   "Double letters for big marks."
   (let* ((lst (vector-length vec)))
 
     (if (>= n lst)
-	(string-append (number->markletter-string vec (1- (quotient n lst)))
-		       (number->markletter-string vec (remainder n lst)))
-	(make-string 1 (vector-ref vec n)))))
+        (string-append (number->markletter-string vec (1- (quotient n lst)))
+                       (number->markletter-string vec (remainder n lst)))
+        (make-string 1 (vector-ref vec n)))))
 
 (define-markup-command (markletter layout props num)
   (integer?)
@@ -3016,12 +3016,12 @@ to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
 }
 @end lilypond"
   (ly:text-interface::interpret-markup layout props
-    (number->markletter-string number->mark-letter-vector num)))
+                                       (number->markletter-string number->mark-letter-vector num)))
 
 (define-markup-command (markalphabet layout props num)
   (integer?)
   #:category other
-   "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
+  "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
 and continue with double letters.
 
 @lilypond[verbatim,quote]
@@ -3031,37 +3031,37 @@ and continue with double letters.
   \\markalphabet #26
 }
 @end lilypond"
-   (ly:text-interface::interpret-markup layout props
-     (number->markletter-string number->mark-alphabet-vector num)))
+  (ly:text-interface::interpret-markup layout props
+                                       (number->markletter-string number->mark-alphabet-vector num)))
 
 (define-public (horizontal-slash-interval num forward number-interval mag)
   (if forward
-    (cond ;; ((= num 6) (interval-widen number-interval (* mag 0.5)))
-          ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
-          (else (interval-widen number-interval (* mag 0.25))))
-    (cond ((= num 6) (interval-widen number-interval (* mag 0.5)))
-          ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
-          (else (interval-widen number-interval (* mag 0.25))))
-  ))
+      (cond ;; ((= num 6) (interval-widen number-interval (* mag 0.5)))
+       ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
+       (else (interval-widen number-interval (* mag 0.25))))
+      (cond ((= num 6) (interval-widen number-interval (* mag 0.5)))
+            ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
+            (else (interval-widen number-interval (* mag 0.25))))
+      ))
 
 (define-public (adjust-slash-stencil num forward stencil mag)
   (if forward
-    (cond ((= num 2)
-              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
-          ((= num 3)
-              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
-          ;; ((= num 5)
-          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
-          ;; ((= num 7)
-          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
-          (else stencil))
-    (cond ((= num 6)
-              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.15))))
-          ;; ((= num 8)
-          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
-          (else stencil))
+      (cond ((= num 2)
+             (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+            ((= num 3)
+             (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+            ;; ((= num 5)
+            ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
+            ;; ((= num 7)
+            ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+            (else stencil))
+      (cond ((= num 6)
+             (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.15))))
+            ;; ((= num 8)
+            ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+            (else stencil))
+      )
   )
-)
 
 (define (slashed-digit-internal layout props num forward font-size thickness)
   (let* ((mag (magstep font-size))
@@ -3081,17 +3081,17 @@ and continue with double letters.
          (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
          (slash-stencil (if is-sane
                             (make-line-stencil thickness
-                                         (car num-x) (- (interval-center num-y) dy)
-                                         (cdr num-x) (+ (interval-center num-y) dy))
+                                               (car num-x) (- (interval-center num-y) dy)
+                                               (cdr num-x) (+ (interval-center num-y) dy))
                             #f)))
     (if (ly:stencil? slash-stencil)
-      (begin
-        ;; for some numbers we need to shift the slash/backslash up or
-        ;; down to make the slashed digit look better
-        (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
-        (set! number-stencil
-          (ly:stencil-add number-stencil slash-stencil)))
-      (ly:warning "Unable to create slashed digit ~a" num))
+        (begin
+          ;; for some numbers we need to shift the slash/backslash up or
+          ;; down to make the slashed digit look better
+          (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
+          (set! number-stencil
+                (ly:stencil-add number-stencil slash-stencil)))
+        (ly:warning "Unable to create slashed digit ~a" num))
     number-stencil))
 
 
@@ -3099,7 +3099,7 @@ and continue with double letters.
   (integer?)
   #:category other
   #:properties ((font-size 0)
-		(thickness 1.6))
+                (thickness 1.6))
   "
 @cindex slashed digits
 
@@ -3119,7 +3119,7 @@ figured bass notation.
   (integer?)
   #:category other
   #:properties ((font-size 0)
-		(thickness 1.6))
+                (thickness 1.6))
   "
 @cindex backslashed digits
 
@@ -3167,8 +3167,8 @@ figured bass notation.
 \\markup { \\eyeglasses }
 @end lilypond"
   (interpret-markup layout props
-    (make-override-markup '(line-cap-style . butt)
-      (make-path-markup 0.15 eyeglassespath))))
+                    (make-override-markup '(line-cap-style . butt)
+                                          (make-path-markup 0.15 eyeglassespath))))
 
 (define-markup-command (left-brace layout props size)
   (number?)
@@ -3187,28 +3187,28 @@ A feta brace in point size @var{size}.
                                   (cons '((font-encoding . fetaBraces)
                                           (font-name . #f))
                                         props)))
-	 (glyph-count (1- (ly:otf-glyph-count font)))
+         (glyph-count (1- (ly:otf-glyph-count font)))
          (scale (ly:output-def-lookup layout 'output-scale))
          (scaled-size (/ (ly:pt size) scale))
          (glyph (lambda (n)
                   (ly:font-get-glyph font (string-append "brace"
-							 (number->string n)))))
-	 (get-y-from-brace (lambda (brace)
-			     (interval-length
-			      (ly:stencil-extent (glyph brace) Y))))
+                                                         (number->string n)))))
+         (get-y-from-brace (lambda (brace)
+                             (interval-length
+                              (ly:stencil-extent (glyph brace) Y))))
          (find-brace (binary-search 0 glyph-count get-y-from-brace scaled-size))
          (glyph-found (glyph find-brace)))
 
     (if (or (null? (ly:stencil-expr glyph-found))
-	    (< scaled-size (interval-length (ly:stencil-extent (glyph 0) Y)))
-	    (> scaled-size (interval-length
-			    (ly:stencil-extent (glyph glyph-count) Y))))
+            (< scaled-size (interval-length (ly:stencil-extent (glyph 0) Y)))
+            (> scaled-size (interval-length
+                            (ly:stencil-extent (glyph glyph-count) Y))))
         (begin
           (ly:warning (_ "no brace found for point size ~S ") size)
           (ly:warning (_ "defaulting to ~S pt")
-		      (/ (* scale (interval-length
-				   (ly:stencil-extent glyph-found Y)))
-			 (ly:pt 1)))))
+                      (/ (* scale (interval-length
+                                   (ly:stencil-extent glyph-found Y)))
+                         (ly:pt 1)))))
     glyph-found))
 
 (define-markup-command (right-brace layout props size)
@@ -3256,94 +3256,94 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-                   (format #f "noteheads.~a~a" dir-name
-                                   (if (and (symbol? style)
-                                            (not (equal? 'default style)))
-                                       (select-head-glyph style (min log 2))
-                                       (min log 2))))
-                 (list (if (= dir UP) "u" "d")
-                       "s")))
+           (format #f "noteheads.~a~a" dir-name
+                   (if (and (symbol? style)
+                            (not (equal? 'default style)))
+                       (select-head-glyph style (min log 2))
+                       (min log 2))))
+         (list (if (= dir UP) "u" "d")
+               "s")))
 
   (define (get-glyph-name font cands)
     (if (null? cands)
-                ""
-                (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
-                    (get-glyph-name font (cdr cands))
-                    (car cands))))
+        ""
+        (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
+            (get-glyph-name font (cdr cands))
+            (car cands))))
 
   (define (buildflags flag-stencil remain curr-stencil spacing)
-     ;; Function to recursively create a stencil with @code{remain} flags
-     ;; from the single-flag stencil @code{curr-stencil}, which is already
-     ;; translated to the position of the previous flag position.
-     ;;
-     ;; Copy and paste from /scm/flag-styles.scm
+    ;; Function to recursively create a stencil with @code{remain} flags
+    ;; from the single-flag stencil @code{curr-stencil}, which is already
+    ;; translated to the position of the previous flag position.
+    ;;
+    ;; Copy and paste from /scm/flag-styles.scm
     (if (> remain 0)
         (let* ((translated-stencil
-                 (ly:stencil-translate-axis curr-stencil spacing Y))
+                (ly:stencil-translate-axis curr-stencil spacing Y))
                (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
           (buildflags new-stencil (- remain 1) translated-stencil spacing))
         flag-stencil))
 
   (define (straight-flag-mrkp flag-thickness flag-spacing
-                                upflag-angle upflag-length
-                                downflag-angle downflag-length
-                                dir)
-  ;; Create a stencil for a straight flag.  @var{flag-thickness} and
-  ;; @var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
-  ;; @var{downflag-angle} are given in degrees, and @var{upflag-length} and
-  ;; @var{downflag-length} are given in staff spaces.
-  ;;
-  ;; All lengths are scaled according to the font size of the note.
-  ;;
-  ;; From /scm/flag-styles.scm, modified to fit here.
+                              upflag-angle upflag-length
+                              downflag-angle downflag-length
+                              dir)
+    ;; Create a stencil for a straight flag.  @var{flag-thickness} and
+    ;; @var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
+    ;; @var{downflag-angle} are given in degrees, and @var{upflag-length} and
+    ;; @var{downflag-length} are given in staff spaces.
+    ;;
+    ;; All lengths are scaled according to the font size of the note.
+    ;;
+    ;; From /scm/flag-styles.scm, modified to fit here.
 
-      (let* ((stem-up (> dir 0))
-             ;; scale with the note size
-             (factor (magstep font-size))
-             (stem-thickness (* factor 0.1))
-             (line-thickness (ly:output-def-lookup layout 'line-thickness))
-             (half-stem-thickness (/ (* stem-thickness line-thickness) 2))
-             (raw-length (if stem-up upflag-length downflag-length))
-             (angle (if stem-up upflag-angle downflag-angle))
-             (flag-length (+ (* raw-length factor) half-stem-thickness))
-             (flag-end (polar->rectangular flag-length angle))
-             (thickness (* flag-thickness factor))
-             (thickness-offset (cons 0 (* -1 thickness dir)))
-             (spacing (* -1 flag-spacing factor dir))
-             (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-             ;; The points of a round-filled-polygon need to be given in
-             ;; clockwise order, otherwise the polygon will be enlarged by
-             ;; blot-size*2!
-             (points (if stem-up (list start flag-end
-                                       (offset-add flag-end thickness-offset)
-                                       (offset-add start thickness-offset))
-                                 (list start
-                                       (offset-add start thickness-offset)
-                                       (offset-add flag-end thickness-offset)
-                                       flag-end)))
-             (stencil (ly:round-filled-polygon points half-stem-thickness))
-             ;; Log for 1/8 is 3, so we need to subtract 3
-             (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
-        flag-stencil))
+    (let* ((stem-up (> dir 0))
+           ;; scale with the note size
+           (factor (magstep font-size))
+           (stem-thickness (* factor 0.1))
+           (line-thickness (ly:output-def-lookup layout 'line-thickness))
+           (half-stem-thickness (/ (* stem-thickness line-thickness) 2))
+           (raw-length (if stem-up upflag-length downflag-length))
+           (angle (if stem-up upflag-angle downflag-angle))
+           (flag-length (+ (* raw-length factor) half-stem-thickness))
+           (flag-end (polar->rectangular flag-length angle))
+           (thickness (* flag-thickness factor))
+           (thickness-offset (cons 0 (* -1 thickness dir)))
+           (spacing (* -1 flag-spacing factor dir))
+           (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
+           ;; The points of a round-filled-polygon need to be given in
+           ;; clockwise order, otherwise the polygon will be enlarged by
+           ;; blot-size*2!
+           (points (if stem-up (list start flag-end
+                                     (offset-add flag-end thickness-offset)
+                                     (offset-add start thickness-offset))
+                       (list start
+                             (offset-add start thickness-offset)
+                             (offset-add flag-end thickness-offset)
+                             flag-end)))
+           (stencil (ly:round-filled-polygon points half-stem-thickness))
+           ;; Log for 1/8 is 3, so we need to subtract 3
+           (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
+      flag-stencil))
 
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-                                                 props)))
+                                               props)))
          (size-factor (magstep font-size))
          (blot (ly:output-def-lookup layout 'blot-diameter))
          (head-glyph-name
-           (let ((result (get-glyph-name font
-                           (get-glyph-name-candidates
-                             (sign dir) log style))))
-             (if (string-null? result)
-                 ;; If no glyph name can be found, select default heads.
-                 ;; Though this usually means an unsupported style has been
-                 ;; chosen, it also prevents unrelated 'style settings from
-                 ;; other grobs (e.g., TextSpanner and TimeSignature) leaking
-                 ;; into markup.
-                 (get-glyph-name font
-                   (get-glyph-name-candidates
-                     (sign dir) log 'default))
-                 result)))
+          (let ((result (get-glyph-name font
+                                        (get-glyph-name-candidates
+                                         (sign dir) log style))))
+            (if (string-null? result)
+                ;; If no glyph name can be found, select default heads.
+                ;; Though this usually means an unsupported style has been
+                ;; chosen, it also prevents unrelated 'style settings from
+                ;; other grobs (e.g., TextSpanner and TimeSignature) leaking
+                ;; into markup.
+                (get-glyph-name font
+                                (get-glyph-name-candidates
+                                 (sign dir) log 'default))
+                result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
          (ancient-flags? (or (eq? style 'mensural) (eq? style 'neomensural)))
          (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
@@ -3352,8 +3352,8 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
          (stem-thickness (* size-factor (if ancient-flags? 0.1 0.13)))
          (stemy (* dir stem-length))
          (attach-off (cons (interval-index
-                             (ly:stencil-extent head-glyph X)
-                             (* (sign dir) (car attach-indices)))
+                            (ly:stencil-extent head-glyph X)
+                            (* (sign dir) (car attach-indices)))
                            ;; fixme, this is inconsistent between X & Y.
                            (* (sign dir)
                               (interval-index
@@ -3364,12 +3364,12 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
          (stem-X-corr (if ancient-flags? (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
                           (ly:round-filled-box
-                            (ordered-cons (+ stem-X-corr (car attach-off))
-                                  (+ stem-X-corr (car attach-off)
-                                     (* (- (sign dir)) stem-thickness)))
-                            (cons (min stemy (cdr attach-off))
-                                  (max stemy (cdr attach-off)))
-                            (/ stem-thickness 3))))
+                           (ordered-cons (+ stem-X-corr (car attach-off))
+                                         (+ stem-X-corr (car attach-off)
+                                            (* (- (sign dir)) stem-thickness)))
+                           (cons (min stemy (cdr attach-off))
+                                 (max stemy (cdr attach-off)))
+                           (/ stem-thickness 3))))
          (dot (ly:font-get-glyph font "dots.dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
@@ -3389,34 +3389,34 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
                                 0))
          (flaggl (and (> log 2)
                       (ly:stencil-translate
-                        (cond ((eq? flag-style 'modern-straight-flag)
-                               modern-straight-flag)
-                              ((eq? flag-style 'old-straight-flag)
-                               old-straight-flag)
-                              (else
-                               (ly:font-get-glyph font
-                                 (format #f (if ancient-flags?
-                                                "flags.mensural~a2~a"
-                                                "flags.~a~a")
-                                            (if (> dir 0) "u" "d")
-                                            log))))
-                        (cons (+ (car attach-off)
-                                 ;; For tighter stems (with ancient-flags) the
-                                 ;; flag has to be adjusted different.
-                                 (if (and (not ancient-flags?) (< dir 0))
-                                     stem-thickness
-                                     0))
-                              (+ stemy flag-style-Y-corr))))))
+                       (cond ((eq? flag-style 'modern-straight-flag)
+                              modern-straight-flag)
+                             ((eq? flag-style 'old-straight-flag)
+                              old-straight-flag)
+                             (else
+                              (ly:font-get-glyph font
+                                                 (format #f (if ancient-flags?
+                                                                "flags.mensural~a2~a"
+                                                                "flags.~a~a")
+                                                         (if (> dir 0) "u" "d")
+                                                         log))))
+                       (cons (+ (car attach-off)
+                                ;; For tighter stems (with ancient-flags) the
+                                ;; flag has to be adjusted different.
+                                (if (and (not ancient-flags?) (< dir 0))
+                                    stem-thickness
+                                    0))
+                             (+ stemy flag-style-Y-corr))))))
 
     ;; If there is a flag on an upstem and the stem is short, move the dots
     ;; to avoid the flag.  16th notes get a special case because their flags
     ;; hang lower than any other flags.
     ;; Not with ancient flags or straight-flags.
     (if (and dots (> dir 0) (> log 2)
-                     (or (eq? flag-style 'default) (null? flag-style))
-                     (not ancient-flags?)
-                     (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
-                (set! dots (ly:stencil-translate-axis dots 0.5 X)))
+             (or (eq? flag-style 'default) (null? flag-style))
+             (not ancient-flags?)
+             (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
+        (set! dots (ly:stencil-translate-axis dots 0.5 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
@@ -3425,11 +3425,11 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
     (if (ly:stencil? dots)
         (set! stem-glyph
               (ly:stencil-add
-                (ly:stencil-translate-axis
-                  dots
-                  (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
-                  X)
-                stem-glyph)))
+               (ly:stencil-translate-axis
+                dots
+                (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
+                X)
+               stem-glyph)))
     stem-glyph))
 
 (define-public log2
@@ -3506,44 +3506,44 @@ A rest or multi-measure-rest symbol.
            ;; If no glyph exists, select others for the specified styles
            ;; otherwise defaulting.
            (style-strg
-             (cond (
+            (cond (
                    ;; 'baroque needs to be special-cased, otherwise
                    ;; `select-head-glyph´ would catch neomensural-glyphs for
                    ;; this style, if (< log 0).
                    (eq? style 'baroque)
-                    (string-append (number->string log) ""))
-                   ((eq? style 'petrucci)
-                    (string-append (number->string log) "mensural"))
-                    ;; In other cases `select-head-glyph´ from output-lib.scm
-                    ;; works for rest-glyphs, too.
-                   ((and (symbol? style) (not (eq? style 'default)))
-                    (select-head-glyph style log))
-                   (else log)))
+                   (string-append (number->string log) ""))
+                  ((eq? style 'petrucci)
+                   (string-append (number->string log) "mensural"))
+                  ;; In other cases `select-head-glyph´ from output-lib.scm
+                  ;; works for rest-glyphs, too.
+                  ((and (symbol? style) (not (eq? style 'default)))
+                   (select-head-glyph style log))
+                  (else log)))
            ;; Choose ledgered glyphs for whole and half rest.
            ;; Except for the specified styles, logs and MultiMeasureRests.
            (ledger-style-rests
-             (if (and (or (list? style)
-                          (not (member style
-                                  '(neomensural mensural petrucci))))
-                      (not multi-measure-rest)
-                      (or (= log 0) (= log 1)))
+            (if (and (or (list? style)
+                         (not (member style
+                                      '(neomensural mensural petrucci))))
+                     (not multi-measure-rest)
+                     (or (= log 0) (= log 1)))
                 "o"
                 "")))
       (format #f "rests.~a~a" style-strg ledger-style-rests)))
 
   (define (get-glyph-name font cands)
-     (if (ly:stencil-empty? (ly:font-get-glyph font cands))
+    (if (ly:stencil-empty? (ly:font-get-glyph font cands))
         ""
         cands))
 
   (let* ((font
-           (ly:paper-get-font layout
-             (cons '((font-encoding . fetaMusic)) props)))
+          (ly:paper-get-font layout
+                             (cons '((font-encoding . fetaMusic)) props)))
          (rest-glyph-name
-            (let ((result
-                    (get-glyph-name font
-                      (get-glyph-name-candidates log style))))
-              (if (string-null? result)
+          (let ((result
+                 (get-glyph-name font
+                                 (get-glyph-name-candidates log style))))
+            (if (string-null? result)
                 ;; If no glyph name can be found, select default rests.  Though
                 ;; this usually means an unsupported style has been chosen, it
                 ;; also prevents unrelated 'style settings from other grobs
@@ -3567,7 +3567,7 @@ A rest or multi-measure-rest symbol.
              (< log 2)
              (>= log 0)
              (not (member style '(neomensural mensural petrucci))))
-       (set! dots (ly:stencil-translate-axis dots dot-width X)))
+        (set! dots (ly:stencil-translate-axis dots dot-width X)))
 
     ;; Add dots to the rest-glyph.
     ;;
@@ -3581,13 +3581,13 @@ A rest or multi-measure-rest symbol.
         (set! rest-glyph
               (ly:stencil-add
                (ly:stencil-translate
-                   dots
-                        (cons
-                           (+ (cdr (ly:stencil-extent rest-glyph X)) dot-width)
-                           (if (< log 2)
-                             (interval-center (ly:stencil-extent rest-glyph Y))
-                             (- (interval-end (ly:stencil-extent rest-glyph Y))
-                                (/ (* 2 dot-width) 3)))))
+                dots
+                (cons
+                 (+ (cdr (ly:stencil-extent rest-glyph X)) dot-width)
+                 (if (< log 2)
+                     (interval-center (ly:stencil-extent rest-glyph Y))
+                     (- (interval-end (ly:stencil-extent rest-glyph Y))
+                        (/ (* 2 dot-width) 3)))))
                rest-glyph)))
     rest-glyph))
 
@@ -3631,14 +3631,14 @@ Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
   ;; Store them in a list.
   ;; example: (mmr-numbers 25) -> '(3 0 0 1)
   (define (mmr-numbers nmbr)
-      (let* ((8-bar-glyph (floor (/ nmbr 8)))
-             (8-remainder (remainder nmbr 8))
-             (4-bar-glyph (floor (/ 8-remainder 4)))
-             (4-remainder (remainder nmbr 4))
-             (2-bar-glyph (floor (/ 4-remainder 2)))
-             (2-remainder (remainder 4-remainder 2))
-             (1-bar-glyph (floor (/ 2-remainder 1))))
-       (list 8-bar-glyph 4-bar-glyph 2-bar-glyph 1-bar-glyph)))
+    (let* ((8-bar-glyph (floor (/ nmbr 8)))
+           (8-remainder (remainder nmbr 8))
+           (4-bar-glyph (floor (/ 8-remainder 4)))
+           (4-remainder (remainder nmbr 4))
+           (2-bar-glyph (floor (/ 4-remainder 2)))
+           (2-remainder (remainder 4-remainder 2))
+           (1-bar-glyph (floor (/ 2-remainder 1))))
+      (list 8-bar-glyph 4-bar-glyph 2-bar-glyph 1-bar-glyph)))
 
   ;; Get the correct mmr-glyphs.
   ;; Store them in a list.
@@ -3646,93 +3646,93 @@ Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
   ;; (get-mmr-glyphs '(1 0 1 0) '("rests.M3" "rests.M2" "rests.M1" "rests.0"))
   ;; -> ("rests.M3" "rests.M1")
   (define (get-mmr-glyphs lst1 lst2)
-     (define (helper l1 l2 l3)
-        (if (null? l1)
-           (reverse l3)
-           (helper (cdr l1)
-                   (cdr l2)
-                   (append (make-list (car l1) (car l2)) l3))))
-      (helper lst1 lst2 '()))
+    (define (helper l1 l2 l3)
+      (if (null? l1)
+          (reverse l3)
+          (helper (cdr l1)
+                  (cdr l2)
+                  (append (make-list (car l1) (car l2)) l3))))
+    (helper lst1 lst2 '()))
 
   ;; If duration is not valid, print a warning and return empty-stencil
   (if (or (and (not (integer? (car (parse-simple-duration duration))))
                (not multi-measure-rest))
           (and (= (string-length (car (string-split duration #\. ))) 1)
                (= (string->number (car (string-split duration #\. ))) 0)))
-    (begin
-      (ly:warning (_ "not a valid duration string: ~a - ignoring") duration)
-      empty-stencil)
-    (let* (
-       ;; For simple rests:
-           ;; Get a (log dots) list.
-           (parsed (parse-simple-duration duration))
-           ;; Create the rest-stencil
-           (stil
+      (begin
+        (ly:warning (_ "not a valid duration string: ~a - ignoring") duration)
+        empty-stencil)
+      (let* (
+             ;; For simple rests:
+             ;; Get a (log dots) list.
+             (parsed (parse-simple-duration duration))
+             ;; Create the rest-stencil
+             (stil
               (rest-by-number-markup layout props (car parsed) (cadr parsed)))
-       ;; For MultiMeasureRests:
-           ;; Get the duration-part of duration
-           (dur-part-string (car (string-split duration #\. )))
-           ;; Get the duration of MMR:
-           ;; If not a number (eg. "maxima") calculate it.
-           (mmr-duration
-             (or (string->number dur-part-string) (expt 2 (abs (car parsed)))))
-           ;; Get a list of the correct number of each mmr-glyph.
-           (count-mmr-glyphs-list (mmr-numbers mmr-duration))
-           ;; Create a list of mmr-stencils,
-           ;; translating the glyph for a whole rest.
-           (mmr-stils-list
+             ;; For MultiMeasureRests:
+             ;; Get the duration-part of duration
+             (dur-part-string (car (string-split duration #\. )))
+             ;; Get the duration of MMR:
+             ;; If not a number (eg. "maxima") calculate it.
+             (mmr-duration
+              (or (string->number dur-part-string) (expt 2 (abs (car parsed)))))
+             ;; Get a list of the correct number of each mmr-glyph.
+             (count-mmr-glyphs-list (mmr-numbers mmr-duration))
+             ;; Create a list of mmr-stencils,
+             ;; translating the glyph for a whole rest.
+             (mmr-stils-list
               (map
-                 (lambda (x)
-                    (let ((single-mmr-stil
-                            (rest-by-number-markup layout props (* -1 x) 0)))
-                       (if (= x 0)
-                          (ly:stencil-translate-axis
-                            single-mmr-stil
-                            ;; Ugh, hard-coded, why 1?
-                            1
-                            Y)
-                           single-mmr-stil)))
-                 (get-mmr-glyphs count-mmr-glyphs-list (reverse (iota 4)))))
-            ;; Adjust the space between the mmr-glyphs,
-            ;; if not default-glyphs are used.
-            (word-space (if (member style
-                                    '(neomensural mensural petrucci))
-                           (/ (* word-space 2) 3)
-                           word-space))
-            ;; Create the final mmr-stencil
-            ;; via `stack-stencil-line´ from /scm/markup.scm
-            (mmr-stil (stack-stencil-line word-space mmr-stils-list)))
+               (lambda (x)
+                 (let ((single-mmr-stil
+                        (rest-by-number-markup layout props (* -1 x) 0)))
+                   (if (= x 0)
+                       (ly:stencil-translate-axis
+                        single-mmr-stil
+                        ;; Ugh, hard-coded, why 1?
+                        1
+                        Y)
+                       single-mmr-stil)))
+               (get-mmr-glyphs count-mmr-glyphs-list (reverse (iota 4)))))
+             ;; Adjust the space between the mmr-glyphs,
+             ;; if not default-glyphs are used.
+             (word-space (if (member style
+                                     '(neomensural mensural petrucci))
+                             (/ (* word-space 2) 3)
+                             word-space))
+             ;; Create the final mmr-stencil
+             ;; via `stack-stencil-line´ from /scm/markup.scm
+             (mmr-stil (stack-stencil-line word-space mmr-stils-list)))
 
-      ;; Print the number above a multi-measure-rest
-      ;; Depends on duration, style and multi-measure-rest-number set #t
-      (if (and multi-measure-rest
-               multi-measure-rest-number
-               (> mmr-duration 1)
-               (not (member style '(neomensural mensural petrucci))))
-         (let* ((mmr-stil-x-center
-                   (interval-center (ly:stencil-extent mmr-stil X)))
-                (duration-markup
-                   (markup
-                      #:fontsize -2
-                      #:override '(font-encoding . fetaText)
-                      (number->string mmr-duration)))
-                (mmr-number-stil
-                   (interpret-markup layout props duration-markup))
-                (mmr-number-stil-x-center
-                   (interval-center (ly:stencil-extent mmr-number-stil X))))
+        ;; Print the number above a multi-measure-rest
+        ;; Depends on duration, style and multi-measure-rest-number set #t
+        (if (and multi-measure-rest
+                 multi-measure-rest-number
+                 (> mmr-duration 1)
+                 (not (member style '(neomensural mensural petrucci))))
+            (let* ((mmr-stil-x-center
+                    (interval-center (ly:stencil-extent mmr-stil X)))
+                   (duration-markup
+                    (markup
+                     #:fontsize -2
+                     #:override '(font-encoding . fetaText)
+                     (number->string mmr-duration)))
+                   (mmr-number-stil
+                    (interpret-markup layout props duration-markup))
+                   (mmr-number-stil-x-center
+                    (interval-center (ly:stencil-extent mmr-number-stil X))))
 
-         (set! mmr-stil (ly:stencil-combine-at-edge
-                           mmr-stil
-                           Y UP
-                           (ly:stencil-translate-axis
-                              mmr-number-stil
-                              (- mmr-stil-x-center mmr-number-stil-x-center)
-                              X)
-                           ;; Ugh, hardcoded
-                           0.8))))
-    (if multi-measure-rest
-       mmr-stil
-       stil))))
+              (set! mmr-stil (ly:stencil-combine-at-edge
+                              mmr-stil
+                              Y UP
+                              (ly:stencil-translate-axis
+                               mmr-number-stil
+                               (- mmr-stil-x-center mmr-number-stil-x-center)
+                               X)
+                              ;; Ugh, hardcoded
+                              0.8))))
+        (if multi-measure-rest
+            mmr-stil
+            stil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
@@ -3756,7 +3756,7 @@ A negative @var{amount} indicates raising; see also @code{\\raise}.
 }
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg)
-			     (- amount) Y))
+                             (- amount) Y))
 
 (define-markup-command (translate-scaled layout props offset arg)
   (number-pair? markup?)
@@ -3843,9 +3843,9 @@ Make a fraction of two markups.
            ;; should stack mols separately, to maintain LINE on baseline
            (stack (stack-lines DOWN padding baseline (list m1 line m2))))
       (set! stack
-	    (ly:stencil-aligned-to stack Y CENTER))
+            (ly:stencil-aligned-to stack Y CENTER))
       (set! stack
-	    (ly:stencil-aligned-to stack X LEFT))
+            (ly:stencil-aligned-to stack X LEFT))
       ;; should have EX dimension
       ;; empirical anyway
       (ly:stencil-translate-axis stack offset Y))))
@@ -3875,7 +3875,7 @@ Set @var{arg} in superscript with a normal font size.
   (markup?)
   #:category font
   #:properties ((font-size 0)
-		(baseline-skip))
+                (baseline-skip))
   "
 @cindex superscript text
 
@@ -3916,13 +3916,13 @@ is a pair of numbers representing the displacement in the X and Y axis.
 }
 @end lilypond"
   (ly:stencil-translate (interpret-markup layout props arg)
-			offset))
+                        offset))
 
 (define-markup-command (sub layout props arg)
   (markup?)
   #:category font
   #:properties ((font-size 0)
-		(baseline-skip))
+                (baseline-skip))
   "
 @cindex subscript text
 
@@ -4017,10 +4017,10 @@ Draw vertical brackets around @var{arg}.
   (markup?)
   #:category graphic
   #:properties ((angularity 0)
-		(padding)
-		(size 1)
-		(thickness 1)
-		(width 0.25))
+                (padding)
+                (size 1)
+                (thickness 1)
+                (width 0.25))
   "
 @cindex placing parentheses around text
 
@@ -4048,14 +4048,14 @@ a column containing several lines of text.
 }
 @end lilypond"
   (let* ((markup (interpret-markup layout props arg))
-	 (scaled-width (* size width))
-	 (scaled-thickness
-	  (* (chain-assoc-get 'line-thickness props 0.1)
-	     thickness))
-	 (half-thickness
-	  (min (* size 0.5 scaled-thickness)
-	       (* (/ 4 3.0) scaled-width)))
-	 (padding (chain-assoc-get 'padding props half-thickness)))
+         (scaled-width (* size width))
+         (scaled-thickness
+          (* (chain-assoc-get 'line-thickness props 0.1)
+             thickness))
+         (half-thickness
+          (min (* size 0.5 scaled-thickness)
+               (* (/ 4 3.0) scaled-width)))
+         (padding (chain-assoc-get 'padding props half-thickness)))
     (parenthesize-stencil
      markup half-thickness scaled-width angularity padding)))
 
@@ -4075,21 +4075,21 @@ page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
 when @var{label} is not found."
   (let* ((gauge-stencil (interpret-markup layout props gauge))
-	 (x-ext (ly:stencil-extent gauge-stencil X))
-	 (y-ext (ly:stencil-extent gauge-stencil Y)))
+         (x-ext (ly:stencil-extent gauge-stencil X))
+         (y-ext (ly:stencil-extent gauge-stencil Y)))
     (ly:make-stencil
      `(delay-stencil-evaluation
        ,(delay (ly:stencil-expr
-		(let* ((table (ly:output-def-lookup layout 'label-page-table))
-		       (page-number (if (list? table)
-		                        (assoc-get label table)
-					#f))
-		       (page-markup (if page-number (format #f "~a" page-number) default))
-		       (page-stencil (interpret-markup layout props page-markup))
-		       (gap (- (interval-length x-ext)
-			       (interval-length (ly:stencil-extent page-stencil X)))))
-		  (interpret-markup layout props
-				    (markup #:hspace gap page-markup))))))
+                (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                       (page-number (if (list? table)
+                                        (assoc-get label table)
+                                        #f))
+                       (page-markup (if page-number (format #f "~a" page-number) default))
+                       (page-stencil (interpret-markup layout props page-markup))
+                       (gap (- (interval-length x-ext)
+                               (interval-length (ly:stencil-extent page-stencil X)))))
+                  (interpret-markup layout props
+                                    (markup #:hspace gap page-markup))))))
      x-ext
      y-ext)))
 
@@ -4119,8 +4119,8 @@ Negative values may be used to produce mirror images.
 }
 @end lilypond"
   (let ((stil (interpret-markup layout props arg))
-	(sx (car factor-pair))
-	(sy (cdr factor-pair)))
+        (sx (car factor-pair))
+        (sy (cdr factor-pair)))
     (ly:stencil-scale stil sx sy)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4145,20 +4145,20 @@ Patterns are distributed on @var{axis}.
 }
 @end lilypond"
   (let ((pattern-width (interval-length
-                         (ly:stencil-extent (interpret-markup layout props pattern) X)))
+                        (ly:stencil-extent (interpret-markup layout props pattern) X)))
         (new-props (prepend-alist-chain 'word-space 0 (prepend-alist-chain 'baseline-skip 0 props))))
     (let loop ((i (1- count)) (patterns (markup)))
       (if (zero? i)
           (interpret-markup
-            layout
-            new-props
-            (if (= axis X)
-                (markup patterns pattern)
-                (markup #:column (patterns pattern))))
+           layout
+           new-props
+           (if (= axis X)
+               (markup patterns pattern)
+               (markup #:column (patterns pattern))))
           (loop (1- i)
-            (if (= axis X)
-                (markup patterns pattern #:hspace space)
-                (markup #:column (patterns pattern #:vspace space))))))))
+                (if (= axis X)
+                    (markup patterns pattern #:hspace space)
+                    (markup #:column (patterns pattern #:vspace space))))))))
 
 (define-markup-command (fill-with-pattern layout props space dir pattern left right)
   (number? ly:dir? markup? markup? markup?)
@@ -4230,29 +4230,29 @@ The @code{key} is the string to be replaced by the @code{value} string.
 
 (define-public (space-lines baseline stils)
   (let space-stil ((stils stils)
-		   (result (list)))
+                   (result (list)))
     (if (null? stils)
-	(reverse! result)
-	(let* ((stil (car stils))
-	       (dy-top (max (- (/ baseline 1.5)
-			       (interval-bound (ly:stencil-extent stil Y) UP))
-			    0.0))
-	       (dy-bottom (max (+ (/ baseline 3.0)
-				  (interval-bound (ly:stencil-extent stil Y) DOWN))
-			       0.0))
-	       (new-stil (ly:make-stencil
-			  (ly:stencil-expr stil)
-			  (ly:stencil-extent stil X)
-			  (cons (- (interval-bound (ly:stencil-extent stil Y) DOWN)
-				   dy-bottom)
-				(+ (interval-bound (ly:stencil-extent stil Y) UP)
-				   dy-top)))))
-	  (space-stil (cdr stils) (cons new-stil result))))))
+        (reverse! result)
+        (let* ((stil (car stils))
+               (dy-top (max (- (/ baseline 1.5)
+                               (interval-bound (ly:stencil-extent stil Y) UP))
+                            0.0))
+               (dy-bottom (max (+ (/ baseline 3.0)
+                                  (interval-bound (ly:stencil-extent stil Y) DOWN))
+                               0.0))
+               (new-stil (ly:make-stencil
+                          (ly:stencil-expr stil)
+                          (ly:stencil-extent stil X)
+                          (cons (- (interval-bound (ly:stencil-extent stil Y) DOWN)
+                                   dy-bottom)
+                                (+ (interval-bound (ly:stencil-extent stil Y) UP)
+                                   dy-top)))))
+          (space-stil (cdr stils) (cons new-stil result))))))
 
 (define-markup-list-command (justified-lines layout props args)
   (markup-list?)
   #:properties ((baseline-skip)
-		wordwrap-internal-markup-list)
+                wordwrap-internal-markup-list)
   "
 @cindex justifying lines of text
 
@@ -4266,7 +4266,7 @@ Use @code{\\override-lines #'(line-width . @var{X})} to set the line width;
 (define-markup-list-command (wordwrap-lines layout props args)
   (markup-list?)
   #:properties ((baseline-skip)
-		wordwrap-internal-markup-list)
+                wordwrap-internal-markup-list)
   "Like @code{\\wordwrap}, but return a list of lines instead of a single markup.
 Use @code{\\override-lines #'(line-width . @var{X})} to set the line width,
 where @var{X} is the number of staff spaces."
@@ -4280,7 +4280,7 @@ where @var{X} is the number of staff spaces."
   "Like @code{\\column}, but return a list of lines instead of a single markup.
 @code{baseline-skip} determines the space between each markup in @var{args}."
   (space-lines baseline-skip
-	       (interpret-markup-list layout props args)))
+               (interpret-markup-list layout props args)))
 
 (define-markup-list-command (override-lines layout props new-prop args)
   (pair? markup-list?)

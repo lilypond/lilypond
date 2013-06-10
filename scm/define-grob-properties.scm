@@ -949,7 +949,7 @@ this property.")
 ;;; t
 ;;;
      (text ,markup? "Text markup.  See @ruser{Formatting text}.")
-;;FIXME -- Should both be the same?
+     ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
 should use @code{LEFT}.")

@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define x11-color-list 	    
+(define x11-color-list
   '((snow 1 0.98039215686274506 0.98039215686274506)
     (GhostWhite 0.97254901960784312 0.97254901960784312 1)
     (WhiteSmoke 0.96078431372549022 0.96078431372549022 0.96078431372549022)
@@ -677,32 +677,32 @@
 (define (make-x11-color-handler)
   (let
       ((x11-color-table (make-hash-table 31)))
-    
-    (lambda (arg)
-      (let* 
-	  ((arg-sym (if (string? arg)
-			(if (string-index arg #\ )
-			    (let
-				((arg-list (string-split (string-capitalize arg) #\ )))
 
-			      (string->symbol 
-			       (let append-all ((x arg-list))
-				 (if (null? x)
-				     ""
-				     (string-append (car x) (append-all (cdr x)))))))
-			    
-			    (string->symbol arg))
-			arg))
-	   
-	   (temp (hashq-ref x11-color-table arg-sym)))
-	
-	(if temp
-	    temp
-	    (let*
-		((temp-1 (assq-ref x11-color-list arg-sym))
-		 (temp (if temp-1 temp-1 '(0 0 0))))
-	      
-	      (hashq-create-handle! x11-color-table arg-sym temp)
-	      temp))))))
+    (lambda (arg)
+      (let*
+          ((arg-sym (if (string? arg)
+                        (if (string-index arg #\ )
+                            (let
+                                ((arg-list (string-split (string-capitalize arg) #\ )))
+
+                              (string->symbol
+                               (let append-all ((x arg-list))
+                                 (if (null? x)
+                                     ""
+                                     (string-append (car x) (append-all (cdr x)))))))
+
+                            (string->symbol arg))
+                        arg))
+
+           (temp (hashq-ref x11-color-table arg-sym)))
+
+        (if temp
+            temp
+            (let*
+                ((temp-1 (assq-ref x11-color-list arg-sym))
+                 (temp (if temp-1 temp-1 '(0 0 0))))
+
+              (hashq-create-handle! x11-color-table arg-sym temp)
+              temp))))))
 
 (define-public x11-color (make-x11-color-handler))

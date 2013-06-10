@@ -25,18 +25,18 @@
 ;; scm/output-lib.scm
 ;;
 ;;
-;; 	(define-public (make-rhythmic-location bar-num num den)
-;; 	(define-public (rhythmic-location? a)
-;; 	(define-public (make-graceless-rhythmic-location loc)
-;; 	(define-public rhythmic-location-measure-position cdr)
-;; 	(define-public rhythmic-location-bar-number car)
-;; 	(define-public (rhythmic-location<? a b)
-;;	(define-public (rhythmic-location<=? a b)
-;;	(define-public (rhythmic-location>=? a b)
-;;	(define-public (rhythmic-location>? a b)
-;;	(define-public (rhythmic-location=? a b)
-;;	(define-public (rhythmic-location->file-string a)
-;;	(define-public (rhythmic-location->string a)
+;;      (define-public (make-rhythmic-location bar-num num den)
+;;      (define-public (rhythmic-location? a)
+;;      (define-public (make-graceless-rhythmic-location loc)
+;;      (define-public rhythmic-location-measure-position cdr)
+;;      (define-public rhythmic-location-bar-number car)
+;;      (define-public (rhythmic-location<? a b)
+;;      (define-public (rhythmic-location<=? a b)
+;;      (define-public (rhythmic-location>=? a b)
+;;      (define-public (rhythmic-location>? a b)
+;;      (define-public (rhythmic-location=? a b)
+;;      (define-public (rhythmic-location->file-string a)
+;;      (define-public (rhythmic-location->string a)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,52 +59,52 @@
        (region-end (cdr clip-region))
        (found-grace-end  #f)
        (candidate-columns
-	(filter
-	 (lambda (j)
-	   (let*
-	       ((column (ly:grob-array-ref columns j))
-		(loc (ly:grob-property column 'rhythmic-location))
-		(grace-less (make-graceless-rhythmic-location loc))
-		)
+        (filter
+         (lambda (j)
+           (let*
+               ((column (ly:grob-array-ref columns j))
+                (loc (ly:grob-property column 'rhythmic-location))
+                (grace-less (make-graceless-rhythmic-location loc))
+                )
 
-	     (and (rhythmic-location? loc)
-		  (rhythmic-location<=? region-start loc)
-		  (or (rhythmic-location<? grace-less region-end)
-		      (and (rhythmic-location=? grace-less region-end)
-			   (eq? #t (ly:grob-property column 'non-musical))
+             (and (rhythmic-location? loc)
+                  (rhythmic-location<=? region-start loc)
+                  (or (rhythmic-location<? grace-less region-end)
+                      (and (rhythmic-location=? grace-less region-end)
+                           (eq? #t (ly:grob-property column 'non-musical))
 
-			   )))
+                           )))
 
-	     ))
+             ))
 
-	 (iota (ly:grob-array-length columns))))
+         (iota (ly:grob-array-length columns))))
 
        (column-range
-	(if (>= 1 (length candidate-columns))
-	    #f
-	    (cons (car candidate-columns)
-		  (car (last-pair candidate-columns)))))
+        (if (>= 1 (length candidate-columns))
+            #f
+            (cons (car candidate-columns)
+                  (car (last-pair candidate-columns)))))
 
        (clipped-x-interval
-	(if column-range
-	    (cons
+        (if column-range
+            (cons
 
-	     (interval-start
-	      (ly:grob-robust-relative-extent
-	       (if (= 0 (car column-range))
-		   system-grob
-		   (ly:grob-array-ref columns (car column-range)))
-	       system-grob X))
+             (interval-start
+              (ly:grob-robust-relative-extent
+               (if (= 0 (car column-range))
+                   system-grob
+                   (ly:grob-array-ref columns (car column-range)))
+               system-grob X))
 
-	     (interval-end
-	      (ly:grob-robust-relative-extent
-	      (if (= (1- (ly:grob-array-length columns)) (cdr column-range))
-		  system-grob
-		  (ly:grob-array-ref columns (cdr column-range)))
-	      system-grob X)))
+             (interval-end
+              (ly:grob-robust-relative-extent
+               (if (= (1- (ly:grob-array-length columns)) (cdr column-range))
+                   system-grob
+                   (ly:grob-array-ref columns (cdr column-range)))
+               system-grob X)))
 
 
-	    #f
-	    )))
+            #f
+            )))
 
     clipped-x-interval))

@@ -20,13 +20,13 @@
  (ice-9 regex))
 
 (define (dashify-underscores str)
-   (regexp-substitute/global #f "_" str 'pre "-" 'post))
+  (regexp-substitute/global #f "_" str 'pre "-" 'post))
 
 (define (format-c-header c-h)
   (regexp-substitute/global
-   #f "," 
+   #f ","
    (regexp-substitute/global #f "(SCM|\\)|\\() *" (dashify-underscores c-h)
-			     'pre "" 'post)
+                             'pre "" 'post)
    'pre " " 'post))
 
 (define (document-scheme-function name c-header doc-string)
@@ -36,16 +36,16 @@
    "\n@end defun\n\n"))
 
 (define all-scheme-functions
-   (hash-fold
-    (lambda (key val prior)
-      (cons (cons key val)  prior))
-    '() (ly:get-all-function-documentation)))
+  (hash-fold
+   (lambda (key val prior)
+     (cons (cons key val)  prior))
+   '() (ly:get-all-function-documentation)))
 
 (define (all-scheme-functions-doc)
   (let* ((fdocs (map (lambda (x)
-		       (document-scheme-function (car x) (cadr x) (cddr x)))
-		     all-scheme-functions))
-	 (sfdocs (sort fdocs ly:string-ci<?)))
+                       (document-scheme-function (car x) (cadr x) (cddr x)))
+                     all-scheme-functions))
+         (sfdocs (sort fdocs ly:string-ci<?)))
     (make <texi-node>
       #:name "Scheme functions"
       #:desc "Primitive functions exported by LilyPond."

@@ -20,8 +20,8 @@
   #:use-module (lily)
   #:export
   (make-empty-graph add-node add-edge add-cluster
-		    graph-write
-		    ))
+                    graph-write
+                    ))
 
 (define graph-type (make-record-type "graph" '(nodes edges clusters name)))
 
@@ -37,21 +37,21 @@
 
 (define (add-cluster graph node-id cluster-name)
   (let* ((cs (clusters graph))
-	 (cluster (assoc cluster-name cs))
-	 (already-in-cluster (if cluster
-				 (cdr cluster)
-				 '())))
+         (cluster (assoc cluster-name cs))
+         (already-in-cluster (if cluster
+                                 (cdr cluster)
+                                 '())))
     (set-clusters! graph (assoc-set! cs
-				    cluster-name
-				    (cons node-id already-in-cluster)))))
+                                     cluster-name
+                                     (cons node-id already-in-cluster)))))
 
 (define (add-node graph label . cluster-name)
   (let* ((ns (nodes graph))
          (id (length ns)))
     (set-nodes! graph (assv-set! ns id label))
     (if (and (not (null? cluster-name))
-	     (string? (car cluster-name)))
-	(add-cluster graph id (car cluster-name)))
+             (string? (car cluster-name)))
+        (add-cluster graph id (car cluster-name)))
     id))
 
 (define (add-edge graph node1 node2)
@@ -59,19 +59,19 @@
 
 (define (graph-write graph out)
   (let ((ns (nodes graph))
-	(es (edges graph))
-	(cs (clusters graph)))
+        (es (edges graph))
+        (cs (clusters graph)))
     (ly:message (format #f (_ "Writing graph `~a'...") (port-filename out)))
     (display "digraph G {\nrankdir=\"LR\"\nnode [shape=rectangle]\n" out)
     (for-each (lambda (n) (format out "~a [label=\"~a\"]\n" (car n) (cdr n)))
-	      ns)
+              ns)
     (for-each (lambda (e) (format out "~a -> ~a\n" (car e) (cdr e)))
-	      es)
+              es)
     (for-each (lambda (c)
-		(format out "subgraph cluster_~a {\nlabel= \"~a\"\ncolor=blue\n"
-			(string-filter (car c) char-alphabetic?)
-			(car c))
-		(for-each (lambda (n) (format out "~a\n" n)) (cdr c))
-		(display "}\n" out))
-	      cs)
+                (format out "subgraph cluster_~a {\nlabel= \"~a\"\ncolor=blue\n"
+                        (string-filter (car c) char-alphabetic?)
+                        (car c))
+                (for-each (lambda (n) (format out "~a\n" n)) (cdr c))
+                (display "}\n" out))
+              cs)
     (display "}" out)))

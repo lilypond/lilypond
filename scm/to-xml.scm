@@ -19,9 +19,9 @@
 (define-module (scm to-xml))
 
 (use-modules (ice-9 regex)
-	     (srfi srfi-1)
-	     (lily)
-	     (oop goops))
+             (srfi srfi-1)
+             (lily)
+             (oop goops))
 
 "
 Todo: this is a quick hack; it makes more sense to define a GOOPS
@@ -47,11 +47,11 @@ is then separated.
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
   (value #:init-value "" #:accessor node-value #:init-keyword #:value)
   (attributes #:init-value '()
-	      #:accessor node-attributes
-	      #:init-keyword #:attributes)
+              #:accessor node-attributes
+              #:init-keyword #:attributes)
   (children #:init-value '()
-	    #:accessor node-children
-	    #:init-keyword #:children))
+            #:accessor node-children
+            #:init-keyword #:children))
 
 (define node-names
   '((NoteEvent . note)
@@ -68,10 +68,10 @@ is then separated.
     (string-append
      (if xml-name (open-tag xml-name '() '()) "")
      (if (equal? (node-value node) "")
-	 (string-append
-	  (if xml-name "\n" "")
-	  (apply string-append (map musicxml-node->string (node-children node))))
-	 (node-value node))
+         (string-append
+          (if xml-name "\n" "")
+          (apply string-append (map musicxml-node->string (node-children node))))
+         (node-value node))
      (if xml-name (close-tag xml-name) "")
      (if xml-name "\n" ""))))
 
@@ -81,7 +81,7 @@ is then separated.
    (open-tag (node-name node) (node-attributes node) '())
    (if (equal? (node-value node) "")
        (string-append
-	(apply string-append (map xml-node->string (node-children node))))
+        (apply string-append (map xml-node->string (node-children node))))
        (node-value node))
    "\n"
    (close-tag (node-name node))))
@@ -96,26 +96,26 @@ is then separated.
     #:name 'duration
     ;; #:value (number->string (ash 1 (ly:duration-log d)))))
     #:attributes `((log . ,(ly:duration-log d))
-		   (dots . ,(ly:duration-dot-count d))
-		   (numer . ,(car (ly:duration-factor d)))
-		   (denom . ,(cdr (ly:duration-factor d))))))
+                   (dots . ,(ly:duration-dot-count d))
+                   (numer . ,(car (ly:duration-factor d)))
+                   (denom . ,(cdr (ly:duration-factor d))))))
 
 (define (pitch->xml-node p)
   (make <xml-node>
     #:name 'pitch
     #:attributes `((octave . ,(ly:pitch-octave p))
-		   (notename . ,(ly:pitch-notename p))
-		   (alteration . ,(ly:pitch-alteration p)))))
+                   (notename . ,(ly:pitch-notename p))
+                   (alteration . ,(ly:pitch-alteration p)))))
 
 (define (music->xml-node music)
   (let* ((name (ly:music-property music 'name))
-	 (e (ly:music-property music 'element))
-	 (es (ly:music-property music 'elements))
-	 (mprops (ly:music-mutable-properties music))
-	 (d (ly:music-property music 'duration))
-	 (p (ly:music-property music 'pitch))
-	 (ignore-props '(origin elements duration pitch element)))
-    
+         (e (ly:music-property music 'element))
+         (es (ly:music-property music 'elements))
+         (mprops (ly:music-mutable-properties music))
+         (d (ly:music-property music 'duration))
+         (p (ly:music-property music 'pitch))
+         (ignore-props '(origin elements duration pitch element)))
+
     (make <xml-node>
       #:name name
       #:children
@@ -197,7 +197,7 @@ is then separated.
   (if (null? alist)
       string
       (re-sub (caar alist) (cdar alist)
-	      (re-sub-alist string (cdr alist)))))
+              (re-sub-alist string (cdr alist)))))
 
 (define xml-entities-alist
   '(("\"" . "&quot;")
@@ -209,17 +209,17 @@ is then separated.
 (define (open-tag tag attrs exceptions)
   (define (candidate? x)
     (not (memq (car x) exceptions)))
-  
+
   (define (dump-attr sym-val)
     (let* ((sym (car sym-val))
-	   (val (cdr sym-val)))
-      
+           (val (cdr sym-val)))
+
       (string-append
        "\n   "
        (symbol->string sym)
        "=\""
        (let ((s (call-with-output-string (lambda (port) (display val port)))))
-	 (re-sub-alist s xml-entities-alist))
+         (re-sub-alist s xml-entities-alist))
        "\"")))
 
   (string-append
@@ -236,7 +236,7 @@ is then separated.
   ;; dtd contains # -- This confuses tex during make doc.
   ;;
   ;;  (display (dtd-header) port)
-  
+
   (display (open-tag 'music '((type . score)) '()) port)
   (display (xml-node->string (music->xml-node music)) port)
   (display (close-tag 'music) port))
@@ -249,8 +249,7 @@ is then separated.
   ;;  (display (dtd-header) port)
 
   (define duration->xml-node musicxml-duration->xml-node)
-  
+
   (display (open-tag 'music '((type . score)) '()) port)
   (display (musicxml-node->string (music->xml-node music)) port)
   (display (close-tag 'music) port))
-

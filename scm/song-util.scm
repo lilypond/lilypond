@@ -77,7 +77,7 @@
                (lambda (record) ((record-predicate ,record) record)))
          (set! ,$make-record
                (lambda* (#:key ,@slots)
-                 ((record-constructor ,record) ,@(map car slots*))))
+                        ((record-constructor ,record) ,@(map car slots*))))
          (set! ,$copy-record
                (lambda (record)
                  (,$make-record ,@(apply
@@ -160,11 +160,11 @@ If it unsets the property, return @code{#f}."
   "Return list of all @var{music}'s top-level children."
   (let ((elt (ly:music-property music 'element))
         (elts (ly:music-property music 'elements))
-	(arts (ly:music-property music 'articulations)))
+        (arts (ly:music-property music 'articulations)))
     (if (pair? arts)
-	(set! elts (append elts arts)))
+        (set! elts (append elts arts)))
     (if (null? elt)
-	elts
+        elts
         (cons elt elts))))
 
 (define-public (find-child music predicate)
@@ -193,9 +193,9 @@ If a non-boolean is returned, it is considered the material to recurse."
         (let* ((elt (car queue))
                (stop (function elt)))
           (process-music (if (boolean? stop)
-			     (if stop
-				 (cdr queue)
-				 (append (music-elements elt) (cdr queue)))
-			     ((if (cheap-list? stop) append cons)
-			      stop (cdr queue)))))))
+                             (if stop
+                                 (cdr queue)
+                                 (append (music-elements elt) (cdr queue)))
+                             ((if (cheap-list? stop) append cons)
+                              stop (cdr queue)))))))
   (process-music (list music)))

@@ -28,15 +28,15 @@
 ;; todo: naming: grob vs. layout property
 
 (map ly:load '("documentation-lib.scm"
-	       "lily-sort.scm"
-	       "document-functions.scm"
-	       "document-translation.scm"
-	       "document-music.scm"
-	       "document-type-predicates.scm"
-	       "document-identifiers.scm"
-	       "document-context-mods.scm"
-	       "document-backend.scm"
-	       "document-markup.scm"))
+               "lily-sort.scm"
+               "document-functions.scm"
+               "document-translation.scm"
+               "document-music.scm"
+               "document-type-predicates.scm"
+               "document-identifiers.scm"
+               "document-context-mods.scm"
+               "document-backend.scm"
+               "document-markup.scm"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -97,7 +97,7 @@
 (display
  (string-append
   (texi-file-head "LilyPond Internals Reference" file-name
-		  "(lilypond-internals.info)")
+                  "(lilypond-internals.info)")
   "
 
 @include macros.itexi
@@ -156,8 +156,8 @@ This document is also available as a
 @end ifhtml
 
 This is the Internals Reference (IR) for version "
-		    (lilypond-version)
-		    " of LilyPond, the GNU music typesetter.")
+                    (lilypond-version)
+                    " of LilyPond, the GNU music typesetter.")
 
     #:children
     (list

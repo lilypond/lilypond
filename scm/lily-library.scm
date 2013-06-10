@@ -84,35 +84,35 @@
 ;; durations
 
 (define-public (duration-log-factor lognum)
-"Given a logarithmic duration number, return the length of the duration,
+  "Given a logarithmic duration number, return the length of the duration,
 as a number of whole notes."
   (or (and (exact? lognum) (integer? lognum))
-    (scm-error 'wrong-type-arg "duration-log-factor" "Not an integer: ~S" (list lognum) #f))
+      (scm-error 'wrong-type-arg "duration-log-factor" "Not an integer: ~S" (list lognum) #f))
   (if (<= lognum 0)
-    (ash 1 (- lognum))
-    (/ (ash 1 lognum))))
+      (ash 1 (- lognum))
+      (/ (ash 1 lognum))))
 
 (define-public (duration-dot-factor dotcount)
-"Given a count of the dots used to extend a musical duration, return
+  "Given a count of the dots used to extend a musical duration, return
 the numeric factor by which they increase the duration."
   (or (and (exact? dotcount) (integer? dotcount) (>= dotcount 0))
-    (scm-error 'wrong-type-arg "duration-dot-factor" "Not a count: ~S" (list dotcount) #f))
+      (scm-error 'wrong-type-arg "duration-dot-factor" "Not a count: ~S" (list dotcount) #f))
   (- 2 (/ (ash 1 dotcount))))
 
 (define-public (duration-length dur)
-"Return the overall length of a duration, as a number of whole
+  "Return the overall length of a duration, as a number of whole
 notes.  (Not to be confused with ly:duration-length, which returns a
 less-useful moment object.)"
   (ly:moment-main (ly:duration-length dur)))
 
 (define-public (duration-visual dur)
-"Given a duration object, return the visual part of the duration (base
+  "Given a duration object, return the visual part of the duration (base
 note length and dot count), in the form of a duration object with
 non-visual scale factor 1."
   (ly:make-duration (ly:duration-log dur) (ly:duration-dot-count dur) 1))
 
 (define-public (duration-visual-length dur)
-"Given a duration object, return the length of the visual part of the
+  "Given a duration object, return the length of the visual part of the
 duration (base note length and dot count), as a number of whole notes."
   (duration-length (duration-visual dur)))
 
@@ -128,15 +128,15 @@ duration (base note length and dot count), as a number of whole notes."
   "Toplevel book-part handler."
   (define (add-bookpart book-part)
     (ly:parser-define!
-       parser 'toplevel-bookparts
-       (cons book-part (ly:parser-lookup parser 'toplevel-bookparts))))
+     parser 'toplevel-bookparts
+     (cons book-part (ly:parser-lookup parser 'toplevel-bookparts))))
   ;; If toplevel scores have been found before this \bookpart,
   ;; add them first to a dedicated bookpart
   (if (pair? (ly:parser-lookup parser 'toplevel-scores))
       (begin
-	(add-bookpart (ly:make-book-part
-		       (ly:parser-lookup parser 'toplevel-scores)))
-	(ly:parser-define! parser 'toplevel-scores (list))))
+        (add-bookpart (ly:make-book-part
+                       (ly:parser-lookup parser 'toplevel-scores)))
+        (ly:parser-define! parser 'toplevel-scores (list))))
   (add-bookpart book-part))
 
 (define-public (collect-scores-for-book parser score)
@@ -148,7 +148,7 @@ duration (base note length and dot count), as a number of whole notes."
   (define (music-property symbol)
     (ly:music-property music symbol #f))
   (cond ((music-property 'page-marker)
-	 ;; a page marker: set page break/turn permissions or label
+         ;; a page marker: set page break/turn permissions or label
          (let ((label (music-property 'page-label)))
            (if (symbol? label)
                (score-handler (ly:make-page-label-marker label))))
@@ -163,23 +163,23 @@ duration (base note length and dot count), as a number of whole notes."
                    '(line-break-permission page-break-permission
                                            page-turn-permission)))
         ((not (music-property 'void))
-	 ;; a regular music expression: make a score with this music
-	 ;; void music is discarded
-	 (score-handler (scorify-music music parser)))))
+         ;; a regular music expression: make a score with this music
+         ;; void music is discarded
+         (score-handler (scorify-music music parser)))))
 
 (define-public (collect-music-for-book parser music)
   "Top-level music handler."
   (collect-music-aux (lambda (score)
-		       (collect-scores-for-book parser score))
+                       (collect-scores-for-book parser score))
                      parser
-		     music))
+                     music))
 
 (define-public (collect-book-music-for-book parser book music)
   "Book music handler."
   (collect-music-aux (lambda (score)
-		       (ly:book-add-score! book score))
+                       (ly:book-add-score! book score))
                      parser
-		     music))
+                     music))
 
 (define-public (scorify-music music parser)
   "Preprocess @var{music}."
@@ -199,8 +199,8 @@ calls to bookOutputName function"
 bookoutput function"
   (let ((book-output-suffix (paper-variable parser book 'output-suffix)))
     (if (not (string? book-output-suffix))
-	(ly:parser-lookup parser 'output-suffix)
-	book-output-suffix)))
+        (ly:parser-lookup parser 'output-suffix)
+        book-output-suffix)))
 
 (define-public current-outfile-name #f)  ; for use by regression tests
 
@@ -210,11 +210,11 @@ bookoutput function"
   ;; the file-name concatenated with any potential output-suffix value
   ;; as the key to out internal a-list
   (let* ((base-name (get-current-filename parser book))
-	 (output-suffix (get-current-suffix parser book))
-	 (alist-key (format #f "~a~a" base-name output-suffix))
-	 (counter-alist (ly:parser-lookup parser 'counter-alist))
-	 (output-count (assoc-get alist-key counter-alist 0))
-	 (result base-name))
+         (output-suffix (get-current-suffix parser book))
+         (alist-key (format #f "~a~a" base-name output-suffix))
+         (counter-alist (ly:parser-lookup parser 'counter-alist))
+         (output-count (assoc-get alist-key counter-alist 0))
+         (result base-name))
     ;; Allow all ASCII alphanumerics, including accents
     (if (string? output-suffix)
         (set! result
@@ -237,8 +237,8 @@ bookoutput function"
 
 (define (print-book-with parser book process-procedure)
   (let* ((paper (ly:parser-lookup parser '$defaultpaper))
-	 (layout (ly:parser-lookup parser '$defaultlayout))
-	 (outfile-name (get-outfile-name parser book)))
+         (layout (ly:parser-lookup parser '$defaultlayout))
+         (outfile-name (get-outfile-name parser book)))
     (process-procedure book paper layout outfile-name)))
 
 (define-public (print-book-with-defaults parser book)
@@ -249,89 +249,89 @@ bookoutput function"
 
 ;; Add a score to the current bookpart, book or toplevel
 (define-public (add-score parser score)
-    (cond
-      ((ly:parser-lookup parser '$current-bookpart)
-          ((ly:parser-lookup parser 'bookpart-score-handler)
-	        (ly:parser-lookup parser '$current-bookpart) score))
-      ((ly:parser-lookup parser '$current-book)
-          ((ly:parser-lookup parser 'book-score-handler)
-	        (ly:parser-lookup parser '$current-book) score))
-      (else
-          ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
+  (cond
+   ((ly:parser-lookup parser '$current-bookpart)
+    ((ly:parser-lookup parser 'bookpart-score-handler)
+     (ly:parser-lookup parser '$current-bookpart) score))
+   ((ly:parser-lookup parser '$current-book)
+    ((ly:parser-lookup parser 'book-score-handler)
+     (ly:parser-lookup parser '$current-book) score))
+   (else
+    ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
 
 (define-public paper-variable
   (let
       ((get-papers
-	(lambda (parser book)
-	  (append (if (and book (ly:output-def? (ly:book-paper book)))
-		      (list (ly:book-paper book))
-		      '())
-	          (ly:parser-lookup parser '$papers)
-		  (list (ly:parser-lookup parser '$defaultpaper))))))
+        (lambda (parser book)
+          (append (if (and book (ly:output-def? (ly:book-paper book)))
+                      (list (ly:book-paper book))
+                      '())
+                  (ly:parser-lookup parser '$papers)
+                  (list (ly:parser-lookup parser '$defaultpaper))))))
     (make-procedure-with-setter
      (lambda (parser book symbol)
        (any (lambda (p) (ly:output-def-lookup p symbol #f))
-	    (get-papers parser book)))
+            (get-papers parser book)))
      (lambda (parser book symbol value)
        (ly:output-def-set-variable!
-	(car (get-papers parser book))
-	symbol value)))))
+        (car (get-papers parser book))
+        symbol value)))))
 
 (define-public (add-text parser text)
   (add-score parser (list text)))
 
 (define-public (add-music parser music)
   (collect-music-aux (lambda (score)
-		       (add-score parser score))
+                       (add-score parser score))
                      parser
-		     music))
+                     music))
 
 (define-public (context-mod-from-music parser music)
   (let ((warn #t) (mods (ly:make-context-mod)))
     (let loop ((m music))
       (if (music-is-of-type? m 'layout-instruction-event)
-	  (let ((symbol (ly:music-property m 'symbol)))
-	    (ly:add-context-mod
-	     mods
-	     (case (ly:music-property m 'name)
-	       ((PropertySet)
-		(list 'assign
-		      symbol
-		      (ly:music-property m 'value)))
-	       ((PropertyUnset)
-		(list 'unset symbol))
-	       ((OverrideProperty)
-		(cons* 'push
-		       symbol
-		       (ly:music-property m 'grob-value)
+          (let ((symbol (ly:music-property m 'symbol)))
+            (ly:add-context-mod
+             mods
+             (case (ly:music-property m 'name)
+               ((PropertySet)
+                (list 'assign
+                      symbol
+                      (ly:music-property m 'value)))
+               ((PropertyUnset)
+                (list 'unset symbol))
+               ((OverrideProperty)
+                (cons* 'push
+                       symbol
+                       (ly:music-property m 'grob-value)
                        (cond
                         ((ly:music-property m 'grob-property #f) => list)
                         (else
                          (ly:music-property m 'grob-property-path)))))
                ((RevertProperty)
-		(cons* 'pop
-		       symbol
+                (cons* 'pop
+                       symbol
                        (cond
                         ((ly:music-property m 'grob-property #f) => list)
                         (else
                          (ly:music-property m 'grob-property-path))))))))
-	  (case (ly:music-property m 'name)
-	    ((ApplyContext)
-	     (ly:add-context-mod mods
-				 (list 'apply
-				       (ly:music-property m 'procedure))))
-	    ((ContextSpeccedMusic)
-	     (loop (ly:music-property m 'element)))
-	    (else
-	     (let ((callback (ly:music-property m 'elements-callback)))
-	       (if (procedure? callback)
-		   (for-each loop (callback m))
-		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
-		       (begin
-			 (ly:music-warning
-			  music
-			  (_ "Music unsuitable for context-mod"))
-			 (set! warn #f)))))))))
+          (case (ly:music-property m 'name)
+            ((ApplyContext)
+             (ly:add-context-mod mods
+                                 (list 'apply
+                                       (ly:music-property m 'procedure))))
+            ((ContextSpeccedMusic)
+             (loop (ly:music-property m 'element)))
+            (else
+             (let ((callback (ly:music-property m 'elements-callback)))
+               (if (procedure? callback)
+                   (for-each loop (callback m))
+                   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+                       (begin
+                         (ly:music-warning
+                          music
+                          (_ "Music unsuitable for context-mod"))
+                         (set! warn #f)))))))))
     mods))
 
 (define-public (context-defs-from-music parser output-def music)
@@ -345,64 +345,64 @@ bookoutput function"
       ;; context modification results in a reasonably recognizable
       ;; error.
       (if (music-is-of-type? m 'layout-instruction-event)
-	  (ly:add-context-mod
-	   mods
-	   (case (ly:music-property m 'name)
-	     ((PropertySet)
-	      (list 'assign
-		    (ly:music-property m 'symbol)
-		    (ly:music-property m 'value)))
-	     ((PropertyUnset)
-	      (list 'unset
-		    (ly:music-property m 'symbol)))
-	     ((OverrideProperty)
-	      (cons* 'push
-		     (ly:music-property m 'symbol)
-		     (ly:music-property m 'grob-value)
+          (ly:add-context-mod
+           mods
+           (case (ly:music-property m 'name)
+             ((PropertySet)
+              (list 'assign
+                    (ly:music-property m 'symbol)
+                    (ly:music-property m 'value)))
+             ((PropertyUnset)
+              (list 'unset
+                    (ly:music-property m 'symbol)))
+             ((OverrideProperty)
+              (cons* 'push
+                     (ly:music-property m 'symbol)
+                     (ly:music-property m 'grob-value)
                      (cond
                       ((ly:music-property m 'grob-property #f) => list)
                       (else
                        (ly:music-property m 'grob-property-path)))))
-	     ((RevertProperty)
-	      (cons* 'pop
-		     (ly:music-property m 'symbol)
+             ((RevertProperty)
+              (cons* 'pop
+                     (ly:music-property m 'symbol)
                      (cond
                       ((ly:music-property m 'grob-property #f) => list)
                       (else
                        (ly:music-property m 'grob-property-path)))))))
-	  (case (ly:music-property m 'name)
-	    ((ApplyContext)
-	     (ly:add-context-mod mods
-				 (list 'apply
-				       (ly:music-property m 'procedure))))
-	    ((ContextSpeccedMusic)
-	     ;; Use let* here to let defs catch up with modifications
-	     ;; to the context defs made in the recursion
-	     (let* ((mods (loop (ly:music-property m 'element)
-				(ly:make-context-mod)))
-		    (defs (ly:output-find-context-def
-			   output-def (ly:music-property m 'context-type))))
-	       (if (null? defs)
-		   (ly:music-warning
-		    music
-		    (ly:format (_ "Cannot find context-def \\~a")
-			       (ly:music-property m 'context-type)))
-		   (for-each
-		    (lambda (entry)
-		      (ly:output-def-set-variable!
-		       output-def (car entry)
-		       (ly:context-def-modify (cdr entry) mods)))
-		    defs))))
-	    (else
-	     (let ((callback (ly:music-property m 'elements-callback)))
-	       (if (procedure? callback)
-		   (fold loop mods (callback m))
-		   (if (and warn (ly:duration? (ly:music-property m 'duration)))
-		       (begin
-			 (ly:music-warning
-			  music
-			  (_ "Music unsuitable for output-def"))
-			 (set! warn #f))))))))
+          (case (ly:music-property m 'name)
+            ((ApplyContext)
+             (ly:add-context-mod mods
+                                 (list 'apply
+                                       (ly:music-property m 'procedure))))
+            ((ContextSpeccedMusic)
+             ;; Use let* here to let defs catch up with modifications
+             ;; to the context defs made in the recursion
+             (let* ((mods (loop (ly:music-property m 'element)
+                                (ly:make-context-mod)))
+                    (defs (ly:output-find-context-def
+                           output-def (ly:music-property m 'context-type))))
+               (if (null? defs)
+                   (ly:music-warning
+                    music
+                    (ly:format (_ "Cannot find context-def \\~a")
+                               (ly:music-property m 'context-type)))
+                   (for-each
+                    (lambda (entry)
+                      (ly:output-def-set-variable!
+                       output-def (car entry)
+                       (ly:context-def-modify (cdr entry) mods)))
+                    defs))))
+            (else
+             (let ((callback (ly:music-property m 'elements-callback)))
+               (if (procedure? callback)
+                   (fold loop mods (callback m))
+                   (if (and warn (ly:duration? (ly:music-property m 'duration)))
+                       (begin
+                         (ly:music-warning
+                          music
+                          (_ "Music unsuitable for output-def"))
+                         (set! warn #f))))))))
       mods)))
 
 
@@ -416,26 +416,26 @@ bookoutput function"
 (define-public (uniqued-alist alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
-	  (uniqued-alist (cdr alist) acc)
-	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
+          (uniqued-alist (cdr alist) acc)
+          (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
 (define-public (alist<? x y)
   (string<? (symbol->string (car x))
-	    (symbol->string (car y))))
+            (symbol->string (car y))))
 
 (define (map-alist-vals func list)
   "map FUNC over the vals of  LIST, leaving the keys."
   (if (null?  list)
       '()
       (cons (cons  (caar list) (func (cdar list)))
-	    (map-alist-vals func (cdr list)))))
+            (map-alist-vals func (cdr list)))))
 
 (define (map-alist-keys func list)
   "map FUNC over the keys of an alist LIST, leaving the vals."
   (if (null?  list)
       '()
       (cons (cons (func (caar list)) (cdar list))
-	    (map-alist-keys func (cdr list)))))
+            (map-alist-keys func (cdr list)))))
 
 (define-public (first-member members lst)
   "Return first successful member (of member) from @var{members} in
@@ -450,8 +450,8 @@ bookoutput function"
   (if (null? alist)
       '()
       (cons (caar alist)
-	    (cons (cdar alist)
-		  (flatten-alist (cdr alist))))))
+            (cons (cdar alist)
+                  (flatten-alist (cdr alist))))))
 
 (define (assoc-remove key alist)
   "Remove key (and its corresponding value) from an alist.
@@ -473,19 +473,19 @@ For example:
 @code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
 @code{((a . -1) (b . 2) (c . 3) (d . 4)}
 @end example"
-   (define (map-selected-alist-keys-helper function key alist)
-     (map
+  (define (map-selected-alist-keys-helper function key alist)
+    (map
      (lambda (pair)
        (if (equal? key (car pair))
            (cons key (function (cdr pair)))
            pair))
      alist))
-   (if (null? keys)
-       alist
-       (map-selected-alist-keys
-         function
-         (cdr keys)
-         (map-selected-alist-keys-helper function (car keys) alist))))
+  (if (null? keys)
+      alist
+      (map-selected-alist-keys
+       function
+       (cdr keys)
+       (map-selected-alist-keys-helper function (car keys) alist))))
 
 ;;;;;;;;;;;;;;;;
 ;; vector
@@ -523,13 +523,13 @@ For example:
 
   (define (helper todo acc-vector k)
     (if (null? todo)
-	acc-vector
-	(begin
-	  (if (< k 0)
-	      (set! k (+ n k)))
+        acc-vector
+        (begin
+          (if (< k 0)
+              (set! k (+ n k)))
 
-	  (vector-set! acc-vector k (cons (car todo) (vector-ref acc-vector k)))
-	  (helper (cdr todo) acc-vector (1- k)))))
+          (vector-set! acc-vector k (cons (car todo) (vector-ref acc-vector k)))
+          (helper (cdr todo) acc-vector (1- k)))))
 
   (helper lst (make-vector n '()) (1- n)))
 
@@ -546,10 +546,10 @@ For example:
 
   (fold-right
    (lambda (elem prev)
-	    (if (pair? prev)
-		(cons  elem (cons intermediate prev))
-		(list elem)))
-	  '() lst))
+     (if (pair? prev)
+         (cons  elem (cons intermediate prev))
+         (list elem)))
+   '() lst))
 
 (define-public (filtered-map proc lst)
   (filter
@@ -573,12 +573,12 @@ for comparisons."
 
   (reverse!
    (fold (lambda (x acc)
-	   (if (null? acc)
-	       (list x)
-	       (if (equal? x (car acc))
-		   acc
-		   (cons x acc))))
-	 '() lst) '()))
+           (if (null? acc)
+               (list x)
+               (if (equal? x (car acc))
+                   acc
+                   (cons x acc))))
+         '() lst) '()))
 
 (define (split-at-predicate pred lst)
   "Split LST into two lists at the first element that returns #f for
@@ -608,20 +608,20 @@ executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
-	(+ (cdr a) (cdr b))))
+        (+ (cdr a) (cdr b))))
 
 (define-public (offset-flip-y o)
   (cons (car o) (- (cdr o))))
 
 (define-public (offset-scale o scale)
   (cons (* (car o) scale)
-	(* (cdr o) scale)))
+        (* (cdr o) scale)))
 
 (define-public (ly:list->offsets accum coords)
   (if (null? coords)
       accum
       (cons (cons (car coords) (cadr coords))
-	    (ly:list->offsets accum (cddr coords)))))
+            (ly:list->offsets accum (cddr coords)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; intervals
@@ -637,7 +637,7 @@ executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
 
 (define-public (ordered-cons a b)
   (cons (min a b)
-	(max a b)))
+        (max a b)))
 
 (define-public (interval-bound interval dir)
   ((if (= dir RIGHT) cdr car) interval))
@@ -647,7 +647,7 @@ executing @samp{(split-list-by-separator '(a 0 b c 1 d) number?)} returns
 right (@var{dir}=+1)."
 
   (* (+  (interval-start interval) (interval-end interval)
-	 (* dir (- (interval-end interval) (interval-start interval))))
+         (* dir (- (interval-end interval) (interval-start interval))))
      0.5))
 
 (define-public (interval-center x)
@@ -665,31 +665,31 @@ right (@var{dir}=+1)."
 
 (define-public (interval-scale iv factor)
   (cons (* (car iv) factor)
-    (* (cdr iv) factor)))
+        (* (cdr iv) factor)))
 
 (define-public (interval-widen iv amount)
   (cons (- (car iv) amount)
-    (+ (cdr iv) amount)))
+        (+ (cdr iv) amount)))
 
 (define-public (interval-empty? iv)
-   (> (car iv) (cdr iv)))
+  (> (car iv) (cdr iv)))
 
 (define-public (interval-union i1 i2)
   (cons
-    (min (car i1) (car i2))
-    (max (cdr i1) (cdr i2))))
+   (min (car i1) (car i2))
+   (max (cdr i1) (cdr i2))))
 
 (define-public (interval-intersection i1 i2)
-   (cons
-     (max (car i1) (car i2))
-     (min (cdr i1) (cdr i2))))
+  (cons
+   (max (car i1) (car i2))
+   (min (cdr i1) (cdr i2))))
 
 (define-public (interval-sane? i)
   (not (or  (nan? (car i))
-	    (inf? (car i))
-	    (nan? (cdr i))
-	    (inf? (cdr i))
-	    (> (car i) (cdr i)))))
+            (inf? (car i))
+            (nan? (cdr i))
+            (inf? (cdr i))
+            (> (car i) (cdr i)))))
 
 (define-public (add-point interval p)
   (cons (min (interval-start interval) p)
@@ -706,19 +706,19 @@ right (@var{dir}=+1)."
 
 (define (coord-operation operator operand coordinate)
   (if (pair? operand)
-    (cons (operator (coord-x operand) (coord-x coordinate))
-          (operator (coord-y operand) (coord-y coordinate)))
-    (cons (operator operand (coord-x coordinate))
-          (operator operand (coord-y coordinate)))))
+      (cons (operator (coord-x operand) (coord-x coordinate))
+            (operator (coord-y operand) (coord-y coordinate)))
+      (cons (operator operand (coord-x coordinate))
+            (operator operand (coord-y coordinate)))))
 
 (define (coord-apply function coordinate)
   (if (pair? function)
-    (cons
-      ((coord-x function) (coord-x coordinate))
-      ((coord-y function) (coord-y coordinate)))
-    (cons
-      (function (coord-x coordinate))
-      (function (coord-y coordinate)))))
+      (cons
+       ((coord-x function) (coord-x coordinate))
+       ((coord-y function) (coord-y coordinate)))
+      (cons
+       (function (coord-x coordinate))
+       (function (coord-y coordinate)))))
 
 (define-public (coord-translate coordinate amount)
   (coord-operation + amount coordinate))
@@ -728,16 +728,16 @@ right (@var{dir}=+1)."
 
 (define-public (coord-rotate coordinate degrees-in-radians)
   (let*
-    ((coordinate
-      (cons
-        (exact->inexact (coord-x coordinate))
-        (exact->inexact (coord-y coordinate))))
-     (radius
-      (sqrt
-        (+ (* (coord-x coordinate) (coord-x coordinate))
-           (* (coord-y coordinate) (coord-y coordinate)))))
-    (angle (angle-0-2pi (atan (coord-y coordinate) (coord-x coordinate)))))
-   (cons
+      ((coordinate
+        (cons
+         (exact->inexact (coord-x coordinate))
+         (exact->inexact (coord-y coordinate))))
+       (radius
+        (sqrt
+         (+ (* (coord-x coordinate) (coord-x coordinate))
+            (* (coord-y coordinate) (coord-y coordinate)))))
+       (angle (angle-0-2pi (atan (coord-y coordinate) (coord-x coordinate)))))
+    (cons
      (* radius (cos (+ angle degrees-in-radians)))
      (* radius (sin (+ angle degrees-in-radians))))))
 
@@ -776,31 +776,31 @@ right (@var{dir}=+1)."
 
 (define-public (ellipse-radius x-radius y-radius angle)
   (/
-    (* x-radius y-radius)
-    (sqrt
-      (+ (* (expt y-radius 2)
-            (* (cos angle) (cos angle)))
-        (* (expt x-radius 2)
-           (* (sin angle) (sin angle)))))))
+   (* x-radius y-radius)
+   (sqrt
+    (+ (* (expt y-radius 2)
+          (* (cos angle) (cos angle)))
+       (* (expt x-radius 2)
+          (* (sin angle) (sin angle)))))))
 
 (define-public (polar->rectangular radius angle-in-degrees)
   "Return polar coordinates (@var{radius}, @var{angle-in-degrees})
 as rectangular coordinates @ode{(x-length . y-length)}."
 
   (let ((complex (make-polar
-                    radius
-                    (degrees->radians angle-in-degrees))))
-     (cons
-       (real-part complex)
-       (imag-part complex))))
+                  radius
+                  (degrees->radians angle-in-degrees))))
+    (cons
+     (real-part complex)
+     (imag-part complex))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; string
 
 (define-public (string-endswith s suffix)
   (equal? suffix (substring s
-			    (max 0 (- (string-length s) (string-length suffix)))
-			    (string-length s))))
+                            (max 0 (- (string-length s) (string-length suffix)))
+                            (string-length s))))
 
 (define-public (string-startswith s prefix)
   (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
@@ -810,8 +810,8 @@ as rectangular coordinates @ode{(x-length . y-length)}."
    ((= i  0) "o")
    ((< i 0)   (string-append "n" (string-encode-integer (- i))))
    (else (string-append
-	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
-	  (string-encode-integer (quotient i 26))))))
+          (make-string 1 (integer->char (+ 65 (modulo i 26))))
+          (string-encode-integer (quotient i 26))))))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
@@ -828,14 +828,14 @@ as rectangular coordinates @ode{(x-length . y-length)}."
 
 (define-public (ly:number-pair->string c)
   (string-append (ly:number->string (car c)) " "
-		 (ly:number->string (cdr c))))
+                 (ly:number->string (cdr c))))
 
 (define-public (dir-basename file . rest)
   "Strip suffixes in @var{rest}, but leave directory component for
 @var{file}."
   (define (inverse-basename x y) (basename y x))
   (simple-format #f "~a/~a" (dirname file)
-		 (fold inverse-basename file rest)))
+                 (fold inverse-basename file rest)))
 
 (define-public (write-me message x)
   "Return @var{x}.  Display @var{message} and write @var{x}.
@@ -864,8 +864,8 @@ Handy for debugging, possibly turned off."
   "Create new list, inserting @var{between} between elements of @var{lst}."
   (define (conc x y )
     (if (eq? y #f)
-	(list x)
-	(cons x  (cons between y))))
+        (list x)
+        (cons x  (cons between y))))
   (fold-right conc #f lst))
 
 (define-public (string-regexp-substitute a b str)
@@ -877,9 +877,9 @@ Handy for debugging, possibly turned off."
   (define (notice match)
 
     (set! matches (cons (substring (match:string match)
-				   end-of-prev-match
-				   (match:start match))
-			matches))
+                                   end-of-prev-match
+                                   (match:start match))
+                        matches))
     (set! end-of-prev-match (match:end match)))
 
   (regexp-substitute/global #f regex str notice 'post)
@@ -889,7 +889,7 @@ Handy for debugging, possibly turned off."
        matches
        (cons (substring str end-of-prev-match (string-length str)) matches)))
 
-   (reverse matches))
+  (reverse matches))
 
 ;;;;;;;;;;;;;;;;
 ;; other
@@ -906,13 +906,13 @@ applied to function @var{getter}.")
   (if (<= end start)
       start
       (let* ((compare (quotient (+ start end) 2))
-	     (get-val (getter compare)))
-	(cond
-	 ((< target-val get-val)
-	  (set! end (1- compare)))
-	 ((< get-val target-val)
-	  (set! start (1+ compare))))
-	(binary-search start end getter target-val))))
+             (get-val (getter compare)))
+        (cond
+         ((< target-val get-val)
+          (set! end (1- compare)))
+         ((< get-val target-val)
+          (set! start (1+ compare))))
+        (binary-search start end getter target-val))))
 
 (define-public (car< a b)
   (< (car a) (car b)))
@@ -932,7 +932,7 @@ in module @var{module}.  In that case evaluate, otherwise
 print a warning and set an optional @var{default}."
   (let* ((unavailable? (lambda (sym)
                          (not (module-defined? module sym))))
-	 (sym-unavailable
+         (sym-unavailable
           (filter
            unavailable?
            (filter symbol? (flatten-list symbol)))))
@@ -940,10 +940,10 @@ print a warning and set an optional @var{default}."
         (eval symbol module)
         (let* ((def (and (pair? default) (car default))))
           (ly:programming-error
-            "cannot evaluate ~S in module ~S, setting to ~S"
-            (object->string symbol)
-            (object->string module)
-            (object->string def))
+           "cannot evaluate ~S in module ~S, setting to ~S"
+           (object->string symbol)
+           (object->string module)
+           (object->string def))
           def))))
 
 ;;
@@ -951,18 +951,18 @@ print a warning and set an optional @var{default}."
 ;;
 (define-public (scm->string val)
   (if (and (procedure? val)
-	   (symbol? (procedure-name val)))
+           (symbol? (procedure-name val)))
       (symbol->string (procedure-name val))
       (string-append
        (if (self-evaluating? val)
-	   (if (string? val)
-	       "\""
-	       "")
-	   "'")
+           (if (string? val)
+               "\""
+               "")
+           "'")
        (call-with-output-string (lambda (port) (display val port)))
        (if (string? val)
-	   "\""
-	   ""))))
+           "\""
+           ""))))
 
 (define-public (!= lst r)
   (not (= lst r)))
@@ -981,13 +981,13 @@ print a warning and set an optional @var{default}."
   (if (string? font)
       (string-downcase font)
       (let* ((font-name (ly:font-name font))
-	     (full-name (if font-name font-name (ly:font-file-name font))))
-	  (string-downcase full-name))))
+             (full-name (if font-name font-name (ly:font-file-name font))))
+        (string-downcase full-name))))
 
 (define-public (modified-font-metric-font-scaling font)
   (let* ((designsize (ly:font-design-size font))
-	 (magnification (* (ly:font-magnification font)))
-	 (scaling (* magnification designsize)))
+         (magnification (* (ly:font-magnification font)))
+         (scaling (* magnification designsize)))
     (debugf "scaling:~S\n" scaling)
     (debugf "magnification:~S\n" magnification)
     (debugf "design:~S\n" designsize)
@@ -995,6 +995,6 @@ print a warning and set an optional @var{default}."
 
 (define-public (version-not-seen-message input-file-name)
   (ly:warning-located
-    (ly:format "~a:1" input-file-name)
-    (_ "no \\version statement found, please add~afor future compatibility")
-    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
+   (ly:format "~a:1" input-file-name)
+   (_ "no \\version statement found, please add~afor future compatibility")
+   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))

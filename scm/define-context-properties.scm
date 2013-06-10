@@ -21,9 +21,9 @@
 
 (define (translator-property-description symbol type? description)
   (if (not (and
-	    (symbol? symbol)
-	    (procedure? type?)
-	    (string? description)))
+            (symbol? symbol)
+            (procedure? type?)
+            (string? description)))
       (throw 'init-format-error))
 
 
@@ -714,7 +714,7 @@ and subscripts.  See @file{scm/@/script.scm} for more information.")
 
 (define-public all-translation-properties
   (append all-user-translation-properties
-	  all-internal-translation-properties))
+          all-internal-translation-properties))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -120,13 +120,13 @@ variables in the current module as well as those defined with
 ignore @var{thunk} and instead just reinitialize all recorded
 variables to their value after the initial call of @var{thunk}."
 
-;; We need to save the variables of the current module along with
-;; their values: functions defined in the module might refer to the
-;; variables.
+  ;; We need to save the variables of the current module along with
+  ;; their values: functions defined in the module might refer to the
+  ;; variables.
 
-;; The entries in lilypond-declarations consist of a cons* consisting
-;; of symbol, variable, and value.  Variables defined with
-;; define-session have the symbol set to #f.
+  ;; The entries in lilypond-declarations consist of a cons* consisting
+  ;; of symbol, variable, and value.  Variables defined with
+  ;; define-session have the symbol set to #f.
 
   (if (ly:undead? lilypond-declarations)
       (begin
@@ -169,183 +169,183 @@ variables to their value after the initial call of @var{thunk}."
     ;; be longer than 48 characters per line.
 
     (anti-alias-factor 1
-"Render at higher resolution (using given factor)
+                       "Render at higher resolution (using given factor)
 and scale down result to prevent jaggies in
 PNG images.")
     (aux-files
-      #t
-"Create .tex, .texi, .count files in the
+     #t
+     "Create .tex, .texi, .count files in the
 EPS backend.")
     (backend
-      ps
-"Select backend.  Possible values: 'eps, 'null,
+     ps
+     "Select backend.  Possible values: 'eps, 'null,
 'ps, 'scm, 'socket, 'svg.")
     (check-internal-types
-      #f
-"Check every property assignment for types.")
+     #f
+     "Check every property assignment for types.")
     (clip-systems
-      #f
-"Generate cut-out snippets of a score.")
+     #f
+     "Generate cut-out snippets of a score.")
     (datadir
-      #f
-"LilyPond prefix for data files (read-only).")
+     #f
+     "LilyPond prefix for data files (read-only).")
     (debug-gc
-      #f
-"Dump memory debugging statistics.")
+     #f
+     "Dump memory debugging statistics.")
     (debug-gc-assert-parsed-dead
-      #f
-"For memory debugging: Ensure that all
+     #f
+     "For memory debugging: Ensure that all
 references to parsed objects are dead.  This is
 an internal option, and is switched on
 automatically for `-ddebug-gc'.")
     (debug-lexer
-      #f
-"Debug the flex lexer.")
+     #f
+     "Debug the flex lexer.")
     (debug-page-breaking-scoring
-      #f
-"Dump scores for many different page breaking
+     #f
+     "Dump scores for many different page breaking
 configurations.")
     (debug-parser
-      #f
-"Debug the bison parser.")
+     #f
+     "Debug the bison parser.")
     (debug-property-callbacks
-      #f
-"Debug cyclic callback chains.")
+     #f
+     "Debug cyclic callback chains.")
     (debug-skylines
-      #f
-"Debug skylines.")
+     #f
+     "Debug skylines.")
     (delete-intermediate-files
-      #t
-"Delete unusable, intermediate PostScript files.")
+     #t
+     "Delete unusable, intermediate PostScript files.")
     (dump-profile
-      #f
-"Dump memory and time information for each file.")
+     #f
+     "Dump memory and time information for each file.")
     (dump-cpu-profile
-      #f
-"Dump timing information (system-dependent).")
+     #f
+     "Dump timing information (system-dependent).")
     (dump-signatures
-      #f
-"Dump output signatures of each system.  Used for
+     #f
+     "Dump output signatures of each system.  Used for
 regression testing.")
     (eps-box-padding
-      #f
-"Pad left edge of the output EPS bounding box by
+     #f
+     "Pad left edge of the output EPS bounding box by
 given amount (in mm).")
     (gs-load-fonts
-      #f
-"Load fonts via Ghostscript.")
+     #f
+     "Load fonts via Ghostscript.")
     (gs-load-lily-fonts
-      #f
-"Load only LilyPond fonts via Ghostscript.")
+     #f
+     "Load only LilyPond fonts via Ghostscript.")
     (gui
-      #f
-"Run LilyPond from a GUI and redirect stderr to
+     #f
+     "Run LilyPond from a GUI and redirect stderr to
 a log file.")
     (help
-      #f
-"Show this help.")
+     #f
+     "Show this help.")
     (include-book-title-preview
-      #t
-"Include book titles in preview images.")
+     #t
+     "Include book titles in preview images.")
     (include-eps-fonts
-      #t
-"Include fonts in separate-system EPS files.")
+     #t
+     "Include fonts in separate-system EPS files.")
     (include-settings
-      #f
-"Include file for global settings, included before the score is processed.")
+     #f
+     "Include file for global settings, included before the score is processed.")
     (job-count
-      #f
-"Process in parallel, using the given number of
+     #f
+     "Process in parallel, using the given number of
 jobs.")
     (log-file
-      #f
-"If string FOO is given as argument, redirect
+     #f
+     "If string FOO is given as argument, redirect
 output to log file `FOO.log'.")
     (max-markup-depth
-      1024
-"Maximum depth for the markup tree. If a markup has more levels,
+     1024
+     "Maximum depth for the markup tree. If a markup has more levels,
 assume it will not terminate on its own, print a warning and return a
 null markup instead.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
                          "midi")
-"Set the default file extension for MIDI output
+                    "Set the default file extension for MIDI output
 file to given string.")
     (music-strings-to-paths
-      #f
-"Convert text strings to paths when glyphs belong
+     #f
+     "Convert text strings to paths when glyphs belong
 to a music font.")
     (point-and-click
-      #t
-"Add point & click links to PDF output.")
+     #t
+     "Add point & click links to PDF output.")
     (paper-size
-      "a4"
-"Set default paper size.")
+     "a4"
+     "Set default paper size.")
     (pixmap-format
-      "png16m"
-"Set GhostScript's output format for pixel images.")
+     "png16m"
+     "Set GhostScript's output format for pixel images.")
     (preview
-      #f
-"Create preview images also.")
+     #f
+     "Create preview images also.")
     (print-pages
-      #t
-"Print pages in the normal way.")
+     #t
+     "Print pages in the normal way.")
     (protected-scheme-parsing
-      #t
-"Continue when errors in inline scheme are caught
+     #t
+     "Continue when errors in inline scheme are caught
 in the parser.  If #f, halt on errors and print
 a stack trace.")
     (profile-property-accesses
-      #f
-"Keep statistics of get_property() calls.")
+     #f
+     "Keep statistics of get_property() calls.")
     (resolution
-      101
-"Set resolution for generating PNG pixmaps to
+     101
+     "Set resolution for generating PNG pixmaps to
 given value (in dpi).")
     (read-file-list
-      #f
-"Specify name of a file which contains a list of
+     #f
+     "Specify name of a file which contains a list of
 input files to be processed.")
     (relative-includes
-      #f
-"When processing an \\include command, look for
+     #f
+     "When processing an \\include command, look for
 the included file relative to the current file\
 \n(instead of the root file)")
     (safe
-      #f
-"Run in safer mode.")
+     #f
+     "Run in safer mode.")
     (separate-log-files
-      #f
-"For input files `FILE1.ly', `FILE2.ly', ...
+     #f
+     "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
 `FILE2.log', ...")
     (show-available-fonts
-      #f
-"List available font names.")
+     #f
+     "List available font names.")
     (strict-infinity-checking
-      #f
-"Force a crash on encountering Inf and NaN
+     #f
+     "Force a crash on encountering Inf and NaN
 floating point exceptions.")
     (strip-output-dir
-      #t
-"Don't use directories from input files while
+     #t
+     "Don't use directories from input files while
 constructing output file names.")
     (svg-woff
-      #f
-"Use woff font files in SVG backend.")
+     #f
+     "Use woff font files in SVG backend.")
     (trace-memory-frequency
-      #f
-"Record Scheme cell usage this many times per
+     #f
+     "Record Scheme cell usage this many times per
 second.  Dump results to `FILE.stacks' and
 `FILE.graph'.")
     (trace-scheme-coverage
-      #f
-"Record coverage of Scheme files in `FILE.cov'.")
+     #f
+     "Record coverage of Scheme files in `FILE.cov'.")
     (verbose ,(ly:verbose-output?)
-"Verbose output, i.e. loglevel at least DEBUG (read-only).")
+             "Verbose output, i.e. loglevel at least DEBUG (read-only).")
     (warning-as-error
-      #f
-"Change all warning and programming_error
+     #f
+     "Change all warning and programming_error
 messages into errors.")
     ))
 
@@ -379,7 +379,7 @@ messages into errors.")
              (scm clip-region)
              (scm memory-trace)
              (scm coverage)
-	     (scm safe-utility-defs))
+             (scm safe-utility-defs))
 
 (define-public _ gettext)
 ;;; There are new modules defined in Guile V2.0 which we need to use.
@@ -389,11 +389,11 @@ messages into errors.")
 ;;
 
 (cond
-  ((guile-v2)
-   (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
-   (use-modules (ice-9 curried-definitions)))
-  (else
-    (ly:debug (_ "Guile 1.8\n"))))
+ ((guile-v2)
+  (ly:debug (_ "Using (ice-9 curried-definitions) module\n"))
+  (use-modules (ice-9 curried-definitions)))
+ (else
+  (ly:debug (_ "Guile 1.8\n"))))
 
 ;; TODO add in modules for V1.8.7 deprecated in V2.0 and integrated
 ;; into Guile base code, like (ice-9 syncase).
@@ -469,8 +469,8 @@ messages into errors.")
   (if (string-index x #\\)
       x
       (string-regexp-substitute
-        "//*" "/"
-        (string-regexp-substitute "\\\\" "/" x))))
+       "//*" "/"
+       (string-regexp-substitute "\\\\" "/" x))))
 
 (define-public (ly-getcwd)
   (if (eq? PLATFORM 'windows)
@@ -588,7 +588,7 @@ messages into errors.")
     "x11-color.scm"))
 ;;  - Files to be loaded last
 (define init-scheme-files-tail
-;;  - must be after everything has been defined
+  ;;  - must be after everything has been defined
   '("safe-lily.scm"))
 ;;
 ;; Now construct the load list
@@ -643,7 +643,7 @@ messages into errors.")
 
 (define-public guile-predicates
   `((,hash-table? . "hash table")
-  ))
+    ))
 
 (define-public lilypond-scheme-predicates
   `((,boolean-or-symbol? . "boolean or symbol")
@@ -777,10 +777,10 @@ messages into errors.")
                          (lambda (a b)
                            (< (object-address (car a))
                               (object-address (car b))))))
-        (out-file-name (string-append
-                       "gcstat-" (number->string gc-protect-stat-count)
-                       ".scm"))
-        (outfile (open-file out-file-name "w")))
+         (out-file-name (string-append
+                         "gcstat-" (number->string gc-protect-stat-count)
+                         ".scm"))
+         (outfile (open-file out-file-name "w")))
     (set! gc-dumping #t)
     (ly:progress "Dumping GC statistics ~a...\n" out-file-name)
     (for-each (lambda (y)
@@ -810,13 +810,13 @@ messages into errors.")
           (ly:set-option 'debug-gc-assert-parsed-dead #t)
           (gc)
           (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	  (for-each
-	   (lambda (x)
-	     (if (not (hashq-ref gc-zombies x))
-		 (begin
-		   (ly:programming-error "Parsed object should be dead: ~a" x)
-		   (hashq-set! gc-zombies x #t))))
-	   (ly:parsed-undead-list!))
+          (for-each
+           (lambda (x)
+             (if (not (hashq-ref gc-zombies x))
+                 (begin
+                   (ly:programming-error "Parsed object should be dead: ~a" x)
+                   (hashq-set! gc-zombies x #t))))
+           (ly:parsed-undead-list!))
           (set! stats (gc-live-object-stats))
           (ly:progress "Dumping live object statistics.\n")
           (dump-live-object-stats outfile)))
@@ -862,9 +862,9 @@ PIDs or the number of the process."
   (define (helper count acc)
     (if (> count 0)
         (let* ((pid (primitive-fork)))
-              (if (= pid 0)
-                  (1- count)
-                  (helper (1- count) (cons pid acc))))
+          (if (= pid 0)
+              (1- count)
+              (helper (1- count) (cons pid acc))))
         acc))
 
   (helper count '()))
@@ -916,7 +916,7 @@ PIDs or the number of the process."
             (begin (ly:set-option
                     'log-file (format #f "~a-~a"
                                       (ly:get-option 'log-file) joblist))
-                    (set! files (vector-ref split-todo joblist)))
+                   (set! files (vector-ref split-todo joblist)))
             (begin (ly:progress "\nForking into jobs:  ~a\n" joblist)
                    (for-each
                     (lambda (pid)
@@ -924,7 +924,7 @@ PIDs or the number of the process."
                         (if (not (= stat 0))
                             (set! errors
                                   (acons (list-element-index joblist pid)
-                                 stat errors)))))
+                                         stat errors)))))
                     joblist)
                    (for-each
                     (lambda (x)
@@ -943,17 +943,17 @@ PIDs or the number of the process."
                             (ly:message
                              (_ "logfile ~a (exit ~a):\n~a")
                              logfile (status:exit-val state) tail))))
-                      errors)
-                     (if (pair? errors)
-                         (ly:error "Children ~a exited with errors."
-                                   (map car errors)))
-                     ;; must overwrite individual entries
-                     (if (ly:get-option 'dump-profile)
-                         (dump-profile "lily-run-total"
-                                       '(0 0) (profile-measurements)))
-                     (if (null? errors)
-                         (ly:exit 0 #f)
-                         (ly:exit 1 #f))))))
+                    errors)
+                   (if (pair? errors)
+                       (ly:error "Children ~a exited with errors."
+                                 (map car errors)))
+                   ;; must overwrite individual entries
+                   (if (ly:get-option 'dump-profile)
+                       (dump-profile "lily-run-total"
+                                     '(0 0) (profile-measurements)))
+                   (if (null? errors)
+                       (ly:exit 0 #f)
+                       (ly:exit 1 #f))))))
 
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
