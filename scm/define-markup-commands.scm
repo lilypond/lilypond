@@ -3036,11 +3036,11 @@ and continue with double letters.
 
 (define-public (horizontal-slash-interval num forward number-interval mag)
   (if forward
-    (cond ;((= num 6) (interval-widen number-interval (* mag 0.5)))
-          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+    (cond ;; ((= num 6) (interval-widen number-interval (* mag 0.5)))
+          ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
           (else (interval-widen number-interval (* mag 0.25))))
     (cond ((= num 6) (interval-widen number-interval (* mag 0.5)))
-          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+          ;; ((= num 5) (interval-widen number-interval (* mag 0.5)))
           (else (interval-widen number-interval (* mag 0.25))))
   ))
 
@@ -3050,15 +3050,15 @@ and continue with double letters.
               (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
           ((= num 3)
               (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
-          ;((= num 5)
-              ;(ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
-          ;((= num 7)
-          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          ;; ((= num 5)
+          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
+          ;; ((= num 7)
+          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
           (else stencil))
     (cond ((= num 6)
               (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.15))))
-          ;((= num 8)
-          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          ;; ((= num 8)
+          ;;     (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
           (else stencil))
   )
 )
@@ -3068,15 +3068,15 @@ and continue with double letters.
          (thickness (* mag
                        (ly:output-def-lookup layout 'line-thickness)
                        thickness))
-         ; backward slashes might use slope and point in the other direction!
+         ;; backward slashes might use slope and point in the other direction!
          (dy (* mag (if forward 0.4 -0.4)))
          (number-stencil (interpret-markup layout
                                            (prepend-alist-chain 'font-encoding 'fetaText props)
                                            (number->string num)))
          (num-x (horizontal-slash-interval num forward (ly:stencil-extent number-stencil X) mag))
          (center (interval-center (ly:stencil-extent number-stencil Y)))
-         ; Use the real extents of the slash, not the whole number, because we
-         ; might translate the slash later on!
+         ;; Use the real extents of the slash, not the whole number,
+         ;; because we might translate the slash later on!
          (num-y (interval-widen (cons center center) (abs dy)))
          (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
          (slash-stencil (if is-sane
@@ -3086,8 +3086,8 @@ and continue with double letters.
                             #f)))
     (if (ly:stencil? slash-stencil)
       (begin
-        ; for some numbers we need to shift the slash/backslash up or down to make
-        ; the slashed digit look better
+        ;; for some numbers we need to shift the slash/backslash up or
+        ;; down to make the slashed digit look better
         (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
         (set! number-stencil
           (ly:stencil-add number-stencil slash-stencil)))
@@ -3298,7 +3298,7 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
   ;; From /scm/flag-styles.scm, modified to fit here.
 
       (let* ((stem-up (> dir 0))
-             ; scale with the note size
+             ;; scale with the note size
              (factor (magstep font-size))
              (stem-thickness (* factor 0.1))
              (line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -3311,9 +3311,9 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
              (thickness-offset (cons 0 (* -1 thickness dir)))
              (spacing (* -1 flag-spacing factor dir))
              (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-             ; The points of a round-filled-polygon need to be given in
-             ; clockwise order, otherwise the polygon will be enlarged by
-             ; blot-size*2!
+             ;; The points of a round-filled-polygon need to be given in
+             ;; clockwise order, otherwise the polygon will be enlarged by
+             ;; blot-size*2!
              (points (if stem-up (list start flag-end
                                        (offset-add flag-end thickness-offset)
                                        (offset-add start thickness-offset))
@@ -3322,7 +3322,7 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
                                        (offset-add flag-end thickness-offset)
                                        flag-end)))
              (stencil (ly:round-filled-polygon points half-stem-thickness))
-             ; Log for 1/8 is 3, so we need to subtract 3
+             ;; Log for 1/8 is 3, so we need to subtract 3
              (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
         flag-stencil))
 
@@ -3354,7 +3354,7 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
          (attach-off (cons (interval-index
                              (ly:stencil-extent head-glyph X)
                              (* (sign dir) (car attach-indices)))
-                           ; fixme, this is inconsistent between X & Y.
+                           ;; fixme, this is inconsistent between X & Y.
                            (* (sign dir)
                               (interval-index
                                (ly:stencil-extent head-glyph Y)

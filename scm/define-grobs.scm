@@ -1693,8 +1693,8 @@
 	(bound-alignment-interfaces . (note-column-interface))
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(keep-inside-line . #t)
-	; 0.08 comes from spacing-horizontal-skyline.ly
-	; allows double flat of F to be nestled over dots of C
+	;; 0.08 comes from spacing-horizontal-skyline.ly
+	;; allows double flat of F to be nestled over dots of C
 	(skyline-vertical-padding . 0.08)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2017,8 +2017,8 @@
         (X-extent . ,(grob::inherit-parent-property
                       X 'X-extent))
 	(extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
-	; we want this to be ignored, so empty, but the extra spacing height
-	; should preserve the span bar's presence for horizontal spacing
+	;; we want this to be ignored, so empty, but the extra spacing height
+	;; should preserve the span bar's presence for horizontal spacing
 	(Y-extent . ,pure-from-neighbor-interface::height-if-pure)
 	(meta . ((class . Item)
 		 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -2093,7 +2093,7 @@
 
 	    ;; The 'normal' minima
 	    (beamed-minimum-free-lengths . (1.83 1.5 1.25))
-					;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
+            ;;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
 
 	    ;; The 'extreme case' minima
 	    (beamed-extreme-minimum-free-lengths . (2.0 1.25))

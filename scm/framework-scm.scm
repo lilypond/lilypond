@@ -24,7 +24,7 @@
       (lambda (page)
 	(display ";;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;PAGE\n" file)
 	;; The following two lines are alternates
-	;(pretty-print (ly:stencil-expr page) file)
+	;;(pretty-print (ly:stencil-expr page) file)
 	(write (ly:stencil-expr page) file)
 	)
       (map page-stencil (ly:paper-book-pages book)))))

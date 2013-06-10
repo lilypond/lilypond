@@ -625,7 +625,7 @@ and duration-log @var{log}."
 
 (define-public (rgb-color r g b) (list r g b))
 
-; predefined colors
+;; predefined colors
 (define-public black       '(0.0 0.0 0.0))
 (define-public white       '(1.0 1.0 1.0))
 (define-public red         '(1.0 0.0 0.0))
@@ -1039,7 +1039,7 @@ and draws the stencil based on its coordinates.
       1.0
       #f
       #f))
-  ; outer let to trigger suicide
+  ;; outer let to trigger suicide
   (let ((sten (ly:hairpin::print grob)))
     (if (grob::is-live? grob)
       (let* ((decresc? (eq? (ly:grob-property grob 'grow-direction) LEFT))

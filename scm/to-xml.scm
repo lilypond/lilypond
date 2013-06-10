@@ -26,7 +26,7 @@
 "
 Todo: this is a quick hack; it makes more sense to define a GOOPS
 class of a documentnode (similar to how
-; the documentation is generated.)
+the documentation is generated.)
 
 That is much cleaner: building the document, and dumping it to output
 is then separated.

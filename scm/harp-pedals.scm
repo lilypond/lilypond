@@ -89,7 +89,7 @@ spacing after the divider).
                                      (stencils '())
                                      (circled #f)
                                      (space spacebeforedivider))
-          ; Terminal condition of the recursion, return (final-x . stencil-list)
+          ;; Terminal condition of the recursion, return (final-x . stencil-list)
           (if (null? remaining)
             (cons (+ prev-x space) (reverse stencils))
 
@@ -123,7 +123,7 @@ spacing after the divider).
                                  prev-x stencils circled space))))))
         (final-x (car result))
         (stencils (cdr result)))
-    ; Add the horizontal line and combine all stencils:
+    ;; Add the horizontal line and combine all stencils:
     (box-stencil
       (apply ly:stencil-add
         (cons
@@ -163,10 +163,10 @@ spacing after the divider).
 (define (harp-pedal-check pedal-list)
   "Perform some sanity checks for harp pedals (7 pedals, divider after third)"
   (let ((info (harp-pedal-info pedal-list)))
-    ; 7 pedals:
+    ;; 7 pedals:
     (if (not (equal? (car info) 7))
       (ly:warning "Harp pedal diagram contains ~a pedals rather than the usual 7." (car info)))
-    ; One divider after third pedal:
+    ;; One divider after third pedal:
     (if (null? (cdr info))
       (ly:warning "Harp pedal diagram does not contain a divider (usually after third pedal).")
       (if (not (equal? (cdr info) '(3)))

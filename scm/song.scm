@@ -259,9 +259,10 @@
   )
 
 (defstruct score-notes
-  note/rest-list ; list of note and rest instances
-  (verse-block-list '()) ; lyrics attached to notes -- multiple elements are
-                         ; possible for multiple stanzas
+  note/rest-list                        ; list of note and rest instances
+  (verse-block-list '())                ; lyrics attached to notes -- multiple
+                                        ; elements are possible for
+                                        ; multiple stanzas
   )
 
 (defstruct note

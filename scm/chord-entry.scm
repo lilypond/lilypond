@@ -196,7 +196,7 @@ DURATION, and INVERSION."
     nots))
 
 ;;;;;;;;;;;;;;;;
-; chord modifiers change the pitch list.
+;; chord modifiers change the pitch list.
 
 (define (aug-modifier pitches)
   (set! pitches (replace-step (ly:make-pitch 0 4 SHARP) pitches))

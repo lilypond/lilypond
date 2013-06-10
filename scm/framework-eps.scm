@@ -152,7 +152,7 @@ alignment."
 			  book
 			  basename))
 
-; redefine to imports from framework-ps
+;; redefine to imports from framework-ps
 (define convert-to-pdf
   convert-to-pdf)
 
