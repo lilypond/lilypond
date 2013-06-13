@@ -1671,7 +1671,7 @@
         `(((,(caaar possibility-list) .
             ,(assoc-get input-key (cdar possibility-list))) .
             ,(assoc-get (caar possibility-list) canonic-list)))
-        (assoc-remove (caar possibility-list) canonic-list))
+        (alist-delete (caar possibility-list) canonic-list))
        (update-possb-list input-key (cdr possibility-list) canonic-list))))
 
 (define (key-crawler input-list possibility-list)

@@ -23,7 +23,7 @@
 
 (define-public (symbol-concatenate . names)
   "Like @code{string-concatenate}, but for symbols."
-  (string->symbol (apply string-append (map symbol->string names))))
+  (string->symbol (string-concatenate (map symbol->string names))))
 
 (define-public (function-chain arg function-list)
   "Applies a list of functions in @var{function-list} to @var{arg}.
@@ -33,34 +33,18 @@ are provided in @var{function-list}.
 
 Example: Executing @samp{(function-chain 1 `((,+ 1) (,- 2) (,+ 3) (,/)))}
 returns @samp{1/3}."
-  (if (null? function-list)
-      arg
-      (function-chain
-       (apply (caar function-list) (append `(,arg) (cdar function-list)))
-       (cdr function-list))))
-
-(define (rotunda-map function inlist rotunda)
-  "Like map, but with a rotating last argument to function.
-   For example:
-   @code{guile> (rotunda-map + '(1 2 3 4) '(1 -10))}
-   @code{(2 -8 4 -6)}"
-  (define (rotunda-map-chain function inlist outlist rotunda)
-    (if (null? inlist)
-        outlist
-        (rotunda-map-chain
-         function
-         (cdr inlist)
-         (append outlist (list (function (car inlist) (car rotunda))))
-         (append (cdr rotunda) (list (car rotunda))))))
-  (rotunda-map-chain function inlist '() rotunda))
+  (fold
+   (lambda (fun arg) (apply (car fun) arg (cdr fun)))
+   arg
+   function-list))
 
 (define (assoc-keys alist)
   "Gets the keys of an alist."
-  (map (lambda (x) (car x)) alist))
+  (map car alist))
 
 (define (assoc-values alist)
   "Gets the values of an alist."
-  (map (lambda (x) (cdr x)) alist))
+  (map cdr alist))
 
 (define (get-slope-offset p1 p2)
   "Gets the slope and offset for p1 and p2.
@@ -82,7 +66,7 @@ returns @samp{1/3}."
 
 (define (entry-greater-than-x? input-list x)
   "Is there an entry greater than @code{x} in @code{input-list}?"
-  (any (lambda (y) (> y x)) input-list))
+  (member x input-list <))
 
 (define (n-true-entries input-list)
   "Returns number of true entries in @code{input-list}."
@@ -120,7 +104,7 @@ returns @samp{1/3}."
 
 ;; Color a stencil gray
 (define (gray-colorize stencil)
-  (apply ly:stencil-in-color (cons stencil (x11-color 'grey))))
+  (apply ly:stencil-in-color stencil (x11-color 'grey)))
 
 ;; A connected path stencil that is surrounded by proc
 (define (rich-path-stencil ls x-stretch y-stretch proc)
@@ -208,38 +192,32 @@ returns @samp{1/3}."
 ;; Otherwise, there can be various levels of "closure" on the holes
 ;; ring? allows for a ring around the holes as well
 (define (make-symbol-alist symbol simple? ring?)
-  (filter (lambda (x)
-            (not
-             (equal?
-              x
-              `(,(symbol-concatenate symbol 'T 'F) .
-                ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))))
-          (append
-           `((,symbol . ,(assoc-get 'F HOLE-FILL-LIST))
-             (,(symbol-concatenate symbol 'T) .
-              ,(expt (assoc-get 'F HOLE-FILL-LIST) 2)))
-           (if simple?
-               '()
-               (apply append
-                      (map (lambda (x)
-                             (append
-                              `((,(symbol-concatenate symbol (car x) 'T)
-                                 . ,(expt (cdr x) 2))
-                                (,(symbol-concatenate symbol 'T (car x))
-                                 . ,(* (cdr x) (assoc-get 'F HOLE-FILL-LIST)))
-                                (,(symbol-concatenate symbol (car x))
-                                 . ,(cdr x)))
-                              (apply append
-                                     (map (lambda (y)
-                                            (map (lambda (a b)
-                                                   `(,(symbol-concatenate symbol
-                                                                          (car a)
-                                                                          'T
-                                                                          (car b))
-                                                     . ,(* (cdr a) (cdr b))))
-                                                 `(,x ,y) `(,y ,x)))
-                                          (cdr (member x HOLE-FILL-LIST))))))
-                           (if ring? HOLE-FILL-LIST (cdr HOLE-FILL-LIST))))))))
+  (delete `(,(symbol-concatenate symbol 'T 'F) .
+            ,(expt (assoc-get 'F HOLE-FILL-LIST) 2))
+          `((,symbol . ,(assoc-get 'F HOLE-FILL-LIST))
+            (,(symbol-concatenate symbol 'T) .
+             ,(expt (assoc-get 'F HOLE-FILL-LIST) 2))
+            ,@(if simple?
+                  '()
+                  (append-map
+                   (lambda (x)
+                     `((,(symbol-concatenate symbol (car x) 'T)
+                        . ,(expt (cdr x) 2))
+                       (,(symbol-concatenate symbol 'T (car x))
+                        . ,(* (cdr x) (assoc-get 'F HOLE-FILL-LIST)))
+                       (,(symbol-concatenate symbol (car x))
+                        . ,(cdr x))
+                       ,@(append-map
+                          (lambda (y)
+                            (map (lambda (a b)
+                                   `(,(symbol-concatenate symbol
+                                                          (car a)
+                                                          'T
+                                                          (car b))
+                                     . ,(* (cdr a) (cdr b))))
+                                 `(,x ,y) `(,y ,x)))
+                          (cdr (member x HOLE-FILL-LIST)))))
+                   (if ring? HOLE-FILL-LIST (cdr HOLE-FILL-LIST)))))))
 
 ;;; Commands for text layout
 
@@ -1188,10 +1166,10 @@ returns @samp{1/3}."
      (append
       (map
        (lambda (l)
-         (rotunda-map
+         (map
           -
           l
-          (list-tail first-bezier 6)))
+          (apply circular-list (list-tail first-bezier 6))))
        (make-tilted-portion
         first-bezier
         second-bezier

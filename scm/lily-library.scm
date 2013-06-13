@@ -453,17 +453,6 @@ bookoutput function"
             (cons (cdar alist)
                   (flatten-alist (cdr alist))))))
 
-(define (assoc-remove key alist)
-  "Remove key (and its corresponding value) from an alist.
-   Different than assoc-remove! because it is non-destructive."
-  (define (assoc-crawler key l r)
-    (if (null? r)
-        l
-        (if (equal? (caar r) key)
-            (append l (cdr r))
-            (assoc-crawler key (append l `(,(car r))) (cdr r)))))
-  (assoc-crawler key '() alist))
-
 (define-public (map-selected-alist-keys function keys alist)
   "Return @var{alist} with @var{function} applied to all of the values
 in list @var{keys}.
@@ -473,19 +462,14 @@ For example:
 @code{guile> (map-selected-alist-keys - '(a b) '((a . 1) (b . -2) (c . 3) (d . 4)))}
 @code{((a . -1) (b . 2) (c . 3) (d . 4)}
 @end example"
-  (define (map-selected-alist-keys-helper function key alist)
+  (define (map-selected-alist-keys-helper key alist)
     (map
      (lambda (pair)
        (if (equal? key (car pair))
            (cons key (function (cdr pair)))
            pair))
      alist))
-  (if (null? keys)
-      alist
-      (map-selected-alist-keys
-       function
-       (cdr keys)
-       (map-selected-alist-keys-helper function (car keys) alist))))
+  (fold map-selected-alist-keys-helper alist keys))
 
 ;;;;;;;;;;;;;;;;
 ;; vector
@@ -558,10 +542,10 @@ For example:
 
 (define-public (flatten-list x)
   "Unnest list."
-  (cond ((null? x) '())
-        ((not (pair? x)) (list x))
-        (else (append (flatten-list (car x))
-                      (flatten-list (cdr x))))))
+  (let loop ((x x) (tail '()))
+    (cond ((list? x) (fold-right loop tail x))
+          ((not (pair? x)) (cons x tail))
+          (else (loop (car x) (loop (cdr x) tail))))))
 
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
