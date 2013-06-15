@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.20"
 
 \header {
   lsrtags = "fretted-strings"
@@ -18,7 +18,6 @@ hideFretNumber = {
   \once \override TabNoteHead.transparent = ##t
   \once \override NoteHead.transparent = ##t
   \once \override Stem.transparent = ##t
-  \once \override Flag.transparent = ##t
   \once \override NoteHead.no-ledgers = ##t
   \once \override Glissando.bound-details.left.padding = #0.3
 }

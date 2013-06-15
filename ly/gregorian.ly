@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.17.11"
+\version "2.17.20"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -296,7 +296,6 @@ neumeDemoLayout = \layout {
 	\consists "Vaticana_ligature_engraver"
 	\override NoteHead.style = #'vaticana.punctum
 	\override Stem.transparent = ##t
-	\override Flag.transparent = ##t
     }
 }
 

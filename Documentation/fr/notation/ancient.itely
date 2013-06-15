@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.11"
+@c \version "2.17.20"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -1162,7 +1162,6 @@ Clef d'ut, style des éditions vaticanes
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
@@ -1178,7 +1177,6 @@ Clef de fa, style des éditions vaticanes
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
@@ -1195,7 +1193,6 @@ Clef d'ut, style Editio Medicaea
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
@@ -1211,7 +1208,6 @@ Clef de fa, style Editio Medicaea
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
@@ -1228,7 +1224,6 @@ Clef d'ut, style historique Hufnagel
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
@@ -1244,7 +1239,6 @@ Clef de fa, style historique Hufnagel
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
@@ -1259,7 +1253,6 @@ Clef combinée ut/fa, style historique Hufnagel
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \override Voice.Stem.transparent = ##t
-  \override Voice.Flag.transparent = ##t
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
@@ -2834,7 +2827,6 @@ verba = \lyricmode {
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
       \override Stem.transparent = ##t
-      \override Flag.transparent = ##t
     }
   }
 }
@@ -2852,8 +2844,7 @@ chant = \relative c' {
   c\breve \override NoteHead.transparent = ##t  c c c c c
   \revert NoteHead.transparent
   \override Stem.transparent = ##f \stemUp c4 b4 a
-  \override Stem.transparent = ##t
-  \override Flag.transparent = ##t c2 c4  \divisioMaior
+  \override Stem.transparent = ##t c2 c4  \divisioMaior
   c\breve \override NoteHead.transparent = ##t c c c c c c c
   \revert NoteHead.transparent c4 c f, f \finalis
 }
@@ -2874,7 +2865,6 @@ verba = \lyricmode {
       \remove "Time_signature_engraver"
       \override BarLine.transparent = ##t
       \override Stem.transparent = ##t
-      \override Flag.transparent = ##t
     }
   }
 }
@@ -2924,7 +2914,6 @@ spirLyr = \lyricmode {
       \remove "Time_signature_engraver"
       \override BarLine.X-extent = #'(-1 . 1)
       \override Stem.transparent = ##t
-      \override Flag.transparent = ##t
       \override Beam.transparent = ##t
       \override BarLine.transparent = ##t
       \override TupletNumber.transparent = ##t

@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.17.6"
+\version "2.17.20"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -265,7 +265,6 @@ hideNotes = {
   \override NoteHead.no-ledgers = ##t
   % assume that any Beam inherits transparency from its parent Stem
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \override Accidental.transparent = ##t
   \override Rest.transparent = ##t
   \override TabNoteHead.transparent = ##t
@@ -273,7 +272,6 @@ hideNotes = {
 unHideNotes = {
   \revert Accidental.transparent
   \revert Stem.transparent
-  \revert Flag.transparent
   \revert NoteHead.transparent
   \revert NoteHead.no-ledgers
   \revert Dots.transparent
@@ -633,35 +631,30 @@ voiceOneStyle = {
   \override NoteHead.style = #'diamond
   \override NoteHead.color = #red
   \override Stem.color = #red
-  \override Flag.color = #red
   \override Beam.color = #red
 }
 voiceTwoStyle = {
   \override NoteHead.style = #'triangle
   \override NoteHead.color = #blue
   \override Stem.color = #blue
-  \override Flag.color = #blue
   \override Beam.color = #blue
 }
 voiceThreeStyle = {
   \override NoteHead.style = #'xcircle
   \override NoteHead.color = #green
   \override Stem.color = #green
-  \override Flag.color = #green
   \override Beam.color = #green
 }
 voiceFourStyle = {
   \override NoteHead.style = #'cross
   \override NoteHead.color = #magenta
   \override Stem.color = #magenta
-  \override Flag.color = #magenta
   \override Beam.color = #magenta
 }
 voiceNeutralStyle = {
   \revert NoteHead.style
   \revert NoteHead.color
   \revert Stem.color
-  \revert Flag.color
   \revert Beam.color
 }
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.20"
 
 @node Modifica dell'output
 @chapter Modifica dell'output
@@ -3206,7 +3206,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3646,7 +3645,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3739,7 +3737,6 @@ attraversare le voci:
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3755,7 +3752,6 @@ possiamo allungarlo impostando la proprietà
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     \tweak Stem.length #8
     b8~ b\noBeam
   }

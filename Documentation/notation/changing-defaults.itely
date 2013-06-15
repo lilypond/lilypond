@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.20"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1115,7 +1115,6 @@ to indicate improvisation in jazz pieces,
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1186,7 +1185,6 @@ The notes look like a slash, and have no stem,
 @example
 \override NoteHead.style = #'slash
 \override Stem.transparent = ##t
-\override Flag.transparent = ##t
 @end example
 
 All these plug-ins have to cooperate, and this is achieved with a
@@ -1210,7 +1208,6 @@ Put together, we get
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example

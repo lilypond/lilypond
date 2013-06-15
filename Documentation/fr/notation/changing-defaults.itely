@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.20"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -1175,7 +1175,6 @@ jazz.
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1246,7 +1245,6 @@ aucune hampe :
 @example
 \override NoteHead.style = #'slash
 \override Stem.transparent = ##t
-\override Flag.transparent = ##t
 @end example
 
 Afin que tous ces graveurs puissent travailler de concert, on leur
@@ -1270,7 +1268,6 @@ Récapitulons ; on se retrouve avec le bloc suivant :
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example

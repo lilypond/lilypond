@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.20"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -3078,7 +3078,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3513,7 +3512,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3603,7 +3601,6 @@ cross voices:
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3619,7 +3616,6 @@ too much, we can lengthen the stem by setting the
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     \tweak Stem.length #8
     b8~ b\noBeam
   }

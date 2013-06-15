@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.20"
 
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template, real-music"
@@ -35,12 +35,10 @@ music is within a @code{\\transpose} section.
 sl = {
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
 }
 nsl = {
   \revert NoteHead.style
   \revert Stem.transparent
-  \revert Flag.transparent
 }
 crOn = \override NoteHead.style = #'cross
 crOff = \revert NoteHead.style

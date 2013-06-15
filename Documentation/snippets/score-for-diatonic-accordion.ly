@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.11
-\version "2.17.11"
+\version "2.17.20"
 
 \header {
   lsrtags = "template, real-music, specific-notation"
@@ -72,7 +72,7 @@ harmonies = \new ChordNames \chordmode {
   bes1
 }
 
-NoStem = { \override Stem.transparent = ##t \override Flag.transparent = ##t }
+NoStem = { \override Stem.transparent = ##t }
 NoNoteHead = \override NoteHead.transparent = ##t
 ZeroBeam = \override Beam.positions = #'(0 . 0)
 

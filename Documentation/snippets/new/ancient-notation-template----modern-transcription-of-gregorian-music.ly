@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.20"
 
 \header {
   lsrtags = "vocal-music, ancient-notation, template"
@@ -37,7 +37,6 @@ verba = \lyricmode {
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
       \override Stem.transparent = ##t
-      \override Flag.transparent = ##t
     }
     \context {
       \Voice
