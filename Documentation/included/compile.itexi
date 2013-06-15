@@ -562,7 +562,7 @@ sudo make install
 @end example
 
 @noindent
-or...
+or@dots{}
 
 @example
 su -c 'make install'
@@ -605,7 +605,7 @@ make [-j@var{X} CPU_COUNT=@var{X}] doc-stage-1  @emph{## to build only PDF docum
 Edit/compile cycle:
 
 @example
-@emph{## edit source files, then...}
+@emph{## edit source files, then@dots{}}
 
 make [-j@var{X}]                  @emph{## needed if editing outside}
                             @emph{##   Documentation/, but useful anyway}
@@ -1054,7 +1054,7 @@ Debian GNU/Linux
 If you want to use lilypond's python libraries (either running
 certain build scripts manually, or using them in other programs),
 set @code{PYTHONPATH} to @file{python/out} in your build
-directory, or @file{.../usr/lib/lilypond/current/python} in the
+directory, or @file{@dots{}/usr/lib/lilypond/current/python} in the
 installation directory structure.
 
 

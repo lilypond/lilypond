@@ -130,7 +130,7 @@ best.
 variable, it is recommended that the notes are wrapped in
 
 @example
-\transpose c natural-pitch @{...@}
+\transpose c natural-pitch @{@dots{}@}
 @end example
 
 @noindent
@@ -167,7 +167,7 @@ in a new version of LilyPond.
 violin = \relative c'' @{
 g4 c'8. e16
 @}
-...
+@dots{}
 \score @{
   \new GrandStaff @{
     \new Staff @{
@@ -177,12 +177,11 @@ g4 c'8. e16
 @}
 @end example
 
-@item @strong{Separate tweaks from music definitions}.  This
-point was made previously, but for large
-projects it is absolutely vital.  We might need to change
-the definition of @code{fthenp}, but then we only need
-to do this once, and we can still avoid touching anything
-inside @code{violin}.
+@item @strong{Separate tweaks from music definitions}.  This point was
+made previously, but for large projects it is absolutely vital.  We
+might need to change the definition of @code{fthenp}, but then we only
+need to do this once, and we can still avoid touching anything inside
+@code{violin}.
 
 @example
 fthenp = _\markup@{
@@ -205,7 +204,7 @@ investigation to determine the source of the problem.
 
 The most powerful tools for this purpose are the
 single line comment (indicated by @code{%}) and the block
-comment (indicated by @code{%@{ ... %@}}).  If you don't
+comment (indicated by @code{%@{@dots{}%@}}).  If you don't
 know where a problem is, start commenting out huge portions
 of your input file.  After you comment out a section, try
 compiling the file again.  If it works, then the problem

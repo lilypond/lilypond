@@ -165,13 +165,13 @@ convert-ly --to=2.14.1 myfile.ly
 To upgrade LilyPond fragments in texinfo files, use
 
 @example
-convert-ly --from=... --to=... --no-version *.itely
+convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
 @end example
 
 To see the changes in the LilyPond syntax between two versions, use
 
 @example
-convert-ly --from=... --to=... -s
+convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 
