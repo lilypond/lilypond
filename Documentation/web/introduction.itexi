@@ -728,8 +728,8 @@ October 2004
 The editors of Computer!Totaal, a Dutch computer magazine,
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
 describe LilyPond} in the October 2004 issue as: @qq{Wonderful
-free (open source) software [..] The sheet music produced by
-LilyPond is exceptionally pretty [..] a very powerful system that
+free (open source) software [@dots{}] The sheet music produced by
+LilyPond is exceptionally pretty [@dots{}] a very powerful system that
 can do almost anything.}
 
 @item
@@ -756,7 +756,7 @@ February 2004
 
 Jazz singer Gail Selkirk writes about
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Diving into LilyPond}.  @qq{... you can make lead sheets or full
+Diving into LilyPond}.  @qq{@dots{} you can make lead sheets or full
 orchestral parts, and the results can be stunning.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special},
 issue CMS06.
@@ -812,12 +812,11 @@ the raw, untouched output.}
 work.  I've never seen anything approaching the output that I get
 from LilyPond -- I'm totally confident that my music publishing
 needs will be fulfilled beyond my expectations using this great
-application.  [..] basically untweaked LilyPond output [..] looks
-better than most recent @q{professional} publications I've compared
-it to (q.v., just about any Warner Bros. score, and even many of
-the most recent by @q{the old houses}). [..]}
-
-@qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
+application.  [@dots{}] basically untweaked LilyPond output
+[@dots{}] looks better than most recent @q{professional}
+publications I've compared it to (q.v., just about any Warner
+Bros. score, and even many of the most recent by @q{the old
+houses}). [@dots{}]} @qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
 @divEnd
 
 
@@ -854,7 +853,7 @@ time.  I'm convinced that no commercial product can come close.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
 
-@qq{I think LilyPond is great [..] The more I learn about LilyPond
+@qq{I think LilyPond is great [@dots{}] The more I learn about LilyPond
 the more I like it!}
 @divEnd
 
@@ -862,7 +861,7 @@ the more I like it!}
 @divClass{testimonial-item}
 @subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
 
-@qq{I am super impressed with LilyPond [..]}
+@qq{I am super impressed with LilyPond [@dots{}]}
 
 @qq{THIS IS THE BEST PROGRAM EVER!!!}
 
@@ -875,7 +874,7 @@ the more I like it!}
 
 @qq{I had a kind of hate-passion relationship with it.  Passion
 because the first score I saw was so amazing! The description of
-LilyPond lies about its beautifulness, it is too modest! [..] as
+LilyPond lies about its beautifulness, it is too modest! [@dots{}] as
 LilyPond is getting always better, and as I look closer how things
 are done in scheme, I have less and less frustrations.  Anyway,
 what I mean is: thank you for providing LilyPond, it is really
