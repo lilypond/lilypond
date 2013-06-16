@@ -452,17 +452,16 @@ slur-paren-p defaults to nil.
   (let ( (test-point (point))
 	 (level 0) )
     (save-excursion 
-      (if (or (and (/= (point) (point-max))
-		   (= (char-after (point)) ?\()
-		   (or (= (char-after (- (point) 1)) ?#)
-		       (and (= (char-after (- (point) 2)) ?#)
-			    (= (char-after (- (point) 1)) ?`))))
-	      (and (re-search-backward "#(\\|#`(" nil t)
+      (if (or (and (eq (char-after (point)) ?\()
+		   (save-excursion
+		     (skip-chars-backward "'`")
+		     (memq (char-before) '(?# ?$))))
+	      (and (re-search-backward "[#$][`']?(" nil t)
 		   (progn 
 		     (search-forward "(")
 		     (setq level 1)
 		     (while (and (> level 0)
-				 (re-search-forward "(\\|)" test-point t)
+				 (re-search-forward "[()]" test-point t)
 				 (setq match (char-after (match-beginning 0)))
 				 (<= (point) test-point))
 		       (if (= match ?\()
