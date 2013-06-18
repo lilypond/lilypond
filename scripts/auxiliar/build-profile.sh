@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if test "$1" == "--fresh"; then
+if test "$1" = "--fresh"; then
   fresh=yes
 fi
 
