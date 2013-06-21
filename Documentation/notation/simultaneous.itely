@@ -681,9 +681,8 @@ in bar 2, where the automatic merging fails.
 >>
 @end lilypond
 
-Notes with different note heads may be merged, with the
-exception of half-note heads and quarter-note heads, as shown
-below.  Here the note heads on beat 1 of bar 1 are now merged:
+Notes with different note heads may be merged as shown
+below.  In this example the note heads on beat 1 of bar 1 are now merged:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -701,6 +700,9 @@ below.  Here the note heads on beat 1 of bar 1 are now merged:
   }
 >>
 @end lilypond
+
+Quarter and half notes are not merged in this way, since it would be difficult
+to tell them apart.
 
 Note heads with different dots as shown in beat 3 of bar 1 may be
 also be merged:
