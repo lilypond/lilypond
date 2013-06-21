@@ -413,7 +413,7 @@ d4 e f g
 c1
 @end lilypond
 
-@item (volta @var{number}) ... (volta #f)
+@item (volta @var{number}) @dots{} (volta #f)
 Create a new volta with the specified number.  The volta bracket must
 be explicitly terminated, or it will not be printed.
 

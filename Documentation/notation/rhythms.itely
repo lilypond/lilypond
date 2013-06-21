@@ -2317,7 +2317,7 @@ the appearance of beams:
 
 @itemize
 @item
-If a manual beam is specified with @code{[..]} set the beam
+If a manual beam is specified with @code{[@dots{}]} set the beam
 as specified, otherwise
 
 @item

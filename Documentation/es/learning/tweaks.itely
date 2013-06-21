@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.20"
 
 @node Trucar la salida
 @chapter Trucar la salida
@@ -3286,7 +3286,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3730,7 +3729,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3823,7 +3821,6 @@ de que la ligadura se cruza entre las voces:
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3839,7 +3836,6 @@ valor de longitud @code{length} a @code{8},
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     \tweak Stem.length #8
     b8~ b\noBeam
   }

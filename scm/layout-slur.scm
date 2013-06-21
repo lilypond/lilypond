@@ -14,8 +14,8 @@
 ;;;;
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
-				;
-; this is put into the slur-details property of Slur and PhrasingSlur
+
+;; this is put into the slur-details property of Slur and PhrasingSlur
 (define default-slur-details
   '((region-size . 4)
     (head-encompass-penalty . 1000.0)

@@ -122,23 +122,23 @@
       (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
       m))
   (let ((e '())
-	(c0 0)
-	(oct 0)
-	(style 'default)
-	(match (string-match "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$" clef-name)))
+        (c0 0)
+        (oct 0)
+        (style 'default)
+        (match (string-match "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$" clef-name)))
     (if match
-	(begin
-	  (set! clef-name (match:substring match 1))
-	  (set! oct
-		(* (if (equal? (match:substring match 2) "^") -1 1)
-		   (- (string->number (match:substring match 4)) 1)))
+        (begin
+          (set! clef-name (match:substring match 1))
+          (set! oct
+                (* (if (equal? (match:substring match 2) "^") -1 1)
+                   (- (string->number (match:substring match 4)) 1)))
           (set! style
                 (cond ((equal? (match:substring match 3) "(") 'parenthesized)
                       ((equal? (match:substring match 3) "[") 'bracketed)
                       (else style)))))
     (set! e (assoc-get clef-name supported-clefs))
     (if e
-	(let* ((prop-list `(((symbol . clefGlyph) (value . ,(car e)))
+        (let* ((prop-list `(((symbol . clefGlyph) (value . ,(car e)))
                             ((symbol . middleCClefPosition)
                              (value . ,(+ oct
                                           (cadr e)
@@ -150,22 +150,22 @@
                (prop-list (if (eq? style 'default)
                               prop-list
                               (append
-                                prop-list
-                                `(((symbol . clefTranspositionStyle)
-                                   (value . ,style))))))
-	       (musics (map make-prop-set prop-list))
-	       (recalc-mid-C (make-music 'ApplyContext))
-	       (seq (make-music 'SequentialMusic
-				'elements (append musics (list recalc-mid-C))))
-	       (csp (make-music 'ContextSpeccedMusic)))
-	  (set! (ly:music-property recalc-mid-C 'procedure) ly:set-middle-C!)
-	  (context-spec-music seq 'Staff))
-	(begin
-	  (ly:warning (_ "unknown clef type `~a'") clef-name)
-	  (ly:warning (_ "supported clefs: ~a")
-		      (string-join
-		       (sort (map car supported-clefs) string<?)))
-	  (make-music 'Music)))))
+                               prop-list
+                               `(((symbol . clefTranspositionStyle)
+                                  (value . ,style))))))
+               (musics (map make-prop-set prop-list))
+               (recalc-mid-C (make-music 'ApplyContext))
+               (seq (make-music 'SequentialMusic
+                                'elements (append musics (list recalc-mid-C))))
+               (csp (make-music 'ContextSpeccedMusic)))
+          (set! (ly:music-property recalc-mid-C 'procedure) ly:set-middle-C!)
+          (context-spec-music seq 'Staff))
+        (begin
+          (ly:warning (_ "unknown clef type `~a'") clef-name)
+          (ly:warning (_ "supported clefs: ~a")
+                      (string-join
+                       (sort (map car supported-clefs) string<?)))
+          (make-music 'Music)))))
 
 (define-public (make-cue-clef-set clef-name)
   "Generate the clef setting commands for a cue clef with name

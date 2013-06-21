@@ -19,7 +19,7 @@
   (and (ly:skyline-empty? (ly:skyline-pair::skyline skyp UP))
        (ly:skyline-empty? (ly:skyline-pair::skyline skyp DOWN))))
 
-; checks if the pair is not null, and then if not empty
+;; checks if the pair is not null, and then if not empty
 (define-public (skyline-pair-and-non-empty? skyp)
   (and (ly:skyline-pair? skyp)
        (not (skyline-pair::empty? skyp))))

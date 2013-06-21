@@ -270,7 +270,7 @@ noPointAndClick =
      (parser location)
      ()
    (ly:set-option 'point-and-click #f))
-...
+@dots{}
 \noPointAndClick   % disable point and click
 @end example
 
@@ -635,11 +635,12 @@ Scheme-only solution.
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\markup markup1} @tab @code{(markup markup1)}
-@item @code{\markup @{ markup1 markup2 ... @}} @tab
-        @code{(markup markup1 markup2 ... )}
+@item @code{\markup @{ markup1 markup2 @dots{} @}} @tab
+        @code{(markup markup1 markup2 @dots{} )}
 @item @code{\markup-command} @tab @code{#:markup-command}
 @item @code{\variable} @tab @code{variable}
-@item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
+@item @code{\center-column @{ @dots{} @}} @tab
+        @code{#:center-column ( @dots{} )} 
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable
@@ -726,11 +727,11 @@ New markup commands can be defined using the
 @code{define-markup-command} Scheme macro, at top-level.
 
 @lisp
-(define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
-    (@var{arg1-type?} @var{arg2-type?} ...)
+(define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} @dots{})
+    (@var{arg1-type?} @var{arg2-type?} @dots{})
     [ #:properties ((@var{property1} @var{default-value1})
-                    ...) ]
-  ..command body..)
+                    @dots{}) ]
+  @dots{}command body@dots{})
 @end lisp
 
 The arguments are
@@ -949,7 +950,7 @@ follow (documentation stripped):
   (number-pair?)
   #:category graphic
   #:properties ((thickness 1))
-  "..documentation.."
+  "@dots{}documentation@dots{}"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -966,7 +967,7 @@ documentation, and is of no use for user-defined markup commands.
 (define-markup-command (draw-double-line layout props dest)
   (number-pair?)
   #:properties ((thickness 1))
-  "..documentation.."
+  "@dots{}documentation@dots{}"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -982,8 +983,8 @@ Then, a property for setting the gap between two lines is added, called
   (number-pair?)
   #:properties ((thickness 1)
                 (line-gap 0.6))
-  "..documentation.."
-  ...
+  "@dots{}documentation@dots{}"
+  @dots{}
 @end lisp
 
 Finally, the code for drawing two lines is added.  Two calls to

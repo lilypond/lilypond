@@ -938,7 +938,7 @@ separating each syllable with a space.
 >>
 @end lilypond
 
-Note the double angle brackets @w{@code{<< ... >>}} around the
+Note the double angle brackets @w{@code{<<@dots{}>>}} around the
 whole piece to show that the music and lyrics are to occur at the
 same time.
 

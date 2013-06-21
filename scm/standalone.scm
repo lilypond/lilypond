@@ -24,26 +24,26 @@
 
 (define (gulp-file name)
   (let* ((file (open-input-file name))
-	 (text (read-delimited "" file)))
+         (text (read-delimited "" file)))
     (close file)
     text))
 
 (define (scm-gulp-file name)
-  (set! %load-path 
-	(cons (string-append (getenv "LILYPOND_DATADIR") "/ly")
-	      (cons (string-append (getenv "LILYPOND_DATADIR") "/ps")
-		    %load-path)))
+  (set! %load-path
+        (cons (string-append (getenv "LILYPOND_DATADIR") "/ly")
+              (cons (string-append (getenv "LILYPOND_DATADIR") "/ps")
+                    %load-path)))
   (let ((path (%search-load-path name)))
-       (if path
-	   (gulp-file path)
-	   (gulp-file name))))
+    (if path
+        (gulp-file path)
+        (gulp-file name))))
 
 (define (scm-number->string x)
   (let ((e (inexact->exact x)))
     (string-append (if (= e x)
-		       (number->string e)
-		       (number->string x))
-		   " ")))
+                       (number->string e)
+                       (number->string x))
+                   " ")))
 
 (define ly:gulp-file scm-gulp-file)
 (define ly:number->string scm-number->string)

@@ -28,7 +28,7 @@
    (lambda (x) (apply music-property-description x))
    `(
      (absolute-octave ,integer?
-		      "The absolute octave for a octave check note.")
+                      "The absolute octave for a octave check note.")
      (alteration ,number? "Alteration for figured bass.")
      (alternative-dir ,ly:dir? "Indicates if an AlternativeMusic is the
 First (-1), Middle (0), or Last (1) of group of alternate endings.")
@@ -38,13 +38,13 @@ lettering should be incremented.")
 
 TODO: Consider making type into symbol.")
      (articulations ,ly:music-list?
-		    "Articulation events specifically for this note.")
+                    "Articulation events specifically for this note.")
      (associated-context ,string? "Name of the Voice context associated with
 this @code{\\lyricsto} section.")
-     (augmented ,boolean? "This figure is for an augmented figured bass
-(with @code{+} sign).")
-     (augmented-slash ,boolean? "This figure is for an augmented figured bass
-(back-slashed number).")
+     (augmented ,boolean? "This figure is for an augmented figured
+bass (with @code{+} sign).")
+     (augmented-slash ,boolean? "This figure is for an augmented
+figured bass (back-slashed number).")
      (automatically-numbered ,boolean? "Should a footnote be automatically
 numbered?")
      (autosplit-end ,boolean? "Duration of event was truncated by automatic
@@ -58,7 +58,7 @@ TODO: Use SpanEvents?")
      (bracket-stop ,boolean? "Stop a bracket here.")
      (break-penalty ,number? "Penalty for line break hint.")
      (break-permission ,symbol?
-		       "Whether to allow, forbid or force a line break.")
+                       "Whether to allow, forbid or force a line break.")
 
      (cautionary ,boolean? "If set, this alteration needs a
 cautionary accidental.")
@@ -89,7 +89,7 @@ simultaneous music, or the alternatives of repeated music.")
      (elements-callback ,procedure? "Return a list of children, for use by
 a sequential iterator.  Takes a single music parameter.")
      (error-found ,boolean?
-		  "If true, a parsing error was found in this expression.")
+                  "If true, a parsing error was found in this expression.")
      (events ,list? "A list of events contained in this event.")
 
      (figure ,integer? "A bass figure.")
@@ -179,8 +179,8 @@ If zero, signals a beat containing varying durations.")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (span-type ,symbol? "What kind of dynamic spanner should be created?
 Options are @code{'text} and @code{'hairpin}.")
-     (span-text ,markup? "The displayed text for dynamic text spanners
-(e.g., cresc.)")
+     (span-text ,markup? "The displayed text for dynamic text
+spanners (e.g., cresc.)")
      (spanner-id ,string? "Identifier to distinguish concurrent spanners.")
      (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
@@ -220,8 +220,8 @@ repeat element list.")
 FIXME: Naming.")
 
      (X-offset ,number?
-	       "Offset of resulting grob; only used for balloon texts.")
+               "Offset of resulting grob; only used for balloon texts.")
 
      (Y-offset ,number?
-	       "Offset of resulting grob; only used for balloon texts.")
-    )))
+               "Offset of resulting grob; only used for balloon texts.")
+     )))

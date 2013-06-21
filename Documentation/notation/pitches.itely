@@ -314,12 +314,6 @@ Internals Reference:
 @funindex \relative
 @funindex relative
 
-@c DEPRECATED
-If no @code{@var{startpitch}} is specified for @code{\relative},
-then@tie{}@code{c'} is assumed.  However, this is a deprecated
-option and may disappear in future versions, so its use is
-discouraged.
-
 
 @node Accidentals
 @unnumberedsubsubsec Accidentals

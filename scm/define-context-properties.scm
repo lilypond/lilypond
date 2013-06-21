@@ -21,9 +21,9 @@
 
 (define (translator-property-description symbol type? description)
   (if (not (and
-	    (symbol? symbol)
-	    (procedure? type?)
-	    (string? description)))
+            (symbol? symbol)
+            (procedure? type?)
+            (string? description)))
       (throw 'init-format-error))
 
 
@@ -286,8 +286,8 @@ function for clef changes.")
 function for cue clef changes.")
      (explicitKeySignatureVisibility ,vector? "@samp{break-visibility}
 function for explicit key changes.  @samp{\\override} of the
-@code{break-visibility} property will set the visibility for normal
-(i.e., at the start of the line) key signatures.")
+@code{break-visibility} property will set the visibility for
+normal (i.e., at the start of the line) key signatures.")
      (extendersOverRests ,boolean? "Whether to continue extenders as
 they cross a rest.")
      (extraNatural ,boolean? "Whether to typeset an extra natural sign
@@ -322,10 +322,12 @@ containing, in the correct order, the labels to be used for lettered
 frets in tablature.")
 
 
-     (glissandoMap ,list? "A map in the form of '((source1 . target1)
-(source2 . target2) (sourcen . targetn)) showing the glissandi to
-be drawn for note columns.  The value '() will default to '((0 . 0)
-(1 . 1) (n . n)), where n is the minimal number of note-heads in
+     (glissandoMap ,list? "A map in the form of
+'((source1 . target1) (source2 . target2) (sourcen . targetn))
+showing the glissandi to be drawn for note columns.
+The value '() will default to
+'((0 . 0) (1 . 1) (n . n)),
+where n is the minimal number of note-heads in
 the two note columns between which the glissandi occur.")
      (gridInterval ,ly:moment? "Interval for which to generate
 @code{GridPoint}s.")
@@ -357,9 +359,9 @@ the default time signature.")
 @rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another
 instrument is to be taken.")
-     (instrumentEqualizer ,procedure? "A function taking a string
-(instrument name), and returning a @code{(@var{min} . @var{max})} pair
-of numbers for the loudness range of the instrument.")
+     (instrumentEqualizer ,procedure? "A function taking a
+string (instrument name), and returning a @code{(@var{min} . @var{max})}
+pair of numbers for the loudness range of the instrument.")
      (instrumentName ,markup? "The name to print left of a staff.  The
 @code{instrumentName} property labels the staff in the first system, and
 the @code{shortInstrumentName} property labels following lines.")
@@ -376,14 +378,16 @@ This property is used for internal timekeeping, among others by the
 interfaces that are worth keeping a staff with @code{remove-empty} set
 around for.")
      (keyAlterationOrder ,list? "An alist that defines in what order
-alterations should be printed.  The format is @code{(@var{step}
-. @var{alter})}, where @var{step} is a number from 0 to@tie{}6 and
+alterations should be printed.  The format is
+@code{(@var{step} . @var{alter})},
+where @var{step} is a number from 0 to@tie{}6 and
 @var{alter} from -2 (sharp) to 2 (flat).")
      (keySignature ,list? "The current key signature.  This is an alist
-containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
-@var{step}) . @var{alter})},  where @var{step} is a number in the range
-0 to@tie{}6 and @var{alter} a fraction, denoting alteration.  For
-alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
+containing @code{(@var{step} . @var{alter})} or
+@code{((@var{octave} . @var{step}) . @var{alter})}, where @var{step}
+is a number in the range 0 to@tie{}6 and @var{alter} a fraction,
+denoting alteration.  For alterations, use symbols, e.g.
+@code{keySignature = #`((6 . ,FLAT))}.")
 
 
      (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
@@ -710,7 +714,7 @@ and subscripts.  See @file{scm/@/script.scm} for more information.")
 
 (define-public all-translation-properties
   (append all-user-translation-properties
-	  all-internal-translation-properties))
+          all-internal-translation-properties))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

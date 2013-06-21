@@ -25,5 +25,5 @@
 (define-public (internal-add-text-replacements props alist)
   (let* ((dummy-replacements (chain-assoc-get 'replacement-alist props '()))
          (new-replacements
-           (append dummy-replacements alist)))
+          (append dummy-replacements alist)))
     (prepend-alist-chain 'replacement-alist new-replacements props)))

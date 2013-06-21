@@ -648,7 +648,7 @@ more work to set up. See @ref{Basic command line options for LilyPond}.
 @item @code{separate-log-files}
 @tab @code{#f}
 @tab For input files @code{FILE1.ly}, @code{FILE2.ly}, etc. output log
-data to files @code{FILE1.log}, @code{FILE2.log}, ...
+data to files @code{FILE1.log}, @code{FILE2.log}@dots{}
 
 @item @code{show-available-fonts}
 @tab @code{#f}

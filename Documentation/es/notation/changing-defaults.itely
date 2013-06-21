@@ -8,7 +8,7 @@ Translation of GIT committish: 91aeca2562af49ff24110e923d5196bebd95f372
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.20"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -1124,7 +1124,6 @@ de jazz,
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1193,7 +1192,6 @@ Las notas parecen barras inclinadas y no tienen plica:
 @example
 \override NoteHead.style = #'slash
 \override Stem.transparent = ##t
-\override Flag.transparent = ##t
 @end example
 
 Todos estos añadidos tienen que cooperar, y esto se consigue con un
@@ -1216,7 +1214,6 @@ Al juntarlo todo, obtenemos
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example

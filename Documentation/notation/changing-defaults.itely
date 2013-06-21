@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.20"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -456,7 +456,7 @@ when lyrics are associated with music:
 
 @example
 \new Voice = "tenor" @var{music}
-...
+@dots{}
 \new Lyrics \lyricsto "tenor" @var{lyrics}
 @end example
 
@@ -499,12 +499,12 @@ an earlier context.
 
 There is an exception to this general rule: just one of the
 @code{Voice} contexts in a @code{Staff} context or in a
-@code{<<...>>} construct will always persist to the end of the
-enclosing @code{Staff} context or @code{<<...>>} construct, even
+@code{<<@dots{}>>} construct will always persist to the end of the
+enclosing @code{Staff} context or @code{<<@dots{}>>} construct, even
 though there may be periods when it has nothing to do.  The context
 to persist in this way will be the first one encountered in the
-first enclosed @code{@{...@}} construct, ignoring any in enclosed
-@code{<<...>>} constructs.
+first enclosed @code{@{@dots{}@}} construct, ignoring any in enclosed
+@code{<<@dots{}>>} constructs.
 
 Any context can be kept alive by ensuring it has something to do at
 every musical moment.  @code{Staff} contexts are kept alive by
@@ -675,7 +675,7 @@ modifying it,
   @emph{etc.}
 @}
 @{
-  @emph{..music..}
+  @emph{@dots{}music@dots{}}
 @}
 @end example
 
@@ -957,7 +957,7 @@ command:
 \with @{
   [context settings for this context instance only]
 @} @{
-...
+  @dots{}
 @}
 @end example
 
@@ -1115,7 +1115,6 @@ to indicate improvisation in jazz pieces,
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1186,7 +1185,6 @@ The notes look like a slash, and have no stem,
 @example
 \override NoteHead.style = #'slash
 \override Stem.transparent = ##t
-\override Flag.transparent = ##t
 @end example
 
 All these plug-ins have to cooperate, and this is achieved with a
@@ -1210,7 +1208,6 @@ Put together, we get
   squashedPosition = #0
   \override NoteHead.style = #'slash
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example
@@ -2356,7 +2353,7 @@ We have seen two methods of changing properties: @code{\set} and
 properties.
 
 @code{fontSize} is a special property: it is equivalent to
-entering @code{\override ... #'font-size} for all pertinent
+entering @code{\override @dots{} #'font-size} for all pertinent
 objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 

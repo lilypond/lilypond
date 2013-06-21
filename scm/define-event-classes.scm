@@ -22,40 +22,44 @@
 (define event-classes
   '((() . (StreamEvent))
     (StreamEvent .
-		 (RemoveContext ChangeParent Override Revert UnsetProperty
-				SetProperty music-event OldMusicEvent CreateContext Prepare
-				OneTimeStep Finish))
-    (music-event . (annotate-output-event footnote-event
-		    arpeggio-event breathing-event extender-event span-event
-      rhythmic-event dynamic-event break-event label-event percent-event
-      key-change-event string-number-event stroke-finger-event tie-event
-      part-combine-event part-combine-force-event
-      beam-forbid-event script-event tempo-change-event
-      tremolo-event bend-after-event fingering-event glissando-event
-      harmonic-event hyphen-event laissez-vibrer-event mark-event
-      multi-measure-text-event note-grouping-event
-      pes-or-flexa-event repeat-tie-event spacing-section-event
-      layout-instruction-event completize-extender-event break-span-event
-      alternative-event))
+                 (RemoveContext
+                  ChangeParent Override Revert UnsetProperty SetProperty
+                  music-event OldMusicEvent CreateContext Prepare
+                  OneTimeStep Finish))
+    (music-event . (annotate-output-event
+                    footnote-event arpeggio-event breathing-event
+                    extender-event span-event rhythmic-event dynamic-event
+                    break-event label-event percent-event key-change-event
+                    string-number-event stroke-finger-event tie-event
+                    part-combine-event part-combine-force-event
+                    beam-forbid-event script-event tempo-change-event
+                    tremolo-event bend-after-event fingering-event
+                    glissando-event harmonic-event hyphen-event
+                    laissez-vibrer-event mark-event multi-measure-text-event
+                    note-grouping-event pes-or-flexa-event repeat-tie-event
+                    spacing-section-event layout-instruction-event
+                    completize-extender-event break-span-event alternative-event))
 
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
-    (span-event . (span-dynamic-event beam-event episema-event ligature-event
-                                      measure-counter-event pedal-event
-                                      phrasing-slur-event slur-event
-                                      staff-span-event text-span-event
-                                      trill-span-event tremolo-span-event
-                                      tuplet-span-event))
+    (span-event . (span-dynamic-event
+                   beam-event episema-event ligature-event
+                   measure-counter-event pedal-event
+                   phrasing-slur-event slur-event
+                   staff-span-event text-span-event
+                   trill-span-event tremolo-span-event
+                   tuplet-span-event))
     (span-dynamic-event . (decrescendo-event crescendo-event))
     (break-span-event . (break-dynamic-span-event))
     (pedal-event . (sostenuto-event sustain-event una-corda-event))
-    (rhythmic-event . (lyric-event melodic-event multi-measure-rest-event
-				   double-percent-event percent-event
-				   repeat-slash-event rest-event
-				   skip-event bass-figure-event))
+    (rhythmic-event . (lyric-event
+                       melodic-event multi-measure-rest-event
+                       double-percent-event percent-event
+                       repeat-slash-event rest-event
+                       skip-event bass-figure-event))
     (melodic-event . (cluster-note-event note-event))
     (() . (Announcement))
     (Announcement . (AnnounceNewContext))
@@ -64,15 +68,15 @@
 (define-public (event-class-cons class parent classlist)
   (let ((lineage (assq parent classlist)))
     (if (not lineage)
-	(begin
-	  (if (not (null? parent))
-	      (ly:warning (_ "unknown parent class `~a'") parent))
-	  (set! lineage '())))
+        (begin
+          (if (not (null? parent))
+              (ly:warning (_ "unknown parent class `~a'") parent))
+          (set! lineage '())))
     (if (symbol? class)
-	(acons class lineage classlist)
-	(fold (lambda (elt alist)
-		(acons elt lineage alist))
-	      classlist class))))
+        (acons class lineage classlist)
+        (fold (lambda (elt alist)
+                (acons elt lineage alist))
+              classlist class))))
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
@@ -84,8 +88,8 @@
 
 (define-public all-event-classes
   (fold (lambda (elt classlist)
-	  (event-class-cons (cdr elt) (car elt) classlist))
-	'() event-classes))
+          (event-class-cons (cdr elt) (car elt) classlist))
+        '() event-classes))
 
 ;; does this exist in guile already?
 (define (map-tree f t)
@@ -100,24 +104,24 @@
 (define (expand-event-tree root)
   (let ((children (assq root event-classes)))
     (if children
-	(cons root (map expand-event-tree (cdr children)))
-	root)))
+        (cons root (map expand-event-tree (cdr children)))
+        root)))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?
 (define music-event-tree (expand-event-tree 'music-event))
 (define (sort-tree t)
   (define (stringify el)
-	      (if (symbol? el)
-		  (symbol->string el)
-		  (symbol->string (first el))))
+    (if (symbol? el)
+        (symbol->string el)
+        (symbol->string (first el))))
   (if (list? t)
       (sort (map (lambda (el)
-		   (if (list? el)
-		       (cons (car el) (sort-tree (cdr el)))
-		       el))
-		 t)
-	    (lambda (a b) (string<? (stringify a) (stringify b))))
+                   (if (list? el)
+                       (cons (car el) (sort-tree (cdr el)))
+                       el))
+                 t)
+            (lambda (a b) (string<? (stringify a) (stringify b))))
       t))
 
 ;;(use-modules (ice-9 pretty-print))
@@ -131,29 +135,29 @@
    ;; Special case for lists reduces stack consumption.
    ((list? e) (map simplify e))
    ((pair? e) (cons (simplify (car e))
-		    (simplify (cdr e))))
+                    (simplify (cdr e))))
    ((ly:stream-event? e)
     (list 'unquote (list 'make-stream-event (simplify (Stream_event::dump e)))))
    ((ly:music? e)
     (list 'unquote (music->make-music e)))
    ((ly:moment? e)
     (list 'unquote `(ly:make-moment
-		     ,(ly:moment-main-numerator e)
-		     ,(ly:moment-main-denominator e)
-		     . ,(if (zero? (ly:moment-grace-numerator e))
-			    '()
-			    (list (ly:moment-grace-numerator e)
-				  (ly:moment-grace-denominator e))))))
+                     ,(ly:moment-main-numerator e)
+                     ,(ly:moment-main-denominator e)
+                     . ,(if (zero? (ly:moment-grace-numerator e))
+                            '()
+                            (list (ly:moment-grace-numerator e)
+                                  (ly:moment-grace-denominator e))))))
    ((ly:duration? e)
     (list 'unquote `(ly:make-duration
-		     ,(ly:duration-log e)
-		     ,(ly:duration-dot-count e)
-		     ,(ly:duration-scale))))
+                     ,(ly:duration-log e)
+                     ,(ly:duration-dot-count e)
+                     ,(ly:duration-scale))))
    ((ly:pitch? e)
     (list 'unquote `(ly:make-pitch
-		     ,(ly:pitch-octave e)
-		     ,(ly:pitch-notename e)
-		     ,(ly:pitch-alteration e))))
+                     ,(ly:pitch-octave e)
+                     ,(ly:pitch-notename e)
+                     ,(ly:pitch-alteration e))))
    ((ly:input-location? e)
     (list 'unquote '(ly:dummy-input-location)))
    (#t e)))

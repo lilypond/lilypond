@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.17.6"
+\version "2.17.20"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -265,7 +265,6 @@ hideNotes = {
   \override NoteHead.no-ledgers = ##t
   % assume that any Beam inherits transparency from its parent Stem
   \override Stem.transparent = ##t
-  \override Flag.transparent = ##t
   \override Accidental.transparent = ##t
   \override Rest.transparent = ##t
   \override TabNoteHead.transparent = ##t
@@ -273,7 +272,6 @@ hideNotes = {
 unHideNotes = {
   \revert Accidental.transparent
   \revert Stem.transparent
-  \revert Flag.transparent
   \revert NoteHead.transparent
   \revert NoteHead.no-ledgers
   \revert Dots.transparent
@@ -491,45 +489,45 @@ tabFullNotation = {
   % time signature
   \revert TabStaff.TimeSignature.stencil
   % stems (the half note gets a double stem)
-  \revert TabVoice.Stem.length
-  \revert TabVoice.Stem.no-stem-extend
-  \revert TabVoice.Flag.style
-  \revert TabVoice.Stem.details
-  \revert TabVoice.Stem.stencil
-  \revert TabVoice.Flag.stencil
-  \override TabVoice.Stem.stencil = #tabvoice::draw-double-stem-for-half-notes
-  \override TabVoice.Stem.X-extent = #tabvoice::make-double-stem-width-for-half-notes
-  \set TabVoice.autoBeaming = ##t
-  \revert TabVoice.NoteColumn.ignore-collision
+  \revert TabStaff.Stem.length
+  \revert TabStaff.Stem.no-stem-extend
+  \revert TabStaff.Flag.style
+  \revert TabStaff.Stem.details
+  \revert TabStaff.Stem.stencil
+  \revert TabStaff.Flag.stencil
+  \override TabStaff.Stem.stencil = #tabvoice::draw-double-stem-for-half-notes
+  \override TabStaff.Stem.X-extent = #tabvoice::make-double-stem-width-for-half-notes
+  \set TabStaff.autoBeaming = ##t
+  \revert TabStaff.NoteColumn.ignore-collision
   % beams, dots
-  \revert TabVoice.Beam.stencil
-  \revert TabVoice.StemTremolo.stencil
-  \revert TabVoice.Dots.stencil
-  \revert TabVoice.Tie.stencil
-  \revert TabVoice.Tie.after-line-breaking
-  \revert TabVoice.RepeatTie.stencil
-  \revert TabVoice.RepeatTie.after-line-breaking
-  \revert TabVoice.LaissezVibrerTie.stencil
-  \revert TabVoice.Slur.stencil
-  \revert TabVoice.PhrasingSlur.stencil
+  \revert TabStaff.Beam.stencil
+  \revert TabStaff.StemTremolo.stencil
+  \revert TabStaff.Dots.stencil
+  \revert TabStaff.Tie.stencil
+  \revert TabStaff.Tie.after-line-breaking
+  \revert TabStaff.RepeatTie.stencil
+  \revert TabStaff.RepeatTie.after-line-breaking
+  \revert TabStaff.LaissezVibrerTie.stencil
+  \revert TabStaff.Slur.stencil
+  \revert TabStaff.PhrasingSlur.stencil
   % tuplet stuff
-  \revert TabVoice.TupletBracket.stencil
-  \revert TabVoice.TupletNumber.stencil
+  \revert TabStaff.TupletBracket.stencil
+  \revert TabStaff.TupletNumber.stencil
   % dynamic signs
-  \revert TabVoice.DynamicText.stencil
-  \revert TabVoice.DynamicTextSpanner.stencil
-  \revert TabVoice.DynamicTextSpanner.stencil
-  \revert TabVoice.Hairpin.stencil
+  \revert TabStaff.DynamicText.stencil
+  \revert TabStaff.DynamicTextSpanner.stencil
+  \revert TabStaff.DynamicTextSpanner.stencil
+  \revert TabStaff.Hairpin.stencil
   % rests
-  \revert TabVoice.Rest.stencil
-  \revert TabVoice.MultiMeasureRest.stencil
-  \revert TabVoice.MultiMeasureRestNumber.stencil
-  \revert TabVoice.MultiMeasureRestText.stencil
+  \revert TabStaff.Rest.stencil
+  \revert TabStaff.MultiMeasureRest.stencil
+  \revert TabStaff.MultiMeasureRestNumber.stencil
+  \revert TabStaff.MultiMeasureRestText.stencil
   % markups etc.
-  \revert TabVoice.Glissando.stencil
-  \revert TabVoice.Script.stencil
-  \revert TabVoice.TextScript.stencil
-  \revert TabVoice.TextSpanner.stencil
+  \revert TabStaff.Glissando.stencil
+  \revert TabStaff.Script.stencil
+  \revert TabStaff.TextScript.stencil
+  \revert TabStaff.TextSpanner.stencil
   \revert TabStaff.Arpeggio.stencil
   \revert TabStaff.NoteColumn.ignore-collision
 }
@@ -633,35 +631,30 @@ voiceOneStyle = {
   \override NoteHead.style = #'diamond
   \override NoteHead.color = #red
   \override Stem.color = #red
-  \override Flag.color = #red
   \override Beam.color = #red
 }
 voiceTwoStyle = {
   \override NoteHead.style = #'triangle
   \override NoteHead.color = #blue
   \override Stem.color = #blue
-  \override Flag.color = #blue
   \override Beam.color = #blue
 }
 voiceThreeStyle = {
   \override NoteHead.style = #'xcircle
   \override NoteHead.color = #green
   \override Stem.color = #green
-  \override Flag.color = #green
   \override Beam.color = #green
 }
 voiceFourStyle = {
   \override NoteHead.style = #'cross
   \override NoteHead.color = #magenta
   \override Stem.color = #magenta
-  \override Flag.color = #magenta
   \override Beam.color = #magenta
 }
 voiceNeutralStyle = {
   \revert NoteHead.style
   \revert NoteHead.color
   \revert Stem.color
-  \revert Flag.color
   \revert Beam.color
 }
 

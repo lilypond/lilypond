@@ -155,7 +155,7 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{<< \new Staff ... >>}
+@item @code{<< \new Staff @dots{} >>}
 @tab more staves
 @tab
 @lilypond[relative=1]

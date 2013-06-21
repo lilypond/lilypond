@@ -1046,9 +1046,9 @@ music_embedded:
 			$$ = SCM_UNSPECIFIED;
 		}
 	}
-	| music_embedded_backup BACKUP SCM_ARG
+	| music_embedded_backup
 	{
-		$$ = $3;
+		$$ = $1;
 	}
 	| music_embedded_backup BACKUP lyric_element_music
 	{
@@ -1057,23 +1057,23 @@ music_embedded:
 	;
 
 music_embedded_backup:
-	embedded_scm_closed
+	embedded_scm
 	{
 		if (scm_is_eq ($1, SCM_UNSPECIFIED))
-			MYBACKUP (SCM_ARG, $1, @1);
+			$$ = $1;
 		else if (Music *m = unsmob_music ($1)) {
 			if (m->is_mus_type ("post-event")) {
 				parser->parser_error
 					(@1, _ ("unexpected post-event"));
-				MYBACKUP (SCM_ARG, SCM_UNSPECIFIED, @1);
+				$$ = SCM_UNSPECIFIED;
 			} else
-				MYBACKUP (SCM_ARG, $1, @1);
+				$$ = $1;
 		} else if (parser->lexer_->is_lyric_state ()
 			   && Text_interface::is_markup ($1))
 			MYBACKUP (LYRIC_ELEMENT, $1, @1);
 		else {
 			@$.warning (_ ("Ignoring non-music expression"));
-			MYBACKUP (SCM_ARG, SCM_UNSPECIFIED, @1);
+			$$ = $1;
 		}
 	}
 	;

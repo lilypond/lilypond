@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.19\n"
+"Project-Id-Version: lilypond 2.17.20\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-05-26 16:46+0100\n"
+"POT-Creation-Date: 2013-06-09 13:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3362,7 +3362,7 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:69
+#: define-event-classes.scm:73
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
@@ -3568,50 +3568,50 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:346
+#: lily.scm:393
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:349
+#: lily.scm:396
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:408
+#: lily.scm:455
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:831
+#: lily.scm:878
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:832
+#: lily.scm:879
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:894
+#: lily.scm:941
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:897
+#: lily.scm:944
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:919 lily.scm:1008
+#: lily.scm:966 lily.scm:1055
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:999
+#: lily.scm:1046
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1018 ps-to-png.scm:66
+#: lily.scm:1065 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""

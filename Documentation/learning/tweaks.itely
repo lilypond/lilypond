@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.20"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -329,9 +329,9 @@ g4 a
 b c |
 @end lilypond
 
-However, predefined commands of the form @code{\...Neutral},
-@code{\...Off} and @code{\un...} use @code{\revert} internally rather
-than @code{\override} so prefixing these with @code{\once} has no
+However, predefined commands of the form @code{\@dots{}Neutral},
+@code{\@dots{}Off} and @code{\un@dots{}} use @code{\revert} internally
+rather than @code{\override} so prefixing these with @code{\once} has no
 effect.
 
 
@@ -2846,11 +2846,11 @@ example of a collision of this type:
 << { c4 c c c } \\ { R1 } >>
 @end lilypond
 
-The best solution here is to move the multimeasure rest down, since
-the rest is in voice two.  The default in @code{\voiceTwo} (i.e. in
-the second voice of a @code{<<@{...@} \\ @{...@}>>} construct) is that
-@code{staff-position} is set to -4 for MultiMeasureRest, so we need to
-move it, say, four half-staff spaces down to @w{@code{-8}}.
+The best solution here is to move the multimeasure rest down, since the
+rest is in voice two. The default in @code{\voiceTwo} (i.e. in the
+second voice of a @code{<<@{@dots{}@} \\ @{@dots{}@}>>} construct) is
+that @code{staff-position} is set to -4 for MultiMeasureRest, so we need
+to move it, say, four half-staff spaces down to @w{@code{-8}}.
 
 @cindex MultiMeasureRest, example of overriding
 @cindex staff-position property, example
@@ -3098,7 +3098,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3533,7 +3532,6 @@ rhMusic = \relative c'' {
         \stemDown
         % Stem on the d2 should be invisible
         \tweak Stem.transparent ##t
-        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3623,7 +3621,6 @@ cross voices:
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3639,7 +3636,6 @@ too much, we can lengthen the stem by setting the
 <<
   {
     \tweak Stem.transparent ##t
-    \tweak Flag.transparent ##t
     \tweak Stem.length #8
     b8~ b\noBeam
   }

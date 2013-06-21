@@ -258,7 +258,7 @@ Scheme procedures @code{car} and @code{cdr}, respectively.
 
 @lisp
 guile> (define mypair (cons 123 "hello there")
-... )
+@dots{} )
 guile> (car mypair)
 123
 guile> (cdr mypair)
@@ -574,7 +574,7 @@ statement in the let block:
 
 @lisp
 guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
-... (+ (* x y) (/ z x)))
+@dots{} (+ (* x y) (/ z x)))
 508
 @end lisp
 
@@ -615,7 +615,7 @@ Another conditional procedure in scheme is @code{cond}:
 @example
 (cond (test-expression-1 result-expression-sequence-1)
       (test-expression-2 result-expression-sequence-2)
-      ...
+      @dots{}
       (test-expression-n result-expression-sequence-n))
 @end example
 
@@ -820,7 +820,7 @@ traLaLa = @{ c'4 d'4 @}
 is internally converted to a Scheme definition:
 
 @example
-(define traLaLa @var{Scheme value of `@code{... }'})
+(define traLaLa @var{Scheme value of `@code{@dots{}}'})
 @end example
 
 This means that LilyPond variables and Scheme variables may be freely
@@ -862,7 +862,7 @@ Instead of defining @code{\twice}, the example above could also have
 been written as
 
 @example
-...
+@dots{}
 $(make-sequential-music newLa)
 @end example
 
@@ -885,7 +885,7 @@ context.  Using those, the last part of the example could have been
 written as
 
 @example
-...
+@dots{}
 @{ #@@newLa @}
 @end example
 
@@ -905,7 +905,7 @@ If you need it to be executed at a later point of time, check out
 #(define (nopc)
   (ly:set-option 'point-and-click #f))
 
-...
+@dots{}
 #(nopc)
 @{ c'4 @}
 @end example
@@ -1166,12 +1166,12 @@ A bit of reformatting makes the above information easier to read:
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
-A @code{@{ ... @}} music sequence has the name @code{SequentialMusic},
-and its inner expressions are stored as a list in its @code{'elements}
-property.  A note is represented as a @code{NoteEvent} object (storing
-the duration and pitch properties) with attached information (in this
-case, an @code{AbsoluteDynamicEvent} with a @code{"f"} text property)
-stored in its @code{articulations} property.
+A @code{@{ @dots{} @}} music sequence has the name
+@code{SequentialMusic}, and its inner expressions are stored as a list
+in its @code{'elements} property.  A note is represented as a
+@code{NoteEvent} object (storing the duration and pitch properties) with
+attached information (in this case, an @code{AbsoluteDynamicEvent} with
+a @code{"f"} text property) stored in its @code{articulations} property.
 
 @funindex{\void}
 @code{\displayMusic} returns the music it displays, so it will get
@@ -1348,7 +1348,7 @@ function to add an articulation (like a fingering instruction) to a
 single note inside of a chord which is not possible if we just merge
 independent music.
 
-A @code{$variable} inside the @code{#@{...#@}} notation is like
+A @code{$variable} inside the @code{#@{@dots{}#@}} notation is like
 a regular @code{\variable} in classical LilyPond notation.  We
 know that
 
@@ -1420,7 +1420,7 @@ from its name.  (this is good practice in other programming languages,
 too!)
 
 @example
-"Add an accent..."
+"Add an accent@dots{}"
 @end example
 
 @noindent

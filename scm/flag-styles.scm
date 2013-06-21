@@ -33,8 +33,8 @@
                                     offset length thickness stroke-thickness)
   "Add the stroke for acciaccatura to the given flag stencil.
 The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)'
-and ends at `(0, vertical-center-of-flag-end) -
-(flag-x-width/2, flag-x-width + flag-thickness)'.  Here `length' is the
+and ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2,
+flag-x-width + flag-thickness)'.  Here `length' is the
 whole length, while `flag-x-width' is just the x-extent and thus depends on
 the angle!  Other combinations don't look as good.
 
@@ -44,7 +44,7 @@ For down-stems the y-coordinates are simply mirrored."
          (end (offset-add (cons 0 (cdr offset))
                           (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
          (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
-  (ly:stencil-add stencil stroke)))
+    (ly:stencil-add stencil stroke)))
 
 (define (buildflag flag-stencil remain curr-stencil spacing)
   "Internal function to recursively create a stencil with @code{remain} flags
@@ -72,7 +72,7 @@ All lengths are scaled according to the font size of the note."
            (dir (ly:grob-property stem-grob 'direction))
            (stem-up (eqv? dir UP))
            (layout (ly:grob-layout grob))
-           ; scale with the note size (e.g. for grace notes)
+           ;; scale with the note size (e.g. for grace notes)
            (factor (magstep (ly:grob-property grob 'font-size 0)))
            (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -85,27 +85,27 @@ All lengths are scaled according to the font size of the note."
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir ))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           ; The points of a round-filled-polygon need to be given in clockwise
-           ; order, otherwise the polygon will be enlarged by blot-size*2!
+           ;; The points of a round-filled-polygon need to be given in clockwise
+           ;; order, otherwise the polygon will be enlarged by blot-size*2!
            (points (if stem-up (list start flag-end
                                      (offset-add flag-end thickness-offset)
                                      (offset-add start thickness-offset))
-                               (list start
-                                     (offset-add start thickness-offset)
-                                     (offset-add flag-end thickness-offset)
-                                     flag-end)))
+                       (list start
+                             (offset-add start thickness-offset)
+                             (offset-add flag-end thickness-offset)
+                             flag-end)))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
-           ; Log for 1/8 is 3, so we need to subtract 3
+           ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflag stencil (- log 3) stencil spacing))
            (stroke-style (ly:grob-property grob 'stroke-style)))
-    (if (equal? stroke-style "grace")
-      (add-stroke-straight flag-stencil grob
-                           dir log
-                           stroke-style
-                           flag-end flag-length
-                           thickness
-                           (* half-stem-thickness 2))
-      flag-stencil))))
+      (if (equal? stroke-style "grace")
+          (add-stroke-straight flag-stencil grob
+                               dir log
+                               stroke-style
+                               flag-end flag-length
+                               thickness
+                               (* half-stem-thickness 2))
+          flag-stencil))))
 
 (define-public (modern-straight-flag grob)
   "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
@@ -124,33 +124,33 @@ flags are both 45 degrees."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-; NOTE: By default, lilypond uses the C++ method Flag::stencil
-; (ly:flag::stencil is the corresponding Scheme interface) to generate the
-; flag stencil. The following functions are simply a reimplementation in
-; Scheme, so that one has that functionality available in Scheme, if one
-; wants to write a flag style, which modifies one of the standard flags
-; by some stencil operations.
+;; NOTE: By default, lilypond uses the C++ method Flag::stencil
+;; (ly:flag::stencil is the corresponding Scheme interface) to generate the
+;; flag stencil. The following functions are simply a reimplementation in
+;; Scheme, so that one has that functionality available in Scheme, if one
+;; wants to write a flag style, which modifies one of the standard flags
+;; by some stencil operations.
 
 
 (define-public (add-stroke-glyph stencil grob dir stroke-style flag-style)
   "Load and add a stroke (represented by a glyph in the font) to the given
 flag stencil."
   (if (not (string? stroke-style))
-    stencil
-    ; Otherwise: look up the stroke glyph and combine it with the flag
-    (let* ((stem-grob (ly:grob-parent grob X))
-           (font-char (string-append "flags." flag-style dir stroke-style))
-           (alt-font-char (string-append "flags." dir stroke-style))
-           (font (ly:grob-default-font grob))
-           (tmpstencil (ly:font-get-glyph font font-char))
-           (stroke-stencil (if (ly:stencil-empty? tmpstencil)
-                               (ly:font-get-glyph font alt-font-char)
-                               tmpstencil)))
-      (if (ly:stencil-empty? stroke-stencil)
-        (begin
-          (ly:warning (_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
-          stencil)
-        (ly:stencil-add stencil stroke-stencil)))))
+      stencil
+      ;; Otherwise: look up the stroke glyph and combine it with the flag
+      (let* ((stem-grob (ly:grob-parent grob X))
+             (font-char (string-append "flags." flag-style dir stroke-style))
+             (alt-font-char (string-append "flags." dir stroke-style))
+             (font (ly:grob-default-font grob))
+             (tmpstencil (ly:font-get-glyph font font-char))
+             (stroke-stencil (if (ly:stencil-empty? tmpstencil)
+                                 (ly:font-get-glyph font alt-font-char)
+                                 tmpstencil)))
+        (if (ly:stencil-empty? stroke-stencil)
+            (begin
+              (ly:warning (_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
+              stencil)
+            (ly:stencil-add stencil stroke-stencil)))))
 
 
 (define-public (retrieve-glyph-flag flag-style dir dir-modifier grob)
@@ -161,7 +161,7 @@ flag stencil."
          (font-char (string-append "flags." flag-style dir dir-modifier (number->string log)))
          (flag (ly:font-get-glyph font font-char)))
     (if (ly:stencil-empty? flag)
-      (ly:warning "flag ~a not found" font-char))
+        (ly:warning "flag ~a not found" font-char))
     flag))
 
 
@@ -172,8 +172,8 @@ flag stencil."
          (flag (retrieve-glyph-flag flag-style dir dir-modifier grob))
          (stroke-style (ly:grob-property grob 'stroke-style)))
     (if (null? stroke-style)
-      flag
-      (add-stroke-glyph flag grob dir stroke-style flag-style))))
+        flag
+        (add-stroke-glyph flag grob dir stroke-style flag-style))))
 
 
 
@@ -191,12 +191,12 @@ a flag always touches a staff line."
          (d (ly:grob-property stem-grob 'direction))
          (ss (ly:staff-symbol-staff-space stem-grob))
          (stem-end (inexact->exact (round (* (index-cell
-                                               (ly:grob-extent stem-grob
-                                                               stem-grob
-                                                               Y)
-                                               d)
+                                              (ly:grob-extent stem-grob
+                                                              stem-grob
+                                                              Y)
+                                              d)
                                              (/ 2 ss)))))
-         ; For some reason the stem-end is a real instead of an integer...
+         ;; For some reason the stem-end is a real instead of an integer...
          (dir-modifier (if (ly:position-on-line? stem-grob stem-end) "1" "0"))
          (modifier (if adjust dir-modifier "2")))
     (create-glyph-flag "mensural" modifier grob)))
@@ -236,7 +236,7 @@ at will.  The correct way to do this is:
                          (symbol->string flag-style-symbol)
                          "")))
     (cond
-        ((equal? flag-style "") (normal-flag grob))
-        ((equal? flag-style "mensural") (mensural-flag grob))
-        ((equal? flag-style "no-flag") (no-flag grob))
-        (else ((glyph-flag flag-style) grob)))))
+     ((equal? flag-style "") (normal-flag grob))
+     ((equal? flag-style "mensural") (mensural-flag grob))
+     ((equal? flag-style "no-flag") (no-flag grob))
+     (else ((glyph-flag flag-style) grob)))))
