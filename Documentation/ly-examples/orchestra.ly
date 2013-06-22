@@ -13,20 +13,6 @@
   line-width = 158\mm
 }
 
-%% markups
-#(define-markup-list-command (paragraph layout props args) (markup-list?)
-  (let ((indent (chain-assoc-get 'par-indent props 2)))
-  (interpret-markup-list layout props
-  (make-justified-lines-markup-list (cons (make-hspace-markup indent)
-  args)))))
-
-#(define-markup-command (vspace layout props amount) (number?)
-  "This produces a invisible object taking vertical space."
-  (let ((amount (* amount 3.0)))
-    (if (> amount 0)
-        (ly:make-stencil "" (cons -1 1) (cons 0 amount))
-        (ly:make-stencil "" (cons -1 1) (cons amount amount)))))
-
 %% text defs
 presto = \markup { \bold \italic "Presto" }
 div = \markup { \bold "Div." }
