@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: eea3764cd6bbc78506261f78ed4e7745ac69df41
+   Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -146,7 +146,7 @@ sauts de ligne selon son propre algorithme ;
 encadrez les notes d'une partie pour instrument transpositeur dans un
 
 @example
-\transpose c @var{tonalité-naturelle} @{...@}
+\transpose c @var{tonalité-naturelle} @{@dots{}@}
 @end example
 (où @var{tonalité-naturelle} correspond à celle de l'instrument en
 question) de telle sorte que la musique comprise dans cette variable se
@@ -182,7 +182,7 @@ dans une nouvelle version de LilyPond, alors que la définition du
 violon = \relative c'' @{
 g4 c'8. e16
 @}
-...
+@dots{}
 \score @{
  \new GrandStaff @{
    \new Staff @{
@@ -222,7 +222,7 @@ quelques recherches pour déterminer la source du problème.
 
 Pour ce faire, les outils les plus puissants sont le commentaire de
 fin de ligne, indiqué par @code{%}, et le commentaire multilignes (ou
-bloc de commentaire), indiqué par @code{%@{ ... %@}}.  Si vous ne
+bloc de commentaire), indiqué par @code{%@{ @dots{} %@}}.  Si vous ne
 pouvez localiser le problème, commencez par mettre en commentaire de
 grandes parties de votre fichier source.  Après avoir mis en
 commentaire une section, essayez de compiler à nouveau.  Si cela

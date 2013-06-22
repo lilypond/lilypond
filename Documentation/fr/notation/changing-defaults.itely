@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -480,7 +480,7 @@ sont associées à de la musique :
 
 @example
 \new Voice = "tenor" @var{musique}
-...
+@dots{}
 \new Lyrics \lyricsto "tenor" @var{paroles}
 @end example
 
@@ -524,12 +524,12 @@ l'aide de la commande @code{\lyricsto} ou si des événements surviennent
 à nouveau pour ce contexte précédemment actif.
 
 Une exception cependant à cette règle : en présence d'un contexte
-@code{Staff} ou dans une construction @code{<<...>>}, un seul des
+@code{Staff} ou dans une construction @code{<< @dots{} >>}, un seul des
 contextes @code{Voice} inclus restera actif jusqu'à la fin du contexte
-@code{Staff} ou de la construction @code{<<...>>}, y compris s'il y
+@code{Staff} ou de la construction @code{<< @dots{} >>}, y compris s'il y
 a des @qq{trous}.  Le contexte alors persistant sera le premier
-rencontré dans la construction @code{@{...@}} sans tenir compte des
-éventuels @code{<<...>>} qu'elle pourrait contenir.
+rencontré dans la construction @code{@{ @dots{} @}} sans tenir compte
+des éventuels @code{<< @dots{} >>} qu'elle pourrait contenir.
 
 Un contexte restera actif dès lors qu'il s'y passera toujours quelque
 chose.  Un contexte @code{Staff} restera actif si l'une des voix qu'il
@@ -708,7 +708,7 @@ graveurs :
   @emph{etc.}
 @}
 @{
-  @emph{..musique..}
+  @emph{@dots{}musique@dots{}}
 @}
 @end example
 
@@ -1008,7 +1008,7 @@ la commande @code{\new} @var{type-de-contexte}.
 \with @{
   [réglages pour ce contexte pris individuellement]
 @} @{
-...
+@dots{}
 @}
 @end example
 
@@ -1174,7 +1174,7 @@ jazz.
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 }
 \context { \Staff
@@ -1244,7 +1244,7 @@ aucune hampe :
 
 @example
 \override NoteHead.style = #'slash
-\override Stem.transparent = ##t
+\override Flag.transparent = ##t
 @end example
 
 Afin que tous ces graveurs puissent travailler de concert, on leur
@@ -1267,7 +1267,7 @@ Récapitulons ; on se retrouve avec le bloc suivant :
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \override Flag.transparent = ##t
   \alias Voice
 @}
 @end example
@@ -4626,8 +4626,8 @@ forme
 @example
 fonction =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
-     (@var{type1?} @var{type2?} @dots{})
+     (parser location @var{arg1} @var{arg2}@dots{})
+     (@var{type1?} @var{type2?}@dots{})
    #@{
      @var{@dots{}musique@dots{}}
    #@})

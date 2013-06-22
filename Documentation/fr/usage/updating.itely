@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: cb05c492cb84afc6704934fee31e62ebed217900
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -176,7 +176,7 @@ Lorsqu'il s'agit de fragments inclus dans un fichier texinfo, il
 vous faudra lancer
 
 @example
-convert-ly --from=... --to=... --no-version *.itely
+convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
 @end example
 
 Lorsque vous désirez savoir quels changements de syntaxe sont intervenus

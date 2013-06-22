@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 20421ac4ec40806c33f2b273be361cbdc2a3f86f
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -134,11 +134,11 @@ dans un terminal, lancez
 lilypond-book --output=out --pdf lilybook.lytex
 @emph{lilypond-book (GNU LilyPond) @version{} }
 @emph{Lecture de lilybook.lytex...}
-@emph{..nous vous épargnons le verbiage de la console..}
+@emph{@dots{}nous vous épargnons le verbiage de la console@dots{}}
 @emph{Compilation de lilybook.tex...}
 cd out
 pdflatex lilybook
-@emph{..nous vous épargnons le verbiage de la console..}
+@emph{@dots{}nous vous épargnons le verbiage de la console@dots{}}
 xpdf lilybook
 @emph{(remplacez @command{xpdf} par votre lecteur de PDF habituel)}
 @end example
@@ -233,20 +233,20 @@ suivantes :
 @itemize
 
 @item
-la commande @code{\lilypond@{...@}} qui permet de directement saisir du
-code LilyPond simple ;
+la commande @code{\lilypond@{@dots{}@}} qui permet de directement saisir
+du code LilyPond simple ;
 
 @item
-l'environnement @code{\begin@{lilypond@}...\end@{lilypond@}} qui permet
-de saisir directement du code LilyPond plus élaboré ;
+l'environnement @code{\begin@{lilypond@}@dots{}\end@{lilypond@}} qui
+permet de saisir directement du code LilyPond plus élaboré ;
 
 @item
-la commande @code{\lilypondfile@{...@}} qui permet d'insérer un fichier
-LilyPond ;
+la commande @code{\lilypondfile@{@dots{}@}} qui permet d'insérer un
+fichier LilyPond ;
 
 @item
-la commande @code{\musicxmlfile@{...@}} qui permet d'insérer un fichier
-MusicXML qui sera alors traité par @code{musicxml2ly} puis
+la commande @code{\musicxmlfile@{@dots{}@}} qui permet d'insérer un
+fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
 @code{lilypond}.
 
 @end itemize
@@ -428,9 +428,9 @@ nombre de systèmes requis :
 
 @example
 \onlyFirstNSystems@{3@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 \onlyFirstNSystems@{1@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
 
@@ -457,20 +457,21 @@ suivantes :
 @itemize
 
 @item
-la commande @code{@@lilypond@{...@}} qui permet de directement saisir du
-code LilyPond simple ;
+la commande @code{@@lilypond@{@dots{}@}} qui permet de directement
+saisir du code LilyPond simple ;
 
 @item
-l'environnement @code{@@lilypond...@@end lilypond} qui permet
+l'environnement @code{@@lilypond@dots{}@@end lilypond} qui permet
 de saisir directement du code LilyPond plus élaboré ;
 
 @item
-la commande @code{@@lilypondfile@{...@}} qui permet d'insérer un fichier
-LilyPond ;
+la commande @code{@@lilypondfile@{@dots{}@}} qui permet d'insérer un
+fichier LilyPond ;
 
 @item
-la commande @code{@@musicxmlfile@{...@}} qui permet d'insérer un fichier
-MusicXML qui sera alors traité par @code{musicxml2ly} puis @code{lilypond}.
+la commande @code{@@musicxmlfile@{@dots{}@}} qui permet d'insérer un
+fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
+@code{lilypond}.
 
 @end itemize
 
@@ -541,21 +542,21 @@ suivantes :
 @itemize
 
 @item
-la commande @code{<lilypond ... />} qui permet de directement saisir du
-code LilyPond simple ;
+la commande @code{<lilypond @dots{} />} qui permet de directement saisir
+du code LilyPond simple ;
 
 @item
-l'environnement @code{<lilyond>...</lilypond>} qui permet de saisir
+l'environnement @code{<lilyond>@dots{}</lilypond>} qui permet de saisir
 directement du code LilyPond plus élaboré ;
 
 @item
-la commande @code{<lilypondfile>...</lilypondfile>} qui permet d'insérer
-un fichier LilyPond ;
+la commande @code{<lilypondfile>@dots{}</lilypondfile>} qui permet
+d'insérer un fichier LilyPond ;
 
 @item
-la commande @code{<musicxmlfile>...</musicxmlfile>} qui permet d'insérer
-un fichier MusicXML qui sera alors traité par @code{musicxml2ly} puis
-@code{lilypond}.
+la commande @code{<musicxmlfile>@dots{}</musicxmlfile>} qui permet
+d'insérer un fichier MusicXML qui sera alors traité par
+@code{musicxml2ly} puis @code{lilypond}.
 
 @end itemize
 
@@ -602,7 +603,7 @@ De la musique <lilypond relative=2: a b c/> au milieu d'une ligne de texte.
 Lorsque l'inclusion concerne des fichiers indépendants, utilisez
 
 @example
-<lilypondfile @var{option1} @var{option2} ...>@var{fichier}</lilypondfile>
+<lilypondfile @var{option1} @var{option2}@dots{}>@var{fichier}</lilypondfile>
 @end example
 
 La syntaxe pour @code{<musicXmlfile>} est identique à celle de
@@ -993,7 +994,7 @@ d'ajouter @option{-t landscape} aux options de @command{dvips}.
 
 @knownissues
 La commande @code{\pageBreak} est inopérante dans un environnement
-@code{\begin@{lilypond@} @dots{} \end@{lilypond@}}.
+@code{\begin@{lilypond@}@dots{}\end@{lilypond@}}.
 
 Il en va de même pour un certain nombre de variables appartenant au bloc
 @code{\paper}.  Utilisez, entre autres, un @code{\newcommand} avec la

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 785441aeb8cc557217d1b0658ef88d058f58eeb4
+   Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1018,9 +1018,9 @@ séparant chaque syllable par une espace :
 >>
 @end lilypond
 
-Notez les doubles chevrons @w{@code{<< ... >>}} encadrant
-toute la pièce ; ils indiquent simplement que la musique et les
-paroles se produisent en même temps.
+Notez les doubles chevrons @code{<< @dots{} >>} encadrant toute la
+pièce ; ils indiquent simplement que la musique et les paroles se
+produisent en même temps.
 
 
 @node Alignement des paroles sur une mélodie

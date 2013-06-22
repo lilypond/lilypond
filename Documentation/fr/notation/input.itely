@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -57,7 +57,7 @@ musicale délimitée par des accolades :
 
 @example
 \score @{
-...
+@dots{}
 @}
 @end example
 
@@ -104,11 +104,11 @@ Voici quelques exemples d'expression musicale :
 
 Les commentaires constituent l'une des rares exceptions à cette règle
 immuable -- voir @ref{Structure de fichier} pour les autres.  Qu'il
-s'agisse d'une seule ligne ou de tout un bloc -- délimité par @code{%@{
-.. %@}} -- un commentaire peut se placer n'importe où dans le fichier
-source, aussi bien à l'intérieur qu'à l'extérieur du bloc @code{\score},
-ou encore à l'intérieur ou à l'extérieur de l'expression musicale
-contenue dans un bloc @code{\score}.
+s'agisse d'une seule ligne ou de tout un bloc -- délimité par
+@code{%@{ @dots{} %@}} -- un commentaire peut se placer n'importe où
+dans le fichier source, aussi bien à l'intérieur qu'à l'extérieur du
+bloc @code{\score}, ou encore à l'intérieur ou à l'extérieur de
+l'expression musicale contenue dans un bloc @code{\score}.
 
 Lorsqu'un fichier ne comprend qu'un bloc @code{\score}, celui-ci est
 implicitement inclus dans un bloc @code{\book}.  Le bloc @code{\book}
@@ -145,7 +145,7 @@ différents mouvements.  Chaque mouvement fait l'objet d'un bloc
 
 @example
 \score @{
-  @var{..musique..}
+  @var{@dots{}musique@dots{}}
 @}
 @end example
 
@@ -153,7 +153,7 @@ et le texte est contenu dans un bloc @code{\markup},
 
 @example
 \markup @{
-  @var{..texte..}
+  @var{@dots{}texte@dots{}}
 @}
 @end example
 
@@ -165,13 +165,13 @@ résultant.
 
 @example
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 \markup @{
-  @var{..}
+  @var{@dots{}}
 @}
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 @end example
 
@@ -196,10 +196,10 @@ bloc @code{\book}.  Dans le cas contraire, le contenu du bloc
   \header @{ piece = "Romance" @}
 @}
 \markup @{
-   ..texte du second couplet..
+   @dots{}texte du second couplet@dots{}
 @}
 \markup @{
-   ..texte du troisième couplet..
+   @dots{}texte du troisième couplet@dots{}
 @}
 \score @{
   @dots{}
@@ -504,7 +504,7 @@ suivantes :
 Une ligne de commentaire, introduite par le signe @code{%}.
 
 @item
-Un bloc de commentaire, délimité par @code{%@{ .. %@}}.
+Un bloc de commentaire, délimité par @code{%@{ @dots{} %@}}.
 
 @end itemize
 
@@ -1181,9 +1181,9 @@ En voici la syntaxe :
 
 @example
 @code{variable} = @code{\markup} @{
-  ...
+  @dots{}
   @code{\on-the-fly} \@var{procédure} @var{markup}
-  ...
+  @dots{}
 @}
 @end example
 
@@ -1248,7 +1248,7 @@ l'autre se cumulent.  Ainsi, par exemple,
 @example
   @code{\on-the-fly \first-page}
   @code{\on-the-fly \last-page}
-  @code{@{ \markup ... \fromproperty #'header: ... @}}
+  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
 teste si la sortie tient sur une page unique.
@@ -1612,7 +1612,7 @@ La syntaxe consacrée dans le cas d'une gestion automatique des appels
 de note est :
 
 @example
-\markup @{ ... \auto-footnote @var{texte} @var{annotation} ... @}
+\markup @{ @dots{} \auto-footnote @var{texte} @var{annotation} @dots{} @}
 @end example
 
 Ses les éléments sont :
@@ -1655,7 +1655,7 @@ La syntaxe consacrée dans le cas d'une gestion personnalisée des appels
 de note est :
 
 @example
-\markup @{ ... \footnote @var{appel} @var{annotation} ... @}
+\markup @{ @dots{} \footnote @var{appel} @var{annotation} @dots{} @}
 @end example
 
 Ses les éléments sont :
@@ -1824,16 +1824,16 @@ d'une expression musicale.
 \tocItem \markup "Premier mouvement"
 \score {
   {
-    c'4  % ...
+    c'4  % @dots{}
     \tocItem \markup "Passage spécifique du premier mouvement"
-    d'4  % ...
+    d'4  % @dots{}
   }
 }
 
 \tocItem \markup "Second mouvement"
 \score {
   {
-    e'4 % ...
+    e'4 % @dots{}
   }
 }
 @end verbatim
@@ -2003,7 +2003,7 @@ répertoire courant, vous devrez mentionner
 @example
 \include "parties/VI.ly"
 \include "parties/VII.ly"
-... etc.
+etc.
 @end example
 
 Les fichiers à inclure peuvent eux-mêmes contenir des instructions
@@ -2038,7 +2038,7 @@ libA/
   libA.ly
   A1.ly
   A2.ly
-  ...
+  @dots{}
 @end example
 
 @noindent
@@ -2048,7 +2048,7 @@ puis le fichier catalogue, @code{libA.ly}, qui contient
 #(ly:set-option 'relative-includes #t)
 \include "A1.ly"
 \include "A2.ly"
-...
+@dots{}
 % retour au réglage par défaut
 #(ly:set-option 'relative-includes #f)
 @end example
@@ -2692,7 +2692,7 @@ générer que les dernières mesures en insérant
 
 @verbatim
 showLastLength = R1*5
-\score { ... }
+\score { @dots{} }
 @end verbatim
 
 @noindent
@@ -2832,7 +2832,7 @@ LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
 
 @example
 \score @{
-  @var{...musique...}
+  @var{@dots{}musique@dots{}}
   \midi @{ @}
 @}
 @end example
@@ -2844,7 +2844,7 @@ un bloc @code{\layout}.
 
 @example
 \score @{
-  @var{...musique...}
+  @var{@dots{}musique@dots{}}
   \midi @{ @}
   \layout @{ @}
 @}
@@ -2934,13 +2934,13 @@ instruments répertoriés à l'annexe @ref{Instruments MIDI}.
 @example
 \new Staff @{
   \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
+  @var{@dots{}notes@dots{}}
 @}
 @end example
 
 @example
 \new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
+  @var{@dots{}notes@dots{}}
 @}
 @end example
 
@@ -2965,7 +2965,7 @@ imprimée.
 
 @example
 \score @{
-  @var{...musique...}
+  @var{@dots{}musique@dots{}}
   \midi @{
     \tempo 4 = 72
   @}
@@ -2998,7 +2998,7 @@ suffit d'insérer les lignes suivantes dans votre bloc
 
 @example
 \midi @{
-  ...
+  @dots{}
   \context @{
     \Voice
     \remove "Dynamic_performer"
@@ -3174,12 +3174,12 @@ symboles de pourcentage.  Par exemple
 
 @example
 \score @{
-  @var{..musique..}
-  \layout @{ ..  @}
+  @var{@dots{}musique@dots{}}
+  \layout @{ @dots{}  @}
 @}
 \score @{
-  \unfoldRepeats @var{..musique..}
-  \midi @{ .. @}
+  \unfoldRepeats @var{@dots{}musique@dots{}}
+  \midi @{ @dots{} @}
 @}
 @end example
 
@@ -3514,7 +3514,7 @@ seront développées et appliquer la commande à votre musique :
 
 @example
 \unfoldRepeats \articulate <<
-	tout le reste du bloc contenant la partition...
+	tout le reste du bloc contenant la partition@dots{}
 >>
 @end example
 
@@ -3639,7 +3639,7 @@ tabulation.  Chaque ligne comporte deux champs fixes suivis d'un certain
 nombre de paramètres optionnels.
 
 @example
-@var{temps}  @var{type}  @var{...paramètres...}
+@var{temps} @var{type} @var{@dots{}paramètres@dots{}}
 @end example
 
 Ces informations peuvent faire l'objet d'un retraitement par d'autres

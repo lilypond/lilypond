@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0cde75024b6f1210b059c48b624e1026836c96aa
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -285,7 +285,7 @@ procédures Scheme @code{car} et @code{cdr}.
 
 @lisp
 guile> (define mypair (cons 123 "hello there")
-... )
+@dots{} )
 guile> (car mypair)
 123
 guile> (cdr mypair)
@@ -295,7 +295,7 @@ guile>
 
 @noindent
 
-Note :  @code{cdr} se prononce @qq{couldeur}, comme l'indiquent Sussman et
+Note : @code{cdr} se prononce @qq{couldeur}, comme l'indiquent Sussman et
 Abelson -- voir
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
@@ -561,7 +561,7 @@ En Scheme, on définit une procédure à l'aide de l'instruction
 @code{define} :
 
 @example
-(define (nom-fonction argument1 argument2 ... argumentn)
+(define (nom-fonction argument1 argument2@dots{} argumentn)
  expression-scheme-qui-donnera-une-valeur-en-retour)
 @end example
 
@@ -630,7 +630,7 @@ retour de la dernière clause de ce bloc :
 
 @lisp
 guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
-... (+ (* x y) (/ z x)))
+@dots{} (+ (* x y) (/ z x)))
 508
 @end lisp
 
@@ -678,7 +678,7 @@ l'instruction @code{cond} :
 @example
 (cond (expression-test-1 expression-résultat-séquence-1)
       (expression-test-2 expression-résultat-séquence-2)
-      ...
+      @dots{}
       (expression-test-n expression-résultat-séquence-n))
 @end example
 
@@ -688,8 +688,8 @@ Comme par exemple ici :
 guile> (define a 6)
 guile> (define b 8)
 guile> (cond ((< a b) "a est plus petit que b")
-...          ((= a b) "a égale b")
-...          ((> a b) "a est plus grand que b"))
+@dots{}          ((= a b) "a égale b")
+@dots{}          ((> a b) "a est plus grand que b"))
 "a est plus petit que b"
 @end lisp
 
@@ -904,7 +904,7 @@ traLaLa = @{ c'4 d'4 @}
 est convertie, en interne, en une définition Scheme :
 
 @example
-(define traLaLa @var{valeur Scheme de `@code{... }'})
+(define traLaLa @var{valeur Scheme de `@code{@dots{}}'})
 @end example
 
 Cela signifie que variables LilyPond et variables Scheme peuvent tout à
@@ -950,7 +950,7 @@ syntaxe LilyPond.  Au lieu de définir @code{\twice}, nous aurions tout
 aussi bien pu écrire
 
 @example
-...
+@dots{}
 $(make-sequential-music (list newLa))
 @end example
 
@@ -976,7 +976,7 @@ d'une liste dans le contexte environnant.  Grâce à ces opérateurs, la
 dernière partie de notre fonction pourrait s'écrire ainsi :
 
 @example
-...
+@dots{}
 @{ #@@newLa @}
 @end example
 
@@ -998,7 +998,7 @@ ici :
 #(define (nopc)
   (ly:set-option 'point-and-click #f))
 
-...
+@dots{}
 #(nopc)
 @{ c'4 @}
 @end example
@@ -1297,7 +1297,7 @@ L'information sera encore plus lisible après un peu de mise en forme :
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
-Une séquence musicale @code{@{ ... @}} se voit attribuer le nom de
+Une séquence musicale @code{@{ @dots{} @}} se voit attribuer le nom de
 @code{SequentialMusic}, et les expressions qu'elle contient sont
 enregistrées en tant que liste dans sa propriété @code{'elements}.  Une
 note est représentée par un objet @code{NoteEvent} -- contenant les
@@ -1486,7 +1486,7 @@ pouvoir alors ajouter une articulation, telle qu'une instruction de
 doigté, individuellement à l'une des notes d'un accord, ce qui est
 impossible dans le cadre d'une simple fusion de musique indépendante.
 
-Un @code{$variable} au milieu de la notation @code{#@{...#@}} se
+Un @code{$variable} au milieu de la notation @code{#@{ @dots{} #@}} se
 comporte exactement comme un banal @code{\variable} en notation LilyPond
 traditionnelle.  Nous savons déjà que
 
@@ -1560,7 +1560,7 @@ se déduit la plupart de temps de par son nom -- c'est d'ailleurs une
 excellente pratique que l'on retrouve dans de nombreux autres langages.
 
 @example
-"Ajoute un accent..."
+"Ajoute un accent@dots{}"
 @end example
 
 @noindent

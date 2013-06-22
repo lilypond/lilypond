@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2dcd186b192e3e99184d5587dc449949699c68c6
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -500,8 +500,8 @@ l'impression d'un @emph{markup} @code{noChordSymbol}.
 
 @funindex \chords
 
-@code{\chords @{ ... @}} est un raccourci de
-@code{\new ChordNames @{ \chordmode @{ ... @} @}}.
+@code{\chords @{ @dots{} @}} est un raccourci de
+@code{\new ChordNames @{ \chordmode @{ @dots{} @} @}}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -857,8 +857,8 @@ sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
 de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
-L'expression @code{\figures@{ ... @}} constitue une raccourci à
-@code{\new FiguredBass @{ \figuremode @{ ... @} @}}.
+L'expression @code{\figures@{ @dots{} @}} constitue une raccourci à
+@code{\new FiguredBass @{ \figuremode @{ @dots{} @} @}}.
 
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
 des accords, elle est beaucoup plus simpliste.  Le mode

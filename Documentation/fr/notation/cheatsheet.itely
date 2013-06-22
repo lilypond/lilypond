@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -158,7 +158,7 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{<< \new Staff ... >>}
+@item @code{<< \new Staff @dots{} >>}
 @tab ajouter des portées
 @tab
 @lilypond[relative=1]

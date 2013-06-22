@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -362,9 +362,9 @@ g4 a
 b c |
 @end lilypond
 
-Les commandes prédéfinies de la forme @code{\...Neutral},
-@code{\...Off} et @code{\un...} font appel, en interne, à une
-instruction @code{\revert} plutôt que @code{\override} ; les
+Les commandes prédéfinies de la forme @code{\@dots{}Neutral},
+@code{\@dots{}Off} et @code{\un@dots{}} font appel, en interne, à
+une instruction @code{\revert} plutôt que @code{\override} ; les
 préfixer d'un @code{\once} est donc sans effet.
 
 
@@ -3007,7 +3007,7 @@ type :
 Ici, la meilleure solution consiste à déplacer le symbole de pause vers
 le bas -- puisque cette pause appartient à la voix deux.  Par défaut,
 dans la @code{\voiceTwo} (c'est-à-dire dans la seconde voix d'une
-construction @code{<<@{@dots{}@} \\ @{@dots{}@}>>}), la propriété
+construction @code{<<@{ @dots{} @} \\ @{ @dots{} @}>>}), la propriété
 @code{staff-position} est réglée sur @code{-4} pour les
 @code{MultiMeasureRest} ; nous avons donc besoin de la déplacer, disons,
 de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
@@ -3270,7 +3270,7 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3712,7 +3712,7 @@ rhMusic = \relative c'' {
         % Stem on the d2 must be down to permit merging
         \stemDown
         % Stem on the d2 should be invisible
-        \tweak Stem.transparent ##t
+        \tweak Flag.transparent ##t
         d2
       }
       \new Voice {
@@ -3806,7 +3806,7 @@ on a alors l'impression que la liaison couvre les deux voix.
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     b8~ b\noBeam
   }
 \\
@@ -3821,7 +3821,7 @@ réglant la longueur (@code{length}) sur @code{8},
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem.transparent ##t
+    \tweak Flag.transparent ##t
     \tweak Stem.length #8
     b8~ b8\noBeam
   }
