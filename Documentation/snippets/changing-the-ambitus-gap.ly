@@ -4,13 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.20"
 
 \header {
   lsrtags = "pitches"
 
   texidoc = "
-It is possible to change the default gap setting for ambitus.
+It is possible to change the default gap between the ambitus noteheads
+and the line joining them.
 
 "
   doctitle = "Changing the ambitus gap"

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.20"
 
 \header {
   lsrtags = "spacing, tweaks-and-overrides, workaround"
@@ -16,12 +16,14 @@ aligned to a common reference point, regardless of their actual extent.
 This way, every element will be vertically aligned, thus producing a
 more pleasing output.
 
-The same idea, together with \\textLengthOn, is used to align the text
-scripts along their baseline.
+The same idea, together with @code{\\textLengthOn}, is used to align
+the text scripts along their baseline.
 
 "
   doctitle = "Vertically aligned dynamics and textscripts"
 } % begin verbatim
+
+\markup \vspace #1 %avoid LSR-bug
 
 music = \relative c' {
   a'2\p b\f

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.20"
 
 \header {
   lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
@@ -57,7 +57,7 @@ urlV =
 "http://lilypond.org/doc/v2.14/Documentation/notation/note-head-styles"
 
 \relative c' {
-  \key cis\minor
+  \key cis \minor
 
   \once \override Staff.Clef.color = #green
   \once \override Staff.Clef.after-line-breaking =
