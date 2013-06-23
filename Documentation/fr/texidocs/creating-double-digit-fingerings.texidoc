@@ -1,9 +1,6 @@
-%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
+%% Translation of GIT committish: 9384169743ecb031320e8256b07bebb61d29af4b
   texidocfr = "
-Il est impossible, par défaut, de noter un doigté sur deux caractères --
-autrement dit supérieur à 9.  C'est gravé dans le marbre.
-
-Voici cependant deux méthodes pour créer des doigtés plus grands que 9.
+Il est tout à fait possible de noter un doigté supérieur à 5.
 
 "
   doctitlefr = "Création de doigtés sur deux caractères"
