@@ -556,34 +556,35 @@ to particular time fractions.  In other words, to get a particular mensuration s
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph
+  \textLengthOn
+  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural24" }
 }
 @end lilypond
