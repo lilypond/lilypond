@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 08cf111c64bf608b4dc7622558b0cabef84f3c46
+    Translation of GIT committish: 4e7839892d676e4863e07e11ea4968cffe34f97f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -270,7 +270,7 @@ ellas.
 
 La sintaxis todavía utiliza el obsoleto estilo infijo
 @code{\[ expresión_musical \]}.  Por motivos de consistencia, esto
-cambiará algún día al estilo postfijo @code{nota\[ ... nota\]}.
+cambiará algún día al estilo postfijo @code{nota\[ @dots{} nota\]}.
 
 
 @node Custos
@@ -1556,7 +1556,7 @@ las notas que se han de unir.
 Una nota sin modificaciones produce un @emph{punctum}.  Todos los
 demás neumas, incluso los neumas de una nota con forma distinta como
 la @emph{virga}, se consideran en principio como ligaduras y por ello
-se deben escribir dentro de @code{\[...\]}.
+se deben escribir dentro de @code{\[@dots{}\]}.
 
 @noindent
 Neumas de una nota:
@@ -2755,7 +2755,7 @@ el grabador @code{Stem_engraver} del contexto de voz:
 
 @example
 \layout @{
-  ...
+  @dots{}
   \context @{
     \Voice
       \remove "Stem_engraver"

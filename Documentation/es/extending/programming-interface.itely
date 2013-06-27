@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: b24aaf5d1e10c5ea055043ce6b2c3d50d2a9c943
+    Translation of GIT committish: fc43a05568a1be2fc78bd7a16a42e474d239aac8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -32,25 +32,60 @@ Scheme, @ref{Tutorial de Scheme}.
 
 @node Bloques de código de LilyPond
 @section Bloques de código de LilyPond
-@translationof Lilypond code blocks
+@translationof LilyPond code blocks
+
+@cindex Bloques de código de LilyPond
+@cindex LilyPond, bloques de código de
+@funindex #@{ @dots{} #@}
+@funindex $
+@funindex #
+
+La creación de expresiones musicales en Scheme puede ser una tarea
+tediosa porque a veces presentan muchos niveles de profundidad de
+anidamiento y el código resultante es grande.  Para algunas tareas
+sencillas, esto puede evitarse utilizando bloques de código de
+LilyPond, que permiten usar la sintaxis ordinaria de LilyPond
+dentro de Scheme.
 
 Los bloques de código de LilyPond tienen el siguiente aspecto:
 @example
   #@{ @var{código de LilyPond} #@}
 @end example
-Se pueden usar en cualquier lugar en el que se pueda escribir código
-de Scheme: el lector de Scheme en efecto se modifica para que pueda
-incorporar bloques de código de LilyPond y pueda ocuparse de las
-expresiones de Scheme incrustadas que comienzan por @code{$} y@w{ }@code{#}.
 
-Extrae el bloque de código de LilyPond y genera una llamada al
-@code{parser} o analizador sintáctico de LilyPond, que corre en
-tiempo de ejecución para interpretar el bloque de código de
-LilyPond.  Cualquier expresión de Scheme que se halle incrustada
-se ejecuta en el entorno léxico del bloque de código de LilyPond,
-de manera que tenemos acceso a las variables locales y a los
-parámetros de función en el punto en que se encuentra escrito el
-bloque de código de LilyPond.  Si @code{location} se refiere a una
+He aquí un ejemplo trivial:
+
+@lilypond[verbatim,quote]
+ritpp = #(define-event-function (parser location) ()
+  #{ ^"rit." \pp #}
+)
+
+{ c'4 e'4\ritpp g'2 }
+@end lilypond
+
+Los bloques de código de LilyPond se pueden usar en cualquier
+lugar en el que se pueda escribir código de Scheme.  El lector de
+Scheme en efecto se modifica para que pueda incorporar bloques de
+código de LilyPond y pueda ocuparse de las expresiones de Scheme
+incrustadas que comienzan por @code{$} y@w{ }@code{#}.
+
+@cindex parser (function argument)
+@cindex location
+
+El lector extrae el bloque de código de LilyPond y genera una
+llamada en tiempo de ejecución al analizador sintáctico para que
+interprete el código de LilyPond.  Las expresiones de Scheme
+incrustadas en el código de LilyPond se evalúan dentro del entorno
+lóexico del bloque de código de LilyPond, de manera que puede
+accederse a todas las variables locales y los parámetros de
+función que están disponibles en el punto en que se escribe el
+bloque de código de LilyPond.  Las variables definidas en otros
+módulos de Scheme, como los módulos que contienen bloques
+@code{\header} y @code{\layout}, no están accesibles como
+variables de Scheme, es decir, precedidas de@tie{}@code{#}, pero
+se puede acceder a ellas como variables de LilyPond, es decir,
+precedidas de@tie{}@code{\}.
+
+Si @code{location} (véase @ref{Funciones de Scheme}) se refiere a una
 posición de entrada válida (como lo hace normalmente dentro de las
 funciones musicales o de Scheme), toda la música generada dentro
 del bloque de código tiene su @samp{origin} establecido a
@@ -106,28 +141,34 @@ donde
 de LilyPond (@code{#@{}@dots{}@code{#@}}) acceso al analizador
 sintáctico.
 
+@item @code{location}
+@tab tiene que ser literalmente @code{location} para ofrecer acceso al
+objeto de situación de la entrada, que se usa para ofrecer
+menssajes de error con nombres de archivo y números de línea.
+
 @item @code{@var{argN}}
 @tab @var{n}-ésimo argumento
 
 @item @code{@var{typeN?}}
 @tab un @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
-debe devolver @code{#t}.  Algunos de estos predicados se reconocen de
-forma especial por parte del analizador, véase más abajo.  También
-existe una forma especial @code{(@emph{predicate?} @emph{default})}
-para especificar argumentos opcionales.  Si el argumento actual no
-está presente cuando se ll  ama a la función, el valor predeterminado se
-emplea en sustitución.  Los valores predeterminados se evalúan en
-tiempo de definición (¡incluyendo los bloques de código de LilyPond!),
-de manera que se necesitamos un valor por omisión calculado en tiempo
-de ejecución, debemos escribir en su lugar un valor especial que
-podamos reconocer fácilmente.  Si escribimos el predicado entre
-paréntesis pero no lo seguimos por el valor predeterminado, se usa
-@code{#f} como valor por omisión.  Los valores por omisión no se
-verifican con @emph{predicate?} en tiempo de definición ni en tiempo
-de ejecución: es nuestra responsabilidad tratar con los valores que
-especifiquemos.  Los valores por omisión que son expresiones musicales
-se copian mientras se establece @code{origin} al parámetro
-@code{location}.
+debe devolver @code{#t}.  Algunos de estos predicados se reconocen
+de forma especial por parte del analizador, véase más abajo.
+También existe una forma especial @code{(@emph{predicate?}
+@emph{default})} para especificar argumentos opcionales.  Si el
+argumento actual no está presente cuando se ll ama a la función,
+el valor predeterminado se emplea en sustitución.  Los valores
+predeterminados se evalúan en tiempo de definición (¡incluyendo
+los bloques de código de LilyPond!), de manera que se necesitamos
+un valor por omisión calculado en tiempo de ejecución, debemos
+escribir en su lugar un valor especial que podamos reconocer
+fácilmente.  Si escribimos el predicado entre paréntesis pero no
+lo seguimos por el valor predeterminado, se usa @code{#f} como
+valor por omisión.  Los valores por omisión no se verifican con
+@emph{predicate?} en tiempo de definición ni en tiempo de
+ejecución: es nuestra responsabilidad tratar con los valores que
+especifiquemos.  Los valores por omisión que son expresiones
+musicales se copian mientras se establece @code{origin} al
+parámetro @code{location}.
 
 @item @code{@var{cuerpo}}
 @tab una secuencia de formas de Scheme que se evalúan ordenadamente; la
@@ -268,7 +309,7 @@ noApuntarYPulsar =
      (parser location)
      ()
    (ly:set-option 'point-and-click #f))
-...
+@dots{}
 \noApuntarYPulsar   % desactivar la función de apuntar y pulsar
 @end example
 
@@ -437,6 +478,61 @@ manualBeam =
   \manualBeam #3 #6 c8 d e f
 }
 @end lilypond
+
+@funindex \temporary
+@cindex sobreescrituras temporales
+@cindex temporales, sobreescrituras
+@cindex propiedades, recuperar valor anterior
+
+Las propiedades se mantienen conceptualmente utilizando una pila
+por cada propiedad, por cada grob y por cada contexto.  Las
+funciones musicales pueden requerir la sobreescritura de una o
+varias propiedades durante el tiempo de duración de la función,
+restaurándolas a sus valores previos antes de salir.  Sin embargo,
+las sobreescrituras normales extraen y descartan la cima de la
+pila de propiedades actual antes de introducir un valor en ella,
+de manera que el valor anterior de la propiedad se pierde cuando
+se sobreescribe.  Si se quiere preservar el valor anterior, hay
+que preceder la instrucción @code{\override} con la palabra clave
+@code{\temporary}, así:
+
+@example
+\temporary \override @dots{}
+@end example
+
+El uso de @code{\temporary} hace que se borre la propiedad
+(normalmente fijada a un cierto valor) @code{pop-first} de la
+sobreescritura, de forma que el valor anterior no se extrae de la
+pila de propiedades antes de poner en ella el valor nuevo.  Cuando
+una instrucción @code{\revert} posterior extrae el avlor
+sobreescrito temporalmente, volverá a emerger el valor anterior.
+
+En otras palabras, una llamada a @code{\temporary \override} y a
+continuación otra a @code{\revert} sobre la misma propiedad, tiene
+un valor neto que es nulo.  De forma similar, la combinación en
+secuencia de @code{\temporary} y @code{\undo} sobre la misma
+música que contiene las sobreescrituras, tiene un efecto neto
+nulo.
+
+He aquí un ejemplo de una función musical que utiliza lo expuesto
+anteriormente.  El uso de @code{\temporary} asegura que los
+valores de las propiedades @code{cross-staff} y @code{style} se
+restauran a la salida a los valores que tenían cuando se llamó a
+la función @code{crossStaff}.  Sin @code{\temporary}, a la salida
+se habrían fijado los valores predeterminados.
+
+@example
+crossStaff =
+#(define-music-function (parser location notes) (ly:music?)
+  (_i "Create cross-staff stems")
+  #@{
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
+  #notes
+  \revert Stem.cross-staff
+  \revert Flag.style
+#@})
+@end example
 
 
 @node Matemáticas dentro de las funciones
@@ -612,11 +708,12 @@ sólo con Scheme.
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\markup marcado1} @tab @code{(markup marcado1)}
-@item @code{\markup @{ marcado1 marcado2 ... @}} @tab
-        @code{(markup marcado1 marcado2 ... )}
+@item @code{\markup @{ marcado1 marcado2 @dots{} @}} @tab
+        @code{(markup marcado1 marcado2 @dots{} )}
 @item @code{\instruccion} @tab @code{#:instruccion}
 @item @code{\variable} @tab @code{variable}
-@item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
+@item @code{\center-column @{ @dots{} @}} @tab
+        @code{#:center-column ( @dots{} )}
 @item @code{cadena} @tab @code{"cadena"}
 @item @code{#argumento-de-scheme} @tab @code{argumento-de-scheme}
 @end multitable
@@ -707,11 +804,11 @@ Se pueden definir instrucciones de marcado nuevas usando el macro de
 Scheme @code{define-markup-command}, en el nivel sintáctico superior.
 
 @lisp
-(define-markup-command (@var{nombre-de-la-instruccion} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
-    (@var{tipo-de-arg1?} @var{tipo-de-arg2?} ...)
+(define-markup-command (@var{nombre-de-la-instruccion} @var{layout} @var{props} @var{arg1} @var{arg2} @dots{})
+    (@var{tipo-de-arg1?} @var{tipo-de-arg2?} @dots{})
     [ #:properties ((@var{propiedad1} @var{valor-predeterminado1})
-                    ...) ]
-  ..command body..)
+                    @dots{}) ]
+  @dots{}command body@dots{})
 @end lisp
 
 Los argumentos son
@@ -950,7 +1047,7 @@ documentación):
   (number-pair?)
   #:category graphic
   #:properties ((thickness 1))
-  "...documentación..."
+  "@dots{}documentación@dots{}"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -968,7 +1065,7 @@ instrucciones de marcado definidas por el usuario.
 (define-markup-command (draw-double-line layout props dest)
   (number-pair?)
   #:properties ((thickness 1))
-  "...documentación..."
+  "@dots{}documentación@dots{}"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -985,8 +1082,8 @@ predeterminado de p.ej. 0.6:
   (number-pair?)
   #:properties ((thickness 1)
                 (line-gap 0.6))
-  "...documentación..."
-  ...
+  "@dots{}documentación@dots{}"
+  @dots{}
 @end lisp
 
 Finalmente, se añade el código para trazar las dos líneas.  Se usan

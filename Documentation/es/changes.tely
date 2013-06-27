@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b6f94447415dded7c6e146b41b6139fe76cb84c4
+    Translation of GIT committish: efec448b936bd63d82571cf79f8435768605c66d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -70,14 +70,20 @@ which scares away people.
 @end ignore
 
 @item
-Se reserva espacio horizontal para las indicaciones de tempo y las
-marcas de ensayo, de forma que no se superpongan. La instrucción
-nueva @code{\markLengthOff} desactiva esta funcionalidad.
-@lilypond[quote,relative=0]
-\compressFullBarRests
-\tempo "Molto vivace" c''2 c'
-\mark\default
-\tempo "Meno mosso" R1*16
+Se ha cambiado el nombre de @code{OctavateEight} por el de
+@code{ClefModifier}.  Las propiedades de contexto relacionadas han
+cambiado su nombre @code{xxxOctavationyyy} por el de
+@code{xxxTranspositionyyy}.
+
+@item
+Existe una nueva instrucción @code{\absolute} que marca
+explícitamente la música introducida en alturas absolutas.  Aunque
+esto era antes el comportamiento predeterminado, una instrucción
+@code{\absolute} explícita evita también la reinterpretación
+cuando el pasaje está dentro de un bloque marcado como
+@code{\relative}:
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
 @end lilypond
 
 @item
@@ -181,6 +187,45 @@ era equivalente a @code{\transposition f'}.  Ahora se mantiene
 como equivalente a @code{\transposition bes'}.
 
 @item
+Cuando se comprueba la existencia de colisiones, LilyPond ya no
+trata los objetos como rectángulos.  En lugar de ello se aproxima
+la forma verdadera de los objetos utilizando un enfoque parecido
+al uso de integrales, lo que por lo común dará como resultado un
+posicionamiento más ceñido y regular de los objetos y los sistemas
+de pentagramas:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+El fragmento anterior tenía anteriormente este aspecto:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\override Hairpin #'vertical-skylines = #'()
+\override DynamicText #'vertical-skylines = #'()
+\override TextScript #'vertical-skylines = #'()
+\override Score.MetronomeMark #'vertical-skylines = #'()
+\override Staff.Clef #'vertical-skylines = #'()
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+Entre los objetos afectados se encuentran @code{Accidentals},
+@code{Beams}, @code{Clefs}, @code{Dynamics}, @code{FiguredBass},
+@code{Flags}, @code{Glissandos}, @code{Lyrics},
+@code{MetronomeMarks}, @code{OttavaBrackets}, @code{Pedals},
+@code{RehearsalMarks}, @code{Rests}, @code{Scripts},
+@code{TextScripts}, @code{Ties}, @code{Tuplets} y
+@code{VoltaBrackets}.
+
+@item
 Ahora los grupos de valoración especial se crean mediante la
 instrucción @code{\tuplet}, que toma una fracción
 @code{@var{t}/@var{n}} para especificar que se tocan @var{t} notas
@@ -240,7 +285,7 @@ también forma parte de las @acronym{URI}s de @code{textedit}) aún
 comienza en@tie{}0.
 
 @item
-La instrucción @code{\clef} contempla un cambio opcional de octava:
+La instrucción @code{\clef} contempla una transposición opcional:
 @lilypond[verbatim,quote,relative=1]
 \clef "treble_(8)"
 c2 c

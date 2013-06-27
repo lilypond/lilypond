@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 91aeca2562af49ff24110e923d5196bebd95f372
+Translation of GIT committish: 4e7839892d676e4863e07e11ea4968cffe34f97f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -434,7 +434,7 @@ más tarde, por ejemplo cuando se asocia la letra con la música:
 
 @example
 \new Voice = "tenor" @var{música}
-...
+@dots{}
 \new Lyrics \lyricsto "tenor" @var{letra}
 @end example
 
@@ -481,13 +481,13 @@ eventos musicales adicionales a un contexto anterior.
 
 Existe una excepción a esta regla general: precisamente uno de los
 contextos de @code{Voice} que están dentro de un contexto de
-@code{Staff} o de una construcción @code{<<...>>} persiste siempre
+@code{Staff} o de una construcción @code{<<@dots{}>>} persiste siempre
 hasta el final de, contexto de @code{Staff} circundante o la
-construcción @code{<<...>>}, incluso aunque puede haber períodos en
+construcción @code{<<@dots{}>>}, incluso aunque puede haber períodos en
 que no tiene nada que hacer.  El contexto que persiste de esta forma
 será el primero que se encuentre en la primera construcción encerrada
-entre llaves @code{@{...@}}, ignorando cualquiera que se encuentre
-dentro de construcciones encerradas por ángulos dobles @code{<<...>>}.
+entre llaves @code{@{@dots{}@}}, ignorando cualquiera que se encuentre
+dentro de construcciones encerradas por ángulos dobles @code{<<@dots{}>>}.
 
 Cualquier contexto se puede mantener vivo si nos aseguramos de que
 tiene algo que hacer en cualquier momento musical dado.  Los
@@ -665,7 +665,7 @@ modificándolo:
   @emph{etc.}
 @}
 @{
-  @emph{..música..}
+  @emph{@dots{}música@dots{}}
 @}
 @end example
 
@@ -1104,7 +1104,7 @@ Referencia de la notación:
 @funindex denies
 
 Los contextos específicos, como @code{Staff} y @code{Voice}, están
-construidos a base de bloques sencillos.  Es posible crear nuevos
+construidos a partir de bloques sencillos.  Es posible crear nuevos
 tipos de contextos con combinaciones distintas de añadidos grabadores.
 
 El siguiente ejemplo muestra cómo construir un tipo diferente de
@@ -1158,34 +1158,39 @@ En primer lugar es necesario definir un nombre para el nuevo contexto:
 \name ImproVoice
 @end example
 
-Debido a que es parecido al contexto @code{Voice}, queremos órdenes
-que funcionen sobre contextos de @code{Voice} (existentes) para que
-siga funcionando.  Esto se consigue dando al contexto nuevo un alias
-@code{Voice},
+Debido a que es parecido al contexto @code{Voice}, queremos
+órdenes que funcionen dentro de los contextos @code{Voice}
+(existentes) para que siga funcionando.  Esto se consigue dando al
+contexto nuevo un alias de @code{Voice},
 
 @example
 \alias Voice
 @end example
 
-El contexto imprimirá notas y textos explicativos, por ello tenemos
-que añadir los grabadores que aportan esta funcionalidad:
+El contexto imprimirá notas y textos explicativos, por ello
+tenemos que añadir los grabadores que aportan esta funcionalidad,
+y además el grabador que agrupa las notas, plicas y silencios que
+están en el mismo momento musical en forma de columnas,
 
 @example
 \consists "Note_heads_engraver"
 \consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
 @end example
 
-pero sólo necesitamos esto en la línea central:
+Las cabezas de todas las notas se deben situar sobre la línea
+central,
 
 @example
 \consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
-El grabador @rinternals{Pitch_squash_engraver} modifica las cabezas de
-nota (creadas por el grabador @rinternals{Note_heads_engraver}) y
+El grabador @code{Pitch_squash_engraver} modifica las cabezas de
+nota (creadas por el grabador @code{Note_heads_engraver}) y
 establece sus posiciones verticales al valor de
-@code{squashedPosition}, en este caso@tie{}@code{0}, la línea central.
+@code{squashedPosition}, en este caso@tie{}@code{0}, la línea
+central.
 
 Las notas parecen barras inclinadas y no tienen plica:
 
@@ -1210,6 +1215,7 @@ Al juntarlo todo, obtenemos
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
@@ -1219,9 +1225,9 @@ Al juntarlo todo, obtenemos
 @end example
 
 @funindex \accepts
-Los contextos dan lugar a jerarquías.  Queremos colgar el contexto
-@code{ImproVoice} bajo el contexto @code{Staff}, como simples
-@code{Voice}s normales.  Por tanto, modificamos la definición de
+Los contextos dan lugar a jerarquías.  Queremos poner el contexto
+@code{ImproVoice} dentro del contexto @code{Staff}, igual que los contextos
+de voz normales.  Por tanto, modificamos la definición de
 @code{Staff} con la instrucción @code{\accepts} (acepta),
 
 @example
@@ -1265,6 +1271,15 @@ puede escribir como
   a1
 @}
 @end example
+
+@seealso
+
+Referencia de funcionamiento interno:
+@rinternals{Engraver_group},
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}.
 
 
 @node Orden de disposición de los contextos
@@ -1325,10 +1340,26 @@ ejemplo, el contexto @code{VaticanaStaff} está basado en el contexto
 @code{Staff}, pero con el contexto @code{VaticanaVoice} sustituido por
 el contexto @code{Voice} en la lista @qq{accepts}.
 
-Observe que discretamente se crea un contexto de forma implícita si se
-encuentra una instrucción donde no hay un contexto apropiado para
-contenerlo.  Esto puede dar lugar a pentagramas o partituras nuevos no
-esperados.
+
+@cindex contextos implícitos
+@cindex implícitos, contextos
+@funindex \defaultchild
+
+Observe que discretamente se crea un contexto de forma implícita
+si se encuentra una instrucción donde no hay un contexto apropiado
+para contenerlo.
+
+Dentro de una definición de contexto, el tipo de un subcontexto
+que se va a crear implícitamente se especifica usando
+@code{\defaultchild} (hijo predeterminado).  Algunos eventos
+musicales requieren un contexto @samp{Bottom} (inferior): cuando
+se encuentra este evento, se crean subcontextos de forma recursiva
+hasta que se alcanza un contexto que no tiene establecido el
+@samp{defaultchild}.
+
+La creación implícita de contextos puede dar lugar a pentagramas o
+partituras nuevos no esperados.  La utilización de @code{\new}
+para crear contextos explícitamente evita esos problemas.
 
 @cindex alignAboveContext
 @cindex alignBelowContext
@@ -1336,13 +1367,14 @@ esperados.
 @funindex alignBelowContext
 
 En ocasiones se necesita que un contexto exista durante un breve
-intervalo de tiempo, siendo un buen ejemplo el contexto de pentagrama
-de un ossia.  Esto se consigue normalmente mediante la introducción de
-la definición del contexto en el lugar apropiado en paralelo con la
-sección correspondiente de la música principal.  De forma
-predeterminada, el contexto tempral se coloca debajo de todos los
-contextos existentes.  Para reposicionallo por encima del contexto que
-tenga el nombre @qq{principal}, debería definirse de esta forma:
+intervalo de tiempo, siendo un buen ejemplo el contexto de
+pentagrama de un ossia.  Esto se consigue normalmente mediante la
+introducción de la definición del contexto en el lugar apropiado
+en paralelo con la sección correspondiente de la música principal.
+De forma predeterminada, el contexto tempral se coloca debajo de
+todos los contextos existentes.  Para reposicionarlo por encima
+del contexto que tenga el nombre @qq{principal}, debería definirse
+de esta forma:
 
 @example
 @code{\new Staff \with @{ alignAboveContext = #"principal" @} }
@@ -2345,7 +2377,7 @@ We have seen two methods of changing properties: @code{\set} and
 properties.
 
 @code{fontSize} is a special property: it is equivalent to
-entering @code{\override ... #'font-size} for all pertinent
+entering @code{\override @dots{} #'font-size} for all pertinent
 objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
@@ -3489,23 +3521,23 @@ explícitas.
 
 @c TODO Add example
 
-@subsubsubheading Claves octavadas
+@subsubsubheading Claves transportadas
 
-@cindex octavadas, visibilidad de las claves
-@cindex visibilidad de las claves octavadas
-@cindex claves, visibilidad de la octavación
+@cindex transportadas, visibilidad de las claves
+@cindex visibilidad de las claves transportadas
+@cindex claves, visibilidad de la transposición
 
-El pequeño símbolo de octava sobre las claves en octava alta o baja se
-produce por parte del objeto @code{ClefModifier}.  Su visibilidad se
-hereda automáticamente de la del objeto @code{Clef}, así que no es
+El pequeño símbolo de transposición sobre una clave se produce por
+parte del objeto @code{ClefModifier}.  Su visibilidad se hereda
+automáticamente de la del objeto @code{Clef}, así que no es
 necesario aplicar las sobreescrituras correspondientes
-@code{break-visibility} a los objetos
-@code{ClefModifier} para suprimir los símbolos de octavación
-para las claves invisibles.
+@code{break-visibility} a los objetos @code{ClefModifier} para
+suprimir los símbolos de transposición u octavación para las
+claves invisibles.
 
 Para los cambios de clave explícitos, la propiedad
-@code{explicitClefVisibility} controla tanto el símbolo de clave como
-el símbolo de octava asociado.
+@code{explicitClefVisibility} controla tanto el símbolo de clave
+como el símbolo de transposición o de octava asociado.
 
 @seealso
 Manual de aprendizaje:
@@ -3918,11 +3950,11 @@ distintos a las barras de compás.  Estos objetos son @code{ambitus},
 @code{left-edge}, @code{key-cancellation}, @code{key-signature} y
 @code{time-signature}.
 
-De forma predeterminada, las letras de ensayo y los números de compás
-se centran horizontalmente sobre el objeto:
+Cada tipo de objeto tiene su propio punto de referencia
+predeterminado, con el que se alinean las marcas de ensayo:
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
@@ -3955,13 +3987,13 @@ divisoria.  Si la línea divisoria es invisible, el objeto se alinea
 con el punto en el que se encontraría la línea divisoria.
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Key Signature
+% The rehearsal mark will be aligned to the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
@@ -3984,20 +4016,20 @@ partitura con varios pentagramas, este ajuste se debe hacer para todos
 los pentagramas.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the Key Signature
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% The RehearsalMark will be centered above the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
 e1
-% The RehearsalMark will be aligned with the right edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
 e1

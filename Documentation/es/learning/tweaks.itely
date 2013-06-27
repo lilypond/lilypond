@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b6f94447415dded7c6e146b41b6139fe76cb84c4
+    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -352,7 +352,8 @@ b c |
 @end lilypond
 
 Sin embargo, las instrucciones predefinidas de la forma
-@code{\...Neutral}, @code{\...Off} y @code{\un...} utilizan
+@code{\@dots{}Neutral},
+@code{\@dots{}Off} y @code{\un@dots{}} utilizan
 internamente @code{\revert} en vez de @code{\override}, por lo que
 añadir @code{\once} como prefijo aquí no tiene ningún efecto.
 
@@ -3027,7 +3028,7 @@ aquí un ejemplo de colisión de este tipo:
 La mejor solución aquí es mover el silencio multi-compás hacia abajo,
 pues el silencio está en la voz dos.  El ajuste predeterminado para
 @code{\voiceTwo} (es decir, en la segunda voz de una construcción
-@code{<<@{...@} \\ @{...@}>>}) es que @code{staff-position} tenga el
+@code{<<@{@dots{}@} \\ @{@dots{}@}>>}) es que @code{staff-position} tenga el
 valor -4 para MultiMeasureRest, así que tenemos que bajarlo, digamos,
 cuatro semi-espacios de pentagrama, al valor @w{@code{-8}}.
 
@@ -3956,7 +3957,7 @@ Glosario musical:
 
 @node Uso de variables para los ajustes de disposición
 @subsection Uso de variables para los ajustes de disposición
-@translationof Using variables for tweaks
+@translationof Using variables for layout adjustments
 
 @cindex variables, usar para sobreescrituras
 @cindex sobreescrituras, usar variablas para

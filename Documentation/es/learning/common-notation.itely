@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e674b7637b08e5d2638d232ba3d7c8420c9d1b6f
+    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1010,7 +1010,7 @@ cada sílaba mediante un espacio.
 @end lilypond
 
 Observe los
-ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
+ángulos dobles @w{@code{<<@dots{}>>}} alrededor del fragmento entero
 para expresar que la música y la letra han de suceder al mismo tiempo.
 
 @node Alineación de la letra a una melodía
