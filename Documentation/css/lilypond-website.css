@@ -431,10 +431,10 @@ div#quickSummary {
 }
 
 div.separator {
-  background: transparent url(../pictures/squiggle.jpg) no-repeat 40% 60%;
+  background: transparent url(../pictures/squiggle.jpg) no-repeat 50% 50%;
   height: 36px;
-  clear: both;
   padding: 10px;
+  margin: 0 13em 0 0;
 }
 
 div#news {
@@ -443,6 +443,7 @@ div#news {
 }
 
 div.news-item {
+  padding: 1em 0;
 }
 
 .news-item .subsubheading {
