@@ -9,6 +9,16 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond blog had moved!  @emph{June 29, 2013}
+
+LilyPond blog, which was previously hosted on
+@uref{http://lilypondblog.wordpress.com/, wordpress.com}, has moved
+to a new domain: you can find it now at
+@uref{http://lilypondblog.org/, lilypondblog.org}!
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.17.20 released!  @emph{June 9, 2013}
 
 We are happy to announce the release of LilyPond 2.17.20.  This
