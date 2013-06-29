@@ -785,6 +785,7 @@ manuals can be found at @url{http://lilypond.org}}
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduction
+
 @item
 @docLinkSplit{Learning,learning,@manualDevelLearningSplit}
 @tab
@@ -805,7 +806,9 @@ manuals can be found at @url{http://lilypond.org}}
 @docLinkBig{Essay,essay,@manualDevelEssayBig}
 @tab
 @docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Regular
 
 @item
@@ -828,7 +831,9 @@ manuals can be found at @url{http://lilypond.org}}
 @docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Infrequent
 
 @item
@@ -858,15 +863,17 @@ manuals can be found at @url{http://lilypond.org}}
 @docLinkBig{Internals,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem Downloadable
 
 @item
 @doctarballDevel
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd
