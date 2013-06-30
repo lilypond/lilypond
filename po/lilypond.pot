@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.20\n"
+"Project-Id-Version: lilypond 2.17.21\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-06-09 13:58+0100\n"
+"POT-Creation-Date: 2013-06-30 16:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -773,6 +773,10 @@ msgstr ""
 
 #: convertrules.py:3369
 msgid "beamExceptions controls whole-measure beaming."
+msgstr ""
+
+#: convertrules.py:3584
+msgid "Flag.transparent and Flag.color inherit from Stem"
 msgstr ""
 
 #: fontextract.py:25
@@ -1698,12 +1702,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:704
+#: axis-group-interface.cc:706
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:774
+#: axis-group-interface.cc:777
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -3543,19 +3547,19 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:903
+#: lily-library.scm:887
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:974
+#: lily-library.scm:958
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:999
+#: lily-library.scm:983
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
