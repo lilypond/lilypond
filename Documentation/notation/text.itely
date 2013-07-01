@@ -1402,6 +1402,14 @@ Three families of text fonts are made available: the @emph{roman}
 @emph{sans} font and the monospaced @emph{typewriter} font -- these
 last two families are determined by the Pango installation.
 
+@warning{There are no default fonts associated with the @emph{sans}
+and @emph{typewriter} font-families.  An input file that specifies
+either of these can lead to different output on different computers.
+To ensure consistent output among multiple platforms, fonts must be
+specified by name, and those fonts must be available on any system
+that processes the file.  See @ref{Single entry fonts} and
+@ref{Entire document fonts}.}
+
 Each family may include different shapes and series.  The following
 example demonstrates the ability to select alternate families, shapes,
 series and sizes.  The value supplied to @code{font-size} is the
