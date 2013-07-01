@@ -83,7 +83,10 @@
                    "-dBATCH"
                    "-r1200"
                    "-sDEVICE=pdfwrite"
-                   (string-append "-sOutputFile=" pdf-name)
+                   (string-append "-sOutputFile="
+                                  (string-join
+                                   (string-split pdf-name #\%)
+                                   "%%"))
                    "-c.setpdfwrite"
                    (string-append "-f" name)))))
 
