@@ -9,10 +9,10 @@
 
 \version "2.16.0"
 \new Staff \relative c' {
-    \key g\major
-    \clef treble
-    cis dis f
-    \clef bass
-    <c dis fis>
+  \key g \major
+  \clef treble
+  cis dis f
+  \clef bass
+  <c dis fis>
 }
 

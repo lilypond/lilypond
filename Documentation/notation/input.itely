@@ -1470,7 +1470,7 @@ context.
     \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
     q q
     \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
-    \key c\minor
+    \key c \minor
     q
   }
 }

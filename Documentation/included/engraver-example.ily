@@ -1,7 +1,7 @@
 %% texidoc = "Include file for engraver example."
 \version "2.16.0"
 topVoice =  \relative c' {
-  \key d\major
+  \key d \major
   es8([ g] a[ fis])
   b4
   b16[-. b-. b-. cis-.]
@@ -9,7 +9,7 @@ topVoice =  \relative c' {
 }
 
 botVoice =  \relative c' {
-  \key d\major
+  \key d \major
   c8[( f] b[ a)]
   es4
   es16[-. es-. es-. fis-.]

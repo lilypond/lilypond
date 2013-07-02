@@ -31,13 +31,13 @@ origScore = \score{
       d
       \grace c16
       e1
-      \key d\major
-      
+      \key d \major
+
       f
       \break  \clef bass
       g,
       fis
-    }  
+    }
 }
 
 \book { 

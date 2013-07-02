@@ -8,7 +8,8 @@ start of the next non-tuplet note.  "
 \version "2.17.11"
 
 \paper { ragged-right = ##t
-indent = 0.0 }
+  indent = 0.0
+}
 
 \relative c'' \new Voice \with {
   \remove  Forbid_line_break_engraver
@@ -24,6 +25,5 @@ indent = 0.0 }
   c4
   \tuplet 3/2 { c8[ c c] }
   
-  \bar "|." \key c\minor
+  \bar "|." \key c \minor
 }
-  
