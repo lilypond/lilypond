@@ -672,17 +672,15 @@ avoid_outside_staff_collisions (Grob *elt,
   for (vsize j = 0; j < other_v_skylines.size (); j++)
     {
       Skyline_pair const &v_other = other_v_skylines[j];
+      Real pad = (padding + other_padding[j]);
       Real horizon_pad = (horizon_padding + other_horizon_padding[j]);
 
-      Interval collision;
-      // We need to push elt by at least this much to be outside v_other.
-      collision[dir] = ((*v_skyline)[-dir].distance (v_other[dir], horizon_pad)
-                        + padding) * dir;
-      // We need to pull elt by at least this much to be inside v_other.
-      collision[-dir] = ((*v_skyline)[dir].distance (v_other[-dir], horizon_pad)
-                         + other_padding[j]) * -dir;
+      // We need to push elt up by at least this much to be above v_other.
+      Real up = (*v_skyline)[DOWN].distance (v_other[UP], horizon_pad) + pad;
+      // We need to push elt down by at least this much to be below v_other.
+      Real down = (*v_skyline)[UP].distance (v_other[DOWN], horizon_pad) + pad;
 
-      forbidden_intervals.push_back (collision);
+      forbidden_intervals.push_back (Interval (-down, up));
     }
 
   Interval_set allowed_shifts
@@ -764,8 +762,7 @@ add_grobs_of_one_priority (Grob *me,
         {
           Grob *elt = elements[i];
           Real padding
-            = robust_scm2double (elt->get_property ("outside-staff-padding"),
-                                 Axis_group_interface::get_default_outside_staff_padding ());
+            = robust_scm2double (elt->get_property ("outside-staff-padding"), 0.25);
           Real horizon_padding
             = robust_scm2double (elt->get_property ("outside-staff-horizontal-padding"), 0.0);
           Interval x_extent = elt->extent (x_common, X_AXIS);
