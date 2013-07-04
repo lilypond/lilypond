@@ -211,15 +211,3 @@ LY_DEFINE (ly_context_events_below, "ly:context-events-below",
   Context *ctx = unsmob_context (context);
   return ctx->events_below ()->self_scm ();
 }
-
-LY_DEFINE (ly_make_event_class, "ly:make-event-class",
-           2, 0, 0, (SCM context, SCM type),
-           "Make an event class (a list of types) from the given @var{type}"
-           " within the global context containing @var{context}.")
-{
-  LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, type, 2);
-
-  Context *ctx = unsmob_context (context);
-  return ctx->make_event_class (type);
-}

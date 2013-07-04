@@ -88,7 +88,7 @@ Footnote_engraver::acknowledge_grob (Grob_info info)
           return;
         }
 
-      footnotify (info.grob (), mus->to_event (context ())->unprotect ());
+      footnotify (info.grob (), mus->to_event ()->unprotect ());
 
       // This grob has exhausted its footnote
       info.grob ()->set_property ("footnote-music", SCM_EOL);
