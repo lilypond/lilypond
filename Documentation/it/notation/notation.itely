@@ -19,7 +19,7 @@ Questo capitolo spiega come creare la notazione musicale.
 * Altezze::                 Scrittura e aspetto delle altezze delle note.
 * Ritmi::                   Scrittura e aspetto delle durate delle note.
 * Segni di espressione::    Aggiungere espressione alle note.
-* Repeats::            Repeat music.
+* Ripetizioni::             Ripetere la musica.
 * Simultaneous notes:: More than one note at once.
 * Staff notation::     Displaying staves.
 * Editorial annotations:: Special notation to increase legibility.
@@ -34,4 +34,3 @@ Questo capitolo spiega come creare la notazione musicale.
 @include notation/staff.itely
 @include notation/editorial.itely
 @include notation/text.itely
-

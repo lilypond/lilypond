@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+L'incisore @code{Volta_engraver} risiede nel contesto @code{Score},  quindi
+le parentesi delle ripetizioni appaiono di norma soltanto sul rigo superiore.
+Questo comportamento può essere modificato aggiungendo l'incisore
+@code{Volta_engraver} al contesto @code{Staff} in cui si desidera
+far apparire le parentesi; si veda anche il frammento @qq{Volta multirigo}.
+
+"
+  doctitleit = "Aggiungere le parentesi delle volte a altri righi"

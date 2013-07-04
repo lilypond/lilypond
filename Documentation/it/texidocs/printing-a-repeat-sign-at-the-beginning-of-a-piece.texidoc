@@ -1,0 +1,7 @@
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
+  texidocit = "
+Una stanghetta @code{.|:} può apparire all'inizio di un brano, se si
+sovrascrive la proprietà pertinente:
+
+"
+  doctitleit = "Stampare un segno  di ripetizione all'inizio di un brano"
