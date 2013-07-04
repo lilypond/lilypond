@@ -25,7 +25,7 @@
 ;; TODO: junk the meta field in favor of something more compact?
 
 
-(define-public all-grob-descriptions
+(define-session-public all-grob-descriptions
   `(
     (Accidental
      . (

@@ -84,12 +84,15 @@
         '() event-classes))
 
 ;; Maps event-class to a list of ancestors (inclusive)
-(define-public ancestor-lookup
-  (let ((h (make-hash-table (length all-event-classes))))
-    (for-each (lambda (ent) (hashq-set! h (car ent) ent))
-              all-event-classes)
-    h))
+(define ancestor-lookup (make-hash-table (length all-event-classes)))
 
+(define (ancestor-lookup-initialize)
+  (hash-clear! ancestor-lookup)
+  (for-each (lambda (ent) (hashq-set! ancestor-lookup (car ent) ent))
+            all-event-classes))
+
+(ancestor-lookup-initialize)
+(call-after-session ancestor-lookup-initialize)
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
