@@ -6,11 +6,7 @@ and grob creation methods to create a fully functional text spanner
 in scheme."
 }
 
-#(define-event-class 'scheme-text-span-event
-   '(scheme-text-span-event
-     span-event
-     music-event
-     StreamEvent))
+#(define-event-class 'scheme-text-span-event 'span-event)
 
 #(define (add-grob-definition grob-name grob-entry)
    (let* ((meta-entry   (assoc-get 'meta grob-entry))

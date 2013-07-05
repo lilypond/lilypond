@@ -98,21 +98,20 @@
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
 
-(define-public (define-event-class leaf heritage)
-  (cond
-   ((not (eq? leaf (car heritage)))
-    (ly:warning (_ "All classes must be the last in their matrilineal line.")))
-   ((not (equal? (cdr heritage)
-                 (list-head (hashq-ref ancestor-lookup (cadr heritage) '())
-                            (length (cdr heritage)))))
-    (ly:warning (_ "All classes must have a well-defined pedigree in the existing class hierarchy.")))
-   (else (hashq-set! ancestor-lookup
-                     leaf
-                     (cons leaf
-                           (hashq-ref ancestor-lookup
-                                      (cadr heritage)
-                                      '())))))
-  *unspecified*)
+(define-public (define-event-class class parent)
+  "Defines a new event @code{class} derived from @code{parent}, a
+previously defined event class."
+  (let ((parentclass (ly:make-event-class parent)))
+    (cond
+     ((ly:make-event-class class)
+      (ly:error (_ "Cannot redefine event class `~S'") class))
+     ((not parentclass)
+      (ly:error (_ "Undefined parent event class `~S'" parentclass)))
+     (else
+      (hashq-set! ancestor-lookup
+                  class
+                  (cons class parentclass))))
+    *unspecified*))
 
 ;; TODO: Allow entering more complex classes, by taking unions.
 (define-public (ly:make-event-class leaf)
