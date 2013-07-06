@@ -922,7 +922,7 @@ bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@unnumberedsubsubsec Bison 1.875
+@unnumberedsubsec Bison 1.875
 
 There is a bug in bison-1.875: compilation fails with "parse error
 before `goto'" in line 4922 due to a bug in bison.  To fix, please
@@ -937,7 +937,7 @@ $ make
 @end example
 
 
-@unnumberedsubsubsec Compiling on MacOS@tie{}X
+@unnumberedsubsec Compiling on MacOS@tie{}X
 
 Here are special instructions for compiling under MacOS@tie{}X.
 These instructions assume that dependencies are installed using
@@ -989,7 +989,7 @@ automatic font detection, add
 @end example
 
 
-@unnumberedsubsubsec Solaris
+@unnumberedsubsec Solaris
 
 Solaris7, ./configure
 
@@ -1008,7 +1008,7 @@ or
 CONFIG_SHELL=/bin/bash bash -c ./configure
 @end example
 
-@unnumberedsubsubsec FreeBSD
+@unnumberedsubsec FreeBSD
 
 To use system fonts, dejaview must be installed.  With the default
 port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
@@ -1022,7 +1022,7 @@ for your hierarchy.)
 @end example
 
 
-@unnumberedsubsubsec International fonts
+@unnumberedsubsec International fonts
 
 On Mac OS X, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
@@ -1049,7 +1049,7 @@ Debian GNU/Linux
 @end verbatim
 
 
-@unnumberedsubsubsec Using lilypond python libraries
+@unnumberedsubsec Using lilypond python libraries
 
 If you want to use lilypond's python libraries (either running
 certain build scripts manually, or using them in other programs),
@@ -1123,7 +1123,7 @@ We currently use make and stepmake, which is complicated and only
 used by us.  Hopefully this will change in the future.
 
 
-@subsubheading Version-specific texinfo macros
+@subheading Version-specific texinfo macros
 
 @itemize
 

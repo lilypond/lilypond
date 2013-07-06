@@ -10,9 +10,18 @@
 @node Top
 @top
 
+@menu
+* Compilation::
+@end menu
+
+
 @contents
 
 @include macros.itexi
+
+@node Compilation
+@chapter Compilation
+
 @include included/compile.itexi
 
 @bye
