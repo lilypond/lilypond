@@ -429,7 +429,6 @@ Alternatively, variables may be employed to similar effect.  See
 @rlearning{Organizing pieces with variables}.
 
 @item
-
 @code{\context} with no name will match the first of any previously
 created contexts of the same type in the same context heirarchy,
 even one that has been given a name, and its music expression will be
@@ -472,7 +471,6 @@ musical content.  If a single context is to be modified, a @code{\with}
 block must be used, see @ref{Changing just one specific context}.
 
 @seealso
-
 Learning Manual:
 @rlearning{Organizing pieces with variables}.
 
@@ -721,14 +719,16 @@ time signature.
     \new Staff \with {
       \consists "Timing_translator"
       \consists "Default_bar_line_engraver"
-    } {
+    }
+    \relative c'' {
         \time 3/4
         c4 c c c c c
     }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
-  } {
+  }
+  \relative c'' {
       \time 2/4
       c4 c c c c c
   }
@@ -953,10 +953,8 @@ must be placed immediately after the @code{\new} @var{context-type}
 command:
 
 @example
-\new Staff
-\with @{
-  [context settings for this context instance only]
-@} @{
+\new Staff \with @{ [context settings for this context instance only] @}
+@{
   @dots{}
 @}
 @end example
@@ -970,10 +968,7 @@ An @code{\override} command, but with the context name omitted
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice
-    \with {
-      \override Stem.thickness = #4.0
-    }
+    \new Voice \with { \override Stem.thickness = #4.0 }
     {
       \relative c'' {
         a4^"Thick stems" a a a
@@ -996,10 +991,8 @@ Directly setting a context property
         a4 a a a
       }
     }
-    \new Staff
-    \with {
-      fontSize = #-4
-    } {
+    \new Staff \with { fontSize = #-4 }
+    {
       \relative c'' {
         a4^"Smaller font" a a a
         a4 a a a
@@ -1023,11 +1016,9 @@ A predefined command such as @code{\dynamicUp}
         }
       }
     }
-    \new Staff
-    \with { \accidentalStyle dodecaphonic }
+    \new Staff \with { \accidentalStyle dodecaphonic }
     {
-      \new Voice
-      \with { \dynamicUp }
+      \new Voice \with { \dynamicUp }
       {
         \relative c'' {
           a4^"Dynamics above" a a a
@@ -2853,11 +2844,11 @@ Works not at all for:
 @end ignore
 
 @lilypond[verbatim,quote,relative=2]
-a~a
+a~ a
 a
 % increase the length of the tie
 -\tweak minimum-length #5
-~a
+~ a
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
@@ -2881,15 +2872,15 @@ This override can also be used to increase the length of slurs and
 phrasing slurs:
 
 @lilypond[verbatim,quote,relative=2]
-a( a)
+a( g)
 a
 -\tweak minimum-length #5
-( a)
+( g)
 
-a\( a\)
+a\( g\)
 a
 -\tweak minimum-length #5
-\( a\)
+\( g\)
 @end lilypond
 
 For some layout objects, the @code{minimum-length} property becomes
@@ -4453,12 +4444,12 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
+\relative c'' {
   c4^"piu mosso" b a b
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" b a b
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" b a b
 }
 @end lilypond
 

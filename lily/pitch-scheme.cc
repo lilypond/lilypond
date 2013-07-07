@@ -172,7 +172,7 @@ LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
            1, 0, 0, (SCM context),
            "Set the @code{middleCPosition} variable in @var{context}"
            " based on the variables @code{middleCClefPosition} and"
-           " middleCOffset.")
+           " @code{middleCOffset}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
 

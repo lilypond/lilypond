@@ -725,7 +725,7 @@ Notation Reference:
 
 This example demonstrates all @code{\header} variables:
 
-@lilypond[papersize=a7,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
 \book {
   \header {
       % The following fields are centered
@@ -809,7 +809,7 @@ that is itself in a @code{\score} block, to make the higher-level
 @code{\header} block titles appear on the first page on their own, with
 the music (defined in the @code{\score} block) starting on the next.
 
-@lilypond[papersize=a8landscape,verbatim,noragged-right]
+@lilypond[papersize=c7landscape,verbatim,noragged-right]
 \book {
   \header {
     title = "This is my Title"
@@ -875,16 +875,6 @@ the @code{copyright} text if there is only a single page.
 
 @end itemize
 
-@lilypond[papersize=a8landscape]
-\book {
-  \score {
-    \relative c' {
-      c4 d e f
-    }
-  }
-}
-@end lilypond
-
 The default tagline can be changed by adding a @code{tagline} in the
 top-level @code{\header} block.
 
@@ -928,7 +918,7 @@ footer and title text within the @code{\header} block.
   { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
-    subtitle = \markup { \italic "(Excerpt)" }
+    opus = \markup { \italic "BWV 846" }
   }
 }
 @end lilypond
@@ -1470,7 +1460,7 @@ context.
     \footnote #'(-0.5 . 1) "Bar line" Staff.BarLine
     q q
     \footnote #'(0.5 . -1) "Key change" Staff.KeySignature
-    \key c\minor
+    \key c \minor
     q
   }
 }
@@ -2200,17 +2190,17 @@ sections.  Alternatively, you can use a single
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a4 a a a }
-\tag #'B { b4 b b b }
-\tag #'C { c4 c c c }
-\tag #'D { d4 d d d }
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
 }
-{
-\removeWithTag #'B
-\removeWithTag #'C
-\music
-\removeWithTag #'(B C)
-\music
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
 }
 @end lilypond
 
@@ -2540,10 +2530,10 @@ are adding notes) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
 the last few measures.  This is achieved by putting
 
-@verbatim
+@example
 showLastLength = R1*5
-\score { @dots{} }
-@end verbatim
+\score @{ @dots{} @}
+@end example
 
 @noindent
 in your source file.  This will render only the last 5 measures
@@ -3336,7 +3326,7 @@ will display
 
 By default, LilyPond will print these messages to the console
 along with all the other LilyPond compilation messages.  To split
-up these messages and save the results of @code{\display@{STUFF@}},
+up these messages and save the results of @code{\displayLilyMusic},
 redirect the output to a file.
 
 @example

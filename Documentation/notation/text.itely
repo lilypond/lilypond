@@ -261,7 +261,7 @@ bar, they can be placed above the bar line or between notes.  When
 specified at a line break, the mark will be printed at the beginning of
 the next line.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2,ragged-right]
 \mark "Allegro"
 c1 c
 \mark "assai" \break

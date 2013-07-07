@@ -114,7 +114,9 @@
                       ((string-contains format-str "jpeg") "jpeg")
                       (else
                        (ly:error "Unknown pixmap format ~a" pixmap-format))))
-          (base (dir-basename ps-name ".ps" ".eps"))
+          (base (string-join
+                 (string-split (dir-basename ps-name ".ps" ".eps") #\%)
+                 "%%"))
           (png1 (format #f "~a.~a" base extension))
           (pngn (format #f "~a-page%d.~a" base extension))
           (page-count (ps-page-count ps-name))

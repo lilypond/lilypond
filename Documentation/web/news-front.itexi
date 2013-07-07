@@ -9,13 +9,23 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.17.20 released!  @emph{June 9, 2013}
+@subsubheading LilyPond 2.17.21 released!  @emph{June 30, 2013}
 
-We are happy to announce the release of LilyPond 2.17.20.  This
+We are happy to announce the release of LilyPond 2.17.21.  This
 release contains the usual number of bugfixes and enhancements, and contains
 some work in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you require
 a stable version of Lilypond, we recommend using the 2.16 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond blog moved!  @emph{June 29, 2013}
+
+The LilyPond blog, which was previously hosted on
+@uref{http://lilypondblog.wordpress.com/, wordpress.com}, has moved
+to a new domain: you can now find it at
+@uref{http://lilypondblog.org/, lilypondblog.org}!
 
 @newsEnd
 

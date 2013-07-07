@@ -150,7 +150,7 @@ a4 b c4. b8 a4. b4.. c8.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-note.ly}
+{alternative-breve-notes.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}

@@ -404,7 +404,7 @@ cis cis cis! cis? c c c! c?
 Accidentals on tied notes are only printed at the beginning of a
 new system:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2,ragged-right]
 cis1~ cis~
 \break
 cis
@@ -1313,8 +1313,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
     (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
 
 \relative c' {
-  \key c\freygish c4 des e f
-  \bar "||" \key d\freygish d es fis g
+  \key c \freygish c4 des e f
+  \bar "||" \key d \freygish d es fis g
 }
 @end lilypond
 
@@ -1330,11 +1330,11 @@ position.
 @lilypond[verbatim, quote,relative=0]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b\major b fis b2
+\bar "||" \key b \major b fis b2
 @end lilypond
 
 @snippets
@@ -1486,7 +1486,7 @@ to a B-flat clarinet.
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
-  \key f\major
+  \key f \major
   \cueDuring #"clarinet" #DOWN {
     R1 _\markup\tiny "clarinet"
     c4 f e d

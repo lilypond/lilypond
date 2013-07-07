@@ -1682,7 +1682,7 @@ sub lilypond_print_toc_div ($$)
 
       print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
-                                    $topname,
+                                    $topname . " <!-- Sidebar Version Tag  --> ",
                                     'title="Start of the manual"'
                                    ) . "</h4>\n";
     }

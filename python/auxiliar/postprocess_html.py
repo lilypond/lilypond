@@ -57,6 +57,7 @@ web_footer = '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
 footer_report_links = _doc ('We welcome your aid; please <a href="%(help_us_url)s">help us</a> by reporting errors to our <a href="%(mail_address_url)s">bug list</a>.')
+sidebar_version = _doc (' v%(package_version)s (%(branch_str)s).')
 
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
@@ -363,6 +364,9 @@ def process_html_files (package_name = '',
                 s = s.replace ('%', '%%')
                 s = hack_urls (s, prefix, target, bool (int (versiontup[1]) %  2))
                 s = add_header (s, prefix)
+
+                ### add sidebar information
+                s = s.replace ('<!-- Sidebar Version Tag  -->', sidebar_version)
 
                 ### add footer
                 if footer_tag_re.search (s) == None:

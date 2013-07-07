@@ -4,16 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.19"
+\version "2.17.20"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
 
   texidoc = "
-The code of this snippet shows how to achieve vertical aligned
-StaffGroups with a SystemStartBar for each StaffGroup, but without
-connecting them. This might be helpful for educational uses, but of
-course other  utilizations are thinkable.
+This snippet shows how to achieve vertically aligned StaffGroups with a
+SystemStartBar for each StaffGroup, but without connecting them.
 
 "
   doctitle = "Vertical aligned StaffGroups without connecting SystemStartBar"
@@ -67,7 +65,7 @@ eI =
                 \bold Teacher:
                 This is a simple setting of the choral. Please improve it.
                 }
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceOne
 
@@ -83,7 +81,7 @@ eI =
 
 eII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceTwo
         \partial 4
@@ -98,7 +96,7 @@ eII =
 
 eIII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceOne
@@ -114,7 +112,7 @@ eIII =
 
 eIV =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceTwo
@@ -153,7 +151,7 @@ exercise =
 sbI =
 \relative c' {
         \mark \markup { \bold" Pupil:" Here's my version! }
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceOne
 
@@ -169,7 +167,7 @@ sbI =
 
 sbII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceTwo
         \partial 4
@@ -184,7 +182,7 @@ sbII =
 
 sbIII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceOne
@@ -200,7 +198,7 @@ sbIII =
 
 sbIV =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceTwo
@@ -245,7 +243,7 @@ cbI =
                         "Do you know this one?"
                 }
         }
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceOne
 
@@ -261,7 +259,7 @@ cbI =
 
 cbII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \voiceTwo
         \partial 4
@@ -276,7 +274,7 @@ cbII =
 
 cbIII =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceOne
@@ -292,7 +290,7 @@ cbIII =
 
 cbIV =
 \relative c' {
-        \key a\minor
+        \key a \minor
         \time 4/4
         \clef bass
         \voiceTwo

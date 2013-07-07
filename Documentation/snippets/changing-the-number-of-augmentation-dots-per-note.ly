@@ -4,14 +4,14 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.20"
 
 \header {
   lsrtags = "expressive-marks, rhythms"
 
   texidoc = "
-This code demonstrates how to change the number of augmentation dots on
-a single note.
+The number of augmentation dots on a single note can be changed
+indepently of the dots placed after the note.
 
 "
   doctitle = "Changing the number of augmentation dots per note"

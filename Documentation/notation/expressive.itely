@@ -1265,8 +1265,8 @@ It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @code{PianoStaff} at the same point in
 time.
 
-The parenthesis-style arpeggio brackets do not work for
-cross-staff arpeggios.
+The simple way of setting parenthesis-style arpeggio brackets does not work for
+cross-staff arpeggios; see @ref{Cross-staff stems}.
 
 
 @node Trills

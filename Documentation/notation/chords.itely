@@ -438,21 +438,20 @@ Chords can be entered as simultaneous notes or through the use of
 chord mode.  The displayed chord name will be the same, regardless
 of the mode of entry, unless there are inversions or added bass notes:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
+﻿chordmusic = \relative c' {
+  <c e g>2 <f bes c>
+  <f c' e g>1
+  \chordmode {
+    c2 f:sus4 c1:/f
+  }
+}
 <<
   \new ChordNames {
-    <c e g>2  <f bes c>
-    <f c' e g>1
-    \chordmode {
-      c2 f:sus4 c1:/f
-    }
+    \chordmusic
   }
   {
-    <c e g>2  <f bes c>
-    <f, c' e g>1
-    \chordmode {
-      c2 f:sus4 c1:/f
-    }
+    \chordmusic
   }
 >>
 @end lilypond

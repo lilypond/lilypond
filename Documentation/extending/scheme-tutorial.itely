@@ -1317,7 +1317,7 @@ Now we examine the input,
 So in our function, we need to clone this expression (so that we have
 two notes to build the sequence), add a @code{SlurEvent} to the
 @code{'articulations} property of each one, and finally make a
-@code{SequentialMusic} with the two @code{EventChords}.  For adding to a
+@code{SequentialMusic} with the two @code{NoteEvent} elements.  For adding to a
 property, it is useful to know that an unset property is read out as
 @code{'()}, the empty list, so no special checks are required before we
 put another element at the front of the @code{articulations} property.

@@ -171,8 +171,6 @@ when a spanner is broken at a line break.")
 ;;;
 ;;; c
 ;;;
-     (c0-position ,integer? "An integer indicating the position of
-middle@tie{}C.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
@@ -1077,6 +1075,8 @@ column as start/@/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
 
+     (c0-position ,integer? "An integer indicating the position of
+middle@tie{}C.")
      (columns ,ly:grob-array? "An array of grobs, typically containing
 @code{PaperColumn} or @code{NoteColumn} objects.")
      (concurrent-hairpins ,ly:grob-array? "All concurrent hairpins.")

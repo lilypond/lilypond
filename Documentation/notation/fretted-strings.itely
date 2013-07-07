@@ -1396,7 +1396,7 @@ the interface properties belong to @code{FretBoards.FretBoard}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]

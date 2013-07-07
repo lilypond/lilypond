@@ -383,7 +383,7 @@ the named Voice context containing the melody with
 @lilypond[quote,verbatim,relative=2]
 <<
   \new Voice = "melody" {
-    a4 a a a
+    a1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melody" {
     These are the words
@@ -596,11 +596,16 @@ spaces between the syllables, you can surround the phrase with
 quotes or use a @code{_} character.  Alternatively, you can use
 the tilde symbol (@code{~}) to get a lyric tie.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 {
-  \relative c'' { \autoBeamOff
-    r8 b c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  { \autoBeamOff
+    r8 b c fis, fis c' b e,
+  }
+  \addlyrics
+  {
+    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+  }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
   \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
@@ -620,9 +625,9 @@ Internals Reference:
 @funindex \melisma
 @funindex \melismaEnd
 
-Sometimes, particularly in Medieval music, several notes are to be
-sung on one syllable; such vocalises are called melismata, or
-@rglos{melisma}s.  The syllable to a melisma is usually
+Sometimes, particularly in Medieval and baroque music, several notes are
+sung on one syllable; this is called melisma, see
+@rglos{melisma}.  The syllable to a melisma is usually
 left-aligned with the first note of the melisma.
 
 When a melisma occurs on a syllable other that the last one in a
@@ -2154,8 +2159,8 @@ etc.
 Choral music is usually notated on two, three or four staves within
 a @code{ChoirStaff} group.  Accompaniment, if required, is placed
 beneath in a @code{PianoStaff} group, which is usually reduced in
-size for @emph{a capella} choral works.  The notes for each vocal
-part are placed in a @code{Voice} context, with each staff
+size for rehearsal of @emph{a cappella} choral works.  The notes for
+each vocal part are placed in a @code{Voice} context, with each staff
 being given either a single vocal part (i.e., one @code{Voice}) or
 a pair of vocal parts (i.e., two @code{Voice}s).
 

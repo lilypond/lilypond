@@ -7,9 +7,9 @@
 <<
   \new Staff {
     \voiceOne
-    \key f\minor
+    \key f \minor
     f'4 f' f' f'
-    \key b\major
+    \key b \major
     e''8 e'' e''4 e''2
   }
   \new Staff {

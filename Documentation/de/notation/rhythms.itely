@@ -154,7 +154,7 @@ siehe @ref{Richtung und Platzierung}.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-note.ly}
+{alternative-breve-notes.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}

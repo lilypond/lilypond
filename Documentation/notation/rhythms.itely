@@ -143,7 +143,7 @@ the staff; see @ref{Direction and placement}.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{alternative-breve-note.ly}
+{alternative-breve-notes.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-the-number-of-augmentation-dots-per-note.ly}
@@ -1345,13 +1345,16 @@ to prevent tempo indications from overlapping, and @code{\markLengthOff}
 restores the default behavior of ignoring tempo marks
 for horizontal spacing.
 
-@lilypond[quote,relative=0]
+@lilypond[verbatim,quote,relative=0]
 \compressFullBarRests
 \markLengthOn
 \tempo "Molto vivace"
 R1*12
 \tempo "Meno mosso"
 R1*16
+\markLengthOff
+\tempo "Tranquillo"
+R1*20
 @end lilypond
 
 @snippets
@@ -2731,7 +2734,7 @@ a1
 
 Additionally, a bar line can be printed as a simple tick:
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "'"
+f1 \bar "'" g1
 @end lilypond
 However, as such ticks are typically used in Gregorian chant, it is
 preferable to use @code{\divisioMinima} there instead, described in

@@ -4,23 +4,25 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.15"
+\version "2.17.20"
 
 \header {
   lsrtags = "expressive-marks, rhythms"
 
   texidoc = "
-This code demonstrates how to use the alternative breve note with two
-vertical lines on each side of the notehead instead of one line.
+Breve notes are also available with two vertical lines on each side of
+the notehead instead of one line and in baroque style.
 
 "
-  doctitle = "Alternative breve note"
+  doctitle = "Alternative breve notes"
 } % begin verbatim
 
 \relative c'' {
   \time 4/2
   c\breve |
   \override Staff.NoteHead.style = #'altdefault
+  b\breve
+  \override Staff.NoteHead.style = #'baroque
   b\breve
   \revert Staff.NoteHead.style
   a\breve
