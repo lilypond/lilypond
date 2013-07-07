@@ -4,7 +4,7 @@ LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 
 TELY_FILES := $(call src-wildcard,*.tely)
 TEXI_FILES := $(call src-wildcard,*.texi)
-MASTER_TEXI_FILES := $(TEXI_FILES) $(TELY_FILES:%.tely=$(outdir)/%.texi)
+MASTER_TEXI_FILES := $(TEXI_FILES:%=$(outdir)/%) $(TELY_FILES:%.tely=$(outdir)/%.texi)
 
 TEXINFO_MANUALS =\
  $(TELY_FILES:%.tely=%)\
