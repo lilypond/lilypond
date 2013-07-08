@@ -9,6 +9,19 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading Problems with the Windows build of 2.17.21
+
+Release 2.17.21 crashes under Windows in many circumstances. but particularly
+related to the positioning of text.  The problem is being tracked as
+@uref{http://code.google.com/p/lilypond/issues/detail?id=3432, Issue 3432}.
+Until it is fixed, we recommend Windows users not to upgrade past 2.17.20.  If
+you need to downgrade and don't have a copy of the binary, our
+@uref{http://download.linuxaudio.org/lilypond/binaries/mingw/, archive} should
+provide what you need.
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.17.21 released!  @emph{June 30, 2013}
 
 We are happy to announce the release of LilyPond 2.17.21.  This
