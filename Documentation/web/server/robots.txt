@@ -1,4 +1,5 @@
 # avoid 404s -- so that we can take action if any occur in /stats
+# Comment from Phil 9 July 2013 to allow tracking file through build
 
 User-agent: *
 Disallow: /doc/v1.6/
