@@ -40,7 +40,12 @@ fet_beginchar ("accordion register discant", "discant")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.35 accreg_linethickness# / 2,
+		      2 r# + 0.35 accreg_linethickness# / 2);
+
+	local_copy (transform)(currenttransform);
+	currenttransform :=
+	   currenttransform shifted (0, -vround (0.35 accreg_linethickness));
 
 	lh = vround (2/3 r);
 	lt = vround (0.7 accreg_linethickness);
@@ -123,7 +128,12 @@ fet_beginchar ("accordion register freebass", "freebass")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.35 accreg_linethickness#,
+		      2 r# + 0.35 accreg_linethickness#);
+
+	local_copy (transform)(currenttransform);
+	currenttransform :=
+	  currenttransform shifted (0, -vround (0.35 accreg_linethickness));
 
 	lh = vround r;
 	lt = vround (0.7 accreg_linethickness);
@@ -181,7 +191,12 @@ fet_beginchar ("accordion register stdbass", "stdbass")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.35 accreg_linethickness#,
+		      2 r# + 0.35 accreg_linethickness#);
+
+	local_copy (transform)(currenttransform);
+	currenttransform :=
+	   currenttransform shifted (0, -vround (0.35 accreg_linethickness));
 
 	lh = vround (1/2 r);
 	lt = vround (0.7 accreg_linethickness);
@@ -253,7 +268,12 @@ fet_beginchar ("accordion register bayanbass", "bayanbass")
 
 	set_char_box (accreg_lh# + accreg_linethickness# / 2,
 		      accreg_lh# + accreg_linethickness# / 2,
-		      0, 3 accreg_lh# + accreg_linethickness#);
+		      0.5 accreg_linethickness#,
+		      3 accreg_lh# + 0.5 accreg_linethickness#);
+
+	local_copy (transform)(currenttransform);
+	currenttransform :=
+	   currenttransform shifted (0, -vround (0.5 accreg_linethickness));
 
 	h := 3 lh + lt;
 
