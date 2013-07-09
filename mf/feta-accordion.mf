@@ -40,12 +40,13 @@ fet_beginchar ("accordion register discant", "discant")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.7 accreg_linethickness# / 2,
+		      2 r# + 0.7 accreg_linethickness# / 2);
 
 	lh = vround (2/3 r);
 	lt = vround (0.7 accreg_linethickness);
-
-	h := 3 lh + lt;
+	d := vround (0.7 accreg_linethickness / 2);
+	h := 3 lh + lt - d;
 	b := w := (3 lh + hround accreg_linethickness) / 2;
 
 	penpos1 (hround accreg_linethickness, 0);
@@ -53,10 +54,10 @@ fet_beginchar ("accordion register discant", "discant")
 	penpos3 (hround accreg_linethickness, 180);
 	penpos4 (lt, 270);
 
-	z1r = (w, h / 2);
+	z1r = (w, 0.5 [-d, h]);
 	z2r = (0, h);
-	z3r = (-b, h / 2);
-	z4r = (0, 0);
+	z3r = (-b, 0.5 [-d, h]);
+	z4r = (0, -d);
 
 	penlabels (1, 2, 3, 4);
 
@@ -88,9 +89,9 @@ fet_beginchar ("accordion register discant", "discant")
 
 	pickup penrazor scaled lt rotated 90;
 
-	top z5 = pat intersectionpoint ((0, lh + lt) -- (w, lh + lt));
+	top z5 = pat intersectionpoint ((0, lh + lt - d) -- (w, lh + lt - d));
 	z6 = z5 xscaled -1;
-	bot z7 = pat intersectionpoint ((0, 2 lh) -- (w, 2 lh));
+	bot z7 = pat intersectionpoint ((0, 2 lh - d) -- (w, 2 lh - d));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);
@@ -123,12 +124,13 @@ fet_beginchar ("accordion register freebass", "freebass")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.7 accreg_linethickness# / 2,
+		      2 r# + 0.7 accreg_linethickness# / 2);
 
 	lh = vround r;
 	lt = vround (0.7 accreg_linethickness);
-
-	h := 2 lh + lt;
+	d := vround (0.7 accreg_linethickness / 2);
+	h := 2 lh + lt - d;
 	b := w := (2 lh + hround accreg_linethickness) / 2;
 
 	penpos1 (hround accreg_linethickness, 0);
@@ -136,10 +138,10 @@ fet_beginchar ("accordion register freebass", "freebass")
 	penpos3 (accreg_linethickness, 180);
 	penpos4 (lt, 270);
 
-	z1r = (w, h / 2);
+	z1r = (w, 0.5 [-d, h]);
 	z2r = (0, h);
-	z3r = (-b, h / 2);
-	z4r = (0, 0);
+	z3r = (-b, 0.5 [-d, h]);
+	z4r = (0, -d);
 
 	penlabels (1, 2, 3, 4);
 
@@ -181,12 +183,13 @@ fet_beginchar ("accordion register stdbass", "stdbass")
 
 	set_char_box (r# + accreg_linethickness# / 2,
 		      r# + accreg_linethickness# / 2,
-		      0, 2 r# + 0.7 accreg_linethickness#);
+		      0.7 accreg_linethickness# / 2,
+		      2 r# + 0.7 accreg_linethickness# / 2);
 
 	lh = vround (1/2 r);
 	lt = vround (0.7 accreg_linethickness);
-
-	h := 4 lh + lt;
+	d := vround (0.7 accreg_linethickness / 2);
+	h := 4 lh + lt - d;
 	b := w := (4 lh + hround accreg_linethickness) / 2;
 
 	penpos1 (hround accreg_linethickness, 0);
@@ -194,10 +197,10 @@ fet_beginchar ("accordion register stdbass", "stdbass")
 	penpos3 (hround accreg_linethickness, 180);
 	penpos4 (lt, 270);
 
-	z1r = (w, h / 2);
+	z1r = (w, 0.5 [-d, h]);
 	z2r = (0, h);
-	z3r = (-b, h / 2);
-	z4r = (0, 0);
+	z3r = (-b, 0.5 [-d, h]);
+	z4r = (0, -d);
 
 	penlabels (1, 2, 3, 4);
 
@@ -229,9 +232,9 @@ fet_beginchar ("accordion register stdbass", "stdbass")
 
 	pickup penrazor scaled lt rotated 90;
 
-	top z5 = pat intersectionpoint ((0, lh + lt) -- (w, lh + lt));
+	top z5 = pat intersectionpoint ((0, lh + lt - d) -- (w, lh + lt - d));
 	z6 = z5 xscaled -1;
-	bot z7 = pat intersectionpoint ((0, 3 lh) -- (w, 3 lh));
+	bot z7 = pat intersectionpoint ((0, 3 lh - d) -- (w, 3 lh - d));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);
@@ -253,24 +256,26 @@ fet_beginchar ("accordion register bayanbass", "bayanbass")
 
 	set_char_box (accreg_lh# + accreg_linethickness# / 2,
 		      accreg_lh# + accreg_linethickness# / 2,
-		      0, 3 accreg_lh# + accreg_linethickness#);
+		      accreg_linethickness# / 2,
+		      3 accreg_lh# + accreg_linethickness# / 2);
 
-	h := 3 lh + lt;
+	d := vround (accreg_linethickness# / 2);
+	h := 3 lh + lt - d;
 
-	draw_rounded_block ((-w, 0), (-w + lt, h), lt);
-	draw_rounded_block ((w - lt, 0), (w, h), lt);
+	draw_rounded_block ((-w, -d), (-w + lt, h), lt);
+	draw_rounded_block ((w - lt, -d), (w, h), lt);
 
 	pickup penrazor scaled lt rotated 90;
 
-	bot z1 = (-w + lt / 2, 0);
-	bot z2 = (-w + lt / 2, lh);
-	bot z3 = (-w + lt / 2, 2 lh);
-	bot z4 = (-w + lt / 2, 3 lh);
+	bot z1 = (-w + lt / 2, -d);
+	bot z2 = (-w + lt / 2, lh - d);
+	bot z3 = (-w + lt / 2, 2 lh - d);
+	bot z4 = (-w + lt / 2, 3 lh - d);
 
-	bot z5 = (w - lt / 2, 0);
-	bot z6 = (w - lt / 2, lh);
-	bot z7 = (w - lt / 2, 2 lh);
-	bot z8 = (w - lt / 2, 3 lh);
+	bot z5 = (w - lt / 2, -d);
+	bot z6 = (w - lt / 2, lh - d);
+	bot z7 = (w - lt / 2, 2 lh - d);
+	bot z8 = (w - lt / 2, 3 lh - d);
 
 	draw z1
 	     -- z5;
