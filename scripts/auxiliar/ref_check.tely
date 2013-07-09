@@ -48,6 +48,7 @@ Dummy nodes to satisfy refs to text markup
 @node Align
 @node Graphic
 @node Instrument Specific Markup
+@node Accordion Registers
 @node Music
 
 Application Usage
