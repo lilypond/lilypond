@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -497,7 +497,6 @@ un bloc @code{\with} -- voir
 @ref{Modification d'un contexte particulier}.
 
 @seealso
-
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
@@ -756,14 +755,16 @@ peut désormais avoir sa propre métrique.
     \new Staff \with {
       \consists "Timing_translator"
       \consists "Default_bar_line_engraver"
-    } {
+    }
+    \relative c'' {
         \time 3/4
         c4 c c c c c
     }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
-  } {
+  }
+  \relative c'' {
       \time 2/4
       c4 c c c c c
   }
@@ -1004,11 +1005,9 @@ prédéfinis par LilyPond, modifiés le cas échéant par un bloc
 la commande @code{\new} @var{type-de-contexte}.
 
 @example
-\new Staff
-\with @{
-  [réglages pour ce contexte pris individuellement]
-@} @{
-@dots{}
+\new Staff \with @{ [réglages pour ce contexte pris individuellement] @}
+@{
+  @dots{}
 @}
 @end example
 
@@ -1023,10 +1022,7 @@ contexte :
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice
-    \with {
-      \override Stem.thickness = #4.0
-    }
+    \new Voice \with { \override Stem.thickness = #4.0 }
     {
       \relative c'' {
         a4^"Hampes épaisses" a a a
@@ -1049,10 +1045,8 @@ en définissant directement une propriété de contexte :
         a4 a a a
       }
     }
-    \new Staff
-    \with {
-      fontSize = #-4
-    } {
+    \new Staff \with { fontSize = #-4 }
+    {
       \relative c'' {
         a4^"Smaller font" a a a
         a4 a a a
@@ -1077,11 +1071,9 @@ en définissant directement une propriété de contexte :
         }
       }
     }
-    \new Staff
-    \with { \accidentalStyle dodecaphonic }
+    \new Staff \with { \accidentalStyle dodecaphonic }
     {
-      \new Voice
-      \with { \dynamicUp }
+      \new Voice \with { \dynamicUp }
       {
         \relative c'' {
           a4^"Nuances en surplomb" a a a
@@ -2738,7 +2730,7 @@ précédemment saisie.
 
 Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
 saisies comme étant des @emph{markups} (annotations ou étiquettes) --
-voir @rusernamed{Text markup commands,Commandes pour le mode markup}.
+voir @ref{Commandes pour markup}.
 
 
 @c silly work-around for texinfo broken-ness
@@ -3063,11 +3055,11 @@ Cette propriété est sans effet sur :
 @end ignore
 
 @lilypond[verbatim,quote,relative=2]
-a~a
+a~ a
 a
 % increase the length of the tie
 -\tweak minimum-length #5
-~a
+~ a
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
@@ -3091,15 +3083,15 @@ Cette propriété permet aussi de jouer sur l'envergure d'une liaison
 d'articulation ou de phrasé.
 
 @lilypond[verbatim,quote,relative=2]
-a( a)
+a( g)
 a
 -\tweak minimum-length #5
-( a)
+( g)
 
-a\( a\)
+a\( g\)
 a
 -\tweak minimum-length #5
-\( a\)
+\( g\)
 @end lilypond
 
 Certains objets requièrent un appel explicite à la procédure
@@ -4242,7 +4234,7 @@ commande de @emph{markup} @code{\musicglyph} -- voir
 
 @seealso
 Manuel de notation :
-@ref{Text markup commands},
+@ref{Commandes pour markup},
 @ref{Éléments graphiques dans du texte formaté},
 @ref{La fonte Feta},
 @ref{Mise en forme du texte}.
@@ -4714,12 +4706,12 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
+\relative c'' {
   c4^"piu mosso" b a b
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" b a b
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" b a b
 }
 @end lilypond
 

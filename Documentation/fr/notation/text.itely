@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -282,7 +282,7 @@ elle sera placée juste avant la première note de cette portée.  Enfin,
 une marque qui tomberait sur un saut de ligne sera imprimée au début
 de la ligne suivante.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2,ragged-right]
 \mark "Allegro"
 c1 c
 \mark "assai" \break
@@ -514,12 +514,12 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Pour une liste des différentes commandes spécifiques au mode
-@code{\markup}, consultez l'annexe @ref{Text markup commands} (en
+@code{\markup}, consultez l'annexe @ref{Commandes  pour markup} (en
 anglais).
 
 @seealso
 Manuel de notation :
-@ref{Text markup commands}.
+@ref{Commandes  pour markup}.
 
 Fichiers d'initialisation :
 @file{scm/markup.scm}.
@@ -1368,7 +1368,8 @@ d'une liste d'étiquettes.
 @end itemize
 
 Les différentes commandes permettant de générer des listes de lignes
-se trouve dans l'annexe @ref{Text markup list commands}.
+se trouve dans l'annexe @ref{Commandes pour liste de markups} (en
+anglais).
 
 @predefined
 @code{\markuplist}.
@@ -1376,7 +1377,7 @@ se trouve dans l'annexe @ref{Text markup list commands}.
 
 @seealso
 Manuel de notation :
-@ref{Text markup list commands},
+@ref{Commandes pour liste de markups}.
 
 Manuel d'extension :
 @rextend{Définition d'une nouvelle commande de liste de markups}.

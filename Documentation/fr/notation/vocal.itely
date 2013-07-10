@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2dcd186b192e3e99184d5587dc449949699c68c6
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -390,7 +390,7 @@ qui contient cette mélodie :
 @lilypond[quote,verbatim,relative=2]
 <<
   \new Voice = "melodie" {
-    a4 a a a
+    a1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melodie" {
     Ce sont les mots
@@ -605,11 +605,16 @@ mettre entre guillemets, soit utiliser le caractère souligné
 (@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
 (@code{~}) pour obtenir une liaison entre les syllabes.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 {
-  \relative c'' { \autoBeamOff
-    r8 b c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  { \autoBeamOff
+    r8 b c fis, fis c' b e,
+  }
+  \addlyrics
+  {
+    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+  }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
   \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
@@ -631,10 +636,10 @@ Référence des propriétés internes :
 @funindex \melisma
 @funindex \melismaEnd
 
-Parfois, tout particulièrement dans la musique médiévale, plusieurs
-notes correspondent à une même syllabe.  Ces vocalises sont appelées
-@rglosnamed{melisma,mélismes}.  La syllabe à vocaliser est
-traditionnellement alignée sur la gauche de la première note du mélisme.
+Parfois, tout particulièrement en musique médiévale ou baroque,
+plusieurs notes correspondent à une même syllabe.  Ces vocalises sont
+appelées @rglosnamed{melisma,mélismes}.  La syllabe à vocaliser est
+traditionnellement alignée par la gauche sur la première note du mélisme.
 
 Lorsqu'un mélisme tombe sur une syllabe autre que la dernière d'un mot,
 un trait d'union étiré, indiqué par un double tiret @w{@code{--}} dans
@@ -2620,7 +2625,7 @@ Manuel de notation :
 @ref{Noms d'instrument},
 @ref{Fonctions Scheme},
 @ref{Texte},
-@ref{Text markup commands}.
+@ref{Commandes pour markup}.
 
 Manuel d'extension des fonctionnalités :
 @rextend{Construction d'un markup en Scheme}.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1942,21 +1942,25 @@ concernant les ruptures.
 @lilypond[quote,verbatim]
 music = \relative c'' { c4 c c c }
 
-\score {
-  \new Staff <<
-    \new Voice {
-      s1 * 2 \break
-      s1 * 3 \break
-      s1 * 6 \break
-      s1 * 5 \break
-    }
-    \new Voice {
-      \repeat unfold 2 { \music }
-      \repeat unfold 3 { \music }
-      \repeat unfold 6 { \music }
-      \repeat unfold 5 { \music }
-    }
-  >>
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    \new Staff <<
+      \new Voice {
+        s1 * 2 \break
+        s1 * 3 \break
+        s1 * 6 \break
+        s1 * 5 \break
+      }
+      \new Voice {
+        \repeat unfold 2 { \music }
+        \repeat unfold 3 { \music }
+        \repeat unfold 6 { \music }
+        \repeat unfold 5 { \music }
+      }
+    >>
+  }
 }
 @end lilypond
 
@@ -1968,28 +1972,36 @@ le voir au chapitre @ref{Espacement vertical}.
 @lilypond[quote,verbatim]
 music = \relative c'' { c4 c c c }
 
-\score {
-  \new Staff <<
-    \new Voice {
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
-      s1 * 2 \break
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    \new Staff <<
+      \new Voice {
+        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 0))
+        s1 * 2 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 35))
-      s1 * 3 \break
+        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 5))
+        s1 * 3 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 70))
-      s1 * 6 \break
+        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 15))
+        s1 * 6 \break
 
-      \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 105))
-      s1 * 5 \break
-    }
-    \new Voice {
-      \repeat unfold 2 { \music }
-      \repeat unfold 3 { \music }
-      \repeat unfold 6 { \music }
-      \repeat unfold 5 { \music }
-    }
-  >>
+        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 30))
+        s1 * 5 \break
+      }
+      \new Voice {
+        \repeat unfold 2 { \music }
+        \repeat unfold 3 { \music }
+        \repeat unfold 6 { \music }
+        \repeat unfold 5 { \music }
+      }
+    >>
+  }
 }
 @end lilypond
 
@@ -2651,18 +2663,23 @@ quelques exemples de réglages de @code{NonMusicalPaperColumn} à l'aide
 de la commande @code{\overrideProperty} :
 
 @example
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
-                                 (Y-offset . 40))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((alignment-distances . (15)))
 
-\overrideProperty NonMusicalPaperColumn.line-break-system-details #'((X-offset . 20)
-                                 (Y-offset . 40)
-                                 (alignment-distances . (15)))
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40)
+     (alignment-distances . (15)))
 @end example
 
 Nous allons maintenant voir ces différents réglages en action.
@@ -2714,11 +2731,14 @@ de l'objet @code{NonMusicalPaperColumn} :
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 40))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 40))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 80))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2750,14 +2770,17 @@ jouer sur la distance séparant les portées de chacun des systèmes, grâce
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 20)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 20)
+               (alignment-distances . (10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (15)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
-                                           (alignment-distances . (15)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 85)
+             (alignment-distances . (20)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2788,14 +2811,17 @@ d'un regroupement de portées.
     <<
       \new Staff <<
         \new Voice {
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 0)
-                                           (alignment-distances . (30 10)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0)
+               (alignment-distances . (30 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 60)
-                                           (alignment-distances . (10 10)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (10 10)))
           s1*5 \break
-          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details #'((Y-offset . 100)
-                                           (alignment-distances . (10 30)))
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 100)
+               (alignment-distances . (10 30)))
           s1*5 \break
         }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
@@ -2897,23 +2923,17 @@ c^"Ce texte est accolé au texte précédent"
 Par défaut, les objets extérieurs à la portée sont positionnés en
 évitant les collisions horizontales avec des objets précédemment
 positionnés.  Ceci peut cependant générer des situations où des objets
-se trouvent horizontalement trop proches.  L'espacement vertical entre
-les portées peut dans une certaine mesure permettre de mieux intercaler
-les objets extérieurs à la portée.  La propriété
-@code{outside-staff-horizontal-padding} repoussera verticalement un
-objet pour éviter ce genre de situation.
+se trouvent horizontalement trop proches.  Comme l'illustre l'exemple
+suivant, la propriété @code{outside-staff-horizontal-padding} permet
+d'accroître l'espace horizontal requis et repoussera verticalement un
+objet pour éviter qu'il ne soit trop proche d'ventuelles lignes
+supplémentaires.
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
-% the markup is too close to the following note
-c4^"Text"
-c4
-c''2
-% setting outside-staff-horizontal-padding fixes this
+c4^"Word" c c''2
 R1
 \once \override TextScript.outside-staff-horizontal-padding = #1
-c,,4^"Text"
-c4
-c''2
+c,,4^"Word" c c''2
 @end lilypond
 
 @seealso
@@ -2956,8 +2976,9 @@ de note ; pour la noire , cet espace est de deux têtes ; il
 est de trois pour la blanche.
 
 @lilypond[quote,verbatim,relative=1]
-c2 c4. c8 c4. c8 c4. c8 c8
-c8 c4 c4 c4
+c2 c4. c8
+c4. c8 c4. c8
+c8 c c4 c c
 @end lilypond
 
 @code{spacing-increment} est normalement défini à 1,2 espace de
@@ -3002,7 +3023,7 @@ doubles croches à l'exemple précédent, elles seraient suivies d'une
 demie largeur de tête :
 
 @lilypond[quote,verbatim,relative=2]
-c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+c2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c
 @end lilypond
 
 Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
@@ -3154,7 +3175,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
 L'espacement au sein d'un nolet dépend par défaut d'un certain nombre de
 facteurs qui ne sont pas liés à la durée (altération, changement de
 clef, etc.).  @code{Score.SpacingSpanner.uniform-stretching}
-permet d'ignorer ces symboles et, par voie de conséquence, forcer
+permet d'ignorer ces symboles et, par voie de conséquence, de forcer
 l'espacement sur la simple durée.  Notez bien que cette propriété
 s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
 @code{\layout}.
@@ -3163,16 +3184,10 @@ s'appliquera à toute la partition, puisque mentionnée au sein d'un bloc
 \score {
   <<
     \new Staff {
-      \tuplet 5/4 {
-        c8 c8 c8 c8 c8
-      }
-      c8 c8 c8 c8
+      \tuplet 5/4 { c8 c8 c8 c8 c8 } c8 c8 c8 c8
     }
     \new Staff {
-      c8 c8 c8 c8
-      \tuplet 5/4 {
-        c8 c8 c8 c8 c8
-      }
+      c8 c8 c8 c8 \tuplet 5/4 { c8 c8 c8 c8 c8 }
     }
   >>
   \layout {
@@ -3190,7 +3205,7 @@ d'ornement qui pourraient apparaître :
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
+\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso
@@ -3296,11 +3311,7 @@ classique et justifiée à gauche.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
   >>
 }
@@ -3325,11 +3336,7 @@ définissant la propriété @code{proportionalNotationDuration}.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c' c' c' c' c' }
     }
   >>
  \layout {
@@ -3376,11 +3383,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
   >>
   \layout {
@@ -3394,11 +3397,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
   >>
   \layout {
@@ -3412,11 +3411,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
   >>
   \layout {
@@ -3446,16 +3441,10 @@ ajoutons lui une portée incluant un autre type de nolet.
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
     }
   >>
 }
@@ -3472,16 +3461,10 @@ les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
     }
   >>
   \layout {
@@ -3503,16 +3486,10 @@ allons activer le @code{uniform-stretching}, propriété attachée au
 \score {
   <<
     \new RhythmicStaff {
-      c'2
-      c'16 c'16 c'16 c'16
-      \tuplet 5/4 {
-        c'16 c'16 c'16 c'16 c'16
-      }
+      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 {
-        c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8 c'8
-      }
+      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
     }
   >>
   \layout {
@@ -3613,23 +3590,13 @@ les deux portées suivantes :
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
-  c''8
-  c''8
-  c''8
-  \clef alto
-  d'8
-  d'2
+  c''8 c'' c'' \clef alto d' d'2
 }
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8
-  c''8
-  c''8
-  \clef alto
-  d'8
-  d'2
+  c''8 c'' c'' \clef alto d' d'2
 }
 @end lilypond
 
@@ -3647,7 +3614,7 @@ réglages en usage dans la notation proportionnelle comme, entre autres,
 
 @itemize
 @item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
-@item @code{tupletFullLength = ##t}
+@item @code{\set tupletFullLength = ##t}
 @item @code{\override Beam.breakable = ##t}
 @item @code{\override Glissando.breakable = ##t}
 @item @code{\override TextSpanner.breakable = ##t}
@@ -3701,9 +3668,7 @@ dimensionnement vertical sur lesquelles vous pouvez jouer au niveau de
 la mise en page consiste à activer, au sein du bloc @code{\paper}, la
 fonction @code{annotate-spacing} :
 
-@c need to have \book{} otherwise we get the separate systems. -hwn
-@lilypond[verbatim,quote]
-#(set-default-paper-size "a6" 'landscape)
+@lilypond[verbatim,quote,papersize=a6landscape]
 \book {
   \score { { c4 } }
   \paper { annotate-spacing = ##t }
@@ -3808,7 +3773,7 @@ se @qq{détachent} d'un système peuvent être rapprochées de la portée :
 
 @lilypond[verbatim,quote,relative=1]
 e4 c g\f c
-e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
+e4 c g-\tweak X-offset #-2.7 \f c
 @end lilypond
 
 @item
@@ -3847,7 +3812,8 @@ valeur plus longue -- donnera un effet @qq{resserré} à la musique :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/2)
+      \override SpacingSpanner.common-shortest-duration =
+        #(ly:make-moment 1/2)
     }
   }
 }

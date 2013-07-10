@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -585,34 +585,35 @@ suivantes :
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph
+  \textLengthOn
+  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural24" }
 }
 @end lilypond
@@ -2523,7 +2524,7 @@ Glossaire musicologique :
 @rglos{clef}.
 
 Manuel de notation :
-@ref{Clef}.
+@ref{Clefs}.
 
 
 @node Notes kiéviennes

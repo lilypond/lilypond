@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1295,8 +1295,9 @@ Il est impossible de mêler au même instant, dans un contexte
 @code{PianoStaff}, des lignes d'arpèges connectées et d'autres
 non connectées.
 
-Il n'est pas possible d'imprimer des lignes d'arpège connectées sous
-forme de parenthèse.
+La manière simple de créer des lignes d'arpège sous forme de parenthèse
+n'est pas opérationnelle pour des arpèges inter-portées ; voir
+@ref{Hampes et changements de portée}.
 
 
 @node Trilles

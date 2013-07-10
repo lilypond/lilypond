@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -402,7 +402,7 @@ cis cis cis! cis? c c c! c?
 Lorsqu'une note est prolongée par une liaison de tenue, l'altération ne
 sera réimprimée que s'il y a un saut de ligne.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2,ragged-right]
 cis1 ~ cis ~
 \break
 cis
@@ -1294,8 +1294,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
     (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
 
 \relative c' {
-  \key c\freygish c4 des e f
-  \bar "||" \key d\freygish d es fis g
+  \key c \freygish c4 des e f
+  \bar "||" \key d \freygish d es fis g
 }
 @end lilypond
 
@@ -1312,11 +1312,11 @@ cette position sur la portée.
 @lilypond[verbatim, quote,relative=0]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b\major b fis b2
+\bar "||" \key b \major b fis b2
 @end lilypond
  
 @snippets
@@ -1467,7 +1467,7 @@ une autre en si bémol.
 
 @lilypond[verbatim,quote,]
 flute = \relative c'' {
-  \key f\major
+  \key f \major
   \cueDuring #"clarinet" #DOWN {
     R1 _\markup\tiny "clarinet"
     c4 f e d

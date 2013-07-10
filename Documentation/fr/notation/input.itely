@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -764,7 +764,7 @@ Manuel de notation :
 Voici les différentes variables attachées au bloc @code{\header} :
 
 @c KEEP LY
-@lilypond[papersize=a7,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
 \book {
   \header {
       % Les champs suivants sont centrés
@@ -851,7 +851,7 @@ dans un bloc @code{\score} force le saut de page avant le morceau
 contenu dans ce @code{\score}.  Vous pourrez ainsi séparer le titre
 principal de la musique.
 
-@lilypond[papersize=a8landscape,verbatim,noragged-right]
+@lilypond[papersize=c7landscape,verbatim,noragged-right]
 \book {
   \header {
     title = "This is my Title"
@@ -920,16 +920,6 @@ page, ou bien sous le @code{copyright} s'il n'y a qu'une seule page.
 
 @end itemize
 
-@lilypond[papersize=a8landscape]
-\book {
-  \score {
-    \relative c' {
-      c4 d e f
-    }
-  }
-}
-@end lilypond
-
 La mention spéciale se modifie en alimentant le champ @code{tagline} au
 niveau du bloc @code{\header} principal.
 
@@ -977,7 +967,7 @@ contenus dans un bloc @code{\header}.
   { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
-    opus = \markup { \italic "(Excerpt)" }
+    opus = \markup { \italic "BWV 846" }
   }
 }
 @end lilypond
@@ -1557,7 +1547,7 @@ l'objet est créé dans un autre contexte que celui du plus bas niveau.
     \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
     q q
     \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
-    \key c\minor
+    \key c \minor
     q
   }
 }
@@ -2333,17 +2323,17 @@ produira le même effet :
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a4 a a a }
-\tag #'B { b4 b b b }
-\tag #'C { c4 c c c }
-\tag #'D { d4 d d d }
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
 }
-{
-\removeWithTag #'B
-\removeWithTag #'C
-\music
-\removeWithTag #'(B C)
-\music
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
 }
 @end lilypond
 
@@ -2690,10 +2680,10 @@ en êtes dans la notation.  Dans le but de gagner du temps dans le
 processus de correction, vous pouvez @qq{escamoter} le reste et ne
 générer que les dernières mesures en insérant
 
-@verbatim
+@example
 showLastLength = R1*5
-\score { @dots{} }
-@end verbatim
+\score @{ @dots{} @}
+@end example
 
 @noindent
 dans votre fichier source.  Ceci aura pour effet de ne générer que les
@@ -3573,8 +3563,7 @@ affichera
 LilyPond affichera le résultat sous forme de message en console, au
 milieu de toutes les informations de compilation.  Afin d'isoler ces
 messages et enregistrer le résultat de la fonction
-@code{\display@{MATÉRIAU@}}, pensez à rediriger la sortie vers un
-fichier.
+@code{\displayLilyMusic}, pensez à rediriger la sortie vers un fichier.
 
 @example
 lilypond fichier.ly > affichage.txt
