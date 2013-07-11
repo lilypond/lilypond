@@ -121,7 +121,7 @@ A single repeat with one alternate ending:
 c1
 @end lilypond
 
-A single repeat with more than one alternate ending:
+Multiple repeats with one alternate ending:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 4 { c4 d e f | }
