@@ -1,9 +1,11 @@
-.PHONY : all clean bin-clean default dist exe help html lib TAGS\
+.PHONY : all clean bin-clean default dist exe help html lib man TAGS\
 	 po doc doc-stage-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
-	 log-clean
+	 local-all local-clean local-bin-clean local-doc log-clean
 
-all:	 default
+all: default
 	$(LOOP)
+
+local-all: default
 
 man:
 	$(LOOP)
@@ -37,8 +39,9 @@ generic-help:
 	@echo "Targets specific to current directory:"
 
 help: generic-help local-help
-	@echo "Generic targets that recurse into subdirectories*:"
+	@echo "Generic targets that recurse into subdirectories:"
 	@echo "  all          update everything except documentation with images"
+	@echo "               (same as the empty target)"
 	@echo "  clean        remove all generated stuff in $(outdir)"
 	@echo "  bin-clean    same as clean, except that mf/out is preserved"
 	@echo "  doc          update documentation with images in directory \`out-www'"
@@ -52,7 +55,7 @@ help: generic-help local-help
 	@echo "         any of the above commands to the current directory."
 	@echo
 	@echo "Other generic targets:"
-	@echo "  default      same as the empty target"
+	@echo "  default      same as \`make all', but restricted to the current directory"
 	@echo "  exe          update all executables"
 	@echo "  help         this help"
 	@echo "  lib          update all libraries"
