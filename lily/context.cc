@@ -256,8 +256,8 @@ Context::set_property_from_event (SCM sev)
       }
           
       bool ok = true;
-      if (val != SCM_EOL)
-        ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+      ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+
       if (ok)
         set_property (sym, val);
     }
