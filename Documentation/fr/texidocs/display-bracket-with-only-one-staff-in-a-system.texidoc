@@ -1,9 +1,10 @@
-%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
+%% Translation of GIT committish: aa44f5dbd4b713b33b43eeea957fc3c0055eeb49
   texidocfr = "
 Lorsque, dans des regroupements de type @code{ChoirStaff} ou
 @code{StaffGroup}, une seule portée est active, aucune indication n'est
-donnée en début de ligne.  Surcharger la propriété adéquate permet de
-modifier ce comportement par défaut.
+donnée en début de ligne.  Affecter à la propriété
+@code{collapse-height} un nombre de lignes inférieur à celui de la
+portée permet de modifier ce comportement par défaut.
 
 Notez bien que dans le cas des @code{PianoStaff} et @code{GrandStaff},
 pour lesquels le délimiteur de système est une accolade et non un

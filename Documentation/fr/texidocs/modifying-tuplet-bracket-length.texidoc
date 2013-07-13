@@ -1,9 +1,9 @@
-%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
+%% Translation of GIT committish: aa44f5dbd4b713b33b43eeea957fc3c0055eeb49
   texidocfr = "
 Les crochets indiquant un nolet peuvent être prolongés jusqu'à un
 élément de rupture ou jusqu'à la note suivante.  LilyPond termine un
 crochet de nolet sur la droite de sa dernière tête de note par défaut ;
-un crochet de pleine longueur s'étendra plus avant, soit jusqu'à le note
+un crochet de pleine longueur s'étendra plus avant, soit jusqu'à la note
 suivante et en traversant tous les éléments non rythmiques, soit sur
 tout l'espace précédant le prochain élément de notation, que ce soit une
 clef, une métrique, une armure ou une autre note.  L'exemple suivant

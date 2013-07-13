@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 66b40b7590b34f8133195b8e41aad413d49e9192
+%% Translation of GIT committish: aa44f5dbd4b713b33b43eeea957fc3c0055eeb49
   texidocfr = "
 La commande @code{\\clef \"treble_8\"} équivaut à définir
 @code{clefGlyph}, @code{clefPosition} -- qui contrôle la position
@@ -9,12 +9,13 @@ suivant font apparaître des possibilités de réglage manuel de ces
 propriétés.
 
 Modifier le glyphe, la position de la clef ou son octaviation ne
-changeront pas la position des notes ; il faut pour y parvenir
-modifier aussi la position du do médium.  Le positionnement est relatif
-à la ligne médiane, un nombre positif faisant monter, chaque ligne ou
-interligne comptant pour 1.  La valeur de @code{clefTransposition}
-devrait être de 7, -7, 15 ou -15, bien que rien n'empêche de lui
-affecter une autre valeur.
+changeront pas la position des notes ; il faut pour y parvenir modifier
+aussi la position du do médium.  La redéfinition préalable de
+@code{middleCClefPosition} permet de placer l'armure sur les bonnes
+lignes.  Le positionnement est relatif à la ligne médiane, un nombre
+positif faisant monter, chaque ligne ou interligne comptant pour 1.  La
+valeur de @code{clefTransposition} devrait être de 7, -7, 15 ou -15,
+bien que rien n'empêche de lui affecter une autre valeur.
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
 ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au

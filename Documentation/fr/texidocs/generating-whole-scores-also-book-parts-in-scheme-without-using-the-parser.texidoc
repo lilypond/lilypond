@@ -1,4 +1,4 @@
-%% Translation of GIT committish: bf9d9741cfe26a36d4529d64dcaa5ca5a308b7d9
+%% Translation of GIT committish: aa44f5dbd4b713b33b43eeea957fc3c0055eeb49
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
 expression Scheme générée par l'analyseur syntaxique de lilypond.  Il
@@ -29,7 +29,7 @@ Chaque partition destinée à être gravée est alors ajoutée à la liste des
 partitions de niveau supérieur ; le @code{toplevel-book-handler} --
 fonction Scheme appelée pour traiter un @emph{book} dès que le bloc
 @code{\\book@{@dots{}@}} est clôturé -- s'adapte pour prendre en charge
-tous les @code{score} jusque là collectés dans l'ouvrage.
+tous les éléments @code{score} jusque là collectés dans l'ouvrage.
 
 "
   doctitlefr = "Génération en Scheme de partitions complètes (y compris des parties d'ouvrage) sans utiliser l'analyseur"
