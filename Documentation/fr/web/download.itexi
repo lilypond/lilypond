@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 8412347e61620a30085b38760d8a319649257226
+    Translation of GIT committish: 9142d9abad0ec9ffbe8da8a594599ad72c328381
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -80,7 +80,7 @@ pour les empaqueteurs
 versions antérieures
 
 @item
-@ref{Development} :
+@ref{Développement} :
 version instable la plus récente
 
 @end itemize
