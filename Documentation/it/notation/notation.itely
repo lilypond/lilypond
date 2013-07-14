@@ -20,7 +20,7 @@ Questo capitolo spiega come creare la notazione musicale.
 * Ritmi::                   Scrittura e aspetto delle durate delle note.
 * Segni di espressione::    Aggiungere espressione alle note.
 * Ripetizioni::             Ripetere la musica.
-* Simultaneous notes:: More than one note at once.
+* Note simultanee::         Più di una nota in contemporanea.
 * Staff notation::     Displaying staves.
 * Editorial annotations:: Special notation to increase legibility.
 * Text::               Adding text to scores.

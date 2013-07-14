@@ -1,0 +1,18 @@
+%% Translation of GIT committish: f80f8678b39c5bc7da16668d4052514b8d07b281
+  texidocit = "
+Lo strumento di unione delle parti (il comando @code{\\partcombine}) permette
+di combinare varie parti sullo stesso rigo.  Indicazioni testuali come
+@qq{solo} e @qq{a2} sono aggiunte automaticamente; per toglierele basta
+impostare la proprietà @code{printPartCombineTexts} su @code{f}.
+Per le partiture vocali (inni), non c'è bisogno di aggiungere i testi
+@qq{solo/a2}, quindi dovrebbero essere disattivati.   Tuttavia potrebbe
+convenire non usarlo se c'è una qualche parte solista, perché non
+verrebbe indicata.  In tali casi è preferibile usare la notazione
+polifonica normale.
+
+Questo frammento illustra i tre modi con cui due parti possono essere stampate
+su uno stesso rigo: normale polifonia, @code{\\partcombine} senza testo e
+@code{\\partcombine} con testo.
+
+"
+  doctitleit = "Combinare due parti sullo stesso rigo"
