@@ -208,7 +208,7 @@ find_location (SCM grouping, Moment base_moment, Moment start_moment,
 
   while (*next_group_pos < *next_beat_pos)
     {
-      int group_count = 1;  //default -- 1 base moments in a beam
+      I64 group_count = 1;  //default -- 1 base moments in a beam
       if (scm_is_pair (grouping))
         {
           group_count = scm_to_int (scm_car (grouping));
@@ -217,17 +217,17 @@ find_location (SCM grouping, Moment base_moment, Moment start_moment,
 
       // If we have a tuplet, the count should be determined from
       // the maximum tuplet size for beamed tuplets.
-      int tuplet_number = factor.den ();
-      if (tuplet_number > 1)
+      U64 tuplet_number = factor.den ();
+      if (tuplet_number > 1U)
         {
           // We use 1/8 as the base moment for the tuplet because it's
           // the largest beamed value.  If the tuplet is shorter, it's
           // OK, the code still works
-          int test_count = ( Moment (Rational (1, 8) / factor) / base_moment).num ();
+          I64 test_count = ( Moment (Rational (1, 8) / factor) / base_moment).num ();
           if (test_count > group_count) group_count = test_count;
         }
       *group_pos = *next_group_pos;
-      *next_group_pos = *group_pos + group_count * base_moment;
+      *next_group_pos = *group_pos + Rational(group_count) * base_moment;
     }
 }
 
@@ -238,7 +238,7 @@ Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
   Moment next_group_pos (0);
   Moment next_beat_pos (options.base_moment_);
   Moment tuplet_start_moment (-1, 1);
-  int tuplet_number = 1;
+  I64 tuplet_number = 1;
 
   SCM grouping = options.grouping_;
   vsize i = 0;

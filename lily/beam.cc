@@ -743,9 +743,9 @@ Beam::print (SCM grob)
   Interval placements = robust_scm2interval (me->get_property ("normalized-endpoints"), Interval (0.0, 0.0));
 
   Stencil the_beam;
-  int extreme = (segments[0].vertical_count_ == 0
-                 ? segments[0].vertical_count_
-                 : segments.back ().vertical_count_);
+  vsize extreme = (segments[0].vertical_count_ == 0
+                   ? segments[0].vertical_count_
+                   : segments.back ().vertical_count_);
 
   for (vsize i = 0; i < segments.size (); i++)
     {

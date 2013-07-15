@@ -112,7 +112,7 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
   SCM out = SCM_EOL;
   Offset lastpos;
   Offset firstpos;
-  vsize j = 0;
+  ssize j = 0;
   while (j < outline->n_points)
     {
       if (j == 0)
