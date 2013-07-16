@@ -97,7 +97,7 @@ AC_MSG_RESULT($NCSB_SOURCE_FILES)
 
 AC_LANG([C++])
 
-STEPMAKE_PYTHON(REQUIRED, 2.4)
+STEPMAKE_PYTHON(REQUIRED, 2.4, 3.0)
 # this checks if we have GNU C by compiling a program with
 # __GNUC__, but that macro now unofficially means "the compiler
 # supports the GNU C extensions" -- the intel C compiler and clang
@@ -166,7 +166,7 @@ AC_MSG_RESULT(Must have patched GUILE rational support. See INSTALL.txt)])
 CPPFLAGS="$save_CPPFLAGS"
 
 
-STEPMAKE_PYTHON_DEVEL(REQUIRED)
+STEPMAKE_PYTHON_DEVEL(REQUIRED, 2.4, 3.0)
 
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20110222)
 
