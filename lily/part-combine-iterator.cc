@@ -224,8 +224,8 @@ Part_combine_iterator::kill_mmrest (int in)
   if (!mmrest_event_)
     {
       mmrest_event_ = new Stream_event
-      (handles_[in].get_context ()->make_event_class
-       (ly_symbol2scm ("multi-measure-rest-event")));
+        (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+                     ly_symbol2scm ("multi-measure-rest-event")));
       mmrest_event_->set_property ("duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }
@@ -256,15 +256,16 @@ Part_combine_iterator::unisono (bool silent)
       if (playing_state_ != UNISONO
           && newstate == UNISONO)
         {
-          Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
-                         ->get_outlet ();
           if (!unisono_event_)
             {
               unisono_event_ = new Stream_event
-              (out->make_event_class (ly_symbol2scm ("unisono-event")));
+                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+                             ly_symbol2scm ("unisono-event")));
               unisono_event_->unprotect ();
             }
 
+          Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
+                         ->get_outlet ();
           out->event_source ()->broadcast (unisono_event_);
           playing_state_ = UNISONO;
         }
@@ -290,8 +291,8 @@ Part_combine_iterator::solo1 ()
           if (!solo_one_event_)
             {
               solo_one_event_ = new Stream_event
-              (first_iter_->get_outlet ()->make_event_class
-               (ly_symbol2scm ("solo-one-event")));
+                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+                             ly_symbol2scm ("solo-one-event")));
               solo_one_event_->unprotect ();
             }
 
@@ -317,8 +318,8 @@ Part_combine_iterator::solo2 ()
           if (!solo_two_event_)
             {
               solo_two_event_ = new Stream_event
-              (second_iter_->get_outlet ()->make_event_class
-               (ly_symbol2scm ("solo-two-event")));
+                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
+                             ly_symbol2scm ("solo-two-event")));
               solo_two_event_->unprotect ();
             }
 

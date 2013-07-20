@@ -78,18 +78,48 @@
                 (acons elt lineage alist))
               classlist class))))
 
+(define all-event-classes
+  (fold (lambda (elt classlist)
+          (event-class-cons (cdr elt) (car elt) classlist))
+        '() event-classes))
+
+;; Maps event-class to a list of ancestors (inclusive)
+(define ancestor-lookup (make-hash-table (length all-event-classes)))
+
+(define (ancestor-lookup-initialize)
+  (hash-clear! ancestor-lookup)
+  (for-each (lambda (ent) (hashq-set! ancestor-lookup (car ent) ent))
+            all-event-classes))
+
+(ancestor-lookup-initialize)
+(call-after-session ancestor-lookup-initialize)
+
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
 
+(define-public (define-event-class class parent)
+  "Defines a new event @code{class} derived from @code{parent}, a
+previously defined event class."
+  (let ((parentclass (ly:make-event-class parent)))
+    (cond
+     ((ly:make-event-class class)
+      (ly:error (_ "Cannot redefine event class `~S'") class))
+     ((not parentclass)
+      (ly:error (_ "Undefined parent event class `~S'" parentclass)))
+     (else
+      (hashq-set! ancestor-lookup
+                  class
+                  (cons class parentclass))))
+    *unspecified*))
+
+;; TODO: Allow entering more complex classes, by taking unions.
+(define-public (ly:make-event-class leaf)
+  (hashq-ref ancestor-lookup leaf))
+
 (define-public (ly:in-event-class? ev cl)
   "Does event @var{ev} belong to event class @var{cl}?"
   (memq cl (ly:event-property ev 'class)))
-
-(define-public all-event-classes
-  (fold (lambda (elt classlist)
-          (event-class-cons (cdr elt) (car elt) classlist))
-        '() event-classes))
 
 ;; does this exist in guile already?
 (define (map-tree f t)

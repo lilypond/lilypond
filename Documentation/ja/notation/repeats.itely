@@ -167,8 +167,8 @@ c1
 
 @cindex repeat with upbeat (上拍を持つ繰り返し)
 @cindex upbeat in a repeat (繰り返しの中にある上拍)
-@cindex anacrucis in a repeat (繰り返しの中にある弱拍)
-@cindex repeat with anacrucis (弱拍を持つ繰り返し)
+@cindex anacrusis in a repeat (繰り返しの中にある弱拍)
+@cindex repeat with anacrusis (弱拍を持つ繰り返し)
 @cindex repeat with pickup (ピックアップを持つ繰り返し)
 @cindex pickup in a repeat (繰り返しの中にあるピックアップ)
 @funindex \partial

@@ -8,13 +8,13 @@
 \layout{
  \context{
    \TabStaff
-   \override TimeSignature.stencil = ##f
+   \omit TimeSignature
  }
  \context{
    \TabVoice
    \remove "Beam_engraver"
    \remove "Stem_engraver"
-   \override TupletBracket.number-visibility = ##f
+   \omit TupletNumber
  }
 }
 

@@ -26,7 +26,6 @@
   \defaultchild "Score"
   \description "Hard coded entry point for LilyPond.  Cannot be tuned."
   \grobdescriptions #all-grob-descriptions
-  EventClasses = #all-event-classes
 }
 
 \context {

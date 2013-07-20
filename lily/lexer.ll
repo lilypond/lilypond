@@ -722,7 +722,7 @@ BOM_UTF8	\357\273\277
  	  	yyterminate ();
 }
 
-<maininput>. {
+<maininput>{ANY_CHAR} {
 	while (include_stack_.size () > main_input_level_
 	       && close_input ())
 		;

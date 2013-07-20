@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.21\n"
+"Project-Id-Version: lilypond 2.17.22\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-06-30 16:32+0100\n"
+"POT-Creation-Date: 2013-07-14 10:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1702,12 +1702,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:706
+#: axis-group-interface.cc:704
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:777
+#: axis-group-interface.cc:774
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -1805,17 +1805,17 @@ msgstr ""
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
-#: context.cc:150
+#: context.cc:149
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr ""
 
-#: context.cc:229
+#: context.cc:228
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:426
+#: context.cc:425
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
@@ -3303,24 +3303,24 @@ msgstr ""
 msgid "`~a' failed (~a)\n"
 msgstr ""
 
-#: backend-library.scm:90
+#: backend-library.scm:93
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:99
+#: backend-library.scm:102
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:137
+#: backend-library.scm:140
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: backend-library.scm:187
+#: backend-library.scm:190
 #, scheme-format
 msgid "missing stencil expression `~S'"
 msgstr ""
@@ -3369,6 +3369,16 @@ msgstr ""
 #: define-event-classes.scm:73
 #, scheme-format
 msgid "unknown parent class `~a'"
+msgstr ""
+
+#: define-event-classes.scm:107
+#, scheme-format
+msgid "Cannot redefine event class `~S'"
+msgstr ""
+
+#: define-event-classes.scm:109
+#, scheme-format
+msgid "Undefined parent event class `~S'"
 msgstr ""
 
 #: define-markup-commands.scm:985

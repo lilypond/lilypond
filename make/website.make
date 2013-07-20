@@ -252,12 +252,12 @@ $(OUT)/web.%.xref-map: $(top-src-dir)/Documentation/%/web.texi
 	$(DO_TEXI_DEP) $(EXTRACT_TEXI_FILENAMES) --split=node $<
 
 # Build the English website
-$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi $(xref-files)
+$(OUT)/index.html: $(top-src-dir)/Documentation/web.texi $(version-files) $(xref-files)
 	$(DO_TEXI_DEP) $(TEXI2HTML) $<
 
 # Build translated websites
 $(eval $(foreach l,$(WEB_LANGS),\
-$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi $(xref-files); \
+$(eval $(OUT)/$(l)/index.html: $(top-src-dir)/Documentation/$(l)/web.texi $(version-files) $(xref-files); \
 	$$(DO_TEXI_DEP) $$(TEXI2HTML) --lang="$(l)" $$<; ) \
 ))
 

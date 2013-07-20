@@ -399,16 +399,6 @@ print_scm_val (SCM val)
 bool
 type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 {
-  bool ok = true;
-
-  /*
-    Always succeeds.
-
-
-    TODO: should remove #f from allowed vals?
-  */
-  if (val == SCM_EOL || val == SCM_BOOL_F)
-    return ok;
 
   // If undefined, some internal function caused it...should never happen.
   assert (val != SCM_UNDEFINED);
@@ -429,26 +419,34 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
         scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
                                                                  sym, val));
 
-      warning (_ ("doing assignment anyway"));
+      warning (_ ("skipping assignment"));
+      return false;
     }
-  else
-    {
-      if (val != SCM_EOL
-          && ly_is_procedure (type)
-          && scm_call_1 (type, val) == SCM_BOOL_F)
-        {
-          ok = false;
-          SCM typefunc = ly_lily_module_constant ("type-name");
-          SCM type_name = scm_call_1 (typefunc, type);
 
-          warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
-                       ly_symbol2string (sym).c_str (),
-                       print_scm_val (val),
-                       ly_scm2string (type_name).c_str ()));
-          progress_indication ("\n");
-        }
+  /*
+    Always succeeds.
+
+
+    TODO: should remove #f from allowed vals?
+  */
+  if (val == SCM_EOL || val == SCM_BOOL_F)
+    return true;
+
+  if (val != SCM_EOL
+      && ly_is_procedure (type)
+      && scm_call_1 (type, val) == SCM_BOOL_F)
+    {
+      SCM typefunc = ly_lily_module_constant ("type-name");
+      SCM type_name = scm_call_1 (typefunc, type);
+      
+      warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
+                   ly_symbol2string (sym).c_str (),
+                   print_scm_val (val),
+                   ly_scm2string (type_name).c_str ()));
+      progress_indication ("\n");
+      return false;
     }
-  return ok;
+  return true;
 }
 
 /* some SCM abbrevs
