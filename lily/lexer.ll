@@ -156,6 +156,7 @@ E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
 INT		-?{UNSIGNED}
 REAL		({INT}\.{N}*)|(-?\.{N}+)
+STRICTREAL      {UNSIGNED}\.{UNSIGNED}
 WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
@@ -492,8 +493,12 @@ BOM_UTF8	\357\273\277
 		yylval =  scan_fraction (YYText ());
 		return FRACTION;
 	}
-	{UNSIGNED}/\/	| // backup rule
-	{UNSIGNED}		{
+	{STRICTREAL}	{
+		yylval = scm_c_read_string (YYText ());
+		return REAL;
+	}
+	{UNSIGNED}/[/.]	| // backup rule
+	{UNSIGNED}	{
 		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
 	}
@@ -539,7 +544,11 @@ BOM_UTF8	\357\273\277
 		yylval =  scan_fraction (YYText ());
 		return FRACTION;
 	}
-	{UNSIGNED}/\/	| // backup rule
+	{STRICTREAL}	{
+		yylval = scm_c_read_string (YYText ());
+		return REAL;
+	}
+	{UNSIGNED}/[/.]	| // backup rule
 	{UNSIGNED}		{
 		yylval = scm_c_read_string (YYText ());
 		return UNSIGNED;
