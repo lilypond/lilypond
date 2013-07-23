@@ -2351,7 +2351,7 @@ shows:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2384,16 +2384,17 @@ These are properties of all grobs which support the
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
-by the trick of adding infinity to the leftmost extent and
-minus infinity to the rightmost extent by setting the
-@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
-to ensure they do not overlap in the horizontal direction we
-must override this value of @code{extra-spacing-width} to
-@code{'(0 . 0)} so the true width shines through.  This is
-the command to do this for dynamic text:
+by the trick of making the leftmost extent infinity and
+the rightmost extent minus infinity by setting the
+@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  To
+ensure they do not overlap in the horizontal direction we
+must override this value of @code{extra-spacing-width} to give them
+a little extra spacing.  The units are the space between two staff
+lines, so moving the left edge half a unit to the left and the
+right edge half a unit to the right should do it:
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2402,31 +2403,12 @@ Let's see if this works in our previous example:
 @cindex DynamicText, example of overriding
 @cindex extra-spacing-width property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-Well, it has certainly stopped the dynamic marks being
-displaced, but two problems remain.  The marks should be
-spaced a little further apart and it would be better
-if they were all the same distance from the staff.
-We can solve the first problem easily.  Instead of making
-the @code{extra-spacing-width} zero we could add a little
-more to it.  The units are the space between two staff
-lines, so moving the left edge half a unit to the left and the
-right edge half a unit to the right should do it:
-
-@cindex DynamicText, example of overriding
-@cindex extra-spacing-width property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2808,15 +2790,15 @@ example taken from the previous section:
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Align dynamics to a base line 2 units above staff
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 
 @node The self-alignment-X property
 @unnumberedsubsubsec The @code{self-alignment-X} property
 
-The following example shows how this can resolve the collision
-of a string fingering object with a note's stem by aligning the
+The following example shows how to adjust the position
+of a string fingering object relative to a note's stem by aligning the
 right edge with the reference point of the parent note:
 
 @cindex StringNumber, example of overriding
