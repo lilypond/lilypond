@@ -380,6 +380,62 @@ thickness and padding around the markup.
         (m (interpret-markup layout props arg)))
     (circle-stencil m th pad)))
 
+(define-markup-command (ellipse layout props arg)
+  (markup?)
+  #:category graphic
+  #:properties ((thickness 1)
+                (font-size 0)
+                (x-padding 0.2)
+                (y-padding 0.2))
+  "
+@cindex drawing ellipse around text
+
+Draw an ellipse around @var{arg}.  Use @code{thickness},
+@code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
+line thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\ellipse {
+    Hi
+  }
+}
+@end lilypond"
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (pad-x (* (magstep font-size) x-padding))
+        (pad-y (* (magstep font-size) y-padding))
+        (m (interpret-markup layout props arg)))
+    (ellipse-stencil m th pad-x pad-y)))
+
+(define-markup-command (oval layout props arg)
+  (markup?)
+  #:category graphic
+  #:properties ((thickness 1)
+                (font-size 0)
+                (x-padding 0.75)
+                (y-padding 0.75))
+  "
+@cindex drawing oval around text
+
+Draw a oval around @var{arg}.  Use @code{thickness},
+@code{x-padding}, @code{x-padding} and @code{font-size} properties to determine
+line thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\oval {
+    Hi
+  }
+}
+@end lilypond"
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (pad-x (* (magstep font-size) x-padding))
+        (pad-y (* (magstep font-size) y-padding))
+        (m (interpret-markup layout props arg)))
+    (oval-stencil m th pad-x pad-y)))
+
 (define-markup-command (with-url layout props url arg)
   (string? markup?)
   #:category graphic
