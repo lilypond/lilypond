@@ -1,8 +1,11 @@
-%% Translation of GIT committish: e99967817ff985eb5bd5b0220b2fbf552963f9de
+%% Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
   texidocfr = "
 Les symboles spécifiques au clavier main droite d'un accordéon
 s'indiquent à l'aide de @code{\\markup}.  Le positionnement de tels
-symboles s'ajuste grâce à des arguments @code{\\raise}.
+symboles s'ajuste à l'aide des arguments de @code{\\translate-scaled}.
+La fonction @code{\\translate-scaled} est ici préférée à
+@code{\\translate} parce qu'elle permet au positionnement des parties
+symboliques de s'adapter aux changement de @code{font-size}.
 
 "
   doctitlefr = "Symboles de chant pour accordéon"

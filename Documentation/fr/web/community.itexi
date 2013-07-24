@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: c66c7bc1b97947e74978c20ffbf55f2c6e2c4d97
+    Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -831,6 +831,7 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduction
+
 @item
 @docLinkSplit{Initiation,learning,@manualDevelLearningSplit-fr}
 @tab
@@ -851,7 +852,9 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @docLinkBig{Essai,essay,@manualDevelEssayBig-fr}
 @tab
 @docLinkPdf{Essai,essay,@manualDevelEssayPdf-fr}
-
+@end multitable
+ 
+@multitable @columnfractions .3 .3 .3
 @headitem Utilisation courante
 
 @item
@@ -874,7 +877,9 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @docLinkBig{Morceaux choisis,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Morceaux choisis,snippets,@manualDevelSnippetsPdf}
-
+@end multitable
+ 
+@multitable @columnfractions .3 .3 .3
 @headitem Utilisation ponctuelle
 
 @item
@@ -904,15 +909,17 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @docLinkBig{Références internes,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Références internes,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem En téléchargement
 
 @item
 @doctarballDevel
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd
