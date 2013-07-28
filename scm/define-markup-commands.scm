@@ -3791,6 +3791,28 @@ Could be disabled with @code{\\override #'(multi-measure-rest-number . #f)}
             stil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fermata markup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (fermata layout props) ()
+  #:category music
+  #:properties ((direction UP))
+  "Create a fermata glyph.  When @var{direction} is @code{DOWN}, use
+an inverted glyph.  Note that within music, one would usually use the
+@code{\\fermata} articulation instead of a markup.
+
+@lilypond[verbatim,quote]
+ { c1^\\markup \\fermata d1_\\markup \\fermata }
+
+\\markup { \\fermata \\override #`(direction . ,DOWN) \\fermata }
+@end lilypond
+"
+  (interpret-markup layout props
+                    (if (eqv? direction DOWN)
+                        (markup #:musicglyph "scripts.dfermata")
+                        (markup #:musicglyph "scripts.ufermata"))))
+  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
