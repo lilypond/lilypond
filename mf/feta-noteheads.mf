@@ -98,11 +98,6 @@ def draw_longa (expr up) =
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
-	set_char_box (stemthick#,
-	              width# + stemthick#,
-	              noteheight# / 2,
-	              noteheight# / 2);
-
 	pickup pencircle scaled stemthick;
 
 	% Longas of smaller design sizes should have their lines longer.
@@ -116,6 +111,11 @@ def draw_longa (expr up) =
 	else:
 		quanted_line_length := max (0.77, line_length);
 	fi;
+
+	set_char_box (stemthick#,
+	              width# + stemthick#,
+	              staff_space# * quanted_line_length,
+	              staff_space# * quanted_line_length);
 
 	final_line_length := quanted_line_length * staff_space;
 
@@ -200,11 +200,6 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
-	set_char_box (stemthick# * linecount + gap# * (linecount - 1),
-	              width# + stemthick# * linecount + gap# * (linecount - 1),
-	              noteheight# / 2,
-	              noteheight# / 2);
-
 	define_pixels (gap);
 	pickup pencircle scaled stemthick;
 
@@ -219,6 +214,11 @@ def draw_brevis (expr linecount, line_thickness_multiplier) =
 	else:
 		quanted_line_length := max (0.77, line_length);
 	fi;
+
+	set_char_box (stemthick# * linecount + gap# * (linecount - 1),
+	              width# + stemthick# * linecount + gap# * (linecount - 1),
+	              staff_space# * quanted_line_length,
+	              staff_space# * quanted_line_length);
 
 	bot y1 = -quanted_line_length * staff_space;
 	top y2 = quanted_line_length * staff_space;
