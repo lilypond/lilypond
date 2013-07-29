@@ -112,12 +112,11 @@ def draw_longa (expr up) =
 		quanted_line_length := max (0.77, line_length);
 	fi;
 
-	set_char_box (stemthick#,
-	              width# + stemthick#,
-	              staff_space# * quanted_line_length,
-	              staff_space# * quanted_line_length);
 
 	final_line_length := quanted_line_length * staff_space;
+
+	save boxtop, boxbot;
+	define_pixels (boxtop, boxbot);
 
 	if up:
 		bot y1 = -final_line_length;
@@ -129,6 +128,8 @@ def draw_longa (expr up) =
 		x4 = x3;
 		top y4 = h + 3.0 staff_space;
 		y3 = y1;
+		boxtop# := staff_space# * (quanted_line_length + 3.0) - stemthick# ;
+		boxbot# := staff_space# * quanted_line_length;
 	else:
 		bot y1 = -d - 3.0 staff_space;
 		top y2 = final_line_length;
@@ -139,10 +140,17 @@ def draw_longa (expr up) =
 		x4 = x3;
 		y4 = y2;
 		bot y3 = -final_line_length;
+		boxtop# := staff_space# * quanted_line_length;
+		boxbot# := staff_space# * (quanted_line_length + 3.0) - stemthick# ;
 	fi;
 
 	draw_gridline (z1, z2, stemthick);
 	draw_gridline (z3, z4, stemthick);
+
+	set_char_box (stemthick#,
+	              width# + stemthick#,
+	              boxbot#,
+	              boxtop#);
 
 	labels (1, 2, 3, 4);
 enddef;
