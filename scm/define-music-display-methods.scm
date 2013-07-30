@@ -993,7 +993,7 @@ Otherwise, return #f."
                                     context-type 'Timing
                                     element (music
                                              'PartialSet
-                                             partial-duration ?duration))))
+                                             duration ?duration))))
 
                     (and ?duration
                          (format #f "\\partial ~a"
