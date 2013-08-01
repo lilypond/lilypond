@@ -891,6 +891,12 @@ actually fully cloned."
         (apply ly:input-warning ip msg rest)
         (apply ly:warning msg rest))))
 
+(define-public (ly:event-warning event msg . rest)
+  (let ((ip (ly:event-property event 'origin)))
+    (if (ly:input-location? ip)
+        (apply ly:input-warning ip msg rest)
+        (apply ly:warning msg rest))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; setting stuff for grace context.
