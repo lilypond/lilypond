@@ -879,17 +879,17 @@ actually fully cloned."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
-(define-public (ly:music-message music msg)
+(define-public (ly:music-message music msg . rest)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
-        (ly:input-message ip msg)
-        (ly:message msg))))
+        (apply ly:input-message ip msg rest)
+        (apply ly:message msg rest))))
 
-(define-public (ly:music-warning music msg)
+(define-public (ly:music-warning music msg . rest)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
-        (ly:input-warning ip msg)
-        (ly:warning msg))))
+        (apply ly:input-warning ip msg rest)
+        (apply ly:warning msg rest))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
