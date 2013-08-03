@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 4c7bdf42ee240fdbb3c3dab2b1c201eae04253fa
+    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -109,7 +109,7 @@ ai Frogs e leggere @rcontribnamed{Programming work,Lavori di programmazione}.
 @macro helpusProjects
 @subheading Progetti
 
-@subsubheading Frogs
+@subsubheading Frog
 
 Sito web e mailing list:
 
@@ -117,13 +117,13 @@ Sito web e mailing list:
 @uref{http://frogs.lilynet.net}
 @end example
 
-I Frogs sono comuni utenti LilyPond che hanno scelto di impegnarsi
+I Frog sono comuni utenti LilyPond che hanno scelto di impegnarsi
 nello sviluppo del loro software preferito.  Correggere i bug,
 implementare nuove funzionalità, documentare il codice sorgente: c'è
 molto da fare.  Ma soprattutto si tratta di un'occasione per tutti
 per acquisire maggiori conoscenze su LilyPond, il Software Libero e
-la programmazione... e per divertirsi.  Se uno di questi punti
-ti incuriosisce, allora il monito è: @emph{Join the Frogs!}
+la programmazione@dots{} e per divertirsi.  Se uno di questi punti
+ti incuriosisce, allora il monito è: @emph{Unisciti ai Frog!}
 
 
 

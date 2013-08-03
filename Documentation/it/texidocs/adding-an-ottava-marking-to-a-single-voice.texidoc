@@ -1,0 +1,13 @@
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+  texidocit = "
+Se il rigo ha più di una voce, l'ottavazione in una voce trasporrà
+la posizione delle note in tutte le voci per la durata della parentesi
+dell'ottava.  Se si intende applicare l'ottavazione a una sola voce,
+si possono impostare esplicitamente middleCPosition e la parentesi
+di ottava.  In questo frammento, la chiave di basso ha di norma il
+MiddleCPosition impostato su 6, ovvero sei posizioni sopra la linea
+centrale, dunque nella porzione con l'ottava il MiddleCPosition è
+più alto di sette posizioni (un'ottava).
+
+"
+  doctitleit = "Aggiungere un segno di ottava a una sola voce"

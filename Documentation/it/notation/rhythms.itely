@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
+    Translation of GIT committish: b00f11e450fd9c3c7b56ece5afa72606cac064cb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -428,10 +428,12 @@ con le @emph{legature di frase}, che indicano una frase
 musicale.  Una legatura di valore serve semplicemente a estendere
 la durata di una nota, in modo analogo al punto di aumentazione.}
 
-La legatura di valore si inserisce col simbolo tilde (@code{~}).
+La legatura di valore si inserisce aggiungendo il simbolo tilde (@code{~})
+alla prima di ogni coppia di note legate.  Esso indica che la nota deve
+essere legata alla nota successiva, che deve essere della stessa altezza.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2~ a4~ a16 r r8
 @end lilypond
 
 Le legature di valore si usano quando una nota attraversa una
@@ -441,8 +443,8 @@ valori della nota superano le suddivisioni della misura:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c8 ~ c2 r4 |
-  r8^"non" c2 ~ c8 r4
+  r8 c~ c2 r4 |
+  r8^"non" c2~ c8 r4
 }
 @end lilypond
 
@@ -457,10 +459,10 @@ automaticamente le note lunghe e le connette da misura a misura.
 Quando si applica una legatura di valore a un accordo, vengono legate
 tutte le teste di nota con la stessa altezza.  Se le teste non corrispondono,
 non verrà creata alcuna legatura.  Gli accordi possono essere parzialmente
-legati inserendo la legatura dentro l'accordo.
+legati inserendo le legature dentro l'accordo.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g> ~ <c e g>
+<c e g>~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -476,7 +478,7 @@ Quando la seconda alternativa di una ripetizione inizia con una nota
 legata, occorre specificarla nel modo seguente:
 
 @lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2 ~ }
+\repeat volta 2 { c g <c e>2~ }
 \alternative {
   % Prima alternativa: la nota seguente viene legata in modo normale
   { <c e>2. r4 }
@@ -508,8 +510,8 @@ così:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Le legature di valore possono essere posizionate manalmente sopra o sotto il
-rigo; si veda @ref{Direction and placement}.
+Le legature di valore possono essere impostate manualmente  per avere la
+curva in su o in giù, come è spiegato in @ref{Direction and placement}.
 
 @cindex legature di valore, aspetto
 @cindex legature di valore puntate
@@ -527,26 +529,26 @@ combinazione di tratti continui e tratti interrotti.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2~ c
 \tieDashed
-c2 ~ c
+c2~ c
 \tieHalfDashed
-c2 ~ c
+c2~ c
 \tieHalfSolid
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Si possono specificare modelli di tratteggiatura personalizzati:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2~ c
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la
@@ -1341,6 +1343,30 @@ se si include una stringa vuota nell'input:
 d4 g e c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+In una parte per uno strumento che ha lunghi periodi pieni di pause,
+le indicazioni di tempo sono talvolta molto ravvicinate.  Il comando
+@code{\markLengthOn} aggiunge dello spazio orizzontale per impedire
+che le indicazioni di tempo si sovrappongano; @code{\markLengthOff}
+ripristina il comportamento predefinito, per cui le indicazioni di
+tempo non sono tenute in considerazione ai fini della spaziatura
+orizzontale.
+
+@lilypond[verbatim,quote,relative=0]
+\compressFullBarRests
+\markLengthOn
+\tempo "Molto vivace"
+R1*12
+\tempo "Meno mosso"
+R1*16
+\markLengthOff
+\tempo "Tranquillo"
+R1*20
+@end lilypond
 
 @snippets
 
@@ -1418,7 +1444,7 @@ L'espressione @code{\partial @var{durata}} si può scrivere anche così:
 \set Timing.measurePosition -@var{durata}
 @end example
 
-Quindi @code{\partial 8} diventa:
+Quindi l'esempio precedente può essere scritto così:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1426,11 +1452,12 @@ Quindi @code{\partial 8} diventa:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-La proprietà @code{measurePosition} contiene un numero razionale che
-indica how much of the measure has passed at this point.  Si noti che
-è impostato come numero negativo dal comando @code{\partial}:
-ovvero, @code{\partial 4} viene tradotto internamente in @w{@code{-4}},
-che significa @qq{manca una nota di un quarto alla fine della misura.}
+La proprietà @code{measurePosition} contiene un numero razionale, solitamente
+positivo, che indica quanto della misura è già passato in quel momento.
+Il comando @code{\partial @var{durata}} lo imposta su un numero negativo
+quando ha un senso diverso: in quel caso significa che la battuta corrente
+(la prima) sarà @emph{preceduta} da una battuta 0 (la battuta parziale)
+della durata indicata da @var{durata}.
 
 @seealso
 Glossario musicale:
@@ -1516,20 +1543,20 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-@c Italian version is slightly different from original -- Federico
-Di norma un'alterazione è valida fino alla fine della battuta.  Se si inseriscono
-uno o più comandi @code{\bar} all'interno di una cadenza, compaiono delle
-stanghette ma non viene mai iniziata una nuova battuta.  Per questo motivo
-l'uso di @code{\bar} all'interno di una cadenza non termina l'alterazione; per
-mostrare l'alterazione si dovranno aggiungere a mano delle alterazioni di
-sicurezza.  Si veda @ref{Accidentals}.
+Se si inserisce un comando @code{\bar} dentro una cadenza non viene iniziata
+una nuova misura, anche se appare una stanghetta nell'output.  Quindi qualsiasi
+alterazione, che di solito si considera sempre attiva fino alla fine della
+misura, sarà ancora valida dopo la stanghetta stampata da @code{\bar}.  Se si
+desidera che le alterazioni successive appaiano, si dovranno inserire
+manualmente delle alterazioni forzate o di sicurezza, come è spiegato
+in @ref{Accidentals}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 cis4 d cis d
 \bar "|"
-% Il primo cis dopo la battuta non ha l'alterazione, bisogna usare un'alterazione di sicurezza
+% Il primo cis viene stampato senza alterazione anche se si trova dopo \bar
 cis4 d cis! d
 \cadenzaOff
 \bar "|"
@@ -2312,7 +2339,7 @@ in ordine di priorità:
 
 @itemize
 @item
-Se si specifica una travatura manuale con @code{[..]} imposta la travatura
+Se si specifica una travatura manuale con @code{[@dots{}]} imposta la travatura
 in quel modo, altrimenti
 
 @item
@@ -2726,7 +2753,7 @@ a1
 
 Inoltre, una stanghetta può apparire come un semplice segno di spunta:
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "'"
+f1 \bar "'" g1
 @end lilypond
 Tuttavia,dato che questi segni di spunta sono tipicamente usati nel canto
 gregoriano, è preferibile usare @code{\divisioMinima}, come è descritto

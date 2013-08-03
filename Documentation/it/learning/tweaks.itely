@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 0f6397c6fb10d919c6fd006d89bd5cb614f858c6
+    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -334,8 +334,8 @@ g4 a
 b c |
 @end lilypond
 
-Tuttavia, i comandi prefediniti che hanno la forma @code{\...Neutral},
-@code{\...Off} e @code{\un...} usano internamente @code{\revert} invece
+Tuttavia, i comandi prefediniti che hanno la forma @code{\@dots{}Neutral},
+@code{\@dots{}Off} e @code{\un@dots{}} usano internamente @code{\revert} invece
 di @code{\override} dunque inserire @code{\once} prima di questi comandi
 non produce alcun effetto.
 
@@ -1750,7 +1750,7 @@ devono esserne posizionati al di fuori.  In LilyPond si chiamano rispettivamente
 (dentro il rigo) e oggetti outside-staff (fuori dal rigo).
 
 Gli oggetti within-staff sono quelli che si trovano nel rigo, come
-le teste e i gambi delle note, le alterazioni, etc..  La loro posizione
+le teste e i gambi delle note, le alterazioni, etc@dots{}  La loro posizione
 è determinata perlopiù dalla musica stessa: in verticale sono collocati
 su determinate posizioni del rigo o sono collegati
 ad altri oggetti disposti in questo modo. Di norma LilyPond evita
@@ -2328,7 +2328,7 @@ far posto al testo.  Lo si può ottenere con il comando
 @funindex textLengthOff
 
 Per impostazione predefinita, finché si tratta di formattare la musica il
-testo prodotto dal comando \markup non occupa uno spazio orizzontale.
+testo prodotto dal comando @code{\markup} non occupa uno spazio orizzontale.
 Il comando @code{\textLengthOn} inverte questo comportamento e fa sì che
 le note si distanzino quanto basti per introdurre il testo:
 
@@ -2344,6 +2344,9 @@ Il comando che ripristina il comportamento predefinito è
 @code{\textLengthOff}.  Altrimenti si può usare @code{\once}
 con @code{\textLengthOn} se l'effetto deve essere limitato
 a un singolo momento musicale.
+Analogalmente, la spaziatura per i segni di chiamata e le indicazioni
+di tempo è regolata in modo indipendente con i comandi @code{\markLengthOn}
+e @code{\markLengthOff}.
 
 @cindex testo a margine, permettere le collisioni
 
@@ -2947,7 +2950,7 @@ di collisione di questo tipo:
 
 In questo caso la soluzione migliore è spostare in basso la pausa d'intero, poiché
 si trova nella seconda voce.  In @code{\voiceTwo} (ovvero nella seconda
-voce di un costrutto @code{<<@{...@} \\ @{...@}>>}) il valore predefinito
+voce di un costrutto @code{<<@{@dots{}@} \\ @{@dots{}@}>>}) il valore predefinito
 di @code{staff-position} è -4 per la pausa multipla (MultiMeasureRest), quindi
 dobbiamo spostarla più in basso, ad esempio di altri quattro semispazi del
 rigo; il nuovo valore sarà @w{@code{-8}}.
@@ -3192,19 +3195,19 @@ rhMusic = \relative c'' {
       \new Voice {
         \voiceTwo
         c,8~
-        % Reposition the c2 to the right of the merged note
+        % Riposiziona il c2 a destra della nota unita
         \once \override NoteColumn.force-hshift = #1.0
-        % Move the c2 out of the main note column
-        % so the merge will work
+        % Sposta il c2 fuori dalla colonna della nota principale
+        % in modo che l'unione di note (merge) funzioni
         \shiftOnn
         c2
       }
       \new Voice {
         \voiceThree
         s8
-        % Stem on the d2 must be down to permit merging
+        % Il gambo di d2 deve essere in giù per permettere l'unione delle note
         \stemDown
-        % Stem on the d2 should be invisible
+        % Il gambo di d2 deve essere invisibile
         \tweak Stem.transparent ##t
         d2
       }
@@ -3643,7 +3646,7 @@ rhMusic = \relative c'' {
         s8
         % Il gambo di d2 deve essere in giù per permettere l'unione delle note
         \stemDown
-        % Stem on the d2 should be invisible
+        % Il gambo di d2 deve essere invisibile
         \tweak Stem.transparent ##t
         d2
       }
@@ -3686,15 +3689,15 @@ lhMusic = \relative c' {
 @translationof Further tweaking
 
 @menu
-* Altri usi delle modifiche::
-* Uso delle variabili per le modifiche::
+* Altri usi delle modifiche con \tweak::
+* Uso delle variabili per modificare la formattazione::
 * Fogli di stile::
 * Altre fonti di informazione::
 * Modifiche avanzate con Scheme::
 @end menu
 
-@node Altri usi delle modifiche
-@subsection Altri usi delle modifiche
+@node Altri usi delle modifiche con \tweak
+@subsection Altri usi delle modifiche con @code{\tweak}
 @translationof Other uses for tweaks
 
 @menu
@@ -3761,9 +3764,10 @@ possiamo allungarlo impostando la proprietà
 @end lilypond
 
 @funindex \single
-@cindex tweak, generated from override
-Per @emph{sovrascrivere} la trasparenza di un oggetto grafico,
-avremmo potuto usare la scorciatoia @code{\hide}, come spiegato
+@cindex tweak, generato da un override
+
+Per @emph{sovrascrivere} (con @code{\override}) la trasparenza di un oggetto
+grafico, avremmo potuto usare la scorciatoia @code{\hide}, come spiegato
 in precedenza.  Ma la modifica manuale con @emph{\tweak} è un'operazione
 diversa, che riguarda solo le proprietà generate da una singola espressione
 musicale.  Tuttavia è possibile convertire le sovrascritture in @emph{tweak}
@@ -3784,11 +3788,12 @@ in questo modo
 @end lilypond
 
 In questo caso particolare, la differenza rispetto a @code{\once \hide} non
-è evidente.  La differenza è importante quando ci sono vari oggetti che
+è evidente.  La differenza è evidente quando ci sono vari oggetti che
 si trovano nello stesso punto del tempo musicale (come le teste delle note
 in un accordo).  In quel caso, @code{\once} avrà effetto su tutti quegli
 oggetti mentre @code{\single} solo su uno, ovvero quello generato
 dall'espressione musicale immediatamente seguente.
+
 
 @node Simulare una corona nel MIDI
 @unnumberedsubsubsec Simulare una corona nel MIDI
@@ -3868,13 +3873,13 @@ viene tolto lo stampo (@emph{stencil}), ciò non accade.
 Glossario musicale:
 @rglosnamed{system,sistema}.
 
-@node Uso delle variabili per le modifiche
-@subsection Uso delle variabili per le modifiche
-@translationof Using variables for tweaks
+@node Uso delle variabili per modificare la formattazione
+@subsection Uso delle variabili per modificare la formattazione
+@translationof Using variables for layout adjustments
 
-@cindex variabili, usarle per le modifiche
-@cindex usare le variabili per le modifiche
-@cindex modifiche, usare le variabili per le
+@cindex variabili, usarle per le sovrascritture
+@cindex sovrascritture, usare le variabili per
+@cindex formattazione, usare le variabili per modificare la
 
 I comandi di sovrascrittura sono spesso lunghi e tediosi da
 scrivere, e devono essere assolutamente corretti.  Se si usa

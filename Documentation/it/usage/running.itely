@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 543dc9db58da5e3acaf72dae2478933742fa6e90
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -651,7 +651,7 @@ per configurarla.  Si veda @ref{Basic command line options for LilyPond}.
 @item @code{separate-log-files}
 @tab @code{#f}
 @tab Per i file di input @code{FILE1.ly}, @code{FILE2.ly}, etc. salva i dati di
-log nei file @code{FILE1.log}, @code{FILE2.log}, ...
+log nei file @code{FILE1.log}, @code{FILE2.log}, @dots{}
 
 @item @code{show-available-fonts}
 @tab @code{#f}
@@ -935,6 +935,7 @@ comprese, è facile gestirle.
 * Messaggio di errore Unbound variable %::
 * Messaggio di errore FT_Get_Glyph_Name::
 * Avvertimento sul fatto che le affinità del rigo devono solo diminuire::
+* Messaggio di errore \new inaspettato::
 @end menu
 
 @node La musica esce dalla pagina
@@ -1061,3 +1062,52 @@ come un rigo inserendo
 @noindent
 all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} in
 @ruser{Flexible vertical spacing within systems}.
+
+@node Messaggio di errore \new inaspettato
+@unnumberedsubsec Messaggio di errore @code{\new} inaspettato
+@translationof Error message unexpected \new
+
+Un blocco @code{\score} deve contenere una @emph{singola} espressione musicale.
+Se invece contiene vari @code{\new Staff}, @code{\new StaffGroup} o simili
+contesti introdotti con @code{\new} senza che questi siano racchiusi tra
+parentesi graffe, @code{@{ @dots{} @}}, o doppie parentesi uncinate, @code{<< @dots{} >>},
+ovvero così:
+
+@example
+\score @{
+  % Invalido! Genera l'errore: errore di sintassi, \new inaspettato
+  \new Staff @{ @dots{} @}
+  \new Staff @{ @dots{} @}
+@}
+@end example
+
+@noindent
+verrà generato questo messaggio di errore.
+
+Per evitare l'errore, è sufficiente racchiudere tutti i blocchi @code{\new} tra
+parentesi graffe o doppie parentesi uncinate.
+
+Se si usano le parentesi graffe, i blocchi @code{\new} appariranno in
+modo sequenziale:
+
+@lilypond[quote,verbatim]
+\score {
+  {
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  }
+}
+@end lilypond
+
+@noindent
+ma è più probabile che si debbano usare le doppie parentesi uncinate in modo
+che i nuovi righi siano avviati in parallelo, ovvero contemporaneamente:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  >>
+}
+@end lilypond

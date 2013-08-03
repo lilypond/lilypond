@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
 Il raggruppamento dei battiti all'interno della misura è regolato dalla
 proprietà di contesto @code{beatStructure}.  I valori di @code{beatStructure} per

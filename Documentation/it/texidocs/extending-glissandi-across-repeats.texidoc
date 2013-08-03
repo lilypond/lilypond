@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 784e1e7a6b4b5c086a54267aa2d1e34e5aaa254c
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
 Un glissando che si estende in vari blocchi @code{\\alternative} può
 essere simulato aggiungendo all'inizio di ogni blocco @code{\\alternative}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: b2863abe6a9b5a03662562ea017548d8d3221d9a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,40 +28,29 @@ LilyPond può interagire con altri programmi in vari modi.
 @node Punta e clicca
 @section Punta e clicca
 @translationof Point and click
+@cindex punta e clicca
 
 Il "punta e clicca" aggiunge dei collegamenti ai documenti pdf per certi
 elementi musicali.
 
 @menu
+* Configurare il sistema per il punta e clicca::
 * Abilitare il punta e clicca::
 * Punta e clicca selettivo::
 @end menu
 
-@node Abilitare il punta e clicca
-@unnumberedsubsec Abilitare il punta e clicca
-@translationof Enabling point and click
-
-@cindex punta e clicca
-
-Il "punta e clicca" (@emph{point and click}) permette di individuare gli elementi
-musicali nell'input cliccando su di essi nel lettore PDF.  In questo modo è più
-facile trovare la parte dell'input responsabile di un errore nello spartito.
+@node Configurare il sistema per il punta e clicca
+@subsection Configurare il sistema
+@translationof Configuring the system for point and click
 
 Quando questa funzionalità è attiva, LilyPond aggiunge dei collegamenti
-ipertestuali al file PDF.  Questi collegamenti vengono inviati al browser web,
-che apre un editor di testo col cursore posizionato nel punto giusto.
+ipertestuali al file PDF.  Questi collegamenti vengono inviati a un
+@q{programma di supporto per URI} o al browser web, che apre un editor di testo
+col cursore posizionato nel punto giusto.
 
 Perché questo procedimento funzioni è necessario configurare il lettore PDF
 in modo che segua i collegamenti ipertestuali usando lo script @file{lilypond-invoke-editor}
 fornito insieme a LilyPond.
-
-Per Xpdf su UNIX, occorre inserire la seguente linea nel file
-@file{xpdfrc}.  Su UNIX, questo file si trova in
-@file{/etc/xpdfrc} o @file{$HOME/.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
 
 @file{lilypond-invoke-editor} è un piccolo programma di supporto.  Lancia un
 editor per gli URI @code{textedit} e un browser web per altri URI.  Valuta
@@ -98,8 +87,132 @@ emacsclient --no-wait +%(line)s:%(column)s %(file)s
 @noindent
 per @code{LYEDITOR} è equivalente alla chiamata standard emacsclient.
 
+@menu
+* Usare Xpdf per il punta e clicca::
+* Usare GNOME 2 per il punta e clicca::
+* Usare GNOME 3 per il punta e clicca::
+* Ulteriore configurazione per Evince::
+@end menu
 
-@cindex file size, output
+@node Usare Xpdf per il punta e clicca
+@unnumberedsubsubsec Usare Xpdf
+@translationof Using Xpdf for point and click
+@cindex Xpdf
+
+Se si usa Xpdf su UNIX, si deve inserire la seguente riga nel file
+@file{xpdfrc}.  Su UNIX, questo file può essere @file{/etc/xpdfrc}
+oppure @file{$HOME/.xpdfrc}.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Se si usa Ubuntu, è probabile che la versione di Xpdf
+installata nel sistema causi il crash  per qualsiasi file PDF: questa
+situazione continua da molti anni ed è dovuta a una corrispondenza
+sbagliata tra librerie.  Conviene installare un pacchetto aggiornato
+di @samp{xpdf} e il corrispondente pacchetto @samp{libpoppler} da
+Debian.  Dopo aver verificato che funziona, si può  usare il comando
+@example
+sudo apt-mark hold xpdf
+@end example
+@noindent
+per impedire a Ubuntu di sovrascriverlo al prossimo @q{aggiornamento} del
+suo pacchetto difettoso.
+
+@node Usare GNOME 2 per il punta e clicca
+@unnumberedsubsubsec Usare GNOME 2
+@translationof Using GNOME 2 for point and click
+
+Per usare GNOME 2 (e i visualizzatori PDF ad esso integrati), il magico
+comando che fornisce al sistema gli URI @samp{textedit:} è
+@example
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end example
+
+Dopo questi comandi,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+dovrebbe lanciare @file{lilypond-invoke-editor} per l'apertura del file.
+
+@node Usare GNOME 3 per il punta e clicca
+@unnumberedsubsubsec Usare GNOME 3
+@translationof Using GNOME 3 for point and click
+
+In GNOME 3, gli URI sono gestiti da @q{gvfs} invece che da
+@q{gconf}.  Si crea un file in una directory locale (ad esempio @file{/tmp})
+che abbia il nome @file{lilypond-invoke-editor.desktop} e il seguente contenuto
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+e poi si eseguono i comandi
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+Dopo questi comandi,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+dovrebbe lanciare @file{lilypond-invoke-editor} per l'apertura del file.
+
+@node Ulteriore configurazione per Evince
+@unnumberedsubsubsec Ulteriore configurazione per Evince
+@translationof Extra configuration for Evince
+@cindex Evince
+
+Se @code{gnome-open} funziona, ma Evince si rifiuta ancora di
+aprire i collegamenti punta e clicca a causa di permessi negati,
+potrebbe essere necessario cambiare il profilo Apparmor di
+Evince che controlla il tipo di azioni che Evince ha il
+permesso di eseguire.
+
+In Ubuntu, si modifica il file
+@file{/etc/apparmor.d/local/usr.bin.evince} e si aggiungono le
+seguenti righe:
+@example
+# Per i collegamenti Textedit
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+Dopo aver aggiunto queste righe, si lancia il comando
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+Ora Evince dovrebbe essere in grado di aprire i collegamenti punta e
+clicca.  È probabile che configurazioni simili funzionino anche
+con altri visualizzatori.
+
+
+@node Abilitare il punta e clicca
+@unnumberedsubsec Abilitare il punta e clicca
+@translationof Enabling point and click
+
+@cindex dimensione del file di output
+@cindex file di output, dimensione
+
+La funzionalità "punta e clicca" è abilitata di default quando si creano
+i file PDF.
 
 I collegamenti "punta e clicca" appesantiscono sensibilmente i file di output.  Per
 ridurre la dimensione dei file PDF e PS, è possibile disattivare il "punta e

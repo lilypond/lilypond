@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: 94dc452301cc0d1e9983f5aeb784884f7fe8c964
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -60,7 +60,7 @@ Un esempio basilare di un file di input di LilyPond è
 \header @{ @}
 
 \score @{
-  @var{...espressione musicale composta...}  % tutta la musica va qui!
+  @var{ @dots{} espressione musicale composta @dots{} }  % tutta la musica va qui!
   \layout @{ @}
   \midi @{ @}
 @}
@@ -138,13 +138,13 @@ singola nota a una grande espressione composta come
 @example
 @{
   \new StaffGroup <<
-    @var{...inserisci qui l'intera opera di Wagner...}
+    @var{ @dots{} inserisci qui l'intera opera di Wagner @dots{} }
   >>
 @}
 @end example
 
 @noindent
-Tutto quanto è compreso in @code{@{ ... @}} costituisce un'unica
+Tutto quanto è compreso in @code{@{ @dots{} @}} costituisce un'unica
 espressione musicale.
 
 Come abbiamo detto prima, il blocco @code{\score} può contenere altri
@@ -305,11 +305,11 @@ In questo esempio abbiamo dato dei nomi ai righi -- @qq{canto} e
 da coltivare, perché ti permette di vedere a colpo d'occhio a cosa serve
 ciascun rigo.
 
-Ricorda che si usano @code{<< ... >>} invece di @code{@{ ... @}} per indicare
+Ricorda che si usa @code{<< @dots{} >>} invece di @code{@{ @dots{} @}} per indicare
 la musica simultanea.  In questo modo la parte vocale e quella di pianoforte
-appaiono una sopra l'altra nello spartito.  Il costrutto @code{<< ... >>} non
+appaiono una sopra l'altra nello spartito.  Il costrutto @code{<< @dots{} >>} non
 sarebbe necessario per il rigo del cantante nell'esempio precedente se contenesse
-soltanto un'espressione musicale sequenziale, ma @code{<< ... >>} al posto delle
+soltanto un'espressione musicale sequenziale, ma @code{<< @dots{} >>} al posto delle
 parentesi è necessario se la musica sul rigo deve contenere due o più espressioni
 simultanee, ad esempio due voci simultanee, o una voce con del testo.  Vogliamo
 avere una voce con del testo, dunque ci servono le parentesi ad angolo.  Aggiungeremo
@@ -487,27 +487,27 @@ diversi tipi di parentesi e di costrutti in parentesi.
 @multitable @columnfractions .3 .7
 @headitem Tipo di parentesi
   @tab Funzione
-@item @code{@{ .. @}}
+@item @code{@{ @dots{} @}}
   @tab Racchiude un frammento di musica sequenziale
-@item @code{< .. >}
+@item @code{< @dots{} >}
   @tab Racchiude le note di un accordo
-@item @code{<< .. >>}
+@item @code{<< @dots{} >>}
   @tab Racchiude le espressioni musicali simultanee
-@item @code{( .. )}
+@item @code{( @dots{} )}
   @tab Contrassegna l'inizio e la fine di una legatura di portamento
-@item @code{\( .. \)}
+@item @code{\( @dots{} \)}
   @tab Contrassegna l'inizio e la fine di una legatura di frase
-@item @code{[ .. ]}
+@item @code{[ @dots{} ]}
   @tab Contrassegna l'inizio e la fine di una travatura impostata manualmente
 @end multitable
 
 A questi dovremmo aggiungere altri costrutti che generano linee tra
 e lungo le note: legature di valore (contrassegnate dal tilde, @code{~}),
-i gruppi irregolari scritti in questa forma @code{\tuplet x/y @{..@}}, e
-gli abbellimenti, indicati con @code{\grace@{..@}}.
+i gruppi irregolari scritti in questa forma @code{\tuplet x/y @{ @dots{} @}}, e
+gli abbellimenti, indicati con @code{\grace@{ @dots{} @}}.
 
 Fuori da LilyPond, l'uso convenzionale delle parentesi esige che i diversi
-tipi siano annidati adeguatamente, in questo modo, @code{<< [ @{ ( .. )
+tipi siano annidati adeguatamente, in questo modo, @code{<< [ @{ ( @dots{} )
 @} ] >>}, dove le parentesi che chiudono si trovano esattamente
 nell'ordine opposto alle parentesi che aprono.  Questo @strong{è} un
 requisito per i tre tipi di parentesi descritti dal termine @q{Racchiude}
@@ -599,7 +599,7 @@ questo esempio di quattro accordi:
 @end lilypond
 
 Questa musica può essere espressa usando soltanto i simboli dell'accordo,
-ovvero le parentesi angolari, @code{< ... >}, e una singola voce è
+ovvero le parentesi angolari, @code{< @dots{} >}, e una singola voce è
 sufficiente.  Ma cosa accadrebbe se il Fa# fosse in realtà una nota di un
 ottavo seguita da un Sol di un ottavo, una nota di passaggio che porta al La?
 In questo caso abbiamo due note che iniziano nello stesso momento ma hanno
@@ -615,8 +615,8 @@ Vediamo come ottenerle nella sintassi di input di LilyPond.
 @funindex \\
 
 Il modo più semplice per inserire frammenti che utilizzino più di una voce
-su un rigo è scrivere ogni voce come una sequenza (con @code{@{...@}}),
-e poi combinarle in simultanea tramite le doppie parentesi angolari, @code{<<...>>}.
+su un rigo è scrivere ogni voce come una sequenza (con @code{@{ @dots{} @}}),
+e poi combinarle in simultanea tramite le doppie parentesi angolari, @code{<< @dots{} >>}.
 Per collocarli in voci distinte, i frammenti devono essere separati da un doppio
 backslash, @code{\\}.  Senza di esso, le note sarebbero inserite in un'unica
 voce, e questo normalmente causerebbe degli errori.  Questa tecnica è
@@ -690,7 +690,7 @@ legature di valore, dinamica, etc., è impostata correttamente.
 @end lilypond
 
 Tutte queste voci sono separate dalla voce principale che contiene le
-note e che si trova fuori dal costrutto @code{<< .. >>}, che chiameremo
+note e che si trova fuori dal costrutto @code{<< @dots{} >>}, che chiameremo
 il @emph{costrutto simultaneo}.  Legature di portamento e di valore
 possono connettere solo note che fanno parte della stessa voce, quindi
 le legature non possono entrare in un costrutto simultaneo o uscirne.  Viceversa,
@@ -749,7 +749,7 @@ nell'esempio) su croci magenta;  @code{\voiceNeutralStyle} (anch'esso
 non usato qui) riporta lo stile all'impostazione predefinita.
 Vedremo in seguito come l'utente possa creare comandi simili.
 Si veda @ref{Visibility and color of objects} e
-@ref{Using variables for tweaks}.
+@ref{Using variables for layout adjustments}.
 
 @cindex polifonia e modo relativo
 @cindex modo relativo e polifonia
@@ -775,13 +775,13 @@ voci sono ampiamente separate, consiste nel porre un comando @code{\relative}
 all'inizio di ogni voce:
 
 @example
-\relative c' @{ noteA ... @}
+\relative c' @{ noteA @dots{} @}
 <<
-  \relative c'' @{ < noteB noteC > ... @}
+  \relative c'' @{ < noteB noteC > @dots{} @}
 \\
-  \relative g' @{ noteD ... @}
+  \relative g' @{ noteD @dots{} @}
 >>
-\relative c' @{ noteE ... @}
+\relative c' @{ noteE @dots{} @}
 @end example
 
 Analizziamo infine le voci in un brano più complesso. Queste note sono
@@ -1120,7 +1120,7 @@ come nel seguente esempio:
 >>
 @end lilypond
 
-@subsubheading Note columns
+@subsubheading Colonne di note
 
 @cindex colonna delle note
 @cindex collisioni di note
@@ -1801,7 +1801,7 @@ e in questo modo si disattiva in tutti i righi:
 
 Un altro esempio: se la proprietà @code{clefTransposition} viene posta
 nel contesto @code{Score}, cambia immediatamente il valore
-dell'ottavazione in tutti i righi presenti e imposta un nuovo
+della trasposizione in tutti i righi presenti e imposta un nuovo
 valore predefinito che sarà applicato a tutti i righi.
 
 Il comando opposto, @code{\unset}, di fatto rimuove la proprietà
@@ -1849,7 +1849,7 @@ Il valore predefinito delle proprietà di contesto possono essere impostate
 anche nel momento in cui il contesto viene creato.  Talvolta questo è un
 modo più chiaro per specificare il valore della proprietà se questa deve
 rimanere fissa per la durata del contesto.  Un contesto creato col comando @code{\new}
-può essere immediatamente seguito da un blocco @code{\with @{ .. @}} dove
+può essere immediatamente seguito da un blocco @code{\with @{ @dots{} @}} dove
 vengono impostati i valori predefiniti della proprietà.  Ad esempio, se vogliamo
 eliminare la stampa del bequadro per l'estensione di un rigo possiamo scrivere:
 
@@ -2683,7 +2683,7 @@ lower = \relative c, {
 @subsection Scrivere una partitura da zero
 @translationof Building a score from scratch
 
-@cindex template, scrivere il tuo
+@cindex modello, scrivere il tuo
 @cindex esempio di scrittura di una partitura
 @cindex scrivere una partitura, esempio
 @cindex partitura, esempio di scrittura
@@ -2785,13 +2785,13 @@ quali errori genera.
 >>
 @end example
 
-Non è necessario usare il costrutto simultaneo @code{<< .. >>} per il rigo del
+Non è necessario usare il costrutto simultaneo @code{<< @dots{} >>} per il rigo del
 secondo manuale e per quello della pedaliera, poiché contengono solo una
 espressione musicale, ma non è male usarlo comunque; usare sempre le parentesi
 angolari dopo @code{\new Staff} è una buona abitudine da coltivare nel caso ci
 sia più di una voce.  Per le Voci, è vero l'opposto: queste devono essere
-seguite regolarmente da parentesi graffe @code{@{ .. @}} nel caso in cui la
-musica sia composta da diverse variabili che devono essere eseguite
+seguite regolarmente da parentesi graffe @code{@{ @dots{} @}} nel caso in cui
+la musica sia composta da diverse variabili che devono essere eseguite
 consecutivamente.
 
 Aggiungiamo questa struttura al blocco della partitura, e aggiustiamo

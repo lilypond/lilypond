@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: ecd34079d2df7ba2c28b3c76740cd0b9f157d61b
+    Translation of GIT committish: b00f11e450fd9c3c7b56ece5afa72606cac064cb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -693,9 +693,8 @@ battuta, in cui l'unione automatica delle teste di nota non funziona.
 >>
 @end lilypond
 
-Note con teste diverse possono essere unite, con l'eccezione delle
-teste di minime e semiminime, come è mostrato sotto.  In questo
-esempio le teste delle note nel primo battito della prima battuta
+Note con teste diverse possono essere unite, come è mostrato sotto.  In
+questo esempio le teste delle note nel primo battito della prima battuta
 sono unite:
 
 @lilypond[quote,verbatim,relative=2]
@@ -714,6 +713,9 @@ sono unite:
   }
 >>
 @end lilypond
+
+Le minime e le semiminime non sono unite in questo modo,  perché sarebbe
+difficile distinguerle.
 
 Anche le teste di note con diversi punti, come nel terzo battito della prima
 battuta, possono essere unite:

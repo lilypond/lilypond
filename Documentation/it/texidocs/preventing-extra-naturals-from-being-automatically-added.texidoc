@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
-Secondo le norme tipografiche standard, un segno di bequadro viene
-inserito prima di un diesis o di un bemolle se un'alterazione
-precedente sulla stessa nota deve essere cancellata.  Per cambiare
-questo comportamento si imposta la proprietà @code{extraNatural} su
-@code{f} (falso) nel contesto @code{Staff}.
+Secondo le norme tipografiche tradizionali, un segno di bequadro viene
+inserito prima di un diesis o di un bemolle se un precedente doppio diesis o
+bemolle sulla stessa nota è cancellato.  Per cambiare questo comportamento
+e seguire la pratica contemporanea, si imposta la proprietà @code{extraNatural}
+su @code{f} (falso) nel contesto @code{Staff}.
 
 "
   doctitleit = "Impedire l'inserimento automatico dei bequadri supplementari"

@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
-Questo frammento mostra come modificare il numero di punti di aumentazione su
-una singola nota.
+Il numero di punti di aumentazione su una singola nota può essere modificato
+in modo indipendente dai punti posizionati dopo la nota.
 
 "
   doctitleit = "Modifica del numero di punti di aumentazione per nota"

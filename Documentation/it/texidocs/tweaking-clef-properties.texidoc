@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
 Il comando @code{\\clef \"treble_8\"} equivale a impostare
 @code{clefGlyph}, @code{clefPosition} (che regola la posizione
@@ -10,7 +10,9 @@ di queste proprietà, eccetto @code{middleCPosition}.
 La modifica del glifo, della posizione della chiave o
 dell'ottavazione non è sufficiente per cambiare la posizione delle
 note che seguono sul rigo: bisogna anche specificare la posizione
-del Do centrale (middle C). I parametri di posizione sono relativi
+del Do centrale (middle C). Per far sì che le armature di chiave
+si trovino sulle linee corrette del rigo, occorre impostare anche
+@code{middleCClefPosition}. I parametri di posizione sono relativi
 alla linea centrale del rigo, con i numeri positivi che indicano
 la parte superiore: ogni linea e spazio valgono uno.  Il valore
 @code{clefTransposition} di norma è impostato su 7, -7, 15

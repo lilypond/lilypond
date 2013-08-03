@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 5d83b53ee321d8890d792191032b1fe352577517
+    Translation of GIT committish: b4a06339566ce7e7f17ba60745261fc26b32abb0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -779,6 +779,7 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introduzione
+
 @item
 @docLinkSplit{Learning,learning,@manualDevelLearningSplit-it}
 @tab
@@ -799,7 +800,9 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @docLinkBig{Essay,essay,@manualDevelEssayBig-it}
 @tab
 @docLinkPdf{Essay,essay,@manualDevelEssayPdf-it}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Regolare
 
 @item
@@ -822,7 +825,9 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Saltuario
 
 @item
@@ -852,15 +857,17 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @docLinkBig{Internals,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem Per scaricare
 
 @item
 @doctarballDevel
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd

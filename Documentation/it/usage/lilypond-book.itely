@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -119,11 +119,11 @@ esegui in un terminale
 lilypond-book --output=out --pdf lilybook.lytex
 @emph{lilypond-book (GNU LilyPond) @version{} }
 @emph{Lettura di lilybook.lytex...}
-@emph{..tagliato molto output..}
+@emph{@dots{}tagliato molto output@dots{}}
 @emph{Compilazione di lilybook.tex...}
 cd out
 pdflatex lilybook.tex
-@emph{..tagliato molto output..}
+@emph{@dots{}tagliato molto output@dots{}}
 xpdf lilybook.pdf
 @emph{(sostituisci @command{xpdf} col tuo lettore PDF preferito)}
 @end example
@@ -210,18 +210,18 @@ la musica nei file @LaTeX{}:
 @itemize
 
 @item
-il comando @code{\lilypond@{...@}}, dove si può inserire direttamente del
+il comando @code{\lilypond@{@dots{}@}}, dove si può inserire direttamente del
 codice lilypond corto
 
 @item
-l'ambiente @code{\begin@{lilypond@}...\end@{lilypond@}}, dove si può inserire
+l'ambiente @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}, dove si può inserire
 direttamente del codice lilypond più lungo
 
 @item
-il comando @code{\lilypondfile@{...@}} per inserire un file lilypond
+il comando @code{\lilypondfile@{@dots{}@}} per inserire un file lilypond
 
 @item
-il comando @code{\musicxmlfile@{...@}} per inserire un file MusicXML, che
+il comando @code{\musicxmlfile@{@dots{}@}} per inserire un file MusicXML, che
 sarà elaborato da @code{musicxml2ly} e da @code{lilypond}.
 
 @end itemize
@@ -398,9 +398,9 @@ e poi specificando prima di ogni frammento la quantità di sistemi desiderata,
 
 @example
 \onlyFirstNSystems@{3@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 \onlyFirstNSystems@{1@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
 
@@ -424,18 +424,18 @@ musica nei file Texinfo:
 @itemize
 
 @item
-il comando @code{\lilypond@{...@}}, dove si può inserire direttamente del
+il comando @code{\lilypond@{@dots{}@}}, dove si può inserire direttamente del
 codice lilypond corto
 
 @item
-l'ambiente @code{\begin@{lilypond@}...\end@{lilypond@}}, dove si può inserire
+l'ambiente @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}, dove si può inserire
 direttamente del codice lilypond più lungo
 
 @item
-il comando @code{\lilypondfile@{...@}} per inserire un file lilypond
+il comando @code{\lilypondfile@{@dots{}@}} per inserire un file lilypond
 
 @item
-il comando @code{\musicxmlfile@{...@}} per inserire un file MusicXML, che
+il comando @code{\musicxmlfile@{@dots{}@}} per inserire un file MusicXML, che
 sarà elaborato da @code{musicxml2ly} e da @code{lilypond}.
 
 @end itemize
@@ -489,7 +489,7 @@ genera
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-Diversamente da @LaTeX{}, @code{@@lilypond@{...@}} non genera un'immagine
+Diversamente da @LaTeX{}, @code{@@lilypond@{@dots{}@}} non genera un'immagine
 nel testo.  Prende sempre un paragrafo proprio.
 
 
@@ -503,18 +503,18 @@ musica nei file HTML:
 @itemize
 
 @item
-il comando @code{\lilypond@{...@}}, dove si può inserire direttamente del
+il comando @code{\lilypond@{@dots{}@}}, dove si può inserire direttamente del
 codice lilypond corto
 
 @item
-l'ambiente @code{\begin@{lilypond@}...\end@{lilypond@}}, dove si può inserire
+l'ambiente @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}, dove si può inserire
 direttamente del codice lilypond più lungo
 
 @item
-il comando @code{\lilypondfile@{...@}} per inserire un file lilypond
+il comando @code{\lilypondfile@{@dots{}@}} per inserire un file lilypond
 
 @item
-il comando @code{\musicxmlfile@{...@}} per inserire un file MusicXML, che
+il comando @code{\musicxmlfile@{@dots{}@}} per inserire un file MusicXML, che
 sarà elaborato da @code{musicxml2ly} e da @code{lilypond}.
 
 @end itemize
@@ -558,7 +558,7 @@ per le immagini dei frammenti musicali:
 \key c \minor c4 es g2
 @end lilypond
 
-Per le immagini in linea, si usa @code{<lilypond ... />}, dove le opzioni
+Per le immagini in linea, si usa @code{<lilypond @dots{} />}, dove le opzioni
 sono distinte dalla musica attraverso i due punti, ad esempio
 
 @example
@@ -568,7 +568,7 @@ Un po' di musica in <lilypond relative=2: a b c/> una linea di testo.
 Per includere file separati, si usa
 
 @example
-<lilypondfile @var{option1} @var{option2} ...>@var{filename}</lilypondfile>
+<lilypondfile @var{opzione1} @var{opzione2} @dots{}>@var{filename}</lilypondfile>
 @end example
 
 @code{<musicxmlfile>} usa la stessa sintassi di @code{<lilypondfile>}, ma semplicemente
@@ -814,7 +814,7 @@ ci sia un campo @code{texidoc} nel blocco @code{\header}.  L'opzione @code{texid
 fa sì che @command{lilypond-book} includa tali file, aggiungendo il loro
 contenuto in forma di blocco di documentazione proprio prima del frammento
 di musica (ma fuori dall'ambiente @code{example} generato da un'opzione
-@code{quote})..
+@code{quote}).
 
 Se il file @file{foo.ly} contiene
 
@@ -1018,7 +1018,7 @@ o @command{makeinfo}.
 @example
 lilypond-book --output=out tuofile.lytex
 cd out
-...
+@dots{}
 @end example
 
 @itemx --skip-lily-check

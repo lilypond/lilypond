@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
 Impostando la proprietà @code{'Y-extent} su un valore adatto, tutti gli
 oggetti @code{DynamicLineSpanner} (forcelle e testi di dinamica) possono
@@ -6,8 +6,8 @@ essere allineati su un punto di riferimento comune, indipendentemente dalla
 loro reale estensione.  In questo modo, ogni elemento sarà allineato
 verticalmente, producendo quindi un output più gradevole.
 
-La stessa idea, insieme all'utilizzo di \\textLengthOn, serve ad allineare
-i segni testuali sulla loro linea di base.
+La stessa idea, insieme all'utilizzo di @code{\\textLengthOn}, serve ad
+allineare i segni testuali sulla loro linea di base.
 
 "
   doctitleit = "Dinamiche e segni testuali allineati verticalmente"

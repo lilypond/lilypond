@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 8a23eef94ec7ab83e10646ab3502f2d82b888a03
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -168,13 +168,13 @@ convert-ly --to=2.14.1 miofile.ly
 Per aggiornare i frammenti LilyPond presenti nei file texinfo, si usa
 
 @example
-convert-ly --from=... --to=... --no-version *.itely
+convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
 @end example
 
 Per vedere i cambiamenti della sintassi di LilyPond tra due versioni, si usa
 
 @example
-convert-ly --from=... --to=... -s
+convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 73580a4adff969f66b5c562c6a45b2b92fc6128e
+   Translation of GIT committish: 41a69fdf186fa00f69fbe1c1f2870423dbd14f56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -90,6 +90,18 @@ un'ottava; ogni@tie{}@code{,} abbassa l'altezza di un'ottava.
 }
 @end lilypond
 
+@funindex absolute
+@funindex \absolute
+Si può indicare in modo esplicito che la musica viene inserita con l'ottava
+assoluta facendola precedere da @code{\absolute}:
+
+@example
+\absolute @var{espressione-musicale}
+@end example
+
+verrà interpretata nella modalità assoluta indipendentemente dal contesto
+in cui si trova.
+
 @seealso
 Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze}.
@@ -109,13 +121,13 @@ Frammenti di codice:
 @funindex relative
 @funindex \relative
 
-Quando si indicano le ottave in modalità assoluta è facile
-collocare un'altezza nell'ottava sbagliata.  Il metodo d'inserimento in ottava
-relativa riduce questi errori, perché il più delle volte non è
-necessario specificare alcuna ottava.  Inoltre, in modalità assoluta
-un singolo errore può essere difficile da individuare, mentre in
-modalità relativa un singolo errore sposta tutto il resto del pezzo
-di un'ottava.
+L'inserimento delle note con l'ottava assoluta costringe a specificare
+l'ottava di ogni singola nota.  Al contrario, se si usa l'ottava relativa,
+ogni ottava è determinata dall'ultima nota: se si cambia l'ottava di una
+nota, cambieranno anche le ottave di tutte le ote successive.
+
+La modalità relativa deve essere impostata in modo esplicito col
+comando @code{\relative}:
 
 @example
 \relative @var{altezza_di_riferimento} @var{espressione_musicale}
@@ -146,8 +158,28 @@ ottave.
 @item
 L'altezza della prima nota è relativa a
 @code{@var{altezza_di_riferimento}}.  @code{@var{altezza_di_riferimento}} è
-specificato nel modo di ottava assoluta.  Vi raccomandiamo di fare riferimento
-a un Do (@code{c}).
+specificato nel modo di ottava assoluta.  Quale di queste opzioni è la
+più  conveniente?
+
+@table @asis
+@item un'ottava del @code{c}
+Identificare il Do centrale con @code{c'} è molto semplice, quindi trovare
+le ottave del @code{c} (Do) sarà altrettanto semplice.  Se la musica inizia
+con @code{gis} sopra @code{c'''}, si scriverà qualcosa simile a
+@code{\relative c''' @{ gis' @dots{} @}}
+
+@item un'ottava della prima nota
+Scrivere @code{\relative gis''' @{ gis @dots{} @}} è un modo semplice per
+determinare l'altezza assoluta della prima nota dell'espressione musicale.
+
+@item nessuna altezza di riferimento esplicita
+Questa (ovvero @code{\relative @{ gis''' @dots{} @}}) può essere considerata
+una versione compatta dell'opzione precedente: la prima nota dentro l'espressione
+musicale è scritta come altezza assoluta.  In questo caso equivale a scegliere
+@code{f} come altezza di riferimento.
+@end table
+
+La documentazione di solito usa la prima opzione.
 @end itemize
 
 Ecco il modo relativo in azione:
@@ -286,11 +318,6 @@ Guida al funzionamento interno:
 @funindex \relative
 @funindex relative
 
-@c DEPRECATED
-Se non viene specificata una @code{@var{altezza_di_riferimento}} per @code{\relative},
-allora si assume che corrisponda a @tie{}@code{c'}.  Tuttavia, questa è un'opzione
-deprecata e potrebbe essere tolta nelle future versioni; il
-suo impiego è quindi sconsigliato.
 
 
 @node Alterazioni
@@ -383,7 +410,7 @@ cis cis cis! cis? c c c! c?
 Se una nota è prolungata attraverso una legatura di valore, l'alterazione
 viene ripetuta solo all'inizio di un nuovo sistema:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2,ragged-right]
 cis1~ cis~
 \break
 cis
@@ -1300,8 +1327,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
     (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
 
 \relative c' {
-  \key c\freygish c4 des e f
-  \bar "||" \key d\freygish d es fis g
+  \key c \freygish c4 des e f
+  \bar "||" \key d \freygish d es fis g
 }
 @end lilypond
 
@@ -1317,11 +1344,11 @@ posizione del rigo.
 @lilypond[verbatim, quote,relative=0]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b\major b fis b2
+\bar "||" \key b \major b fis b2
 @end lilypond
 
 
@@ -1389,6 +1416,9 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
 
 @seealso
 Glossario musicale:
@@ -1467,21 +1497,34 @@ all'unisono.
 @end lilypond
 
 @code{\transposition} può essere modificato nel corso di un brano.  Ad
-esempio, un clarinettista potrebbe passare da un clarinetto in La a uno
-in Si bemolle.
+esempio, un clarinettista potrebbe essere costretto a passare da un
+clarinetto in La a uno in Si bemolle.
 
-@lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = #"Cl (A)"
-\key a \major
-\transposition a
-c d e f
-\textLengthOn
-<>^\markup { Switch to B\flat clarinet }
-R1
-
-\key bes \major
-\transposition bes
-c2 g
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  \key f \major
+  \cueDuring #"clarinet" #DOWN {
+    R1 _\markup\tiny "clarinet"
+    c4 f e d
+    R1 _\markup\tiny "clarinet"
+  }
+}
+clarinet = \relative c'' {
+  \key aes \major
+  \transposition a
+  aes4 bes c des
+  R1^\markup { muta in B\flat }
+  \key g \major
+  \transposition bes
+  d2 g,
+}
+\addQuote "clarinet" \clarinet
+<<
+  \new Staff \with { instrumentName = #"Flute" }
+    \flute
+  \new Staff \with { instrumentName = #"Cl (A)" }
+    \clarinet
+>>
 @end lilypond
 
 @seealso

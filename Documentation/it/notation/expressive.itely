@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 8f3dfc850e8e16723c4d9d00c848b5393dc16330
+    Translation of GIT committish: b00f11e450fd9c3c7b56ece5afa72606cac064cb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -479,6 +479,16 @@ segni testuali, estensori del testo e segni di pedale del pianoforte.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
+
+@cindex forcelle Ferneyhough
+@cindex Ferneyhough, forcelle
+@cindex forcelle allargate (flared-hairpins)
+@cindex flared-hairpin
+@cindex forcelle continue (constante-hairpins)
+@cindex constante-hairpins
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
@@ -1255,7 +1265,9 @@ Guida al funzionamento interno:
 Non è possibile avere arpeggi connessi e non connessi in un
 @code{PianoStaff} nello stesso momento temporale.
 
-L'arpeggio in forma di parentesi non funziona negli arpeggi che attraversano i righi.
+L'arpeggio in forma di parentesi non può essere impostato con facilità negli
+arpeggi che attraversano i righi; occorre ricorrere a metodi più complessi
+descritti in @ref{Cross-staff stems}.
 
 
 @node Trilli

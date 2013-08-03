@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 1b15a2096770f0393c799097afa4a2dcf28ed213
+    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -721,8 +721,8 @@ Gli editor di Computer!Totaal, una rivista olandese di computer,
 nel numero di Ottobre 2004
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
 descrivono LilyPond} come: @qq{Meraviglioso software
-libero [..] Gli spartiti prodotti da
-LilyPond sono incredibilmente belli [..] un sistema molto potente che
+libero [@dots{}] Gli spartiti prodotti da
+LilyPond sono incredibilmente belli [@dots{}] un sistema molto potente che
 può fare praticamente qualsiasi cosa.}
 
 @item
@@ -749,7 +749,7 @@ Febbraio 2004
 
 Il cantante jazz Gail Selkirk scrive su
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Tuffarsi in LilyPond}.  @qq{... puoi scrivere lead sheet o parti per
+Tuffarsi in LilyPond}.  @qq{@dots{} puoi scrivere lead sheet o parti per
 un'intera orchestra, e i risultati possono essere sorprendenti.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special},
 numero CMS06.
@@ -790,7 +790,7 @@ quanto riguarda la velocità, la facilità d'uso e la resa grafica!}
 @imageFloat{darius-blasband,jpg, right}
 @subsubheading Darius Blasband, compositore (Bruxelles, Belgio)
 
-@qq{[..dopo la prima prova d'orchestra] ho ricevuto molti
+@qq{[@dots{}dopo la prima prova d'orchestra] ho ricevuto molti
 complimenti per la qualità degli spartiti.  Ancora più
 importante: sebbene Lilypond fornisca molti trucchi per migliorare
 l'aspetto degli spartiti, quello che l'orchestra ha ricevuto da me è
@@ -805,10 +805,10 @@ l'output grezzo e privo di ritocchi.}
 lavoro.  Non ho mai visto niente che possa avvicinarsi all'output di
 Lilypond -- sono assolutamente sicuro che le mie necessità nel campo
 dell'editoria musicale saranno soddisfatte oltre ogni aspettativa usando
-questo fantastico programma.  [..] l'output predefinito di Lilypond [..] ha
+questo fantastico programma.  [@dots{}] l'output predefinito di Lilypond [@dots{}] ha
 un aspetto migliore delle recenti pubblicazioni @q{professionali} con cui
 l'ho confrontato (ovvero quasi qualsiasi spartito della Warner Bros, e anche molti
-dei più recenti delle @q{vecchie case editrici}). [..]}
+dei più recenti delle @q{vecchie case editrici}). [@dots{}]}
 
 @qq{Li batte tutti, Finale/Sibelius/Igor/, qualsiasi cosa!!!}
 @divEnd
@@ -847,7 +847,7 @@ farlo.  Sono sicuro che nessun prodotto commerciale può avvicinarsi a questo.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, trombone basso, Iceland Symphony Orchestra
 
-@qq{Credo che Lilypond sia un grande programma [..] Più imparo LilyPond
+@qq{Credo che Lilypond sia un grande programma [@dots{}] Più imparo LilyPond
 e più mi piace!}
 @divEnd
 
@@ -856,7 +856,7 @@ e più mi piace!}
 @subsubheading Vaylor Trucks, chitarrista elettrico
 (@uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12,connesso con i} Yes)
 
-@qq{Sono impressionato da LilyPond [..]}
+@qq{Sono impressionato da LilyPond [@dots{}]}
 
 @qq{QUESTO È IL MIGLIOR PROGRAMMA MAI ESISTITO!!!}
 
@@ -869,7 +869,7 @@ e più mi piace!}
 
 @qq{Con LilyPond avevo una specie di relazione di amore-odio.  Amore
 perché il primo spartito che ho visto era così meraviglioso! Il modo in cui
-LilyPond viene presentato mente sulla sua bellezza, è troppo modesto! [..] Via
+LilyPond viene presentato mente sulla sua bellezza, è troppo modesto! [@dots{}] Via
 via che LilyPond migliora, costantemente, e io vedo come le cose vengono
 fatte in Scheme, ho sempre meno frustrazioni.  Comunque,
 quello che voglio dire è: grazie per metterci a disposizione LilyPond, è davvero

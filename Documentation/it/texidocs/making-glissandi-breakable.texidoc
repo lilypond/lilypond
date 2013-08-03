@@ -1,4 +1,4 @@
-%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
+%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
   texidocit = "
 Per permettere a un glissando di andare a capo se capita su un'interruzione di
 riga, si impostano le proprietà @code{breakable} e @code{after-line-breaking}
