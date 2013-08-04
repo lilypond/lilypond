@@ -3592,7 +3592,8 @@ def conv(str):
     return str
 
 @rule((2, 17, 25), r'''\tempo 4. = 50~60 -> \tempo 4. = 50-60
--| -> -!''')
+-| -> -!
+pipeSymbol, escapedParenthesisOpenSymbol ... -> "|", "\\(" ...''')
 def conv(str):
 #  This goes for \tempo commands ending with a range, like
 #  = 50 ~ 60
@@ -3608,6 +3609,36 @@ def conv(str):
         return m.group (0)
     str = re.sub (r"([-^_])\||" + matchstring + r"|[-^_][-^_]", subnonstring, str)
     str = re.sub (r"\bdashBar\b", "dashBang", str)
+    orig = [ "pipeSymbol",
+             "bracketOpenSymbol",
+             "bracketCloseSymbol",
+             "tildeSymbol",
+             "parenthesisOpenSymbol",
+             "parenthesisCloseSymbol",
+             "escapedExclamationSymbol",
+             "escapedParenthesisOpenSymbol",
+             "escapedParenthesisCloseSymbol",
+             "escapedBiggerSymbol",
+             "escapedSmallerSymbol" ]
+    repl = [ r'"|"',
+             r'"["',
+             r'"]"',
+             r'"~"',
+             r'"("',
+             r'")"',
+             r'"\\!"',
+             r'"\\("',
+             r'"\\)"',
+             r'"\\>"',
+             r'"\\<"']
+    words = r"\b(?:(" + ")|(".join (orig) + r"))\b"
+    def wordreplace(m):
+        def instring(m):
+            return re.sub (r'["\\]',r'\\\g<0>',repl[m.lastindex-1])
+        if m.lastindex:
+            return repl[m.lastindex-1]
+        return '"' + re.sub (words, instring, m.group(0)[1:-1]) + '"'
+    str = re.sub (words + "|" + matchstring, wordreplace, str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

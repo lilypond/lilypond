@@ -40,6 +40,7 @@ private:
   int scan_bare_word (string);
   SCM scan_markup_word (string);
   int scan_escaped_word (string);
+  int scan_shorthand (string);
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   char escaped_char (char) const;

@@ -309,16 +309,8 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 %token DOUBLE_ANGLE_OPEN "<<"
 %token DOUBLE_ANGLE_CLOSE ">>"
 %token E_BACKSLASH "\\"
-%token E_ANGLE_CLOSE "\\>"
-%token E_CHAR "\\C[haracter]"
-%token E_CLOSE "\\)"
 %token E_EXCLAMATION "\\!"
-%token E_BRACKET_OPEN "\\["
-%token E_OPEN "\\("
-%token E_BRACKET_CLOSE "\\]"
-%token E_ANGLE_OPEN "\\<"
 %token E_PLUS "\\+"
-%token E_TILDE "\\~"
 %token EXTENDER "__"
 
 /*
@@ -2484,40 +2476,10 @@ command_element:
 	command_event {
 		$$ = $1;
 	}
-	| E_BRACKET_OPEN {
-		Music *m = MY_MAKE_MUSIC ("LigatureEvent", @$);
-		m->set_property ("span-direction", scm_from_int (START));
-		$$ = m->unprotect();
-	}
-	| E_BRACKET_CLOSE {
-		Music *m = MY_MAKE_MUSIC ("LigatureEvent", @$);
-		m->set_property ("span-direction", scm_from_int (STOP));
-		$$ = m->unprotect ();
-	}
-	| E_BACKSLASH {
-		$$ = MAKE_SYNTAX ("voice-separator", @$);
-	}
-	| '|'      {
-		SCM pipe = parser->lexer_->lookup_identifier ("pipeSymbol");
-
-		Music *m = unsmob_music (pipe);
-		if (m)
-		{
-			m = m->clone ();
-			m->set_spot (@$);
-			$$ = m->unprotect ();
-		}
-		else
-			$$ = MAKE_SYNTAX ("bar-check", @$);
-
-	}
 	;
 
 command_event:
-	E_TILDE {
-		$$ = MY_MAKE_MUSIC ("PesOrFlexaEvent", @$)->unprotect ();
-	}
-	| tempo_event {
+	tempo_event {
 		$$ = $1;
 	}
 	;
@@ -2614,55 +2576,8 @@ string_number_event:
 	}
 	;
 
-direction_less_char:
-	'['  {
-		$$ = ly_symbol2scm ("bracketOpenSymbol");
-	}
-	| ']'  {
-		$$ = ly_symbol2scm ("bracketCloseSymbol");
-	}
-	| '~'  {
-		$$ = ly_symbol2scm ("tildeSymbol");
-	}
-	| '('  {
-		$$ = ly_symbol2scm ("parenthesisOpenSymbol");
-	}
-	| ')'  {
-		$$ = ly_symbol2scm ("parenthesisCloseSymbol");
-	}
-	| E_EXCLAMATION  {
-		$$ = ly_symbol2scm ("escapedExclamationSymbol");
-	}
-	| E_OPEN  {
-		$$ = ly_symbol2scm ("escapedParenthesisOpenSymbol");
-	}
-	| E_CLOSE  {
-		$$ = ly_symbol2scm ("escapedParenthesisCloseSymbol");
-	}
-	| E_ANGLE_CLOSE  {
-		$$ = ly_symbol2scm ("escapedBiggerSymbol");
-	}
-	| E_ANGLE_OPEN  {
-		$$ = ly_symbol2scm ("escapedSmallerSymbol");
-	}
-	;
-
 direction_less_event:
-	direction_less_char {
-		SCM predefd = parser->lexer_->lookup_identifier_symbol ($1);
-		Music *m = 0;
-		if (unsmob_music (predefd))
-		{
-			m = unsmob_music (predefd)->clone ();
-			m->set_spot (@$);
-		}
-		else
-		{
-			m = MY_MAKE_MUSIC ("Music", @$);
-		}
-		$$ = m->unprotect ();
-	}
-	| string_number_event
+	string_number_event
 	| EVENT_IDENTIFIER	{
 		$$ = $1;
 	}
@@ -2958,38 +2873,23 @@ bass_figure:
 	}
 	| bass_figure figured_bass_modification  {
 		Music *m = unsmob_music ($1);
-		if ($2 == ly_symbol2scm ("plus"))
-			{
-			m->set_property ("augmented", SCM_BOOL_T);
-			}
-		else if ($2 == ly_symbol2scm ("slash"))
-			{
-			m->set_property ("diminished", SCM_BOOL_T);
-			}
-		else if ($2 == ly_symbol2scm ("exclamation"))
-			{
-			m->set_property ("no-continuation", SCM_BOOL_T);
-			}
-		else if ($2 == ly_symbol2scm ("backslash"))
-			{
-			m->set_property ("augmented-slash", SCM_BOOL_T);
-			}
+		m->set_property ($2, SCM_BOOL_T);
 	}
 	;
 
 
 figured_bass_modification:
 	E_PLUS		{
-		$$ = ly_symbol2scm ("plus");
+		$$ = ly_symbol2scm ("augmented");
 	}
 	| E_EXCLAMATION {
-		$$ = ly_symbol2scm ("exclamation");
+		$$ = ly_symbol2scm ("no-continuation");
 	}
 	| '/'		{
-		$$ = ly_symbol2scm ("slash");
+		$$ = ly_symbol2scm ("diminished");
 	}
 	| E_BACKSLASH {
-		$$ = ly_symbol2scm ("backslash");
+		$$ = ly_symbol2scm ("augmented-slash");
 	}
 	;
 

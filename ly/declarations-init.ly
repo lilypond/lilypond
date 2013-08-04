@@ -85,6 +85,10 @@ escapedParenthesisOpenSymbol = #(make-span-event 'PhrasingSlurEvent START)
 escapedParenthesisCloseSymbol = #(make-span-event 'PhrasingSlurEvent STOP)
 escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
 escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
+"\\[" = #(make-span-event 'LigatureEvent START)
+"\\]" = #(make-span-event 'LigatureEvent STOP)
+"\\~" = #(make-music 'PesOrFlexaEvent)
+"\\\\" = #(make-music 'VoiceSeparator)
 
 
 \include "scale-definitions-init.ly"
