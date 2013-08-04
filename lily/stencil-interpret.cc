@@ -21,7 +21,7 @@
 
 void
 interpret_stencil_expression (SCM expr,
-                              void (*func) (void *, SCM),
+                              SCM (*func) (void *, SCM),
                               void *func_arg,
                               Offset o)
 {
@@ -133,7 +133,7 @@ struct Font_list
   SCM fonts_;
 };
 
-static void
+static SCM
 find_font_function (void *fs, SCM x)
 {
   Font_list *me = (Font_list *) fs;
@@ -152,6 +152,7 @@ find_font_function (void *fs, SCM x)
             me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
         }
     }
+  return SCM_BOOL_T;
 }
 
 SCM

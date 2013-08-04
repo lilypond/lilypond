@@ -315,10 +315,10 @@ struct Stencil_interpret_arguments
   SCM arg1;
 };
 
-void stencil_interpret_in_scm (void *p, SCM expr)
+SCM stencil_interpret_in_scm (void *p, SCM expr)
 {
   Stencil_interpret_arguments *ap = (Stencil_interpret_arguments *) p;
-  scm_call_2 (ap->func, ap->arg1, expr);
+  return scm_call_2 (ap->func, ap->arg1, expr);
 }
 
 LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
