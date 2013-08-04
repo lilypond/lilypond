@@ -631,7 +631,7 @@ sung on one syllable; this is called melisma, see
 @rglos{melisma}.  The syllable to a melisma is usually
 left-aligned with the first note of the melisma.
 
-When a melisma occurs on a syllable other that the last one in a
+When a melisma occurs on a syllable other than the last one in a
 word, that syllable is usually joined to the following one with a
 hyphenated line.  This is indicated by placing a double hyphen,
 @w{@code{--}}, immediately after the syllable.
