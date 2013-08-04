@@ -3591,7 +3591,8 @@ def conv(str):
                   r"\1", str)
     return str
 
-@rule((2, 17, 25), r'''\tempo 4. = 50~60 -> \tempo 4. = 50-60''')
+@rule((2, 17, 25), r'''\tempo 4. = 50~60 -> \tempo 4. = 50-60
+-| -> -!''')
 def conv(str):
 #  This goes for \tempo commands ending with a range, like
 #  = 50 ~ 60
@@ -3599,6 +3600,14 @@ def conv(str):
 #  complete syntax has a large number of variants, and this is quite
 #  unlikely to occur in other contexts
     str = re.sub (r"(=\s*[0-9]+\s*)~(\s*[0-9]+\s)", r"\1-\2", str)
+# Match strings, and articulation shorthands that end in -^_
+# so that we leave alone -| in quoted strings and c4--|
+    def subnonstring(m):
+        if m.group (1):
+            return m.group (1)+"!"
+        return m.group (0)
+    str = re.sub (r"([-^_])\||" + matchstring + r"|[-^_][-^_]", subnonstring, str)
+    str = re.sub (r"\bdashBar\b", "dashBang", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

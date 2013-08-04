@@ -2800,8 +2800,8 @@ script_abbreviation:
 	| '-' 		{
 		$$ = scm_from_locale_string ("Dash");
 	}
- 	| '|'		{
-		$$ = scm_from_locale_string ("Bar");
+ 	| '!'		{
+		$$ = scm_from_locale_string ("Bang");
 	}
 	| ANGLE_CLOSE	{
 		$$ = scm_from_locale_string ("Larger");

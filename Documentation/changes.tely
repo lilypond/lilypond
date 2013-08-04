@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+The articulation shorthand for @code{\staccatissimo} has been
+renamed from @code{-|} to@tie{}@code{-!}.
+
+@item
 Tempo change ranges are now written as @code{\tempo 4 = 60 - 68}
 rather than @code{\tempo 4 = 60 ~ 68}.
 

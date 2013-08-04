@@ -179,7 +179,7 @@ expression."
             ((marcato) "^")
             ((stopped) "+")
             ((tenuto)    "-")
-            ((staccatissimo) "|")
+            ((staccatissimo) "!")
             ((accent) ">")
             ((staccato) ".")
             ((portato) "_")
