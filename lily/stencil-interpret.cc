@@ -55,10 +55,12 @@ interpret_stencil_expression (SCM expr,
         {
           SCM grob = scm_cadr (expr);
 
-          (*func) (func_arg, scm_list_3 (head,
-                                         ly_quote_scm (ly_offset2scm (o)), grob));
+          SCM link =
+            (*func) (func_arg,
+                     scm_list_3 (head, ly_quote_scm (ly_offset2scm (o)), grob));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
-          (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
+          if (scm_is_true (link))
+            (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
           return;
         }
       else if (head == ly_symbol2scm ("color"))
