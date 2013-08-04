@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+Tempo change ranges are now written as @code{\tempo 4 = 60 - 68}
+rather than @code{\tempo 4 = 60 ~ 68}.
+
+@item
 Grob @code{OctavateEight} was renamed to @code{ClefModifier}.
 Related context properties were renamed from @code{xxxOctavationyyy}
 to @code{xxxTranspositionyyy}.

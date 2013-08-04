@@ -3591,6 +3591,16 @@ def conv(str):
                   r"\1", str)
     return str
 
+@rule((2, 17, 25), r'''\tempo 4. = 50~60 -> \tempo 4. = 50-60''')
+def conv(str):
+#  This goes for \tempo commands ending with a range, like
+#  = 50 ~ 60
+#  and uses - instead.  We don't explicitly look for \tempo since the
+#  complete syntax has a large number of variants, and this is quite
+#  unlikely to occur in other contexts
+    str = re.sub (r"(=\s*[0-9]+\s*)~(\s*[0-9]+\s)", r"\1-\2", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

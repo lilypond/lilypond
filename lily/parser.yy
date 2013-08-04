@@ -3188,7 +3188,7 @@ tempo_range:
 	UNSIGNED {
 		$$ = $1;
 	}
-	| UNSIGNED '~' UNSIGNED {
+	| UNSIGNED '-' UNSIGNED {
 		$$ = scm_cons ($1, $3);
 	}
 	;
