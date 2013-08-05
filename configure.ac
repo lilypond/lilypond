@@ -97,7 +97,7 @@ AC_MSG_RESULT($NCSB_SOURCE_FILES)
 
 AC_LANG([C++])
 
-STEPMAKE_PYTHON(REQUIRED, 2.4)
+STEPMAKE_PYTHON(REQUIRED, 2.4, 3.0)
 # this checks if we have GNU C by compiling a program with
 # __GNUC__, but that macro now unofficially means "the compiler
 # supports the GNU C extensions" -- the intel C compiler and clang
@@ -122,7 +122,7 @@ STEPMAKE_GETTEXT
 STEPMAKE_MSGFMT(REQUIRED)
 STEPMAKE_TEXMF(REQUIRED)
 STEPMAKE_TEXMF_DIRS(REQUIRED)
-STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2)
+STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2, 1.9.0)
 
 # check for 3 typedefs added in Guile 1.9
 save_CXXFLAGS="$CXXFLAGS"
@@ -166,7 +166,7 @@ AC_MSG_RESULT(Must have patched GUILE rational support. See INSTALL.txt)])
 CPPFLAGS="$save_CPPFLAGS"
 
 
-STEPMAKE_PYTHON_DEVEL(REQUIRED)
+STEPMAKE_PYTHON_DEVEL(REQUIRED, 2.4, 3.0)
 
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20110222)
 
@@ -205,7 +205,7 @@ STEPMAKE_FREETYPE2(freetype2, REQUIRED, 2.1.10)
 STEPMAKE_WINDOWS
 
 # guile executable for some scripts
-STEPMAKE_GUILE(OPTIONAL)
+STEPMAKE_GUILE(OPTIONAL, 1.8.2, 1.9.0)
 
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)

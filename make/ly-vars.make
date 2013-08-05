@@ -14,6 +14,6 @@ TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 
 # prerequisites for all rules invoking compiled lilypond binary
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
-INIT_LY_SOURCES = $(wildcard $(top-src-dir)/scm/*.scm)
-SCHEME_SOURCES = $(wildcard $(top-src-dir)/ly/*.ly)
+INIT_LY_SOURCES = $(wildcard $(top-src-dir)/ly/*.ly)
+SCHEME_SOURCES = $(wildcard $(top-src-dir)/scm/*.scm)
 endif

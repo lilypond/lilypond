@@ -22,6 +22,7 @@ configurable; virtually every fragment of output may be changed.
 * The Internals Reference manual::
 * Appearance of objects::
 * Placement of objects::
+* Vertical spacing::
 * Collisions of objects::
 * Further tweaking::
 @end menu
@@ -2351,7 +2352,7 @@ shows:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2384,16 +2385,17 @@ These are properties of all grobs which support the
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
-by the trick of adding infinity to the leftmost extent and
-minus infinity to the rightmost extent by setting the
-@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
-to ensure they do not overlap in the horizontal direction we
-must override this value of @code{extra-spacing-width} to
-@code{'(0 . 0)} so the true width shines through.  This is
-the command to do this for dynamic text:
+by the trick of making the leftmost extent infinity and
+the rightmost extent minus infinity by setting the
+@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  To
+ensure they do not overlap in the horizontal direction we
+must override this value of @code{extra-spacing-width} to give them
+a little extra spacing.  The units are the space between two staff
+lines, so moving the left edge half a unit to the left and the
+right edge half a unit to the right should do it:
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2402,39 +2404,218 @@ Let's see if this works in our previous example:
 @cindex DynamicText, example of overriding
 @cindex extra-spacing-width property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-Well, it has certainly stopped the dynamic marks being
-displaced, but two problems remain.  The marks should be
-spaced a little further apart and it would be better
-if they were all the same distance from the staff.
-We can solve the first problem easily.  Instead of making
-the @code{extra-spacing-width} zero we could add a little
-more to it.  The units are the space between two staff
-lines, so moving the left edge half a unit to the left and the
-right edge half a unit to the right should do it:
-
-@cindex DynamicText, example of overriding
-@cindex extra-spacing-width property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
 This looks better, but maybe we would prefer the dynamic marks
 to be aligned along the same baseline rather than going up and
 down with the notes.  The property to do this is
-@code{staff-padding} which is covered in the following section.
+@code{staff-padding} which is covered in the section on collisions
+(see @ref{Collisions of objects}).
 
+
+@node Vertical spacing
+@section Vertical spacing
+
+As a rule, LilyPond's vertical spacing of musical objects is pretty
+good.  Let's see how it does with a simple song, with 2 voices and
+piano accompaniment:
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+There's nothing wrong with the default vertical spacing.  However, let's
+assume that you're working with a publisher with some specific
+requirements for vertical spacing of staves and lyrics: they want
+the lyrics spaced away from any notes, they want the piano
+accompaniment spaced away from the vocal line and they want the two
+piano staves pushed together tightly.  Let's start with the lyrics.
+
+Lyrics sit within a system, and therefore the commands to space them
+are found in @ruser{Flexible vertical spacing within systems}.  It
+tells us that lyrics are @code{non-staff lines} and therefore the
+command to change their spacing will refer to the @code{nonstaff}
+property.  Spacing them away from the staff to which they relate
+(the top line) will use the @code{relatedstaff} property.  Spacing
+them from the lower line will use the @code{unrelatedstaff} property.
+The vocal parts are part of a @code{VerticalAxisGroup}, so we need to
+adjust its properties.  Let's try it and see if it works.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Well - yes it does, but perhaps too well.  When we set the
+@code{padding} to 5, LilyPond adds 5 staff spaces to the distance
+between objects, which is too much for us here.  We'll use 2.
+
+Next, let's move the piano music away from the vocal parts.  The
+vocal music is a @code{ChoirStaff}, so we need to increase the
+spacing between that group of staves and the piano staff below.
+We'll do this by changing the @code{basic-distance} of the
+@code{StaffGrouper}'s @code{staffgroup-staff-spacing}.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Excellent.  Now just for the last requirement to make the piano staves
+closer together.  To do this, we again alter the properties of the
+@code{StaffGrouper}, but this time we're going to reduce both
+the @code{basic-distance} and the @code{padding}.  We can do this
+as shown below.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+That's put them really close together -- but it's what
+the publisher wanted.  They could be moved further
+apart by altering the @code{padding} or @code{basic-distance}
+if wanted.
+
+There are many ways of altering vertical spacing.  A key point
+to remember is that the spacing between objects in a
+@code{StaffGroup} (like @code{GrandStaff} or
+@code{PianoStaff} groups) is controlled by the spacing variables
+of the @code{StaffGrouper}. Spacing from ungrouped staves
+(like @code{Lyrics} and @code{Staff}) is controlled by the
+variables of the @code{VerticalAxisGroup}.  See the
+@ruser{Flexible vertical spacing \paper variables} and
+@ruser{Flexible vertical spacing within systems} for more
+details.
 
 @node Collisions of objects
 @section Collisions of objects
@@ -2808,15 +2989,15 @@ example taken from the previous section:
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Align dynamics to a base line 2 units above staff
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 
 @node The self-alignment-X property
 @unnumberedsubsubsec The @code{self-alignment-X} property
 
-The following example shows how this can resolve the collision
-of a string fingering object with a note's stem by aligning the
+The following example shows how to adjust the position
+of a string fingering object relative to a note's stem by aligning the
 right edge with the reference point of the parent note:
 
 @cindex StringNumber, example of overriding

@@ -1003,20 +1003,20 @@ cd out
 @dots{}
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 Do not fail if no lilypond output is found.  It is used for LilyPond
 Info documentation without images.
 
-@itemx --skip-png-check
+@item --skip-png-check
 Do not fail if no PNG images are found for EPS files.  It is used for
 LilyPond Info documentation without images.
 
-@itemx --lily-output-dir=@var{dir}
+@item --lily-output-dir=@var{dir}
 Write lily-XXX files to directory @var{dir}, link into @option{--output}
 directory.  Use this option to save building time for documents in
 different directories which share a lot of identical snippets.
 
-@itemx --lily-loglevel=@var{loglevel}
+@item --lily-loglevel=@var{loglevel}
 Set the output verbosity of the invoked @command{lilypond} calls to
 @var{loglevel}.  Possible values are @code{NONE}, @code{ERROR},
 @code{WARNING}, @code{BASIC_PROGRESS}, @code{PROGRESS}, @code{INFO}
@@ -1025,16 +1025,16 @@ environment variable @code{LILYPOND_LOGLEVEL} is set, its value is used
 as the loglevel.
 
 
-@itemx --info-images-dir=@var{dir}
+@item --info-images-dir=@var{dir}
 Format Texinfo output so that Info will look for images of music in
 @var{dir}.
 
-@itemx --latex-program=@var{prog}
+@item --latex-program=@var{prog}
 Run executable @command{prog} instead of @command{latex}.  This is
 useful if your document is processed with @command{xelatex}, for
 example.
 
-@itemx --left-padding=@var{amount}
+@item --left-padding=@var{amount}
 Pad EPS boxes by this much.  @var{amount} is measured in millimeters,
 and is 3.0 by default.  This option should be used if the lines of
 music stick out of the right margin.
@@ -1057,7 +1057,7 @@ Create PDF files for use with PDF@LaTeX{}.
 By default, output is displayed on the terminal.  This option redirects
 all output to log files in the same directory as the source files.
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 Write snippet output files with the same base name as their source file.
 This option works only for snippets included with @code{lilypondfile}
 and only if directories implied by @option{--output-dir} and

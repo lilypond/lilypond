@@ -397,6 +397,11 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
     (PartialSet
      . ((description . "Create an anacrusis or upbeat (partial measure).")
         (iterator-ctor . ,ly:partial-iterator::constructor)
+        ;; The length-callback is kind of cheesy since 'elements is
+        ;; empty.  We just use that in order to get a zero length
+        ;; for the overall timing in spite of having a non-zero
+        ;; duration field.
+        (length-callback . ,ly:music-sequence::cumulative-length-callback)
         (types . (general-music partial-set))
         ))
 

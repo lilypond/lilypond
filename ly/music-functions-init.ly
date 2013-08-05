@@ -976,7 +976,7 @@ partial =
     (descend-to-context
      (context-spec-music (make-music 'PartialSet
 				     'origin location
-				     'partial-duration dur)
+				     'duration dur)
 			 'Timing)
      'Score))
 

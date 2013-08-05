@@ -562,8 +562,44 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
 ])
 
 
+# Check for guile, between minimum ($2) and maximum version ($3).
+# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_GUILE, [
-    STEPMAKE_PATH_PROG(GUILE, guile guile1, $1)
+    AC_MSG_CHECKING([for guile])
+    guile="guile"
+    found="no"
+    for r in $GUILE guile guile2 guile2.0 guile-2.0 guile1 guile1.9 guile1.8 guile-1 guile-1.9 guile-1.8; do
+	exe=`STEPMAKE_GET_EXECUTABLE($r)`
+	if ! $exe --version > /dev/null 2>&1 ; then
+	    continue
+	fi
+	ver=`STEPMAKE_GET_VERSION($exe)`
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	req=`STEPMAKE_NUMERIC_VERSION($2)`
+	sup=`STEPMAKE_NUMERIC_VERSION($3)`
+	if test -n "$2" && test "$num" -lt "$req"; then
+	    guile=["$r >= $2 (installed: $ver)"]
+	    continue
+	else
+	    if test -n "$3" && test "$num" -ge "$sup"; then
+		guile=["$r < $3 (installed: $ver)"]
+		continue
+	    else
+		guile=$r
+		found=$r
+		break
+	    fi
+	fi
+    done
+    AC_MSG_RESULT([$found])
+    if test "$found" != "no"; then
+	AC_MSG_CHECKING([$guile version])
+	AC_MSG_RESULT([$ver])
+	GUILE=$found
+    else
+	STEPMAKE_ADD_ENTRY($1, $guile)
+    fi
+    STEPMAKE_PATH_PROG(GUILE, $GUILE)
 ])
 
 
@@ -600,31 +636,45 @@ AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
 ])
 
 
+# Check for guile-config, between minimum ($2) and maximum version ($3).
+# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     ## First, let's just see if we can find Guile at all.
     test -n "$target_alias" && target_guile_config=$target_alias-guile-config
     test -n "$host_alias" && host_guile_config=$host_alias-guile-config
     AC_MSG_CHECKING([for guile-config])
-    for guile_config in $GUILE_CONFIG $target_guile_config $host_guile_config $build_guile_config guile-config guile1-config; do
-	AC_MSG_RESULT([$guile_config])
-	if ! $guile_config --version > /dev/null 2>&1 ; then
-	    AC_MSG_WARN([cannot execute $guile_config])
-	    AC_MSG_CHECKING([if we are cross compiling])
-	    GUILE_CONFIG='echo no guile-config'
+    guile_config="guile-config"
+    found="no"
+    for r in $GUILE_CONFIG $target_guile_config $host_guile_config $build_guile_config guile-config guile2-config guile2.0-config guile-2.0-config guile1-config guile1.9-config guile1.8-config guile-1-config guile-1.9-config guile-1.8-config; do
+	exe=`STEPMAKE_GET_EXECUTABLE($r)`
+	if ! $exe --version > /dev/null 2>&1 ; then
+	    continue
+	fi
+	ver=`STEPMAKE_GET_VERSION($exe)`
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	req=`STEPMAKE_NUMERIC_VERSION($2)`
+	sup=`STEPMAKE_NUMERIC_VERSION($3)`
+	if test -n "$2" -a "$num" -lt "$req"; then
+	    guile_config=["$r >= $2 (installed: $ver)"]
+	    continue
 	else
-	    GUILE_CONFIG=$guile_config
-	    break
+	    if test -n "$3" -a "$num" -ge "$sup"; then
+		guile_config=["$r < $3 (installed: $ver)"]
+		continue
+	    else
+		guile_config=$r
+		found=$r
+		break
+	    fi
 	fi
     done
-    STEPMAKE_OPTIONAL_REQUIRED(GUILE_CONFIG, $guile_config, $1)
-    if test $? -ne 0; then
-        STEPMAKE_ADD_ENTRY($1, 'guile-config (guile-devel, guile-dev or libguile-dev package) or guile1-config (guile1-devel package)')
-    fi 
-
-    STEPMAKE_CHECK_SEARCH_RESULT(GUILE_CONFIG)
-    # urg.  should test functionality rather than version.
-    if test $? -eq 0 -a -n "$2"; then
-	STEPMAKE_CHECK_VERSION(GUILE_CONFIG, $1, $2)
+    AC_MSG_RESULT([$found])
+    if test "$found" != "no"; then
+	AC_MSG_CHECKING([$guile_config version])
+	AC_MSG_RESULT([$ver])
+	GUILE_CONFIG=$found
+    else
+	STEPMAKE_ADD_ENTRY($1, "$guile_config (guile-devel, guile-dev or libguile-dev package) or guile1-config (guile1-devel package)")
     fi
 
     AC_SUBST(GUILE_CONFIG)
@@ -835,7 +885,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     fi
     AC_SUBST(SHELL)
 
-    STEPMAKE_PYTHON(REQUIRED, 1.5)
+    STEPMAKE_PYTHON(REQUIRED, 1.5, 3.0)
 
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
  	$MAKE -v 2> /dev/null | grep GNU > /dev/null
@@ -981,33 +1031,49 @@ AC_DEFUN(STEPMAKE_PERL, [
 ])
 
 
+# Check for python, between minimum ($2) and maximum version ($3).
+# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_PYTHON, [
-    unset pv
     AC_MSG_CHECKING([for python])
-    for python in $PYTHON python python2 python2.4 python2.3 python2.2 python2.1 python2.0; do
-	AC_MSG_RESULT([$python])
-	if ! $python -V > /dev/null 2>&1 ; then
-	    #AC_MSG_WARN([cannot execute $python])
-	    PYTHON='echo no python'
+    python="python"
+    found="no"
+    for r in $PYTHON python python3 python3.3 python3.2 python3.1 python3.0 python2 python2.7 python2.6 python2.5 python2.4 python2.3 python2.2 python2.1 python2.0; do
+	exe=`STEPMAKE_GET_EXECUTABLE($r)`
+	if ! $exe -V > /dev/null 2>&1 ; then
+	    continue
+	fi
+	ver=`STEPMAKE_GET_VERSION($exe)`
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	req=`STEPMAKE_NUMERIC_VERSION($2)`
+	sup=`STEPMAKE_NUMERIC_VERSION($3)`
+	if test -n "$2" && test "$num" -lt "$req"; then
+	    python=["$r >= $2 (installed: $ver)"]
+	    continue
 	else
-	    unset pv
-	    STEPMAKE_CHECK_VERSION(python, pv, $2)
-	    if test -z "$pv"; then
-		PYTHON=$python
+	    if test -n "$3" && test "$num" -ge "$sup"; then
+		python=["$r < $3 (installed: $ver)"]
+		continue
+	    else
+		python=$r
+		found=$r
 		break
 	    fi
 	fi
     done
-    if test -n "$pv"; then
-	STEPMAKE_ADD_ENTRY($1, $pv)
+    AC_MSG_RESULT([$found])
+    if test "$found" != "no"; then
+	AC_MSG_CHECKING([$python version])
+	AC_MSG_RESULT([$ver])
+	PYTHON=$found
+    else
+	STEPMAKE_ADD_ENTRY($1, $python)
     fi
-    # clear cached value since arg 2 might point us to a new binary
-    unset ac_cv_path_PYTHON
-
     AC_PATH_PROG(PYTHON, $PYTHON)
     AC_SUBST(PYTHON)
 ])
 
+# Check for python-config, between minimum ($2) and maximum version ($3).
+# If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     AC_ARG_WITH(python-include,
 	[AS_HELP_STRING([--with-python-include=DIR],
@@ -1028,8 +1094,9 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	    LDFLAGS="$LDFLAGS -l${withval}"
 	fi
     ])
-    
-    AC_CHECK_PROGS(PYTHON_CONFIG, python-config, no)
+
+    STEPMAKE_PYTHON($1, $2, $3)
+    AC_CHECK_PROGS(PYTHON_CONFIG, `basename $PYTHON`-config, no)
 
     if test -z "$PYTHON_CFLAGS" -a "$PYTHON_CONFIG" != "no"; then
         # Clean out junk: http://bugs.python.org/issue3290

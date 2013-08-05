@@ -539,6 +539,7 @@
          (header (eps-header paper rounded-bbox load-fonts)))
     (display header port)
     (write-preamble paper load-fonts port)
+    (display "/mark_page_link { pop pop pop pop pop } bind def\n" port)
     (display "gsave set-ps-scale-to-lily-scale\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)

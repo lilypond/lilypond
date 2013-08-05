@@ -27,6 +27,8 @@
 
 ;; todo: naming: grob vs. layout property
 
+(use-modules (scm accreg))
+
 (map ly:load '("documentation-lib.scm"
                "lily-sort.scm"
                "document-functions.scm"

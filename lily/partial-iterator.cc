@@ -36,7 +36,7 @@ void
 Partial_iterator::process (Moment m)
 {
   if (Duration * dur
-      = unsmob_duration (get_music ()->get_property ("partial-duration")))
+      = unsmob_duration (get_music ()->get_property ("duration")))
     {
       Context *ctx = get_outlet ();
       Moment now = ctx->now_mom ();

@@ -1756,7 +1756,11 @@ Entries that conform with the current key signature are not invalidated."
 
 (define-public (map-some-music map? music)
   "Walk through @var{music}, transform all elements calling @var{map?}
-and only recurse if this returns @code{#f}."
+and only recurse if this returns @code{#f}.  @code{elements} or
+@code{articulations} that are not music expressions are discarded:
+this allows some amount of filtering.
+
+@code{map-some-music} may overwrite the original @var{music}."
   (let loop ((music music))
     (or (map? music)
         (let ((elt (ly:music-property music 'element))
@@ -1767,10 +1771,10 @@ and only recurse if this returns @code{#f}."
                     (loop elt)))
           (if (pair? elts)
               (set! (ly:music-property music 'elements)
-                    (map loop elts)))
+                    (filter! ly:music? (map! loop elts))))
           (if (pair? arts)
               (set! (ly:music-property music 'articulations)
-                    (map loop arts)))
+                    (filter! ly:music? (map! loop arts))))
           music))))
 
 (define-public (for-some-music stop? music)

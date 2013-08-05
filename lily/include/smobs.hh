@@ -200,7 +200,7 @@ public:
       pass_here.checkin (arg);                                          \
   } while (0)
 #else
-#define ASSERT_LIVE_IS_ALLOWED(arg) do { } \
+#define ASSERT_LIVE_IS_ALLOWED(arg) do { (void)(arg); }  \
   while (0)
 #endif
 

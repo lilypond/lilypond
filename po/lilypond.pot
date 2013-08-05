@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.22\n"
+"Project-Id-Version: lilypond 2.17.23\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-07-14 10:51+0100\n"
+"POT-Creation-Date: 2013-07-28 11:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2082,20 +2082,20 @@ msgstr ""
 msgid "(load path: `%s')"
 msgstr ""
 
-#: lily-guile.cc:422
+#: lily-guile.cc:412
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:425
+#: lily-guile.cc:415
 msgid "perhaps a typing error?"
 msgstr ""
 
-#: lily-guile.cc:432
-msgid "doing assignment anyway"
+#: lily-guile.cc:422
+msgid "skipping assignment"
 msgstr ""
 
-#: lily-guile.cc:444
+#: lily-guile.cc:442
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -3211,84 +3211,84 @@ msgstr ""
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:210
+#: lexer.ll:211
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:213
+#: lexer.ll:214
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:265
+#: lexer.ll:266
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:282
+#: lexer.ll:283
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:286
+#: lexer.ll:287
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:290
+#: lexer.ll:291
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:317
+#: lexer.ll:318
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:341
+#: lexer.ll:342
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:367
+#: lexer.ll:368
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:377
+#: lexer.ll:378
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:689
+#: lexer.ll:698
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:694
+#: lexer.ll:703
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:709
+#: lexer.ll:718
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:809
+#: lexer.ll:818
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:936
+#: lexer.ll:945
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1232
+#: lexer.ll:1241
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1276
+#: lexer.ll:1285
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1277
+#: lexer.ll:1286
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1283
+#: lexer.ll:1292
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3381,31 +3381,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:985
+#: define-markup-commands.scm:1041
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2781
+#: define-markup-commands.scm:2837
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3207
+#: define-markup-commands.scm:3263
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3208
+#: define-markup-commands.scm:3264
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3452
+#: define-markup-commands.scm:3508
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3663
+#: define-markup-commands.scm:3719
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""

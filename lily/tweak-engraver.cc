@@ -63,11 +63,13 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
                     grobname = scm_from_locale_symbol
                       (info.grob ()->name ().c_str ());
                   if (scm_is_eq (scm_caaar (s), grobname))
-                    if (scm_is_symbol (scm_cdaar (s)))
-                      info.grob ()->set_property (scm_cdaar (s), scm_cdar (s));
-                    else
-                      set_nested_property (info.grob (), scm_cdaar (s),
-                                           scm_cdar (s));
+                    {
+                      if (scm_is_symbol (scm_cdaar (s)))
+                        info.grob ()->set_property (scm_cdaar (s), scm_cdar (s));
+                      else
+                        set_nested_property (info.grob (), scm_cdaar (s),
+                                             scm_cdar (s));
+                    }
                 }
               else if (direct)
                 set_nested_property (info.grob (), scm_cdaar (s),

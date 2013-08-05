@@ -143,8 +143,6 @@ top-level, a page marker object is instanciated instead of a score.")
      (page-turn-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a page turn.")
      (parenthesize ,boolean? "Enclose resulting objects in parentheses?")
-     (partial-duration ,ly:duration? "The length of a partial measure as a
-duration.")
      (part-combine-status ,symbol? "Change to what kind of state?
 Options are @code{solo1}, @code{solo2} and @code{unisono}.")
      (pitch ,ly:pitch? "The pitch of this note.")

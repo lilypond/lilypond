@@ -103,7 +103,7 @@
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
     #:children (let* (;; when a new category is defined, update `ordered-categories'
-                      (ordered-categories '(font align graphic music instrument-specific-markup other))
+                      (ordered-categories '(font align graphic music instrument-specific-markup accordion-registers other))
                       (raw-categories (hash-fold (lambda (category functions categories)
                                                    (cons category categories))
                                                  (list)
