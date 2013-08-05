@@ -113,7 +113,7 @@ or
 
 
 
-%pure_parser
+%pure-parser
 %locations
 
 
