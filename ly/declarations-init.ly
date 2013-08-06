@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.6"
+\version "2.17.25"
 
 %% named durations
 breve = #(ly:make-duration -1 0)
@@ -74,17 +74,17 @@ startStaff = #(make-span-event 'StaffSpanEvent START)
 % Code articulation definitions
 %
 noBeam = #(make-music 'BeamForbidEvent)
-pipeSymbol = #(make-music 'BarCheck)
-bracketOpenSymbol = #(make-span-event 'BeamEvent START)
-bracketCloseSymbol = #(make-span-event 'BeamEvent STOP)
-tildeSymbol = #(make-music 'TieEvent)
-parenthesisOpenSymbol =  #(make-span-event 'SlurEvent START)
-parenthesisCloseSymbol = #(make-span-event 'SlurEvent STOP)
-escapedExclamationSymbol = #(make-span-event 'CrescendoEvent STOP)
-escapedParenthesisOpenSymbol = #(make-span-event 'PhrasingSlurEvent START)
-escapedParenthesisCloseSymbol = #(make-span-event 'PhrasingSlurEvent STOP)
-escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
-escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
+"|" = #(make-music 'BarCheck)
+"[" = #(make-span-event 'BeamEvent START)
+"]" = #(make-span-event 'BeamEvent STOP)
+"~" = #(make-music 'TieEvent)
+"(" =  #(make-span-event 'SlurEvent START)
+")" = #(make-span-event 'SlurEvent STOP)
+"\\!" = #(make-span-event 'CrescendoEvent STOP)
+"\\(" = #(make-span-event 'PhrasingSlurEvent START)
+"\\)" = #(make-span-event 'PhrasingSlurEvent STOP)
+"\\>" = #(make-span-event 'DecrescendoEvent START)
+"\\<" = #(make-span-event 'CrescendoEvent START)
 "\\[" = #(make-span-event 'LigatureEvent START)
 "\\]" = #(make-span-event 'LigatureEvent STOP)
 "\\~" = #(make-music 'PesOrFlexaEvent)

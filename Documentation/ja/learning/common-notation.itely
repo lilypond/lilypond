@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -328,7 +328,7 @@ c4~( c8 d~ d4 e)
 使うことで音符に付け加えることができます:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-|
+c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 

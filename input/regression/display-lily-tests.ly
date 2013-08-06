@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.25"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -111,7 +111,7 @@ stderr of this run."
 \test ##[ { c-^ c^^ c_^ } #]				% ArticulationEvent
 \test ##[ { c-+ c^+ c_+ } #]
 \test ##[ { c-- c^- c_- } #]
-\test ##[ { c-| c^| c_| } #]
+\test ##[ { c-! c^! c_! } #]
 \test ##[ { c-> c^> c_> } #]
 \test ##[ { c-. c^. c_. } #]
 \test ##[ { c-_ c^_ c__ } #]
@@ -159,7 +159,7 @@ stderr of this run."
 \test ##[ \mark \default #]			% MarkEvent
 \test ##[ \mark "Allegro" #]
 \test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
-\test ##[ \tempo 4 = 108 ~ 116 #]
+\test ##[ \tempo 4 = 108 - 116 #]
 \test ##[ \tempo "Allegro" 4 = 132 #]
 \test ##[ \tempo "Andante" #]
 

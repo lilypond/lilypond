@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.15"
+@c \version "2.17.25"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1333,7 +1333,7 @@ Lorsque le réglage précis du métronome est laissé à l'appréciation de
 l'exécutant, vous pouvez cependant lui fournir une plage :
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -3200,16 +3200,16 @@ message d'avertissement concernant la première occurrence est affiché.
 L'origine du problème est de fait plus évidente.
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 Il est aussi possible d'attribuer une autre valeur au
 symbole @code{|}, en assignant une expression musicale à
-@code{pipeSymbol}.  Dans l'exemple suivant, le @code{|} servira à
+@code{"|"}.  Dans l'exemple suivant, le @code{|} servira à
 insérer une double barre là où il apparaît, au lieu de simplement
 vérifier que la fin de la mesure est atteinte.
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'
