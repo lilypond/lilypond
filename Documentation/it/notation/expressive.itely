@@ -10,7 +10,7 @@
 @c \version "2.17.25"
 
 @c Translators: Federico Bruni
-@c Translation checkers:
+@c Translation checkers: Luca Rossetto Casel
 
 @node Segni di espressione
 @section Segni di espressione
@@ -23,8 +23,8 @@ usare in una partitura.
 
 @menu
 * Segni di espressione collegati alle note::
-* Segni di espressione in forma di curva::
-* Segni di espressione in forma di linea::
+* Indicazioni espressive curvilinee::
+* Indicazioni espressive lineari::
 @end menu
 
 
@@ -32,14 +32,14 @@ usare in una partitura.
 @subsection Segni di espressione collegati alle note
 @translationof Expressive marks attached to notes
 
-Questa sezione spiega come creare segni di espressione che siano
+Questa sezione spiega come creare segni di espressione
 collegati alle note: articolazioni, abbellimenti e dinamiche.
-Sono trattati anche i metodi per creare nuovi segni di dinamica.
+Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 
 @menu
 * Articolazioni e abbellimenti::
 * Dinamiche::
-* Nuovi segni di dinamica::
+* Nuove indicazioni dinamiche::
 @end menu
 
 @node Articolazioni e abbellimenti
@@ -123,8 +123,8 @@ Sono trattati anche i metodi per creare nuovi segni di dinamica.
 
 @funindex -
 
-Una varietà di simboli che rappresentano articolazioni, ornamenti e altre
-indicazioni di esecuzione possono essere attaccati a una nota con questa
+I diversi simboli che rappresentano articolazioni, ornamenti e altre
+indicazioni esecutive possono essere collegati a una nota con questa
 sintassi:
 
 @example
@@ -146,7 +146,7 @@ c1\fermata
 @cindex staccato
 @cindex portato
 
-Alcune di queste articolazioni hanno delle abbreviazioni che semplificano
+Alcune di queste articolazioni hanno delle abbreviazioni che ne semplificano
 l'inserimento.  Le abbreviazioni sono attaccate al nome della nota e la
 loro sintassi è composta da un trattino @code{-} seguito da un simbolo
 che indica l'articolazione.  Esistono abbreviazioni predefinite per
@@ -180,10 +180,10 @@ a2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond
 
-Oltre alle articolazioni, si possono attaccare alle note anche il testo
-tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Text scripts}.
+Oltre alle articolazioni, si può attaccare alle note anche un testo,
+posto tra virgolette o in un blocco @code{\markup@{@}}.  Si veda @ref{Text scripts}.
 
-Maggiori informazioni sull'ordine degli oggetti Script e TextScript
+Ulteriori informazioni sull'ordine degli oggetti Script e TextScript
 collegati alle note si trovano in @rlearning{Posizionamento degli oggetti}.
 
 @snippets
@@ -270,13 +270,13 @@ Guida al funzionamento interno:
 @funindex \rfz
 @funindex rfz
 
-I segni di dinamica assoluta si indicano con un comando che segue una
-nota, come ad esempio @code{c4\ff}.  I segni di dinamica disponibili
+Le indicazioni dinamiche assolute si indicano con un comando che segue una
+nota, come ad esempio @code{c4\ff}.  Le indicazioni dinamiche disponibili
 sono @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p},
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz} e @code{\rfz}.  I segni di
-dinamica possono essere posizionati manualmente sopra o sotto il
+@code{\sp}, @code{\spp}, @code{\sfz} e @code{\rfz}.  Le indicazioni
+dinamiche possono essere posizionate manualmente sopra o sotto il
 rigo, come è spiegato in dettaglio in @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -298,11 +298,11 @@ c2_\spp c^\ff
 @funindex \decr
 @funindex decr
 
-Un segno di @notation{crescendo} inizia con @code{\<} e termina
-con @code{\!}, un segno di dinamica assoluta o un ulteriore segno
-di crescendo o decrescendo.  Un segno di @notation{decrescendo} inizia
-con @code{\>} termina nello stesso modo, ovvero con @code{\!}, un segno
-di dinamica assoluta oppure un altro segno di crescendo o decrescendo.
+Un'indicazione di @notation{crescendo} inizia con @code{\<} e termina
+con @code{\!}, un'indicazione dinamica assoluta o un'ulteriore indicazione
+di crescendo o decrescendo.  Un'indicazione di @notation{decrescendo} inizia
+con @code{\>} e termina nello stesso modo, ovvero con @code{\!}, un'indicazione
+dinamica assoluta oppure un altro segno di crescendo o decrescendo.
 Si possono usare @code{\cr} e @code{\decr} al posto di @code{\<} e
 @code{\>}.  Le @notation{forcelle} vengono create con questa notazione.
 
@@ -328,8 +328,8 @@ dal margine sinistro, come accade quando si termina con @code{\!}.
 c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
 @end lilypond
 
-Le forcelle terminate con segni di dinamica assoluta invece che da
-@code{\!} avranno un aspetto simile.  Tuttavia, la lunghezza della
+Le forcelle terminate con indicazioni dinamiche assolute invece che da
+@code{\!} avranno un aspetto simile.  Tuttavia, la lunghezza dell'indicazione
 dinamica assoluta stessa può cambiare il punto in cui finisce la
 forcella precedente.
 
@@ -337,10 +337,10 @@ forcella precedente.
 c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
 @end lilypond
 
-@cindex segni di dinamica multipli su una nota
-@cindex segni di dinamica, più di un segno su una nota
+@cindex indicazioni dinamiche multiple su una nota
+@cindex indicazioni dinamiche, più di un segno su una nota
 
-Occorre usare le pause spaziatrici per attaccare più di un segno a
+Occorre usare le pause spaziatrici per attaccare più di un'indicazione a
 una nota.  Questo è utile soprattutto quando si aggiunge un
 @notation{crescendo} e un @notation{decrescendo} alla stessa nota:
 
@@ -371,9 +371,9 @@ g1\espressivo
 @funindex \dim
 @funindex dim
 
-I segni di crescendo testuali iniziano con @code{\cresc}, quelli di
+Le indicazioni di crescendo testuali iniziano con @code{\cresc}, quelle di
 decrescendo con @code{\decresc} o @code{\dim}.
-Le linee di estensione vengono aggiunte automaticamente.
+Le linee di estensione sono aggiunte automaticamente.
 
 @lilypond[verbatim,quote,relative=2]
 g8\cresc a b c b c d e\mf |
@@ -395,7 +395,7 @@ a2. r4\! |
 @funindex \dimHairpin
 @funindex dimHairpin
 
-I segni testuali per i cambi di dinamica possono sostituire anche le forcelle:
+Le indicazioni testuali per i cambi di dinamica possono essere impiegate anche per sostituire le forcelle:
 @lilypond[verbatim,quote,relative=2]
 \crescTextCresc
 c4\< d e f\! |
@@ -411,7 +411,7 @@ c4\< d\! e\> d\! |
 @end lilypond
 
 
-Per creare nuovi segni di dinamica assoluta o del testo da allineare
+Per creare nuove indicazioni dinamiche assolute o testi da allineare
 alle dinamiche, si veda @ref{New dynamic marks}.
 
 @cindex dinamiche, posizionamento verticale
@@ -429,12 +429,12 @@ Il posizionamento verticale della dinamica è gestito da
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 
-Esiste un contesto @code{Dynamics} che permette di comporre i segni di
-dinamica sulla loro linea orizzontale.  Si usano le pause spaziatrici
-per  indicare il tempo  (le note in un contesto @code{Dynamics} occupano
-anche il tempo musicale, ma non appaiono nel rigo).
+Esiste un contesto @code{Dynamics} che permette di posizionare le indicazioni
+dinamiche su un'apposita linea orizzontale.  Si usano le pause spaziatrici
+per indicarne la collocazione temporale (le note in un contesto @code{Dynamics} occupano
+infatti il rispettivo valore musicale, ma senza comparire sul rigo).
 Il contesto @code{Dynamics} può contenere altri elementi utili come
-segni testuali, estensori del testo e segni di pedale del pianoforte.
+indicazioni testuali, estensori del testo e indicazioni di pedalizzazione del pianoforte.
 
 @lilypond[verbatim,quote]
 <<
@@ -524,11 +524,11 @@ Guida al funzionamento interno:
 @rinternals{Dynamics}.
 
 
-@node Nuovi segni di dinamica
-@unnumberedsubsubsec Nuovi segni di dinamica
+@node Nuove indicazioni dinamiche
+@unnumberedsubsubsec Nuove indicazioni dinamiche
 @translationof New dynamic marks
 
-@cindex segni di dinamica nuovi
+@cindex indicazioni dinamiche nuove
 @cindex dinamica, nuovi segni di
 
 Il modo più semplice per creare indicazioni dinamiche è usare
@@ -569,7 +569,7 @@ boxF = \markup { \bracket { \dynamic f } }
 @cindex make-dynamic-script
 @funindex make-dynamic-script
 
-Segni di dinamica semplici e centrati si creano facilmente con la
+È possibile creare semplicemente indicazioni dinamiche centrate verticalmente con la
 funzione @code{make-dynamic-script}.
 
 @lilypond[verbatim,quote]
@@ -579,9 +579,9 @@ sfzp = #(make-dynamic-script "sfzp")
 }
 @end lilypond
 
-In generale, @code{make-dynamic-script} prende come argomento qualsiasi
+In generale, @code{make-dynamic-script} assume come argomento qualsiasi
 oggetto markup.  Il tipo di carattere per la dinamica contiene solo i
-caretteri @code{f,m,p,r,s} e @code{z}; dunque se si desidera un'indicazione
+caratteri @code{f,m,p,r,s} e @code{z}; dunque, se si desidera creare un'indicazione
 dinamica che contenga testo semplice e simboli di punteggiatura, occorre
 usare dei comandi markup che ripristinino la famiglia e la codifica del tipo
 di carattere per il testo normale, ad esempio @code{\normal-text}.  Il
@@ -653,19 +653,19 @@ Frammenti:
 @rlsr{Expressive marks}.
 
 
-@node Segni di espressione in forma di curva
-@subsection Segni di espressione in forma di curva
+@node Indicazioni espressive curvilinee
+@subsection Indicazioni espressive curvilinee
 @translationof Expressive marks as curves
 
-Questa sezione spiega come creare vari segni di espressione che hanno
-forma curva: legature di portamento, legature di frase, respiri, portamenti
-indeterminati verso il basso o verso l'alto.
+Questa sezione spiega come creare varie indicazioni espressive con
+forma curvilinea: legature di portamento, legature di frase, respiri, portamenti
+indeterminati discendenti (cadute) o ascendenti.
 
 @menu
 * Legature di portamento::
 * Legature di frase::
 * Respiri::
-* Portamenti indeterminati verso il basso e verso l'alto::
+* Portamenti indeterminati discendenti (cadute) e ascendenti::
 @end menu
 
 @node Legature di portamento
@@ -700,14 +700,14 @@ sotto il rigo, come è spiegato in @ref{Direction and placement}.
 @cindex legature di portamento multiple
 @cindex legature di portamento simultanee
 
-Legature di portamento simultanee o sovrapposte non sono permesse, ma si
-può usare una legatura di frase per sovrapporre le legature.  Questo permette
+Non è possibile tracciare due legature di portamento simultanee o sovrapposte, ma si
+può ricorrere a una legatura di frase posta per mostrare più legature.  Questo permette
 di creare contemporaneamente due legature di portamento.  Maggiori dettagli
 si trovano in @ref{Phrasing slurs}.
 
 @cindex legature di portamento, stile
 @cindex legatura di portamento continua
-@cindex legatura di portamento puntata
+@cindex legatura di portamento punteggiata
 @cindex legatura di portamento tratteggiata
 @cindex stile, legatura di portamento
 @funindex \slurDashed
@@ -717,7 +717,7 @@ si trovano in @ref{Phrasing slurs}.
 @funindex \slurSolid
 @funindex slurSolid
 
-Le legature di portamento possono essere continue, puntate o tratteggiate.  Lo
+Le legature di portamento possono essere continue, punteggiate o tratteggiate.  Lo
 stile predefinito è quello continuo:
 
 @lilypond[verbatim,quote,relative=1]
@@ -737,8 +737,8 @@ g4( e c2)
 @cindex legatura di portamento, metà tratteggiata e metà continua
 
 Le legature di portamento possono essere anche semitratteggiate (half-dashed),
-ovvero la prima metà tratteggiata, la seconda continua; oppure semicontinue
-(half-solid), ovvero la prima metà continua e la seconda metà tratteggiata:
+ovvero con la prima metà tratteggiata e la seconda continua; oppure semicontinue
+(half-solid), ovvero con la prima metà continua e la seconda tratteggiata:
 
 @lilypond[verbatim,quote,relative=1]
 c4( e g2)
@@ -839,8 +839,8 @@ e2) d\)
 @funindex \phrasingSlurNeutral
 @funindex phrasingSlurNeutral
 
-A livello tipografico, una legatura di frase si comporta in modo quasi
-identico a una normale legatura di portamento.  Tuttavia, sono trattate
+A livello tipografico, una legatura di frase si comporta in modo pressoché
+identico a una normale legatura di portamento.  Sono però trattate
 come oggetti diversi; ad esempio, @code{\slurUp} non ha effetto su una
 legatura di frase.  Le legature di frase possono essere posizionate
 sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
@@ -850,7 +850,7 @@ sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
 @cindex legatura di portamento, fraseggio simultaneo
 @cindex legatura di portamento, fraseggio multiplo
 
-Legature di frase simultanee o sovrapposte non sono permesse.
+Più legature di frase simultanee o sovrapposte non sono permesse.
 
 @funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
@@ -883,11 +883,11 @@ g4\( e c2\)
 @funindex \phrasingSlurHalfSolid
 @funindex phrasingSlurHalfSolid
 @cindex legatura di frase, metà continua e metà tratteggiata
-@cindex legatura di portamento, fraseggio metà continuo e metà tratteggiato
+@cindex legatura di portamento, tratto metà continuo e metà tratteggiato
 
 Le legature di frase possono essere anche semitratteggiate (la prima metà
-tratteggiata, la seconda metà continua) o semicontinue (la prima metà
-continua, la seconda metà tratteggiata):
+tratteggiata, la seconda continua) o semicontinue (la prima metà
+continua, la seconda tratteggiata):
 
 @lilypond[verbatim,quote,relative=1]
 c4\( e g2\)
@@ -1008,15 +1008,15 @@ Guida al funzionamento interno:
 @rinternals{Breathing_sign_engraver}.
 
 
-@node Portamenti indeterminati verso il basso e verso l'alto
-@unnumberedsubsubsec Portamenti indeterminati verso il basso e verso l'alto
+@node Portamenti indeterminati discendenti (cadute) e ascendenti
+@unnumberedsubsubsec Portamenti indeterminati discendenti (cadute) e ascendenti
 @translationof Falls and doits
 
-@cindex portamenti indeterminati verso il basso e verso l'alto
+@cindex portamenti indeterminati verso il basso (cadute) e verso l'alto
 @funindex \bendAfter
 @funindex bendAfter
 
-I @notation{portamenti indeterminati verso il basso e verso l'alto} possono
+I @notation{portamenti indeterminati verso il basso (cadute) e verso l'alto} possono
 essere aggiunti alle note col comando @code{\bendAfter}.  La direzione del
 portamento è indicata con un più o un meno (su o giù).   Il numero indica
 l'intervallo per cui il portamento si estenderà @emph{oltre} la nota principale.
@@ -1044,11 +1044,11 @@ Frammenti:
 @rlsr{Expressive marks}.
 
 
-@node Segni di espressione in forma di linea
-@subsection Segni di espressione in forma di linea
+@node Indicazioni espressive lineari
+@subsection Indicazioni espressive lineari
 @translationof Expressive marks as lines
 
-Questa sezione spiega come creare vari segni di espressione che seguono
+Questa sezione spiega come creare varie indicazioni espressive che seguono
 una traiettoria lineare: glissandi, arpeggi e trilli.
 
 @menu
@@ -1113,7 +1113,7 @@ c1\glissando |
 <c c'> |
 @end lilypond
 
-Si possono avere vari stili di glissando.  Maggiori dettagli in @ref{Line styles}.
+Si possono adottare diversi stili di glissando.  Maggiori dettagli in @ref{Line styles}.
 
 
 @snippets
@@ -1262,8 +1262,8 @@ Guida al funzionamento interno:
 @cindex arpeggio attraverso il rigo, stile della parentesi
 @cindex parentesi, stile nell'arpeggio attraverso il rigo
 
-Non è possibile avere arpeggi connessi e non connessi in un
-@code{PianoStaff} nello stesso momento temporale.
+Non è possibile mostrare simultaneamente arpeggi connessi e non connessi in un
+@code{PianoStaff}.
 
 L'arpeggio in forma di parentesi non può essere impostato con facilità negli
 arpeggi che attraversano i righi; occorre ricorrere a metodi più complessi
@@ -1283,10 +1283,10 @@ descritti in @ref{Cross-staff stems}.
 @funindex \stopTrillSpan
 @funindex stopTrillSpan
 
-Trilli brevi senza la linea di estensione si ottengono col comando
+I trilli senza linea di estensione si ottengono col comando
 @code{\trill}; si veda @ref{Articulations and ornamentations}.
 
-Trilli più lunghi con la linea di estensione si ottengono con
+I trilli con linea di estensione si ottengono con
 @code{\startTrillSpan} e @code{\stopTrillSpan}:
 
 @lilypond[verbatim,quote,relative=2]
@@ -1307,7 +1307,7 @@ c2\stopTrillSpan
 r2
 @end lilypond
 
-Trilli consecutivi funzionano senza dover esplicitare i comandi
+È possibile tracciare trilli consecutivi senza dover esplicitare i comandi
 @code{\stopTrillSpan}, perché il trillo successivo diventerà
 automaticamente il limite destro di quello precedente.
 
@@ -1334,7 +1334,7 @@ c2 r2
 @funindex \pitchedTrill
 @funindex pitchedTrill
 
-I trilli che richiedono una nota ausiliaria avente un'altezza esplicita si
+I trilli che richiedono una nota ausiliaria dall'altezza esplicita si
 ottengono col comando @code{\pitchedTrill}.  Il primo argomento è la  nota
 principale e il secondo è la nota @emph{trillata}, che appare come una testa
 di nota senza gambo e racchiusa tra parentesi.

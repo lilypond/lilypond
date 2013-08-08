@@ -10,7 +10,7 @@
 @c \version "2.17.25"
 
 @c Translators: Federico Bruni
-@c Translation checkers:
+@c Translation checkers: Luca Rossetto Casel
 
 @node Note simultanee
 @section Note simultanee
@@ -18,9 +18,9 @@
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{simultaneous-headword.ly}
 
-La polifonia in musica si riferisce alla presenza di più di una voce in un
-brano musicale.  In LilyPond la polifonia si riferisce alla presenza di
-più di una voce sullo stesso rigo.
+La polifonia in musica si riferisce alla coesistenza simultanea di più di una voce in un
+brano musicale. In LilyPond la polifonia si riferisce alla coesistenza di
+più voci sullo stesso rigo.
 
 @menu
 * Una voce::
@@ -62,24 +62,24 @@ semplici note.
 <a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
 @end lilypond
 
-Proprio come per le note, si possono specificare delle articolazioni che si
-riferiscono all'accordo.
+Proprio come per le note, si possono specificare le articolazioni da
+riferire all'accordo.
 
 @lilypond[verbatim,quote,relative=2]
 <a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
 @end lilypond
 
-Si possono specificare abbellimenti e articolazioni per ogni nota interna
-all'accordo.
+Si possono specificare abbellimenti e articolazioni per ogni nota che fa parte
+dell'accordo.
 
 @lilypond[verbatim,quote,relative=2]
 <a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
 <a-+ c-->8. <g\fermata c e\turn>16
 @end lilypond
 
-Tuttavia alcuni elementi della notazione, come le dinamiche, le forcelle e le
+Tuttavia, alcuni elementi della notazione, come le dinamiche, le forcelle e le
 legature di portamento, devono essere attaccate all'accordo invece che alle
-note dell'accordo, altrimenti non appariranno.
+sue singole note, altrimenti non appariranno.
 
 @lilypond[verbatim,quote,relative=2]
 <a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
@@ -90,7 +90,7 @@ note dell'accordo, altrimenti non appariranno.
 @cindex eventi segnaposto
 
 Un accordo si comporta semplicemente come un contenitore di note, articolazioni
-e altri elementi.  Di conseguenza un accordo privo di note non ha una
+e altri elementi.  Di conseguenza, un accordo privo di note non ha una
 durata.  Qualsiasi articolazione attaccata a un accordo vuoto si troverà
 nel momento musicale della nota o accordo seguenti e si combinerà con
 questi (possibilità più complesse di combinazione sono spiegate in
@@ -108,7 +108,7 @@ questi (possibilità più complesse di combinazione sono spiegate in
 Si può usare la modalità relativa per indicare l'altezza degli accordi.  La
 prima nota di ogni accordo è sempre relativa alla prima nota dell'accordo
 che lo precede oppure, se non c'è un accordo precedente, è relativa
-all'altezza dell'ultima nota che precede l'accordo.  Tutte le altre note
+all'altezza dell'ultima nota che precede l'accordo.  Le altezze di tutte le altre note
 dell'accordo sono relative alla nota che le precede @emph{all'interno dell'accordo}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -135,7 +135,7 @@ Frammenti:
 
 @knownissues
 Gli accordi che contengono più di due altezze in uno spazio del rigo,
-come ad esempio @samp{<e f! fis!>}, hanno le teste di nota sovrapposte.
+come ad esempio @samp{<e f! fis!>}, presentano le teste di tali note sovrapposte.
 A seconda della situazione, si può migliorare l'aspetto con
 
 @itemize
@@ -179,7 +179,7 @@ precedente vengono duplicate.
 
 Il simbolo di ripetizione dell'accordo ricorda sempre l'ultimo accordo
 inserito, quindi è possibile inserire l'accordo più recente anche se
-nel frattempo sono state inserite altre note (senza accordo) o pause.
+nel frattempo sono state inserite altre note (senza accordi) o pause.
 
 @lilypond[verbatim,quote,relative=2]
 <a c e>1 c'4 q2 r8 q8 |
@@ -209,7 +209,7 @@ siano già presenti nell'accordo @code{q} stesso.
 
 In questo esempio l'uso di @code{\chordRepeats} all'interno di un blocco
 @code{\relative} produce risultati indesiderati: gli eventi di un accordo,
-una volta che sono espansi, non si distinguono più per essere stati inseriti
+una volta espansi, non si distinguono più per essere stati inseriti
 come accordi normali, quindi @code{\relative} assegna un'ottava basata
 sul contesto corrente.
 
@@ -249,7 +249,7 @@ File installati:
 @unnumberedsubsubsec Espressioni simultanee
 @translationof Simultaneous expressions
 
-Una o più espressioni musicali racchiuse tra due parentesi uncinate sono
+Una o più espressioni musicali racchiuse tra due coppie di parentesi uncinate sono
 considerate simultanee.  Se la prima espressione inizia con una nota
 singola o se l'intera espressione simultanea appare esplicitamente
 all'interno di una voce, sarà posta in un solo rigo; altrimenti gli
@@ -279,7 +279,7 @@ sono raccolte e create secondo l'ordine della musica:
 @end lilypond
 
 Per poter inserire gambi o travature multiple e variare le durate o
-altre proprietà di note che accadono nello stesso momento musicale,
+altre proprietà di note riferibili allo stesso momento musicale,
 occorre usare più voci.
 
 L'esempio seguente mostra  come le espressioni simultanee possano
@@ -312,8 +312,8 @@ apparirà durante la compilazione del file.  Si può evitare con:
 \override NoteColumn.ignore-collision = ##t
 @end example
 
-Però questo comando non solo elimina l'avvertimento ma impedisce qualsiasi
-risoluzione delle collisioni e potrebbe avere altri effetti indesiderati
+Tuttavia, questo comando non si limita a eliminare l'avvertimento, ma impedisce qualsiasi
+risoluzione delle collisioni, e potrebbe comportare altri effetti indesiderati
 (vedi anche i @emph{Problemi noti} in @ref{Collision resolution}).
 
 
@@ -327,8 +327,8 @@ risoluzione delle collisioni e potrebbe avere altri effetti indesiderati
 @funindex \makeClusters
 @funindex makeClusters
 
-Un cluster indica un insieme di note da suonare continuamente.  Può
-essere rappresentato come un involucro di un insieme di note.  Si
+Un cluster prescrive l'esecuzione simultanea di tutti i suoni compresi in un determinato intervallo.  Può
+essere rappresentato come un involucro che contiene le note che ne fanno parte.  Si
 inserisce applicando la funzione @code{\makeClusters} a una sequenza
 di accordi, ad esempio:
 
@@ -337,7 +337,7 @@ di accordi, ad esempio:
 @end lilypond
 
 Si possono inserire insieme sullo stesso rigo le normali note e i cluster,
-anche in contemporanea.  In tal caso non viene fatto alcun tentativo di
+anche contemporaneamente.  In tal caso non viene fatto alcun tentativo di
 evitare automaticamente collisioni tra le note normali e i cluster.
 
 @seealso
@@ -353,12 +353,12 @@ Guida al funzionamento interno:
 @rinternals{Cluster_spanner_engraver}.
 
 @knownissues
-I cluster hanno un bell'aspetto solo se durano almeno per due accordi; altrimenti
+I cluster hanno un buon aspetto solo se durano almeno per due accordi; altrimenti
 appaiono troppo stretti.
 
 I cluster non hanno un gambo e non possono indicare delle durate da soli, ma
 la lunghezza del cluster è determinata dalle durate degli accordi che lo
-definiscono.  Cluster distinti hanno bisogno di una pausa che li separi.
+definiscono.  Più cluster distinti devono essere separati da una pausa.
 
 I cluster non generano output MIDI.
 
@@ -408,7 +408,7 @@ solo rigo è illustrata nell'esempio seguente:
 @end lilypond
 
 @noindent
-Le voci sono istanziate esplicitamente e vengono collegate a dei nomi.  I
+Le voci sono istanziate esplicitamente e vengono contrassegnate da dei nomi. I
 comandi @code{\voiceOne} @dots{} @code{\voiceFour} impostano le voci in
 modo che la prima e terza voce abbiano i gambi in su, la seconda e la quarta
 voce i gambi in giù, le teste di nota della terza e quarta voce siano
@@ -467,7 +467,7 @@ definire le impostazioni di ogni voce.
 
 Il costrutto @code{<< @{@dots{}@} \\ @{@dots{}@} >>}, in cui due (o
 più) espressioni sono separate da due barre inverse (backslash), si
-comporta diversamentte dal costrutto simile privo delle due barre:
+comporta diversamente dal costrutto simile privo delle due barre:
 @emph{tutte} le espressioni in questo costrutto vengono assegnate
 a nuovi contesti @code{Voice}.  Questi nuovi contesti @code{Voice}
 vengono creati implicitamente e ad essi vengono assegnati dei nomi
@@ -491,7 +491,7 @@ appaiono nell'input.
 
 Nell'esempio seguente, la voce intermedia ha i gambi in su, dunque viene
 inserita in terza posizione in modo che diventi la terza voce, che ha
-i gambi in su.  Si usano le pause spaziatrici per evitare pause raddoppiate.
+i gambi in su.  Si usano le pause spaziatrici per evitare il raddoppio delle pause ordinarie.
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -503,9 +503,9 @@ i gambi in su.  Si usano le pause spaziatrici per evitare pause raddoppiate.
 >>
 @end lilypond
 
-In tutti i brani eccetto i più semplici è consigliabile creare contesti
+In tutti i brani, a eccezione di quelli più semplici, è consigliabile creare contesti
 @code{Voice} espliciti come è spiegato in @rlearning{Contesti e incisori} e
-@rlearning{Istanziare esplicitamente le voci}.
+@rlearning{Definire esplicitamente le voci}.
 
 @subsubsubheading Ordine delle voci
 
@@ -547,11 +547,11 @@ gambi in giù:
 @warning{Il testo e gli estensori (come le legature di portamento e di valore,
 le forcelle, etc.) non possono @q{attraversare} le voci.}
 
-@subsubsubheading Durate idenntiche
+@subsubsubheading Durate identiche
 
-Nel caso speciale in cui si desideri inserire brani musicali paralleli
-che abbiano lo stesso ritmo, si possono combinare in un unico contesto
-@code{Voice}, dunque formando degli accordi.  Per farlo si racchiudono
+Nel caso speciale in cui si desideri inserire sezioni musicali parallele
+con il medesimo ritmo, si possono combinare in un unico contesto
+@code{Voice}, formando dunque degli accordi. Per farlo, vanno racchiuse
 in un semplice costrutto musicale simultaneo all'interno di una
 voce esplicita:
 
@@ -562,7 +562,7 @@ voce esplicita:
 >>
 @end lilypond
 
-Questo metodo produce strane travature e avvertimenti se i brani musicali
+Questo metodo produce strane travature e avvertimenti se le sezioni musicali
 non hanno lo stesso ritmo.
 
 
@@ -670,11 +670,11 @@ Frammenti:
 @funindex mergeDifferentlyHeadedOff
 
 Le teste di note che si trovano in voci diverse ma hanno stessa altezza,
-stessa testa e direzione del gambo opposta, vengono unite automaticamente;
-invece le note che hanno la stessa testa o la stessa direzione del gambo
+stessa testa e direzione del gambo opposta vengono unite automaticamente;
+invece, le note che hanno la stessa testa o la stessa direzione del gambo
 non vengono unite.  Le pause opposte a un gambo in una voce diversa vengono
 spostate verticalmente. L'esempio seguente mostra tre  diverse circostanze,
-sul primo e terzo battito della prima battuta e sul primo battito della seconda
+sul primo e terzo movimento della prima battuta e sul primo movimento della seconda
 battuta, in cui l'unione automatica delle teste di nota non funziona.
 
 @lilypond[quote,verbatim,relative=2]
@@ -693,7 +693,7 @@ battuta, in cui l'unione automatica delle teste di nota non funziona.
 >>
 @end lilypond
 
-Note con teste diverse possono essere unite, come è mostrato sotto.  In
+Note con teste diverse possono essere unite come è mostrato sotto.  In
 questo esempio le teste delle note nel primo battito della prima battuta
 sono unite:
 
@@ -714,10 +714,10 @@ sono unite:
 >>
 @end lilypond
 
-Le minime e le semiminime non sono unite in questo modo,  perché sarebbe
+Le minime e le semiminime, invece, non sono unite, perché sarebbe
 difficile distinguerle.
 
-Anche le teste di note con diversi punti, come nel terzo battito della prima
+Anche le teste di note con diversi punti, come nel terzo movimento della prima
 battuta, possono essere unite:
 
 @lilypond[quote,relative=2,verbatim]
@@ -769,22 +769,22 @@ conseguenza @code{\mergeDifferentlyHeadedOn} funziona correttamente.
 
 Il comando @code{\shiftOn} permette (senza forzare) lo spostamento delle note
 in una voce.  Quando si applica @code{\shiftOn} a una voce, una nota o
-accordo in quella voce vengono spostati solo se il suo gambo entrerebbe
-altrimenti in collisione col gambo di un'altra voce, e solo se i gambi
-che collidono puntano nella stessa direzione.  Il comando @code{\shiftOff}
-impedisce che accada questo tipo di spostamento.
+accordo in quella voce vengono spostati solo se il suo gambo altrimenti entrerebbe
+in collisione col gambo di un'altra voce, e solo se i gambi
+che collidono puntano nella stessa direzione. Il comando @code{\shiftOff}
+impedisce che si verifichi questo tipo di spostamento.
 
 Per impostazione predefinita, le voci più esterne (solitamente la prima e
 la seconda voce) hanno specificato @code{\shiftOff}, mentre le voci più
-interne (terza e superiore) hanno specificato @code{\shiftOn}.  Quando si
-applica uno spostamento, le voci con i gambi in su (voci con numero dispari)
-vengono spostate a destra, e le voci con i gambi in giù (voci con numeri pari)
+interne (terza e successive) hanno specificato @code{\shiftOn}.  Quando si
+applica uno spostamento, le voci con i gambi in su (voci dispari)
+vengono spostate a destra, e le voci con i gambi in giù (voci pari)
 vengono spostate a sinistra.
 
 Ecco un esempio che aiuta a visualizzare come un'espressione simultanea
 abbreviata viene espansa internamente.
 
-@warning{Attenzione: con tre  o più voci, l'ordine verticale delle voci
+@warning{Attenzione: con tre o più voci, l'ordine verticale delle voci
 nel file di input non deve essere lo stesso dell'ordine verticale delle
 voci del rigo!}
 
@@ -815,7 +815,7 @@ mettono a disposizione altri livelli di spostamento che possono
 essere specificati in modo temporaneo per risolvere delle collisioni
 in situazioni complesse --  vedi @rlearning{Esempio musicale}.
 
-Le note vengono unite solo se hanno direzione dei gambi opposta (come
+Le note vengono unite solo se presentano opposta direzione dei gambi (come
 accade, ad esempio, nella prima o seconda voce o quando i gambi sono
 impostati esplicitamente in direzioni opposte).
 
@@ -858,9 +858,9 @@ Guida al funzionamento interno:
 @cindex collisioni,ignorare
 
 @knownissues
-Se si usa @code{\override NoteColumn.ignore-collision = ##t}, saranno
-unite incorrettamente note con teste diverse che si trovano in voci
-diverse.
+Se si usa @code{\override NoteColumn.ignore-collision = ##t},
+le note con teste diverse che si trovano in voci
+diverse saranno unite in modo non corretto.
 
 @lilypond[quote,relative=1,verbatim]
 \mergeDifferentlyHeadedOn
@@ -894,8 +894,8 @@ rigo due parti musicali separate.  Ciò è utile soprattutto quando si scrivono
 partiture orchestrali.  Viene stampata una sola voce se le due parti
 musicali sono identiche, ma nei punti in cui sono diverse viene
 aggiunta una seconda voce.  Le direzioni dei gambi sono impostate
-in su e in giù in base alla voce, mentre le parti soliste e @notation{a due}
-sono anch'esse identificate e contrassegnate.
+in su e in giù in base alla voce di appartenenza, mentre le sezioni solistiche e @notation{a due}
+sono a loro volta identificate e contrassegnate.
 
 La sintassi per la combinazione automatica delle parti è:
 
@@ -933,13 +933,13 @@ instrumentTwo = \relative g' {
 @end lilypond
 
 Entrambe le parti hanno note identiche nella terza misura, dunque viene
-stampata una sola nota.  Le direzioni dei gambi e delle legature di portamento e
-di valore sono impostate automaticamente, a seconda che le parti siano
-eseguite come solista o all'unisono.  Quando si rende necessario in
+stampata una sola nota. Le direzioni dei gambi e delle legature di portamento e
+di valore sono impostate automaticamente, a seconda che l'esecuzione delle parti sia
+solistica o all'unisono. Quando si rende necessario, in
 caso di polifonia, la prima parte (nel contesto @code{one}) ha i gambi
 in @qq{su}, mentre la seconda (nel contesto @code{two}) ha sempre i
-gambi in @qq{giù}.  In caso di parti soliste, la prima e seconda
-parte sono contrassegnate con @qq{Solo} e @qq{Solo II}, rispettivamente.
+gambi in @qq{giù}. In caso di parti solistiche, la prima e seconda
+parte sono contrassegnate rispettivamente con @qq{Solo} e @qq{Solo II}.
 Le parti (@notation{a due}) all'unisono sono contrassegnate con la
 scritta @qq{a2}.
 
@@ -976,8 +976,8 @@ Nelle partiture professionali, spesso le voci sono tenute separate per
 lunghi passaggi anche se alcune note sono le stesse in entrambe le voci
 e potrebbero essere stampate come unisono.  Combinare le note in un
 accordo o mostrare una voce come solista, dunque, non è la scelta
-ideale perché la funzione @code{\partcombine} considera ogni nota
-in modo separato. In questo caso si può sovrascrivere la funzione
+ideale, perché la funzione @code{\partcombine} considera ogni nota
+individualmente. In questo caso si può sovrascrivere la funzione
 @code{\partcombine} con i comandi  elencati sotto.
 
 I comandi che finiscono con @code{@dots{}Once} si applicano soltanto alla
@@ -1069,7 +1069,7 @@ l'unione delle parti smette di funzionare.
 Le funzioni @code{\partcombine@dots{}} non possono essere inserite all'interno
 di un blocco @code{\tuplet} o @code{\relative}.
 
-Se @code{printPartCombineTexts} è attivo e le due voci suonano le stesse
+Se @code{printPartCombineTexts} è attivo e le due voci eseguono le stesse
 note @qq{in modo discontinuo} nella stessa misura, potrebbe apparire
 il testo @code{a2} più di una volta in quella misura.
 
@@ -1080,9 +1080,9 @@ voce.  Questo può portare a vari problemi inattesi, tra cui la stampa
 non corretta dei segni @qq{Solo} e @qq{Unisono}.
 
 @code{\partcombine} tiene tutti gli estensori (legature di portamento e
-di valore, forcine, etc.) nella stessa voce, quindi se uno di questi
+di valore, forcelle, etc.) nella stessa voce, quindi se uno di questi
 estensori inizia o termina in una voce diversa potrebbe essere
-stampato incorrettamente o affatto.
+stampato incorrettamente o non essere stampato affatto.
 
 Se la funzione @code{\partcombine} non riesce a combinare le due espressioni
 musicali (ovvero quando le due voci hanno durate diverse), assegnerà alle
@@ -1106,9 +1106,9 @@ se si usa @code{\partcombine} con l'intavolatura, e la @emph{Nota} in
 @funindex \parallelMusic
 @funindex parallelMusic
 
-La musica che contiene varie parti può essere messa in parallelo nel codice
+La musica che contiene parti diverse può essere messa in parallelo nel codice
 di input.  La funzione @code{\parallelMusic} accetta una lista contenente
-i nomi di un insieme di variabili da creare e un'espressione musicale.  Il
+i nomi di un insieme di variabili da creare e un'espressione musicale. Il
 contenuto delle misure alternate nell'espressione diventa il valore delle
 rispettive variabili, in modo che possano essere usate successivamente per
 stampare la musica.
@@ -1159,8 +1159,8 @@ parole, le note relative di @code{voiceA} ignorano le note in @code{voiceB}.
 >>
 @end lilypond
 
-Questo è molto utile nella musica per pianoforte.  Questo esempio associa
-quattro misure consecutive a quattro variabili:
+Questo è molto utile nella musica per pianoforte. Questo esempio combina
+sezioni di quattro battute consecutive con quattro variabili:
 
 @lilypond[quote,verbatim]
 global = {

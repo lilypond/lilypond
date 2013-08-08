@@ -10,7 +10,7 @@
 @c \version "2.17.11"
 
 @c Translators: Federico Bruni
-@c Translation checkers:
+@c Translation checkers: Luca Rossetto Casel
 
 @node Ripetizioni
 @section Ripetizioni
@@ -26,10 +26,10 @@ ripetizioni:
 @item volta
 La musica ripetuta non viene scritta per intero ma racchiusa tra barre
 di ripetizione.  Se la ripetizione si trova all'inizio di un brano, la
-barra di ripetizione appare soltanto alla fine della ripetizione.  I
+stanghetta di ritornello è posta soltanto alla fine della ripetizione.  I
 finali alternativi (volte) appaiono da sinistra a destra e sono evidenziati
 da delle parentesi.  Questa è la notazione standard per le ripetizioni
-con alternative.
+con finali alternativi.
 
 @item unfold
 La musica ripetuta viene scritta per intero, tante volte quante sono
@@ -37,11 +37,11 @@ specificate dal @code{@var{numero-ripetizioni}}.  È utile quando si
 scrive musica ripetitiva.
 
 @item percent
-Si tratta di ripetizioni del battito o della misura.  Hanno l'aspetto di una
+Si tratta di ripetizioni del singolo tempo (battito) o della battuta.  Hanno l'aspetto di una
 barra obliqua o di segni di percentuale.
 
 @item tremolo
-Si usa per scrivere travature con tremolo.
+Si usa per scrivere travature a tremolo.
 
 @end table
 
@@ -56,14 +56,14 @@ Si usa per scrivere travature con tremolo.
 @translationof Long repeats
 
 Questa sezione spiega come inserire ripetizioni lunghe (solitamente
-multimisura).  Le ripetizioni possono avere due forme: quelle racchiuse
-tra segni di ripetizione; oppure quelle ricopiate interamente, che  si
-usano per inserire musica ripetitiva.  Si possono anche controllare
+di più battute).  Tali ripetizioni possono essere in due forme: racchiuse
+tra segni di ritornello oppure ricopiate interamente (adatte
+a scrivere musica ripetitiva).  Si possono anche controllare
 manualmente i segni di ripetizione.
 
 @menu
 * Ripetizioni normali::
-* Segni di ripetizione manuali::
+* Indicazioni di ripetizione manuali::
 * Ripetizioni ricopiate::
 @end menu
 
@@ -102,7 +102,7 @@ c2 d
 @end lilypond
 
 I finali alternativi si ottengono con @code{\alternative}.  Ogni gruppo
-di alternative deve essere esso stesso racchiuso tra parentesi.
+di alternative deve essere a sua volta racchiuso tra parentesi.
 
 @example
 \repeat volta @var{numero-di-ripetizioni} @var{espressione-musicale}
@@ -245,7 +245,7 @@ administration}.
 @funindex \inStaffSegno
 
 Il comando @code{\inStaffSegno} serve a posizionare il simbolo di segno
-in collaborazione col comando @code{\repeat volta}.
+combinandolo col comando @code{\repeat volta}.
 Si possono impostare simboli alternativi delle stanghette modificando nel
 contesto Score le proprietà @code{segnoType}, @code{startRepeatSegnoType},
 @code{endRepeatSegnoType} o @code{doubleRepeatSegnoType}.
@@ -327,8 +327,8 @@ Guida al funzionamento interno:
 
 Le legature di portamento che si estendono da un blocco @code{\repeat} verso
 un blocco @code{\alternative} funzioneranno solo nel primo finale
-alternativo.  L'aspetto visuale di una legatura di portamento che
-continua negli altri blocchi dell'alternativa può essere simulato
+alternativo.  L'aspetto grafico di una legatura di portamento che
+continua negli altri finali alternativi può essere simulato
 con @code{\repeatTie} se la legatura si estende solo su una nota
 del blocco dell'alternativa, sebbene questo metodo non funzioni
 in @code{TabStaff}.  Altri metodi che si possono adattare per indicare
@@ -341,8 +341,8 @@ un'alternativa all'inizio della ripetizione.
 
 I glissandi che si estendono da un blocco @code{\repeat} in un blocco
 @code{\alternative} funzioneranno soltanto per il primo finale
-alternativo.  L'aspetto visuale di un glissando che continua negli
-altri blocchi dell'alternativa può essere indicato creando un
+alternativo.  L'aspetto grafico di un glissando che continua negli
+altri finali alternativi può essere indicato creando un
 glissando che inizia su una nota di abbellimento nascosta.  Vedere ad
 esempio il frammento @qq{Estendere i glissandi attraverso le ripetizioni} nei
 Frammenti Selezionati in @ref{Glissando}.
@@ -369,11 +369,11 @@ interno.  Per chiarezza, si consiglia di usare le parentesi in queste
 situazioni.
 
 
-@node Segni di ripetizione manuali
-@unnumberedsubsubsec Segni di ripetizione manuali
+@node Indicazioni di ripetizione manuali
+@unnumberedsubsubsec Indicazioni di ripetizione manuali
 @translationof Manual repeat marks
 
-@cindex segno manuale di ripetizione
+@cindex indicazione manuale di ripetizione
 @cindex ripetizione, manuale
 @cindex inizio ripetizione
 @cindex ripetizione, inizio
@@ -386,7 +386,7 @@ situazioni.
 @funindex repeatCommands
 @funindex start-repeat
 
-@warning{Questi metodi vengono usati solo per mostrare ripetizioni
+@warning{Questi metodi vengono usati solo per mostrare tipi di ripetizioni
 inusuali, e potrebbero causare un comportamento inaspettato.  Nella
 maggior parte dei casi, le ripetizioni devono essere create col
 comando standard @code{@bs{}repeat} oppure stampando le stanghette
@@ -445,11 +445,11 @@ b1
 \set Score.repeatCommands = #'((volta #f))
 @end lilypond
 
-@cindex parentesi della volta bracket con testo
+@cindex parentesi della volta con testo
 @cindex testo nella parentesi della volta
 
-Si può includere del testo nella parentesi della volta.  Il testo può essere
-un numero o dei numeri o un'annotazione testuale, si veda @ref{Formatting text}.  Il
+Si può includere del testo nella parentesi della volta.  Il testo può consistere di
+un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formatting text}.  Il
 modo più  semplice per usare del testo è definirlo prima e poi includerlo
 nella lista Scheme,
 
@@ -501,7 +501,7 @@ Guida al funzionamento interno:
 @funindex unfold
 
 Col comando @code{unfold}, le ripetizioni possono servire a semplificare
-la scrittura di musica ripetitiva.  La sintassi è
+la scrittura di musica ripetitiva. La sintassi è
 
 @example
 \repeat unfold @var{numero-di-ripetizioni} @var{espressione-musicale}
@@ -518,8 +518,8 @@ c1
 @end lilypond
 
 In alcuni casi, specialmente in un contesto @code{\relative}, la funzione
-@code{\repeat unfold} non è  equivalente alla scrittura dell'espressione
-musicale molteplici volte. Ad esempio
+@code{\repeat unfold} non equivale a riscrivere l'espressione
+musicale più volte. Ad esempio
 
 @example
 \repeat unfold 2 @{ a'4 b c @}
@@ -543,8 +543,8 @@ c1
 @end lilypond
 
 Se il numero di ripetizioni è maggiore del numero di finali alternativi, la
-prima alternativa viene applicata varie volte finché le alternative rimaste
-non completano il numero totale delle ripetizioni.
+prima alternativa viene applicata più volte, finché le alternative rimaste
+non esauriscono il numero totale delle ripetizioni.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat unfold 4 { c4 d e f }
@@ -557,7 +557,7 @@ c1
 @end lilypond
 
 Se il numero di finali alternativi è maggiore del numero di ripetizioni, solo
-le prime alternative vengono applicate.   Le alternative rimanenti saranno
+le prime alternative vengono applicate. Le alternative rimanenti saranno
 ignorate e non verranno stampate.
 
 @lilypond[verbatim,quote,relative=2]
@@ -608,7 +608,7 @@ Guida al funzionamento interno:
 @translationof Short repeats
 
 Questa sezione tratta il modo in cui inserire brevi ripetizioni.  Le ripetizioni
-brevi possono avere due forme: segni di barra obliqua o percentuale per rappresentare le
+brevi possono avere due forme: segni di tratto obliquo o percentuale per rappresentare le
 ripetizioni di una singola nota, di una singola misura o di due misure; tremolo
 negli altri casi.
 
@@ -629,8 +629,8 @@ negli altri casi.
 @funindex \repeat percent
 @funindex percent
 
-Brevi fraseggi ripetuti vengono stampati una volta e le ripetizioni vengono
-sostituite da un segno speciale.
+Brevi sezioni ripetute vengono stampate la prima volta volta e le ripetizioni vengono
+sostituite da un apposito segno.
 
 La sintassi è
 
@@ -641,7 +641,7 @@ La sintassi è
 @noindent
 dove @code{@var{espressione-musicale}} è l'espressione musicale da ripetere.
 
-Fraseggi più brevi di una misura vengono sostituiti dalla barra obliqua.
+Fraseggi più brevi di una misura vengono sostituiti dal tratto obliquo.
 
 @lilypond[verbatim,quote,relative=2]
 \repeat percent 4 { c128 d e f }
@@ -665,7 +665,7 @@ Fraseggi di una o due misure vengono sostituiti da simboli simili alla percentua
 \repeat percent 3 { c4 d e f | c2 g' }
 @end lilypond
 
-Fraseggi più brevi di una misura ma con durate miste usano un
+Fraseggi più brevi di una misura ma con durate miste adottano un
 simbolo di doppia percentuale.
 
 @lilypond[verbatim,quote,relative=2]
@@ -717,12 +717,12 @@ Guida al funzionamento interno:
 @funindex \repeat tremolo
 @funindex tremolo
 
-I tremoli possono avere due forme: alternanza tra  due accordi o due
-note, e rapida ripetizione di una singola nota o accordo.  I tremoli
+I tremoli possono avere due forme: alternanza tra  due note, o due
+accordi, e rapida ripetizione di una singola nota o accordo.  I tremoli
 costituiti da un'alternanza si indicano con delle travature che collegano
 le note o gli accordi che si alternano, mentre i tremoli che consistono
 in una rapida ripetizione di una nota singola si indicano aggiungendo delle
-travature o delle barre oblique alla singola nota.
+travature o dei tratti di suddivisione obliqui alla singola nota.
 
 Per inserire i segni del tremolo tra le note, si usa @code{\repeat} con
 lo stile tremolo:
@@ -733,9 +733,9 @@ lo stile tremolo:
 \repeat tremolo 2 { c16 d }
 @end lilypond
 
-La sintassi di @code{\repeat tremolo} prevede esattamente due note
-all'interno delle parentesi, e il numero di ripetizioni deve corrispondere
-al valore di una nota che possa essere espressa con note normali o puntate.
+La sintassi di @code{\repeat tremolo} prevede specificamente che
+all'interno delle parentesi siano indicate due note, e che il numero di ripetizioni corrisponda
+a un valore espresso in durate di note normali o puntate.
 Dunque @code{\repeat tremolo 7} è valido e produce una nota doppiamente puntata,
 mentre @code{\repeat tremolo 9} non è valido.
 
