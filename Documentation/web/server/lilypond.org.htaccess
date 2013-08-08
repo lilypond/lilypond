@@ -23,6 +23,10 @@ RewriteEngine On
 RewriteCond %{HTTP_USER_AGENT} httrack [NC]
 RewriteRule ^.*/source/.*$ /please-respect-robots.txt.html [L]
 
+# Deny rogue crawler
+RewriteCond %{HTTP_USER_AGENT} ^(.*)AhrefsBot(.*) [NC]
+RewriteRule .* - [F,L]
+
 # Permanent top level entry points -- ./doc
 RedirectMatch ^/music-glossary /glossary
 RedirectMatch ^/tutorial /learning
