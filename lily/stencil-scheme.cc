@@ -40,6 +40,8 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
   Real real_amount = scm_to_double (amount);
 
   SCM new_s = s->smobbed_copy ();
+  scm_remember_upto_here_1 (stil);
+
   Stencil *q = unsmob_stencil (new_s);
   q->translate_axis (real_amount, Axis (scm_to_int (axis)));
   return new_s;
@@ -56,6 +58,8 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
   Offset o = ly_scm2offset (offset);
 
   SCM new_s = s->smobbed_copy ();
+  scm_remember_upto_here_1 (stil);
+
   Stencil *q = unsmob_stencil (new_s);
   q->translate (o);
   return new_s;
@@ -133,6 +137,8 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
     result.add_at_edge (Axis (scm_to_int (axis)),
                         Direction (scm_to_int (direction)), *s2, p);
 
+  scm_remember_upto_here_2 (first, second);
+
   return result.smobbed_copy ();
 }
 
@@ -183,6 +189,8 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
   if (s2)
     result.stack (Axis (scm_to_int (axis)),
                   Direction (scm_to_int (direction)), *s2, p, d);
+
+  scm_remember_upto_here_2 (first, second);
 
   return result.smobbed_copy ();
 }
