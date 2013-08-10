@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e0f3be42e16458e44183c142561ccdd05aa1bfb9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1086,23 +1086,23 @@ cd out
 @dots{}
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 Désactive la mise en échec en l'absence de sortie de lilypond.@*
 Option utilisée pour la documentation au format Info sans images.
 
-@itemx --skip-png-check
+@item --skip-png-check
 Désactive la mise en échec en l'absence d'images PNG correspondant aux
 fichiers EPS.@*
 Option utilisée pour la documentation au format Info sans images.
 
-@itemx --lily-output-dir=@var{rép}
+@item --lily-output-dir=@var{rép}
 Écrit les fichiers lily-XXX dans @var{rép} et crée un lien vers le
 répertoire spécifié par @code{--output}.  Cette option permet
 d'économiser du temps lors de la génération de documents qui se trouvent
 dans différents répertoires et partagent un certain nombre d'extraits
 identiques.
 
-@itemx --lily-loglevel=@var{loglevel}
+@item --lily-loglevel=@var{loglevel}
 Détermine le degré de verbosité lors des appels à @command{lilypond}.
 Les valeurs autorisée de @var{loglevel} sont : @code{NONE},
 @code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS}, @code{PROGRESS},
@@ -1110,16 +1110,16 @@ Les valeurs autorisée de @var{loglevel} sont : @code{NONE},
 pas activée, c'est le niveau déterminé par la variable d'environnement
 @code{LILYPOND_LOGLEVEL} qui sera utilisé.
 
-@itemx --info-images-dir=@var{répertoire}
+@item --info-images-dir=@var{répertoire}
 Formate la sortie Texinfo de telle sorte que Info cherche les images
 de musique dans @var{répertoire}.
 
-@itemx --latex-program=@var{programme}
+@item --latex-program=@var{programme}
 Utilise l'exécutable @command{programme} en lieu et place de
 @command{latex}.  C'est l'option que vous utiliserez si vous préférez
 @command{xelatex} par exemple.
 
-@itemx --left-padding=@var{distance}
+@item --left-padding=@var{distance}
 Décale les figures EPS de @var{distance} -- exprimée en millimètres
 (3 par défaut).  Cette option est utile lorsque les lignes de musique
 débordent sur la marge droite.
@@ -1144,7 +1144,7 @@ Le résultat des commandes est habituellement affiché dans le terminal.
 Cette option permet de rediriger tout le verbiage dans un journal situé
 dans le même répertoire que le fichier source.
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 Cette option permet d'affecter aux fichiers correspondant aux extraits
 de musique le même nom que leur source.  Elle n'est fonctionnelle que
 dans le cas où la partition est incluse à l'aide de @code{lilypondfile},

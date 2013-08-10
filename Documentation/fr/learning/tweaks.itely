@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: e0f3be42e16458e44183c142561ccdd05aa1bfb9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,6 +27,7 @@ théoriquement de modifier chaque élément de votre partition.
 * Le manuel de référence des propriétés internes::
 * Apparence des objets::
 * Positionnement des objets::
+* Espacement vertical::
 * Collisions d'objets::
 * Autres retouches::
 @end menu
@@ -2471,7 +2472,7 @@ pas être très satisfaisant, comme le montre cet exemple artificiel :
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2512,12 +2513,14 @@ l'extension gauche et moins l'infini à l'extension droite, en
 attribuant à @code{extra-spacing-width} la valeur
 @code{'(+inf.0 . -inf.0)}.  Pour être sûr que les objets ne se
 chevaucheront pas horizontalement, nous devons donc corriger cette
-valeur de @code{extra-spacing-width} en @code{'(0 . 0)}, afin que
-leur vraie largeur se manifeste.  La commande pour y parvenir avec des
-indications de nuances est :
+valeur de @code{extra-spacing-width} pour leur attribuer un peu
+d'espace supplémentaire.  L'unité de base est ici la largeur
+séparant deux lignes de portée ; décaler le bord gauche d'une
+demie unité vers la gauche et le bord droit d'une demie unité vers
+la droite devrait suffire :
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2528,36 +2531,217 @@ Voyons si ça marche sur notre exemple précédent :
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-Bon, cela a mis un terme aux déplacements verticaux des
-nuances mais il reste deux problèmes.  Il faudrait que les
-nuances soient un peu plus écartées et ce serait mieux si
-elles étaient toutes à la même distance de la portée.  Le
-premier problème est simple à résoudre.  Au lieu d'attribuer
-à @code{extra-spacing-width} la valeur zéro, nous pourrions
-mettre un peu plus.  L'unité est la distance entre deux lignes
-de portée, donc en écartant le bord gauche d'une demie unité
-et le bord droit d'une demie unité, on obtient :
-
-@cindex DynamicText, exemple de dérogation
-@cindex extra-spacing-width, exemple d'utilisation de la propriété
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
 C'est mieux mais nous voulons peut-être aligner les indications de
 nuance sur une même ligne plutôt que de les voir monter et
 descendre avec les notes.  La propriété qui gère cela est
-@code{staff-padding} ; la section suivante lui est consacrée.
+@code{staff-padding} -- voir @ref{Collisions d'objets}.
+
+
+@node Espacement vertical
+@section  Espacement vertical
+@translationof Vertical spacing
+
+En règle générale, LilyPond est plutôt performant en matière
+d'espacement vertical des objets musicaux.  Examinons ce qui se passe
+avec un chant simple à deux voix accompagnées au piano :
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Il n'y a rien à redire quant à l'espacement vertical.  Toutefois,
+partons du principe que nous travaillons avec un éditeur dont les
+exigences en matière d'espacement vertical sont les suivantes : les
+paroles doivent être clairement détachées des notes, l'accompagnement de
+piano séparé du chant et les portées de piano rapprochées l'une de
+l'autre.  Commençons par les paroles.
+
+Les paroles résident dans un système ; les commandes dévolues à leur
+espacement sont donc mentionnées à la section
+@ruser{Espacement vertical au sein d'un système}. Nous y constatons que
+les paroles sont des lignes de non-portée (@code{non-staff lines}) ; les
+commandes qui gèrent leur espacement font donc référence à la propriété
+@code{nonstaff}.  Les décaler de la portée à laquelle elles sont
+attachées (celle du haut) jouera sur la propriété @code{relatedstaff},
+les décaler de la ligne inférieure sur la propriété
+@code{unrelatedstaff}.  Les parties vocales sont membre d'un
+@code{VerticalAxisGroup} ; ce sont donc les propriétés de ce groupe qui
+doivent être ajustées.  Faisons un premier essai pour voir :
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+L'espacement est maintenant quelque peu exagéré.  Lorsque nous
+affectons 5 à la variable @code{padding}, LilyPond ajoute cinq espaces
+de portée à la distance séparant deux objets, ce qui est plus que
+généreux.  Nous nous limiterons à 2.
+
+Occupons-nous à présent de séparer l'accompagnement du chant.  La
+musique vocale fait l'objet d'un @code{ChoirStaff} ; il nous faut donc
+augmenter l'espace entre ce groupe et la portée de piano qui le suit.
+Nous y parviendrons en modifiant la variable @code{basic-distance} de
+l'élément @code{staffgroup-staff-spacing} du @code{StaffGrouper}.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Excellent.  Ne reste plus qu'à répondre à la dernière exigence :
+resserrer les portées du piano.  Pour y parvenir, nous ajusterons à
+nouveau les propriétés du @code{StaffGrouper}, ici en jouant à la fois
+sur la distance de base (@code{basic-distance}) et le décalage
+(@code{padding}) comme ci-dessous :
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+ 
+Les portées sont vraiment rapprochées, mais c'est ce que veut l'éditeur.
+On pourra toujours les écarter au besoin en jouant sur les éléments
+@code{padding} ou @code{basic-distance}.
+
+Il existe bien des manières de modifier l'espacement vertical.  Le point
+crucial à ne pas oublier est que l'espacement des objets au sein d'un
+regroupement -- un @code{StaffGroup}, tels @code{GrandStaff} ou
+@code{PianoStaff} -- dépend des variables d'espacement d'un
+@code{StaffGrouper} ; l'espacement de portées non regroupées (comme
+@code{Lyrics} et @code{Staff}) dépend des variables d'un
+@code{VerticalAxisGroup}.  Voir
+@ruser{Variables d'espacement vertical fluctuant} et
+@ruser{Espacement vertical au sein d'un système} pour de plus amples
+détails.
 
 
 @node Collisions d'objets
@@ -2963,7 +3147,7 @@ précédente :
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Align dynamics to a base line 2 units above staff
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 
@@ -2971,9 +3155,9 @@ a4\f b\mf c\mp b\p
 @unnumberedsubsubsec La propriété @code{self-alignment-X}
 @translationof The self-alignment-X property
 
-L'exemple suivant montre comment résoudre une collision entre une
-indication de corde et une hampe, en alignant le coin droit sur le point
-de référence de la note parente :
+L'exemple suivant montre comment ajuster le positionnement d'une
+indication de corde relativement à une hampe, en alignant le coin
+droit sur le point de référence de la note parente :
 
 @cindex StringNumber, exemple de dérogation
 @cindex self-alignment-X, exemple d'utilisation de la propriété

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
+    Translation of GIT committish: e0f3be42e16458e44183c142561ccdd05aa1bfb9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -644,10 +644,10 @@ traditionnellement alignée par la gauche sur la première note du mélisme.
 
 Lorsqu'un mélisme tombe sur une syllabe autre que la dernière d'un mot,
 un trait d'union étiré, indiqué par un double tiret @w{@code{--}} dans
-le fichier source, reliera cette syllabe  à la suivante. 
+le fichier source, reliera cette syllabe à la suivante. 
 
 Lorsqu'un mélisme tombe sur la dernière syllabe d'un mot ou que ce mot
-n'en comporte qu'une, l'usage est d'indiquer la @qq{tenue} jusqu'à la
+n'en comporte qu'une, l'usage est d'indiquer la « tenue » jusqu'à la
 dernière note de la vocalise.  Ceci s'obtient en ajoutant un double
 caractère souligné @code{__} après cette syllabe.
 
