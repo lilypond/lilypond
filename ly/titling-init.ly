@@ -8,17 +8,19 @@ slashSeparator = \markup {
 }
 
 tagline = \markup {
-  \with-url
+  \pad-to-box #'(0 . 0) #'(0 . 3)
+  {  \with-url
 
-  #"http://lilypond.org/"
-  \line {
+    #"http://lilypond.org/"
+    \line {
 
-    %% 2014 = em dash.
+      %% 2014 = em dash.
 
-    #(format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
-       (lilypond-version)
-       (ly:wide-char->utf-8 #x2014)
-       )
+      #(format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
+         (lilypond-version)
+         (ly:wide-char->utf-8 #x2014)
+         )
+    }
   }
 }
 

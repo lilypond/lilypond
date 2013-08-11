@@ -22,6 +22,7 @@ in which case the turn will go after the special barline.
     auto-first-page-number = ##t
     print-page-number = ##t
     print-first-page-number = ##t
+    tagline = ##f
   }
 
   \score {

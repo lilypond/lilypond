@@ -14,8 +14,8 @@ Melody = \relative c' {
   c2 c | c c | c c
 }
 Words = \lyricmode{
-  bla bla bla bla bla bla
-  bla bla bla bla bla bla
+  ma ma ma ma ma ma
+  ma ma ma ma ma ma
 }
 \book {
   \score {
