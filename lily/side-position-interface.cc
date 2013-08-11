@@ -214,14 +214,13 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     common[Y_AXIS] = staff_symbol->common_refpoint (common[Y_AXIS], Y_AXIS);
 
   Skyline my_dim;
-  Skyline_pair *skyp = Skyline_pair::unsmob (
-                         me->get_maybe_pure_property (a == X_AXIS
-                                                      ? "horizontal-skylines"
-                                                      : "vertical-skylines",
-                                                      pure,
-                                                      start,
-                                                      end));
-  if (skyp)
+  SCM skyp = me->get_maybe_pure_property (a == X_AXIS
+                                          ? "horizontal-skylines"
+                                          : "vertical-skylines",
+                                          pure,
+                                          start,
+                                          end);
+  if (Skyline_pair::unsmob (skyp))
     {
       // for spanner pure heights, we don't know horizontal spacing,
       // so a spanner can never have a meaningful x coordiante
@@ -237,7 +236,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       Real yc = a == X_AXIS
                 ? me->pure_relative_y_coordinate (common[Y_AXIS], start, end)
                 : me->get_parent (Y_AXIS)->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
-      Skyline_pair copy = Skyline_pair (*skyp);
+      Skyline_pair copy = *Skyline_pair::unsmob (skyp);
       copy.shift (a == X_AXIS ? yc : xc);
       copy.raise (a == X_AXIS ? xc : yc);
       my_dim = copy[-dir];
@@ -280,16 +279,15 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
         {
 
 
-           Skyline_pair *sp = Skyline_pair::unsmob
-             (e->get_maybe_pure_property (a == X_AXIS
-                                          ? "horizontal-skylines"
-                                          : "vertical-skylines",
-                                          pure || cross_staff,
-                                          start,
-                                          end));
+           SCM sp = e->get_maybe_pure_property (a == X_AXIS
+                                                ? "horizontal-skylines"
+                                                : "vertical-skylines",
+                                                pure || cross_staff,
+                                                start,
+                                                end);
 
            aligns_to_cross_staff |= cross_staff;
-           if (sp)
+           if (Skyline_pair::unsmob (sp))
              {
                Real xc = pure && dynamic_cast<Spanner *> (e)
                          ? e->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)
@@ -299,7 +297,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                Real yc = a == X_AXIS
                          ? e->pure_relative_y_coordinate (common[Y_AXIS], start, end)
                          : e->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
-               Skyline_pair copy = Skyline_pair (*sp);
+               Skyline_pair copy = *Skyline_pair::unsmob (sp);
                if (a == Y_AXIS
                    && Stem::has_interface (e)
                    && to_boolean (me->get_maybe_pure_property ("add-stem-support", pure, start, end)))
