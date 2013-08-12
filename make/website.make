@@ -68,11 +68,11 @@ EXTRACT_TEXI_FILENAMES=$(PYTHON) $(script-dir)/extract_texi_filenames.py $(quiet
 		-I $(dir $<) \
 		-I $(OUT) \
 		-o $(OUT)
-CREATE_VERSION=python $(script-dir)/create-version-itexi.py
-CREATE_WEBLINKS=python $(script-dir)/create-weblinks-itexi.py
-MASS_LINK=python $(script-dir)/mass-link.py
-WEB_POST=python $(script-dir)/website_post.py
-WEB_BIBS=python $(script-dir)/bib2texi.py
+CREATE_VERSION=$(PYTHON) $(script-dir)/create-version-itexi.py
+CREATE_WEBLINKS=$(PYTHON) $(script-dir)/create-weblinks-itexi.py
+MASS_LINK=$(PYTHON) $(script-dir)/mass-link.py
+WEB_POST=$(PYTHON) $(script-dir)/website_post.py
+WEB_BIBS=$(PYTHON) $(script-dir)/bib2texi.py
 
 EXAMPLES=$(LILYPOND_WEB_MEDIA_GIT)/ly-examples
 PICTURES=$(LILYPOND_WEB_MEDIA_GIT)/pictures
