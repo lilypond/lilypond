@@ -2505,7 +2505,9 @@
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
         (stencils . ,parentheses-item::calc-parenthesis-stencils)
-        (X-offset . ,ly:side-position-interface::x-aligned-side)
+        ;; offset a bit to the right, further if needed to clear the main note
+        (X-offset . ,(lambda (grob)
+                       (ly:side-position-interface::x-aligned-side grob 2.5)))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface

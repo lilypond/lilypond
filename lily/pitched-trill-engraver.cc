@@ -38,6 +38,8 @@ public:
 protected:
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_ACKNOWLEDGER (dots);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (flag);
   DECLARE_ACKNOWLEDGER (trill_spanner);
   void stop_translation_timestep ();
 
@@ -60,6 +62,16 @@ Pitched_trill_engraver::Pitched_trill_engraver ()
 
 void
 Pitched_trill_engraver::acknowledge_dots (Grob_info info)
+{
+  heads_.push_back (info.grob ());
+}
+void
+Pitched_trill_engraver::acknowledge_stem (Grob_info info)
+{
+  heads_.push_back (info.grob ());
+}
+void
+Pitched_trill_engraver::acknowledge_flag (Grob_info info)
 {
   heads_.push_back (info.grob ());
 }
@@ -159,6 +171,8 @@ Pitched_trill_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
+ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
+ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
