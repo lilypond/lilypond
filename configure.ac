@@ -26,6 +26,12 @@ AC_ARG_ENABLE(documentation,
     [DOCUMENTATION=$enableval])
 AC_SUBST(DOCUMENTATION)
 
+GUILEv2=no
+AC_ARG_ENABLE(guile2,
+    [AS_HELP_STRING([--enable-guile2],
+		    [highly experimental GUILE 2 support.  Default: off])],
+    [GUILEv2=$enableval])
+
 AC_ARG_WITH(ncsb-dir,
     [AS_HELP_STRING([--with-ncsb-dir=DIR],
 		    [location of Century Schoolbook fonts.])],
@@ -129,7 +135,12 @@ STEPMAKE_GETTEXT
 STEPMAKE_MSGFMT(REQUIRED)
 STEPMAKE_TEXMF(REQUIRED)
 STEPMAKE_TEXMF_DIRS(REQUIRED)
-STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2, 1.9.0)
+if test "$GUILEv2" = "yes"
+then
+    STEPMAKE_GUILE_DEVEL(REQUIRED, 2.0.7, 2.2.0)
+else
+    STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.2, 1.9.0)
+fi
 
 # check for 3 typedefs added in Guile 1.9
 save_CXXFLAGS="$CXXFLAGS"
