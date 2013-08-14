@@ -31,7 +31,7 @@ EOF
     exit "$1"
 }
 
-if [ "$1" == '-h' ] || [ "$1" == '--help' ]; then
+if [ "$1" = '-h' ] || [ "$1" = '--help' ]; then
     usage 0
 fi
 
