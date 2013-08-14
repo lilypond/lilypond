@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -151,7 +151,7 @@ l'articulation désirée.  C'est entre autres le cas pour
 @notation{portato}, comme l'illustre l'exemple ci-dessous.
 
 @lilypond[verbatim,quote,relative=2]
-c4-^  c-+  c--  c-|
+c4-^  c-+  c--  c-!
 c4->  c-.  c2-_
 @end lilypond
 

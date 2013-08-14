@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 @c Translation status: post-GDP
 
@@ -62,7 +62,7 @@ Los acordes también pueden ir seguidos de articulaciones, de nuevo como
 si fueran simples notas.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
 @end lilypond
 
 Las notas dentro del propio acorde también pueden ir seguidas
@@ -173,7 +173,7 @@ puede usarse con duraciones, articulaciones, elementos de marcado, ligaduras
 de expresión, barras, etc., pues sólo se duplican las notas del acorde precedente.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 El símbolo de repetición de acordes

@@ -62,6 +62,34 @@ which scares away people.
 @end ignore
 
 @item
+A number of shorthands like @code{(}, @code{)}, @code{|},
+@code{[}, @code{]}, @code{~}, @code{\(}, @code{\)} and others can
+now freely be redefined like normal commands.  An example would be
+@lilypond[verbatim,quote]
+"\\{" = (
+"\\}" = )
+"(" = \melisma
+")" = \melismaEnd
+
+\new Staff <<
+  \relative c' {
+    c8 \{ d e f \} % slurred
+    g ( a b c ) % no slur, but with melisma
+    c,1 \bar "|."
+   }
+   \addlyrics { Li -- ly -- pond. }
+>>
+@end lilypond
+
+@item
+The articulation shorthand for @code{\staccatissimo} has been
+renamed from @code{-|} to@tie{}@code{-!}.
+
+@item
+Tempo change ranges are now written as @code{\tempo 4 = 60 - 68}
+rather than @code{\tempo 4 = 60 ~ 68}.
+
+@item
 Grob @code{OctavateEight} was renamed to @code{ClefModifier}.
 Related context properties were renamed from @code{xxxOctavationyyy}
 to @code{xxxTranspositionyyy}.

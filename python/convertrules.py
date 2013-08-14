@@ -3591,6 +3591,56 @@ def conv(str):
                   r"\1", str)
     return str
 
+@rule((2, 17, 25), r'''\tempo 4. = 50~60 -> \tempo 4. = 50-60
+-| -> -!
+pipeSymbol, escapedParenthesisOpenSymbol ... -> "|", "\\(" ...''')
+def conv(str):
+#  This goes for \tempo commands ending with a range, like
+#  = 50 ~ 60
+#  and uses - instead.  We don't explicitly look for \tempo since the
+#  complete syntax has a large number of variants, and this is quite
+#  unlikely to occur in other contexts
+    str = re.sub (r"(=\s*[0-9]+\s*)~(\s*[0-9]+\s)", r"\1-\2", str)
+# Match strings, and articulation shorthands that end in -^_
+# so that we leave alone -| in quoted strings and c4--|
+    def subnonstring(m):
+        if m.group (1):
+            return m.group (1)+"!"
+        return m.group (0)
+    str = re.sub (r"([-^_])\||" + matchstring + r"|[-^_][-^_]", subnonstring, str)
+    str = re.sub (r"\bdashBar\b", "dashBang", str)
+    orig = [ "pipeSymbol",
+             "bracketOpenSymbol",
+             "bracketCloseSymbol",
+             "tildeSymbol",
+             "parenthesisOpenSymbol",
+             "parenthesisCloseSymbol",
+             "escapedExclamationSymbol",
+             "escapedParenthesisOpenSymbol",
+             "escapedParenthesisCloseSymbol",
+             "escapedBiggerSymbol",
+             "escapedSmallerSymbol" ]
+    repl = [ r'"|"',
+             r'"["',
+             r'"]"',
+             r'"~"',
+             r'"("',
+             r'")"',
+             r'"\\!"',
+             r'"\\("',
+             r'"\\)"',
+             r'"\\>"',
+             r'"\\<"']
+    words = r"\b(?:(" + ")|(".join (orig) + r"))\b"
+    def wordreplace(m):
+        def instring(m):
+            return re.sub (r'["\\]',r'\\\g<0>',repl[m.lastindex-1])
+        if m.lastindex:
+            return repl[m.lastindex-1]
+        return '"' + re.sub (words, instring, m.group(0)[1:-1]) + '"'
+    str = re.sub (words + "|" + matchstring, wordreplace, str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

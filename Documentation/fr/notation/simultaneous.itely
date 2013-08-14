@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -67,7 +67,7 @@ Un accord peut être suivi d'une indication d'articulation comme une
 simple note.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
 @end lilypond
 
 Certaines notes, au sein même d'un accord, peuvent être affectées d'une
@@ -179,7 +179,7 @@ ligatures@dots{}  En fait, c'est la structure du dernier accord qui est
 dupliquée.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 Dans la mesure où le symbole de répétition d'accord enregistre la

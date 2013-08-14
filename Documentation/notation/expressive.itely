@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 @node Expressive marks
 @section Expressive marks
@@ -148,7 +148,7 @@ articulation.  Predefined shorthands exist for @notation{marcato},
 Their corresponding output appears as follows:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-|
+c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @node Rhythms
 @section Rhythms
@@ -1296,7 +1296,7 @@ e4. d8 c2
 Metronome marks may also be printed as a range of two numbers:
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -3110,18 +3110,18 @@ warning to focus on the source of the timing error.
 
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 It is also possible to redefine the action taken when a bar check
 or pipe symbol, @code{|}, is encountered in the input, so that
 it does something other than a bar check.  This is done by
-assigning a music expression to @code{pipeSymbol}.
+assigning a music expression to @code{"|"}.
 In the following example @code{|} is set to insert a double bar
 line wherever it appears in the input, rather than checking
 for end of bar.
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'

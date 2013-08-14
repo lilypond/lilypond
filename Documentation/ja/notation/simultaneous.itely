@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 
 @c Translators: Yoshiki Sawada
@@ -64,7 +64,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 続くかもしれません:
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
 @end lilypond
 
 和音の中にある音符自体にもアーティキュレーションや装飾を付けることができます。
@@ -171,7 +171,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 アーティキュレーション、マークアップ、スラー、連桁などを使うことができます。
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 和音繰り返しのシンボルは常に最後の和音を覚えているため、@c

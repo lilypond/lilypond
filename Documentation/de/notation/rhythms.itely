@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @c Translators: Till Paala
 
@@ -1310,7 +1310,7 @@ e4. d8 c2
 Metronombezeichnungen können auch für einen Zahlenbereich notiert werden:
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -3057,19 +3057,19 @@ ausgegeben.  Damit wird die Warnung auf den Ursprung de Fehlers
 fokussiert.
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 Es ist auch möglich, die Bedeutung des Symbols @code{|} (Pipe)
 umzudefinieren, so dass hiermit eine andere Aktion als eine
 Taktüberprüfung erreicht wird.
-Das geschieht, indem man der Pipe (@code{pipeSymbol} einen musikalischen
+Das geschieht, indem man der Pipe (@code{"|"} einen musikalischen
 Ausdruck zuweist.  Im nächsten Beispiel wird @code{|} dazu
 verwendet, eine doppelte Taktlinie auszugeben, woimmer man
 das Zeichen auch setzt.  Gleichzeitig hört das Zeichen auf,
 als Taktüberprüfung zu funktionieren.
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'

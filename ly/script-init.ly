@@ -1,12 +1,12 @@
 % script-init.ly
 
-\version "2.16.0"
+\version "2.17.25"
 
 % code char abbreviations
 dashHat = "marcato"
 dashPlus = "stopped"
 dashDash = "tenuto"
-dashBar = "staccatissimo"
+dashBang = "staccatissimo"
 dashLarger = "accent"
 dashDot = "staccato"
 dashUnderscore = "portato"

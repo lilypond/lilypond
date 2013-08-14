@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1306,7 +1306,7 @@ Le indicazioni metronomiche si possono rappresentare anche come una gamma
 di due numeri:
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -3131,18 +3131,18 @@ avviso.  Così l'avvertimento si concentra sulla causa dell'errore
 di tempo.
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 È anche possibile ridefinire l'azione da prendere quando si incontra
 un controllo di battuta o simbolo di barra verticale, @code{|}, nell'input,
 in modo che faccuia qualcosa di diverso dal controllo di battuta.  Si può
-fare assegnando un'espressione musicale a @code{pipeSymbol}.
+fare assegnando un'espressione musicale a @code{"|"}.
 Nell'esempio seguente @code{|}, invece di controllare la fine di una
 battuta, viene usato per inserire una stanghetta doppia ovunque appaia
 nell'input.
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'

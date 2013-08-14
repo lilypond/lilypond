@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1270,7 +1270,7 @@ e4. d8 c2
 メトロノーム記号を 2 つの数の範囲として譜刻することもできます:
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -2945,17 +2945,17 @@ c1 | c | c | c
 
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 入力の中で小節チェックあるいはパイプ記号 @code{|} に遭遇した場合にとられる@c
 アクションを再定義することも可能です。@c
 これにより、小節チェック以外のことを行うことができます。@c
-再定義は音楽表記を @code{pipeSymbol} に代入することによって行います。@c
+再定義は音楽表記を @code{"|"} に代入することによって行います。@c
 以下の例では、@code{|} は小節の終わりをチェックするのではなく、@c
 それが現れた場所に 2 重線の小節線を挿入するようセットされています。
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'
