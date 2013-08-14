@@ -2280,17 +2280,6 @@ string:
 		$$ = $1;
 	}
 	| full_markup
-	| string '+' string {
-		if (!scm_is_string ($1)) {
-			parser->parser_error (@1, (_ ("simple string expected")));
-			$1 = scm_string (SCM_EOL);
-		}
-		if (!scm_is_string ($3)) {
-			parser->parser_error (@3, (_ ("simple string expected")));
-			$3 = scm_string (SCM_EOL);
-		}
-		$$ = scm_string_append (scm_list_2 ($1, $3));
-	}
 	;
 
 simple_string: STRING {
