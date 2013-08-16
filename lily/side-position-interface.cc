@@ -203,6 +203,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
   bool quantize_position = to_boolean (me->get_maybe_pure_property ("quantize-position", pure, start, end));
+  bool me_cross_staff = to_boolean (me->get_property ("cross-staff"));
 
   bool include_staff
     = staff_symbol
@@ -255,34 +256,29 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
     {
       Grob *e = *it;
 
-      // In the case of a stem, we will find a note head as well
-      // ignoring the stem solves cyclic dependencies if the stem is
-      // attached to a cross-staff beam.
       bool cross_staff = to_boolean (e->get_property ("cross-staff"));
-
-      // avoid cyclic dependency for direction
       if (a == Y_AXIS
-          && pure
-          && Stem::has_interface (e)
-          && cross_staff
-          && !is_direction (e->get_property_data ("direction")))
-        continue;
+          && !me_cross_staff // 'me' promised not to adapt to staff-spacing
+          && cross_staff) // but 'e' might move based on staff-pacing
+        continue; // so 'me' may not move in response to 'e'
 
-      // avoid unnecessary stem look up (if pointing away, it is not
-      // supporting anything)
       if (a == Y_AXIS
-          && Stem::has_interface (e)
-          && dir == - get_grob_direction (e))
-        continue;
+          && Stem::has_interface (e))
+        {
+          // If called as 'pure' we may not force a stem to set its direction,
+          if (pure && !is_direction (e->get_property_data ("direction")))
+            continue;
+          // There is no need to consider stems pointing away.
+          if (dir == -get_grob_direction (e))
+            continue;
+        }
 
       if (e)
         {
-
-
            SCM sp = e->get_maybe_pure_property (a == X_AXIS
                                                 ? "horizontal-skylines"
                                                 : "vertical-skylines",
-                                                pure || cross_staff,
+                                                pure,
                                                 start,
                                                 end);
 
