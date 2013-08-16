@@ -51,19 +51,6 @@ Axis_group_interface::get_default_outside_staff_padding ()
   return default_outside_staff_padding_;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, cross_staff, 1);
-SCM
-Axis_group_interface::cross_staff (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "elements", elts);
-  for (vsize i = 0; i < elts.size (); i++)
-    if (to_boolean (elts[i]->get_property ("cross-staff")))
-      return SCM_BOOL_T;
-
-  return SCM_BOOL_F;
-}
-
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
 {
@@ -112,8 +99,7 @@ Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &e
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
-      if (has_interface (se)
-          || !to_boolean (se->get_property ("cross-staff")))
+      if (!to_boolean (se->get_property ("cross-staff")))
         {
           Interval dims = (bound && has_interface (se)
                            ? generic_bound_extent (se, common, a)
@@ -254,8 +240,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
     {
       Grob *g = elts[i];
 
-      if (to_boolean (g->get_property ("cross-staff"))
-          && !has_interface (g))
+      if (to_boolean (g->get_property ("cross-staff")))
         continue;
 
       if (!g->is_live ())
@@ -898,7 +883,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
     {
       Grob *elt = elements[i];
       Grob *ancestor = outside_staff_ancestor (elt);
-      if (!ancestor)
+      if (!(to_boolean (elt->get_property ("cross-staff")) || ancestor))
         add_interior_skylines (elt, x_common, y_common, &inside_staff_skylines);
       if (ancestor)
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));

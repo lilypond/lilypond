@@ -1605,7 +1605,6 @@
      . (
         (axes . (,X ,Y))
         (bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
-        (cross-staff . ,ly:axis-group-interface::cross-staff)
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
         (skyline-vertical-padding . 0.15)
         (X-extent . ,ly:axis-group-interface::width)

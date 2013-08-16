@@ -240,8 +240,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   vector<Box> boxes;
   vector<Skyline_pair> skyps;
   set<Grob *>::iterator it;
-  Real max_raise = -dir * infinity_f;
-  bool aligns_to_cross_staff = false;
 
   for (it = support.begin (); it != support.end (); it++)
     {
@@ -273,7 +271,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                                 start,
                                                 end);
 
-           aligns_to_cross_staff |= cross_staff;
            if (Skyline_pair::unsmob (sp))
              {
                Real xc = pure && dynamic_cast<Spanner *> (e)
@@ -291,7 +288,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                  copy[dir].set_minimum_height (copy[dir].max_height ());
                copy.shift (a == X_AXIS ? yc : xc);
                copy.raise (a == X_AXIS ? xc : yc);
-               max_raise = minmax (dir, max_raise, a == X_AXIS ? xc : yc);
                skyps.push_back (copy);
              }
            else { /* no warning*/ }
@@ -333,15 +329,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       dim = Skyline (dim.direction ());
       dim.set_minimum_height (0.0);
     }
-
-  // Many cross-staff grobs do not have good height estimations.
-  // We give the grob the best chance of not colliding by shifting
-  // it to the maximum height in the case of cross-staff alignment.
-  // This means, in other words, that the old way things were done
-  // (using boxes instead of skylines) is just reactivated for
-  // alignment to cross-staff grobs.
-  if (aligns_to_cross_staff)
-    dim.set_minimum_height (dim.max_height ());
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real dist = dim.distance (my_dim, robust_scm2double (me->get_maybe_pure_property ("horizon-padding", pure, start, end), 0.0));
