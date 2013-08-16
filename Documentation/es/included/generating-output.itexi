@@ -100,18 +100,18 @@ durante la compilación de un archivo.}
 Haga doble clic sobre el icono de LilyPond del escritorio
 y se abrirá un archivo de ejemplo.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 Del menú de la ventana que contiene el archivo de ejemplo, elija
 @w{@code{Archivo > Guardar como}}. No use @w{@code{Archivo > Guardar}}
 para este archivo de ejemplo porque no funcionará hasta que le aplique
 un nombre de LilyPond válido.
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Escoja un nombre para el archivo, por ejemplo @file{prueba.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading Paso 2-A. Compílelo (arrastrando y soltando)
@@ -122,12 +122,12 @@ estas dos cosas:
 Arrastre el archivo y suéltelo directamente encima del icono de
 LilyPond.
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 Pulse con el botón derecho sobre el archivo y elija @w{@code{Abrir con
 > LilyPond}} del menú contextual emergente.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading Paso 2-B. Compílelo (con doble clic)
@@ -139,35 +139,27 @@ O simplemente haga doble clic sobre el archivo @file{prueba.ly}.
 
 Durante la compilación del archivo @file{prueba.ly}, se abrirá muy
 brevemente una ventana de la consola y luego se cerrará.  Durante este
-proceso se habrán creado tres archivos adicionales:
+proceso se habrán creado tres archivos adicionales.  El archivo PDF
+contiene el documento @file{prueba.ly} convertido en una partitura musical.
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
-El archivo PDF contiene el documento @file{prueba.ly} convertido en
-una partitura musical.
-
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading Otras instrucciones
 
 Para crear un archivo nuevo, comience eligiendo @w{@code{Archivo > Nuevo}}
-desde dentro de algún archivo creado previamente.
-
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
-o bien, elija @w{@code{Archivo > Abrir}} para abrir y editar cualquier
+desde dentro de algún archivo creado previamente o bien, elija
+@w{@code{Archivo > Abrir}} para abrir y editar cualquier
 archivo que haya guardado antes.
 
-@sourceimage{Learning_Win7_Open_Menu,,,}
+@sourceimage{EditFile,,,}
 
 Debe guardar cualquier edición que haya realizado sobre el archivo
 antes de compilarlo, y si no se ha creado un PDF, deberá comprobar el
 archivo @command{log} de registro que se ha creado durante el intento
 de compilación, en busca de algún error.
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 Este archivo de registro se sobreescribe cada vez que compilamos un
 archivo de LilyPond.
@@ -203,7 +195,7 @@ Haga un archivo de texto con el nombre
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

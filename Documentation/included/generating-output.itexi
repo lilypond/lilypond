@@ -86,83 +86,76 @@ those programs if you have any problems compiling a file.}
 
 @subsubheading Step 1. Create your @file{.ly} file
 
-Double-click the LilyPond icon on your desktop, an example file will open.
+Double-click the LilyPond icon on your desktop and an example file will open.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 From the menus that appear along the top of the example file,
 select @w{@code{File > Save as}}.  Do not use the @w{@code{File > Save}}
 for the example file as this will not work until you have given it a
 valid LilyPond file name.
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Choose a name for your file, for example @file{test.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
-@subsubheading Step 2a. Compile (with drag-and-drop)
+@subsubheading Step 2. Compile
 
-Depending on what you prefer, to compile your file either:
+To turn your LilyPond file into a music score, you need to compile it. This
+can be done a number of ways -- using drag and drop, with right-click,
+double-clicking or using the command line (a DOS box).  We'll look at the
+first three to start with.
 
-Drag-and-drop the file directly onto the LilyPond icon.
+1. Drag-and-drop the file directly onto the LilyPond icon on the desktop.
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
-Right-click on the file and from the pop-up context menu choose
-@w{@code{Open with > LilyPond}}.
+Not much will seem to happen, but after a short while, you should
+see two new files on your desktop -- @file{test.log} and
+@file{test.pdf}.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+2. Right-click on the file and from the pop-up context menu and
+choose @w{@code{Generate PDF}}.
 
+@sourceimage{GenPDF,,,}
 
-@subsubheading Step 2b. Compile (with double-clicking)
-
-Or simply double-click the @file{test.ly}.
+3. Or simply double-click the @file{test.ly}.
 
 
 @subsubheading Step 3. View output
 
-During the compilation of the @file{test.ly} file, a command window
-will, very briefly open and then close.  Three additional files will
-have been created during this process.
+@file{test.pdf} contains the engraved @file{test.ly}
+file. Double-click it and it should open in your PDF viewer:
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
-The PDF file contains the engraved @file{test.ly} file.
-
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading Other commands
 
 To create a new file, begin by selecting @w{@code{File > New}} from
-within any previously created file.
+within any previously created file or @w{@code{File > Open}} to open and
+edit any files you have saved before.  You can also edit a file by
+right-clicking it and selecting @w{@code{Edit source}}.
 
-@sourceimage{Learning_Win7_New_Menu,,,}
+@sourceimage{EditFile,,,}
 
-@noindent
-or @w{@code{File > Open}} to open and edit any files you have saved
-before.
+You must save any edits you make before you try to compile your
+file.  If the PDF file is not created or the output is not what you
+expected, check the log file that will have been created during the
+compilation attempt for any errors.
 
-@sourceimage{Learning_Win7_Open_Menu,,,}
-
-You must save any new edits you make before you compile it and if the
-PDF file is not created, check the log file that will have been created
-during the compilation attempt, for any errors.
-
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 This log file is overwritten each time you compile your LilyPond file.
 
-The PS file is used internally by LilyPond to create the PDF file and
-can be ignored.  It also gets overwritten each time you compile your
-file.
+If you are viewing your file in a PDF viewer, then you must close the PDF
+if you wish to try a new compilation as it may fail to create the new PDF
+while it is still being viewed.
 
-If you are viewing your file in a PDF viewer, then you must close the
-PDF if you wish to make a new compilation as it may fail to create
-the new PDF while it is still being viewed.
-
+@sourceimage{BadLog2,,,}
 
 @end macro
 
@@ -184,7 +177,7 @@ Create a text file called @file{test.ly} and enter:
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

@@ -89,7 +89,7 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 
 デスクトップ上の LilyPond アイコンをクリックして、見本のファイルを開きます。
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 見本ファイルの上端に表示されるメニューから
 @w{@code{ファイル > 名前を付けて保存}} を選択します。@c
@@ -97,11 +97,11 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 なぜならファイルに有効な LilyPond ファイル名を付けるまで、@c
 上書き保存は機能しないからです。
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 ファイル名を決めます。例えば @file{test.ly} とします。
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading ステップ 2a. コンパイルする (ドラッグ＆ドロップを使用します)
@@ -110,13 +110,13 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 
 ファイルを LilyPond アイコンに直接ドラッグ＆ドロップします。
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 ファイルを右クリックして、ポップアップ メニューから
 @w{@code{プログラムから開く > LilyPond}} を選択します。
 Right-click on the file and from the pop-up context menu choose
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading ステップ 2b. コンパイルする (ダブルクリックする)
@@ -129,11 +129,9 @@ Right-click on the file and from the pop-up context menu choose
 @file{test.ly} をコンパイルしている間、コマンド ウィンドウが一瞬だけ開いて閉じます。@c
 この処理の間に 3 つのファイルが作成されます。
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
 PDF ファイルは @file{test.ly} ファイルの譜刻結果を保持しています。
 
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading その他のコマンド
@@ -141,19 +139,16 @@ PDF ファイルは @file{test.ly} ファイルの譜刻結果を保持してい
 新しくファイルを作成するには、以前に作成したファイルのウィンドウから
 @w{@code{ファイル > 新規作成}} を選択します。
 
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
 あるいは @w{@code{ファイル > 開く}} を選択し、以前に保存したファイルを@c
 開いて編集します。
 
-@sourceimage{Learning_Win7_Open_Menu,,,}
+@sourceimage{EditFile,,,}
 
 コンパイルを行う前にあなたが新たに行った編集を保存する必要があります。@c
 PDF ファイルが作成されない場合は、コンパイルの過程で作成されるログ ファイルで@c
 エラーをチェックしてください。
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 このログ ファイルは、LilyPond ファイルをコンパイルする度に上書きされます。
 
@@ -184,7 +179,7 @@ PDF ファイルを PDF ビュー他で閲覧している場合、
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

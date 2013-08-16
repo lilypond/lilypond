@@ -112,18 +112,18 @@ van een bestand.}
 Dubbelklik het LilyPond ikoon op je Bureaublad, een
 voorbeeldbestand wordt geopend.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 Kies uit de menu's bovenaan het voorbeeldbestand
 @w{@code{Bestand > Opslaan als}}.  De optie @w{@code{Bestand
 > Opslaan}} kun je voor dit voorbeeldbestand niet gebruiken
 als je het nog geen geldige LilyPond-naam hebt gegeven.
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Kies een naam voor je bestand, bijvoorbeeld @file{test.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading Stap 2a. Compileer (door slepen en neerzetten - drag and drop)
@@ -134,12 +134,12 @@ bestand door ofwel:
 te slepen en neer te zetten bovenop het LilyPond ikoon,
 ofwel
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 met de tweede muisknop op het bestand te klikken en uit het
 popup-contextmenu @w{@code{Open met > LilyPond}} te kiezen.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 @c FIXME: why present/advise the best/simplest for last?
 @subsubheading Stap 2b. Compileer (door te dubbelklikken)
@@ -154,32 +154,23 @@ een commandovenster geopend dat zich na korte tijd weer
 sluit.  Tijdens dit proces worden drie extra bestanden
 aangemaakt.
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
 Het PDF-bestand bevat het gegraveerde @file{test.ly} bestand.
 
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading Andere commando's
 
 Om een nieuw bestand te maken, kies @w{@code{Bestand > Nieuw}} vanuit
-een eerder gemaakt bestand.
-
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
-of gebruik @w{@code{Bestand > Openen}} om een eerder gemaakt
-bestand te openen en te bewerken.
-
-@sourceimage{Learning_Win7_Open_Menu,,,}
+een eerder gemaakt bestand of gebruik @w{@code{Bestand > Openen}}
+om een eerder gemaakt bestand te openen en te bewerken.
 
 Als je een bestand bewerkt hebt, moet je het eerst opslaan
 voordat je het compileert en als het PDF-bestand niet wordt
 aangemaakt, controleer dan het venster met de voortgangslog
 op foutmeldingen.
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 Dit logbestand wordt elke keer overschreven als je je
 LilyPond-bestand compileert.
@@ -216,7 +207,7 @@ Maak een tekstbestand met de naam @file{test.ly} en vul het met:
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

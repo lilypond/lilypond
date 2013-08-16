@@ -95,18 +95,18 @@ la documentazione di quei programmi.}
 
 Clicca due volte sull'icona di LilyPond sulla scrivania, si aprirà un file di esempio.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 Dai menu che appaiono in cima al file di esempio seleziona
 @w{@code{File > Save as}}.  Non usare @w{@code{File > Save}}
 per il file di esempio perché non funzionerà finché non gli darai
 un nome di file valido per LilyPond.
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Scegli un nome per il tuo file, ad esempio @file{test.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading Passo 2a. Compila (con drag-and-drop)
@@ -115,12 +115,12 @@ A seconda di quel che preferisci, per compilare il file puoi:
 
 Trascinare e rilasciare (drag-and-drop) il file direttamente sull'icona di LilyPond.
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 Cliccare col tasto destro sul file e dal menu contestuale a comparsa scegliere
 @w{@code{Open with > LilyPond}}.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading Passo 2b. Compilare (con doppio clic)
@@ -132,33 +132,25 @@ O semplicemente clicca due volte su @file{test.ly}.
 
 Durante la compilazione del file @file{test.ly}, una finestra dei comandi
 si aprirà per breve tempo e poi si chiuderà.  Nel corso di questo processo
-verranno creati tre ulteriori file.
+verranno creati tre ulteriori file. Il file PDF contiene il file
+@file{test.ly} compilato.
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
-Il file PDF contiene il file @file{test.ly} compilato.
-
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading Altri comandi
 
 Per creare un nuovo file, per prima cosa seleziona @w{@code{File > New}} se
-hai aperto un file creato in precedenza.
+hai aperto un file creato in precedenza oppure @w{@code{File > Open}}
+per aprire e modificare i file che hai salvato prima.
 
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
-oppure @w{@code{File > Open}} per aprire e modificare i file che hai
-salvato prima.
-
-@sourceimage{Learning_Win7_Open_Menu,,,}
+@sourceimage{EditFile,,,}
 
 Devi salvare qualsiasi nuovo modifica prima di compilare.  Se il file
 PDF non viene creato, controlla se ci sono degli errori nel file di log che
 sarà stato creato durante il tentativo di compilazione.
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 Questo file di log viene sovrascritto ogni volta che compili il file LilyPond.
 
@@ -189,7 +181,7 @@ Crea un file di testo chiamato @file{test.ly} e scrivi:
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 
