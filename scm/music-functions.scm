@@ -915,12 +915,12 @@ actually fully cloned."
 (define-public (add-grace-property context-name grob sym val)
   "Set @var{sym}=@var{val} for @var{grob} in @var{context-name}."
   (define (set-prop context)
-    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+    (let* ((where (or (ly:context-find context context-name) context))
            (current (ly:context-property where 'graceSettings))
            (new-settings (append current
                                  (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (context-spec-music (make-apply-context set-prop) 'Voice))
+  (make-apply-context set-prop))
 
 (define-public (remove-grace-property context-name grob sym)
   "Remove all @var{sym} for @var{grob} in @var{context-name}."
@@ -929,7 +929,7 @@ actually fully cloned."
          (eq? (cadr property) grob)
          (eq? (caddr property) sym)))
   (define (delete-prop context)
-    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+    (let* ((where (or (ly:context-find context context-name) context))
            (current (ly:context-property where 'graceSettings))
            (prop-settings (filter
                            (lambda(x) (sym-grob-context? x sym grob context-name))
@@ -939,8 +939,7 @@ actually fully cloned."
                   (set! new-settings (delete x new-settings)))
                 prop-settings)
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (context-spec-music (make-apply-context delete-prop) 'Voice))
-
+  (make-apply-context delete-prop))
 
 
 (defmacro-public def-grace-function (start stop . docstring)
