@@ -1964,7 +1964,6 @@
     (SostenutoPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)
@@ -2216,7 +2215,6 @@
     (SustainPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)
@@ -2617,7 +2615,6 @@
     (UnaCordaPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)
