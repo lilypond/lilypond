@@ -503,6 +503,28 @@ in @var{grob}."
     TupletBracket
     TrillSpanner))
 
+(define general-grace-settings
+  `((Voice Stem font-size -3)
+    (Voice Flag font-size -3)
+    (Voice NoteHead font-size -3)
+    (Voice TabNoteHead font-size -4)
+    (Voice Dots font-size -3)
+    (Voice Stem length-fraction 0.8)
+    (Voice Stem no-stem-extend #t)
+    (Voice Beam beam-thickness 0.384)
+    (Voice Beam length-fraction 0.8)
+    (Voice Accidental font-size -4)
+    (Voice AccidentalCautionary font-size -4)
+    (Voice Script font-size -3)
+    (Voice Fingering font-size -8)
+    (Voice StringNumber font-size -8)))
+
+(define-public score-grace-settings
+  (append
+    `((Voice Stem direction ,UP)
+      (Voice Slur direction ,DOWN))
+    general-grace-settings))
+
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
@@ -510,25 +532,8 @@ in @var{grob}."
                                              (if (odd? n) -1 1)))
          direction-polyphonic-grobs)
     (list
-     (make-property-set 'graceSettings
-                        ;; TODO: take this from voicedGraceSettings or similar.
-                        '((Voice Stem font-size -3)
-                          (Voice Flag font-size -3)
-                          (Voice NoteHead font-size -3)
-                          (Voice TabNoteHead font-size -4)
-                          (Voice Dots font-size -3)
-                          (Voice Stem length-fraction 0.8)
-                          (Voice Stem no-stem-extend #t)
-                          (Voice Beam beam-thickness 0.384)
-                          (Voice Beam length-fraction 0.8)
-                          (Voice Accidental font-size -4)
-                          (Voice AccidentalCautionary font-size -4)
-                          (Voice Script font-size -3)
-                          (Voice Fingering font-size -8)
-                          (Voice StringNumber font-size -8)))
-
+     (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))))))
-
 
 (define-safe-public (make-voice-props-override n)
   (make-sequential-music
@@ -537,23 +542,7 @@ in @var{grob}."
                                                   (if (odd? n) -1 1)))
          direction-polyphonic-grobs)
     (list
-     (make-property-set 'graceSettings
-                        ;; TODO: take this from voicedGraceSettings or similar.
-                        '((Voice Stem font-size -3)
-                          (Voice Flag font-size -3)
-                          (Voice NoteHead font-size -3)
-                          (Voice TabNoteHead font-size -4)
-                          (Voice Dots font-size -3)
-                          (Voice Stem length-fraction 0.8)
-                          (Voice Stem no-stem-extend #t)
-                          (Voice Beam beam-thickness 0.384)
-                          (Voice Beam length-fraction 0.8)
-                          (Voice Accidental font-size -4)
-                          (Voice AccidentalCautionary font-size -4)
-                          (Voice Script font-size -3)
-                          (Voice Fingering font-size -8)
-                          (Voice StringNumber font-size -8)))
-
+     (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))
      (make-grob-property-override 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
 

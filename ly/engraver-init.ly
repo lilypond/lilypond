@@ -704,26 +704,8 @@ automatically when an output definition (a @code{\\score} or
   figuredBassFormatter = #format-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
 
-
   %% See also make-voice-props-set
-  graceSettings = #`(
-    (Voice Stem direction ,UP)
-    (Voice Stem font-size -3)
-    (Voice Flag font-size -3)
-    (Voice NoteHead font-size -3)
-    (Voice TabNoteHead font-size -4)
-    (Voice Dots font-size -3)
-    (Voice Stem length-fraction 0.8)
-    (Voice Stem no-stem-extend #t)
-    (Voice Beam beam-thickness 0.384)
-    (Voice Beam length-fraction 0.8)
-    (Voice Accidental font-size -4)
-    (Voice AccidentalCautionary font-size -4)
-    (Voice Slur direction ,DOWN)
-    (Voice Script font-size -3)
-    (Voice Fingering font-size -8)
-    (Voice StringNumber font-size -8)
-  )
+  graceSettings = #score-grace-settings
 
   keepAliveInterfaces = #'(
     bass-figure-interface
