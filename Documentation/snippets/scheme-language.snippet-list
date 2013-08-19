@@ -12,6 +12,7 @@ drawing-circles-around-various-objects.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 outputting-the-version-number.ly
+overriding-articulations-of-destinct-type.ly
 string-number-extender-lines.ly
 three-sided-box.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
