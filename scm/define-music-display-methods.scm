@@ -179,7 +179,7 @@ expression."
             ((marcato) "^")
             ((stopped) "+")
             ((tenuto)    "-")
-            ((staccatissimo) "|")
+            ((staccatissimo) "!")
             ((accent) ">")
             ((staccato) ".")
             ((portato) "_")
@@ -917,7 +917,7 @@ Otherwise, return #f."
                                 '())
                             (duration->lily-string ?unit #:force-duration #t)
                             (if (pair? ?count)
-                                (format #f "~a ~~ ~a" (car ?count) (cdr ?count))
+                                (format #f "~a - ~a" (car ?count) (cdr ?count))
                                 ?count)
                             (new-line->lily-string))))
 

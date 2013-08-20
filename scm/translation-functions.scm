@@ -464,9 +464,11 @@ the current tuning?"
                (if fit-string
                    (set-fret! pitch-entry fit-string finger)
                    (begin
-                     (ly:warning (_ "No string for pitch ~a (given frets ~a)")
-                                 pitch
-                                 specified-frets)
+                     (ly:event-warning
+                      (list-ref notes (cdr pitch-entry))
+                      (_ "No string for pitch ~a (given frets ~a)")
+                      pitch
+                      specified-frets)
                      (kill-note! string-fret-fingers
                                  (cdr pitch-entry)))))))
        (sort pitch-alist (lambda (pitch-entry-a pitch-entry-b)

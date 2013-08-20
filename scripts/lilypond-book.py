@@ -277,6 +277,11 @@ if 'bindir' in globals () and bindir:
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
     lilypond_binary = 'lilypond'
 
+# Need to shell-quote, issue 3468
+
+import pipes
+lilypond_binary = pipes.quote (lilypond_binary)
+
 global_options = None
 
 

@@ -150,7 +150,10 @@ N		[0-9]
 ANY_CHAR	(.|\n)
 WORD		{A}([-_]{A}|{A})*
 COMMAND		\\{WORD}
-
+/* SPECIAL category is for every letter that needs to get passed to
+ * the parser rather than being redefinable by the user */
+SPECIAL		[-+*/=<>{}!?_^'',.:]
+SHORTHAND	(.|\\.)
 UNSIGNED	{N}+
 E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
@@ -477,6 +480,22 @@ BOM_UTF8	\357\273\277
                 yylval = SCM_UNSPECIFIED;
 		return FIGURE_OPEN;
 	}
+	\\\+	{
+		yylval = SCM_UNSPECIFIED;
+		return E_PLUS;
+	}
+	\\!	{
+		yylval = SCM_UNSPECIFIED;
+		return E_EXCLAMATION;
+	}
+	\\\\	{
+		yylval = SCM_UNSPECIFIED;
+		return E_BACKSLASH;
+	}
+	[][]	{
+		yylval = SCM_UNSPECIFIED;
+		return	YYText ()[0];
+	}
 }
 
 <notes,figures>{
@@ -557,8 +576,12 @@ BOM_UTF8	\357\273\277
 	{COMMAND}	{
 		return scan_escaped_word (YYText_utf8 () + 1);
 	}
-	/* Characters needed to express durations, assignments, barchecks */
-	[*.=|]	{
+	\\.|\|	{
+		// UTF-8 already covered by COMMAND
+		return scan_shorthand (YYText ());
+	}
+	/* Characters needed to express durations, assignments */
+	[*.=]	{
                 yylval = SCM_UNSPECIFIED;
 		return YYText ()[0];
 	}
@@ -576,9 +599,9 @@ BOM_UTF8	\357\273\277
 		return STRING;
 	}
 	/* This should really just cover {} */
-	. {
+	[{}] {
                 yylval = SCM_UNSPECIFIED;
-		return YYText ()[0]; // above catches all multibytes.
+		return YYText ()[0];
 	}
 }
 <chords>{
@@ -618,10 +641,6 @@ BOM_UTF8	\357\273\277
 	\^  {
                 yylval = SCM_UNSPECIFIED;
 		return CHORD_CARET;
-	}
-	. {
-                yylval = SCM_UNSPECIFIED;
-		return YYText ()[0]; // WORD catches all multibyte.
 	}
 }
 
@@ -688,9 +707,9 @@ BOM_UTF8	\357\273\277
 		yylval = ly_string2scm (s);
 		return STRING;
 	}
-	.  {
+	[{}]  {
                 yylval = SCM_UNSPECIFIED;
-		return YYText ()[0];  // Above is catchall for multibyte
+		return YYText ()[0];
 	}
 }
 
@@ -767,51 +786,18 @@ BOM_UTF8	\357\273\277
 }
 
 
-[{}]	{
+-/\.	{ // backup rule
         yylval = SCM_UNSPECIFIED;
 	return YYText ()[0];
 }
 
--/\.	| // backup rule
-[*:=]		{
+<INITIAL,chords,lyrics,figures,notes>{SPECIAL}	{
         yylval = SCM_UNSPECIFIED;
 	return YYText ()[0];
 }
 
-<INITIAL,notes,figures>.	{
-        yylval = SCM_UNSPECIFIED;
-	return YYText ()[0];
-}
-
-<INITIAL,lyrics,notes,figures>\\. {
-    yylval = SCM_UNSPECIFIED;
-    char c = YYText ()[1];
-
-    switch (c) {
-    case '>':
-	return E_ANGLE_CLOSE;
-    case '<':
-	return E_ANGLE_OPEN;
-    case '!':
-	return E_EXCLAMATION;
-    case '(':
-	return E_OPEN;
-    case ')':
-	return E_CLOSE;
-    case '[':
-	return E_BRACKET_OPEN;
-    case '+':
-	return E_PLUS;
-    case ']':
-	return E_BRACKET_CLOSE;
-    case '~':
-	return E_TILDE;
-    case '\\':
-	return E_BACKSLASH;
-
-    default:
-	return E_CHAR;
-    }
+<INITIAL,chords,lyrics,figures,notes>{SHORTHAND}	{
+	return scan_shorthand (YYText_utf8 ()); // should not be utf-8
 }
 
 <*>.[\200-\277]*	{
@@ -943,6 +929,26 @@ Lily_lexer::scan_escaped_word (string str)
 		return scan_scm_id (sid);
 
 	string msg (_f ("unknown escaped string: `\\%s'", str));	
+	LexerError (msg.c_str ());
+
+	yylval = ly_string2scm (str);
+
+	return STRING;
+}
+
+int
+Lily_lexer::scan_shorthand (string str)
+{
+	SCM sid = lookup_identifier (str);
+	if (Music *m = unsmob_music (sid))
+	{
+		m->set_spot (override_input (last_input_));
+	}
+
+	if (sid != SCM_UNDEFINED)
+		return scan_scm_id (sid);
+
+	string msg (_f ("undefined character or shorthand: %s", str));	
 	LexerError (msg.c_str ());
 
 	yylval = ly_string2scm (str);

@@ -2075,6 +2075,17 @@ git rev-list HEAD |head -1
 @c contains a helper script which could be used to perform massive
 @c committish updates.
 
+Most of the changes in the LSR snippets included in the documentation concern
+the syntax, not the description inside @code{texidoc=""}.  This implies that
+quite often you will have to update only the committish of the matching
+.texidoc file.  This can be a tedious work if there are many snippets to be
+marked as up do date.  You can use the following command to update the
+committishes at once:
+
+@example
+cd Documentation/LANG/texidocs
+sed -i -r 's/[0-9a-z]@{40@}/NEW-COMMITTISH/' *.texidoc
+@end example
 
 @seealso
 @ref{LSR work}.

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -51,7 +51,7 @@ This section introduces common notation that is used for one voice
 on one staff.
 
 @menu
-* Bar checks::
+* Bar lines and bar checks::
 * Accidentals and key signatures::
 * Ties and slurs::
 * Articulation and dynamics::
@@ -61,8 +61,23 @@ on one staff.
 @end menu
 
 
-@node Bar checks
-@subsection Bar checks
+@node Bar lines and bar checks
+@subsection Bar lines and bar checks
+
+@subheading Bar lines
+
+Single bar lines are automatically placed in the music so
+there is no need to add them manually.  Other types of bar
+lines are added using @code{\bar}, for example
+@code{\bar "||"} for a double bar line, or @code{\bar "|."}
+for an ending bar line.  For a full list of bar lines see
+the @ruser{Bar lines}.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+@subheading Bar checks
 
 Though not strictly necessary, @emph{bar checks} should be
 used in the input code to show where bar lines are expected
@@ -307,7 +322,7 @@ Common @notation{articulations} can be added to a note using a
 dash @code{-} and a single character:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-|
+c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 

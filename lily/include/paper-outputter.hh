@@ -46,7 +46,7 @@ public:
   SCM dump_string (SCM);
   SCM file () const;
   SCM module () const;
-  void output_scheme (SCM scm);
+  SCM output_scheme (SCM scm);
   void output_stencil (Stencil);
   SCM scheme_to_string (SCM);
 };

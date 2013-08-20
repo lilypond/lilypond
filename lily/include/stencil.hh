@@ -93,7 +93,7 @@ public:
 DECLARE_UNSMOB (Stencil, stencil);
 
 void interpret_stencil_expression (SCM expr,
-                                   void (*func) (void *, SCM),
+                                   SCM (*func) (void *, SCM),
                                    void *func_arg,
                                    Offset o);
 SCM find_expression_fonts (SCM expr);

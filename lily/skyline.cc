@@ -457,18 +457,6 @@ Skyline::Skyline ()
   empty_skyline (&buildings_);
 }
 
-Skyline::Skyline (Skyline const &src)
-{
-  sky_ = src.sky_;
-
-  /* doesn't a list's copy constructor do this? -- jneem */
-  for (list<Building>::const_iterator i = src.buildings_.begin ();
-       i != src.buildings_.end (); i++)
-    {
-      buildings_.push_back (Building ((*i)));
-    }
-}
-
 Skyline::Skyline (Direction sky)
 {
   sky_ = sky;

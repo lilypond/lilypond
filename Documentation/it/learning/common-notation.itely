@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -318,7 +318,7 @@ Le @notation{articolazioni} di uso comune possono essere aggiunte a una nota
 con una lineetta @code{-} e un singolo carattere:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-|
+c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 

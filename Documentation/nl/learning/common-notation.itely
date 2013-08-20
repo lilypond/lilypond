@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -340,7 +340,7 @@ aan een noot met een streepje @code{-} en een enkel
 karakter:
 
 @lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-|
+c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 

@@ -21,7 +21,7 @@
 
 void
 interpret_stencil_expression (SCM expr,
-                              void (*func) (void *, SCM),
+                              SCM (*func) (void *, SCM),
                               void *func_arg,
                               Offset o)
 {
@@ -55,10 +55,12 @@ interpret_stencil_expression (SCM expr,
         {
           SCM grob = scm_cadr (expr);
 
-          (*func) (func_arg, scm_list_3 (head,
-                                         ly_quote_scm (ly_offset2scm (o)), grob));
+          SCM link =
+            (*func) (func_arg,
+                     scm_list_3 (head, ly_quote_scm (ly_offset2scm (o)), grob));
           interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
-          (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
+          if (scm_is_true (link))
+            (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
           return;
         }
       else if (head == ly_symbol2scm ("color"))
@@ -133,7 +135,7 @@ struct Font_list
   SCM fonts_;
 };
 
-static void
+static SCM
 find_font_function (void *fs, SCM x)
 {
   Font_list *me = (Font_list *) fs;
@@ -152,6 +154,7 @@ find_font_function (void *fs, SCM x)
             me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
         }
     }
+  return SCM_BOOL_T;
 }
 
 SCM

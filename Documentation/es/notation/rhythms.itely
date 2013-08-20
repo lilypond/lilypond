@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.25"
 
 @node Duraciones
 @section Duraciones
@@ -1331,7 +1331,7 @@ También se pueden imprimir indicaciones metronómicas
 como un intervalo entre dos números:
 
 @lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 ~ 46
+\tempo 4 = 40 - 46
 c4. e8 a4 g
 b,2 d4 r
 @end lilypond
@@ -3175,19 +3175,19 @@ permite que la advertencia se centre en la fuente del error de cuenta
 de tiempo.
 
 @funindex |
-@funindex pipeSymbol
+@funindex "|"
 
 También es posible redefinir la acción que se lleva a cabo cuando se
 encuentra un símbolo de comprobación de compás o «símbolo de tubería»,
 @code{|}, en el código de entrada, de forma que haga algo distinto a
 una comprobación de compás.  Se hace asignando una expresión musical a
-@code{pipeSymbol} («símbolo de tubería»).  En el ejemplo siguiente se
+@code{"|"} («símbolo de tubería»).  En el ejemplo siguiente se
 establece @code{|} de forma que inserte una doble línea divisoria
 cuando aparece en el código de entrada, en vez de comprobar el final
 de un compás.
 
 @lilypond[quote,verbatim]
-pipeSymbol = \bar "||"
+"|" = \bar "||"
 {
   c'2 c' |
   c'2 c'

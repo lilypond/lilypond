@@ -105,17 +105,20 @@ Paper_outputter::module () const
   return output_module_;
 }
 
-void
+SCM
 Paper_outputter::output_scheme (SCM scm)
 {
-  dump_string (scheme_to_string (scm));
+  SCM str = scheme_to_string (scm);
+  if (scm_is_string (str))
+    dump_string (str);
+  return str;
 }
 
-void
+SCM
 paper_outputter_dump (void *po, SCM x)
 {
   Paper_outputter *me = (Paper_outputter *) po;
-  me->output_scheme (x);
+  return me->output_scheme (x);
 }
 
 void

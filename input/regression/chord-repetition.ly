@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.25"
 
 \header {
   texidoc = "
@@ -9,5 +9,5 @@ fingerings, etc are not repeated.
 }
 
 \relative c' {
-  <c-1 e-3 g-5>8\p( q) q4-| q8.\(^"text" q16 q4-|\)
+  <c-1 e-3 g-5>8\p( q) q4-! q8.\(^"text" q16 q4-!\)
 }

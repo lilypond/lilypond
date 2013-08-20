@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.25"
 
 
 @node Simultaneous notes
@@ -60,7 +60,7 @@ Chords may also be followed by articulations, again just like simple
 notes.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^| <g c e>16-.
+<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
 @end lilypond
 
 The notes within the chord themselves can also be followed by articulation
@@ -167,7 +167,7 @@ durations, articulations, markups, slurs, beams, etc. as only the
 pitches of the previous chord are duplicated.
 
 @lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-| q8.]\! q16-1-2-3 q8\prall
+<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
 @end lilypond
 
 The chord repetition symbol always remembers the last instance of

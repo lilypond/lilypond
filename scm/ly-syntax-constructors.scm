@@ -98,12 +98,6 @@
               'change-to-type type
               'change-to-id id))
 
-(define-ly-syntax-simple (voice-separator)
-  (make-music 'VoiceSeparator))
-
-(define-ly-syntax-simple (bar-check)
-  (make-music 'BarCheck))
-
 (define-ly-syntax (tempo parser location text . rest)
   (let* ((unit (and (pair? rest)
                     (car rest)))

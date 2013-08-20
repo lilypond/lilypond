@@ -66,7 +66,6 @@ private:
 
 public:
   Skyline ();
-  Skyline (Skyline const &src);
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
   Skyline (vector<Drul_array<Offset> > const &bldgs, Axis a, Direction sky);
