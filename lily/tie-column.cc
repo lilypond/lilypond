@@ -29,7 +29,6 @@
 #include "pointer-group-interface.hh"
 #include "tie.hh"
 #include "directional-element-interface.hh"
-#include "tie-column-format.hh"
 #include "tie-formatting-problem.hh"
 #include "tie-configuration.hh"
 
