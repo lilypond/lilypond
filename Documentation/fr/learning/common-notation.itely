@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+   Translation of GIT committish: d0b51cc48c2d66efbd1cbdc682dd622e7a2a93f9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -55,7 +55,7 @@ Cette section présente la notation courante dont on a besoin pour
 écrire une voix sur une portée.
 
 @menu
-* Contrôle de mesure::
+* Barres et contrôle de mesure::
 * Altérations et armure::
 * Liaisons::
 * Articulations et nuances::
@@ -65,9 +65,27 @@ Cette section présente la notation courante dont on a besoin pour
 @end menu
 
 
-@node Contrôle de mesure
-@subsection  Contrôle de mesure
-@translationof Bar checks
+@node Barres et contrôle de mesure
+@subsection  Barres et contrôle de mesure
+@translationof Bar lines and bar checks
+
+@subheading Barres de mesure
+@c VO Bar lines
+
+Les simples barres de mesure se placent automatiquement ; nul n'est
+besoin de les saisir. D'autres types de barre de mesure sont accessibles
+par la commande @code{\bar}, tels que @code{\bar "||"} pour une double
+barre ou @code{\bar "|."} pour la barre finale.  Pour une liste des
+différents styles de barre de mesure, voir
+@ruser{Barres de mesure}.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+
+@subheading Contrôle de mesure
+@c VO Bar checks
 
 Les contrôles de barre de mesure -- @emph{bar checks} en anglais -- ne
 sont à priori pas strictement nécessaires.  Ils permettent cependant
@@ -84,6 +102,7 @@ g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 
 @seealso
 Manuel de notation :
+@ruser{Barres de mesure},
 @ruser{Vérification des limites et numéros de mesure}.
 
 
