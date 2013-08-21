@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 2865242305396ff1b56a23e548328953c1835590
+%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
   texidocfr = "
 Une fonction Scheme personnalisée permet de redéfinir la propriété
 @code{stencil} de l'objet @code{Flag}, de sorte à modifier le glyphe

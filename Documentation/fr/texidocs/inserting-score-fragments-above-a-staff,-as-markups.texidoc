@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 9384169743ecb031320e8256b07bebb61d29af4b
+%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
   texidocfr = "
 La commande @code{\\markup} est polyvalente.  Dans cet exemple, elle
 contient un bloc @code{\\score} plutôt que du texte ou une marque.
