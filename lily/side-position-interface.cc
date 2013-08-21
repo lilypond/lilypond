@@ -54,15 +54,6 @@ Side_position_interface::add_support (Grob *me, Grob *e)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-void
-Side_position_interface::recursive_add_support (Grob *me, Grob *e)
-{
-  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
-  extract_grob_set (e, "side-support-elements", sse);
-  for (vsize i = 0; i < sse.size (); i++)
-    recursive_add_support (me, sse[i]);
-}
-
 set<Grob *>
 get_support_set (Grob *me)
 {
