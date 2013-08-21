@@ -326,14 +326,15 @@ Ledger_line_spanner::print (SCM smob)
 ADD_INTERFACE (Ledger_line_spanner,
                "This spanner draws the ledger lines of a staff.  This is a"
                " separate grob because it has to process all potential"
-               " collisions between all note heads.",
+               " collisions between all note heads.  The thickness of ledger"
+               " lines is controlled by the @code{ledger-line-thickness}"
+               " property of the @ref{StaffSymbol} grob.",
 
                /* properties */
                "gap "
                "length-fraction "
                "minimum-length-fraction "
                "note-heads "
-               "thickness "
               );
 
 struct Ledgered_interface
