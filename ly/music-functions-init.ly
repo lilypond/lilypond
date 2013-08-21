@@ -342,6 +342,13 @@ displayMusic =
    (display-scheme-music music)
    music)
 
+displayScheme =
+#(define-scheme-function (parser location expr) (scheme?)
+   (_i "Display the internal representation of @var{expr} to the console.")
+   (newline)
+   (display-scheme-music expr)
+   expr)
+
 
 
 endSpanners =
