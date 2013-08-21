@@ -1095,6 +1095,8 @@ set to the @code{location} parameter."
              (clef (ly:music-property quote-music 'quoted-music-clef #f))
              (main-voice (case dir ((1) 1) ((-1) 0) (else #f)))
              (cue-voice (and main-voice (- 1 main-voice)))
+             (cue-type (ly:music-property quote-music 'quoted-context-type #f))
+             (cue-id (ly:music-property quote-music 'quoted-context-id))
              (main-music (ly:music-property quote-music 'element))
              (return-value quote-music))
 
@@ -1116,17 +1118,15 @@ set to the @code{location} parameter."
          (delq! #f
                 (list
                  (and clef (make-cue-clef-set clef))
-
-                 ;; Need to establish CueVoice context even in #CENTER case
-                 (context-spec-music
-                  (if cue-voice
-                      (make-voice-props-override cue-voice)
-                      (make-music 'Music))
-                  'CueVoice "cue")
-                 quote-music
-                 (and cue-voice
+                 (and cue-type cue-voice
                       (context-spec-music
-                       (make-voice-props-revert) 'CueVoice "cue"))
+                       (make-voice-props-override cue-voice)
+                       cue-type cue-id))
+                 quote-music
+                 (and cue-type cue-voice
+                      (context-spec-music
+                       (make-voice-props-revert)
+                       cue-type cue-id))
                  (and clef (make-cue-clef-unset))))))
       quote-music))
 
