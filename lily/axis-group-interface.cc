@@ -456,7 +456,9 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   /* trigger the callback to do skyline-spacing on the children */
   if (a == Y_AXIS)
     for (vsize i = 0; i < elts.size (); i++)
-      (void) elts[i]->get_property ("vertical-skylines");
+      if (!(Stem::has_interface (elts[i])
+            && to_boolean (elts[i]->get_property ("cross-staff"))))
+        (void) elts[i]->get_property ("vertical-skylines");
 
   Grob *common = common_refpoint_of_array (elts, me, a);
 
