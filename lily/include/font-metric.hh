@@ -66,8 +66,6 @@ protected:
   Font_metric ();
 };
 
-int get_encoded_index (Font_metric *m, string input_coding, int code);
-
 DECLARE_UNSMOB (Font_metric, metrics);
 
 char *pfb2pfa (Byte const *pfb, int length);

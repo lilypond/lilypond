@@ -38,7 +38,6 @@ class Lily_lexer : public Includable_lexer
 private:
   int lookup_keyword (string);
   int scan_bare_word (string);
-  SCM scan_markup_word (string);
   int scan_escaped_word (string);
   int scan_shorthand (string);
   int scan_scm_id (SCM);

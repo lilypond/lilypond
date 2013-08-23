@@ -28,8 +28,6 @@ void set_debug (bool);
 void do_scores ();
 void clear_scores ();
 void add_score (Score *s);
-void set_default_output (string s);
-string find_file (string);
 void call_constructors ();
 vector<string> get_inclusion_names ();
 void set_inclusion_names (vector<string>);

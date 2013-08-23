@@ -27,7 +27,6 @@ using namespace std;
 #include "midi-chunk.hh"
 #include "misc.hh"
 #include "program-option.hh"
-#include "stream.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
