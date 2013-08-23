@@ -26,6 +26,10 @@
   #:export-syntax (define-safe-public)
   #:re-export-syntax (define*-public))
 
+(if (string>? (version) "1.9.10")
+    (use-modules (ice-9 curried-definitions)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
 
