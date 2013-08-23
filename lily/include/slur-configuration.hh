@@ -51,7 +51,7 @@ public:
 
   Real score () const { return score_; }
   string card () const { return score_card_; }
-  void add_score (Real, string);
+  void add_score (Real, const string&);
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
                        vector<Offset> const &);

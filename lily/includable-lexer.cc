@@ -59,7 +59,7 @@ Includable_lexer::Includable_lexer ()
 
 /** Set the new input file to NAME, remember old file.  */
 void
-Includable_lexer::new_input (string name, Sources *sources)
+Includable_lexer::new_input (const string &name, Sources *sources)
 {
   string current_dir = dir_name (main_input_name_);
   if (relative_includes)
@@ -94,7 +94,7 @@ Includable_lexer::new_input (string name, Sources *sources)
 }
 
 void
-Includable_lexer::new_input (string name, string data, Sources *sources)
+Includable_lexer::new_input (const string &name, string data, Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);

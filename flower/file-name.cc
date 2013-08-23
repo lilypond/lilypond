@@ -51,7 +51,7 @@ using namespace std;
 
 #ifdef __CYGWIN__
 static string
-dos_to_posix (string file_name)
+dos_to_posix (const string &file_name)
 {
   char buf[PATH_MAX] = "";
   char s[PATH_MAX] = {0};
@@ -78,7 +78,7 @@ slashify (string file_name)
 }
 
 string
-dir_name (string const file_name)
+dir_name (const string &file_name)
 {
   string s = file_name;
   s = slashify (s);

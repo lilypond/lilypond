@@ -334,7 +334,7 @@ warranty ()
 }
 
 static void
-prepend_scheme_list (string dir, string scmlist)
+prepend_scheme_list (const string &dir, const string &scmlist)
 /*
  *  Inserts an item at the front of a Scheme list, e.g. %load-path
  *  Parameters:
@@ -563,7 +563,7 @@ setup_localisation ()
 }
 
 static void
-add_output_format (string format)
+add_output_format (const string &format)
 /*
  * Capture information internally from command-line options
  * re output format.

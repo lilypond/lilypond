@@ -105,7 +105,7 @@ Context::Context ()
 
 /* TODO:  this shares code with find_create_context ().  */
 Context *
-Context::create_unique_context (SCM name, string id, SCM operations)
+Context::create_unique_context (SCM name, const string &id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
@@ -154,7 +154,7 @@ Context::create_unique_context (SCM name, string id, SCM operations)
 }
 
 Context *
-Context::find_create_context (SCM n, string id, SCM operations)
+Context::find_create_context (SCM n, const string &id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
@@ -361,7 +361,7 @@ Context::path_to_acceptable_context (SCM name) const
 
 Context *
 Context::create_context (Context_def *cdef,
-                         string id,
+                         const string &id,
                          SCM ops)
 {
   infant_event_ = 0;
@@ -411,7 +411,7 @@ Context::is_bottom_context () const
 }
 
 Context *
-Context::get_default_interpreter (string context_id)
+Context::get_default_interpreter (const string &context_id)
 {
   if (!is_bottom_context ())
     {
@@ -572,7 +572,7 @@ Context::disconnect_from_parent ()
 */
 Context *
 find_context_below (Context *where,
-                    SCM type, string id)
+                    SCM type, const string &id)
 {
   if (where->is_alias (type))
     {

@@ -31,7 +31,7 @@ public:
   DECLARE_CLASSNAME (Change_iterator);
 
 private:
-  void error (string);
+  void error (const string&);
 };
 
 #endif

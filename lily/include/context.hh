@@ -102,7 +102,7 @@ public:
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM var_sym, SCM value);
 
-  Context *create_context (Context_def *, string, SCM);
+  Context *create_context (Context_def *, const string&, SCM);
   DECLARE_LISTENER (create_context_from_event);
   DECLARE_LISTENER (acknowledge_infant);
   DECLARE_LISTENER (remove_context);
@@ -116,7 +116,7 @@ public:
   virtual Context *get_score_context () const;
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  virtual Context *get_default_interpreter (string context_id = "");
+  virtual Context *get_default_interpreter (const string &context_id = "");
 
   bool is_alias (SCM) const;
   void add_alias (SCM);
@@ -125,8 +125,8 @@ public:
   bool is_removable () const;
 
   Context *find_create_context (SCM context_name,
-                                string id, SCM ops);
-  Context *create_unique_context (SCM context_name, string context_id,
+                                const string &id, SCM ops);
+  Context *create_unique_context (SCM context_name, const string &context_id,
                                   SCM ops);
   vector<Context_def *> path_to_acceptable_context (SCM alias) const;
 };
@@ -144,7 +144,7 @@ void sloppy_general_pushpop_property (Context *context,
                                       SCM context_property, SCM grob_property_path, SCM val);
 SCM updated_grob_properties (Context *tg, SCM sym);
 Context *find_context_below (Context *where,
-                             SCM type_sym, string id);
+                             SCM type_sym, const string &id);
 bool melisma_busy (Context *);
 
 Context *get_voice_to_lyrics (Context *lyrics);

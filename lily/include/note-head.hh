@@ -36,7 +36,7 @@ public:
   static Real stem_attachment_coordinate (Grob *, Axis a);
   static int get_balltype (Grob *);
 
-  static Offset get_stem_attachment (Font_metric *, string);
+  static Offset get_stem_attachment (Font_metric *, const string&);
 };
 #endif // NOTEHEAD_HH
 

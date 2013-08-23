@@ -75,13 +75,13 @@ ly_symbol2string (SCM s)
 }
 
 string
-robust_symbol2string (SCM sym, string str)
+robust_symbol2string (SCM sym, const string &str)
 {
   return scm_is_symbol (sym) ? ly_symbol2string (sym) : str;
 }
 
 string
-gulp_file_to_string (string fn, bool must_exist, int size)
+gulp_file_to_string (const string &fn, bool must_exist, int size)
 {
   string s = global_path.find (fn);
   if (s == "")
@@ -554,10 +554,10 @@ ly_floatvector2scm (vector<Real> v)
 }
 
 string
-robust_scm2string (SCM k, string s)
+robust_scm2string (SCM k, const string &s)
 {
   if (scm_is_string (k))
-    s = ly_scm2string (k);
+    return ly_scm2string (k);
   return s;
 }
 

@@ -79,7 +79,7 @@ Input::set_location (Input const &i_start, Input const &i_end)
   [file:line:column:][warning:]message
 */
 string
-Input::message_string (string msg) const
+Input::message_string (const string &msg) const
 {
   if (source_file_)
     return msg + "\n" + source_file_->quote_input (start_);
@@ -93,7 +93,7 @@ Input::message_location () const
   return (source_file_) ? location_string () : "";
 }
 void
-Input::error (string s) const
+Input::error (const string &s) const
 {
   ::non_fatal_error (message_string (s), message_location ());
   // UGH, fix naming or usage (use non_fatal_error in most places, instead)
@@ -101,31 +101,31 @@ Input::error (string s) const
 }
 
 void
-Input::programming_error (string s) const
+Input::programming_error (const string &s) const
 {
   ::programming_error (message_string (s), message_location ());
 }
 
 void
-Input::non_fatal_error (string s) const
+Input::non_fatal_error (const string &s) const
 {
   ::non_fatal_error (message_string (s), message_location ());
 }
 
 void
-Input::warning (string s) const
+Input::warning (const string &s) const
 {
   ::warning (message_string (s), message_location ());
 }
 
 void
-Input::message (string s) const
+Input::message (const string &s) const
 {
   ::message (message_string (s), true, message_location ());
 }
 
 void
-Input::debug_output (string s) const
+Input::debug_output (const string &s) const
 {
   ::debug_output (message_string (s), true, message_location ());
 }

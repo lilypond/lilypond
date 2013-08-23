@@ -724,7 +724,7 @@ Grob::internal_vertical_less (Grob *g1, Grob *g2, bool pure)
   MESSAGES
 ****************************************************************/
 void
-Grob::programming_error (string s) const
+Grob::programming_error (const string &s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
@@ -740,7 +740,7 @@ Grob::programming_error (string s) const
 }
 
 void
-Grob::warning (string s) const
+Grob::warning (const string &s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))

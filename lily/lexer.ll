@@ -907,7 +907,7 @@ Lily_lexer::identifier_type (SCM sid)
 
 
 int
-Lily_lexer::scan_escaped_word (string str)
+Lily_lexer::scan_escaped_word (const string &str)
 {
 	// use more SCM for this.
 
@@ -937,7 +937,7 @@ Lily_lexer::scan_escaped_word (string str)
 }
 
 int
-Lily_lexer::scan_shorthand (string str)
+Lily_lexer::scan_shorthand (const string &str)
 {
 	SCM sid = lookup_identifier (str);
 	if (Music *m = unsmob_music (sid))
@@ -1014,7 +1014,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 }
 
 int
-Lily_lexer::scan_bare_word (string str)
+Lily_lexer::scan_bare_word (const string &str)
 {
 	SCM sym = ly_symbol2scm (str.c_str ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {

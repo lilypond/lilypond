@@ -467,7 +467,7 @@ print_trailer (void *out,
 }
 
 static void
-create_type42_font (void *out, string name, int idx)
+create_type42_font (void *out, const string &name, int idx)
 {
   FT_Face face;
 

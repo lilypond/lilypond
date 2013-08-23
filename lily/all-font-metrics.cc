@@ -28,7 +28,7 @@
 #include "warn.hh"
 
 Index_to_charcode_map const *
-All_font_metrics::get_index_to_charcode_map (string filename,
+All_font_metrics::get_index_to_charcode_map (const string &filename,
                                              int face_index,
                                              FT_Face face)
 {
@@ -40,7 +40,7 @@ All_font_metrics::get_index_to_charcode_map (string filename,
   return &filename_charcode_maps_map_[key];
 }
 
-All_font_metrics::All_font_metrics (string path)
+All_font_metrics::All_font_metrics (const string &path)
 {
   otf_dict_ = new Scheme_hash_table;
 
@@ -109,7 +109,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
 #endif
 
 Open_type_font *
-All_font_metrics::find_otf (string name)
+All_font_metrics::find_otf (const string &name)
 {
   SCM sname = ly_symbol2scm (name.c_str ());
   SCM val;
@@ -140,7 +140,7 @@ All_font_metrics::find_otf (string name)
 }
 
 Font_metric *
-All_font_metrics::find_font (string name)
+All_font_metrics::find_font (const string &name)
 {
   Font_metric *f = find_otf (name);
 

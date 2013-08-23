@@ -13,7 +13,7 @@ class Control_track_performer : public Performer
 {
   Audio_staff *control_track_;
 
-  void add_text (Audio_text::Type, string);
+  void add_text (Audio_text::Type, const string&);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
 protected:
 
@@ -40,7 +40,7 @@ Control_track_performer::acknowledge_audio_element (Audio_element_info info)
 }
 
 void
-Control_track_performer::add_text (Audio_text::Type text_type, string str)
+Control_track_performer::add_text (Audio_text::Type text_type, const string &str)
 {
   Audio_item *text = new Audio_text (text_type, str);
   control_track_->add_audio_item (text);

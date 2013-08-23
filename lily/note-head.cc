@@ -162,7 +162,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 }
 
 Offset
-Note_head::get_stem_attachment (Font_metric *fm, string key)
+Note_head::get_stem_attachment (Font_metric *fm, const string &key)
 {
   Offset att;
 

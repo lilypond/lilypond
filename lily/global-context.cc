@@ -202,7 +202,7 @@ Global_context::previous_moment () const
 }
 
 Context *
-Global_context::get_default_interpreter (string /* context_id */)
+Global_context::get_default_interpreter (const string &/* context_id */)
 {
   if (get_score_context ())
     return get_score_context ()->get_default_interpreter ();

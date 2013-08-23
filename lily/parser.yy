@@ -157,7 +157,7 @@ using namespace std;
 #include "warn.hh"
 
 void
-Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, string s)
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s)
 {
 	parser->parser_error (*i, s);
 }

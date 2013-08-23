@@ -25,7 +25,7 @@
 struct Lilypond_version
 {
   Lilypond_version (int major, int minor, int patch);
-  Lilypond_version (string str);
+  Lilypond_version (const string &str);
 
   string to_string () const;
   operator int () const;

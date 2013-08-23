@@ -74,7 +74,7 @@ Modified_font_metric::count () const
 }
 
 Offset
-Modified_font_metric::attachment_point (string s) const
+Modified_font_metric::attachment_point (const string &s) const
 {
   Offset o = orig_->attachment_point (s);
   return o * magnification_;
@@ -87,7 +87,7 @@ Modified_font_metric::get_indexed_wxwy (vsize k) const
   return o * magnification_;
 }
 
-vsize
+size_t
 Modified_font_metric::name_to_index (string s) const
 {
   return orig_->name_to_index (s);
@@ -106,7 +106,7 @@ Modified_font_metric::derived_mark () const
 
 Stencil
 Modified_font_metric::text_stencil (Output_def *state,
-                                    string text, bool feta) const
+                                    const string &text, bool feta) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))

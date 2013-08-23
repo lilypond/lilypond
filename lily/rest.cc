@@ -159,7 +159,7 @@ Rest::calc_cross_staff (SCM smob)
   make this function easily usable in C++
 */
 string
-Rest::glyph_name (Grob *me, int durlog, string style, bool try_ledgers,
+Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
                   Real offset)
 {
   bool is_ledgered = false;

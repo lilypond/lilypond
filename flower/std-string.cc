@@ -21,7 +21,7 @@
 #include "string-convert.hh"
 
 string
-to_string (string s)
+to_string (const string &s)
 {
   return s;
 }
@@ -106,7 +106,7 @@ replace_all (string *str, char find, char replace)
 }
 
 char *
-string_copy (string s)
+string_copy (const string &s)
 {
   ssize len = s.length ();
   char *dest = new char[len + 1];
@@ -144,7 +144,7 @@ string_split (string str, char c)
 }
 
 string
-string_join (vector<string> const &strs, string infix)
+string_join (vector<string> const &strs, const string &infix)
 {
   string result;
   for (vsize i = 0; i < strs.size (); i++)

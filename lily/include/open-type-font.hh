@@ -48,11 +48,11 @@ public:
   SCM glyph_list () const;
   SCM get_glyph_outline (size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
-  string get_otf_table (string tag) const;
-  static SCM make_otf (string);
+  string get_otf_table (const string &tag) const;
+  static SCM make_otf (const string&);
   string font_name () const;
   ~Open_type_font ();
-  Offset attachment_point (string) const;
+  Offset attachment_point (const string&) const;
   size_t count () const;
   Box get_indexed_char_dimensions (size_t) const;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
@@ -63,7 +63,7 @@ public:
   Real design_size () const;
 };
 
-string get_otf_table (FT_Face face, string tag);
-FT_Face open_ft_face (string str, FT_Long idx);
+string get_otf_table (FT_Face face, const string &tag);
+FT_Face open_ft_face (const string&, FT_Long idx);
 
 #endif /* OPEN_TYPE_FONT_HH */

@@ -258,7 +258,7 @@ junk_pointers (vector<T> &v)
 }
 
 vector<string> string_split (string str, char c);
-string string_join (vector<string> const &strs, string infix);
+string string_join (vector<string> const &strs, const string &infix);
 
 #define iterof(i,s) typeof((s).begin()) i((s).begin())
 

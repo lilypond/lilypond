@@ -485,7 +485,7 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 }
 
 SCM
-Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, string grob_set_name)
+Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string &grob_set_name)
 {
   extract_grob_set (me, grob_set_name.c_str (), elts);
 

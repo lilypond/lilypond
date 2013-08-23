@@ -47,13 +47,13 @@ File_path::directories () const
 
 #include <algorithm>
 void
-File_path::parse_path (string p)
+File_path::parse_path (const string &p)
 {
   concat (dirs_, string_split (p, PATHSEP));
 }
 
 bool
-is_file (string file_name)
+is_file (const string &file_name)
 {
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
@@ -106,7 +106,7 @@ directory, in this order.
 The file name if found, or empty string if not found. */
 
 string
-File_path::find (string name) const
+File_path::find (const string &name) const
 {
   if (!name.length () || (name == "-"))
     return name;
@@ -146,7 +146,7 @@ File_path::find (string name) const
   where EXT is from EXTENSIONS.
 */
 string
-File_path::find (string name, char const *extensions[])
+File_path::find (const string &name, char const *extensions[])
 {
   if (name.empty () || name == "-")
     return name;
@@ -195,13 +195,13 @@ File_path::to_string () const
 }
 
 void
-File_path::append (string str)
+File_path::append (const string &str)
 {
   dirs_.push_back (str);
 }
 
 void
-File_path::prepend (string str)
+File_path::prepend (const string &str)
 {
   dirs_.insert (dirs_.begin (), str);
 }

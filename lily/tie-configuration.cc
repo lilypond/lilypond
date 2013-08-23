@@ -102,7 +102,7 @@ Tie_configuration::distance (Tie_configuration const &a,
 }
 
 void
-Tie_configuration::add_score (Real s, string desc)
+Tie_configuration::add_score (Real s, const string &desc)
 {
   assert (!scored_);
   score_ += s;
@@ -136,7 +136,7 @@ Ties_configuration::reset_score ()
 }
 
 void
-Ties_configuration::add_tie_score (Real s, int i, string desc)
+Ties_configuration::add_tie_score (Real s, int i, const string &desc)
 {
   assert (!scored_);
   score_ += s;
@@ -150,7 +150,7 @@ Ties_configuration::add_tie_score (Real s, int i, string desc)
 }
 
 void
-Ties_configuration::add_score (Real s, string desc)
+Ties_configuration::add_score (Real s, const string &desc)
 {
   assert (!scored_);
   score_ += s;

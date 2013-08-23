@@ -43,7 +43,7 @@ public:
 class Midi_chunk
 {
 public:
-  void set (string header_string, string data_string, string footer_string);
+  void set (const string &header_string, const string &data_string, const string &footer_string);
   virtual string to_string () const;
   virtual string data_string () const;
   DECLARE_CLASSNAME (Midi_chunk);

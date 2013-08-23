@@ -187,7 +187,7 @@ Slur_configuration::Slur_configuration ()
 };
 
 void
-Slur_configuration::add_score (Real s, string desc)
+Slur_configuration::add_score (Real s, const string &desc)
 {
   if (s < 0)
     {

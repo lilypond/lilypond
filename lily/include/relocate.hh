@@ -22,11 +22,11 @@
 
 #include "std-string.hh"
 
-void read_relocation_dir (string dirname);
-void read_relocation_file (string filename);
-string expand_environment_variables (string orig);
+void read_relocation_dir (const string &dirname);
+void read_relocation_file (const string &filename);
+string expand_environment_variables (const string &orig);
 
-int sane_putenv (char const *key, string value, bool overwrite);
+int sane_putenv (char const *key, const string &value, bool overwrite);
 void setup_paths (char const *argv0);
 extern bool relocate_binary;
 

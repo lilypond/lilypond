@@ -26,10 +26,10 @@ using namespace std;
 map<string, string> file_name_map_global;
 
 string
-map_file_name (string s)
+map_file_name (const string &s)
 {
   if (file_name_map_global.find (s) != file_name_map_global.end ())
-    s = file_name_map_global[s];
+    return file_name_map_global[s];
   return s;
 }
 

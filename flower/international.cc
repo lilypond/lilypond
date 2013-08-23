@@ -55,7 +55,7 @@ v_f (char const *format, va_list args)
 }
 
 string
-_f (char const *format, string s, string s2, string s3)
+_f (char const *format, const string &s, const string &s2, const string &s3)
 {
   return String_convert::form_string (gettext (format), s.c_str (), s2.c_str (),
                                       s3.c_str ());
