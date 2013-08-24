@@ -125,6 +125,12 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
       assert (start_height == end_height);
       y_intercept_ = start_height;
     }
+  else if (fabs(slope_) > 1e6)
+    // too steep to be stored in slope-intercept form, given round-off error
+    {
+      slope_ = 0.0;
+      y_intercept_ = max(start_height, end_height);
+    }
   else
     y_intercept_ = start_height - slope_ * start;
 }
