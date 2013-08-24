@@ -83,13 +83,13 @@ Accidental_interface::horizontal_skylines (SCM smob)
    * We use the more basic get_stencil.
    */
   Stencil *my_stencil = unsmob_stencil (get_stencil (me));
+  if (!my_stencil)
+    return Skyline_pair ().smobbed_copy ();
+
   Skyline_pair *sky =
     Skyline_pair::unsmob
       (Stencil::skylines_from_stencil
         (my_stencil->smobbed_copy (), 0.0, Y_AXIS));
-
-  if (!sky)
-    return Skyline_pair ().smobbed_copy ();
 
   SCM alist = me->get_property ("glyph-name-alist");
   SCM alt = me->get_property ("alteration");
