@@ -474,6 +474,13 @@ SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  /* TODO: Filter out elements that belong to a different Axis_group,
+     such as the tie in
+     << \new Staff=A { c'1~ \change Staff=B c'}
+        \new Staff=B { \clef bass R1 R } >>
+    because thier location relative to this Axis_group is not known before
+    page layout.  For now, we need to trap this case in calc_pure_y_common.
+  */
   return internal_calc_pure_relevant_grobs (me, "elements");
 }
 
@@ -516,6 +523,12 @@ Axis_group_interface::calc_pure_y_common (SCM smob)
 
   extract_grob_set (me, "pure-relevant-grobs", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  if (common != me && Align_interface::has_interface (common))
+    {
+      me->programming_error("My pure_y_common is a VerticalAlignment,"
+                            " which might contain several staves.");
+      common = me;
+    }
   if (!common)
     {
       me->programming_error ("No common parent found in calc_pure_y_common.");
@@ -869,7 +882,12 @@ Axis_group_interface::skyline_spacing (Grob *me)
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
 
-  assert (y_common == me);
+  if (y_common != me)
+    {
+      me->programming_error("Some of my vertical-skyline-elements"
+                            " are outside my VerticalAxisGroup.");
+      y_common = me;
+    }
 
   // A rider is a grob that is not outside-staff, but has an outside-staff
   // ancestor.  In that case, the rider gets moved along with its ancestor.
