@@ -9,7 +9,7 @@ after line-breaking, and after inside-going articulations have been placed."
 \score {
     \new PianoStaff <<
     \context Staff = rh \relative c'' { c8([ d) \change Staff = lh c,] r
-    \stemDown c'8 \change Staff = rh c_( \change Staff = lh c_\marcato c)}
+    \stemDown f'8 \change Staff = rh f_( \change Staff = lh f_\marcato f)}
     \context Staff = lh { s1 }
     >>
 }
