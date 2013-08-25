@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.24\n"
+"Project-Id-Version: lilypond 2.17.25\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-08-11 16:20+0100\n"
+"POT-Creation-Date: 2013-08-25 15:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1192,78 +1192,78 @@ msgstr ""
 msgid "create PDF files for use with PDFTeX"
 msgstr ""
 
-#: lilypond-book.py:455
+#: lilypond-book.py:460
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:460
+#: lilypond-book.py:465
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:465
+#: lilypond-book.py:470
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:467
+#: lilypond-book.py:472
 msgid "Linking files..."
 msgstr ""
 
-#: lilypond-book.py:487
+#: lilypond-book.py:492
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:496
+#: lilypond-book.py:501
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:509
+#: lilypond-book.py:514
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:572
+#: lilypond-book.py:577
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:576
+#: lilypond-book.py:581
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:583
+#: lilypond-book.py:588
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:594
+#: lilypond-book.py:599
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:602
+#: lilypond-book.py:607
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:613
+#: lilypond-book.py:618
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:706
+#: lilypond-book.py:711
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:710
+#: lilypond-book.py:715
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:713
+#: lilypond-book.py:718
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
@@ -3118,177 +3118,182 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:466 parser.yy:755 parser.yy:822
+#: parser.yy:458 parser.yy:747 parser.yy:814
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:651 parser.yy:1150
+#: parser.yy:643 parser.yy:1142
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:857
+#: parser.yy:849
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:873
+#: parser.yy:865
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:897
+#: parser.yy:889
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1045 parser.yy:1067
+#: parser.yy:1037 parser.yy:1059
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1075
+#: parser.yy:1067
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1086 parser.yy:2344
+#: parser.yy:1078 parser.yy:2325
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1354
+#: parser.yy:1346
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2045 parser.yy:2159 parser.yy:2172 parser.yy:2181
+#: parser.yy:2037 parser.yy:2151 parser.yy:2164 parser.yy:2173
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2139
+#: parser.yy:2131
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2200
+#: parser.yy:2192
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2293 parser.yy:2297 parser.yy:2312
+#: parser.yy:2293
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2453
+#: parser.yy:2434
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2557
+#: parser.yy:2508
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2566 parser.yy:2571 parser.yy:3114
+#: parser.yy:2517 parser.yy:2522 parser.yy:3003
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2686
+#: parser.yy:2590
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2781
+#: parser.yy:2685
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2853 parser.yy:2899
+#: parser.yy:2757 parser.yy:2803
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2916
+#: parser.yy:2820
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3030
+#: parser.yy:2919
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3089
+#: parser.yy:2978
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3315
+#: parser.yy:3204
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:211
+#: lexer.ll:214
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:214
+#: lexer.ll:217
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:266
+#: lexer.ll:269
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:283
+#: lexer.ll:286
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:287
+#: lexer.ll:290
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:291
+#: lexer.ll:294
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:318
+#: lexer.ll:321
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:342
+#: lexer.ll:345
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:368
+#: lexer.ll:371
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:378
+#: lexer.ll:381
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:698
+#: lexer.ll:717
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:703
+#: lexer.ll:722
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:718
+#: lexer.ll:737
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:818
+#: lexer.ll:804
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:945
+#: lexer.ll:931
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:1241
+#: lexer.ll:951
+#, c-format
+msgid "undefined character or shorthand: %s"
+msgstr ""
+
+#: lexer.ll:1247
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1285
+#: lexer.ll:1291
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1286
+#: lexer.ll:1292
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1292
+#: lexer.ll:1298
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3640,7 +3645,7 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:207
+#: ly-syntax-constructors.scm:201
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
