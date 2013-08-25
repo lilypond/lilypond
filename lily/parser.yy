@@ -627,7 +627,16 @@ context_def_spec_block:
 
 context_mod_arg:
 	embedded_scm
-	| composite_music
+	|
+	{
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (nn);
+	}
+	composite_music
+	{
+		parser->lexer_->pop_state ();
+		$$ = $2;
+	}
 	;
 
 context_mod_embedded:
