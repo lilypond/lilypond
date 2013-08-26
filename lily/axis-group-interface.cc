@@ -672,8 +672,8 @@ avoid_outside_staff_collisions (Grob *elt,
   for (vsize j = 0; j < other_v_skylines.size (); j++)
     {
       Skyline_pair const &v_other = other_v_skylines[j];
-      Real pad = (padding + other_padding[j]);
-      Real horizon_pad = (horizon_padding + other_horizon_padding[j]);
+      Real pad = max (padding, other_padding[j]);
+      Real horizon_pad = max (horizon_padding, other_horizon_padding[j]);
 
       // We need to push elt up by at least this much to be above v_other.
       Real up = (*v_skyline)[DOWN].distance (v_other[UP], horizon_pad) + pad;
@@ -762,7 +762,9 @@ add_grobs_of_one_priority (Grob *me,
         {
           Grob *elt = elements[i];
           Real padding
-            = robust_scm2double (elt->get_property ("outside-staff-padding"), 0.25);
+            = robust_scm2double (elt->get_property ("outside-staff-padding"),
+                                 Axis_group_interface
+                                 ::get_default_outside_staff_padding ());
           Real horizon_padding
             = robust_scm2double (elt->get_property ("outside-staff-horizontal-padding"), 0.0);
           Interval x_extent = elt->extent (x_common, X_AXIS);

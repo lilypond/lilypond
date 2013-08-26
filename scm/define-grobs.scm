@@ -813,7 +813,6 @@
         (direction . ,DOWN)
         (minimum-space . 1.2)
         (outside-staff-priority . 250)
-        (outside-staff-padding . 0.6)
         (padding . 0.6)
         (side-axis . ,Y)
         (slur-padding . 0.3)
@@ -1413,7 +1412,6 @@
         (font-encoding . fetaText)
         (font-size . -2)
         (outside-staff-horizontal-padding . 0.5)
-        (outside-staff-padding . 0.5)
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
@@ -1804,7 +1802,7 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-size . 2)
         (non-musical . #t)
-        (outside-staff-horizontal-padding . 0.12)
+        (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1500)
         (padding . 0.8)
         (self-alignment-X . ,CENTER)
@@ -2350,7 +2348,7 @@
         (cross-staff . ,script-or-side-position-cross-staff)
         (direction . ,DOWN)
         (extra-spacing-width . (+inf.0 . -inf.0))
-        (outside-staff-horizontal-padding . 0.12)
+        (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 450)
 
         ;; sync with Fingering ?
