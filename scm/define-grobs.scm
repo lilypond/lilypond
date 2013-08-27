@@ -166,6 +166,7 @@
 
     (Arpeggio
      . (
+	(cross-staff . ,ly:arpeggio::calc-cross-staff)
         (direction . ,LEFT)
         (padding . 0.5)
         (positions . ,ly:arpeggio::calc-positions)

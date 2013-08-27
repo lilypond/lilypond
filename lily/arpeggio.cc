@@ -56,6 +56,29 @@ Arpeggio::get_common_y (Grob *me)
   return common;
 }
 
+MAKE_SCHEME_CALLBACK (Arpeggio, calc_cross_staff, 1);
+SCM
+Arpeggio::calc_cross_staff (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "stems", stems);
+  Grob *vag = 0;
+
+  for (vsize i = 0; i < stems.size (); i++)
+    {
+      if (!i)
+        vag = Grob::get_vertical_axis_group (stems[i]);
+      else
+        {
+          if (vag != Grob::get_vertical_axis_group (stems[i]))
+            return SCM_BOOL_T;
+        }
+    }
+
+  return SCM_BOOL_F;
+}
+
 MAKE_SCHEME_CALLBACK (Arpeggio, calc_positions, 1);
 SCM
 Arpeggio::calc_positions (SCM grob)
