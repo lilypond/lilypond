@@ -503,19 +503,18 @@ only works in the PDF backend.
   (let* ((arg-stencil (interpret-markup layout props arg))
          (x-ext (ly:stencil-extent arg-stencil X))
          (y-ext (ly:stencil-extent arg-stencil Y)))
-    (ly:make-stencil
-     `(delay-stencil-evaluation
-       ,(delay (ly:stencil-expr
-                (let* ((table (ly:output-def-lookup layout 'label-page-table))
+    (ly:stencil-add
+     (ly:make-stencil
+      `(delay-stencil-evaluation
+        ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
                        (page-number (if (list? table)
                                         (assoc-get label table)
-                                        #f))
-                       (link-expr (list 'page-link page-number
-                                        `(quote ,x-ext) `(quote ,y-ext))))
-                  (ly:stencil-add (ly:make-stencil link-expr x-ext y-ext)
-                                  arg-stencil)))))
-     x-ext
-     y-ext)))
+                                        #f)))
+                  (list 'page-link page-number
+                        `(quote ,x-ext) `(quote ,y-ext)))))
+      x-ext
+      y-ext)
+     arg-stencil)))
 
 
 (define-markup-command (beam layout props width slope thickness)
@@ -705,6 +704,7 @@ Provide a white background for @var{arg}.
 @cindex putting space around text
 
 Add space around a markup object.
+Identical to @code{pad-around}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -719,15 +719,11 @@ Add space around a markup object.
   }
 }
 @end lilypond"
-  (let*
-      ((stil (interpret-markup layout props arg))
-       (xext (ly:stencil-extent stil X))
-       (yext (ly:stencil-extent stil Y)))
-
-    (ly:make-stencil
-     (ly:stencil-expr stil)
-     (interval-widen xext amount)
-     (interval-widen yext amount))))
+  (let* ((m (interpret-markup layout props arg))
+         (x (interval-widen (ly:stencil-extent m X) amount))
+         (y (interval-widen (ly:stencil-extent m Y) amount)))
+    (ly:stencil-add (make-transparent-box-stencil x y)
+                    m)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; space
@@ -1965,8 +1961,12 @@ alignment accordingly.
 @cindex setting extent of text objects
 
 Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
-  (let* ((m (interpret-markup layout props arg)))
-    (ly:make-stencil (ly:stencil-expr m) x y)))
+  (let* ((expr (ly:stencil-expr (interpret-markup layout props arg))))
+    (ly:stencil-add
+     (make-transparent-box-stencil x y)
+     (ly:make-stencil
+      `(delay-stencil-evaluation ,(delay expr))
+      x y))))
 
 (define-markup-command (pad-around layout props amount arg)
   (number? markup?)
@@ -1987,11 +1987,10 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
 }
 @end lilypond"
   (let* ((m (interpret-markup layout props arg))
-         (x (ly:stencil-extent m X))
-         (y (ly:stencil-extent m Y)))
-    (ly:make-stencil (ly:stencil-expr m)
-                     (interval-widen x amount)
-                     (interval-widen y amount))))
+         (x (interval-widen (ly:stencil-extent m X) amount))
+         (y (interval-widen (ly:stencil-extent m Y) amount)))
+    (ly:stencil-add (make-transparent-box-stencil x y)
+                    m)))
 
 (define-markup-command (pad-x layout props amount arg)
   (number? markup?)
@@ -2044,7 +2043,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   (let* ((m (interpret-markup layout props arg))
          (x (ly:stencil-extent m X))
          (y (ly:stencil-extent m Y)))
-    (ly:make-stencil "" x y)))
+    (ly:make-stencil (list 'transparent-stencil (ly:stencil-expr m)) x y)))
 
 (define-markup-command (pad-to-box layout props x-ext y-ext arg)
   (number-pair? number-pair? markup?)
@@ -2064,12 +2063,8 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   }
 }
 @end lilypond"
-  (let* ((m (interpret-markup layout props arg))
-         (x (ly:stencil-extent m X))
-         (y (ly:stencil-extent m Y)))
-    (ly:make-stencil (ly:stencil-expr m)
-                     (interval-union x-ext x)
-                     (interval-union y-ext y))))
+  (ly:stencil-add (make-transparent-box-stencil x-ext y-ext)
+                  (interpret-markup layout props arg)))
 
 (define-markup-command (hcenter-in layout props length arg)
   (number? markup?)
@@ -3811,7 +3806,7 @@ an inverted glyph.  Note that within music, one would usually use the
                     (if (eqv? direction DOWN)
                         (markup #:musicglyph "scripts.dfermata")
                         (markup #:musicglyph "scripts.ufermata"))))
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4155,6 +4150,8 @@ when @var{label} is not found."
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y)))
+   (ly:stencil-add
+    (make-transparent-box-stencil x-ext y-ext))
     (ly:make-stencil
      `(delay-stencil-evaluation
        ,(delay (ly:stencil-expr

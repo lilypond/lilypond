@@ -124,13 +124,12 @@ spacing after the divider).
          (final-x (car result))
          (stencils (cdr result)))
     ;; Add the horizontal line and combine all stencils:
-    (box-stencil
-     (apply ly:stencil-add
-            (cons
-             (make-line-stencil line-width 0 0 final-x 0)
-             stencils))
-     0.0
-     0.0)))
+    (apply ly:stencil-add
+           (make-line-stencil line-width 0 0 final-x 0) ; the horizontal line
+           (make-transparent-box-stencil ; space for absent boxes
+             (cons 0 final-x)
+             (interval-widen '(0 . 0) (+ box-hheight dy)))
+           stencils)))
 
 ;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
 (define (harp-pedals-parse-string definition-string)

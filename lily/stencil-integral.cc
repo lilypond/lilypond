@@ -953,6 +953,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
     return stencil_traverser (trans, scm_caddr (expr));
   else if (scm_car (expr) == ly_symbol2scm ("color"))
     return stencil_traverser (trans, scm_caddr (expr));
+  else if (scm_car (expr) == ly_symbol2scm ("transparent-stencil"))
+    return stencil_traverser (trans, scm_cadr (expr));
   else if (scm_car (expr) == ly_symbol2scm ("id"))
     return stencil_traverser (trans, scm_caddr (expr));
   else
