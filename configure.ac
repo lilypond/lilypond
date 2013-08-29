@@ -55,45 +55,52 @@ AC_SUBST(LINK_GXX_STATICALLY)
 STEPMAKE_COMPILE
 
 AC_CHECK_PROG(FCLIST, fc-list, fc-list)
-AC_MSG_CHECKING([New Century Schoolbook PFB files])
+AC_MSG_CHECKING([for New Century Schoolbook PFB files])
 AC_SUBST(NCSB_SOURCE_FILES)
 AC_SUBST(NCSB_DIR)
-UNCHECKED_NCSB_SOURCE_FILES=""
-if test "$NCSB_DIR" != "" ;  then
-  for f in c059013l c059016l c059033l c059036l; do
-    if test ! -f "$NCSB_DIR/$f.pfb"; then
-      STEPMAKE_WARN($NCSB_DIR does not contain $f.pfb.)
-    else
-      UNCHECKED_NCSB_SOURCE_FILES="$NCSB_DIR/$f.pfb $UNCHECKED_NCSB_SOURCE_FILES"
-    fi
-  done
-else
+if test "$NCSB_DIR" = ""; then
   if test "$FCLIST" != ""; then
-    for style in Roman Italic "Bold Italic" Bold; do
-      NCSB_FILE=`$FCLIST "Century Schoolbook L:style=$style:foundry=urw:fontformat=Type 1" file \
-                | head -n 1`
+    NCSB_FILE=`$FCLIST "Century Schoolbook L:foundry=urw:fontformat=Type 1:lang=ru" file \
+              | head -n 1`
+    if test "$NCSB_FILE" != ""; then
       NCSB_FILE=`echo $NCSB_FILE | sed 's/\(:.*\)$//g'`
       NCSB_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $NCSB_FILE`
-      UNCHECKED_NCSB_SOURCE_FILES="$NCSB_FILE $UNCHECKED_NCSB_SOURCE_FILES"
-    done
-    NCSB_DIR=`AS_DIRNAME($NCSB_FILE)`
-  else
-    AC_MSG_RESULT(not found)
-    echo "Can't find Century Schoolbook files. Install FontConfig's fc-list,"
-    echo "or use --with-ncsb-dir"
-    STEPMAKE_ADD_ENTRY(REQUIRED,International New Century Schoolbook fonts)
+      NCSB_DIR=`AS_DIRNAME($NCSB_FILE)`
+    fi
   fi
 fi
-NCSB_SOURCE_FILES=""
-for f in $UNCHECKED_NCSB_SOURCE_FILES; do
-  if test "`grep Cyrillic "$f"`" = ""; then
-    STEPMAKE_WARN($f does not have Cyrillic characters.)
-    STEPMAKE_ADD_ENTRY(REQUIRED,International New Century Schoolbook fonts)
-  else
-    NCSB_SOURCE_FILES="$f $NCSB_SOURCE_FILES"
+if test "$NCSB_DIR" != "" ;  then
+  for f in c059013l.pfb c059016l.pfb c059033l.pfb c059036l.pfb; do
+    if test ! -f "$NCSB_DIR/$f"; then
+      MISSING_NCSB_SOURCE_FILES="$f $MISSING_NCSB_SOURCE_FILES"
+    else
+      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
+        INCOMPLETE_NCSB_SOURCE_FILES="$f $INCOMPLETE_NCSB_SOURCE_FILES"
+      else
+        NCSB_SOURCE_FILES="$NCSB_DIR/$f $NCSB_SOURCE_FILES"
+      fi
+    fi
+  done
+fi
+if test "$NCSB_DIR" = "" -o "$MISSING_NCSB_SOURCE_FILES" != "$INCOMPLETE_NCSB_SOURCE_FILES"; then
+  AC_MSG_RESULT(no)
+  STEPMAKE_ADD_ENTRY(REQUIRED,International New Century Schoolbook fonts)
+  if test "$NCSB_DIR" = ""; then
+    if test "$FCLIST" = ""; then
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-ncsb-dir)')
+    else
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, or use --with-ncsb-dir)')
+    fi
   fi
-done
-AC_MSG_RESULT($NCSB_SOURCE_FILES)
+  if test "$MISSING_NCSB_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_NCSB_SOURCE_FILES)')
+  fi
+  if test "$INCOMPLETE_NCSB_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_NCSB_SOURCE_FILES)')
+  fi
+else
+  AC_MSG_RESULT(yes)
+fi
 
 AC_LANG([C++])
 
