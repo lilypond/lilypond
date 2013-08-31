@@ -1054,7 +1054,7 @@ Otherwise, return #f."
                                quoted-voice-direction ?quoted-voice-direction
                                quoted-music-name ?quoted-music-name
                                quoted-context-id "cue"
-                               quoted-context-type 'Voice
+                               quoted-context-type 'CueVoice
                                element ?music))
                         (format #f "\\cueDuring #~s #~a ~a"
                                 ?quoted-music-name

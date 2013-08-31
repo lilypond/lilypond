@@ -128,15 +128,16 @@ Quote_iterator::construct_children ()
   SCM name = get_music ()->get_property ("quoted-context-type");
   SCM id = get_music ()->get_property ("quoted-context-id");
 
-  if (scm_is_string (id)
-      && scm_is_symbol (name))
+  if (scm_is_symbol (name))
     {
-      Context *cue_context = get_outlet ()->find_create_context (name,
-                                                                 ly_scm2string (id), SCM_EOL);
+      Context *cue_context =
+        get_outlet ()->find_create_context (name,
+                                            robust_scm2string (id, ""),
+                                            SCM_EOL);
       quote_outlet_.set_context (cue_context);
     }
   else
-    quote_outlet_.set_context (get_outlet ());
+    quote_outlet_.set_context (get_outlet ()->get_default_interpreter ());
 
   event_vector_ = get_music ()->get_property ("quoted-events");
 

@@ -609,20 +609,48 @@ Markups are implemented as special Scheme functions which produce a
 @subsection Markup construction in Scheme
 
 @cindex defining markup commands
+@funindex \displayScheme
 
-The @code{markup} macro builds markup expressions in Scheme while
-providing a LilyPond-like syntax.  For example,
+Markup expressions are internally represented in Scheme using the
+@code{markup} macro:
+
 @example
-(markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
-                  #:larger #:line ("foo" "bar" "baz")))
+(markup @var{expr})
+@end example
+
+To see a markup expression in its Scheme form, use the
+@code{\displayScheme} command:
+
+@example
+\displayScheme
+\markup @{
+  \column @{
+    \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+    \larger \line @{ foo bar baz @}
+  @}
+@}
 @end example
 
 @noindent
-is equivalent to:
+Compiling the code above will send the following to the display
+console:
+
 @example
-#@{ \markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \larger \line @{ foo bar baz @} @} #@}
+(markup
+  #:line
+  (#:column
+   (#:line
+    (#:bold (#:italic "hello") #:raise 0.4 "world")
+    #:larger
+    (#:line
+     (#:simple "foo" #:simple "bar" #:simple "baz")))))
 @end example
+
+To prevent the markup from printing on the page, use
+@w{@samp{\void \displayScheme @var{markup}}}.  Also, as with the
+@code{\displayMusic} command, the output of @code{\displayScheme}
+can be saved to an external file.  See
+@ref{Displaying music expressions}.
 
 @noindent
 This example demonstrates the main translation rules between regular
@@ -640,7 +668,7 @@ Scheme-only solution.
 @item @code{\markup-command} @tab @code{#:markup-command}
 @item @code{\variable} @tab @code{variable}
 @item @code{\center-column @{ @dots{} @}} @tab
-        @code{#:center-column ( @dots{} )} 
+        @code{#:center-column ( @dots{} )}
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable
@@ -850,7 +878,7 @@ padding.
             \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
-or, equivalently 
+or, equivalently
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)

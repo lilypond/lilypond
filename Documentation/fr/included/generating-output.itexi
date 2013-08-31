@@ -96,18 +96,18 @@ en cas de compilation infructueuse.}
 Double-cliquez sur l'icone LilyPond qui se trouve sur le bureau.
 S'ouvre alors un fichier d'exemple.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}.  Ne
 prenez pas l'option @w{@code{Fichier > Enregistrer}} pour ce fichier
 exemple@tie{}: LilyPond attend un nom de fichier valide.
 
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading Étape 2a. Compilation par glisser-déposer
@@ -115,12 +115,12 @@ Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 Selon votre préférence, vous pouvez compiler votre fichier
 en le faisant glisser puis en le déposant sur l'icone LilyPond
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 ou en ouvrant le menu contextuel par un clic-droit, puis en prenant
 l'option @w{@code{Ouvrir avec > LilyPond}}.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading Étape 2b. Compilation par double-clic
@@ -132,33 +132,26 @@ Vous pouvez aussi faire un double-clic sur le fichier @file{test.ly}.
 
 Au cours de la compilation du fichier @file{test.ly}, une fenêtre
 d'interpréteur de commande s'ouvre et se referme.  Trois fichiers
-complémentaires seront générés pendant ce temps là.
+complémentaires seront générés pendant ce temps là.  Le fichier PDF
+contient la gravure de votre fichier @file{test.ly}.
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
-Le fichier PDF contient la gravure de votre fichier @file{test.ly}.
-
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading Autres commandes
 
 Pour créer un nouveau fichier, sélectionnez @w{@code{Fichier > Nouveau}}
-à parti de n'importe quel fichier déjà existant
+à parti de n'importe quel fichier déjà existant ou bien
+@w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegardé.
 
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
-ou bien @w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegardé.
-
-@sourceimage{Learning_Win7_Open_Menu,,,}
+@sourceimage{EditFile,,,}
 
 Pensez à toujours enregistrer votre travail avant de compiler votre
 fichier.  Si LilyPond ne crée pas de PDF, consultez le fichier de
 journalisation -- généré au fil du processus de compilation -- et
 vérifiez qu'il ne comporte pas d'erreur.
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 Ce fichier journal est remplacé à chaque compilation de votre fichier
 LilyPond.
@@ -191,7 +184,7 @@ Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

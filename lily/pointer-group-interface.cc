@@ -68,19 +68,11 @@ Pointer_group_interface::find_grob (Grob *me, SCM sym, bool (*pred) (Grob *))
   return 0;
 }
 
-// If the grob array is unordered, we assume that duplicates should
-// be removed. This makes sense for things like side-position-elements,
-// which may be added recursively numerous times and thus will eat up
-// computation time when skylines are calculated.
-// If the array is ordered, then we don't remove duplicates.
-
 void
 Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
 {
   Grob_array *arr = get_grob_array (me, sym);
   arr->add (p);
-  if (!arr->ordered ())
-    arr->remove_duplicates ();
 }
 
 void
@@ -89,7 +81,6 @@ Pointer_group_interface::add_unordered_grob (Grob *me, SCM sym, Grob *p)
   Grob_array *arr = get_grob_array (me, sym);
   arr->add (p);
   arr->set_ordered (false);
-  arr->remove_duplicates ();
 }
 
 static vector<Grob *> empty_array;

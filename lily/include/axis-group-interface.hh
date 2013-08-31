@@ -34,7 +34,6 @@ class Axis_group_interface
   static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
   static Interval pure_group_height (Grob *me, int start, int end);
-  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM smob));
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));

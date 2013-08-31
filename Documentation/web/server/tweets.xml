@@ -6,4 +6,14 @@
     contact &lt;a
     href="mailto:janek.lilypond@gmail.com"&gt;Janek Warcho&#322;&lt;/a&gt;.
   </tweet>
+  <tweet>
+    Adam Spiers has build a web site which uses LilyPond to dynamically
+    generate images of chords and scales called &lt;a
+    href="http://scalematcher.adamspiers.org/"&gt;Scale matcher&lt;/a&gt;.
+  </tweet>
+  <tweet>
+    Ben Lemon has created some LilyPond tutorials on YouTube.  Read
+    about them on his &lt;a
+    href="http://benlemon.me/blog/music/lilypond/operation-lilypond/"&gt;blog&lt;/a&gt;.
+  </tweet>
 </tweets>

@@ -307,7 +307,7 @@ cueDuring =
 in a CueVoice oriented by @var{dir}.")
    (make-music 'QuoteMusic
 	       'element main-music
-	       'quoted-context-type 'Voice
+	       'quoted-context-type 'CueVoice
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir))
@@ -319,7 +319,7 @@ cueDuringWithClef =
 in a CueVoice oriented by @var{dir}.")
    (make-music 'QuoteMusic
 	       'element main-music
-	       'quoted-context-type 'Voice
+	       'quoted-context-type 'CueVoice
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-music-clef clef
@@ -341,6 +341,13 @@ displayMusic =
    (newline)
    (display-scheme-music music)
    music)
+
+displayScheme =
+#(define-scheme-function (parser location expr) (scheme?)
+   (_i "Display the internal representation of @var{expr} to the console.")
+   (newline)
+   (display-scheme-music expr)
+   expr)
 
 
 
@@ -1357,7 +1364,7 @@ as a first or second voice.")
 
    (make-music 'QuoteMusic
 	       'element main-music
-	       'quoted-context-type 'Voice
+	       'quoted-context-type 'CueVoice
 	       'quoted-context-id "cue"
 	       'quoted-music-name what
 	       'quoted-voice-direction dir

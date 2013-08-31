@@ -114,7 +114,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                       ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 
-      Grob *acc = Note_column::accidentals (bound_grob->get_parent (X_AXIS));
+      Grob *acc = unsmob_grob (bound_grob->get_object ("accidental-grob"));
       if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
 

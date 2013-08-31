@@ -627,7 +627,16 @@ context_def_spec_block:
 
 context_mod_arg:
 	embedded_scm
-	| composite_music
+	|
+	{
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (nn);
+	}
+	composite_music
+	{
+		parser->lexer_->pop_state ();
+		$$ = $2;
+	}
 	;
 
 context_mod_embedded:
@@ -1877,14 +1886,14 @@ complex_music:
 	;
 
 complex_music_prefix:
-	CONTEXT simple_string optional_id optional_context_mod {
+	CONTEXT symbol optional_id optional_context_mod {
                 Context_mod *ctxmod = unsmob_context_mod ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
 		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
 	}
-	| NEWCONTEXT simple_string optional_id optional_context_mod {
+	| NEWCONTEXT symbol optional_id optional_context_mod {
                 Context_mod *ctxmod = unsmob_context_mod ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
@@ -2024,13 +2033,11 @@ property_path:
 	;
 
 property_operation:
-	STRING '=' scalar {
-		$$ = scm_list_3 (ly_symbol2scm ("assign"),
-			scm_string_to_symbol ($1), $3);
+	symbol '=' scalar {
+		$$ = scm_list_3 (ly_symbol2scm ("assign"), $1, $3);
 	}
-	| UNSET simple_string {
-		$$ = scm_list_2 (ly_symbol2scm ("unset"),
-			scm_string_to_symbol ($2));
+	| UNSET symbol {
+		$$ = scm_list_2 (ly_symbol2scm ("unset"), $2);
 	}
 	| OVERRIDE property_path '=' scalar {
 		if (scm_ilength ($2) < 2) {
@@ -2280,17 +2287,6 @@ string:
 		$$ = $1;
 	}
 	| full_markup
-	| string '+' string {
-		if (!scm_is_string ($1)) {
-			parser->parser_error (@1, (_ ("simple string expected")));
-			$1 = scm_string (SCM_EOL);
-		}
-		if (!scm_is_string ($3)) {
-			parser->parser_error (@3, (_ ("simple string expected")));
-			$3 = scm_string (SCM_EOL);
-		}
-		$$ = scm_string_append (scm_list_2 ($1, $3));
-	}
 	;
 
 simple_string: STRING {
@@ -2303,6 +2299,26 @@ simple_string: STRING {
 		} else {
 			parser->parser_error (@1, (_ ("simple string expected")));
 			$$ = scm_string (SCM_EOL);
+		}
+	}
+	;
+
+symbol:
+	STRING {
+		$$ = scm_string_to_symbol ($1);
+	}
+	| embedded_scm_bare
+	{
+		// This is a bit of overkill but makes the same
+		// routine responsible for all symbol interpretations.
+		$$ = try_string_variants (ly_lily_module_constant ("symbol?"),
+					  $1);
+		if (SCM_UNBNDP ($$))
+		{
+			parser->parser_error (@1, (_ ("symbol expected")));
+			// Generate a unique symbol in case it is used
+			// for an assignment or similar
+			$$ = scm_make_symbol (ly_string2scm ("undefined"));
 		}
 	}
 	;

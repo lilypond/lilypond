@@ -100,18 +100,18 @@ eine Datei zu kompilieren.}
 Wenn sie auf das LilyPond-Symbol auf dem Desktop doppelklicken,
 öffnet sich ein einfacher Texteditor mit einer Beispieldatei.
 
-@sourceimage{Learning_Win7_Welcome_File_Whole,,,}
+@sourceimage{LilyPad,,,}
 
 Aus dem Menü über der Beispieldatei wählen Sie @w{@code{File > Save as}}.
 Benutzen Sie nicht @w{@code{File > Save}} für die Beispieldatei,
 weil die Datei nicht funktioniert, bis Sie sie mit einem eigenen
 Namen gespeichert haben.
 
-@sourceimage{Learning_Win7_Save_Menu,,,}
+@sourceimage{FileSave,,,}
 
 Wählen Sie einen Namen für Ihre Datei, etwa @file{test.ly}.
 
-@sourceimage{Learning_Win7_Save_File_With_Name,,,}
+@sourceimage{SaveAs,,,}
 
 
 @subsubheading Schritt 2a: Kompilieren (mit drag-and-drop)
@@ -121,12 +121,12 @@ entweder:
 
 Die Datei auf das LilyPond-Symbol ziehen.
 
-@sourceimage{Learning_Win7_Open_Dragndrop,,,}
+@sourceimage{DragDrop,,,}
 
 Oder Sie klicken mit der rechten Maustaste auf die Datei und wählen
 Sie aus dem Menü @w{@code{Open with > LilyPond}}.
 
-@sourceimage{Learning_Win7_Open_Context_Menu,,,}
+@sourceimage{GenPDF,,,}
 
 
 @subsubheading Schritt 2b: Kompilieren (mit Doppelklick)
@@ -140,31 +140,25 @@ Während der Kompilation von @file{test.ly} öffnet sich ein
 Kommandofenster sehr schnell und schließt sich wieder.  Drei
 zusätzliche Dateien werden in diesem Schritt erstellt.
 
-@sourceimage{Learning_Win7_All_Files_Created,,,}
-
 Das PDF enthält den Notensatz aus der Datei @file{test.ly}.
 
-@sourceimage{Learning_Win7_Pdf_Output,,,}
+@sourceimage{PDFRead,,,}
 
 
 @subsubheading Andere Befehle
 
 Um eine neue Datei zu erstellen, wählen Sie @w{@code{File > New}}
-aus irgendeiner schon erstellten Datei.
+aus irgendeiner schon erstellten Datei oder @w{@code{File > Open}},
+um eine Datei zu öffnen und zu bearbeiten, die Sie schon vorher
+gespeichert hatten.
 
-@sourceimage{Learning_Win7_New_Menu,,,}
-
-@noindent
-oder @w{@code{File > Open}}, um eine Datei zu öffnen und zu
-bearbeiten, die Sie schon vorher gespeichert hatten.
-
-@sourceimage{Learning_Win7_Open_Menu,,,}
+@sourceimage{EditFile,,,}
 
 Sie müssen jede neue Änderung erst speichern, bevor Sie die Datei
 kompilieren.  Wenn kein PDF erstellt wird, öffnen Sie die Log-Datei
 und schauen Sie nach Fehlern.
 
-@sourceimage{Learning_Win7_Log_File,,,}
+@sourceimage{BadLog,,,}
 
 Die Log-Datei wird jedes Mal überschrieben, wenn Sie Ihre
 LilyPond-Datei kompilieren.
@@ -201,7 +195,7 @@ geben Sie folgenden Text ein:
 @example
 \\version "@w{@versionStable{}}"
 @{
-  c' e' g' e'
+@ @ c' e' g' e'
 @}
 @end example
 

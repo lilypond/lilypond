@@ -71,6 +71,12 @@ Event dispatching:
   This is done by keeping a priority queue of listener lists,
   and iteratively send the event to the lowest-priority listener.
 - An event is never sent twice to listeners with equal priority.
+  The only case where listeners with equal priority may exist is when
+  two dispatchers are connected for more than one event type.  In that
+  case, the respective listeners all have the same priority, making
+  sure that any event is only dispatched at most once for that
+  combination of dispatchers, even if it matches more than one event
+  type.
 */
 IMPLEMENT_LISTENER (Dispatcher, dispatch);
 void
@@ -96,7 +102,7 @@ Dispatcher::dispatch (SCM sev)
     listener list, and the lowest priority element is repeatedly
     extracted and called.
 
-    The priority queue is implemented as a bubble-sorted C
+    The priority queue is implemented as an insertion-sorted C
     array. Using the stack instead of native Scheme datastructures
     avoids overheads for memory allocation. The queue is usually small
     (around 2 elements), so the quadratic sorting time is not a
@@ -115,7 +121,7 @@ Dispatcher::dispatch (SCM sev)
         num_classes--;
       else
         {
-          // bubblesort.
+          // insertion sort.
           int prio = scm_to_int (scm_caar (list));
           int j;
           for (j = i; j > 0 && lists[j - 1].prio > prio; j--)
@@ -203,6 +209,7 @@ Dispatcher::broadcast (Stream_event *ev)
   dispatch (ev->self_scm ());
 }
 
+// add_listener will always assign a new priority for each call
 void
 Dispatcher::add_listener (Listener l, SCM ev_class)
 {
@@ -213,6 +220,14 @@ inline void
 Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
 {
   SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
+  // if ev_class is not yet listened to, we go through our list of
+  // source dispatchers and register ourselves there with the priority
+  // we have reserved for this dispatcher.  The priority system
+  // usually distributes events in the order events are registered.
+  // The reuse of a previous priority when registering another event
+  // for a dispatcher/dispatcher connection bypasses the normal
+  // ordering, but it is the mechanism by which duplicate broadcasts
+  // of the same event from one dispatcher to another are avoided.
   if (!scm_is_pair (list))
     {
       /* Tell all dispatchers that we listen to, that we want to hear ev_class
@@ -276,6 +291,10 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
 void
 Dispatcher::register_as_listener (Dispatcher *disp)
 {
+  // We are creating and remembering the priority _we_ have with the
+  // foreign dispatcher.  All events are dispatched with the same
+  // priority.  The result is that, for example, a single event class
+  // will only trigger an event listener once.
   int priority = ++disp->priority_count_;
 
   // Don't register twice to the same dispatcher.

@@ -996,9 +996,9 @@ Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM ends
   Grob *me = unsmob_grob (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
-  // We cannot measure the width of a spanner before line breaking,
-  // so we assume that the width is infinite.
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, dynamic_cast<Spanner *> (me), false);
+  // We cannot measure the widths before line breaking,
+  // so we assume that the width is infinite: pass ignore_x=true
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, true, beg, end, true, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents, 1);

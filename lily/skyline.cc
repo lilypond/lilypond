@@ -125,6 +125,12 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
       assert (start_height == end_height);
       y_intercept_ = start_height;
     }
+  else if (fabs(slope_) > 1e6)
+    // too steep to be stored in slope-intercept form, given round-off error
+    {
+      slope_ = 0.0;
+      y_intercept_ = max(start_height, end_height);
+    }
   else
     y_intercept_ = start_height - slope_ * start;
 }
@@ -169,7 +175,9 @@ Building::shift_to_intersect (Real x, Real y) const
 }
 
 static Real
-first_intersection (Building const &b, list<Building> *const s, Real start_x)
+first_intersection (Building const &b, list<Building> *s, Real start_x)
+/* Return the first x >= start_x where skyline s above Building b.
+ * Removes buildings from s that are concealed by b. */
 {
   while (!s->empty () && start_x < b.end_)
     {
@@ -299,7 +307,7 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
           last_end = x;
           continue;
         }
-
+      // first_intersection() removes buildings from s2 if b hides them
       Real end = first_intersection (b, s2, x);
       if (s2->empty ())
         {
@@ -308,6 +316,8 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
           break;
         }
 
+      // Should be (end > x), during ver2.19.  end == x happens fairly often,
+      // and we do not need to keep vertical segments within a skyline.
       if (end >= x)
         {
           b.leading_part (end);
@@ -318,6 +328,9 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
 
       if (end >= s1->front ().end_)
         s1->pop_front ();
+      // Should add during ver2.19 (to avoid an endless loop
+      // when  merging identical skylines with a vertical segment)
+      // if (end >= s2->front().end_) s2->pop_front();
 
       x = end;
     }

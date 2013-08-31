@@ -1205,8 +1205,15 @@ chord changes.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
-     (cross-staff ,boolean? "For a beam or a stem, this is true if we
-depend on inter-staff spacing.")
+     (cross-staff ,boolean? "True for grobs whose @code{Y-extent} depends on
+inter-staff spacing.  The extent is measured relative to the grobs's parent
+staff (more generally, its @code{VerticalAxisGroup}) so this boolean flags
+grobs that are not rigidly fixed to their parent staff.
+Beams that join notes from two staves are @code{cross-staff}.
+Grobs that are positioned around such beams are also @code{cross-staff}.
+Grobs that are grouping objects, however, like @code{VerticalAxisGroups}
+will not in general be marked @code{cross-staff} when some of the members
+of the group are @code{cross-staff}.")
 
      (delta-position ,number? "The vertical position difference.")
 

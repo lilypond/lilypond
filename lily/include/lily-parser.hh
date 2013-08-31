@@ -77,14 +77,6 @@ public:
 
 DECLARE_UNSMOB (Lily_parser, lily_parser);
 
-SCM ly_parse_file (SCM);
-SCM ly_parse_string (SCM);
-// SCM ly_parser_add_book_and_score (SCM, SCM);
-SCM ly_parser_print_book (SCM, SCM);
-SCM ly_parser_print_score (SCM, SCM);
-SCM ly_parser_bookify (SCM, SCM);
-SCM ly_parser_scorify (SCM, SCM);
-
 Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);
 Output_def *get_paper (Lily_parser *parser);

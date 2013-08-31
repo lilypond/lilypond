@@ -166,6 +166,7 @@
 
     (Arpeggio
      . (
+	(cross-staff . ,ly:arpeggio::calc-cross-staff)
         (direction . ,LEFT)
         (padding . 0.5)
         (positions . ,ly:arpeggio::calc-positions)
@@ -1604,7 +1605,6 @@
      . (
         (axes . (,X ,Y))
         (bound-alignment-interfaces . (rhythmic-head-interface stem-interface))
-        (cross-staff . ,ly:axis-group-interface::cross-staff)
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
         (skyline-vertical-padding . 0.15)
         (X-extent . ,ly:axis-group-interface::width)
@@ -1964,7 +1964,6 @@
     (SostenutoPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)
@@ -2216,7 +2215,6 @@
     (SustainPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)
@@ -2505,7 +2503,9 @@
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
         (stencils . ,parentheses-item::calc-parenthesis-stencils)
-        (X-offset . ,ly:side-position-interface::x-aligned-side)
+        ;; offset a bit to the right, further if needed to clear the main note
+        (X-offset . ,(lambda (grob)
+                       (ly:side-position-interface::x-aligned-side grob 2.5)))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
@@ -2615,7 +2615,6 @@
     (UnaCordaPedalLineSpanner
      . (
         (axes . (,Y))
-        (cross-staff . ,ly:side-position-interface::calc-cross-staff)
         (direction . ,DOWN)
         (minimum-space . 1.0)
         (outside-staff-priority . 1000)

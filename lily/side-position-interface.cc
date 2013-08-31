@@ -54,15 +54,6 @@ Side_position_interface::add_support (Grob *me, Grob *e)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-void
-Side_position_interface::recursive_add_support (Grob *me, Grob *e)
-{
-  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
-  extract_grob_set (e, "side-support-elements", sse);
-  for (vsize i = 0; i < sse.size (); i++)
-    recursive_add_support (me, sse[i]);
-}
-
 set<Grob *>
 get_support_set (Grob *me)
 {
@@ -203,6 +194,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
   bool quantize_position = to_boolean (me->get_maybe_pure_property ("quantize-position", pure, start, end));
+  bool me_cross_staff = to_boolean (me->get_property ("cross-staff"));
 
   bool include_staff
     = staff_symbol
@@ -248,45 +240,37 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
   vector<Box> boxes;
   vector<Skyline_pair> skyps;
   set<Grob *>::iterator it;
-  Real max_raise = -dir * infinity_f;
-  bool aligns_to_cross_staff = false;
 
   for (it = support.begin (); it != support.end (); it++)
     {
       Grob *e = *it;
 
-      // In the case of a stem, we will find a note head as well
-      // ignoring the stem solves cyclic dependencies if the stem is
-      // attached to a cross-staff beam.
       bool cross_staff = to_boolean (e->get_property ("cross-staff"));
-
-      // avoid cyclic dependency for direction
       if (a == Y_AXIS
-          && pure
-          && Stem::has_interface (e)
-          && cross_staff
-          && !is_direction (e->get_property_data ("direction")))
-        continue;
+          && !me_cross_staff // 'me' promised not to adapt to staff-spacing
+          && cross_staff) // but 'e' might move based on staff-pacing
+        continue; // so 'me' may not move in response to 'e'
 
-      // avoid unnecessary stem look up (if pointing away, it is not
-      // supporting anything)
       if (a == Y_AXIS
-          && Stem::has_interface (e)
-          && dir == - get_grob_direction (e))
-        continue;
+          && Stem::has_interface (e))
+        {
+          // If called as 'pure' we may not force a stem to set its direction,
+          if (pure && !is_direction (e->get_property_data ("direction")))
+            continue;
+          // There is no need to consider stems pointing away.
+          if (dir == -get_grob_direction (e))
+            continue;
+        }
 
       if (e)
         {
-
-
            SCM sp = e->get_maybe_pure_property (a == X_AXIS
                                                 ? "horizontal-skylines"
                                                 : "vertical-skylines",
-                                                pure || cross_staff,
+                                                pure,
                                                 start,
                                                 end);
 
-           aligns_to_cross_staff |= cross_staff;
            if (Skyline_pair::unsmob (sp))
              {
                Real xc = pure && dynamic_cast<Spanner *> (e)
@@ -304,7 +288,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                  copy[dir].set_minimum_height (copy[dir].max_height ());
                copy.shift (a == X_AXIS ? yc : xc);
                copy.raise (a == X_AXIS ? xc : yc);
-               max_raise = minmax (dir, max_raise, a == X_AXIS ? xc : yc);
                skyps.push_back (copy);
              }
            else { /* no warning*/ }
@@ -346,15 +329,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
       dim = Skyline (dim.direction ());
       dim.set_minimum_height (0.0);
     }
-
-  // Many cross-staff grobs do not have good height estimations.
-  // We give the grob the best chance of not colliding by shifting
-  // it to the maximum height in the case of cross-staff alignment.
-  // This means, in other words, that the old way things were done
-  // (using boxes instead of skylines) is just reactivated for
-  // alignment to cross-staff grobs.
-  if (aligns_to_cross_staff)
-    dim.set_minimum_height (dim.max_height ());
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real dist = dim.distance (my_dim, robust_scm2double (me->get_maybe_pure_property ("horizon-padding", pure, start, end), 0.0));

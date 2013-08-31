@@ -152,8 +152,7 @@ into a @code{MultiMeasureTextEvent}."
               'origin location))
 
 (define-ly-syntax-simple (context-specification type id ops create-new mus)
-  (let* ((type-sym (if (symbol? type) type (string->symbol type)))
-         (csm (context-spec-music mus type-sym id)))
+  (let ((csm (context-spec-music mus type id)))
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))

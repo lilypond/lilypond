@@ -503,6 +503,28 @@ in @var{grob}."
     TupletBracket
     TrillSpanner))
 
+(define general-grace-settings
+  `((Voice Stem font-size -3)
+    (Voice Flag font-size -3)
+    (Voice NoteHead font-size -3)
+    (Voice TabNoteHead font-size -4)
+    (Voice Dots font-size -3)
+    (Voice Stem length-fraction 0.8)
+    (Voice Stem no-stem-extend #t)
+    (Voice Beam beam-thickness 0.384)
+    (Voice Beam length-fraction 0.8)
+    (Voice Accidental font-size -4)
+    (Voice AccidentalCautionary font-size -4)
+    (Voice Script font-size -3)
+    (Voice Fingering font-size -8)
+    (Voice StringNumber font-size -8)))
+
+(define-public score-grace-settings
+  (append
+    `((Voice Stem direction ,UP)
+      (Voice Slur direction ,DOWN))
+    general-grace-settings))
+
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
@@ -510,25 +532,8 @@ in @var{grob}."
                                              (if (odd? n) -1 1)))
          direction-polyphonic-grobs)
     (list
-     (make-property-set 'graceSettings
-                        ;; TODO: take this from voicedGraceSettings or similar.
-                        '((Voice Stem font-size -3)
-                          (Voice Flag font-size -3)
-                          (Voice NoteHead font-size -3)
-                          (Voice TabNoteHead font-size -4)
-                          (Voice Dots font-size -3)
-                          (Voice Stem length-fraction 0.8)
-                          (Voice Stem no-stem-extend #t)
-                          (Voice Beam beam-thickness 0.384)
-                          (Voice Beam length-fraction 0.8)
-                          (Voice Accidental font-size -4)
-                          (Voice AccidentalCautionary font-size -4)
-                          (Voice Script font-size -3)
-                          (Voice Fingering font-size -8)
-                          (Voice StringNumber font-size -8)))
-
+     (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))))))
-
 
 (define-safe-public (make-voice-props-override n)
   (make-sequential-music
@@ -537,23 +542,7 @@ in @var{grob}."
                                                   (if (odd? n) -1 1)))
          direction-polyphonic-grobs)
     (list
-     (make-property-set 'graceSettings
-                        ;; TODO: take this from voicedGraceSettings or similar.
-                        '((Voice Stem font-size -3)
-                          (Voice Flag font-size -3)
-                          (Voice NoteHead font-size -3)
-                          (Voice TabNoteHead font-size -4)
-                          (Voice Dots font-size -3)
-                          (Voice Stem length-fraction 0.8)
-                          (Voice Stem no-stem-extend #t)
-                          (Voice Beam beam-thickness 0.384)
-                          (Voice Beam length-fraction 0.8)
-                          (Voice Accidental font-size -4)
-                          (Voice AccidentalCautionary font-size -4)
-                          (Voice Script font-size -3)
-                          (Voice Fingering font-size -8)
-                          (Voice StringNumber font-size -8)))
-
+     (make-property-set 'graceSettings general-grace-settings)
      (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))
      (make-grob-property-override 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
 
@@ -926,12 +915,12 @@ actually fully cloned."
 (define-public (add-grace-property context-name grob sym val)
   "Set @var{sym}=@var{val} for @var{grob} in @var{context-name}."
   (define (set-prop context)
-    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+    (let* ((where (or (ly:context-find context context-name) context))
            (current (ly:context-property where 'graceSettings))
            (new-settings (append current
                                  (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (context-spec-music (make-apply-context set-prop) 'Voice))
+  (make-apply-context set-prop))
 
 (define-public (remove-grace-property context-name grob sym)
   "Remove all @var{sym} for @var{grob} in @var{context-name}."
@@ -940,7 +929,7 @@ actually fully cloned."
          (eq? (cadr property) grob)
          (eq? (caddr property) sym)))
   (define (delete-prop context)
-    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+    (let* ((where (or (ly:context-find context context-name) context))
            (current (ly:context-property where 'graceSettings))
            (prop-settings (filter
                            (lambda(x) (sym-grob-context? x sym grob context-name))
@@ -950,8 +939,7 @@ actually fully cloned."
                   (set! new-settings (delete x new-settings)))
                 prop-settings)
       (ly:context-set-property! where 'graceSettings new-settings)))
-  (context-spec-music (make-apply-context delete-prop) 'Voice))
-
+  (make-apply-context delete-prop))
 
 
 (defmacro-public def-grace-function (start stop . docstring)
@@ -1095,6 +1083,8 @@ set to the @code{location} parameter."
              (clef (ly:music-property quote-music 'quoted-music-clef #f))
              (main-voice (case dir ((1) 1) ((-1) 0) (else #f)))
              (cue-voice (and main-voice (- 1 main-voice)))
+             (cue-type (ly:music-property quote-music 'quoted-context-type #f))
+             (cue-id (ly:music-property quote-music 'quoted-context-id))
              (main-music (ly:music-property quote-music 'element))
              (return-value quote-music))
 
@@ -1116,17 +1106,15 @@ set to the @code{location} parameter."
          (delq! #f
                 (list
                  (and clef (make-cue-clef-set clef))
-
-                 ;; Need to establish CueVoice context even in #CENTER case
-                 (context-spec-music
-                  (if cue-voice
-                      (make-voice-props-override cue-voice)
-                      (make-music 'Music))
-                  'CueVoice "cue")
-                 quote-music
-                 (and cue-voice
+                 (and cue-type cue-voice
                       (context-spec-music
-                       (make-voice-props-revert) 'CueVoice "cue"))
+                       (make-voice-props-override cue-voice)
+                       cue-type cue-id))
+                 quote-music
+                 (and cue-type cue-voice
+                      (context-spec-music
+                       (make-voice-props-revert)
+                       cue-type cue-id))
                  (and clef (make-cue-clef-unset))))))
       quote-music))
 

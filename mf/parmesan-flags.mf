@@ -40,56 +40,39 @@ dir_down := -1;
 %
 
 def draw_mensural_outermost_flare (expr staffline_adjustment, d_) =
-	define_pixels (linethickness, staff_space);
-
-	save ellipse, pat, T;
-	path ellipse, pat;
-	transform T;
-
-	T := identity xscaled 1.00 linethickness
-		      yscaled 0.22 staff_space
-		      rotated -35;
-	pickup pencircle transformed T;
-	ellipse := fullcircle transformed T;	
-
-	z11 = (+0.00 staff_space, -0.00 staff_space);
-	z12 = (+0.15 staff_space, -0.00 staff_space);
+    save flag_end, flag_right;
 
 	if staffline_adjustment = between_staff_lines:
-		z13 = (+0.45 staff_space, -0.35 staff_space);
-		z14 = (+0.45 staff_space, -0.85 staff_space);
-		z15 = (+0.00 staff_space, -2.00 staff_space);
+		flag_end := 1.9;
+		flag_right := 0.6;
 	elseif staffline_adjustment = on_staff_line:
-		z13 = (+0.20 staff_space, -0.05 staff_space);
-		z14 = (+0.20 staff_space, -1.15 staff_space);
-		z15 = (+0.00 staff_space, -1.40 staff_space);
+		flag_end := 1.4;
+		flag_right := 0.5;
 	else: % staffline_adjustment = anywhere
-		z13 = (+0.33 staff_space, -0.20 staff_space);
-		z14 = (+0.33 staff_space, -1.00 staff_space);
-		z15 = (+0.00 staff_space, -1.70 staff_space);
+		flag_end := 1.7;
+		flag_right := 0.6;
 	fi;
 
-	pat := z13{z13 - z12}
-	       .. {z15 - z14}z14;
+	penpos1 (0.25 staff_space, 90);
+	penpos2 (0.2 staff_space, 0);
+	penpos3 (0.1 staff_space, -35);
+	z1r = (0, 0);
+	z2r = (flag_right * staff_space, -0.4 staff_space);
+	z3l = (0, -1.0 * flag_end * staff_space);
+	fill z1l
+	     .. tension 2.0
+	     .. z2l
+	     .. tension 3.0
+	     .. { dir -125 }z3l{ dir -125 }
+	     .. { dir 55 }z3r{dir 55 }
+	     .. tension 3.0
+	     .. z2r
+	     .. tension 2.0
+	     .. z1r
+	     -- cycle ;
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
+			   (0, -0.25 staff_space));
 
-	fill get_subpath (ellipse, z11 - z12, z12 - z11, z11)
-	     -- get_subpoint (ellipse, z12 - z11, z12)
-	     -- get_subpoint (ellipse, z13 - z12, z12)
-	     -- get_subpoint (ellipse, direction 0 of pat, z13)
-		  {direction 0 of pat}
-	     .. {direction 1 of pat}
-		  get_subpoint (ellipse, direction 1 of pat, z14)
-	     -- get_subpath (ellipse, z15 - z14, z14 - z15, z15)
-	     -- get_subpoint (ellipse, -direction 1 of pat, z14)
-		  {-direction 1 of pat}
-	     .. {-direction 0 of pat}
-		  get_subpoint (ellipse, -direction 0 of pat, z13)
-	     -- get_subpath (ellipse, z12 - z13, z11 - z12, z12)
-	     -- cycle;
-
-	if d_ = dir_up:
-		labels (11, 12, 13, 14, 15);
-	fi;
 enddef;
 
 
@@ -184,7 +167,8 @@ def draw_mensural_flag (expr staffline_adjustment, flares, d_) =
 
 	if d_ = dir_down:
 		currentpicture := currentpicture xscaled -1
-						 yscaled -1;
+						 yscaled -1
+						 shifted (-0.5 stemthickness_rounded, 0);
 	fi;
 enddef;
 

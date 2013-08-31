@@ -51,19 +51,6 @@ Axis_group_interface::get_default_outside_staff_padding ()
   return default_outside_staff_padding_;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, cross_staff, 1);
-SCM
-Axis_group_interface::cross_staff (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "elements", elts);
-  for (vsize i = 0; i < elts.size (); i++)
-    if (to_boolean (elts[i]->get_property ("cross-staff")))
-      return SCM_BOOL_T;
-
-  return SCM_BOOL_F;
-}
-
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
 {
@@ -112,8 +99,7 @@ Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &e
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
-      if (has_interface (se)
-          || !to_boolean (se->get_property ("cross-staff")))
+      if (!to_boolean (se->get_property ("cross-staff")))
         {
           Interval dims = (bound && has_interface (se)
                            ? generic_bound_extent (se, common, a)
@@ -254,8 +240,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
     {
       Grob *g = elts[i];
 
-      if (to_boolean (g->get_property ("cross-staff"))
-          && !has_interface (g))
+      if (to_boolean (g->get_property ("cross-staff")))
         continue;
 
       if (!g->is_live ())
@@ -456,7 +441,9 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   /* trigger the callback to do skyline-spacing on the children */
   if (a == Y_AXIS)
     for (vsize i = 0; i < elts.size (); i++)
-      (void) elts[i]->get_property ("vertical-skylines");
+      if (!(Stem::has_interface (elts[i])
+            && to_boolean (elts[i]->get_property ("cross-staff"))))
+        (void) elts[i]->get_property ("vertical-skylines");
 
   Grob *common = common_refpoint_of_array (elts, me, a);
 
@@ -487,6 +474,13 @@ SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  /* TODO: Filter out elements that belong to a different Axis_group,
+     such as the tie in
+     << \new Staff=A { c'1~ \change Staff=B c'}
+        \new Staff=B { \clef bass R1 R } >>
+    because thier location relative to this Axis_group is not known before
+    page layout.  For now, we need to trap this case in calc_pure_y_common.
+  */
   return internal_calc_pure_relevant_grobs (me, "elements");
 }
 
@@ -529,6 +523,12 @@ Axis_group_interface::calc_pure_y_common (SCM smob)
 
   extract_grob_set (me, "pure-relevant-grobs", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  if (common != me && Align_interface::has_interface (common))
+    {
+      me->programming_error("My pure_y_common is a VerticalAlignment,"
+                            " which might contain several staves.");
+      common = me;
+    }
   if (!common)
     {
       me->programming_error ("No common parent found in calc_pure_y_common.");
@@ -882,7 +882,12 @@ Axis_group_interface::skyline_spacing (Grob *me)
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
 
-  assert (y_common == me);
+  if (y_common != me)
+    {
+      me->programming_error("Some of my vertical-skyline-elements"
+                            " are outside my VerticalAxisGroup.");
+      y_common = me;
+    }
 
   // A rider is a grob that is not outside-staff, but has an outside-staff
   // ancestor.  In that case, the rider gets moved along with its ancestor.
@@ -896,7 +901,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
     {
       Grob *elt = elements[i];
       Grob *ancestor = outside_staff_ancestor (elt);
-      if (!ancestor)
+      if (!(to_boolean (elt->get_property ("cross-staff")) || ancestor))
         add_interior_skylines (elt, x_common, y_common, &inside_staff_skylines);
       if (ancestor)
         riders.insert (pair<Grob *, Grob *> (ancestor, elt));
