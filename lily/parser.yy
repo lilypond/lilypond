@@ -2327,6 +2327,17 @@ scalar:
 	embedded_scm_arg
 	| SCM_IDENTIFIER
 	| bare_number
+	// The following is a rather defensive variant of admitting
+	// negative numbers: the grammar would permit number_factor or
+	// even number_expression.  However, function arguments allow
+	// only this simple kind of negative number, so to have things
+	// like \tweak and \override behave reasonably similar, it
+	// makes sense to rule out things like -- which are rather an
+	// accent in function argument contexts.
+	| '-' bare_number
+	{
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
 	| FRACTION
 	| STRING
 	| full_markup
@@ -2335,7 +2346,15 @@ scalar:
 scalar_closed:
 	embedded_scm_arg_closed
 	| SCM_IDENTIFIER
+	// for scalar_closed to be an actually closed (no lookahead)
+	// expression, we'd need to use bare_number_closed here.  It
+	// turns out that the only use of scalar_closed in TEMPO is
+	// not of the kind requiring the full closedness criterion.
 	| bare_number
+	| '-' bare_number
+	{
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
 	| FRACTION
 	| STRING
 	| full_markup
