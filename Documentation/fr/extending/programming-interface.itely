@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: 29d5e0a64d0eee69e4ebee1e76e4df26ae58190b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -695,19 +695,47 @@ certain nombre d'arguments.
 
 @cindex définition d'une commande markup
 
-La macro @code{markup} construit en Scheme des expressions @emph{markup}
-tout en disposant d'une syntaxe proche de celle de LilyPond.  Par exemple,
+@funindex \displayScheme
+
+Les expressions @emph{markup} sont représentées en Scheme de manière
+interne par la macro @code{markup} :
+
 @example
-(markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
-                  #:larger #:line ("foo" "bar" "baz")))
+(markup @var{expression})
+@end example
+
+La commande @code{\displayScheme} permet d'obtenir la représentation en
+Scheme d'une expression @emph{markup} :
+
+@example
+\displayScheme
+\markup @{
+  \column @{
+    \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+    \larger \line @{ foo bar baz @}
+  @}
+@}
 @end example
 
 @noindent
-est équivalent à
+Compiler ce code renverra en console les lignes suivantes :
+
 @example
-#@{ \markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \larger \line @{ foo bar baz @} @} #@}
+(markup
+  #:line
+  (#:column
+   (#:line
+    (#:bold (#:italic "hello") #:raise 0.4 "world")
+    #:larger
+    (#:line
+     (#:simple "foo" #:simple "bar" #:simple "baz")))))
 @end example
+
+L'impression du @emph{markup} sera suspendue dès lors qu'apparaîtra un
+@w{@samp{\void \displayScheme @var{markup}}}.  Tout comme pour la
+commande @code{\displayMusic}, le résultat de @code{\displayScheme} peut
+être sauvegardé dans un fichier séparé.  Voir à ce sujet
+@ref{Affichage d'expressions musicales}.
 
 @noindent
 Vous pouvez constater les principales règles de traduction entre les
@@ -724,7 +752,8 @@ utiliser la macro @code{markup} en Scheme exclusivement.
         @code{(markup markup1 markup2@dots{} )}
 @item @code{\commande-markup} @tab @code{#:commande-markup}
 @item @code{\variable} @tab @code{variable}
-@item @code{\center-column @{ @dots{} @}} @tab @code{#:center-column (@dots{})}
+@item @code{\center-column @{ @dots{} @}} @tab
+        @code{#:center-column ( @dots{} )}
 @item @code{chaîne} @tab @code{"chaîne"}
 @item @code{#argument-scheme} @tab @code{argument-scheme}
 @end multitable

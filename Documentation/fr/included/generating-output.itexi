@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 72012c900e38247806dcc32c01e162f02c63287b
+    Translation of GIT committish: 29d5e0a64d0eee69e4ebee1e76e4df26ae58190b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,7 +53,7 @@ compilation du fichier que vous venez de sauvegarder.
 @subsubheading Étape 3. Visualisation du résultat
 
 La compilation s'achève par la création d'un fichier PDF portant le même
-nom que le fichier source@tie{}; ce nouveau fichier sera automatiquement
+nom que le fichier source ; ce nouveau fichier sera automatiquement
 ouvert par votre lecteur PDF par défaut et affiché à l'écran.
 
 @sourceimage{Learning_Macos_pdf_output,,,}
@@ -75,7 +75,7 @@ Pensez à toujours enregistrer votre travail avant de lancer l'option
 @w{@code{Compile > Tyepset}} du menu.  Si le PDF n'apparaît pas,
 vérifiez que la fenêtre @qq{log} ne comporte pas d'erreur.
 
-Si vous n'utilisez pas le lecteur de PDF par défaut de Mac@tie{}OS et
+Si vous n'utilisez pas le lecteur de PDF par défaut de Mac OS et
 qu'un fichier résultant d'une précédente compilation est encore ouvert
 dans votre lecteur, la régénération de ce PDF peut bloquer tant que vous
 ne fermez pas le fichier ouvert.
@@ -98,9 +98,10 @@ S'ouvre alors un fichier d'exemple.
 
 @sourceimage{LilyPad,,,}
 
-Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}.  Ne
-prenez pas l'option @w{@code{Fichier > Enregistrer}} pour ce fichier
-exemple@tie{}: LilyPond attend un nom de fichier valide.
+Dans le menu, sélectionnez @w{@code{Fichier > Enregistrer sous}}
+(@emph{Save as@dots{}}).  Ne prenez pas l'option @w{@code{Fichier >
+Enregistrer}} (@emph{Save}) pour ce fichier exemple : LilyPond attend un
+nom de fichier valide.
 
 
 @sourceimage{FileSave,,,}
@@ -110,30 +111,35 @@ Affectez un nom à votre fichier, comme par exemple @file{test.ly}.
 @sourceimage{SaveAs,,,}
 
 
-@subsubheading Étape 2a. Compilation par glisser-déposer
+@subsubheading Étape 2. Compilation
 
-Selon votre préférence, vous pouvez compiler votre fichier
-en le faisant glisser puis en le déposant sur l'icone LilyPond
+La transformation d'un fichier LilyPond en partition s'obtient par
+compilation.  Celle-ci peut se lancer de différentes manières :
+par glisser-déposer, par un clic de droite, par un double clic ou
+encore en ligne de commande (dans une fenêtre d'interpréteur DOS).
+Nous examinerons ici les trois premières options.
+
+1. Faire glisser puis déposer le fichier sur l'icone LilyPond
 
 @sourceimage{DragDrop,,,}
 
-ou en ouvrant le menu contextuel par un clic-droit, puis en prenant
-l'option @w{@code{Ouvrir avec > LilyPond}}.
+
+Bien qu'il ne semble pas se passer grand chose, deux fichiers --
+@file{test.log} et @file{test.pdf} -- devraient apparaître après
+quelques instants sur votre bureau.
+
+2. Ouvrir le menu contextuel par un clic-droit, puis en prendre
+l'option @w{@code{Generate PDF @dots{} }} (@emph{Générer le PDF}).
 
 @sourceimage{GenPDF,,,}
 
-
-@subsubheading Étape 2b. Compilation par double-clic
-
-Vous pouvez aussi faire un double-clic sur le fichier @file{test.ly}.
+3. Faire un double-clic sur le fichier @file{test.ly}.
 
 
 @subsubheading Étape 3. Visualisation du résultat
 
-Au cours de la compilation du fichier @file{test.ly}, une fenêtre
-d'interpréteur de commande s'ouvre et se referme.  Trois fichiers
-complémentaires seront générés pendant ce temps là.  Le fichier PDF
-contient la gravure de votre fichier @file{test.ly}.
+@file{test.pdf} contient la gravure de votre fichier @file{test.ly}.  Un
+double-clic sur son icône devrait l'ouvrir dans votre lecteur PDF :
 
 @sourceimage{PDFRead,,,}
 
@@ -141,24 +147,24 @@ contient la gravure de votre fichier @file{test.ly}.
 @subsubheading Autres commandes
 
 Pour créer un nouveau fichier, sélectionnez @w{@code{Fichier > Nouveau}}
-à parti de n'importe quel fichier déjà existant ou bien
-@w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegardé.
+à partir de n'importe quel fichier déjà existant ou bien
+@w{@code{Fichier > Ouvrir}} pour reprendre un fichier sauvegardé.  La
+modification d'un fichier existant est aussi accessible à partir de
+l'option @w{@code{Edit source}} (@emph{Éditer la source}) du menu
+contextuel.
 
 @sourceimage{EditFile,,,}
 
 Pensez à toujours enregistrer votre travail avant de compiler votre
-fichier.  Si LilyPond ne crée pas de PDF, consultez le fichier de
-journalisation -- généré au fil du processus de compilation -- et
-vérifiez qu'il ne comporte pas d'erreur.
+fichier.  Si LilyPond ne crée pas de PDF ou que le résultat ne
+correspond pas à vos attentes, consultez le fichier de journalisation --
+généré au fil du processus de compilation -- et vérifiez qu'il ne
+comporte pas d'erreur.
 
 @sourceimage{BadLog,,,}
 
 Ce fichier journal est remplacé à chaque compilation de votre fichier
 LilyPond.
-
-Le fichier PS est utilisé en interne par LilyPond pour créer le PDF.  Il
-sera écrasé à chaque fois que vous relancerez la compilation de votre
-fichier. 
 
 Pensez à fermer le fichier dans votre lecteur de PDF à chaque fois que
 vous relancez la compilation, afin d'être sûr que celle-ci arrive à son
@@ -178,7 +184,7 @@ en cas de compilation infructueuse.}
 
 @subsubheading Étape 1. Création d'un fichier @file{.ly}
 
-Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
+Créez un fichier texte du nom de @file{test.ly} et saisissez :
 
 @c double \\ required because this is inside a macro!
 @example
@@ -192,14 +198,14 @@ Créez un fichier texte du nom de @file{test.ly} et saisissez@tie{}:
 @subsubheading Étape 2. Compilation en ligne de commande
 
 Pour traiter le fichier @file{test.ly}, tapez ce qui suit à l'invite de
-commande@tie{}:
+commande :
 
 @example
 lilypond test.ly
 @end example
 
 @noindent
-Vous verrez alors quelque chose qui ressemblera à@tie{}:
+Vous verrez alors quelque chose qui ressemblera à :
 
 @example
 GNU LilyPond @w{@versionStable{}}
