@@ -12,14 +12,8 @@ $(outdir)/%.lo: %.c
 $(outdir)/%.lo: %.c
 	$(DO_LO_DEP) $(CC) -c $(ALL_CFLAGS) $(PIC_FLAGS) -o $@ $<
 
-$(outdir)/%.c: %.y
-	$(BISON) $<
-	mv $(*F).tab.c $@
-
-$(outdir)/%.h: %.y
-	$(BISON) -d $<
-	mv $(*F).tab.h $@
-	rm -f $(*F).tab.c # if this happens in the wrong order it triggers recompile of the .cc file
+$(outdir)/%.c $(outdir)/%.h: %.y
+	$(BISON) -d -o $(outdir)/$*.c $<
 
 $(outdir)/%.c: %.l
 	$(FLEX) -Cfe -p -p -o$@ $<
