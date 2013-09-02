@@ -1716,6 +1716,10 @@
         (padding . 0.2)
         (stencil . ,parentheses-item::print)
         (stencils . ,parentheses-item::calc-parenthesis-stencils)
+        ;; X-extent needs to be non-empty in order to allow proper
+        ;; horizontal attachment.  ParenthesesItem does not reserve
+        ;; space of its own, however.
+        (X-extent . (0 . 0))
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 parentheses-interface))))))
