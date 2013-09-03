@@ -15,7 +15,9 @@
 \version "2.17.6"
 
 \relative c' {
-  c4 -\parenthesize -.
+  c2 -\parenthesize -.
+
+  \parenthesize \breathe
 
   \override ParenthesesItem.padding = #0.1
   <d \parenthesize fis a> 
