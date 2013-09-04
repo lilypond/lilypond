@@ -261,7 +261,7 @@ A @qq{major release} means an update of @code{x} in @code{2.x.0}.
 
 @subheading Main requirements
 
-This is the current official guidelines.
+These are the current official guidelines.
 
 @itemize
 @item
@@ -291,11 +291,11 @@ grep FIXME --exclude "misc/*" --exclude "*GNUmakefile" \
 @end example
 
 @item
-Check for altered regtests, and document as necessary.  (update
-numbers in the following command as appropriate)
+Check for altered regtests, and document as necessary:
 
 @example
-git diff -u -r release/2.12.0-1 -r release/2.13.13-1 input/regression/
+git diff -u -r release/2.@var{FIRST-CURRENT-STABLE} \
+  -r release/2.@var{LAST-CURRENT-DEVELOPMENT} input/regression/
 @end example
 
 @end itemize
@@ -325,26 +325,24 @@ mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
 Make directories on lilypond.org:
 
 @example
-~/web/download/sources/v2.14
-~/web/download/sources/v2.15
+~/download/sources/v2.@var{NEW-STABLE}
+~/download/sources/v2.@var{NEW-DEVELOPMENT}
 @end example
 
 @item
 Shortly after the release, move all current contributors to
-previous contributors in:
+previous contributors in
+@file{Documentation/included/authors.itexi}.
+
+@item
+Delete old material in @file{Documentation/changes.tely}, but
+don't forget to check it still compiles!  Also update the version
+numbers:
 
 @example
-Documentation/included/authors.itexi
+@@node Top
+@@top New features in 2.@var{NEW-STABLE} since 2.@var{OLD-STABLE}
 @end example
-
-Also, delete old material in:
-
-@example
-Documentation/changes.tely
-@end example
-
-but don't forget to check it still compiles!  also update the
-version numbers.
 
 @item
 Website:
@@ -352,28 +350,28 @@ Website:
 @itemize
 @item
 make a link from the old unstable to the next stable in
-lilypond.org's /doc/ dir.  Keep all previous unstable->stable doc
-symlinks.
+lilypond.org's @file{/doc/} dir.  Keep all previous unstable->stable
+doc symlinks.
 
 Also, make the old docs self-contained -- if there's a redirect in
-/doc/v2.12/Documentation/index.html , replace it with the
-index.html.old-2.12 files.
+@file{/doc/v2.@var{OLD-STABLE}/Documentation/index.html} , replace it with the
+@file{index.html.old-2.@var{OLD-STABLE}} files.
 
 The post-2.13 docs will need another way of handling the
 self-containment.  It won't be hard to whip up a python script
-that changes the link to ../../../../manuals.html to
-../website/manuals.html , but it's still a 30-minute task that
+that changes the link to @file{../../../../manuals.html} to
+@file{../website/manuals.html}, but it's still a 30-minute task that
 needs to be done before 2.16.
 
 @item
-doc auto redirects  to v2.LATEST-STABLE
+doc auto redirects to @code{v2.@var{NEW-STABLE}}
 
 @item
-add these two lines to http://www.lilypond.org/robots.txt:
+add these two lines to @file{Documentation/web/server/robots.txt}:
 
 @example
-Disallow: /doc/v2.PREVIOUS-STABLE/
-Disallow: /doc/v2.CURRENT-DEVELOPMENT/
+Disallow: /doc/v2.@var{OLD-STABLE/}
+Disallow: /doc/v2.@var{NEW-DEVELOPMENT/}
 @end example
 
 @end itemize
@@ -385,14 +383,15 @@ Disallow: /doc/v2.CURRENT-DEVELOPMENT/
 @itemize
 @item
 submit po template for translation: send url of tarball to
-coordinator@@translationproject.org, mentioning lilypond-VERSION.pot
+@email{coordinator@@translationproject.org}, mentioning
+lilypond-VERSION.pot
 
 @item
 update links to distros providing lilypond packages?  link in:
 @file{Documentation/web/download.itexi}
 
-This has nothing to do with the release, but it's a "periodic
-maintenance" task that might make sense to include with releases.
+This has nothing to do with the release, but it's a @qq{periodic
+maintenance} task that might make sense to include with releases.
 
 @item
 Send announcements to...
