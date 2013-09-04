@@ -873,6 +873,7 @@ Internals Reference:
 * Placing syllables horizontally::
 * Lyrics and repeats::
 * Divisi lyrics::
+* Polyphony with shared lyrics::
 @end menu
 
 
@@ -1645,6 +1646,108 @@ them since the lyrics will be set to the original voice context
 -- not, typically, what one wants.  The temporary polyphonic
 passage is the proper construct to use, see section
 @emph{Temporary polyphonic passages} in @ref{Single-staff polyphony}.
+
+
+@node Polyphony with shared lyrics
+@unnumberedsubsubsec Polyphony with shared lyrics
+
+@cindex NullVoice
+@cindex polyphony, shared lyrics
+@cindex lyrics, shared among voices
+@cindex \partcombine and lyrics
+@funindex \partcombine
+
+When two voices with different rhythms share the same lyrics,
+aligning the lyrics to one of the voices may lead to problems in
+the other voice.  For example, the second lyric extender below is
+too short, since the lyrics are aligned only to the top voice:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice = "sopranoVoice" { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new Lyrics \lyricsto "sopranoVoice" \words
+>>
+@end lilypond
+
+To get the desired result, align the lyrics to a new
+@code{NullVoice} context containing a suitable combination of the
+two voices.  The notes of the @code{NullVoice} context do not
+appear on the printed page, but can be used to align the lyrics
+appropriately:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+The @code{NullVoice} context must be inside a @code{Staff}
+context, and should only contain notes that are already being
+displayed in that staff, and in the same octave.  Otherwise the
+@code{NullVoice} may interact with the printed voices in
+unexpected ways.  For example, arbitrary notes in the
+@code{NullVoice} may cause accidentals to appear (or disappear) on
+the staff.
+
+This method also can be used with the @code{\partcombine}
+function, which does not allow lyrics on its own:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice \partcombine \soprano \alto
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+@noindent
+The @code{\partcombine} function is described in
+@ref{Automatic part combining}.
+
+Lastly, this method can be used even when the voices are in
+different staves, and is not limited to only two voices:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+altoOne = \relative { g'2 b8( a b4) }
+altoTwo = \relative { d'2 g4( fis8 g) }
+aligner = \relative { b'8( c d c) d( d d d) }
+words = \lyricmode { la __ la __ }
+
+\new ChoirStaff <<
+  \new Staff <<
+    \soprano
+    \new NullVoice = "aligner" \aligner
+  >>
+  \new Lyrics \lyricsto "aligner" \words
+  \new Staff \partcombine \altoOne \altoTwo
+>>
+@end lilypond
+
+However, note that in the second half of the measure above, the
+notes in the @code{NullVoice} context reflect the rhythm of the
+lower staff, but they do not deviate from the single pitch being
+displayed in the staff to which the @code{NullVoice} belongs.
+While not actually required in this particular example, it is a
+good idea in general to enter the notes in this way.
 
 
 @node Stanzas
