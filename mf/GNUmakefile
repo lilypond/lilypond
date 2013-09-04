@@ -7,7 +7,8 @@ STEPMAKE_TEMPLATES = metafont \
 		     install-out
 LOCALSTEPMAKE_TEMPLATES = lilypond
 
-# We don't use $(MF_FILES), because there's more .mf cruft here
+# These are the main .mf files.  We don't use $(MF_FILES) here,
+# because there are more .mf files, input'ed into the main files.
 FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf) \
 		$(call src-wildcard,feta-braces-[a-z].mf) \
 		$(call src-wildcard,feta-alphabet*[0-9].mf) \
@@ -35,15 +36,10 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
-FC_FIND = $(shell $(FCLIST) --verbose 'Century Schoolbook L:style=$(1)' \
-		  | grep 'file:' \
-		  | sed 's/.*"\([^"]*\)".*/\1/g')
-
 NCSB_OTFS = $(addprefix $(outdir)/,CenturySchL-Ital.otf \
 				   CenturySchL-BoldItal.otf \
 				   CenturySchL-Roma.otf \
 				   CenturySchL-Bold.otf)
-NCSB_INSTALL_DIR = $(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
@@ -99,9 +95,10 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
 	$< --dir=$(outdir)
 
 
-# Make tfm files first, log files last,
-# so that normally log files aren't made twice
-ALL_GEN_FILES = $(LOG_FILES) \
+# Generate emmentaler-*.pe scripts first, and *.otf, *.svg, *.woff files last,
+# so that normally these files aren't regenerated on a subsequent call to make.
+ALL_GEN_FILES = $(PE_SCRIPTS) \
+		$(LOG_FILES) \
 		$(ENC_FILES) \
 		$(LISP_FILES) \
 		$(OTF_TABLES) \
