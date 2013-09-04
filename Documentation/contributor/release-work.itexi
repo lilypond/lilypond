@@ -370,8 +370,8 @@ doc auto redirects to @code{v2.@var{NEW-STABLE}}
 add these two lines to @file{Documentation/web/server/robots.txt}:
 
 @example
-Disallow: /doc/v2.@var{OLD-STABLE/}
-Disallow: /doc/v2.@var{NEW-DEVELOPMENT/}
+Disallow: /doc/v2.@var{OLD-STABLE}/
+Disallow: /doc/v2.@var{NEW-DEVELOPMENT}/
 @end example
 
 @end itemize
