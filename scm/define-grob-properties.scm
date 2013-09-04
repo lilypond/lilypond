@@ -676,8 +676,9 @@ outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object
 is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
-this grob and the staff when spacing according to
-@code{outside-staff-priority}.")
+grobs when spacing according to @code{outside-staff-priority}.
+Two grobs with different @code{outside-staff-padding} values have
+the larger value of padding between them.")
      (outside-staff-placement-directive ,symbol? "One of four directives
 telling how outside staff objects should be placed.
 @itemize @bullet
