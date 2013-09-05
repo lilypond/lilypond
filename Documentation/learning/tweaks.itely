@@ -2703,9 +2703,9 @@ space between any object which supports the
 @code{side-position-interface} and the nearest other object (generally
 the note or the staff lines); @code{staff-padding} applies only to
 those objects which are always set outside the staff -- it controls
-the minimum amount of space that should be inserted between that
-object and the staff.  Note that @code{staff-padding} has no effect on
-objects which are positioned relative to the note rather than the
+the minimum distance from the staff to the outside-staff object.
+Note that @code{staff-padding} has no effect on
+objects that are positioned relative to the note rather than the
 staff, even though it may be overridden without error for such objects
 -- it is simply ignored.
 
@@ -2970,9 +2970,9 @@ note head by overriding @code{right-padding}.
 @cindex objects, aligning on a baseline
 
 @code{staff-padding} can be used to align objects such as dynamics
-along a baseline at a fixed height above the staff, rather than at a
-height dependent on the position of the note to which they are
-attached.  It is not a property of @code{DynamicText} but of
+along a baseline at a fixed distance from the staff, when no other
+notation forces them further from the staff.
+It is not a property of @code{DynamicText} but of
 @code{DynamicLineSpanner}.  This is because the baseline should apply
 equally to @strong{all} dynamics, including those created as extended
 spanners.  So this is the way to align the dynamic marks in the
@@ -2984,12 +2984,8 @@ example taken from the previous section:
 @cindex staff-padding property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-% Extend width by 1 unit
-\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-% Align dynamics to a base line 2 units above staff
-\override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf a\mp b\p
+\override DynamicLineSpanner.staff-padding = #3
+a4\f b\mf a\p b\mp
 @end lilypond
 
 
