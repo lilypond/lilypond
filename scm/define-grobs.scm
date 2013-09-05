@@ -846,12 +846,11 @@
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (right-padding . 0.5)
         (self-alignment-X . ,CENTER)
-        (self-alignment-Y . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-        (Y-offset . ,self-alignment-interface::y-aligned-on-self)
+        (Y-offset . ,(scale-by-font-size -0.6)) ; center on an 'm'
         (meta . ((class . Item)
                  (interfaces . (dynamic-interface
                                 dynamic-text-interface

@@ -854,6 +854,11 @@ and duration-log @var{log}."
    the previous calculated offset value."
   prev-offset)
 
+(define-public (scale-by-font-size x)
+  (ly:make-unpure-pure-container
+    (lambda (grob)
+      (* x (magstep (ly:grob-property grob 'font-size 0))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
