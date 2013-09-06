@@ -651,7 +651,7 @@ Beam_scoring_problem::calc_concaveness ()
   if (scm_is_number (conc))
     return scm_to_double (conc);
 
-  if (is_knee_)
+  if (is_knee_ || is_xstaff_)
     return 0.0;
 
   Direction beam_dir = CENTER;
