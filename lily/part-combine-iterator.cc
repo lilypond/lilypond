@@ -407,6 +407,7 @@ Part_combine_iterator::construct_children ()
     "DynamicLineSpanner",
     "Tie",
     "Dots",
+    "MultiMeasureRest",
     "Rest",
     "Slur",
     "TextScript",
@@ -432,11 +433,6 @@ Part_combine_iterator::construct_children ()
                             ly_symbol2scm ("horizontal-shift"), horizontalShiftOne_);
   execute_pushpop_property (two, ly_symbol2scm ("NoteColumn"),
                             ly_symbol2scm ("horizontal-shift"), horizontalShiftTwo_);
-  /* Also handle MultiMeasureRest positions for voice 1/2 */
-  execute_pushpop_property (one, ly_symbol2scm ("MultiMeasureRest"),
-                            ly_symbol2scm ("staff-position"), scm_from_int (4));
-  execute_pushpop_property (two, ly_symbol2scm ("MultiMeasureRest"),
-                            ly_symbol2scm ("staff-position"), scm_from_int (-4));
 
 }
 
