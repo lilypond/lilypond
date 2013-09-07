@@ -125,8 +125,10 @@ The following options can be given:
 
 @table @code
 @item -d,--diff-version-update
-update the @code{\version} to the latest or, if this is greater, do
-nothing.
+increase the @code{\version} string only if the file has actually
+been changed.  Without this option (or when any conversion has
+changed the file), the version header reflects the last considered
+conversion rule.
 
 @item -e,--edit
 Apply the conversions direct to the input file, modifying it
