@@ -1256,7 +1256,7 @@ parent or the parent has no setting."
               (head-up (ly:grob-array-ref heads 1))
               (fraction (ly:grob-property grob 'length-fraction 0.7))
               (max-gap (ly:grob-property grob 'maximum-gap 0.45))
-              ; distance between noteheads:
+              ;; distance between noteheads:
               (distance (- (interval-start (ly:grob-extent head-up common Y))
                           (interval-end (ly:grob-extent head-down common Y))))
               (gap (* 0.5 distance (- 1 fraction))))
