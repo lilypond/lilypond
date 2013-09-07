@@ -114,11 +114,56 @@ further explanation and with links to the IR.
 Contexts are arranged hierarchically:
 
 @menu
+* Output definitions - blueprints for contexts::
 * Score - the master of all contexts::
 * Top-level contexts - staff containers::
 * Intermediate-level contexts - staves::
 * Bottom-level contexts - voices::
 @end menu
+
+@node Output definitions - blueprints for contexts
+@unnumberedsubsubsec Output definitions - blueprints for contexts
+
+This section explains the relevance of output definitions when
+working with contexts.  Examples for actual output definitions are
+given later (see @ref{Changing all contexts of the same type}).
+
+@cindex output definitions
+@funindex \layout
+While music written in a file may refer to context types and
+names, contexts are created only when the music is actually being
+interpreted.  LilyPond interprets music under control of an
+@q{output definition} and may do so for several different output
+definitions, resulting in different output.  The output definition
+relevant for printing music is specified using @code{\layout}.
+
+@funindex \midi
+A much simpler output definition used for producing Midi output is
+specified using @code{\midi}.  Several other output definitions
+are used by LilyPond internally, like when using the part combiner
+(@ref{Automatic part combining}) or creating music quotes
+(@ref{Quoting other voices}).
+
+Output definitions define the relation between contexts as well as
+their respective default settings.  While most changes will
+usually be made inside of a @code{\layout} block, Midi-related
+settings will only have an effect when made within a @code{\midi}
+block.
+
+@funindex autoBeaming
+Some settings affect several outputs: for example, if
+@code{autoBeaming} is turned off in some context, beams count as
+melismata for the purpose of matching music to lyrics as described
+in @ref{Automatic syllable durations}.  This matching is done both
+for printed output as well as for Midi.  If changes made to
+@code{autoBeaming} within a context definition of a @code{\layout}
+block are not repeated in the corresponding @code{\midi} block,
+lyrics and music will get out of sync in Midi.
+
+@seealso
+Installed Files:
+@file{ly/engraver-init.ly}.
+@file{ly/performer-init.ly}.
 
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score - the master of all contexts
@@ -130,8 +175,7 @@ such as clefs, time signatures, and key-signatures are aligned
 across staves.
 
 A Score context is instantiated implicitly when a
-@code{\score @{@dots{}@}} or @code{\layout @{@dots{}@}} block is
-processed.
+@code{\score @{@dots{}@}} block is processed.
 
 @node Top-level contexts - staff containers
 @unnumberedsubsubsec Top-level contexts - staff containers
@@ -804,9 +848,15 @@ default values in just one particular instance of a context.
 @funindex \context
 @funindex \layout
 
-The context settings which are to be used by default in
+The default context settings which are to be used for typesetting in
 @code{Score}, @code{Staff}, @code{Voice} and other contexts may be
-specified in a @code{\context} block within any @code{\layout} block.
+specified in a @code{\context} block within any @code{\layout}
+block.
+
+Settings for Midi output as opposed to typesetting will have to be
+separately specified in @code{\midi} blocks (see @ref{Output
+definitions - blueprints for contexts}).
+
 The @code{\layout} block should be placed within the @code{\score}
 block to which it is to apply, after the music.
 
@@ -959,6 +1009,10 @@ command:
 @}
 @end example
 
+Since such a @q{context modification} is specified inside of
+music, it will affect @emph{all} outputs (typesetting @emph{and}
+Midi) as opposed to changes within an output definition.
+
 The following types of settings may be specified:
 
 @itemize
@@ -1049,7 +1103,8 @@ on the context initiation statement is used,
 
 @item
 otherwise the default value taken from the most recent appropriate
-@code{\context} block in the @code{\layout} blocks is used,
+@code{\context} block in the @code{\layout} or @code{\midi} blocks
+is used,
 
 @item
 otherwise the LilyPond built-in default is used.
@@ -1178,9 +1233,15 @@ The notes look like a slash, and have no stem,
 \override Stem.transparent = ##t
 @end example
 
-All these plug-ins have to cooperate, and this is achieved with a
-special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @code{Engraver_group}.
+All these plug-ins have to communicate under the control of the
+context.  The mechanisms with which contexts communicate are
+established by declaring the context @code{\type}.  Within a
+@code{\layout} block, most contexts will be of type
+@code{Engraver_group}.  Some special contexts and contexts in
+@code{\midi} blocks use other context types.  Copying and
+modifying an existing context definition will also fill in the
+type.  Since this example creates a definition from scratch, it
+needs to be specified explicitly.
 
 @example
 \type "Engraver_group"
@@ -1248,6 +1309,10 @@ Then the output at the start of this subsection can be entered as
   a1
 @}
 @end example
+
+To complete this example, changes affecting the context hierarchy
+should be repeated in a @code{\midi} block so that Midi output
+depends on the same context relations.
 
 @seealso
 
