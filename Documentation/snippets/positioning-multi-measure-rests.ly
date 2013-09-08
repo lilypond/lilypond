@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
-\version "2.17.6"
+%% Note: this file works from version 2.17.18
+\version "2.17.18"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -58,10 +58,10 @@ follows:
   % in all voices to avoid multiple instances being printed
   \compressFullBarRests
   <<
-   \revert MultiMeasureRest.staff-position
+   \revert MultiMeasureRest.direction
     { R1*3 }
     \\
-   \revert MultiMeasureRest.staff-position
+   \revert MultiMeasureRest.direction
     { R1*3 }
   >>
 }
