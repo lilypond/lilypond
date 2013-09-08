@@ -1,10 +1,10 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
   texidocit = "
 L'aspetto di tutte le espressioni contenute nei blocchi @code{\grace} di un
 brano può essere modificato con le funzioni @code{add-grace-property} e
 @code{remove-grace-property}. L'esempio seguente toglie la definizione
 della direzione di @code{Stem} nell'abbellimento, in modo che gli abbellimenti
-non siano sempre rivolti in su, e rende barrate le teste di nota.
+non siano sempre rivolti in su, e barra le teste di nota.
 
 "
   doctitleit = "Modificare l'aspetto degli abbellimenti di un intero brano"

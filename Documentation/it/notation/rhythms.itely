@@ -10,7 +10,7 @@
 @c \version "2.17.25"
 
 @c Translators: Federico Bruni
-@c Translation checkers:
+@c Translation checkers: Luca Rossetto Casel
 
 @node Ritmi
 @section Ritmi
@@ -58,13 +58,13 @@ travature e le battute.
 @funindex \maxima
 @funindex maxima
 
-Le durate, indicate con numeri e punti, vengono inserite con i loro
-valori reciproci.  Ad esempio, una nota di un quarto si indica con un
+Le durate, indicate con numeri e punti, sono indicate con i
+valori corrispondenti.  Per esempio, una nota di un quarto si indica con un
 @code{4} (dato che il suo valore è un 1/4), mentre una minima si indica
 col @code{2} (dato che il suo valore è 1/2).  Per le note più lunghe
 di un intero bisogna usare i comandi @code{\longa} (due volte una
-breve) e @code{\breve}.  Valori minori sono possibili, ma appaiono
-con delle travature.  La nota più breve ha un valore di 128.
+breve) e @code{\breve}. La minor durata esprimibile per una nota indipendente è di 128; è possibile inserire anche valori inferiori, ma solo all'interno
+di travature.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim,relative=2]
@@ -73,7 +73,7 @@ c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c128 c128
 @end lilypond
 
-Ecco le stesse durate con la disposizione automatica delle travature disabilitata.
+Ecco gli stessi valori con la disposizione automatica delle travature disabilitata.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
@@ -91,8 +91,8 @@ informazioni si veda @ref{Ancient notation}.
 @cindex durata predefinita
 @cindex nota, durata predefinita
 
-Se la durata viene omessa, viene impostata sulla durata precedente.  Il valore
-predefinito della prima nota è un quarto.
+Se una durata viene omessa, viene mantenuta quella  precedente.  Il valore
+predefinito della prima nota è di un quarto.
 
 @lilypond[quote,verbatim,relative=2]
 a a a2 a a4 a a1 a
@@ -106,7 +106,7 @@ a a a2 a a4 a a1 a
 @funindex .
 
 Per ottenere note puntate, si inserisce un punto (@code{.}) dopo la
-durata.  Le note doppiamente puntate si specificano aggiungendo due
+durata.  Le figure con doppio punto si indicano aggiungendo due
 punti, e così via.
 
 @lilypond[quote,verbatim,relative=2]
@@ -114,15 +114,15 @@ a4 b c4. b8 a4. b4.. c8.
 @end lilypond
 
 Alcune durate non possono essere rappresentate soltanto con
-durate e punti; occorre utilizzare una legatura di valore tra
+durate e punti; occorre inserire una legatura di valore tra
 due o più note.  I dettagli sono spiegati in @ref{Ties}.
 
 Per sapere come specificare le durate delle sillabe del testo e
 come allineare il testo alle note, si veda @ref{Vocal music}.
 
-Le note possono essere distanziate in modo strettamente proporzionale
-alla loro durata.  I dettagli relativi a questo e a altre impostazioni
-che controllano la notazione proporzionale si trovano in @ref{Proportional notation}.
+Le note possono essere distanziate in modo rigorosamente proporzionale
+alla loro durata.  I dettagli relativi a questo argomento e alle impostazioni
+della notazione proporzionale si trovano in @ref{Proportional notation}.
 
 @funindex \dotsUp
 @funindex dotsUp
@@ -131,9 +131,9 @@ che controllano la notazione proporzionale si trovano in @ref{Proportional notat
 @funindex \dotsNeutral
 @funindex dotsNeutral
 
-Di norma i punti sono spostati in su per evitare le linee del rigo, con l'eccezione
-dei passaggi polifonici.  I punti possono essere posizionati manualmente sopra
-o sotto il rigo; si veda @ref{Direction and placement}.
+Di norma i punti sono spostati in su per evitare le linee del rigo, fuorché all'interno
+di passaggi polifonici.  I punti possono essere orientati manualmente verso l'alto
+o verso il basso; si veda @ref{Direction and placement}.
 
 
 @predefined
@@ -180,7 +180,7 @@ Guida al funzionamento interno:
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-Non c'è un limite massimo o minimo alle durate di una pausa, è
+Non c'è un limite massimo o minimo alla durata di una pausa, ma è
 il numero dei glifi ad essere limitato: si possono indicare pause da un
 centoventottesimo fino alla maxima (otto volte una semibreve).
 
@@ -204,9 +204,9 @@ dell'espressione musicale per una frazione:
 @end example
 
 @noindent
-Il numeratore della frazione apparirà sopra o sotto le note, eventualmente con una parentesi quadra.  Il gruppo irregolare
-più comune è la terzina, in cui 3@tie{}note hanno la durata
-di @tie{}2:
+Il numeratore della frazione apparirà sopra o sotto le note; eventualmente, con
+l'aggiunta opzionale di una parentesi quadra.  Il gruppo irregolare più comune
+è la terzina, in cui 3@tie{}note hanno la durata di @tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 b b }
@@ -245,10 +245,10 @@ o sotto il rigo, come spiegato dettagliatamente in @ref{Direction and placement}
 c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
-La modifica di gruppi irregolari annidati che iniziano nello stesso momento
-musicale richiede l'uso di @code{\tweak}.
+La modifica di gruppi irregolari annidati che iniziano simultaneamente
+richiede l'uso di @code{\tweak}.
 
-Per modificare la durata delle note senza che appaia la parentesi del gruppo
+Per modificare la durata delle note senza introdurre un gruppo
 irregolare, si veda @ref{Scaling durations}.
 
 
@@ -315,15 +315,15 @@ Guida al funzionamento interno:
 @cindex abbellimenti all'interno della parentesi di un gruppo irregolare
 
 @knownissues
-Gli abbellimenti si possono inserire dentro le parentesi del gruppo
-irregolare, @emph{eccetto} quando un rigo inizia con un abbellimento
+Gli abbellimenti possono essere inseriti all'interno delle parentesi dei gruppi
+irregolari, @emph{eccetto} quando un rigo inizia con un abbellimento
 seguito da un gruppo irregolare.  In questo caso particolare, l'abbellimento
 deve essere inserito prima del comando @code{\tuplet} per evitare errori.
 
 @cindex segni di tempo all'interno delle parentesi di un gruppo irregolare
 
-Quando si usa un gruppo irregolare all'inizio di un brano che ha un
-segno di @code{\tempo}, la musica deve essere inserita esplicitamente
+Quando si pone un gruppo irregolare all'inizio di un brano che presenta
+un'indicazione di @code{\tempo}, la musica deve essere inserita esplicitamente
 in un blocco @code{\new Voice}, come è spiegato in @rlearning{Voices contain music}.
 
 
@@ -341,11 +341,11 @@ la durata così alterata verrà utilizzata per calcolare la posizione
 all'interno della misura e per impostare la durata nel file MIDI.
 Si possono combinare molteplici fattori, come @code{*L*M/N}.  I fattori
 fanno parte della durata: quindi se non si specifica una durata per
-le note successive, la durata predefinita presa dalla nota precedente
+le note successive, la durata ripresa dalla nota precedente
 includerà il fattore di scalatura.
 
 Nell'esempio seguente le prime tre note occupano esattamente
-due battiti, ma non sono indicate come gruppo irregolare.
+due tempi, ma non sono indicate come gruppo irregolare.
 
 @lilypond[quote,relative=2,verbatim]
 \time 2/4
@@ -360,7 +360,7 @@ b16*4 c4
 @end lilypond
 
 Anche la durata delle pause spaziatrici può essere modificata
-con un moltiplicatore.  Può essere utile per saltare molte misure, ad
+con un moltiplicatore.  Può essere utile per saltare molte misure; per
 esempio @code{s1*23}.
 
 @cindex comprimere la musica
@@ -369,9 +369,9 @@ esempio @code{s1*23}.
 @funindex \scaleDurations
 @funindex scaleDurations
 
-Si possono comprimere allo stesso modo tratti musicali più lunghi, come
-se ogni nota, accordo o pausa avesse la frazione come moltiplicatore.
-Così l'aspetto della musica non cambia ma la durata interna delle note
+Frammenti musicali più lunghi possono essere compressi secondo la stessa proporzione, come
+moltiplicando ogni nota, accordo o pausa per una medesima frazione.
+In questo modo, l'aspetto della musica non cambia ma la durata interna delle note
 viene moltiplicata per la frazione @emph{num}/@emph{den}.  Ecco un esempio
 che mostra come la musica possa essere compressa e espansa:
 
@@ -419,14 +419,14 @@ indicare un errore.
 
 @funindex ~
 
-Una legatura di valore connette due teste di nota adiacenti della stessa
-altezza.  La legatura di valore estende la durata di una nota.
+Una legatura di valore connette le teste di due note della stessa altezza successive.
+Dunque, la legatura di valore prolunga la durata di una nota.
 
 @warning{Le legature di valore non devono essere confuse con le
-@emph{legature di portamento}, che indicano un'articolazione, o
-con le @emph{legature di frase}, che indicano una frase
-musicale.  Una legatura di valore serve semplicemente a estendere
-la durata di una nota, in modo analogo al punto di aumentazione.}
+@emph{legature di portamento}, che articolano un passaggio, o
+con le @emph{legature di frase}, che delimitano una frase
+musicale.  Una legatura di valore serve semplicemente a prolungare
+la durata di una nota, in modo analogo al punto di valore.}
 
 La legatura di valore si inserisce aggiungendo il simbolo tilde (@code{~})
 alla prima di ogni coppia di note legate.  Esso indica che la nota deve
@@ -436,10 +436,10 @@ essere legata alla nota successiva, che deve essere della stessa altezza.
 a2~ a4~ a16 r r8
 @end lilypond
 
-Le legature di valore si usano quando una nota attraversa una
-stanghetta o quando non si possono usare i punti per indicare
-la durata.  Le legature si dovrebbero usare anche quando i
-valori della nota superano le suddivisioni della misura:
+Le legature di valore si usano per unire due note a cavallo di una
+stanghetta di battuta, oppure quando non si possono usare i punti per esprimere
+una particolare durata.  Le legature si dovrebbero usare anche per
+unire note dalle durate superiori all'unità di suddivisione della misura:
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -448,18 +448,18 @@ valori della nota superano le suddivisioni della misura:
 }
 @end lilypond
 
-Se si devono creare legature di valore tra molte note che attraversano
-le misure, è più semplice usare la suddivisione automatica delle note,
-come è spiegato in @ref{Automatic note splitting}.  Questo sistema divide
-automaticamente le note lunghe e le connette da misura a misura.
+Per legare una successione di note la cui durata si prolunga per più
+misure intere, è più semplice ricorrere alla suddivisione automatica
+delle note, come è spiegato in @ref{Automatic note splitting}.  Questo metodo
+divide automaticamente le note lunghe e le connette da misura a misura.
 
 @cindex legature di valore e accordi
 @cindex accordi e legature di valore
 
-Quando si applica una legatura di valore a un accordo, vengono legate
-tutte le teste di nota con la stessa altezza.  Se le teste non corrispondono,
-non verrà creata alcuna legatura.  Gli accordi possono essere parzialmente
-legati inserendo le legature dentro l'accordo.
+Quando si applica una legatura di valore a degli accordi, vengono legate
+tutte le teste delle note della stessa altezza.  In assenza di altezze corrispondenti,
+non verrà creata alcuna legatura.  Singoli suoni degli accordi possono essere
+legati inserendo la legatura all'interno dell'accordo stesso.
 
 @lilypond[quote,verbatim,relative=1]
 <c e g>~ <c e g c>
@@ -474,15 +474,15 @@ legati inserendo le legature dentro l'accordo.
 @funindex \repeatTie
 @funindex repeatTie
 
-Quando la seconda alternativa di una ripetizione inizia con una nota
-legata, occorre specificarla nel modo seguente:
+Quando la battuta della "seconda volta" di un ritornello inizia con una nota
+legata a quella precedente, occorre indicare la legatura nel modo seguente:
 
 @lilypond[quote,relative=2,verbatim]
 \repeat volta 2 { c g <c e>2~ }
 \alternative {
-  % Prima alternativa: la nota seguente viene legata in modo normale
+  % Prima volta: la nota seguente viene legata in modo normale
   { <c e>2. r4 }
-  % Seconda alternativa: la nota seguente ha una legatura ripetuta
+  % Seconda volta: la nota seguente ha una legatura ripetuta
   { <c e>2\repeatTie d4 c } }
 @end lilypond
 
@@ -492,8 +492,8 @@ legata, occorre specificarla nel modo seguente:
 @funindex \laissezVibrer
 @funindex laissezVibrer
 
-Le legature di valore @notation{L.v.}@: (@notation{laissez vibrer}) indicano che
-le note non devono essere smorzate alla fine.  Si usa nella notazione per
+Le legature @notation{L.v.}@: (@notation{laissez vibrer}) indicano che
+le note non devono essere terminate nettamente.  Si usa nella notazione per
 pianoforte, arpa e altri strumenti a corda e a percussione.  Si inseriscono
 così:
 
@@ -514,7 +514,7 @@ Le legature di valore possono essere impostate manualmente  per avere la
 curva in su o in giù, come è spiegato in @ref{Direction and placement}.
 
 @cindex legature di valore, aspetto
-@cindex legature di valore puntate
+@cindex legature di valore punteggiate
 @cindex legature di valore tratteggiate
 
 @funindex \tieDotted
@@ -524,8 +524,8 @@ curva in su o in giù, come è spiegato in @ref{Direction and placement}.
 @funindex \tieSolid
 @funindex tieSolid
 
-Le legature di valore possono essere tratteggiate, punteggiate oppure in una
-combinazione di tratti continui e tratti interrotti.
+Le legature di valore possono essere tratteggiate, punteggiate, oppure tracciate secondo una
+successione di tratti continui e tratti interrotti.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
@@ -610,7 +610,7 @@ Guida al funzionamento interno:
 @rinternals{Tie}.
 
 @knownissues
-Cambiare righi mentre una legatura di valore è attiva non produce una legatura
+Cambiare rigo mentre una legatura di valore è attiva non produce una legatura
 obliqua.
 
 Il cambio di chiave o di ottava durante una legatura di valore non è una
@@ -650,7 +650,7 @@ Le pause si inseriscono insieme alla musica contenuta nelle espressioni musicali
 @funindex \breve
 @funindex breve
 
-Le pause si inseriscono allo stesso modo delle note ma col nome @code{r}.
+Le pause si inseriscono allo stesso modo delle note, ma con il carattere @code{r}.
 Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
 
 @c \time 16/1 is used to avoid spurious bar lines
@@ -673,18 +673,18 @@ Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
 @cindex pausa multipla
 @cindex pausa d'intero
 
-Le pause d'intero, centrate sulla misura, devono essere inserite
-come pausa multipla.  Si possono usare per una sola misura così
-come su molte misure, come è spiegato in @ref{Full measure rests}.
+Le pause d'intero, poste al centro della misura, devono essere inserite
+come pause multiple.  Si possono usare sia per una sola misura sia
+su più misure, come è spiegato in @ref{Full measure rests}.
 
 @cindex pausa, specificare la posizione verticale
 
-Per specificare esplicitamente la posizione verticale di una pausa, si scrive
-il nome di una nota seguito da @code{\rest}.  Una pausa della durata della
-nota verrà posizionata sul punto del rigo in cui apparirebbe la nota.  Questo
+Per indicare esplicitamente la posizione verticale di una pausa, si scrive
+la nota corrispondente seguita da @code{\rest}.  Una pausa della durata della
+nota verrà collocata nella posizione della nota sul rigo.  Questo
 permette una precisa formattazione mauale della musica polifonica, dato che
-il formattatore automatico che gestisce le collisioni tra pause non sposterà
-queste pause.
+il formattatore automatico che gestisce le collisioni tra pause non interviene su
+questo tipo di pause.
 
 @lilypond[quote,verbatim,relative=2]
 a4\rest d4\rest
@@ -712,7 +712,7 @@ Guida al funzionamento interno:
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
-Non c'è un limite massimo o minimo alle durate di una pausa, è
+Non c'è un limite massimo o minimo alla durata di una pausa, ma è
 il numero dei glifi ad essere limitato: si possono indicare pause da un
 centoventottesimo fino alla maxima (otto volte una semibreve).
 
@@ -740,11 +740,11 @@ s2 c
 
 @cindex testo, \skip
 
-Le pause spaziatrici possono essere utilizzate soltanto nella modalità note e
+Le pause spaziatrici possono essere usate soltanto nella modalità note e
 nella modalità accordi.  In altre situazioni, ad esempio quando si inserisce
-il testo vocale, si usa il comando @code{\skip} per saltare un momento musicale.
+il testo vocale, si usa il comando @code{\skip} per saltare un valore musicale.
 @code{\skip} richiede una durata esplicita, ma questo requisito viene ignorato
-se il testo deriva le propriet durate dalle note presenti in una melodia ad esso
+se il testo desume le proprie durate dalle note presenti in una melodia ad esso
 associata attraverso @code{\addlyrics} o @code{\lyricsto}.
 
 @lilypond[quote,verbatim,relative=2]
@@ -783,7 +783,7 @@ se non esistono già, proprio come accade per le note e le pause:
 s1 s s
 @end lilypond
 
-@code{\skip} si limita a saltare un momento musicale, non crea nessun tipo di
+@code{\skip} si limita a saltare un valore musicale, non crea nessun tipo di
 output.
 
 @lilypond[quote,verbatim,relative=2]
@@ -816,11 +816,11 @@ Guida al funzionamento interno:
 
 @funindex R
 
-Le pause per una o più misure intere si inseriscono come le note col
-nome di nota maiuscolo @code{R}:
+Le pause per una o più misure d'intero si inseriscono, come le note, col
+carattere maiuscolo @code{R}:
 
 @lilypond[quote,verbatim,relative=2]
-% Le misure di ciascuna pausa vengono contratte in una sola misura
+% L'insieme delle misure di pausa vengono riportate in una sola misura
 \compressFullBarRests
 R1*4
 R1*24
@@ -844,8 +844,8 @@ R1*13/8 | R1*13/8*12 |
 R4*5*4 |
 @end lilypond
 
-Una pausa d'intero appare al centro della misura come una pausa di semibreve
-o una pausa di breve, a seconda del segno di tempo.
+Una pausa d'intero appare al centro della misura con la durata di una semibreve
+o di una breve, in base all'indicazione di tempo.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -864,21 +864,21 @@ R1*2 |
 @funindex \compressFullBarRests
 @funindex compressFullBarRests
 
-Di norma una pausa multipla viene espansa nel pentagramma in modo da
-mostrare esplicitamente tutte le misure in cui quella pausa appare.
-Altrimenti è possibile mostrare una pausa multipla come una singola
-misura che contiene un simbolo di pausa multipla, col numero di misure
-in cui la pausa si ripete indicato sopra la misura:
+Di norma una pausa multipla viene scorporata sul pentagramma in modo da
+mostrare esplicitamente tutte le misure per cui si prolunga.
+Altrimenti, è possibile indicarla collocando in una sola
+misura un simbolo di pausa multipla, col numero di misure
+per cui la pausa si prolunga posto al di sopra della misura stessa:
 
 @lilypond[quote,verbatim,relative=2]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
 \time 4/4
-% Le misure di ciascuna pausa multipla vengono contratte in una singola misura
+% Tutte le misure di pausa sono riportate in una singola misura
 \compressFullBarRests
 r1 | R1*17 | R1*4 |
-% Le misure della pausa multipla vengono espanse
+% Le misure della pausa multipla sono scorporate
 \expandFullBarRests
 \time 3/4
 R2.*2 |
@@ -985,7 +985,7 @@ Guida al funzionamento interno:
 @cindex pause multiple e diteggiature
 
 @knownissues
-Se una diteggiatura viene attaccata a una pausa multipla (ad esempio
+Se una diteggiatura viene posta su una pausa multipla (ad esempio
 @code{R1*10-4}), il numero della diteggiatura può collidere col numero
 del contatore delle battute.
 
@@ -997,7 +997,7 @@ in una singola pausa multipla.
 
 @cindex pausa, collisioni di
 
-Le pause multiple non prendono parte alle collisioni di pausa.
+Le pause multiple non considerano le collisioni di pausa.
 
 
 @node Aspetto dei ritmi
@@ -1036,7 +1036,7 @@ L'indicazione di tempo si imposta così:
 
 Le indicazioni di tempo appaiono all'inizio di un brano e ogni volta
 che l'indicazione cambia.  Se il cambio ha luogo alla fine di un rigo,
-appare un'indicazione di tempo di avvertimento.  Si può modificare questo
+appare un'indicazione di tempo di precauzione.  Si può modificare questo
 comportamento predefinito, come è spiegato in @ref{Visibility of objects}.
 
 @lilypond[quote,verbatim,relative=2]
@@ -1105,7 +1105,7 @@ Si può sovrascrivere il valore predefinito di @code{beatStructure} nel comando
 }
 @end lilypond
 
-Oppure si possono impostare tutti i valori predefiniti di queste variabili legate
+Oppure si possono impostare tutti i valori predefiniti di queste variabili relative
 all'indicazione di tempo, incluse @code{baseMoment} e @code{beamExceptions}.
 I valori possono essere impostati in modo indipendente per diverse indicazioni
 di tempo.  I nuovi valori hanno effetto appena viene eseguito un nuovo
@@ -1250,7 +1250,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
 
 Un ulteriore metodo per modificare queste variabili relative all'indicazione di
 tempo, che evita di mostrare di nuovo l'indicazione di tempo al momento del
-cambio, è mostrato in @ref{Setting automatic beam behavior}.
+cambio, è descritto in @ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1319,7 +1319,7 @@ c4 e d c
 b4. a16 b c4 r4
 @end lilypond
 
-Un'indicazione metronomica, se combinata con del testo, viene messa
+Un'indicazione metronomica, se combinata con del testo, viene posta
 automaticamente tra parentesi:
 
 @lilypond[verbatim,quote,relative=2]
@@ -1335,8 +1335,8 @@ In generale, il testo può essere qualsiasi oggetto di tipo testuale:
 a8-. r8 b-. r gis-. r a-. r
 @end lilypond
 
-Si può scrivere un'indicazione metronomica tra parentesi e senza testo
-se si include una stringa vuota nell'input:
+È possibile scrivere un'indicazione metronomica tra parentesi e senza testo
+includendo una stringa vuota nell'input:
 
 @lilypond[verbatim,quote,relative=2]
 \tempo "" 8 = 96
@@ -1453,7 +1453,7 @@ e8 | a4 c8 b c4 |
 @end lilypond
 
 La proprietà @code{measurePosition} contiene un numero razionale, solitamente
-positivo, che indica quanto della misura è già passato in quel momento.
+positivo, che indica la durata corrispondente alla parte di misura trascorsa.
 Il comando @code{\partial @var{durata}} lo imposta su un numero negativo
 quando ha un senso diverso: in quel caso significa che la battuta corrente
 (la prima) sarà @emph{preceduta} da una battuta 0 (la battuta parziale)
@@ -1473,8 +1473,8 @@ Guida al funzionamento interno:
 @rinternals{Timing_translator}.
 
 @knownissues
-Il comando @code{\partial} deve essere usato solo all'inizio di un
-brano.  Se si usa dopo l'inizio, il programma potrebbe emettere degli
+Il comando @code{\partial} deve essere collocato solo all'inizio di un
+brano.  Se è posto dopo l'inizio, il programma potrebbe produrre degli
 avvisi o si potrebbero verificare problemi, dunque si consiglia di
 usare @code{\set Timing.measurePosition} al suo posto.
 
@@ -1515,11 +1515,11 @@ r8 e,8 | a4 c8 b[ c b] |
 @funindex \cadenzaOff
 @funindex cadenzaOff
 
-Nella musica in tempo determinato le stanghette vengono inserite e i numeri di
-battuta sono calcolati automaticamente. Nella musica in tempo libero (ad esempio,
-la cadenza), questo comportamento non è desiderabile e può essere
-@q{disabilitato} col comando @code{\cadenzaOn} e poi @q{riabilitato} al
-momento giusto con @code{\cadenzaOff}.
+Nella musica in un tempo determinato l'inserimento delle stanghette e dei numeri di
+battuta è calcolato automaticamente. Nella musica in tempo libero (per esempio,
+la cadenza), un simile comportamento non è desiderabile, e può essere
+@q{disabilitato} col comando @code{\cadenzaOn} e poi @q{riabilitato}
+quando necessario con @code{\cadenzaOff}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
@@ -1530,7 +1530,7 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-La numerazione delle battute ricomincia alla fine della cadenza.
+La numerazione delle battute riprende dopo la cadenza.
 
 @lilypond[verbatim,relative=2,quote]
 % Mostra tutti i numeri di battuta
@@ -1548,7 +1548,7 @@ una nuova misura, anche se appare una stanghetta nell'output.  Quindi qualsiasi
 alterazione, che di solito si considera sempre attiva fino alla fine della
 misura, sarà ancora valida dopo la stanghetta stampata da @code{\bar}.  Se si
 desidera che le alterazioni successive appaiano, si dovranno inserire
-manualmente delle alterazioni forzate o di sicurezza, come è spiegato
+manualmente delle alterazioni forzate o di precauzione, come è spiegato
 in @ref{Accidentals}.
 
 @lilypond[verbatim,relative=2,quote]
@@ -1610,8 +1610,8 @@ Frammenti di codice:
 @cindex interruzioni di pagina, musica in tempo libero
 
 @knownissues
-Le interruzioni automatiche di linea e di pagina sono possibili solo dopo
-una stanghetta, quindi per consentire delle interruzioni nei lunghi passaggi
+Le interruzioni automatiche di linea e di pagina possono aver luogo solo dopo
+una stanghetta di battuta; quindi, per consentire delle interruzioni nei lunghi passaggi
 di musica in tempo libero è necessario inserire manualmente delle stanghette
 @q{invisibili}:
 
@@ -1667,7 +1667,7 @@ ogni rigo in modo che rientrino nella comune indicazione di tempo.
 @cindex travature, con tempi polimetrici
 @cindex tempi polimetrici, con travature
 
-Nell'esempio seguente viene messa in parallelo della musica con indicazioni di
+L'esempio seguente presenta simultaneamente musica con indicazioni di
 tempo di 3/4, 9/8 e 10/8.  Nel secondo rigo le durate appaiono come
 moltiplicate per 2/3 (perché 2/3 * 9/8 = 3/4), mentre nel terzo rigo le durate
 appaiono come moltiplicate per 3/5 (perché 3/5 * 10/8 = 3/4).  È possibile
@@ -1699,7 +1699,7 @@ durate influenzerà le regole della disposizione automatica delle travature.
 >>
 @end lilypond
 
-@subsubsubheading Diverse indicazioni di tempo con misure di lunghezza non uguale
+@subsubsubheading Diverse indicazioni di tempo con misure di lunghezza differenti
 
 Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
 @code{Timing_translator} e @code{Default_bar_line_engraver} nel contesto
@@ -1766,8 +1766,8 @@ indicano i numeri superiori del segno di tempo.
 }
 @end lilypond
 
-Si possono costruire tempi più complessi tramite ulteriori liste.  Le impostazioni
-della disposizione automatica delle travature varieranno a seconda di questi
+Si possono costruire tempi più complessi tramite ulteriori liste.  Le modalità
+di disposizione automatica delle travature varieranno a seconda di questi
 valori.
 
 @lilypond[quote,verbatim]
@@ -1804,8 +1804,8 @@ Guida al funzionamento interno:
 @rinternals{Staff}.
 
 @knownissues
-Quando si usano indicazioni di tempo diverse in parallelo, le note che
-si trovano nello stesso momento saranno poste nella stessa posizione
+Quando si usano simultaneamente indicazioni di tempo diverse, le note che
+procedono parallelamente saranno poste nella stessa posizione
 sull'asse orizzontale.  Tuttavia le stanghette dei vari righi faranno
 sì che la spaziatura delle note sia meno regolare in ciascun rigo di
 quanto accadrebbe normalmente senza le diverse indicazioni di tempo.
@@ -1824,13 +1824,13 @@ quanto accadrebbe normalmente senza le diverse indicazioni di tempo.
 @funindex Completion_heads_engraver
 @funindex Completion_rest_engraver
 
-Le note lunghe che oltrepassano le stanghette possono essere convertite
-automaticamente in note con legature di valore sostituendo l'incisore @code{Note_heads_engraver}
-con @code{Completion_heads_engraver}.  Analogalmente, le pause lunghe
-che oltrepassano le stanghette possono essere divise automaticamente
+Le note le cui durate eccedono il valore della battuta possono essere convertite
+automaticamente in note con legature di valore a cavallo delle stanghette sostituendo l'incisore @code{Note_heads_engraver}
+con @code{Completion_heads_engraver}.  Analogalmente, le pause le cui durate
+eccedono il valore della battuta possono essere divise automaticamente
 sostituendo @code{Rest_engraver} con @code{Completion_rest_engraver}.  Nell'esempio
-seguente, le note e le pause che attraversano le stanghette vengono divise e
-le note sono anche connesse con legature di valore.
+seguente, le note e le pause che eccedono la durata di battuta vengono divise e
+le note sono anche connesse con legature di valore a cavallo della stanghetta.
 
 @lilypond[quote,verbatim,relative=1]
 \new Voice \with {
@@ -1843,10 +1843,10 @@ le note sono anche connesse con legature di valore.
 { c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
 @end lilypond
 
-Questi incisori dividono tutte le note e le pause nel punto in cui si trova
-la stanghetta e inseriscono le legature di valore.  Uno dei suoi usi possibili
+Questi incisori dividono tutte le note e le pause in corrispondenza
+della stanghetta e inseriscono le legature di valore.  Uno dei suoi usi possibili
 è la verifica di partiture complesse: se le misure non sono riempite interamente,
-le legature di valore mostrano esattamente di quanto è spostata ogni misura.
+le legature di valore mostrano esattamente di quanto è ecceduta ogni misura.
 
 @seealso
 Glossario musicale:
@@ -1883,7 +1883,7 @@ divide le pause.
 @cindex ritmi, mostrare la melodia
 
 È possibile mostrare soltanto il ritmo di una melodia usando il rigo
-ritmico.  Tutte le altezze delle note su tale rigo sono schiacciate e
+ritmico.  Tutte le altezze delle note su tale rigo sono appiattite e
 il rigo stesso ha una sola linea
 
 @lilypond[quote,relative=1,verbatim]
@@ -1967,9 +1967,9 @@ Guida al funzionamento interno:
 
 @menu
 * Travature automatiche::
-* Impostare il comportamento della travatura automatica::
+* Impostare il comportamento delle travature automatiche::
 * Travature manuali::
-* Travature convergenti/divergenti::
+* Travature a raggiera::
 @end menu
 
 @node Travature automatiche
@@ -1991,7 +1991,7 @@ Le travature sono inserite automaticamente:
 \time 6/8 c8 c c c8. c16 c8
 @end lilypond
 
-Se queste decisioni automatiche non sono soddisfacenti, si può definire
+Se queste impostazioni automatiche non sono soddisfacenti, si può definire
 esplicitamente la disposizione delle travature, come è spiegato in
 @ref{Manual beams}.  Le travature @emph{devono} essere inserite
 manualmente se devono estendersi oltre le pause.
@@ -2010,10 +2010,10 @@ c16 c8
 @cindex melismi, con travature
 @cindex travature, con melismi
 
-@warning{Se si usano le travature per indicare i melismi nelle canzoni, occorre
+@warning{Se si usano le travature per indicare i melismi nelle parti vocali, occorre
 disabilitare la disposizione automatica delle travature con @code{\@bs{}autoBeamOff}
 e le travature devono essere indicate manualmente.  L'uso di @code{@bs{}partcombine}
-insieme a @code{@bs{}autoBeamOff} può produrre risultati inattesi.  Si vedano i
+insieme a @code{@bs{}autoBeamOff} può produrre risultati imprevisti.  Si vedano i
 frammenti di codice per avere maggiori informazioni.}
 
 Si possono creare dei modelli di disposizione delle travature diversi da
@@ -2027,6 +2027,7 @@ quelli automatici predefiniti, come è spiegato in @ref{Setting automatic beam b
 @cindex travature, interruzioni di linea
 @cindex interruzioni di linea, travature
 @cindex travature angolari
+@cindex travature con angolazione
 @funindex breakable
 
 @snippets
@@ -2069,8 +2070,8 @@ fatta prima che la travatura sia stata completata non avrà effetto finché
 non inizia la @emph{successiva}, nuova travatura.
 
 
-@node Impostare il comportamento della travatura automatica
-@unnumberedsubsubsec Impostare il comportamento della travatura automatica
+@node Impostare il comportamento delle travature automatiche
+@unnumberedsubsubsec Impostare il comportamento delle travature automatiche
 @translationof Setting automatic beam behavior
 
 @cindex travature, con testo
@@ -2090,11 +2091,11 @@ Quando la disposizione automatica delle travature è abilitata, la disposizione
 delle travature è determinata da tre proprietà di contesto:
 @code{baseMoment}, @code{beatStructure} e @code{beamExceptions}.
 I valori predefiniti di queste variabili possono essere sovrascritti, come
-vedremo tra breve, oppure si possono cambiare i valori predefiniti stessi,
+vedremo tra breve, oppure si possono anche cambiare i valori predefiniti stessi,
 come è spiegato in @ref{Time signature}.
 
 Se è definita una regola @code{beamExceptions} per l'indicazione di
-tempo corrente, è quella regola soltanto a determinare la
+tempo corrente, tale regola soltanto determina la
 disposizione delle travature; i valori di @code{baseMoment} e
 @code{beatStructure} vengono ignorati.  Se non è definita
 alcuna regola @code{beamExceptions} per l'indicazione di tempo
@@ -2115,13 +2116,13 @@ disabilitano con questo comando
 Quando @code{beamExceptions} è impostato su @code{#'()}, o per
 impostazione esplicita o perché non sono state definite internamente
 le @code{beamExceptions} per l'indicazione di tempo corrente, le
-estremità delle travature si trovano sui battiti come specificato
+estremità delle travature si trovano sulle suddivisioni come specificato
 dalle proprietà di contesto @code{baseMoment} e
 @code{beatStructure}.  @code{beatStructure} è una lista @emph{scheme}
-che definisce la lunghezza di ogni battito nella misura in unità
+che definisce la lunghezza di ogni suddivisione in rapporto alla misura in unità
 di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
 è uno fratto il denominatore dell'indicazione di tempo e ogni unità
-di @code{baseMoment} corrisponde a un singolo battito.
+di @code{baseMoment} corrisponde a una singola suddivisione.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
@@ -2175,7 +2176,7 @@ contiene.
 }
 @end lilypond
 
-Quando si usano varie voci, occorre specificare il contesto @code{Staff} se
+Quando si usano più voci, occorre specificare il contesto @code{Staff} se
 si vuole applicare la disposizione delle travature a tutte le voci del
 rigo:
 
@@ -2217,7 +2218,7 @@ trovano in @file{scm/time-signature-settings.scm}.
 @subsubsubheading Disposizione delle travature con @code{beamExceptions}
 
 Le regole speciali di disposizione automatica delle travature (diverse da quelle
-che determinano dove terminare una travatura su un battito) sono definite
+che determinano la corrispondenza della travatura alla suddivisione) sono definite
 nella proprietà @code{beamExceptions}.
 
 @lilypond[quote,relative=2,verbatim]
@@ -2226,7 +2227,7 @@ nella proprietà @code{beamExceptions}.
 \set Timing.beamExceptions =
   #'(                         ;inizio della lista di associazioni (alist)
      (end .                   ;estremità delle travature
-      (                       ;inizio della lista che indica le estremità
+      (                       ;inizio della lista che indica gli estremi
        ((1 . 32) . (2 2 2))   ;regola per le travature da 1/32 -- termina ognuna a 1/16
       )))                     %chiude tutti gli elementi
 c16 c c |
@@ -2303,7 +2304,7 @@ se @code{beamExceptions} non viene annullato.
 @end lilypond
 
 Analogalmente, le note di un ottavo in un tempo 3/4 sono raggruppate in
-un'unica travatura.  Per raggrupparle sul battito, azzera @code{beamExceptions}.
+un'unica travatura.  Per raggrupparle secondo le suddivisioni, azzera @code{beamExceptions}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
@@ -2314,10 +2315,10 @@ un'unica travatura.  Per raggrupparle sul battito, azzera @code{beamExceptions}.
 \repeat unfold 6 {a8}
 @end lilypond
 
-Nelle partiture del periodo Romantico fino a quello Classico, le travature
-spesso iniziano a metà della misura in un tempo 3/4; ma la pratica moderna
-preferisce evitare la falsa impressione di un tempo 6/8 (vedi Gould, p. 153).
-Si presentano situazioni simili nel tempo 3/8.  Questo comportamento è
+Spesso, nelle partiture di età classica e romantica, le travature
+iniziano a metà della misura in un tempo 3/4; ma la pratica moderna
+preferisce evitare l'impressione ingannevole di un tempo 6/8 (vedi Gould, p. 153).
+Situazioni simili si incontrano anche per il tempo 3/8.  Questo comportamento è
 controllato dalla proprietà di contesto @code{beamHalfMeasure}, che ha effetto
 soltanto sulle indicazioni di tempo che hanno 3 come numeratore:
 
@@ -2354,8 +2355,8 @@ in cui le travature possono terminare, altrimenti
 
 @item
 usa i valori di @code{baseMoment} e @code{beatStructure} per
-determinare le estremità dei battiti nella misura e terminare
-le travature alla fine dei battiti.
+determinare l'estensione delle suddivisioni della misura e terminare
+le travature alla fine delle suddivisioni.
 
 @end itemize
 
@@ -2372,15 +2373,15 @@ Le regole predefinite per le travature si trovano in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {subdividing-beams.ly}
 
-@cindex lineette della travatura, direzione
-@cindex travatura, direzione delle lineette della
+@cindex tratti di suddivisione della travatura, direzione
+@cindex travatura, direzione dei tratt idi suddivisione della
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
 
 @cindex misura, raggruppamenti
-@cindex battiti, raggruppamenti
-@cindex misura, sottoragruppamenti
+@cindex suddivisioni, raggruppamenti
+@cindex misura, sottoraggruppamenti
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {conducting-signs,-measure-grouping-signs.ly}
@@ -2408,8 +2409,8 @@ Guida al funzionamento interno:
 @rinternals{beam-interface}.
 
 @knownissues
-Se una partitura finisce quando una travatura automatica non è stata terminata e
-si sta ancora aspettando delle note, quest'ultima travatura non apparirà.
+Se una partitura finisce prima del termine di una travatura automatica, cui
+mancano ancora delle note, quest'ultima travatura non apparirà.
 Lo stesso vale per le voci polifoniche, inserite con
 @code{<< @dots{} \\ @dots{} >>}.  Una voce polifonica non apparirà se termina
 quando una travatura automatica è ancora in attesa di note.
@@ -2474,9 +2475,9 @@ descritte in @ref{Time signature}.
 In alcuni casi potrebbe essere necessario scavalcare l'algoritmo di
 disposizione automatica delle travature.  Ad esempio, questo algoritmo
 non inserirà delle travature tra le pause o tra le stanghette; e nelle
-partiture corali la disposizione delle travature segue spesso il tempo
-del testo piuttosto che quello delle note.  Tali travature possono essere
-specificate manualmente contrassegnando i punti iniziali e finali con
+partiture corali la disposizione delle travature è spesso determinato dall'articolazione
+del testo piuttosto che da quella musicale.  Tali travature possono essere
+specificate manualmente indicandone l'inizio e la fine con
 @code{[} e @code{]}.
 
 @lilypond[quote,relative=1,verbatim]
@@ -2504,7 +2505,7 @@ che vengano inserite in una travatura:
 c8 c\noBeam c c
 @end lilypond
 
-Le travature degli abbellimenti e quelle delle note normali possono verificarsi
+Le travature degli abbellimenti e quelle delle note normali possono coesistere
 simultaneamente.  Gli abbellimenti privi di travatura non vengono inseriti
 nella travatura delle note normali.
 
@@ -2519,13 +2520,13 @@ e8 e]
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-Si può avere un controllo manuale delle travature ancora più preciso attraverso
-le proprietà @code{stemLeftBeamCount} e @code{stemRightBeamCount}, che specificano
+Si può ottenere un controllo manuale delle travature ancora più preciso agendo sulle
+proprietà @code{stemLeftBeamCount} e @code{stemRightBeamCount}, che specificano
 il numero di travature da creare a sinistra e a destra della nota successiva.
 Se una di queste proprietà viene impostata, il suo valore verrà usato una volta
-sola e poi viene cancellato.  In questo esempio, l'ultima nota @code{f} ha una
-sola travatura a sinistra, ovvero la travatura di una nota di un ottavo
-dell'intero gruppo.
+sola, e la proprietà sarà poi cancellata.  In questo esempio, l'ultima nota @code{f} ha una
+sola travatura a sinistra: la travatura corrispondente alla sottodivisione di un ottavo
+all'interno dell'intero raggruppamento.
 
 @lilypond[quote,relative=2,verbatim]
 a8[ r16 f g a]
@@ -2564,27 +2565,27 @@ Guida al funzionamento interno:
 @rinternals{Stem_engraver}.
 
 
-@node Travature convergenti/divergenti
-@unnumberedsubsubsec Travature convergenti/divergenti
+@node Travature a raggiera
+@unnumberedsubsubsec Travature a raggiera
 @translationof Feathered beams
 
-@cindex convergenti/divergenti, travature
+@cindex travature a raggiera
 @cindex travature convergenti o divergenti
 
 @funindex \featherDurations
 @funindex featherDurations
 @funindex grow-direction
 
-Le travature convergenti o divergenti servono a indicare che un
-piccolo gruppo di note deve essere suonato a un tempo crescente
-(o decrescente), senza cambiare il tempo complessivo del brano.  L'estensione
-della travatura convergente o divergente deve essere indicato a mano
-con @code{[} e @code{]}; questo tipo di travatura si attiva specificando
+Le travature a raggiera servono a indicare che un gruppo di note determinato
+deve essere eseguito a un tempo progressivamente accelerato (o rallentato), senza
+cambiare l'andamento complessivo del brano.  L'estensione della
+travatura a raggiera deve essere indicato a mano con @code{[} e
+@code{]}, e la convergenza o divergenza delle travature si determina specificando la
 la direzione della proprietà @code{Beam} di @code{grow-direction}.
 
-Se la disposizione delle note e il suono del file MIDI devono riflettere
-il @emph{ritardando} o l'@emph{accelerando} indicati dalla travatura
-convergente/divergente, le note devono essere raggruppate in un'espressione
+Perché il @emph{ritardando} o l'@emph{accelerando} indicati dalla
+travatura a raggiera trovino riscontro nella disposizione delle note e
+nell'esecuzione del file MIDI, le note devono essere raggruppate in un'espressione
 musicale delimitata da parentesi graffe e preceduta dal comando
 @code{featherDurations}, che specifica il rapporto tra le durate
 delle prime e delle ultime note del gruppo.
@@ -2592,13 +2593,13 @@ delle prime e delle ultime note del gruppo.
 Le parentesi quadre indicano l'estensione della travatura, mentre quelle
 graffe indicano quali note devono avere una durata modificata.  Di norma
 queste parentesi delimitano lo stesso gruppo di note, ma questo non è
-un requisito: i due comandi sono indipendenti.
+tassativo: i due comandi sono indipendenti.
 
 Nell'esempio seguente le otto note da un sedicesimo occupano esattamente
 lo stesso tempo di una nota di due quarti, ma la prima nota dura la metà
 dell'ultima e le note intermedie si allungano gradualmente.  Le prime
-quattro note da un trentaduesimo diventano gradualmente più veloci, mentre
-le ultime quattro hanno un tempo costante.
+quattro note da un trentaduesimo sono progressivamente più veloci, mentre
+le ultime quattro presentano lo stesso tempo.
 
 @lilypond[relative=1,verbatim,quote]
 \override Beam.grow-direction = #LEFT
@@ -2649,23 +2650,23 @@ musica molto brevi e quando i numeri della frazione sono piccoli.
 @cindex misura, stanghette
 @cindex stanghette di chiusura
 @cindex stanghette doppie
-@cindex battute delle ripetizioni
+@cindex battute dei ritornelli
 
 @funindex \bar
 @funindex bar
 
 Le stanghette delimitano le misure e sono usate anche per indicare
-le ripetizioni.  Di norma le stanghette semplici sono inserite
+i ritornelli.  Di norma, le stanghette semplici sono inserite
 automaticamente in base all'indicazione di tempo.
 
 Si possono inserire altri tipi di stanghette col comando @code{\bar}.  Ad
-esempio, di solito si usa una stanghetta doppia alla fine di un brano:
+esempio, di solito si usa una stanghetta finale al termine di un brano:
 
 @lilypond[quote,relative=1,verbatim]
 e4 d c2 \bar "|."
 @end lilypond
 
-Se la nota finale in una misura non termina entro la stanghetta
+Se l'ultima nota di una misura non termina entro la stanghetta
 inserita automaticamente, non viene segnalato un errore: si presuppone
 che la nota continui nella misura successiva.  Ma se ci sono tante
 misure simili in sequenza, la musica potrebbe apparire compressa
@@ -2673,7 +2674,7 @@ oppure scorrere fuori dalla pagina.  Questo accade perché le interruzioni
 di linea automatiche si verificano solo al termine di misure complete,
 ovvero quando tutte le note terminano prima dell'inizio di una misura.
 
-@warning{Una durata sbagliata può impedire un'interruzione di linea,
+@warning{Una durata errata può impedire un'interruzione di linea,
 causando una linea di musica altamente compressa oppure a musica che
 prosegue fuori dalla pagina.}
 
@@ -2689,9 +2690,9 @@ di linea senza che appaia una stanghetta si usa:
 @end example
 
 @noindent
-Questo comando inserirà una stanghetta invisibile e permetterà (senza
-forzarla) un'interruzione di linea in questo punto.  Il contatore dei
-numeri di battuta non aumenta.  Per forzare un'interruzione di linea
+Questo comando inserirà una stanghetta invisibile e consentirà (senza però
+forzarla) un'interruzione di linea in questo punto.  Il conteggio dei
+numeri di battuta non incrementa.  Per forzare un'interruzione di linea
 si veda @ref{Line breaking}.
 
 @cindex stanghette manuali
@@ -2700,7 +2701,7 @@ si veda @ref{Line breaking}.
 
 Si possono inserire questa e altre stanghette speciali in qualsiasi
 punto.  Quando coincidono con la fine di una misura, sostituiscono
-la stanghetta semplice che sarebbe stata inserita lì automaticamente.
+la stanghetta semplice che sarebbe stata posta automaticamente.
 Quando non coincidono con la fine di una misura, la stanghetta
 specificata viene inserita in quel punto.
 
@@ -2755,11 +2756,11 @@ Inoltre, una stanghetta può apparire come un semplice segno di spunta:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "'" g1
 @end lilypond
-Tuttavia,dato che questi segni di spunta sono tipicamente usati nel canto
-gregoriano, è preferibile usare @code{\divisioMinima}, come è descritto
+Tuttavia,dato che questi segni di spunta sono tipicamente usati nella notazione
+gregoriana, è preferibile usare @code{\divisioMinima}, come è descritto
 nella sezione @ref{Divisiones} della parte dedicata al canto gregoriano.
 
-Lilypond supporta la notazione russa e fornisce una stanghetta speciale per
+Lilypond supporta la notazione gregoriana russa e fornisce una stanghetta speciale per
 questo tipo di notazione:
 @lilypond[quote,relative=1,verbatim]
 f1 \bar "k"
@@ -2788,10 +2789,9 @@ c4 c c c \break
 c1
 @end lilypond
 
-@cindex ripetizioni
+@cindex ritornelli
 
-Sebbene le stanghette che indicano le ripetizioni possano essere
-inserite a mano, non fanno sì che LilyPond riconosca la musica
+Sebbene LilyPond preveda l'inserimento manuale delle stanghette che indicano i ritornelli, ciò non consente il riconoscimento della musica
 come una sezione da ripetere.  Tali sezioni devono essere inserite
 con i vari comandi di ripetizione (vedi @ref{Repeats}), che creano
 automaticamente le stanghette appropriate.
@@ -2809,8 +2809,7 @@ c4 c c c \break
 c4 c c c
 @end lilypond
 
-Per combinare le ripetizioni con i segni di tipo segno, ci sono sei diverse
-varianti:
+Esistono sei diverse combinazioni di ripetizioni e indicazioni di segno:
 
 @lilypond[quote,relative=2,verbatim]
 c4 c c c
@@ -2840,8 +2839,8 @@ c4 c c c \break
 c1
 @end lilypond
 
-Inoltre esiste un comando @code{\inStaffSegno} che crea una battuta
-di tipo segno, posta in cooperazione col comando@code{\repeat volta}.
+Esiste inoltre un comando @code{\inStaffSegno} che crea una stanghetta
+con segno, combinabile col comando@code{\repeat volta}.
 
 @funindex \defineBarLine
 @funindex defineBarLine
@@ -2885,13 +2884,12 @@ Attualmente sono disponibile dieci tipi di stanghetta:
 }
 @end lilypond
 
-La stanghetta @code{"="} crea la stanghetta doppia, usata insieme
-al segno.  Non deve essere usata per creare una sottile stanghetta doppia
-che sta per conto suo; in questo caso è preferibile usare @code{\bar} @var{"||"}.
+La stanghetta @code{"="} crea una stanghetta doppia da combinare con il
+il segno.  Non va usata per creare una stanghetta doppia indipendente; in questo caso è preferibile usare @code{\bar} @var{"||"}.
 
 Il segno @code{"-"} introduce le annotazioni alle stanghette che
-servono a distinguere quelle che hanno aspetto identico ma un
-diverso comportamento in occasione delle interruzioni di linea e/o
+servono a distinguere quelle che hanno aspetto identico ma
+un diverso comportamento in corrispondenza delle interruzioni di linea e/o
 un diverso modo di connettere le stanghette tra i righi.
 La parte che segue il segno @code{"-"} non viene usato per costruire
 la stanghetta.
@@ -2913,7 +2911,7 @@ la stanghetta.
 >>
 @end lilypond
 
-Lo spazio @code{" "} fa da segnaposto e fa sì che le stanghette tra i
+Inoltre, lo spazio @code{" "} fa da spaziatore e fa sì che le stanghette tra i
 righi siano allineate correttamente alle stanghette principali:
 
 @lilypond[quote,relative=2,verbatim]
@@ -3002,7 +3000,7 @@ Guida al funzionamento interno:
 
 @funindex currentBarNumber
 
-I numeri di battuta appaiono all'inizio di ogni linea eccetto la prima.
+I numeri di battuta appaiono all'inizio di ogni linea tranne la prima.
 Il numero viene salvato nella proprietà @code{currentBarNumber}, che
 viene aggiornata automaticamente per ogni misura.  Può anche essere
 impostata a mano:
@@ -3014,22 +3012,22 @@ c1 c c c
 c1 c c c
 @end lilypond
 
-@cindex numeri di battuta, spaziatura regolare
+@cindex numeri di battuta, disposizione a distanza regolare
 
 @funindex barNumberVisibility
 @funindex BarNumber
 
 I numeri di battuta possono essere mostrati a intervalli regolari
-invece che solo all'inizio di ogni linea.  Per farlo occorre
+anziché solo all'inizio di ogni linea.  Per farlo occorre
 sovrascrivere il comportamento predefinito e permettere ai
 numeri di battuta di apparire anche in punti diversi dall'inizio
 della linea.  Questo comportamento è regolato dalla proprietà
-@code{break-visibility} di @code{BarNumber}, che prende tre
-valori impostabili su @code{#t} o @code{#f} che indicano se
+@code{break-visibility} di @code{BarNumber}, che considera tre
+valori impostabili su @code{#t} o @code{#f}, i quali indicano se
 il numero di battuta corrispondente debba essere visibile
 o no.  L'ordine dei tre valori è @code{end of line visible}, @code{middle of
 line visible}, @code{beginning of line visible}.  Nell'esempio seguente
-i numeri di battuta appaiono in tutti i punti possibili:
+i numeri di battuta compaiono in tutti i punti possibili:
 
 @lilypond[verbatim,quote,relative=1]
 \override Score.BarNumber.break-visibility = ##(#t #t #t)
@@ -3080,7 +3078,7 @@ Guida al funzionamento interno:
 @cindex collisione, numeri di battuta
 
 @knownissues
-I numeri di battuta possono collidere con la cima della parentesi quadra di
+I numeri di battuta possono collidere con la parte superiore della parentesi quadra di
 @code{StaffGroup}, se presente.  Per evitare la collisione, si può usare la
 proprietà @code{padding} di @code{BarNumber} per posizionare correttamente
 il numero.  Si veda @rinternals{StaffGroup} e @rinternals{BarNumber} per
@@ -3100,9 +3098,9 @@ maggiori informazioni.
 @funindex barCheckSynchronize
 @funindex |
 
-I controlli di battuta aiutano a rilevare gli errori nelle durate.  Il controllo
+I controlli di battuta aiutano a rilevare gli errori di durata.  Il controllo
 di battuta si inserisce col simbolo della barra verticale, @code{|}, in un qualsiasi
-punto in cui si prevede che cada la stanghetta.  Se vengono trovati controlli
+punto in cui è previsto l'inserimento di una stanghetta.  Se vengono trovati controlli
 di battuta in punti diversi, viene creata una lista di avvisi nel file di log
 che mostra i numeri di linea e le linee in cui il controllo è fallito.  Nell'esempio
 seguente il secondo controllo di battuta segnalerà un errore.
@@ -3111,7 +3109,7 @@ seguente il secondo controllo di battuta segnalerà un errore.
 \time 3/4 c2 e4 | g2 |
 @end example
 
-I controlli di battuta possono essere usati anche nel testo vocale:
+I controlli di battuta possono essere usati anche all'interno del testo vocale:
 
 @example
 \lyricmode @{
@@ -3121,9 +3119,9 @@ I controlli di battuta possono essere usati anche nel testo vocale:
 @end example
 
 Una durata non corretta può generare uno spartito completamente
-alterato, specialmente se il brano è polifonico.  Quindi il
+alterato, specialmente nel caso di brani polifonici.  Quindi il
 primo passo da compiere per correggere l'input è la verifica
-dei controlli di battuta e delle durate sbagliate.
+dei controlli di battuta e delle durate errate.
 
 Se i controlli di battuta successivi sono spostati dello stesso
 intervallo musicale, viene mostrato solo il primo messaggio di
@@ -3135,7 +3133,7 @@ di tempo.
 
 È anche possibile ridefinire l'azione da prendere quando si incontra
 un controllo di battuta o simbolo di barra verticale, @code{|}, nell'input,
-in modo che faccuia qualcosa di diverso dal controllo di battuta.  Si può
+in modo che avvenga qualcosa di diverso dal controllo di battuta.  Si può
 fare assegnando un'espressione musicale a @code{"|"}.
 Nell'esempio seguente @code{|}, invece di controllare la fine di una
 battuta, viene usato per inserire una stanghetta doppia ovunque appaia
@@ -3154,9 +3152,9 @@ nell'input.
 @funindex \barNumberCheck
 @funindex barNumberCheck
 
-Quando si copiano brani ampi, può essere d'aiuto verificare che i
-numeri di battuta di LilyPond corrispondano all'originale da cui
-si sta inserendo il brano.  Si può abilitare con @code{\barNumberCheck}, ad
+Quando si copiano brani di una certa ampiezza, può essere d'aiuto verificare che i
+numeri di battuta di LilyPond corrispondano all'originale a partire dal quale
+si sta scrivendo il brano.  Si può abilitare con @code{\barNumberCheck}, ad
 esempio,
 
 @verbatim
@@ -3236,7 +3234,7 @@ c1 \mark \default
 @cindex segno di chiamata personalizzato
 
 Lo stile viene definito dalla proprietà @code{markFormatter}.  È una
-funzione che prende come argomenti il segno corrente (un numero intero) e
+funzione che accoglie come argomenti il segno corrente (un numero intero) e
 il contesto corrente.  Dovrebbe restituire un oggetto testuale.  Nell'esempio
 seguente, @code{markFormatter} viene prima impostato su una procedura
 predefinita e dopo alcune misure su una procedura che produce un
@@ -3356,8 +3354,8 @@ Guida al funzionamento interno:
 @funindex \acciaccatura
 @funindex \appoggiatura
 
-Gli abbellimenti sono degli ornamenti musicali che hanno un tipo di carattere
-più piccolo e non occupano alcuno spazio temporale in una misura.
+Gli abbellimenti sono degli ornamenti musicali che hanno un carattere in corpo
+più piccolo e non alterano la durata della misura.
 
 @lilypond[quote,relative=2,verbatim]
 c4 \grace b16 a4(
@@ -3365,12 +3363,12 @@ c4 \grace b16 a4(
 @end lilypond
 
 Esistono altri tre tipi di abbellimenti possibili; l'@emph{acciaccatura} -- un
-abbellimento a tempo libero indicato da una nota con legatura di portamento
-e un gambo barrato -- e l'@emph{appoggiatura}, che prende una frazione fissa
-della nota principale a cui è attaccata e ha un gambo non barrato.  È anche
-possibile creare un abbellimento con gambo barrato, come l'acciaccatura ma
-senza la legatura di portamento, in modo da posizionarla tra note che sono
-già legate tra loro: si usa il comando @code{\slashedGrace}.
+abbellimento in tempo libero indicato da una nota con legatura di portamento
+e un gambo barrato -- e l'@emph{appoggiatura}, che sottrae un valore determinato
+della nota principale a cui corrisponde e ha un gambo non barrato.  È anche
+possibile creare un abbellimento con gambo barrato, come l'acciaccatura, ma
+privo di legatura di portamento, in modo da collocarla tra note
+già poste sotto una legatura: si usa il comando @code{\slashedGrace}.
 
 @lilypond[quote,relative=2,verbatim]
 \acciaccatura d8 c4
@@ -3381,7 +3379,7 @@ già legate tra loro: si usa il comando @code{\slashedGrace}.
 \slashedGrace b8 a2)
 @end lilypond
 
-Il posizionamento degli abbellimenti è sincronizzato tra righi diversi.
+Il posizionamento degli abbellimenti è sincronizzato sui diversi righi.
 Nell'esempio seguente, ci sono due abbellimenti da un sedicesimo ogni
 abbellimento da un ottavo
 
@@ -3397,18 +3395,18 @@ abbellimento da un ottavo
 @funindex \afterGrace
 @funindex afterGrace
 
-Se si desidera terminare una nota con un abbellimento, si usa il
-comando @code{\afterGrace}.  Prende due argomenti: la nota principale e
+Se si desidera risolvere una nota su un abbellimento, si usa il
+comando @code{\afterGrace}.  Considera due argomenti: la nota principale e
 gli abbellimenti che la seguono.
 
 @lilypond[quote,verbatim,relative=2]
 c1 \afterGrace d1 { c16[ d] } c1
 @end lilypond
 
-In questo modo gli abbellimenti vengono posizionati dopo uno spazio che dura
+In questo modo, gli abbellimenti sono collocati dopo uno spazio corrispondente a
 3/4 della durata della nota principale.  La frazione predefinita 3/4 può essere
 modificata attraverso @code{afterGraceFraction}.  L'esempio seguente mostra
-le diverse spaziature che si ottengono con la frazione predefinita,  con 15/16
+le diverse spaziature che si ottengono con la frazione predefinita, con 15/16
 e infine con 1/2 della nota principale.
 
 @lilypond[quote,verbatim,relative=2]
@@ -3446,7 +3444,7 @@ note after a space lasting 7/8 of the main note.
 @cindex abbellimenti, modifica delle impostazioni di formattazione
 
 L'espressione musicale introdotta dal comando @code{\grace} avrà delle
-impostazioni tipografiche speciali, ad esempio per rimpicciolire il
+impostazioni tipografiche speciali; per esempio, per rimpicciolire il
 tipo di carattere e impostare le direzioni.  Dunque le modifiche che
 sovrascrivono tali impostazioni speciali devono essere poste all'interno
 del blocco @code{\grace}.  Lo stesso vale per le modifiche che ripristinano
@@ -3509,16 +3507,16 @@ Guida al funzionamento interno:
 @cindex acciaccatura su più note
 @cindex sincronizzazione degli abbellimenti
 
-Una @i{acciaccatura} con molte note legate da travatura è priva della barratura
-e ha lo stesso identico aspetto di una @i{appoggiatura} composta da varie note
-legate da travatura.
+Una @i{acciaccatura} con molte note raggruppate sotto una travatura è priva della barra trasversale
+e ha il medesimo aspetto di una @i{appoggiatura} composta da varie note
+raggruppate sotto una travatura.
 
 @c TODO Add link to LSR snippet to add slash when available
 
 La sincronizzazione degli abbellimenti può nascondere delle sorprese, perché
 vengono sincronizzati anche altri elementi della notazione del rigo, come le
 armature di chiave, le stanghette, etc.  Fai attenzione quando metti insieme
-righi che hanno degli abbellimenti con righi che non ne hanno.  Ad esmepio
+righi che hanno degli abbellimenti con righi che non ne hanno.  Ad esempio
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -3573,7 +3571,7 @@ se non si rispetta questa limitazione.
 Ogni abbellimento generato nell'output MIDI ha una durata di 1/4 della sua
 vera durata.  Se la durata complessiva degli abbellimenti è maggiore della
 durata della nota che li precede, verrà generato l'errore
-@qq{@code{Going back in MIDI time}}.  O si diminuisce la durata degli
+@qq{@code{Going back in MIDI time}}.  A meno che non si diminuisca la durata degli
 abbellimenti, ad esempio:
 
 @example
@@ -3604,14 +3602,14 @@ Vedi @ref{Scaling durations}.
 @cindex allineamento sulla cadenza
 
 Nell'ambito di una partitura per orchestra, le cadenze presentano un
-problema speciale: quando si scrive una partitura che include una
-cadenza o un altro passaggio solista, tutti gli altri strumenti
+problema peculiare: quando si scrive una partitura che include una
+cadenza o un altro passaggio solistico, tutti gli altri strumenti
 devono saltare esattamente la durata complessiva delle note del
 passaggio, altrimenti inizieranno troppo presto o troppo tardi.
 
 Una possibile soluzione a questo problema consiste nell'uso delle funzioni
 @code{mmrest-of-length} e @code{skip-of-length}.  Queste funzioni Scheme
-prendono come argomento un pezzo di musica salvato in una variabile e generano
+prendono come argomento una sezione di musica salvata in una variabile e generano
 una pausa multipla o @code{\skip} della lunghezza esatta del brano.
 
 @lilypond[verbatim,quote]
@@ -3679,7 +3677,7 @@ determina quando debbano essere inserite le stanghette e come
 debbano essere generate le travature automatiche.
 
 @item measurePosition
-Il punto della misura in cui ci troviamo.  Questa quantità viene
+Il punto della misura in cui ci si trova.  Questa quantità viene
 reimpostata sottraendo @code{measureLength} ogni volta che
 @code{measureLength} viene raggiunto o superato.  Quando questo
 accade, @code{currentBarNumber} viene incrementato.

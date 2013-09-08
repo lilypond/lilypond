@@ -1,9 +1,9 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
   texidocit = "
-Si possono impostare le lineette della travatura in modo che siano rivolte
-verso il battito cui appartengono.  La prima travatura fa sì che non spuntino
-le code (comportamento predefinito); la seconda travatura segue esattamente
-il battito.
+Si possono impostare i tratti di suddivisione della travatura in modo che siano rivolti
+verso la relativa pulsazione.  La prima travatura fa sì che non spuntino
+i tratti di suddivisione (comportamento predefinito); la seconda travatura è orientata verso
+la pulsazione.
 
 "
   doctitleit = "Travatura che segue strettamente il battito"

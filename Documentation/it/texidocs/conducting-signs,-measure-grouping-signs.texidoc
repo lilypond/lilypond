@@ -1,11 +1,11 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
   texidocit = "
-Il raggruppamento dei battiti all'interno della misura è regolato dalla
+Il raggruppamento delle pulsazioni all'interno della misura è regolato dalla
 proprietà di contesto @code{beatStructure}.  I valori di @code{beatStructure} per
 varie indicazioni di tempo vengono stabiliti in @file{scm/time-signature-settings.scm}.  Questi
 valori possono essere impostati o modificati con @code{\\set}.  Altrimenti, si
 può usare @code{\\time} per impostare sia l'indicazione di tempo che la struttura
-dei battiti.  Per farlo si specifica il raggruppamento interno dei battiti in
+delle pulsazioni.  Per farlo si specifica il raggruppamento interno delle pulsazioni in
 una misura in una lista di numeri (nella sintassi di Scheme) prima dell'indicazione
 di tempo.
 

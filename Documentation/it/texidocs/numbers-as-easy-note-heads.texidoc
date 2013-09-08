@@ -1,11 +1,11 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
   texidocit = "
 Le teste di nota con nome della nota usano la proprietà @code{note-names}
 dell'oggetto @code{NoteHead} per determinare cosa appaia
 all'interno della testa.  È possibile sovrascrivere questa proprietà
-e mostrare numeri che corrispondano ai gradi della scala.
+e mostrare numeri corrispondenti ai gradi della scala.
 
-Si può creare un semplice incisore che faccia questo per oggni
+Si può creare un semplice incisore che faccia questo per ogni
 oggetto testa di nota che incontra.
 "
   doctitleit = "Numeri dentro le teste di nota"

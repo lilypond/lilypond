@@ -1,8 +1,8 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
   texidocit = "
 Questo esempio mostra come realizzare una trascrizione moderna di musica
-gregoriana. La musica gregoriana non presenta suddivisione in misure né gambi;
-utilizza soltanto le teste della minima e della semiminima, e dei segni
+gregoriana. La musica gregoriana non presenta la suddivisione in misure né gambi;
+impiega soltanto le teste della minima e della semiminima, e dei segni
 appositi che indicano pause di diversa lunghezza.
 
 "
