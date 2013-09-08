@@ -736,10 +736,11 @@ BOM_UTF8	\357\273\277
 			{
 				LexerError (_ ("Unfinished main input").c_str ());
 				do {
-					pop_state ();
+					yy_pop_state ();
 				} while (YYSTATE != maininput);
 			}
-			pop_state ();
+			extra_tokens_ = SCM_EOL;
+			yy_pop_state ();
 		}
 		if (!close_input () || !is_main_input_)
  	        /* Returns YY_NULL */
@@ -890,7 +891,9 @@ Lily_lexer::pop_state ()
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
 
-	yy_pop_state ();
+	// don't cross the maininput threshold
+	if (YYSTATE != maininput)
+		yy_pop_state ();
 
 	if (extra) {
 		hidden_state_ = YYSTATE;
