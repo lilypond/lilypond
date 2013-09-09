@@ -580,7 +580,7 @@ come into use to simplify the performance instructions.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-discant-symbols.ly}
+{accordion-registers.ly}
 
 @seealso
 Snippets:
