@@ -62,6 +62,34 @@ which scares away people.
 @end ignore
 
 @item
+There is now extensive support for both discant and bass accordion
+register symbols in the @samp{scm accreg} module, see
+@ruser{Accordion Registers}.
+@lilypond[verbatim,quote]
+#(use-modules (scm accreg))
+\new PianoStaff
+<<
+  \new Staff \relative
+  { \clef "treble"  \discant "10"
+    r8 s32 f'[ bes f] s e[ a e] s d[ g d] s16 e32[ a]
+    \discant "121"
+    << { r16 <f bes> r <e a> r <d g> } \\
+       { d r a r bes r } >> |
+    <cis e a>1
+  }
+  \new Staff \relative
+  { \clef "treble"  \freeBass "1"
+    r8 d'32 s16. c32 s16. bes32 s16. a32[ cis] s16
+    \clef "bass"  \stdBass "Master"
+    << { r16 <f, bes d>^"b" r <e a c>^"am" r <d g bes>^"gm" |
+         <e a cis>1^"a" } \\
+       { d8_"D" c_"C" bes_"B" | a1_"A" }
+    >>
+  }
+>>
+@end lilypond
+
+@item
 Decimal numbers can now be written directly in music,
 without a hash sign.  Together with the previous change
 in the way object properties are specified, the code to
