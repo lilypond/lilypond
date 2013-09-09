@@ -1167,6 +1167,14 @@ AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
 AC_DEFUN(STEPMAKE_TEXMF, [
     STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
     STEPMAKE_PROGS(METAPOST, mpost, $1)
+    if test "$METAPOST" != ""; then
+	ver=`STEPMAKE_GET_VERSION($METAPOST)`
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	# Avoid buggy metapost versions: 1.600 <= x < 1.803
+	if test "$num" -ge "1600000" -a "$num" -lt "1803000"; then
+            STEPMAKE_ADD_ENTRY($1, ["mpost (due to a bug in metapost, versions 1.600 <= x < 1.803 are not supported; installed: $ver)"])
+	fi
+    fi
 
     AC_MSG_CHECKING(for working metafont mode)
     modelist='ljfour lj4 lj3 lj2 ljet laserjet'
