@@ -177,14 +177,18 @@ Beam_engraver::typeset_beam ()
 {
   if (finished_beam_)
     {
-      if (!finished_beam_->get_bound (RIGHT))
-        finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
-      if (forced_direction_)
+      Grob *stem = finished_beam_->get_bound (RIGHT);
+      if (!stem)
         {
-          Grob *stem = finished_beam_->get_bound (RIGHT);
-          set_grob_direction (stem, forced_direction_);
-          forced_direction_ = CENTER;
+          stem = finished_beam_->get_bound (LEFT);
+          if (stem)
+            finished_beam_->set_bound (RIGHT, stem);
         }
+
+      if (stem && forced_direction_)
+        set_grob_direction (stem, forced_direction_);
+
+      forced_direction_ = CENTER;
       finished_beam_info_->beamify (finished_beaming_options_);
 
       Beam::set_beaming (finished_beam_, finished_beam_info_);
@@ -258,6 +262,14 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   Moment now = now_mom ();
   if (!valid_start_point ())
+    return;
+
+  // It's suboptimal that we don't support callbacks returning ##f,
+  // but this makes beams have no effect on "stems" reliably in
+  // TabStaff when \tabFullNotation is switched off: the real stencil
+  // callback for beams is called quite late in the process, and we
+  // don't want to trigger it early.
+  if (scm_is_false (beam_->get_property_data ("stencil")))
     return;
 
   Item *stem = dynamic_cast<Item *> (info.grob ());
