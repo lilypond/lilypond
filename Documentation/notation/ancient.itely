@@ -728,22 +728,19 @@ Use the @code{flag-style} property of grob @code{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported.
 
-@lilypond[quote,fragment,ragged-right,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Flag.style = #'mensural
 \override Stem.thickness = #1.0
 \override NoteHead.style = #'mensural
 \autoBeamOff
-c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
-c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+c8 d e f c16 d e f c32 d e f s8
+c'8 d e f c16 d e f c32 d e f
 @end lilypond
 
-Note that the innermost flare of each mensural flag always is
+Note that the innermost flare of each mensural flag is
 vertically aligned with a staff line.
 
 There is no particular flag style for neo-mensural or Petrucci notation.
-@c Hence,
-@c when typesetting the incipit of a transcribed piece of mensural
-@c music, the default flag style should be used.
 There are no flags in Gregorian chant notation.
 
 @seealso
@@ -752,11 +749,8 @@ Music Glossary:
 @rglos{flag}.
 
 @knownissues
-The attachment of ancient flags to stems is slightly off.
-@c due to a change in early 2.3.x.
-
 Vertically aligning each flag with a staff line assumes that stems
-always end either exactly on or exactly in the middle between two
+always end either exactly on or exactly in the middle of two
 staff lines.  This may not always be true when using advanced layout
 features of classical notation (which however are typically out of
 scope for mensural notation).
