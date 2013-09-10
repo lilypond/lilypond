@@ -650,6 +650,7 @@ context_mod_embedded:
 			$$ = $1;
 		else {
 			parser->parser_error (@1, _ ("not a context mod"));
+			$$ = Context_mod ().smobbed_copy ();
 		}
 	}
 	;
