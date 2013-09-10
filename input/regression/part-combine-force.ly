@@ -1,9 +1,9 @@
 
 \header {
   texidoc ="Overrides for the part-combiner. All functions like
-  @code{\\partcombineApart} and @code{\\partcombineApartOnce} are internally implemented
-  using a dedicated @code{PartCombineForceEvent}.
-"
+  @code{\\partcombineApart} and @code{\\partcombineApartOnce} are
+  internally implemented using a dedicated @code{partCombineForced}
+  context property."
 }
 
 \layout { ragged-right = ##t }

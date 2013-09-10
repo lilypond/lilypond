@@ -345,9 +345,16 @@ LilyPond version 2.8 and earlier."
     (define (analyse-forced-combine result-idx prev-res)
 
       (define (get-forced-event x)
-        (and (ly:in-event-class? x 'part-combine-force-event)
-             (cons (ly:event-property x 'forced-type)
-                   (ly:event-property x 'once))))
+        (cond
+         ((and (ly:in-event-class? x 'SetProperty)
+               (eq? (ly:event-property x 'symbol) 'partCombineForced))
+          (cons (ly:event-property x 'value #f)
+                (ly:event-property x 'once #f)))
+         ((and (ly:in-event-class? x 'UnsetProperty)
+               (eq? (ly:event-property x 'symbol) 'partCombineForced))
+          (cons #f (ly:event-property x 'once #f)))
+         (else #f)))
+
       (define (part-combine-events vs)
         (if (not vs)
             '()

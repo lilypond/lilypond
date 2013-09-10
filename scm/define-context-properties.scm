@@ -495,6 +495,9 @@ Changing this creates a new text spanner.")
 translator during music interpretation.")
 
 
+     (partCombineForced ,symbol? "Override for the partcombine
+decision.  Can be @code{apart}, @code{chords}, @code{unisono},
+@code{solo1}, or @code{solo2}.")
      (partCombineTextsOnNote ,boolean? "Print part-combine texts only on
 the next note rather than immediately on rests or skips.")
      (pedalSostenutoStrings ,list? "See @code{pedalSustainStrings}.")
