@@ -1063,7 +1063,10 @@ music_arg:
 	{
 	        $$ = make_music_from_simple (parser, @1, $1);
                 if (!unsmob_music ($$))
+		{
                         parser->parser_error (@1, _ ("music expected"));
+			$$ = MAKE_SYNTAX ("void-music", @$);
+		}
 	}
 	| composite_music %prec COMPOSITE
 	;
@@ -2472,7 +2475,10 @@ event_chord:
                                 unsmob_music ($$)->set_property ("articulations",
                                                                  scm_reverse_x ($2, SCM_EOL));
                         else
+			{
                                 parser->parser_error (@1, _("music expected"));
+				$$ = MAKE_SYNTAX ("void-music", @1);
+			}
 		}
 	}
 	| simple_chord_elements post_events	{
