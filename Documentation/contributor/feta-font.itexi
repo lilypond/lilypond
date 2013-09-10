@@ -118,15 +118,23 @@ make
 
 There are special formatting rules for METAFONT files.
 
-Tabs are used for indentation.
+Tabs are used for the indentation of commands.
 
 When a path contains more than two points, put each point on a
-separate line, with the operator at the beginning  of the line:
+separate line, with the operator at the beginning of the line.
+The operators are indented to the same depth as the initial point
+on the path using spaces.  The indentation mechanism is illustrated
+below, with @samp{------->} indicating a tab character and any other
+indentation created using spaces.
 
 @example
-fill z1
-     -- z2
-     -- z3
-     .. cycle;
+def draw_something (test) =
+------->if test:
+------->------->fill z1
+------->------->     -- z2
+------->------->     -- z3
+------->------->     .. cycle;
+------->fi;
+enddef;
 @end example
 
