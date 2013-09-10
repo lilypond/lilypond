@@ -1146,8 +1146,12 @@ context_modification:
         {
                 $$ = $1;
         }
-	| WITH embedded_scm_closed
+	| WITH context_modification_arg
 	{
+		if (unsmob_music ($2)) {
+			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
+			$2 = scm_call_2 (proc, parser->self_scm (), $2);
+		}
 		if (unsmob_context_mod ($2))
 			$$ = $2;
 		else {
@@ -1156,6 +1160,11 @@ context_modification:
 		}
 	}
         ;
+
+context_modification_arg:
+	embedded_scm_closed
+	| MUSIC_IDENTIFIER
+	;
 
 optional_context_mod:
         /**/ {
