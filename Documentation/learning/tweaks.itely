@@ -4041,13 +4041,10 @@ the parts with all the @code{#()}.  This is explained in
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4074,13 +4071,10 @@ Let's hide them in another file:
 
 @example
 %%% save this to a file called "definitions.ily"
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4112,13 +4106,10 @@ Now let's modify our music (let's save this file as @file{music.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4147,13 +4138,10 @@ with this:
 
 @example
 %%%  definitions.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4180,13 +4168,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4231,13 +4216,10 @@ overall size of the output.
 
 @example
 %%%  web-publish.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4265,13 +4247,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
