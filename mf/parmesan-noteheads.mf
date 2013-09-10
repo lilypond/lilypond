@@ -166,7 +166,7 @@ def draw_neomensural_longa (expr wid, holeheight, direction) =
 enddef;
 
 
-def draw_neomensural_black_head (expr width, height) =
+def draw_neomensural_black_head (expr width, height, concaveness) =
 	save head_width, head_height, stem_width;
 	save ne, nw, ne_dist, nw_dist;
 	pair ne, nw, ne_dist, nw_dist;
@@ -197,25 +197,25 @@ def draw_neomensural_black_head (expr width, height) =
 	ne_dist := (nw rotated -90) * blot_diameter / 2;
 
 	fill lft z1
-	     .. (z1 + nw_dist)
-	     -- (z2 + nw_dist)
+	     .. (z1 + nw_dist){ ne rotated -concaveness }
+	     .. { ne rotated concaveness }(z2 + nw_dist)
 	     .. top z2
-	     .. (z2 + ne_dist)
-	     -- (z3 + ne_dist)
+	     .. (z2 + ne_dist){ nw rotated (180 - concaveness) }
+	     .. { nw rotated (180 + concaveness) }(z3 + ne_dist)
 	     .. rt z3
-	     .. (z3 - nw_dist)
-	     -- (z4 - nw_dist)
+	     .. (z3 - nw_dist){ ne rotated (180 - concaveness) }
+	     .. { ne rotated (180 + concaveness) }(z4 - nw_dist)
 	     .. bot z4
-	     .. (z4 - ne_dist)
-	     -- (z1 - ne_dist)
+	     .. (z4 - ne_dist){ nw  rotated -concaveness }
+	     .. { nw  rotated concaveness }(z1 - ne_dist)
 	     .. cycle;
 
 	labels (1, 2, 3, 4);
 enddef;
 
 
-def draw_neomensural_open_head (expr width, height)=
-	draw_neomensural_black_head (width, height);
+def draw_neomensural_open_head (expr width, height, concaveness)=
+	draw_neomensural_black_head (width, height, concaveness);
 
 	save headNW, headSW, stem_width;
 
@@ -317,15 +317,15 @@ save nm_height, nm_width;
 nm_height := noteheight#;
 nm_width := staff_space#;
 fet_beginchar ("Neo-mensural semibrevis head", "s0neomensural");
-	draw_neomensural_open_head (nm_width, nm_height);
+	draw_neomensural_open_head (nm_width, nm_height, 0);
 fet_endchar;
 
 fet_beginchar ("Neo-mensural minima head", "s1neomensural");
-	draw_neomensural_open_head (nm_width, nm_height);
+	draw_neomensural_open_head (nm_width, nm_height, 0);
 fet_endchar;
 
 fet_beginchar ("Neo-mensural semiminima head", "s2neomensural");
-	draw_neomensural_black_head (nm_width, nm_height);
+	draw_neomensural_black_head (nm_width, nm_height, 0);
 fet_endchar;
 
 %%%%%%%%
@@ -342,13 +342,13 @@ fet_endchar;
 %
 
 fet_beginchar ("Harmonic notehead (Neo-mensural open)", "s0harmonic");
-	draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#);
+	draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#, 5);
 	charwx := head_width#;
 	charwy := 0;
 fet_endchar;
 
 fet_beginchar ("Harmonic notehead (Neo-mensural black)", "s2harmonic");
-	draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#);
+	draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#, 5);
 	charwx := head_width#;
 	charwy := 0;
 fet_endchar;
@@ -737,15 +737,15 @@ petrucci_height := 1.4 noteheight#;
 petrucci_width := .72 petrucci_height;
 
 fet_beginchar ("Petrucci semibrevis head", "s0petrucci");
-	draw_neomensural_open_head (petrucci_width, petrucci_height);
+	draw_neomensural_open_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 fet_beginchar ("Petrucci minima head", "s1petrucci");
-	draw_neomensural_open_head (petrucci_width, petrucci_height);
+	draw_neomensural_open_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 fet_beginchar ("Petrucci semiminima head", "s2petrucci");
-	draw_neomensural_black_head (petrucci_width, petrucci_height);
+	draw_neomensural_black_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 
@@ -754,15 +754,15 @@ fet_endchar;
 %
 
 fet_beginchar ("Petrucci colored semibrevis head", "s0blackpetrucci");
-	draw_neomensural_black_head (petrucci_width, petrucci_height);
+	draw_neomensural_black_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 fet_beginchar ("Petrucci colored minima head", "s1blackpetrucci");
-	draw_neomensural_black_head (petrucci_width, petrucci_height);
+	draw_neomensural_black_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 fet_beginchar ("Petrucci colored semiminima head", "s2blackpetrucci");
-	draw_neomensural_black_head (petrucci_width, petrucci_height);
+	draw_neomensural_black_head (petrucci_width, petrucci_height, 0);
 fet_endchar;
 
 
