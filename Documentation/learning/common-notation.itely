@@ -60,11 +60,17 @@ on one staff.
 * Advanced rhythmic commands::
 @end menu
 
-
 @node Bar lines and bar checks
 @subsection Bar lines and bar checks
 
-@subheading Bar lines
+@menu
+* Bar lines::
+* Bar checks::
+@end menu
+
+@node Bar lines
+@unnumberedsubsubsec Bar lines
+
 
 Single bar lines are automatically placed in the music so
 there is no need to add them manually.  Other types of bar
@@ -77,7 +83,9 @@ the @ruser{Bar lines}.
 g1 e1 \bar "||" c2. c'4 \bar "|."
 @end lilypond
 
-@subheading Bar checks
+@node Bar checks
+@unnumberedsubsubsec Bar checks
+
 
 Though not strictly necessary, @emph{bar checks} should be
 used in the input code to show where bar lines are expected
@@ -99,11 +107,19 @@ Notation Reference:
 @node Accidentals and key signatures
 @subsection Accidentals and key signatures
 
+@menu
+* Accidentals::
+* Key signatures::
+* Warning key signatures and pitches::
+@end menu
+
 @warning{New users are often confused by these -- please read the
 warning at the bottom of this page, especially if you are not
 familiar with music theory!}
 
-@subheading Accidentals
+@node Accidentals
+@unnumberedsubsubsec Accidentals
+
 
 @cindex accidentals
 @cindex accidentals and key signatures
@@ -135,7 +151,10 @@ cis4 ees fisis, aeses
 @end lilypond
 
 @cindex key signature, setting
-@subheading Key signatures
+
+@node Key signatures
+@unnumberedsubsubsec Key signatures
+
 
 @cindex key signature
 @cindex major
@@ -166,7 +185,9 @@ a1 |
 
 @smallspace
 
-@subheading Warning: key signatures and pitches
+@node Warning key signatures and pitches
+@unnumberedsubsubsec Warning: key signatures and pitches
+
 
 Music Glossary: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
@@ -243,7 +264,15 @@ Notation Reference:
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Ties
+@menu
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Warnings slurs vs. ties::
+@end menu
+
+@node Ties
+@unnumberedsubsubsec Ties
 
 
 Music Glossary: @rglos{tie}.
@@ -255,7 +284,8 @@ first note being tied.
 g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
-@subheading Slurs
+@node Slurs
+@unnumberedsubsubsec Slurs
 
 
 Music Glossary: @rglos{slur}.
@@ -268,7 +298,9 @@ starting note and ending note are marked with @code{(} and
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Phrasing slurs
+@node Phrasing slurs
+@unnumberedsubsubsec Phrasing slurs
+
 
 Music Glossary: @rglos{slur}, @rglos{phrasing}.
 
@@ -284,7 +316,10 @@ g4\( g8( a) b( c) b4\)
 @smallspace
 
 @cindex slurs versus ties
-@subheading Warnings: slurs vs. ties
+
+@node Warnings slurs vs. ties
+@unnumberedsubsubsec Warnings: slurs vs. ties
+
 
 Music Glossary: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
@@ -309,8 +344,15 @@ Notation Reference:
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
+@menu
+* Articulations::
+* Fingerings::
+* Dynamics::
+@end menu
 
-@subheading Articulations
+@node Articulations
+@unnumberedsubsubsec Articulations
+
 
 @cindex articulation
 @cindex accent
@@ -326,7 +368,9 @@ c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 
-@subheading Fingerings
+@node Fingerings
+@unnumberedsubsubsec Fingerings
+
 
 @cindex fingering
 
@@ -352,7 +396,9 @@ to let LilyPond determine the articulation directions.
 c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dynamics
+@node Dynamics
+@unnumberedsubsubsec Dynamics
+
 
 @cindex dynamics
 @cindex decrescendo
@@ -486,7 +532,15 @@ Notation Reference:
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
-@subheading Partial measure
+@menu
+* Partial measure::
+* Tuplets::
+* Grace notes::
+@end menu
+
+@node Partial measure
+@unnumberedsubsubsec Partial measure
+
 
 @cindex pickup
 @cindex anacrusis
@@ -506,7 +560,9 @@ is a quarter note pickup and @code{\partial 8} an eighth note.
 c2 d |
 @end lilypond
 
-@subheading Tuplets
+@node Tuplets
+@unnumberedsubsubsec Tuplets
+
 
 @cindex tuplets
 @cindex triplets
@@ -530,7 +586,9 @@ For triplets, there are three notes instead of two, so
 \tuplet 3/2 { d4 a8 }
 @end lilypond
 
-@subheading Grace notes
+@node Grace notes
+@unnumberedsubsubsec Grace notes
+
 
 @cindex grace notes
 @cindex acciaccatura
@@ -592,6 +650,12 @@ than one voice on the same staff.
 @cindex compound music expression
 @cindex music expression, compound
 
+@menu
+* Analogy mathematical expressions::
+* Simultaneous music expressions multiple staves::
+* Simultaneous music expressions single staff::
+@end menu
+
 In LilyPond input files, music is represented by @emph{music
 expressions}.  A single note is a music expression:
 
@@ -615,7 +679,9 @@ one).  The result is another music expression:
 { { a4 g } f4 g }
 @end lilypond
 
-@subheading Analogy: mathematical expressions
+@node Analogy mathematical expressions
+@unnumberedsubsubsec Analogy: mathematical expressions
+
 
 This mechanism is similar to mathematical formulas: a big formula
 is created by composing small formulas.  Such formulas are called
@@ -641,7 +707,9 @@ arbitrarily deep, which is necessary for complex music like
 polyphonic scores.
 
 
-@subheading Simultaneous music expressions: multiple staves
+@node Simultaneous music expressions multiple staves
+@unnumberedsubsubsec Simultaneous music expressions: multiple staves
+
 
 @cindex multiple staves
 @cindex staves, multiple
@@ -689,7 +757,9 @@ only the first is relative to the @code{c''} in the initial
 @code{@bs{}relative} command.}
 
 
-@subheading Simultaneous music expressions: single staff
+@node Simultaneous music expressions single staff
+@unnumberedsubsubsec Simultaneous music expressions: single staff
+
 
 To determine the number of staves in a piece, LilyPond looks at
 the beginning of the first expression.  If there is a single note,
@@ -773,9 +843,6 @@ than polyrhythmic scores.
   >>
 }
 @end lilypond
-
-
-
 
 @node Staff groups
 @subsection Staff groups

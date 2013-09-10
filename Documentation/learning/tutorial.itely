@@ -45,6 +45,10 @@ LilyPond input files (written by you) to produce output files.
 @cindex example, first
 @cindex case sensitive
 
+@menu
+* Producing output::
+@end menu
+
 @qq{Compiling} is the term used for processing an input file in
 LilyPond format to produce output file(s).  Output files are
 generally PDF (for printing or viewing), MIDI (for playing), and
@@ -83,7 +87,8 @@ produce an error message.
 
 @smallspace
 
-@subheading Producing output
+@node Producing output
+@unnumberedsubsubsec Producing output
 
 @cindex PDF file
 @cindex viewing music
@@ -165,6 +170,16 @@ started writing input files.
 @cindex simple notation
 @cindex notation, simple
 
+@menu
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
+@end menu
+
 LilyPond will add some notation elements automatically.  In the
 next example, we have only specified four pitches, but LilyPond
 has added a clef, time signature, and rhythms.
@@ -180,7 +195,8 @@ This behavior may be altered, but in most cases these automatic
 values are useful.
 
 
-@subheading Pitches
+@node Pitches
+@unnumberedsubsubsec Pitches
 
 @cindex pitches
 @cindex relative mode
@@ -287,7 +303,8 @@ To change a note by two (or more!) octaves, we use multiple
 quotes @code{''} and not one double quote @code{"}@tie{}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@subheading Durations (rhythms)
+@node Durations (rhythms)
+@unnumberedsubsubsec Durations (rhythms)
 
 @cindex note durations
 @cindex durations
@@ -330,8 +347,8 @@ explicitly (i.e., with a number).
 }
 @end lilypond
 
-
-@subheading Rests
+@node Rests
+@unnumberedsubsubsec Rests
 
 @cindex rest
 @cindex notating rests
@@ -349,7 +366,8 @@ A @notation{rest} is entered just like a note with the name
 @end lilypond
 
 
-@subheading Time signature
+@node Time signature
+@unnumberedsubsubsec Time signature
 
 @cindex time signature
 
@@ -372,7 +390,8 @@ command:
 }
 @end lilypond
 
-@subheading Tempo marks
+@node Tempo marks
+@unnumberedsubsubsec Tempo marks
 
 @cindex tempo marks
 @cindex metronome marks
@@ -400,7 +419,8 @@ set with the @code{\tempo} command:
 @end lilypond
 
 
-@subheading Clef
+@node Clef
+@unnumberedsubsubsec Clef
 
 @cindex clef
 @cindex treble
@@ -429,7 +449,8 @@ The @notation{clef} can be set using the @code{\clef} command:
 @end lilypond
 
 
-@subheading All together
+@node All together
+@unnumberedsubsubsec All together
 
 Here is a small example showing all these elements together:
 
