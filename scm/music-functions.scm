@@ -543,8 +543,7 @@ in @var{grob}."
          direction-polyphonic-grobs)
     (list
      (make-property-set 'graceSettings general-grace-settings)
-     (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-override 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))))))
+     (make-grob-property-override 'NoteColumn 'horizontal-shift (quotient n 2))))))
 
 (define-safe-public (make-voice-props-revert)
   (make-sequential-music
@@ -552,8 +551,7 @@ in @var{grob}."
     (map (lambda (x) (make-grob-property-revert x 'direction))
          direction-polyphonic-grobs)
     (list (make-property-unset 'graceSettings)
-          (make-grob-property-revert 'NoteColumn 'horizontal-shift)
-          (make-grob-property-revert 'MultiMeasureRest 'staff-position)))))
+          (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
 
 
 (define-safe-public (context-spec-music m context #:optional id)
