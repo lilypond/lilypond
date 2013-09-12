@@ -429,6 +429,13 @@ Context::get_default_interpreter (const string &context_id)
       Context *tg = create_context (t, context_id, SCM_EOL);
       return tg->get_default_interpreter (context_id);
     }
+  else if (!context_id.empty () && context_id != id_string ())
+    {
+      if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
+        return daddy_context_->get_default_interpreter (context_id);
+      warning (_f ("cannot find or create new Bottom = \"%s\"",
+                   context_id.c_str ()));
+    }
   return this;
 }
 
