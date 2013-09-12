@@ -284,9 +284,6 @@ c  c
 {printing-marks-at-the-end-of-a-line.ly}
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{aligning-marks-with-various-notation-objects.ly}
-
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
 @seealso
