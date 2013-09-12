@@ -425,9 +425,12 @@ Context::get_default_interpreter (const string &context_id)
           warning (_f ("cannot find or create: `%s'", name.c_str ()));
           t = unsmob_context_def (this->definition_);
         }
-
-      Context *tg = create_context (t, context_id, SCM_EOL);
-      return tg->get_default_interpreter (context_id);
+      if (scm_is_symbol (t->get_default_child (SCM_EOL)))
+        {
+          Context *tg = create_context (t, "\\new", SCM_EOL);
+          return tg->get_default_interpreter (context_id);
+        }
+      return create_context (t, context_id, SCM_EOL);
     }
   else if (!context_id.empty () && context_id != id_string ())
     {
