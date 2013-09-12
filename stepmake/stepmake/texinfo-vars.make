@@ -20,7 +20,7 @@ $(firstword \
 # Recursively scan the file $(1) for @include, search for included files
 # within the texinfo include dirs, and return all dependencies.
 scan-texi = \
-$(foreach f, $(shell sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
+$(foreach f, $(shell test -f $(1) && sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
 	$(call find-texi,$(f)) \
 	$(call scan-texi,$(call find-texi,$(f))) \
 )
