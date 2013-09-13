@@ -278,6 +278,15 @@ Level 3 subsections are created with
 
 @itemize
 @item
+Level 4 headings and menus must be preceded by level 3 headings and
+menus, and so on for level 3 and level 2.  If this is not what is
+wanted, please use:
+
+@example
+@@subsubsubheading Foo
+@end example
+
+@item
 Please leave two blank lines above a @code{@@node}; this makes it
 easier to find sections in texinfo.
 
@@ -296,18 +305,22 @@ but instead:
 @end example
 
 @item
-With the exception of @code{@@} commands, the section name must
-match the node name exactly.
-
-@item
-No commas may be used in the node names.
-
-@item
-If a heading is desired without creating a @code{@@node}, please use:
+No punctuation may be used in the node names.  If the heading text
+uses punctuation (in particular, colons and commas) simply leave
+this out of the node name and menu.
 
 @example
-@@subsubsubheading Foo
+@@menu
+* Foo Bar::
+@@end menu
+
+@@node Foo Bar
+@@subsection Foo: Bar
 @end example
+
+@item
+With the exception of @code{@@} commands and punctuation, the
+section name should match the node name exactly.
 
 @item
 Sectioning commands (@code{@@node} and @code{@@section}) must not appear
@@ -326,8 +339,8 @@ Nodes must be included inside a
 @end example
 
 @noindent
-construct.  These are easily constructed with automatic tools; see
-@ref{Scripts to ease doc work}.
+construct.  These can be constructed with scripts:
+see @ref{Stripping whitespace and generating menus}.
 
 
 @node LilyPond formatting
@@ -1449,7 +1462,20 @@ the difficulty.
 @node Scripts to ease doc work
 @section Scripts to ease doc work
 
-@subheading Building only one section of the documentation
+@menu
+* Scripts to test the documentation::
+* Scripts to create documentation::
+@end menu
+
+@node Scripts to test the documentation
+@subsection Scripts to test the documentation
+
+@menu
+* Building only one section of the documentation::
+@end menu
+
+@node Building only one section of the documentation
+@unnumberedsubsubsec Building only one section of the documentation
 
 In order to save build time, a script is available to build only
 one section of the documentation in English with a default html
@@ -1510,10 +1536,21 @@ scripts/auxiliar/cg-section.sh doc-work
 @code{cg-section.sh} uses the same environment variables and
 corresponding default values as @code{doc-section.sh}.
 
-@subheading Stripping whitespace and generating menus
+@node Scripts to create documentation
+@subsection Scripts to create documentation
+
+@menu
+* Stripping whitespace and generating menus::
+* Stripping whitespace only::
+* Updating doc with convert-ly::
+@end menu
+
+@node Stripping whitespace and generating menus
+@unnumberedsubsubsec Stripping whitespace and generating menus
 
 @warning{This script assumes that the file conforms to our doc
-policy; a few files still need work in this regard.}
+policy, in particular with regard to @ref{Sectioning commands};
+a few files still need work in this regard.}
 
 To automatically regenerate @code{@@menu} portions and strip
 whitespace, use:
@@ -1522,19 +1559,28 @@ whitespace, use:
 scripts/auxiliar/node-menuify.py @var{FILENAME}
 @end example
 
+If you are adding documentation that requires new menus,
+you will need to add a blank @code{@@menu} section:
 
-@subheading Stripping whitespace only
+@example
+@@menu
+@@end menu
+@end example
+
+@node Stripping whitespace only
+@unnumberedsubsubsec Stripping whitespace only
 
 @c TODO: should this be documented elsewhere?  It's useful for
 @c more than just docs.
 To remove extra whitespace from the ends of lines, run
 
 @example
-scripts/auxiliar/strip-whitespace.py Documentation/FILENAME
+scripts/auxiliar/strip-whitespace.py @var{FILENAME}
 @end example
 
 
-@subheading Updating doc with @command{convert-ly}
+@node Updating doc with convert-ly
+@unnumberedsubsubsec Updating doc with @command{convert-ly}
 
 Don't.  This should be done by programmers when they add new
 features.  If you notice that it hasn't been done, complain to
