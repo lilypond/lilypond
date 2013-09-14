@@ -32,7 +32,7 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
 
 $(outdir)/pictures:
-	$(MAKE) -C $(top-build-dir)/Documentation/pictures WWW-1
+	$(MAKE) -C $(top-build-dir)/Documentation/pictures out=www WWW-1
 	ln -sf $(top-build-dir)/Documentation/pictures/$(outdir) $@
 
 $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)

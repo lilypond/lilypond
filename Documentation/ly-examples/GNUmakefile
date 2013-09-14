@@ -10,7 +10,7 @@ OUT_PNG_PAGES = $(PNG_PAGES:%=$(outdir)/%.png)
 OUT_SMALL_PNG_FILES = $(OUT_PNG_FILES:%.png=%-small.png)
 
 ifeq ($(out),www)
-all: $(OUT_PNG_FILES) $(OUT_SMALL_PNG_FILES)
+local-WWW-1: $(OUT_PNG_FILES) $(OUT_SMALL_PNG_FILES)
 endif
 
 $(outdir)/%.png: %.ly

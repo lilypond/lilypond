@@ -212,17 +212,17 @@ ifeq ($(out),www)
 $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
 
 $(outdir)/pictures:
-	$(MAKE) -C pictures WWW-1
+	$(MAKE) -C pictures out=www WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
 $(outdir)/web.texi: $(outdir)/css $(outdir)/ly-examples
 
 $(outdir)/css:
-	$(MAKE) -C css
+	$(MAKE) -C css out=www WWW-1
 	ln -sf ../css/$(outdir) $@
 
 $(outdir)/ly-examples:
-	$(MAKE) -C ly-examples
+	$(MAKE) -C ly-examples out=www WWW-1
 	ln -sf ../ly-examples/$(outdir) $@
 endif
 
