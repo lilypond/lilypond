@@ -46,7 +46,7 @@ public:
   virtual SCM get_output ();
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  virtual Context *get_default_interpreter (string context_id = "");
+  virtual Context *get_default_interpreter (const string &context_id = "");
 
   Moment previous_moment () const;
 protected:

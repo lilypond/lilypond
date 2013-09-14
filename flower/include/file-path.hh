@@ -38,16 +38,16 @@ class File_path
 
 public:
   vector<string> directories () const;
-  string find (string name) const;
-  string find (string name, char const *extensions[]);
+  string find (const string &name) const;
+  string find (const string &name, char const *extensions[]);
   string to_string () const;
   bool try_append (string str);
-  void append (string str);
-  void parse_path (string);
-  void prepend (string str);
+  void append (const string&);
+  void parse_path (const string&);
+  void prepend (const string&);
 };
 
-bool is_file (string file_name);
+bool is_file (const string &file_name);
 bool is_dir (string file_name);
 
 #endif /* FILE_PATH */

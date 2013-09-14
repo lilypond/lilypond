@@ -2,7 +2,9 @@
 
 \header {
   texidoc = "The gaps between an @code{AmbitusLine} and its
-note heads are set by the @code{gap} property."
+note heads are set by the @code{gap} property. By default,
+@code{gap} is a function that reduces the gap for small intervals
+(e.g. a fourth), so that the line remains visible."
 }
 
 \layout {
@@ -18,3 +20,9 @@ note heads are set by the @code{gap} property."
   c'4 g''
 }
 
+\new Staff <<
+  \time 2/4
+  { d'' g'' }
+  \\
+  { c' g' }
+>>

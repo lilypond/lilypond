@@ -48,8 +48,8 @@ class Source_file
 
   DECLARE_SMOBS (Source_file);
 public:
-  Source_file (string fn);
-  Source_file (string, string);
+  Source_file (const string &fn);
+  Source_file (const string&, const string&);
 
   char const *c_str () const;
   virtual string quote_input (char const *pos_str0) const;
@@ -73,7 +73,7 @@ protected:
   int line_offset_;
 };
 
-vector<char> gulp_file (string fn, int desired);
+vector<char> gulp_file (const string &fn, int desired);
 
 #endif /* SOURCE_FILE_HH */
 

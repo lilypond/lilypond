@@ -49,7 +49,7 @@ class Axis_group_interface
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_items, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_spanners, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
-  static SCM internal_calc_pure_relevant_grobs (Grob *, string);
+  static SCM internal_calc_pure_relevant_grobs (Grob *, const string&);
   static Interval relative_group_extent (vector<Grob *> const &list,
                                          Grob *common, Axis);
   static Interval relative_maybe_bound_group_extent (vector<Grob *> const &list,

@@ -55,7 +55,7 @@ Source_file::load_stdin ()
   return contents of FILENAME. *Not 0-terminated!*
  */
 vector<char>
-gulp_file (string filename, int desired_size)
+gulp_file (const string &filename, int desired_size)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
@@ -106,7 +106,7 @@ Source_file::init ()
   smobify_self ();
 }
 
-Source_file::Source_file (string filename, string data)
+Source_file::Source_file (const string &filename, const string &data)
 {
   init ();
 
@@ -124,7 +124,7 @@ Source_file::Source_file (string filename, string data)
       newline_locations_.push_back (&characters_[0] + i);
 }
 
-Source_file::Source_file (string filename_string)
+Source_file::Source_file (const string &filename_string)
 {
   init ();
 

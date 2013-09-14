@@ -2836,11 +2836,10 @@ As synonyms for @code{\xNote}, @code{\xNotesOn} and @code{\xNotesOff},
 @code{\deadNote}, @code{\deadNotesOn} and @code{\deadNotesOff} can
 be used.  The term @notation{dead note} is commonly used by guitarists.
 
-There is also a shorthand for diamond shapes which can be used
-only inside chords:
+There is also a similar shorthand for diamond shapes:
 
 @lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
 @end lilypond
 
 @predefined

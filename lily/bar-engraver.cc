@@ -33,7 +33,6 @@ class Bar_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bar_engraver);
-  void request_bar (string type_string);
 
 protected:
   void stop_translation_timestep ();

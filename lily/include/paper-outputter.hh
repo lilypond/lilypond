@@ -40,7 +40,7 @@ public:
   DECLARE_SMOBS (Paper_outputter);
 
 public:
-  Paper_outputter (SCM port, string format);
+  Paper_outputter (SCM port, const string &format);
 
   void close ();
   SCM dump_string (SCM);
@@ -51,7 +51,6 @@ public:
   SCM scheme_to_string (SCM);
 };
 
-Paper_outputter *get_paper_outputter (string, string);
 DECLARE_UNSMOB (Paper_outputter, outputter);
 
 #endif /* PAPER_OUTPUTTER_HH */

@@ -97,7 +97,7 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state *)
 
 /* Process one .ly file, or book.  */
 void
-Lily_parser::parse_file (string init, string name, string out_name)
+Lily_parser::parse_file (const string &init, const string &name, const string &out_name)
 {
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   output_basename_ = out_name;
@@ -139,7 +139,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
 }
 
 void
-Lily_parser::parse_string (string ly_code)
+Lily_parser::parse_string (const string &ly_code)
 {
   lexer_->main_input_name_ = "<string>";
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -155,7 +155,7 @@ Lily_parser::parse_string (string ly_code)
 }
 
 SCM
-Lily_parser::parse_string_expression (string ly_code, string filename,
+Lily_parser::parse_string_expression (const string &ly_code, const string &filename,
                                       int line)
 {
   lexer_->main_input_name_ = filename;
@@ -178,7 +178,7 @@ Lily_parser::parse_string_expression (string ly_code, string filename,
 }
 
 void
-Lily_parser::include_string (string ly_code)
+Lily_parser::include_string (const string &ly_code)
 {
   lexer_->new_input ("<included string>", ly_code, sources_);
 }
@@ -202,14 +202,14 @@ Lily_parser::here_str0 () const
 }
 
 void
-Lily_parser::parser_error (string s)
+Lily_parser::parser_error (const string &s)
 {
   lexer_->here_input ().error (_ (s.c_str ()));
   error_level_ = 1;
 }
 
 void
-Lily_parser::parser_error (Input const &i, string s)
+Lily_parser::parser_error (Input const &i, const string &s)
 {
   i.error (s);
   error_level_ = 1;

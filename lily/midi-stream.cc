@@ -27,11 +27,10 @@ using namespace std;
 #include "midi-chunk.hh"
 #include "misc.hh"
 #include "program-option.hh"
-#include "stream.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
-Midi_stream::Midi_stream (string file_name)
+Midi_stream::Midi_stream (const string &file_name)
 {
   file_name_string_ = file_name;
   out_file_ = fopen (file_name.c_str (), "wb");
@@ -45,7 +44,7 @@ Midi_stream::~Midi_stream ()
 }
 
 void
-Midi_stream::write (string str)
+Midi_stream::write (const string &str)
 {
   size_t sz = sizeof (Byte);
   size_t n = str.length ();

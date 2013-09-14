@@ -40,7 +40,7 @@ using namespace std;
 
 #include "ly-smobs.icc"
 
-Paper_outputter::Paper_outputter (SCM port, string format)
+Paper_outputter::Paper_outputter (SCM port, const string &format)
 {
   file_ = port;
   output_module_ = SCM_EOL;

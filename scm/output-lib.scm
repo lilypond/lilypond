@@ -1241,6 +1241,31 @@ parent or the parent has no setting."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ambitus
 
+;; Calculate the gaps between ambitus heads and ends of ambitus line.
+;; Start by determining desired length of the ambitus line (based on
+;; length-fraction property), calc gap from that and make sure that
+;; it doesn't exceed maximum allowed value.
+
+(define-public (ambitus-line::calc-gap grob)
+  (let ((heads (ly:grob-object grob 'note-heads)))
+
+  (if (and (ly:grob-array? heads)
+             (= (ly:grob-array-length heads) 2))
+      (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
+              (head-down (ly:grob-array-ref heads 0))
+              (head-up (ly:grob-array-ref heads 1))
+              (fraction (ly:grob-property grob 'length-fraction 0.7))
+              (max-gap (ly:grob-property grob 'maximum-gap 0.45))
+              ;; distance between noteheads:
+              (distance (- (interval-start (ly:grob-extent head-up common Y))
+                          (interval-end (ly:grob-extent head-down common Y))))
+              (gap (* 0.5 distance (- 1 fraction))))
+
+         (min gap max-gap))
+      0)))
+
+;; Print a line connecting ambitus heads:
+
 (define-public (ambitus::print grob)
   (let ((heads (ly:grob-object grob 'note-heads)))
 
@@ -1249,13 +1274,15 @@ parent or the parent has no setting."
         (let* ((common (ly:grob-common-refpoint-of-array grob heads Y))
                (head-down (ly:grob-array-ref heads 0))
                (head-up (ly:grob-array-ref heads 1))
-               (gap (ly:grob-property grob 'gap 0.35))
+               ;; The value used when 'gap' property cannot be read is small
+               ;; to make sure that ambitus of a fifth will have a visible line.
+               (gap (ly:grob-property grob 'gap 0.25))
                (point-min (+ (interval-end (ly:grob-extent head-down common Y))
                              gap))
                (point-max (- (interval-start (ly:grob-extent head-up common Y))
                              gap)))
 
-          (if (< point-min point-max)
+          (if (< (+ point-min 0.1) point-max) ; don't print lines shorter than 0.1ss
               (let* ((layout (ly:grob-layout grob))
                      (line-thick (ly:output-def-lookup layout 'line-thickness))
                      (blot (ly:output-def-lookup layout 'blot-diameter))

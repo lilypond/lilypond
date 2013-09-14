@@ -2722,16 +2722,17 @@ r2.
 c4_"Text"\pp % now they will collide
 @end lilypond
 
-The vertical padding between an outside-staff object and the
-previously-positioned grobs can be controlled with
-@code{outside-staff-padding}.
+The vertical padding around outside-staff objects
+can be controlled with @code{outside-staff-padding}.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript.outside-staff-padding = #0
-a'^"This text is placed very close to the note"
+a4-"outside-staff-padding = #0"
 \once \override TextScript.outside-staff-padding = #3
-c^"This text is padded away from the previous text"
-c^"This text is placed close to the previous text"
+d-"outside-staff-padding = #3"
+c-"default outside-staff-padding"
+b-"default outside-staff-padding"
+R1
 @end lilypond
 
 

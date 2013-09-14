@@ -48,7 +48,7 @@ public:
 
   string description_string () const;
   SCM font_file_name () const;
-  void register_font_file (string, string, int);
+  void register_font_file (const string &filename, const string &ps_name, int face_index);
 
   size_t name_to_index (string) const;
   SCM get_glyph_outline (size_t signed_idx) const;
@@ -59,7 +59,7 @@ public:
   Stencil pango_item_string_stencil (PangoGlyphItem const *) const;
 
   virtual Stencil text_stencil (Output_def *output_state,
-                                string text, bool music) const;
+                                const string &text, bool music) const;
   virtual void derived_mark () const;
 };
 

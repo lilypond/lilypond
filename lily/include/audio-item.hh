@@ -114,7 +114,7 @@ public:
     MARKER, CUE_POINT
   };
 
-  Audio_text (Audio_text::Type type, string text_string);
+  Audio_text (Audio_text::Type type, const string &text_string);
 
   Type type_;
   string text_string_;

@@ -84,12 +84,6 @@ Font_metric::get_indexed_char_dimensions (size_t) const
   return Box (Interval (0, 0), Interval (0, 0));
 }
 
-size_t
-Font_metric::name_to_index (string) const
-{
-  return (size_t) - 1;
-}
-
 Offset
 Font_metric::get_indexed_wxwy (size_t) const
 {
@@ -145,7 +139,7 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 Offset
-Font_metric::attachment_point (string) const
+Font_metric::attachment_point (const string&) const
 {
   return Offset (0, 0);
 }
@@ -158,7 +152,7 @@ Font_metric::sub_fonts () const
 
 Stencil
 Font_metric::text_stencil (Output_def *state,
-                           string, bool) const
+                           const string&, bool) const
 {
   (void) state;
 

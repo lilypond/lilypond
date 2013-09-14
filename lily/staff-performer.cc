@@ -46,12 +46,12 @@ protected:
 
 private:
   string new_instrument_string ();
-  void set_instrument_name (string voice);
-  void set_instrument (int channel, string voice);
-  int get_channel (string instrument);
-  Audio_staff *get_audio_staff (string voice);
-  Audio_staff *new_audio_staff (string voice);
-  Audio_dynamic *get_dynamic (string voice);
+  void set_instrument_name (const string &voice);
+  void set_instrument (int channel, const string &voice);
+  int get_channel (const string &instrument);
+  Audio_staff *get_audio_staff (const string &voice);
+  Audio_staff *new_audio_staff (const string &voice);
+  Audio_dynamic *get_dynamic (const string &voice);
 
   string instrument_string_;
   int channel_;
@@ -111,7 +111,7 @@ Staff_performer::initialize ()
 }
 
 Audio_staff *
-Staff_performer::new_audio_staff (string voice)
+Staff_performer::new_audio_staff (const string &voice)
 {
   Audio_staff *audio_staff = new Audio_staff;
   audio_staff->merge_unisons_
@@ -132,7 +132,7 @@ Staff_performer::new_audio_staff (string voice)
 }
 
 Audio_staff *
-Staff_performer::get_audio_staff (string voice)
+Staff_performer::get_audio_staff (const string &voice)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
   if (channel_mapping != ly_symbol2scm ("instrument")
@@ -152,7 +152,7 @@ Staff_performer::get_audio_staff (string voice)
 }
 
 Audio_dynamic *
-Staff_performer::get_dynamic (string voice)
+Staff_performer::get_dynamic (const string &voice)
 {
   map<string, Audio_dynamic *>::const_iterator i = dynamic_map_.find (voice);
   if (i != dynamic_map_.end ())
@@ -166,7 +166,7 @@ Staff_performer::process_music ()
 }
 
 void
-Staff_performer::set_instrument (int channel, string voice)
+Staff_performer::set_instrument (int channel, const string &voice)
 {
   instrument_ = new Audio_instrument (instrument_string_);
   instrument_->channel_ = channel;
@@ -179,7 +179,7 @@ Staff_performer::set_instrument (int channel, string voice)
 }
 
 void
-Staff_performer::set_instrument_name (string voice)
+Staff_performer::set_instrument_name (const string &voice)
 {
   instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME,
                                      instrument_string_);
@@ -242,7 +242,7 @@ Staff_performer::new_instrument_string ()
 }
 
 int
-Staff_performer::get_channel (string instrument)
+Staff_performer::get_channel (const string &instrument)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
   map<string, int> &channel_map

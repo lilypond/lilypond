@@ -38,7 +38,7 @@ protected:
 private:
   SCM split_list_;
   Direction where_dir_;
-  void change_to (Music_iterator *, SCM, string);
+  void change_to (Music_iterator *, SCM, const string&);
   Moment start_moment_;
 
   Context_handle up_;
@@ -47,7 +47,7 @@ private:
 
 void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
-                                 string to_id)
+                                 const string &to_id)
 {
   Context *current = it->get_outlet ();
   Context *last = 0;

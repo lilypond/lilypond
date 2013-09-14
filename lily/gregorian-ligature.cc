@@ -21,7 +21,7 @@
 
 #include "grob.hh"
 
-void check_prefix (string name, int mask, int prefix_set, string *str)
+void check_prefix (const string &name, int mask, int prefix_set, string *str)
 {
   if (prefix_set & mask)
     {

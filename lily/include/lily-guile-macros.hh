@@ -129,7 +129,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); 
 
 string mangle_cxx_identifier (string);
 
-void ly_add_type_predicate (void *ptr, string name);
+void ly_add_type_predicate (void *ptr, const string &name);
 string predicate_to_typename (void *ptr);
 
 /*
@@ -159,8 +159,8 @@ string predicate_to_typename (void *ptr);
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)                      \
   MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
-void ly_add_function_documentation (SCM proc, string fname, string varlist, string doc);
-void ly_check_name (string cxx, string fname);
+void ly_add_function_documentation (SCM proc, const string &fname, const string &varlist, const string &doc);
+void ly_check_name (const string &cxx, const string &fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)           \
   class name ## _scm_initter                    \

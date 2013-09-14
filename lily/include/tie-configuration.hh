@@ -46,7 +46,7 @@ public:
   /* computed. */
   Interval attachment_x_;
 
-  void add_score (Real, string);
+  void add_score (Real, const string&);
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
   Bezier get_transformed_bezier (Tie_details const &) const;
@@ -72,8 +72,8 @@ class Ties_configuration : public vector<Tie_configuration>
   friend class Tie_formatting_problem;
 public:
   Ties_configuration ();
-  void add_score (Real amount, string description);
-  void add_tie_score (Real amount, int i, string description);
+  void add_score (Real amount, const string &description);
+  void add_tie_score (Real amount, int i, const string &description);
   Real score () const;
   void reset_score ();
   string card () const;

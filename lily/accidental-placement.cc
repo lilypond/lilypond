@@ -398,7 +398,8 @@ position_apes (Grob *me,
     {
       Accidental_placement_entry *ape = apes[i];
 
-      Real offset = -ape->horizontal_skylines_[RIGHT].distance (left_skyline);
+      Real offset = -ape->horizontal_skylines_[RIGHT]
+                    .distance (left_skyline, 0.1);
       if (isinf (offset))
         offset = last_offset;
       else

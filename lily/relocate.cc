@@ -42,7 +42,7 @@
 #define FRAMEWORKDIR ".."
 
 int
-sane_putenv (char const *key, string value, bool overwrite)
+sane_putenv (char const *key, const string &value, bool overwrite)
 {
   if (overwrite || !getenv (key))
     {
@@ -64,7 +64,7 @@ sane_putenv (char const *key, string value, bool overwrite)
 }
 
 static int
-set_env_file (char const *key, string value, bool overwrite = false)
+set_env_file (char const *key, const string &value, bool overwrite = false)
 {
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
@@ -75,7 +75,7 @@ set_env_file (char const *key, string value, bool overwrite = false)
 }
 
 static int
-set_env_dir (char const *key, string value)
+set_env_dir (char const *key, const string &value)
 {
   if (is_dir (value))
     return sane_putenv (key, value, false);
@@ -108,7 +108,7 @@ prepend_env_path (char const *key, string value)
 #endif
 
 static void
-prefix_relocation (string prefix)
+prefix_relocation (const string &prefix)
 {
   string bindir = prefix + "/bin";
   string datadir = prefix + "/share";
@@ -141,7 +141,7 @@ prefix_relocation (string prefix)
 */
 
 static void
-framework_relocation (string prefix)
+framework_relocation (const string &prefix)
 {
   debug_output (_f ("Relocation: framework_prefix=%s", prefix));
 
@@ -257,7 +257,7 @@ setup_paths (char const *argv0_ptr)
 }
 
 string
-expand_environment_variables (string orig)
+expand_environment_variables (const string &orig)
 {
   char const *start_ptr = orig.c_str ();
   char const *ptr = orig.c_str ();
@@ -340,7 +340,7 @@ read_line (FILE *f)
 }
 
 void
-read_relocation_file (string filename)
+read_relocation_file (const string &filename)
 {
   debug_output (_f ("Relocation file: %s", filename.c_str ()) + "\n");
   char const *cname = filename.c_str ();
@@ -383,7 +383,7 @@ read_relocation_file (string filename)
 }
 
 void
-read_relocation_dir (string dirname)
+read_relocation_dir (const string &dirname)
 {
   if (DIR *dir = opendir (dirname.c_str ()))
     while (struct dirent *ent = readdir (dir))

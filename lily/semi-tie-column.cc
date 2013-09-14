@@ -28,7 +28,6 @@
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "tie-formatting-problem.hh"
-#include "tie-column-format.hh"
 
 ADD_INTERFACE (Semi_tie_column,
                "The interface for a column of l.v. (laissez vibrer) ties.",

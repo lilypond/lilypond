@@ -39,7 +39,7 @@ using namespace std;
 typedef size_t ssize;
 #define NPOS string::npos
 
-string to_string (string s);
+string to_string (const string&);
 string to_string (char c, int n = 1);
 string to_string (int i, char const *format = 0);
 string to_string (double f, char const *format = 0);
@@ -53,7 +53,7 @@ __attribute__ ((format (printf, 1, 2)));
 
 string &replace_all (string *str, string const &find, string const &replace);
 string &replace_all (string *str, char find, char replace);
-char *string_copy (string s);
+char *string_copy (const string &s);
 
 int string_compare (string const &, string const &);
 

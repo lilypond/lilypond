@@ -65,7 +65,7 @@ public:
   /*
     variables.
    */
-  SCM c_variable (string id) const;
+  SCM c_variable (const string &id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM sym, SCM val);
   void normalize ();

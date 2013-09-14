@@ -81,8 +81,8 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (string filename,
-                                string ps_name,
+Pango_font::register_font_file (const string &filename,
+                                const string &ps_name,
                                 int face_index)
 {
   scm_hash_set_x (physical_font_tab_,
@@ -383,7 +383,7 @@ extern bool music_strings_to_paths;
 
 Stencil
 Pango_font::text_stencil (Output_def * /* state */,
-                          string str, bool music_string) const
+                          const string &str, bool music_string) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided

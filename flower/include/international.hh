@@ -43,7 +43,7 @@ string _ (char const *ch);
 */
 string _f (char const *format, ...)
 __attribute__ ((format (printf, 1, 2)));
-string _f (char const *format, string s, string s2 = "", string s3 = "");
+string _f (char const *format, const string &s, const string &s2 = "", const string &s3 = "");
 /**
    va_list version of _f
  */

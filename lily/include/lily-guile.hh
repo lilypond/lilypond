@@ -50,12 +50,12 @@ SCM ly_truncate_list (int k, SCM lst);
 
 extern SCM global_lily_module;
 
-string gulp_file_to_string (string fn, bool must_exist, int size);
+string gulp_file_to_string (const string &fn, bool must_exist, int size);
 
 SCM ly_string2scm (string const &s);
 string ly_scm2string (SCM s);
 string ly_symbol2string (SCM);
-string robust_symbol2string (SCM, string);
+string robust_symbol2string (SCM, const string&);
 Rational ly_scm2rational (SCM);
 SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
@@ -78,7 +78,7 @@ Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
 Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
-string robust_scm2string (SCM, string);
+string robust_scm2string (SCM, const string&);
 Rational robust_scm2rational (SCM, Rational);
 vector<Real> ly_scm2floatvector (SCM);
 SCM ly_floatvector2scm (vector<Real> v);

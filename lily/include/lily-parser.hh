@@ -62,14 +62,14 @@ public:
   void clear ();
   void do_init_file ();
   SCM do_yyparse ();
-  void include_string (string ly_code);
-  void parse_file (string init, string name, string out_name);
-  void parse_string (string ly_code);
-  SCM parse_string_expression (string ly_code, string filename, int line);
-  void parser_error (string);
-  void parser_error (Input const &, string);
+  void include_string (const string &ly_code);
+  void parse_file (const string &init, const string &name, const string &out_name);
+  void parse_string (const string &ly_code);
+  SCM parse_string_expression (const string &ly_code, const string &filename, int line);
+  void parser_error (const string&);
+  void parser_error (Input const &, const string&);
   // The following is called as yyerror
-  static void parser_error (Input const *i, Lily_parser *parser, SCM *, string s);
+  static void parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s);
   void set_yydebug (bool);
 
   SCM make_scope () const;

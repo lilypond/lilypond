@@ -44,25 +44,25 @@ extern int loglevel;
 extern bool warning_as_error;
 
 /* output messages, in decreasing order of importance */
-void error (string s, string location = ""); // Fatal error, exits lilypond!
-void programming_error (string s, string location = "");
-void non_fatal_error (string, string location = "");
-void warning (string s, string location = "");
-void basic_progress (string s, string location = "");
+void error (string s, const string &location = ""); // Fatal error, exits lilypond!
+void programming_error (const string &s, const string &location = "");
+void non_fatal_error (const string&, const string &location = "");
+void warning (const string &s, const string &location = "");
+void basic_progress (const string &s, const string &location = "");
 /* progress_indication does by default *NOT* start on a new line */
-void progress_indication (string s, bool newline = false, string location = "");
-void message (string s, bool newline = true, string location = "");
-void debug_output (string s, bool newline = true, string location = "");
+void progress_indication (const string &s, bool newline = false, const string &location = "");
+void message (const string &s, bool newline = true, const string &location = "");
+void debug_output (const string &s, bool newline = true, const string &location = "");
 
 /* Helper functions that always print out the message. Callers should ensure
    that the loglevel is obeyed */
-void print_message (int level, string location, string s, bool newline = true);
+void print_message (int level, const string &location, string s, bool newline = true);
 
 bool is_loglevel (int level);
 void set_loglevel (int level);
 void set_loglevel (string level);
 
-void expect_warning (string msg);
+void expect_warning (const string &msg);
 void check_expected_warnings ();
 
 #endif /* WARN_HH */

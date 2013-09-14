@@ -1022,6 +1022,17 @@ instrumentTwo = \relative c' {
 @end lilypond
 
 
+@subsubsubheading Using \partcombine with lyrics
+
+@cindex \partcombine and lyrics
+
+The @code{\partcombine} command is not designed to work with
+lyrics; if one of the voices is explicitly named in order to
+attach lyrics to it, the partcombiner will stop working.  However,
+this effect can be achieved using a @code{NullVoice} context.  See
+@ref{Polyphony with shared lyrics}.
+
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1046,10 +1057,7 @@ Internals Reference:
 @rinternals{Voice}.
 
 @knownissues
-All @code{\partcombine@dots{}} functions can only accept two voices and are
-not designed to work with lyrics; such that when one of the voices is
-explicitly named in order to attach lyrics to it, the partcombiner will
-stop working.
+All @code{\partcombine@dots{}} functions can only accept two voices.
 
 @code{\partcombine@dots{}} functions cannot be placed inside a @code{\tuplet}
 or @code{\relative} block.

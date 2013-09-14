@@ -99,7 +99,7 @@ set_loglevel (string level)
  * expected warnings again.
  */
 vector<string> expected_warnings;
-void expect_warning (string msg)
+void expect_warning (const string &msg)
 {
   expected_warnings.push_back (msg);
 }
@@ -119,7 +119,7 @@ void check_expected_warnings ()
   expected_warnings.clear ();
 }
 
-bool is_expected (string s)
+bool is_expected (const string &s)
 {
   bool expected = false;
   for (vsize i = 0; i < expected_warnings.size (); i++)
@@ -151,7 +151,7 @@ static bool message_newline = true;
    if newline is true, start the message on a new line.
 */
 void
-print_message (int level, string location, string s, bool newline)
+print_message (int level, const string &location, string s, bool newline)
 {
   /* Only print the message if the current loglevel allows it: */
   if (!is_loglevel (level))
@@ -178,7 +178,7 @@ print_message (int level, string location, string s, bool newline)
 
 /* Display a fatal error message.  Also exits lilypond.  */
 void
-error (string s, string location)
+error (string s, const string &location)
 {
   print_message (LOG_ERROR, location, _f ("fatal error: %s", s) + "\n");
   exit (1);
@@ -186,7 +186,7 @@ error (string s, string location)
 
 /* Display a severe programming error message, but don't exit.  */
 void
-programming_error (string s, string location)
+programming_error (const string &s, const string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed programming error: %s", s) + "\n");
@@ -201,7 +201,7 @@ programming_error (string s, string location)
 
 /* Display a non-fatal error message, don't exit.  */
 void
-non_fatal_error (string s, string location)
+non_fatal_error (const string &s, const string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed error: %s", s) + "\n");
@@ -213,7 +213,7 @@ non_fatal_error (string s, string location)
 
 /* Display a warning message. */
 void
-warning (string s, string location)
+warning (const string &s, const string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed warning: %s", s) + "\n");
@@ -225,21 +225,21 @@ warning (string s, string location)
 
 /* Display a success message.  */
 void
-basic_progress (string s, string location)
+basic_progress (const string &s, const string &location)
 {
   print_message (LOG_BASIC, location, s + "\n", true);
 }
 
 /* Display information about the progress.  */
 void
-progress_indication (string s, bool newline, string location)
+progress_indication (const string &s, bool newline, const string &location)
 {
   print_message (LOG_PROGRESS, location, s, newline);
 }
 
 /* Display a single info message.  */
 void
-message (string s, bool newline, string location)
+message (const string &s, bool newline, const string &location)
 {
   // Use the progress loglevel for all normal messages (including progress msg)
   print_message (LOG_INFO, location, s, newline);
@@ -247,7 +247,7 @@ message (string s, bool newline, string location)
 
 /* Display a debug information, not necessarily on a new line.  */
 void
-debug_output (string s, bool newline, string location)
+debug_output (const string &s, bool newline, const string &location)
 {
   print_message (LOG_DEBUG, location, s, newline);
 }

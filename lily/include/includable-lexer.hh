@@ -53,9 +53,9 @@ public:
   vector<string> file_name_strings_;
 
   Source_file *get_source_file () const;
-  virtual void new_input (string s, Sources *);
+  virtual void new_input (const string &s, Sources *);
 
-  void new_input (string name, string data, Sources *);
+  void new_input (const string &name, string data, Sources *);
 
   char const *here_str0 () const;
 };

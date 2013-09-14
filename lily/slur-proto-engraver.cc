@@ -123,7 +123,7 @@ Slur_proto_engraver::finalize ()
 }
 
 void
-Slur_proto_engraver::create_slur (string spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken)
+Slur_proto_engraver::create_slur (const string &spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken)
 {
   Grob *ccc = unsmob_grob (get_property ("currentCommandColumn"));
   SCM cause = ev_cause ? ev_cause->self_scm () : g_cause->self_scm ();
@@ -149,7 +149,7 @@ Slur_proto_engraver::create_slur (string spanner_id, Stream_event *ev_cause, Gro
 }
 
 bool
-Slur_proto_engraver::can_create_slur (string id, vsize old_slurs, vsize *event_idx, Stream_event *ev)
+Slur_proto_engraver::can_create_slur (const string &id, vsize old_slurs, vsize *event_idx, Stream_event *ev)
 {
   for (vsize j = slurs_.size (); j--;)
     {

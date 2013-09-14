@@ -198,7 +198,7 @@ Audio_time_signature::Audio_time_signature (int beats, int one_beat)
   one_beat_ = one_beat;
 }
 
-Audio_text::Audio_text (Audio_text::Type type, string text_string)
+Audio_text::Audio_text (Audio_text::Type type, const string &text_string)
 {
   text_string_ = text_string;
   type_ = type;

@@ -30,7 +30,7 @@ Lilypond_version::Lilypond_version (int major, int minor, int patch)
   patch_ = patch;
 }
 
-Lilypond_version::Lilypond_version (string str)
+Lilypond_version::Lilypond_version (const string &str)
 {
   major_ = 0;
   minor_ = 0;

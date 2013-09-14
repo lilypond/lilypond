@@ -141,7 +141,9 @@
 
     (AmbitusLine
      . (
-        (gap . 0.35)
+        (gap . ,ambitus-line::calc-gap)
+        (length-fraction . 0.7)
+        (maximum-gap . 0.45)
         (stencil . ,ambitus::print)
         (thickness . 2)
         (X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
@@ -813,7 +815,6 @@
         (direction . ,DOWN)
         (minimum-space . 1.2)
         (outside-staff-priority . 250)
-        (outside-staff-padding . 0.6)
         (padding . 0.6)
         (side-axis . ,Y)
         (slur-padding . 0.3)
@@ -1413,7 +1414,6 @@
         (font-encoding . fetaText)
         (font-size . -2)
         (outside-staff-horizontal-padding . 0.5)
-        (outside-staff-padding . 0.5)
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
@@ -1716,6 +1716,10 @@
         (padding . 0.2)
         (stencil . ,parentheses-item::print)
         (stencils . ,parentheses-item::calc-parenthesis-stencils)
+        ;; X-extent needs to be non-empty in order to allow proper
+        ;; horizontal attachment.  ParenthesesItem does not reserve
+        ;; space of its own, however.
+        (X-extent . (0 . 0))
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 parentheses-interface))))))
@@ -1804,7 +1808,7 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-size . 2)
         (non-musical . #t)
-        (outside-staff-horizontal-padding . 0.12)
+        (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1500)
         (padding . 0.8)
         (self-alignment-X . ,CENTER)
@@ -2350,7 +2354,7 @@
         (cross-staff . ,script-or-side-position-cross-staff)
         (direction . ,DOWN)
         (extra-spacing-width . (+inf.0 . -inf.0))
-        (outside-staff-horizontal-padding . 0.12)
+        (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 450)
 
         ;; sync with Fingering ?

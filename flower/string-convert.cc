@@ -43,7 +43,7 @@ String_convert::bin2hex (Byte bin_char)
 }
 
 string
-String_convert::bin2hex (string bin_string)
+String_convert::bin2hex (const string &bin_string)
 {
   string str;
   Byte const *byte = (Byte const *)bin_string.data ();
@@ -56,13 +56,13 @@ String_convert::bin2hex (string bin_string)
 }
 
 int
-String_convert::bin2int (string bin_string)
+String_convert::bin2int (const string &bin_string)
 {
   return bin2unsigned (bin_string);
 }
 
 unsigned
-String_convert::bin2unsigned (string bin_string)
+String_convert::bin2unsigned (const string &bin_string)
 {
   assert (bin_string.length () <= (int)sizeof (unsigned));
 
@@ -76,7 +76,7 @@ String_convert::bin2unsigned (string bin_string)
 }
 
 int
-String_convert::dec2int (string dec_string)
+String_convert::dec2int (const string &dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -100,7 +100,7 @@ String_convert::i64_string (I64 i64, char const *fmt)
 }
 // breendet imp from string
 double
-String_convert::dec2double (string dec_string)
+String_convert::dec2double (const string &dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -134,7 +134,7 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
 }
 
 string
-String_convert::hex2bin (string hex_string)
+String_convert::hex2bin (const string &hex_string)
 {
   string str;
 
@@ -352,7 +352,7 @@ String_convert::unsigned_long_string (unsigned long ul)
 }
 
 string
-String_convert::pad_to (string s, size_t n)
+String_convert::pad_to (const string &s, size_t n)
 {
   return s + string (max (int (n - s.length ()), 0), ' ');
 }
@@ -360,13 +360,13 @@ String_convert::pad_to (string s, size_t n)
 string
 String_convert::to_upper (string s)
 {
-  return strnupr ((char *)s.c_str (), s.length ());
+  return strnupr (const_cast<char*>(s.c_str ()), s.length ());
 }
 
 string
 String_convert::to_lower (string s)
 {
-  return strnlwr ((char *)s.c_str (), s.length ());
+  return strnlwr (const_cast<char*>(s.c_str ()), s.length ());
 }
 
 string

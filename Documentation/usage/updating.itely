@@ -20,8 +20,8 @@
 The LilyPond input syntax is routinely changed to simplify it or improve
 it in different ways.  As a side effect of this, the LilyPond interpreter
 often is no longer compatible with older input files.  To remedy this,
-the program @command{convert-ly} can be used to deal with most of the
-syntax changes between LilyPond versions.
+the program @command{convert-ly} can be used for upgrading files
+to newer versions of LilyPond.
 
 @menu
 * Why does the syntax change?::
@@ -54,15 +54,39 @@ with existing scores)?  In this case, we decided to change the
 name to @code{print-all-headers}.  Fortunately, this change can be
 automated with our @command{convert-ly} tool.
 
-Unfortunately, @code{convert-ly} cannot handle all input changes.
+Unfortunately, @command{convert-ly} cannot handle all input changes.
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- displaying the French word for
 Christmas was entered as @code{No\"el}.  But in LilyPond
 @c keep "-matching straight in fancy editors
 2.6 and above, the special @code{ë} must be entered directly into
-the LilyPond file as an UTF-8 character.  @code{convert-ly} cannot
+the LilyPond file as an UTF-8 character.  @command{convert-ly} cannot
 change all the LaTeX special characters into UTF-8 characters; you
 must manually update your old LilyPond input files.
+
+The conversion rules of @command{convert-ly} work using text pattern
+matching and replacement rather than a thorough understanding of
+LilyPond.  This has several consequences:
+@itemize @bullet
+@item
+The reliability of the conversion depends on the quality of each
+applied rule set and on the complexity of the respective change.
+Sometimes conversions may require manual fixes, so the old version
+should be kept available for comparison.
+@item
+Only conversions to newer formats are possible: there are no rule
+sets for downgrading.  So the main working copy of a LilyPond file
+should only be upgraded when older versions of LilyPond no longer
+need to be supported.  Version control systems such as Git might
+help with maintaining multiple versions.
+@item
+LilyPond and Scheme themselves are quite robust against creatively
+placed and omitted spaces, but the rules used by
+@command{convert-ly} tend to make some stylistic assumptions.
+Following the style used in the manuals is the safest bet for
+painless upgrades, particularly as the manuals themselves are
+upgraded using @command{convert-ly}.
+@end itemize
 
 
 @node Invoking convert-ly
@@ -125,8 +149,10 @@ The following options can be given:
 
 @table @code
 @item -d,--diff-version-update
-update the @code{\version} to the latest or, if this is greater, do
-nothing.
+increase the @code{\version} string only if the file has actually
+been changed.  Without this option (or when any conversion has
+changed the file), the version header reflects the last considered
+conversion rule.
 
 @item -e,--edit
 Apply the conversions direct to the input file, modifying it
@@ -154,7 +180,8 @@ Show all known conversions and exit.
 
 @item -t, --to=@var{to-patchlevel}
 Explicitly set which @code{\version} to convert to, otherwise the
-default is the most current value.
+default is the most current value.  It must be higher than the
+starting version.
 
 @example
 convert-ly --to=2.14.1 myfile.ly

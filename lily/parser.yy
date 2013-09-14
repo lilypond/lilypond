@@ -157,7 +157,7 @@ using namespace std;
 #include "warn.hh"
 
 void
-Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, string s)
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s)
 {
 	parser->parser_error (*i, s);
 }
@@ -650,6 +650,7 @@ context_mod_embedded:
 			$$ = $1;
 		else {
 			parser->parser_error (@1, _ ("not a context mod"));
+			$$ = Context_mod ().smobbed_copy ();
 		}
 	}
 	;
@@ -2327,16 +2328,37 @@ scalar:
 	embedded_scm_arg
 	| SCM_IDENTIFIER
 	| bare_number
+	// The following is a rather defensive variant of admitting
+	// negative numbers: the grammar would permit number_factor or
+	// even number_expression.  However, function arguments allow
+	// only this simple kind of negative number, so to have things
+	// like \tweak and \override behave reasonably similar, it
+	// makes sense to rule out things like -- which are rather an
+	// accent in function argument contexts.
+	| '-' bare_number
+	{
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
 	| FRACTION
-	| lyric_element
+	| STRING
+	| full_markup
 	;
 
 scalar_closed:
 	embedded_scm_arg_closed
 	| SCM_IDENTIFIER
+	// for scalar_closed to be an actually closed (no lookahead)
+	// expression, we'd need to use bare_number_closed here.  It
+	// turns out that the only use of scalar_closed in TEMPO is
+	// not of the kind requiring the full closedness criterion.
 	| bare_number
+	| '-' bare_number
+	{
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
 	| FRACTION
-	| lyric_element
+	| STRING
+	| full_markup
 	;
 
 
@@ -3016,9 +3038,13 @@ simple_chord_elements:
 
 lyric_element:
 	full_markup {
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("markup outside of text script or \\lyricmode"));
 		$$ = $1;
 	}
 	| STRING {
+		if (!parser->lexer_->is_lyric_state ())
+			parser->parser_error (@1, _ ("unrecognized string, not in text script or \\lyricmode"));
 		$$ = $1;
 	}
 	| LYRIC_ELEMENT
@@ -3026,8 +3052,6 @@ lyric_element:
 
 lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
-		if (!parser->lexer_->is_lyric_state ())
-			parser->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
 		if (scm_is_pair ($3))
 			unsmob_music ($$)->set_property

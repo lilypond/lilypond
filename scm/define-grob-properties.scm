@@ -578,6 +578,8 @@ to beams from this stem.  Further beams are typeset as beamlets.")
      (max-stretch ,number? "The maximum amount that this
 @code{VerticalAxisGroup} can be vertically stretched (for example, in
 order to better fill a page).")
+     (maximum-gap ,number? "Maximum value allowed for @code{gap}
+property.")
      (measure-count ,integer? "The number of measures for a
 multi-measure rest.")
      (measure-length ,ly:moment? "Length of a measure.  Used in some
@@ -674,8 +676,9 @@ outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object
 is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
-this grob and the staff when spacing according to
-@code{outside-staff-priority}.")
+grobs when spacing according to @code{outside-staff-priority}.
+Two grobs with different @code{outside-staff-padding} values have
+the larger value of padding between them.")
      (outside-staff-placement-directive ,symbol? "One of four directives
 telling how outside staff objects should be placed.
 @itemize @bullet

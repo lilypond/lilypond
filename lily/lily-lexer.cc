@@ -178,7 +178,7 @@ Lily_lexer::set_current_scope ()
 }
 
 int
-Lily_lexer::lookup_keyword (string s)
+Lily_lexer::lookup_keyword (const string &s)
 {
   return keytable_->lookup (s.c_str ());
 }
@@ -217,7 +217,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
 }
 
 SCM
-Lily_lexer::lookup_identifier (string name)
+Lily_lexer::lookup_identifier (const string &name)
 {
   return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
 }
@@ -236,13 +236,13 @@ Lily_lexer::start_main_input ()
 }
 
 void
-Lily_lexer::new_input (string str, string d, Sources *ss)
+Lily_lexer::new_input (const string &str, string d, Sources *ss)
 {
   Includable_lexer::new_input (str, d, ss);
 }
 
 void
-Lily_lexer::new_input (string str, Sources *ss)
+Lily_lexer::new_input (const string &str, Sources *ss)
 {
   if (is_main_input_ && be_safe_global)
     {

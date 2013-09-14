@@ -27,7 +27,7 @@ using namespace std;
 static SCM doc_hash_table;
 
 void
-ly_check_name (string cxx, string scm_name)
+ly_check_name (const string &cxx, const string &scm_name)
 {
   string mangle = mangle_cxx_identifier (cxx);
   if (mangle != scm_name)
@@ -38,9 +38,9 @@ ly_check_name (string cxx, string scm_name)
 
 void
 ly_add_function_documentation (SCM func,
-                               string fname,
-                               string varlist,
-                               string doc)
+                               const string &fname,
+                               const string &varlist,
+                               const string &doc)
 {
   if (doc == "")
     return;
@@ -70,7 +70,7 @@ map<void *, string> type_names;
 
 void
 ly_add_type_predicate (void *ptr,
-                       string name)
+                       const string &name)
 {
   type_names[ptr] = name;
 }

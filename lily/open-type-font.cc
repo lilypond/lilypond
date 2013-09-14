@@ -59,7 +59,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 }
 
 string
-Open_type_font::get_otf_table (string tag) const
+Open_type_font::get_otf_table (const string &tag) const
 {
   return ::get_otf_table (face_, tag);
 }
@@ -91,7 +91,7 @@ Open_type_font::~Open_type_font ()
   UGH fix naming
 */
 string
-get_otf_table (FT_Face face, string tag)
+get_otf_table (FT_Face face, const string &tag)
 {
   FT_ULong len;
   FT_Byte *tab = load_table (tag.c_str (), face, &len);
@@ -102,7 +102,7 @@ get_otf_table (FT_Face face, string tag)
 }
 
 FT_Face
-open_ft_face (string str, FT_Long idx)
+open_ft_face (const string &str, FT_Long idx)
 {
   FT_Face face;
   FT_Error error_code = FT_New_Face (freetype2_library, str.c_str (), idx, &face);
@@ -117,7 +117,7 @@ open_ft_face (string str, FT_Long idx)
 }
 
 SCM
-Open_type_font::make_otf (string str)
+Open_type_font::make_otf (const string &str)
 {
   FT_Face face = open_ft_face (str, 0 /* index */);
   Open_type_font *otf = new Open_type_font (face);
@@ -151,7 +151,7 @@ Open_type_font::derived_mark () const
 }
 
 Offset
-Open_type_font::attachment_point (string glyph_name) const
+Open_type_font::attachment_point (const string &glyph_name) const
 {
   SCM sym = ly_symbol2scm (glyph_name.c_str ());
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);

@@ -181,7 +181,7 @@ Midi_chunk::~Midi_chunk ()
 }
 
 void
-Midi_chunk::set (string header_string, string data_string, string footer_string)
+Midi_chunk::set (const string &header_string, const string &data_string, const string &footer_string)
 {
   data_string_ = data_string;
   footer_string_ = footer_string;

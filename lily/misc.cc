@@ -78,7 +78,7 @@ convex_amplifier (Real standard_x, Real increase_factor, Real x)
 }
 
 string
-camel_case_to_lisp_identifier (string in)
+camel_case_to_lisp_identifier (const string &in)
 {
   vector<char> out;
 

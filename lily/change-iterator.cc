@@ -26,7 +26,7 @@
 #include "warn.hh"
 
 void
-Change_iterator::error (string reason)
+Change_iterator::error (const string &reason)
 {
   string to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
   string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));

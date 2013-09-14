@@ -36,11 +36,10 @@ class Lily_lexer : public Includable_lexer
   DECLARE_SMOBS (Lily_lexer);
 
 private:
-  int lookup_keyword (string);
-  int scan_bare_word (string);
-  SCM scan_markup_word (string);
-  int scan_escaped_word (string);
-  int scan_shorthand (string);
+  int lookup_keyword (const string&);
+  int scan_bare_word (const string&);
+  int scan_escaped_word (const string&);
+  int scan_shorthand (const string&);
   int scan_scm_id (SCM);
   int identifier_type (SCM);
   char escaped_char (char) const;
@@ -88,12 +87,12 @@ public:
 
   void start_main_input ();
 
-  virtual void new_input (string s, Sources *);
-  virtual void new_input (string s, string d, Sources *);
+  virtual void new_input (const string &s, Sources *);
+  virtual void new_input (const string &s, string d, Sources *);
 
   bool top_input () { return include_stack_.size () < 2; }
   SCM keyword_list () const;
-  SCM lookup_identifier (string s);
+  SCM lookup_identifier (const string &s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (int token_type, SCM scm = SCM_UNSPECIFIED);
   void push_chord_state (SCM alist);

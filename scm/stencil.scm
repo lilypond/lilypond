@@ -181,6 +181,12 @@ the more angular the shape of the parenthesis."
      (interval-widen xext (/ width 2))
      (interval-widen yext (/ width 2)))))
 
+(define-public (make-transparent-box-stencil xext yext)
+  "Make a transparent box."
+  (ly:make-stencil
+   (list 'transparent-stencil
+         (ly:stencil-expr (make-filled-box-stencil xext yext)))
+   xext yext))
 
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."

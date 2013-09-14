@@ -36,7 +36,6 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
 
   DECLARE_GROB_INTERFACE ();
-  static string get_fontcharname (string style, int alteration);
   static SCM get_stencil (Grob *me);
 };
 

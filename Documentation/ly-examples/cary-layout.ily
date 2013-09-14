@@ -23,6 +23,13 @@
   }
 }
 
+\midi {
+  \context {
+    \Score
+    autoBeaming = ##f % synchronize lyrics the same way as \layout does
+  }
+}
+
 \paper {
   oddHeaderMarkup = \markup \fill-line { " " }
   evenHeaderMarkup = \markup \fill-line { " " }

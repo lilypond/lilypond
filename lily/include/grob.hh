@@ -114,8 +114,8 @@ public:
   void internal_set_property (SCM sym, SCM val);
 
   /* messages */
-  void warning (string) const;
-  void programming_error (string) const;
+  void warning (const string&) const;
+  void programming_error (const string&) const;
 
   /* class hierarchy */
   virtual System *get_system () const;
