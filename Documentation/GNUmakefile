@@ -88,6 +88,13 @@ endif
 
 include $(depth)/make/stepmake.make
 
+DOCUMENTATION_INCLUDES += -I $(outdir) \
+  -I $(top-build-dir)/Documentation/snippets/out \
+  -I $(top-src-dir)/Documentation/included \
+  -I $(top-src-dir)/Documentation/pictures \
+  -I $(top-src-dir)/Documentation \
+  -I $(top-src-dir)/input/regression
+
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 

@@ -9,6 +9,9 @@ OUTTXT_FILES= $(outdir)/NEWS.txt
 
 include $(depth)/make/stepmake.make
 
+DOCUMENTATION_INCLUDES += -I $(outdir) \
+  -I $(top-src-dir)/Documentation
+
 # FIXME ad-hoc file copy?
 $(outdir)/NEWS.tely: $(top-src-dir)/Documentation/changes.tely
 	cp -f $< $@
