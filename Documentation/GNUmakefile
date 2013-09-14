@@ -205,7 +205,7 @@ $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
 	$(buildscript-dir)/text2html $<
 
 # Explicitly list the dependencies on generated content
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
 
 ifeq ($(out),www)
 ## Extra images dependencies
