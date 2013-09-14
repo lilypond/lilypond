@@ -1511,7 +1511,10 @@ context_modification:
 		if (unsmob<Context_mod> ($2))
 			$$ = $2;
 		else {
-			parser->parser_error (@2, _ ("not a context mod"));
+			// let's permit \with #*unspecified* to go for
+			// an empty context mod
+			if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+				parser->parser_error (@2, _ ("not a context mod"));
 			$$ = Context_mod ().smobbed_copy ();
 		}
 	}
@@ -1570,18 +1573,15 @@ context_mod_list:
                      unsmob<Context_mod> ($1)->add_context_mods (md->get_mods ());
         }
 	| context_mod_list context_mod_arg {
-		if (scm_is_eq ($2, SCM_UNSPECIFIED))
-			;
-		else if (unsmob<Music> ($2)) {
+		if (unsmob<Music> ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 			$2 = scm_call_1 (proc, $2);
 		}
 		if (unsmob<Context_mod> ($2))
 			unsmob<Context_mod> ($$)->add_context_mods
 				(unsmob<Context_mod> ($2)->get_mods ());
-		else {
+		else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _ ("not a context mod"));
-		}
         }
         ;
 
