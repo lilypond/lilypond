@@ -947,17 +947,7 @@ output_def_head_with_mode_switch:
 
 music_or_context_def:
 	music_arg
-	{
-		parser->lexer_->pop_state ();
-	}
-	| CONTEXT
-	{
-		parser->lexer_->pop_state ();
-	} '{' context_def_spec_body '}'
-	{
-		$$ = $4;
-		unsmob_context_def ($$)->origin ()->set_spot (@$);
-	}
+	| context_def_spec_block
 	;
 
 output_def_body:
@@ -984,6 +974,7 @@ output_def_body:
 		parser->lexer_->push_note_state (nn);
 	} music_or_context_def
 	{
+		parser->lexer_->pop_state ();
 		if (unsmob_context_def ($3))
 			assign_context_def (unsmob_output_def ($1), $3);
 		else {
@@ -1133,7 +1124,11 @@ simple_music:
 	;
 
 context_modification:
-        WITH { parser->lexer_->push_initial_state (); } '{' context_mod_list '}'
+        WITH
+	{
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (nn);
+	} '{' context_mod_list '}'
         {
                 parser->lexer_->pop_state ();
                 $$ = $4;
