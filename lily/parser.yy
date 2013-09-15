@@ -523,6 +523,10 @@ scm_function_call:
 embedded_lilypond:
 	/* empty */
 	{
+		// FIXME: @$ does not contain a useful source location
+		// for empty rules, and the only token in the whole
+		// production, EMBEDDED_LILY, is synthetic and also
+		// contains no source location.
 		$$ = MAKE_SYNTAX ("void-music", @$);
 	}
 	| identifier_init
@@ -622,6 +626,7 @@ context_def_spec_block:
 	CONTEXT '{' context_def_spec_body '}'
 		{
 		$$ = $3;
+		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	;
 
@@ -659,11 +664,9 @@ context_mod_embedded:
 context_def_spec_body:
 	/**/ {
 		$$ = Context_def::make_scm ();
-		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	| CONTEXT_DEF_IDENTIFIER {
 		$$ = $1;
-		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	| context_def_spec_body context_mod {
 		if (!SCM_UNBNDP ($2))
@@ -690,6 +693,7 @@ context_def_spec_body:
 book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
+		unsmob_book ($$)->origin ()->set_spot (@$);
 		pop_paper (parser);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
@@ -702,7 +706,6 @@ book_body:
 	{
 		Book *book = new Book;
 		init_papers (parser);
-		book->origin ()->set_spot (@$);
 		book->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		book->paper_->unprotect ();
 		push_paper (parser, book->paper_);
@@ -711,7 +714,6 @@ book_body:
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$);
 	}
 	| BOOK_IDENTIFIER {
-		unsmob_book ($1)->origin ()->set_spot (@$);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 	}
 	| book_body paper_block {
@@ -771,6 +773,7 @@ book_body:
 bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
+		unsmob_book ($$)->origin ()->set_spot (@$);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 	}
 	;
@@ -778,12 +781,10 @@ bookpart_block:
 bookpart_body:
 	{
 		Book *book = new Book;
-		book->origin ()->set_spot (@$);
                 $$ = book->unprotect ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$);
 	}
 	| BOOK_IDENTIFIER {
-		unsmob_book ($1)->origin ()->set_spot (@$);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body paper_block {
@@ -955,6 +956,7 @@ music_or_context_def:
 	} '{' context_def_spec_body '}'
 	{
 		$$ = $4;
+		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	;
 
