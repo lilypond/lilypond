@@ -3641,6 +3641,12 @@ def conv(str):
     str = re.sub (words + "|" + matchstring, wordreplace, str)
     return str
 
+@rule((2, 17, 27), r'''\stringTuning \notemode -> \stringTuning''')
+def conv(str):
+    str = re.sub (r"\\stringTuning\s*\\notemode(\s*)@?\{\s*(.*?)\s*@?}",
+                  r"\\stringTuning\1\2", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
