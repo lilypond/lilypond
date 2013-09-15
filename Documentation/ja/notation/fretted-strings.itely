@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.27"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -663,7 +663,7 @@ LilyPond は、@code{TabStaff} の行数と自動的に算出される @code{Fre
 \layout @{
   \context @{
     \TabStaff
-    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+    stringTunings = \stringTuning <c' g' d'' a''>
   @}
 @}
 @end example

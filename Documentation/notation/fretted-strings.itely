@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.27"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -654,7 +654,7 @@ you can use
 \layout @{
   \context @{
     \TabStaff
-    stringTunings = \stringTuning \notemode @{ <c' g' d'' a''> @}
+    stringTunings = \stringTuning <c' g' d'' a''>
   @}
 @}
 @end example

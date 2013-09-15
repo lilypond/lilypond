@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.27"
 
 \header {
   texidoc = "
@@ -29,7 +29,7 @@ notes = \relative c' {
 \score {
   \new TabStaff
   \with {
-    stringTunings = \stringTuning \notemode { <a d' f' a' d'' f''> }
+    stringTunings = \stringTuning <a d' f' a' d'' f''>
     tablatureFormat = #fret-letter-tablature-format
   }
   \new TabVoice {
