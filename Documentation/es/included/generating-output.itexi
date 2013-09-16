@@ -3,7 +3,7 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: 66194168b6d61bee8aac10552f029817eb41d835
+    Translation of GIT committish: 63f65db72ca60bb87a6515a4f20a172c4a2897dc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -114,43 +114,49 @@ Escoja un nombre para el archivo, por ejemplo @file{prueba.ly}.
 @sourceimage{SaveAs,,,}
 
 
-@subsubheading Paso 2-A. Compílelo (arrastrando y soltando)
+@subsubheading Step 2. Compilación
 
-Según su preferencia, para compilar el documento puede hacer una de
-estas dos cosas:
+Para convertir nuestro archivo de LilyPond en una partitura
+musical, tenemos que compilarlo.  Esto puede hacerse de varias
+formas: usando la técnica de arrastrar y soltar, clic con el botón
+derecho del ratón, dobe clic, o usando la línea de órdenes (la
+consola de MS-DOS).  Comenzaremos examinando las tres primeras.
 
-Arrastre el archivo y suéltelo directamente encima del icono de
-LilyPond.
+1. Arrastre el archivo y suéltelo directamente encima del icono de
+LilyPond del escritorio.
 
 @sourceimage{DragDrop,,,}
 
-Pulse con el botón derecho sobre el archivo y elija @w{@code{Abrir con
-> LilyPond}} del menú contextual emergente.
+No parece que haya ocurrido gran cosa, pero después de unos
+instantes, debe observar que hay dos archivos nuevos en el
+escritorio: @file{prueba.log} y @file{prueba.pdf}.
+
+2. Pulse sobre el archivo con el botón derecho del ratón y elija
+del menú contextual la opción @w{@code{Generar PDF}}.
 
 @sourceimage{GenPDF,,,}
 
-
-@subsubheading Paso 2-B. Compílelo (con doble clic)
-
-O simplemente haga doble clic sobre el archivo @file{prueba.ly}.
+3. O bien, sencillamente haga doble clic sobre el archivo
+@file{prueba.ly}.
 
 
-@subsubheading Paso 3. Examinar el resultado
+@subsubheading Step 3. Ver el resultado
 
-Durante la compilación del archivo @file{prueba.ly}, se abrirá muy
-brevemente una ventana de la consola y luego se cerrará.  Durante este
-proceso se habrán creado tres archivos adicionales.  El archivo PDF
-contiene el documento @file{prueba.ly} convertido en una partitura musical.
+El archivo @file{prueba.pdf} contiene, compuesta tipográficamente,
+la partitura del archivo @file{prueba.ly}.  Haga doble clic sobre
+ella y se debería abrir en el visor de documentos PDF:
 
 @sourceimage{PDFRead,,,}
 
 
 @subsubheading Otras instrucciones
 
-Para crear un archivo nuevo, comience eligiendo @w{@code{Archivo > Nuevo}}
-desde dentro de algún archivo creado previamente o bien, elija
-@w{@code{Archivo > Abrir}} para abrir y editar cualquier
-archivo que haya guardado antes.
+Para crear un archivo nuevo, comience eligiendo @w{@code{Archivo >
+Nuevo}} desde dentro de algún archivo creado previamente, o bien
+elija @w{@code{Archivo > Abrir}} para abrir y editar cualquier
+archivo que haya guardado antes.  También puede editar un archivo
+pulsando con el botón derecho y eligiendo la opción
+@w{@code{Editar la fuente}}.
 
 @sourceimage{EditFile,,,}
 
@@ -164,15 +170,12 @@ de compilación, en busca de algún error.
 Este archivo de registro se sobreescribe cada vez que compilamos un
 archivo de LilyPond.
 
-El archivo PS se utiliza internamente por parte de LilyPond para crear
-el archivo PDF, y se puede ignorar.  También se sobreescribe cada vez
-que compilamos nuestro documento.
-
 Si estamos viendo el archivo en un visor de documentos PDF, tiene que
-cerrar el PDF cuando quiera realizar una compilación nueva, porque
+cerrar el PDF cuando quiera intentar una compilación nueva, porque
 podría fallar la creación del PDF nuevo mientras se está viendo con
 algún programa.
 
+@sourceimage{BadLog2,,,}
 
 @end macro
 

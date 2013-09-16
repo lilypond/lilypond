@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fc43a05568a1be2fc78bd7a16a42e474d239aac8
+    Translation of GIT committish: 743dc7b27888c776186336cf4b330d3ebfc821de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1423,7 +1423,7 @@ Así pues, en nuestra función, tenemos que clonar esta expresión (de
 forma que tengamos dos notas para construir la secuencia), añadir
 @code{SlurEvent} a la propiedad @code{'articulations} de cada una de
 ellas, y por último hacer una secuencia @code{SequentialMusic} con los
-dos @code{EventChords}.  Para añadir a una propiedad, es útil saber
+dos elementos @code{NoteEvent}.  Para añadir a una propiedad, es útil saber
 que una propiedad no establecida se lee como @code{'()}, la lista
 vacía, así que no se requiere ninguna comprobación especial antes de
 que pongamos otro elemento delante de la propiedad

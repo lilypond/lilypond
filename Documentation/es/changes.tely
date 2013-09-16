@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: efec448b936bd63d82571cf79f8435768605c66d
+    Translation of GIT committish: 59ee8eafd377bd11a4b0bf104db9aafc96b56d27
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,56 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Ahora se pueden escribir directamente números decimales dentro de
+la música, sin el prefijo del símbolo de almohadilla.  Junto al
+cambio anterior en la forma de especificar las propiedades de los
+objetos, el código para modificar la longitud de las plicas ha
+cambiado de esto:
+@example
+\override Stem #'length = #5.6
+e' f' g' a'
+@end example
+a esto:
+@example
+\override Stem.length = 5.6
+e' f' g' a'
+@end example
+
+Se debe escribir un dígito a ambos lados del punto; no se permiten
+valores como @code{4.} ó @code{-.3}.
+
+Asimismo, no se admiten fracciones decimales dentro de
+@code{\chordmode}.
+
+@item
+Se pueden redefinir libremente ciertas abreviaturas como @code{(},
+@code{)}, @code{|}, @code{[}, @code{]}, @code{~}, @code{\(},
+@code{\)} y otras, como instrucciones normales. Un ejemplo sería
+@lilypond[verbatim,quote]
+"\\{" = (
+"\\}" = )
+"(" = \melisma
+")" = \melismaEnd
+
+\new Staff <<
+  \relative c' {
+    c8 \{ d e f \} % slurred
+    g ( a b c ) % no slur, but with melisma
+    c,1 \bar "|."
+   }
+   \addlyrics { Li -- ly -- pond. }
+>>
+@end lilypond
+
+@item
+El nombre de la abreviatura de articulación para
+@code{\staccatissimo} ha cambiado de @code{-|} a@tie{}@code{-!}.
+
+@item
+Ahora se escriben los rangos de cambios de tempo como @code{\tempo
+4 = 60 - 68} en lugar de @code{\tempo 4 = 60 ~ 68}.
 
 @item
 Se ha cambiado el nombre de @code{OctavateEight} por el de
@@ -357,10 +407,10 @@ tradicionales, o en más de una octava.
 @lilypond[quote,relative=0]
 \override Staff.KeySignature #'flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
 \override Staff.KeySignature #'sharp-positions = #'(2)
-\bar "||" \key d\major b fis b2
+\bar "||" \key d \major b fis b2
 @end lilypond
 
 @end itemize

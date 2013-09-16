@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: fc43a05568a1be2fc78bd7a16a42e474d239aac8
+    Translation of GIT committish: 84e6243cfa30f294727192befbba5e746fec6d5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -680,21 +680,48 @@ argumentos.
 @translationof Markup construction in Scheme
 
 @cindex marcado, definir instrucciones de
+@funindex \displayScheme
 
-El macro @code{markup} construye expresiones de marcado en Scheme,
-proporcionando una sintaxis similar a la de LilyPond.  Por ejemplo:
+Las expresiones de marcado se representan internamente en Scheme
+usando el macro @code{markup}:
 
 @example
-(markup #:column (#:line (#:bold #:italic "hola" #:raise 0.4 "mundo")
-                  #:larger #:line ("fulano" "fulanito" "menganito")))
+(markup @var{expr})
+@end example
+
+Para ver una expresión de marcado en su forma de Scheme, utilice
+la instrucción @code{\displayScheme}:
+
+@example
+\displayScheme
+\markup @{
+  \column @{
+    \line @{ \bold \italic "hola" \raise #0.4 "mundo" @}
+    \larger \line @{ fulano fulanito menganito @}
+  @}
+@}
 @end example
 
 @noindent
-equivale a:
+La compilación del código anterior envía a la consola lo
+siguiente:
+
 @example
-#@{ \markup \column @{ \line @{ \bold \italic "hola" \raise #0.4 "mundo" @}
-                  \larger \line @{ fulano fulanito menganito @} @} #@}
+(markup
+  #:line
+  (#:column
+   (#:line
+    (#:bold (#:italic "hola") #:raise 0.4 "mundo")
+    #:larger
+    (#:line
+     (#:simple "fulano" #:simple "fulanito" #:simple "menganito")))))
 @end example
+
+Para evitar que el marcado se imprima en la página, use
+@w{@samp{\void \displayScheme @var{marcado}}}.  Asimismo, como
+ocurre con la instrucción @code{\displayMusic}, la salida de
+@code{\displayScheme} se puede guardar en un archivo externo.
+Véase @ref{Presentación de las expresiones musicales}.
 
 @noindent
 Este ejemplo muestra las principales reglas de traducción entre la
