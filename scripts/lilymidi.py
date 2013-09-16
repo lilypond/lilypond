@@ -80,11 +80,21 @@ class meta_formatter (formatter):
      return str (val2);
 class tempo_formatter (formatter):
    def format_vals (self, val1, val2):
-     return str (val2) + " msec/quarter"
+    return str (ord (val2[0])*65536 + ord (val2[1])*256 + ord (val2[2])) \
+        + " msec/quarter"
 
 class time_signature_formatter (formatter):
    def format_vals (self, val1, val2 = ""):
-     return str (val2)   # TODO
+       from fractions import Fraction
+       # if there are more notated 32nd notes per midi quarter than 8,
+       # we display a fraction smaller than 1 as scale factor.
+       r = Fraction(8, ord (val2[3]))
+       if r == 1:
+           ratio =""
+       else:
+           ratio = " *" + str (r)
+       return str (ord (val2[0])) + "/" + str(1 << ord (val2[1])) + ratio \
+           + ", metronome "  + str (Fraction (ord (val2[2]), 96))
 class key_signature_formatter (formatter):
    def format_vals (self, val1, val2):
        key_names = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
