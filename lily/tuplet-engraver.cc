@@ -107,7 +107,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
           tuplets_.pop_back ();
         }
       else if (!to_boolean (get_property ("skipTypesetting")))
-        ev->origin ()->warning (_ ("No tuplet to end"));
+        ev->origin ()->debug_output (_ ("No tuplet to end"));
     }
   else
     ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
@@ -155,7 +155,10 @@ Tuplet_engraver::process_music ()
                                      stopped_tuplets_[i].bracket_->get_bound (LEFT));
                 }
               else
-                programming_error ("stopped tuplet bracket has neither left nor right bound");
+                {
+                  warning ("omitting tuplet bracket with neither left nor right bound");
+                  continue;
+                }
             }
           // todo: scrap last_tuplets_, use stopped_tuplets_ only.
           // clear stopped_tuplets_ at start_translation_timestep
