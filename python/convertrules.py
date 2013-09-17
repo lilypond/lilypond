@@ -3521,6 +3521,28 @@ def conv(str):
                   r"\1/\2", str)
     return str
 
+@rule((2, 17, 14), r"\accepts ... -> \accepts ... \defaultchild ...")
+def conv(str):
+    def matchaccepts(m):
+        # First weed out definitions starting from an existing
+        # definition: we assume that the inherited \defaultchild is
+        # good enough for our purposes.  Heuristic: starts with a
+        # backslash and an uppercase letter.
+        if re.match (r"\s*\\[A-Z]", m.group (1)):
+            return m.group (0)
+        # existing defaultchild obviously trumps all
+        if re.search (r"\\defaultchild[^-_a-zA-Z]", m.group (1)):
+            return m.group (0)
+        # take the first \\accepts if any and replicate it
+        return re.sub ("(\r?\n[ \t]*|[ \t]+)"
+                       + r"""\\accepts(\s+(?:#?".*?"|[-_a-zA-Z]+))""",
+                       r"\g<0>\1\\defaultchild\2",
+                       m.group (0), 1)
+
+    str = re.sub (r"\\context\s*@?\{(" + brace_matcher (20) + ")\}",
+                  matchaccepts, str)
+    return str
+
 @rule((2, 17, 15), r"""#(ly:set-option 'old-relative)
 \relative -> \relative c'""")
 def conv(str):
