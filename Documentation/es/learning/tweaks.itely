@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
+    Translation of GIT committish: f3e8b5f9b68cab4579873749f4648ba63bc92ac7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,12 +19,13 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 
 
 @menu
-* Elementos de trucaje::
-* Manual de referencia de funcionamiento interno::
-* Apariencia de los objetos::
-* Colocación de los objetos::
-* Colisiones de objetos::
-* Trucajes adicionales::
+* Elementos de trucaje::        
+* Manual de referencia de funcionamiento interno::  
+* Apariencia de los objetos::   
+* Colocación de los objetos::   
+* Espaciado vertical::          
+* Colisiones de objetos::       
+* Trucajes adicionales::        
 @end menu
 
 @node Elementos de trucaje
@@ -32,10 +33,10 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 @translationof Tweaking basics
 
 @menu
-* Introducción al trucaje::
-* Objetos e interfaces::
-* Convenciones de nombres de objetos y propiedades::
-* Métodos de trucaje::
+* Introducción al trucaje::     
+* Objetos e interfaces::        
+* Convenciones de nombres de objetos y propiedades::  
+* Métodos de trucaje::          
 @end menu
 
 @node Introducción al trucaje
@@ -185,11 +186,11 @@ a partir de sus nombres.
 @strong{La instrucción \override}
 
 @menu
-* La instrucción \override::
-* La instrucción \revert::
-* El prefijo \once::
-* La instrucción \overrideProperty::
-* The \tweak command::
+* La instrucción \override::    
+* La instrucción \revert::      
+* El prefijo \once::            
+* La instrucción \overrideProperty::  
+* The \tweak command::          
 @end menu
 
 @node La instrucción \override
@@ -552,9 +553,9 @@ Referencia de la notación:
 @cindex Internals Reference
 
 @menu
-* Propiedades de los objetos de presentación::
-* Propiedades de los interfaces::
-* Tipos de propiedades::
+* Propiedades de los objetos de presentación::  
+* Propiedades de los interfaces::  
+* Tipos de propiedades::        
 @end menu
 
 @node Propiedades de los objetos de presentación
@@ -1066,9 +1067,9 @@ cuantos ejemplos que muestran cómo se pueden usar los trucos para
 cambiar el aspecto de la música impresa.
 
 @menu
-* Visibilidad y color de los objetos::
-* Tamaño de los objetos::
-* Longitud y grosor de los objetos::
+* Visibilidad y color de los objetos::  
+* Tamaño de los objetos::       
+* Longitud y grosor de los objetos::  
 @end menu
 
 @node Visibilidad y color de los objetos
@@ -1110,10 +1111,10 @@ supuesto, por extensión, también la de muchos otros objetos de
 presentación).  Vamos a considerar cada uno de ellos por orden.
 
 @menu
-* La propiedad stencil (sello)::
-* La propiedad break-visibility (visibilidad en el salto)::
-* La propiedad transparent (transparente)::
-* La propiedad color::
+* La propiedad stencil (sello)::  
+* La propiedad break-visibility (visibilidad en el salto)::  
+* La propiedad transparent (transparente)::  
+* La propiedad color::          
 @end menu
 
 @node La propiedad stencil (sello)
@@ -1789,9 +1790,9 @@ tipografía) se pueden cambiar de la misma forma.
 @translationof Placement of objects
 
 @menu
-* Comportamiento automático::
-* Objetos interiores al pentagrama::
-* Objetos fuera del pentagrama::
+* Comportamiento automático::   
+* Objetos interiores al pentagrama::  
+* Objetos fuera del pentagrama::  
 @end menu
 
 
@@ -1900,8 +1901,8 @@ hacia abajo.  Esto se controla automáticamente cuando está establecida
 la propiedad @code{direction}.
 
 @menu
-* La propiedad direction (dirección)::
-* Digitaciones::
+* La propiedad direction (dirección)::  
+* Digitaciones::                
 @end menu
 
 @node La propiedad direction (dirección)
@@ -2162,10 +2163,10 @@ las colisiones.  Existen varias formas de sobreescribir la colocación
 automática si el posicionado no resulta óptimo.
 
 @menu
-* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::
-* La instrucción \textLengthOn::
-* Posicionamiento de los matices dinámicos::
-* Escalado de un «Grob»::
+* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::  
+* La instrucción \textLengthOn::  
+* Posicionamiento de los matices dinámicos::  
+* Escalado de un «Grob»::       
 @end menu
 
 
@@ -2489,7 +2490,7 @@ artificial:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2523,19 +2524,22 @@ contemplan el @code{grob-interface}.
 
 @cindex @code{extra-spacing-width}
 
-De forma predeterminada, los objetos fuera-del-pentagrama reciben una
-anchura cero, de manera que pueden solaparse en la dirección
-horizontal.  Esto se hace mediante el truco de añadir una cantidad
-infinita a la dimensión más a la izquierda y menos infinito a la
-dimensión más a la derecha estableciendo el valor de
-@code{extra-spacing-width} a @code{'(+inf.0 . -inf.0)}.  Así, para
-asegurar que no se superponen en la dirección horizontal tendremos que
-sobreescribir este valor de @code{extra-spacing-width} a @code{'(0
-. 0)} de forma que el verdadero ancho se presente.  Esta es la
-instrucción que lo hace para las indicaciones dinámicas:
+De forma predeterminada, los objetos fuera-del-pentagrama reciben
+una anchura cero, de manera que pueden solaparse en la dirección
+horizontal.  Esto se hace mediante el truco de hacer que la
+dimensión más a la izquierda sea igual a infinito y que la
+dimensión más a la derecha sea igual a menos infinito,
+estableciendo el valor de @code{extra-spacing-width} a
+@code{'(+inf.0 . -inf.0)}.  Así, para asegurar que no se
+superponen en la dirección horizontal tendremos que sobreescribir
+este valor de @code{extra-spacing-width} para darles un poco de
+espacio adicional.  Las unidades son el espacio entre dos líneas
+del pentagrama, de forma que debería bastar mover el límite
+izquierdo media unidad a la izquierda y el límite derecho media
+unidad a la derecha:
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2546,37 +2550,224 @@ Veamos si funciona en nuestro ejemplo anterior:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-Bueno, ciertamente ha hecho que las marcas dinámicas ya no estén
-desplazadas, pero aún quedan dos problemas.  Las marcas tendrían que
-separarse un poco más entre sí, y sería mejor si todas estuvieran a la
-misma distancia del pentagrama.  Podemos resolver el primer problema
-fácilmente.  En vez de hacer cero la anchura
-@code{extra-spacing-width}, podemos añadirle algo más.  Las unidades
-son el espacio entre dos líneas de pentagrama, así que al mover el
-límite izquierdo media unidad a la izquierda y el límite derecho media
-unidad hacia la derecha, deberíamos conseguirlo:
-
-@cindex DynamicText, ejemplo de sobreescritura
-@cindex extra-spacing-width, propiedad, ejemplo
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
-Esto tiene un mejor aspecto, pero quizá habríamos preferido que las
-indicaciones de dinámica estuvieran alineadas sobre la misma línea de
-base en lugar de ir hacia arriba y hacia abajo con las notas.  La
-propiedad que lo hace es @code{staff-padding} (relleno de pentagrama)
-que se estudia en la sección siguiente.
+Esto tiene un mejor aspecto, pero quizá habríamos preferido que
+las indicaciones de dinámica estuvieran alineadas sobre la misma
+línea de base en lugar de ir hacia arriba y hacia abajo con las
+notas.  La propiedad que lo hace es @code{staff-padding} (relleno
+de pentagrama) que se estudia en la sección dedicada a las
+colisiones (véase @ref{Colisiones de objetos}).
+
+@node Espaciado vertical
+@section Espaciado vertical
+@translationof Vertical spacing
+
+Por lo general, el espaciado vertical de los objetos musicales que
+LilyPond hace es bastante bueno.  Veamos cómo se comporta con una
+canción sencilla, con dos voces y acompañamiento de piano:
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+No hay ningún problema con el espaciado vertical predeterminado.
+Sin embargo, supongamos que estamos trabajando con un editor que
+tiene ciertos requisitos específicos para el espaciado vertical de
+los pentagramas y la letra: quiere que la letra está más separada
+de las notas, que el acompañamiento de piano esté más separado de
+la línea vocal y que los dos pentagramas de piano estén más juntos
+entre sí.  Comenzaremos con la letra.
+
+La letra se encuentra en el interior de un sistem, y por tanto las
+instrucciones para aplicarle el espaciado estarán en
+@ruser{Espaciado vertical flexible dentro de los sistemas}.  Allí
+se dice que el texo son líneas del tipo @qq{no-pauta} y por tanto
+la instrucción para cambiar su espaciado hará referencia a la
+propiedad @code{nonstaff}.  Para separarlas del pentagrama al que
+pertenecen (la pauta superior) usaremos la propiedad
+@code{relatedstaff}.  Para separarlas de la línea inferior
+usaremos la propiedad @code{unrelatedstaff}.  Las partes vocales
+pertenecen a un grupo vertical @code{VerticalAxisGroup}, por lo
+que tenemos que ajustar sus propiedades.  Probémoslo y veamos si
+funciona.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Bien: sí, funciona, pero quizá demasiado bien.  Cuando
+establecemos el @code{padding} (relleno) a 5, LilyPond añade 5
+espacios de pentagrama a la distancia entre los objetos, lo que es
+excesivo para nosotros en este caso.  Usaremos un valor de 2.
+
+A continuación, desplazaremos la música de piano para separarla de
+las partes vocales.  La música vocal es una @code{ChoirStaff} (un
+contexto de sistema coral), y por tanto tenemos que aumentar el
+espaciado entre ese grupo de pentagramas y el sistema de piano que
+se encuentra debajo.  Lo haremos cambiando la
+@code{basic-distance} (distancia básica) del @code{StaffGrouper}
+del @code{staffgroup-staff-spacing}.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Muy bien.  Ahora, sólo nos queda el último requisito de hacer que
+los pentagramas de piano estén más juntos.  Para conseguirlo, de
+nuevo alteramos las propiedades del @code{StaffGrouper}, pero esta
+vez vamos a reducir tanto la @code{basic-distance} (distancia
+básica) como el @code{padding} (relleno).  Podemos hacerlo como se
+muestra a continuación.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Con esto los hemos colocado muy juntos entre sí (pero es lo que el
+editor quería).  Se podrían haber separado más alterando el
+relleno, @code{padding}, o la distancia básica,
+@code{basic-distance}, si quisiéramos.
+
+Hay muchas formas de alterar el espaciado vertical.  Un punto
+clave que debemos recordar es que el espaciado entre objetos
+dentro de un @code{StaffGroup} (como los grupos @code{GrandStaff}
+o @code{PianoStaff}) se controla con las variables de espaciado
+del @code{StaffGrouper}. El espaciado de los pentagramas no
+agrupados (como @code{Lyrics} y @code{Staff}) se controla con las
+variables del @code{VerticalAxisGroup}.  Para ver más detalles,
+consulte
+@ruser{Variables de espaciado de \paper verticales flexibles} y
+@ruser{Espaciado vertical flexible dentro de los sistemas}.
 
 
 @node Colisiones de objetos
@@ -2584,9 +2775,9 @@ que se estudia en la sección siguiente.
 @translationof Collisions of objects
 
 @menu
-* Mover objetos::
-* Arreglar notación con superposiciones::
-* Ejemplos reales de música::
+* Mover objetos::               
+* Arreglar notación con superposiciones::  
+* Ejemplos reales de música::   
 @end menu
 
 @node Mover objetos
@@ -2850,14 +3041,14 @@ en la sección anterior, para resolver problemas de notación que se
 superpone.
 
 @menu
-* La propiedad padding (relleno)::
-* La propiedadhe right-padding (relleno por la derecha)::
-* La propiedad staff-padding (relleno de pentagrama)::
-* La propiedad self-alignment-X (auto-alineación en X)::
-* La propiedad staff-position (posición en el pentagrama)::
-* La propiedad extra-offset (desplazamiento adicional)::
-* La propiedad positions (posiciones)::
-* La propiedad force-hshift (forzar desplazamiento horizontal)::
+* La propiedad padding (relleno)::  
+* La propiedadhe right-padding (relleno por la derecha)::  
+* La propiedad staff-padding (relleno de pentagrama)::  
+* La propiedad self-alignment-X (auto-alineación en X)::  
+* La propiedad staff-position (posición en el pentagrama)::  
+* La propiedad extra-offset (desplazamiento adicional)::  
+* La propiedad positions (posiciones)::  
+* La propiedad force-hshift (forzar desplazamiento horizontal)::  
 @end menu
 
 @node La propiedad padding (relleno)
@@ -2984,7 +3175,7 @@ matiz en el ejemplo de la sección anterior:
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Align dynamics to a base line 2 units above staff
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 
@@ -2992,8 +3183,8 @@ a4\f b\mf c\mp b\p
 @unnumberedsubsubsec La propiedad @code{self-alignment-X} (auto-alineación en X)
 @translationof The self-alignment-X property
 
-El ejemplo siguiente muestra cómo esto puede resolver la colisión
-entre un objeto de digitación de cuerda y la plica de una nota
+El ejemplo siguiente muestra cómo ajustar la posición
+de un objeto de digitación de cuerda en relación a la plica de una nota
 mediante el alineamiento del límite derecho con el punto de referencia
 de la nota «padre»:
 
@@ -3771,11 +3962,11 @@ lhMusic = \relative c' {
 @translationof Further tweaking
 
 @menu
-* Otras aplicaciones de los trucos::
-* Uso de variables para los ajustes de disposición::
-* Hojas de estilo::
-* Otras fuentes de información::
-* Trucos avanzados con Scheme::
+* Otras aplicaciones de los trucos::  
+* Uso de variables para los ajustes de disposición::  
+* Hojas de estilo::             
+* Otras fuentes de información::  
+* Trucos avanzados con Scheme::  
 @end menu
 
 @node Otras aplicaciones de los trucos
@@ -3783,8 +3974,8 @@ lhMusic = \relative c' {
 @translationof Other uses for tweaks
 
 @menu
-* Unir notas entre voces distintas::
-* Simulación de un calderón en el MIDI::
+* Unir notas entre voces distintas::  
+* Simulación de un calderón en el MIDI::  
 @end menu
 
 @cindex transparent, uso de la propiedad
@@ -4072,13 +4263,10 @@ las partes que tienen todos los @code{#()}.  Esto se explicará en
 @ref{Trucos avanzados con Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4107,13 +4295,10 @@ otro archivo:
 
 @example
 %%% guardar esto en un archivo de nombre "definiciones.ily"
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4146,13 +4331,10 @@ archivo como @file{musica.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4182,13 +4364,10 @@ Sustituyamos nuestro archivo @file{definiciones.ily} con éste:
 
 @example
 %%%  definiciones.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4215,13 +4394,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4266,13 +4442,10 @@ también vamos a aumentar el tamaño general de la salida.
 
 @example
 %%%  publicar-web.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4300,13 +4473,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8f3dfc850e8e16723c4d9d00c848b5393dc16330
+    Translation of GIT committish: 48a57a1c8feb426029e059d9fbf8aaf1b14f0ff8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -490,6 +490,16 @@ texto e indicaciones de pedal de piano.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
+
+@cindex Ferneyhough, reguladores de 
+@cindex reguladores de Ferneyhough
+@cindex reguladores acampanados
+@cindex acampanados, reguladores
+@cindex reguladores de tipo constante
+@cindex constante, reguladores de tipo
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{printing-hairpins-in-various-styles.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligned-dynamics-and-textscripts.ly}
@@ -1302,8 +1312,9 @@ Referencia de funcionamiento interno:
 No es posible mezclar arpegios conectados y no conectados en un
 @code{PianoStaff} en el mismo instante de tiempo.
 
-El corchete de los arpegios de paréntesis no funciona para los
-arpegios de pentagrama cruzado.
+La forma sencilla de especificar el corchete en los arpegios de
+paréntesis no funciona para los arpegios de pentagrama cruzado;
+see @ref{Plicas de pentagrama cruzado}.
 
 
 @node Trinos
