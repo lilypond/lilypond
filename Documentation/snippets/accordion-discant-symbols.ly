@@ -11,8 +11,10 @@
   lsrtags = "keyboards, specific-notation, symbols-and-glyphs, workaround"
 
   texidoc = "
-Accordion discant-specific symbols are added using @code{\\markup}. The
-placement of the symbols can be tweaked by changing the
+This snippet has been obsoleted by predefined markup commands, see
+@ruser{Accordion Registers}.  It's still useful as a simple
+demonstration of how to combine symbols: the placement of the symbols
+added with @code{\\markup} can be tweaked by changing the
 @code{\\translate-scaled} arguments.  @code{\\translate-scaled} is
 used here rather than @code{\\translate} in order to let the
 positioning of the symbol parts adapt to changes of @code{font-size}.
