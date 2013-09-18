@@ -2,7 +2,7 @@
 .SUFFIXES: .html .info .texi .texinfo
 
 # Explicitly list the dependencies on generated content
-$(outdir)/web.texi: $(outdir)/weblinks.itexi
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
 
 $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%/index.html $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
