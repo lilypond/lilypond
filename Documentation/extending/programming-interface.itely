@@ -804,6 +804,26 @@ you avoid performance pitfalls by just using Scheme arguments for
 the leading arguments of markup functions that take a markup as
 their last argument.
 
+@funindex \markup
+@cindex markup macro
+@funindex interpret-markup
+Markup commands have a rather complex life cycle.  The body of a
+markup command definition is responsible for converting the
+arguments of the markup command into a stencil expression which is
+returned.  Quite often this is accomplished by calling the
+@code{interpret-markup} function on a markup expression, passing
+the @var{layout} and @var{props} arguments on to it.  Those
+arguments are usually only known at a very late stage in
+typesetting.  Markup expressions have their components assembled
+into markup expressions already when @code{\markup} in a LilyPond
+expression or the @code{markup} macro in Scheme is expanded.  The
+evaluation and typechecking of markup command arguments happens at
+the time @code{\markup}/@code{markup} are interpreted.
+
+But the actual conversion of markup expressions into stencil
+expressions by executing the markup function bodies only happens
+when @code{interpret-markup} is called on a markup expression.
+
 @node On properties
 @unnumberedsubsubsec On properties
 
@@ -1047,11 +1067,17 @@ stencils are combined using @code{ly:stencil-add}:
 
 @node New markup list command definition
 @subsection New markup list command definition
+@funindex define-markup-list-command
+@funindex interpret-markup-list
 Markup list commands are defined with the
 @code{define-markup-list-command} Scheme macro, which is similar to the
 @code{define-markup-command} macro described in
 @ref{New markup command definition}, except that where the latter returns
 a single stencil, the former returns a list of stencils.
+
+In a similar vein, @code{interpret-markup-list} is used instead of
+@code{interpret-markup} for converting a markup list into a list
+of stencils.
 
 In the following example, a @code{\paragraph} markup list command is
 defined, which returns a list of justified lines, the first one being
