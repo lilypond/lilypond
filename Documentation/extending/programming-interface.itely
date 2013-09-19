@@ -1303,16 +1303,15 @@ my-callback = #(lambda (grob)
 @node Inline Scheme code
 @section Inline Scheme code
 
-TODO: the example for this section is ill-chosen since
-@example
-F = -\tweak font-size #-3 -\flageolet
-@end example
-(note the @samp{-} marking it as a post event) will actually work fine
-for the stated purpose.  Until this section gets a rewrite, let's
-pretend we don't know.
+TODO: after this section had been written, LilyPond has improved
+to the point that finding a @emph{simple} example where one would
+@emph{have} to revert to Scheme has become rather hard.
+
+Until this section gets a rewrite, let's pretend we don't know.
 
 The main disadvantage of @code{\tweak} is its syntactical
-inflexibility.  For example, the following produces a syntax error.
+inflexibility.  For example, the following produces a syntax error
+(or rather, it did so at some point in the past).
 
 @example
 F = \tweak font-size #-3 -\flageolet
