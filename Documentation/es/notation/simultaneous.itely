@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
+    Translation of GIT committish: 2537ec6d3ad3c7f1308254d856ed762fb5d911b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -434,8 +434,8 @@ Se puede crear un pasaje polifónico temporal con la construcción
 siguiente:
 
 @example
-<< @{ \voiceOne ... @}
-  \new Voice @{ \voiceTwo ... @}
+<< @{ \voiceOne @dots{} @}
+  \new Voice @{ \voiceTwo @dots{} @}
 >> \oneVoice
 @end example
 
@@ -477,13 +477,13 @@ necesarias para definir los ajustes de cada voz.
 
 @subsubsubheading La construcción de la doble barra invertida
 
-La construcción @code{<< @{...@} \\ @{...@} >>}, en que las dos
-expresiones (o más) están separadas por doble barra invertida, se
-comporta de forma distinta a la construcción similar sin las dobles
-barras: @emph{todas} las expresiones dentro de esta construcción se
-asignan a contextos @code{Voice} nuevos.  Estos contextos @code{Voice}
-nuevos se crean implícitamente y reciben los nombres fijos @code{"1"},
-@code{"2"}, etc.
+La construcción @code{<< @{@dots{}@} \\ @{@dots{}@} >>}, en que
+las dos expresiones (o más) están separadas por doble barra
+invertida, se comporta de forma distinta a la construcción similar
+sin las dobles barras: @emph{todas} las expresiones dentro de esta
+construcción se asignan a contextos @code{Voice} nuevos.  Estos
+contextos @code{Voice} nuevos se crean implícitamente y reciben
+los nombres fijos @code{"1"}, @code{"2"}, etc.
 
 El primer ejemplo podría haberse tipografiado de la manera siguiente:
 
@@ -705,9 +705,9 @@ distintas, sobre los pulsos 1 y 3 en el primer compás y sobre el pulso
 >>
 @end lilypond
 
-Las cabezas de notas diferentes se pueden combinar, con la excepción
-de blancas con negras, como se muestra más abajo.  Aquí las cabezas
-del pulso 1 del primer compás sí se combinan:
+Las cabezas de notas diferentes se pueden combinar como se muestra
+más abajo.  En este ejemplo las cabezas del pulso 1 del primer
+compás sí se combinan:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -725,6 +725,9 @@ del pulso 1 del primer compás sí se combinan:
   }
 >>
 @end lilypond
+
+Las figuras negras y blancas no se combinan de esta manera, pues
+sería difícil poder distinguirlas.
 
 También se pueden combinar cabezas con puntillos diferentes, como se
 muestra en el tercer pulso del primer compás:
@@ -995,7 +998,7 @@ una voz como solo, no son soluciones ideales porque la función
 caso, el resultado de la función @code{\partcombine} se puede
 alterar o corregir con las instrucciones siguientes:
 
-Las instrucciones que finalizan en @code{...Once} se aplican
+Las instrucciones que finalizan en @code{@dots{}Once} se aplican
 exclusivamente a la nota siguiente dentro de la expresión musical.
 
 @itemize
@@ -1053,6 +1056,19 @@ instrumentTwo = \relative c' {
 >>
 @end lilypond
 
+
+@subsubsubheading Uso de \partcombine con letra
+
+@cindex \partcombine y letra
+
+La instrucción @code{\partcombine} no está diseñada para funcionar
+con la letra de las canciones; si una de las voces recibe un
+nombre explícito para poder adjuntar una letra, el combinador de
+partes no funciona.  Sin embargo, se puede conseguir este efecto
+usando un contexto @code{NullVoice}.  Véase
+@ref{Polyphony with shared lyrics}.
+
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1077,14 +1093,11 @@ Referencia de funcionamiento interno:
 @rinternals{Voice}.
 
 @knownissues
-Toas las funciones @code{\partcombine} admiten exclusivamente dos voces
-y no están diseñadas para funcionar con la letra de las canciones;
-de manera que cuando una de las voces recibe explícitamente un
-nombre para aplicarle una letra, el combinador de partes
-deja de funcionar.
+Todas las funciones @code{\partcombine@dots{}} admiten
+exclusivamente dos voces.
 
-Las funciones @code{\partcombine...} no se pueden escribir dentro
-de los bloques @code{\tuplet} ni @code{\relative}.
+Las funciones @code{\partcombine@dots{}} no se pueden escribir
+dentro de los bloques @code{\tuplet} ni @code{\relative}.
 
 Si @code{printPartCombineTexts} está establecido y las dos voces
 tocan y terminan las mismas notas en el mismo compás,

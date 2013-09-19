@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5dcfc92089ab4ba59690d59bd6c1dbc2c6520753
+    Translation of GIT committish: 48a57a1c8feb426029e059d9fbf8aaf1b14f0ff8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,7 +149,9 @@ pauta; véase @ref{Dirección y posición}.
 @code{\dotsNeutral}.
 @endpredefined
 
+
 @snippets
+
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {alternative-breve-notes.ly}
 
@@ -431,11 +433,13 @@ en efecto extiende la longitud de una nota.
 ligadura de unión es tan sólo una manera de extender la duración de
 una nota, algo parecido a lo que hace el puntillo.}
 
-Se introduce una ligadura de unión usando el símbolo de la tilde curva
-(@code{~}).
+Se introduce una ligadura de unión escribiendo el símbolo de la
+tilde curva (@code{~}) después de la primera de cada pareja de
+notas que se quieren unir.  Esto indica que la nota se une a la
+siguiente, que debe tener la misma altura.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2~ a4~ a16 r r8
 @end lilypond
 
 Se usan ligaduras de unión bien cuando la nota atraviesa la barra de
@@ -446,8 +450,8 @@ subdivisiones del compás de mayor duración:
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative c' {
-  r8^"sí" c8 ~ c2 r4 |
-  r8^"no" c2 ~ c8 r4
+  r8^"sí" c~ c2 r4 |
+  r8^"no" c2~ c8 r4
 }
 @end lilypond
 
@@ -463,10 +467,10 @@ compás.
 Cuando se aplica una ligadura de unión a un acorde, se conectan todas
 las cabezas de las notas cuyas alturas coinciden.  Si no coincide
 ningún par de cabezas, no se crea ninguna ligadura.  Los acordes se
-pueden ligar parcialmente colocando la ligadura dentro del acorde.
+pueden ligar parcialmente colocando las ligaduras dentro del acorde.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g> ~ <c e g>
+<c e g>~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -482,7 +486,7 @@ Cuando la segunda vez de una repetición comienza con una nota ligada,
 es necesario especificar la ligadura repetida como sigue:
 
 @lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2 ~ }
+\repeat volta 2 { c g <c e>2~ }
 \alternative {
   % First alternative: following note is tied normally
   { <c e>2. r4 }
@@ -514,8 +518,8 @@ percusión.  Se pueden introducir de la siguiente manera:
 @funindex \tieNeutral
 @funindex tieNeutral
 
-Es posible hacer manualmente que las ligaduras de unión se coloquen
-por encima o por debajo; véase @ref{Dirección y posición}.
+Es posible hacer manualmente que las ligaduras de unión se curven
+hacia arriba o hacia abajo; véase @ref{Dirección y posición}.
 
 @cindex ligaduras, apariencia
 @cindex ligaduras de puntos
@@ -535,26 +539,26 @@ punteadas o una combinación de continuas y discontinuas.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2~ c
 \tieDashed
-c2 ~ c
+c2~ c
 \tieHalfDashed
-c2 ~ c
+c2~ c
 \tieHalfSolid
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Se pueden especificar patrones de discontinuidad personalizados:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2~ c
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2~ c
 \tieSolid
-c2 ~ c
+c2~ c
 @end lilypond
 
 Las definiciones de patrones de discontinuidad para las ligaduras de
@@ -1369,8 +1373,33 @@ entrada:
 d4 g e c
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+En una particella de un instrumento con períodos de silencio
+largos, en ocasiones se suceden muy cerca distintas indicaciones
+de tempo.  La instrucción @code{\markLengthOn} aporta un espacio
+horizontal adicional para evitar que las indicaciones de tempo se
+superpongan, y @code{\markLengthOff} restablece el comportamiento
+predeterminado de ignorar las indicaciones de tempo para el
+espaciado horizontal.
+
+@lilypond[verbatim,quote,relative=0]
+\compressFullBarRests
+\markLengthOn
+\tempo "Molto vivace"
+R1*12
+\tempo "Meno mosso"
+R1*16
+\markLengthOff
+\tempo "Tranquillo"
+R1*20
+@end lilypond
 
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-metronome-and-rehearsal-marks-below-the-staff.ly}
 
@@ -1450,7 +1479,7 @@ El @code{\partial @var{duración}} se puede también escribir como:
 \set Timing.measurePosition -@var{duración}
 @end example
 
-Así, @code{\partial 8} se convierte en:
+Así que el primer ejemplo podría haberse escrito así:
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1458,12 +1487,14 @@ Así, @code{\partial 8} se convierte en:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-La propiedad @code{measurePosition} contiene un número racional que
-indica qué parte del compás ha transcurrido hasta el momento.  Observe
-que se establece a un número negativo por parte de la instrucción
-@code{\partial}: es decir, @code{\partial 4} se traduce internamente a
-@w{@code{-4}}, con el significado de @qq{queda un valor de negra en este
-compás}.
+La propiedad @code{measurePosition} contiene un número racional,
+que suele ser positivo y que indica qué porción del compás ha
+transcurrido hasta ahora en este punto.  La instrucción
+@code{\partial @var{duración}} lo establece a un número negativo,
+en cuyo caso tiene un significado distinto: en esta ocasión indica
+que el compás actual (el primero) será @emph{precedido} por un
+compás cero (el compás parcial) con una duración dada por el valor
+@var{duración}.
 
 @seealso
 Glosario musical:
@@ -1549,16 +1580,21 @@ c4 c d8[ d d] f4 g4.
 d4 e d c
 @end lilypond
 
-Nunca se inicia un compás nuevo dentro de una cadencia,
-incluso aunque se inserten una o más instrucciones @code{\bar}
-dentro de ella. Por tanto, se deben añadir manualmente las alteraciones
-accidentales de cortesía.  Véase @ref{Alteraciones accidentales}.
+Al insertar una instrucción @code{\bar} dentro de una cadencia no
+se inicia un compás nuevo, incluso aunque se imprima una línea
+divisoria.  Así pues, las alteraciones accidentales (cuyo efecto
+se suele suponer que permanece hasta el final del compás) serán
+válidas aún después de la línea divisoria que se imprime por parte
+de @code{\bar}.  Si se quieren imprimir alteraciones accidentales
+posteriores tendrán que insertarse manualmente alteraciones
+forzadas o de cortesía, véase @ref{Alteraciones accidentales}.
 
 @lilypond[verbatim,relative=2,quote]
 c4 d e d
 \cadenzaOn
 cis4 d cis d
 \bar "|"
+% First cis is printed without alteration even if it's after a \bar
 cis4 d cis! d
 \cadenzaOff
 \bar "|"
@@ -2171,7 +2207,8 @@ más bajo, se aplican los ajustes del contexto circundante.
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
-  % No need to disable beamExceptions as they are not defined for 7/8 time
+  % No need to disable beamExceptions
+  % as they are not defined for 7/8 time
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
@@ -2215,7 +2252,8 @@ el nuevo valor de @code{baseMoment}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-% No need to disable beamExceptions as they are not defined for 5/8 time
+% No need to disable beamExceptions
+% as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
 \repeat unfold 10 { a16 }
@@ -2361,7 +2399,7 @@ se determina el aspecto de las barras:
 
 @itemize
 @item
-Si está especificada una barra manual con @code{[..]}, fijar la barra
+Si está especificada una barra manual con @code{[@dots{}]}, fijar la barra
 tal y como se ha especificado; en caso contrario,
 
 @item
@@ -2786,7 +2824,7 @@ a1
 
 Además se puede imprimir una línea divisoria como una marca corta:
 @lilypond[quote,relative=1,verbatim]
-f1 \bar "'"
+f1 \bar "'" g1
 @end lilypond
 Sin embargo, dado que las mencionadas marcas se utilizan usualmente en
 el canto gregoriano, es preferible en este caso utilizar
@@ -3178,10 +3216,10 @@ de tiempo.
 @funindex "|"
 
 También es posible redefinir la acción que se lleva a cabo cuando se
-encuentra un símbolo de comprobación de compás o «símbolo de tubería»,
+encuentra una barra vertical o símbolo de comprobación de compás,
 @code{|}, en el código de entrada, de forma que haga algo distinto a
 una comprobación de compás.  Se hace asignando una expresión musical a
-@code{"|"} («símbolo de tubería»).  En el ejemplo siguiente se
+@code{"|"}, el símbolo de barra vertical.  En el ejemplo siguiente se
 establece @code{|} de forma que inserte una doble línea divisoria
 cuando aparece en el código de entrada, en vez de comprobar el final
 de un compás.

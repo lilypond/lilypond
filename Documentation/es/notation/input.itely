@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 799d9e5ab487eb45de64c0347fd096b48680a3f2
+    Translation of GIT committish: 9352789b729682d683482c2852cc7b53e9dcdc70
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,7 +54,7 @@ delimitada por un par de llaves:
 
 @example
 \score @{
-...
+  @dots{}
 @}
 @end example
 
@@ -101,7 +101,7 @@ complejidad.  Todos los siguientes ejemplos son expresiones musicales:
 
 Los comentarios son una excepción a esta regla general (para ver otras
 excepciones, consulte @ref{Estructura del archivo}).  Tanto los comentarios de
-una línea como los que están delimitados por @code{%@{ .. %@}} se
+una línea como los que están delimitados por @code{%@{ @dots{} %@}} se
 pueden escribir en cualquier lugar dentro del archivo de entrada.  Se
 pueden escribir dentro o fuera del bloque @code{\score}, y dentro o
 fuera de la expresión musical única dentro del bloque @code{\score}.
@@ -140,7 +140,7 @@ movimientos.  Cada movimiento se introduce con un bloque
 
 @example
 \score @{
-  @var{..música..}
+  @var{@dots{}música@dots{}}
 @}
 @end example
 
@@ -148,7 +148,7 @@ y los textos se introducen con un bloque @code{\markup}:
 
 @example
 \markup @{
-  @var{..texto..}
+  @var{@dots{}texto@dots{}}
 @}
 @end example
 
@@ -160,13 +160,13 @@ de salida.
 
 @example
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 \markup @{
-  @var{..}
+  @var{@dots{}}
 @}
 \score @{
-  @var{..}
+  @var{@dots{}}
 @}
 @end example
 
@@ -192,10 +192,10 @@ principio del archivo.
   \header @{ piece = "Romanze" @}
 @}
 \markup @{
-   ..texto de la segunda estrofa..
+   @dots{}texto de la segunda estrofa@dots{}
 @}
 \markup @{
-   ..texto de la tercera estrofa..
+   @dots{}texto de la tercera estrofa@dots{}
 @}
 \score @{
   @dots{}
@@ -256,15 +256,15 @@ versión para cada nombre que pueda coincidir; así:
 @example
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -304,17 +304,17 @@ archivos con los nombres @file{eightminiatures-Romanze.pdf},
 \book @{
   \bookOutputSuffix "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputSuffix "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -326,17 +326,17 @@ para cada bloque @code{book}, mediante la utilización de declaraciones
 \book @{
   \bookOutputName "Romanze"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Menuetto"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 \book @{
   \bookOutputName "Nocturne"
   \score @{ @dots{} @}
-  \layout @{ @dots{} @}
+  \paper @{ @dots{} @}
 @}
 @end example
 
@@ -506,7 +506,7 @@ instrucciones léxicas siguientes:
 Un comentario de una línea, determinado por un símbolo @code{%} al principio.
 
 @item
-Un comentario de varias líneas, delimitado por @code{%@{ .. %@}}.
+Un comentario de varias líneas, delimitado por @code{%@{ @dots{} %@}}.
 
 @end itemize
 
@@ -578,8 +578,9 @@ compositor; ciertas piezas tienen mucha más información.
 
 Cada bloque @code{\book} de un solo archivo de entrada produce un
 archivo de salida distinto, véase @ref{Estructura del archivo}.
-Dentro de cada archivo de salida están disponibles dos tipos de zonas
-para títulos: @emph{Títulos de parte de libro} al principio de cada
+Dentro de cada archivo de salida están disponibles tres tipos de zonas
+para títulos: @emph{Títulos de libro} al principio de cada libro,
+@emph{Títulos de parte de libro} al principio de cada
 parte de un libro y @emph{Títulos de partitura} al comienzo de una
 partitura.
 
@@ -588,8 +589,9 @@ Los valores de los campos para encabezamientos tales como @code{title}
 bloques @code{\header} (para ver la sintaxis de los bloques
 @code{\header} y una lista completa de los campos disponibles de forma
 predeterminada, consulte @ref{Presentación predeterminada de los
-títulos de partes de libro y partitura}).  Tanto los títulos de parte
-de libro como los títulos de partitura pueden contener los mismos
+títulos de partes de libro y partitura}).  Tanto los títulos de libro como
+los títulos de parte de libro y los títulos de partitura pueden
+contener los mismos
 campos, aunque de forma predeterminada los campos de los títulos de
 partitura se limitan a @code{piece} (pieza) y @code{opus}.
 
@@ -622,6 +624,15 @@ sobreescriban por un valor establecido más abajo en la jerarquía, y
 así:
 
 @itemize
+
+@item
+El título de un libro deriva de los campos establecidos al
+principio del archivo de entrada, modificado por campos
+establecidos en el bloque @code{\book}.  Los campos resultantes se
+usan para imprimir el título de libro para dicho libro, siempre y
+cuando haya otro material que genere una página al comienzo del
+libro, antes de la primera parte de libro.  Es suficiente una sola
+instrucción @code{\pageBreak}.
 
 @item
 Un título de parte de libro se deriva de los campos fijados al
@@ -761,7 +772,7 @@ Referencia de la notación:
 Este ejemplo muestra todas las variables de @code{\header}:
 
 @c KEEP LY
-@lilypond[papersize=a7,quote,verbatim,noragged-right]
+@lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
 \book {
   \header {
       % Los siguientes campos están centrados
@@ -838,6 +849,12 @@ Para cambiar la disposición predeterminada, véase
 
 @cindex breakbefore
 
+Si un bloque @code{\book} comienza inmediatamente con un bloque
+@code{\bookpart}, no se imprime ningún título de libro, pues no
+existe ninguna página en que imprimirlo.  Si es necesario un
+título de libro, inicie el bloque @code{\book} con algún material
+de marcado o con una instrucción @code{\pageBreak}.
+
 Utilice la variable @code{breakbefore} dentro de un bloque
 @code{\header} que está propiamente dentro de un bloque @code{\score}
 para hacer que los títulos del bloque @code{\header} del nivel
@@ -845,7 +862,7 @@ superior aparezcan ocupando toda la primera página, empezando la
 música (definida en el bloque @code{\score}) en la página siguiente.
 
 @c KEEP LY
-@lilypond[papersize=a8landscape,verbatim,noragged-right]
+@lilypond[papersize=c7landscape,verbatim,noragged-right]
 \book {
   \header {
     title = "Este es mi Title (título)"
@@ -916,16 +933,6 @@ debajo del texto de @code{copyright} si sólo hay una página.
 
 @end itemize
 
-@lilypond[papersize=a8landscape]
-\book {
-  \score {
-    \relative c' {
-      c4 d e f
-    }
-  }
-}
-@end lilypond
-
 La línea de etiqueta tagline predeterminada se puede cambiar añadiendo un campo
 @code{tagline} en el bloque @code{\header} del nivel superior.
 
@@ -973,7 +980,7 @@ el texto de cualquier cabecera, pie o título dentro del bloque
   { s1 }
   \header {
     piece = \markup { \fontsize #4 \bold "PRAELUDIUM I" }
-    subtitle = \markup { \italic "(Excerpt)" }
+    opus = \markup { \italic "BWV 846" }
   }
 }
 @end lilypond
@@ -1013,7 +1020,7 @@ están definidos en el archivo @file{ly/titling-init.ly} son:
 
 @example
 scoreTitleMarkup = \markup @{ \column @{
-  \on-the-fly #print-all-headers @{ \bookTitleMarkup \hspace #1 @}
+  \on-the-fly \print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
@@ -1178,9 +1185,9 @@ siguiente:
 
 @example
 @code{variable} = @code{\markup} @{
-  ...
-  @code{\on-the-fly}  #@var{procedimiento}  @var{marcado}
-  ...
+  @dots{}
+  @code{\on-the-fly}  \@var{procedimiento}  @var{marcado}
+  @dots{}
 @}
 @end example
 
@@ -1229,7 +1236,7 @@ definiéndola como @code{\oddFooterMarkup}:
     evenHeaderMarkup = \markup \null
     oddFooterMarkup = \markup {
       \fill-line {
-        \on-the-fly #print-page-number-check-first
+        \on-the-fly \print-page-number-check-first
         \fromproperty #'page:page-number-string
       }
     }
@@ -1245,9 +1252,9 @@ Se pueden combinar varias condiciones de @code{\on-the-fly} con un
 operador @q{and}, por ejemplo:
 
 @example
-  @code{\on-the-fly #first-page}
-  @code{\on-the-fly #last-page}
-  @code{@{ \markup ... \fromproperty #'header: ... @}}
+  @code{\on-the-fly \first-page}
+  @code{\on-the-fly \last-page}
+  @code{@{ \markup @dots{} \fromproperty #'header: @dots{} @}}
 @end example
 
 determina si la salida es una sola página.
@@ -1596,7 +1603,7 @@ La sintaxis de una nota al pue sobre texto independiente con marcas
 automáticas es
 
 @example
-\markup @{ ... \auto-footnote @var{texto} @var{nota} ... @}
+\markup @{ @dots{} \auto-footnote @var{texto} @var{nota} @dots{} @}
 @end example
 
 Los elementos son:
@@ -1636,7 +1643,7 @@ La sintaxis de una nota al pie sobre texto independiente con marcas
 personalizadas es
 
 @example
-\markup @{ ... \footnote @var{marca} @var{nota} ... @}
+\markup @{ @dots{} \footnote @var{marca} @var{nota} @dots{} @}
 @end example
 
 Los elementos son:
@@ -1980,7 +1987,7 @@ directorio actual, use
 @example
 \include "partes/VI.ly"
 \include "partes/VII.ly"
-... etc.
+@dots{} etc.
 @end example
 
 Los archivos de inclusión también pueden contener enunciados
@@ -2016,7 +2023,7 @@ libA/
   libA.ly
   A1.ly
   A2.ly
-  ...
+  @dots{}
 @end example
 
 @noindent
@@ -2026,7 +2033,7 @@ entonces el archivo de entrada, @code{libA.ly}, contiene
 #(ly:set-option 'relative-includes #t)
 \include "A1.ly"
 \include "A2.ly"
-...
+@dots{}
 % vuelta al ajuste predeterminado
 #(ly:set-option 'relative-includes #f)
 @end example
@@ -2058,7 +2065,7 @@ y en @file{principal.ly} escriba
 @example
 \include "VI.ly"
 \include "VII.ly"
-... etc.
+@dots{} etc.
 @end example
 
 Los archivos que se incluyen en muchas partituras se pueden poner en
@@ -2204,16 +2211,18 @@ música etiquetada es como sigue:
   @tab Resultado
 @item
 Música etiquetada precedida de @code{\keepWithTag #'@var{nombre}}
-@tab
-Se incluye la música no etiquetada y la música etiquetada con
-@var{nombre}; se excluye la música etiquetada con cualquier otro
-nombre de etiqueta.
+o de @code{\keepWithTag #'(@var{nombre1} @var{nombre2}@dots{})}
+@tab Se incluye la música no etiquetada y la música etiquetada con
+el nombre o nombres de etiqueta dados; se excluye la música
+etiquetada con cualquier otro nombre de etiqueta.
 @item
-Música etiquetada precedida de @code{\removeWithTag #'@var{nombre}}
+Música etiquetada precedida de 
+@code{\removeWithTag #'@var{nombre}} o 
+@code{\removeWithTag #'(@var{nombre1} @var{nombre2}@dots{})}
 @tab
-Se incluye la música no etiquetada y la música etiquetada con
-cualquier nombre de etiqueta distinto a @var{nombre}; se excluye la
-música etiquetada con @var{nombre}.
+Se incluye la música no etiquetada y la música que no está
+etiquetada con ninguno de los nombres de etiqueta dados; se
+excluye la música etiquetada con los nombres de etiqueta dados.
 @item
 Música etiquetada no precedida de @code{\keepWithTag} ni de
 @code{\removeWithTag}
@@ -2282,12 +2291,12 @@ c1-\tag #'warn ^"¡Ojo!"
 @end example
 
 Se pueden poner varias etiquetas sobre expresiones con varias entradas
-de @code{\tag}:
+de @code{\tag}, o combinando varias etiquetas en una lista de símbolos:
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
   \tag #'a \tag #'both { a4 a a a }
-  \tag #'b \tag #'both { b4 b b b }
+  \tag #'(b both) { b4 b b b }
 }
 <<
 \keepWithTag #'a \music
@@ -2297,35 +2306,43 @@ music = \relative c'' {
 @end lilypond
 
 Se pueden aplicar varios filtros @code{\removeWithTag} a una sola
-expresión musical para quitar varias secciones etiquetadas con nombres
-distintos:
+expresión musical para quitar varias secciones etiquetadas con
+nombres distintos.  De forma alternativa, podemos usar una sola
+instrucción @code{\removeWithTag} con una lista de etiquetas.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a4 a a a }
-\tag #'B { b4 b b b }
-\tag #'C { c4 c c c }
-\tag #'D { d4 d d d }
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
 }
-{
-\removeWithTag #'B
-\removeWithTag #'C
-\music
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
 }
 @end lilypond
 
-Dos o más filtros @code{\keepWithTag} aplicados a una sola expresión
-musical producen la eliminación de @emph{todas} las secciones
-etiquetadas, porque el primer filtro quita todas las secciones
-etiquetadas excepto la que se nombra, y el segundo filtro elimina
-incluso esa sección etiquetada.
+Dos o más filtros @code{\keepWithTag} aplicados a una sola
+expresión musical producen la eliminación de @emph{todas} las
+secciones etiquetadas, porque el primer filtro quita todas las
+secciones etiquetadas excepto la que se nombra, y el segundo
+filtro elimina incluso esa sección etiquetada.  Por lo general,
+querrá usar una sola instrucción @code{\keepWithTag} con una lista
+de varias etiquetas: de esta forma solamente se suprimirán las
+secciones etiquetadas que no aparezcan en @emph{ninguna} de las
+etiquetas.
 
-A vecespodemos desear dividir la música en un determinado lugar dentro
-de una expresión musical existente.  Podemos usar @code{\pushToTag} y
-@code{\appendToTag} para añadir material delante o al final de los
-@code{elements} de una construcción musical existente.  No toda
-construcción musical tiene la parte @code{elements}, pero las músicas
-secuenciaes y simultáneas son dos apuestas seguras:
+A veces podemos desear dividir la música en un determinado lugar
+dentro de una expresión musical existente.  Podemos usar
+@code{\pushToTag} y @code{\appendToTag} para añadir material
+delante o al final de los @code{elements} de una construcción
+musical existente.  No toda construcción musical tiene la parte
+@code{elements}, pero las músicas secuenciaes y simultáneas son
+dos apuestas seguras:
 
 @lilypond[verbatim,quote]
 test = { \tag #'here { \tag #'here <<c''>> } }
@@ -2353,16 +2370,17 @@ Referencia de la notación:
 @ref{Combinación automática de las partes},
 @ref{Inclusión de archivos de LilyPond}.
 
-@ignore
-@c This warning is more general than this placement implies.
-@c Rests are not merged whether or not they come from tagged sections.
-@c Should be deleted?  -td
-
 @knownissues
-Multiple rests are not merged if you create a score with more
-than one tagged section at the same place.
+Al llamar a @code{\relative} sobre una expresión musical obtenida
+mediante el filtrado de música con las instrucciones
+@code{\keepWithTag} o @code{\removeWithTag}, podría ocurrir que
+cambiaran las relaciones de octava, dado que solo se tendrán en
+cuenta las alturas de las notas que efectivamente permanecen en la
+expresión filtrada.  La aplicación de @code{\relative} en primer
+lugar, antes de @code{\keepWithTag} o de @code{\removeWithTag},
+evita este peligro porque en este caso @code{\relative} actúa
+sobre todas las notas tal y como se introducen.
 
-@end ignore
 
 @node Uso de ajustes globales
 @unnumberedsubsubsec Uso de ajustes globales
@@ -2657,10 +2675,10 @@ notas).  Para acelerar este proceso de corrección, es posible saltar
 la composición tipográfica de todos excepto unos pocos de los últimos
 compases.  Esto se consigue poniendo
 
-@verbatim
+@example
 showLastLength = R1*5
-\score { ... }
-@end verbatim
+\score @{ @dots{} @}
+@end example
 
 @noindent
 en nuestro archivo fuente.  Esto hará que se tracen sólo los últimos
@@ -2726,12 +2744,12 @@ fuente Gonville:
 
 @c NOTE: these images are a bit big, but that's important
 @c       for the font comparison.  -gp
-@sourceimage{Gonville_after,,,}
+@sourceimage{Gonville_after,15cm,,}
 
 Aquí hay unos compases de muestra tipografiados en la fuente Feta de
 LilyPond:
 
-@sourceimage{Gonville_before,,,}
+@sourceimage{Gonville_before,15cm,,}
 
 @subsubheading Instrucciones de instalación para MacOS
 
@@ -2805,7 +2823,7 @@ Para crear un MIDI a partir de una pieza de música, escriba un bloque
 
 @example
 \score @{
-  @var{...música...}
+  @var{@dots{}música@dots{}}
   \midi @{ @}
 @}
 @end example
@@ -2817,7 +2835,7 @@ necesita una notación impresa, debe haber también un bloque
 
 @example
 \score @{
-  @var{...música...}
+  @var{@dots{}música@dots{}}
   \midi @{ @}
   \layout @{ @}
 @}
@@ -2914,13 +2932,13 @@ aparece en @ref{instrumentos MIDI}.
 @example
 \new Staff @{
   \set Staff.midiInstrument = #"glockenspiel"
-  @var{...notes...}
+  @var{@dots{}notas@dots{}}
 @}
 @end example
 
 @example
 \new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{...notes...}
+  @var{@dots{}notas@dots{}}
 @}
 @end example
 
@@ -2945,7 +2963,7 @@ indicación de tempo:
 
 @example
 \score @{
-  @var{...música...}
+  @var{@dots{}música@dots{}}
   \midi @{
     \tempo 4 = 72
   @}
@@ -2970,7 +2988,7 @@ siguientes en el bloque @code{\midi@{ @}}.
 
 @example
 \midi @{
-  ...
+  @dots{}
   \context @{
     \Voice
     \remove "Dynamic_performer"
@@ -3106,12 +3124,12 @@ y percent --repetición de compases--).  Por ejemplo,
 
 @example
 \score @{
-  @var{..música..}
-  \layout @{ .. @}
+  @var{@dots{}música@dots{}}
+  \layout @{ @dots{} @}
 @}
 \score @{
-  \unfoldRepeats @var{..música..}
-  \midi @{ .. @}
+  \unfoldRepeats @var{@dots{}música@dots{}}
+  \midi @{ @dots{} @}
 @}
 @end example
 
@@ -3194,11 +3212,10 @@ ejemplo de esta sección muestra cómo se puede hacer esto.
 El volumen general máximo y mínimo de las indicaciones dinámicas
 de MIDI se controla estableciendo valores para las propiedades
 @code{midiMinimumVolume} y @code{midiMaximumVolume} en el nivel de
-@code{Score}.  Estas propiedades tienen efecto solamente sobre las
-indicaciones dinámicas, por ello si queremos que tengan validez
-desde el comienzo de la partitura, se debe colocar allí una
-indicación de dinámica.  La fracción que corresponde a cada
-indicación dinámica se modifica con esta fórmula:
+@code{Score}.  Estas propiedades tienen efecto solamente al inicio
+de una voz y sobre las indicaciones dinámicas.  La fracción que
+corresponde a cada indicación dinámica se modifica con esta
+fórmula:
 
 @example
 midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fracción
@@ -3254,8 +3271,7 @@ ecualizador de instrumentos básico que puede realzar
 significativamente la calidad de la salida MIDI.
 
 En este ejemplo se reduce el volumen del clarinete con relación al
-de la flauta.  Debe haber una indicación dinámica en la primera
-nota de cada instrumento para que esto funcione correctamente.
+de la flauta.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3454,7 +3470,7 @@ y en la sección @code{\score}, hacer lo siguiente:
 
 @example
 \unfoldRepeats \articulate <<
-	resto de la partitura...
+	resto de la partitura@dots{}
 >>
 @end example
 
@@ -3512,7 +3528,7 @@ imprime lo siguiente:
 De forma predeterminada, LilyPond imprime estos mensajes en la
 consola junto al resto de los mensajes de la compilación de
 LilyPond.  Para discernir entre estos mensajes y guardar el
-resultado de @code{\display@{MATERIAL@}}, redireccione la salida
+resultado de @code{\displayLilyMusic}, redireccione la salida
 hacia un archivo.
 
 @example
@@ -3561,7 +3577,7 @@ tabulación, con dos campos fijos en cada línea seguidos de
 parámetros opcionales.
 
 @example
-@var{tiempo}  @var{tipo}  @var{...parámetros...}
+@var{tiempo}  @var{tipo}  @var{@dots{}parámetros@dots{}}
 @end example
 
 Esta información se puede leer fácilmente por parte de otros

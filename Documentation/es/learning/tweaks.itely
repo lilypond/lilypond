@@ -19,13 +19,13 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 
 
 @menu
-* Elementos de trucaje::        
-* Manual de referencia de funcionamiento interno::  
-* Apariencia de los objetos::   
-* Colocación de los objetos::   
-* Espaciado vertical::          
-* Colisiones de objetos::       
-* Trucajes adicionales::        
+* Elementos de trucaje::
+* Manual de referencia de funcionamiento interno::
+* Apariencia de los objetos::
+* Colocación de los objetos::
+* Espaciado vertical::
+* Colisiones de objetos::
+* Trucajes adicionales::
 @end menu
 
 @node Elementos de trucaje
@@ -33,10 +33,10 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 @translationof Tweaking basics
 
 @menu
-* Introducción al trucaje::     
-* Objetos e interfaces::        
-* Convenciones de nombres de objetos y propiedades::  
-* Métodos de trucaje::          
+* Introducción al trucaje::
+* Objetos e interfaces::
+* Convenciones de nombres de objetos y propiedades::
+* Métodos de trucaje::
 @end menu
 
 @node Introducción al trucaje
@@ -186,11 +186,11 @@ a partir de sus nombres.
 @strong{La instrucción \override}
 
 @menu
-* La instrucción \override::    
-* La instrucción \revert::      
-* El prefijo \once::            
-* La instrucción \overrideProperty::  
-* The \tweak command::          
+* La instrucción \override::
+* La instrucción \revert::
+* El prefijo \once::
+* La instrucción \overrideProperty::
+* The \tweak command::
 @end menu
 
 @node La instrucción \override
@@ -553,9 +553,9 @@ Referencia de la notación:
 @cindex Internals Reference
 
 @menu
-* Propiedades de los objetos de presentación::  
-* Propiedades de los interfaces::  
-* Tipos de propiedades::        
+* Propiedades de los objetos de presentación::
+* Propiedades de los interfaces::
+* Tipos de propiedades::
 @end menu
 
 @node Propiedades de los objetos de presentación
@@ -1067,9 +1067,9 @@ cuantos ejemplos que muestran cómo se pueden usar los trucos para
 cambiar el aspecto de la música impresa.
 
 @menu
-* Visibilidad y color de los objetos::  
-* Tamaño de los objetos::       
-* Longitud y grosor de los objetos::  
+* Visibilidad y color de los objetos::
+* Tamaño de los objetos::
+* Longitud y grosor de los objetos::
 @end menu
 
 @node Visibilidad y color de los objetos
@@ -1111,10 +1111,10 @@ supuesto, por extensión, también la de muchos otros objetos de
 presentación).  Vamos a considerar cada uno de ellos por orden.
 
 @menu
-* La propiedad stencil (sello)::  
-* La propiedad break-visibility (visibilidad en el salto)::  
-* La propiedad transparent (transparente)::  
-* La propiedad color::          
+* La propiedad stencil (sello)::
+* La propiedad break-visibility (visibilidad en el salto)::
+* La propiedad transparent (transparente)::
+* La propiedad color::
 @end menu
 
 @node La propiedad stencil (sello)
@@ -1790,9 +1790,9 @@ tipografía) se pueden cambiar de la misma forma.
 @translationof Placement of objects
 
 @menu
-* Comportamiento automático::   
-* Objetos interiores al pentagrama::  
-* Objetos fuera del pentagrama::  
+* Comportamiento automático::
+* Objetos interiores al pentagrama::
+* Objetos fuera del pentagrama::
 @end menu
 
 
@@ -1901,8 +1901,8 @@ hacia abajo.  Esto se controla automáticamente cuando está establecida
 la propiedad @code{direction}.
 
 @menu
-* La propiedad direction (dirección)::  
-* Digitaciones::                
+* La propiedad direction (dirección)::
+* Digitaciones::
 @end menu
 
 @node La propiedad direction (dirección)
@@ -2163,10 +2163,10 @@ las colisiones.  Existen varias formas de sobreescribir la colocación
 automática si el posicionado no resulta óptimo.
 
 @menu
-* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::  
-* La instrucción \textLengthOn::  
-* Posicionamiento de los matices dinámicos::  
-* Escalado de un «Grob»::       
+* La propiedad outside-staff-priority (prioridad fuera del pentagrama)::
+* La instrucción \textLengthOn::
+* Posicionamiento de los matices dinámicos::
+* Escalado de un «Grob»::
 @end menu
 
 
@@ -2775,9 +2775,9 @@ consulte
 @translationof Collisions of objects
 
 @menu
-* Mover objetos::               
-* Arreglar notación con superposiciones::  
-* Ejemplos reales de música::   
+* Mover objetos::
+* Arreglar notación con superposiciones::
+* Ejemplos reales de música::
 @end menu
 
 @node Mover objetos
@@ -3041,14 +3041,14 @@ en la sección anterior, para resolver problemas de notación que se
 superpone.
 
 @menu
-* La propiedad padding (relleno)::  
-* La propiedadhe right-padding (relleno por la derecha)::  
-* La propiedad staff-padding (relleno de pentagrama)::  
-* La propiedad self-alignment-X (auto-alineación en X)::  
-* La propiedad staff-position (posición en el pentagrama)::  
-* La propiedad extra-offset (desplazamiento adicional)::  
-* La propiedad positions (posiciones)::  
-* La propiedad force-hshift (forzar desplazamiento horizontal)::  
+* La propiedad padding (relleno)::
+* La propiedadhe right-padding (relleno por la derecha)::
+* La propiedad staff-padding (relleno de pentagrama)::
+* La propiedad self-alignment-X (auto-alineación en X)::
+* La propiedad staff-position (posición en el pentagrama)::
+* La propiedad extra-offset (desplazamiento adicional)::
+* La propiedad positions (posiciones)::
+* La propiedad force-hshift (forzar desplazamiento horizontal)::
 @end menu
 
 @node La propiedad padding (relleno)
@@ -3962,11 +3962,11 @@ lhMusic = \relative c' {
 @translationof Further tweaking
 
 @menu
-* Otras aplicaciones de los trucos::  
-* Uso de variables para los ajustes de disposición::  
-* Hojas de estilo::             
-* Otras fuentes de información::  
-* Trucos avanzados con Scheme::  
+* Otras aplicaciones de los trucos::
+* Uso de variables para los ajustes de disposición::
+* Hojas de estilo::
+* Otras fuentes de información::
+* Trucos avanzados con Scheme::
 @end menu
 
 @node Otras aplicaciones de los trucos
@@ -3974,8 +3974,8 @@ lhMusic = \relative c' {
 @translationof Other uses for tweaks
 
 @menu
-* Unir notas entre voces distintas::  
-* Simulación de un calderón en el MIDI::  
+* Unir notas entre voces distintas::
+* Simulación de un calderón en el MIDI::
 @end menu
 
 @cindex transparent, uso de la propiedad
