@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5d83b53ee321d8890d792191032b1fe352577517
+    Translation of GIT committish: b4a06339566ce7e7f17ba60745261fc26b32abb0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -799,6 +799,7 @@ están en @url{http://lilypond.org}}
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Introducción
+
 @item
 @docLinkSplit{Aprendizaje,learning,@manualDevelLearningSplit-es}
 @tab
@@ -819,7 +820,9 @@ están en @url{http://lilypond.org}}
 @docLinkBig{Ensayo,essay,@manualDevelEssayBig-es}
 @tab
 @docLinkPdf{Ensayo,essay,@manualDevelEssayPdf-es}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Estándar
 
 @item
@@ -842,7 +845,9 @@ están en @url{http://lilypond.org}}
 @docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem Poco frecuentes
 
 @item
@@ -872,15 +877,17 @@ están en @url{http://lilypond.org}}
 @docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem Para descargar
 
 @item
 @doctarballDevel-es
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd
