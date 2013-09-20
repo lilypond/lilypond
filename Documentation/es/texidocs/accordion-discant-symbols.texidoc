@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 5cc4e758f0d8b01600a39faced769883cca6995a
+%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
 @code{\\markup}.  Se puede trucar la colocación de los símbolos
