@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -136,7 +136,7 @@ saltos de línea.  Así permitirá a LilyPond colocar los saltos donde
 variable, se recomienda que las notas estén envueltas dentro de
 
 @example
-\transpose c altura-natural @{...@}
+\transpose c altura-natural @{@dots{}@}
 @end example
 
 @noindent
@@ -178,7 +178,7 @@ versiones nuevas de LilyPond.
 violin = \relative c'' @{
 g4 c'8. e16
 @}
-...
+@dots{}
 \score @{
   \new GrandStaff @{
     \new Staff @{
@@ -216,7 +216,7 @@ investigación para determinar el origen del problema.
 
 Las herramientas más poderosas para este cometido son el comentario de
 una sola línea (indicado por @code{%}) y el comentario de bloque
-(indicado por @code{%@{ ... %@}}).  Si no sabe dónde está el problema,
+(indicado por @code{%@{@dots{}%@}}).  Si no sabe dónde está el problema,
 comience convirtiendo grandes secciones del archivo de entrada en un
 comentario.  Después de eliminar una sección convirtiéndola en un
 comentario, pruebe a compilar el archivo otra vez.  Si funciona,

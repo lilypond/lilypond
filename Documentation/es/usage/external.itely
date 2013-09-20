@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: b2863abe6a9b5a03662562ea017548d8d3221d9a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,19 +29,7 @@ maneras.
 @node Apuntar y pulsar
 @section Apuntar y pulsar
 @translationof Point and click
-
-La característica @q{Point and click} (apuntar y pulsar) añade
-enlaces a los documentos PDF para ciertos elementos musicales.
-
-@menu
-* Habilitar la opción de apuntar y pulsar::
-* Apuntar y pulsar selectivo::
-@end menu
-
-@node Habilitar la opción de apuntar y pulsar
-@unnumberedsubsec Habilitar la opción de apuntar y pulsar
-@translationof Enabling point and click
-
+@cindex point and click (apuntar y pulsar)
 @cindex apuntar y pulsar
 
 «Point and click» (apuntar y pulsar con el ratón) le da la posibilidad
@@ -49,22 +37,24 @@ de localizar notas del código de entrada pulsando sobre ellas dentro
 del visor de PDF.  Ello facilita encontrar los fragmentos de la
 entrada que producen algún tipo de error en la partitura.
 
-Cuando esta funcionalidad está activada, LilyPond añade hiper-enlaces
-al archivo PDF. Estos hiper-enlaces se envían al navegador de web, que
-a su vez abre un editor de texto con el cursor situado en el lugar
+@menu
+* Configurar el sistema para Apuntar y pulsar::
+* Habilitar la opción de apuntar y pulsar::
+* Apuntar y pulsar selectivo::
+@end menu
+
+@node Configurar el sistema para Apuntar y pulsar
+@subsection Configuración del sistema
+@translationof Configuring the system for point and click
+
+Cuando esta funcionalidad está activada, LilyPond añade enlaces al
+archivo PDF.  Estos enlaces se envían al navegador de web, que a su
+vez abre un editor de texto con el cursor situado en el lugar
 correcto.
 
 Para conseguir que esta cadena funcione, tiene que configurar el visor
 de PDF de forma que siga los enlaces usando el guión
 @file{lilypond-invoke-editor} proporcionado con LilyPond.
-
-Para Xpdf sobre Unix, lo siguiente debe estar presente en
-@file{xpdfrc}.  En Unix, este archivo se encuentra o bien en
-@file{/etc/xpdfrc} o como @file{$HOME/.xpdfrc}.
-
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
 
 El programa @file{lilypond-invoke-editor} es un pequeño programa de
 apoyo. Invoca un editor para las URIs especiales de @code{textedit}, y
@@ -104,7 +94,136 @@ emacsclient --no-wait +%(línea)s:%(columna)s %(archivo)s
 para @code{LYEDITOR} equivale a la invocación estándar de emacsclient.
 
 
+@menu
+* Uso de Xpdf para Apuntar y pulsar::
+* Uso de GNOME 2 para Apuntar y pulsar::
+* Uso de GNOME 3 para Apuntar y pulsar::
+* Configuración adicional para Evince::
+@end menu
+
+@node Uso de Xpdf para Apuntar y pulsar
+@unnumberedsubsubsec Uso de Xpdf
+@translationof Using Xpdf for point and click
+@cindex Xpdf
+
+Para Xpdf sobre Unix, lo siguiente debe estar presente en
+@file{xpdfrc}.  En Unix, este archivo se encuentra o bien en
+@file{/etc/xpdfrc} o como @file{$HOME/.xpdfrc}.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Si está usando Ubuntu, probablemente la versión de Xpdf instalada
+en su sistema efectúe paradas abruptas en cada documento PDF: este
+estado se viene prolongando desde hace varios años y se debe a la
+falta de correspondencia entre bibliotecas.  Lo mejor que puede
+hacer en vez de ello es instalar un paquete @samp{xpdf}
+actualizado y el paquete @samp{libpoppler} correspondiente
+procedente de Debian.  Una vez haya comprobado que funciona, puede
+usar
+@example
+sudo apt-mark hold xpdf
+@end example
+@noindent
+con el objeto de evitar que Ubuntu lo sobreescriba con la
+siguiente @q{actualización} de su paquete defectuoso.
+
+@node Uso de GNOME 2 para Apuntar y pulsar
+@unnumberedsubsubsec Uso de GNOME 2
+@translationof Using GNOME 2 for point and click
+
+Para usar GNOME 2 (y los visores de documentos PDF integrados en
+él), el conjuro para informar al sistema acerca de la URI
+@samp{textedit:} es
+@example
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end example
+
+Después de esta invocación,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+debería llamar a @file{lilypond-invoke-editor} para abrir
+archivos.
+
+@node Uso de GNOME 3 para Apuntar y pulsar
+@unnumberedsubsubsec Uso de GNOME 3
+@translationof Using GNOME 3 for point and click
+
+En GNOME 3, las URIs se manejan por parte de la capa @q{gvfs} en
+vez de por @q{gconf}.  Debe crear un archivo en un directorio
+local como @file{/tmp} con el nombre
+@file{lilypond-invoke-editor.desktop} y que tenga el siguiente
+contenido:
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+y luego ejecute las instrucciones
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+Tras esta invocación,
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+debería llamar a @file{lilypond-invoke-editor} para abrir
+archivos.
+
+@node Configuración adicional para Evince
+@unnumberedsubsubsec Configuración adicional para Evince
+@translationof Extra configuration for Evince
+@cindex Evince
+
+Si @code{gnome-open} funciona, pero Evince aún rehúsa abrir
+enlaces de Apuntar y pulsar a causa de permisos denegados, quizá
+tenga que cambiar el perfil de Apparmor de Evince, que controla el
+tipo de acciones que se le permite realizar a Evince.
+
+Para Ubuntu, el proceso es editar el archivo
+@file{/etc/apparmor.d/local/usr.bin.evince} y añadir al final las
+siguientes líneas:
+@example
+# Para enlaces de Textedit
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+Después de añadir estas líneas, ejecute
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+Ahora Evince debería poder abrir enlaces de Apuntar y pulsar.
+Para otros visores, es probable que funcionen configuraciones
+similares.
+
+@node Habilitar la opción de apuntar y pulsar
+@unnumberedsubsec Habilitar la opción de apuntar y pulsar
+@translationof Enabling point and click
 @cindex archivo de salida, tamaño del
+
+En LilyPond, la funcionalidad de Apuntar y pulsar está habilitada
+de forma predeterminada cuando se crean archivos de salida en
+formato PDF.
 
 Los enlaces de apuntar y pulsar aumentan significativamente el tamaño
 de los archivos de salida.  Para reducir el tamaño de los archivos PDF
@@ -210,7 +329,9 @@ lilypond \
   example.ly
 @end smallexample
 
+
 @end itemize
+
 
 @node Apoyo respecto de los editores de texto
 @section Apoyo respecto de los editores de texto
@@ -281,7 +402,6 @@ Este asunto se trata en
 @rlearning{Otras fuentes de información}.
 
 
-
 @node Otros editores
 @unnumberedsubsec Otros editores
 @translationof Other editors
@@ -325,7 +445,6 @@ informes de fallo casi con certeza no se resolverán a medio plazo.
 * Invocar etf2ly::              Importar archivos de Finale.
 * Otros formatos::
 @end menu
-
 
 
 

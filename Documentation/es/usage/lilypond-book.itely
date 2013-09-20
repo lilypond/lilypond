@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: eba67a0bc70f38a7847de75c640d7ad19c6fd804
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -125,11 +125,11 @@ Guarde el código anterior como un archivo llamado
 lilypond-book --output=out --pdf lilybook.lytex
 @emph{lilypond-book (GNU LilyPond) @version{} }
 @emph{Leyendo lilybook.lytex...}
-@emph{..montañas de mensajes suprimidos..}
-@emph{Compilando lilybook.tex...}
+@emph{@dots{}montañas de mensajes suprimidos@dots{}}
+@emph{Compilando lilybook.tex@dots{}}
 cd out
 pdflatex lilybook
-@emph{..montañas de mensajes suprimidos..}
+@emph{@dots{}montañas de mensajes suprimidos@dots{}}
 xpdf lilybook
 @emph{(sustituya @command{xpdf} por su visor de PDF favorito)}
 @end example
@@ -222,17 +222,17 @@ para incluir música dentro de archivos de @LaTeX{}:
 @itemize
 
 @item
-la instrucción @code{\lilypond@{...@}}, donde podemos escribir directamente fragmentos cortos de código de LilyPond
+la instrucción @code{\lilypond@{@dots{}@}}, donde podemos escribir directamente fragmentos cortos de código de LilyPond
 
 @item
-el entorno @code{\begin@{lilypond@}...\end@{lilypond@}}, donde podemos
+el entorno @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}, donde podemos
 introducir directamente bloques más largos de código de LilyPond
 
 @item
-la instrucción @code{\lilypondfile@{...@}} para insertar un archivo de LilyPond
+la instrucción @code{\lilypondfile@{@dots{}@}} para insertar un archivo de LilyPond
 
 @item
-la instrucción @code{\musicxmlfile@{...@}} para insertar un archivo de
+la instrucción @code{\musicxmlfile@{@dots{}@}} para insertar un archivo de
 MusicXML, que se procesa por parte de @code{musicxml2ly} y
 @code{lilypond}.
 
@@ -415,9 +415,9 @@ fragmento:
 
 @example
 \onlyFirstNSystems@{3@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 \onlyFirstNSystems@{1@}
-\begin@{lilypond@}...\end@{lilypond@}
+\begin@{lilypond@}@dots{}\end@{lilypond@}
 @end example
 
 
@@ -441,19 +441,19 @@ para incluir música dentro de archivos de Texinfo:
 @itemize
 
 @item
-la instrucción @code{@@lilypond@{...@}}, donde podemos introducir
+la instrucción @code{@@lilypond@{@dots{}@}}, donde podemos introducir
 directamente fragmentos cortos de código de LilyPond
 
 @item
-el entorno @code{@@lilypond...@@end lilypond}, donde podemos escribir
+el entorno @code{@@lilypond@dots{}@@end lilypond}, donde podemos escribir
 directamente bloques más extensos de código de LilyPond
 
 @item
-la instrucción @code{@@lilypondfile@{...@}} para insertar un archivo
+la instrucción @code{@@lilypondfile@{@dots{}@}} para insertar un archivo
 de LilyPond
 
 @item
-la instrucción @code{@@musicxmlfile@{...@}} para insertar un archivo
+la instrucción @code{@@musicxmlfile@{@dots{}@}} para insertar un archivo
 de MusicXML, que se procesa después por parte de @code{musicxml2ly} y
 de @code{lilypond}.
 
@@ -510,7 +510,7 @@ produce
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-A diferencia de @LaTeX{}, @code{@@lilypond@{...@}} no genera una imagen en
+A diferencia de @LaTeX{}, @code{@@lilypond@{@dots{}@}} no genera una imagen en
 línea.  Siempre consiste en un párrafo para ella sola.
 
 
@@ -524,19 +524,19 @@ para incluir música dentro de archivos HTML:
 @itemize
 
 @item
-la instrucción @code{<lilypond ... />}, donde podemos introducir
+la instrucción @code{<lilypond @dots{} />}, donde podemos introducir
 directamente fragmentos cortos de código de LilyPond
 
 @item
-el entorno @code{<lilyond>...</lilypond>}, donde podemos escribir
+el entorno @code{<lilyond>@dots{}</lilypond>}, donde podemos escribir
 directamente bloques más extensos de código de LilyPond
 
 @item
-la instrucción @code{<lilypondfile>...</lilypondfile>} para insertar
+la instrucción @code{<lilypondfile>@dots{}</lilypondfile>} para insertar
 un archivo de LilyPond
 
 @item
-la instrucción @code{<musicxmlfile>...</musicxmlfile>} para insertar
+la instrucción @code{<musicxmlfile>@dots{}</musicxmlfile>} para insertar
 un archivo de MusicXML, que se procesa después por parte de
 @code{musicxml2ly} y de @code{lilypond}.
 
@@ -572,7 +572,7 @@ etiquetas de imagen adecuadas para los fragmentos de música:
 \key c \minor c4 es g2
 @end lilypond
 
-Para imágenes en línea, utilice @code{<lilypond ... />}, donde las
+Para imágenes en línea, utilice @code{<lilypond @dots{} />}, donde las
 opciones están separadas de la música por el símbolo de dos puntos,
 por ejemplo
 
@@ -583,7 +583,7 @@ Algo de música dentro de <lilypond relative=2: a b c/> una línea de texto.
 Para incluir archivos externos, escriba
 
 @example
-<lilypondfile @var{opción1} @var{opción2} ...>@var{archivo}</lilypondfile>
+<lilypondfile @var{opción1} @var{opción2} @dots{}>@var{archivo}</lilypondfile>
 @end example
 
 @code{<musicxmlfile>} usa la misma sintaxis que @code{<lilypondfile>},
@@ -1061,25 +1061,25 @@ cambie a este directorio antes de ejecutar @command{latex} o
 @example
 lilypond-book --output=out miarchivo.lytex
 cd out
-...
+@dots{}
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 Evitar el fracaso si no se encuentra ninguna salida de lilypond.  Se
 usa para la documentación de LilyPond en formato Info sin imágenes.
 
-@itemx --skip-png-check
+@item --skip-png-check
 Evitar el fracaso si no se encuentran las imágenes PNG de los archivos
 EPS.  Se usa para la documentación de LilyPond en formato Info sin
 imágenes.
 
-@itemx --lily-output-dir=@var{directorio}
+@item --lily-output-dir=@var{directorio}
 Escribir archivos lily-XXX en el directorio @var{directorio}, enlazar
 en el directorio de @option{--output}.  Use esta opción para ahorrar
 tiempo de construcción para documentos de distintos directorios que
 comparten muchos fragmentos idénticos de código.
 
-@itemx --lily-loglevel=@var{nivel_de_registro}
+@item --lily-loglevel=@var{nivel_de_registro}
 Fijar el nivel en que la salida es prolija para las llamadas de la
 instrucción invocada @command{lilypond}, al valor
 @var{nivel_de_registro}.  Los valores posibles son @code{NONE} (nada),
@@ -1091,16 +1091,16 @@ instrucción invocada @command{lilypond}, al valor
 de registro.
 
 
-@itemx --info-images-dir=@var{directorio}
+@item --info-images-dir=@var{directorio}
 Dar formato a la salida de Texinfo de manera que Info busque las
 imágenes de música en @var{directorio}.
 
-@itemx --latex-program=@var{prog}
+@item --latex-program=@var{prog}
 Ejecutar el programa @command{prog} en vez de @command{latex}.  Esto
 es útil si nuestro documento se procesa con @command{xelatex}, por
 ejemplo.
 
-@itemx --left-padding=@var{cantidad}
+@item --left-padding=@var{cantidad}
 Rellenar las cajas EPS en esta medida, alrededor. @var{cantidad} se
 mide en milímetros, y es 3.0 como valor predeterminado.  Esta opción
 se debe usar si las líneas de música están muy pegadas al margen
@@ -1126,7 +1126,7 @@ De forma predeterminada, la salida se imprime por la consola.  Esta
 opción redirecciona toda la salida hacia archivos de registro situados
 en el mismo directorio que los archivos fuente.
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 Escribir los archivos de salida de los fragmentos de música con el
 mismo nombre de base que su archivo fuente.  Esta opción sólo funciona
 para fragmentos incluidos con @code{lilypondfile} y sólo si los
