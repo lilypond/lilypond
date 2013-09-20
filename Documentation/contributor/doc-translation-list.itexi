@@ -38,51 +38,51 @@ procedures}.
 1284  web/manuals.itexi
 124   learning.tely
 2535  learning/tutorial.itely
-4216  learning/common-notation.itely
-8159  total
+4283  learning/common-notation.itely
+8226  total
 
 -3- Fundamental Concepts, starting of Usage and Community
 11144 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
 4525  usage/running.itely
-1234  usage/updating.itely
+1424  usage/updating.itely
 3073  web/community.itexi
-20111 total
+20301 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
-16218 learning/tweaks.itely -- Tweaking output
+16194 learning/tweaks.itely -- Tweaking output
 372   learning/templates.itely -- Templates
 2692  usage/suggestions.itely -- Suggestions on writing LilyPond files
-19282 total
+19258 total
 
 -5- Notation reference
 326   notation.tely
 91    notation/notation.itely -- Musical notation
-4996  notation/pitches.itely
+4990  notation/pitches.itely
 6961  notation/rhythms.itely
 1793  notation/expressive.itely
 1050  notation/repeats.itely
-2767  notation/simultaneous.itely
+2821  notation/simultaneous.itely
 2457  notation/staff.itely
 953   notation/editorial.itely
 2816  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
-4901  notation/vocal.itely
+5190  notation/vocal.itely
 1972  notation/chords.itely
 702   notation/piano.itely
 811   notation/percussion.itely
 826   notation/guitar.itely
 66    notation/strings.itely
 242   notation/bagpipes.itely
-5386  notation/ancient.itely
+5375  notation/ancient.itely
 10388 notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
-12195 notation/spacing.itely -- Spacing issues
-14076 notation/changing-defaults.itely -- Changing defaults
+12190 notation/spacing.itely -- Spacing issues
+14470 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 2176  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-85635 total
+86350 total
 
 -6- Rest of Application Usage
 4137  usage/lilypond-book.itely -- LilyPond-book

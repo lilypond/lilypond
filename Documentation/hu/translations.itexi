@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Mon Aug  5 11:25:13 UTC 2013
+@emph{Last updated Fri Sep 20 17:55:41 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4216
+4283
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16218
+16194
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -312,7 +312,7 @@ partially
 @item
 2 A @command{convert-ly} használata
 @*
-1234
+1424
 @tab Team-hu
 @tab 
 @tab 
@@ -329,7 +329,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Mon Aug  5 11:25:13 UTC 2013
+@emph{Naposledy obnoveno Fri Sep 20 17:55:41 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Příručka k učení se
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Překladatelé
+@tab Zkoušeči překladu
+@tab Přeloženo
+@tab Současné
+@tab Více informací
 @item
-Section titles
+Nadpisy
 @*
 124
 @tab Pavel Fric
@@ -37,23 +37,23 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #2cff20">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 LilyPond -- \TITLE\
 @*
@@ -64,23 +64,23 @@ LilyPond -- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #25fe1f">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 1 Cvičení
 @*
@@ -91,50 +91,50 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 2 Běžný notový zápis
 @*
-4216
+4283
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially</span>
+<span style="background-color: #40fe23">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 3 Základní pojmy
 @*
@@ -145,50 +145,50 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #40fe23">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 4 Ladění výstupu
 @*
-16218
+16194
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (50 %)</span>
+<span style="background-color: #dfef77">částečně (50 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (50 %)
+částečně (50 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partially</span>
+<span style="background-color: #9eff30">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 A Předlohy
 @*
@@ -199,23 +199,23 @@ A Předlohy
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (38 %)</span>
+<span style="background-color: #dfef77">částečně (38 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (38 %)
+částečně (38 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fffd3d">partially</span>
+<span style="background-color: #fffd3d">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @end multitable
 
 
@@ -223,13 +223,13 @@ partially
 
 @headitem
 LilyPond -- Zápis not pro každého
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Překladatelé
+@tab Zkoušeči překladu
+@tab Přeloženo
+@tab Současné
+@tab Více informací
 @item
-Section titles
+Nadpisy
 @*
 616
 @tab Pavel Fric
@@ -238,23 +238,23 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">partially</span>
+<span style="background-color: #8aff2d">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 LilyPond -- \TITLE\
 @*
@@ -265,23 +265,23 @@ LilyPond -- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #25fe1f">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 Úvod
 @*
@@ -292,23 +292,23 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #97ff2f">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 Stažení
 @*
@@ -319,23 +319,23 @@ Stažení
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #54ff26">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 Příručky
 @*
@@ -346,23 +346,23 @@ Příručky
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">ano</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+ano
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #4efe25">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @item
 Společenství
 @*
@@ -373,22 +373,22 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (95 %)</span>
+<span style="background-color: #dfef77">částečně (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (95 %)
+částečně (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially</span>
+<span style="background-color: #e8fe39">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+částečně
 @end ifnothtml
-@tab pre-GDP
+@tab před-GDP
 @end multitable
 

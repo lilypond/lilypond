@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Mon Aug  5 11:25:13 UTC 2013
+@emph{Last updated Fri Sep 20 17:55:41 UTC 2013
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -26,7 +26,7 @@ LilyPond Changes
 @item
 Section titles
 @*
-(1102)
+(1256)
 @tab Francisco Vila
 @*
 
@@ -44,11 +44,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @item
 LilyPond --- \TITLE\
@@ -758,11 +758,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -790,7 +790,7 @@ up to date
 @item
 2 Interfaces for programmers
 @*
-(5714)
+(5778)
 @tab Till Paala
 @*
 
@@ -808,7 +808,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #76fe2a">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -831,11 +831,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -1729,7 +1729,7 @@ up to date
 @item
 2 Common notation
 @*
-(4216)
+(4283)
 @tab Pavel Fric
 @*
 
@@ -1747,7 +1747,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #40fe23">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1770,7 +1770,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1951,7 +1951,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1994,7 +1994,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2069,11 +2069,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -2255,7 +2255,7 @@ partially up to date
 @item
 4 Tweaking output
 @*
-(16218)
+(16194)
 @tab Pavel Fric
 @*
 
@@ -2296,7 +2296,7 @@ partially translated (52 %)
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2308,22 +2308,22 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (98 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (98 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -2366,22 +2366,22 @@ John Mandereau
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (98 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (98 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Harmath Dénes
 @*
@@ -2443,7 +2443,7 @@ partially translated (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2466,7 +2466,7 @@ partially translated (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -2509,7 +2509,7 @@ partially translated (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially up to date</span>
+<span style="background-color: #39ff22">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -3351,7 +3351,7 @@ up to date
 @item
 1.1 Pitches
 @*
-(4996)
+(4990)
 @tab Till Paala
 @*
 
@@ -3392,11 +3392,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -3562,11 +3562,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -3641,11 +3641,11 @@ up to date
 @ifhtml
 
 @html
-<small></small>
+<small>Luca Rossetto Casel</small>
 @end html
 @end ifhtml
 @ifnothtml
-
+Luca Rossetto Casel
 @end ifnothtml
 @*
 
@@ -3813,11 +3813,11 @@ up to date
 @ifhtml
 
 @html
-<small></small>
+<small>Luca Rossetto Casel</small>
 @end html
 @end ifhtml
 @ifnothtml
-
+Luca Rossetto Casel
 @end ifnothtml
 @*
 
@@ -3985,11 +3985,11 @@ up to date
 @ifhtml
 
 @html
-<small></small>
+<small>Luca Rossetto Casel</small>
 @end html
 @end ifhtml
 @ifnothtml
-
+Luca Rossetto Casel
 @end ifnothtml
 @*
 
@@ -4048,7 +4048,7 @@ up to date
 @item
 1.5 Simultaneous notes
 @*
-(2767)
+(2821)
 @tab Till Paala
 @*
 
@@ -4066,7 +4066,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4089,11 +4089,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -4159,11 +4159,11 @@ up to date
 @ifhtml
 
 @html
-<small></small>
+<small>Luca Rossetto Casel</small>
 @end html
 @end ifhtml
 @ifnothtml
-
+Luca Rossetto Casel
 @end ifnothtml
 @*
 
@@ -4190,11 +4190,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -4213,7 +4213,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #2cff20">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4263,11 +4263,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -4500,7 +4500,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4623,11 +4623,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @item
 2 Specialist notation
@@ -4753,7 +4753,7 @@ up to date
 @item
 2.1 Vocal music
 @*
-(4901)
+(5190)
 @tab Till Paala
 @*
 
@@ -4771,7 +4771,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #47ff24">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -4794,11 +4794,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -4839,11 +4839,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -4885,7 +4885,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -5671,11 +5671,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -5921,7 +5921,7 @@ up to date
 @item
 2.9 Ancient notation
 @*
-(5386)
+(5375)
 @tab Till Paala
 @*
 
@@ -5962,11 +5962,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -6222,11 +6222,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -6302,7 +6302,7 @@ partially up to date
 @item
 4 Spacing issues
 @*
-(12195)
+(12190)
 @tab Till Paala
 @*
 
@@ -6320,7 +6320,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #6fff29">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6343,11 +6343,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Frédéric Chiasson
 @*
@@ -6414,7 +6414,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #6fff29">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6423,25 +6423,25 @@ partially up to date
 @item
 5 Changing defaults
 @*
-(14076)
+(14470)
 @tab Till Paala
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (93 %)</span>
+<span style="background-color: #dfef77">partially translated (87 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (93 %)
+partially translated (87 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -6464,11 +6464,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Valentin Villenave
 @*
@@ -6498,22 +6498,22 @@ Gilles Thibault
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<span style="background-color: #dfef77">partially translated (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+partially translated (99 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #25fe1f">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -6544,18 +6544,18 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">translated</span>
+<span style="background-color: #dfef77">partially translated (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-translated
+partially translated (99 %)
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #33ff21">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7338,22 +7338,22 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (97 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (97 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -7490,7 +7490,7 @@ partially up to date
 @item
 2 Updating files with @command{convert-ly}
 @*
-(1234)
+(1424)
 @tab Till Paala
 @*
 
@@ -7508,7 +7508,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially up to date</span>
+<span style="background-color: #7dff2b">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7531,11 +7531,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -7574,11 +7574,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Team-hu
 @*
@@ -7597,7 +7597,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially up to date</span>
+<span style="background-color: #83fe2c">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7640,11 +7640,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">up to date</span>
+<span style="background-color: #62ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-up to date
+partially up to date
 @end ifnothtml
 @tab Yoshiki Sawada
 @*
@@ -7663,7 +7663,7 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #68ff28">partially up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -7733,11 +7733,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -7906,22 +7906,22 @@ partially up to date
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (87 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (87 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Jean-Charles Malahieude
 @*
@@ -8079,11 +8079,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Ludovic Sardain
 @*
@@ -8998,11 +8998,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Gauvain Pocentek
 @*
