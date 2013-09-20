@@ -3,7 +3,9 @@
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento
 predeterminado es que no se imprima el corchete en la barra inicial.
-Esto se puede cambiar sobreescribiendo las propiedades adecuadas.
+Esto se puede cambiar sobreescribiendo @code{collapse-height} para
+fijar su valor de manera que sea menor que el número de líneas en la
+pauta.
 
 Observe que en contextos como @code{PianoStaff} y
 @code{GrandStaff} en que los sistemas empiezan con una llave en

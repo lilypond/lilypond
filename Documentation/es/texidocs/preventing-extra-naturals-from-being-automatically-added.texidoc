@@ -2,12 +2,12 @@
 doctitlees = "Evitar que se añadan becuadros adicionales automáticamente"
 
 texidoces = "
-Según las reglas estándar de composición
-tipográfica, se imprime un becuadro antes de un sostenido o un
-bemol cuando se tiene que cancelar una alteración anterior en la
-misma nota.  Para modificar este comportamiento, establezca el
-valor de la propiedad @code{extraNatural} a @code{##f} (falso)
-dentro del contexto de @code{Staff}.
+Según las reglas tradicionales de composición tipográfica, se imprime
+un becuadro antes de un sostenido o un bemol cuando se tiene que
+cancelar un doble sostenido o un doble bemol anterior en la misma
+nota.  Para modificar este comportamiento a la práctica actual,
+establezca el valor de la propiedad @code{extraNatural} a @code{##f}
+(falso) dentro del contexto de @code{Staff}.
 
 "
 

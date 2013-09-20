@@ -1,8 +1,11 @@
 %% Translation of GIT committish: 5cc4e758f0d8b01600a39faced769883cca6995a
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
-@code{\\markup}.  Se puede trucar la colocación vertical de los
-símbolos modificando los argumentos de @code{\\raise}.
+@code{\\markup}.  Se puede trucar la colocación de los símbolos
+modificando los argumentos de @code{\\translate-scaled}.  Aquí se usa
+@code{\\translate-scaled} en lugar de @code{\\translate} para que el
+posicionamiento de las partes de símbolos se adapte a los cambios en
+@code{font-size}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"
