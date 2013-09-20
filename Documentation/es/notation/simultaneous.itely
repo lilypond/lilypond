@@ -1066,7 +1066,7 @@ con la letra de las canciones; si una de las voces recibe un
 nombre explícito para poder adjuntar una letra, el combinador de
 partes no funciona.  Sin embargo, se puede conseguir este efecto
 usando un contexto @code{NullVoice}.  Véase
-@ref{Polyphony with shared lyrics}.
+@ref{Polifonía con letras compartidas}.
 
 
 @snippets

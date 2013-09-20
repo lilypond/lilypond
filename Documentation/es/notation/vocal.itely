@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cccd2bf82ebfb55b6423346037fa4d2793fc4c3b
+    Translation of GIT committish: 2537ec6d3ad3c7f1308254d856ed762fb5d911b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -402,7 +402,7 @@ que contiene la melodía, con @code{\lyricsto}:
 @lilypond[quote,verbatim,relative=2]
 <<
   \new Voice = "melody" {
-    a4 a a a
+    a1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melody" {
     These are the words
@@ -466,8 +466,10 @@ Se pueden añadir más versos poniendo más secciones @code{\addlyrics}:
 }
 @end lilypond
 
-La instrucción @code{\addlyrics} no es capaz de manejar situaciones de
-polifonía.  Para estos casos debería usar @code{\lyricsto}.
+La instrucción @code{\addlyrics} no es capaz de manejar
+situaciones de polifonía.  Asimismo, no puede usarse para asociar
+letra a un contexto de tablatura @code{TabVoice}.  Para estos
+casos debería usar @code{\lyricsto}.
 
 @subheading Uso de @code{associatedVoice}
 
@@ -619,11 +621,16 @@ carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
 texto.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 {
-  \relative c'' { \autoBeamOff
-    r8 b c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
+  { \autoBeamOff
+    r8 b c fis, fis c' b e,
+  }
+  \addlyrics
+  {
+    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+  }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
   \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
 }
@@ -644,9 +651,11 @@ Referencia de funcionamiento interno:
 @funindex \melisma
 @funindex \melismaEnd
 
-A veces, y sobre todo en la música medieval, varias notas se cantan
+A veces, y sobre todo en la música medieval y del Barroco,
+varias notas se cantan
 sobre una sílaba única; tales vocalizaciones reciben el nombre de
-melismas, o melismata.  La sílaba de un melisma se suele alinear por
+melismas, o melismata (véase @rglos{melisma}).
+La sílaba de un melisma se suele alinear por
 la izquierda con la primera nota del melisma.
 
 Cuando se produce un melisma sobre una sílaba distinta de la última de
@@ -897,6 +906,7 @@ Referencia de funcionamiento interno:
 * Colocación horizontal de las sílabas::
 * Letra y repeticiones::
 * Letras en divisi::
+* Polifonía con letras compartidas::
 @end menu
 
 
@@ -1676,6 +1686,125 @@ contextos de voz y adjuntando la letra a estos contextos específicos:
 }
 @end lilypond
 
+En la música coral es frecuente que una parte vocal se divida en
+dos durante varios compases.  La construcción @code{<< @{@dots{}@}
+\\ @{@dots{}@} >>}, en la que dos (o más) expresiones musicales
+están separadas por dos barras invertidas, puede en principio
+parecer la forma más adecuada de realizar las voces divididas.
+Sin embargo, esta construcción asigna @strong{todas} las
+expresiones que están dentro de ella a @strong{contextos de voz
+NUEVOS} lo que hace que no se asigne a ellas @emph{ninguna letra}
+porque la letra se asigna al contexto de voz original, que no es
+lo que pretendemos, en general.  La construcción correcta que
+debemos usar es el pasaje polifónico temporal, véase la sección
+@emph{Pasajes polifónicos temporales} dentro de
+@ref{Polifonía en un solo pentagrama}.
+
+
+@node Polifonía con letras compartidas
+@unnumberedsubsubsec Polifonía con letras compartidas
+@translationof Polyphony with shared lyrics
+
+@cindex NullVoice
+@cindex polifonía, letra compartida
+@cindex letra, compartida entre voces
+@cindex \partcombine y letra
+@funindex \partcombine
+
+Cuando dos voces cuyas notas tienen distintas duraciones comparten
+la misma letra, la alineación de ésta a una de las voces puede dar
+lugar a problemas en la otra voz.  Por ejemplo, la segunda línea
+extensora que se ve debajo es demasiado corta, porque la letra
+está alineada solamente a la voz superior:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice = "sopranoVoice" { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new Lyrics \lyricsto "sopranoVoice" \words
+>>
+@end lilypond
+
+Para obtener el resultado deseado, alinee la letra con un contexto
+@code{NullVoice} (@q{Voz Nula}) nuevo que contenga una combinación
+adecuada de las dos voces.  Las notas del contexto
+@code{NullVoice} no aparecen en la página impresa, pero pueden
+utilizarse para alinear la letra adecuadamente:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+El contexto de voz nula @code{NullVoice} debe estar dentro de un
+contexto @code{Staff}, y solamente debe contener notas que ya se
+están mostrando en dicho pentagrama, y en la misma octava.  En
+caso contrario, la @code{NullVoice} podría interactuar con las
+voces impresas de forma inesperada.  Por ejemplo, notas
+arbitrarias en la @code{NullVoice} pueden hacer que aparezcan (o
+desaparezcan) alteraciones accidentales en el pentragrama.
+
+Este método se puede usar trambién con la función
+@code{\partcombine}, que en sí no permite incluir letra:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice \partcombine \soprano \alto
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+@noindent
+La función @code{\partcombine} se describe en
+@ref{Combinación automática de las partes}.
+
+Por último, este método se puede usar incluso si las voces están
+en distintos pentagramas, y no se limita a dos voces únicamente:
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+altoOne = \relative { g'2 b8( a b4) }
+altoTwo = \relative { d'2 g4( fis8 g) }
+aligner = \relative { b'8( c d c) d( d d d) }
+words = \lyricmode { la __ la __ }
+
+\new ChoirStaff <<
+  \new Staff <<
+    \soprano
+    \new NullVoice = "aligner" \aligner
+  >>
+  \new Lyrics \lyricsto "aligner" \words
+  \new Staff \partcombine \altoOne \altoTwo
+>>
+@end lilypond
+
+Observe, sin embargo, que en la segunda mitad del compás que se ve
+arriba, las notas del contexto @code{NullVoice} reflejan las
+duraciones de las notas del pentagrama inferior, pero no se
+desvian de la altura única que se muestra en el pentagrama al que
+pertenece la @code{NullVoice}.  Aunque no es obligatorio en este
+ejemplo en particular, generalmente es buena idea introducir las
+notas de esta forma.
+
 
 @node Versos
 @subsection Versos
@@ -2211,8 +2340,8 @@ canciones por partes, los oratorios, etc.
 La notación de música coral se realiza normalmente sobre dos, tres o
 cuatro pentagramas dentro de un grupo de pautas @code{ChoirStaff}.  Si
 se necesita un acompañamiento, se sitúa debajo dentro de un grupo
-@code{PianoStaff}, que se suele reducir de tamaño en las obras corales
-@emph{a capella}.  Las notas de cada parte vocal se sitúan dentro de
+@code{PianoStaff}, que se suele reducir de tamaño, para ensayar las obras corales
+@emph{a cappella}.  Las notas de cada parte vocal se sitúan dentro de
 un contexto @code{Voice}, y cara pentagrama recibe o una sola parte
 vocal (es decir, una @code{Voice}) o un par de partes vocales (es
 decir, dos @code{Voice}s).
@@ -2250,6 +2379,11 @@ Cuando dos partes vocales comparten un pentagrama, las plicas,
 ligaduras, etc. de la parte aguda se orientan hacia arriba, y los de
 la parte grave hacia abajo.  Para hacerlo, utilice @code{\voiceOne} y
 @code{\voiceTwo}.  Véase @ref{Polifonía en un solo pentagrama}.
+
+@item
+Cuando una parte vocal se divide temporalmente, debemos usar
+@emph{Pasajes polifónicos temporales} (véase
+@ref{Polifonía en un solo pentagrama}).
 
 @end itemize
 
