@@ -214,8 +214,8 @@ STEPMAKE_WINDOWS
 # guile executable for some scripts
 STEPMAKE_GUILE(OPTIONAL, 1.8.2, 1.9.0)
 
-# perl for help2man.
-STEPMAKE_PERL(OPTIONAL)
+# perl for help2man and for mf2pt1.pl
+STEPMAKE_PERL(REQUIRED)
 
 ## Optional tools for building documentation, website, extra fonts.
 if test "$DOCUMENTATION" = "yes"; then
