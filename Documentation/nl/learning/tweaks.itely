@@ -1099,7 +1099,7 @@ will cause errors when the dimensions of the object are required for
 correct processing.  For example, errors will be generated if the
 @code{stencil} property of the @code{NoteHead} object is set to
 @code{#f}.  If this is the case, you can instead use the
-@code{point-stencil} function, which sets the stencil to a object
+@code{point-stencil} function, which sets the stencil to an object
 with zero size:
 
 @lilypond[quote,verbatim,relative=2]

@@ -2908,7 +2908,7 @@ DK: ?,
 S: ?,
 FI: nousu.
 
-Indicator for a indeterminately rising pitch bend.  Compare with
+Indicator for an indeterminately rising pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
 
 @seealso
@@ -3527,7 +3527,7 @@ DK: ?,
 S: ?,
 FI: lasku.
 
-Indicator for a indeterminately falling pitch bend.  Compare with
+Indicator for an indeterminately falling pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
 
 @seealso

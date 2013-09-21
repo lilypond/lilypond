@@ -33,7 +33,7 @@ Syntax: @var{note}@code{\\x}, where @code{\\x} is a dynamic mark like
         ))
 
     (AlternativeEvent
-     . ((description . "Create a alternative event.")
+     . ((description . "Create an alternative event.")
         (types . (general-music event alternative-event))
         ))
 

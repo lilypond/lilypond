@@ -1920,7 +1920,7 @@ The statement which sets the property value is the same as that in a
 @code{\context} block within a @code{\layout} block.  Each
 @code{\context} block will affect all contexts of the type specified
 throughout the @code{\score} or @code{\book} block in which the
-@code{\layout} block appears.  Here is a example to show the format:
+@code{\layout} block appears.  Here is an example to show the format:
 
 @lilypond[verbatim,quote]
 \score {

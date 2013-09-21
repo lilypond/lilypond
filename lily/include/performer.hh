@@ -25,7 +25,7 @@
 #include "grob-info.hh"
 #include "translator.hh"
 
-/* Convert a music definition into a audio representation.
+/* Convert a music definition into an audio representation.
    A baseclass.  */
 class Performer : public Translator
 {

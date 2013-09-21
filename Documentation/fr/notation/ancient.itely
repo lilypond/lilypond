@@ -245,7 +245,7 @@ style de ligature désiré, il faut remplacer, dans le contexte
 @code{Voice} approprié, le graveur @code{Ligature_bracket_engraver} par
 le graveur de ligature qui convient -- voir les rubriques
 @ref{Ligatures mensurales} et @ref{Neumes et ligatures grégoriennes} à
-ce sujet. 
+ce sujet.
 
 @seealso
 Glossaire musicologique :
@@ -428,7 +428,7 @@ clés utilisent le même glyphe, attaché à l'une ou l'autre des lignes
 de la portée.  Le chiffre porté en suffixe permet alors de les
 différencier.  Vous pouvez forcer le positionnement du glyphe sur une
 ligne, comme expliqué à la section @ref{Clefs}.  Dans la colonne
-exemple, la note suivant la clé est un do médium. 
+exemple, la note suivant la clé est un do médium.
 
 Les clés d'ut de Petrucci avaient une hampe gauche différente selon
 leur ligne de rattachement.
@@ -652,7 +652,7 @@ Voici les différences entre les styles :
 @end lilypond
 
 La rubrique @ref{Métrique} expose les principes généraux sur
-l'utilisation des indications de métrique. 
+l'utilisation des indications de métrique.
 
 @seealso
 Glossaire musicologique :
@@ -692,7 +692,7 @@ commande @code{\time}.  Utilisez alors un
 Pour de la musique ancienne, vous disposez de plusieurs styles de tête
 de note, en plus du style par défaut @code{default}.  Vous pouvez
 affecter à la propriété @code{style} de l'objet @code{NoteHead}
-les valeurs @code{baroque}, @code{neomensural}, @code{mensural}, 
+les valeurs @code{baroque}, @code{neomensural}, @code{mensural},
 @code{petrucci}, @code{blackpetrucci} ou @code{semipetrucci}.
 
 Le style @code{baroque} diffère du style @code{default} par
@@ -2679,7 +2679,7 @@ Manuel de notation :
 
 @knownissues
 L'espacement des ligatures n'est pas des meilleurs.
- 
+
 
 @node Réédition de musique ancienne
 @subsection Réédition de musique ancienne
@@ -2955,7 +2955,7 @@ spirLyr = \lyricmode {
 @c try Till Rettig
 @c Add example of white note heads:
 @c In the french baroque some composers used white note heads in slow pieces,
-@c mainly in 3/2-time.  A quarter looks there like a eighth with a white
+@c mainly in 3/2-time.  A quarter looks there like an eighth with a white
 @c note head.  (Franz-Rudolf Kuhnen)
 
 @c TODO Add example of this:

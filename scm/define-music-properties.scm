@@ -28,7 +28,7 @@
    (lambda (x) (apply music-property-description x))
    `(
      (absolute-octave ,integer?
-                      "The absolute octave for a octave check note.")
+                      "The absolute octave for an octave check note.")
      (alteration ,number? "Alteration for figured bass.")
      (alternative-dir ,ly:dir? "Indicates if an AlternativeMusic is the
 First (-1), Middle (0), or Last (1) of group of alternate endings.")
@@ -148,7 +148,7 @@ Options are @code{solo1}, @code{solo2} and @code{unisono}.")
      (pitch ,ly:pitch? "The pitch of this note.")
      (pitch-alist ,list? "A list of pitches jointly forming the scale
 of a key signature.")
-     (pop-first ,boolean? "Do a revert before we try to do a override
+     (pop-first ,boolean? "Do a revert before we try to do an override
 on some grob property.")
      (prob-property ,symbol? "The symbol of the prob property to set.")
      (procedure ,procedure? "The function to run with @code{\\applycontext}.

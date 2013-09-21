@@ -801,7 +801,7 @@ no elements."
 ;; the size of the staff lines is evaluated as 0, which results in a
 ;; solid span bar line with faulty y coordinate.
 ;;
-;; This routine was originally by Juergen Reuter, but it was a on the
+;; This routine was originally by Juergen Reuter, but it was on the
 ;; bulky side. Rewritten by Han-Wen. Ported from c++ to Scheme by Marc Hohl.
 (define-public (ly:span-bar::print grob)
   "The print routine for span bars."

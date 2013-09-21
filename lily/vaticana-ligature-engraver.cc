@@ -166,7 +166,7 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 {
   if (prev_prefix_set & VIRGA)
     /*
-     * After a virga, make a an additional small space such that the
+     * After a virga, make an additional small space such that the
      * appendix on the right side of the head does not touch the
      * following head.
      */
@@ -181,7 +181,7 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 
   if ((context_info & FLEXA_LEFT) && ! (context_info & PES_UPPER))
     /*
-     * Before a flexa (but not within a torculus), make a an
+     * Before a flexa (but not within a torculus), make an
      * additional small space such that the appendix on the left side
      * of the flexa does not touch the this head.
      */

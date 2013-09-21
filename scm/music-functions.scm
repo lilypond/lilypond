@@ -980,7 +980,7 @@ result."
                              pred))
                        (cons type signature)))
   (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
-      ;; When the music function definition contains a i10n doc string,
+      ;; When the music function definition contains an i10n doc string,
       ;; (_i "doc string"), keep the literal string only
       (let ((docstring (cadar body))
             (body (cdr body)))

@@ -129,7 +129,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
       /*
         TODO:
 
-        Should  insert a adjustable space here? For excercises, you might want to
+        Should insert an adjustable space here? For exercises, you might want to
         use a staff without a clef in the beginning.
       */
 

@@ -28,7 +28,7 @@
 #include <set>
 
 /*
-  The definition of a interpretation context as given in the
+  The definition of an interpretation context as given in the
   input. The lists are stored in order of definition.
 */
 struct Context_def

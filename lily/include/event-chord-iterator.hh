@@ -23,7 +23,7 @@
 #include "simple-music-iterator.hh"
 
 /**
-   Walk through a Event_chord
+   Walk through an Event_chord
 */
 class Event_chord_iterator : public Simple_music_iterator
 {

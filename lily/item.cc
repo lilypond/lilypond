@@ -43,7 +43,7 @@ Item::Item (SCM s)
 }
 
 /**
-   Item copy ctor.  Copy nothing: everything should be a elt property
+   Item copy ctor.  Copy nothing: everything should be an elt property
    or a special purpose pointer (such as broken_to_drul_[]) */
 Item::Item (Item const &s)
   : Grob (s)

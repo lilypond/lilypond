@@ -3343,7 +3343,7 @@ item for hard constraints.
 handle_broken_smobs (); should conserve a little memory.
 
 * Fixed handling of orphaned score-elements. Any element that does
-not have its Line_of_score as a ancestor in both directions, is silently
+not have its Line_of_score as an ancestor in both directions, is silently
 removed from the output.  This guarantees that programming errors
 don't result in coredumps from Dimension_cache::common_refpoint ():
 element->line_l () is always a common reference point.

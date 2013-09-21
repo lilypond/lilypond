@@ -380,7 +380,7 @@ Dynamic_engraver::typeset_all ()
       else if (!r && !l)
         {
           /*
-            This is a isolated dynamic apparently, and does not even have
+            This is an isolated dynamic apparently, and does not even have
             any interesting support item.
           */
           Grob *cc = unsmob_grob (get_property ("currentMusicalColumn"));

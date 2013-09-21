@@ -18,7 +18,7 @@
 ;;; Commentary:
 
 ;;; This file provides the support routines for a guile debugger called
-;;; from a environment controlled by LilyPond.  It works in conjunction
+;;; from an environment controlled by LilyPond.  It works in conjunction
 ;;; with file guile-debugger.ly.
 
 ;;; Code:

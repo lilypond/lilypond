@@ -582,7 +582,7 @@ only ~a fret labels provided")
   (make-vcenter-markup
    (format #f "~a" fret-number)))
 
-;; The 5-string banjo has got a extra string, the fifth (duh), which
+;; The 5-string banjo has got an extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
 ;; are referred to relative to the other frets:
 ;;   the "first fret" on the fifth string is really the sixth fret
