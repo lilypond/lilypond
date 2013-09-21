@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.26\n"
+"Project-Id-Version: lilypond 2.17.27\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-09-08 15:34+0100\n"
+"POT-Creation-Date: 2013-09-21 12:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -775,7 +775,7 @@ msgstr ""
 msgid "beamExceptions controls whole-measure beaming."
 msgstr ""
 
-#: convertrules.py:3584
+#: convertrules.py:3606
 msgid "Flag.transparent and Flag.color inherit from Stem"
 msgstr ""
 
@@ -1720,19 +1720,19 @@ msgstr ""
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:231
+#: beam-engraver.cc:235
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:270 chord-tremolo-engraver.cc:149
+#: beam-engraver.cc:282 chord-tremolo-engraver.cc:149
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:281
+#: beam-engraver.cc:293
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:282
+#: beam-engraver.cc:294
 msgid "beam was started here"
 msgstr ""
 
@@ -1818,6 +1818,11 @@ msgstr ""
 #: context.cc:425
 #, c-format
 msgid "cannot find or create: `%s'"
+msgstr ""
+
+#: context.cc:439
+#, c-format
+msgid "cannot find or create new Bottom = \"%s\""
 msgstr ""
 
 #: custos.cc:87
@@ -3118,108 +3123,108 @@ msgstr ""
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:458 parser.yy:756 parser.yy:823
+#: parser.yy:458 parser.yy:759 parser.yy:825
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:652 parser.yy:1151
+#: parser.yy:657 parser.yy:1153
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:858
+#: parser.yy:860
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:874
+#: parser.yy:876
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:898
+#: parser.yy:900
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1046 parser.yy:1068
+#: parser.yy:1040 parser.yy:1062
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1076
+#: parser.yy:1070
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1087 parser.yy:2373
+#: parser.yy:1081 parser.yy:2380
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1355
+#: parser.yy:1362
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2044 parser.yy:2158 parser.yy:2171 parser.yy:2180
+#: parser.yy:2051 parser.yy:2165 parser.yy:2178 parser.yy:2187
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2138
+#: parser.yy:2145
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2199
+#: parser.yy:2206
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2300
+#: parser.yy:2307
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2318
+#: parser.yy:2325
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2482
+#: parser.yy:2489
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2556
+#: parser.yy:2563
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2565 parser.yy:2570
+#: parser.yy:2572 parser.yy:2577
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2638
+#: parser.yy:2645
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2733
+#: parser.yy:2740
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2805 parser.yy:2851
+#: parser.yy:2812 parser.yy:2858
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2868
+#: parser.yy:2875
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:2967
+#: parser.yy:2974
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3026
+#: parser.yy:3033
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3041
+#: parser.yy:3048
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3046
+#: parser.yy:3053
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3254
+#: parser.yy:3261
 msgid "not a markup"
 msgstr ""
 
@@ -3277,35 +3282,35 @@ msgstr ""
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:804
+#: lexer.ll:805
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:931
+#: lexer.ll:934
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:951
+#: lexer.ll:954
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1247
+#: lexer.ll:1250
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1291
+#: lexer.ll:1294
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1292
+#: lexer.ll:1295
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1298
+#: lexer.ll:1301
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3715,34 +3720,34 @@ msgstr ""
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:755
+#: music-functions.scm:753
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:790
+#: music-functions.scm:788
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1133
+#: music-functions.scm:1131
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1271
+#: music-functions.scm:1269
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1331
+#: music-functions.scm:1329
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1332
+#: music-functions.scm:1330
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1677
+#: music-functions.scm:1675
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
