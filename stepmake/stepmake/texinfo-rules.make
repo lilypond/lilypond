@@ -82,8 +82,8 @@ $(outdir)/%.html.omf: %.texi
 $(outdir)/%.pdf.omf: %.texi
 	$(call GENERATE_OMF,pdf)
 
-$(outdir)/version.%: $(top-src-dir)/VERSION
+$(outdir)/version.itexi: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
 
-$(outdir)/weblinks.%: $(top-src-dir)/VERSION
+$(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
 	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@

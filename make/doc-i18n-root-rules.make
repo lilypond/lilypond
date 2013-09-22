@@ -20,12 +20,6 @@ $(top-build-dir)/Documentation/$(outdir)/%.$(ISOLANG).pdf: $(outdir)/%.pdf
 	mkdir -p $(dir $@)
 	cp -f $< $@
 
-$(outdir)/version.%: $(top-src-dir)/VERSION
-	$(PYTHON) $(top-src-dir)/scripts/build/create-version-itexi.py > $@
-
-$(outdir)/weblinks.%: $(top-src-dir)/VERSION
-	$(PYTHON) $(top-src-dir)/scripts/build/create-weblinks-itexi.py > $@
-
 $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 	ln -f $< $@
 
