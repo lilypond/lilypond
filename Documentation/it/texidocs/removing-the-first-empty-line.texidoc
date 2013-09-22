@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+Il primo rigo vuoto si può togliere dalla partitura impostando la proprietà
+@code{remove-first} di @code{VerticalAxisGroup}.  Questa impostazione
+agisce a livello globale se posta nel blocco @code{\\layout}, a livello
+locale se posta nel rigo specifico che deve essere tolto.  Nel secondo
+caso, si deve specificare il contesto (@code{Staff} si applica solo al
+rigo corrente) prima della proprietà.
+
+Il rigo inferiore del secondo gruppo di righi non viene rimosso, perché
+l'impostazione ha effetto solo sul rigo in cui si trova.
+
+"
+  doctitleit = "Eliminare la prima linea vuota"

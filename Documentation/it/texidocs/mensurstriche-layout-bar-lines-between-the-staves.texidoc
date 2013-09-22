@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+La formattazione mensurale, in cui le stanghette non appaiono sui righi ma
+nello spazio tra i righi, si può ottenere usando @code{StaffGroup} al posto
+di @code{ChoirStaff}.  La stanghetta sui righi viene nascosta impostando
+la proprietà @code{transparent}.
+
+"
+  doctitleit = "Formattazione mensurale (stanghette tra i righi)"
