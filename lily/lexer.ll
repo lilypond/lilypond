@@ -585,7 +585,7 @@ BOM_UTF8	\357\273\277
                 yylval = SCM_UNSPECIFIED;
 		return YYText ()[0];
 	}
-	[^$#{}\"\\ \t\n\r\f0-9]+ {
+	[^|*.=$#{}\"\\ \t\n\r\f0-9][^$#{}\"\\ \t\n\r\f0-9]* {
 		/* ugr. This sux. */
 		string s (YYText_utf8 ());
                 yylval = SCM_UNSPECIFIED;
