@@ -103,7 +103,10 @@ IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
 void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  if (!to_boolean (get_property ("skipTypesetting")))
+    {
+      ASSIGN_EVENT_ONCE (event_, ev);
+    }
 }
 
 void Tie_engraver::report_unterminated_tie (Head_event_tuple const &tie_start)
@@ -373,6 +376,7 @@ ADD_TRANSLATOR (Tie_engraver,
                 "TieColumn ",
 
                 /* read */
+                "skipTypesetting "
                 "tieWaitForNote ",
 
                 /* write */
