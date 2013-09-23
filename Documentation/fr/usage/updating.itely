@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -66,9 +66,38 @@ modifications.  Par exemple, dans les versions 2.4 et antérieures de
 LilyPond, les accents et les lettres non anglaises étaient entrées en
 utilisant @LaTeX{} -- par exemple, @code{No\"el}.  À partir de la
 version 2.6, le caractère @code{ë} doit être entré directement dans
-le fichier LilyPond comme caractère UTF-8.  @code{convert-ly} ne peut
-pas changer tous les caractères @LaTeX{} en caractères UTF-8 ; vous
+le fichier LilyPond comme caractère UTF-8.   @command{convert-ly} ne
+peut pas changer tous les caractères @LaTeX{} en caractères UTF-8 ; vous
 devez mettre à jour vos vieux fichiers LilyPond manuellement.
+
+Les règles de conversion de @command{convert-ly} reposent sur la
+recherche et le remplacement de motifs textuels plutôt que sur les
+capacités intellectuelles de LilyPond, en conséquence de quoi :
+
+@itemize @bullet
+@item
+La fiabilité de la conversion dépend de la qualité même de chaque jeu de
+règles ainsi que sur la complexité des modifications respectives à
+apporter.  Certaines conversions peuvent donc requérir une intervention
+manuelle ; la version de « départ » devrait toujours rester disponible
+pour comparaison.
+
+@item
+Seules des conversions à un format plus récent sont possibles ; aucune
+règle ne permet de revenir en arrière.  La copie de travail d'un fichier
+LilyPond ne devrait donc être mise à jour que lorsque la version sur
+laquelle il repose n'est plus disponible.  Des système de gestion de
+version tels que Git permettent de se tenir à jour sur plusieurs
+versions.
+
+@item
+LilyPond, ainsi que Scheme, gèrent plutôt bien l'emplacement ou
+l'absence d'espaces ; les règles utilisées par @command{convert-ly}
+tendent cependant à effectuer certains postulats en matière de style.
+Suivre le style adopté dans les différent manuels est un gage de mise à
+jour sans problème si l'on considère que ces manuels sont eux-même mis à
+jour avec @command{convert-ly}.
+@end itemize
 
 
 @node Exécution de convert-ly
@@ -133,8 +162,10 @@ Vous pouvez utiliser les options :
 
 @table @code
 @item -d, --diff-version-update
-actualise la valeur de @code{\version} à la plus récente,
-uniquement si elle est supérieure à celle du fichier.
+actualise la valeur de @code{\version}, uniquement si le fichier a été
+effectivement modifié.  En l'absence de cette option, ou bien si une
+conversion quelle qu'elle soit a modifié le fichier, la mention de
+version est porté à la valeur de la règle appliquée la plus récente.
 
 @item -e,--edit
 pour éditer directement le fichier d'origine.
@@ -164,7 +195,8 @@ pour afficher les conversions applicables.
 
 @item -t, --to=@var{to-patchlevel}
 pour n'appliquer les conversions que jusqu'à une version déterminée.  Il
-s'agit par défaut de la dernière version disponible.
+s'agit par défaut de la dernière version disponible.  Le niveau demandé
+doit être supérieur à la version de départ.
 
 @example
 convert-ly --to=2.14.1 monfichier.ly

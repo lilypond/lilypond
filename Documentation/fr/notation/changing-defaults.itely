@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
+    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -120,11 +120,68 @@ remaining ones without further explanation and with links to the IR.
 Les contextes sont hiérarchisés :
 
 @menu
+* Définitions de la sortie -- hiérarchie des contextes::
 * Score -- le père de tous les contextes::
 * Contextes de haut niveau -- les systèmes::
 * Contextes de niveau intermédiaire -- les portées::
 * Contextes de bas niveau -- les voix::
 @end menu
+
+
+@node Définitions de la sortie -- hiérarchie des contextes
+@unnumberedsubsubsec Définitions de la sortie -- hiérarchie des contextes
+@translationof Output definitions - blueprints for contexts
+
+Les lignes qui suivent traitent de l'intérêt des définitions de sorties
+lorsque l'on travaille avec les contextes.  Des exemples de définitions
+seront présentés plus avant -- voir
+@ref{Modification de tous les contextes d'un même type}.
+
+@cindex définition de sortie
+@cindex sortie, définitions
+@funindex \layout
+
+Alors que la musique écrite dans un fichier fait référence à des types
+ou noms de contexte, les contextes ne sont effectivement créés que
+lorsque la musique est interprétée.  LilyPond interprète la musique sous
+le contrôle d'une « définition de sortie », voire différemment selon
+le cas et génère ainsi différents résultats.  La définition de sortie
+appropriée pour une sortie imprimable est spécifiée à l'aide d'un
+@code{\layout}.
+
+@funindex \midi
+
+Une définition de sortie beaucoup plus simple sera utilisée pour
+produire une sortie Midi, spécifiée à l'aide d'un @code{\midi}.
+LilyPond utilise en interne plusieurs autres définitions de sortie,
+notamment dans le cadre du combinateur automatique de parties (voir
+@ref{Regroupement automatique de parties}) ou la reproduction d'extraits
+(voir @ref{Citation d'autres voix}).
+
+Les définitions de sortie ont pour objet non seulement de définir la
+relation entre les contextes, mais aussi leurs réglages par défaut.  Si
+la plupart des adaptations prennent habituellement place au seind d'un
+bloc @code{\layout}, les réglages affectant le Midi ne seront effectifs
+que s'ils interviennent au sein d'un bloc @code{\midi}.
+
+
+@funindex autoBeaming
+
+Certains réglages affectent plusieurs sorties : par exemple, lorsque
+@code{autoBeaming} est désactivé dans un contexte, les ligatures sont
+considérées comme marquant un mélisme dans le but de faire correspondre
+la musique aux paroles comme indiqué dans
+@ref{Durée automatique des syllabes}.  Cette correspondance est
+respectée autant à l'écrit qu'à l'oral.  Des modifications apportées à
+@code{autoBeaming} par une définition de contexte au sein d'un bloc
+@code{\layout} ne seront pas reportées dans le bloc @code{\midi}
+correspondant ; paroles et musique ne seront alors plus synchrones dans
+le fichier Midi.
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/engraver-init.ly},
+@file{ly/performer-init.ly}.
 
 
 @node Score -- le père de tous les contextes
@@ -139,8 +196,7 @@ tonalité ; c'est donc là qu'il faut s'assurer que les différents
 toutes les portées.
 
 Dès lors que LilyPond rencontre un bloc @code{\score @{@dots{}@}}
-ou @code{\layout @{@dots{}@}}, se crée implicitement un contexte
-@code{Score}.
+se crée implicitement un contexte @code{Score}.
 
 
 @node Contextes de haut niveau -- les systèmes
@@ -853,6 +909,10 @@ indépendamment de la musique dans un bloc @code{\layout} -- placé dans
 le bloc @code{\score} auquel ces modifications doivent s'appliquer -- au
 moyen d'un bloc @code{\context}.
 
+Les réglages dévolus à la sortie MIDI viendront quant à eux se placer
+dans un bloc @code{\midi} -- voir
+@ref{Définitions de la sortie -- hiérarchie des contextes}.
+
 @example
 \layout @{
   \context @{
@@ -1011,6 +1071,11 @@ la commande @code{\new} @var{type-de-contexte}.
 @}
 @end example
 
+Dans la mesure où une telle « modification de contexte » est spécifiée
+au sein même de la musique, ses effets toucheront @b{toutes} les sorties
+(imprimable @b{et} Midi), contrairement à ce qui se passe lorsque les
+adaptations sont réalisées dans la définition d'une sortie.
+
 La spécification des adaptations peut se faire de différentes manières :
 
 @itemize
@@ -1107,7 +1172,8 @@ contexte,
 
 @item
 en l'absence de quoi sera retenue la valeur par défaut issue du bloc
-@code{\context} approprié le plus récent dans le bloc @code{\layout},
+@code{\context} approprié le plus récent dans les blocs @code{\layout}
+ou @code{\midi},
 
 @item
 en l'absence de quoi s'appliqueront les réglages prédéfinis de LilyPond.
@@ -1236,12 +1302,19 @@ aucune hampe :
 
 @example
 \override NoteHead.style = #'slash
-\override Flag.transparent = ##t
+\override Stem.transparent = ##t
 @end example
 
-Afin que tous ces graveurs puissent travailler de concert, on leur
-adjoint un sous-programme spécial, introduit par la commande
-@code{\type} : il s'agit de @code{Engraver_group},
+Tous ces modules doivent communiquer sous le contrôle du contexte.  Les
+mécanismes permettant aux contextes de communiquer sont établis dès lors
+que le mot-clé @code{\type} précède le contexte.  La plupart des
+contextes mentionnés au sein d'un bloc @code{\layout} seront de type
+@code{Engraver_group}.  Certains contextes spécifiques, ainsi que ceux
+mentionnés dans les blocs @code{\midi}, reposent sur d'autres types de
+contexte.  Recopier un contexte préexistant pour en modifier la
+définition lui affecte le type adéquat.  Dans la mesure où notre exemple
+consiste à créer une définition de toute pièce, son type doit être
+explicitement spécifié.
 
 @example
 \type "Engraver_group"
@@ -1314,8 +1387,12 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
 @}
 @end example
 
-@seealso
+Pour être tout à fait complet, les modifications apportée à la
+hiérarchie des contextes devraient être répétés au niveau du bloc
+@code{\midi} de telle sorte que la sortie Midi dépende des mêmes
+relations.
 
+@seealso
 Référence des propriétés internes :
 @rinternals{Engraver_group},
 @rinternals{Note_heads_engraver},

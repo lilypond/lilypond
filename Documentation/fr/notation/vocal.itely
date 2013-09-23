@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e0f3be42e16458e44183c142561ccdd05aa1bfb9
+    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -887,6 +887,7 @@ Référence des propriétés internes :
 * Positionnement horizontal des syllabes::
 * Paroles et reprises::
 * Paroles alternatives::
+* Polyphonie et paroles communes::
 @end menu
 
 
@@ -1669,6 +1670,111 @@ qu'aucune parole ne leur sera affectée -- les paroles sont
 attachées au contexte de voix initial.  Il vaut mieux construire
 ce passage comme une polyphonie temporaire -- voir
 @ref{Polyphonie sur une portée}.
+
+
+@node Polyphonie et paroles communes
+@unnumberedsubsubsec Polyphonie et paroles communes
+@translationof Polyphony with shared lyrics
+
+@cindex NullVoice
+@cindex polyphonie, mêmes paroles
+@cindex paroles communes à plusieurs voix
+@cindex \partcombine et paroles
+@funindex \partcombine
+
+Lorsque deux voix au rythme différent partagent les mêmes paroles,
+l'alignement des syllabes sur l'une des voix peut gêner la lecture de
+l'autre voix.  Par exemple, la deuxième extension de syllabe ci-dessous
+est trop courte puisque les paroles ne sont alignées que sur la voix du
+haut :
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice = "sopranoVoice" { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new Lyrics \lyricsto "sopranoVoice" \words
+>>
+@end lilypond
+
+Le résultat attendu sera obtenu grâce à l'alignement des paroles sur un
+contexte @code{NullVoice} supplémentaire, celui-ci contenant une
+combinaison judicieuse des deux voix.  Les notes du contexte
+@code{NullVoice}, bien que n'apparaissant pas sur la version imprimable,
+peuvent servir à aligner correctement les syllabes :
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice { \voiceOne \soprano }
+  \new Voice { \voiceTwo \alto }
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+Le contexte @code{NullVoice} doit prendre place dans un contexte
+@code{Staff} et ne saurait contenir que des notes déjà présentes sur la
+portée en question, au même octave.  Dans le cas contraire, ce
+@code{NullVoice} pourrait interagir avec les autres voix imprimées de
+façon inopinée.  Par exemple, des notes arbitraires dans un
+@code{NullVoice} pourraient entraîner l'apparition ou la disparition
+d'altérations sur la portée considérée.
+
+Cette faàon de procéder permet par ailleurs d'utiliser la fonction
+@code{\partcombine} qui normalement ne peut s'utiliser avec des
+paroles :
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+alto = \relative { g'2 b8( a g a) }
+aligner = \relative { b'8( c d c) b( a g a) }
+words = \lyricmode { la __ la __ }
+
+\new Staff <<
+  \new Voice \partcombine \soprano \alto
+  \new NullVoice = "aligner" \aligner
+  \new Lyrics \lyricsto "aligner" \words
+>>
+@end lilypond
+
+@noindent
+La fonction @code{\partcombine} est abordée en détails dans
+@ref{Regroupement automatique de parties}.
+
+Pour finir, cette méthode est aussi utilkisable lorsque les voix sont
+sur des portées différentes, et ne se limite pas à deux voix :
+
+@lilypond[quote,verbatim]
+soprano = \relative { b'8( c d c) d2 }
+altoOne = \relative { g'2 b8( a b4) }
+altoTwo = \relative { d'2 g4( fis8 g) }
+aligner = \relative { b'8( c d c) d( d d d) }
+words = \lyricmode { la __ la __ }
+
+\new ChoirStaff <<
+  \new Staff <<
+    \soprano
+    \new NullVoice = "aligner" \aligner
+  >>
+  \new Lyrics \lyricsto "aligner" \words
+  \new Staff \partcombine \altoOne \altoTwo
+>>
+@end lilypond
+
+Vous aurez remarqué que, dans la deuxième partie de la mesure ci-dessus,
+les notes du contexte @code{NullVoice} reprennent le rythme de la portée
+inférieure sans pour autant dévier une seule fois des hauteurs affichées
+dans la voix à laquelle ce @code{NullVoice} est attaché.  Bien que ce ne
+soit pas nécessaire dans le cadre de cet exemple particulier, nous vous
+conseillons de saisir les notes d'un @code{NullVoice} de cette manière.
 
 
 @node Couplets
