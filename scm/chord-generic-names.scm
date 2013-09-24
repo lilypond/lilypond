@@ -226,15 +226,15 @@ See @file{double-plus-new-chord-name.scm} for the signature of @var{style}.
             partial-markup-prefix
             (make-normal-size-super-markup
              (markup-join
-              (apply append
-                     (map step->markup
-                          (append altered
-                                  (if (and (> (step-nr highest) 5)
-                                           (not
-                                            (step-even-or-altered? highest)))
-                                      (list highest) '())))
-                     (list partial-markup-suffix)
-                     (list (map sub->markup missing)))
+              (append
+               (map step->markup
+                    (append altered
+                            (if (and (> (step-nr highest) 5)
+                                     (not
+                                      (step-even-or-altered? highest)))
+                                (list highest) '())))
+               (list partial-markup-suffix)
+               (map sub->markup missing))
               sep)))))))
 
 

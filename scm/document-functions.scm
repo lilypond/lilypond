@@ -50,6 +50,6 @@
       #:name "Scheme functions"
       #:desc "Primitive functions exported by LilyPond."
       #:text
-      (apply string-append sfdocs))))
+      (string-concatenate sfdocs))))
 
 ;; (dump-node (all-scheme-functions-doc)  (current-output-port) 0 )

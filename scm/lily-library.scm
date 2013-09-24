@@ -535,10 +535,7 @@ For example:
          (list elem)))
    '() lst))
 
-(define-public (filtered-map proc lst)
-  (filter
-   (lambda (x) x)
-   (map proc lst)))
+(define-public filtered-map filter-map)
 
 (define-public (flatten-list x)
   "Unnest list."

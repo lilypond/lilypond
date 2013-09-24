@@ -88,10 +88,10 @@ Pad the string with @code{annotation-char}s to the length of the
     (if (pair? line-pos)
         (begin
           (set! iv (cons (car line-pos) (car line-pos)))
-          (map (lambda (x)
-                 (set! iv (cons (min (car iv) x)
-                                (max (cdr iv) x))))
-               (cdr line-pos)))
+          (for-each (lambda (x)
+                      (set! iv (cons (min (car iv) x)
+                                     (max (cdr iv) x))))
+                    (cdr line-pos)))
 
         (let ((line-count (ly:grob-property grob 'line-count 0)))
 
@@ -179,18 +179,18 @@ annotation char from string @var{str}."
          (last-pos (1- (length sorted-elts)))
          (idx 0))
 
-    (map (lambda (g)
-           (ly:grob-set-property!
-            g
-            'has-span-bar
-            (cons (if (eq? idx last-pos)
-                      #f
-                      grob)
-                  (if (zero? idx)
-                      #f
-                      grob)))
-           (set! idx (1+ idx)))
-         sorted-elts)))
+    (for-each (lambda (g)
+                (ly:grob-set-property!
+                 g
+                 'has-span-bar
+                 (cons (if (eq? idx last-pos)
+                           #f
+                           grob)
+                       (if (zero? idx)
+                           #f
+                           grob)))
+                (set! idx (1+ idx)))
+              sorted-elts)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line break decisions.
@@ -400,21 +400,21 @@ is not used within the routine."
               (half-thick (/ line-thickness 2.0))
               (stencil empty-stencil))
 
-          (map (lambda (i)
-                 (let ((top-y (min (* (+ i dash-size) half-space)
-                                   (+ (* (1- line-count) half-space)
-                                      half-thick)))
-                       (bot-y (max (* (- i dash-size) half-space)
-                                   (- 0 (* (1- line-count) half-space)
-                                      half-thick))))
+          (for-each (lambda (i)
+                      (let ((top-y (min (* (+ i dash-size) half-space)
+                                        (+ (* (1- line-count) half-space)
+                                           half-thick)))
+                            (bot-y (max (* (- i dash-size) half-space)
+                                        (- 0 (* (1- line-count) half-space)
+                                           half-thick))))
 
-                   (set! stencil
-                         (ly:stencil-add
-                          stencil
-                          (ly:round-filled-box (cons 0 thickness)
-                                               (cons bot-y top-y)
-                                               blot)))))
-               (iota line-count (1- line-count) (- 2)))
+                        (set! stencil
+                              (ly:stencil-add
+                               stencil
+                               (ly:round-filled-box (cons 0 thickness)
+                                                    (cons bot-y top-y)
+                                                    blot)))))
+                    (iota line-count (1- line-count) (- 2)))
           stencil)
         (let* ((dashes (/ height staff-space))
                (total-dash-size (/ height dashes))
@@ -823,26 +823,26 @@ no elements."
           ;; we compute the extents of each system and store them
           ;; in a list; dito for the 'allow-span-bar property.
           ;; model-bar takes the bar grob, if given.
-          (map (lambda (bar)
-                 (let ((ext (bar-line::bar-y-extent bar refp))
-                       (staff-symbol (ly:grob-object bar 'staff-symbol)))
+          (for-each (lambda (bar)
+                      (let ((ext (bar-line::bar-y-extent bar refp))
+                            (staff-symbol (ly:grob-object bar 'staff-symbol)))
 
-                   (if (ly:grob? staff-symbol)
-                       (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
+                        (if (ly:grob? staff-symbol)
+                            (let ((refp-extent (ly:grob-extent staff-symbol refp Y)))
 
-                         (set! ext (interval-union ext refp-extent))
+                              (set! ext (interval-union ext refp-extent))
 
-                         (if (> (interval-length ext) 0)
-                             (begin
-                               (set! extents (append extents (list ext)))
-                               (set! model-bar bar)
-                               (set! make-span-bars
-                                     (append make-span-bars
-                                             (list (ly:grob-property
-                                                    bar
-                                                    'allow-span-bar
-                                                    #t))))))))))
-               elts)
+                              (if (> (interval-length ext) 0)
+                                  (begin
+                                    (set! extents (append extents (list ext)))
+                                    (set! model-bar bar)
+                                    (set! make-span-bars
+                                          (append make-span-bars
+                                                  (list (ly:grob-property
+                                                         bar
+                                                         'allow-span-bar
+                                                         #t))))))))))
+                    elts)
           ;; if there is no bar grob, we use the callback argument
           (if (not model-bar)
               (set! model-bar grob))

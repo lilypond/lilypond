@@ -42,7 +42,7 @@
 ~a
 "
             name-sym (car type-names)
-            (if (equal? "" signature-str) "" " - ") signature-str
+            (if (string-null? signature-str) "" " - ") signature-str
             name-sym
             (if doc
                 doc
@@ -52,11 +52,8 @@
 
 
 (define (document-object obj-pair)
-  (cond
-   ((ly:music-function? (cdr obj-pair))
-    (document-music-function obj-pair))
-   (else
-    #f)))
+  (and (ly:music-function? (cdr obj-pair))
+       (document-music-function obj-pair)))
 
 (define-public (identifiers-doc-string)
   (format #f
@@ -65,11 +62,9 @@
 @end table
 "
           (string-join
-           (filter
-            identity
-            (map
-             document-object
-             (sort
-              (ly:module->alist (current-module))
-              identifier<?)))
-           "")))
+           (filter-map
+            document-object
+            (sort
+             (ly:module->alist (current-module))
+             identifier<?)))
+          ""))

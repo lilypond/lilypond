@@ -50,16 +50,16 @@
     #:children (make-hash-table 11)))
 
 (define-method (display (leaf <Font-tree-leaf>) port)
-  (map (lambda (x) (display x port))
-       (list
-        "#<Font-size-family:\n"
-        (slot-ref leaf 'default-size)
-        (slot-ref leaf 'size-vector)
-        "#>"
-        )))
+  (for-each (lambda (x) (display x port))
+            (list
+             "#<Font-size-family:\n"
+             (slot-ref leaf 'default-size)
+             (slot-ref leaf 'size-vector)
+             "#>"
+             )))
 
 (define-method (display (node <Font-tree-node>) port)
-  (map
+  (for-each
    (lambda (x)
      (display x port))
    (list

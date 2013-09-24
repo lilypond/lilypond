@@ -81,11 +81,8 @@
      (map document-mod-list mod-list))))
 
 (define (document-mod obj-pair)
-  (cond
-   ((ly:context-mod? (cdr obj-pair))
-    (document-context-mod obj-pair))
-   (else
-    #f)))
+  (and (ly:context-mod? (cdr obj-pair))
+       (document-context-mod obj-pair)))
 
 (define context-mods-doc-string
   (format
@@ -94,11 +91,9 @@
 @end table
 "
    (string-join
-    (filter
-     identity
-     (map
-      document-mod
-      (sort
-       (ly:module->alist (current-module))
-       identifier<?)))
-    "")))
+    (filter-map
+     document-mod
+     (sort
+      (ly:module->alist (current-module))
+      identifier<?)))
+   ""))

@@ -376,7 +376,7 @@
         (elt (ly:music-property mus 'element)))
     (cond
      ((pair? elts)
-      (map make-harmonic elts))
+      (for-each make-harmonic elts))
      ((ly:music? elt)
       (make-harmonic elt))
      ((music-is-of-type? mus 'note-event)

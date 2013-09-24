@@ -137,7 +137,7 @@ For instance,
                                                                   (string-length "-markup")))))))
   (define (transform-arg arg)
     (cond ((and (pair? arg) (markup? (car arg))) ;; a markup list
-           (apply append (map inner-markup->make-markup arg)))
+           (append-map inner-markup->make-markup arg))
           ((and (not (string? arg)) (markup? arg)) ;; a markup
            (inner-markup->make-markup arg))
           (else                                  ;; scheme arg
@@ -164,12 +164,12 @@ equivalent to @var{obj}, that is, for a music expression, a
          (ly:music? obj)
          `(make-music
            ',(ly:music-property obj 'name)
-           ,@(apply append (map (lambda (prop)
-                                  `(',(car prop)
-                                    ,(music->make-music (cdr prop))))
-                                (remove (lambda (prop)
-                                          (eqv? (car prop) 'origin))
-                                        (ly:music-mutable-properties obj))))))
+           ,@(append-map (lambda (prop)
+                           `(',(car prop)
+                             ,(music->make-music (cdr prop))))
+                         (remove (lambda (prop)
+                                   (eqv? (car prop) 'origin))
+                                 (ly:music-mutable-properties obj)))))
         (;; moment
          (ly:moment? obj)
          `(ly:make-moment ,(ly:moment-main-numerator obj)
@@ -1953,9 +1953,9 @@ base onto the following musical context."
                (layout (ly:grob-layout root))
                (blot (ly:output-def-lookup layout 'blot-diameter)))
           ;; Hide spanned stems
-          (map (lambda (st)
-                 (set! (ly:grob-property st 'stencil) #f))
-               stems)
+          (for-each (lambda (st)
+                      (set! (ly:grob-property st 'stencil) #f))
+                    stems)
           ;; Draw a nice looking stem with rounded corners
           (ly:round-filled-box (ly:grob-extent root root X) yextent blot))
         ;; Nothing to connect, don't draw the span
@@ -1987,7 +1987,7 @@ other stems just because of that."
   ;; two stems at this musical moment
   (if (<= 2 (length stems))
       (let ((roots (filter stem-is-root? stems)))
-        (map (make-stem-span! stems trans) roots))))
+        (for-each (make-stem-span! stems trans) roots))))
 
 (define-public (Span_stem_engraver ctx)
   "Connect cross-staff stems to the stems above in the system"

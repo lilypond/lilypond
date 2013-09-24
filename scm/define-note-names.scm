@@ -959,13 +959,14 @@
     ))
 
 ;; add two native utf-8 aliases. Pairs obey cp-like order: '(old new)
-(map (lambda (pair)
-       (set! language-pitch-names
-             (append language-pitch-names
-                     (list (cons (cadr pair)
-                                 (cdr (assoc (car pair) language-pitch-names)))))))
-     '((espanol español)
-       (italiano français)))
+(for-each
+ (lambda (pair)
+   (set! language-pitch-names
+         (append language-pitch-names
+                 (list (cons (cadr pair)
+                             (cdr (assoc (car pair) language-pitch-names)))))))
+ '((espanol español)
+   (italiano français)))
 
 (define-public (note-names-language parser str)
   (_ "Select note names language.")

@@ -291,7 +291,7 @@
                     (append (cdr lines) (list #f)))
           (paper-system-annotate-last (car (last-pair lines)) layout)))
 
-    (map add-system lines)
+    (for-each add-system lines)
 
 
     (ly:prob-set-property! page 'bottom-system-edge

@@ -1516,7 +1516,7 @@ the line width, where @var{X} is the number of staff spaces.
                                                  justify word-space
                                                  line-width text-direction)))
                           list-para-words)))
-    (apply append para-lines)))
+    (concatenate para-lines)))
 
 (define-markup-command (wordwrap-string layout props arg)
   (string?)

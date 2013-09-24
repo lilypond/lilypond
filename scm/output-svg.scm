@@ -40,14 +40,14 @@
 
 ;; Helper functions
 (define-public (attributes attributes-alist)
-  (apply string-append
-         (map (lambda (x)
-                (let ((attr (car x))
-                      (value (cdr x)))
-                  (if (number? value)
-                      (set! value (ly:format "~4f" value)))
-                  (format #f " ~s=\"~a\"" attr value)))
-              attributes-alist)))
+  (string-concatenate
+   (map (lambda (x)
+          (let ((attr (car x))
+                (value (cdr x)))
+            (if (number? value)
+                (set! value (ly:format "~4f" value)))
+            (format #f " ~s=\"~a\"" attr value)))
+        attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
   "o = open"
@@ -108,8 +108,8 @@
   (integer->entity (char->integer char)))
 
 (define (string->entities string)
-  (apply string-append
-         (map (lambda (x) (char->entity x)) (string->list string))))
+  (string-concatenate
+   (map char->entity (string->list string))))
 
 (define svg-element-regexp
   (make-regexp "^(<[a-z]+) ?(.*>)"))
@@ -552,7 +552,7 @@
             `(stroke-linecap . ,(symbol->string cap-style))
             '(stroke . "currentColor")
             `(fill . ,(if fill? "currentColor" "none"))
-            `(d . ,(apply string-append (convert-path-exps commands))))))
+            `(d . ,(string-concatenate (convert-path-exps commands))))))
 
 (define (placebox x y expr)
   (if (string-null? expr)

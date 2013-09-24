@@ -246,16 +246,16 @@ the partial ellipse until 7*PI/2.  For example, in pseudo-code:
 \n((0.0 . 2) (PI/2 . 3) (PI . -2) (3*PI/2 . -3)\
 \n(2*PI . 2) (5*PI/2 . 3) (3*PI . -2) (7*PI/2 . -3))
 "
-    (apply append
-           (map (lambda (adder)
-                  (map (lambda (quadrant)
-                         (cons (+ adder (car quadrant))
-                               (cdr quadrant)))
-                       `((0.0 . (,x-radius . 0.0))
-                         (,PI-OVER-TWO . (0.0 . ,y-radius))
-                         (,PI . (,(- x-radius) . 0.0))
-                         (,THREE-PI-OVER-TWO . (0.0 . ,(- y-radius))))))
-                `(0.0 ,TWO-PI))))
+    (append-map
+     (lambda (adder)
+       (map (lambda (quadrant)
+              (cons (+ adder (car quadrant))
+                    (cdr quadrant)))
+            `((0.0 . (,x-radius . 0.0))
+              (,PI-OVER-TWO . (0.0 . ,y-radius))
+              (,PI . (,(- x-radius) . 0.0))
+              (,THREE-PI-OVER-TWO . (0.0 . ,(- y-radius))))))
+     `(0.0 ,TWO-PI)))
 
   (define
     (insert-in-ordered-list ordering-function value inlist cutl? cutr?)
@@ -304,7 +304,7 @@ then reduce using @var{min-max}:
 "
     (reduce min-max
             (if (eq? min-max min) 100000 -100000)
-            (map (lambda (x) (side x)) l)))
+            (map side l)))
 
   (let*
       (;; the outside limit of the x-radius
@@ -647,12 +647,12 @@ with optional arrows of @code{max-size} on start and end controlled by
          (null (cons 0 0))
          (arrow-1
           (ly:make-stencil
-           `(polygon (quote ,(concatenate (map complex-to-offset p1s)))
+           `(polygon (quote ,(append-map complex-to-offset p1s))
                      0.0
                      #t) null null))
          (arrow-2
           (ly:make-stencil
-           `(polygon (quote ,(concatenate (map complex-to-offset p2s)))
+           `(polygon (quote ,(append-map complex-to-offset p2s))
                      0.0
                      #t) null null ) )
          (thickness (min (/ distance 12) 0.1))

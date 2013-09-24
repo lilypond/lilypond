@@ -109,15 +109,15 @@
         (list (ly:font-name font))))
 
   (let* ((fonts (ly:paper-fonts paper))
-         (names (apply append (map extract-names fonts))))
-    (apply string-append
-           (map (lambda (f)
-                  (format #f
-                          (if load-fonts?
-                              "%%DocumentSuppliedResources: font ~a\n"
-                              "%%DocumentNeededResources: font ~a\n")
-                          f))
-                (uniq-list (sort names string<?))))))
+         (names (append-map extract-names fonts)))
+    (string-concatenate
+     (map (lambda (f)
+            (format #f
+                    (if load-fonts?
+                        "%%DocumentSuppliedResources: font ~a\n"
+                        "%%DocumentNeededResources: font ~a\n")
+                    f))
+          (uniq-list (sort names string<?))))))
 
 (define (eps-header paper bbox load-fonts?)
   (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
@@ -359,7 +359,7 @@
                       (ly:font-sub-fonts font))))
              fonts))
            (font-names (uniq-list
-                        (sort (apply append all-font-names)
+                        (sort (concatenate all-font-names)
                               (lambda (x y) (string<? (cadr x) (cadr y))))))
 
            ;; slightly spaghetti-ish: deciding what to load where

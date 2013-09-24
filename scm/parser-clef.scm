@@ -119,7 +119,7 @@
   "Generate the clef setting commands for a clef with name @var{clef-name}."
   (define (make-prop-set props)
     (let ((m (make-music 'PropertySet)))
-      (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
+      (for-each (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
       m))
   (let ((e '())
         (c0 0)

@@ -40,9 +40,9 @@
    "\n"
    "@multitable @columnfractions .33 .66\n"
    "@headitem Type predicate @tab Description\n"
-   (apply string-append
-          (sort (map document-type-predicate alist)
-                ly:string-ci<?))
+   (string-concatenate
+    (sort (map document-type-predicate alist)
+          ly:string-ci<?))
    "@end multitable\n"
    "\n"))
 
@@ -56,8 +56,7 @@
    "* LilyPond exported predicates::\n"
    "@end menu\n"
    "\n"
-   (apply
-    string-append
+   (string-concatenate
     (map
      (lambda (alist-nodename-list)
        (apply document-type-predicate-category

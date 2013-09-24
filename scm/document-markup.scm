@@ -69,7 +69,7 @@
        (if (null? prop-strings)
            "\n"
            (string-append "\n\n\nUsed properties:\n@itemize\n"
-                          (apply string-append prop-strings)
+                          (string-concatenate prop-strings)
                           "@end itemize\n"))))))
 
 (define (markup-function<? a b)
@@ -91,9 +91,9 @@
       #:desc ""
       #:text (string-append
               "@table @asis"
-              (apply string-append
-                     (map doc-markup-function
-                          (sort markup-functions markup-function<?)))
+              (string-concatenate
+               (map doc-markup-function
+                    (sort markup-functions markup-function<?)))
               "\n@end table"))))
 
 (define (markup-doc-node)
@@ -117,11 +117,11 @@
 (define (markup-list-doc-string)
   (string-append
    "@table @asis"
-   (apply string-append
-          (map doc-markup-function
-               (sort (hash-fold (lambda (markup-list-function dummy functions)
-                                  (cons markup-list-function functions))
-                                '()
-                                markup-list-functions)
-                     markup-function<?)))
+   (string-concatenate
+    (map doc-markup-function
+         (sort (hash-fold (lambda (markup-list-function dummy functions)
+                            (cons markup-list-function functions))
+                          '()
+                          markup-list-functions)
+               markup-function<?)))
    "\n@end table"))

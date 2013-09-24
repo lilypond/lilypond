@@ -321,14 +321,14 @@ along with @var{minimum-fret}, @var{maximum-stretch}, and
 if no fingering is present."
       (let* ((articulations (ly:event-property ev 'articulations))
              (finger-found #f))
-        (map (lambda (art)
-               (let* ((num (ly:event-property art 'digit)))
+        (for-each (lambda (art)
+                    (let* ((num (ly:event-property art 'digit)))
 
-                 (if (and (ly:in-event-class? art 'fingering-event)
-                          (number? num)
-                          (> num 0))
-                     (set! finger-found num))))
-             articulations)
+                      (if (and (ly:in-event-class? art 'fingering-event)
+                               (number? num)
+                               (> num 0))
+                          (set! finger-found num))))
+                  articulations)
         finger-found))
 
     (define (delete-free-string string)

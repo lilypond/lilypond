@@ -620,8 +620,8 @@ and duration-log @var{log}."
 (define-public (color? x)
   (and (list? x)
        (= 3 (length x))
-       (apply eq? #t (map number? x))
-       (apply eq? #t (map (lambda (y) (<= 0 y 1)) x))))
+       (every number? x)
+       (every (lambda (y) (<= 0 y 1)) x)))
 
 (define-public (rgb-color r g b) (list r g b))
 

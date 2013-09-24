@@ -29,19 +29,18 @@
       texi)))
 
 (define music-types->names (make-hash-table 61))
-(filter-map (lambda (entry)
-              (let* ((class (ly:camel-case->lisp-identifier (car entry)))
-                     (classes (ly:make-event-class class)))
-                (if classes
-                    (map
-                     (lambda (cl)
-                       (hashq-set! music-types->names cl
-                                   (cons (car entry)
-                                         (hashq-ref music-types->names cl '()))))
-                     classes)
-                    #f)))
 
-            music-descriptions)
+(for-each (lambda (entry)
+            (let* ((class (ly:camel-case->lisp-identifier (car entry)))
+                   (classes (ly:make-event-class class)))
+              (if classes
+                  (for-each
+                   (lambda (cl)
+                     (hashq-set! music-types->names cl
+                                 (cons (car entry)
+                                       (hashq-ref music-types->names cl '()))))
+                   classes))))
+          music-descriptions)
 
 (define (strip-description x)
   (cons (symbol->string (car x))

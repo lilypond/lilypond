@@ -151,8 +151,7 @@
 
 (define-public (output-scopes scopes fields basename)
   (define (output-scope scope)
-    (apply
-     string-append
+    (string-concatenate
      (module-map
       (lambda (sym var)
         (let ((val (if (variable-bound? var) (variable-ref var) "")))
@@ -160,7 +159,7 @@
               (header-to-file basename sym val))
           ""))
       scope)))
-  (apply string-append (map output-scope scopes)))
+  (string-concatenate (map output-scope scopes)))
 
 (define-public (relevant-book-systems book)
   (let ((systems (ly:paper-book-systems book)))
@@ -190,15 +189,14 @@
       (ly:warning (_ "missing stencil expression `~S'") name)
       ""))
 
-  (map (lambda (x)
-         (if (not (module-defined? output-module x))
-             (begin
-               (module-define! output-module x
-                               (lambda* (#:optional y . z)
-                                        (missing-stencil-expression x)))
-               (set! missing-stencil-list (append (list x)
-                                                  missing-stencil-list)))))
-       (ly:all-stencil-commands)))
+  (for-each (lambda (x)
+              (if (not (module-defined? output-module x))
+                  (begin
+                    (module-define! output-module x
+                                    (lambda* (#:optional y . z)
+                                             (missing-stencil-expression x)))
+                    (set! missing-stencil-list (cons x missing-stencil-list)))))
+            (ly:all-stencil-commands)))
 
 (define-public (remove-stencil-warnings output-module)
   (for-each
@@ -269,5 +267,5 @@ definition."
         (define-pango-pf pango-pf font-name scaling)))
 
     (string-append
-     (apply string-append (map font-load-command other-fonts))
-     (apply string-append (map pango-font-load-command pango-only-fonts)))))
+     (string-concatenate (map font-load-command other-fonts))
+     (string-concatenate (map pango-font-load-command pango-only-fonts)))))

@@ -275,9 +275,9 @@ LilyPond version 2.8 and earlier."
     (define (analyse-forced-combine result-idx prev-res)
 
       (define (get-forced-event x)
-        (if (ly:in-event-class? x 'part-combine-force-event)
-            (cons (ly:event-property x 'forced-type) (ly:event-property x 'once))
-            #f))
+        (and (ly:in-event-class? x 'part-combine-force-event)
+             (cons (ly:event-property x 'forced-type)
+                   (ly:event-property x 'once))))
       (define (part-combine-events vs)
         (if (not vs)
             '()
@@ -338,7 +338,7 @@ Only set if not set previously.
                  (prev (configuration prev-ss)))
             (if (symbol? prev)
                 (put prev))))
-        (map copy-one-state (span-state vs)))
+        (for-each copy-one-state (span-state vs)))
 
       (define (analyse-notes now-state)
         (let* ((vs1 (car (voice-states now-state)))

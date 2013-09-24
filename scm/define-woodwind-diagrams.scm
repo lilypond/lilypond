@@ -1021,7 +1021,7 @@ returns @samp{1/3}."
         (*
          (car slope-offset1)
          (+ keylen (list-ref first-bezier 6))) (cdr slope-offset1))))
-   ((if bezier? (lambda (x) `(,(apply append x))) identity)
+   ((if bezier? (lambda (x) `(,(concatenate x))) identity)
     `((,(+ (+ keylen 1.75) (list-ref first-bezier 6))
        ,(+
          (*

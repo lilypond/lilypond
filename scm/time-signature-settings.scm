@@ -381,8 +381,8 @@ a fresh copy of the list-head is made."
   ;; Normalize to given beat, extract the beats and join them to one list
   (let* ((beat (calculate-compound-base-beat-full time-sig))
          (normalized (map (lambda (f) (normalize-fraction f beat)) time-sig))
-         (beats (map (lambda (f) (reverse (cdr (reverse f)))) normalized)))
-    (apply append beats)))
+         (beats (map (lambda (f) (drop-right f 1)) normalized)))
+    (concatenate beats)))
 
 (define-public (calculate-compound-beat-grouping time-sig)
   (cond

@@ -52,8 +52,8 @@
               (node-children node)))
         ""))
    port)
-  (map (lambda (x) (dump-node x port (+ 1 level)))
-       (node-children node)))
+  (for-each (lambda (x) (dump-node x port (+ 1 level)))
+            (node-children node)))
 
 (define (processing name)
   (ly:basic-progress (_ "Processing ~S...") name))
@@ -101,7 +101,7 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
    "\n"
    (if quote? "@quotation\n" "")
    "@table @asis\n"
-   (apply string-append (map one-item->texi items-alist))
+   (string-concatenate (map one-item->texi items-alist))
    "\n"
    "@end table\n"
    (if quote? "@end quotation\n" "")))
@@ -113,14 +113,14 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
 
     (string-append
      "\n@menu"
-     (apply string-append
-            (map (lambda (x)
-                   (string-append
-                    (string-pad-right
-                     (string-append "\n* " (car x) ":: ")
-                     (+ maxwid 8))
-                    (cdr x)))
-                 items-alist))
+     (string-concatenate
+      (map (lambda (x)
+             (string-append
+              (string-pad-right
+               (string-append "\n* " (car x) ":: ")
+               (+ maxwid 8))
+              (cdr x)))
+           items-alist))
      "\n@end menu\n"
      ;; Menus don't appear in html, so we make a list ourselves
      "\n@ignore\n"

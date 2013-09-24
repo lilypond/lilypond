@@ -70,7 +70,7 @@ is then separated.
      (if (equal? (node-value node) "")
          (string-append
           (if xml-name "\n" "")
-          (apply string-append (map musicxml-node->string (node-children node))))
+          (string-concatenate (map musicxml-node->string (node-children node))))
          (node-value node))
      (if xml-name (close-tag xml-name) "")
      (if xml-name "\n" ""))))
@@ -80,8 +80,7 @@ is then separated.
    "\n"
    (open-tag (node-name node) (node-attributes node) '())
    (if (equal? (node-value node) "")
-       (string-append
-        (apply string-append (map xml-node->string (node-children node))))
+       (string-concatenate (map xml-node->string (node-children node)))
        (node-value node))
    "\n"
    (close-tag (node-name node))))
@@ -224,7 +223,7 @@ is then separated.
 
   (string-append
    "<" (symbol->string tag)
-   (apply string-append (map dump-attr (filter candidate? attrs)))
+   (string-concatenate (map dump-attr (filter candidate? attrs)))
    ">"))
 
 (define (close-tag name)

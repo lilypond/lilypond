@@ -1685,8 +1685,7 @@
         possibility-list))))
 
 (define (translate-draw-instructions input-alist key-name-alist)
-  (apply append
-         (map (lambda (short long)
+  (append-map (lambda (short long)
                 (let*
                     ((key-instructions
                       (map (lambda (instr)
@@ -1695,15 +1694,14 @@
                            (assoc-get long key-name-alist))))
                   (key-crawler (assoc-get short input-alist) key-instructions)))
               '(hd cc lh rh)
-              '(hidden central-column left-hand right-hand))))
+              '(hidden central-column left-hand right-hand)))
 
 (define (uniform-draw-instructions key-name-alist)
-  (apply append
-         (map (lambda (long)
+  (append-map (lambda (long)
                 (map (lambda (key-instructions)
                        `((,long . ,(car key-instructions)) . 1))
                      (assoc-get long key-name-alist)))
-              '(hidden central-column left-hand right-hand))))
+              '(hidden central-column left-hand right-hand)))
 
 (define (list-all-possible-keys key-name-alist)
   (map (lambda (short long)

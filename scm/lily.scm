@@ -841,11 +841,10 @@ messages into errors.")
 
   (let* ((stat (gulp-file "/proc/self/status"))
          (lines (string-split stat #\newline))
-         (interesting (filter identity
-                              (map
-                               (lambda (l)
-                                 (string-match "^VmData:[ \t]*([0-9]*) kB" l))
-                               lines)))
+         (interesting (filter-map
+                       (lambda (l)
+                         (string-match "^VmData:[ \t]*([0-9]*) kB" l))
+                       lines))
          (mem (string->number (match:substring (car interesting) 1))))
     (format #t "VMDATA: ~a\n" mem)
     (display (gc-stats))
@@ -898,12 +897,11 @@ PIDs or the number of the process."
              (ly:exit 2 #t)))
   (if (ly:get-option 'read-file-list)
       (set! files
-            (filter (lambda (s)
-                      (> (string-length s) 0))
-                    (apply append
-                           (map (lambda (f)
-                                  (string-split (string-delete (ly:gulp-file f) #\cr) #\nl))
-                                files)))))
+            (remove string-null?
+                    (append-map
+                     (lambda (f)
+                       (string-split (string-delete (ly:gulp-file f) #\cr) #\nl))
+                     files))))
   (if (and (number? (ly:get-option 'job-count))
            (>= (length files) (ly:get-option 'job-count)))
       (let* ((count (ly:get-option 'job-count))

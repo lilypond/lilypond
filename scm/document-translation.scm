@@ -78,20 +78,19 @@
          (let* ((layout-alist (ly:output-description $defaultlayout))
                 (context-description-alist (map cdr layout-alist))
                 (contexts
-                 (apply append
-                        (map
-                         (lambda (x)
-                           (let* ((context (assoc-get 'context-name x))
-                                  (group (assq-ref x 'group-type))
-                                  (consists (append
-                                             (if group
-                                                 (list group)
-                                                 '())
-                                             (assoc-get 'consists x))))
-                             (if (member name-sym consists)
-                                 (list context)
-                                 '())))
-                         context-description-alist)))
+                 (append-map
+                  (lambda (x)
+                    (let* ((context (assoc-get 'context-name x))
+                           (group (assq-ref x 'group-type))
+                           (consists (append
+                                      (if group
+                                          (list group)
+                                          '())
+                                      (assoc-get 'consists x))))
+                      (if (member name-sym consists)
+                          (list context)
+                          '())))
+                  context-description-alist))
                 (context-list (human-listify (map ref-ify
                                                   (sort
                                                    (map symbol->string contexts)
@@ -114,7 +113,7 @@
 
 ;; Second level, part of Context description
 (define name->engraver-table (make-hash-table 61))
-(map
+(for-each
  (lambda (x)
    (hash-set! name->engraver-table (ly:translator-name x) x))
  (ly:get-all-translators))
@@ -186,9 +185,9 @@
        "."
 
        (if (and (pair? props) (not (null? props)))
-           (let ((str (apply string-append
-                             (sort (map document-property-operation props)
-                                   ly:string-ci<?))))
+           (let ((str (string-concatenate
+                       (sort (map document-property-operation props)
+                             ly:string-ci<?))))
              (if (string-null? str)
                  ""
                  (string-append
@@ -231,8 +230,7 @@
                         (list group)
                         '())
                     (assoc-get 'consists context-desc)))
-         (grobs  (apply append
-                        (map engraver-grobs consists))))
+         (grobs (append-map engraver-grobs consists)))
     grobs))
 
 (define (all-contexts-doc)

@@ -242,7 +242,7 @@ work than classifying the pitches."
           ;; no exception.
           ;; handle sus4 and sus2 suffix: if there is a 3 together with
           ;; sus2 or sus4, then we explicitly say add3.
-          (map
+          (for-each
            (lambda (j)
              (if (get-step j pitches)
                  (begin

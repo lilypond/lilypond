@@ -55,8 +55,8 @@ translate x y z to x~x y~y z~z
 
       (list ch1 ch2)))
 
-  (make-music 'SequentialMusic 'elements (apply append
-						(map chord->tied-chord (ly:music-property  chords 'elements)))))
+  (make-music 'SequentialMusic 'elements (append-map
+					  chord->tied-chord (ly:music-property  chords 'elements))))
 
 baseChords =
 \applyMusic #(lambda (mus)

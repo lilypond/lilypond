@@ -80,12 +80,11 @@
                         ((record-constructor ,record) ,@(map car slots*))))
          (set! ,$copy-record
                (lambda (record)
-                 (,$make-record ,@(apply
-                                   append
-                                   (map (lambda (slot)
-                                          (list (symbol->keyword slot)
-                                                (list (make-symbol reader-format slot) 'record)))
-                                        (map car slots*))))))
+                 (,$make-record ,@(append-map
+                                   (lambda (slot)
+                                     (list (symbol->keyword slot)
+                                           (list (make-symbol reader-format slot) 'record)))
+                                   (map car slots*)))))
          ,@(map (lambda (s)
                   `(set! ,(make-symbol reader-format (car s))
                          (record-accessor ,record (quote ,(car s)))))

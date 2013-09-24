@@ -167,7 +167,7 @@
 
      (if (not (= 0 status))
          (begin
-           (map delete-file files)
+           (for-each delete-file files)
            (exit 1)))
 
      (if (and rename-page-1 multi-page?)

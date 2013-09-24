@@ -70,6 +70,6 @@ are used internally in @file{lily/@/stencil-interpret.cc}."
     transparent-stencil
     ))
 
-(map ly:register-stencil-expression
-     (append (ly:all-stencil-commands)
-             (ly:all-output-backend-commands)))
+(for-each ly:register-stencil-expression
+          (append (ly:all-stencil-commands)
+                  (ly:all-output-backend-commands)))

@@ -24,7 +24,7 @@
 
 ;; properly sort all grobs, properties, and interfaces
 ;; within the all-grob-descriptions alist
-(map
+(for-each
  (lambda (x)
    (let* ((props      (assoc-ref all-grob-descriptions (car x)))
           (meta       (assoc-ref props 'meta))
@@ -70,17 +70,17 @@
 
 (define iface->grob-table (make-hash-table 61))
 ;; extract ifaces, and put grob into the hash table.
-(map
+(for-each
  (lambda (x)
    (let* ((meta (assoc-get 'meta (cdr x)))
           (ifaces (assoc-get 'interfaces meta)))
 
-     (map (lambda (iface)
-            (hashq-set!
-             iface->grob-table iface
-             (cons (car x)
-                   (hashq-ref iface->grob-table iface '()))))
-          ifaces)))
+     (for-each (lambda (iface)
+                 (hashq-set!
+                  iface->grob-table iface
+                  (cons (car x)
+                        (hashq-ref iface->grob-table iface '()))))
+               ifaces)))
  all-grob-descriptions)
 
 ;; First level Interface description
@@ -178,17 +178,17 @@ node."
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
-  (map (lambda (x) (set-object-property! x 'iface-marked #t))
-       (caddr (cdr entry))))
+  (for-each (lambda (x) (set-object-property! x 'iface-marked #t))
+            (caddr (cdr entry))))
 
-(map mark-interface-properties interface-description-alist)
+(for-each mark-interface-properties interface-description-alist)
 
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
       (ly:error (string-append "define-grob-properties.scm: "
                                (_ "cannot find interface for property: ~S")) prop)))
 
-(map check-dangling-properties all-backend-properties)
+(for-each check-dangling-properties all-backend-properties)
 
 ;;;;;;;;;;;;;;;;
 

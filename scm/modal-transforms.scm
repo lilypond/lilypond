@@ -120,7 +120,7 @@ LilyPond scheme pitches, e.g. @code{(ly:make-pitch 0 2 0)}
       (ly:music-set-property! music 'pitch (converter pitch)))
 
      ((pair? elements)
-      (map (lambda (x) (change-pitches x converter)) elements))
+      (for-each (lambda (x) (change-pitches x converter)) elements))
 
      ((ly:music? element)
       (change-pitches element converter)))))
@@ -206,7 +206,7 @@ Typically used to construct a scale for input to transposer-factory
     (if (ly:dir? span-dir)
         (ly:music-set-property! music 'span-direction (- span-dir)))
 
-    (map retrograde-music reversed)
+    (for-each retrograde-music reversed)
 
     music))
 
