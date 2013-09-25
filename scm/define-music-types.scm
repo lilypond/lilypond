@@ -712,8 +712,8 @@ brackets start and stop.")
         ))
 
     (UnfoldedRepeatedMusic
-     . ((description . "Repeated music which is fully written
-(and played) out.")
+     . ((description . "Repeated music which is fully written (and
+played) out.")
         (iterator-ctor . ,ly:unfolded-repeat-iterator::constructor)
         (start-callback .  ,ly:repeated-music::first-start)
         (types . (general-music repeated-music unfolded-repeated-music))
@@ -775,22 +775,44 @@ Syntax: @code{\\\\}")
   "Create a music object of given name, and set its properties
 according to @code{music-properties}, a list of alternating property symbols
 and values. E.g:
+@example
   (make-music 'OverrideProperty
               'symbol 'Stem
               'grob-property 'thickness
-              'grob-value (* 2 1.5))"
+              'grob-value (* 2 1.5))
+@end example
+Instead of a successive symbol and value, an entry in the list may
+also be an alist or a music object in which case its elements,
+respectively its @emph{mutable} property list (properties not inherent
+to the type of the music object) will get taken.
+
+The argument list will be interpreted left-to-right, so later entries
+override earlier ones."
   (if (not (symbol? name))
       (ly:error (_ "symbol expected: ~S") name))
   (let ((props (hashq-ref music-name-to-property-table name '())))
     (if (not (pair? props))
         (ly:error (_ "cannot find music object: ~S") name))
     (let ((m (ly:make-music props)))
+      (define (alist-set-props lst)
+        (for-each (lambda (e)
+                    (set! (ly:music-property m (car e)) (cdr e)))
+                  (reverse lst)))
       (define (set-props mus-props)
-        (if (and (not (null? mus-props))
-                 (not (null? (cdr mus-props))))
-            (begin
-              (set! (ly:music-property m (car mus-props)) (cadr mus-props))
-              (set-props (cddr mus-props)))))
+        (if (pair? mus-props)
+            (let ((e (car mus-props))
+                  (mus-props (cdr mus-props)))
+              (cond ((symbol? e)
+                     (set! (ly:music-property m e) (car mus-props))
+                     (set-props (cdr mus-props)))
+                    ((ly:music? e)
+                     (alist-set-props (ly:music-mutable-properties e))
+                     (set-props mus-props))
+                    ((cheap-list? e)
+                     (alist-set-props e)
+                     (set-props mus-props))
+                    (else
+                     (ly:error (_ "bad make-music argument: ~S") e))))))
       (set-props music-properties)
       m)))
 
