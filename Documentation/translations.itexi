@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Sep 20 17:55:41 UTC 2013
+@emph{Last updated Wed Sep 25 09:19:44 UTC 2013
 }
 @multitable @columnfractions  0.5 0.5
 
@@ -4320,11 +4320,31 @@ up to date
 @ifhtml
 
 @html
-<span style="background-color: #d0f0f8">not translated</span>
+<small></small>
 @end html
 @end ifhtml
 @ifnothtml
-not translated
+
+@end ifnothtml
+@*
+
+@ifhtml
+
+@html
+<small></small>
+@end html
+@end ifhtml
+@ifnothtml
+
+@end ifnothtml
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">translated</span>
+@end html
+@end ifhtml
+@ifnothtml
+translated
 @end ifnothtml
 @*
 
@@ -4839,11 +4859,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -6498,22 +6518,22 @@ Gilles Thibault
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially translated (99 %)</span>
+<span style="background-color: #1fff1f">translated</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially translated (99 %)
+translated
 @end ifnothtml
 @*
 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Federico Bruni
 @*
@@ -7574,11 +7594,11 @@ translated
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">partially up to date</span>
+<span style="background-color: #1fff1f">up to date</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially up to date
+up to date
 @end ifnothtml
 @tab Team-hu
 @*

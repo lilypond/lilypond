@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Fri Sep 20 17:55:41 UTC 2013
+@emph{Ultimo aggiornamento Wed Sep 25 09:19:45 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -442,6 +442,33 @@ sì
 @end ifhtml
 @ifnothtml
 parzialmente
+@end ifnothtml
+@tab pre-GDP
+@item
+1.6 Notazione del rigo
+@*
+2457
+@tab Federico Bruni
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">sì</span>
+@end html
+@end ifhtml
+@ifnothtml
+sì
 @end ifnothtml
 @tab pre-GDP
 @end multitable
