@@ -10,21 +10,14 @@ and dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.16.0"
+\version "2.17.27"
 
 #(define (notes-to-skip m)
   "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
-Scripts and dynamics are maintained.
-"
-  (if (memq 'rhythmic-event (ly:music-property m 'types))
-   (let* ((newmus (make-music 'SkipEvent)))
-    (map
-     (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
-     (ly:music-mutable-properties m))
-    newmus
-  )
-   m)
-)
+Scripts and dynamics are maintained."
+  (if (music-is-of-type? m 'rhythmic-event)
+      (make-music 'SkipEvent m)
+      m))
 
 
 \layout { ragged-right= ##t }

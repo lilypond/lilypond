@@ -134,9 +134,8 @@
   "Extract @code{'direction} and @code{'text} from @var{music}, and transform
 into a @code{MultiMeasureTextEvent}."
 
-  (if (memq 'script-event (ly:music-property music 'types))
-      (apply make-music 'MultiMeasureTextEvent
-             (flatten-alist (ly:music-mutable-properties music)))
+  (if (music-is-of-type? music 'script-event)
+      (make-music 'MultiMeasureTextEvent music)
       music))
 
 (define-ly-syntax (multi-measure-rest parser location duration articulations)
