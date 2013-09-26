@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.17.27\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-09-21 12:59+0100\n"
+"POT-Creation-Date: 2013-09-26 11:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -777,6 +777,12 @@ msgstr ""
 
 #: convertrules.py:3606
 msgid "Flag.transparent and Flag.color inherit from Stem"
+msgstr ""
+
+#: convertrules.py:3672
+msgid ""
+"Staff-padding now controls the distance to the baseline, not the nearest "
+"point."
 msgstr ""
 
 #: fontextract.py:25
@@ -3729,25 +3735,25 @@ msgstr ""
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1131
+#: music-functions.scm:1144
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1269
+#: music-functions.scm:1282
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1329
+#: music-functions.scm:1342
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1330
+#: music-functions.scm:1343
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1675
+#: music-functions.scm:1688
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
