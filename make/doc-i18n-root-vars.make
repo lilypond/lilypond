@@ -26,12 +26,14 @@ PDF_FILES := $(TELY_FILES:%.tely=$(top-build-dir)/Documentation/$(outdir)/%.$(IS
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)
 
-DOCUMENTATION_INCLUDES = \
+DOCUMENTATION_INCLUDES += \
+  -I $(top-build-dir)/Documentation/$(outdir) \
+  -I $(top-build-dir)/Documentation/snippets/out \
   -I $(top-src-dir)/Documentation/$(ISOLANG)/included \
+  -I $(top-src-dir)/Documentation/included \
   -I $(top-src-dir)/Documentation \
-  -I $(top-build-dir)/Documentation/$(outdir)
+  -I $(top-src-dir)/input/regression
 
-LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
 MAKEINFO_FLAGS += --enable-encoding $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 

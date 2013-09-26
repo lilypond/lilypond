@@ -31,8 +31,6 @@ DO_TEXI_DEP = ( echo ./$@: $(call scan-texi,$<) > $(basename $@).dep ) &&
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
-DOCUMENTATION_INCLUDES += -I $(top-src-dir)/Documentation
-
 MAKEINFO_FLAGS += --enable-encoding --error-limit=0 $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 

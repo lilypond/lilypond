@@ -2,7 +2,7 @@
 .SUFFIXES: .html .info .texi .texinfo
 
 # Explicitly list the dependencies on generated content
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
 
 $(top-build-dir)/Documentation/$(outdir)/%/index.$(ISOLANG).html: $(outdir)/%/index.html $(TRANSLATION_LILY_IMAGES)
 	mkdir -p $(dir $@)
@@ -32,7 +32,7 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/$(outdir)/%.png
 $(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES) $(outdir)/pictures
 
 $(outdir)/pictures:
-	$(MAKE) -C $(top-build-dir)/Documentation/pictures WWW-1
+	$(MAKE) -C $(top-build-dir)/Documentation/pictures out=www WWW-1
 	ln -sf $(top-build-dir)/Documentation/pictures/$(outdir) $@
 
 $(TRANSLATION_LILY_IMAGES): $(MASTER_TEXI_FILES)

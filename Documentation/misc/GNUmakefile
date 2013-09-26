@@ -19,9 +19,6 @@ default: local-txt-doc
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS)))
 ##local-WWW-2: $(OUT_TXT_FILES) $(OUT_HTMLFILES) txt-to-html
 
-copy-for-me:
-	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
-
 $(outdir)/%.txt: %
 	cp $< $@
 

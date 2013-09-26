@@ -973,24 +973,37 @@ predicates require the parameter to be entered as Scheme expression.
 predicates, to be used in case of a type error in arguments or
 result."
 
+  (define (currying-lambda args doc-string? body)
+    (if (and (pair? args)
+             (pair? (car args)))
+        (currying-lambda (car args) doc-string?
+                         `((lambda ,(cdr args) ,@body)))
+        (if doc-string?
+            `(lambda ,args ,doc-string? ,@body)
+            `(lambda ,args ,@body))))
+
   (set! signature (map (lambda (pred)
                          (if (pair? pred)
                              `(cons ,(car pred)
                                     ,(and (pair? (cdr pred)) (cadr pred)))
                              pred))
                        (cons type signature)))
-  (if (and (pair? body) (pair? (car body)) (eqv? '_i (caar body)))
-      ;; When the music function definition contains an i10n doc string,
-      ;; (_i "doc string"), keep the literal string only
-      (let ((docstring (cadar body))
-            (body (cdr body)))
-        `(ly:make-music-function (list ,@signature)
-                                 (lambda ,args
-                                   ,docstring
-                                   ,@body)))
-      `(ly:make-music-function (list ,@signature)
-                               (lambda ,args
-                                 ,@body))))
+
+  (let ((docstring
+         (and (pair? body) (pair? (cdr body))
+              (if (string? (car body))
+                  (car body)
+                  (and (pair? (car body))
+                       (eq? '_i (caar body))
+                       (pair? (cdar body))
+                       (string? (cadar body))
+                       (null? (cddar body))
+                       (cadar body))))))
+    ;; When the music function definition contains an i10n doc string,
+    ;; (_i "doc string"), keep the literal string only
+    `(ly:make-music-function
+      (list ,@signature)
+      ,(currying-lambda args docstring (if docstring (cdr body) body)))))
 
 (defmacro-public define-music-function rest
   "Defining macro returning music functions.

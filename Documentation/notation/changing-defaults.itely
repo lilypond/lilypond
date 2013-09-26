@@ -3901,13 +3901,13 @@ Each type of object has its own default reference point, to which
 rehearsal marks are aligned:
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be aligned to right edge of the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Time Signature
+% The rehearsal mark will be aligned to the left edge of the Time Signature
 \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble

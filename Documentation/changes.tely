@@ -100,6 +100,38 @@ register symbols in the @samp{scm accreg} module, see
 @end lilypond
 
 @item
+New commands @code{markLengthOn} and @code{markLengthOff} control
+the allowance of horizontal space for tempo and rehearsal marks.
+
+@lilypond[quote,relative=2]
+\markLengthOn
+\compressFullBarRests
+\tempo "Molto vivace" c2 c'
+\mark\default
+\tempo "Meno mosso" R1*16
+\mark\default
+g,2 g
+\bar "||"
+\markLengthOff
+\tempo "Molto vivace" c2 c'
+\mark#1
+\tempo "Meno mosso" R1*16
+\mark\default
+g,2 g
+@end lilypond
+
+@item
+Rehearsal marks at the beginning of a line are now placed to the right
+of the clef and key signature by default.  As in previous versions, the
+@code{break-alignable-interface} controls the behavior.
+
+@lilypond[quote,relative=2]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\set Timing.currentBarNumber = #72
+\bar"||" \time 3/4 \key e\major \mark#10 \tempo "Adagio" b2.
+@end lilypond
+
+@item
 Decimal numbers can now be written directly in music,
 without a hash sign.  Together with the previous change
 in the way object properties are specified, the code to

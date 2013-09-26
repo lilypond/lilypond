@@ -88,6 +88,13 @@ endif
 
 include $(depth)/make/stepmake.make
 
+DOCUMENTATION_INCLUDES += -I $(outdir) \
+  -I $(top-build-dir)/Documentation/snippets/out \
+  -I $(top-src-dir)/Documentation/included \
+  -I $(top-src-dir)/Documentation/pictures \
+  -I $(top-src-dir)/Documentation \
+  -I $(top-src-dir)/input/regression
+
 OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 
 
@@ -205,24 +212,24 @@ $(OUT_TXT_FILES:%.txt=%.html): $(outdir)/%.html: $(outdir)/%.txt
 	$(buildscript-dir)/text2html $<
 
 # Explicitly list the dependencies on generated content
-$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi
+$(outdir)/web.texi: $(outdir)/we-wrote.itexi $(outdir)/others-did.itexi $(outdir)/weblinks.itexi $(outdir)/version.itexi
 
 ifeq ($(out),www)
 ## Extra images dependencies
 $(OUT_TEXINFO_MANUALS): $(outdir)/pictures
 
 $(outdir)/pictures:
-	$(MAKE) -C pictures WWW-1
+	$(MAKE) -C pictures out=www WWW-1
 	ln -sf ../pictures/$(outdir) $@
 
 $(outdir)/web.texi: $(outdir)/css $(outdir)/ly-examples
 
 $(outdir)/css:
-	$(MAKE) -C css
+	$(MAKE) -C css out=www WWW-1
 	ln -sf ../css/$(outdir) $@
 
 $(outdir)/ly-examples:
-	$(MAKE) -C ly-examples
+	$(MAKE) -C ly-examples out=www WWW-1
 	ln -sf ../ly-examples/$(outdir) $@
 endif
 

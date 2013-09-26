@@ -3667,6 +3667,9 @@ def conv(str):
 def conv(str):
     str = re.sub (r"\\stringTuning\s*\\notemode(\s*)@?\{\s*(.*?)\s*@?}",
                   r"\\stringTuning\1\2", str)
+    if re.search (r'\bstaff-padding\b', str):
+        stderr_write (NOT_SMART % "staff-padding")
+        stderr_write (_ ("Staff-padding now controls the distance to the baseline, not the nearest point."))
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

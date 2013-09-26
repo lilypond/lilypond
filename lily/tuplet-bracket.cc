@@ -92,8 +92,10 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob *> const &cols,
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
-  if (me->get_bound (LEFT)->break_status_dir ()
-      || me->get_bound (RIGHT)->break_status_dir ())
+  Item *left = me->get_bound (LEFT);
+  Item *right = me->get_bound (RIGHT);
+  if (!left || left->break_status_dir ()
+      || !right || right->break_status_dir ())
     return 0;
 
   Drul_array<Grob *> stems (Note_column::get_stem (cols[0]),

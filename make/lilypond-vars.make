@@ -27,13 +27,7 @@ MUSICXML2LY = $(script-dir)/musicxml2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 
-LILYPOND_BOOK_INCLUDES = -I $(outdir) -I $(src-dir) -I $(input-dir) \
- -I $(top-src-dir)/Documentation -I $(top-build-dir)/Documentation/snippets/out \
- -I $(input-dir)/regression/ -I $(top-src-dir)/Documentation/included/ \
- -I $(top-build-dir)/mf/$(outconfbase)/ \
- -I $(top-build-dir)/mf/out/ \
- -I $(top-src-dir)/Documentation/pictures \
- -I $(top-build-dir)/Documentation/pictures/$(outdir)
+LILYPOND_BOOK_INCLUDES = -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
 ## override from cmd line to speed up. 
 ANTI_ALIAS_FACTOR=2
