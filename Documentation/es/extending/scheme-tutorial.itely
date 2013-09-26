@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: cccd2bf82ebfb55b6423346037fa4d2793fc4c3b
+    Translation of GIT committish: 743dc7b27888c776186336cf4b330d3ebfc821de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -277,7 +277,7 @@ los procedimientos de Scheme @code{car} y @code{cdr}, respectivamente.
 
 @lisp
 guile> (define mipareja (cons 123 "Hola")
-... )
+@dots{} )
 guile> (car mipareja)
 123
 guile> (cdr mipareja)
@@ -614,7 +614,7 @@ let:
 
 @lisp
 guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
-... (+ (* x y) (/ z x)))
+@dots{} (+ (* x y) (/ z x)))
 508
 @end lisp
 
@@ -661,7 +661,7 @@ Otro procedimiento condicional en Scheme es @code{cond}:
 @example
 (cond (expresión-de-prueba-1 secuencia-de-expresiones-resultante-1)
       (expresión-de-prueba-2 secuencia-de-expresiones-resultante-2)
-      ...
+      @dots{}
       (expresión-de-prueba-n secuencia-de-expresiones-resultante-n))
 @end example
 
@@ -884,7 +884,7 @@ traLaLa = @{ c'4 d'4 @}
 se convierte internamente en una definición de Scheme:
 
 @example
-(define traLaLa @var{Valor Scheme de `@code{... }'})
+(define traLaLa @var{Valor Scheme de `@code{@dots{}}'})
 @end example
 
 Esto significa que las variables de LilyPond y las variables de Scheme
@@ -928,7 +928,7 @@ LilyPond.  En lugar de definir @code{\twice}, el ejemplo anterior
 podría también haberse escrito como
 
 @example
-...
+@dots{}
 $(make-sequential-music newLa)
 @end example
 
@@ -954,7 +954,7 @@ Utilizándolos, la última parte del ejemplo se podría haber escrito
 como
 
 @example
-...
+@dots{}
 @{ #@@newLa @}
 @end example
 
@@ -976,7 +976,7 @@ procedimiento:
 #(define (nopc)
   (ly:set-option 'point-and-click #f))
 
-...
+@dots{}
 #(nopc)
 @{ c'4 @}
 @end example
@@ -1266,7 +1266,7 @@ leer:
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
-Una secuencia musical @code{@{ ... @}} tiene el nombre
+Una secuencia musical @code{@{ @dots{} @}} tiene el nombre
 @code{SequentialMusic}, y sus expresiones internas se almacenan coma
 una lista dentro de su propiedad @code{'elements}.  Una nota se
 representa como un objeto @code{NoteEvent} (que almacena las
@@ -1423,7 +1423,7 @@ Así pues, en nuestra función, tenemos que clonar esta expresión (de
 forma que tengamos dos notas para construir la secuencia), añadir
 @code{SlurEvent} a la propiedad @code{'articulations} de cada una de
 ellas, y por último hacer una secuencia @code{SequentialMusic} con los
-dos @code{EventChords}.  Para añadir a una propiedad, es útil saber
+dos elementos @code{NoteEvent}.  Para añadir a una propiedad, es útil saber
 que una propiedad no establecida se lee como @code{'()}, la lista
 vacía, así que no se requiere ninguna comprobación especial antes de
 que pongamos otro elemento delante de la propiedad
@@ -1458,7 +1458,7 @@ articulación (como una instrucción de digitación) a una nota única
 dentro de un acorde, lo cual no es posible si nos limitamos a mezclar
 fragmentos de música independientes.
 
-Una @code{$variable} dentro de la notación @code{#@{...#@}} es como
+Una @code{$variable} dentro de la notación @code{#@{@dots{}#@}} es como
 una @code{\variable} normal en la notación clásica de LilyPond.
 Sabemos que
 
@@ -1530,7 +1530,7 @@ quedar claro a partir de su nombre (¡esto también es una buena
 práctica en otros lenguajes de programación!)
 
 @example
-"Add an accent..."
+"Add an accent@dots{}"
 @end example
 
 @noindent

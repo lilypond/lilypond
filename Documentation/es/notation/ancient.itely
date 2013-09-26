@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 08cf111c64bf608b4dc7622558b0cabef84f3c46
+    Translation of GIT committish: fa12d929326daf49f84838a95b0570b32e4b3400
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -270,7 +270,7 @@ ellas.
 
 La sintaxis todavía utiliza el obsoleto estilo infijo
 @code{\[ expresión_musical \]}.  Por motivos de consistencia, esto
-cambiará algún día al estilo postfijo @code{nota\[ ... nota\]}.
+cambiará algún día al estilo postfijo @code{nota\[ @dots{} nota\]}.
 
 
 @node Custos
@@ -575,34 +575,35 @@ siguiente tabla
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph
+  \textLengthOn
+  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
 #"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
 #"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph
+  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
 #"timesig.neomensural24" }
 }
 @end lilypond
@@ -754,22 +755,19 @@ Utilice la propiedad @code{flag-style} del elemento gráfico
 Aparte del estilo de corchete por defecto @code{default}, sólo está
 contemplado el estilo @code{mensural}
 
-@lilypond[quote,fragment,ragged-right,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 \override Flag.style = #'mensural
 \override Stem.thickness = #1.0
 \override NoteHead.style = #'mensural
 \autoBeamOff
-c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
-c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+c8 d e f c16 d e f c32 d e f s8
+c'8 d e f c16 d e f c32 d e f
 @end lilypond
 
 Observe que la bandera más interna de cada uno de los corchetes
-mensurales siempre se alinea verticalmente con una línea de la pauta.
+mensurales se alinea verticalmente con una línea de la pauta.
 
 No existe un estilo particular de corchete para la notación neo-mensural ni Petrucci.
-@c Hence,
-@c when typesetting the incipit of a transcribed piece of mensural
-@c music, the default flag style should be used.
 No existen corchetes en la notación del canto gregoriano.
 
 @seealso
@@ -778,10 +776,6 @@ Glosario musical:
 @rglos{flag}.
 
 @knownissues
-La unión de los corchetes antiguos a las plicas está ligeramente
-desviada.
-@c due to a change in early 2.3.x.
-
 La alineación vertical de cada uno de los corchetes con una línea de
 la pauta da por supuesto que las plicas siempre terminan exactamente
 encima o bien exactamente en el medio de dos líneas de la pauta.  Esto
@@ -1556,7 +1550,7 @@ las notas que se han de unir.
 Una nota sin modificaciones produce un @emph{punctum}.  Todos los
 demás neumas, incluso los neumas de una nota con forma distinta como
 la @emph{virga}, se consideran en principio como ligaduras y por ello
-se deben escribir dentro de @code{\[...\]}.
+se deben escribir dentro de @code{\[@dots{}\]}.
 
 @noindent
 Neumas de una nota:
@@ -2755,7 +2749,7 @@ el grabador @code{Stem_engraver} del contexto de voz:
 
 @example
 \layout @{
-  ...
+  @dots{}
   \context @{
     \Voice
       \remove "Stem_engraver"

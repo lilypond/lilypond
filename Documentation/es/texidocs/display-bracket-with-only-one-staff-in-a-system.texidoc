@@ -1,9 +1,11 @@
-%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento
 predeterminado es que no se imprima el corchete en la barra inicial.
-Esto se puede cambiar sobreescribiendo las propiedades adecuadas.
+Esto se puede cambiar sobreescribiendo @code{collapse-height} para
+fijar su valor de manera que sea menor que el número de líneas en la
+pauta.
 
 Observe que en contextos como @code{PianoStaff} y
 @code{GrandStaff} en que los sistemas empiezan con una llave en

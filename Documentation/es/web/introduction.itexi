@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 1b15a2096770f0393c799097afa4a2dcf28ed213
+    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -758,8 +758,8 @@ Octubre de 2004
 Los editores de Computer!Totaal, una revista holandesa de informática,
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg, describen a
 LilyPond} en la edición de octubre de 2004 como: @qq{Maravilloso
-software libre (de código abierto) (...) Las partituras producidas por
-LilyPond son excepcionalmente bonitas (...) un sistema muy potente que
+software libre (de código abierto) (@dots{}) Las partituras producidas por
+LilyPond son excepcionalmente bonitas (@dots{}) un sistema muy potente que
 puede hacer casi cualquier cosa.}
 
 @item
@@ -785,7 +785,7 @@ Febrero de 2004
 El cantante de jazz Gail Selkirk escribe sobre
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
 Sumergirse en el estanque de los nenúfares (Lily Pond)}.
-@qq{... puede hacer hojas guía de acordes o partes orquestales
+@qq{@dots{} puede hacer hojas guía de acordes o partes orquestales
 completas, y el resultado puede ser increíble.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special}, número
 CMS06.
@@ -841,11 +841,11 @@ es básicamente la impresión en bruto, sin retocar.}
 trabajo.  Nunca he visto nada que se acerque al resultado que obtengo
 con LilyPond; confío plenamente en que mis necesidades de publicación
 musical serán satisfechas más allá de toda expectativa usando esta
-genial aplicación. (...) básicamente, la impresión de LilyPond sin
-retocar (...) se ve mejor que la mayoría de las publicaciones
+genial aplicación. (@dots{}) básicamente, la impresión de LilyPond sin
+retocar (@dots{}) se ve mejor que la mayoría de las publicaciones
 "profesionales" más recientes con que las he comparado (p.ej.,
 prácticamente cualquier partitura de Warner Bros, e incluso muchas de
-las más recientes de @q{las editoras antiguas}). (...)}
+las más recientes de @q{las editoras antiguas}). (@dots{})}
 
 @qq{¡¡¡Toma eso, Finale/Sibelius/Igor/lo que sea!!!}
 @divEnd
@@ -885,7 +885,7 @@ convencido de que ningún producto comercial se le acerca ni de lejos.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, trombón bajo, Orquesta Sinfónica de Islandia
 
-@qq{Creo que LilyPond es genial (...) cuanto más aprendo de LilyPond,
+@qq{Creo que LilyPond es genial (@dots{}) cuanto más aprendo de LilyPond,
 ¡más me gusta!}
 @divEnd
 
@@ -893,7 +893,7 @@ convencido de que ningún producto comercial se le acerca ni de lejos.}
 @divClass{testimonial-item}
 @subsubheading Vaylor Trucks, intérprete de guitarra eléctrica (sí, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, pariente de...})
 
-@qq{Estoy súper-impresionado con LilyPond (...)}
+@qq{Estoy súper-impresionado con LilyPond (@dots{})}
 
 @qq{¡¡¡EL MEJOR PROGRAMA DE LA HISTORIA!!!}
 
@@ -908,7 +908,7 @@ dedicación!}
 @qq{Tenía una especie de relación pasión-odio con LilyPond. Pasión
 porque la primera partitura que vi ¡era tan increíble!  La descripción
 de LilyPond se fundamenta en la belleza. ¡Esto es demasiada modestia!
-(...) conforme LilyPond mejora continuamente y observo cómo se hacen
+(@dots{}) conforme LilyPond mejora continuamente y observo cómo se hacen
 las cosas con Scheme, tengo cada vez menos frustraciones.  De
 cualquier forma, lo que quiero decir es: gracias por darnos LilyPond,
 es realmente bueno.}

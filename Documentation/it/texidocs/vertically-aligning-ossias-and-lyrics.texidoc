@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+Questo frammento mostra come usare le proprietà di contesto
+@code{alignBelowContext} e @code{alignAboveContext} per
+controllare il posizionamento del testo vocale e degli ossia.
+
+"
+  doctitleit = "Allineare verticalmente gli ossia e il testo vocale"

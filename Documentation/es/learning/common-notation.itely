@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e674b7637b08e5d2638d232ba3d7c8420c9d1b6f
+    Translation of GIT committish: 4ea667563d6509a055fd2e3033363a97d4347256
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -52,7 +52,7 @@ Esta sección presenta la notación común que se utiliza para música a
 una voz sobre un pentagrama único.
 
 @menu
-* Comprobaciones de compás::
+* Líneas divisorias y comprobaciones de compás::
 * Alteraciones accidentales y armaduras::
 * Ligaduras de unión y de expresión::
 * Articulaciones y matices dinámicos::
@@ -62,19 +62,34 @@ una voz sobre un pentagrama único.
 @end menu
 
 
-@node Comprobaciones de compás
-@subsection Comprobaciones de compás
-@translationof Bar checks
+@node Líneas divisorias y comprobaciones de compás
+@subsection Líneas divisorias y comprobaciones de compás
+@translationof Bar lines and bar checks
+
+@subheading Líneas divisorias
+
+Las líneas de compás sencillas se dibujan automáticamente en la
+música, por lo que no hay que añadirlas de forma manual.  Otros
+tipos de barras de compás se añaden usando @code{\bar}, por
+ejemplo @code{\bar "||"} para una doble barra, o @code{\bar "|."}
+para la doble barra final.  Para ver una lista completa de las
+líneas divisorias, consulte @ruser{Barras de compás}.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+@subheading Comprobaciones de compás
 
 Aunque no es estrictamente necesario, es coneniente utilizar
 @emph{comprobaciones de compás} dentro del código de entrada para
-indicar dónde se supone que van las líneas divisorias.  Se introducen
-mediante el caráter de barra vertical, @code{|} (AltGr - 1 en el
-teclado español).  Con las comprobaciones de compás, el programa puede
-verificar que hemos introducido las duraciones que completan los
-compases correctamente.  Las comprobaciones de compás también hacen
-que el código de entrada sea más fácil de leer, porque ayudan a
-organizar el material.
+indicar dónde se supone que van las líneas divisorias.  Se
+introducen mediante el caráter de barra vertical, @code{|} (AltGr
+- 1 en el teclado español).  Con las comprobaciones de compás, el
+programa puede verificar que hemos introducido las duraciones que
+completan los compases correctamente.  Las comprobaciones de
+compás también hacen que el código de entrada sea más fácil de
+leer, porque ayudan a organizar el material.
 
 @lilypond[verbatim,quote,relative=2]
 g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
@@ -1010,7 +1025,7 @@ cada sílaba mediante un espacio.
 @end lilypond
 
 Observe los
-ángulos dobles @w{@code{<< ... >>}} alrededor del fragmento entero
+ángulos dobles @w{@code{<<@dots{}>>}} alrededor del fragmento entero
 para expresar que la música y la letra han de suceder al mismo tiempo.
 
 @node Alineación de la letra a una melodía

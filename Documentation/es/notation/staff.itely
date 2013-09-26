@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8328cbc8d443bf66309e7d321f2ae636d59a25b3
+    Translation of GIT committish: 41f7c759bd648f347a08fb0b4a82f5248d3c7ef4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -459,11 +459,13 @@ f'4 d \stopStaff
 @end lilypond
 
 La posición de cada una de las líneas de la pauta también puede
-cambiarse.  Los valores que se utilizan son @emph{medios} espacios de
-pentagrama y la posición nueva es relativa a tercera línea normal del
-pentagrama.  Se imprime una sola línea de pauta por cada valor que se
-introduce, de manera que el número de líneas así como su posición en
-la pauta pueden cambiarse con una sola operación de sobreescritura.
+cambiarse.  Una lista de números fija la posición de cada línea.
+@code{0}@tie{}corresponde a la línea central normal, y las
+posiciones normales de las líneas son
+@code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.  Se imprime una sola
+línea de pauta por cada valor que se introduce, de manera que el
+número de líneas así como su posición en la pauta pueden cambiarse
+con una sola operación de sobreescritura.
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
@@ -474,9 +476,13 @@ f'4 d \stopStaff
 \startStaff g, e
 @end lilypond
 
-Puede ser necesario un ajuste de la posición de la clave y del Do
-central para que se correspondan a las líneas nuevas.  Véase
-@ref{Clave}.
+Para preservar las direcciones típicas de las plicas (hacia arriba
+para la mitad inferior del pentagra y hacia abajo para la mitad
+superior), debemos alinear la línea (o espacio) central de la
+pauta personalizada con la posición de la línea central normal
+(0).  Puede ser necesario un ajuste de la posición de la clave y
+del Do@tie{}central para que se correspondan a las líneas nuevas.
+Véase @ref{Clave}.
 
 Puede cambiarse el grosor de las líneas de la pauta.  También resultan
 afectadas, de forma predeterminada, las líneas adicionales y no la
@@ -528,13 +534,13 @@ También puede hacerse que las líneas adicionales aparezcan dentro del
 pentagrama allí donde se requieren líneas de pauta personalizadas.  El
 ejemplo muestra la posición predeterminada de las líneas adicionales
 cuando el valor de posición explícito @code{ledger-position} se ha
-fijado o no.  La instrucción @code{stopStaff} se necesita en el
+fijado o no.  La instrucción @code{\stopStaff} se necesita en el
 ejemplo para revertir la instrucción de sobreescritura
 @code{\override} para todo el @code{StaffSymbol} (el símbolo de
 pauta).
 
-@lilypond[fragment,quote,relative=1]
-\override Staff.StaffSymbol.line-positions =   #'(-8 0 2 4)
+@lilypond[verbatim,quote,relative=1]
+\override Staff.StaffSymbol.line-positions = #'(-8 0 2 4)
 d4 e f g
 \stopStaff
 \startStaff
@@ -615,7 +621,7 @@ para alinear el pentagrama de ossia.  Este método es muy conveniente
 cuando se necesitan sólo algunos pentagramas de ossia.
 
 @lilypond[verbatim,quote]
-\new Staff = main \relative c'' {
+\new Staff = "main" \relative c'' {
   c4 b d c
   <<
     { c4 b d c }
@@ -644,7 +650,7 @@ en ejemplo siguiente.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \override Clef.transparent = ##t
     fontSize = #-3
@@ -657,7 +663,7 @@ en ejemplo siguiente.
     c4 b c2
     <<
       { e4 f e2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff e4 g8 f e2 \stopStaff
       }
     >>
@@ -665,7 +671,7 @@ en ejemplo siguiente.
     c4 b c2
     <<
       { g4 a g2 }
-      \context Staff = ossia {
+      \context Staff = "ossia" {
         \startStaff g4 e8 f g2 \stopStaff
       }
     >>
@@ -682,7 +688,7 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
-  \new Staff = ossia \with {
+  \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \override Clef.transparent = ##t
     fontSize = #-3
@@ -712,6 +718,7 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
 
 
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {vertically-aligning-ossias-and-lyrics.ly}
 

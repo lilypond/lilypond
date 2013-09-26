@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: fbe8b9bf789f4a9833e1581dbb6ba4fce71a6cd2
+    Translation of GIT committish: 94dc452301cc0d1e9983f5aeb784884f7fe8c964
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,6 @@
 @end ignore
 
 @c \version "2.17.18"
-
 
 @node Conceptos fundamentales
 @chapter Conceptos fundamentales
@@ -64,7 +63,7 @@ Un ejemplo básico de archivo de entrada de LilyPond es el siguiente:
 \header @{ @}
 
 \score @{
-  @var{...expresión musical compuesta...}  % toda la música viene aquí
+  @var{ @dots{} expresión musical compuesta @dots{} }  % toda la música va aquí
   \layout @{ @}
   \midi @{ @}
 @}
@@ -147,13 +146,13 @@ cosa entre una sola nota hasta una enorme expresión compuesta como
 @example
 @{
   \new StaffGroup <<
-    @var{...inserte aquí la partitura completa de una ópera de Wagner...}
+    @var{ @dots{} inserte aquí la partitura completa de una ópera de Wagner @dots{} }
   >>
 @}
 @end example
 
 @noindent
-Puesto que todo se encuentra dentro de @code{@{ ... @}}, cuenta como
+Puesto que todo se encuentra dentro de @code{@{ @dots{} @}}, cuenta como
 una expresión musical.
 
 Como vimos anteriormente, el bloque @code{\score} puede contener otras
@@ -327,13 +326,13 @@ Aquí hemos asignado nombres a los pentagramas: @qq{cantante} y
 que resulta útil cultivar de manera que podamos saber de un vistazo
 para qué es cada pentagrama.
 
-Recuerde que utilizamos @code{<< ... >>} en lugar de @code{@{ ... @}}
+Recuerde que utilizamos @code{<< @dots{} >>} en lugar de @code{@{ @dots{} @}}
 para presentar la música simultánea.  Esto hace que las partes vocal y
 del piano aparezcan una sobre la otra en la partitura.  La
-construcción @code{<< ... >>} no sería necesaria para el pentagrama
+construcción @code{<< @dots{} >>} no sería necesaria para el pentagrama
 del cantante en el ejemplo de arriba si contiene solamente una
 expresión musical secuencial, pero se necesitarían los @code{<<
-... >>} en lugar de las llaves si la música de ese pentagrama fuese a
+@dots{} >>} en lugar de las llaves si la música de ese pentagrama fuese a
 contener dos o más expresiones simultáneas, p.ej. dos voces
 simultáneas, o una voz con letra.  Vamos a tener una voz con letra,
 por lo que se requieren los ángulos dobles.  Después añadiremos algo
@@ -521,29 +520,29 @@ distintas clases de corchetes, llaves y paréntesis.
 @multitable @columnfractions .3 .7
 @headitem Tipo de paréntesis
   @tab Función
-@item @code{@{ .. @}}
+@item @code{@{ @dots{} @}}
   @tab Encierra un fragmento secuencial de música
-@item @code{< .. >}
+@item @code{< @dots{} >}
   @tab Encierra las notas de un acorde
-@item @code{<< .. >>}
+@item @code{<< @dots{} >>}
   @tab Encierra expresiones musicales simultáneas
-@item @code{( .. )}
+@item @code{( @dots{} )}
   @tab Marca el comienzo y el final de una ligadura de expresión
-@item @code{\( .. \)}
+@item @code{\( @dots{} \)}
   @tab Marca el comienzo y el final de una ligadura de fraseo
-@item @code{[ .. ]}
+@item @code{[ @dots{} ]}
   @tab Marca el comienzo y el final de un barrado manual
 @end multitable
 
 A las anteriores, debemos añadir otras construcciones que generan
 líneas entre o a través de las notas: las ligaduras de unión (marcadas
 con una tilde curva, @code{~}), los grupos especiales que se escriben
-como @code{\times x/y @{..@}}, y las notas de adorno, que se escriben
-como @code{\grace@{..@}}.
+como @code{\tuplet x/y @{ @dots{} @}}, y las notas de adorno, que se escriben
+como @code{\grace @{ @dots{} @}}.
 
 Fuera de LilyPond, el uso convencional de los paréntesis y otros
 corchetes requiere que los distintos tipos se encuentren anidados
-correctamente, como en: @code{<< [ @{ ( .. ) @} ] >>}, de manera que
+correctamente, como en: @code{<< [ @{ ( @dots{} ) @} ] >>}, de manera que
 los paréntesis que se cierran deben encontrarse en el orden
 exactamente opuesto al de los paréntesis que se abren.  Esto
 @strong{es} un requisito para los tres tipos de paréntesis que se
@@ -637,7 +636,7 @@ En primer lugar observe este ejemplo de cuatro acordes:
 @end lilypond
 
 Esto se puede expresar utilizando sólo símbolos de acorde con ángulos
-simples, @code{< ... >}, y para este propósito tan sólo se necesita
+simples, @code{< @dots{} >}, y para este propósito tan sólo se necesita
 una voz.  Pero suponga que el Fa sostenido fuese realmente una corchea
 seguida de un Sol corchea, una nota de paso que conduce al La.  Ahora
 tenemos dos notas que empiezan en el mismo momento pero tienen
@@ -654,8 +653,8 @@ Veamos cómo se hace esto dentro de la sintaxis de entrada de LilyPond.
 
 La forma más fácil de introducir fragmentos con más de una voz en un
 solo pentagrama es escribir cada voz como una secuencia (con
-@code{@{...@}}), y combinarlas simultáneamente con ángulos dobles,
-@code{<<...>>}.  Los fragmentos también se deben separar mediante una
+@code{@{ @dots{} @}}), y combinarlas simultáneamente con ángulos dobles,
+@code{<< @dots{} >>}.  Los fragmentos también se deben separar mediante una
 doble barra invertida, @code{\\}, para situarlos en voces separadas.
 Sin esto, las notas irían a una sola voz, lo que normalmente produce
 errores.  Esta técnica se adapta especialmente bien a piezas de música
@@ -732,7 +731,7 @@ correcta.
 @end lilypond
 
 Todas estas voces están separadas de la voz principal que contiene las
-notas justo por fuera de la construcción @code{<< .. >>}.  Le
+notas justo por fuera de la construcción @code{<< @dots{} >>}.  Le
 llamaremos a esto la @emph{construcción simultánea}.  Las ligaduras
 (de prolongación y de expresión) solamente pueden conectar notas que
 estén dentro de la misma voz, luego las ligaduras no pueden entrar o
@@ -818,13 +817,13 @@ voces están muy separadas, es colocar una instrucción @code{\relative}
 al principio de cada voz:
 
 @example
-\relative c' @{ notaA ... @}
+\relative c' @{ notaA @dots{} @}
 <<
-  \relative c'' @{ < notaB notaC > ... @}
+  \relative c'' @{ < notaB notaC > @dots{} @}
 \\
-  \relative g' @{ notaD ... @}
+  \relative g' @{ notaD @dots{} @}
 >>
-\relative c' @{ notaE ... @}
+\relative c' @{ notaE @dots{} @}
 @end example
 
 Finalmente, analicemos las voces en una pieza de música más compleja.
@@ -1882,7 +1881,7 @@ y esto los desactivará en todos los pentagramas:
 
 Como un ejemplo más, si se establece @code{clefTransposition} dentro del
 contexto de @code{Score}, éste cambia inmediatamente el valor de la
-octavación en todos los pentagramas en curso y establece un nuevo
+transposición en todos los pentagramas en curso y establece un nuevo
 valor predeterminado que se aplicará a todos los pentagramas.
 
 La instrucción opuesta, @code{\unset}, tiene el efecto de suprimir la
@@ -1933,7 +1932,7 @@ en que se crea el contexto.  A veces esta forma de establecer el valor
 de una propiedad es mucho más clara, si ha de quedar fijo durante todo
 el tiempo que dure el contexto.  Cuando se crea un contexto con una
 instrucción @code{\new} puede ir inmediatamente seguido de un bloque
-@code{\with @{ .. @}} en el que se establecen los valores predeterminados de las
+@code{\with @{ @dots{} @}} en el que se establecen los valores predeterminados de las
 propiedades.  Por ejemplo, si queremos suprimir la impresión de
 becuadros adicionales para toda la duración de un pentagrama, podemos
 escribir:
@@ -2885,12 +2884,12 @@ ejemplo final que aparece al final de la sección, borre los dobles
 >>
 @end example
 
-No es necesario utilizar la construcción simultánea @code{<< >>} para
+No es necesario utilizar la construcción simultánea @code{<< @dots{} >>} para
 el pentagrama del manual dos y el pentagrama del órgano de pedal, ya
 que contienen una única expresión, pero no hace daño, y es una buena
 costumbre utilizar siempre dobles ángulos después de @code{\new Staff}
 cuando hay varias voces.  Lo opuesto es cierto para las voces:
-normalmente deben ir seguidas de llaves @code{@{ .. @}} en caso de que
+normalmente deben ir seguidas de llaves @code{@{ @dots{} @}} en caso de que
 tengamos música codificada como distintas variables que se deben
 situar consecutivamente.
 

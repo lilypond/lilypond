@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9e263dce9237347a6e55fcc8662829474e077b3c
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -576,11 +576,6 @@ MIDI a la cadena dada.
 @tab Convertir las cadenas de texto a rutas cuando los glifos pertenecen a
 una fuente de tipografía musical.
 
-@item @code{old-relative}
-@tab @code{#f}
-@tab Hacer que el modo @code{\relative} para la música simultánea funcione
-de manera similar a la sintaxis de los acordes.
-
 @item @code{paper-size}
 @tab @code{\"a4\"}
 @tab Establecer el tamaño predeterminado del papel.  Observe que la cadena
@@ -697,7 +692,7 @@ requiere más trabajo para su configuración.  Véase
 @tab @code{#f}
 @tab Para los archivos de entrada @code{ARCHIVO1.ly}, @code{ARCHIVO2.ly},
 etc. sacar los datos de registro hacia los archivos @code{ARCHIVO1.log},
-@code{ARCHIVO2.log}, ...
+@code{ARCHIVO2.log}@dots{}
 
 @item @code{show-available-fonts}
 @tab @code{#f}
@@ -991,6 +986,7 @@ se han visto y comprendido, se manejan sin problema.
 * Mensaje de error Unbound variable %::
 * Mensaje de error FT_Get_Glyph_Name::
 * Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
+* Mensaje de error Unexpected \new::
 @end menu
 
 @node La música se sale de la página
@@ -1128,3 +1124,55 @@ contextos se comporte como un pentagrama, insertando
 al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
 líneas que no son pautas} en @ruser{Espaciado vertical flexible dentro
 de los sistemas}.
+
+
+@node Mensaje de error Unexpected \new
+@unnumberedsubsec Mensaje de error Unexpected @code{\new}
+@translationof Error message unexpected \new
+
+Un bloque @code{\score} debe contener una @emph{única} expresión
+musical.  Si en vez de ello contiene varias instrucciones
+@code{\new Staff}, @code{\new StaffGroup} o contextos similares
+introducidos con @code{\new} sin que se hayan encerrado entre
+llaves curvas, @code{@{ @dots{} @}}, o dobles paréntesis en
+ángulo, @code{<< @dots{}  >>}, así:
+
+@example
+\score @{
+  % Invalid! Generates error: syntax error, unexpected \new
+  \new Staff @{ @dots{} @}
+  \new Staff @{ @dots{} @}
+@}
+@end example
+
+@noindent
+entonces se producirá el mensaje de error.
+
+Para evitar el error, encierre todas las instrucciones @code{\new}
+dentro de llaves curvas o dobles paréntesis en ángulo.
+
+El uso de llaves curvas introduce las instrucciones @code{\new} de
+forma secuencial:
+
+@lilypond[quote,verbatim]
+\score {
+  {
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  }
+}
+@end lilypond
+
+@noindent
+pero es más probable que se encuentre utilizando dobles ángulos de
+manera que los pentagramas nuevos se inserten en paralelo, es
+decir, simultáneamente:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  >>
+}
+@end lilypond

@@ -21,7 +21,7 @@ Questo capitolo spiega come creare la notazione musicale.
 * Segni di espressione::    Aggiungere espressione alle note.
 * Ripetizioni::             Ripetere la musica.
 * Note simultanee::         Più di una nota in contemporanea.
-* Staff notation::     Displaying staves.
+* Notazione del rigo::      Aspetto del rigo.
 * Editorial annotations:: Special notation to increase legibility.
 * Text::               Adding text to scores.
 @end menu

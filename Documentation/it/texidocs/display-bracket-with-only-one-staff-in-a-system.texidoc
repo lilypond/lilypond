@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+Se c'è un solo rigo in uno dei tipi di rigo @code{ChoirStaff} o
+@code{StaffGroup}, la parentesi e la stanghetta iniziale non
+appaiono.  Si può modificare questo comportamento predefinito
+sovrascrivendo @code{collapse-height} e impostando un valore
+inferiore al numero di linee del rigo.
+
+Nei contesti @code{PianoStaff} e @code{GrandStaff}, dove i sistemi
+iniziano con una parentesi graffa invece di una parentesi quadra,
+occorre impostare un'altra proprietà, come si vede nel secondo
+sistema dell'esempio.
+
+"
+  doctitleit = "Mostrare la parentesi anche se c'è un solo rigo nel sistema"

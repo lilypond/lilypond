@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 25580682a08194862532dc53636148fb52de94c2
+    Translation of GIT committish: 23c2535cb51706a5e4f753dab8b5325ffa5ddfce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1440,7 +1440,7 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {defining-predefined-fretboards-for-other-instruments.ly}
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {chordchanges-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1925,15 +1925,20 @@ los trastes para la quinta cuerda:
 @c due to crazy intervals of banjo music, absolute pitch is recommended
 
 @lilypond[quote,ragged-right,verbatim]
-\new TabStaff <<
-  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
-  \set TabStaff.stringTunings = #banjo-open-g-tuning
-  {
-    \stemDown
-    g8 d' g'\5 a b g e d' |
-    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
-    g4
+music = {
+  g8 d' g'\5 a b g e d' |
+  g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+  g4
+}
+
+<<
+  \new Staff \with { \omit StringNumber }
+  { \clef "treble_8"  \music }
+  \new TabStaff \with {
+    tablatureFormat = #fret-number-tablature-format-banjo
+    stringTunings = #banjo-open-g-tuning
   }
+  { \music }
 >>
 @end lilypond
 

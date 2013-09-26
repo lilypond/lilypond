@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8a23eef94ec7ab83e10646ab3502f2d82b888a03
+    Translation of GIT committish: d96248cfd7c9f08f3bb27b400e589d54d2c000fb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,12 +18,13 @@
 @cindex actualización de un archivo de LilyPond
 @cindex convert-ly
 
-La sintaxis del lenguaje de entrada de LilyPond se modifica de forma
-habitual para simplificarla o mejorarla de distintas maneras.  Como
-efecto secundario, el intérprete de LilyPond a menudo ya no es
-compatible con los archivos de entrada antiguos.  Para poner remedio a
-esto se puede utilizar el programa @command{convert-ly} para manejar
-casi todos los cambios de sintaxis entre versiones de LilyPond.
+La sintaxis del lenguaje de entrada de LilyPond se modifica de
+forma habitual para simplificarla o mejorarla de distintas
+maneras.  Como efecto secundario, el intérprete de LilyPond a
+menudo ya no es compatible con los archivos de entrada antiguos.
+Para poner remedio a esto se puede utilizar el programa
+@command{convert-ly} para actualizar archivos a nuevas versiones
+de LilyPond.
 
 @menu
 * ¿Por qué cambia la sintaxis?::
@@ -60,17 +61,46 @@ cambiar el nombre a @code{print-all-headers}.  Afortunadamente, este
 cambio se puede automatizar con nuestra herramienta
 @command{convert-ly}.
 
-Sin embargo, lamentablemente @code{convert-ly} no puede tratar todos
-los cambios en la entrada.  Por ejemplo, en la versión 2.4 y
+Sin embargo, lamentablemente @command{convert-ly} no puede tratar
+todos los cambios en la entrada.  Por ejemplo, en la versión 2.4 y
 anteriores de LilyPond, los acentos y las letras no inglesas se
 introducían utilizando LaTeX: por ejemplo, @code{No\"el} (que
-significa @q{Navidad} en francés).  En LilyPond 2.6 y siguientes, el
-carácter especial @code{ë} debe introducirse directamente en el
-archivo de LilyPond como un carácter UTF-8.  @code{convert-ly} no
-puede cambiar todos los caracteres especiales de LaTeX a caracteres de
-UTF-8; tendrá que actualizar manualmente sus archivos de LilyPond
-antiguos.
+significa @q{Navidad} en francés).  En LilyPond 2.6 y siguientes,
+el carácter especial @code{ë} debe introducirse directamente en el
+archivo de LilyPond como un carácter UTF-8.  @command{convert-ly}
+no puede cambiar todos los caracteres especiales de LaTeX a
+caracteres de UTF-8; tendrá que actualizar manualmente sus
+archivos de LilyPond antiguos.
 
+Las reglas de conversión de @command{convert-ly} funcionan usando
+correspondencia y sustitución de patrones de texto en lugar de una
+comprensión profunda de la sintaxis de LilyPond.  Esto tiene
+varias consecuencias:
+@itemize @bullet
+@item
+El buen funcionamiento de la conversión depende de la calidad de
+cada conjunto de reglas que se aplican y de la complejidad del
+cambio correspondiente.  A veces las conversiones pueden necesitar
+correcciones manuales, por lo que la versión antigua debiera
+conservarse a efectos de comparación.
+@item
+Solamente son posibles las conversiones a formatos más nuevos: no
+existe ningún conjunto de reglas para la desactualización.  Así
+pues, la copia principal de trabajo de un archivo de LilyPond
+solamente se debe actualizar cuando ya no hay necesidad de seguir
+manteniendo versiones antiguas de LilyPond.  Los sistemas de
+control de versiones como el Git pueden ser de gran ayuda para
+realizar el mantenimiento de varias versiones de los mismos
+archivos.
+@item
+Los propios programas LilyPond y Scheme son bastante robustos
+frente a los espacios añadidos y suprimidos de manera
+@qq{creativa}, pero las reglas utilizadas por @command{convert-ly}
+tienden a hacer ciertas suposiciones de estilo.  Lo mejor que
+puede hacerse es seguir el estilo que se usa en los manuales para
+hacer actualizaciones indoloras, especialmente porque los propios
+manuales se actualizan usando @command{convert-ly}.
+@end itemize
 
 @node Invocar convert-ly
 @section Invocar @command{convert-ly}
@@ -138,8 +168,11 @@ Se pueden dar las siguientes opciones:
 
 @table @code
 @item -d,--diff-version-update
-actualizar la @code{\version} a la última o, si ésta es mayor, no
-hacer nada.
+incrementar la cadena @code{\version} solamente si el archivo
+efectivamente ha cambiado.  Sin esta opción (o si cualquier
+conversión ha modificado el archivo), la cabecera de versión
+refleja la regla de conversión que se ha tenido en cuenta en
+último lugar.
 
 @item -e,--edit
 Aplicar las conversiones directamente al archivo de entrada,
@@ -168,7 +201,8 @@ Mostrar todas las conversiones conocidas y salir.
 
 @item -t, --to=@var{versión_final}
 Fijar explícitamente a qué @code{\version} convertir, en caso
-contrario el valor predeterminado es la versión más actual.
+contrario el valor predeterminado es la versión más actual.  Debe
+ser más alta que la versión de partida.
 
 @example
 convert-ly --to=2.14.1 miarchivo.ly
@@ -179,14 +213,14 @@ convert-ly --to=2.14.1 miarchivo.ly
 Para actualizar fragmentos de LilyPond en archivos de texinfo, use
 
 @example
-convert-ly --from=... --to=... --no-version *.itely
+convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
 @end example
 
 Para ver los cambios en la sintaxis de LilyPond entre dos versiones
 dadas, use
 
 @example
-convert-ly --from=... --to=... -s
+convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 

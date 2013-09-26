@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 73580a4adff969f66b5c562c6a45b2b92fc6128e
+    Translation of GIT committish: fa12d929326daf49f84838a95b0570b32e4b3400
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -91,6 +91,18 @@ baja la altura una octava.
 }
 @end lilypond
 
+@funindex absolute
+@funindex \absolute
+Se puede indicar explícitamente que la música está en notación de
+octava absoluta si se precede con @code{\absolute}:
+
+@example
+\absolute @var{musicexpr}
+@end example
+
+se interpreta en el modo de entrada de octava absoluta
+independientemende de en qué contexto aparece.
+
 @seealso
 Glosario musical:
 @rglos{Pitch names}.
@@ -112,13 +124,14 @@ Fragmentos de código:
 @funindex relative
 @funindex \relative
 
-Cuando las octavas se especifican en modo absoluto, es fácil poner por
-accidente una nota en la octava equivocada.  El modo de octavas
-relativas reduce estos errores porque casi todo el tiempo es
-innecesario indicar octava alguna.  Es más, en el modo absoluto puede
-ser difícil encontrar un error aislado, mientras que en el modo
-relativo un solo fallo hace que el resto de la pieza esté una octava
-más alta o más baja de lo que debería.
+La entrada de octava absoluta requere que se especifique la octava
+para todas y cada una de las notas.  En contraste con ello, el
+modo de entrada de octava relativa especifica cada octava en
+relación a la nota anterior: si se cambia la octava de una nota
+ello afectará a todas las notas siguientes.
+
+El modo relativo de notas se debe introducir de forma explícita
+usando la instrucción @code{\relative}:
 
 @example
 \relative @var{altura_inicial} @var{expresión_musical}
@@ -147,9 +160,29 @@ Se pueden usar varias marcas de cambio de octava.  Por ejemplo,
 @item
 La altura de la primera nota es relativa a
 @code{@var{altura_inicial}}.  @code{@var{altura_inicial}} se especifica en
-modo de octava absoluta, y se recomienda que sea un Do (una octava de
-@code{c}).
+modo de octava absoluta.  ¿Qué opciones tienen sentido?
 
+@table @asis
+@item @code{c} (Do), en cualquier octava
+La identificación del Do central con @code{c'} es algo bastante
+básico, por lo que tiende a ser fácil encontrar octavas de
+@code{c}.  Si nuestra música comienza con @code{gis} (un Sol
+sostenido) por encima de @code{c'''}, tendríamos que escribir algo
+como @code{\relative c''' @{ gis' @dots{}  @}}
+
+@item una nota que está una o más octavas de la primera nota de dentro
+Escribir @code{\relative gis''' @{ gis @dots{} @}} hace que sea
+fácil determinar la altura absoluta de la primera nota de dentro.
+
+@item ninguna altura de inicio explícita
+Esta opción (concretamente, escribir @code{\relative @{ gis'''
+@dots{} @}}) se puede ver como una versión más compacta de la
+opción anterior: la primera nota de dentro se escribe ella misma
+en altura absoluta.  Esto resulta ser equivalente a elegir
+@code{f} (Fa) como la altura de referencia.
+@end table
+
+La documentación suele utilizar la primera opción.
 @end itemize
 
 Aquí podemos ver el modo relativo en acción:
@@ -288,12 +321,6 @@ Referencia de funcionamiento interno:
 @funindex \relative
 @funindex relative
 
-@c DEPRECATED
-Si no se especifica ninguna @code{@var{altura_inicial}} para
-@code{\relative}, entonces se supone que es@tie{}@code{c'}.  Sin
-embargo, ésta es una opción en desuso y podría desaparecer en
-versiones posteriores, por lo que su utilización está desaconsejada.
-
 
 @node Alteraciones accidentales
 @unnumberedsubsubsec Alteraciones accidentales
@@ -384,13 +411,15 @@ cis cis cis! cis? c c c! c?
 Las alteraciones sobre notas unidas por ligadura sólo se imprimen al
 comienzo de un sistema:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=2,ragged-right]
 cis1~ cis~
 \break
 cis
 @end lilypond
 
+
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {hiding-accidentals-on-tied-notes-at-the-start-of-a-new-system.ly}
 
@@ -1192,6 +1221,7 @@ consulte las funciones @code{\cueClef} y @code{\cueDuringWithClef}
 en la sección @ref{Formateo de las notas guía}.
 
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1312,8 +1342,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
     (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
 
 \relative c' {
-  \key c\freygish c4 des e f
-  \bar "||" \key d\freygish d es fis g
+  \key c \freygish c4 des e f
+  \bar "||" \key d \freygish d es fis g
 }
 @end lilypond
 
@@ -1329,14 +1359,15 @@ de la octava que termina en dicha posición del pentagrama.
 @lilypond[verbatim, quote,relative=0]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b\major b fis b2
+\bar "||" \key b \major b fis b2
 @end lilypond
 
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
@@ -1394,8 +1425,12 @@ a2 b
 @end lilypond
 
 @snippets
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {ottava-text.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{adding-an-ottava-marking-to-a-single-voice.ly}
 
 @seealso
 Glosario musical:
@@ -1479,18 +1514,31 @@ La @code{\transposition} se puede cambiar durante la pieza.  Por
 ejemplo, un clarinetista puede cambiar del clarinete en La al
 clarinete en Si bemol.
 
-@lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = #"Cl (A)"
-\key a \major
-\transposition a
-c d e f
-\textLengthOn
-<>^\markup { Switch to B\flat clarinet }
-R1
-
-\key bes \major
-\transposition bes
-c2 g
+@lilypond[verbatim,quote]
+flute = \relative c'' {
+  \key f \major
+  \cueDuring #"clarinet" #DOWN {
+    R1 _\markup\tiny "clarinet"
+    c4 f e d
+    R1 _\markup\tiny "clarinet"
+  }
+}
+clarinet = \relative c'' {
+  \key aes \major
+  \transposition a
+  aes4 bes c des
+  R1^\markup { muta in B\flat }
+  \key g \major
+  \transposition bes
+  d2 g,
+}
+\addQuote "clarinet" \clarinet
+<<
+  \new Staff \with { instrumentName = #"Flute" }
+    \flute
+  \new Staff \with { instrumentName = #"Cl (A)" }
+    \clarinet
+>>
 @end lilypond
 
 @seealso
@@ -2815,11 +2863,10 @@ se pueden usar @code{\deadNote}, @code{\deadNotesOn} y
 @code{\deadNotesOff}.  El término @notation{dead note} (nota muerta)
 se utiliza corrientemente por parte de los guitarristas.
 
-Existe una abreviatura para las formas en rombo que sólo se puede usar
-en acordes:
+También existe una abreviatura similar para las formas en rombo:
 
 @lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
 @end lilypond
 
 @predefined

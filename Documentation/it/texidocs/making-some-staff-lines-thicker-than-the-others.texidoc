@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidocit = "
+In ambito didattico può essere utile rendere più spesso una linea del
+rigo (per esempio, la linea centrale, o per sottolineare la linea
+della chiave di Sol).  Per farlo si possono aggiungere altre linee
+e posizionarle molto vicino alla linea che deve essere evidenziata,
+usando la proprietà @code{line-positions} dell'oggetto @code{StaffSymbol}.
+
+"
+  doctitleit = "Rendere alcune linee del rigo più spesse delle altre"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
+    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2908,16 +2908,18 @@ r2.
 c4_"Text"\pp % now they will collide
 @end lilypond
 
-Le décalage vertical entre un objet extérieur à la portée et celui qui
-le précède se contrôle par la propriété @code{outside-staff-padding}.
+Le décalage vertical entre des objets extérieurs à la portée se contrôle
+par la propriété @code{outside-staff-padding}.
 
 @c KEEP LY
 @lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
 \once \override TextScript.outside-staff-padding = #0
-a'^"Ce texte est placé au plus près de la note"
+a'4-"outside-staff-padding = #0"
 \once \override TextScript.outside-staff-padding = #3
-c^"Ce texte est décalé par rapport au texte précédent"
-c^"Ce texte est accolé au texte précédent"
+d-"outside-staff-padding = #3"
+c-"outside-staff-padding par défaut"
+b-"outside-staff-padding par défaut"
+R1
 @end lilypond
 
 Par défaut, les objets extérieurs à la portée sont positionnés en

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 91aeca2562af49ff24110e923d5196bebd95f372
+Translation of GIT committish: 30f7edc4605e38b5735676d2874fc7be6f325267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -95,12 +95,64 @@ Referencia de funcionamiento interno:
 Los contextos se disponen de forma jerárquica:
 
 @menu
+* Definiciones de salida - estructura de los contextos::
 * Score. El contexto maestro::
 * Contextos del nivel superior. Contenedores de pentagramas::
 * Contextos de nivel intermedio. Pentagramas::
 * Contextos del nivel más bajo. Voces::
 @end menu
 
+@node Definiciones de salida - estructura de los contextos
+@unnumberedsubsubsec Definiciones de salida - estructura de los contextos
+@translationof Output definitions - blueprints for contexts
+
+Esta sección explica la relevancia de las definiciones de salida
+cuando se trabaja con los contextos. Más adelante ofrecemos
+ejemplos de definiciones de salida reales (véase
+@ref{Cambiar todos los contextos del mismo tipo}).
+
+@cindex salida, definiciones de
+@funindex \layout
+Aunque la música escrita en un archivo haga referencia a tipos y
+nombres de contexto, los contextos se crean solamente cuando la
+música se está realmente interpretando.  LilyPond interpreta la
+música bajo el control de una @q{definición de salida} y puede
+hacerlo así para varias definiciones de salida distintas, dando
+como resultado distintas salidas también.  La definicion de salida
+que corresponde a la impresión de la música se especifica mediante
+@code{\layout}.
+
+@funindex \midi
+Una definición de salida mucho más sencilla que se usa para la
+producción de MIDI se especifica mediante @code{\midi}.
+Internamente, LilyPond utiliza varias otras definiciones de
+salida, como cuando se usa el combinador de particellas
+(@ref{Combinación automática de las partes}) o se crean fragmentos
+de notas guía citadas (@ref{Citar otras voces}).
+
+Las definiciones de salida establecen la relación entre los
+contextos así como sus respectivos valores predeterminados.
+Aunque la mayor parte de los cambios se suelen hacer dentro de un
+bloque @code{\layout}, los ajustes de valores relacionados con el
+MIDI solamente tienen efecto cuando se hacen dentro de un bloque
+@code{\midi} block.
+
+@funindex autoBeaming
+Algunos ajustes afectan a varias salidas: por ejemplo, si se
+desactiva el barrado automático, @code{autoBeaming}, dentro de
+algún contexto, las barras cuentan como melismas en lo que
+respecta a la correspondencia entre la música y la letra, como se
+describe en @ref{Duración automática de las sílabas}.  Esta
+correspondencia se hace tanto para la salida impresa como para el
+MIDI.  Si los cambios hechos sobre el @code{autoBeaming} dentro de
+la definición de contexto de un bloque @code{\layout} no se
+repiten dentro del correspondiente bloque @code{\midi}, la letra y
+la música dejarán de estar sincronizadas dentro del MIDI.
+
+@seealso
+Archivos instalados:
+@file{ly/engraver-init.ly}.
+@file{ly/performer-init.ly}.
 
 @node Score. El contexto maestro
 @unnumberedsubsubsec Score. El contexto maestro
@@ -113,8 +165,7 @@ compás y se asegura de que ciertos elementos como claves, compases y
 armaduras están siempre alineados entre los distintos pentagramas.
 
 Se crea implícitamente una instancia del contexto Score cuando se
-procesa un bloque @code{\score @{@dots{}@}} o @code{\layout
-@{@dots{}@}}.
+procesa un bloque @code{\score @{@dots{}@}}.
 
 
 @node Contextos del nivel superior. Contenedores de pentagramas
@@ -406,7 +457,6 @@ De manera alternativa, se pueden utilizar variables con un efecto
 similar. Véase @rlearning{Organizar las piezas mediante variables}.
 
 @item
-
 @code{\context} sin ningún nombre corresponderá con el primer
 contexto que se encuentre entre los creados previamente que sean
 del mismo tipo dentro de la misma jerarquía de contextos, incluso
@@ -434,7 +484,7 @@ más tarde, por ejemplo cuando se asocia la letra con la música:
 
 @example
 \new Voice = "tenor" @var{música}
-...
+@dots{}
 \new Lyrics \lyricsto "tenor" @var{letra}
 @end example
 
@@ -452,7 +502,6 @@ se va a modificar un solo contexto, debe usarse un bloque
 @code{\with}, véase @ref{Cambiar solamente un contexto determinado}.
 
 @seealso
-
 Manual de aprendizaje:
 @rlearning{Organizar las piezas mediante variables}.
 
@@ -481,13 +530,13 @@ eventos musicales adicionales a un contexto anterior.
 
 Existe una excepción a esta regla general: precisamente uno de los
 contextos de @code{Voice} que están dentro de un contexto de
-@code{Staff} o de una construcción @code{<<...>>} persiste siempre
+@code{Staff} o de una construcción @code{<<@dots{}>>} persiste siempre
 hasta el final de, contexto de @code{Staff} circundante o la
-construcción @code{<<...>>}, incluso aunque puede haber períodos en
+construcción @code{<<@dots{}>>}, incluso aunque puede haber períodos en
 que no tiene nada que hacer.  El contexto que persiste de esta forma
 será el primero que se encuentre en la primera construcción encerrada
-entre llaves @code{@{...@}}, ignorando cualquiera que se encuentre
-dentro de construcciones encerradas por ángulos dobles @code{<<...>>}.
+entre llaves @code{@{@dots{}@}}, ignorando cualquiera que se encuentre
+dentro de construcciones encerradas por ángulos dobles @code{<<@dots{}>>}.
 
 Cualquier contexto se puede mantener vivo si nos aseguramos de que
 tiene algo que hacer en cualquier momento musical dado.  Los
@@ -665,7 +714,7 @@ modificándolo:
   @emph{etc.}
 @}
 @{
-  @emph{..música..}
+  @emph{@dots{}música@dots{}}
 @}
 @end example
 
@@ -715,14 +764,16 @@ compás independiente.
     \new Staff \with {
       \consists "Timing_translator"
       \consists "Default_bar_line_engraver"
-    } {
+    }
+    \relative c'' {
         \time 3/4
         c4 c c c c c
     }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
-  } {
+  }
+  \relative c'' {
       \time 2/4
       c4 c c c c c
   }
@@ -803,10 +854,17 @@ una instancia concreta de un contexto.
 @funindex \context
 @funindex \layout
 
-Los ajustes de contexto que se han de usar de forma predeterminada
-dentro de @code{Score}, @code{Staff}, @code{Voice} y otros contextos
+Los ajustes de contexto predeterminados que se han de usar para la composición
+tipográfica dentro de @code{Score}, @code{Staff}, @code{Voice} y otros contextos
 se pueden especificar en un bloque @code{\context} dentro de cualquier
-bloque @code{\layout}.  El bloque @code{\layout} se debe colocar
+bloque @code{\layout}.
+
+Los ajustes para la salida MIDI, al contrario que para la
+composición tipográfica, se tendrán que especificar aparte en
+bloques @code{\midi} (véase
+@ref{Definiciones de salida - estructura de los contextos}).
+
+El bloque @code{\layout} se debe colocar
 dentro del bloque @code{\score} al que se aplica, después de la
 música.
 
@@ -957,13 +1015,16 @@ parte de cualquier bloque @code{\layout} que se encuentre dentro del
 de las instrucciones @code{\new} @var{context-type}:
 
 @example
-\new Staff
-\with @{
-  [ajustes de contexto para esta única instancia de contexto]
-@} @{
-...
+\new Staff \with @{ [ajustes de contexto para esta instancia de contexto solamente] @}
+@{
+  @dots{}
 @}
 @end example
+
+Dado que dicha @q{modificación de contexto} está especificada
+dentro de la música, afectará a @emph{todas} las salidas
+(tipografía @emph{y también} el MIDI), a diferencia de los cambios
+que se hacen dentro de una definición de salida.
 
 Se pueden especificar los siguientes tipos de ajustes:
 
@@ -975,10 +1036,7 @@ contexto
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice
-    \with {
-      \override Stem.thickness = #4.0
-    }
+    \new Voice \with { \override Stem.thickness = #4.0 }
     {
       \relative c'' {
         a4^"Thick stems" a a a
@@ -1001,10 +1059,8 @@ Estableciendo una propiedad de contexto directamente
         a4 a a a
       }
     }
-    \new Staff
-    \with {
-      fontSize = #-4
-    } {
+    \new Staff \with { fontSize = #-4 }
+    {
       \relative c'' {
         a4^"Smaller font" a a a
         a4 a a a
@@ -1028,11 +1084,9 @@ Una instrucción predefinida tal como @code{\dynamicUp}
         }
       }
     }
-    \new Staff
-    \with { \accidentalStyle dodecaphonic }
+    \new Staff \with { \accidentalStyle dodecaphonic }
     {
-      \new Voice
-      \with { \dynamicUp }
+      \new Voice \with { \dynamicUp }
       {
         \relative c'' {
           a4^"Dynamics above" a a a
@@ -1064,7 +1118,7 @@ de lo contrario, se usa el valor predeterminado tomado de un enunciado
 
 @item
 de lo contrario, se usa el valor tomado del bloque @code{\context} más
-reciente que corresponda dentro de los bloques @code{\layout},
+reciente que corresponda dentro de los bloques @code{\layout} o @code{\midi},
 
 @item
 de lo contrario se usa el valor predeterminado que LilyPond lleva
@@ -1104,7 +1158,7 @@ Referencia de la notación:
 @funindex denies
 
 Los contextos específicos, como @code{Staff} y @code{Voice}, están
-construidos a base de bloques sencillos.  Es posible crear nuevos
+construidos a partir de bloques sencillos.  Es posible crear nuevos
 tipos de contextos con combinaciones distintas de añadidos grabadores.
 
 El siguiente ejemplo muestra cómo construir un tipo diferente de
@@ -1158,34 +1212,39 @@ En primer lugar es necesario definir un nombre para el nuevo contexto:
 \name ImproVoice
 @end example
 
-Debido a que es parecido al contexto @code{Voice}, queremos órdenes
-que funcionen sobre contextos de @code{Voice} (existentes) para que
-siga funcionando.  Esto se consigue dando al contexto nuevo un alias
-@code{Voice},
+Debido a que es parecido al contexto @code{Voice}, queremos
+órdenes que funcionen dentro de los contextos @code{Voice}
+(existentes) para que siga funcionando.  Esto se consigue dando al
+contexto nuevo un alias de @code{Voice},
 
 @example
 \alias Voice
 @end example
 
-El contexto imprimirá notas y textos explicativos, por ello tenemos
-que añadir los grabadores que aportan esta funcionalidad:
+El contexto imprimirá notas y textos explicativos, por ello
+tenemos que añadir los grabadores que aportan esta funcionalidad,
+y además el grabador que agrupa las notas, plicas y silencios que
+están en el mismo momento musical en forma de columnas,
 
 @example
 \consists "Note_heads_engraver"
 \consists "Text_engraver"
+\consists "Rhythmic_column_engraver"
 @end example
 
-pero sólo necesitamos esto en la línea central:
+Las cabezas de todas las notas se deben situar sobre la línea
+central,
 
 @example
 \consists "Pitch_squash_engraver"
 squashedPosition = #0
 @end example
 
-El grabador @rinternals{Pitch_squash_engraver} modifica las cabezas de
-nota (creadas por el grabador @rinternals{Note_heads_engraver}) y
+El grabador @code{Pitch_squash_engraver} modifica las cabezas de
+nota (creadas por el grabador @code{Note_heads_engraver}) y
 establece sus posiciones verticales al valor de
-@code{squashedPosition}, en este caso@tie{}@code{0}, la línea central.
+@code{squashedPosition}, en este caso@tie{}@code{0}, la línea
+central.
 
 Las notas parecen barras inclinadas y no tienen plica:
 
@@ -1194,9 +1253,16 @@ Las notas parecen barras inclinadas y no tienen plica:
 \override Stem.transparent = ##t
 @end example
 
-Todos estos añadidos tienen que cooperar, y esto se consigue con un
-añadido especial, que se debe marcar con la palabra clave
-@code{\type}.  Este será siempre @code{Engraver_group},
+Todos estos complementos o plug-ins tienen que comunicarse bajo el
+control del contexto.  Los mecanismos con el que se comunican los
+contextos se establecen mediante la declaración del @code{\type}
+(tipo) del contexto.  Dentro de un bloque @code{\layout}, casi
+todos los contextos serán del tipo @code{Engraver_group}.  Algunos
+contextos especiales y los contextos de los bloques @code{\midi}
+usan otros tipos.  La copia y la modificación de una definición de
+contexto existente también cumplimentan el tipo.  Como este
+ejemplo crea una definición partiendo de cero, tiene que ser
+especificada explícitamente.
 
 @example
 \type "Engraver_group"
@@ -1210,6 +1276,7 @@ Al juntarlo todo, obtenemos
   \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
+  \consists "Rhythmic_column_engraver"
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
@@ -1219,9 +1286,9 @@ Al juntarlo todo, obtenemos
 @end example
 
 @funindex \accepts
-Los contextos dan lugar a jerarquías.  Queremos colgar el contexto
-@code{ImproVoice} bajo el contexto @code{Staff}, como simples
-@code{Voice}s normales.  Por tanto, modificamos la definición de
+Los contextos dan lugar a jerarquías.  Queremos poner el contexto
+@code{ImproVoice} dentro del contexto @code{Staff}, igual que los contextos
+de voz normales.  Por tanto, modificamos la definición de
 @code{Staff} con la instrucción @code{\accepts} (acepta),
 
 @example
@@ -1265,6 +1332,20 @@ puede escribir como
   a1
 @}
 @end example
+
+Para completar el ejemplo, los cambios que afectan a la jerarquía
+de contextos se deben repetir dentro de un bloque @code{\midi} de
+manera que la salida MIDI dependa de las mismas relaciones de
+contexto.
+
+@seealso
+
+Referencia de funcionamiento interno:
+@rinternals{Engraver_group},
+@rinternals{Note_heads_engraver},
+@rinternals{Text_engraver},
+@rinternals{Rhythmic_column_engraver},
+@rinternals{Pitch_squash_engraver}.
 
 
 @node Orden de disposición de los contextos
@@ -1325,10 +1406,26 @@ ejemplo, el contexto @code{VaticanaStaff} está basado en el contexto
 @code{Staff}, pero con el contexto @code{VaticanaVoice} sustituido por
 el contexto @code{Voice} en la lista @qq{accepts}.
 
-Observe que discretamente se crea un contexto de forma implícita si se
-encuentra una instrucción donde no hay un contexto apropiado para
-contenerlo.  Esto puede dar lugar a pentagramas o partituras nuevos no
-esperados.
+
+@cindex contextos implícitos
+@cindex implícitos, contextos
+@funindex \defaultchild
+
+Observe que discretamente se crea un contexto de forma implícita
+si se encuentra una instrucción donde no hay un contexto apropiado
+para contenerlo.
+
+Dentro de una definición de contexto, el tipo de un subcontexto
+que se va a crear implícitamente se especifica usando
+@code{\defaultchild} (hijo predeterminado).  Algunos eventos
+musicales requieren un contexto @samp{Bottom} (inferior): cuando
+se encuentra este evento, se crean subcontextos de forma recursiva
+hasta que se alcanza un contexto que no tiene establecido el
+@samp{defaultchild}.
+
+La creación implícita de contextos puede dar lugar a pentagramas o
+partituras nuevos no esperados.  La utilización de @code{\new}
+para crear contextos explícitamente evita esos problemas.
 
 @cindex alignAboveContext
 @cindex alignBelowContext
@@ -1336,13 +1433,14 @@ esperados.
 @funindex alignBelowContext
 
 En ocasiones se necesita que un contexto exista durante un breve
-intervalo de tiempo, siendo un buen ejemplo el contexto de pentagrama
-de un ossia.  Esto se consigue normalmente mediante la introducción de
-la definición del contexto en el lugar apropiado en paralelo con la
-sección correspondiente de la música principal.  De forma
-predeterminada, el contexto tempral se coloca debajo de todos los
-contextos existentes.  Para reposicionallo por encima del contexto que
-tenga el nombre @qq{principal}, debería definirse de esta forma:
+intervalo de tiempo, siendo un buen ejemplo el contexto de
+pentagrama de un ossia.  Esto se consigue normalmente mediante la
+introducción de la definición del contexto en el lugar apropiado
+en paralelo con la sección correspondiente de la música principal.
+De forma predeterminada, el contexto tempral se coloca debajo de
+todos los contextos existentes.  Para reposicionarlo por encima
+del contexto que tenga el nombre @qq{principal}, debería definirse
+de esta forma:
 
 @example
 @code{\new Staff \with @{ alignAboveContext = #"principal" @} }
@@ -2345,7 +2443,7 @@ We have seen two methods of changing properties: @code{\set} and
 properties.
 
 @code{fontSize} is a special property: it is equivalent to
-entering @code{\override ... #'font-size} for all pertinent
+entering @code{\override @dots{} #'font-size} for all pertinent
 objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
@@ -2876,11 +2974,11 @@ Works not at all for:
 @end ignore
 
 @lilypond[verbatim,quote,relative=2]
-a~a
+a~ a
 a
 % increase the length of the tie
 -\tweak minimum-length #5
-~a
+~ a
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
@@ -2904,15 +3002,15 @@ Esta sobreescritura se puede usar también para aumentar la longitud de
 las ligaduras de expresión y de fraseo:
 
 @lilypond[verbatim,quote,relative=2]
-a( a)
+a( g)
 a
 -\tweak minimum-length #5
-( a)
+( g)
 
-a\( a\)
+a\( g\)
 a
 -\tweak minimum-length #5
-\( a\)
+\( g\)
 @end lilypond
 
 Para algunos objetos de presentación, la propiedad
@@ -3489,23 +3587,23 @@ explícitas.
 
 @c TODO Add example
 
-@subsubsubheading Claves octavadas
+@subsubsubheading Claves transportadas
 
-@cindex octavadas, visibilidad de las claves
-@cindex visibilidad de las claves octavadas
-@cindex claves, visibilidad de la octavación
+@cindex transportadas, visibilidad de las claves
+@cindex visibilidad de las claves transportadas
+@cindex claves, visibilidad de la transposición
 
-El pequeño símbolo de octava sobre las claves en octava alta o baja se
-produce por parte del objeto @code{ClefModifier}.  Su visibilidad se
-hereda automáticamente de la del objeto @code{Clef}, así que no es
+El pequeño símbolo de transposición sobre una clave se produce por
+parte del objeto @code{ClefModifier}.  Su visibilidad se hereda
+automáticamente de la del objeto @code{Clef}, así que no es
 necesario aplicar las sobreescrituras correspondientes
-@code{break-visibility} a los objetos
-@code{ClefModifier} para suprimir los símbolos de octavación
-para las claves invisibles.
+@code{break-visibility} a los objetos @code{ClefModifier} para
+suprimir los símbolos de transposición u octavación para las
+claves invisibles.
 
 Para los cambios de clave explícitos, la propiedad
-@code{explicitClefVisibility} controla tanto el símbolo de clave como
-el símbolo de octava asociado.
+@code{explicitClefVisibility} controla tanto el símbolo de clave
+como el símbolo de transposición o de octava asociado.
 
 @seealso
 Manual de aprendizaje:
@@ -3918,11 +4016,11 @@ distintos a las barras de compás.  Estos objetos son @code{ambitus},
 @code{left-edge}, @code{key-cancellation}, @code{key-signature} y
 @code{time-signature}.
 
-De forma predeterminada, las letras de ensayo y los números de compás
-se centran horizontalmente sobre el objeto:
+Cada tipo de objeto tiene su propio punto de referencia
+predeterminado, con el que se alinean las marcas de ensayo:
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
@@ -3955,13 +4053,13 @@ divisoria.  Si la línea divisoria es invisible, el objeto se alinea
 con el punto en el que se encontraría la línea divisoria.
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be centered above the Key Signature
+% The rehearsal mark will be aligned to the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
@@ -3984,20 +4082,20 @@ partitura con varios pentagramas, este ajuste se debe hacer para todos
 los pentagramas.
 
 @lilypond[verbatim,quote,relative=1]
-% The RehearsalMark will be centered above the Key Signature
+% The RehearsalMark will be aligned with the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
 e1
-% The RehearsalMark will be aligned with the left edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
+% The RehearsalMark will be centered above the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
 e1
-% The RehearsalMark will be aligned with the right edge of the Key Signature
-\once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
+% The RehearsalMark will be aligned with the left edge of the Key Signature
+\once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
 e1
@@ -4569,12 +4667,12 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
+\relative c'' {
   c4^"piu mosso" b a b
   \padText #1.8
-  c4^"piu mosso" d e f
+  c4^"piu mosso" b a b
   \padText #2.6
-  c4^"piu mosso" fis a g
+  c4^"piu mosso" b a b
 }
 @end lilypond
 
