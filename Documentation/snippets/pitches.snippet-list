@@ -4,6 +4,7 @@ altering-the-length-of-beamed-stems.ly
 ambitus-with-multiple-voices.ly
 ambitus.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
+automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly
 changing-the-ambitus-gap.ly
 changing-the-interval-of-lines-on-the-stave.ly
 clefs-can-be-transposed-by-arbitrary-amounts.ly

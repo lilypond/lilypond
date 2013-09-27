@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.25"
+\version "2.17.27"
 
 \header {
   lsrtags = "editorial-annotations, pitches, really-cool"
