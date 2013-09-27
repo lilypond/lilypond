@@ -240,6 +240,7 @@ multiple voices on the same staff."
   \consists "Beam_engraver"
   \consists "Grace_beam_engraver"
   \consists "Auto_beam_engraver"
+  \consists "Grace_auto_beam_engraver"
 
   %% must come before Script_column_engraver.
   \consists "New_fingering_engraver"
