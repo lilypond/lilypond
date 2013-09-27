@@ -3481,6 +3481,7 @@ Snippets:
 Internals Reference:
 @rinternals{GraceMusic},
 @rinternals{Grace_beam_engraver},
+@rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
 
