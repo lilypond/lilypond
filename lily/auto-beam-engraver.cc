@@ -38,7 +38,9 @@ class Auto_beam_engraver : public Engraver
 
 protected:
   void stop_translation_timestep ();
-  void process_music ();
+  void process_acknowledged ();
+
+  virtual void process_music ();
   virtual void finalize ();
   virtual void derived_mark () const;
 
@@ -49,17 +51,15 @@ protected:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_TRANSLATOR_LISTENER (beam_forbid);
 
-  void process_acknowledged ();
-
 private:
-  bool test_moment (Direction, Moment, Moment);
+  virtual bool test_moment (Direction, Moment, Moment);
   void consider_begin (Moment, Moment);
   void consider_end (Moment, Moment);
   Spanner *create_beam ();
   void begin_beam ();
   void end_beam ();
   void junk_beam ();
-  bool is_same_grace_state (Grob *e);
+  virtual bool is_same_grace_state (Moment, Moment);
   void recheck_beam ();
   void typeset_beam ();
   vector<Item *> *remove_end_stems (vsize);
@@ -263,6 +263,13 @@ Auto_beam_engraver::junk_beam ()
   shortest_mom_ = Moment (Rational (1, 4));
 }
 
+bool
+Auto_beam_engraver::is_same_grace_state (Moment start, Moment now)
+{
+  return bool (start.grace_part_) == bool (now.grace_part_);
+}
+
+
 void
 Auto_beam_engraver::end_beam ()
 {
@@ -397,10 +404,10 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
     }
 
   /*
-    ignore grace notes.
+    ignore interspersed grace notes.
   */
   Moment now = now_mom ();
-  if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
+  if (!is_same_grace_state (beam_start_location_, now))
     return;
 
   Duration *stem_duration = unsmob_duration (ev->get_property ("duration"));
@@ -560,6 +567,94 @@ ADD_TRANSLATOR (Auto_beam_engraver,
                 "beamHalfMeasure "
                 "beatStructure "
                 "subdivideBeams ",
+
+                /* write */
+                ""
+               );
+
+class Grace_auto_beam_engraver : public Auto_beam_engraver
+{
+  TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
+  DECLARE_TRANSLATOR_LISTENER (beam_forbid);
+
+private:
+  Moment last_grace_start_; // Full starting time of last grace group
+  Moment last_grace_position_; // Measure position of same
+  virtual void process_music ();
+  virtual bool is_same_grace_state (Moment, Moment);
+  virtual bool test_moment (Direction, Moment, Moment);
+};
+
+Grace_auto_beam_engraver::Grace_auto_beam_engraver ()
+{
+  last_grace_start_.main_part_.set_infinite (-1);
+  // grace_part_ is zero -> test_moment is false, last_grace_position_
+  // not considered.
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Grace_auto_beam_engraver, beam_forbid);
+void
+Grace_auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
+{
+  Auto_beam_engraver::listen_beam_forbid (ev);
+}
+
+bool
+Grace_auto_beam_engraver::is_same_grace_state (Moment, Moment)
+{
+  // This is for ignoring interspersed grace notes in main note
+  // beaming.  We never want to ignore something inside of grace note
+  // beaming, so return true.
+  return true;
+}
+
+void
+Grace_auto_beam_engraver::process_music ()
+{
+  Moment now = now_mom ();
+  // Update last_grace_start_ and last_grace_position_ only when the
+  // main time advances.
+  if (now.main_part_ > last_grace_start_.main_part_)
+    {
+      last_grace_start_ = now;
+      last_grace_position_ = measure_position (context ());
+    }
+
+  Auto_beam_engraver::process_music ();
+}
+
+bool
+Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment)
+{
+  // If no grace group started this main moment, we have no business
+  // beaming.  Same if we have left the original main time step.
+  if (!last_grace_start_.grace_part_
+      || last_grace_position_.main_part_ != test_mom.main_part_)
+    return false;
+  // Autobeam start only when at the start of the grace group.
+  if (dir == START)
+      return last_grace_position_ == test_mom;
+  // Autobeam end only when the grace part is finished.
+  return !test_mom.grace_part_;
+}
+
+ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, stem);
+ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, bar_line);
+ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, beam);
+ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, breathing_sign);
+ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, rest);
+ADD_TRANSLATOR (Grace_auto_beam_engraver,
+                /* doc */
+                "Generates one autobeam group across an entire grace phrase. "
+                " As usual, any manual beaming or @code{\\noBeam} will block"
+                " autobeaming, just like setting the context property"
+                " @samp{autoBeaming} to @code{##f}.",
+
+                /* create */
+                "Beam ",
+
+                /* read */
+                "autoBeaming ",
 
                 /* write */
                 ""
