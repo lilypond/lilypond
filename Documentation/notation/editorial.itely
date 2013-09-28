@@ -470,6 +470,9 @@ Stems may be manually placed to point up or down; see
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+
 @seealso
 Notation Reference:
 @ref{Direction and placement}.
