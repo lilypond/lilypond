@@ -182,13 +182,15 @@ def show_rules (file, from_version, to_version):
 
 def do_conversion (str, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return
-tuple (LAST,STR), with the last successful conversion and the resulting
-string."""
+tuple (LAST,LASTCHANGED,STR,ERRORS), with the last applied conversion,
+the last conversion resulting in a change, the resulting
+string and the number of errors."""
     conv_list = get_conversions (from_version, to_version)
 
     ly.progress (_ ("Applying conversion: "), newline = False)
 
     last_conversion = None
+    last_change = None
     errors = 0
     try:
         for x in conv_list:
@@ -197,8 +199,11 @@ string."""
                 ly.progress (', ', newline = False)
             else:
                 ly.progress (tup_to_str (x[0]))
-            str = x[1] (str)
+            newstr = x[1] (str)
             last_conversion = x[0]
+            if (newstr != str):
+                last_change = last_conversion
+            str = newstr
 
     except convertrules.FatalConversionError:
         ly.error (_ ("Error while converting")
@@ -206,7 +211,7 @@ string."""
                   + _ ("Stopping at last successful rule"))
         errors += 1
 
-    return (last_conversion, str, errors)
+    return (last_conversion, last_change, str, errors)
 
 
 
@@ -259,13 +264,16 @@ def do_one_file (infile_name):
         raise InvalidVersion (".".join ([str(n) for n in from_version]))
 
 
-    (last, result, errors) = do_conversion (input, from_version, to_version)
+    (last, last_change, result, errors) = \
+        do_conversion (input, from_version, to_version)
 
     if global_options.force_current_version and \
             (last is None or last == to_version):
         last = str_to_tuple (program_version)
     if last:
         if global_options.diff_version_update:
+            # Note that last_change can be set even if the result is
+            # the same if two conversion rules cancelled out
             if result == input:
                 # check the y in x.y.z  (minor version number)
                 previous_stable = (last[0], 2*(last[1]/2), 0)
@@ -276,6 +284,8 @@ def do_one_file (infile_name):
                 else:
                     # make no (actual) change to the version number
                     last = from_version
+            else:
+                last = last_change
 
         newversion = r'\version "%s"' % tup_to_str (last)
         if lilypond_version_re.search (result):
