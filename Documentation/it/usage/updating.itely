@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: d96248cfd7c9f08f3bb27b400e589d54d2c000fb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,14 +15,14 @@
 @chapter Aggiornare i file con @command{convert-ly}
 @translationof Updating files with convert-ly
 
-@cindex Aggiornare un file di LilyPond
+@cindex aggiornare un file di LilyPond
 @cindex convert-ly
 
 La sintassi di input di LilyPond viene regolarmente modificata per semplificarla
 o per migliorarla in vari modi.  L'effetto collaterale è che l'interprete di LilyPond
 spesso non è più compatibile con i vecchi file di input.  Per ovviare a questo
-problema, si può usare il programma @command{convert-ly}, che permette di gestire
-gran parte dei cambiamenti di sintassi tra le versioni di LilyPond.
+problema, si può usare il programma @command{convert-ly} per aggiornare
+i file alle nuove versioni di LilyPond.
 
 @menu
 * Perché la sintassi cambia?::
@@ -56,15 +56,39 @@ vecchi utenti che avevano già delle partiture)?  In questo caso decidemmo di
 cambiare il nome in @code{print-all-headers}.  Fortunatamente, questa modifica
 può essere automatizzata con @command{convert-ly}.
 
-Purtroppo @code{convert-ly} non è in grado di gestire tutti i cambiamenti
+Purtroppo @command{convert-ly} non è in grado di gestire tutti i cambiamenti
 dell'input.  Ad esempio, in LilyPond 2.4 e precedenti, gli accenti e le lettere
 non inglesi venivano inserite con LaTeX -- per mostrare la parola francese per
 Natale si usava @code{No\"el}.  Ma in LilyPond
 @c keep "-matching straight in fancy editors
 2.6 e superiori, il carattere speciale @code{ë} deve essere inserito direttamente
-nel file LilyPond come carattere UTF-8.  @code{convert-ly} non può sostituire
+nel file LilyPond come carattere UTF-8.  @command{convert-ly} non può sostituire
 tutti i caratteri speciali di LaTeX con i rispettivi caratteri UTF-8; è necessario
 aggiornare a mano i vecchi file di input di LilyPond.
+
+Le regole di conversione di @command{convert-ly} si basano sulla ricerca
+e sostituzione di parole chiave piuttosto che su una completa comprensione
+di LilyPond.  Ciò comporta varie conseguenze:
+@itemize @bullet
+@item
+L'affidabilità della conversione dipende dalla qualità di ciascun insieme
+di regole applicate e dalla complessità del rispettivo cambiamento.  Talvolta
+le conversioni richiedono correzioni manuali, quindi la vecchia versione
+deve essere tenuta a disposizione per poterle confrontare.
+@item
+Sono possibili solo conversioni nei formati più recenti: non ci sono regole
+per tornare a una versione precedente.  Dunque la copia di lavoro principale
+di un file LilyPond deve essere aggiornata soltanto quando non è più necessario
+compilarlo con le versioni precedenti di LilyPond.  Sistemi di controllo di
+versione come Git possono essere utili per gestire più di una versione.
+@item
+LilyPond e Scheme hanno delle robuste difese in caso di spazi omessi o
+posizionati in modo originale, ma le regole usate da @command{convert-ly} tendono
+a dare per scontato certe forme stilistiche.  Seguire lo stile usato nei manuali
+è la via più sicura per aggiornamenti indolori, soprattutto perché i manuali
+stessi sono aggiornati con @command{convert-ly}.
+@end itemize
+
 
 
 @node Utilizzo di convert-ly
@@ -129,8 +153,10 @@ Esistono le seguenti opzioni:
 
 @table @code
 @item -d,--diff-version-update
-aggiorna @code{\version} all'ultima versione oppure, se questa è maggiore, non
-fa niente.
+aumenta il numero di versione in @code{\version} solo se il file è stato
+modificato da @command{convert-ly}.  Senza questa opzione (o quando una
+conversione ha modificato il file), la dichiarazione di versione riflette
+l'ultime regola di conversione considerata.
 
 @item -e,--edit
 Applica le conversioni direttamente nel file di input, modificando
@@ -158,7 +184,7 @@ Mostra tutte le conversioni conosciute ed esce.
 
 @item -t, --to=@var{to-patchlevel}
 Imposta esplicitamente la versione obiettivo della conversione, altrimenti
-viene usato il valore più recente.
+viene usato il valore più recente.  Deve essere maggiore della versione iniziale.
 @example
 convert-ly --to=2.14.1 miofile.ly
 @end example

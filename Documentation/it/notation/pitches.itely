@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 41a69fdf186fa00f69fbe1c1f2870423dbd14f56
+   Translation of GIT committish: fa12d929326daf49f84838a95b0570b32e4b3400
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2846,11 +2846,10 @@ Potete utilizzare, al posto di @code{\xNote}, @code{\xNotesOn} e
 @code{\deadNotesOff}.  Il termine @notation{dead note} è di uso comune
 tra i chitarristi.
 
-Esiste anche una scorciatoia per le forme a diamante. Può essere usata
-solo all'interno di un accordo:
+Esiste anche una scorciatoia simile per le forme a diamante:
 
 @lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
 @end lilypond
 
 @predefined

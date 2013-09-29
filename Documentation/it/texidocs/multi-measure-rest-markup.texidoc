@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
   texidocit = "
 Il testo a margine di una pausa multipla viene centrato sopra o sotto
 di essa.  Se il testo è lungo, la misura non si espanderà.  Per espandere

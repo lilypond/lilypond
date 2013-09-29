@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b00f11e450fd9c3c7b56ece5afa72606cac064cb
+    Translation of GIT committish: 2537ec6d3ad3c7f1308254d856ed762fb5d911b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1036,6 +1036,16 @@ instrumentTwo = \relative c' {
 >>
 @end lilypond
 
+@subsubsubheading Uso di \partcombine col testo vocale
+
+@cindex \partcombine e testo vocale
+
+Il comando @code{\partcombine} non è progettato per funzionare col
+testo vocale; al punto che se una delle voci è nominata in modo
+esplicito per poterle assegnare del testo, l'unione delle parti
+smette di funzionare.  Tuttavia, questo risultato si può ottenere
+usando un contesto @code{NullVoice}.  Vedi @ref{Polyphony with shared lyrics}.
+
 
 @snippets
 
@@ -1062,9 +1072,7 @@ Guida al funzionamento interno:
 
 @knownissues
 Tutte le funzioni @code{\partcombine@dots{}} possono accettare soltanto due
-voci e non sono progettate per funzionare col testo vocale; al punto che se
-una delle voci è nominata in modo esplicito per poterle assegnare del testo,
-l'unione delle parti smette di funzionare.
+voci.
 
 Le funzioni @code{\partcombine@dots{}} non possono essere inserite all'interno
 di un blocco @code{\tuplet} o @code{\relative}.

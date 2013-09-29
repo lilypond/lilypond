@@ -1,8 +1,8 @@
-%% Translation of GIT committish: b430840ac1390967fd8cc958400b2fdcdc641820
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
   texidocit = "
 Le abbreviazioni sono definite in @samp{ly/script-init.ly}, dove sono
 assegnati valori predefiniti alle variabili @code{dashHat}, @code{dashPlus},
-@code{dashDash}, @code{dashBar}, @code{dashLarger}, @code{dashDot} e
+@code{dashDash}, @code{dashBang}, @code{dashLarger}, @code{dashDot} e
 @code{dashUnderscore}.  Questi valori predefiniti possono essere
 modificati. Ad esempio, per associare l'abbreviazione @code{-+} (@code{dashPlus})
 al simbolo del trillo invece che al simbolo + predefinito, si assegna il
