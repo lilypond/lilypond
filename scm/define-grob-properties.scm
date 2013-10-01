@@ -108,7 +108,6 @@ default length of the beamlet to the right.  The actual length of a
 beamlet is determined by taking either the default length or the
 length specified by @code{beamlet-max-length-proportion}, whichever is
 smaller.")
-     (beam-gap ,number-pair? "Size of a gap in a @code{Beam}.")
      (beamlet-max-length-proportion ,pair? "The maximum length of a
 beamlet, as a proportion of the distance between two adjacent stems.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger

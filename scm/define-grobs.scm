@@ -408,11 +408,9 @@
         ;; only for debugging.
         (font-family . roman)
 
-        (beam-gap . ,ly:beam::calc-beam-gap)
-        (minimum-length . ,ly:beam::calc-minimum-length)
+        (gap . 0.8)
         (neutral-direction . ,DOWN)
         (positions . ,beam::place-broken-parts-individually)
-        (springs-and-rods . ,ly:beam::calc-springs-and-rods)
         (X-positions . ,ly:beam::calc-x-positions)
         (transparent . ,(grob::inherit-parent-property
                          X 'transparent))

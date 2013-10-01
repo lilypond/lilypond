@@ -40,31 +40,6 @@ using namespace std;
   annoying layer between (rest)collision & (note-head + stem)
 */
 
-Interval
-Note_column::accidental_width (Grob *me)
-{
-  extract_grob_set (me, "note-heads", nhs);
-  vector<Grob *> accs;
-  for (vsize i = 0; i < nhs.size (); i++)
-    if (Grob *acc = unsmob_grob (nhs[i]->get_object ("accidental-grob")))
-      accs.push_back (acc);
-
-  Grob *common = common_refpoint_of_array (accs, me, X_AXIS);
-  common = common_refpoint_of_array (nhs, common, X_AXIS);
-
-  Interval nhs_ex = Axis_group_interface::relative_group_extent (nhs, common, X_AXIS);
-  Interval accs_ex = Axis_group_interface::relative_group_extent (accs, common, X_AXIS);
-
-  if (nhs_ex.is_empty ())
-    return accs_ex;
-
-  // want an empty interval here
-  if (accs_ex.is_empty ())
-    return Interval ();
-
-  return Interval (accs_ex[LEFT], nhs_ex[LEFT]);
-}
-
 bool
 Note_column::has_rests (Grob *me)
 {

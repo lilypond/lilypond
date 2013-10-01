@@ -42,7 +42,6 @@ public:
   static bool has_rests (Grob *me);
   static Grob *dot_column (Grob *me);
   static Interval cross_staff_extent (Grob *me, Grob *refp);
-  static Interval accidental_width (Grob *me);
   DECLARE_GROB_INTERFACE ();
 
   static Item *get_stem (Grob *);
