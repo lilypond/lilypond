@@ -7,8 +7,6 @@ depth = ..
 #############
 ### Variables
 
-OUT_DIST_FILES = $(outdir)/ly-grammar.txt
-
 NAME = documentation
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS = logo pictures misc po css topdocs \

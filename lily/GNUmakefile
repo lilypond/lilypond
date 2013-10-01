@@ -10,8 +10,6 @@ MODULE_INCLUDES= $(depth)/flower/include
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c c++ executable po help2man
 
-OUT_DIST_FILES=$(addprefix $(outdir)/,parser.hh parser.cc)
-
 include $(depth)/make/stepmake.make
 
 ifeq ($(LINK_GXX_STATICALLY),yes)
