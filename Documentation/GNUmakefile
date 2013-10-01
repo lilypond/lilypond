@@ -280,7 +280,7 @@ $(outdir)/%.php: %.php
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
-$(outdir)/notation.texi: $(outdir)/ly-grammar.txt
+$(outdir)/contributor.texi: $(outdir)/ly-grammar.txt
 
 ## Rules for the automatically generated documentation
 $(outdir)/ly-grammar.txt: $(top-src-dir)/lily/parser.yy
