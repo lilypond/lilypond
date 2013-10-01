@@ -660,7 +660,8 @@ Scheme-Ausdruck zu benutzen.
 Die Eingabe von LilyPond ist in Zeichen und Ausdrücke gegliedert, so etwa
 wie die menschliche Sprache sich in Wörter und Sätze gliedert.  LilyPond
 hat einen Lexer, der Zeichen erkennt (Zahlen, Zeichenketten, Scheme-Elemente,
-Tonhöhen usw.) und einen Parser, der die Syntax versteht, @ruser{LilyPond grammar}.
+Tonhöhen usw.) und einen Parser, der die Syntax versteht,
+@rcontribnamed{LilyPond grammar, LilyPond-Grammatik}.
 Wenn dann eine bestimmte Syntaxregel als zuständig erkannt wurde, werden die
 damit verknüpften Aktionen ausgeführt.
 

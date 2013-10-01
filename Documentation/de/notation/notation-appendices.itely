@@ -1603,7 +1603,8 @@ Wenn dies nicht erreicht werden kann, ist die Datei nicht korrekt und
 ensprechende Fehlermeldungen werden ausgegeben.  Die syntaktischen Gruppierungen
 und die Regeln, nach welchen die Gruppen aus ihren Einzelteilen nach der
 LilyPond-Syntax erstellt werden, finden sich in der Datei @file{lily/parser.yy}
-und werden in der Backus Normal Form (BNF) in @ref{LilyPond-Grammatik}
+und werden in der Backus Normal Form (BNF) in
+@rcontribnamed{LilyPond grammar, LilyPond-Grammatik}
 gezeigt.  Diese Datei wird benutzt, um den Parser während der Programmkompilation
 zu erstellen.  Hierzu wird der Parser-Ersteller Bison verwendet.  Er ist
 Teil des Quellcodes und nicht in die binäre Installation von LilyPond
