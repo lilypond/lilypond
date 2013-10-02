@@ -59,8 +59,6 @@ class Completion_heads_engraver : public Engraver
   vector<Item *> notes_;
   vector<Item *> prev_notes_;
   // Must remember notes for explicit ties.
-  vector<Item *> tie_note_candidates_;
-  vector<Stream_event *> tie_note_candidate_events_;
   vector<Grob *> ties_;
   vector<Stream_event *> note_events_;
   Spanner *tie_column_;
@@ -291,9 +289,6 @@ Completion_heads_engraver::start_translation_timestep ()
   Moment now = now_mom ();
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
-      tie_note_candidate_events_ = note_events_;
-      tie_note_candidates_ = prev_notes_;
-
       note_events_.clear ();
       prev_notes_.clear ();
     }

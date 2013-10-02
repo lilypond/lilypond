@@ -58,7 +58,6 @@ using namespace std;
 class Completion_rest_engraver : public Engraver
 {
   vector<Item *> rests_;
-  vector<Item *> prev_rests_;
   vector<Stream_event *> rest_events_;
   Moment rest_end_mom_;
   bool is_first_;
@@ -241,8 +240,6 @@ Completion_rest_engraver::process_music ()
 void
 Completion_rest_engraver::stop_translation_timestep ()
 {
-  if (rests_.size ())
-    prev_rests_ = rests_;
   rests_.clear ();
 }
 
@@ -253,7 +250,6 @@ Completion_rest_engraver::start_translation_timestep ()
   if (rest_end_mom_.main_part_ <= now.main_part_)
     {
       rest_events_.clear ();
-      prev_rests_.clear ();
     }
   context ()->set_property ("restCompletionBusy",
                             ly_bool2scm (rest_events_.size ()));
