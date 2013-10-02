@@ -61,3 +61,12 @@ all note head styles and straight flags."
     \show-note-styles #'(default)
   }
 }
+
+\markup {
+  \column {
+    \combine \null \vspace #1
+    \underline "Flat-flag:"
+    \override #'(flag-style . flat-flag)
+    \show-note-styles #'(default)
+  }
+}

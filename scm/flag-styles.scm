@@ -16,7 +16,8 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;;;  This file implements different flag styles in Scheme / GUILE, most
-;;;;  notably the old-straight-flag and the modern-straight-flag styles.
+;;;;  notably the old-straight-flag, the modern-straight-flag and the flat-flag
+;;;;  styles.
 
 
 (define-public (no-flag grob)
@@ -80,16 +81,22 @@ All lengths are scaled according to the font size of the note."
            (raw-length (if stem-up upflag-length downflag-length))
            (angle (if stem-up upflag-angle downflag-angle))
            (flag-length (+ (* raw-length factor) half-stem-thickness))
-           (flag-end (polar->rectangular flag-length angle))
+           ;; For flat flags the points to create the stencil using
+           ;; ly:round-filled-polygon need to be different concerning flag-end
+           (flag-end (if (= angle 0)
+                         (cons flag-length (* half-stem-thickness dir))
+                         (polar->rectangular flag-length angle)))
            (thickness (* flag-thickness factor))
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir ))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
            ;; The points of a round-filled-polygon need to be given in clockwise
            ;; order, otherwise the polygon will be enlarged by blot-size*2!
-           (points (if stem-up (list start flag-end
-                                     (offset-add flag-end thickness-offset)
-                                     (offset-add start thickness-offset))
+           (points (if stem-up
+                       (list start
+                             flag-end
+                             (offset-add flag-end thickness-offset)
+                             (offset-add start thickness-offset))
                        (list start
                              (offset-add start thickness-offset)
                              (offset-add flag-end thickness-offset)
@@ -117,6 +124,10 @@ of Bach, etc."
   "Old straight flag style (for composers like Bach).  The angles of the
 flags are both 45 degrees."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) grob))
+
+(define-public (flat-flag grob)
+  "Flat flag style.  The angles of the flags are both 0 degrees"
+  ((straight-flag 0.55 1.0 0 1.0 0 1.0) grob))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

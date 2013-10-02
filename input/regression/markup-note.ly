@@ -58,6 +58,7 @@ mrkp =
                     \override #'(style . mensural) \mrkp
                     \override #'(flag-style . modern-straight-flag) \mrkp
                     \override #'(flag-style . old-straight-flag) \mrkp
+                    \override #'(flag-style . flat-flag) \mrkp
             }
     }
     \override NoteHead.style = #'triangle

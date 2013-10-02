@@ -3319,8 +3319,8 @@ A feta brace in point size @var{size}, rotated 180 degrees.
 Construct a note symbol, with stem and flag.  By using fractional values for
 @var{dir}, longer or shorter stems can be obtained.
 Supports all note-head-styles.
-Supported flag-styles are @code{default}, @code{old-straight-flag} and
-@code{modern-straight-flag}.
+Supported flag-styles are @code{default}, @code{old-straight-flag},
+@code{modern-straight-flag} and @code{flat-flag}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3381,7 +3381,9 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
            (raw-length (if stem-up upflag-length downflag-length))
            (angle (if stem-up upflag-angle downflag-angle))
            (flag-length (+ (* raw-length factor) half-stem-thickness))
-           (flag-end (polar->rectangular flag-length angle))
+           (flag-end (if (= angle 0)
+                         (cons flag-length (* half-stem-thickness dir))
+                         (polar->rectangular flag-length angle)))
            (thickness (* flag-thickness factor))
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir))
@@ -3389,9 +3391,11 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
            ;; The points of a round-filled-polygon need to be given in
            ;; clockwise order, otherwise the polygon will be enlarged by
            ;; blot-size*2!
-           (points (if stem-up (list start flag-end
-                                     (offset-add flag-end thickness-offset)
-                                     (offset-add start thickness-offset))
+           (points (if stem-up
+                       (list start
+                             flag-end
+                             (offset-add flag-end thickness-offset)
+                             (offset-add start thickness-offset))
                        (list start
                              (offset-add start thickness-offset)
                              (offset-add flag-end thickness-offset)
@@ -3456,10 +3460,12 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
          ;; Straight-flags. Values taken from /scm/flag-style.scm
          (modern-straight-flag (straight-flag-mrkp 0.55 1 -18 1.1 22 1.2 dir))
          (old-straight-flag (straight-flag-mrkp 0.55 1 -45 1.2 45 1.4 dir))
+         (flat-flag (straight-flag-mrkp 0.55 1.0 0 1.0 0 1.0 dir))
          ;; Calculate a corrective to avoid a gap between
          ;; straight-flags and the stem.
          (flag-style-Y-corr (if (or (eq? flag-style 'modern-straight-flag)
-                                    (eq? flag-style 'old-straight-flag))
+                                    (eq? flag-style 'old-straight-flag)
+                                    (eq? flag-style 'flat-flag))
                                 (/ blot 10 (* -1 dir))
                                 0))
          (flaggl (and (> log 2)
@@ -3468,6 +3474,8 @@ Supported flag-styles are @code{default}, @code{old-straight-flag} and
                               modern-straight-flag)
                              ((eq? flag-style 'old-straight-flag)
                               old-straight-flag)
+                             ((eq? flag-style 'flat-flag)
+                              flat-flag)
                              (else
                               (ly:font-get-glyph font
                                                  (format #f (if ancient-flags?
