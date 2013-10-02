@@ -17,10 +17,10 @@ $(firstword \
 	$(outdir)/$(1) \
 )
 
-# Recursively scan the file $(1) for @include, search for included files
-# within the texinfo include dirs, and return all dependencies.
+# Recursively scan the file $(1) for @include and @verbatiminclude, search for
+# included files within the texinfo include dirs, and return all dependencies.
 scan-texi = \
-$(foreach f, $(shell test -f $(1) && sed -ne "/^@include[[:space:]]/s/@include//p" $(1)), \
+$(foreach f, $(shell test -f $(1) && sed -ne "/^@\(verbatim\)\?include[[:space:]]/s/@\(verbatim\)\?include//p" $(1)), \
 	$(call find-texi,$(f)) \
 	$(call scan-texi,$(call find-texi,$(f))) \
 )
