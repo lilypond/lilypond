@@ -46,6 +46,9 @@ class CrossRefs:
   def addNode(self, nodeName, manualName, fileName):
     global returnCode
 #    print "Node: ", nodeName, " in ", manualName, " found in ", fileName
+    if "\\" in nodeName:
+      returnCode = 1
+      print "nodeName: ", nodeName, " in ", fileName, " contains backslash"
     if manualName+"/"+nodeName in self.Nodes.keys():
       print "Error: Duplicate nodename ",nodeName, " in ", fileName, " and ", self.Nodes[manualName+"/"+nodeName][1]
       returnCode=1
@@ -53,6 +56,10 @@ class CrossRefs:
     self.nodeNames[nodeName] = fileName
 
   def addRef(self, toManualName, toHeading, inFileName):
+    global returnCode
+    if "\\" in toHeading:
+      returnCode = 1
+      print "ref to: ", toHeading, " in ", inFileName, " contains backslash"
 #    if inFileName == "notation/vocal.itely":
 #      print "Ref to ", toManualName, "/",toHeading, " found in ", inFileName
     self.Refs.append([toManualName + "/" + toHeading, inFileName])
