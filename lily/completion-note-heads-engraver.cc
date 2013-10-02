@@ -269,6 +269,7 @@ Completion_heads_engraver::make_tie (Grob *left, Grob *right)
   Grob *p = make_spanner ("Tie", SCM_EOL);
   Tie::set_head (p, LEFT, left);
   Tie::set_head (p, RIGHT, right);
+  announce_end_grob (p, SCM_EOL);
   ties_.push_back (p);
 }
 
