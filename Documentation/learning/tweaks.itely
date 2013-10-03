@@ -174,15 +174,15 @@ the types of objects and properties from their names.
 @cindex tweaking methods
 
 @menu
-* The \override command::
-* The \revert command::
-* The \once prefix::
-* The \overrideProperty command::
-* The \tweak command::
+* The override command::
+* The revert command::
+* The once prefix::
+* The overrideProperty command::
+* The tweak command::
 @end menu
 
-@node The \override command
-@unnumberedsubsubsec The @code{\override} command
+@node The override command
+@unnumberedsubsubsec The @code{@bs{}override} command
 
 @cindex override command
 @cindex override syntax
@@ -253,8 +253,8 @@ g4 a b c |
 @end lilypond
 
 
-@node The \revert command
-@unnumberedsubsubsec The @code{\revert} command
+@node The revert command
+@unnumberedsubsubsec The @code{@bs{}revert} command
 
 @cindex revert command
 
@@ -291,8 +291,8 @@ b4 c |
 @end lilypond
 
 
-@node The \once prefix
-@unnumberedsubsubsec The @code{\once} prefix
+@node The once prefix
+@unnumberedsubsubsec The @code{@bs{}once} prefix
 
 @funindex \once
 @funindex once
@@ -336,8 +336,8 @@ rather than @code{\override} so prefixing these with @code{\once} has no
 effect.
 
 
-@node The \overrideProperty command
-@unnumberedsubsubsec The @code{\overrideProperty} command
+@node The overrideProperty command
+@unnumberedsubsubsec The @code{@bs{}overrideProperty} command
 
 @cindex overrideProperty command
 
@@ -351,8 +351,8 @@ We mention it here for completeness, but for details see
 @c Maybe explain in a later iteration  -td
 
 
-@node The \tweak command
-@unnumberedsubsubsec The @code{\tweak} command
+@node The tweak command
+@unnumberedsubsubsec The @code{@bs{}tweak} command
 
 @cindex tweak command
 
@@ -2041,7 +2041,7 @@ positioning is not optimum.
 
 @menu
 * The outside-staff-priority property::
-* The \textLengthOn command::
+* The textLengthOn command::
 * Dynamics placement::
 * Grob sizing::
 @end menu
@@ -2259,8 +2259,8 @@ clearly will need to space the notes out horizontally to make more
 room for the text.  This is done using the @code{textLengthOn}
 command.
 
-@node The \textLengthOn command
-@unnumberedsubsubsec The @code{\textLengthOn} command
+@node The textLengthOn command
+@unnumberedsubsubsec The @code{@bs{}textLengthOn} command
 
 @cindex notes, spreading out with text
 
@@ -2613,7 +2613,7 @@ to remember is that the spacing between objects in a
 of the @code{StaffGrouper}. Spacing from ungrouped staves
 (like @code{Lyrics} and @code{Staff}) is controlled by the
 variables of the @code{VerticalAxisGroup}.  See the
-@ruser{Flexible vertical spacing \paper variables} and
+@ruser{Flexible vertical spacing paper variables} and
 @ruser{Flexible vertical spacing within systems} for more
 details.
 

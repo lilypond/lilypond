@@ -94,17 +94,17 @@ This section discusses page layout options for the @code{\paper}
 block.
 
 @menu
-* The \paper block::
+* The paper block::
 * Paper size and automatic scaling::
-* Fixed vertical spacing \paper variables::
-* Flexible vertical spacing \paper variables::
-* Horizontal spacing \paper variables::
-* Other \paper variables::
+* Fixed vertical spacing paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node The \paper block
-@subsection The @code{\paper} block
+@node The paper block
+@subsection The @code{@bs{}paper} block
 
 @code{\paper} blocks may be placed in three different places to form
 a descending hierarchy of @code{\paper} blocks:
@@ -161,7 +161,7 @@ footers, and titles are discussed in
 
 Most @code{\paper} variables will only work in a @code{\paper}
 block.  The few that will also work in a @code{\layout} block are
-listed in @ref{The \layout block}.
+listed in @ref{The layout block,,The @code{@bs{}layout} block}.
 
 Except when specified otherwise, all @code{\paper} variables that
 correspond to distances on the page are measured in millimeters,
@@ -203,7 +203,7 @@ The Scheme equivalent of the above example is:
 Notation Reference:
 @ref{Paper size and automatic scaling},
 @ref{Custom titles headers and footers},
-@ref{The \layout block}.
+@ref{The layout block,,The @code{@bs{}layout} block}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly}.
@@ -331,11 +331,12 @@ are described in @ref{Setting the paper size}.
 
 The vertical dimensions affected by automatic scaling are
 @code{top-margin} and @code{bottom-margin} (see
-@ref{Fixed vertical spacing \paper variables}).  The horizontal
+@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}).
+The horizontal
 dimensions affected by automatic scaling are @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, and @code{short-indent} (see
-@ref{Horizontal spacing \paper variables}).
+@ref{Horizontal spacing paper variables,,Horizontal spacing @code{@bs{}paper} variables}).
 
 The default values for these dimensions are set in
 @file{ly/paper-defaults-init.ly}, using internal variables named
@@ -347,16 +348,16 @@ These are the values that result at the default paper size
 
 @seealso
 Notation Reference:
-@ref{Fixed vertical spacing \paper variables},
-@ref{Horizontal spacing \paper variables}.
+@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables},
+@ref{Horizontal spacing paper variables,,Horizontal spacing @code{@bs{}paper} variables}.
 
 Installed Files:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
 
 
-@node Fixed vertical spacing \paper variables
-@subsection Fixed vertical spacing @code{\paper} variables
+@node Fixed vertical spacing paper variables
+@subsection Fixed vertical spacing @code{@bs{}paper} variables
 
 @warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
@@ -423,8 +424,8 @@ Explicitly defined paper-sizes will override any user-defined top or
 bottom margin settings.
 
 
-@node Flexible vertical spacing \paper variables
-@subsection Flexible vertical spacing @code{\paper} variables
+@node Flexible vertical spacing paper variables
+@subsection Flexible vertical spacing @code{@bs{}paper} variables
 
 In most cases, it is preferable for the vertical distances between
 certain items (such as margins, titles, systems, and separate
@@ -442,7 +443,7 @@ settings typically entered inside a @code{\score} or
 
 @menu
 * Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing \paper variables::
+* List of flexible vertical spacing paper variables::
 @end menu
 
 
@@ -539,8 +540,8 @@ redefines the variable:
 @end example
 
 
-@node List of flexible vertical spacing \paper variables
-@unnumberedsubsubsec List of flexible vertical spacing @code{\paper} variables
+@node List of flexible vertical spacing paper variables
+@unnumberedsubsubsec List of flexible vertical spacing @code{@bs{}paper} variables
 
 The names of these variables follow the format
 @code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
@@ -620,22 +621,22 @@ Snippets:
 @rlsr{Spacing}.
 
 
-@node Horizontal spacing \paper variables
-@subsection Horizontal spacing @code{\paper} variables
+@node Horizontal spacing paper variables
+@subsection Horizontal spacing @code{@bs{}paper} variables
 
 @warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
 
 @menu
-* \paper variables for widths and margins::
-* \paper variables for two-sided mode::
-* \paper variables for shifts and indents::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node \paper variables for widths and margins
-@unnumberedsubsubsec @code{\paper} variables for widths and margins
+@node paper variables for widths and margins
+@unnumberedsubsubsec @code{@bs{}paper} variables for widths and margins
 
 Default values (before scaling) that are not listed here are
 defined in @file{ly/paper-defaults-init.ly}.
@@ -733,8 +734,8 @@ Explicitly defined paper-sizes will override any user-defined left or
 right margin settings.
 
 
-@node \paper variables for two-sided mode
-@unnumberedsubsubsec @code{\paper} variables for two-sided mode
+@node paper variables for two-sided mode
+@unnumberedsubsubsec @code{@bs{}paper} variables for two-sided mode
 
 Default values (before scaling) are defined in
 @file{ly/paper-defaults-init.ly}.
@@ -786,8 +787,8 @@ Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node \paper variables for shifts and indents
-@unnumberedsubsubsec @code{\paper} variables for shifts and indents
+@node paper variables for shifts and indents
+@unnumberedsubsubsec @code{@bs{}paper} variables for shifts and indents
 
 Default values (before scaling) that are not listed here are
 defined in @file{ly/paper-defaults-init.ly}.
@@ -831,19 +832,19 @@ Snippets:
 @rlsr{Spacing}.
 
 
-@node Other \paper variables
-@subsection Other @code{\paper} variables
+@node Other paper variables
+@subsection Other @code{@bs{}paper} variables
 
 @menu
-* \paper variables for line breaking::
-* \paper variables for page breaking::
-* \paper variables for page numbering::
-* Miscellaneous \paper variables::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node \paper variables for line breaking
-@unnumberedsubsubsec @code{\paper} variables for line breaking
+@node paper variables for line breaking
+@unnumberedsubsubsec @code{@bs{}paper} variables for line breaking
 
 @table @code
 
@@ -882,8 +883,8 @@ Notation Reference:
 @ref{Line breaking}.
 
 
-@node \paper variables for page breaking
-@unnumberedsubsubsec @code{\paper} variables for page breaking
+@node paper variables for page breaking
+@unnumberedsubsubsec @code{@bs{}paper} variables for page breaking
 
 Default values not listed here are defined in
 @file{ly/paper-defaults-init.ly}
@@ -977,8 +978,8 @@ Installed Files:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node \paper variables for page numbering
-@unnumberedsubsubsec @code{\paper} variables for page numbering
+@node paper variables for page numbering
+@unnumberedsubsubsec @code{@bs{}paper} variables for page numbering
 
 Default values not listed here are defined in
 @file{ly/paper-defaults-init.ly}
@@ -1024,8 +1025,8 @@ music to start on page 1 there must be a blank page on the back
 of the cover page so that page 1 is on the right hand side.
 
 
-@node Miscellaneous \paper variables
-@unnumberedsubsubsec Miscellaneous @code{\paper} variables
+@node Miscellaneous paper variables
+@unnumberedsubsubsec Miscellaneous @code{@bs{}paper} variables
 
 @table @code
 
@@ -1088,13 +1089,13 @@ This section discusses score layout options for the @code{\layout}
 block.
 
 @menu
-* The \layout block::
+* The layout block::
 * Setting the staff size::
 @end menu
 
 
-@node The \layout block
-@subsection The @code{\layout} block
+@node The layout block
+@subsection The @code{@bs{}layout} block
 
 @funindex \layout
 
@@ -1124,15 +1125,15 @@ variables that can appear in a @code{\layout} block are:
 
 @item
 @code{line-width}, @code{ragged-right} and @code{ragged-last}
-(see @ref{\paper variables for widths and margins})
+(see @ref{paper variables for widths and margins,,@code{@bs{}paper} variables for widths and margins})
 
 @item
 @code{indent} and @code{short-indent}
-(see @ref{\paper variables for shifts and indents})
+(see @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents})
 
 @item
 @code{system-count}
-(see @ref{\paper variables for line breaking})
+(see @ref{paper variables for line breaking,,@code{@bs{}paper} variables for line breaking})
 
 @end itemize
 
@@ -1493,7 +1494,7 @@ every 4 measures, and only there:
 
 @seealso
 Notation Reference:
-@ref{\paper variables for line breaking}.
+@ref{paper variables for line breaking,,@code{@bs{}paper} variables for line breaking}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -1520,7 +1521,7 @@ There are also analogous settings to @code{ragged-right} and
 @code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
 @code{#t} the systems on all pages or just the last page
 respectively will not be justified vertically.  See
-@ref{Fixed vertical spacing \paper variables}.
+@ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}.
 
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
 provides three algorithms for computing page breaks,
@@ -1577,7 +1578,7 @@ book parts.
 
 @seealso
 Notation Reference:
-@ref{\paper variables for page breaking}.
+@ref{paper variables for page breaking,,@code{@bs{}paper} variables for page breaking}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -1674,7 +1675,7 @@ top-level markups.
 
 @seealso
 Notation Reference:
-@ref{\paper variables for line breaking}.
+@ref{paper variables for line breaking,,@code{@bs{}paper} variables for line breaking}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -1928,7 +1929,7 @@ control the vertical spacing of staves and non-staff lines within
 individual systems.  The vertical spacing between separate
 systems, scores, markups, and margins is controlled by
 @code{\paper} variables, which are discussed in
-@ref{Flexible vertical spacing \paper variables}.
+@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{@bs{}paper} variables}.
 
 @menu
 * Within-system spacing properties::
@@ -2076,7 +2077,8 @@ labelContext =
 Each of the vertical spacing grob properties (except
 @code{staff-affinity}) uses the same alist structure as the
 @code{\paper} spacing variables discussed in
-@ref{Flexible vertical spacing \paper variables}.  Specific methods
+@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{@bs{}paper} variables}.
+Specific methods
 for modifying alists are discussed in @ref{Modifying alists}.
 Grob properties should be adjusted with an @code{\override} inside
 a @code{\score} or @code{\layout} block, and not inside a
@@ -2218,7 +2220,7 @@ spacing settings for that staff.
 
 @seealso
 Notation Reference:
-@ref{Flexible vertical spacing \paper variables},
+@ref{Flexible vertical spacing paper variables,,Flexible vertical spacing @code{@bs{}paper} variables},
 @ref{Modifying alists}.
 
 Installed Files:

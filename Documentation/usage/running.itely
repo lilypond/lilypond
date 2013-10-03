@@ -923,7 +923,7 @@ are easily handled.
 * Error message Unbound variable %::
 * Error message FT_Get_Glyph_Name::
 * Warning staff affinities should only decrease::
-* Error message unexpected \new::
+* Error message unexpected new::
 @end menu
 
 @node Music runs off the page
@@ -1046,8 +1046,8 @@ at its start.  For details, see @qq{Spacing of non-staff lines} in
 @ruser{Flexible vertical spacing within systems}.
 
 
-@node Error message unexpected \new
-@unnumberedsubsec Error message unexpected @code{\new}
+@node Error message unexpected new
+@unnumberedsubsec Error message unexpected @code{@bs{}new}
 
 A @code{\score} block must contain a @emph{single} music expression.
 If instead it contains several @code{\new Staff},
