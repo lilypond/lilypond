@@ -276,8 +276,6 @@ Level 3 subsections are created with
 @@subsection Foo
 @end example
 
-@itemize
-@item
 Level 4 headings and menus must be preceded by level 3 headings and
 menus, and so on for level 3 and level 2.  If this is not what is
 wanted, please use:
@@ -286,11 +284,9 @@ wanted, please use:
 @@subsubsubheading Foo
 @end example
 
-@item
 Please leave two blank lines above a @code{@@node}; this makes it
 easier to find sections in texinfo.
 
-@item
 Do not use any @code{@@} commands for a @code{@@node}.  They may be
 used for any @code{@@sub...} sections or headings however.
 
@@ -304,7 +300,6 @@ but instead:
 @@subsection @@code@{Foo@} Bar
 @end example
 
-@item
 No punctuation may be used in the node names.  If the heading text
 uses punctuation (in particular, colons and commas) simply leave
 this out of the node name and menu.
@@ -318,16 +313,33 @@ this out of the node name and menu.
 @@subsection Foo: Bar
 @end example
 
-@item
-With the exception of @code{@@} commands and punctuation, the
-section name should match the node name exactly.
+Backslashes must not be used in node names or section headings.
+If the heading text should include a backslash simply leave this
+out of the node name and menu and replace it with @code{@@bs@{@}}
+in the heading text.
 
-@item
+@example
+@@menu
+* The set command
+@@end menu
+
+@@node The set command
+@@subsection The @@code@{@@bs@{@}set@} command
+@end example
+
+References to such a node may use the third argument of the
+@code{@@ref} command to display the texually correct heading.
+
+@example
+@@ref@{The set command,,The @@code@{@@bs@{@}set command@}
+@end example
+
+With the exception of @code{@@} commands, @code{\} commands and
+punctuation, the section name should match the node name exactly.
+
 Sectioning commands (@code{@@node} and @code{@@section}) must not appear
 inside an @code{@@ignore}.  Separate those commands with a space, ie
 @code{@@n}@tie{}@code{ode}.
-
-@end itemize
 
 Nodes must be included inside a
 
