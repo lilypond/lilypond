@@ -949,7 +949,7 @@ usare @code{\center-column}:
 Tuttavia, se i nomi degli strumenti sono lunghi, potranno essere centrati
 solo aumentando i valori di @code{indent} e @code{short-indent}.
 Ulteriori dettagli su queste impostazioni si trovano in
-@ref{\paper variables for shifts and indents}.
+@ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -1052,7 +1052,7 @@ dell'espressione musicale, :
 
 @seealso
 Guida alla notazione:
-@ref{\paper variables for shifts and indents},
+@ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents},
 @ref{Modifying context plug-ins}.
 
 Frammenti:
