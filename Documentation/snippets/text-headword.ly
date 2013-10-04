@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.17.28"
 
 \header {
   lsrtags = "headword"
@@ -96,7 +96,7 @@ Text headword
     c''32
     df''32
     ef''32
-    \acciaccatura { df''[ ef'' ] }
+    \acciaccatura { df'' ef''  }
     f''8
     ef''16
     df''16

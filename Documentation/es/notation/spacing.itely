@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.28"
 
 @ignore
 GDP TODO list
@@ -3202,7 +3202,7 @@ sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c] }
+\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso

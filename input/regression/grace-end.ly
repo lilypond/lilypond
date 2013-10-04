@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.28"
 
 #(ly:set-option 'warning-as-error #f)
 
@@ -8,5 +8,5 @@
 }
 
 \context Voice \relative c' {
-  c4 \grace { d16[ d16] }
+  c4 \grace { d16 d16 }
 }

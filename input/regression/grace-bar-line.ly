@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.28"
 \header {
   texidoc = "Bar line should come before the grace note."
 }
@@ -11,7 +11,7 @@
 
 
 \relative c' \context Staff  { 
-  f1 \grace {  a'16[ f]  } g1 }
+  f1 \grace {  a'16 f  } g1 }
 
 
 

@@ -9,7 +9,7 @@ time.  This may cause collisions.  "
 }
 
 
-\version "2.17.11"
+\version "2.17.28"
 
 \paper {
   ragged-right = ##t
@@ -27,7 +27,7 @@ time.  This may cause collisions.  "
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \new Staff {
     c8[ c \clef alto c c \grace { d16 }  c8 c]  c4 c2
-    \grace { c16[ c16] }
+    \grace { c16 c16 }
     c2 }
   \new Staff {
     c2  \tuplet 3/2 { c8 \clef bass cis,, c } 

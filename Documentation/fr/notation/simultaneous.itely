@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.17.28"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -98,7 +98,7 @@ sera donc combiné -- pour des combinaisons plus complexes, voir
 @ref{Expressions simultanées}.
 
 @lilypond[verbatim,quote,relative=2]
-\grace { g8[( a b] }
+\grace { g8( a b }
 <> ) \p \< -. -\markup \italic "sempre staccato"
 \repeat unfold 4 { c4 e }  c1\f
 @end lilypond

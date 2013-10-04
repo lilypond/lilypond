@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.17.28"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -599,7 +599,7 @@ expresión musical por la palabra clave @code{\appoggiatura} o
 @code{\acciaccatura}
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2 |
+c2 \grace { a32 b } c2 |
 c2 \appoggiatura b16 c2 |
 c2 \acciaccatura b16 c2 |
 @end lilypond

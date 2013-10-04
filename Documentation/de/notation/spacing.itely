@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.28"
 
 @c Translators: Till Paala
 
@@ -3091,7 +3091,7 @@ zusätzlichen Platz erhalten.
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
+\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c32] }
 @end lilypond
 
 

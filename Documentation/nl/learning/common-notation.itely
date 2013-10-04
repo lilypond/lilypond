@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.17.25"
+@c \version "2.17.28"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -586,7 +586,7 @@ sleutelwoord @code{\appoggiatura} of @code{\acciaccatura}
 voor een muziekuitdrukking te zetten
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2 |
+c2 \grace { a32 b } c2 |
 c2 \appoggiatura b16 c2 |
 c2 \acciaccatura b16 c2 |
 @end lilypond

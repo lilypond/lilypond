@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.17.28"
 
 @c Translators: Till Paala
 
@@ -2516,7 +2516,7 @@ normalen Balken gesetzt.
 
 @lilypond[quote,verbatim,relative=2]
 c4 d8[
-\grace { e32[ d c d] }
+\grace { e32 d c d }
 e8] e[ e
 \grace { f16 }
 e8 e]
@@ -3298,7 +3298,7 @@ keine logische Zeit im Takt ein.
 
 @lilypond[quote,relative=2,verbatim]
 c4 \grace b16 a4(
-\grace { b16[ c16] } a2)
+\grace { b16 c16 } a2)
 @end lilypond
 
 Es gibt drei Arten von Verzierungen:
@@ -3313,7 +3313,7 @@ zwischen Noten notiert, die selber einen Legatobogen haben.
 @lilypond[quote,relative=2,verbatim]
 \acciaccatura d8 c4
 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e2
+\acciaccatura { g16 f } e2
 \slashedGrace a,8 g4
 \slashedGrace b16 a4(
 \slashedGrace b8 a2)
@@ -3324,8 +3324,8 @@ synchronisiert.  Im nächsten Beispiel stehen im einen
 System zwei 16-Noten für jede 8-Note des zweiten Systems:
 
 @lilypond[quote,relative=2,verbatim]
-<< \new Staff { e2 \grace { c16[ d e f] } e2 }
-   \new Staff { c2 \grace { g8[ b] } c2 } >>
+<< \new Staff { e2 \grace { c16 d e f } e2 }
+   \new Staff { c2 \grace { g8 b } c2 } >>
 @end lilypond
 
 @funindex \afterGrace
@@ -3374,7 +3374,7 @@ gesetzt.
 @lilypond[quote,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
-     { s2 s4. \grace { c16[ d] } } >>
+     { s2 s4. \grace { c16 d } } >>
   c1)
 }
 @end lilypond

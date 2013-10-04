@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.17.28"
 
 \header {
   texidoc="
@@ -8,7 +8,7 @@ expected also for syllables starting under grace notes.
 }
 
 \relative c' {
-  c2 \grace { c16([ d e f] } g2)
+  c2 \grace { c16( d e f } g2)
   f1
 }
 \addlyrics {

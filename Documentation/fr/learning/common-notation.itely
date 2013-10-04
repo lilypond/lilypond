@@ -26,7 +26,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.17.28"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
@@ -616,7 +616,7 @@ Des @notation{notes d'ornement} s'obtiennent en appliquant la commande
 expression musicale :
 
 @lilypond[verbatim,quote,relative=2]
-c2 \grace { a32[ b] } c2 |
+c2 \grace { a32 b } c2 |
 c2 \appoggiatura b16 c2 |
 c2 \acciaccatura b16 c2 |
 @end lilypond

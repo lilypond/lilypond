@@ -3,7 +3,7 @@
 normal notes, if possible. They should never be longer, even if that
 would lead to beam quanting problems."
 }
-\version "2.17.6"
+\version "2.17.28"
 
 \layout {
     ragged-right = ##t
@@ -14,9 +14,9 @@ would lead to beam quanting problems."
     << {  d8.\noBeam d16 } \\ >>   \grace { d16 } c8.[ b16]
     << {  c16[ b] } \\ >>
     
-    \grace { c16[ b] } d4
+    \grace { c16 b } d4
 %    \override Beam.inspect-quants =#'(2.8 . 2.5)
-%    \grace { c16[ b] } d4
+%    \grace { c16 b } d4
 
 	    }
 

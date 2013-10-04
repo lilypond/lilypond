@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.17.28"
 
 \header{
 
@@ -16,10 +16,10 @@ Main note scripts do not end up on the grace note.
 
 \new Voice \relative c'' {
   \grace b8 c4\fermata
-  \grace {  c32[ cis32] } gis4
-  \grace {  cis32[ dis32] } e4
-  \grace {  c32[ d] }\tuplet 3/2 {  c8[ c c] }
-  \grace {  b32[ ( c32] }   c4)
+  \grace {  c32 cis32 } gis4
+  \grace {  cis32 dis32 } e4
+  \grace {  c32 d }\tuplet 3/2 {  c8[ c c] }
+  \grace {  b32 ( c32 }   c4)
   \grace  <c d>16  c8[ c8]
 				%	\grace  c16  c8[ c8]
   %% broken?

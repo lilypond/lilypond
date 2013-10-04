@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.17.28"
 
 \header{
 texidoc="
@@ -24,7 +24,7 @@ in unbroken state.
     \time 4/4
     << d1_(\trill
        { s2 \grace {
-	   c16[ d] 
+	   c16 d 
        } }
      >>
     \break 

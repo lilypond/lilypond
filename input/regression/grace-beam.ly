@@ -9,10 +9,10 @@ Unbeamed grace notes are not put into normal beams.
 \layout { ragged-right= ##t }
 
 
-\version "2.16.0"
+\version "2.17.28"
 \relative c'' {
   c4  d8[
-    \grace {  e32[  d c d] } e8]
+    \grace {  e32  d c d } e8]
   e[  e
       \grace { f16 } e8 e]
 }

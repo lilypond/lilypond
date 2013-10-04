@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.19"
+@c \version "2.17.28"
 
 @node Música vocal
 @section Música vocal
@@ -1987,7 +1987,7 @@ se utiliza @code{\lyricsto}, pero este comportamiento puede cambiarse:
 <<
   \new Voice = melody \relative c' {
     f4 \appoggiatura a32 b4
-    \grace { f16[ a16] } b2
+    \grace { f16 a16 } b2
     \afterGrace b2 { f16[ a16] }
     \appoggiatura a32 b4
     \acciaccatura a8 b4
@@ -2016,7 +2016,7 @@ bloque @code{\with} o @code{\context}:
 @lilypond[verbatim,ragged-right,quote]
 <<
   \new Voice = melody \relative c' {
-    \grace { c16[( d e f] }
+    \grace { c16( d e f }
     g1) f
   }
   \new Lyrics \with { includeGraceNotes = ##t }
