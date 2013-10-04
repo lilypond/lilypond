@@ -3672,12 +3672,6 @@ def conv(str):
         stderr_write (_ ("Staff-padding now controls the distance to the baseline, not the nearest point."))
     return str
 
-@rule((2, 17, 28), r'''\grace { x[ ... ] } -> \grace { x ... }''')
-def conv(str):
-    str = re.sub (r"(\\(?:grace|appoggiatura|acciaccatura|slashedGrace)\s*\{\s*(?:[()a-zA-Z',0-9.]|\\[()])*)\[([^][{}]*)\]((?:[()]|\\[()]|\s)*\})",
-                  r"\1\2\3", str)
-    return str
-
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
