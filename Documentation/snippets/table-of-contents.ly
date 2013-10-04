@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.27"
+\version "2.15.17"
 
 \header {
   lsrtags = "paper-and-layout"
