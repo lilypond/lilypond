@@ -24,6 +24,7 @@
 import os
 import sys
 import re
+import shutil
 
 """
 @relocate-preamble@
@@ -129,18 +130,25 @@ def get_option_parser ():
               action='store_true',
               dest='diff_version_update',
               default=False)
-    
+
     p.add_option ("-s", '--show-rules',
               help=_ ("show rules [default: -f 0, -t %s]") % program_version,
               dest='show_rules',
               action='store_true', default=False)
-    
+
     p.add_option ('-t', '--to',
               help=_ ("convert to VERSION [default: %s]") % program_version,
               metavar=_ ('VERSION'),
               action='store',
               dest="to_version",
               default='')
+
+    p.add_option ('-b', '--backup-numbered',
+              help=_ ("make a numbered backup [default: filename.ext~]"),
+              action='store_true',
+              dest="backup_numbered",
+              default='')
+
     p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
            action='store_true',
            ),
@@ -151,8 +159,6 @@ def get_option_parser ():
             '?group=gmane.comp.gnu.lilypond.bugs') + '\n')
     
     return p
-
-
 
 def str_to_tuple (s):
     return tuple ([int(n) for n in s.split ('.')])
@@ -213,8 +219,6 @@ string and the number of errors."""
 
     return (last_conversion, last_change, str, errors)
 
-
-
 def guess_lilypond_version (input):
     m = lilypond_version_strict_re.search (input)
     if m:
@@ -234,6 +238,19 @@ class UnknownVersion (Exception):
 class InvalidVersion (Exception):
     def __init__ (self, version):
       self.version = version
+
+def back_up (file, numbered):
+    if numbered:
+      n = 0
+      while True:
+        n = n + 1
+        back_up = file + '.~' + str(n) + '~'
+        if not os.path.exists (back_up):
+            break
+    else:
+      back_up = file + '~'
+    shutil.copy2 (file, back_up)
+    return back_up
 
 def do_one_file (infile_name):
     ly.progress (_ (u"Processing `%s\'... ") % infile_name, True)
@@ -297,11 +314,7 @@ def do_one_file (infile_name):
     ly.progress ('\n')
 
     if global_options.edit:
-        try:
-            os.remove (infile_name + '~')
-        except:
-            pass
-        os.rename (infile_name, infile_name + '~')
+        backup = back_up (infile_name, global_options.backup_numbered)
         outfile = open (infile_name, 'w')
     else:
         outfile = sys.stdout
@@ -372,6 +385,5 @@ def main ():
         ly.warning (ly.ungettext ("There was %d error.",
             "There were %d errors.", errors) % errors)
         sys.exit (1)
-
 
 main ()

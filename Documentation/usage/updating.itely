@@ -156,7 +156,13 @@ the version will reflect the last @emph{attempted} conversion.
 
 @item -e, --edit
 Apply the conversions direct to the input file, modifying it
-in-place.
+in-place.  The original file is renamed as @file{myfile.ly~}.  This
+backup file may be a hidden file on some operating systems.
+
+@item -b, --backup-numbered
+When used with the @samp{-e} option, number the backup files so that
+no previous version is overwritten.  The backup files may be hidden
+on some operating systems.
 
 @item -f, --from=@var{from-patchlevel}
 Set the version to convert from.  If this is not set, @command{convert-ly}
