@@ -178,11 +178,16 @@ Core developer, Schemer extraordinaire
 @c use commas not colons
 
 Aleksandr Andreev,
+Frédéric Bron,
 Marc Hohl,
+James Lowe,
+David Nalesnik,
 Keith OHara,
 Benkő Pál,
 Anders Pilegaard,
-Julien Rioux
+Julien Rioux,
+Johannes Rohrer,
+Adam Spiers
 
 @c no comma for last entry
 
@@ -205,7 +210,10 @@ Julien Rioux
 @c use commas not colons
 
 Frédéric Bron,
+Federico Bruni,
 James Lowe,
+Jean-Charles Malahieude,
+Guy Stalnaker,
 Arnold Theresius,
 Rodolfo Zitellini
 
@@ -248,7 +256,8 @@ Federico Bruni,
 Felipe Castro,
 Pavel Fric,
 Jean-Charles Malahieude,
-Till Rettig
+Till Rettig,
+Luca Rossetto Casel
 
 @c no comma for last entry
 
