@@ -2198,7 +2198,6 @@
 
     (SustainPedal
      . (
-        (direction . ,RIGHT)
         (extra-spacing-width . (+inf.0 . -inf.0))
         (padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
         (self-alignment-X . ,CENTER)
