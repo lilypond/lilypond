@@ -220,14 +220,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Compiling a file
-
-@lilypadCommandLine
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Distribution-specific Packages
 
 Please use your distribution's package manager to install or
@@ -261,6 +253,14 @@ Debian: LilyPond 2.12.3}
 openSUSE: LilyPond 2.12.3}
 
 @end itemize
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compiling a file
+
+@lilypadCommandLine
 
 @divEnd
 
@@ -321,19 +321,12 @@ Delete the LilyPond.app folder.
 
 @divEnd
 
+
 @divClass{column-right-top}
-@subheading Compiling a file
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Running on the command-line
 
-@warning{If you are happy with the GUI, then please ignore these
-instructions.}
+@warning{If you are happy with the GUI instructions below, then
+please ignore these instructions.}
 
 @subsubheading MacOS X on the command line
 
@@ -414,6 +407,14 @@ The same is true for all other scripts in that directory, such as
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Compiling a file
+
+@lilypadOSX
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Legalese
 
@@ -484,18 +485,10 @@ button when the uninstaller has completed.
 
 
 @divClass{column-right-top}
-@subheading Compiling a file
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Running on the command-line
 
-@warning{If you are happy with the GUI, then please ignore these
-instructions.}
+@warning{If you are happy with the GUI instructions below, then
+please ignore these instructions.}
 
 @subsubheading Windows on the command line
 
@@ -541,6 +534,14 @@ can be run from the command-line by invoking them:
 @example
 lilypond test.ly
 @end example
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compiling a file
+
+@lilypadWindows
 
 @divEnd
 
