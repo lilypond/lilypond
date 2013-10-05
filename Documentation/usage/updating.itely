@@ -148,17 +148,17 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 The following options can be given:
 
 @table @code
-@item -d,--diff-version-update
+@item -d, --diff-version-update
 increase the @code{\version} string only if the file has actually
 been changed.  In that case, the version header will correspond to
 the version after the last actual change.  Without that option,
 the version will reflect the last @emph{attempted} conversion.
 
-@item -e,--edit
+@item -e, --edit
 Apply the conversions direct to the input file, modifying it
 in-place.
 
-@item -f,--from=@var{from-patchlevel}
+@item -f, --from=@var{from-patchlevel}
 Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
 E.g. @option{--from=2.10.25}
@@ -171,7 +171,7 @@ Set the output verbosity to @var{loglevel}. Possible values, in upper
 case, are @code{PROGRESS} (the default), @code{NONE}, @code{WARNING},
 @code{ERROR} and @code{DEBUG}.
 
-@item -n,--no-version
+@item -n, --no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator
 to the output.  Specifying this option suppresses this.
 

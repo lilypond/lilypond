@@ -121,15 +121,15 @@ convert-ly [@var{opció}]@dots{} @var{fájlnév}@dots{}
 A következő opciók adhatóak meg:
 
 @table @code
-@item -e,--edit
+@item -e, --edit
 A fájl helyben frissítése.
 
-@item -f,--from=@var{forrásverzió}
+@item -f, --from=@var{forrásverzió}
 A forrásfájl verziójának megadása. Ha nincs megadva, a @command{convert-ly}
 a fájlban található @code{\version} parancs alapján kitalálja.
 Példa: @code{--from=2.10.25}
 
-@item -n,--no-version
+@item -n, --no-version
 Alapesetben a @command{convert-ly} ellátja a kimenetét a megfelelő
 @code{\version} paranccsal. Ez az opció ezt tiltja le.
 

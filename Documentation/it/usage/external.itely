@@ -476,7 +476,7 @@ Quantizza la durata delle note di @var{DUR}.
 @item -e, --explicit-durations
 Crea durate esplicite.
 
-@item -h,--help
+@item -h, --help
 Mostra una sintesi dell'utilizzo del programma.
 
 @item -k, --key=@var{acc}[:@var{minor}]
@@ -546,7 +546,7 @@ dalla linea di comando.
 @item -a, --absolute
 converte le altezze relative in assolute.
 
-@item -h,--help
+@item -h, --help
 mostra una sintesi dell'utilizzo e delle opzioni.
 
 @item -l, --language=LANG
@@ -572,11 +572,11 @@ articolazioni, dinamiche, etc.
 ignora le informazioni relative alle travature, impiegando la disposizione
 automatica delle travature fornita da LilyPond.
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 imposta il nome del file di output su @var{file}.  Se @var{file} è @file{-}, l'output
 sarà salvato su stdout.  Se non specificato, verrà usato @var{file-xml}@file{.ly}.
 
-@item -r,--relative
+@item -r, --relative
 converte le altezze in modalità relativa (predefinito).
 
 @item -v, --verbose
@@ -585,7 +585,7 @@ Mostra un output dettagliato.
 @item --version
 Mostra informazioni sulla versione.
 
-@item -z,--compressed
+@item -z, --compressed
 il file di input è un file MusicXML compresso in un archivio ZIP.
 @end table
 
@@ -615,13 +615,13 @@ abc2ly [@var{opzione}]@dots{} @var{file-abc}
 @command{abc2ly} accetta le seguenti opzioni:
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 preserva le regole di disposizione delle travature di ABC
-@item -h,--help
+@item -h, --help
 mostra questo messaggio di aiuto
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 imposta il nome del file di output su @var{file}.
-@item -s,--strict
+@item -s, --strict
 imposta una modalità di interpretazione letterale per effettuare una conversione stretta
 @item --version
 mostra informazioni sulla versione.
@@ -689,9 +689,9 @@ maggiori informazioni su questo argomento.
 @command{etf2ly} accetta le seguenti opzioni:
 
 @table @code
-@item -h,--help
+@item -h, --help
 mostra questo messaggio di aiuto
-@item -o,--output=@var{FILE}
+@item -o, --output=@var{FILE}
 imposta il nome del file di output su @var{FILE}
 @item --version
 mostra informazioni sulla versione

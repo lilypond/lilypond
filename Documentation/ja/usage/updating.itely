@@ -137,14 +137,14 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 以下のオプションを与えることができます:
 
 @table @code
-@item -d,--diff-version-update
+@item -d, --diff-version-update
 @code{\version} を最新に更新します。最新バージョンよりも大きい場合は@c
 何もしません。
 
-@item -e,--edit
+@item -e, --edit
 入力ファイルに直接変換を適用して、それをその場で変更します。
 
-@item -f,--from=@var{from-patchlevel}
+@item -f, --from=@var{from-patchlevel}
 変換元のバージョンをセットします。@c
 これがセットされていない場合、@c
 @command{convert-ly} は入力ファイルの中にある
@@ -159,7 +159,7 @@ convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 取り得る値は、大文字で、@code{PROGRESS} (デフォルト), @code{NONE},
 @code{WARNING}, @code{ERROR}, それに @code{DEBUG} です。
 
-@item -n,--no-version
+@item -n, --no-version
 通常、@command{convert-ly} は @code{\version} インジケータを@c
 出力に付け加えます。@c
 このオプションを指定すると、それを抑制します。

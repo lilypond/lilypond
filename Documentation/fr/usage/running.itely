@@ -150,12 +150,12 @@ Différentes options sont disponibles en ligne de commande :
 
 @table @code
 
-@item -d,--define-default=@var{variable}=@var{valeur}
+@item -d, --define-default=@var{variable}=@var{valeur}
 Voir @ref{Options avancées de lilypond}.
 
 @cindex Scheme, évaluation d'expression
 @cindex expression Scheme, évaluation
-@item -e,--evaluate=@var{expr}
+@item -e, --evaluate=@var{expr}
 Évalue l'expression Scheme @var{expr} avant d'analyser tout fichier
 @file{.ly}.  Lorsque vous spécifiez l'option @option{-e} à plusieurs
 reprises, l'évaluation sera faite en séquence.
@@ -184,25 +184,25 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 
 @cindex sortie, format
 @cindex format de sortie
-@item -f,--format=@var{format}
+@item -f, --format=@var{format}
 Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
 ou @code{png}.
 
 Exemple : @code{lilypond -fpng @var{monfichier}.ly}
 
-@item -h,--help
+@item -h, --help
 Affiche un résumé des commandes.
 
-@item -H,--header=@var{CHAMP}
+@item -H, --header=@var{CHAMP}
 Recopie le champ d'entête dans le fichier @file{RACINE.@var{CHAMP}}.
 
-@item -i,--init=@var{fichier}
+@item -i, --init=@var{fichier}
 Définit @var{fichier} (par défaut @file{init.ly}) en tant que fichier
 d'initialisation.
 
 @cindex recherche de fichier
 @cindex chemin de recherche
-@item -I,--include=@var{répertoire}
+@item -I, --include=@var{répertoire}
 Ajoute @var{répertoire} au chemin de recherche pour les inclusions.
 
 Vous pouvez mentionner plusieurs fois l'option @option{-I}, auquel cas
@@ -211,7 +211,7 @@ fichier en question ne s'y trouve pas, les répertoires suivants seront
 examinés l'un après l'autre.
 
 @cindex chroot jail, fonctionnement
-@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+@item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
 Lance @command{lilypond} dans un environnement protégé.
 
 L'option @option{--jail} est une alternative qui offre plus de
@@ -279,7 +279,7 @@ mémoire.  Voir aussi @ref{Exécution de LilyPond en mode protégé}.
 
 @cindex loglevel
 @cindex verbosité, définir le degré de
-@item -l,--loglevel=@var{DEGRÉ}
+@item -l, --loglevel=@var{DEGRÉ}
 Règle le niveau de verbosité des messages console à @var{DEGRÉ}.  Les
 différentes valeurs sont :
 
@@ -314,7 +314,7 @@ Tout ce qui peut être affiché, y compris le verbiage utile au débogage.
 @cindex redirection
 @cindex répertoire de destination
 @cindex fichier de destination
-@item -o,--output=@var{FICHIER} ou @var{RÉPERTOIRE}
+@item -o, --output=@var{FICHIER} ou @var{RÉPERTOIRE}
 Détermine le nom par défaut du fichier résultant à @var{FICHIER} ;
 lorsque l'argument @var{RÉPERTOIRE} correspond à un répertoire déjà
 existant, c'est là que les fichiers résultants seront déposés.  Le
@@ -341,14 +341,14 @@ se régler en ajoutant par exemple
 @item --pdf
 Génère du PDF.  Ceci sous-entend l'utilisation de @option{--ps}.
 
-@item -v,--version
+@item -v, --version
 Affiche le numéro de version.
 
-@item -V,--verbose
+@item -V, --verbose
 Active le mode verbeux : affichage de l'intégralité du chemin
 d'accès de chaque fichier, et information des temps de traitement.
 
-@item -w,--warranty
+@item -w, --warranty
 Affiche les informations de garantie applicables à GNU LilyPond -- il
 est livré @strong{SANS GARANTIE} !
 

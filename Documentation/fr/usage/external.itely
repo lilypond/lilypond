@@ -520,7 +520,7 @@ Quantiser les durées à partir de @var{DUR}.
 @item -e, --explicit-durations
 Rendu explicite des durées.
 
-@item -h,--help
+@item -h, --help
 Afficher un résumé des utilisations.
 
 @item -k, --key=@var{acc}[:@var{minor}]
@@ -588,7 +588,7 @@ directement à partir de la ligne de commande.
 @item -a, --absolute
 Rendu en hauteurs absolues.
 
-@item -h,--help
+@item -h, --help
 Afficher un résumé des utilisations.
 
 @item -l, --language=LANG
@@ -615,21 +615,21 @@ articulations, nuances, etc.
 Ne pas convertir les informations de ligature ; laisser LilyPond
 gérer les ligatures automatiquement.
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
 déterminé, ce sera @var{fichier-xml}@file{.ly} ; @file{-}
 produira le résultat sur la sortie standard (@var{stdout}).
 
-@item -r,--relative
+@item -r, --relative
 Rendu en hauteurs relatives (mode par défaut).
 
-@item -v,--verbose
+@item -v, --verbose
 Mode verbeux.
 
 @item --version
 Afficher le numéro de version.
 
-@item -z,--compressed
+@item -z, --compressed
 Le fichier d'entrée est un fichier MusicXML zippé.
 @end table
 
@@ -659,16 +659,16 @@ abc2ly [@var{option}]@dots{} @var{fichier-abc}
 @command{abc2ly} accepte les options suivantes :
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 Préserver la notion de lien de croches propre à ABC.
 
-@item -h,--help
+@item -h, --help
 Afficher un résumé des utilisations.
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 Générer le résultat dans le fichier @var{file}.
 
-@item -s,--strict
+@item -s, --strict
 Être strict sur la réussite.
 
 @item --version
@@ -738,7 +738,7 @@ commande du système.  Pour plus de précisions, reportez-vous à
 @command{etf2ly} accepte les options suivantes :
 
 @table @code
-@item -h,--help
+@item -h, --help
 Afficher cette aide.
 
 @item -o, --output=@var{file}

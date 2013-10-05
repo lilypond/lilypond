@@ -379,7 +379,7 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 @item -e, --explicit-durations
 すべての音符の演奏時間を出力します。
 
-@item -h,--help
+@item -h, --help
 使用方法の要約を表示します。
 
 @item -k, --key=@var{acc}[:@var{minor}]
@@ -451,7 +451,7 @@ musicxml2ly [@var{option}]@dots{} @var{xml-file}
 @item -a, --absolute
 絶対ピッチで出力します。
 
-@item -h,--help
+@item -h, --help
 使用方法の要約を表示します。
 
 @item -l, --language=LANG
@@ -477,21 +477,21 @@ MIDI ブロックを有効にします。
 @item --no-beaming
 連桁情報を変換せず、LilyPond の自動連桁機能を使用します。
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 出力ファイル名を @var{file} とします。@c
 @var{file} に @file{-} を指定すると、出力は stdout に表示されます。@c
 指定が無い場合、出力は @var{xml-file}@file{.ly} となります。
 
-@item -r,--relative
+@item -r, --relative
 ピッチを相対モードに変換します。(デフォルト)
 
-@item -v,--verbose
+@item -v, --verbose
 Verbose モード (ログ等が詳細) で実行します。
 
 @item --version
 バージョン情報を表示します。
 
-@item -z,--compressed
+@item -z, --compressed
 入力ファイルが ZIP で圧縮された MusicXML ファイルであることを示します。
 @end table
 
@@ -522,16 +522,16 @@ abc2ly [@var{option}]@dots{} @var{abc-file}
 @command{abc2ly} には以下のオプションがあります。
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 ABC の連桁情報を保持します。
 
-@item -h,--help
+@item -h, --help
 このオプション一覧を表示します。
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 出力ファイル名を @var{file} とします。
 
-@item -s,--strict
+@item -s, --strict
 @c 未訳
 be strict about success
 
@@ -602,9 +602,9 @@ more information about this.
 The following options are supported by @command{etf2ly}:
 
 @table @code
-@item -h,--help
+@item -h, --help
 this help
-@item -o,--output=@var{FILE}
+@item -o, --output=@var{FILE}
 set output filename to @var{FILE}
 @item --version
 version information

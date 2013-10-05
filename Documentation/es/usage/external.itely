@@ -501,7 +501,7 @@ Cuantizar las duraciones a @var{DURACIÓN}.
 @item -e, --explicit-durations
 Imprimir valores de figura explícitos.
 
-@item -h,--help
+@item -h, --help
 Mostrar un resumen de las instrucciones de utilización.
 
 @item -k, --key=@var{alteración}[:@var{minor}]
@@ -574,7 +574,7 @@ Si el nombre de archivo proporcionado es @file{-},
 @item -a, --absolute
 convertir las alturas en modo absoluto.
 
-@item -h,--help
+@item -h, --help
 mostrar un resumen de la utilización y las opciones.
 
 @item -l, --language=IDIOMA
@@ -602,21 +602,21 @@ articulaciones, dinámica, etc.
 no convertir la información de las barras, en vez de ello usar el
 barrado automático de LilyPond.
 
-@item -o,--output=@var{archivo}
+@item -o, --output=@var{archivo}
 fijar el nombre del archivo de salida como @var{archivo}. Si
 @var{archivo} es @file{-}, la salida se imprime sobre stdout, la
 salida estándar.  Si no se da, se usa @var{archivo_xml}@file{.ly}.
 
-@item -r,--relative
+@item -r, --relative
 convertir las alturas en modo relativo (predeterminado).
 
-@item -v,--verbose
+@item -v, --verbose
 ser prolijo.
 
-@item -v,--version
+@item -v, --version
 imprimir la información de la versión.
 
-@item -z,--compressed
+@item -z, --compressed
 el archivo de entrada es un archivo MusicXML comprimido en zip.
 @end table
 
@@ -648,13 +648,13 @@ abc2ly [@var{opción}]@dots{} @var{archivo_abc}
 @command{abc2ly} contempla las siguientes opciones:
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 preservar la noción de ABC de las barras
-@item -h,--help
+@item -h, --help
 esta ayuda
-@item -o,--output=@var{archivo}
+@item -o, --output=@var{archivo}
 fijar el nombre del archivo de salida como @var{archivo}.
-@item -s,--strict
+@item -s, --strict
 ser estricto respecto al éxito
 @item --version
 imprimir la información de la versión.
@@ -721,9 +721,9 @@ formatos}, para obtener más información acerca de esto.
 @command{etf2ly} contempla las siguientes opciones:
 
 @table @code
-@item -h,--help
+@item -h, --help
 esta ayuda
-@item -o,--output=@var{ARCHIVO}
+@item -o, --output=@var{ARCHIVO}
 fijar el nombre del archivo de salida como @var{ARCHIVO}
 @item --version
 información de la versión

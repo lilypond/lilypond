@@ -105,7 +105,7 @@ A következő parancssori opciók támogatottak:
 
 @table @code
 
-@item -e,--evaluate=@var{kifejezés}
+@item -e, --evaluate=@var{kifejezés}
 A Scheme @var{kifejezés} kiértékelése az @file{.ly} fájlok beolvasása előtt.
 Több @code{-e} opció is megadható, ezek a megadott sorrendben lesznek
 végrehajtva.
@@ -125,12 +125,12 @@ a forrásfájl elejére pedig a következőt kell beszúrni:
 #(use-modules (guile-user))
 @end example
 
-@item -f,--format=@var{formátum}
+@item -f, --format=@var{formátum}
 A kimenet formátuma. Lehetőségek: @code{ps}, @code{pdf} vagy @code{png}.
 
 Példa: @code{lilypond -fpng @var{fájlnév}.ly}
 
-@item -d,--define-default=@var{azonosító}=@var{érték}
+@item -d, --define-default=@var{azonosító}=@var{érték}
 Az @var{azonosító} nevű belső változó beállítása az @var{érték} Scheme
 értékre. Ha az @var{érték} nincs megadva, az alapértelmezett @code{#t}
 lesz a változó értéke. Egy opció kikapcsolásához a @code{no-} prefixumot
@@ -273,21 +273,21 @@ opció a @code{-dpreview} opcióval együtt hasznos.
 @end table
 
 
-@item -h,--help
+@item -h, --help
 Összegzés az alkalmazás használatáról.
 
-@item -H,--header=@var{mező}
+@item -H, --header=@var{mező}
 A megadott fejlécmező kiírása a @file{@var{fájlnév}.@var{mező}} nevű fájlba.
 
 @item --include, -I=@var{könyvtár}
 A @var{könyvtár} hozzáadása a bemeneti fájlok keresési útvonalához.
 @cindex keresési útvonal
 
-@item -i,--init=@var{fájl}
+@item -i, --init=@var{fájl}
 Az inicializáló fájl beállítása a megadott @var{fájl}ra. (Alapértelmezett:
 @file{init.ly}.)
 
-@item -o,--output=@var{fájl}
+@item -o, --output=@var{fájl}
 Kimeneti fájl megadása. A megfelelő kiterjesztés automatikusan hozzáfűzésre
 kerül (pl. @code{.pdf} PDF kimenet esetén).
 
@@ -312,7 +312,7 @@ következőképpen állítható be:
 PDF generálása. A @code{--ps} opció hatását vonja maga után.
 
 
-@item -j,--jail=@var{felhasználó},@var{csoport},@var{börtön},@var{könyvtár}
+@item -j, --jail=@var{felhasználó},@var{csoport},@var{börtön},@var{könyvtár}
 A @command{lilypond} futtatása ún. börtönben.
 
 A @code{--jail} opció egy rugalmasabb alternatíva a @code{-dsafe} módnál abban
@@ -367,14 +367,14 @@ illetve a memóriafoglalásáé is.
 @end table
 
 
-@item -v,--version
+@item -v, --version
 Verzióinformáció kijelzése.
 
-@item -V,--verbose
+@item -V, --verbose
 Bőbeszédűség bekapcsolása: az összes beolvasott fájl elérési útjának,
 futásidőknek és egyéb információknak a kijelzése.
 
-@item -w,--warranty
+@item -w, --warranty
 A GNU LilyPond garanciavállalásának kijelzése. (A LilyPond fejlesztői
 @strong{SEMMIFÉLE GARANCIÁT} nem vállalnak!)
 @end table

@@ -131,16 +131,16 @@ convert-ly [@var{Option}]@dots{} @var{Dateiname}@dots{}
 Folgende Optionen können benutzt werden:
 
 @table @code
-@item -e,--edit
+@item -e, --edit
 Die Konvertierung direkt am Original vornehmen, sodass es direkt verändert wird.
 
-@item -f,--from=@var{von-Versionsnummer}
+@item -f, --from=@var{von-Versionsnummer}
 Stellt die Versionsnummer ein, ab welcher die Konvertierung begonnen werden
 soll.  Wenn die Option nicht benutzt wird, rät @command{convert-ly} die Versionsnummer
 anhand des @code{\version}-Eintrags in der Datei.  Beispielsweise
 @option{--from=2.10.25}
 
-@item -n,--no-version
+@item -n, --no-version
 Normalerweise fügt @command{convert-ly} einen @code{\version}-Eintrag
 zu der konvertierten Datei hinzu.  Mit dieser Option wird das unterdrückt.
 

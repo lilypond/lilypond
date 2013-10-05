@@ -138,13 +138,13 @@ Sono contemplate le seguenti opzioni:
 
 @table @code
 
-@item -d,--define-default=@var{variabile}=@var{valore}
+@item -d, --define-default=@var{variabile}=@var{valore}
 Si veda @ref{Advanced command line options for LilyPond}.
 
 @cindex Scheme, valutazione dell'espressione
 @cindex valutazione dell'espressione, Scheme
 
-@item -e,--evaluate=@var{espressione}
+@item -e, --evaluate=@var{espressione}
 Valuta l'@var{espressione} di Scheme prima di analizzare qualsiasi file @file{.ly}.
 Si possono specificare varie opzioni @option{-e}; saranno analizzate in modo
 sequenziale.
@@ -171,19 +171,19 @@ in cima al file @code{.ly}.
 @cindex output, formato
 @cindex formato, output
 
-@item -f,--format=@var{formato}
+@item -f, --format=@var{formato}
 Formati di output.  Come @code{formato} si può scegliere tra
 @code{ps}, @code{pdf} e @code{png}.
 
 Esempio: @code{lilypond -fpng @var{file}.ly}
 
-@item -h,--help
+@item -h, --help
 Mostra una sintesi dell'utilizzo.
 
-@item -H,--header=@var{CAMPO}
+@item -H, --header=@var{CAMPO}
 Estrae un campo dell'intestazione nel file @file{NOME.@var{CAMPO}}.
 
-@item -i,--init=@var{file}
+@item -i, --init=@var{file}
 Imposta il file di inizializzazione su @var{file} (predefinito: @file{init.ly}).
 
 @cindex ricerca dei file
@@ -198,7 +198,7 @@ la ricerca continuerà nelle directory seguenti.
 
 @cindex gabbia chroot, esecuzione all'interno di
 
-@item -j,--jail=@var{utente},@var{gruppo},@var{gabbia},@var{directory}
+@item -j, --jail=@var{utente},@var{gruppo},@var{gabbia},@var{directory}
 Esegue @command{lilypond} in una gabbia chroot.
 
 L'opzione @option{--jail} fornisce un'alternativa più flessibile a
@@ -260,7 +260,7 @@ memoria che può essere allocata.  Si veda anche @ref{LilyPond in chroot jail}.
 @cindex loglevel
 @cindex output dettagliato
 
-@item -l,--loglevel=@var{LIVELLO}
+@item -l, --loglevel=@var{LIVELLO}
 Imposta la verbosità dell'output della console su @var{LIVELLO}. I valori possibili sono:
 @table @code
 
@@ -291,7 +291,7 @@ Tutti i messaggi possibili, incluso l'output verboso di debug.
 @cindex output, impostare il nome del file
 @cindex output, directory
 
-@item -o,--output=@var{FILE} o @var{CARTELLA}
+@item -o, --output=@var{FILE} o @var{CARTELLA}
 Imposta il file di output predefinito @var{FILE} oppure, se una cartella con
 quel nome esiste già, dirige l'output in @var{CARTELLA}, prendendo il nome
 del file dal file di input.  In entrambi i casi verrà aggiunto il suffisso
@@ -320,14 +320,14 @@ Genera immmagini di ogni pagina in formato PNG.  Questo implica
 @item --pdf
 Genera PDF.  Questo implica @option{--ps}.
 
-@item -v,--version
+@item -v, --version
 Mostra informazioni sulla versione.
 
-@item -V,--verbose
+@item -V, --verbose
 Aumenta la prolissità: mostra i percorsi completi di tutti i file letti e dà
 informazioni sui tempi.
 
-@item -w,--warranty
+@item -w, --warranty
 Mostra la garanzia con cui viene distribuito GNU LilyPond.  (Distribuito
 con @strong{NESSUNA GARANZIA}!)
 

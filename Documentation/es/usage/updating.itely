@@ -167,18 +167,18 @@ convert-ly [@var{opción}]@dots{} @var{archivo}@dots{}
 Se pueden dar las siguientes opciones:
 
 @table @code
-@item -d,--diff-version-update
+@item -d, --diff-version-update
 incrementar la cadena @code{\version} solamente si el archivo
 efectivamente ha cambiado.  Sin esta opción (o si cualquier
 conversión ha modificado el archivo), la cabecera de versión
 refleja la regla de conversión que se ha tenido en cuenta en
 último lugar.
 
-@item -e,--edit
+@item -e, --edit
 Aplicar las conversiones directamente al archivo de entrada,
 modificándolo in situ.
 
-@item -f,--from=@var{versión_de_origen}
+@item -f, --from=@var{versión_de_origen}
 Establece la versión desde la que convertir.  Si no aparece esta
 opción, @command{convert-ly} tratará de adivinarla, basándose en el
 enunciado @code{\version} del archivo.  Ejemplo: @option{--from=2.10.25}
@@ -192,7 +192,7 @@ valores posibles son @code{NONE} (ninguno), @code{ERROR} (errores),
 @code{WARNING} (advertencias), @code{PROGRESS} (avance;
 predeterminado) y @code{DEBUG} (depuración).
 
-@item -n,--no-version
+@item -n, --no-version
 Normalmente @command{convert-ly} añade un indicador @code{\version} a
 la salida.  La especificación de esta opción lo suprime.
 

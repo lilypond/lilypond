@@ -461,7 +461,7 @@ Quantize note durations on @var{DUR}.
 @item -e, --explicit-durations
 Print explicit durations.
 
-@item -h,--help
+@item -h, --help
 Show summary of usage.
 
 @item -k, --key=@var{acc}[:@var{minor}]
@@ -530,7 +530,7 @@ The following options are supported by @command{musicxml2ly}:
 @item -a, --absolute
 convert pitches in absolute mode.
 
-@item -h,--help
+@item -h, --help
 print usage and option summary.
 
 @item -l, --language=LANG
@@ -554,21 +554,21 @@ articulations, dynamics, etc.
 do not convert beaming information, use LilyPond's automatic
 beaming instead.
 
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 set output filename to @var{file}.  If @var{file} is @file{-}, the output
 will be printed on stdout.  If not given, @var{xml-file}@file{.ly} will
 be used.
 
-@item -r,--relative
+@item -r, --relative
 convert pitches in relative mode (default).
 
-@item -v,--verbose
+@item -v, --verbose
 be verbose.
 
 @item --version
 print version information.
 
-@item -z,--compressed
+@item -z, --compressed
 input file is a zip-compressed MusicXML file.
 @end table
 
@@ -596,13 +596,13 @@ abc2ly [@var{option}]@dots{} @var{abc-file}
 The following options are supported by @command{abc2ly}:
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 preserve ABC's notion of beams
-@item -h,--help
+@item -h, --help
 this help
-@item -o,--output=@var{file}
+@item -o, --output=@var{file}
 set output filename to @var{file}.
-@item -s,--strict
+@item -s, --strict
 be strict about success
 @item --version
 print version information.
@@ -669,9 +669,9 @@ more information about this.
 The following options are supported by @command{etf2ly}:
 
 @table @code
-@item -h,--help
+@item -h, --help
 this help
-@item -o,--output=@var{FILE}
+@item -o, --output=@var{FILE}
 set output filename to @var{FILE}
 @item --version
 version information

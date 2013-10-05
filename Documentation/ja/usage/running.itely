@@ -144,13 +144,13 @@ lilypond は出力として @file{filename.ps} と @file{filename.pdf} を作り
 
 @table @code
 
-@item -d,--define-default=@var{var}=@var{val}
+@item -d, --define-default=@var{var}=@var{val}
 @ref{Advanced command line options for LilyPond} を参照してください。
 
 @cindex Scheme, expression evaluation (Scheme 表記の評価)
 @cindex expression evaluation, Scheme (Scheme 表記の評価)
 
-@item -e,--evaluate=@var{expr}
+@item -e, --evaluate=@var{expr}
 @file{.ly} ファイルを解析する前に Scheme @var{expr} を評価します。@c
 複数の @code{-e} オプションが与えられた場合、それらは順番に評価されます。
 
@@ -175,19 +175,19 @@ lilypond -e '(define-public a 42)'
 @cindex output, format (出力のフォーマット)
 @cindex format, output (出力のフォーマット)
 
-@item -f,--format=@var{format}
+@item -f, --format=@var{format}
 フォーマットを指定します。@c
 @code{format} の選択肢は @code{ps}, @code{pdf}, それに @code{png} です。
 
 例: @code{lilypond -fpng @var{filename}.ly}
 
-@item -h,--help
+@item -h, --help
 使用方法の要約を表示します。
 
-@item -H,--header=@var{FIELD}
+@item -H, --header=@var{FIELD}
 ヘッダ フィールドをファイル @file{BASENAME.@var{FIELD}} に吐き出します。
 
-@item -i,--init=@var{file}
+@item -i, --init=@var{file}
 init ファイルとして @var{file} をセットします (デフォルト: @file{init.ly})。
 
 @cindex file searching (ファイル サーチ)
@@ -202,7 +202,7 @@ init ファイルとして @var{file} をセットします (デフォルト: @f
 
 @cindex chroot jail, running inside (chroot jail 内部で実行する)
 
-@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+@item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
 @command{lilypond} を chroot jail 環境で実行します。@c
 (訳者: chroot jail 環境とはセキュリティのために@c
 カレント プロセスに対してルート ディレクトリの位置を変更すること。)
@@ -278,7 +278,7 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 @cindex loglevel (ログレベル)
 @cindex output, verbosity (出力の饒舌さ)
 
-@item -l,--loglevel=@var{LEVEL}
+@item -l, --loglevel=@var{LEVEL}
 コンソール出力の饒舌さを @var{LEVEL} にセットします。@c
 取り得る値は以下の通りです:
 
@@ -312,7 +312,7 @@ LilyPond が使用可能な CPU 時間を数秒に制限する
 @cindex output, setting filename (出力のファイル名を設定する)
 @cindex output, directory (出力ディレクトリ)
 
-@item -o,--output=@var{FILE} or @var{FOLDER}
+@item -o, --output=@var{FILE} or @var{FOLDER}
 デフォルトの出力ファイルとして @var{FILE} をセットします。@c
 セットした名前のフォルダが存在する場合、そのフォルダに出力されます。@c
 適切な接尾辞が追加されます
@@ -343,14 +343,14 @@ PostScript を生成します。
 PDF を生成します。@c
 これは内部で @code{--ps} を使用します。
 
-@item -v,--version
+@item -v, --version
 バージョン情報を表示します。
 
-@item -V,--verbose
+@item -V, --verbose
 冗長表示モードにします:
 読み込むすべてのファイルのフル パスを表示して、時間情報を表示します。
 
-@item -w,--warranty
+@item -w, --warranty
 GNU LilyPond の保証責任を表示します。@c
 (GNU LilyPond には@strong{保証責任はありません}！)
 

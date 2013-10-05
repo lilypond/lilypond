@@ -134,13 +134,13 @@ The following options are supported:
 
 @table @code
 
-@item -d,--define-default=@var{var}=@var{val}
+@item -d, --define-default=@var{var}=@var{val}
 See @ref{Advanced command line options for LilyPond}.
 
 @cindex Scheme, expression evaluation
 @cindex expression evaluation, Scheme
 
-@item -e,--evaluate=@var{expr}
+@item -e, --evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @option{-e} options may be given, they will be evaluated
 sequentially.
@@ -167,19 +167,19 @@ at the top of the @code{.ly} file.
 @cindex output, format
 @cindex format, output
 
-@item -f,--format=@var{format}
+@item -f, --format=@var{format}
 which formats should be written.  Choices for @code{format} are
 @code{ps}, @code{pdf}, and @code{png}.
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
-@item -h,--help
+@item -h, --help
 Show a summary of usage.
 
-@item -H,--header=@var{FIELD}
+@item -H, --header=@var{FIELD}
 Dump a header field to file @file{BASENAME.@var{FIELD}}.
 
-@item -i,--init=@var{file}
+@item -i, --init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
 
 @cindex file searching
@@ -194,7 +194,7 @@ search will continue in subsequent directories.
 
 @cindex chroot jail, running inside
 
-@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+@item -j, --jail=@var{user},@var{group},@var{jail},@var{dir}
 Run @command{lilypond} in a chroot jail.
 
 The @option{--jail} option provides a more flexible alternative to
@@ -257,7 +257,7 @@ the amount of memory that can be allocated.  Also see
 @cindex loglevel
 @cindex output, verbosity
 
-@item -l,--loglevel=@var{LEVEL}
+@item -l, --loglevel=@var{LEVEL}
 Set the verbosity of the console output to @var{LEVEL}. Possible values
 are:
 
@@ -290,7 +290,7 @@ All possible messages, including verbose debug output.
 @cindex output, setting filename
 @cindex output, directory
 
-@item -o,--output=@var{FILE} or @var{FOLDER}
+@item -o, --output=@var{FILE} or @var{FOLDER}
 Set the default output file to @var{FILE} or, if a folder with that name
 exists, direct the output to @var{FOLDER}, taking the file name from the
 input file.  The appropriate suffix will be added (e.g. @code{.pdf} for
@@ -319,14 +319,14 @@ Generate pictures of each page, in PNG format.  This implies
 @item --pdf
 Generate PDF.  This implies @option{--ps}.
 
-@item -v,--version
+@item -v, --version
 Show version information.
 
-@item -V,--verbose
+@item -V, --verbose
 Be verbose: show full paths of all files read, and give timing
 information.
 
-@item -w,--warranty
+@item -w, --warranty
 Show the warranty with which GNU LilyPond comes.  (It comes with
 @strong{NO WARRANTY}!)
 

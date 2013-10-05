@@ -167,7 +167,7 @@ effectivement modifié.  En l'absence de cette option, ou bien si une
 conversion quelle qu'elle soit a modifié le fichier, la mention de
 version est porté à la valeur de la règle appliquée la plus récente.
 
-@item -e,--edit
+@item -e, --edit
 pour éditer directement le fichier d'origine.
 
 @item -f, --from=@var{from-patchlevel}

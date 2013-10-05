@@ -142,13 +142,13 @@ Están contempladas las siguientes opciones:
 
 @table @code
 
-@item -d,--define-default=@var{variable}=@var{valor}
+@item -d, --define-default=@var{variable}=@var{valor}
 Véase @ref{Opciones avanzadas de línea de órdenes para LilyPond}.
 
 @cindex Scheme, evaluación de expresiones
 @cindex expresiones de Scheme, evaluación
 
-@item -e,--evaluate=@var{expresión}
+@item -e, --evaluate=@var{expresión}
 Evaluar la @var{expresión} de Scheme antes de analizar los archivos
 @file{.ly}.  Se pueden pasar varias opciones @option{-e}, que se
 evaluarán en secuencia.
@@ -175,19 +175,19 @@ al principio del archivo @file{.ly}.
 @cindex output, format
 @cindex format, output
 
-@item -f,--format=@var{format}
+@item -f, --format=@var{format}
 which formats should be written.  Choices for @code{format} are
 @code{ps}, @code{pdf}, and @code{png}.
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
-@item -h,--help
+@item -h, --help
 Mostrar un resumen de las formas de utilización.
 
-@item -H,--header=@var{CAMPO}
+@item -H, --header=@var{CAMPO}
 Volcar un campo de cabecera al archivo @file{NOMBREBASE.@var{CAMPO}}
 
-@item -i,--init=@var{archivo}
+@item -i, --init=@var{archivo}
 Establecer el archivo de inicio a @var{archivo} (predeterminado:
 @file{init.ly}).
 
@@ -204,7 +204,7 @@ encuentra, la búsqueda continúa en los directorios siguientes.
 
 @cindex chroot, ejecutar dentro de una jaula
 
-@item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
+@item -j, --jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
 Ejecutar @command{lilypond} en una jaula de chroot.
 
 La opción @option{--jail} (jaula) proporciona una alternativa más
@@ -277,7 +277,7 @@ tamaño de la memoria que se puede reservar.  Véase también
 @cindex registro, nivel de
 @cindex salida prolija, fijar el nivel
 
-@item -l,--loglevel=@var{LEVEL}
+@item -l, --loglevel=@var{LEVEL}
 Fijar el grado en que la salida de consola es prolija al nivel
 @var{LEVEL}. Los valores posibles son:
 
@@ -310,7 +310,7 @@ prolija.
 @cindex carpeta, dirigir la salida hacia
 @cindex salida, establecer el nombre del archivo de
 
-@item -o,--output=@var{ARCHIVO} o @var{CARPETA}
+@item -o, --output=@var{ARCHIVO} o @var{CARPETA}
 Establecer el nombre del archivo de salida predeterminado a
 @var{ARCHIVO} o, si existe una carpeta con ese nombre, dirigir la
 salida hacia @var{CARPETA}, tomando el nombre de archivo del documento
@@ -341,14 +341,14 @@ con
 @item --pdf
 Generar PDF.  Implica @option{--ps}.
 
-@item -v,--version
+@item -v, --version
 Mostrar la información de la versión.
 
-@item -V,--verbose
+@item -V, --verbose
 Ser prolijo: mostrar las rutas completas de todos los archivos que se
 leen, y dar información cronométrica.
 
-@item -w,--warranty
+@item -w, --warranty
 Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @strong{NINGUNA GARANTÍA}!).
 

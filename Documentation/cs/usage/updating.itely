@@ -132,16 +132,16 @@ convert-ly [@var{volba}]@dots{} @var{souborovýnázev}@dots{}
 Mohou se používat následující volby:
 
 @table @code
-@item -e,--edit
+@item -e, --edit
 Použít převod přímo na vstupní soubor, takže je přímo změněn.
 
-@item -f,--from=@var{od-čísloverze}
+@item -f, --from=@var{od-čísloverze}
 Nastavuje číslo verze, od kterého má převod začít.  Když
 tato volba není použita, odhadne @command{convert-ly} číslo verze
 na základě údaje o @code{\version} v souboru.  Například
 @code{--from=2.10.25}
 
-@item -n,--no-version
+@item -n, --no-version
 Obvykle do výstupu @command{convert-ly} přidá záznam @code{\version}
 k převáděnému souboru.  Zadání této volby povede k potlačení tohoto chování.
 

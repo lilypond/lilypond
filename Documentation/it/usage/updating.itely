@@ -128,15 +128,15 @@ convert-ly [@var{opzione}]@dots{} @var{nomefile}@dots{}
 Esistono le seguenti opzioni:
 
 @table @code
-@item -d,--diff-version-update
+@item -d, --diff-version-update
 aggiorna @code{\version} all'ultima versione oppure, se questa è maggiore, non
 fa niente.
 
-@item -e,--edit
+@item -e, --edit
 Applica le conversioni direttamente nel file di input, modificando
 l'originale.
 
-@item -f,--from=@var{from-patchlevel}
+@item -f, --from=@var{from-patchlevel}
 Imposta la versione da cui convertire.  Se non viene impostata, @command{convert-ly}
 la ricaverà dalla stringa @code{\version} presente nel file.
 Esempio: @option{--from=2.10.25}
@@ -149,7 +149,7 @@ Imposta la verbosità dell'output su @var{loglevel}. I valori possibili, in
 caratteri maiuscoli, sono @code{PROGRESS} (predefinito), @code{NONE},
 @code{WARNING}, @code{ERROR} e @code{DEBUG}.
 
-@item -n,--no-version
+@item -n, --no-version
 Normalmente @command{convert-ly} aggiunge un indicatore @code{\version}
 nell'output.  Questa opzione lo impedisce.
 

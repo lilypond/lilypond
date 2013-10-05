@@ -154,13 +154,13 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
 @table @code
 
-@item -d,--define-default=@var{Variable}=@var{Wert}
+@item -d, --define-default=@var{Variable}=@var{Wert}
 Siehe @ref{Fortgeschrittene Optionen auf der Kommandozeile für LilyPond}.
 
 @cindex Scheme, Auswertung von Ausdrücken
 @cindex Auswertung von Ausdrücken, Scheme
 
-@item -e,--evaluate=@var{expr}
+@item -e, --evaluate=@var{expr}
 Wertet den Scheme-Ausdruck @var{expr} aus, bevor die @file{.ly} Dateien
 gelesen und interpretiert werden.
 Die @code{-e} Option kann auch mehrfach angegeben werden, die Ausdrücke
@@ -186,20 +186,20 @@ Anführungsstriche einsetzen.}
 
 @cindex Ausgabeformat
 
-@item -f,--format=@var{Format}
+@item -f, --format=@var{Format}
 Bestimmt das Ausgabeformat. Mögliche Werte von @var{Format} sind
 @code{svg}, @code{ps}, @code{pdf} und @code{png}.
 
 Beispiel: @code{lilypond -fpng @var{Dateiname}.ly}
 
-@item -h,--help
+@item -h, --help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
-@item -H,--header=@var{FELD}
+@item -H, --header=@var{FELD}
 Gibt den Inhalt eines Feldes aus dem @code{\header}-Block in die Datei
 @file{Dateiname.@var{FELD}} aus.
 
-@item -i,--init=@var{Initialisierungsdatei}
+@item -i, --init=@var{Initialisierungsdatei}
 Benutzt @var{Initialisierungsdatei} zur gesamten Programminitialisierung. Der
 Standardwert ist @file{init.ly}.
 
@@ -216,7 +216,7 @@ fort, wenn die gesuchte Datei nicht in dem Verzeichnis gefunden wird.
 @cindex Kerker, Programm ausführen
 @cindex Jail, Programm ausführen
 
-@item -j,--jail=@var{Benutzer},@var{Gruppe},@var{Jail-Verzeichnis},@var{Arbeitsverzeichnis}
+@item -j, --jail=@var{Benutzer},@var{Gruppe},@var{Jail-Verzeichnis},@var{Arbeitsverzeichnis}
 Führt @command{lilypond} in einem chroot-Jail aus.
 
 Die @option{--jail} Option ist eine flexiblere Alternative zu @option{-dsafe}, wenn
@@ -283,7 +283,7 @@ auch @ref{LilyPond in chroot-Kerker}
 @cindex Logstufe
 @cindex Ausgabe, Ausführlichkeit
 
-@item -l,--loglevel=@var{Logstufe}
+@item -l, --loglevel=@var{Logstufe}
 Passt die Ausführlichkeit der Ausgabe auf der Kommandozeile entsprechend
 @var{Logstufe} an.  Mögliche Werte sind:
 
@@ -319,7 +319,7 @@ haben können.
 @cindex Ausgabedateiname
 @cindex Dateiname der Ausgabe bestimmen
 
-@item -o,--output=@var{DATEI} oder @var{ORDNER}
+@item -o, --output=@var{DATEI} oder @var{ORDNER}
 Schreibt das Ergebnis der Verarbeitung mit LilyPond in die Ausgabedatei
 @var{DATEI}.  Wenn ein Verzeichnis mit dem Namen existiert, werden die Ausgabedateien
 in dieses Verzeichnis gespeichert, wobei der Dateiname der Eingabedatei
@@ -348,14 +348,14 @@ werden durch
 @item --pdf
 Erzeugt PDF-Dateien. Dies impliziert @code{--ps}.
 
-@item -v,--version
+@item -v, --version
 Gibt die Versionsnummer aus.
 
-@item -V,--verbose
+@item -V, --verbose
 Gibt ausführliche informative Meldungen aus: Zeigt die vollen Dateipfade
 aller gelesenen Dateien sowie Informationen über die Laufzeit.
 
-@item -w,--warranty
+@item -w, --warranty
 Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 @strong{KEINERLEI GARANTIE}!)
 

@@ -373,7 +373,7 @@ Quantisiert Tondauern zu Vielfachen von @var{LÄNGE}.
 @item -e, --explicit-durations
 Gibt alle Tondauern explizit an.
 
-@item -h,--help
+@item -h, --help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
 @item -k, --key=@var{acc}[:@var{Moll}]
@@ -446,7 +446,7 @@ unterstützt:
 @item -a, --absolute
 Konvertiert in absolute Tonhöhen.
 
-@item -h,--help
+@item -h, --help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
 
 @item -l, --language=SPRACHE
@@ -472,13 +472,13 @@ von Artikulations- und Lautstärkebezeichnungen.
 Konvertiert keine Informationen über die Balkensetzung aus der
 MusicXML-Datei. Stattdessen wird dies LilyPond überlassen.
 
-@item -o,--output=@var{Dateiname}
+@item -o, --output=@var{Dateiname}
 Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben. Wird
 als @var{Dateiname} nur @file{-} angegeben, wird das Ergebnis der Konvertierung
 an der Kommandozeile ausgegeben. Wird diese Option nicht angegeben, so
 erfolgt die Ausgabe in die Datei @var{XML-Datei}@file{.ly}.
 
-@item -r,--relative
+@item -r, --relative
 Konvertiert in relative Tonhöhen. (Standardeinstellung)
 
 @item -v, --verbose
@@ -487,7 +487,7 @@ Gibt ausführliche informative Meldungen während der Konvertierung aus.
 @item --version
 Gibt die Versionsnummer aus.
 
-@item  -z,--compressed
+@item -z, --compressed
 Die Eingabedatei wird als komprimierte MusicXML-Datei eingelesen.
 Dies ist die Standardeinstellung für Dateien mit der Erweiterung
 @file{.xml}.
@@ -521,15 +521,15 @@ Die folgenden Kommandozeilenoptionen werden von @command{abc2ly}
 unterstützt:
 
 @table @code
-@item -b,--beams=None
+@item -b, --beams=None
 Die Balkensetzung aus der ABC-Datei erhalten.
-@item -h,--help
+@item -h, --help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
-@item -o,--output=@var{Dateiname}
+@item -o, --output=@var{Dateiname}
 Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben.
-@item -s,--strict
+@item -s, --strict
 Strenge Auslegung einer erfolgreichen Konvertierung.
-@item -v,--version
+@item -v, --version
 Gibt die Versionsnummer aus.
 @end table
 
@@ -608,9 +608,9 @@ Die folgenden Kommandozeilenoptionen werden von @command{etf2ly}
 unterstützt:
 
 @table @code
-@item -h,--help
+@item -h, --help
 Zeigt eine Zusammenfassung der Programmbenutzung und der Optionen.
-@item -o,--output=@var{Dateiname}
+@item -o, --output=@var{Dateiname}
 Die Ausgabe wird in die Datei @var{Dateiname}@file{.ly} geschrieben.
 @item --version
 Gibt die Versionsnummer aus.
