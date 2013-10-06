@@ -1611,7 +1611,6 @@ partire dal nome, o viceversa.
   @tab Incide le chiavi
 @item Completion_heads_engraver
   @tab Separa le note che attraversano le stanghette
-@c The old Dynamic_engraver is deprecated. -jm
 @item New_dynamic_engraver
   @tab Crea le forcelle e i testi relativi alla dinamica
 @item Forbid_line_break_engraver

@@ -1682,7 +1682,6 @@ a partir del nombre (en inglés), y viceversa.
   @tab Graba las claves
 @item Completion_heads_engraver
   @tab Divide las notas que atraviesan una línea divisoria
-@c The old Dynamic_engraver is deprecated. -jm
 @item New_dynamic_engraver
   @tab Crea reguladores e indicaciones dinámicas textuales
 @item Forbid_line_break_engraver

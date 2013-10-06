@@ -1770,7 +1770,6 @@ abzuleiten.
   @tab Erstellt Notenschlüssel.
 @item Completion_heads_engraver
   @tab Teilt Noten in kleiner Werte, wenn sie über die Taktlinie reichen.
-@c The old Dynamic_engraver is deprecated. -jm
 @item New_dynamic_engraver
   @tab Erstellt Dynamik-Klammern und Dynamik-Texte.
 @item Forbid_line_break_engraver

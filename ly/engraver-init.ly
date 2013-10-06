@@ -254,7 +254,6 @@ multiple voices on the same staff."
   \consists "Text_engraver"
   \consists "New_dynamic_engraver"
   \consists "Dynamic_align_engraver"
-%  \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
   \consists "Bend_engraver"
 

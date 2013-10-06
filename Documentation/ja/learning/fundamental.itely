@@ -1675,7 +1675,6 @@ LilyPond によって作成された楽譜上にあるすべての記号は
   @tab 音部記号を譜刻します。
 @item Completion_heads_engraver
   @tab 小節線をまたがる音符を分割します。
-@c The old Dynamic_engraver is deprecated. -jm
 @item New_dynamic_engraver
   @tab 強弱記号 (クレッシェンド、デクレッシェンド) と強弱テキスト (p や f など)
 を作成します。

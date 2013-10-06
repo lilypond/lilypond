@@ -3672,6 +3672,17 @@ def conv(str):
         stderr_write (_ ("Staff-padding now controls the distance to the baseline, not the nearest point."))
     return str
 
+@rule((2, 17, 29), r'''Dynamic_engraver -> New_dynamic_engraver+Dynamic_align_engraver
+New_dynamic_engraver -> Dynamic_engraver''')
+def conv(str):
+    str = re.sub ("(\r?\n?[ \t]*\\\\(?:consists|remove)\\s*)(\"?)Dynamic_engraver\\2",
+                  r"\1\2New_dynamic_engraver\2\1\2Dynamic_align_engraver\2",
+                  str)
+# Should we warn about any remaining Dynamic_engraver?  Possibly it
+# will do the job just fine.
+    str = re.sub ("New_dynamic_engraver", "Dynamic_engraver", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
