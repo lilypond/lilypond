@@ -30,9 +30,9 @@
 
 #include "translator.icc"
 
-class New_dynamic_engraver : public Engraver
+class Dynamic_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS (New_dynamic_engraver);
+  TRANSLATOR_DECLARATIONS (Dynamic_engraver);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
   DECLARE_TRANSLATOR_LISTENER (span_dynamic);
@@ -58,7 +58,7 @@ private:
   bool end_new_spanner_;
 };
 
-New_dynamic_engraver::New_dynamic_engraver ()
+Dynamic_engraver::Dynamic_engraver ()
 {
   script_event_ = 0;
   current_span_event_ = 0;
@@ -69,25 +69,25 @@ New_dynamic_engraver::New_dynamic_engraver ()
   end_new_spanner_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_engraver, absolute_dynamic);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, absolute_dynamic);
 void
-New_dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
+Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (script_event_, ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_engraver, span_dynamic);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, span_dynamic);
 void
-New_dynamic_engraver::listen_span_dynamic (Stream_event *ev)
+Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
 
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_engraver, break_span);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, break_span);
 void
-New_dynamic_engraver::listen_break_span (Stream_event *event)
+Dynamic_engraver::listen_break_span (Stream_event *event)
 {
   if (event->in_event_class ("break-dynamic-span-event"))
     {
@@ -102,9 +102,9 @@ New_dynamic_engraver::listen_break_span (Stream_event *event)
 }
 
 SCM
-New_dynamic_engraver::get_property_setting (Stream_event *evt,
-                                            char const *evprop,
-                                            char const *ctxprop)
+Dynamic_engraver::get_property_setting (Stream_event *evt,
+                                        char const *evprop,
+                                        char const *ctxprop)
 {
   SCM spanner_type = evt->get_property (evprop);
   if (spanner_type == SCM_EOL)
@@ -113,7 +113,7 @@ New_dynamic_engraver::get_property_setting (Stream_event *evt,
 }
 
 void
-New_dynamic_engraver::process_music ()
+Dynamic_engraver::process_music ()
 {
   if (current_spanner_
       && (accepted_spanevents_drul_[STOP]
@@ -203,7 +203,7 @@ New_dynamic_engraver::process_music ()
 }
 
 void
-New_dynamic_engraver::stop_translation_timestep ()
+Dynamic_engraver::stop_translation_timestep ()
 {
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
     finished_spanner_
@@ -222,7 +222,7 @@ New_dynamic_engraver::stop_translation_timestep ()
 }
 
 void
-New_dynamic_engraver::finalize ()
+Dynamic_engraver::finalize ()
 {
   if (current_spanner_
       && !current_spanner_->is_live ())
@@ -239,7 +239,7 @@ New_dynamic_engraver::finalize ()
 }
 
 string
-New_dynamic_engraver::get_spanner_type (Stream_event *ev)
+Dynamic_engraver::get_spanner_type (Stream_event *ev)
 {
   string type;
   SCM start_sym = scm_car (ev->get_property ("class"));
@@ -255,7 +255,7 @@ New_dynamic_engraver::get_spanner_type (Stream_event *ev)
 }
 
 void
-New_dynamic_engraver::acknowledge_note_column (Grob_info info)
+Dynamic_engraver::acknowledge_note_column (Grob_info info)
 {
   if (script_ && !script_->get_parent (X_AXIS))
     {
@@ -283,8 +283,8 @@ New_dynamic_engraver::acknowledge_note_column (Grob_info info)
     finished_spanner_->set_bound (RIGHT, info.grob ());
 }
 
-ADD_ACKNOWLEDGER (New_dynamic_engraver, note_column);
-ADD_TRANSLATOR (New_dynamic_engraver,
+ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
+ADD_TRANSLATOR (Dynamic_engraver,
                 /* doc */
                 "Create hairpins, dynamic texts and dynamic text spanners.",
 
