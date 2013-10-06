@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.27\n"
+"Project-Id-Version: lilypond 2.17.28\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-09-26 11:41+0100\n"
+"POT-Creation-Date: 2013-10-06 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1015,34 +1015,34 @@ msgstr ""
 msgid "show warranty and copyright"
 msgstr ""
 
-#: convert-ly.py:189
+#: convert-ly.py:190
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:204
+#: convert-ly.py:209
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:206
+#: convert-ly.py:211
 msgid "Stopping at last successful rule"
 msgstr ""
 
-#: convert-ly.py:234
+#: convert-ly.py:239
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:344
+#: convert-ly.py:354
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:350
+#: convert-ly.py:360
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:356
+#: convert-ly.py:366
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1050,7 +1050,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:362
+#: convert-ly.py:372
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -3013,11 +3013,11 @@ msgstr ""
 msgid "unterminated text spanner"
 msgstr ""
 
-#: tie-engraver.cc:116
+#: tie-engraver.cc:119
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:350
+#: tie-engraver.cc:353
 msgid "lonely tie"
 msgstr ""
 
@@ -3234,89 +3234,89 @@ msgstr ""
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:214
+#: lexer.ll:224
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:217
+#: lexer.ll:227
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:269
+#: lexer.ll:279
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:286
+#: lexer.ll:296
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:290
+#: lexer.ll:300
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:294
+#: lexer.ll:304
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:321
+#: lexer.ll:331
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:345
+#: lexer.ll:355
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:371
+#: lexer.ll:381
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:381
+#: lexer.ll:391
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:717
+#: lexer.ll:743
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:722
+#: lexer.ll:748
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:737
+#: lexer.ll:763
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:805
+#: lexer.ll:834
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:934
+#: lexer.ll:963
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:954
+#: lexer.ll:983
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1250
+#: lexer.ll:1279
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1294
+#: lexer.ll:1323
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1295
+#: lexer.ll:1324
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1301
+#: lexer.ll:1330
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3348,7 +3348,7 @@ msgstr ""
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: backend-library.scm:190
+#: backend-library.scm:189
 #, scheme-format
 msgid "missing stencil expression `~S'"
 msgstr ""
@@ -3413,60 +3413,65 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2832
+#: define-markup-commands.scm:2856
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3258
+#: define-markup-commands.scm:3282
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3259
+#: define-markup-commands.scm:3283
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3503
+#: define-markup-commands.scm:3527
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3714
+#: define-markup-commands.scm:3738
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:783
+#: define-music-types.scm:792
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:786
+#: define-music-types.scm:795
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:805
+#: define-music-types.scm:815
+#, scheme-format
+msgid "bad make-music argument: ~S"
+msgstr ""
+
+#: define-music-types.scm:827
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:806
+#: define-music-types.scm:828
 msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
-#: define-note-names.scm:971
+#: define-note-names.scm:972
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:977
+#: define-note-names.scm:978
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:980
+#: define-note-names.scm:981
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -3585,19 +3590,19 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:887
+#: lily-library.scm:884
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:958
+#: lily-library.scm:955
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:983
+#: lily-library.scm:980
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
@@ -3623,37 +3628,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:878
+#: lily.scm:877
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:879
+#: lily.scm:878
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:941
+#: lily.scm:939
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:944
+#: lily.scm:942
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:966 lily.scm:1055
+#: lily.scm:964 lily.scm:1053
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1046
+#: lily.scm:1044
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1065 ps-to-png.scm:66
+#: lily.scm:1063 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3668,7 +3673,7 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:200
+#: ly-syntax-constructors.scm:199
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
@@ -3826,7 +3831,7 @@ msgstr ""
 msgid "~a exited with status: ~S"
 msgstr ""
 
-#: to-xml.scm:191
+#: to-xml.scm:190
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr ""
