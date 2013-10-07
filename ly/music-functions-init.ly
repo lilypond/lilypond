@@ -434,7 +434,7 @@ to the preceding note or rest as a post-event with @code{-}.")
 	       'automatically-numbered (not mark)
 	       'text (or mark (make-null-markup))
 	       'footnote-text footnote)))
-     #{ \tweak footnote-music #mus #item #}))
+     #{ \once \tweak footnote-music #mus #item #}))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
@@ -495,9 +495,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (ly:music? item)
-       #{ \tweak transparent ##t #item #}
-       #{ \override #item . transparent = ##t #}))
+   #{ \tweak transparent ##t #item #})
 
 inStaffSegno =
 #(define-music-function (parser location) ()
@@ -723,21 +721,28 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (if (ly:music? item)
-       #{ \tweak stencil ##f #item #}
-       #{ \override #item . stencil = ##f #}))
+   #{ \tweak stencil ##f #item #})
 
 once =
 #(define-music-function (parser location music) (ly:music?)
-   (_i "Set @code{once} to @code{#t} on all layout instruction events in @var{music}.")
-   (music-map
-    (lambda (m)
-      (cond ((music-is-of-type? m 'layout-instruction-event)
-	     (set! (ly:music-property m 'once) #t))
-	    ((ly:duration? (ly:music-property m 'duration))
-	     (ly:music-warning m (_ "Cannot apply \\once to timed music"))))
-      m)
-    music))
+   (_i "Set @code{once} to @code{#t} on all layout instruction events
+in @var{music}.  This will complain about music with an actual
+duration.  As a special exception, if @var{music} contains
+@samp{tweaks} it will be silently ignored in order to allow for
+@code{\\once \\tweak} to work as both one-time override and proper
+tweak.")
+   (if (not (pair? (ly:music-property music 'tweaks)))
+       (for-some-music
+        (lambda (m)
+          (cond ((music-is-of-type? m 'layout-instruction-event)
+                 (set! (ly:music-property m 'once) #t)
+                 #t)
+                ((ly:duration? (ly:music-property m 'duration))
+                 (ly:music-warning m (_ "Cannot apply \\once to timed music"))
+                 #t)
+                (else #f)))
+        music))
+   music)
 
 ottava =
 #(define-music-function (parser location octave) (integer?)
@@ -1225,7 +1230,7 @@ appropriate tweak applied.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-   #{ \tweak control-points #shape-curve #item #})
+   #{ \once \tweak control-points #shape-curve #item #})
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg)
@@ -1453,9 +1458,13 @@ an indirectly created grob (@samp{Accidental} is caused by
 are affected.
 
 As a special case, @var{item} may be a symbol list specifying a grob
-path, in which case @code{\\once\\override} is called on it instead of
+path, in which case @code{\\override} is called on it instead of
 creating tweaked music.  This is mainly useful when using
 @code{\\tweak} as as a component for building other functions.
+
+If this use case would call for @code{\\once \\override} rather than a
+plain @code{\\override}, writing @code{\\once \\tweak @dots{}} can be
+convenient.
 
 @var{prop} can contain additional elements in which case a nested
 property (inside of an alist) is tweaked.")
@@ -1481,7 +1490,7 @@ property (inside of an alist) is tweaked.")
              (b (check-grob-path prop parser location
                                  #:start 2)))
          (if (and a b)
-             #{ \once\override #(append a b) = #value #}
+             #{ \override #(append a b) = #value #}
              (make-music 'Music)))))
 
 undo =
