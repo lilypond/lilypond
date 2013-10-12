@@ -538,13 +538,11 @@ There are two music functions, @code{balloonGrobText} and
 latter is used like @code{\tweak}, typically within chords, to
 attach text to an individual note.
 
-Balloon text normally influences note spacing, but this can be
-altered:
+Balloon text does not influence note spacing, but this can be altered:
 
 @lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
