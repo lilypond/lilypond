@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
+  texidocit = "
+Diteggiature e numeri di corda applicati a note individuali evitano
+automaticamente le travature e i gambi, ma questo non vale per diteggiature
+e numeri di corda applicati alle singole note di un accordo.  L'esempio
+seguente mostra come aggirare questo comportamento predefinito.
+
+"
+  doctitleit = "Evitare le collisioni con le diteggiature degli accordi"
