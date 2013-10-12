@@ -480,10 +480,8 @@ default, are also affected.
 { f4 d g, e }
 @end lilypond
 
-However, it is possible to set ledger line thickness independently of
-staff lines.  The two values required multiply the staff line thickness
-with the staff line spacing and are then added together to give the
-ledger line thickness.
+It is also possible to set ledger line thickness independently of staff
+lines.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
@@ -492,6 +490,11 @@ ledger line thickness.
 }
 { f'4 a, a,, f }
 @end lilypond
+
+@noindent
+The first value is multiplied by the staff line thickness, the second by
+the staff space and then the two values are added together to give the
+new thickness of the ledger line.
 
 The vertical positions of ledger lines can be altered,
 
