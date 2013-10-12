@@ -55,7 +55,12 @@ a list of @var{paddings}."
       empty-stencil
       (fold
        (lambda (next padding front)
-         (ly:stencil-stack front axis dir next padding))
+         (let ((offset (+ (- (interval-end (ly:stencil-extent front axis))
+                             (interval-start (ly:stencil-extent next axis)))
+                          padding)))
+           (ly:stencil-add
+             front
+             (ly:stencil-translate-axis next offset axis))))
        (car stils)
        (cdr stils)
        paddings)))
