@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.29"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -1655,7 +1655,7 @@ partir du nom, et vice versa.
   @tab Grave les clefs
 @item Completion_heads_engraver
   @tab Divise les notes qui dépassent de la mesure
-@item New_dynamic_engraver
+@item Dynamic_engraver
   @tab Crée les soufflets et textes de nuance
 @item Forbid_line_break_engraver
   @tab Empêche un saut de ligne si un élément musical est toujours actif

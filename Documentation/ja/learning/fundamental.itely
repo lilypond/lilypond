@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.29"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1675,7 +1675,7 @@ LilyPond によって作成された楽譜上にあるすべての記号は
   @tab 音部記号を譜刻します。
 @item Completion_heads_engraver
   @tab 小節線をまたがる音符を分割します。
-@item New_dynamic_engraver
+@item Dynamic_engraver
   @tab 強弱記号 (クレッシェンド、デクレッシェンド) と強弱テキスト (p や f など)
 を作成します。
 @item Forbid_line_break_engraver

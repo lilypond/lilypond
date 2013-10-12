@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.29"
 
 @node Concetti fondamentali
 @chapter Concetti fondamentali
@@ -1611,7 +1611,7 @@ partire dal nome, o viceversa.
   @tab Incide le chiavi
 @item Completion_heads_engraver
   @tab Separa le note che attraversano le stanghette
-@item New_dynamic_engraver
+@item Dynamic_engraver
   @tab Crea le forcelle e i testi relativi alla dinamica
 @item Forbid_line_break_engraver
   @tab Impedisce l'a capo se un elemento musicale è ancora attivo

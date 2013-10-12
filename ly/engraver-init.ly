@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.11"
+\version "2.17.29"
 
 \context {
   \name "Global"
@@ -252,7 +252,7 @@ multiple voices on the same staff."
   \consists "Part_combine_engraver"
 
   \consists "Text_engraver"
-  \consists "New_dynamic_engraver"
+  \consists "Dynamic_engraver"
   \consists "Dynamic_align_engraver"
   \consists "Fingering_engraver"
   \consists "Bend_engraver"
@@ -397,7 +397,7 @@ a collection of staves, with a bracket in front and spanning bar lines."
   \consists "Bar_engraver"
   \consists "Piano_pedal_engraver"
   \consists "Script_engraver"
-  \consists "New_dynamic_engraver"
+  \consists "Dynamic_engraver"
   \consists "Dynamic_align_engraver"
   \consists "Text_engraver"
   \consists "Text_spanner_engraver"

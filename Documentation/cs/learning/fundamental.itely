@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.17.29"
 @c Translators: Pavel Fric
 
 @node Základní pojmy
@@ -1735,7 +1735,7 @@ abzuleiten.
   @tab Erstellt Notenschlüssel.
 @item Completion_heads_engraver
   @tab Teilt Noten in kleiner Werte, wenn sie über die Taktlinie reichen.
-@item New_dynamic_engraver
+@item Dynamic_engraver
   @tab Erstellt Dynamik-Klammern und Dynamik-Texte.
 @item Forbid_line_break_engraver
   @tab Verbietet Zeilenumbrüche, solange ein musikalisches Element aktiv ist.
