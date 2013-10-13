@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.17.18"
+@c \version "2.17.29"
 
 @node Fundamentele concepten
 @translationof Fundamental concepts
@@ -1628,8 +1628,7 @@ from the name, or vice versa.
   @tab Engraves clefs
 @item Completion_heads_engraver
   @tab Splits notes which cross bar lines
-@c The old Dynamic_engraver is deprecated. -jm
-@item New_dynamic_engraver
+@item Dynamic_engraver
   @tab Creates hairpins and dynamic texts
 @item Forbid_line_break_engraver
   @tab Prevents line breaks if a musical element is still active
