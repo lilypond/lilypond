@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: eba67a0bc70f38a7847de75c640d7ad19c6fd804
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1021,36 +1021,36 @@ cd out
 @dots{}
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 Non si arresta se non viene trovato l'output di lilypond.  Viene usata per la
 documentazione Info di LilyPond, che è priva di immagini.
 
-@itemx --skip-png-check
+@item --skip-png-check
 Non si arresta se non vengono trovate immagini PNG per i file EPS.  Viene usata
 per la documentazione Info di LilyPond, che è priva di immagini.
 
-@itemx --lily-output-dir=@var{dir}
+@item --lily-output-dir=@var{dir}
 Scrive i file lily-XXX nella directory @var{dir}, crea un link nella
 directory @option{--output}.  Si usa questa opzione per risparmiare tempo nella
 compilazione di documenti situati in directory diverse che condividono
 molti identici frammenti.
 
-@itemx --lily-loglevel=@var{loglevel}
+@item --lily-loglevel=@var{loglevel}
 Set the output verbosity of the invoked @command{lilypond} calls to @var{loglevel}.
 I valori possibili sono @code{NONE}, @code{ERROR}, @code{WARNING}, @code{BASIC_PROGRESS},
 @code{PROGRESS}, @code{INFO} (predefinito) e @code{DEBUG}. Se questa opzione
 non viene usata e la variabile d'ambiente @code{LILYPOND_LOGLEVEL} è
 impostata, il suo valore viene usato come loglevel.
 
-@itemx --info-images-dir=@var{dir}
+@item --info-images-dir=@var{dir}
 Formatta l'output di Texinfo in modo che Info cerchi le immagini della musica
 in @var{dir}.
 
-@itemx --latex-program=@var{prog}
+@item --latex-program=@var{prog}
 Lancia l'eseguibile @command{prog} invece di @command{latex}.  Questa opzione
 è utile, ad esempio, se il documento è elaborato con @command{xelatex}.
 
-@itemx --left-padding=@var{quantità}
+@item --left-padding=@var{quantità}
 Crea una spaziatura corrispondente a questa quantità tra i riquadri EPS.  @var{quantità} è
 misurata in millimetri e il valore predefinito è 3.0.  Questa opzione si usa
 se i righi dello spartito oltrepassano il margine destro.
@@ -1074,7 +1074,7 @@ Per impostazione predefinita, l'output viene mostrato sul terminale.  Questa
 opzione redirige tutto l'output in dei file di log nella stessa directory dei
 file sorgente.
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 Salva i file di output dei frammenti con lo stesso nome, esclusa l'estensione,
 dei sorgenti.  Questa opzione funziona solo con i frammenti inclusi con
 @code{lilypondfile} e solo se le directory indicate da @option{--output-dir} e

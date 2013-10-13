@@ -22,8 +22,8 @@ Questo capitolo spiega come creare la notazione musicale.
 * Ripetizioni::             Ripetere la musica.
 * Note simultanee::         Più di una nota in contemporanea.
 * Notazione del rigo::      Aspetto del rigo.
-* Editorial annotations:: Special notation to increase legibility.
-* Text::               Adding text to scores.
+* Note editoriali::         Notazione speciale per aumentare la leggibilità.
+* Testo::                   Aggiungere testo alle partiture.
 @end menu
 
 @include notation/pitches.itely

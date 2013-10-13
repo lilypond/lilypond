@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
+    Translation of GIT committish: f3e8b5f9b68cab4579873749f4648ba63bc92ac7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,6 +23,7 @@ configurabile; praticamente si può modificare qualsiasi elemento dell'output.
 * Manuale del Funzionamento interno::
 * Aspetto degli oggetti::
 * Posizionamento degli oggetti::
+* Spaziatura verticale::
 * Collisioni tra oggetti::
 * Altre modifiche::
 @end menu
@@ -2413,7 +2414,7 @@ questo esempio piuttosto improbabile:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
@@ -2449,16 +2450,17 @@ Queste proprietà appartengono a tutti i grob che supportano l'interfaccia
 
 Per impostazione predefinita, gli oggetti esterni al rigo presentano estensione
 pari a zero, in modo da potersi sovrapporre nella direzione orizzontale.
-Ciò si ottiene con un trucco, ovvero aggiungendo infinito all'estensione
-sinistra e infinito negativo a quella destra, impostando il valore di
-@code{extra-spacing-width} su @code{'(+inf.0 . -inf.0)}.  Dunque, per
+Ciò si ottiene con un trucco, ovvero dando un valore infinito all'estensione
+sinistra e infinito negativo a quella destra, impostando la proprietà
+@code{extra-spacing-width} su @code{'(+inf.0 . -inf.0)}.  Per
 assicurarci che non si sovrappongano nella direzione orizzontale, dobbiamo
-sovrascrivere il valore di @code{extra-spacing-width} e impostarlo su
-@code{'(0 . 0)} in modo da inserire una larghezza vera e propria.  Ecco il
-comando che lo fa sul testo della dinamica:
+sovrascrivere il valore di @code{extra-spacing-width} per dar loro un po' più
+di spazio.  Le unità sono lo spazio tra due linee del rigo, dunque spostare
+il margine sinistro di mezza unità a sinistra e quello destro di mezza unità
+a destra dovrebbe dare il risultato desiderato:
 
 @example
-\override DynamicText.extra-spacing-width = #'(0 . 0)
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 @end example
 
 @noindent
@@ -2470,38 +2472,214 @@ Vediamo se funziona nell'esempio precedente:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
-\override DynamicText.extra-spacing-width = #'(0 . 0)
-a4\f b\mf c\mp b\p |
-@end lilypond
-
-@noindent
-Sicuramente ha impedito un'errata disposizione delle indicazioni
-dinamiche, ma restano due problemi.  Le dinamiche dovrebbero
-essere un po' più distanziate; sarebbe inoltre opportuno collocarle
-tutte alla stessa distanza dal rigo.
-Il primo problema è facilmente risolvibile.  Invece di
-impostare @code{extra-spacing-width} su zero, possiamo
-aggiungere un po' di spazio.  L'unità è lo spazio tra due linee
-del rigo, quindi se spostiamo il margine sinistro mezza unità
-a sinistra e il margine destro mezza unità a destra dovrebbe
-funzionare:
-
-@cindex DynamicText, esempio di sovrascrittura
-@cindex proprietà extra-spacing-width, esempio
-@cindex extra-spacing-width, esempio
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
 % Aumenta la larghezza di 1 spazio rigo
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
 L'aspetto è migliore, ma sarebbe preferibile avere i segni di dinamica
-allineati alla stessa linea di base invece di spostarsi su e giù seguendo la posizione delle note.
-La proprietà che permette di ottenere tale risultato è @code{staff-padding} ed è trattata
-nella sezione seguente.
+allineati alla stessa linea di base invece di spostarsi su e giù seguendo
+la posizione delle note.  La proprietà che permette di ottenere tale
+risultato è @code{staff-padding} ed è trattata nella sezione relativa
+alle collisioni (vedi @ref{Collisions of objects}).
+
+
+@node Spaziatura verticale
+@section Spaziatura verticale
+@translationof Vertical spacing
+
+Di norma, la spaziatura verticale degli oggetti musicali decisa da
+LilyPond è molto buona.  Vediamo come si comporta con una semplice
+canzone, composta da due voci e un accompagnamento per pianoforte:
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Non c'è niente di sbagliato con la spaziatura verticale predefinita.  Tuttavia,
+supponiamo che si stia lavorando con un editore che abbia requisiti specifici
+per la spaziatura verticale dei righi e del testo vocale, ovvero maggior spazio
+tra testo e note, e tra l'accompagnamento del pianoforte e la linea vocale, e
+minor spazio tra i righi del pianoforte.  Iniziamo dal testo.
+
+the lyrics spaced away from any notes, they want the piano
+accompaniment spaced away from the vocal line and they want the two
+piano staves pushed together tightly.  Let's start with the lyrics.
+
+Il testo vocale si trova all'interno di un sistema, dunque i comandi per
+modificarne la spaziatura sono descritti in @ruser{Flexible vertical spacing within systems}.
+Quel paragrafo ci dice che il testo è costituito da linee che non appartengono
+al rigo (@code{non-staff lines}), quindi il comando per cambiarne la spaziatura
+sarà riferito alla proprietà @code{nonstaff}.  Per allontanarlo dal rigo a cui
+si riferiscono (la linea superiore) si usa la proprietà @code{relatedstaff}.
+Per allontanarli dalla linea più bassa si usa la proprietà @code{unrelatedstaff}.
+Le parti vocali fanno parte del @code{VerticalAxisGroup}, dunque dobbiamo
+aggiustare le sue proprietà.  Proviamo a vedere se funziona.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Funziona, ma forse non molto bene.  Quando impostiamo il
+@code{padding} su 5, LilyPond aggiunge 5 spazi rigo alla distanza
+tra gli oggetti, che è troppo in questo caso.  Useremo 2.
+
+Ora allontaniamo la musica per pianoforte dalle parti vocali.  La musica
+vocale si trova nel rigo @code{ChoirStaff}, quindi dobbiamo aumentare lo
+spazio tra quel gruppo di righi e il rigo per pianoforte che si trova sotto.
+Lo faremo modificando la proprietà @code{basic-distance} del
+@code{staffgroup-staff-spacing} di @code{StaffGrouper}.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Ottimo.  Non ci resta che avvicinare i righi del pianoforte.  Per farlo,
+modifichiamo di nuovo le proprietà di @code{StaffGrouper}, ma questa volta
+riduciamo sia @code{basic-distance} che @code{padding}.  Ecco come fare:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+In questo modo sono molto vicini, ma è quello che vuole l'editore.
+Se necessario, possono essere allontanati modificando @code{padding} o
+@code{basic-distance}.
+
+Ci sono molti modi per modificare la spaziatura verticale.  Il punto fondamentale
+da ricordare è che la spaziatura degli oggetti in un contesto @code{StaffGroup}
+(come i gruppi @code{GrandStaff} o @code{PianoStaff}) è controllata dalle
+variabili spaziali di @code{StaffGrouper}.  La spaziatura relativa ai righi
+non raggruppati (come @code{Lyrics} e @code{Staff}) è regolata dalle variabili
+del @code{VerticalAxisGroup}.  Ulteriori dettagli in
+@ruser{Flexible vertical spacing \\paper variables} e
+@ruser{Flexible vertical spacing within systems}.
 
 
 @node Collisioni tra oggetti
@@ -2907,7 +3085,7 @@ preso dalla sezione precedente:
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % Allinea le dinamiche alla base posta 2 unità sopra il rigo
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+a4\f b\mf a\mp b\p
 @end lilypond
 
 
@@ -2915,9 +3093,9 @@ a4\f b\mf c\mp b\p
 @unnumberedsubsubsec La proprietà @code{self-alignment-X}
 @translationof The self-alignment-X property
 
-L'esempio successivo mostra come questa proprietà possa risolvere la
-collisione di un numero di corda con un gambo allineando il bordo
-destro del numero al punto di riferimento della nota a cui si riferisce:
+L'esempio successivo mostra come aggiustare la posizione di un numero
+di corda rispetto a un gambo allineando il bordo destro del numero
+al punto di riferimento della nota a cui si riferisce:
 
 @cindex StringNumber, esempio di sovrascrittura
 @cindex proprietà self-alignment-X, esempio
@@ -2929,6 +3107,7 @@ destro del numero al punto di riferimento della nota a cui si riferisce:
 \once \override StringNumber.self-alignment-X = #RIGHT
 <a\2>
 @end lilypond
+
 
 @node La proprietà staff-position
 @unnumberedsubsubsec La proprietà @code{staff-position}
@@ -3988,13 +4167,10 @@ parti che hanno @code{#()}; verranno spiegate nel capitolo
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4021,13 +4197,10 @@ piuttosto brutti, dunque nascondiamoli in un altro file:
 
 @example
 %%% salva queste righe in un file chiamato "definitions.ily"
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4058,13 +4231,10 @@ Ora modifichiamo la musica (e salviamo questo file come @file{music.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4093,13 +4263,10 @@ questo modo:
 
 @example
 %%%  definitions.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4126,13 +4293,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4176,13 +4340,10 @@ la dimensione complessiva dell'output.
 
 @example
 %%%  web-publish.ily
-mpdolce =
-#(make-dynamic-script
-  #@{ \markup @{ \hspace #0
-               \translate #'(5 . 0)
-               \line @{ \dynamic "mp"
-                       \text \italic "dolce" @} @}
-  #@})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function
@@ -4210,13 +4371,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce =
-#(make-dynamic-script
-  #{ \markup { \hspace #0
-               \translate #'(5 . 0)
-               \line { \dynamic "mp"
-                       \text \italic "dolce" } }
-  #})
+mpdolce = -\tweak #'self-alignment-X #-0.6 #
+  (make-dynamic-script
+   (markup #:dynamic "mp"
+           #:normal-text #:italic "dolce" ))
 
 inst =
 #(define-music-function

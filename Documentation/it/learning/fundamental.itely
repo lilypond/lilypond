@@ -466,7 +466,7 @@ predefinita, che è in basso.
 Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
 comandi che non sono stati ancora presentati.  Si veda @ref{Size of objects},
-e @ruser{Ossia staves}.
+e @ruser{Righi ossia}.
 
 
 @node Sul non annidamento di parentesi e legature di valore
@@ -924,7 +924,7 @@ overlapping notation}.
 forcelle, etc.) non possono essere create @q{attraverso} le voci.}
 
 @seealso
-Guida alla notazione: @ruser{Multiple voices}.
+Guida alla notazione: @ruser{Più voci}.
 
 
 @node Definire esplicitamente le voci
@@ -1167,7 +1167,7 @@ produrrà il messaggio di errore @qq{Too many clashing note columns}.
 
 
 @seealso
-Guida alla notazione: @ruser{Multiple voices}.
+Guida alla notazione: @ruser{Più voci}.
 
 
 @node Voci e musica vocale
@@ -1425,7 +1425,7 @@ maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 
 @seealso
-Guida alla notazione: @ruser{Contexts explained}.
+Guida alla notazione: @ruser{Contexts  explained}.
 
 
 @node Creare i contesti

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
+  texidocit = "
+La direzione predefinita dei gambi sulla linea centrale del rigo si
+imposta con la proprietà @code{neutral-direction} dell'oggetto @code{Stem}.
+
+"
+  doctitleit = "Direzione predefinita dei gambi sulla linea centrale del rigo"

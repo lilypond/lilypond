@@ -452,9 +452,9 @@ Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 
 
 @seealso
-Guida alla notazione: @ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}.
+Guida alla notazione: @ruser{Inserimento delle altezze},
+@ruser{Inserimento delle durate}, @ruser{Inserimento delle pause},
+@ruser{Indicazione di tempo}, @ruser{Chiave}.
 
 
 @node Lavorare sui file di input
@@ -754,10 +754,10 @@ ti imbatti in termini musicali che non conosci, cercali nel @rglosnamed{Top, Glo
 @item
 @strong{Prima di tentare di scrivere un pezzo musicale completo}: leggi
 i @ref{Concetti fondamentali} del Manuale di apprendimento.  Dopo puoi dare
-un'occhiata alle sezioni rilevanti della @rusernamed{Top, Notation reference}.
+un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
 
 @item
-@strong{Prima di cercare di cambiare l'output predefinito}: leggi il
+@strong{Prima di cercare di cambiare l'output predefinito}: leggi
 @ref{Tweaking output} del Manuale di apprendimento.
 
 @item

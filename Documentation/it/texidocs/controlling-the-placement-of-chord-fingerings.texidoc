@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
+  texidocit = "
+Il posizionamento dei numeri della diteggiatura può essere regolato in modo
+preciso.  Perché l'orientamento funzioni, occorre usare il costrutto per
+gli accordi <> anche per una nota singola.
+
+"
+  doctitleit = "Controllare il posizionamento delle diteggiature di un accordo"

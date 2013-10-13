@@ -1,0 +1,6 @@
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
+  texidocit = "
+Sebbene le indicazioni testuali siano di norma collocate solo sopra il
+rigo più alto, è possibile farle apparire su ogni rigo.
+"
+  doctitleit = "Stampare le indicazioni su ogni rigo"

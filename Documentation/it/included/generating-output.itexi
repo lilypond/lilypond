@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 66194168b6d61bee8aac10552f029817eb41d835
+    Translation of GIT committish: 63f65db72ca60bb87a6515a4f20a172c4a2897dc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -27,7 +27,7 @@ Clicca due volte su @command{LilyPond.app}, si aprirà un file di esempio.
 @sourceimage{Learning_Macos_welcome,,,}
 
 Dai menu in cima a sinistra dello schermo seleziona
-@w{@code{File > Save}}.
+@w{@code{File > Salva}}.
 
 @sourceimage{Learning_Macos_Save_menu,,,}
 
@@ -93,12 +93,13 @@ la documentazione di quei programmi.}
 
 @subsubheading Passo 1. Crea il tuo file @file{.ly}
 
-Clicca due volte sull'icona di LilyPond sulla scrivania, si aprirà un file di esempio.
+Clicca due volte sull'icona di LilyPond sulla scrivania e si aprirà
+un file di esempio.
 
 @sourceimage{LilyPad,,,}
 
 Dai menu che appaiono in cima al file di esempio seleziona
-@w{@code{File > Save as}}.  Non usare @w{@code{File > Save}}
+@w{@code{File > Salva come}}.  Non usare @w{@code{File > Salva}}
 per il file di esempio perché non funzionerà finché non gli darai
 un nome di file valido per LilyPond.
 
@@ -109,58 +110,60 @@ Scegli un nome per il tuo file, ad esempio @file{test.ly}.
 @sourceimage{SaveAs,,,}
 
 
-@subsubheading Passo 2a. Compila (con drag-and-drop)
+@subsubheading Passo 2. Compila
 
-A seconda di quel che preferisci, per compilare il file puoi:
+Per trasformare il file LilyPond in una partitura devi compilarlo.  Ci sono
+vari modi per farlo: il trascina e rilascia (drag and drop), il clic destro,
+il doppio clic o la linea di comando (nel riquadro del terminale DOS).  Vediamo
+intanto i primi tre.
 
-Trascinare e rilasciare (drag-and-drop) il file direttamente sull'icona di LilyPond.
+1. Trascinare e rilasciare il file sull'icona LilyPond che si trova nel desktop.
 
 @sourceimage{DragDrop,,,}
 
-Cliccare col tasto destro sul file e dal menu contestuale a comparsa scegliere
-@w{@code{Open with > LilyPond}}.
+Sembrerà che non stia accadendo niente, ma dopo pochi secondi dovresti
+vedere due nuovi file sul desktop: @file{test.log} e @file{test.pdf}.
+
+2. Cliccare col tasto destro sul file e dal menu contestuale a comparsa scegliere
+@w{@code{Generate PDF}}.
 
 @sourceimage{GenPDF,,,}
 
 
-@subsubheading Passo 2b. Compilare (con doppio clic)
-
-O semplicemente clicca due volte su @file{test.ly}.
+3. O semplicemente cliccare due volte su @file{test.ly}.
 
 
 @subsubheading Passo 3. Visualizza l'output
 
-Durante la compilazione del file @file{test.ly}, una finestra dei comandi
-si aprirà per breve tempo e poi si chiuderà.  Nel corso di questo processo
-verranno creati tre ulteriori file. Il file PDF contiene il file
-@file{test.ly} compilato.
+@file{test.pdf} contiene il file @file{test.ly} compilato.  Cliccalo due
+volte e si dovrebbe aprire in un visualizzatore PDF:
 
 @sourceimage{PDFRead,,,}
 
 
 @subsubheading Altri comandi
 
-Per creare un nuovo file, per prima cosa seleziona @w{@code{File > New}} se
-hai aperto un file creato in precedenza oppure @w{@code{File > Open}}
-per aprire e modificare i file che hai salvato prima.
+Per creare un nuovo file, per prima cosa seleziona @w{@code{File > Nuovo}} se
+hai aperto un file creato in precedenza oppure @w{@code{File > Apri}}
+per aprire e modificare i file che hai salvato prima.  Puoi modificare
+un file anche facendo un clic destro e selezionando @w{@code{Edit Source}}.
 
 @sourceimage{EditFile,,,}
 
-Devi salvare qualsiasi nuovo modifica prima di compilare.  Se il file
-PDF non viene creato, controlla se ci sono degli errori nel file di log che
-sarà stato creato durante il tentativo di compilazione.
+Devi salvare qualsiasi nuova modifica prima di compilare.  Se il file
+PDF non viene creato o l'output non è quello che ti aspetti, controlla
+se ci sono degli errori nel file di log che sarà stato creato durante
+il tentativo di compilazione.
 
 @sourceimage{BadLog,,,}
 
 Questo file di log viene sovrascritto ogni volta che compili il file LilyPond.
 
-Il file PS viene usato da LilyPond per creare il file PDF e può essere
-ignorato.  Anch'esso viene sovrascritto ogni volta che compili il file.
-
 Se visualizzi il file in un lettore PDF, devi chiudere il PDF se desideri
-fare una nuova compilazione, perché potrebbe non riuscire a creare il
+provare una nuova compilazione, perché potrebbe non riuscire a creare il
 nuovo file PDF mentre è ancora aperto per la visualizzazione.
 
+@sourceimage{BadLog2,,,}
 
 @end macro
 

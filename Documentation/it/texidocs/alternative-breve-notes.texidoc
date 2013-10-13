@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
   texidocit = "
-Questo frammento mostra come usare una variante della nota breve con due
-lineette verticali su ciascun lato della testa invece di una sola.
+Le note brevi sono disponibili anche con due linee verticali su ciascun
+lato della testa invece di una sola e in stile barocco.
 
 "
-  doctitleit = "Nota breve alternativa"
+  doctitleit = "Note brevi alternative"

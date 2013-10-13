@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: e6513c72e95fd6691998cb368a5172de3aad0525
+    Translation of GIT committish: 4ea667563d6509a055fd2e3033363a97d4347256
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,7 +53,7 @@ Questa sezione presenta la notazione comunemente usata per una singola voce su
 un solo pentagramma.
 
 @menu
-* Controlli di battuta::
+* Stanghette e controlli di battuta::
 * Alterazioni e armature di chiave::
 * Legature di valore e di portamento::
 * Articolazione e dinamiche::
@@ -62,9 +62,23 @@ un solo pentagramma.
 * Comandi di tempo avanzati::
 @end menu
 
-@node Controlli di battuta
-@subsection Controlli di battuta
-@translationof Bar checks
+@node Stanghette e controlli di battuta
+@subsection Stanghette e controlli di battuta
+@translationof Bar lines and bar checks
+
+@subheading Stanghette
+
+Le stanghette singole vengono aggiunte automaticamente, quindi non occorre
+aggiungerle manualmente.  Si possono inserire altri tipi di stanghette
+col comando @code{\bar}, per esempio @code{\bar "||"} per una stanghetta
+doppia, o @code{\bar "|."} per una stanghetta finale.  La lista completa
+delle stanghette si trova in @ruser{Stanghette}.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+@subheading Controlli di battuta
 
 I @emph{controlli di battuta}, pur se non strettamente necessari, dovrebbero
 essere usati nel codice di input per mostrare dove si vuole che cadano le
@@ -80,7 +94,7 @@ g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 
 @seealso
 Guida alla notazione:
-@ruser{Bar and bar number checks}.
+@ruser{Controlli di battuta e del numero di battuta}.
 
 @node Alterazioni e armature di chiave
 @subsection Alterazioni e armature di chiave
@@ -116,7 +130,7 @@ immaginare, un @notation{doppio diesis} o un @notation{doppio bemolle}
 si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi
 deriva dalle convenzioni per i nomi delle note presenti nelle lingue
 nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
-nomi per le @notation{alterazioni}, si veda @ruser{Note names in other languages}.
+nomi per le @notation{alterazioni}, si veda @ruser{Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote,relative=2]
 cis4 ees fisis, aeses
@@ -209,15 +223,15 @@ di lavoro in fase di scrittura, ma il vantaggio è che la
 @notation{trasposizione} è più semplice, e le alterazioni possono essere
 prodotte usando diverse convenzioni.  Per alcuni esempi che mostrano come
 sia possibile produrre delle alterazioni in base a regole diverse, si veda
-@ruser{Automatic accidentals}.
+@ruser{Alterazioni automatiche}.
 
 
 @seealso
 Guida alla notazione:
-@ruser{Note names in other languages},
-@ruser{Accidentals},
-@ruser{Automatic accidentals},
-@ruser{Key signature}.
+@ruser{Nomi delle note in altre lingue},
+@ruser{Alterazioni},
+@ruser{Alterazioni automatiche},
+@ruser{Armatura di chiave}.
 
 
 
@@ -297,9 +311,9 @@ c4~( c8 d~ d4 e)
 
 @seealso
 Guida alla notazione:
-@ruser{Ties},
-@ruser{Slurs},
-@ruser{Phrasing slurs}.
+@ruser{Legature di valore},
+@ruser{Legature di portamento},
+@ruser{Legature di frase}.
 
 
 @node Articolazione e dinamiche
@@ -391,9 +405,9 @@ c4\< c\ff\> c c\!
 
 @seealso
 Guida alla notazione:
-@ruser{Articulations and ornamentations},
+@ruser{Articolazioni e abbellimenti},
 @ruser{Fingering instructions},
-@ruser{Dynamics}.
+@ruser{Dinamiche}.
 
 
 @node Aggiungere il testo
@@ -478,8 +492,8 @@ a8 c b4 d8. c16 b4 |
 
 @seealso
 Guida alla notazione:
-@ruser{Automatic beams},
-@ruser{Manual beams}.
+@ruser{Travature automatiche},
+@ruser{Travature manuali}.
 
 
 @node Comandi di tempo avanzati
@@ -559,9 +573,9 @@ c2 \acciaccatura b16 c2 |
 
 @seealso
 Guida alla notazione:
-@ruser{Grace notes},
-@ruser{Tuplets},
-@ruser{Upbeats}.
+@ruser{Abbellimenti},
+@ruser{Gruppi irregolari},
+@ruser{Anacrusi}.
 
 
 @node Note simultanee
@@ -833,7 +847,7 @@ delle linee della battuta.
 @seealso
 Guida alla notazione:
 @ruser{Keyboard and other multi-staff instruments},
-@ruser{Displaying staves}.
+@ruser{Aspetto del rigo}.
 
 
 @node Combinare le note negli accordi
@@ -876,7 +890,7 @@ r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 
 @seealso
 Guida alla notazione:
-@ruser{Chorded notes}.
+@ruser{Note in un accordo}.
 
 @node Polifonia su un singolo rigo
 @subsection Polifonia su un singolo rigo
@@ -904,7 +918,7 @@ Manuale di Apprendimento:
 @ref{Le voci contengono la musica}.
 
 Guida alla notazione:
-@ruser{Simultaneous notes}.
+@ruser{Note simultanee}.
 
 @node Canzoni
 @section Canzoni
@@ -1449,7 +1463,7 @@ Dopo aver finito di leggere la guida, probabilmente dovresti cercare
 di scrivere uno o due brani.  Puoi iniziare aggiungendo delle note a uno
 dei @ref{Templates}.  Se necessiti di una qualche notazione che non è
 stata coperta nel tutorial, dai un'occhiata alla Guida alla notazione,
-a cominciare da @ruser{Musical notation}.  Se vuoi scrivere per un gruppo
+a cominciare da @ruser{Notazione musicale}.  Se vuoi scrivere per un gruppo
 di strumenti che non è incluso nei template, dai un'occhiata a
 @ref{Extending the templates}.
 

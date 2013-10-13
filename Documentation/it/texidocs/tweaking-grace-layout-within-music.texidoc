@@ -1,4 +1,4 @@
-%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
   texidocit = "
 L'aspetto di tutte le espressioni contenute nei blocchi @code{\grace} di un
 brano può essere modificato con le funzioni @code{add-grace-property} e

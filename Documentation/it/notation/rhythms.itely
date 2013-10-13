@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b00f11e450fd9c3c7b56ece5afa72606cac064cb
+    Translation of GIT committish: 48a57a1c8feb426029e059d9fbf8aaf1b14f0ff8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -22,8 +22,8 @@ Questa sezione tratta i ritmi, le pause, le durate, la disposizione delle
 travature e le battute.
 
 @menu
-* Scrittura delle durate::
-* Scrittura delle pause::
+* Inserimento delle durate::
+* Inserimento delle pause::
 * Aspetto dei ritmi::
 * Travature::
 * Battute::
@@ -31,8 +31,8 @@ travature e le battute.
 @end menu
 
 
-@node Scrittura delle durate
-@subsection Scrittura delle durate
+@node Inserimento delle durate
+@subsection Inserimento delle durate
 @translationof Writing rhythms
 
 @menu
@@ -618,8 +618,8 @@ situazione ben definita.  In questi casi è preferibile usare una legatura
 di portamento.
 
 
-@node Scrittura delle pause
-@subsection Scrittura delle pause
+@node Inserimento delle pause
+@subsection Inserimento delle pause
 @translationof Writing rests
 
 Le pause si inseriscono insieme alla musica contenuta nelle espressioni musicali.

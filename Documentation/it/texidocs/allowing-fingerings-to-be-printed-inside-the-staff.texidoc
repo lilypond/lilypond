@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 60be945c5b700794b8ae83df8ae1eab5807dc49d
+  texidocit = "
+Per impostazione predefinita, le diteggiature orientate verticalmente sono
+poste fuori dal rigo.   Tuttavia, questo comportamento può essere annullato.
+Attenzione: bisogna usare il costrutto per gli accordi <>, anche se si
+riferisce a una singola nota.
+
+"
+  doctitleit = "Far sì che la diteggiatura appaia dentro il rigo"
