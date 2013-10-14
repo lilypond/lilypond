@@ -1266,13 +1266,7 @@ function_arglist_skip:
 
 
 function_arglist_nonbackup_common:
-	EXPECT_OPTIONAL EXPECT_PITCH function_arglist pitch_also_in_chords {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length {
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist FRACTION
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist FRACTION
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1375,6 +1369,14 @@ symbol_list_element:
 
 function_arglist_nonbackup:
 	function_arglist_nonbackup_common
+	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length
+	{
+		$$ = scm_cons ($4, $3);
+	}
+	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist pitch_also_in_chords
+	{
+		$$ = scm_cons ($4, $3);
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
