@@ -27,7 +27,7 @@
   Check bar checks. We do this outside the engravers so that you can
   race through the score using skipTypesetting to correct durations.
 */
-class Bar_check_iterator : Music_iterator
+class Bar_check_iterator : Simple_music_iterator
 {
 public:
   virtual void process (Moment);
@@ -44,7 +44,7 @@ Bar_check_iterator::Bar_check_iterator ()
 void
 Bar_check_iterator::process (Moment m)
 {
-  Music_iterator::process (m);
+  Simple_music_iterator::process (m);
   if (!m.to_bool ())
     {
       Context *tr = get_outlet ();
