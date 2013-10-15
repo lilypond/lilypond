@@ -329,7 +329,6 @@ If we give names, Bison complains.
 
 /* Artificial tokens, for more generic function syntax */
 %token EXPECT_MARKUP "markup?"
-%token EXPECT_PITCH "ly:pitch?"
 %token EXPECT_DURATION "ly:duration?"
 %token EXPECT_SCM "scheme?"
 %token BACKUP "(backed-up?)"
@@ -505,10 +504,19 @@ embedded_scm:
 	| scm_function_call
 	;
 
+/* embedded_scm_arg is _not_ casting pitches to music by default, this
+ * has to be done by the function itself.  Note that this may cause
+ * the results of scm_function_call or embedded_scm_bare_arg to be
+ * turned into music from pitches as well.  Note that this creates a
+ * distinctly awkward situation for calculated drum pitches.  Those
+ * are at the current point of time rejected as music constituents as
+ * they can't be distinguished from "proper" symbols.
+ */
+
 embedded_scm_arg:
 	embedded_scm_bare_arg
 	| scm_function_call
-	| music_arg
+	| music_assign
 	;
 
 scm_function_call:
@@ -1248,10 +1256,6 @@ and this rule returns the reversed list of arguments. */
 
 function_arglist_skip:
 	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_skip
-	{
-		$$ = scm_cons ($1, $3);
-	} %prec FUNCTION_ARGLIST
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip
 	{
 		$$ = scm_cons ($1, $3);
@@ -1371,13 +1375,15 @@ function_arglist_nonbackup:
 	{
 		$$ = scm_cons ($4, $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist pitch_also_in_chords
-	{
-		$$ = scm_cons ($4, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
 	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			$$ = scm_cons ($4, $3);
+		else
+			$$ = check_scheme_arg (parser, @4,
+					       make_music_from_simple
+					       (parser, @4, $4),
+					       $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
 	{
@@ -1570,9 +1576,37 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep PITCH_IDENTIFIER
 	{
-		$$ = scm_cons ($4, $3);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep NOTENAME_PITCH
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, NOTENAME_PITCH, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (NOTENAME_PITCH, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep TONICNAME_PITCH
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (TONICNAME_PITCH, $4, @4);
+		}
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length
 	{
@@ -1622,6 +1656,10 @@ function_arglist_backup:
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
+	| function_arglist_backup REPARSE pitch_also_in_chords
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
 	;
 
 function_arglist:
@@ -1633,8 +1671,13 @@ function_arglist_common:
 	function_arglist_bare
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			$$ = scm_cons ($3, $2);
+		else
+			$$ = check_scheme_arg (parser, @3,
+					       make_music_from_simple
+					       (parser, @3, $3),
+					       $2, $1);
 	}
 	| EXPECT_SCM function_arglist_closed_optional bare_number
 	{
@@ -1805,10 +1848,6 @@ function_arglist_closed_common:
 function_arglist_optional:
 	function_arglist_keep %prec FUNCTION_ARGLIST
 	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_optional
 	{
 		$$ = scm_cons ($1, $3);
@@ -1818,10 +1857,6 @@ function_arglist_optional:
 function_arglist_closed_optional:
 	function_arglist_closed_keep %prec FUNCTION_ARGLIST
 	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_closed_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_optional
 	{
 		$$ = scm_cons ($1, $3);
@@ -1850,14 +1885,8 @@ function_arglist_bare:
 	EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
 	}
-	| EXPECT_PITCH function_arglist_optional pitch_also_in_chords {
-		$$ = scm_cons ($3, $2);
-	}
 	| EXPECT_DURATION function_arglist_closed_optional duration_length {
 		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_skip DEFAULT {
-		$$ = scm_cons ($1, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip DEFAULT {
 		$$ = scm_cons ($1, $3);
