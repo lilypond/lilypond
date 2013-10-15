@@ -3683,6 +3683,40 @@ def conv(str):
     str = re.sub ("New_dynamic_engraver", "Dynamic_engraver", str)
     return str
 
+@rule((2, 17, 30), r'''\override/\tweak transparent -> \hide
+\override/\tweak stencil -> \omit''')
+def conv(str):
+# Only use \undo \hide for properties that also use \hide in the same
+# file.  The same is later done for \undo \omit.
+    matches = {}
+    def subst(m):
+        matches [m.group (2)]=True
+        return r"\hide" + m.group (1)
+    str = re.sub (r"\\override(\s*([A-Za-z.]*))\.transparent\s*=\s*##t",
+                  subst, str)
+    def subst(m):
+        if m.group (2) in matches:
+            return r"\undo \hide" + m.group (1)
+        return m.group ()        
+    str = re.sub (r"\\revert(\s*([A-Za-z.]*))\.transparent",
+                  subst, str)
+    matches = {}
+    def subst(m):
+        matches [m.group (2)]=True
+        return r"\omit" + m.group (1)
+    str = re.sub (r"\\override(\s*([A-Za-z.]*))\.stencil\s*=\s*##f",
+                  subst, str)
+    def subst(m):
+        if m.group (2) in matches:
+            return r"\undo \omit" + m.group (1)
+        return m.group ()        
+    str = re.sub (r"\\revert(\s*([A-Za-z.]*))\.stencil",
+                  subst, str)
+
+    str = re.sub (r"\\tweak(\s+|\s*#')transparent\s*##t",r"\\hide", str)
+    str = re.sub (r"\\tweak(\s+|\s*#')stencil\s*##f",r"\\omit", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
