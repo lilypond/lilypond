@@ -1025,9 +1025,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 				cs = SCM_CAR (cs);
 			}
 			
-			if (cs == Duration_type_p_proc)
-				push_extra_token (EXPECT_DURATION);
-			else if (ly_is_procedure (cs))
+			if (ly_is_procedure (cs))
 				push_extra_token (EXPECT_SCM, cs);
 			else
 			{

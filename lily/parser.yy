@@ -329,7 +329,6 @@ If we give names, Bison complains.
 
 /* Artificial tokens, for more generic function syntax */
 %token EXPECT_MARKUP "markup?"
-%token EXPECT_DURATION "ly:duration?"
 %token EXPECT_SCM "scheme?"
 %token BACKUP "(backed-up?)"
 %token REPARSE "(reparsed?)"
@@ -1256,10 +1255,6 @@ and this rule returns the reversed list of arguments. */
 
 function_arglist_skip:
 	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip
-	{
-		$$ = scm_cons ($1, $3);
-	} %prec FUNCTION_ARGLIST
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip
 	{
 		$$ = scm_cons ($1, $3);
@@ -1371,10 +1366,6 @@ symbol_list_element:
 
 function_arglist_nonbackup:
 	function_arglist_nonbackup_common
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length
-	{
-		$$ = scm_cons ($4, $3);
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -1385,9 +1376,17 @@ function_arglist_nonbackup:
 					       (parser, @4, $4),
 					       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	| function_arglist_nonbackup_reparse REPARSE duration_length
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
+	| function_arglist_nonbackup_reparse REPARSE bare_number_common
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	| function_arglist_nonbackup_reparse REPARSE SCM_ARG
 	{
@@ -1451,6 +1450,23 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed UNSIGNED
+	{
+		$$ = $3;
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			MYREPARSE (@4, $2, REAL, $4);
+		else {
+			SCM d = make_duration ($4);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
+				MYREPARSE (@4, $2, REAL, $4); // trigger error
+			else
+				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed DURATION_IDENTIFIER {
+		$$ = $3;
+		MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+	}
 	;
 
 function_arglist_keep:
@@ -1497,11 +1513,18 @@ function_arglist_backup:
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
+			MYREPARSE (@4, $2, REAL, $4);
 			$$ = $3;
-			MYREPARSE (@4, $2, UNSIGNED, $4);
 		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (UNSIGNED, $4, @4);
+			SCM d = make_duration ($4);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
+			{
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (UNSIGNED, $4, @4);
+			} else {
+				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				$$ = $3;
+			}
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep REAL
@@ -1608,9 +1631,16 @@ function_arglist_backup:
 			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep DURATION_IDENTIFIER
 	{
-		$$ = scm_cons ($4, $3);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
+		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep SCM_IDENTIFIER
 	{
@@ -1647,7 +1677,12 @@ function_arglist_backup:
 		$$ = scm_cons ($1, $3);
 		MYBACKUP(0, SCM_UNDEFINED, @3);
 	}
-	| function_arglist_backup REPARSE bare_number
+	| function_arglist_backup REPARSE bare_number_common
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_backup REPARSE duration_length
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1679,7 +1714,7 @@ function_arglist_common:
 					       (parser, @3, $3),
 					       $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number
+	| EXPECT_SCM function_arglist_closed_optional bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1709,7 +1744,12 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE bare_number
+	| function_arglist_common_reparse REPARSE bare_number_common
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_common_reparse REPARSE duration_length
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1771,6 +1811,24 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
+	| EXPECT_SCM function_arglist_closed_optional UNSIGNED
+	{
+		$$ = $2;
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			MYREPARSE (@3, $1, REAL, $3);
+		else {
+			SCM d = make_duration ($3);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($1, d)))
+				MYREPARSE (@3, $1, REAL, $3);
+			else
+				MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+		}
+	}
+	| EXPECT_SCM function_arglist_closed_optional DURATION_IDENTIFIER
+	{
+		$$ = $2;
+		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+	}
 	| EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
 	{
 		$$ = $2;
@@ -1808,7 +1866,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number
+	| EXPECT_SCM function_arglist_closed_optional bare_number_common_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1834,7 +1892,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE bare_number
+	| function_arglist_common_reparse REPARSE bare_number_common_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1848,19 +1906,11 @@ function_arglist_closed_common:
 function_arglist_optional:
 	function_arglist_keep %prec FUNCTION_ARGLIST
 	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	;
 
 function_arglist_closed_optional:
 	function_arglist_closed_keep %prec FUNCTION_ARGLIST
 	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
 	;
 
 embedded_scm_closed:
@@ -1884,12 +1934,6 @@ scm_function_call_closed:
 function_arglist_bare:
 	EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
-	}
-	| EXPECT_DURATION function_arglist_closed_optional duration_length {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip DEFAULT {
-		$$ = scm_cons ($1, $3);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip DEFAULT {
 		$$ = scm_cons ($1, $3);
@@ -3200,21 +3244,30 @@ number_factor:
 	| bare_number
 	;
 
-
-bare_number:
-	bare_number_closed
-	| UNSIGNED NUMBER_IDENTIFIER	{
+bare_number_common:
+	bare_number_common_closed
+	| REAL NUMBER_IDENTIFIER
+	{
 		$$ = scm_product ($1, $2);
 	}
-	| REAL NUMBER_IDENTIFIER	{
+	;
+
+bare_number_common_closed:
+	REAL
+	| NUMBER_IDENTIFIER
+	;
+
+bare_number:
+	bare_number_common
+	| UNSIGNED
+	| UNSIGNED NUMBER_IDENTIFIER	{
 		$$ = scm_product ($1, $2);
 	}
 	;
 
 bare_number_closed:
 	UNSIGNED
-	| REAL
-	| NUMBER_IDENTIFIER
+	| bare_number_common_closed
 	;
 
 unsigned_number:
