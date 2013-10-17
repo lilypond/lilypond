@@ -344,25 +344,30 @@ in a CueVoice oriented by @var{dir}.")
 
 
 displayLilyMusic =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location port music) ((output-port?) ly:music?)
    (_i "Display the LilyPond input representation of @var{music}
-to the console.")
-   (newline)
-   (display-lily-music music parser)
+to @var{port}, defaulting to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-lily-music music parser port))
    music)
 
 displayMusic =
-#(define-music-function (parser location music) (ly:music?)
-   (_i "Display the internal representation of @var{music} to the console.")
-   (newline)
-   (display-scheme-music music)
+#(define-music-function (parser location port music) ((output-port?) ly:music?)
+   (_i "Display the internal representation of @var{music} to
+@var{port}, default to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-scheme-music music port))
    music)
 
 displayScheme =
-#(define-scheme-function (parser location expr) (scheme?)
-   (_i "Display the internal representation of @var{expr} to the console.")
-   (newline)
-   (display-scheme-music expr)
+#(define-scheme-function (parser location port expr) ((output-port?) scheme?)
+   (_i "Display the internal representation of @var{expr} to
+@var{port}, default to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-scheme-music expr port))
    expr)
 
 
