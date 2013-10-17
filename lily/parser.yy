@@ -232,7 +232,7 @@ SCM loc_on_music (Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
-bool is_duration (int t);
+SCM make_duration (SCM t, int dots = 0);
 bool is_regular_identifier (SCM id, bool multiple=false);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
@@ -2835,14 +2835,12 @@ optional_notemode_duration:
 
 steno_duration:
 	UNSIGNED dots		{
-		int len = 0;
-                int n = scm_to_int ($1);
-		if (!is_duration (n))
-			parser->parser_error (@1, _f ("not a duration: %d", n));
-		else
-			len = intlog2 (n);
-
-		$$ = Duration (len, scm_to_int ($2)).smobbed_copy ();
+		$$ = make_duration ($1, scm_to_int ($2));
+		if (SCM_UNBNDP ($$))
+		{
+			parser->parser_error (@1, _ ("not a duration"));
+			$$ = Duration ().smobbed_copy ();
+		}
 	}
 	| DURATION_IDENTIFIER dots	{
 		Duration *d = unsmob_duration ($1);
@@ -2882,9 +2880,8 @@ tremolo_type:
 		$$ = SCM_INUM0;
 	}
 	| ':' UNSIGNED {
-                int n = scm_to_int ($2);
-		if (!is_duration (n))
-			parser->parser_error (@2, _f ("not a duration: %d", n));
+		if (SCM_UNBNDP (make_duration ($2)))
+			parser->parser_error (@2, _ ("not a duration"));
 		$$ = $2;
 	}
 	;
@@ -3668,10 +3665,14 @@ make_simple_markup (SCM a)
 	return a;
 }
 
-bool
-is_duration (int t)
+SCM
+make_duration (SCM d, int dots)
 {
-  return t && t == 1 << intlog2 (t);
+	int t = scm_to_int (d);
+	if (t > 0 && (t & (t-1)) == 0)
+		return Duration (intlog2 (t), dots).smobbed_copy ();
+	else
+		return SCM_UNDEFINED;
 }
 
 SCM
