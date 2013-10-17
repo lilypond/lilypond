@@ -219,7 +219,17 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
 }
 
 /*
-  Print a vertical line and  the rank number, to aid debugging.
+  Print a:
+  - vertical line,
+  - the rank number,
+  - rank moment,
+  - blue arrow representing ideal distance,
+  - red arrow representing minimum distance
+  to aid debugging.  To turn this on, simply add
+  \override Score.PaperColumn #'stencil = #ly:paper-column::print
+  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
+  to your score.
+  Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
 MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
 SCM
@@ -234,7 +244,6 @@ Paper_column::print (SCM p)
 
   Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
-
   SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                   properties,
                                                   ly_string2scm (r));
@@ -242,18 +251,22 @@ Paper_column::print (SCM p)
                                                    properties,
                                                    ly_string2scm (when));
   Stencil t = *unsmob_stencil (scm_mol);
+  t.scale (1.2, 1.4);
   t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1);
-  t.align_to (X_AXIS, CENTER);
+  t.align_to (X_AXIS, LEFT);
+  // compensate for font serifs and half letter-distance
+  t.translate (Offset (-0.1, 0));
   t.align_to (Y_AXIS, DOWN);
 
-  Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
-                                       Interval (-2, -1)));
+  Stencil l = Lookup::filled_box (Box (Interval (0, 0.02),
+                                       Interval (-8, -1)));
 
-  SCM small_letters = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
-                                           scm_from_int (-6), SCM_EOL),
-                                properties);
+  Real small_pad = 0.15;
+  Real big_pad = 0.35;
 
+  // number of printed arrows from *both* loops
   int j = 0;
+
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
@@ -263,7 +276,28 @@ Paper_column::print (SCM p)
         continue;
 
       j++;
-      Real y = -j * 1 - 3;
+
+      Stencil arrowhead (musfont->find_by_name ("arrowheads.open.01"));
+      // initial scaling; it will also scale with font-size.
+      arrowhead.scale (1, 1.66);
+      Real head_len = arrowhead.extent (X_AXIS).length ();
+
+      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
+                                                   properties,
+                                                   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
+      Stencil *number_stc = unsmob_stencil (stil);
+      number_stc->scale (1, 1.1);
+      Real num_height = number_stc->extent (Y_AXIS).length ();
+      Real num_len = number_stc->extent (X_AXIS).length ();
+      number_stc->align_to (Y_AXIS, DOWN);
+
+      // arrow's y-coord relative to the top of l stencil:
+      Real y = -2.5;
+      y -= j * (num_height + small_pad + big_pad);
+      // horizontally center number on the arrow, excluding arrowhead.
+      Offset num_off = Offset ((sp->distance () - num_len - head_len) / 2,
+                               y + small_pad);
+
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
@@ -271,15 +305,10 @@ Paper_column::print (SCM p)
       pts.push_back (p2);
 
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
-      Stencil head (musfont->find_by_name ("arrowheads.open.01"));
-
-      SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                           small_letters,
-                                                           ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance () / 3, y + 1)));
-      id_stencil.add_stencil (head.translated (p2));
-      id_stencil = id_stencil.in_color (0, 0, 1);
+      id_stencil.add_stencil (arrowhead.translated (p2));
+      id_stencil.add_stencil (number_stc->translated (num_off));
+      // use a lighter shade of blue so it will remain legible on black background.
+      id_stencil = id_stencil.in_color (0.2, 0.4, 1);
       l.add_stencil (id_stencil);
     }
 
@@ -293,7 +322,27 @@ Paper_column::print (SCM p)
 
       j++;
 
-      Real y = -j * 1.0 - 3.5;
+      Stencil arrowhead (musfont->find_by_name ("arrowheads.open.01"));
+      // initial scaling; it will also scale with font-size.
+      arrowhead.scale (1, 1.66);
+      Real head_len = arrowhead.extent (X_AXIS).length ();
+
+      SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
+                                                   properties,
+                                                   ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
+      Stencil *number_stc = unsmob_stencil (stil);
+      number_stc->scale (1, 1.1);
+      Real num_height = number_stc->extent (Y_AXIS).length ();
+      Real num_len = number_stc->extent (X_AXIS).length ();
+      number_stc->align_to (Y_AXIS, UP);
+
+      // arrow's y-coord relative to the top of l stencil:
+      Real y = -3;
+      y -= j * (num_height + small_pad + big_pad);
+      // horizontally center number on the arrow, excluding arrowhead.
+      Offset num_off = Offset ((dist - num_len - head_len) / 2,
+                               y - small_pad);
+
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
@@ -301,18 +350,10 @@ Paper_column::print (SCM p)
       pts.push_back (p2);
 
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
-      Stencil head (musfont->find_by_name ("arrowheads.open.0M1"));
-      head.translate_axis (y, Y_AXIS);
-      id_stencil.add_stencil (head);
-
-      SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
-                                                           small_letters,
-                                                           ly_string2scm (String_convert::form_string ("%5.2lf",
-                                                               dist)));
-
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (dist / 3, y - 1)));
-
-      id_stencil = id_stencil.in_color (1, 0, 0);
+      id_stencil.add_stencil (arrowhead.translated (p2));
+      id_stencil.add_stencil (number_stc->translated (num_off));
+      // use a lighter shade of red so it will remain legible on black background.
+      id_stencil = id_stencil.in_color (1, 0.25, 0.25);
       l.add_stencil (id_stencil);
     }
   t.add_stencil (l);
