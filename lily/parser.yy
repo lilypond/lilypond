@@ -80,33 +80,13 @@ or
 %nonassoc COMPOSITE
 %left ADDLYRICS
 
- /* ADDLYRICS needs to have lower precedence than argument scanning,
-  * or we won't be able to tell music apart from closed_music without
-  * lookahead in the context of function calls.
-  */
+%right ':' UNSIGNED REAL
 
-%nonassoc DEFAULT
-
- /* \default is only applied after exhausting function arguments */
-
-%nonassoc FUNCTION_ARGLIST
-
- /* expressions with units are permitted into argument lists */
-
-%right PITCH_IDENTIFIER NOTENAME_PITCH TONICNAME_PITCH
-      UNSIGNED REAL DURATION_IDENTIFIER ':'
-
- /* The above are the symbols that can start optional function arguments
-    that are recognized in the grammar rather than by predicate
+ /* The above are needed for collecting tremoli greedily, and together
+    with the next rule for putting together numbers and units
  */
 
-%nonassoc NUMBER_IDENTIFIER '/'
-
- /* Number-unit expressions, where permitted, are concatenated into
-  * function arguments, just like fractions and tremoli.  Tremoli must
-  * not have higher precedence than UNSIGNED, or Lilypond will not
-  * join ':' with a following optional number.
-  */
+%nonassoc NUMBER_IDENTIFIER
 
 %left PREC_TOP
 
