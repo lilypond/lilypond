@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.17.30"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, stylesheet, version-specific"
@@ -97,23 +97,23 @@ xDown = \markup { \column { \small x \line { \strokeDown } } }
 
 % Just handy :)
 tupletOff = {
-  \once \override TupletNumber.stencil = ##f
-  \once \override TupletBracket.stencil = ##f
+  \once \omit TupletNumber
+  \once \omit TupletBracket
 }
 
 tupletsOff = {
-  \override TupletNumber.stencil = ##f
+  \omit TupletNumber
   \override TupletBracket.bracket-visibility = #'if-no-beam
 }
 
 tupletsOn = {
   \override TupletBracket.bracket-visibility = #'default
-  \revert TupletNumber.stencil
+  \undo \omit TupletNumber
 }
 
 headsOff = {
-  \override TabNoteHead.transparent = ##t
-  \override NoteHead.transparent = ##t
+  \hide TabNoteHead
+  \hide NoteHead
   \override NoteHead.no-ledgers = ##t
 }
 

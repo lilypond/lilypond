@@ -1,4 +1,4 @@
-\version "2.17.20"
+\version "2.17.30"
 
 \header {
   lsrtags = "fretted-strings"
@@ -15,9 +15,9 @@ in the following example.
 %% Hide fret number: useful to draw slide into/from a casual point of
 %% the fretboard.
 hideFretNumber = {
-  \once \override TabNoteHead.transparent = ##t
-  \once \override NoteHead.transparent = ##t
-  \once \override Stem.transparent = ##t
+  \once \hide TabNoteHead
+  \once \hide NoteHead
+  \once \hide Stem
   \once \override NoteHead.no-ledgers = ##t
   \once \override Glissando.bound-details.left.padding = #0.3
 }

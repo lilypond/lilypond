@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.17.20"
+\version "2.17.30"
 
 skips =
 {
@@ -49,7 +49,7 @@ skips =
   \context {
     \Score
       \consists "Grid_line_span_engraver"
-      \override SystemStartBrace.transparent = ##t
+      \hide SystemStartBrace
 
       \override NoteColumn.X-offset = #-0.5
       \override NoteHead.Y-offset = #0.75
@@ -71,10 +71,10 @@ skips =
   }
   \new RhythmicStaff
   {
-    \override NoteHead.transparent = ##t
+    \hide NoteHead
     \override NoteHead.no-ledgers = ##t
-    \override Stem.transparent = ##t
-    \override Beam.transparent = ##t
+    \hide Stem
+    \hide Beam
     << \skips
 
 				% force regular spacing by introducing notes.

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "contemporary-notation, rhythms"
@@ -42,6 +42,6 @@ the different notations.
 
   c'16[^\markup { stemlets over rests } d' r f']
   g'16[^\markup { stemlets and no rests } f'
-  \once \override Rest.transparent = ##t
+  \once \hide Rest
   r16 d']
 }

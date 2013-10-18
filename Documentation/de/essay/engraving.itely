@@ -9,7 +9,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -1464,7 +1464,7 @@ ausgerichtet, beim zweiten nach oben (rechts).
     \context {
       \Score
       \override SpacingSpanner.spacing-increment = #3
-      \override TimeSignature.transparent = ##t
+      \hide TimeSignature
     }
   }
 }

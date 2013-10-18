@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.30"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -647,7 +647,7 @@ esempio.
 <<
   \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -685,7 +685,7 @@ su @code{\Staff \RemoveEmptyStaves} si trovano in @ref{Hiding staves}.
 <<
   \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -859,7 +859,7 @@ potrebbero verificarsi degli errori di formattazione.  In questo caso,
 conviene usare i seguenti comandi invece di togliere l'incisore:
 
 @example
-\override StaffSymbol.stencil = ##f
+\omit StaffSymbol
 \override NoteHead.no-ledgers = ##t
 @end example
 

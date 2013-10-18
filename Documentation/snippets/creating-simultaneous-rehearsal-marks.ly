@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
@@ -32,7 +32,7 @@ end of one system and the start of the following system.
   % the hidden measure and bar line
   % \cadenzaOn turns off automatic calculation of bar numbers
   \cadenzaOn
-  \once \override Score.TimeSignature.stencil = ##f
+  \once \omit Score.TimeSignature
   \time 1/16
   s16 \bar ""
   \cadenzaOff

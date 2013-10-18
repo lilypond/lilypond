@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -677,7 +677,7 @@ Stücke setzt.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -715,7 +715,7 @@ Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -892,7 +892,7 @@ diesem Fall sollten folgende Befehle eingesetzt werden, anstatt
 den Engraver zu entfernen:
 
 @example
-\override StaffSymbol.stencil = ##f
+\omit StaffSymbol
 \override NoteHead.no-ledgers = ##t
 @end example
 

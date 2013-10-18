@@ -9,7 +9,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.17.6"
+\version "2.17.30"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -38,7 +38,7 @@ pitchnames = \pitchnamesBagpipe
 
 hideKeySignature = {
   % We normally don't want to show the key signature.
-  \override Staff.KeySignature.stencil = ##f
+  \omit Staff.KeySignature
   \set Staff.extraNatural = ##f
   \key d \major
   \accidentalStyle forget

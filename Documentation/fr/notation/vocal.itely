@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -1180,7 +1180,7 @@ de mesure, il faut ajouter
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
   @}
 @}
 @end example
@@ -3033,7 +3033,7 @@ indiquer les hauteurs ; le rythme de la mélodie est donné par le
 rythme et l'accentuation des paroles elles-mêmes.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem.transparent = ##t }
+stemOff = { \hide Staff.Stem }
 
 \relative c' {
   \stemOff

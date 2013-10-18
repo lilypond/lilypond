@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1155,7 +1155,7 @@ StaffDefaults = \with {
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 }
 \context { \Staff
@@ -1221,7 +1221,7 @@ squashedPosition = #0
 
 @example
 \override NoteHead.style = #'slash
-\override Stem.transparent = ##t
+\hide Stem
 @end example
 
 これらのプラグインすべてが共同する必要があり、@c
@@ -1244,7 +1244,7 @@ squashedPosition = #0
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 @}
 @end example
@@ -3286,9 +3286,9 @@ c2 \< c2 c2
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine.stencil = ##f
+\omit Score.BarLine
 a a
-\revert Score.BarLine.stencil
+\undo \omit Score.BarLine
 a a a
 @end lilypond
 
@@ -3305,7 +3305,7 @@ a a a
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead.transparent = ##t
+\once \hide NoteHead
 a a
 @end lilypond
 

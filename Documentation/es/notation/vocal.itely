@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @node Música vocal
 @section Música vocal
@@ -1192,7 +1192,7 @@ Para hacer que el texto evite también las líneas divisorias, use
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
   @}
 @}
 @end example
@@ -3028,7 +3028,7 @@ Los cánticos usan con frecuencia figuras negras sin plica para indicar
 la altura, tomando las duraciones del ritmo hablado del texto.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem.transparent = ##t }
+stemOff = { \hide Staff.Stem }
 
 \relative c' {
   \stemOff

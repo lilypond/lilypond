@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.30"
 
 
 @c Translators: Yoshiki Sawada
@@ -639,7 +639,7 @@ d4 e f g
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -679,7 +679,7 @@ d4 e f g
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \override Clef.transparent = ##t
+    \hide Clef
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
@@ -859,7 +859,7 @@ d4 e f g
 以下のオーバライドを使用してください:
 
 @example
-\override StaffSymbol.stencil = ##f
+\omit StaffSymbol
 \override NoteHead.no-ledgers = ##t
 @end example
 

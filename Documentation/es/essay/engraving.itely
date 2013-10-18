@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.30"
 
 @node Grabado musical
 @chapter Grabado musical
@@ -1474,7 +1474,7 @@ tiene todas las direcciones hacia arriba (o hacia la derecha).
     \context {
       \Score
       \override SpacingSpanner.spacing-increment = #3
-      \override TimeSignature.transparent = ##t
+      \hide TimeSignature
     }
   }
 }

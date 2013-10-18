@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.20
-\version "2.17.20"
+\version "2.17.30"
 
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template, real-music"
@@ -42,11 +42,11 @@ music is within a @code{\\transpose} section.
 
 sl = {
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
 }
 nsl = {
   \revert NoteHead.style
-  \revert Stem.transparent
+  \undo \hide Stem
 }
 crOn = \override NoteHead.style = #'cross
 crOff = \revert NoteHead.style

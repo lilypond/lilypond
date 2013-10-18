@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -1061,7 +1061,7 @@ in Jazzmusik anzuzeigen.
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 }
 \context { \Staff
@@ -1130,7 +1130,7 @@ Die Noten sehen wie ein Querstrich aus und haben keine Hälse:
 
 @example
 \override NoteHead.style = #'slash
-\override Stem.transparent = ##t
+\hide Stem
 @end example
 
 Alle diese Engraver müssen zusammenarbeiten, und das wird erreicht mit
@@ -1152,7 +1152,7 @@ Alles zusammen haben wir folgende Einstellungen:
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 @}
 @end example
@@ -3162,9 +3162,9 @@ wieder hergestellt werden.
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine.stencil = ##f
+\omit Score.BarLine
 a a
-\revert Score.BarLine.stencil
+\undo \omit Score.BarLine
 a a a
 @end lilypond
 
@@ -3185,7 +3185,7 @@ den entsprechenden Platz ein, ist aber unsichtbar.
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead.transparent = ##t
+\once \hide NoteHead
 a a
 @end lilypond
 

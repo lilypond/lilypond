@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -1191,7 +1191,7 @@ zusammenstößt, kann folgende Einstellung gesetzt werden:
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
   @}
 @}
 @end example
@@ -2883,7 +2883,7 @@ die Tonhöhen darzustellen, während der Rhythmus sich am Rhythmus
 der gesprochenen Worte orientiert.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem.transparent = ##t }
+stemOff = { \hide Staff.Stem }
 
 \relative c' {
   \stemOff

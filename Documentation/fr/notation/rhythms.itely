@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -675,7 +675,7 @@ s'indiquent à l'aide de commandes prédéfinies :
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   % Print a maxima rest, equal to four breves
   r\maxima
   % Print a longa rest, equal to two breves

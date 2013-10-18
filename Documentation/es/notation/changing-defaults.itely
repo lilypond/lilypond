@@ -8,7 +8,7 @@ Translation of GIT committish: 30f7edc4605e38b5735676d2874fc7be6f325267
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -1177,7 +1177,7 @@ de jazz,
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 }
 \context { \Staff
@@ -1250,7 +1250,7 @@ Las notas parecen barras inclinadas y no tienen plica:
 
 @example
 \override NoteHead.style = #'slash
-\override Stem.transparent = ##t
+\hide Stem
 @end example
 
 Todos estos complementos o plug-ins tienen que comunicarse bajo el
@@ -1280,7 +1280,7 @@ Al juntarlo todo, obtenemos
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Stem.transparent = ##t
+  \hide Stem
   \alias Voice
 @}
 @end example
@@ -3263,9 +3263,9 @@ predeterminada se puede recuperar con @code{\revert}.
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine.stencil = ##f
+\omit Score.BarLine
 a a
-\revert Score.BarLine.stencil
+\undo \omit Score.BarLine
 a a a
 @end lilypond
 
@@ -3283,7 +3283,7 @@ invisible.
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead.transparent = ##t
+\once \hide NoteHead
 a a
 @end lilypond
 

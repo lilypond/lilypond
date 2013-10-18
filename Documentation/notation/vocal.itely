@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @node Vocal music
 @section Vocal music
@@ -1156,7 +1156,7 @@ To make lyrics avoid bar lines as well, use
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
   @}
 @}
 @end example
@@ -2919,7 +2919,7 @@ Chants often use quarter notes without stems to indicate the pitch,
 with the rhythm being taken from the spoken rhythm of the words.
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem.transparent = ##t }
+stemOff = { \hide Staff.Stem }
 
 \relative c' {
   \stemOff

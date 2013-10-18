@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1165,7 +1165,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
   @}
 @}
 @end example
@@ -2844,7 +2844,7 @@ dialogue = \lyricmode {
 リズムは単語の音声リズムから取ります。
 
 @lilypond[verbatim,quote]
-stemOff = { \override Staff.Stem.transparent = ##t }
+stemOff = { \hide Staff.Stem }
 
 \relative c' {
   \stemOff

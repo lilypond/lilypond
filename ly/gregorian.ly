@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.17.20"
+\version "2.17.30"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -285,7 +285,7 @@ neumeDemoLayout = \layout {
 	\Staff
 	\remove "Clef_engraver"
 	\remove "Key_engraver"
-	\override StaffSymbol.transparent = ##t
+	\hide StaffSymbol
 	\remove "Time_signature_engraver"
 	\remove "Bar_engraver"
 	\override VerticalAxisGroup.staff-staff-spacing = #'()
@@ -295,7 +295,7 @@ neumeDemoLayout = \layout {
 	\remove "Ligature_bracket_engraver"
 	\consists "Vaticana_ligature_engraver"
 	\override NoteHead.style = #'vaticana.punctum
-	\override Stem.transparent = ##t
+	\hide Stem
     }
 }
 

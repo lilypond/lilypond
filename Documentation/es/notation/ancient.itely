@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 
 @node Notación antigua
@@ -387,7 +387,7 @@ escribir el canto, como lo demuestra el siguiente fragmento:
 \score {
   <<
     \new MensuralVoice = "discantus" \relative c'' {
-      \override Score.BarNumber.transparent = ##t {
+      \hide Score.BarNumber {
         c1\melisma bes a g\melismaEnd
         f\breve
         \[ f1\melisma a c\breve d\melismaEnd \]
@@ -1154,7 +1154,7 @@ Clave de Do, estilo Editio Vaticana
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
@@ -1169,7 +1169,7 @@ Clave de Fa, estilo Editio Vaticana
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
@@ -1185,7 +1185,7 @@ Clave de Do, estilo Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
@@ -1200,7 +1200,7 @@ Clave de Fa, estilo Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
@@ -1216,7 +1216,7 @@ Clave de Do, estilo hufnagel
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
@@ -1231,7 +1231,7 @@ Clave de Fa, estilo hufnagel
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
@@ -1245,7 +1245,7 @@ Clave combinada de Do y Fa, estilo hufnagel
 @lilypond[relative=1,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
@@ -2760,11 +2760,11 @@ el grabador @code{Stem_engraver} del contexto de voz:
 Sin embargo, en ciertos estilos de transcripción, se usan plicas de
 forma ocasional, por ejemplo para indicar la transición a partir de un
 recitativo monotónico a un gesto melódico fijo.  En estos casos
-podemos usar bien @code{\override Stem.transparent = ##t} o bien
+podemos usar bien @code{\hide Stem} o bien
 @code{\override Stem.length = #0}, y restaurar la plica cuando se
 necesite con el correspondiente @code{\once \override Stem.transparent = ##f} (véase el ejemplo de abajo).  Al utilizar
 plicas que lleven corchetes, asegúrese de establecer también
-@code{\override Flag.transparent = ##t}.
+@code{\hide Flag}.
 
 @b{Compás}.  Para el canto no medido, existen diversas alternativas.
 
@@ -2780,7 +2780,7 @@ Otra alternativa es utilizar @code{\cadenzaOn} y @code{\cadenzaOff}.
 Para quitar las barras de compás, el enfoque radical consiste en
 retirar (mediante la instrucción @code{\remove}) el grabador
 Bar_engraver del contexto de pentagrama Staff.  Una vez más, en vez de
-ello podemos usar @code{\override BarLine.transparent = ##t} si se
+ello podemos usar @code{\hide BarLine} si se
 necesita ocasionalmente una barra de compás.
 
 Un tipo de transcripción muy común es el canto de recitativo, en el
@@ -2812,7 +2812,7 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \override Stem.transparent = ##t
+      \hide Stem
     }
   }
 }
@@ -2829,12 +2829,12 @@ plicas:
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
-  c\breve \override NoteHead.transparent = ##t  c c c c c
-  \revert NoteHead.transparent
+  c\breve \hide NoteHead  c c c c c
+  \undo \hide NoteHead
   \override Stem.transparent = ##f \stemUp c4 b4 a
-  \override Stem.transparent = ##t c2 c4  \divisioMaior
-  c\breve \override NoteHead.transparent = ##t c c c c c c c
-  \revert NoteHead.transparent c4 c f, f \finalis
+  \hide Stem c2 c4  \divisioMaior
+  c\breve \hide NoteHead c c c c c c c
+  \undo \hide NoteHead c4 c f, f \finalis
 }
 
 verba = \lyricmode {
@@ -2851,8 +2851,8 @@ verba = \lyricmode {
     \context {
       \Staff
       \remove "Time_signature_engraver"
-      \override BarLine.transparent = ##t
-      \override Stem.transparent = ##t
+      \hide BarLine
+      \hide Stem
     }
   }
 }
@@ -2902,10 +2902,10 @@ spirLyr = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \override BarLine.X-extent = #'(-1 . 1)
-      \override Stem.transparent = ##t
-      \override Beam.transparent = ##t
-      \override BarLine.transparent = ##t
-      \override TupletNumber.transparent = ##t
+      \hide Stem
+      \hide Beam
+      \hide BarLine
+      \hide TupletNumber
     }
   }
 }

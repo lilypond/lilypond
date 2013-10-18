@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.6
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -22,7 +22,7 @@ at a line break:
 
 glissandoSkipOn = {
   \override NoteColumn.glissando-skip = ##t
-  \override NoteHead.transparent = ##t
+  \hide NoteHead
   \override NoteHead.no-ledgers = ##t
 }
 

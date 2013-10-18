@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   texidoc = "
@@ -35,7 +35,7 @@ test = {
 \score {
   <<
     \new Staff {
-      \new Voice \with { \override StringNumber.stencil = ##f } {
+      \new Voice \with { \omit StringNumber } {
         \clef "treble_8"
         \test
       }

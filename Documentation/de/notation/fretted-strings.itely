@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.27"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -249,7 +249,7 @@ benützt, wenn es möglich ist.  Dieses Verhalten kann verändert werden,
 indem @code{restrainOpenStrings} auf @code{#t} gesetzt wird.
 
 @lilypond[quote,ragged-right,verbatim]
-\layout { \override Voice.StringNumber.stencil = ##f }
+\layout { \omit Voice.StringNumber }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -396,7 +396,7 @@ Flageolett (engl. @emph{harmonic}) kann zur Tabulaturnotation als klingende Tonh
 werden:
 
 @lilypond[verbatim,quote]
-\layout { \override Voice.StringNumber.stencil = ##f }
+\layout { \omit Voice.StringNumber }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -557,7 +557,7 @@ geschrieben ist:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice \with {
-    \override StringNumber.stencil = ##f
+    \omit StringNumber
   } {
     \clef "bass_8"
     \relative c, {
