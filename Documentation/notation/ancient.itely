@@ -2716,8 +2716,8 @@ transparent, will leave an empty space in the score, since the
 invisible signature will still take up space.
 
 In many cases, @code{\set Score.timing = ##f} will give good
-results.  Another alternative is to use @code{\CadenzaOn} and
-@code{\CadenzaOff}.
+results.  Another alternative is to use @code{\cadenzaOn} and
+@code{\cadenzaOff}.
 
 To remove the bar lines, the radical approach is to @code{\remove}
 the Bar_engraver from the Staff context.  Again, one may want to

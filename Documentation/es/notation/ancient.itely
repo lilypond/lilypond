@@ -2775,7 +2775,7 @@ en la partitura, pues la indicación invisible sigue ocupando un
 espacio.
 
 En muchos casos da un buen resultado @code{\set Score.timing = ##f}.
-Otra alternativa es utilizar @code{\CadenzaOn} y @code{\CadenzaOff}.
+Otra alternativa es utilizar @code{\cadenzaOn} y @code{\cadenzaOff}.
 
 Para quitar las barras de compás, el enfoque radical consiste en
 retirar (mediante la instrucción @code{\remove}) el grabador

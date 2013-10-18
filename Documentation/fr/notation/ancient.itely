@@ -2785,8 +2785,8 @@ rendre la métrique transparente, ce qui par contre préservera l'espace
 qu'elle occupe.
 
 Dans de nombreux cas, une clause @code{\set Score.timing = ##f} donne de
-bons résultats.  On pourrait aussi utiliser @code{\CadenzaOn} et
-@code{\CadenzaOff}.
+bons résultats.  On pourrait aussi utiliser @code{\cadenzaOn} et
+@code{\cadenzaOff}.
 
 Rien de plus radical que de supprimer du contexte @code{Staff} le
 @code{Bar_engraver} pour ne pas voir de barre de mesure.  Là aussi, une

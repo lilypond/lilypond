@@ -2789,8 +2789,8 @@ aber ein leerer Platz zu Beginn der Noten an der Stelle, wo
 normalerweise die Taktangabe stehen würde.
 
 In vielen Fällen ergibt @code{\set Score.timing = ##f} gute
-Ergebnisse.  Eine andere Möglichkeit ist es, @code{\CadenzaOn}
-und @code{\CadenzaOff} zu benutzen.
+Ergebnisse.  Eine andere Möglichkeit ist es, @code{\cadenzaOn}
+und @code{\cadenzaOff} zu benutzen.
 
 Um Taktstriche zu entfernen, kann man radikal den @code{Bar_engraver}
 aus dem @code{Staff}-Kontext entfernen.  Wenn man ab und zu
