@@ -3184,12 +3184,23 @@ considerations.
 @unnumberedsubsubsec Removing the stencil
 
 @cindex stencil, removing
+@funindex \omit
 
 Every layout object has a stencil property.  By default this is set
 to the specific function which draws that object.  If this property
 is overridden to @code{#f} no function will be called and the object
 will not be drawn.  The default action can be recovered with
 @code{\revert}.
+
+@lilypond[quote,verbatim,relative=1]
+a1 a
+\override Score.BarLine.stencil = ##f
+a a
+\revert Score.BarLine.stencil
+a a a
+@end lilypond
+
+This rather common operation has a shortcut @code{\omit}:
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
@@ -3203,10 +3214,19 @@ a a a
 @unnumberedsubsubsec Making objects transparent
 
 @cindex transparent, making objects
+@funindex \hide
 
 Every layout object has a transparent property which by default is
 set to @code{#f}.  If set to @code{#t} the object still occupies
 space but is made invisible.
+
+@lilypond[quote,verbatim,relative=2]
+a4 a
+\once \override NoteHead.transparent = ##t
+a a
+@end lilypond
+
+This rather common operation has a shortcut @code{\hide}:
 
 @lilypond[quote,verbatim,relative=2]
 a4 a

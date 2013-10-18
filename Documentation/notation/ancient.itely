@@ -2704,8 +2704,7 @@ occasionally, for example to indicate the transition from a
 single-tone recitative to a fixed melodic gesture.  In these cases,
 one can use either @code{\hide Stem} or
 @code{\override Stem.length = #0} instead, and restore the stem
-when needed with the corresponding @code{\once \override Stem.transparent = ##f} (see example below).  When using stems that
-carry flags, make sure to set @code{\hide Flag} as well.
+when needed with the corresponding @code{\once \override Stem.transparent = ##f} (see example below).
 
 @b{Timing.} For unmetered chant, there are several alternatives.
 
