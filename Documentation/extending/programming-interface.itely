@@ -138,8 +138,7 @@ with file names and line numbers.
 
 @item @code{@var{typeN?}}
 @tab a Scheme @emph{type predicate} for which @code{@var{argN}}
-must return @code{#t}.  Some of these predicates are specially
-recognized by the parser, see below.  There is also a special form
+must return @code{#t}.  There is also a special form
 @code{(@emph{predicate?} @emph{default})} for specifying optional
 arguments.  If the actual argument is missing when the function is being
 called, the default value is substituted instead.  Default values are
@@ -169,11 +168,7 @@ of @code{origin}.
 @end multitable
 
 @noindent
-Some type predicates are specially handled by the parser since it
-can't recognize the arguments reliably otherwise.  Currently these are
-@code{ly:pitch?} and @code{ly:duration?}.
-
-Suitability of arguments for all other predicates is determined by
+Suitability of arguments for the predicates is determined by
 actually calling the predicate after LilyPond has already converted them
 into a Scheme expression.  As a consequence, the argument can be
 specified in Scheme syntax if desired (introduced with @code{#} or as
@@ -188,16 +183,23 @@ For some kinds of expression (like most music not enclosed in braces)
 LilyPond needs to look further than the expression itself in order to
 determine its end.  If such an expression were considered for an
 optional argument by evaluating its predicate, LilyPond would not be
-able to ``backup'' when it decides the expression does not fit the
+able to @q{backup} when it decides the expression does not fit the
 parameter.  So some forms of music might need to be enclosed in braces
-to make them acceptable to LilyPond.  There are also some other
-ambiguities that LilyPond sorts out by checking with predicate
+to make them acceptable in some circumstances.  Some other
+ambiguities LilyPond sorts out by checking with predicate
 functions: is @samp{-3} a fingering postevent or a negative number?  Is
 @code{"a" 4} in lyric mode a string followed by a number, or a lyric
-event of duration @code{4}?  LilyPond decides by asking the predicates.
-That means that you should avoid permissive predicates like
-@code{scheme?} if you have a particular use in mind instead of a general
-purpose function.
+event of duration @code{4}?  LilyPond tries the argument
+predicate on successive interpretations until success, with an
+order designed to minimize inconsistent interpretations and
+lookahead.
+
+For example, a predicate accepting both music expressions and
+pitches will consider @code{c''} to be a pitch rather than a music
+expression.  Immediately following durations or postevents might
+not work with that interpretation.  So it's best to avoid overly
+permissive predicates like @code{scheme?} when the application
+rather calls for more specific argument types.
 
 For a list of available predefined type predicates, see
 @ruser{Predefined type predicates}.
@@ -352,12 +354,7 @@ At top level in a music expression.  No restriction apply here.
 
 @item
 As a post-event, explicitly started with a direction indicator (one of
-@code{-}, @code{^}, @w{and @code{_}}).  Note that returning a post-event
-will be acceptable for music functions called as normal music, leading
-to a result roughly equivalent to
-@example
-s 1*0-\fun
-@end example
+@code{-}, @code{^}, @w{and @code{_}}).
 
 In this case, you can't use an @emph{open} music expression as the last
 argument, one that would end with a music expression able to accept
