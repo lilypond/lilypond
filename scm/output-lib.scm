@@ -673,6 +673,20 @@ and duration-log @var{log}."
                                     (prepend (+ x 7) (cons x l))))
           (prepend first-position '())))))
 
+(define-public (key-signature-interface::alteration-position
+                step alter c0-position)
+;; Deprecated.  Not a documented interface, and no longer used in LilyPond,
+;; but needed for a popular file, LilyJAZZ.ily for version 2.16
+  (if (pair? step)
+    (+ (cdr step) (* (car step) 7) c0-position)
+    (let* ((c-pos (modulo c0-position 7))
+           (hi (list-ref
+                 (if (< alter 0)
+                   '(2 3 4 2 1 2 1) ; position of highest flat
+                   '(4 5 4 2 3 2 3)); position of highest sharp
+                 c-pos)))
+      (- hi (modulo (- hi (+ c-pos step)) 7)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; annotations
 
