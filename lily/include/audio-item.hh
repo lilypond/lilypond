@@ -137,6 +137,38 @@ public:
   int one_beat_;
 };
 
+class Audio_control_function_value_change : public Audio_item
+{
+public:
+  // Supported control functions.
+  enum Control
+  {
+    BALANCE = 0, PAN_POSITION, REVERB_LEVEL, CHORUS_LEVEL,
+    // pseudo value for representing the size of the enum; must be kept last
+    NUM_CONTROLS
+  };
+
+  Audio_control_function_value_change (Control control, Real value);
+
+  // Information about a context property corresponding to a control function
+  // (name, the corresponding enumeration value, and the allowed range for the
+  // value of the context property).
+  struct Context_property
+  {
+    const char *name_;
+    Control control_;
+    Real range_min_;
+    Real range_max_;
+  };
+
+  // Mapping from supported control functions to the corresponding context
+  // properties.
+  static const Context_property context_properties_[];
+
+  Control control_;
+  Real value_;
+};
+
 int moment_to_ticks (Moment);
 Real moment_to_real (Moment);
 Moment remap_grace_duration (Moment);
