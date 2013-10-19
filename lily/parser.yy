@@ -232,7 +232,7 @@ SCM loc_on_music (Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
-bool is_duration (int t);
+SCM make_duration (SCM t, int dots = 0);
 bool is_regular_identifier (SCM id, bool multiple=false);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
@@ -329,8 +329,6 @@ If we give names, Bison complains.
 
 /* Artificial tokens, for more generic function syntax */
 %token EXPECT_MARKUP "markup?"
-%token EXPECT_PITCH "ly:pitch?"
-%token EXPECT_DURATION "ly:duration?"
 %token EXPECT_SCM "scheme?"
 %token BACKUP "(backed-up?)"
 %token REPARSE "(reparsed?)"
@@ -505,10 +503,19 @@ embedded_scm:
 	| scm_function_call
 	;
 
+/* embedded_scm_arg is _not_ casting pitches to music by default, this
+ * has to be done by the function itself.  Note that this may cause
+ * the results of scm_function_call or embedded_scm_bare_arg to be
+ * turned into music from pitches as well.  Note that this creates a
+ * distinctly awkward situation for calculated drum pitches.  Those
+ * are at the current point of time rejected as music constituents as
+ * they can't be distinguished from "proper" symbols.
+ */
+
 embedded_scm_arg:
 	embedded_scm_bare_arg
 	| scm_function_call
-	| music_arg
+	| music_assign
 	;
 
 scm_function_call:
@@ -1214,65 +1221,76 @@ grouped_music_list:
 	| sequential_music		{ $$ = $1; }
 	;
 
-/* An argument list. If a function \foo expects scm scm pitch, then the lexer expands \foo into the token sequence:
- MUSIC_FUNCTION EXPECT_PITCH EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
-and this rule returns the reversed list of arguments. */
-
-/* Function argument lists come in a number of flavors.  Whenever
- * LilyPond has to pick between different flavors, the decision is
- * either made because of tokens it has already seen, or it is
- * postponed until tokens suitable for making the decision come up.
- * For postponing decisions, it may be necessary that the competing
- * rules are written in a way making them compatible until a decision
- * can be made.  Sometimes this is done by putting common traits into
- * a separate "common" rule set.
+/* Function argument lists are arguably the most complex part in the
+ * parser.  They are pretty tricky to understand because of the way
+ * they are processed, and because of optional arguments that can be
+ * omitted.  When there are several optional arguments in a row,
+ * omitting one automatically omits all following arguments.  Optional
+ * arguments can only be omitted when either
  *
- * function_arglist: a full argument list.  Optional arguments at the
- * end of the list can only be skipped by writing \default in their
- * place.
+ * a) the omission is explicitly started with \default
+ * b) the omission is implicitly started by an argument not matching
+ *    its predicate, and there is a mandatory argument later that can
+ *    "catch" the argument that does not fit.
  *
- * function_arglist_backup: an argument list ending in an optional
- * argument that may be skipped depending on its predicate.
+ * When argument parsing starts, the lexer pushes EXPECT_SCM tokens
+ * (corresponding to mandatory arguments and having a predicate
+ * function as semantic value) or EXPECT_OPTIONAL EXPECT_SCM (where
+ * the semantic value of the EXPECT_OPTIONAL token is the default to
+ * use when the optional argument is omitted, and EXPECT_SCM again has
+ * the argument predicate as semantic value) in reverse order to the
+ * parser, followed by EXPECT_NO_MORE_ARGS.  The argument list is then
+ * processed inside-out while actual tokens are consumed.
  *
- * function_arglist_skip: an argument list _not_ ending in an optional
- * argument that is actually taken.
+ * This means that the argument list tokens determine the actions
+ * taken as they arrive.  The structure of the argument list is known
+ * to the parser and stored in its parse stack when the first argument
+ * is being parsed.  What the parser does not know is which predicates
+ * will match and whether or not \default will be appearing in the
+ * argument list, and where.
  *
- * function_arglist_nonbackup: an argument list ending in an optional
- * argument that may not be skipped because it is in end position and
- * has not been shortcircuited with \default.
+ * Many of the basic nonterminals used for argument list scanning come
+ * in a "normal" and a "closed" flavor.  A closed expression is one
+ * that can be parsed without a lookahead token.  That makes it
+ * feasible for an optional argument that may need to be skipped:
+ * skipping can only be accomplished by pushing back the token into
+ * the lexer, and that only works when there is no lookahead token.
  *
- * function_arglist* / function_arglist_closed*: The closed variants
- * don't end in simple music expressions that might still accept
- * things like a duration or a postevent.
+ * Sequences of 0 or more optional arguments are scanned using either
+ * function_arglist_backup or function_arglist_nonbackup.  The first
+ * is used when optional arguments are followed by at least one
+ * mandatory argument: in that case optional arguments may be skipped
+ * by either a false predicate (in which case the expression will be
+ * pushed back as one or more tokens, preceded by a BACKUP token) or
+ * by using \default.
+ *
+ * If optional arguments are at the end of the argument list, they are
+ * instead scanned using function_arglist_nonbackup: here the only
+ * manner to enter into skipping of optional arguments is the use of
+ * \default.
+ *
+ * The argument list of a normal function call is parsed using
+ * function_arglist.  The part of an argument list before a mandatory
+ * argument is parsed using function_arglist_optional.
+ *
+ * The difference is that leading optional arguments are scanned using
+ * function_arglist_nonbackup and function_arglist_backup,
+ * respectively.
+ *
+ * Most other details are obvious in the rules themselves.
+ *
  */
 
-function_arglist_skip:
-	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_skip
-	{
-		$$ = scm_cons ($1, $3);
-	} %prec FUNCTION_ARGLIST
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip
-	{
-		$$ = scm_cons ($1, $3);
-	} %prec FUNCTION_ARGLIST
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip
-	{
-		$$ = scm_cons ($1, $3);
-	} %prec FUNCTION_ARGLIST
-	;
-
-
 function_arglist_nonbackup_common:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist FRACTION
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup FRACTION
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed post_event_nofinger
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n)))
@@ -1285,13 +1303,13 @@ function_arglist_nonbackup_common:
 		}
 		
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' REAL
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' NUMBER_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
@@ -1301,27 +1319,28 @@ function_arglist_nonbackup_common:
 
 function_arglist_closed_nonbackup:
 	function_arglist_nonbackup_common
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg_closed
+	| function_arglist_closed_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg_closed
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup bare_number_closed
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist SCM_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SCM_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       try_string_variants ($2, $4),
 				       $3, $2, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist STRING
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup STRING
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       try_string_variants ($2, $4),
 				       $3, $2, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist full_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup full_markup
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1367,21 +1386,28 @@ symbol_list_element:
 
 function_arglist_nonbackup:
 	function_arglist_nonbackup_common
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed duration_length
+	| function_arglist_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg
 	{
-		$$ = scm_cons ($4, $3);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			$$ = scm_cons ($4, $3);
+		else
+			$$ = check_scheme_arg (parser, @4,
+					       make_music_from_simple
+					       (parser, @4, $4),
+					       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist pitch_also_in_chords
-	{
-		$$ = scm_cons ($4, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist embedded_scm_arg
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed bare_number
+	| function_arglist_nonbackup_reparse REPARSE duration_length
 	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
+	| function_arglist_nonbackup_reparse REPARSE bare_number_common
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	| function_arglist_nonbackup_reparse REPARSE SCM_ARG
 	{
@@ -1398,7 +1424,7 @@ function_arglist_nonbackup:
 	;
 
 function_arglist_nonbackup_reparse:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist SCM_IDENTIFIER
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SCM_IDENTIFIER
 	{
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
@@ -1415,7 +1441,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist STRING
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup STRING
 	{
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
@@ -1432,7 +1458,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist full_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup full_markup
 	{
 		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -1445,20 +1471,38 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup UNSIGNED
+	{
+		$$ = $3;
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			MYREPARSE (@4, $2, REAL, $4);
+		else {
+			SCM d = make_duration ($4);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
+				MYREPARSE (@4, $2, REAL, $4); // trigger error
+			else
+				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup DURATION_IDENTIFIER {
+		$$ = $3;
+		MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+	}
 	;
 
-function_arglist_keep:
-	function_arglist_common
-	| function_arglist_backup
-	;
-
-function_arglist_closed_keep:
-	function_arglist_closed_common
-	| function_arglist_backup
-	;
 
 function_arglist_backup:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep embedded_scm_arg_closed
+	function_arglist_backup_common
+	| function_arglist_common
+	;
+
+function_arglist_closed_backup:
+	function_arglist_backup_common
+	| function_arglist_closed_common
+	;
+
+function_arglist_backup_common:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1468,7 +1512,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_ARG, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep post_event_nofinger
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup post_event_nofinger
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1478,7 +1522,7 @@ function_arglist_backup:
 			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep full_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup full_markup
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			$$ = scm_cons ($4, $3);
@@ -1487,18 +1531,25 @@ function_arglist_backup:
 			MYBACKUP (LYRIC_ELEMENT, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup UNSIGNED
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
+			MYREPARSE (@4, $2, REAL, $4);
 			$$ = $3;
-			MYREPARSE (@4, $2, UNSIGNED, $4);
 		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (UNSIGNED, $4, @4);
+			SCM d = make_duration ($4);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
+			{
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (UNSIGNED, $4, @4);
+			} else {
+				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				$$ = $3;
+			}
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup REAL
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1509,7 +1560,7 @@ function_arglist_backup:
 			MYBACKUP (REAL, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup NUMBER_IDENTIFIER
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1519,7 +1570,7 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep FRACTION
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup FRACTION
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1529,7 +1580,7 @@ function_arglist_backup:
 			MYBACKUP (FRACTION, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1549,7 +1600,7 @@ function_arglist_backup:
 		}
 		
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' REAL
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1560,7 +1611,7 @@ function_arglist_backup:
 			MYBACKUP (REAL, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_keep '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1570,15 +1621,50 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_keep pitch_also_in_chords
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup PITCH_IDENTIFIER
 	{
-		$$ = scm_cons ($4, $3);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = scm_cons ($4, $3);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
+		}
 	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_keep duration_length
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NOTENAME_PITCH
 	{
-		$$ = scm_cons ($4, $3);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, NOTENAME_PITCH, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (NOTENAME_PITCH, $4, @4);
+		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep SCM_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup TONICNAME_PITCH
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (TONICNAME_PITCH, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup DURATION_IDENTIFIER
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+			$$ = $3;
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup SCM_IDENTIFIER
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -1593,7 +1679,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_keep STRING
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup STRING
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -1608,12 +1694,12 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup BACKUP
+	| function_arglist_backup REPARSE bare_number_common
 	{
-		$$ = scm_cons ($1, $3);
-		MYBACKUP(0, SCM_UNDEFINED, @3);
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE bare_number
+	| function_arglist_backup REPARSE duration_length
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1622,21 +1708,43 @@ function_arglist_backup:
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
+	| function_arglist_backup REPARSE pitch_also_in_chords
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
 	;
 
 function_arglist:
-	function_arglist_common
-	| function_arglist_nonbackup
+	function_arglist_nonbackup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup DEFAULT
+	{
+		$$ = scm_cons (loc_on_music (@4, $1), $3);
+	}
+	;
+
+function_arglist_skip_nonbackup:
+	function_arglist_nonbackup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup
+	{
+		$$ = scm_cons (loc_on_music (@3, $1), $3);
+	}
 	;
 
 function_arglist_common:
-	function_arglist_bare
+	EXPECT_NO_MORE_ARGS {
+		$$ = SCM_EOL;
+	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
 	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			$$ = scm_cons ($3, $2);
+		else
+			$$ = check_scheme_arg (parser, @3,
+					       make_music_from_simple
+					       (parser, @3, $3),
+					       $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number
+	| EXPECT_SCM function_arglist_closed_optional bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1666,7 +1774,12 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE bare_number
+	| function_arglist_common_reparse REPARSE bare_number_common
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_common_reparse REPARSE duration_length
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1728,6 +1841,24 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
+	| EXPECT_SCM function_arglist_closed_optional UNSIGNED
+	{
+		$$ = $2;
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			MYREPARSE (@3, $1, REAL, $3);
+		else {
+			SCM d = make_duration ($3);
+			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($1, d)))
+				MYREPARSE (@3, $1, REAL, $3);
+			else
+				MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+		}
+	}
+	| EXPECT_SCM function_arglist_closed_optional DURATION_IDENTIFIER
+	{
+		$$ = $2;
+		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+	}
 	| EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
 	{
 		$$ = $2;
@@ -1754,18 +1885,23 @@ function_arglist_common_reparse:
 	;
 
 function_arglist_closed:
-	function_arglist_closed_common
-	| function_arglist_closed_nonbackup
+	function_arglist_closed_nonbackup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup DEFAULT
+	{
+		$$ = scm_cons (loc_on_music (@4, $1), $3);
+	}
 	;
 
 function_arglist_closed_common:
-	function_arglist_bare
+	EXPECT_NO_MORE_ARGS {
+		$$ = SCM_EOL;
+	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number
+	| EXPECT_SCM function_arglist_closed_optional bare_number_common_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1791,7 +1927,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE bare_number
+	| function_arglist_common_reparse REPARSE bare_number_common_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -1803,29 +1939,29 @@ function_arglist_closed_common:
 	;
 
 function_arglist_optional:
-	function_arglist_keep %prec FUNCTION_ARGLIST
-	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_optional
+	function_arglist_backup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
 	{
-		$$ = scm_cons ($1, $3);
+		$$ = scm_cons (loc_on_music (@4, $1), $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_optional
+	| function_arglist_skip_backup BACKUP
+	;
+
+function_arglist_skip_backup:
+	function_arglist_backup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup
 	{
-		$$ = scm_cons ($1, $3);
+		$$ = scm_cons (loc_on_music (@3, $1), $3);
 	}
 	;
 
 function_arglist_closed_optional:
-	function_arglist_closed_keep %prec FUNCTION_ARGLIST
-	| function_arglist_backup BACKUP
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_closed_optional
+	function_arglist_closed_backup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
 	{
-		$$ = scm_cons ($1, $3);
+		$$ = scm_cons (loc_on_music (@4, $1), $3);
 	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_closed_optional
-	{
-		$$ = scm_cons ($1, $3);
-	}
+	| function_arglist_skip_backup BACKUP
 	;
 
 embedded_scm_closed:
@@ -1843,27 +1979,6 @@ scm_function_call_closed:
 	SCM_FUNCTION function_arglist_closed {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
-	} %prec FUNCTION_ARGLIST
-	;
-
-function_arglist_bare:
-	EXPECT_NO_MORE_ARGS {
-		$$ = SCM_EOL;
-	}
-	| EXPECT_PITCH function_arglist_optional pitch_also_in_chords {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_DURATION function_arglist_closed_optional duration_length {
-		$$ = scm_cons ($3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_PITCH function_arglist_skip DEFAULT {
-		$$ = scm_cons ($1, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_DURATION function_arglist_skip DEFAULT {
-		$$ = scm_cons ($1, $3);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip DEFAULT {
-		$$ = scm_cons ($1, $3);
 	}
 	;
 
@@ -2806,14 +2921,12 @@ optional_notemode_duration:
 
 steno_duration:
 	UNSIGNED dots		{
-		int len = 0;
-                int n = scm_to_int ($1);
-		if (!is_duration (n))
-			parser->parser_error (@1, _f ("not a duration: %d", n));
-		else
-			len = intlog2 (n);
-
-		$$ = Duration (len, scm_to_int ($2)).smobbed_copy ();
+		$$ = make_duration ($1, scm_to_int ($2));
+		if (SCM_UNBNDP ($$))
+		{
+			parser->parser_error (@1, _ ("not a duration"));
+			$$ = Duration ().smobbed_copy ();
+		}
 	}
 	| DURATION_IDENTIFIER dots	{
 		Duration *d = unsmob_duration ($1);
@@ -2853,9 +2966,8 @@ tremolo_type:
 		$$ = SCM_INUM0;
 	}
 	| ':' UNSIGNED {
-                int n = scm_to_int ($2);
-		if (!is_duration (n))
-			parser->parser_error (@2, _f ("not a duration: %d", n));
+		if (SCM_UNBNDP (make_duration ($2)))
+			parser->parser_error (@2, _ ("not a duration"));
 		$$ = $2;
 	}
 	;
@@ -3174,21 +3286,30 @@ number_factor:
 	| bare_number
 	;
 
-
-bare_number:
-	bare_number_closed
-	| UNSIGNED NUMBER_IDENTIFIER	{
+bare_number_common:
+	bare_number_common_closed
+	| REAL NUMBER_IDENTIFIER
+	{
 		$$ = scm_product ($1, $2);
 	}
-	| REAL NUMBER_IDENTIFIER	{
+	;
+
+bare_number_common_closed:
+	REAL
+	| NUMBER_IDENTIFIER
+	;
+
+bare_number:
+	bare_number_common
+	| UNSIGNED
+	| UNSIGNED NUMBER_IDENTIFIER	{
 		$$ = scm_product ($1, $2);
 	}
 	;
 
 bare_number_closed:
 	UNSIGNED
-	| REAL
-	| NUMBER_IDENTIFIER
+	| bare_number_common_closed
 	;
 
 unsigned_number:
@@ -3639,10 +3760,14 @@ make_simple_markup (SCM a)
 	return a;
 }
 
-bool
-is_duration (int t)
+SCM
+make_duration (SCM d, int dots)
 {
-  return t && t == 1 << intlog2 (t);
+	int t = scm_to_int (d);
+	if (t > 0 && (t & (t-1)) == 0)
+		return Duration (intlog2 (t), dots).smobbed_copy ();
+	else
+		return SCM_UNDEFINED;
 }
 
 SCM
