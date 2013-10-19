@@ -197,7 +197,6 @@
   \name Score
 
   melismaBusyProperties = #default-melisma-properties
-  instrumentName = #"bright acoustic"
   midiChannelMapping = #'staff
 
   %% quarter = 60
