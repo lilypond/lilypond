@@ -432,7 +432,24 @@ event when notes with the same pitch, in the same MIDI-file track, overlap.")
 @code{midiMinimumVolume}.")
      (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
 Ranges from 0 to@tie{}1.")
-     (midiChannelMapping ,symbol? "How to map MIDI channels: per @code{instrument} (default), @code{staff} or @code{voice}.")
+     (midiChannelMapping ,symbol? "How to map MIDI channels: per
+@code{staff} (default), @code{instrument} or @code{voice}.")
+     (midiBalance ,number? "Stereo balance for the MIDI channel
+associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
+where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
+and@tie{}1 (@code{#RIGHT}) correspond to leftmost emphasis, center
+balance, and rightmost emphasis, respectively.")
+     (midiPanPosition ,number? "Pan position for the MIDI channel
+associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
+where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
+and@tie{}1 (@code{#RIGHT}) correspond to hard left, center, and hard
+right, respectively.")
+     (midiReverbLevel ,number? "Reverb effect level for the MIDI channel
+associated with the current context.  Ranges from 0 to@tie{}1
+(0=off,@tie{}1=full effect).")
+     (midiChorusLevel ,number? "Chorus effect level for the MIDI channel
+associated with the current context.  Ranges from 0 to@tie{}1
+(0=off,@tie{}1=full effect).")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")

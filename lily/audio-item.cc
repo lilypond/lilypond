@@ -204,3 +204,19 @@ Audio_text::Audio_text (Audio_text::Type type, const string &text_string)
   type_ = type;
 }
 
+Audio_control_function_value_change
+::Audio_control_function_value_change (Control control, Real value)
+  : control_ (control), value_ (value)
+{
+}
+
+const Audio_control_function_value_change::Context_property
+Audio_control_function_value_change::context_properties_[] = {
+  // property name, enum constant, lower bound for range, upper bound for range
+  { "midiBalance",     BALANCE,      -1.0, 1.0 },
+  { "midiPanPosition", PAN_POSITION, -1.0, 1.0 },
+  { "midiReverbLevel", REVERB_LEVEL,  0.0, 1.0 },
+  { "midiChorusLevel", CHORUS_LEVEL,  0.0, 1.0 },
+  // extra element to signify the end of the mapping, must be kept last
+  { 0,                 NUM_CONTROLS,  0.0, 0.0 }
+};

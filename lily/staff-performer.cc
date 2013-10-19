@@ -128,6 +128,32 @@ Staff_performer::new_audio_staff (const string &voice)
   staff_map_[voice] = audio_staff;
   if (!instrument_string_.empty ())
     set_instrument (channel_, voice);
+  // Set initial values (if any) for control functions.
+  for (const Audio_control_function_value_change::Context_property *p
+         = Audio_control_function_value_change::context_properties_;
+       p->name_; ++p)
+    {
+      SCM value = get_property (p->name_);
+      if (scm_is_number (value))
+        {
+          Real val = scm_to_double (value);
+          if (val >= p->range_min_ && val <= p->range_max_)
+            {
+              // Normalize the value to the 0.0 to 1.0 range.
+              val = ((val - p->range_min_)
+                     / (p->range_max_ - p->range_min_));
+              Audio_control_function_value_change *item
+                = new Audio_control_function_value_change (p->control_, val);
+              item->channel_ = channel_;
+              audio_staff->add_audio_item (item);
+              announce_element (Audio_element_info (item, 0));
+            }
+          else
+            warning (_f ("ignoring out-of-range value change for MIDI "
+                         "property `%s'",
+                         p->name_));
+        }
+    }
   return audio_staff;
 }
 

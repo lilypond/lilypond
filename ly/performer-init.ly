@@ -30,6 +30,7 @@
 
   \consists "Staff_performer"
   \consists "Key_performer"
+  \consists "Midi_control_function_performer"
 }
 
 \context {
@@ -48,6 +49,7 @@
   \alias Staff
   \consists "Staff_performer"
   \consists "Key_performer"
+  \consists "Midi_control_function_performer"
 }
 
 \context {
@@ -59,6 +61,7 @@
   \defaultchild VaticanaVoice
   \consists "Staff_performer"
   \consists "Key_performer"
+  \consists "Midi_control_function_performer"
 }
 
 \context {
@@ -70,6 +73,7 @@
   \alias Staff
   \consists "Staff_performer"
   \consists "Key_performer"
+  \consists "Midi_control_function_performer"
 }
 
 \context {
@@ -193,7 +197,6 @@
   \name Score
 
   melismaBusyProperties = #default-melisma-properties
-  instrumentName = #"bright acoustic"
   midiChannelMapping = #'staff
 
   %% quarter = 60

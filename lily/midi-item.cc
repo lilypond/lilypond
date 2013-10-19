@@ -50,6 +50,9 @@ Midi_item::get_midi (Audio_item *a)
     return new Midi_time_signature (i);
   else if (Audio_text *i = dynamic_cast<Audio_text *> (a))
     return new Midi_text (i);
+  else if (Audio_control_function_value_change *i
+           = dynamic_cast<Audio_control_function_value_change *> (a))
+    return new Midi_control_function_value_change (i);
   else
     assert (0);
 
@@ -102,7 +105,21 @@ Midi_channel_item::Midi_channel_item (Audio_item *ai)
 {
 }
 
+Midi_control_function_value_change
+::Midi_control_function_value_change (Audio_control_function_value_change *ai)
+  : Midi_channel_item (ai), control_ (ai->control_), value_ (ai->value_)
+{
+}
+
 Midi_item::~Midi_item ()
+{
+}
+
+Midi_channel_item::~Midi_channel_item ()
+{
+}
+
+Midi_control_function_value_change::~Midi_control_function_value_change ()
 {
 }
 
@@ -339,6 +356,62 @@ Midi_text::to_string () const
   str = String_convert::hex2bin (str);
   str += int2midi_varint_string (audio_->text_string_.length ());
   str += audio_->text_string_;
+  return str;
+}
+
+string
+Midi_control_function_value_change::to_string () const
+{
+  // MIDI control function information.  A MIDI control function may have one
+  // or two assigned control numbers depending on whether it supports coarse
+  // (7-bit) or fine (14-bit) resolution.  If the control function supports
+  // fine resolution, the first (respectively, second) member of the structure
+  // represents the control number for setting the most (least) significant 7
+  // bits of the control function's value.
+  struct Control_function
+  {
+    int msb_control_number_;
+    int lsb_control_number_;
+  };
+
+  // Mapping from supported control functions (enumeration values defined in
+  // Audio_controller_value_change::Control) to the corresponding MIDI control
+  // numbers.
+  static const Control_function control_functions[] =
+    {
+      // When adding support for new control functions, please note the
+      // following:
+      // - The order of the control number definitions should be kept
+      //   consistent with the order of the enumeration values defined in
+      //   Audio_control_function_value_change::Control.
+      // - If the control function has only coarse resolution, the function's
+      //   control number should be stored in the MSB member of the array
+      //   element, and the LSB member should be set to a negative value.
+
+      {  8, 40 }, // balance
+      { 10, 42 }, // pan position
+      { 91, -1 }, // reverb level (only coarse resolution available)
+      { 93, -1 }  // chorus level (only coarse resolution available)
+    };
+
+  string str;
+  const Control_function *control_function = &control_functions[control_];
+  static const Real full_fine_scale = 0x3FFF;
+  static const Real full_coarse_scale = 0x7F;
+  bool fine_resolution = (control_function->lsb_control_number_ >= 0);
+  int value = lround (value_ * (fine_resolution ?
+                                full_fine_scale : full_coarse_scale));
+  Byte status_byte = (char) (0xB0 + channel_);
+  str += ::to_string ((char)status_byte);
+  str += ::to_string ((char)(control_function->msb_control_number_));
+  str += ::to_string ((char)(fine_resolution ? (value >> 7) : value));
+  if (fine_resolution)
+    {
+      str += ::to_string ((char)0x00);
+      str += ::to_string ((char)status_byte);
+      str += ::to_string ((char)(control_function->lsb_control_number_));
+      str += ::to_string ((char)(value & 0x7F));
+    }
   return str;
 }
 

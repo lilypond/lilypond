@@ -136,9 +136,8 @@ public:
   virtual void initialize ();
   virtual void finalize ();
 
-  /* should maybe be virtual */
-  void connect_to_context (Context *c);
-  void disconnect_from_context (Context *c);
+  virtual void connect_to_context (Context *c);
+  virtual void disconnect_from_context (Context *c);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
