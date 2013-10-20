@@ -464,12 +464,12 @@ respectively."
                        x))
                     pointlist))
          ;; a path must begin with a `moveto'
-         (prepend-origin (apply list (cons 'moveto origin) path))
+         (prepend-origin (cons (cons 'moveto origin) path))
          ;; if this path is connected, add closepath to the end
          (final-path (if connect
-                         (append prepend-origin (list 'closepath))
+                         (append prepend-origin (list '(closepath)))
                          prepend-origin))
-         (command-list (fold-right append '() final-path)))
+         (command-list (concatenate final-path)))
     (ly:make-stencil
      `(path ,thickness
             `(,@',command-list)
