@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.28\n"
+"Project-Id-Version: lilypond 2.17.29\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-10-06 16:14+0100\n"
+"POT-Creation-Date: 2013-10-20 10:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -889,7 +889,7 @@ msgstr ""
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
-#: abc2ly.py:1386 convert-ly.py:84 lilypond-book.py:122 midi2ly.py:1044
+#: abc2ly.py:1386 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
@@ -901,12 +901,12 @@ msgid ""
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1395 convert-ly.py:91 etf2ly.py:1208 lilypond-book.py:231
+#: abc2ly.py:1395 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
 #: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:181
 msgid "show version number and exit"
 msgstr ""
 
-#: abc2ly.py:1398 convert-ly.py:95 etf2ly.py:1204 lilypond-book.py:140
+#: abc2ly.py:1398 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
 #: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:160
 msgid "show this help and exit"
 msgstr ""
@@ -931,118 +931,122 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: abc2ly.py:1413 convert-ly.py:149 etf2ly.py:1218 lilypond-book.py:258
+#: abc2ly.py:1413 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:315
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
 
-#: convert-ly.py:46
+#: convert-ly.py:47
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
 "version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 
-#: convert-ly.py:49
+#: convert-ly.py:50
 msgid "If FILE is `-', read from standard input."
 msgstr ""
 
-#: convert-ly.py:51 lilypond-book.py:82
+#: convert-ly.py:52 lilypond-book.py:82
 msgid "Examples:"
 msgstr ""
 
-#: convert-ly.py:78 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
+#: convert-ly.py:79 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr ""
 
-#: convert-ly.py:80 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
+#: convert-ly.py:81 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
 msgid "Distributed under terms of the GNU General Public License."
 msgstr ""
 
-#: convert-ly.py:81 etf2ly.py:1194 lilypond-book.py:118 midi2ly.py:84
+#: convert-ly.py:82 etf2ly.py:1194 lilypond-book.py:118 midi2ly.py:84
 msgid "It comes with NO WARRANTY."
 msgstr ""
 
-#: convert-ly.py:99 convert-ly.py:140
+#: convert-ly.py:100 convert-ly.py:141
 msgid "VERSION"
 msgstr ""
 
-#: convert-ly.py:101
+#: convert-ly.py:102
 msgid "start from VERSION [default: \\version found in file]"
 msgstr ""
 
-#: convert-ly.py:104
+#: convert-ly.py:105
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:108 lilypond-book.py:179 musicxml2ly.py:2627
+#: convert-ly.py:109 lilypond-book.py:179 musicxml2ly.py:2627
 msgid ""
 "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
-#: convert-ly.py:110 lilypond-book.py:163 lilypond-book.py:181
+#: convert-ly.py:111 lilypond-book.py:163 lilypond-book.py:181
 #: musicxml2ly.py:2629 main.cc:174
 msgid "LOGLEVEL"
 msgstr ""
 
-#: convert-ly.py:116
+#: convert-ly.py:117
 msgid "do not add \\version command if missing"
 msgstr ""
 
-#: convert-ly.py:122
+#: convert-ly.py:123
 #, python-format
 msgid "force updating \\version number to %s"
 msgstr ""
 
-#: convert-ly.py:128
+#: convert-ly.py:129
 msgid "only update \\version number if file is modified"
 msgstr ""
 
-#: convert-ly.py:134
+#: convert-ly.py:135
 #, python-format
 msgid "show rules [default: -f 0, -t %s]"
 msgstr ""
 
-#: convert-ly.py:139
+#: convert-ly.py:140
 #, python-format
 msgid "convert to VERSION [default: %s]"
 msgstr ""
 
-#: convert-ly.py:144 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
+#: convert-ly.py:147
+msgid "make a numbered backup [default: filename.ext~]"
+msgstr ""
+
+#: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
 #: main.cc:183
 msgid "show warranty and copyright"
 msgstr ""
 
-#: convert-ly.py:190
+#: convert-ly.py:196
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:209
+#: convert-ly.py:215
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:211
+#: convert-ly.py:217
 msgid "Stopping at last successful rule"
 msgstr ""
 
-#: convert-ly.py:239
+#: convert-ly.py:256
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:354
+#: convert-ly.py:367
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:360
+#: convert-ly.py:373
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:366
+#: convert-ly.py:379
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1050,7 +1054,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:372
+#: convert-ly.py:385
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -1747,7 +1751,7 @@ msgstr ""
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: beam.cc:268
+#: beam.cc:181
 msgid "removing beam with no stems"
 msgstr ""
 
@@ -1858,24 +1862,16 @@ msgstr ""
 msgid "dot `%s' not found"
 msgstr ""
 
-#: dynamic-engraver.cc:193
-msgid "cannot find start of (de)crescendo"
+#: dynamic-engraver.cc:168
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:200
-msgid "already have a decrescendo"
-msgstr ""
-
-#: dynamic-engraver.cc:202
-msgid "already have a crescendo"
-msgstr ""
-
-#: dynamic-engraver.cc:205
-msgid "cresc starts here"
-msgstr ""
-
-#: dynamic-engraver.cc:333
-msgid "unterminated (de)crescendo"
+#: dynamic-engraver.cc:233 slur-proto-engraver.cc:119
+#, c-format
+msgid "unterminated %s"
 msgstr ""
 
 #. No explicit dynamic script events have occurred yet, but there is
@@ -2428,12 +2424,17 @@ msgstr ""
 msgid "unexpected case fall-through"
 msgstr ""
 
-#: midi-item.cc:89
+#: midi-control-function-performer.cc:109 staff-performer.cc:152
+#, c-format
+msgid "ignoring out-of-range value change for MIDI property `%s'"
+msgstr ""
+
+#: midi-item.cc:92
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:161
+#: midi-item.cc:178
 msgid "Time signature with more than 255 beats.  Truncating"
 msgstr ""
 
@@ -2478,18 +2479,6 @@ msgstr ""
 msgid "Transposing %s by %s makes alteration larger than double"
 msgstr ""
 
-#: new-dynamic-engraver.cc:168
-#, c-format
-msgid ""
-"unknown crescendo style: %s\n"
-"defaulting to hairpin."
-msgstr ""
-
-#: new-dynamic-engraver.cc:233 slur-proto-engraver.cc:119
-#, c-format
-msgid "unterminated %s"
-msgstr ""
-
 #: new-fingering-engraver.cc:113
 msgid "cannot add text scripts to individual note heads"
 msgstr ""
@@ -2506,7 +2495,7 @@ msgstr ""
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
-#: note-column.cc:172
+#: note-column.cc:147
 msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
@@ -2954,11 +2943,11 @@ msgstr ""
 msgid "expected to read %d characters, got %d"
 msgstr ""
 
-#: staff-performer.cc:275
+#: staff-performer.cc:301
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:276
+#: staff-performer.cc:302
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -3125,112 +3114,111 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:174 parser.yy:188
+#: parser.yy:154 parser.yy:168
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:458 parser.yy:759 parser.yy:825
+#: parser.yy:434 parser.yy:744 parser.yy:810
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:657 parser.yy:1153
+#: parser.yy:642 parser.yy:1138
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:860
+#: parser.yy:845
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:876
+#: parser.yy:861
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:900
+#: parser.yy:885
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1040 parser.yy:1062
+#: parser.yy:1025 parser.yy:1047
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1070
+#: parser.yy:1055
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1081 parser.yy:2380
+#: parser.yy:1066 parser.yy:2475
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1362
+#: parser.yy:1353
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2051 parser.yy:2165 parser.yy:2178 parser.yy:2187
+#: parser.yy:2146 parser.yy:2260 parser.yy:2273 parser.yy:2282
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2145
+#: parser.yy:2240
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2206
+#: parser.yy:2301
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2307
+#: parser.yy:2402
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2325
+#: parser.yy:2420
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2489
+#: parser.yy:2584
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2563
+#: parser.yy:2658
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2572 parser.yy:2577
+#: parser.yy:2667 parser.yy:2672
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2645
+#: parser.yy:2740
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2740
+#: parser.yy:2835
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2812 parser.yy:2858
-#, c-format
-msgid "not a duration: %d"
+#: parser.yy:2907 parser.yy:2950
+msgid "not a duration"
 msgstr ""
 
-#: parser.yy:2875
+#: parser.yy:2967
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:2974
+#: parser.yy:3066
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3033
+#: parser.yy:3125
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3048
+#: parser.yy:3140
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3053
+#: parser.yy:3145
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3261
+#: parser.yy:3362
 msgid "not a markup"
 msgstr ""
 
@@ -3303,20 +3291,20 @@ msgstr ""
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1279
+#: lexer.ll:1275
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1323
+#: lexer.ll:1319
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1324
+#: lexer.ll:1320
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1330
+#: lexer.ll:1326
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3428,12 +3416,12 @@ msgstr ""
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3527
+#: define-markup-commands.scm:3535
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3738
+#: define-markup-commands.scm:3746
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3511,7 +3499,7 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:151
+#: flag-styles.scm:162
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
@@ -3628,37 +3616,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:877
+#: lily.scm:878
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:878
+#: lily.scm:879
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:939
+#: lily.scm:940
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:942
+#: lily.scm:943
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:964 lily.scm:1053
+#: lily.scm:965 lily.scm:1054
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1044
+#: lily.scm:1045
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1063 ps-to-png.scm:66
+#: lily.scm:1064 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
