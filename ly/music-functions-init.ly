@@ -1485,12 +1485,12 @@ property (inside of an alist) is tweaked.")
        ;; We could just throw this at \override and let it sort this
        ;; out on its own, but this way we should get better error
        ;; diagnostics.
-       (let ((a (check-grob-path item parser location
-                                 #:default 'Bottom #:min 2 #:max 2))
-             (b (check-grob-path prop parser location
-                                 #:start 2)))
-         (if (and a b)
-             #{ \override #(append a b) = #value #}
+       (let ((p (check-grob-path
+                 (append item (if (symbol? prop) (list prop) prop))
+                 parser location
+                 #:default 'Bottom #:min 3)))
+         (if p
+             #{ \override #p = #value #}
              (make-music 'Music)))))
 
 undo =
