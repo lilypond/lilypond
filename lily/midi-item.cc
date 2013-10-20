@@ -21,6 +21,7 @@
 
 #include "duration.hh"
 #include "international.hh"
+#include "libc-extension.hh"
 #include "main.hh"
 #include "midi-stream.hh"
 #include "misc.hh"
@@ -399,8 +400,12 @@ Midi_control_function_value_change::to_string () const
   static const Real full_fine_scale = 0x3FFF;
   static const Real full_coarse_scale = 0x7F;
   bool fine_resolution = (control_function->lsb_control_number_ >= 0);
-  int value = lround (value_ * (fine_resolution ?
-                                full_fine_scale : full_coarse_scale));
+  // value_ is in range [0.0 .. 1.0].  For directional value ranges,
+  // #CENTER will correspond to 0.5 exactly, and my_round rounds
+  // upwards when in case of doubt.  That means that center position
+  // will round to 0x40 or 0x2000 by a hair's breadth.
+  int value = (int) my_round (value_ * (fine_resolution ?
+                                        full_fine_scale : full_coarse_scale));
   Byte status_byte = (char) (0xB0 + channel_);
   str += ::to_string ((char)status_byte);
   str += ::to_string ((char)(control_function->msb_control_number_));
