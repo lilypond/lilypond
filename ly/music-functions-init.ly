@@ -701,17 +701,39 @@ offset =
 a music expression, the result is the same music expression with an
 appropriate tweak applied.")
   (if (ly:music? item)
-      #{ \tweak #property #(offsetter property offsets) #item #}
-      (if (check-grob-path item parser location
-                                #:default 'Bottom
-                                #:min 2
-                                #:max 2)
-          #{
-            \override #item . #property =
-              #(offsetter property offsets)
-          #}
-          (make-music 'Music))))
-
+      ; In case of a tweak, grob property path is Grob.property
+      (let ((prop-path (check-grob-path
+                         (if (symbol? property)
+                             (list property)
+                             property)
+                         parser location
+                         #:start 1 #:default #t #:min 2 #:max 2)))
+        (if prop-path
+            ; If the head of the grob property path is a symbol--i.e.,
+            ; a grob name, produce a directed tweak.  Otherwise, create
+            ; an ordinary tweak.
+            (if (symbol? (car prop-path))
+                #{
+                  \tweak #prop-path #(offsetter (second prop-path) offsets) #item
+                #}
+                #{
+                  \tweak #(second prop-path) #(offsetter (second prop-path) offsets) #item
+                #})
+            item))
+      ; In case of an override, grob property path is Context.Grob.property.
+      (let ((prop-path (check-grob-path
+                         (append item
+                                 (if (symbol? property)
+                                     (list property)
+                                     property))
+                         parser location
+                         #:default 'Bottom #:min 3 #:max 3)))
+        (if prop-path
+            #{
+              \override #prop-path = #(offsetter (third prop-path) offsets)
+            #}
+            (make-music 'Music)))))
+ 
 omit =
 #(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},

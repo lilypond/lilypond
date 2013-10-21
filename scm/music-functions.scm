@@ -2086,8 +2086,9 @@ Broken measures are numbered in parentheses."
 ;; The following are used by the \offset function
 
 (define (find-value-to-offset prop self alist)
-  "Return the first value of the property @var{prop} in the property alist
-@var{alist} @em{after} having found @var{self}."
+  "Return the first value of the property @var{prop} in the property
+alist @var{alist} -- after having found @var{self}.  If @var{self} is
+not found, return the first value of @var{prop}."
   (let ((segment (member (cons prop self) alist)))
     (if (not segment)
         (assoc-get prop alist)
