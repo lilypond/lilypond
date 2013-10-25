@@ -141,7 +141,7 @@ Score_performer::one_time_step (SCM)
   // would appear not to suffer any bad side effects.
 
   if (!audio_column_)
-    audio_column_ = new Audio_column (context ()->get_global_context ()->now_mom ());
+    audio_column_ = new Audio_column (context ()->now_mom ());
   if (to_boolean (context ()->get_property ("skipTypesetting")))
     {
       if (!skipping_)
