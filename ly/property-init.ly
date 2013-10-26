@@ -124,17 +124,9 @@ bassFigureStaffAlignmentNeutral =
 
 %% cadenzas
 
-cadenzaOn  = {
-  \set Timing.timing = ##f
-  \set Timing.autoBeaming = ##f
-}
+cadenzaOn  = \set Timing.timing = ##f
 
-cadenzaOff = {
-  \set Timing.timing = ##t
-  \set Timing.measurePosition = #ZERO-MOMENT
-  \set Timing.autoBeaming = ##t
-}
-
+cadenzaOff = \set Timing.timing = ##t
 
 %% chord names
 

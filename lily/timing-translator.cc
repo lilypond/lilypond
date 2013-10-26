@@ -190,20 +190,24 @@ Timing_translator::start_translation_timestep ()
                                 measposp.smobbed_copy ());
     }
 
-  measposp += dt;
-
   int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
   int internal_barnumber = robust_scm2int (get_property ("internalBarNumber"), 0);
 
   SCM cad = get_property ("timing");
   bool c = to_boolean (cad);
 
-  Rational len = measure_length ();
-  while (c && measposp.main_part_ >= len)
+  if (c)
     {
-      measposp.main_part_ -= len;
-      current_barnumber++;
-      internal_barnumber++;
+      Rational len = measure_length ();
+
+      measposp += dt;
+
+      while (measposp.main_part_ >= len)
+        {
+          measposp.main_part_ -= len;
+          current_barnumber++;
+          internal_barnumber++;
+        }
     }
 
   context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
