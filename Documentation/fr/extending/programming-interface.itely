@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 29d5e0a64d0eee69e4ebee1e76e4df26ae58190b
+    Translation of GIT committish: 815ddc522bcdec0c1266caad5cc9e723fbbb2e41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -157,12 +157,10 @@ transmettre aux messages d'erreur les fichier et numéro de ligne.
 
 @item @code{@var{typeN?}}
 @tab un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
-devra retourner @code{#t}.  Certains de ces prédicats, comme nous le
-verrons plus loin, bénéficient d'un traitement particulier de la part du
-@emph{parser}.  De même existe une forme spécifique --
-@code{(@emph{prédicat?} @emph{default})} -- qui permet de fournir des
+devra retourner @code{#t}.  Il existe aussi une forme spécifique --
+@code{(@emph{prédicat?} @emph{default})} -- qui permet de fournir des
 argument optionnels.  En l'absence d'argument réel au moment de l'appel
-de la fonction, c'est la valeur par défaut qui lui sera substituée.  Les
+à la fonction, c'est la valeur par défaut qui lui sera substituée.  Les
 valeurs par défaut sont évaluées dès l'apparition de la définition, y
 compris dans le cas de blocs de code LilyPond ; vous devrez donc,
 si ces valeurs par défaut ne peuvent être déterminées que plus tard,
@@ -194,23 +192,17 @@ attribuée la valeur @code{origin}.
 @end multitable
 
 @noindent
-Certains types de prédicat font l'objet d'un traitement spécial de la
-part de l'analyseur grammatical, dans la mesure où il n'a aucun autre
-moyen de reconnaître efficacement les arguments.  Il s'agit, à l'heure
-actuelle, de @code{ly:pitch?} et @code{ly:duration?}.
-
-Pour tous les autres prédicats, la recevabilité des arguments est
-déterminée par un appel effectif au prédicat après que LilyPond les a
-déjà converti en expression Scheme.  Par voie de conséquence, l'argument
-peut tout à fait se libeller en syntaxe Scheme -- introduite par un
-@code{#} ou en tant que résultat d'un appel à une fonction Scheme.  Par
-ailleurs, LilyPond convertira en Scheme un certain nombre de
-constructions purement LilyPond avant même d'en avoir vérifié le
-prédicat.  C'est notamment le cas de la musique, des
-@emph{postévénements}, des chaînes simples (avec ou sans guillemets),
-des nombres, des @emph{markups} et listes de @emph{markups}, ainsi que
-des blocs @emph{score}, @emph{book}, @emph{bookpart}, ou qui définissent
-un contexte ou un format de sortie.
+La recevabilité des arguments est déterminée par un appel effectif au
+prédicat après que LilyPond les a déjà converti en expression Scheme.
+Par voie de conséquence, l'argument peut tout à fait se libeller en
+syntaxe Scheme -- introduite par un @code{#} ou en tant que résultat
+d'un appel à une fonction Scheme.  Par ailleurs, LilyPond convertira en
+Scheme un certain nombre de constructions purement LilyPond avant même
+d'en avoir vérifié le prédicat.  C'est notamment le cas de la musique,
+des @emph{postévénements}, des chaînes simples (avec ou sans
+guillemets), des nombres, des @emph{markups} et listes de
+@emph{markups}, ainsi que des blocs @emph{score}, @emph{book},
+@emph{bookpart}, ou qui définissent un contexte ou un format de sortie.
 
 Il existe certaines formes d'expression, comme la plupart du temps où la
 musique n'est pas bornée par des accolades, où LilyPond doit lire
@@ -218,7 +210,7 @@ au-delà de cette même expression afin d'en déterminer la fin.  Si une
 telle expression devait, après évaluation du prédicat, faire l'objet
 d'un argument optionnel, LilyPond n'aurait aucun moyen, à partir du
 moment où il aura décidé que l'expression ne correspond pas au
-paramètre, de @qq{revenir en arrière}.  C'est la raison pour laquelle
+paramètre, de « revenir en arrière ».  C'est la raison pour laquelle
 certaines formes musicales devraient être bornées par des accolades pour
 que LilyPond puisse les reconnaître efficacement.  Il existe d'autres
 situations pour lesquelles LilyPond lèvera toute ambiguïté grâce aux
@@ -226,10 +218,17 @@ fonctions de prédicat : un @samp{-3} est-il un @emph{postévénement}
 de type doigté ou un nombre négatif@tie{}?  Un @code{"a" 4} en mode
 paroles est-il une chaîne suivie d'un nombre ou bien un événement
 syllabe de durée @code{4} ?  LilyPond répondra à ces questions
-après consultation du prédicat.  Pour toutes ces raisons, nous vous
-enjoignons à éviter d'utiliser des prédicats permissifs tel que
-@code{scheme?}, dès que vous voulez les utiliser dans un but particulier
-plutôt que dans une fonction de portée générale.
+par des interprétations successives du prédicat de l'argument, dans un
+ordre défini de sorte à minimiser les interprétations erronées et le
+besoin de lecture en avance.
+
+Un prédicat qui accepte par exemple aussi bien une expression musicale
+qu'une hauteur considèrera @code{c''} comme étant une hauteur plutôt
+qu'une expression musicale.  Les durées ou @emph{postévénements} qui
+viennent juste après pourraient ne pas être cohérents avec cette
+interprétation.  C'est la raison pour laquelle il vaut mieux éviter des
+prédicats par trop permissifs tel que @code{Scheme?} lorsque
+l'application fait plutôt appel à des type d'argument plus spécifiques.
 
 Les différents types des prédicat propres à LilyPond sont recensés à
 l'annexe @ruser{Types de prédicats prédéfinis}.
@@ -409,18 +408,12 @@ Dans une expression musicale de haut niveau@tie{}: aucune restriction.
 
 @item
 En tant que post-événement, explicitement introduit par un indicateur de
-positionnement -- à savoir @code{-}, @code{^}, ou@tie{}@code{_}.  Notez
-bien que le renvoi d'un post-événement est valide lorsque la fonction
-musicale est appelée comme de la musique normale ; ceci amène à un
-résultat ressemblant à
-@example
-s 1*0-\fonction
-@end example
+positionnement -- à savoir @code{-}, @code{^}, ou@tie{}@code{_}.
 
 Dans ce cas particulier, vous ne pouvez utiliser une expression musicale
 @emph{ouverte} en tant que dernier argument -- argument qui se
 composerait d'une expression musicale susceptible d'accepter des
-post-événements additionnels.
+postévénements additionnels.
 
 @item
 En tant que partie d'un accord.  L'expression musicale renvoyée doit
@@ -896,6 +889,30 @@ ainsi d'éventuelles pertes de performance en utilisant des arguments
 Scheme en tant qu'arguments principaux d'une fonction @emph{markup} dont
 le dernier argument est un @emph{markup}.
 
+@cindex markup macro
+@cindex macro de markup
+@funindex \markup
+@funindex interpret-markup
+
+Les commandes de @emph{markup} ont un cycle de vie relativement
+complexe.  Le corps de la définition d'une commande de @emph{markup} est
+chargé de convertir les arguments de la commande en expression stencil
+qui sera alors renvoyée.  Bien souvent, ceci s'accomplit par un appel à
+la fonction @code{interpret-markup}, en lui passant les arguments
+@var{layout} et @var{props}.  Ces arguments ne seront en principe connus
+que bien plus tardivement dans le processus typographique.  Lors de
+l'expansion d'une expression LilyPond @code{\markup} ou d'une macro
+Scheme @code{macro}, les expressions @emph{markup} auront déjà vu leurs
+composants assemblés en expressions @emph{markup}.  L'évaluation et le
+contrôle du type des arguments à une commande de @emph{markup}
+n'interviennent qu'au moment de l'interprétation de @code{\markup} ou
+@code{markup}.
+ 
+Seule l'application de @code{interpret-markup} sur une expression
+@emph{markup} réalisera effectivement la conversion des expressions
+@emph{markup} en stencil, au travers de l'exécution du corps des
+fonctions @emph{markup}.
+
 
 @node Attribution de propriétés
 @unnumberedsubsubsec Attribution de propriétés
@@ -1163,11 +1180,18 @@ regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 @subsection Définition d'une nouvelle commande de liste de @emph{markups}
 @translationof New markup list command definition
 
+@funindex define-markup-list-command
+@funindex interpret-markup-list
+
 Une commande traitant une liste de @emph{markups} se définit à l'aide de
 la macro Scheme @code{define-markup-list-command}, de manière analogue à
 la macro @code{define-markup-command} abordée à la rubrique
 @ref{Définition d'une nouvelle commande de markup} à ceci près que cette
 dernière renvoie un seul stencil, non une liste de stencils.
+
+La fonction @code{interpret-markup-list}, à l'instar de la fonction
+@code{interpret-markup}, permet de convertir une liste de @emph{markups}
+en liste de stencils.
 
 Dans l'exemple suivant, nous définissons @code{\paragraph}, une commande
 de liste de @emph{markups}, qui renverra une liste de lignes justifiées
@@ -1412,16 +1436,17 @@ my-callback = #(lambda (grob)
 @section Code Scheme intégré
 @translationof Inline Scheme code
 
-À REVOIR : l'exemple de cette rubrique n'est pas des plus judicieux puisque
-@example
-F = -\tweak font-size #-3 -\flageolet
-@end example
-(notez le @samp{-} qui qualifie d'événement postérieur) fonctionne
-correctement dans ce cas d'espèce.  En attendant un remaniement de cette
- section, faisons comme si nous l'ignorions.
+À REVOIR : depuis la rédaction de cette section, LilyPond en est
+arrivé à un point tel que trouver un exemple @emph{simple} où l'on se
+retrouve obligé d'en venir à utiliser du code Scheme devient chose
+ardue.
+
+En attendant un remaniement de cette section, faisons comme si nous
+l'ignorions.
 
 L'inconvénient principal de la commande @code{\tweak} est la rigidité de
-sa syntaxe.  Par exemple, le code suivant produit une erreur.
+sa syntaxe.  Par exemple, le code suivant produit une erreur de syntaxe
+(du moins, c'était le cas auparavant).
 
 @example
 F = \tweak font-size #-3 -\flageolet
@@ -1432,10 +1457,6 @@ F = \tweak font-size #-3 -\flageolet
 @end example
 
 @noindent
-En d'autres termes, @code{\tweak} ne se comporte pas comme une
-articulation : il ne peut notamment pas être accolé avec les
-symboles @samp{^} ou @samp{_}.
-
 C'est en se servant du langage Scheme que l'on peut résoudre ce
 problème.  Dans cet exemple, on a recours aux méthodes décrites dans
 @ref{Ajout d'articulation à des notes (exemple)}, en
