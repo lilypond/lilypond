@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8df40d45e4366f4e9baa2cec3b7eb38b6482150f
+   Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -106,7 +106,9 @@ produira un message d'erreur.
 
 @smallspace
 
-@subheading Production de la partition
+@node Production de la partition
+@unnumberedsubsubsec Production de la partition
+@translationof Producing output
 
 @cindex fichier PDF
 @cindex PDF
@@ -193,6 +195,16 @@ started writing input files.
 @cindex simple, notation
 @cindex notation simple
 
+@menu
+* Hauteurs::
+* Durées et rythme::
+* Silences::
+* Métrique::
+* Indication de tempo::
+* Clefs::
+* Tout ensemble::
+@end menu
+
 Il y a certains éléments graphiques de notation que LilyPond ajoute
 automatiquement.  Dans l'exemple suivant, nous n'avons fourni que
 quatre hauteurs, mais LilyPond a ajouté une clef, un chiffre de mesure
@@ -210,7 +222,9 @@ bien des cas ; nous verrons plus loin comment les indiquer
 explicitement.
 
 
-@subheading Hauteurs
+@node Hauteurs
+@unnumberedsubsubsec Hauteurs
+@translationof Pitches
 
 @cindex hauteurs
 @cindex mode relatif
@@ -325,7 +339,9 @@ peut modifier la valeur de départ de @w{@code{\relative c'}}.
 @c " - keeps quotes in order for context-sensitive editor -td
 
 
-@subheading Durées et rythme
+@node Durées et rythme
+@unnumberedsubsubsec Durées et rythme
+@translationof Durations (rhythms)
 
 @cindex note, durée
 @cindex durées
@@ -374,7 +390,9 @@ la durée de base.
 @end lilypond
 
 
-@subheading Silences
+@node Silences
+@unnumberedsubsubsec Silences
+@translationof Rests
 
 @cindex silences
 @cindex notation des silences
@@ -393,7 +411,9 @@ lettre @code{r} (pour @emph{rest}).
 @end lilypond
 
 
-@subheading Métrique
+@node Métrique
+@unnumberedsubsubsec Métrique
+@node Time signature
 
 @cindex métrique
 @cindex chiffre de mesure
@@ -418,7 +438,9 @@ peut être définie à l'aide de la commande @code{\time} :
 @end lilypond
 
 
-@subheading Indication de tempo
+@node Indication de tempo
+@unnumberedsubsubsec Indication de tempo
+@translationof Tempo marks
 
 @cindex tempo, indication
 @cindex indication du tempo
@@ -450,7 +472,9 @@ que le métronome :
 @end lilypond
 
 
-@subheading Clefs
+@node Clefs
+@unnumberedsubsubsec Clefs
+@translationof Clef
 
 @cindex clef
 @cindex clé
@@ -480,7 +504,9 @@ La @notation{clef} peut être définie à l'aide de la commande
 @end lilypond
 
 
-@subheading Tout ensemble
+@node Tout ensemble
+@unnumberedsubsubsec Tout ensemble
+@translationof All together
 
 Voici un bref exemple qui rassemble tous les éléments que nous déjà
 vus :

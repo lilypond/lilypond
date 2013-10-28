@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d0b51cc48c2d66efbd1cbdc682dd622e7a2a93f9
+   Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -55,7 +55,7 @@ Cette section présente la notation courante dont on a besoin pour
 écrire une voix sur une portée.
 
 @menu
-* Barres et contrôle de mesure::
+* Barre et contrôle de mesure::
 * Altérations et armure::
 * Liaisons::
 * Articulations et nuances::
@@ -65,12 +65,19 @@ Cette section présente la notation courante dont on a besoin pour
 @end menu
 
 
-@node Barres et contrôle de mesure
-@subsection  Barres et contrôle de mesure
+@node Barre et contrôle de mesure
+@subsection Barre et contrôle de mesure
 @translationof Bar lines and bar checks
 
-@subheading Barres de mesure
-@c VO Bar lines
+@menu
+* Barre de mesure::
+* Contrôle de mesure::
+@end menu
+
+
+@node Barre de mesure
+@unnumberedsubsubsec Barre de mesure
+@translationof Bar lines
 
 Les simples barres de mesure se placent automatiquement ; nul n'est
 besoin de les saisir. D'autres types de barre de mesure sont accessibles
@@ -84,8 +91,9 @@ g1 e1 \bar "||" c2. c'4 \bar "|."
 @end lilypond
 
 
-@subheading Contrôle de mesure
-@c VO Bar checks
+@node Contrôle de mesure
+@unnumberedsubsubsec Contrôle de mesure
+@translationof Bar checks
 
 Les contrôles de barre de mesure -- @emph{bar checks} en anglais -- ne
 sont à priori pas strictement nécessaires.  Ils permettent cependant
@@ -110,11 +118,19 @@ Manuel de notation :
 @subsection Altérations et armure
 @translationof Accidentals and key signatures
 
+@menu
+* Altérations::
+* Armures::
+* Attention aux armures et aux hauteurs::
+@end menu
+
 @warning{Si, comme nombre de nouveaux utilisateurs, ce qui suit vous
 paraît déroutant, lisez cette partie jusqu'au bout, à plus forte raison
 si vous n'avez jamais fait de solfège !}
 
-@subheading Altérations
+@node Altérations
+@unnumberedsubsubsec Altérations
+@translationof Accidentals
 
 @cindex altérations
 @cindex dièse
@@ -157,7 +173,9 @@ cis1 ees fisis, aeses
 @end lilypond
 
 
-@subheading Armures
+@node Armures
+@unnumberedsubsubsec Armures
+@translationof Key signatures
 
 @cindex armure, définition de l'
 @cindex armure, altérations à l'
@@ -189,7 +207,9 @@ a
 @smallspace
 
 
-@subheading Attention aux armures et aux hauteurs
+@node Attention aux armures et aux hauteurs
+@unnumberedsubsubsec Attention aux armures et aux hauteurs
+@translationof Warning key signatures and pitches
 
 Glossaire musicologique :
 @rglosnamed{accidental,altération}, @rglosnamed{key signature,armure},
@@ -263,6 +283,13 @@ Manuel de notation :
 @subsection Liaisons
 @translationof Ties and slurs
 
+@menu
+* Liaisons de prolongation::
+* Liaisons d'articulation::
+* Liaisons de phrasé::
+* Attention aux types de liaison::
+@end menu
+
 @cindex liaisons de prolongation
 @cindex liaisons de tenue
 @cindex prolongation, liaisons de
@@ -274,7 +301,9 @@ Manuel de notation :
 @funindex \( ... \)
 
 
-@subheading Liaisons de prolongation
+@node Liaisons de prolongation
+@unnumberedsubsubsec Liaisons de prolongation
+@translationof Ties
 
 Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
@@ -288,9 +317,13 @@ g4~ g c2~ | c4 ~ c8 a8 ~ a2 |
 @end lilypond
 
 
+@node Liaisons d'articulation
+@unnumberedsubsubsec Liaisons d'articulation
+@translationof Slurs
+
 @cindex liaisons d'articulation
 @cindex articulation, liaisons d'
-@subheading Liaisons d'articulation
+@cindex legato
 
 @c Le terme de "slur" a deux sens en français : articulation et phrasé.
 @c Je garde ici le terme "legato", tel qu'il apparaît dans le texte original,
@@ -310,10 +343,12 @@ d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
 
+@node Liaisons de phrasé
+@unnumberedsubsubsec Liaisons de phrasé
+@translationof Phrasing slurs
+
 @cindex liaisons de phrasé
 @cindex phrasé, liaisons de
-@cindex legato
-@subheading Liaisons de phrasé
 
 De plus longues liaisons, dites de phrasé, sont délimitées par @code{\(}
 et @code{\)}.  Il est possible d'avoir en même temps des legatos et des
@@ -324,11 +359,15 @@ fois.
 g4\( g8( a) b( c) b4\)
 @end lilypond
 
-@smallspace
+@c @ smallspace
+
+
+@node Attention aux types de liaison
+@unnumberedsubsubsec Attention aux types de liaison
+@translationof Warnings slurs vs. ties
 
 
 @cindex liaisons d'articulation et de prolongation, différences
-@subheading Attention aux types de liaison
 
 Glossaire musicologique :
 @rglos{articulation}, @rglosnamed{slur,liaison},
@@ -356,7 +395,16 @@ Manuel de notation :
 @subsection Articulations et nuances
 @translationof Articulation and dynamics
 
-@subheading Articulations
+@menu
+* Articulation::
+* Doigté::
+* Nuance::
+@end menu
+
+
+@node Articulation
+@unnumberedsubsubsec Articulation
+@translationof Articulations
 
 @cindex articulation
 @cindex accents
@@ -374,7 +422,10 @@ c4-> c-. c2-_
 @end lilypond
 
 
-@subheading Doigtés
+@node Doigté
+@unnumberedsubsubsec Doigté
+@translationof Fingerings
+
 @cindex doigtés
 
 @funindex ^
@@ -402,7 +453,9 @@ c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 
-@subheading Nuances
+@node Nuance
+@unnumberedsubsubsec Nuance
+@translationof Dynamics
 
 @cindex nuances
 @cindex decrescendo
@@ -545,7 +598,16 @@ Manuel de notation :
 @subsection Commandes rythmiques avancées
 @translationof Advanced rhythmic commands
 
-@subheading Mesure incomplète
+@menu
+* Mesure incomplète::
+* Nolet::
+* Note d'ornement::
+@end menu
+
+
+@node Mesure incomplète
+@unnumberedsubsubsec Mesure incomplète
+@translationof Partial measure
 
 @cindex levée
 @cindex anacrouse
@@ -566,7 +628,9 @@ c2 d |
 @end lilypond
 
 
-@subheading Nolets
+@node Nolet
+@unnumberedsubsubsec Nolet
+@translationof Tuplets
 
 @cindex nolets
 @cindex triolets
@@ -592,7 +656,9 @@ que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 @end lilypond
 
 
-@subheading Notes d'ornement
+@node Note d'ornement
+@unnumberedsubsubsec Note d'ornement
+@translationof Grace notes
 
 @cindex notes d'ornement
 @cindex ornementation
@@ -655,6 +721,12 @@ il y a plus d'une voix sur une même portée.
 
 @cindex expression musicale
 
+@menu
+* Analogie avec les expressions mathématiques::
+* Expressions musicales simultanées -- plusieurs portées::
+* Expressions musicales simultanées -- une seule portée::
+@end menu
+
 Dans les fichiers source LilyPond, la musique est représentée par ce
 qu'on appelle des @emph{expressions musicales}.  En soi, une seule note
 peut constituer une expression musicale :
@@ -683,7 +755,9 @@ combinée à deux notes :
 @end lilypond
 
 
-@subheading Analogie avec les expressions mathématiques
+@node Analogie avec les expressions mathématiques
+@unnumberedsubsubsec Analogie avec les expressions mathématiques
+@translationof Analogy mathematical expressions
 
 @cindex expression
 
@@ -713,7 +787,9 @@ arbitraire, ce qui est nécessaire pour des partitions complexes comme
 de la musique polyphonique.
 
 
-@subheading Expressions musicales simultanées -- plusieurs portées
+@node Expressions musicales simultanées -- plusieurs portées
+@unnumberedsubsubsec Expressions musicales simultanées -- plusieurs portées
+@translationof Simultaneous music expressions multiple staves
 
 @cindex portées multiples
 @cindex polyphonie
@@ -760,7 +836,9 @@ seule la première première note verra sa hauteur déterminée relativement
 au au @code{c''} de la commande @code{@bs{}relative} de départ.}
 
 
-@subheading Expressions musicales simultanées -- une seule portée
+@node Expressions musicales simultanées -- une seule portée
+@unnumberedsubsubsec Expressions musicales simultanées -- une seule portée
+@translationof Simultaneous music expressions single staff
 
 Pour déterminer le nombre de portées, LilyPond regarde le début de la
 première expression.  Si c'est une seule note, une seule portée est
