@@ -37,10 +37,10 @@ ifneq ($(strip $(ALL_PO_SOURCES)),)
 	 --keyword=_ --keyword=_f --keyword=_i \
 	 $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
 endif
-endif
 	sed -i '1,2d' $(po-outdir)/$(package).po
 	sed -i -e 's/^\# This file is distributed.*/$(sed-header)/' $(po-outdir)/$(package).po
 	sed -i -e 's/^\"Content-Type: text\/plain.*/$(sed-content)/' $(po-outdir)/$(package).po
+endif
 
 
 po-update: po
