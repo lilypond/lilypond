@@ -81,7 +81,7 @@ or
 %left ADDLYRICS
 
 %right ':' UNSIGNED REAL E_UNSIGNED EVENT_IDENTIFIER EVENT_FUNCTION '^' '_'
-       HYPHEN EXTENDER DURATION_IDENTIFIER
+       HYPHEN EXTENDER DURATION_IDENTIFIER '!'
 
  /* The above are needed for collecting tremoli and other items (that
     could otherwise be interpreted as belonging to the next function
@@ -2750,7 +2750,7 @@ music_function_call_closed:
 	;
 
 event_function_event:
-	EVENT_FUNCTION function_arglist_closed {
+	EVENT_FUNCTION function_arglist {
 		$$ = MAKE_SYNTAX ("music-function", @$,
 					 $1, $2);
 	}
@@ -2797,7 +2797,7 @@ post_event_nofinger:
 	direction_less_event {
 		$$ = $1;
 	}
-	| script_dir music_function_call_closed {
+	| script_dir music_function_call {
 		$$ = $2;
 		if (!unsmob_music ($2)->is_mus_type ("post-event")) {
 			parser->parser_error (@2, _ ("post-event expected"));
@@ -3499,7 +3499,13 @@ exclamations:
 	;
 
 questions:
-	{ $$ = SCM_UNDEFINED; }
+// This precedence rule is rather weird.  It triggers when '!' is
+// encountered after a pitch, and is used for deciding whether to save
+// this instead for a figure modification.  This should not actually
+// occur in practice as pitches and figures are generated in different
+// modes.  Using a greedy (%right) precedence makes sure that we don't
+// get stuck in a wrong interpretation.
+	{ $$ = SCM_UNDEFINED; } %prec ':'
 	| questions '?'
         {
                 if (SCM_UNBNDP ($1))
