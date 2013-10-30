@@ -80,10 +80,14 @@ or
 %nonassoc COMPOSITE
 %left ADDLYRICS
 
-%right ':' UNSIGNED REAL
+%right ':' UNSIGNED REAL E_UNSIGNED EVENT_IDENTIFIER EVENT_FUNCTION '^' '_'
+       HYPHEN EXTENDER
 
- /* The above are needed for collecting tremoli greedily, and together
-    with the next rule for putting together numbers and units
+ /* The above are needed for collecting tremoli and other items (that
+    could otherwise be interpreted as belonging to the next function
+    argument) greedily, and together with the next rule will serve to
+    join numbers and units greedily instead of allowing them into
+    separate function arguments
  */
 
 %nonassoc NUMBER_IDENTIFIER
@@ -1269,11 +1273,11 @@ function_arglist_nonbackup_common:
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup post_event_nofinger
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n)))
@@ -1286,13 +1290,13 @@ function_arglist_nonbackup_common:
 		}
 		
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' REAL
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' NUMBER_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
@@ -1495,7 +1499,7 @@ function_arglist_backup_common:
 			MYBACKUP (SCM_ARG, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup post_event_nofinger
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1563,7 +1567,7 @@ function_arglist_backup_common:
 			MYBACKUP (FRACTION, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1583,7 +1587,7 @@ function_arglist_backup_common:
 		}
 		
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' REAL
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1594,7 +1598,7 @@ function_arglist_backup_common:
 			MYBACKUP (REAL, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (scm_call_1 ($2, n))) {
@@ -1737,12 +1741,12 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
+	| EXPECT_SCM function_arglist_optional post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
+	| EXPECT_SCM function_arglist_optional '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
 		$$ = check_scheme_arg (parser, @4, n, $2, $1);
@@ -1842,7 +1846,7 @@ function_arglist_common_reparse:
 		$$ = $2;
 		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
 	}
-	| EXPECT_SCM function_arglist_closed_optional '-' UNSIGNED
+	| EXPECT_SCM function_arglist_optional '-' UNSIGNED
 	{
 		$$ = $2;
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
@@ -1859,7 +1863,7 @@ function_arglist_common_reparse:
 		}
 		
 	}
-	| EXPECT_SCM function_arglist_closed_optional '-' REAL
+	| EXPECT_SCM function_arglist_optional '-' REAL
 	{
 		$$ = $2;
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
@@ -1889,13 +1893,13 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional '-' NUMBER_IDENTIFIER
+	| EXPECT_SCM function_arglist_optional '-' NUMBER_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       scm_difference ($4, SCM_UNDEFINED),
 				       $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional post_event_nofinger
+	| EXPECT_SCM function_arglist_optional post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -2480,7 +2484,7 @@ event_chord:
 				$$ = MAKE_SYNTAX ("void-music", @1);
 			}
 		}
-	}
+	} %prec ':'
 	| simple_chord_elements post_events	{
 		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
@@ -2489,19 +2493,19 @@ event_chord:
 		 * i = @$; */
 		i.set_location (@1, @2);
 		$$ = MAKE_SYNTAX ("event-chord", i, elts);
-	}
+	} %prec ':'
 	| CHORD_REPETITION optional_notemode_duration post_events {
 		Input i;
 		i.set_location (@1, @3);
 		$$ = MAKE_SYNTAX ("repetition-chord", i,
 				  $2, scm_reverse_x ($3, SCM_EOL));
-	}
+	} %prec ':'
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
 		Input i;
 		i.set_location (@1, @3);
 		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2,
 				  scm_reverse_x ($3, SCM_EOL));
-	}
+	} %prec ':'
 	| command_element
 	| note_chord_element
 	;
@@ -2522,7 +2526,7 @@ note_chord_element:
 		m-> set_property ("elements", es);
 		m->set_spot (@$);
 		$$ = m->self_scm ();
-	}
+	} %prec ':'
 	;
 
 chord_body:
@@ -3160,7 +3164,7 @@ lyric_element_music:
 		if (scm_is_pair ($3))
 			unsmob_music ($$)->set_property
 				("articulations", scm_reverse_x ($3, SCM_EOL));
-	}
+	} %prec ':'
 	;
 
 new_chord:
