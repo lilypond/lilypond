@@ -81,7 +81,7 @@ or
 %left ADDLYRICS
 
 %right ':' UNSIGNED REAL E_UNSIGNED EVENT_IDENTIFIER EVENT_FUNCTION '^' '_'
-       HYPHEN EXTENDER
+       HYPHEN EXTENDER DURATION_IDENTIFIER
 
  /* The above are needed for collecting tremoli and other items (that
     could otherwise be interpreted as belonging to the next function
@@ -983,12 +983,12 @@ tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, SCM_EOL, $2, $4);
 	}
-	| TEMPO scalar_closed steno_duration '=' tempo_range	{
+	| TEMPO scalar steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
 	}
 	| TEMPO scalar {
 		$$ = MAKE_SYNTAX ("tempo", @$, $2);
-	}
+	} %prec ':'
 	;
 
 /*
@@ -1311,7 +1311,7 @@ function_arglist_closed_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup bare_number_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_closed
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1384,7 +1384,7 @@ function_arglist_nonbackup:
 					       (parser, @4, $4),
 					       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup bare_number_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1458,7 +1458,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup UNSIGNED
 	{
 		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -1471,7 +1471,7 @@ function_arglist_nonbackup_reparse:
 				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_nonbackup DURATION_IDENTIFIER {
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER {
 		$$ = $3;
 		MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
 	}
@@ -1481,11 +1481,6 @@ function_arglist_nonbackup_reparse:
 function_arglist_backup:
 	function_arglist_backup_common
 	| function_arglist_common
-	;
-
-function_arglist_closed_backup:
-	function_arglist_backup_common
-	| function_arglist_closed_common
 	;
 
 function_arglist_backup_common:
@@ -1518,7 +1513,7 @@ function_arglist_backup_common:
 			MYBACKUP (LYRIC_ELEMENT, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1536,7 +1531,7 @@ function_arglist_backup_common:
 			}
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup REAL
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1547,7 +1542,7 @@ function_arglist_backup_common:
 			MYBACKUP (REAL, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NUMBER_IDENTIFIER
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1640,7 +1635,7 @@ function_arglist_backup_common:
 			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_closed_backup DURATION_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
@@ -1731,7 +1726,7 @@ function_arglist_common:
 					       (parser, @3, $3),
 					       $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number_common
+	| EXPECT_SCM function_arglist_optional bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1828,7 +1823,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_closed_optional UNSIGNED
+	| EXPECT_SCM function_arglist_optional UNSIGNED
 	{
 		$$ = $2;
 		if (scm_is_true (scm_call_1 ($1, $3)))
@@ -1841,7 +1836,7 @@ function_arglist_common_reparse:
 				MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
 		}
 	}
-	| EXPECT_SCM function_arglist_closed_optional DURATION_IDENTIFIER
+	| EXPECT_SCM function_arglist_optional DURATION_IDENTIFIER
 	{
 		$$ = $2;
 		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
@@ -1888,7 +1883,7 @@ function_arglist_closed_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_closed_optional bare_number_common_closed
+	| EXPECT_SCM function_arglist_optional bare_number_common_closed
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -1940,15 +1935,6 @@ function_arglist_skip_backup:
 	{
 		$$ = scm_cons (loc_on_music (@3, $1), $3);
 	}
-	;
-
-function_arglist_closed_optional:
-	function_arglist_closed_backup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
-	{
-		$$ = scm_cons (loc_on_music (@4, $1), $3);
-	}
-	| function_arglist_skip_backup BACKUP
 	;
 
 embedded_scm_closed:
@@ -2452,24 +2438,6 @@ scalar:
 	| full_markup
 	;
 
-scalar_closed:
-	embedded_scm_arg_closed
-	| SCM_IDENTIFIER
-	// for scalar_closed to be an actually closed (no lookahead)
-	// expression, we'd need to use bare_number_closed here.  It
-	// turns out that the only use of scalar_closed in TEMPO is
-	// not of the kind requiring the full closedness criterion.
-	| bare_number
-	| '-' bare_number
-	{
-		$$ = scm_difference ($2, SCM_UNDEFINED);
-	}
-	| FRACTION
-	| STRING
-	| full_markup
-	;
-
-
 event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
@@ -2893,7 +2861,7 @@ duration_length:
 maybe_notemode_duration:
 	{
 		$$ = SCM_UNDEFINED;
-	}
+	} %prec ':'
 	| multiplied_duration	{
 		$$ = $1;
 		parser->default_duration_ = *unsmob_duration ($$);
@@ -3174,7 +3142,7 @@ new_chord:
 	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
 		SCM its = scm_reverse_x ($4, SCM_EOL);
 		$$ = make_chord_elements (@$, $1, $2, scm_cons ($3, its));
-	}
+	} %prec ':'
 	;
 
 chord_items:
