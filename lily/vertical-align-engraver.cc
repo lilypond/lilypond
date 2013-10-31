@@ -22,6 +22,7 @@
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "spanner.hh"
 #include "pointer-group-interface.hh"
 #include "grob-array.hh"
@@ -58,7 +59,8 @@ ADD_TRANSLATOR (Vertical_align_engraver,
 
                 /* read */
                 "alignAboveContext "
-                "alignBelowContext ",
+                "alignBelowContext "
+                "hasAxisGroup ",
 
                 /* write */
                 ""
@@ -86,8 +88,15 @@ Vertical_align_engraver::initialize ()
 void
 Vertical_align_engraver::process_music ()
 {
-  if (!valign_)
+  if (!valign_ && !scm_is_null (id_to_group_hashtab_))
     {
+      if (to_boolean (get_property ("hasAxisGroup")))
+        {
+          warning (_ ("Ignoring Vertical_align_engraver in VerticalAxisGroup"));
+          id_to_group_hashtab_ = SCM_EOL;
+          return;
+        }
+      
       top_level_ = to_boolean (get_property ("topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
@@ -120,6 +129,9 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 void
 Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 {
+  if (scm_is_null (id_to_group_hashtab_))
+    return;
+
   if (top_level_ && qualifies (i))
     {
       string id = i.context ()->id_string ();
