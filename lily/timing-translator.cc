@@ -186,8 +186,6 @@ Timing_translator::start_translation_timestep ()
   else
     {
       measposp = now;
-      context ()->set_property ("measurePosition",
-                                measposp.smobbed_copy ());
     }
 
   int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
@@ -209,6 +207,22 @@ Timing_translator::start_translation_timestep ()
           internal_barnumber++;
         }
     }
+
+
+  // Because "timing" can be switched on and off asynchronously with
+  // graces, measurePosition might get into strange settings of
+  // grace_part_.  It does not actually make sense to have it diverge
+  // from the main timing.  Updating the grace part outside of the
+  // actual check for "timing" looks strange and will lead to changes
+  // of grace_part_ even when timing is off.  However, when timing is
+  // switched back on again, this will generally happen in an override
+  // that does _not_ in itself advance current_moment.  So the whole
+  // timing advance logic will only get triggered while "timing" is
+  // still of.  Maybe we should keep measurePosition.grace_part_
+  // constantly at zero anyway?
+
+  measposp.grace_part_ = now.grace_part_;
+
 
   context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
   context ()->set_property ("internalBarNumber", scm_from_int (internal_barnumber));
