@@ -62,7 +62,7 @@ deleting them.  Let's hope that a stack overflow doesn't trigger a move
 of the parse stack onto the heap. */
 
 %left PREC_BOT
-%nonassoc REPEAT
+%nonassoc REPEAT REPEAT_IDENTIFIER
 %nonassoc ALTERNATIVE
 
 /* The above precedences tackle the shift/reduce problem
@@ -346,6 +346,7 @@ If we give names, Bison complains.
 %token NUMBER_IDENTIFIER
 %token OUTPUT_DEF_IDENTIFIER
 %token REAL
+%token REPEAT_IDENTIFIER
 %token RESTNAME
 %token SCM_ARG
 %token SCM_FUNCTION
@@ -1085,9 +1086,19 @@ repeated_music:
 	{
 		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, SCM_EOL);
 	}
+	| REPEAT_IDENTIFIER music
+	{
+		$$ = MAKE_SYNTAX ("repeat", @$, scm_car ($1), scm_cdr ($1),
+				  $2, SCM_EOL);
+	}
 	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
 	{
 		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $6);
+	}
+	| REPEAT_IDENTIFIER music ALTERNATIVE braced_music_list
+	{
+		$$ = MAKE_SYNTAX ("repeat", @$, scm_car ($1), scm_cdr ($1),
+				  $2, $4);
 	}
 	;
 
@@ -1494,6 +1505,20 @@ function_arglist_backup_common:
 			MYBACKUP (SCM_ARG, $4, @4);
 		}
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup REPEAT simple_string unsigned_number
+	{
+		$4 = MAKE_SYNTAX ("repeat", @4, $5, $6,
+				  MY_MAKE_MUSIC ("Music", @4)->unprotect (),
+				  SCM_EOL);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = $3;
+			MYREPARSE (@4, $2, REPEAT_IDENTIFIER, scm_cons ($5, $6));
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (REPEAT_IDENTIFIER, scm_cons ($5, $6), @4);
+		}
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -1676,6 +1701,16 @@ function_arglist_backup_common:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
+	| function_arglist_backup REPARSE music_assign
+	{
+		if (scm_is_true (scm_call_1 ($2, $3)))
+			$$ = scm_cons ($3, $1);
+		else
+			$$ = check_scheme_arg (parser, @3,
+					       make_music_from_simple
+					       (parser, @3, $3),
+					       $1, $2);
+	}
 	| function_arglist_backup REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1687,10 +1722,6 @@ function_arglist_backup_common:
 				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE symbol_list_arg
-	{
-		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
-	}
-	| function_arglist_backup REPARSE pitch_also_in_chords
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -2781,11 +2812,6 @@ steno_tonic_pitch:
 pitch:
 	steno_pitch
 	| PITCH_IDENTIFIER
-	;
-
-pitch_also_in_chords:
-	pitch
-	| steno_tonic_pitch
 	;
 
 gen_text_def:
