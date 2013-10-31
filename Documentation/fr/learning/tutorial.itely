@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
+   Translation of GIT committish: 2625ff37cc7ea4f851b9261dcbc31ef93f35459f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -55,6 +55,12 @@ chose d'imprimable.
 @cindex compilation
 @cindex exemple, premier
 @cindex premier exemple
+@cindex casse, sensibilité à la
+@cindex sensibilité à la casse
+
+@menu
+* Production de la partition::
+@end menu
 
 Pour créer une partition avec LilyPond, on écrit un fichier texte,
 appelé fichier source, qui décrit la notation musicale. La
@@ -413,7 +419,7 @@ lettre @code{r} (pour @emph{rest}).
 
 @node Métrique
 @unnumberedsubsubsec Métrique
-@node Time signature
+@translationof Time signature
 
 @cindex métrique
 @cindex chiffre de mesure
