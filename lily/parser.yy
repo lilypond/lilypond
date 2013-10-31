@@ -325,6 +325,7 @@ If we give names, Bison complains.
 %token EMBEDDED_LILY "#{"
 
 %token BOOK_IDENTIFIER
+%token CHORD_BODY_IDENTIFIER
 %token CHORD_MODIFIER
 %token CHORD_REPETITION
 %token CONTEXT_DEF_IDENTIFIER
@@ -1519,6 +1520,17 @@ function_arglist_backup_common:
 			MYBACKUP (REPEAT_IDENTIFIER, scm_cons ($5, $6), @4);
 		}
 	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup chord_body
+	{
+		if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			$$ = $3;
+			MYREPARSE (@4, $2, CHORD_BODY_IDENTIFIER, $4);
+		} else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (CHORD_BODY_IDENTIFIER, $4, @4);
+		}
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -2533,6 +2545,7 @@ chord_body:
 	{
 		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
 	}
+	| CHORD_BODY_IDENTIFIER
 	;
 
 chord_body_elements:
