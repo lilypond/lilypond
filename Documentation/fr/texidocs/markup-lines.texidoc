@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
 Un bloc de texte conséquent peut se répartir sur plusieurs pages à
 l'aide de la commande @code{\\markuplist}.

@@ -1,10 +1,11 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
-Vous pourrez, en jouant sur la propriété @code{Y-extent}, aligner les
-différents objets @code{DynamicLineSpanner} (soufflets ou textuels)
-quelle que soit leur étendue, par rapport à un même point de référence.
-Tous les éléments seront alors centrés sur une même ligne, ce qui sera
-visuellement plus agréable.
+Tous les objets @code{DynamicLineSpanner} (soufflets ou nuances
+textuelles) viennent s'aligner sur une ligne de référence placée, par
+rapport à la portée, à au moins la valeur de @code{'staff-padding} sauf
+lorsque d'autres éléments de notation les en éloigne plus.  Les nuances
+seront centrés sur une même ligne dès lors que @code{'staff-padding}
+aura été défini à une valeur suffisante.
 
 C'est le même principe -- en combinaison avec @code{\\textLengthOn} --
 qui sert à aligner les indications textuelles sur une ligne de

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
 La direction des hampes des notes placées sur la ligne médiane de la
 portée est gérée par la propriété @code{neutral-direction} de l'objet

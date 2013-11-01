@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
-expression Scheme générée par l'analyseur syntaxique de lilypond.  Il
+expression Scheme générée par l'analyseur syntaxique de LilyPond.  Il
 est donc possible, à l'aide de Scheme, de générer automatiquement une
 partition sans fichier source.  Une expression musicale en Scheme sera
 transformée en partition par un appel à
