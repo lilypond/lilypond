@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -361,7 +361,7 @@ est livré @strong{SANS GARANTIE} !
 
 @table @code
 
-@item -d@var{[nom-option]}=@var{[valeur]},--define-default=@var{[nom-option]}=@var{[valeur]}
+@item -d@var{[nom-option]}=@var{[valeur]}, --define-default=@var{[nom-option]}=@var{[valeur]}
 Affecte la valeur Scheme @var{valeur} à l'option interne
 @var{nom-option} du programme.
 
@@ -1003,7 +1003,7 @@ facilement.
 * Message d'erreur Unbound variable %::
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
-* Message d'erreur unexpected \new::
+* Message d'erreur unexpected new::
 @end menu
 
 
@@ -1139,9 +1139,9 @@ reportez-vous à la rubrique
 @ruser{Espacement des lignes rattachées à des portées}.
 
 
-@node Message d'erreur unexpected \new
-@unnumberedsubsec Message d'erreur unexpected @code{\new}
-@translationof Error message unexpected \new
+@node Message d'erreur unexpected new
+@unnumberedsubsec Message d'erreur unexpected @code{@bs{}new}
+@translationof Error message unexpected new
 
 Un bloc @code{\score} ne peut contenir qu'@strong{une seule} expression
 musicale. Si, par contre, il comporte plusieurs @code{\new Staff},

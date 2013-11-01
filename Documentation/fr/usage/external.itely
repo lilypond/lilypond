@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 47c20999a49c7c77167089761a4dd964884e53fe
+    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -166,9 +166,9 @@ devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 @unnumberedsubsubsec Utilisation avec GNOME 3
 @translationof Using GNOME 3 for point and click
 
-En ce qui concerne l'environnement GNOME 3, les URI soont gérés par la
+En ce qui concerne l'environnement GNOME 3, les URI sont gérés par la
 surcouche « gvfs » au lieu de « gconf ».  Il faut donc créer un fichier
-dans un répertoire local tel que @file{/tmp}, que 'lon appelera
+dans un répertoire local tel que @file{/tmp}, que l'on appelera
 @file{lilypond-invoke-editor.desktop}. Il devra avoir le contenu
 suivant :
 
@@ -607,7 +607,7 @@ mémoire et temps de calcul, pour effectuer l'analyse XML.
 @item -m, --midi
 Ajouter un bloc @code{\midi}.
 
-@item --nd --no-articulation-directions
+@item --nd, --no-articulation-directions
 Ne pas convertir la direction (@code{^}, @code{_} ou @code{-}) des
 articulations, nuances, etc.
 
@@ -749,7 +749,6 @@ Afficher le numéro de version.
 @end table
 
 @knownissues
-
 La liste des scripts d'articulation est incomplète.  Les mesures vides
 perturbent @command{etf2ly}.  Les séquences de notes d'ornement ne se
 terminent pas de manière satisfaisante.
