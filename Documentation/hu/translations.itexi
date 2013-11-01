@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri Sep 20 17:55:41 UTC 2013
+@emph{Last updated Fri Nov  1 18:02:06 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,24 +84,24 @@ partially
 @item
 1 Első lecke
 @*
-2535
+2578
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (80 %)</span>
+<span style="background-color: #dfef77">partially (44 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (80 %)
+partially (44 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fff53e">partially</span>
+<span style="background-color: #fff23f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -111,24 +111,24 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4283
+4396
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (93 %)</span>
+<span style="background-color: #dfef77">partially (35 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (93 %)
+partially (35 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -155,7 +155,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">partially</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16194
+16191
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">partially</span>
+<span style="background-color: #dbff38">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-4525
+4537
 @tab Team-hu
 @tab 
 @tab 
@@ -312,7 +312,7 @@ partially
 @item
 2 A @command{convert-ly} használata
 @*
-1424
+1484
 @tab Team-hu
 @tab 
 @tab 
@@ -329,7 +329,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #97ff2f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -459,7 +459,7 @@ partially
 @item
 Letöltés
 @*
-1197
+1201
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -476,7 +476,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #47ff24">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

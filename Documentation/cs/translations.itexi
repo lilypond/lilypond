@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Fri Sep 20 17:55:41 UTC 2013
+@emph{Naposledy obnoveno Fri Nov  1 18:02:06 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,51 +84,51 @@ ano
 @item
 1 Cvičení
 @*
-2535
+2578
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ano</span>
+<span style="background-color: #dfef77">částečně (48 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ano
+částečně (48 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ano</span>
+<span style="background-color: #25fe1f">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
-ano
+částečně
 @end ifnothtml
 @tab před-GDP
 @item
 2 Běžný notový zápis
 @*
-4283
+4396
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ano</span>
+<span style="background-color: #dfef77">částečně (35 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ano
+částečně (35 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">částečně</span>
+<span style="background-color: #54ff26">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-16194
+16191
 @tab Pavel Fric
 @tab 
 @tab 
@@ -312,7 +312,7 @@ ano
 @item
 Stažení
 @*
-1197
+1201
 @tab Pavel Fric
 @tab 
 @tab 
@@ -329,7 +329,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">částečně</span>
+<span style="background-color: #68ff28">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
