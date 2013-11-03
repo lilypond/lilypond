@@ -38,14 +38,34 @@ Partial_iterator::process (Moment m)
   if (Duration * dur
       = unsmob_duration (get_music ()->get_property ("duration")))
     {
-      Context *ctx = get_outlet ();
-      Moment now = ctx->now_mom ();
-      if (now.main_part_ > Rational (0))
-        get_music ()->origin ()->
-        warning (_ ("trying to use \\partial after the start of a piece"));
-      Moment length = Moment (dur->get_length ());
-      now = Moment (0, now.grace_part_);
-      ctx->set_property ("measurePosition", (now - length).smobbed_copy ());
+      // Partial_iterator is an iterator rather than an engraver, so
+      // the active context it is getting called in does not depend on
+      // which context definition the engraver might be defined.
+      //
+      // Using where_defined to find the context where measurePosition
+      // should be overwritten does not actually work since the
+      // Timing_translator does not set measurePosition when
+      // initializing.
+
+      Context *timing = unsmob_context (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
+                                                    get_outlet ()->self_scm (),
+                                                    ly_symbol2scm ("Timing")));
+
+      if (!timing)
+        programming_error ("missing Timing in \\partial");
+      else
+        {
+          Moment mp = robust_scm2moment (timing->get_property ("measurePosition"),
+                                         Rational (0));
+
+          if (mp.main_part_ > Rational (0))
+            mp.main_part_ = measure_length (timing);
+          else
+            mp.main_part_ = 0;
+
+          Moment length = Moment (dur->get_length ());
+          timing->set_property ("measurePosition", (mp - length).smobbed_copy ());
+        }
     }
   else
     programming_error ("invalid duration in \\partial");
