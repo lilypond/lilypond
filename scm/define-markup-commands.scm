@@ -1014,13 +1014,9 @@ samplePath =
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)
-  "
-This is the same as the @code{\\score} markup but delivers its
-systems as a list of lines.  This is not usually called directly by
-the user.  Instead, it is called when the parser encounters
-@code{\\score} in a context where only markup lists are allowed.  When
-used as the argument of a toplevel @code{\\markuplist}, the result can
-be split across pages."
+  "This is the same as the @code{\\score} markup but delivers its
+systems as a list of lines.  Its @var{score} argument is entered in
+braces like it would be for @code{\\score}."
   (let ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)

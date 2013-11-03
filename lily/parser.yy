@@ -269,6 +269,7 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 %token REST "\\rest"
 %token REVERT "\\revert"
 %token SCORE "\\score"
+%token SCORELINES "\\score-lines"
 %token SEQUENTIAL "\\sequential"
 %token SET "\\set"
 %token SIMULTANEOUS "\\simultaneous"
@@ -3355,7 +3356,7 @@ full_markup:
 	;
 
 markup_top:
-	simple_markup_list {
+	markup_list {
 		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
 	}
 	| markup_head_1_list simple_markup
@@ -3383,7 +3384,7 @@ markup_scm:
 	;
 			
 
-simple_markup_list:
+markup_list:
 	markup_composed_list {
 		$$ = $1;
 	}
@@ -3401,22 +3402,11 @@ markup_uncomposed_list:
 	{
 		$$ = $2;
 	}
-	;
-
-markup_list:
-	simple_markup_list
-	| markup_score
-	{
-		$$ = scm_list_1 (scm_list_2 (ly_lily_module_constant ("score-lines-markup-list"), $1));
-	}
-	;
-
-markup_score:
-	SCORE {
+	| SCORELINES {
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
-		$$ = $4;
+		$$ = scm_list_1 (scm_list_2 (ly_lily_module_constant ("score-lines-markup-list"), $4));
 		parser->lexer_->pop_state ();
 	}
 	;
@@ -3439,7 +3429,7 @@ markup_braced_list_body:
 	| markup_braced_list_body markup {
 		$$ = scm_cons ($2, $1);
 	}
-	| markup_braced_list_body simple_markup_list {
+	| markup_braced_list_body markup_list {
 		$$ = scm_reverse_x ($2, $1);
 	}
 	;
@@ -3488,16 +3478,19 @@ simple_markup:
 	STRING {
 		$$ = make_simple_markup ($1);
 	}
+	| SCORE {
+		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
+		parser->lexer_->push_note_state (nn);
+	} '{' score_body '}' {
+		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), $4);
+		parser->lexer_->pop_state ();
+	}
 	| MARKUP_FUNCTION markup_command_basic_arguments {
 		$$ = scm_cons ($1, scm_reverse_x ($2, SCM_EOL));
 	}
 	| markup_scm MARKUP_IDENTIFIER
 	{
 		$$ = $2;
-	}
-	| markup_score
-	{
-		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), $1);
 	}
 	;
 

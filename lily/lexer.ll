@@ -673,6 +673,10 @@ BOM_UTF8	\357\273\277
                 yylval = SCM_UNSPECIFIED;
 		return SCORE;
 	}
+	\\score-lines {
+		yylval = SCM_UNSPECIFIED;
+		return SCORELINES;
+	}
 	\\\"	{
 		start_command_quote ();
 	}
