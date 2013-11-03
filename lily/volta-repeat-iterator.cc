@@ -33,17 +33,26 @@ protected:
   virtual void next_element (bool);
   virtual void construct_children ();
   virtual void process (Moment);
+  virtual void derived_mark () const;
 
   bool first_time_;
   int alt_count_;
   int rep_count_;
   int done_count_;
+  SCM alt_restores_;
 };
 
 Volta_repeat_iterator::Volta_repeat_iterator ()
 {
   done_count_ = alt_count_ = rep_count_ = 0;
   first_time_ = true;
+  alt_restores_ = SCM_EOL;
+}
+
+void
+Volta_repeat_iterator::derived_mark () const
+{
+  scm_gc_mark (alt_restores_);
 }
 
 SCM
@@ -95,12 +104,41 @@ Volta_repeat_iterator::next_element (bool side_effect)
       if (alt_count_)
         {
           string repstr = to_string (rep_count_ - alt_count_ + done_count_) + ".";
-          if (done_count_ > 1)
+          if (done_count_ <= 1)
             {
+              alt_restores_ = SCM_EOL;
+              if (to_boolean (get_outlet ()->get_property ("timing")))
+                {
+                  for (SCM lst = get_outlet ()->get_property ("alternativeRestores");
+                       scm_is_pair (lst);
+                       lst = scm_cdr (lst))
+                    {
+                      SCM res = SCM_EOL;
+                      Context *t = get_outlet ()->where_defined (scm_car (lst),
+                                                                 &res);
+                      if (t)
+                        {
+                          alt_restores_ = scm_cons
+                            (scm_list_3 (t->self_scm (), scm_car (lst), res),
+                             alt_restores_);
+                        }
+                    }
+                }
+            }
+          else
+            {
+
               add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
 
               if (done_count_ - 1 < alt_count_)
                 add_repeat_command (ly_symbol2scm ("end-repeat"));
+
+              if (to_boolean (get_outlet ()->get_property ("timing")))
+                {
+                  for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
+                    scm_apply_0 (ly_lily_module_constant ("ly:context-set-property!"),
+                                 scm_car (p));
+                }
             }
 
           if (done_count_ == 1 && alt_count_ < rep_count_)

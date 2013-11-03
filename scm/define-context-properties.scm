@@ -60,6 +60,9 @@ vertical alignment.")
 numbers.  Can be @code{numbers} for going back to the same number or
 @code{numbers-with-letters} for going back to the same number with letter
 suffixes.  No setting will not go back in measure-number time.")
+     (alternativeRestores ,symbol-list? "Timing variables that are
+restored to their value at the end of the first alternative in
+subsequent alternatives.")
      (associatedVoice ,string? "Name of the @code{Voice} that has the
 melody for this @code{Lyrics} line.")
      (autoAccidentals ,list? "List of different ways to typeset an
