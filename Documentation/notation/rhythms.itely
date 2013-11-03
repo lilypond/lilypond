@@ -1443,12 +1443,30 @@ So the first example above could be written:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-The property @code{measurePosition} contains a rational number, which
-is usually positive and indicates how much of the measure has passed
-at this point.  The @code{\partial @var{duration}} command sets it to
-a negative number, when it has a different meaning: it then says that
-the current (first) bar will be @emph{preceded} by a bar 0 (the partial
-bar) with a duration given by @var{duration}.
+The property @code{measurePosition} contains a rational number,
+which is usually positive and indicates how much of the measure
+has passed at this point.  @code{\partial @var{duration}} is
+defined such that no numbered bar gets created: when used at the
+beginning of a measure, @code{measurePosition} is set to a
+negative number, implying that the current bar will be
+@emph{preceded} by additional material.  When used after a measure
+has already started, however, it moves the requested distance
+before the @emph{end} of the bar.
+
+@lilypond[quote,verbatim,relative=1]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\partial 4
+r8 e,8 | a4 \bar "||"
+\partial 4
+r8 e8 | a4
+c8 b[ c b] |
+@end lilypond
+
 
 @seealso
 Music Glossary:
@@ -1462,19 +1480,6 @@ Snippets:
 
 Internal Reference:
 @rinternals{Timing_translator}.
-
-@knownissues
-The @code{\partial} command should be used only at the beginning of a
-piece.  If you use it after the beginning, warnings or problems may
-occur, so use @code{\set Timing.measurePosition} instead.
-
-@lilypond[quote,verbatim,relative=1]
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1/4)
-r8 e,8 | a4 c8 b[ c b] |
-@end lilypond
 
 
 @node Unmetered music
