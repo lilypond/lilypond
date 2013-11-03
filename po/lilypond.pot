@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.29\n"
+"Project-Id-Version: lilypond 2.17.30\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2013-10-20 10:42+0100\n"
+"POT-Creation-Date: 2013-11-03 13:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1202,78 +1202,78 @@ msgstr ""
 msgid "create PDF files for use with PDFTeX"
 msgstr ""
 
-#: lilypond-book.py:460
+#: lilypond-book.py:463
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:465
+#: lilypond-book.py:468
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:470
+#: lilypond-book.py:473
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:472
+#: lilypond-book.py:475
 msgid "Linking files..."
 msgstr ""
 
-#: lilypond-book.py:492
+#: lilypond-book.py:495
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:501
+#: lilypond-book.py:504
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:514
+#: lilypond-book.py:517
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:577
+#: lilypond-book.py:580
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:581
+#: lilypond-book.py:584
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:588
+#: lilypond-book.py:591
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:599
+#: lilypond-book.py:602
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:607
+#: lilypond-book.py:610
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:618
+#: lilypond-book.py:621
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:711
+#: lilypond-book.py:714
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:715
+#: lilypond-book.py:718
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:718
+#: lilypond-book.py:721
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
@@ -1700,24 +1700,24 @@ msgstr ""
 msgid "cannot change, already in translator: %s"
 msgstr ""
 
-#: axis-group-engraver.cc:147
+#: axis-group-engraver.cc:149
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:148
+#: axis-group-engraver.cc:150
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:149
+#: axis-group-engraver.cc:151
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:704
+#: axis-group-interface.cc:714
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:776
+#: axis-group-interface.cc:786
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -2429,12 +2429,12 @@ msgstr ""
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr ""
 
-#: midi-item.cc:92
+#: midi-item.cc:93
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:178
+#: midi-item.cc:179
 msgid "Time signature with more than 255 beats.  Truncating"
 msgstr ""
 
@@ -3097,6 +3097,10 @@ msgstr ""
 msgid "ascending vaticana style flexa"
 msgstr ""
 
+#: vertical-align-engraver.cc:95
+msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
+msgstr ""
+
 #. fixme: be more verbose.
 #: volta-engraver.cc:110
 msgid "cannot end volta spanner"
@@ -3114,111 +3118,111 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:154 parser.yy:168
+#: parser.yy:158 parser.yy:172
 msgid "Too much lookahead"
 msgstr ""
 
-#: parser.yy:434 parser.yy:744 parser.yy:810
+#: parser.yy:440 parser.yy:750 parser.yy:816
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:642 parser.yy:1138
+#: parser.yy:648 parser.yy:1157
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:845
+#: parser.yy:851
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:861
+#: parser.yy:867
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:885
+#: parser.yy:891
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1025 parser.yy:1047
+#: parser.yy:1031 parser.yy:1053
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1055
+#: parser.yy:1061
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1066 parser.yy:2475
+#: parser.yy:1073 parser.yy:2494
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1353
+#: parser.yy:1372
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2146 parser.yy:2260 parser.yy:2273 parser.yy:2282
+#: parser.yy:2182 parser.yy:2296 parser.yy:2309 parser.yy:2318
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2240
+#: parser.yy:2276
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2301
+#: parser.yy:2337
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2402
+#: parser.yy:2438
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2420
+#: parser.yy:2456
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2584
+#: parser.yy:2606
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2658
+#: parser.yy:2680
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2667 parser.yy:2672
+#: parser.yy:2689 parser.yy:2694
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2740
+#: parser.yy:2762
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2835
+#: parser.yy:2852
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2907 parser.yy:2950
+#: parser.yy:2924 parser.yy:2967
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:2967
+#: parser.yy:2984
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3066
+#: parser.yy:3083
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3125
+#: parser.yy:3142
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3140
+#: parser.yy:3157
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3145
+#: parser.yy:3162
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3362
+#: parser.yy:3379
 msgid "not a markup"
 msgstr ""
 
@@ -3824,40 +3828,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:368
+#: translation-functions.scm:388
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:371
+#: translation-functions.scm:391
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:414
+#: translation-functions.scm:434
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:429 translation-functions.scm:441
+#: translation-functions.scm:449 translation-functions.scm:461
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:432
+#: translation-functions.scm:452
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:444
+#: translation-functions.scm:464
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:469
+#: translation-functions.scm:489
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:574
+#: translation-functions.scm:594
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
