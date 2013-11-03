@@ -131,6 +131,17 @@ IMPLEMENT_LISTENER (Score_performer, one_time_step);
 void
 Score_performer::one_time_step (SCM)
 {
+  // audio_column_ can be 0 when prepare has not been called.  The
+  // condition is triggered when Simple_music_iterator implicitly
+  // creates a Score context, like when writing
+  //
+  // \score { { | c4 c c c } \midi { } }
+  //
+  // The same situation happens with the Score_engraver group, but it
+  // would appear not to suffer any bad side effects.
+
+  if (!audio_column_)
+    audio_column_ = new Audio_column (context ()->now_mom ());
   if (to_boolean (context ()->get_property ("skipTypesetting")))
     {
       if (!skipping_)
@@ -174,4 +185,3 @@ Score_performer::initialize ()
 
   Translator_group::initialize ();
 }
-

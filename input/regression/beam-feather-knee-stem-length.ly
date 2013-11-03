@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.30"
 \header {
 
   texidoc="In feathered beams, stems in knees reach up to the feathered part correctly.
@@ -10,7 +10,7 @@
 
 \relative c' {
   \override Beam.grow-direction = #-1
-%  \override Beam.transparent = ##t
+%  \hide Beam
   \override Stem.direction = #UP
   c32[
   \override Stem.direction = #DOWN
@@ -20,7 +20,7 @@
   c,,32]
 
   \override Beam.grow-direction = #1
-%  \override Beam.transparent = ##t
+%  \hide Beam
   \override Stem.direction = #DOWN
   c''32[
   \override Stem.direction = #UP

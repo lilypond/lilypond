@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -272,7 +272,7 @@ mus = \drummode {
   << \new DrumStaff \with {
        \remove "Bar_engraver"
        \remove "Time_signature_engraver"
-       \override Stem.transparent = ##t
+       \hide Stem
        \override Stem.Y-extent = ##f
      } \mus
      \new Lyrics \nam
@@ -304,7 +304,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
   \new DrumStaff \with {
     \remove "Bar_engraver"
     \remove "Time_signature_engraver"
-    \override Stem.transparent = ##t
+    \hide Stem
     \override Stem.Y-extent = ##f
     \override StaffSymbol.line-count = #2
     \override StaffSymbol.staff-space = #2
@@ -334,7 +334,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 
     %% this sucks; it will lengthen stems.
     \override StaffSymbol.staff-space = #2
-    \override Stem.transparent = ##t
+    \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {
@@ -360,7 +360,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 
     %% this sucks; it will lengthen stems.
     \override StaffSymbol.staff-space = #2
-    \override Stem.transparent = ##t
+    \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {
@@ -384,7 +384,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     drumStyleTable = #percussion-style
     \override StaffSymbol.line-count = #1
     \remove "Time_signature_engraver"
-    \override Stem.transparent = ##t
+    \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
   \new Lyrics {

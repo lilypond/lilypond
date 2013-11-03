@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.30"
 
 \header{ texidoc = "In tablature, notes that are tied to are invisible
                      except after a line break or within a second volta;
@@ -29,7 +29,7 @@ thirdpart = \relative c' {
 \context StaffGroup <<
   \context Staff {
      \clef "G_8"
-    \override Voice.StringNumber.transparent = ##t % remove circled string numbers
+    \hide Voice.StringNumber % remove circled string numbers
     \firstpart
     \secondpart
     \thirdpart
@@ -44,7 +44,7 @@ thirdpart = \relative c' {
 \context StaffGroup <<
   \context Staff {
     \clef "G_8"
-    \override Voice.StringNumber.transparent = ##t % remove circled string numbers
+    \hide Voice.StringNumber % remove circled string numbers
     \firstpart
     \secondpart
     \thirdpart

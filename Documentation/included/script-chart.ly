@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.30"
 
 \header {
   texidoc ="@cindex Feta scripts
@@ -169,7 +169,7 @@ This chart shows all articulations, or scripts, that the feta font contains.
   \context {
     \RhythmicStaff
     \remove "Time_signature_engraver"
-    \override BarLine.transparent = ##t
+    \hide BarLine
     \override Stem.direction = #down
   }
   \context {

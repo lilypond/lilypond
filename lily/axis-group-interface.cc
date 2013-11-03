@@ -494,16 +494,26 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (elts[i] && elts[i]->is_live ())
+        relevant_grobs.push_back (elts[i]);
+      /*
+        TODO (mikesol): it is probably bad that we're reading prebroken
+        pieces from potentially suicided elements.  This behavior
+        has been in current master since at least 2.16.
+
+        We need to fully suicide all Items, meaning that their
+        prebroken pieces should not be accessible, which means that
+        Item::handle_prebroken_dependencies should only be called
+        AFTER this list is composed.  The list composition function
+        should probably not check for suicided items or NULL pointers
+        but leave that to the various methods that use it.
+      */
+      if (Item *it = dynamic_cast<Item *> (elts[i]))
         {
-          relevant_grobs.push_back (elts[i]);
-          if (Item *it = dynamic_cast<Item *> (elts[i]))
+          for (LEFT_and_RIGHT (d))
             {
-              for (LEFT_and_RIGHT (d))
-                {
-                  Item *piece = it->find_prebroken_piece (d);
-                  if (piece && piece->is_live ())
-                    relevant_grobs.push_back (piece);
-                }
+              Item *piece = it->find_prebroken_piece (d);
+              if (piece && piece->is_live ())
+                relevant_grobs.push_back (piece);
             }
         }
     }

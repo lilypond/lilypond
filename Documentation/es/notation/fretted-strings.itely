@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.27"
+@c \version "2.17.30"
 
 @node Instrumentos de cuerda con trastes
 @section Instrumentos de cuerda con trastes
@@ -253,7 +253,7 @@ aire siempre que sea posible.  Este comportamiento se puede cambiar
 fijando @code{restrainOpenStrings} al valor @code{#t}.
 
 @lilypond[quote,ragged-right,verbatim]
-\layout { \override Voice.StringNumber.stencil = ##f }
+\layout { \omit Voice.StringNumber }
 \new StaffGroup <<
    \new Staff \relative c {
      \clef "treble_8"
@@ -393,7 +393,7 @@ Se pueden añadir indicaciones de armónicos a la notación de tablatura
 como sus alturas de sonido:
 
 @lilypond[verbatim,quote]
-\layout { \override Voice.StringNumber.stencil = ##f }
+\layout { \omit Voice.StringNumber }
 firstHarmonic = {
   d'4\4\harmonic
   g'4\3\harmonic
@@ -555,7 +555,7 @@ para bajo, que suena una octava por debajo de lo escrito.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Voice \with {
-    \override StringNumber.stencil = ##f
+    \omit StringNumber
   } {
     \clef "bass_8"
     \relative c, {

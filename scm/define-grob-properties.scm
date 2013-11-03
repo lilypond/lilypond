@@ -283,6 +283,10 @@ set this to @code{(+inf.0 . -inf.0)}.")
 ;;; f
 ;;;
      (flag-count ,number? "The number of tremolo beams.")
+     (flag-style ,symbol? "The style of the flag to be used with
+@code{MetronomeMark}. Available are @code{'modern-straight-flag},
+@code{'old-straight-flag}, @code{flat-flag}, @code{mensural} and
+@code{'default}")
      (flat-positions ,list? "Flats in key signatures are placed
 within the specified ranges of staff-positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order

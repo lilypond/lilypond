@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -659,7 +659,7 @@ Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
 \new Staff {
   % Queste due linee servono solo ad abbellire questo esempio
   \time 16/1
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   % Mostra una pausa di maxima, equivalente a quattro brevi
   r\maxima
   % Mostra una pausa di longa, equivalente a due brevi

@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.6
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
@@ -25,13 +25,13 @@ be repositioned slightly.
 
 glissandoSkipOn = {
   \override NoteColumn.glissando-skip = ##t
-  \override NoteHead.transparent = ##t
+  \hide NoteHead
   \override NoteHead.no-ledgers = ##t
 }
 
 glissandoSkipOff = {
   \revert NoteColumn.glissando-skip
-  \revert NoteHead.transparent
+  \undo \hide NoteHead
   \revert NoteHead.no-ledgers
 }
 

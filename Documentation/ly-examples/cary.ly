@@ -1,4 +1,4 @@
-\version "2.17.20"
+\version "2.17.30"
 % the example header file caused the head to be chopped off
 %\include "example-header.ily"
 
@@ -95,7 +95,7 @@
 		>>
 
 		\new Staff \with {
-			\override Clef.transparent = ##t
+			\hide Clef
 			\override StaffSymbol.line-positions = #'(-4 -2   2 4)
 			\override Stem.direction = #down
 			\override TupletBracket.staff-padding = #5
@@ -107,11 +107,11 @@
 				\override Stem.direction = #up
 				\override Flag.stroke-style = #"grace"
 				\override Stem.font-size = #-3
-				\override Rest.transparent = ##t
+				\hide Rest
 				\override NoteHead.no-ledgers = ##t
-				\override Dots.transparent = ##t
-				\override TupletBracket.transparent = ##t
-				\override TupletNumber.transparent = ##t
+				\hide Dots
+				\hide TupletBracket
+				\hide TupletNumber
 			} {
 
 				% measure 6
@@ -175,13 +175,13 @@
 
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
-				\override Stem.transparent = ##t
-				\override Rest.transparent = ##t
+				\hide Stem
+				\hide Rest
 				\override Rest.staff-position = #-0.5
-				\override Dots.transparent = ##t
-				\override Beam.transparent = ##t
-				\override TupletBracket.transparent = ##t
-				\override TupletNumber.transparent = ##t
+				\hide Dots
+				\hide Beam
+				\hide TupletBracket
+				\hide TupletNumber
 			} {
 
 				% measure 6
@@ -248,11 +248,11 @@
 				\override Stem.direction = #down
 				\override Stem.font-size = #-3
 				\override Flag.stroke-style = #"grace"
-				\override Rest.transparent = ##t
+				\hide Rest
 				\override NoteHead.no-ledgers = ##t
-				\override Dots.transparent = ##t
-				\override TupletBracket.transparent = ##t
-				\override TupletNumber.transparent = ##t
+				\hide Dots
+				\hide TupletBracket
+				\hide TupletNumber
 			} {
 
 				% measure 6
@@ -317,7 +317,7 @@
 			\new Voice \with {
 				\remove "Forbid_line_break_engraver"
 				\override Stem.direction = #down
-				\override NoteHead.transparent = ##t
+				\hide NoteHead
 				\override NoteHead.no-ledgers = ##t
 				\override Rest.staff-position = #-18
 				\override Stem.length = #10

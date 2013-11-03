@@ -912,8 +912,8 @@ and duration-log @var{log}."
 
          (left-x (+ padding
                     (max
-                     (interval-end (ly:grob-robust-relative-extent
-                                    left-span common X))
+                     (interval-end (ly:generic-bound-extent
+                                    left-span common))
                      (if
                       (and dots
                            (close
@@ -923,7 +923,7 @@ and duration-log @var{log}."
                        (ly:grob-robust-relative-extent dots common X))
                       (- INFINITY-INT)))))
          (right-x (max (- (interval-start
-                           (ly:grob-robust-relative-extent right-span common X))
+                           (ly:generic-bound-extent right-span common))
                           padding)
                        (+ left-x minimum-length)))
          (self-x (ly:grob-relative-coordinate spanner common X))

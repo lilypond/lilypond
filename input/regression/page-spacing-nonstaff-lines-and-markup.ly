@@ -16,6 +16,12 @@ the page layout engine."
      \new Lyrics \lyricsto "asdf" \lyricmode { a b c d }
   >>
   }
-  \markup "blah blah blah"
+  \markup "next song"
+  \score {
+    <<
+      \new Lyrics \lyricmode {la1 la }
+      \new Staff \new Voice { a'1 a'1 }
+  >>
+  }
 }
 

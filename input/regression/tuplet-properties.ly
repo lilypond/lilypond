@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.30"
 
 \header {
   texidoc = "Tuplet bracket formatting supports numerous options,
@@ -20,9 +20,9 @@ for instance, bracketed (B) and non-bracketed (NB).
   \tuplet 3/2 { c8[ c c] }
 
   \tupletUp
-  \override TupletNumber.stencil = ##f
+  \omit TupletNumber
   \tuplet 3/2 { c8^"up, no digit" c[ c] }
-  \revert TupletNumber.stencil
+  \undo \omit TupletNumber
 
   \override TupletBracket.bracket-visibility = ##t
   \override TupletBracket.edge-height = #'(0 . 0)

@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.11
-\version "2.17.11"
+\version "2.17.30"
 
 \header {
   lsrtags = "rhythms"
@@ -26,6 +26,6 @@ be printed, or the tuplet number may be suppressed altogether.
   \tuplet 3/2 { c8 c c }
   \override TupletNumber.text = #tuplet-number::calc-fraction-text
   \tuplet 3/2 { c8 c c }
-  \override TupletNumber.stencil = ##f
+  \omit TupletNumber
   \tuplet 3/2 { c8 c c }
 }

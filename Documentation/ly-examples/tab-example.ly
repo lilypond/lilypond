@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.30"
 
 #(define (glissando::calc-extra-dy grob)
    (let* ((original (ly:grob-original grob))
@@ -63,7 +63,7 @@ lower= \relative c {
   \layout {
     \context {
       \Staff
-      \override StringNumber.transparent = ##t
+      \hide StringNumber
     }
     \context {
       \TabStaff

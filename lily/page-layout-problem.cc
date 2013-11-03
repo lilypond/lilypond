@@ -652,8 +652,6 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
                            : 0;
 
   // Corner case: there was only one staff, and it wasn't spaceable.
-  // Mark it spaceable, because we do not allow non-spaceable staves
-  // to be at the top or bottom of a system.
   if (!found_spaceable_staff && elts.size ())
     mark_as_spaceable (elts[0]);
 }
@@ -667,7 +665,8 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
 
   if (sky)
     {
-      minimum_distance = (*sky)[UP].distance (bottom_skyline_);
+      minimum_distance = max ((*sky)[UP].distance (bottom_skyline_),
+                              bottom_loose_baseline_);
       bottom_skyline_ = (*sky)[DOWN];
     }
   else if (Stencil *sten = unsmob_stencil (prob->get_property ("stencil")))
@@ -678,6 +677,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
       bottom_skyline_.clear ();
       bottom_skyline_.set_minimum_height (iv[DOWN]);
     }
+  bottom_loose_baseline_ = 0.0;
 
   Spring spring_copy = spring;
   if (tight_spacing)

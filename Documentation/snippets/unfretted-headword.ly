@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.24
-\version "2.17.24"
+\version "2.17.30"
 
 \header {
   lsrtags = "headword"
@@ -219,7 +219,7 @@ ViolinSolo = \relative c' {
       \new Staff \ViolinSolo
     >>
 
-    \override Score.Rest.transparent = ##t
+    \hide Score.Rest
     \set Score.defaultBarType          = "-"
   >>
 

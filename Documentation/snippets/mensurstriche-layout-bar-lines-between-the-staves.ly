@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "ancient-notation, contexts-and-engravers, staff-notation, tweaks-and-overrides"
@@ -21,10 +21,10 @@ the @code{transparent} property.
 
 
 global = {
-  \override Staff.BarLine.transparent = ##t
+  \hide Staff.BarLine
   s1 s
   % the final bar line is not interrupted
-  \revert Staff.BarLine.transparent
+  \undo \hide Staff.BarLine
   \bar "|."
 }
 \new StaffGroup \relative c'' {

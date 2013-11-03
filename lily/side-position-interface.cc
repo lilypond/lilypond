@@ -392,8 +392,6 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
         }
       else if (scm_is_number (me->get_maybe_pure_property ("staff-padding", pure, start, end)) && dir)
         {
-          Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
-
           Real staff_padding
             = Staff_symbol_referencer::staff_space (me)
               * scm_to_double (me->get_maybe_pure_property ("staff-padding", pure, start, end));

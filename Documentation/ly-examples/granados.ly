@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.30"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +32,7 @@ global = {
 
 upperVoiceOne = \relative c'' {
   \voiceOne
-  \override TupletBracket.transparent = ##t
+  \hide TupletBracket
   <aes f'>8\([ \tuplet 5/4{g'32( aes g f g]) }
     <es aes>8[ \tuplet 5/4{<d bes'>32( c' bes aes bes]) }
     <es, aes es'>8 <d fis b d>\) | % end m. 1
@@ -135,7 +135,7 @@ lowerVoiceTwo = \relative c, {
   \layout {
     \context {
       \Score
-      \override TimeSignature.stencil = ##f
+      \omit TimeSignature
       \remove "Bar_number_engraver"
     }
   }

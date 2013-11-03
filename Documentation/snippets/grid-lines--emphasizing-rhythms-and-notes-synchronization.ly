@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.17.30"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -31,10 +31,10 @@ this snippet.
       \new Staff {
         % hides staff and notes so that only the grid lines are visible
         \hideNotes
-        \override Staff.BarLine.transparent = ##t
+        \hide Staff.BarLine
         \override Staff.StaffSymbol.line-count = #0
-        \override Staff.TimeSignature.transparent = ##t
-        \override Staff.Clef.transparent = ##t
+        \hide Staff.TimeSignature
+        \hide Staff.Clef
 
         % dummy notes to force regular note spacing
         \once  \override Score.GridLine.thickness = #4.0

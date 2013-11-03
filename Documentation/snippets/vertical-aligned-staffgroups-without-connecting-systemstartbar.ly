@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.19"
+\version "2.17.30"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
@@ -41,7 +41,7 @@ SystemStartBar for each StaffGroup, but without connecting them.
   \context {
     \Score
     \override SystemStartBrace.style = #'bar-line
-    \override SystemStartBar.stencil = ##f
+    \omit SystemStartBar
     \override SystemStartBrace.padding = #-0.1
     \override SystemStartBrace.thickness = #1.6
     \remove "Mark_engraver"

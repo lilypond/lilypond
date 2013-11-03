@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.17.30"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -179,7 +179,7 @@
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c1
 }
 @end lilypond
@@ -191,7 +191,7 @@ m, m7
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c1:m c:m7
 }
 @end lilypond
@@ -204,7 +204,7 @@ dim, dim7
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c1:dim c:dim7
 }
 @end lilypond
@@ -216,7 +216,7 @@ aug
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c1:aug
 }
 @end lilypond
@@ -230,7 +230,7 @@ maj, maj7
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   c1:maj c:maj7
 }
 @end lilypond

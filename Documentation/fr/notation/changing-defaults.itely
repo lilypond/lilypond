@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -1232,7 +1232,7 @@ jazz.
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Flag.transparent = ##t
+  \hide Flag
   \alias Voice
 }
 \context { \Staff
@@ -1302,7 +1302,7 @@ aucune hampe :
 
 @example
 \override NoteHead.style = #'slash
-\override Stem.transparent = ##t
+\hide Stem
 @end example
 
 Tous ces modules doivent communiquer sous le contrôle du contexte.  Les
@@ -1332,7 +1332,7 @@ Récapitulons ; on se retrouve avec le bloc suivant :
   \consists "Pitch_squash_engraver"
   squashedPosition = #0
   \override NoteHead.style = #'slash
-  \override Flag.transparent = ##t
+  \hide Flag
   \alias Voice
 @}
 @end example
@@ -3423,9 +3423,9 @@ s'opère à l'aide d'un @code{\revert}.
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
-\override Score.BarLine.stencil = ##f
+\omit Score.BarLine
 a a
-\revert Score.BarLine.stencil
+\undo \omit Score.BarLine
 a a a
 @end lilypond
 
@@ -3442,7 +3442,7 @@ transparent tout en préservant la place qu'il occupe.
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
-\once \override NoteHead.transparent = ##t
+\once \hide NoteHead
 a a
 @end lilypond
 

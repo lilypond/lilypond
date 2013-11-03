@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -638,7 +638,7 @@ b r4
 \new Staff {
   % この 2 本線には意味はありません
   \time 16/1
-  \override Staff.TimeSignature.stencil = ##f
+  \omit Staff.TimeSignature
   % 八全休符を譜刻します。二全休符 4 つと等価です
   r\maxima
   % 四全休符を譜刻します。二全休符 2 つと等価です

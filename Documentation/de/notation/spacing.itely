@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -2038,13 +2038,13 @@ labelContext =
 			  \lowerCaseChords }
   \context { \FretBoards  \alignToZero \staffAffinityDown }
   \context { \Score
-    \override BarLine.stencil = ##f
+    \omit BarLine
     \override DynamicText.self-alignment-X = #-1
     \override FretBoard.X-offset = #1.75
     \override InstrumentName.minimum-Y-extent = #'(-2 . 2)
     \override InstrumentName.extra-offset = #'(0 . -0.5)
     \override TextScript.minimum-Y-extent = #'(-2 . 3)
-    \override TimeSignature.stencil = ##f
+    \omit TimeSignature
   }
 }
 

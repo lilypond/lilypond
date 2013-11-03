@@ -1458,6 +1458,7 @@
         (break-visibility . ,end-of-line-invisible)
         (direction . ,UP)
         (extra-spacing-width . (+inf.0 . -inf.0))
+        (flag-style . default)
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1000)
         (padding . 0.8)
@@ -1563,18 +1564,18 @@
         (axes . (,X))
         (before-line-breaking . ,ly:paper-column::before-line-breaking)
         (bound-alignment-interfaces . (break-alignment-interface))
+        ;; used by Paper_column::print when debugging columns:
+        (font-size . -7.5)
         (full-measure-extra-space . 1.0)
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
         ;;                    (stencil . ,ly:paper-column::print)
 
         (keep-inside-line . #t)
+        ;; used by Paper_column::print when debugging columns:
+        (layer . 1000)
         (line-break-permission . allow)
         (non-musical . #t)
         (page-break-permission . allow)
-
-        ;; debugging stuff: print column number.
-        ;;               (font-size . -6) (font-name . "sans")  (Y-extent . #f)
-
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Paper_column)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
@@ -1688,16 +1689,17 @@
         (axes . (,X))
         (before-line-breaking . ,ly:paper-column::before-line-breaking)
         (bound-alignment-interfaces . (note-column-interface))
+        ;; used by Paper_column::print when debugging columns:
+        (font-size . -7.5)
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
         (keep-inside-line . #t)
+        ;; used by Paper_column::print when debugging columns:
+        (layer . 1000)
         ;; 0.08 comes from spacing-horizontal-skyline.ly
         ;; allows double flat of F to be nestled over dots of C
         (skyline-vertical-padding . 0.08)
         ;; (stencil . ,ly:paper-column::print)
         (X-extent . ,ly:axis-group-interface::width)
-
-        ;; debugging
-        ;;                       (font-size . -6) (font-name . "sans") (Y-extent . #f)
         (meta . ((class . Paper_column)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))

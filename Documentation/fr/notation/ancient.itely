@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -390,7 +390,7 @@ lancer dans la saisie de votre chant comme ci-après :
 \score {
   <<
     \new MensuralVoice = "discantus" \relative c'' {
-      \override Score.BarNumber.transparent = ##t {
+      \hide Score.BarNumber {
         c1\melisma bes a g\melismaEnd
         f\breve
         \[ f1\melisma a c\breve d\melismaEnd \]
@@ -1157,7 +1157,7 @@ Clef d'ut, style des éditions vaticanes
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
@@ -1172,7 +1172,7 @@ Clef de fa, style des éditions vaticanes
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
@@ -1188,7 +1188,7 @@ Clef d'ut, style Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
@@ -1203,7 +1203,7 @@ Clef de fa, style Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
@@ -1219,7 +1219,7 @@ Clef d'ut, style historique Hufnagel
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
@@ -1234,7 +1234,7 @@ Clef de fa, style historique Hufnagel
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
@@ -1248,7 +1248,7 @@ Clef combinée ut/fa, style historique Hufnagel
 @lilypond[relative=1,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
@@ -2822,7 +2822,7 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \override Stem.transparent = ##t
+      \hide Stem
     }
   }
 }
@@ -2837,12 +2837,12 @@ masquées, ici en jouant aussi sur la visibilité des hampes :
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
-  c\breve \override NoteHead.transparent = ##t  c c c c c
-  \revert NoteHead.transparent
+  c\breve \hide NoteHead  c c c c c
+  \undo \hide NoteHead
   \override Stem.transparent = ##f \stemUp c4 b4 a
-  \override Stem.transparent = ##t c2 c4  \divisioMaior
-  c\breve \override NoteHead.transparent = ##t c c c c c c c
-  \revert NoteHead.transparent c4 c f, f \finalis
+  \hide Stem c2 c4  \divisioMaior
+  c\breve \hide NoteHead c c c c c c c
+  \undo \hide NoteHead c4 c f, f \finalis
 }
 
 verba = \lyricmode {
@@ -2859,8 +2859,8 @@ verba = \lyricmode {
     \context {
       \Staff
       \remove "Time_signature_engraver"
-      \override BarLine.transparent = ##t
-      \override Stem.transparent = ##t
+      \hide BarLine
+      \hide Stem
     }
   }
 }
@@ -2909,10 +2909,10 @@ spirLyr = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \override BarLine.X-extent = #'(-1 . 1)
-      \override Stem.transparent = ##t
-      \override Beam.transparent = ##t
-      \override BarLine.transparent = ##t
-      \override TupletNumber.transparent = ##t
+      \hide Stem
+      \hide Beam
+      \hide BarLine
+      \hide TupletNumber
     }
   }
 }

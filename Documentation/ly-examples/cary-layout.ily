@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.17.30"
 
 \layout {
   indent = #0
@@ -11,9 +11,9 @@
     \override Beam.breakable = ##t
     autoBeaming = ##f
     tupletFullLength = ##t
-    \override BarNumber.transparent = ##t
-    \override BarLine.transparent = ##t
-    \override SpanBar.transparent = ##t
+    \hide BarNumber
+    \hide BarLine
+    \hide SpanBar
     \override Beam.break-overshoot = #'(-0.5 . 1.0)
     \override TextScript.staff-padding = #6
     \override Glissando.thickness = #3

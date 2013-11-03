@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.17.30"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
@@ -1481,7 +1481,7 @@ vers le haut (ou la droite) pour le second.
     \context {
       \Score
       \override SpacingSpanner.spacing-increment = #3
-      \override TimeSignature.transparent = ##t
+      \hide TimeSignature
     }
   }
 }

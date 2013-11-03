@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.17.30"
 
 \header {
   lsrtags = "ancient-notation, specific-notation, tweaks-and-overrides, workaround"
@@ -26,7 +26,7 @@ global = {
   \key g \major
   \time 4/4
   %make the staff lines invisible on staves
-  \override Staff.BarLine.transparent = ##t
+  \hide Staff.BarLine
   \skip 1*8 % the actual music
   % let finis bar go through all staves
   \override Staff.BarLine.transparent = ##f
@@ -42,7 +42,7 @@ discantusNotes = {
     c'4 e'4.( d'8 c' b |
     a4) b a2 |
     b4.( c'8 d'4) c'4 |
-    \once \override NoteHead.transparent = ##t c'1 |
+    \once \hide NoteHead c'1 |
     b\breve |
   }
 }
@@ -64,7 +64,7 @@ altusNotes = {
     a2 g4 e |
     fis g4.( fis16 e fis4) |
     g1 |
-    \once \override NoteHead.transparent = ##t g1 |
+    \once \hide NoteHead g1 |
     g\breve |
   }
 }
@@ -84,7 +84,7 @@ tenorNotes = {
     R1 |
     R1 |
     r2 d'2. d'4 b e' | % two bars
-    \once \override NoteHead.transparent = ##t e'1 |
+    \once \hide NoteHead e'1 |
     d'\breve |
   }
 }
@@ -103,7 +103,7 @@ bassusNotes = {
     R1 |
     R1 |
     g2. e4 |
-    \once \override NoteHead.transparent = ##t e1 |
+    \once \hide NoteHead e1 |
     g\breve |
   }
 }
@@ -259,13 +259,13 @@ incipitBassus = \markup {
     \context {
       \Score
       % no bars in staves
-      \override BarLine.transparent = ##t
+      \hide BarLine
     }
     % the next three instructions keep the lyrics between the bar lines
     \context {
       \Lyrics
       \consists "Bar_engraver"
-      \override BarLine.transparent = ##t
+      \hide BarLine
     }
     \context {
       \StaffGroup
@@ -274,7 +274,7 @@ incipitBassus = \markup {
     \context {
       \Voice
       % no slurs
-      \override Slur.transparent = ##t
+      \hide Slur
       % Comment in the below "\remove" command to allow line
       % breaking also at those barlines where a note overlaps
       % into the next bar.  The command is commented out in this

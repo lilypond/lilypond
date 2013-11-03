@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.17.30"
 
 @c Translators: Till Paala
 
@@ -415,7 +415,7 @@ werden kann. Siehe das folgende Beispiel:
 \score {
   <<
     \new MensuralVoice = "discantus" \transpose c c' {
-      \override Score.BarNumber.transparent = ##t {
+      \hide Score.BarNumber {
         c'1\melisma bes a g\melismaEnd
         f\breve
         \[ f1\melisma a c'\breve d'\melismaEnd \]
@@ -1168,7 +1168,7 @@ Do-Schlüssel der Editio Vaticana
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
   c
@@ -1183,7 +1183,7 @@ Fa-Schlüssel der Editio Vaticana
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
   c
@@ -1199,7 +1199,7 @@ Do-Schlüssel der Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
   c
@@ -1214,7 +1214,7 @@ Fa-Schlüssel der Editio Medicaea
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
   c
@@ -1230,7 +1230,7 @@ Hufnagel Do-Schlüssel für den historischen Stil
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
   c
@@ -1245,7 +1245,7 @@ Hufnagel Fa-Schlüssel für den historischen Stil
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
   c
@@ -1259,7 +1259,7 @@ Kombinierter Do/Fa-Hufnagelschlüssel für den historischen Stil
 @lilypond[relative=1,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
-  \override Voice.Stem.transparent = ##t
+  \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
   c
@@ -2771,14 +2771,14 @@ entfernt:
 In einigen Transkriptionsstilen werden jedoch teilweise
 Hälse eingesetzt, um etwa den Übergang von einem Einton-Rezitativ
 zu einer melodischen Geste anzuzeigen.  In diesem Fall können
-Hälse entweder mit @code{\override Stem.transparent = ##t}
+Hälse entweder mit @code{\hide Stem}
 unsichtbar gemacht werden oder mit
 @code{\override Stem.length = #0} auf die Länge von 0 reduziert
 werden.  Die Hälse müssen dann wieder an den entsprechenden
 Stellen mit @code{\once \override Stem.transparent = ##f}
 sichtbar gemacht werden (siehe auch Beispiel unten).  Wenn Hälse
 eingesetzt werden, die Fähnchen haben, muss zusätzlich auch noch
-@code{\override Flag.transparent = ##t} eingestellt werden.
+@code{\hide Flag} eingestellt werden.
 
 @b{Takt.} Für Gesang ohne Metrum gibt es einige Alternativen.
 
@@ -2795,7 +2795,7 @@ und @code{\cadenzaOff} zu benutzen.
 Um Taktstriche zu entfernen, kann man radikal den @code{Bar_engraver}
 aus dem @code{Staff}-Kontext entfernen.  Wenn man ab und zu
 einen Taktstrich braucht, sollten die Striche nur mit
-@code{\override BarLine.transparent = ##t} unsichtbar
+@code{\hide BarLine} unsichtbar
 gemacht werden.
 
 Oft werden Rezitativtöne mit einer Brevis angezeigt.  Der
@@ -2826,7 +2826,7 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \override Stem.transparent = ##t
+      \hide Stem
     }
   }
 }
@@ -2842,12 +2842,12 @@ gemacht):
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
-  c\breve \override NoteHead.transparent = ##t  c c c c c
-  \revert NoteHead.transparent
+  c\breve \hide NoteHead  c c c c c
+  \undo \hide NoteHead
   \override Stem.transparent = ##f \stemUp c4 b4 a
-  \override Stem.transparent = ##t c2 c4  \divisioMaior
-  c\breve \override NoteHead.transparent = ##t c c c c c c c
-  \revert NoteHead.transparent c4 c f, f \finalis
+  \hide Stem c2 c4  \divisioMaior
+  c\breve \hide NoteHead c c c c c c c
+  \undo \hide NoteHead c4 c f, f \finalis
 }
 
 verba = \lyricmode {
@@ -2864,8 +2864,8 @@ verba = \lyricmode {
     \context {
       \Staff
       \remove "Time_signature_engraver"
-      \override BarLine.transparent = ##t
-      \override Stem.transparent = ##t
+      \hide BarLine
+      \hide Stem
     }
   }
 }
@@ -2918,10 +2918,10 @@ spirLyr = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \override BarLine.X-extent = #'(-1 . 1)
-      \override Stem.transparent = ##t
-      \override Beam.transparent = ##t
-      \override BarLine.transparent = ##t
-      \override TupletNumber.transparent = ##t
+      \hide Stem
+      \hide Beam
+      \hide BarLine
+      \hide TupletNumber
     }
   }
 }

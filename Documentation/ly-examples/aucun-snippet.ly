@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.30"
 \include "example-header.ily"
 
 \paper {
@@ -124,7 +124,7 @@ global = {
   \override Staff.TimeSignature.stencil = #(lambda (grob)
 	(bracketify-stencil (ly:time-signature::print grob) Y 0.1 0.2 0.1))
   \time 3/4
-	\override Staff.BarLine.transparent = ##t
+	\hide Staff.BarLine
   \override HorizontalBracket.direction = #UP
   \override HorizontalBracket.bracket-flare = #'(0 . 0)
 }

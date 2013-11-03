@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.17.30"
 \header {
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.
@@ -19,9 +19,9 @@ between systems.
 \relative c' \new StaffGroup <<
   \new Staff {
     a1
-    \once \override Score.BarLine.transparent = ##t
+    \once \hide Score.BarLine
     a1
-    \once \override Score.SpanBar.transparent = ##t
+    \once \hide Score.SpanBar
     a1 a1
     \bar "|."
   }
