@@ -512,6 +512,18 @@ scm_function_call:
 	}
 	;
 
+embedded_lilypond_number:
+	'-' embedded_lilypond_number
+	{
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
+	| bare_number_common
+	| UNSIGNED NUMBER_IDENTIFIER
+	{
+		$$ = scm_product ($1, $2);
+	}
+	;
+
 embedded_lilypond:
 	/* empty */
 	{
@@ -521,7 +533,9 @@ embedded_lilypond:
 		// contains no source location.
 		$$ = MAKE_SYNTAX ("void-music", @$);
 	}
-	| identifier_init
+	| identifier_init_nonumber
+	| embedded_lilypond_number
+	| multiplied_duration
 	| music_embedded music_embedded music_list {
 		$3 = scm_reverse_x ($3, SCM_EOL);
 		if (unsmob_music ($2))
@@ -578,6 +592,11 @@ assignment:
 
 
 identifier_init:
+	identifier_init_nonumber
+	| number_expression
+	;
+
+identifier_init_nonumber:
 	score_block
 	| book_block
 	| bookpart_block
@@ -606,7 +625,6 @@ identifier_init:
 			$$ = m->unprotect ();
 		}
 	}
-	| number_expression
 	| FRACTION
 	| string
         | embedded_scm
