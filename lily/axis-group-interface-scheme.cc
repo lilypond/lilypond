@@ -46,20 +46,6 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   return ly_interval2scm (ext);
 }
 
-LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
-           2, 0, 0, (SCM grob, SCM common),
-           "Determine the extent of @var{grob} relative to @var{common} along"
-           " the X axis, finding its extent as a bound when it a has"
-           " @code{bound-alignment-interfaces} property list set and"
-           " otherwise the full extent.")
-{
-  LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB (Grob, common, 2);
-
-  Interval ext = Axis_group_interface::generic_bound_extent (unsmob_grob (grob), unsmob_grob (common), X_AXIS);
-  return ly_interval2scm (ext);
-}
-
 LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-element",
            2, 0, 0, (SCM grob, SCM grob_element),
            "Set @var{grob} the parent of @var{grob-element} on all axes of"
