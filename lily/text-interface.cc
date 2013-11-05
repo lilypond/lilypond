@@ -207,6 +207,5 @@ ADD_INTERFACE (Text_interface,
                "text "
                "word-space "
                "text-direction "
-               "flag-style "
               );
 

@@ -38,53 +38,33 @@ way the transposition number is displayed."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; metronome marks
 
-;; We give 'styled-metronome-markup' an optional argument, 'glyph-font', to
-;; prepare using other fonts than 'fetaMusic.
-;; Currently it ensures that the default-fonts are used by the
-;; markup-command 'note-by-number' in 'metronome-markup' (see below).
-(define*-public
-  ((styled-metronome-markup #:optional (glyph-font 'default))
-                            event context)
-   (let ((hide-note (ly:context-property context 'tempoHideNote #f))
-         (text (ly:event-property event 'text))
-         (dur (ly:event-property event 'tempo-unit))
-         (count (ly:event-property event 'metronome-count)))
+(define-public (format-metronome-markup event context)
+  (let ((hide-note (ly:context-property context 'tempoHideNote #f))
+        (text (ly:event-property event 'text))
+        (dur (ly:event-property event 'tempo-unit))
+        (count (ly:event-property event 'metronome-count)))
 
-   (metronome-markup glyph-font text dur count hide-note)))
+    (metronome-markup text dur count hide-note)))
 
-(define-public format-metronome-markup
-  (styled-metronome-markup))
-
-(define (metronome-markup glyph-font text dur count hide-note)
-  (let* ((note-mark
-            (if (and (not hide-note) (ly:duration? dur))
-                (make-smaller-markup
-                   ;; We insert the (default)-font for flag-glyphs and
-                   ;; note-head-glyphs to prepare the possibility to use
-                   ;; other fonts and to make possible using
-                   ;; \override MetronomeMark #'font-name = #<font-name>
-                   ;; without affecting the note/flag-glyphs.
-                   (make-override-markup (cons 'font-name glyph-font)
-                    (make-note-by-number-markup
-                        (ly:duration-log dur)
-                        (ly:duration-dot-count dur)
-                        UP)))
-                      #f))
+(define-public (metronome-markup text dur count hide-note)
+  (let* ((note-mark (if (and (not hide-note) (ly:duration? dur))
+                        (make-smaller-markup
+                         (make-note-by-number-markup (ly:duration-log dur)
+                                                     (ly:duration-dot-count dur)
+                                                     1))
+                        #f))
          (count-markup (cond ((number? count)
                               (if (> count 0)
-                                  (make-simple-markup
-                                          (number->string count))
+                                  (make-simple-markup (number->string count))
                                   #f))
                              ((pair? count)
                               (make-concat-markup
                                (list
-                                (make-simple-markup
-                                        (number->string (car count)))
+                                (make-simple-markup (number->string (car count)))
                                 (make-simple-markup " ")
                                 (make-simple-markup "–")
                                 (make-simple-markup " ")
-                                (make-simple-markup
-                                        (number->string (cdr count))))))
+                                (make-simple-markup (number->string (cdr count))))))
                              (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
                           (make-concat-markup
