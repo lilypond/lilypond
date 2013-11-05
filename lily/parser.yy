@@ -535,6 +535,28 @@ embedded_lilypond:
 	}
 	| identifier_init_nonumber
 	| embedded_lilypond_number
+	| post_event post_events
+	{
+		$$ = scm_reverse_x ($2, SCM_EOL);
+		if (Music *m = unsmob_music ($1))
+		{
+			if (m->is_mus_type ("post-event-wrapper"))
+				$$ = scm_append
+					(scm_list_2 (m->get_property ("elements"),
+						     $$));
+			else
+				$$ = scm_cons ($1, $$);
+		}
+		if (scm_is_pair ($$)
+		    && scm_is_null (scm_cdr ($$)))
+			$$ = scm_car ($$);
+		else
+		{
+			Music * m = MY_MAKE_MUSIC ("PostEvents", @$);
+			m->set_property ("elements", $$);
+			$$ = m->unprotect ();
+		}
+	}
 	| multiplied_duration
 	| music_embedded music_embedded music_list {
 		$3 = scm_reverse_x ($3, SCM_EOL);
@@ -594,15 +616,6 @@ assignment:
 identifier_init:
 	identifier_init_nonumber
 	| number_expression
-	;
-
-identifier_init_nonumber:
-	score_block
-	| book_block
-	| bookpart_block
-	| output_def
-	| context_def_spec_block
-	| music_assign
 	| post_event_nofinger post_events
 	{
 		$$ = scm_reverse_x ($2, SCM_EOL);
@@ -625,6 +638,15 @@ identifier_init_nonumber:
 			$$ = m->unprotect ();
 		}
 	}
+	;
+
+identifier_init_nonumber:
+	score_block
+	| book_block
+	| bookpart_block
+	| output_def
+	| context_def_spec_block
+	| music_assign
 	| FRACTION
 	| string
         | embedded_scm
