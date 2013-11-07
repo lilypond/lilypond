@@ -1,16 +1,14 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
 Une portion d'un soufflet de crescendo peut être rendue invisible.
 Il suffit pour cela de dessiner un rectangle par dessus cette partie, ce
-qui aura pour effet de la rendre invisible.  Le rectangle est défini par
-un @emph{markup} contenant du code PostScript.
+qui aura pour effet de la rendre invisible.
 
-La taille et le positionnement de ce @emph{markup} sont ajustables grâce
-à certains composants du code PostScript : le nombre précédant
-@code{setgray} donnera du gris s'il est inférieur à 1 ; les
-deux nombres précédant @code{scale} définissent la largeur et la hauteur
-du rectangle ; les deux nombres précédant @code{translate}
-modifient le point d'ancrage (en abscisse et en ordonnée) du rectangle.
+La commande de @emph{markup} @code{with-dimensions} indique à LilyPond
+de ne prendre en considération que l'extrémité inférieure du rectangle
+lors de son positionnement par rapport au soufflet.  L'ajustement de la
+propriété @code{staff-padding} permet d'éviter au rectangle de venir
+s'intercaler entre le soufflet et la portée.
 
 Le soufflet doit se trouver à un niveau inférieur à celui du @emph{markup}
 afin que le dessin du rectangle puisse effectivement le recouvrir.

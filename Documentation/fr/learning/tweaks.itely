@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -195,17 +195,17 @@ propriété en fonction de son nom.
 @cindex méthodes de retouche
 
 @menu
-* La commande \override::
-* La commande \revert::
-* Le préfixe \once::
-* La commande \overrideProperty::
-* La commande \tweak::
+* La commande override::
+* La commande revert::
+* Le préfixe once::
+* La commande overrideProperty::
+* La commande tweak::
 @end menu
 
 
-@node La commande \override
-@unnumberedsubsubsec La commande @code{\override}
-@translationof The \override command
+@node La commande override
+@unnumberedsubsubsec La commande @code{@bs{}override}
+@translationof The override command
 
 @cindex override, commande
 @cindex override, syntaxe
@@ -281,9 +281,9 @@ g4 a b c |
 @end lilypond
 
 
-@node La commande \revert
-@unnumberedsubsubsec La commande @code{\revert}
-@translationof The \revert command
+@node La commande revert
+@unnumberedsubsubsec La commande @code{@bs{}revert}
+@translationof The revert command
 
 @cindex revert, commande
 
@@ -321,9 +321,9 @@ b4 c |
 @end lilypond
 
 
-@node Le préfixe \once
-@unnumberedsubsubsec Le préfixe @code{\once}
-@translationof The \once prefix
+@node Le préfixe once
+@unnumberedsubsubsec Le préfixe @code{@bs{}once}
+@translationof The once prefix
 
 @funindex \once
 @funindex once
@@ -369,9 +369,9 @@ une instruction @code{\revert} plutôt que @code{\override} ; les
 préfixer d'un @code{\once} est donc sans effet.
 
 
-@node La commande \overrideProperty
-@unnumberedsubsubsec La commande @code{\overrideProperty}
-@translationof The \overrideProperty command
+@node La commande overrideProperty
+@unnumberedsubsubsec La commande @code{@bs{}overrideProperty}
+@translationof The overrideProperty command
 
 @cindex overrideProperty, commande
 
@@ -386,9 +386,9 @@ ici par souci d'exhaustivité ; pour le détail, voir
 @c Maybe explain in a later iteration  -td
 
 
-@node La commande \tweak
-@unnumberedsubsubsec La commande @code{\tweak}
-@translationof The \tweak command
+@node La commande tweak
+@unnumberedsubsubsec La commande @code{@bs{}tweak}
+@translationof The tweak command
 
 @cindex tweak, commande
 
@@ -2146,7 +2146,7 @@ qui se révèlerait ne pas être optimal.
 
 @menu
 * La propriété outside-staff-priority::
-* La commande \textLengthOn::
+* La commande textLengthOn::
 * Positionnement des nuances::
 * Dimensionnement des objets graphiques::
 @end menu
@@ -2375,9 +2375,9 @@ notes pour laisser plus de place au texte.  C'est possible grâce à la
 commande @code{textLengthOn}.
 
 
-@node La commande \textLengthOn
-@unnumberedsubsubsec La commande @code{\textLengthOn}
-@translationof The \textLengthOn command
+@node La commande textLengthOn
+@unnumberedsubsubsec La commande @code{@bs{}textLengthOn}
+@translationof The textLengthOn command
 
 @cindex notes, répartition selon le texte
 
@@ -2837,17 +2837,18 @@ objet qui accepte la @code{side-position-interface} et l'objet le plus
 proche (généralement une note ou une ligne de portée) ;
 @code{staff-padding} ne s'applique qu'aux objets qui sont toujours
 placés au-dehors de la portée -- il contrôle l'espace minimum à insérer
-entre l'objet et la portée.  Attention : par défaut,
-@code{staff-padding} concerne les objets positionnés par rapport
-à la portée et n'a aucun effet sur les objets qui sont positionnés par
-rapport à une note ; il est toutefois possible de le régler pour
-fonctionner avec ces derniers.
+entre la portée et l'objet extérieur.  Attention : @code{staff-padding}
+concerne les objets positionnés par rapport à la portée et n'a aucun
+effet sur les objets qui sont positionnés par rapport à une note ; tout
+aménagement qui lui serait apporté ne provoquera pas d'eereur, mais sera
+ignoré.
 
 Pour trouver quelle propriété @code{padding} employer pour l'objet que
 vous cherchez à repositionner, il vous faut consulter les propriétés de
-l'objet dans la RPI.  Prenez garde que les propriétés @code{padding} ne
-sont pas forcément traitées dans l'objet en question ; il faut
-alors regarder les objets qui semblent s'en rapprocher.
+l'objet dans la Référence des propriétés internes.  Prenez garde que les
+propriétés @code{padding} ne sont pas forcément traitées dans l'objet en
+question ; il faut alors regarder les objets qui semblent s'en
+rapprocher.
 
 Toutes les valeurs @code{padding} sont exprimées en espace de portée.
 Pour la plupart des objets, la valeur par défaut est aux alentours de
@@ -3126,15 +3127,14 @@ note par la retouche de @code{right-padding}.
 @cindex objets, alignement sur une ligne de base
 
 @code{staff-padding} sert à aligner des objets tels que des nuances
-sur une ligne fictive à une hauteur donnée par rapport à la portée
-plutôt qu'à une hauteur qui varie en fonction de la position de la note
-sur laquelle porte l'objet.  Ce n'est pas une propriété de
-@code{DynamicText} mais de @code{DynamicLineSpanner}, car la ligne
-fictive est destinée à s'appliquer autant à @strong{toutes} les nuances,
-notamment celles qui sont créées comme des bandeaux en longueur (en
-anglais @emph{Spanners}).  Tel est donc le moyen d'aligner les
-indications de nuance, comme dans cet exemple repris de la section
-précédente :
+sur une ligne fictive à une distance donnée par rapport à la portée en
+l'absence d'autre élément de notation qui les repousserait.  Ce n'est
+pas une propriété de @code{DynamicText} mais de
+@code{DynamicLineSpanner}, car la ligne fictive est destinée à
+s'appliquer autant à @strong{toutes} les nuances, notamment celles qui
+sont créées comme des bandeaux en longueur (en anglais @emph{Spanners}).
+Tel est donc le moyen d'aligner les indications de nuance, comme dans
+cet exemple repris de la section précédente :
 
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
@@ -3142,12 +3142,8 @@ précédente :
 @cindex staff-padding, exemple d'utilisation de la propriété
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-% Extend width by 1 unit
-\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-% Align dynamics to a base line 2 units above staff
-\override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf a\mp b\p
+\override DynamicLineSpanner.staff-padding = #3
+a4\f b\mf a\p b\mp
 @end lilypond
 
 
@@ -4239,10 +4235,10 @@ les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
 @ref{Retouches avancées avec Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4270,10 +4266,10 @@ dans nos fichiers de musique, et je trouve personnellement tous ces
 
 @example
 %%% enregistrez ceci dans un fichier nommé "definitions.ily"
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4307,10 +4303,10 @@ sous @file{musique.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4341,10 +4337,10 @@ fichier @file{definitions.ily} par ceci :
 
 @example
 %%%  definitions.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4371,10 +4367,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4419,10 +4415,10 @@ aussi augmenter la taille globale de police.
 
 @example
 %%%  web-publish.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4450,10 +4446,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4491,8 +4487,8 @@ musique.
 
 Il est possible, bien sûr, de rendre cela encore plus pratique.  Nous
 pourrions créer un fichier @file{definitions.ily} qui ne contiendrait
-que les définitions de @code{mpdolce} et de @code{inst}, un
-fichier @file{publication-web.ily} qui ne contiendrait que la section
+que les définitions de @code{mpdolce} et de @code{inst}, un fichier
+@file{publication-web.ily} qui ne contiendrait que la section
 @code{layout} décrite ci-dessus et un fichier @file{universite.ily} qui
 ne contiendrait que les retouches pour produire le résultat que mon
 professeur préfère.  Le début du fichier @file{musique.ly} ressemblerait

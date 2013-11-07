@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Fri Sep 20 17:55:41 UTC 2013
+@emph{Meest recente update Fri Nov  1 18:02:06 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,51 +84,51 @@ ja
 @item
 1 Leerboek
 @*
-2535
+2578
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">gedeeltelijk (48 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk (48 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item
 2 Algemene muzieknotatie
 @*
-4283
+4396
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">gedeeltelijk (35 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk (35 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">gedeeltelijk</span>
+<span style="background-color: #4efe25">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16194
+16191
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -182,7 +182,7 @@ gedeeltelijk (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">gedeeltelijk</span>
+<span style="background-color: #40fe23">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ gedeeltelijk
 @item
 Download
 @*
-1197
+1201
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -329,11 +329,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #33ff21">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @item

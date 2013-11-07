@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 9142d9abad0ec9ffbe8da8a594599ad72c328381
+    Translation of GIT committish: 0f062fdb1c08e46bce7aa3047ee3c7f68e686079
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -226,14 +226,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Compilation d'un fichier
-
-@lilypadCommandLine
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Paquetage des distributions
 
 Veuillez utiliser votre gestionnaire de paquet favori pour installer et
@@ -267,6 +259,14 @@ Debian: LilyPond 2.12.3}
 openSUSE: LilyPond 2.12.3}
 
 @end itemize
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compilation d'un fichier
+
+@lilypadCommandLine
 
 @divEnd
 
@@ -331,18 +331,10 @@ Supprimez le répertoire @code{LilyPond.app}.
 
 
 @divClass{column-right-top}
-@subheading Compilation d'un fichier
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Utilisation en ligne de commande
 
-@warning{Si vous préférez l'interface graphique, ne tenez pas compte de
-ce qui suit.}
+@warning{Si vous préférez l'interface graphique mentionnée plus avant,
+ne tenez pas compte de ce qui suit.}
 
 @subsubheading MacOS X et la ligne de commande
 
@@ -422,6 +414,14 @@ Il en va de même pour les autres scripts de ce répertoire, tels que
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Compilation d'un fichier
+
+@lilypadOSX
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Mention légale
 
@@ -492,18 +492,10 @@ effectuée.
 
 
 @divClass{column-right-top}
-@subheading Compilation d'un fichier
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Lancement en ligne de commande
 
-@warning{Si vous préférez l'interface graphique, ne tenez pas compte de
-ce qui suit.}
+@warning{Si vous préférez l'interface graphique mentionnée plus avant,
+ne tenez pas compte de ce qui suit.}
 
 @subsubheading Windows et la ligne de commande
 
@@ -553,6 +545,15 @@ lilypond test.ly
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Compilation d'un fichier
+
+@lilypadWindows
+
+@divEnd
+
+
+@divClass{column-left-top}
 @divClass{column-center-bottom}
 @subheading Mention légale
 

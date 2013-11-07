@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2dcd186b192e3e99184d5587dc449949699c68c6
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -180,7 +180,7 @@ Référence des propriétés internes :
 @cindex système
 
 LilyPond dispose de différents contextes permettant de regrouper des
-portées individuelles et d'obtenir ainsi des @qq{systèmes}.  Chacun de
+portées individuelles et d'obtenir ainsi des « systèmes ».  Chacun de
 ces contextes définira le style de regroupement, avec son signe
 particulier en début de portée et ses règles de gestion des barres de
 mesure.
@@ -354,7 +354,7 @@ Référence des propriétés internes :
 
 Le nombre de systèmes peut varier d'une page à l'autre ; vous
 pouvez, en pareil cas, rendre plus évidente la séparation entre les
-systèmes en l'indiquant visuellement.  Ce @qq{séparateur} est absent par
+systèmes en l'indiquant visuellement.  Ce « séparateur » est absent par
 défaut, mais vous pouvez l'activer par une option au sein du bloc
 @code{\paper}.
 
@@ -456,7 +456,7 @@ moyen d'un objet graphique (@emph{grob}) à part entière, nommé
 @code{StaffSymbol} changera l'apparence de la portée, dès lors qu'elles
 auront été définies avant de créer la portée en question.
 
-Vous pouvez modifier le nombre de lignes d'une portée.
+Vous pouvez modifier le nombre de lignes d'une portée :
 
 @lilypond[verbatim,quote,relative=2]
 f4 d \stopStaff
@@ -505,10 +505,7 @@ les lignes supplémentaires et les hampes seront aussi modifiées.
 @end lilypond
 
 L'épaisseur des lignes supplémentaires (@emph{ledger lines}) peut être
-déterminée indépendamment des lignes de la portée.  Dans l'exemple
-suivant, les deux nombres constituent des coefficients multiplicateurs
-de l'épaisseur de la ligne.  Ils sont fournis en argument pour
-déterminer l'épaisseur des lignes supplémentaires.
+déterminée indépendamment des lignes de la portée.
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
@@ -517,6 +514,11 @@ déterminer l'épaisseur des lignes supplémentaires.
 }
 { f'4 a, a,, f }
 @end lilypond
+
+@noindent
+La première valeur est multipliée par l'épaisseur de ligne de portée, la
+seconde par l'espace d'interligne ; ces deux valeurs sont alors
+combinées pour donner la nouvelle épaisseur des lignes supplémentaires.
 
 L'emplacement des lignes supplémentaires est réglable :
 
@@ -652,7 +654,7 @@ lorsqu'il y a un nombre restreint d'ossias.
 Dans le cas où de nombreux et courts fragments d'ossia affecteraient
 une même portée, il est judicieux de créer un contexte @code{Staff} vide
 auquel sera attribué un @emph{identifiant}. Il suffira alors, pour
-entamer un fragment d'ossia, de @qq{faire appel} à ce contexte grâce
+entamer un fragment d'ossia, de « faire appel » à ce contexte grâce
 aux commandes @code{\startStaff} et @code{\stopStaff}.  Vous vous
 rendrez compte à l'utilisation des avantages que procure cette façon de
 procéder, bien plus que dans l'exemple suivant.
@@ -779,7 +781,7 @@ L'instruction @code{\Staff \RemoveEmptyStaves} placée dans un bloc
 @code{\layout} aura pour effet de masquer toute portée qui ne contient
 rien.  Dans les partitions d'orchestre, les portées qui n'ont que des
 silences sont habituellement masquées afin de gagner de la place.  Ce
-style d'édition s'appelle en anglais @qq{French Score}.
+style d'édition s'appelle en anglais « French Score ».
 Cette fonctionnalité masque et supprime toutes les portées vides d'une
 partition, hormis celles du premier système.
 
@@ -844,6 +846,7 @@ Manuel d'initiation:
 @rlearning{Visibilité et couleur des objets}.
 
 Manuel de notation :
+@ref{Modification des réglages par défaut d'un contexte},
 @ref{Symbole de la portée},
 @ref{Portées d'ossia},
 @ref{Dictée à trous},
@@ -1214,7 +1217,7 @@ oboeNotes = \relative c'' {
  }
 @end lilypond
 
-Les citations peuvent être @qq{balisées} par un nom particulier afin de
+Les citations peuvent être « balisées » par un nom particulier afin de
 les utiliser de différentes manières.  Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Utilisation de balises}.
 

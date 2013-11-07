@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0b51cc48c2d66efbd1cbdc682dd622e7a2a93f9
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1646,21 +1646,6 @@ où des sauts de ligne peuvent prendre place :
 
 @example
 \bar ""
-@end example
-
-Au risque d'obtenir des messages d'erreur inhabituels, il est fortement
-recommandé de créer explicitement un contexte @code{Voice} lorsqu'un
-morceau débute par un @code{\cadenzaOn}.
-
-@example
-\new Voice @{
-  \relative c' @{
-    \cadenzaOn
-    c16[^"Solo Free Time" d e f] g2.
-    \bar "||"
-    \cadenzaOff
-  @}
-@}
 @end example
 
 
@@ -3563,6 +3548,7 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{GraceMusic},
+@rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.

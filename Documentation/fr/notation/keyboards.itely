@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f8e7ac6dcdc5255d0c409ca68407f04dc8b98b99
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -228,7 +228,7 @@ Une voix qui change de portée peut entraîner des collisions :
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner.staff-padding = #3.4
+    \once\override DynamicLineSpanner.staff-padding = #4
     e''2\p\< d''\>
     c1\!
   }
@@ -607,7 +607,7 @@ pour exécuter un morceau.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-discant-symbols.ly}
+{accordion-registers.ly}
 
 @seealso
 Morceaux choisis :
