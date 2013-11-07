@@ -211,20 +211,6 @@ transpose_mutable (SCM alist, Pitch delta)
       if (Pitch *p = unsmob_pitch (val))
         {
           Pitch transposed = p->transposed (delta);
-          if (transposed.get_alteration ().abs () > Rational (1, 1))
-            {
-              string delta_str;
-              if (delta.get_alteration ().abs () > Rational (1, 1))
-                delta_str = (delta.normalized ().to_string ()
-                             + " " + _ ("(normalized pitch)"));
-              else
-                delta_str = delta.to_string ();
-
-              warning (_f ("Transposing %s by %s makes alteration larger than double",
-                           p->to_string (),
-                           delta_str));
-              transposed = transposed.normalized ();
-            }
 
           if (prop == ly_symbol2scm ("tonic"))
             transposed = Pitch (-1, transposed.get_notename (),

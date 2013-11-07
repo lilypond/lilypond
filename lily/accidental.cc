@@ -163,15 +163,17 @@ Accidental_interface::get_stencil (Grob *me)
   SCM alist = me->get_property ("glyph-name-alist");
   SCM alt = me->get_property ("alteration");
   SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
+  Stencil mol;
 
   if (!scm_is_string (glyph_name))
     {
       me->warning (_f ("Could not find glyph-name for alteration %s",
                        ly_scm_write_string (alt).c_str ()));
-      return SCM_EOL;
+      mol = fm->find_by_name ("noteheads.s1cross");
     }
+  else
+    mol = fm->find_by_name (ly_scm2string (glyph_name));
 
-  Stencil mol (fm->find_by_name (ly_scm2string (glyph_name)));
   if (to_boolean (me->get_property ("restore-first")))
     {
       /*
