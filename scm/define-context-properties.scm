@@ -690,6 +690,9 @@ proceeding to next time step.  This is an internal variable.")
      (graceSettings ,list? "Overrides for grace notes.  This property
 should be manipulated through the @code{add-grace-property} function.")
 
+
+     (hasAxisGroup ,boolean? "True if the current context is contained
+in an axis group.")
      (hasStaffSpacing ,boolean? "True if the current
 @code{CommandColumn} contains items that will affect spacing.")
 

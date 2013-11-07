@@ -62,6 +62,40 @@ which scares away people.
 @end ignore
 
 @item
+Several articulations can be put into a single variable or
+returned from an event function:
+
+@lilypond[verbatim,quote]
+sempreStacc = -. ^\markup \italic sempre
+\relative { c''4\sempreStacc c c c }
+@end lilypond
+
+@item
+The baseline of score markups is now taken from the reference
+point (usually the middle of the staff) of the first bottom system
+rather than the top of the bounding rectangle.  The following
+@lilypond[verbatim,quote]
+\markup {
+  violin: \score { \new Staff { <g d' a' e''>1 }
+                   \layout { indent=0 } } ,
+  cello: \score { \new Staff { \clef "bass" <c, g, d a> }
+                  \layout { indent=0 } }
+}
+@end lilypond
+previously looked like
+@lilypond[quote]
+\markup {
+  violin: \general-align #Y #UP
+          \score { \new Staff { <g d' a' e''>1 }
+                   \layout { indent=0 } } ,
+  cello:  \general-align #Y #UP
+          \score { \new Staff { \clef "bass" <c, g, d a> }
+                  \layout { indent=0 } }
+}
+@end lilypond
+without a reliable way to get both scores to line up.
+
+@item
 LilyPond no longer automatically infers a @samp{\defaultchild}
 context in a context definition with @samp{\accepts} clauses.  Any
 context definition without an explicit or inherited

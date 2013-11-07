@@ -36,10 +36,12 @@
 class Axis_group_engraver : public Engraver
 {
 protected:
+  bool active_;
   Spanner *staffline_;
   SCM interesting_;
   vector<Grob *> elts_;
   void process_music ();
+  virtual void initialize ();
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (grob);
   void process_acknowledged ();
@@ -57,6 +59,15 @@ Axis_group_engraver::Axis_group_engraver ()
 {
   staffline_ = 0;
   interesting_ = SCM_EOL;
+  active_ = false;
+}
+
+void
+Axis_group_engraver::initialize ()
+{
+  active_ = !to_boolean (get_property ("hasAxisGroup"));
+  if (active_)
+    context ()->set_property ("hasAxisGroup", SCM_BOOL_T);
 }
 
 void
@@ -75,7 +86,7 @@ Axis_group_engraver::must_be_last () const
 void
 Axis_group_engraver::process_music ()
 {
-  if (!staffline_)
+  if (!staffline_ && active_)
     {
       staffline_ = get_spanner ();
       Grob *it = unsmob_grob (get_property ("currentCommandColumn"));
@@ -105,17 +116,8 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
-  if (!staffline_)
-    return;
-  if (i.grob ()->name () == "VerticalAxisGroup") {
-    i.grob ()->programming_error ("duplicate axis group");
-    if (staffline_->is_live ())
-      staffline_->suicide ();
-    staffline_ = 0;
-    elts_.clear ();
-    return;
-  }
-  elts_.push_back (i.grob ());
+  if (staffline_)
+    elts_.push_back (i.grob ());
 
   if (staffline_ && to_boolean(staffline_->get_property("remove-empty")))
     {
@@ -175,8 +177,9 @@ ADD_TRANSLATOR (Axis_group_engraver,
 
                 /* read */
                 "currentCommandColumn "
-                "keepAliveInterfaces ",
-
+                "keepAliveInterfaces "
+                "hasAxisGroup ",
+                
                 /* write */
-                ""
+                "hasAxisGroup "
                );

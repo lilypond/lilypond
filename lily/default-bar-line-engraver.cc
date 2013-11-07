@@ -52,10 +52,11 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
                 "defaultBarType "
                 "measureLength "
                 "whichBar "
-                "measurePosition ",
+                "measurePosition "
+                "timing ",
 
                 /* write */
-                "automaticBars "
+                ""
                );
 
 Default_bar_line_engraver::Default_bar_line_engraver ()
@@ -76,7 +77,8 @@ Default_bar_line_engraver::start_translation_timestep ()
 
   Moment mp = measure_position (context ());
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
-                           && !mp.main_part_);
+                           && !mp.main_part_
+                           && to_boolean (get_property ("timing")));
 
   if (!scm_is_string (which) && to_boolean (automatic_bars))
     {
