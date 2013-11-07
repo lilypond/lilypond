@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.11
+%% Note: this file works from version 2.17.30
 % INSPIRATIONAL HEADER FOR LILYPOND DOCUMENTATION fretted-strings %
 % Passage from Johann Kaspar Mertz "Opern Revue, Op. 8, no. 17"   %
 % on melodies from Bellini's "Norma"                              %

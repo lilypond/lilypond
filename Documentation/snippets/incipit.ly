@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.10
+%% Note: this file works from version 2.17.30
 \version "2.17.30"
 
 \header {
