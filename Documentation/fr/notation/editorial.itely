@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 42c7d5e4608340e96f2f1fe8210a47a2927e4cbb
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -491,6 +491,8 @@ L'orientation des hampes peut être définie manuellement -- voir
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
 
 @seealso
 Manuel de notation :
@@ -562,14 +564,13 @@ comme une simple articulation et fonctionne comme @code{\tweak} pour
 attacher du texte à l'une des notes d'un accord.  Les autres arguments
 sont le décalage et le texte de la bulle.
 
-Les info-bulles ont une influence sur les espacements, que l'on peut
-gérer ainsi :
+Les info-bulles n'ont aucune influence sur l'espacement des notes ; on
+peut toutefois le gérer ainsi :
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Je suis un silence" }

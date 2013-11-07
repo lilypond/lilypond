@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -168,7 +168,14 @@ conversion quelle qu'elle soit a modifié le fichier, la mention de
 version est porté à la valeur de la règle appliquée la plus récente.
 
 @item -e, --edit
-pour éditer directement le fichier d'origine.
+pour éditer directement le fichier d'origine.  Le fichier originel est
+renommé en que @file{monfichier.ly~}.  Ce fichier de sauvegarde, selon
+le système d'exploitation, peut être « caché ».
+
+@item -b, --backup-numbered
+combine à l'option @samp{-e}, pour numéroter les sauvegardes de telle
+sorte qu'aucune version antérieure ne soit écrasée.  Les fichiers de
+sauvegarde, selon le système d'exploitation, peuvent être « cachés ».
 
 @item -f, --from=@var{from-patchlevel}
 pour définir le numéro de version à partir duquel vous voulez effectuer

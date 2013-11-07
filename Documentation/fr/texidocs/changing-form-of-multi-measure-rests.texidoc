@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
   texidocfr = "
 Dans le cas où ce silence dure moins de dix mesures, LilyPond imprime sur
 la portée des « silences d'église » -- @emph{Kirchenpause} en
@@ -6,4 +6,4 @@ allemand -- et qui sont une simple suite de rectangles.  La propriété
 @code{expand-limit} permet d'obtenir un silence unique :
 
 "
-  doctitlefr = "Modifier l'apparence d'un silence multi-mesures"
+  doctitlefr = "Modifier l'apparence d'un silence multimesure"

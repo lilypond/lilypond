@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -107,18 +107,18 @@ Nous allons examiner ici les options qui contrôlent la mise en forme des
 pages attachées au bloc @code{\paper}.
 
 @menu
-* Le bloc \paper::
+* Le bloc paper::
 * Format du papier et adaptation automatique::
 * Variables d'espacement vertical fixe::
 * Variables d'espacement vertical fluctuant::
 * Variables d'espacement horizontal::
-* Autres variables du bloc \paper::
+* Autres variables du bloc paper::
 @end menu
 
 
-@node Le bloc \paper
-@subsection Le bloc @code{\paper}
-@translationof The \paper block
+@node Le bloc paper
+@subsection Le bloc @code{@bs{}paper}
+@translationof The paper block
 
 Des blocs @code{\paper} peuvent apparaître à trois différents endroits
 et former ainsi une hiérarchie :
@@ -178,7 +178,7 @@ des entête, pied de page et titrage, elles sont étudiées à la rubrique
 La plupart des variables gérant le papier ne sont fonctionnelles que
 lorsque mentionnées dans un bloc @code{\paper}.  Certaines, qui peuvent
 toutefois apparaître dans un bloc @code{\layout}, sont référencées à la
-rubrique @ref{Le bloc \layout}.
+rubrique @ref{Le bloc layout}.
 
 Sauf mention contraire, toutes les variables du bloc @code{\paper} qui
 correspondent à des dimensions sont exprimées en millimètre -- vous
@@ -221,7 +221,7 @@ fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
 Manuel de notation :
 @ref{Format du papier et adaptation automatique},
 @ref{Titrages personnalisés}.
-@ref{Le bloc \layout}.
+@ref{Le bloc layout}.
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
@@ -387,7 +387,7 @@ Fichiers d'initialisation :
 
 @node Variables d'espacement vertical fixe
 @subsection Variables d'espacement vertical fixe
-@translationof Fixed vertical spacing \paper variables
+@translationof Fixed vertical spacing paper variables
 
 @warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
@@ -464,7 +464,7 @@ marges haute et basse.
 
 @node Variables d'espacement vertical fluctuant
 @subsection Variables d'espacement vertical fluctuant
-@translationof Flexible vertical spacing \paper variables
+@translationof Flexible vertical spacing paper variables
 
 Il est souvent judicieux d'apporter un peu de flexibilité à l'espacement
 entre différents éléments (marges, titres, systèmes ou mouvements), en
@@ -583,7 +583,7 @@ deuxième redéfinit complètement la variable.
 
 @node Liste des variables d'espacement vertical fluctuant
 @unnumberedsubsubsec Liste des variables d'espacement fluctuant
-@translationof List of flexible vertical spacing \paper variables
+@translationof List of flexible vertical spacing paper variables
 
 Le nom des dimensionnements à hauteur variable sont de la forme
 @code{@var{avant}-@var{après}-spacing}, où @code{@var{avant}} et
@@ -670,7 +670,7 @@ Morceaux choisis :
 
 @node Variables d'espacement horizontal
 @subsection Variables d'espacement horizontal
-@translationof Horizontal spacing \paper variables
+@translationof Horizontal spacing paper variables
 
 @warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
@@ -686,7 +686,7 @@ voir @ref{Adaptation automatique au format}.}
 
 @node Variables de marge et de largeur
 @unnumberedsubsubsec Variables de marge et de largeur
-@translationof \paper variables for widths and margins
+@translationof paper variables for widths and margins
 
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
@@ -790,7 +790,7 @@ marges gauche et droite.
 
 @node Variables spécifiques à l'impression recto-verso
 @unnumberedsubsubsec Variables spécifiques à l'impression recto-verso
-@translationof \paper variables for two-sided mode
+@translationof paper variables for two-sided mode
 
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
@@ -851,7 +851,7 @@ Fichiers d'initialisation :
 
 @node Variables d'indentation et de décalage
 @unnumberedsubsubsec Variables d'indentation et de décalage
-@translationof \paper variables for shifts and indents
+@translationof paper variables for shifts and indents
 
 Les valeurs par défaut (avant étalonnage) sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
@@ -896,9 +896,9 @@ Morceaux choisis :
 @rlsrnamed{Spacing, Espacements}.
 
 
-@node Autres variables du bloc \paper
-@subsection Autres variables du bloc @code{\paper}
-@translationof Other \paper variables
+@node Autres variables du bloc paper
+@subsection Autres variables du bloc @code{@bs{}paper}
+@translationof Other paper variables
 
 @menu
 * Variables de gestion des sauts de ligne::
@@ -910,7 +910,7 @@ Morceaux choisis :
 
 @node Variables de gestion des sauts de ligne
 @unnumberedsubsubsec Variables de gestion des sauts de ligne
-@translationof \paper variables for line breaking
+@translationof paper variables for line breaking
 
 @table @code
 
@@ -952,7 +952,7 @@ Manuel de notation :
 
 @node Variables de gestion des sauts de page
 @unnumberedsubsubsec Variables de gestion des sauts de page
-@translationof \paper variables for page breaking
+@translationof paper variables for page breaking
 
 Les valeurs par défaut sont définies dans le fichier
 @file{ly/paper-defaults-init.ly}.
@@ -1055,7 +1055,7 @@ Fichiers d'initialisation :
 
 @node Variables de gestion des numéros de page
 @unnumberedsubsubsec Variables de gestion des numéros de page
-@translationof \paper variables for page numbering
+@translationof paper variables for page numbering
 
 Les valeurs par défaut sont définies dans le
 fichier @file{ly/paper-defaults-init.ly}.
@@ -1106,7 +1106,7 @@ sorte que la page une se retrouve à droite.
 
 @node Variables supplémentaires
 @unnumberedsubsubsec Variables supplémentaires
-@translationof Miscellaneous \paper variables
+@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1175,14 +1175,14 @@ plus particulièrement destinées à gérer la mise en forme de la
 partition.
 
 @menu
-* Le bloc \layout::
+* Le bloc layout::
 * Définition de la taille de portée::
 @end menu
 
 
-@node Le bloc \layout
-@subsection Le bloc @code{\layout}
-@translationof The \layout block
+@node Le bloc layout
+@subsection Le bloc @code{@bs{}layout}
+@translationof The layout block
 
 @funindex \layout
 
@@ -2128,7 +2128,7 @@ d'elles :
 @item @code{ChordNames}  @tab ligne de base
 @item @code{NoteNames}   @tab ligne de base
 @item @code{Lyrics}      @tab ligne de base
-@item @code{Dynamics}    @tab centre vertical
+@item @code{Dynamics}    @tab mi-hauteur du « m »
 @item @code{FiguredBass} @tab point le plus haut
 @item @code{FretBoards}  @tab ligne supérieure
 @end multitable
@@ -2190,10 +2190,10 @@ labelContext =
   \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
 >>
 
-%% Le point de référence de Dynamics est le milieu de la ligne
+%% Le point de référence de Dynamics est le milieu du « m » dans la fonte
 <<
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"centre vertical "
+    \set RhythmicStaff.instrumentName = #"mi-hauteur "
     \labelContext "Dynamics" s1*3
   }
   \new Dynamics { s1\mp s\fp }

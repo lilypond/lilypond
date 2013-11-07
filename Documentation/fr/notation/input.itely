@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -375,7 +375,7 @@ expression apparaît à plusieurs reprises à un niveau supérieur, les
 différents contenus seront combinés, à ceci près qu'en cas de
 déclarations conflictuelles, la dernière aura préséance.  Des
 informations complémentaires sont disponibles à la rubrique
-@ref{Le bloc \layout}.
+@ref{Le bloc layout}.
 
 @item
 Une expression Scheme pure, telle que
@@ -543,7 +543,7 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Généralités en matière de titrages},
-@ref{Le bloc \layout}.
+@ref{Le bloc layout}.
 
 
 @node Titres et entêtes

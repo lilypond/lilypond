@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2770,11 +2770,10 @@ grâce à quelques simples artifices.
 Certaines transcriptions laissent néanmoins apparaître
 occasionnellement des hampes, notamment pour indiquer la transition
 entre un récitatif monodique et une phrase mélodique.  Il suffit en
-pareil cas d'utiliser plutôt @code{\override Stem.transparent = ##t}
+pareil cas d'utiliser plutôt @code{\hide Stem}
 ou @code{\override Stem.length = #0} puis, en cas de besoin, recourir
 à une clause @code{\once \override Stem.transparent = ##f} comme dans
-l'exemple ci-dessous.  N'oubliez pas que les crochets aussi doivent
-disparaître, grâce à un @code{\override Flag.transparent = ##t}.
+l'exemple ci-dessous.
 
 @b{Temps}.  En matière de chant non mesuré, plusieurs alternatives
 s'offrent à vous.
@@ -2790,8 +2789,7 @@ bons résultats.  On pourrait aussi utiliser @code{\cadenzaOn} et
 
 Rien de plus radical que de supprimer du contexte @code{Staff} le
 @code{Bar_engraver} pour ne pas voir de barre de mesure.  Là aussi, une
-clause @code{\override BarLine.transparent = ##t} vous permettra d'en
-afficher une au besoin.
+clause @code{\hide BarLine} vous permettra d'en afficher une au besoin.
 
 Dans de nombreuses transcriptions, le récitatif fait apparaître une
 brève au lieu de la répétition d'une même note.  Le texte psalmodié se
