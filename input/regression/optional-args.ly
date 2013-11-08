@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.0"
 
 \header{
   texidoc= "Test optional music function arguments.
@@ -10,23 +10,18 @@ the rest is skipped."
 
 \layout { ragged-right = ##t }
 
-% Get following pitch into Scheme
-pitch = #(define-scheme-function (parser location p) (ly:pitch?) p)
-% The same with a duration
-dur = #(define-scheme-function (parser location p) (ly:duration?) p)
-
 % Just like \relative, but defaulting to f as reference, making the
 % first note of the music the same as if written as absolute pitch
 ablative =
 #(define-music-function (parser location ref music)
-  ((ly:pitch? #{ \pitch f #}) ly:music?)
+  ((ly:pitch? #{ f #}) ly:music?)
   #{ \relative $ref $music #})
 
 % Let's take a duration and four pitches, defaulting to 2 c' d' e'
 zap = 
 #(define-music-function (parser location dur a b c d)
-  ((ly:duration? #{ \dur 2 #}) (ly:pitch? #{ \pitch c' #})
-   (ly:pitch? #{ \pitch d' #}) (ly:pitch? #{ \pitch e' #})
+  ((ly:duration? #{ 2 #}) (ly:pitch? #{ c' #})
+   (ly:pitch? #{ d' #}) (ly:pitch? #{ e' #})
    ly:music?) #{ $a $dur $b $c ^\markup{!} $d  #})
 
 \new Voice { \relative c' e' \relative c' { e' } \ablative c' e' \ablative { e' }
