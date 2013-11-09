@@ -3698,7 +3698,29 @@ def conv (str):
 def conv (str):
     return str
 
-@rule ((2, 19, 2), r"\lyricsto \new/\context/... -> \new/\context/... \lyricsto")
+# like re.sub, but if the replacement is shorter than the original and
+# the original was followed by at least two spaces, the replacement
+# will be padded in order to take the same space.
+def repadsub (regexp, repl, item):
+    def myownrep (m):
+        res = repl
+        while not isinstance(res, str):
+            res = res (m)
+        res = m.expand (res)
+        if m.string [m.end():m.end()+2] != "  ":
+            return res
+        # if there are newlines in the replaced string, just pad the end
+        lastnlo = str.rfind (m.string, '\n', m.start (), m.end ())
+        lastnlr = str.rfind (res, '\n')
+        if (lastnlo < 0) and (lastnlr < 0):
+            return res + ' ' * (m.end () - m.start () - len (res))
+        if (lastnlo >= 0) and (lastnlr >= 0):
+            return res + ' ' * (m.end () - lastnlo - len (res) + lastnlr)
+        return res
+    return re.sub (regexp, myownrep, item)
+                
+@rule ((2, 19, 2), r"""\lyricsto \new/\context/... -> \new/\context/... \lyricsto
+c4 ~ c2 -> c4 ~ 2""")
 def conv (str):
     word=r'(?:#?"[^"]*"|\b' + wordsyntax + r'\b)'
     str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)(\\(?:new|context)\s*" + word
@@ -3709,6 +3731,34 @@ def conv (str):
     str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)\\lyrics\b\s*",
                   r"\\new Lyrics \1", str)
     str = re.sub (r'\\lyricmode\s*(\\lyricsto\b)', r"\1", str)
+
+    def repl (m):
+        return m.group (1) + \
+            re.sub (r"(~\s*(?:\|\s*)?)[a-z]+[',]*",
+                    r"\1", m.group (4))
+   
+    str = repadsub (r"(\s([a-z]+)([',]*)!*\?*(?:[0-9]+\.*)?)" +
+                    r"((?:(?:\s|[-^_]?(?:[][()]|\\[()])|[-^_](?:[0-9]+|[->.^_!]))*" +
+                    r"~\s*(?:\|\s*)?\2\3?[0-9]+\.*)+)",
+                    repl, str)
+# The above does not catch the case g4~ g since it only removes note
+# names before durations, not adding any duration.  So we use a
+# different replacement for that.  It matches after an initial
+# notename+duration, a sequence of either duration (left from the
+# previous step) or notename only.
+
+    def repl (m):
+        return m.group (1) + \
+            re.sub (r"(~\s*(?:\|\s*)?)[a-z]+[',]*",
+                    r"\g<1>" + re.sub (r"\\", r"\\\\", m.group(4)), m.group (5))
+   
+    str = repadsub (r"(\s([a-z]+)([',]*)!*\?*([0-9]+\.*))" +
+                    r"((?:(?:\s|[-^_]?(?:[][()]|\\[()])|[-^_](?:[0-9]+|[->.^_!]))*" +
+                    r"~\s*(?:\|\s*)?[0-9]+\.*)*" +
+                    r"(?:(?:\s|[-^_]?(?:[][()]|\\[()])|[-^_](?:[0-9]+|[->.^_!]))*" +
+                    r"~\s*(?:\|\s*)?\2\3?))(?!\s*(?:[!?0-9',]|\\rest))",
+                    repl, str)
+
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
