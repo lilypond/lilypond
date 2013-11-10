@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: f3e8b5f9b68cab4579873749f4648ba63bc92ac7
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -178,16 +178,16 @@ di oggetti e proprietà dai loro nomi.
 @cindex modifica, metodi
 
 @menu
-* Il comando \override::
-* Il comando \revert::
-* Il prefisso \once::
-* Il comando \overrideProperty::
-* Il comando \tweak::
+* Il comando override::
+* Il comando revert::
+* Il prefisso once::
+* Il comando overrideProperty::
+* Il comando tweak::
 @end menu
 
-@node Il comando \override
-@unnumberedsubsubsec Il comando @code{\override}
-@translationof The \override command
+@node Il comando override
+@unnumberedsubsubsec Il comando @code{@bs{}override}
+@translationof The override command
 
 @cindex override, comando
 @cindex override, sintassi
@@ -256,9 +256,9 @@ e4 f |
 g4 a b c |
 @end lilypond
 
-@node Il comando \revert
-@unnumberedsubsubsec Il comando @code{\revert}
-@translationof The \revert command
+@node Il comando revert
+@unnumberedsubsubsec Il comando @code{@bs{}revert}
+@translationof The revert command
 
 @cindex revert, comando
 @cindex ripristino, comando \revert
@@ -295,9 +295,9 @@ g4 a
 b4 c |
 @end lilypond
 
-@node Il prefisso \once
-@unnumberedsubsubsec Il prefisso @code{\once}
-@translationof The \once prefix
+@node Il prefisso once
+@unnumberedsubsubsec Il prefisso @code{@bs{}once}
+@translationof The once prefix
 
 @funindex \once
 @funindex once
@@ -341,9 +341,9 @@ di @code{\override} dunque inserire @code{\once} prima di questi comandi
 non produce alcun effetto.
 
 
-@node Il comando \overrideProperty
-@unnumberedsubsubsec Il comando @code{\overrideProperty}
-@translationof The \overrideProperty command
+@node Il comando overrideProperty
+@unnumberedsubsubsec Il comando @code{@bs{}overrideProperty}
+@translationof The overrideProperty command
 
 @cindex overrideProperty, comando
 
@@ -356,9 +356,9 @@ Lo menzioniamo qui per completezza, ma per approfondire l'argomento
 si veda @rextend{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@node Il comando \tweak
-@unnumberedsubsubsec Il comando @code{\tweak}
-@translationof The \tweak command
+@node Il comando tweak
+@unnumberedsubsubsec Il comando @code{@bs{}tweak}
+@translationof The tweak command
 
 @cindex tweak, comando
 
@@ -2094,7 +2094,7 @@ se questa non è ottimale.
 
 @menu
 * La proprietà outside-staff-priority::
-* Il comando \textLengthOn::
+* Il comando textLengthOn::
 * Posizionamento delle dinamiche::
 * Dimensione dei grob::
 @end menu
@@ -2317,9 +2317,9 @@ naturalmente, dobbiamo creare più spazio orizzontale tra le note per
 far posto al testo.  Lo si può ottenere con il comando
 @code{textLengthOn}.
 
-@node Il comando \textLengthOn
-@unnumberedsubsubsec Il comando @code{\textLengthOn}
-@translationof The \textLengthOn command
+@node Il comando textLengthOn
+@unnumberedsubsubsec Il comando @code{@bs{}textLengthOn}
+@translationof The textLengthOn command
 
 @cindex note, distanziarle insieme al testo
 
@@ -2678,7 +2678,7 @@ da ricordare è che la spaziatura degli oggetti in un contesto @code{StaffGroup}
 variabili spaziali di @code{StaffGrouper}.  La spaziatura relativa ai righi
 non raggruppati (come @code{Lyrics} e @code{Staff}) è regolata dalle variabili
 del @code{VerticalAxisGroup}.  Ulteriori dettagli in
-@ruser{Flexible vertical spacing \\paper variables} e
+@ruser{Flexible vertical spacing paper variables} e
 @ruser{Flexible vertical spacing within systems}.
 
 
@@ -2774,7 +2774,7 @@ La proprietà @code{staff-padding} è strettamente connessa alla proprietà
 qualsiasi oggetto che supporti l'interfaccia @code{side-position-interface} e
 quello più vicino (solitamente, la nota o le linee del rigo); @code{staff-padding}
 si applica solo a quegli oggetti che stanno sempre fuori dal rigo e regola
-la quantità minima di spazio da inserire tra l'oggetto e il rigo.  Nota che
+la distanza minima tra l'oggetto e il rigo.  Nota che
 @code{staff-padding} non ha alcun effetto sugli oggetti disposti relativamente
 alla nota invece che al rigo, anche se può essere sovrascritto senza generare
 degli errori per tali oggetti; quindi viene semplicemente ignorata.
@@ -3064,9 +3064,9 @@ di @code{right-padding}.
 @cindex oggetti, allinearli a una base
 
 @code{staff-padding} serve ad allineare gli oggetti come i segni di
-dinamica lungo una linea di base a una certa altezza fissa sopra il
-rigo, invece che a un'altezza dipendente dalla posizione della nota al
-quale sono collegati.  Non è una proprietà di @code{DynamicText} bensì
+dinamica lungo una linea di base a una certa distanza dal rigo, quando
+nessun altro elemento della notazione li allontana dal rigo.
+Non è una proprietà di @code{DynamicText} bensì
 di @code{DynamicLineSpanner}, perché la base deve essere applicata
 ugualmente a @strong{tutti} i segni dinamica, compresi quelli creati
 come estensori.  Ecco come allineare i segni di dinamica nell'esempio
@@ -3080,12 +3080,8 @@ preso dalla sezione precedente:
 @cindex staff-padding, esempio
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-% Aumenta la larghezza di 1 unità
-\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-% Allinea le dinamiche alla base posta 2 unità sopra il rigo
-\override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf a\mp b\p
+\override DynamicLineSpanner.staff-padding = #3
+a4\f b\mf a\p b\mp
 @end lilypond
 
 
@@ -4167,10 +4163,10 @@ parti che hanno @code{#()}; verranno spiegate nel capitolo
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4197,10 +4193,11 @@ piuttosto brutti, dunque nascondiamoli in un altro file:
 
 @example
 %%% salva queste righe in un file chiamato "definitions.ily"
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
+
 
 inst =
 #(define-music-function
@@ -4231,10 +4228,10 @@ Ora modifichiamo la musica (e salviamo questo file come @file{music.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4263,10 +4260,10 @@ questo modo:
 
 @example
 %%%  definitions.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4293,10 +4290,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4340,10 +4337,10 @@ la dimensione complessiva dell'output.
 
 @example
 %%%  web-publish.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4371,10 +4368,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function

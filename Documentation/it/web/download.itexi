@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: faccc61cfaccb530834aec0ea08e27f29729f511
+    Translation of GIT committish: 2970311021cf68958850e43911e0cecf51f68fbc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -220,14 +220,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Compilare un file
-
-@lilypadCommandLine
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Pacchetti specifici di una distribuzione
 
 Usa il gestore pacchetti della tua distribuzione per istallare o
@@ -261,6 +253,14 @@ Debian: LilyPond 2.12.3}
 openSUSE: LilyPond 2.12.3}
 
 @end itemize
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compilare un file
+
+@lilypadCommandLine
 
 @divEnd
 
@@ -319,18 +319,10 @@ Elimina la cartella LilyPond.app.
 @divEnd
 
 @divClass{column-right-top}
-@subheading Compilare un file
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Esecuzione da linea di comando
 
-@warning{Se ti trovi bene con l'interfaccia grafica, puoi ignorare
-queste istruzioni.}
+@warning{Se ti trovi bene con le istruzioni per interfaccia grafica sotto, puoi
+ignorare queste istruzioni.}
 
 @subsubheading MacOS X su linea di comando
 
@@ -410,6 +402,14 @@ Lo stesso vale per tutti gli altri script in quella directory, come
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Compilare un file
+
+@lilypadOSX
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Legalese
 
@@ -469,7 +469,7 @@ Trova la cartella LilyPond dal menu @q{Start} e clicca sull'icona
 è terminata.
 
 @item
-Oppure dal Pannello di Controllo, trova e seleziona LilyPond e poi
+Oppure dal Pannello di Contrsollo, trova e seleziona LilyPond e poi
 scegli l'opzione per disinstallare/rimuovere il software. Clicca il
 bottone @q{Finish} quando la disinstallazione è terminata.
 
@@ -479,18 +479,10 @@ bottone @q{Finish} quando la disinstallazione è terminata.
 
 
 @divClass{column-right-top}
-@subheading Compilare un file
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Esecuzione da linea di comando
 
-@warning{Se ti trovi bene con l'interfaccia grafica, puoi ignorare
-queste istruzioni.}
+@warning{Se ti trovi bene con le istruzioni per interfaccia grafica sotto, puoi
+ignorare queste istruzioni.}
 
 @subsubheading Windows da linea di comando
 
@@ -536,6 +528,13 @@ possono essere eseguiti dalla linea di comando lanciandoli:
 @example
 lilypond test.ly
 @end example
+
+@divEnd
+
+
+@subheading Compilare un file
+
+@lilypadWindows
 
 @divEnd
 

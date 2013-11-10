@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -935,7 +935,7 @@ comprese, è facile gestirle.
 * Messaggio di errore Unbound variable %::
 * Messaggio di errore FT_Get_Glyph_Name::
 * Avvertimento sul fatto che le affinità del rigo devono solo diminuire::
-* Messaggio di errore \new inaspettato::
+* Messaggio di errore new inaspettato::
 @end menu
 
 @node La musica esce dalla pagina
@@ -1063,9 +1063,9 @@ come un rigo inserendo
 all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} in
 @ruser{Flexible vertical spacing within systems}.
 
-@node Messaggio di errore \new inaspettato
-@unnumberedsubsec Messaggio di errore @code{\new} inaspettato
-@translationof Error message unexpected \new
+@node Messaggio di errore new inaspettato
+@unnumberedsubsec Messaggio di errore @code{@bs{}new} inaspettato
+@translationof Error message unexpected new
 
 Un blocco @code{\score} deve contenere una @emph{singola} espressione musicale.
 Se invece contiene vari @code{\new Staff}, @code{\new StaffGroup} o simili

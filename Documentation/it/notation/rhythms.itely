@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 48a57a1c8feb426029e059d9fbf8aaf1b14f0ff8
+    Translation of GIT committish: 815ddc522bcdec0c1266caad5cc9e723fbbb2e41
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1617,20 +1617,6 @@ di musica in tempo libero è necessario inserire manualmente delle stanghette
 
 @example
 \bar ""
-@end example
-
-Bisogna creare esplicitamente un contesto @code{Voice} quando si inizia un
-brano con @code{\cadenzaOn}, altrimenti potrebbero verificarsi errori inattesi.
-
-@example
-\new Voice @{
-  \relative c' @{
-    \cadenzaOn
-    c16[^"Solo Free Time" d e f] g2.
-    \bar "||"
-    \cadenzaOff
-  @}
-@}
 @end example
 
 
@@ -3499,6 +3485,7 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{GraceMusic},
 @rinternals{Grace_beam_engraver},
+@rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
 
