@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 4ea667563d6509a055fd2e3033363a97d4347256
+    Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -66,7 +66,14 @@ un solo pentagramma.
 @subsection Stanghette e controlli di battuta
 @translationof Bar lines and bar checks
 
-@subheading Stanghette
+@menu
+* Stanghette::
+* Controlli di battuta::
+@end menu
+
+@node Stanghette
+@unnumberedsubsubsec Stanghette
+@translationof Bar lines
 
 Le stanghette singole vengono aggiunte automaticamente, quindi non occorre
 aggiungerle manualmente.  Si possono inserire altri tipi di stanghette
@@ -78,7 +85,9 @@ delle stanghette si trova in @ruser{Stanghette}.
 g1 e1 \bar "||" c2. c'4 \bar "|."
 @end lilypond
 
-@subheading Controlli di battuta
+@node Controlli di battuta
+@unnumberedsubsubsec Controlli di battuta
+@translationof Bar checks
 
 I @emph{controlli di battuta}, pur se non strettamente necessari, dovrebbero
 essere usati nel codice di input per mostrare dove si vuole che cadano le
@@ -100,11 +109,19 @@ Guida alla notazione:
 @subsection Alterazioni e armature di chiave
 @translationof Accidentals and key signatures
 
+@menu
+* Alterazioni::
+* Armature di chiave::
+* Attenzione armature di chiave e altezze::
+@end menu
+
 @warning{I nuovi utenti sono spesso confusi riguardo a questi concetti -- leggi
 il messaggio di avviso in fondo a questa pagina, soprattutto se non hai
 una buona conoscenza della teoria musicale!}
 
-@subheading Alterazioni
+@node Alterazioni
+@unnumberedsubsubsec Alterazioni
+@translationof Accidentals
 
 @cindex alterazioni, accidenti
 @cindex alterazioni e armature di chiave
@@ -137,7 +154,9 @@ cis4 ees fisis, aeses
 @end lilypond
 
 @cindex armatura di chiave, impostare
-@subheading Armature di chiave
+@node Armature di chiave
+@unnumberedsubsubsec Armature di chiave
+@translationof Key signatures
 
 @cindex armatura di chiave
 @cindex maggiore
@@ -168,7 +187,9 @@ a1 |
 
 @smallspace
 
-@subheading Attenzione: armature di chiave e altezze
+@node Attenzione armature di chiave e altezze
+@unnumberedsubsubsec Attenzione: armature di chiave e altezze
+@translationof Warning key signatures and pitches
 
 Glossario musicale: @rglosnamed{accidental,alterazione},
 @rglosnamed{key signature,armatura di chiave}, @rglosnamed{pitch,altezza},
@@ -248,8 +269,16 @@ Guida alla notazione:
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Legature di valore
+@menu
+* Legature di valore::
+* Legature di portamento::
+* Legature di frase::
+* Attenzione legature di portamento vs legature di valore::
+@end menu
 
+@node Legature di valore
+@unnumberedsubsubsec Legature di valore
+@translationof Ties
 
 Glossario musicale: @rglosnamed{tie,legatura di valore}.
 
@@ -260,8 +289,9 @@ prima nota della legatura.
 g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
-@subheading Legature di portamento
-
+@node Legature di portamento
+@unnumberedsubsubsec Legature di portamento
+@translationof Slurs
 
 Glossario musicale: @rglosnamed{slur,legatura di portamento}.
 
@@ -273,7 +303,9 @@ nota iniziale e quella finale sono indicate rispettivamente con
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Legature di frase
+@node Legature di frase
+@unnumberedsubsubsec Legature di frase
+@translationof Phrasing slurs
 
 Glossario musicale: @rglosnamed{slur,legatura di portamento},
 @rglosnamed{phrasing,legatura di frase}.
@@ -291,7 +323,9 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @smallspace
 
 @cindex legature di portamento vs. legature di valore
-@subheading Attenzione: legature di portamento vs. legature di valore
+@node Attenzione legature di portamento vs legature di valore
+@unnumberedsubsubsec Attenzione: legature di portamento vs. legature di valore
+@translationof Warnings slurs vs. ties
 
 Glossario musicale: @rglosnamed{articulation,articolazione},
 @rglosnamed{slur,legatura di portamento}, @rglosnamed{tie,legatura di valore}.
@@ -320,7 +354,15 @@ Guida alla notazione:
 @subsection Articolazione e dinamiche
 @translationof Articulation and dynamics
 
-@subheading Articolazioni
+@menu
+* Articolazioni::
+* Diteggiature::
+* Dinamiche::
+@end menu
+
+@node Articolazioni
+@unnumberedsubsubsec Articolazioni
+@translationof Articulations
 
 @cindex articolazione
 @cindex accento
@@ -336,7 +378,9 @@ c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 
-@subheading Diteggiature
+@node Diteggiature
+@unnumberedsubsubsec Diteggiature
+@translationof Fingerings
 
 @cindex diteggiatura
 
@@ -363,7 +407,9 @@ meglio lasciare che sia LilyPond a determinare le direzioni delle articolazioni.
 c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dinamiche
+@node Dinamiche
+@unnumberedsubsubsec Dinamiche
+@translationof Dynamics
 
 @cindex dinamiche
 @cindex decrescendo
@@ -500,7 +546,15 @@ Guida alla notazione:
 @subsection Comandi di tempo avanzati
 @translationof Advanced rhythmic commands
 
-@subheading Battuta parziale
+@menu
+* Battuta parziale::
+* Gruppi irregolari::
+* Abbellimenti::
+@end menu
+
+@node Battuta parziale
+@unnumberedsubsubsec Battuta parziale
+@translationof Partial measure
 
 @cindex anacrusi
 @cindex battuta parziale
@@ -519,7 +573,9 @@ Un' @notation{anacrusi} può essere inserita con la parola chiave
 c2 d |
 @end lilypond
 
-@subheading Gruppi irregolari
+@node Gruppi irregolari
+@unnumberedsubsubsec Gruppi irregolari
+@translationof Tuplets
 
 @cindex gruppi irregolari
 @cindex terzine
@@ -544,7 +600,9 @@ due, quindi una @notation{terzina} ha 3/2 come frazione:
 \tuplet 3/2 { d4 a8 }
 @end lilypond
 
-@subheading Abbellimenti
+@node Abbellimenti
+@unnumberedsubsubsec Abbellimenti
+@translationof Grace notes
 
 @cindex abbellimenti
 @cindex acciaccatura
@@ -630,7 +688,15 @@ precedente). Il risultato è un'altra espressione musicale:
 { { a4 g } f4 g }
 @end lilypond
 
-@subheading Analogia: le espressioni matematiche
+@menu
+* Analogia espressioni matematiche::
+* Espressioni musicali simultanee righi multipli::
+* Espressioni musicali simultanee rigo singolo::
+@end menu
+
+@node Analogia espressioni matematiche
+@unnumberedsubsubsec Analogia: le espressioni matematiche
+@translationof Analogy mathematic expressions
 
 Questo meccanismo è analogo a quello delle formule matematiche: una grande formula
 può essere creata creando piccole formule.  Tali formule sono chiamate
@@ -656,7 +722,9 @@ annidate a qualsivoglia grado di profondità, e questo è indispensabile per
 musica complessa come le partiture polifoniche.
 
 
-@subheading Espressioni musicali simultanee: righi multipli
+@node Espressioni musicali simultanee righi multipli
+@unnumberedsubsubsec Espressioni musicali simultanee: righi multipli
+@translationof Simultaneous music expressions multiple staves
 
 @cindex righi multipli
 @cindex multipli, righi
@@ -703,7 +771,9 @@ questo modo lo rende molto più semplice da leggere per l'essere umano.
 prima è relativa al @code{c''} nel comando @code{@bs{}relative} iniziale.}
 
 
-@subheading Espressioni musicali simultanee: rigo singolo
+@node Espressioni musicali simultanee rigo singolo
+@unnumberedsubsubsec Espressioni musicali simultanee: rigo singolo
+@translationof Simultaneous music expressions single staff
 
 Per determinare il numero di pentagrammi in un brano, LilyPond guarda
 l'inizio della prima espressione.  Se c'è una nota singola, ci sarà

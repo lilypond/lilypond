@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 41f7c759bd648f347a08fb0b4a82f5248d3c7ef4
+    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -493,14 +493,8 @@ questa modifica ha effetto anche sui tagli addizionali e sui gambi.
 { f4 d g, e }
 @end lilypond
 
-Tuttavia, è possibile impostare lo spessore dei tagli addizionali in modo
+È anche possibile impostare lo spessore dei tagli addizionali in modo
 indipendente dalle linee del rigo.
-@c Traduzione riformulata in base a questa spiegazione: http://lists.gnu.org/archive/html/bug-lilypond/2013-09/msg00055.html
-@c in attesa che sia risolto https://code.google.com/p/lilypond/issues/detail?id=3556
-La proprietà @code{ledger-line-thickness} richiede due valori che vengono
-usati per calcolare il valore dello spessore dei tagli addizionali, dato dalla
-somma: (primo valore * spessore del rigo) + (secondo valore * spaziatura del
-rigo).
 
 @lilypond[verbatim,quote,relative=2]
 \new Staff \with {
@@ -509,6 +503,11 @@ rigo).
 }
 { f'4 a, a,, f }
 @end lilypond
+
+@noindent
+Il primo valore viene moltiplicato per lo spessore della linea del rigo, il
+secondo per la spaziatura del rigo; la somma dei due valori definisce il
+nuovo valore dello spessore del taglio addizionale.
 
 Si possono modificare le posizioni verticali dei tagli addizionali:
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: d378daa101069ce6497292b0f4a7f6ce2e9b51f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,8 +28,6 @@ Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 @section Compilare un file
 @translationof Compiling a file
 
-
-
 @menu
 * Inserire l'input::
 * MacOS X::
@@ -45,6 +43,10 @@ Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 @cindex esempio iniziale
 @cindex esempio, iniziale
 @cindex maiuscole, sensibile alle
+
+@menu
+* Generare l'output::
+@end menu
 
 @qq{Compilazione} è il termine usato per indicare l'elaborazione di un
 file di input in formato LilyPond per produrre uno o più file di output.  I
@@ -84,7 +86,9 @@ produrrà un messaggio di errore.
 
 @smallspace
 
-@subheading Generare l'output
+@node Generare l'output
+@unnumberedsubsubsec Generare l'output
+@translationof Producing output
 
 @c TODO: move index entries
 @cindex PDF file
@@ -169,6 +173,16 @@ di aiutarti ad iniziare a scrivere i file di input.
 @cindex notazione semplice
 @cindex notazione, semplice
 
+@menu
+* Altezze::
+* Durate (ritmi)::
+* Pause::
+* Indicazione di tempo::
+* Indicazioni di tempo::
+* Chiave::
+* Tutto insieme::
+@end menu
+
 LilyPond aggiungerà automaticamente alcuni elementi della notazione.  Nell'esempio
 seguente, abbiamo specificato soltanto quattro note, ma LilyPond
 ha aggiunto una chiave, il tempo e le durate.
@@ -184,7 +198,9 @@ Questo comportamento può essere modificato, ma nella maggior parte dei
 casi questi valori sono utili.
 
 
-@subheading Altezze
+@node Altezze
+@unnumberedsubsubsec Altezze
+@translationof Pitches
 
 @cindex altezze
 @cindex modo relativo
@@ -292,7 +308,9 @@ Per cambiare una nota di due (o più!) ottave, si usano multipli di
 apici semplici @code{''} e non quelle a doppi apici @code{"}@tie{}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@subheading Durate (ritmi)
+@node Durate (ritmi)
+@unnumberedsubsubsec Durate (ritmi)
+@translationof Duration (rhythms)
 
 @cindex durate della nota
 @cindex durate
@@ -336,7 +354,9 @@ esplicitamente (cioè con un numero).
 @end lilypond
 
 
-@subheading Pause
+@node Pause
+@unnumberedsubsubsec Pause
+@translationof Rests
 
 @cindex pausa
 @cindex notazione delle pause
@@ -354,7 +374,9 @@ Una @notation{pausa} viene inserita proprio come una nota ma col nome
 @end lilypond
 
 
-@subheading Indicazione di tempo
+@node Indicazione di tempo
+@unnumberedsubsubsec Indicazione di tempo
+@translationof Time signature
 
 @cindex tempo, indicazione di
 
@@ -376,7 +398,9 @@ Il @notation{tempo} si imposta con il comando @code{\time}:
 }
 @end lilypond
 
-@subheading Indicazioni di tempo
+@node Indicazioni di tempo
+@unnumberedsubsubsec Indicazioni di tempo
+@translationof Tempo marks
 
 @cindex indicazioni di tempo
 @cindex indicazioni metronomiche
@@ -405,7 +429,9 @@ impostano col comando @code{\tempo}:
 @end lilypond
 
 
-@subheading Chiave
+@node Chiave
+@unnumberedsubsubsec Chiave
+@translationof Clef
 
 @cindex chiave
 @cindex chiave di violino
@@ -434,7 +460,9 @@ La @notation{chiave} si imposta con il comando @code{\clef}:
 @end lilypond
 
 
-@subheading Tutto insieme
+@node Tutto insieme
+@unnumberedsubsubsec Tutto insieme
+@translationof All together
 
 Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 

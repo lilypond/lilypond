@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: b2863abe6a9b5a03662562ea017548d8d3221d9a
+    Translation of GIT committish: 57955050c40eca6cd3b97eb6691e4fc1f8e08c08
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -564,7 +564,7 @@ memoria e tempo del processore.
 @item -m, --midi
 attiva il blocco midi.
 
-@item --nd --no-articulation-directions
+@item -nd, --no-articulation-directions
 non converte le direzioni (@code{^}, @code{_} o @code{-}) per
 articolazioni, dinamiche, etc.
 

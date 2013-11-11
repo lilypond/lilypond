@@ -546,7 +546,7 @@ use the lxml.etree Python package for XML-parsing; uses less memory and cpu time
 @item -m, --midi
 activate midi-block.
 
-@item -nd --no-articulation-directions
+@item -nd, --no-articulation-directions
 do not convert directions (@code{^}, @code{_} or @code{-}) for
 articulations, dynamics, etc.
 
