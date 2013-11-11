@@ -2401,20 +2401,60 @@ one encountered in the input file.
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
 
-@c TODO -- This section is probably unnecessary now.
+@c TODO Should't a bunch of that be explained earlier?
 
-@ignore
-We have seen two methods of changing properties: @code{\set} and
-@code{\override}.  There are actually two different kinds of
-properties.
+@funindex \set
+@funindex \override
+Both @code{\set} and @code{\override} manipulate properties
+associated with contexts.  In either case, properties heed the
+hierarchy of contexts: properties not set in a context itself show
+the values of the respective parent context.
 
-@code{fontSize} is a special property: it is equivalent to
-entering @code{\override @dots{} #'font-size} for all pertinent
-objects.  Since this is a common change, the special
-property (modified with @code{\set}) was created.
+Values and lifetime of context properties are dynamic and only
+available when music is being interpreted, @q{iterated}.  At the
+time of context creation, properties are initialized from the
+corresponding context definition and possible context
+modifications.  Afterwards, changes are achieved with
+property-setting commands in the music itself.
 
-@end ignore
+Now grob definitions are a special category of context properties.
+Since their structure, bookkeeping and use is different from
+ordinary context properties, they are accessed with a different
+set of commands, and treated separately in the documentation.
 
+As opposed to plain context properties, grob definitions are
+subdivided into grob properties.  A @qq{grob} (graphical object)
+is usually created by an engraver at the time of interpreting a
+music expression and receives its initial properties from the
+current grob definition of the engraver's context.  The engraver
+(or other @q{backend} parts of LilyPond) may subsequently add or
+change properties to the grob, but that does not affect the
+context's grob definition.
+
+What we call @q{grob properties} in the context of user-level
+tweaking are actually the properties of a context's grob
+definition.  In contrast to ordinary context properties, grob
+definitions have the bookkeeping required to keep track of its
+parts, the individual grob properties (and even subproperties of
+them) separately so that it is possible to define those parts in
+different contexts and have the overall grob definition at the
+time of grob creation be assembled from pieces provided in
+different contexts among the current context and its parents.
+
+Grob definitions are manipulated using @code{\override} and
+@code{\revert} and have a name starting with a capital letter
+(like @samp{NoteHead}) whereas ordinary context properties are
+manipulated using @code{\set} and @code{\unset} and are named
+starting with a lowercase letter.
+
+@cindex tweak, relation to @code{\override}
+@funindex \tweak
+@funindex \overrideProperty
+The special commands @code{\tweak} and @code{\overrideProperty}
+change grob properties bypassing context properties completely.
+Instead they catch grobs as they are being created and then
+directly set properties on them when they originate from a tweaked
+music event or are of a particular kind, respectively.
 
 @node Modifying alists
 @subsection Modifying alists
