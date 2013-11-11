@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: d96248cfd7c9f08f3bb27b400e589d54d2c000fb
+    Translation of GIT committish: b381556a3132e765159edc75107b31259dbf5988
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -154,13 +154,20 @@ Esistono le seguenti opzioni:
 @table @code
 @item -d, --diff-version-update
 aumenta il numero di versione in @code{\version} solo se il file è stato
-modificato da @command{convert-ly}.  Senza questa opzione (o quando una
-conversione ha modificato il file), la dichiarazione di versione riflette
-l'ultime regola di conversione considerata.
+modificato da @command{convert-ly}. In questo caso, la dichiarazione di
+versione corrisponderà alla versione successiva all'ultimo reale cambiamento.
+Senza questa opzione, la versione rifletterà l'ultima conversione
+@emph{tentata}.
 
 @item -e, --edit
 Applica le conversioni direttamente nel file di input, modificando
-l'originale.
+l'originale.  Il file originale viene rinominato @file{nomefile.ly~}.  Questo
+file di backup può essere un file nascosto in alcuni sistemi operativi.
+
+@item -b, --backup-numbered
+Se usato insieme all'opzione @samp{-e}, aggiunge un numero al nome dei file
+di backup, in modo da non sovrascrivere i backup precedenti.  I file di
+backup possono essere nascosti in alcuni sistemi operativi.
 
 @item -f, --from=@var{from-patchlevel}
 Imposta la versione da cui convertire.  Se non viene impostata, @command{convert-ly}

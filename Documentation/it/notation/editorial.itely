@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 95652cfaebacdc267c3360123b55254c45223433
+    Translation of GIT committish: ed1acf4b9b63f6acdb4feb24eb4acf3f83548319
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -482,6 +482,9 @@ I gambi si possono posizionare sopra o sotto, vedi
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+
 @seealso
 Guida alla notazione:
 @ref{Direction and placement}.
@@ -549,13 +552,12 @@ oggetto grafico (grob), mentre la seconda viene usata come
 @code{\tweak}, solitamente all'interno degli accordi, per
 attaccare del testo a una singola nota.
 
-Il testo nella nuvoletta di norma non influenza la spaziatura delle note,
+Il testo nella nuvoletta influenza la spaziatura delle note,
 ma è possibile modificare questo comportamento:
 
 @lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sono una pausa" }
