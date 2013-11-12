@@ -1431,13 +1431,14 @@ Returns @code{#f} or the reason for the invalidation, a symbol."
 
 (define (check-pitch-against-signature context pitch barnum laziness octaveness all-naturals)
   "Checks the need for an accidental and a @q{restore} accidental against
-@code{localKeySignature}.  The @var{laziness} is the number of measures
+@code{localAlterations} and @code{keyAlterations}.
+The @var{laziness} is the number of measures
 for which reminder accidentals are used (i.e., if @var{laziness} is zero,
 only cancel accidentals in the same measure; if @var{laziness} is three,
 we cancel accidentals up to three measures after they first appear.
 @var{octaveness} is either @code{'same-octave} or @code{'any-octave} and
 specifies whether accidentals should be canceled in different octaves.
-If @var{all-naturals} is ##t, notes that do not occur in @code{keySignature}
+If @var{all-naturals} is ##t, notes that do not occur in @code{keyAlterations}
 also get an accidental."
   (let* ((ignore-octave (cond ((equal? octaveness 'any-octave) #t)
                               ((equal? octaveness 'same-octave) #f)
@@ -1445,8 +1446,8 @@ also get an accidental."
                                (ly:warning (_ "Unknown octaveness type: ~S ") octaveness)
                                (ly:warning (_ "Defaulting to 'any-octave."))
                                #t)))
-         (key-sig (ly:context-property context 'keySignature))
-         (local-key-sig (ly:context-property context 'localKeySignature))
+         (key (ly:context-property context 'keyAlterations))
+         (local (ly:context-property context 'localAlterations))
          (notename (ly:pitch-notename pitch))
          (octave (ly:pitch-octave pitch))
          (pitch-handle (cons octave notename))
@@ -1454,17 +1455,17 @@ also get an accidental."
          (need-accidental #f)
          (previous-alteration #f)
          (from-other-octaves #f)
-         (from-same-octave (assoc-get pitch-handle local-key-sig))
-         (from-key-sig (or (assoc-get notename local-key-sig)
+         (from-same-octave (assoc-get pitch-handle local))
+         (from-key-sig (or (assoc-get notename local)
 
-                           ;; If no key signature match is found from localKeySignature, we may have a custom
+                           ;; If no notename match is found from localAlterations, we may have a custom
                            ;; type with octave-specific entries of the form ((octave . pitch) alteration)
                            ;; instead of (pitch . alteration).  Since this type cannot coexist with entries in
-                           ;; localKeySignature, try extracting from keySignature instead.
-                           (assoc-get pitch-handle key-sig))))
+                           ;; localAlterations, try extracting from keyAlterations instead.
+                           (assoc-get pitch-handle key))))
 
-    ;; loop through localKeySignature to search for a notename match from other octaves
-    (let loop ((l local-key-sig))
+    ;; loop through localAlterations to search for a notename match from other octaves
+    (let loop ((l local))
       (if (pair? l)
           (let ((entry (car l)))
             (if (and (pair? (car entry))
@@ -1532,7 +1533,7 @@ accidental rule."
   (check-pitch-against-signature context pitch barnum laziness octaveness #t))
 
 (define (key-entry-notename entry)
-  "Return the pitch of an @var{entry} in @code{localKeySignature}.
+  "Return the pitch of an @var{entry} in @code{localAlterations}.
 The @samp{car} of the entry is either of the form @code{notename} or
 of the form @code{(octave . notename)}.  The latter form is used for special
 key signatures or to indicate an explicit accidental.
@@ -1546,25 +1547,25 @@ an accidental in music."
       (car entry)))
 
 (define (key-entry-octave entry)
-  "Return the octave of an entry in @code{localKeySignature}
+  "Return the octave of an entry in @code{localAlterations}
 or @code{#f} if the entry does not have an octave.
 See @code{key-entry-notename} for details."
   (and (pair? (car entry)) (caar entry)))
 
 (define (key-entry-bar-number entry)
-  "Return the bar number of an entry in @code{localKeySignature}
+  "Return the bar number of an entry in @code{localAlterations}
 or @code {#f} if the entry does not have a bar number.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (caddr entry)))
 
 (define (key-entry-measure-position entry)
-  "Return the measure position of an entry in @code{localKeySignature}
+  "Return the measure position of an entry in @code{localAlterations}
 or @code {#f} if the entry does not have a measure position.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (cdddr entry)))
 
 (define (key-entry-alteration entry)
-  "Return the alteration of an entry in localKeySignature.
+  "Return the alteration of an entry in localAlterations
 
 For convenience, returns @code{0} if entry is @code{#f}."
   (if entry
@@ -1597,7 +1598,7 @@ If no matching entry is found, @var{#f} is returned."
 key signature @emph{and} does not directly follow a note on the same
 staff line.  This rule should not be used alone because it does neither
 look at bar lines nor different accidentals at the same note name."
-  (let* ((keysig (ly:context-property context 'localKeySignature))
+  (let* ((keysig (ly:context-property context 'localAlterations))
          (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
         (cons #f #f)
@@ -1628,7 +1629,7 @@ is a common accidental style in contemporary notation."
   "An accidental rule that typesets a cautionary accidental if it is
 included in the key signature @emph{and} does not directly follow a note
 on the same staff line."
-  (let* ((keysig (ly:context-property context 'localKeySignature))
+  (let* ((keysig (ly:context-property context 'localAlterations))
          (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
         (cons #f #f)
@@ -1809,8 +1810,8 @@ as a context."
                                           ,teaching-accidental-rule)
                                   context))
 
-     ;; do not set localKeySignature when a note alterated differently from
-     ;; localKeySignature is found.
+     ;; do not set localAlterations when a note alterated differently from
+     ;; localAlterations is found.
      ;; Causes accidentals to be printed at every note instead of
      ;; remembered for the duration of a measure.
      ;; accidentals not being remembered, causing accidentals always to
@@ -1835,15 +1836,15 @@ as a context."
 (define-public (invalidate-alterations context)
   "Invalidate alterations in @var{context}.
 
-Elements of @code{'localKeySignature} corresponding to local
+Elements of @code{'localAlterations} corresponding to local
 alterations of the key signature have the form
 @code{'((octave . notename) . (alter barnum . measurepos))}.
 Replace them with a version where @code{alter} is set to @code{'clef}
 to force a repetition of accidentals.
 
 Entries that conform with the current key signature are not invalidated."
-  (let* ((keysig (ly:context-property context 'keySignature)))
-    (set! (ly:context-property context 'localKeySignature)
+  (let* ((keysig (ly:context-property context 'keyAlterations)))
+    (set! (ly:context-property context 'localAlterations)
           (map-in-order
            (lambda (entry)
              (let* ((localalt (key-entry-alteration entry)))
@@ -1859,7 +1860,7 @@ Entries that conform with the current key signature are not invalidated."
                             #t #t))))
                    entry
                    (cons (car entry) (cons 'clef (cddr entry))))))
-           (ly:context-property context 'localKeySignature)))))
+           (ly:context-property context 'localAlterations)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

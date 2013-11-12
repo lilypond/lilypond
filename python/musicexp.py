@@ -1489,7 +1489,7 @@ class KeySignatureChange (Music):
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration (a) for
                                         a in self.non_standard_alterations]
-            return "\\set Staff.keySignature = #`(%s)" % string.join (alterations, " ")
+            return "\\set Staff.keyAlterations = #`(%s)" % string.join (alterations, " ")
         else:
             return ''
 

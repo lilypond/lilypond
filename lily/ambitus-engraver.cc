@@ -126,7 +126,7 @@ Ambitus_engraver::stop_translation_timestep ()
       int offset = robust_scm2int (get_property ("middleCOffset"), 0);
 
       start_c0_ = clef_pos + offset;
-      start_key_sig_ = get_property ("keySignature");
+      start_key_sig_ = get_property ("keyAlterations");
 
       is_typeset_ = true;
     }
@@ -230,7 +230,7 @@ ADD_TRANSLATOR (Ambitus_engraver,
                 "AmbitusNoteHead ",
 
                 /* read */
-                "keySignature "
+                "keyAlterations "
                 "middleCClefPosition "
                 "middleCOffset ",
 

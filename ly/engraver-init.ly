@@ -86,7 +86,7 @@
   \consists "Cue_clef_engraver"
   \consists "Fingering_column_engraver"
 
-  localKeySignature = #'()
+  localAlterations = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##f
 
@@ -162,7 +162,7 @@ contained staves are not connected vertically."
 \context{
   \type "Engraver_group"
 
-  localKeySignature = #'()
+  localAlterations = #'()
   createSpacing = ##t
 
   squashedPosition = #0
@@ -305,7 +305,7 @@ multiple voices on the same staff."
 \context{
   \type "Engraver_group"
   \name GrandStaff
-  localKeySignature = #'()
+  localAlterations = #'()
 
   \description "A group of staves, with a brace on the left
 side, grouping the staves together.  The bar lines of the

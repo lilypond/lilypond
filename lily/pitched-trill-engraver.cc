@@ -98,7 +98,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   SCM scm_pitch = ev->get_property ("pitch");
   Pitch *p = unsmob_pitch (scm_pitch);
 
-  SCM keysig = get_property ("localKeySignature");
+  SCM keysig = get_property ("localAlterations");
 
   SCM key = scm_cons (scm_from_int (p->get_octave ()),
                       scm_from_int (p->get_notename ()));

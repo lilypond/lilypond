@@ -396,12 +396,12 @@ alterations should be printed.  The format is
 @code{(@var{step} . @var{alter})},
 where @var{step} is a number from 0 to@tie{}6 and
 @var{alter} from -2 (sharp) to 2 (flat).")
-     (keySignature ,list? "The current key signature.  This is an alist
+     (keyAlterations ,list? "The current key signature.  This is an alist
 containing @code{(@var{step} . @var{alter})} or
 @code{((@var{octave} . @var{step}) . @var{alter})}, where @var{step}
 is a number in the range 0 to@tie{}6 and @var{alter} a fraction,
 denoting alteration.  For alterations, use symbols, e.g.
-@code{keySignature = #`((6 . ,FLAT))}.")
+@code{keyAlterations = #`((6 . ,FLAT))}.")
 
 
      (lyricMelismaAlignment ,number? "Alignment to use for a melisma syllable.")
@@ -710,10 +710,10 @@ in an axis group.")
 
 
      (lastChord ,markup? "Last chord, used for detecting chord changes.")
-     (lastKeySignature ,list? "Last key signature before a key
+     (lastKeyAlterations ,list? "Last key signature before a key
 signature change.")
-     (localKeySignature ,list? "The key signature at this point in the
-measure.  The format is the same as for @code{keySignature}, but can
+     (localAlterations ,list? "The key signature at this point in the
+measure.  The format is the same as for @code{keyAlterations}, but can
 also contain @code{((@var{octave} . @var{name}) . (@var{alter}
 @var{barnumber} . @var{measureposition}))} pairs.")
 

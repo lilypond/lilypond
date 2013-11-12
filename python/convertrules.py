@@ -3711,6 +3711,13 @@ def conv (str):
     str = re.sub (r'\\lyricmode\s*(\\lyricsto\b)', r"\1", str)
     return str
 
+@rule ((2, 19, 7), "keySignature -> keyAlterations")
+def conv(str):
+    str = re.sub (r'\bkeySignature\b', 'keyAlterations', str)
+    str = re.sub (r'\blastKeySignature\b', 'lastKeyAlterations', str)
+    str = re.sub (r'\blocalKeySignature\b', 'localAlterations', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
