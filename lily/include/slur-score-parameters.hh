@@ -40,6 +40,8 @@ struct Slur_score_parameters
   Real free_head_distance_;
   Real extra_encompass_collision_distance_;
   Real extra_encompass_free_distance_;
+  Real gap_to_staffline_inside_;
+  Real gap_to_staffline_outside_;
   Real absolute_closeness_measure_;
   Real edge_slope_exponent_;
   Real close_to_edge_length_;

@@ -100,6 +100,7 @@ struct Slur_score_state
   Drul_array<Offset> base_attachments_;
   vector<Slur_configuration *> configurations_;
   Real staff_space_;
+  Real line_thickness_;
   Real thickness_;
 
   Slur_score_state ();

@@ -28,6 +28,8 @@
     (max-slope-factor . 10)
     (free-head-distance . 0.3)
     (free-slur-distance . 0.8)
+    (gap-to-staffline-inside . 0.2)
+    (gap-to-staffline-outside . 0.1)
     (extra-object-collision-penalty . 50)
     (accidental-collision . 3)
     (extra-encompass-free-distance . 0.3)
