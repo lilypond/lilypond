@@ -195,7 +195,6 @@ compress_lines (const vector<Line_details> &orig)
       else
         {
           ret.push_back (orig[i]);
-          ret.back ().force_ = 0;
         }
     }
   return ret;
