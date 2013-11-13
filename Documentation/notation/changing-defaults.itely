@@ -213,8 +213,9 @@ Handles clefs, bar lines, keys, accidentals.  It can contain
 
 @strong{@emph{RhythmicStaff}}
 
-Like @code{Staff} but for printing rhythms.  Pitches are ignored;
-the notes are printed on one line.
+Like @code{Staff} but for printing rhythms.  Pitches are ignored
+when engraving; the notes are printed on one line.  The MIDI
+rendition retains pitches unchanged.
 
 @strong{@emph{TabStaff}}
 
