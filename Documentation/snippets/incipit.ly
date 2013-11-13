@@ -21,10 +21,7 @@ incipit =
 #(define-music-function (parser location incipit-music) (ly:music?)
   #{
     \once \override Staff.InstrumentName.self-alignment-X = #RIGHT
-    \once \override Staff.InstrumentName.self-alignment-Y = #UP
-    \once \override Staff.InstrumentName.Y-offset =
-      #(lambda (grob)
-         (+ 4 (system-start-text::calc-y-offset grob)))
+    \once \override Staff.InstrumentName.self-alignment-Y = ##f
     \once \override Staff.InstrumentName.padding = #0.3
     \once \override Staff.InstrumentName.stencil =
       #(lambda (grob)
@@ -35,7 +32,6 @@ incipit =
 		         {
 			   { \context MensuralStaff \with {
 	                        instrumentName = #instrument-name
-			        \override VerticalAxisGroup.Y-extent = #'(-4 . 4)
 	                     } $incipit-music
 			   }
 	                   \layout { $(ly:grob-layout grob)
