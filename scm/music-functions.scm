@@ -728,7 +728,8 @@ duration is replaced with the specified @var{duration}."
         (set! (ly:music-property repeat-chord 'articulations)
               (append!
                (set-origin! (ly:music-deep-copy arts))
-               (ly:music-property repeat-chord 'articulations))))))
+               (ly:music-property repeat-chord 'articulations)))))
+  repeat-chord)
 
 
 (define-public (expand-repeat-chords! event-types music)
@@ -747,8 +748,7 @@ respective predecessor chord."
                 last-chord))
            (last-chord
             (set! (ly:music-property music 'duration) '())
-            (copy-repeat-chord last-chord music chord-repeat event-types)
-            music)
+            (copy-repeat-chord last-chord music chord-repeat event-types))
            (else
             (ly:music-warning music (_ "Bad chord repetition"))
             #f)))
