@@ -17,9 +17,11 @@ developers are still busy finding solutions for some last-minute
 problems, but the release is supposed to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
-latest version, see @rprogram{Updating files with convert-ly}.
+latest version, see
+@uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly.html,
+Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@rweb{Bug reports}.
+@uref{http://www.lilypond.org/bug-reports.html, Bug reports}.
 
 @newsEnd
 
