@@ -3753,9 +3753,12 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 					    parser->default_duration_.smobbed_copy ());
 	} else if (parser->lexer_->is_chord_state ()) {
 		if (unsmob_pitch (simple))
-			return make_chord_elements (loc, simple,
-						    parser->default_duration_.smobbed_copy (),
-						    SCM_EOL);
+			return MAKE_SYNTAX
+				("event-chord",
+				 loc,
+				 make_chord_elements (loc, simple,
+						      parser->default_duration_.smobbed_copy (),
+						      SCM_EOL));
 	}
 	return simple;
 }
