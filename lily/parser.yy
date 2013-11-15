@@ -2496,13 +2496,19 @@ event_chord:
 		}
 	} %prec ':'
 	| simple_chord_elements post_events	{
-		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
+		if (scm_is_pair ($2)) {
+			if (unsmob_pitch ($1))
+				$1 = make_chord_elements (@1,
+							  $1,
+							  parser->default_duration_.smobbed_copy (),
+							  SCM_EOL);
 
-		Input i;
-		/* why is this giving wrong start location? -ns
-		 * i = @$; */
-		i.set_location (@1, @2);
-		$$ = MAKE_SYNTAX ("event-chord", i, elts);
+			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
+
+			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
+		} else if (!unsmob_pitch ($1))
+			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
+		// A mere pitch drops through.
 	} %prec ':'
 	| CHORD_REPETITION optional_notemode_duration post_events {
 		Input i;
@@ -3153,6 +3159,7 @@ simple_element:
 	}
 	;
 
+// Can return a single pitch rather than a list.
 simple_chord_elements:
 	new_chord {
                 if (!parser->lexer_->is_chord_state ())
@@ -3191,9 +3198,13 @@ lyric_element_music:
 	} %prec ':'
 	;
 
+// Can return a single pitch rather than a list.
 new_chord:
-	steno_tonic_pitch optional_notemode_duration   {
-		$$ = make_chord_elements (@$, $1, $2, SCM_EOL);
+	steno_tonic_pitch maybe_notemode_duration   {
+		if (SCM_UNBNDP ($2))
+			$$ = $1;
+		else
+			$$ = make_chord_elements (@$, $1, $2, SCM_EOL);
 	}
 	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
 		SCM its = scm_reverse_x ($4, SCM_EOL);
