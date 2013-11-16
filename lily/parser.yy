@@ -1491,12 +1491,8 @@ function_arglist_nonbackup_reparse:
 
 
 function_arglist_backup:
-	function_arglist_backup_common
-	| function_arglist_common
-	;
-
-function_arglist_backup_common:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg_closed
+	function_arglist_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg_closed
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
