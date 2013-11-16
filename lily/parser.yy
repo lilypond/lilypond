@@ -1627,7 +1627,8 @@ function_arglist_backup:
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
 		{
-			$$ = scm_cons ($4, $3);
+			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
+			$$ = $3;
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
@@ -2796,7 +2797,14 @@ steno_tonic_pitch:
 
 pitch:
 	steno_pitch
-	| PITCH_IDENTIFIER
+	| PITCH_IDENTIFIER quotes {
+                if (!scm_is_eq (SCM_INUM0, $2))
+                {
+                        Pitch p = *unsmob_pitch ($1);
+                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
+                        $$ = p.smobbed_copy ();
+                }
+	}
 	;
 
 gen_text_def:
