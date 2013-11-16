@@ -473,6 +473,7 @@ embedded_scm_bare_arg:
 	{
 		$$ = parser->lexer_->eval_scm_token ($1);
 	}
+	| FRACTION
 	| full_markup_list
 	| context_modification
 	| score_block
@@ -1281,11 +1282,7 @@ grouped_music_list:
  */
 
 function_arglist_nonbackup_common:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup FRACTION
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
@@ -1585,16 +1582,6 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup FRACTION
-	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			$$ = scm_cons ($4, $3);
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (FRACTION, $4, @4);
-		}
-	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
@@ -1770,11 +1757,6 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional FRACTION
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
 	| EXPECT_SCM function_arglist_optional post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1934,11 +1916,6 @@ function_arglist_closed_common:
 				       $2, $1);
 	}
 	| EXPECT_SCM function_arglist_optional post_event_nofinger
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
-	| EXPECT_SCM function_arglist_optional FRACTION
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
@@ -2472,7 +2449,6 @@ scalar:
 	{
 		$$ = scm_difference ($2, SCM_UNDEFINED);
 	}
-	| FRACTION
 	| STRING
 	| full_markup
 	;
