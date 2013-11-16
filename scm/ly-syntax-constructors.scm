@@ -73,7 +73,7 @@
    parser
    (format #f
            (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-           n (type-name pred) arg)
+           n (type-name pred) (music->make-music arg))
    location))
 
 (define-ly-syntax-simple (void-music)
