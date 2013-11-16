@@ -332,6 +332,7 @@ If we give names, Bison complains.
 %token CONTEXT_MOD_IDENTIFIER
 %token DRUM_PITCH
 %token PITCH_IDENTIFIER
+%token PITCH_ARG
 %token DURATION_IDENTIFIER
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
@@ -1487,6 +1488,11 @@ function_arglist_nonbackup_reparse:
 	;
 
 
+// function_arglist_backup can't occur at the end of an argument
+// list.  It needs to be careful about avoiding lookahead only until
+// it has made a decision whether or not to accept the parsed entity.
+// At that point of time, music requiring lookahead to parse becomes
+// fine.
 function_arglist_backup:
 	function_arglist_common
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg_closed
@@ -1625,9 +1631,14 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup PITCH_IDENTIFIER
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		SCM m = make_music_from_simple (parser, @4, $4);
+		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
 		{
 			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
+			$$ = $3;
+		} else if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, PITCH_ARG, $4);
 			$$ = $3;
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
@@ -1636,9 +1647,14 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NOTENAME_PITCH
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		SCM m = make_music_from_simple (parser, @4, $4);
+		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
 		{
 			MYREPARSE (@4, $2, NOTENAME_PITCH, $4);
+			$$ = $3;
+		} else if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, PITCH_ARG, $4);
 			$$ = $3;
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
@@ -1647,9 +1663,14 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup TONICNAME_PITCH
 	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
+		SCM m = make_music_from_simple (parser, @4, $4);
+		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
 		{
 			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
+			$$ = $3;
+		} else if (scm_is_true (scm_call_1 ($2, $4)))
+		{
+			MYREPARSE (@4, $2, PITCH_ARG, $4);
 			$$ = $3;
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
@@ -1707,6 +1728,11 @@ function_arglist_backup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
+	| function_arglist_backup REPARSE pitch_arg
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}		
 	| function_arglist_backup REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -2798,6 +2824,17 @@ steno_tonic_pitch:
 pitch:
 	steno_pitch
 	| PITCH_IDENTIFIER quotes {
+                if (!scm_is_eq (SCM_INUM0, $2))
+                {
+                        Pitch p = *unsmob_pitch ($1);
+                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
+                        $$ = p.smobbed_copy ();
+                }
+	}
+	;
+
+pitch_arg:
+	PITCH_ARG quotes {
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob_pitch ($1);
