@@ -910,50 +910,51 @@ of the volta brackets relative to the bar lines."
                                        line-thickness
                                        1/2))
          (bar-array (ly:grob-object grob 'bars))
-         (bar-array-length (ly:grob-array-length bar-array))
          ;; the bar-array starts with the uppermost bar line grob that is
          ;; covered by the left edge of the volta bracket; more (span)
          ;; bar line grobs from other staves may follow
-         (left-bar-line (if (> bar-array-length 0)
-                            (ly:grob-array-ref bar-array 0)
-                            '()))
+         (left-bar-line (and (ly:grob-array? bar-array)
+                             (positive? (ly:grob-array-length bar-array))
+                             (ly:grob-array-ref bar-array 0)))
          ;; we need the vertical-axis-group-index of the left-bar-line
          ;; to find the corresponding right-bar-line
-         (vag-index (if (null? left-bar-line)
-                        -1
-                        (ly:grob-get-vertical-axis-group-index left-bar-line)))
+         (vag-index (and left-bar-line
+                         (ly:grob-get-vertical-axis-group-index left-bar-line)))
          ;; the bar line corresponding to the right edge of the volta bracket
          ;; is the last entry with the same vag-index, so we transform the array to a list,
-         ;; reverse it and search for suitable entries:
-         (filtered-grobs (filter (lambda (e)
-                                   (eq? (ly:grob-get-vertical-axis-group-index e)
-                                        vag-index))
-                                 (reverse (ly:grob-array->list bar-array))))
-         ;; we need the first one (if any)
-         (right-bar-line (if (pair? filtered-grobs)
-                             (car filtered-grobs)
-                             '()))
+         ;; reverse it and search for the first suitable entry from
+         ;; the back
+         (right-bar-line (and left-bar-line
+                              (find (lambda (e)
+                                      (eqv? (ly:grob-get-vertical-axis-group-index e)
+                                            vag-index))
+                                    (reverse (ly:grob-array->list bar-array)))))
          ;; the left-bar-line may be a #'<Grob Item >,
          ;; so we add "" as a fallback return value
-         (left-bar-glyph-name (if (null? left-bar-line)
-                                  (string annotation-char)
-                                  (ly:grob-property left-bar-line 'glyph-name "")))
-         (right-bar-glyph-name (if (null? right-bar-line)
-                                   (string annotation-char)
-                                   (ly:grob-property right-bar-line 'glyph-name "")))
-         (left-bar-broken (or (null? left-bar-line)
-                              (not (zero? (ly:item-break-dir left-bar-line)))))
-         (right-bar-broken (or (null? right-bar-line)
-                               (not (zero? (ly:item-break-dir right-bar-line)))))
+         (left-bar-glyph-name (if left-bar-line
+                                  (ly:grob-property left-bar-line 'glyph-name "")
+                                  (string annotation-char)))
+         (right-bar-glyph-name (if right-bar-line
+                                   (ly:grob-property right-bar-line 'glyph-name "")
+                                   (string annotation-char)))
+         ;; This is the original logic.  It flags left-bar-broken if
+         ;; there is no left-bar-line.  That seems strange.
+         (left-bar-broken (not (and left-bar-line
+                                    (zero? (ly:item-break-dir left-bar-line)))))
+         (right-bar-broken (not (and right-bar-line
+                                     (zero? (ly:item-break-dir
+                                             right-bar-line)))))
+         ;; Revert to current grob for getting layout info if no
+         ;; left-bar-line available
          (left-span-stencil-extent (ly:stencil-extent
                                     (span-bar::compound-bar-line
-                                     left-bar-line
+                                     (or left-bar-line grob)
                                      left-bar-glyph-name
                                      dummy-extent)
                                     X))
          (right-span-stencil-extent (ly:stencil-extent
                                      (span-bar::compound-bar-line
-                                      right-bar-line
+                                      (or right-bar-line grob)
                                       right-bar-glyph-name
                                       dummy-extent)
                                      X))
@@ -968,7 +969,7 @@ of the volta brackets relative to the bar lines."
               (- (max 0 (interval-end left-span-stencil-extent))
                  (max 0 (interval-end (ly:stencil-extent
                                        (bar-line::compound-bar-line
-                                        left-bar-line
+                                        (or left-bar-line grob)
                                         left-bar-glyph-name
                                         dummy-extent)
                                        X)))
