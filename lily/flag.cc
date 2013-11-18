@@ -105,7 +105,7 @@ Flag::glyph_name (SCM smob)
 
   char dir = (d == UP) ? 'u' : 'd';
   string font_char = flag_style
-                     + to_string (dir) + staffline_offs + to_string (log);
+                     + ::to_string (dir) + staffline_offs + ::to_string (log);
   return ly_string2scm ("flags." + font_char);
 }
 
@@ -143,11 +143,11 @@ Flag::print (SCM smob)
       string stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.empty ())
         {
-          string font_char = flag_style + to_string (dir) + stroke_style;
+          string font_char = flag_style + ::to_string (dir) + stroke_style;
           Stencil stroke = fm->find_by_name ("flags." + font_char);
           if (stroke.is_empty ())
             {
-              font_char = to_string (dir) + stroke_style;
+              font_char = ::to_string (dir) + stroke_style;
               stroke = fm->find_by_name ("flags." + font_char);
             }
           if (stroke.is_empty ())

@@ -142,7 +142,7 @@ string
 Input::line_number_string () const
 {
   if (source_file_)
-    return to_string (source_file_->get_line (start_));
+    return ::to_string (source_file_->get_line (start_));
   return "?";
 }
 

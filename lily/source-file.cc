@@ -181,8 +181,8 @@ Source_file::file_line_column_string (char const *context_str0) const
       int l, ch, col, offset;
       get_counts (context_str0, &l, &ch, &col, &offset);
 
-      return name_string () + ":" + to_string (l)
-             + ":" + to_string (col + 1);
+      return name_string () + ":" + ::to_string (l)
+             + ":" + ::to_string (col + 1);
     }
 }
 
@@ -196,8 +196,8 @@ Source_file::quote_input (char const *pos_str0) const
   get_counts (pos_str0, &l, &ch, &col, &offset);
   string line = line_string (pos_str0);
   string context = line.substr (0, offset)
-                   + to_string ('\n')
-                   + to_string (' ', col)
+                   + ::to_string ('\n')
+                   + ::to_string (' ', col)
                    + line.substr (offset, line.length () - offset);
   return context;
 }

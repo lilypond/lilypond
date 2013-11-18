@@ -223,7 +223,7 @@ System::get_paper_systems ()
       scm_vector_set_x (lines, scm_from_int (i),
                         system->get_paper_system ());
 
-      debug_output (to_string (i) + "]", false);
+      debug_output (::to_string (i) + "]", false);
     }
   return lines;
 }

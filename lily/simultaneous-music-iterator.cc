@@ -63,7 +63,7 @@ Simultaneous_music_iterator::construct_children ()
 
       SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
       Context *c = (j && create_separate_contexts_)
-                   ? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
+                   ? get_outlet ()->find_create_context (name, ::to_string (j), SCM_EOL)
                    : get_outlet ();
 
       if (!c)
