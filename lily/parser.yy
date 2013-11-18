@@ -3401,6 +3401,15 @@ unsigned_number:
 			$$ = SCM_INUM0;
 		}
 	}
+	| embedded_scm
+	{
+		if (!scm_is_integer ($1)
+		    || scm_is_true (scm_negative_p ($1)))
+		{
+			parser->parser_error (@1, _("not an unsigned integer"));
+			$$ = SCM_INUM0;
+		}
+	}
 	;
 
 exclamations:
