@@ -3268,10 +3268,10 @@ step_number:
 	;
 
 tempo_range:
-	UNSIGNED {
+	unsigned_number {
 		$$ = $1;
-	}
-	| UNSIGNED '-' UNSIGNED {
+	} %prec ':'
+	| unsigned_number '-' unsigned_number {
 		$$ = scm_cons ($1, $3);
 	}
 	;
