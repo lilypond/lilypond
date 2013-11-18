@@ -26,6 +26,7 @@
   \name Staff
   \accepts Voice
   \accepts CueVoice
+  \accepts NullVoice
   \defaultchild Voice
 
   \consists "Staff_performer"
@@ -179,6 +180,20 @@
 \context {
   \type "Performer_group"
   \name "Devnull"
+}
+
+\context {
+  \type "Performer_Group"
+  \name NullVoice
+  \alias Staff
+  \alias Voice
+  %% needed for melismata
+  %% TODO: at least the tie performer likely does not work without the
+  %% Note_performer, but I don't know how to shut note output off in
+  %% MIDI.
+  \consists "Tie_performer"
+  \consists "Beam_performer"
+  \consists "Slur_performer"
 }
 
 \context {
