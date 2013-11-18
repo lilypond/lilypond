@@ -169,7 +169,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
     }
   while (hi - lo > 1);
 
-  Stencil stil (fm->find_by_name ("brace" + to_string (lo)));
+  Stencil stil (fm->find_by_name ("brace" + ::to_string (lo)));
   stil.translate_axis (-b[X_AXIS].length () / 2, X_AXIS);
 
   stil.translate_axis (-0.2, X_AXIS);

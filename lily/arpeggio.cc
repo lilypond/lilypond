@@ -163,7 +163,7 @@ Arpeggio::print (SCM smob)
   if (dir)
     {
       Font_metric *fm = Font_interface::get_default_font (me);
-      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + to_string (dir));
+      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + ::to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
 

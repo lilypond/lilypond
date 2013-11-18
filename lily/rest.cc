@@ -217,7 +217,7 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
       actual_style = "";
     }
 
-  return ("rests." + to_string (durlog) + (is_ledgered ? "o" : "")
+  return ("rests." + ::to_string (durlog) + (is_ledgered ? "o" : "")
           + actual_style);
 }
 

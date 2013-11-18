@@ -56,7 +56,7 @@ Performance::output (Midi_stream &midi_stream) const
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
-      debug_output ("[" + to_string (i), true);
+      debug_output ("[" + ::to_string (i), true);
       s->output (midi_stream, i, ports_);
       debug_output ("]", false);
     }
