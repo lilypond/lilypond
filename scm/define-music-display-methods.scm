@@ -526,8 +526,17 @@ Otherwise, return #f."
                  (map-in-order (lambda (event)
                                  (music->lily-string event parser))
                                (ly:music-property note 'articulations))))
-        (else ;; unknown?
-         "")))
+        (else
+         ;; pure duration
+         ;; FIXME: { c4 c4 4 4 } must not be output as { c4 c 4 4 }
+         ;; quite tricky to do.  Do it when outputting sequences?
+         (format #f "~a~{~a~}"
+                 (duration->lily-string (ly:music-property note 'duration)
+                                        #:force-duration #t
+                                        #:remember #t)
+                 (map-in-order (lambda (event)
+                                 (music->lily-string event parser))
+                               (ly:music-property note 'articulations))))))
 
 (define-display-method ClusterNoteEvent (note parser)
   (simple-note->lily-string note parser))

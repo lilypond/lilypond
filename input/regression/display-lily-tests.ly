@@ -183,6 +183,9 @@ stderr of this run."
 \test ##[ \tuplet 3/2 { c4 d e \tuplet 5/2 { f4 e d2 d4 } c4 } #]
 \test ##[ \tuplet 3/2 2 { c4 d e \tuplet 5/2 2 { f4 e d2 d4 } c4 } #]
 
+%% pure rhythm
+\test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
+
 %% \relative and \tranpose
 \test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic
 \test #"NOT A BUG" ##[ \transpose c d { c d } #]	% TransposedMusic

@@ -1081,6 +1081,18 @@ music_embedded:
 	{
 		$$ = $3;
 	}
+	| multiplied_duration post_events
+	{
+		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
+
+		parser->default_duration_ = *unsmob_duration ($1);
+		n->set_property ("duration", $1);
+
+		if (scm_is_pair ($2))
+			n->set_property ("articulations",
+					 scm_reverse_x ($2, SCM_EOL));
+		$$ = n->unprotect ();
+	}
 	;
 
 music_embedded_backup:

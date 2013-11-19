@@ -728,7 +728,8 @@ duration is replaced with the specified @var{duration}."
         (set! (ly:music-property repeat-chord 'articulations)
               (append!
                (set-origin! (ly:music-deep-copy arts))
-               (ly:music-property repeat-chord 'articulations))))))
+               (ly:music-property repeat-chord 'articulations)))))
+  repeat-chord)
 
 
 (define-public (expand-repeat-chords! event-types music)
@@ -747,8 +748,7 @@ respective predecessor chord."
                 last-chord))
            (last-chord
             (set! (ly:music-property music 'duration) '())
-            (copy-repeat-chord last-chord music chord-repeat event-types)
-            music)
+            (copy-repeat-chord last-chord music chord-repeat event-types))
            (else
             (ly:music-warning music (_ "Bad chord repetition"))
             #f)))
@@ -756,6 +756,73 @@ respective predecessor chord."
           (fold loop (if (ly:music? elt) (loop elt last-chord) last-chord)
                 (ly:music-property music 'elements)))))
   music)
+
+;;; This does _not_ copy any articulations.  Rationale: one main
+;;; incentive for pitch-repeating durations is after ties, such that
+;;; 4~2~8. can stand in for a 15/16 note in \partial 4 position.  In
+;;; this use case, any repeated articulations will be a nuisance.
+;;;
+;;; String assignments in TabStaff might seem like a worthwhile
+;;; exception, but they would be better tackled by the respective
+;;; engravers themselves (see issue 3662).
+;;;
+;;; Repeating chords as well seems problematic for things like
+;;; \score {
+;;;   <<
+;;;     \new Staff { c4 c c <c e> }
+;;;     \new RhythmicStaff { 4 4 4 4 }
+;;;   >>
+;;; }
+;;;
+;;; However, because of MIDI it is not advisable to use RhythmicStaff
+;;; without any initial pitch/drum-type.  For music functions taking
+;;; pure rhythms as an argument, the running of expand-repeat-notes!
+;;; at scorification time is irrelevant: at that point of time, the
+;;; music function has already run.
+
+(define-public (expand-repeat-notes! music)
+  "Walks through @var{music} and gives pitchless notes (not having a
+pitch in code{pitch} or a drum type in @code{drum-type}) the pitch(es)
+from the predecessor note/chord if available."
+  (let ((last-pitch #f))
+    (map-some-music
+     (lambda (m)
+       (define (set-and-ret last)
+         (set! last-pitch last)
+         m)
+       (cond
+        ((music-is-of-type? m 'event-chord)
+         (set-and-ret m))
+        ((music-is-of-type? m 'note-event)
+         (cond
+          ((or (ly:music-property m 'pitch #f)
+               (ly:music-property m 'drum-type #f))
+           => set-and-ret)
+          ;; ok, naked rhythm.  Go through the various cases of
+          ;; last-pitch
+          ;; nothing available: just keep as-is
+          ((not last-pitch) m)
+          ((ly:pitch? last-pitch)
+           (set! (ly:music-property m 'pitch) last-pitch)
+           m)
+          ((symbol? last-pitch)
+           (set! (ly:music-property m 'drum-type) last-pitch)
+           m)
+          ;; Ok, this is the big bad one: the reference is a chord.
+          ;; For now, we use the repeat chord logic.  That's not
+          ;; really efficient as cleaning out all articulations is
+          ;; quite simpler than what copy-repeat-chord does.
+          (else
+           (copy-repeat-chord last-pitch
+                              (make-music 'EventChord
+                                          'elements
+                                          (ly:music-property m 'articulations)
+                                          'origin
+                                          (ly:music-property m 'origin))
+                              (ly:music-property m 'duration)
+                              '(rhythmic-event)))))
+        (else #f)))
+     music)))
 
 ;;; splitting chords into voices.
 (define (voicify-list lst number)
@@ -1261,6 +1328,7 @@ then revert skipTypesetting."
                            (cons 'rhythmic-event
                                  (ly:parser-lookup parser '$chord-repeat-events))
                            music))
+   (lambda (music parser) (expand-repeat-notes! music))
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map music-check-error x))
    (lambda (x parser) (music-map precompute-music-length x))
