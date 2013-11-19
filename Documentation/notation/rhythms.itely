@@ -1141,37 +1141,6 @@ for the time signature that go beyond ending at every beat, as
 described in @ref{Setting automatic beam behavior}.
 @end enumerate
 
-The context containing @code{\overrideTimeSignatureSettings} must
-be instantiated before the @code{\overrideTimeSignatureSettings}
-call is executed.  That means it must either be explicitly
-instantiated or there must be music in the context before the
-@code{\overrideTimeSignatureSettings} call:
-
-@lilypond[quote,verbatim]
-\score {
-  \relative c' {
-    % This call will fail because the context isn't yet instantiated
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (2 2)"}
-    \repeat unfold 7 { c8 } |
-    % This call will succeed
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (3 1)"}
-    \repeat unfold 7 { c8 } |
-  }
-}
-@end lilypond
-
 
 @cindex time signature properties, restoring default values
 @cindex restoring default properties for time signatures
