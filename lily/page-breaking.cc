@@ -1436,7 +1436,9 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
       line_penalty += uncompressed_line_details_[i].break_penalty_;
     }
 
-  for (vsize i = 0; i < res.force_.size (); i++)
+  for (vsize i = ragged () ? res.force_.size () - 1 : 0;
+       i < res.force_.size () - ragged_last ();
+       i++)
     {
       Real f = res.force_[i];
 
