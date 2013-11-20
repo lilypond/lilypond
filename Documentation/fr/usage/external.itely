@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
+    Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -186,7 +186,7 @@ Categories=Editor
 NoDisplay=true
 @end example
 
-pour exécuter les commandes
+puis exécuter les commandes
 @example
 xdg-desktop-menu install ./lilypond-invoke-editor.desktop
 xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit

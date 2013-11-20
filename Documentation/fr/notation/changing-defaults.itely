@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2582,20 +2582,69 @@ pour la première rencontrée dans le fichier source.
 @subsection @code{\set} ou @code{\override}
 @translationof set versus override
 
-@c TODO -- This section is probably unnecessary now.
+@c TODO -- Should't a bunch of that be explained earlier?
 
-@ignore
-Si les propriétés peuvent être modifiées de deux façons, par les
-commandes @code{\set} et @code{\override}, c'est qu'il y a deux types de
-propriétés.
+@funindex \set
+@funindex \override
 
-La propriété @code{fontSize} est une exception : c'est un raccourci, qui
-équivaudrait à saisir @w{@code{\override @dots{} #'font-size}} pour tous
-les objets textuels.  Dans la mesure où il s'agit d'une manipulation
-très courante, une propriété spéciale a été créée.  Elle doit être
-modifiée avec la commande @code{\set}.
+Les instructions @code{\set} et @code{\override} manipulent toutes deux
+des propriétés associées à des contextes.  Dans tous les cas, ces
+propriétés tiennent compte de la hiérarchie des contextes : les
+propriétés qui n'ont pas été définies dans le contexte lui-même
+héritent des valeurs de leur contexte parent respectif.
 
-@end ignore
+Les valeurs et durée de vie des propriétés d'un contexte sont dynamiques
+et ne sont accessibles qu'au moment où la musique est interprétée.  Lors
+de la création d'un contexte, ses propriétés sont initialisées à partir
+de la définition du contexte correspondant et de ses éventuelles
+adaptations.  Toute modification ultérieure ne sera obtenue que par des
+commandes d'adaptation des propriétés, libellées au sein même de la
+musique.
+
+Les définitions d'un objet graphique (@emph{graphical object} abrégé en
+@emph{grob}) constituent une catégorie spécifique de propriétés de
+contexte.  Dans la mesure où leur structure, enregistrement et
+utilisation diffèrent des propriétés de contextes habituelles, on ne
+peut y accéder qu'à l'aide d'un jeu de commandes différent et font
+l'objet d'un traitement à part au sein de la documentation.
+
+Contrairement aux propriétés de contextes habituelles, les définitions
+de @emph{grob} sont subdivisées en propriétés de @emph{grob}.  Un
+@emph{grob} est créé par un graveur lors de l'interprétation d'une
+expression musicale et reçoit ses propriétés initiales à partir de la
+définition de @emph{grob} en cours dans le contexte du graveur.  Le
+graveur (ou tout autre « agent » de LilyPond) peut alors ajouter ou
+modifier des propriétés à cet objet, sans pour autant affecter la
+définition du @emph{grob} dans ce contexte.
+
+Ce que nous appelons « propriétés de @emph{grob} » dans le cadre
+de l'affinage par l'utilisateur sont en fait les propriétés de la
+définition d'un objet dans un contexte.  Contrairement aux propriétés
+de contexte habituelles, les définitions d'un @emph{grob} doivent être
+enregistrées pour pouvoir garder trace de ses composants, les propriétés
+individuelles du @emph{grob} (ainsi que leurs sous-propriétés),
+séparément.  Il sera dès lors possible de définir ces composants dans
+différents contextes et ainsi disposer d'une définition globale du
+@emph{grob} à l'instant où la création de cet objet assemblera les
+éléments relatifs aux différents contextes attachés au contexte en cours
+et à ses parents.
+
+Les définitions de @emph{grob} se manipulent à l'aide des commandes
+@code{\override} et @code{\revert}, et leur nom commence par une
+capitale (comme @samp{NoteHead}) alors que les propriétés de contexte
+ordinaires -- elles commencent par une minuscule -- se manipulent avec
+@code{\set} et @code{\unset}.
+
+@cindex tweak, relation avec @code{\override}
+@funindex \tweak
+@funindex \overrideProperty
+
+Les instructions spéciales @code{\tweak} et @code{\overrideProperty}
+modifient les propriétés de @emph{grob} en court-circuitant totalement
+les propriétés de contexte.  En fait, elles capturent les @emph{grobs}
+au moment de leur création pour y injecter directement des propriétés soit
+émanant d'un événement musical retouché, soit lorsqu'ils sont d'une
+qualité particulière.
 
 
 @node Modification de listes associatives
