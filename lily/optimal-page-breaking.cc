@@ -51,7 +51,7 @@ Optimal_page_breaking::solve ()
   vsize page_count = robust_scm2int (forced_page_count, 1);
   Line_division ideal_line_division = current_configuration (0);
   Line_division best_division = ideal_line_division;
-  int min_sys_count = 1;
+  vsize min_sys_count = 1;
 
   // Note that system_count () only counts non-title systems.
   vsize ideal_sys_count = system_count ();
@@ -75,7 +75,7 @@ Optimal_page_breaking::solve ()
           if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
             min_sys_count -= best.systems_per_page_[page_count - 2];
 
-          min_sys_count = max (min_sys_count, 1);
+          min_sys_count = max (min_sys_count, (vsize)1);
         }
     }
   else
@@ -117,7 +117,7 @@ Optimal_page_breaking::solve ()
 
   /* try a smaller number of systems than the ideal number for line breaking */
   Line_division bound = ideal_line_division;
-  for (vsize sys_count = ideal_sys_count + 1; --sys_count >= (vsize) min_sys_count;)
+  for (vsize sys_count = ideal_sys_count + 1; --sys_count >= min_sys_count;)
     {
       Page_spacing_result best_for_this_sys_count;
       set_current_breakpoints (0, end, sys_count, Line_division (), bound);
