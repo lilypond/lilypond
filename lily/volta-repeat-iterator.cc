@@ -53,6 +53,7 @@ void
 Volta_repeat_iterator::derived_mark () const
 {
   scm_gc_mark (alt_restores_);
+  Sequential_iterator::derived_mark ();
 }
 
 SCM
