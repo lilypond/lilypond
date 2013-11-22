@@ -1947,38 +1947,80 @@ yourself."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
 
-(defmacro-public make-relative (pitches last-pitch music)
-  "The list of pitch-carrying variables in @var{pitches} is used as a
-sequence for creating relativable music from @var{music}.
-The variables in @var{pitches} are, when considered inside of
-@code{\\relative}, all considered to be specifications to the preceding
-variable.  The first variable is relative to the preceding musical
-context, and @var{last-pitch} specifies the pitch passed as relative
-base onto the following musical context."
+(defmacro-public make-relative (variables reference music)
+  "The list of pitch or music variables in @var{variables} is used as
+a sequence for creating relativable music from @var{music}.
+
+When the constructed music is used outside of @code{\\relative}, it
+just reflects plugging in the @var{variables} into @var{music}.
+
+The action inside of @code{\\relative}, however, is determined by
+first relativizing the surrogate @var{reference} with the variables
+plugged in and then using the variables relativized as a side effect
+of relativizing @var{reference} for evaluating @var{music}.
+
+Since pitches don't have the object identity required for tracing the
+effect of the reference call, they are replaced @emph{only} for the
+purpose of evaluating @var{reference} with simple pitched note events.
+
+The surrogate @var{reference} expression has to be written with that
+in mind.  In addition, it must @emph{not} contain @emph{copies} of
+music that is supposed to be relativized but rather the
+@emph{originals}.  This @emph{includes} the pitch expressions.  As a
+rule, inside of @code{#@{@dots{}#@}} variables must @emph{only} be
+introduced using @code{#}, never via the copying construct @code{$}.
+The reference expression will usually just be a sequential or chord
+expression naming all variables in sequence, implying that following
+music will be relativized according to the resulting pitch of the last
+or first variable, respectively.
+
+Since the usual purpose is to create more complex music from general
+arguments and since music expression parts must not occur more than
+once, one @emph{does} generally need to use copying operators in the
+@emph{replacement} expression @var{music} when using an argument more
+than once there.  Using an argument more than once in @var{reference},
+in contrast, does not make sense.
+
+There is another fine point to mind: @var{music} must @emph{only}
+contain freshly constructed elements or copied constructs.  This will
+be the case anyway for regular LilyPond code inside of
+@code{#@{@dots{}#@}}, but any other elements (apart from the
+@var{variables} themselves which are already copied) must be created
+or copied as well.
+
+The reason is that it is usually permitted to change music in-place as
+long as one does a @var{ly:music-deep-copy} on it, and such a copy of
+the whole resulting expression will @emph{not} be able to copy
+variables/values inside of closures where the information for
+relativization is being stored.
+"
 
   ;; pitch and music generator might be stored instead in music
   ;; properties, and it might make sense to create a music type of its
   ;; own for this kind of construct rather than using
   ;; RelativeOctaveMusic
-  (define ((make-relative::to-relative-callback pitches p->m p->p) music pitch)
-    (let* ((chord (make-event-chord
-                   (map
-                    (lambda (p)
-                      (make-music 'NoteEvent
-                                  'pitch p))
-                    pitches)))
-           (pitchout (begin
-                       (ly:make-music-relative! chord pitch)
-                       (event-chord-pitches chord))))
-      (set! (ly:music-property music 'element)
-            (apply p->m pitchout))
-      (apply p->p pitchout)))
+  (define ((make-relative::to-relative-callback variables music-call ref-call)
+           music pitch)
+    (let* ((ref-vars (map (lambda (v)
+                            (if (ly:pitch? v)
+                                (make-music 'NoteEvent 'pitch v)
+                                (ly:music-deep-copy v)))
+                          variables))
+           (after-pitch (ly:make-music-relative! (apply ref-call ref-vars) pitch))
+           (actual-vars (map (lambda (v r)
+                               (if (ly:pitch? v)
+                                   (ly:music-property r 'pitch)
+                                   r))
+                             variables ref-vars))
+           (rel-music (apply music-call actual-vars)))
+      (set! (ly:music-property music 'element) rel-music)
+      after-pitch))
   `(make-music 'RelativeOctaveMusic
                'to-relative-callback
                (,make-relative::to-relative-callback
-                (list ,@pitches)
-                (lambda ,pitches ,music)
-                (lambda ,pitches ,last-pitch))
+                (list ,@variables)
+                (lambda ,variables ,music)
+                (lambda ,variables ,reference))
                'element ,music))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
