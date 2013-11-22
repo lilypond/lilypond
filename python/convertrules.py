@@ -3683,6 +3683,17 @@ def conv(str):
     str = re.sub ("New_dynamic_engraver", "Dynamic_engraver", str)
     return str
 
+@rule ((2, 19, 0), r'''(make-relative (a b) b ...) -> make-relative (a b) #{ a b #}...''')
+def conv (str):
+    str = re.sub (r"(\(make-relative\s+\(\s*(([A-Za-z][-_A-Za-z0-9]*)" +
+                  r"(?:\s+[A-Za-z][-_A-Za-z0-9]*)*)\s*\)\s*)\3(?=\s)",
+                  r"\1(make-event-chord (list \2))", str)
+    str = re.sub (r"(\(make-relative\s+\(\s*([A-Za-z][-_A-Za-z0-9]*" +
+                  r"(?:\s+([A-Za-z][-_A-Za-z0-9]*))+)\s*\)\s*)\3(?=\s)",
+                  r"\1(make-sequential-music (list \2))", str)
+    return str
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
