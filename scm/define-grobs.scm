@@ -2502,13 +2502,13 @@
         (direction . ,RIGHT)
         (font-size . -4)
         (horizon-padding . 0.1) ; to avoid interleaving with augmentation dots
+        ;; minimum shift to the right, in case the parent note has no stem
+        (minimum-space . 2.5)
         (padding . 0.3)
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
         (stencils . ,parentheses-item::calc-parenthesis-stencils)
-        ;; offset a bit to the right, further if needed to clear the main note
-        (X-offset . ,(lambda (grob)
-                       (ly:side-position-interface::x-aligned-side grob 2.5)))
+        (X-offset . ,ly:side-position-interface::x-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (axis-group-interface
