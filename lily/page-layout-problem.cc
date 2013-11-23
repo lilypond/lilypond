@@ -728,12 +728,12 @@ Page_layout_problem::solve_rod_spring_problem (bool ragged, Real fixed_force)
       Real overflow = spacer.configuration_length (spacer.force ())
                       - page_height_;
       if (ragged && overflow < 1e-6)
-        warning (_ ("cannot fit music on page: ragged-spacing was requested, but page was compressed"));
+        warning (_ ("ragged-bottom was specified, but page must be compressed"));
       else
         {
-          warning (_f ("cannot fit music on page: overflow is %f",
+          warning (_f ("compressing over-full page by %.1f staff-spaces",
                        overflow));
-          warning (_ ("compressing music to fit"));
+          force_ = -infinity_f;
           vsize space_count = solution_.size ();
           Real spacing_increment = overflow / (space_count - 2);
           for (vsize i = 2; i < space_count; i++)
