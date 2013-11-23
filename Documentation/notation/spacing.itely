@@ -394,18 +394,16 @@ default value is scaled accordingly.
 @item ragged-bottom
 @funindex ragged-bottom
 
-If set to true, systems will not spread vertically down the page.
-This does not affect the last page.  This should be set to true
-for pieces that have only two or three systems per page, for
-example orchestral scores.
+If this is set to true,
+systems will be set at their natural spacing, neither compressed
+nor stretched vertically to fit the page.
 
 @item ragged-last-bottom
 @funindex ragged-last-bottom
 
-If set to false, systems will spread vertically down the last
-page.  Pieces that amply fill two pages or more should have this
-set to false.  It also affects the last page of book parts, i.e.
-parts of a book created with @code{\bookpart} blocks.
+If this is set to false, then the last page,
+and the last page in each section created with a @code{\bookpart} block,
+will be vertically justified in the same way as the earlier pages.
 
 @end table
 
@@ -1521,10 +1519,12 @@ The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
 
 There are also analogous settings to @code{ragged-right} and
-@code{ragged-last} which have the same effect on vertical spacing:
-@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
-@code{#t} the systems on all pages or just the last page
-respectively will not be justified vertically.  See
+@code{ragged-last} which have the same effect on vertical spacing.
+If @code{ragged-bottom} is set to @code{#t} the systems will not
+be justified vertically.  When @code{ragged-last-bottom} is set
+to @code{#t}, as it is by default, empty space is allowed at the
+bottom of the final page (or the final page in each
+@code{\bookpart}).  See
 @ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}.
 
 Page breaks are computed by the @code{page-breaking} function.  LilyPond

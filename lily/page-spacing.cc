@@ -329,7 +329,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
       space.prepend_system (lines_[page_start]);
 
       bool overfull = (space.rod_height_ > paper_height
-                       || (ragged
+                       || (ragged_
                            && (space.rod_height_ + space.spring_len_ > paper_height)));
       // This 'if' statement is a little hard to parse. It won't consider this configuration
       // if it is overfull unless the current configuration is the first one with this start
