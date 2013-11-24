@@ -82,7 +82,7 @@ public:
 class Audio_note : public Audio_item
 {
 public:
-  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition);
+  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition, int velocity);
 
   // with tieWaitForNote, there might be a skip between the tied notes!
   void tie_to (Audio_note *, Moment skip = 0);
@@ -93,6 +93,7 @@ public:
   Moment length_mom_;
   Pitch transposing_;
   Audio_dynamic *dynamic_;
+  int extra_velocity_;
 
   Audio_note *tied_;
   bool tie_event_;

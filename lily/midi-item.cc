@@ -193,8 +193,10 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    dynamic_byte_ (a->dynamic_ && a->dynamic_->volume_ >= 0
-                   ? Byte (a->dynamic_->volume_ * 0x7f) : Byte (0x5a))
+    dynamic_byte_ (min (max (Byte ((a->dynamic_ && a->dynamic_->volume_ >= 0
+                                    ? a->dynamic_->volume_ * 0x7f : 0x5a)
+                                   + a->extra_velocity_),
+                             Byte (0)), Byte (0x7f)))
 {
 }
 

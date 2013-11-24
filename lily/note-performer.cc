@@ -36,6 +36,7 @@ protected:
   void process_music ();
 
   DECLARE_TRANSLATOR_LISTENER (note);
+  DECLARE_TRANSLATOR_LISTENER (breathing);
 private:
   vector<Stream_event *> note_evs_;
   vector<Audio_note *> notes_;
@@ -65,9 +66,9 @@ Note_performer::process_music ()
         {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;
-          for (SCM s = articulations;
-               !tie_event && scm_is_pair (s);
-               s = scm_cdr (s))
+          Moment len = get_event_length (n, now_mom ());
+          int velocity = 0;
+          for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
               Stream_event *ev = unsmob_stream_event (scm_car (s));
               if (!ev)
@@ -75,12 +76,16 @@ Note_performer::process_music ()
 
               if (ev->in_event_class ("tie-event"))
                 tie_event = ev;
+              SCM f = ev->get_property ("midi-length");
+              if (ly_is_procedure (f))
+                len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
+                                                     context ()->self_scm ()),
+                                         len);
+              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
             }
 
-          Moment len = get_event_length (n, now_mom ());
-
           Audio_note *p = new Audio_note (*pitp, len,
-                                          tie_event, transposing);
+                                          tie_event, transposing, velocity);
           Audio_element_info info (p, n);
           announce_element (info);
           notes_.push_back (p);
@@ -126,6 +131,26 @@ void
 Note_performer::listen_note (Stream_event *ev)
 {
   note_evs_.push_back (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Note_performer, breathing)
+void
+Note_performer::listen_breathing (Stream_event *ev)
+{
+  //Shorten previous note if needed
+  SCM f = ev->get_property ("midi-length");
+  if (ly_is_procedure (f))
+    for (vsize i = 0; i < last_notes_.size (); i++)
+      {
+        Audio_note *tie_head = last_notes_[i]->tie_head ();
+        //Give midi-length the available time since the note started,
+        //including rests. It returns how much is left for the note.
+        Moment available = now_mom () - tie_head->audio_column_->when ();
+        Moment len = robust_scm2moment (scm_call_2 (f, available.smobbed_copy (),
+                                                    context ()->self_scm ()), available);
+        if (len < tie_head->length_mom_)
+          tie_head->length_mom_ = len;
+      }
 }
 
 ADD_TRANSLATOR (Note_performer,

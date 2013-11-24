@@ -80,6 +80,11 @@
   (cons (ly:moment-main-numerator moment)
         (ly:moment-main-denominator moment)))
 
+(define-public (seconds->moment s context)
+  "Return a moment equivalent to s seconds at the current tempo."
+  (ly:moment-mul (ly:context-property context 'tempoWholesPerMinute)
+                 (ly:make-moment (/ s 60))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; durations
 
