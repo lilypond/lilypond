@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: e038863ba7228eb3e28b9f1a49e68ec9f4d260b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -249,14 +249,18 @@ Fichiers d'initialisation :
 LilyPond génère par défaut, et en l'absence de mention explicite d'un
 format de papier particulier, un fichier imprimable au format A4.
 Vous pouvez cependant utiliser un autre format à l'aide des deux
-fonctions @code{set-default-paper-size} et @code{set-paper-size}
-qui, elle, se place à l'intérieur d'un bloc @code{\paper} :
+fonctions :
+
+@table @code
+@item set-default-paper-size
 
 @example
 #(set-default-paper-size "quarto")
 @end example
 
-qui se place en début de fichier, ou @code{set-paper-size},
+qui se place en début de fichier, et
+
+@item set-paper-size
 
 @example
 \paper @{
@@ -265,8 +269,8 @@ qui se place en début de fichier, ou @code{set-paper-size},
 @end example
 
 qui s'inscrit au sein d'un bloc @code{\paper}.
+@end table
 
-@noindent
 La seule restriction à l'utilisation isolée de la fonction
 @code{set-default-paper-size} est qu'elle doit intervenir avant le
 premier bloc @code{\paper}.  @code{set-default-paper-size} fixe le

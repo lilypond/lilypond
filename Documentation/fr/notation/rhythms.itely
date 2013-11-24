@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: e038863ba7228eb3e28b9f1a49e68ec9f4d260b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1178,37 +1178,6 @@ ligature pour cette métrique, en dehors de celles basées sur le temps
 comme indiqué à la rubrique
 @ref{Définition des règles de ligature automatique}.
 @end enumerate
-
-Le contexte auquel doivent s'appliquer les dérogations introduites par
-un @code{\overrideTimeSignatureSettings} doit exister avant l'appel de
-ces réglages.  Autrement dit, vous devrez, s'il n'y a pas déjà d'élément
-musical, explicitement mentionner le contexte avant que ne
-survienne l'appel à @code{\overrideTimeSignatureSettings}.
-
-@lilypond[quote,verbatim]
-\score {
-  \relative c' {
-    % This call will fail because the context isn't yet instantiated
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (2 2)"}
-    \repeat unfold 7 { c8 } |
-    % This call will succeed
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (3 1)"}
-    \repeat unfold 7 { c8 } |
-  }
-}
-@end lilypond
 
 @cindex métrique, retour au propriétés par défaut
 @cindex retour au propriétés par défaut de la métrique
