@@ -637,9 +637,10 @@ in @var{grob}."
   (make-music 'PropertyUnset
               'symbol sym))
 
-(define-safe-public (make-articulation name)
-  (make-music 'ArticulationEvent
-              'articulation-type name))
+(define-safe-public (make-articulation name . properties)
+  (apply make-music 'ArticulationEvent
+         'articulation-type name
+         properties))
 
 (define-public (make-lyric-event string duration)
   (make-music 'LyricEvent

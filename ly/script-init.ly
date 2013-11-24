@@ -2,15 +2,6 @@
 
 \version "2.17.25"
 
-% code char abbreviations
-dashHat = "marcato"
-dashPlus = "stopped"
-dashDash = "tenuto"
-dashBang = "staccatissimo"
-dashLarger = "accent"
-dashDot = "staccato"
-dashUnderscore = "portato"
-
 harmonic = #(make-music 'HarmonicEvent)
 
 accent = #(make-articulation "accent")
@@ -55,3 +46,12 @@ upmordent = #(make-articulation "upmordent")
 upprall = #(make-articulation "upprall")
 varcoda = #(make-articulation "varcoda")
 verylongfermata = #(make-articulation "verylongfermata")
+
+% code char abbreviations
+dashHat = \marcato
+dashPlus = \stopped
+dashDash = \tenuto
+dashBang = \staccatissimo
+dashLarger = \accent
+dashDot = \staccato
+dashUnderscore = \portato

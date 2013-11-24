@@ -2814,11 +2814,18 @@ direction_reqd_event:
 	}
 	| script_abbreviation {
 		SCM s = parser->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
-		Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
-		if (scm_is_string (s))
+		if (scm_is_string (s)) {
+			Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
 			a->set_property ("articulation-type", s);
-		else parser->parser_error (@1, _ ("expecting string as script definition"));
-		$$ = a->unprotect ();
+			$$ = a->unprotect ();
+		} else if (ly_prob_type_p (s, ly_symbol2scm ("ArticulationEvent"))) {
+			$$ = s;
+			if (Music *original = unsmob_music (s)) {
+				Music *a = original->clone ();
+				a->set_spot (parser->lexer_->override_input (@$));
+				$$ = a->unprotect ();
+			}
+		} else parser->parser_error (@1, _ ("expecting string or ArticulationEvent as script definition"));
 	}
 	;
 
