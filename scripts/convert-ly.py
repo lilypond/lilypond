@@ -292,17 +292,18 @@ def do_one_file (infile_name):
             # Note that last_change can be set even if the result is
             # the same if two conversion rules cancelled out
             if result == input:
-                # check the y in x.y.z  (minor version number)
-                previous_stable = (last[0], 2*(last[1]/2), 0)
-                if ((last[0:2] != from_version[0:2]) and
-                    (previous_stable > from_version)):
-                    # previous stable version
-                    last = previous_stable
-                else:
-                    # make no (actual) change to the version number
-                    last = from_version
+                # make no (actual) change to the version number
+                last = from_version
             else:
                 last = last_change
+                # If the last update was to an unstable version
+                # number, and the final update target is no longer in
+                # the same unstable series, we update to the stable
+                # series following the unstable version.
+                if last[1]%2: # unstable
+                    next_stable = (last[0], last[1]+1, 0)
+                    if next_stable <= to_version:
+                        last = next_stable
 
         newversion = r'\version "%s"' % tup_to_str (last)
         if lilypond_version_re.search (result):
