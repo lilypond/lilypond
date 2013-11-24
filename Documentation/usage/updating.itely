@@ -151,8 +151,11 @@ The following options can be given:
 @item -d, --diff-version-update
 increase the @code{\version} string only if the file has actually
 been changed.  In that case, the version header will correspond to
-the version after the last actual change.  Without that option,
-the version will reflect the last @emph{attempted} conversion.
+the version after the last actual change.  An unstable version
+number will be rounded up to the next stable version number unless
+that would exceed the target version number.  Without this option,
+the version will instead reflect the last @emph{attempted}
+conversion.
 
 @item -e, --edit
 Apply the conversions direct to the input file, modifying it
