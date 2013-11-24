@@ -75,7 +75,9 @@ Optimal_page_breaking::solve ()
           if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
             min_sys_count -= best.systems_per_page_[page_count - 2];
 
-          min_sys_count = max (min_sys_count, (vsize)1);
+          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
+              || min_sys_count <= 0)
+            min_sys_count = 1;
         }
     }
   else
