@@ -155,10 +155,12 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
 #define MYBACKUP(Token, Value, Location)				\
 	do {								\
 		if (yychar != YYEMPTY)					\
-			parser->lexer_->push_extra_token (yychar, yylval); \
+			parser->lexer_->push_extra_token		\
+				(yylloc, yychar, yylval);		\
 		if (Token)						\
-			parser->lexer_->push_extra_token (Token, Value); \
-		parser->lexer_->push_extra_token (BACKUP);		\
+			parser->lexer_->push_extra_token		\
+				(Location, Token, Value);		\
+		parser->lexer_->push_extra_token (Location, BACKUP);	\
 		yychar = YYEMPTY;					\
 	} while (0)
 
@@ -166,9 +168,12 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
 #define MYREPARSE(Location, Pred, Token, Value)				\
 	do {								\
 		if (yychar != YYEMPTY)					\
-			parser->lexer_->push_extra_token (yychar, yylval); \
-		parser->lexer_->push_extra_token (Token, Value);	\
-		parser->lexer_->push_extra_token (REPARSE, Pred);	\
+			parser->lexer_->push_extra_token		\
+				(yylloc, yychar, yylval);		\
+		parser->lexer_->push_extra_token			\
+			(Location, Token, Value);			\
+		parser->lexer_->push_extra_token			\
+			(Location, REPARSE, Pred);			\
 		yychar = YYEMPTY;					\
 	} while (0)
 
@@ -1716,7 +1721,7 @@ function_arglist_backup:
 			else {
 				$$ = scm_cons (loc_on_music (@3, $1), $3);
 				MYBACKUP (UNSIGNED, $5, @5);
-				parser->lexer_->push_extra_token ('-');
+				parser->lexer_->push_extra_token (@4, '-');
 			}
 		}
 		
@@ -2515,10 +2520,10 @@ simple_revert_context:
 		    (scm_object_property (scm_car ($1),
 					  ly_symbol2scm ("is-grob?")))) {
 			$$ = ly_symbol2scm ("Bottom");
-			parser->lexer_->push_extra_token (SCM_IDENTIFIER, $1);
+			parser->lexer_->push_extra_token (@1, SCM_IDENTIFIER, $1);
 		} else {
 			$$ = scm_car ($1);
-			parser->lexer_->push_extra_token (SCM_IDENTIFIER,
+			parser->lexer_->push_extra_token (@1, SCM_IDENTIFIER,
 							  scm_cdr ($1));
 		}
 	}

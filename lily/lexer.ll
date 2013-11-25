@@ -686,17 +686,17 @@ BOM_UTF8	\357\273\277
 		// value (for token type MARKUP_FUNCTION or
 		// MARKUP_LIST_FUNCTION).
 
-		push_extra_token(EXPECT_NO_MORE_ARGS);
+		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
 		s = scm_cdr(s);
 		for (; scm_is_pair(s); s = scm_cdr(s)) {
 		  SCM predicate = scm_car(s);
 
 		  if (predicate == ly_lily_module_constant ("markup-list?"))
-		    push_extra_token(EXPECT_MARKUP_LIST);
+		    push_extra_token (here_input (), EXPECT_MARKUP_LIST);
 		  else if (predicate == ly_lily_module_constant ("markup?"))
-		    push_extra_token(EXPECT_MARKUP);
+		    push_extra_token (here_input (), EXPECT_MARKUP);
 		  else
-		    push_extra_token(EXPECT_SCM, predicate);
+		    push_extra_token (here_input (), EXPECT_SCM, predicate);
 		}
 		return token_type;
 	}
@@ -815,9 +815,11 @@ BOM_UTF8	\357\273\277
 /* Make the lexer generate a token of the given type as the next token. 
  TODO: make it possible to define a value for the token as well */
 void
-Lily_lexer::push_extra_token (int token_type, SCM scm)
+Lily_lexer::push_extra_token (Input const &where, int token_type, SCM scm)
 {
-	extra_tokens_ = scm_acons (scm_from_int (token_type), scm, extra_tokens_);
+	extra_tokens_ = scm_cons (scm_cons2 (make_input (where),
+					     scm_from_int (token_type),
+					     scm), extra_tokens_);
 }
 
 int
@@ -827,8 +829,9 @@ Lily_lexer::pop_extra_token ()
 		return -1;
 
   /* produce requested token */
-	int type = scm_to_int (scm_caar (extra_tokens_));
-	yylval = scm_cdar (extra_tokens_);
+	yylloc = *unsmob_input (scm_caar (extra_tokens_));
+	int type = scm_to_int (scm_cadar (extra_tokens_));
+	yylval = scm_cddar (extra_tokens_);
 	extra_tokens_ = scm_cdr (extra_tokens_);
 	return type;
 }
@@ -974,7 +977,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 			funtype = SCM_FUNCTION;
 		else programming_error ("Bad syntax function predicate");
 
-		push_extra_token (EXPECT_NO_MORE_ARGS);
+		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
 		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
 			SCM optional = SCM_UNDEFINED;
@@ -987,14 +990,14 @@ Lily_lexer::scan_scm_id (SCM sid)
 			}
 			
 			if (ly_is_procedure (cs))
-				push_extra_token (EXPECT_SCM, cs);
+				push_extra_token (here_input (), EXPECT_SCM, cs);
 			else
 			{
 				programming_error ("Function parameter without type-checking predicate");
 				continue;
 			}
 			if (!scm_is_eq (optional, SCM_UNDEFINED))
-				push_extra_token (EXPECT_OPTIONAL, optional);
+				push_extra_token (here_input (), EXPECT_OPTIONAL, optional);
 		}
 		return funtype;
 	}
@@ -1106,10 +1109,12 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 				case '$':
 					token = scan_scm_id (v);
 					if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
-						push_extra_token (token, yylval);
+						push_extra_token (here_input (),
+								  token, yylval);
 					break;
 				case '#':
-					push_extra_token (SCM_IDENTIFIER, v);
+					push_extra_token (here_input (),
+							  SCM_IDENTIFIER, v);
 					break;
 				}
 			}
