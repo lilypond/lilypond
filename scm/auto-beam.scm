@@ -118,3 +118,52 @@
                 (if (null? exception-grouping)
                     (beat-end? pos beat-endings) ;; no exception, so check beat ending
                     (member pos exception-moments))))))) ;; check exception rule
+
+(define-public (extract-beam-exceptions music)
+  "Creates a value useful for setting @code{beamExceptions} from @var{music}."
+  (define (car> a b) (> (car a) (car b)))
+  (define (beatify lst)
+    ;; takes a collection of end points, sorts them, and returns the
+    ;; non-zero differences as beaming pattern
+    (let ((s (sort lst <)))
+      (remove zero?
+              (map - s (cons 0 s)))))
+  ;; TODO: let this do something useful with simultaneous music.
+  (let loop
+      ((lst (extract-typed-music (unfold-repeats-fully (event-chord-reduce music))
+                                 '(rhythmic-event bar-check)))
+       (pos 0) (res '()))
+    (cond ((null? lst)
+           (list
+            (cons 'end
+                  (map
+                   (lambda (l)
+                     (cons (cons (numerator (car l)) (denominator (car l)))
+                           (beatify (cdr l))))
+                   (sort res car>)))))
+          ((music-is-of-type? (car lst) 'bar-check)
+           (loop (cdr lst) 0 res))
+          ;; Have rhythmic event.
+          ((any
+            (lambda (art)
+              (and (music-is-of-type? art 'beam-event)
+                   (= (ly:music-property art 'span-direction START) STOP)))
+            (ly:music-property (car lst) 'articulations))
+           (let* ((dur (ly:music-property (car lst) 'duration))
+                  (len (if (ly:duration? dur) (duration-length dur) 0))
+                  (pos (+ pos len))
+                  (ass (assoc len res)))
+             (cond ((or (zero? len) (not (integer? (/ pos len))))
+                    (ly:warning (car lst) (_ "Beam end fits no pattern"))
+                    (loop (cdr lst) pos res))
+                   (ass
+                    (set-cdr! ass (cons (/ pos len) (cdr ass)))
+                    (loop (cdr lst) pos res))
+                   (else
+                    (loop (cdr lst) pos (cons (list len (/ pos len)) res))))))
+          (else
+           (let* ((dur (ly:music-property (car lst) 'duration))
+                  (len (if (ly:duration? dur) (duration-length dur) 0)))
+             (loop (cdr lst)
+                   (+ pos len)
+                   res))))))

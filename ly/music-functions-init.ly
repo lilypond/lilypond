@@ -221,6 +221,14 @@ barNumberCheck =
 					 "Barcheck failed got ~a expect ~a"
 					 cbn n))))))
 
+beamExceptions =
+#(define-scheme-function (parser location music) (ly:music?)
+   (_i "Extract a value suitable for setting
+@code{Timing.beamExceptions} from the given pattern with explicit
+beams in @var{music}.  A bar check @code{|} has to be used between
+bars of patterns in order to reset the timing.")
+   (extract-beam-exceptions music))
+
 bendAfter =
 #(define-event-function (parser location delta) (real?)
    (_i "Create a fall or doit of pitch interval @var{delta}.")
