@@ -382,6 +382,28 @@ beats to be distinguished."
               (unfold-repeats e)))
     music))
 
+(define-public (unfold-repeats-fully music)
+  "Unfolds repeats and expands the resulting @code{unfolded-repeated-music}."
+  (map-some-music
+   (lambda (m)
+     (and (music-is-of-type? m 'unfolded-repeated-music)
+          (make-sequential-music
+           (ly:music-deep-copy
+            (let loop ((n (ly:music-property m 'repeat-count))
+                       (alts (ly:music-property m 'elements))
+                       (body (ly:music-property m 'element)))
+              (cond ((<= n 0) '())
+                    ((null? alts)
+                     (cons body (loop (1- n) alts body)))
+                    (else
+                     (cons* body (car alts)
+                            (loop (1- n)
+                                  (if (pair? (cdr alts))
+                                      (cdr alts)
+                                      alts)
+                                  body)))))))))
+   (unfold-repeats music)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
 
