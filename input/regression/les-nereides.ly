@@ -1,4 +1,4 @@
-\version "2.17.10"
+\version "2.19.0"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -233,8 +233,9 @@ middleDynamics = {
 theScore = \score{
     \context PianoStaff <<
         \new Staff = "treble" <<
-            \set beamExceptions = #'((end . (((1 . 8) . (2 2 2 2))
-                                           ((1 . 32) . (4 4 4 4 4 4 4 4)))))
+            \set beamExceptions =
+	      \beamExceptions { 8[ 8] 8[ 8] 8[ 8] 8[ 8] |
+				\repeat unfold 8 { 32[ 32 32 32] } }
 	    \treble
 	    \trebleTwo
         >>

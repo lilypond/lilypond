@@ -2037,6 +2037,7 @@ new beam starts.
 @funindex autoBeaming
 @funindex baseMoment
 @funindex beamExceptions
+@funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
@@ -2178,42 +2179,24 @@ the time signature. Any exceptions to this default can be found in
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
 
+The value for @code{beamExceptions}, a somewhat complex Scheme
+data structure, is easiest generated with the
+@code{\beamExceptions} function.  This function is given one or
+more manually beamed measure-length rhythmic patterns (measures
+have to be separated by a bar check@tie{}@code{|} since the
+function has no other way to discern the measure length).  Here is
+a simple example:
+
 @lilypond[quote,relative=2,verbatim]
 \time 3/16
 \set Timing.beatStructure = #'(2 1)
 \set Timing.beamExceptions =
-  #'(                         ;start of alist
-     (end .                   ;entry for end of beams
-      (                       ;start of alist of end points
-       ((1 . 32) . (2 2 2))   ;rule for 1/32 beams -- end each 1/16
-      )))                     %close all entries
+  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
 c16 c c |
 \repeat unfold 6 { c32 } |
 @end lilypond
 
-@code{beamExceptions} is an alist with a key of rule-type and a value
-of beaming-rules.
-
-At this time the only available value of rule-type is
-@code{'end} for beam ending.
-
-Beaming-rules is a scheme alist (or list of pairs) that indicates the
-beam type and the grouping to be applied to beams containing notes with
-a shortest duration of that beam type.
-
-@example
-#'((beam-type1 . grouping-1)
-   (beam-type2 . grouping-2)
-   (beam-type3 . grouping-3))
-@end example
-
-Beam type is a scheme pair indicating the duration of the beam,
-e.g., @code{(1 . 16)}.
-
-Grouping is a scheme list indicating the grouping to be applied to
-the beam.  The grouping is in units of the beam type.
-
-@warning{ A @code{beamExceptions} value must be @emph{complete}
+@warning{A @code{beamExceptions} value must be @emph{complete}
 exceptions list.  That is, every exception that should be applied
 must be included in the setting.  It is not possible to add, remove,
 or change only one of the exceptions. While this may seem cumbersome,

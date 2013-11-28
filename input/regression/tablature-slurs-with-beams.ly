@@ -1,4 +1,4 @@
-\version "2.17.20"
+\version "2.19.0"
 
 \header
 {
@@ -10,7 +10,8 @@ either automatic or manual beaming.
 
 guitarSolo = {
   \time 3/4
-  \set Timing.beamExceptions = #'((end . (((1 . 8) . (4 2)))))
+  \set Timing.beamExceptions =
+    \beamExceptions { 8[ 8 8 8] 8[ 8] }
   <<
     {bes'2( aes'8-. r)} \\
     {r8 cis(-\tag #'beam [ b f'-\tag #'beam ]) <d f'>-. r}
