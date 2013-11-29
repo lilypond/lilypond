@@ -169,7 +169,6 @@ contained staves are not connected vertically."
   \name RhythmicStaff
   \alias "Staff"
 
-  \override BarLine.bar-extent = #'(-2 . 2)
   \override VoltaBracket.staff-padding = #3
   \override StaffSymbol.line-count = #1
 
