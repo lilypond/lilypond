@@ -86,8 +86,8 @@ Note_performer::process_music ()
           notes_.push_back (p);
 
           /*
-            Shorten previous note. If it was part of a tie, shorten
-            the first note in the tie.
+            Grace notes shorten the previous non-grace note. If it was
+            part of a tie, shorten the first note in the tie.
            */
           if (now_mom ().grace_part_)
             {
@@ -96,7 +96,11 @@ Note_performer::process_music ()
                   for (vsize i = 0; i < last_notes_.size (); i++)
                     {
                       Audio_note *tie_head = last_notes_[i]->tie_head ();
-                      tie_head->length_mom_ += Moment (0, now_mom ().grace_part_);
+                      Moment start = tie_head->audio_column_->when ();
+                      //Shorten the note if it would overlap. It might
+                      //not if there's a rest in between.
+                      if (start + tie_head->length_mom_ > now_mom ())
+                        tie_head->length_mom_ = now_mom () - start;
                     }
                 }
             }
