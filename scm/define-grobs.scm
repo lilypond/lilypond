@@ -1897,6 +1897,7 @@
         (cross-staff . ,ly:script-interface::calc-cross-staff)
         (direction . ,ly:script-interface::calc-direction)
         (font-encoding . fetaMusic)
+        (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (side-axis . ,Y)
 
@@ -2500,6 +2501,7 @@
         (axes . (,X))
         (direction . ,RIGHT)
         (font-size . -4)
+        (horizon-padding . 0.1) ; to avoid interleaving with augmentation dots
         (padding . 0.3)
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
