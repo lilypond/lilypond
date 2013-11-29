@@ -236,7 +236,8 @@ Hairpin::print (SCM smob)
                 }
               else
                 {
-                  if (Note_column::has_interface (b)
+                  if (d == RIGHT // end at the left edge of a rest
+                      && Note_column::has_interface (b)
                       && Note_column::has_rests (b))
                     x_points[d] = e[-d];
                   else
