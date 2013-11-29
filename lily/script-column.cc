@@ -152,11 +152,12 @@ Script_column::order_grobs (vector<Grob *> grobs)
             {
               SCM last_outside_staff = last->get_property ("outside-staff-priority");
               /*
-                if outside_staff_priority is missing for previous grob, just
-                use it as a support for the current grob
+                if outside_staff_priority is missing for previous grob,
+                use all the scripts so far as support for the current grob
               */
               if (!scm_is_number (last_outside_staff))
-                Side_position_interface::add_support (g, last);
+                for (SCM t = ss; !scm_is_eq (t, s); t = scm_cdr (t))
+                  Side_position_interface::add_support (g, unsmob_grob (scm_car (t)));
               /*
                 if outside_staff_priority is missing or is equal to original
                 outside_staff_priority of previous grob, set new
