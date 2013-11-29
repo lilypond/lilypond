@@ -1899,6 +1899,7 @@
         (cross-staff . ,ly:script-interface::calc-cross-staff)
         (direction . ,ly:script-interface::calc-direction)
         (font-encoding . fetaMusic)
+        (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (side-axis . ,Y)
 
@@ -2504,6 +2505,7 @@
         (font-size . -4)
         ;; minimum shift to the right, in case the parent note has no stem
         (minimum-space . 2.5)
+        (horizon-padding . 0.1) ; to avoid interleaving with augmentation dots
         (padding . 0.3)
         (side-axis . ,X)
         (stencil . ,parenthesize-elements)
