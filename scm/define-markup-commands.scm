@@ -3970,7 +3970,7 @@ Set @var{arg} in superscript with a normal font size.
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
-   (* 0.5 baseline-skip) Y))
+   (* 0.33 baseline-skip) Y))
 
 (define-markup-command (super layout props arg)
   (markup?)
@@ -3997,7 +3997,7 @@ Set @var{arg} in superscript.
     layout
     (cons `((font-size . ,(- font-size 3))) props)
     arg)
-   (* 0.5 baseline-skip)
+   (* 0.33 baseline-skip)
    Y))
 
 (define-markup-command (translate layout props offset arg)
@@ -4045,7 +4045,7 @@ Set @var{arg} in subscript.
     layout
     (cons `((font-size . ,(- font-size 3))) props)
     arg)
-   (* -0.5 baseline-skip)
+   (* -0.25 baseline-skip)
    Y))
 
 (define-markup-command (normal-size-sub layout props arg)
@@ -4067,7 +4067,7 @@ Set @var{arg} in subscript with a normal font size.
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
-   (* -0.5 baseline-skip)
+   (* -0.25 baseline-skip)
    Y))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
