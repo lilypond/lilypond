@@ -634,6 +634,8 @@ automatically when an output definition (a @code{\\score} or
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
 
+  completionFactor = #unity-if-multimeasure
+
   scriptDefinitions = #default-script-alist
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")

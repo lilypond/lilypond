@@ -188,25 +188,24 @@ Completion_heads_engraver::process_music ()
         note that note_dur may be strictly less than left_to_do_
         (say, if left_to_do_ == 5/8)
       */
-      if (factor_.denominator () == 1 && factor_ > Rational (1, 1))
-        note_dur = Duration (left_to_do_, false);
-      else
-        note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
+      note_dur = Duration (left_to_do_ / factor_, false).compressed (factor_);
     }
   else
     {
       orig = unsmob_duration (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
-      factor_ = note_dur.factor ();
+      SCM factor = get_property ("completionFactor");
+      if (ly_is_procedure (factor))
+        factor = scm_call_2 (factor,
+                             context ()->self_scm (),
+                             note_dur.smobbed_copy ());
+      factor_ = robust_scm2rational (factor, note_dur.factor ());
       left_to_do_ = orig->get_length ();
     }
   Moment nb = next_moment (note_dur.get_length ());
   if (nb.main_part_ && nb < note_dur.get_length ())
     {
-      if (factor_.denominator () == 1 && factor_.numerator () > 1)
-        note_dur = Duration (nb.main_part_, false);
-      else
-        note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
+      note_dur = Duration (nb.main_part_ / factor_, false).compressed (factor_);
     }
 
   do_nothing_until_ = now.main_part_ + note_dur.get_length ();
@@ -314,6 +313,7 @@ ADD_TRANSLATOR (Completion_heads_engraver,
                 "TieColumn ",
 
                 /* read */
+                "completionFactor "
                 "completionUnit "
                 "measureLength "
                 "measurePosition "

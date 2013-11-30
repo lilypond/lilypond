@@ -33,6 +33,11 @@
   (and (pair? x)
        (index? (car x)) (index? (cdr x))))
 
+(define-public (rational-or-procedure? x)
+  (or
+   (and (rational? x) (exact? x))
+   (procedure? x)))
+
 (define-public (number-or-grob? x)
   (or (ly:grob? x) (number? x)))
 

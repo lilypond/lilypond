@@ -121,6 +121,16 @@ non-visual scale factor 1."
 duration (base note length and dot count), as a number of whole notes."
   (duration-length (duration-visual dur)))
 
+(define-public (unity-if-multimeasure context dur)
+  "Given a context and a duration, return @code{1} if the duration is
+longer than the @code{measureLength} in that context, and @code{#f} otherwise.
+This supports historic use of @code{Completion_heads_engraver} to split
+@code{c1*3} into three whole notes."
+  (if (ly:moment<? (ly:context-property context 'measureLength)
+                   (ly:duration-length dur))
+    1
+    #f))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
 (define-public (average x . lst)

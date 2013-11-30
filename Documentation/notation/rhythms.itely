@@ -1810,6 +1810,37 @@ inserts ties for notes.  One of its uses is to debug complex scores: if
 the measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
+The property @code{completionUnit} sets a preferred duration for
+the split notes.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 9/8 g\breve. d4. \bar "||"
+  \set completionUnit = #(ly:make-moment 3 8)
+  g\breve. d4.
+}
+@end lilypond
+
+These engravers split notes with scaled duration, such as those in tuplets,
+into notes with the same scale-factor as in the input note.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 2/4 r4
+  \tuplet 3/2 {g4 a b}
+  \scaleDurations 2/3 {g a b}
+  g4*2/3 a b
+  \tuplet 3/2 {g4 a b}
+  r4
+}
+@end lilypond
+
 @seealso
 Music Glossary:
 @rglos{tie}
@@ -1829,12 +1860,12 @@ Internals Reference:
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues
-Not all durations (especially those containing tuplets) can be
-represented exactly with normal notes and dots, but the
-@code{Completion_heads_engraver} will not insert tuplets.
-
-The @code{Completion_heads_engraver} only affects notes; it does not
-split rests.
+For consistency with previous behavior, notes and rests with
+duration longer than a measure, such as @code{c1*2}, are split into
+notes without any scale factor, @code{@{ c1 c1 @}}.  The property
+@code{completionFactor} controls this behavior, and setting it to
+@code{#f} cause split notes and rest to have the scale factor
+of the input durations.
 
 
 @node Showing melody rhythms

@@ -218,6 +218,17 @@ and @samp{bracketed}.")
 symbol go, measured in half staff spaces from the center of the
 staff.")
      (completionBusy ,boolean? "Whether a completion-note head is playing.")
+     (completionFactor ,rational-or-procedure?
+"When @code{Completion_heads_engraver} and
+@code{Completion_rest_engraver} need to split a note or rest with a
+scaled duration, such as @code{c2*3}, this specifies the scale factor
+to use for the newly-split notes and rests created by the engraver.
+
+If @code{#f}, the completion engraver uses the scale-factor of
+each duration being split.
+
+If set to a callback procedure, that procedure is called with the
+context of the completion engraver, and the duration to be split.")
      (completionUnit ,ly:moment? "Sub-bar unit of completion.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
@@ -447,12 +458,12 @@ associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
 where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
 and@tie{}1 (@code{#RIGHT}) correspond to hard left, center, and hard
 right, respectively.")
-     (midiReverbLevel ,number? "Reverb effect level for the MIDI channel
-associated with the current context.  Ranges from 0 to@tie{}1
-(0=off,@tie{}1=full effect).")
-     (midiChorusLevel ,number? "Chorus effect level for the MIDI channel
-associated with the current context.  Ranges from 0 to@tie{}1
-(0=off,@tie{}1=full effect).")
+     (midiReverbLevel ,number? "Reverb effect level for the MIDI
+channel associated with the current context.  Ranges from 0
+to@tie{}1 (0=off,@tie{}1=full effect).")
+     (midiChorusLevel ,number? "Chorus effect level for the MIDI
+channel associated with the current context.  Ranges from 0
+to@tie{}1 (0=off,@tie{}1=full effect).")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")
