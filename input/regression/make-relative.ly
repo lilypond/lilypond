@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.17.97"
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -16,7 +16,7 @@ The fragment should appear identical in both cases."
 ph =
 #(define-music-function (parser location p1 p2 p3 p4 p5)
   (ly:pitch? ly:pitch? ly:pitch? ly:pitch? ly:pitch?)
-  (make-relative (p1 p2 p3 p4 p5) p1
+  (make-relative (p1 p2 p3 p4 p5) (make-event-chord (list p1 p2 p3 p4 p5))
    #{
      \repeat unfold 2 { $p1 2 } |
      \repeat unfold 2 { r16 $p2 8. ~ $p2 4 } |
