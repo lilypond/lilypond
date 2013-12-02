@@ -1,0 +1,165 @@
+
+%
+% The stems of the natural are brushed (at least, in Barenreiter SCS)
+%
+
+def draw_natural (expr arrowup, arrowdown) =
+	save stemwidth, top_stem_thick;
+	save ne, pat_top, pat_bottom;
+	save depth, height, extendleft, extendright, stemlength;
+	save brush_scale_up, brush_scale_down;
+	pair ne;
+	path pat_top, pat_bottom;
+
+	top_stem_thick# = stafflinethickness# + .10 staff_space#;
+	stemwidth# = 0.09 staff_space# + .5 stafflinethickness#;
+	define_whole_blacker_pixels (top_stem_thick, stemwidth);
+
+	stemlength# = 1.5 staff_space#;
+	define_pixels (stemlength);
+
+	height# = stemlength#;
+	depth# = stemlength#;
+	extendleft# = 0;
+	extendright# = 0;
+	if arrowup:
+		extendleft# := 3 stafflinethickness#;
+		height# := height# + 1.2 staff_space#;
+	fi;
+	if arrowdown:
+		extendright# := 3.15 stafflinethickness#;
+		depth# := depth# + 1.2 staff_space#;
+	fi;
+	define_pixels (extendright);
+
+	set_char_box (extendleft#, 2/3 staff_space#, depth#, height#);
+
+	d := d - feta_space_shift;
+
+	pickup pencircle scaled stemwidth;
+
+	brush_scale_up := 1.0;
+	brush_scale_down := 1.0;
+	% to look nice, arrowed stems must be less brushed
+	if arrowup:
+		brush_scale_up := 0.85;
+	fi;
+	if arrowdown:
+		brush_scale_down := 0.85;
+	fi;
+
+	penpos1 (top_stem_thick, 0);
+	penpos3 (top_stem_thick, 0);
+	penpos2 (stemwidth, 0);
+	penpos4 (stemwidth, 0);
+	% z1' and z3' are needed for the arrowed accidentals
+	penpos1' (top_stem_thick * brush_scale_up, 0);
+	penpos3' (top_stem_thick * brush_scale_down, 0);
+
+	x2r = w;
+	x4l = 0;
+	x3 = x3' = x2;
+	x1 = x1' = x4;
+
+	y1 = y1' = stemlength;
+	y3 = y3' = -stemlength;
+	top y2 = vround (staff_space - 3/2 stafflinethickness);
+	y4 = -y2 + feta_space_shift;
+
+	pat_bottom := z4r{z4r - z1r}
+		      .. bot z4
+		      .. z4l{z1l - z4l};
+	fill simple_serif (z1'l, z1'r, -30)
+	     -- pat_bottom
+	     -- cycle;
+
+	pat_top := z2r{z2r - z3r}
+		   .. top z2
+		   .. z2l{z3l - z2l};
+	fill simple_serif (z3'l, z3'r, 30)
+	     -- pat_top
+	     -- cycle;
+
+	ne = (x2 - x4, stafflinethickness);
+
+	z11' = z3l + whatever * (z2l - z3l);
+	y11' = vround (.5 (staff_space - stafflinethickness));
+	z11 = z11' + whatever * ne;
+	x11 = x12;
+	z12 = directionpoint -ne of pat_top;
+	z13 = z12 + whatever * ne;
+	x13 = x1;
+	z14 = z11 + whatever * ne;
+	x14 = x1;
+
+	z21' = z4r + whatever * (z1r - z4r);
+	y21' = -y11' + feta_space_shift;
+	z21 = z21' + whatever * ne;
+	x21 = x22;
+	z22 = directionpoint -ne of pat_bottom;
+	z23 = z22 + whatever * ne;
+	x23 = x3;
+	z24 = z21 + whatever * ne;
+	x24 = x3;
+
+	fill z11
+	     -- z12
+	     -- z13
+	     -- z14
+	     -- cycle;
+	fill z21
+	     -- z22
+	     -- z23
+	     -- z24
+	     -- cycle;
+
+	penlabels (1, 1', 2, 3, 3', 4);
+	labels (11, 11', 12, 13, 14, 21, 21', 22, 23, 24);
+
+	if arrowup:
+		draw_arrow (z1, top_stem_thick * brush_scale_up,
+			    z1'l - z4l, stafflinethickness / 2, false);
+	fi;
+	if arrowdown:
+		draw_arrow (z3, top_stem_thick * brush_scale_down,
+			    z2r - z3'r, stafflinethickness / 2, true);
+		w := w + extendright;
+	fi;
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0);
+enddef;
+
+
+fet_beginchar ("Natural", "natural");
+	draw_natural (false, false);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
+	draw_natural (true, false);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
+	draw_natural (false, true);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
+	draw_natural (true, true);
+fet_endchar;
+
+
+draw_shifted_too;
+
