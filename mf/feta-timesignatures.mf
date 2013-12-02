@@ -90,7 +90,7 @@ def draw_C =
 
 	penlabels (1, 2, 3, 4, 5);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 enddef;
 
 

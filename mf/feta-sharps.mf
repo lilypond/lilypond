@@ -116,7 +116,7 @@ def draw_sharp(expr arrowup, arrowdown) =
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 enddef;
 
 
@@ -185,7 +185,7 @@ fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -235,7 +235,7 @@ fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -279,7 +279,7 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -328,7 +328,7 @@ fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -385,7 +385,7 @@ fet_beginchar ("Double Sharp", "doublesharp");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 

@@ -50,7 +50,7 @@ def treq =
 enddef;
 
 
-def draw_staff (expr first, last, offset) =
+def draw_staff_if_debugging (expr first, last, offset) =
 	if test <> 0:
 		pickup pencircle scaled stafflinethickness;
 

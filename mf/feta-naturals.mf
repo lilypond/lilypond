@@ -128,7 +128,7 @@ def draw_natural (expr arrowup, arrowdown) =
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 enddef;
 
 

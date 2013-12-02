@@ -189,7 +189,7 @@ fet_beginchar ("Flat", "flat");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -203,7 +203,7 @@ fet_beginchar ("Arrowed Flat (arrow up)", "flat.arrowup");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -217,7 +217,7 @@ fet_beginchar ("Arrowed Flat (arrow down)", "flat.arrowdown");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -231,7 +231,7 @@ fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -273,7 +273,7 @@ fet_beginchar ("Flat (slashed)", "flat.slash");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -333,7 +333,7 @@ fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -449,7 +449,7 @@ fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -562,7 +562,7 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 

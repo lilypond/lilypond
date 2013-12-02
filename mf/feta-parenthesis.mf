@@ -33,7 +33,7 @@ fet_beginchar ("Right Parenthesis", "rightparen");
 
 	remember_pic := currentpicture;
 
-	draw_staff (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 

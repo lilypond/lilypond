@@ -27,7 +27,7 @@ if test > 0:
 		set_char_box (0, 0, 0, 0);
 		currentpicture := remember_pic;
 
-		draw_staff (-2, 2, 0.5);
+		draw_staff_if_debugging (-2, 2, 0.5);
 	fet_endchar;
 fi;
 enddef;
