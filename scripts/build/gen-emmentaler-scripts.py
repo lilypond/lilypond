@@ -85,8 +85,11 @@ Generate("%(filename)s-%(design_size)d.woff");
     open (path, 'w').write (script)
 
     subfonts = ['feta%(design_size)d',
-          'parmesan%(design_size)d',
-          'feta-alphabet%(design_size)d']
+                'feta-noteheads%(design_size)d',
+                'feta-flags%(design_size)d',
+                'parmesan%(design_size)d',
+                'parmesan-noteheads%(design_size)d',
+                'feta-alphabet%(design_size)d']
 
     ns = []
     for s in subfonts:
