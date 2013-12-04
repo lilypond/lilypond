@@ -62,6 +62,28 @@ which scares away people.
 @end ignore
 
 @item
+There is now a new context type called @code{NullVoice} which, while not
+appearing in the printed output, can be used to align lyrics.  This can
+be particularly convenient when used in parallel with a
+@code{\partcombine} construct.
+
+@lilypond[verbatim,quote]
+soprano = \relative c' { c e g c }
+alto = \relative c' { a c e g }
+verse = \lyricmode { This is my song }
+
+\score {
+  \new Staff <<
+    \partcombine \soprano \alto
+    \new NullVoice = "aligner" \soprano
+    \new Lyrics \lyricsto "aligner" \verse
+  >>
+  \layout {}
+}
+@end lilypond
+
+
+@item
 Several articulations can be put into a single variable or
 returned from an event function:
 
