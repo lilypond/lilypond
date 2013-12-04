@@ -114,48 +114,50 @@
 (define-public (extract-beam-exceptions music)
   "Creates a value useful for setting @code{beamExceptions} from @var{music}."
   (define (car> a b) (> (car a) (car b)))
-  (define (beatify lst)
+  (define (beatify! lst)
     ;; takes a collection of end points, sorts them, and returns the
     ;; non-zero differences as beaming pattern
-    (let ((s (sort lst <)))
-      (remove zero?
-              (map - s (cons 0 s)))))
-  ;; TODO: let this do something useful with simultaneous music.
-  (let loop
-      ((lst (extract-typed-music (unfold-repeats-fully (event-chord-reduce music))
-                                 '(rhythmic-event bar-check)))
-       (pos 0) (res '()))
-    (cond ((null? lst)
-           (list
-            (cons 'end
-                  (map
-                   (lambda (l)
-                     (cons (cons (numerator (car l)) (denominator (car l)))
-                           (beatify (cdr l))))
-                   (sort res car>)))))
-          ((music-is-of-type? (car lst) 'bar-check)
-           (loop (cdr lst) 0 res))
-          ;; Have rhythmic event.
-          ((any
-            (lambda (art)
-              (and (music-is-of-type? art 'beam-event)
-                   (= (ly:music-property art 'span-direction START) STOP)))
-            (ly:music-property (car lst) 'articulations))
-           (let* ((dur (ly:music-property (car lst) 'duration))
-                  (len (if (ly:duration? dur) (duration-length dur) 0))
-                  (pos (+ pos len))
-                  (ass (assoc len res)))
-             (cond ((or (zero? len) (not (integer? (/ pos len))))
-                    (ly:warning (car lst) (_ "Beam end fits no pattern"))
-                    (loop (cdr lst) pos res))
-                   (ass
-                    (set-cdr! ass (cons (/ pos len) (cdr ass)))
-                    (loop (cdr lst) pos res))
-                   (else
-                    (loop (cdr lst) pos (cons (list len (/ pos len)) res))))))
-          (else
-           (let* ((dur (ly:music-property (car lst) 'duration))
-                  (len (if (ly:duration? dur) (duration-length dur) 0)))
-             (loop (cdr lst)
-                   (+ pos len)
-                   res))))))
+    (let ((s (sort-list! lst <)))
+      (remove! zero?
+               (map - s (cons 0 s)))))
+  (let ((res '()))
+    (let analyze ((m (unfold-repeats-fully (event-chord-reduce music)))
+                  (pos 0))
+      ;; enter beam ends from m starting at pos into res, return new pos
+      (cond ((music-is-of-type? m 'bar-check) 0)
+            ((music-is-of-type? m 'simultaneous-music)
+             (fold (lambda (m prev) (max (analyze m pos) prev))
+                   pos
+                   (ly:music-property m 'elements)))
+            ((not (music-is-of-type? m 'rhythmic-event))
+             (let ((elt (ly:music-property m 'element)))
+               (fold analyze
+                     (if (ly:music? elt) (analyze elt pos) pos)
+                     (ly:music-property m 'elements))))
+            ;; Have rhythmic event.
+            ((any
+              (lambda (art)
+                (and (music-is-of-type? art 'beam-event)
+                     (= (ly:music-property art 'span-direction START) STOP)))
+              (ly:music-property m 'articulations))
+             (let* ((len (duration-length (ly:music-property m 'duration)))
+                    (pos (+ pos len))
+                    (ass (assv len res)))
+               (cond ((or (zero? len) (not (integer? (/ pos len))))
+                      (ly:warning m (_ "Beam end fits no pattern")))
+                     (ass
+                      (set-cdr! ass (cons (/ pos len) (cdr ass))))
+                     (else
+                      (set! res (cons (list len (/ pos len)) res))))
+               pos))
+            (else
+             (+ pos (duration-length (ly:music-property m 'duration))))))
+
+    ;; takes the output from the loop, generates actual beam exceptions
+    (list
+     (cons 'end
+           (map!
+            (lambda (l)
+              (cons (car l)
+                    (beatify! (cdr l))))
+            (sort-list! res car>))))))
