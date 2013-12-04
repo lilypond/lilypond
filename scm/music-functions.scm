@@ -20,6 +20,7 @@
 (use-modules (scm safe-utility-defs))
 
 (use-modules (ice-9 optargs))
+(use-modules (srfi srfi-11))
 
 ;;; ly:music-property with setter
 ;;; (ly:music-property my-music 'elements)
@@ -1898,6 +1899,37 @@ yourself."
   "Return a list of all pitches from @var{event-chord}."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
+
+(define-public (event-chord-reduce music)
+  "Reduces event chords in @var{music} to their first note event,
+retaining only the chord articulations.  Returns the modified music."
+  (map-some-music
+   (lambda (m)
+     (and (music-is-of-type? m 'event-chord)
+          (let*-values (((notes arts) (partition
+                                       (lambda (mus)
+                                         (music-is-of-type? mus 'rhythmic-event))
+                                       (ly:music-property m 'elements)))
+                        ((dur) (ly:music-property m 'duration))
+                        ((full-arts) (append arts
+                                             (ly:music-property m 'articulations)))
+                        ((first-note) (and (pair? notes) (car notes))))
+            (cond (first-note
+                   (set! (ly:music-property first-note 'articulations)
+                         full-arts)
+                   first-note)
+                  ((ly:duration? dur)
+                   ;; A repeat chord. Produce an unpitched note.
+                   (make-music 'NoteEvent
+                               'duration dur
+                               'articulations full-arts))
+                  (else
+                   (ly:music-error m (_ "Missing duration"))
+                   (make-music 'NoteEvent
+                               'duration (ly:make-duration 2 0 0)
+                               'articulations full-arts))))))
+   music))
+
 
 (defmacro-public make-relative (variables reference music)
   "The list of pitch or music variables in @var{variables} is used as
