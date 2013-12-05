@@ -31,7 +31,7 @@ const struct Freetype_error_message
   const char *err_msg;
 } ft_errors[] =
 
-#include <freetype/fterrors.h>
+#include FT_ERRORS_H
 
   ;
 

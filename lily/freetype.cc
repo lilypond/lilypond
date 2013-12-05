@@ -20,8 +20,8 @@
 #include "freetype.hh"
 #include "warn.hh"
 
-#include <freetype/ftoutln.h>
-#include <freetype/ftbbox.h>
+#include FT_OUTLINE_H
+#include FT_BBOX_H
 
 FT_Library freetype2_library;
 
