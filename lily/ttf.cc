@@ -20,7 +20,7 @@
 #include <cstdio>
 #include "freetype.hh"
 
-#include <freetype/tttables.h>
+#include FT_TRUETYPE_TABLES_H
 
 #include "international.hh"
 #include "memory-stream.hh"

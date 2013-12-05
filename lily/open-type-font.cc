@@ -23,7 +23,7 @@
 
 using namespace std;
 
-#include <freetype/tttables.h>
+#include FT_TRUETYPE_TABLES_H
 
 #include "dimensions.hh"
 #include "freetype.hh"
