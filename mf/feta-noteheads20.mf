@@ -1,5 +1,4 @@
-% feta-noteheads20.mf
-% part of LilyPond's pretty-but-neat music font
+% Produce font files at specified size.
 
 design_size := 20;
 input feta-noteheads-generic;
