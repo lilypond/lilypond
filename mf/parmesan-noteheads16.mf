@@ -2,6 +2,4 @@
 
 design_size := 15.87;
 input parmesan-noteheads-generic;
-
 end.
-

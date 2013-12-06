@@ -3,8 +3,4 @@
 design_size := 25.20;
 
 input feta-other-generic;
-
-
 end.
-
-

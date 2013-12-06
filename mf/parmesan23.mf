@@ -3,7 +3,4 @@
 design_size := 22.45;
 
 input parmesan-other-generic;
-
-
 end.
-
