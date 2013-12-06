@@ -2818,14 +2818,17 @@ direction_reqd_event:
 			Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
 			a->set_property ("articulation-type", s);
 			$$ = a->unprotect ();
-		} else if (ly_prob_type_p (s, ly_symbol2scm ("ArticulationEvent"))) {
-			$$ = s;
-			if (Music *original = unsmob_music (s)) {
+		} else {
+			Music *original = unsmob_music (s);
+			if (original && original->is_mus_type ("post-event")) {
 				Music *a = original->clone ();
 				a->set_spot (parser->lexer_->override_input (@$));
 				$$ = a->unprotect ();
+			} else {
+				parser->parser_error (@1, _ ("expecting string or post-event as script definition"));
+				$$ = MY_MAKE_MUSIC ("PostEvents", @$)->unprotect ();
 			}
-		} else parser->parser_error (@1, _ ("expecting string or ArticulationEvent as script definition"));
+		}
 	}
 	;
 
