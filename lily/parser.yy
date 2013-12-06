@@ -2155,8 +2155,8 @@ re_rhythmed_music:
 	;
 
 context_change:
-	CHANGE STRING '=' STRING  {
-		$$ = MAKE_SYNTAX ("context-change", @$, scm_string_to_symbol ($2), $4);
+	CHANGE symbol '=' simple_string  {
+		$$ = MAKE_SYNTAX ("context-change", @$, $2, $4);
 	}
 	;
 
