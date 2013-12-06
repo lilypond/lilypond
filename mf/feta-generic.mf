@@ -41,8 +41,6 @@ if test = 0:
 	input feta-brackettips;
 	input feta-accordion;
 	input feta-ties;
-else:
-	input feta-test-generic;
 fi
 
 autometric_parameter ("staffsize", staffsize#);
