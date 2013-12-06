@@ -17,45 +17,10 @@
 % You should have received a copy of the GNU General Public License
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
-% We have to reduce the pixel-per-point value to
-% support large brace glyphs in case we are using MetaPost
-% (which by default sets `hppp' to 49.80244, regardless of
-% the used `mag' value)
-
-if known miterlimit:
-	bpppix_ := 0.2;		% ten times larger than original
-
-	numeric mm, pt, dd, bp, cm, pc, cc, in;
-
-	mm * bpppix_ = 2.83464;
-	pt * bpppix_ = 0.99626;
-	dd * bpppix_ = 1.06601;
-	bp * bpppix_ = 1;
-	cm * bpppix_ = 28.34645;
-	pc * bpppix_ = 11.95517;
-	cc * bpppix_ = 12.79213;
-	in * bpppix_ = 72;
-
-	hppp := pt;
-	vppp := pt;
-fi;
-
-
-input feta-autometric;
-input feta-macros;
-
-staffsize# := 20 pt#;   %% arbitrary
-
-input feta-params;
-
 %
 % We must let the design increase for each font to make sure that mftrace
 % doesn't jack up the resolution too highly for the longer braces.
 %
-
-fet_beginfont ("feta-braces-" & char (97 + font_count),
-	       (font_count + 1) * 20, "fetaBraces");
 
 mode_setup;
 
@@ -160,5 +125,3 @@ for i := 0 step 1 until font_count:
 		number := number + 1;
 	endfor;
 endfor;
-
-fet_endfont ("feta-braces");

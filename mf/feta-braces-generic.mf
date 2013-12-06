@@ -1,0 +1,51 @@
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%                Jan Nieuwenhuizen <janneke@gnu.org>
+%
+% The LilyPond font is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version, or under the SIL Open Font License.
+
+
+% We have to reduce the pixel-per-point value to
+% support large brace glyphs in case we are using MetaPost
+% (which by default sets `hppp' to 49.80244, regardless of
+% the used `mag' value)
+
+if known miterlimit:
+	bpppix_ := 0.2;		% ten times larger than original
+
+	numeric mm, pt, dd, bp, cm, pc, cc, in;
+
+	mm * bpppix_ = 2.83464;
+	pt * bpppix_ = 0.99626;
+	dd * bpppix_ = 1.06601;
+	bp * bpppix_ = 1;
+	cm * bpppix_ = 28.34645;
+	pc * bpppix_ = 11.95517;
+	cc * bpppix_ = 12.79213;
+	in * bpppix_ = 72;
+
+	hppp := pt;
+	vppp := pt;
+fi;
+
+
+input feta-autometric;
+input feta-macros;
+
+staffsize# := 20 pt#;   %% arbitrary
+
+input feta-params;
+
+%
+% We must let the design increase for each font to make sure that mftrace
+% doesn't jack up the resolution too highly for the longer braces.
+%
+
+fet_beginfont ("feta-braces-" & char (97 + font_count),
+	       (font_count + 1) * 20, "fetaBraces");
+	input feta-braces;
+fet_endfont ("feta-braces");
