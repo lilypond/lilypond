@@ -7,7 +7,7 @@ input feta-autometric;
 
 
 % use feta-test for debugging.
-input feta-generic;
+input feta-other-generic;
 
 
 end.
