@@ -4,9 +4,6 @@
 input feta-autometric;
 
 design_size := 14.14;
-test := 0;
-
-
 input parmesan-noteheads-generic;
 
 end.

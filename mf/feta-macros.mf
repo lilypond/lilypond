@@ -21,6 +21,8 @@
 % debugging
 %
 
+input debugging-settings.mf
+
 def print_penpos (suffix $) =
 	message
 	  "z" & str$ & "l = (" & decimal x.$.l & ", " &decimal y.$.l & ");"
@@ -50,15 +52,15 @@ def treq =
 enddef;
 
 
-def draw_staff_if_debugging (expr first, last, offset) =
+def draw_staff_if_debugging (expr first, last) =
 	if test <> 0:
 		pickup pencircle scaled stafflinethickness;
 
 		for i := first step 1 until last:
 			draw (-staff_space,
-			      (i + offset) * staff_space_rounded)
+			      (i + stafflines_y_offset) * staff_space_rounded)
 			     -- (4 staff_space,
-				 (i + offset) * staff_space_rounded);
+				 (i + stafflines_y_offset) * staff_space_rounded);
 		endfor;
 	fi;
 enddef;

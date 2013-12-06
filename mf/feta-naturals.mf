@@ -126,9 +126,7 @@ def draw_natural (expr arrowup, arrowdown) =
 		w := w + extendright;
 	fi;
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 enddef;
 
 
@@ -137,15 +135,9 @@ fet_beginchar ("Natural", "natural");
 fet_endchar;
 
 
-draw_shifted_too;
-
-
 fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
 	draw_natural (true, false);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
@@ -153,13 +145,6 @@ fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
 fet_endchar;
 
 
-draw_shifted_too;
-
-
 fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
 	draw_natural (true, true);
 fet_endchar;
-
-
-draw_shifted_too;
-

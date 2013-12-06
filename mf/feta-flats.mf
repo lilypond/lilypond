@@ -187,41 +187,26 @@ fet_beginchar ("Flat", "flat");
 				false, false);
 	penlabels (range 0 thru 11);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Arrowed Flat (arrow up)", "flat.arrowup");
-	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-				true, false);
-	penlabels (range 0 thru 23);
+        draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+                                true, false);
+        penlabels (range 0 thru 23);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Arrowed Flat (arrow down)", "flat.arrowdown");
-	draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
-				false, true);
-	penlabels (range 0 thru 23);
+        draw_arrowed_meta_flat (0, 0.8 staff_space#, 0.31 staff_space,
+                                false, true);
+        penlabels (range 0 thru 23);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
@@ -229,13 +214,8 @@ fet_beginchar ("Arrowed Flat (arrow up and down)", "flat.arrowboth");
 				true, true);
 	penlabels (range 0 thru 23);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Flat (slashed)", "flat.slash");
@@ -271,9 +251,7 @@ fet_beginchar ("Flat (slashed)", "flat.slash");
 	penlabels (12, 13);
 	labels (14, 15);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -331,9 +309,7 @@ fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
 	penlabels (22, 23);
 	labels (24, 25);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -447,13 +423,8 @@ fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 
 	currentpicture := currentpicture shifted (w/2, 0);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Semi flat", "mirroredflat");
@@ -560,10 +531,5 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 	penlabels (12, 13);
 	labels (14, 15);
 
-	remember_pic := currentpicture;
-
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;

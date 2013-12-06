@@ -1277,7 +1277,6 @@ fet_beginchar ("Varied Segno", "varsegno");
 	addto currentpicture also currentpicture scaled -1;
 
 	penlabels (1, 1', 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-	% draw_staff_if_debugging (-2, 2, 0);
 fet_endchar;
 
 
@@ -1495,7 +1494,7 @@ fet_beginchar ("Arpeggio", "arpeggio");
 	draw_arpeggio;
 	penlabels (range 1 thru 9);
 
-	draw_staff_if_debugging (-2, 2, 0.0);
+	draw_staff_if_debugging (-2, 2);
 	endgroup;
 fet_endchar;
 

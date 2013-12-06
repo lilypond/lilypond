@@ -43,7 +43,7 @@ fet_beginchar ("whole rest", "0");
 	currentpicture := currentpicture
 			    shifted (0, -block_rest_y + feta_space_shift);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -52,7 +52,7 @@ fet_beginchar ("half rest", "1");
 
 	block_rest;
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -72,8 +72,6 @@ fet_beginchar ("whole rest (outside staff)", "0o");
 	lft x5 = -b - block_rest_y;
 	rt x6 = w + block_rest_y;
 	draw_gridline (z5, z6, ledgerlinethickness_rounded);
-
-	draw_staff_if_debugging (-2, 2, -3);
 fet_endchar;
 
 
@@ -90,8 +88,6 @@ fet_beginchar ("half rest (outside staff)", "1o");
 	rt x6 = w + block_rest_y;
 
 	draw_gridline (z5, z6, ledgerlinethickness_rounded);
-
-	draw_staff_if_debugging (-2, 2, 3);
 fet_endchar;
 
 
@@ -103,7 +99,7 @@ fet_beginchar ("maxima rest", "M3");
 
 	addto currentpicture also currentpicture shifted (2 breve_rest_x, 0);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -113,7 +109,7 @@ fet_beginchar ("longa rest", "M2");
 	draw_block ((0, -breve_rest_y + feta_shift),
 		    (breve_rest_x, breve_rest_y));
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -122,7 +118,7 @@ fet_beginchar ("breve rest", "M1");
 
 	draw_block ((0, 0), (breve_rest_x, breve_rest_y));
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 fet_beginchar ("breve rest (outside staff)", "M1o");
@@ -139,8 +135,6 @@ fet_beginchar ("breve rest (outside staff)", "M1o");
 
 	draw_gridline (z5, z6, ledgerlinethickness_rounded);
 	draw_gridline ((x5, 0), (x6, 0), ledgerlinethickness_rounded);
-
-	draw_staff_if_debugging (-2, 2, 3);
 fet_endchar;
 
 
@@ -226,7 +220,7 @@ fet_beginchar ("Quarter rest", "2");
 	penlabels (1, 2, 3, 4, 5, 6, 7);
 	penlabels (10, 11, 12, 13);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -374,7 +368,7 @@ def draw_eighth_rest (expr show_labels) =
 	     -- z1l
 	     .. cycle;
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 enddef;
 
 
@@ -440,7 +434,7 @@ fet_beginchar ("16th rest", "4");
 	penlabels (1, 2);
 	labels (9);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -494,7 +488,7 @@ fet_beginchar ("32th rest", "5");
 	penlabels (1, 2);
 	labels (9);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -552,7 +546,7 @@ fet_beginchar ("64th rest", "6");
 	penlabels (1, 2);
 	labels (9);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -614,7 +608,7 @@ fet_beginchar ("128th rest", "7");
 	penlabels (1, 2);
 	labels (9);
 
-	draw_staff_if_debugging (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 

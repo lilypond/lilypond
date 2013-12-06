@@ -31,13 +31,8 @@ fet_beginchar ("Right Parenthesis", "rightparen");
 	draw_paren;
 	penlabels (1, 2, 3);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Left Parenthesis", "leftparen");

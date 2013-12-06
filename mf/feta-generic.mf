@@ -17,10 +17,6 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-if test = -1:
-	mode := smoke;
-fi
-
 staffsize# := design_size * pt#;
 
 mode_setup;

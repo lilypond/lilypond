@@ -19,21 +19,6 @@
 
 
 %
-% also show in other configuration wrt staff lines.
-%
-def draw_shifted_too =
-if test > 0:
-	fet_beginchar ("shifted too", "");
-		set_char_box (0, 0, 0, 0);
-		currentpicture := remember_pic;
-
-		draw_staff_if_debugging (-2, 2, 0.5);
-	fet_endchar;
-fi;
-enddef;
-
-
-%
 % Accidentals from various sources, notably
 %
 %   Baerenreiter edition of Schuberts `Auf dem Strom' (sharp, natural)
@@ -56,9 +41,6 @@ enddef;
 
 
 fet_begingroup ("accidentals");
-
-save remember_pic;
-picture remember_pic;
 
 input feta-arrow;
 

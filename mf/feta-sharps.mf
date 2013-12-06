@@ -114,9 +114,7 @@ def draw_sharp(expr arrowup, arrowdown) =
 			    stafflinethickness / 2 + stemwidth / 2, true);
 	fi;
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 enddef;
 
 
@@ -125,15 +123,9 @@ fet_beginchar ("Sharp", "sharp");
 fet_endchar;
 
 
-draw_shifted_too;
-
-
 fet_beginchar ("Arrowed Sharp (arrow up)", "sharp.arrowup");
 	draw_sharp (true, false);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
@@ -141,15 +133,9 @@ fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
 fet_endchar;
 
 
-draw_shifted_too;
-
-
 fet_beginchar ("Arrowed Sharp (arrows up and down)", "sharp.arrowboth");
 	draw_sharp (true, true);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
@@ -183,13 +169,8 @@ fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 
 	draw_gridline (z5, z6, stemwidth);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
@@ -233,13 +214,8 @@ fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 	draw_gridline (z5, z6, stemwidth);
 	draw_gridline (z7, z8, stemwidth);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
@@ -277,13 +253,8 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 
 	draw_gridline (z5, z6, stemwidth);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
@@ -326,13 +297,8 @@ fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
 	draw_gridline (z7, z8, stemwidth);
 	draw_gridline (z9, z10, stemwidth);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
 
 
 fet_beginchar ("Double Sharp", "doublesharp");
@@ -383,10 +349,5 @@ fet_beginchar ("Double Sharp", "doublesharp");
 	% ugh
 	currentpicture := currentpicture shifted (hround (w / 2), 0);
 
-	remember_pic := currentpicture;
-
-        draw_staff_if_debugging (-2, 2, 0);
+        draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-draw_shifted_too;
