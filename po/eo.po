@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.17.29\n"
+"Project-Id-Version: lilypond 2.17.96\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2013-10-20 10:42+0100\n"
-"PO-Revision-Date: 2013-10-29 16:49-0300\n"
+"POT-Creation-Date: 2013-11-24 12:14+0000\n"
+"PO-Revision-Date: 2013-11-26 13:22-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -1259,76 +1259,76 @@ msgstr "lanĉi la programon PROG anstataŭ texi2pdf"
 msgid "create PDF files for use with PDFTeX"
 msgstr "krei dosierojn PDF por uzi kun PDFTeX"
 
-#: lilypond-book.py:460
+#: lilypond-book.py:463
 msgid "Writing snippets..."
 msgstr "Skribado de kodaĵojn..."
 
-#: lilypond-book.py:465
+#: lilypond-book.py:468
 msgid "Processing..."
 msgstr "Procezado..."
 
-#: lilypond-book.py:470
+#: lilypond-book.py:473
 msgid "All snippets are up to date..."
 msgstr "Ĉiuj kodaĵoj estas ĝisdataj..."
 
-#: lilypond-book.py:472
+#: lilypond-book.py:475
 msgid "Linking files..."
 msgstr "Kunligado de dosieroj..."
 
-#: lilypond-book.py:492
+#: lilypond-book.py:495
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "ne eblas determini la formon por: %s"
 
-#: lilypond-book.py:501
+#: lilypond-book.py:504
 #, python-format
 msgid "%s is up to date."
 msgstr "%s estas ĝisdata."
 
-#: lilypond-book.py:514
+#: lilypond-book.py:517
 #, python-format
 msgid "Writing `%s'..."
 msgstr "Skribado de '%s'..."
 
-#: lilypond-book.py:577
+#: lilypond-book.py:580
 msgid "Output would overwrite input file; use --output."
 msgstr "Eligo povos anstataŭigi enig-dosieron; uzu --output."
 
-#: lilypond-book.py:581
+#: lilypond-book.py:584
 #, python-format
 msgid "Reading %s..."
 msgstr "Legado de %s..."
 
-#: lilypond-book.py:588
+#: lilypond-book.py:591
 msgid "Dissecting..."
 msgstr "Analizado..."
 
-#: lilypond-book.py:599
+#: lilypond-book.py:602
 #, python-format
 msgid "Compiling %s..."
 msgstr "Kompilado %s..."
 
-#: lilypond-book.py:607
+#: lilypond-book.py:610
 #, python-format
 msgid "Processing include: %s"
 msgstr "Procezado de inkluzivigo: %s"
 
-#: lilypond-book.py:618
+#: lilypond-book.py:621
 #, python-format
 msgid "Removing `%s'"
 msgstr "Forigado de '%s'"
 
-#: lilypond-book.py:711
+#: lilypond-book.py:714
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr "Difinado de protokolnivelo de LilyPond al %s"
 
-#: lilypond-book.py:715
+#: lilypond-book.py:718
 #, python-format
 msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
 msgstr "Difinado de protokolnivelo de LilyPond al %s (el medi-variablo LILYPOND_LOGLEVEL)"
 
-#: lilypond-book.py:718
+#: lilypond-book.py:721
 msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr "Difinado de eligo de LilyPond al --verbose, implicite de la agordoj de lilypond-book"
 
@@ -1753,24 +1753,24 @@ msgstr "ĉu neniu kapo por arpeĝo trovite?"
 msgid "cannot change, already in translator: %s"
 msgstr "ne eblas ŝanĝi, jam estas en tradukilo: %s"
 
-#: axis-group-engraver.cc:147
+#: axis-group-engraver.cc:149
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr "Axis_group_engraver: vertikala grupo jam havas praulon"
 
-#: axis-group-engraver.cc:148
+#: axis-group-engraver.cc:150
 msgid "are there two Axis_group_engravers?"
 msgstr "ĉu estas du 'Axis_group_engraver'?"
 
-#: axis-group-engraver.cc:149
+#: axis-group-engraver.cc:151
 msgid "removing this vertical group"
 msgstr "forigado de tiu ĉi vertikala grupo"
 
-#: axis-group-interface.cc:704
+#: axis-group-interface.cc:714
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr "\"%s\" ne estas valida 'outside-staff-placement-directive'"
 
-#: axis-group-interface.cc:776
+#: axis-group-interface.cc:786
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr "objekto 'outside-staff' devas havi direkton, ni aprioras supren"
 
@@ -2513,12 +2513,12 @@ msgstr "fiasko pro neatendita okazo"
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr "ni preteratentas valorajn ŝanĝojn for de intervalo por la atributo de MIDI '%s'"
 
-#: midi-item.cc:92
+#: midi-item.cc:93
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "neniu tia instrumento MIDI: '%s'"
 
-#: midi-item.cc:178
+#: midi-item.cc:179
 msgid "Time signature with more than 255 beats.  Truncating"
 msgstr "Takt-indiko kun pli ol 255 frapoj. Ni distranĉas"
 
@@ -2631,35 +2631,35 @@ msgstr "Eraro de FT_Get_Glyph_Name (): %s"
 msgid "Finding the ideal number of pages..."
 msgstr "Esplorado pri la plej bona nombro da paĝoj..."
 
-#: optimal-page-breaking.cc:92
+#: optimal-page-breaking.cc:94
 msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
 msgstr "ne eblis kontentigi kaj 'systems-per-page' kaj 'page-count' samtempe, ni preteratentas 'systems-per-page'"
 
-#: optimal-page-breaking.cc:112
+#: optimal-page-breaking.cc:114
 msgid "Fitting music on 1 page..."
 msgstr "Akomodado de muziko en 1 paĝo..."
 
-#: optimal-page-breaking.cc:114
+#: optimal-page-breaking.cc:116
 #, c-format
 msgid "Fitting music on %d pages..."
 msgstr "Akomodado de muziko en %d paĝoj..."
 
-#: optimal-page-breaking.cc:116
+#: optimal-page-breaking.cc:118
 #, c-format
 msgid "Fitting music on %d or %d pages..."
 msgstr "Akomodado de muziko en %d aŭ %d paĝoj..."
 
-#: optimal-page-breaking.cc:126 optimal-page-breaking.cc:179
+#: optimal-page-breaking.cc:128 optimal-page-breaking.cc:181
 #, c-format
 msgid "trying %d systems"
 msgstr "provado de %d sistemoj"
 
-#: optimal-page-breaking.cc:145 optimal-page-breaking.cc:207
+#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:209
 #, c-format
 msgid "best score for this sys-count: %f"
 msgstr "plej bona poento por tiu ĉi 'sys-count': %f"
 
-#: optimal-page-breaking.cc:214 page-turn-page-breaking.cc:248
+#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:248
 #: paper-score.cc:162
 msgid "Drawing systems..."
 msgstr "Desegnado de sistemoj..."
@@ -3163,6 +3163,10 @@ msgstr "'flexa-height' ne difinita; ni uzas 0"
 msgid "ascending vaticana style flexa"
 msgstr "kreskanta vatikana stilo 'flexa'"
 
+#: vertical-align-engraver.cc:95
+msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
+msgstr "Ni preteratentas Vertical_align_engraver en VerticalAxisGroup"
+
 #. fixme: be more verbose.
 #: volta-engraver.cc:110
 msgid "cannot end volta spanner"
@@ -3180,111 +3184,115 @@ msgstr "ankaŭ jam ekzistas finigita etendigilo"
 msgid "giving up"
 msgstr "ni rezignas"
 
-#: parser.yy:154 parser.yy:168
+#: parser.yy:158 parser.yy:172
 msgid "Too much lookahead"
 msgstr "Tro da antaŭrigardo"
 
-#: parser.yy:434 parser.yy:744 parser.yy:810
+#: parser.yy:441 parser.yy:752 parser.yy:818
 msgid "bad expression type"
 msgstr "malĝusta esprim-tipo"
 
-#: parser.yy:642 parser.yy:1138
+#: parser.yy:650 parser.yy:1159
 msgid "not a context mod"
 msgstr "ne estas kunteksta 'mod'"
 
-#: parser.yy:845
+#: parser.yy:853
 msgid "score expected"
 msgstr "estis atendata muzik-skribaĵo"
 
-#: parser.yy:861
+#: parser.yy:869
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper ne povas esti uzata en \\score, uzu \\layout anstataŭe"
 
-#: parser.yy:885
+#: parser.yy:893
 msgid "need \\paper for paper block"
 msgstr "necesas \\paper por papera bloko"
 
-#: parser.yy:1025 parser.yy:1047
+#: parser.yy:1033 parser.yy:1055
 msgid "unexpected post-event"
 msgstr "malatendita post-evento"
 
-#: parser.yy:1055
+#: parser.yy:1063
 msgid "Ignoring non-music expression"
 msgstr "Ni preterpasas ne-muzikan esprimon"
 
-#: parser.yy:1066 parser.yy:2475
+#: parser.yy:1075 parser.yy:2493
 msgid "music expected"
 msgstr "estis atendata muziko"
 
-#: parser.yy:1353
+#: parser.yy:1370
 msgid "not a symbol"
 msgstr "ne estas simbolo"
 
-#: parser.yy:2146 parser.yy:2260 parser.yy:2273 parser.yy:2282
+#: parser.yy:2182 parser.yy:2296 parser.yy:2309 parser.yy:2318
 msgid "bad grob property path"
 msgstr "malĝusta vojo de eco de 'grob'"
 
-#: parser.yy:2240
+#: parser.yy:2276
 msgid "only \\consists and \\remove take non-string argument."
 msgstr "nur \\consists kaj \\remove prenas ne-ĉenan argumenton."
 
-#: parser.yy:2301
+#: parser.yy:2337
 msgid "bad context property path"
 msgstr "malĝusta vojo de eco de kunteksto"
 
-#: parser.yy:2402
+#: parser.yy:2438
 msgid "simple string expected"
 msgstr "estis atendata simpla ĉeno"
 
-#: parser.yy:2420
+#: parser.yy:2456
 msgid "symbol expected"
 msgstr "simbolo estis atendata"
 
-#: parser.yy:2584
+#: parser.yy:2611
 msgid "not a rhythmic event"
 msgstr "ne estas ritma evento"
 
-#: parser.yy:2658
+#: parser.yy:2685
 msgid "post-event expected"
 msgstr "post-evento estis atendata"
 
-#: parser.yy:2667 parser.yy:2672
+#: parser.yy:2694 parser.yy:2699
 msgid "have to be in Lyric mode for lyrics"
 msgstr "devas esti en reĝimo Lyric por tekstoj"
 
-#: parser.yy:2740
+#: parser.yy:2767
 msgid "expecting string as script definition"
 msgstr "ni atendas ĉeno kiel difino de skripto"
 
-#: parser.yy:2835
+#: parser.yy:2875
 msgid "not an articulation"
 msgstr "ne estas artikulacio"
 
-#: parser.yy:2907 parser.yy:2950
+#: parser.yy:2947 parser.yy:2990
 msgid "not a duration"
 msgstr "ne estas daŭro"
 
-#: parser.yy:2967
+#: parser.yy:3007
 msgid "bass number expected"
 msgstr "estis atendata bas-simbolo"
 
-#: parser.yy:3066
+#: parser.yy:3106
 msgid "have to be in Note mode for notes"
 msgstr "devas esti en reĝimo Note por notoj"
 
-#: parser.yy:3125
+#: parser.yy:3166
 msgid "have to be in Chord mode for chords"
 msgstr "devas esti en reĝimo Chord por akordoj"
 
-#: parser.yy:3140
+#: parser.yy:3181
 msgid "markup outside of text script or \\lyricmode"
 msgstr "markado for de teksta skripto aŭ \\lyricmode"
 
-#: parser.yy:3145
+#: parser.yy:3186
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr "nerekonita ĉeno, ne estas en teksta skripto aŭ \\lyricmode"
 
-#: parser.yy:3362
+#: parser.yy:3347 parser.yy:3356
+msgid "not an unsigned integer"
+msgstr "ne estas sensigna entjero"
+
+#: parser.yy:3424
 msgid "not a markup"
 msgstr "ne estas markado"
 
@@ -3458,31 +3466,31 @@ msgstr "ne eblas redifini event-klason '~S'"
 msgid "Undefined parent event class `~S'"
 msgstr "nekonata patra event-klaso '~S'"
 
-#: define-markup-commands.scm:1037
+#: define-markup-commands.scm:1083
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "neniu sistemo estis trovata en markado \\score, ĉu ĝi havas blokon \\layout?"
 
-#: define-markup-commands.scm:2856
+#: define-markup-commands.scm:2847
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr "Ne eblas trovi signobildon ~a"
 
-#: define-markup-commands.scm:3282
+#: define-markup-commands.scm:3273
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr "neniu kurbkrampo estis trovata por la punkta grando ~S "
 
-#: define-markup-commands.scm:3283
+#: define-markup-commands.scm:3274
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr "apriore al ~S pt"
 
-#: define-markup-commands.scm:3535
+#: define-markup-commands.scm:3526
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "ne estas valida daŭro-ĉeno: ~a"
 
-#: define-markup-commands.scm:3746
+#: define-markup-commands.scm:3737
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr "ne estas valida daŭro-ĉeno: ~a - ni preteratentas"
