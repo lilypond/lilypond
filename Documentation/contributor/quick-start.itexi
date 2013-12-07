@@ -35,12 +35,6 @@ it is available for all major operating systems and is easy to install
 If you are not familiar with GNU/Linux, it may be beneficial to read a
 couple of @qq{introduction to Ubuntu} web pages.
 
-Some contributors have recommended a free PDF:
-
-@example
-@uref{http://www.ubuntupocketguide.com/}
-@end example
-
 For those interested, the LilyDev remix is currently based on a 32bit
 version of 10.04 LTS Ubuntu (Lucid Lynx).
 
@@ -422,11 +416,6 @@ Send patch files to the appropriate place:
 If you have a mentor, send it to them via email.
 
 @item
-New contributors should send the patch attached to an email to
-@email{frogs@@lilynet.net}.  Please add @qq{[PATCH]} to the
-subject line.
-
-@item
 Translators should send patches to
 @email{translations@@lilynet.net}.
 
@@ -434,6 +423,10 @@ Translators should send patches to
 More experienced contributors should upload the patch for
 web-based review.  This requires additional software and use of
 the command-line; see @ref{Uploading a patch for review}.
+
+@item
+If you have trouble uploading the patch for review,
+ask for help on @email{lilypond-devel@@gnu.org}.
 
 @end itemize
 
