@@ -3954,7 +3954,7 @@ Make a fraction of two markups.
 (define-markup-command (normal-size-super layout props arg)
   (markup?)
   #:category font
-  #:properties ((baseline-skip))
+  #:properties ((font-size 0))
   "
 @cindex setting superscript in standard font size
 
@@ -3970,13 +3970,12 @@ Set @var{arg} in superscript with a normal font size.
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
-   (* 0.33 baseline-skip) Y))
+   (* 1.0 (magstep font-size)) Y))
 
 (define-markup-command (super layout props arg)
   (markup?)
   #:category font
-  #:properties ((font-size 0)
-                (baseline-skip))
+  #:properties ((font-size 0))
   "
 @cindex superscript text
 
@@ -3997,7 +3996,7 @@ Set @var{arg} in superscript.
     layout
     (cons `((font-size . ,(- font-size 3))) props)
     arg)
-   (* 0.33 baseline-skip)
+   (* 1.0 (magstep font-size)) ; original font-size
    Y))
 
 (define-markup-command (translate layout props offset arg)
@@ -4022,8 +4021,7 @@ is a pair of numbers representing the displacement in the X and Y axis.
 (define-markup-command (sub layout props arg)
   (markup?)
   #:category font
-  #:properties ((font-size 0)
-                (baseline-skip))
+  #:properties ((font-size 0))
   "
 @cindex subscript text
 
@@ -4045,13 +4043,13 @@ Set @var{arg} in subscript.
     layout
     (cons `((font-size . ,(- font-size 3))) props)
     arg)
-   (* -0.25 baseline-skip)
+   (* -0.75 (magstep font-size)) ; original font-size
    Y))
 
 (define-markup-command (normal-size-sub layout props arg)
   (markup?)
   #:category font
-  #:properties ((baseline-skip))
+  #:properties ((font-size 0))
   "
 @cindex setting subscript in standard font size
 
@@ -4067,7 +4065,7 @@ Set @var{arg} in subscript with a normal font size.
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
-   (* -0.25 baseline-skip)
+   (* -0.75 (magstep font-size))
    Y))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
