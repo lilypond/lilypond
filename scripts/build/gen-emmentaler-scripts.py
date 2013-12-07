@@ -101,10 +101,10 @@ Generate("%(filename)s-%(design_size)d.woff");
 
     path = os.path.join (outdir, '%s-%d.dep' % (filename, design_size))
 
-    deps = r'''%(filename)s-%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfa \
- $(outdir)/parmesan%(design_size)d.pfa  \
- $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-table \
- $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-gtable
+    deps = r'''%(filename)s-%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfb \
+ $(outdir)/parmesan%(design_size)d.pfb  \
+ $(outdir)/feta-alphabet%(design_size)d.pfb feta%(design_size)d.otf-table \
+ feta%(design_size)d.otf-gtable
 ''' % vars()
     open (path, 'w').write (deps)
 
