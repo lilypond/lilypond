@@ -264,6 +264,6 @@ for filenm in files:
     open (global_lisp_nm, 'w').write (global_lisp_table (g))
     if depfile_nm:
         open (depfile_nm, 'wb').write (get_deps (deps,
-                                                 [base + '.log', base + '.dvi', base + '.pfa',
+                                                 [base + '.log', base + '.dvi',
                                                   depfile_nm,
                                                   base + '.pfb']))
