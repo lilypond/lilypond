@@ -126,7 +126,7 @@ on which part of the job, checks to make sure that everything is
 running smoothly, and has final say on our policy for
 Documentation.  Also includes LSR work.
 
-Currently: Graham
+Currently: None
 
 @item
 Translation Meister: trains new translators, updates the
@@ -134,19 +134,6 @@ translation priority list, and handles merging branches (in both
 directions).
 
 Currently: Francisco
-
-@item
-Frog Meister: is responsible for code patches from (relatively)
-inexperienced contributors.  Keeps track of patches, does initial
-reviewing of those patches, sends them to @w{@code{-devel}} when
-they've had some initial review on the Frog list, pesters the
-@w{@code{-devel}} community into actually reviewing said patches, and
-finally pushes the patches once they're accepted.  This person is
-@emph{not} responsible for training new programmers, because that
-would be far too much work -- his/her job is @qq{only} to guide
-completed patches through our process.
-
-Currently: Mike Solomon
 
 @end itemize
 

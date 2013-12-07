@@ -15,9 +15,9 @@ of spending time on those simple tasks.
 
 For a multi-faceted project like LilyPond, sometimes it's tough to know
 where to begin.  In addition to the avenues proposed below, you can send
-an e-mail to the @email{mike@@mikesolomon.org, Frog meister}
-letting him know your skill set and asking how you can help or proposing a
-project.  He'll be able to give you guidance on how to get started.
+an e-mail to the
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org}
+mailing list, and we'll help you to get started.
 
 @end macro
 
@@ -34,11 +34,6 @@ Mailing list support: answer questions from fellow users.
 @item
 Bug reporting: help users create proper @rweb{Bug reports}, and/or
 join the Bug Squad to organize @rcontrib{Issues}.
-
-@item
-@rcontrib{Grand Regression Test Checking}: verify that LilyPond works correctly
-by examining output of test snippets.  Checking one snippet takes less
-than a minute!
 
 @item
 Documentation: small changes can be proposed by following the
@@ -90,8 +85,7 @@ Translations: see @rcontrib{Translating the documentation}, and
 @rcontrib{Translating the website}.
 
 @item
-Bugfixes or new features: the best way to begin is to join the
-Frogs, and read @rcontrib{Programming work}.
+Bugfixes or new features: read @rcontrib{Programming work}.
 
 @end itemize
 
@@ -100,23 +94,6 @@ Frogs, and read @rcontrib{Programming work}.
 @ignore
 @macro helpusProjects
 @subheading Projects
-
-@subsubheading Frogs
-
-Website and mailing list:
-
-@example
-@uref{http://frogs.lilynet.net}
-@end example
-
-The Frogs are ordinary LilyPond users who have chosen to get
-involved in their favorite software's development.  Fixing bugs,
-implementing new features, documenting the source code: there's a
-lot to be done, but most importantly: this is a chance for
-everyone to learn more about LilyPond, about Free Software, about
-programming@dots{} and to have fun.  If you're curious about any of
-it, then the word is: @emph{Join the Frogs!}
-
 
 
 @subsubheading Grand LilyPond Input Syntax Standardization
