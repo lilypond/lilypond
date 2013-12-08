@@ -2712,6 +2712,7 @@
 
     (VoltaBracket
      . (
+        (baseline-skip . 1.7)
         (direction . ,UP)
         (edge-height . (2.0 . 2.0)) ;; staff-space;
         (font-encoding . fetaText)
