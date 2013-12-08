@@ -1094,6 +1094,13 @@ sub lilypond_css_lines ($$)
       $Texi2HTML::THISDOC{'CSS_LINES'} .= "<script language=\"JavaScript\" src=\"${reldir}lily_search.js\"></script>\n";
     }
   }
+
+my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+
+$documentstatus = 'devStatus';
+
+$Texi2HTML::Config::BODYTEXT = 'lang="' . $Texi2HTML::THISDOC{current_lang} . '" class="' . $docu_name . ' ' . $documentstatus . '"';
+
 }
 
 
