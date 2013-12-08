@@ -9,11 +9,11 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.17.96 released!  @emph{November 24, 2013}
+@subsubheading LilyPond 2.17.97 released!  @emph{December 8, 2013}
 
-We are excited to announce the release of LilyPond@tie{}2.17.96 as
-a further beta release for the upcoming stable release@tie{}2.18.  The
-developers believe the release to be feature-complete, the
+We are excited to announce the release of LilyPond@tie{}2.17.97 as
+a potential final beta release for the upcoming stable release@tie{}2.18.  The
+developers believe this to be feature-complete, the
 documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
 latest version, see @uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
