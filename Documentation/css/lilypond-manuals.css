@@ -1,4 +1,28 @@
 /**********************************************************/
+/*                  GENERAL INFORMATION                   */
+/**********************************************************/
+
+/* It has been requested that each web manual be styled using a
+   different color. To faciliate that, each manual is being
+   assigned a hue value on the HSB color chart. All specific
+   colors for a manual will be shades and tints of that hue.
+
+   Manual            Color          Hue
+   learning          green          120
+   music-glossary
+   essay
+
+   notation          blue           205
+   usage             yellow         50
+   snippets
+
+   changes           orange         30
+   extending         red            0
+   internals         purple         280
+
+   contributor       black          doesn't matter - desat
+
+/**********************************************************/
 /*                  PAGE-WIDE SETTINGS                    */
 /**********************************************************/
 
@@ -16,6 +40,15 @@ body {
   background-color: #fff;
 }
 
+/* Documentation-specific page-wide settings */
+
+body.learning    { background-color: #ccffcc; }
+body.notation    { background-color: #cceeff; }
+body.usage       { background-color: #fff6cc; }
+body.extending   { background-color: #ffcccc; }
+body.internals   { background-color: #eeccff; }
+body.contributor { background-color: #cccccc; }
+
 /***********************************************************/
 /*                      HEADERS                            */
 /***********************************************************/
@@ -24,7 +57,7 @@ body {
 .appendix, .appendixsec, .appendixsubsec,
 .unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
 .subheading, .subsubheading {
-  color: #204a87;
+  color: #black;
   border-bottom: 1px dashed black;
   padding-bottom: 0.15em;
   margin-top: 0.6em;
@@ -33,13 +66,21 @@ body {
 
 .settitle {
   background: #b1d281;
+  color: white;
   font-size: 2em;
   text-align: center;
   padding: 0.4em 0.5em;
-  border: solid #7b925a;
+  border: solid black;
   border-width: 1px 0;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
+
+body.learning    .settitle { background-color: #00bf00; }
+body.notation    .settitle { background-color: #0070bf; }
+body.usage       .settitle { background-color: #bf9f00; }
+body.extending   .settitle { background-color: #bf0000; }
+body.internals   .settitle { background-color: #7f00bf; }
+body.contributor .settitle { background-color: #000000; }
 
 .chapter, .appendix, .unnumbered {
   font-size: 1.8em;
@@ -99,7 +140,15 @@ blockquote, .smallexample {
   border: solid #b1d281;
   border-width: 1px 1px 1px 5px;
   margin: 1em auto;
+  background-color: white;
 }
+
+body.learning    blockquote, body.learning .smallexample { border-color: #00ff00; }
+body.notation    blockquote, body.notation .smallexample { border-color: #0095ff; }
+body.usage       blockquote, body.usage .smallexample { border-color: #ffd400; }
+body.extending   blockquote, body.extending .smallexample { border-color: #ff0000; }
+body.internals   blockquote, body.internals .smallexample { border-color: #aa00ff; }
+body.contributor blockquote, body.contributor .smallexample { border-color: #000000; }
 
 blockquote p, pre.smallexample {
   padding: 1em;
@@ -132,6 +181,13 @@ table.cartouche {
   border: 2px solid #8f5902;
   margin: 0 auto 1em;
 }
+
+body.learning    table.cartouche { background-color: #7fff7f; border: 2px solid #00bf00; }
+body.notation    table.cartouche { background-color: #7fcaff; border: 2px solid #0070bf; }
+body.usage       table.cartouche { background-color: #ffea7f; border: 2px solid #bf9f00; }
+body.extending   table.cartouche { background-color: #ff7f7f; border: 2px solid #bf0000; }
+body.internals   table.cartouche { background-color: #d47fff; border: 2px solid #7f00bf; }
+body.contributor table.cartouche { background-color: #aaaaaa; border: 2px solid #000000; }
 
 table.cartouche p {
   padding: 1em;
@@ -215,6 +271,13 @@ div#tocframe {
   line-height: 1.3;
 }
 
+body.learning    div#tocframe { background-color: #00bf00; }
+body.notation    div#tocframe { background-color: #0070bf; }
+body.usage       div#tocframe { background-color: #bf9f00; }
+body.extending   div#tocframe { background-color: #bf0000; }
+body.internals   div#tocframe { background-color: #7f00bf; }
+body.contributor div#tocframe { background-color: #000000; }
+
 @media screen {
   body > div#tocframe {
     position: fixed
@@ -222,12 +285,12 @@ div#tocframe {
 }
 
 div#tocframe a:link, div#tocframe a:visited {
-  color: #454532;
+  color: white;
   text-decoration: none;
 }
 
 div#tocframe a:hover {
-  color: #232b16;
+  color: silver;
   text-decoration: underline;
 }
 
@@ -385,13 +448,28 @@ table .title {
   background: #e5f5ce;
   font-size: 0.8em;
   padding: 0.2em 0;
-  border: solid #b1d281;
+  border: solid white;
   border-width: 0 0 5px 0;
   margin: 0;
 }
 
+body.learning    { background-color: #ccffcc; }
+body.notation    { background-color: #cceeff; }
+body.usage       { background-color: #fff6cc; }
+body.extending   { background-color: #ffcccc; }
+body.internals   { background-color: #eeccff; }
+body.contributor { background-color: #cccccc; }
+
+
+body.learning    .footer { background-color: #00bf00; color: #ccffcc; }
+body.notation    .footer { background-color: #0070bf; color: #cceeff; }
+body.usage       .footer { background-color: #bf9f00; color: #fff6cc; }
+body.extending   .footer { background-color: #bf0000; color: #ffcccc; }
+body.internals   .footer { background-color: #7f00bf; color: #eeccff; }
+body.contributor .footer { background-color: #000000; color: #cccccc; }
+
 .footer a:link {
-  color: #0308fc;
+  color: white;
 }
 
 .footer p {
@@ -455,6 +533,14 @@ div#search p, div#search form {
   -webkit-border-radius: 10px;
   margin: 1em;
 }
+
+body.learning    .warning { border-color: #00ff00; }
+body.notation    .warning { border-color: #0095ff; }
+body.usage       .warning { border-color: #ffd400; }
+body.extending   .warning { border-color: #ff0000; }
+body.internals   .warning { border-color: #aa00ff; }
+body.contributor .warning { border-color: #000000; }
+
 
 .advanced {
   background: #eeffcc;
