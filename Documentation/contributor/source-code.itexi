@@ -612,7 +612,6 @@ hopefully be documented in the near future.
 @menu
 * Organization of remote branches::
 * LilyPond repository sources::
-* Other branches::
 @end menu
 
 
@@ -642,6 +641,25 @@ significant changes to the English documentation.  See
 @ref{Translating the documentation} for details.
 
 
+Most contributors will never need to touch the other branches.  If
+you wish to do so, you will need more familiarity with Git; please
+see @ref{Other Git documentation}.
+
+@itemize
+@item @code{dev/XYZ}:
+These branches are for individual developers.  They store code
+which is not yet stable enough to be added to the @code{master}
+branch.
+
+@item @code{stable/XYZ}:
+The branches are kept for archival reasons.
+
+@item @code{archive/XYZ}:
+The branches are kept for archival reasons.
+
+@end itemize
+
+
 @node LilyPond repository sources
 @unnumberedsubsubsec LilyPond repository sources
 
@@ -665,28 +683,6 @@ http://git.sv.gnu.org/r/lilypond.git
 The SSH protocol can only be used if your system is properly set
 up to use it.  Also, the HTTP protocol is slowest, so it should
 only be used as a last resort.
-
-
-@node Other branches
-@unnumberedsubsubsec Other branches
-
-Most contributors will never need to touch the other branches.  If
-you wish to do so, you will need more familiarity with Git; please
-see @ref{Other Git documentation}.
-
-@itemize
-@item @code{dev/XYZ}:
-These branches are for individual developers.  They store code
-which is not yet stable enough to be added to the @code{master}
-branch.
-
-@item @code{stable/XYZ}:
-The branches are kept for archival reasons.
-
-@item @code{archive/XYZ}:
-The branches are kept for archival reasons.
-
-@end itemize
 
 
 @node Basic Git procedures
@@ -737,7 +733,7 @@ possible, since outdated patches require extra work before they
 can be used.
 
 Occasionally you may need to rework some of your own modifications
-to match changes made to the remote branch (see @ref{Resolving
+to match changes made to the remote branch (see @ref{Merge
 conflicts}), and it's considerably easier to rework things
 incrementally.  If you don't update your repository along the way,
 you may have to spend a lot of time resolving branch conflicts and
@@ -800,7 +796,7 @@ git stash pop  # reapply previously saved changes
 
 Note that @command{git@tie{}stash@tie{}pop} will try to apply a
 patch, and this may create a conflict.  If this happens, see
-@ref{Resolving conflicts}.
+@ref{Merge conflicts}.
 
 TODO: I think the next paragraph is confusing.  Perhaps prepare
 the reader for new terms `committish' and `head'?  -mp
@@ -928,7 +924,7 @@ git checkout @var{bar}
 git merge @var{foo}
 @end example
 
-If any conflict happens, see @ref{Resolving conflicts}.
+If any conflict happens, see @ref{Merge conflicts}.
 
 There are common usage cases for merging: as a translator, you will
 often want the Translations meister to merge @code{master} into
@@ -1370,7 +1366,6 @@ several Git branches of LilyPond source code is presented.
 @menu
 * Merge conflicts::
 * Advanced Git concepts::
-* Resolving conflicts::
 * Reverting all local changes::
 * Git log::
 * Applying remote patches::
@@ -1384,8 +1379,20 @@ several Git branches of LilyPond source code is presented.
 @node Merge conflicts
 @subsection Merge conflicts
 
-To be filled in later, and/or moved to a different section.  I
-just wanted to make sure that I had a stub ready somewhere.
+
+Occasionally an update may result in conflicts -- this happens
+when you and somebody else have modified the same part of the same
+file and git cannot figure out how to merge the two versions
+together.  When this happens, you must manually merge the two
+versions.
+
+If you need some documentation to understand and resolve
+conflicts, see paragraphs @emph{How conflicts are presented} and
+@emph{How to resolve conflicts} in @command{git merge} man page.
+
+If all else fails, you can follow the instructions in
+@ref{Reverting all local changes}.  Be aware that this eliminates
+any changes you have made!
 
 
 @node Advanced Git concepts
@@ -1425,25 +1432,6 @@ A @emph{branch} is nothing more than a pointer to a particular
 commit, which is called the @emph{head} of the branch; when
 referring to a branch, one often actually thinks about its head
 and the ancestor commits of the head.
-
-
-@node Resolving conflicts
-@subsection Resolving conflicts
-
-
-Occasionally an update may result in conflicts -- this happens
-when you and somebody else have modified the same part of the same
-file and git cannot figure out how to merge the two versions
-together.  When this happens, you must manually merge the two
-versions.
-
-If you need some documentation to understand and resolve
-conflicts, see paragraphs @emph{How conflicts are presented} and
-@emph{How to resolve conflicts} in @command{git merge} man page.
-
-If all else fails, you can follow the instructions in
-@ref{Reverting all local changes}.  Be aware that this eliminates
-any changes you have made!
 
 
 @node Reverting all local changes
