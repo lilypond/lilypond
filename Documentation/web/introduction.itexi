@@ -1023,6 +1023,10 @@ correctly, when in fact it is working precisely as designed.
 
 More in-depth information is available in @ref{Manuals}.
 
+Ben Lemon, a LilyPond user, has created a range of
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,video tutorials}
+on his blog and which are aimed at new users.
+
 
 @subsubheading Easier editing environments
 
