@@ -1371,7 +1371,7 @@ several Git branches of LilyPond source code is presented.
 * Applying remote patches::
 * Sending and receiving patches via email::
 * Cleaning up multiple patches::
-* Commit access::
+* Push access::
 * Pushing to staging::
 @end menu
 
@@ -1552,12 +1552,12 @@ during the interactive session, you will... err... completely
 remove those commits.}
 
 
-@node Commit access
-@subsection Commit access
+@node Push access
+@subsection Push access
 
 Most contributors are not able to commit patches directly to the
 main repository---only members of the LilyPond development team
-have @emph{commit access}.  If you are a contributor and are
+have @emph{push access}.  If you are a contributor and are
 interested in joining the development team, contact the Project
 Manager through the mailing list
 (@email{lilypond-devel@@gnu.org}).  Generally, only contributors
@@ -1565,7 +1565,7 @@ who have already provided a number of patches which have been
 pushed to the main repository will be considered for membership.
 
 If you have been approved by the Project Manager, use the
-following procedure to obtain commit access:
+following procedure to obtain push access:
 
 @enumerate
 @item
@@ -1595,7 +1595,7 @@ the box labeled @qq{GNU LilyPond Music Typesetter} and write a
 brief (required) message for the Project Manager (@qq{Hey it's
 me!} should be fine).
 
-Note that you will not have commit access until the Project
+Note that you will not have push access until the Project
 Manager activates your membership.  Once your membership is
 activated, LilyPond should appear under the heading @qq{Groups I'm
 Contributor of} on your @qq{My Group Membership} page.
@@ -1729,7 +1729,7 @@ Git properly in the previous step.
 
 
 @item
-Test your commit access with a dry run:
+Test your push access with a dry run:
 
 @warning{Do not push directly to master; instead, push to staging.
 See @ref{Pushing to staging}.}
@@ -1753,7 +1753,7 @@ details, consult the @code{git@tie{}push} man page.
 
 @item
 Repeat the steps from generating an RSA key through to testing
-your commit access, for each machine from which you will be
+your push access, for each machine from which you will be
 making commits, or you may simply copy the files from your
 local @file{~/.ssh} folder to the same folder on the other
 machine.

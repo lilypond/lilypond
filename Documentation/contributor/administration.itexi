@@ -216,7 +216,7 @@ everything after @code{smtp_command:}.
 
 @item
 Ensure that your new user has git push access.  Follow the
-instructions in the CG at @ref{Commit access}.  Do not set
+instructions in the CG at @ref{Push access}.  Do not set
 password protection for the key --- if you do you will not be able
 to run patchy unattended.
 
