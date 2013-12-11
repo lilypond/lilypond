@@ -49,7 +49,6 @@ private:
   Keyword_table *keytable_;
   SCM scopes_;
   SCM start_module_;
-  int hidden_state_;
   Input override_input_;
   SCM eval_scm (SCM, char extra_token = 0);
 public:
@@ -95,6 +94,7 @@ public:
   SCM lookup_identifier (const string &s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (int token_type, SCM scm = SCM_UNSPECIFIED);
+  int pop_extra_token ();
   void push_chord_state (SCM alist);
   void push_figuredbass_state ();
   void push_lyric_state ();

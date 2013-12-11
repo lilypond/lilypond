@@ -123,7 +123,6 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
-%x extratoken
 %x chords
 %x figures
 %x incl
@@ -184,36 +183,6 @@ BOM_UTF8	\357\273\277
 
 <*>\r		{
 	// swallow and ignore carriage returns
-}
-
-<extratoken>{ANY_CHAR}	{
-  /* Generate a token without swallowing anything */
-
-  /* First unswallow the eaten character */
-  add_lexed_char (-YYLeng ());
-  yyless (0);
-
-  /* produce requested token */
-  int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval = scm_cdar (extra_tokens_);
-  extra_tokens_ = scm_cdr (extra_tokens_);
-  if (scm_is_null (extra_tokens_))
-    yy_pop_state ();
-
-  return type;
-}
-
-<extratoken><<EOF>>	{
-  /* Generate a token without swallowing anything */
-
-  /* produce requested token */
-  int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval = scm_cdar (extra_tokens_);
-  extra_tokens_ = scm_cdr (extra_tokens_);
-  if (scm_is_null (extra_tokens_))
-    yy_pop_state ();
-
-  return type;
 }
 
    /* Use the trailing context feature. Otherwise, the BOM will not be
@@ -848,13 +817,20 @@ BOM_UTF8	\357\273\277
 void
 Lily_lexer::push_extra_token (int token_type, SCM scm)
 {
-	if (scm_is_null (extra_tokens_))
-	{
-		if (YY_START != extratoken)
-			hidden_state_ = YY_START;
-		yy_push_state (extratoken);
-	}
 	extra_tokens_ = scm_acons (scm_from_int (token_type), scm, extra_tokens_);
+}
+
+int
+Lily_lexer::pop_extra_token ()
+{
+	if (scm_is_null (extra_tokens_))
+		return -1;
+
+  /* produce requested token */
+	int type = scm_to_int (scm_caar (extra_tokens_));
+	yylval = scm_cdar (extra_tokens_);
+	extra_tokens_ = scm_cdr (extra_tokens_);
+	return type;
 }
 
 void
@@ -895,32 +871,17 @@ Lily_lexer::push_markup_state ()
 void
 Lily_lexer::push_note_state (SCM alist)
 {
-	bool extra = (YYSTATE == extratoken);
-
 	SCM p = scm_assq (alist, pitchname_tab_stack_);
-
-	if (extra)
-		yy_pop_state ();
 
 	if (scm_is_false (p))
 		p = scm_cons (alist, alist_to_hashq (alist));
 	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 	yy_push_state (notes);
-
-	if (extra) {
-		hidden_state_ = YYSTATE;
-		yy_push_state (extratoken);
-	}
 }
 
 void
 Lily_lexer::pop_state ()
 {
-	bool extra = (YYSTATE == extratoken);
-
-	if (extra)
-		yy_pop_state ();
-
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
 
@@ -928,10 +889,6 @@ Lily_lexer::pop_state ()
 	if (YYSTATE != maininput)
 		yy_pop_state ();
 
-	if (extra) {
-		hidden_state_ = YYSTATE;
-		yy_push_state (extratoken);
-	}
 }
 
 int
@@ -1075,10 +1032,7 @@ Lily_lexer::scan_bare_word (const string &str)
 int
 Lily_lexer::get_state () const
 {
-	if (YY_START == extratoken)
-		return hidden_state_;
-	else
-		return YY_START;
+	return YY_START;
 }
 
 bool

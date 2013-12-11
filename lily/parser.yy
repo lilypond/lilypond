@@ -3970,6 +3970,9 @@ yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
 
 	lex->lexval_ = s;
 	lex->lexloc_ = loc;
+	int tok = lex->pop_extra_token ();
+	if (tok >= 0)
+		return tok;
 	lex->prepare_for_next_token ();
 	return lex->yylex ();
 }
