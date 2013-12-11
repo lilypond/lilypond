@@ -22,6 +22,7 @@
 #define PANGO_ENABLE_BACKEND
 
 #include <pango/pangoft2.h>
+#include "freetype.hh"
 #include FT_XFREE86_H
 
 #include <map>

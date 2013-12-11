@@ -18,6 +18,7 @@
 */
 
 #include "open-type-font.hh"
+#include "freetype.hh"
 
 #include <cstdio>
 
