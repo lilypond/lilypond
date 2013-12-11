@@ -62,7 +62,7 @@ deleting them.  Let's hope that a stack overflow doesn't trigger a move
 of the parse stack onto the heap. */
 
 %left PREC_BOT
-%nonassoc REPEAT REPEAT_IDENTIFIER
+%nonassoc REPEAT
 %nonassoc ALTERNATIVE
 
 /* The above precedences tackle the shift/reduce problem
@@ -330,7 +330,6 @@ If we give names, Bison complains.
 %token EMBEDDED_LILY "#{"
 
 %token BOOK_IDENTIFIER
-%token CHORD_BODY_IDENTIFIER
 %token CHORD_MODIFIER
 %token CHORD_REPETITION
 %token CONTEXT_DEF_IDENTIFIER
@@ -353,7 +352,6 @@ If we give names, Bison complains.
 %token NUMBER_IDENTIFIER
 %token OUTPUT_DEF_IDENTIFIER
 %token REAL
-%token REPEAT_IDENTIFIER
 %token RESTNAME
 %token SCM_ARG
 %token SCM_FUNCTION
@@ -1207,19 +1205,9 @@ repeated_music:
 	{
 		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, SCM_EOL);
 	}
-	| REPEAT_IDENTIFIER music
-	{
-		$$ = MAKE_SYNTAX ("repeat", @$, scm_car ($1), scm_cdr ($1),
-				  $2, SCM_EOL);
-	}
 	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
 	{
 		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $6);
-	}
-	| REPEAT_IDENTIFIER music ALTERNATIVE braced_music_list
-	{
-		$$ = MAKE_SYNTAX ("repeat", @$, scm_car ($1), scm_cdr ($1),
-				  $2, $4);
 	}
 	;
 
@@ -1281,7 +1269,7 @@ context_modification:
         ;
 
 context_modification_arg:
-	embedded_scm_closed
+	embedded_scm
 	| MUSIC_IDENTIFIER
 	;
 
@@ -1317,16 +1305,6 @@ context_mod_list:
 composite_music:
 	complex_music
 	| music_bare
-	;
-
-/* Music that can be parsed without lookahead */
-closed_music:
-	music_bare
-	| complex_music_prefix closed_music
-	{
-		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
-	}
-	| music_function_call_closed
 	;
 
 music_bare:
@@ -1367,13 +1345,6 @@ grouped_music_list:
  * is being parsed.  What the parser does not know is which predicates
  * will match and whether or not \default will be appearing in the
  * argument list, and where.
- *
- * Many of the basic nonterminals used for argument list scanning come
- * in a "normal" and a "closed" flavor.  A closed expression is one
- * that can be parsed without a lookahead token.  That makes it
- * feasible for an optional argument that may need to be skipped:
- * skipping can only be accomplished by pushing back the token into
- * the lexer, and that only works when there is no lookahead token.
  *
  * Sequences of 0 or more optional arguments are scanned using either
  * function_arglist_backup or function_arglist_nonbackup.  The first
@@ -1429,35 +1400,6 @@ function_arglist_nonbackup_common:
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
-	}
-	;
-
-function_arglist_closed_nonbackup:
-	function_arglist_nonbackup_common
-	| function_arglist_closed_common
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg_closed
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_closed
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SCM_IDENTIFIER
-	{
-		$$ = check_scheme_arg (parser, @4,
-				       try_string_variants ($2, $4),
-				       $3, $2, $4);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup STRING
-	{
-		$$ = check_scheme_arg (parser, @4,
-				       try_string_variants ($2, $4),
-				       $3, $2, $4);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup full_markup
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	;
 
@@ -1607,45 +1549,22 @@ function_arglist_nonbackup_reparse:
 
 
 // function_arglist_backup can't occur at the end of an argument
-// list.  It needs to be careful about avoiding lookahead only until
-// it has made a decision whether or not to accept the parsed entity.
-// At that point of time, music requiring lookahead to parse becomes
-// fine.
+// list.
 function_arglist_backup:
 	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg_closed
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
 			$$ = scm_cons ($4, $3);
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (SCM_ARG, $4, @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup REPEAT simple_string unsigned_number
-	{
-		$4 = MAKE_SYNTAX ("repeat", @4, $5, $6,
-				  MY_MAKE_MUSIC ("Music", @4)->unprotect (),
-				  SCM_EOL);
-		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			$$ = $3;
-			MYREPARSE (@4, $2, REPEAT_IDENTIFIER, scm_cons ($5, $6));
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (REPEAT_IDENTIFIER, scm_cons ($5, $6), @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup chord_body
-	{
-		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			$$ = $3;
-			MYREPARSE (@4, $2, CHORD_BODY_IDENTIFIER, $4);
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (CHORD_BODY_IDENTIFIER, $4, @4);
+		else {
+			$$ = make_music_from_simple (parser, @4, $4);
+			if (scm_is_true (scm_call_1 ($2, $$)))
+				$$ = scm_cons ($$, $3);
+			else
+			{
+				$$ = scm_cons (loc_on_music (@3, $1), $3);
+				MYBACKUP (SCM_ARG, $4, @4);
+			}
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
@@ -1745,54 +1664,6 @@ function_arglist_backup:
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup PITCH_IDENTIFIER
-	{
-		SCM m = make_music_from_simple (parser, @4, $4);
-		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
-		{
-			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
-			$$ = $3;
-		} else if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			MYREPARSE (@4, $2, PITCH_ARG, $4);
-			$$ = $3;
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NOTENAME_PITCH
-	{
-		SCM m = make_music_from_simple (parser, @4, $4);
-		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
-		{
-			MYREPARSE (@4, $2, NOTENAME_PITCH, $4);
-			$$ = $3;
-		} else if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			MYREPARSE (@4, $2, PITCH_ARG, $4);
-			$$ = $3;
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (NOTENAME_PITCH, $4, @4);
-		}
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup TONICNAME_PITCH
-	{
-		SCM m = make_music_from_simple (parser, @4, $4);
-		if (unsmob_music (m) && scm_is_true (scm_call_1 ($2, m)))
-		{
-			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
-			$$ = $3;
-		} else if (scm_is_true (scm_call_1 ($2, $4)))
-		{
-			MYREPARSE (@4, $2, PITCH_ARG, $4);
-			$$ = $3;
-		} else {
-			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
@@ -2032,55 +1903,6 @@ function_arglist_common_reparse:
 	}
 	;
 
-function_arglist_closed:
-	function_arglist_closed_nonbackup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup DEFAULT
-	{
-		$$ = scm_cons (loc_on_music (@4, $1), $3);
-	}
-	;
-
-function_arglist_closed_common:
-	EXPECT_NO_MORE_ARGS {
-		$$ = SCM_EOL;
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_arg_closed
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
-	| EXPECT_SCM function_arglist_optional bare_number_common_closed
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
-	| EXPECT_SCM function_arglist_optional '-' NUMBER_IDENTIFIER
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       scm_difference ($4, SCM_UNDEFINED),
-				       $2, $1);
-	}
-	| EXPECT_SCM function_arglist_optional post_event_nofinger
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $2, $1);
-	}
-	| function_arglist_common_reparse REPARSE SCM_ARG
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $1, $2);
-	}
-	| function_arglist_common_reparse REPARSE bare_number_common_closed
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $1, $2);
-	}
-	| function_arglist_common_reparse REPARSE symbol_list_arg
-	{
-		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
-	}
-	;
-
 function_arglist_optional:
 	function_arglist_backup
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
@@ -2095,24 +1917,6 @@ function_arglist_skip_backup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup
 	{
 		$$ = scm_cons (loc_on_music (@3, $1), $3);
-	}
-	;
-
-embedded_scm_closed:
-	embedded_scm_bare
-	| scm_function_call_closed
-	;
-
-embedded_scm_arg_closed:
-	embedded_scm_bare_arg
-	| scm_function_call_closed
-	| closed_music
-	;
-
-scm_function_call_closed:
-	SCM_FUNCTION function_arglist_closed {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
 	}
 	;
 
@@ -2668,7 +2472,6 @@ chord_body:
 	{
 		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
 	}
-	| CHORD_BODY_IDENTIFIER
 	;
 
 chord_body_elements:
@@ -2735,18 +2538,6 @@ chord_body_element:
 music_function_chord_body:
 	music_function_call
 	| MUSIC_IDENTIFIER
-	;
-
-// Event functions may only take closed arglists, otherwise it would
-// not be clear whether a following postevent should be associated
-// with the last argument of the event function or with the expression
-// for which the function call acts itself as event.
-
-music_function_call_closed:
-	MUSIC_FUNCTION function_arglist_closed {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
-	}
 	;
 
 event_function_event:
@@ -2990,7 +2781,7 @@ gen_text_def:
 			make_simple_markup ($1));
 		$$ = t->unprotect ();
 	}
-	| embedded_scm_closed
+	| embedded_scm
 	{
 		Music *m = unsmob_music ($1);
 		if (m && m->is_mus_type ("post-event"))
@@ -3460,11 +3251,6 @@ bare_number:
 	}
 	;
 
-bare_number_closed:
-	UNSIGNED
-	| bare_number_common_closed
-	;
-
 unsigned_number:
 	UNSIGNED
 	| NUMBER_IDENTIFIER
@@ -3623,7 +3409,7 @@ markup_command_basic_arguments:
 	EXPECT_MARKUP_LIST markup_command_list_arguments markup_list {
 	  $$ = scm_cons ($3, $2);
 	}
-	| EXPECT_SCM markup_command_list_arguments embedded_scm_closed {
+	| EXPECT_SCM markup_command_list_arguments embedded_scm {
 	  $$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
 	| EXPECT_NO_MORE_ARGS {
