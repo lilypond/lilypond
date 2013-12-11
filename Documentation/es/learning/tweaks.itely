@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f3e8b5f9b68cab4579873749f4648ba63bc92ac7
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -190,7 +190,7 @@ a partir de sus nombres.
 * La instrucción revert::
 * El prefijo once::
 * La instrucción overrideProperty::
-* The tweak command::
+* La instrucción tweak::
 @end menu
 
 @node La instrucción override
@@ -375,7 +375,7 @@ detalles consulte @rextend{Trucos difíciles}.
 @c Maybe explain in a later iteration  -td
 
 
-@node The tweak command
+@node La instrucción tweak
 @unnumberedsubsubsec La instrucción @code{@bs{}tweak}
 @translationof The tweak command
 
@@ -2767,7 +2767,7 @@ del @code{StaffGrouper}. El espaciado de los pentagramas no
 agrupados (como @code{Lyrics} y @code{Staff}) se controla con las
 variables del @code{VerticalAxisGroup}.  Para ver más detalles,
 consulte
-@ruser{Variables de espaciado de \paper verticales flexibles} y
+@ruser{Variables de espaciado de paper verticales flexibles} y
 @ruser{Espaciado vertical flexible dentro de los sistemas}.
 
 
@@ -3043,7 +3043,7 @@ superpone.
 
 @menu
 * La propiedad padding (relleno)::
-* La propiedadhe right-padding (relleno por la derecha)::
+* La propiedad right-padding (relleno por la derecha)::
 * La propiedad staff-padding (relleno de pentagrama)::
 * La propiedad self-alignment-X (auto-alineación en X)::
 * La propiedad staff-position (posición en el pentagrama)::
@@ -3100,7 +3100,7 @@ entonces ese objeto se moverá, y también todos los que están por fuera
 de él.
 
 
-@node La propiedadhe right-padding (relleno por la derecha)
+@node La propiedad right-padding (relleno por la derecha)
 @unnumberedsubsubsec La propiedad @code{right-padding} (relleno por la derecha)
 @translationof The right-padding property
 
@@ -3156,9 +3156,9 @@ sobreescribiendo @code{right-padding}.
 @cindex objetos, alineación sobre la línea base
 
 @code{staff-padding} se puede usar para alinear objetos como matices
-dinámicos a lo largo de una línea de base a una altura fija sobre el
-pentagrama, en lugar de hacerlo a una altura que dependa de la
-posición de la nota a la que están adosados.  No es una propiedad de
+dinámicos a lo largo de una línea de base a una distancia fija del
+pentagrama, siempre que no exista ningún otro elemento de notación
+que fuerce una distancia mayor al pentagrama.  No es una propiedad de
 @code{DynamicText} sino de @code{DynamicLineSpanner}.  Esto es así
 porque la línea de base debe aplicarse por igual a @strong{todas} las
 dinámicas, entre ellas las que se han creado como objetos de
@@ -3171,12 +3171,8 @@ matiz en el ejemplo de la sección anterior:
 @cindex staff-padding, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\dynamicUp
-% Extend width by 1 unit
-\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-% Align dynamics to a base line 2 units above staff
-\override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf a\mp b\p
+\override DynamicLineSpanner.staff-padding = #3
+a4\f b\mf a\p b\mp
 @end lilypond
 
 
@@ -4264,10 +4260,10 @@ las partes que tienen todos los @code{#()}.  Esto se explicará en
 @ref{Trucos avanzados con Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4295,11 +4291,11 @@ nuestros archivos de música, y yo personalmente encuentro todos los
 otro archivo:
 
 @example
-%%% guardar esto en un archivo de nombre "definiciones.ily"
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+%%% guardar esto en un archivo con el nombre "definiciones.ily"
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4332,10 +4328,10 @@ archivo como @file{musica.ly}).
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4365,10 +4361,10 @@ Sustituyamos nuestro archivo @file{definiciones.ily} con éste:
 
 @example
 %%%  definiciones.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4395,10 +4391,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
@@ -4443,10 +4439,10 @@ también vamos a aumentar el tamaño general de la salida.
 
 @example
 %%%  publicar-web.ily
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
 inst =
 #(define-music-function
@@ -4474,10 +4470,10 @@ inst =
 @end example
 
 @lilypond[quote,ragged-right]
-mpdolce = -\tweak #'self-alignment-X #-0.6 #
-  (make-dynamic-script
-   (markup #:dynamic "mp"
-           #:normal-text #:italic "dolce" ))
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
 inst =
 #(define-music-function
