@@ -961,7 +961,7 @@ Sin embargo, si los nombres de instrumento son más largos, éstos no se
 centran para un grupo de pentagramas a no ser que se aumenten los
 valores del sangrado, @code{indent}, y del sangrado corto,
 @code{short-indent}.  Para ver más detalles sobre estos ajustes,
-consulte @ref{Variables de \paper para desplazamientos y sangrados}.
+consulte @ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{@bs{}paper} para desplazamientos y sangrados}.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -1063,7 +1063,7 @@ musical para declarar el cambio de instrumento:
 
 @seealso
 Referencia de la notación:
-@ref{Variables de \paper para desplazamientos y sangrados},
+@ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{@bs{}paper} para desplazamientos y sangrados},
 @ref{Modificar los complementos (plug-ins) de contexto}.
 
 Fragmentos de código:

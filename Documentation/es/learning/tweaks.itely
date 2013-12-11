@@ -186,16 +186,16 @@ a partir de sus nombres.
 @strong{La instrucción \override}
 
 @menu
-* La instrucción \override::
-* La instrucción \revert::
-* El prefijo \once::
-* La instrucción \overrideProperty::
-* The \tweak command::
+* La instrucción override::
+* La instrucción revert::
+* El prefijo once::
+* La instrucción overrideProperty::
+* The tweak command::
 @end menu
 
-@node La instrucción \override
-@unnumberedsubsubsec La instrucción @code{\override}
-@translationof The \override command
+@node La instrucción override
+@unnumberedsubsubsec La instrucción @code{@bs{}override}
+@translationof The override command
 
 @cindex override, instrucción
 @cindex override (sobreescritura), sintaxis de
@@ -270,9 +270,9 @@ g4 a b c |
 @end lilypond
 
 
-@node La instrucción \revert
-@unnumberedsubsubsec La instrucción @code{\revert}
-@translationof The \revert command
+@node La instrucción revert
+@unnumberedsubsubsec La instrucción @code{@bs{}revert}
+@translationof The revert command
 
 @cindex revert, instrucción
 
@@ -310,9 +310,9 @@ b4 c |
 @end lilypond
 
 
-@node El prefijo \once
-@unnumberedsubsubsec El prefijo @code{\once}
-@translationof The \once prefix
+@node El prefijo once
+@unnumberedsubsubsec El prefijo @code{@bs{}once}
+@translationof The once prefix
 
 @funindex \once
 @funindex once
@@ -359,9 +359,9 @@ internamente @code{\revert} en vez de @code{\override}, por lo que
 añadir @code{\once} como prefijo aquí no tiene ningún efecto.
 
 
-@node La instrucción \overrideProperty
-@unnumberedsubsubsec La instrucción @code{\overrideProperty}
-@translationof The \overrideProperty command
+@node La instrucción overrideProperty
+@unnumberedsubsubsec La instrucción @code{@bs{}overrideProperty}
+@translationof The overrideProperty command
 
 @cindex overrideProperty, instrucción
 
@@ -375,8 +375,9 @@ detalles consulte @rextend{Trucos difíciles}.
 @c Maybe explain in a later iteration  -td
 
 
-@node The \tweak command
-@unnumberedsubsubsec The @code{\tweak} command
+@node The tweak command
+@unnumberedsubsubsec La instrucción @code{@bs{}tweak}
+@translationof The tweak command
 
 @cindex tweak, instrucción
 
@@ -2164,7 +2165,7 @@ automática si el posicionado no resulta óptimo.
 
 @menu
 * La propiedad outside-staff-priority (prioridad fuera del pentagrama)::
-* La instrucción \textLengthOn::
+* La instrucción textLengthOn::
 * Posicionamiento de los matices dinámicos::
 * Escalado de un «Grob»::
 @end menu
@@ -2392,9 +2393,9 @@ necesitar claramente espaciar las notas en sentido horizontal para
 hacer sitio para el texto.  Esto se hace empleando la instrucción
 @code{textLengthOn}.
 
-@node La instrucción \textLengthOn
-@unnumberedsubsubsec La instrucción @code{\textLengthOn}
-@translationof The \textLengthOn command
+@node La instrucción textLengthOn
+@unnumberedsubsubsec La instrucción @code{@bs{}textLengthOn}
+@translationof The textLengthOn command
 
 @cindex notas, espaciar junto al texto
 

@@ -986,7 +986,7 @@ se han visto y comprendido, se manejan sin problema.
 * Mensaje de error Unbound variable %::
 * Mensaje de error FT_Get_Glyph_Name::
 * Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
-* Mensaje de error Unexpected \new::
+* Mensaje de error Unexpected new::
 @end menu
 
 @node La música se sale de la página
@@ -1126,9 +1126,9 @@ líneas que no son pautas} en @ruser{Espaciado vertical flexible dentro
 de los sistemas}.
 
 
-@node Mensaje de error Unexpected \new
-@unnumberedsubsec Mensaje de error Unexpected @code{\new}
-@translationof Error message unexpected \new
+@node Mensaje de error Unexpected new
+@unnumberedsubsec Mensaje de error Unexpected @code{@bs{}new}
+@translationof Error message unexpected new
 
 Un bloque @code{\score} debe contener una @emph{única} expresión
 musical.  Si en vez de ello contiene varias instrucciones

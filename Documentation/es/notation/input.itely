@@ -377,7 +377,7 @@ una de estas definiciones del mismo tipo en el nivel más alto, las
 definiciones se combinan, pero en situaciones de conflicto las
 definiciones más tardías tienen preferencia.  Para ver los detalles
 sobre cómo afecta al bloque @code{\layout}, consulte
-@ref{El bloque \layout}.
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
 
 @item
 Una expresión directa de Scheme, como
@@ -543,7 +543,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Explicación de los títulos},
-@ref{El bloque \layout}.
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
 
 @node Títulos y encabezamientos
 @section Títulos y encabezamientos

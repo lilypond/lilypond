@@ -384,7 +384,7 @@ Referencia de la notación:
 
 @menu
 * Articulaciones::
-* Digitaciones::
+* Indicaciones de digitación::
 * Matices dinámicos::
 @end menu
 
@@ -407,8 +407,8 @@ c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 
-@node Digitaciones
-@unnumberedsubsubsec Digitaciones
+@node Indicaciones de digitación
+@unnumberedsubsubsec Indicaciones de digitación
 @translationof Fingerings
 
 @cindex digitaciones
