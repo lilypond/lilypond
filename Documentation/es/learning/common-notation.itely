@@ -765,7 +765,7 @@ hace necesario para músicas complejas como las partituras polifónicas.
 
 
 @node Expresiones musicales simultáneas varios pentagramas
-@unnumberedsubsubsec Expresiones musicales simultáneas: varios pentagramas staves
+@unnumberedsubsubsec Expresiones musicales simultáneas: varios pentagramas
 @translationof Simultaneous music expressions multiple staves
 
 @cindex varios pentagramas
@@ -818,7 +818,7 @@ la instrucción inicial @code{@bs{}\relative}.}
 
 
 @node Expresiones musicales simultáneas un solo pentagrama
-@unnumberedsubsubsec Expresiones musicales simultáneas: un solo pentagrama staff
+@unnumberedsubsubsec Expresiones musicales simultáneas: un solo pentagrama
 @translationof Simultaneous music expressions single staff
 
 Para determinar el número de pentagramas en una pieza, LilyPond
