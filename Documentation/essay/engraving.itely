@@ -1580,8 +1580,8 @@ therefore be easily embedded in other text-based formats such as
 @command{lilypond-book} program, included with LilyPond, the input
 fragments can be replaced by music images in the resulting PDF or HTML
 output files.  Another example is the third-party OOoLilyPond extension
-for OpenOffice.org, which makes it extremely easy to embed musical
-examples in documents.
+for OpenOffice.org or LibreOffice, which makes it extremely easy to
+embed musical examples in documents.
 
 For more examples of LilyPond in action, full documentation, and the
 software itself, see our main website: www.lilypond.org.
