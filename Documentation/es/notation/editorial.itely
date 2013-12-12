@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 95652cfaebacdc267c3360123b55254c45223433
+    Translation of GIT committish: ed1acf4b9b63f6acdb4feb24eb4acf3f83548319
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -483,6 +483,9 @@ abajo; véase @ref{Dirección y posición}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly}
+
 @seealso
 Referencia de la notación:
 @ref{Dirección y posición}.
@@ -550,14 +553,13 @@ adjuntar un texto a cualquier grob, y el último se usa como
 @code{\tweak}, normalmente dentro de acordes, para adjuntar un texto a
 una nota individual.
 
-Los textos de globo normalmente influyen en el espaciado de las notas,
+Los textos de globo no influyen en el espaciado de las notas,
 pero esto puede cambiarse:
 
 @c KEEP LY
 @lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonLengthOff
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Soy un silencio" }
