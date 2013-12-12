@@ -146,32 +146,31 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
 	parser->parser_error (*i, s);
 }
 
+// The following are somewhat precarious constructs as they may change
+// the value of the lookahead token.  That implies that the lookahead
+// token must not yet have made an impact on the state stack other
+// than causing the reduction of the current rule, or switching the
+// lookahead token while Bison is mulling it over will cause trouble.
+
 #define MYBACKUP(Token, Value, Location)				\
-do									\
-	if (yychar == YYEMPTY)						\
-	{								\
+	do {								\
+		if (yychar != YYEMPTY)					\
+			parser->lexer_->push_extra_token (yychar, yylval); \
 		if (Token)						\
 			parser->lexer_->push_extra_token (Token, Value); \
 		parser->lexer_->push_extra_token (BACKUP);		\
-	} else {							\
-		parser->parser_error					\
-			(Location, _("Too much lookahead"));		\
-	}								\
-while (0)
+		yychar = YYEMPTY;					\
+	} while (0)
 
 
 #define MYREPARSE(Location, Pred, Token, Value)				\
-do									\
-	if (yychar == YYEMPTY)						\
-	{								\
+	do {								\
+		if (yychar != YYEMPTY)					\
+			parser->lexer_->push_extra_token (yychar, yylval); \
 		parser->lexer_->push_extra_token (Token, Value);	\
-		parser->lexer_->push_extra_token (REPARSE,		\
-						  Pred);		\
-	} else {							\
-		parser->parser_error					\
-			(Location, _("Too much lookahead"));		\
-	}								\
-while (0)
+		parser->lexer_->push_extra_token (REPARSE, Pred);	\
+		yychar = YYEMPTY;					\
+	} while (0)
 
 %}
 
