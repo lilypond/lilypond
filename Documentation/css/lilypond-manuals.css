@@ -40,15 +40,6 @@ body {
   background-color: #fff;
 }
 
-/* Documentation-specific page-wide settings */
-
-body.learning    { background-color: #ccffcc; }
-body.notation    { background-color: #cceeff; }
-body.usage       { background-color: #fff6cc; }
-body.extending   { background-color: #ffcccc; }
-body.internals   { background-color: #eeccff; }
-body.contributor { background-color: #cccccc; }
-
 /***********************************************************/
 /*                      HEADERS                            */
 /***********************************************************/
@@ -65,7 +56,7 @@ body.contributor { background-color: #cccccc; }
 }
 
 .settitle {
-  background: #b1d281;
+  background: #657f40;
   color: white;
   font-size: 2em;
   text-align: center;
@@ -75,11 +66,11 @@ body.contributor { background-color: #cccccc; }
   margin: 0 0 10px 0;
 }
 
-body.learning    .settitle { background-color: #00bf00; }
-body.notation    .settitle { background-color: #0070bf; }
-body.usage       .settitle { background-color: #bf9f00; }
-body.extending   .settitle { background-color: #bf0000; }
-body.internals   .settitle { background-color: #7f00bf; }
+body.learning    .settitle { background-color: #407f40; }
+body.notation    .settitle { background-color: #40657f; }
+body.usage       .settitle { background-color: #7f7f33; }
+body.extending   .settitle { background-color: #7f4040; }
+body.internals   .settitle { background-color: #6a407f; }
 body.contributor .settitle { background-color: #000000; }
 
 .chapter, .appendix, .unnumbered {
@@ -145,7 +136,7 @@ blockquote, .smallexample {
 
 body.learning    blockquote, body.learning .smallexample { border-color: #00ff00; }
 body.notation    blockquote, body.notation .smallexample { border-color: #0095ff; }
-body.usage       blockquote, body.usage .smallexample { border-color: #ffd400; }
+body.usage       blockquote, body.usage .smallexample { border-color: #ffff00; }
 body.extending   blockquote, body.extending .smallexample { border-color: #ff0000; }
 body.internals   blockquote, body.internals .smallexample { border-color: #aa00ff; }
 body.contributor blockquote, body.contributor .smallexample { border-color: #000000; }
@@ -182,12 +173,12 @@ table.cartouche {
   margin: 0 auto 1em;
 }
 
-body.learning    table.cartouche { background-color: #7fff7f; border: 2px solid #00bf00; }
-body.notation    table.cartouche { background-color: #7fcaff; border: 2px solid #0070bf; }
-body.usage       table.cartouche { background-color: #ffea7f; border: 2px solid #bf9f00; }
-body.extending   table.cartouche { background-color: #ff7f7f; border: 2px solid #bf0000; }
-body.internals   table.cartouche { background-color: #d47fff; border: 2px solid #7f00bf; }
-body.contributor table.cartouche { background-color: #aaaaaa; border: 2px solid #000000; }
+body.learning    table.cartouche { background-color: #cfe5cf; border: 2px solid #7db27d; }
+body.notation    table.cartouche { background-color: #cfdce5; border: 2px solid #7d9cb2; }
+body.usage       table.cartouche { background-color: #e5e2b8; border: 2px solid #b2b27d; }
+body.extending   table.cartouche { background-color: #e5cfcf; border: 2px solid #b27d7d; }
+body.internals   table.cartouche { background-color: #decfe5; border: 2px solid #a17db2; }
+body.contributor table.cartouche { background-color: #e5e5e5; border: 2px solid #b2b2b2; }
 
 table.cartouche p {
   padding: 1em;
@@ -264,19 +255,19 @@ div#tocframe {
   padding: 0;
   margin: 0;
   overflow: auto;
-  background: #f5f5dc;
+  background: #dce35cf;
   z-index: 100;
   list-style-type: none;
   font-size: 0.83em;
   line-height: 1.3;
 }
 
-body.learning    div#tocframe { background-color: #00bf00; }
-body.notation    div#tocframe { background-color: #0070bf; }
-body.usage       div#tocframe { background-color: #bf9f00; }
-body.extending   div#tocframe { background-color: #bf0000; }
-body.internals   div#tocframe { background-color: #7f00bf; }
-body.contributor div#tocframe { background-color: #000000; }
+body.learning    div#tocframe { background-color: #cfe5cf; }
+body.notation    div#tocframe { background-color: #cfdce5; }
+body.usage       div#tocframe { background-color: #e5e5b8; }
+body.extending   div#tocframe { background-color: #e5cfcf; }
+body.internals   div#tocframe { background-color: #decfe5; }
+body.contributor div#tocframe { background-color: #e5e5e5; }
 
 @media screen {
   body > div#tocframe {
@@ -285,12 +276,12 @@ body.contributor div#tocframe { background-color: #000000; }
 }
 
 div#tocframe a:link, div#tocframe a:visited {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
 div#tocframe a:hover {
-  color: silver;
+  color: #666666;
   text-decoration: underline;
 }
 
@@ -299,7 +290,7 @@ div#tocframe p.toc_uplink {
   line-height: 1.125;
   background: #c9ccc4;
   padding: 0.25em 1em 0.25em 0.5em;
-  border-bottom: 1px solid #a0a087;
+  border-bottom: 1px solid black;
   margin: 0;
 }
 
@@ -445,20 +436,21 @@ table .title {
 }
 
 .footer {
-  background: #e5f5ce;
+  background: #657f40;
   font-size: 0.8em;
   padding: 0.2em 0;
   border: solid white;
   border-width: 0 0 5px 0;
   margin: 0;
+  color: white;
 }
 
-body.learning    .footer { background-color: #00bf00; color: #ccffcc; }
-body.notation    .footer { background-color: #0070bf; color: #cceeff; }
-body.usage       .footer { background-color: #bf9f00; color: #fff6cc; }
-body.extending   .footer { background-color: #bf0000; color: #ffcccc; }
-body.internals   .footer { background-color: #7f00bf; color: #eeccff; }
-body.contributor .footer { background-color: #000000; color: #cccccc; }
+body.learning    .footer { background-color: #407f40; }
+body.notation    .footer { background-color: #40657f; }
+body.usage       .footer { background-color: #7f7f33; }
+body.extending   .footer { background-color: #7f4040; }
+body.internals   .footer { background-color: #6a407f; }
+body.contributor .footer { background-color: #000000; }
 
 .footer a:link {
   color: white;
@@ -528,7 +520,7 @@ div#search p, div#search form {
 
 body.learning    .warning { border-color: #00ff00; }
 body.notation    .warning { border-color: #0095ff; }
-body.usage       .warning { border-color: #ffd400; }
+body.usage       .warning { border-color: #ffff00; }
 body.extending   .warning { border-color: #ff0000; }
 body.internals   .warning { border-color: #aa00ff; }
 body.contributor .warning { border-color: #000000; }
