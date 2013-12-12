@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -361,7 +361,7 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 
 @table @code
 
-@item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
+@item -d@var{[option-name]}=@var{[value]}, --define-default=@var{[option-name]}=@var{[value]}
 Establece la función de Scheme interna equivalente a @var{valor}.
 
 @example
