@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 1b79ddbaaf7f6aaa89489fdfaa03e1310235cee6
+    Translation of GIT committish: e038863ba7228eb3e28b9f1a49e68ec9f4d260b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -177,7 +177,8 @@ estudian en @ref{Títulos encabezamientos y pies de página personalizados}.
 
 Casi todas las variables de @code{\paper} funcionan solamente dentro
 de un bloque @code{\paper}.  Las pocas que funcionan también en un
-bloque @code{\layout} están relacionadas en @ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+bloque @code{\layout} están relacionadas en
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
 
 Excepto cuando se especifica lo contrario, todas las variables de
 @code{\paper} que corresponden a distancias sobre la página se miden
@@ -247,14 +248,18 @@ Archivos instalados:
 
 @q{A4} es el valor predeterminado si no se establece ningún tamaño de
 página explícitamente.  Sin embargo, existen dos funciones que se
-pueden usar para modificarlo: @code{set-default-paper-size},
+pueden usar para modificarlo:
+
+@table @code
+@item set-default-paper-size
 
 @example
 #(set-default-paper-size "quarto")
 @end example
 
 que siempre se debe colocar en el ámbito superior, y
-@code{set-paper-size},
+
+@item set-paper-size
 
 @example
 \paper @{
@@ -263,6 +268,7 @@ que siempre se debe colocar en el ámbito superior, y
 @end example
 
 que se debe colocar siempre dentro de un bloque @code{\paper}.
+@end table
 
 Si se usa la función @code{set-default-paper-size} en el ámbito
 superior jerárquico, debe ir antes de cualquier bloque @code{\paper}.
@@ -2128,7 +2134,7 @@ la tabla siguiente:
 @item @code{ChordNames}  @tab línea de base
 @item @code{NoteNames}   @tab línea de base
 @item @code{Lyrics}      @tab línea de base
-@item @code{Dynamics}    @tab centro vertical
+@item @code{Dynamics}    @tab la mitad de la altura de la @q{m}
 @item @code{FiguredBass} @tab punto más alto
 @item @code{FretBoards}  @tab línea superior
 @end multitable
@@ -2190,10 +2196,10 @@ labelContext =
   \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
 >>
 
-%% The reference point for Dynamics is its vertical center
+%% The reference point for Dynamics is the midline of 'm' in the font
 <<
   \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"vertical center "
+    \set RhythmicStaff.instrumentName = #"mid-height "
     \labelContext "Dynamics" s1*3
   }
   \new Dynamics { s1\mp s\fp }
