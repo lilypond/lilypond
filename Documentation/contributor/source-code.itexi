@@ -1384,6 +1384,11 @@ can be used.
 
 @end itemize
 
+First you will see a terminal editor where you can edit the
+message that will accompany your patch. @command{git-cl} will
+respect the @env{EDITOR} environment variable if defined,
+otherwise it will use @command{vi} as the default editor.
+
 After prompting for your Google email address and password, the
 patch set will be posted to Rietveld, and you will be given a URL
 for your patch.
