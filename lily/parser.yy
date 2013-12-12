@@ -336,7 +336,6 @@ If we give names, Bison complains.
 %token CONTEXT_MOD_IDENTIFIER
 %token DRUM_PITCH
 %token PITCH_IDENTIFIER
-%token PITCH_ARG
 %token DURATION_IDENTIFIER
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
@@ -1713,11 +1712,6 @@ function_arglist_backup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
-	| function_arglist_backup REPARSE pitch_arg
-	{
-		$$ = check_scheme_arg (parser, @3,
-				       $3, $1, $2);
-	}		
 	| function_arglist_backup REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -2745,17 +2739,6 @@ steno_tonic_pitch:
 pitch:
 	steno_pitch
 	| PITCH_IDENTIFIER quotes {
-                if (!scm_is_eq (SCM_INUM0, $2))
-                {
-                        Pitch p = *unsmob_pitch ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
-                        $$ = p.smobbed_copy ();
-                }
-	}
-	;
-
-pitch_arg:
-	PITCH_ARG quotes {
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob_pitch ($1);
