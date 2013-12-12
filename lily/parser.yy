@@ -1371,38 +1371,6 @@ grouped_music_list:
  *
  */
 
-function_arglist_nonbackup_common:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
-	{
-		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' UNSIGNED
-	{
-		SCM n = scm_difference ($5, SCM_UNDEFINED);
-		if (scm_is_true (scm_call_1 ($2, n)))
-			$$ = scm_cons (n, $3);
-		else {
-			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
-			t->set_property ("digit", $5);
-			$$ = check_scheme_arg (parser, @4, t->unprotect (),
-					       $3, $2, n);
-		}
-		
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' REAL
-	{
-		$$ = check_scheme_arg (parser, @4,
-				       scm_difference ($5, SCM_UNDEFINED),
-				       $3, $2);
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' NUMBER_IDENTIFIER
-	{
-		$$ = check_scheme_arg (parser, @4,
-				       scm_difference ($5, SCM_UNDEFINED),
-				       $3, $2);
-	}
-	;
-
 symbol_list_arg:
 	SYMBOL_LIST
 	| SYMBOL_LIST '.' symbol_list_rev
@@ -1442,8 +1410,36 @@ symbol_list_element:
 
 
 function_arglist_nonbackup:
-	function_arglist_nonbackup_common
-	| function_arglist_common
+	function_arglist_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
+	{
+		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' UNSIGNED
+	{
+		SCM n = scm_difference ($5, SCM_UNDEFINED);
+		if (scm_is_true (scm_call_1 ($2, n)))
+			$$ = scm_cons (n, $3);
+		else {
+			Music *t = MY_MAKE_MUSIC ("FingeringEvent", @5);
+			t->set_property ("digit", $5);
+			$$ = check_scheme_arg (parser, @4, t->unprotect (),
+					       $3, $2, n);
+		}
+		
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' REAL
+	{
+		$$ = check_scheme_arg (parser, @4,
+				       scm_difference ($5, SCM_UNDEFINED),
+				       $3, $2);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' NUMBER_IDENTIFIER
+	{
+		$$ = check_scheme_arg (parser, @4,
+				       scm_difference ($5, SCM_UNDEFINED),
+				       $3, $2);
+	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg
 	{
 		if (scm_is_true (scm_call_1 ($2, $4)))
@@ -3231,16 +3227,12 @@ number_factor:
 	;
 
 bare_number_common:
-	bare_number_common_closed
+	REAL
+	| NUMBER_IDENTIFIER
 	| REAL NUMBER_IDENTIFIER
 	{
 		$$ = scm_product ($1, $2);
 	}
-	;
-
-bare_number_common_closed:
-	REAL
-	| NUMBER_IDENTIFIER
 	;
 
 bare_number:
