@@ -2434,7 +2434,7 @@ event_chord:
 		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2,
 				  scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
-	| command_element
+	| tempo_event
 	| note_chord_element
 	;
 
@@ -2536,19 +2536,6 @@ event_function_event:
 					 $1, $2);
 	}
 	;
-
-command_element:
-	command_event {
-		$$ = $1;
-	}
-	;
-
-command_event:
-	tempo_event {
-		$$ = $1;
-	}
-	;
-
 
 post_events:
 	/* empty */ {
