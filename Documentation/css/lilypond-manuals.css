@@ -16,7 +16,7 @@
    usage             yellow         50
    snippets
 
-   changes           orange         30
+   changes
    extending         red            0
    internals         purple         280
 
@@ -452,14 +452,6 @@ table .title {
   border-width: 0 0 5px 0;
   margin: 0;
 }
-
-body.learning    { background-color: #ccffcc; }
-body.notation    { background-color: #cceeff; }
-body.usage       { background-color: #fff6cc; }
-body.extending   { background-color: #ffcccc; }
-body.internals   { background-color: #eeccff; }
-body.contributor { background-color: #cccccc; }
-
 
 body.learning    .footer { background-color: #00bf00; color: #ccffcc; }
 body.notation    .footer { background-color: #0070bf; color: #cceeff; }
