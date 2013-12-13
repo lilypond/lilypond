@@ -13,8 +13,6 @@ input common-modules-and-initialization;
 font_x_height staff_space#;
 
 fet_beginfont ("feta", design_size, "fetaMusic");
-
-if test = 0:
 	input feta-rests;
 	input feta-accidentals;
 	input feta-arrowheads;
@@ -26,8 +24,6 @@ if test = 0:
 	input feta-brackettips;
 	input feta-accordion;
 	input feta-ties;
-fi
-
 
 	input declare-autometric-parameters;
 fet_endfont;
