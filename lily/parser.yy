@@ -661,6 +661,7 @@ identifier_init_nonumber:
 	| output_def
 	| context_def_spec_block
 	| music_assign
+	| pitch_or_music
 	| FRACTION
 	| string
         | embedded_scm
@@ -1042,7 +1043,7 @@ output_def_head_with_mode_switch:
 // is still time to escape from notes mode.
 
 music_or_context_def:
-	music_arg
+	music_assign
 	| context_def_spec_block
 	;
 
@@ -1125,8 +1126,17 @@ braced_music_list:
 	}
 	;
 
-music:	music_arg
+music:	music_assign
 	| lyric_element_music
+	| pitch_or_music
+	{
+	        $$ = make_music_from_simple (parser, @1, $1);
+                if (!unsmob_music ($$))
+		{
+                        parser->parser_error (@1, _ ("music expected"));
+			$$ = MAKE_SYNTAX ("void-music", @$);
+		}
+	}
 	;
 
 music_embedded:
@@ -1181,19 +1191,8 @@ music_embedded_backup:
 	}
 	;
 
-music_arg:
-	simple_music
-	{
-	        $$ = make_music_from_simple (parser, @1, $1);
-                if (!unsmob_music ($$))
-		{
-                        parser->parser_error (@1, _ ("music expected"));
-			$$ = MAKE_SYNTAX ("void-music", @$);
-		}
-	}
-	| composite_music %prec COMPOSITE
-	;
-
+// music_assign does not need to contain lyrics: there are no
+// assignments in lyricmode.
 music_assign:
 	simple_music
 	| composite_music %prec COMPOSITE
@@ -1453,6 +1452,16 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
+	| function_arglist_nonbackup_reparse REPARSE pitch_or_music
+	{
+		if (scm_is_true (scm_call_1 ($2, $3)))
+			$$ = scm_cons ($3, $1);
+		else
+			$$ = check_scheme_arg (parser, @3,
+					       make_music_from_simple
+					       (parser, @3, $3),
+					       $1, $2);
+	}
 	| function_arglist_nonbackup_reparse REPARSE duration_length
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
@@ -1490,6 +1499,28 @@ function_arglist_nonbackup_reparse:
 			  ($2, make_music_from_simple
 			   (parser, @4, $4))))
 			MYREPARSE (@4, $2, STRING, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup pitch
+	{
+		$$ = $3;
+		if (scm_is_true
+		    (scm_call_1
+		     ($2, make_music_from_simple
+		      (parser, @4, $4))))
+			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4);
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup steno_tonic_pitch
+	{
+		$$ = $3;
+		if (scm_is_true
+		    (scm_call_1
+		     ($2, make_music_from_simple
+		      (parser, @4, $4))))
+			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
@@ -1570,6 +1601,38 @@ function_arglist_backup:
 		} else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
 			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup pitch
+	{
+		if (scm_is_true
+		    (scm_call_1
+		     ($2, make_music_from_simple
+		      (parser, @4, $4))))
+		{
+			$$ = $3;
+			MYREPARSE (@4, $2, PITCH_IDENTIFIER, $4);
+		} else if (scm_is_true (scm_call_1 ($2, $4)))
+			$$ = scm_cons ($4, $3);
+		else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
+		}
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup steno_tonic_pitch
+	{
+		if (scm_is_true
+		    (scm_call_1
+		     ($2, make_music_from_simple
+		      (parser, @4, $4))))
+		{
+			$$ = $3;
+			MYREPARSE (@4, $2, TONICNAME_PITCH, $4);
+		} else if (scm_is_true (scm_call_1 ($2, $4)))
+			$$ = scm_cons ($4, $3);
+		else {
+			$$ = scm_cons (loc_on_music (@3, $1), $3);
+			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup full_markup
@@ -1702,7 +1765,7 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| function_arglist_backup REPARSE music_assign
+	| function_arglist_backup REPARSE pitch_or_music
 	{
 		if (scm_is_true (scm_call_1 ($2, $3)))
 			$$ = scm_cons ($3, $1);
@@ -1783,6 +1846,16 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
+	| function_arglist_common_reparse REPARSE pitch_or_music
+	{
+		if (scm_is_true (scm_call_1 ($2, $3)))
+			$$ = scm_cons ($3, $1);
+		else
+			$$ = check_scheme_arg (parser, @3,
+					       make_music_from_simple
+					       (parser, @3, $3),
+					       $1, $2);
+	}
 	| function_arglist_common_reparse REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
@@ -1816,6 +1889,28 @@ function_arglist_common_reparse:
 		else
 			// This is going to flag a syntax error, we
 			// know the predicate to be false.
+			MYREPARSE (@3, $1, SCM_ARG, $3);
+	}
+	| EXPECT_SCM function_arglist_optional pitch
+	{
+		$$ = $2;
+		if (scm_is_true
+		    (scm_call_1
+		     ($1, make_music_from_simple
+		      (parser, @3, $3))))
+			MYREPARSE (@3, $1, PITCH_IDENTIFIER, $3);
+		else
+			MYREPARSE (@3, $1, SCM_ARG, $3);
+	}
+	| EXPECT_SCM function_arglist_optional steno_tonic_pitch
+	{
+		$$ = $2;
+		if (scm_is_true
+		    (scm_call_1
+		     ($1, make_music_from_simple
+		      (parser, @3, $3))))
+			MYREPARSE (@3, $1, TONICNAME_PITCH, $3);
+		else
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
 	| EXPECT_SCM function_arglist_optional STRING
@@ -2375,6 +2470,7 @@ symbol:
 
 scalar:
 	embedded_scm_arg
+	| pitch_or_music
 	| SCM_IDENTIFIER
 	| bare_number
 	// The following is a rather defensive variant of admitting
@@ -2388,39 +2484,16 @@ scalar:
 	{
 		$$ = scm_difference ($2, SCM_UNDEFINED);
 	}
-	| STRING
-	| full_markup
+	| string
 	;
 
 event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
 		if (scm_is_pair ($2)) {
-		        $$ = make_music_from_simple (parser, @1, $1);
-			if (unsmob_music ($$))
-                                unsmob_music ($$)->set_property ("articulations",
-                                                                 scm_reverse_x ($2, SCM_EOL));
-                        else
-			{
-                                parser->parser_error (@1, _("music expected"));
-				$$ = MAKE_SYNTAX ("void-music", @1);
-			}
+			unsmob_music ($$)->set_property ("articulations",
+							 scm_reverse_x ($2, SCM_EOL));
 		}
-	} %prec ':'
-	| simple_chord_elements post_events	{
-		if (scm_is_pair ($2)) {
-			if (unsmob_pitch ($1))
-				$1 = make_chord_elements (@1,
-							  $1,
-							  parser->default_duration_.smobbed_copy (),
-							  SCM_EOL);
-
-			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
-
-			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
-		} else if (!unsmob_pitch ($1))
-			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
-		// A mere pitch drops through.
 	} %prec ':'
 	| CHORD_REPETITION optional_notemode_duration post_events {
 		Input i;
@@ -2985,15 +3058,16 @@ optional_rest:
 	| REST { $$ = SCM_BOOL_T; }
 	;
 
-simple_element:
-	pitch exclamations questions octave_check maybe_notemode_duration optional_rest {
+pitch_or_music:
+	pitch exclamations questions octave_check maybe_notemode_duration optional_rest post_events {
 		if (!parser->lexer_->is_note_state ())
 			parser->parser_error (@1, _ ("have to be in Note mode for notes"));
 		if (!SCM_UNBNDP ($2)
                     || !SCM_UNBNDP ($3)
                     || scm_is_number ($4)
                     || !SCM_UNBNDP ($5)
-                    || scm_is_true ($6))
+                    || scm_is_true ($6)
+		    || scm_is_pair ($7))
 		{
 			Music *n = 0;
 			if (scm_is_true ($6))
@@ -3018,11 +3092,31 @@ simple_element:
 				n->set_property ("cautionary", SCM_BOOL_T);
 			if (to_boolean ($2) || to_boolean ($3))
 				n->set_property ("force-accidental", SCM_BOOL_T);
-			
+			if (scm_is_pair ($7))
+				n->set_property ("articulations",
+						 scm_reverse_x ($7, SCM_EOL));
 			$$ = n->unprotect ();
 		}
-	}
-	| DRUM_PITCH optional_notemode_duration {
+	} %prec ':'
+	| simple_chord_elements post_events {
+		if (scm_is_pair ($2)) {
+			if (unsmob_pitch ($1))
+				$1 = make_chord_elements (@1,
+							  $1,
+							  parser->default_duration_.smobbed_copy (),
+							  SCM_EOL);
+
+			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
+
+			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
+		} else if (!unsmob_pitch ($1))
+			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
+		// A mere pitch drops through.
+	} %prec ':'
+	;
+
+simple_element:
+	DRUM_PITCH optional_notemode_duration {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
