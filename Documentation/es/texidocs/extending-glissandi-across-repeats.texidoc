@@ -1,0 +1,17 @@
+%% Translation of GIT committish: 784e1e7a6b4b5c086a54267aa2d1e34e5aaa254c
+  texidoces = "
+
+Se puede simular un glissando que se extiende hasta el interior de
+varios bloques @code{\alternative} de primera y segunda vez mediante
+la adición de una nota de adorno oculta con un glissando al comienzo
+de cada bloque @code{\alternative}.  La nota de adorno debe estar a la
+misma altura que la nota que da inicio al primer glissando.  Esto se
+implementa aquí con una función musical que toma como argumento la
+altura de la nota de adorno.
+
+Observe que en música polifónica la nota de adorno debe coincidir con
+las notas de adorno correspondientes en todas las otras voces.
+
+"
+
+  doctitlees = "Extender glissandos sobre repeticiones"
