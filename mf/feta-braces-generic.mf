@@ -32,13 +32,9 @@ if known miterlimit:
 	vppp := pt;
 fi;
 
+design_size := 20;   %% arbitrary
 
-input feta-autometric;
-input feta-macros;
-
-staffsize# := 20 pt#;   %% arbitrary
-
-input feta-params;
+input common-modules-and-initialization;
 
 %
 % We must let the design increase for each font to make sure that mftrace

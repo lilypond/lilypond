@@ -3,8 +3,6 @@
 
 design_size := 15.87;
 
-input feta-autometric;
-
 input parmesan-other-generic;
 
 

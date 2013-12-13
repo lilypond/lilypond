@@ -3,9 +3,6 @@
 
 design_size := 20;
 
-input feta-autometric;
-
-
 % use feta-test for debugging.
 input feta-other-generic;
 

@@ -1,8 +1,6 @@
 % feta-noteheads16.mf
 % part of LilyPond's pretty-but-neat music font
 
-input feta-autometric;
-
 design_size := 15.87;
 input parmesan-noteheads-generic;
 

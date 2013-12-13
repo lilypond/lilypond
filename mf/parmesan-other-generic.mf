@@ -17,13 +17,8 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-mode_setup;
 
-staffsize# := design_size * pt#;
-
-input feta-macros;
-input feta-params;
-
+input common-modules-and-initialization;
 input parmesan-macros;
 
 

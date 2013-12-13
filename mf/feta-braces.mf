@@ -22,9 +22,6 @@
 % doesn't jack up the resolution too highly for the longer braces.
 %
 
-mode_setup;
-
-
 save code, braces_per_font;
 code := 64;
 braces_per_font := 64;

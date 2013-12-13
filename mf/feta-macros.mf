@@ -21,7 +21,6 @@
 % debugging
 %
 
-input debugging-settings.mf
 
 def print_penpos (suffix $) =
 	message
