@@ -26,7 +26,5 @@ fet_beginfont ("parmesan", design_size, "parmesanMusic");
 		input parmesan-timesignatures;
 		input parmesan-scripts;
 		input parmesan-dots;
-	else:
-
 	fi;
 fet_endfont;
