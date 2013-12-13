@@ -179,13 +179,7 @@ strings (with or without quotes), numbers, full markups and markup
 lists, score, book, bookpart, context definition and output definition
 blocks.
 
-For some kinds of expression (like most music not enclosed in braces)
-LilyPond needs to look further than the expression itself in order to
-determine its end.  If such an expression were considered for an
-optional argument by evaluating its predicate, LilyPond would not be
-able to @q{backup} when it decides the expression does not fit the
-parameter.  So some forms of music might need to be enclosed in braces
-to make them acceptable in some circumstances.  Some other
+Some
 ambiguities LilyPond sorts out by checking with predicate
 functions: is @samp{-3} a fingering postevent or a negative number?  Is
 @code{"a" 4} in lyric mode a string followed by a number, or a lyric
@@ -196,8 +190,8 @@ lookahead.
 
 For example, a predicate accepting both music expressions and
 pitches will consider @code{c''} to be a pitch rather than a music
-expression.  Immediately following durations or postevents might
-not work with that interpretation.  So it's best to avoid overly
+expression.  Immediately following durations or postevents will
+change that interpretation.  It's best to avoid overly
 permissive predicates like @code{scheme?} when the application
 rather calls for more specific argument types.
 
