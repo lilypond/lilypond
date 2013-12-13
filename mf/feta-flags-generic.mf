@@ -31,12 +31,5 @@ fet_beginfont ("feta", design_size, "fetaMusic");
 
 input feta-flags;
 
-autometric_parameter ("staffsize", staffsize#);
-autometric_parameter ("stafflinethickness", stafflinethickness#);
-autometric_parameter ("staff_space", staff_space#);
-autometric_parameter ("linethickness", linethickness#);
-autometric_parameter ("black_notehead_width", black_notehead_width#);
-autometric_parameter ("ledgerlinethickness", ledgerlinethickness#);
-autometric_parameter ("blot_diameter", blot_diameter#);
-
+	input declare-autometric-parameters;
 fet_endfont;
