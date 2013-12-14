@@ -406,6 +406,13 @@ toplevel_expression:
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
 		scm_call_2 (proc, parser->self_scm (), $1);
 	}
+	| BOOK_IDENTIFIER {
+		SCM proc = parser->lexer_->lookup_identifier
+			(unsmob_book($1)->paper_
+			 ? "toplevel-book-handler"
+			 : "toplevel-bookpart-handler");
+		scm_call_2 (proc, parser->self_scm (), $1);
+	}
 	| score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
 		scm_call_2 (proc, parser->self_scm (), $1);
@@ -437,6 +444,10 @@ toplevel_expression:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
 			scm_call_2 (proc, parser->self_scm (), out);
+		} else if (unsmob_score ($1))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
+			scm_call_2 (proc, parser->self_scm (), $1);
 		} else if (!scm_is_eq ($1, SCM_UNSPECIFIED))
 			parser->parser_error (@1, _("bad expression type"));
 	}
@@ -753,6 +764,10 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 			scm_call_2 (proc, $1, out);
+		} else if (unsmob_score ($2))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
+			scm_call_2 (proc, $1, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
@@ -819,6 +834,10 @@ bookpart_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 			scm_call_2 (proc, $1, out);
+		} else if (unsmob_score ($2))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
+			scm_call_2 (proc, $1, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
