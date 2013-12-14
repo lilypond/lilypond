@@ -197,8 +197,17 @@ SCM
 Grob::internal_get_pure_property (SCM sym, int start, int end) const
 {
   SCM val = internal_get_property_data (sym);
-  if (ly_is_procedure (val) || is_unpure_pure_container (val))
+  if (ly_is_procedure (val))
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+
+  if (is_unpure_pure_container (val)) {
+    // Do cache, if the function ignores 'start' and 'end'
+    if (is_unchanging_unpure_pure_container (val))
+      return internal_get_property (sym);
+    else
+      return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
+  }
+
   if (is_simple_closure (val))
     return evaluate_with_simple_closure (self_scm (),
                                          simple_closure_expression (val),

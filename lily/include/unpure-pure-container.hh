@@ -23,6 +23,7 @@
 #include "lily-guile.hh"
 
 bool is_unpure_pure_container (SCM s);
+bool is_unchanging_unpure_pure_container (SCM s);
 SCM unpure_pure_container_unpure_part (SCM smob);
 SCM unpure_pure_container_pure_part (SCM smob);
 SCM ly_make_unpure_pure_container (SCM, SCM);
