@@ -1888,55 +1888,8 @@ of a spanner broken at given starting and ending columns.
 
 @node How purity is defined and stored
 @subsection How purity is defined and stored
-Purity can currently be defined two different ways in LilyPond that
-correspond to two types of scenarios.  In one scenario, we know that a
-callback is pure, but we are not necessarily certain what properties
-will use this callback.  In another, we want a property to be pure, but
-we don't want to guarantee that its callback function will be pure in
-all circumstances.
-
-In the first scenario, we register the callback in define-grobs.scm in
-one of four places depending on what the function does.
-
-@itemize
-@item @code{pure-print-functions}: If finding a print function's vertical
-extent does not have any @q{side effects} we register it here. We then
-don't have to set the pure Y-extent property, which will be taken from the
-stencil.
-
-@item @code{pure-print-to-height-conversions}: If a stencil can
-eventually be used to glean a grob's Y-extent but is not pure (meaning
-it will have a different height at different stages of the compilation
-process), we add it to this list along with a function for the pure
-Y-extent.
-
-@item @code{pure-conversions-alist}: This list contains pairs of
-functions and their pure equivalents.  It is onto but not one-to-one.
-
-@item @code{pure-functions}: Like pure-print-functions in that they work
-for both pure and impure values, but they do not return a stencil.
-@end itemize
-
-At all stages of the compilation process, when LilyPond wants the pure
-version of a property, it will consult these lists and see if it can get
-this property for a given Grob.  Note that you do @emph{not} need to
-register the pure property in the grob itself.  For example, there is no
-property @q{pure-Y-extent}.  Rather, by registering these functions as
-defined above, every time LilyPond needs a pure property, it will check
-to see if a Grob contains one of these functions and, if so, will use
-its value.  If LilyPond cannot get a pure function, it will return a
-value of @code{##f} for the property.
-
-LilyPond is smart enough to know if a series of chained functions are
-pure.  For example, if a Y-offset property has four chained functions
-and all of them have pure equivalents, LilyPond will read the four pure
-equivalents when calculating the pure property.  However, if even one is
-impure, LilyPond will not return a pure property for the offset (instead
-returning something like @code{#f} or @code{'()}) and will likely wreak
-havoc on your score.
-
-In the second scenario, we create an unpure-pure-container (unpure is
-not a word, but hey, neither was Lilypond until the 90s).  For example:
+Purity is defined in LilyPond with the creation of an unpure-pure container
+(unpure is not a word, but hey, neither was Lilypond until the 90s).  For example:
 
 @example
 #(define (foo grob)
@@ -1948,23 +1901,8 @@ not a word, but hey, neither was Lilypond until the 90s).  For example:
 \override Stem #'length = #(ly:make-unpure-pure-container foo bar)
 @end example
 
-This is useful if we want to:
-
-@itemize
-@item create overrides that have pure alternatives (should not be used
-in development, but useful for users)
-
-@item use return values that are not functions (i.e. pairs or booleans)
-for either pure or unpure values.
-
-@item allow a function to be considered pure in a limited amount of
-circumstances.  This is useful if we are sure that, when associated with
-one grob a function will be pure but not necessarily with another grob
-that has different callbacks.
-@end itemize
-
-Items can only ever have two pure heights: their actual pure height if
-they are between @q{start} and @q{end}, or an empty interval if they are
+Note that items can only ever have two pure heights: their actual pure height
+if they are between @q{start} and @q{end}, or an empty interval if they are
 not.  Thus, their pure property is cached to speed LilyPond up.  Pure
 heights for spanners are generally not cached as they change depending
 on the start and end values.  They are only cached in certain particular
