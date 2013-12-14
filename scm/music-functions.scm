@@ -1346,7 +1346,7 @@ then revert skipTypesetting."
      (else music))))
 
 
-(define-public toplevel-music-functions
+(define-session-public toplevel-music-functions
   (list
    (lambda (music parser) (expand-repeat-chords!
                            (cons 'rhythmic-event
