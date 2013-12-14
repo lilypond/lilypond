@@ -838,6 +838,7 @@ bookpart_body:
 
 score_block:
 	SCORE '{' score_body '}' 	{
+		unsmob_score ($3)->origin ()->set_spot (@$);
 		$$ = $3;
 	}
 	;
@@ -882,7 +883,6 @@ score_body:
 		SCM scorify = ly_lily_module_constant ("scorify-music");
 		$$ = scm_call_2 (scorify, $2, parser->self_scm ());
 
-		unsmob_score ($$)->origin ()->set_spot (@2);
 		if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
 		{
 			unsmob_score ($$)->set_header (scm_car ($1));
@@ -896,15 +896,11 @@ score_body:
 		}
 	}
 	| embedded_scm_active {
-		Score *score;
-		if (unsmob_score ($1))
-			score = new Score (*unsmob_score ($1));
-		else {
-			score = new Score;
+		if (!unsmob_score ($1))
+		{
+			$$ = (new Score)->unprotect ();
 			parser->parser_error (@1, _("score expected"));
 		}
-		unsmob_score ($$)->origin ()->set_spot (@$);
-		$$ = score->unprotect ();
 	}
 	| score_body
 	{
@@ -3570,6 +3566,7 @@ simple_markup:
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
+		unsmob_score ($4)->origin ()->set_spot (@$);
 		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), $4);
 		parser->lexer_->pop_state ();
 	}
@@ -3661,6 +3658,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = p->self_scm ();
 		p->unprotect ();
 		return OUTPUT_DEF_IDENTIFIER;
+	} else if (unsmob_score (sid)) {
+		*destination = unsmob_score (sid)->clone ()->unprotect ();
+		return SCM_IDENTIFIER;
 	}
 
 	return -1;
