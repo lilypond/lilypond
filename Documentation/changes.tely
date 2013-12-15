@@ -62,6 +62,16 @@ which scares away people.
 @end ignore
 
 @item
+The most common articulations are now reflected in MIDI output.
+Accent and marcato make notes louder; staccato, staccatissimo and
+portato make them shorter. Breath marks shorten the previous
+note.
+
+This behavior is customizable through the @code{midiLength} and
+@code{midiExtraVelocity} properties on @code{ArticulationEvent}.
+See @file{script-init.ly} for examples.
+
+@item
 The PostScript functionality of stroke adjustment is no longer
 applied automatically but left to the discretion of the PostScript
 device (by default, Ghostscript uses it for resolutions up to

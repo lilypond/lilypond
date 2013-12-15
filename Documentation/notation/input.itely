@@ -2884,15 +2884,17 @@ player that supports pitch bend.)
 @item Crescendi, decrescendi over multiple notes
 @item Tempo changes entered with a tempo marking
 @item Lyrics
+@item Simple articulations: staccato, staccatissimo, accent, marcato, portato
+@item @ref{Breath marks}
 @end itemize
 
-Using @ref{The Articulate script}, a number of items are added to the
-above list:
+There is a script that adds the following items; see
+@ref{The Articulate script}:
 
 @itemize
-@item Articulations (slurs, staccato, etc)
-@item Trills, turns
-@item Rallentando and accelerando
+@item Slurs and phrasing slurs
+@item Ornaments (mordents, trills, turns, etc.)
+@item Rallentando, accelerando, ritard, and a tempo
 @end itemize
 
 
@@ -2902,17 +2904,18 @@ above list:
 @c TODO index as above
 
 The following items of notation have no effect on the MIDI output,
-unless you use @ref{The Articulate script}:
+even if you use @ref{The Articulate script}:
 
 @itemize
 @item Rhythms entered as annotations, e.g. swing
 @item Tempo changes entered as annotations with no tempo marking
-@item Staccato and other articulations and ornamentations
-@item Slurs and Phrasing slurs
+@item Fermatas
+@item Other articulations
 @item Crescendi, decrescendi over a single note
 @item Tremolos entered with @q{@code{:}[@var{number}]}
 @item Figured bass
 @item Microtonal chords
+@item Glissandi, falls and doits
 @end itemize
 
 
