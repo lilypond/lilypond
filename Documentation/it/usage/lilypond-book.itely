@@ -1091,7 +1091,7 @@ Mostra informazioni sulla versione.
 
 @knownissues
 
-Il comando Texinfo @code{@@pagesizes} non viene inrerpretato.  Allo stesso
+Il comando Texinfo @code{@@pagesizes} non viene interpretato.  Allo stesso
 modo, i comandi @LaTeX{} che modificano i margini e la larghezza della linea
 dopo il preambolo vengono ignorati.
 
@@ -1394,5 +1394,4 @@ dove @code{\includescore} viene definito in questo modo:
 Altri modi per combinare testo e musica (senza usare
 @command{lilypond-book}) sono trattati in
 @ref{LilyPond output in other programs}.
-
 

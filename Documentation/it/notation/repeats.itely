@@ -72,10 +72,9 @@ manualmente i segni di ripetizione.
 @cindex seconda volta
 @cindex volta, prima
 @cindex volta, seconda
-@cindex repeat, normal
-@cindex normal repeat
-@cindex repeat with alternate endings
-@cindex alternate endings
+@cindex ripetizione normale
+@cindex ripetizione con finali alternativi
+@cindex finali alternativi
 @funindex \repeat
 @funindex \alternative
 @funindex \partial
@@ -259,8 +258,8 @@ e1
 c1_"D.S." \bar "|."
 @end lilypond
 
-@cindex ripetizioni, con legature di valore
-@cindex finali alternativi, con legature di valore
+@cindex ripetizioni con legature di valore
+@cindex finali alternativi con legature di valore
 @cindex legature di valore, nelle ripetizioni
 @cindex legature di valore, finali alternativi
 @funindex \repeatTie
@@ -777,5 +776,6 @@ c: c:
 Frammenti:
 @rlsr{Repeats}.
 
-@cindex tremolo, cross-staff
-@cindex cross-staff tremolo
+@cindex tremolo tra due righi
+
+@c  LocalWords:  voltaAdLib

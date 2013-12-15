@@ -124,7 +124,7 @@ Frammenti di codice:
 L'inserimento delle note con l'ottava assoluta costringe a specificare
 l'ottava di ogni singola nota.  Al contrario, se si usa l'ottava relativa,
 ogni ottava è determinata dall'ultima nota: se si cambia l'ottava di una
-nota, cambieranno anche le ottave di tutte le ote successive.
+nota, cambieranno anche le ottave di tutte le note successive.
 
 La modalità relativa deve essere impostata in modo esplicito col
 comando @code{\relative}:
@@ -141,7 +141,7 @@ calcolata nel modo seguente:
 @itemize
 @item
 In assenza di segni di cambiamento d'ottava, l'ottava
-di un'altezza viene calculata in modo che l'intervallo con la nota
+di un'altezza viene calcolata in modo che l'intervallo con la nota
 precedente sia inferiore a una quinta.  Tale intervallo è
 determinato senza considerare gli accidenti.
 
@@ -944,7 +944,7 @@ vengono trasformate.}
 
 @cindex trasposizione modale
 @cindex modale, trasposizione
-@cindex operazone, trasposizione
+@cindex operazione, trasposizione
 @funindex \modalTranspose
 @funindex modalTranspose
 
@@ -2785,20 +2785,19 @@ Questa sezione suggerisce i modi in cui modificare la testa di una nota.
 @unnumberedsubsubsec Teste di nota speciali
 @translationof Special note heads
 
-@cindex speciali, teste di nota
-@cindex note heads, cross
-@cindex note heads, diamond
-@cindex note heads, parlato
-@cindex note heads, harmonic
-@cindex note heads, guitar
 @cindex teste di nota speciali
-@cindex cross note heads
-@cindex diamond note heads
-@cindex parlato note heads
-@cindex harmonic note heads
-@cindex guitar note heads
-@cindex note head styles
-@cindex styles, note heads
+@cindex teste di nota barrate
+@cindex teste di nota a rombo
+@cindex teste di nota, parlato
+@cindex teste di nota, armonico
+@cindex teste di nota, chitarra
+@cindex barrata, testa di nota
+@cindex diamante, testa di nota
+@cindex parlato, testa di nota
+@cindex armonico, testa di nota
+@cindex chitarra, teste di nota
+@cindex teste di nota, stili
+@cindex stili delle teste di nota
 
 @funindex cross
 
@@ -2883,7 +2882,6 @@ Guida al funzionamento interno:
 @translationof Easy notation note heads
 
 @cindex teste di nota, esercizio
-@cindex practice note heads
 @cindex teste di nota, notazione semplificata
 @cindex notazione semplificata
 @cindex musica per principianti
@@ -3104,3 +3102,5 @@ Guida al funzionamento interno:
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
+
+@c  LocalWords:  musicA musicB dis' gis
