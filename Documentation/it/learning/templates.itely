@@ -50,7 +50,7 @@ LilyPond e goderti dei belli spartiti!
 
 @node Note e testo
 @appendixsubsec Note e testo
-@translationof Notes and text
+@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
