@@ -1,0 +1,506 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+@ignore
+    Translation of GIT committish: 714ec3008267aa3abd4f3bfb05da7eede2eb4e27
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+@setfilename lilypond-changes.info
+@settitle Cambiamenti in LilyPond
+
+@include macros.itexi
+
+@ifhtml
+@macro inputfileref{DIR,NAME}
+@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+@macro usermanref{NAME}
+@inforef{\NAME\,,../user/lilypond/lilypond}@c
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}@c
+@end macro
+@macro usermanref{NAME}
+Vedi il manuale utente, \NAME\
+@end macro
+@end ifnothtml
+
+@macro textanchor{NAME}
+@html
+<a name="\NAME\"></a>
+@end html
+@end macro
+
+
+@documentencoding utf-8
+@documentlanguage it
+@afourpaper
+
+@c Translators: Federico Bruni
+
+@finalout
+
+@node Top
+@top Nuove funzionalità nella versione 2.18 rispetto alla 2.16
+
+@allowcodebreaks false
+
+@itemize
+
+@ignore
+
+HINTS
+
+* add new items at the top
+
+* only show verbatim input for syntax/input changes
+
+* try to be as brief possible in those cases
+
+* don't try to provide real-world examples, they often get too big,
+which scares away people.
+
+* Write complete sentences.
+
+* only show user-visible changes.
+
+@end ignore
+
+@item
+Varie articolazioni possono essere inserite in una sola variabile o restituite
+da una funzione di tipo evento:
+
+@lilypond[verbatim,quote]
+sempreStacc = -. ^\markup \italic sempre
+\relative { c''4\sempreStacc c c c }
+@end lilypond
+
+@item
+La linea di base delle partiture interne a un blocco \score viene presa ora
+dal punto di riferimento (di solito il centro del rigo) del primo sistema
+invece che dal punto più alto del rettangolo confinante.  L'esempio seguente
+@lilypond[verbatim,quote]
+\markup {
+  violin: \score { \new Staff { <g d' a' e''>1 }
+                   \layout { indent=0 } } ,
+  cello: \score { \new Staff { \clef "bass" <c, g, d a> }
+                  \layout { indent=0 } }
+}
+@end lilypond
+
+precedentemente appariva così
+@lilypond[quote]
+\markup {
+  violin: \general-align #Y #UP
+          \score { \new Staff { <g d' a' e''>1 }
+                   \layout { indent=0 } } ,
+  cello:  \general-align #Y #UP
+          \score { \new Staff { \clef "bass" <c, g, d a> }
+                  \layout { indent=0 } }
+}
+@end lilypond
+
+e non c'era un modo affidabile per allineare le due partiture.
+
+@item
+LilyPond non inferisce più automaticamente un contesto @samp{\defaultchild}
+in una definizione di contesto che ha delle clausole @samp{\accepts}.  Qualsiasi
+definizione di contesto priva di una definizione esplicita o ereditata di
+@samp{\defaultchild} viene considerata un contesto @samp{Bottom} e sarà idonea
+per eventi ritmici e sovrascritture senza causare la creazione implicita di altri
+contesti.  Assicurati di specificare un @samp{\defaultchild} per i contesti diversi
+da @samp{Bottom}, se li definisci da zero.
+
+@item
+Ora sono completamente supportati i simboli di registro basso e discant per
+fisarmonica nel modulo @samp{scm accreg}, vedi @ruser{Accordion Registers}.
+@lilypond[verbatim,quote]
+#(use-modules (scm accreg))
+\new PianoStaff
+<<
+  \new Staff \relative
+  { \clef "treble"  \discant "10"
+    r8 s32 f'[ bes f] s e[ a e] s d[ g d] s16 e32[ a]
+    \discant "121"
+    << { r16 <f bes> r <e a> r <d g> } \\
+       { d r a r bes r } >> |
+    <cis e a>1
+  }
+  \new Staff \relative
+  { \clef "treble"  \freeBass "1"
+    r8 d'32 s16. c32 s16. bes32 s16. a32[ cis] s16
+    \clef "bass"  \stdBass "Master"
+    << { r16 <f, bes d>^"b" r <e a c>^"am" r <d g bes>^"gm" |
+         <e a cis>1^"a" } \\
+       { d8_"D" c_"C" bes_"B" | a1_"A" }
+    >>
+  }
+>>
+@end lilypond
+
+@item
+I nuovi comandi @code{markLengthOn} e @code{markLengthOff} controllano
+la spaziatura orizzontale dei segni di tempo e di chiamata.
+
+@lilypond[quote,relative=2]
+\markLengthOn
+\compressFullBarRests
+\tempo "Molto vivace" c2 c'
+\mark\default
+\tempo "Meno mosso" R1*16
+\mark\default
+g,2 g
+\bar "||"
+\markLengthOff
+\tempo "Molto vivace" c2 c'
+\mark#1
+\tempo "Meno mosso" R1*16
+\mark\default
+g,2 g
+@end lilypond
+
+@item
+I segni di chiamata all'inizio di una linea sono ora posizionati a destra
+della chiave e dell'armatura di chiave.  Come nelle versioni precedenti,
+@code{break-alignable-interface} ne controlla il comportamento.
+
+@lilypond[quote,relative=2]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\set Timing.currentBarNumber = #72
+\bar"||" \time 3/4 \key e\major \mark#10 \tempo "Adagio" b2.
+@end lilypond
+
+@item
+I numeri decimali possono ora essere scritti direttamente nella
+musica, senza il segno di cancelletto.  Grazie alla precedente
+modifica del modo in cui le proprietà di un oggetto sono
+specificate, il codice per cambiare la lunghezza dei gambi
+è cambiato da così:
+@example
+\override Stem #'length = #5.6
+e' f' g' a'
+@end example
+
+a così:
+@example
+\override Stem.length = 5.6
+e' f' g' a'
+@end example
+
+Bisogna scrivere un numero a entrambi i lati del punto -- valori come
+@code{4.} o @code{-.3} non sono permessi.
+
+Le frazioni decimali non sono accettate in modalità @code{\chordmode}.
+
+@item
+Varie abbreviazioni come @code{(}, @code{)}, @code{|},
+@code{[}, @code{]}, @code{~}, @code{\(}, @code{\)} e altre possono
+ora essere ridefinite liberamente come normali comandi.  Ad esempio
+@lilypond[verbatim,quote]
+"\\{" = (
+"\\}" = )
+"(" = \melisma
+")" = \melismaEnd
+
+\new Staff <<
+  \relative c' {
+    c8 \{ d e f \} % con legatura di portamento
+    g ( a b c ) % nessuna legatura, c'è il melisma
+    c,1 \bar "|."
+   }
+   \addlyrics { Li -- ly -- pond. }
+>>
+@end lilypond
+
+@item
+La forma abbreviata dell'articolazione @code{\staccatissimo} è stata
+rinominata da @code{-|} a@tie{}@code{-!}.
+
+@item
+L'ampiezza della variazione di tempo ora si scrive @code{\tempo 4 = 60 - 68}
+invece di @code{\tempo 4 = 60 ~ 68}.
+
+@item
+Il grob @code{OctavateEight} è stato rinominato @code{ClefModifier}.
+Le relative proprietà di contesto sono state rinominate da @code{xxxOctavationyyy}
+a @code{xxxTranspositionyyy}.
+
+@item
+C'è un nuovo comando @code{\absolute} che contrassegna in modo esplicito
+il fatto che la musica sia inserita con altezze assolute.  Sebbene quella assoluta
+sia la modalità di inserimento implicita predefinita, un comando esplicito @code{\absolute}
+impedisce la reinterpretazione quando il passaggio è posto dentro un blocco
+@code{\relative}:
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
+
+@item
+Se si usa @code{\relative} senza un'esplicita altezza di riferimento,
+ora l'altezza di riferimento è il centro della prima ottava, rendendo
+la prima altezza inserita indistinguibile dall'altezza assoluta.
+Precedentemente, se si ometteva l'altezza di riferimento veniva
+presa come riferimento l'altezza @code{c'}.  Dato che questa scelta
+era in qualche modo arbitraria, si consigliava di specificare
+sempre l'altezza di riferimento.
+
+@item
+Si può usare un nuovo comando @code{\single} per convertire la sovrascrittura
+di una proprietà in una modifica da applicare a una singola espressione
+musicale:
+
+@lilypond[quote,verbatim,relative=2]
+<a \single\voiceTwoStyle e' a>1
+@end lilypond
+
+@item
+I due modi per non far apparire un oggetto grafico nell'output sono
+sovrascrivere la sua proprietà @code{transparent} con @code{#t}
+(mantenendo la spaziatura originaria) o sovrascrivere la sua
+proprietà @code{stencil} con @code{#f} (per non occupare alcun spazio).  Queste
+due operazioni hanno ora delle forme abbreviate chiamate rispettivamente
+@code{\hide} (nascondi) e @code{\omit} (ometti).  Prendono come argomento
+un'espressione musicale da modificare o il nome di un oggetto grafico
+per cui si deve creare una sovrascrittura (per specificare entrambi,
+usare @code{\single} nella forma con override):
+
+@lilypond[quote,verbatim]
+\new Staff \with { \omit Clef }
+\relative c'' <a e' \hide a>1
+@end lilypond
+
+@item
+Un nuovo comando @code{\temporary} può essere applicato alle sovrascritture
+in modo che queste non sostituiscano precedenti impostazioni delle proprietà.  Se
+successivamente viene applicato un @code{\revert} alla stessa proprietà, riappare
+l'impostazione precedente:
+
+@lilypond[quote,verbatim,relative=2]
+\override NoteHead.color = #red c4
+\override NoteHead.color = #green d
+\revert NoteHead.color e2
+\override NoteHead.color = #red c4
+\temporary\override NoteHead.color = #green d
+\revert NoteHead.color e
+\revert NoteHead.color c
+@end lilypond
+
+Questo è utile principalmente per scrivere funzioni musicali che
+hanno bisogno di modificare alcune proprietà solo per la durata
+della funzione.
+
+@item
+@code{\tag}, @code{\removeWithTag} e @code{\keepWithTag} possono
+ora accettare una lista di simboli invece di un solo simbolo
+per contrassegnare, togliere o mantenere la musica usando un
+qualsiasi numero di etichette (tag).  Ciò è importante specialmente
+per @code{\keepWithTag} dato che non si può ottenere lo stesso
+risultato usando consecutivamente molteplici comandi @code{\keepWithTag}.
+
+@item
+L'opzione @samp{-d old-relative} è stata tolta.  Non più veramente
+accessibile dalla linea di comando, veniva usata soltanto per
+interpretare @code{\relative} nei file LilyPond convertiti
+automaticamente dalle versioni@tie{}1.8 o precedenti.  Non è chiaro
+quanto di questo fosse ancora realmente funzionante.
+
+@item
+Il significato di @code{instrumentTransposition} è  stato rovesciato.
+Dopo
+@example
+\set instrumentTransposition = #@{ b #@}
+@end example
+un @code{c'} ora suona come un @code{b}.  Precedentemente, sarebbe
+stato l'esatto contrario.  Questo e il cambiamento seguente dovrebbero
+rendere più facile il lavoro con gli strumenti traspositori.
+
+@item
+La musica generata dai comandi @code{\set} e @code{\override} non è
+più influenzata da @code{\transpose}.  La conseguenza principale
+è che @code{\transpose} trasporrà l'intonazione reale e quella
+a stampa della stessa quantità anche quando la musica trasposta
+contiene @code{\transposition}.  Precedentemente
+@example
+\transpose c' f' \transposition bes'
+@end example
+era equivalente a @code{\transposition f'}.  Ora resta equivalente
+a @code{\transposition bes'}.
+
+@item
+Quando fa dei controlli per le collisioni, LilyPond non considera
+più gli oggetti come rettangoli.  Invece approssima la forma
+reale degli oggetti usando un approccio simile ai numeri interi.
+Questo produce generalmente un posizionamento degli oggetti e dei
+sistemi più uniforme e compresso:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+Precedentemente, il frammento precedente appariva così:
+
+@lilypond[relative=1]
+#(ly:set-option 'debug-skylines #t)
+\override Hairpin #'vertical-skylines = #'()
+\override DynamicText #'vertical-skylines = #'()
+\override TextScript #'vertical-skylines = #'()
+\override Score.MetronomeMark #'vertical-skylines = #'()
+\override Staff.Clef #'vertical-skylines = #'()
+\dynamicUp
+c'4\f a4\f d\f( f)
+a,4\< c c c\!
+d4-.\downbow a4^"r'venu..." c \tempo "T1" e
+@end lilypond
+
+Gli oggetti interessati comprendono @code{Accidentals}, @code{Beams}, @code{Clefs},
+@code{Dynamics}, @code{FiguredBass}, @code{Flags}, @code{Glissandos},
+@code{Lyrics}, @code{MetronomeMarks}, @code{OttavaBrackets},
+@code{Pedals}, @code{RehearsalMarks}, @code{Rests}, @code{Scripts},
+@code{TextScripts}, @code{Ties}, @code{Tuplets} e @code{VoltaBrackets}.
+
+@item
+I gruppi irregolari sono ora creati col comando @code{\tuplet}, che prende
+come argomento una frazione @code{@var{t}/@var{n}} per specificare che @var{t}
+note sono suonate nel tempo solitamente concesso a @var{n} note. Un
+comando @code{\tuplet} può creare vari gruppi irregolari se la loro
+durata è inserita dopo la frazione.
+@lilypond[quote,verbatim,relative=2]
+\tuplet 3/2 { c8 d e } \tuplet 3/2 { f e d } c2
+\tuplet 3/2 4 { c8 d e f e d } c2
+@end lilypond
+Il comando @code{\times} con la sua frazione invertita
+@code{@var{n}/@var{t}} è ancora disponibile.
+
+@item
+Vengono introdotti due nuovi comandi markup: @code{\draw-dashed-line} e
+@code{\draw-dotted-line}.
+
+@noindent
+La linea tratteggiata (dashed-line) si estende per l'intera lunghezza data da @var{dest}, se
+@code{full-length} è impostato su @code{#t} (predefinito) senza alcuno
+spazio all'inizio o alla fine. @code{off} viene poi modificato per entrarci.
+Per insistere sui valori assegnati (o predefiniti) di @code{on}, @code{off} usare
+@code{\override #'(full-length . #f)}.  Sono possibili anche le impostazioni
+manuali per @code{on}, @code{off} e @code{phase}.
+
+@noindent
+La linea puntata (dotted-line) si estende sempre per l'intera lunghezza data da @var{dest},
+senza alcun spazio all'inizio o alla fine.  Sono possibili le impostazioni manuali
+per @code{off} per definire uno spazio più grande o più piccolo tra i punti.
+Il valore assegnato (o predefinito) di @code{off} verrà modificato per riempire
+la lunghezza della linea.
+
+@lilypond[verbatim,quote]
+\markup {
+  \draw-dashed-line #'(5.1 . 2.3)
+  \override #'(on . 0.3)
+  \override #'(off . 0.5)
+  \draw-dashed-line #'(5.1 . 2.3)
+  \draw-dotted-line #'(5.1 . 2.3)
+  \override #'(thickness . 2)
+  \override #'(off . 0.2)
+  \draw-dotted-line #'(5.1 . 2.3)
+}
+@end lilypond
+
+@item
+A partire dalla versione@tie{}2.17.10, i messaggi di errore e gli
+@acronym{URI} @code{textedit} usati per la funzionalità punta-e-clicca
+specificano numeri di colonna che iniziano con@tie{}1 invece che
+con@tie{}0.  L'offset di byte (anch'esso parte degli @acronym{URI}
+@code{textedit}) inizia ancora a@tie{}0.
+
+@item
+Il comando @code{\clef} supporta la trasposizione:
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_(8)"
+c2 c
+\clef "bass^[15]"
+c2 c
+@end lilypond
+
+@item
+La sintassi LilyPond delle parole separate da punto @code{Voice.Accidental}
+è stata resa intercambiabile con @code{#'(Voice Accidental)}, una lista
+Scheme di simboli.  Una delle conseguenze è che codice come
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+equivale ora a
+@example
+\override Voice.TextSpanner bound-details.left.text = "rit."
+@end example
+o anche a
+@example
+\override #'(Voice TextSpanner) bound-details.left.text = "rit."
+@end example
+
+@item
+Non è più necessario specificare il percorso del grob e della proprietà
+del grob in due argomenti separati per comandi come @samp{\override} e
+@code{\revert}, rendendo possibile la sintassi
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+Dato che funzioni musicali complementari come @samp{\overrideProperty}
+non possono supportare forme con e senza spazio di separazione allo
+stesso tempo, l'uso del percorso unico separato da punti è la forma
+preferita.  Specificare separatamente il percorso del grob e quello
+della sua proprietà, attualmente ancora supportato con @samp{\override} e
+@samp{\revert} per ragioni di compatibilità, è deprecato.
+
+@item
+Dal momento che le parole ora vengono accettate come argomenti
+di funzioni di simbolo,  le interfacce di @samp{\accidentalStyle},
+@samp{\alterBroken}, @samp{\footnote} e @samp{\tweak} sono state
+ridefinite quando erano presenti degli argomenti opzionali di
+simbolo.  Controllare la documentazione di ciascuna funzione
+musicale per conoscere i dettagli.
+
+@item
+Vari comandi ora accettano liste di simboli (inseriti opportunamente
+come parole separate da punti) per vari tipi di argomenti. Questi
+comprendono @samp{\accidentalStyle}, @samp{\alterBroken},
+@samp{\footnote}, @samp{\hide}, @samp{\omit},
+@samp{\overrideProperty}, @samp{\shape} e @samp{\tweak}.
+
+@item
+L'interfaccia utente della stanghetta è cambiata. I glifi della battuta
+ora rispecchiano l'aspetto della stanghetta, quindi un segno di ripetizione
+posto a sinistra deve essere inserito con @code{.|:}. Il comando
+@code{\defineBarLine} offre un modo semplice per definire ulteriori
+stili per le stanghette.
+
+@item
+Le alterazioni nell'armatura di chiave possono essere stampate in
+ottave diverse dalle loro posizioni tradizionali, oppure in ottave
+multiple.
+@lilypond[quote,relative=0]
+\override Staff.KeySignature #'flat-positions = #'((-5 . 5))
+\override Staff.KeyCancellation #'flat-positions = #'((-5 . 5))
+\clef bass \key es \major es g bes d
+\clef treble \bar "||" \key es \major es g bes d
+\override Staff.KeySignature #'sharp-positions = #'(2)
+\bar "||" \key d \major b fis b2
+@end lilypond
+
+@end itemize
+
+@ifhtml
+Per i cambiamenti precedenti, vai su
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/},
+@uref{http://lilypond.org/doc/v2.14/Documentation/changes/},
+o @uref{../,vai indietro} all'indice della documentazione.
+
+
+@end ifhtml
+
+@bye
