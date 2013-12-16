@@ -1,9 +1,9 @@
-@c -*- coding: utf-8; mode: texinfo; documentlangage: fr -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web/community.itexi and
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -179,5 +179,3 @@ de grands travaux à l'avenir.
 @end macro
 
 @end ignore
-
-@c  LocalWords:  itemize rcontribnamed subheading rcontrib
