@@ -1046,7 +1046,6 @@ ADD_INTERFACE (Axis_group_interface,
                "nonstaff-nonstaff-spacing "
                "nonstaff-relatedstaff-spacing "
                "nonstaff-unrelatedstaff-spacing "
-               "outside-staff-placement-directive "
                "pure-relevant-grobs "
                "pure-relevant-items "
                "pure-relevant-spanners "
@@ -1055,7 +1054,6 @@ ADD_INTERFACE (Axis_group_interface,
                "staff-grouper "
                "staff-staff-spacing "
                "system-Y-offset "
-               "vertical-skyline-elements "
                "X-common "
                "Y-common "
               );

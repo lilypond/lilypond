@@ -222,6 +222,16 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'outside-staff-axis-group-interface
+ "A vertical axis group on which outside-staff skyline calculations are done."
+ '(outside-staff-placement-directive vertical-skyline-elements))
+
+(ly:add-interface
+ 'outside-staff-interface
+ "A grob that could be placed outside staff."
+ '(outside-staff-horizontal-padding outside-staff-padding outside-staff-priority))
+
+(ly:add-interface
  'parentheses-interface
  "Parentheses for other objects."
  '(padding

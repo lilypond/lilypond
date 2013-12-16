@@ -97,6 +97,7 @@
                  (interfaces . (accidental-interface
                                 accidental-suggestion-interface
                                 font-interface
+                                outside-staff-interface
                                 script-interface
                                 self-alignment-interface
                                 side-position-interface))))))
@@ -168,7 +169,7 @@
 
     (Arpeggio
      . (
-	(cross-staff . ,ly:arpeggio::calc-cross-staff)
+        (cross-staff . ,ly:arpeggio::calc-cross-staff)
         (direction . ,LEFT)
         (padding . 0.5)
         (positions . ,ly:arpeggio::calc-positions)
@@ -278,6 +279,7 @@
               ((class . Item)
                (interfaces . (break-alignable-interface
                               font-interface
+                              outside-staff-interface
                               self-alignment-interface
                               side-position-interface
                               text-interface))))))
@@ -321,6 +323,7 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                outside-staff-interface
                                 side-position-interface))))))
 
     (BassFigureBracket
@@ -348,7 +351,8 @@
         (meta . ((class . Spanner)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
-                 (interfaces . (axis-group-interface))))))
+                 (interfaces . (axis-group-interface
+                                outside-staff-axis-group-interface))))))
 
 
     (Beam
@@ -523,6 +527,7 @@
                  (interfaces . (break-aligned-interface
                                 breathing-sign-interface
                                 font-interface
+                                outside-staff-interface
                                 text-interface))))))
 
     (ChordName
@@ -538,6 +543,7 @@
         (meta . ((class . Item)
                  (interfaces . (chord-name-interface
                                 font-interface
+                                outside-staff-interface
                                 rhythmic-grob-interface
                                 text-interface))))))
 
@@ -597,6 +603,7 @@
         (meta . ((class . Item)
                  (interfaces . (clef-modifier-interface
                                 font-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -638,6 +645,7 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 side-position-interface
                                 text-interface
                                 text-script-interface))))))
@@ -786,6 +794,7 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 percent-repeat-interface
                                 percent-repeat-item-interface
                                 self-alignment-interface
@@ -803,6 +812,7 @@
         (thickness . 0.48)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 percent-repeat-interface
                                 percent-repeat-item-interface
                                 rhythmic-grob-interface))))))
@@ -828,6 +838,7 @@
                  (interfaces . (axis-group-interface
                                 dynamic-interface
                                 dynamic-line-spanner-interface
+                                outside-staff-interface
                                 side-position-interface))))))
 
     (DynamicText
@@ -854,6 +865,7 @@
                  (interfaces . (dynamic-interface
                                 dynamic-text-interface
                                 font-interface
+                                outside-staff-interface
                                 script-interface
                                 self-alignment-interface
                                 text-interface))))))
@@ -905,6 +917,11 @@
                                 font-interface
                                 line-interface
                                 line-spanner-interface
+                                ;for now, LilyPond never will typeset
+                                ;these without a DynamicLineSpanner
+                                ;as their controlling element
+                                ;so, they do not need the
+                                ;outside-staff-interface
                                 spanner-interface
                                 text-interface))))))
 
@@ -959,6 +976,7 @@
         (meta . ((class . Item)
                  (interfaces . (finger-interface
                                 font-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface
@@ -1043,6 +1061,7 @@
                  (interfaces . (chord-name-interface
                                 font-interface
                                 fret-diagram-interface
+                                outside-staff-interface
                                 rhythmic-grob-interface))))))
 
 
@@ -1130,6 +1149,7 @@
                  (interfaces . (dynamic-interface
                                 hairpin-interface
                                 line-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 spanner-interface))))))
 
@@ -1147,6 +1167,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (horizontal-bracket-interface
                                 line-interface
+                                outside-staff-interface
                                 side-position-interface
                                 spanner-interface))))))
 
@@ -1181,6 +1202,7 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1420,6 +1442,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 measure-counter-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1436,6 +1459,7 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (measure-grouping-interface
+                                outside-staff-interface
                                 side-position-interface))))))
 
     (MelodyItem
@@ -1481,6 +1505,7 @@
                  (interfaces . (break-alignable-interface
                                 font-interface
                                 metronome-mark-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1502,6 +1527,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
+                                outside-staff-interface
                                 multi-measure-rest-interface
                                 rest-interface
                                 staff-symbol-referencer-interface))))))
@@ -1529,6 +1555,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1554,6 +1581,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1679,6 +1707,7 @@
                  (interfaces . (font-interface
                                 horizontal-bracket-interface
                                 line-interface
+                                outside-staff-interface
                                 ottava-bracket-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1758,6 +1787,7 @@
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 percent-repeat-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1778,7 +1808,8 @@
         (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
-                 (interfaces . (slur-interface))))))
+                 (interfaces . (outside-staff-interface
+                                slur-interface))))))
 
     ;; an example of a text spanner
     (PianoPedalBracket
@@ -1826,6 +1857,7 @@
                  (interfaces . (break-alignable-interface
                                 font-interface
                                 mark-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface))))))
@@ -1914,6 +1946,7 @@
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 script-interface
                                 side-position-interface))))))
 
@@ -1947,7 +1980,8 @@
         (vertical-skylines . ,(ly:make-unpure-pure-container ly:slur::vertical-skylines ly:grob::pure-simple-vertical-skylines-from-extents))
         (Y-extent . ,slur::height)
         (meta . ((class . Spanner)
-                 (interfaces . (slur-interface))))))
+                 (interfaces . (outside-staff-interface
+                                slur-interface))))))
 
     (SostenutoPedal
      . (
@@ -1983,6 +2017,7 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))))))
 
@@ -2174,6 +2209,7 @@
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 self-alignment-interface
+                                outside-staff-interface
                                 side-position-interface
                                 string-number-interface
                                 text-interface
@@ -2194,6 +2230,7 @@
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 stroke-finger-interface
@@ -2233,6 +2270,7 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))))))
 
@@ -2253,7 +2291,8 @@
                                       (vertical-skyline-elements . ,ly:system::vertical-skyline-elements)
                                       (vertical-alignment . ,ly:system::get-vertical-alignment)))
                  (interfaces . (axis-group-interface
-                                system-interface))))))
+                                system-interface
+                                outside-staff-axis-group-interface))))))
 
     (SystemStartBar
      . (
@@ -2373,6 +2412,7 @@
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 instrument-specific-markup-interface
+                                outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
                                 text-interface
@@ -2406,6 +2446,7 @@
                  (interfaces . (font-interface
                                 line-interface
                                 line-spanner-interface
+                                outside-staff-interface
                                 side-position-interface))))))
 
     (Tie
@@ -2559,6 +2600,7 @@
                  (interfaces . (font-interface
                                 line-interface
                                 line-spanner-interface
+                                outside-staff-interface
                                 side-position-interface
                                 trill-spanner-interface))))))
 
@@ -2581,6 +2623,7 @@
 
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
+                                outside-staff-interface
                                 tuplet-bracket-interface))))))
 
     (TupletNumber
@@ -2596,6 +2639,7 @@
         (Y-offset . ,ly:tuplet-number::calc-y-offset)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
+                                outside-staff-interface
                                 text-interface
                                 tuplet-number-interface))))))
 
@@ -2634,6 +2678,7 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                outside-staff-interface
                                 piano-pedal-interface
                                 side-position-interface))))))
 
@@ -2685,7 +2730,8 @@
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
 
                  (interfaces . (axis-group-interface
-                                hara-kiri-group-spanner-interface))))))
+                                hara-kiri-group-spanner-interface
+                                outside-staff-axis-group-interface))))))
 
     (VoiceFollower
      . (
@@ -2749,6 +2795,7 @@
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
                                       (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                outside-staff-interface
                                 side-position-interface
                                 volta-interface))))))
 
