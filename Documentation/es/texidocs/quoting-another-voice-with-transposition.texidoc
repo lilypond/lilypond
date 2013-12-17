@@ -8,6 +8,4 @@ transportar utilizando @code{\\transpose}.  En este caso las notas
 citadas permanecen sin cambios.
 
 "
-
-doctitlees = "Citar otra voz con transposición"
-
+  doctitlees = "Citar otra voz con transposición"

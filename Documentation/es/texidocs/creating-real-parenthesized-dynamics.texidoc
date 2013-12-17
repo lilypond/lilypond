@@ -15,4 +15,4 @@ compatible con instrucciones como @code{\\dynamicUp} o
 @code{\\dynamicDown}.
 
 "
-  doctitlees = "Crear indicaciones dinámicas \"verdaderas\" entre paréntesis"
+  doctitlees = "Crear indicaciones dinámicas \"verdaderas\"entre paréntesis"

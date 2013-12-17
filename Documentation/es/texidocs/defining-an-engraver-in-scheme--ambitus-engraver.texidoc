@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
-
 Este ejemplo muestra cómo puede definirse el grabador de ámbito o
 tesitura en el espacio del usuario, con un grabador de Scheme.
 
@@ -8,5 +7,4 @@ Esto es básicamente una reescritura en Scheme del código de
 @file{lily/ambitus-engraver.cc}.
 
 "
-
   doctitlees = "Definir un grabador en Scheme: grabador de ámbito o tesitura"

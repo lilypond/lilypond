@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Este ejemplo muestra cómo añadir aspas sobre las plicas.  Marcamos el
+comienzo de una sección hablada con la palabra clave @code{\\speakOn},
+y la finalizamos con la palabra clave @code{\\speakOff}.
+
+"
+  doctitlees = "Marcar notas de las partes habladas con unas aspas en la plica"

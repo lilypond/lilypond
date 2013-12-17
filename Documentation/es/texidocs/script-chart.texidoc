@@ -1,6 +1,6 @@
 %% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
 %% Translation of Documentation/included/script-chart.ly
-texidoces = "
+  texidoces = "
 He aquí un cuadro que muestra todas las articulaciones disponibles:
 
 "

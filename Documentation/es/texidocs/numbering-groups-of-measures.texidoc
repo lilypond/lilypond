@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 4d9770a67176122b9779426cf540ad1694f07f61
   texidoces = "
-
 Este fragmento de código muestra el uso del grabador
 @code{Measure_counter_engraver} para numerar grupos de compases
 sucesivos.  Se puede numerar cualquier período de compases tanto si
@@ -19,5 +18,4 @@ Cuando un compás se extiende más allá de un salto de línea, el número
 aparece dos veces, la segunda vez entre paréntesis.
 
 "
-
   doctitlees = "Numerar grupos de compases"

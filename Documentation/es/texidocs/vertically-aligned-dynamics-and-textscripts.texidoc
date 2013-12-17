@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
   texidoces = "
-
 Todos los objetos @code{DynamicLineSpanner} (reguladores e
 indicaciones dinámicas de texto) se sitúan con su línea de referencia a
 una distancia de al menos @code{'staff-padding} del pentagrama, a no
@@ -13,4 +12,3 @@ inscripciones de texto a lo largo de su línea de base.
 
 "
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
-

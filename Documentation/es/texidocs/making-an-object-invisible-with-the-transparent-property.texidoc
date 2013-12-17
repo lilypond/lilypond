@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
   texidoces = "
-
 Si se ajusta la propiedad @code{transparent} de un objeto, se imprime
 en @qq{tinta invisible}: el objeto no se imprime pero se retienen
 todos sus otros comportamientos.  El objeto aún ocupa espacio,
@@ -15,5 +14,4 @@ blanco la primera plica hacia arriba dentro de esa voz, la ligadura
 parece cruzar de una voz a otra.
 
 "
-
   doctitlees = "Hacer invisible un objeto con la propiedad 'transparent"

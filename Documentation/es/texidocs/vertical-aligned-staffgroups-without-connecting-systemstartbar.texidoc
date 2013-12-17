@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+  texidoces = "
+Este fragmento de código muestra cómo obtener grupos de pentagramas
+StaffGroups alineados verticalmente con una barra de inicio de sistema
+SystemStartBar por cada StaffGroup, pero sin conectarlos entre sí.
+
+"
+  doctitlees = "Grupos de pentagramas alineados verticalmente sin una barra SystemStartBar que los interconecte"

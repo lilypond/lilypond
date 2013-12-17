@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+La instrucción @code{\\applyOutput} hace posible el ajuste fino de
+cualquier objeto de presentación, en cualquier contexto.  Requiere una
+función de Scheme contres argumentos.
+
+"
+  doctitlees = "Modificación de propiedades para objetos gráficos individuales"

@@ -1,7 +1,5 @@
 %% Translation of GIT committish: ff933f126892a79441b5b1541a95369095df91dd
-
   texidoces = "
-
 Este método imprime dos letras de ensayo, una encima de la otra,
 desplaza la marca inferior a una posición debajo del pentagrama y
 después añade un relleno sobre ella de forma que la marca superior se
@@ -25,9 +23,5 @@ sin afectar a la otra.  También puede dar algunos problemas con el
 espaciado vertical, porque el uso de @code{extra-offset} no cambia la
 caja circundante de la letra de ensayo desde su valor original.
 
-
-
 "
-
   doctitlees = "Cómo imprimir dos letras de ensayo encima y debajo de la misma línea divisoria (método 1)"
-

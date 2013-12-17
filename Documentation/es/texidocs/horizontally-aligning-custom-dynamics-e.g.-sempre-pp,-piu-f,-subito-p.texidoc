@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 12c6693055728e69dce5c4e5a4a2b5f71180a5e2
   texidoces = "
-
 Algunas expresiones de matiz dinámico llevan texto adicional, como
 @qq{sempre pp}.  Dado que los matices suelen ir centrados bajo la
 nota, el \\pp se imprimiría mucho después de la nota a la que se
@@ -41,6 +40,4 @@ dinámica!.  Asimismo, se alinea con el extremo derecho del texto
 adicional, no con el centro del pp.
 
 "
-
-  doctitlees = "Alinear horizontalmente indicaciones dinámicas personalizadas (p.ej. \"sempre pp\" \"piu f\" \"subito p\")"
-
+  doctitlees = "Alinear horizontalmente indicaciones dinámicas personalizadas (p.ej. \"sempre pp\"\"piu f\"\"subito p\")"

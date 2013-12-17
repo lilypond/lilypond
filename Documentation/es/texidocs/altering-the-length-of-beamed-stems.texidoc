@@ -11,7 +11,4 @@ figuras que son mmás cortas que la longitud de la figura del último
 argumento.  También se pueden usar argumentos no enteros.
 
 "
-
-doctitlees = "Alterar la longitud de las plicas unidas por una barra"
-
-
+  doctitlees = "Alterar la longitud de las plicas unidas por una barra"

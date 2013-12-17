@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Se puede usar <code>shiftDurations</code> para cambiar la longitud de
+las notas de una pieza musical.  Toma dos argumentos: el factor de
+escalado como una potencia de dos, y el número de puntillos que añadir
+como un entero positivo.
+
+"
+  doctitlees = "Modificar duraciones automáticamente"

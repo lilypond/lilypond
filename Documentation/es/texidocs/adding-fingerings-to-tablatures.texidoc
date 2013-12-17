@@ -3,6 +3,4 @@
 Para añadir digitaciones a las tablaturas, utilice una combinación de
 @code{\\markup} y @code{\\finger}.
 "
-
   doctitlees = "Añadir digitaciones a las tablaturas"
-

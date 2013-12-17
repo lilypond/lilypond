@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
+  texidoces = "
+Si está establecido @code{strict-note-spacing}, el espaciado de las
+notas no queda influido por los compases o claves que pueda haber
+dentro de un sistema.  En lugar de ello, se colocan justo antes de la
+nota que tiene lugar en el mismo momento temporal. Esto puede producir
+colisiones.
+
+"
+  doctitlees = "Espaciado de las notas estrictamente proporcional"

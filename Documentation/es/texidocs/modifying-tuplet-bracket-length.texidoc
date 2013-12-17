@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Se puede hacer que los corchetes de grupo de valoración especial, como
+los tresillos, comprendan música anterior al propio grupo o incluyan
+la nota siguiente.  Los corchetes predeterminados finalizan en el
+extremo derecho de la última nota del grupo; el corchete de un grupo
+de duración completa se exiende más a la derecha, bien para que cubra
+toda la notación no rítmica hasta la nota siguiente, o bien para que
+cubra solamente el espacio vacía que hay antes del elemento siguiente
+de notación, sea éste una clave, una indicación de compás, u otra
+nota.  El ejemplo muestra cómo activar el modo de duración completa de
+los grupos de valoración especial y cómo cambiar la parte de música
+que cubren.
+
+"
+  doctitlees = "Modificar la longitud del corchete de grupo especial"

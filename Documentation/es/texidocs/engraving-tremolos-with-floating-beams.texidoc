@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Si la duración total de un trémolo es menor de una negra, o
+exactamente de una blanca, normalmente se compone tipográficamente con
+todas las barras de corchea tocando las plicas.  Ciertos estilos de
+notación de partituras componen algunas de estas barras como barras
+flotantes centradas que no tocan las plicas de las figuras.  El número
+de barras flotantes en este tipo de trémolo está controlado por la
+propiedad @code{'gap-count } del objeto @code{Beam} y la separación
+entre las barras y las plicas se fija con la propiedad @code{'gap}.
+
+"
+  doctitlees = "Trémolos con barras flotantes"

@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+De forma predeterminada, las indicaciones metronómicas no influyen el
+espaciado horizontal. Esto tiene un inconveniente: cuando se usan
+silencios comprimidos, algunas indicaciones metronómicas pueden
+aparecer demasiado seguidas, lo que las haría imprimirse unas sobre
+otras verticalmente, como se muestra en la primera parte de este
+ejemplo.  Eesto se puede resolver por medio de una sencilla
+sobreescritura, como puede verse en la segunda mitad del ejemplo.
+
+"
+  doctitlees = "Forzar la anchura de los compases para que se adapten a la anchura de las indicaciones metronómicas"

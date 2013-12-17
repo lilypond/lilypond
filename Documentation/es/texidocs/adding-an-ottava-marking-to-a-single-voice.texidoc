@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Si tiene más de una voz en el mismo pentagrama, el cambio de
+octavación de una voz transportará la posición de las notas en todas
+las voces mientras dure el corchete de octava.  Si la octavación se
+quiere aplicar a una voz solamente, se deben ajustar explícitamente la
+middleCPosition y el corchete de octava.  En este fragmento de código,
+el valor de middleCPosition para la clave de Fa es normalmente 6, seis
+posiciones por encima de la línea del Do central, de manera que en la
+porción de 8va el valor de middleCPosition es aún 7 posiciones (una
+octava) más alta.
+
+"
+  doctitlees = "Añadir una indicación de octava alta a una sola voz"

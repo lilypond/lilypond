@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 296d30fe2fb22a66682c7529bbee0612b5863b93
   texidoces = "
-
 Este fragmento de código ha quedado obsoleto por las instrucciones de
 marcado predefinidas, véase @ruser{Accordion Registers}.  Sin embargo
 aún es útil como demostración sencilla de la forma de combinar
@@ -12,4 +11,3 @@ de símbolos se adapte a los cambios en @code{font-size}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"
-

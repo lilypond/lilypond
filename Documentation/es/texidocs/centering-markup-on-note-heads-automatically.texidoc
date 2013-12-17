@@ -1,6 +1,5 @@
 %% Translation of GIT committish: 13da8b27aabc5d5a752d00ed1e2b99ad20f0f264
   texidoces = "
-
 Por razones técnicas, las inscripciones textuales que se adjuntan a la
 cabeza de las notas no pueden centrarse fácilmente sobre el ancho de
 la cabeza de la nota, a diferencia de las articulaciones.
@@ -13,5 +12,4 @@ de las notas que hayan sufrido un desplazamiento por medio de
 @code{force-hshift}.
 
 "
-
   doctitlees = "Centrado de elementos de marcado sobre la cabeza de las notas de forma automática"
