@@ -2768,8 +2768,7 @@ more space, shorter durations get less.  The shortest durations get a
 fixed amount of space (which is controlled by
 @code{shortest-duration-space} in the @rinternals{SpacingSpanner}
 object).  The longer the duration, the more space it gets: doubling a
-duration adds a fixed amount (this amount is controlled by
-@code{spacing-increment}) of space to the note.
+duration adds @code{spacing-increment} of space to the note.
 
 For example, the following piece contains lots of half, quarter, and
 8th notes; the eighth note is followed by 1 note head width (NHW).

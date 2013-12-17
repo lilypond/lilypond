@@ -802,9 +802,8 @@ ending at that staff-position.")
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive
 values shorten the text-spanner, while negative values lengthen it.")
-     (shortest-duration-space ,ly:dimension? "Start with this much
-space for the shortest duration.  This is expressed in
-@code{spacing-increment} as unit.  See also
+     (shortest-duration-space ,number? "Start with this multiple of
+@code{spacing-increment} space for the shortest duration.  See also
 @rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
 shortest note playing here.")
@@ -849,8 +848,8 @@ instead of to the beginning of the non-musical column.  If there is a
 clef change followed by a bar line, for example, this means that we
 will try to space the non-musical column as though the clef is not
 there.")
-     (spacing-increment ,number? "Add this much space for a doubled
-duration.  Typically, the width of a note head.  See also
+     (spacing-increment ,ly:dimension? "The unit of length for
+note-spacing.  Typically, the width of a note head.  See also
 @rinternals{spacing-spanner-interface}.")
      (spacing-pair ,pair? "A pair of alignment symbols which set an object's
 spacing relative to its left and right @code{BreakAlignment}s.
@@ -986,8 +985,8 @@ possible.")
 ;;; u
 ;;;
      (uniform-stretching ,boolean? "If set, items stretch
-proportionally to their durations.  This looks better in complex
-polyphonic patterns.")
+proportionally to their natural separation based on durations.
+This looks better in complex polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
 spacing problem.")
      (usable-duration-logs ,list? "List of @code{duration-log}s that
