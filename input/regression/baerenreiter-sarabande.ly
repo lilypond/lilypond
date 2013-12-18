@@ -1,6 +1,6 @@
 \version "2.17.6"
 
-forcedLastBreak =  { \break }
+forcedLastBreak =  {} %%  { \break } if needed to match original breaks
 
 %% We want this to perfectly match the Bärenreiter spacing.
 %% If we're not using 6 systems, there's definitely a problem.
@@ -171,10 +171,9 @@ smallerPaper = \layout {
   ragged-bottom = ##t
   indent = 7. \mm
   line-width =183.5 \mm
-  obsolete-between-system-space = 25\mm
-  system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+  system-system-spacing #'basic-distance = 14.22 % 25mm, in staff-spaces
   system-system-spacing #'padding = #0
-  score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+  score-system-spacing #'basic-distance = #0
   score-system-spacing #'padding = #0
   system-count = 6
 
