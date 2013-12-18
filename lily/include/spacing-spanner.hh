@@ -45,7 +45,7 @@ private:
   static bool fills_measure (Grob *, Item *, Item *);
 public:
   static vector<Grob *> get_columns (Grob *me);
-  static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
+  static Spring note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
   static Spring standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *);
 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
