@@ -39,10 +39,13 @@
   TODO: detect hshifts due to collisions, and account for them in
   spacing?
 */
-
+/*
+  Adjust the ideal and minimum distance between note columns,
+  based on the notehead size, skylines, and optical illusions.
+*/
 Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
-                           Real base_space, Real increment)
+                           Spring base, Real increment)
 {
   vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
@@ -78,11 +81,12 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     the full amount of space. We give them half the amount of space, but then
     adjust things so there are no collisions.
   */
+  Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
   Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (right_col->get_property ("skyline-vertical-padding"), 0.0));
   Real min_dist = max (0.0, distance);
-  Real min_desired_space = left_head_end + (min_dist - left_head_end + base_space - increment) / 2;
-  Real ideal = base_space - increment + left_head_end;
+  Real min_desired_space = (ideal + min_dist) / 2;
+  base.set_min_distance (min_dist);
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
      to the bar-line (if present), not the start of the column. */
@@ -107,12 +111,9 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   ideal = max (ideal, min_desired_space);
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
-  /* TODO: grace notes look bad when things are stretched. Should we increase
-     their stretch strength? */
-  Spring ret (max (0.0, ideal), min_dist);
-  ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
-  ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
-  return ret;
+  base.set_distance (max (0.0, ideal));
+  base.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
+  return base;
 }
 
 static Real

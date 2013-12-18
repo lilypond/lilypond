@@ -155,7 +155,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
                 The note spacing should be taken from the musical
                 columns.
               */
-              Real base = note_spacing (me, lc, rc, options);
+              Spring base = note_spacing (me, lc, rc, options);
               Spring spring = Note_spacing::get_spacing (sp, rc, base, options->increment_);
 
               dists[d] = max (dists[d], spring.min_distance ());
