@@ -167,7 +167,7 @@ Lily_parser::parse_string_expression (const string &ly_code, const string &filen
   SCM mod = lexer_->set_current_scope ();
   SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
-  lexer_->push_extra_token (EMBEDDED_LILY);
+  lexer_->push_extra_token (Input (), EMBEDDED_LILY);
   SCM result = do_yyparse ();
 
   lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
