@@ -1694,9 +1694,8 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-The @code{NullVoice} context must be inside a @code{Staff}
-context, and should only contain notes that are already being
-displayed in that staff, and in the same octave.  Otherwise the
+The @code{NullVoice} context must be placed within a @code{Staff}
+context and contain notes that are already being displayed in that staff and that are also in the same octave.  Otherwise the
 @code{NullVoice} may interact with the printed voices in
 unexpected ways.  For example, arbitrary notes in the
 @code{NullVoice} may cause accidentals to appear (or disappear) on
@@ -1717,6 +1716,10 @@ words = \lyricmode { la __ la __ }
   \new Lyrics \lyricsto "aligner" \words
 >>
 @end lilypond
+
+@knownissues
+The @code{\addLyrics} function only works with @code{Voice} lyrics
+and so cannot be used with @code{NullVoice}.
 
 @noindent
 The @code{\partcombine} function is described in
