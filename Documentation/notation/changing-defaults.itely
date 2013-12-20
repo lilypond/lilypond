@@ -1342,33 +1342,42 @@ list will be repositioned below the outer context rather than nested
 within it.
 
 The @qq{accepts} list of a context can be changed with the
-@code{\accepts} and @code{\denies} commands.  @code{\accepts} adds a
+@code{\accepts} or @code{\denies} commands.  @code{\accepts} adds a
 context to the @qq{accepts} list and @code{\denies} removes a context
-from the list.  For example, it would not normally be desirable for
-chord names to be nested within a @code{Staff} context, so the
-@code{ChordNames} context is not included by default in the @qq{accepts}
-list of the @code{Staff} context, but if this were to be required it can
-be done:
+from the list.
+
+For example, a square-braced staff group is not usually found within a
+curved-braced staff with connecting staff bars, and a @code{GrandStaff}
+does not accept a @code{StaffGroup} inside it by default.
 
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
 }
 @end lilypond
 
+However, by using the @code{\accepts} command, @code{StaffGroup} can be
+added to the @code{GrandStaff} context:
+
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
   \layout {
     \context {
-      \Staff
-      \accepts "ChordNames"
+      \GrandStaff
+      \accepts "StaffGroup"
     }
   }
 }
