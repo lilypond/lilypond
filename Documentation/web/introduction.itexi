@@ -1090,7 +1090,7 @@ In particular, don't link to:
 @uref{http://www.tunefl.com}
 
 With tunefl you can typeset your scores directly online
-without needing to install lilypond locally. It allows
+without needing to install LilyPond locally. It allows
 trying out all the program's features using a convenient
 web interface.
 
@@ -1318,7 +1318,7 @@ and @uref{http://canorus.org,Canorus}.
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical
 note entry program, acting much like a number-pad which produces
-lilypond notes.
+LilyPond notes.
 
 @end itemize
 
