@@ -142,13 +142,13 @@ acknowledged.
 @divClass{column-center-top}
 @subheading Generic Packages or Distribution-Specific Packages?
 
-Many distributions include LilyPond in their normal package
-system.  These versions are easier to install and uninstall than
-the generic packages, but they may be older.  If you wish to use
-our generic packages, please uninstall the official version from
-your system using the normal package manager for your distribution.
-See your distribution's documentation about how to use their
-package manager.
+Many distributions already include LilyPond within their normal
+package repositories and these are often much easier to install than the
+generic packages found here.  However the version of LilyPond in those
+repositories may be @emph{significantly} older than the current stable
+version.  If you wish to use our generic packages, please check that
+your LilyPond editor is using the correct version of lilypond.  See
+@ref{Easier editing}.
 
 @divEnd
 
