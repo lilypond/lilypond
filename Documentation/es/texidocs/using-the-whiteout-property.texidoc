@@ -1,7 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Se puede imprimir cualquier objeto gráfico sobre un fondo blanco para
 enmascarar parte de los objetos que están por debajo.  Esto puede ser
 útil para mejorar el aspecto de las colisiones en situaciones
@@ -20,5 +18,4 @@ a una capa por encima de @code{TimeSignature} de manera que no resulte
 enmascarada.
 
 "
-
   doctitlees = "Uso de la propiedad whiteout"

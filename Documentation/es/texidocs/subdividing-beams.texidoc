@@ -1,7 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Las barras de semicorchea, o de figuras más breves, no se subdividen
 de forma predeterminada.  Esto es, las tres (o más) barras se amplían
 sin romperse sobre grupos completos de notas.  Este comportamiento se

@@ -216,7 +216,7 @@ Ogni blocco @code{\layout} influenza il blocco @code{\score} o
 che si trova dentro un blocco @code{\score} riguarda solo quel blocco
 @code{\score}, mentre un blocco @code{\layout} che si trova fuori da un
 blocco @code{\score} (e quindi in un blocco @code{\book}, esplicitamente
-o implicitamente) riguraderà ogni @code{\score} in quel @code{\book}.
+o implicitamente) riguarderà ogni @code{\score} in quel @code{\book}.
 
 Per maggiori dettagli si veda @ruser{Multiple scores in a book}.
 
@@ -281,7 +281,7 @@ Per capire cosa si intende per espressione musicale e per espressione
 musicale composta, potrebbe esserti utile ripassare il tutorial,
 @ref{Espressioni musicali}.  In quella sezione, abbiamo visto
 come costruire grandi espressioni musicali a partire da piccoli brani -- abbiamo
-iniziato con le note, poi gli accordi, etc.  Adesso inzieremo da una grande
+iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una grande
 espressione musicale e proseguiremo poi a spiegarne i dettagli. Per semplicità,
 nel nostro esempio useremo soltanto un canto e un pianoforte.  Per questa formazione
 non abbiamo bisogno di @code{StaffGroup}, che non fa altro che raggruppare un insieme
@@ -1382,7 +1382,7 @@ una stanghetta deve essere sincronizzata lungo l'intera partitura.
 All'interno di LilyPond, queste regole e pezzi di informazione sono raggruppati
 nei @emph{Contesti}.  Abbiamo già presentato il contesto @code{Voice}.
 Altri contesti sono @code{Staff} e @code{Score}.  I contesti sono strutturati
-gerarchicicamente per riflettere la natura gerarchica di una partitura musicale.
+gerarchicamente per riflettere la natura gerarchica di una partitura musicale.
 Ad esempio: un contesto @code{Staff} può contenere molti contesti @code{Voice},
 e un contesto @code{Score} può contenere molti contesti @code{Staff}.
 
@@ -2293,7 +2293,7 @@ simultanei.  Lo @code{\score} ora appare così:
 
 @noindent
 L'aspetto è un po' confuso; l'indentazione non è pulita.  Ma si
-può correggere facilmente.  Ecco il template completo per soprano
+può correggere facilmente.  Ecco il modello completo per soprano
 e violoncello.
 
 @lilypond[quote,verbatim,ragged-right,addversion]

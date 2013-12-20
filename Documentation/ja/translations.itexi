@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Nov  1 18:02:06 UTC 2013
+@emph{最終更新日 Wed Dec 18 12:23:14 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -339,7 +339,7 @@ partially
 @item
 1.2 リズム
 @*
-6923
+6890
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -356,7 +356,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #62ff28">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -825,7 +825,7 @@ partially
 @item
 4 スペースの問題
 @*
-12251
+12256
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -842,7 +842,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">partially</span>
+<span style="background-color: #83fe2c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -852,7 +852,7 @@ partially
 @item
 5 デフォルトを変更する
 @*
-14921
+15289
 @tab Yoshiki Sawada
 @tab 
 @tab 
@@ -869,7 +869,7 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">partially</span>
+<span style="background-color: #47ff24">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

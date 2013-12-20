@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -361,7 +361,7 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 
 @table @code
 
-@item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
+@item -d@var{[option-name]}=@var{[value]}, --define-default=@var{[option-name]}=@var{[value]}
 Establece la función de Scheme interna equivalente a @var{valor}.
 
 @example
@@ -986,7 +986,7 @@ se han visto y comprendido, se manejan sin problema.
 * Mensaje de error Unbound variable %::
 * Mensaje de error FT_Get_Glyph_Name::
 * Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
-* Mensaje de error Unexpected \new::
+* Mensaje de error Unexpected new::
 @end menu
 
 @node La música se sale de la página
@@ -1126,9 +1126,9 @@ líneas que no son pautas} en @ruser{Espaciado vertical flexible dentro
 de los sistemas}.
 
 
-@node Mensaje de error Unexpected \new
-@unnumberedsubsec Mensaje de error Unexpected @code{\new}
-@translationof Error message unexpected \new
+@node Mensaje de error Unexpected new
+@unnumberedsubsec Mensaje de error Unexpected @code{@bs{}new}
+@translationof Error message unexpected new
 
 Un bloque @code{\score} debe contener una @emph{única} expresión
 musical.  Si en vez de ello contiene varias instrucciones

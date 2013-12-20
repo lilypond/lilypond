@@ -1,9 +1,8 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
   Este fragmento de código muestra una forma de preparar un himno cuando
 cada línea comienza con un compás parcial.  También muestra cómo
 añadir los versos como texto independiente debajo de la música.
 
 "
-
   doctitlees = "Plantilla para himnos"

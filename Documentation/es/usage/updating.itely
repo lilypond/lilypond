@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d96248cfd7c9f08f3bb27b400e589d54d2c000fb
+    Translation of GIT committish: b381556a3132e765159edc75107b31259dbf5988
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -169,14 +169,22 @@ Se pueden dar las siguientes opciones:
 @table @code
 @item -d, --diff-version-update
 incrementar la cadena @code{\version} solamente si el archivo
-efectivamente ha cambiado.  Sin esta opción (o si cualquier
-conversión ha modificado el archivo), la cabecera de versión
-refleja la regla de conversión que se ha tenido en cuenta en
-último lugar.
+efectivamente ha cambiado.  En tal caso, la cabecera de versión
+corresponderá a la versión siguiente al último cambio efectivo.
+Sin esa opción, la versión refleja la última conversión que se
+@emph{intentó} hacer.
 
 @item -e, --edit
 Aplicar las conversiones directamente al archivo de entrada,
-modificándolo in situ.
+modificándolo in situ.  El archivo original se cambia de nombre a
+@file{miarchivo.ly~}.  Este archivo de copia de seguridad podría
+ser un archivo oculto en algunos sistemas operativos.
+
+@item -b, --backup-numbered
+Cuando se usa con la opción @samp{-e}, numerar los archivos de
+copia de seguridad de forma que no se sobreescriba ninguna versión
+anterior.  Los archivos de copia de seguridad podrían ser archivos
+ocultos en algunos sistemas operativos.
 
 @item -f, --from=@var{versión_de_origen}
 Establece la versión desde la que convertir.  Si no aparece esta

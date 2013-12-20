@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
-
 De forma predeterminada se suprime el número del primer compás de una
 partitura si es menor o igual a @q{1}.  Al establecer el valor de
 @code{barNumberVisibility} a @code{all-bar-numbers-visible}, se puede
@@ -9,7 +8,4 @@ siguientes.  Observe que, para que esto funcione, se debe insertar una
 líinea divisoria vacía antes de la primera nota.
 
 "
-
   doctitlees = "Imprimir el número de compás en el primer compás"
-
-

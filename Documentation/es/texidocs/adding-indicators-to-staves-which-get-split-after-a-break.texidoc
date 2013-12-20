@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Este fragmento de código define la instrucción
+@code{\\splitStaffBarLine}, que añade flechas en las direcciones
+Noroeste y Sudeste en una línea divisoria, para denotar que cada una
+de las voces que comparten un pentagrama continuán en su propio
+pentagrama en el siguiente sistema.
+
+"
+  doctitlees = "Añadir indicadoes a los pentagramas que se dividen después de un salto de línea"

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Cuando la cabeza de una nota con una forma especial no se puede
+generar fácilmente mediante elementos de marcado gráfico, puede
+emplearse código de PostScript para generar la forma.  Este ejemplo
+muestra cómo se genera una cabeza en forma de paralelogramo.
+
+"
+  doctitlees = "Uso del lenguaje PostScript para generar cabezas de nota de formas especiales"

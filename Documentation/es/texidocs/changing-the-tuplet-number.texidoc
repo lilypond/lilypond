@@ -1,11 +1,9 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
- doctitlees = "Cambiar el número del grupo especial"
- texidoces = "
-
+%% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+  doctitlees = "Cambiar el número del grupo especial"
+  texidoces = "
 De forma predeterminada sólo se imprime sobre el corchete de grupo el
 numerador del grupo especial. De forma alternativa, se puede imprimr
 un quebrado en la forma numerador:denominador del número del grupo, o
 eliminar el número.
 
 "
-

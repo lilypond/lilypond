@@ -1,10 +1,9 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
- doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
- texidoces = "
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  doctitlees = "Permitir saltos de línea dentro de grupos especiales con barra"
+  texidoces = "
 Este ejemplo artificial muestra cómo se pueden permitir tanto los
 saltos de línea manuales como los automáticos dentro de un grupo de
 valoración especial unido por una barra.  Observe que estos grupos
 sincopados se deben barrar manualmente.
 
 "
-

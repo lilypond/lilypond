@@ -1283,7 +1283,7 @@ d,,4 r a r
 @end lilypond
 
 I comandi @code{\cueClef} e @code{\cueClefUnset} si possono usare anche
-senza un'esplicito contesto @code{CueVoice}.
+senza un esplicito contesto @code{CueVoice}.
 
 @lilypond[verbatim,noragged-right,relative=1]
 \clef "bass"
@@ -1538,3 +1538,6 @@ le pause nel contesto @code{Voice} e quelle in @code{CueVoice}.  Quando si usa
 @code{\cueDuringWithClef} o @code{\transposedCueDuring}, l'argomento ulteriore
 richiesto da entrambi deve venire dopo la citazione e la direzione.
 
+
+@c  LocalWords:  fluteNotes oboeNotes clarinetNotes bassoonNotes
+@c  LocalWords:  piccoloNotes bassClarinetNotes

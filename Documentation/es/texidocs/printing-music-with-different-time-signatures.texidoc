@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+En el siguiente fragmento de código, dos partes distintas tienen un
+compás completamente diferente y sin embargo se mantienen
+sincronizadas.  Las barras de compás ya no se pueden imprimir en el
+nivel de @code{Score}; para permitir barras de compás independientes
+en cada parte se trasladan los grabadores
+@code{Default_barline_engraver} y @code{Timing_translator} desde el
+contexto de partitura @code{Score} hasta el contexto de pentagrama
+@code{Staff}.
+
+Si son necesarios números de compás, el grabador de números de compás
+@code{Bar_number_engraver} también debe trasladarse, ya que descansa
+en propiedades fijadas por el @code{Timing_translator}; se puede usar
+un bloque @code{\\with} para añadir números de compás al pentagrama
+apropiado.
+
+"
+  doctitlees = "Imprimir música que tenga compases distintos en cada pentagrama"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: faccc61cfaccb530834aec0ea08e27f29729f511
+    Translation of GIT committish: 2970311021cf68958850e43911e0cecf51f68fbc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -222,14 +222,6 @@ sh lilypond-@versionStable{}-SIST-OPERATIVO.sh --help
 
 
 @divClass{column-right-top}
-@subheading Compilación de un archivo
-
-@lilypadCommandLine
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Paquetes específicos de cada distribución
 
 Utilice el gestor de paquetes de su distribución para instalar o
@@ -267,10 +259,19 @@ openSUSE: LilyPond 2.12.3}
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Compilación de un archivo
+
+@lilypadCommandLine
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Legalismos
 
-@divClass{legal} Se reconoce el copyright y las marcas registradas de
+@divClass{legal}
+Se reconoce el copyright y las marcas registradas de
 todos los logotipos e imágenes de producto.
 
 @logoLegalLinux
@@ -323,18 +324,12 @@ Borre la carpeta LilyPond.app.
 
 @divEnd
 
+
 @divClass{column-right-top}
-@subheading Compilar un archivo
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Ejecución desde la línea de órdenes
 
-@warning{Si está satisfecho con el GUI, ignore estas instrucciones.}
+@warning{Si está satisfecho con las instrucciones sobre
+el interfaz gráfico, ignore estas instrucciones.}
 
 @subsubheading MacOS X sobre la línea de órdenes
 
@@ -358,11 +353,11 @@ Cree un archivo llamado @command{lilypond} que contenga
 @divClass{h-scroll-auto}
 @example
 #!/bin/bash
-exec @var{DIR}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+exec @var{DIRECTORIO}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 @divEnd
 
-@warning{en general, @var{DIR} será @code{/Applications/}}
+@warning{en general, @var{DIRECTORIO} será @code{/Applications/}}
 
 
 @item
@@ -411,6 +406,14 @@ mediante su invocación directa:
 
 Lo mismo vale para el resto de los guiones de ese directorio, como
 @command{lilypond-book} y @command{convert-ly}.
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compilación de un archivo
+
+@lilypadOSX
 
 @divEnd
 
@@ -487,18 +490,10 @@ Pulse el botón @q{Finish} cuando termine el programa de desinstalación.
 
 
 @divClass{column-right-top}
-@subheading Compilar un archivo
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Ejecución desde la línea de órdenes
 
-@warning{Si le satisface el interfaz gráfico, ignore estas
-instrucciones.}
+@warning{Si le satisfacen las instrucciones sobre
+el interfaz gráfico, ignore estas instrucciones.}
 
 @subsubheading Windows sobre la línea de órdenes
 
@@ -539,6 +534,14 @@ convert-ly y así sucesivamente) se pueden ejecutar desde la línea de
 @example
 lilypond prueba.ly
 @end example
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Compilación de un archivo
+
+@lilypadWindows
 
 @divEnd
 

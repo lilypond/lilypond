@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9352789b729682d683482c2852cc7b53e9dcdc70
+    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -377,7 +377,7 @@ una de estas definiciones del mismo tipo en el nivel más alto, las
 definiciones se combinan, pero en situaciones de conflicto las
 definiciones más tardías tienen preferencia.  Para ver los detalles
 sobre cómo afecta al bloque @code{\layout}, consulte
-@ref{El bloque \layout}.
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
 
 @item
 Una expresión directa de Scheme, como
@@ -543,7 +543,8 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Explicación de los títulos},
-@ref{El bloque \layout}.
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+
 
 @node Títulos y encabezamientos
 @section Títulos y encabezamientos

@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 La visibilidad de los objetos de extensión que acaban en la primera
 nota después de un salto de línea está controlada por la función de
@@ -15,7 +14,5 @@ De forma inversa, los objetos de extensión que son visibles
 normalmente, como los objetos de extensión de texto, se pueden
 ocultar habilitando la función de callback.
 "
-
   doctitlees = "Controlar la visibilidad de los objetos de
   extensión después de un salto de línea"
-

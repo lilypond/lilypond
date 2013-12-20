@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @file{ly/script-init.ly}, donde las variables @code{dashHat},
@@ -12,4 +12,3 @@ símbolo predeterminado +, asigne el valor @code{trill} a la variable
 
 "
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"
-

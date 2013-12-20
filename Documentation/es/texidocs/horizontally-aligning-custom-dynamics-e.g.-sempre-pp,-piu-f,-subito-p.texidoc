@@ -1,0 +1,43 @@
+%% Translation of GIT committish: e797772ef677c797c169b7096a28f6a5959353ef
+  texidoces = "
+Algunas expresiones de matiz dinámico llevan texto adicional, como
+@qq{sempre pp}.  Dado que los matices suelen ir centrados bajo la
+nota, el \\pp se imprimiría mucho después de la nota a la que se
+aplica el matiz.
+
+Para alinear correctamente el @qq{sempre pp} en sentido horizontal, de
+manera que se alinee como si estuviese solamente el \\pp, hay varios
+enfoques:
+
+* Sencillamente usar @code{\\once\\override DynamicText.X-offset =
+#-9.2} antes de la nota que lleva el matiz, para desplazarlo
+manualmente a la posicion correcta.  Inconveniente: hay que hacerlo
+manualmente cada vez que usamos esa indicación dinámica.
+
+* Añadir algo de relleno (@code{#:hspace 7.1}) dentro de la definición
+de nuestra indicación dinámica personalizada, de forma que despues de
+que lilypond la ha centrado, ya esté alineada correctamente.
+Inconveniente: el relleno realmente ocupa ese espacio y no permite que
+se imprima ningún otro elemento de marcado o matiz dinámico en esa
+posición.
+
+* Fijar las dimensiones del texto adicional a cero (usando
+@code{#:with-dimensions '(0 . 0) '(0 . 0)}).  Inconveniente: para
+LilyPond @qq{sempre} no tiene dimensiones, por lo que podría imprimir
+otros elementos en su mismo lugar y producir colisiones (que no serían
+advertidas por el mecanismo de detección de colisiones).  Asimismo,
+aparentemente hay algún espacio, y por tanto no es exactamente la
+misma alineación que sin el texto adicional.
+
+* Añadir un desplazamiento explícito directamente dentro de la función
+de Scheme que produce el elemento dynamic-script.
+
+* Fijar una alineación explícita dentro del dynamic-script.  De forma
+predeterminada, esto no tendría ningún efecto, a no ser que fijásemos
+un valor para X-offset.  Inconveniente: tenemos que dar un valor a
+@code{DynamicText #'X-offset} ¡que se aplicaría a todos los textos de
+dinámica!.  Asimismo, se alinea con el extremo derecho del texto
+adicional, no con el centro del pp.
+
+"
+  doctitlees = "Alinear horizontalmente indicaciones dinámicas personalizadas (p.ej. \"sempre pp\"\"piu f\"\"subito p\")"

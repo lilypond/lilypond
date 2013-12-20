@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
@@ -7,6 +7,4 @@ La línea divisoria sobre los pentagramas se borra estableciendo la
 propiedad @code{transparent}.
 
 "
-
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
-

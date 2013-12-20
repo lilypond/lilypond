@@ -20,6 +20,7 @@
 #ifndef FREETYPE_HH
 #define FREETYPE_HH
 
+// This include file loads the header file macros for FreeType.
 #include <ft2build.h>
 #include FT_FREETYPE_H
 

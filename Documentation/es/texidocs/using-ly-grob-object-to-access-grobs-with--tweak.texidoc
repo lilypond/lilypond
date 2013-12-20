@@ -1,7 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de la
 función de callback de otro grob.  Éstos se encuentran relacionados
 normalmente como @qq{layout objects} (objetos de presentación) en la
@@ -32,8 +30,5 @@ Salida de ejemplo de la consola:
 #-Grob Stem -
 @end example
 
-
 "
-
   doctitlees = "Utilizar ly:grob-object para acceder a los grobs con \\tweak"
-

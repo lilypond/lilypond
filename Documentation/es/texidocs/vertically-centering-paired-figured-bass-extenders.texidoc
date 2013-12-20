@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
 Allí donde se utilicen líneas extensoras para el bajo cifrado mediante
 el establecimiento de @code{useBassFigureExtenders} al valor
@@ -8,5 +8,3 @@ tiene el valor verdadero.
 
 "
   doctitlees = "Centrado vertical de las líneas de bajo cifrado emparejadas"
-
-

@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Aunque no se pueden usar los silencios de separación @code{s} dentro
+de @code{\\lyricmode} (se toman como una @qq{s}, literal, no como un
+espacio), sí están disponibles las comillas dobles (@code{\"\"}) y el
+carácter subrayado (@code{_}).  Así por ejemplo:
+
+"
+  doctitlees = "Silencios de separación en modo de letra (2)"

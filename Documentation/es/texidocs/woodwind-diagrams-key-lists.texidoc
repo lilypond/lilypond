@@ -1,7 +1,5 @@
-%%%    Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
   texidoces = "
-
 El fragmento de código que aparece a continuación produce una lista de
 todas las llaves y disposiciones de llave posibles para los diagramas
 de posiciones de instrumentos de viento madera, tal y como están
@@ -11,5 +9,4 @@ salida por la consola, omita el @code{(current-error-port)} de las
 instrucciones.
 
 "
-
   doctitlees = "Listas de llaves para los diagramas de viento madera"

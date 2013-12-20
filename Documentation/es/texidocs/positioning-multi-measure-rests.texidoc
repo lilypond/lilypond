@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
- doctitlees = "Posicionar los silencios multicompás"
- texidoces = "
+%% Translation of GIT committish: 7ed7602a82aa06a8387237c36ebd11f5a329078e
+  doctitlees = "Posicionar los silencios multicompás"
+  texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
 predefinida para modificar la posición predeterminada de un
 símbolo de silencio multicompás sobre el pentagrama, adjuntándolo

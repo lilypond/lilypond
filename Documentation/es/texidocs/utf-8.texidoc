@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Se pueden usar varios sistemas de escritura para textos (como títulos
+o la letra de las canciones) si se introducen en la codificación
+UTF-8, y utilizando un motor basado en Pango.  Dependiendo de las
+tipografías instaladas, este fragmento compone textos en Búlgaro
+(cirílico), hebreo, japonés y portugués.
+
+"
+  doctitlees = "UTF-8"

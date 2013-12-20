@@ -1,5 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-texidoces = "
+%% Translation of GIT committish: 0859431a3b2a6c36b2fee643563c6fd914fe9884
+  texidoces = "
 Los elementos de marcado aplicados a un silencio multicompás se
 centran encima o debajo de éste.  Los elementos de marcado extensos
 que se adjuntan a silencios multicompás no producen la expansión del
@@ -13,6 +13,4 @@ compás, pero si la longitud del compás está determinada por la
 longitud del texto, éste aparecerá centrado.
 
 "
-
-doctitlees = "Marcado de silencios multicompás"
-
+  doctitlees = "Marcado de silencios multicompás"

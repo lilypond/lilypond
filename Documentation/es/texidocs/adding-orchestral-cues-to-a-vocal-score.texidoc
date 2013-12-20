@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
   texidoces = "
    Este ejemplo muestra una forma de simplificar la adición de muchas
 notas guía orquestales a la reducción de piano en una partitura vocal.
@@ -15,8 +14,4 @@ pasajes como guía, pero no se pueden superponer en el tiempo entre
 ellos.
 
 "
-
- doctitlees = "Añadir notas guía orquestales a una partitura vocal"
-
-
-
+  doctitlees = "Añadir notas guía orquestales a una partitura vocal"

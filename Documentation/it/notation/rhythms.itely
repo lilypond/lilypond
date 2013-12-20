@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 815ddc522bcdec0c1266caad5cc9e723fbbb2e41
+    Translation of GIT committish: 8d26005d0b783e546de362b96fb1b00540875064
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -682,7 +682,7 @@ su più misure, come è spiegato in @ref{Full measure rests}.
 Per indicare esplicitamente la posizione verticale di una pausa, si scrive
 la nota corrispondente seguita da @code{\rest}.  Una pausa della durata della
 nota verrà collocata nella posizione della nota sul rigo.  Questo
-permette una precisa formattazione mauale della musica polifonica, dato che
+permette una precisa formattazione manuale della musica polifonica, dato che
 il formattatore automatico che gestisce le collisioni tra pause non interviene su
 questo tipo di pause.
 
@@ -857,7 +857,7 @@ R1*2 |
 @end lilypond
 
 @cindex pausa multipla, espansione
-@cindex pausa mutlipla, contrazione
+@cindex pausa multipla, contrazione
 
 @funindex \expandFullBarRests
 @funindex expandFullBarRests
@@ -916,10 +916,10 @@ l'esempio seguente:}
 @lilypond[quote,verbatim,relative=2]
 % Questo non funziona, perché è specificato il nome dell'oggetto sbagliato
 \override TextScript.padding = #5
-R1^"wrong"
+R1^"sbagliato"
 % Questo è il nome dell'oggetto corretto da specificare
 \override MultiMeasureRestText.padding = #5
-R1^"right"
+R1^"corretto"
 @end lilypond
 
 Quando una pausa multipla segue immediatamente un comando @code{\partial}, potrebbero
@@ -1149,36 +1149,6 @@ battiti nella misura, nell'unità di @code{@var{baseMomentFraction}}.
 regole di disposizione delle travature che vanno oltre la fine ad ogni
 battito, come descritto in @ref{Setting automatic beam behavior}.
 @end enumerate
-
-Il contesto che contiene @code{\overrideTimeSignatureSettings} deve essere
-istanziato prima dell'esecuzione di @code{\overrideTimeSignatureSettings}.
-Ciò significa che deve essere istanziato esplicitamente oppure ci deve essere
-della musica nel contesto prima che venga chiamato @code{\overrideTimeSignatureSettings}:
-
-@lilypond[quote,verbatim]
-\score {
-  \relative c' {
-    % Questa chiamata non funzionerà perché il contesto non è ancora istanziato
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (2 2)"}
-    \repeat unfold 7 { c8 } |
-    % Questa chiamata funzionerà
-    \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
-      1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    c8^\markup {"Beamed (3 1)"}
-    \repeat unfold 7 { c8 } |
-  }
-}
-@end lilypond
 
 
 @cindex ripristinare le proprietà predefinite delle indicazioni di tempo
@@ -2360,7 +2330,7 @@ Le regole predefinite per le travature si trovano in
 {subdividing-beams.ly}
 
 @cindex tratti di suddivisione della travatura, direzione
-@cindex travatura, direzione dei tratt idi suddivisione della
+@cindex travatura, direzione dei tratti di suddivisione della
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {strict-beat-beaming.ly}
@@ -3712,3 +3682,5 @@ Frammenti di codice:
 Guida al funzionamento interno:
 @rinternals{Timing_translator},
 @rinternals{Score}.
+
+@c  LocalWords:  accMusic MyCadenza

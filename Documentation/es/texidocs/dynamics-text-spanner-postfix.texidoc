@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
 Los objetos de extensión \cresc, \dim y \decresc ahora se pueden
 redefinir como operadores postfijos y producir un solo objeto de
@@ -10,5 +9,4 @@ gráficos de forma predeterminada, \cresc etc. producen elementos
 extensores de texto de forma predeterminada.
 
 "
-
   doctitlees = "Objetos extensores de texto postfijos para dinámica"

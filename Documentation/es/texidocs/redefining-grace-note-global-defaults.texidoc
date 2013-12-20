@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: bc4b56a8dee39a1fa3f40ac329ab0754d46fc56f
   texidoces = "
-
 Los valores predeterminados para las notas de adorno están
 almacenados en los identificadores @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
@@ -10,7 +9,4 @@ almacenados en los identificadores @code{startGraceMusic},
 efectos.
 
 "
-
   doctitlees = "Redefinición de los valores globales predeterminados para notas de adorno"
-
-

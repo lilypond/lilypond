@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Si hay un solo pentagrama en un de los tipos de sistema
 @code{ChoirStaff} o @code{StaffGroup}, el comportamiento
@@ -14,5 +14,3 @@ distinta, como se ve en el segundo sistema del ejemplo.
 
 "
   doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
-
-

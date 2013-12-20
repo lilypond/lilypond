@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Se puede sobreescribir la función @code{print-function} para trazar un
+rectángulo alrededor de un objeto gráfico arbitrario.
+
+"
+  doctitlees = "Rodear los objetos gráficos con rectángulos"

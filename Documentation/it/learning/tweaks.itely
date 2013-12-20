@@ -220,7 +220,7 @@ Questo comando assegnerà alla proprietà chiamata @var{proprietà-formattazione
 dell'oggetto di formattazione chiamato @var{OggettoDiFormattazione}, che fa
 parte del contesto @var{Contesto}, il valore @var{valore}.
 
-Il @var{Contesto} può essere ommesso (e di solito lo è) quando il
+Il @var{Contesto} può essere omesso (e di solito lo è) quando il
 contesto richiesto è implicito e si trova a uno dei livelli più
 bassi dei contesti, come ad esempio @code{Voice}, @code{ChordNames} o
 @code{Lyrics}.  Lo ometteremo in molti degli esempi seguenti; vedremo
@@ -335,7 +335,7 @@ g4 a
 b c |
 @end lilypond
 
-Tuttavia, i comandi prefediniti che hanno la forma @code{\@dots{}Neutral},
+Tuttavia, i comandi predefiniti che hanno la forma @code{\@dots{}Neutral},
 @code{\@dots{}Off} e @code{\un@dots{}} usano internamente @code{\revert} invece
 di @code{\override} dunque inserire @code{\once} prima di questi comandi
 non produce alcun effetto.
@@ -1443,7 +1443,7 @@ inserire un nuovo rigo temporaneo, come in un @rglos{ossia}.
 
 Gli ossia di norma vengono scritti senza chiave e senza indicazione di
 tempo e hanno solitamente una dimensione leggermente inferiore a
-quella del rigo pricipale.  Sappiamo già come togliere la chiave e
+quella del rigo principale.  Sappiamo già come togliere la chiave e
 il segno di tempo, cioè impostando semplicemente la proprietà stencil di
 ciascun oggetto su @code{#f}, così:
 
@@ -2267,7 +2267,7 @@ giusto per sovrascriverli.
 
 Le legature di portamento sono classificate come oggetti interni al rigo, anche
 se spesso sono poste sopra il rigo, se le note alle quali sono collegate si
-trovano nella aprte superiore del pentagramma.  Questo può far sì che gli oggetti esterni al rigo,
+trovano nella parte superiore del pentagramma.  Questo può far sì che gli oggetti esterni al rigo,
 come le articolazioni, siano spinti troppo in alto, dato che la legatura viene
 posizionata prima.  La proprietà @code{avoid-slur} dell'articolazione
 può essere impostata su @code{'inside} per portare l'articolazione
@@ -2527,10 +2527,6 @@ supponiamo che si stia lavorando con un editore che abbia requisiti specifici
 per la spaziatura verticale dei righi e del testo vocale, ovvero maggior spazio
 tra testo e note, e tra l'accompagnamento del pianoforte e la linea vocale, e
 minor spazio tra i righi del pianoforte.  Iniziamo dal testo.
-
-the lyrics spaced away from any notes, they want the piano
-accompaniment spaced away from the vocal line and they want the two
-piano staves pushed together tightly.  Let's start with the lyrics.
 
 Il testo vocale si trova all'interno di un sistema, dunque i comandi per
 modificarne la spaziatura sono descritti in @ruser{Flexible vertical spacing within systems}.
@@ -3981,7 +3977,7 @@ Per gli oggetti esterni al rigo è di solito preferibile sovrascrivere
 la proprietà @code{stencil} piuttosto che la proprietà @code{transparent}
 dell'oggetto se si desidera toglierlo dall'output.  Se si imposta la
 proprietà @code{stencil} su @code{#f} l'oggetto verrà completamente
-rimosso dall'output e quindi non potrà influenzare la disposizone
+rimosso dall'output e quindi non potrà influenzare la disposizione
 di altri oggetti posizionati rispetto a esso.
 
 Ad esempio, se volessimo modificare il segno di metronomo solo per

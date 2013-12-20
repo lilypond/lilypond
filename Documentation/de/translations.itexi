@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Fri Nov  1 18:02:06 UTC 2013
+@emph{Zuletzt aktualisiert am Wed Dec 18 12:23:14 UTC 2013
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -583,7 +583,7 @@ teilweise
 @item
 1.2 Rhythmus
 @*
-6923
+6890
 @tab Till Paala
 @tab 
 @tab 
@@ -600,7 +600,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">teilweise</span>
+<span style="background-color: #62ff28">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1096,7 +1096,7 @@ teilweise
 @item
 4 Abstände
 @*
-12251
+12256
 @tab Till Paala
 @tab 
 @tab 
@@ -1113,7 +1113,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1123,7 +1123,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-14921
+15289
 @tab Till Paala
 @tab 
 @tab 
@@ -1140,7 +1140,7 @@ teilweise (85 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">teilweise</span>
+<span style="background-color: #91ff2e">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Se puede usar @code{\\bookpart} para dividir un libro en varias
+partes.  La última página de cada parte vùede quedar afectada por el
+valor de @code{ragged-last-bottom}.  Los elementos de marcado de
+encabezamiento y pie de página pueden detectar que están en la última
+página de una parte, y presentar diferencias con la última página del
+libro.
+
+"
+  doctitlees = "Partes de libro"

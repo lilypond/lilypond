@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: e797772ef677c797c169b7096a28f6a5959353ef
   texidoces = "
 La propiedad @code{measureLength}, junto con
 @code{measurePosition}, determina cuándo es necesario dibujar una

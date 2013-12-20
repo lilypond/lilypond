@@ -463,12 +463,11 @@ Sei iscritto alla mailing list @uref{mailto:bug-lilypond@@gnu.org,
 bug-lilypond@@gnu.org}, puoi inviare una normale email.
 
 @item
-Se non sei iscritto, puoi comunque inviare una segnalazione bug report attraverso
-the
+Se non sei iscritto, puoi comunque inviare una segnalazione bug attraverso
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 l'interfaccia web lilypond.bugs di gmane}.
 
-Purtroppo c'è un severo controllo @qq{no top-posting} nell'interfaccia di
+Purtroppo c'è un severo controllo @qq{contro il top-posting} nell'interfaccia di
 gmane, che viene spesso innescato erroneamente dai file lilypond.
 Per evitarlo, aggiungi
 
@@ -555,7 +554,7 @@ privati è affar loro, non nostro.
 @divClass{column-right-top}
 @subheading Linee guida
 
-Gli utenti che desiderano offrire del denato in cambio di lavoro devono
+Gli utenti che desiderano offrire del denaro in cambio di lavoro devono
 tenere a mente i seguenti punti:
 
 @itemize
@@ -950,7 +949,7 @@ Aggiungere la capacità di collegare ogni oggetto dell'output
 (e quindi al tag XML nell'albero XML)
 
 @item
-Aggiungere un backend di outoput XML, che possa aggiungere le informazioni di
+Aggiungere un backend di output XML, che possa aggiungere le informazioni di
 formattazione per ogni oggetto di output ai tag XML
 
 @end itemize

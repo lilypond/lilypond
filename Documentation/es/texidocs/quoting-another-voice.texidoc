@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 La propiedad @code{quotedEventTypes} determina los tipos de eventos
 musicales que resultan citados.  El valor predeterminado es
 @code{(note-event rest-event tie-event beam-event tuplet-span-event)},
@@ -13,7 +12,5 @@ fragmento citado porque @code{rest-event} no está dentro de los
 Para ver una lista de los tipos de evento, consulte la sección
 @qq{Music classes} de la Referencia de funcionamiento interno.
 
-
 "
   doctitlees = "Citar otra voz"
-

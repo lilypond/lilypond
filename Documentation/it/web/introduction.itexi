@@ -779,7 +779,7 @@ nemmeno la metà della mia!}
 @subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professore di Composizione, Musikhochschule Freiburg
 
 @qq{Anche se non conosco [LilyPond] molto bene ancora, sono
-@strong{*molto} colpito.  Ho usato il programma per scrivere un mottetto di
+@strong{molto} colpito.  Ho usato il programma per scrivere un mottetto di
 Josquin Desprez in notazione mensurale e non c'è dubbio che
 lilypond batte facilmente tutti gli altri programmi di notazione per
 quanto riguarda la velocità, la facilità d'uso e la resa grafica!}
@@ -956,7 +956,7 @@ di tutto questo a un ritmo molto più graduale.}
 
 @subsubheading È semplice come l'A B C
 
-Le note vengoo codificate con lettere e numeri.  I comandi speciali sono
+Le note vengono codificate con lettere e numeri.  I comandi speciali sono
 inseriti con barre inverse (backslash).
 
 @imageFloat{text-input-1-annotate-it,png,center}
@@ -1010,7 +1010,7 @@ altezza reale):
 Comprendiamo il fatto che molti utenti trovino questo modo di scrivere
 musica un po' strano.  Per questo motivo, abbiamo scritto un'ampia documentazione
 per aiutare i nuovi utenti, a cominciare dal manuale di @ref{Apprendimento}.  Il Manuale
-di Apprendimento è il luogo migliore da cui iniziare, perchè molte domande trovano
+di Apprendimento è il luogo migliore da cui iniziare, perché molte domande trovano
 risposta prima ancora di manifestarsi!
 
 Sei pregato di leggere il Manuale di Apprendimento prima di lamentarti per ipotetici malfunzionamenti!
