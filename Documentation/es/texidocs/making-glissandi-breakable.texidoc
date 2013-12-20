@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+  texidoces = "
+Si se ajusta la propiedad @code{breakable} al valor @code{#t} en
+combinación con @code{after-line-breaking}, podemos hacer que un
+glissando se divida en el salto de línea:
+
+"
+  doctitlees = "Hacer que los glissandos se puedan dividir en el salto de línea"

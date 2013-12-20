@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
- doctitlees = "Indicaciones de compases compuestos"
- texidoces = "
+%% Translation of GIT committish: d000c543411bb4c2fb459578bd87ef357ac4aa92
+  doctitlees = "Indicaciones de compases compuestos"
+  texidoces = "
 Las indicaciones de compás poco frecuentes como @qq{5/8} se pueden
 ejecutar como compases compuestos (p.ej. @qq{3/8 + 2/8}), que combinan
 dos o más metros diferentes. LilyPond puede hacer la música de este
@@ -11,4 +11,3 @@ gráficas de la agrupación de compases; véase el fragmento de código
 apropiado en la base de datos).
 
 "
-

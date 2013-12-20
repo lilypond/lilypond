@@ -1,10 +1,7 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Aquí se muestra la manera de ocultar las alteraciones de las notas
 ligadas al comienzo de un sistema nuevo.
 
 "
-
   doctitlees = "Ocultar las alteraciones sobre notas ligadas al principio de un sistema nuevo"
-

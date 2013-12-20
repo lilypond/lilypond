@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Esta plantilla añade una reducción de piano automática a la partitura
 vocal SATB estándar que se mostró en la @qq{Plantilla de conjunto
 vocal}. Esto presenta uno de los puntos fuertes de LilyPond: podemos
@@ -10,4 +9,3 @@ entonces los cambios se aplicarán también a la reducción de piano.
 
 "
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
-

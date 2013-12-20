@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Esta plantilla crea una partitura que comienza con una estrofa para
 solista y continúa con un estribillo a dos voces.  también muestra el
@@ -8,5 +7,4 @@ para definir cambios de compás (y otros elementos que son comunes a
 todas las partes) a lo largo de toda la partitura.
 
 "
-
   doctitlees = "Estrofa para solista y estribillo a dos voces"

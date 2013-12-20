@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4ea667563d6509a055fd2e3033363a97d4347256
+    Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -66,7 +66,14 @@ una voz sobre un pentagrama único.
 @subsection Líneas divisorias y comprobaciones de compás
 @translationof Bar lines and bar checks
 
-@subheading Líneas divisorias
+@menu
+* Líneas divisorias::
+* Comprobaciones de compás::
+@end menu
+
+@node Líneas divisorias
+@unnumberedsubsubsec Líneas divisorias
+@translationof Bar lines
 
 Las líneas de compás sencillas se dibujan automáticamente en la
 música, por lo que no hay que añadirlas de forma manual.  Otros
@@ -79,7 +86,9 @@ líneas divisorias, consulte @ruser{Barras de compás}.
 g1 e1 \bar "||" c2. c'4 \bar "|."
 @end lilypond
 
-@subheading Comprobaciones de compás
+@node Comprobaciones de compás
+@unnumberedsubsubsec Comprobaciones de compás
+@translationof Bar checks
 
 Aunque no es estrictamente necesario, es coneniente utilizar
 @emph{comprobaciones de compás} dentro del código de entrada para
@@ -104,13 +113,20 @@ Referencia de la notación:
 @subsection Alteraciones accidentales y armaduras
 @translationof Accidentals and key signatures
 
+@menu
+* Alteraciones accidentales::
+* Armaduras::
+* Advertencia armaduras y alturas::
+@end menu
 
 @warning{Con frecuencia, los nuevos usuarios se encuentran confundidos
 por las alteraciones accidentales: le rogamos que lea la advertencia
 que aparece al final de esta sección, ¡especialmente si no está
 familiarizado con la teoría musical!}
 
-@subheading Alteraciones accidentales
+@node Alteraciones accidentales
+@unnumberedsubsubsec Alteraciones accidentales
+@translationof Accidentals
 
 @cindex accidentales, alteraciones
 @cindex alteraciones
@@ -148,7 +164,10 @@ cis4 ees fisis, aeses
 @end lilypond
 
 @cindex tonalidad, armadura de la, establecer
-@subheading Armaduras
+
+@node Armaduras
+@unnumberedsubsubsec Armaduras
+@translationof Key signatures
 
 @cindex tonalidad, armadura de
 @cindex armadura
@@ -183,7 +202,9 @@ a1 |
 
 @smallspace
 
-@subheading Advertencia: armaduras y alturas
+@node Advertencia armaduras y alturas
+@unnumberedsubsubsec Advertencia: armaduras y alturas
+@translationof Warning key signatures and pitches
 
 Glosario musical:
 @rglos{accidental},
@@ -270,7 +291,16 @@ Referencia de la notación:
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Ligaduras de unión
+@menu
+* Ligaduras de unión::
+* Ligaduras de expresión::
+* Ligaduras de fraseo::
+* Advertencias ligaduras de expresión frente a ligaduras de unión::
+@end menu
+
+@node Ligaduras de unión
+@unnumberedsubsubsec Ligaduras de unión
+@translationof Ties
 
 Glosario musical:
 @rglos{tie}.
@@ -282,7 +312,9 @@ tilde curva @code{~} a la primera nota ligada:
 g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
-@subheading Ligaduras de expresión
+@node Ligaduras de expresión
+@unnumberedsubsubsec Ligaduras de expresión
+@translationof Slurs
 
 Glosario musical:
 @rglos{slur}.
@@ -295,7 +327,9 @@ abarcando varias notas.  Las notas inicial y final se marcan mediante
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Ligaduras de fraseo
+@node Ligaduras de fraseo
+@unnumberedsubsubsec Ligaduras de fraseo
+@translationof Phrasing slurs
 
 Glosario musical:
 @rglos{slur},
@@ -314,7 +348,10 @@ g4\( g8( a) b( c) b4\)
 @smallspace
 
 @cindex ligaduras de expresión frente a ligaduras de unión
-@subheading Advertencias: ligaduras de expresión frente a ligaduras de unión
+
+@node Advertencias ligaduras de expresión frente a ligaduras de unión
+@unnumberedsubsubsec Advertencias: ligaduras de expresión frente a ligaduras de unión
+@translationof Warnings slurs vs. ties
 
 Glosario musical:
 @rglos{articulation},
@@ -345,7 +382,15 @@ Referencia de la notación:
 @subsection Articulaciones y matices dinámicos
 @translationof Articulation and dynamics
 
-@subheading Articulaciones
+@menu
+* Articulaciones::
+* Indicaciones de digitación::
+* Matices dinámicos::
+@end menu
+
+@node Articulaciones
+@unnumberedsubsubsec Articulaciones
+@translationof Articulations
 
 @cindex articulación
 @cindex acento
@@ -362,7 +407,9 @@ c4-^ c-+ c-- c-!
 c4-> c-. c2-_
 @end lilypond
 
-@subheading Digitaciones
+@node Indicaciones de digitación
+@unnumberedsubsubsec Indicaciones de digitación
+@translationof Fingerings
 
 @cindex digitaciones
 
@@ -389,7 +436,9 @@ mejor dejar que LilyPond determine la dirección de las articulaciones.
 c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Matices dinámicos
+@node Matices dinámicos
+@unnumberedsubsubsec Matices dinámicos
+@translationof Dynamics
 
 @cindex dinámica, indicaciones de
 @cindex matices
@@ -529,7 +578,15 @@ Referencia de la notación:
 @subsection Instrucciones rítmicas avanzadas
 @translationof Advanced rhythmic commands
 
-@subheading Compás parcial
+@menu
+* Compás parcial::
+* Grupos especiales::
+* Notas de adorno::
+@end menu
+
+@node Compás parcial
+@unnumberedsubsubsec Compás parcial
+@translationof Partial measure
 
 @cindex anacrusa
 @cindex compás parcial
@@ -549,7 +606,9 @@ una anacrusa de negra y @code{\partial 8} de corchea.
 c2 d |
 @end lilypond
 
-@subheading Grupos especiales
+@node Grupos especiales
+@unnumberedsubsubsec Grupos especiales
+@translationof Tuplets
 
 @cindex grupos especiales
 @cindex tresillos
@@ -575,7 +634,9 @@ de manera que los @notation{tresillos} tienen una fracción de 3/2.
 \tuplet 3/2 { d4 a8 }
 @end lilypond
 
-@subheading Notas de adorno
+@node Notas de adorno
+@unnumberedsubsubsec Notas de adorno
+@translationof Grace notes
 
 @cindex notas de adorno
 @cindex acciaccatura
@@ -643,6 +704,12 @@ de una voz en el mismo pentagrama.
 @cindex compuesta, expresión musical
 @cindex musical, expresión, compuesta
 
+@menu
+* Analogía expresiones matemáticas::
+* Expresiones musicales simultáneas varios pentagramas::
+* Expresiones musicales simultáneas un solo pentagrama::
+@end menu
+
 En los archivos de entrada de LilyPond, la música se representa
 mediante @emph{expresiones musicales}.  Una sola nota es una expresión
 musical:
@@ -668,7 +735,9 @@ musical:
 { { a4 g } f4 g }
 @end lilypond
 
-@subheading Analogía: expresiones matemáticas
+@node Analogía expresiones matemáticas
+@unnumberedsubsubsec Analogía: expresiones matemáticas
+@translationof Analogy mathematical expressions
 
 Este mecanismo es semejante a las fórmulas matemáticas: una fórmula
 grande se construye combinando fórmulas pequeñas.  Dichas fórmulas se
@@ -695,7 +764,9 @@ musicales se pueden anidar a una profundidad arbitraria, lo que se
 hace necesario para músicas complejas como las partituras polifónicas.
 
 
-@subheading Expresiones musicales simultáneas: varios pentagramas
+@node Expresiones musicales simultáneas varios pentagramas
+@unnumberedsubsubsec Expresiones musicales simultáneas: varios pentagramas
+@translationof Simultaneous music expressions multiple staves
 
 @cindex varios pentagramas
 @cindex pentagramas, varios
@@ -746,7 +817,9 @@ entrada, solamente la primera es relativa a la @code{c''} dentro de
 la instrucción inicial @code{@bs{}\relative}.}
 
 
-@subheading Expresiones musicales simultáneas: un solo pentagrama
+@node Expresiones musicales simultáneas un solo pentagrama
+@unnumberedsubsubsec Expresiones musicales simultáneas: un solo pentagrama
+@translationof Simultaneous music expressions single staff
 
 Para determinar el número de pentagramas en una pieza, LilyPond
 examina el comienzo de la primera expresión.  Si hay una sola nota,

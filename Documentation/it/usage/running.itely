@@ -271,7 +271,7 @@ Nessun output, nemmeno i messaggi di errore.
 Solo i messaggi di errore, niente avvisi o messaggi di elaborazione.
 
 @item WARN
-Avvisi e nessaggi di errore, nessun messaggio di elaborazione.
+Avvisi e messaggi di errore, nessun messaggio di elaborazione.
 
 @item BASIC_PROGRESS
 Messaggi di elaborazione di base (riuscita), avvisi e errori.
@@ -308,7 +308,7 @@ Genera PostScript.
 @cindex output, PNG (Portable Network Graphics)
 
 @item --png
-Genera immmagini di ogni pagina in formato PNG.  Questo implica
+Genera immagini di ogni pagina in formato PNG.  Questo implica
 @option{--ps}.  La risoluzione in DPI dell'immagine può essere impostata con
 @example
 -dresolution=110
@@ -530,9 +530,9 @@ redirige l'output nel file @code{FOO.log}.
 
 @item @code{max-markup-depth}
 @tab @code{1024}
-@tab Maximum depth for the markup tree. If a markup has more levels,
-assume it will not terminate on its own, print a warning and return a
-null markup instead.
+@tab Massima profondità per la struttura del blocco markup. Se un blocco markup ha
+più livelli, assume che non terminerà da solo, stampa un avviso e restituisce
+al suo posto un markup vuoto.
 
 @item @code{midi-extension}
 @tab @code{"midi"}
@@ -569,7 +569,7 @@ di output nella forma @code{mioFile.preview.estensione}, contenente i
 titoli e il primo sistema.  Se vengono usati i blocchi @code{\book} o
 @code{\bookpart}, i titoli di @code{\book}, @code{\bookpart} o @code{\score}
 appariranno nell'output, incluso il primo sistema di ogni blocco @code{\score}
-se la variabile @code{print-all-headers} di @code{\paper} è impistata
+se la variabile @code{print-all-headers} di @code{\paper} è impostata
 su @code{#t}.
 
 Per impedire il normale output, si usano le opzioni @option{-dprint-pages} o

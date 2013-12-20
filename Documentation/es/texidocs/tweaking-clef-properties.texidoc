@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
@@ -32,4 +32,3 @@ estas propiedades manualmente.  En la primera línea, los cambios
 manuales preservan el posicionamiento relativo estándar de las claves
 y las notas, pero no lo hacen en la segunda línea.
 "
-

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Se puede engrosar una línea del pentagrama con fines pedagógicos
 (p.ej. la tercera línea o la de la clave de Sol).  Esto se puede
@@ -8,4 +8,3 @@ destacar, utilizando la propiedad @code{line-positions} del objeto
 
 "
   doctitlees = "Hacer unas líneas del pentagrama más gruesas que las otras"
-

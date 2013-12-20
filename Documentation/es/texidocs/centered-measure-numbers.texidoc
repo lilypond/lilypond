@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 4d9770a67176122b9779426cf540ad1694f07f61
+  texidoces = "
+Con frecuencia, las partituras de obras para conjuntos grandes tienen
+los números de compás debajo del sistema y centrados horizontalmente
+sobre el ancho del compás.  Este fragmento de código muestra cómo
+puede usarse el grabador @code{Measure_counter_engraver} para simular
+esta práctica notacional.  Aquí hemos añadido el grabador a un
+contexto @code{Dynamics}.
+
+"
+  doctitlees = "Números de compás centrados"

@@ -1,5 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 El comportamiento predeterminado de la visibilidad de los corchetes de
 grupo de valoración especial es imprimir el corchete a no ser que haya
@@ -10,5 +9,4 @@ la visibilidad de los corchetes de grupo, establezca la propiedad
 corchete solamente si no hay barra).
 
 "
-
   doctitlees = "Controlar la visibilidad de los corchetes de grupo especial"

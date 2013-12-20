@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Si queremos colocar un símbolo de segno de salida y añadir texto como
+@qq{D.S.  al Coda} junto a él donde normalmente están las líneas del
+pentagrama, cpodemos usar este código.  La coda continúa en una línea
+nueva.  Hay una variante documentada en el fragmento de código, donde
+la coda se mantiene en la misma línea.
+
+"
+  doctitlees = "Posicionar los símbolos de repetición segno y coda (con saltos de línea)"

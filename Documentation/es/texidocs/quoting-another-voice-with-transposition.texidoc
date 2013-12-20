@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 0ee650dd90daf9fe17d79fe91dfc816af02a86f1
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
 tanto como la del destino.  En este ejemplo, todos los instrumentos
@@ -8,6 +8,4 @@ transportar utilizando @code{\\transpose}.  En este caso las notas
 citadas permanecen sin cambios.
 
 "
-
-doctitlees = "Citar otra voz con transposición"
-
+  doctitlees = "Citar otra voz con transposición"

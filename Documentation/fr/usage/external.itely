@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
+    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -888,5 +888,3 @@ mordants.
 Ce projet ne peut traiter que ce qu'il connaît : tout ce qui peut
 ressembler à un @emph{markup} -- et donc pas à la propriété d'une note
 -- sera ignoré.
-
-@c  LocalWords:  noindent unnumberedsubsec knownissues

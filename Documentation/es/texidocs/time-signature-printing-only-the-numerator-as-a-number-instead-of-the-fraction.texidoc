@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 A veces, la indicación de compás no debe imprimir la fracción completa
 (p.ej.  7/4), sino sólo el numerador (7 en este caso).  Esto se puede
 hacer fácilmente utilizando @code{\\override Staff.TimeSignature.style

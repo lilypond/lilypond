@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+  texidoces = "
+Los pulsos que se saltan en glissandos muy largos se indican a veces
+mediante marcas de tiempo, que a menudo consisten en figuras sin
+cabeza.  Estas plicas se pueden usar también para albergar
+indicaciones expresivas intermedias.
+
+Si las plicas no quedan bien alineadas con el glissando, podría ser
+necesario recolocarlas ligeramente.
+"
+  doctitlees = "Añadir marcas de tiempo a glissandos largos"

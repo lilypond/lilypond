@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+    Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.17.18"
@@ -3047,11 +3047,3 @@ Référence des propriétés internes :
 @rinternals{Pitch_squash_engraver},
 @rinternals{Voice},
 @rinternals{RhythmicStaff}.
-
-
-@c  LocalWords:  lilypondfile subsection translationof seealso funindex
-@c  LocalWords:  unnumberedsubsubsec rglosnamed rlsrnamed itemize quote
-@c  LocalWords:  rinternals rlearning snippets texidoc doctitle
-@c  LocalWords:  ragged-right knownissues quotation multitable headitem
-@c  LocalWords:  noindent Staff.instrumentName Staff.midiInstrument
-@c  LocalWords:  accidentalStyle PianoStaff GrandStaff predefined

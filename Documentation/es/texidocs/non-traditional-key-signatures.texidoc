@@ -1,7 +1,6 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
-
 La muy utilizada instrucción @code{\\key} establece la propiedad
 @code{keySignature} property, dentro del contexto @code{Staff}.
 
@@ -25,4 +24,3 @@ misma alteración debe estar en todas las octavas.
 He aquí un ejemplo de una posible armadura para generar una escala
 exátona:
 "
-

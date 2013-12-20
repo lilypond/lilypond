@@ -1,7 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Se pueden imprimir marcas al final de la línea actual, en vez de al
 principio de la línea siguiente.  En estos casos, puede ser preferible
 alinear el borde derecho de la marca con la línea divisoria.

@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
   texidoces = "
-
 La disposición de las expresiones de adorno se puede cambiar a lo
 largo de toda la música usando las funciones
 @code{add-grace-property} y @code{remove-grace-property}.  El
@@ -10,7 +9,4 @@ apuntan hacia arriba, y cambia la forma predeterminada de las
 cabezas a aspas.
 
 "
-
   doctitlees = "Trucar la disposición de las notas de adorno dentro de la música"
-
-

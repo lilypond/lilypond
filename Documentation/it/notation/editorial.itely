@@ -156,7 +156,7 @@ Guida al funzionamento interno:
 @funindex \finger
 @funindex finger
 
-Le indicazioni di diteggiatura si inserisono con
+Le indicazioni di diteggiatura si inseriscono con
 @samp{@var{nota}-@var{numero}}:
 
 @lilypond[verbatim,quote,relative=2]
@@ -323,7 +323,7 @@ Si può accedere all'intera gamma di colori definita per X11 con la
 funzione Scheme @code{x11-color}.  La funzione prende un argomento,
 che può essere un simbolo nella forma @code{'@var{FooBar}} o una
 stringa nella forma @code{"@var{FooBar}"}.  La prima forma è più
-veloce da scrivere e più efficente.  Tuttavia, la seconda forma
+veloce da scrivere e più efficiente.  Tuttavia, la seconda forma
 permette di accedere ai colori X11 attraverso la forma del nome
 che ha più di una parola.
 
@@ -402,10 +402,9 @@ suo posto si usa @code{\tweak}, vedi @ref{The tweak command}.
 @translationof Parentheses
 
 @cindex ghost notes
-@cindex notes, ghost
-@cindex notes, parenthesized
-@cindex parentheses
-@cindex brackets
+@cindex note fantasma
+@cindex note tra parentesi
+@cindex parentesi quadre
 
 @funindex \parenthesize
 @funindex parenthesize
@@ -708,3 +707,5 @@ Guida al funzionamento interno:
 @rinternals{HorizontalBracket},
 @rinternals{horizontal-bracket-interface},
 @rinternals{Staff}.
+
+@c  LocalWords:  gis

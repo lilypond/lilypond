@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Esta línea corta vertical situada encima de la nota es de uso común en
+música barroca.  Su significado varía, pero en general indica notas
+que se deben tocar con más @qq{peso}.  El ejemplo siguiente muestra
+cómo conseguir dicha notación.
+
+"
+  doctitlees = "Línea vertical como una articulación barroca"

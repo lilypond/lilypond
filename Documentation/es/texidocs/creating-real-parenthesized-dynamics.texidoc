@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 2af02df6f579b66ef76db9316af8f0ddd70b23f4
   texidoces = "
 Aunque la manera más fácil de añadir paréntesis a una indicación
 de dinámica es utilizar un bloque @code{\\markup}, este método
@@ -15,4 +15,4 @@ compatible con instrucciones como @code{\\dynamicUp} o
 @code{\\dynamicDown}.
 
 "
-  doctitlees = "Crear indicaciones dinámicas \"verdaderas\" entre paréntesis"
+  doctitlees = "Crear indicaciones dinámicas \"verdaderas\"entre paréntesis"

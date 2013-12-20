@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+El número de líneas de una pauta se puede modificar sobreescribiendo
+la propiedad @code{line-count} del objeto @code{StaffSymbol}.
+
+"
+  doctitlees = "Cambiar el número de líneas de una pauta"

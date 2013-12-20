@@ -543,9 +543,9 @@ moltoF = \markup { molto \dynamic f }
 }
 @end lilypond
 
-@cindex dynamics, editorial
-@cindex dynamics, parenthesis
-@cindex editorial dynamics
+@cindex dinamiche editoriali
+@cindex dinamiche, parentesi
+@cindex editoriali, dinamiche
 @funindex \bracket
 @funindex bracket
 @funindex \dynamic
@@ -858,12 +858,10 @@ Più legature di frase simultanee o sovrapposte non sono permesse.
 @funindex phrasingSlurDotted
 @funindex \phrasingSlurSolid
 @funindex phrasingSlurSolid
-@cindex phrasing slur, dashed
-@cindex dashed phrasing slur
-@cindex phrasing slur, dotted
-@cindex dotted phrasing slurs
-@cindex slur, dashed phrasing
-@cindex slur, dotted phrasing
+@cindex legatura di frase tratteggiata
+@cindex legatura di frase puntata
+@cindex legatura di portamento, frase tratteggiata
+@cindex legatura di portamento, frase puntata
 
 Le legature di frase possono essere continue, puntate o tratteggiate.  Lo stile
 predefinito è quello continuo:

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: 30f7edc4605e38b5735676d2874fc7be6f325267
+Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1134,7 +1134,7 @@ Referencia de la notación:
 @ref{Contextos del nivel más bajo. Voces},
 @ref{La instrucción set},
 @ref{La instrucción override},
-@ref{El bloque \layout}.
+@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
 
 
 @node Definir contextos nuevos
@@ -2435,20 +2435,66 @@ entrada.
 @subsection @code{\set} frente a @code{\override}
 @translationof set versus override
 
-@c HACER: probablemente esta sección es innecesaria.
+@c TODO Should't a bunch of that be explained earlier?
 
-@ignore
-We have seen two methods of changing properties: @code{\set} and
-@code{\override}.  There are actually two different kinds of
-properties.
+@funindex \set
+@funindex \override
+Tanto @code{\set} como @code{\override} manipulan propiedades
+asociadas a contextos.  En ambos casos las propiedades tienen en
+cuenta la jerarquía de contextos: las propiedades no establecidas en
+el propio contexto presentan los valores del contexto padre
+respectivo.
 
-@code{fontSize} is a special property: it is equivalent to
-entering @code{\override @dots{} #'font-size} for all pertinent
-objects.  Since this is a common change, the special
-property (modified with @code{\set}) was created.
+El valor y la duración en el tiempo de las propiedades de contexto son
+dinámicos y están disponibles solamente cuando la música se está
+interpretando o @q{iterando}.  En el momento de la creación del
+contexto, se inicializan las propiedades a partir de la definición de
+contexto correspondiente y las posibles modificaciones de contexto.
+Después de esto, cualquier cambio se obtiene a través de instrucciones
+de establecimiento de propiedades dentro de la propia música.
 
-@end ignore
+Ahora bien, las definiciones de grob (objetos gráficos) son una clase
+especial de propiedades de contexto.  Dado que su estructura,
+mantenimiento y utilización es distinta de las propiedades de contexto
+ordinarias, se accede a ellas con un conjunto de instrucciones
+diferente, y se estudian por separado dentro de la documentación.
 
+A diferencia de las propiedades de contexto normales, las definiciones
+de grob están subdivididas en propiedades de grob.  Un @qq{grob}
+(objeto gráfico) se crea normalmente por parte de un grabador en el
+momento de la interpretación de una expresión musical y recibe sus
+propiedades iniciales de la definición de grob en curso del contexto
+del grabador.  El grabador (u otras partes del @q{backend} de
+LilyPond) pueden después añadir o modificar propiedades del grob, pero
+ello no afecta a la definición de grob del contexto.
+
+Lo que conocemos como @q{propiedades de grob} en el contexto del
+trucaje a nivel de usuario son en realidad las propiedades de la
+definición de grob de un contexto.  A diferencia de las propiedades de
+contexto normales, las definiciones de grob mantienen la contabilidad
+necesaria para seguir la pista de sus partes, las propiedades de grob
+individuales (e incluso subpropiedades de éstos), de forma separada,
+de forma que es posible definir dichas partes dentro de contextos
+diferentes y hacer que la definición de grob en su conjunto, en el
+momento de la creación del grob, se monte a partir de las piezas
+proporcionadas en diferentes contextos entre el contexto actual y sus
+contextos padre.
+
+Las definiciones de grob se manipulan usando @code{\override} y
+@code{\revert} y tienen un nombre que empieza con una letra mayúscula
+(como @samp{NoteHead}) mientras que las propiedades de contexto
+ordinarias se manipulan utilizando @code{\set} y @code{\unset} y se
+nombran empezando en letra minúscula.
+
+@cindex tweak, relación con @code{\override}
+@funindex \tweak
+@funindex \overrideProperty
+Las instrucciones especiales @code{\tweak} y @code{\overrideProperty}
+cambian las propiedades de grob pasando por encima de las propiedades
+de contexto completamente.  En su lugar, atrapan a los grobs tan
+pronto se crean, y después establecen propiedades sobre ellos
+directamente cuando se originan a partir de un evento musical trucado
+o son de un tipo en particular, respectivamente.
 
 @node Modificación de las listas-A
 @subsection Modificación de las listas-A
@@ -3254,12 +3300,24 @@ objetos de presentación.  Se estudian bajo Consideraciones especiales.
 @translationof Removing the stencil
 
 @cindex sello, eliminar
+@funindex \omit
 
 Todo objeto de presentación tiene una propiedad stencil (sello).  De
 forma predeterminada está establecida a la función específica que
 dibuja ese objeto.  Si se sobreescribe esta propiedad a @code{#f} no
 se llama a ninguna función y el objeto no se dibuja.  La acción
 predeterminada se puede recuperar con @code{\revert}.
+
+@lilypond[quote,verbatim,relative=1]
+a1 a
+\override Score.BarLine.stencil = ##f
+a a
+\revert Score.BarLine.stencil
+a a a
+@end lilypond
+
+Esta operación, bastante común, tiene la forma abreviada @code{\omit}
+como atajo:
 
 @lilypond[quote,verbatim,relative=1]
 a1 a
@@ -3275,11 +3333,21 @@ a a a
 @translationof Making objects transparent
 
 @cindex transparentes, hacer los objetos
+@funindex \hide
 
 Todo objeto de presentación tiene una propiedad transparent
 (transparente) que de forma predeterminada está establecida a
 @code{#f}.  Si se fija a @code{#t} el objeto aún ocupa espacio pero es
 invisible.
+
+@lilypond[quote,verbatim,relative=2]
+a4 a
+\once \override NoteHead.transparent = ##t
+a a
+@end lilypond
+
+Esta operación, bastante común, tiene la forma abreviada @code{\hide}
+como atajo:
 
 @lilypond[quote,verbatim,relative=2]
 a4 a
@@ -3744,6 +3812,7 @@ ajustes finos a la apariencia de la partitura impresa.
 * Agrupación vertical de objetos gráficos::
 * Modificación de los sellos::
 * Modificación de las formas::
+* Modificación de objetos de extensión divididos::
 * Contenedores unpure-pure::
 @end menu
 
@@ -4020,13 +4089,13 @@ Cada tipo de objeto tiene su propio punto de referencia
 predeterminado, con el que se alinean las marcas de ensayo:
 
 @lilypond[verbatim,quote,relative=1]
-% The rehearsal mark will be aligned to right edge of the Clef
+% The rehearsal mark will be aligned to the right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
 e1
-% The rehearsal mark will be centered above the Time Signature
+% The rehearsal mark will be aligned to the left edge of the Time Signature
 \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
@@ -4438,6 +4507,119 @@ la línea de inicio y la dirección según se requiera.
 @seealso
 Referencia de funcionamiento interno:
 @rinternals{TieColumn}.
+
+
+@node Modificación de objetos de extensión divididos
+@subsection Modificación de objetos de extensión divididos
+@translationof Modifying broken spanners
+
+@menu
+* Uso de alterBroken::
+@end menu
+
+@node Uso de alterBroken
+@unnumberedsubsubsec Uso de @code{\alterBroken}
+@translationof Using alterBroken
+
+@cindex extensión, modificación de objetos de
+@cindex divididos, modificación de objetos de extensión
+@funindex \alterBroken
+
+Cuando un @qq{spanner} u objeto extenso atraviesa uno o varios saltos
+de línea, cada fragmento hereda los atributos del objeto de extensión
+original.  Así, el trucado ordinario de un objeto dividido aplica las
+mismas modificaciones a todos y cada uno de sus segmentos.  En el
+ejemplo que aparece a continuación, la sobreescritura de
+@code{thickness} (grosor) afecta a la ligadura a ambos lados del salto
+de línea.
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+r2
+\once\override Slur.thickness = 10
+c8( d e f
+\break
+g8 f e d) r2
+@end lilypond
+
+Es posible modificar de forma independiente el aspecto de los
+fragmentos individuales de un objeto de extensión dividido, con la
+instrucción @code{\alterBroken}.  Esta instrucción puede producir un
+@code{\override} o bien un @code{\tweak} de una propiedad del objeto
+de extensión.
+
+La sintaxis de @code{\alterBroken} es
+
+@example
+[-]@code{\alterBroken} @var{propiedad} @var{valores} @var{elemento}
+@end example
+
+El argumento @var{valores} es una lista de valores, uno por cada
+fragmento.  Si @var{elemento} el el nombre de un grob como @code{Slur}
+o @code{Staff.PianoPedalBracket}, el resultado es una instrucción de
+sobreescritura @code{\override} del tipo de grob especificado.  Si
+@var{elemento} es una expresión musical como @qq{(} o @qq{[} el
+resultado es la misma expresión musical con el correspondiente truco
+aplicado.
+
+El guión inicial se debe utilizar con la forma de trucaje,
+@code{\tweak}.  No lo escriba cuando utilice @code{\alterBroken} como
+una operación de sobreescritura, @code{\override}.
+
+En su uso como @code{\override}, @code{\alterBroken} puede ir
+precedido de @code{\once} o @code{\temporary} y ser revertido con
+@code{\revert} con el argumento @var{propiedad}.
+
+EL código siguiente aplica un @code{\override} independiente a cada
+uno de los fragmentos de la ligadura del ejemplo anterior:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+r2
+\alterBroken thickness #'(10 1) Slur
+c8( d e f
+\break
+g8 f e d) r2
+@end lilypond
+
+La instrucción @code{\alterBroken} se puede usar con cualquier objeto
+de extensión, incluidos @code{Tie}, @code{PhrasingSlur}, @code{Beam} y
+@code{TextSpanner}.  Por ejemplo, un editor que está preparando una
+edición académica podría desear indicar la ausencia de parte de una
+ligadura de fraseo en una fuente haciendo discontinuo solamente el
+segmento que se ha añadido.  El siguiente ejemplo ilustra de qué
+manera se puede hacer esto, en este caso usando la forma @code{\tweak}
+de la instrucción:
+
+@lilypond[verbatim,quote,ragged-right,relative=2]
+% The empty list is conveniently used below, because it is the
+% default setting of dash-definition, resulting in a solid curve.
+c2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+\break
+g2 e\)
+@end lilypond
+
+Es importante comprender que @code{\alterBroken} fija cada pieza del
+objeto fragmentado al valor correspondiente dentro del argumento
+@var{valores}.  Cuando hay menos valores que piezas, cualquier
+fragmento adicional recibe la asignación de la lista vacía.  Esto
+puede conllevar resultados no deseados si la propiedad de disposición
+no está establecida a la lista vacía de forma predeterminada.  En
+estos casos, se debe asignar a cada segmento un valor adecuado.
+
+@knownissues
+Los saltos de línea pueden ocurrir en distintos lugares según cambia
+la disposición de la música.  Los ajustes elegidos para
+@code{\alterBroken} podrían no ser adecuados para un objeto de
+extensión que ya no está dividido o que se fragmenta en más piezas que
+antes.  El uso explícito (manual) de saltos de línea mediante
+@code{\break} puede prevenir situaciones como ésta.
+
+La instrucción @code{\alterBroken} no es efectiva para propiedades de
+los objetos extensos accedidas antes del salto de línea, como
+@code{direction}.
+
+@seealso
+Extender LilyPond:
+@rextend{Trucos difíciles}.
 
 
 @node Contenedores unpure-pure

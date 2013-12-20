@@ -1,7 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Las digitaciones y números de cuerda que se aplican a las notas
 individuales evitan automáticamente las barras y las plicas de las
 figuras, pero esto no es cierto de forma predeterminada para las
@@ -11,4 +9,3 @@ sobreescribir este comportamiento predeterminado.
 
 "
   doctitlees = "Evitar colisiones con digitaciones de acordes"
-

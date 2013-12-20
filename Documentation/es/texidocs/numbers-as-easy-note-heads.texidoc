@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 5c42908f1c8d0a5c1d88851a2d793ca55476612c
   texidoces = "
-
 Las cabezas de nota de notación fácil utilizan la propiedad
 @code{note-names} del objeto @code{NoteHead} para determinar lo que
 aparece dentro de la cabeza.  Mediante la sobreescritura de esta
@@ -11,5 +10,4 @@ Se puede crear un grabador simple que haga esto para la cabeza de cada
 nota que ve.
 
 "
-
   doctitlees = "Números como notas de notación fácil"

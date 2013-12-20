@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 6f88af063980030706a883f95b20b11cdc7d780b
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
@@ -21,4 +21,3 @@ correspondencia entre las funciones armónicas y los estilos de cabezas de
 nota.
 
 "
-

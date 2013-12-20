@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Las ligaduras de expresión se pueden construir con patrones de
 discontinuidad complejos mediante la definición de la propiedad
 @code{dash-definition}.  @code{dash-definition} es una lista de
@@ -22,7 +21,4 @@ pentagrama.  @code{fracción-discontinuidad} se establece al valor
 de 1 para una ligadura continua.
 
 "
-
   doctitlees = "Hacer ligaduras de expresión con estructura compleja de discontinuidad"
-
-

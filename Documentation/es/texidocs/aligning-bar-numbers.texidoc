@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Los números de compás se alinean de forma predeterminada por la
 derecha con su objeto padre. Éste es por lo general el borde
 izquierdo de una línea o, si los números se imprimen dentro de la
@@ -9,6 +8,4 @@ también se pueden situar directamente sobre la barra de compás o
 alineados por la izquierda con ella.
 
 "
-
   doctitlees = "Alineación de los números de compás"
-

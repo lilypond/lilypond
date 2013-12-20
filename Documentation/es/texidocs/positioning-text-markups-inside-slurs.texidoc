@@ -1,10 +1,8 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Los elementos de marcado de texto deben tener la propiedad
 @code{outside-staff-priority} establecida al valor falso para que se
 impriman por dentro de las ligaduras de expresión.
 
 "
   doctitlees = "Situar los elementos de marcado de texto por dentro de las ligaduras"
-

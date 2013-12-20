@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Con la instrucción de trucar @code{\\tweak} todos los objetos gráficos
+se pueden retocar directamente.  Aquí presentamos ejemplos de los
+tipos de retoque disponibles.
+
+"
+  doctitlees = "Uso de la instrucción \\tweak para retocar objetos gráficos individuales"

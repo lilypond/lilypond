@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Cuando se colocan figuras sobre líneas adicionales, sus barras se
 sitúan generalmente en medio del pentagrama.  La barra de las notas de
 adorno es más corta y las notas de adorno sobre líneas adicionales
@@ -9,5 +8,3 @@ barrado para las notas de adorno.
 
 "
   doctitlees = "Colocar las barras de las notas de adorno a la misma altura que las barras de notas normales"
-
-

@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Las familias de fuente tipográfica para el texto se pueden
+sobreescribir con @code{make-pango-font-tree}.
+
+"
+  doctitlees = "Cambiar la familia de tipografía predeterminada para el texto"

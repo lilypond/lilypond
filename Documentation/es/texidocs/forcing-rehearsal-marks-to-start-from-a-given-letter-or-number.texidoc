@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Este fragmento de código muestra cómo obtener marcas de ensayo
+ordenadas automáticamente, pero partiendo de la letra o número
+deseados.
+
+"
+  doctitlees = "Forzar que las marcas  de ensayo comiencen en una letra o número dados"

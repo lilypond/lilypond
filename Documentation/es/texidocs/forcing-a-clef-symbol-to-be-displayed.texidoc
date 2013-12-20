@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+  texidoces = "
+Cuando ya se ha impreso la clave y aún no se ha cambiado a una
+distinta, LilyPond ignorará la repetición de la instrucción
+@code{\\clef}, pues no constituye un cambio de clave.  Es posible
+forzar la reimpresión de la clave usando la instrucción @code{\\set
+Staff.forceClef = ##t}.
+
+"
+  doctitlees = "Forzar la impresión de la clave"

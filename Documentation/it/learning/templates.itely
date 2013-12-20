@@ -50,7 +50,7 @@ LilyPond e goderti dei belli spartiti!
 
 @node Note e testo
 @appendixsubsec Note e testo
-@translationof Notes and text
+@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
@@ -211,12 +211,12 @@ LilyPond e goderti dei belli spartiti!
 @translationof Ancient notation templates
 
 @menu
-* Transcrizione di musica mensurale::
+* Trascrizione di musica mensurale::
 * Trascrizione di musica Gregoriana::
 @end menu
 
-@node Transcrizione di musica mensurale
-@appendixsubsec Transcrizione di musica mensurale
+@node Trascrizione di musica mensurale
+@appendixsubsec Trascrizione di musica mensurale
 @translationof Transcription of mensural music
 
 @c Line-width below is because of Issue 766.  If that's fixed, it can be removed.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
+    Translation of GIT committish: d378daa101069ce6497292b0f4a7f6ce2e9b51f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,6 +49,10 @@ uno mismo) para producir archivos de salida.
 @cindex inicial, ejemplo
 @cindex mayúsculas, sensible a
 
+@menu
+* Generar el resultado::
+@end menu
+
 @qq{Compilación} es una palabra que significa procesar un texto de
 entrada en formato de LilyPond para producir un archivo que se puede
 imprimir y (de manera opcional) un archivo MIDI que se puede
@@ -88,7 +92,9 @@ un mensaje de error.
 
 @smallspace
 
-@subheading Generar el resultado
+@node Generar el resultado
+@unnumberedsubsubsec Generar el resultado
+@translationof Producing output
 
 @cindex PDF, archivo
 @cindex ver la música
@@ -174,6 +180,16 @@ ayuda para que se inicie en la escritura de archivos de entrada.
 @cindex sencilla, notación
 @cindex notación sencilla
 
+@menu
+* Alturas::
+* Duraciones (valores rítmicos)::
+* Silencios::
+* Indicación de compás::
+* Indicaciones de tempo::
+* Clave::
+* Todo junto::
+@end menu
+
 LilyPond añadirá ciertos elementos de notación de manera automática.
 En el siguiente ejemplo hemos especificado solamente cuatro alturas,
 pero LilyPond ha añadido la clave, el compás y las duraciones.
@@ -189,7 +205,9 @@ Este comportamiento se puede modificar, pero en general estos valores
 automáticos son adecuados.
 
 
-@subheading Alturas
+@node Alturas
+@unnumberedsubsubsec Alturas
+@translationof Pitches
 
 @cindex alturas
 @cindex notas
@@ -310,7 +328,9 @@ varias @code{''} ó @code{,,} (pero tenga cuidado de utilizar dos
 comillas simples @code{''} ¡y no una comilla doble @code{"}@tie{}!)
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@subheading Duraciones (valores rítmicos)
+@node Duraciones (valores rítmicos)
+@unnumberedsubsubsec Duraciones (valores rítmicos)
+@translationof Durations (rhythms)
 
 @cindex duraciones de las notas
 @cindex notas, duraciones de
@@ -359,8 +379,9 @@ especificar de forma explícita (es decir: mediante un número).
 }
 @end lilypond
 
-
-@subheading Silencios
+@node Silencios
+@unnumberedsubsubsec Silencios
+@translationof Rests
 
 @cindex silencio
 @cindex notación de los silencios
@@ -379,7 +400,9 @@ nombre @code{r}@tie{}:
 @end lilypond
 
 
-@subheading Indicación de compás
+@node Indicación de compás
+@unnumberedsubsubsec Indicación de compás
+@translationof Time signature
 
 @cindex compás, indicación de
 
@@ -403,7 +426,9 @@ La @notation{indicación de compás} se puede establecer con la orden
 }
 @end lilypond
 
-@subheading Indicaciones de tempo
+@node Indicaciones de tempo
+@unnumberedsubsubsec Indicaciones de tempo
+@translationof Tempo marks
 
 @cindex tempo, indicaciones de
 @cindex metronómicas, indicaciones
@@ -433,7 +458,9 @@ metronómica} pueden establecerse con la instrucción @code{\tempo}:
 @end lilypond
 
 
-@subheading Clave
+@node Clave
+@unnumberedsubsubsec Clave
+@translationof Clef
 
 @cindex clave
 @cindex sol, clave de
@@ -468,7 +495,9 @@ La @notation{clave} se puede establecer utilizando la orden
 @end lilypond
 
 
-@subheading Todo junto
+@node Todo junto
+@unnumberedsubsubsec Todo junto
+@translationof All together
 
 He aquí un pequeño ejemplo que muestra todos los elementos anteriores
 juntos:

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 07adeda35976a39735392426c798c3b24e32fac0
+    Translation of GIT committish: 7e3df6b879dcd850a4e7645b1afc151111c77436
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,34 +18,26 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.26!  @emph{8 de septiembre de 2013}
+@subsubheading ¡Lanzado LilyPond 2.17.95!  @emph{3 de noviembre de 2013}
 
-Nos complace anunciar el lanzamiento de LilyPond 2.17.26.  Esta
-versión contiene el conjunto habitual de correcciones de fallos y
-ampliación de las funcionalidades, y contiene trabajos en
-desarrollo.  Tendrá acceso a las últimas posibilidades, pero
-algunas podrían estar incompletas, y podría encontrar fallos y
-finalizaciones abruptas.  Si necesita una versión estable de
-LilyPond, nuestro consejo es que utilice la versión 2.16.
-
-@newsEnd
-
-@newsItem
-@subsubheading ¡El blog de LilyPond se  ha trasladado!  @emph{29 de junio de 2013}
-
-El blog de LilyPond, que estaba alojado anteriormente en
-@uref{http://lilypondblog.wordpress.com/, wordpress.com}, se ha trasladado
-a un nuevo dominio: ahora se encuentra en
-@uref{http://lilypondblog.org/, lilypondblog.org}!
+Nos llena de emoción anunciar el lanzamiento de LilyPond@tie{}2.17.95
+como lanzamiento beta de la próxima edicion estable@tie{}2.18.
+Los desarrolladores están aún atareados buscando
+soluciones para algunos problemas de última hora, pero se supone que esta
+edición tendrá las funcionalidades completas, la documentación precisa,
+y que no se habrán pasado por alto problemas de importancia.
+Para actualizar la sintaxis de los archivos de entrada
+a la última versión, consulte @rprogram{Actualizar ficheros con convert-ly}.
+Pruebe esta versión e infórmenos de cualquier porblema, véase
+@rweb{Informes de fallos}.
 
 @newsEnd
 
 @newsItem
 @subsubheading El blog de LilyPond.  @emph{2 de junio de 2013}
 
-Janek Warchoł ha creado un blog de LilyPond.  Se encuentra alojado
-actualmente en Wordpress: siga @uref{http://lilypondblog.wordpress.com/, este enlace}
-para leerlo y contribuir.
+Janek Warchoł ha creado un blog de LilyPond.  ¡Se encuentra alojado
+en @uref{http://lilypondblog.org/, lilypondblog.org}!
 
 @newsEnd
 

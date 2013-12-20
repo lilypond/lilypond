@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+Se pueden controlar manualmente las posiciones de las barras de
+corchea, sobreescribiendo el valor del parámetro @code{positions} del
+objeto gráfico @code{Beam}.
+
+"
+  doctitlees = "Controlar manualmente las posiciones de las barras"

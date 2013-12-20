@@ -1,9 +1,7 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
 Para tipografiar las barras agrupadas en la forma @code{3-4-3-2} sólo
 es necesario modificar la estructura de pulsos:
 
 "
   doctitlees = "Alteración de los finales de barra predeterminados"
-
-

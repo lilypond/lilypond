@@ -1,7 +1,5 @@
-%%   Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
-
+%% Translation of GIT committish: 26a079ca2393d053315ef8dbef626c897dc9645a
   texidoces = "
-
 Puede ser difícil comprender la función de @code{\\autoBeamOff} cuando
 se usa con @code{\\partcombine}.
 
@@ -30,9 +28,6 @@ argumento se aplica a la voz que está sola con la plica abajo.
 Para pode usar @code{\\autoBeamOff} con el objeto de detener todo el
 barrado automático cuando se usa con @code{\\partcombine}, es
 necesario hacer tres llamadas a @code{\\autoBeamOff}.
-
-
-
 
 "
   doctitlees = "Partcombine y autoBeamOff"

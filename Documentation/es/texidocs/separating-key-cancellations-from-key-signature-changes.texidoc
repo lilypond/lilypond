@@ -1,0 +1,19 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+De forma predeterminada, las alteraciones accidentales que se usan
+para las cancelaciones en las armaduras se colocan adyacentes a las
+que se usan para los cambios de tonalidad.  Este comportamiento se
+puede cambiar sobreescribiendo la propiedad @code{'break-align-orders}
+del objeto gráfico @code{BreakAlignment}.
+
+
+El valor de @code{'break-align-orders} es un vector de longitud 3, con
+listas entrecomilladas cuyos elementos con objets que se pueden
+dividir en un salto.  Este ejemplo solo modifica la segunda lista,
+moviendo @code{key-cancellation} antes de @code{staff-bar};
+modificando la segunda lista, el comportamiento de alineación de los
+saltos solo cambia en la mitad de un sistema, no al principio ni al
+final.
+
+"
+  doctitlees = "Separar las cancelaciones de tonalidad de los cambios de armadura"

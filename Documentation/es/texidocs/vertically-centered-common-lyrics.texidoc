@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+  texidoces = "
+En una pieza vocal en la que hay varias líneas de letra (dos, cuatro o
+más), y hay letras comunes a todas las voces en algún punto, estas
+letras comunes se pueden centrar verticalmente como se muestra en el
+siguiente ejemplo:
+
+"
+  doctitlees = "Letra común centrada verticalmente"

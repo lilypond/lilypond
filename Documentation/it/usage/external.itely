@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 57955050c40eca6cd3b97eb6691e4fc1f8e08c08
+    Translation of GIT committish: 22b4097bcee9f2909b8c43fa69ea313aad0b71c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -488,7 +488,7 @@ minore si indica con @code{:1}.
 Scrive l'output in @var{file}.
 
 @item -s, --start-quant=@var{DUR}
-Quantize note starts on @var{DUR}.
+La quantizzazione delle note inizia su @var{DUR}.
 
 @item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
 Consente l'inserimento di gruppi irregolari @var{DUR}*@var{NUM}/@var{DEN}.
@@ -753,7 +753,7 @@ La notazione di LilyPond può essere aggiunta a OpenOffice.org con
 
 Per inserire l'output di LilyPond in altri programmi, si usa @code{lilypond}
 invece di @code{lilypond-book}.  Bisogna creare ogni esempio singolarmente
-e aggiungerlo al documento; consulta la documentazione del realtivo
+e aggiungerlo al documento; consulta la documentazione del relativo
 programma.  La maggior parte dei programmi può inserire l'output di LilyPond
 in formato @file{PNG}, @file{EPS} o @file{PDF}.
 
@@ -784,7 +784,7 @@ PNG
 
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miofile.ly
 
-Un file PNG transparente
+Un file PNG trasparente
 
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
   -dpixmap-format=pngalpha --png miofile.ly

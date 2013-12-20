@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
 Se puede variar la longitud de las plicas de las figuras unidas por
 una barra mediante la sobreescritura de la propiedad
@@ -11,7 +11,4 @@ figuras que son mmás cortas que la longitud de la figura del último
 argumento.  También se pueden usar argumentos no enteros.
 
 "
-
-doctitlees = "Alterar la longitud de las plicas unidas por una barra"
-
-
+  doctitlees = "Alterar la longitud de las plicas unidas por una barra"

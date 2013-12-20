@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 16e827736538b0e0c850112e522de52de0d350da
+%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
   texidoces = "
-
 Se pueden añadir diagramas de posiciones predefinidas para
 instrumentos nuevos además de los estándar que se usan para la
 guitarra.  Este archivo muestra cómo se hace, definiendo una afinación
@@ -16,4 +15,3 @@ de las cuerdas.  Hay planes para corregir esto en un futuro.
 
 "
   doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
-
