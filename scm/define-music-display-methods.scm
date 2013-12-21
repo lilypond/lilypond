@@ -724,29 +724,7 @@ Otherwise, return #f."
   (repeat->lily-string expr "percent" parser))
 
 (define-display-method TremoloRepeatedMusic (expr parser)
-  (let* ((main (ly:music-property expr 'element))
-         (children (if (music-is-of-type? main 'sequential-music)
-                       ;; \repeat tremolo n { ... }
-                       (length (extract-named-music main '(EventChord
-                                                           NoteEvent)))
-                       ;; \repeat tremolo n c4
-                       1))
-         (times (ly:music-property expr 'repeat-count))
-
-         ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-         (dots (1- (logcount (* times children))))
-         ;; The remaining missing multiplicator to scale the notes by
-         ;; times * children
-         (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-         (shift (- (ly:intlog2 (floor mult)))))
-    (set! main (ly:music-deep-copy main))
-    ;; Adjust the time of the notes
-    (ly:music-compress main (ly:make-moment children 1))
-    ;; Adjust the displayed note durations
-    (shift-duration-log main (- shift) (- dots))
-    (format #f "\\repeat tremolo ~a ~a"
-            times
-            (music->lily-string main parser))))
+  (repeat->lily-string expr "tremolo" parser))
 
 ;;;
 ;;; Contexts
