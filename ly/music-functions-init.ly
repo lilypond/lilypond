@@ -1281,9 +1281,7 @@ shiftDurations =
    (_i "Change the duration of @var{arg} by adding @var{dur} to the
 @code{durlog} of @var{arg} and @var{dots} to the @code{dots} of @var{arg}.")
 
-   (music-map
-    (lambda (x)
-      (shift-one-duration-log x dur dots)) arg))
+   (shift-duration-log arg dur dots))
 
 single =
 #(define-music-function (parser location overrides music)

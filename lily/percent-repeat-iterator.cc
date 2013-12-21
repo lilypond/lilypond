@@ -43,6 +43,7 @@ SCM
 Percent_repeat_iterator::get_music_list () const
 {
   Music *mus = get_music ();
+
   Music *child = Repeated_music::body (mus);
   SCM length = child->get_length ().smobbed_copy ();
   SCM child_list = SCM_EOL;

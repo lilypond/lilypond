@@ -243,18 +243,23 @@ The number of dots in the shifted music may not be less than zero."
                     (max 0 (+ dot (ly:duration-dot-count d)))
                     cp)))
           (set! (ly:music-property music 'duration) nd)))
+    ;clear cached length, since it's no longer valid
+    (set! (ly:music-property music 'length) '())
     music))
 
 (define-public (shift-duration-log music shift dot)
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
              music))
 
-(define-public (make-repeat name times main alts)
-  "Create a repeat music expression, with all properties initialized
-properly."
+(define-public (tremolo::get-music-list tremolo)
+  "Given a tremolo repeat, return a list of music to engrave for it.
+This will be a stretched copy of its body, plus a TremoloEvent or
+TremoloSpanEvent.
+
+This is called only by Chord_tremolo_iterator."
   (define (first-note-duration music)
-    "Finds the duration of the first NoteEvent by searching depth-first
-through MUSIC."
+    "Finds the duration of the first NoteEvent by searching
+depth-first through MUSIC."
     ;; NoteEvent or a non-expanded chord-repetition
     ;; We just take anything that actually sports an announced duration.
     (if (ly:duration? (ly:music-property music 'duration))
@@ -267,46 +272,72 @@ through MUSIC."
                  (if (ly:duration? dur)
                      dur
                      (loop (cdr elts))))))))
+  (let* ((times (ly:music-property tremolo 'repeat-count))
+         (body (ly:music-property tremolo 'element))
+         (children (if (music-is-of-type? body 'sequential-music)
+                       ;; \repeat tremolo n { ... }
+                       (length (extract-named-music body '(EventChord
+                                                           NoteEvent)))
+                       ;; \repeat tremolo n c4
+                       1))
+         (tremolo-type (if (positive? children)
+                           (let* ((note-duration (first-note-duration body))
+                                  (duration-log (if (ly:duration? note-duration)
+                                                    (ly:duration-log note-duration)
+                                                    1)))
+                             (ash 1 duration-log))
+                           '()))
+         (stretched (ly:music-deep-copy body)))
+    (if (positive? children)
+        ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
+        (let* ((dots (1- (logcount (* times children))))
+               ;; The remaining missing multiplier to scale the notes by
+               ;; times * children
+               (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
+               (shift (- (ly:intlog2 (floor mult)))))
+          (if (not (and (integer? mult) (= (logcount mult) 1)))
+              (ly:music-warning
+               body
+               (ly:format (_ "invalid tremolo repeat count: ~a") times)))
+          ;; Make each note take the full duration
+          (ly:music-compress stretched (ly:make-moment 1 children))
+          ;; Adjust the displayed note durations
+          (shift-duration-log stretched shift dots)))
+    ;; Return the stretched body plus a tremolo event
+    (if (= children 1)
+        (list (make-music 'TremoloEvent
+                          'repeat-count times
+                          'tremolo-type tremolo-type
+                          'origin (ly:music-property tremolo 'origin))
+              stretched)
+        (list (make-music 'TremoloSpanEvent
+                          'span-direction START
+                          'repeat-count times
+                          'tremolo-type tremolo-type
+                          'origin (ly:music-property tremolo 'origin))
+              stretched
+              (make-music 'TremoloSpanEvent
+                          'span-direction STOP
+                          'origin (ly:music-property tremolo 'origin))))))
 
-  (let ((talts (if (< times (length alts))
+(define-public (make-repeat name times main alts)
+  "Create a repeat music expression, with all properties initialized
+properly."
+  (let ((type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
+                                    ("unfold" . UnfoldedRepeatedMusic)
+                                    ("percent" . PercentRepeatedMusic)
+                                    ("tremolo" . TremoloRepeatedMusic)))
+                  (begin (ly:warning (_ "unknown repeat type `~S': must be volta, unfold, percent, or tremolo") name)
+                         'VoltaRepeatedMusic)))
+        (talts (if (< times (length alts))
                    (begin
                      (ly:warning (_ "More alternatives than repeats.  Junking excess alternatives"))
                      (take alts times))
-                   alts))
-        (r (make-repeated-music name)))
-    (set! (ly:music-property r 'element) main)
-    (set! (ly:music-property r 'repeat-count) (max times 1))
-    (set! (ly:music-property r 'elements) talts)
-    (if (and (equal? name "tremolo")
-             (pair? (extract-named-music main '(EventChord NoteEvent))))
-        ;; This works for single-note and multi-note tremolos!
-        (let* ((children (if (music-is-of-type? main 'sequential-music)
-                             ;; \repeat tremolo n { ... }
-                             (length (extract-named-music main '(EventChord
-                                                                 NoteEvent)))
-                             ;; \repeat tremolo n c4
-                             1))
-               ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-               (dots (1- (logcount (* times children))))
-               ;; The remaining missing multiplicator to scale the notes by
-               ;; times * children
-               (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-               (shift (- (ly:intlog2 (floor mult))))
-               (note-duration (first-note-duration r))
-               (duration-log (if (ly:duration? note-duration)
-                                 (ly:duration-log note-duration)
-                                 1))
-               (tremolo-type (ash 1 duration-log)))
-          (set! (ly:music-property r 'tremolo-type) tremolo-type)
-          (if (not (and (integer? mult) (= (logcount mult) 1)))
-              (ly:music-warning
-               main
-               (ly:format (_ "invalid tremolo repeat count: ~a") times)))
-          ;; Adjust the time of the notes
-          (ly:music-compress r (ly:make-moment 1 children))
-          ;; Adjust the displayed note durations
-          (shift-duration-log r shift dots))
-        r)))
+                   alts)))
+    (make-music type
+                'element main
+                'repeat-count (max times 1)
+                'elements talts)))
 
 (define (calc-repeat-slash-count music)
   "Given the child-list @var{music} in @code{PercentRepeatMusic},
@@ -341,40 +372,10 @@ beats to be distinguished."
 
 (define-public (unfold-repeats music)
   "Replace all repeats with unfolded repeats."
-
   (let ((es (ly:music-property music 'elements))
         (e (ly:music-property music 'element)))
-
     (if (music-is-of-type? music 'repeated-music)
-        (let* ((props (ly:music-mutable-properties music))
-               (old-name (ly:music-property music 'name))
-               (flattened (flatten-alist props)))
-          (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
-                                              flattened)))
-
-          (if (and (equal? old-name 'TremoloRepeatedMusic)
-                   (pair? (extract-named-music e '(EventChord NoteEvent))))
-              ;; This works for single-note and multi-note tremolos!
-              (let* ((children (if (music-is-of-type? e 'sequential-music)
-                                   ;; \repeat tremolo n { ... }
-                                   (length (extract-named-music e '(EventChord
-                                                                    NoteEvent)))
-                                   ;; \repeat tremolo n c4
-                                   1))
-                     (times (ly:music-property music 'repeat-count))
-
-                     ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-                     (dots (1- (logcount (* times children))))
-                     ;; The remaining missing multiplicator to scale the notes by
-                     ;; times * children
-                     (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-                     (shift (- (ly:intlog2 (floor mult)))))
-
-                ;; Adjust the time of the notes
-                (ly:music-compress music (ly:make-moment children 1))
-                ;; Adjust the displayed note durations
-                (shift-duration-log music (- shift) (- dots))))))
-
+        (set! music (make-music 'UnfoldedRepeatedMusic music)))
     (if (pair? es)
         (set! (ly:music-property music 'elements)
               (map unfold-repeats es)))
