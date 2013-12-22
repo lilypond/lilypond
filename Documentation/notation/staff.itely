@@ -1355,7 +1355,7 @@ oboeNotes = \relative c'' {
 The name of the instrument playing the cue can be printed by setting
 the @code{instrumentCueName} property in a temporary @code{CueVoice}
 context.  The placement and style of the @code{instrumentCueName} is
-controlled by the @code{\instrumentSwitch} object, see
+controlled by the @code{InstrumentSwitch} object, see
 @ref{Instrument names}.  If the cue notes require a change in clef,
 this can be done manually but the original clef should also be
 restored manually at the end of the cue notes.
