@@ -575,6 +575,11 @@ assignment:
 		parser->lexer_->set_identifier (path, $4);
                 $$ = SCM_UNSPECIFIED;
 	}
+	| assignment_id '.' property_path '=' identifier_init {
+		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		parser->lexer_->set_identifier (path, $5);
+                $$ = SCM_UNSPECIFIED;
+	}
 	;
 
 
