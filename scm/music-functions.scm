@@ -390,19 +390,17 @@ beats to be distinguished."
      (and (music-is-of-type? m 'unfolded-repeated-music)
           (make-sequential-music
            (ly:music-deep-copy
-            (let loop ((n (ly:music-property m 'repeat-count))
-                       (alts (ly:music-property m 'elements))
-                       (body (ly:music-property m 'element)))
+            (let ((n (ly:music-property m 'repeat-count))
+                  (alts (ly:music-property m 'elements))
+                  (body (ly:music-property m 'element)))
               (cond ((<= n 0) '())
-                    ((null? alts)
-                     (cons body (loop (1- n) alts body)))
+                    ((null? alts) (make-list n body))
                     (else
-                     (cons* body (car alts)
-                            (loop (1- n)
-                                  (if (pair? (cdr alts))
-                                      (cdr alts)
-                                      alts)
-                                  body)))))))))
+                     (concatenate
+                      (zip (make-list n body)
+                           (append! (make-list (max 0 (- n (length alts)))
+                                               (car alts))
+                                    alts))))))))))
    (unfold-repeats music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
