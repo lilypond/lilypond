@@ -21,6 +21,65 @@
 
 fet_begingroup ("clefs");
 
+
+%
+% New bulb routine:
+%
+% Insert a brushed piece of the path, and draw the rest of the bulb
+% separately.
+%
+% The bulb has circular form.  Neat merging of the bulb and brushed path
+% is done by playing with tension.
+%
+
+def new_bulb (expr start_point, start_angle,
+	      outer_tangent_point,
+	      end_point, end_angle,
+	      big_radius, bulb_radius, flare,
+	      direction, turning_dir) =
+begingroup;
+	save pat, before, after;
+	save center;
+	save u, v;
+	path pat, before, after;
+	pair center;
+
+	clearxy;
+
+	center = outer_tangent_point
+		 + big_radius * dir (0);
+%		 + (big_radius - bulb_radius) * dir (-turning_dir * 90)
+
+	z1' = center + bulb_radius * dir (turning_dir * 180);
+	z2' = outer_tangent_point + flare * dir (0);
+	z3' = center + bulb_radius * dir (0);
+	z4' = center + bulb_radius * dir (turning_dir * 90);
+	z5' = center - 0.5 [big_radius, bulb_radius] * dir (turning_dir * 90);
+
+	labels (1', 2', 3', 4', 5');
+
+	before := z3'{dir (turning_dir * 90)}
+		  .. z4'{-dir (0)}
+		  ..tension 1.1.. z1'{-dir (turning_dir* 90)};
+	after := z2'{dir (turning_dir * 90)}
+		 .. end_point{dir (end_angle)};
+	(u, v) = before intersectiontimes after;
+
+	pat := start_point{dir (start_angle)}
+	       .. outer_tangent_point{dir (-turning_dir * 90)}
+	       ..tension 1.02.. z5'{dir (0)}
+	       .. subpath (0, u) of before
+	       .. subpath (v, infinity) of after;
+
+	if direction = 0:
+		pat := reverse pat;
+	fi
+
+pat
+endgroup
+enddef;
+
+
 %
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % `arrow'.
@@ -118,63 +177,77 @@ fet_beginchar ("C clef", "C_change");
 	draw_c_clef (.8);
 fet_endchar;
 
+def draw_varc_clef (expr reduction) =
+	save hair, norm, reduced_ss;
+	save thick, thin, upper_stroke;
 
-%
-% New bulb routine:
-%
-% Insert a brushed piece of the path, and draw the rest of the bulb
-% separately.
-%
-% The bulb has circular form.  Neat merging of the bulb and brushed path
-% is done by playing with tension.
-%
+	path upper_stroke;
 
-def new_bulb (expr start_point, start_angle,
-	      outer_tangent_point,
-	      end_point, end_angle,
-	      big_radius, bulb_radius, flare,
-	      direction, turning_dir) =
-begingroup;
-	save pat, before, after;
-	save center;
-	save u, v;
-	path pat, before, after;
-	pair center;
+	reduced_ss# = staff_space# * reduction;
+	norm# := 2/3 reduced_ss#;
+	hair# := 0.06 reduced_ss# + 0.5 linethickness#;
+	define_pixels (norm, reduced_ss);
+	define_whole_vertical_blacker_pixels (hair);
 
-	clearxy;
+	set_char_box (0, 2.25 reduced_ss#, 2 reduced_ss#, 2 reduced_ss#);
 
-	center = outer_tangent_point
-		 + big_radius * dir (0);
-%		 + (big_radius - bulb_radius) * dir (-turning_dir * 90)
+	% make unreduced glyph fit exactly into five staff lines
+	if reduction = 1:
+		h := d := 2 staff_space_rounded;
+	fi;
 
-	z1' = center + bulb_radius * dir (turning_dir * 180);
-	z2' = outer_tangent_point + flare * dir (0);
-	z3' = center + bulb_radius * dir (0);
-	z4' = center + bulb_radius * dir (turning_dir * 90);
-	z5' = center - 0.5 [big_radius, bulb_radius] * dir (turning_dir * 90);
+	% assure that the gap between the left and right stem
+	% has the same number of pixels as the thickness of the right
+	% stem
+	draw_block ((0, -d + feta_shift),
+		    (3/4 norm + 1/2 hair, h));
+	draw_block ((3/4 norm + 1/2 hair + hround (3/2 hair), -d + feta_shift),
+		    (3/4 norm + 1/2 hair + 2 hround (3/2 hair), h));
 
-	labels (1', 2', 3', 4', 5');
+	% assure symmetry
+	h := h - feta_shift;
 
-	before := z3'{dir (turning_dir * 90)}
-		  .. z4'{-dir (0)}
-		  ..tension 1.1.. z1'{-dir (turning_dir* 90)};
-	after := z2'{dir (turning_dir * 90)}
-		 .. end_point{dir (end_angle)};
-	(u, v) = before intersectiontimes after;
+	thin := hround (3/2 hair);
+	thick := hround (3/4 norm);
 
-	pat := start_point{dir (start_angle)}
-	       .. outer_tangent_point{dir (-turning_dir * 90)}
-	       ..tension 1.02.. z5'{dir (0)}
-	       .. subpath (0, u) of before
-	       .. subpath (v, infinity) of after;
+	x1'' = x8'' = x6'' - reduced_ss = 3/4 norm + 1/2 hair + 1.5 hround (3/2 hair);
+	x7'' = x6'' - 1/2 hair;
+	% the thick part of the c clef should be placed in the
+	% center of the forth staff space
+	y1'' = y2'' = 0.5 reduced_ss + thick/2;
 
-	if direction = 0:
-		pat := reverse pat;
-	fi
+	y7'' = y8'' = y6'' - 1/2 hair = y1'' - thick;
 
-pat
-endgroup
+	x2'' = x3'' = x4'' = x6'' - thin;
+
+	y5'' = y3'' = y2'' + 0.6 reduced_ss;
+	x5'' = x6'';
+
+	y4'' = 2.25 reduced_ss;
+
+	upper_stroke := z1'' -- z2''
+			-- new_bulb (z3'', 90, z4'', z5'', 270,
+				     0.37 reduced_ss, 0.33 reduced_ss, thin, 1, -1)
+			-- z6''{down} .. z7''{left}  -- z8'' -- cycle;
+
+	fill upper_stroke;
+	% the c clef parts should be symmetrical to the forth staff line
+	fill  upper_stroke yscaled -1;
+
+	penlabels (1'', 2'', 3'', 4'', 5'', 6'', 7'', 8'');
+
+	draw_staff_if_debugging (-2, 2);
 enddef;
+
+
+fet_beginchar ("Variant C clef", "varC");
+	draw_varc_clef (1.0);
+fet_endchar;
+
+
+fet_beginchar ("Variant C clef", "varC_change");
+	draw_varc_clef (0.8);
+fet_endchar;
 
 
 %
@@ -302,14 +375,15 @@ fet_endchar;
 
 def debugfill = fill enddef;
 
-def draw_gclef (expr reduction) =
-	save reduced_ss, downstroke_dir, downstroke_angle, center;
+def draw_gclef (expr reduction, double_shift, extra_width) =
+	save reduced_ss, double_shift_ss, extra_width_ss;
+	save downstroke_dir, downstroke_angle, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
 	save start_angle, inner_start_angle;
 	save upward_swoosh_angle, bot_angle;
-	save pat;
+	save swirl, bulb, pat;
 	save corr_angle, corr, left_, right_, up_, down_, bot_angle_;
-	path pat;
+	path swirl, bulb, pat;
 	pair downstroke_dir, center;
 	transform corr;
 	pair left_, right_, up_, down_;
@@ -337,7 +411,7 @@ def draw_gclef (expr reduction) =
 
 	thinnib = thinness;
 
-	set_char_box (0, 1.71 * breapth_factor * reduced_ss#,
+	set_char_box (0, (1.71 * breapth_factor + double_shift + extra_width) * reduced_ss#,
 		      2.55 * reduced_ss#, 4.8 * reduced_ss# / reduced_loop_correction);
 
 	center := (breapth_factor * reduced_ss, 0);
@@ -447,24 +521,25 @@ def draw_gclef (expr reduction) =
 	       .. z110l{down}
 	       .. z110'l;
 
-	fill z102l{right}
-	     .. z103l
-	     .. z104l{left_}
-	     ..tension 1.07.. z105l{up_}% inside curve
-	     .. z107l{up_}
-	     ..tension 1.2.. z120r{curl 1}
-	     .. {direction 0 of pat}z120l
-	     -- z108
-	     -- z109r			% {dir (downstroke_angle + 0)}
-	     ..tension 0.8.. z107r{down_}
-	     .. z105r{down_}
-	     .. z104r{right_}
-	     .. z103r
-	     .. z102r{left_}
-	     ..tension .95.. z101r
-	     -- simple_serif (z101r, z101l, 80)
-	     -- z101l
-	     ..tension 0.85.. cycle;
+	swirl := z102l{right}
+	         .. z103l
+	         .. z104l{left_}
+	         ..tension 1.07.. z105l{up_}% inside curve
+	         .. z107l{up_}
+	         ..tension 1.2.. z120r{curl 1}
+	         .. {direction 0 of pat}z120l
+	         -- z108
+	         -- z109r			% {dir (downstroke_angle + 0)}
+	         ..tension 0.8.. z107r{down_}
+	         .. z105r{down_}
+	         .. z104r{right_}
+	         .. z103r
+	         .. z102r{left_}
+	         ..tension .95.. z101r
+	         -- simple_serif (z101r, z101l, 80)
+	         -- z101l
+	         ..tension 0.85.. cycle;
+	fill swirl;
 
 	penstroke z121e
 		  .. z110e{down_}
@@ -474,10 +549,37 @@ def draw_gclef (expr reduction) =
 		  .. z111e{dir (-95 + corr_angle)}
 		  .. z112e{dir (bot_angle_)};
 
-	fill new_bulb (z112r, bot_angle_, z113r, z112l, bot_angle_ + 180,
-		       0.45 reduced_ss, 0.38 reduced_ss,
-		       thinnib + .05 staff_space, 1, -1)
-	     -- cycle;
+	bulb := new_bulb (z112r, bot_angle_, z113r, z112l, bot_angle_ + 180,
+		          0.45 reduced_ss, 0.38 reduced_ss,
+		          thinnib + .05 staff_space, 1, -1)
+	        -- cycle;
+
+	fill bulb;
+
+	if double_shift <> 1:
+
+		% transform helper points
+		for n := 106, 110, 111, 112, 121:
+			forsuffixes e := l,,r:
+				z[n+100]e = z[n]e shifted (double_shift * reduced_ss, 0);
+			endfor
+		endfor
+		for n := 110, 111:
+		        forsuffixes e := l,,r:
+				z[n+100]'e = z[n]'e shifted (double_shift * reduced_ss, 0);
+			endfor
+		endfor
+
+		fill swirl shifted (double_shift * reduced_ss, 0);
+		penstroke z221e
+		          .. z210e{down_}
+		          .. z210'e
+		          .. z206e
+		          .. z211'e
+		          .. z211e{dir (-95 + corr_angle)}
+		          .. z212e{dir (bot_angle_)};
+		fill bulb shifted (double_shift * reduced_ss, 0);
+	fi;
 
 	penlabels (range 101 thru 121);
 	penlabels (110', 111');
@@ -487,14 +589,100 @@ enddef;
 
 
 fet_beginchar ("G clef", "G");
-	draw_gclef (1.0);
+	draw_gclef (1.0, 0, 0);
 fet_endchar;
 
 
 fet_beginchar ("G clef", "G_change");
-	draw_gclef (0.8);
+	draw_gclef (0.8, 0, 0);
 fet_endchar;
 
+
+fet_beginchar ("double G clef", "GG");
+	draw_gclef (1.0, 1.5, 0);
+fet_endchar;
+
+
+fet_beginchar ("double G clef", "GG_change");
+	draw_gclef (0.8, 1.5, 0);
+fet_endchar;
+
+def draw_tenor_extension (expr reduction) =
+	save reduced_ss, thick, thin, upper_stroke, ne_beam_dir, nw_dist;
+	path upper_stroke;
+	pair ne_beam_dir, nw_dist;
+
+	reduced_ss# = staff_space# * reduction;
+	define_pixels (reduced_ss);
+
+	thin := hround (0.17 reduced_ss);
+	thick := hround (0.51 reduced_ss);
+
+	% the slanted left edge should protrude the g clef by a
+	% fixed amount relative to the width of the g clef:
+	x1'' = x6'' - 1.8 reduced_ss - 0.5 staff_space = 0.62 reduced_ss * reduction;
+	x8'' = x1'' - 2 thin;
+	x2'' = x3'' = x4'' = x6'' - thin;
+	x5'' = x6'';
+	x7'' = x6'' - 1/3 thin;
+	% the thick part of the c clef should be placed in the
+	% center of the forth staff space
+	y1'' = y2'' = 2.5 staff_space + thick/2;
+	y7'' =  y8'' = y6'' - 1/3 thin = y1'' - thick;
+	y5'' = y3'' = y2'' + reduced_ss;
+	y4'' = 4.5 reduced_ss;
+
+	upper_stroke := z2''
+			-- new_bulb (z3'', 90, z4'', z5'', 270,
+				     0.35 reduced_ss, 0.22 reduced_ss, thin, 1, -1)
+			-- z6''{down} .. z7''{left};
+
+	% z1'' and z8'' are helper points that are responsible for
+	% hiding the lower left slant in the g clef's stroke
+	% z9'' and z10'' are computed to obtain nice rounded corners
+
+	pickup pencircle scaled 2/3 thin;
+	lft x9'' = x1'';
+	lft x10'' = x8'';
+
+	top y9'' = y1'';
+	bot y10'' = y8'';
+
+	ne_beam_dir = unitvector (z9'' - z10'');
+	nw_dist = (ne_beam_dir rotated 90) * 1/3 thin;
+
+	fill (z9''+nw_dist){ne_beam_dir}
+	     ... top z9''{right}
+	     -- upper_stroke
+	     -- bot z10''{left}
+	     ... (z10''+nw_dist){ne_beam_dir}
+	     -- cycle;
+
+	% the slanted edge of the lower hook must not be visible, so it is
+	% shifted accordingly in x direction;
+	z1''' = z1'' shifted (staff_space - 0.9 reduced_ss, - staff_space);
+	z8''' = z8'' shifted (staff_space - 0.9 reduced_ss, - staff_space);
+
+	% the visible c clef parts should be symmetrical to the forth staff line
+	fill z1'''
+	     -- reverse upper_stroke yscaled -1 shifted (0, 4 staff_space)
+	     -- z8''' -- cycle;
+
+	penlabels (1''',2'',3'',4'',5'',6'',7'',8''',9'',10'');
+
+	draw_staff_if_debugging (-1, 3);
+enddef;
+
+fet_beginchar ("Tenor G clef", "tenorG");
+	draw_gclef (1.0, 0, 0.75);
+	draw_tenor_extension (1.0);
+fet_endchar;
+
+
+fet_beginchar ("Tenor G clef", "tenorG_change");
+	draw_gclef (0.8, 0, 0.75);
+	draw_tenor_extension (0.8);
+fet_endchar;
 
 %%%%
 %
@@ -533,6 +721,49 @@ fet_endchar;
 
 fet_beginchar ("percussion clef (reduced)", "percussion_change");
 	draw_percussion_clef (.8);
+fet_endchar;
+
+def draw_varpercussion_clef (expr reduction) =
+	save reduced_ss, thin, thick;
+
+	reduced_ss# = staff_space# * reduction;
+	define_pixels (reduced_ss);
+
+	set_char_box (-.67 reduced_ss#, 1.75 reduced_ss#,
+		      1.675 reduced_ss#, 1.675 reduced_ss#);
+
+	thin := hround (0.175 reduced_ss);
+	thick := hround (0.35 reduced_ss);
+
+	d := d - feta_shift;
+
+	draw_block ((-b, -d), (-b + thin, h));
+	draw_block ((w - thin, -d), (w, h));
+
+	pickup penrazor scaled thick rotated 90;
+
+	top z1 = (-b + thin/2, h);
+	top z2 = (w - thin/2, h);
+
+	bot z3 = (-b + thin/2, -d);
+	bot z4 = (w - thin/2, -d);
+
+	draw z1 -- z2;
+	draw z3 -- z4;
+
+	penlabels (range 1 thru 4);
+
+	draw_staff_if_debugging (-3, 1);
+enddef;
+
+
+fet_beginchar ("variant percussion clef", "varpercussion");
+	draw_varpercussion_clef (1.0);
+fet_endchar;
+
+
+fet_beginchar ("variant percussion clef (reduced)", "varpercussion_change");
+	draw_varpercussion_clef (.8);
 fet_endchar;
 
 
