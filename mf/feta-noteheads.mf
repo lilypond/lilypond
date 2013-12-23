@@ -1222,66 +1222,65 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 enddef;
 
 
-save mi_weight, mi_width;
+save mi_weight;
 mi_weight := 2;
-mi_width := 1.2;
 
 fet_beginchar ("Whole mihead", "s0mi");
-	draw_mi_head (mi_width * solfa_whole_width, mi_weight, false);
+	draw_mi_head (solfa_whole_width, mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half mihead", "s1mi");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, false);
+	draw_mi_head (solfa_quarter_width, mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter mihead", "s2mi");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, false);
+	draw_mi_head (solfa_quarter_width, mi_weight, false);
 	fill path_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole mirror mihead", "s0miMirror");
-	draw_mi_head (mi_width * solfa_whole_width, mi_weight, true);
+	draw_mi_head (solfa_whole_width, mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half  mirror mihead", "s1miMirror");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
+	draw_mi_head (solfa_quarter_width, mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter mirror mihead", "s2miMirror");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
+	draw_mi_head (solfa_quarter_width, mi_weight, true);
 	fill path_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole thin mihead", "s0miThin");
-	draw_mi_head (mi_width * solfa_whole_width, 1, false);
+	draw_mi_head (solfa_whole_width, 1, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half thin mihead", "s1miThin");
-	draw_mi_head (mi_width * solfa_quarter_width, 1, false);
+	draw_mi_head (solfa_quarter_width, 1, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter thin mihead", "s2miThin");
-	draw_mi_head (mi_width * solfa_quarter_width, 1, false);
+	draw_mi_head (solfa_quarter_width, 1, false);
 	fill path_out;
 fet_endchar;
 
@@ -1446,9 +1445,10 @@ fet_endchar;
 %       so we can't just use the standard note font.
 %
 def draw_sol_head (expr filled) =
-	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
+	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
 	if not filled:
-	  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+	  undraw_inside_ellipse (2.5 - puff_up_factor / 3.0, 31, 0.707,
+                                 3.5 stafflinethickness#);
 	fi
 	draw_staff_if_debugging (-2, 2);
 enddef;
@@ -1966,12 +1966,11 @@ fet_endchar;
 %       Diamond shape
 %       Has up and down shapes for all hollow notes
 %
-save funk_mi_width, funk_mi_weight;
-funk_mi_width := 1.2;
+save funk_mi_weight;
 funk_mi_weight := 1.9;
 
 fet_beginchar ("Whole up Funk mihead", "u0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
@@ -1979,7 +1978,7 @@ fet_endchar;
 
 
 fet_beginchar ("Whole down Funk mihead", "d0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
@@ -1987,7 +1986,7 @@ fet_endchar;
 
 
 fet_beginchar ("Half up Funk mihead", "u1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
@@ -1995,7 +1994,7 @@ fet_endchar;
 
 
 fet_beginchar ("Half down Funk mihead", "d1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
@@ -2003,7 +2002,7 @@ fet_endchar;
 
 
 fet_beginchar ("Quarter Funk mihead", "s2miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 fet_endchar;
@@ -2511,7 +2510,7 @@ fet_endchar;
 %       Symmetric for all hollow notes
 %
 save walker_mi_width, walker_mi_weight;
-walker_mi_width := 1.2;
+walker_mi_width := 1;
 walker_mi_weight := 1.5;
 
 fet_beginchar ("Whole Walker mihead", "s0miWalker");
