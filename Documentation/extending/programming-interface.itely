@@ -1251,6 +1251,19 @@ Properties that typically use callbacks include
 
 The procedure always takes a single argument, being the grob.
 
+That procedure may access the usual value of the property, by first
+calling the function that is the usual callback for that property, which
+can by found in the Internals Reference or the file 'define-grobs.scm':
+
+@example
+\relative c'' @{
+  \override Flag #'X-offset = #(lambda (flag)
+    (let ((default (ly:flag::calc-x-offset flag)))
+      (* default 4.0)))
+  c4. d8 a4. g8
+@}
+@end example
+
 If routines with multiple arguments must be called, the current grob
 can be inserted with a grob closure.  Here is a setting from
 @code{AccidentalSuggestion},
