@@ -889,20 +889,10 @@ grestore
   "
 @cindex paths, drawing
 @cindex drawing paths
-Draws a path with line thickness @var{thickness} according to the
+Draws a path with line @var{thickness} according to the
 directions given in @var{commands}.  @var{commands} is a list of
 lists where the @code{car} of each sublist is a drawing command and
 the @code{cdr} comprises the associated arguments for each command.
-
-Line-cap styles and line-join styles may be customized by
-overriding the @code{line-cap-style} and @code{line-join-style}
-properties, respectively.  Available line-cap styles are
-@code{'butt}, @code{'round}, and @code{'square}.  Available
-line-join styles are @code{'miter}, @code{'round}, and
-@code{'bevel}.
-
-The property @code{filled} specifies whether or not the path is
-filled with color.
 
 There are seven commands available to use in the list
 @code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
@@ -926,6 +916,16 @@ current subpath in the active path.
 Note that a sequence of commands @emph{must} begin with a
 @code{moveto} or @code{rmoveto} to work with the SVG output.
 
+Line-cap styles and line-join styles may be customized by
+overriding the @code{line-cap-style} and @code{line-join-style}
+properties, respectively.  Available line-cap styles are
+@code{'butt}, @code{'round}, and @code{'square}.  Available
+line-join styles are @code{'miter}, @code{'round}, and
+@code{'bevel}.
+
+The property @code{filled} specifies whether or not the path is
+filled with color.
+
 @lilypond[verbatim,quote]
 samplePath =
   #'((moveto 0 0)
@@ -937,6 +937,10 @@ samplePath =
 
 \\markup {
   \\path #0.25 #samplePath
+
+  \\override #'(line-join-style . miter) \\path #0.25 #samplePath
+
+  \\override #'(filled . #t) \\path #0.25 #samplePath
 }
 @end lilypond"
   (let* ((half-thickness (/ thickness 2))
