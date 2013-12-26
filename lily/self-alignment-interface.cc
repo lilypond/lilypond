@@ -19,10 +19,7 @@
 
 #include "self-alignment-interface.hh"
 
-#include "directional-element-interface.hh"
 #include "grob.hh"
-#include "grob-array.hh"
-#include "interval-minefield.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -199,11 +196,6 @@ ADD_INTERFACE (Self_alignment_interface,
                "@end table\n",
 
                /* properties */
-               "collision-bias "
-               "collision-padding "
-               "potential-X-colliding-grobs "
                "self-alignment-X "
                "self-alignment-Y "
-               "X-colliding-grobs "
-               "Y-colliding-grobs "
               );

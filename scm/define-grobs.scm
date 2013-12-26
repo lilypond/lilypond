@@ -846,8 +846,6 @@
 
         ;; todo.
 
-        (collision-bias . -2.0)
-        (collision-padding . 0.5)
         (direction . ,ly:script-interface::calc-direction)
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-encoding . fetaText)
