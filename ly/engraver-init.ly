@@ -313,6 +313,9 @@ contained staves are connected vertically."
 
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
+% The default for DynamicText.extra-spacing-width causes dynamics to
+% be placed across span bars, so switch it off:
+  \override DynamicText.extra-spacing-width = ##f
   \consists "Span_bar_stub_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "System_start_delimiter_engraver"
@@ -359,6 +362,9 @@ together, never separately."
 
   \consists "Instrument_name_engraver"
   \consists "Span_bar_engraver"
+% The default for DynamicText.extra-spacing-width causes dynamics to
+% be placed across span bars, so switch it off:
+  \override DynamicText.extra-spacing-width = ##f
   \consists "Span_bar_stub_engraver"
   \consists "Span_arpeggio_engraver"
   \consists "Output_property_engraver"
