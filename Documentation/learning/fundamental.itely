@@ -2435,7 +2435,15 @@ lower = \relative c, {
 }
 @end lilypond
 
-None of the templates provides this layout exactly.  The nearest is
+@warning{This layout can be achieved very easily using the built-in
+template: @code{satb.ly}, see @ref{Built-in templates}.  But for ease
+of use this template deliberately hides the necessary context
+structure, instead providing it automatically.  So for purposes of
+learning let us see how to build this up from scratch.  You may need
+to do this if the built-in template does not meet your needs
+adequately.}
+
+The nearest copy-and-edit template to this layout is
 @ref{SATB vocal score and automatic piano reduction} -- but we need
 to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.

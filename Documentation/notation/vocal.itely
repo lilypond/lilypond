@@ -2282,6 +2282,8 @@ Several common topics in choral music are described fully elsewhere:
 @item
 An introduction to creating an SATB vocal score can be found in
 the Learning Manual, see @rlearning{Four-part SATB vocal score}.
+There is also a built-in template which simplifies the entry of
+SATB vocal music, see @rlearning{Built-in templates}.
 
 @item
 Several templates suitable for various styles of choral music can
