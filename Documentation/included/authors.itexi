@@ -142,7 +142,7 @@ happy nitpicker
 
 @item Mats Bengtsson:
 @email{mats.bengtsson@@ee.kth.se},
-@uref{http://www.s3.kth.se/~mabe/},
+@uref{https://www.kth.se/profile/matben/},
 Support guru
 
 @item Pedro Kroeger:
@@ -179,15 +179,19 @@ Core developer, Schemer extraordinaire
 
 Aleksandr Andreev,
 Frédéric Bron,
+Torsten Hämmerle ,
 Marc Hohl,
 James Lowe,
+Andrew Main,
+Thomas Morley,
 David Nalesnik,
 Keith OHara,
 Benkő Pál,
 Anders Pilegaard,
 Julien Rioux,
 Johannes Rohrer,
-Adam Spiers
+Adam Spiers,
+Heikki Tauriainen
 
 @c no comma for last entry
 
@@ -211,9 +215,13 @@ Adam Spiers
 
 Frédéric Bron,
 Federico Bruni,
+Colin Campbell,
+Urs Liska,
 James Lowe,
+Thomas Morley,
 Jean-Charles Malahieude,
 Guy Stalnaker,
+Martin Tarenskeen,
 Arnold Theresius,
 Rodolfo Zitellini
 
@@ -242,6 +250,14 @@ Ralph Palmer
 
 @c use commas not colons
 
+Colin Campbell,
+Eluze,
+Marc Hohl,
+Marek Klein,
+Kieren MacMillan,
+Urs Liska,
+Ralph Palmer
+
 @c no comma for last entry
 
 @end macro
@@ -253,11 +269,12 @@ Ralph Palmer
 @c use commas not colons
 
 Federico Bruni,
+Luca Rossetto Casel,
 Felipe Castro,
 Pavel Fric,
 Jean-Charles Malahieude,
-Till Rettig,
-Luca Rossetto Casel
+Till Paala,
+Yoshiki Sawada
 
 @c no comma for last entry
 
