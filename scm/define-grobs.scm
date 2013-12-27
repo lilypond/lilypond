@@ -2631,6 +2631,7 @@
         (direction . ,tuplet-number::calc-direction)
         (font-shape . italic)
         (font-size . -2)
+        (knee-to-beam . #t)
         (stencil . ,ly:tuplet-number::print)
         (text . ,tuplet-number::calc-denominator-text)
         (X-offset . ,ly:tuplet-number::calc-x-offset)

@@ -528,6 +528,8 @@ bar lines, this is the amount of space after a thick line.")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
+     (knee-to-beam ,boolean? "Determines whether a tuplet number
+will be positioned next to a kneed beam.")
 
 
 ;;;
