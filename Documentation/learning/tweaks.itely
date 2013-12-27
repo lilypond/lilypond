@@ -2766,26 +2766,57 @@ collisions between layout objects like multi-measure rests, ties
 and notes in different voices.
 
 @item
+@code{horizontal-shift}
+
+@cindex horizontal-shift property
+@cindex note column
+@cindex note collisions
+@cindex collisions, notes
+@cindex shift commands
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+Within a voice, all the notes occuring at the same musical moment are
+grouped into a note column, and a @code{NoteColumn} object is created
+to control the horizontal positioning of that group of notes (see
+@qq{Note columns} in @ref{Explicitly instantiating voices}).  If
+@emph{and only if} two or more note columns within a single Staff
+context, both with stems in the same direction, occur at the same
+musical moment, the values of their @code{horizontal-shift} properties
+are used to rank them and the columns in the higher ranks are
+progessively offset to avoid collisions of the noteheads.  This
+property is set by the @code{\voiceXXX} commands and may be overridden
+directly with an @code{\override} command or, more usually, by the
+@code{\shiftOn} commands.  Note that this property is used to
+@emph{rank} the note columns for off-setting - it does not specify the
+magnitude of the offset, which is progressively increased in steps
+based on the note head's width for each rank.  The steps are usually
+of half a note head's width, but may be a full note head's width when
+a closely spaced group of notes is involved.
+
+@item
 @code{force-hshift}
 
 @cindex force-hshift property
 
-Closely spaced notes in a chord, or notes occurring at the same
-time in different voices, are arranged in two, occasionally more,
-columns to prevent the note heads overlapping.  These are called
-note columns, and an object called @code{NoteColumn} is created
-to lay out the notes in that column.
-
 The @code{force-hshift} property is a property of a @code{NoteColumn}
 (actually of the @code{note-column-interface}).  Changing it permits a
-note column to be moved in units appropriate to a note column,
-viz. the note head width of the first voice note.  It should be used
-in complex situations where the normal @code{\shiftOn} commands (see
+note column to be moved in situations where the note columns overlap.
+Note that it has no effect on note columns that do not overlap.
+It is specified in units appropriate to a note column, viz. the note
+head width of the first voice note.  It should be used in complex
+situations where the normal @code{\shiftOn} commands (see
 @ref{Explicitly instantiating voices}) do not resolve the note
-conflict.  It is preferable to the @code{extra-offset} property for
-this purpose as there is no need to work out the distance in
-staff-spaces, and moving the notes into or out of a @code{NoteColumn}
-affects other actions such as merging note heads.
+conflict satisfactorily.  It is preferable to the @code{extra-offset}
+property for this purpose as there is no need to work out the distance
+in staff-spaces, and moving the notes into or out of a
+@code{NoteColumn} affects other actions such as merging note heads.
 
 @end itemize
 
@@ -3188,14 +3219,20 @@ was left looking like this:
 @noindent
 The inner note of the first chord (i.e. the A-flat in the fourth
 Voice) need not be shifted away from the note column of the higher
-note.  To correct this we set @code{force-hshift}, which is a property
-of @code{NoteColumn}, of this note to zero.
+note.  We might expect to correct this by using @code{\shiftOff}, but
+this will cause warnings about clashing note columns.  Instead, we
+set @code{force-hshift}, which is a property of @code{NoteColumn},
+of this note to zero.
 
-In the second chord we prefer the F to line up with the A-flat and the
-lowest note to be positioned slightly right to avoid a collision of
-stems.  We achieve this by setting @code{force-hshift} in the
+In the second chord we prefer the F to line up with the A-flat and
+the lowest note to be positioned slightly right to avoid a collision
+of stems.  We achieve this by setting @code{force-hshift} in the
 @code{NoteColumn} of the low D-flat to move it to the right by half
-a staff-space.
+a staff-space, and setting @code{force-hshift} for the F to zero.
+Note that we use @code{\once} to avoid the settings propagating
+beyond the immediate musical moment, although in this small example
+the @code{\once} and the second @code{\override} in Voice four could
+be omitted.  This would not be good practice.
 
 Here's the final result:
 
@@ -3208,17 +3245,11 @@ Here's the final result:
   <<
     { c2 aes4. bes8 }
     \\
-    {
-      <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
-    }
+    { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
     \\
     \\
-    {
-      \override NoteColumn.force-hshift = #0
-      aes'2 f4 fes
-    }
+    { \once \override NoteColumn.force-hshift = 0 aes'2
+      \once \override NoteColumn.force-hshift = 0 f4 fes }
   >> |
   <c ees aes c>1 |
 }
