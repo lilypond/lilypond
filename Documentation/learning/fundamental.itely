@@ -1172,7 +1172,11 @@ have no shift or the same shift specified, the error message
 
 
 @seealso
-Notation Reference: @ruser{Multiple voices}.
+Learning Manual:
+@ref{Moving objects}.
+
+Notation Reference:
+@ruser{Multiple voices}.
 
 
 @node Voices and vocals
