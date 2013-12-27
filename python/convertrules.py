@@ -3683,7 +3683,7 @@ def conv(str):
     str = re.sub ("New_dynamic_engraver", "Dynamic_engraver", str)
     return str
 
-@rule ((2, 19, 0), r'''(make-relative (a b) b ...) -> make-relative (a b) #{ a b #}...''')
+@rule ((2, 17, 97), r'''(make-relative (a b) b ...) -> make-relative (a b) #{ a b #}...''')
 def conv (str):
     str = re.sub (r"(\(make-relative\s+\(\s*(([A-Za-z][-_A-Za-z0-9]*)" +
                   r"(?:\s+[A-Za-z][-_A-Za-z0-9]*)*)\s*\)\s*)\3(?=\s)",
