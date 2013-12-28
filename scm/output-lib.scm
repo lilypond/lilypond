@@ -731,8 +731,7 @@ and duration-log @var{log}."
 
 (define-public accidental-interface::height
   (ly:make-unpure-pure-container
-   ly:accidental-interface::height
-   ly:accidental-interface::pure-height))
+   ly:accidental-interface::height))
 
 (define-public cancellation-glyph-name-alist
   '((0 . "accidentals.natural")))

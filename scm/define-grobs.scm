@@ -29,6 +29,7 @@
   `(
     (Accidental
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (glyph-name . ,accidental-interface::glyph-name)
@@ -36,7 +37,6 @@
         (stencil . ,ly:accidental-interface::print)
         (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
-        (X-extent . ,ly:accidental-interface::width)
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
@@ -45,6 +45,7 @@
 
     (AccidentalCautionary
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
@@ -74,6 +75,7 @@
 
     (AccidentalSuggestion
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (direction . ,UP)
         (font-size . -2)
@@ -85,7 +87,6 @@
         (side-axis . ,Y)
         (staff-padding . 0.25)
         (stencil . ,ly:accidental-interface::print)
-        (X-extent . ,ly:accidental-interface::width)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,accidental-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)

@@ -213,7 +213,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
 
           Grob *acc = Grob::unsmob (heads[i]->get_object ("accidental-grob"));
           if (acc)
-            acc->get_property ("stencil"); /* trigger tie-related suicide */
+            acc->get_property ("after-line-breaking"); /* trigger tie-related suicide */
 
           if (acc && acc->is_live () && dir == RIGHT)
             {
