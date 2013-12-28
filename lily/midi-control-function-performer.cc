@@ -125,6 +125,7 @@ ADD_TRANSLATOR (Midi_control_function_performer,
                 /* read */
                 "midiBalance "
                 "midiPanPosition "
+                "midiExpression "
                 "midiReverbLevel "
                 "midiChorusLevel ",
 
