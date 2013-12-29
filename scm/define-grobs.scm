@@ -1320,9 +1320,8 @@
      . (
         (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-symbol . left-edge)
-        (break-visibility . ,center-invisible)
+        (break-visibility . ,begin-of-line-visible)
         (non-musical . #t)
-        (extra-spacing-height . (+inf.0 . -inf.0))
         (space-alist . (
                         (ambitus . (extra-space . 2.0))
                         (breathing-sign . (minimum-space . 0.0))
