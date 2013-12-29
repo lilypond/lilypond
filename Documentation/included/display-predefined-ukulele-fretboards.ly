@@ -3,9 +3,7 @@
 
 
 mychords = \chordmode {
-  c1 c:m c:aug c:dim c:7 c:maj7 c:m7
-  c:6 c:sus2 c:sus4 c:9
-  \break
+  c1 c:m c:aug c:dim c:7 c:maj7 c:m7 c:6 c:sus2 c:sus4 c:9 \break
 }
 
 chordsline = {
@@ -22,7 +20,7 @@ chordsline = {
   \transpose c dis {
     \mychords
   }
- \transpose c ees {
+  \transpose c ees {
     \mychords
   }
   \transpose c e {
@@ -60,15 +58,20 @@ chordsline = {
   }
 }
 
-<<
-  \new ChordNames {
-    \chordsline
+\score {
+  <<
+    \new ChordNames {
+      \chordsline
+    }
+    \new FretBoards {
+      \set Staff.stringTunings = #ukulele-tuning
+      \chordsline
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \remove "Bar_number_engraver"
+    }
   }
-  \new FretBoards {
-    \set Staff.stringTunings = #ukulele-tuning
-    \chordsline
-  }
-  \new Staff {
-    \chordsline
-  }
->>
+}

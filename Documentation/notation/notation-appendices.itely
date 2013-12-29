@@ -431,15 +431,24 @@ The chart below shows the predefined string tunings.
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
 
-The chart below shows the predefined fretboard diagrams for guitar.
+@menu
+* Diagrams for Guitar::
+* Diagrams for Ukulele::
+* Diagrams for Mandolin::
+@end menu
+
+@node Diagrams for Guitar
+@unnumberedsubsec Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
-The chart below shows the predefined fretboard diagrams for ukulele.
+@node Diagrams for Ukulele
+@unnumberedsubsec Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
-The chart below shows the predefined fretboard diagrams for mandolin.
+@node Diagrams for Mandolin
+@unnumberedsubsec Diagrams for Mandolin
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 
