@@ -239,24 +239,6 @@ g1 |
 The @code{measureLength} property is described in @ref{Time
 administration}.
 
-@funindex \inStaffSegno
-
-The @code{\inStaffSegno} command can be used to place the segno
-symbol in cooperation with the @code{\repeat volta} command.
-Alternative bar line symbols can be set in a Score context by
-overriding the properties @code{segnoType},
-@code{startRepeatSegnoType}, @code{endRepeatSegnoType} or
-@code{doubleRepeatSegnoType} as required.
-
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno
-  f2 g a b
-}
-c1_"D.S." \bar "|."
-@end lilypond
-
 @cindex repeats, with ties
 @cindex alternative endings, with ties
 @cindex ties, in repeats
@@ -272,6 +254,83 @@ c1
   { f2 d }
   { f2\repeatTie f, }
 }
+@end lilypond
+
+@funindex \inStaffSegno
+@cindex repeats, with segno
+@cindex segno, with repeats
+
+The @code{\inStaffSegno} command can be used to generate a composite
+bar line incorporating the segno symbol with the appropriate repeat
+bar line when used with the @code{\repeat volta} command.  The
+correct type of repeat bar line, viz. start repeat, end repeat or
+double repeat, is selected automatically.  Note that the
+corresponding @qq{D.S.} mark must be added manually.
+
+Away from a repeat:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\inStaffSegno
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+At the start of a repeat:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno  % start repeat
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+At the end of a repeat:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+  \inStaffSegno  % end repeat
+}
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Between two repeats:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+}
+\inStaffSegno  % double repeat
+\repeat volta 2 {
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+Alternative bar line symbols can be obtained by setting (in the Score
+context) the properties @code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} or @code{doubleRepeatSegnoType} to the
+required bar line type.  The alternative bar line types must be
+selected from the pre-defined types or types previously defined
+with the @code{\defineBarLine} command (see @ref{Bar lines}).
+
+@lilypond[verbatim,quote,relative=1]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+e1
+\repeat volta 2 {
+  f2 g a b
+  \once \set Score.endRepeatSegnoType = ":|.S["
+  \inStaffSegno
+}
+f2 g \bar "]" a b
+c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets

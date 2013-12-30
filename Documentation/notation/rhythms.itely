@@ -2812,9 +2812,10 @@ c4 c c c \break
 c1
 @end lilypond
 
-Additionally there is an @code{\inStaffSegno} command which
-creates a segno bar, placed in cooperation
-with the @code{\repeat volta} command.
+Additionally there is an @code{\inStaffSegno} command which creates
+a segno bar line in conjunction with an appropriate repeat bar line
+when used with a @code{\repeat volta} command, see
+@ref{Normal repeats}.
 
 @funindex \defineBarLine
 @funindex defineBarLine
