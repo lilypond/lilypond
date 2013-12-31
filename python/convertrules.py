@@ -3693,6 +3693,10 @@ def conv (str):
                   r"\1(make-sequential-music (list \2))", str)
     return str
 
+@rule ((2, 18, 0),
+       _ ("bump version for release"))
+def conv (str):
+    return str
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
