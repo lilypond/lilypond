@@ -1,7 +1,5 @@
 " LilyPond filetype plugin
 " Language:     LilyPond (ft=ly)
-" Maintainer:   Heikki Junes <hjunes@cc.hut.fi>
-" Last Change:  2010 Jul 26
 "
 " Installed As:	vim/ftplugin/lilypond.vim
 " Uses Generated File:	vim/syntax/lilypond-words.vim
@@ -25,8 +23,8 @@ map <buffer> <F4> :w<Return>:se makeprg=lilypond\ \"%<\"<Return>:make<Return>:!t
 " <F5>  save & make
 map <buffer> <F5> :w<Return>:se makeprg=lilypond\ \"%<\"<Return>:make<Return>
 "
-" <F6>  view ps with ghostview
-map <buffer> <F6> :!gv --watch "%<.ps" &<Return>
+" <F6>  view pdf with ghostview
+map <buffer> <F6> :!gv --watch "%<.pdf" &<Return>
 "
 " <F7>  prev error
 map <buffer> <F7> :cp<Return>
