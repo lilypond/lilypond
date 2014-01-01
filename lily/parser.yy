@@ -433,7 +433,7 @@ toplevel_expression:
 	}
 	| SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
-		parser->lexer_->eval_scm_token ($1);
+		parser->lexer_->eval_scm_token ($1, @1);
 	}
 	| embedded_scm_active
 	{
@@ -471,7 +471,7 @@ toplevel_expression:
 embedded_scm_bare:
 	SCM_TOKEN
 	{
-		$$ = parser->lexer_->eval_scm_token ($1);
+		$$ = parser->lexer_->eval_scm_token ($1, @1);
 	}
 	| SCM_IDENTIFIER
 	;
@@ -485,7 +485,7 @@ embedded_scm_bare_arg:
 	SCM_ARG
 	| SCM_TOKEN
 	{
-		$$ = parser->lexer_->eval_scm_token ($1);
+		$$ = parser->lexer_->eval_scm_token ($1, @1);
 	}
 	| FRACTION
 	| full_markup_list
@@ -794,7 +794,7 @@ book_body:
 	}
 	| book_body SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
-		parser->lexer_->eval_scm_token ($2);
+		parser->lexer_->eval_scm_token ($2, @2);
 	}
 	| book_body embedded_scm_active
 	{
@@ -864,7 +864,7 @@ bookpart_body:
 	}
 	| bookpart_body SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
-		parser->lexer_->eval_scm_token ($2);
+		parser->lexer_->eval_scm_token ($2, @2);
 	}
 	| bookpart_body embedded_scm_active
 	{
