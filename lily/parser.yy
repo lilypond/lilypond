@@ -37,17 +37,17 @@
 #define YYLLOC_DEFAULT(Current,Rhs,N) \
 	((Current).set_location ((Rhs)[1], (Rhs)[N]))
 
-#define YYPRINT(file, type, value)                                      \
-        do {                                                            \
-                if (scm_is_eq (value, SCM_UNSPECIFIED))                 \
-                        break;                                          \
-                char *p = scm_to_locale_string                          \
-                        (scm_simple_format (SCM_BOOL_F,                 \
-                                            scm_from_locale_string ("~S"), \
-                                            scm_list_1 (value)));       \
-                fputs (p, file);                                        \
-                free (p);                                               \
-        } while (0)
+#define YYPRINT(file, type, value)					\
+	do {								\
+		if (scm_is_eq (value, SCM_UNSPECIFIED))			\
+			break;						\
+		SCM s = scm_call_2 (ly_lily_module_constant ("value->lily-string"), \
+				    value,				\
+				    parser->self_scm ());		\
+		char *p = scm_to_locale_string (s);			\
+		fputs (p, file);					\
+		free (p);						\
+	} while (0)
 
 %}
 
