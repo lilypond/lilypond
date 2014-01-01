@@ -361,12 +361,11 @@ BOM_UTF8	\357\273\277
 	  }
 }
 <incl>(\$|#) { // scm for the filename
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
-	sval = eval_scm (sval);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	sval = eval_scm (sval, hi);
+	int n = hi.end () - hi.start ();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -416,15 +415,14 @@ BOM_UTF8	\357\273\277
 	return MULTI_MEASURE_REST;
 }
 <INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
 
 	if (sval == SCM_UNDEFINED)
 		error_level_ = 1;
 
+	int n = hi.end () - hi.start ();
 	for (int i = 0; i < n; i++)
 	{
 		yyinput ();
@@ -436,11 +434,11 @@ BOM_UTF8	\357\273\277
 }
 
 <INITIAL,chords,figures,lyrics,markup,notes>\$	{ //immediate scm
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+
+	int n = hi.end () - hi.start ();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -448,7 +446,7 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	sval = eval_scm (sval, '$');
+	sval = eval_scm (sval, hi, '$');
 
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
@@ -1109,14 +1107,14 @@ Lily_lexer::is_figure_state () const
 // this function is private.
 
 SCM
-Lily_lexer::eval_scm (SCM readerdata, char extra_token)
+Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 {
 	SCM sval = SCM_UNDEFINED;
 
 	if (!SCM_UNBNDP (readerdata))
 	{
-		sval = ly_eval_scm (scm_car (readerdata),
-				    *unsmob_input (scm_cdr (readerdata)),
+		sval = ly_eval_scm (readerdata,
+				    hi,
 				    be_safe_global && is_main_input_,
 				    parser_);
 	}
