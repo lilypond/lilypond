@@ -808,13 +808,19 @@ Otherwise, return #f."
                       (music->lily-string element parser))
         #f)))
 
-(define (property-value->lily-string arg parser)
+(define-public (value->lily-string arg parser)
   (cond ((ly:music? arg)
          (music->lily-string arg parser))
         ((string? arg)
          (format #f "#~s" arg))
         ((markup? arg)
          (markup->lily-string arg))
+        ((ly:duration? arg)
+         (format #f "##{ ~a #}" (duration->lily-string arg #:force-duration #t)))
+        ((ly:pitch? arg)
+         (format #f "~a~a"
+                 (note-name->lily-string arg parser)
+                 (octave->lily-string arg)))
         (else
          (format #f "#~a" (scheme-expr->lily-string arg)))))
 
@@ -830,7 +836,7 @@ Otherwise, return #f."
                 ""
                 (format #f "~a . " (*current-context*)))
             property
-            (property-value->lily-string value parser)
+            (value->lily-string value parser)
             (new-line->lily-string))))
 
 (define-display-method PropertyUnset (expr parser)
@@ -858,7 +864,7 @@ Otherwise, return #f."
             (if (eqv? (*current-context*) 'Bottom)
                 (cons symbol properties)
                 (cons* (*current-context*) symbol properties))
-            (property-value->lily-string value parser)
+            (value->lily-string value parser)
             (new-line->lily-string))))
 
 (define-display-method RevertProperty (expr parser)
