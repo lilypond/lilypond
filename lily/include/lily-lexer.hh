@@ -50,9 +50,13 @@ private:
   SCM scopes_;
   SCM start_module_;
   Input override_input_;
-  SCM eval_scm (SCM, char extra_token = 0);
+  SCM eval_scm (SCM, Input, char extra_token = 0);
 public:
-  SCM eval_scm_token (SCM sval) { return eval_scm (sval, '#'); }
+  SCM eval_scm_token (SCM sval, Input w)
+  {
+    w.step_forward ();
+    return eval_scm (sval, w, '#');
+  }
   SCM extra_tokens_;
   SCM *lexval_;
   Input *lexloc_;
