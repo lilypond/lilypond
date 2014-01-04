@@ -5,7 +5,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 1998--2012  Han-Wen Nienhuys <hanwen@xs4all.nl>
+# Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
@@ -76,7 +76,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2012',
+''' % ( _ ('Copyright (c) %s by') % '2001--2014',
         ' '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))

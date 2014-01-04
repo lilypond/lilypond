@@ -1,5 +1,5 @@
 # Translation of LilyPond
-# Copyright (C) 1998--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen.
+# Copyright (C) 1998--2014 Han-Wen Nienhuys, Jan Nieuwenhuizen.
 # This file is distributed under the same license as the LilyPond package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -1497,7 +1497,7 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2012 by\n"
+"Copyright (c) 2005--2014 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
