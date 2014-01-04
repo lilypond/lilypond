@@ -161,6 +161,16 @@ reboot the virtual machine.  It will not try to restart the installer
 but start the virtual machine proper. LilyDev is now installed and
 running!
 
+@item
+The current version of LilyPond requires the texlive-lang-cyrillic
+package.  This package is not part of LilyDev 2.6.  Add the package
+to LilyDev with:
+
+@example
+sudo apt-get install texlive-lang-cyrillic
+@end example
+
+
 @end enumerate
 
 @knownissues
