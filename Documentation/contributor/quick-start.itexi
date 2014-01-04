@@ -68,6 +68,12 @@ Some advanced users might want this file too:
 @end smallexample
 (If you don't recognize what this file is, then you don't need it.)
 
+An alternate site for obtaining these files is available:
+@smallexample
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-LilyDev-remix-2.6.iso}
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-LilyDev-remix-2.6.iso.md5}
+@end smallexample
+
 
 @node Installing LilyDev in VirtualBox
 @unnumberedsubsec Installing LilyDev in VirtualBox
