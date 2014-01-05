@@ -121,7 +121,8 @@ multiple projects concurrently.
 @subsection Setting up
 
 @warning{These instructions assume that you are using the
-command-line version of Git 1.7 or higher.}
+command-line version of Git 1.5 or higher.  Windows users should
+skip to @ref{Git on Windows}.}
 
 @menu
 * Installing Git::
@@ -612,6 +613,8 @@ hopefully be documented in the near future.
 @menu
 * Organization of remote branches::
 * LilyPond repository sources::
+* Downloading individual branches::
+* Downloading all remote branches::
 * Other branches::
 @end menu
 
@@ -665,6 +668,107 @@ http://git.sv.gnu.org/r/lilypond.git
 The SSH protocol can only be used if your system is properly set
 up to use it.  Also, the HTTP protocol is slowest, so it should
 only be used as a last resort.
+
+
+@node Downloading individual branches
+@unnumberedsubsubsec Downloading individual branches
+
+@warning{obsolete, should be deleted!}
+
+
+Once you have initialized an empty Git repository on your system
+(see @ref{Initializing a repository}), you can download a remote
+branch into it.  Make sure you know which branch you want to start
+with.
+
+To download the @code{master} branch, enter the following:
+
+@example
+git remote add -ft master -m master \
+  origin git://git.sv.gnu.org/lilypond.git/
+@end example
+
+To download the @code{translation} branch, enter:
+
+@example
+git remote add -ft translation -m \
+  translation origin git://git.sv.gnu.org/lilypond.git/
+@end example
+
+The @command{git@tie{}remote@tie{}add} process could take up to
+ten minutes, depending on the speed of your connection.  The
+output will be something like this:
+
+@example
+Updating origin
+remote: Counting objects: 235967, done.
+remote: Compressing objects: 100% (42721/42721), done.
+remote: Total 235967 (delta 195098), reused 233311 (delta 192772)
+Receiving objects: 100% (235967/235967), 68.37 MiB | 479 KiB/s, done.
+Resolving deltas: 100% (195098/195098), done.
+From git://git.sv.gnu.org/lilypond
+ * [new branch]      master     -> origin/master
+From git://git.sv.gnu.org/lilypond
+ * [new tag]         flower/1.0.1 -> flower/1.0.1
+ * [new tag]         flower/1.0.10 -> flower/1.0.10
+⋮
+ * [new tag]         release/2.9.6 -> release/2.9.6
+ * [new tag]         release/2.9.7 -> release/2.9.7
+@end example
+
+When @command{git@tie{}remote@tie{}add} is finished, the remote
+branch should be downloaded into your repository---though not yet
+in a form that you can use.  In order to browse the source code
+files, you need to @emph{create} and @emph{checkout} your own
+local branch.  In this case, however, it is easier to have Git
+create the branch automatically by using the @command{checkout}
+command on a non-existent branch.  Enter the following:
+
+@example
+git checkout -b @var{branch} origin/@var{branch}
+@end example
+
+@noindent
+where @code{@var{branch}} is the name of your tracking branch,
+either @code{master} or @code{translation}.
+
+Git will issue some warnings; this is normal:
+
+@example
+warning: You appear to be on a branch yet to be born.
+warning: Forcing checkout of origin/master.
+Branch master set up to track remote branch master from origin.
+Already on 'master'
+@end example
+
+By now the source files should be accessible---you should be able
+to edit any files in the @file{$LILYPOND_GIT} directory using a
+text editor of your choice.  But don't start just yet!  Before
+editing any source files, learn how to keep your changes organized
+and prevent problems later---read @ref{Basic Git procedures}.
+
+@subsubheading Technical Details
+
+The @command{git@tie{}remote@tie{}add} command should add some
+lines to your local repository's @file{.git/config} file:
+
+@example
+[remote "origin"]
+        url = git://git.sv.gnu.org/lilypond.git/
+        fetch = +refs/heads/master:refs/remotes/origin/master
+@end example
+
+
+@node Downloading all remote branches
+@unnumberedsubsubsec Downloading all remote branches
+
+
+To download all remote branches at once, you can @command{clone}
+the entire repository:
+
+@example
+git clone git://git.sv.gnu.org/lilypond.git
+@end example
 
 
 @node Other branches
@@ -1372,6 +1476,7 @@ several Git branches of LilyPond source code is presented.
 * Advanced Git concepts::
 * Resolving conflicts::
 * Reverting all local changes::
+* Working with remote branches::
 * Git log::
 * Applying remote patches::
 * Sending and receiving patches via email::
@@ -1426,6 +1531,46 @@ commit, which is called the @emph{head} of the branch; when
 referring to a branch, one often actually thinks about its head
 and the ancestor commits of the head.
 
+Now we will explain the two last commands you used to get the
+source code from Git---see @ref{Downloading individual branches}.
+
+@example
+git remote add -ft @var{branch} -m @var{branch} \
+  origin git://git.sv.gnu.org/lilypond.git/
+
+git checkout -b @var{branch} origin/@var{branch}
+@end example
+
+The @command{git@tie{}remote} has created a branch called
+@code{origin/@var{branch}} in your local Git repository.  As this
+branch is a copy of the remote branch web from git.sv.gnu.org
+LilyPond repository, it is called a @emph{remote branch}, and is
+meant to track the changes on the branch from git.sv.gnu.org: it
+will be updated every time you run
+@command{git@tie{}pull@tie{}origin} or
+@command{git@tie{}fetch@tie{}origin}.
+
+The @command{git@tie{}checkout} command has created a branch named
+@code{@var{branch}}.  At the beginning, this branch is identical
+to @code{origin/@var{branch}}, but it will differ as soon as you
+make changes, e.g. adding newly translated pages or editing some
+documentation or code source file.  Whenever you pull, you merge
+the changes from @code{origin/@var{branch}} and
+@code{@var{branch}} since the last pulling.  If you do not have
+push (i.e. @qq{write}) access on git.sv.gnu.org, your
+@code{@var{branch}} will always differ from
+@code{origin/@var{branch}}.  In this case, remember that other
+people working like you with the remote branch @code{@var{branch}}
+of git://git.sv.gnu.org/lilypond.git/ (called
+@code{origin/@var{branch}} on your local repository) know nothing
+about your own @code{@var{branch}}: this means that whenever you
+use a committish or make a patch, others expect you to take the
+latest commit of @code{origin/@var{branch}} as a reference.
+
+Finally, please remember to read the man page of every Git command
+you will find in this manual in case you want to discover
+alternate methods or just understand how it works.
+
 
 @node Resolving conflicts
 @subsection Resolving conflicts
@@ -1457,6 +1602,77 @@ but at least you get back to the current online version:
 @example
 git reset --hard origin/master
 @end example
+
+
+@node Working with remote branches
+@subsection Working with remote branches
+
+
+@subsubheading Fetching new branches from git.sv.gnu.org
+
+To fetch and check out a new branch named @code{@var{branch}} on
+git.sv.gnu.org, run from top of the Git repository
+
+@example
+git config --add remote.origin.fetch \
+  +refs/heads/@var{branch}:refs/remotes/origin/@var{branch}
+
+git checkout --track -b @var{branch} origin/@var{branch}
+@end example
+
+After this, you can pull @code{@var{branch}} from git.sv.gnu.org
+with:
+
+@example
+git pull
+@end example
+
+Note that this command generally fetches all branches you added
+with @command{git@tie{}remote@tie{}add} (when you initialized the
+repository) or @command{git@tie{}config@tie{}--add}, i.e. it
+updates all remote branches from remote @code{origin}, then it
+merges the remote branch tracked by the current branch into the
+current branch.  For example, if your current branch is
+@code{master}, @code{origin/master} will be merged into
+@code{master}.
+
+
+@subsubheading Local clones, or having several working trees
+
+If you play with several Git branches, e.g. @code{master},
+@code{translation}, @code{stable/2.12}), you may want to
+have one source and build tree for each branch; this is possible
+with subdirectories of your local Git repository, used as local
+cloned subrepositories.  To create a local clone for the branch
+named @code{@var{branch}}, run
+
+@example
+git checkout @var{branch}
+git clone -lsn . @var{subdir}
+cd @var{subdir}
+git reset --hard
+@end example
+
+Note that @code{@var{subdir}} must be a directory name which does
+not already exist.  In @code{@var{subdir}}, you can use all Git
+commands to browse revisions history, commit and uncommit changes;
+to update the cloned subrepository with changes made on the main
+repository, cd into @code{@var{subdir}} and run
+@command{git@tie{}pull}; to send changes made on the subrepository
+back to the main repository, run @command{git@tie{}push} from
+@code{@var{subdir}}.  Note that only one branch (the currently
+checked out branch) is created in the subrepository by default; it
+is possible to have several branches in a subrepository and do
+usual operations (checkout, merge, create, delete...) on these
+branches, but this possibility is not detailed here.
+
+When you push @code{@var{branch}} from @code{@var{subdir}} to the
+main repository, and @code{@var{branch}} is checked out in the
+main repository, you must save uncommitted changes (see
+@command{git@tie{}stash}) and do
+@command{git@tie{}reset@tie{}--hard} in the main repository in
+order to apply pushed changes in the working tree of the main
+repository.
 
 
 @node Git log
