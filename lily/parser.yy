@@ -2683,6 +2683,7 @@ chord_body_element:
 music_function_chord_body:
 	music_function_call
 	| MUSIC_IDENTIFIER
+	| embedded_scm
 	;
 
 // Event functions may only take closed arglists, otherwise it would
