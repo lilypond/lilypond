@@ -1,3 +1,5 @@
+\version "2.18.0"
+
 \header {
   texidoc = "@code{make-relative} has to copy its argument expressions
 in case the generated music expression is getting copied and modified.
