@@ -125,10 +125,9 @@ advisable to always create staves and voices explicitly.}
 For now, though, let us return to the first example and examine the
 @code{\score} command, leaving the others to default.
 
-A @code{\score} block must always contain just one music expression,
-and this must appear immediately after the @code{\score} command.
-Remember that a music expression could be anything from a single
-note to a huge compound expression like
+A @code{\score} block must always contain exactly one music
+expression.  Remember that a music expression could be anything
+from a single note to a huge compound expression like
 
 @example
 @{
@@ -269,11 +268,11 @@ We didn't skip over it at all.  The big mystery is simply that
 there @emph{is} no mystery.  This line explains it all:
 
 @quotation
-@emph{A @code{\score} block must begin with a compound music expression.}
+@emph{A @code{\score} block must contain exactly one music expression.}
 @end quotation
 
 @noindent
-To understand what is meant by a music expression and a compound
+To understand what is meant by a
 music expression, you may find it useful to review the tutorial,
 @ref{Music expressions explained}.  In that section, we saw how to
 build big music expressions from small pieces -- we started from
