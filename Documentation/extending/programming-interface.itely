@@ -25,7 +25,6 @@ not familiar with Scheme, you may wish to read our
 * Markup functions::
 * Contexts for programmers::
 * Callback functions::
-* Inline Scheme code::
 * Difficult tweaks::
 @end menu
 
@@ -1304,8 +1303,10 @@ my-callback = #(lambda (grob)
                  (grob-interpret-markup grob (markup "foo")))
 @end example
 
-@node Inline Scheme code
-@section Inline Scheme code
+@ignore
+
+@n ode Inline Scheme code
+@s ection Inline Scheme code
 
 TODO: after this section had been written, LilyPond has improved
 to the point that finding a @emph{simple} example where one would
@@ -1352,6 +1353,7 @@ font size is prepended to the property list with the
 written back with @code{set!}.  The last element of the
 @code{let} block is the return value, @code{m} itself.
 
+@end ignore
 
 
 @node Difficult tweaks
