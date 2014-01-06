@@ -598,8 +598,8 @@ However, the default @code{\drummode} does not include the
     <<
       {
         hh8[ hh] <hh sn> hh16
-        < \parenthesize sn > hh
-        < \parenthesize sn > hh8 <hh sn> hh
+        \parenthesize sn  hh
+        \parenthesize sn  hh8 <hh sn> hh
       } \\
       {
         bd4 r4 bd8 bd r8 bd
@@ -608,10 +608,6 @@ However, the default @code{\drummode} does not include the
   }
 >>
 @end lilypond
-
-@noindent
-Also note that you must add chords (@code{< >} brackets)
-around each @code{\parenthesize} statement.
 
 @seealso
 Snippets:
