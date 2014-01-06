@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading LilyPond 2.19.0 released  @emph{January 5, 2014}
+
+We are happy to announce the release of LilyPond 2.19.0.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
 @subsubheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
 
 We are proud to announce the release of GNU LilyPond 2.18.0.
