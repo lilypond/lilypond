@@ -573,6 +573,16 @@ try LilyPond, first read about our @ref{Text input}.
 @node Productions
 @unnumberedsec Productions
 
+@divClass{column-center-top}
+
+@subheading Productions using LilyPond
+
+Here you can read about people who actually use LilyPond
+in their productions, be it for performances of their
+music or as published scores.
+
+@divEnd
+
 @divClass{column-left-top}
 @subheading Concerts
 
