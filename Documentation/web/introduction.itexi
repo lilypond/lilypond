@@ -296,6 +296,10 @@ already decided to try LilyPond, first read about our
 @node Examples
 @unnumberedsec Examples
 
+@divClass{column-center-top}
+
+@subheading Beautiful examples
+
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
 
@@ -422,6 +426,7 @@ contributed by Hu Haipeng, a blind composer.
 @exampleImage{orchestra}
 @newsEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
