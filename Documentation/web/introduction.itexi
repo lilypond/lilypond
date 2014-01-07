@@ -556,9 +556,11 @@ LilyPond, first read about our @ref{Text input}.
 We have an extensive essay describing computational aesthetics:
 the art of creating beauty with a computer.
 
-If you just want a quick introduction to LilyPond, the essay might
-be too much material to read.  If you would like to read it now,
-please progress to @ref{Essay}.
+This is interesting reading if you are interested in an in-depth
+discussion of our fundamental ideas.  Due to its volume the
+essay is available as a "manual".  If you would like to read
+it now, please progress to @ref{Essay}.  However, if you just
+want a quick introduction to LilyPond, you might skip it for now.
 @divEnd
 
 @divClass{column-center-bottom}
