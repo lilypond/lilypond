@@ -731,6 +731,12 @@ If you've already decided to try LilyPond, first read about our
 @node Reviews
 @unnumberedsec Reviews
 
+@divClass{column-center-top}
+@subheading What do people say about LilyPond?
+
+@divEnd
+
+
 @divClass{column-left-top}
 @subheading Published articles
 
