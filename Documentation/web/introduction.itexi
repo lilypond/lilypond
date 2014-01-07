@@ -20,10 +20,14 @@ soulless look of computer-printed sheet music.  Musicians prefer
 reading beautiful music, so why couldn't programmers write
 software to produce elegant printed parts?
 
-The result is a system which frees musicians from the details of
-layout, allowing them to focus on making music.  LilyPond works
-with them to create publication-quality parts, crafted in the best
-traditions of classical music engraving.
+The result is a program that creates beautiful sheet music
+following the best traditions of classical music engraving.
+It takes care of the details of layout programmatically,
+allowing composers, transcribers and publishers to focus
+on the @emph{music} instead of improving their software's
+default output.  Performers will get parts that let them
+concentrate on @emph{playing} music instead of @emph{reading} it.
+
 
 @divEnd
 
