@@ -1008,7 +1008,8 @@ paper_block:
 
 output_def:
 	output_def_body '}' {
-		$$ = $1;
+		if (scm_is_pair ($1))
+			$$ = scm_car ($1);
 
 		parser->lexer_->remove_scope ();
 		parser->lexer_->pop_state ();
@@ -1054,8 +1055,11 @@ music_or_context_def:
 
 output_def_body:
 	output_def_head_with_mode_switch '{' {
-		$$ = $1;
-		unsmob_output_def ($$)->input_origin_.set_spot (@$);
+		unsmob_output_def ($1)->input_origin_.set_spot (@$);
+		// This is a stupid trick to mark the beginning of the
+		// body for deciding whether to allow
+		// embedded_scm_active to have an output definition
+		$$ = scm_list_1 ($1);
 	}
 	| output_def_head_with_mode_switch '{' OUTPUT_DEF_IDENTIFIER 	{
 		Output_def *o = unsmob_output_def ($3);
@@ -1065,13 +1069,49 @@ output_def_body:
 		parser->lexer_->add_scope (o->scope_);
 	}
 	| output_def_body assignment  {
-
+		if (scm_is_pair ($1))
+			$$ = scm_car ($1);
 	}
-	| output_def_body embedded_scm  {
-
+	| output_def_body embedded_scm_active
+	{
+		// We don't switch into note mode for Scheme functions
+		// here.  Does not seem warranted/required in output
+		// definitions.
+		if (scm_is_pair ($1))
+		{
+			Output_def *o = unsmob_output_def ($2);
+			if (o) {
+				o->input_origin_.set_spot (@$);
+				$1 = o->self_scm ();
+				parser->lexer_->remove_scope ();
+				parser->lexer_->add_scope (o->scope_);
+				$2 = SCM_UNSPECIFIED;
+			} else
+				$1 = scm_car ($1);
+		}
+		if (unsmob_context_def ($2))
+			assign_context_def (unsmob_output_def ($1), $2);
+		// Seems unlikely, but let's be complete:
+		else if (unsmob_music ($2))
+		{
+			SCM proc = parser->lexer_->lookup_identifier
+				("output-def-music-handler");
+			scm_call_3 (proc, parser->self_scm (),
+				    $1, $2);
+		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+			parser->parser_error (@2, _("bad expression type"));
+		$$ = $1;
+	}
+	| output_def_body SCM_TOKEN {
+		if (scm_is_pair ($1))
+			$$ = scm_car ($1);
+		// Evaluate and ignore #xxx, as opposed to \xxx
+		parser->lexer_->eval_scm_token ($2, @2);
 	}
 	| output_def_body
 	{
+		if (scm_is_pair ($1))
+			$1 = scm_car ($1);
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} music_or_context_def
@@ -1086,6 +1126,7 @@ output_def_body:
 			scm_call_3 (proc, parser->self_scm (),
 				    $1, $3);
 		}
+		$$ = $1;
 	}
 	| output_def_body error {
 
