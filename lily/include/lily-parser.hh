@@ -25,8 +25,7 @@
 #include "pitch.hh"
 
 /**
-   State for the parser.  Do not ever add any variables to parse
-   musical content here.  We still have to remove default_duration_.
+   State for the parser.
 
    TODO: interface is too complicated
 */
@@ -38,6 +37,7 @@ public:
   Lily_lexer *lexer_;
   Sources *sources_;
   Duration default_duration_;
+  int default_tremolo_type_;
   string output_basename_;
   SCM closures_;
 
