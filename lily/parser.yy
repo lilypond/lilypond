@@ -349,7 +349,6 @@ If we give names, Bison complains.
 %token MUSIC_IDENTIFIER
 %token NOTENAME_PITCH
 %token NUMBER_IDENTIFIER
-%token OUTPUT_DEF_IDENTIFIER
 %token REAL
 %token RESTNAME
 %token SCM_ARG
@@ -1060,13 +1059,6 @@ output_def_body:
 		// body for deciding whether to allow
 		// embedded_scm_active to have an output definition
 		$$ = scm_list_1 ($1);
-	}
-	| output_def_head_with_mode_switch '{' OUTPUT_DEF_IDENTIFIER 	{
-		Output_def *o = unsmob_output_def ($3);
-		o->input_origin_.set_spot (@$);
-		$$ = o->self_scm ();
-		parser->lexer_->remove_scope ();
-		parser->lexer_->add_scope (o->scope_);
 	}
 	| output_def_body assignment  {
 		if (scm_is_pair ($1))
@@ -3636,12 +3628,8 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = unsmob_duration (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;
 	} else if (unsmob_output_def (sid)) {
-		Output_def *p = unsmob_output_def (sid);
-		p = p->clone ();
-
-		*destination = p->self_scm ();
-		p->unprotect ();
-		return OUTPUT_DEF_IDENTIFIER;
+		*destination = unsmob_output_def (sid)->clone ()->unprotect ();
+		return SCM_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		*destination = unsmob_score (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
