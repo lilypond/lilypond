@@ -34,14 +34,6 @@ class Lily_parser
 {
   DECLARE_SMOBS (Lily_parser);
 
-  char const *here_str0 () const;
-  Simultaneous_music *get_chord (Pitch tonic,
-                                 vector<Pitch> *adds, vector<Pitch> *subs,
-                                 Pitch *inversion, Pitch *bass, Duration d);
-  void set_chord_tremolo (int type);
-  void set_last_duration (Duration const *);
-  void set_last_pitch (Pitch const *);
-
 public:
   Lily_lexer *lexer_;
   Sources *sources_;

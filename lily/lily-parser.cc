@@ -195,12 +195,6 @@ Lily_parser::clear ()
   lexer_ = 0;
 }
 
-char const *
-Lily_parser::here_str0 () const
-{
-  return lexer_->here_str0 ();
-}
-
 void
 Lily_parser::parser_error (const string &s)
 {
