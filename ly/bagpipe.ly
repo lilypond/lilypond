@@ -9,7 +9,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.17.30"
+\version "2.19.0"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -71,8 +71,9 @@ quarterBeaming = {
   \set Staff.beamExceptions = #'()
 }
 halfBeaming = {
-  \set Staff.beamExceptions = #'((end . (((1 . 8) . (4 4))
-                                         ((1 . 12) . (3 3)))))
+  \set Staff.beamExceptions =
+  \beamExceptions { 8[ 8 8 8] |
+		    \tuplet 3/2 { 8[ 8 8] 8[ 8 8] 8[ 8 8] 8[ 8 8] } }
 }
 
 % Reels are in allabreve time with half note beaming.
