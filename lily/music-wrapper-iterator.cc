@@ -79,6 +79,22 @@ Music_wrapper_iterator::pending_moment () const
     return Music_iterator::pending_moment ();
 }
 
+Context *
+Music_wrapper_iterator::get_outlet () const
+{
+  if (child_iter_)
+    return child_iter_->get_outlet ();
+  return Music_iterator::get_outlet ();
+}
+
+void
+Music_wrapper_iterator::set_context (Context *trans)
+{
+  if (child_iter_)
+    child_iter_->set_context (trans);
+  Music_iterator::set_context (trans);
+}
+
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
 
 bool
