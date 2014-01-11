@@ -34,6 +34,8 @@ public:
   Music_wrapper_iterator ();
   DECLARE_CLASSNAME (Music_wrapper_iterator);
 
+  virtual Context *get_outlet () const;
+  virtual void set_context (Context *trans);
   virtual void derived_substitute (Context *f, Context *t);
   virtual void derived_mark () const;
   virtual void construct_children ();

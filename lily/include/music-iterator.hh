@@ -73,8 +73,8 @@ public:
   Moment music_start_mom () const;
   Music_iterator ();
   void report_event (Music *);
-  Context *get_outlet () const;
-  void set_context (Context *);
+  virtual Context *get_outlet () const;
+  virtual void set_context (Context *);
   static SCM get_static_get_iterator (Music *mus);
   void init_context (Music *, Context *);
   void quit ();
