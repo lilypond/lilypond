@@ -72,7 +72,7 @@ quarterBeaming = {
 }
 halfBeaming = {
   \set Staff.beamExceptions = #'((end . (((1 . 8) . (4 4))
-                                         ((1 . 12) . (3 3)))))
+                                         ((1 . 12) . (3 3 3 3)))))
 }
 
 % Reels are in allabreve time with half note beaming.
