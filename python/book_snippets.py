@@ -46,6 +46,7 @@ INDENT = 'indent'
 NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
+NOSTAFF = 'nostaff'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
 PAPER = 'paper'
@@ -62,8 +63,8 @@ VERSION = 'lilypondversion'
 
 
 
-# NOTIME and NOGETTEXT have no opposite so they aren't part of this
-# dictionary.
+# NOTIME, NOSTAFF and NOGETTEXT have no opposite so they aren't part of
+# this dictionary.
 no_options = {
     NOFRAGMENT: FRAGMENT,
     NOINDENT: INDENT,
@@ -133,6 +134,17 @@ snippet_options = {
  \context {
    \Staff
    \remove "Time_signature_engraver"
+ }''',
+        NOSTAFF: r'''
+ \context {
+   \Score
+   timing = ##f
+ }
+ \context {
+   \Staff
+   \remove "Time_signature_engraver"
+   \remove "Clef_engraver"
+   \remove "Staff_symbol_engraver"
  }''',
     },
 

@@ -2606,6 +2606,7 @@ chord_body_element:
 music_function_chord_body:
 	music_function_call
 	| MUSIC_IDENTIFIER
+	| embedded_scm
 	;
 
 event_function_event:

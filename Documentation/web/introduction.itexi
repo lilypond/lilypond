@@ -20,10 +20,14 @@ soulless look of computer-printed sheet music.  Musicians prefer
 reading beautiful music, so why couldn't programmers write
 software to produce elegant printed parts?
 
-The result is a system which frees musicians from the details of
-layout, allowing them to focus on making music.  LilyPond works
-with them to create publication-quality parts, crafted in the best
-traditions of classical music engraving.
+The result is a program that creates beautiful sheet music
+following the best traditions of classical music engraving.
+It takes care of the details of layout programmatically,
+allowing composers, transcribers and publishers to focus
+on the @emph{music} instead of improving their software's
+default output.  Performers will get parts that let them
+concentrate on @emph{playing} music instead of @emph{reading} it.
+
 
 @divEnd
 
@@ -296,6 +300,10 @@ already decided to try LilyPond, first read about our
 @node Examples
 @unnumberedsec Examples
 
+@divClass{column-center-top}
+
+@subheading Beautiful examples
+
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
 
@@ -422,6 +430,7 @@ contributed by Hu Haipeng, a blind composer.
 @exampleImage{orchestra}
 @newsEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
@@ -551,9 +560,11 @@ LilyPond, first read about our @ref{Text input}.
 We have an extensive essay describing computational aesthetics:
 the art of creating beauty with a computer.
 
-If you just want a quick introduction to LilyPond, the essay might
-be too much material to read.  If you would like to read it now,
-please progress to @ref{Essay}.
+This is interesting reading if you are interested in an in-depth
+discussion of our fundamental ideas.  Due to its volume the
+essay is available as a "manual".  If you would like to read
+it now, please progress to @ref{Essay}.  However, if you just
+want a quick introduction to LilyPond, you might skip it for now.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -567,6 +578,16 @@ try LilyPond, first read about our @ref{Text input}.
 
 @node Productions
 @unnumberedsec Productions
+
+@divClass{column-center-top}
+
+@subheading Productions using LilyPond
+
+Here you can read about people who actually use LilyPond
+in their productions, be it for performances of their
+music or as published scores.
+
+@divEnd
 
 @divClass{column-left-top}
 @subheading Concerts
@@ -715,6 +736,12 @@ If you've already decided to try LilyPond, first read about our
 
 @node Reviews
 @unnumberedsec Reviews
+
+@divClass{column-center-top}
+@subheading What do people say about LilyPond?
+
+@divEnd
+
 
 @divClass{column-left-top}
 @subheading Published articles
