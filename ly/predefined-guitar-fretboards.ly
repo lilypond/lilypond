@@ -495,7 +495,7 @@
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:7}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'bes:7 guitar-tuning))
+                        #"x;2-2;1-1;2-3;o;2-4;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:maj7}
                         #guitar-tuning
                         #"x;2-1;4-3;3-2;4-4;x;"
