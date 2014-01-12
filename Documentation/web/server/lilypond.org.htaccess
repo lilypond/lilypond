@@ -110,7 +110,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ %{ENV:WEB}/$1 [QSA,L]
 
 ## Redirect the old web/ to the homepage
-RedirectMatch 301 /web/* /
+RedirectMatch 301 /web/.* /
 
 ###########################################
 
