@@ -132,13 +132,15 @@ Volta_repeat_iterator::next_element (bool side_effect)
               add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
 
               if (done_count_ - 1 < alt_count_)
-                add_repeat_command (ly_symbol2scm ("end-repeat"));
-
-              if (to_boolean (get_outlet ()->get_property ("timing")))
                 {
-                  for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
-                    scm_apply_0 (ly_lily_module_constant ("ly:context-set-property!"),
-                                 scm_car (p));
+                  add_repeat_command (ly_symbol2scm ("end-repeat"));
+
+                  if (to_boolean (get_outlet ()->get_property ("timing")))
+                    {
+                      for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
+                        scm_apply_0 (ly_lily_module_constant ("ly:context-set-property!"),
+                                     scm_car (p));
+                    }
                 }
             }
 
