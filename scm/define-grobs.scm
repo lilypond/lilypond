@@ -1337,6 +1337,7 @@
                         (right-edge . (extra-space . 0.0))
                         ))
         (X-extent . (0 . 0))
+        (Y-extent . (0 . 0))
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface))))))
 
