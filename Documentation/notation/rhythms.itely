@@ -438,7 +438,7 @@ Ties can make use of the @q{last explicit pitch} interpretation of
 isolated durations:
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ 4 ~ 16 r r8
+a2~ 4~ 16 r r8
 @end lilypond
 
 Ties are used either when the note crosses a bar line, or when
