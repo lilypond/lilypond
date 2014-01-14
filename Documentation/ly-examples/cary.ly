@@ -46,7 +46,7 @@
             \override Score.MetronomeMark.extra-offset = #'(0 . 6)
             \override Score.MetronomeMark.font-size = #3
             \tempo 8=42
-				\time 5/16	 s4 ~ s16 	\noBreak		 % measure 6
+				\time 5/16	 s4 s16			\noBreak		 % measure 6
 				\time 4/8	 s2 			\noBreak		 % measure 7
 				\time 4/8	 s2 			\noBreak		 % measure 8
 
