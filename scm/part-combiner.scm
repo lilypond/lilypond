@@ -198,6 +198,13 @@ Voice-state objects
 
   (helper 0 '()))
 
+(define recording-group-functions
+  ;;Selected parts from @var{toplevel-music-functions} not requiring @code{parser}.
+  (list
+   (lambda (music) (expand-repeat-chords! '(rhythmic-event) music))
+   expand-repeat-notes!))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (recording-group-emulate music odef)
   "Interpret @var{music} according to @var{odef}, but store all events
@@ -240,7 +247,10 @@ LilyPond version 2.8 and earlier."
     (ly:add-listener new-context-listener
                      (ly:context-events-below global) 'AnnounceNewContext)
     (ly:add-listener mom-listener (ly:context-event-source global) 'Prepare)
-    (ly:interpret-music-expression (make-non-relative-music music) global)
+    (ly:interpret-music-expression
+     (make-non-relative-music
+      (fold (lambda (x m) (x m)) music recording-group-functions))
+     global)
     context-list))
 
 (define-public (make-part-combine-music parser music-list direction)
