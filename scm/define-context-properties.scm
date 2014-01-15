@@ -622,8 +622,6 @@ will create a @var{VerticalAlignment}; otherwise, it will create a
      (trebleStaffProperties ,list? "An alist of property settings to
 apply for the up staff of @code{PianoStaff}.  Used by
 @code{\\autochange}.")
-     (tremoloFlags ,integer? "The number of tremolo flags to add if no
-number is specified.")
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
      (tupletFullLengthNote ,boolean? "If set, end at the next note,

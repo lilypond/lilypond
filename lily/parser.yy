@@ -2980,12 +2980,16 @@ dots:
 
 tremolo_type:
 	':'	{
-		$$ = SCM_INUM0;
+		$$ = scm_from_int (parser->default_tremolo_type_);
 	}
 	| ':' UNSIGNED {
-		if (SCM_UNBNDP (make_duration ($2)))
+		if (SCM_UNBNDP (make_duration ($2))) {
 			parser->parser_error (@2, _ ("not a duration"));
-		$$ = $2;
+			$$ = scm_from_int (parser->default_tremolo_type_);
+		} else {
+			$$ = $2;
+			parser->default_tremolo_type_ = scm_to_int ($2);
+		}
 	}
 	;
 

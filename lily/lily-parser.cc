@@ -44,6 +44,7 @@ Lily_parser::Lily_parser (Sources *sources)
   lexer_ = 0;
   sources_ = sources;
   default_duration_ = Duration (2, 0);
+  default_tremolo_type_ = 8;
   error_level_ = 0;
   closures_ = SCM_EOL;
 
@@ -58,6 +59,7 @@ Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
   lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
+  default_tremolo_type_ = src.default_tremolo_type_;
   error_level_ = 0;
   output_basename_ = src.output_basename_;
   closures_ = closures;

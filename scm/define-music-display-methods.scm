@@ -167,10 +167,8 @@ expression."
 
 
 (define-display-method TremoloEvent (event parser)
-  (let ((tremolo-type (ly:music-property event 'tremolo-type)))
-    (format #f ":~a" (if (= 0 tremolo-type)
-                         ""
-                         tremolo-type))))
+  (let ((tremolo-type (ly:music-property event 'tremolo-type 8)))
+    (format #f ":~a" tremolo-type)))
 
 (define-display-method ArticulationEvent (event parser) #t
   (let* ((articulation  (ly:music-property event 'articulation-type))

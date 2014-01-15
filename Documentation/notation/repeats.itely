@@ -801,14 +801,13 @@ the note should not be surrounded by braces:
 @end lilypond
 
 @cindex tremolo marks
-@funindex tremoloFlags
 @funindex :
 
 The same output can be obtained by adding @code{:@var{N}} after
 the note, where @code{@var{N}} indicates the duration of the
 subdivision (it must be at least 8).  If @code{@var{N}} is 8, one
 beam is added to the note's stem.  If @code{@var{N}} is omitted,
-the last value (stored in @code{tremoloFlags}) is used:
+the last value is used:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32

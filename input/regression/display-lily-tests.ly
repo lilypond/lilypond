@@ -107,7 +107,7 @@ stderr of this run."
 \test ##[ c4 ~ #]			 		% TieEvent
 \test ##[ c\noBeam #] 					% BeamForbidEvent
 \test ##[ c\1 #] 					% StringNumberEvent
-\test ##[ { c: c:1 } #]					% TremoloEvent
+\test ##[ { c:8 c:1 } #]				% TremoloEvent
 \test ##[ { c-^ c^^ c_^ } #]				% ArticulationEvent
 \test ##[ { c-+ c^+ c_+ } #]
 \test ##[ { c-- c^- c_- } #]
