@@ -3698,6 +3698,19 @@ def conv (str):
 def conv (str):
     return str
 
+@rule ((2, 19, 2), r"\lyricsto \new/\context/... -> \new/\context/... \lyricsto")
+def conv (str):
+    word=r'(?:#?"[^"]*"|\b' + wordsyntax + r'\b)'
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)(\\(?:new|context)\s*" + word
+                  + r"(?:\s*=\s*" + word + r")?\s*)",
+                  r"\2\1", str)
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)\\lyricmode\b\s*",
+                  r"\1", str)
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)\\lyrics\b\s*",
+                  r"\\new Lyrics \1", str)
+    str = re.sub (r'\\lyricmode\s*(\\lyricsto\b)', r"\1", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

@@ -2058,6 +2058,23 @@ optional_id:
 	}
 	;
 
+// We must not have lookahead tokens parsed in lyric mode.  In order
+// to save confusion, we take almost the same set as permitted with
+// \lyricmode and/or \lyrics.  However, music identifiers are also
+// allowed, and they obviously do not require switching into lyrics
+// mode for parsing.
+
+lyric_mode_music:
+	{
+		parser->lexer_->push_lyric_state ();
+	} grouped_music_list
+	{
+		parser->lexer_->pop_state ();
+		$$ = $2;
+	}
+	| MUSIC_IDENTIFIER
+	;
+
 complex_music:
 	music_function_call
 	| repeated_music		{ $$ = $1; }
@@ -2170,20 +2187,11 @@ mode_changing_head_with_context:
 	;
 
 new_lyrics:
-	ADDLYRICS { parser->lexer_->push_lyric_state (); }
-	/*cont */
-	composite_music {
-	/* Can also use music at the expensive of two S/Rs similar to
-           \repeat \alternative */
-		parser->lexer_->pop_state ();
-
-		$$ = scm_cons ($3, SCM_EOL);
+	ADDLYRICS lyric_mode_music {
+		$$ = scm_list_1 ($2);
 	}
-	| new_lyrics ADDLYRICS {
-		parser->lexer_->push_lyric_state ();
-	} composite_music {
-		parser->lexer_->pop_state ();
-		$$ = scm_cons ($4, $1);
+	| new_lyrics ADDLYRICS lyric_mode_music {
+		$$ = scm_cons ($3, $1);
 	}
 	;
 
@@ -2191,11 +2199,8 @@ re_rhythmed_music:
 	composite_music new_lyrics {
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	} %prec COMPOSITE
-	| LYRICSTO simple_string {
-		parser->lexer_->push_lyric_state ();
-	} music {
-		parser->lexer_->pop_state ();
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $4);
+	| LYRICSTO simple_string lyric_mode_music {
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
 	}
 	;
 
