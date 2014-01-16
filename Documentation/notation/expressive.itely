@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.18.0"
 
 @node Expressive marks
 @section Expressive marks
@@ -959,6 +959,12 @@ Breath marks are entered using @code{\breathe}:
 @lilypond[verbatim,quote,relative=2]
 c2. \breathe d4
 @end lilypond
+
+Unlike other expressive marks, a breath mark is not associated with
+the preceding note but is a separate music event.  So all the
+expressive marks which are attached to the preceding note, any square
+brackets indicating manual beams, and any brackets indicating slurs
+and phrasing slurs must be placed before @code{\breathe}.
 
 A breath mark will end an automatic beam; to override this behavior, see
 @ref{Manual beams}.
