@@ -23,17 +23,18 @@
   (let ((style (ly:grob-property grob 'style)))
 
     (case style
-      ((cross) "2cross"))))
+      ((cross) "2cross")
+      ((slash) "2slash")
+      (else #f))))
 
 ;; ensure we only call note head callback when
-;; 'style = 'cross
+;; style is set to a known value
 (define-public (tab-note-head::whiteout-if-style-set grob)
   (let ((style (ly:grob-property grob 'style)))
 
-    (if (and (symbol? style)
-             (eq? style 'cross))
-        (stencil-whiteout (ly:note-head::print grob))
-        (tab-note-head::print grob))))
+    (case style
+      ((cross slash) (stencil-whiteout (ly:note-head::print grob)))
+      (else (tab-note-head::print grob)))))
 
 ;; definitions for the "moderntab" clef:
 ;; the "moderntab" clef will be added to the list of known clefs,

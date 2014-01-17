@@ -273,12 +273,14 @@ unHideNotes = {
 improvisationOn = {
   \set squashedPosition = #0
   \override NoteHead.style = #'slash
+  \override TabNoteHead.style = #'slash
   \override Accidental.stencil = ##f
   \override AccidentalCautionary.stencil = ##f
 }
 improvisationOff = {
   \unset squashedPosition
   \revert NoteHead.style
+  \revert TabNoteHead.style
   \revert Accidental.stencil
   \revert AccidentalCautionary.stencil
 }
