@@ -434,6 +434,101 @@ then reduce using @var{min-max}:
              (append (list origin)
                      (reverse (cdr (reverse pointlist)))) pointlist))))
 
+(define-public (make-path-stencil path thickness x-scale y-scale fill)
+  "Make a stencil based on the path described by the list @var{path},
+with thickness @var{thickness}, and scaled by @var{x-scale} in the X
+direction and @var{y-scale} in the Y direction. @var{fill} is a boolean
+argument that specifies if the path should be filled. Valid path
+commands are: moveto rmoveto lineto rlineto curveto rcurveto closepath,
+and their standard SVG single letter equivalents: M m L l C c Z z."
+
+  (define (convert-path path origin previous-point)
+    "Recursive function to standardize command names and
+convert any relative path expressions (in @var{path}) to absolute
+values. Returns a list of lists. @var{origin} is a pair of x and y
+coordinates for the origin point of the path (used for closepath and
+reset by moveto commands). @var{previous-point} is a pair of x and y
+coordinates for the previous point in the path."
+    (if (pair? path)
+        (let*
+         ((head-raw (car path))
+          (rest (cdr path))
+          (head (cond
+                 ((memq head-raw '(rmoveto M m)) 'moveto)
+                 ((memq head-raw '(rlineto L l)) 'lineto)
+                 ((memq head-raw '(rcurveto C c)) 'curveto)
+                 ((memq head-raw '(Z z)) 'closepath)
+                 (else head-raw)))
+          (arity (cond
+                  ((memq head '(lineto moveto)) 2)
+                  ((eq? head 'curveto) 6)
+                  (else 0)))
+          (coordinates-raw (take rest arity))
+          (absolute? (if (memq head-raw
+                           '(rmoveto m rlineto l rcurveto c)) #f #t))
+          (coordinates (if absolute?
+                           coordinates-raw
+                           ;; convert relative coordinates to absolute by
+                           ;; adding them to previous point values
+                           (map (lambda (c n)
+                                  (if (even? n)
+                                      (+ c (car previous-point))
+                                      (+ c (cdr previous-point))))
+                             coordinates-raw
+                             (iota arity))))
+          (new-point (if (eq? head 'closepath)
+                         origin
+                         (cons
+                          (list-ref coordinates (- arity 2))
+                          (list-ref coordinates (- arity 1)))))
+          (new-origin (if (eq? head 'moveto)
+                          new-point
+                          origin)))
+         (cons (cons head coordinates)
+           (convert-path (drop rest arity) new-origin new-point)))
+        '()))
+
+  (let* ((path-absolute (convert-path path (cons 0 0) (cons 0 0)))
+         ;; scale coordinates
+         (path-scaled (if (and (= 1 x-scale) (= 1 y-scale))
+                          path-absolute
+                          (map (lambda (path-unit)
+                                 (map (lambda (c n)
+                                        (cond
+                                         ((= 0 n) c)
+                                         ((odd? n) (* c x-scale))
+                                         (else (* c y-scale))))
+                                   path-unit
+                                   (iota (length path-unit))))
+                            path-absolute)))
+         ;; a path must begin with a 'moveto'
+         (path-final (if (eq? 'moveto (car (car path-scaled)))
+                         path-scaled
+                         (append (list (list 'moveto 0 0)) path-scaled)))
+         ;; remove all commands in order to calculate bounds
+         (path-headless (map cdr (delete (list 'closepath) path-final)))
+         (bound-list (path-min-max
+                      (car path-headless)
+                      (cdr path-headless))))
+    (ly:make-stencil
+     `(path ,thickness
+        `(,@',(concatenate path-final))
+        'round
+        'round
+        ,(if fill #t #f))
+     (coord-translate
+      ((if (< x-scale 0) reverse-interval identity)
+       (cons
+        (list-ref bound-list 0)
+        (list-ref bound-list 1)))
+      `(,(/ thickness -2) . ,(/ thickness 2)))
+     (coord-translate
+      ((if (< y-scale 0) reverse-interval identity)
+       (cons
+        (list-ref bound-list 2)
+        (list-ref bound-list 3)))
+      `(,(/ thickness -2) . ,(/ thickness 2))))))
+
 (define-public (make-connected-path-stencil pointlist thickness
                                             x-scale y-scale connect fill)
   "Make a connected path described by the list @var{pointlist}, with
@@ -441,51 +536,16 @@ thickness @var{thickness}, and scaled by @var{x-scale} in the X direction
 and @var{y-scale} in the Y direction.  @var{connect} and @var{fill} are
 boolean arguments that specify if the path should be connected or filled,
 respectively."
-
-  ;; paths using this routine are designed to begin at point '(0 . 0)
-  (let* ((origin (list 0 0))
-         (boundlist (path-min-max origin pointlist))
-         ;; modify pointlist to scale the coordinates
-         (path (map (lambda (x)
-                      (apply
-                       (if (= 6 (length x))
-                           (lambda (x1 x2 x3 x4 x5 x6)
-                             (list 'curveto
-                                   (* x1 x-scale)
-                                   (* x2 y-scale)
-                                   (* x3 x-scale)
-                                   (* x4 y-scale)
-                                   (* x5 x-scale)
-                                   (* x6 y-scale)))
-                           (lambda (x1 x2)
-                             (list 'lineto
-                                   (* x1 x-scale)
-                                   (* x2 y-scale))))
-                       x))
-                    pointlist))
-         ;; a path must begin with a `moveto'
-         (prepend-origin (cons (cons 'moveto origin) path))
-         ;; if this path is connected, add closepath to the end
-         (final-path (if connect
-                         (append prepend-origin (list '(closepath)))
-                         prepend-origin))
-         (command-list (concatenate final-path)))
-    (ly:make-stencil
-     `(path ,thickness
-            `(,@',command-list)
-            'round
-            'round
-            ,(if fill #t #f))
-     (coord-translate
-      ((if (< x-scale 0) reverse-interval identity)
-       (cons (* x-scale (list-ref boundlist 0))
-             (* x-scale (list-ref boundlist 1))))
-      `(,(/ thickness -2) . ,(/ thickness 2)))
-     (coord-translate
-      ((if (< y-scale 0) reverse-interval identity)
-       (cons (* y-scale (list-ref boundlist 2))
-             (* y-scale (list-ref boundlist 3))))
-      `(,(/ thickness -2) . ,(/ thickness 2))))))
+  (make-path-stencil
+   (concatenate
+    (append
+     (map (lambda (path-unit)
+            (case (length path-unit)
+              ((2) (append (list 'lineto) path-unit))
+              ((6) (append (list 'curveto) path-unit))))
+       pointlist)
+     (if connect (list (list 'closepath)) '())))
+   thickness x-scale y-scale fill))
 
 (define-public (make-ellipse-stencil x-radius y-radius thickness fill)
   "Make an ellipse of x@tie{}radius @var{x-radius}, y@tie{}radius
