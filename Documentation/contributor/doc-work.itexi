@@ -70,15 +70,17 @@ encouraged to contact the @ref{Meisters, Documentation Meister}.
 @node version in documentation files
 @section @code{\version} in documentation files
 
-Every documentation file which includes LilyPond code should begin
-with a @code{\version} statement referencing a version of LilyPond
+Every documentation file which includes LilyPond code must begin
+with a @code{\version} statement, since the build procedure
+explicitly tests for its presence and will not continue otherwise.
+The @code{\version} statement should reference a version of LilyPond
 consistent with the syntax of the contained code.
 
-The @code{\version} statement should be commented out to avoid
-creating problems when building releases with GUB, like this:
+Since the @code{\version} statement is not valid Texinfo input it
+must be commented out like this:
 
 @example
-%c \version "2.19.1"
+@@c \version "2.19.1"
 @end example
 
 So, if you are adding LilyPond code which is not consistent with the
