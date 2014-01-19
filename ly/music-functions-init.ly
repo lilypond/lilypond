@@ -261,7 +261,7 @@ breathe =
                             (* (ly:moment-main len) 1/2)))
               (scale (inexact->exact (ceiling (/ (log desired) (log 1/2)))))
               (breath (ly:make-moment (expt 1/2 scale))))
-         (ly:moment-sub len breath)))))
+         (ly:moment-sub (ly:make-moment (ly:moment-main len)) breath)))))
 
 clef =
 #(define-music-function (parser location type) (string?)

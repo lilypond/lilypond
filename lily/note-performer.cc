@@ -142,12 +142,16 @@ Note_performer::listen_breathing (Stream_event *ev)
   if (ly_is_procedure (f))
     for (vsize i = 0; i < last_notes_.size (); i++)
       {
-        Audio_note *tie_head = last_notes_[i]->tie_head ();
-        //Give midi-length the available time since the note started,
-        //including rests. It returns how much is left for the note.
-        Moment available = now_mom () - tie_head->audio_column_->when ();
+        //Pass midi-length the available time since the last note started,
+        //including any intervening rests. It returns how much is left for the
+        //note.
+        Moment start = last_notes_[i]->audio_column_->when ();
+        Moment available = now_mom () - start;
         Moment len = robust_scm2moment (scm_call_2 (f, available.smobbed_copy (),
                                                     context ()->self_scm ()), available);
+        //Take time from the first note of the tie, since it has all the length.
+        Audio_note *tie_head = last_notes_[i]->tie_head ();
+        len += start - tie_head->audio_column_->when ();
         if (len < tie_head->length_mom_)
           tie_head->length_mom_ = len;
       }
