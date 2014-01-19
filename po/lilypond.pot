@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.0\n"
+"Project-Id-Version: lilypond 2.19.1\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-01-05 15:09+0000\n"
+"POT-Creation-Date: 2014-01-19 14:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,68 +51,68 @@ msgstr ""
 msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
-#: book_snippets.py:406
+#: book_snippets.py:418
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: book_snippets.py:408
+#: book_snippets.py:420
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: book_snippets.py:411
+#: book_snippets.py:423
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: book_snippets.py:413
+#: book_snippets.py:425
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: book_snippets.py:530
+#: book_snippets.py:542
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: book_snippets.py:621
+#: book_snippets.py:633
 #, python-format
 msgid "Missing files: %s"
 msgstr ""
 
-#: book_snippets.py:651
+#: book_snippets.py:663
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:738
+#: book_snippets.py:750
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:759
+#: book_snippets.py:771
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:760
+#: book_snippets.py:772
 msgid "The error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:880
+#: book_snippets.py:892
 #, python-format
 msgid "Converting MusicXML file `%s'...\n"
 msgstr ""
 
-#: book_snippets.py:907
+#: book_snippets.py:919
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:920
+#: book_snippets.py:932
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -2153,7 +2153,7 @@ msgid ""
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:107
+#: lily-parser.cc:109
 msgid "Parsing..."
 msgstr ""
 
@@ -2711,7 +2711,7 @@ msgstr ""
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:121
+#: parse-scm.cc:128
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr ""
 
@@ -2937,16 +2937,16 @@ msgstr ""
 msgid "remapping modulo 16"
 msgstr ""
 
-#: stem-engraver.cc:110
+#: stem-engraver.cc:100
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:162
+#: stem-engraver.cc:152
 #, c-format
 msgid "adding note head to incompatible stem (type = %d/%d)"
 msgstr ""
 
-#: stem-engraver.cc:165
+#: stem-engraver.cc:155
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
@@ -3104,111 +3104,111 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:454 parser.yy:815 parser.yy:885
+#: parser.yy:453 parser.yy:814 parser.yy:884 parser.yy:1094
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:709 parser.yy:1268
+#: parser.yy:708 parser.yy:1301
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:928 parser.yy:978
+#: parser.yy:927 parser.yy:977
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:964
+#: parser.yy:963
 msgid "score expected"
 msgstr ""
 
-#: parser.yy:1002
+#: parser.yy:1001
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1141
+#: parser.yy:1174
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1151 parser.yy:1185
+#: parser.yy:1184 parser.yy:1218
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1193
+#: parser.yy:1226
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1401
+#: parser.yy:1434
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2194 parser.yy:2308 parser.yy:2321 parser.yy:2330
+#: parser.yy:2227 parser.yy:2341 parser.yy:2354 parser.yy:2363
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2288
+#: parser.yy:2321
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2349
+#: parser.yy:2382
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2450
+#: parser.yy:2483
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2468
+#: parser.yy:2501
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2600
+#: parser.yy:2633
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2649
+#: parser.yy:2683
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2658 parser.yy:2663
+#: parser.yy:2692 parser.yy:2697
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2739
+#: parser.yy:2773
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:2838
+#: parser.yy:2872
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:2910 parser.yy:2953
+#: parser.yy:2944 parser.yy:2987
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:2970
+#: parser.yy:3008
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3069
+#: parser.yy:3107
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3150
+#: parser.yy:3188
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3165
+#: parser.yy:3203
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3170
+#: parser.yy:3208
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3322 parser.yy:3331
+#: parser.yy:3360 parser.yy:3369
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3405
+#: parser.yy:3443
 msgid "not a markup"
 msgstr ""
 
@@ -3246,55 +3246,55 @@ msgstr ""
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:350
+#: lexer.ll:349
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:360
+#: lexer.ll:359
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:716
+#: lexer.ll:714
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:721
+#: lexer.ll:719
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:736
+#: lexer.ll:734
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:807
+#: lexer.ll:805
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:927
+#: lexer.ll:925
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:947
+#: lexer.ll:945
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1238
+#: lexer.ll:1236
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1282
+#: lexer.ll:1280
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1283
+#: lexer.ll:1281
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1289
+#: lexer.ll:1287
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3420,28 +3420,19 @@ msgstr ""
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:792
+#: define-music-types.scm:791
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:795
+#: define-music-types.scm:794
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:815
+#: define-music-types.scm:814
 #, scheme-format
 msgid "bad make-music argument: ~S"
-msgstr ""
-
-#: define-music-types.scm:827
-#, scheme-format
-msgid "unknown repeat type `~S'"
-msgstr ""
-
-#: define-music-types.scm:828
-msgid "See define-music-types.scm for supported repeats"
 msgstr ""
 
 #: define-note-names.scm:972
@@ -3699,53 +3690,58 @@ msgstr ""
 msgid "negative replication count; ignoring"
 msgstr ""
 
-#: music-functions.scm:273
-msgid "More alternatives than repeats.  Junking excess alternatives"
-msgstr ""
-
-#: music-functions.scm:304
+#: music-functions.scm:301
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
 msgstr ""
 
-#: music-functions.scm:480
+#: music-functions.scm:330
+#, scheme-format
+msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
+msgstr ""
+
+#: music-functions.scm:334
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr ""
+
+#: music-functions.scm:481
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:775
+#: music-functions.scm:776
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:877
+#: music-functions.scm:878
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1233
+#: music-functions.scm:1234
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1372
+#: music-functions.scm:1373
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1432
+#: music-functions.scm:1433
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1433
+#: music-functions.scm:1434
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1778
+#: music-functions.scm:1779
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:1996
+#: music-functions.scm:1997
 msgid "Missing duration"
 msgstr ""
 
