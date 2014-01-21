@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
@@ -934,7 +934,7 @@ collide = \once \override NoteColumn.force-hshift = #0
         \new Voice { \voiceTwo bes \collide bes }
       >>
     }
-    \new Lyrics \lyricsto "sample" \lyricmode { "bien " " mauvais" }
+    \new Lyrics \lyricsto "sample" { "bien " " mauvais" }
   >>
 }
 @end lilypond

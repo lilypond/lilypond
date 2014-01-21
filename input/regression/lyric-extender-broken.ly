@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header
 {
 
@@ -18,6 +18,6 @@ of the melisma."
     a) a2( b) \break
     a2 
   }
-  \lyricsto A \context Lyrics \lyricmode { a __ a __ ha }
+  \context Lyrics \lyricsto A { a __ a __ ha }
 >>
 

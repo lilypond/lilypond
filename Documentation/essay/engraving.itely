@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Music engraving
 @chapter Music engraving
@@ -860,7 +860,7 @@ collide = \once \override NoteColumn.force-hshift = #0
         \new Voice { \voiceTwo bes \collide bes }
       >>
     }
-    \new Lyrics \lyricsto "sample" \lyricmode { "good " " bad" }
+    \new Lyrics \lyricsto "sample" { "good " " bad" }
   >>
 }
 @end lilypond

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.18.0"
+@c \version "2.19.2"
 
 @node Templates
 @appendix Templates
@@ -106,11 +106,11 @@ parts:
 
 @lilypond[verbatim, quote]
   SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricsto "Soprano" \lyricmode {
+  SopranoLyricsOne = \lyricsto "Soprano" {
     \set stanza = "1."
     Words to verse one
   }
-  SopranoLyricsTwo = \lyricsto "Soprano" \lyricmode {
+  SopranoLyricsTwo = \lyricsto "Soprano" {
     \set stanza = "2."
     Words to verse two
   }
@@ -417,7 +417,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.16.0"
+\version "2.19.2"
 \header {
   dedication = "dedication"
   title = "Title"

@@ -4,7 +4,7 @@
 %%%
 %%% Nicolas Sceaux <nicolas.sceaux@free.fr>
 
-\version "2.16.0"
+\version "2.19.2"
 \include "sesto.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,7 +25,7 @@
           \set Staff.instrumentName = \markup \smallCaps Sesto.
           \global \clef treble \sesto
         >>
-        \lyricsto "sesto" \new Lyrics \sestoLyrics
+        \new Lyrics \lyricsto "sesto" \sestoLyrics
       >>
       \new PianoStaff <<
         \new Staff <<

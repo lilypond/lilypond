@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "cannot find Voice `%s'") "not-existing-notes")
@@ -17,9 +17,9 @@ no warning should be printed."
       c1
     }
   % This should not give a warning (empty lyrics, existing voice):
-  \new Lyrics \lyricsto "notes" \lyricmode { }
+  \new Lyrics \lyricsto "notes" { }
   % This should give a warning (non-existing voice):
-  \new Lyrics \lyricsto "not-existing-notes" \lyricmode { Test }
+  \new Lyrics \lyricsto "not-existing-notes" { Test }
   % This should NOT give a warning (non-existing voice, but also no lyrics):
-  \new Lyrics \lyricsto "not-existing-notes" \lyricmode { }
+  \new Lyrics \lyricsto "not-existing-notes" { }
 >>
