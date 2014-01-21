@@ -437,17 +437,17 @@ then reduce using @var{min-max}:
 (define-public (make-path-stencil path thickness x-scale y-scale fill)
   "Make a stencil based on the path described by the list @var{path},
 with thickness @var{thickness}, and scaled by @var{x-scale} in the X
-direction and @var{y-scale} in the Y direction. @var{fill} is a boolean
-argument that specifies if the path should be filled. Valid path
+direction and @var{y-scale} in the Y direction.  @var{fill} is a boolean
+argument that specifies if the path should be filled.  Valid path
 commands are: moveto rmoveto lineto rlineto curveto rcurveto closepath,
 and their standard SVG single letter equivalents: M m L l C c Z z."
 
   (define (convert-path path origin previous-point)
     "Recursive function to standardize command names and
 convert any relative path expressions (in @var{path}) to absolute
-values. Returns a list of lists. @var{origin} is a pair of x and y
+values.  Returns a list of lists.  @var{origin} is a pair of x and y
 coordinates for the origin point of the path (used for closepath and
-reset by moveto commands). @var{previous-point} is a pair of x and y
+reset by moveto commands).  @var{previous-point} is a pair of x and y
 coordinates for the previous point in the path."
     (if (pair? path)
         (let*
@@ -531,11 +531,11 @@ coordinates for the previous point in the path."
 
 (define-public (make-connected-path-stencil pointlist thickness
                                             x-scale y-scale connect fill)
-  "Make a connected path described by the list @var{pointlist}, with
-thickness @var{thickness}, and scaled by @var{x-scale} in the X direction
-and @var{y-scale} in the Y direction.  @var{connect} and @var{fill} are
-boolean arguments that specify if the path should be connected or filled,
-respectively."
+  "Make a connected path described by the list @var{pointlist}, beginning
+at point '(0 . 0), with thickness @var{thickness}, and scaled by
+@var{x-scale} in the X direction and @var{y-scale} in the Y direction.
+@var{connect} and @var{fill} are boolean arguments that specify if the
+path should be connected or filled, respectively."
   (make-path-stencil
    (concatenate
     (append
@@ -544,7 +544,8 @@ respectively."
               ((2) (append (list 'lineto) path-unit))
               ((6) (append (list 'curveto) path-unit))))
        pointlist)
-     (if connect (list (list 'closepath)) '())))
+     ;; if this path is connected, add closepath to the end
+     (if connect (list '(closepath)) '())))
    thickness x-scale y-scale fill))
 
 (define-public (make-ellipse-stencil x-radius y-radius thickness fill)
