@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header {
 
   texidoc = "
@@ -20,7 +20,7 @@
     d16[ e f g]
     
   }
-  \lyricsto "bla" \context Lyrics \lyricmode {
+  \context Lyrics \lyricsto "bla" {
     alllll __ tijd
     izzz
   }

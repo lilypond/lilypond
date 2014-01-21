@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   texidoc = "Having markup after a non-staff line doesn't confuse
@@ -13,7 +13,7 @@ the page layout engine."
      \new Staff <<
        \new Voice = "asdf" { c' d' e' f' }
      >>
-     \new Lyrics \lyricsto "asdf" \lyricmode { a b c d }
+     \new Lyrics \lyricsto "asdf" { a b c d }
   >>
   }
   \markup "next song"

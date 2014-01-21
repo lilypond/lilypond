@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.17.6"
+\version "2.19.2"
 manuscriptBreak = { \break }
 
 
@@ -157,8 +157,8 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	   \new Staff <<
 	       \context Staff \accidentalStyle modern
 	       \melody >>
-	   \lyricsto "singer" \new Lyrics \firstVerse
-	   \lyricsto "singer" \new Lyrics \secondVerse
+	   \new Lyrics \lyricsto "singer" \firstVerse
+	   \new Lyrics \lyricsto "singer" \secondVerse
 	   \new PianoStaff << 
 	       \set PianoStaff.instrumentName = \markup {
 		   \bold

@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.2"
 \paper {
   ragged-right = ##t
 }
@@ -15,5 +15,5 @@
     \new Voice = "myVoice" {
       \afterGrace c''2 { e''32( } c''2)
     }}
-  \new Lyrics \lyricsto "myVoice" \lyricmode { foo -- bar }
+  \new Lyrics \lyricsto "myVoice" { foo -- bar }
 >>
