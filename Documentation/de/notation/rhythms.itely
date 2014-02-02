@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Till Paala
 
@@ -434,7 +434,7 @@ Ein Bindebogen wird mit der
 Tilde @code{~} (AltGr++) notiert.
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2 ~ 2
 @end lilypond
 
 Bindebögen werden eingesetzt, wenn die Note entweder über eine
@@ -445,8 +445,8 @@ inneren Unterteilungen von Takten hinüberreichen:
 
 @lilypond[quote]
 \relative c' {
-  r8 c8 ~ c2 r4 |
-  r8^"not" c2 ~ c8 r4
+  r8 c8 ~ 2 r4 |
+  r8^"not" c2 ~ 8 r4
 }
 @end lilypond
 
@@ -537,26 +537,26 @@ von Strichen und durchgehender Linie definiert werden.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2 ~ 2
 \tieDashed
-c2 ~ c
+c2 ~ 2
 \tieHalfDashed
-c2 ~ c
+c2 ~ 2
 \tieHalfSolid
-c2 ~ c
+c2 ~ 2
 \tieSolid
-c2 ~ c
+c2 ~ 2
 @end lilypond
 
 Eigene Strichelungsmuster können definiert werden:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2 ~ 2
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2 ~ 2
 \tieSolid
-c2 ~ c
+c2 ~ 2
 @end lilypond
 
 Die Definition von Muster für die Strichelung der Bindebögen hat

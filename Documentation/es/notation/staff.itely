@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
@@ -1061,7 +1061,7 @@ musical para declarar el cambio de instrumento:
   R1*16
   \instrumentSwitch "contrabassoon"
   c,,2 g \break
-  c,1 ~ | c1
+  c,1 ~ | 1
 }
 @end lilypond
 

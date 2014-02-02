@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.2"
 \header {
 
   texidoc = "The @code{\\removeWithTag} and @code{\\keepWithTag}
@@ -12,7 +12,7 @@ music =
 <<
   \tag #'flood \new Voice { \voiceOne \repeat unfold 16 { c'''8 cis'''8 } }
   \tag #'highball \new Voice { \voiceThree \repeat unfold 8 { a'4( as') } }
-  \tag #'buffoon \new Voice { \voiceFour \repeat unfold 2 { f1~ f } }
+  \tag #'buffoon \new Voice { \voiceFour \repeat unfold 2 { f1~ 1 } }
 >>
 
 demo =

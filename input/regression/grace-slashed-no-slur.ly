@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.2"
 
 \header
 {
@@ -7,5 +7,5 @@
 "
 }
 \relative c' {
-  \slashedGrace c16~ c1
+  \slashedGrace c16~ 1
 }

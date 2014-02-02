@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.30
-\version "2.17.30"
+\version "2.19.2"
 
 \header {
   lsrtags = "headword"
@@ -154,7 +154,7 @@ ViolinSolo = \relative c' {
   \time 15/4
   <<
     { \shift d2 \glissando ^\markup \colmark { \quatre \dubetc \pvib \norm } \shifta e1 \glissando d2 } \\
-    { d2 \open \mf \< ~ d1 ~ d2 \ff  ~ d1 \> ~ d2 ^\markup \colmark { " " " " \svib } ~ d4 \pp}
+    { d2 \open \mf \< ~ d1 ~ 2 \ff  ~ d1 \> ~ d2 ^\markup \colmark { " " " " \svib } ~ d4 \pp}
   >>
   \break
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.2"
 
 @node General input and output
 @chapter General input and output
@@ -3057,8 +3057,8 @@ volume is limited to the range 0.2 - 0.5.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3114,8 +3114,8 @@ volume of the flute.
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3188,8 +3188,8 @@ the same values as the previous example.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {

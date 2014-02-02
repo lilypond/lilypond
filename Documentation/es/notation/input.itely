@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.2"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -3235,8 +3235,8 @@ volumen general MIDI está limitado al intervalo desde 0.2 hasta
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3285,8 +3285,8 @@ de la flauta.
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3360,8 +3360,8 @@ anterior.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {

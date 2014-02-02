@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.2"
 \include  "mozart-hrn3-defs.ily"
 
 romanze =  \relative c' {
@@ -34,7 +34,7 @@ romanze =  \relative c' {
   f'4.(\p  d8) b4 r8 g
   g'4.( e8) c4 r8 cis |
   % 39
-  d4(~  d16[ e d e)] f8[ ( d) f( d)]
+  d4(~  16[ e d e)] f8[ ( d) f( d)]
   c2( b4) r
   R1*4
   e4. ( g8) c,4 ( cis)
@@ -52,8 +52,8 @@ romanze =  \relative c' {
   \revert DynamicLineSpanner.staff-padding
   R1*3
   r8  c[\p c c] c2~
-  c8[ c' c c] c2~
-  c8[ \< e( g f] e[ d\!\> c bes]
+  8[ c' c c] c2~
+  8[ \< e( g f] e[ d\!\> c bes]
   \mark "D"
   a4\!) r r2
   R1*3

@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.19.2"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -390,7 +390,7 @@ cis cis cis! cis? c c c! c?
 新しいシステム (訳者: 譜 1 行分のこと) の開始点でのみ譜刻されます:
 
 @lilypond[verbatim,quote,relative=2]
-cis1 ~ cis ~
+cis1 ~ 1 ~
 \break
 cis
 @end lilypond
@@ -3081,8 +3081,8 @@ a2 b c d \break
   e8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
-  e2 ~ e8 f4 f8 ~
-  f2
+  2 ~ 8 f4 f8 ~
+  2
   \improvisationOff
   a16( bes) a8 g e
 }

@@ -12,7 +12,7 @@ this examples causes no bar checks in MIDI.
     <<\relative c'' \new Voice =  A {
 	\autoBeamOff
 	c8[ c] c2.
-	c1~c4 c2.
+	c1~4 c2.
 	c4 ( d e) d
 	c1
 

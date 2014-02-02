@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.19.2"
 
 \header {
   lsrtags = "headword"
@@ -78,7 +78,7 @@ extendOff = \bassFigureExtendersOff
       r16 d16 |
       d4 bes,4 a,4 f4 |
       g8 f16 g16 a8 a,8 d4 d'4 ~ |
-      d'8 c'8 b4 c'8 c'16 bes16 a4 |
+      8 c'8 b4 c'8 c'16 bes16 a4 |
       bes8 bes16 a16 g4 a8 a,4 a16 g16 |
       fis8 d8 e8 fis8 g8 g,4 g16 f16 |
       e8 c8 d8 e8 f8 f,4 a,8 |

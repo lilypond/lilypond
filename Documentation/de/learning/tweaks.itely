@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.19.2"
 
 @node Die Ausgabe verändern
 @chapter Die Ausgabe verändern
@@ -3119,12 +3119,12 @@ stößt der Balken mit den oberen Bögen zusammen:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3144,7 +3144,7 @@ hochgeschoben werden, etwa auf 1:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
@@ -3152,7 +3152,7 @@ hochgeschoben werden, etwa auf 1:
     }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3347,7 +3347,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3408,7 +3408,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3484,7 +3484,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3570,7 +3570,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3802,7 +3802,7 @@ man zwei Stimmen benutzt, wobei die überbundenen Noten
 sich in der selben befinden,
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b8\noBeam } \\ { b[ g8] } >>
+<< { b8~ 8\noBeam } \\ { b[ g8] } >>
 @end lilypond
 
 @noindent
@@ -3818,7 +3818,7 @@ den Stimmen stattfindet:
 <<
   {
     \tweak Stem.transparent ##t
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3835,7 +3835,7 @@ gesetzt wird:
   {
     \tweak Stem.transparent ##t
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b[ g8] }

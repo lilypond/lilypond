@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header {
 
   texidoc = "Symbols that need on-staffline info (like dots and ties)
@@ -11,6 +11,6 @@
 }
 \relative c' {
   \time 5/8
-  f4 ~ f4 
+  f4 ~ 4 
   f4 f4.
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 
 \include "mozart-hrn3-defs.ily"
 
@@ -45,13 +45,13 @@ rondo = \relative c' {
   e4 r8 r4 r8
   g4. e4 c8
   g2.~
-  g8[ a b] c[ d e ]
+  8[ a b] c[ d e ]
   e4.( d8) r r
   R2.*4
   e2.~ |
-  e8[ d c] c[ b a]
+  8[ d c] c[ b a]
   d2.~
-  d8[ c b] b[ a g]
+  8[ c b] b[ a g]
   g'4( e8) b4( cis8)
   \mark "B"
   d4 r8 r4 r8
@@ -75,7 +75,7 @@ rondo = \relative c' {
   r8  g[\f g] g[( b) b-.]
   b[( d) d-.] d[( g) g-.]
   g2.~
-  g8[ \> a g] f[ e d]
+  8[ \> a g] f[ e d]
 
   <<
     \rondotheme
@@ -86,40 +86,40 @@ rondo = \relative c' {
   r4 r8 r4 c8
   \mark "D"
   c4 f8 c4 a8
-  a4.~a4 a8
+  a4.~4 a8
   bes4 c8 d4 bes8
-  g4. ~ g8 r r
+  g4. ~ 8 r r
   R2.*3
   r4 r8 r4 c8
   a4. c
-  f ~  f8.[ e16( d c)]
+  f ~  8.[ e16( d c)]
   bes4 g8 e4 g8
-  c,4. ~ c8 r r
+  c,4. ~ 8 r r
   R2.*3|
   r4 r8 r4 c'8
   b4( c8) b4( c8)
-  bes4. ~ bes4 g8
+  bes4. ~ 4 g8
   a4 ( c8) f4 ( b,8)
   d4. ( c8) r r
   R2.*3|
   r4 r8 r4 c8
   b4( c8) b4( c8)
-  bes4. ~ bes4 g8
+  bes4. ~ 4 g8
   a4 c8  f[ ( d) b!]
   d4. ( c8) r r
   \mark "E"
   R2.*9  |
   \lipbreaker
   c,8[ c' c] c4.~
-  c8[ c d] e[ e fis]
+  8[ c d] e[ e fis]
   g4 r8 r4 r8
   R2.
   r8  g,[ g] g[ g g] |
-  es'4. ~  es8[ d c]
+  es'4. ~  8[ d c]
   b4 r8 r4 r8
   R2. |
   r8  g[ g] g[ g g]
-  es'4. ~  es8[ d c]
+  es'4. ~  8[ d c]
   b4.\cresc c4. d4. e4.
   \mark "F"
   f2.\f ~ |

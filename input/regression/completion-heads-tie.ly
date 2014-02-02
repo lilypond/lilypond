@@ -5,7 +5,7 @@
 
   }
 
-\version "2.16.0"
+\version "2.19.2"
 
 \paper{ ragged-right=##t }
 
@@ -13,6 +13,6 @@
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
 } {
-  \relative c'' { r2 d1 ~ d1 d2 }
+  \relative c'' { r2 d1 ~ 1 d2 }
 }
 

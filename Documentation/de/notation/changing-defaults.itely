@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Till Paala
 
@@ -4115,7 +4115,7 @@ lösen würde.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1~ e }
+  { e1~ 1 }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -4151,7 +4151,7 @@ wird.
 <<
   {
   \once \override Tie.control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
-  e1~ e1
+  e1~ 1
   }
 \\
   { r4 <g c,> <g c,> <g c,>  }

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   lsrtags = "chords, really-simple, template"
@@ -24,7 +24,7 @@ melody = \relative c' {
   \time 4/4
 
   f4 e8[ c] d4 g
-  a2 ~ a
+  a2 ~ 2
 }
 
 harmonies = \chordmode {

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.2"
 
 @c Translators: Till Paala
 
@@ -2919,8 +2919,8 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -2970,8 +2970,8 @@ diese Einstellung korrekt funktioniert.
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3043,8 +3043,8 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.19.2"
 
 
 @node Alturas
@@ -412,7 +412,7 @@ Las alteraciones sobre notas unidas por ligadura sólo se imprimen al
 comienzo de un sistema:
 
 @lilypond[verbatim,quote,relative=2,ragged-right]
-cis1~ cis~
+cis1~ 1~
 \break
 cis
 @end lilypond
@@ -3102,8 +3102,8 @@ pero con el ritmo especificado.  Estas cabezas de nota se crean así:
   e8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
-  e2 ~ e8 f4 f8 ~
-  f2
+  2 ~ 8 f4 f8 ~
+  2
   \improvisationOff
   a16( bes) a8 g e
 }

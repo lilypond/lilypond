@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.19.2"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, tweaks-and-overrides"
@@ -51,7 +51,7 @@ harmonies = \chordmode
      b4.~^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  } b4. a8\break
 % HERE IS THE SECOND METHOD
      <<
-       { a8 b4.~ b4. a8}
+       { a8 b4.~ 4. a8}
        { s4 s4 s4^\markup { \fret-diagram  #"6-x;5-2;4-4;3-2;2-2;1-4;"  }
        }
      >>

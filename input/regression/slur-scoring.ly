@@ -12,7 +12,7 @@
 
 }
 
-\version "2.17.28"
+\version "2.19.2"
 \layout {
     ragged-right = ##t
 %    #(define debug-slur-scoring #t)
@@ -23,7 +23,7 @@
     \grace e=''16( d8.[) c16]
     d=''8.[ \grace f16( e16)]
     s2
-    << {c=''8.([ es16] bes4~bes )}
+    << {c=''8.([ es16] bes4~4 )}
        \\
        {r8  <as es> r <f des> r }
     >>

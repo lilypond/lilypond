@@ -1,4 +1,4 @@
-\version "2.17.27"
+\version "2.19.2"
 
 \header {
   lsrtags = "contemporary-notation, expressive-marks, symbols-and-glyphs"
@@ -36,7 +36,7 @@ draw the rectangle over the hairpin.
       des16_\markup \with-dimensions #'(2 . 7) #'(0 . 0)
                     \with-color #white
                     \filled-box #'(2 . 7) #'(0 . 2) #0
-      r8. des4 ~ des16->\sff
+      r8. des4 ~ 16->\sff
     }
   >>
 }

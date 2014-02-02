@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.2"
 
 \header{ texidoc = "As default, tablature staves show only the fret numbers, because
                     in most situations, they are combined with normal staves.
@@ -12,7 +12,7 @@ tabstuff = {
   c4^"test" d( e) |
   f4\f g a^\fermata |
   R2.*3 |
-  c8\<\( c16 c ~ c2\! |
+  c8\<\( c16 c ~ 2\! |
   \mark \default
   c'2.\) |
   \ottava #1

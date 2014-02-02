@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Vocal music
 @section Vocal music
@@ -654,8 +654,8 @@ together:
   \new Voice = "melody" {
     \time 3/4
     f4 g2 ~ |
-    g4 e2 ~ |
-    e8
+    4 e2 ~ |
+    8
   }
   \new Lyrics \lyricsto "melody" {
     Ky -- ri -- e __
@@ -755,7 +755,7 @@ without their indicating melismata.  To do this, set
     \time 3/4
     \set melismaBusyProperties = #'()
     c4 d ( e )
-    g8 [ f ] f4 ~ f
+    g8 [ f ] f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
     Ky -- ri -- e e -- le -- i -- son
@@ -783,7 +783,7 @@ should be included in the melisma:
     \time 3/4
     \set melismaBusyProperties = #'()
     c4 d ( e )
-    g8 [ f ] ~ f4 ~ f
+    g8 [ f ] ~ 4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
     Ky -- ri -- _ e __ _ _ _

@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.19.2"
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -32,9 +32,9 @@ ph =
   \ph d a d' fis' c''
   \oneVoice R1*21 \voiceTwo | \skip 1*21 | R1*21 |
   \ph c, c g bes e'
-  c,2~ c, | r16 c8. ~ c4 ~ c2
+  c,2~ 2 | r16 c8. ~ 4 ~ 2
   | r8 f16 a c' f' c' a c' a f a f d f d |
-  c,2~ c, | r16 b,8. ~ b,4 ~ b,2
+  c,2~ 2 | r16 b,8. ~ 4 ~ 2
   | r8 g'16 b' d'' f'' d'' b' d'' b' g' b' d' f' e' d' |
   c,1\fermata | c1 | <e' g' c''>1\fermata \bar "|." |
 }
@@ -61,9 +61,9 @@ ph =
   \ph d, a' d fis c'
   \oneVoice R1*21 \voiceTwo | \skip 1*21 | R1*21 |
   \ph c, c' g' bes e
-  c2~ c | r16 c'8. ~ c4 ~ c2
+  c2~ 2 | r16 c'8. ~ 4 ~ 2
   | r8 f16 a c f c' a c a f a f d f d |
-  c,,2~ c | r16 b'8. ~ b4 ~ b2
+  c,,2~ 2 | r16 b'8. ~ 4 ~ 2
   | r8 g'16 b d f d b d b g b d f e d |
   c,,1\fermata | c'1 | <e' g c>1\fermata \bar "|." |
 }

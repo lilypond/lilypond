@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -4455,7 +4455,7 @@ des plus heureuses, même en optant pour un @code{\tieDown}.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1~ e }
+  { e1~ 1 }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -4503,7 +4503,7 @@ de portée :
 <<
   {
     \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
-    e1~ e
+    e1~ 1
   }
 \\
   { r4 <g c,> <g c,> <g c,> }

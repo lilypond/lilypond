@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.2"
 
 #(define (glissando::calc-extra-dy grob)
    (let* ((original (ly:grob-original grob))
@@ -32,7 +32,7 @@ lower= \relative c {
   s4 e,4 s2
   s2 s8 < e'-3 >4. ~
   e4 \hideNotes \grace { b8 \glissando s4 } \unHideNotes < e-2 >4\5 e,2 ~
-  e2 < e'\6\harmonic >
+  2 < e'\6\harmonic >
 }
 
 \score {

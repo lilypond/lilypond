@@ -64,7 +64,7 @@ melody =    \relative c'' \repeat volta 2 \new Voice = "singer" {
   d4 f8 a16[ g fis g] f[ d] |
   g4. r8 gis gis |
   a4 a16.[ b32] c4 fis,8 |
-  g4.~ g8-\fermata g8 g |
+  g4.~ 8-\fermata g8 g |
   as4 as8 g4 g8 |
   fis4 fis8 r8 g g  |
   a!4 a8 g4 g8 |

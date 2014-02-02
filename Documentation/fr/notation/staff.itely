@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -1063,7 +1063,7 @@ substitution :
   R1*16
   \instrumentSwitch "contrabassoon"
   c,,2 g \break
-  c,1 ~ | c1
+  c,1 ~ | 1
 }
 @end lilypond
 

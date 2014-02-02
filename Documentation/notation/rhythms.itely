@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.0"
+@c \version "2.19.2"
 
 @node Rhythms
 @section Rhythms
@@ -431,7 +431,7 @@ of each pair of notes being tied.  This indicates that the note
 should be tied to the following note, which must be at the same pitch.
 
 @lilypond[quote,verbatim,relative=2]
-a2~ a4~ a16 r r8
+a2~ 4~ 16 r r8
 @end lilypond
 
 Ties can make use of the @q{last explicit pitch} interpretation of
@@ -447,8 +447,8 @@ used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c~ c2 r4 |
-  r8^"not" c2~ c8 r4
+  r8 c~ 2 r4 |
+  r8^"not" c2~ 8 r4
 }
 @end lilypond
 
@@ -536,26 +536,26 @@ dashed.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2~ c
+c2~ 2
 \tieDashed
-c2~ c
+c2~ 2
 \tieHalfDashed
-c2~ c
+c2~ 2
 \tieHalfSolid
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Custom dash patterns can be specified:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2~ c
+c2~ 2
 \tieDashPattern #0.7 #1.5
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Dash pattern definitions for ties have the same structure as dash

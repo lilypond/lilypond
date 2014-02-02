@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Duraciones
 @section Duraciones
@@ -439,7 +439,7 @@ notas que se quieren unir.  Esto indica que la nota se une a la
 siguiente, que debe tener la misma altura.
 
 @lilypond[quote,verbatim,relative=2]
-a2~ a4~ a16 r r8
+a2~ 4~ 16 r r8
 @end lilypond
 
 Se usan ligaduras de unión bien cuando la nota atraviesa la barra de
@@ -450,8 +450,8 @@ subdivisiones del compás de mayor duración:
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative c' {
-  r8^"sí" c~ c2 r4 |
-  r8^"no" c2~ c8 r4
+  r8^"sí" c~ 2 r4 |
+  r8^"no" c2~ 8 r4
 }
 @end lilypond
 
@@ -539,26 +539,26 @@ punteadas o una combinación de continuas y discontinuas.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2~ c
+c2~ 2
 \tieDashed
-c2~ c
+c2~ 2
 \tieHalfDashed
-c2~ c
+c2~ 2
 \tieHalfSolid
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Se pueden especificar patrones de discontinuidad personalizados:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2~ c
+c2~ 2
 \tieDashPattern #0.7 #1.5
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Las definiciones de patrones de discontinuidad para las ligaduras de

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.19.2"
 
 @node Ladění výstupu
 @chapter Ladění výstupu
@@ -3322,7 +3322,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3383,7 +3383,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3459,7 +3459,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3545,7 +3545,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3777,7 +3777,7 @@ man zwei Stimmen benutzt, wobei die überbundenen Noten
 sich in der selben befinden,
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b8\noBeam } \\ { b[ g8] } >>
+<< { b8~ 8\noBeam } \\ { b[ g8] } >>
 @end lilypond
 
 @noindent
@@ -3793,7 +3793,7 @@ den Stimmen stattfindet:
 <<
   {
     \once \override Stem.transparent = ##t
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3810,7 +3810,7 @@ gesetzt wird:
   {
     \once \override Stem.transparent = ##t
     \once \override Stem.length = #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b[ g8] }

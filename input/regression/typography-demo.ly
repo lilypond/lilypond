@@ -47,7 +47,7 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
   \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
   g4. r8 gis gis |
   a4 a16.[ b32] c8[( a]) fis8 |
-  g4.~ g8-\fermata
+  g4.~ 8-\fermata
 }
 
 

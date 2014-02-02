@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.2"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -1551,7 +1551,7 @@ rehaussé.
   \override Tie.after-line-breaking =
   #my-callback
   c1 ~ \break
-  c2 ~ c
+  c2 ~ 2
 }
 @end lilypond
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.19.2"
 
 \header {
   lsrtags = "headword"
@@ -82,7 +82,7 @@ Rhythms headword
       c'''32 ) \!
       g''8 (
       ~
-      g''32 [
+      32 [
       a''64
       g''64 ) ]
 

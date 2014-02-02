@@ -8,7 +8,7 @@ Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -4334,7 +4334,7 @@ resulta óptima, y @code{\tieDown} no es la solución.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1~ e }
+  { e1~ 1 }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -4381,7 +4381,7 @@ mitad de un espacio de pentagrama:
 <<
   {
     \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
-    e1~ e
+    e1~ 1
   }
 \\
   { r4 <g c,> <g c,> <g c,> }

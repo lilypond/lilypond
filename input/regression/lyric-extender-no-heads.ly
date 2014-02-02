@@ -6,7 +6,7 @@ without a lyric attached."
   
 }
 
-\version "2.16.0"
+\version "2.19.2"
 
 \layout {
   ragged-right = ##t
@@ -14,7 +14,7 @@ without a lyric attached."
 
 \relative c'' {
   \time 3/4
-  d4~ d4 r4
+  d4~ 4 r4
   \grace es8
 
   d4

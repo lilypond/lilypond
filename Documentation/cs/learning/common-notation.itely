@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.19.2"
 
 @ignore
 Tutorial guidelines:
@@ -243,7 +243,7 @@ Slovníček: @rglos{tie}.
 spojit, připojí vlnovka @code{~}.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~ | c4~ c8 a~ a2
+g4~ 4 c2~ | 4~ 8 a~ 2
 @end lilypond
 
 
@@ -288,7 +288,7 @@ zapsány pro větší skupiny not. Ligatury a legatové obloučky mohou
 být naskládány do sebe.
 
 @lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ d4 e)
+c4~( c8 d~ 4 e)
 @end lilypond
 
 
@@ -1205,7 +1205,7 @@ ve Figarově árii @notation{Largo al factotum}.
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b | c8([ d]) b c d b | c8
+    c4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
@@ -1236,7 +1236,7 @@ Händelova díla @notation{Judas Maccabeus}:
     \key f \major
     \time 6/8
     \partial 8
-    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let | flee -- cy flocks the | hills a -- | dorn, __
