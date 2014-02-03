@@ -614,7 +614,7 @@ automatically when an output definition (a @code{\\score} or
   doubleRepeatType = #":..:"
   startRepeatType = #".|:"
   endRepeatType = #":|."
-  alternativeRestores = #'(measurePosition measureLength)
+  alternativeRestores = #'(measurePosition measureLength lastChord)
   barNumberVisibility = #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   barNumberFormatter = #robust-bar-number-function
   clefTranspositionFormatter = #clef-transposition-markup
