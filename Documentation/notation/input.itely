@@ -2772,6 +2772,9 @@ crescendi and decrescendi cannot affect the volume of a single note.
 Some MIDI players may not always correctly handle tempo changes in the
 midi output.
 
+Changes to @code{midiInstrument} (and other MIDI options) at the
+beginning of a staff may appear twice in the MIDI output.
+
 
 @node MIDI Instruments
 @subsection MIDI Instruments
