@@ -386,6 +386,15 @@ The colors have been added for better visibility.
 @newsEnd
 
 @newsItem
+@subsubheading Customized Output
+
+A short excerpt from Stockhausen's Klavierstück II to demonstrate
+Lilypond's ability to provide customised output.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@newsEnd
+
+@newsItem
 @subsubheading Vocal Music
 
 LilyPond is excellent for vocal music of all kinds, from sacred
