@@ -60,6 +60,27 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+Four new Clefs have been added.  @emph{Double G}, @emph{Tenor G},
+@emph{Varpercussion} and @emph{varC}.
+@lilypond[verbatim,quote,fragment]
+  \override Staff.Clef.full-size-change = ##t
+
+  \clef "GG" c c c c
+  \clef "tenorG" c c c c
+  \clef "varC" c c c c
+  \clef "varpercussion" c c c c
+
+  \break
+  \override Staff.Clef.full-size-change = ##f
+
+  \clef "GG" c c c c
+  \clef "tenorG" c c c c
+  \clef "varC" c c c c
+  \clef "varpercussion" c c c c
+@end lilypond
+
 @item
 Isolated durations in music sequences now stand for unpitched
 notes.  This may be useful for specifying rhythms to music or
