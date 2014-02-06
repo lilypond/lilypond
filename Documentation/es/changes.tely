@@ -417,7 +417,7 @@ para @code{inicio} y @code{final} utilice @code{\override
 @code{inicio}, @code{final} y @code{fase}.
 
 @noindent
-La línea d puntos siempre se extiende a la longitud completa dada
+La línea de puntos siempre se extiende a la longitud completa dada
 por @var{destino}, sin ningún espacio al principio ni al final.
 Es posible ajustar manualmente @code{final} para obtener espacios
 mayores o menores entre los puntos.  El valor dado (o
