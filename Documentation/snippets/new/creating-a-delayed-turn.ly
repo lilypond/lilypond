@@ -12,7 +12,7 @@ property}.  Changing the fractions @code{2/3} and @code{1/3} adjusts the
 horizontal position.
 "
   doctitle = "Creating a delayed turn"
-} % begin verbatim
+}
 
 
 \relative c'' {

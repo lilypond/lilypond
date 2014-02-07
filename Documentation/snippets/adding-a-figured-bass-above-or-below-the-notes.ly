@@ -36,7 +36,7 @@ bass = {
   \clef bass
   g4 b, c d
   e d8 c d2
-} % begin verbatim
+}
 
 continuo = \figuremode {
   <_>4 <6>4 <5/>4

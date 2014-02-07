@@ -22,7 +22,7 @@ whole score.
 
 "
   doctitle = "Adding a figured bass above or below the notes"
-} % begin verbatim
+}
 
 
 bass = {

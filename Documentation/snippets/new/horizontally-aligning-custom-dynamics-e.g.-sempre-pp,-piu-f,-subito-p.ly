@@ -52,7 +52,7 @@ not at the center of pp.
 
 "
   doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\" \"piu f\" \"subito p\")"
-} % begin verbatim
+}
 
 
 \header { title = "Horizontally aligning custom dynamics" }
