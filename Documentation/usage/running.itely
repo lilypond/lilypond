@@ -616,9 +616,9 @@ havoc, e.g,
 
 @quotation
 @verbatim
-#(system "rm -rf /")
+#(s ystem "rm -rf /")  % too dangerous to write correctly
 {
-  c4^$(ly:gulp-file "/etc/passwd")
+  c4^$(ly:gulp-file "/etc/passwd") % malicious but not destructive
 }
 @end verbatim
 @end quotation
