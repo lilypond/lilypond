@@ -1225,10 +1225,10 @@ any @code{\override} done to the @var{Clef} will also need to be
 applied, as a separate @code{\override}, to the @var{ClefModifier}
 grob.
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[fragment,quote,verbatim,relative=1]
 \new Staff \with {
-  \override ClefModifier.color = #red
   \override Clef.color = #blue
+  \override ClefModifier.color = #red
 }
 
 \clef "treble_8" c4
