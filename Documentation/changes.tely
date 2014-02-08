@@ -60,6 +60,158 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+@item
+A new flexible template suitable for a range of choral music, is now
+provided.  This may be used to create simple choral music, with or
+without piano accompaniment, in two or four staves. Unlike other
+templates, this template is @q{built-in}, which means it does not
+need to be copied and edited: instead it is simply @code{\include}'d
+in the input file.  For details, see @rlearning{Built-in templates}.
+
+@item
+The positioning of tuplet numbers for kneed beams has been significantly
+improved.  Previously, tuplet numbers were placed according to the
+position of the tuplet bracket, even if it was not printed.  This could
+lead to stranded tuplet numbers.  Now they are now positioned
+closer to the kneed-beam when an appropriate beam segment exists for its
+placement and when the the bracket is not drawn.
+
+Collision detection is also added, offsetting horizontally if too close
+to an adjoining note column but preserving the number's vertical
+distance from the kneed beam.  If the number itself is too large to
+fit in the available space the original, bracket-based, positioning
+system is used instead; and in the event of a collision (e.g. with an
+accidental) the tuplet number is moved vertically away instead.
+
+@lilypond[verbatim,fragment,quote,relative=1]
+\time 3/4
+\override Beam.auto-knee-gap = 3
+\tuplet 3/2 4 {
+  g8 c'' e,
+  c'8 g,, e''
+  g,,8 e''' c,,
+}
+@end lilypond
+
+@noindent
+The original kneed-beam tuplet behavior is still available through an
+@code{\override} via a new, @code{knee-to-beam} property.
+
+@lilypond[verbatim,fragment,quote,relative=1]
+\time 3/4
+\override Beam.auto-knee-gap = 3
+\override TupletNumber.knee-to-beam = ##f
+\tuplet 3/2 4 {
+  g8 c'' e,
+  c'8 g,, e''
+  g,,8 e''' c,,
+}
+@end lilypond
+
+@item
+@code{\lyricsto} and @code{\addLyrics} have been @q{harmonized}.  Both
+now accept the same kind of delimited argument list that @code{\lyrics}
+and @code{\chords} accept.  Backward compatibility has been added so
+music identifiers (i.e. @code{\mus}) are permitted as arguments.  A
+@code{convert-ly} rule has been added that removes redundant uses of
+@code{\lyricmode} and rearranges combinations with context starters such
+that @code{\lyricsto} in general is applied last (i.e. like
+@code{\lyricmode} would be).
+
+@item
+Scheme functions and identifiers can now be used as output definitions.
+
+@item
+Scheme expressions can now be used as chord constituents.
+
+@item
+Improved visual spacing of small and regular @q{MI} Funk and Walker
+noteheads so they are now the same width as other shaped notes in
+their respective sets.  @code{SOL} noteheads are also now visually
+improved when used with both the normal Aiken and Sacred Harp heads, as
+well as with the thin variants.
+
+@item
+@code{LeftEdge} now has a definable @code{Y-extent} (i.e.vertical).  See
+@rinternals{LeftEdge}.
+
+@item
+Added a new @code{make-path-stencil} function that supports all
+@code{path} commands both relative and absolute:
+
+@code{lineto}, @code{rlineto}, @code{curveto}, @code{rcurveto},
+@code{moveto}, @code{rmoveto}, @code{closepath}.  The function also
+supports @q{single-letter} syntax used in standard SVG path commands:
+
+@code{L}, @code{l}, @code{C}, @code{c}, @code{M}, @code{m}, @code{Z} and
+@code{z}.  The new command is also backward-compatible with the original
+@code{make-connected-path-stencil} function.  Also see
+@file{scm/stencil.scm}.
+
+@item
+Context properties named in the @samp{alternativeRestores} property are
+restored to their value at the start of the @emph{first} alternative in
+all subsequent alternatives.
+
+Currently the default set restores @q{current meter};
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\time 3/4
+\repeat volta 2 { c2 e4 | }
+\alternative {
+  { \time 4/4 f2 d | }
+  { f2 d4 | }
+}
+g2. |
+@end lilypond
+
+@noindent
+@q{measure position};
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\time 3/4
+\repeat volta 2 { c2 e4 | }
+\alternative {
+  { \time 4/4
+    \set Timing.measurePosition = #(ly:make-moment -1/2)
+    f2 | }
+  { f2 d4 | }
+}
+g2. |
+@end lilypond
+
+@noindent
+and @q{chord changes};
+
+@lilypond[verbatim,fragment,quote]
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \chordmode { c1:m d:m c:m d:m }
+  }
+  \new Staff {
+    \repeat volta 2 { \chordmode { c1:m } }
+    \alternative {
+      { \chordmode { d:m } }
+      { \chordmode { c:m } }
+    }
+  \chordmode { d:m }
+}
+>>
+@end lilypond
+
+@item
+Improved MIDI output for breathe marks.  After tied notes, breaths take
+time @emph{only} from the last note of the tie; e.g.
+@code{@{ c4~ c8 \breathe @}} performs as @code{@{ c4~ c16 r @}} instead
+of @code{@{ c4 r8 @}}.  This is more consistent with articulations and
+how humans interpret breaths after ties.  It now also makes it easier to
+align simultaneous breathe marks over multiple parts, all with different
+note lengths.
+
+@item
+A new note head style for Tabulature has been added;
+@code{TabNoteHead.style = #'slash}.
 
 @item
 Four new Clefs have been added.  @emph{Double G}, @emph{Tenor G},
