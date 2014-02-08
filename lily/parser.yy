@@ -3495,7 +3495,13 @@ markup_uncomposed_list:
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
-		unsmob_score ($4)->origin ()->set_spot (@$);
+		Score *sc = unsmob_score ($4);
+		sc->origin ()->set_spot (@$);
+		if (sc->defs_.empty ()) {
+			Output_def *od = get_layout (parser);
+			sc->add_output_def (od);
+			od->unprotect ();
+		}
 		$$ = scm_list_1 (scm_list_2 (ly_lily_module_constant ("score-lines-markup-list"), $4));
 		parser->lexer_->pop_state ();
 	}
@@ -3572,7 +3578,13 @@ simple_markup:
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
-		unsmob_score ($4)->origin ()->set_spot (@$);
+		Score *sc = unsmob_score ($4);
+		sc->origin ()->set_spot (@$);
+		if (sc->defs_.empty ()) {
+			Output_def *od = get_layout (parser);
+			sc->add_output_def (od);
+			od->unprotect ();
+		}
 		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), $4);
 		parser->lexer_->pop_state ();
 	}
