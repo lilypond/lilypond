@@ -94,6 +94,16 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
+An @q{opening} repeat mark is not, by default, printed in the first full
+measure.  However it is possible to add one by using @code{\bar ".|:"}
+before the first note.
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\repeat volta 2 { \bar ".|:" c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
 Alternative endings can be produced using @code{\alternative}.  Each
 group of alternatives must be themselves, enclosed in a set of braces.
 
@@ -518,12 +528,6 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
   \set Score.repeatCommands = #'((volta #f))
 }
 @end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
 @seealso
 Notation Reference:
