@@ -214,41 +214,6 @@ a2 a |
 g1 |
 @end lilypond
 
-When alternate endings are added to a repeat that begins with an
-incomplete measure, it becomes necessary to set the
-@code{Timing.measureLength} context property manually, in the
-following specific places:
-
-@itemize
-@item
-at the start of any incomplete measures in the @code{\alternative}
-block, which normally occur at the end of each alternative, except
-(in most cases) the last.
-
-@item
-at the start of each alternative, except the first.
-@end itemize
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 2 { e4 | c2 e | }
-\alternative {
-  {
-    f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3/4)
-    g4 g g  % optional bar check is allowed here
-  }
-  {
-    \set Timing.measureLength = #(ly:make-moment 4/4)
-    a2 a |
-  }
-}
-g1 |
-@end lilypond
-
-The @code{measureLength} property is described in @ref{Time
-administration}.
-
 @cindex repeats, with ties
 @cindex alternative endings, with ties
 @cindex ties, in repeats
@@ -369,6 +334,9 @@ Notation Reference:
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
 @ref{Time administration}.
+
+Installed Files:
+@file{ly/engraver-init.ly}.
 
 Snippets:
 @rlsr{Repeats}.
