@@ -45,10 +45,6 @@
 
 @itemize
 
-@item Bertrand Bordage:
-@email{bordage.bertrand@@gmail.com},
-Core developer, font designer
-
 @item Trevor Daniels:
 @email{t.daniels@@treda.co.uk},
 Assistant documentation editor
@@ -64,29 +60,14 @@ Build unentangler, Bug squad member
 @item Ian Hulin:
 Core developer
 
-@item Reinhold Kainhofer:
-@email{reinhold@@kainhofer.com},
-@uref{http://reinhold.kainhofer.com},
-Core developer, Music2xml wrangler
-
 @item David Kastrup:
 @email{dak@@gnu.org},
 hard core developer, user and programming interfaces, bug squashing and
 swamp drainage.
 
-@item Jonathan Kulp:
-Assistant documentation editor
-
 @item Werner Lemberg,
 @email{wl@@gnu.org},
 Fonts, bug squasher
-
-@item John Mandereau:
-@email{john.mandereau@@free.fr},
-Translations
-
-@item Patrick McCarty:
-SVG guru, bug squad member, bug squasher, text handling
 
 @item Joe Neeman:
 Core developer
@@ -102,16 +83,6 @@ Main author
 @uref{http://AvatarAcademy.nl},
 Main author
 
-@item Graham Percival:
-@uref{http://percival-music.ca},
-Project manager, Documentation Editor
-
-@item Mark Polesky:
-Assistant documentation editor, Code cleanup
-
-@item Neil Puttock:
-Core developer
-
 @item Mike Solomon:
 @email{mike@@mikesolomon.org},
 Core developer, Frog meister
@@ -122,9 +93,6 @@ Core developer
 
 @item Francisco Vila:
 Translation Meister
-
-@item Valentin Villenave:
-LSR editor and Bug squad member
 
 @item Janek Warchoł:
 happy nitpicker
@@ -145,16 +113,37 @@ happy nitpicker
 @uref{https://www.kth.se/profile/matben/},
 Support guru
 
+@item Bertrand Bordage:
+@email{bordage.bertrand@@gmail.com},
+Core developer, font designer
+
+@item Reinhold Kainhofer:
+@email{reinhold@@kainhofer.com},
+@uref{http://reinhold.kainhofer.com},
+Core developer, Music2xml wrangler
+
 @item Pedro Kroeger:
 Build meister
+
+@item Jonathan Kulp:
+Assistant documentation editor
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
 Translation meister
 
+@item Patrick McCarty:
+SVG guru, bug squad member, bug squasher, text handling
+
 @item Graham Percival:
 @uref{http://percival-music.ca},
 Bug meister, Grand Documentation Project leader
+
+@item Mark Polesky:
+Assistant documentation editor, Code cleanup
+
+@item Neil Puttock:
+Core developer
 
 @item Jürgen Reuter:
 @email{reuter_j@@web.de},
@@ -166,6 +155,9 @@ Bug meister
 
 @item Nicolas Sceaux:
 Core developer, Schemer extraordinaire
+
+@item Valentin Villenave:
+LSR editor and Bug squad member
 
 @end itemize
 @end macro
@@ -235,9 +227,9 @@ Rodolfo Zitellini
 
 @c use commas not colons
 
+Federico Bruni,
 Colin Campbell,
 Eluze,
-Marc Hohl,
 Phil Holmes,
 Marek Klein,
 Ralph Palmer
