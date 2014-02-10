@@ -1591,6 +1591,21 @@ look at bar lines nor different accidentals at the same note name."
           (cons #f (not (or (equal? acc key-acc)
                             (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
+(define-public (dodecaphonic-no-repeat-rule context pitch barnum measurepos)
+  "An accidental rule that typesets an accidental before every note
+(just as in the dodecaphonic accidental style) @emph{except} if the note
+is immediately preceded by a note with the same pitch. This is a common
+accidental style in contemporary notation."
+   (let* ((keysig (ly:context-property context 'localKeySignature))
+          (entry (find-pitch-entry keysig pitch #t #t)))
+     (if (not entry)
+          (cons #f #t)
+         (let* ((entrymp (key-entry-measure-position entry))
+                (entrybn (key-entry-bar-number entry)))
+           (cons #f
+             (not
+              (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets a cautionary accidental if it is
 included in the key signature @emph{and} does not directly follow a note
@@ -1701,6 +1716,14 @@ as a context."
                                   `(Staff ,(lambda (c p bn mp) '(#f . #t)))
                                   '()
                                   context))
+     ;; As in dodecaphonic style with the exception that immediately
+     ;; repeated notes (in the same voice) don't get an accidental
+     ((equal? style 'dodecaphonic-no-repeat)
+      (set-accidentals-properties #f
+                                  `(Staff ,(make-accidental-rule 'same-octave 0)
+                                          ,dodecaphonic-no-repeat-rule)
+                                          '()
+                                          context))
      ;; Multivoice accidentals to be read both by musicians playing one voice
      ;; and musicians playing all voices.
      ;; Accidentals are typeset for each voice, but they ARE canceled across voices.
