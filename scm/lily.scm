@@ -277,7 +277,7 @@ file to given string.")
 to a music font.")
     (point-and-click
      #t
-     "Add point & click links to PDF output.")
+     "Add point & click links to PDF and SVG output.")
     (paper-size
      "a4"
      "Set default paper size.")
