@@ -2443,6 +2443,64 @@ musicB = {
 }
 @end lilypond
 
+@item dodecaphonic-no-repeat
+
+@cindex dodecaphonic accidental style
+@cindex dodecaphonic style, neo-modern
+
+@funindex dodecaphonic-no-repeat
+
+Like with the dodecaphonic accidental style @emph{every} note
+gets an accidental sign by default, but accidentals are
+suppressed for pitches immediately repeated within one voice.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
 
 @item teaching
 
