@@ -22,11 +22,11 @@ horizontal position.
 } % begin verbatim
 
 
+
 \relative c'' {
   c2*2/3 ( s2*1/3\turn d4) r
   <<
-    { c4.( d8) } % begin verbatim
-
+    { c4.( d8) }
     { s4 s\turn }
   >>
   \transpose c d \relative c'' <<
