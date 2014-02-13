@@ -62,7 +62,7 @@ not at the center of pp.
 } % begin verbatim
 
 
-\header { title = "Horizontally aligning custom dynamics" }
+\header { title = "Horizontally aligning custom dynamics" } % begin verbatim
 
 
 \paper { ragged-right = ##f }
