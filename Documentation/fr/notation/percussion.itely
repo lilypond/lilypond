@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0
+    Translation of GIT committish: d5fc7a079db0853bfb49e21821226d492f01cf8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -216,10 +216,9 @@ Morceaux choisis :
 
 Une partie de percussions utilisant plusieurs instruments requiert en
 général une portée de plusieurs lignes, où chaque hauteur sur la
-portée représente un instrument à percussion.
-
-Pour saisir cette musique, il faut que les notes soient situées dans
-des contextes @code{DrumStaff} et @code{DrumVoice}.
+portée représente un instrument à percussion.  La gravure d'une telle
+musique requiert que les notes soient situées dans des contextes
+@code{DrumStaff} et @code{DrumVoice}.
 
 @lilypond[quote,verbatim]
 up = \drummode {
@@ -259,7 +258,8 @@ Quelques variables prédéfinies sont disponibles :
 @table @code
 
 @item drums-style
-La notation par défaut : une batterie standard, sur une portée de cinq lignes.
+La notation par défaut : une batterie standard, sur une portée de cinq
+lignes.
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
@@ -460,7 +460,7 @@ woodstaff = {
 }
 @end lilypond
 
-Vous aurez remarqué ici l'allongement des barres de mesures par
+Vous aurez remarqué ici l'allongement des barres de mesure par
 l'instruction
 @w{@code{\override Staff.BarLine.bar-extent #'(de . à)}}.  Il faut
 aussi définir la position des deux lignes de la portée -- voir à ce
@@ -615,14 +615,10 @@ Référence des propriétés internes :
 
 Des notes fantômes peuvent être créées pour les parties de percussion,
 grâce à la commande @code{\parenthesize} décrite à la rubrique
-@ref{Parenthèses}.  Cependant, le mode @code{\drummode} n'inclut pas par
-défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
-signes.
+@ref{Parenthèses}.
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff \with {
-  \consists "Parenthesis_engraver"
-}
+\new DrumStaff
 <<
   \context DrumVoice  = "1" { s1 }
   \context DrumVoice  = "2" { s1 }
@@ -630,8 +626,8 @@ signes.
     <<
       {
         hh8[ hh] <hh sn> hh16
-        < \parenthesize sn > hh
-        < \parenthesize sn > hh8 <hh sn> hh
+        \parenthesize sn hh
+        \parenthesize sn hh8 <hh sn> hh
       } \\
       {
         bd4 r4 bd8 bd r8 bd
@@ -640,10 +636,6 @@ signes.
   }
 >>
 @end lilypond
-
-@noindent
-Notez que les commandes @code{\parenthesize} obligent à ajouter des
-accords -- sous la forme @code{< >} -- autour de chaque élément.
 
 @seealso
 Morceaux choisis :

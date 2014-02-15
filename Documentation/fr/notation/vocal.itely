@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: 1e6d2b3b82a8e5d871b1b281f6d5a2860e83fb7b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -844,10 +844,10 @@ caractère souligné.
 
 @c leave this as samp. -gp
 Un mélisme sur la dernière syllabe d'un mot est indiqué par une longue
-ligne horizontale basse s'étirant jusqu'à syllabe suivante.  Une telle
-ligne, que nous appellerons prolongateur ou extenseur, s'obtient en
-saisissant @samp{ __ } (notez les espaces entourant le double caractère
-souligné).
+ligne horizontale basse s'étirant jusqu'à la syllabe suivante.  Une
+telle ligne, que nous appellerons prolongateur ou extenseur, s'obtient
+en saisissant @samp{ __ } (notez les espaces entourant le double
+caractère souligné).
 
 @warning{Dans une partition, les mélismes, ou vocalises, sont
 matérialisés par une ligne de prolongation.  On l'indique par un double
@@ -1306,7 +1306,7 @@ séparés ; ils seront combinés dans une section parallèle :
 }
 @end lilypond
 
-Et ce quel que soit le nombre de @qq{couplets} :
+Et ce quel que soit le nombre de « couplets » :
 
 @lilypond[verbatim,quote]
 \score {
@@ -1424,7 +1424,7 @@ adopter la même construction que la musique :
 
 Cette identité de structure n'est toutefois pas possible lorsque les
 paroles sont différentes.  Des instructions @code{\skip} devront venir
-s'insérer dans les paroles pour @qq{sauter} les notes des alternatives
+s'insérer dans les paroles pour « sauter » les notes des alternatives
 qui ne les concernent pas.
 
 N'utilisez pas de simple caractère souligné pour sauter une note.
@@ -1474,14 +1474,14 @@ note quelle qu'en soit la durée.}
 Lorsqu'une note se prolonge sur les alternatives, la tenue est
 indiquée normalement pour la première alternative, et à l'aide de
 l'instruction @code{\repeatTie} pour les suivantes.  Cette liaison
-@qq{de répétition} pose problème en matière d'alignement des paroles
+« de répétition » pose problème en matière d'alignement des paroles
 puisque la longueur de l'alternative est accrue en raison de la liaison.
 
 D'autre part, une liaison de prolongation crée un mélisme qui sera
 effectif pour la première alternative, mais pas pour les autres.  La
-solution pour @qq{recaler} les paroles consiste à désactiver
+solution pour « recaler » les paroles consiste à désactiver
 temporairement la détection automatique de mélismes et insérer des
-@qq{blancs}.
+« blancs ».
 
 @lilypond[quote,verbatim]
 \score {
@@ -1722,13 +1722,13 @@ words = \lyricmode { la __ la __ }
 
 Le contexte @code{NullVoice} doit prendre place dans un contexte
 @code{Staff} et ne saurait contenir que des notes déjà présentes sur la
-portée en question, au même octave.  Dans le cas contraire, ce
+portée en question, à la même octave.  Dans le cas contraire, ce
 @code{NullVoice} pourrait interagir avec les autres voix imprimées de
 façon inopinée.  Par exemple, des notes arbitraires dans un
 @code{NullVoice} pourraient entraîner l'apparition ou la disparition
 d'altérations sur la portée considérée.
 
-Cette faàon de procéder permet par ailleurs d'utiliser la fonction
+Cette façon de procéder permet par ailleurs d'utiliser la fonction
 @code{\partcombine} qui normalement ne peut s'utiliser avec des
 paroles :
 
@@ -1749,7 +1749,7 @@ words = \lyricmode { la __ la __ }
 La fonction @code{\partcombine} est abordée en détails dans
 @ref{Regroupement automatique de parties}.
 
-Pour finir, cette méthode est aussi utilkisable lorsque les voix sont
+Pour finir, cette méthode est aussi utilisable lorsque les voix sont
 sur des portées différentes, et ne se limite pas à deux voix :
 
 @lilypond[quote,verbatim]
@@ -2060,9 +2060,9 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
 
 @noindent
 le texte du premier couplet s'aligne de manière habituelle sur la
-mélodie nommée @qq{lahlah}.  Mais le second couplet, tout d'abord
+mélodie nommée « lahlah ».  Mais le second couplet, tout d'abord
 rattaché au contexte @code{lahlah}, bascule sur la mélodie
-@code{alternative} pour les syllabes @qq{ran} à @qq{sau} grâce aux lignes
+@code{alternative} pour les syllabes « ran » à « sau » grâce aux lignes
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -2270,8 +2270,8 @@ en surplomb de la mélodie.  Ceci est abordé au chapitre
 
 @item
 L'impression de diagrammes d'accord, lorsque l'accompagnement est fait à
-la guitare, est expliqué à la rubrique @qq{Tablatures sous forme
-d’étiquette}, au chapitre @ref{Vue d'ensemble des cordes frettées}.
+la guitare, est expliqué à la rubrique « Tablatures sous forme
+d’étiquette », au chapitre @ref{Vue d'ensemble des cordes frettées}.
 
 @end itemize
 
@@ -2549,7 +2549,7 @@ Une @emph{partition de choriste} qui ne comprend que les parties vocales
 @item
 Un @emph{livret} contenant l'intégralité des dialogues et le texte des
 passages chantés.  On y trouve aussi très souvent les indications de
-mise en scène.  Bien que LilyPond soit capable de @qq{typographier} un
+mise en scène.  Bien que LilyPond soit capable de « typographier » un
 livret, n'oubliez pas qu'il n'y a dans ce cas pas de musique, et que
 d'autres outils pourraient être mieux appropriés.
 
@@ -2585,7 +2585,7 @@ la rubrique @ref{Imbrication de regroupements de portées}.
 @item
 Les portées vides sont la plupart du temps éliminées d'un conducteur ou
 d'une partition de chœur.  La réalisation d'une telle partition --  les
-anglophones la disent @qq{à la française} -- est expliquée à la rubrique
+anglophones la disent « à la française » -- est expliquée à la rubrique
 @ref{Masquage de portées}.
 
 @item
@@ -2694,7 +2694,7 @@ Dans le cas où les changements de personnage se multiplient, il peut
 s'avérer pratique de détourner l'utilisation de la fonction
 @code{\instrumentSwitch} pour gérer les différentes interventions de
 l'un ou de l'autre ; vous devrez auparavant avoir établi la
-définition d'un @qq{instrument} pour chacun des rôles en question :
+définition d'un « instrument » pour chacun des rôles en question :
 
 @lilypond[quote,verbatim]
 \addInstrumentDefinition #"kaspar"
@@ -3043,7 +3043,7 @@ stemOff = { \hide Staff.Stem }
 
 Les barres de mesure sont absentes dans la plupart des cas ; celles
 que vous rencontrerez seront raccourcies ou en pointillé, dans le but
-d'indiquer une @qq{respiration}.  Le fait de supprimer le graveur de
+d'indiquer une « respiration ».  Le fait de supprimer le graveur de
 barres de mesure produira des portées sans barre :
 
 @lilypond[verbatim,quote]
@@ -3210,7 +3210,7 @@ fragment est divisé en deux parties correspondant aux deux moitiés de
 chaque verset et généralement séparées par une double barre.  Il n'est
 fait usage que de rondes et de blanches, et la première mesure de chaque
 moitié contient un simple accord de rondes.  Il s'agit donc des notes
-correspondant au @qq{récitatif}.  Ces cantiques sont traditionnellement
+correspondant au « récitatif ».  Ces cantiques sont traditionnellement
 centrés sur la page.
 
 @lilypond[verbatim,quote]
