@@ -983,7 +983,7 @@ rectángulos y añade una separación.
             \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
-or, equivalently
+o, de forma equivalente,
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)

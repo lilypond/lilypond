@@ -74,9 +74,9 @@ de articulaciones y ornamentos.
 @end lilypond
 
 Sin embargo, algunos elementos de notación tales como las
-expresiones de matices dinámicos, los reguladores y las
-ligaduras de espresión, se deben unir al acorde y no a las notas que integran
-el mismo, pues en caso contrario no se imprimirán.
+expresiones de matices dinámicos, los reguladores y las ligaduras
+de expresión, se deben unir al acorde y no a las notas que
+integran el mismo, pues en caso contrario no se imprimirán.
 
 @lilypond[verbatim,quote,relative=2]
 <a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
