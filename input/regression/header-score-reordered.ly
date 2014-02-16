@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.18.1"
 \header {
   texidoc="
 Header blocks may appear before and after the actual music in a score.
