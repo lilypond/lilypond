@@ -100,7 +100,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if  (Staff_symbol::ledger_positions (staff, pos).empty ())
+      if (staff_extent.contains (pos))
         continue;
 
       /* Ambitus heads can appear out-of-order in heads[],
