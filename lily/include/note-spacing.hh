@@ -31,7 +31,7 @@ public:
 
   static Spring get_spacing (Grob *me, Item *, Spring, Real);
   static void stem_dir_correction (Grob *me, Item *next_col, Real incr,
-                                   Real *space);
+                                   Real *, Real *);
 };
 
 #endif /* NOTE_SPACING_HH */
