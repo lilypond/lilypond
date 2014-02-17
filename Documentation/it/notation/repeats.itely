@@ -466,11 +466,6 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @end lilypond
 
 
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
-
 @seealso
 Guida alla notazione:
 @ref{Bar lines},
