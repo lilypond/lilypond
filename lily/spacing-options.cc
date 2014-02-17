@@ -66,9 +66,9 @@ Spacing_options::Spacing_options ()
 Real
 Spacing_options::get_duration_space (Rational d) const
 {
-  Real ratio = d / global_shortest_;
+  Real k = shortest_duration_space_;
 
-  if (ratio < 1.0)
+  if (d < global_shortest_)
     {
       /*
         We don't space really short notes using the log of the
@@ -86,8 +86,9 @@ Spacing_options::get_duration_space (Rational d) const
 
 
       */
+      Rational ratio = d / global_shortest_;
 
-      return (shortest_duration_space_ + ratio - 1) * increment_;
+      return ((k - 1) + double (ratio)) * increment_;
     }
   else
     {
@@ -96,8 +97,10 @@ Spacing_options::get_duration_space (Rational d) const
         Report OSU-CISRC-10/87-TR35, Department of Computer and
         Information Science, The Ohio State University, 1987.
       */
+      Real log = log_2 (global_shortest_);
+      k -= log;
 
-      return (shortest_duration_space_ + log_2 (ratio)) * increment_;
+      return (log_2 (d) + k) * increment_;
     }
 }
 
