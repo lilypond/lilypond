@@ -17,23 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-  Springs help chains of objects, such as the notes in a line of music,
-  distribute themselves evenly.
-  Each spring decides the length from the reference point of one object
-  along the line to the reference point of the next, based on a force
-  applied to the entire chain (see Spring::length() for details):
-     length = distance_ + flexibility * force
-
-  distance_  is the ideal separation between reference points
-  inverse_stretch_strength_ is the flexibility when the force is stretching
-  inverse_compress_strength_ is the flexibility when the force is compressing
-  min_distance_ sets a lower limit on length
-
-  Typically, the force applied to a list of objects ranges from about
-  -1 to about 1, though there are no set limits.
-*/
-
 #include "spring.hh"
 
 Spring::Spring ()
@@ -86,7 +69,7 @@ Spring::operator *= (Real r)
 {
   distance_ = max (min_distance_, distance_ * r);
   inverse_compress_strength_ = max (0.0, distance_ - min_distance_);
-  inverse_stretch_strength_ *= r;
+  inverse_stretch_strength_ *= 0.8;
   update_blocking_force ();
 }
 
