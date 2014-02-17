@@ -153,14 +153,19 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           if (Paper_column::is_musical (next_col)
               && Paper_column::is_musical (loose_col))
             {
-              Spring spring = Spacing_spanner::note_spacing (spacing, loose_col,
-                                                             next_col, &options);
+              Real base = Spacing_spanner::note_spacing (spacing, loose_col, next_col,
+                                                         &options);
               if (Note_spacing::has_interface (spacing))
-                spring = Note_spacing::get_spacing (spacing, next_col,
-                                                    spring, options.increment_);
-
-              base_note_space = spring.distance ();
-              tight_note_space = spring.min_distance ();
+                {
+                  Spring spring = Note_spacing::get_spacing (spacing, next_col, base, options.increment_);;
+                  base_note_space = spring.distance ();
+                  tight_note_space = spring.min_distance ();
+                }
+              else
+                {
+                  base_note_space = base;
+                  tight_note_space = base;
+                }
             }
           else
             {
