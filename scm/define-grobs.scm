@@ -32,6 +32,7 @@
         (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
+        (extra-spacing-width . (-0.2 . 0.0))
         (glyph-name . ,accidental-interface::glyph-name)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (stencil . ,ly:accidental-interface::print)
@@ -744,6 +745,7 @@
         (stencil . ,ly:dots::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (extra-spacing-height . (-0.5 . 0.5))
+        (extra-spacing-width . (0.0 . 0.2))
         (meta . ((class . Item)
                  (interfaces . (dots-interface
                                 font-interface
