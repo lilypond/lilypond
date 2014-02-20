@@ -183,7 +183,7 @@
 }
 
 \context {
-  \type "Performer_Group"
+  \type "Performer_group"
   \name NullVoice
   \alias Staff
   \alias Voice
