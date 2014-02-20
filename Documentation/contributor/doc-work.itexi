@@ -500,7 +500,7 @@ to get users accustomed to this scheme construct, i.e. @code{\set
 Staff.instrumentName = #"cello"}
 
 @item
-Try to avoid using @code{#'} or @code{#`} within when describing
+Try to avoid using @code{#'} or @code{#`} when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
 
@@ -518,8 +518,8 @@ checks.
 @item
 Tweaks should, if possible, also occur on their own line.
 @example
-not:          \override TextScript #'padding = #3 c1^"hi"
-but instead:  \override TextScript #'padding = #3
+not:          \override TextScript.padding = #3 c1^"hi"
+but instead:  \override TextScript.padding = #3
               c1^"hi"
 @end example
 
@@ -1481,7 +1481,7 @@ good example of this.
 On the other side of this,
 
 @example
-\override Score.Hairpin #'after-line-breaking = ##t
+\override Score.Hairpin.after-line-breaking = ##t
 @end example
 
 clearly belongs in LSR.
