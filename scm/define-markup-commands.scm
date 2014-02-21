@@ -1186,38 +1186,120 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
   (make-simple-markup ""))
 
 ;; helper for justifying lines.
-(define (get-fill-space word-count line-width word-space text-widths)
-  "Calculate the necessary paddings between each two adjacent texts.
-  The lengths of all texts are stored in @var{text-widths}.
-  The normal formula for the padding between texts a and b is:
-  padding = line-width/(word-count - 1) - (length(a) + length(b))/2
-  The first and last padding have to be calculated specially using the
-  whole length of the first or last text.
-  All paddings are checked to be at least word-space, to ensure that
-  no texts collide.
-  Return a list of paddings."
+(define (get-fill-space
+          word-count line-width word-space text-widths constant-space?)
+  "Calculate the necessary paddings between adjacent texts in a
+single justified line.  The lengths of all texts are stored in
+@var{text-widths}.
+When @var{constant-space?} is @code{#t}, the formula for the padding
+between texts is:
+padding = (line-width - total-text-width)/(word-count - 1)
+When @var{constant-space?} is @code{#f}, the formula for the
+padding between interior texts a and b is:
+padding = line-width/(word-count - 1) - (length(a) + length(b))/2
+In this case, the first and last padding have to be calculated
+specially using the whole length of the first or last text.
+All paddings are checked to be at least word-space, to ensure that
+no texts collide.
+Return a list of paddings."
   (cond
-   ((null? text-widths) '())
+    ((null? text-widths) '())
+    (constant-space?
+     (make-list
+       (1- word-count)
+       ;; Ensure that space between words cannot be
+       ;; less than word-space.
+       (max
+         word-space
+         (/ (- line-width (apply + text-widths))
+            (1- word-count)))))
 
-   ;; special case first padding
-   ((= (length text-widths) word-count)
-    (cons
-     (- (- (/ line-width (1- word-count)) (car text-widths))
-        (/ (car (cdr text-widths)) 2))
-     (get-fill-space word-count line-width word-space (cdr text-widths))))
-   ;; special case last padding
-   ((= (length text-widths) 2)
-    (list (- (/ line-width (1- word-count))
-             (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
-   (else
-    (let ((default-padding
-            (- (/ line-width (1- word-count))
-               (/ (+ (car text-widths) (car (cdr text-widths))) 2))))
-      (cons
-       (if (> word-space default-padding)
-           word-space
-           default-padding)
-       (get-fill-space word-count line-width word-space (cdr text-widths)))))))
+    ;; special case first padding
+    ((= (length text-widths) word-count)
+     (cons
+       (- (- (/ line-width (1- word-count)) (car text-widths))
+          (/ (cadr text-widths) 2))
+       (get-fill-space
+         word-count line-width word-space (cdr text-widths)
+                                          constant-space?)))
+    ;; special case last padding
+    ((= (length text-widths) 2)
+     (list (- (/ line-width (1- word-count))
+              (+ (/ (car text-widths) 2) (cadr text-widths)))
+           0))
+    (else
+      (let ((default-padding
+              (- (/ line-width (1- word-count))
+                 (/ (+ (car text-widths) (cadr text-widths)) 2))))
+        (cons
+          (if (> word-space default-padding)
+              word-space
+              default-padding)
+          (get-fill-space
+            word-count line-width word-space (cdr text-widths)
+                                             constant-space?))))))
+
+(define (justify-line-helper
+          layout props args text-direction word-space line-width constant-space?)
+  "Return a stencil which spreads @var{args} along a line of width
+@var{line-width}.  If @var{constant-space?} is set to @code{#t}, the
+space between words is constant.  If @code{#f}, the distance between
+words varies according to their relative lengths."
+  (let* ((orig-stencils (interpret-markup-list layout props args))
+         (stencils
+           (map (lambda (stc)
+                  (if (ly:stencil-empty? stc)
+                      point-stencil
+                      stc))
+                orig-stencils))
+         (text-widths
+           (map (lambda (stc)
+                  (if (ly:stencil-empty? stc)
+                      0.0
+                      (interval-length (ly:stencil-extent stc X))))
+                stencils))
+         (text-width (apply + text-widths))
+         (word-count (length stencils))
+         (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
+         (fill-space
+           (cond
+             ((= word-count 1)
+              (list
+                (/ (- line-width text-width) 2)
+                (/ (- line-width text-width) 2)))
+             ((= word-count 2)
+              (list
+                (- line-width text-width)))
+             (else
+               (get-fill-space
+                 word-count line-width word-space text-widths
+                                                  constant-space?))))
+         (line-contents (if (= word-count 1)
+                            (list
+                              point-stencil
+                              (car stencils)
+                              point-stencil)
+                            stencils)))
+
+    (if (null? (remove ly:stencil-empty? orig-stencils))
+        empty-stencil
+        (begin
+          (if (= text-direction LEFT)
+              (set! line-contents (reverse line-contents)))
+          (set! line-contents
+                (stack-stencils-padding-list
+                  X RIGHT fill-space line-contents))
+          (if (> word-count 1)
+              ;; shift s.t. stencils align on the left edge, even if
+              ;; first stencil had negative X-extent (e.g. center-column)
+              ;; (if word-count = 1, X-extents are already normalized in
+              ;; the definition of line-contents)
+              (set! line-contents
+                    (ly:stencil-translate-axis
+                      line-contents
+                      (- (car (ly:stencil-extent (car stencils) X)))
+                      X)))
+          line-contents))))
 
 (define-markup-command (fill-line layout props args)
   (markup-list?)
@@ -1246,59 +1328,28 @@ If there are no arguments, return an empty stencil.
   }
 }
 @end lilypond"
-  (let* ((orig-stencils (interpret-markup-list layout props args))
-         (stencils
-          (map (lambda (stc)
-                 (if (ly:stencil-empty? stc)
-                     point-stencil
-                     stc)) orig-stencils))
-         (text-widths
-          (map (lambda (stc)
-                 (if (ly:stencil-empty? stc)
-                     0.0
-                     (interval-length (ly:stencil-extent stc X))))
-               stencils))
-         (text-width (apply + text-widths))
-         (word-count (length stencils))
-         (line-width (or line-width (ly:output-def-lookup layout 'line-width)))
-         (fill-space
-          (cond
-           ((= word-count 1)
-            (list
-             (/ (- line-width text-width) 2)
-             (/ (- line-width text-width) 2)))
-           ((= word-count 2)
-            (list
-             (- line-width text-width)))
-           (else
-            (get-fill-space word-count line-width word-space text-widths))))
+  (justify-line-helper
+    layout props args text-direction word-space line-width #f))
 
-         (line-contents (if (= word-count 1)
-                            (list
-                             point-stencil
-                             (car stencils)
-                             point-stencil)
-                            stencils)))
+(define-markup-command (justify-line layout props args)
+  (markup-list?)
+  #:category align
+  #:properties ((text-direction RIGHT)
+                (word-space 0.6)
+                (line-width #f))
+  "Put @var{markups} in a horizontal line of width @var{line-width}.
+The markups are spread to fill the entire line and separated by equal
+space.  If there are no arguments, return an empty stencil.
 
-    (if (null? (remove ly:stencil-empty? orig-stencils))
-        empty-stencil
-        (begin
-          (if (= text-direction LEFT)
-              (set! line-contents (reverse line-contents)))
-          (set! line-contents
-                (stack-stencils-padding-list
-                 X RIGHT fill-space line-contents))
-          (if (> word-count 1)
-              ;; shift s.t. stencils align on the left edge, even if
-              ;; first stencil had negative X-extent (e.g. center-column)
-              ;; (if word-count = 1, X-extents are already normalized in
-              ;; the definition of line-contents)
-              (set! line-contents
-                    (ly:stencil-translate-axis
-                     line-contents
-                     (- (car (ly:stencil-extent (car stencils) X)))
-                     X)))
-          line-contents))))
+@lilypond[verbatim,quote]
+\\markup {
+  \\justify-line {
+    Space between neighboring words is constant
+  }
+}
+@end lilypond"
+  (justify-line-helper
+    layout props args text-direction word-space line-width #t))
 
 (define-markup-command (line layout props args)
   (markup-list?)
