@@ -189,11 +189,12 @@ def get_latex_textwidth (source, global_options):
 
     progress (_ ("Running `%s' on file `%s' to detect default page settings.\n")
               % (global_options.latex_program, tmpfile))
-    cmd = 'TEXINPUTS="%s:$TEXINPUTS" %s %s' \
-        % (global_options.input_dir, global_options.latex_program, tmpfile)
+    cmd = '%s %s' % (global_options.latex_program, tmpfile)
     debug ("Executing: %s\n" % cmd)
     run_env = os.environ.copy()
     run_env['LC_ALL'] = 'C'
+    run_env['TEXINPUTS'] = '%s:%s' % \
+                           (global_options.input_dir, run_env.get('TEXINPUTS',""))
 
     ### unknown why this is necessary
     universal_newlines = True
