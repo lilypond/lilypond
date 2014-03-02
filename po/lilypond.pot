@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.2\n"
+"Project-Id-Version: lilypond 2.19.3\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-02-02 15:47+0000\n"
+"POT-Creation-Date: 2014-03-02 16:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,18 +36,18 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:212 book_texinfo.py:228
+#: book_latex.py:214 book_texinfo.py:228
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:224 book_texinfo.py:240
+#: book_latex.py:226 book_texinfo.py:240
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
 msgstr ""
 
-#: book_latex.py:247
+#: book_latex.py:249
 msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
@@ -3395,27 +3395,27 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2856
+#: define-markup-commands.scm:2907
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3282
+#: define-markup-commands.scm:3333
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3283
+#: define-markup-commands.scm:3334
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3535
+#: define-markup-commands.scm:3586
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3746
+#: define-markup-commands.scm:3797
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3736,12 +3736,12 @@ msgstr ""
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1779
+#: music-functions.scm:1802
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:1997
+#: music-functions.scm:2020
 msgid "Missing duration"
 msgstr ""
 
