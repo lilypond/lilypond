@@ -9,7 +9,18 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.18.1  @emph{February 2, 2014}
+@subsubheading LilyPond 2.19.3 released  @emph{March 2, 2014}
+
+We are happy to announce the release of LilyPond 2.19.3.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.18.1  @emph{February 16, 2014}
 
 We have released updated manuals for LilyPond's stable version, 2.18.
 The manuals are now for 2.18.1 and have a number of updates and improvements
@@ -19,17 +30,6 @@ enhancements to the LilyPond core functionality.
 
 To summarise the current situation: stable LilyPond application: 2.18.0;
 stable LilyPond manuals: 2.18.1; development for both: 2.19.2.
-
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.19.2 released  @emph{February 2, 2014}
-
-We are happy to announce the release of LilyPond 2.19.2.  This
-release includes a number of enhancements, and contains
-some work in progress.  You will have access to the very latest features, but
-some may be incomplete, and you may encounter bugs and crashes.  If you require
-a stable version of Lilypond, we recommend using the 2.18 version.
 
 @newsEnd
 
