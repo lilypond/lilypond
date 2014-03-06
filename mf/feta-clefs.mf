@@ -556,29 +556,9 @@ def draw_gclef (expr reduction, double_shift, extra_width) =
 
 	fill bulb;
 
-	if double_shift <> 1:
-
-		% transform helper points
-		for n := 106, 110, 111, 112, 121:
-			forsuffixes e := l,,r:
-				z[n+100]e = z[n]e shifted (double_shift * reduced_ss, 0);
-			endfor
-		endfor
-		for n := 110, 111:
-		        forsuffixes e := l,,r:
-				z[n+100]'e = z[n]'e shifted (double_shift * reduced_ss, 0);
-			endfor
-		endfor
-
-		fill swirl shifted (double_shift * reduced_ss, 0);
-		penstroke z221e
-		          .. z210e{down_}
-		          .. z210'e
-		          .. z206e
-		          .. z211'e
-		          .. z211e{dir (-95 + corr_angle)}
-		          .. z212e{dir (bot_angle_)};
-		fill bulb shifted (double_shift * reduced_ss, 0);
+	if double_shift <> 0:
+		addto currentpicture also
+		  currentpicture shifted (double_shift * reduced_ss, 0);
 	fi;
 
 	penlabels (range 101 thru 121);
