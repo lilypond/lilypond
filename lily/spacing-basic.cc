@@ -157,7 +157,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
       ret = Spring (fraction * len, fraction * min);
 
       // Stretch proportional to the space between canonical bare noteheads
-      ret.set_inverse_stretch_strength (fraction * max (0.0, (len - min)));
+      ret.set_inverse_stretch_strength (fraction * max (0.1, (len - min)));
     }
   else if (delta_t.grace_part_)
     {
