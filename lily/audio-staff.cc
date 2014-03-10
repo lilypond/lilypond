@@ -35,11 +35,11 @@ Audio_staff::Audio_staff ()
 }
 
 void
-Audio_staff::output (Midi_stream &midi_stream, int track, bool port)
+Audio_staff::output (Midi_stream &midi_stream, int track, bool port, int start_tick)
 {
   Midi_track midi_track (track, port);
 
-  Midi_walker i (this, &midi_track);
+  Midi_walker i (this, &midi_track, start_tick);
   for (; i.ok (); i++)
     i.process ();
 

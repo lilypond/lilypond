@@ -52,13 +52,15 @@ audio_item_less (Audio_item *const a,
   return a->get_column ()->when_ < b->get_column ()->when_;
 }
 
-Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track)
+Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track, int start_tick)
 {
   track_ = track;
   index_ = 0;
   items_ = audio_staff->audio_items_;
   vector_sort (items_, audio_item_less);
-  last_tick_ = 0;
+  //Scores that begin with grace notes start at negative times. This
+  //is OK - MIDI output doesn't use absolute ticks, only differences.
+  last_tick_ = start_tick;
   percussion_ = audio_staff->percussion_;
   merge_unisons_ = audio_staff->merge_unisons_;
 }

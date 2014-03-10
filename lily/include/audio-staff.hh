@@ -27,7 +27,7 @@
 struct Audio_staff : public Audio_element
 {
   void add_audio_item (Audio_item *ai);
-  void output (Midi_stream &midi_stream_r, int track, bool port);
+  void output (Midi_stream &midi_stream_r, int track, bool port, int start_tick);
 
   Audio_staff ();
 

@@ -23,6 +23,7 @@
 using namespace std;
 
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "audio-staff.hh"
 #include "file-name.hh"
 #include "international.hh"
@@ -53,11 +54,18 @@ Performance::output (Midi_stream &midi_stream) const
   midi_stream.write (Midi_header (1, tracks_, 384));
   debug_output (_ ("Track...") + " ", false);
 
+  //Find the first Audio_item in the performance, so all staves start
+  //at the same tick.
+  Moment start_mom = 0;
+  for (vsize i = 0; i < audio_elements_.size (); i++)
+    if (Audio_item *item = dynamic_cast<Audio_item *>(audio_elements_[i]))
+      start_mom = min (start_mom, item->audio_column_->when ());
+
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
       debug_output ("[" + ::to_string (i), true);
-      s->output (midi_stream, i, ports_);
+      s->output (midi_stream, i, ports_, moment_to_ticks (start_mom));
       debug_output ("]", false);
     }
 }
