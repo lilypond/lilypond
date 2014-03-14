@@ -364,6 +364,7 @@ your @file{$HOME/.vimrc} to contain these three lines, in order:
 filetype off
 set runtimepath+=/usr/local/share/lilypond/current/vim/
 filetype on
+syntax on
 @end example
 
 @noindent
@@ -703,7 +704,7 @@ the automated method with @command{lilypond-book}.
 
 @menu
 * Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into OpenOffice and LibreOffice::
 * Inserting LilyPond output into other programs::
 @end menu
 
@@ -714,12 +715,13 @@ If you need to quote many fragments from a large score, you can also use
 the clip systems feature, see @ruser{Extracting fragments of music}.
 
 
-@node Inserting LilyPond output into OpenOffice.org
-@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
+@node Inserting LilyPond output into OpenOffice and LibreOffice
+@unnumberedsubsec Inserting LilyPond output into OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
+@cindex LibreOffice.org
 
-LilyPond notation can be added to OpenOffice.org with
+LilyPond notation can be added to OpenOffice.org and LibreOffice with
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
 
 

@@ -68,6 +68,12 @@ Some advanced users might want this file too:
 @end smallexample
 (If you don't recognize what this file is, then you don't need it.)
 
+An alternate site for obtaining these files is available:
+@smallexample
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-LilyDev-remix-2.6.iso}
+@uref{http://www.et.byu.edu/~sorensen/ubuntu-LilyDev-remix-2.6.iso.md5}
+@end smallexample
+
 
 @node Installing LilyDev in VirtualBox
 @unnumberedsubsec Installing LilyDev in VirtualBox
@@ -160,6 +166,16 @@ click inside the virtual machine window and hit the return key to
 reboot the virtual machine.  It will not try to restart the installer
 but start the virtual machine proper. LilyDev is now installed and
 running!
+
+@item
+The current version of LilyPond requires the texlive-lang-cyrillic
+package.  This package is not part of LilyDev 2.6.  Add the package
+to LilyDev with:
+
+@example
+sudo apt-get install texlive-lang-cyrillic
+@end example
+
 
 @end enumerate
 

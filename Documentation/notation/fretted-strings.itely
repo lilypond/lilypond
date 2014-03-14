@@ -462,6 +462,18 @@ ratioHarmonics = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
 
+@cindex hammer on
+@cindex pull off
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-voices.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-chords.ly}
+
 @seealso
 Notation Reference:
 @ref{Chord repetition},

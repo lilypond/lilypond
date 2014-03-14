@@ -133,6 +133,11 @@ translation status for non-English readers.
 user-created examples, hints and tips.
 
 @item
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video Tutorials}:
+Ben Lemon, a LilyPond user, has created a range of video tutorials on
+his blog and which are aimed at new users.
+
+@item
 @ref{Development}:
 manuals for the unstable version.
 
@@ -531,6 +536,9 @@ Downloadable tarballs only available at @uref{http://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+LilyPond 2.16 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
 LilyPond 2.14 Documentation}

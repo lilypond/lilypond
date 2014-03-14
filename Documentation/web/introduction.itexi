@@ -142,10 +142,10 @@ simply save a file for later reference.
 @subsubheading Mix music and text
 
 Put fragments of music into texts without cutting and pasting
-pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
-music to OpenOffice.org with OOoLilyPond.  Plugins are also available
-to allow LilyPond code in various blogs and wikis, making online
-collaboration possible.
+pictures.  Integrate music into @LaTeX{} and HTML seamlessly, or add
+music to OpenOffice.org or LibreOffice with OOoLilyPond.  Plugins are
+also available to allow LilyPond code in various blogs and wikis, making
+online collaboration possible.
 
 
 @subsubheading Accessibility
@@ -496,6 +496,28 @@ Some highlights:
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+@uref{http://www.aurelienbello.com/,Aurélien Bello} has re-orchestrated
+@emph{Der Ring des Nibelungen} by Richard Wagner to a
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-minute version for children}.
+It has been written for a standard symphony orchestra but with a reduced
+cast of singers, and will be performed by the
+@emph{Radio-Sinfonieorchester Berlin} on the 5th and 6th April 2014 in
+the Atze Musiktheater, Berlin.  The Conductor is Heiko Matthias Förster.
+
+@item
+Joe Smeets created sheet music for the children's book @emph{Zing Mee}
+(@emph{Sing along}) by Annie M.G. published by Querido -- ISBN
+9789045106205:
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl}; choir
+rehearsal scores for the Dutch translation of Benjamin Britten's
+@emph{Saint Nicolas} performed by @emph{Muziektheater Hollands Diep} in
+2011.
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}; and is currently
+working on the score and parts for an arrangement of Moussurgsky's
+@emph{Boris Godounov} for wind quartet, piano and percussion.  To be
+performed in 2014, again by @emph{Muziektheater Hollands Diep}.
 
 @item
 A critical edition of Tommaso Traetta's @emph{Enea nel Lazio (1760)},
@@ -1023,6 +1045,10 @@ correctly, when in fact it is working precisely as designed.
 
 More in-depth information is available in @ref{Manuals}.
 
+Ben Lemon, a LilyPond user, has created a range of
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,video tutorials}
+on his blog and which are aimed at new users.
+
 
 @subsubheading Easier editing environments
 
@@ -1073,7 +1099,7 @@ In particular, don't link to:
 @uref{http://www.tunefl.com}
 
 With tunefl you can typeset your scores directly online
-without needing to install lilypond locally. It allows
+without needing to install LilyPond locally. It allows
 trying out all the program's features using a convenient
 web interface.
 
@@ -1301,7 +1327,7 @@ and @uref{http://canorus.org,Canorus}.
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical
 note entry program, acting much like a number-pad which produces
-lilypond notes.
+LilyPond notes.
 
 @end itemize
 
