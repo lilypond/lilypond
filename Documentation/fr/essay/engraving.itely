@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0f062fdb1c08e46bce7aa3047ee3c7f68e686079
+    Translation of GIT committish: 06e603a47cce832f2ed45edc0dd4b2c168877703
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -92,8 +92,8 @@ c'est de la musique et c'est vivant.  Quant à l'édition moderne, elle a
 l'air terne et mécanique.
 
 Ce qui rend cette nouvelle édition différente n'est pas évident au
-premier coup d'œil : c'est propre et condensé, presque @qq{mieux}
-que l'autre dans la mesure où tout y est @qq{calculé} pour atteindre
+premier coup d'œil : c'est propre et condensé, presque « mieux »
+que l'autre dans la mesure où tout y est « calculé » pour atteindre
 l'uniformité.  À vrai dire, il nous a fallu un moment pour nous en
 rendre compte.  Notre but étant d'améliorer la notation informatisée, il
 nous fallait mettre le doigt sur ce qui ne va pas.
@@ -194,7 +194,7 @@ devenait un maître accompli qu'après une dizaine d'années de pratique.
 @end quotation
 
 LilyPond s'inspire du travail réalisé par les maîtres graveurs qui
-officiaient chez les éditeurs européens jusque dans les années 1950.
+officiaient chez les éditeurs européens jusque dans les années 1950.
 Ceux-ci sont bien  souvent considérés comme ayant atteint le sommet de
 leur art, et comptent dans leurs rangs des maisons telles que
 Bärenreiter, Duhem, Durand, Hofmeister, Peters ou Schott.  Au fil de
@@ -226,8 +226,8 @@ Les images ci-dessous mettent en évidence certaines différences entre
 l'art du graveur traditionnel et le résultat habituel sorti d'un
 ordinateur.  L'image de gauche est un fac-similé d'un bémol tiré
 d'une édition Bärenreiter traditionnelle ; celle de droite est
-issue de la même partition, éditée en 2000.  Bien que toutes deux soient
-imprimées avec le même encrage, la version @qq{ancienne} paraît plus
+issue de la même partition, éditée en 2000.  Bien que toutes deux soient
+imprimées avec le même encrage, la version « ancienne » paraît plus
 noire : les lignes de la portée y sont plus épaisses et le galbe du
 bémol de Bärenreiter est à la limite de la volupté.  Sur l'autre image,
 les lignes sont plus fines et le bémol semble raide, coincé.
@@ -591,7 +591,7 @@ interpréter.
 Nous allons maintenant examiner les éléments nécessaires à la création
 d'un logiciel capable d'imiter le rendu des partitions gravées à
 l'ancienne.  Nous commencerons par voir comment inculquer à l'ordinateur
-les @qq{bonnes manières} de la présentation.  Nous nous attarderons
+les « bonnes manières » de la présentation.  Nous nous attarderons
 ensuite sur l'analyse comparative par rapport aux éditions
 traditionnelles, avant de considérer le degré de flexibilité à y inclure
 pour être en mesure de gérer les différents cas de figure particuliers à
@@ -642,7 +642,7 @@ qui finalement ne les couvrirait pas tous.
 @end quotation
 
 @emph{Règles de formatage définies par l'exemple. Image tirée de
-l'ouvrage de Ted Ross @qq{The Art of Music Engraving}}
+l'ouvrage de Ted Ross « The Art of Music Engraving »}
 
 Plutôt que d'écrire une foultitude de règles qui embrasserait tous les
 cas de figure possibles et imaginables en matière de mise en forme, nous
@@ -653,8 +653,8 @@ terme de moins bonne qualité, et nous opterons pour celle étant la moins
 mauvaise.
 
 Voici, à titre d'exemple, trois configurations possibles pour le tracé
-d'une liaison ; LilyPond leur attribue individuellement une @qq{note
-de laideur}.  Le premier essai se voit attribuer 15,39 points
+d'une liaison ; LilyPond leur attribue individuellement une « note
+de laideur ».  Le premier essai se voit attribuer 15,39 points
 notamment pour l'effleurement de la tête de note.
 
 @lilypond
@@ -803,9 +803,9 @@ proche d'une qualité de publication que les précédentes.
 @translationof Getting things right
 
 Nous pouvons aussi évaluer les capacités de LilyPond dans ses choix, en
-comparant ses résultats avec ce que génèrent d'autres d'autres logiciels
-du marché.  Notre choix s'est porté sur Finale 2008, l'un des
-logiciels les plus populaires notamment en Amérique du Nord.  Son plus
+comparant ses résultats avec ce que génèrent d'autres logiciels du
+marché.  Notre choix s'est porté sur Finale 2008, l'un des logiciels les
+plus populaires notamment en Amérique du Nord. Son plus
 proche concurrent est Sibelius, très répandu sur le marché européen.
 
 Pour cette analyse comparative, nous avons choisi la fugue en sol mineur
@@ -1231,7 +1231,7 @@ rendre compte des apports de la notation contemporaine.  La notation
 musicale couvre cinq siècles de musique, allant de la simple monodie à
 de gigantesques contrepoints orchestraux.
 
-Comment intégrer un tel monstre aux si nombreux visages ? Notre solution
+Comment intégrer un tel monstre aux si nombreux visages ? Notre solution
 est de clairement distinguer la notation -- @emph{quels} symboles
 utiliser -- de la gravure -- @emph{où} les placer.  Pour appréhender la
 notation, nous l'avons disséquée en éléments simples (et
@@ -1521,7 +1521,7 @@ Les valeurs prédéfinies de certaines variables font aussi partie des
 règles de formatage.  Chaque objet possède des variables contenant des
 procédures.  Ces procédures réalisent le formatage prédéfini, dont
 l'apparence peut être changée en remplaçant ces procédures par d'autres.
-Dans l'exemple suivant, la règle permettant à l'objet @qq{tête de note}
+Dans l'exemple suivant, la règle permettant à l'objet « tête de note »
 de dessiner son symbole est modifiée au cours de l'extrait
 musical :
 
@@ -1685,7 +1685,7 @@ Vous avez constaté, au fil de notre propos, que le format source est
 purement textuel et peut donc être réutilisé dans d'autres formats
 basés sur une description textuelle comme @LaTeX{}, HTML ou -- ce qui
 est le cas pour la documentation de LilyPond -- Texinfo.  À l'aide du
-script @command{lilypond-book} fournit avec LilyPond, les fragments
+script @command{lilypond-book} fourni avec LilyPond, les fragments
 de code insérés feront place à une image dans le fichier résultant,
 qu'il soit au format PDF ou HTML.  Il existe aussi une extension pour
 OpenOffice.org -- OOoLilyPond -- qui permet d'insérer des extraits dans
@@ -1693,6 +1693,7 @@ un document.
 
 Pour mieux voir LilyPond en action, consulter la documentation ou
 accéder directement au logiciel, rendez-vous sur www.lilypond.org.
+
 
 @page
 @node Comparatif (BWV 861)
