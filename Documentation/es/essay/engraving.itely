@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+    Translation of GIT committish: 7ec0c02a1520974682d2e3e3aa2dd59a1a05988d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1675,15 +1675,17 @@ para convertir bases de datos de fragmentos musicales en imágenes
 orientadas a su utilización en páginas web y presentaciones
 multimedia.
 
-Este manual muestra también una aplicación: el formato de entrada es
-texto, y puede ser por tanto fácilmente empotrado dentro de otros
-formatos basados en texto como @LaTeX{}, HTML, o en el caso de este
-manual, Texinfo.  Utilizando el programa @command{lilypond-book}, que
-viene incluido con LilyPond, los fragmentos de entrada se pueden
-reemplazar por imágenes de la música en los archivos de salida PDF o
-HTML resultantes.  Otro ejemplo es la extensión (de terceras partes)
-OOoLilyPond para OpenOffice.org, que hace de la inclusión de ejemplos
-musicales dentro de los documentos, una tarea extremadamente sencilla.
+Este manual muestra también una aplicación: el formato de entrada
+es texto, y puede ser por tanto fácilmente empotrado dentro de
+otros formatos basados en texto como @LaTeX{}, HTML, o en el caso
+de este manual, Texinfo.  Utilizando el programa
+@command{lilypond-book}, que viene incluido con LilyPond, los
+fragmentos de entrada se pueden reemplazar por imágenes de la
+música en los archivos de salida PDF o HTML resultantes.  Otro
+ejemplo es la extensión (de terceras partes) OOoLilyPond para
+OpenOffice.org o LibreOffice, que hace de la inclusión de ejemplos
+musicales dentro de los documentos, una tarea extremadamente
+sencilla.
 
 Para ver más ejemplos de LilyPond en acción, la documentación
 completa, y el programa propiamente dicho, visite nuestra página

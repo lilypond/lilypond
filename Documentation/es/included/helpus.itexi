@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
+    Translation of GIT committish: 6671c51302bd71216a7d4c698c475e2abf0d78b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,11 +24,9 @@ esos trabajos sencillos.
 
 Para un proyecto polifacético como LilyPond, a veces es difícil saber
 por dónde empezar.  Además de las vías que se proponen más abajo,
-puede enviar un correo electrónico al
-@email{mike@@mikesolomon.org,Frog meister} (maestro del equipo de
-cazadores de bugs) haciéndole conocer su conjunto de habilidades y
-preguntándole cómo puede ayudar, o proponiendo un proyecto.  Él le
-dará unas indicaciones sobre cómo iniciarse.
+puede enviar un correo electrónico a la lista de correo
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org},
+y nosotros le ayudaremos a iniciarse.
 
 @end macro
 
@@ -47,13 +45,6 @@ sus colegas usuarios.
 Informar de fallos: ayude a los usuarios a crear @ref{Informes de
 fallos} adecuados, y/o apúntese al Escuadrón de Fallos para
 la organización de los @rcontribnamed{Issues,Problemas}.
-
-@item
-@rcontrib{Grand Regression Test Checking} (la Magna Comprobación de
-las Pruebas de Regresión): verificar que LilyPond funciona
-correctamente examinando el resultado a la salida de los fragmentos de
-código de prueba.  ¡Se tarda menos de un minuto en comprobar un
-fragmento de código!
 
 @item
 Documentación: se pueden proponer cambios pequeños siguiendo las
@@ -110,8 +101,7 @@ documentation,Traducir la documentación} y @rcontribnamed{Translating
 the website,Traducir la página web}.
 
 @item
-Corrección de fallos o funcionalidades nuevas: la mejor forma de
-comenzar es unirse a los cazadores de bugs, los Frogs, y leer
+Corrección de fallos o funcionalidades nuevas: lea
 @rcontribnamed{Programming work,Trabajos de programación}.
 
 @end itemize
@@ -121,23 +111,6 @@ comenzar es unirse a los cazadores de bugs, los Frogs, y leer
 @ignore
 @macro helpusProjects
 @subheading Proyectos
-
-@subsubheading Frogs
-
-Página y lista de distribución de correo:
-
-@example
-@uref{http://frogs.lilynet.net}
-@end example
-
-Los Frogs son usuarios de LilyPond normales que voluntariamente se
-implican en el desarrollo de su programa favorito.  Arreglar fallos,
-implementar funcionalidades nuevas, documentar el código fuente: es
-mucho lo que hay que hacer, pero lo principal es: hay una oportunidad
-para todos de aprender más sobre LilyPond, sobre el Software Libre,
-sobre programación@dots{} y pasarlo bien.  Si siente curiosidad sobre
-cualquiera de ellos, el lema es: @emph{Join the Frogs!}
-
 
 
 @subsubheading El proyecto GLISS (Grand LilyPond Input Syntax Standardization)
