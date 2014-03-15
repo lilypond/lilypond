@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
+    Translation of GIT committish: 93d725094ee629b2d5200ab5a75b609579a62973
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -666,6 +666,18 @@ log nei file @code{FILE1.log}, @code{FILE2.log}, @dots{}
 @tab @code{#t}
 @tab Non usa le directory dei file di input per costruire i nomi dei file
 di output.
+
+@item @code{strokeadjust}
+@tab @code{#f}
+@tab Forza l'aggiustamento del tratto da parte di PostScript.  Questa opzione
+è utile quando il @code{PDF} è generato dall'output PostScript (l'aggiustamento
+del tratto di solito è abilitato automaticamente per gli strumenti bitmap
+a bassa risoluzione).  Senza questa opzione, le anteprime@tie{}@code{PDF}
+tendono a produrre larghezze dei gambi molto variabili alle risoluzioni
+tipiche dei monitor.  L'opzione non produce effetti visibili sulla
+qualità di stampa e causa un notevole aumento della dimensione dei file
+@code{PDF}.
+
 
 @item @code{svg-woff}
 @tab @code{#f}

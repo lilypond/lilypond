@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
+    Translation of GIT committish: 62dd4c2473cba2401ef83ccac3d353959c166399
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -154,8 +154,8 @@ di scrittura musicale basati su interfaccia grafica.
 @imageFloat{lilypond-book,png,right}
 
 Inserisci frammenti di musica nel testo senza dover tagliare e incollare
-immagini.  Integra comodamente la musica in @LaTeX{} o in HTML, o
-aggiungi la musica in OpenOffice.org con OOoLilyPond.
+immagini.  Integra comodamente la musica in @LaTeX{} e in HTML, o
+aggiungi la musica in OpenOffice.org o LibreOffice con OOoLilyPond.
 
 
 
@@ -496,6 +496,29 @@ In evidenza:
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+@uref{http://www.aurelienbello.com/,Aurélien Bello} ha riorchestrato
+@emph{Der Ring des Nibelungen} di Richard Wagner in una
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-
+versione ridotta per bambini}.
+È stata scritta per un'orchestra sinfonica standard ma con un cast ridotto di
+cantanti, e verrà eseguita dalla
+@emph{Radio-Sinfonieorchester Berlin} il 5 e 6 Aprile 2014 nel teatro
+Atze Musiktheater di Berlino.  Il direttore è Heiko Matthias Förster.
+
+@item
+Joe Smeets ha creato una partitura per il libro di bambini @emph{Zing Mee}
+(@emph{Sing along}) di Annie M.G. pubblicato da Querido -- ISBN
+9789045106205:
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl}; le partiture delle prove del coro
+per la traduzione olandese del @emph{Saint Nicolas} di Benjamin Britten sono
+state eseguite dal @emph{Muziektheater Hollands Diep} nel 2011:
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.  Attualmente sta lavorando sulla partitura
+e le parti per un arrangiamento del @emph{Boris Godounov} di Moussurgsky per
+quartetto d'archi, pianoforte e percussioni.  Verrà eseguita nel 2014,
+di nuovo dal @emph{Muziektheater Hollands Diep}.
+
 
 @item
 Un'edizione critica di @emph{Enea nel Lazio (1760)} di Tommaso
@@ -1019,6 +1042,10 @@ bene, quando in realtà sta funzionando proprio come è stato progettato.
 
 Informazioni più approfondite sono disponibili nei @ref{Manuali}.
 
+Ben Lemon, un utente di LilyPond, ha creato una serie di
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,video tutorial}
+sul suo blog che sono rivolti ai nuovi utenti.
+
 
 @subsubheading Editing facilitato
 
@@ -1071,7 +1098,7 @@ In particular, don't link to:
 @uref{http://www.tunefl.com}
 
 Con tunefl è possibile scrivere le partiture direttamente online,
-senza bisogno di installare lilypond sul proprio computer. Consente di
+senza bisogno di installare LilyPond sul proprio computer. Consente di
 sperimentare tutte le funzionalità del programma usando una comoda
 interfaccia web.
 
@@ -1312,7 +1339,7 @@ e @uref{http://canorus.org,Canorus}.
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} è un programma grafico ad
 inserimento note, che si comporta in modo molto simile a un tastierino numerico
-che produce note di lilypond.
+che produce note di LilyPond.
 
 @end itemize
 

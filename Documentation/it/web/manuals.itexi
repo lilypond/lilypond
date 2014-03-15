@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 673a3c376246f030f524d3eb3680b6d902c51ad1
+    Translation of GIT committish: fdb9b90f39b33d15d097f69c43c7799b1c1dce9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -128,6 +128,12 @@ stato delle traduzioni per i lettori di lingua non inglese.
 @item
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
 esempi, consigli e trucchi creati dagli utenti.
+
+@item
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video Tutorial}:
+Ben Lemon, un utente di LilyPond, ha creato una serie di video tutorial sul
+suo blog rivolti ai nuovi utenti.
+
 
 @item @ref{Sviluppo}:
 manuali per la versione non stabile.
@@ -544,6 +550,9 @@ I pacchetti scaricabili sono disponibili presso @uref{http://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+Documentazione di LilyPond 2.16}
 
 @item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals,
 Documentazione di LilyPond 2.14}
