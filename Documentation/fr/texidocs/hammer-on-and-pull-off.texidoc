@@ -1,0 +1,6 @@
+%% Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+  texidocfr = "
+@emph{Hammer-on} et @emph{pull-off} peuvent s'indiquer par des liaisons.
+
+"
+  doctitlefr = "Hammer on et pull off"

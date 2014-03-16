@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -237,24 +237,6 @@ g1 |
 La propriété @code{measureLength} est abordée plus en détail au chapitre
 @ref{Gestion du temps}.
 
-@funindex \inStaffSegno
-
-La commande @code{\inStaffSegno} permet d'adjoindre un symbole de
-@emph{segno} à une commande @code{\repeat volta}.  Des symboles
-alternatifs de barre de mesure peuvent sont accessibles, dans un
-contexte @code{Score}, à l'aide des propriétés @code{segnoType},
-@code{startRepeatSegnoType}, @code{endRepeatSegnoType} ou
-@code{doubleRepeatSegnoType} selon les besoins.
-
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno
-  f2 g a b
-}
-c1_"D.S." \bar "|."
-@end lilypond
-
 @cindex reprise et liaison de prolongation
 @cindex alternative et liaison de prolongation
 @cindex liaison de prolongation et reprise
@@ -271,6 +253,83 @@ c1
   { f2 d }
   { f2\repeatTie f, }
 }
+@end lilypond
+
+@cindex reprise et segno
+@cindex segno et reprise
+@funindex \inStaffSegno
+
+La commande @code{\inStaffSegno} permet de générer une barre de mesure
+composite par l'adjonction d'un symbole de @emph{segno} à une barre de
+reprise créée par une commande @code{\repeat volta}.  Qu'il s'agisse
+d'un début, d'une fin ou d'une double reprise, le type de barre est
+automatiquement sélectionné.  L'indication « D.S. » devra cependant être
+
+En dehors de toute reprise :
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\inStaffSegno
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Au début d'une reprise :
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno  % start repeat
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+En fin de reprise :
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+  \inStaffSegno  % end repeat
+}
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Entre deux reprises :
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+}
+\inStaffSegno  % double repeat
+\repeat volta 2 {
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+Des symboles alternatifs de barre de mesure sont aussi accessibles, dans
+un contexte @code{Score}, à l'aide des propriétés @code{segnoType},
+@code{startRepeatSegnoType}, @code{endRepeatSegnoType} ou
+@code{doubleRepeatSegnoType} selon les besoins.  Ces types de barre
+alternative doivent être choisis parmi les types prédéfinis ou
+préalablement créés à l'aide d'une commande @code{\defineBarLine} --
+voir @ref{Barres de mesure}.
+
+@lilypond[verbatim,quote,relative=1]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+e1
+\repeat volta 2 {
+  f2 g a b
+  \once \set Score.endRepeatSegnoType = ":|.S["
+  \inStaffSegno
+}
+f2 g \bar "]" a b
+c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets

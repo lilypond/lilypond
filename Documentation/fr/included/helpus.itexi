@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,11 +24,9 @@ consacrer leur temps à des travaux plus ardus.
 
 Pour un projet aux multiples facettes tel que LilyPond, il n'est parfois
 pas évident de savoir sous quel angle l'aborder.  En plus des pistes
-ci-dessous proposées, n'hésitez pas à adresser un courriel à notre
-@email{mike@@mikesolomon.org, Frog meister}, lui faisant part des
-compétences que vous désirez mettre à disposition de la communauté ou
-bien pour lui proposer un projet.  Il est à même de vous guider dans vos
-premiers pas.
+ci-dessous proposées, n'hésitez pas à envoyer un courriel sur la liste
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org}
+afin d'obtenir de l'aide.
 
 @end macro
 
@@ -47,12 +45,6 @@ Les rapports de bogue : aider les utilisateurs à rédiger correctement et
 traduire leurs @rwebnamed{Signalement de bogue, signalements de bogue},
 puis aider l'équipe des correcteurs à traiter ces
 @rcontribnamed{Issues, problèmes}.
-
-@item
-@rcontribnamed{Grand Regression Test Checking, Vérification des test de
-régression} : vérifier que LilyPond fournit un travail toujours
-exemplaire au fil des versions. Contrôler un échantillon spécifique
-prend moins d'une minute !
 
 @item
 Documentation : il est possible de proposer des modifications, en
@@ -113,8 +105,7 @@ et @rcontribnamed{Translating the website,Traduire le site internet}.
 
 @item
 Correction de bogue et ajout de nouvelles fonctionnalités :
-la voie recommandée est de se joindre aux « Frogs », et de lire
-@rcontrib{Programming work}.
+voir @rcontrib{Programming work}.
 
 @end itemize
 
@@ -123,24 +114,6 @@ la voie recommandée est de se joindre aux « Frogs », et de lire
 @ignore
 @macro helpusProjects
 @subheading Projets
-
-@subsubheading Frogs
-
-Site et liste de diffusion :
-
-@example
-@uref{http://frogs.lilynet.net}
-@end example
-
-Les « Frogs » sont de simples utilisateurs de LilyPond qui ont
-décidé de s'impliquer dans le développement de leur logiciel préféré.
-Ils corrigent des bogues, implémentent de nouvelles fonctionnalités ou
-documentent le code source.  Il y a beaucoup à faire, mais le plus
-important est que chacun peut ainsi en apprendre beaucoup
-sur LilyPond, les logiciels libres, la programmation@dots{} et y prendre
-plaisir ! L'aventure vous tente ? Alors une seule chose à
-faire : @emph{Rejoignez les Frogs !}
-
 
 @subsubheading Projet GLISS de stabilisation de la syntaxe
 

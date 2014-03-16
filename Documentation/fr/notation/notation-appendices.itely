@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 44c3a53cb34d08a57838ae56c407216277e4c3f0
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,373 +55,447 @@ les plus répandus, ainsi que ce qu'ils représentent.
 @appendixsec Modificateurs d'accord usuels
 @translationof Common chord modifiers
 
-Le tableau suivant indique les différents modificateurs utilisables en
-mode accords (@code{\chordmode}) qui permettent d'obtenir les structures
-habituelles d'un certain nombre d'accords.
+Le tableau suivant indique les différents modificateurs qui permettent
+d'obtenir les structures habituelles d'un certain nombre d'accords.
 
-@multitable {Treizieme de dominante} {Treizieme de dominante} {Modificateur(s)} {ExempleExemple}
+@multitable @columnfractions .2 .25 .2 .15 .2
 
 @item
-@b{Type d'accord}
+@b{Type}
 @tab
-@b{Intervalles}
+@b{Intervalle}
 @tab
-@b{Modificateur(s)}
+@b{Modificateur}
 @tab
 @b{Exemple}
+@tab
+@b{Résultat}
 
 
 @item
 Majeur
 @tab
-Tierce majeure et quinte juste
+Tierce majeure @*et quinte juste
 @tab
 @code{5} ou rien
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:5
-}
+@code{c1:5}
+@tab
+@lilypond[line-width=2.1\cm,notime]
+<<
+  \chords { c1:5 }
+  \chordmode { c1:5 }
+>>
 @end lilypond
 
 @item
 Mineur
 @tab
-Tierce mineure et quinte juste
+Tierce mineure @*et quinte juste
 @tab
 @code{m} ou @code{m5}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m
-}
+@code{c1:m}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m }
+  \chordmode { c1:m }
+>>
 @end lilypond
 
 @item
 Augmenté
 @tab
-Tierce majeure et quinte augmentée
+Tierce majeure et @*quinte augmentée
 @tab
 @code{aug}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:aug
-}
+@code{c1:aug}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:aug }
+  \chordmode { c1:aug }
+>>
 @end lilypond
 
 @item
 Diminué
 @tab
-Tierce mineure et quinte diminuée
+Tierce mineure et @*quinte diminuée
 @tab
 @code{dim}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:dim
-}
+@code{c1:dim}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:dim }
+  \chordmode { c1:dim }
+>>
 @end lilypond
 
 @item
 Septième de dominante
 @tab
-Triton majeur et septième mineure
+Triton majeur et @*septième mineure
 @tab
 @code{7}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:7
-}
+@code{c1:7}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:7 }
+  \chordmode { c1:7 }
+>>
 @end lilypond
 
 @item
 Septième majeure
 @tab
-Triton majeur et septième majeure
+Triton majeur et @*septième majeure
 @tab
 @code{maj7} ou @code{maj}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:maj7
-}
+@code{c1:maj7}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:maj7 }
+  \chordmode { c1:maj7 }
+>>
 @end lilypond
 
 @item
 Septième mineure
 @tab
-Triton mineur et septième mineure
+Triton mineur et @*septième mineure
 @tab
 @code{m7}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m7
-}
+@code{c1:m7}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m7 }
+  \chordmode { c1:m7 }
+>>
 @end lilypond
 
 @item
 Septième diminuée
 @tab
-Triton diminué et septième diminuée
+Triton diminué et @*septième diminuée
 @tab
 @code{dim7}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:dim7
-}
+@code{c1:dim7}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:dim7}
+  \chordmode { c1:dim7 }
+>>
 @end lilypond
 
 @item
 Septième augmentée
 @tab
-Triton augmenté et septième mineure
+Triton augmenté et @*septième mineure
 @tab
 @code{aug7}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:aug7
-}
+@code{c1:aug}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:aug7 }
+  \chordmode { c1:aug7 }
+>>
 @end lilypond
 
 @item
 Septième semi-diminuée
 @tab
-Triton diminué et septième mineure
+Triton diminué et @*septième mineure
 @tab
 @code{m7.5-}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m7.5-
-}
+@code{c1:m7.5-}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m7.5- }
+  \chordmode { c1:m7.5- }
+>>
 @end lilypond
 
 @item
 Accord mineur avec septième majeure
 @tab
-Triton mineur et septième majeure
+Triton mineur et @*septième majeure
 @tab
 @code{m7+}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m7+
-}
+@code{m7+}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m7+ }
+  \chordmode { c1:m7+ }
+>>
 @end lilypond
 
 @item
 Sixte majeure
 @tab
-Triton majeur et sixte
+Triton majeur @*et sixte
 @tab
 @code{6}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:6
-}
+@code{c1:6}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:6 }
+  \chordmode { c1:6 }
+>>
 @end lilypond
 
 @item
 Sixte mineure
 @tab
-Triton mineur et sixte
+Triton mineur @*et sixte
 @tab
 @code{m6}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m6
-}
+@code{c1:m6}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m6 }
+  \chordmode { c1:m6 }
+>>
 @end lilypond
 
 @item
 Neuvième de dominante
 @tab
-Septième de dominante et neuvième majeure
+Septième de dominante @*et neuvième majeure
 @tab
 @code{9}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:9
-}
+@code{c1:9}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:9 }
+  \chordmode { c1:9 }
+>>
 @end lilypond
 
 @item
 Neuvième majeure
 @tab
-Septième majeure et neuvième majeure
+Septième majeure et @*neuvième majeure
 @tab
 @code{maj9}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:maj9
-}
+@code{c1:maj9}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:maj9 }
+  \chordmode { c1:maj9 }
+>>
 @end lilypond
 
 @item
 Neuvième mineure
 @tab
-Septième mineure et neuvième majeure
+Septième mineure et @*neuvième majeure
 @tab
 @code{m9}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m9
-}
+@code{c1:m9}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m9 }
+  \chordmode { c1:m9 }
+>>
 @end lilypond
 
 @item
 Onzième de dominante
 @tab
-Neuvième de dominante et onzième juste
+Neuvième de dominante @*et onzième juste
 @tab
 @code{11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:11
-}
+@code{c1:11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:11 }
+  \chordmode { c1:11 }
+>>
 @end lilypond
 
 @item
 Onzième majeure
 @tab
-Neuvième majeure et onzième juste
+Neuvième majeure @*et onzième juste
 @tab
 @code{maj11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:maj11
-}
+@code{c1:maj11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:maj11 }
+  \chordmode { c1:maj11 }
+>>
 @end lilypond
 
 @item
 Onzième mineure
 @tab
-Neuvième mineure et onzième juste
+Neuvième mineure @*et onzième juste
 @tab
 @code{m11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m11
-}
+@code{c1:m11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m11 }
+  \chordmode { c1:m11 }
+>>
 @end lilypond
 
 @item
 Treizième de dominante
 @tab
-Neuvième de dominante et treizième majeure
+Neuvième de dominante @*et treizième majeure
 @tab
 @code{13}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:13
-}
+@code{c1:13}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:13 }
+  \chordmode { c1:13 }
+>>
 @end lilypond
 
 @item
 Treizième de dominante
 @tab
-Onzième de dominante et treizième majeure
+Onzième de dominante @*et treizième majeure
 @tab
 @code{13.11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:13.11
-}
+@code{c1:13.11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords{ c1:13.11 }
+  \chordmode { c1:13.11 }
+>>
 @end lilypond
 
 @item
 Treizième majeure
 @tab
-Onzième majeure et treizième majeure
+Onzième majeure et @*treizième majeure
 @tab
 @code{maj13.11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:maj13.11
-}
+@code{c1:maj13.11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:maj13.11 }
+  \chordmode { c1:maj13.11 }
+>>
 @end lilypond
 
 @item
 Treizième mineure
 @tab
-Onzième mineure et treizième majeure
+Onzième mineure et @*treizième majeure
 @tab
 @code{m13.11}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:m13.11
-}
+@code{c1:m13.11}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:m13.11 }
+  \chordmode { c1:m13.11 }
+>>
 @end lilypond
 
 @item
 Seconde suspendue
 @tab
-Seconde majeure et quinte juste
+Seconde majeure @*et quinte juste
 @tab
 @code{sus2}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:sus2
-}
+@code{c1:sus2}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:sus2 }
+  \chordmode { c1:sus2 }
+>>
 @end lilypond
 
 @item
 Quarte suspendue
 @tab
-Quarte juste et quinte juste
+Quarte juste @*et quinte juste
 @tab
 @code{sus4}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  c1:sus4
-}
+@code{c1:sus4}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:sus4 }
+  \chordmode { c1:sus4 }
+>>
 @end lilypond
 
 @item
-Power chord (deux voix)
+Power chord @*(deux voix)
 @tab
 Quinte juste
 @tab
 @code{1.5}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  \powerChords
-  c1:1.5
-}
+@code{\powerChords c1:1.5}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+\chordmode { \powerChords c1:1.5 }
 @end lilypond
 
 @item
-Power chord (trois voix)
+Power chord @*(trois voix)
 @tab
-Quinte juste et octave
+Quinte juste @*et octave
 @tab
 @code{1.5.8}
 @tab
-@lilypond[line-width=2.8\cm,noragged-right, notime]
-\chordmode {
-  \powerChords
-  c1:1.5.8
-}
+@code{\powerChords c1:1.5.8}
+@tab
+@lilypond[line-width=2.1\cm,noragged-right,notime]
+  \chordmode { \powerChords c1:1.5.8 }
 @end lilypond
 
 @end multitable
@@ -441,16 +515,30 @@ dispose.
 @appendixsec Diagrammes d'accord prédéfinis
 @translationof Predefined fretboard diagrams
 
-La liste suivante répertorie les tablatures prédéfinies pour la guitare.
+@menu
+* Diagrammes pour guitare::
+* Diagrammes pour ukulele::
+* Diagrammes pour mandoline::
+@end menu
+
+
+@node Diagrammes pour guitare
+@unnumberedsubsec Diagrammes pour guitare
+@translationof Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-fretboards.ly}
 
-La liste suivante répertorie les tablatures prédéfinies pour le ukulele.
+
+@node Diagrammes pour ukulele
+@unnumberedsubsec Diagrammes pour ukulele
+@translationof Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-ukulele-fretboards.ly}
 
-La liste suivante répertorie les tablatures prédéfinies pour la
-mandoline.
+
+@node Diagrammes pour mandoline
+@unnumberedsubsec Diagrammes pour mandoline
+@translationof Diagrams for Mandolin
 
 @lilypondfile[line-width=15.5\cm]{display-predefined-mandolin-fretboards.ly}
 

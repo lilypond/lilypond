@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -166,7 +166,10 @@ ce que l'on a déjà réussi à faire.
 Introduisez des fragments de partition musicale sans avoir besoin de
 copier-coller manuellement des images. Intégrez de façon transparente
 des partitions dans un document @LaTeX{} ou HTML, ou ajoutez des
-partitions dans un document OpenOffice.org.
+partitions dans un document OpenOffice.org ou LibreOffice.  Vous
+trouverez des greffons qui permettent d'insérer du code LilyPond dans
+des @emph{blogs} et @emph{wikis}, rendant ainsi possible le travail
+collaboratif en ligne.
 
 
 @subsubheading Accessibilité
@@ -549,6 +552,29 @@ mentionnons que quelques-uns.
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+@uref{http://www.aurelienbello.com/,Aurélien Bello} a réorchestré
+@emph{Der Ring des Nibelungen} de Richard Wagner en une
++@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,version en 100 minutes pour enfants}.
+Celle-ci est écrite pour orchestre symphonique traditionnel et un nombre
+réduit de chanteurs.  Elle sera donnée les 5 et 6 avril 2014 au Atze
+Musiktheater de Berlin, par l'orchestre radio-symphonique de Berlin sous
+la direction de Heiko Matthias Förster.
+
+@item
+Joe Smeets a réalisé les partitions du livre pour enfants @emph{Zing
+Mee} (@emph{Chanter}) d'Annie M.G. publié chez Querido -- ISBN
+9789045106205 
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707,
+www.queridokinderenjeugdboeken.nl} --, les partitions de chœur d'une
+traduction en hollandais du @emph{Saint Nicolas} de Benjamin Britten
+donné en 2011 par le @emph{Muziektheater Hollands Diep} --
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
+Il réalise le conducteur et le matériel d'un arrangement pour quatuor à
+vent, piano et percussions, du @emph{Boris Godounov} de Modeste
+Moussorgski, qui sera donné en 2014, toujours par le @emph{Muziektheater
+Hollands Diep}.
 
 @item
 Pour sa thèse de doctorat,
@@ -1089,6 +1115,10 @@ rien et que quelque détail leur a simplement échappé.
 
 De plus amples informations sont disponibles à la page @ref{Manuels}.
 
+Ben Lemon, utilisateur de LilyPond, a réalisé plusieurs
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,
+tutoriels audiovisuels} qui s'adressent aux nouveaux utilisateurs et sont
+visibles sur son @emph{blog}.
 
 @subsubheading Environnements d'édition confortables
 

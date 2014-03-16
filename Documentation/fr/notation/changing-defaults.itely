@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -242,7 +242,7 @@ plusieurs contextes @code{Voice}.
 
 De même nature qu'un @code{Staff}, mais destiné à n'imprimer que du
 rythme.  Quelle que soit la hauteur, les notes seront imprimées sur une
-même et unique ligne.
+même et unique ligne ; la sortie MIDI rendra les hauteurs saisies.
 
 @strong{@emph{TabStaff}}
 
@@ -1419,33 +1419,43 @@ la « liste d'agréments » du contexte englobant se retrouveront en
 dessous de celui-ci au lieu d'y être imbriqués.
 
 La liste des « agréments » d'un contexte se gère à l'aide des
-instructions @code{\accepts} et @code{\denies} -- @code{\accepts} pour
+instructions @code{\accepts} ou @code{\denies} -- @code{\accepts} pour
 ajouter un contexte à la liste, et @code{\denies} pour retirer
-l'agrément.  Il est par exemple peu conventionnel que les accords nommés
-apparaissent dans un contexte @code{Staff} ; autrement dit, le contexte
-@code{ChordNames} ne fait pas partie de la « liste d'agréments » du
-contexte @code{Staff} par défaut.  Néanmoins, et s'il devait en être
-ainsi, vous pourriez le spécifier.
+l'agrément.
+
+Par exemple, on ne trouve normalement pas de portées regroupées par un
+crochet au sein d'un groupe matérialisé par une accolade et des barres
+d'un seul tenant ; un @code{GrandStaff} n'accepte donc pas, par défaut,
+d'englober un @code{StaffGroup}.
 
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
 }
 @end lilypond
 
+Néanmoins, et grâce à une instruction @code{\accepts}, un
+@code{StaffGroup} peut se voir ajouté au contexte @code{GrandStaff} :
+
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
   \layout {
     \context {
-      \Staff
-      \accepts "ChordNames"
+      \GrandStaff
+      \accepts "StaffGroup"
     }
   }
 }

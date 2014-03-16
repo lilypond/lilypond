@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 0f062fdb1c08e46bce7aa3047ee3c7f68e686079
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,13 +149,14 @@ protégés par le droit d’auteur.
 @divClass{column-center-top}
 @subheading Paquetage générique ou paquetage spécifique à la distribution
 
-De nombreuses distributions incluent LilyPond dans leur choix de
-paquetages.  Ces versions sont plus faciles à installer ou désinstaller
-qu'un paquetage générique, mais peuvent être plus anciennes.  Si vous
-avez l'intention d'utiliser notre paquetage générique, veuillez tout
-d'abord désinstaller la version officielle de votre distribution à
-l'aide de votre gestionnaire de paquets habituel.  Référez-vous à la
-documentation de votre distribution pour savoir comment l'utiliser.
+De nombreuses distributions incluent LilyPond dans le choix de
+paquetages de leurs dépôts.  Ces versions sont plus faciles à installer
+ou désinstaller que le paquetage générique que vous trouverez ici.  La
+version de LilyPond disponible sur ces dépôts peut être notablement plus
+ancienne que la version stable en cours.  Si vous avez l'intention
+d'utiliser notre paquetage générique, veillez à ce que votre éditeur de
+fichiers LilyPond fait appel à la version correcte de lilypond -- voir
+@ref{Facilités d'édition}.
 
 @divEnd
 

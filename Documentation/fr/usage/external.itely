@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -414,6 +414,7 @@ ajoutez-y les trois lignes suivantes :
 filetype off
 set runtimepath+=/usr/local/share/lilypond/current/vim/
 filetype on
+syntax on
 @end example
 
 @noindent
@@ -775,7 +776,7 @@ et musique, en laissant de côté l'automatisation grâce à
 
 @menu
 * Extraction de plusieurs fragments d'une grande partition::
-* Insertion du résultat de LilyPond dans OpenOffice.org::
+* Insertion du résultat de LilyPond dans OpenOffice et LibreOffice::
 * Insertion du résultat de LilyPond dans d'autres programmes::
 @end menu
 
@@ -790,14 +791,16 @@ fonction @emph{clip systems} -- comme indiqué au chapitre
 @ruser{Extraction de fragments musicaux}.
 
 
-@node Insertion du résultat de LilyPond dans OpenOffice.org
-@unnumberedsubsec Insertion du résultat de LilyPond dans OpenOffice.org
-@translationof Inserting LilyPond output into OpenOffice.org
+@node Insertion du résultat de LilyPond dans OpenOffice et LibreOffice
+@unnumberedsubsec Insertion du résultat de LilyPond dans OpenOffice et LibreOffice
+@translationof Inserting LilyPond output into OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
+@cindex LibreOffice.org
 
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} permet
-d'insérer directement des partitions LilyPond dans OpenOffice.org.
+d'insérer directement des partitions LilyPond dans OpenOffice ou
+LibreOffice.
 
 
 @node Insertion du résultat de LilyPond dans d'autres programmes

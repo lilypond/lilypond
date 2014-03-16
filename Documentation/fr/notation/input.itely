@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2804,7 +2804,6 @@ comportera plus de quinze portées verra le même canal réutilisé.
 @menu
 * Création de fichiers MIDI::
 * Instrument MIDI::
-* Le bloc MIDI::
 * Contenu de la sortie MIDI::
 * Répétitions et MIDI::
 * Gestion des nuances en MIDI::
@@ -2818,25 +2817,24 @@ comportera plus de quinze portées verra le même canal réutilisé.
 @translationof Creating MIDI files
 
 LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
-@code{\midi} à la structure de votre partition, comme ici :
+@code{\midi} au sein du bloc @code{\score} :
 
 @example
 \score @{
   @var{@dots{}musique@dots{}}
+  \layout @{ @}
   \midi @{ @}
 @}
 @end example
 
-Lorsque le bloc @code{\score} contient un bloc @code{\midi} mais pas de
-bloc @code{\layout}, LilyPond ne produira qu'une sortie MIDI.  Si donc
-vous avez besoin aussi d'un support visuel, vous devrez aussi mentionner
-un bloc @code{\layout}.
+Lorsque le bloc @code{\score} contient uniquement un bloc @code{\midi}
+(autrement dit pas de bloc @code{\layout}), LilyPond produira uniquement
+la sortie MIDI -- aucun support visuel ne sera généré.
 
 @example
 \score @{
   @var{@dots{}musique@dots{}}
   \midi @{ @}
-  \layout @{ @}
 @}
 @end example
 
@@ -2845,27 +2843,70 @@ tempo seront interprétés et traduits en événements MIDI.  Les
 indications de nuances, crescendos et decrescendos sont traduits en
 niveau de volume ; les indications sous la forme d'une fraction
 déterminée du volume disponible, et crescendos et decrescendos sous la
-forme d'une progression linéaire entre les deux extrêmes.  Le rendu des
-indications de nuance peut être désactivé pour le MIDI -- voir
-@ref{Le bloc MIDI}.
+forme d'une progression linéaire entre les deux extrêmes.
 
 Le tempo initial ainsi que ses changements sont normalement indiqués au
 fil de la notation à l'aide de la commande @code{\tempo} ; ils seront
-retranscrits dans le fichier MIDI.  La commande @code{\tempo} donne lieu
-à l'impression d'une indication métronomique que vous pouvez toutefois
-rendre invisible, comme indiqué à la rubrique
-@ref{Indication métronomique}.  Une autre manière de spécifier le tempo
-initial pour un fichier MIDI est indiquée plus avant -- voir
-@ref{Le bloc MIDI}.
+retranscrits dans le fichier MIDI.
 
-En raison de certaines limitations de Windows, les fichiers MIDI doivent
-y porter l'extension @code{.mid}.  D'autres systèmes utilisent
-l'extension @code{.midi}.  Si besoin est, placez la ligne suivante au
-début de votre fichier source, avant l'ouverture de tout bloc
-@code{\book}, @code{\bookpart} ou @code{\score} :
+Si le bloc @code{\midi} est la plupart du temps laissé vide, il peut
+contenir des aménagements pour certains contextes, la définition de
+contextes particuliers ou du code permettant de déterminer la valeur de
+certaines propriétés.  L'exemple suivant détermine le tempo initial du
+fichier MIDI tout en se passant de son indication sur la partition
+imprimée :
 
 @example
-#(ly:set-option 'midi-extension "midi")
+\score @{
+  @var{@dots{}music@dots{}}
+  \midi @{
+    \tempo 4 = 72
+  @}
+@}
+@end example
+
+Notez bien que @code{\tempo} est une commande chargée de définir des
+propriétés en cours d'interprétation de la musique.  Intervenant dans le
+cadre de définitions d'une sortie, comme ici un bloc @code{\midi}, elle
+est réinterprétée comme une modification de contexte.
+
+@cindex MIDI, définition de contexte
+
+La syntaxe permettant de définir un contexte pour le @code{\midi} est en
+tout point identique à celle que vous utilisez dans le bloc
+@code{\layout}, à ceci près que le « graveur » est remplacé par un
+« interprète » (@emph{performer} en anglais).
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \midi @{
+    \context @{
+      \Voice
+      \remove "Dynamic_performer"
+    @}
+  @}
+@}
+@end example
+
+@noindent
+supprimera les effets de nuance dans la sortie MIDI.  Les modules
+chargés de traduire la musique en son s'appellent des « interprètes » --
+@emph{performers} en anglais.
+
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+@knownissues
+Certains systèmes d'exploitation requièrent que les fichiers MIDI
+portent l'extension @code{.mid}.  Si besoin est, placez la ligne
+suivante au début de votre fichier source, avant l'ouverture de tout
+bloc @code{\book}, @code{\bookpart} ou @code{\score} :
+
+@example
+#(ly:set-option 'midi-extension "mid")
 @end example
 
 Cette ligne déterminera @code{.midi} comme extension par défaut pour les
@@ -2874,40 +2915,24 @@ fichiers MIDI.
 Vous pouvez aussi le faire en ligne de commande :
 
 @example
-lilypond … -dmidi-extension=midi fichierLily.ly
+lilypond … -dmidi-extension=mid MonFichier.ly
 @end example
-
-@snippets
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
-
-@knownissues
-@c In 2.11 the following no longer seems to be a problem -td
-@ignore
-Un (de)crescendo non terminé ne sera pas correctement rendu en MIDI --
-il y a nécessairement du silence.  Il vous faut donc lui donner une fin
-explicite.  Par exemple,
-
-@example
-@{ a4\< b c d\f @}
-@end example
-
-@noindent
-ne fonctionnera pas correctement, contrairement à
-
-@example
-@{ a4\< b c d\!\f @}
-@end example
-@end ignore
 
 Un changement de volume ne peut intervenir que sur le démarrage d'une
 note.  C'est la raison pour laquelle la succession d'un crescendo et
 d'un diminuendo ne peut se produire sur une même note.
 
 Certains lecteurs MIDI ne rendent pas correctement les changements de
-tempo.  MS Windows Media Player et 
-@uref{http://@/timidity@/.sourceforge@/.net/,timidity} le font sans
-problème.
+tempo.
+
+
+@seealso
+Fichiers d'initialisation :
+@file{../ly/performer-init.ly}.
+
+Manuel d'initiation :
+@rlearning{Autres sources de documentation}.
+
 
 @node Instrument MIDI
 @subsection Instrument MIDI
@@ -2937,75 +2962,6 @@ instruments répertoriés à l'annexe @ref{Instruments MIDI}.
 Lorsque l'instrument choisi ne correspond pas exactement à l'une des
 dénominations consacrées, LilyPond le replacera par un piano de concert
 (@code{"acoustic grand"}).
-
-
-@node Le bloc MIDI
-@subsection Le bloc MIDI
-@translationof MIDI block
-
-Dès lors que vous désirez obtenir une sortie MIDI, vous devrez inscrire
-un bloc @code{\midi} au sein du bloc @code{\score}.  Son fonctionnement
-est comparable à ce lui du bloc @code{\layout}, voire plus simple.  Si
-le bloc @code{\midi} est la plupart du temps laissé vide, il peut
-contenir des aménagements pour certains contextes, la définition de
-contextes particuliers ou du code permettant de déterminer la valeur de
-certaines propriétés.  L'exemple suivant détermine le tempo initial du
-fichier MIDI tout en se passant de son indication sur la partition
-imprimée.
-
-@example
-\score @{
-  @var{@dots{}musique@dots{}}
-  \midi @{
-    \tempo 4 = 72
-  @}
-@}
-@end example
-
-Ici, le tempo est fixé à 72 noires à la minute.  Spécifier un tempo de
-la sorte ne permet pas de donner une valeur pour une note pointée.  Vous
-devrez, en pareil cas, subdiviser la note pointée en durée plus courte.
-Par exemple, indiquer 90 à la noire pointée est équivalent à spécifier
-270 croches à la minute :
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270/8)
-@end example
-
-@cindex MIDI et définition de contexte
-@cindex contexte, définition en MIDI
-
-La syntaxe permettant de définir un contexte pour le @code{\midi} est en
-tout point identique à celle que vous utilisez dans le bloc
-@code{\layout}, à ceci près que le @qq{graveur} est remplacé par un
-@qq{interprète}.  Les différents contextes disponibles en matière de
-MIDI sont répertoriés dans le fichier d'initialisation
-@file{../ly/performer-init.ly} -- pour plus de détail, voir
-@rlearning{Autres sources de documentation}.
-Si vous voulez vous passer des nuances dans votre fichier MIDI, il vous
-suffit d'insérer les lignes suivantes dans votre bloc
-@code{\midi@{ @}}.
-
-@example
-\midi @{
-  @dots{}
-  \context @{
-    \Voice
-    \remove "Dynamic_performer"
-  @}
-@}
-@end example
-
-LilyPond ne générera de sortie MIDI que si vous incluez un bloc
-@code{\midi} dans la structure de la partition, initialisée par la
-commande @code{\score}.
-
-@example
-\score @{
-  @{ @dots{}notes@dots{} @}
-  \midi @{ @}
-@}
-@end example
 
 
 @node Contenu de la sortie MIDI

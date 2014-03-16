@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 06e603a47cce832f2ed45edc0dd4b2c168877703
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1682,14 +1682,14 @@ aux fins de les utiliser dans des sites internet ou des présentations
 multimédia.
 
 Vous avez constaté, au fil de notre propos, que le format source est
-purement textuel et peut donc être réutilisé dans d'autres formats
-basés sur une description textuelle comme @LaTeX{}, HTML ou -- ce qui
-est le cas pour la documentation de LilyPond -- Texinfo.  À l'aide du
-script @command{lilypond-book} fourni avec LilyPond, les fragments
-de code insérés feront place à une image dans le fichier résultant,
-qu'il soit au format PDF ou HTML.  Il existe aussi une extension pour
-OpenOffice.org -- OOoLilyPond -- qui permet d'insérer des extraits dans
-un document.
+purement textuel et peut donc être réutilisé dans d'autres formats basés
+sur une description textuelle comme @LaTeX{}, HTML ou -- ce qui est le
+cas pour la documentation de LilyPond -- Texinfo.  À l'aide du script
+@command{lilypond-book} fourni avec LilyPond, les fragments de code
+insérés feront place à une image dans le fichier résultant, qu'il soit
+au format PDF ou HTML.  Il existe aussi une extension pour
+OpenOffice.org et LibreOffice -- OOoLilyPond -- qui permet d'insérer des
+extraits dans un document.
 
 Pour mieux voir LilyPond en action, consulter la documentation ou
 accéder directement au logiciel, rendez-vous sur www.lilypond.org.
