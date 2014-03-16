@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e038863ba7228eb3e28b9f1a49e68ec9f4d260b0
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2146,35 +2146,32 @@ En voici une représentation graphique :
 alignToZero = \with {
   \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.staff-affinity = #DOWN
+  \remove Text_engraver % avoid having two
+  \consists Text_engraver
 }
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
-}
-staffAffinityDown = \with {
-  \override VerticalAxisGroup.staff-affinity = #DOWN
 }
 labelContext =
 #(define-music-function
      (parser location context)
      (string?)
-   #{ s1*0^\markup { \typewriter #context } #})
+     #{ s1*0^\markup { \upright {\typewriter #context } } #})
 
 \layout {
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
   \context { \Lyrics      \alignToZero }
-  \context { \NoteNames   \alignToZero \staffAffinityDown }
-  \context { \ChordNames  \alignToZero
-                          \staffAffinityDown
-                          \lowerCaseChords }
-  \context { \FretBoards  \alignToZero \staffAffinityDown }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero }
   \context { \Score
     \omit BarLine
     \override DynamicText.self-alignment-X = #-1
     \override FretBoard.X-offset = #1.75
-    \override InstrumentName.minimum-Y-extent = #'(-2 . 2)
-    \override InstrumentName.extra-offset = #'(0 . -0.5)
-    \override TextScript.minimum-Y-extent = #'(-2 . 3)
+    \override InstrumentName.minimum-Y-extent = #'(-1 . 2)
+    \textLengthOn
     \omit TimeSignature
   }
 }
@@ -2182,44 +2179,29 @@ labelContext =
 %% Contextes dont le point de référence est la ligne de base :
 %%   ChordNames, NoteNames et Lyrics
 <<
-  \new ChordNames { \chords { g1:m } }
-  \new NoteNames { s1 | g1 | }
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"ligne de base (baseline) "
-    \textLengthOn
-    \labelContext "ChordNames" s1 |
-    \labelContext "NoteNames"  s1 |
-    \labelContext "Lyrics"     s1 |
-  }
-  \new Lyrics { \lyrics { \skip 1*2 | ghijk1 | } }
+  \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
+  \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
+  \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
+  \new RhythmicStaff \with { instrumentName = #"ligne de base (baseline) " } s1*3
 >>
 
 %% Le point de référence de Dynamics est le milieu du « m » dans la fonte
 <<
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"mi-hauteur "
-    \labelContext "Dynamics" s1*3
-  }
-  \new Dynamics { s1\mp s\fp }
+  \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
+  \new RhythmicStaff \with { instrumentName = #"mid-hauteur " } s1*3
 >>
 
 %% Le point de référence de FiguredBass est son point le plus haut
 <<
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"point le plus haut "
-    \labelContext "FiguredBass" s1
-  }
-  \new FiguredBass { \figuremode { <6 5>1 } }
+  \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
+  \new RhythmicStaff \with { instrumentName = #"point le plus haut " } s1
 >>
 
 %% Le point de référence de FretBoards est la ligne du haut
 \include "predefined-guitar-fretboards.ly"
 <<
-  \new FretBoards { \chordmode { e1 } }
-  \new RhythmicStaff {
-    \set RhythmicStaff.instrumentName = #"ligne du haut "
-    \labelContext "FretBoards " s1
-  }
+  \new FretBoards { \labelContext "FretBoards" \chordmode { e1 } }
+  \new RhythmicStaff \with { instrumentName = #"ligne du haut " } s1
 >>
 @end lilypond
 
