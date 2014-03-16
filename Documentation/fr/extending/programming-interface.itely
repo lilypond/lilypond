@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 815ddc522bcdec0c1266caad5cc9e723fbbb2e41
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1386,6 +1386,20 @@ utilisant particulièrement des rappels, nous mentionnerons
 
 La procédure prend un unique argument, en l'occurrence l'objet graphique
 (le @emph{grob}).
+
+Cette procédure, grâce à un appel à la fonction de rappel dévolue à
+cette propriété -- mentionnée dans la référence des propriétés internes
+et dans le fichier @file{define-grobs.scm} --, pourra accéder à la
+valeur usuelle de la propriété :
+
+@example
+\relative c'' @{
+  \override Flag #'X-offset = #(lambda (flag)
+    (let ((default (ly:flag::calc-x-offset flag)))
+      (* default 4.0)))
+  c4. d8 a4. g8
+@}
+@end example
 
 Dans le cas où la routine doit faire appel à plusieurs arguments, le
 @emph{grob} en cours peut s'insérer à l'aide d'un @emph{grob} enchâssé.
