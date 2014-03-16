@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: c66c7bc1b97947e74978c20ffbf55f2c6e2c4d97
+   Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -147,6 +147,12 @@ versions.
 @item
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository} :
 collection d'exemples, trucs et astuces élaborés par des utilisateurs.
+
+@item
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,
+Tutoriels vidéo} : Ben Lemon, utilisateur de LilyPond, a mis en
+ligne sur son @emph{blog} plusieurs tutoriels destinés aux
+nouveaux utilisateurs.
 
 @item
 @ref{Développement} :
@@ -575,6 +581,9 @@ l'adresse @uref{http://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals,
+LilyPond 2.16 Documentation}
 
 @item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.fr.html,
 LilyPond 2.14 Documentation}
