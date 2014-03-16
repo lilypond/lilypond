@@ -1,12 +1,12 @@
-%% Translation of GIT committish: 56145dfed8f19bb34459d5b40cab388776d2ec49
+%% Translation of GIT committish: 5db593aa3737cf8c60f9c4c4fcbe317c2d832766
   texidoces = "
 La creación de un grupeto circular de anticipación entre dos notas,
 donde la nota inferior del grupeto utiliza una alteración, requiere
 varias sobreescrituras de propiedades.  La propiedad
 @code{outside-staff-priority} se debe establecer al valor @code{#f},
 pues en caso contrario tendría prioridad sobre la propiedad
-@code{avoid-slur property}.  El valor de @code{halign} se utiliza para
-colocar el grupeto horizontalmente.
+@code{avoid-slur property}.  Cambiando las fracciones @code{2/3} y
+@code{1/3} puede ajustarse la posición horizontal.
 
 "
   doctitlees = "Crear un grupeto de anticipación"
