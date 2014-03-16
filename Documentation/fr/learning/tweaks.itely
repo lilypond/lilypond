@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2910,19 +2910,53 @@ les liaisons et les notes de différentes voix.
 
 
 @item
+@code{horizontal-shift}
+
+@cindex horizontal-shift, propriété
+@cindex notes, empilement
+@cindex empilement de notes
+@cindex notes, collisions
+@cindex collisions de notes
+@cindex shift, commandes
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+Au sein d'une même voix, toutes les notes intervenant au même instant
+musical sont regroupées dans un empilement (une colonne) et est créé un
+objet @code{NoteColumn} afin de contrôler le positionnement horizontal
+de ce groupe de notes -- voir « Empilement de notes » dans
+@ref{Instanciation explicite des voix}.  Si, et seulement si deux ou
+plusieurs empilements au sein d'un même contexte de portée ont une
+orientation de hampe identique et se produisent au même instant musical,
+les valeurs de leurs propriétés @code{horizontal-shift} permettront de
+les ordonner, les empilements de rang supérieur étant progressivement
+décalés pour éviter les chevauchements des têtes.  Cette propriété est
+déterminée par les commandes @code{\voiceXXX} et peut se voir aménagée
+par une commande @code{\override} ou, plus habituellemnt, par les
+commandes @code{\shiftOn}.  Notez bien que cette propriété ne fait
+qu'affecter un rang aux empilements pour leur décalage ; elle ne
+détermine en rien la magnitude du décalage, qui sera augmentera
+progressivement et selon un pas proprotionnel à la largeur des têtes de
+chaque rang.  Le pas, généralement de la moitié de la largeur d'une
+tête, peut aller jusqu'à la pleine largeur de tête en cas de groupes
+resserrés.
+
+@item
 @code{force-hshift}
 
 @cindex force-hshift, propriété
 
-Des notes très proches dans un accord, ou des notes simultanées dans
-différentes voix, peuvent être disposées sur deux colonnes, rarement
-plus, pour éviter que les têtes de notes ne se chevauchent.  On parle
-alors de colonnes (ou empilement) de notes et un objet appelé
-@code{NoteColumn} est créé pour placer les notes sur la colonne.
-
 La propriété @code{force-hshift} appartient à @code{NoteColumn} (en
 réalité à la @code{note-column-interface}).  Le fait de la modifier
-permet de déplacer un empilement selon l'unité appropriée aux colonnes
+permet de déplacer un empilement dans le cas de chevauchement
+d'empilements.  Notez bien qu'elle sera sans effet en l'absence de
+chevauchement.  Elle s'exprime en unité appropriée aux colonnes
 de notes, à savoir la largeur des têtes de note de la première voix.
 Son utilisation est réservée à des situations complexes dans lesquelles
 les commandes habituelles @code{\shiftOn}
@@ -3360,15 +3394,22 @@ nous avions laissé dans cet état :
 @noindent
 La note intermédiaire du premier accord, le la bémol à la quatrième
 voix, doit rester dans le même empilement que la note haute.  Pour y
-remédier, nous réglons le @code{force-hshift} -- qui est une propriété
-de @code{NoteColumn} -- de cette note sur zéro.
+remédier, nous pourrions utiliser @code{\shiftOff}, ce qui
+malheureusement générera des avertissements au sujet d'empilements qui
+se chevauchent.  Nous préférons régler le @code{force-hshift} -- qui est
+une propriété de @code{NoteColumn} -- de cette note sur zéro.
 
 Quant au second accord, il serait préférable que le fa s'aligne avec le
 la et que la note la plus basse se positionne un peu plus sur la droite
 pour éviter que les hampes se chevauchent.  Pour cela, nous réglons le
 @code{force-hshift} au niveau du @code{NoteColumn} du ré bémol de telle
 sorte qu'il se déplace de la moitié d'un espace de portée vers la
-droite.
+droite et le @code{force-hshift} du fa sur zéro.  Vous noterez la
+présence du @code{\once} qui évite la propagation de ces réglages
+au-delà de cet instantn musical particulier -- bien que la présence du
+@code{\once} et du second @code{\override} de la quatrième voix ne
+soient pas indispensables dans ce court extrait, ce ne serait pas
+montrer l'exemple que de les omettre.
 
 Et voici le résultat final :
 
@@ -3381,17 +3422,11 @@ Et voici le résultat final :
   <<
     { c2 aes4. bes8 }
     \\
-    {
-      <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
-    }
+    { <ees, c>2 \once \override NoteColumn.force-hshift = #0.5 des }
     \\
     \\
-    {
-      \override NoteColumn.force-hshift = #0
-      aes'2 f4 fes
-    }
+    { \once \override NoteColumn.force-hshift = 0 aes'2
+      \once \override NoteColumn.force-hshift = 0 f4 fes }
   >> |
   <c ees aes c>1 |
 }

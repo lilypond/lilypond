@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1e6d2b3b82a8e5d871b1b281f6d5a2860e83fb7b
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1722,7 +1722,7 @@ words = \lyricmode { la __ la __ }
 
 Le contexte @code{NullVoice} doit prendre place dans un contexte
 @code{Staff} et ne saurait contenir que des notes déjà présentes sur la
-portée en question, à la même octave.  Dans le cas contraire, ce
+portée en question et à la même octave.  Dans le cas contraire, ce
 @code{NullVoice} pourrait interagir avec les autres voix imprimées de
 façon inopinée.  Par exemple, des notes arbitraires dans un
 @code{NullVoice} pourraient entraîner l'apparition ou la disparition
@@ -1744,6 +1744,11 @@ words = \lyricmode { la __ la __ }
   \new Lyrics \lyricsto "aligner" \words
 >>
 @end lilypond
+
+@knownissues
+La commande @code{\addLyrics} ne peut traiter que des paroles attachées
+à un contexte @code{Voice} ; elle ne peut donc s'utiliser avec un
+@code{NullVoice}.
 
 @noindent
 La fonction @code{\partcombine} est abordée en détails dans

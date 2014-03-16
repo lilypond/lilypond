@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e038863ba7228eb3e28b9f1a49e68ec9f4d260b0
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2859,7 +2859,7 @@ c1
 
 Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
 surmontée d'un @emph{segno}, et sait coopérer avec l'instruction
-@code{\repeat volta}.
+@code{\repeat volta} -- voir @ref{Répétitions courantes}.
 
 @cindex bar de mesure, personnalisation
 @cindex définition d'une barre de mesure
