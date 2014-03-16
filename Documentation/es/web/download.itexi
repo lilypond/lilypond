@@ -151,7 +151,7 @@ Sin embargo, la versión de LilyPond de dichos repositorios podría
 ser @emph{significativamente} más antigua que la versión estable
 actual.  Si quiere utilizar nuestros paquetes genéricos, compruebe
 que su editor de LilyPond está usando la versión correcta del
-programa lilypond. Véase @ref{Entornos mejorados.}
+programa lilypond. Véase @ref{Entornos mejorados}.
 
 @divEnd
 
