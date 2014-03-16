@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+    Translation of GIT committish: 9b0c8394bbd8510cfc39c40342879703a4b3d2c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1403,7 +1403,7 @@ El nombre del instrumento que está tocando se puede imprimir si se
 ajusta la propiedad @code{instrumentCueName} dentro de un contexto
 @code{CueVoice} provisional.  La colocación y estilo del
 @code{instrumentCueName} viene controlado a través del objeto
-@code{\instrumentSwitch}, véase @ref{Nombres de instrumentos}. Si las
+@code{InstrumentSwitch}, véase @ref{Nombres de instrumentos}. Si las
 notas guía requieren un cambio de clave, puede hacerse manualmente
 pero la clave original se debe restaurar al final de las notas guía.
 

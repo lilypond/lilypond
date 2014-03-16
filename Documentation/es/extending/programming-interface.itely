@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 6bbc01872dd4e9cced2524c378628d9219ac08ae
+    Translation of GIT committish: 41c8bf63a7cc180746eace9b9e5278f541be0229
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1368,6 +1368,20 @@ Casi todo el motor de tipografiado está manejado por estos
 
 El procedimiento siempre toma un argumento único, que es el grob (el
 objeto gráfico).
+
+Dicho procedimiento puede acceder al valor usual de la propiedad,
+llamando en primer lugar a la función que es el @q{callback} usual
+para esa propiedad, y que puede verse en el manual de referencia
+interna o en el archivo 'define-grobs.scm':
+
+@example
+\relative c'' @{
+  \override Flag #'X-offset = #(lambda (flag)
+    (let ((default (ly:flag::calc-x-offset flag)))
+      (* default 4.0)))
+  c4. d8 a4. g8
+@}
+@end example
 
 Si se deben llamar rutinas con varios argumentos, el grob actual se
 puede insertar con una cerradura de grob.  He aquí un ajuste

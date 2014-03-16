@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+    Translation of GIT committish: 9b0c8394bbd8510cfc39c40342879703a4b3d2c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1372,7 +1372,7 @@ oboeNotes = \relative c'' {
 Il nome dello strumento che suona la citazione si imposta con la proprietà
 @code{instrumentCueName} in un contesto @code{CueVoice} temporaneo.  Il
 posizionamento e lo stile di @code{instrumentCueName} è regolato dall'oggetto
-@code{\instrumentSwitch}, vedi @ref{Instrument names}.  Se le citazioni in corpo
+@code{instrumentSwitch}, vedi @ref{Instrument names}.  Se le citazioni in corpo
 più piccolo richiedono un cambio di chiave, si può fare manualmente ma anche
 il ripristino della chiave originale dovrà essere fatto manualmente al termine
 delle citazioni.

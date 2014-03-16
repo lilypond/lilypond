@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: ba8e0139b12ce248a00d8621104117f92bac34a6
+Translation of GIT committish: a43fe59b0205af99f84532935b103d0c064b4526
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -208,8 +208,10 @@ accidentales.  Puede contener contextos de @code{Voice}.
 
 @strong{@emph{RhythmicStaff}}
 
-Como @code{Staff}, pero para imprimir ritmos.  Se ignoran las alturas
-de las notas; las notas se imprimen sobre una línea.
+Como @code{Staff}, pero para imprimir ritmos.  Al imprimir
+se ignoran las alturas de las notas; las notas se imprimen
+sobre una línea.  La salida de MIDI conserva las alturas
+sin modificación.
 
 @strong{@emph{TabStaff}}
 
@@ -1367,34 +1369,44 @@ contexto externo se recolocan debajo del contexto externo en lugar de
 anidarse dentro de él.
 
 La lista @qq{accepts} de un contexto se puede cambiar con las
-instrucciones @code{\accepts} (acepta) y @code{\denies} (niega).
+instrucciones @code{\accepts} (acepta) o @code{\denies} (niega).
 @code{\accepts} añade un contexto a la lista @qq{accepts} y
-@code{\denies} elimina un contexto de la lista.  Por ejemplo,
-normalmente no sería deseable que los acordes de cifrado americano
-estuvieran anidados dentro de un contexto @code{Staff}, por lo que el
-contexto @code{ChordNames} no se incluye de forma predeterminada
-dentro de la lista @qq{accepts} del contexto @code{Staff}, pero podría
-hacerse si fuera necesario:
+@code{\denies} elimina un contexto de la lista.
+
+Por ejemplo, un grupo de pentagramas con un corchete cuadrado no
+se encuentra normalmente en el interior de un pentagrama con llave
+curva que tenga conectadas las líneas divisorias, y un
+@code{GrandStaff} para piano no acepta un @code{StaffGroup} dentro
+de él, de forma predeterminada.
 
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
 }
 @end lilypond
 
+Sin embargo, usando la instrucción @code{\accepts}, se puede
+añadir un @code{StaffGroup} al contexto @code{GrandStaff}:
+
 @lilypond[verbatim,quote]
 \score {
-  \new Staff {
-    c' d' e' f'
-    \chords { d1:m7 b1:min7.5- }
-  }
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff { c'1 }
+      \new Staff { d'1 }
+    >>
+    \new Staff { \set Staff.instrumentName = bottom f'1 }
+  >>
   \layout {
     \context {
-      \Staff
-      \accepts "ChordNames"
+      \GrandStaff
+      \accepts "StaffGroup"
     }
   }
 }

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: bb44469cee5de15e46afbbebd580f898fe5f727b
+    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -241,22 +241,6 @@ g1 |
 La proprietà @code{measureLength} è descritta in @ref{Time
 administration}.
 
-@funindex \inStaffSegno
-
-Il comando @code{\inStaffSegno} serve a posizionare il simbolo di segno
-combinandolo col comando @code{\repeat volta}.
-Si possono impostare simboli alternativi delle stanghette modificando nel
-contesto Score le proprietà @code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType}.
-
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno
-  f2 g a b
-}
-c1_"D.S." \bar "|."
-@end lilypond
 
 @cindex ripetizioni con legature di valore
 @cindex finali alternativi con legature di valore
@@ -273,6 +257,94 @@ c1
   { f2 d }
   { f2\repeatTie f, }
 }
+@end lilypond
+
+@funindex \inStaffSegno
+@cindex ripetizioni, con segno
+@cindex segno, con ripetizioni
+
+Il comando @code{\inStaffSegno} può essere usato per generare una stanghetta
+composita che incorpora il simbolo di segno nella stanghetta di ripetizione
+appropriata se usato col comando @code{\repeat volta}.  Il tipo corretto di
+stanghetta di ripetizione, ovvero inizio della ripetizione, fine della
+ripetizione e doppia ripetizione, viene selezionato automaticamente.  Il
+corrispondente segno @qq{D.S.} deve essere agiunto manualmente.
+
+Lontano da una ripetizione:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\inStaffSegno
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+All'inizio di una ripetizione:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno  % start repeat
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+Alla fine di una ripetizione:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+  \inStaffSegno  % end repeat
+}
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Tra due ripetizioni:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+}
+\inStaffSegno  % double repeat
+\repeat volta 2 {
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+
+Si possono impostare simboli alternativi delle stanghette modificando nel
+contesto Score le proprietà @code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} per il tipo di
+stanghetta richiesto.  I tipi di stanghetta alternativi devono essere
+selezionati dai tipi predefiniti o dai tipi precedentemente definiti col
+comando @code{\defineBarLine} (vedi @ref{Bar lines}).
+
+@lilypond[verbatim,quote,relative=1]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+e1
+\repeat volta 2 {
+  f2 g a b
+  \once \set Score.endRepeatSegnoType = ":|.S["
+  \inStaffSegno
+}
+f2 g \bar "]" a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno
+  f2 g a b
+}
+c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets

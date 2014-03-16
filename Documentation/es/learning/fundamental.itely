@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 11cf358d3e89f42616c4361fc3203add5662cf4e
+    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1220,6 +1220,9 @@ columnas de notas}.
 
 
 @seealso
+Manual de aprendizaje:
+@ref{Mover objetos}.
+
 Referencia de la notación:
 @ruser{Varias voces}.
 

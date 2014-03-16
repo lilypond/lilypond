@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 8d26005d0b783e546de362b96fb1b00540875064
+    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2870,9 +2870,10 @@ c4 c c c \break
 c1
 @end lilypond
 
-Además, existe una instrucción @code{\inStaffSegno} que crea un
-símbolo de segno, situado en colaboración con la instrucción
-@code{\repeat volta}.
+Además, existe una instrucción @code{\inStaffSegno} que crea una
+barra de compás con símbolo de segno, situada en conjunción con
+una línea de repetición adecuada si se utiliza con una instrucción
+@code{\repeat volta}, véase @ref{Repeticiones normales}.
 
 @funindex \defineBarLine
 @funindex defineBarLine
