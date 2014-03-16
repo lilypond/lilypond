@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+    Translation of GIT committish: d5fc7a079db0853bfb49e21821226d492f01cf8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -610,14 +610,10 @@ Referencia de funcionamiento interno:
 
 Las notas fantasma para la batería e instrumentos de percusión se
 pueden crear utilizando la instrucción @code{\parenthesize} detallada
-en @ref{Paréntesis}.  Sin embargo, el modo por defecto
-@code{\drummode} no incluye el complemento grabador
-@code{Parenthesis_engraver} que permite esto.
+en @ref{Paréntesis}.
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff \with {
-  \consists "Parenthesis_engraver"
-}
+\new DrumStaff
 <<
   \context DrumVoice  = "1" { s1 }
   \context DrumVoice  = "2" { s1 }
@@ -625,8 +621,8 @@ en @ref{Paréntesis}.  Sin embargo, el modo por defecto
     <<
       {
         hh8[ hh] <hh sn> hh16
-        < \parenthesize sn > hh
-        < \parenthesize sn > hh8 <hh sn> hh
+        \parenthesize sn  hh
+        \parenthesize sn  hh8 <hh sn> hh
       } \\
       {
         bd4 r4 bd8 bd r8 bd
@@ -635,10 +631,6 @@ en @ref{Paréntesis}.  Sin embargo, el modo por defecto
   }
 >>
 @end lilypond
-
-@noindent
-Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
->}) alrededor de cada una de las instrucciones @code{\parenthesize}.
 
 @seealso
 Fragmentos de código:

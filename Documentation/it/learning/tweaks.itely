@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
+    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2838,21 +2838,54 @@ tra oggetti come le pause di più misure, le legature di valore e le
 note in voci diverse.
 
 @item
+@code{horizontal-shift}
+
+@cindex horizontal-shift, proprietà
+@cindex proprietà horizontal-shift
+@cindex colonna di note
+@cindex collisioni di note
+@cindex note, collisioni
+@cindex shift, comandi
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+All'interno di una voce, tutte le note che si trovano nello stesso momento
+musicale sono raggruppate in una colonna di note, e viene creato un oggetto
+@code{NoteColumn} per controllare il posizionamento orizzontale di quel
+gruppo di note (vedi @qq{Colonne di note} in @ref{Explicitly instantiating voices}).  Se
+@emph{e solo se} due o più colonne di note in un solo contesto Staff, entrambe
+con i gambi nella stessa direzione, si trovano sullo stesso momento musicale,
+i valori delle loro proprietà @code{horizontal-shift} sono usati per attribuire
+un punteggio e le colonne che hanno un punteggio più alto vengono progressivamente spostate
+per evitare le collisioni delle teste di nota.  Questa proprietà viene impostata
+dai comandi @code{\voiceXXX} e può essere scavalcata direttamente con un
+comando @code{\override} o, di solito, dai comandi @code{\shiftOn}.
+Attenzione: questa proprietà viene usata per dare un @emph{punteggio} alle
+colonne di note per spostarle orizzontalmente; non specifica la grandezza dello
+spostamento, che viene aumentata progressivamente per gradi in base alla larghezza della
+testa di nota  per ogni punteggio.  I gradi sono solitamente di metà della
+larghezza della testa di nota, ma possono essere della larghezza intera della
+testa quando c'è un gruppo di note molto ravvicinate.
+
+
+@item
 @code{force-hshift}
 
 @cindex proprietà force-hshift
 @cindex force-hshift, proprietà
 
-Le note ravvicinate di un accordo o quelle simultanee appartenenti
-a voci diverse sono disposte su due e talvolta più colonne per
-impedire la sovrapposizione delle teste.  Tali colonne si chiamano
-colonne di note (@emph{note columns}) e l'oggetto che provvede a crearle
-si chiama @code{NoteColumn}.
-
 La proprietà @code{force-hshift} appartiene a @code{NoteColumn}
 (più precisamente all'interfaccia @code{note-column-interface}).  Modificandola
-è possibile spostare la colonna di note proporzionalmente,
-assumendo come unità la larghezza della testa della nota nella voce superiore.  Si usa
+è possibile spostare la colonna di note in situazioni in cui le colonne di
+note sono sovrapposte.  Non ha effetto su colonne di note non sovrapposte.
+Viene specificata in unità appropriate per una colonna di note,  ovvero la
+larghezza della testa della nota nella prima voce.  Si usa
 in situazioni complesse in cui i normali comandi @code{\shiftOn} (vedi
 @ref{Explicitly instantiating voices}) non risolvono adeguatamente le collisioni tra le
 note.  Per questo scopo, è preferibile alla proprietà @code{extra-offset}
@@ -3291,14 +3324,19 @@ lasciato così:
 @noindent
 La nota interna del primo accordo (ovvero il La bemolle della quarta
 voce) non deve essere allontanata dalla colonna della nota più
-alta.  Per correggerlo impostiamo @code{force-hshift}, una proprietà
-di @code{NoteColumn}, su zero.
+alta.  Potremmo pensare di correggerlo con @code{\shiftOff}, ma ciò
+causerebbe degli avvertimenti relativi alla collisione di note.  Impostiamo
+invece @code{force-hshift}, una proprietà di @code{NoteColumn}, su zero.
 
 Nel secondo accordo preferiamo che il Fa sia allineato al La bemolle e che
 la nota più grave sia posizionata leggermente più a destra, in modo da
 evitare la collisione dei gambi.  Per farlo dobbiamo impostare
 @code{force-hshift} nella colonna (@code{NoteColumn}) del Re bemolle
-grave in modo che si sposti a destra di mezzo spazio di rigo.
+grave in modo che si sposti a destra di mezzo spazio di rigo e  @code{force-hshift}
+per il Fa su zero.  Si usa @code{\once} per evitare che tali impostazioni
+si propaghino oltre il momento musicale immediato, sebbene in questo
+piccolo esempio il @code{\once} e il secondo @code{\override} nella quarta
+voce potrebbero essere omessi.  Ma non sarebbe un esempio di buona pratica.
 
 Ecco il risultato finale:
 
@@ -3312,17 +3350,12 @@ Ecco il risultato finale:
   <<
     { c2 aes4. bes8 }
     \\
-    {
-      <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
-    }
+    { <ees, c>2 \once \override NoteColumn.force-hshift =
+      0.5 des }
     \\
     \\
-    {
-      \override NoteColumn.force-hshift = #0
-      aes'2 f4 fes
-    }
+    { \once \override NoteColumn.force-hshift = 0 aes'2
+      \once \override NoteColumn.force-hshift = 0 f4 fes }
   >> |
   <c ees aes c>1 |
 }

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 6e4e9c4eacb94d68c11fd6b9062da4f724114860
+    Translation of GIT committish: b8a84e9fbdbb30e224d05afb73233760c3dacc4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -479,6 +479,18 @@ ratioHarmonics = {
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
+
+@cindex hammer on
+@cindex pull off
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-voices.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{hammer-on-and-pull-off-using-chords.ly}
 
 @seealso
 Referencia de la notación:

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 22b4097bcee9f2909b8c43fa69ea313aad0b71c3
+    Translation of GIT committish: 07c022f5e65a806e27c3f5f4f4bdae4020c1af8e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -376,6 +376,7 @@ evidenziazione della sintassi.  Per abilitarle, crea (o modifica) il file
 filetype off
 set runtimepath+=/usr/local/share/lilypond/current/vim/
 filetype on
+syntax on
 @end example
 
 @noindent
@@ -725,7 +726,7 @@ dal metodo automatizzato di @command{lilypond-book}.
 
 @menu
 * Tante citazioni da una grande partitura::
-* Inserire l'output di LilyPond in OpenOffice.org::
+* Inserire l'output di LilyPond in OpenOffice e LibreOffice::
 * Inserire l'output di LilyPond in altri programmi::
 @end menu
 
@@ -737,13 +738,13 @@ Per inserire molti frammenti di una grande partitura, si può usare anche
 la funzione di ritaglio dei sistemi; si veda @ruser{Extracting fragments of music}.
 
 
-@node Inserire l'output di LilyPond in OpenOffice.org
-@unnumberedsubsec Inserire l'output di LilyPond in OpenOffice.org
-@translationof Inserting LilyPond output into OpenOffice.org
+@node Inserire l'output di LilyPond in OpenOffice e LibreOffice
+@unnumberedsubsec Inserire l'output di LilyPond in OpenOffice e LibreOffice
+@translationof Inserting LilyPond output into OpenOffice and LibreOffice
 
-@cindex OpenOffice.org
+@cindex LibreOffice.org
 
-La notazione di LilyPond può essere aggiunta a OpenOffice.org con
+La notazione di LilyPond può essere aggiunta a OpenOffice e LibreOffice con
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
 
 

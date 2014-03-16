@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
+    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2935,28 +2935,65 @@ resolución de colisiones entre objetos de presentación como silencios
 multi-compás, ligaduras de unión y notas en distintas voces.
 
 @item
+@code{horizontal-shift}
+
+@cindex horizontal-shift, propiedad
+@cindex nota, columna de
+@cindex nota, colisiones
+@cindex colisiones de notas
+@cindex desplazamiento, instrucciones de
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+Dentro de una vozm todas las notas que se producen en el mismo
+moemtno se agrupan en una columna de notas, y se crea un objeto
+@code{NoteColumn} para controlar el posicionamiento horizonal de
+dicho grupo de notas (véase @qq{Columnas de nota} en @ref{Voces
+explícitas}).  Si @emph{y sólo si} dos o más columnas de nota
+dentro de un solo contexto de pauta, las dos con las plicas en la
+misma dirección, aparecen en el mismo momento musical, los valores
+de sus propiedades @code{horizontal-shift} se usan para asignarles
+una puntuación y las columnas con puntuaciones más altas se
+desplazan progresivamente para evitar las colisiones entre las
+cabezas de las notas.  Esta propiedad se establece con las
+instrucciones @code{\voiceXXX} y se pueden sobreescribir
+directamente con una instrucción @code{\override} o, de forma más
+común con las instrucciones @code{\shiftOn}.  Observe que esta
+propiedad se usa para @emph{calificar} las columnas de nota o para
+aplicar desplazamientos: no especifica la magnitud del
+desplazamiento, que se va incrementando progresivamente en pasos
+basándolse en la anchura de las cabezas de nota para cada
+puntuación.  Los pasos son normalmente de la mitad de la anchura
+de una cabeza de nota, pero puede ser el ancho completo de la
+cabeza de una nota cuando está implicado un grupo de notas muy
+apretadas entre sí.
+
+@item
 @code{force-hshift} (forzar desplazamiento horizontal)
 
 @cindex force-hshift, propiedad
 
-Las notas muy juntas de un acorde, o aquellas que ocurren al mismo
-tiempo en voces distintas, se disponen en dos (y ocasionalmente más)
-columnas para evitar la superposición de las cabezas.  Éstas reciben
-el nombre de columnas de notas, y se crea un objeto llamado
-@code{NoteColumn} para disponer las notas en dicha columna.
-
 La propiedad @code{force-hshift} es una propiedad de una
 @code{NoteColumn} (realmente lo es del interface
-@code{note-column-interface}).  Modificarlo permite mover una columna
-de notas en unidades adecuadas a una columna de notas, por ejemplo la
-anchura de la cabeza de la nota de la primera voz.  Se debe usar en
-situaciones complejas donde las instrucciones @code{\shiftOn} normales
-(véase @ref{Voces explícitas}) no resuelven el
-conflicto entre las notas.  Es preferible a la propiedad
-@code{extra-offset} para este propósito porque no hay necesidad de
-averiguar la distancia en espacios de pentagrama, y mover las notas
-dentro o fuera de una @code{NoteColumn} afecta a otras acciones como a
-la fusión entre cabezas de nota.
+@code{note-column-interface}).  Modificarlo permite mover una
+columna de notas en situaciones donde las columnas de notas se
+superponen.  Observe que no tiene efecto sobre las columnas de
+nota que no se superponen.  Se especifica en unidades adecuadas a
+una columna de notas, por ejemplo la anchura de la cabeza de la
+nota de la primera voz.  Se debe usar en situaciones complejas
+donde las instrucciones @code{\shiftOn} normales (véase @ref{Voces
+explícitas}) no resuelven el conflicto entre las notas de forma
+satisfactoria.  Es preferible a la propiedad @code{extra-offset}
+para este propósito porque no hay necesidad de averiguar la
+distancia en espacios de pentagrama, y mover las notas dentro o
+fuera de una @code{NoteColumn} afecta a otras acciones como a la
+fusión entre cabezas de nota.
 
 @end itemize
 
@@ -3384,16 +3421,24 @@ dejamos con este aspecto:
 @end lilypond
 
 @noindent
-Es necesario que la nota interior del primer acorde (el La bemol de la
-cuarta voz) no se aparte de la columna vertical de la nota aguda.
-Para corregirlo, ajustamos a cero el valor para esta nota de
-@code{force-hshift}, que es una propiedad de @code{NoteColumn}.
+Es necesario que la nota interior del primer acorde (el La bemol
+de la cuarta voz) no se aparte de la columna vertical de la nota
+aguda.  Podríamos esperar corregirlo mediante el uso de
+@code{\shiftOff}, pero esto produce advertencias sobre columnas de
+notas que colisionan.  En lugar de ello, ajustamos a cero el valor
+para esta nota de @code{force-hshift}, que es una propiedad de
+@code{NoteColumn}.
 
-En el segundo acorde preferimos que el Fa esté alineado con el La bemol
-y que la nota grave se coloque ligeramente a la derecha para evitar una
-colisión de las plicas.  Lo conseguimos ajustando el valor de
-@code{force-hshift} en la @code{NoteColumn} del Re bemol grave para
-moverlo a la derecha medio espacio de pentagrama.
+En el segundo acorde preferimos que el Fa esté alineado con el La
+bemol y que la nota grave se coloque ligeramente a la derecha para
+evitar una colisión de las plicas.  Lo conseguimos ajustando el
+valor de @code{force-hshift} en la @code{NoteColumn} del Re bemol
+grave para moverlo a la derecha medio espacio de pentagrama, y
+fijando @code{force-hshift} para el Fa al vaor cero.  Observe que
+usamos @code{\once} para evitar que los ajustes se propaguen más
+allá del momento musical inmediato, aunque en este pequeño ejemplo
+podrían omitirse el @code{\once} y el segundo @code{\override} de
+la cuarta voz.  Ello no supondría una buena práctica.
 
 Presentamos a continuación el resultado final:
 
@@ -3406,17 +3451,11 @@ Presentamos a continuación el resultado final:
   <<
     { c2 aes4. bes8 }
     \\
-    {
-      <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
-      des2
-    }
+    { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
     \\
     \\
-    {
-      \override NoteColumn.force-hshift = #0
-      aes'2 f4 fes
-    }
+    { \once \override NoteColumn.force-hshift = 0 aes'2
+      \once \override NoteColumn.force-hshift = 0 f4 fes }
   >> |
   <c ees aes c>1 |
 }

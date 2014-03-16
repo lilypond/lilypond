@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 2970311021cf68958850e43911e0cecf51f68fbc
+    Translation of GIT committish: 53ea968b35ad64c914a7bd503786aaf8d3b0c762
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -142,13 +142,12 @@ immagini dei prodotti.
 @divClass{column-center-top}
 @subheading Pacchetti generici o pacchetti specifici di una distribuzione?
 
-Molte distribuzioni includono LilyPond nel loro sistema di pacchetti.
-Queste versioni sono più facili da installare e disinstallare rispetto
-ai pacchetti generici, ma potrebbero non essere recenti.  Se preferisci usare
-i nostri pacchetti generici, disinstalla la versione ufficiale dal tuo
-sistema usando il gestore di pacchetti della tua distribuzione.
-Leggi la documentazione della tua distribuzione per sapere come usare
-il gestore di pacchetti.
+Molte distribuzioni includono LilyPond nel loro repository di pacchetti
+e questi pacchetti sono spesso molto più facili da installare rispetto
+ai pacchetti generici che si trovano su queto sito.  Tuttavia le versioni
+di LilyPond in questi repository sono @emph{molto} più vecchi della versione
+stabile corrente.  Se preferisci usare i nostri pacchetti generici, controlla
+che il tuo editor LilyPond stia usando la versione corretta.  Vedi @ref{Easier editing}.
 
 @divEnd
 

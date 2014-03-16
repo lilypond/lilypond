@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bb44469cee5de15e46afbbebd580f898fe5f727b
+    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -249,26 +249,6 @@ g1 |
 La propiedad @code{measureLength} se describe en @ref{Gestión del
 tiempo}.
 
-@funindex \inStaffSegno
-
-La instrucción @code{\inStaffSegno} se puede utilizar para colocar el
-símbolo del segno en colaboración con la instrucción @code{\repeat
-volta}.  Se pueden establecer símbolos alternativos de línea divisoria
-en el contexto de Score mediante la sobreescritura de las propiedades
-@code{segnoType}, @code{startRepeatSegnoType},
-@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} según sea
-necesario.
-
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno
-  f2 g a b
-}
-c1_"D.S." \bar "|."
-@end lilypond
-
-
 @cindex repeticiones, con ligaduras
 @cindex primera y segunda vez, con ligaduras
 @cindex ligaduras, en repeticiones
@@ -284,6 +264,86 @@ c1
   { f2 d }
   { f2\repeatTie f, }
 }
+@end lilypond
+
+@funindex \inStaffSegno
+@cindex repeticiones, con segno
+@cindex segno, con repeticiones
+
+La instrucción @code{\inStaffSegno} se puede utilizar para generar
+una barra de compás combinada que incorpora el símbolo del segno
+junto con la barra de repetición, cuando se usa con la instrucción
+@code{\repeat volta}.  Se selecciona automáticamente el tipo
+correcto de línea divisoria de repetición, ya sea de comienzo o
+fin de repeticion, o de doble repetición.  Observe que la
+indicación @qq{D.S.} correspondiente se debe añadir manualmente.
+
+Salida de una repetición:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\inStaffSegno
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Al comienzo de una repetición:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  \inStaffSegno  % start repeat
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+Al final de una repetición:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+  \inStaffSegno  % end repeat
+}
+f2 g a b
+c1_"D.S." \bar "|."
+@end lilypond
+
+Entre dos repeticiones:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+\repeat volta 2 {
+  f2 g a b
+}
+\inStaffSegno  % double repeat
+\repeat volta 2 {
+  f2 g a b
+}
+c1_"D.S." \bar "|."
+@end lilypond
+
+Se pueden obtener símbolos de línea divisoria alternativos
+mediante el establecimiento (en el contexto Score) de las
+propiedades @code{segnoType}, @code{startRepeatSegnoType},
+@code{endRepeatSegnoType} o @code{doubleRepeatSegnoType} al tipo
+de línea requerido.  Los tipos de línea divisoria alternativos
+deben seleccionarse a partir de los tipos predefinidos o de tipos
+definidos anteriormente con la instrucción @code{\defineBarLine}
+(véase @ref{Barras de compás}).
+
+@lilypond[verbatim,quote,relative=1]
+\defineBarLine ":|.S[" #'(":|." "S[" "")
+\defineBarLine "]" #'("]" "" "")
+e1
+\repeat volta 2 {
+  f2 g a b
+  \once \set Score.endRepeatSegnoType = ":|.S["
+  \inStaffSegno
+}
+f2 g \bar "]" a b
+c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets

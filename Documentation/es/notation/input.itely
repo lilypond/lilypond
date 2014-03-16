@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
+    Translation of GIT committish: 18f6f13f39b25f28679fe2073763151008ca3366
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2807,7 +2807,6 @@ canales MIDI se reutilizarán.
 @menu
 * Crear archivos MIDI::
 * Instrumentos MIDI::
-* El bloque MIDI::
 * ¿Qué sale por el MIDI?::
 * Repeticiones y MIDI::
 * Control de los matices en el MIDI::
@@ -2819,67 +2818,83 @@ canales MIDI se reutilizarán.
 @subsection Crear archivos MIDI
 @translationof Creating MIDI files
 
-Para crear un MIDI a partir de una pieza de música, escriba un bloque
-@code{\midi} en la partitura, por ejemplo:
+@cindex MIDI, bloque
+Para crear un MIDI a partir de un archivo de LilyPond, inserte un
+bloque @code{\midi} dentro de un bloque @code{\score};
 
 @example
 \score @{
   @var{@dots{}música@dots{}}
-  \midi @{ @}
-@}
-@end example
-
-Si hay un bloque @code{\midi} dentro de un @code{\score} que no tenga
-ningún bloque @code{\layout}, solamente se producirá MIDI.  Si se
-necesita una notación impresa, debe haber también un bloque
-@code{\layout}:
-
-@example
-\score @{
-  @var{@dots{}música@dots{}}
-  \midi @{ @}
   \layout @{ @}
+  \midi @{ @}
 @}
 @end example
 
-Se traducen correctamente a la salida MIDI la altura y duración de las
-notas, las ligaduras de unión, matices y cambios de tempo.  Las
-indicaciones dinámicas, crescendi y decrescendi se traducen a niveles
-de volumen MIDI.  Las marcas dinámicas se traducen a una fracción fija
-del rango de volumen MIDI disponible.  Los crescendi y decrescendi
-hacen que el volumen varía linealmente entre sus dos extremos. El
-efecto de las indicaciones dinámicas sobre la salida MIDI se puede
-eliminar por completo, véase @ref{El bloque MIDI}.
-
-El tempo inicial y los cambios de tempo posteriores se pueden
-especificar utilizando la instrucción @code{\tempo} dentro de la
-propia notación musical.  Se reflejan en cambios de tempo en la salida
-MIDI.  Esta instrucción normalmente hace que se imprima la indicación
-metronómica, pero esto se puede eliminar, véase @ref{Indicaciones metronómicas}.
-Más abajo se describe una forma alternativa de especificar el tempo
-MIDI inicial o global, véase @ref{El bloque MIDI}.
-
-Debido a ciertas limitaciones de Windows, la extensión predeterminada
-para los archivos MIDI en Windows es @code{.mid}. Otros sistemas
-operativos utilizan la extensión @code{.midi}.  Si prefiere una
-extensión diferente, inserte la siguiente línea en el nivel jerárquico
-superior del archivo de entrada, antes del inicio de cualquier bloque
-@code{\book}, @code{\bookpart} o @code{\score}:
+Si hay @emph{solamente} un bloque @code{\midi} dentro de un
+@code{\score} (es decir, sin ningún bloque @code{\layout}),
+entonces @emph{solamente} se producirá MIDI.  No se produce
+ninguna salida impresa de notación musical.
 
 @example
-#(ly:set-option 'midi-extension "midi")
+\score @{
+  @var{@dots{}música@dots{}}
+  \midi @{ @}
+@}
 @end example
 
-La línea anterior establece la extensión predeterminada para los
-archivos MIDI a @code{.midi}.
+Se traducen correctamente a la salida MIDI la altura y duración de
+las notas, las ligaduras de unión, matices y cambios de tempo. Las
+@q{marcas} dinámicas se traducen a niveles de volumen con una
+@q{fracción fija} del rango de volumen MIDI disponible; Los
+crescendi y decrescendi hacen que el volumen varíe linealmente
+entre sus dos extremos.
 
-De forma alternativa, esta opción se puede también proporcionar en
-la línea de órdenes:
+Se reflejan en la salida de MIDI todas las indicaciones de
+@code{\tempo}, incluidos todos los cambios de tempo siguientes,
+especificados dentro de la notación musical.
+
+Por lo general basta con dejar vacío el bloque @code{\midi}, pero
+puede contener disposiciones distintas de los contextos,
+definiciones de contexto nuevas o código que establezca valores
+para propiedades.  En el ejemplo que aparece a continuación se
+fija el tempo a 72 negras por minuto, pero @emph{solamente} para
+la reproducción de audio a través de MIDI.
 
 @example
-lilypond … -dmidi-extension=midi archivoLily.ly
+\score @{
+  @var{@dots{}music@dots{}}
+  \midi @{
+    \tempo 4 = 72
+  @}
+@}
 @end example
 
+Observe que @code{\tempo} es en realidad una instrucción para
+establecer valores para propiedades durante la interpretación de
+la música, y en el contexto de las definiciones de salida, como un
+bloque @code{\midi}, se reinterpreta como si fuese una
+modificación de contexto.
+
+@cindex MIDI, definiciones de contexto
+
+Las definiciones de contexto siguen la misma sintaxis que las de
+un bloque @code{\layout};
+
+@example
+\score @{
+  @var{@dots{}música@dots{}}
+  \midi @{
+    \context @{
+      \Voice
+      \remove "Dynamic_performer"
+    @}
+  @}
+@}
+@end example
+
+elimina de la salida MIDI el efecto de los matices dinámicos.  Los
+módulos de traducción para el sonido se llaman @q{performers}
+(intérpretes).
 
 @snippets
 
@@ -2888,35 +2903,40 @@ lilypond … -dmidi-extension=midi archivoLily.ly
 
 @knownissues
 
-@c In 2.11 the following no longer seems to be a problem -td
-@ignore
-Unterminated (de)crescendos will not render properly in the midi file,
-resulting in silent passages of music.  The workaround is to explicitly
-terminate the (de)crescendo.  For example,
+Algunos sistemas operativos requieren una extensión de archivo
+@emph{específica} para los archivos MIDI.  Si se prefiere una
+extensión distinta, inserte la línea siguiente en el nivel
+superior del archivo de entrada, antes del comienzo de cualquier
+bloque @code{\book}, @code{\bookpart} o @code{\score};
 
 @example
-@{ a4\< b c d\f @}
+#(ly:set-option 'midi-extension "mid")
 @end example
 
-@noindent
-will not work properly but
+De esta manera quedará establecida la extensión predeterminada
+para los archivos MIDI a @code{.mid}.
+
+De forma alternativa, se puede proporcionar una opción en la línea
+de órdenes de la consola:
 
 @example
-@{ a4\< b c d\!\f @}
+lilypond -dmidi-extension=mid MiArchivo.ly
 @end example
-
-@noindent
-will.
-@end ignore
 
 Los cambios del volumen MIDI sólo tienen lugar al principio de la
 nota, por lo que los crescendi y decrescendi no pueden afectar al
 volumen de una sola nota.
 
-No todos los reproductores de MIDI manejan adecuadamente los
-cambios de tempo de la salida MIDI.  Entre los reproductores que
-se sabe que funcionan se encuentran el Reproductor de Medios de MS
-Windows y @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+Puede que algunos propgramas reproductores de MIDI no siempre
+manejen correctamente los cambios de tempo en la salida MIDI.
+
+@seealso
+Archivos instalados:
+@file{../ly/performer-init.ly}.
+
+Manual de aprendizaje:
+@rlearning{Otras fuentes de información}.
+
 
 @node Instrumentos MIDI
 @subsection Instrumentos MIDI
@@ -2946,67 +2966,6 @@ aparece en @ref{instrumentos MIDI}.
 Si el instrumento elegido no coincide exactamente con uno de los
 instrumentos de la lista de instrumentos MIDI, se usará el
 instrumento Piano de Cola (@code{"acoustic grand"}).
-
-@node El bloque MIDI
-@subsection El bloque MIDI
-@translationof MIDI block
-
-@cindex bloque MIDI
-
-Si se requiere una salida MIDI, debe aparecer un bloque @code{\midi}
-dentro de un bloque de partitura.  Es análogo al bloque layout de
-diseño de página, pero algo más simple.  Con frecuencia, el bloque
-@code{\midi} se deja vacío, pero puede contener reorganizaciones de
-contextos, definiciones de contexto nuevas o código para fijar valores
-de propiedades.  Por ejemplo, en el ejemplo siguiente se establece el
-tempo inicial exportado al archivo MIDI sin hacer que se imprima una
-indicación de tempo:
-
-@example
-\score @{
-  @var{@dots{}música@dots{}}
-  \midi @{
-    \tempo 4 = 72
-  @}
-@}
-@end example
-
-En este ejemplo, el tempo se establece a 72 pulsos de negra por
-minuto.  @code{\tempo} is actually a music command for
-setting properties during the interpretation of music: in the
-context of output definitions like a @code{\midi} block, as a matter of
-courtesy those are reinterpreted as if they were context modifications.
-
-@cindex MIDI, definiciones de contexto
-
-Las definiciones de contexto siguen con precisión la misma sintaxis
-que la de un bloque @code{\layout}.  Los módulos de traducción para el
-sonido reciben el nombre de ejecutantes.  Los contextos para la salida
-MIDI se definen en @file{../ly/performer-init.ly}, véase
-@rlearning{Otras fuentes de información}.  Por ejemplo, para eliminar
-el efecto de los matices de la salida MIDI, inserte las líneas
-siguientes en el bloque @code{\midi@{ @}}.
-
-@example
-\midi @{
-  @dots{}
-  \context @{
-    \Voice
-    \remove "Dynamic_performer"
-  @}
-@}
-@end example
-
-La salida MIDI se crea sólo cuando se incluye un bloque @code{\midi}
-dentro de un bloque de partitura definido con una instrucción
-@code{\score}.
-
-@example
-\score @{
-  @{ @dots{}notas@dots{} @}
-  \midi @{ @}
-@}
-@end example
 
 
 @node ¿Qué sale por el MIDI?

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f6443f01a56112f080b8d2e7e646007397bdf6ec
+    Translation of GIT committish: 62dd4c2473cba2401ef83ccac3d353959c166399
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -140,31 +140,33 @@ barras se inclinan ¡automáticamente!
 @subsubheading Entrada basada en texto
 
 LilyPond toma una entrada en texto normal, que podemos elaborar en
-nuestro editor de texto de preferencia, de forma rápida y cómoda.  La
-entrada de texto contiene toda la información, de manera que no hay
-necesidad de recordar complejas secuencias de instrucciones: tan sólo
-guarde un código de entrada para que sirva como referencia futura.
+nuestro editor de texto de preferencia, de forma rápida y cómoda.
+La entrada de texto contiene toda la información, de manera que no
+hay necesidad de recordar complejas secuencias de instrucciones:
+tan sólo guarde un código de entrada para que sirva como
+referencia futura.
 
 @subsubheading Combinar música y texto
 
 Coloque fragmentos de música dentro de textos sin cortar y pegar
-imágenes.  Integre música dentro de @LaTeX{} o HTML de forma sencilla,
-o añada música a documentos de OpenOffice.org mediante OOoLilyPond.
-También hay plugins o complementos disponibles para permitir código de
-LilyPond dentro de diversos blogs y wikis, haciendo posible la
-colaboración en línea.
+imágenes.  Integre música dentro de @LaTeX{} y HTML de forma
+sencilla, o añada música a documentos de OpenOffice.org o
+LibreOffice mediante OOoLilyPond.  También hay plugins o
+complementos disponibles para permitir código de LilyPond dentro
+de diversos blogs y wikis, haciendo posible la colaboración en
+línea.
 
 
 @subsubheading Accesibilidad
 
 La entrada basada en texto también hace posible la escritura de
-partituras para usuarios con deficiencias físicas.  Los usuarios con
-alguna dificultad manual que no pueden teclear o manejar un ratón de
-ordenador pueden usar software de reconocimiento de voz para editar
-los archivos de LilyPond.  Incluso las personas totalmente ciegas
-pueden usar lectores de pantalla para escribir los archivos de
-LilyPond (una tarea imposible en los programas de edición de
-partituras basados en gráficos).
+partituras para usuarios con deficiencias físicas.  Los usuarios
+con alguna dificultad manual que no pueden teclear o manejar un
+ratón de ordenador pueden usar software de reconocimiento de voz
+para editar los archivos de LilyPond.  Incluso las personas
+totalmente ciegas pueden usar lectores de pantalla para escribir
+los archivos de LilyPond (una tarea imposible en los programas de
+edición de partituras basados en gráficos).
 
 @subsubheading Diseño ampliable
 
@@ -209,7 +211,7 @@ prontitud.
 Varios desarrolladores que son a su vez usuarios activos de LilyPond,
 han escrito herramientas orientadas específicamente a hacer más fácil
 y efectivo el proceso de editar archivos de LilyPond.  Para ver
-algunos ejemplos, consulte @ref{Easier editing}.
+algunos ejemplos, consulte @ref{Entornos mejorados}.
 
 @divEnd
 @divClass{column-center-bottom}
@@ -524,6 +526,31 @@ actuaciones por todo el mundo.  Algunos titulares:
 
 @divClass{keep-bullets}
 @itemize
+
+@item
+@uref{http://www.aurelienbello.com/,Aurélien Bello} ha
+reorquestado @emph{Der Ring des Nibelungen} de Richard Wagner a una
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,versión para niños} de 100 minutos de duración.
+Está escrita para orquesta sinfónica estándar pero con una
+plantilla reducida de cantantes, y se interpretará por la
+@emph{Radio-Sinfonieorchester Berlin} los días 5 y 6 de abril de
+2014 en el Atze Musiktheater de Berlín.  El director es Heiko
+Matthias Förster.
+
+@item
+Joe Smeets creó las partituras para el libro infantil @emph{Zing
+Mee} (@emph{Canta conmigo}) de Annie M.G. publicado por Querido
+(ISBN 9789045106205):
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707,
+www.queridokinderenjeugdboeken.nl}; partituras de ensayo de coro
+para la traducción holandesa del @emph{Saint Nicolas} de Benjamin
+Britten realizado por @emph{Muziektheater Hollands Diep} en 2011,
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
+www.muziektheaterhollandsdiep.nl}; y está trabajando actualmente
+en la pastitura general y particellas de un arreglo del
+@emph{Boris Godounov} de Moussurgsky para cuarteto de viento,
+piano y percuión.  Se interpretará en 2014, de nuevo por parte de
+@emph{Muziektheater Hollands Diep}.
 
 @item
 Una edición crítuca de la serie de óperas @emph{Enea nel Lazio (1760)},
@@ -1068,6 +1095,10 @@ exactamente tal y como está diseñado para hacerlo.
 Tiene a su disposición una documentación mucho más profunda en la
 sección @ref{Manuales}.
 
+Ben Lemon, usuario de LilyPond, ha creado y publicado una
+colección de
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,tutoriales
+en vídeo} en su blog, dirigidos a nuevos usuarios.
 
 @subsubheading Entornos de edición facilitados
 
@@ -1121,7 +1152,7 @@ In particular, don't link to:
 @uref{http://www.tunefl.com}
 
 Con tunefl se pueden componer tipográficamente las partituras de
-forma directa en línea sin necesidad de instalar lilypond
+forma directa en línea sin necesidad de instalar LilyPond
 localmente.  Permite probar todas las capacidades del programa
 usando una interfaz web cómoda.
 
@@ -1366,7 +1397,7 @@ y @uref{http://canorus.org,Canorus}.
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} es un programa
 gráfico de introducción de notas, que actúa más o menos como un
-teclado numérico que produce notas de lilypond.
+teclado numérico que produce notas de LilyPond.
 
 @end itemize
 

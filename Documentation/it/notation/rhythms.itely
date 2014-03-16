@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8d26005d0b783e546de362b96fb1b00540875064
+    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2796,7 +2796,8 @@ c1
 @end lilypond
 
 Esiste inoltre un comando @code{\inStaffSegno} che crea una stanghetta
-con segno, combinabile col comando@code{\repeat volta}.
+con segno in congiunzione con un'appropriata stanghetta di ripetizione se
+usata con un comando @code{\repeat volta}, vedi @ref{Normal repeats}..
 
 @funindex \defineBarLine
 @funindex defineBarLine

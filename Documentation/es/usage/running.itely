@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: ff7d82711b47d3d31f26e1e6fc012c4055a20059
+    Translation of GIT committish: 93d725094ee629b2d5200ab5a75b609579a62973
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -707,6 +707,19 @@ punto flotante @code{Inf} y @code{NaN}.
 @tab @code{#t}
 @tab No usar los directorios de los archivos de entrada al construir los
 nombres de los archivos de salida.
+
+@item @code{strokeadjust}
+@tab @code{#f}
+@tab Forzar el ajuste de los trazos de PostScript.  Esta opción es
+relevante principalmente cuando se genera un @code{PDF} a partir
+de la salida de PostScript (el ajuste del trazo está por lo
+general activado automáticamente para dispositivos de mapa de
+puntos de baja resolución).  Sin esta opción, los visores
+de@code{PDF} tienden a producir anchuras de plica muy poco
+consistentes a las resoluciones típicas de las pantallas de
+ordenador.  La opción no afecta de forma muy significativa a la
+calidad de la impresión y causa grandes incrementos en el tamaño
+del archivo @code{PDF}.
 
 @item @code{svg-woff}
 @tab @code{#f}
