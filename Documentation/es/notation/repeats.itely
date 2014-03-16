@@ -331,7 +331,7 @@ propiedades @code{segnoType}, @code{startRepeatSegnoType},
 de línea requerido.  Los tipos de línea divisoria alternativos
 deben seleccionarse a partir de los tipos predefinidos o de tipos
 definidos anteriormente con la instrucción @code{\defineBarLine}
-(véase @ref{Líneas divisorias}).
+(véase @ref{Barras de compás}).
 
 @lilypond[verbatim,quote,relative=1]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
