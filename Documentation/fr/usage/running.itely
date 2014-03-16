@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
+    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -714,6 +714,17 @@ flottante @code{Inf} ou @code{NaN} -- infini ou non-nombre.
 @tab @code{#t}
 @tab Supprime, lors du nommage des fichiers résultant, la partie
 correspondant au répertoire des fichiers sources.
+
+@item @code{strokeadjust}
+@tab @code{#f}
+@tab Force l'ajustement des traits PostScript.  Cette option trouve
+toute son utilité pour générer du PDF à partir de PostScript --
+l'ajustement des traits est en principe automatiquement activé pour les
+périphériques bitmap à faible résolution.  Sans cette option, les
+visionneurs de PDF ont tendance à ne pas rendre de manière constante
+l'épaisseur des hampes dans les résolutions habituelles des écrans.
+Bien que n'affectant pas notoirement la qualité d'impression, cette
+option accroit notablement la taille des fichiers PDF.
 
 @item @code{svg-woff}
 @tab @code{#f}
