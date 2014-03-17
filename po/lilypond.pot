@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.18.1\n"
+"Project-Id-Version: lilypond 2.18.2\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-02-16 15:42+0000\n"
+"POT-Creation-Date: 2014-03-17 15:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,18 +36,18 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:212 book_texinfo.py:228
+#: book_latex.py:214 book_texinfo.py:228
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:224 book_texinfo.py:240
+#: book_latex.py:226 book_texinfo.py:240
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
 msgstr ""
 
-#: book_latex.py:247
+#: book_latex.py:249
 msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
@@ -3404,31 +3404,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1083
+#: define-markup-commands.scm:1087
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2847
+#: define-markup-commands.scm:2851
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3273
+#: define-markup-commands.scm:3277
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3274
+#: define-markup-commands.scm:3278
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3526
+#: define-markup-commands.scm:3530
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3737
+#: define-markup-commands.scm:3741
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3820,7 +3820,7 @@ msgstr ""
 msgid "error in #{ ... #}"
 msgstr ""
 
-#: part-combiner.scm:598
+#: part-combiner.scm:607
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr ""
