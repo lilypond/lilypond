@@ -9,6 +9,20 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
+@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+
+We are proud to announce the release of GNU LilyPond 2.18.2.
+LilyPond is a music engraving program devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+This version provides a number of updates to 2.18.0, including
+updated manuals.  We recommend all users to upgrade to this version.
+
+@newsEnd
+
+
+@newsItem
 @subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
 
 We are thrilled to announce that the new edition of the songs of Oskar
@@ -41,20 +55,6 @@ release includes a number of enhancements, and contains
 some work in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you require
 a stable version of Lilypond, we recommend using the 2.18 version.
-
-@newsEnd
-
-@newsItem
-@subsubheading LilyPond 2.18.1  @emph{February 16, 2014}
-
-We have released updated manuals for LilyPond's stable version, 2.18.
-The manuals are now for 2.18.1 and have a number of updates and improvements
-over 2.18.0.  There will be a further release of 2.18 in the future (2.18.2),
-and this will include the updates to the manuals as well as some minor
-enhancements to the LilyPond core functionality.
-
-To summarise the current situation: stable LilyPond application: 2.18.0;
-stable LilyPond manuals: 2.18.1; development for both: 2.19.2.
 
 @newsEnd
 
