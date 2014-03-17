@@ -8,13 +8,53 @@
 
 @c used for news about the upcoming release; see CG 10.2
 
+@newsItem
+@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+
+We are proud to announce the release of GNU LilyPond 2.18.2.
+LilyPond is a music engraving program devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+This version provides a number of updates to 2.18.0, including
+updated manuals.  We recommend all users to upgrade to this version.
+
+@newsEnd
+
 
 @newsItem
-@subsubheading Lilypond 2.18.1 released!  @emph{February 16, 2013}
+@subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
 
-We are pleased to announce the release of GNU LilyPond 2.18.1.
-This has a number of detailed improvements to the previous stable
-release, and we recommend upgrading to this stable version.
+We are thrilled to announce that the new edition of the songs of Oskar
+Fried (1871-1941), published recently by our fellow contributors Urs Liska
+and Janek Warchoł [1], will receive the "Musikeditionspreis BEST EDITION
+2014" of the German Music Publishers' Association [2]!  The ceremony will
+take place in a few days at the Frankfurt Musikmesse [3].
+
+We congratulate Janek and Urs for gaining such public recognition of
+typographical and editorial excellence of their work. We are also delighted
+to inform you that they intend to make their work available under a Free
+license as soon as the publisher expenses are covered.  Please support this
+initiative by buying the printed volume through the publisher [4] or by
+pledging a contribution at the Indiegogo campaign [5]!
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{https://musik.messefrankfurt.com/frankfurt/en/besucher/events/awards/best_edition.html}@*
+[4] @uref{http://www.sound-rel.de}@*
+[5] @uref{http://igg.me/at/free-fried}
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond 2.19.3 released  @emph{March 2, 2014}
+
+We are happy to announce the release of LilyPond 2.19.3.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
 
 @newsEnd
 
