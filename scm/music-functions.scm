@@ -1419,14 +1419,16 @@ Returns @code{#f} or the reason for the invalidation, a symbol."
          (car alteration-def))
         (else 0)))
 
-(define (check-pitch-against-signature context pitch barnum laziness octaveness)
+(define (check-pitch-against-signature context pitch barnum laziness octaveness all-naturals)
   "Checks the need for an accidental and a @q{restore} accidental against
 @code{localKeySignature}.  The @var{laziness} is the number of measures
 for which reminder accidentals are used (i.e., if @var{laziness} is zero,
 only cancel accidentals in the same measure; if @var{laziness} is three,
 we cancel accidentals up to three measures after they first appear.
 @var{octaveness} is either @code{'same-octave} or @code{'any-octave} and
-specifies whether accidentals should be canceled in different octaves."
+specifies whether accidentals should be canceled in different octaves.
+If @var{all-naturals} is ##t, notes that do not occur in @code{keySignature}
+also get an accidental."
   (let* ((ignore-octave (cond ((equal? octaveness 'any-octave) #t)
                               ((equal? octaveness 'same-octave) #f)
                               (else
@@ -1484,7 +1486,7 @@ specifies whether accidentals should be canceled in different octaves."
         (let* ((prev-alt (extract-alteration previous-alteration))
                (this-alt (ly:pitch-alteration pitch)))
 
-          (if (not (= this-alt prev-alt))
+          (if (or (and all-naturals (eq? #f previous-alteration)) (not (= this-alt prev-alt)))
               (begin
                 (set! need-accidental #t)
                 (if (and (not (= this-alt 0))
@@ -1511,7 +1513,13 @@ is, to the end of current measure.  A positive integer means that the
 accidental lasts over that many bar lines.  @w{@code{-1}} is `forget
 immediately', that is, only look at key signature.  @code{#t} is `forever'."
 
-  (check-pitch-against-signature context pitch barnum laziness octaveness))
+  (check-pitch-against-signature context pitch barnum laziness octaveness #f))
+
+(define-public ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum measurepos)
+  "Variation on function make-accidental-rule that creates an dodecaphonic
+accidental rule."
+
+  (check-pitch-against-signature context pitch barnum laziness octaveness #t))
 
 (define (key-entry-notename entry)
   "Return the pitch of an @var{entry} in @code{localKeySignature}.
@@ -1724,6 +1732,14 @@ as a context."
                                           ,dodecaphonic-no-repeat-rule)
                                           '()
                                           context))
+     ;; Variety of the dodecaphonic style. Each note gets an accidental,
+     ;; except notes that were already handled in the same measure.
+     ((equal? style 'dodecaphonic-first)
+      (set-accidentals-properties #f
+                                  `(Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
+                                  '()
+                                  context))
+
      ;; Multivoice accidentals to be read both by musicians playing one voice
      ;; and musicians playing all voices.
      ;; Accidentals are typeset for each voice, but they ARE canceled across voices.
