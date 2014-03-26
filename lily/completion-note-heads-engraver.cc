@@ -117,6 +117,12 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
     }
 
   Moment result = *l - *e;
+  if (result < 0)
+    {
+      programming_error ("invalid measure position: "
+                         + e->to_string () + " of " + l->to_string ());
+      return 0;
+    }
   Moment const *unit = unsmob_moment (get_property ("completionUnit"));
 
   if (unit)
