@@ -166,7 +166,7 @@ Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
 
   Grob *beam = Stem::get_beam (ref_stem);
 
-  if (!beam || !to_boolean (beam->get_property ("knee")))
+  if (!beam || !Beam::is_knee (beam))
     return false;
 
   Grob *commonx = Tuplet_bracket::get_common_x (tuplet);
@@ -362,10 +362,6 @@ Tuplet_number::calc_y_offset (SCM smob)
   if (!ref_stem || !knee_position_against_beam (me, ref_stem))
     return to_bracket;
 
-  Grob *beam = Stem::get_beam (ref_stem);
-  if (!beam || !to_boolean (beam->get_property ("knee")))
-    return to_bracket;
-
   /*
     First, we calculate the Y-offset of the tuplet number as if it
     is positioned at the reference stem.
@@ -388,6 +384,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   */
   if (to_boolean (ref_stem->get_property ("french-beaming")))
     {
+      Grob *beam = Stem::get_beam (ref_stem);
       Real beam_translation = Beam::get_beam_translation (beam);
       SCM beaming = ref_stem->get_property ("beaming");
       y_offset += ref_stem_dir
