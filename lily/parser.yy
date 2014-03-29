@@ -448,6 +448,17 @@ toplevel_expression:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
 			scm_call_2 (proc, parser->self_scm (), $1);
+		} else if (Output_def * od = unsmob_output_def ($1)) {
+			SCM id = SCM_EOL;
+
+			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultpaper");
+			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultmidi");
+			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultlayout");
+
+			parser->lexer_->set_identifier (id, $1);
 		} else if (!scm_is_eq ($1, SCM_UNSPECIFIED))
 			parser->parser_error (@1, _("bad expression type"));
 	}
@@ -821,6 +832,17 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			scm_call_2 (proc, $1, $2);
+		} else if (Output_def *od = unsmob_output_def ($2)) {
+			SCM id = SCM_EOL;
+
+			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultpaper");
+			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultmidi");
+			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultlayout");
+
+			parser->lexer_->set_identifier (id, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
@@ -891,6 +913,17 @@ bookpart_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			scm_call_2 (proc, $1, $2);
+		} else if (Output_def *od = unsmob_output_def ($2)) {
+			SCM id = SCM_EOL;
+
+			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultpaper");
+			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultmidi");
+			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+				id = ly_symbol2scm ("$defaultlayout");
+
+			parser->lexer_->set_identifier (id, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
