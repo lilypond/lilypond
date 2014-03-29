@@ -158,6 +158,8 @@ For instance,
   "Generate an expression that, once evaluated, may return an object
 equivalent to @var{obj}, that is, for a music expression, a
 @code{(make-music ...)} form."
+  (define (if-nonzero num)
+    (if (zero? num) '() (list num)))
   (cond (;; markup expression
          (markup? obj)
          (markup-expression->make-markup obj))
@@ -173,20 +175,28 @@ equivalent to @var{obj}, that is, for a music expression, a
                                  (ly:music-mutable-properties obj)))))
         (;; moment
          (ly:moment? obj)
-         `(ly:make-moment ,(ly:moment-main-numerator obj)
-                          ,(ly:moment-main-denominator obj)
-                          ,(ly:moment-grace-numerator obj)
-                          ,(ly:moment-grace-denominator obj)))
+         `(ly:make-moment
+           ,@(let ((main (ly:moment-main obj))
+                   (grace (ly:moment-grace obj)))
+               (cond ((zero? grace) (list main))
+                     ((negative? grace) (list main grace))
+                     (else ;;positive grace requires 4-arg form
+                      (list (numerator main)
+                            (denominator main)
+                            (numerator grace)
+                            (denominator grace)))))))
         (;; note duration
          (ly:duration? obj)
          `(ly:make-duration ,(ly:duration-log obj)
-                            ,(ly:duration-dot-count obj)
-                            ,(ly:duration-scale obj)))
+                            ,@(if (= (ly:duration-scale obj) 1)
+                                  (if-nonzero (ly:duration-dot-count obj))
+                                  (list (ly:duration-dot-count obj)
+                                        (ly:duration-scale obj)))))
         (;; note pitch
          (ly:pitch? obj)
          `(ly:make-pitch ,(ly:pitch-octave obj)
                          ,(ly:pitch-notename obj)
-                         ,(ly:pitch-alteration obj)))
+                         ,@(if-nonzero (ly:pitch-alteration obj))))
         (;; scheme procedure
          (procedure? obj)
          (or (procedure-name obj) obj))
