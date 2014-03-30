@@ -948,7 +948,7 @@ score_headers:
 	}
 	;
 
-		
+
 
 score_body:
 	score_headers music {
@@ -1483,7 +1483,6 @@ function_arglist_nonbackup:
 			$$ = check_scheme_arg (parser, @4, t->unprotect (),
 					       $3, $2, n);
 		}
-		
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' REAL
 	{
@@ -1760,7 +1759,6 @@ function_arglist_backup:
 				parser->lexer_->push_extra_token (@4, '-');
 			}
 		}
-		
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' REAL
 	{
@@ -2037,7 +2035,6 @@ function_arglist_common_reparse:
 			else
 				MYREPARSE (@4, $1, SCM_ARG, $4);
 		}
-		
 	}
 	| EXPECT_SCM function_arglist_optional '-' REAL
 	{
@@ -2315,7 +2312,7 @@ revert_arg_part:
 	| revert_arg_backup BACKUP SCM_ARG symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($4, $3));
-	}		
+	}
 	;
 
 context_def_mod:
@@ -2748,7 +2745,7 @@ post_event_nofinger:
 	{
 		$$ = $2;
 		unsmob_music ($$)->set_property ("direction", scm_from_int (DOWN));
-	}			
+	}
 	;
 
 post_event:
@@ -2776,7 +2773,7 @@ direction_less_event:
                a->set_property ("tremolo-type", $1);
                $$ = a->unprotect ();
         }
-	| event_function_event	
+	| event_function_event
 	;
 
 direction_reqd_event:
@@ -3143,20 +3140,20 @@ pitch_or_music:
 				n = MY_MAKE_MUSIC ("RestEvent", @$);
 			else
 				n = MY_MAKE_MUSIC ("NoteEvent", @$);
-			
+
 			n->set_property ("pitch", $1);
 			if (SCM_UNBNDP ($5))
 				n->set_property ("duration",
 						 parser->default_duration_.smobbed_copy ());
 			else
 				n->set_property ("duration", $5);
-			
+
 			if (scm_is_number ($4))
 			{
 				int q = scm_to_int ($4);
 				n->set_property ("absolute-octave", scm_from_int (q-1));
 			}
-			
+
 			if (to_boolean ($3))
 				n->set_property ("cautionary", SCM_BOOL_T);
 			if (to_boolean ($2) || to_boolean ($3))
@@ -3471,7 +3468,7 @@ markup_scm:
 		}
 	} BACKUP
 	;
-			
+
 
 markup_list:
 	markup_composed_list {
