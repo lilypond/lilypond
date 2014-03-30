@@ -948,86 +948,98 @@ score_block:
 	}
 	;
 
-score_headers:
-	/* empty */
-	{
-		$$ = SCM_EOL;
-	}
-	| score_headers
-	{
-		if (!scm_is_pair ($1)
-		    || !ly_is_module (scm_car ($1)))
-			$1 = scm_cons (ly_make_module (false), $1);
-		parser->lexer_->add_scope (scm_car ($1));
-	} lilypond_header
-	{
-		$$ = $1;
-	}
-	| score_headers output_def
-	{
-                Output_def *od = unsmob_output_def ($2);
-		if (od->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
-		{
-			parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
-
-		}
-		else
-		{
-			if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
-				scm_set_cdr_x ($1, scm_cons ($2, scm_cdr ($1)));
-			else
-				$$ = scm_cons ($2, $1);
-		}
-	}
-	;
-
-
-
 score_body:
-	score_headers music {
-		SCM scorify = ly_lily_module_constant ("scorify-music");
-		$$ = scm_call_2 (scorify, $2, parser->self_scm ());
-
-		if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
-		{
-			unsmob_score ($$)->set_header (scm_car ($1));
-			$1 = scm_cdr ($1);
-		}
-		for (SCM p = scm_reverse_x ($1, SCM_EOL);
-		     scm_is_pair (p); p = scm_cdr (p))
-		{
-			unsmob_score ($$)->
-				add_output_def (unsmob_output_def (scm_car (p)));
-		}
-	}
-	| embedded_scm_active {
-		if (!unsmob_score ($1))
-		{
+	score_items {
+		if (!unsmob_score ($1)) {
+			parser->parser_error (@1, _("Missing music in \\score"));
 			$$ = (new Score)->unprotect ();
-			parser->parser_error (@1, _("score expected"));
-		}
-	}
-	| score_body
-	{
-                Score *score = unsmob_score ($1);
-		if (!ly_is_module (score->get_header ()))
-			score->set_header (ly_make_module (false));
-		parser->lexer_->add_scope (score->get_header ());
-	} lilypond_header
-	| score_body output_def {
-                Output_def *od = unsmob_output_def ($2);
-		if (od->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
-		{
-			parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
-
-		}
-		else
-		{
-			unsmob_score ($1)->add_output_def (od);
+			if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
+			{
+				unsmob_score ($$)->set_header (scm_car ($1));
+				$1 = scm_cdr ($1);
+			}
+			for (SCM p = scm_reverse_x ($1, SCM_EOL);
+			     scm_is_pair (p); p = scm_cdr (p))
+			{
+				unsmob_score ($$)->
+					add_output_def (unsmob_output_def (scm_car (p)));
+			}
 		}
 	}
 	| score_body error {
 		unsmob_score ($$)->error_found_ = true;
+	}
+	;
+
+score_item:
+	embedded_scm
+	| music
+	| output_def
+	;
+
+score_items:
+	/* empty */
+	{
+		$$ = SCM_EOL;
+	}
+	| score_items score_item
+	{
+		Output_def *od = unsmob_output_def ($2);
+		if (od) {
+			if (od->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
+			{
+				parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
+				od = 0;
+				$2 = SCM_UNSPECIFIED;
+			}
+		} else if (!unsmob_score ($$)) {
+			if (unsmob_music ($2)) {
+				SCM scorify = ly_lily_module_constant ("scorify-music");
+				$2 = scm_call_2 (scorify, $2, parser->self_scm ());
+			}
+			if (unsmob_score ($2))
+			{
+				$$ = $2;
+				$2 = SCM_UNSPECIFIED;
+			}
+		}
+		Score *score = unsmob_score ($$);
+		if (score && scm_is_pair ($1)) {
+			if (ly_is_module (scm_car ($1)))
+			{
+				score->set_header (scm_car ($1));
+				$1 = scm_cdr ($1);
+			}
+			for (SCM p = scm_reverse_x ($1, SCM_EOL);
+			     scm_is_pair (p); p = scm_cdr (p))
+			{
+				score->add_output_def (unsmob_output_def (scm_car (p)));
+			}
+		}
+		if (od) {
+			if (score)
+				score->add_output_def (od);
+			else if (scm_is_pair ($$) && ly_is_module (scm_car ($$)))
+				scm_set_cdr_x ($$, scm_cons ($2, scm_cdr ($$)));
+			else
+				$$ = scm_cons ($2, $$);
+		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
+			parser->parser_error (@2, _("Spurious expression in \\score"));
+	}
+	| score_items
+	{
+		if (Score *score = unsmob_score ($1)) {
+			if (!ly_is_module (score->get_header ()))
+				score->set_header (ly_make_module (false));
+			parser->lexer_->add_scope (score->get_header ());
+		} else {
+			if (!scm_is_pair ($1) || !ly_is_module (scm_car ($1)))
+				$1 = scm_cons (ly_make_module (false), $1);
+			parser->lexer_->add_scope (scm_car ($1));
+		}
+	} lilypond_header
+	{
+		$$ = $1;
 	}
 	;
 
