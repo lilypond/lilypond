@@ -7,34 +7,340 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@setfilename web.info
+@settitle LilyPond: notació musical per a tots
+@documentencoding UTF-8
+@documentlanguage ca
+@afourpaper
 
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2009--2014 by the authors.
+@c @end macro
+
+@set FDL
+@set web
 @include macros.itexi
 @include weblinks.itexi
+
+@c don't remove this comment.
+@ignore
+@omfcreator Graham Percival and Patrick McCarty
+@omfdescription General info about the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage Catalan
+@end ignore
+
+@c Translators: Walter Garcia-Fontes
+
+@copying
+Copyright @copyright{} 2009--2014 pels autors
+
+@c next line is necessary for broken pre-4.13 texinfo's
+@c install-info, so leave it there until we officially
+@c bump the required version.  -gp
+This file documents the LilyPond website.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond: el gravador de música
+@direntry
+* Manual d'aprenentatge del Lilypond:(lilypond-learning). Comenceu per aquí.
+* Glosari musical: (music-glossary).                 Per a usuaris de parla no anglesa
+* LilyPond: (lilypond-notation).                      Referència de la notació amb el Lilypond.
+* Fragments de codi del LilyPond: (lilypond-snippets). Consells, trucs i exemples curts.
+* Referència de funcionament intern: (lilypond-internals). Definicions pera a la construcció de trucs.
+* Utilització del prrograma: (lilypond-usage). Instal·lació i execució de les aplicacions
+* Pàgina web: (lilypond-web).    Vista prèvia de la nova pàgina.
+* lilypond: (lilypond-usage)Executar el Lilypond.   Invocar el programa LilyPond.
+* abc2ly: (lilypond-usage)Invocació d'abc2ly.      Importació d'ABC.
+* convert-ly: (lilypond-usage)Actualització de fitxers mitjançant convert-ly. Versions antigues del Lilypond.
+* etf2ly: (lilypond-usage)Invocar etf2ly.      Importació del Finale.
+* lilypond-book: (lilypond-usage)LilyPond-book. Intergrar text i música.
+* midi2ly: (lilypond-usage)Invocar midi2ly.    Importació de MIDI.
+* musicxml2ly: (lilypond-usage)Invocar musicxml2ly.  Importació de MusicXML.
+@end direntry
+
+
+@c TITLE PAGE
+@ifnottex
 @node Top
-@top LilyPond... music notation for everyone
+@top LilyPond... notació musical per a tots
 @translationof Top
+@end ifnottex
 
-@untranslated
+
+@c hack for texi2html, bleh -gp
+@ifnothtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle El gravador de música
+@titlefont{Informació general}
+@author L'equip de desenvolupament del LilyPond
+
+@vskip 0pt plus 1filll
+@c @vskip 20pt
+
+@insertcopying
+
+Per al LilyPond versió @version{}
+@end titlepage
+@end ifnothtml
+@c end hack for texi2html
 
 
+@c ************************ WEBSITE START ***************
+
+
+@divId{pageHeader}
 @heading LilyPond
-@subheading What is LilyPond?
-@include web/news-front.itexi
-@subheading Pondings
-@subheading Quick links
-@subsubheading Stable
-@subsubheading Unstable
-@menu
-* Introduction::
-* Download::
-* Manuals::
-* Community::
-@end menu
 
-@subheading Read it
+... notació musical per a tots
+@divEnd
+
+@c @imageId{cmws,web-clef-g-eight-alpha.png,Catchy Musical Web Snippet}
+@imageId{lilylogo,double-lily-modified3,png,LilyPond logo}
+@c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
+
+@divId{quickSummary}
+@subheading ¿Què és el LilyPond?
+
+El Lilypond és un programa de gravació musical
+(tipografia musical o edició de partitures),
+consagrat a la producció de partitures de la
+qualitat més alta possible. Porta l'estètica
+de la música tipografiada de la forma tradicional
+a les partitures impreses de la forma tradicional
+a les partitures impreses mijtançant l'ordinador.
+Lilypond és programari lliure i forma part del
+@uref{http://gnu.org,Proyecto GNU}.
+
+
+@divClass{align-right}
+¡Podeu llegir la nostra @ref{Introducció}!
+
+@divEnd
+@divEnd
+
+@divClass{separator}
+@divEnd
+
+
+@divId{news}
+
+@c TODO: generate this automatically, including RSS feed.
+@include web/news-front.itexi
+
+@divClass{float-right}
+(@ref{Notícies antigues})
+@divEnd
+
+@divEnd
+
+@ifclear web_version
+  @c do nothing
+@end ifclear
+@ifset web_version
+  @c make the box:
+@divId{wildCardBox}
+@subheading Novedades
+@divId{wildCardText}
+
+@divEnd
+@divEnd
+@end ifset
+
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+</script>
+
+@end html
+
+@ifset web_version
+  @c make the box:
+@divId{latestVersion}
+@subheading Enllaços ràpids
+
+@c TODO: javascript to detect OS and suggest download?
+
+@subsubheading Estable
+
+@ref{Descàrrega, Descàrrega de @versionStable}
+
+@ref{Manuals, Manuals de @versionStable}
+
+@subsubheading Desenvolupament
+
+@ref{Desenvolupament, Descàrrega de @versionDevel}
+
+@ref{Desenvolupament, Manuals de @versionDevel}
+
+@divEnd
+@end ifset
+
+@ifnottex
+
+@divClass{hide}
+@menu
+* Introducció::      Comenceu aquí a crear partitures musicals.
+* Descàrrega::       Obtenir el LilyPond.
+* Manuals::          Llegiu els coi de manuals (RTFM).
+* Comunitat::        Poseu-vos en contacte amb altres usuaris.
+@end menu
+@divEnd
+
+@end ifnottex
+
+@contents
+
+@allowcodebreaks false
+
+@c ****************** GENERAL STUFF FOR INFO ************
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out[-www]/lilypond-web.info
+
+  * Prepend GNU for dir, must be unique.
+
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+
+@end ignore
+
+@c FIXME: this still doesn't solve the broken links in pdf and big
+@c        html; we'll need a bunch of @iftext and stuff in here. -gp
+@c ****************** SPECIAL MACROS FOR WEB MANUAL ************
+@macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+@subheading Léalo
+
+
+@docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
+
+@end macro
+
+
+@macro docLinkSplit{name,base,webLink}
+  @docLink{\name\ (HTML seccionado),\base\/index.html,\webLink\}
+@end macro
+
+@macro docLinkBig{name,base,webLink}
+  @docLink{\name\ (HTML monolítico),\base\-big-page.html,\webLink\}
+@end macro
+
+@macro docLinkPdf{name,base,webLink}
+  @docLink{\base\.es.pdf,\base\.es.pdf,\webLink\}
+@end macro
+
+
+@macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
+
+@divClass{keep-bullets}
+@itemize
+
+@item @docLinkSplit{\name\,\base\,\split\} @minus{}
+  el manual està dividit en moltes pàgines HTML.
+  @*@ @ @emph{(una descàrrega petita per a cada pàgina)}
+
+@item @docLinkBig{\name\,\base\,\big\} @minus{}
+  llegiu aquest manual com una sola pàgina HTML enorme.
+  @*@ @ @emph{(una sola descàrrega gran, \bigsize\)}
+
+@item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
+  descarregueu-lo com un fitxer en format PDF.
+  @*@ @ @emph{(una sola descàrrega gran, \pdfsize\)}
+
+@end itemize
+
+@divEnd
+
+@end macro
+
+
+@c don't add any extra spaces in this macro -gp
+@macro ifWebLinks{webLink,normalLink}
+@ifclear web_version
+  \normalLink\:
+@end ifclear
+@ifset web_version
+  \webLink\:
+@end ifset
+@end macro
+
+
+@ifhtml
+@macro contactUsAbout{topic}
+
+@divClass{heading-center} @divClass{contactBox} Si teniu
+coneixement de qualssevol altres \topic\ que mereixin aparèixer
+relacionats aquí, us preguem quen ens ho faci saber escrivint un
+missatge a la llista de correu bug-lilypond. Tot i que esteu subscrit
+a la llista, ho podeu fer a la 
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,pàgina informativa}
+de la llista o escrivint directament mitjançant de la
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfície web de lilypond.bugs a gmane}.
+
+
+@divEnd
+@divEnd
+
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro contactUsAbout{topic}
+@cartouche
+Si teniu coneixement de qualsevol altre \topic\ que podria 
+aparèixer aquí, si us plau feu-no-ho saber seguint les instruccions a
+@ref{Bug reports}.
+
+@end cartouche
+
+@end macro
+@end ifnothtml
+
 @include web/introduction.itexi
 @include web/download.itexi
 @include web/manuals.itexi
 @include web/community.itexi
 
-@c -- SKELETON FILE --
+
+@bye
