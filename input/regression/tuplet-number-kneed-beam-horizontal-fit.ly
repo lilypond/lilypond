@@ -3,7 +3,10 @@
 \header {
   texidoc = "Tuplet numbers are placed next to the beam unless there is
 insufficient horizontal space for them, in which case bracket-based
-positioning is used and a programming error is issued."
+positioning is used and a programming error is issued.
+
+The first tuplet number should be between stems; the second should be
+below the noteheads."
 }
 
 #(ly:expect-warning (_ "not enough space for tuplet number against beam"))
