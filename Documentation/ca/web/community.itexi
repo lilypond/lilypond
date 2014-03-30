@@ -1,0 +1,189 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include included/acknowledge.itexi
+@include included/authors.itexi
+@include included/helpus.itexi
+@node Community
+@unnumbered Community
+@translationof Community
+
+@untranslated
+
+
+@subheading Interacting with the community
+@subheading Making LilyPond better
+@subheading Miscellaneous
+@menu
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
+* GSoC 2012::
+* Authors::
+* Acknowledgements::
+* Publications::
+* Old news::
+* Attic::
+@end menu
+
+@node Contact
+@unnumberedsec Contact
+@translationof Contact
+
+@untranslated
+
+
+@subheading User Discussions and Help
+@subsubheading User mailing list: @code{lilypond-user@@gnu.org}
+@subsubheading LilyPond Snippet Repository
+@subsubheading IRC
+@subsubheading Other languages
+@subheading Stay Informed
+@subsubheading LilyPond Report
+@subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
+@subheading Developer Discussion
+@subsubheading Developer mailing list: @code{lilypond-devel@@gnu.org}
+@subsubheading Bug mailing list: @code{bug-lilypond@@gnu.org}
+@subheading Sensitive emails
+@node Tiny examples
+@unnumberedsec Tiny examples
+@translationof Tiny examples
+
+@untranslated
+
+
+@subheading What are @qq{Tiny examples}?
+@subheading Why create them?
+@subheading How to create them?
+@subheading How tiny should they be?
+@node Bug reports
+@unnumberedsec Bug reports
+@translationof Bug reports
+
+@untranslated
+
+
+@subheading Step 1: Known bugs
+@subheading Step 2: Creating a bug report
+@subheading Step 3: Sending a bug report
+@subheading Step 4: Wait for a response
+@subheading Optional help: show the desired behavior
+@node Help us
+@unnumberedsec Help us
+@translationof Help us
+
+@untranslated
+
+
+@node Sponsoring
+@unnumberedsec Sponsoring
+@translationof Sponsoring
+
+@untranslated
+
+
+@subheading Bounties
+@subheading Guidelines
+@subheading Interested developers
+@node Development
+@unnumberedsec Development
+@translationof Development
+
+@untranslated
+
+
+@subheading Release numbers
+@subheading Download
+@subheading Contributor's Guide
+@subheading Regression tests
+@subsubheading Development version
+@subsubheading Stable version
+@subsubheading All versions
+@subheading Manuals
+@node GSoC 2012
+@unnumberedsec GSoC 2012
+@translationof GSoC 2012
+
+@untranslated
+
+
+@subheading What is Google Summer of Code?
+@subheading Our 2012 Ideas List
+@subheading Grace notes
+@subheading MusicXML
+@subheading Improve slurs and ties
+@subheading Adding special variant of font glyphs
+@subheading Improve beaming
+@subheading Clean up various compilation warnings
+@node Authors
+@unnumberedsec Authors
+@translationof Authors
+
+@untranslated
+
+
+@subheading Current Development Team
+@subheading Previous Development Team
+@subheading Current Contributors
+@subsubheading Programming
+@subsubheading Font
+@subsubheading Documentation
+@subsubheading Bug squad
+@subsubheading Support
+@subsubheading Translation
+@subheading Previous Contributors
+@subsubheading Programming
+@subsubheading Font
+@subsubheading Documentation
+@subsubheading Support
+@subsubheading Translation
+@node Acknowledgements
+@unnumberedsec Acknowledgements
+@translationof Acknowledgements
+
+@untranslated
+
+
+@subheading Acknowledgements
+@node Publications
+@unnumberedsec Publications
+@translationof Publications
+
+@untranslated
+
+
+@subheading What we wrote about LilyPond
+@include we-wrote.itexi
+@subheading What people did with LilyPond
+@include others-did.itexi
+@node Old news
+@unnumberedsec Old news
+@translationof Old news
+
+@untranslated
+
+
+@include web/news-front.itexi
+@include web/news.itexi
+@node Attic
+@unnumberedsec Attic
+@translationof Attic
+
+@untranslated
+
+
+@subheading Announcements
+@subheading Thanks
+@subheading Changelogs
+
+@c -- SKELETON FILE --

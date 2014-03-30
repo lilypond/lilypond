@@ -1,0 +1,169 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Introduction
+@unnumbered Introduction
+@translationof Introduction
+
+@untranslated
+
+
+@subheading Our Goal
+@subheading What LilyPond does
+@subheading LilyPond in use
+@subheading How LilyPond works
+@menu
+* Features::
+* Examples::
+* Freedom::
+* Background::
+* Productions::
+* Reviews::
+* Text input::
+* Easier editing::
+@end menu
+
+@node Features
+@unnumberedsec Features
+@translationof Features
+
+@untranslated
+
+
+@subheading Excellent classical engraving
+@subheading Text input
+@subsubheading Everything is explicit
+@subsubheading Tweaks are robust and traceable
+@subsubheading Text files are failure- and future-proof
+@subsubheading Manage your scores with version control
+@subheading Usability
+@subsubheading Effective layout choices
+@subsubheading Mix music and text
+@subsubheading Accessibility
+@subsubheading Editor diversity
+@subheading Extensible design
+@subsubheading Easy management of style sheets
+@subsubheading Add your own functions
+@subsubheading Process scores programmatically
+@subsubheading Create new tools using LilyPond
+@subheading Environment
+@subsubheading Excellent support
+@subsubheading Free software
+@subheading Where now?
+@node Examples
+@unnumberedsec Examples
+@translationof Examples
+
+@untranslated
+
+
+@subheading Beautiful examples
+@subsubheading Classical Music
+@subsubheading Complex Notation
+@subsubheading Early Music
+@subsubheading Modern Music
+@subsubheading Efficient, flexible creation of performance materials
+@subsubheading Tablature
+@subsubheading Schenker Graphs
+@subsubheading Customized Output
+@subsubheading Vocal Music
+@subsubheading Educational Applications
+@subsubheading Popular Music
+@subsubheading Large Projects
+@subheading Where now?
+@node Freedom
+@unnumberedsec Freedom
+@translationof Freedom
+
+@untranslated
+
+
+@subheading Free Software
+@subheading What are the benefits to users?
+@subheading Why do LilyPond developers @qq{give away} their work for free?
+@subheading Where now?
+@node Background
+@unnumberedsec Background
+@translationof Background
+
+@untranslated
+
+
+@subheading Background essay
+@subheading Where now?
+@node Productions
+@unnumberedsec Productions
+@translationof Productions
+
+@untranslated
+
+
+@subheading Productions using LilyPond
+@subheading Concerts
+@subheading Published sheet music
+@subheading Where now?
+@node Reviews
+@unnumberedsec Reviews
+@translationof Reviews
+
+@untranslated
+
+
+@subheading What do people say about LilyPond?
+@subheading Published articles
+@subheading User testimonials
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Musikhochschule Freiburg
+@subsubheading Darius Blasband, composer (Brussels, Belgium)
+@subsubheading Kieren MacMillan, composer (Toronto, Canada)
+@subsubheading Chris Cannam, lead programmer of the @uref{http://www.rosegardenmusic.com/, RoseGarden} project
+@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
+@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, @uref{http://www.mutopiaproject.org/, Mutopia} contributor
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theatre in Koblenz, Germany and distinguished GNU Hacker
+@subsubheading Paul Davis, developer of @uref{http://jackaudio.org/, JACK} and @uref{http://www.ardour.org/, Ardour}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, researcher at the @uref{http://siba.fi, Sibelius Academy Finland}, composer and author of Expressive Notation Package (ENP)
+@subsubheading @uref{http://camerondh.blogspot.com, David Cameron}, Musician, professional typesetter and long time SCORE user
+@subheading Where now?
+@node Text input
+@unnumberedsec Text input
+@translationof Text input
+
+@untranslated
+
+
+@subheading @qq{Compiling} Music
+@subsubheading It's as simple as A B C
+@subsubheading Pop music
+@subsubheading Orchestral parts
+@subsubheading Beginner Documentation
+@subsubheading Easier editing environments
+@subheading Where now?
+@node Easier editing
+@unnumberedsec Easier editing
+@translationof Easier editing
+
+@untranslated
+
+
+@subheading Tunefl
+@subheading LilyPondTool
+@subheading Frescobaldi
+@subheading Denemo
+@subheading Text editors
+@subheading Programs that can export LilyPond code
+@subsubheading Score, tab and MIDI editors:
+@subsubheading Algorithmic code generators
+@subheading Other programs not being actively developed
+@subheading Where now?
+@subheading Legalese
+
+@c -- SKELETON FILE --

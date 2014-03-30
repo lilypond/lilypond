@@ -59,6 +59,7 @@ def french_html_filter (page):
         body = body.replace (r[0], r[1])
     return page[:body_begin] + body + page[body_end:]
 
+ca = LanguageDef ('ca', 'català')
 cs = LanguageDef ('cs', 'česky', enable_ly_identifier_l10n=False)
 de = LanguageDef ('de', 'deutsch')
 es = LanguageDef ('es', 'español')

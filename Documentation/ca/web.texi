@@ -1,0 +1,40 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include macros.itexi
+@include weblinks.itexi
+@node Top
+@top LilyPond... music notation for everyone
+@translationof Top
+
+@untranslated
+
+
+@heading LilyPond
+@subheading What is LilyPond?
+@include web/news-front.itexi
+@subheading Pondings
+@subheading Quick links
+@subsubheading Stable
+@subsubheading Unstable
+@menu
+* Introduction::
+* Download::
+* Manuals::
+* Community::
+@end menu
+
+@subheading Read it
+@include web/introduction.itexi
+@include web/download.itexi
+@include web/manuals.itexi
+@include web/community.itexi
+
+@c -- SKELETON FILE --

@@ -1,0 +1,108 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@include included/generating-output.itexi
+@node Download
+@unnumbered Download
+@translationof Download
+
+@untranslated
+
+
+@subheading For users
+@subheading For developers
+@subheading Software License
+@subheading Sponsors
+@subheading Legalese
+@menu
+* Unix::
+* MacOS X::
+* Windows::
+* Source::
+* Old downloads::
+* GPL::
+@end menu
+
+@node Unix
+@unnumberedsec Unix
+@translationof Unix
+
+@untranslated
+
+
+@subheading Generic Packages or Distribution-Specific Packages?
+@subheading Generic Packages
+@subsubheading Download
+@subsubheading Install
+@subsubheading Uninstall
+@subsubheading Help
+@subheading Compiling a file
+@subheading Legalese
+@node MacOS X
+@unnumberedsec MacOS X
+@translationof MacOS X
+
+@untranslated
+
+
+@subheading Packages
+@subsubheading Download
+@subsubheading Install
+@subsubheading Uninstall
+@subheading Running on the command-line
+@subsubheading MacOS X on the command line
+@subsubheading Invoking individual scripts
+@subheading Compiling a file
+@subheading Legalese
+@node Windows
+@unnumberedsec Windows
+@translationof Windows
+
+@untranslated
+
+
+@subheading Packages
+@subsubheading Download
+@subsubheading Install
+@subsubheading Uninstall
+@subheading Running on the command-line
+@subsubheading Windows on the command line
+@subsubheading Invoking individual executable files
+@subheading Compiling a file
+@subheading Legalese
+@node Source
+@unnumberedsec Source
+@translationof Source
+
+@untranslated
+
+
+@subheading Source tarball
+@subheading Compiling instructions
+@node Old downloads
+@unnumberedsec Old downloads
+@translationof Old downloads
+
+@untranslated
+
+
+@subheading All versions
+@node GPL
+@unnumberedsec GPL
+@translationof GPL
+
+@untranslated
+
+
+@subheading Software license
+@subheading GNU General Public License
+@include gpl.itexi
+
+@c -- SKELETON FILE --
