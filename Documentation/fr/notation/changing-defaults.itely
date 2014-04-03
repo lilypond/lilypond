@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: 89414291ba9ff99d3d5600580f0cd2b6e937b74b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -160,7 +160,7 @@ notamment dans le cadre du combinateur automatique de parties (voir
 
 Les définitions de sortie ont pour objet non seulement de définir la
 relation entre les contextes, mais aussi leurs réglages par défaut.  Si
-la plupart des adaptations prennent habituellement place au seind d'un
+la plupart des adaptations prennent habituellement place au sein d'un
 bloc @code{\layout}, les réglages affectant le Midi ne seront effectifs
 que s'ils interviennent au sein d'un bloc @code{\midi}.
 
