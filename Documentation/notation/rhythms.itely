@@ -1433,11 +1433,10 @@ The property @code{measurePosition} contains a rational number,
 which is usually positive and indicates how much of the measure
 has passed at this point.  @code{\partial @var{duration}} is
 defined such that no numbered bar gets created: when used at the
-beginning of a measure, @code{measurePosition} is set to a
+beginning of a score, @code{measurePosition} is set to a
 negative number, implying that the current bar will be
-@emph{preceded} by additional material.  When used after a measure
-has already started, however, it moves the requested distance
-before the @emph{end} of the bar.
+@emph{preceded} by additional material.  When used elsewhere, it
+moves the requested distance before the @emph{end} of the bar.
 
 @lilypond[quote,verbatim,relative=1]
 \set Score.barNumberVisibility = #all-bar-numbers-visible

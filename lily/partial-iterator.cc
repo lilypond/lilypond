@@ -58,7 +58,7 @@ Partial_iterator::process (Moment m)
           Moment mp = robust_scm2moment (timing->get_property ("measurePosition"),
                                          Rational (0));
 
-          if (mp.main_part_ > Rational (0))
+          if (get_outlet ()->now_mom () > 0)
             mp.main_part_ = measure_length (timing);
           else
             mp.main_part_ = 0;
