@@ -200,7 +200,6 @@ def get_latex_textwidth (source, global_options):
     universal_newlines = True
     if sys.platform == 'mingw32':
         universal_newlines = False
-    if (sys.platform == 'mingw32') and (sys.version_info < (2, 6)):
         ### use os.system to avoid weird sleep() problems on
         ### GUB's python 2.4.2 on mingw
         # make file to write to
