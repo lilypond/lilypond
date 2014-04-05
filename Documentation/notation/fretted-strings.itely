@@ -258,8 +258,9 @@ to @code{#t}.
 
 @funindex \tabChordRepeats
 @funindex \chordRepeats
-@cindex Chord, repetition
+@cindex chord, repetition
 @cindex repetition, using @code{q}
+@cindex @code{q}, chord repetition
 
 Chord constructs can be repeated by the chord repetition symbol
 @code{q}.  In combination with tabulatures, its behavior of removing
