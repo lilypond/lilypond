@@ -411,8 +411,8 @@ messages into errors.")
 (define-public (ergonomic-simple-format dest . rest)
   "Like ice-9's @code{format}, but without the memory consumption."
   (if (string? dest)
-      (apply simple-format (cons #f (cons dest rest)))
-      (apply simple-format (cons dest rest))))
+      (apply simple-format #f dest rest)
+      (apply simple-format dest rest)))
 
 (define format
   ergonomic-simple-format)
@@ -426,7 +426,7 @@ messages into errors.")
   v)
 
 (define-public (print . args)
-  (apply format (cons (current-output-port) args)))
+  (apply format (current-output-port) args))
 
 
 ;;; General settings.
@@ -750,7 +750,7 @@ messages into errors.")
 
 (define (dump-profile base last this)
   (let* ((outname (format #f "~a.profile" (dir-basename base ".ly")))
-         (diff (map (lambda (y) (apply - y)) (zip this last))))
+         (diff (map - this last)))
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
             "time: ~a\ncells: ~a\n"

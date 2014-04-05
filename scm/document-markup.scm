@@ -53,9 +53,9 @@
          (sig-type-names (map type-name sig))
          (signature-str
           (string-join
-           (map (lambda (x) (string-append
-                             "@var{" (car x) "} ("  (cadr x) ")" ))
-                (zip arg-names  sig-type-names))
+           (map (lambda (x y) (string-append
+                             "@var{" x "} (" y ")" ))
+                arg-names  sig-type-names)
            " " )))
 
     (string-append

@@ -71,10 +71,10 @@
   (string-append "<!-- " s " -->\n"))
 
 (define-public (entity entity string . attributes-alist)
-  (if (equal? string "")
+  (if (string-null? string)
       (apply eoc entity attributes-alist)
       (string-append
-       (apply eo (cons entity attributes-alist)) string (ec entity))))
+       (apply eo entity attributes-alist) string (ec entity))))
 
 (define (offset->point o)
   (ly:format "~4f ~4f" (car o) (- (cdr o))))

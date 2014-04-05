@@ -840,12 +840,12 @@ Handy for debugging, possibly turned off."
 ;;  x)
 
 (define-public (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
+  (apply format (current-error-port) string rest)
   (force-output (current-error-port)))
 
 (define-public (debugf string . rest)
   (if #f
-      (apply stderr (cons string rest))))
+      (apply stderr string rest)))
 
 (define (index-cell cell dir)
   (if (equal? dir 1)
