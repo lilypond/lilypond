@@ -1610,10 +1610,10 @@ look at bar lines nor different accidentals at the same note name."
                             (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
 (define-public (dodecaphonic-no-repeat-rule context pitch barnum measurepos)
-  "An accidental rule that typesets an accidental before every note
-(just as in the dodecaphonic accidental style) @emph{except} if the note
-is immediately preceded by a note with the same pitch. This is a common
-accidental style in contemporary notation."
+  "An accidental rule that typesets an accidental before every
+note (just as in the dodecaphonic accidental style) @emph{except} if
+the note is immediately preceded by a note with the same pitch. This
+is a common accidental style in contemporary notation."
    (let* ((keysig (ly:context-property context 'localKeySignature))
           (entry (find-pitch-entry keysig pitch #t #t)))
      (if (not entry)
@@ -1632,9 +1632,13 @@ on the same staff line."
          (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
         (cons #f #f)
-        (let* ((entrymp (key-entry-measure-position entry))
+        (let* ((global-entry (find-pitch-entry keysig pitch #f #f))
+               (key-acc (key-entry-alteration global-entry))
+               (acc (ly:pitch-alteration pitch))
+               (entrymp (key-entry-measure-position entry))
                (entrybn (key-entry-bar-number entry)))
-          (cons #f (not (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+          (cons #f (not (or (equal? acc key-acc)
+                            (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
 (define-public (set-accidentals-properties extra-natural
                                            auto-accs auto-cauts
