@@ -2641,6 +2641,10 @@ chord_body:
 	{
 		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
 	}
+	| FIGURE_OPEN figure_list FIGURE_CLOSE
+	{
+		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
+	}
 	;
 
 chord_body_elements:
@@ -3157,13 +3161,6 @@ figure_list:
 	}
 	;
 
-figure_spec:
-	FIGURE_OPEN figure_list FIGURE_CLOSE {
-		$$ = scm_reverse_x ($2, SCM_EOL);
-	}
-	;
-
-
 optional_rest:
 	/**/   { $$ = SCM_BOOL_F; }
 	| REST { $$ = SCM_BOOL_T; }
@@ -3209,7 +3206,9 @@ pitch_or_music:
 			$$ = n->unprotect ();
 		}
 	} %prec ':'
-	| simple_chord_elements post_events {
+	| new_chord post_events {
+		if (!parser->lexer_->is_chord_state ())
+                        parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
 		if (scm_is_pair ($2)) {
 			if (unsmob_pitch ($1))
 				$1 = make_chord_elements (@1,
@@ -3246,22 +3245,6 @@ simple_element:
 		    }
 		ev->set_property ("duration", $2);
  		$$ = ev->unprotect ();
-	}
-	;
-
-// Can return a single pitch rather than a list.
-simple_chord_elements:
-	new_chord {
-                if (!parser->lexer_->is_chord_state ())
-                        parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
-                $$ = $1;
-	}
-	| figure_spec optional_notemode_duration {
-		for (SCM s = $1; scm_is_pair (s); s = scm_cdr (s))
-		{
-			unsmob_music (scm_car (s))->set_property ("duration", $2);
-		}
-		$$ = $1;
 	}
 	;
 
