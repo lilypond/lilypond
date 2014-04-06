@@ -31,7 +31,7 @@ int
 intlog2 (int d)
 {
   if (d <= 0)
-    error ("intlog2 with negative argument: " + to_string (d));
+    error ("intlog2 with negative argument: " + ::to_string (d));
   int i = 0;
   while ((d != 1))
     {
