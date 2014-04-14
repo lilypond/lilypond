@@ -418,7 +418,7 @@ position_apes (Grob *me,
         {
           Real mh = ape->horizontal_skylines_[d].max_height ();
           if (!isinf (mh))
-            width.add_point (mh);
+            width.add_point (mh + offset);
         }
 
       last_offset = offset;
