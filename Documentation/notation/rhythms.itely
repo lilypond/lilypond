@@ -3511,6 +3511,12 @@ durations in the other staves.  For the above example
 >>
 @end lilypond
 
+Please make sure that you use the @code{\grace} command for the
+spacer part, even if the visual part uses @code{\acciaccatura} or
+@code{\appoggiatura} because otherwise an ugly slur fragment will
+be printed, connecting the invisible grace note with the following
+note.
+
 The use of grace notes within voice contexts confuses the way the voice
 is typeset. This can be overcome by inserting a rest or note between the
 voice command and the grace note.
