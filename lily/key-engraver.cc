@@ -106,7 +106,7 @@ Key_engraver::create_key (bool is_default)
 
               cancellation_->set_property ("alteration-alist", restore);
               cancellation_->set_property ("c0-position",
-                                           get_property ("middleCPosition"));
+                                           get_property ("middleCClefPosition"));
             }
         }
 
