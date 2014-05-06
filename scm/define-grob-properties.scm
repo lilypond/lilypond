@@ -199,7 +199,7 @@ measure of the closeness of the inner stems.  It is used for damping
 the slope of the beam.")
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether
 this grob looks as a continued break.")
-     (control-points ,list? "List of offsets (number pairs) that form
+     (control-points ,number-pair-list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
      (count-from ,integer? "The first measure in a measure count
