@@ -110,10 +110,17 @@ VERSION_STABLE = the current stable version (probably no change here)
 @end itemize
 
 @item
+Manually edit the two files @file{../ly/Welcome_to_LilyPond.ly} and
+@file{../ly/Welcome-to-LilyPond-MacOS.ly} such that the hard coded
+@code{\version} number reflects the version number about to be released.
+
+@item
 Commit, push, switch back to master (or wherever else):
 
 @example
 git commit -m "Release: bump VERSION_DEVEL." VERSION
+git commit -m "Release: bump VERSION_DEVEL." ly/Welcome_to_LilyPond.ly
+git commit -m "Release: bump VERSION_DEVEL." ly/Welcome-to-LilyPond-MacOS.ly
 git commit -m "PO: update template." po/lilypond.pot
 git commit -m "Release: update news." Documentation/web/
 git push origin HEAD:release/unstable
