@@ -23,7 +23,9 @@ $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem $(outdir)/%.log
 	&& ( cd $$TMP \
 		&& ln -s ../mf2pt1.mem . \
 		&& ln -s ../../mf2pt1.mp . \
-		&& MFINPUTS=$(abs-src-dir):..:: $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
+		&& MFINPUTS=$(abs-src-dir):..:: \
+		   FONTFORGE=$(FONTFORGE) \
+		   $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
 	&& mv $$TMP/*pfb $(outdir); \
 	rm -rf $$TMP
 
