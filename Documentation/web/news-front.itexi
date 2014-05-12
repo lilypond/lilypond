@@ -11,11 +11,12 @@
 @newsItem
 @subsubheading LilyPond 2.19.6 released  @emph{May 11, 2014}
 
-We are happy to announce the release of LilyPond 2.19.5.  This
+We are happy to announce the release of LilyPond 2.19.6.  This
 release includes a number of enhancements, and contains some work
 in progress.  You will have access to the very latest features, but
-some may be incomplete, and you may encounter bugs and crashes.  If you require
-a stable version of Lilypond, we recommend using the 2.18 version.
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
 
 @newsEnd
 
