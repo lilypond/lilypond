@@ -34,5 +34,6 @@ $(foreach f, $(shell test -f $(1) && sed -ne "/^[[:space:]]*input[[:space:]]/s/^
 )
 
 # Find dependencies for the target $@, based on the metafont source file $<,
-# and write the dependencies to a .dep file.
-DO_MF_DEP = ( echo ./$@: $(call scan-mf,$<) > $(basename $@).dep ) &&
+# and write the dependencies to a .dep file. We cannot strip the extension of $@,
+# because we have multiple rules generating .dep files.
+DO_MF_DEP = ( echo ./$@: $(call scan-mf,$<) > $@.dep ) &&
