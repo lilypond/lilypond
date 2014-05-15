@@ -1,9 +1,7 @@
-top-build-dir = $(shell cd $(depth) && pwd)
-build-dir = $(shell cd . && pwd)
+top-build-dir := $(realpath $(depth) )
+build-dir := $(realpath  . )
+
 tree-dir = $(subst $(top-build-dir),,$(build-dir))
-
-absdir = $(shell cd $(1) ; pwd)
-
 
 ifneq ($(configure-srcdir),.)
 srcdir-build = 1
@@ -15,7 +13,7 @@ else
 src-depth = $(configure-srcdir)
 endif
 
-top-src-dir := $(shell cd $(src-depth); pwd)
+top-src-dir := $(realpath $(src-depth))
 
 ifndef srcdir-build
 src-dir = .
@@ -46,10 +44,6 @@ DEPTH = $(depth)/$(package-depth)
 INSTALLPY=$(buildscript-dir)/install -c
 INSTALL=$(INSTALLPY)
 
-group-dir = $(shell cd $(DEPTH);pwd)/..
-patch-dir = $(group-dir)/patches
-rpm-sources = $(release-dir)
-rpm-build = $(group-dir)/RedHat/BUILD
 package-icon = $(outdir)/$(package)-icon.xpm
 
 ifneq ($(strip $(MY_PATCH_LEVEL)),)
