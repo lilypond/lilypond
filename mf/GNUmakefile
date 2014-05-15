@@ -30,7 +30,6 @@ BRACES = a b c d e f g h i
 
 OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf) \
 	    $(outdir)/emmentaler-brace.otf
-PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 	     $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
@@ -46,35 +45,18 @@ LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
 
-$(outdir)/emmentaler-brace.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
-	cat $^ > $@
-
 $(outdir)/emmentaler-brace.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 	echo '(design_size . 20)' > $@
 
+$(outdir)/feta%.otf-table: $(outdir)/feta%.lisp $(outdir)/parmesan%.lisp \
+	$(outdir)/parmesan-noteheads%.lisp \
+	$(outdir)/feta-noteheads%.lisp \
+	$(outdir)/feta-flags%.lisp \
+	$(outdir)/feta-alphabet%.lisp
+	cat $^ > $@
 
-
-## ugh -- we want this to prevent failing -j2 compiles.
-define FETAxx-PREREQUISITES
-
-
-$(outdir)/feta$(i).otf-table: $(outdir)/feta$(i).lisp \
-			    $(outdir)/feta-noteheads$(i).lisp \
-			    $(outdir)/feta-flags$(i).lisp \
-			    $(outdir)/parmesan$(i).lisp \
-			    $(outdir)/parmesan-noteheads$(i).lisp \
-			    $(outdir)/feta-alphabet$(i).lisp
-endef
-
-$(eval $(foreach i,$(STAFF_SIZES),$(FETAxx-PREREQUISITES)))
-
-$(outdir)/%.otf-table: $(outdir)/%.lisp
-	cat $< $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
-	       $(if $(findstring brace,$<),,$(subst feta,parmesan-noteheads,$<)) \
-	       $(if $(findstring brace,$<),,$(subst feta,feta-noteheads,$<)) \
-	       $(if $(findstring brace,$<),,$(subst feta,feta-flags,$<)) \
-	       $(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
-
+$(outdir)/emmentaler-brace.otf-table: $(foreach x, a b c d e f g h i,$(outdir)/feta-braces-$(x).lisp)
+	cat $^ > $@
 
 $(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \
 				$(outdir)/emmentaler-brace.fontname \
@@ -82,26 +64,15 @@ $(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.subfonts \
 				$(outdir)/emmentaler-brace.otf-gtable \
 				$(outdir)/emmentaler-brace.pe
 
-$(outdir)/emmentaler-brace.otf\
- $(outdir)/emmentaler-brace.svg\
- $(outdir)/emmentaler-brace.woff: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
-
 $(outdir)/emmentaler-brace.fontname:
 	printf 'emmentaler-brace' > $@
 $(outdir)/emmentaler-brace.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts
-	$< --dir=$(outdir)
+$(outdir)/emmentaler-%.genpe: $(buildscript-dir)/gen-emmentaler-scripts
+	$< --dir=$(outdir) --design-size=$(patsubst emmentaler-%.genpe,%,$(notdir $@))
 
-
-# Generate emmentaler-*.pe scripts first, and *.otf, *.svg, *.woff files last,
-# so that normally these files aren't regenerated on a subsequent call to make.
-ALL_GEN_FILES = $(PE_SCRIPTS) \
-		$(LOG_FILES) \
-		$(ENC_FILES) \
-		$(LISP_FILES) \
-		$(OTF_TABLES) \
+ALL_GEN_FILES = $(ENC_FILES) \
 		$(NCSB_OTFS) \
 		$(OTF_FILES) \
 		$(SVG_FILES) \
@@ -123,16 +94,20 @@ INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)
 
 export MFINPUTS := .:$(MFINPUTS)
 
+# A few rules here generate multiple files from one command line.  For
+# treating this case, we only declare one output explicitly, and use a
+# dummy rules for the other outputs. The dummy rule uses
+# $(UPDATE_TARGET) so the order of writing in the real command does
+# not confuse make.
+UPDATE_TARGET = if test -f $@; then touch $@ ; fi
+
 # only for fonts which
 #
 # 1. are mentioned in font.scm
 #
 # 2. are not included with teTeX
 #
-$(outdir)/%.lisp \
-$(outdir)/%.otf-gtable \
-$(outdir)/%.enc \
-$(outdir)/%.pe: $(outdir)/%.log $(outdir)/%.tfm
+$(outdir)/%.lisp: $(outdir)/%.log $(outdir)/%.tfm
 	$(buildscript-dir)/mf-to-table \
 		--global-lisp=$(outdir)/$(<F:.log=.otf-gtable) \
 		--lisp=$(outdir)/$(<F:.log=.lisp) \
@@ -140,11 +115,12 @@ $(outdir)/%.pe: $(outdir)/%.log $(outdir)/%.tfm
 		--enc $(outdir)/$(<F:.log=.enc) \
 		$<
 
+$(outdir)/%.otf-gtable $(outdir)/%.enc: $(outdir)/%.lisp
+	$(UPDATE_TARGET)
+
 ## Putting pfb here forces all .pfb fonts to be built before
 # fontforge starts generating emmentaler-*.* fonts.
-$(outdir)/emmentaler-%.otf \
-$(outdir)/emmentaler-%.svg \
-$(outdir)/emmentaler-%.woff: $(outdir)/emmentaler-%.pe \
+$(outdir)/emmentaler-%.otf: $(outdir)/emmentaler-%.genpe \
 			    $(outdir)/feta%.pfb \
 			    $(outdir)/feta-noteheads%.pfb \
 			    $(outdir)/feta-flags%.pfb \
@@ -156,35 +132,26 @@ $(outdir)/emmentaler-%.woff: $(outdir)/emmentaler-%.pe \
 			    | pfb
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $<)
 
-$(outdir)/emmentaler-brace.otf\
- $(outdir)/emmentaler-brace.svg\
- $(outdir)/emmentaler-brace.woff: $(outdir)/emmentaler-brace.pe\
+$(outdir)/emmentaler-%.svg $(outdir)/emmentaler-%.woff: $(outdir)/emmentaler-%.otf
+	$(UPDATE_TARGET)
+
+$(outdir)/emmentaler-brace.otf: $(outdir)/emmentaler-brace.pe\
 		       $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfb) \
 		       $(outdir)/emmentaler-brace.otf-table $(outdir)/emmentaler-brace.otf-gtable \
 		       | pfb
 	cd $(outdir) && $(FONTFORGE) -script emmentaler-brace.pe
 
-default: $(ALL_GEN_FILES) \
-	 $(outdir)/emmentaler-20.otf \
-	 tree-regen \
+$(outdir)/emmentaler-brace.svg $(outdir)/emmentaler-brace.woff: $(outdir)/emmentaler-brace.otf
+	$(UPDATE_TARGET)
+
+default: tree-regen \
 	 $(outdir)/fonts.conf
 
 .PHONY: tree-regen
 
-# FIXME: temporary hack: must regenerate after building fonts
 tree-regen: $(ALL_GEN_FILES)
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
-$(outdir)/%.lisp \
-$(outdir)/%.otf-gtable \
-$(outdir)/%.enc \
-$(outdir)/%.pe: $(outdir)/%.log $(outdir)/%.tfm
-	$(buildscript-dir)/mf-to-table \
-		--global-lisp=$(outdir)/$(<F:.log=.otf-gtable) \
-		--lisp=$(outdir)/$(<F:.log=.lisp) \
-		--outdir=$(outdir) \
-		--enc $(outdir)/$(<F:.log=.enc) \
-		$<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log
@@ -194,9 +161,14 @@ local-clean:
 $(outdir)/fonts.conf:
 	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
 
-$(NCSB_OTFS): $(NCSB_SOURCE_FILES) \
+
+$(outdir)/CenturySchL-Roma.otf: $(NCSB_SOURCE_FILES) \
 	      $(auxscript-dir)/pfx2ttf.fontforge
 	$(foreach i, $(basename $(NCSB_SOURCE_FILES)), \
 		$(FONTFORGE) -script $(auxscript-dir)/pfx2ttf.fontforge \
 			$(i).pfb $(i).afm $(outdir)/ && ) true
-# eof
+
+$(addprefix $(outdir)/,CenturySchL-Ital.otf \
+	CenturySchL-Bold.otf \
+	CenturySchL-BoldItal.otf): $(outdir)/CenturySchL-Roma.otf
+	$(UPDATE_TARGET)

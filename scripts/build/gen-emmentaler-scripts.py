@@ -6,25 +6,26 @@ import os
 
 (options, files) = \
  getopt.getopt (sys.argv[1:],
-        '',
-        ['dir='])
+                '',
+                ['dir=', 'design-size='])
 
-
+design_size = 0
 outdir = ''
 for opt in options:
     o = opt[0]
     a = opt[1]
     if o == '--dir':
         outdir = a
+    elif o == '--design-size':
+        design_size = int(a)
     else:
         print o
         raise getopt.error
 
-# Ugh
-for design_size in [11,13,14,16,18,20,23,26]:
-    name = 'Emmentaler'
-    filename = name.lower ()
-    script = '''#!@FONTFORGE@
+        
+name = 'Emmentaler'
+filename = name.lower ()
+script = '''#!@FONTFORGE@
 
 New();
 
@@ -80,32 +81,23 @@ Generate("%(filename)s-%(design_size)d.svg");
 Generate("%(filename)s-%(design_size)d.woff");
 ''' % vars()
 
-    basename = '%s-%d' % (filename, design_size)
-    path = os.path.join (outdir, basename + '.pe')
-    open (path, 'w').write (script)
+basename = '%s-%d' % (filename, design_size)
+path = os.path.join (outdir, basename + '.genpe')
+open (path, 'w').write (script)
 
-    subfonts = ['feta%(design_size)d',
-                'feta-noteheads%(design_size)d',
-                'feta-flags%(design_size)d',
-                'parmesan%(design_size)d',
-                'parmesan-noteheads%(design_size)d',
-                'feta-alphabet%(design_size)d']
+subfonts = ['feta%(design_size)d',
+            'feta-noteheads%(design_size)d',
+            'feta-flags%(design_size)d',
+            'parmesan%(design_size)d',
+            'parmesan-noteheads%(design_size)d',
+            'feta-alphabet%(design_size)d']
 
-    ns = []
-    for s in subfonts:
-        ns.append ('%s' % (s % vars()))
+ns = []
+for s in subfonts:
+    ns.append ('%s' % (s % vars()))
 
-    subfonts_str = ' '.join (ns)
+subfonts_str = ' '.join (ns)
 
-    open (os.path.join (outdir, '%(filename)s-%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
+open (os.path.join (outdir, '%(filename)s-%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
 
-    path = os.path.join (outdir, '%s-%d.dep' % (filename, design_size))
-
-    deps = r'''%(filename)s-%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfb \
- $(outdir)/parmesan%(design_size)d.pfb  \
- $(outdir)/feta-alphabet%(design_size)d.pfb feta%(design_size)d.otf-table \
- feta%(design_size)d.otf-gtable
-''' % vars()
-    open (path, 'w').write (deps)
-
-    open (os.path.join (outdir, basename + '.fontname'), 'w').write ("%s-%d" % (name, design_size))
+open (os.path.join (outdir, basename + '.fontname'), 'w').write ("%s-%d" % (name, design_size))
