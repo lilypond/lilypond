@@ -52,9 +52,9 @@ Property_iterator::process (Moment mom)
   if (once)
     {
       Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_n (once_finalization_proc,
+      tg->add_finalization (scm_list_4 (once_finalization_proc,
                                         o->self_scm (), m->self_scm (),
-                                        ly_quote_scm (previous_value), SCM_UNDEFINED));
+                                        previous_value));
     }
 
   Simple_music_iterator::process (mom);
@@ -168,8 +168,8 @@ Push_property_iterator::do_quit ()
       SCM music = get_music ()->self_scm ();
 
       Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_n (once_finalization_proc,
-                                        trans, music, SCM_UNDEFINED));
+      tg->add_finalization (scm_list_3 (once_finalization_proc,
+                                        trans, music));
     }
 }
 

@@ -181,9 +181,7 @@ Global_context::apply_finalizations ()
   SCM lst = get_property ("finalizations");
   set_property ("finalizations", SCM_EOL);
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-
-    /* TODO: make safe.  */
-    scm_primitive_eval (scm_car (s));
+    scm_apply_0 (scm_caar (s), scm_cdar (s));
 }
 
 /* Add a function to execute before stepping to the next time step.  */
