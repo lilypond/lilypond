@@ -61,13 +61,32 @@ Property_iterator::process (Moment mom)
 }
 
 void
-Property_unset_iterator::process (Moment m)
+Property_unset_iterator::process (Moment mom)
 {
-  SCM sym = get_music ()->get_property ("symbol");
-  send_stream_event (get_outlet (), "UnsetProperty", get_music ()->origin (),
-                     ly_symbol2scm ("symbol"), sym);
+  Context *o = get_outlet ();
+  Music *m = get_music ();
+  bool once = to_boolean (m->get_property ("once"));
+  SCM symbol = m->get_property ("symbol");
+  SCM previous_value = SCM_UNDEFINED;
+  if (once) {
+    Context *w = o->where_defined (symbol, &previous_value);
+    if (o != w)
+      previous_value = SCM_UNDEFINED;
+  }
+  send_stream_event (o, "UnsetProperty", m->origin (),
+                     ly_symbol2scm ("symbol"), symbol);
 
-  Simple_music_iterator::process (m);
+  /* For \once \unset install a finalization hook to reset the property to the
+   * previous value after the timestep */
+  if (once && !SCM_UNBNDP (previous_value))
+    {
+      Global_context *tg = get_outlet ()->get_global_context ();
+      tg->add_finalization (scm_list_4 (Property_iterator::once_finalization_proc,
+                                        o->self_scm (), m->self_scm (),
+                                        previous_value));
+    }
+
+  Simple_music_iterator::process (mom);
 }
 
 MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 3);
