@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.7"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1939,7 +1939,7 @@ the @code{#}@tie{}character.
 
 Contexts properties are usually named in
 @code{studlyCaps}.  They mostly control the translation from
-music to notation, e.g. @code{localKeySignature} (for determining
+music to notation, e.g. @code{localAlterations} (for determining
 whether to print accidentals), or @code{measurePosition} (for
 determining when to print a bar line).  Context properties can
 change value over time while interpreting a piece of music;
@@ -2573,7 +2573,7 @@ values.  Unless this is the intended result, it is safer to update
 key-values individually with a nested declaration.
 
 @warning{Nested declarations will not work for context property
-alists (such as @code{beamExceptions}, @code{keySignature},
+alists (such as @code{beamExceptions}, @code{keyAlterations},
 @code{timeSignatureSettings}, etc.).  These properties can only be
 modified by completely re-defining them as alists.}
 

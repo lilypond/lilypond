@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.7"
 
 @c Translators: Till Paala
 
@@ -1817,7 +1817,7 @@ werden muss.
 
 Kontexteigenschaften werden üblicherweise mit @code{kleinGroßbuchstabe}
 benannt.  Sie kontrollieren vor allem die Übersetzung von Musik in
-Notation, wie etwa @code{localKeySignature}, welche bestimmt, wann
+Notation, wie etwa @code{localAlterations}, welche bestimmt, wann
 ein Taktstrich gesetzt werden muss.  Kontexteigenschaften können
 ihren Wert mit der Zeit ändern, während eine Notationsdatei interpretiert
 wird.  Ein gutes Beispiel dafür ist @code{measurePosition}, was die
@@ -2306,7 +2306,7 @@ unterschiedliche Arten von Eigenschaften.
 Kontexte können Eigenschaften haben, deren Bezeichnungen
 üblicherweise dem Schema @code{kleinGroß} folgen.  Derartige
 Eigenschaften sind vor allen Dingen für die Übersetzung der
-Musik in Notation zuständig, beispielsweise @code{localKeySignature}
+Musik in Notation zuständig, beispielsweise @code{localAlterations}
 (um zu bestimmen, ob Versetzungszeichen ausgegeben werden
 müssen), @code{measurePosition} (um zu bestimmen, ob eine
 Taktlinie gesetzt werden muss).  Kontexteigenschaften können
@@ -2467,7 +2467,7 @@ Es ist also sicherer, geschachtelte Aufrufe zu benutzen, wenn man nicht
 bewusst alle Werte zurücksetzen will.
 
 @warning{Geschachtelte Aufrufe funktionieren nicht mit
-Kontexteigenschaften (wie etwa @code{beamExceptions}, @code{keySignature},
+Kontexteigenschaften (wie etwa @code{beamExceptions}, @code{keyAlterations},
 @code{timeSignatureSettings}, usw.)  Diese Eigenschaften können
 nur verändert werden, indem man sie vollständig als Alisten umdefiniert.}
 

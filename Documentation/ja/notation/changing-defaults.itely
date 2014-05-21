@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.7"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1963,7 +1963,7 @@ Scheme 値の循環参照は、ハング アップまたはクラッシュ、@c
 通常、コンテキスト プロパティの名前は、@c
 小文字で始まる単語に大文字で始まる単語をつなげたものです。@c
 これらはたいてい音楽から記譜への翻訳を制御します
--- 例えば、@code{localKeySignature} (臨時記号を表示するかどうかを決定します)
+-- 例えば、@code{localAlterations} (臨時記号を表示するかどうかを決定します)
 や、@code{measurePosition} (小節線を表示するタイミングを決定します) です。@c
 コンテキスト プロパティは、楽曲の解釈をしている間、@c
 ずっと値を変更しておくことができます。@c
@@ -2575,7 +2575,7 @@ property (modified with @code{\set}) was created.
 ネストされた宣言を用いてキー値を個々に更新する方が安全です。
 
 @warning{ネストされた宣言は、コンテキスト プロパティ連想配列
-(@code{beamExceptions}, @code{keySignature}, @code{timeSignatureSettings} 等)
+(@code{beamExceptions}, @code{keyAlterations}, @code{timeSignatureSettings} 等)
 に対しては機能しません。@c
 これらのプロパティを変更するには、@c
 連想配列として丸ごと再定義するしかありません。}

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.29"
+\version "2.19.7"
 
 \header {
   lsrtags = "contexts-and-engravers, specific-notation"
@@ -109,7 +109,7 @@ MyStaff = \context {
 
   \consists "Pitch_squash_engraver"
 
-  localKeySignature = #'()
+  localAlterations = #'()
 
   % explicitly set instrumentName, so we don't get
   % weird effects when doing instrument names for
@@ -135,7 +135,7 @@ MyVoice = \context {
     You have to instantiate this explicitly if you want to have
     multiple voices on the same staff."
 
-  localKeySignature = #'()
+  localAlterations = #'()
   \consists "Font_size_engraver"
 
   % must come before all

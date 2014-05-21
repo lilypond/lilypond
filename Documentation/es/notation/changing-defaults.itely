@@ -8,7 +8,7 @@ Translation of GIT committish: a43fe59b0205af99f84532935b103d0c064b4526
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.7"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -1959,7 +1959,7 @@ carácter almohadilla,@tie{}@code{#}.
 
 El nombre de las propiedades de contexto suele ir en minúsculas con
 mayúscula en medio.  Controlan sobre todo la traducción de la música a
-la notación, p.ej. @code{localKeySignature} (para determinar si hay
+la notación, p.ej. @code{localAlterations} (para determinar si hay
 que impriir alteraciones o no), o @code{measurePosition} (para
 determinar cuándo hay que imprimir una línea divisoria).  El valor de
 las propiedades de contexto puede modifcarse con el tiempo durante la
@@ -2629,7 +2629,7 @@ individualmente con una declaración anidada.
 
 @warning{Las declaraciones anidadas no funcionan para las listas-A de
 propiedades de contexto (como @code{beamExceptions},
-@code{keySignature}, @code{timeSignatureSettings}, etc.).  Estas
+@code{keyAlterations}, @code{timeSignatureSettings}, etc.).  Estas
 propiedades sólo se pueden modificar redefiniéndolas completamente
 como listas-A.}
 
