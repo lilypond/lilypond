@@ -23,6 +23,7 @@ endif
 
 ifeq ($(strip $(CROSS)),no)
 $(outdir)/%.1: $(outdir)/% $(buildscript-dir)/help2man
+	echo $(buildscript-dir)/help2man
 	$(HELP2MAN_COMMAND)
 else
 # When cross building, some manpages will not build because the
