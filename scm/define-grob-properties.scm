@@ -371,6 +371,13 @@ label the lowest fret number.  Default@tie{}0.5.
 the center of the fret in direction parallel to strings.
 Default@tie{}0.
 @item
+@code{fret-label-horizontal-offset} -- The offset of the fret label from
+the center of the fret in direction orthogonal to strings.
+Default@tie{}0.
+@item
+@code{paren-padding} -- The padding for the parenthesis.
+Default@tie{}0.05.
+@item
 @code{label-dir} -- Side to which the fret label is attached.
 @w{@code{-1}}, @code{LEFT}, or @code{DOWN} for left or down; @code{1},
 @code{RIGHT}, or @code{UP} for right or up.  Default @code{RIGHT}.

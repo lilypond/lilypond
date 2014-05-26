@@ -998,12 +998,15 @@ can be placed on the fret diagram.  The capo indication is
 a thick bar that covers all strings.  The fret with the
 capo will be the lowest fret in the fret diagram.
 
+Fingering indication dots can be colored as well as parenthesized;
+the parenthesis's color can also be altered independently.
+
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
     \new ChordNames {
       \chordmode {
-        f1 g c
+        f1 g c c
       }
     }
   \new Staff {
@@ -1037,6 +1040,17 @@ capo will be the lowest fret in the fret diagram.
         (place-fret 4 5 1)
         (place-fret 3 5 2)
         (place-fret 2 5 3)
+      )
+    }
+    \override Voice.TextScript.size = 1.5
+    <c g c' e' g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 3 1 red parenthesized default-paren-color)
+        (place-fret 5 3 1 inverted)
+        (place-fret 4 5 2 blue parenthesized)
+        (place-fret 3 5 3 blue)
+        (place-fret 2 5 4 blue)
+        (place-fret 1 3 1 inverted)
       )
     }
   }
