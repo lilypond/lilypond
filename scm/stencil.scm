@@ -159,7 +159,7 @@ the more angular the shape of the parenthesis."
       upper-end-point
       ;; Step 1: move to lower end point.
       lower-end-point)
-     line-width
+     (* 2 half-thickness)
      (interval-widen x-extent (/ line-width 2))
      (interval-widen y-extent (/ line-width 2)))))
 
