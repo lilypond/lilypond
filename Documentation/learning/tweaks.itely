@@ -3286,7 +3286,7 @@ rhMusic = \relative c'' {
     \time 6/4
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     <<
       { c,8 d fis bes a }
       \new Voice {
@@ -3538,8 +3538,8 @@ lhMusic = \relative c' {
 @end lilypond
 
 On to bar three and the start of the Moderato section.  The tutorial
-showed how to add bold text with the @code{\markup} command, so
-adding @qq{Moderato} in bold is easy.  But how do we merge notes in
+showed how to add a tempo indication with the @code{\tempo} command, so
+adding @qq{Moderato} is easy.  But how do we merge notes in
 different voices together?  This is where we need to turn again to
 the Notation Reference for help.  A search for @qq{merge} in the
 Notation Reference index quickly leads us to the commands for merging
@@ -3573,7 +3573,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
@@ -3647,7 +3647,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
@@ -3717,7 +3717,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
