@@ -101,13 +101,15 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
            1, 0, 0, (SCM lst),
            "Is @var{lst} a list of music objects?")
 {
-  if (scm_list_p (lst) == SCM_BOOL_T)
-    while (scm_is_pair (lst))
-      {
-        if (!unsmob_music (scm_car (lst)))
-          return SCM_BOOL_F;
-        lst = scm_cdr (lst);
-      }
+  if (!ly_is_list (lst))
+    return SCM_BOOL_F;
+
+  while (scm_is_pair (lst))
+    {
+      if (!unsmob_music (scm_car (lst)))
+        return SCM_BOOL_F;
+      lst = scm_cdr (lst);
+    }
 
   return SCM_BOOL_T;
 }
