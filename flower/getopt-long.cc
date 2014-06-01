@@ -103,11 +103,11 @@ Long_option_init::to_string () const
 {
   string str;
   if (shortname_char_)
-    str += "-" + shortname_char_;
+    str += string ("-") + shortname_char_;
   if (shortname_char_ && longname_str0_)
     str += ", ";
   if (longname_str0_)
-    str += string ("`--") + longname_str0_ + "'";
+    str += string ("--") + longname_str0_;
   return str;
 }
 
